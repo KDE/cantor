@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=MathematiK
+Name[x-test]=xxMathematiKxx
+Exec=mathematik %i %m -caption "%c"
+Icon=mathematik
+Type=Application
+DocPath=mathematik/index.html
+GenericName=A KDE Frontend to Mathematical Software
+Terminal=0

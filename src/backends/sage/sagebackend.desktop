@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Icon=kmplot
+Name=Sage
+X-KDE-ServiceTypes=MathematiK/Backend
+X-KDE-Library=mathematik_sagebackend
+X-KDE-PluginInfo-Name=Sage
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=Backend for the Sage Mathematics Software

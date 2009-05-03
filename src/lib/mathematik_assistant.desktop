@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=MathematiK/Assistant
+Comment=An Assistant for MathematiK
+
+[PropertyDef::RequiredExtensions]
+Type=QStringList

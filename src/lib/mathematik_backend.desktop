@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=MathematiK/Backend
+Comment=A Backend for MathematiK

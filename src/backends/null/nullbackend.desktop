@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Icon=view-pim-mail
+Name=nullbackend
+X-KDE-ServiceTypes=MathematiK/Backend
+X-KDE-Library=mathematik_nullbackend
+X-KDE-PluginInfo-Name=nullbackend
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=Backend for MathematiK for testing purposes

@@ -1,0 +1,25 @@
+About This Application
+-=-=-=-=-=-=-=-=-=-=-=-=-=
+MathematiK is a KDE Application aimed to provide a nice Interface
+for doing Mathemaics and Scientific Computing. It doesn't implement
+it's own Computation Logic, but instead is build around different 
+Backends, for Example the Sage Mathematics Software(see http://sagemath.org).
+
+
+How To Build This Application
+-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+cd <project_name_path>
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=debugfull ..      <- do not forget the ..
+make
+make install or su -c 'make install'
+
+to uninstall the project:
+make uninstall or su -c 'make uninstall'
+
+Note: you can use another build path. Then cd in your build dir and:
+export KDE_SRC=path_to_your_src
+cmake $KDE_SRC -DCMAKE_INSTALL_PREFIX=$KDEDIR -DCMAKE_BUILD_TYPE=debugfull
+
