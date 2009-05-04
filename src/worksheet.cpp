@@ -226,8 +226,8 @@ void Worksheet::save( const QString& filename )
 
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
-        KMessageBox::error( this,  i18n( "Cannot write file %1:\n." ),
-                            i18n( "MathematiK" ).arg( filename ) );
+        KMessageBox::error( this,  i18n( "Cannot write file %1:\n." , filename ),
+                            i18n( "MathematiK" ));
         return;
     }
 
@@ -278,7 +278,7 @@ void Worksheet::load(const QString& filename )
     MathematiK::Backend* b=MathematiK::Backend::createBackend(root.attribute("backend"), parent());
     if (!b)
     {
-        KMessageBox::error(this, i18n("You don't have the backend  this file was generated with, installed"), i18n("MathematiK"));
+        KMessageBox::error(this, i18n("You don't have the backend this file was generated with"), i18n("MathematiK"));
         return;
     }
     m_session=b->createSession();
