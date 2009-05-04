@@ -197,6 +197,7 @@ void SageSession::interrupt()
 
 void SageSession::sendSignalToProcess(int signal)
 {
+    Q_UNUSED(signal)
     kDebug()<<"sending signal.....";
     //Sage spawns some child-processe. the one we are interested is called sage-ipython.
     //But to determine which ipython process is the one belonging to this session, we search

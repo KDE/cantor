@@ -82,6 +82,7 @@ int ContextHelpResult::type()
 
 QDomElement ContextHelpResult::toXml(QDomDocument& doc)
 {
+    Q_UNUSED(doc)
     //this will not be saved;
     return QDomElement();
 }

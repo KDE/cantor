@@ -40,7 +40,7 @@ class MathematiK::BackendPrivate
 Backend::Backend(QObject* parent, const QList<QVariant> args) : QObject(parent),
                                                                 d(new BackendPrivate)
 {
-
+    Q_UNUSED(args)
 }
 
 Backend::~Backend()
@@ -115,6 +115,7 @@ Backend* Backend::createBackend(const QString& name, QObject* parent)
 
 QWidget* Backend::settingsWidget(QWidget* parent)
 {
+    Q_UNUSED(parent)
     return 0;
 }
 

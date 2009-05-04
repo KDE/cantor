@@ -40,6 +40,7 @@ Result::~Result()
 
 void Result::saveAdditionalData(KZip* archive)
 {
+    Q_UNUSED(archive)
     //Do nothing
 }
 

@@ -30,7 +30,7 @@
 
 SolveAssistant::SolveAssistant(QObject* parent, QList<QVariant> args) : Assistant(parent)
 {
-
+    Q_UNUSED(args)
 }
 
 SolveAssistant::~SolveAssistant()
