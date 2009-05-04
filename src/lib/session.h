@@ -78,5 +78,5 @@ class MATHEMATIK_EXPORT Session : public QObject
   private:
     SessionPrivate* d;
 };
-};
+}
 #endif /* _SESSION_H */

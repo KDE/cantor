@@ -27,7 +27,7 @@
 class QTextDocument;
 namespace MathematiK{
     class Expression;
-};
+}
 class Worksheet;
 
 class WorksheetEntry : public QObject

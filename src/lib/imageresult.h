@@ -48,6 +48,6 @@ class MATHEMATIK_EXPORT ImageResult : public Result
     ImageResultPrivate* d;
 };
 
-};
+}
 
 #endif /* _IMAGERESULT_H */

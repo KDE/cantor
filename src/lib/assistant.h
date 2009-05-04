@@ -67,5 +67,5 @@ class MATHEMATIK_EXPORT Assistant : public QObject, public KXMLGUIClient
     AssistantPrivate* d;
 };
 
-};
+}
 #endif /* _ASSISTANT_H */

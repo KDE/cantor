@@ -84,5 +84,5 @@ class MATHEMATIK_EXPORT Expression : public QObject
     ExpressionPrivate* d;
 };
 
-};
+}
 #endif /* _EXPRESSION_H */

@@ -138,6 +138,6 @@ Extension* Backend::extension(const QString& name)
     return findChild<Extension*>(name);
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Backend::Capabilities);
+Q_DECLARE_OPERATORS_FOR_FLAGS(Backend::Capabilities)
 
 

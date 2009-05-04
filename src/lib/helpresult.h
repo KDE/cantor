@@ -60,6 +60,6 @@ class MATHEMATIK_EXPORT ContextHelpResult : public Result
     ContextHelpResultPrivate* d;
 };
 
-};
+}
 
 #endif /* _HELPRESULT_H */

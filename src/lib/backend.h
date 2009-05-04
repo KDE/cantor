@@ -44,7 +44,7 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
         Nothing = 0x0,
         LaTexOutput = 0x1
     };
-    Q_DECLARE_FLAGS(Capabilities, Capability);
+    Q_DECLARE_FLAGS(Capabilities, Capability)
 
 
     Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
@@ -70,5 +70,5 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     BackendPrivate* d;
 };
 
-};
+}
 #endif /* _BACKEND_H */

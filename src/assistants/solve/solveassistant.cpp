@@ -66,4 +66,4 @@ QStringList SolveAssistant::run(QWidget* parent)
     return QStringList();
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(solveassistant, SolveAssistant);
+K_EXPORT_MATHEMATIK_PLUGIN(solveassistant, SolveAssistant)

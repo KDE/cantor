@@ -87,5 +87,5 @@ class MATHEMATIK_EXPORT PlotExtension : public Extension
     virtual QString plotFunction2D(const QString& function, const QString& variable, const QString& left, const QString& right) = 0;
 };
 
-};
+}
 #endif /* _EXTENSION_H */

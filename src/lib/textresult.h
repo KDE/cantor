@@ -51,5 +51,5 @@ class MATHEMATIK_EXPORT TextResult : public Result
     TextResultPrivate* d;
 };
 
-};
+}
 #endif /* _TEXTRESULT_H */

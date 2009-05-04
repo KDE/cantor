@@ -50,6 +50,6 @@ class MATHEMATIK_EXPORT Result
     ResultPrivate* d;
 };
 
-};
+}
 
 #endif /* _RESULT_H */

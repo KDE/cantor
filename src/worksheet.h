@@ -26,7 +26,7 @@
 namespace MathematiK{
     class Backend;
     class Session;
-};
+}
 class WorksheetEntry;
 
 class Worksheet : public QTextEdit
