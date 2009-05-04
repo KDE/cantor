@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Icon=kmplot
+Name=Maxima
+X-KDE-ServiceTypes=MathematiK/Backend
+X-KDE-Library=mathematik_maximabackend
+X-KDE-PluginInfo-Name=Maxima
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=Backend for the Maxima Computer Algebra System
