@@ -1,6 +1,5 @@
 [Desktop Entry]
 Name=MathematiK
-Name[x-test]=xxMathematiKxx
 Exec=mathematik %i %m -caption "%c"
 Icon=mathematik
 Type=Application
