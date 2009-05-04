@@ -215,7 +215,7 @@ void MathematiKPart::updateCaption()
     if (filename.isEmpty())
         filename=i18n("Unnamed");
 
-    emit setWindowCaption(i18n("%1: %2").arg(m_worksheet->session()->backend()->name(), filename));
+    emit setWindowCaption(i18n("%1: %2", m_worksheet->session()->backend()->name(), filename));
 }
 
 void MathematiKPart::loadAssistants()
