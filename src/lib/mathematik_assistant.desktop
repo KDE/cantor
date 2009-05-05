@@ -2,6 +2,11 @@
 Type=ServiceType
 X-KDE-ServiceType=MathematiK/Assistant
 Comment=An Assistant for MathematiK
+Comment[et]=MathematiKi abiline
+Comment[pt]=Um assistente para o MathematiK
+Comment[pt_BR]=Um assistente para o MathematiK
+Comment[sv]=En guide för Matematik
+Comment[uk]=Помічник MathematiK
 
 [PropertyDef::RequiredExtensions]
 Type=QStringList

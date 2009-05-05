@@ -1,9 +1,15 @@
 [Desktop Entry]
 Name=MathematiK
+Name[sv]=Matematik
 Exec=mathematik %i %m -caption "%c"
 Icon=mathematik
 Type=Application
 X-DocPath=mathematik/index.html
 GenericName=A KDE Frontend to Mathematical Software
+GenericName[et]=KDE matemaatikatarkvara kasutajaliides
+GenericName[pt]=Uma Interface para o KDE de Aplicações Matemáticas
+GenericName[pt_BR]=Uma interface do KDE para software matemático
+GenericName[sv]=KDE-gränssnitt till matematisk programvara
+GenericName[uk]=Графічна оболонка KDE до математичного програмного забезпечення
 Terminal=false
 Categories=Qt;KDE;Education;Math;
