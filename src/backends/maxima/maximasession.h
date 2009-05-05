@@ -52,6 +52,7 @@ class MaximaSession : public MathematiK::Session
     void interrupt();
 
     void sendSignalToProcess(int signal);
+    void sendInputToProcess(const QString& input);
 
     MathematiK::Expression* contextHelp(const QString& command);
 
@@ -61,6 +62,7 @@ class MaximaSession : public MathematiK::Session
 
   private slots:
     void currentExpressionChangedStatus(MathematiK::Expression::Status status);
+    void restartMaxima();
 
   private:
     void runFirstExpression();
@@ -69,7 +71,6 @@ class MaximaSession : public MathematiK::Session
     QList<MaximaExpression*> m_expressionQueue;
     bool m_isInitialized;
     QString m_tmpPath;
-    KDirWatch m_dirWatch;
 };
 
 #endif /* _MAXIMASESSION_H */

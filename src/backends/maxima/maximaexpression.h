@@ -38,6 +38,9 @@ class MaximaExpression : public MathematiK::Expression
 
     void addFileResult(const QString& path);
 
+    bool needsLatexResult();
+    void aboutToReceiveLatex();
+
   public slots:
     void evalFinished();
 
@@ -46,6 +49,7 @@ class MaximaExpression : public MathematiK::Expression
     QString m_imagePath;
     bool m_isHelpRequest; 
     bool m_isContextHelpRequest;
+    bool m_aboutToReceiveLatex;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */

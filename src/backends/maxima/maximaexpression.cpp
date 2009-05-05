@@ -47,6 +47,7 @@ void MaximaExpression::evaluate()
     setStatus(MathematiK::Expression::Computing);
     m_imagePath=QString();
 
+    m_aboutToReceiveLatex=false;
     m_isHelpRequest=false;
     m_isContextHelpRequest=false;
     //check if this is a ?command
@@ -67,6 +68,7 @@ void MaximaExpression::interrupt()
 void MaximaExpression::parseOutput(const QString& text)
 {
     QString output=text.trimmed();
+    kDebug()<<"parsing: "<<output;
 
     ///if(output.contains("maxima: "));
     //output=output.mid(6).trimmed();
@@ -75,11 +77,20 @@ void MaximaExpression::parseOutput(const QString& text)
 
     if(output.contains(MaximaSession::MaximaPrompt))
     {
+        kDebug()<<"got prompt";
         m_outputCache.remove(MaximaSession::MaximaPrompt);
         m_outputCache.remove(MaximaSession::MaximaOutputPrompt);
         evalFinished();
     }
 
+    //Check if it's a question from maxima
+    if(m_outputCache.contains(QRegExp("Is(.*)zero or nonzero.*")) || m_outputCache.contains(QRegExp("Is(.*)positive, negative, or z")))
+    {
+        kDebug()<<"Maxima asked a question of zero/nonzero";
+        qobject_cast<MaximaSession*>(session())->sendInputToProcess(";\n");//Abort the question
+        setResult(new MathematiK::TextResult(i18n("Maxima asked \"%1\"", m_outputCache.trimmed())));
+        setStatus(MathematiK::Expression::Error);
+    }
 }
 
 void MaximaExpression::parseError(const QString& text)
@@ -104,45 +115,31 @@ void MaximaExpression::evalFinished()
     kDebug()<<"evaluation finished";
     kDebug()<<m_outputCache;
 
-    if ( m_imagePath.isNull() ) //If this result contains a file, drop the text information
+    QString text=m_outputCache;
+    bool isLatex=false;
+    if (text.startsWith("$$"))
     {
-        //strip html formatting
-        QString stripped=m_outputCache;
-        stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
-        if (stripped.endsWith('\n'))
-            stripped.chop(1);
-
-        if (m_isContextHelpRequest)
-        {
-            QStringList l=stripped.trimmed().split("', '");
-            l[0]=l[0].mid(2);
-            l.last().chop(2);
-            kDebug()<<"list: "<<l;
-            setResult(new MathematiK::ContextHelpResult(l));
-        }
-        else
-        {
-            MathematiK::TextResult* result=0;
-            if (m_isHelpRequest)
-            {
-                result=new MathematiK::HelpResult(stripped);
-            }
-            else
-            {
-                result=new MathematiK::TextResult(stripped);
-            }
-
-            if(m_outputCache.contains("class=\"math\"")) //It's latex stuff
-                result->setFormat(MathematiK::TextResult::LatexFormat);
-
-            setResult(result);
-        }
+        text=text.mid(2, text.indexOf("$$", 3)-2);
+        isLatex=true;
     }
-    else
-    {
-      setResult( new MathematiK::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" ).arg( command() ) ) );
-    }
+
+    MathematiK::TextResult* result=new MathematiK::TextResult(text);
+    if (isLatex)
+        result->setFormat(MathematiK::TextResult::LatexFormat);
+
+    setResult(result);
     setStatus(MathematiK::Expression::Done);
+}
+
+bool MaximaExpression::needsLatexResult()
+{
+    return session()->isTypesettingEnabled() && !m_aboutToReceiveLatex && status()!=MathematiK::Expression::Error;
+}
+
+void MaximaExpression::aboutToReceiveLatex()
+{
+    m_aboutToReceiveLatex=true;
+    m_outputCache=QString();
 }
 
 

@@ -28,19 +28,20 @@
 #include "settings.h"
 
 
-const QRegExp MaximaSession::MaximaPrompt=QRegExp("\\(%i[0-9]\\)[ ]*"); //Text, maxima outputs, if it's taking new input
-const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("\\(%o[0-9]\\)[ ]*"); //Text, maxima outputs, before any output
+const QRegExp MaximaSession::MaximaPrompt=QRegExp("\\(%I[0-9]*\\)"); //Text, maxima outputs, if it's taking new input
+const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("\\(%O[0-9]*\\)"); //Text, maxima outputs, before any output
 
 
 static QByteArray initCmd="display2d:false;                     \n \
-                           print(\"____END_OF_INIT____\");           ";
+                           inchar:%I;                           \n \
+                           outchar:%O;                          \n \
+                           print(\"____END_OF_INIT____\");      \n";
 
 MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
-
-    connect( &m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( fileCreated( const QString& ) ) );
+    m_process=0;
 }
 
 MaximaSession::~MaximaSession()
@@ -51,23 +52,32 @@ MaximaSession::~MaximaSession()
 void MaximaSession::login()
 {
     kDebug()<<"login";
+    if (m_process)
+        m_process->deleteLater();
+
     m_process=new KPtyProcess(this);
     m_process->setProgram(MaximaSettings::self()->path().toLocalFile());
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    m_process->setPtyChannels(KPtyProcess::AllOutputChannels);
+    m_process->setPtyChannels(KPtyProcess::AllChannels);
+    m_process->pty()->setEcho(false);
     //m_process->setUseUtmp(true);
 
     connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
+    connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     m_process->start();
-    m_process->write(initCmd);
+    m_process->pty()->write(initCmd);
 }
 
 void MaximaSession::logout()
 {
     kDebug()<<"logout";
-    interrupt();
-    evaluateExpression("quit();");
+    disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+
+    if(m_expressionQueue.isEmpty())
+        evaluateExpression("quit();");
+    else
+        interrupt();
     //Give maxima time to clean up
     if(!m_process->waitForFinished(3000))
     {
@@ -119,6 +129,7 @@ void MaximaSession::readStdOut()
         emit ready();
     }
 
+    kDebug()<<"queuesize: "<<m_expressionQueue.size();
     if(!m_expressionQueue.isEmpty())
     {
         MaximaExpression* expr=m_expressionQueue.first();
@@ -142,10 +153,22 @@ void MaximaSession::currentExpressionChangedStatus(MathematiK::Expression::Statu
 {
     if(status!=MathematiK::Expression::Computing) //The session is ready for the next command
     {
-        m_expressionQueue.removeFirst();
-        if(m_expressionQueue.isEmpty())
-            changeStatus(MathematiK::Session::Done);
-        runFirstExpression();
+        kDebug()<<"expression finished";
+        MaximaExpression* expression=m_expressionQueue.first();
+        if(expression->needsLatexResult())
+        {
+            kDebug()<<"asking for tex version";
+            m_process->pty()->write("tex(%);\n");
+            expression->aboutToReceiveLatex();
+        }
+        else
+        {
+            kDebug()<<"running next command";
+            m_expressionQueue.removeFirst();
+            if(m_expressionQueue.isEmpty())
+                changeStatus(MathematiK::Session::Done);
+            runFirstExpression();
+        }
     }
 
 }
@@ -165,12 +188,12 @@ void MaximaSession::runFirstExpression()
             if (!command.endsWith(";"))
                 command+=";";
 
-            m_process->write((command+"\n").toLatin1());
+            m_process->pty()->write((command+"\n").toLatin1());
 
         }
         else
         {
-            m_process->write((command+"\n").toLatin1());
+            m_process->pty()->write((command+"\n").toLatin1());
         }
     }
 }
@@ -185,9 +208,15 @@ void MaximaSession::interrupt()
 
 void MaximaSession::sendSignalToProcess(int signal)
 {
-    Q_UNUSED(signal)
-    kDebug()<<"sending signal.....";
+    kDebug()<<"sending signal....."<<signal;
     kill(m_process->pid(), signal);
+}
+
+void MaximaSession::sendInputToProcess(const QString& input)
+{
+    kDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
+    kDebug()<<"running "<<input;
+    m_process->pty()->write(input.toLatin1());
 }
 
 MathematiK::Expression* MaximaSession::contextHelp(const QString& command)
@@ -204,6 +233,14 @@ MathematiK::Expression* MaximaSession::contextHelp(const QString& command)
     return e;
 */
     return 0;
+}
+
+void MaximaSession::restartMaxima()
+{
+    kDebug()<<"restarting maxima";
+    //remove the command that caused maxima to crash (to avoid infinite loops)
+    m_expressionQueue.removeFirst();
+    login();
 }
 
 #include "maximasession.moc"
