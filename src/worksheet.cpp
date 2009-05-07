@@ -37,6 +37,7 @@
 #include <kzip.h>
 #include <kmessagebox.h>
 #include <klocale.h>
+#include <kurl.h>
 
 Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : QTextEdit(parent)
 {
@@ -305,7 +306,12 @@ void Worksheet::load(const QString& filename )
             {
                 const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
                 QImage image=QImage::fromData(imageFile->data());
-                entry->resultCursor().insertImage(image);
+                document()->addResource(QTextDocument::ImageResource,
+                                      KUrl("mydata://"+imageFile->name()),  QVariant(image));
+                QTextImageFormat imageFormat;
+                imageFormat.setName("mydata://"+imageFile->name());
+                entry->resultCursor().insertImage(imageFormat);
+                //entry->resultCursor().insertImage(image);
             }
         }
 
