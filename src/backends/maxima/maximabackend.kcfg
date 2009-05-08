@@ -10,5 +10,9 @@
       <label>Path to the Maxima executable</label>
       <default code="true">KStandardDirs::findExe( "maxima" )</default>
     </entry>
+    <entry name="integratePlots" type="Bool">
+      <label>Integrate Plots into the Worksheet</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>

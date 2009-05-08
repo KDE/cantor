@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>414</width>
+    <height>231</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -24,6 +24,13 @@
       <widget class="KUrlRequester" name="kcfg_Path"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="kcfg_integratePlots">
+     <property name="text">
+      <string>integrate Plots in Worksheet</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

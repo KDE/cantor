@@ -22,6 +22,9 @@
 #define _MAXIMAEXPRESSION_H
 
 #include "expression.h"
+#include "kdirwatch.h"
+
+class KTemporaryFile;
 
 class MaximaExpression : public MathematiK::Expression
 {
@@ -36,17 +39,18 @@ class MaximaExpression : public MathematiK::Expression
     void parseOutput(const QString& text);
     void parseError(const QString& text);
 
-    void addFileResult(const QString& path);
-
     bool needsLatexResult();
     void aboutToReceiveLatex();
 
   public slots:
     void evalFinished();
 
+  private slots:
+    void imageChanged();
   private:
     QString m_outputCache;
-    QString m_imagePath;
+    KTemporaryFile *m_tempFile;
+    KDirWatch m_fileWatch;
     bool m_isHelpRequest; 
     bool m_isContextHelpRequest;
     bool m_aboutToReceiveLatex;

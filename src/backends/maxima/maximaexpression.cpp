@@ -24,16 +24,19 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
+#include "settings.h"
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <kurl.h>
+#include <ktemporaryfile.h>
 #include <QTimer>
 #include <QRegExp>
 
 MaximaExpression::MaximaExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
 {
     kDebug();
+    m_tempFile=0;
 }
 
 MaximaExpression::~MaximaExpression()
@@ -45,16 +48,37 @@ void MaximaExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
     setStatus(MathematiK::Expression::Computing);
-    m_imagePath=QString();
 
     m_aboutToReceiveLatex=false;
     m_isHelpRequest=false;
     m_isContextHelpRequest=false;
+    if(m_tempFile)
+        m_tempFile->deleteLater();
+    m_tempFile=0;
     //check if this is a ?command
     if(command().startsWith('?')||command().endsWith('?'))
         m_isHelpRequest=true;
     if(command().startsWith("dir("))
         m_isContextHelpRequest=true;
+
+    if(command().startsWith("plot") && MaximaSettings::self()->integratePlots())
+    {
+        m_tempFile=new KTemporaryFile();
+        m_tempFile->setPrefix( "mathematik_maxima-" );
+        m_tempFile->setSuffix( ".png" );
+        m_tempFile->open();
+
+        QString fileName = m_tempFile->fileName();
+        m_fileWatch.addFile(fileName);
+        connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
+
+        QString cmd=command();
+        QString preamble="set terminal png size 500,340; set output '" + fileName + "';";
+        QString plotParameters = "[gnuplot_preamble,\"" + preamble + "\"]";
+        cmd.insert(cmd.lastIndexOf(')'), ","+plotParameters);
+
+        setCommand(cmd);
+    }
 
     dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
 }
@@ -72,6 +96,12 @@ void MaximaExpression::parseOutput(const QString& text)
 
     ///if(output.contains("maxima: "));
     //output=output.mid(6).trimmed();
+
+    if(m_tempFile)
+    {
+        QTimer::singleShot(500, this, SLOT(imageChanged()));
+        return;
+    }
 
     m_outputCache+=output+'\n';
 
@@ -100,20 +130,11 @@ void MaximaExpression::parseError(const QString& text)
     setStatus(MathematiK::Expression::Error);
 }
 
-void MaximaExpression::addFileResult( const QString& path )
-{
-  KUrl url( path );
-  if ( url.fileName().endsWith(".png") )
-  {
-    kDebug()<<"adding file "<<path<<"   "<<url;
-    m_imagePath=path;
-  }
-}
-
 void MaximaExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
     kDebug()<<m_outputCache;
+
 
     QString text=m_outputCache;
     bool isLatex=false;
@@ -142,5 +163,11 @@ void MaximaExpression::aboutToReceiveLatex()
     m_outputCache=QString();
 }
 
+void MaximaExpression::imageChanged()
+{
+    kDebug()<<"the temp image has changed";
+    setResult( new MathematiK::ImageResult( KUrl(m_tempFile->fileName()) ) );
+    setStatus(MathematiK::Expression::Done);
+}
 
 #include "maximaexpression.moc"
