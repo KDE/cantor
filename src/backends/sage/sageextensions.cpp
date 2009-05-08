@@ -51,3 +51,33 @@ QString SageCASExtension::expand(const QString& expression)
     return "expand("+expression+")";
 }
 
+
+SageCalculusExtension::SageCalculusExtension(QObject* parent) : MathematiK::CalculusExtension(parent)
+{
+
+}
+
+SageCalculusExtension::~SageCalculusExtension()
+{
+
+}
+
+QString SageCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
+{
+    return QString("limit(%1,%2=%3)").arg(expression, variable, limit);
+}
+
+QString SageCalculusExtension::differentiate(const QString& function,const QString& variable, int times)
+{
+    return QString("diff(%1,%2,%3)").arg(function, variable, QString::number(times));
+}
+
+QString SageCalculusExtension::integrate(const QString& function, const QString& variable)
+{
+    return QString("integral(%1,%2)").arg(function, variable);
+}
+
+QString SageCalculusExtension::integrate(const QString& function,const QString& variable, const QString& left, const QString& right)
+{
+    return QString("integral(%1,%2,%3,%4)").arg(function, variable, left, right);
+}

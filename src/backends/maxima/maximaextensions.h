@@ -36,4 +36,17 @@ class MaximaCASExtension : public MathematiK::CASExtension
 
 };
 
+class MaximaCalculusExtension : public MathematiK::CalculusExtension
+{
+  public:
+    MaximaCalculusExtension( QObject* parent);
+    ~MaximaCalculusExtension();
+
+  public slots:
+    QString limit(const QString& expression, const QString& variable, const QString& limit);
+    QString differentiate(const QString& function,const QString& variable, int times);
+    QString integrate(const QString& function, const QString& variable);
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
+};
+
 #endif /* _MAXIMAEXTENSIONS_H */

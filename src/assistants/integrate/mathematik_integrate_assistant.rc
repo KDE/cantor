@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="mathematik_integrate_assistant" version="1">
+<MenuBar>
+  <Menu name="calculate"><text>&amp;Calculate</text>
+    <Action name="integrate_assistant"/>
+  </Menu>
+</MenuBar>
+</kpartgui>

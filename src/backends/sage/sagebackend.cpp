@@ -37,6 +37,7 @@ SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : Mathema
     kDebug()<<"Creating SageBackend";
     //initialize the supported extensions
     new SageCASExtension(this);
+    new SageCalculusExtension(this);
 }
 
 SageBackend::~SageBackend()

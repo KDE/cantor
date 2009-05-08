@@ -51,3 +51,33 @@ QString MaximaCASExtension::expand(const QString& expression)
     return "expand("+expression+")";
 }
 
+
+MaximaCalculusExtension::MaximaCalculusExtension(QObject* parent) : MathematiK::CalculusExtension(parent)
+{
+
+}
+
+MaximaCalculusExtension::~MaximaCalculusExtension()
+{
+
+}
+
+QString MaximaCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
+{
+    return QString("limit(%1, %2=%3)").arg(expression, variable, limit);
+}
+
+QString MaximaCalculusExtension::differentiate(const QString& function,const QString& variable, int times)
+{
+    return QString("diff(%1, %2, %3)").arg(function, variable, QString::number(times));
+}
+
+QString MaximaCalculusExtension::integrate(const QString& function, const QString& variable)
+{
+    return QString("integrate(%1, %2)").arg(function, variable);
+}
+
+QString MaximaCalculusExtension::integrate(const QString& function,const QString& variable, const QString& left, const QString& right)
+{
+    return QString("integrate(%1, %2, %3, %4)").arg(function, variable, left, right);
+}

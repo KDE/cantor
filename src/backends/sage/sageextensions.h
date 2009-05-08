@@ -36,4 +36,17 @@ class SageCASExtension : public MathematiK::CASExtension
 
 };
 
+class SageCalculusExtension : public MathematiK::CalculusExtension
+{
+  public:
+    SageCalculusExtension( QObject* parent);
+    ~SageCalculusExtension();
+
+  public slots:
+    QString limit(const QString& expression, const QString& variable, const QString& limit);
+    QString differentiate(const QString& function,const QString& variable, int times);
+    QString integrate(const QString& function, const QString& variable);
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
+};
+
 #endif /* _SAGEEXTENSIONS_H */
