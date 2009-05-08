@@ -1,8 +1,8 @@
 About This Application
 -=-=-=-=-=-=-=-=-=-=-=-=-=
 MathematiK is a KDE Application aimed to provide a nice Interface
-for doing Mathemaics and Scientific Computing. It doesn't implement
-it's own Computation Logic, but instead is build around different 
+for doing Mathematics and Scientific Computing. It doesn't implement
+its own Computation Logic, but instead is built around different 
 Backends, for Example the Sage Mathematics Software(see http://sagemath.org).
 
 
