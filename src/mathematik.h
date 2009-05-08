@@ -77,7 +77,8 @@ private slots:
 
     void applyNewToolbarConfig();
 
-    void addWorksheet(const QString& backendName="nullbackend");
+    void addWorksheet();
+    void addWorksheet(const QString& backendName);
     
     void activateWorksheet(int index);
 

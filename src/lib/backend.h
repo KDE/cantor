@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QVariant>
 #include <kxmlguiclient.h>
+#include <kplugininfo.h>
 
 #include "mathematik_export.h"
 
@@ -65,6 +66,7 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     Extension * extension(const QString& name);
 
     static QStringList listAvailableBackends();
+    static QList<KPluginInfo> availableBackendInformations();
     static Backend* createBackend(const QString& name,QObject* parent);
   private:
     BackendPrivate* d;

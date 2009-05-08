@@ -82,6 +82,22 @@ QStringList Backend::listAvailableBackends()
     return list;
 }
 
+QList<KPluginInfo> Backend::availableBackendInformations()
+{
+   KService::List services;
+   KServiceTypeTrader* trader = KServiceTypeTrader::self();
+   QList<KPluginInfo> informations;
+
+   services = trader->query("MathematiK/Backend");
+
+   foreach (KService::Ptr service,  services)
+   {
+       KPluginInfo info(service);
+       informations<<info;
+   }
+   return informations;
+}
+
 Backend* Backend::createBackend(const QString& name, QObject* parent)
 {
     Backend* backend=0;

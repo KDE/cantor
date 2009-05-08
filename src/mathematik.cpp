@@ -39,12 +39,14 @@
 #include <QDockWidget>
 #include <QTextEdit>
 #include <QApplication>
+#include <QTimer>
 
 #include "helpextension.h"
 #include "lib/backend.h"
 
 #include "settings.h"
 #include "ui_settings.h"
+#include "backendchoosedialog.h"
 
 MathematiKShell::MathematiKShell()
     : KParts::MainWindow( )
@@ -65,9 +67,8 @@ MathematiKShell::MathematiKShell()
     m_tabWidget=new KTabWidget(this);
     setCentralWidget(m_tabWidget);
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
-    addWorksheet(Settings::self()->defaultBackend());
-    activateWorksheet(0);
 
+    QTimer::singleShot(0, this, SLOT(addWorksheet()));
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -122,8 +123,7 @@ void MathematiKShell::readProperties(const KConfigGroup & /*config*/)
 
 void MathematiKShell::fileNew()
 {
-    addWorksheet(Settings::self()->defaultBackend());
-    activateWorksheet(m_parts.size()-1);
+    addWorksheet();
 }
 
 void MathematiKShell::optionsConfigureKeys()
@@ -177,6 +177,16 @@ void MathematiKShell::fileOpen()
             newWin->show();
             }*/
         load( url );
+    }
+}
+
+void MathematiKShell::addWorksheet()
+{
+    BackendChooseDialog dlg(this);
+    if(dlg.exec())
+    {
+        addWorksheet(dlg.backendName());
+        activateWorksheet(m_parts.size()-1);
     }
 }
 

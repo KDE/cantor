@@ -11,12 +11,14 @@ set(mathematik_SRCS
    main.cpp
    mathematik.cpp
    helpextension.cpp
+   backendchoosedialog.cpp
  )
 
 kde4_add_kcfg_files(mathematik_SRCS settings.kcfgc)
 install(FILES mathematik.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 kde4_add_ui_files(mathematik_SRCS settings.ui)
+kde4_add_ui_files(mathematik_SRCS backendchooser.ui)
 
 kde4_add_executable(mathematik ${mathematik_SRCS})
 
