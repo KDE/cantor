@@ -279,7 +279,7 @@ void Worksheet::load(const QString& filename )
     MathematiK::Backend* b=MathematiK::Backend::createBackend(root.attribute("backend"), parent());
     if (!b)
     {
-        KMessageBox::error(this, i18n("You don't have the backend this file was generated with"), i18n("MathematiK"));
+        KMessageBox::error(this, i18n("The backend with which this file was generated is not installed."), i18n("MathematiK"));
         return;
     }
     m_session=b->createSession();

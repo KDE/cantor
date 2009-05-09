@@ -223,7 +223,7 @@ void MathematiKShell::addWorksheet(const QString& backendName)
     {
         // if we couldn't find our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Could not find our Part!"));
+        KMessageBox::error(this, i18n("Could not find the Mathematik Part."));
         qApp->quit();
         // we return here, cause qApp->quit() only means "exit the
         // next time we enter the event loop...

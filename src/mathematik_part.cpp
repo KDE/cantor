@@ -214,7 +214,7 @@ void MathematiKPart::worksheetSessionChanged()
 void MathematiKPart::initialized()
 {
     m_worksheet->setEnabled(true);
-    emit setStatusBarText(i18n("Initializing complete"));
+    emit setStatusBarText(i18n("Initialization complete"));
 
     updateCaption();
 }
