@@ -2,6 +2,10 @@
 Type=Service
 Icon=office-chart-area
 Name=Differentiate
+Name[pt]=Diferenciar
+Name[pt_BR]=Diferenciar
+Name[sv]=Derivera
+Name[uk]=Продиференціювати
 X-KDE-ServiceTypes=MathematiK/Assistant
 X-KDE-Library=mathematik_differentiateassistant
 X-KDE-PluginInfo-Name=Differentiate

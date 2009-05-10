@@ -2,6 +2,10 @@
 Type=Service
 Icon=office-chart-area
 Name=Integrate
+Name[pt]=Integrar
+Name[pt_BR]=Integrar
+Name[sv]=Integrera
+Name[uk]=Проінтегрувати
 X-KDE-ServiceTypes=MathematiK/Assistant
 X-KDE-Library=mathematik_integrateassistant
 X-KDE-PluginInfo-Name=Integrate
