@@ -49,7 +49,6 @@ void MaximaExpression::evaluate()
     kDebug()<<"evaluating "<<command();
     setStatus(MathematiK::Expression::Computing);
 
-    m_aboutToReceiveLatex=false;
     m_isHelpRequest=false;
     m_isContextHelpRequest=false;
     if(m_tempFile)
@@ -130,6 +129,32 @@ void MaximaExpression::parseError(const QString& text)
     setStatus(MathematiK::Expression::Error);
 }
 
+void MaximaExpression::parseTexResult(const QString& text)
+{
+    QString output=text.trimmed();
+
+    m_outputCache+=output+'\n';
+
+    kDebug()<<"parsing "<<text;
+    if(m_outputCache.contains(MaximaSession::MaximaPrompt))
+    {
+        kDebug()<<"got prompt";
+        QString latex=m_outputCache.mid(0, m_outputCache.indexOf(MaximaSession::MaximaOutputPrompt)).trimmed();
+        if(latex.startsWith("$$"))
+            latex=latex.mid(2);
+        if(latex.endsWith("$$"))
+            latex.chop(2);
+
+        kDebug()<<"latex: "<<latex;
+        MathematiK::TextResult* result=new MathematiK::TextResult(latex);
+        result->setFormat(MathematiK::TextResult::LatexFormat);
+
+        m_outputCache=QString();
+        setResult(result);
+        setStatus(MathematiK::Expression::Done);
+    }
+}
+
 void MaximaExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
@@ -148,19 +173,17 @@ void MaximaExpression::evalFinished()
     if (isLatex)
         result->setFormat(MathematiK::TextResult::LatexFormat);
 
+    m_outputCache=QString();
     setResult(result);
     setStatus(MathematiK::Expression::Done);
 }
 
 bool MaximaExpression::needsLatexResult()
 {
-    return session()->isTypesettingEnabled() && !m_aboutToReceiveLatex && status()!=MathematiK::Expression::Error;
-}
-
-void MaximaExpression::aboutToReceiveLatex()
-{
-    m_aboutToReceiveLatex=true;
-    m_outputCache=QString();
+    bool needsLatex=session()->isTypesettingEnabled() && status()!=MathematiK::Expression::Error;
+    if (result()&&result()->type()==MathematiK::TextResult::Type )
+        needsLatex=needsLatex && dynamic_cast<MathematiK::TextResult*>(result())->format()!=MathematiK::TextResult::LatexFormat;
+    return needsLatex;
 }
 
 void MaximaExpression::imageChanged()

@@ -38,9 +38,9 @@ class MaximaExpression : public MathematiK::Expression
 
     void parseOutput(const QString& text);
     void parseError(const QString& text);
+    void parseTexResult(const QString& text);
 
     bool needsLatexResult();
-    void aboutToReceiveLatex();
 
   public slots:
     void evalFinished();
@@ -53,7 +53,6 @@ class MaximaExpression : public MathematiK::Expression
     KDirWatch m_fileWatch;
     bool m_isHelpRequest; 
     bool m_isContextHelpRequest;
-    bool m_aboutToReceiveLatex;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */

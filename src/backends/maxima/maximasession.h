@@ -56,9 +56,13 @@ class MaximaSession : public MathematiK::Session
 
     MathematiK::Expression* contextHelp(const QString& command);
 
+    void setTypesettingEnabled(bool enable);
+
   public slots:
     void readStdOut();
     void readStdErr();
+
+    void readTeX();
 
   private slots:
     void currentExpressionChangedStatus(MathematiK::Expression::Status status);
@@ -66,9 +70,14 @@ class MaximaSession : public MathematiK::Session
 
   private:
     void runFirstExpression();
+    void runNextTexCommand();
+    void startTexConvertProcess();
   private:
     KPtyProcess* m_process;
+    KPtyProcess* m_texConvertProcess; //only used to convert from expression to TeX
     QList<MaximaExpression*> m_expressionQueue;
+    QList<MaximaExpression*> m_texQueue; //Queue used for Expressions that need to be converted to LaTeX
+
     bool m_isInitialized;
     QString m_tmpPath;
 };

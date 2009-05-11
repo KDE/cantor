@@ -27,6 +27,8 @@
 #include <signal.h>
 #include "settings.h"
 
+#include "result.h"
+
 
 const QRegExp MaximaSession::MaximaPrompt=QRegExp("\\(%I[0-9]*\\)"); //Text, maxima outputs, if it's taking new input
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("\\(%O[0-9]*\\)"); //Text, maxima outputs, before any output
@@ -42,6 +44,7 @@ MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
     kDebug();
     m_isInitialized=false;
     m_process=0;
+    startTexConvertProcess();
 }
 
 MaximaSession::~MaximaSession()
@@ -149,26 +152,52 @@ void MaximaSession::readStdErr()
     }
 }
 
+void MaximaSession::readTeX()
+{
+    kDebug()<<"reading stdOut";
+    QString out=m_texConvertProcess->pty()->readAll();
+    kDebug()<<"out: "<<out;
+
+    kDebug()<<"queuesize: "<<m_texQueue.size();
+    if(!m_texQueue.isEmpty())
+    {
+        MaximaExpression* expr=m_texQueue.first();
+        kDebug()<<"needs latex?: "<<expr->needsLatexResult();
+
+        expr->parseTexResult(out);
+
+        if(!expr->needsLatexResult())
+        {
+            kDebug()<<"expression doesn't need latex anymore";
+            m_texQueue.removeFirst();
+            runNextTexCommand();
+        }
+    }
+}
+
 void MaximaSession::currentExpressionChangedStatus(MathematiK::Expression::Status status)
 {
     if(status!=MathematiK::Expression::Computing) //The session is ready for the next command
     {
         kDebug()<<"expression finished";
         MaximaExpression* expression=m_expressionQueue.first();
+        disconnect(expression, SIGNAL(statusChanged(MathematiK::Expression::Status)),
+                   this, SLOT(currentExpressionChangedStatus(MathematiK::Expression::Status)));
+
         if(expression->needsLatexResult())
         {
             kDebug()<<"asking for tex version";
-            m_process->pty()->write("tex(%);\n");
-            expression->aboutToReceiveLatex();
+            m_texQueue<<expression;
+            if(m_texQueue.size()==1) //It only contains the actual item. start processing it
+                runNextTexCommand();
         }
-        else
-        {
-            kDebug()<<"running next command";
-            m_expressionQueue.removeFirst();
-            if(m_expressionQueue.isEmpty())
-                changeStatus(MathematiK::Session::Done);
-            runFirstExpression();
-        }
+
+        kDebug()<<"running next command";
+        m_expressionQueue.removeFirst();
+        if(m_expressionQueue.isEmpty())
+            changeStatus(MathematiK::Session::Done);
+        runFirstExpression();
+
     }
 
 }
@@ -194,6 +223,24 @@ void MaximaSession::runFirstExpression()
         else
         {
             m_process->pty()->write((command+"\n").toLatin1());
+        }
+    }
+}
+
+void MaximaSession::runNextTexCommand()
+{
+    if(!m_texQueue.isEmpty())
+    {
+        MaximaExpression* expr=m_texQueue.first();
+        QString cmd=expr->result()->data().toString().trimmed();
+        if(!cmd.isEmpty())
+        {
+            kDebug()<<"running "<<QString("tex(%1);").arg(cmd);
+            m_texConvertProcess->pty()->write(QString("tex(%1);\n").arg(cmd).toUtf8());
+        }else
+        {
+            kDebug()<<"current tex request is empty, so drop it";
+            m_texQueue.removeFirst();
         }
     }
 }
@@ -241,6 +288,29 @@ void MaximaSession::restartMaxima()
     //remove the command that caused maxima to crash (to avoid infinite loops)
     m_expressionQueue.removeFirst();
     login();
+}
+
+void MaximaSession::startTexConvertProcess()
+{
+    //Start the process that is used to convert to LaTeX
+    m_texConvertProcess=new KPtyProcess(this);
+    m_texConvertProcess->setProgram(MaximaSettings::self()->path().toLocalFile());
+    m_texConvertProcess->setOutputChannelMode(KProcess::SeparateChannels);
+    m_texConvertProcess->setPtyChannels(KPtyProcess::AllChannels);
+    m_texConvertProcess->pty()->setEcho(false);
+
+    connect(m_texConvertProcess->pty(), SIGNAL(readyRead()), this, SLOT(readTeX()));
+    m_texConvertProcess->start();
+    m_texConvertProcess->pty()->write(initCmd);
+}
+
+void MaximaSession::setTypesettingEnabled(bool enable)
+{
+    if(enable)
+        startTexConvertProcess();
+    else if(m_texConvertProcess)
+        m_texConvertProcess->deleteLater();
+    MathematiK::Session::setTypesettingEnabled(enable);
 }
 
 #include "maximasession.moc"
