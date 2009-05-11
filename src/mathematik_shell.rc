@@ -7,6 +7,7 @@
     <Separator/>
     <Merge/>
     <Separator/>
+    <Action name="file_close"/>
     <Action name="file_quit"/>
   </Menu>
   <Menu  name="settings"><text>&amp;Settings</text>

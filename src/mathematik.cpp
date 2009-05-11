@@ -65,8 +65,10 @@ MathematiKShell::MathematiKShell()
     addDockWidget ( Qt::RightDockWidgetArea,  dock );
 
     m_tabWidget=new KTabWidget(this);
+    m_tabWidget->setCloseButtonEnabled(true);
     setCentralWidget(m_tabWidget);
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
+    connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
 
     QTimer::singleShot(0, this, SLOT(addWorksheet()));
 
@@ -94,6 +96,8 @@ void MathematiKShell::setupActions()
 {
     KStandardAction::openNew(this, SLOT(fileNew()), actionCollection());
     KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
+
+    KStandardAction::close (this,  SLOT(closeTab()),  actionCollection());
 
     KStandardAction::quit(qApp, SLOT(closeAllWindows()), actionCollection());
 
@@ -239,6 +243,8 @@ void MathematiKShell::activateWorksheet(int index)
         createGUI(m_part);
     else
         kDebug()<<"selected part doesnt exist";
+
+    m_tabWidget->setCurrentIndex(index);
 }
 
 void MathematiKShell::setTabCaption(const QString& caption)
@@ -247,6 +253,17 @@ void MathematiKShell::setTabCaption(const QString& caption)
 
     KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
     m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
+}
+
+void MathematiKShell::closeTab(QWidget* widget)
+{
+    if(widget==0) widget=m_part->widget();
+    int index=m_tabWidget->indexOf(widget);
+
+    KParts::ReadWritePart* part=m_parts.takeAt(index);
+    m_tabWidget->removeTab(index);
+
+    part->deleteLater();
 }
 
 void MathematiKShell::showSettings()

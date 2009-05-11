@@ -83,6 +83,7 @@ private slots:
     void activateWorksheet(int index);
 
     void setTabCaption(const QString& tab);
+    void closeTab(QWidget* widget = 0);
 
     void showSettings();
 
