@@ -286,7 +286,8 @@ void MaximaSession::restartMaxima()
 {
     kDebug()<<"restarting maxima";
     //remove the command that caused maxima to crash (to avoid infinite loops)
-    m_expressionQueue.removeFirst();
+    if(!m_expressionQueue.isEmpty())
+        m_expressionQueue.removeFirst();
     login();
 }
 
