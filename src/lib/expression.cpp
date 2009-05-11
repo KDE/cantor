@@ -151,9 +151,14 @@ void Expression::renderResultAsLatex()
     //    p << m_convScript <<  argumentRes << argumentOut /*<< argumentFormat*/ << argumentInclude.arg( includePath ) << latexFormula;
     //else
 
-    (*p) << d->latexConversionScript <<  argumentRes << argumentOut /*<< argumentFormat*/ << result()->data().toString();
+    QString latexCmd=result()->data().toString().trimmed();
+    latexCmd.remove("\n");
+    if(latexCmd.startsWith('-')) //HACK if the first character is a - prepend a space, so the process doesn't think it's a parameter
+        latexCmd=' '+latexCmd;
 
-    kDebug() << "Rendering" << d->latexConversionScript << argumentRes << argumentOut << result()->data().toString();
+    (*p) << d->latexConversionScript <<  argumentRes << argumentOut /*<< argumentFormat*/ << latexCmd;
+
+    kDebug() << "Rendering" << d->latexConversionScript << argumentRes << argumentOut << latexCmd;
 
     d->latexFilename=fileName;
 
@@ -165,7 +170,7 @@ void Expression::latexRendered()
 {
     kDebug()<<"rendered file "<<d->latexFilename;
     //replace the textresult with the rendered latex image result
-    ImageResult* latex=new ImageResult( d->latexFilename , result()->data().toString() );
+    ImageResult* latex=new ImageResult( d->latexFilename );
     setResult( latex );
 }
 

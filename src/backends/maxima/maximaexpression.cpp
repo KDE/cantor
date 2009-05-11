@@ -133,7 +133,7 @@ void MaximaExpression::parseTexResult(const QString& text)
 {
     QString output=text.trimmed();
 
-    m_outputCache+=output+'\n';
+    m_outputCache+=output;
 
     kDebug()<<"parsing "<<text;
     if(m_outputCache.contains(MaximaSession::MaximaPrompt))
@@ -162,16 +162,8 @@ void MaximaExpression::evalFinished()
 
 
     QString text=m_outputCache;
-    bool isLatex=false;
-    if (text.startsWith("$$"))
-    {
-        text=text.mid(2, text.indexOf("$$", 3)-2);
-        isLatex=true;
-    }
 
     MathematiK::TextResult* result=new MathematiK::TextResult(text);
-    if (isLatex)
-        result->setFormat(MathematiK::TextResult::LatexFormat);
 
     m_outputCache=QString();
     setResult(result);
