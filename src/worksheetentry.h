@@ -58,11 +58,14 @@ class WorksheetEntry : public QObject
 
     void setContextHelp(MathematiK::Expression* expression);
 
+    //checks wether this cell is complete(contains the prompt etc)
+    void checkForSanity();
   public slots:
     void updateResult();
     
     void showContextHelp();
-
+  private slots:
+    void resultDeleted();
   private:
     QTextFrame* m_cmdFrame;
     QTextFrame* m_resultFrame;

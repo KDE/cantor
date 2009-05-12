@@ -32,6 +32,7 @@
 #include <QKeyEvent>
 #include <QTextCursor>
 #include <QTextFrame>
+#include <QTimer>
 
 #include <kdebug.h>
 #include <kzip.h>
@@ -84,7 +85,6 @@ bool Worksheet::event(QEvent* event)
             WorksheetEntry* current=currentEntry();
             if (current)
                 if (textCursor().position()==currentEntry()->startPosition()) return true; //Don't delete any further
-
         }else if ( ke->key() == Qt::Key_Left)
         {
             WorksheetEntry* current=currentEntry();
@@ -104,10 +104,14 @@ bool Worksheet::event(QEvent* event)
             }
 
         }
+
+        //Execute the event now, and schedule a check if all entires are valid
+        bool r=QTextEdit::event( event );
+        QTimer::singleShot(0, this, SLOT(checkEntriesForSanity()));
+        return r;
     }
 
-    return QTextEdit::event( event );
-
+    QTextEdit::event( event );
 }
 
 void Worksheet::evaluate()
@@ -185,6 +189,7 @@ int Worksheet::currentEntryIndex()
 void Worksheet::appendEntry(const QString& text)
 {
     WorksheetEntry* entry=new WorksheetEntry( document()->rootFrame()->lastCursorPosition(),this);
+    connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
     m_entries.append(entry);
     setTextCursor(entry->cmdCursor());
 
@@ -336,6 +341,21 @@ void Worksheet::gotResult()
         help.replace("\\sage", "<b>Sage</b>");
         emit showHelp(help);
     }
+}
+
+void Worksheet::removeEntry(QObject* object)
+{
+    kDebug()<<"removing entry";
+    WorksheetEntry* entry=static_cast<WorksheetEntry*>(sender());
+    m_entries.removeAll(entry);
+    if(m_entries.isEmpty())
+        appendEntry();
+}
+
+void Worksheet::checkEntriesForSanity()
+{
+    foreach(WorksheetEntry* entry, m_entries)
+        entry->checkForSanity();
 }
 
 #include "worksheet.moc"

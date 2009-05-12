@@ -43,6 +43,8 @@ WorksheetEntry::WorksheetEntry( QTextCursor cursor,Worksheet* parent ) : QObject
     format.setBorder(1.0);
 
     m_cmdFrame=cursor.insertFrame(format);
+    kDebug()<<"creating entry";
+    connect(m_cmdFrame, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
     m_cmdFrame->firstCursorPosition().insertText(Prompt);
 
     m_resultFrame=0;
@@ -94,6 +96,7 @@ void WorksheetEntry::updateResult()
         format.setRightMargin(100);
         QTextCursor c(m_cmdFrame->lastCursorPosition());
         m_resultFrame=c.insertFrame(format);
+        connect(m_resultFrame, SIGNAL(destroyed(QObject*)), this, SLOT(resultDeleted()));
     }
 
     QTextBlockFormat block;
@@ -170,6 +173,7 @@ void WorksheetEntry::setResult(const QString& html)
         format.setRightMargin(100);
         QTextCursor c(m_cmdFrame->lastCursorPosition());
         m_resultFrame=c.insertFrame(format);
+        connect(m_resultFrame, SIGNAL(destroyed(QObject*)), this, SLOT(resultDeleted()));
     }
 
 
@@ -195,5 +199,25 @@ void WorksheetEntry::showContextHelp()
     kDebug()<<"showing "<<m_contextHelpExpression->result()->toHtml();
     setResult(m_contextHelpExpression->result()->toHtml());
 }
+
+void WorksheetEntry::resultDeleted()
+{
+    kDebug()<<"result got removed...";
+    m_resultFrame=0;
+}
+
+void WorksheetEntry::checkForSanity()
+{
+    QTextCursor c=m_cmdFrame->firstCursorPosition();
+    c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, Prompt.length());
+    kDebug()<<"selected: "<<c.selectedText();
+    if(c.selectedText()!=Prompt)
+    {
+        c=m_cmdFrame->firstCursorPosition();
+        c.setPosition(m_cmdFrame->lastPosition(), QTextCursor::KeepAnchor);
+        c.insertText(Prompt);
+    }
+}
+
 
 #include "worksheetentry.moc"

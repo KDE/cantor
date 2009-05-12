@@ -63,6 +63,9 @@ class Worksheet : public QTextEdit
     void moveCursor(int direction);
     WorksheetEntry* currentEntry();
     int currentEntryIndex();
+  private slots:
+    void removeEntry(QObject* entry);
+    void checkEntriesForSanity();
   private:
     MathematiK::Session *m_session;
     QList<WorksheetEntry*> m_entries;
