@@ -55,10 +55,9 @@ void MaximaExpression::evaluate()
         m_tempFile->deleteLater();
     m_tempFile=0;
     //check if this is a ?command
-    if(command().startsWith('?')||command().endsWith('?'))
+    if(command().startsWith('?')||command().startsWith("describe(")||command().startsWith("example("))
         m_isHelpRequest=true;
-    if(command().startsWith("dir("))
-        m_isContextHelpRequest=true;
+
 
     if(command().startsWith("plot") && MaximaSettings::self()->integratePlots())
     {
@@ -162,8 +161,13 @@ void MaximaExpression::evalFinished()
 
 
     QString text=m_outputCache;
+    MathematiK::TextResult* result;
 
-    MathematiK::TextResult* result=new MathematiK::TextResult(text);
+    if(m_isHelpRequest)
+        result=new MathematiK::HelpResult(text);
+    else
+        result=new MathematiK::TextResult(text);
+
 
     m_outputCache=QString();
     setResult(result);
@@ -174,8 +178,9 @@ bool MaximaExpression::needsLatexResult()
 {
     bool needsLatex=session()->isTypesettingEnabled() && status()!=MathematiK::Expression::Error;
     if (result()&&result()->type()==MathematiK::TextResult::Type )
-        needsLatex=needsLatex && dynamic_cast<MathematiK::TextResult*>(result())->format()!=MathematiK::TextResult::LatexFormat;
-    return needsLatex;
+       return needsLatex && dynamic_cast<MathematiK::TextResult*>(result())->format()!=MathematiK::TextResult::LatexFormat;
+    else
+        return false;
 }
 
 void MaximaExpression::imageChanged()
