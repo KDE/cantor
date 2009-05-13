@@ -111,7 +111,7 @@ bool Worksheet::event(QEvent* event)
         return r;
     }
 
-    QTextEdit::event( event );
+    return QTextEdit::event( event );
 }
 
 void Worksheet::evaluate()
