@@ -34,23 +34,15 @@
 
 const QString WorksheetEntry::Prompt=">>> ";
 
-WorksheetEntry::WorksheetEntry( QTextCursor cursor,Worksheet* parent ) : QObject( parent  )
+WorksheetEntry::WorksheetEntry( int position,Worksheet* parent ) : QObject( parent  )
 {
-    QTextFrameFormat format;
-    //KColorScheme scheme(QPalette::Active,  KColorScheme::Window);
-    //format.setBackground( scheme.background(KColorScheme::AlternateBackground) );
-    format.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
-    format.setBorder(1.0);
-
-    m_cmdFrame=cursor.insertFrame(format);
-    kDebug()<<"creating entry";
-    connect(m_cmdFrame, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
-    m_cmdFrame->firstCursorPosition().insertText(Prompt);
-
-    m_resultFrame=0;
     m_expression=0;
     m_worksheet=parent;
-    kDebug()<<startPosition()<<"\t"<<resultStartPosition()<<"\t"<<endPosition();
+
+    m_worksheet->mainTable()->insertRows(position, 1);
+    m_worksheet->mainTable()->cellAt(position, 0).firstCursorPosition().insertText(Prompt);
+    m_worksheet->mainTable()->mergeCells(position, 1, 1, 2);
+    m_commandCell=m_worksheet->mainTable()->cellAt(position, 1);
 }
 
 WorksheetEntry::~WorksheetEntry()
@@ -60,16 +52,12 @@ WorksheetEntry::~WorksheetEntry()
 
 QString WorksheetEntry::command()
 {
-    kDebug()<<"command for entry from ";
-    kDebug()<<startPosition()<<"\t"<<resultStartPosition()<<"\t"<<endPosition();
-
-    QTextCursor cursor=cmdCursor();
-    cursor.setPosition(resultStartPosition()-1, QTextCursor::KeepAnchor);
-    QString cmd=cursor.selectedText().trimmed();
+    QTextCursor c=m_commandCell.firstCursorPosition();
+    c.setPosition(m_commandCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+    QString cmd=c.selectedText();
     cmd.replace(8233, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
 
     return cmd;
-
 }
 
 void WorksheetEntry::setExpression(MathematiK::Expression* expr)
@@ -77,7 +65,15 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
     if ( m_expression )
         m_expression->deleteLater();
     m_expression=expr;
+
+    foreach(QTextTableCell cell, m_informationCells)
+    {
+        m_worksheet->mainTable()->removeRows(cell.row(), 1);
+    }
+    m_informationCells.clear();
+
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateResult()));
+    connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
 }
 
 MathematiK::Expression* WorksheetEntry::expression()
@@ -89,21 +85,23 @@ void WorksheetEntry::updateResult()
 {
     if (m_expression->result()->type()==MathematiK::HelpResult::Type) return;  //Help is handled elsewhere
 
-    if(m_resultFrame==0)
+    if(!m_resultCell.isValid())
     {
-        QTextFrameFormat format;
-        format.setLeftMargin(100);
-        format.setRightMargin(100);
-        QTextCursor c(m_cmdFrame->lastCursorPosition());
-        m_resultFrame=c.insertFrame(format);
-        connect(m_resultFrame, SIGNAL(destroyed(QObject*)), this, SLOT(resultDeleted()));
+        int row=0;
+        if(actualInformationCell().isValid())
+            row=actualInformationCell().row()+1;
+        else
+            row=m_commandCell.row()+1;
+        m_worksheet->mainTable()->insertRows(row, 1);
+        m_worksheet->mainTable()->mergeCells(row, 1, 1, 2);
+        m_resultCell=m_worksheet->mainTable()->cellAt(row, 1);
     }
 
     QTextBlockFormat block;
     block.setAlignment(Qt::AlignJustify);
-    QTextCursor cursor(resultCursor());
+    QTextCursor cursor(m_resultCell.firstCursorPosition());
     cursor.setBlockFormat(block);
-    cursor.setPosition(endPosition(), QTextCursor::KeepAnchor);
+    cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
     kDebug()<<"setting cell to "<<m_expression->result()->toHtml();
     if(m_expression->result()->toHtml().trimmed().isEmpty())
         cursor.removeSelectedText();
@@ -113,52 +111,17 @@ void WorksheetEntry::updateResult()
     m_worksheet->ensureCursorVisible();
 }
 
-int WorksheetEntry::startPosition()
-{
-    return m_cmdFrame->firstPosition()+Prompt.size();
-}
-
-int WorksheetEntry::resultStartPosition()
-{
-    if(m_resultFrame)
-        return m_resultFrame->firstPosition();
-    else
-        return (m_cmdFrame->lastPosition()+1);
-}
-
-int WorksheetEntry::endPosition()
-{
-    if(m_resultFrame)
-        return m_resultFrame->lastPosition();
-    else
-        return (m_cmdFrame->lastPosition()+1);
-}
-
-QTextCursor WorksheetEntry::cmdCursor()
-{
-    QTextCursor c=m_cmdFrame->firstCursorPosition();
-    c.movePosition(QTextCursor::NextCharacter, QTextCursor::MoveAnchor, Prompt.length());
-    return c;
-}
-
-QTextCursor WorksheetEntry::resultCursor()
-{
-    return m_resultFrame->firstCursorPosition();
-}
-
-QTextCursor WorksheetEntry::endCursor()
-{
-    return m_resultFrame->lastCursorPosition();
-}
-
 bool WorksheetEntry::isEmpty()
 {
-    QTextCursor c=cmdCursor();
-    c.setPosition(resultStartPosition()-1, QTextCursor::KeepAnchor);
+    QTextCursor c=m_commandCell.firstCursorPosition();
+    c.setPosition(m_commandCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
     QString text=c.selectedText();
-    c.setPosition( resultStartPosition());
-    c.setPosition( endPosition(), QTextCursor::KeepAnchor);
-    text+=c.selectedText();
+    if(m_resultCell.isValid())
+    {
+        c=m_resultCell.firstCursorPosition();
+        c.setPosition( m_resultCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
+        text+=c.selectedText();
+    }
     text.remove(QRegExp("[\n\t\r]"));
     kDebug()<<"text: "<<text;
     return text.trimmed().isEmpty();
@@ -166,26 +129,31 @@ bool WorksheetEntry::isEmpty()
 
 void WorksheetEntry::setResult(const QString& html)
 {
-    if(m_resultFrame==0)
+    if(!m_resultCell.isValid())
     {
-        QTextFrameFormat format;
-        format.setLeftMargin(100);
-        format.setRightMargin(100);
-        QTextCursor c(m_cmdFrame->lastCursorPosition());
-        m_resultFrame=c.insertFrame(format);
-        connect(m_resultFrame, SIGNAL(destroyed(QObject*)), this, SLOT(resultDeleted()));
+        int row=0;
+        if(actualInformationCell().isValid())
+            row=actualInformationCell().row()+1;
+        else
+            row=m_commandCell.row()+1;
+        m_worksheet->mainTable()->insertRows(row, 1);
+        m_worksheet->mainTable()->mergeCells(row, 1, 1, 2);
+        m_resultCell=m_worksheet->mainTable()->cellAt(row, 1);
     }
-
 
     QTextBlockFormat block;
     block.setAlignment(Qt::AlignJustify);
-    QTextCursor cursor(resultCursor());
+    QTextCursor cursor(m_resultCell.firstCursorPosition());
     cursor.setBlockFormat(block);
-    cursor.setPosition(endPosition(), QTextCursor::KeepAnchor);
-    cursor.insertHtml(html);
+    cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
 
-    cursor.setPosition(resultStartPosition()-1);
-    m_worksheet->setTextCursor(cursor);
+    if(html.isEmpty())
+        cursor.removeSelectedText();
+    else
+        cursor.insertHtml(html);
+
+    kDebug()<<"setting to "<<html;
+    m_worksheet->ensureCursorVisible();
 }
 
 void WorksheetEntry::setContextHelp(MathematiK::Expression* expression)
@@ -203,21 +171,50 @@ void WorksheetEntry::showContextHelp()
 void WorksheetEntry::resultDeleted()
 {
     kDebug()<<"result got removed...";
-    m_resultFrame=0;
 }
 
-void WorksheetEntry::checkForSanity()
+QTextTableCell WorksheetEntry::commandCell()
 {
-    QTextCursor c=m_cmdFrame->firstCursorPosition();
-    c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, Prompt.length());
-    kDebug()<<"selected: "<<c.selectedText();
-    if(c.selectedText()!=Prompt)
-    {
-        c=m_cmdFrame->firstCursorPosition();
-        c.setPosition(m_cmdFrame->lastPosition(), QTextCursor::KeepAnchor);
-        c.insertText(Prompt);
-    }
+    return m_commandCell;
 }
 
+QTextTableCell WorksheetEntry::actualInformationCell()
+{
+    if(m_informationCells.isEmpty())
+        return QTextTableCell();
+    else
+        return m_informationCells.last();
+}
+
+QTextTableCell WorksheetEntry::resultCell()
+{
+    return m_resultCell;
+}
+
+void WorksheetEntry::addInformation()
+{
+    QTextCursor c=actualInformationCell().firstCursorPosition();
+    c.setPosition(actualInformationCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
+    QString inf=c.selectedText();
+    if(!inf.endsWith(";"))
+        inf+=";";
+    inf.replace(8233, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
+    kDebug()<<"adding information: "<<inf;
+    if(m_expression)
+        m_expression->addInformation(inf);
+}
+
+void WorksheetEntry::showAdditionalInformationPrompt(const QString& question)
+{
+    m_worksheet->mainTable()->insertRows(m_commandCell.row()+1, 1);
+    //Split the resulting cell in two parts. one for the question, one for the answer
+    QTextTableCell cell=m_worksheet->mainTable()->cellAt(m_commandCell.row()+1, 1);
+    cell.firstCursorPosition().insertText(question);
+    cell=m_worksheet->mainTable()->cellAt(m_commandCell.row()+1, 2);
+    m_informationCells.append(cell);
+
+    m_worksheet->setTextCursor(cell.firstCursorPosition());
+    m_worksheet->ensureCursorVisible();
+}
 
 #include "worksheetentry.moc"

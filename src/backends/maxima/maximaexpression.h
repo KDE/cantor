@@ -36,6 +36,8 @@ class MaximaExpression : public MathematiK::Expression
     void evaluate();
     void interrupt();
 
+    void addInformation(const QString& information);
+
     void parseOutput(const QString& text);
     void parseError(const QString& text);
     void parseTexResult(const QString& text);

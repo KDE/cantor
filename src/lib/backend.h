@@ -43,7 +43,8 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
   public:
     enum Capability{
         Nothing = 0x0,
-        LaTexOutput = 0x1
+        LaTexOutput = 0x1,
+	InteractiveMode = 0x2
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 

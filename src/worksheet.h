@@ -22,10 +22,12 @@
 #define _WORKSHEET_H
 
 #include <QTextEdit>
+#include <QHash>
 
 namespace MathematiK{
     class Backend;
     class Session;
+    class Expression;
 }
 class WorksheetEntry;
 
@@ -44,6 +46,8 @@ class Worksheet : public QTextEdit
 
     bool isRunning();
 
+    QTextTable* mainTable();
+
   public slots:
     void evaluate();
     void interrupt();
@@ -58,17 +62,18 @@ class Worksheet : public QTextEdit
     void modified();
     void sessionChanged();
     void showHelp(const QString& help);
-  private:
-    void evaluateCurrentEntry();
-    void moveCursor(int direction);
-    WorksheetEntry* currentEntry();
-    int currentEntryIndex();
   private slots:
-    void removeEntry(QObject* entry);
-    void checkEntriesForSanity();
+    void removeEntry(QObject* object);
+  private:
+    void initMainTable();
+    void evaluateCurrentEntry();
+    WorksheetEntry* currentEntry();
+    WorksheetEntry* entryAt(int row);
   private:
     MathematiK::Session *m_session;
+    QTextTable* m_mainTable;
     QList<WorksheetEntry*> m_entries;
+    
 };
 
 #endif /* _WORKSHEET_H */

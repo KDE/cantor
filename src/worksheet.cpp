@@ -33,6 +33,10 @@
 #include <QTextCursor>
 #include <QTextFrame>
 #include <QTimer>
+#include <QTextTable>
+#include <QTextLength>
+#include <QTextTableFormat>
+#include <QFontMetrics>
 
 #include <kdebug.h>
 #include <kzip.h>
@@ -45,12 +49,30 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : QTextEdit(
     m_session=backend->createSession();
     m_session->login();
 
+    initMainTable();
     appendEntry();
 }
 
 Worksheet::~Worksheet()
 {
     m_session->logout();
+}
+
+void Worksheet::initMainTable()
+{
+    QTextTableFormat tableFormat;
+    QVector<QTextLength> constraints;
+    QFontMetrics metrics(document()->defaultFont());
+    constraints<< QTextLength(QTextLength::FixedLength, metrics.width(WorksheetEntry::Prompt))
+               <<QTextLength(QTextLength::PercentageLength, 25)
+               <<QTextLength(QTextLength::PercentageLength, 75);
+
+    tableFormat.setColumnWidthConstraints(constraints);
+    tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
+    tableFormat.setCellSpacing(5);
+
+    m_mainTable=textCursor().insertTable(1, 3, tableFormat);
+    m_mainTable->mergeCells(0, 0, 1, 3);
 }
 
 bool Worksheet::event(QEvent* event)
@@ -72,69 +94,81 @@ bool Worksheet::event(QEvent* event)
         {
             evaluateCurrentEntry();
             return true;
-        }else if ( ke->key() == Qt::Key_Up )
+        }else if ( ke->key() == Qt::Key_Left )
         {
-            moveCursor(-1);
-            return true;
-        }else if ( ke->key() == Qt::Key_Down )
-        {
-            moveCursor(1);
-            return true;
-        }else if ( ke->key() == Qt::Key_Backspace)
-        {
-            WorksheetEntry* current=currentEntry();
-            if (current)
-                if (textCursor().position()==currentEntry()->startPosition()) return true; //Don't delete any further
-        }else if ( ke->key() == Qt::Key_Left)
-        {
-            WorksheetEntry* current=currentEntry();
-            if (current&&textCursor().position()<=currentEntry()->startPosition())
+            bool r=QTextEdit::event(event);
+            QTextTableCell cell=m_mainTable->cellAt(textCursor());
+            if(cell.column()==0) //The cursor is placed at the prompt column. move it up if possible
             {
-                moveCursor(-1);
-                return true;
+                 if(cell.row()>1)
+                 {
+                     WorksheetEntry* e;
+                     //search for the next Entry in the cells above
+                     for (int i=cell.row()-1;i>=0;i--)
+                     {
+                         e=entryAt(i);
+                         if(e) break;
+                     }
+                     setTextCursor(e->commandCell().firstCursorPosition());
+                 }
+                else
+                    setTextCursor(m_mainTable->cellAt(1, 1).firstCursorPosition());
             }
-
-        }else if ( ke->key() == Qt::Key_Right)
+            return r;
+        }else if ( ke->key() == Qt::Key_Right )
         {
-            WorksheetEntry* current=currentEntry();
-            if (current&&textCursor().position()>=currentEntry()->resultStartPosition())
+            QTextTableCell cell=m_mainTable->cellAt(textCursor());
+            WorksheetEntry* e=currentEntry();
+            //search for the Entry this cell belongs to
+            if(e&&textCursor().position()==e->commandCell().lastCursorPosition().position())
             {
-                moveCursor(1);
+                //search for the next Entry in the cells above
+                for (int i=cell.row()+1;i<m_mainTable->rows();i++)
+                {
+                    e=entryAt(i);
+                    if(e) break;
+                }
+                if(e)
+                    setTextCursor(e->commandCell().firstCursorPosition());
                 return true;
+            }else
+            {
+                    bool r=QTextEdit::event(event);
+                    cell=m_mainTable->cellAt(textCursor());
+                    if(cell.column()==0) //The cursor is placed at the prompt column. move it right
+                    {
+                        setTextCursor(m_mainTable->cellAt(cell.row(), 1).firstCursorPosition());
+                    }
+                    return r;
             }
-
         }
 
-        //Execute the event now, and schedule a check if all entires are valid
-        bool r=QTextEdit::event( event );
-        QTimer::singleShot(0, this, SLOT(checkEntriesForSanity()));
+        bool r=QTextEdit::event(event);
+        foreach(WorksheetEntry* e, m_entries)
+        {
+            QTextTableCell cell=m_mainTable->cellAt(e->commandCell().row(), 0);
+            QTextCursor c=cell.firstCursorPosition();
+            c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+            if(c.selectedText()!=WorksheetEntry::Prompt)
+                c.insertText(WorksheetEntry::Prompt);
+        }
         return r;
     }
 
-    return QTextEdit::event( event );
+    return QTextEdit::event(event);
 }
 
 void Worksheet::evaluate()
 {
-    foreach(WorksheetEntry* entry, m_entries)
-    {
-        QString cmd=entry->command();
 
-        if(cmd.isEmpty()) continue;
-
-        MathematiK::Expression* expr=m_session->evaluateExpression(cmd);
-        connect(expr, SIGNAL(gotResult()), this, SLOT(gotResult()));
-        entry->setExpression(expr);
-    }
     emit modified();
 }
 
 void Worksheet::evaluateCurrentEntry()
 {
     kDebug()<<"evaluation requested...";
-    //For now lets search for the cell, our cursor is positioned in
     WorksheetEntry* entry=currentEntry();
-    if(entry)
+    if (entry)
     {
         QString cmd=entry->command();
         MathematiK::Expression* expr;
@@ -142,64 +176,63 @@ void Worksheet::evaluateCurrentEntry()
 
         expr=m_session->evaluateExpression(cmd);
         connect(expr, SIGNAL(gotResult()), this, SLOT(gotResult()));
+
         entry->setExpression(expr);
 
         if(!m_entries.last()->isEmpty())
             appendEntry();
 
         emit modified();
+    }else
+    {
+        QTextTableCell cell=m_mainTable->cellAt(textCursor());
+        foreach(WorksheetEntry* e, m_entries)
+        {
+            if (e->actualInformationCell()==cell)
+            {
+                e->addInformation();
+                setTextCursor(m_mainTable->cellAt(cell.row()+1, 1).firstCursorPosition());
+            }
+        }
     }
-}
-
-void Worksheet::moveCursor(int direction)
-{
-    int index=currentEntryIndex()+direction;
-
-    WorksheetEntry* e=m_entries.value(index);
-    if( e )
-        setTextCursor( e->cmdCursor() );
 }
 
 WorksheetEntry* Worksheet::currentEntry()
 {
-    int curPos=textCursor().position();
-    foreach(WorksheetEntry* entry, m_entries)
-    {
-        if(curPos>=entry->startPosition()&&curPos<=entry->resultStartPosition())
-            return entry;
-    }
-
-    return 0;
+    QTextTableCell cell=m_mainTable->cellAt(textCursor());
+    return entryAt(cell.row());
 }
 
-int Worksheet::currentEntryIndex()
+WorksheetEntry* Worksheet::entryAt(int row)
 {
-    int i=0;
-    int curPos=textCursor().position();
-    foreach(WorksheetEntry* entry, m_entries)
-    {
-        if(curPos>=entry->startPosition()&&curPos<=entry->resultStartPosition())
-            return i;
-        i++;
-    }
-
-    return -1;
+   QTextTableCell cell=m_mainTable->cellAt(row, 1);
+   if (cell.isValid())
+   {
+       foreach(WorksheetEntry* entry, m_entries)
+       {
+           if (entry->commandCell()==cell)
+               return entry;
+       }
+   }
+   return 0;
 }
 
 void Worksheet::appendEntry(const QString& text)
 {
-    WorksheetEntry* entry=new WorksheetEntry( document()->rootFrame()->lastCursorPosition(),this);
+    WorksheetEntry* entry=new WorksheetEntry( m_mainTable->rows(),this);
+
     connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
     m_entries.append(entry);
-    setTextCursor(entry->cmdCursor());
 
+    setTextCursor(entry->commandCell().firstCursorPosition());
     ensureCursorVisible();
 
     if(!text.isNull())
     {
-        entry->cmdCursor().insertText(text);
-        evaluateCurrentEntry();
+        //entry->cmdCursor().insertText(text);
+        //evaluateCurrentEntry();
     }
+
 }
 
 void Worksheet::interrupt()
@@ -222,6 +255,11 @@ MathematiK::Session* Worksheet::session()
 bool Worksheet::isRunning()
 {
     return m_session->status()==MathematiK::Session::Running;
+}
+
+QTextTable* Worksheet::mainTable()
+{
+    return m_mainTable;
 }
 
 void Worksheet::save( const QString& filename )
@@ -263,7 +301,7 @@ void Worksheet::save( const QString& filename )
 
 void Worksheet::load(const QString& filename )
 {
-        // m_file is always local so we can use QFile on it
+    // m_file is always local so we can use QFile on it
     KZip file(filename);
     if (!file.open(QIODevice::ReadOnly))
         return ;
@@ -293,13 +331,14 @@ void Worksheet::load(const QString& filename )
 
     clear();
     m_entries.clear();
+    initMainTable();
 
     kDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement("Expression");
     while (!expressionChild.isNull()) {
         appendEntry();
         WorksheetEntry* entry=m_entries.last();
-        entry->cmdCursor().insertText(expressionChild.firstChildElement("Command").text());
+        entry->commandCell().firstCursorPosition().insertText(expressionChild.firstChildElement("Command").text());
         QDomElement result=expressionChild.firstChildElement("Result");
         if (result.attribute("type") == "text")
             entry->setResult(result.text());
@@ -315,8 +354,7 @@ void Worksheet::load(const QString& filename )
                                       KUrl("mydata://"+imageFile->name()),  QVariant(image));
                 QTextImageFormat imageFormat;
                 imageFormat.setName("mydata://"+imageFile->name());
-                entry->resultCursor().insertImage(imageFormat);
-                //entry->resultCursor().insertImage(image);
+                entry->resultCell().firstCursorPosition().insertImage(imageFormat);
             }
         }
 
@@ -352,10 +390,5 @@ void Worksheet::removeEntry(QObject* object)
         appendEntry();
 }
 
-void Worksheet::checkEntriesForSanity()
-{
-    foreach(WorksheetEntry* entry, m_entries)
-        entry->checkForSanity();
-}
 
 #include "worksheet.moc"

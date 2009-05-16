@@ -48,6 +48,8 @@ class MATHEMATIK_EXPORT Expression : public QObject
     void setCommand( const QString& cmd );
     QString command();
 
+    virtual void addInformation(const QString& information);
+
     void setErrorMessage( const QString& cmd);
     QString errorMessage();
 
@@ -69,6 +71,7 @@ class MATHEMATIK_EXPORT Expression : public QObject
   Q_SIGNALS:
     void gotResult();
     void statusChanged(MathematiK::Expression::Status status);
+    void needsAdditionalInformation(const QString& question);
 
   //These are protected, because only subclasses will handle results/status changes
   protected:

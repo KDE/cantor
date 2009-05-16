@@ -22,7 +22,7 @@
 #define _WORKSHEETENTRY_H
 
 #include <QObject>
-#include <QTextCursor>
+#include <QTextTableCell>
 
 class QTextDocument;
 namespace MathematiK{
@@ -30,25 +30,25 @@ namespace MathematiK{
 }
 class Worksheet;
 
+/**
+   An entry in the Worksheet. it contains:
+     1 Row to take command from the user
+     0+ Rows for addition questions/answers from the backend
+     1 Row for the Result
+ **/
+
 class WorksheetEntry : public QObject
 {
   Q_OBJECT
   public:
     static const QString Prompt;
 
-    WorksheetEntry(QTextCursor cursor, Worksheet* parent);
+    WorksheetEntry(int position, Worksheet* parent);
     ~WorksheetEntry();
 
     QString command();
     void setExpression(MathematiK::Expression* expr);
     MathematiK::Expression* expression();
-
-    int startPosition();
-    int resultStartPosition();
-    int endPosition();
-    QTextCursor cmdCursor();
-    QTextCursor resultCursor();
-    QTextCursor endCursor();
 
     bool isEmpty();
 
@@ -58,18 +58,22 @@ class WorksheetEntry : public QObject
 
     void setContextHelp(MathematiK::Expression* expression);
 
-    //checks wether this cell is complete(contains the prompt etc)
-    void checkForSanity();
+    QTextTableCell commandCell();
+    QTextTableCell actualInformationCell();
+    QTextTableCell resultCell();
+
+    void addInformation();
+
   public slots:
     void updateResult();
-    
+    void showAdditionalInformationPrompt(const QString& question);
     void showContextHelp();
   private slots:
     void resultDeleted();
   private:
-    QTextFrame* m_cmdFrame;
-    QTextFrame* m_resultFrame;
-
+    QTextTableCell m_commandCell;
+    QList<QTextTableCell> m_informationCells;
+    QTextTableCell m_resultCell;
     MathematiK::Expression* m_expression;
     Worksheet* m_worksheet;
 

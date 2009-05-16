@@ -87,6 +87,14 @@ void MaximaExpression::interrupt()
     dynamic_cast<MaximaSession*>(session())->sendSignalToProcess(2);
 }
 
+void MaximaExpression::addInformation(const QString& information)
+{
+    kDebug()<<"adding information";
+    MathematiK::Expression::addInformation(information);
+
+    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(information+"\n");
+}
+
 void MaximaExpression::parseOutput(const QString& text)
 {
     QString output=text.trimmed();
@@ -115,9 +123,8 @@ void MaximaExpression::parseOutput(const QString& text)
     if(m_outputCache.contains(QRegExp("Is(.*)zero or nonzero.*")) || m_outputCache.contains(QRegExp("Is(.*)positive, negative, or z")))
     {
         kDebug()<<"Maxima asked a question of zero/nonzero";
-        qobject_cast<MaximaSession*>(session())->sendInputToProcess(";\n");//Abort the question
-        setResult(new MathematiK::TextResult(i18n("Maxima asked \"%1\"", m_outputCache.trimmed())));
-        setStatus(MathematiK::Expression::Error);
+        emit needsAdditionalInformation(m_outputCache.trimmed());
+        m_outputCache.clear();
     }
 }
 

@@ -43,6 +43,7 @@ public:
 
     QString command;
     QString error;
+    QList<QString> information;
     Result* result;
     Expression::Status status;
     Session* session;
@@ -197,6 +198,11 @@ void Expression::saveAdditionalData(KZip* archive)
     //just pass this call to the result
     if(result())
         result()->saveAdditionalData(archive);
+}
+
+void Expression::addInformation(const QString& information)
+{
+    d->information.append(information);
 }
 
 #include "expression.moc"
