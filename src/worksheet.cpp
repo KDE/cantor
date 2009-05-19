@@ -50,6 +50,9 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(
     m_session=backend->createSession();
     m_session->login();
 
+    QFontMetrics metrics(document()->defaultFont());
+    setTabStopWidth(4*metrics.width(' '));
+
     appendEntry();
 }
 
@@ -61,7 +64,7 @@ Worksheet::~Worksheet()
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
     const int key = event->key() | event->modifiers();
-    if ( event->key() == Qt::Key_Tab )
+    /*if ( event->key() == Qt::Key_Tab )
     {
         // special tab handling here
         WorksheetEntry* current=currentEntry();
@@ -70,7 +73,7 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
             current->setContextHelp(m_session->contextHelp(current->command()));
         }
 
-    }else if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ShiftModifier)
+        }else*/ if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ShiftModifier)
     {
         evaluateCurrentEntry();
     }else if ( event->key() == Qt::Key_Left )
