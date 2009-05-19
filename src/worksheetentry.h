@@ -43,7 +43,7 @@ class WorksheetEntry : public QObject
   public:
     static const QString Prompt;
 
-    WorksheetEntry(int position, Worksheet* parent);
+    WorksheetEntry(QTextCursor position, Worksheet* parent);
     ~WorksheetEntry();
 
     QString command();
@@ -64,6 +64,18 @@ class WorksheetEntry : public QObject
 
     void addInformation();
 
+    int firstPosition();
+    int lastPosition();
+
+    bool contains(const QTextCursor& cursor);
+    bool isInCurrentInformationCell(const QTextCursor& cursor);
+    bool isInCommandCell(const QTextCursor& cursor);
+    bool isInPromptCell(const QTextCursor& cursor);
+
+    //checks if this entry has still anything needed (aka the user didn't delete anything
+    //like the prompt. Readd missing things
+    void checkForSanity();
+
   public slots:
     void updateResult();
     void showAdditionalInformationPrompt(const QString& question);
@@ -71,6 +83,7 @@ class WorksheetEntry : public QObject
   private slots:
     void resultDeleted();
   private:
+    QTextTable* m_table;
     QTextTableCell m_commandCell;
     QList<QTextTableCell> m_informationCells;
     QTextTableCell m_resultCell;

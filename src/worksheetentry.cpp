@@ -34,15 +34,35 @@
 
 const QString WorksheetEntry::Prompt=">>> ";
 
-WorksheetEntry::WorksheetEntry( int position,Worksheet* parent ) : QObject( parent  )
+WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObject( parent  )
 {
     m_expression=0;
     m_worksheet=parent;
 
-    m_worksheet->mainTable()->insertRows(position, 1);
-    m_worksheet->mainTable()->cellAt(position, 0).firstCursorPosition().insertText(Prompt);
-    m_worksheet->mainTable()->mergeCells(position, 1, 1, 2);
-    m_commandCell=m_worksheet->mainTable()->cellAt(position, 1);
+    QTextTableFormat tableFormat;
+    QVector<QTextLength> constraints;
+    QFontMetrics metrics(parent->document()->defaultFont());
+    constraints<< QTextLength(QTextLength::FixedLength, metrics.width(WorksheetEntry::Prompt))
+               <<QTextLength(QTextLength::PercentageLength, 25)
+               <<QTextLength(QTextLength::PercentageLength, 75);
+
+    tableFormat.setColumnWidthConstraints(constraints);
+    tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
+    tableFormat.setCellSpacing(10);
+    tableFormat.setTopMargin(5);
+
+    QTextFrameFormat frameFormat;
+    frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+    frameFormat.setBorder(1);
+
+    position=(position.insertFrame(frameFormat))->firstCursorPosition();
+
+    m_table=position.insertTable(1, 3, tableFormat);
+    connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
+
+    m_table->cellAt(0, 0).firstCursorPosition().insertText(Prompt);
+    m_table->mergeCells(0, 1, 1, 2);
+    m_commandCell=m_table->cellAt(0, 1);
 }
 
 WorksheetEntry::~WorksheetEntry()
@@ -68,7 +88,7 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
 
     foreach(QTextTableCell cell, m_informationCells)
     {
-        m_worksheet->mainTable()->removeRows(cell.row(), 1);
+        m_table->removeRows(cell.row(), 1);
     }
     m_informationCells.clear();
 
@@ -92,9 +112,9 @@ void WorksheetEntry::updateResult()
             row=actualInformationCell().row()+1;
         else
             row=m_commandCell.row()+1;
-        m_worksheet->mainTable()->insertRows(row, 1);
-        m_worksheet->mainTable()->mergeCells(row, 1, 1, 2);
-        m_resultCell=m_worksheet->mainTable()->cellAt(row, 1);
+        m_table->insertRows(row, 1);
+        m_table->mergeCells(row, 1, 1, 2);
+        m_resultCell=m_table->cellAt(row, 1);
     }
 
     QTextBlockFormat block;
@@ -136,9 +156,9 @@ void WorksheetEntry::setResult(const QString& html)
             row=actualInformationCell().row()+1;
         else
             row=m_commandCell.row()+1;
-        m_worksheet->mainTable()->insertRows(row, 1);
-        m_worksheet->mainTable()->mergeCells(row, 1, 1, 2);
-        m_resultCell=m_worksheet->mainTable()->cellAt(row, 1);
+        m_table->insertRows(row, 1);
+        m_table->mergeCells(row, 1, 1, 2);
+        m_resultCell=m_table->cellAt(row, 1);
     }
 
     QTextBlockFormat block;
@@ -206,15 +226,68 @@ void WorksheetEntry::addInformation()
 
 void WorksheetEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    m_worksheet->mainTable()->insertRows(m_commandCell.row()+1, 1);
+    m_table->insertRows(m_commandCell.row()+1, 1);
     //Split the resulting cell in two parts. one for the question, one for the answer
-    QTextTableCell cell=m_worksheet->mainTable()->cellAt(m_commandCell.row()+1, 1);
+    QTextTableCell cell=m_table->cellAt(m_commandCell.row()+1, 1);
     cell.firstCursorPosition().insertText(question);
-    cell=m_worksheet->mainTable()->cellAt(m_commandCell.row()+1, 2);
+    cell=m_table->cellAt(m_commandCell.row()+1, 2);
     m_informationCells.append(cell);
 
     m_worksheet->setTextCursor(cell.firstCursorPosition());
     m_worksheet->ensureCursorVisible();
+}
+
+bool WorksheetEntry::contains(const QTextCursor& cursor)
+{
+    if(cursor.position()>=m_table->firstCursorPosition().position()&&cursor.position()<=m_table->lastCursorPosition().position())
+        return true;
+    else
+        return false;
+}
+
+int WorksheetEntry::firstPosition()
+{
+    return m_table->firstCursorPosition().position();
+}
+
+int WorksheetEntry::lastPosition()
+{
+    return m_table->lastCursorPosition().position();
+}
+
+bool WorksheetEntry::isInCurrentInformationCell(const QTextCursor& cursor)
+{
+    QTextTableCell cell=m_informationCells.last();
+    if(cursor.position()>=cell.firstCursorPosition().position()&&cursor.position()<=cell.lastCursorPosition().position())
+        return true;
+    else
+        return false;
+}
+
+bool WorksheetEntry::isInCommandCell(const QTextCursor& cursor)
+{
+    if(cursor.position()>=m_commandCell.firstCursorPosition().position()&&cursor.position()<=m_commandCell.lastCursorPosition().position())
+        return true;
+    else
+        return false;
+}
+
+bool WorksheetEntry::isInPromptCell(const QTextCursor& cursor)
+{
+    const QTextTableCell cell=m_table->cellAt(0, 0);
+    if(cursor.position()>=cell.firstCursorPosition().position()&&cursor.position()<=cell.lastCursorPosition().position())
+        return true;
+    else
+        return false;
+}
+
+void WorksheetEntry::checkForSanity()
+{
+    QTextTableCell cell=m_table->cellAt(0, 0);
+    QTextCursor c=cell.firstCursorPosition();
+    c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+    if(c.selectedText()!=WorksheetEntry::Prompt)
+        c.insertText(WorksheetEntry::Prompt);
 }
 
 #include "worksheetentry.moc"

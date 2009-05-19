@@ -21,7 +21,7 @@
 #ifndef _WORKSHEET_H
 #define _WORKSHEET_H
 
-#include <QTextEdit>
+#include <ktextedit.h>
 #include <QHash>
 
 namespace MathematiK{
@@ -31,22 +31,18 @@ namespace MathematiK{
 }
 class WorksheetEntry;
 
-class Worksheet : public QTextEdit
+class Worksheet : public KTextEdit
 {
   Q_OBJECT
   public:
     Worksheet( MathematiK::Backend* backend, QWidget* parent );
     ~Worksheet();
 
-    bool event(QEvent* event);
-
     void appendEntry(const QString& text=QString());
 
     MathematiK::Session* session();
 
     bool isRunning();
-
-    QTextTable* mainTable();
 
   public slots:
     void evaluate();
@@ -62,16 +58,19 @@ class Worksheet : public QTextEdit
     void modified();
     void sessionChanged();
     void showHelp(const QString& help);
+  
+  protected:
+    void keyPressEvent(QKeyEvent *event);
+
   private slots:
     void removeEntry(QObject* object);
+    void checkEntriesForSanity();
   private:
-    void initMainTable();
     void evaluateCurrentEntry();
     WorksheetEntry* currentEntry();
     WorksheetEntry* entryAt(int row);
   private:
     MathematiK::Session *m_session;
-    QTextTable* m_mainTable;
     QList<WorksheetEntry*> m_entries;
     
 };
