@@ -18,39 +18,35 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "result.h"
-using namespace MathematiK;
+#ifndef _EPSRESULT_H
+#define _EPSRESULT_H
 
-class MathematiK::ResultPrivate
+#include "result.h"
+#include "mathematik_export.h"
+#include "kurl.h"
+
+namespace MathematiK
+{
+class EpsResultPrivate;
+
+class MATHEMATIK_EXPORT EpsResult : public Result
 {
   public:
-    KUrl resourceUrl;
+    enum {Type=5};
+    EpsResult( const KUrl& url);
+    ~EpsResult();
+
+    QString toHtml();
+    QVariant data();
+
+    int type();
+    QDomElement toXml(QDomDocument& doc);
+    void saveAdditionalData(KZip* archive);
+
+  private:
+    EpsResultPrivate* d;
 };
 
-
-Result::Result() : d(new ResultPrivate)
-{
-
 }
 
-Result::~Result()
-{
-
-}
-
-void Result::setResourceUrl(const KUrl& url)
-{
-    d->resourceUrl=url;
-}
-
-KUrl Result::resourceUrl()
-{
-    return d->resourceUrl;
-}
-
-void Result::saveAdditionalData(KZip* archive)
-{
-    Q_UNUSED(archive)
-    //Do nothing
-}
-
+#endif /* _EPSRESULT_H */

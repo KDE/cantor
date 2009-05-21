@@ -35,9 +35,9 @@
 #include <ktabwidget.h>
 #include <kdebug.h>
 #include <kconfigdialog.h>
+#include <ktextedit.h>
 
 #include <QDockWidget>
-#include <QTextEdit>
 #include <QApplication>
 #include <QTimer>
 
@@ -58,9 +58,9 @@ MathematiKShell::MathematiKShell()
     setupActions();
 
     QDockWidget* dock=new QDockWidget(i18n("Help"), this);
-    m_helpView=new QTextEdit(dock);
+    m_helpView=new KTextEdit(dock);
     m_helpView->setText(i18n("<h1>MathematiK</h1>The KDE way to do Mathematics"));
-    m_helpView->setReadOnly(true);
+    m_helpView->setTextInteractionFlags(Qt::TextEditable);
     dock->setWidget(m_helpView);
     addDockWidget ( Qt::RightDockWidgetArea,  dock );
 

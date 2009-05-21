@@ -25,6 +25,7 @@
 #include "lib/expression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
+#include "lib/epsresult.h"
 
 #include "worksheetentry.h"
 
@@ -44,6 +45,8 @@
 #include <klocale.h>
 #include <kurl.h>
 #include <kstandardshortcut.h>
+#include <kstandarddirs.h>
+#include <ktemporaryfile.h>
 
 Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(parent)
 {
@@ -355,12 +358,28 @@ void Worksheet::load(const QString& filename )
             if (imageEntry&&imageEntry->isFile())
             {
                 const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-                QImage image=QImage::fromData(imageFile->data());
-                document()->addResource(QTextDocument::ImageResource,
-                                      KUrl("mydata://"+imageFile->name()),  QVariant(image));
-                QTextImageFormat imageFormat;
-                imageFormat.setName("mydata://"+imageFile->name());
-                entry->resultCell().firstCursorPosition().insertImage(imageFormat);
+                if(imageFile->name().endsWith(".eps"))
+                {
+                    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+                    imageFile->copyTo(dir);
+                    MathematiK::EpsResult *r=new MathematiK::EpsResult(KUrl(dir+"/"+imageFile->name()));
+                    QImage image=r->data().value<QImage>();
+                    document()->addResource(QTextDocument::ImageResource,
+                                            KUrl("mydata://"+imageFile->name()),  QVariant(image));
+                    QTextImageFormat imageFormat;
+                    imageFormat.setName("mydata://"+imageFile->name());
+                    entry->resultCell().firstCursorPosition().insertImage(imageFormat);
+                    delete r;
+                }else
+                {
+                    QImage image=QImage::fromData(imageFile->data());
+                    document()->addResource(QTextDocument::ImageResource,
+                                            KUrl("mydata://"+imageFile->name()),  QVariant(image));
+                    QTextImageFormat imageFormat;
+                    imageFormat.setName("mydata://"+imageFile->name());
+                    entry->resultCell().firstCursorPosition().insertImage(imageFormat);
+                }
+
             }
         }
 

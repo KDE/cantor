@@ -23,6 +23,7 @@
 
 #include <QVariant>
 #include <QDomElement>
+#include <kurl.h>
 #include "mathematik_export.h"
 
 class KZip;
@@ -37,6 +38,11 @@ class MATHEMATIK_EXPORT Result
   public:
     Result( );
     virtual ~Result();
+
+    //An URL indicating where the data of this result is stored,
+    //so that it can be referenced in the html
+    void setResourceUrl(const KUrl& url);
+    KUrl resourceUrl();
 
     virtual QString toHtml() = 0;
     virtual QVariant data() = 0;

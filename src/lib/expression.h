@@ -81,6 +81,7 @@ class MATHEMATIK_EXPORT Expression : public QObject
   private:
     void renderResultAsLatex();
   private Q_SLOTS:
+    void convertToPs();
     void latexRendered();
 
   private:

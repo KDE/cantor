@@ -1,7 +1,6 @@
 set(GENERIC_LIB_VERSION "0.0.1")
 set(GENERIC_LIB_SOVERSION "1")
 
- 
 set( mathematik_LIB_SRCS
   session.cpp
   expression.cpp
@@ -9,6 +8,7 @@ set( mathematik_LIB_SRCS
   result.cpp
   textresult.cpp
   imageresult.cpp
+  epsresult.cpp
   helpresult.cpp
   extension.cpp
   assistant.cpp
@@ -26,6 +26,7 @@ kde4_add_library( mathematiklibs  SHARED ${mathematik_LIB_SRCS} )
 target_link_libraries( mathematiklibs
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KIO_LIBS}
+  ${LIBSPECTRE_LIBRARY}
 )
 set_target_properties( mathematiklibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

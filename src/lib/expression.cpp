@@ -25,7 +25,9 @@ using namespace MathematiK;
 #include "result.h"
 #include "textresult.h"
 #include "imageresult.h"
+#include "epsresult.h"
 
+#include <QDir>
 #include <kstandarddirs.h>
 #include <kprocess.h>
 #include <ktemporaryfile.h>
@@ -48,16 +50,28 @@ public:
     Expression::Status status;
     Session* session;
 
-    QString latexConversionScript;
+    QString latexCmd;
+    QString dviPsCmd;
     QString latexFilename;
 };
+
+static const QString tex="\\documentclass[12pt]{article}                \n \
+                          \\usepackage{latexsym,amsfonts,amssymb,ulem}  \n \
+                          \\usepackage[dvips]{graphicx}                 \n \
+                          \\pagestyle{empty}                            \n \
+                          \\begin{document}                             \n \
+                          \\begin{eqnarray*}                            \n \
+                          %1                                            \n \
+                          \\end{eqnarray*}                              \n \
+                          \\end{document}\n";
+
 
 Expression::Expression( Session* session ) : QObject( session ),
                                              d(new ExpressionPrivate)
 {
     d->session=session;
-    if ( d->latexConversionScript.isNull() )
-        d->latexConversionScript=KStandardDirs::findExe( "mathematik_latexconvert.sh" );
+    d->latexCmd=KStandardDirs::findExe( "latex" );
+    d->dviPsCmd=KStandardDirs::findExe( "dvips" );
 }
 
 Expression::~Expression()
@@ -132,36 +146,38 @@ void Expression::renderResultAsLatex()
     kDebug()<<"rendering as latex";
     kDebug()<<"checking if it really is a formula that can be typeset";
 
-    //Code taken from Kopete Latex plugin
-    KTemporaryFile *tempFile=new KTemporaryFile();
-    tempFile->setPrefix( "mathematik_latex-" );
-    tempFile->setSuffix( ".png" );
-    tempFile->open();
+    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
 
-    QString fileName = tempFile->fileName();
+    //Check if the mathematik subdir exists, if not, create it
+    KTemporaryFile *texFile=new KTemporaryFile();
+    texFile->setPrefix( "mathematik/" );
+    texFile->setSuffix( ".tex" );
+    texFile->open();
 
-    KProcess *p=new KProcess( this );
+    texFile->write(tex.arg(result()->data().toString().trimmed()).toUtf8());
+    texFile->flush();
 
-    QString argumentRes = QString( "-r %1x%2" ).arg( 120 ).arg( 120 );//LatexConfig::horizontalDPI() ).arg( LatexConfig::verticalDPI() );
-    QString argumentOut = QString( "-o %1" ).arg( fileName );
-    QString argumentInclude ( "-x %1" );
-    //QString argumentFormat = "-fgif";  //we uses gif format because MSN only handle gif
-    //LatexConfig::self()->readConfig();
-    //QString includePath = LatexConfig::latexIncludeFile();
-    // if ( !includePath.isNull() )
-    //    p << m_convScript <<  argumentRes << argumentOut /*<< argumentFormat*/ << argumentInclude.arg( includePath ) << latexFormula;
-    //else
-
-    QString latexCmd=result()->data().toString().trimmed();
-    latexCmd.remove("\n");
-    if(latexCmd.startsWith('-')) //HACK if the first character is a - prepend a space, so the process doesn't think it's a parameter
-        latexCmd=' '+latexCmd;
-
-    (*p) << d->latexConversionScript <<  argumentRes << argumentOut /*<< argumentFormat*/ << latexCmd;
-
-    kDebug() << "Rendering" << d->latexConversionScript << argumentRes << argumentOut << latexCmd;
-
+    QString fileName = texFile->fileName();
+    kDebug()<<"fileName: "<<fileName;
     d->latexFilename=fileName;
+    d->latexFilename.replace(".tex", ".eps");
+    KProcess *p=new KProcess( this );
+    p->setWorkingDirectory(dir);
+
+    (*p)<<d->latexCmd<<"-interaction=batchmode"<<"-halt-on-error"<<fileName;
+
+    connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertToPs() ) );
+    p->start();
+}
+
+void Expression::convertToPs()
+{
+    kDebug()<<"converting to ps";
+    QString dviFile=d->latexFilename;
+    dviFile.replace(".eps", ".dvi");
+    KProcess *p=new KProcess( this );
+    kDebug()<<"running: "<<d->dviPsCmd<<"-E"<<"-o"<<d->latexFilename<<dviFile;
+    (*p)<<d->dviPsCmd<<"-E"<<"-o"<<d->latexFilename<<dviFile;
 
     connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( latexRendered() ) );
     p->start();
@@ -170,8 +186,21 @@ void Expression::renderResultAsLatex()
 void Expression::latexRendered()
 {
     kDebug()<<"rendered file "<<d->latexFilename;
+    //cleanup the temp directory a bit...
+    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+    QStringList unneededExtensions;
+    unneededExtensions<<".log"<<".aux"<<".tex"<<".dvi";
+    foreach(const QString& ext, unneededExtensions)
+    {
+        QString s=d->latexFilename;
+        s.replace(".eps", ext);
+        QFile f(s);
+        //f.remove();
+    }
+
     //replace the textresult with the rendered latex image result
-    ImageResult* latex=new ImageResult( d->latexFilename );
+    //ImageResult* latex=new ImageResult( d->latexFilename );
+    EpsResult* latex=new EpsResult(KUrl(d->latexFilename));
     setResult( latex );
 }
 

@@ -26,7 +26,7 @@
 #include <QList>
 
 class KTabWidget;
-class QTextEdit;
+class KTextEdit;
 
 /**
  * This is the application "Shell".  It has a menubar, toolbar, and
@@ -94,7 +94,7 @@ private:
     QList<KParts::ReadWritePart *> m_parts;
     KParts::ReadWritePart* m_part;
     KTabWidget* m_tabWidget;
-    QTextEdit* m_helpView;
+    KTextEdit* m_helpView;
 };
 
 #endif // MATHEMATIK_H

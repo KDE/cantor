@@ -51,6 +51,3 @@ install( FILES mathematik_part.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES mathematik_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/mathematikpart )
 
 install(TARGETS mathematikpart  DESTINATION ${PLUGIN_INSTALL_DIR} )
-
-install( PROGRAMS mathematik_latexconvert.sh DESTINATION ${BIN_INSTALL_DIR})
-

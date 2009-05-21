@@ -122,6 +122,18 @@ void WorksheetEntry::updateResult()
     QTextCursor cursor(m_resultCell.firstCursorPosition());
     cursor.setBlockFormat(block);
     cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+
+    QVariant data=m_expression->result()->data();
+    if(data.type() == QVariant::Image)
+    {
+        //It's an image. add it as a ressource to the worksheet, so it can be referenced by an url
+        static int resourceIdCounter=0;
+        QUrl resourceUrl=KUrl(QString("mydata://image_%1").arg(resourceIdCounter++));
+
+        m_worksheet->document()->addResource(QTextDocument::ImageResource, resourceUrl,  data.value<QImage>());
+        m_expression->result()->setResourceUrl(resourceUrl);
+    }
+
     kDebug()<<"setting cell to "<<m_expression->result()->toHtml();
     if(m_expression->result()->toHtml().trimmed().isEmpty())
         cursor.removeSelectedText();
