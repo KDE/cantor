@@ -66,16 +66,15 @@ void SageExpression::interrupt()
 
 void SageExpression::parseOutput(const QString& text)
 {
-    QString output=text.trimmed();
+    QString output=text;
+    //replace appearing backspaces, as they mess the whole output up
+    output.remove(QRegExp(".\b"));
 
-    ///if(output.contains("sage: "));
-    //output=output.mid(6).trimmed();
+    m_outputCache+=output;
 
-    m_outputCache+=output+'\n';
-    if(output.contains(SageSession::CommandSeparator))
+    if(m_outputCache.endsWith("\n"+SageSession::SagePrompt))
     {
-        m_outputCache.remove(SageSession::CommandSeparator);
-        m_outputCache.remove(SageSession::SagePrompt);
+        m_outputCache.remove("\n"+SageSession::SagePrompt);
         m_outputCache.remove("....:");
         evalFinished();
     }
@@ -123,6 +122,7 @@ void SageExpression::evalFinished()
         else
         {
             MathematiK::TextResult* result=0;
+
             if (m_isHelpRequest)
             {
                 result=new MathematiK::HelpResult(stripped);

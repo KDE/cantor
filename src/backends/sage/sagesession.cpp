@@ -28,8 +28,7 @@
 #include "settings.h"
 
 
-const QByteArray SageSession::CommandSeparator="____END_OF_COMMAND___"; //Text printed after every command, to decide when a command finished running
-const QByteArray SageSession::SagePrompt="sage:"; //Text, sage outputs after each command
+const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after each command
 
 //some commands that are run after login
 //                           sage.plot.plot.EMBEDDED_MODE = True            \n
@@ -63,28 +62,25 @@ void SageSession::login()
     m_process=new KPtyProcess(this);
     m_process->setProgram(SageSettings::self()->path().toLocalFile());
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    m_process->setPtyChannels(KPtyProcess::AllOutputChannels);
-    //m_process->setUseUtmp(true);
+    m_process->setPtyChannels(KPtyProcess::AllChannels);
+    m_process->pty()->setEcho(false);
 
     connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     m_process->start();
-    m_process->write(initCmd);
+    m_process->pty()->write(initCmd);
 }
 
 void SageSession::logout()
 {
     kDebug()<<"logout";
     interrupt();
-    evaluateExpression("exit");
-    //Give sage time to clean up
-    if(!m_process->waitForFinished(3000))
-    {
-        //Run sage-cleaner to kill all the orphans
-        KProcess::execute(SageSettings::self()->path().toLocalFile(),QStringList()<<"-cleaner");
-    }
+    m_process->pty()->write("exit\n");
 
     m_process->deleteLater();
+    //Run sage-cleaner to kill all the orphans
+    KProcess::execute(SageSettings::self()->path().toLocalFile(),QStringList()<<"-cleaner");
+
     m_expressionQueue.clear();
 }
 
@@ -182,8 +178,7 @@ void SageSession::runFirstExpression()
             command=("help("+command.mid(1)+")");
 
         kDebug()<<"writing "<<command+"\n"<<" to the process";
-        m_process->write((command+"\n\n").toLatin1());
-        m_process->write("print '"+CommandSeparator+"'\n");
+        m_process->pty()->write((command+"\n").toLatin1());
     }
 }
 

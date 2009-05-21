@@ -396,12 +396,12 @@ void Worksheet::gotResult()
     //We're only interested in help results, others are handled by the WorksheetEntry
     if(expr->result()->type()==MathematiK::HelpResult::Type)
     {
-        kDebug()<<"showing help";
         QString help=expr->result()->toHtml();
         //Do some basic LaTex replacing
         help.replace(QRegExp("\\\\code\\{([^\\}]*)\\}"), "<b>\\1</b>");
         help.replace(QRegExp("\\$([^\\$])\\$"), "<i>\\1</i>");
         help.replace("\\sage", "<b>Sage</b>");
+
         emit showHelp(help);
     }
 }
