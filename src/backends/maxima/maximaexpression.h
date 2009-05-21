@@ -51,6 +51,8 @@ class MaximaExpression : public MathematiK::Expression
     void imageChanged();
   private:
     QString m_outputCache;
+    QString m_errCache;
+    bool m_onStdoutStroke;
     KTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
     bool m_isHelpRequest; 

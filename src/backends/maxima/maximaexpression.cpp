@@ -58,6 +58,9 @@ void MaximaExpression::evaluate()
     if(command().startsWith('?')||command().startsWith("describe(")||command().startsWith("example("))
         m_isHelpRequest=true;
 
+    m_onStdoutStroke=false;
+    m_outputCache.clear();
+    m_errCache.clear();
 
     if(command().startsWith("plot") && MaximaSettings::self()->integratePlots())
     {
@@ -109,20 +112,41 @@ void MaximaExpression::parseOutput(const QString& text)
         return;
     }
 
-    m_outputCache+=output+'\n';
+    QStringList lines=output.split('\n');
+    foreach(QString line, lines)
+    {
+        if(line.endsWith('\r'))
+            line.chop(1);
+        if(line.isEmpty())
+            continue;
 
-    if(output.contains(MaximaSession::MaximaPrompt))
+        if (MaximaSession::MaximaPrompt.exactMatch(line))
+        {
+            evalFinished();
+            m_onStdoutStroke=false;
+        }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0||m_onStdoutStroke)
+        {
+            line.remove(MaximaSession::MaximaOutputPrompt);
+            m_outputCache+=line+'\n';
+            m_onStdoutStroke=true;
+        }else
+        {
+            m_errCache+=line+'\n';
+            m_onStdoutStroke=false;
+        }
+    }
+
+    /*if(output.contains(MaximaSession::MaximaPrompt))
     {
         kDebug()<<"got prompt";
         m_outputCache.remove(MaximaSession::MaximaPrompt);
         m_outputCache.remove(MaximaSession::MaximaOutputPrompt);
         evalFinished();
-    }
+        }*/
 
     //Check if it's a question from maxima
     if(m_outputCache.contains(QRegExp("Is(.*)zero or nonzero.*")) || m_outputCache.contains(QRegExp("Is(.*)positive, negative, or z")))
     {
-        kDebug()<<"Maxima asked a question of zero/nonzero";
         emit needsAdditionalInformation(m_outputCache.trimmed());
         m_outputCache.clear();
     }
@@ -164,21 +188,35 @@ void MaximaExpression::parseTexResult(const QString& text)
 void MaximaExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
-    kDebug()<<m_outputCache;
+    kDebug()<<"out: "<<m_outputCache;
+    kDebug()<<"err: "<<m_errCache;
 
 
-    QString text=m_outputCache;
-    MathematiK::TextResult* result;
+    if(m_errCache.isEmpty())
+    {
+        QString text=m_outputCache;
+        MathematiK::TextResult* result;
 
-    if(m_isHelpRequest)
-        result=new MathematiK::HelpResult(text);
-    else
+        if(m_isHelpRequest)
+            result=new MathematiK::HelpResult(text);
+        else
+            result=new MathematiK::TextResult(text);
+
+        setResult(result);
+        setStatus(MathematiK::Expression::Done);
+    }else
+    {
+        QString text=m_errCache;
+        MathematiK::TextResult* result;
+
         result=new MathematiK::TextResult(text);
 
+        setResult(result);
+        setStatus(MathematiK::Expression::Error);
+    }
 
     m_outputCache=QString();
-    setResult(result);
-    setStatus(MathematiK::Expression::Done);
+
 }
 
 bool MaximaExpression::needsLatexResult()
