@@ -27,14 +27,15 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
     QWidget* w=new QWidget(this);
     m_ui.setupUi(w);
     connect(m_ui.backendList, SIGNAL(currentItemChanged ( QListWidgetItem *,  QListWidgetItem *)), this, SLOT(accept()));
-    foreach(KPluginInfo info, MathematiK::Backend::availableBackendInformations())
+    foreach(MathematiK::Backend* backend,  MathematiK::Backend::availableBackends())
     {
-        if(info.name()=="nullbackend") //Don't show the null backend, as it's useless for the end user
+        if(!backend->isEnabled()) //don't show disabled backends
             continue;
+
         QListWidgetItem* item=new QListWidgetItem(m_ui.backendList);
-        item->setText(info.name());
-        item->setIcon(KIcon(info.icon()));
-        item->setToolTip(info.comment());
+        item->setText(backend->name());
+        item->setIcon(KIcon(backend->icon()));
+        item->setToolTip(backend->description());
         m_ui.backendList->addItem(item);
     }
 

@@ -58,6 +58,12 @@ MathematiK::Backend::Capabilities MaximaBackend::capabilities()
     return MathematiK::Backend::Nothing;
 }
 
+bool MaximaBackend::requirementsFullfilled()
+{
+    QFileInfo info(MaximaSettings::self()->path().toLocalFile());
+    return info.isExecutable();
+}
+
 QWidget* MaximaBackend::settingsWidget(QWidget* parent)
 {
     QWidget* widget=new QWidget(parent);

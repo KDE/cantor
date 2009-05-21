@@ -70,6 +70,7 @@ MathematiKShell::MathematiKShell()
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
     connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
 
+    createGUI(0);
     QTimer::singleShot(0, this, SLOT(addWorksheet()));
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
@@ -277,7 +278,7 @@ void MathematiKShell::showSettings()
     dialog->addPage(generalSettings, i18n("General"), "preferences-other");
     foreach(const QString& name, MathematiK::Backend::listAvailableBackends())
     {
-        MathematiK::Backend* backend=MathematiK::Backend::createBackend(name, this);
+        MathematiK::Backend* backend=MathematiK::Backend::createBackend(name);
         if (backend->config()) //It has something to configure, so add it to the dialog
             dialog->addPage(backend->settingsWidget(dialog), backend->config(), backend->name(),  backend->icon());
     }

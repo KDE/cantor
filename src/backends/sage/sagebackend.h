@@ -32,6 +32,7 @@ class SageBackend : public MathematiK::Backend
 
     MathematiK::Session *createSession();
     MathematiK::Backend::Capabilities capabilities();
+    virtual bool requirementsFullfilled();
 
     QWidget* settingsWidget(QWidget* parent);
     KConfigSkeleton* config();

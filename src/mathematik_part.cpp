@@ -55,7 +55,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     kDebug()<<"Created a MathematiKPart";
 
-    MathematiK::Backend* b=MathematiK::Backend::createBackend(args.first(), this);
+    MathematiK::Backend* b=MathematiK::Backend::createBackend(args.first());
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
     m_worksheet=new Worksheet(b, parentWidget);

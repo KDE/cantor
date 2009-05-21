@@ -32,6 +32,7 @@ class MaximaBackend : public MathematiK::Backend
 
     MathematiK::Session *createSession();
     MathematiK::Backend::Capabilities capabilities();
+    bool requirementsFullfilled();
 
     QWidget* settingsWidget(QWidget* parent);
     KConfigSkeleton* config();

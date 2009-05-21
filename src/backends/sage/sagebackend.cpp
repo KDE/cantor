@@ -58,6 +58,12 @@ MathematiK::Backend::Capabilities SageBackend::capabilities()
     return MathematiK::Backend::Nothing;
 }
 
+bool SageBackend::requirementsFullfilled()
+{
+    QFileInfo info(SageSettings::self()->path().toLocalFile());
+    return info.isExecutable();
+}
+
 QWidget* SageBackend::settingsWidget(QWidget* parent)
 {
     QWidget* widget=new QWidget(parent);

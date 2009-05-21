@@ -35,6 +35,7 @@ class MathematiK::BackendPrivate
     QString name;
     QString description;
     QString icon;
+    bool enabled;
 };
 
 Backend::Backend(QObject* parent, const QList<QVariant> args) : QObject(parent),
@@ -63,76 +64,74 @@ QString Backend::icon()
     return d->icon;
 }
 
+bool Backend::isEnabled()
+{
+    return d->enabled&&requirementsFullfilled();
+}
+
+void Backend::setEnabled(bool enabled)
+{
+    d->enabled=enabled;
+}
+
+static QList<Backend*> backendCache;
+
 QStringList Backend::listAvailableBackends()
 {
-    KService::List services;
-    KServiceTypeTrader* trader = KServiceTypeTrader::self();
+    QList<Backend* > backends=availableBackends();
+    QStringList l;
+    foreach(Backend* b, backends)
+        l<<b->name();
 
-    kDebug()<<"listing backends";
+    return l;
+}
 
-    services = trader->query("MathematiK/Backend");
-    QStringList list;
-
-    foreach (KService::Ptr service,  services) {
-
-        kDebug() << "backend: " << service->name();
-        list<<service->name();
+QList<Backend*> Backend::availableBackends()
+{
+    //if we already have all backends Cached, just return the cache.
+    //otherwise create the available backends
+    if(!backendCache.isEmpty())
+    {
+        return backendCache;
     }
 
-    return list;
-}
-
-QList<KPluginInfo> Backend::availableBackendInformations()
-{
-   KService::List services;
-   KServiceTypeTrader* trader = KServiceTypeTrader::self();
-   QList<KPluginInfo> informations;
-
-   services = trader->query("MathematiK/Backend");
-
-   foreach (KService::Ptr service,  services)
-   {
-       KPluginInfo info(service);
-       informations<<info;
-   }
-   return informations;
-}
-
-Backend* Backend::createBackend(const QString& name, QObject* parent)
-{
-    Backend* backend=0;
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
+    QString error;
 
     services = trader->query("MathematiK/Backend");
 
     foreach (KService::Ptr service,  services)
     {
-        kDebug()<<"looking if "<<service->name()<<" equals "<<name;
-        QString error;
-        if(service->name()==name)
-        {
-            kDebug()<<"found service"<<name;
-            backend=service->createInstance<Backend>(parent, QVariantList(),  &error);
-            if(backend==0)
-                kDebug()<<"errorr: "<<error;
+        Backend* backend=service->createInstance<Backend>(0, QVariantList(),  &error);
+        if(backend==0)
+            kDebug()<<"error: "<<error;
 
-            KPluginInfo info(service);
-            backend->d->name=info.name();
-            backend->d->description=info.comment();
-            backend->d->icon=info.icon();
-            break;
-        }
+        KPluginInfo info(service);
+        backend->d->name=info.name();
+        backend->d->description=info.comment();
+        backend->d->icon=info.icon();
+        backendCache<<backend;
+    }
+    return backendCache;
+}
+
+Backend* Backend::createBackend(const QString& name)
+{
+    QList<Backend*> backends=availableBackends();
+    foreach(Backend* b, backends)
+    {
+        if(b->name()==name)
+            return b;
     }
 
-
-    return backend;
+    return 0;
 }
 
 QWidget* Backend::settingsWidget(QWidget* parent)
 {
     Q_UNUSED(parent)
-    return 0;
+        return 0;
 }
 
 KConfigSkeleton* Backend::config()
@@ -153,6 +152,11 @@ QStringList Backend::extensions()
 Extension* Backend::extension(const QString& name)
 {
     return findChild<Extension*>(name);
+}
+
+bool Backend::requirementsFullfilled()
+{
+    return true;
 }
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Backend::Capabilities)

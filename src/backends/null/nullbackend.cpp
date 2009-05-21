@@ -31,6 +31,7 @@ NullBackend::NullBackend( QObject* parent,const QList<QVariant> args ) : Mathema
 {
     setObjectName("nullbackend");
     kDebug()<<"Creating NullBackend";
+    setEnabled(false);
 }
 
 NullBackend::~NullBackend()

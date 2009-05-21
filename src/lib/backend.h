@@ -54,11 +54,15 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
 
     virtual Session* createSession() = 0;
     virtual Capabilities capabilities() = 0; 
+    virtual bool requirementsFullfilled();
 
     //Stuff extracted from the .desktop file
     QString name();
     QString description();
     QString icon();
+    bool isEnabled();
+    void setEnabled(bool enabled);
+
     
     virtual QWidget* settingsWidget(QWidget* parent);
     virtual KConfigSkeleton* config();
@@ -67,8 +71,8 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     Extension * extension(const QString& name);
 
     static QStringList listAvailableBackends();
-    static QList<KPluginInfo> availableBackendInformations();
-    static Backend* createBackend(const QString& name,QObject* parent);
+    static QList<Backend*> availableBackends();
+    static Backend* createBackend(const QString& name);
   private:
     BackendPrivate* d;
 };
