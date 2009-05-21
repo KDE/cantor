@@ -36,6 +36,7 @@
 #include <kdebug.h>
 #include <kconfigdialog.h>
 #include <ktextedit.h>
+#include <ktextbrowser.h>
 
 #include <QDockWidget>
 #include <QApplication>
@@ -64,14 +65,46 @@ MathematiKShell::MathematiKShell()
     dock->setWidget(m_helpView);
     addDockWidget ( Qt::RightDockWidgetArea,  dock );
 
-    m_tabWidget=new KTabWidget(this);
-    m_tabWidget->setCloseButtonEnabled(true);
-    setCentralWidget(m_tabWidget);
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
-    connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
 
     createGUI(0);
-    QTimer::singleShot(0, this, SLOT(addWorksheet()));
+    bool hasBackend=false;
+    foreach(MathematiK::Backend* b, MathematiK::Backend::availableBackends())
+    {
+        if(b->isEnabled())
+            hasBackend=true;
+    }
+
+    if(hasBackend)
+    {
+        m_tabWidget=new KTabWidget(this);
+        m_tabWidget->setCloseButtonEnabled(true);
+        setCentralWidget(m_tabWidget);
+        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
+        connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
+
+        QTimer::singleShot(0, this, SLOT(addWorksheet()));
+    }
+    else
+    {
+        KTextBrowser *browser=new KTextBrowser(this);
+        QString backendList="<ul>";
+        foreach(MathematiK::Backend* b, MathematiK::Backend::availableBackends())
+        {
+            if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
+                backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
+        }
+        browser->setHtml(i18n("<h1>No Backend found!</h1>                          \n \
+                               <div>You may try:                                   \n \
+                                 <ul>                                              \n \
+                                   <li>change settings in the config dialog</li>   \n \
+                                   <li>Install packages for one of the following Software: </li> \n \
+                                   %1 \n \
+                                 <ul> \n \
+                                </div> "
+                             , backendList
+                             ));
+        setCentralWidget(browser);
+    }
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar

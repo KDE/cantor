@@ -60,6 +60,7 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     QString name();
     QString description();
     QString icon();
+    QString url();
     bool isEnabled();
     void setEnabled(bool enabled);
 

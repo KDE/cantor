@@ -35,6 +35,7 @@ class MathematiK::BackendPrivate
     QString name;
     QString description;
     QString icon;
+    QString url;
     bool enabled;
 };
 
@@ -62,6 +63,11 @@ QString Backend::description()
 QString Backend::icon()
 {
     return d->icon;
+}
+
+QString Backend::url()
+{
+    return d->url;
 }
 
 bool Backend::isEnabled()
@@ -111,6 +117,7 @@ QList<Backend*> Backend::availableBackends()
         backend->d->name=info.name();
         backend->d->description=info.comment();
         backend->d->icon=info.icon();
+        backend->d->url=info.website();
         backendCache<<backend;
     }
     return backendCache;

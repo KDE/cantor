@@ -2,6 +2,7 @@
 Type=Service
 Icon=kmplot
 Name=Maxima
+X-KDE-PluginInfo-Website=http://maxima.sourceforge.net/
 X-KDE-ServiceTypes=MathematiK/Backend
 X-KDE-Library=mathematik_maximabackend
 X-KDE-PluginInfo-Name=Maxima
