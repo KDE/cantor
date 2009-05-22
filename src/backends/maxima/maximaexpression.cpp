@@ -136,19 +136,13 @@ void MaximaExpression::parseOutput(const QString& text)
         }
     }
 
-    /*if(output.contains(MaximaSession::MaximaPrompt))
-    {
-        kDebug()<<"got prompt";
-        m_outputCache.remove(MaximaSession::MaximaPrompt);
-        m_outputCache.remove(MaximaSession::MaximaOutputPrompt);
-        evalFinished();
-        }*/
-
     //Check if it's a question from maxima
-    if(m_outputCache.contains(QRegExp("Is(.*)zero or nonzero.*")) || m_outputCache.contains(QRegExp("Is(.*)positive, negative, or z")))
+    if(m_errCache.contains(QRegExp("Is(.*)zero or nonzero.*")) || m_outputCache.contains(QRegExp("Is(.*)positive, negative, or z")))
     {
-        emit needsAdditionalInformation(m_outputCache.trimmed());
+        emit needsAdditionalInformation(m_errCache.trimmed());
         m_outputCache.clear();
+        m_onStdoutStroke=false;
+        m_errCache.clear();
     }
 }
 
