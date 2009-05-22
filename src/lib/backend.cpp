@@ -43,6 +43,7 @@ Backend::Backend(QObject* parent, const QList<QVariant> args) : QObject(parent),
                                                                 d(new BackendPrivate)
 {
     Q_UNUSED(args)
+    d->enabled=true;
 }
 
 Backend::~Backend()
