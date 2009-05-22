@@ -76,10 +76,15 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
             current->setContextHelp(m_session->contextHelp(current->command()));
         }
 
-        }else*/ if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ShiftModifier)
+        }else*/
+    if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ShiftModifier)
     {
         evaluateCurrentEntry();
-    }else if ( event->key() == Qt::Key_Left )
+    }else if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ControlModifier)
+    {
+        insertEntry();
+    }
+    else if ( event->key() == Qt::Key_Left )
     {
         KTextEdit::keyPressEvent(event);
         WorksheetEntry* entry=currentEntry();
@@ -248,6 +253,19 @@ void Worksheet::appendEntry(const QString& text)
         //evaluateCurrentEntry();
     }
 
+}
+
+void Worksheet::insertEntry(const QString& text)
+{
+    WorksheetEntry* current=currentEntry();
+    if(current)
+    {
+        int index=m_entries.indexOf(current);
+        QTextCursor c=QTextCursor(document());
+        c.setPosition(current->lastPosition()+2);
+        WorksheetEntry* entry=new WorksheetEntry(c, this);
+        m_entries.insert(index+1, entry);
+    }
 }
 
 void Worksheet::interrupt()

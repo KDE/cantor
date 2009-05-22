@@ -39,6 +39,7 @@ class Worksheet : public KTextEdit
     ~Worksheet();
 
     void appendEntry(const QString& text=QString());
+    void insertEntry(const QString& text=QString());
 
     MathematiK::Session* session();
 
