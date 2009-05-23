@@ -249,8 +249,8 @@ void Worksheet::appendEntry(const QString& text)
 
     if(!text.isNull())
     {
-        //entry->cmdCursor().insertText(text);
-        //evaluateCurrentEntry();
+        entry->commandCell().firstCursorPosition().insertText(text);
+        evaluateCurrentEntry();
     }
 
 }
@@ -265,6 +265,12 @@ void Worksheet::insertEntry(const QString& text)
         c.setPosition(current->lastPosition()+2);
         WorksheetEntry* entry=new WorksheetEntry(c, this);
         m_entries.insert(index+1, entry);
+
+        if(!text.isNull())
+        {
+            entry->commandCell().firstCursorPosition().insertText(text);
+            evaluateCurrentEntry();
+        }
     }
 }
 
