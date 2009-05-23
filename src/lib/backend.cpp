@@ -88,7 +88,10 @@ QStringList Backend::listAvailableBackends()
     QList<Backend* > backends=availableBackends();
     QStringList l;
     foreach(Backend* b, backends)
-        l<<b->name();
+    {
+        if(b->isEnabled())
+            l<<b->name();
+    }
 
     return l;
 }

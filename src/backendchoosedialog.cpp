@@ -21,6 +21,7 @@
 #include "backendchoosedialog.h"
 
 #include "lib/backend.h"
+#include "settings.h"
 
 BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
 {
@@ -37,6 +38,8 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
         item->setIcon(KIcon(backend->icon()));
         item->setToolTip(backend->description());
         m_ui.backendList->addItem(item);
+        if(backend->name()==Settings::self()->defaultBackend())
+            m_ui.backendList->setCurrentItem(item);
     }
 
     setMainWidget(w);
