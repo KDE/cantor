@@ -72,10 +72,11 @@ void SageExpression::parseOutput(const QString& text)
 
     m_outputCache+=output;
 
-    if(m_outputCache.endsWith("\n"+SageSession::SagePrompt))
+    if(m_outputCache==SageSession::SagePrompt||m_outputCache.endsWith("\n"+SageSession::SagePrompt))
     {
-        m_outputCache.remove("\n"+SageSession::SagePrompt);
+        m_outputCache.remove(SageSession::SagePrompt);
         m_outputCache.remove("....:");
+        m_outputCache=m_outputCache.trimmed();
         evalFinished();
     }
 
