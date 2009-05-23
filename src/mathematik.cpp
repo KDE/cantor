@@ -93,14 +93,14 @@ MathematiKShell::MathematiKShell()
             if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
                 backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
         }
-        browser->setHtml(i18n("<h1>No Backend Found</h1>                          \n \
-                               <div>You could try:                                   \n \
-                                 <ul>                                              \n \
-                                   <li>Changing the settings in the config dialog;</li>   \n \
-                                   <li>Installing packages for one of the following programs:</li> \n \
-                                   %1 \n \
-                                 <ul> \n \
-                                </div> "
+        browser->setHtml(i18n("<h1>No Backend Found</h1>\n"             \
+                              "<div>You could try:\n"                   \
+                              "  <ul>"                                  \
+                              "    <li>Changing the settings in the config dialog;</li>" \
+                              "    <li>Installing packages for one of the following programs:</li>" \
+                              "     %1 "                                \
+                              "  <ul> "                                 \
+                              "</div> "
                              , backendList
                              ));
         setCentralWidget(browser);

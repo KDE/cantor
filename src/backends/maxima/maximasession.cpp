@@ -34,10 +34,10 @@ const QRegExp MaximaSession::MaximaPrompt=QRegExp("\\(%I[0-9]*\\)"); //Text, max
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("\\(%O[0-9]*\\)"); //Text, maxima outputs, before any output
 
 
-static QByteArray initCmd="display2d:false;                     \n \
-                           inchar:%I;                           \n \
-                           outchar:%O;                          \n \
-                           print(\"____END_OF_INIT____\");      \n";
+static QByteArray initCmd="display2d:false;                     \n "\
+                          "inchar:%I;                           \n "\
+                          "outchar:%O;                          \n "\
+                          "print(\"____END_OF_INIT____\");      \n";
 
 MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
 {

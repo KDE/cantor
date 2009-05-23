@@ -35,13 +35,13 @@ const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after ea
 //                           os.environ['PAGER'] = 'cat'                    \n
 //                           sage.misc.pager.EMBEDDED_MODE = True           \n
 
-static QByteArray initCmd="os.environ['PAGER'] = 'cat'                    \n \
-                           sage.misc.pager.EMBEDDED_MODE = True           \n \
-                           sage.misc.viewer.BROWSER=''                    \n \
-                           sage.misc.latex.EMBEDDED_MODE = True           \n \
-                           sage.misc.latex.pretty_print_default(true)     \n \
-                           print '____TMP_DIR____', sage.misc.misc.SAGE_TMP\n \
-                           print '____END_OF_INIT____'                    \n ";
+static QByteArray initCmd="os.environ['PAGER'] = 'cat'                    \n "\
+                           "sage.misc.pager.EMBEDDED_MODE = True           \n "\
+                           "sage.misc.viewer.BROWSER=''                    \n "\
+                           "sage.misc.latex.EMBEDDED_MODE = True           \n "\
+                           "sage.misc.latex.pretty_print_default(true)     \n "\
+                           "print '____TMP_DIR____', sage.misc.misc.SAGE_TMP\n"\
+                           "print '____END_OF_INIT____'                    \n ";
 
 SageSession::SageSession( MathematiK::Backend* backend) : Session(backend)
 {
