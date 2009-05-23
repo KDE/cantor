@@ -124,6 +124,10 @@ void SageExpression::evalFinished()
         {
             MathematiK::TextResult* result=0;
 
+            if(m_outputCache.contains("class=\"math\"")) //It's latex stuff so encapsulate it into an eqnarray environment
+                stripped="\\begin{eqnarray*}"+stripped+"\\end{eqnarray*}";
+
+            kDebug()<<"stripped: "<<stripped;
             if (m_isHelpRequest)
             {
                 result=new MathematiK::HelpResult(stripped);

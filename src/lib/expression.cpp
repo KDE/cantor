@@ -55,15 +55,13 @@ public:
     QString latexFilename;
 };
 
-static const QString tex="\\documentclass[12pt]{article}                \n \
-                          \\usepackage{latexsym,amsfonts,amssymb,ulem}  \n \
-                          \\usepackage[dvips]{graphicx}                 \n \
-                          \\pagestyle{empty}                            \n \
-                          \\begin{document}                             \n \
-                          \\begin{eqnarray*}                            \n \
-                          %1                                            \n \
-                          \\end{eqnarray*}                              \n \
-                          \\end{document}\n";
+static const QString tex="\\documentclass[12pt]{article}                \n "\
+                         "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
+                         "\\usepackage[dvips]{graphicx}                 \n "\
+                         "\\pagestyle{empty}                            \n "\
+                         "\\begin{document}                             \n "\
+                         "%1                                            \n "\
+                         "\\end{document}\n";
 
 
 Expression::Expression( Session* session ) : QObject( session ),

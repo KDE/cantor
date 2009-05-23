@@ -165,9 +165,15 @@ void MaximaExpression::parseTexResult(const QString& text)
         kDebug()<<"got prompt";
         QString latex=m_outputCache.mid(0, m_outputCache.indexOf(MaximaSession::MaximaOutputPrompt)).trimmed();
         if(latex.startsWith("$$"))
+        {
             latex=latex.mid(2);
+            latex.prepend("\\begin{eqnarray*}");
+        }
         if(latex.endsWith("$$"))
+        {
             latex.chop(2);
+            latex.append("\\end{eqnarray*}");
+        }
 
         kDebug()<<"latex: "<<latex;
         MathematiK::TextResult* result=new MathematiK::TextResult(latex);
@@ -188,7 +194,7 @@ void MaximaExpression::evalFinished()
 
     if(m_errCache.isEmpty())
     {
-        QString text=m_outputCache;
+        QString text=m_outputCache.trimmed();
         MathematiK::TextResult* result;
 
         if(m_isHelpRequest)
@@ -216,7 +222,7 @@ void MaximaExpression::evalFinished()
 bool MaximaExpression::needsLatexResult()
 {
     bool needsLatex=session()->isTypesettingEnabled() && status()!=MathematiK::Expression::Error;
-    if (result()&&result()->type()==MathematiK::TextResult::Type )
+    if (result()&&result()->type()==MathematiK::TextResult::Type&&result()->data().toString()!="false" )
        return needsLatex && dynamic_cast<MathematiK::TextResult*>(result())->format()!=MathematiK::TextResult::LatexFormat;
     else
         return false;
