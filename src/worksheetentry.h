@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QTextTableCell>
+#include "lib/expression.h"
 
 class QTextDocument;
 namespace MathematiK{
@@ -78,6 +79,7 @@ class WorksheetEntry : public QObject
 
   public slots:
     void updateResult();
+    void expressionChangedStatus(MathematiK::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
     void showContextHelp();
   private slots:
@@ -86,6 +88,7 @@ class WorksheetEntry : public QObject
     QTextTable* m_table;
     QTextTableCell m_commandCell;
     QList<QTextTableCell> m_informationCells;
+    QTextTableCell m_errorCell;
     QTextTableCell m_resultCell;
     MathematiK::Expression* m_expression;
     Worksheet* m_worksheet;

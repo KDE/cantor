@@ -204,32 +204,25 @@ void MaximaExpression::evalFinished()
     kDebug()<<"out: "<<m_outputCache;
     kDebug()<<"err: "<<m_errCache;
 
+    QString text=m_outputCache.trimmed();
+    MathematiK::TextResult* result;
 
-    if(m_errCache.isEmpty())
-    {
-        QString text=m_outputCache.trimmed();
-        MathematiK::TextResult* result;
-
-        if(m_isHelpRequest)
-            result=new MathematiK::HelpResult(text);
-        else
-            result=new MathematiK::TextResult(text);
-
-        setResult(result);
-        setStatus(MathematiK::Expression::Done);
-    }else
-    {
-        QString text=m_errCache.trimmed()+'\n'+m_outputCache.trimmed();
-        MathematiK::TextResult* result;
-
+    if(m_isHelpRequest)
+        result=new MathematiK::HelpResult(text);
+    else
         result=new MathematiK::TextResult(text);
 
-        setResult(result);
+    setResult(result);
+    setStatus(MathematiK::Expression::Done);
+
+    if(!m_errCache.isEmpty())
+    {
+        setErrorMessage(m_errCache.trimmed());
         setStatus(MathematiK::Expression::Error);
     }
 
     m_outputCache=QString();
-
+    m_errCache=QString();
 }
 
 bool MaximaExpression::needsLatexResult()

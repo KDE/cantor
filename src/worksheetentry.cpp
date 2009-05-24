@@ -92,6 +92,7 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
     m_informationCells.clear();
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateResult()));
+    connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(expressionChangedStatus(MathematiK::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
 }
 
@@ -140,6 +141,25 @@ void WorksheetEntry::updateResult()
         cursor.insertHtml(m_expression->result()->toHtml());
 
     m_worksheet->ensureCursorVisible();
+}
+
+void WorksheetEntry::expressionChangedStatus(MathematiK::Expression::Status status)
+{
+    if(status==MathematiK::Expression::Error)
+    {
+        if(!m_errorCell.isValid())
+        {
+            int row;
+            if(actualInformationCell().isValid())
+                row=actualInformationCell().row()+1;
+            else
+                row=commandCell().row()+1;
+            m_table->insertRows(row, 1);
+            m_errorCell=m_table->cellAt(row, 1);
+        }
+
+        m_errorCell.firstCursorPosition().insertText(m_expression->errorMessage());
+    }
 }
 
 bool WorksheetEntry::isEmpty()
