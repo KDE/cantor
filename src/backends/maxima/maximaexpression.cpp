@@ -33,7 +33,7 @@
 #include <QTimer>
 #include <QRegExp>
 
-#define ASK_TIME 1000
+#define ASK_TIME 100
 
 MaximaExpression::MaximaExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
 {
@@ -208,17 +208,23 @@ void MaximaExpression::evalFinished()
     MathematiK::TextResult* result;
 
     if(m_isHelpRequest)
-        result=new MathematiK::HelpResult(text);
+    {
+        result=new MathematiK::HelpResult(m_errCache.trimmed());
+        setResult(result);
+        setStatus(MathematiK::Expression::Done);
+    }
     else
+    {
         result=new MathematiK::TextResult(text);
 
-    setResult(result);
-    setStatus(MathematiK::Expression::Done);
+        setResult(result);
+        setStatus(MathematiK::Expression::Done);
 
-    if(!m_errCache.isEmpty())
-    {
-        setErrorMessage(m_errCache.trimmed());
-        setStatus(MathematiK::Expression::Error);
+        if(!m_errCache.isEmpty())
+        {
+            setErrorMessage(m_errCache.trimmed());
+            setStatus(MathematiK::Expression::Error);
+        }
     }
 
     m_outputCache=QString();
