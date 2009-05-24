@@ -43,8 +43,7 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
     QVector<QTextLength> constraints;
     QFontMetrics metrics(parent->document()->defaultFont());
     constraints<< QTextLength(QTextLength::FixedLength, metrics.width(WorksheetEntry::Prompt))
-               <<QTextLength(QTextLength::PercentageLength, 25)
-               <<QTextLength(QTextLength::PercentageLength, 75);
+               <<QTextLength(QTextLength::PercentageLength, 100);
 
     tableFormat.setColumnWidthConstraints(constraints);
     tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
@@ -57,11 +56,11 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
 
     position=(position.insertFrame(frameFormat))->firstCursorPosition();
 
-    m_table=position.insertTable(1, 3, tableFormat);
+    m_table=position.insertTable(1, 2, tableFormat);
     connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
 
     m_table->cellAt(0, 0).firstCursorPosition().insertText(Prompt);
-    m_table->mergeCells(0, 1, 1, 2);
+    //m_table->mergeCells(0, 1, 1, 2);
     m_commandCell=m_table->cellAt(0, 1);
 }
 
@@ -113,7 +112,7 @@ void WorksheetEntry::updateResult()
         else
             row=m_commandCell.row()+1;
         m_table->insertRows(row, 1);
-        m_table->mergeCells(row, 1, 1, 2);
+        //m_table->mergeCells(row, 1, 1, 2);
         m_resultCell=m_table->cellAt(row, 1);
     }
 
@@ -169,7 +168,7 @@ void WorksheetEntry::setResult(const QString& html)
         else
             row=m_commandCell.row()+1;
         m_table->insertRows(row, 1);
-        m_table->mergeCells(row, 1, 1, 2);
+        //m_table->mergeCells(row, 1, 1, 2);
         m_resultCell=m_table->cellAt(row, 1);
     }
 
@@ -244,11 +243,12 @@ void WorksheetEntry::showAdditionalInformationPrompt(const QString& question)
     else
         row=commandCell().row()+1;
 
-    m_table->insertRows(row, 1);
-    //Split the resulting cell in two parts. one for the question, one for the answer
+    //insert two rows, one for the question, one for the answer
+    m_table->insertRows(row, 2);
+
     QTextTableCell cell=m_table->cellAt(row, 1);
     cell.firstCursorPosition().insertText(question);
-    cell=m_table->cellAt(row, 2);
+    cell=m_table->cellAt(row+1, 1);
     m_informationCells.append(cell);
 
     m_worksheet->setTextCursor(cell.firstCursorPosition());
