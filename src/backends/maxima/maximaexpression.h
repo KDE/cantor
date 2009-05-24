@@ -25,6 +25,7 @@
 #include "kdirwatch.h"
 
 class KTemporaryFile;
+class QTimer;
 
 class MaximaExpression : public MathematiK::Expression
 {
@@ -48,6 +49,7 @@ class MaximaExpression : public MathematiK::Expression
     void evalFinished();
 
   private slots:
+    void askForInformation();
     void imageChanged();
   private:
     QString m_outputCache;
@@ -57,6 +59,7 @@ class MaximaExpression : public MathematiK::Expression
     KDirWatch m_fileWatch;
     bool m_isHelpRequest; 
     bool m_isContextHelpRequest;
+    QTimer* m_askTimer;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */

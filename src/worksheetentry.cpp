@@ -238,11 +238,17 @@ void WorksheetEntry::addInformation()
 
 void WorksheetEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    m_table->insertRows(m_commandCell.row()+1, 1);
+    int row;
+    if (actualInformationCell().isValid())
+        row=actualInformationCell().row()+1;
+    else
+        row=commandCell().row()+1;
+
+    m_table->insertRows(row, 1);
     //Split the resulting cell in two parts. one for the question, one for the answer
-    QTextTableCell cell=m_table->cellAt(m_commandCell.row()+1, 1);
+    QTextTableCell cell=m_table->cellAt(row, 1);
     cell.firstCursorPosition().insertText(question);
-    cell=m_table->cellAt(m_commandCell.row()+1, 2);
+    cell=m_table->cellAt(row, 2);
     m_informationCells.append(cell);
 
     m_worksheet->setTextCursor(cell.firstCursorPosition());

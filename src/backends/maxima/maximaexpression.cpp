@@ -33,10 +33,18 @@
 #include <QTimer>
 #include <QRegExp>
 
+#define ASK_TIME 100
+
 MaximaExpression::MaximaExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
 {
     kDebug();
     m_tempFile=0;
+    //this is a timer that is triggered if we got output without an output prompt
+    //and no new input prompt for some time, so we assume that it's because maxima
+    //is asking for information
+    m_askTimer=new QTimer(this);
+    m_askTimer->setSingleShot(true);
+    connect(m_askTimer, SIGNAL(timeout()), this, SLOT(askForInformation()));
 }
 
 MaximaExpression::~MaximaExpression()
@@ -124,26 +132,31 @@ void MaximaExpression::parseOutput(const QString& text)
         {
             evalFinished();
             m_onStdoutStroke=false;
+            m_askTimer->stop();
         }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0||m_onStdoutStroke)
         {
             line.remove(MaximaSession::MaximaOutputPrompt);
             m_outputCache+=line+'\n';
             m_onStdoutStroke=true;
+            m_askTimer->stop();
         }else
         {
+            kDebug()<<"got something";
             m_errCache+=line+'\n';
             m_onStdoutStroke=false;
+            m_askTimer->stop();
+            m_askTimer->start(ASK_TIME);
         }
     }
 
-    //Check if it's a question from maxima
-    if(m_errCache.contains(QRegExp("Is(.*)zero or nonzero.*")) || m_outputCache.contains(QRegExp("Is(.*)positive, negative, or z")))
-    {
-        emit needsAdditionalInformation(m_errCache.trimmed());
-        m_outputCache.clear();
-        m_onStdoutStroke=false;
-        m_errCache.clear();
-    }
+}
+
+void MaximaExpression::askForInformation()
+{
+    emit needsAdditionalInformation(m_errCache.trimmed());
+    m_outputCache.clear();
+    m_onStdoutStroke=false;
+    m_errCache.clear();
 }
 
 void MaximaExpression::parseError(const QString& text)
@@ -206,7 +219,7 @@ void MaximaExpression::evalFinished()
         setStatus(MathematiK::Expression::Done);
     }else
     {
-        QString text=m_errCache;
+        QString text=m_errCache.trimmed()+'\n'+m_outputCache.trimmed();
         MathematiK::TextResult* result;
 
         result=new MathematiK::TextResult(text);
