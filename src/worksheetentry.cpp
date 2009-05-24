@@ -85,9 +85,14 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
         m_expression->deleteLater();
     m_expression=expr;
 
+    if(m_errorCell.isValid())
+    {
+        m_table->removeRows(m_errorCell.row(), 1);
+        m_errorCell=QTextTableCell();
+    }
     foreach(QTextTableCell cell, m_informationCells)
     {
-        m_table->removeRows(cell.row(), 1);
+        m_table->removeRows(cell.row(), 2);
     }
     m_informationCells.clear();
 

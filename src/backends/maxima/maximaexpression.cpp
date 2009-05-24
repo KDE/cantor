@@ -33,7 +33,7 @@
 #include <QTimer>
 #include <QRegExp>
 
-#define ASK_TIME 100
+#define ASK_TIME 1000
 
 MaximaExpression::MaximaExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
 {
