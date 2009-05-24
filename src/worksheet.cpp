@@ -64,6 +64,23 @@ Worksheet::~Worksheet()
     m_session->logout();
 }
 
+bool Worksheet::event(QEvent* event)
+{
+    if (event->type() == QEvent::ShortcutOverride)
+    {
+        QKeyEvent *e = static_cast<QKeyEvent *>( event );
+        //ignore the Shift+Return shortcut, so it can be used as a Shortcut for a KAction
+        if (e->modifiers() == Qt::ShiftModifier&&
+            (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter))
+        {
+            e->ignore();
+            return false;
+        }
+    }
+
+    return KTextEdit::event(event);
+}
+
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
     const int key = event->key() | event->modifiers();
@@ -77,14 +94,7 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         }
 
         }else*/
-    if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ShiftModifier)
-    {
-        evaluateCurrentEntry();
-    }else if ( ( event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return ) && event->modifiers() & Qt::ControlModifier)
-    {
-        insertEntry();
-    }
-    else if ( event->key() == Qt::Key_Left )
+    if ( event->key() == Qt::Key_Left )
     {
         KTextEdit::keyPressEvent(event);
         WorksheetEntry* entry=currentEntry();

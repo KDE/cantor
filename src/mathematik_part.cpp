@@ -73,7 +73,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
 
     m_evaluate=new KAction(i18n("Evaluate Worksheet"), actionCollection());
-    actionCollection()->addAction("evaluate", m_evaluate);
+    actionCollection()->addAction("evaluate_worksheet", m_evaluate);
     m_evaluate->setIcon(KIcon("system-run"));
     connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
 
@@ -86,6 +86,16 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     actionCollection()->addAction("restart_backend", restart);
     restart->setIcon(KIcon("system-restart"));
     connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
+
+    KAction* evaluateCurrent=new KAction(i18n("Evaluate Entry"), actionCollection());
+    evaluateCurrent->setShortcut(Qt::SHIFT + Qt::Key_Return);
+    actionCollection()->addAction("evaluate_current",  evaluateCurrent);
+    connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
+
+    KAction* insertEntry=new KAction(i18n("Insert Entry"), actionCollection());
+    insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_entry",  insertEntry);
+    connect(insertEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertEntry()));
 
     // set our XML-UI resource file
     setXMLFile("mathematik_part.rc");

@@ -37,6 +37,7 @@
 #include <kconfigdialog.h>
 #include <ktextedit.h>
 #include <ktextbrowser.h>
+#include <kxmlguifactory.h>
 
 #include <QDockWidget>
 #include <QApplication>
@@ -142,6 +143,7 @@ void MathematiKShell::setupActions()
     //KStandardAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
+    KStandardAction::keyBindings( guiFactory(),  SLOT( configureShortcuts() ),  actionCollection() );
 }
 
 void MathematiKShell::saveProperties(KConfigGroup & /*config*/)

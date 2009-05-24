@@ -38,15 +38,16 @@ class Worksheet : public KTextEdit
     Worksheet( MathematiK::Backend* backend, QWidget* parent );
     ~Worksheet();
 
-    void appendEntry(const QString& text=QString());
-    void insertEntry(const QString& text=QString());
-
     MathematiK::Session* session();
 
     bool isRunning();
 
   public slots:
+    void appendEntry(const QString& text=QString());
+    void insertEntry(const QString& text=QString());
+
     void evaluate();
+    void evaluateCurrentEntry();
     void interrupt();
     void interruptCurrentExpression();
 
@@ -61,13 +62,13 @@ class Worksheet : public KTextEdit
     void showHelp(const QString& help);
   
   protected:
+    bool event(QEvent* event);
     void keyPressEvent(QKeyEvent *event);
 
   private slots:
     void removeEntry(QObject* object);
     void checkEntriesForSanity();
   private:
-    void evaluateCurrentEntry();
     WorksheetEntry* currentEntry();
     WorksheetEntry* entryAt(int row);
   private:
