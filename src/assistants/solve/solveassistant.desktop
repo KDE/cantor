@@ -6,6 +6,7 @@ Name[et]=Lahendaja
 Name[pt]=Resolver
 Name[pt_BR]=Resolver
 Name[sv]=Lös
+Name[tr]=Çöz
 Name[uk]=Розв’язати
 X-KDE-ServiceTypes=MathematiK/Assistant
 X-KDE-Library=mathematik_solveassistant

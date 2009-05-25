@@ -6,6 +6,7 @@ Name[et]=Integreerimine
 Name[pt]=Integrar
 Name[pt_BR]=Integral
 Name[sv]=Integrera
+Name[tr]=Bütünleştir
 Name[uk]=Проінтегрувати
 X-KDE-ServiceTypes=MathematiK/Assistant
 X-KDE-Library=mathematik_integrateassistant

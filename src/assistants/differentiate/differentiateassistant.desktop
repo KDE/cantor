@@ -6,6 +6,7 @@ Name[et]=Diferentsimine
 Name[pt]=Diferenciar
 Name[pt_BR]=Derivada
 Name[sv]=Derivera
+Name[tr]=Farklılaştır
 Name[uk]=Продиференціювати
 X-KDE-ServiceTypes=MathematiK/Assistant
 X-KDE-Library=mathematik_differentiateassistant
