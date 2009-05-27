@@ -24,7 +24,8 @@
 #include <kdebug.h>
 #include <kptyprocess.h>
 #include <kptydevice.h>
-
+#include <klocale.h>
+#include <kmessagebox.h>
 #include "settings.h"
 
 
@@ -67,6 +68,7 @@ void SageSession::login()
 
     connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
+    connect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
     m_process->start();
     m_process->pty()->write(initCmd);
 }
@@ -163,6 +165,31 @@ void SageSession::currentExpressionChangedStatus(MathematiK::Expression::Status 
         runFirstExpression();
     }
 
+}
+
+void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    if(exitStatus==QProcess::CrashExit)
+    {
+        if(!m_expressionQueue.isEmpty())
+        {
+            m_expressionQueue.last()->onProcessError(i18n("The Sage process crashed while evaluating this expression"));
+        }else
+        {
+            //We don't have an actual command. it crashed for some other reason, just show a plain error message box
+            KMessageBox::error(0, i18n("The Sage process crashed"), i18n("MathematiK"));
+        }
+    }else
+    {
+        if(!m_expressionQueue.isEmpty())
+        {
+            m_expressionQueue.last()->onProcessError(i18n("The Sage process exited while evaluating this expression"));
+        }else
+        {
+            //We don't have an actual command. it crashed for some other reason, just show a plain error message box
+            KMessageBox::error(0, i18n("The Sage process exited"), i18n("MathematiK"));
+        }
+    }
 }
 
 void SageSession::runFirstExpression()

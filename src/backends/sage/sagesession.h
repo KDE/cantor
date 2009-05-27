@@ -25,6 +25,7 @@
 #include "expression.h"
 
 #include <kdirwatch.h>
+#include <QProcess>
 
 class SageExpression;
 class KPtyProcess;
@@ -62,6 +63,7 @@ class SageSession : public MathematiK::Session
 
   private slots:
     void currentExpressionChangedStatus(MathematiK::Expression::Status status);
+    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void fileCreated(const QString& path);
 
   private:

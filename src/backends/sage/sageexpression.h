@@ -38,6 +38,7 @@ class SageExpression : public MathematiK::Expression
 
     void addFileResult(const QString& path);
 
+    void onProcessError(const QString& msg);
   public slots:
     void evalFinished();
 

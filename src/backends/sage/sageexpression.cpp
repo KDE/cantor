@@ -150,5 +150,11 @@ void SageExpression::evalFinished()
     setStatus(MathematiK::Expression::Done);
 }
 
+void SageExpression::onProcessError(const QString& msg)
+{
+    QString errMsg=i18n("%1\nThe last output was: \n %2", msg, m_outputCache.trimmed());
+    setErrorMessage(errMsg);
+    setStatus(MathematiK::Expression::Error);
+}
 
 #include "sageexpression.moc"
