@@ -77,6 +77,7 @@ void SageSession::logout()
 {
     kDebug()<<"logout";
     interrupt();
+    disconnect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
     m_process->pty()->write("exit\n");
 
     m_process->deleteLater();
