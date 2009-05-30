@@ -55,6 +55,11 @@ void SageExpression::evaluate()
     if(command().startsWith("dir("))
         m_isContextHelpRequest=true;
 
+    //coun't how many newlines are in the command,
+    //as sage will output one "sage: " or "....:" for
+    //each.
+    m_promptCount=command().count('\n')+1;
+
     dynamic_cast<SageSession*>(session())->appendExpressionToQueue(this);
 }
 
@@ -72,10 +77,18 @@ void SageExpression::parseOutput(const QString& text)
 
     m_outputCache+=output;
 
-    if(m_outputCache==SageSession::SagePrompt||m_outputCache.endsWith("\n"+SageSession::SagePrompt))
+    kDebug()<<"count: "<<m_promptCount;
+    if(m_outputCache.endsWith(SageSession::SagePrompt)||
+       m_outputCache.endsWith(SageSession::SageAlternativePrompt))
+    {
+        kDebug()<<"got prompt";
+        m_promptCount--;
+    }
+
+    if(m_promptCount==0)
     {
         m_outputCache.remove(SageSession::SagePrompt);
-        m_outputCache.remove("....:");
+        m_outputCache.remove(SageSession::SageAlternativePrompt);
         m_outputCache=m_outputCache.trimmed();
         evalFinished();
     }
@@ -106,14 +119,15 @@ void SageExpression::evalFinished()
 
     if ( m_imagePath.isNull() ) //If this result contains a file, drop the text information
     {
-        //strip html formatting
-        QString stripped=m_outputCache;
-        stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
-        if (stripped.endsWith('\n'))
-            stripped.chop(1);
 
         if (m_isContextHelpRequest)
         {
+            //strip html formatting
+            QString stripped=m_outputCache;
+            stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            if (stripped.endsWith('\n'))
+                stripped.chop(1);
+
             QStringList l=stripped.trimmed().split("', '");
             l[0]=l[0].mid(2);
             l.last().chop(2);
@@ -124,8 +138,18 @@ void SageExpression::evalFinished()
         {
             MathematiK::TextResult* result=0;
 
+            QString stripped=m_outputCache;
+
             if(m_outputCache.contains("class=\"math\"")) //It's latex stuff so encapsulate it into an eqnarray environment
-                stripped="\\begin{eqnarray*}"+stripped+"\\end{eqnarray*}";
+            {
+                stripped.replace("<html>", "\\begin{eqnarray*}");
+                stripped.replace("</html>", "\\end{eqnarray*}");
+            }
+
+            //strip html formatting
+            stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            if (stripped.endsWith('\n'))
+                stripped.chop(1);
 
             kDebug()<<"stripped: "<<stripped;
             if (m_isHelpRequest)

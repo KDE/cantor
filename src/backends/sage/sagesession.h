@@ -35,8 +35,8 @@ class SageSession : public MathematiK::Session
 {
   Q_OBJECT
   public:
-    static const QByteArray CommandSeparator;
     static const QByteArray SagePrompt;
+    static const QByteArray SageAlternativePrompt;
 
     SageSession( MathematiK::Backend* backend);
     ~SageSession();

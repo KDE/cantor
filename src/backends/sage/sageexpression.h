@@ -47,6 +47,7 @@ class SageExpression : public MathematiK::Expression
     QString m_imagePath;
     bool m_isHelpRequest; 
     bool m_isContextHelpRequest;
+    int m_promptCount;
 };
 
 #endif /* _SAGEEXPRESSION_H */

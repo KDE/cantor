@@ -30,6 +30,7 @@
 
 
 const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after each command
+const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input
 
 //some commands that are run after login
 //                           sage.plot.plot.EMBEDDED_MODE = True            \n
