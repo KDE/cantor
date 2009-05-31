@@ -121,7 +121,11 @@ void SageSession::readStdOut()
     {
         kDebug()<<"received tmp dir information";
         int index=out.indexOf("___TMP_DIR___" )+14;
-        m_tmpPath=out.mid( index, index-out.indexOf('\n',index ) ).trimmed();
+        int endIndex=out.indexOf("\n", index);
+        if(endIndex==-1)
+            m_tmpPath=out.mid( index ).trimmed();
+        else
+            m_tmpPath=out.mid( index, index-out.indexOf("\n",index) ).trimmed();
         kDebug()<<"tmp path: "<<m_tmpPath;
 
         m_dirWatch.addDir( m_tmpPath, KDirWatch::WatchFiles );
