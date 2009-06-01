@@ -300,6 +300,7 @@ void MathematiKPart::runAssistant()
     MathematiK::Assistant* a=qobject_cast<MathematiK::Assistant*>(sender());
     QStringList cmds=a->run(widget());
     kDebug()<<cmds;
-    m_worksheet->appendEntry(cmds.join("\n"));
+    if(!cmds.isEmpty())
+        m_worksheet->appendEntry(cmds.join("\n"));
 }
 
