@@ -42,6 +42,7 @@ static QByteArray initCmd="os.environ['PAGER'] = 'cat'                    \n "\
                            "sage.misc.viewer.BROWSER=''                    \n "\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
                            "sage.misc.latex.pretty_print_default(true)     \n "\
+                           " __IPYTHON__.shell.autoindent=False            \n "\
                            "print '____TMP_DIR____', sage.misc.misc.SAGE_TMP\n"\
                            "print '____END_OF_INIT____'                    \n ";
 
