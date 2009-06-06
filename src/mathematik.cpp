@@ -311,9 +311,8 @@ void MathematiKShell::showSettings()
     base.kcfg_DefaultBackend->addItems(MathematiK::Backend::listAvailableBackends());
 
     dialog->addPage(generalSettings, i18n("General"), "preferences-other");
-    foreach(const QString& name, MathematiK::Backend::listAvailableBackends())
+    foreach(MathematiK::Backend* backend, MathematiK::Backend::availableBackends())
     {
-        MathematiK::Backend* backend=MathematiK::Backend::createBackend(name);
         if (backend->config()) //It has something to configure, so add it to the dialog
             dialog->addPage(backend->settingsWidget(dialog), backend->config(), backend->name(),  backend->icon());
     }
