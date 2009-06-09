@@ -2,6 +2,7 @@
 Type=Service
 Icon=kmplot
 Name=Sage
+Name[x-test]=xxSagexx
 X-KDE-PluginInfo-Website=http://www.sagemath.org/
 X-KDE-ServiceTypes=MathematiK/Backend
 X-KDE-Library=mathematik_sagebackend
@@ -11,7 +12,9 @@ X-KDE-PluginInfo-License=GPL
 Comment=Backend for the Sage Mathematics Software
 Comment[es]=Motor para el software matemático Sage
 Comment[et]=Sage matemaatikatarkvara taustaprogramm
+Comment[km]=កម្មវិធី​ផ្នែក​ខាងក្រោម​សម្រាប់​កម្មវិធី​គណិតវិទ្យា Sage
 Comment[pt]=Infra-estrutura para a aplicação matemática Sage
 Comment[pt_BR]=Infraestrutura para o Sage Mathematics Software
 Comment[sv]=Bakgrundsprogram för matematikprogramvaran Sage
 Comment[uk]=Сервер математичного програмного забезпечення Sage
+Comment[x-test]=xxBackend for the Sage Mathematics Softwarexx
