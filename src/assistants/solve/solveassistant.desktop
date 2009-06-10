@@ -2,6 +2,7 @@
 Type=Service
 Icon=dialog-ok
 Name=Solve
+Name[de]=Lösen
 Name[es]=Resolver
 Name[et]=Lahendaja
 Name[km]=ដោះស្រាយ
