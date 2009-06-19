@@ -36,7 +36,7 @@ int main(int argc, char **argv)
                      ki18n("MathematiK"),
                      version, ki18n(description),
                      KAboutData::License_GPL,
-                     ki18n("(C) 2008 Alexander Rieder"),
+                     ki18n("(C) 2009 Alexander Rieder"),
                      KLocalizedString(), 0,
                      "alexanderrieder@gmail.com"
         );
