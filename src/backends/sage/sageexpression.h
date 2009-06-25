@@ -42,6 +42,8 @@ class SageExpression : public MathematiK::Expression
   public slots:
     void evalFinished();
 
+  protected:
+    QString additionalLatexHeaders();
   private:
     QString m_outputCache;
     QString m_imagePath;

@@ -181,4 +181,10 @@ void SageExpression::onProcessError(const QString& msg)
     setStatus(MathematiK::Expression::Error);
 }
 
+QString SageExpression::additionalLatexHeaders()
+{
+    //The LaTeX sage provides needs the amsmath package. So include it in the header
+    return "\\usepackage{amsmath}\n";
+}
+
 #include "sageexpression.moc"

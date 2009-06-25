@@ -58,9 +58,10 @@ public:
 static const QString tex="\\documentclass[12pt]{article}                \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
+                         "%1                                            \n "\
                          "\\pagestyle{empty}                            \n "\
                          "\\begin{document}                             \n "\
-                         "%1                                            \n "\
+                         "%2                                            \n "\
                          "\\end{document}\n";
 
 
@@ -152,7 +153,11 @@ void Expression::renderResultAsLatex()
     texFile->setSuffix( ".tex" );
     texFile->open();
 
-    texFile->write(tex.arg(result()->data().toString().trimmed()).toUtf8());
+    QString expressionTex=tex;
+    expressionTex=expressionTex.arg(additionalLatexHeaders());
+    expressionTex=expressionTex.arg(result()->data().toString().trimmed());
+
+    texFile->write(expressionTex.toUtf8());
     texFile->flush();
 
     QString fileName = texFile->fileName();
@@ -198,8 +203,11 @@ void Expression::latexRendered()
 
     //replace the textresult with the rendered latex image result
     //ImageResult* latex=new ImageResult( d->latexFilename );
-    EpsResult* latex=new EpsResult(KUrl(d->latexFilename));
-    setResult( latex );
+    if(QFileInfo(d->latexFilename).exists())
+    {
+        EpsResult* latex=new EpsResult(KUrl(d->latexFilename));
+        setResult( latex );
+    }
 }
 
 //saving code
@@ -230,6 +238,11 @@ void Expression::saveAdditionalData(KZip* archive)
 void Expression::addInformation(const QString& information)
 {
     d->information.append(information);
+}
+
+QString Expression::additionalLatexHeaders()
+{
+    return QString();
 }
 
 #include "expression.moc"

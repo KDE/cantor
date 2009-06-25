@@ -78,6 +78,10 @@ class MATHEMATIK_EXPORT Expression : public QObject
     void setResult(Result* result);
     void setStatus(Status status);
 
+  protected:
+    //returns a string of latex commands, that is inserted into the header. 
+    //used for example if special packages are needed
+    virtual QString additionalLatexHeaders();
   private:
     void renderResultAsLatex();
   private Q_SLOTS:
