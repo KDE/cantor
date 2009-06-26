@@ -24,6 +24,7 @@
 #include "settings.h"
 #include "ui_settings.h"
 #include "sageextensions.h"
+#include "sagehighlighter.h"
 
 #include "kdebug.h"
 #include <QWidget>
@@ -62,6 +63,11 @@ bool SageBackend::requirementsFullfilled()
 {
     QFileInfo info(SageSettings::self()->path().toLocalFile());
     return info.isExecutable();
+}
+
+QSyntaxHighlighter* SageBackend::syntaxHighlighter(QTextEdit* parent)
+{
+    return new SageHighlighter(parent);
 }
 
 QWidget* SageBackend::settingsWidget(QWidget* parent)

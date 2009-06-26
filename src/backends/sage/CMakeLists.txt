@@ -5,6 +5,7 @@ set( SageBackend_SRCS
  sagesession.cpp
  sageexpression.cpp
  sageextensions.cpp
+ sagehighlighter.cpp
 )
 
 kde4_add_kcfg_files(SageBackend_SRCS settings.kcfgc)
