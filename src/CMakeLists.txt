@@ -39,6 +39,7 @@ set(mathematik_PART_SRCS
    worksheet.cpp
    worksheetentry.cpp
    helpextension.cpp
+   defaulthighlighter.cpp
  )
 
 kde4_add_kcfg_files(mathematik_SRCS settings.kcfgc)

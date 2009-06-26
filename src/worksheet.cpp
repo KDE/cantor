@@ -28,6 +28,7 @@
 #include "lib/epsresult.h"
 
 #include "worksheetentry.h"
+#include "defaulthighlighter.h"
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -38,6 +39,7 @@
 #include <QTextLength>
 #include <QTextTableFormat>
 #include <QFontMetrics>
+#include <QSyntaxHighlighter>
 
 #include <kdebug.h>
 #include <kzip.h>
@@ -52,6 +54,11 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(
 {
     m_session=backend->createSession();
     m_session->login();
+    m_highlighter=backend->syntaxHighlighter(this);
+    if(!m_highlighter)
+    {
+        m_highlighter=new DefaultHighlighter(this);
+    }
 
     QFontMetrics metrics(document()->defaultFont());
     setTabStopWidth(4*metrics.width(' '));
@@ -372,6 +379,14 @@ void Worksheet::load(const QString& filename )
     m_session=b->createSession();
     m_session->login();
     emit sessionChanged();
+
+    if(m_highlighter)
+        m_highlighter->deleteLater();
+    m_highlighter=b->syntaxHighlighter(this);
+    if(!m_highlighter)
+    {
+        m_highlighter=new DefaultHighlighter(this);
+    }
 
     clear();
     m_entries.clear();

@@ -73,6 +73,7 @@ class Worksheet : public KTextEdit
     WorksheetEntry* entryAt(int row);
   private:
     MathematiK::Session *m_session;
+    QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;
     
 };

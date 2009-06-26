@@ -30,6 +30,8 @@
 
 class KConfigSkeleton;
 class QWidget;
+class QSyntaxHighlighter;
+class QTextEdit;
 
 namespace MathematiK
 {
@@ -44,7 +46,8 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     enum Capability{
         Nothing = 0x0,
         LaTexOutput = 0x1,
-	InteractiveMode = 0x2
+	InteractiveMode = 0x2,
+	SyntaxHighlighting = 0x4
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
@@ -55,6 +58,7 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     virtual Session* createSession() = 0;
     virtual Capabilities capabilities() = 0; 
     virtual bool requirementsFullfilled();
+    virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
     //Stuff extracted from the .desktop file
     QString name();
