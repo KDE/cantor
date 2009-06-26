@@ -123,8 +123,18 @@ void SageExpression::evalFinished()
         if (m_isContextHelpRequest)
         {
             //strip html formatting
-            QString stripped=m_outputCache;
-            stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            QString stripped=m_outputCache.trimmed();
+            if(stripped.startsWith("<html>")) //its an expression containing html, so strip the tags
+            {
+                stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            }
+            else
+            {
+                //Replace < and > with their html code, so they won't be confused as html tags
+                stripped.replace( '<' , "&lt;");
+                stripped.replace( '>' , "&gt;");
+            }
+
             if (stripped.endsWith('\n'))
                 stripped.chop(1);
 
@@ -139,15 +149,24 @@ void SageExpression::evalFinished()
             MathematiK::TextResult* result=0;
 
             QString stripped=m_outputCache;
-
+            bool isHtml=stripped.startsWith("<html>");
             if(m_outputCache.contains("class=\"math\"")) //It's latex stuff so encapsulate it into an eqnarray environment
             {
                 stripped.replace("<html>", "\\begin{eqnarray*}");
                 stripped.replace("</html>", "\\end{eqnarray*}");
             }
 
-            //strip html formatting
-            stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            //strip html tags
+            if(isHtml)
+            {
+                stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            }
+            else
+            {
+                //Replace < and > with their html code, so they won't be confused as html tags
+                stripped.replace( '<' , "&lt;");
+                stripped.replace( '>' , "&gt;");
+            }
             if (stripped.endsWith('\n'))
                 stripped.chop(1);
 
