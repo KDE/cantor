@@ -32,6 +32,7 @@
 #include <ktoggleaction.h>
 #include <kservice.h>
 #include <kservicetypetrader.h>
+#include <krun.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -60,10 +61,8 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     m_worksheet=new Worksheet(b, parentWidget);
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
-    connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), h, SIGNAL(showHelp(const QString&)));
     m_worksheet->setEnabled(false); //disable input until the session has sucessfully logged in and emits the ready signal
-    worksheetSessionChanged();
 
     // notify the part that this is our internal widget
     setWidget(m_worksheet);
@@ -97,6 +96,11 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     actionCollection()->addAction("insert_entry",  insertEntry);
     connect(insertEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertEntry()));
 
+    m_showBackendHelp=new KAction(i18n("Show %1 Help", b->name()) , actionCollection());
+    m_showBackendHelp->setIcon(KIcon("help-contents"));
+    actionCollection()->addAction("backend_help", m_showBackendHelp);
+    connect(m_showBackendHelp, SIGNAL(triggered()), this, SLOT(showBackendHelp()));
+
     // set our XML-UI resource file
     setXMLFile("mathematik_part.rc");
 
@@ -106,6 +110,9 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     // we are not modified since we haven't done anything yet
     setModified(false);
 
+    //connect this now, because the showBackendHelp action needs to exist before this slot gets called
+    connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
+    worksheetSessionChanged();
 }
 
 MathematiKPart::~MathematiKPart()
@@ -219,6 +226,7 @@ void MathematiKPart::worksheetSessionChanged()
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
 
     loadAssistants();
+    m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
 }
 
 void MathematiKPart::initialized()
@@ -232,6 +240,15 @@ void MathematiKPart::initialized()
 void MathematiKPart::enableTypesetting(bool enable)
 {
     m_worksheet->session()->setTypesettingEnabled(enable);
+}
+
+void MathematiKPart::showBackendHelp()
+{
+    kDebug()<<"showing backends help";
+    MathematiK::Backend* backend=m_worksheet->session()->backend();
+    KUrl url=backend->helpUrl();
+    kDebug()<<"launching url "<<url;
+    new KRun(url, widget());
 }
 
 Worksheet* MathematiKPart::worksheet()

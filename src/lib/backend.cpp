@@ -36,6 +36,7 @@ class MathematiK::BackendPrivate
     QString description;
     QString icon;
     QString url;
+    KUrl helpUrl;
     bool enabled;
 };
 
@@ -69,6 +70,11 @@ QString Backend::icon()
 QString Backend::url()
 {
     return d->url;
+}
+
+KUrl Backend::helpUrl()
+{
+    return d->helpUrl;
 }
 
 bool Backend::isEnabled()
@@ -122,6 +128,7 @@ QList<Backend*> Backend::availableBackends()
         backend->d->description=info.comment();
         backend->d->icon=info.icon();
         backend->d->url=info.website();
+        backend->d->helpUrl=info.property("X-MathematiK-HelpUrl").toUrl();
         backendCache<<backend;
     }
     return backendCache;
@@ -172,6 +179,7 @@ bool Backend::requirementsFullfilled()
 
 QSyntaxHighlighter* Backend::syntaxHighlighter(QTextEdit* parent)
 {
+    Q_UNUSED(parent);
     return 0;
 }
 

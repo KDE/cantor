@@ -13,6 +13,9 @@
     <Action name="evaluate_current"/>
     <Action name="insert_entry"/>
   </Menu>
+  <Menu name="help">
+    <Action name="backend_help"/>
+  </Menu>
   <Merge/>
 </MenuBar>
 <ToolBar name="mainToolBar">
@@ -21,6 +24,7 @@
   <Action name="file_print"/>
   <Action name="evaluate_worksheet"/>
   <Action name="restart_backend"/>
+  <Action name="backend_help"/>
   <Separator/>
 </ToolBar>
 </kpartgui>

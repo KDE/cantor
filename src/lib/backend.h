@@ -65,6 +65,7 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     QString description();
     QString icon();
     QString url();
+    KUrl helpUrl();
     bool isEnabled();
     void setEnabled(bool enabled);
 

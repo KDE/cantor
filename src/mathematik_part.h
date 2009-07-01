@@ -87,6 +87,7 @@ protected slots:
     void evaluateOrInterrupt();
     void restartBackend();
     void enableTypesetting(bool enable);
+    void showBackendHelp();
     
     void worksheetStatusChanged(MathematiK::Session::Status stauts);
     void worksheetSessionChanged();
@@ -100,8 +101,9 @@ private:
     Worksheet *m_worksheet;
 
     KAction* m_evaluate;
-    KAction *m_save;
+    KAction* m_save;
     KToggleAction* m_typeset;
+    KAction* m_showBackendHelp;
 };
 
 #endif // MATHEMATIKPART_H

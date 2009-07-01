@@ -23,10 +23,12 @@
     <Merge/>
   </Menu>
   <Merge/>
+  <Menu name="help">
+    <Merge />
+  </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Action name="file_new"/>
   <Merge/>
-  <Action name="help"/>
 </ToolBar>
 </kpartgui>
