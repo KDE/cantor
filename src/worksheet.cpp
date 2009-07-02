@@ -148,17 +148,33 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
             return;
         }
 
-        if(entry->isInCommandCell(textCursor())) //We are in the command cell. going up means we want to go to the previous entry
-        {
-            int index=m_entries.indexOf(entry);
-            kDebug()<<"index: "<<index;
-            WorksheetEntry* newEntry;
-            if(index>0)
-                newEntry=m_entries[index-1];
-            else
-                newEntry=entry;
+        //Check if we are in the top line of the command cell,
+        //if so, pressing up means we want to go to the previous entry
 
-            setTextCursor(newEntry->commandCell().firstCursorPosition());
+        if(entry->isInCommandCell(textCursor())) //We are in the command cell.
+        {
+            //get the text written between the current cursor, and the beginning
+            //of the commandCell
+            QTextCursor c=textCursor();
+            c.setPosition(entry->commandCell().firstCursorPosition().position(), QTextCursor::KeepAnchor);
+            QString txt=c.selectedText();
+
+            if(txt.contains(8233)||txt.contains('\n')) //there's still a newline above the cursor, so move only one line up
+            {
+                KTextEdit::keyPressEvent(event);
+                return;
+            }else
+            {
+                int index=m_entries.indexOf(entry);
+                kDebug()<<"index: "<<index;
+                WorksheetEntry* newEntry;
+                if(index>0)
+                    newEntry=m_entries[index-1];
+                else
+                    newEntry=entry;
+
+                setTextCursor(newEntry->commandCell().firstCursorPosition());
+            }
         }else
         {
             setTextCursor(entry->commandCell().firstCursorPosition());
@@ -172,15 +188,32 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
             return;
         }
 
-        int index=m_entries.indexOf(entry);
-        kDebug()<<"index: "<<index;
-        WorksheetEntry* newEntry;
-        if(index<m_entries.size()-1)
-            newEntry=m_entries[index+1];
-        else
-            newEntry=entry;
+        //Check if we are in the bottom line of the command cell,
+        //if so, pressing down means we want to go to the next entry
 
-        setTextCursor(newEntry->commandCell().firstCursorPosition());
+        //get the text written between the current cursor, and the end
+        //of the commandCell
+        QTextCursor c=textCursor();
+        c.setPosition(entry->commandCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
+        QString txt=c.selectedText();
+
+        //if we're in the command cell and there is still a newline under the cursor, only move one line down
+        if(entry->isInCommandCell(textCursor())&&(txt.contains(8233)||txt.contains('\n')))
+        {
+            KTextEdit::keyPressEvent(event);
+            return;
+        }else
+        {
+            //move to the next entry
+            int index=m_entries.indexOf(entry);
+            WorksheetEntry* newEntry;
+            if(index<m_entries.size()-1)
+                newEntry=m_entries[index+1];
+            else
+                newEntry=entry;
+
+            setTextCursor(newEntry->commandCell().firstCursorPosition());
+        }
     }
     else
     {
