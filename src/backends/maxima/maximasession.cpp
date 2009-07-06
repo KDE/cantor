@@ -266,22 +266,6 @@ void MaximaSession::sendInputToProcess(const QString& input)
     m_process->pty()->write(input.toLatin1());
 }
 
-MathematiK::Expression* MaximaSession::contextHelp(const QString& command)
-{
-/*    bool t=isTypesettingEnabled();
-    if(t)
-        setTypesettingEnabled(false);
-
-    MathematiK::Expression* e=evaluateExpression("dir("+command+")");
-
-    if(t)
-        setTypesettingEnabled(true);
-
-    return e;
-*/
-    return 0;
-}
-
 void MaximaSession::restartMaxima()
 {
     kDebug()<<"restarting maxima";

@@ -18,33 +18,22 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _NULLSESSION_H
-#define _NULLSESSION_H
+#ifndef _NULLTABCOMPLETIONOBJECT_H
+#define _NULLTABCOMPLETIONOBJECT_H
 
-#include "session.h"
+#include "tabcompletionobject.h"
 
-class NullExpression;
+class NullSession;
 
-class NullSession : public MathematiK::Session
+class NullTabCompletionObject : public MathematiK::TabCompletionObject
 {
-  Q_OBJECT
   public:
-    NullSession( MathematiK::Backend* backend);
-    ~NullSession();
+    NullTabCompletionObject( const QString& command, NullSession* session);
+    ~NullTabCompletionObject();
 
-    void login();
-    void logout();
+  protected slots:
+    void fetchCompletions();
 
-    void interrupt();
-
-    MathematiK::Expression* evaluateExpression(const QString& command);
-    MathematiK::TabCompletionObject* tabCompletionFor(const QString& cmd);
-
-  private slots:
-    void expressionFinished();
-
-  private:
-    QList<NullExpression*> m_runningExpressions;
 };
 
-#endif /* _NULLSESSION_H */
+#endif /* _NULLTABCOMPLETIONOBJECT_H */

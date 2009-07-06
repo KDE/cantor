@@ -2,6 +2,7 @@ set( NullBackend_SRCS
  nullbackend.cpp  
  nullsession.cpp
  nullexpression.cpp
+ nulltabcompletionobject.cpp
 )
 
 kde4_add_plugin( mathematik_nullbackend ${NullBackend_SRCS} )

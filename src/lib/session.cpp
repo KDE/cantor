@@ -73,5 +73,14 @@ bool Session::isTypesettingEnabled()
     return d->typesettingEnabled;
 }
 
+TabCompletionObject* Session::tabCompletionFor(const QString& cmd)
+{
+    //Return 0 per default, so Backends not offering tab completions don't have
+    //to reimplement this. This method should only be called on backends with
+    //the TabCompletion Capability flag
+
+    return 0;
+}
+
 #include "session.moc"
 

@@ -30,6 +30,7 @@ namespace MathematiK
 class Backend;
 class Expression;
 class SessionPrivate;
+class TabCompletionObject;
 
 class MATHEMATIK_EXPORT Session : public QObject
 {
@@ -52,13 +53,12 @@ class MATHEMATIK_EXPORT Session : public QObject
     /** Interrupts all the running calculations in this session **/
     virtual void interrupt() = 0;
 
-    /** Returns context sensitive help, for this command/command-part.
-	The return type is of an Expression object, as the help-getting
-	works asynchroneously. You have to listen to the gotResult() signal
-	The Expression will then contain a ContextHelpObject, with the 
-	information you asked for
+    /** Returns tab-completion, for this command/command-part.
+	The return type is a TabCompletionObject. The fetching
+	of the completions works asynchronously, you'll have to 
+	listen to the done() Signal of the returned object
      **/
-    virtual Expression* contextHelp(const QString& cmd) = 0;
+    virtual TabCompletionObject* tabCompletionFor(const QString& cmd);
 
     virtual void setTypesettingEnabled(bool enable);
 

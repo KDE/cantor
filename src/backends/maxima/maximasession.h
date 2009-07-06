@@ -54,8 +54,6 @@ class MaximaSession : public MathematiK::Session
     void sendSignalToProcess(int signal);
     void sendInputToProcess(const QString& input);
 
-    MathematiK::Expression* contextHelp(const QString& command);
-
     void setTypesettingEnabled(bool enable);
 
   public slots:

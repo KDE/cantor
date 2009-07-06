@@ -20,6 +20,7 @@
 
 #include "nullsession.h"
 #include "nullexpression.h"
+#include "nulltabcompletionobject.h"
 
 #include <kdebug.h>
 
@@ -36,6 +37,7 @@ NullSession::~NullSession()
 void NullSession::login()
 {
     kDebug()<<"login";
+    changeStatus(MathematiK::Session::Done);
     emit ready();
 }
 
@@ -69,9 +71,10 @@ MathematiK::Expression* NullSession::evaluateExpression(const QString& cmd)
     return expr;
 }
 
-MathematiK::Expression* NullSession::contextHelp(const QString& command)
+MathematiK::TabCompletionObject* NullSession::tabCompletionFor(const QString& command)
 {
-    return evaluateExpression("context_help: "+command);
+    kDebug()<<"tab completion for "<<command;
+    return new NullTabCompletionObject(command, this);
 }
 
 void NullSession::expressionFinished()

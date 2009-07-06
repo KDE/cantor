@@ -91,16 +91,28 @@ bool Worksheet::event(QEvent* event)
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
     const int key = event->key() | event->modifiers();
-    /*if ( event->key() == Qt::Key_Tab )
+    if ( event->key() == Qt::Key_Tab )
     {
         // special tab handling here
         WorksheetEntry* current=currentEntry();
         if (current)
         {
-            current->setContextHelp(m_session->contextHelp(current->command()));
+            //get the current line of the entry. If it's empty, do a regular tab(indent),
+            //otherwise check for tab completion (if supported by the backend)
+            const QString line=current->currentLine(textCursor()).trimmed();
+
+            if(line.isEmpty())
+            {
+                KTextEdit::keyPressEvent(event);
+            }else
+            {
+                MathematiK::TabCompletionObject* tco=m_session->tabCompletionFor(line);
+                if(tco)
+                current->setTabCompletion(tco);
+            }
         }
 
-        }else*/
+    }else
     if ( event->key() == Qt::Key_Left )
     {
         KTextEdit::keyPressEvent(event);

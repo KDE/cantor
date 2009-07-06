@@ -12,6 +12,7 @@ set( mathematik_LIB_SRCS
   helpresult.cpp
   extension.cpp
   assistant.cpp
+  tabcompletionobject.cpp
 )
  
 set( mathematik_LIB_HDRS 
@@ -34,10 +35,10 @@ set_target_properties( mathematiklibs
  
 install( TARGETS mathematiklibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
-install( FILES ${myshared_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/mathematik
-  COMPONENT Devel
-)
+#install( FILES ${myshared_LIB_HDRS}
+#  DESTINATION ${INCLUDE_INSTALL_DIR}/mathematik
+#  COMPONENT Devel
+#)
 
 install( FILES mathematik_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES mathematik_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})

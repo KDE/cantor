@@ -23,6 +23,7 @@
 #include "lib/expression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
+#include "lib/tabcompletionobject.h"
 #include "worksheet.h"
 
 #include <QTextDocument>
@@ -31,6 +32,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcolorscheme.h>
+#include <kcompletionbox.h>
 
 const QString WorksheetEntry::Prompt=">>> ";
 
@@ -38,6 +40,7 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
 {
     m_expression=0;
     m_worksheet=parent;
+    m_tabCompletionObject=0;
 
     QTextTableFormat tableFormat;
     QVector<QTextLength> constraints;
@@ -104,6 +107,16 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
 MathematiK::Expression* WorksheetEntry::expression()
 {
     return m_expression;
+}
+
+QString WorksheetEntry::currentLine(const QTextCursor& cursor)
+{
+    if(!isInCommandCell(cursor))
+        return QString();
+
+    QTextBlock block=m_worksheet->document()->findBlock(cursor.position());
+
+    return block.text();
 }
 
 void WorksheetEntry::updateResult()
@@ -212,16 +225,66 @@ void WorksheetEntry::setResult(const QString& html)
     m_worksheet->ensureCursorVisible();
 }
 
-void WorksheetEntry::setContextHelp(MathematiK::Expression* expression)
+void WorksheetEntry::setTabCompletion(MathematiK::TabCompletionObject* tc)
 {
-    m_contextHelpExpression=expression;
-    connect(expression, SIGNAL(gotResult()), this, SLOT(showContextHelp()));
+    if(m_tabCompletionObject)
+        m_tabCompletionObject->deleteLater();
+    m_tabCompletionObject=tc;
+    connect(tc, SIGNAL(done()), this, SLOT(applyTabCompletion()));
 }
 
-void WorksheetEntry::showContextHelp()
+void WorksheetEntry::applyTabCompletion()
 {
-    kDebug()<<"showing "<<m_contextHelpExpression->result()->toHtml();
-    setResult(m_contextHelpExpression->result()->toHtml());
+    kDebug()<<"showing "<<m_tabCompletionObject->completions();
+    m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
+    if(m_tabCompletionObject->hasMultipleMatches())
+    {
+        //Show a list of possible completions
+        if(!m_contextHelpCell.isValid())
+        {
+            //remember the actual cursor position, and reset the cursor later
+            int cursorPos=m_worksheet->textCursor().position();
+            int row=m_commandCell.row()+1;
+
+            m_table->insertRows(row, 1);
+            m_contextHelpCell=m_table->cellAt(row, 1);
+
+            QTextCursor c=m_worksheet->textCursor();
+            c.setPosition(cursorPos);
+            m_worksheet->setTextCursor(c);
+        }
+
+        QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
+        cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
+
+        QString html="<table>";
+        foreach(const QString& item, m_tabCompletionObject->allMatches())
+        {
+            html+="<tr><td>"+item+"</td></tr>";
+        }
+        html+="</table>";
+
+        cursor.insertHtml(html);
+
+    }else
+    {
+        //there is only one possible completion, so replace the
+        //current command with the match
+        QTextCursor cursor=m_worksheet->textCursor();
+        if(!isInCommandCell(cursor)) return;
+
+        QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
+        beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
+        beginC.insertHtml(m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command()));
+
+        //remove the contextHelpCell with the previous completion offers
+        if(m_contextHelpCell.isValid())
+        {
+            m_table->removeRows(m_contextHelpCell.row(), 1);
+            m_contextHelpCell=QTextTableCell();
+        }
+    }
+
 }
 
 void WorksheetEntry::resultDeleted()

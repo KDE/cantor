@@ -55,7 +55,7 @@ class SageSession : public MathematiK::Session
 
     void setTypesettingEnabled(bool enable);
 
-    MathematiK::Expression* contextHelp(const QString& command);
+    MathematiK::TabCompletionObject* tabCompletionFor(const QString& command);
 
   public slots:
     void readStdOut();

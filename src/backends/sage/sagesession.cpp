@@ -20,6 +20,7 @@
 
 #include "sagesession.h"
 #include "sageexpression.h"
+#include "sagetabcompletionobject.h"
 
 #include <kdebug.h>
 #include <kptyprocess.h>
@@ -256,18 +257,9 @@ void SageSession::setTypesettingEnabled(bool enable)
         evaluateExpression("sage.misc.latex.pretty_print_default(false)");
 }
 
-MathematiK::Expression* SageSession::contextHelp(const QString& command)
+MathematiK::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)
 {
-    bool t=isTypesettingEnabled();
-    if(t)
-        setTypesettingEnabled(false);
-
-    MathematiK::Expression* e=evaluateExpression("dir("+command+")");
-
-    if(t)
-        setTypesettingEnabled(true);
-
-    return e;
+    return new SageTabCompletionObject(command, this);
 }
 
 #include "sagesession.moc"

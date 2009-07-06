@@ -18,33 +18,30 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _NULLSESSION_H
-#define _NULLSESSION_H
+#ifndef _SAGETABCOMPLETIONOBJECT_H
+#define _SAGETABCOMPLETIONOBJECT_H
 
-#include "session.h"
+#include "tabcompletionobject.h"
 
-class NullExpression;
+class SageSession;
 
-class NullSession : public MathematiK::Session
+namespace MathematiK{
+    class Expression;
+};
+
+class SageTabCompletionObject : public MathematiK::TabCompletionObject
 {
   Q_OBJECT
   public:
-    NullSession( MathematiK::Backend* backend);
-    ~NullSession();
+    SageTabCompletionObject( const QString& command, SageSession* session);
+    ~SageTabCompletionObject();
 
-    void login();
-    void logout();
-
-    void interrupt();
-
-    MathematiK::Expression* evaluateExpression(const QString& command);
-    MathematiK::TabCompletionObject* tabCompletionFor(const QString& cmd);
-
-  private slots:
-    void expressionFinished();
+  protected slots:
+    void fetchCompletions();
+    void fetchingDone();
 
   private:
-    QList<NullExpression*> m_runningExpressions;
+    MathematiK::Expression* m_expression;
 };
 
-#endif /* _NULLSESSION_H */
+#endif /* _SAGETABCOMPLETIONOBJECT_H */

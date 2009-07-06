@@ -28,6 +28,7 @@
 class QTextDocument;
 namespace MathematiK{
     class Expression;
+    class TabCompletionObject;
 }
 class Worksheet;
 
@@ -35,6 +36,7 @@ class Worksheet;
    An entry in the Worksheet. it contains:
      1 Row to take command from the user
      0+ Rows for addition questions/answers from the backend
+     0/1 Row for contextual help like Tab Completion offers
      1 Row for the Result
  **/
 
@@ -51,13 +53,16 @@ class WorksheetEntry : public QObject
     void setExpression(MathematiK::Expression* expr);
     MathematiK::Expression* expression();
 
+    //returns the line of the command cell, the textCursor is currently in
+    QString currentLine(const QTextCursor& cursor);
+
     bool isEmpty();
 
     //only used for saving/loading. normally
     //you should create an expression, and set the result there
     void setResult(const QString& html);
 
-    void setContextHelp(MathematiK::Expression* expression);
+    void setTabCompletion(MathematiK::TabCompletionObject* tc);
 
     QTextTableCell commandCell();
     QTextTableCell actualInformationCell();
@@ -81,19 +86,20 @@ class WorksheetEntry : public QObject
     void updateResult();
     void expressionChangedStatus(MathematiK::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
-    void showContextHelp();
+    void applyTabCompletion();
   private slots:
     void resultDeleted();
   private:
     QTextTable* m_table;
     QTextTableCell m_commandCell;
+    QTextTableCell m_contextHelpCell;
     QList<QTextTableCell> m_informationCells;
     QTextTableCell m_errorCell;
     QTextTableCell m_resultCell;
     MathematiK::Expression* m_expression;
     Worksheet* m_worksheet;
 
-    MathematiK::Expression* m_contextHelpExpression;
+    MathematiK::TabCompletionObject* m_tabCompletionObject;
 };
 
 #endif /* _WORKSHEETENTRY_H */
