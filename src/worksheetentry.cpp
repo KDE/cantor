@@ -231,6 +231,7 @@ void WorksheetEntry::setTabCompletion(MathematiK::TabCompletionObject* tc)
 {
     if(m_tabCompletionObject)
         m_tabCompletionObject->deleteLater();
+
     m_tabCompletionObject=tc;
     connect(tc, SIGNAL(done()), this, SLOT(applyTabCompletion()));
 }
@@ -398,6 +399,7 @@ void WorksheetEntry::removeContextHelp()
     if(m_tabCompletionObject)
         m_tabCompletionObject->deleteLater();
 
+    m_tabCompletionObject=0;
     if(m_contextHelpCell.isValid())
     {
         m_table->removeRows(m_contextHelpCell.row(), 1);

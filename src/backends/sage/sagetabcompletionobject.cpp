@@ -27,12 +27,16 @@
 
 SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSession* session) : MathematiK::TabCompletionObject(command, session)
 {
-
+    m_expression=0;
 }
 
 SageTabCompletionObject::~SageTabCompletionObject()
 {
-
+    if(m_expression)
+    {
+        m_expression->interrupt();
+        m_expression->deleteLater();
+    }
 }
 
 void SageTabCompletionObject::fetchCompletions()
