@@ -77,7 +77,7 @@ QString WorksheetEntry::command()
     QTextCursor c=m_commandCell.firstCursorPosition();
     c.setPosition(m_commandCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
     QString cmd=c.selectedText();
-    cmd.replace(8233, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
+    cmd.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
 
     return cmd;
 }
@@ -317,7 +317,7 @@ void WorksheetEntry::addInformation()
     QString inf=c.selectedText();
     if(!inf.endsWith(";"))
         inf+=";";
-    inf.replace(8233, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
+    inf.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
     kDebug()<<"adding information: "<<inf;
     if(m_expression)
         m_expression->addInformation(inf);
