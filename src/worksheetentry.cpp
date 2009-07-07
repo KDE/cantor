@@ -210,6 +210,8 @@ void WorksheetEntry::setResult(const QString& html)
         m_resultCell=m_table->cellAt(row, 1);
     }
 
+    removeContextHelp();
+
     QTextBlockFormat block;
     block.setAlignment(Qt::AlignJustify);
     QTextCursor cursor(m_resultCell.firstCursorPosition());
@@ -277,12 +279,7 @@ void WorksheetEntry::applyTabCompletion()
         beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
         beginC.insertHtml(m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command()));
 
-        //remove the contextHelpCell with the previous completion offers
-        if(m_contextHelpCell.isValid())
-        {
-            m_table->removeRows(m_contextHelpCell.row(), 1);
-            m_contextHelpCell=QTextTableCell();
-        }
+        removeContextHelp();
     }
 
 }
@@ -394,6 +391,18 @@ void WorksheetEntry::checkForSanity()
     c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
     if(c.selectedText()!=WorksheetEntry::Prompt)
         c.insertText(WorksheetEntry::Prompt);
+}
+
+void WorksheetEntry::removeContextHelp()
+{
+    if(m_tabCompletionObject)
+        m_tabCompletionObject->deleteLater();
+
+    if(m_contextHelpCell.isValid())
+    {
+        m_table->removeRows(m_contextHelpCell.row(), 1);
+        m_contextHelpCell=QTextTableCell();
+    }
 }
 
 #include "worksheetentry.moc"

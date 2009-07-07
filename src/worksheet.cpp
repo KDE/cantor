@@ -261,6 +261,8 @@ void Worksheet::evaluateCurrentEntry()
     if(!entry)
         return;
 
+    entry->removeContextHelp();
+
     if (entry->isInCommandCell(textCursor()))
     {
         QString cmd=entry->command();

@@ -82,6 +82,8 @@ class WorksheetEntry : public QObject
     //like the prompt. Readd missing things
     void checkForSanity();
 
+    void removeContextHelp();
+
   public slots:
     void updateResult();
     void expressionChangedStatus(MathematiK::Expression::Status status);
