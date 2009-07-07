@@ -53,6 +53,8 @@
 MathematiKShell::MathematiKShell()
     : KParts::MainWindow( )
 {
+    m_part=0;
+
     // set the shell's ui resource file
     setXMLFile("mathematik_shell.rc");
 
@@ -119,7 +121,7 @@ MathematiKShell::~MathematiKShell()
 
 void MathematiKShell::load(const KUrl& url)
 {
-    if (!m_part->url().isEmpty() || m_part->isModified() )
+    if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
         addWorksheet("nullbackend");
         m_tabWidget->setCurrentIndex(m_parts.size()-1);
