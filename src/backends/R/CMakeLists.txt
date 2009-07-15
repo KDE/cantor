@@ -1,7 +1,4 @@
-find_package(R)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions")
-
-include_directories(${R_INCLUDEDIR} rinside rcpp)
+include_directories(${R_INCLUDEDIR})
 LINK_DIRECTORIES(${R_SHAREDLIBDIR})
 
 set( RBackend_SRCS 
