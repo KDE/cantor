@@ -102,6 +102,9 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateResult()));
     connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(expressionChangedStatus(MathematiK::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
+
+    if(expr->result())
+        updateResult();
 }
 
 MathematiK::Expression* WorksheetEntry::expression()

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Service
+Icon=view-pim-mail
+Name=R
+X-KDE-ServiceTypes=MathematiK/Backend
+X-KDE-Library=mathematik_rbackend
+X-KDE-PluginInfo-Name=R
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=Backend for The R Project for Statistical Computing
+X-KDE-PluginInfo-Website=http://www.r-project.org/
+X-MathematiK-HelpUrl=http://wiki.r-project.org/rwiki/doku.php?id=rdoc:rdoc
+

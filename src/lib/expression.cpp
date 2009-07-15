@@ -58,6 +58,7 @@ public:
 static const QString tex="\\documentclass[12pt]{article}                \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
+                         "\\setlength\\textwidth{5in}                   \n "\
                          "%1                                            \n "\
                          "\\pagestyle{empty}                            \n "\
                          "\\begin{document}                             \n "\

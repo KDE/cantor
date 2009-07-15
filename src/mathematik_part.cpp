@@ -52,6 +52,8 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     // we need an instance
     setComponentData( MathematiKPartFactory::componentData() );
 
+    m_showBackendHelp=0;
+
     HelpExtension* h=new HelpExtension(this);
 
     kDebug()<<"Created a MathematiKPart";
@@ -60,9 +62,12 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
     m_worksheet=new Worksheet(b, parentWidget);
+    m_worksheet->setEnabled(false); //disable input until the session has sucessfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), h, SIGNAL(showHelp(const QString&)));
-    m_worksheet->setEnabled(false); //disable input until the session has sucessfully logged in and emits the ready signal
+    connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
+    connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
+
 
     // notify the part that this is our internal widget
     setWidget(m_worksheet);
@@ -109,10 +114,6 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     // we are not modified since we haven't done anything yet
     setModified(false);
-
-    //connect this now, because the showBackendHelp action needs to exist before this slot gets called
-    connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
-    worksheetSessionChanged();
 }
 
 MathematiKPart::~MathematiKPart()
@@ -209,6 +210,7 @@ void MathematiKPart::restartBackend()
 
 void MathematiKPart::worksheetStatusChanged(MathematiK::Session::Status status)
 {
+    kDebug()<<"wsStatusChange"<<status;
     if(status==MathematiK::Session::Running)
     {
         m_evaluate->setText(i18n("Interrupt"));
@@ -226,7 +228,10 @@ void MathematiKPart::worksheetSessionChanged()
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
 
     loadAssistants();
-    m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
+
+    //this is 0 on the first call
+    if(m_showBackendHelp)
+        m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
 }
 
 void MathematiKPart::initialized()
