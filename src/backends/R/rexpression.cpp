@@ -26,6 +26,7 @@
 #include "rcallbacks.h"
 
 #include <kdebug.h>
+#include <klocale.h>
 #include <QTimer>
 #include <QStringList>
 
@@ -91,6 +92,7 @@ void RExpression::evaluate()
             break;
         case PARSE_INCOMPLETE:
             /* need to read another line */
+            kDebug()<<"parse incomplete..";
             break;
         case PARSE_NULL:
             kDebug()<<"ParseStatus is null: "<<status;
@@ -107,30 +109,39 @@ void RExpression::evaluate()
     }
     UNPROTECT(2);
 
-    kDebug()<<"done running";
-
-    kDebug()<<"std: "<<m_stdBuffer<<" err: "<<m_errBuffer;
-    //if the command didn't print anything on its own, print the result
-
-    //TODO: handle some known result types like lists, matrices spearately
-    //      to make the output look better, by using html (tables etc.)
-    if(m_stdBuffer.isEmpty()&&m_errBuffer.isEmpty())
+    if(status==PARSE_OK)
     {
-        kDebug()<<"printing result...";
-        Rf_PrintValue(result);
-    }
+        kDebug()<<"done running";
 
-    setCurrentExpression(0); //is this save?
+        kDebug()<<"std: "<<m_stdBuffer<<" err: "<<m_errBuffer;
+        //if the command didn't print anything on its own, print the result
 
-    if(!m_errBuffer.isEmpty())
+        //TODO: handle some known result types like lists, matrices spearately
+        //      to make the output look better, by using html (tables etc.)
+        if(m_stdBuffer.isEmpty()&&m_errBuffer.isEmpty())
+        {
+            kDebug()<<"printing result...";
+            Rf_PrintValue(result);
+        }
+
+        setCurrentExpression(0); //is this save?
+
+        if(!m_errBuffer.isEmpty())
+        {
+            setErrorMessage(m_errBuffer);
+            setResult(new MathematiK::TextResult(m_errBuffer));
+            setStatus(MathematiK::Expression::Error);
+        }
+        else
+        {
+            setResult(new MathematiK::TextResult(m_stdBuffer));
+            setStatus(MathematiK::Expression::Done);
+        }
+    }else
     {
-        setErrorMessage(m_errBuffer);
+        setErrorMessage(i18n("Error parsing Command"));
+        setResult(new MathematiK::TextResult(i18n("Error parsing Command")));
         setStatus(MathematiK::Expression::Error);
-    }
-    else
-    {
-        setResult(new MathematiK::TextResult(m_stdBuffer));
-        setStatus(MathematiK::Expression::Done);
     }
 }
 
