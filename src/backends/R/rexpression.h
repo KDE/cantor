@@ -27,18 +27,16 @@ class RExpression : public MathematiK::Expression
 {
   Q_OBJECT
   public:
+    enum ServerReturnCode{SuccessCode=0, ErrorCode, InterruptedCode};
     RExpression( MathematiK::Session* session);
     ~RExpression();
 
     void evaluate();
     void interrupt();
 
-    void addStdOutput(const QString& txt);
-    void addErrorOutput(const QString& txt);
-
-  private:
-    QString m_stdBuffer;
-    QString m_errBuffer;
+  public slots:
+    void finished(int returnCode, const QString& text);
+    void evaluationStarted();
 };
 
 #endif /* _REXPRESSION_H */

@@ -20,10 +20,13 @@
 
 #include "rsession.h"
 #include "rexpression.h"
-#include "rthread.h"
 
 #include <QTimer>
 #include <kdebug.h>
+#include <kprocess.h>
+#include <kstandarddirs.h>
+
+#include <signal.h>
 
 RSession::RSession( MathematiK::Backend* backend) : Session(backend)
 {
@@ -39,25 +42,30 @@ RSession::~RSession()
 void RSession::login()
 {
     kDebug()<<"login";
+    m_rProcess=new KProcess(this);
+    (*m_rProcess)<<KStandardDirs::findExe( "mathematik_rserver" );
 
-    m_thread=new RThread(this);
-    m_thread->start();
-    connect(m_thread, SIGNAL(expressionFinished(RExpression*)), this, SLOT(expressionFinished()));
+    m_rProcess->start();
+
+    m_rServer=new org::MathematiK::R(QString("org.kde.mathematik_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
+
+    connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
 
     changeStatus(MathematiK::Session::Done);
-    QTimer::singleShot(0, this, SIGNAL(ready()));
+
+    connect(m_rServer, SIGNAL(ready()), this, SIGNAL(ready()));
 }
 
 void RSession::logout()
 {
     kDebug()<<"logout";
-    //m_thread->quit();
+    m_rProcess->terminate();
 }
 
 void RSession::interrupt()
 {
     kDebug()<<"interrupt";
-
+    kill(m_rProcess->pid(), 2);
     changeStatus(MathematiK::Session::Done);
 }
 
@@ -68,17 +76,43 @@ MathematiK::Expression* RSession::evaluateExpression(const QString& cmd)
 
     expr->setCommand(cmd);
 
-    m_thread->queueExpression(expr);
+    expr->evaluate();
 
     changeStatus(MathematiK::Session::Running);
 
     return expr;
 }
 
-void RSession::expressionFinished()
+void RSession::queueExpression(RExpression* expr)
 {
-    if(!m_thread->isBusy())
+    m_expressionQueue.append(expr);
+
+    if(status()==MathematiK::Session::Done)
+        QTimer::singleShot(0, this, SLOT(runNextExpression()));
+}
+
+
+void RSession::serverChangedStatus(int status)
+{
+    kDebug()<<"changed status to "<<status;
+    if(status==0)
         changeStatus(MathematiK::Session::Done);
+    else
+        changeStatus(MathematiK::Session::Running);
+}
+
+void RSession::runNextExpression()
+{
+    disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
+    RExpression* expr=m_expressionQueue.takeFirst();
+    kDebug()<<"running expression: "<<expr->command();
+
+    connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));
+
+    m_rServer->runCommand(expr->command());
+
+    if(!m_expressionQueue.isEmpty())
+        QTimer::singleShot(0, this, SLOT(runNextExpression()));
 }
 
 #include "rsession.moc"

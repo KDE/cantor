@@ -23,22 +23,11 @@
 //#include "helpresult.h"
 #include "rsession.h"
 #include "rexpression.h"
-#include "rcallbacks.h"
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <QTimer>
 #include <QStringList>
-
-//R includes
-#include <R.h>
-#include <Rembedded.h>
-#include <Rversion.h>
-#include <Rdefines.h>
-#define R_INTERFACE_PTRS
-#include <Rinterface.h>
-#include <R_ext/Parse.h>
-
 
 RExpression::RExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
 {
@@ -57,109 +46,35 @@ void RExpression::evaluate()
     kDebug()<<"evaluating "<<command();
     setStatus(MathematiK::Expression::Computing);
 
-    setCurrentExpression(this);
-
-    const QString& cmd=command();
-    m_stdBuffer.clear();
-    m_errBuffer.clear();
-
-    //Code to evaluate an R function (taken from RInside library)
-    ParseStatus status;
-    SEXP cmdSexp,  cmdexpr = R_NilValue;
-    SEXP result;
-    int i,  errorOccurred;
-    QByteArray memBuf;
-
-    memBuf.append(cmd);
-
-    PROTECT(cmdSexp = allocVector(STRSXP,  1));
-    SET_STRING_ELT(cmdSexp,  0,  mkChar((char*)memBuf.data()));
-
-    cmdexpr = PROTECT(R_ParseVector(cmdSexp,  -1,  &status,  R_NilValue));
-    switch (status)
-    {
-        case PARSE_OK:
-            kDebug()<<"PARSING "<<cmd<<" went OK";
-            /* Loop is needed here as EXPSEXP might be of length > 1 */
-            for (i = 0; i < length(cmdexpr); i++) {
-
-                result = R_tryEval(VECTOR_ELT(cmdexpr,  i), NULL, &errorOccurred);
-                if (errorOccurred)
-                    kFatal()<<"Error occurred, handle later";
-
-            }
-            memBuf.clear();
-            break;
-        case PARSE_INCOMPLETE:
-            /* need to read another line */
-            kDebug()<<"parse incomplete..";
-            break;
-        case PARSE_NULL:
-            kDebug()<<"ParseStatus is null: "<<status;
-            break;
-        case PARSE_ERROR:
-            kDebug()<<"Parse Error: "<<cmd;
-            break;
-        case PARSE_EOF:
-            kDebug()<<"ParseStatus is eof: "<<status;
-            break;
-        default:
-            kDebug()<<"Parse status is not documented: "<<status;
-            break;
-    }
-    UNPROTECT(2);
-
-    if(status==PARSE_OK)
-    {
-        kDebug()<<"done running";
-
-        kDebug()<<"std: "<<m_stdBuffer<<" err: "<<m_errBuffer;
-        //if the command didn't print anything on its own, print the result
-
-        //TODO: handle some known result types like lists, matrices spearately
-        //      to make the output look better, by using html (tables etc.)
-        if(m_stdBuffer.isEmpty()&&m_errBuffer.isEmpty())
-        {
-            kDebug()<<"printing result...";
-            Rf_PrintValue(result);
-        }
-
-        setCurrentExpression(0); //is this save?
-
-        if(!m_errBuffer.isEmpty())
-        {
-            setErrorMessage(m_errBuffer);
-            setResult(new MathematiK::TextResult(m_errBuffer));
-            setStatus(MathematiK::Expression::Error);
-        }
-        else
-        {
-            setResult(new MathematiK::TextResult(m_stdBuffer));
-            setStatus(MathematiK::Expression::Done);
-        }
-    }else
-    {
-        setErrorMessage(i18n("Error parsing Command"));
-        setResult(new MathematiK::TextResult(i18n("Error parsing Command")));
-        setStatus(MathematiK::Expression::Error);
-    }
+    static_cast<RSession*>(session())->queueExpression(this);
 }
 
 void RExpression::interrupt()
 {
     kDebug()<<"interruptinging command";
-
+    if(status()==MathematiK::Expression::Computing)
+        session()->interrupt();
     setStatus(MathematiK::Expression::Interrupted);
 }
 
-void RExpression::addStdOutput(const QString& txt)
+void RExpression::finished(int returnCode, const QString& text)
 {
-    m_stdBuffer+=txt;
+    if(returnCode==RExpression::SuccessCode)
+    {
+        setResult(new MathematiK::TextResult(text));
+        setStatus(MathematiK::Expression::Done);
+    }else if (returnCode==RExpression::ErrorCode)
+    {
+        setResult(new MathematiK::TextResult(text));
+        setStatus(MathematiK::Expression::Error);
+        setErrorMessage(text);
+    }
 }
 
-void RExpression::addErrorOutput(const QString& txt)
+void RExpression::evaluationStarted()
 {
-    m_errBuffer+=txt;
+    setStatus(MathematiK::Expression::Computing);
 }
+
 
 #include "rexpression.moc"

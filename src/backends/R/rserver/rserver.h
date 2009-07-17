@@ -18,41 +18,48 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _RTHREAD_H
-#define _RTHREAD_H
+#ifndef _RSERVER_H
+#define _RSERVER_H
 
-#include <QThread>
+#include <QObject>
 
-class RSession;
-class RExpression;
+class Expression
+{
+  public:
+    QString cmd;
+    int returnCode;
+    QString err_buffer;
+    QString std_buffer;
+};
 
-class RThread : public QThread
+class RServer : public QObject
 {
   Q_OBJECT
+  Q_CLASSINFO("D-Bus Interface", "org.MathematiK.R")
+
   public:
-    RThread( RSession* parent);
-    ~RThread();
-    
-    void run();
+    enum Status { Idle=0, Busy };
+    enum ReturnCode { SuccessCode=0, ErrorCode, InterruptedCode};
+    RServer( );
+    ~RServer();
 
-    bool isBusy();
-
-  public slots:
-    void queueExpression(RExpression* expression);
-  signals:
-    void ready();
-    void expressionFinished(RExpression* expression);
-  protected slots:
-    void evaluateExpression();
-
-  protected:
     void initR();
     void autoload();
     void endR();
 
+  signals:
+    void ready();
+    void statusChanged(int status);
+    void expressionFinished(int returnCode, const QString& text);
+    
+  public slots:
+    void runCommand(const QString& cmd);
+
   private:
-    RSession* m_session;
-    QList<RExpression* > m_queue;
+    void setStatus(Status status);
+  private:
+    Status m_status;
+    
 };
 
-#endif /* _RTHREAD_H */
+#endif /* _RSERVER_H */

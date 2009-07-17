@@ -21,14 +21,14 @@
 #ifndef _RCALLBACKS_H
 #define _RCALLBACKS_H
 
-class RThread;
-class RExpression;
+class RServer;
+class Expression;
 
 //This File implements the necessary callbacks for R
 //The information gathered will be pushed back to the RThread
 
-void setupCallbacks(RThread* r);
-void setCurrentExpression(RExpression* expression);
+void setupCallbacks(RServer* server);
+void setCurrentExpression(Expression* expression);
 
 void onWriteConsoleEx(const char* text, int size,int otype);
 void onShowMessage(const char* text);

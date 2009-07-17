@@ -68,6 +68,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
+    worksheetSessionChanged();
 
     // notify the part that this is our internal widget
     setWidget(m_worksheet);

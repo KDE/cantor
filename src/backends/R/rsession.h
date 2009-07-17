@@ -22,10 +22,10 @@
 #define _RSESSION_H
 
 #include "session.h"
+#include "rserver_interface.h"
 
-class RThread;
 class RExpression;
-
+class KProcess;
 
 class RSession : public MathematiK::Session
 {
@@ -41,11 +41,16 @@ class RSession : public MathematiK::Session
 
     MathematiK::Expression* evaluateExpression(const QString& command);
 
-  private slots:
-    void expressionFinished();
+    void queueExpression(RExpression* expr);
+
+  protected slots:
+    void serverChangedStatus(int status);
+    void runNextExpression();
 
   private:
-    RThread* m_thread;
+    KProcess* m_rProcess;
+    org::MathematiK::R* m_rServer;
+    QList<RExpression*> m_expressionQueue;
 };
 
 #endif /* _RSESSION_H */

@@ -20,8 +20,7 @@
 
 #include "rcallbacks.h"
 
-#include "rthread.h"
-#include "rexpression.h"
+#include "rserver.h"
 
 #include <kdebug.h>
 
@@ -36,10 +35,10 @@
 
 #include <stdio.h>
 
-RThread* thread;
-RExpression* currentExpression;
+RServer* thread;
+Expression* currentExpression;
 
-void setupCallbacks(RThread* r)
+void setupCallbacks(RServer* r)
 {
     kDebug()<<"setting up callbacks";
 
@@ -54,7 +53,7 @@ void setupCallbacks(RThread* r)
     ptr_R_ShowMessage=onShowMessage;
 }
 
-void setCurrentExpression(RExpression* expr)
+void setCurrentExpression(Expression* expr)
 {
     currentExpression=expr;
 }
@@ -67,15 +66,15 @@ void onWriteConsoleEx(const char* text, int size, int otype)
     const QString string=QString::fromUtf8(text, size);
     if (otype==NormalOutput)
     {
-        currentExpression->addStdOutput(string);
+        currentExpression->std_buffer+=string;
     }else
     {
-        currentExpression->addErrorOutput(string);
+        currentExpression->err_buffer+=string;
     }
 }
 
 void onShowMessage(const char* text)
 {
     const QString string=QString::fromUtf8(text);
-    currentExpression->addStdOutput(string);
+    currentExpression->std_buffer+=string;
 }

@@ -18,13 +18,12 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "rthread.h"
-
-#include "rsession.h"
-#include "rexpression.h"
+#include "rserver.h"
+#include "radaptor.h"
 #include "rcallbacks.h"
 
 #include <kdebug.h>
+#include <klocale.h>
 
 //R includes
 #include <R.h>
@@ -36,22 +35,23 @@
 #include <R_ext/Parse.h>
 
 
-RThread::RThread(RSession* parent) : QThread(parent)
+RServer::RServer()
 {
-    m_session=parent;
-    connect(this, SIGNAL(expressionFinished(RExpression*)), this, SLOT(evaluateExpression()));
-
-    //Setup The R environment. this HAS to happen in the main Thread
+    new RAdaptor(this);
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    dbus.registerObject("/R",  this);
     initR();
+    m_status=RServer::Idle;
+
+    emit ready();
 }
 
-RThread::~RThread()
+RServer::~RServer()
 {
-    //Cleanup the R environment
-    endR();
+
 }
 
-void RThread::initR()
+void RServer::initR()
 {
     //Setup environment variables
     // generated as littler.h via from svn/littler/littler.R
@@ -63,7 +63,7 @@ void RThread::initR()
             kFatal()<<"ERROR: couldn't set/replace an R environment variable";
     }
 
-    R_SignalHandlers = 0;               // Don't let R set up its own signal handlers
+    //R_SignalHandlers = 0;               // Don't let R set up its own signal handlers
 
     const char *R_argv[] = {"MathematiK",  "--no-save",  "--no-readline",  "",  ""}; //--gui=none
     const char *R_argv_opt[] = {"--vanilla",  "--slave"};
@@ -78,11 +78,10 @@ void RThread::initR()
     autoload();
 
     kDebug()<<"done initializing";
-
 }
 
 //Code from the RInside library
-void RThread::autoload()
+void RServer::autoload()
 {
     #include "rautoloads.h"
 
@@ -172,48 +171,117 @@ void RThread::autoload()
     UNPROTECT(ptct);
 }
 
-void RThread::endR()
+void RServer::endR()
 {
-    Rf_endEmbeddedR(0);
+   Rf_endEmbeddedR(0);
 }
 
-void RThread::run()
+void RServer::runCommand(const QString& cmd)
 {
-    kDebug()<<"running R-Thread";
+    Expression* expr=new Expression;
+    expr->cmd=cmd;
 
-    emit ready();
+    setStatus(RServer::Busy);
 
-    kDebug()<<"ready";
-    exec();
+    setCurrentExpression(expr);
 
-    //delete m_r;
+    expr->std_buffer.clear();
+    expr->err_buffer.clear();
+
+    ReturnCode returnCode=RServer::SuccessCode;
+    QString returnText;
+
+    //Code to evaluate an R function (taken from RInside library)
+    ParseStatus status;
+    SEXP cmdSexp,  cmdexpr = R_NilValue;
+    SEXP result;
+    int i,  errorOccurred;
+    QByteArray memBuf;
+
+    memBuf.append(cmd);
+
+    PROTECT(cmdSexp = allocVector(STRSXP,  1));
+    SET_STRING_ELT(cmdSexp,  0,  mkChar((char*)memBuf.data()));
+
+    cmdexpr = PROTECT(R_ParseVector(cmdSexp,  -1,  &status,  R_NilValue));
+    switch (status)
+    {
+        case PARSE_OK:
+            kDebug()<<"PARSING "<<cmd<<" went OK";
+            /* Loop is needed here as EXPSEXP might be of length > 1 */
+            for (i = 0; i < length(cmdexpr); i++) {
+
+                result = R_tryEval(VECTOR_ELT(cmdexpr,  i), NULL, &errorOccurred);
+                if (errorOccurred)
+                    kFatal()<<"Error occurred, handle later";
+
+            }
+            memBuf.clear();
+            break;
+        case PARSE_INCOMPLETE:
+            /* need to read another line */
+            kDebug()<<"parse incomplete..";
+            break;
+        case PARSE_NULL:
+            kDebug()<<"ParseStatus is null: "<<status;
+            break;
+        case PARSE_ERROR:
+            kDebug()<<"Parse Error: "<<cmd;
+            break;
+        case PARSE_EOF:
+            kDebug()<<"ParseStatus is eof: "<<status;
+            break;
+        default:
+            kDebug()<<"Parse status is not documented: "<<status;
+            break;
+    }
+    UNPROTECT(2);
+
+    if(status==PARSE_OK)
+    {
+        kDebug()<<"done running";
+
+        kDebug()<<"std: "<<expr->std_buffer<<" err: "<<expr->err_buffer;
+        //if the command didn't print anything on its own, print the result
+
+        //TODO: handle some known result types like lists, matrices spearately
+        //      to make the output look better, by using html (tables etc.)
+        if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
+        {
+            kDebug()<<"printing result...";
+            Rf_PrintValue(result);
+        }
+
+        setCurrentExpression(0); //is this save?
+
+        if(!expr->err_buffer.isEmpty())
+        {
+            returnCode=RServer::ErrorCode;
+            returnText=expr->err_buffer;
+        }
+        else
+        {
+            returnCode=RServer::SuccessCode;
+            returnText=expr->std_buffer;
+
+        }
+    }else
+    {
+        returnCode=RServer::ErrorCode;
+        returnText=i18n("Error Parsing Command");
+    }
+
+    emit expressionFinished(returnCode, returnText);
+    setStatus(Idle);
 }
 
-void RThread::queueExpression(RExpression* expr)
+void RServer::setStatus(Status status)
 {
-    m_queue.append(expr);
-    if(m_queue.size()==1)
-        evaluateExpression();
+    if(m_status!=status)
+    {
+        m_status=status;
+        emit statusChanged(status);
+    }
 }
 
-void RThread::evaluateExpression()
-{
-    if(m_queue.isEmpty())
-        return;
-
-    RExpression* expr=m_queue.first();
-    kDebug()<<"evaluating "<<expr->command();
-    expr->evaluate();
-
-    m_queue.takeFirst();
-
-    emit expressionFinished(expr);
-}
-
-bool RThread::isBusy()
-{
-    kDebug()<<m_queue.size();
-    return m_queue.size()>0;
-}
-
-#include "rthread.moc"
+#include "rserver.moc"
