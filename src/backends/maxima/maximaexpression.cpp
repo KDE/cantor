@@ -101,9 +101,12 @@ void MaximaExpression::interrupt()
 void MaximaExpression::addInformation(const QString& information)
 {
     kDebug()<<"adding information";
-    MathematiK::Expression::addInformation(information);
+    QString inf=information;
+    if(!inf.endsWith(';'))
+        inf+=';';
+    MathematiK::Expression::addInformation(inf);
 
-    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(information+"\n");
+    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+"\n");
 }
 
 void MaximaExpression::parseOutput(const QString& text)

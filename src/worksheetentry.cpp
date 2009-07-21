@@ -317,8 +317,7 @@ void WorksheetEntry::addInformation()
     QTextCursor c=actualInformationCell().firstCursorPosition();
     c.setPosition(actualInformationCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
     QString inf=c.selectedText();
-    if(!inf.endsWith(";"))
-        inf+=";";
+
     inf.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
     inf.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
 
