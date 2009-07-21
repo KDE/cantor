@@ -24,11 +24,19 @@
 #include <QtCore/QLocale>
 #include <QTextEdit>
 
+using namespace MathematiK;
+
+class MathematiK::DefaultHighlighterPrivate
+{
+  public:
+    QTextEdit* parent;
+};
+
 DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 	: QSyntaxHighlighter(parent),
-	m_parent(parent)
+	d(new DefaultHighlighterPrivate)
 {
-
+    d->parent=parent;
 }
 
 
@@ -58,21 +66,29 @@ void DefaultHighlighter::highlightBlock(const QString& text)
 
     QTextCharFormat other;
 
+    //highlight brackets
+    matchBrackets('(', ')', matchedParenthesis, text);
+    matchBrackets('[', ']', matchedParenthesis, text);
+    matchBrackets('{', '}', matchedParenthesis, text);
+}
+
+void DefaultHighlighter::matchBrackets(QChar openSymbol, QChar closeSymbol, QTextCharFormat& format, const QString& text)
+{
     //BEGIN highlight matched brackets
-    int cursorPos = m_parent->textCursor().position();
+    int cursorPos = d->parent->textCursor().position();
     if (cursorPos < 0)
         cursorPos = 0;
 
     // Adjust cursorpos to allow for a bracket before the cursor position
     if (cursorPos >= text.size())
         cursorPos = text.size() - 1;
-    else if (cursorPos > 0 && (text[cursorPos-1] == '(' || text[cursorPos-1] == ')'))
+    else if (cursorPos > 0 && (text[cursorPos-1] == openSymbol || text[cursorPos-1] == closeSymbol))
 		cursorPos--;
 
-    bool haveOpen =  text[cursorPos] == '(';
-    bool haveClose = text[cursorPos] == ')';
+    bool haveOpen =  text[cursorPos] == openSymbol;
+    bool haveClose = text[cursorPos] == closeSymbol;
 
-    if ((haveOpen || haveClose) && m_parent->hasFocus())
+    if ((haveOpen || haveClose) && d->parent->hasFocus())
     {
         // Search for the other bracket
 
@@ -80,15 +96,15 @@ void DefaultHighlighter::highlightBlock(const QString& text)
 
         int level = 0;
         for (int i = cursorPos; i >= 0 && i < text.size(); i += inc) {
-            if (text[i] == ')')
+            if (text[i] == closeSymbol)
                 level--;
-            else if (text[i] == '(')
+            else if (text[i] == openSymbol)
                 level++;
 
             if (level == 0) {
                 // Matched!
-                setFormat(cursorPos, 1, matchedParenthesis);
-                setFormat(i, 1, matchedParenthesis);
+                setFormat(cursorPos, 1, format);
+                setFormat(i, 1, format);
                 break;
             }
         }

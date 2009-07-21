@@ -22,8 +22,7 @@
 
 #include <QTextEdit>
 
-SageHighlighter::SageHighlighter(QTextEdit* edit) : QSyntaxHighlighter(edit),
-                                                    m_parent(edit)
+SageHighlighter::SageHighlighter(QTextEdit* edit) : MathematiK::DefaultHighlighter(edit)
 {
     HighlightingRule rule;
 
@@ -149,6 +148,9 @@ void SageHighlighter::highlightBlock(const QString& text)
     if(text.isEmpty())
         return;
 
+    //Do some backend independent highlighting (brackets etc.)
+    DefaultHighlighter::highlightBlock(text);
+
     foreach (const HighlightingRule &rule,  m_highlightingRules) {
         QRegExp expression(rule.pattern);
         int index = expression.indexIn(text);
@@ -158,45 +160,5 @@ void SageHighlighter::highlightBlock(const QString& text)
             index = expression.indexIn(text,  index + length);
         }
     }
-
-    //BEGIN highlight matched brackets
-    QTextCharFormat matchedParenthesis;
-    matchedParenthesis.setBackground(QColor(255, 255, 183));
-
-    int cursorPos = m_parent->textCursor().position();
-    if (cursorPos < 0)
-        cursorPos = 0;
-
-    // Adjust cursorpos to allow for a bracket before the cursor position
-    if (cursorPos >= text.size())
-        cursorPos = text.size() - 1;
-    else if (cursorPos > 0 && (text[cursorPos-1] == '(' || text[cursorPos-1] == ')'))
-		cursorPos--;
-
-    bool haveOpen =  text[cursorPos] == '(';
-    bool haveClose = text[cursorPos] == ')';
-
-    if ((haveOpen || haveClose) && m_parent->hasFocus())
-    {
-        // Search for the other bracket
-
-        int inc = haveOpen ? 1 : -1; // which direction to search in
-
-        int level = 0;
-        for (int i = cursorPos; i >= 0 && i < text.size(); i += inc) {
-            if (text[i] == ')')
-                level--;
-            else if (text[i] == '(')
-                level++;
-
-            if (level == 0) {
-                // Matched!
-                setFormat(cursorPos, 1, matchedParenthesis);
-                setFormat(i, 1, matchedParenthesis);
-                break;
-            }
-        }
-    }
-    //END highlight matched brackets
 
 }

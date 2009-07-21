@@ -21,7 +21,7 @@
 #ifndef _SAGEHIGHLIGHTER_H
 #define _SAGEHIGHLIGHTER_H
 
-#include <QSyntaxHighlighter>
+#include "defaulthighlighter.h"
 
 
 /*
@@ -29,7 +29,7 @@
   Python programming Language, as Sage is based on
   it
 */
-class SageHighlighter : public QSyntaxHighlighter
+class SageHighlighter : public MathematiK::DefaultHighlighter
 {
   public:
     SageHighlighter( QTextEdit* edit);
@@ -46,7 +46,6 @@ class SageHighlighter : public QSyntaxHighlighter
      };
 
      QVector<HighlightingRule> m_highlightingRules;
-     QTextEdit* m_parent;
 
      //Different formats, used for highlighting
      QTextCharFormat keywordFormat;

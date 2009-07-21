@@ -21,9 +21,15 @@
 #ifndef DEFAULTHIGHLIGHTER_H
 #define DEFAULTHIGHLIGHTER_H
 
+#include "mathematik_export.h"
+
 #include <QtGui/QSyntaxHighlighter>
 
-class DefaultHighlighter : public QSyntaxHighlighter
+namespace MathematiK
+{
+class DefaultHighlighterPrivate;
+
+class MATHEMATIK_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 {
   public:
     DefaultHighlighter(QTextEdit* parent);
@@ -31,8 +37,12 @@ class DefaultHighlighter : public QSyntaxHighlighter
         
   protected:
     virtual void highlightBlock(const QString& text);
-    
-    QTextEdit* m_parent;
+    void matchBrackets(QChar openSymbol,QChar closeSymbol, QTextCharFormat& format, const QString& text);
+
+  private:
+    DefaultHighlighterPrivate* d;
 };
+
+}
 
 #endif

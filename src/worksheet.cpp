@@ -26,9 +26,9 @@
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/epsresult.h"
+#include "lib/defaulthighlighter.h"
 
 #include "worksheetentry.h"
-#include "defaulthighlighter.h"
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -57,7 +57,7 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(
     m_highlighter=backend->syntaxHighlighter(this);
     if(!m_highlighter)
     {
-        m_highlighter=new DefaultHighlighter(this);
+        m_highlighter=new MathematiK::DefaultHighlighter(this);
     }
 
     QFontMetrics metrics(document()->defaultFont());
@@ -432,7 +432,7 @@ void Worksheet::load(const QString& filename )
     m_highlighter=b->syntaxHighlighter(this);
     if(!m_highlighter)
     {
-        m_highlighter=new DefaultHighlighter(this);
+        m_highlighter=new MathematiK::DefaultHighlighter(this);
     }
 
     clear();

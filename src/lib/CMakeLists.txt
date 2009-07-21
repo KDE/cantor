@@ -13,9 +13,10 @@ set( mathematik_LIB_SRCS
   extension.cpp
   assistant.cpp
   tabcompletionobject.cpp
+  defaulthighlighter.cpp
 )
  
-set( mathematik_LIB_HDRS 
+Set( mathematik_LIB_HDRS 
      backend.h
      session.h
      expression.h
@@ -42,4 +43,3 @@ install( TARGETS mathematiklibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( FILES mathematik_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES mathematik_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
-
