@@ -271,7 +271,9 @@ void RServer::runCommand(const QString& cmd)
         returnText=i18n("Error Parsing Command");
     }
 
-    emit expressionFinished(returnCode, returnText);
+    //Check if the expression got results other than plain text (like files,etc)
+    if(!expr->hasOtherResults)
+        emit expressionFinished(returnCode, returnText);
     setStatus(Idle);
 }
 
@@ -282,6 +284,30 @@ void RServer::setStatus(Status status)
         m_status=status;
         emit statusChanged(status);
     }
+}
+
+QString RServer::requestInput(const QString& prompt)
+{
+    emit inputRequested(prompt);
+
+    //Wait until the input arrives over dbus
+    QEventLoop loop;
+    connect(this, SIGNAL(requestAnswered()), &loop, SLOT(quit()));
+    loop.exec();
+
+    return m_requestCache;
+}
+
+void RServer::answerRequest(const QString& answer)
+{
+    m_requestCache=answer;
+
+    emit(requestAnswered());
+}
+
+void RServer::showFiles(const QStringList& files)
+{
+    emit showFilesNeeded(files);
 }
 
 #include "rserver.moc"

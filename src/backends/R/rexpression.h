@@ -34,9 +34,13 @@ class RExpression : public MathematiK::Expression
     void evaluate();
     void interrupt();
 
+    void addInformation(const QString& information);
   public slots:
     void finished(int returnCode, const QString& text);
     void evaluationStarted();
+    void showFilesAsResult(const QStringList& files);
+  private:
+    bool m_isHelpRequest;
 };
 
 #endif /* _REXPRESSION_H */

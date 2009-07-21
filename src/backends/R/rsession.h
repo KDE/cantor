@@ -42,6 +42,7 @@ class RSession : public MathematiK::Session
     MathematiK::Expression* evaluateExpression(const QString& command);
 
     void queueExpression(RExpression* expr);
+    void sendInputToServer(const QString& input);
 
   protected slots:
     void serverChangedStatus(int status);

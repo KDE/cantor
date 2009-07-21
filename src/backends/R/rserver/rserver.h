@@ -28,6 +28,7 @@ class Expression
   public:
     QString cmd;
     int returnCode;
+    bool hasOtherResults;
     QString err_buffer;
     QString std_buffer;
 };
@@ -47,18 +48,27 @@ class RServer : public QObject
     void autoload();
     void endR();
 
+    QString requestInput(const QString& prompt);
+    void showFiles(const QStringList& files);
+
   signals:
     void ready();
     void statusChanged(int status);
     void expressionFinished(int returnCode, const QString& text);
+    void showFilesNeeded(const QStringList& files);
+    void inputRequested(const QString& prompt);
+
+    void requestAnswered();
     
   public slots:
     void runCommand(const QString& cmd);
+    void answerRequest(const QString& answer);
 
   private:
     void setStatus(Status status);
   private:
     Status m_status;
+    QString m_requestCache;
     
 };
 

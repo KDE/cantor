@@ -10,8 +10,19 @@
       <arg name="returnCode" type="i" direction="out"/>
       <arg name="text" type="s" direction="out"/>
     </signal>
+    <signal name="showFilesNeeded">
+      <arg name="files" type="as" direction="out"/>
+    </signal>
+    <signal name="inputRequested">
+      <arg name="prompt" type="s" direction="out"/>
+    </signal>
+    <signal name="requestAnswered">
+    </signal>
     <method name="runCommand">
       <arg name="cmd" type="s" direction="in"/>
+    </method>
+    <method name="answerRequest">
+      <arg name="answer" type="s" direction="in"/>
     </method>
   </interface>
 </node>

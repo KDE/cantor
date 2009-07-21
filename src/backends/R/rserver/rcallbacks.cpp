@@ -23,26 +23,18 @@
 #include "rserver.h"
 
 #include <kdebug.h>
-
-//R includes
-#include <R.h>
-#include <Rembedded.h>
-#include <Rversion.h>
-#include <Rdefines.h>
-#define R_INTERFACE_PTRS
-#include <Rinterface.h>
-#include <R_ext/Parse.h>
+#include <QStringList>
 
 #include <stdio.h>
 
-RServer* thread;
+RServer* server;
 Expression* currentExpression;
 
 void setupCallbacks(RServer* r)
 {
     kDebug()<<"setting up callbacks";
 
-    thread=r;
+    server=r;
     currentExpression=0;
 
     R_Outputfile=NULL;
@@ -51,6 +43,9 @@ void setupCallbacks(RServer* r)
     ptr_R_WriteConsole=0;
     ptr_R_WriteConsoleEx=onWriteConsoleEx;
     ptr_R_ShowMessage=onShowMessage;
+    ptr_R_Busy=onBusy;
+    ptr_R_ReadConsole=onReadConsole;
+    ptr_R_ShowFiles=onShowFiles;
 }
 
 void setCurrentExpression(Expression* expr)
@@ -77,4 +72,46 @@ void onShowMessage(const char* text)
 {
     const QString string=QString::fromUtf8(text);
     currentExpression->std_buffer+=string;
+}
+
+void onBusy(int which)
+{
+    kDebug()<<"onBusy: "<<which;
+}
+
+int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
+{
+    kDebug()<<"readConsole: "<<prompt;
+
+    QString input=server->requestInput(prompt);
+
+    if(input.size()>buflen)
+        input.truncate(buflen);
+
+    strcpy( (char*) buf, input.toUtf8());
+
+    return input.size();
+}
+
+int  onShowFiles(int nfile, const char** file, const char** headers, const char* wtitle, Rboolean del, const char* pager)
+{
+    int i;
+    kDebug()<<"show files: ";
+    for (i=0;i<nfile; i++)
+    {
+        kDebug()<<"show file "<<file[i]<<" header: "<<headers[i];
+    }
+
+    kDebug()<<" title: "<<wtitle[i];
+    kDebug()<<"del: "<<del;
+    kDebug()<<"pager: "<<pager;
+
+    QStringList files;
+    for(int i=0;i<nfile; i++)
+        files<<QString(file[i]);
+
+    server->showFiles(files);
+    currentExpression->hasOtherResults=true;
+
+    return 0;
 }

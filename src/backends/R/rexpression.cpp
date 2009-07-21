@@ -19,13 +19,15 @@
  */
 #include "textresult.h"
 
-//#include "imageresult.h"
-//#include "helpresult.h"
+#include "imageresult.h"
+#include "helpresult.h"
 #include "rsession.h"
 #include "rexpression.h"
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kmimetype.h>
+#include <QFile>
 #include <QTimer>
 #include <QStringList>
 
@@ -45,6 +47,10 @@ void RExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
     setStatus(MathematiK::Expression::Computing);
+    if(command().startsWith('?'))
+        m_isHelpRequest=true;
+    else
+        m_isHelpRequest=false;
 
     static_cast<RSession*>(session())->queueExpression(this);
 }
@@ -76,5 +82,50 @@ void RExpression::evaluationStarted()
     setStatus(MathematiK::Expression::Computing);
 }
 
+void RExpression::addInformation(const QString& information)
+{
+    static_cast<RSession*>(session())->sendInputToServer(information);
+}
+
+void RExpression::showFilesAsResult(const QStringList& files)
+{
+    kDebug()<<"showing files: "<<files;
+    foreach(const QString& file, files)
+    {
+        KMimeType::Ptr type=KMimeType::findByUrl(file);
+        if(type->is("text/plain"))
+        {
+            kDebug()<<"its plain text";
+            QFile f(file);
+            if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
+            {
+                setResult(new MathematiK::TextResult(i18n("Error opening file %1", file)));
+                setErrorMessage(i18n("Error opening file %1", file));
+                setStatus(MathematiK::Expression::Error);
+            }
+            QString content=QTextStream(&f).readAll();
+            //replace appearing backspaces, as they mess the whole output up
+            content.remove(QRegExp(".\b"));
+            //Replace < and > with their html code, so they won't be confused as html tags
+            content.replace( '<' ,  "&lt;");
+            content.replace( '>' ,  "&gt;");
+
+            kDebug()<<"content: "<<content;
+            if(m_isHelpRequest)
+                setResult(new MathematiK::HelpResult(content));
+            else
+                setResult(new MathematiK::TextResult(content));
+        }else if (type->name().indexOf("image")>0)
+        {
+            setResult(new MathematiK::ImageResult(file));
+        }
+        else
+        {
+            setResult(new MathematiK::TextResult(i18n("cannot open file %1: Unknown MimeType", file)));
+            setErrorMessage(i18n("cannot open file %1: Unknown MimeType", file));
+            setStatus(MathematiK::Expression::Error);
+        }
+    }
+}
 
 #include "rexpression.moc"

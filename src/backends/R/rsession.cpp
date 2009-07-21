@@ -104,15 +104,27 @@ void RSession::serverChangedStatus(int status)
 void RSession::runNextExpression()
 {
     disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
+    disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
+    disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
     RExpression* expr=m_expressionQueue.takeFirst();
     kDebug()<<"running expression: "<<expr->command();
 
     connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));
+    connect(m_rServer, SIGNAL(inputRequested(const QString&)), expr, SIGNAL(needsAdditionalInformation(const QString&)));
+    connect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), expr, SLOT(showFilesAsResult(const QStringList&)));
 
     m_rServer->runCommand(expr->command());
 
     if(!m_expressionQueue.isEmpty())
         QTimer::singleShot(0, this, SLOT(runNextExpression()));
+}
+
+void RSession::sendInputToServer(const QString& input)
+{
+    QString s=input;
+    if(!input.endsWith('\n'))
+        s+='\n';
+    m_rServer->answerRequest(s);
 }
 
 #include "rsession.moc"
