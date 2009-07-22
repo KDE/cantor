@@ -48,7 +48,7 @@ MathematiK::Session* RBackend::createSession()
 MathematiK::Backend::Capabilities RBackend::capabilities()
 {
     kDebug()<<"Requesting capabilites of RSession";
-    return MathematiK::Backend::Nothing;
+    return MathematiK::Backend::InteractiveMode;
 }
 
 K_EXPORT_MATHEMATIK_PLUGIN(rbackend, RBackend)

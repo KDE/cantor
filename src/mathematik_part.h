@@ -81,6 +81,7 @@ protected:
     virtual bool saveFile();
 
     void loadAssistants();
+    void adjustGuiToSession();
 
 protected slots:
     void fileSaveAs();
@@ -103,6 +104,8 @@ private:
     KAction* m_evaluate;
     KAction* m_save;
     KToggleAction* m_typeset;
+    KToggleAction* m_highlight;
+    KToggleAction* m_tabcompletion;
     KAction* m_showBackendHelp;
 };
 

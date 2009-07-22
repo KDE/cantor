@@ -9,6 +9,18 @@
       <label>The Backend that is used by default</label>
       <default>Sage</default>
     </entry>
+    <entry name="TypesetDefault" type="Bool">
+      <label>Do Typesetting per default</label>
+      <default>true</default>
+    </entry>
+    <entry name="HighlightDefault" type="Bool">
+      <label>Do Syntax Highlighting per default</label>
+      <default>true</default>
+    </entry>
+    <entry name="TabCompletionDefault" type="Bool">
+      <label>Enable Tab Completions per default</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>
 

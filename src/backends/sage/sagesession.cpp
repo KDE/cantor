@@ -144,7 +144,7 @@ void SageSession::readStdOut()
         emit ready();
     }
 
-    if(!m_expressionQueue.isEmpty())
+    if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
         SageExpression* expr=m_expressionQueue.first();
         expr->parseOutput(out);

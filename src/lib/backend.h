@@ -47,10 +47,10 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
         Nothing = 0x0,
         LaTexOutput = 0x1,
 	InteractiveMode = 0x2,
-	SyntaxHighlighting = 0x4
+	SyntaxHighlighting = 0x4,
+	TabCompletion = 0x8
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
-
 
     Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
     virtual ~Backend();
@@ -83,5 +83,8 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     BackendPrivate* d;
 };
 
+Q_DECLARE_OPERATORS_FOR_FLAGS(Backend::Capabilities)
+
 }
+
 #endif /* _BACKEND_H */

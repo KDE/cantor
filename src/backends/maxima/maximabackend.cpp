@@ -55,7 +55,7 @@ MathematiK::Session* MaximaBackend::createSession()
 MathematiK::Backend::Capabilities MaximaBackend::capabilities()
 {
     kDebug()<<"Requesting capabilites of MaximaSession";
-    return MathematiK::Backend::Nothing;
+    return MathematiK::Backend::LaTexOutput|MathematiK::Backend::InteractiveMode;
 }
 
 bool MaximaBackend::requirementsFullfilled()

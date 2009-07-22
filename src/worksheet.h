@@ -51,6 +51,9 @@ class Worksheet : public KTextEdit
     void interrupt();
     void interruptCurrentExpression();
 
+    void enableHighlighting(bool highlight);
+    void enableTabCompletion(bool enable);
+
     void save(const QString& filename);
     void load(const QString& filename);
 
@@ -75,6 +78,7 @@ class Worksheet : public KTextEdit
     MathematiK::Session *m_session;
     QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;
+    bool m_tabCompletionEnabled;
     
 };
 

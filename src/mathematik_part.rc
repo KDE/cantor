@@ -7,6 +7,8 @@
   </Menu>
   <Menu name="settings">
     <Action name="enable_typesetting"/>
+    <Action name="enable_highlighting"/>
+    <Action name="enable_tabcompletion"/>
   </Menu>
   <Menu name="worksheet"><text>&amp;Worksheet</text>
     <Action name="evaluate_worksheet"/>

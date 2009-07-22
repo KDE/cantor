@@ -183,6 +183,5 @@ QSyntaxHighlighter* Backend::syntaxHighlighter(QTextEdit* parent)
     return 0;
 }
 
-Q_DECLARE_OPERATORS_FOR_FLAGS(Backend::Capabilities)
 
 

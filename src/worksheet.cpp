@@ -50,20 +50,22 @@
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 
+#include "settings.h"
+
 Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(parent)
 {
     m_session=backend->createSession();
     m_session->login();
-    m_highlighter=backend->syntaxHighlighter(this);
-    if(!m_highlighter)
-    {
-        m_highlighter=new MathematiK::DefaultHighlighter(this);
-    }
 
     QFontMetrics metrics(document()->defaultFont());
     setTabStopWidth(4*metrics.width(' '));
 
     appendEntry();
+
+    m_highlighter=0;
+    enableHighlighting(Settings::self()->highlightDefault());
+    enableTabCompletion(Settings::self()->tabCompletionDefault());
+    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
 }
 
 Worksheet::~Worksheet()
@@ -91,7 +93,7 @@ bool Worksheet::event(QEvent* event)
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
     const int key = event->key() | event->modifiers();
-    if ( event->key() == Qt::Key_Tab )
+    if ( event->key() == Qt::Key_Tab &&m_tabCompletionEnabled )
     {
         // special tab handling here
         WorksheetEntry* current=currentEntry();
@@ -350,6 +352,30 @@ void Worksheet::interruptCurrentExpression()
         expr->interrupt();
 }
 
+void Worksheet::enableHighlighting(bool highlight)
+{
+    if(highlight)
+    {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=session()->backend()->syntaxHighlighter(this);
+        if(!m_highlighter)
+        {
+            m_highlighter=new MathematiK::DefaultHighlighter(this);
+        }
+    }else
+    {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=0;
+    }
+}
+
+void Worksheet::enableTabCompletion(bool enable)
+{
+    m_tabCompletionEnabled=enable;
+}
+
 MathematiK::Session* Worksheet::session()
 {
     return m_session;
@@ -427,13 +453,8 @@ void Worksheet::load(const QString& filename )
     m_session->login();
     emit sessionChanged();
 
-    if(m_highlighter)
-        m_highlighter->deleteLater();
-    m_highlighter=b->syntaxHighlighter(this);
-    if(!m_highlighter)
-    {
-        m_highlighter=new MathematiK::DefaultHighlighter(this);
-    }
+    //Set the Highlighting, depending on the current state
+    enableHighlighting(m_highlighter==0);
 
     clear();
     m_entries.clear();

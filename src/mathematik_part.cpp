@@ -43,6 +43,7 @@
 #include "lib/assistant.h"
 
 #include "helpextension.h"
+#include "settings.h"
 
 typedef KParts::GenericFactory<MathematiKPart> MathematiKPartFactory;
 K_EXPORT_COMPONENT_FACTORY( libmathematikpart, MathematiKPartFactory )
@@ -68,8 +69,6 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
-    worksheetSessionChanged();
-
     // notify the part that this is our internal widget
     setWidget(m_worksheet);
 
@@ -83,9 +82,19 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
 
     m_typeset=new KToggleAction(i18n("Typeset using LaTeX"), actionCollection());
-    m_typeset->setChecked(true);
+    m_typeset->setChecked(Settings::self()->typesetDefault());
     actionCollection()->addAction("enable_typesetting", m_typeset);
     connect(m_typeset, SIGNAL(toggled(bool)), this, SLOT(enableTypesetting(bool)));
+
+    m_highlight=new KToggleAction(i18n("Syntax Highlighting"), actionCollection());
+    m_highlight->setChecked(Settings::self()->highlightDefault());
+    actionCollection()->addAction("enable_highlighting", m_highlight);
+    connect(m_highlight, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableHighlighting(bool)));
+
+    m_tabcompletion=new KToggleAction(i18n("Tab Completion"), actionCollection());
+    m_tabcompletion->setChecked(Settings::self()->tabCompletionDefault());
+    actionCollection()->addAction("enable_tabcompletion", m_tabcompletion);
+    connect(m_tabcompletion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableTabCompletion(bool)));
 
     KAction* restart=new KAction(i18n("Restart Backend"), actionCollection());
     actionCollection()->addAction("restart_backend", restart);
@@ -115,6 +124,8 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     // we are not modified since we haven't done anything yet
     setModified(false);
+
+    worksheetSessionChanged();
 }
 
 MathematiKPart::~MathematiKPart()
@@ -229,10 +240,8 @@ void MathematiKPart::worksheetSessionChanged()
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
 
     loadAssistants();
+    adjustGuiToSession();
 
-    //this is 0 on the first call
-    if(m_showBackendHelp)
-        m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
 }
 
 void MathematiKPart::initialized()
@@ -327,3 +336,12 @@ void MathematiKPart::runAssistant()
         m_worksheet->appendEntry(cmds.join("\n"));
 }
 
+void MathematiKPart::adjustGuiToSession()
+{
+    m_typeset->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(MathematiK::Backend::LaTexOutput));
+    m_tabcompletion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(MathematiK::Backend::TabCompletion));
+
+    //this is 0 on the first call
+    if(m_showBackendHelp)
+        m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
+}
