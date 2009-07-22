@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=view-pim-mail
+Icon=rbackend
 Name=R
 Name[x-test]=xxRxx
 X-KDE-ServiceTypes=MathematiK/Backend

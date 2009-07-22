@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Icon=kmplot
+Icon=sagebackend
 Name=Sage
 Name[x-test]=xxSagexx
 X-KDE-PluginInfo-Website=http://www.sagemath.org/
