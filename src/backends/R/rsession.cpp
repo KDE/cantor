@@ -31,18 +31,23 @@
 RSession::RSession( MathematiK::Backend* backend) : Session(backend)
 {
     kDebug();
-
+    m_rProcess=0;
 }
 
 RSession::~RSession()
 {
     kDebug();
+    m_rProcess->terminate();
 }
 
 void RSession::login()
 {
     kDebug()<<"login";
+    if(m_rProcess)
+        m_rProcess->deleteLater();
     m_rProcess=new KProcess(this);
+    m_rProcess->setOutputChannelMode(KProcess::ForwardedChannels);
+
     (*m_rProcess)<<KStandardDirs::findExe( "mathematik_rserver" );
 
     m_rProcess->start();
