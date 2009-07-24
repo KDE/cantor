@@ -49,4 +49,26 @@ class SageCalculusExtension : public MathematiK::CalculusExtension
     QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
 };
 
+class SageLinearAlgebraExtension : public MathematiK::LinearAlgebraExtension
+{
+  public:
+    SageLinearAlgebraExtension( QObject* parent);
+    ~SageLinearAlgebraExtension();
+
+  public slots:
+    //Commands to create Vectors/Matrices
+    QString createVector(const QStringList& entries, VectorType type);
+    QString nullVector(int size, VectorType type);
+    QString createMatrix(const Matrix& matrix);
+    QString identityMatrix(int size);
+    QString nullMatrix(int rows,int columns);
+
+    //basic functions
+    QString rank(const QString& matrix);
+    QString invertMatrix(const QString& matrix);
+    QString charPoly(const QString& matrix);
+    QString eigenVectors(const QString& matrix);
+    QString eigenValues(const QString& matrix);
+};
+
 #endif /* _SAGEEXTENSIONS_H */

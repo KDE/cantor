@@ -21,6 +21,12 @@
 #include "extension.h"
 using namespace MathematiK;
 
+#include <QStringList>
+
+#define EXTENSION_CONSTRUCTORS(name) name::name(QObject* parent) : Extension(#name,parent) {} \
+                                     name::~name() {}
+
+
 Extension::Extension(const QString& name, QObject* parent) : QObject(parent)
 {
     setObjectName(name);
@@ -31,32 +37,48 @@ Extension::~Extension()
 
 }
 
-CASExtension::CASExtension(QObject* parent) : Extension("CASExtension", parent)
-{
+EXTENSION_CONSTRUCTORS(CASExtension)
+EXTENSION_CONSTRUCTORS(CalculusExtension)
+EXTENSION_CONSTRUCTORS(PlotExtension)
+EXTENSION_CONSTRUCTORS(LinearAlgebraExtension)
 
+//some convenience functions, but normally backends have a special command to create
+//these matrices/vectors.
+
+QString LinearAlgebraExtension::nullVector(int size, VectorType type)
+{
+    QStringList values;
+    for (int i=0;i<size;i++)
+        values<<"0";
+    return createVector(values, type);
 }
 
-CASExtension::~CASExtension()
+QString LinearAlgebraExtension::identityMatrix(int size)
 {
+    Matrix m;
+    for(int i=0;i<size;i++)
+    {
+        QStringList column;
+        for(int j=0;j<size;j++)
+            column<<((i==j) ? "1": "0");
+
+        m<<column;
+    }
+
+    return createMatrix(m);
 }
 
-CalculusExtension::CalculusExtension(QObject* parent) : Extension("CalculusExtension", parent)
+QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
 {
+    Matrix m;
+    for(int i=0;i<rows;i++)
+    {
+        QStringList column;
+        for(int j=0;j<columns;j++)
+            column<<"0";
 
+        m<<column;
+    }
+
+    return createMatrix(m);
 }
-
-CalculusExtension::~CalculusExtension()
-{
-
-}
-
-PlotExtension::PlotExtension(QObject* parent) : Extension("PlotExtension", parent)
-{
-
-}
-
-PlotExtension::~PlotExtension()
-{
-
-}
-

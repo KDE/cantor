@@ -81,3 +81,88 @@ QString SageCalculusExtension::integrate(const QString& function,const QString& 
 {
     return QString("integral(%1,%2,%3,%4)").arg(function, variable, left, right);
 }
+
+SageLinearAlgebraExtension::SageLinearAlgebraExtension(QObject* parent) : MathematiK::LinearAlgebraExtension(parent)
+{
+
+}
+
+SageLinearAlgebraExtension::~SageLinearAlgebraExtension()
+{
+
+}
+
+QString SageLinearAlgebraExtension::createVector(const QStringList& entries, VectorType type)
+{
+    QString cmd="vector(";
+    foreach(const QString& e, entries)
+        cmd+=e+',';
+    cmd.chop(1);
+    cmd+=")";
+
+    if(type==MathematiK::LinearAlgebraExtension::ColumnVector)
+        cmd+=".transpose()";
+
+    return cmd;
+}
+
+QString SageLinearAlgebraExtension::nullVector(int size, VectorType type)
+{
+    QString cmd=QString("vector(seq(0 for i in range(0,%1)))").arg(size);
+    if(type==MathematiK::LinearAlgebraExtension::ColumnVector)
+        cmd+=".transpose()";
+
+    return cmd;
+}
+
+QString SageLinearAlgebraExtension::createMatrix(const Matrix& matrix)
+{
+    QString cmd="matrix([";
+    foreach(const QStringList& row, matrix)
+    {
+        cmd+='[';
+        foreach(const QString& entry, row)
+            cmd+=entry+',';
+        cmd.chop(1);
+        cmd+="],";
+    }
+    cmd.chop(1);
+    cmd+="])";
+
+    return cmd;
+}
+
+QString SageLinearAlgebraExtension::identityMatrix(int size)
+{
+    return QString("identity_matrix(%1)").arg(size);
+}
+
+QString SageLinearAlgebraExtension::nullMatrix(int rows,int columns)
+{
+    return QString("null_matrix(%1,%2)").arg(rows, columns);
+}
+
+QString SageLinearAlgebraExtension::rank(const QString& matrix)
+{
+    return QString("%1.rank()").arg(matrix);
+}
+
+QString SageLinearAlgebraExtension::invertMatrix(const QString& matrix)
+{
+    return QString("%1.inverse()").arg(matrix);
+}
+
+QString SageLinearAlgebraExtension::charPoly(const QString& matrix)
+{
+    return QString("%1.char_poly()").arg(matrix);
+}
+
+QString SageLinearAlgebraExtension::eigenVectors(const QString& matrix)
+{
+    return QString("%1.eigenvectors_right()").arg(matrix);
+}
+
+QString SageLinearAlgebraExtension::eigenValues(const QString& matrix)
+{
+    return QString("%1.eigenvalues()").arg(matrix);
+}

@@ -87,5 +87,33 @@ class MATHEMATIK_EXPORT PlotExtension : public Extension
     virtual QString plotFunction2D(const QString& function, const QString& variable, const QString& left, const QString& right) = 0;
 };
 
+/** An extension for basic Linear Algebra
+ **/
+class MATHEMATIK_EXPORT LinearAlgebraExtension : public Extension
+{
+  public:
+    enum VectorType { ColumnVector, RowVector };
+    typedef QList<QStringList> Matrix;
+
+    LinearAlgebraExtension(QObject* parent);
+    ~LinearAlgebraExtension();
+
+  public slots:
+    //Commands to create Vectors/Matrices
+    virtual QString createVector(const QStringList& entries, VectorType type) = 0;
+    virtual QString nullVector(int size, VectorType type);
+    virtual QString createMatrix(const Matrix& matrix) = 0;
+    virtual QString identityMatrix(int size);
+    virtual QString nullMatrix(int rows,int columns);
+
+    //basic functions
+    virtual QString rank(const QString& matrix) = 0;
+    virtual QString invertMatrix(const QString& matrix) = 0;
+    virtual QString charPoly(const QString& matrix) = 0;
+    virtual QString eigenVectors(const QString& matrix) = 0;
+    virtual QString eigenValues(const QString& matrix) = 0;
+
+};
+
 }
 #endif /* _EXTENSION_H */

@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="mathematik_creatematrix_assistant" version="1">
+<MenuBar>
+  <Menu name="linear_algebra"><text>&amp;Linear Algebra</text>
+    <Action name="creatematrix_assistant"/>
+  </Menu>
+</MenuBar>
+</kpartgui>
