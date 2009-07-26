@@ -38,11 +38,10 @@ const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outpu
 //                           os.environ['PAGER'] = 'cat'                    \n
 //                           sage.misc.pager.EMBEDDED_MODE = True           \n
 
-static QByteArray initCmd="os.environ['PAGER'] = 'cat'                    \n "\
+static QByteArray initCmd="os.environ['PAGER'] = 'cat'                     \n "\
                            "sage.misc.pager.EMBEDDED_MODE = True           \n "\
                            "sage.misc.viewer.BROWSER=''                    \n "\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
-                           "sage.misc.latex.pretty_print_default(true)     \n "\
                            " __IPYTHON__.shell.autoindent=False            \n "\
                            "print '____TMP_DIR____', sage.misc.misc.SAGE_TMP\n"\
                            "print '____END_OF_INIT____'                    \n ";
@@ -73,6 +72,7 @@ void SageSession::login()
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
     m_process->start();
+
     m_process->pty()->write(initCmd);
 }
 
@@ -213,7 +213,7 @@ void SageSession::runFirstExpression()
             command=("help("+command.mid(1)+")");
 
         kDebug()<<"writing "<<command+"\n"<<" to the process";
-        m_process->pty()->write((command+"\n").toLatin1());
+        m_process->pty()->write((command+"\n").toUtf8());
     }
 }
 
@@ -251,10 +251,14 @@ void SageSession::setTypesettingEnabled(bool enable)
 {
     MathematiK::Session::setTypesettingEnabled(enable);
 
+    //tell the sage server to enable/disable pretty_print
+    //the 2+2 and __IP.outputcache() are needed to keep the
+    // _ operator working
     if (enable)
-        evaluateExpression("sage.misc.latex.pretty_print_default(true)");
+        evaluateExpression("sage.misc.latex.pretty_print_default(true);2+2; __IP.outputcache()");
     else
-        evaluateExpression("sage.misc.latex.pretty_print_default(false)");
+        evaluateExpression("sage.misc.latex.pretty_print_default(false);2+2;__IP.outputcache()");
+
 }
 
 MathematiK::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)
