@@ -43,6 +43,18 @@ class MATHEMATIK_EXPORT Extension : public QObject
 
 //Some basic interfaces for extensions
 
+/** An Extension providing commands for command history
+ **/
+class MATHEMATIK_EXPORT HistoryExtension : public Extension
+{
+  public:
+    HistoryExtension(QObject* parent);
+    ~HistoryExtension();
+  public slots:
+    //Returns a command that retreives the last result
+    virtual QString lastResult() = 0;
+};
+
 /** An extension providing the basic computations
     in computer algebra, like solving, simplifying
     etc

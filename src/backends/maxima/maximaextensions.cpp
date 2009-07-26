@@ -21,6 +21,22 @@
 #include "maximaextensions.h"
 #include <QStringList>
 
+MaximaHistoryExtension::MaximaHistoryExtension( QObject* parent ) : MathematiK::HistoryExtension(parent)
+{
+
+}
+
+MaximaHistoryExtension::~MaximaHistoryExtension()
+{
+
+}
+
+QString MaximaHistoryExtension::lastResult()
+{
+    return "%";
+}
+
+
 MaximaCASExtension::MaximaCASExtension( QObject* parent) : MathematiK::CASExtension(parent)
 {
 

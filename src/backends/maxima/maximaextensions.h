@@ -23,6 +23,15 @@
 
 #include "extension.h"
 
+class MaximaHistoryExtension : public MathematiK::HistoryExtension
+{
+  public:
+    MaximaHistoryExtension( QObject* parent );
+    ~MaximaHistoryExtension();
+  public slots:
+    QString lastResult();
+};
+
 class MaximaCASExtension : public MathematiK::CASExtension
 {
   public:

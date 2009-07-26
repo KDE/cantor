@@ -21,6 +21,21 @@
 #include "sageextensions.h"
 #include <QStringList>
 
+SageHistoryExtension::SageHistoryExtension( QObject* parent ) : MathematiK::HistoryExtension(parent)
+{
+
+}
+
+SageHistoryExtension::~SageHistoryExtension()
+{
+
+}
+
+QString SageHistoryExtension::lastResult()
+{
+    return "_";
+}
+
 SageCASExtension::SageCASExtension( QObject* parent) : MathematiK::CASExtension(parent)
 {
 

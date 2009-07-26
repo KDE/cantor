@@ -23,6 +23,15 @@
 
 #include "extension.h"
 
+class SageHistoryExtension : public MathematiK::HistoryExtension
+{
+  public:
+    SageHistoryExtension( QObject* parent );
+    ~SageHistoryExtension();
+  public slots:
+    QString lastResult();
+};
+
 class SageCASExtension : public MathematiK::CASExtension
 {
   public:

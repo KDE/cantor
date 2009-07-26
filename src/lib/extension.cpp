@@ -37,6 +37,7 @@ Extension::~Extension()
 
 }
 
+EXTENSION_CONSTRUCTORS(HistoryExtension)
 EXTENSION_CONSTRUCTORS(CASExtension)
 EXTENSION_CONSTRUCTORS(CalculusExtension)
 EXTENSION_CONSTRUCTORS(PlotExtension)
