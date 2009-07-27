@@ -96,7 +96,7 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
     }
     foreach(QTextTableCell cell, m_informationCells)
     {
-        m_table->removeRows(cell.row(), 2);
+        m_table->removeRows(cell.row()-1, 2);
     }
     m_informationCells.clear();
 
