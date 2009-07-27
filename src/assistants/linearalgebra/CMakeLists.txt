@@ -1,3 +1,4 @@
 add_subdirectory(creatematrix)
 add_subdirectory(invertmatrix)
 add_subdirectory(eigenvectors)
+add_subdirectory(eigenvalues)
