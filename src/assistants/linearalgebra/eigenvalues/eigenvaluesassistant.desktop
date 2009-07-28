@@ -1,10 +1,18 @@
 [Desktop Entry]
 Type=Service
 Name=Eigenvalues
+Name[pt]=Valores de Eigen
+Name[pt_BR]=Valores de Eigen
+Name[sv]=Egenvärden
+Name[uk]=Власні значення
 X-KDE-ServiceTypes=MathematiK/Assistant
 X-KDE-Library=mathematik_eigenvaluesassistant
 X-KDE-PluginInfo-Name=Create Matrix
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify calculating of Eigenvalues
+Comment[pt]=Uma janela assistente que simplifica o cálculo dos valores de Eigen
+Comment[pt_BR]=Uma janela assistente que simplifica o cálculo dos valores de Eigen
+Comment[sv]=En dialogruta med en guide för att förenkla beräkning av egenvärden
+Comment[uk]=Діалогове вікно помічника у обчисленні власних значень
 RequiredExtensions=LinearAlgebraExtension,HistoryExtension
