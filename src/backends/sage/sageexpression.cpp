@@ -48,12 +48,10 @@ void SageExpression::evaluate()
     m_imagePath=QString();
 
     m_isHelpRequest=false;
-    m_isContextHelpRequest=false;
+
     //check if this is a ?command
     if(command().startsWith('?')||command().endsWith('?'))
         m_isHelpRequest=true;
-    if(command().startsWith("dir("))
-        m_isContextHelpRequest=true;
 
     //coun't how many newlines are in the command,
     //as sage will output one "sage: " or "....:" for
@@ -119,72 +117,44 @@ void SageExpression::evalFinished()
 
     if ( m_imagePath.isNull() ) //If this result contains a file, drop the text information
     {
+        MathematiK::TextResult* result=0;
 
-        if (m_isContextHelpRequest)
+        QString stripped=m_outputCache;
+        bool isHtml=stripped.startsWith("<html>");
+        if(m_outputCache.contains("class=\"math\"")) //It's latex stuff so encapsulate it into an eqnarray environment
         {
-            //strip html formatting
-            QString stripped=m_outputCache.trimmed();
-            if(stripped.startsWith("<html>")) //its an expression containing html, so strip the tags
-            {
-                stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
-            }
-            else
-            {
-                //Replace < and > with their html code, so they won't be confused as html tags
-                stripped.replace( '<' , "&lt;");
-                stripped.replace( '>' , "&gt;");
-            }
+            stripped.replace("<html>", "\\begin{eqnarray*}");
+            stripped.replace("</html>", "\\end{eqnarray*}");
+        }
 
-            if (stripped.endsWith('\n'))
-                stripped.chop(1);
-
-            QStringList l=stripped.trimmed().split("', '");
-            l[0]=l[0].mid(2);
-            l.last().chop(2);
-            kDebug()<<"list: "<<l;
-            setResult(new MathematiK::ContextHelpResult(l));
+        //strip html tags
+        if(isHtml)
+        {
+            stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
         }
         else
         {
-            MathematiK::TextResult* result=0;
-
-            QString stripped=m_outputCache;
-            bool isHtml=stripped.startsWith("<html>");
-            if(m_outputCache.contains("class=\"math\"")) //It's latex stuff so encapsulate it into an eqnarray environment
-            {
-                stripped.replace("<html>", "\\begin{eqnarray*}");
-                stripped.replace("</html>", "\\end{eqnarray*}");
-            }
-
-            //strip html tags
-            if(isHtml)
-            {
-                stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
-            }
-            else
-            {
-                //Replace < and > with their html code, so they won't be confused as html tags
-                stripped.replace( '<' , "&lt;");
-                stripped.replace( '>' , "&gt;");
-            }
-            if (stripped.endsWith('\n'))
-                stripped.chop(1);
-
-            kDebug()<<"stripped: "<<stripped;
-            if (m_isHelpRequest)
-            {
-                result=new MathematiK::HelpResult(stripped);
-            }
-            else
-            {
-                result=new MathematiK::TextResult(stripped);
-            }
-
-            if(m_outputCache.contains("class=\"math\"")) //It's latex stuff
-                result->setFormat(MathematiK::TextResult::LatexFormat);
-
-            setResult(result);
+            //Replace < and > with their html code, so they won't be confused as html tags
+            stripped.replace( '<' , "&lt;");
+            stripped.replace( '>' , "&gt;");
         }
+        if (stripped.endsWith('\n'))
+            stripped.chop(1);
+
+        kDebug()<<"stripped: "<<stripped;
+        if (m_isHelpRequest)
+        {
+            result=new MathematiK::HelpResult(stripped);
+        }
+        else
+        {
+            result=new MathematiK::TextResult(stripped);
+        }
+
+        if(m_outputCache.contains("class=\"math\"")) //It's latex stuff
+            result->setFormat(MathematiK::TextResult::LatexFormat);
+
+        setResult(result);
     }
     else
     {

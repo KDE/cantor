@@ -42,24 +42,6 @@ class MATHEMATIK_EXPORT HelpResult : public TextResult
     QDomElement toXml(QDomDocument& doc);
 };
 
-class ContextHelpResultPrivate;
-class MATHEMATIK_EXPORT ContextHelpResult : public Result
-{
-  public:
-    enum {Type=4};
-    ContextHelpResult( const QStringList& text );
-    ~ContextHelpResult();
-
-    QString toHtml();
-    QVariant data();
-
-    int type();
-
-    QDomElement toXml(QDomDocument& doc);
-  private:
-    ContextHelpResultPrivate* d;
-};
-
 }
 
 #endif /* _HELPRESULT_H */

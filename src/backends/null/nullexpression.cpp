@@ -61,8 +61,6 @@ void NullExpression::evalFinished()
     kDebug()<<"evaluation finished";
     if ( command()=="img" )
         setResult( new MathematiK::ImageResult( KUrl("/home/alex/out.png"), "alternativ" ) );
-    else if (command().startsWith("context: "))
-        setResult( new MathematiK::ContextHelpResult(QStringList()<<"Not supported"));
     else
         setResult(new MathematiK::TextResult("result: "+command()));
 
