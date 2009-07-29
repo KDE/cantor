@@ -79,7 +79,6 @@ void SageExpression::parseOutput(const QString& text)
     if(m_outputCache.endsWith(SageSession::SagePrompt)||
        m_outputCache.endsWith(SageSession::SageAlternativePrompt))
     {
-        kDebug()<<"got prompt";
         m_promptCount--;
     }
 
@@ -120,8 +119,9 @@ void SageExpression::evalFinished()
         MathematiK::TextResult* result=0;
 
         QString stripped=m_outputCache;
-        bool isHtml=stripped.startsWith("<html>");
-        if(m_outputCache.contains("class=\"math\"")) //It's latex stuff so encapsulate it into an eqnarray environment
+        const bool isHtml=stripped.startsWith("<html>");
+        const bool isLatex=m_outputCache.contains("class=\"math\""); //Check if it's latex stuff
+        if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
             stripped.replace("<html>", "\\begin{eqnarray*}");
             stripped.replace("</html>", "\\end{eqnarray*}");
@@ -141,7 +141,6 @@ void SageExpression::evalFinished()
         if (stripped.endsWith('\n'))
             stripped.chop(1);
 
-        kDebug()<<"stripped: "<<stripped;
         if (m_isHelpRequest)
         {
             result=new MathematiK::HelpResult(stripped);
@@ -151,7 +150,7 @@ void SageExpression::evalFinished()
             result=new MathematiK::TextResult(stripped);
         }
 
-        if(m_outputCache.contains("class=\"math\"")) //It's latex stuff
+        if(isLatex)
             result->setFormat(MathematiK::TextResult::LatexFormat);
 
         setResult(result);
