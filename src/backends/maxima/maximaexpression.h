@@ -40,7 +40,6 @@ class MaximaExpression : public MathematiK::Expression
     void addInformation(const QString& information);
 
     void parseOutput(const QString& text);
-    void parseError(const QString& text);
     void parseTexResult(const QString& text);
 
     bool needsLatexResult();
@@ -58,7 +57,6 @@ class MaximaExpression : public MathematiK::Expression
     KTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
     bool m_isHelpRequest; 
-    bool m_isContextHelpRequest;
     QTimer* m_askTimer;
 };
 

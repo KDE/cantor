@@ -47,7 +47,6 @@ class MaximaSession : public MathematiK::Session
     MathematiK::Expression* evaluateExpression(const QString& command);
 
     void appendExpressionToQueue(MaximaExpression* expr);
-    void runCommand(const QByteArray& command);
 
     void interrupt();
 
@@ -58,7 +57,6 @@ class MaximaSession : public MathematiK::Session
 
   public slots:
     void readStdOut();
-    void readStdErr();
 
     void readTeX();
 

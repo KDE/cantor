@@ -49,6 +49,7 @@
 #include <kstandardshortcut.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
+#include <kglobalsettings.h>
 
 #include "settings.h"
 
@@ -56,6 +57,8 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(
 {
     m_session=backend->createSession();
     m_session->login();
+
+    setFont(KGlobalSettings::fixedFont());
 
     QFontMetrics metrics(document()->defaultFont());
     setTabStopWidth(4*metrics.width(' '));

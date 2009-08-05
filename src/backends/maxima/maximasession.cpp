@@ -44,7 +44,6 @@ MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
     kDebug();
     m_isInitialized=false;
     m_process=0;
-    startTexConvertProcess();
 }
 
 MaximaSession::~MaximaSession()
@@ -137,18 +136,6 @@ void MaximaSession::readStdOut()
     {
         MaximaExpression* expr=m_expressionQueue.first();
         expr->parseOutput(out);
-    }
-}
-
-void MaximaSession::readStdErr()
-{
-    kDebug()<<"reading stdErr";
-    QString out=m_process->readAllStandardError();
-    kDebug()<<"err: "<<out;
-    if (!m_expressionQueue.isEmpty())
-    {
-        MaximaExpression* expr=m_expressionQueue.first();
-        expr->parseError(out);
     }
 }
 
@@ -292,7 +279,10 @@ void MaximaSession::startTexConvertProcess()
 void MaximaSession::setTypesettingEnabled(bool enable)
 {
     if(enable)
+    {
         startTexConvertProcess();
+        evaluateExpression("display2d:false"); //LaTeX and Display2d don't go together and even deliver wrong results
+    }
     else if(m_texConvertProcess)
         m_texConvertProcess->deleteLater();
     MathematiK::Session::setTypesettingEnabled(enable);

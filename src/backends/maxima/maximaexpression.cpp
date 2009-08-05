@@ -58,7 +58,6 @@ void MaximaExpression::evaluate()
     setStatus(MathematiK::Expression::Computing);
 
     m_isHelpRequest=false;
-    m_isContextHelpRequest=false;
     if(m_tempFile)
         m_tempFile->deleteLater();
     m_tempFile=0;
@@ -111,7 +110,12 @@ void MaximaExpression::addInformation(const QString& information)
 
 void MaximaExpression::parseOutput(const QString& text)
 {
-    QString output=text.trimmed();
+    //new information arrived, stop the question timeout.
+    //restart it later after the new information was parsed
+    m_askTimer->stop();
+
+    QString output=text;
+
     kDebug()<<"parsing: "<<output;
 
     ///if(output.contains("maxima: "));
@@ -123,7 +127,8 @@ void MaximaExpression::parseOutput(const QString& text)
         return;
     }
 
-    QStringList lines=output.split('\n');
+    bool couldBeQuestion=false;
+    const QStringList lines=output.split('\n');
     foreach(QString line, lines)
     {
         if(line.endsWith('\r'))
@@ -131,25 +136,40 @@ void MaximaExpression::parseOutput(const QString& text)
         if(line.isEmpty())
             continue;
 
-        if (MaximaSession::MaximaPrompt.exactMatch(line))
+        if (line.indexOf(MaximaSession::MaximaPrompt)!=-1)
         {
             evalFinished();
             m_onStdoutStroke=false;
-            m_askTimer->stop();
+            couldBeQuestion=false;
         }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0||m_onStdoutStroke)
         {
             line.remove(MaximaSession::MaximaOutputPrompt);
+            //we got regular output. this means no error occurred,
+            //prepend the error Buffer to the output Buffer, as
+            //for example when display2d:true, the ouputPrompt doesn't
+            //need to be in the first line
+            if(m_outputCache.isEmpty())
+            {
+                m_outputCache.prepend(m_errCache);
+                m_errCache.clear();
+            }
             m_outputCache+=line+'\n';
             m_onStdoutStroke=true;
-            m_askTimer->stop();
+            couldBeQuestion=false;
         }else
         {
             kDebug()<<"got something";
             m_errCache+=line+'\n';
             m_onStdoutStroke=false;
+            couldBeQuestion=true;
+        }
+    }
+
+    //wait a bit if another chunk of data comes in, containg the needed PROMPT
+    if(couldBeQuestion)
+    {
             m_askTimer->stop();
             m_askTimer->start(ASK_TIME);
-        }
     }
 
 }
@@ -162,16 +182,9 @@ void MaximaExpression::askForInformation()
     m_errCache.clear();
 }
 
-void MaximaExpression::parseError(const QString& text)
-{
-    kDebug()<<"error";
-    setResult(new MathematiK::TextResult(text));
-    setStatus(MathematiK::Expression::Error);
-}
-
 void MaximaExpression::parseTexResult(const QString& text)
 {
-    QString output=text.trimmed();
+    const QString& output=text.trimmed();
 
     m_outputCache+=output;
 
@@ -207,12 +220,14 @@ void MaximaExpression::evalFinished()
     kDebug()<<"out: "<<m_outputCache;
     kDebug()<<"err: "<<m_errCache;
 
-    QString text=m_outputCache.trimmed();
+    QString text=m_outputCache;
+    if(!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
+        text.replace(' ', "&nbsp;");
     MathematiK::TextResult* result;
 
     if(m_isHelpRequest)
     {
-        result=new MathematiK::HelpResult(m_errCache.trimmed());
+        result=new MathematiK::HelpResult(m_errCache);
         setResult(result);
         setStatus(MathematiK::Expression::Done);
     }
@@ -225,7 +240,7 @@ void MaximaExpression::evalFinished()
 
         if(!m_errCache.isEmpty())
         {
-            setErrorMessage(m_errCache.trimmed());
+            setErrorMessage(m_errCache);
             setStatus(MathematiK::Expression::Error);
         }
     }
