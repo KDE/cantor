@@ -2,7 +2,7 @@
 Type=Service
 Name=Invert Matrix
 Name[pt]=Inverter a Matriz
-Name[pt_BR]=Inverter a Matriz
+Name[pt_BR]=Inverter matriz
 Name[sv]=Invertera matris
 Name[uk]=Знайти обернену матрицю
 Name[x-test]=xxInvert Matrixxx
