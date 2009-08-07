@@ -3,8 +3,13 @@ About This Application
 MathematiK is a KDE Application aimed to provide a nice Interface
 for doing Mathematics and Scientific Computing. It doesn't implement
 its own Computation Logic, but instead is built around different 
-Backends, for Example the Sage Mathematics Software(see http://sagemath.org).
+Backends.
 
+Available Backends
+-=-=-=-=-=-=-=-=-=-=-=-=-=
+- Sage Mathematics Software: http://www.sagemath.org
+- Maxima Computer Algebra System: http://maxima.sourceforge.net
+- R Project for Statistical Computing: http://www.r-project.org
 
 How To Build This Application
 -=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -22,4 +27,3 @@ make uninstall or su -c 'make uninstall'
 Note: you can use another build path. Then cd in your build dir and:
 export KDE_SRC=path_to_your_src
 cmake $KDE_SRC -DCMAKE_INSTALL_PREFIX=$KDEDIR -DCMAKE_BUILD_TYPE=debugfull
-
