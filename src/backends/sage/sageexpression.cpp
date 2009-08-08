@@ -45,7 +45,7 @@ void SageExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
     setStatus(MathematiK::Expression::Computing);
-    m_imagePath=QString();
+    m_imagePath.clear();
 
     m_isHelpRequest=false;
 
@@ -102,7 +102,7 @@ void SageExpression::parseError(const QString& text)
 void SageExpression::addFileResult( const QString& path )
 {
   KUrl url( path );
-  if ( url.fileName().endsWith(".png") )
+  if ( url.fileName().endsWith(QLatin1String(".png")) )
   {
     kDebug()<<"adding file "<<path<<"   "<<url;
     m_imagePath=path;
@@ -119,7 +119,7 @@ void SageExpression::evalFinished()
         MathematiK::TextResult* result=0;
 
         QString stripped=m_outputCache;
-        const bool isHtml=stripped.startsWith("<html>");
+        const bool isHtml=stripped.startsWith(QLatin1String("<html>"));
         const bool isLatex=m_outputCache.contains("class=\"math\""); //Check if it's latex stuff
         if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
@@ -157,7 +157,7 @@ void SageExpression::evalFinished()
     }
     else
     {
-      setResult( new MathematiK::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" ).arg( command() ) ) );
+      setResult( new MathematiK::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
     }
     setStatus(MathematiK::Expression::Done);
 }

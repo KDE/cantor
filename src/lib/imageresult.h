@@ -33,7 +33,7 @@ class MATHEMATIK_EXPORT ImageResult : public Result
 {
   public:
     enum{Type=2};
-    ImageResult( const KUrl& url, const QString& alt=QString());
+    explicit ImageResult( const KUrl& url, const QString& alt=QString());
     ~ImageResult();
 
     QString toHtml();

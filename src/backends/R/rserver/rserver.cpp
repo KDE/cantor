@@ -138,9 +138,9 @@ void RServer::autoload()
     /* SETCAR(CDR(CDR(alcall)),package); */  /* arg2: assigned in loop */
 
     ptct = 5;
-    for(i = 0; i < packc; i++){
+    for(i = 0; i < packc; ++i){
 	idx += (i != 0)? packobjc[i-1] : 0;
-	for (j = 0; j < packobjc[i]; j++){
+	for (j = 0; j < packobjc[i]; ++j){
 	    /*printf("autload(%s,%s)\n",packobj[idx+j],pack[i]);*/
 
 	    PROTECT(name = NEW_CHARACTER(1));
@@ -209,7 +209,7 @@ void RServer::runCommand(const QString& cmd)
         case PARSE_OK:
             kDebug()<<"PARSING "<<cmd<<" went OK";
             /* Loop is needed here as EXPSEXP might be of length > 1 */
-            for (i = 0; i < length(cmdexpr); i++) {
+            for (i = 0; i < length(cmdexpr); ++i) {
 
                 result = R_tryEval(VECTOR_ELT(cmdexpr,  i), NULL, &errorOccurred);
                 if (errorOccurred)

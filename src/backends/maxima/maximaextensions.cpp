@@ -59,12 +59,12 @@ QString MaximaCASExtension::solve(const QStringList& equations, const QStringLis
 
 QString MaximaCASExtension::simplify(const QString& expression)
 {
-    return "simplify("+expression+")";
+    return QString("simplify(%1)").arg(expression);
 }
 
 QString MaximaCASExtension::expand(const QString& expression)
 {
-    return "expand("+expression+")";
+    return QString("expand(%1)").arg(expression);
 }
 
 

@@ -67,7 +67,7 @@ void SageTabCompletionObject::fetchingDone()
     txt=txt.mid(1); //remove [
     txt.chop(1); //remove ]
 
-    QStringList tmp=txt.split(",");
+    QStringList tmp=txt.split(',');
     QStringList completions;
 
     foreach(QString c, tmp)

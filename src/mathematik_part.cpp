@@ -309,7 +309,7 @@ void MathematiKPart::loadAssistants()
 
         kDebug()<<"plugin "<<service->name()<<" requires "<<assistant->requiredExtensions();
         bool supported=true;
-        foreach(QString req, assistant->requiredExtensions())
+        foreach(const QString& req, assistant->requiredExtensions())
             supported=supported && backend->extensions().contains(req);
         kDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
 

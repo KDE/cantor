@@ -177,6 +177,7 @@ void SageSession::currentExpressionChangedStatus(MathematiK::Expression::Status 
 
 void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
+    Q_UNUSED(exitCode);
     if(exitStatus==QProcess::CrashExit)
     {
         if(!m_expressionQueue.isEmpty())
@@ -208,12 +209,12 @@ void SageSession::runFirstExpression()
         connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(currentExpressionChangedStatus(MathematiK::Expression::Status)));
         QString command=expr->command();
         if(command.endsWith('?'))
-            command=("help("+command.left(command.size()-1)+")");
+            command=("help("+command.left(command.size()-1)+')');
         if(command.startsWith('?'))
-            command=("help("+command.mid(1)+")");
+            command=("help("+command.mid(1)+')');
 
-        kDebug()<<"writing "<<command+"\n"<<" to the process";
-        m_process->pty()->write((command+"\n").toUtf8());
+        kDebug()<<"writing "<<command+'\n'<<" to the process";
+        m_process->pty()->write((command+'\n').toUtf8());
     }
 }
 

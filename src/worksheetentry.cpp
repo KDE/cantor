@@ -94,7 +94,7 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
         m_table->removeRows(m_errorCell.row(), 1);
         m_errorCell=QTextTableCell();
     }
-    foreach(QTextTableCell cell, m_informationCells)
+    foreach(const QTextTableCell& cell, m_informationCells)
     {
         m_table->removeRows(cell.row()-1, 2);
     }
@@ -148,7 +148,7 @@ void WorksheetEntry::updateResult()
     QVariant data=m_expression->result()->data();
     if(data.type() == QVariant::Image)
     {
-        //It's an image. add it as a ressource to the worksheet, so it can be referenced by an url
+        //It's an image. add it as a resource to the worksheet, so it can be referenced by an url
         static int resourceIdCounter=0;
         QUrl resourceUrl=KUrl(QString("mydata://image_%1").arg(resourceIdCounter++));
 

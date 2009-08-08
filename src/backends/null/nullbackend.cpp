@@ -48,7 +48,7 @@ MathematiK::Session* NullBackend::createSession()
 
 MathematiK::Backend::Capabilities NullBackend::capabilities()
 {
-    kDebug()<<"Requesting capabilites of NullSession";
+    kDebug()<<"Requesting capabilities of NullSession";
     return MathematiK::Backend::Nothing;
 }
 

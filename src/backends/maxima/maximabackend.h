@@ -27,7 +27,7 @@ class MaximaBackend : public MathematiK::Backend
 {
   Q_OBJECT
   public:
-    MaximaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit MaximaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~MaximaBackend();
 
     MathematiK::Session *createSession();

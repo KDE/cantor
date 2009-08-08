@@ -27,7 +27,7 @@ class NullBackend : public MathematiK::Backend
 {
   Q_OBJECT
   public:
-    NullBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit NullBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~NullBackend();
 
     MathematiK::Session *createSession();

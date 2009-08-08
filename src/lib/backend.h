@@ -52,7 +52,7 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
-    Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
+    explicit Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
     virtual ~Backend();
 
     virtual Session* createSession() = 0;

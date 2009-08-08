@@ -43,7 +43,7 @@ TextResult::~TextResult()
 QString TextResult::toHtml()
 {
     QString s=d->data;
-    s.replace("\n", "<br/>\n");
+    s.replace('\n', "<br/>\n");
     return s;
 }
 

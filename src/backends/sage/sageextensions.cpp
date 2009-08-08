@@ -50,7 +50,7 @@ SageCASExtension::~SageCASExtension()
 QString SageCASExtension::solve(const QStringList& equations, const QStringList& variables)
 {
     QString eqstr=QString("[%1]").arg(equations.join(","));
-    eqstr.replace("=", "=="); //Sage uses == for equations and = for assignments
+    eqstr.replace('=', "=="); //Sage uses == for equations and = for assignments
     QString variablestr=variables.join(",");
 
     return QString("solve(%1,%2)").arg(eqstr, variablestr);
@@ -58,12 +58,12 @@ QString SageCASExtension::solve(const QStringList& equations, const QStringList&
 
 QString SageCASExtension::simplify(const QString& expression)
 {
-    return "simplify("+expression+")";
+    return QString("simplify(%1)").arg(expression);
 }
 
 QString SageCASExtension::expand(const QString& expression)
 {
-    return "expand("+expression+")";
+    return QString("expand(%1)").arg(expression);
 }
 
 
@@ -113,7 +113,7 @@ QString SageLinearAlgebraExtension::createVector(const QStringList& entries, Vec
     foreach(const QString& e, entries)
         cmd+=e+',';
     cmd.chop(1);
-    cmd+=")";
+    cmd+=')';
 
     if(type==MathematiK::LinearAlgebraExtension::ColumnVector)
         cmd+=".transpose()";

@@ -57,7 +57,7 @@ MathematiK::Session* SageBackend::createSession()
 
 MathematiK::Backend::Capabilities SageBackend::capabilities()
 {
-    kDebug()<<"Requesting capabilites of SageSession";
+    kDebug()<<"Requesting capabilities of SageSession";
     return MathematiK::Backend::LaTexOutput|MathematiK::Backend::SyntaxHighlighting|MathematiK::Backend::TabCompletion;
 }
 

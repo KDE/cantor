@@ -27,7 +27,7 @@ class RBackend : public MathematiK::Backend
 {
   Q_OBJECT
   public:
-    RBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit RBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~RBackend();
 
     MathematiK::Session *createSession();

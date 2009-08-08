@@ -51,7 +51,7 @@ class MATHEMATIK_EXPORT HistoryExtension : public Extension
     HistoryExtension(QObject* parent);
     ~HistoryExtension();
   public slots:
-    //Returns a command that retreives the last result
+    //Returns a command that retrieves the last result
     virtual QString lastResult() = 0;
 };
 

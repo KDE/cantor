@@ -197,19 +197,19 @@ void MaximaSession::runFirstExpression()
         connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(currentExpressionChangedStatus(MathematiK::Expression::Status)));
         QString command=expr->command();
 
-        kDebug()<<"writing "<<command+"\n"<<" to the process";
+        kDebug()<<"writing "<<command+'\n'<<" to the process";
         //We first send the command, with a $ at the end, and then request a latex version of the last result
         if (!command.endsWith('$'))
         {
-            if (!command.endsWith(";"))
-                command+=";";
+            if (!command.endsWith(QLatin1String(";")))
+                command+=';';
 
-            m_process->pty()->write((command+"\n").toLatin1());
+            m_process->pty()->write((command+'\n').toLatin1());
 
         }
         else
         {
-            m_process->pty()->write((command+"\n").toLatin1());
+            m_process->pty()->write((command+'\n').toLatin1());
         }
     }
 }

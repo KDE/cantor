@@ -95,7 +95,6 @@ bool Worksheet::event(QEvent* event)
 
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
-    const int key = event->key() | event->modifiers();
     if ( event->key() == Qt::Key_Tab &&m_tabCompletionEnabled )
     {
         // special tab handling here
@@ -435,7 +434,9 @@ void Worksheet::load(const QString& filename )
 
     const KArchiveEntry* contentEntry=file.directory()->entry("content.xml");
     if (!contentEntry->isFile())
+    {
         kDebug()<<"error";
+    }
     const KArchiveFile* content=static_cast<const KArchiveFile*>(contentEntry);
     QByteArray data=content->data();
 
@@ -473,16 +474,16 @@ void Worksheet::load(const QString& filename )
             entry->setResult(result.text());
         else if (result.attribute("type") == "image" )
         {
-            entry->setResult(""); //Make shure there's space for the image
+            entry->setResult(""); //Make sure there's space for the image
             const KArchiveEntry* imageEntry=file.directory()->entry(result.attribute("filename"));
             if (imageEntry&&imageEntry->isFile())
             {
                 const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-                if(imageFile->name().endsWith(".eps"))
+                if(imageFile->name().endsWith(QLatin1String(".eps")))
                 {
                     QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
                     imageFile->copyTo(dir);
-                    MathematiK::EpsResult *r=new MathematiK::EpsResult(KUrl(dir+"/"+imageFile->name()));
+                    MathematiK::EpsResult *r=new MathematiK::EpsResult(KUrl(dir+'/'+imageFile->name()));
                     QImage image=r->data().value<QImage>();
                     document()->addResource(QTextDocument::ImageResource,
                                             KUrl("mydata://"+imageFile->name()),  QVariant(image));
@@ -529,7 +530,7 @@ void Worksheet::gotResult()
 void Worksheet::removeEntry(QObject* object)
 {
     kDebug()<<"removing entry";
-    WorksheetEntry* entry=static_cast<WorksheetEntry*>(sender());
+    WorksheetEntry* entry=static_cast<WorksheetEntry*>(object);
     m_entries.removeAll(entry);
     if(m_entries.isEmpty())
         appendEntry();

@@ -121,7 +121,9 @@ QList<Backend*> Backend::availableBackends()
     {
         Backend* backend=service->createInstance<Backend>(0, QVariantList(),  &error);
         if(backend==0)
+        {
             kDebug()<<"error: "<<error;
+        }
 
         KPluginInfo info(service);
         backend->d->name=info.name();

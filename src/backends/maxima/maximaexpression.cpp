@@ -62,14 +62,14 @@ void MaximaExpression::evaluate()
         m_tempFile->deleteLater();
     m_tempFile=0;
     //check if this is a ?command
-    if(command().startsWith('?')||command().startsWith("describe(")||command().startsWith("example("))
+    if(command().startsWith('?')||command().startsWith(QLatin1String("describe("))||command().startsWith(QLatin1String("example(")))
         m_isHelpRequest=true;
 
     m_onStdoutStroke=false;
     m_outputCache.clear();
     m_errCache.clear();
 
-    if(command().startsWith("plot") && MaximaSettings::self()->integratePlots())
+    if(command().startsWith(QLatin1String("plot")) && MaximaSettings::self()->integratePlots())
     {
         m_tempFile=new KTemporaryFile();
         m_tempFile->setPrefix( "mathematik_maxima-" );
@@ -83,7 +83,7 @@ void MaximaExpression::evaluate()
         QString cmd=command();
         QString preamble="set terminal png size 500,340; set output '" + fileName + "';";
         QString plotParameters = "[gnuplot_preamble,\"" + preamble + "\"]";
-        cmd.insert(cmd.lastIndexOf(')'), ","+plotParameters);
+        cmd.insert(cmd.lastIndexOf(')'), ','+plotParameters);
 
         setCommand(cmd);
     }
@@ -105,7 +105,7 @@ void MaximaExpression::addInformation(const QString& information)
         inf+=';';
     MathematiK::Expression::addInformation(inf);
 
-    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+"\n");
+    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+'\n');
 }
 
 void MaximaExpression::parseOutput(const QString& text)
@@ -165,7 +165,7 @@ void MaximaExpression::parseOutput(const QString& text)
         }
     }
 
-    //wait a bit if another chunk of data comes in, containg the needed PROMPT
+    //wait a bit if another chunk of data comes in, containing the needed PROMPT
     if(couldBeQuestion)
     {
             m_askTimer->stop();
@@ -193,12 +193,12 @@ void MaximaExpression::parseTexResult(const QString& text)
     {
         kDebug()<<"got prompt";
         QString latex=m_outputCache.mid(0, m_outputCache.indexOf(MaximaSession::MaximaOutputPrompt)).trimmed();
-        if(latex.startsWith("$$"))
+        if(latex.startsWith(QLatin1String("$$")))
         {
             latex=latex.mid(2);
             latex.prepend("\\begin{eqnarray*}");
         }
-        if(latex.endsWith("$$"))
+        if(latex.endsWith(QLatin1String("$$")))
         {
             latex.chop(2);
             latex.append("\\end{eqnarray*}");
@@ -208,7 +208,7 @@ void MaximaExpression::parseTexResult(const QString& text)
         MathematiK::TextResult* result=new MathematiK::TextResult(latex);
         result->setFormat(MathematiK::TextResult::LatexFormat);
 
-        m_outputCache=QString();
+        m_outputCache.clear();
         setResult(result);
         setStatus(MathematiK::Expression::Done);
     }
@@ -245,8 +245,8 @@ void MaximaExpression::evalFinished()
         }
     }
 
-    m_outputCache=QString();
-    m_errCache=QString();
+    m_outputCache.clear();
+    m_errCache.clear();
 }
 
 bool MaximaExpression::needsLatexResult()

@@ -81,6 +81,7 @@ void onBusy(int which)
 
 int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
 {
+    Q_UNUSED(hist);
     kDebug()<<"readConsole: "<<prompt;
 
     QString input=server->requestInput(prompt);

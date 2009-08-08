@@ -280,7 +280,7 @@ void MathematiKShell::activateWorksheet(int index)
     if(m_part)
         createGUI(m_part);
     else
-        kDebug()<<"selected part doesnt exist";
+        kDebug()<<"selected part doesn't exist";
 
     m_tabWidget->setCurrentIndex(index);
 }

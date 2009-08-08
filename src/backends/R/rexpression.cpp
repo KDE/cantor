@@ -17,12 +17,14 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
-#include "textresult.h"
 
+#include "rexpression.h"
+
+#include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
 #include "rsession.h"
-#include "rexpression.h"
+
 
 #include <kdebug.h>
 #include <klocale.h>

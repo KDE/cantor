@@ -27,7 +27,7 @@ class SageBackend : public MathematiK::Backend
 {
   Q_OBJECT
   public:
-    SageBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit SageBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~SageBackend();
 
     MathematiK::Session *createSession();

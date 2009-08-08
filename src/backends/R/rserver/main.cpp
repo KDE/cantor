@@ -47,9 +47,7 @@ int main(int argc, char **argv)
 
     KApplication app;
 
-    KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
-
-    RServer * server=new RServer();
+    new RServer();
 
     return app.exec();
 }

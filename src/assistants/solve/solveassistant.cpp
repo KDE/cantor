@@ -57,7 +57,7 @@ QStringList SolveAssistant::run(QWidget* parent)
 
     if( dlg.exec())
     {
-        QStringList equations=base.equations->toPlainText().split("\n");
+        QStringList equations=base.equations->toPlainText().split('\n');
         QStringList variables=base.variables->text().split(", ");
 
         MathematiK::CASExtension* ext= dynamic_cast<MathematiK::CASExtension*>(backend()->extension("CASExtension"));

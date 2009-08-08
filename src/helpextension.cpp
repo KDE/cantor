@@ -30,6 +30,6 @@ HelpExtension::~HelpExtension()
 
 }
 
-#include "helpextension.h"
+#include "helpextension.moc"
 
 
