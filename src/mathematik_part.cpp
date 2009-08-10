@@ -33,6 +33,7 @@
 #include <kservice.h>
 #include <kservicetypetrader.h>
 #include <krun.h>
+#include <kprogressdialog.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -218,7 +219,6 @@ void MathematiKPart::evaluateOrInterrupt()
     else
         m_worksheet->evaluate();
 }
-
 void MathematiKPart::restartBackend()
 {
     m_worksheet->session()->logout();
@@ -247,6 +247,9 @@ void MathematiKPart::worksheetSessionChanged()
     loadAssistants();
     adjustGuiToSession();
 
+    m_initProgressDlg=new KProgressDialog(widget(), i18n("Initializing Session"));
+    m_initProgressDlg->setMinimumDuration(500);
+    m_initProgressDlg->progressBar()->setRange(0, 0);
 }
 
 void MathematiKPart::initialized()
@@ -254,6 +257,7 @@ void MathematiKPart::initialized()
     m_worksheet->setEnabled(true);
     emit setStatusBarText(i18n("Initialization complete"));
 
+    m_initProgressDlg->deleteLater();
     updateCaption();
 }
 

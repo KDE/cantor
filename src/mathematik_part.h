@@ -31,6 +31,7 @@ class Worksheet;
 class KAboutData;
 class KAction;
 class KToggleAction;
+class KProgressDialog;
 
 /**
  * This is a "Part".  It that does all the real work in a KPart
@@ -101,6 +102,7 @@ protected slots:
 private:
     Worksheet *m_worksheet;
 
+    KProgressDialog* m_initProgressDlg;
     KAction* m_evaluate;
     KAction* m_save;
     KToggleAction* m_typeset;
