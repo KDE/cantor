@@ -43,6 +43,7 @@ public:
         session=0;
     }
 
+    int id;
     QString command;
     QString error;
     QList<QString> information;
@@ -66,9 +67,13 @@ static const QString tex="\\documentclass[12pt]{article}                \n "\
                          "\\end{document}\n";
 
 
-Expression::Expression( Session* session ) : QObject( session ),
-                                             d(new ExpressionPrivate)
+Expression::Expression( Session* session, int id ) : QObject( session ),
+                                                     d(new ExpressionPrivate)
 {
+    if(id==-1)
+        d->id=session->nextExpressionId();
+    else
+        d->id=id;
     d->session=session;
     d->latexCmd=KStandardDirs::findExe( "latex" );
     d->dviPsCmd=KStandardDirs::findExe( "dvips" );
@@ -244,6 +249,17 @@ void Expression::addInformation(const QString& information)
 QString Expression::additionalLatexHeaders()
 {
     return QString();
+}
+
+int Expression::id()
+{
+    return d->id;
+}
+
+void Expression::setId(int id)
+{
+    d->id=id;
+    emit idChanged();
 }
 
 #include "expression.moc"

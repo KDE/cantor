@@ -63,7 +63,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
     m_worksheet=new Worksheet(b, parentWidget);
-    m_worksheet->setEnabled(false); //disable input until the session has sucessfully logged in and emits the ready signal
+    m_worksheet->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), h, SIGNAL(showHelp(const QString&)));
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
@@ -95,6 +95,11 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     m_tabcompletion->setChecked(Settings::self()->tabCompletionDefault());
     actionCollection()->addAction("enable_tabcompletion", m_tabcompletion);
     connect(m_tabcompletion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableTabCompletion(bool)));
+
+    m_exprNumbering=new KToggleAction(i18n("Line Numbers"), actionCollection());
+    m_exprNumbering->setChecked(Settings::self()->expressionNumberingDefault());
+    actionCollection()->addAction("enable_expression_numbers", m_exprNumbering);
+    connect(m_exprNumbering, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableExpressionNumbering(bool)));
 
     KAction* restart=new KAction(i18n("Restart Backend"), actionCollection());
     actionCollection()->addAction("restart_backend", restart);

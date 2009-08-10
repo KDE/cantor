@@ -21,6 +21,10 @@
       <label>Enable Tab Completions per default</label>
       <default>true</default>
     </entry>
+    <entry name="ExpressionNumberingDefault" type="Bool">
+      <label>Enable Numbering of Expressions per default</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>
 

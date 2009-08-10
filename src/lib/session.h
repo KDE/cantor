@@ -66,6 +66,8 @@ class MATHEMATIK_EXPORT Session : public QObject
 
     MathematiK::Session::Status status();
     bool isTypesettingEnabled();
+    
+    int nextExpressionId();
 
   protected:
     void changeStatus(MathematiK::Session::Status newStatus);

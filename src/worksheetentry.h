@@ -86,6 +86,7 @@ class WorksheetEntry : public QObject
 
   public slots:
     void updateResult();
+    void updatePrompt();
     void expressionChangedStatus(MathematiK::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
     void applyTabCompletion();

@@ -41,6 +41,7 @@ class Worksheet : public KTextEdit
     MathematiK::Session* session();
 
     bool isRunning();
+    bool showExpressionIds();
 
   public slots:
     void appendEntry(const QString& text=QString());
@@ -53,6 +54,7 @@ class Worksheet : public KTextEdit
 
     void enableHighlighting(bool highlight);
     void enableTabCompletion(bool enable);
+    void enableExpressionNumbering(bool enable);
 
     void save(const QString& filename);
     void load(const QString& filename);
@@ -79,7 +81,7 @@ class Worksheet : public KTextEdit
     QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;
     bool m_tabCompletionEnabled;
-    
+    bool m_showExpressionIds;
 };
 
 #endif /* _WORKSHEET_H */

@@ -39,12 +39,15 @@ class MATHEMATIK_EXPORT Expression : public QObject
   Q_OBJECT
   public:
     enum Status{ Computing, Done, Error, Interrupted};
-    Expression( Session* session);
+    Expression( Session* session, int id=-1);
     virtual ~Expression();
 
     virtual void evaluate() = 0;
     virtual void interrupt() = 0;
     
+    int id();
+    void setId(int id);
+
     void setCommand( const QString& cmd );
     QString command();
 
@@ -69,6 +72,7 @@ class MATHEMATIK_EXPORT Expression : public QObject
     void saveAdditionalData(KZip* archive);
 
   Q_SIGNALS:
+    void idChanged();
     void gotResult();
     void statusChanged(MathematiK::Expression::Status status);
     void needsAdditionalInformation(const QString& question);

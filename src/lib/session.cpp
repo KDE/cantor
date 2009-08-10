@@ -29,11 +29,13 @@ class MathematiK::SessionPrivate
     SessionPrivate()
     {
         backend=0;
+        expressionCount=0;
     }
 
     Backend* backend;
     Session::Status status;
     bool typesettingEnabled;
+    int expressionCount;
 };
 
 Session::Session( Backend* backend ) : QObject(backend),
@@ -81,6 +83,11 @@ TabCompletionObject* Session::tabCompletionFor(const QString& cmd)
     //the TabCompletion Capability flag
 
     return 0;
+}
+
+int Session::nextExpressionId()
+{
+    return d->expressionCount++;
 }
 
 #include "session.moc"

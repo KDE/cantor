@@ -37,7 +37,7 @@ const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("\\(%O[0-9]*\\)"); //Tex
 static QByteArray initCmd="display2d:false$                     \n"\
                           "inchar:%I$                           \n"\
                           "outchar:%O$                          \n"\
-                          "print(____END_OF_INIT____);\n";
+                          "print(____END_OF_INIT____);          \n";
 
 MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
 {
@@ -126,6 +126,7 @@ void MaximaSession::readStdOut()
         out.remove("____END_OF_INIT____");
 
         m_isInitialized=true;
+        evaluateExpression("kill(labels);");
         runFirstExpression();
         changeStatus(MathematiK::Session::Done);
         emit ready();

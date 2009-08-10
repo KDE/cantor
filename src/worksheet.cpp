@@ -68,6 +68,7 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(
     m_highlighter=0;
     enableHighlighting(Settings::self()->highlightDefault());
     enableTabCompletion(Settings::self()->tabCompletionDefault());
+    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
     session()->setTypesettingEnabled(Settings::self()->typesetDefault());
 }
 
@@ -541,6 +542,21 @@ void Worksheet::checkEntriesForSanity()
     foreach(WorksheetEntry* e, m_entries)
     {
         e->checkForSanity();
+    }
+}
+
+bool Worksheet::showExpressionIds()
+{
+    return m_showExpressionIds;
+}
+
+void Worksheet::enableExpressionNumbering(bool enable)
+{
+    m_showExpressionIds=enable;
+
+    foreach(WorksheetEntry* entry, m_entries)
+    {
+        entry->updatePrompt();
     }
 }
 

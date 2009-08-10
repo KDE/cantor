@@ -143,6 +143,11 @@ void MaximaExpression::parseOutput(const QString& text)
             couldBeQuestion=false;
         }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0||m_onStdoutStroke)
         {
+            //find the number if this output in the MaximaOutputPrompt
+            QString prompt=line.mid(MaximaSession::MaximaOutputPrompt.indexIn(line), MaximaSession::MaximaOutputPrompt.matchedLength()).trimmed();
+            QString id=prompt.mid(3, prompt.length()-4);
+            setId(id.toInt());
+
             line.remove(MaximaSession::MaximaOutputPrompt);
             //we got regular output. this means no error occurred,
             //prepend the error Buffer to the output Buffer, as

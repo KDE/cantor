@@ -101,8 +101,11 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
     m_informationCells.clear();
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateResult()));
+    connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
     connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(expressionChangedStatus(MathematiK::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
+
+    updatePrompt();
 
     if(expr->result())
         updateResult();
@@ -396,7 +399,7 @@ void WorksheetEntry::checkForSanity()
     QTextCursor c=cell.firstCursorPosition();
     c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
     if(c.selectedText()!=WorksheetEntry::Prompt)
-        c.insertText(WorksheetEntry::Prompt);
+        updatePrompt();
 }
 
 void WorksheetEntry::removeContextHelp()
@@ -410,6 +413,18 @@ void WorksheetEntry::removeContextHelp()
         m_table->removeRows(m_contextHelpCell.row(), 1);
         m_contextHelpCell=QTextTableCell();
     }
+}
+
+void WorksheetEntry::updatePrompt()
+{
+    QTextTableCell cell=m_table->cellAt(0, 0);
+    QTextCursor c=cell.firstCursorPosition();
+    c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+
+    if(m_expression&&m_worksheet->showExpressionIds())
+        c.insertHtml(QString("<b>%1</b>%2").arg(QString::number(m_expression->id()), WorksheetEntry::Prompt));
+    else
+        c.insertHtml(WorksheetEntry::Prompt);
 }
 
 #include "worksheetentry.moc"
