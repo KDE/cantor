@@ -32,6 +32,7 @@ class RBackend : public MathematiK::Backend
 
     MathematiK::Session *createSession();
     MathematiK::Backend::Capabilities capabilities();
+    bool requirementsFullfilled();
 
 };
 

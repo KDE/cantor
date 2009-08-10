@@ -22,7 +22,8 @@
 
 #include "rsession.h"
 
-#include "kdebug.h"
+#include <kdebug.h>
+#include <kstandarddirs.h>
 
 #include "mathematik_macros.h"
 
@@ -50,6 +51,13 @@ MathematiK::Backend::Capabilities RBackend::capabilities()
     kDebug()<<"Requesting capabilities of RSession";
     return MathematiK::Backend::InteractiveMode;
 }
+
+bool RBackend::requirementsFullfilled()
+{
+    QFileInfo info(KStandardDirs::findExe( "mathematik_rserver" ) );
+    return info.isExecutable();
+}
+
 
 K_EXPORT_MATHEMATIK_PLUGIN(rbackend, RBackend)
 
