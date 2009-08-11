@@ -25,10 +25,11 @@
 
 #include "mathematik_export.h"
 
+#include "expression.h"
+
 namespace MathematiK
 {
 class Backend;
-class Expression;
 class SessionPrivate;
 class TabCompletionObject;
 
@@ -48,7 +49,8 @@ class MATHEMATIK_EXPORT Session : public QObject
      *  signal as soon as the computation is done. The result will 
      *  then be acessible by Expression::result()
      */
-    virtual Expression* evaluateExpression(const QString& command) = 0;
+    virtual Expression* evaluateExpression(const QString& command, Expression::FinishingBehavior finishingBehavior) = 0;
+    Expression* evaluateExpression(const QString& command);
 
     /** Interrupts all the running calculations in this session **/
     virtual void interrupt() = 0;

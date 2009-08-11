@@ -55,10 +55,11 @@ void NullSession::interrupt()
     changeStatus(MathematiK::Session::Done);
 }
 
-MathematiK::Expression* NullSession::evaluateExpression(const QString& cmd)
+MathematiK::Expression* NullSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     NullExpression* expr=new NullExpression(this);
+    expr->setFinishingBehavior(behave);
     connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(expressionFinished()));
     expr->setCommand(cmd);
     expr->evaluate();

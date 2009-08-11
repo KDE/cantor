@@ -256,7 +256,10 @@ void MaximaExpression::evalFinished()
 
 bool MaximaExpression::needsLatexResult()
 {
-    bool needsLatex=session()->isTypesettingEnabled() && status()!=MathematiK::Expression::Error;
+    bool needsLatex=session()->isTypesettingEnabled() &&
+        status()!=MathematiK::Expression::Error &&
+        finishingBehavior()==MathematiK::Expression::DoNotDelete;
+
     if (result()&&result()->type()==MathematiK::TextResult::Type&&result()->data().toString()!="false" )
        return needsLatex && dynamic_cast<MathematiK::TextResult*>(result())->format()!=MathematiK::TextResult::LatexFormat;
     else

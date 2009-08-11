@@ -74,11 +74,11 @@ void RSession::interrupt()
     changeStatus(MathematiK::Session::Done);
 }
 
-MathematiK::Expression* RSession::evaluateExpression(const QString& cmd)
+MathematiK::Expression* RSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     RExpression* expr=new RExpression(this);
-
+    expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 
     expr->evaluate();

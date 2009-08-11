@@ -77,7 +77,7 @@ void MaximaSession::logout()
     disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
 
     if(m_expressionQueue.isEmpty())
-        evaluateExpression("quit();");
+        evaluateExpression("quit();", MathematiK::Expression::DeleteOnFinish);
     else
         interrupt();
     //Give maxima time to clean up
@@ -90,10 +90,11 @@ void MaximaSession::logout()
     m_expressionQueue.clear();
 }
 
-MathematiK::Expression* MaximaSession::evaluateExpression(const QString& cmd)
+MathematiK::Expression* MaximaSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     MaximaExpression* expr=new MaximaExpression(this);
+    expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
 
@@ -126,7 +127,7 @@ void MaximaSession::readStdOut()
         out.remove("____END_OF_INIT____");
 
         m_isInitialized=true;
-        evaluateExpression("kill(labels);");
+        evaluateExpression("kill(labels);", MathematiK::Expression::DeleteOnFinish);
         runFirstExpression();
         changeStatus(MathematiK::Session::Done);
         emit ready();
@@ -282,7 +283,8 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     if(enable)
     {
         startTexConvertProcess();
-        evaluateExpression("display2d:false"); //LaTeX and Display2d don't go together and even deliver wrong results
+        //LaTeX and Display2d don't go together and even deliver wrong results
+        evaluateExpression("display2d:false", MathematiK::Expression::DeleteOnFinish);
     }
     else if(m_texConvertProcess)
         m_texConvertProcess->deleteLater();

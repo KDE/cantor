@@ -50,6 +50,7 @@ public:
     Result* result;
     Expression::Status status;
     Session* session;
+    Expression::FinishingBehavior finishingBehavior;
 
     QString latexCmd;
     QString dviPsCmd;
@@ -67,13 +68,10 @@ static const QString tex="\\documentclass[12pt]{article}                \n "\
                          "\\end{document}\n";
 
 
-Expression::Expression( Session* session, int id ) : QObject( session ),
-                                                     d(new ExpressionPrivate)
+Expression::Expression( Session* session ) : QObject( session ),
+                                             d(new ExpressionPrivate)
 {
-    if(id==-1)
-        d->id=session->nextExpressionId();
-    else
-        d->id=id;
+    d->id=session->nextExpressionId();
     d->session=session;
     d->latexCmd=KStandardDirs::findExe( "latex" );
     d->dviPsCmd=KStandardDirs::findExe( "dvips" );
@@ -135,6 +133,9 @@ void Expression::setStatus(Expression::Status status)
 {
     d->status=status;
     emit statusChanged(status);
+
+    if(status==Expression::Done&&d->finishingBehavior==Expression::DeleteOnFinish)
+        deleteLater();
 }
 
 Expression::Status Expression::status()
@@ -262,7 +263,15 @@ void Expression::setId(int id)
     emit idChanged();
 }
 
+void Expression::setFinishingBehavior(Expression::FinishingBehavior behavior)
+{
+    d->finishingBehavior=behavior;
+}
+
+Expression::FinishingBehavior Expression::finishingBehavior()
+{
+    return d->finishingBehavior;
+}
+
 #include "expression.moc"
-
-
 

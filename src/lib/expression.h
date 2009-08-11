@@ -39,7 +39,12 @@ class MATHEMATIK_EXPORT Expression : public QObject
   Q_OBJECT
   public:
     enum Status{ Computing, Done, Error, Interrupted};
-    Expression( Session* session, int id=-1);
+    //Enum indicating how this Expression behaves on finishing
+    //DoNotDelete means no special behavior
+    //DeleteOnFinish means that the Object will delete itself when finished.
+    //this is used for fire-and-forget commands
+    enum FinishingBehavior { DoNotDelete, DeleteOnFinish };
+    Expression( Session* session );
     virtual ~Expression();
 
     virtual void evaluate() = 0;
@@ -47,6 +52,9 @@ class MATHEMATIK_EXPORT Expression : public QObject
     
     int id();
     void setId(int id);
+
+    void setFinishingBehavior(FinishingBehavior behevior);
+    FinishingBehavior finishingBehavior();
 
     void setCommand( const QString& cmd );
     QString command();

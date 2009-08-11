@@ -37,7 +37,7 @@ class NullSession : public MathematiK::Session
 
     void interrupt();
 
-    MathematiK::Expression* evaluateExpression(const QString& command);
+    MathematiK::Expression* evaluateExpression(const QString& command, MathematiK::Expression::FinishingBehavior behave);
     MathematiK::TabCompletionObject* tabCompletionFor(const QString& cmd);
 
   private slots:

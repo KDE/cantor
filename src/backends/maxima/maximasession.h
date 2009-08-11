@@ -44,7 +44,7 @@ class MaximaSession : public MathematiK::Session
     void login();
     void logout();
 
-    MathematiK::Expression* evaluateExpression(const QString& command);
+    MathematiK::Expression* evaluateExpression(const QString& command, MathematiK::Expression::FinishingBehavior behave);
 
     void appendExpressionToQueue(MaximaExpression* expr);
 

@@ -49,6 +49,11 @@ Session::~Session()
     delete d;
 }
 
+Expression* Session::evaluateExpression(const QString& command)
+{
+    return evaluateExpression(command, Expression::DoNotDelete);
+}
+
 Backend* Session::backend()
 {
     return d->backend;

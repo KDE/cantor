@@ -90,10 +90,11 @@ void SageSession::logout()
     m_expressionQueue.clear();
 }
 
-MathematiK::Expression* SageSession::evaluateExpression(const QString& cmd)
+MathematiK::Expression* SageSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     SageExpression* expr=new SageExpression(this);
+    expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
 
@@ -256,10 +257,9 @@ void SageSession::setTypesettingEnabled(bool enable)
     //the 2+2 and __IP.outputcache() are needed to keep the
     // _ operator working
     if (enable)
-        evaluateExpression("sage.misc.latex.pretty_print_default(true);2+2; __IP.outputcache()");
+        evaluateExpression("sage.misc.latex.pretty_print_default(true);2+2; __IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
     else
-        evaluateExpression("sage.misc.latex.pretty_print_default(false);2+2;__IP.outputcache()");
-
+        evaluateExpression("sage.misc.latex.pretty_print_default(false);2+2;__IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
 }
 
 MathematiK::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)

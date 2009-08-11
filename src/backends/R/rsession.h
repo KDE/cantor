@@ -39,7 +39,7 @@ class RSession : public MathematiK::Session
 
     void interrupt();
 
-    MathematiK::Expression* evaluateExpression(const QString& command);
+    MathematiK::Expression* evaluateExpression(const QString& command, MathematiK::Expression::FinishingBehavior behave);
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);
