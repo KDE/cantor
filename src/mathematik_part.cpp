@@ -34,6 +34,8 @@
 #include <kservicetypetrader.h>
 #include <krun.h>
 #include <kprogressdialog.h>
+#include <kmessagebox.h>
+#include <knewstuff2/engine.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -121,6 +123,11 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     m_showBackendHelp->setIcon(KIcon("help-contents"));
     actionCollection()->addAction("backend_help", m_showBackendHelp);
     connect(m_showBackendHelp, SIGNAL(triggered()), this, SLOT(showBackendHelp()));
+
+    KAction* publishWorksheet=new KAction(i18n("Publish Worksheet"), actionCollection());
+    publishWorksheet->setIcon(KIcon("get-hot-new-stuff"));
+    actionCollection()->addAction("file_publish_worksheet", publishWorksheet);
+    connect(publishWorksheet, SIGNAL(triggered()), this, SLOT(publishWorksheet()));
 
     // set our XML-UI resource file
     setXMLFile("mathematik_part.rc");
@@ -353,4 +360,24 @@ void MathematiKPart::adjustGuiToSession()
     //this is 0 on the first call
     if(m_showBackendHelp)
         m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
+}
+
+void MathematiKPart::publishWorksheet()
+{
+    int ret = KMessageBox::questionYesNo(widget(),
+                                         i18n("Do you want to upload current Worksheet to public web server ?"),
+                                         i18n("Question - MathematiK"));
+    if (ret != KMessageBox::Yes) return;
+
+    if (isModified()||url().isEmpty())
+    {
+        ret = KMessageBox::warningContinueCancel(widget(),
+                                                 i18n("The experiment is not saved. You should it before uploading."),
+                                                 i18n("Warning - MathematiK"),  KStandardGuiItem::save(),  KStandardGuiItem::cancel());
+        if (ret != KMessageBox::Continue) return;
+        if (!saveFile()) return;
+    }
+
+    kDebug()<<"uploading file "<<url();
+    KNS::Engine::upload(url().toLocalFile());
 }

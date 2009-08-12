@@ -38,6 +38,7 @@
 #include <ktextedit.h>
 #include <ktextbrowser.h>
 #include <kxmlguifactory.h>
+#include <knewstuff2/engine.h>
 
 #include <QDockWidget>
 #include <QApplication>
@@ -146,6 +147,12 @@ void MathematiKShell::setupActions()
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
     KStandardAction::keyBindings( guiFactory(),  SLOT( configureShortcuts() ),  actionCollection() );
+
+    KAction* actionDownloadExamples = new KAction(i18n("Download Example Worksheets"), actionCollection());
+    actionDownloadExamples->setIcon(KIcon("get-hot-new-stuff"));
+    actionCollection()->addAction("file_example_download",  actionDownloadExamples);
+    connect(actionDownloadExamples, SIGNAL(triggered()), this,  SLOT(downloadExamples()));
+
 }
 
 void MathematiKShell::saveProperties(KConfigGroup & /*config*/)
@@ -319,4 +326,20 @@ void MathematiKShell::showSettings()
     }
 
     dialog->show();
+}
+
+void MathematiKShell::downloadExamples()
+{
+    KNS::Entry::List entries = KNS::Engine::download();
+    // list of changed entries
+    foreach(KNS::Entry* entry,  entries)
+    {
+        // care only about installed ones
+        if (entry->status() == KNS::Entry::Installed)
+        {
+            //kDebug()<<"downloaded example "<<entry->name();
+        }
+    }
+
+    qDeleteAll(entries);
 }

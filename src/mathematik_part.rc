@@ -4,6 +4,7 @@
   <Menu name="file">
     <Action name="file_save"/>
     <Action name="file_save_as"/>
+    <Action name="file_publish_worksheet"/>
   </Menu>
   <Menu name="settings">
     <Action name="enable_typesetting"/>

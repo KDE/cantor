@@ -98,7 +98,8 @@ protected slots:
     void updateCaption();
 
     void runAssistant();
-
+    
+    void publishWorksheet();
 private:
     Worksheet *m_worksheet;
 
