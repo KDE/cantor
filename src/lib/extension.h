@@ -55,6 +55,20 @@ class MATHEMATIK_EXPORT HistoryExtension : public Extension
     virtual QString lastResult() = 0;
 };
 
+/** An Extension providing commands to interact
+    with external scripts
+**/
+class MATHEMATIK_EXPORT ScriptExtension : public Extension
+{
+  public:
+    ScriptExtension(QObject* parent);
+    ~ScriptExtension();
+  public slots:
+    virtual QString runExternalScript(const QString& path) = 0;
+    //returns the file filter used for Script Files (e.g. *.py)
+    virtual QString scriptFileFilter() = 0;
+};
+
 /** An extension providing the basic computations
     in computer algebra, like solving, simplifying
     etc

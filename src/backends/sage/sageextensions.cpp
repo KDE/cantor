@@ -20,32 +20,36 @@
 
 #include "sageextensions.h"
 #include <QStringList>
+#include <klocale.h>
 
-SageHistoryExtension::SageHistoryExtension( QObject* parent ) : MathematiK::HistoryExtension(parent)
-{
+#define SAGE_EXTENSION_CONSTRUCTORS(name) Sage##name##Extension::Sage##name##Extension(QObject* parent) : name##Extension(parent) {} \
+                                     Sage##name##Extension::~Sage##name##Extension() {}
 
-}
 
-SageHistoryExtension::~SageHistoryExtension()
-{
-
-}
+//History Extension
+SAGE_EXTENSION_CONSTRUCTORS(History)
 
 QString SageHistoryExtension::lastResult()
 {
     return "_";
 }
 
-SageCASExtension::SageCASExtension( QObject* parent) : MathematiK::CASExtension(parent)
-{
+//Script Extension
+SAGE_EXTENSION_CONSTRUCTORS(Script)
 
+QString SageScriptExtension::runExternalScript(const QString& path)
+{
+    return QString("execfile(\"%1\")").arg(path);
 }
 
-SageCASExtension::~SageCASExtension()
+QString SageScriptExtension::scriptFileFilter()
 {
-
+    return i18n("*.py|Python script file\n"\
+                "*.sage|Sage script file");
 }
 
+//CAS extension
+SAGE_EXTENSION_CONSTRUCTORS(CAS)
 
 QString SageCASExtension::solve(const QStringList& equations, const QStringList& variables)
 {
@@ -66,16 +70,8 @@ QString SageCASExtension::expand(const QString& expression)
     return QString("expand(%1)").arg(expression);
 }
 
-
-SageCalculusExtension::SageCalculusExtension(QObject* parent) : MathematiK::CalculusExtension(parent)
-{
-
-}
-
-SageCalculusExtension::~SageCalculusExtension()
-{
-
-}
+//Calculus Extension
+SAGE_EXTENSION_CONSTRUCTORS(Calculus)
 
 QString SageCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {
@@ -97,15 +93,8 @@ QString SageCalculusExtension::integrate(const QString& function,const QString& 
     return QString("integral(%1,%2,%3,%4)").arg(function, variable, left, right);
 }
 
-SageLinearAlgebraExtension::SageLinearAlgebraExtension(QObject* parent) : MathematiK::LinearAlgebraExtension(parent)
-{
-
-}
-
-SageLinearAlgebraExtension::~SageLinearAlgebraExtension()
-{
-
-}
+//Linear Algebra
+SAGE_EXTENSION_CONSTRUCTORS(LinearAlgebra)
 
 QString SageLinearAlgebraExtension::createVector(const QStringList& entries, VectorType type)
 {

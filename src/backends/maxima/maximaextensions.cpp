@@ -20,33 +20,34 @@
 
 #include "maximaextensions.h"
 #include <QStringList>
+#include <klocale.h>
 
-MaximaHistoryExtension::MaximaHistoryExtension( QObject* parent ) : MathematiK::HistoryExtension(parent)
-{
+#define MAXIMA_EXTENSION_CONSTRUCTORS(name) Maxima##name##Extension::Maxima##name##Extension(QObject* parent) : name##Extension(parent) {} \
+                                     Maxima##name##Extension::~Maxima##name##Extension() {}
 
-}
-
-MaximaHistoryExtension::~MaximaHistoryExtension()
-{
-
-}
+//History Extension
+MAXIMA_EXTENSION_CONSTRUCTORS(History)
 
 QString MaximaHistoryExtension::lastResult()
 {
     return "%";
 }
 
+//Script
+MAXIMA_EXTENSION_CONSTRUCTORS(Script)
 
-MaximaCASExtension::MaximaCASExtension( QObject* parent) : MathematiK::CASExtension(parent)
+QString MaximaScriptExtension::runExternalScript(const QString& file)
 {
-
+    return QString("batch(\"%1\")$").arg(file);
 }
 
-MaximaCASExtension::~MaximaCASExtension()
+QString MaximaScriptExtension::scriptFileFilter()
 {
-
+    return i18n("*.mac|Maxima batch File");
 }
 
+//CAS Extension
+MAXIMA_EXTENSION_CONSTRUCTORS(CAS)
 
 QString MaximaCASExtension::solve(const QStringList& equations, const QStringList& variables)
 {
@@ -67,16 +68,8 @@ QString MaximaCASExtension::expand(const QString& expression)
     return QString("expand(%1)").arg(expression);
 }
 
-
-MaximaCalculusExtension::MaximaCalculusExtension(QObject* parent) : MathematiK::CalculusExtension(parent)
-{
-
-}
-
-MaximaCalculusExtension::~MaximaCalculusExtension()
-{
-
-}
+//Calculus Extension
+MAXIMA_EXTENSION_CONSTRUCTORS(Calculus);
 
 QString MaximaCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {

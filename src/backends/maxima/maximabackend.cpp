@@ -36,6 +36,8 @@ MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Mat
     setObjectName("maximabackend");
     kDebug()<<"Creating MaximaBackend";
     //initialize the supported extensions
+    new MaximaHistoryExtension(this);
+    new MaximaScriptExtension(this);
     new MaximaCASExtension(this);
     new MaximaCalculusExtension(this);
 }

@@ -32,6 +32,17 @@ class MaximaHistoryExtension : public MathematiK::HistoryExtension
     QString lastResult();
 };
 
+class MATHEMATIK_EXPORT MaximaScriptExtension : public MathematiK::ScriptExtension
+{
+  public:
+    MaximaScriptExtension(QObject* parent);
+    ~MaximaScriptExtension();
+  public slots:
+    virtual QString runExternalScript(const QString& file);
+    virtual QString scriptFileFilter();
+};
+
+
 class MaximaCASExtension : public MathematiK::CASExtension
 {
   public:

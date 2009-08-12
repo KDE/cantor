@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+Icon=system-run
+Name=RunScript
+X-KDE-ServiceTypes=MathematiK/Assistant
+X-KDE-Library=mathematik_runscriptassistant
+X-KDE-PluginInfo-Name=RunScript
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=An Assistant for running an external Script file
+RequiredExtensions=ScriptExtension

@@ -32,6 +32,16 @@ class SageHistoryExtension : public MathematiK::HistoryExtension
     QString lastResult();
 };
 
+class MATHEMATIK_EXPORT SageScriptExtension : public MathematiK::ScriptExtension
+{
+  public:
+    SageScriptExtension(QObject* parent);
+    ~SageScriptExtension();
+  public slots:
+    virtual QString runExternalScript(const QString& path);
+    virtual QString scriptFileFilter();
+};
+
 class SageCASExtension : public MathematiK::CASExtension
 {
   public:
