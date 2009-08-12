@@ -65,7 +65,6 @@ void MaximaSession::login()
     //m_process->setUseUtmp(true);
 
     connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
-    connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     m_process->start();
     m_process->pty()->write(initCmd);
@@ -127,14 +126,17 @@ void MaximaSession::readStdOut()
         out.remove("____END_OF_INIT____");
 
         m_isInitialized=true;
+
         evaluateExpression("kill(labels);", MathematiK::Expression::DeleteOnFinish);
         runFirstExpression();
+
         changeStatus(MathematiK::Session::Done);
+
         emit ready();
     }
 
     kDebug()<<"queuesize: "<<m_expressionQueue.size();
-    if(!m_expressionQueue.isEmpty())
+    if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
         MaximaExpression* expr=m_expressionQueue.first();
         expr->parseOutput(out);

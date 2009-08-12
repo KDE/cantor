@@ -57,6 +57,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     setComponentData( MathematiKPartFactory::componentData() );
 
     m_showBackendHelp=0;
+    m_initProgressDlg=0;
 
     HelpExtension* h=new HelpExtension(this);
 
@@ -69,7 +70,6 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     m_worksheet->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), h, SIGNAL(showHelp(const QString&)));
-    connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
     // notify the part that this is our internal widget
@@ -254,9 +254,12 @@ void MathematiKPart::worksheetSessionChanged()
     loadAssistants();
     adjustGuiToSession();
 
-    m_initProgressDlg=new KProgressDialog(widget(), i18n("Initializing Session"));
-    m_initProgressDlg->setMinimumDuration(500);
-    m_initProgressDlg->progressBar()->setRange(0, 0);
+    if(!m_initProgressDlg)
+    {
+        m_initProgressDlg=new KProgressDialog(widget(), i18n("Initializing Session"));
+        m_initProgressDlg->setMinimumDuration(500);
+        m_initProgressDlg->progressBar()->setRange(0, 0);
+    }
 }
 
 void MathematiKPart::initialized()
@@ -264,7 +267,11 @@ void MathematiKPart::initialized()
     m_worksheet->setEnabled(true);
     emit setStatusBarText(i18n("Initialization complete"));
 
-    m_initProgressDlg->deleteLater();
+    if(m_initProgressDlg)
+    {
+        m_initProgressDlg->deleteLater();
+        m_initProgressDlg=0;
+    }
     updateCaption();
 }
 

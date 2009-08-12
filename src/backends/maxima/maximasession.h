@@ -64,7 +64,6 @@ class MaximaSession : public MathematiK::Session
     void currentExpressionChangedStatus(MathematiK::Expression::Status status);
     void restartMaxima();
 
-  private:
     void runFirstExpression();
     void runNextTexCommand();
     void startTexConvertProcess();

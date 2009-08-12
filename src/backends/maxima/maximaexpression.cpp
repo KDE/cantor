@@ -241,12 +241,15 @@ void MaximaExpression::evalFinished()
         result=new MathematiK::TextResult(text);
 
         setResult(result);
-        setStatus(MathematiK::Expression::Done);
 
         if(!m_errCache.isEmpty())
         {
             setErrorMessage(m_errCache);
             setStatus(MathematiK::Expression::Error);
+        }
+        else
+        {
+            setStatus(MathematiK::Expression::Done);
         }
     }
 
