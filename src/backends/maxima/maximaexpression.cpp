@@ -22,6 +22,7 @@
 
 #include "maximasession.h"
 #include "textresult.h"
+#include "epsresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
 #include "settings.h"
@@ -69,11 +70,11 @@ void MaximaExpression::evaluate()
     m_outputCache.clear();
     m_errCache.clear();
 
-    if(command().startsWith(QLatin1String("plot")) && MaximaSettings::self()->integratePlots())
+    if(command().contains(QRegExp("^plot2d|plot3d")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
     {
         m_tempFile=new KTemporaryFile();
         m_tempFile->setPrefix( "mathematik_maxima-" );
-        m_tempFile->setSuffix( ".png" );
+        m_tempFile->setSuffix( ".eps" );
         m_tempFile->open();
 
         QString fileName = m_tempFile->fileName();
@@ -81,8 +82,8 @@ void MaximaExpression::evaluate()
         connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
 
         QString cmd=command();
-        QString preamble="set terminal png size 500,340; set output '" + fileName + "';";
-        QString plotParameters = "[gnuplot_preamble,\"" + preamble + "\"]";
+        QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
+        QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
         cmd.insert(cmd.lastIndexOf(')'), ','+plotParameters);
 
         setCommand(cmd);
@@ -272,7 +273,7 @@ bool MaximaExpression::needsLatexResult()
 void MaximaExpression::imageChanged()
 {
     kDebug()<<"the temp image has changed";
-    setResult( new MathematiK::ImageResult( KUrl(m_tempFile->fileName()) ) );
+    setResult( new MathematiK::EpsResult( KUrl(m_tempFile->fileName()) ) );
     setStatus(MathematiK::Expression::Done);
 }
 
