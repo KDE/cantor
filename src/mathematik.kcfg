@@ -23,7 +23,7 @@
     </entry>
     <entry name="ExpressionNumberingDefault" type="Bool">
       <label>Enable Numbering of Expressions per default</label>
-      <default>true</default>
+      <default>false</default>
     </entry>
   </group>
 </kcfg>
