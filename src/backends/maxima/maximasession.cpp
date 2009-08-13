@@ -127,8 +127,9 @@ void MaximaSession::readStdOut()
 
         m_isInitialized=true;
 
-        evaluateExpression("kill(labels);", MathematiK::Expression::DeleteOnFinish);
         runFirstExpression();
+        evaluateExpression("kill(labels);", MathematiK::Expression::DeleteOnFinish);
+
 
         changeStatus(MathematiK::Session::Done);
 
