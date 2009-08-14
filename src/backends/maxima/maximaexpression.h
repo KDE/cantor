@@ -44,6 +44,11 @@ class MaximaExpression : public MathematiK::Expression
 
     bool needsLatexResult();
 
+    //returns the command that should be send to 
+    //the Maxima process, it's different from the
+    //command() for example to allow plot embedding 
+    QString internalCommand();
+
   public slots:
     void evalFinished();
 
@@ -57,6 +62,7 @@ class MaximaExpression : public MathematiK::Expression
     KTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
     bool m_isHelpRequest; 
+    bool m_isPlot;
     QTimer* m_askTimer;
 };
 

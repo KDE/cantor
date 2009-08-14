@@ -72,21 +72,14 @@ void MaximaExpression::evaluate()
 
     if(command().contains(QRegExp("^plot2d|plot3d")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
     {
+        m_isPlot=true;
         m_tempFile=new KTemporaryFile();
         m_tempFile->setPrefix( "mathematik_maxima-" );
         m_tempFile->setSuffix( ".eps" );
         m_tempFile->open();
 
-        QString fileName = m_tempFile->fileName();
-        m_fileWatch.addFile(fileName);
+        m_fileWatch.addFile(m_tempFile->fileName());
         connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
-
-        QString cmd=command();
-        QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
-        QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
-        cmd.insert(cmd.lastIndexOf(')'), ','+plotParameters);
-
-        setCommand(cmd);
     }
 
     dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
@@ -96,6 +89,28 @@ void MaximaExpression::interrupt()
 {
     kDebug()<<"interrupting";
     dynamic_cast<MaximaSession*>(session())->sendSignalToProcess(2);
+}
+
+QString MaximaExpression::internalCommand()
+{
+    QString cmd=command();
+
+    if(m_isPlot)
+    {
+        QString fileName = m_tempFile->fileName();
+
+        QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
+        QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
+        cmd.insert(cmd.lastIndexOf(')'), ','+plotParameters);
+    }
+
+    if (!cmd.endsWith('$'))
+    {
+        if (!cmd.endsWith(QLatin1String(";")))
+            cmd+=';';
+    }
+
+    return cmd;
 }
 
 void MaximaExpression::addInformation(const QString& information)
