@@ -454,12 +454,17 @@ void Worksheet::load(const QString& filename )
         KMessageBox::error(this, i18n("The backend with which this file was generated is not installed."), i18n("MathematiK"));
         return;
     }
+
+    //cache the old typesetting state
+    bool isLatexEnabled=m_session->isTypesettingEnabled();
     m_session=b->createSession();
     m_session->login();
     emit sessionChanged();
 
     //Set the Highlighting, depending on the current state
     enableHighlighting(m_highlighter==0);
+    //re-set the typesetting state as it used to be
+    m_session->setTypesettingEnabled(isLatexEnabled);
 
     clear();
     m_entries.clear();
