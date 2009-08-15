@@ -106,7 +106,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     KAction* restart=new KAction(i18n("Restart Backend"), actionCollection());
     actionCollection()->addAction("restart_backend", restart);
-    restart->setIcon(KIcon("system-restart"));
+    restart->setIcon(KIcon("system-reboot"));
     connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
 
     KAction* evaluateCurrent=new KAction(i18n("Evaluate Entry"), actionCollection());
