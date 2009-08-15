@@ -462,7 +462,7 @@ void Worksheet::load(const QString& filename )
     emit sessionChanged();
 
     //Set the Highlighting, depending on the current state
-    enableHighlighting(m_highlighter==0);
+    enableHighlighting(m_highlighter!=0);
     //re-set the typesetting state as it used to be
     m_session->setTypesettingEnabled(isLatexEnabled);
 
