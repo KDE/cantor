@@ -379,7 +379,7 @@ void MathematiKPart::publishWorksheet()
     if (isModified()||url().isEmpty())
     {
         ret = KMessageBox::warningContinueCancel(widget(),
-                                                 i18n("The Worksheet is not saved. You should it before uploading."),
+                                                 i18n("The Worksheet is not saved. You should save it before uploading."),
                                                  i18n("Warning - MathematiK"),  KStandardGuiItem::save(),  KStandardGuiItem::cancel());
         if (ret != KMessageBox::Continue) return;
         if (!saveFile()) return;
