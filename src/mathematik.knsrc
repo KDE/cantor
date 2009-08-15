@@ -1,4 +1,4 @@
 [KNewStuff2]
-ProvidersUrl=
+ProvidersUrl=http://newstuff.kde.org/cgi-bin/hotstuff-provider?site=mathematik
 Uncompress=never
 TargetDir=mathematik_examples
