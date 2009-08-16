@@ -386,6 +386,15 @@ void MathematiKPart::publishWorksheet()
     }
 
     kDebug()<<"uploading file "<<url();
-    KNS::Entry *entry = KNS::Engine::upload(url().toLocalFile());
 
+    KNS::Engine engine(widget());
+    engine.init("mathematik.knsrc");
+    KNS::Entry *entry = engine.uploadDialogModal(url().toLocalFile());
+
+#if 0
+    if(!entry)
+    {
+        KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - MathematiK"));
+    }
+#endif
 }
