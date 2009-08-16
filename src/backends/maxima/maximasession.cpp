@@ -215,8 +215,15 @@ void MaximaSession::runNextTexCommand()
         QString cmd=expr->result()->data().toString().trimmed();
         if(!cmd.isEmpty())
         {
-            kDebug()<<"running "<<QString("tex(%1);").arg(cmd);
-            m_texConvertProcess->pty()->write(QString("tex(%1);\n").arg(cmd).toUtf8());
+            QStringList cmdParts=cmd.split("\n");
+            QString texCmd;
+            foreach(const QString& part, cmdParts)
+            {
+                kDebug()<<"running "<<QString("tex(%1);").arg(part);
+                texCmd+=QString("tex(%1);").arg(part);
+            }
+            texCmd+='\n';
+            m_texConvertProcess->pty()->write(texCmd.toUtf8());
         }else
         {
             kDebug()<<"current tex request is empty, so drop it";

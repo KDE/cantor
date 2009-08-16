@@ -115,6 +115,12 @@ QString MaximaExpression::internalCommand()
             cmd+=';';
     }
 
+    //remove all newlines, as maxima isn't sensitive about
+    //whitespaces, and without newlines the whole command
+    //is executed at once, without outputting an input
+    //prompt after each line
+    cmd.remove('\n');
+
     return cmd;
 }
 
@@ -215,10 +221,17 @@ void MaximaExpression::parseTexResult(const QString& text)
     m_outputCache+=output;
 
     kDebug()<<"parsing "<<text;
-    if(m_outputCache.contains(MaximaSession::MaximaPrompt))
+
+    //If we haven't got the Input prompt yet, postpone the parsing
+    if(!m_outputCache.contains(MaximaSession::MaximaPrompt))
+        return;
+
+    QString completeLatex;
+    while(m_outputCache.contains(MaximaSession::MaximaOutputPrompt))
     {
-        kDebug()<<"got prompt";
-        QString latex=m_outputCache.mid(0, m_outputCache.indexOf(MaximaSession::MaximaOutputPrompt)).trimmed();
+        kDebug()<<"got prompt"<<m_outputCache;
+        int pos=m_outputCache.indexOf(MaximaSession::MaximaOutputPrompt);
+        QString latex=m_outputCache.mid(0, pos).trimmed();
         if(latex.startsWith(QLatin1String("$$")))
         {
             latex=latex.mid(2);
@@ -229,9 +242,15 @@ void MaximaExpression::parseTexResult(const QString& text)
             latex.chop(2);
             latex.append("\\end{eqnarray*}");
         }
+        completeLatex+=latex+'\n';
 
-        kDebug()<<"latex: "<<latex;
-        MathematiK::TextResult* result=new MathematiK::TextResult(latex);
+        m_outputCache.remove(0, (m_outputCache.indexOf("false", pos)+5));
+    }
+
+    if(!completeLatex.isEmpty())
+    {
+        kDebug()<<"latex: "<<completeLatex;
+        MathematiK::TextResult* result=new MathematiK::TextResult(completeLatex);
         result->setFormat(MathematiK::TextResult::LatexFormat);
 
         m_outputCache.clear();
