@@ -24,6 +24,7 @@
 #include "settings.h"
 #include "ui_settings.h"
 #include "maximaextensions.h"
+#include "maximahighlighter.h"
 
 #include "kdebug.h"
 #include <QWidget>
@@ -57,7 +58,7 @@ MathematiK::Session* MaximaBackend::createSession()
 MathematiK::Backend::Capabilities MaximaBackend::capabilities()
 {
     kDebug()<<"Requesting capabilities of MaximaSession";
-    return MathematiK::Backend::LaTexOutput|MathematiK::Backend::InteractiveMode;
+    return MathematiK::Backend::LaTexOutput|MathematiK::Backend::InteractiveMode|MathematiK::Backend::SyntaxHighlighting;
 }
 
 bool MaximaBackend::requirementsFullfilled()
@@ -65,6 +66,12 @@ bool MaximaBackend::requirementsFullfilled()
     QFileInfo info(MaximaSettings::self()->path().toLocalFile());
     return info.isExecutable();
 }
+
+QSyntaxHighlighter* MaximaBackend::syntaxHighlighter(QTextEdit* parent)
+{
+    return new MaximaHighlighter(parent);
+}
+
 
 QWidget* MaximaBackend::settingsWidget(QWidget* parent)
 {

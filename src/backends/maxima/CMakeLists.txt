@@ -5,6 +5,7 @@ set( MaximaBackend_SRCS
  maximasession.cpp
  maximaexpression.cpp
  maximaextensions.cpp
+ maximahighlighter.cpp
 )
 
 kde4_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)

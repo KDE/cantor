@@ -34,6 +34,8 @@ class MaximaBackend : public MathematiK::Backend
     MathematiK::Backend::Capabilities capabilities();
     bool requirementsFullfilled();
 
+    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+
     QWidget* settingsWidget(QWidget* parent);
     KConfigSkeleton* config();
 
