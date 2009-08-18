@@ -45,5 +45,4 @@ void onBusy(int which);
 int  onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist);
 int  onShowFiles(int nfile, const char** file, const char** headers, const char* wtitle, Rboolean del, const char* pager);
 
-
 #endif /* _RCALLBACKS_H */

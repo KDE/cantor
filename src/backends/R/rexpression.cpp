@@ -23,6 +23,7 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
+#include "epsresult.h"
 #include "rsession.h"
 
 
@@ -59,7 +60,7 @@ void RExpression::evaluate()
 
 void RExpression::interrupt()
 {
-    kDebug()<<"interruptinging command";
+    kDebug()<<"interrupting command";
     if(status()==MathematiK::Expression::Computing)
         session()->interrupt();
     setStatus(MathematiK::Expression::Interrupted);
@@ -95,7 +96,12 @@ void RExpression::showFilesAsResult(const QStringList& files)
     foreach(const QString& file, files)
     {
         KMimeType::Ptr type=KMimeType::findByUrl(file);
-        if(type->is("text/plain"))
+        kDebug()<<"MimeType: "<<type->name();
+        if(type->is("application/postscript"))
+        {
+            kDebug()<<"its PostScript";
+            setResult(new MathematiK::EpsResult(file));
+        }else if(type->is("text/plain"))
         {
             kDebug()<<"its plain text";
             QFile f(file);
@@ -117,7 +123,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 setResult(new MathematiK::HelpResult(content));
             else
                 setResult(new MathematiK::TextResult(content));
-        }else if (type->name().indexOf("image")>0)
+        }else if (type->name().contains("image"))
         {
             setResult(new MathematiK::ImageResult(file));
         }

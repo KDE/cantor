@@ -19,11 +19,15 @@
  */
 
 #include "rserver.h"
+#include <kio/netaccess.h>
 #include "radaptor.h"
 #include "rcallbacks.h"
+#include "settings.h"
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kglobal.h>
+#include <kstandarddirs.h>
 
 //R includes
 #include <R.h>
@@ -34,21 +38,26 @@
 #include <Rinterface.h>
 #include <R_ext/Parse.h>
 
-
 RServer::RServer()
 {
     new RAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject("/R",  this);
+    m_isInitialized=false;
+
+    m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString("mathematik/rserver-%1").arg(getpid()));
+    kDebug()<<"storing plots at "<<m_tmpDir;
+
     initR();
     m_status=RServer::Idle;
-
+    m_isInitialized=true;
     emit ready();
 }
 
 RServer::~RServer()
 {
-
+    //delete the directory with old plots
+    KIO::NetAccess::del(KUrl(m_tmpDir), NULL);
 }
 
 void RServer::initR()
@@ -76,6 +85,13 @@ void RServer::initR()
     setupCallbacks(this);
 
     autoload();
+
+    //Setting up some settings dependent stuff
+    if(RServerSettings::self()->integratePlots())
+    {
+        kDebug()<<"integrating plots";
+        newPlotDevice();
+    }
 
     kDebug()<<"done initializing";
 }
@@ -176,8 +192,9 @@ void RServer::endR()
    Rf_endEmbeddedR(0);
 }
 
-void RServer::runCommand(const QString& cmd)
+void RServer::runCommand(const QString& cmd, bool internal)
 {
+    kDebug()<<"running command "<<cmd;
     Expression* expr=new Expression;
     expr->cmd=cmd;
 
@@ -271,6 +288,21 @@ void RServer::runCommand(const QString& cmd)
         returnText=i18n("Error Parsing Command");
     }
 
+    if(internal)
+    {
+        kDebug()<<"internal result: "<<returnCode<<" :: "<<returnText;
+        return;
+    }
+
+    QFileInfo f(m_curPlotFile);
+    kDebug()<<"file: "<<m_curPlotFile<<" exists: "<<f.exists()<<" size: "<<f.size();
+    if(f.exists())
+    {
+        expr->hasOtherResults=true;
+        newPlotDevice();
+        showFiles(QStringList()<<f.filePath());
+    }
+
     //Check if the expression got results other than plain text (like files,etc)
     if(!expr->hasOtherResults)
         emit expressionFinished(returnCode, returnText);
@@ -282,7 +314,8 @@ void RServer::setStatus(Status status)
     if(m_status!=status)
     {
         m_status=status;
-        emit statusChanged(status);
+        if(m_isInitialized)
+            emit statusChanged(status);
     }
 }
 
@@ -307,7 +340,24 @@ void RServer::answerRequest(const QString& answer)
 
 void RServer::showFiles(const QStringList& files)
 {
-    emit showFilesNeeded(files);
+    if(m_isInitialized)
+        emit showFilesNeeded(files);
+}
+
+void RServer::newPlotDevice()
+{
+    static int deviceNum=0;
+    //For some reason, the PostScript returned by R doesn't seem to render,
+    //so fallback to png
+
+    /*static const QString psCommand=QString("pdf(horizontal = FALSE, onefile = TRUE, " \
+                                           "paper=\"special\", width=5, height=4,"\
+                                           "print.it=FALSE, bg=\"white\", file=\"%1\" )");*/
+    static const QString command=QString("png(filename=\"%1\", width = 480, height = 480, units = \"px\")");
+    m_curPlotFile=QString("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
+    if(m_isInitialized)
+        runCommand("dev.off()", true);
+    runCommand(command.arg(m_curPlotFile), true);
 }
 
 #include "rserver.moc"

@@ -9,8 +9,12 @@ set( RBackend_SRCS
  rexpression.cpp
 )
 
+kde4_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
+
 set(network_xml rserver/org.MathematiK.R.xml)
 QT4_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
+
+kde4_add_ui_files(RBackend_SRCS settings.ui)
 
 kde4_add_plugin( mathematik_rbackend ${RBackend_SRCS} )
 target_link_libraries( mathematik_rbackend ${KDE4_KDEUI_LIBS} mathematiklibs rinside rcpp ${R_USED_LIBS})

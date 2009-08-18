@@ -34,6 +34,9 @@ class RBackend : public MathematiK::Backend
     MathematiK::Backend::Capabilities capabilities();
     bool requirementsFullfilled();
 
+    virtual QWidget* settingsWidget(QWidget* parent);
+    virtual KConfigSkeleton* config();
+
 };
 
 

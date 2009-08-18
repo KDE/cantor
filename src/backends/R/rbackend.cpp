@@ -21,6 +21,8 @@
 #include "rbackend.h"
 
 #include "rsession.h"
+#include "settings.h"
+#include "ui_settings.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -57,6 +59,20 @@ bool RBackend::requirementsFullfilled()
     QFileInfo info(KStandardDirs::findExe( "mathematik_rserver" ) );
     return info.isExecutable();
 }
+
+QWidget* RBackend::settingsWidget(QWidget* parent)
+{
+    QWidget* widget=new QWidget(parent);
+    Ui::RSettingsBase s;
+    s.setupUi(widget);
+    return widget;
+}
+
+KConfigSkeleton* RBackend::config()
+{
+    return RServerSettings::self();
+}
+
 
 
 K_EXPORT_MATHEMATIK_PLUGIN(rbackend, RBackend)

@@ -61,15 +61,17 @@ class RServer : public QObject
     void requestAnswered();
     
   public slots:
-    void runCommand(const QString& cmd);
+    void runCommand(const QString& cmd, bool internal=false);
     void answerRequest(const QString& answer);
-
   private:
     void setStatus(Status status);
+    void newPlotDevice();
   private:
+    bool m_isInitialized;
     Status m_status;
     QString m_requestCache;
-    
+    QString m_tmpDir;
+    QString m_curPlotFile;   
 };
 
 #endif /* _RSERVER_H */
