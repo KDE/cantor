@@ -78,6 +78,7 @@ void MaximaExpression::evaluate()
         m_tempFile->setSuffix( ".eps" );
         m_tempFile->open();
 
+        disconnect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
         m_fileWatch.addFile(m_tempFile->fileName());
         connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
     }
@@ -147,12 +148,6 @@ void MaximaExpression::parseOutput(const QString& text)
 
     ///if(output.contains("maxima: "));
     //output=output.mid(6).trimmed();
-
-    if(m_tempFile)
-    {
-        QTimer::singleShot(500, this, SLOT(imageChanged()));
-        return;
-    }
 
     bool couldBeQuestion=false;
     const QStringList lines=output.split('\n');
@@ -270,6 +265,9 @@ void MaximaExpression::evalFinished()
         text.replace(' ', "&nbsp;");
     MathematiK::TextResult* result;
 
+    if(m_tempFile)
+        QTimer::singleShot(500, this, SLOT(imageChanged()));
+
     if(m_isHelpRequest)
     {
         result=new MathematiK::HelpResult(m_errCache);
@@ -312,8 +310,11 @@ bool MaximaExpression::needsLatexResult()
 void MaximaExpression::imageChanged()
 {
     kDebug()<<"the temp image has changed";
-    setResult( new MathematiK::EpsResult( KUrl(m_tempFile->fileName()) ) );
-    setStatus(MathematiK::Expression::Done);
+    if(m_tempFile->size()>0)
+    {
+        setResult( new MathematiK::EpsResult( KUrl(m_tempFile->fileName()) ) );
+        setStatus(MathematiK::Expression::Done);
+    }
 }
 
 #include "maximaexpression.moc"
