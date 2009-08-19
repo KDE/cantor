@@ -391,10 +391,11 @@ void MathematiKPart::publishWorksheet()
     engine.init("mathematik.knsrc");
     KNS::Entry *entry = engine.uploadDialogModal(url().toLocalFile());
 
-#if 0
-    if(!entry)
+    if(entry)
+    {
+        KMessageBox::information(widget(), i18n("Uploading successfull"), i18n("MathematiK"));
+    }else
     {
         KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - MathematiK"));
     }
-#endif
 }
