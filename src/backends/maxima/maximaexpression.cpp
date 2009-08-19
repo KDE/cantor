@@ -70,7 +70,7 @@ void MaximaExpression::evaluate()
     m_outputCache.clear();
     m_errCache.clear();
 
-    if(command().contains(QRegExp("^plot2d|plot3d")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
+    if(command().contains(QRegExp("plot2d\\([^\\)]|plot3d\\([^\\)]")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
     {
         m_isPlot=true;
         m_tempFile=new KTemporaryFile();
@@ -106,7 +106,7 @@ QString MaximaExpression::internalCommand()
 
         QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
         QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
-        cmd.insert(cmd.lastIndexOf(')'), ','+plotParameters);
+        cmd.replace(QRegExp("((plot2d|plot3d)\\(.*)\\)([;\n]|$)"), "\\1, "+plotParameters+");");
     }
 
     if (!cmd.endsWith('$'))
