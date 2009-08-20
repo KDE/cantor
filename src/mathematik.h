@@ -88,6 +88,7 @@ private slots:
     void showSettings();
 
     void downloadExamples();
+    void openExample();
 
 private:
     void setupActions();

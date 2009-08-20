@@ -39,6 +39,7 @@
 #include <ktextbrowser.h>
 #include <kxmlguifactory.h>
 #include <knewstuff2/engine.h>
+#include <kstandarddirs.h>
 
 #include <QDockWidget>
 #include <QApplication>
@@ -148,11 +149,15 @@ void MathematiKShell::setupActions()
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
     KStandardAction::keyBindings( guiFactory(),  SLOT( configureShortcuts() ),  actionCollection() );
 
-    KAction* actionDownloadExamples = new KAction(i18n("Download Example Worksheets"), actionCollection());
-    actionDownloadExamples->setIcon(KIcon("get-hot-new-stuff"));
-    actionCollection()->addAction("file_example_download",  actionDownloadExamples);
-    connect(actionDownloadExamples, SIGNAL(triggered()), this,  SLOT(downloadExamples()));
+    KAction* downloadExamples = new KAction(i18n("Download Example Worksheets"), actionCollection());
+    downloadExamples->setIcon(KIcon("get-hot-new-stuff"));
+    actionCollection()->addAction("file_example_download",  downloadExamples);
+    connect(downloadExamples, SIGNAL(triggered()), this,  SLOT(downloadExamples()));
 
+    KAction* openExample =new KAction(i18n("&Open Example"), actionCollection());
+    openExample->setIcon(KIcon("document-open"));
+    actionCollection()->addAction("file_example_open", openExample);
+    connect(openExample, SIGNAL(triggered()), this, SLOT(openExample()));
 }
 
 void MathematiKShell::saveProperties(KConfigGroup & /*config*/)
@@ -343,3 +348,14 @@ void MathematiKShell::downloadExamples()
 
     qDeleteAll(entries);
 }
+
+void MathematiKShell::openExample()
+{
+    QString dir = KStandardDirs::locateLocal("appdata",  "examples");
+    if (dir.isEmpty()) return;
+    KStandardDirs::makeDir(dir);
+    KUrl url=KFileDialog::getOpenUrl( KUrl(dir), QString("*.mws"), this );
+    if(!url.isEmpty())
+        load(url);
+}
+
