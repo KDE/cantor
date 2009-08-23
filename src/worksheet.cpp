@@ -96,10 +96,15 @@ bool Worksheet::event(QEvent* event)
 
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
+    //if the textCursor is inside a prompt cell, set it to the next
+    //command cell.
+    WorksheetEntry* current=currentEntry();
+    if(current&&current->isInPromptCell(textCursor()))
+       setTextCursor(current->commandCell().firstCursorPosition());
+
     if ( event->key() == Qt::Key_Tab &&m_tabCompletionEnabled )
     {
         // special tab handling here
-        WorksheetEntry* current=currentEntry();
         if (current)
         {
             //get the current line of the entry. If it's empty, do a regular tab(indent),
@@ -121,45 +126,42 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
     if ( event->key() == Qt::Key_Left )
     {
         KTextEdit::keyPressEvent(event);
-        WorksheetEntry* entry=currentEntry();
-        if(entry&&entry->isInPromptCell(textCursor())) //The cursor is placed at the prompt column. move it up if possible
+        if(current&&current->isInPromptCell(textCursor())) //The cursor is placed at the prompt column. move it up if possible
         {
-            int index=m_entries.indexOf(entry);
+            int index=m_entries.indexOf(current);
             kDebug()<<"index: "<<index;
             WorksheetEntry* newEntry;
             if(index>0)
                 newEntry=m_entries[index-1];
             else
-                newEntry=entry;
+                newEntry=current;
 
             setTextCursor(newEntry->commandCell().firstCursorPosition());
         }
     }else if ( event->key() == Qt::Key_Right )
     {
         KTextEdit::keyPressEvent(event);
-        WorksheetEntry* entry=currentEntry();
-        if(entry&&!entry->isInCommandCell(textCursor()))
+        if(current&&!current->isInCommandCell(textCursor()))
         {
-            int index=m_entries.indexOf(entry);
+            int index=m_entries.indexOf(current);
 
             if(index<m_entries.size()-1)
             {
                 setTextCursor(m_entries[index+1]->commandCell().firstCursorPosition());
             }else
             {
-                setTextCursor(entry->commandCell().lastCursorPosition());
+                setTextCursor(current->commandCell().lastCursorPosition());
             }
         }else
         {
             //If the cursor is behind the last entry, set it to the last position of the last entry
-            entry=m_entries.last();
-            if(textCursor().position()>entry->lastPosition())
-                setTextCursor(entry->commandCell().lastCursorPosition());
+            current=m_entries.last();
+            if(textCursor().position()>current->lastPosition())
+                setTextCursor(current->commandCell().lastCursorPosition());
         }
     }else if ( event->key() == Qt::Key_Up )
     {
-        WorksheetEntry* entry=currentEntry();
-        if(!entry)
+        if(!current)
         {
             KTextEdit::keyPressEvent(event);
             return;
@@ -168,12 +170,12 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         //Check if we are in the top line of the command cell,
         //if so, pressing up means we want to go to the previous entry
 
-        if(entry->isInCommandCell(textCursor())) //We are in the command cell.
+        if(current->isInCommandCell(textCursor())) //We are in the command cell.
         {
             //get the text written between the current cursor, and the beginning
             //of the commandCell
             QTextCursor c=textCursor();
-            c.setPosition(entry->commandCell().firstCursorPosition().position(), QTextCursor::KeepAnchor);
+            c.setPosition(current->commandCell().firstCursorPosition().position(), QTextCursor::KeepAnchor);
             QString txt=c.selectedText();
 
             if(txt.contains(QChar::ParagraphSeparator)||txt.contains('\n')) //there's still a newline above the cursor, so move only one line up
@@ -182,24 +184,23 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
                 return;
             }else
             {
-                int index=m_entries.indexOf(entry);
+                int index=m_entries.indexOf(current);
                 kDebug()<<"index: "<<index;
                 WorksheetEntry* newEntry;
                 if(index>0)
                     newEntry=m_entries[index-1];
                 else
-                    newEntry=entry;
+                    newEntry=current;
 
                 setTextCursor(newEntry->commandCell().firstCursorPosition());
             }
         }else
         {
-            setTextCursor(entry->commandCell().firstCursorPosition());
+            setTextCursor(current->commandCell().firstCursorPosition());
         }
     }else if ( event->key() == Qt::Key_Down )
     {
-        WorksheetEntry* entry=currentEntry();
-        if(!entry)
+        if(!current)
         {
             KTextEdit::keyPressEvent(event);
             return;
@@ -211,23 +212,23 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         //get the text written between the current cursor, and the end
         //of the commandCell
         QTextCursor c=textCursor();
-        c.setPosition(entry->commandCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
+        c.setPosition(current->commandCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
         QString txt=c.selectedText();
 
         //if we're in the command cell and there is still a newline under the cursor, only move one line down
-        if(entry->isInCommandCell(textCursor())&&(txt.contains(QChar::ParagraphSeparator)||txt.contains('\n')))
+        if(current->isInCommandCell(textCursor())&&(txt.contains(QChar::ParagraphSeparator)||txt.contains('\n')))
         {
             KTextEdit::keyPressEvent(event);
             return;
         }else
         {
             //move to the next entry
-            int index=m_entries.indexOf(entry);
+            int index=m_entries.indexOf(current);
             WorksheetEntry* newEntry;
             if(index<m_entries.size()-1)
                 newEntry=m_entries[index+1];
             else
-                newEntry=entry;
+                newEntry=current;
 
             setTextCursor(newEntry->commandCell().firstCursorPosition());
         }
