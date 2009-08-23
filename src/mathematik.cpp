@@ -70,7 +70,6 @@ MathematiKShell::MathematiKShell()
     dock->setWidget(m_helpView);
     addDockWidget ( Qt::RightDockWidgetArea,  dock );
 
-
     createGUI(0);
     bool hasBackend=false;
     foreach(MathematiK::Backend* b, MathematiK::Backend::availableBackends())

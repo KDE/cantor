@@ -31,10 +31,6 @@ class KTextEdit;
 /**
  * This is the application "Shell".  It has a menubar, toolbar, and
  * statusbar but relies on the "Part" to do all the real work.
- *
- * @short Application Shell
- * @author ${AUTHOR} <${EMAIL}>
- * @version ${APP_VERSION}
  */
 class MathematiKShell : public KParts::MainWindow
 {
