@@ -11,3 +11,6 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${LIBSPECTRE_INCLUDE_DIR})
 add_subdirectory(cmake)
 add_subdirectory( src )
 add_subdirectory( icons )
+
+macro_display_feature_log()
+
