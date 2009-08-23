@@ -369,6 +369,9 @@ int WorksheetEntry::lastPosition()
 
 bool WorksheetEntry::isInCurrentInformationCell(const QTextCursor& cursor)
 {
+    if(m_informationCells.isEmpty())
+        return false;
+
     QTextTableCell cell=m_informationCells.last();
     if(cursor.position()>=cell.firstCursorPosition().position()&&cursor.position()<=cell.lastCursorPosition().position())
         return true;
