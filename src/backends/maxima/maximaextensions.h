@@ -32,7 +32,7 @@ class MaximaHistoryExtension : public MathematiK::HistoryExtension
     QString lastResult();
 };
 
-class MATHEMATIK_EXPORT MaximaScriptExtension : public MathematiK::ScriptExtension
+class MaximaScriptExtension : public MathematiK::ScriptExtension
 {
   public:
     MaximaScriptExtension(QObject* parent);
