@@ -38,6 +38,9 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
         item->setIcon(KIcon(backend->icon()));
         item->setToolTip(backend->description());
         m_ui.backendList->addItem(item);
+        if(m_ui.backendList->currentItem() == 0)
+            m_ui.backendList->setCurrentItem(item);
+
         if(backend->name()==Settings::self()->defaultBackend())
             m_ui.backendList->setCurrentItem(item);
     }
