@@ -103,6 +103,7 @@ QString MaximaExpression::internalCommand()
 
     if(m_isPlot)
     {
+        if(!m_tempFile) return QString();
         QString fileName = m_tempFile->fileName();
 
         QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
