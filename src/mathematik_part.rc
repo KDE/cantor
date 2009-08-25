@@ -8,6 +8,10 @@
     <Separator/>
     <Action name="file_print"/>
   </Menu>
+  <Menu name="view"><text>&amp;View</text>
+    <Action name="view_zoom_in"/>
+    <Action name="view_zoom_out"/>
+  </Menu>
   <Menu name="settings">
     <Action name="enable_typesetting"/>
     <Action name="enable_highlighting"/>

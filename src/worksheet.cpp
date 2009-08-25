@@ -557,6 +557,25 @@ void Worksheet::enableExpressionNumbering(bool enable)
     }
 }
 
+void Worksheet::zoomIn(int range)
+{
+    KTextEdit::zoomIn(range);
+
+    m_proxy->scale(1+range/10.0); //Scale images for 10%
+
+    foreach(WorksheetEntry* e, m_entries)
+        e->updateResult();
+}
+
+void Worksheet::zoomOut(int range)
+{
+    KTextEdit::zoomOut(range);
+    m_proxy->scale(1-range/10.0); //Scale images for 10%
+
+    foreach(WorksheetEntry* e, m_entries)
+        e->updateResult();
+}
+
 ResultProxy* Worksheet::resultProxy()
 {
     return m_proxy;

@@ -31,11 +31,22 @@
 ResultProxy::ResultProxy(QTextDocument* parent) : QObject(parent)
 {
     m_document=parent;
+    m_scale=1.0;
 }
 
 ResultProxy::~ResultProxy()
 {
 
+}
+
+void ResultProxy::setScale(qreal scale)
+{
+    m_scale=scale;
+}
+
+void ResultProxy::scale(qreal value)
+{
+    m_scale*=value;
 }
 
 void ResultProxy::insertResult(QTextCursor& cursor, MathematiK::Result* result)
@@ -68,7 +79,7 @@ QTextCharFormat ResultProxy::renderEps(MathematiK::Result* result)
     spectre_document_load(doc, url.toLocalFile().toUtf8());
 
     int w, h;
-    double scale=1.8;
+    double scale=1.8*m_scale;
     spectre_document_get_page_size(doc, &w, &h);
     kDebug()<<"dimension: "<<w<<"x"<<h;
     unsigned char* data;

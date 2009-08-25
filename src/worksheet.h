@@ -59,6 +59,9 @@ class Worksheet : public KTextEdit
     void enableTabCompletion(bool enable);
     void enableExpressionNumbering(bool enable);
 
+    void zoomIn(int range=1);
+    void zoomOut(int range=1);
+
     void save(const QString& filename);
     void load(const QString& filename);
 

@@ -42,11 +42,14 @@ class ResultProxy : public QObject
 
     void insertResult(QTextCursor& pos, MathematiK::Result* result);
 
+    void setScale(qreal scale);
+    void scale(qreal value);
   private:
     QTextCharFormat renderEps(MathematiK::Result* result);
 
   private:
     QTextDocument* m_document;
+    qreal m_scale;
 };
 
 #endif /* _RESULTPROXY_H */

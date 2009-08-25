@@ -84,6 +84,9 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     KStandardAction::print(this, SLOT(print()), actionCollection());
 
+    KStandardAction::zoomIn(m_worksheet, SLOT(zoomIn()), actionCollection());
+    KStandardAction::zoomOut(m_worksheet, SLOT(zoomOut()), actionCollection());
+
     m_evaluate=new KAction(i18n("Evaluate Worksheet"), actionCollection());
     actionCollection()->addAction("evaluate_worksheet", m_evaluate);
     m_evaluate->setIcon(KIcon("system-run"));

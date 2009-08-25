@@ -129,6 +129,9 @@ QString WorksheetEntry::currentLine(const QTextCursor& cursor)
 
 void WorksheetEntry::updateResult()
 {
+    if (m_expression==0||m_expression->result()==0)  //Don't crash if we don't have a result
+        return;
+
     if (m_expression->result()->type()==MathematiK::HelpResult::Type) return;  //Help is handled elsewhere
 
     if(!m_resultCell.isValid())
