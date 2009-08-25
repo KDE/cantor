@@ -500,12 +500,9 @@ void Worksheet::load(const QString& filename )
                     delete r;
                 }else
                 {
-                    QImage image=QImage::fromData(imageFile->data());
-                    document()->addResource(QTextDocument::ImageResource,
-                                            KUrl("mydata://"+imageFile->name()),  QVariant(image));
-                    QTextImageFormat imageFormat;
-                    imageFormat.setName("mydata://"+imageFile->name());
-                    entry->resultCell().firstCursorPosition().insertImage(imageFormat);
+                    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+                    imageFile->copyTo(dir);
+                    entry->setResult(QString("<img src=\"%1\" />").arg(dir+'/'+imageFile->name()));
                 }
 
             }

@@ -90,15 +90,14 @@ protected slots:
     void restartBackend();
     void enableTypesetting(bool enable);
     void showBackendHelp();
+    void print();
     
     void worksheetStatusChanged(MathematiK::Session::Status stauts);
     void worksheetSessionChanged();
     void initialized();
-
     void updateCaption();
 
-    void runAssistant();
-    
+    void runAssistant();  
     void publishWorksheet();
 private:
     Worksheet *m_worksheet;

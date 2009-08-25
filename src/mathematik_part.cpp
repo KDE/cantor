@@ -40,6 +40,9 @@
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 #include <QtGui/QTextEdit>
+#include <QtGui/QPrinter>
+#include <QtGui/QPrintDialog>
+
 
 #include "worksheet.h"
 #include "lib/backend.h"
@@ -78,6 +81,8 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     // create our actions
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
+
+    KStandardAction::print(this, SLOT(print()), actionCollection());
 
     m_evaluate=new KAction(i18n("Evaluate Worksheet"), actionCollection());
     actionCollection()->addAction("evaluate_worksheet", m_evaluate);
@@ -398,4 +403,19 @@ void MathematiKPart::publishWorksheet()
     {
         KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - MathematiK"));
     }
+}
+
+void MathematiKPart::print()
+{
+    QPrinter printer;
+    QPrintDialog *dialog = new QPrintDialog(&printer,  widget());
+
+    if (m_worksheet->textCursor().hasSelection())
+        dialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    if (dialog->exec() != QDialog::Accepted)
+        return;
+
+    m_worksheet->print(&printer);
+
+    dialog->deleteLater();
 }
