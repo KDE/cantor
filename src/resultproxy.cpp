@@ -82,5 +82,8 @@ QTextCharFormat ResultProxy::renderEps(MathematiK::Result* result)
     m_document->addResource(QTextDocument::ImageResource, url, QVariant(img) );
     epsCharFormat.setName(url.url());
 
+    spectre_document_free(doc);
+    spectre_render_context_free(rc);
+
     return epsCharFormat;
 }
