@@ -26,9 +26,11 @@
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/epsresult.h"
+#include "lib/imageresult.h"
 #include "lib/defaulthighlighter.h"
 
 #include "worksheetentry.h"
+#include "resultproxy.h"
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -70,6 +72,8 @@ Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(
     enableTabCompletion(Settings::self()->tabCompletionDefault());
     enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
     session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+
+    m_proxy=new ResultProxy(document());
 }
 
 Worksheet::~Worksheet()
@@ -476,39 +480,29 @@ void Worksheet::load(const QString& filename )
         appendEntry();
         WorksheetEntry* entry=m_entries.last();
         entry->commandCell().firstCursorPosition().insertText(expressionChild.firstChildElement("Command").text());
-        QDomElement result=expressionChild.firstChildElement("Result");
-        if (result.attribute("type") == "text")
-            entry->setResult(result.text());
-        else if (result.attribute("type") == "image" )
+        QDomElement resultElement=expressionChild.firstChildElement("Result");
+        MathematiK::Result* result=0;
+        if (resultElement.attribute("type") == "text")
         {
-            entry->setResult(""); //Make sure there's space for the image
-            const KArchiveEntry* imageEntry=file.directory()->entry(result.attribute("filename"));
+            result=new MathematiK::TextResult(resultElement.text());
+        }
+        else if (resultElement.attribute("type") == "image" )
+        {
+            const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
             if (imageEntry&&imageEntry->isFile())
             {
                 const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+                QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+                imageFile->copyTo(dir);
+                KUrl imageUrl=dir+'/'+imageFile->name();
                 if(imageFile->name().endsWith(QLatin1String(".eps")))
-                {
-                    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
-                    imageFile->copyTo(dir);
-                    MathematiK::EpsResult *r=new MathematiK::EpsResult(KUrl(dir+'/'+imageFile->name()));
-                    QImage image=r->data().value<QImage>();
-                    document()->addResource(QTextDocument::ImageResource,
-                                            KUrl("mydata://"+imageFile->name()),  QVariant(image));
-                    QTextImageFormat imageFormat;
-                    imageFormat.setName("mydata://"+imageFile->name());
-                    entry->resultCell().firstCursorPosition().insertImage(imageFormat);
-                    delete r;
-                }else
-                {
-                    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
-                    imageFile->copyTo(dir);
-                    entry->setResult(QString("<img src=\"%1\" />").arg(dir+'/'+imageFile->name()));
-                }
-
+                    result=new MathematiK::EpsResult(imageUrl);
+                else
+                    result=new MathematiK::ImageResult(imageUrl);
             }
         }
 
-
+        entry->setResult(result);
 
         expressionChild = expressionChild.nextSiblingElement("Expression");
     }
@@ -561,6 +555,11 @@ void Worksheet::enableExpressionNumbering(bool enable)
     {
         entry->updatePrompt();
     }
+}
+
+ResultProxy* Worksheet::resultProxy()
+{
+    return m_proxy;
 }
 
 #include "worksheet.moc"

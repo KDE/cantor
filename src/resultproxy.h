@@ -18,39 +18,35 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _RESULT_H
-#define _RESULT_H
+#ifndef _RESULTPROXY_H
+#define _RESULTPROXY_H
 
-#include <QVariant>
-#include <QDomElement>
-#include <kurl.h>
-#include "mathematik_export.h"
-
-class KZip;
+#include <QObject>
+#include <QTextCursor>
 
 namespace MathematiK
 {
-
-class ResultPrivate;
-
-class MATHEMATIK_EXPORT Result
-{
-  public:
-    Result( );
-    virtual ~Result();
-
-    virtual QString toHtml() = 0;
-    virtual QVariant data() = 0;
-
-    virtual int type() = 0;
-
-    virtual QDomElement toXml(QDomDocument& doc) = 0;
-    virtual void saveAdditionalData(KZip* archive);
-
-  private:
-    ResultPrivate* d;
-};
-
+    class Result;
 }
 
-#endif /* _RESULT_H */
+/**
+   This class is used to translate from the MathematiK::Result classes,
+   which need to be indipendent of the rendering used, to the actually
+   used QTextDocument and the containing QTextObjects
+ **/
+class ResultProxy : public QObject
+{
+  public:
+    ResultProxy( QTextDocument* parent );
+    ~ResultProxy();
+
+    void insertResult(QTextCursor& pos, MathematiK::Result* result);
+
+  private:
+    QTextCharFormat renderEps(MathematiK::Result* result);
+
+  private:
+    QTextDocument* m_document;
+};
+
+#endif /* _RESULTPROXY_H */

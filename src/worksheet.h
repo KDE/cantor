@@ -30,6 +30,7 @@ namespace MathematiK{
     class Expression;
 }
 class WorksheetEntry;
+class ResultProxy;
 
 class Worksheet : public KTextEdit
 {
@@ -42,6 +43,8 @@ class Worksheet : public KTextEdit
 
     bool isRunning();
     bool showExpressionIds();
+
+    ResultProxy* resultProxy();
 
   public slots:
     void appendEntry(const QString& text=QString());
@@ -78,6 +81,7 @@ class Worksheet : public KTextEdit
     WorksheetEntry* entryAt(int row);
   private:
     MathematiK::Session *m_session;
+    ResultProxy* m_proxy;
     QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;
     bool m_tabCompletionEnabled;

@@ -21,7 +21,6 @@
 #include "epsresult.h"
 using namespace MathematiK;
 
-#include "libspectre/spectre.h"
 #include <kdebug.h>
 #include <kzip.h>
 #include <QImage>
@@ -29,46 +28,27 @@ using namespace MathematiK;
 class MathematiK::EpsResultPrivate{
     public:
         KUrl url;
-        SpectreDocument* doc;
-        SpectreRenderContext* rc;
 };
 
 
 EpsResult::EpsResult(const KUrl& url) : d(new EpsResultPrivate)
 {
     d->url=url;
-    d->doc=spectre_document_new();
-    d->rc=spectre_render_context_new();
-    spectre_document_load(d->doc, url.toLocalFile().toUtf8());
 }
 
 EpsResult::~EpsResult()
 {
-    spectre_document_free(d->doc);
-    spectre_render_context_free(d->rc);
     delete d;
 }
 
 QString EpsResult::toHtml()
 {
-    return QString("<img src=\"%1\" />").arg(resourceUrl().url());
+    return QString("<img src=\"%1\" />").arg(d->url.url());
 }
 
 QVariant EpsResult::data()
 {
-    int w, h;
-    double scale=1.8;
-    spectre_document_get_page_size(d->doc, &w, &h);
-    kDebug()<<"dimension: "<<w<<"x"<<h;
-    unsigned char* data;
-    int rowLength;
-
-    spectre_render_context_set_scale(d->rc, scale, scale);
-    spectre_document_render_full( d->doc, d->rc, &data, &rowLength);
-
-    QImage img(data, w*scale, h*scale, rowLength, QImage::Format_RGB32);
-
-    return img;
+    return QVariant(d->url);
 }
 
 int EpsResult::type()

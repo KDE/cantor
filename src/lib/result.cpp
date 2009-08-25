@@ -24,7 +24,7 @@ using namespace MathematiK;
 class MathematiK::ResultPrivate
 {
   public:
-    KUrl resourceUrl;
+
 };
 
 
@@ -36,16 +36,6 @@ Result::Result() : d(new ResultPrivate)
 Result::~Result()
 {
 
-}
-
-void Result::setResourceUrl(const KUrl& url)
-{
-    d->resourceUrl=url;
-}
-
-KUrl Result::resourceUrl()
-{
-    return d->resourceUrl;
 }
 
 void Result::saveAdditionalData(KZip* archive)

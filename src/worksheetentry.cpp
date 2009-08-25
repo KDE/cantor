@@ -25,6 +25,7 @@
 #include "lib/helpresult.h"
 #include "lib/tabcompletionobject.h"
 #include "worksheet.h"
+#include "resultproxy.h"
 
 #include <QTextDocument>
 #include <QTextFrame>
@@ -148,22 +149,9 @@ void WorksheetEntry::updateResult()
     cursor.setBlockFormat(block);
     cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
 
-    QVariant data=m_expression->result()->data();
-    if(data.type() == QVariant::Image)
-    {
-        //It's an image. add it as a resource to the worksheet, so it can be referenced by an url
-        static int resourceIdCounter=0;
-        QUrl resourceUrl=KUrl(QString("mydata://image_%1").arg(resourceIdCounter++));
-
-        m_worksheet->document()->addResource(QTextDocument::ImageResource, resourceUrl,  data.value<QImage>());
-        m_expression->result()->setResourceUrl(resourceUrl);
-    }
-
     kDebug()<<"setting cell to "<<m_expression->result()->toHtml();
-    if(m_expression->result()->toHtml().trimmed().isEmpty())
-        cursor.removeSelectedText();
-    else
-        cursor.insertHtml(m_expression->result()->toHtml());
+
+    m_worksheet->resultProxy()->insertResult(cursor, m_expression->result());
 
     m_worksheet->ensureCursorVisible();
 }
@@ -203,7 +191,7 @@ bool WorksheetEntry::isEmpty()
     return text.trimmed().isEmpty();
 }
 
-void WorksheetEntry::setResult(const QString& html)
+void WorksheetEntry::setResult(MathematiK::Result* result)
 {
     if(!m_resultCell.isValid())
     {
@@ -225,13 +213,17 @@ void WorksheetEntry::setResult(const QString& html)
     cursor.setBlockFormat(block);
     cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
 
-    if(html.isEmpty())
+    if(!result)
+    {
         cursor.removeSelectedText();
-    else
-        cursor.insertHtml(html);
+        return;
+    }
 
-    kDebug()<<"setting to "<<html;
+    m_worksheet->resultProxy()->insertResult(cursor, result);
+
     m_worksheet->ensureCursorVisible();
+
+    delete result;
 }
 
 void WorksheetEntry::setTabCompletion(MathematiK::TabCompletionObject* tc)

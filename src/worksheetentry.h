@@ -28,9 +28,11 @@
 class QTextDocument;
 namespace MathematiK{
     class Expression;
+    class Result;
     class TabCompletionObject;
 }
 class Worksheet;
+class ResultProxy;
 
 /**
    An entry in the Worksheet. it contains:
@@ -60,7 +62,8 @@ class WorksheetEntry : public QObject
 
     //only used for saving/loading. normally
     //you should create an expression, and set the result there
-    void setResult(const QString& html);
+    //WARNING: the Entry takes over ownership of the result Object
+    void setResult(MathematiK::Result* result);
 
     void setTabCompletion(MathematiK::TabCompletionObject* tc);
 
