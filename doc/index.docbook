@@ -1,0 +1,602 @@
+<?xml version="1.0" ?>
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
+  <!-- Define an entity for your application if it is not part of KDE
+       CVS -->
+  <!ENTITY mathematik "<application>MathematiK</application>">
+  <!ENTITY kappname "&mathematik;"><!-- replace kmyapplication here
+                                            do *not* replace kappname-->
+  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+                                     this unchanged if your
+                                     application is not maintained in KDE CVS -->
+  <!ENTITY % addindex "IGNORE">
+  <!ENTITY % English "INCLUDE"> <!-- ONLY If you are writing non-English
+                                     original documentation, change
+                                     the language here -->
+
+  <!-- Do not define any other entities; instead, use the entities
+       from entities/general.entities and $LANG/user.entities. -->
+]>
+<!-- kdoctemplate v0.9 January 10 2003
+     Changes to comments to clarify entity usage January 10 2003
+     Minor update to "Credits and Licenses" section on August 24, 2000
+     Removed "Revision history" section on 22 January 2001
+     Changed to Installation/Help menu entities 18 October 2001
+     Other minor cleanup and changes 18 October 2001
+     FPI change and minor changes November 2002 -->
+
+<!--
+This template was designed by: David Rugge davidrugge@mindspring.com
+with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
+and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
+of the KDE DocBook team.
+
+You may freely use this template for writing any sort of KDE documentation.
+If you have any changes or improvements, please let us know.
+
+Remember:
+- in XML, the case of the <tags> and attributes is relevant ;
+- also, quote all attributes.
+
+Please don't forget to remove all these comments in your final documentation,
+thanks ;-).
+-->
+
+<!-- ................................................................ -->
+
+<!-- The language must NOT be changed here. -->
+<!-- If you are writing original documentation in a language other -->
+<!-- than English, change the language above ONLY, not here -->
+<book lang="&language;">
+
+<!-- This header contains all of the meta-information for the document such
+as Authors, publish date, the abstract, and Keywords -->
+
+<bookinfo>
+<title>The &mathematik; Handbook</title>
+
+<authorgroup>
+<author>
+<personname>
+<firstname>Alexander</firstname>
+<surname>Rieder</surname>
+</personname>
+<email>alexanderrieder@gmail.com</email>
+</author>
+</authorgroup>
+
+<!-- TRANS:ROLES_OF_TRANSLATORS -->
+
+<copyright>
+<year>20089</year>
+<holder>Alexander Rieder</holder>
+</copyright>
+<!-- Translators: put here the copyright notice of the translation -->
+<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
+     and in the FDL itself on how to use it. -->
+<legalnotice>&FDLNotice;</legalnotice>
+
+<!-- Date and version information of the application
+Don't forget to include this last date and this last revision number, we
+need them for translation coordination !
+Please respect the format of the date (YYYY-MM-DD) and of the version
+(V.MM.LL), it could be used by automation scripts.
+Do NOT change these in the translation. -->
+
+<date>2009-08-26</date>
+<releaseinfo>0.1</releaseinfo>
+
+<!-- Abstract about this handbook -->
+
+<abstract>
+<para>
+&mathematik; is an application, aimed at providing a 
+nice worksheet view to other Free Software Math packages
+</para>
+</abstract>
+
+<!-- This is a set of Keywords for indexing by search engines.
+Please at least include KDE, the KDE package it is in, the name
+ of your application, and a few relevant keywords. -->
+
+<keywordset>
+<keyword>KDE</keyword>
+<keyword>kdeedu</keyword>
+<keyword>mathematics</keyword>
+<keyword>math</keyword>
+<keyword>&mathematik;</keyword>
+<keyword>Sage</keyword>
+<keyword>R</keyword>
+<keyword>Maxima</keyword>
+</keywordset>
+
+</bookinfo>
+
+<!-- The contents of the documentation begin here.  Label
+each chapter so with the id attribute. This is necessary for two reasons: it
+allows you to easily reference the chapter from other chapters of your
+document, and if there is no ID, the name of the generated HTML files will vary
+from time to time making it hard to manage for maintainers and for the CVS
+system. Any chapter labelled (OPTIONAL) may be left out at the author's
+discretion. Other chapters should not be left out in order to maintain a
+consistent documentation style across all KDE apps. -->
+
+<chapter id="introduction">
+<title>Introduction</title>
+
+<!-- The introduction chapter contains a brief introduction for the
+application that explains what it does and where to report
+problems. Basically a long version of the abstract.  Don't include a
+revision history. (see installation appendix comment) -->
+
+<para>
+&mathematik; is an application, that lets you use your favorite
+mathematical applications from withing a nice &kde;-integrated
+Worksheet Interface. It offers assistant dialogs for common tasks
+and allows you to share your worksheets with others.
+Please report any problems or feature requests to alexanderrieder@gmail.com.
+</para>
+</chapter>
+
+<chapter id="using-kapp">
+<title>Using &mathematik;</title>
+
+<!-- This chapter should tell the user how to use your app. You should use as
+many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
+your application. -->
+
+<para>
+
+<!-- Note that all graphics should be in .png format. Do not use gifs because of
+patent issues. -->
+Screenshot:
+<screenshot>
+<screeninfo>Here's a screenshot of &mathematik;</screeninfo>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.png" format="PNG"/>
+	  </imageobject>
+	  <imageobject>
+	    <imagedata fileref="screenshot.eps" format="EPS"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>Screenshot</phrase>
+	  </textobject>
+	</mediaobject>
+</screenshot>
+</para>
+
+
+<sect1 id="kapp-features">
+<title>&mathematik; features</title>
+<itemizedlist>
+  <listitem><para>Nice Worksheet view for evaulating Expressions</para></listitem>
+  <listitem><para>View of plotting results inside the worksheet</para></listitem>
+  <listitem><para>Easy plugin based structure to add different Backends</para></listitem>
+  <listitem><para>GetHotNewStuff integration to up/download example worksheets</para></listitem>
+  <listitem><para>Typesetting of mathematical formulas using LaTeX</para></listitem>
+  <listitem><para>Backend aware Syntax highlighting</para></listitem>
+  <listitem><para>Plugin based assistant dialogs for common tasks (like integrating a function or entering a matrix)</para></listitem>
+</itemizedlist>
+</sect1>
+
+<sect1 id="backends">
+<title>The &mathematik; backends</title>
+<para>
+  &mathematik; offers you several choices for the backend, you want to use it with.
+  Your choice should depend on what task you want to achive. 
+</para>
+<para>
+  Currently the following backends are available:
+  <variablelist>
+    <varlistentry>
+      <term>Sage:</term>
+      <listitem>
+	<para>
+	  Sage is a free open-source mathematics software system licensed under the GPL.
+	  It combines the power of many existing open-source packages into a common Python-based interface.
+	  See <link>http://sagemath.org</link> for more information.
+	</para>
+	</listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Maxima:</term>
+      <listitem>
+	<para>
+	  Maxima is a system for the manipulation of symbolic and numerical expressions,
+	  including differentiation, integration, Taylor series, Laplace transforms, 
+	  ordinary differential equations, systems of linear equations, polynomials, and sets,
+	  lists, vectors, matrices, and tensors. Maxima yields high precision numeric results
+	  by using exact fractions, arbitrary precision integers, and variable precision 
+	  floating point numbers. Maxima can plot functions and data in two and three dimensions.
+	  See <link>http://maxima.sourceforge.net</link> for more information.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>R:</term>
+      <listitem>
+	<para>
+	  R is a language and environment for statistical computing and graphics, similar to the S language and environment.
+	  It provides a wide variety of statistical (linear and nonlinear modelling,
+	  classical statistical tests, time-series analysis, classification, clustering, ...)
+	  and graphical techniques, and is highly extensible. The S language is often the 
+	  vehicle of choice for research in statistical methodology, 
+	  and R provides an Open Source route to participation in that activity.
+	  See <link>http://www.r-project.org</link> for more information.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+</para>
+</sect1>
+
+<sect1>
+<title>The &mathematik; Workspace</title>
+<para>
+<screenshot>
+  <screeninfo>Screenshot of the &mathematik; Workspace</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshot.png" format="PNG"/>
+    </imageobject>
+    <imageobject>
+      <imagedata fileref="screenshot.eps" format="EPS"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &mathematik; Workspace</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+</para>
+<para>
+  The Worksheet interface of &mathematik; consists of three parts:
+  <orderedlist>
+    <listitem><para>The Tab-Bar where you can switch through your opened worksheets</para></listitem>
+    <listitem><para>A help panel, where help for a specific command is displayed if you write ?command</para></listitem>
+    <listitem><para>The Worksheet</para></listitem>
+  </orderedlist>
+</para>
+<sect2>
+<title>The Worksheet</title>
+<para>
+  The worksheet is the basic area for working with &mathematik;. In it you can enter
+  Expressions, let the backend calculate, and look at the results.
+  The commands, the worksheets accept are depending on the chosen backend, so you should
+  the appropriate Documentation (the Show Help button takes you there directly).
+  If you know the command, but you need additional information, you can type "?command",
+  and contextual help will appear on the right of the worksheet.
+  If you want to see example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
+  in the file-menu, and download worksheets other users have published.
+</para>
+<sect3>
+  <title>Settings</title>
+  <para>
+    The <guimenu>Settings</guimenu> menu allows you to change some settings of the appearance of your
+    current worksheet.
+  </para>
+  <variablelist>
+    <varlistentry>
+      <term>Typesetting using LaTeX</term>
+      <listitem>
+	<para>
+	  This setting changes the way, results are presented to you. If enabled, it passes thre result through
+	  the LaTex system, to produce vissually appealing formulas. For Example <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes 
+	  <inlinemediaobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.png" format="PNG"/>
+	      </imageobject>
+	      <imageobject>
+		<imagedata fileref="latex_formula.eps" format="EPS"/>
+	      </imageobject>
+	      <textobject>3*x^2*sqrt(2)*x+2/3</textobject>
+	  </inlinemediaobject>
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Syntax Highlighting</term>
+      <listitem>
+	<para>
+	  Syntax Highlighting increases the readability of code, by highlighting
+	  Keywords or matching brackets in different colors
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Tab Completion</term>
+      <listitem>
+	<para>
+	  When this is enabled, &mathematik; will show you possible completions
+	  for the command you are currently typing when you press the Tab-key. If there is only one choice
+	  left, it will insert the rest of the command for you.
+	</para>
+      </listitem>
+    </varlistentry>
+  </variablelist>
+  <varlistentry>
+    <term>Line Numbers</term>
+    <listitem>
+      <para>
+	This setting controls, wether the different Expressions should have a number in front, so you can,
+	for example in Maxima recall older results with the <quote>%O1</quote> command
+      </para>
+    </listitem>
+  </varlistentry>
+</sect3>
+</sect2>
+</sect1>
+
+<sect1>
+<title>The assistant dialogs</title>
+<!-- TODO add screenshots and descriptions of each assistant -->
+</sect1>
+</chapter>
+
+<chapter id="commands">
+<title>Command Reference</title>
+
+<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
+application windows and their menubar and toolbar commands for easy reference.
+Also include any keys that have a special function but have no equivalent in the
+menus or toolbars. This may not be necessary for small apps or apps with no tool
+or menu bars. -->
+
+<sect1 id="kapp-mainwindow">
+<title>The main &mathematik; window</title>
+
+<sect2>
+<title>The File Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>N</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>New</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Creates a new document</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Save</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Saves the document</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Quit</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Quits</action> &mathematik;</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+
+</sect2>
+
+<sect2>
+<title>The <guimenu>Help</guimenu> Menu</title>
+
+<!-- Assuming you have a standard help menu (help, what's this, about -->
+<!-- &mathematik;, about KDE) then the documentation is already written. -->
+<!-- The following entity is valid anywhere that a variablelist is -->
+<!-- valid.  -->
+
+&help.menu.documentation;
+
+</sect2>
+
+</sect1>
+</chapter>
+
+<chapter id="developers">
+<title>Developer's Guide to &mathematik;</title>
+
+<!-- (OPTIONAL) A Programming/Scripting reference chapter should be
+used for apps that use plugins or that provide their own scripting hooks
+and/or development libraries. -->
+
+<para>
+&mathematik; is easily extendable by plugins. You can write
+<variablelist>
+  <varlistentry>
+    <term>Backends:</term>
+    <listitem>
+      <para>
+	A new backend enables you to use the &mathematik; interface with a different program
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>Assistants:</term>
+    <listitem>
+      <para>
+	Assistants are dialogs, that automate common jobs (like entering a matrix, running a script), offering a nice GUI.
+      </para>
+    </listitem>
+  </varlistentry>
+</variablelist>
+</para>
+<para>
+Currently there are no special developer tutorials or Api-Docs, so if you want to write a plugin, you'll have to read through the sources.
+All interface definitions are in the lib directory. For example implementations, just see some of the plugins shipped with &mathematik;
+</para>
+
+</chapter>
+
+<chapter id="faq">
+<title>Questions and Answers</title>
+
+<!-- (OPTIONAL but recommended) This chapter should include all of the silly
+(and not-so-silly) newbie questions that fill up your mailbox. This chapter
+should be reserved for BRIEF questions and answers! If one question uses more
+than a page or so then it should probably be part of the
+"Using this Application" chapter instead. You should use links to
+cross-reference questions to the parts of your documentation that answer them.
+This is also a great place to provide pointers to other FAQ's if your users
+must do some complicated configuration on other programs in order for your
+application work. -->
+
+&reporting.bugs;
+&updating.documentation;
+
+<qandaset id="faqlist">
+<qandaentry>
+  <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> isn't available</para></question>
+  <answer><para>Not every Backend supports everyone of the options.</para></answer>
+</qandaentry>
+<qandaentry>
+  <question><para>I've installed Sage/Maxima, but the appropriate backend doesn't show up</para></question>
+  <answer>
+    <para>
+      Maybe &mathematik; didn't detect the location right. Go to the Settings dialog and change
+      the Path to the appropriate application
+    </para>
+  </answer>
+</qandaentry>
+</qandaset>
+</chapter>
+
+<chapter id="credits">
+
+<!-- Include credits for the programmers, documentation writers, and
+contributors here. The license for your software should then be included below
+the credits with a reference to the appropriate license file included in the KDE
+distribution. -->
+
+<title>Credits and License</title>
+
+<para>
+&mathematik;
+</para>
+<para>
+Program copyright 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
+</para>
+<!--
+<para>
+Contributors:
+<itemizedlist>
+<listitem><para>Konqui the KDE Dragon <email>konqui@kde.org</email></para>
+</listitem>
+<listitem><para>Tux the Linux Penguin <email>tux@linux.org</email></para>
+</listitem>
+</itemizedlist>
+</para>
+-->
+
+
+<para>
+Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
+</para>
+
+<!-- TRANS:CREDIT_FOR_TRANSLATORS -->
+
+&underFDL;               <!-- FDL: do not remove -->
+
+<!-- Determine which license your application is licensed under,
+     and delete all the remaining licenses below:
+
+     (NOTE:  All documentation are licensed under the FDL,
+     regardless of what license the application uses) -->
+
+&underGPL;        	 <!-- GPL License -->
+</chapter>
+
+<appendix id="installation">
+<title>Installation</title>
+
+<sect1 id="getting-kapp">
+<title>How to obtain &mathematik;</title>
+
+<!-- This first entity contains boiler plate for applications that are
+part of KDE CVS.  You should remove it if you are releasing your
+application -->
+
+&install.intro.documentation;
+
+</sect1>
+
+<sect1 id="requirements">
+<title>Requirements</title>
+
+<!--
+List any special requirements for your application here. This should include:
+.Libraries or other software that is not included in kdesupport,
+kdelibs, or kdebase.
+.Hardware requirements like amount of RAM, disk space, graphics card
+capabilities, screen resolution, special expansion cards, etc.
+.Operating systems the app will run on. If your app is designed only for a
+specific OS, (you wrote a graphical LILO configurator for example) put this
+information here.
+-->
+
+<para>
+In order to successfully use &mathematik;, you need &kde; 4 and LibSpectre.
+To use the different Backends, the appropriate math package is required.
+</para>
+
+<!--
+<para>
+All required libraries as well as &mathematik; itself can be found
+on <ulink url="ftp://ftp.kapp.org">The &mathematik; home page</ulink>.
+</para>
+-->
+
+
+<!-- For a list of updates, you may refer to the application web site
+or the ChangeLog file, or ... -->
+<!--
+<para>
+You can find a list of changes at <ulink
+url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
+</para>
+-->
+</sect1>
+
+<sect1 id="compilation">
+<title>Compilation and Installation</title>
+
+<!-- This entity contains the boilerplate text for standard -->
+<!-- compilation instructions.  If your application requires any -->
+<!-- special handling, remove it, and replace with your own text. -->
+
+&install.compile.documentation;
+
+</sect1>
+
+<sect1 id="configuration">
+<title>Configuration</title>
+
+<para>
+  Depending on your system, you may need to adjust the paths to the
+  different applications, used by &mathematik;
+</para>
+
+</sect1>
+
+</appendix>
+
+&documentation.index;
+</book>
+
+<!--
+Local Variables:
+mode: xml
+sgml-minimize-attributes:nil
+sgml-general-insert-case:lower
+sgml-indent-step:0
+sgml-indent-data:nil
+End:
+
+vim:tabstop=2:shiftwidth=2:expandtab
+kate: space-indent on; indent-width 2; tab-width 2; indent-mode none;
+-->
