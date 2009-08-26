@@ -1,0 +1,37 @@
+BUGS:
+- bracket highlighting doesn't disappear after moving the cursor away
+- sage tab completion: only feed the part between the cursor and the last opening bracket/; to IPython
+- R backend evaluate worksheet with plots doesn't work
+
+FEATURES:
+Maxima-backend:
+- implement tab completion in maxima
+Sage-backend:
+- Handle additional input requests in Sage Backend
+R-Backend:
+- complete it
+ - add custom Result types for DataFrames etc. (nice html tables instead of AsciiArt)
+General:
+- change the way backends get chosen (this dialog just doesn't look right)
+- add help browser 
+- improve help/documentation/usability all over the place
+- add gui for writing complete scripts (Kate-part)
+- review and cleanup API
+| GHNS integration
+- Extension infrastructure(backend-specific or using extensions), e.g. to provide variable inspection
+- Add a console, where the user can interact directly with the underlying process (unsing infrastructure from above?)
+- scripted plugins/assistants (with GHNS integration)
+- embedding of the windows brought up by clients
+- add way to show disabled backends, and reason why they are disabled
+- export to latex
+
+BACKENDS:
+- Octave backend
+- SciPy backend
+- scilab backend?
+
+ASSISTANTS:
+- look what others offer as assistant and clone it
+
+OTHER:
+/ write documentation
