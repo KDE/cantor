@@ -71,8 +71,9 @@ static const QString tex="\\documentclass[12pt]{article}                \n "\
 Expression::Expression( Session* session ) : QObject( session ),
                                              d(new ExpressionPrivate)
 {
-    d->id=session->nextExpressionId();
     d->session=session;
+    d->id=session->nextExpressionId();
+
     d->latexCmd=KStandardDirs::findExe( "latex" );
     d->dviPsCmd=KStandardDirs::findExe( "dvips" );
 }
@@ -110,15 +111,18 @@ void Expression::setResult(Result* result)
 
     d->result=result;
 
-    kDebug()<<"settting result to a type "<<result->type()<<" result";
-    //If it's text, and latex typesetting is enabled, render it
-    if ( session()->isTypesettingEnabled()&&
-         result->type()==TextResult::Type &&
-         dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
-         !result->toHtml().trimmed().isEmpty()
-        )
+    if(result!=0)
     {
-        renderResultAsLatex();
+        kDebug()<<"settting result to a type "<<result->type()<<" result";
+        //If it's text, and latex typesetting is enabled, render it
+        if ( session()->isTypesettingEnabled()&&
+             result->type()==TextResult::Type &&
+             dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
+             !result->toHtml().trimmed().isEmpty()
+            )
+        {
+            renderResultAsLatex();
+        }
     }
 
     emit gotResult();

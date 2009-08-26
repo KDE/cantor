@@ -194,41 +194,6 @@ bool WorksheetEntry::isEmpty()
     return text.trimmed().isEmpty();
 }
 
-void WorksheetEntry::setResult(MathematiK::Result* result)
-{
-    if(!m_resultCell.isValid())
-    {
-        int row=0;
-        if(actualInformationCell().isValid())
-            row=actualInformationCell().row()+1;
-        else
-            row=m_commandCell.row()+1;
-        m_table->insertRows(row, 1);
-        //m_table->mergeCells(row, 1, 1, 2);
-        m_resultCell=m_table->cellAt(row, 1);
-    }
-
-    removeContextHelp();
-
-    QTextBlockFormat block;
-    block.setAlignment(Qt::AlignJustify);
-    QTextCursor cursor(m_resultCell.firstCursorPosition());
-    cursor.setBlockFormat(block);
-    cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
-
-    if(!result)
-    {
-        cursor.removeSelectedText();
-        return;
-    }
-
-    m_worksheet->resultProxy()->insertResult(cursor, result);
-
-    m_worksheet->ensureCursorVisible();
-
-    delete result;
-}
-
 void WorksheetEntry::setTabCompletion(MathematiK::TabCompletionObject* tc)
 {
     if(m_tabCompletionObject)

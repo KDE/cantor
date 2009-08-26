@@ -60,11 +60,6 @@ class WorksheetEntry : public QObject
 
     bool isEmpty();
 
-    //only used for saving/loading. normally
-    //you should create an expression, and set the result there
-    //WARNING: the Entry takes over ownership of the result Object
-    void setResult(MathematiK::Result* result);
-
     void setTabCompletion(MathematiK::TabCompletionObject* tc);
 
     QTextTableCell commandCell();

@@ -42,6 +42,7 @@ set(mathematik_PART_SRCS
    worksheetentry.cpp
    helpextension.cpp
    resultproxy.cpp
+   loadedexpression.cpp
  )
 
 kde4_add_kcfg_files(mathematik_SRCS settings.kcfgc)

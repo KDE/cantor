@@ -31,6 +31,7 @@
 
 #include "worksheetentry.h"
 #include "resultproxy.h"
+#include "loadedexpression.h"
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -479,30 +480,13 @@ void Worksheet::load(const QString& filename )
     while (!expressionChild.isNull()) {
         appendEntry();
         WorksheetEntry* entry=m_entries.last();
-        entry->commandCell().firstCursorPosition().insertText(expressionChild.firstChildElement("Command").text());
-        QDomElement resultElement=expressionChild.firstChildElement("Result");
-        MathematiK::Result* result=0;
-        if (resultElement.attribute("type") == "text")
-        {
-            result=new MathematiK::TextResult(resultElement.text());
-        }
-        else if (resultElement.attribute("type") == "image" )
-        {
-            const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
-            if (imageEntry&&imageEntry->isFile())
-            {
-                const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-                QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
-                imageFile->copyTo(dir);
-                KUrl imageUrl=dir+'/'+imageFile->name();
-                if(imageFile->name().endsWith(QLatin1String(".eps")))
-                    result=new MathematiK::EpsResult(imageUrl);
-                else
-                    result=new MathematiK::ImageResult(imageUrl);
-            }
-        }
 
-        entry->setResult(result);
+        entry->commandCell().firstCursorPosition().insertText(expressionChild.firstChildElement("Command").text());
+
+        LoadedExpression* expr=new LoadedExpression( m_session );
+        expr->loadFromXml(expressionChild, file);
+
+        entry->setExpression(expr);
 
         expressionChild = expressionChild.nextSiblingElement("Expression");
     }
