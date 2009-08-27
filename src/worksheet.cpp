@@ -503,7 +503,6 @@ void Worksheet::gotResult()
         //Do some basic LaTex replacing
         help.replace(QRegExp("\\\\code\\{([^\\}]*)\\}"), "<b>\\1</b>");
         help.replace(QRegExp("\\$([^\\$])\\$"), "<i>\\1</i>");
-        help.replace("\\sage", "<b>Sage</b>");
 
         emit showHelp(help);
     }

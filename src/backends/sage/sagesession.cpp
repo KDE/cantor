@@ -34,14 +34,11 @@ const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after ea
 const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input
 
 //some commands that are run after login
-//                           sage.plot.plot.EMBEDDED_MODE = True            \n
-//                           os.environ['PAGER'] = 'cat'                    \n
-//                           sage.misc.pager.EMBEDDED_MODE = True           \n
-
 static QByteArray initCmd="os.environ['PAGER'] = 'cat'                     \n "\
                            "sage.misc.pager.EMBEDDED_MODE = True           \n "\
                            "sage.misc.viewer.BROWSER=''                    \n "\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
+                           "os.environ['PAGER'] = 'cat'                    \n "\
                            " __IPYTHON__.shell.autoindent=False            \n "\
                            "print '____TMP_DIR____', sage.misc.misc.SAGE_TMP\n"\
                            "print '____END_OF_INIT____'                    \n ";
@@ -114,15 +111,11 @@ void SageSession::appendExpressionToQueue(SageExpression* expr)
 
 void SageSession::readStdOut()
 {
-//    if(!m_process->canReadLine()) return;
-
-    kDebug()<<"reading stdOut";
     QString out=m_process->pty()->readAll();
     kDebug()<<"out: "<<out;
 
     if ( out.contains( "___TMP_DIR___" ) )
     {
-        kDebug()<<"received tmp dir information";
         int index=out.indexOf("___TMP_DIR___" )+14;
         int endIndex=out.indexOf("\n", index);
         if(endIndex==-1)
@@ -214,7 +207,7 @@ void SageSession::runFirstExpression()
         if(command.startsWith('?'))
             command=("help("+command.mid(1)+')');
 
-        kDebug()<<"writing "<<command+'\n'<<" to the process";
+        kDebug()<<"writing "<<command<<" to the process";
         m_process->pty()->write((command+'\n').toUtf8());
     }
 }
@@ -229,14 +222,13 @@ void SageSession::interrupt()
 
 void SageSession::sendSignalToProcess(int signal)
 {
-    Q_UNUSED(signal)
-    kDebug()<<"sending signal.....";
+    kDebug()<<"sending signal....."<<signal;
     //Sage spawns some child-processe. the one we are interested is called sage-ipython.
     //But to determine which ipython process is the one belonging to this session, we search
     //for a bash process which is child of this sessions sage process, and only kill the
     //ipython process which is child of the bash process
     // the tree looks like: m_sageprocess->bash->sage-ipython
-    QString cmd=QString("pkill -2 -P `pgrep  -P %1 bash` sage-ipython").arg(m_process->pid());
+    QString cmd=QString("pkill -%1 -P `pgrep  -P %2 bash` sage-ipython").arg(signal).arg(m_process->pid());
     KProcess proc(this);
     proc.setShellCommand(cmd);
     proc.execute();

@@ -24,6 +24,7 @@ General:
 - embedding of the windows brought up by clients
 - add way to show disabled backends, and reason why they are disabled
 - export to latex
+- add an about-backend dialog
 
 BACKENDS:
 - Octave backend
