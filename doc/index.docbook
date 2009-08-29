@@ -103,7 +103,7 @@ Please at least include KDE, the KDE package it is in, the name
 <keyword>kdeedu</keyword>
 <keyword>mathematics</keyword>
 <keyword>math</keyword>
-<keyword>&mathematik;</keyword>
+<keyword>MathematiK</keyword>
 <keyword>Sage</keyword>
 <keyword>R</keyword>
 <keyword>Maxima</keyword>
@@ -130,7 +130,7 @@ revision history. (see installation appendix comment) -->
 
 <para>
 &mathematik; is an application, that lets you use your favorite
-mathematical applications from withing a nice &kde;-integrated
+mathematical applications from within a nice &kde;-integrated
 Worksheet Interface. It offers assistant dialogs for common tasks
 and allows you to share your worksheets with others.
 Please report any problems or feature requests to alexanderrieder@gmail.com.
@@ -169,7 +169,7 @@ Screenshot:
 <sect1 id="kapp-features">
 <title>&mathematik; features</title>
 <itemizedlist>
-  <listitem><para>Nice Worksheet view for evaulating Expressions</para></listitem>
+  <listitem><para>Nice Worksheet view for evaluating Expressions</para></listitem>
   <listitem><para>View of plotting results inside the worksheet</para></listitem>
   <listitem><para>Easy plugin based structure to add different Backends</para></listitem>
   <listitem><para>GetHotNewStuff integration to up/download example worksheets</para></listitem>
@@ -183,7 +183,7 @@ Screenshot:
 <title>The &mathematik; backends</title>
 <para>
   &mathematik; offers you several choices for the backend, you want to use it with.
-  Your choice should depend on what task you want to achive. 
+  Your choice should depend on what task you want to achieve. 
 </para>
 <para>
   Currently the following backends are available:
@@ -194,7 +194,7 @@ Screenshot:
 	<para>
 	  Sage is a free open-source mathematics software system licensed under the GPL.
 	  It combines the power of many existing open-source packages into a common Python-based interface.
-	  See <link>http://sagemath.org</link> for more information.
+	  See <ulink url="http://sagemath.org">http://sagemath.org</ulink> for more information.
 	</para>
 	</listitem>
     </varlistentry>
@@ -208,7 +208,7 @@ Screenshot:
 	  lists, vectors, matrices, and tensors. Maxima yields high precision numeric results
 	  by using exact fractions, arbitrary precision integers, and variable precision 
 	  floating point numbers. Maxima can plot functions and data in two and three dimensions.
-	  See <link>http://maxima.sourceforge.net</link> for more information.
+	  See <ulink url="http://maxima.sourceforge.net">http://maxima.sourceforge.net</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -222,7 +222,7 @@ Screenshot:
 	  and graphical techniques, and is highly extensible. The S language is often the 
 	  vehicle of choice for research in statistical methodology, 
 	  and R provides an Open Source route to participation in that activity.
-	  See <link>http://www.r-project.org</link> for more information.
+	  See <ulink url="http://www.r-project.org">http://www.r-project.org</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -230,7 +230,7 @@ Screenshot:
 </para>
 </sect1>
 
-<sect1>
+<sect1 id="workspace">
 <title>The &mathematik; Workspace</title>
 <para>
 <screenshot>
@@ -256,19 +256,19 @@ Screenshot:
     <listitem><para>The Worksheet</para></listitem>
   </orderedlist>
 </para>
-<sect2>
+<sect2 id="worksheet">
 <title>The Worksheet</title>
 <para>
   The worksheet is the basic area for working with &mathematik;. In it you can enter
   Expressions, let the backend calculate, and look at the results.
   The commands, the worksheets accept are depending on the chosen backend, so you should
-  the appropriate Documentation (the Show Help button takes you there directly).
+  learn the appropriate Documentation (the Show Help button takes you there directly).
   If you know the command, but you need additional information, you can type "?command",
   and contextual help will appear on the right of the worksheet.
   If you want to see example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
-  in the file-menu, and download worksheets other users have published.
+  in the <guimenu>File</guimenu> menu, and download worksheets other users have published.
 </para>
-<sect3>
+<sect3 id="worksheet-settings">
   <title>Settings</title>
   <para>
     The <guimenu>Settings</guimenu> menu allows you to change some settings of the appearance of your
@@ -279,8 +279,8 @@ Screenshot:
       <term>Typesetting using LaTeX</term>
       <listitem>
 	<para>
-	  This setting changes the way, results are presented to you. If enabled, it passes thre result through
-	  the LaTex system, to produce vissually appealing formulas. For Example <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes 
+	  This setting changes the way, results are presented to you. If enabled, it passes the result through
+	  the LaTeX system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes 
 	  <inlinemediaobject>
 	      <imageobject>
 		<imagedata fileref="latex_formula.png" format="PNG"/>
@@ -288,7 +288,7 @@ Screenshot:
 	      <imageobject>
 		<imagedata fileref="latex_formula.eps" format="EPS"/>
 	      </imageobject>
-	      <textobject>3*x^2*sqrt(2)*x+2/3</textobject>
+	      <textobject><phrase>3*x^2*sqrt(2)*x+2/3</phrase></textobject>
 	  </inlinemediaobject>
 	</para>
       </listitem>
@@ -312,21 +312,21 @@ Screenshot:
 	</para>
       </listitem>
     </varlistentry>
-  </variablelist>
   <varlistentry>
     <term>Line Numbers</term>
     <listitem>
       <para>
-	This setting controls, wether the different Expressions should have a number in front, so you can,
+	This setting controls, whether the different Expressions should have a number in front, so you can,
 	for example in Maxima recall older results with the <quote>%O1</quote> command
       </para>
     </listitem>
   </varlistentry>
+  </variablelist>
 </sect3>
 </sect2>
 </sect1>
 
-<sect1>
+<sect1 id="assistant-dlgs">
 <title>The assistant dialogs</title>
 <!-- TODO add screenshots and descriptions of each assistant -->
 </sect1>
@@ -344,7 +344,7 @@ or menu bars. -->
 <sect1 id="kapp-mainwindow">
 <title>The main &mathematik; window</title>
 
-<sect2>
+<sect2 id="file-menu">
 <title>The File Menu</title>
 <para>
 <variablelist>
@@ -383,7 +383,7 @@ or menu bars. -->
 
 </sect2>
 
-<sect2>
+<sect2 id="help-menu">
 <title>The <guimenu>Help</guimenu> Menu</title>
 
 <!-- Assuming you have a standard help menu (help, what's this, about -->
