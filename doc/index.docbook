@@ -16,40 +16,7 @@
   <!-- Do not define any other entities; instead, use the entities
        from entities/general.entities and $LANG/user.entities. -->
 ]>
-<!-- kdoctemplate v0.9 January 10 2003
-     Changes to comments to clarify entity usage January 10 2003
-     Minor update to "Credits and Licenses" section on August 24, 2000
-     Removed "Revision history" section on 22 January 2001
-     Changed to Installation/Help menu entities 18 October 2001
-     Other minor cleanup and changes 18 October 2001
-     FPI change and minor changes November 2002 -->
-
-<!--
-This template was designed by: David Rugge davidrugge@mindspring.com
-with lots of help from: Eric Bischoff ebisch@cybercable.tm.fr
-and Frederik Fouvry fouvry@sfs.nphil.uni-tuebingen.de
-of the KDE DocBook team.
-
-You may freely use this template for writing any sort of KDE documentation.
-If you have any changes or improvements, please let us know.
-
-Remember:
-- in XML, the case of the <tags> and attributes is relevant ;
-- also, quote all attributes.
-
-Please don't forget to remove all these comments in your final documentation,
-thanks ;-).
--->
-
-<!-- ................................................................ -->
-
-<!-- The language must NOT be changed here. -->
-<!-- If you are writing original documentation in a language other -->
-<!-- than English, change the language above ONLY, not here -->
 <book lang="&language;">
-
-<!-- This header contains all of the meta-information for the document such
-as Authors, publish date, the abstract, and Keywords -->
 
 <bookinfo>
 <title>The &mathematik; Handbook</title>
@@ -62,30 +29,17 @@ as Authors, publish date, the abstract, and Keywords -->
 </personname>
 <email>alexanderrieder@gmail.com</email>
 </author>
-</authorgroup>
-
 <!-- TRANS:ROLES_OF_TRANSLATORS -->
+</authorgroup>
 
 <copyright>
 <year>20089</year>
 <holder>Alexander Rieder</holder>
 </copyright>
-<!-- Translators: put here the copyright notice of the translation -->
-<!-- Put here the FDL notice.  Read the explanation in fdl-notice.docbook
-     and in the FDL itself on how to use it. -->
 <legalnotice>&FDLNotice;</legalnotice>
-
-<!-- Date and version information of the application
-Don't forget to include this last date and this last revision number, we
-need them for translation coordination !
-Please respect the format of the date (YYYY-MM-DD) and of the version
-(V.MM.LL), it could be used by automation scripts.
-Do NOT change these in the translation. -->
 
 <date>2009-08-26</date>
 <releaseinfo>0.1</releaseinfo>
-
-<!-- Abstract about this handbook -->
 
 <abstract>
 <para>
@@ -93,10 +47,6 @@ Do NOT change these in the translation. -->
 nice worksheet view to other Free Software Math packages
 </para>
 </abstract>
-
-<!-- This is a set of Keywords for indexing by search engines.
-Please at least include KDE, the KDE package it is in, the name
- of your application, and a few relevant keywords. -->
 
 <keywordset>
 <keyword>KDE</keyword>
@@ -111,22 +61,8 @@ Please at least include KDE, the KDE package it is in, the name
 
 </bookinfo>
 
-<!-- The contents of the documentation begin here.  Label
-each chapter so with the id attribute. This is necessary for two reasons: it
-allows you to easily reference the chapter from other chapters of your
-document, and if there is no ID, the name of the generated HTML files will vary
-from time to time making it hard to manage for maintainers and for the CVS
-system. Any chapter labelled (OPTIONAL) may be left out at the author's
-discretion. Other chapters should not be left out in order to maintain a
-consistent documentation style across all KDE apps. -->
-
 <chapter id="introduction">
 <title>Introduction</title>
-
-<!-- The introduction chapter contains a brief introduction for the
-application that explains what it does and where to report
-problems. Basically a long version of the abstract.  Don't include a
-revision history. (see installation appendix comment) -->
 
 <para>
 &mathematik; is an application, that lets you use your favorite
@@ -140,14 +76,7 @@ Please report any problems or feature requests to alexanderrieder@gmail.com.
 <chapter id="using-kapp">
 <title>Using &mathematik;</title>
 
-<!-- This chapter should tell the user how to use your app. You should use as
-many sections (Chapter, Sect1, Sect3, etc...) as is necessary to fully document
-your application. -->
-
 <para>
-
-<!-- Note that all graphics should be in .png format. Do not use gifs because of
-patent issues. -->
 Screenshot:
 <screenshot>
 <screeninfo>Here's a screenshot of &mathematik;</screeninfo>
@@ -325,27 +254,21 @@ Screenshot:
 </sect3>
 </sect2>
 </sect1>
-
+<!--
 <sect1 id="assistant-dlgs">
 <title>The assistant dialogs</title>
-<!-- TODO add screenshots and descriptions of each assistant -->
+TODO add screenshots and descriptions of each assistant
 </sect1>
+-->
 </chapter>
-
 <chapter id="commands">
 <title>Command Reference</title>
-
-<!-- (OPTIONAL, BUT RECOMMENDED) This chapter should list all of the
-application windows and their menubar and toolbar commands for easy reference.
-Also include any keys that have a special function but have no equivalent in the
-menus or toolbars. This may not be necessary for small apps or apps with no tool
-or menu bars. -->
 
 <sect1 id="kapp-mainwindow">
 <title>The main &mathematik; window</title>
 
 <sect2 id="file-menu">
-<title>The File Menu</title>
+<title>The <guimenu>File</guimenu> Menu</title>
 <para>
 <variablelist>
 <varlistentry>
@@ -386,11 +309,6 @@ or menu bars. -->
 <sect2 id="help-menu">
 <title>The <guimenu>Help</guimenu> Menu</title>
 
-<!-- Assuming you have a standard help menu (help, what's this, about -->
-<!-- &mathematik;, about KDE) then the documentation is already written. -->
-<!-- The following entity is valid anywhere that a variablelist is -->
-<!-- valid.  -->
-
 &help.menu.documentation;
 
 </sect2>
@@ -400,10 +318,6 @@ or menu bars. -->
 
 <chapter id="developers">
 <title>Developer's Guide to &mathematik;</title>
-
-<!-- (OPTIONAL) A Programming/Scripting reference chapter should be
-used for apps that use plugins or that provide their own scripting hooks
-and/or development libraries. -->
 
 <para>
 &mathematik; is easily extendable by plugins. You can write
@@ -420,7 +334,7 @@ and/or development libraries. -->
     <term>Assistants:</term>
     <listitem>
       <para>
-	Assistants are dialogs, that automate common jobs (like entering a matrix, running a script), offering a nice GUI.
+	Assistants are dialogs, that automate common jobs (like entering a matrix, running a script), offering a nice &GUI;.
       </para>
     </listitem>
   </varlistentry>
@@ -435,16 +349,6 @@ All interface definitions are in the lib directory. For example implementations,
 
 <chapter id="faq">
 <title>Questions and Answers</title>
-
-<!-- (OPTIONAL but recommended) This chapter should include all of the silly
-(and not-so-silly) newbie questions that fill up your mailbox. This chapter
-should be reserved for BRIEF questions and answers! If one question uses more
-than a page or so then it should probably be part of the
-"Using this Application" chapter instead. You should use links to
-cross-reference questions to the parts of your documentation that answer them.
-This is also a great place to provide pointers to other FAQ's if your users
-must do some complicated configuration on other programs in order for your
-application work. -->
 
 &reporting.bugs;
 &updating.documentation;
@@ -468,11 +372,6 @@ application work. -->
 
 <chapter id="credits">
 
-<!-- Include credits for the programmers, documentation writers, and
-contributors here. The license for your software should then be included below
-the credits with a reference to the appropriate license file included in the KDE
-distribution. -->
-
 <title>Credits and License</title>
 
 <para>
@@ -481,18 +380,6 @@ distribution. -->
 <para>
 Program copyright 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
 </para>
-<!--
-<para>
-Contributors:
-<itemizedlist>
-<listitem><para>Konqui the KDE Dragon <email>konqui@kde.org</email></para>
-</listitem>
-<listitem><para>Tux the Linux Penguin <email>tux@linux.org</email></para>
-</listitem>
-</itemizedlist>
-</para>
--->
-
 
 <para>
 Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
@@ -501,13 +388,6 @@ Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmai
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
 
 &underFDL;               <!-- FDL: do not remove -->
-
-<!-- Determine which license your application is licensed under,
-     and delete all the remaining licenses below:
-
-     (NOTE:  All documentation are licensed under the FDL,
-     regardless of what license the application uses) -->
-
 &underGPL;        	 <!-- GPL License -->
 </chapter>
 
@@ -517,27 +397,12 @@ Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmai
 <sect1 id="getting-kapp">
 <title>How to obtain &mathematik;</title>
 
-<!-- This first entity contains boiler plate for applications that are
-part of KDE CVS.  You should remove it if you are releasing your
-application -->
-
 &install.intro.documentation;
 
 </sect1>
 
 <sect1 id="requirements">
 <title>Requirements</title>
-
-<!--
-List any special requirements for your application here. This should include:
-.Libraries or other software that is not included in kdesupport,
-kdelibs, or kdebase.
-.Hardware requirements like amount of RAM, disk space, graphics card
-capabilities, screen resolution, special expansion cards, etc.
-.Operating systems the app will run on. If your app is designed only for a
-specific OS, (you wrote a graphical LILO configurator for example) put this
-information here.
--->
 
 <para>
 In order to successfully use &mathematik;, you need &kde; 4 and LibSpectre.
@@ -564,10 +429,6 @@ url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
 
 <sect1 id="compilation">
 <title>Compilation and Installation</title>
-
-<!-- This entity contains the boilerplate text for standard -->
-<!-- compilation instructions.  If your application requires any -->
-<!-- special handling, remove it, and replace with your own text. -->
 
 &install.compile.documentation;
 
