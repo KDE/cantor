@@ -4,6 +4,7 @@ Name=nullbackend
 Name[pt]=testes
 Name[pt_BR]=infraestrutura vazia
 Name[sv]=Nollbakgrundsprogram
+Name[tr]=belirsiz arka uç
 Name[x-test]=xxnullbackendxx
 X-KDE-ServiceTypes=MathematiK/Backend
 X-KDE-Library=mathematik_nullbackend
