@@ -215,7 +215,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
     int i,  errorOccurred;
     QByteArray memBuf;
 
-    memBuf.append(cmd);
+    memBuf.append(cmd.toUtf8());
 
     PROTECT(cmdSexp = allocVector(STRSXP,  1));
     SET_STRING_ELT(cmdSexp,  0,  mkChar((char*)memBuf.data()));
