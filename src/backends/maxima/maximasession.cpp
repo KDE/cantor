@@ -215,10 +215,12 @@ void MaximaSession::runNextTexCommand()
         QString cmd=expr->result()->data().toString().trimmed();
         if(!cmd.isEmpty())
         {
-            QStringList cmdParts=cmd.split("\n");
+            QStringList cmdParts=cmd.split(QChar::ParagraphSeparator);
             QString texCmd;
             foreach(const QString& part, cmdParts)
             {
+                if(part.isEmpty())
+                    continue;
                 kDebug()<<"running "<<QString("tex(%1);").arg(part);
                 texCmd+=QString("tex(%1);").arg(part);
             }

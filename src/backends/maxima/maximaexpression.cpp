@@ -164,7 +164,7 @@ void MaximaExpression::parseOutput(const QString& text)
             evalFinished();
             m_onStdoutStroke=false;
             couldBeQuestion=false;
-        }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0||m_onStdoutStroke)
+        }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0)
         {
             //find the number if this output in the MaximaOutputPrompt
             QString prompt=line.mid(MaximaSession::MaximaOutputPrompt.indexIn(line), MaximaSession::MaximaOutputPrompt.matchedLength()).trimmed();
@@ -180,11 +180,19 @@ void MaximaExpression::parseOutput(const QString& text)
             {
                 m_outputCache.prepend(m_errCache);
                 m_errCache.clear();
+            }else
+            {
+                m_outputCache+=QChar::ParagraphSeparator;
             }
+
             m_outputCache+=line+'\n';
             m_onStdoutStroke=true;
             couldBeQuestion=false;
-        }else
+        }else if (m_onStdoutStroke)
+        {
+            m_outputCache+=line+'\n';
+        }
+        else
         {
             kDebug()<<"got something";
             m_errCache+=line+'\n';
