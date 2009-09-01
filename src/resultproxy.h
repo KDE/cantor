@@ -36,6 +36,7 @@ namespace MathematiK
  **/
 class ResultProxy : public QObject
 {
+ Q_OBJECT
   public:
     ResultProxy( QTextDocument* parent );
     ~ResultProxy();
