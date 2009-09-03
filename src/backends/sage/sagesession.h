@@ -47,11 +47,11 @@ class SageSession : public MathematiK::Session
     MathematiK::Expression* evaluateExpression(const QString& command,MathematiK::Expression::FinishingBehavior behave);
 
     void appendExpressionToQueue(SageExpression* expr);
-    void runCommand(const QByteArray& command);
 
     void interrupt();
 
     void sendSignalToProcess(int signal);
+    void sendInputToProcess(const QString& input);
 
     void setTypesettingEnabled(bool enable);
 

@@ -223,7 +223,7 @@ void SageSession::interrupt()
 void SageSession::sendSignalToProcess(int signal)
 {
     kDebug()<<"sending signal....."<<signal;
-    //Sage spawns some child-processe. the one we are interested is called sage-ipython.
+    //Sage spawns several child-processes. the one we are interested in is called sage-ipython.
     //But to determine which ipython process is the one belonging to this session, we search
     //for a bash process which is child of this sessions sage process, and only kill the
     //ipython process which is child of the bash process
@@ -232,6 +232,11 @@ void SageSession::sendSignalToProcess(int signal)
     KProcess proc(this);
     proc.setShellCommand(cmd);
     proc.execute();
+}
+
+void SageSession::sendInputToProcess(const QString& input)
+{
+    m_process->pty()->write(input.toUtf8());
 }
 
 void SageSession::fileCreated( const QString& path )
