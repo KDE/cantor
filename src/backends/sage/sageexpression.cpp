@@ -75,12 +75,18 @@ void SageExpression::parseOutput(const QString& text)
 
     m_outputCache+=output;
 
-    kDebug()<<"count: "<<m_promptCount;
-    m_promptCount-=output.count(SageSession::SagePrompt);
-    m_promptCount-=output.count(SageSession::SageAlternativePrompt);
+    const QString promptRegexpBase("(^|\\n)%1($|\\n)");
+    const QRegExp promptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SagePrompt)));
+    const QRegExp altPromptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SageAlternativePrompt)));
 
-    if(m_promptCount==0)
+    m_promptCount-=output.count(promptRegexp);
+    m_promptCount-=output.count(altPromptRegexp);
+
+    if(m_promptCount<=0)
     {
+        if(m_promptCount<0)
+            kError()<<"got too many prompts";
+
         //if the output ends with an AlternativePrompt, this means that
         //Sage is expecting additional input, allthough m_promptCount==0
         //indicates that all information has been passed to sage.
