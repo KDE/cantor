@@ -143,6 +143,9 @@ void SageExpression::evalFinished()
 
         if (m_isHelpRequest)
         {
+            //make things quoted in `` `` bold
+            stripped.replace(QRegExp("``([^`]*)``"), "<b>\\1</b>");
+
             result=new MathematiK::HelpResult(stripped);
         }
         else
