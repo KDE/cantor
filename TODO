@@ -25,6 +25,7 @@ General:
 - add way to show disabled backends, and reason why they are disabled
 - export to latex
 - add an about-backend dialog
+- add gui option to configure latex path. hide typesetting option if LaTex is not available
 
 BACKENDS:
 - Octave backend

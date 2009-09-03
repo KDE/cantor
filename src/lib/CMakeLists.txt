@@ -23,6 +23,9 @@ Set( mathematik_LIB_HDRS
      backend_macros.h
 )
 
+kde4_add_kcfg_files(mathematik_LIB_SRCS settings.kcfgc)
+install(FILES mathematik_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+
 kde4_add_library( mathematiklibs  SHARED ${mathematik_LIB_SRCS} )
  
 target_link_libraries( mathematiklibs

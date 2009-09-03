@@ -26,6 +26,7 @@ using namespace MathematiK;
 #include "textresult.h"
 #include "imageresult.h"
 #include "epsresult.h"
+#include "settings.h"
 
 #include <QDir>
 #include <kstandarddirs.h>
@@ -52,8 +53,6 @@ public:
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
 
-    QString latexCmd;
-    QString dviPsCmd;
     QString latexFilename;
 };
 
@@ -73,9 +72,6 @@ Expression::Expression( Session* session ) : QObject( session ),
 {
     d->session=session;
     d->id=session->nextExpressionId();
-
-    d->latexCmd=KStandardDirs::findExe( "latex" );
-    d->dviPsCmd=KStandardDirs::findExe( "dvips" );
 }
 
 Expression::~Expression()
@@ -178,7 +174,7 @@ void Expression::renderResultAsLatex()
     KProcess *p=new KProcess( this );
     p->setWorkingDirectory(dir);
 
-    (*p)<<d->latexCmd<<"-interaction=batchmode"<<"-halt-on-error"<<fileName;
+    (*p)<<Settings::self()->latexCommand()<<"-interaction=batchmode"<<"-halt-on-error"<<fileName;
 
     connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertToPs() ) );
     p->start();
@@ -190,8 +186,8 @@ void Expression::convertToPs()
     QString dviFile=d->latexFilename;
     dviFile.replace(".eps", ".dvi");
     KProcess *p=new KProcess( this );
-    kDebug()<<"running: "<<d->dviPsCmd<<"-E"<<"-o"<<d->latexFilename<<dviFile;
-    (*p)<<d->dviPsCmd<<"-E"<<"-o"<<d->latexFilename<<dviFile;
+    kDebug()<<"running: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
+    (*p)<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
 
     connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( latexRendered() ) );
     p->start();
