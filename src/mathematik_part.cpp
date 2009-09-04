@@ -219,7 +219,7 @@ bool MathematiKPart::saveFile()
 void MathematiKPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected,
-    QString file_name = KFileDialog::getSaveFileName(KUrl(), "*.mws", widget());
+    QString file_name = KFileDialog::getSaveFileName(KUrl(), i18n("*.mws|MathematiK Worksheet"), widget());
     if (file_name.isEmpty() == false)
         saveAs(file_name);
 

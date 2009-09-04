@@ -11,7 +11,7 @@ set( RBackend_SRCS
 
 kde4_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
 
-set(network_xml rserver/org.MathematiK.R.xml)
+set(network_xml rserver/org.kde.MathematiK.R.xml)
 QT4_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
 
 kde4_add_ui_files(RBackend_SRCS settings.ui)

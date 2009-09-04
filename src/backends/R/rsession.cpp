@@ -52,7 +52,7 @@ void RSession::login()
 
     m_rProcess->start();
 
-    m_rServer=new org::MathematiK::R(QString("org.kde.mathematik_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
+    m_rServer=new org::kde::MathematiK::R(QString("org.kde.mathematik_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
 

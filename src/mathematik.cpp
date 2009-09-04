@@ -208,8 +208,7 @@ void MathematiKShell::fileOpen()
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-    KUrl url =
-        KFileDialog::getOpenUrl( KUrl(), QString("*.mws"), this );
+    KUrl url = KFileDialog::getOpenUrl( KUrl(), i18n("*.mws|MathematiK Worksheet"), this );
 
     if (url.isEmpty() == false)
     {
@@ -275,7 +274,7 @@ void MathematiKShell::addWorksheet(const QString& backendName)
     {
         // if we couldn't find our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Could not find the Mathematik Part."));
+        KMessageBox::error(this, i18n("Could not find the MathematiK Part."));
         qApp->quit();
         // we return here, cause qApp->quit() only means "exit the
         // next time we enter the event loop...
@@ -353,8 +352,7 @@ void MathematiKShell::openExample()
     QString dir = KStandardDirs::locateLocal("appdata",  "examples");
     if (dir.isEmpty()) return;
     KStandardDirs::makeDir(dir);
-    KUrl url=KFileDialog::getOpenUrl( KUrl(dir), QString("*.mws"), this );
+    KUrl url=KFileDialog::getOpenUrl( KUrl(dir), i18n("*.mws|MathematiK Worksheet"), this );
     if(!url.isEmpty())
         load(url);
 }
-

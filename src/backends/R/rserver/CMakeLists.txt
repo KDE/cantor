@@ -10,7 +10,7 @@ set( RServer_SRCS
 kde4_add_kcfg_files(RServer_SRCS settings.kcfgc)
 install(FILES rserver.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-QT4_ADD_DBUS_ADAPTOR(RServer_SRCS org.MathematiK.R.xml
+QT4_ADD_DBUS_ADAPTOR(RServer_SRCS org.kde.MathematiK.R.xml
                      rserver.h RServer)
 
 

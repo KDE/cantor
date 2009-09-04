@@ -2,11 +2,11 @@
 Name=MathematiK
 Name[sv]=Matematik
 Name[x-test]=xxMathematiKxx
-Exec=mathematik %i %m -caption "%c"
+Exec=mathematik %i -caption "%c"
 Icon=mathematik
 Type=Application
 X-DocPath=mathematik/index.html
-GenericName=A KDE Frontend to Mathematical Software.
+GenericName=KDE Frontend to Mathematical Software.
 GenericName[es]=Un motor de KDE para software matemático.
 GenericName[et]=KDE matemaatikatarkvara kasutajaliides.
 GenericName[km]=កម្មវិធី​ផ្នែក​ខាង​មុខ​របស់ KDE ទៅនឹង​កម្មវិធី​គណិតវិទ្យា ។

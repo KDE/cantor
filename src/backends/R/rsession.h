@@ -50,7 +50,7 @@ class RSession : public MathematiK::Session
 
   private:
     KProcess* m_rProcess;
-    org::MathematiK::R* m_rServer;
+    org::kde::MathematiK::R* m_rServer;
     QList<RExpression*> m_expressionQueue;
 };
 
