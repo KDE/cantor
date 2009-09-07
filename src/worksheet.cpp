@@ -53,6 +53,8 @@
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 #include <kglobalsettings.h>
+#include <kfiledialog.h>
+#include <kmenu.h>
 
 #include "settings.h"
 
@@ -246,6 +248,42 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
 
 }
 
+void Worksheet::contextMenuEvent(QContextMenuEvent *event)
+{
+    QTextCursor cursorAtMouse=cursorForPosition(event->pos());
+    WorksheetEntry* current=entryAt(cursorAtMouse);
+    if(current&&current->isInResultCell(cursorAtMouse)&&current->expression()&&current->expression()->result())
+    {
+        kDebug()<<"context menu in result...";
+        KMenu* popup=new KMenu(this);
+        if(!popup)
+            return;
+
+        QAction* saveAction=popup->addAction(i18n("Save result"));
+
+        popup->setTitle(i18n("Result"));
+
+        QMenu* defaultMenu=mousePopupMenu();
+        defaultMenu->setTitle(i18n("Other"));
+        popup->addMenu(defaultMenu);
+
+        const QAction* selectedAction=popup->exec(event->globalPos());
+        if(selectedAction==saveAction)
+        {
+            const QString& filename=KFileDialog::getSaveFileName(KUrl(), current->expression()->result()->mimeType(), this);
+            kDebug()<<"saving result to "<<filename;
+            current->expression()->result()->save(filename);
+        }
+
+        delete popup;
+        delete defaultMenu;
+
+    }else
+    {
+        KTextEdit::contextMenuEvent(event);
+    }
+}
+
 void Worksheet::evaluate()
 {
     foreach(WorksheetEntry* entry, m_entries)
@@ -297,9 +335,14 @@ void Worksheet::evaluateCurrentEntry()
 
 WorksheetEntry* Worksheet::currentEntry()
 {
+    return entryAt(textCursor());
+}
+
+WorksheetEntry* Worksheet::entryAt(const QTextCursor& cursor)
+{
     foreach(WorksheetEntry* entry, m_entries)
     {
-        if(entry->contains(textCursor()))
+        if(entry->contains(cursor))
             return entry;
     }
 

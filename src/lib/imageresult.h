@@ -40,9 +40,12 @@ class MATHEMATIK_EXPORT ImageResult : public Result
     QVariant data();
 
     int type();
+    QString mimeType();
 
     QDomElement toXml(QDomDocument& doc);
     void saveAdditionalData(KZip* archive);
+
+    void save(const QString& filename);
 
   private:
     ImageResultPrivate* d;

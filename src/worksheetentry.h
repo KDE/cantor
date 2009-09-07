@@ -75,6 +75,7 @@ class WorksheetEntry : public QObject
     bool isInCurrentInformationCell(const QTextCursor& cursor);
     bool isInCommandCell(const QTextCursor& cursor);
     bool isInPromptCell(const QTextCursor& cursor);
+    bool isInResultCell(const QTextCursor& cursor);
 
     //checks if this entry has still anything needed (aka the user didn't delete anything
     //like the prompt. Readd missing things

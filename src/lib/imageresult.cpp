@@ -22,6 +22,7 @@
 using namespace MathematiK;
 
 #include <QImage>
+#include <QImageWriter>
 #include <kzip.h>
 #include <kdebug.h>
 
@@ -67,6 +68,19 @@ int ImageResult::type()
     return ImageResult::Type;
 }
 
+QString ImageResult::mimeType()
+{
+    const QList<QByteArray> formats=QImageWriter::supportedImageFormats();
+    QString mimetype;
+    foreach(const QByteArray& format, formats)
+    {
+        mimetype+="image/"+format.toLower()+' ';
+    }
+    kDebug()<<"type: "<<mimetype;
+
+    return mimetype;
+}
+
 QDomElement ImageResult::toXml(QDomDocument& doc)
 {
     kDebug()<<"saving imageresult "<<toHtml();
@@ -81,5 +95,14 @@ QDomElement ImageResult::toXml(QDomDocument& doc)
 void ImageResult::saveAdditionalData(KZip* archive)
 {
     archive->addLocalFile(d->url.toLocalFile(), d->url.fileName());
+}
+
+void ImageResult::save(const QString& filename)
+{
+    //load into memory and let Qt save it, instead of just copying d->url
+    //to give possibility to convert file format
+    QImage img=data().value<QImage>();
+
+    img.save(filename);
 }
 

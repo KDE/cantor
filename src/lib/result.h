@@ -43,10 +43,12 @@ class MATHEMATIK_EXPORT Result
     virtual QVariant data() = 0;
 
     virtual int type() = 0;
+    virtual QString mimeType() = 0;
 
     virtual QDomElement toXml(QDomDocument& doc) = 0;
     virtual void saveAdditionalData(KZip* archive);
 
+    virtual void save(const QString& filename) = 0;
   private:
     ResultPrivate* d;
 };

@@ -75,12 +75,14 @@ class Worksheet : public KTextEdit
   protected:
     bool event(QEvent* event);
     void keyPressEvent(QKeyEvent *event);
+    void contextMenuEvent(QContextMenuEvent *event);
 
   private slots:
     void removeEntry(QObject* object);
     void checkEntriesForSanity();
   private:
     WorksheetEntry* currentEntry();
+    WorksheetEntry* entryAt(const QTextCursor& cursor);
     WorksheetEntry* entryAt(int row);
   private:
     MathematiK::Session *m_session;

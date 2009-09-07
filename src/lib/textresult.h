@@ -41,11 +41,14 @@ class MATHEMATIK_EXPORT TextResult : public Result
     QVariant data();
 
     int type();
+    QString mimeType();
 
     Format format();
     void setFormat(Format f);
 
     QDomElement toXml(QDomDocument& doc);
+
+    void save(const QString& filename);
 
   private:
     TextResultPrivate* d;

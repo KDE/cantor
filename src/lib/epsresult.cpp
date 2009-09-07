@@ -23,6 +23,7 @@ using namespace MathematiK;
 
 #include <kdebug.h>
 #include <kzip.h>
+#include <kio/job.h>
 #include <QImage>
 
 class MathematiK::EpsResultPrivate{
@@ -56,6 +57,11 @@ int EpsResult::type()
     return EpsResult::Type;
 }
 
+QString EpsResult::mimeType()
+{
+    return "image/x-eps";
+}
+
 QDomElement EpsResult::toXml(QDomDocument& doc)
 {
     kDebug()<<"saving imageresult "<<toHtml();
@@ -72,3 +78,8 @@ void EpsResult::saveAdditionalData(KZip* archive)
     archive->addLocalFile(d->url.toLocalFile(), d->url.fileName());
 }
 
+void EpsResult::save(const QString& filename)
+{
+    //just copy over the eps file..
+    KIO::file_copy(d->url, KUrl(filename), -1, KIO::HideProgressInfo);
+}

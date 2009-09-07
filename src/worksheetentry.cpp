@@ -356,6 +356,18 @@ bool WorksheetEntry::isInPromptCell(const QTextCursor& cursor)
         return false;
 }
 
+bool WorksheetEntry::isInResultCell(const QTextCursor& cursor)
+{
+    if(!m_resultCell.isValid())
+        return false;
+
+    if(cursor.position()>=m_resultCell.firstCursorPosition().position()&&cursor.position()<=m_resultCell.lastCursorPosition().position())
+        return true;
+    else
+        return false;
+}
+
+
 void WorksheetEntry::checkForSanity()
 {
     QTextTableCell cell=m_table->cellAt(0, 0);

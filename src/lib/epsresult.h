@@ -40,8 +40,12 @@ class MATHEMATIK_EXPORT EpsResult : public Result
     QVariant data();
 
     int type();
+    QString mimeType();
+
     QDomElement toXml(QDomDocument& doc);
     void saveAdditionalData(KZip* archive);
+    
+    void save(const QString& filename);
 
   private:
     EpsResultPrivate* d;

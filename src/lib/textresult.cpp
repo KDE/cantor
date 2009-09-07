@@ -23,9 +23,17 @@ using namespace MathematiK;
 
 #include <kdebug.h>
 
+#include <QFile>
+#include <QTextStream>
+
 class MathematiK::TextResultPrivate
 {
 public:
+    TextResultPrivate()
+    {
+        format=TextResult::PlainTextFormat;
+    }
+
     QString data;
     TextResult::Format format;
 };
@@ -57,6 +65,15 @@ int TextResult::type()
     return TextResult::Type;
 }
 
+QString TextResult::mimeType()
+{
+    kDebug()<<"format: "<<format();
+    if(format()==TextResult::PlainTextFormat)
+        return "text/plain";
+    else
+        return "text/x-tex";
+}
+
 TextResult::Format TextResult::format()
 {
     return d->format;
@@ -76,6 +93,20 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     e.appendChild(txt);
 
     return e;
+}
+
+void TextResult::save(const QString& filename)
+{
+    QFile file(filename);
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+        return;
+
+    QTextStream stream(&file);
+
+    stream<<d->data;
+
+    file.close();
 }
 
 
