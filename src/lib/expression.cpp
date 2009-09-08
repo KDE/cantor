@@ -25,7 +25,7 @@ using namespace MathematiK;
 #include "result.h"
 #include "textresult.h"
 #include "imageresult.h"
-#include "epsresult.h"
+#include "latexresult.h"
 #include "settings.h"
 
 #include <QDir>
@@ -212,7 +212,7 @@ void Expression::latexRendered()
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(QFileInfo(d->latexFilename).exists())
     {
-        EpsResult* latex=new EpsResult(KUrl(d->latexFilename));
+        LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(d->latexFilename));
         setResult( latex );
     }
 }

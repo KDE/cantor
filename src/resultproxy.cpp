@@ -22,6 +22,7 @@
 
 #include "lib/result.h"
 #include "lib/epsresult.h"
+#include "lib/latexresult.h"
 
 #include "libspectre/spectre.h"
 
@@ -54,6 +55,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, MathematiK::Result* result)
     switch(result->type())
     {
         case MathematiK::EpsResult::Type:
+        case MathematiK::LatexResult::Type:
             cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
             break;
         default:

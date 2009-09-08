@@ -9,6 +9,7 @@ set( mathematik_LIB_SRCS
   textresult.cpp
   imageresult.cpp
   epsresult.cpp
+  latexresult.cpp
   helpresult.cpp
   extension.cpp
   assistant.cpp
