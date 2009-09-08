@@ -283,6 +283,7 @@ void MaximaSession::startTexConvertProcess()
     m_texConvertProcess->pty()->setEcho(false);
 
     connect(m_texConvertProcess->pty(), SIGNAL(readyRead()), this, SLOT(readTeX()));
+    connect(m_texConvertProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
     m_texConvertProcess->start();
     m_texConvertProcess->pty()->write(initCmd);
 }
@@ -296,7 +297,10 @@ void MaximaSession::setTypesettingEnabled(bool enable)
         evaluateExpression("display2d:false", MathematiK::Expression::DeleteOnFinish);
     }
     else if(m_texConvertProcess)
+    {
+        disconnect(m_texConvertProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
         m_texConvertProcess->deleteLater();
+    }
     MathematiK::Session::setTypesettingEnabled(enable);
 }
 
