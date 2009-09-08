@@ -185,7 +185,13 @@ void MaximaExpression::parseOutput(const QString& text)
                 m_outputCache+=QChar::ParagraphSeparator;
             }
 
-            m_outputCache+=line+'\n';
+            //append the line to the output cache, but
+            //only it isn't false, as a line only
+            //containing "%O1 false" means that this
+            //output can be ignored
+            if(line.trimmed() != "false" )
+                m_outputCache+=line+'\n';
+
             m_onStdoutStroke=true;
             couldBeQuestion=false;
         }else if (m_onStdoutStroke)
@@ -272,6 +278,7 @@ void MaximaExpression::evalFinished()
     QString text=m_outputCache;
     if(!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
         text.replace(' ', "&nbsp;");
+
     MathematiK::TextResult* result;
 
     if(m_tempFile)

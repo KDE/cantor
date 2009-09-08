@@ -213,6 +213,15 @@ void MaximaSession::runNextTexCommand()
     {
         MaximaExpression* expr=m_texQueue.first();
         QString cmd=expr->result()->data().toString().trimmed();
+
+        //check if the result already is tex, by checking if the whole
+        //text is contained within a $$ pair
+        //(the additional signs in the regex ignore newlines and whitespaces
+        // at the begin and the end).
+        //if it is, drop the Tex command
+        if(QRegExp("^\\s*\\$\\$.*\\$\\$\\s*$").exactMatch(cmd))
+            m_texQueue.takeFirst();
+
         if(!cmd.isEmpty())
         {
             QStringList cmdParts=cmd.split(QChar::ParagraphSeparator);
