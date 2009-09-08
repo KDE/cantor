@@ -54,8 +54,20 @@ void ResultProxy::insertResult(QTextCursor& cursor, MathematiK::Result* result)
 {
     switch(result->type())
     {
-        case MathematiK::EpsResult::Type:
         case MathematiK::LatexResult::Type:
+            //if the lr is in Code-Mode, insert its html.
+            //otherwise fallthrough to the EpsRendering code
+            if(dynamic_cast<MathematiK::LatexResult*>(result)->isCodeShown())
+            {
+                QString html=result->toHtml().trimmed();
+                if(html.isEmpty())
+                    cursor.removeSelectedText();
+                else
+                    cursor.insertHtml(result->toHtml());
+
+                break;
+            }
+        case MathematiK::EpsResult::Type:
             cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
             break;
         default:

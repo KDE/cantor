@@ -23,6 +23,7 @@
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 #include "lib/textresult.h"
+#include "lib/latexresult.h"
 
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -53,11 +54,12 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 
     QDomElement resultElement=xml.firstChildElement("Result");
     MathematiK::Result* result=0;
-    if (resultElement.attribute("type") == "text")
+    const QString& type=resultElement.attribute("type");
+    if ( type == "text")
     {
         result=new MathematiK::TextResult(resultElement.text());
     }
-    else if (resultElement.attribute("type") == "image" )
+    else if (type == "image" || type == "latex")
     {
         const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
         if (imageEntry&&imageEntry->isFile())
@@ -66,10 +68,16 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
             imageFile->copyTo(dir);
             KUrl imageUrl=dir+'/'+imageFile->name();
-            if(imageFile->name().endsWith(QLatin1String(".eps")))
+            if(type=="latex")
+            {
+                result=new MathematiK::LatexResult(resultElement.text(), imageUrl);
+            }else if(imageFile->name().endsWith(QLatin1String(".eps")))
+            {
                 result=new MathematiK::EpsResult(imageUrl);
-            else
+            }else
+            {
                 result=new MathematiK::ImageResult(imageUrl);
+            }
         }
     }
 

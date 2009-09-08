@@ -21,9 +21,19 @@
 #include "latexresult.h"
 using namespace MathematiK;
 
+#include <QFile>
+#include <QTextStream>
+#include <kdebug.h>
+
 class MathematiK::LatexResultPrivate
 {
   public:
+    LatexResultPrivate()
+    {
+        showCode=false;
+    }
+
+    bool showCode;
     QString code;
 };
 
@@ -43,7 +53,86 @@ int LatexResult::type()
     return LatexResult::Type;
 }
 
+QString LatexResult::mimeType()
+{
+    if(isCodeShown())
+        return "text/plain";
+    else
+        return EpsResult::mimeType();
+}
+
 QString LatexResult::code()
 {
     return d->code;
 }
+
+bool LatexResult::isCodeShown()
+{
+    return d->showCode;
+}
+
+void LatexResult::showCode()
+{
+    d->showCode=true;
+}
+
+void LatexResult::showRendered()
+{
+    d->showCode=false;
+}
+
+QVariant LatexResult::data()
+{
+    if(isCodeShown())
+        return QVariant(code());
+    else
+        return EpsResult::data();
+}
+
+QString LatexResult::toHtml()
+{
+    if (isCodeShown())
+    {
+            QString s=code();
+            s.replace('\n', "<br/>\n");
+            return s;
+    }
+    else
+    {
+        return EpsResult::toHtml();
+    }
+}
+
+QDomElement LatexResult::toXml(QDomDocument& doc)
+{
+    kDebug()<<"saving textresult "<<toHtml();
+    QDomElement e=doc.createElement("Result");
+    e.setAttribute("type", "latex");
+    KUrl url=KUrl(EpsResult::data().toUrl());
+    e.setAttribute("filename", url.fileName());
+    QDomText txt=doc.createTextNode(code());
+    e.appendChild(txt);
+
+    return e;
+}
+
+void LatexResult::save(const QString& filename)
+{
+    if(isCodeShown())
+    {
+        QFile file(filename);
+
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+            return;
+
+        QTextStream stream(&file);
+
+        stream<<code();
+
+        file.close();
+    }else
+    {
+        EpsResult::save(filename);
+    }
+}
+

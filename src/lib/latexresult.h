@@ -22,6 +22,7 @@
 #define _LATEXRESULT_H
 
 #include "epsresult.h"
+#include "mathematik_export.h"
 
 namespace MathematiK{
 class LatexResultPrivate;
@@ -31,7 +32,7 @@ class LatexResultPrivate;
    LaTeX code, used to generate the Eps, so it can be retrieved
    later
 **/
-class LatexResult : public EpsResult
+class MATHEMATIK_EXPORT LatexResult : public EpsResult
 {
   public:
     enum {Type=7};
@@ -39,8 +40,20 @@ class LatexResult : public EpsResult
     ~LatexResult();
     
     int type();
+    QString mimeType();
+
+    bool isCodeShown();
+    void showCode();
+    void showRendered();
 
     QString code();
+
+    QString toHtml();
+    QVariant data();
+
+    QDomElement toXml(QDomDocument& doc);
+    
+    void save(const QString& filename);
 
   private:
     LatexResultPrivate* d;
