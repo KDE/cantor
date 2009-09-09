@@ -45,12 +45,13 @@ void SageTabCompletionObject::fetchCompletions()
     if(t)
         session()->setTypesettingEnabled(false);
 
-    m_expression=session()->evaluateExpression("__IPYTHON__.complete(\""+command()+"\")");
+    //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
+    //after complete() was evaluated
+    m_expression=session()->evaluateExpression("__hist_tmp__=_; __IPYTHON__.complete(\""+command()+"\");_=__hist_tmp__");
     connect(m_expression, SIGNAL(gotResult()), this, SLOT(fetchingDone()));
 
     if(t)
         session()->setTypesettingEnabled(true);
-
 }
 
 void SageTabCompletionObject::fetchingDone()
@@ -78,6 +79,9 @@ void SageTabCompletionObject::fetchingDone()
     }
 
     setCompletions(completions);
+
+    m_expression->deleteLater();
+    m_expression=0;
 
     emit done();
 }

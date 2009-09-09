@@ -251,12 +251,12 @@ void SageSession::setTypesettingEnabled(bool enable)
     MathematiK::Session::setTypesettingEnabled(enable);
 
     //tell the sage server to enable/disable pretty_print
-    //the 2+2 and __IP.outputcache() are needed to keep the
+    //the _ and __IP.outputcache() are needed to keep the
     // _ operator working
     if (enable)
-        evaluateExpression("sage.misc.latex.pretty_print_default(true);2+2; __IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("sage.misc.latex.pretty_print_default(true);_;__IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
     else
-        evaluateExpression("sage.misc.latex.pretty_print_default(false);2+2;__IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("sage.misc.latex.pretty_print_default(false);_;__IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
 }
 
 MathematiK::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)
