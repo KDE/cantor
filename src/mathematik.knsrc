@@ -1,4 +1,5 @@
 [KNewStuff2]
 ProvidersUrl=http://newstuff.kde.org/cgi-bin/hotstuff-provider?site=mathematik
+CustomName=true
 Uncompress=never
 TargetDir=mathematik/examples

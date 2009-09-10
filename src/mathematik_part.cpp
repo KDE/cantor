@@ -305,10 +305,13 @@ Worksheet* MathematiKPart::worksheet()
 void MathematiKPart::updateCaption()
 {
     QString filename=url().fileName();
+    //strip away the extension
+    filename=filename.left(filename.lastIndexOf('.'));
+
     if (filename.isEmpty())
         filename=i18n("Unnamed");
 
-    emit setWindowCaption(i18n("%1: %2", m_worksheet->session()->backend()->name(), filename));
+    emit setCaption(i18n("%1: %2", m_worksheet->session()->backend()->name(), filename));
 }
 
 void MathematiKPart::loadAssistants()

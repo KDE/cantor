@@ -260,7 +260,7 @@ void MathematiKShell::addWorksheet(const QString& backendName)
         {
             QObject* ext=(part->findChild<QObject*>("helpExtension"));
             connect(ext, SIGNAL(showHelp(const QString&)), m_helpView, SLOT(setHtml(const QString&)));
-            connect(part, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
+            connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
             m_parts.append(part);
             m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
         }
@@ -352,7 +352,27 @@ void MathematiKShell::openExample()
     QString dir = KStandardDirs::locateLocal("appdata",  "examples");
     if (dir.isEmpty()) return;
     KStandardDirs::makeDir(dir);
-    KUrl url=KFileDialog::getOpenUrl( KUrl(dir), i18n("*.mws|MathematiK Worksheet"), this );
-    if(!url.isEmpty())
+
+    QStringList files=QDir(dir).entryList(QDir::Files);
+    KDialog dlg;
+    QListWidget* list=new QListWidget(&dlg);
+    foreach(const QString& file, files)
+    {
+        QString name=file;
+        name.remove(QRegExp("-.*\\.hotstuff-access"));
+        list->addItem(name);
+    }
+
+    dlg.setMainWidget(list);
+
+    if (dlg.exec()==QDialog::Accepted&&list->currentRow()>=0)
+    {
+        const QString& selectedFile=files[list->currentRow()];
+        KUrl url;
+        url.setDirectory(dir);
+        url.setFileName(selectedFile);
+
+        kDebug()<<"loading file "<<url;
         load(url);
+    }
 }

@@ -70,6 +70,9 @@ public:
 
     Worksheet* worksheet();
 
+signals:
+    void setCaption(const QString& caption);
+
 protected:
     /**
      * This must be implemented by each part
