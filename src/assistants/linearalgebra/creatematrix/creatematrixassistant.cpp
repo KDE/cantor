@@ -50,23 +50,27 @@ void CreateMatrixAssistant::initActions()
 
 QStringList CreateMatrixAssistant::run(QWidget* parent)
 {
-    CreateMatrixDlg dlg(parent);
+    QPointer<CreateMatrixDlg> dlg=new CreateMatrixDlg(parent);
 
-    if( dlg.exec())
+    QStringList result;
+    if( dlg->exec())
     {
         MathematiK::LinearAlgebraExtension::Matrix m;
-        for (int i=0;i<dlg.numRows();i++)
+        for (int i=0;i<dlg->numRows();i++)
         {
             QStringList row;
-            for(int j=0;j<dlg.numCols();j++)
-                row<<dlg.value(i, j);
+            for(int j=0;j<dlg->numCols();j++)
+                row<<dlg->value(i, j);
              m<<row;
         }
 
         MathematiK::LinearAlgebraExtension* ext= dynamic_cast<MathematiK::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
-        return QStringList()<<ext->createMatrix(m);
+        result<<ext->createMatrix(m);
     }
-    return QStringList();
+
+
+    delete dlg;
+    return result;
 }
 
 K_EXPORT_MATHEMATIK_PLUGIN(creatematrixassistant, CreateMatrixAssistant)

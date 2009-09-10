@@ -58,7 +58,11 @@ int CreateMatrixDlg::numCols()
 
 QString CreateMatrixDlg::value(int i, int j)
 {
-    return m_base->values->item(i, j)->text();
+    const QTableWidgetItem* item=m_base->values->item(i, j);
+    if(item)
+        return item->text();
+    else
+        return "0";
 }
 
 #include "creatematrixdlg.moc"

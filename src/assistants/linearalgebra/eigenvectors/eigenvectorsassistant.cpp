@@ -50,22 +50,25 @@ void EigenVectorsAssistant::initActions()
 
 QStringList EigenVectorsAssistant::run(QWidget* parent)
 {
-    KDialog dlg(parent);
-    QWidget widget;
+    QPointer<KDialog> dlg=new KDialog(parent);
+    QWidget* widget=new QWidget(dlg);
     Ui::EigenVectorsAssistantBase base;
-    base.setupUi(&widget);
-    dlg.setMainWidget(&widget);
+    base.setupUi(widget);
+    dlg->setMainWidget(widget);
 
     MathematiK::HistoryExtension* hist= dynamic_cast<MathematiK::HistoryExtension*>(backend()->extension("HistoryExtension"));
     base.matrix->setText(hist->lastResult());
 
-    if( dlg.exec())
+    QStringList result;
+    if( dlg->exec())
     {
         const QString& m=base.matrix->text();
         MathematiK::LinearAlgebraExtension* ext= dynamic_cast<MathematiK::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
-        return QStringList()<<ext->eigenVectors(m);
+        result<<ext->eigenVectors(m);
     }
-    return QStringList();
+
+    delete dlg;
+    return result;
 }
 
 K_EXPORT_MATHEMATIK_PLUGIN(eigenvectorsassistant, EigenVectorsAssistant)

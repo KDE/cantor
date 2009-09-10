@@ -234,12 +234,14 @@ void MathematiKShell::fileOpen()
 
 void MathematiKShell::addWorksheet()
 {
-    BackendChooseDialog dlg(this);
-    if(dlg.exec())
+    QPointer<BackendChooseDialog> dlg=new BackendChooseDialog(this);
+    if(dlg->exec())
     {
-        addWorksheet(dlg.backendName());
+        addWorksheet(dlg->backendName());
         activateWorksheet(m_parts.size()-1);
     }
+
+    delete dlg;
 }
 
 void MathematiKShell::addWorksheet(const QString& backendName)
@@ -354,8 +356,8 @@ void MathematiKShell::openExample()
     KStandardDirs::makeDir(dir);
 
     QStringList files=QDir(dir).entryList(QDir::Files);
-    KDialog dlg;
-    QListWidget* list=new QListWidget(&dlg);
+    QPointer<KDialog> dlg=new KDialog(this);
+    QListWidget* list=new QListWidget(dlg);
     foreach(const QString& file, files)
     {
         QString name=file;
@@ -363,9 +365,9 @@ void MathematiKShell::openExample()
         list->addItem(name);
     }
 
-    dlg.setMainWidget(list);
+    dlg->setMainWidget(list);
 
-    if (dlg.exec()==QDialog::Accepted&&list->currentRow()>=0)
+    if (dlg->exec()==QDialog::Accepted&&list->currentRow()>=0)
     {
         const QString& selectedFile=files[list->currentRow()];
         KUrl url;
@@ -375,4 +377,6 @@ void MathematiKShell::openExample()
         kDebug()<<"loading file "<<url;
         load(url);
     }
+
+    delete dlg;
 }

@@ -49,21 +49,25 @@ void SolveAssistant::initActions()
 
 QStringList SolveAssistant::run(QWidget* parent)
 {
-    KDialog dlg(parent);
-    QWidget widget;
+    QPointer<KDialog> dlg=new KDialog(parent);
+    QWidget *widget=new QWidget(dlg);
     Ui::SolveAssistantBase base;
-    base.setupUi(&widget);
-    dlg.setMainWidget(&widget);
+    base.setupUi(widget);
+    dlg->setMainWidget(widget);
 
-    if( dlg.exec())
+    QStringList result;
+    if( dlg->exec())
     {
         QStringList equations=base.equations->toPlainText().split('\n');
         QStringList variables=base.variables->text().split(", ");
 
         MathematiK::CASExtension* ext= dynamic_cast<MathematiK::CASExtension*>(backend()->extension("CASExtension"));
-        return QStringList()<<ext->solve(equations, variables);
+
+        result<<ext->solve(equations, variables);
     }
-    return QStringList();
+
+    delete dlg;
+    return result;
 }
 
 K_EXPORT_MATHEMATIK_PLUGIN(solveassistant, SolveAssistant)

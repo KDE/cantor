@@ -49,13 +49,14 @@ void DifferentiateAssistant::initActions()
 
 QStringList DifferentiateAssistant::run(QWidget* parent)
 {
-    KDialog dlg(parent);
-    QWidget widget;
+    QPointer<KDialog> dlg=new KDialog(parent);
+    QWidget* widget=new QWidget(dlg);
     Ui::DifferentiateAssistantBase base;
-    base.setupUi(&widget);
-    dlg.setMainWidget(&widget);
+    base.setupUi(widget);
+    dlg->setMainWidget(widget);
 
-    if( dlg.exec())
+    QStringList result;
+    if( dlg->exec())
     {
         QString expression=base.expression->text();
         QString variable=base.variable->text();
@@ -63,10 +64,11 @@ QStringList DifferentiateAssistant::run(QWidget* parent)
 
         MathematiK::CalculusExtension* ext= dynamic_cast<MathematiK::CalculusExtension*>(backend()->extension("CalculusExtension"));
 
-        return QStringList()<<ext->differentiate(expression, variable, times);
-
+        result<<ext->differentiate(expression, variable, times);
     }
-    return QStringList();
+
+    delete dlg;
+    return result;
 }
 
 K_EXPORT_MATHEMATIK_PLUGIN(differentiateassistant, DifferentiateAssistant)

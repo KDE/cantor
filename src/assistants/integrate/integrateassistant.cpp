@@ -49,13 +49,14 @@ void IntegrateAssistant::initActions()
 
 QStringList IntegrateAssistant::run(QWidget* parent)
 {
-    KDialog dlg(parent);
-    QWidget widget;
+    QPointer<KDialog> dlg=new KDialog(parent);
+    QWidget* widget=new QWidget(dlg);
     Ui::IntegrateAssistantBase base;
-    base.setupUi(&widget);
-    dlg.setMainWidget(&widget);
+    base.setupUi(widget);
+    dlg->setMainWidget(widget);
 
-    if( dlg.exec())
+    QStringList result;
+    if( dlg->exec())
     {
         QString expression=base.expression->text();
         QString variable=base.variable->text();
@@ -65,13 +66,16 @@ QStringList IntegrateAssistant::run(QWidget* parent)
         {
             QString lower=base.lowerLimit->text();
             QString upper=base.upperLimit->text();
-            return QStringList()<<ext->integrate(expression, variable, lower, upper);
+
+            result<<ext->integrate(expression, variable, lower, upper);
         }else
         {
-            return QStringList()<<ext->integrate(expression, variable);
+            result<<ext->integrate(expression, variable);
         }
     }
-    return QStringList();
+
+    delete dlg;
+    return result;
 }
 
 K_EXPORT_MATHEMATIK_PLUGIN(integrateassistant, IntegrateAssistant)

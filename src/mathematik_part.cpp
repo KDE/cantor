@@ -414,14 +414,13 @@ void MathematiKPart::publishWorksheet()
 void MathematiKPart::print()
 {
     QPrinter printer;
-    QPrintDialog *dialog = new QPrintDialog(&printer,  widget());
+    QPointer<QPrintDialog> dialog = new QPrintDialog(&printer,  widget());
 
     if (m_worksheet->textCursor().hasSelection())
         dialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
-    if (dialog->exec() != QDialog::Accepted)
-        return;
 
-    m_worksheet->print(&printer);
+    if (dialog->exec() == QDialog::Accepted)
+        m_worksheet->print(&printer);
 
-    dialog->deleteLater();
+    delete dialog;
 }
