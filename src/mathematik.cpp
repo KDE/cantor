@@ -359,7 +359,7 @@ void MathematiKShell::openExample()
     foreach(const QString& file, files)
     {
         QString name=file;
-        name.remove(QRegExp("-.*\\.hotstuff-access"));
+        name.remove(QRegExp("-.*\\.hotstuff-access$"));
         list->addItem(name);
     }
 
