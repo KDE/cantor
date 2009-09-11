@@ -74,4 +74,9 @@ void TabCompletionObject::setCompletions(const QStringList& completions)
     }
 }
 
+void TabCompletionObject::setCommand(const QString& cmd)
+{
+    d->command=cmd;
+}
+
 #include "tabcompletionobject.moc"

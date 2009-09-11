@@ -42,6 +42,7 @@ class MATHEMATIK_EXPORT TabCompletionObject : public KCompletion
     Session* session();
   protected:
     void setCompletions(const QStringList& completions);
+    void setCommand(const QString& cmd);
   protected Q_SLOTS:
     virtual void fetchCompletions() = 0;
   Q_SIGNALS:

@@ -28,6 +28,14 @@
 SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSession* session) : MathematiK::TabCompletionObject(command, session)
 {
     m_expression=0;
+
+    //Only use the completion for the last command part between end and opening bracket or ;
+    QString cmd=command;
+    int brIndex=cmd.lastIndexOf('(')+1;
+    int semIndex=cmd.lastIndexOf(';')+1;
+    cmd=cmd.mid(qMax(brIndex, semIndex));
+
+    setCommand(cmd);
 }
 
 SageTabCompletionObject::~SageTabCompletionObject()
