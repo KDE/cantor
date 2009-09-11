@@ -101,7 +101,15 @@ void RSession::serverChangedStatus(int status)
 {
     kDebug()<<"changed status to "<<status;
     if(status==0)
-        changeStatus(MathematiK::Session::Done);
+    {
+        RExpression* expr=m_expressionQueue.takeFirst();
+        kDebug()<<"done running "<<expr<<" "<<expr->command();
+
+        if(m_expressionQueue.isEmpty())
+            changeStatus(MathematiK::Session::Done);
+        else
+            runNextExpression();
+    }
     else
         changeStatus(MathematiK::Session::Running);
 }
@@ -111,7 +119,8 @@ void RSession::runNextExpression()
     disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
     disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
     disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
-    RExpression* expr=m_expressionQueue.takeFirst();
+    kDebug()<<"size: "<<m_expressionQueue.size();
+    RExpression* expr=m_expressionQueue.first();
     kDebug()<<"running expression: "<<expr->command();
 
     connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));
@@ -120,8 +129,6 @@ void RSession::runNextExpression()
 
     m_rServer->runCommand(expr->command());
 
-    if(!m_expressionQueue.isEmpty())
-        QTimer::singleShot(0, this, SLOT(runNextExpression()));
 }
 
 void RSession::sendInputToServer(const QString& input)

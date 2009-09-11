@@ -1,7 +1,6 @@
 BUGS:
 - bracket highlighting doesn't disappear after moving the cursor away
 - sage tab completion: only feed the part between the cursor and the last opening bracket/; to IPython
-- R backend evaluate worksheet with plots doesn't work
 
 FEATURES:
 Maxima-backend:
