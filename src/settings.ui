@@ -21,9 +21,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="kcfg_DefaultBackend">
+      <widget class="KComboBox" name="kcfg_DefaultBackend">
        <property name="editable">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -72,6 +72,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -19,7 +19,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLineEdit" name="matrix"/>
+    <widget class="KLineEdit" name="matrix"/>
    </item>
   </layout>
  </widget>
