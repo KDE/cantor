@@ -331,10 +331,6 @@ void MathematiKShell::showSettings()
     }
 
     dialog->show();
-    //set the DefaultBackend combobox to the right item. this needs to be done
-    //here, as there are problems with kcfg, if the combobox isn't editable
-    base.kcfg_DefaultBackend->setCurrentItem(Settings::self()->defaultBackend());
-
 }
 
 void MathematiKShell::downloadExamples()

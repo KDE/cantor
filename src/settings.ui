@@ -23,7 +23,7 @@
      <item>
       <widget class="KComboBox" name="kcfg_DefaultBackend">
        <property name="editable">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
       </widget>
      </item>
