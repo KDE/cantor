@@ -37,8 +37,8 @@ class SageBackend : public MathematiK::Backend
     QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
     QWidget* settingsWidget(QWidget* parent);
     KConfigSkeleton* config();
-  
 
+    QString description();
 };
 
 

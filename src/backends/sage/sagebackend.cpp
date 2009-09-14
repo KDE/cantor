@@ -86,6 +86,12 @@ KConfigSkeleton* SageBackend::config()
     return SageSettings::self();
 }
 
+QString SageBackend::description()
+{
+    return i18n("Sage is a free open-source mathematics software system licensed under the GPL. <br/>" \
+                "It combines the power of many existing open-source packages into a common Python-based interface.");
+}
+
 K_EXPORT_MATHEMATIK_PLUGIN(sagebackend, SageBackend)
 
 #include "sagebackend.moc"

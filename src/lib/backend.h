@@ -62,14 +62,14 @@ class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
 
     //Stuff extracted from the .desktop file
     QString name();
-    QString description();
+    QString comment();
     QString icon();
     QString url();
     KUrl helpUrl();
     bool isEnabled();
     void setEnabled(bool enabled);
 
-    
+    virtual QString description();
     virtual QWidget* settingsWidget(QWidget* parent);
     virtual KConfigSkeleton* config();
 

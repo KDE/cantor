@@ -33,7 +33,7 @@ class MathematiK::BackendPrivate
 {
   public:
     QString name;
-    QString description;
+    QString comment;
     QString icon;
     QString url;
     KUrl helpUrl;
@@ -57,9 +57,14 @@ QString Backend::name()
     return d->name;
 }
 
+QString Backend::comment()
+{
+    return d->comment;
+}
+
 QString Backend::description()
 {
-    return d->description;
+    return comment();
 }
 
 QString Backend::icon()
@@ -127,7 +132,7 @@ QList<Backend*> Backend::availableBackends()
 
         KPluginInfo info(service);
         backend->d->name=info.name();
-        backend->d->description=info.comment();
+        backend->d->comment=info.comment();
         backend->d->icon=info.icon();
         backend->d->url=info.website();
         backend->d->helpUrl=info.property("X-MathematiK-HelpUrl").toUrl();

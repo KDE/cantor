@@ -36,7 +36,9 @@ class BackendChooseDialog : public KDialog
 
   protected slots:
     void onAccept();
+    void updateDescription();
   private:
+    static const char* descriptionTemplate;
     Ui::BackendChooserBase m_ui;
     QString m_backend;
 };

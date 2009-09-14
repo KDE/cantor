@@ -39,6 +39,7 @@ class MaximaBackend : public MathematiK::Backend
     QWidget* settingsWidget(QWidget* parent);
     KConfigSkeleton* config();
 
+    QString description();
 };
 
 

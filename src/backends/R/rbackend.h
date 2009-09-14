@@ -37,6 +37,7 @@ class RBackend : public MathematiK::Backend
     virtual QWidget* settingsWidget(QWidget* parent);
     virtual KConfigSkeleton* config();
 
+    QString description();
 };
 
 

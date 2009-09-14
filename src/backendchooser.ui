@@ -6,43 +6,50 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>620</width>
+    <height>512</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="label">
+     <property name="minimumSize">
+      <size>
+       <width>587</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>587</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
       <string>Choose the Backend to use:</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="KListWidget" name="backendList">
-     <property name="movement">
-      <enum>QListView::Static</enum>
+   <item row="1" column="1">
+    <widget class="KTextBrowser" name="descriptionView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>2</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
      </property>
-     <property name="isWrapping" stdset="0">
-      <bool>false</bool>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="KListWidget" name="backendList">
+     <property name="flow">
+      <enum>QListView::TopToBottom</enum>
      </property>
      <property name="resizeMode">
-      <enum>QListView::Fixed</enum>
-     </property>
-     <property name="spacing">
-      <number>10</number>
+      <enum>QListView::Adjust</enum>
      </property>
      <property name="viewMode">
-      <enum>QListView::IconMode</enum>
-     </property>
-     <property name="uniformItemSizes">
-      <bool>false</bool>
-     </property>
-     <property name="wordWrap">
-      <bool>false</bool>
-     </property>
-     <property name="sortingEnabled">
-      <bool>true</bool>
+      <enum>QListView::ListMode</enum>
      </property>
     </widget>
    </item>
@@ -53,6 +60,11 @@
    <class>KListWidget</class>
    <extends>QListWidget</extends>
    <header>klistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTextBrowser</class>
+   <extends>QTextBrowser</extends>
+   <header>ktextbrowser.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

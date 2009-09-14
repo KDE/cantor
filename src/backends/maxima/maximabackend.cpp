@@ -86,6 +86,16 @@ KConfigSkeleton* MaximaBackend::config()
     return MaximaSettings::self();
 }
 
+QString MaximaBackend::description()
+{
+    return i18n("Maxima is a system for the manipulation of symbolic and numerical expressions, "\
+                "including differentiation, integration, Taylor series, Laplace transforms, "\
+                "ordinary differential equations, systems of linear equations, polynomials, and sets, "\
+                "lists, vectors, matrices, and tensors. Maxima yields high precision numeric results "\
+                "by using exact fractions, arbitrary precision integers, and variable precision "\
+                "floating point numbers. Maxima can plot functions and data in two and three dimensions. ");
+}
+
 K_EXPORT_MATHEMATIK_PLUGIN(maximabackend, MaximaBackend)
 
 #include "maximabackend.moc"

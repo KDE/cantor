@@ -23,11 +23,18 @@
 #include "lib/backend.h"
 #include "settings.h"
 
+const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
+                                                                 "<div>%2</div><br/>" \
+                                                                 "<div>See <a href=\"%3\">%3</a> for more information</div>");
+
 BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
 {
     QWidget* w=new QWidget(this);
     m_ui.setupUi(w);
-    connect(m_ui.backendList, SIGNAL(currentItemChanged ( QListWidgetItem *,  QListWidgetItem *)), this, SLOT(accept()));
+    m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
+    connect(m_ui.backendList, SIGNAL(currentItemChanged ( QListWidgetItem *,  QListWidgetItem *)), this, SLOT(updateDescription()));
+    connect(m_ui.backendList, SIGNAL(itemDoubleClicked( QListWidgetItem *)), this, SLOT(accept()));
+
     foreach(MathematiK::Backend* backend,  MathematiK::Backend::availableBackends())
     {
         if(!backend->isEnabled()) //don't show disabled backends
@@ -36,7 +43,6 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
         QListWidgetItem* item=new QListWidgetItem(m_ui.backendList);
         item->setText(backend->name());
         item->setIcon(KIcon(backend->icon()));
-        item->setToolTip(backend->description());
         m_ui.backendList->addItem(item);
         if(m_ui.backendList->currentItem() == 0)
             m_ui.backendList->setCurrentItem(item);
@@ -56,6 +62,16 @@ BackendChooseDialog::~BackendChooseDialog()
 void BackendChooseDialog::onAccept()
 {
     m_backend=m_ui.backendList->currentItem()->text();
+}
+
+void BackendChooseDialog::updateDescription()
+{
+    MathematiK::Backend* current=MathematiK::Backend::createBackend( m_ui.backendList->currentItem()->text() );
+    m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate)
+                                  .arg(current->name())
+                                  .arg(current->description())
+                                  .arg(current->url())
+        );
 }
 
 QString BackendChooseDialog::backendName()
