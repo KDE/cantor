@@ -519,10 +519,11 @@ void Worksheet::load(const QString& filename )
     QDomElement root=doc.documentElement();
     kDebug()<<root.tagName();
 
-    MathematiK::Backend* b=MathematiK::Backend::createBackend(root.attribute("backend"));
+    const QString backendName=root.attribute("backend");
+    MathematiK::Backend* b=MathematiK::Backend::createBackend(backendName);
     if (!b)
     {
-        KMessageBox::error(this, i18n("The backend with which this file was generated is not installed."), i18n("MathematiK"));
+        KMessageBox::error(this, i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("MathematiK"));
         return;
     }
 
