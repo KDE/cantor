@@ -247,10 +247,14 @@ void MathematiKPart::worksheetStatusChanged(MathematiK::Session::Status status)
     {
         m_evaluate->setText(i18n("Interrupt"));
         m_evaluate->setIcon(KIcon("dialog-close"));
+
+        emit setStatusBarText(i18n("Calcluating..."));
     }else
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
         m_evaluate->setIcon(KIcon("system-run"));
+
+        emit setStatusBarText(i18n("Ready"));
     }
 }
 
