@@ -27,6 +27,7 @@
 #include <kcomponentdata.h>
 #include <kfiledialog.h>
 #include <kparts/genericfactory.h>
+#include <kparts/event.h>
 #include <kstandardaction.h>
 #include <kzip.h>
 #include <ktoggleaction.h>
@@ -43,9 +44,10 @@
 #include <QtGui/QPrinter>
 #include <QtGui/QPrintDialog>
 
-
 #include "worksheet.h"
+#include "scripteditorwidget.h"
 #include "lib/backend.h"
+#include "lib/extension.h"
 #include "lib/assistant.h"
 
 #include "helpextension.h"
@@ -61,6 +63,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
     m_showBackendHelp=0;
     m_initProgressDlg=0;
+    m_scriptEditor=0;
 
     HelpExtension* h=new HelpExtension(this);
 
@@ -136,6 +139,12 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     publishWorksheet->setIcon(KIcon("get-hot-new-stuff"));
     actionCollection()->addAction("file_publish_worksheet", publishWorksheet);
     connect(publishWorksheet, SIGNAL(triggered()), this, SLOT(publishWorksheet()));
+
+    KToggleAction* showEditor=new KToggleAction(i18n("Show Script Editor"), actionCollection());
+    showEditor->setChecked(false);
+    actionCollection()->addAction("show_editor", showEditor);
+    connect(showEditor, SIGNAL(toggled(bool)), this, SLOT(showScriptEditor(bool)));
+
 
     // set our XML-UI resource file
     setXMLFile("mathematik_part.rc");
@@ -224,6 +233,20 @@ void MathematiKPart::fileSaveAs()
         saveAs(file_name);
 
     updateCaption();
+}
+
+void MathematiKPart::guiActivateEvent( KParts::GUIActivateEvent * event )
+{
+    KParts::ReadWritePart::guiActivateEvent(event);
+    if(event->activated())
+    {
+        if(m_scriptEditor)
+            m_scriptEditor->show();
+    }else
+    {
+        if(m_scriptEditor)
+            m_scriptEditor->hide();
+    }
 }
 
 void MathematiKPart::evaluateOrInterrupt()
@@ -427,4 +450,39 @@ void MathematiKPart::print()
         m_worksheet->print(&printer);
 
     delete dialog;
+}
+
+void MathematiKPart::showScriptEditor(bool show)
+{
+    MathematiK::Backend* backend=m_worksheet->session()->backend();
+    if(!backend->extensions().contains("ScriptExtension"))
+    {
+        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - MathematiK"));
+        return;
+    }
+
+    if(show)
+    {
+        MathematiK::ScriptExtension* scriptE=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+        m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter());
+        connect(m_scriptEditor, SIGNAL(runScript(const QString&)), this, SLOT(runScript(const QString&)));
+        m_scriptEditor->show();
+    }else
+    {
+        m_scriptEditor->deleteLater();
+        m_scriptEditor=0;
+    }
+}
+
+void MathematiKPart::runScript(const QString& file)
+{
+    MathematiK::Backend* backend=m_worksheet->session()->backend();
+    if(!backend->extensions().contains("ScriptExtension"))
+    {
+        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - MathematiK"));
+        return;
+    }
+
+    MathematiK::ScriptExtension* scriptE=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+    m_worksheet->appendEntry(scriptE->runExternalScript(file));
 }

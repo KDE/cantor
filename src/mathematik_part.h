@@ -28,6 +28,7 @@ class QWidget;
 class QPainter;
 class KUrl;
 class Worksheet;
+class ScriptEditorWidget;
 class KAboutData;
 class KAction;
 class KToggleAction;
@@ -84,6 +85,13 @@ protected:
      */
     virtual bool saveFile();
 
+    /**
+     * Called when this part becomes the active one,
+     * or if it looses activity
+     **/
+    void guiActivateEvent( KParts::GUIActivateEvent * event );
+
+
     void loadAssistants();
     void adjustGuiToSession();
 
@@ -102,8 +110,12 @@ protected slots:
 
     void runAssistant();  
     void publishWorksheet();
+
+    void showScriptEditor(bool show);
+    void runScript(const QString& file);
 private:
     Worksheet *m_worksheet;
+    ScriptEditorWidget* m_scriptEditor;
 
     KProgressDialog* m_initProgressDlg;
     KAction* m_evaluate;

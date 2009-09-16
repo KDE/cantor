@@ -13,7 +13,6 @@ General:
 - change the way backends get chosen (this dialog just doesn't look right)
 - add help browser 
 - improve help/documentation/usability all over the place
-- add gui for writing complete scripts (Kate-part)
 - review and cleanup API
 | GHNS integration
 - Extension infrastructure(backend-specific or using extensions), e.g. to provide variable inspection

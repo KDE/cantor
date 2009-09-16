@@ -11,6 +11,7 @@
   <Menu name="view"><text>&amp;View</text>
     <Action name="view_zoom_in"/>
     <Action name="view_zoom_out"/>
+    <Action name="show_editor"/>
   </Menu>
   <Menu name="settings">
     <Action name="enable_typesetting"/>

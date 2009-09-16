@@ -40,6 +40,7 @@ set(mathematik_PART_SRCS
    mathematik_part.cpp
    worksheet.cpp
    worksheetentry.cpp
+   scripteditorwidget.cpp
    helpextension.cpp
    resultproxy.cpp
    loadedexpression.cpp
@@ -50,7 +51,9 @@ kde4_add_kcfg_files(mathematik_PART_SRCS settings.kcfgc)
 
 kde4_add_plugin(mathematikpart WITH_PREFIX ${mathematik_PART_SRCS})
 
-target_link_libraries(mathematikpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} ${LIBSPECTRE_LIBRARY} mathematiklibs )
+target_link_libraries(mathematikpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS}
+				     ${KDE4_KTEXTEDITOR_LIBS} ${LIBSPECTRE_LIBRARY} 
+				     mathematiklibs )
 
 install( FILES mathematik_part.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES mathematik_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/mathematikpart )
