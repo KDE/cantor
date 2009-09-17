@@ -231,7 +231,13 @@ bool MathematiKPart::saveFile()
     if (url().isEmpty())
         fileSaveAs();
     else
-        m_worksheet->save( localFilePath() );
+    {
+        if(url().fileName().endsWith(".mws"))
+            m_worksheet->save( localFilePath() );
+        else
+            m_worksheet->savePlain( localFilePath());
+
+    }
     setModified(false);
 
     return true;
@@ -240,7 +246,17 @@ bool MathematiKPart::saveFile()
 void MathematiKPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected,
-    QString file_name = KFileDialog::getSaveFileName(KUrl(), i18n("*.mws|MathematiK Worksheet"), widget());
+    QString filter=i18n("*.mws|MathematiK Worksheet");
+
+    //if the backend supports scripts, also append their scriptFile endings to the filter
+    MathematiK::Backend * const backend=m_worksheet->session()->backend();
+    if (backend->extensions().contains("ScriptExtension"))
+    {
+        MathematiK::ScriptExtension* e=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+        filter+='\n'+e->scriptFileFilter();
+    }
+
+    QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
     if (file_name.isEmpty() == false)
         saveAs(file_name);
 

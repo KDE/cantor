@@ -65,6 +65,7 @@ class Worksheet : public KTextEdit
     void zoomOut(int range=1);
 
     void save(const QString& filename);
+    void savePlain(const QString& filename);
     void load(const QString& filename);
 
     void gotResult();

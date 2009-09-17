@@ -490,7 +490,7 @@ void Worksheet::save( const QString& filename )
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
         KMessageBox::error( this,  i18n( "Cannot write file %1:\n." , filename ),
-                            i18n( "MathematiK" ));
+                            i18n( "Error - MathematiK" ));
         return;
     }
 
@@ -516,6 +516,27 @@ void Worksheet::save( const QString& filename )
     }
 
     /*zipFile.close();*/
+}
+
+void Worksheet::savePlain(const QString& filename)
+{
+    QFile file(filename);
+    if(!file.open(QIODevice::WriteOnly))
+    {
+        KMessageBox::error(this, i18n("Error saving file %1", filename), i18n("Error - MathematiK"));
+        return;
+    }
+
+    QTextStream stream(&file);
+
+    foreach(WorksheetEntry * const entry, m_entries)
+    {
+        const QString& cmd=entry->command();
+        if(!cmd.isEmpty())
+            stream<<cmd+"\n\n";
+    }
+
+    file.close();
 }
 
 void Worksheet::load(const QString& filename )
