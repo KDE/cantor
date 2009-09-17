@@ -3,6 +3,7 @@ Type=Service
 Icon=system-run
 Name=RunScript
 Name[pt]=Execução do Programa
+Name[pt_BR]=RunScript
 Name[sv]=Kör skript
 Name[tr]=Betik Çalıştır
 Name[uk]=Виконати скрипт

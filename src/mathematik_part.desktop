@@ -1,7 +1,16 @@
 [Desktop Entry]
 Name=MathematiKPart
+Name[bg]=MathematiKPart
 Name[de]=MathematiKPart-Komponente
+Name[en_GB]=MathematiKPart
+Name[es]=MathematiKPart
+Name[et]=MathematiKPart
+Name[km]=MathematiKPart
+Name[pt]=MathematiKPart
+Name[pt_BR]=MathematiKPart
 Name[sv]=Matematik-delprogram
+Name[tr]=MathematiKPart
+Name[uk]=MathematiKPart
 Name[x-test]=xxMathematiKPartxx
 MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
 ServiceTypes=KParts/ReadOnlyPart,KParts/ReadWritePart

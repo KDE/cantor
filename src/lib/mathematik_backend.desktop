@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=MathematiK/Backend
 Comment=A Backend for MathematiK
+Comment[en_GB]=A Backend for MathematiK
 Comment[es]=Un motor para MathematiK
 Comment[et]=MathematiKi taustaprogramm
 Comment[km]=កម្មវិធី​ខាងក្រោម​សម្រាប់ MathematiK

@@ -1,6 +1,16 @@
 [Desktop Entry]
 Name=MathematiK
+Name[bg]=MathematiK
+Name[de]=MathematiK
+Name[en_GB]=MathematiK
+Name[es]=MathematiK
+Name[et]=MathematiK
+Name[km]=MathematiK
+Name[pt]=MathematiK
+Name[pt_BR]=MathematiK
 Name[sv]=Matematik
+Name[tr]=MathematiK
+Name[uk]=MathematiK
 Name[x-test]=xxMathematiKxx
 Exec=mathematik %i -caption "%c"
 Icon=mathematik
