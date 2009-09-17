@@ -66,7 +66,7 @@ MathematiKShell::MathematiKShell()
     QDockWidget* dock=new QDockWidget(i18n("Help"), this);
     m_helpView=new KTextEdit(dock);
     m_helpView->setText(i18n("<h1>MathematiK</h1>The KDE way to do Mathematics"));
-    m_helpView->setTextInteractionFlags(Qt::TextEditable);
+    m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
     dock->setWidget(m_helpView);
     addDockWidget ( Qt::RightDockWidgetArea,  dock );
 
