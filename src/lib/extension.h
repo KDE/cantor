@@ -67,6 +67,8 @@ class MATHEMATIK_EXPORT ScriptExtension : public Extension
     virtual QString runExternalScript(const QString& path) = 0;
     //returns the file filter used for Script Files (e.g. *.py)
     virtual QString scriptFileFilter() = 0;
+    //returns a string used to separate commands (usually ;)
+    virtual QString commandSeparator();
 };
 
 /** An extension providing the basic computations

@@ -44,6 +44,12 @@ EXTENSION_CONSTRUCTORS(CalculusExtension)
 EXTENSION_CONSTRUCTORS(PlotExtension)
 EXTENSION_CONSTRUCTORS(LinearAlgebraExtension)
 
+//implement this here, as it's ";" most of the time
+QString ScriptExtension::commandSeparator()
+{
+    return ";\n";
+}
+
 //some convenience functions, but normally backends have a special command to create
 //these matrices/vectors.
 

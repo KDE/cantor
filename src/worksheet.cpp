@@ -22,6 +22,7 @@
 
 #include "lib/backend.h"
 #include "lib/session.h"
+#include "lib/extension.h"
 #include "lib/expression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
@@ -527,13 +528,21 @@ void Worksheet::savePlain(const QString& filename)
         return;
     }
 
+    QString cmdSep=";\n";
+    MathematiK::Backend * const backend=session()->backend();
+    if (backend->extensions().contains("ScriptExtension"))
+    {
+        MathematiK::ScriptExtension* e=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+        cmdSep=e->commandSeparator();
+    }
+
     QTextStream stream(&file);
 
     foreach(WorksheetEntry * const entry, m_entries)
     {
         const QString& cmd=entry->command();
         if(!cmd.isEmpty())
-            stream<<cmd+"\n\n";
+            stream<<cmd+cmdSep+'\n';
     }
 
     file.close();
