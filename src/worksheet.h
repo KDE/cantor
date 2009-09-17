@@ -47,8 +47,10 @@ class Worksheet : public KTextEdit
     ResultProxy* resultProxy();
 
   public slots:
-    void appendEntry(const QString& text=QString());
-    void insertEntry(const QString& text=QString());
+    WorksheetEntry* appendEntry();
+    void appendEntry(const QString& text);
+    WorksheetEntry* insertEntry();
+    void insertEntry(const QString& text);
 
     void evaluate();
     void evaluateCurrentEntry();

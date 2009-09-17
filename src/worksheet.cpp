@@ -376,26 +376,39 @@ WorksheetEntry* Worksheet::entryAt(int row)
     return m_entries[row];
 }
 
+WorksheetEntry* Worksheet::appendEntry()
+{
+   QTextCursor cursor=document()->rootFrame()->lastCursorPosition();
+   WorksheetEntry* entry=new WorksheetEntry( cursor, this );
+
+   connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
+   m_entries.append(entry);
+
+   setTextCursor(entry->commandCell().firstCursorPosition());
+   ensureCursorVisible();
+
+   return entry;
+}
+
 void Worksheet::appendEntry(const QString& text)
 {
-    QTextCursor cursor=document()->rootFrame()->lastCursorPosition();
-    WorksheetEntry* entry=new WorksheetEntry( cursor, this );
+    WorksheetEntry* oldE=m_entries.last();
+    WorksheetEntry* newE=appendEntry();
+    WorksheetEntry* target=0;
+    if(oldE->isEmpty())
+        target=oldE;
+    else
+        target=newE;
 
-    connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
-    m_entries.append(entry);
-
-    setTextCursor(entry->commandCell().firstCursorPosition());
+    target->commandCell().firstCursorPosition().insertText(text);
+    setTextCursor(target->commandCell().firstCursorPosition());
     ensureCursorVisible();
 
-    if(!text.isNull())
-    {
-        entry->commandCell().firstCursorPosition().insertText(text);
-        evaluateCurrentEntry();
-    }
+    evaluateCurrentEntry();
 
 }
 
-void Worksheet::insertEntry(const QString& text)
+WorksheetEntry* Worksheet::insertEntry()
 {
     WorksheetEntry* current=currentEntry();
     if(current)
@@ -406,11 +419,19 @@ void Worksheet::insertEntry(const QString& text)
         WorksheetEntry* entry=new WorksheetEntry(c, this);
         m_entries.insert(index+1, entry);
 
-        if(!text.isNull())
-        {
-            entry->commandCell().firstCursorPosition().insertText(text);
-            evaluateCurrentEntry();
-        }
+        return entry;
+    }
+
+    return 0;
+}
+
+void Worksheet::insertEntry(const QString& text)
+{
+    WorksheetEntry* entry=insertEntry();
+    if(entry&&!text.isNull())
+    {
+        entry->commandCell().firstCursorPosition().insertText(text);
+        evaluateCurrentEntry();
     }
 }
 
