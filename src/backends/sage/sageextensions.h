@@ -32,7 +32,7 @@ class SageHistoryExtension : public MathematiK::HistoryExtension
     QString lastResult();
 };
 
-class MATHEMATIK_EXPORT SageScriptExtension : public MathematiK::ScriptExtension
+class SageScriptExtension : public MathematiK::ScriptExtension
 {
   public:
     SageScriptExtension(QObject* parent);

@@ -21,6 +21,7 @@
 #include "rbackend.h"
 
 #include "rsession.h"
+#include "rextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -34,6 +35,8 @@ RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : MathematiK::B
 {
     setObjectName("rbackend");
     kDebug()<<"Creating RBackend";
+
+    new RScriptExtension(this);
 }
 
 RBackend::~RBackend()

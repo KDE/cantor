@@ -7,6 +7,7 @@ set( RBackend_SRCS
  rbackend.cpp  
  rsession.cpp
  rexpression.cpp
+ rextensions.cpp
 )
 
 kde4_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
