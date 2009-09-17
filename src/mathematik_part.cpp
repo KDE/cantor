@@ -291,7 +291,7 @@ void MathematiKPart::worksheetSessionChanged()
 
     if(!m_initProgressDlg)
     {
-        m_initProgressDlg=new KProgressDialog(widget(), i18n("Initializing Session"));
+        m_initProgressDlg=new KProgressDialog(widget(), i18n("MathematiK"), i18n("Initializing Session"));
         m_initProgressDlg->setMinimumDuration(500);
         m_initProgressDlg->progressBar()->setRange(0, 0);
     }
