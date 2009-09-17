@@ -68,8 +68,20 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     HelpExtension* h=new HelpExtension(this);
 
     kDebug()<<"Created a MathematiKPart";
+    QString backendName;
+    if(args.isEmpty())
+        backendName="nullbackend";
+    else
+        backendName=args.first();
 
-    MathematiK::Backend* b=MathematiK::Backend::createBackend(args.first());
+    MathematiK::Backend* b=MathematiK::Backend::createBackend(backendName);
+    if(!b)
+    {
+        KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - MathematiK"));
+        setWidget(new QWidget(parentWidget));
+        return;
+    }
+
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
     m_worksheet=new Worksheet(b, parentWidget);

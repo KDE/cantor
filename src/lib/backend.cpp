@@ -146,7 +146,7 @@ Backend* Backend::createBackend(const QString& name)
     QList<Backend*> backends=availableBackends();
     foreach(Backend* b, backends)
     {
-        if(b->name()==name)
+        if(b->name().toLower()==name.toLower())
             return b;
     }
 

@@ -85,8 +85,6 @@ MathematiKShell::MathematiKShell()
         setCentralWidget(m_tabWidget);
         connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
         connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
-
-        QTimer::singleShot(0, this, SLOT(addWorksheet()));
     }
     else
     {

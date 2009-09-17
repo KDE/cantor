@@ -64,6 +64,9 @@ protected:
      * with @ref saveProperties
      */
     void readProperties(const KConfigGroup &);
+public slots:
+    void addWorksheet();
+    void addWorksheet(const QString& backendName);
 
 private slots:
     void fileNew();
@@ -73,9 +76,6 @@ private slots:
 
     void applyNewToolbarConfig();
 
-    void addWorksheet();
-    void addWorksheet(const QString& backendName);
-    
     void activateWorksheet(int index);
 
     void setTabCaption(const QString& tab);

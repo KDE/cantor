@@ -61,6 +61,14 @@ int main(int argc, char **argv)
         {
             MathematiKShell *widget = new MathematiKShell;
             widget->show();
+            if(args->isSet("backend"))
+            {
+                widget->addWorksheet(args->getOption("backend"));
+            }
+            else
+            {
+                widget->addWorksheet();
+            }
         }
         else
         {
