@@ -38,6 +38,7 @@ static QByteArray initCmd="display2d:false$                     \n"\
                           "inchar:%I$                           \n"\
                           "outchar:%O$                          \n"\
                           "print(____END_OF_INIT____);          \n";
+static QByteArray texInitCmd="simp: false$ \n";
 
 MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
 {
@@ -285,6 +286,7 @@ void MaximaSession::startTexConvertProcess()
     connect(m_texConvertProcess->pty(), SIGNAL(readyRead()), this, SLOT(readTeX()));
     connect(m_texConvertProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
     m_texConvertProcess->start();
+    m_texConvertProcess->pty()->write(texInitCmd);
     m_texConvertProcess->pty()->write(initCmd);
 }
 
