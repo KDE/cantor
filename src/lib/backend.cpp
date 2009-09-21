@@ -122,7 +122,7 @@ QList<Backend*> Backend::availableBackends()
 
     services = trader->query("MathematiK/Backend");
 
-    foreach (KService::Ptr service,  services)
+    foreach (const KService::Ptr &service,  services)
     {
         Backend* backend=service->createInstance<Backend>(0, QVariantList(),  &error);
         if(backend==0)

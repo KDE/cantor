@@ -378,7 +378,7 @@ void MathematiKPart::loadAssistants()
 
     services = trader->query("MathematiK/Assistant");
 
-    foreach (KService::Ptr service,   services)
+    foreach (const KService::Ptr &service,   services)
     {
         QString error;
 
