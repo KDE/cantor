@@ -459,7 +459,7 @@ void MathematiKPart::publishWorksheet()
 
     if(entry)
     {
-        KMessageBox::information(widget(), i18n("Uploading successfull"), i18n("MathematiK"));
+        KMessageBox::information(widget(), i18n("Uploading successful"), i18n("MathematiK"));
     }else
     {
         KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - MathematiK"));
