@@ -102,8 +102,11 @@ void RSession::serverChangedStatus(int status)
     kDebug()<<"changed status to "<<status;
     if(status==0)
     {
-        RExpression* expr=m_expressionQueue.takeFirst();
-        kDebug()<<"done running "<<expr<<" "<<expr->command();
+        if(!m_expressionQueue.isEmpty())
+        {
+            RExpression* expr=m_expressionQueue.takeFirst();
+            kDebug()<<"done running "<<expr<<" "<<expr->command();
+        }
 
         if(m_expressionQueue.isEmpty())
             changeStatus(MathematiK::Session::Done);
