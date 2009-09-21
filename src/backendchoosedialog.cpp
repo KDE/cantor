@@ -67,11 +67,7 @@ void BackendChooseDialog::onAccept()
 void BackendChooseDialog::updateDescription()
 {
     MathematiK::Backend* current=MathematiK::Backend::createBackend( m_ui.backendList->currentItem()->text() );
-    m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate)
-                                  .arg(current->name())
-                                  .arg(current->description())
-                                  .arg(current->url())
-        );
+    m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate, current->name(), current->description(), current->url()));
 }
 
 QString BackendChooseDialog::backendName()
