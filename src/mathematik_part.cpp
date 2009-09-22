@@ -50,7 +50,6 @@
 #include "lib/extension.h"
 #include "lib/assistant.h"
 
-#include "helpextension.h"
 #include "settings.h"
 
 typedef KParts::GenericFactory<MathematiKPart> MathematiKPartFactory;

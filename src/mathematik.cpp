@@ -44,7 +44,6 @@
 #include <QDockWidget>
 #include <QApplication>
 
-#include "helpextension.h"
 #include "lib/backend.h"
 
 #include "settings.h"
