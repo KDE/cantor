@@ -31,7 +31,6 @@
 #include <klocale.h>
 #include <kmimetype.h>
 #include <QFile>
-#include <QTimer>
 #include <QStringList>
 
 RExpression::RExpression( MathematiK::Session* session ) : MathematiK::Expression(session)

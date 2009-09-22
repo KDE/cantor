@@ -24,7 +24,6 @@ using namespace MathematiK;
 #include <kdebug.h>
 #include <kzip.h>
 #include <kio/job.h>
-#include <QImage>
 
 class MathematiK::EpsResultPrivate{
     public:

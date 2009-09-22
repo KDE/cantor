@@ -28,7 +28,8 @@ using namespace MathematiK;
 #include "latexresult.h"
 #include "settings.h"
 
-#include <QDir>
+#include <QFileInfo>
+
 #include <kstandarddirs.h>
 #include <kprocess.h>
 #include <ktemporaryfile.h>

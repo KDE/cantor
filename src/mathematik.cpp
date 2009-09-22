@@ -43,7 +43,6 @@
 
 #include <QDockWidget>
 #include <QApplication>
-#include <QTimer>
 
 #include "helpextension.h"
 #include "lib/backend.h"

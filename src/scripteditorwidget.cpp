@@ -20,7 +20,7 @@
 
 #include "scripteditorwidget.h"
 
-#include <QLayout>
+#include <QGridLayout>
 #include <QPushButton>
 #include <ktemporaryfile.h>
 #include <klocale.h>

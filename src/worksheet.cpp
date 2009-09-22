@@ -38,11 +38,9 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QTextCursor>
-#include <QTextFrame>
 #include <QTimer>
 #include <QTextTable>
 #include <QTextLength>
-#include <QTextTableFormat>
 #include <QFontMetrics>
 #include <QSyntaxHighlighter>
 

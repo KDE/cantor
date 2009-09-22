@@ -28,7 +28,6 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kurl.h>
-#include <QTimer>
 #include <QRegExp>
 
 SageExpression::SageExpression( MathematiK::Session* session ) : MathematiK::Expression(session)

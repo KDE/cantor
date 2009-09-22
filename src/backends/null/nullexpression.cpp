@@ -25,7 +25,6 @@
 #include "helpresult.h"
 #include <kdebug.h>
 #include <QTimer>
-#include <QStringList>
 
 NullExpression::NullExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
 {

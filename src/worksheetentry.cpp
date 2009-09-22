@@ -29,7 +29,6 @@
 
 #include <QTextDocument>
 #include <QTextFrame>
-#include <QToolTip>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcolorscheme.h>

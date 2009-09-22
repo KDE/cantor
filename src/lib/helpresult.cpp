@@ -21,7 +21,6 @@
 #include "helpresult.h"
 using namespace MathematiK;
 
-#include <QStringList>
 
 HelpResult::HelpResult(const QString& text) : TextResult(text)
 {
