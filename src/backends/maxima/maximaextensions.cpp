@@ -69,7 +69,7 @@ QString MaximaCASExtension::expand(const QString& expression)
 }
 
 //Calculus Extension
-MAXIMA_EXTENSION_CONSTRUCTORS(Calculus);
+MAXIMA_EXTENSION_CONSTRUCTORS(Calculus)
 
 QString MaximaCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {

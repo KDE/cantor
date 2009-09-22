@@ -27,7 +27,7 @@ class SageSession;
 
 namespace MathematiK{
     class Expression;
-};
+}
 
 class SageTabCompletionObject : public MathematiK::TabCompletionObject
 {
