@@ -25,8 +25,6 @@
 #include <lib/session.h>
 
 class QWidget;
-class QPainter;
-class KUrl;
 class Worksheet;
 class ScriptEditorWidget;
 class KAboutData;

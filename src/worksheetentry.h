@@ -25,14 +25,12 @@
 #include <QTextTableCell>
 #include "lib/expression.h"
 
-class QTextDocument;
 namespace MathematiK{
     class Expression;
     class Result;
     class TabCompletionObject;
 }
 class Worksheet;
-class ResultProxy;
 
 /**
    An entry in the Worksheet. it contains:
