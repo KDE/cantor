@@ -65,8 +65,6 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     m_initProgressDlg=0;
     m_scriptEditor=0;
 
-    HelpExtension* h=new HelpExtension(this);
-
     kDebug()<<"Created a MathematiKPart";
     QString backendName;
     if(args.isEmpty())
@@ -87,7 +85,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     m_worksheet=new Worksheet(b, parentWidget);
     m_worksheet->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
-    connect(m_worksheet, SIGNAL(showHelp(const QString&)), h, SIGNAL(showHelp(const QString&)));
+    connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
     // notify the part that this is our internal widget

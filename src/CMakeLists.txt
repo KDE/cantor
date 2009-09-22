@@ -10,7 +10,6 @@ add_subdirectory(assistants)
 set(mathematik_SRCS
    main.cpp
    mathematik.cpp
-   helpextension.cpp
    backendchoosedialog.cpp
  )
 
@@ -41,7 +40,6 @@ set(mathematik_PART_SRCS
    worksheet.cpp
    worksheetentry.cpp
    scripteditorwidget.cpp
-   helpextension.cpp
    resultproxy.cpp
    loadedexpression.cpp
  )

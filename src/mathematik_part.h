@@ -71,6 +71,7 @@ public:
 
 signals:
     void setCaption(const QString& caption);
+    void showHelp(const QString& help);
 
 protected:
     /**

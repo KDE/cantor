@@ -257,8 +257,7 @@ void MathematiKShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            QObject* ext=(part->findChild<QObject*>("helpExtension"));
-            connect(ext, SIGNAL(showHelp(const QString&)), m_helpView, SLOT(setHtml(const QString&)));
+            connect(part, SIGNAL(showHelp(const QString&)), m_helpView, SLOT(setHtml(const QString&)));
             connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
             m_parts.append(part);
             m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
