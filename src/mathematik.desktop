@@ -1,27 +1,9 @@
 [Desktop Entry]
 Name=MathematiK
-Name[bg]=MathematiK
-Name[de]=MathematiK
-Name[en_GB]=MathematiK
-Name[es]=MathematiK
-Name[et]=MathematiK
-Name[km]=MathematiK
-Name[pt]=MathematiK
-Name[pt_BR]=MathematiK
-Name[sv]=Matematik
-Name[tr]=MathematiK
-Name[uk]=MathematiK
-Name[x-test]=xxMathematiKxx
 Exec=mathematik %i -caption "%c"
 Icon=mathematik
 Type=Application
 X-DocPath=mathematik/index.html
 GenericName=KDE Frontend to Mathematical Software.
-GenericName[pt]=Interface para o KDE de Aplicações Matemáticas.
-GenericName[pt_BR]=Interface do KDE para software matemático.
-GenericName[sv]=Ett KDE-gränssnitt till matematisk programvara.
-GenericName[tr]=Matematiksel Uygulamalar için bir KDE önyüzü.
-GenericName[uk]=Графічна оболонка KDE до математичного програмного забезпечення.
-GenericName[x-test]=xxKDE Frontend to Mathematical Software.xx
 Terminal=false
 Categories=Qt;KDE;Education;Math;
