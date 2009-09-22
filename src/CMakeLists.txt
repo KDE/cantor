@@ -46,7 +46,6 @@ set(mathematik_PART_SRCS
    loadedexpression.cpp
  )
 
-kde4_add_kcfg_files(mathematik_SRCS settings.kcfgc)
 kde4_add_kcfg_files(mathematik_PART_SRCS settings.kcfgc)
 
 kde4_add_plugin(mathematikpart WITH_PREFIX ${mathematik_PART_SRCS})
