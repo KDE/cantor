@@ -2,12 +2,21 @@
 Type=Service
 Icon=rbackend
 Name=R
+Name[pt]=R
+Name[sv]=R
+Name[tr]=R
+Name[uk]=R
+Name[x-test]=xxRxx
 X-KDE-ServiceTypes=MathematiK/Backend
 X-KDE-Library=mathematik_rbackend
 X-KDE-PluginInfo-Name=R
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for The R Project for Statistical Computing
+Comment[pt]=Infra-estrutura para o projecto de computação estatística R
+Comment[sv]=Bakgrundsprogram för R-projektet i statistisk datorberäkning
+Comment[uk]=Сервер проекту R для статистичних обчислень
+Comment[x-test]=xxBackend for The R Project for Statistical Computingxx
 X-KDE-PluginInfo-Website=http://www.r-project.org/
 X-MathematiK-HelpUrl=http://wiki.r-project.org/rwiki/doku.php?id=rdoc:rdoc
 
