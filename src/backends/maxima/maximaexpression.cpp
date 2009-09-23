@@ -152,7 +152,7 @@ void MaximaExpression::parseOutput(const QString& text)
 
     bool couldBeQuestion=false;
     const QStringList lines=output.split('\n');
-    foreach(QString line, lines)
+    foreach(QString line, lines) // krazy:exclude=foreach
     {
         if(line.endsWith('\r'))
             line.chop(1);

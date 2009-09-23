@@ -79,7 +79,7 @@ void SageTabCompletionObject::fetchingDone()
     QStringList tmp=txt.split(',');
     QStringList completions;
 
-    foreach(QString c, tmp)
+    foreach(QString c, tmp) // krazy:exclude=foreach
     {
         c=c.trimmed();
         c.chop(1);

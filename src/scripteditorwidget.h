@@ -36,7 +36,7 @@ class ScriptEditorWidget : public QWidget
 {
   Q_OBJECT
   public:
-    ScriptEditorWidget( const QString& filter, QWidget* parent = 0 );
+    explicit ScriptEditorWidget( const QString& filter, QWidget* parent = 0 );
     ~ScriptEditorWidget();
 
   signals:

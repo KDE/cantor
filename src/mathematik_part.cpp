@@ -229,7 +229,7 @@ bool MathematiKPart::saveFile()
         fileSaveAs();
     else
     {
-        if(url().fileName().endsWith(".mws"))
+        if(url().fileName().endsWith(QLatin1String(".mws")))
             m_worksheet->save( localFilePath() );
         else
             m_worksheet->savePlain( localFilePath());

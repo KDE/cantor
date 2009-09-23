@@ -43,7 +43,6 @@ void CreateMatrixAssistant::initActions()
 {
     setXMLFile("mathematik_create_matrix_assistant.rc");
     KAction* creatematrix=new KAction(i18n("Create Matrix"), actionCollection());
-    creatematrix->setIcon(KIcon(icon()));
     actionCollection()->addAction("creatematrix_assistant", creatematrix);
     connect(creatematrix, SIGNAL(triggered()), this, SIGNAL(requested()));
 }
