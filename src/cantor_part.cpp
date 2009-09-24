@@ -296,7 +296,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
         m_evaluate->setText(i18n("Interrupt"));
         m_evaluate->setIcon(KIcon("dialog-close"));
 
-        emit setStatusBarText(i18n("Calcluating..."));
+        emit setStatusBarText(i18n("Calculating..."));
     }else
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
