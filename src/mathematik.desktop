@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=MathematiK
 Name[pt]=MathematiK
+Name[pt_BR]=MathematiK
 Name[sv]=Matematik
 Name[tr]=MathematiK
 Name[uk]=MathematiK
@@ -11,6 +12,7 @@ Type=Application
 X-DocPath=mathematik/index.html
 GenericName=KDE Frontend to Mathematical Software.
 GenericName[pt]=Interface para KDE de Aplicações Matemáticas.
+GenericName[pt_BR]=Uma interface do KDE para software matemático.
 GenericName[sv]=Ett KDE-gränssnitt till matematisk programvara.
 GenericName[tr]=Matematiksel Uygulamalar için bir KDE önyüzü.
 GenericName[uk]=Графічна оболонка KDE до математичного програмного забезпечення.

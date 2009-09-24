@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=MathematiK/Assistant
 Comment=An Assistant for MathematiK
 Comment[pt]=Um assistente para o MathematiK
+Comment[pt_BR]=Um assistente para o MathematiK
 Comment[sv]=En guide för Matematik
 Comment[tr]=MathematiK için bir yardımcı
 Comment[uk]=Помічник MathematiK

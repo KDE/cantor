@@ -2,6 +2,7 @@
 Type=Service
 Name=Create Matrix
 Name[pt]=Criar uma Matriz
+Name[pt_BR]=Criar matriz
 Name[sv]=Skapa matris
 Name[uk]=Створити матрицю
 Name[x-test]=xxCreate Matrixxx

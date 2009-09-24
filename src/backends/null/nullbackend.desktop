@@ -2,6 +2,7 @@
 Type=Service
 Name=nullbackend
 Name[pt]=infra-estrutura nula
+Name[pt_BR]=infraestrutura vazia
 Name[sv]=Nollbakgrundsprogram
 Name[tr]=belirsiz arka uç
 Name[uk]=nullbackend
@@ -13,6 +14,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for MathematiK for testing purposes
 Comment[pt]=Infra-estrutura do Mathematik para fins de testes
+Comment[pt_BR]=Infraestrutura para o MathematiK para o propósito de testes
 Comment[sv]=Bakgrundsprogram för Matematik i testsyfte
 Comment[tr]=MathematiK için test amaçlı bir arka uç
 Comment[uk]=Тестовий сервер MathematiK
