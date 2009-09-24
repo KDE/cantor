@@ -2,8 +2,8 @@
 <!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" "dtd/kdex.dtd" [
   <!-- Define an entity for your application if it is not part of KDE
        CVS -->
-  <!ENTITY mathematik "<application>MathematiK</application>">
-  <!ENTITY kappname "&mathematik;"><!-- replace kmyapplication here
+  <!ENTITY cantor "<application>Cantor</application>">
+  <!ENTITY kappname "&cantor;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
   <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
@@ -19,7 +19,7 @@
 <book lang="&language;">
 
 <bookinfo>
-<title>The &mathematik; Handbook</title>
+<title>The &cantor; Handbook</title>
 
 <authorgroup>
 <author>
@@ -43,7 +43,7 @@
 
 <abstract>
 <para>
-&mathematik; is an application, aimed at providing a 
+&cantor; is an application, aimed at providing a 
 nice worksheet view to other Free Software Math packages
 </para>
 </abstract>
@@ -53,7 +53,7 @@ nice worksheet view to other Free Software Math packages
 <keyword>kdeedu</keyword>
 <keyword>mathematics</keyword>
 <keyword>math</keyword>
-<keyword>MathematiK</keyword>
+<keyword>Cantor</keyword>
 <keyword>Sage</keyword>
 <keyword>R</keyword>
 <keyword>Maxima</keyword>
@@ -65,7 +65,7 @@ nice worksheet view to other Free Software Math packages
 <title>Introduction</title>
 
 <para>
-&mathematik; is an application, that lets you use your favorite
+&cantor; is an application, that lets you use your favorite
 mathematical applications from within a nice &kde;-integrated
 Worksheet Interface. It offers assistant dialogs for common tasks
 and allows you to share your worksheets with others.
@@ -74,12 +74,12 @@ Please report any problems or feature requests to alexanderrieder@gmail.com.
 </chapter>
 
 <chapter id="using-kapp">
-<title>Using &mathematik;</title>
+<title>Using &cantor;</title>
 
 <para>
 Screenshot:
 <screenshot>
-<screeninfo>Here's a screenshot of &mathematik;</screeninfo>
+<screeninfo>Here's a screenshot of &cantor;</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="screenshot.png" format="PNG"/>
@@ -96,7 +96,7 @@ Screenshot:
 
 
 <sect1 id="kapp-features">
-<title>&mathematik; features</title>
+<title>&cantor; features</title>
 <itemizedlist>
   <listitem><para>Nice Worksheet view for evaluating Expressions</para></listitem>
   <listitem><para>View of plotting results inside the worksheet</para></listitem>
@@ -109,9 +109,9 @@ Screenshot:
 </sect1>
 
 <sect1 id="backends">
-<title>The &mathematik; backends</title>
+<title>The &cantor; backends</title>
 <para>
-  &mathematik; offers you several choices for the backend, you want to use it with.
+  &cantor; offers you several choices for the backend, you want to use it with.
   Your choice should depend on what task you want to achieve. 
 </para>
 <para>
@@ -160,10 +160,10 @@ Screenshot:
 </sect1>
 
 <sect1 id="workspace">
-<title>The &mathematik; Workspace</title>
+<title>The &cantor; Workspace</title>
 <para>
 <screenshot>
-  <screeninfo>Screenshot of the &mathematik; Workspace</screeninfo>
+  <screeninfo>Screenshot of the &cantor; Workspace</screeninfo>
   <mediaobject>
     <imageobject>
       <imagedata fileref="screenshot.png" format="PNG"/>
@@ -172,13 +172,13 @@ Screenshot:
       <imagedata fileref="screenshot.eps" format="EPS"/>
     </imageobject>
     <textobject>
-      <phrase>Screenshot of the &mathematik; Workspace</phrase>
+      <phrase>Screenshot of the &cantor; Workspace</phrase>
     </textobject>
   </mediaobject>
 </screenshot>
 </para>
 <para>
-  The Worksheet interface of &mathematik; consists of three parts:
+  The Worksheet interface of &cantor; consists of three parts:
   <orderedlist>
     <listitem><para>The Tab-Bar where you can switch through your opened worksheets</para></listitem>
     <listitem><para>A help panel, where help for a specific command is displayed if you write ?command</para></listitem>
@@ -188,7 +188,7 @@ Screenshot:
 <sect2 id="worksheet">
 <title>The Worksheet</title>
 <para>
-  The worksheet is the basic area for working with &mathematik;. In it you can enter
+  The worksheet is the basic area for working with &cantor;. In it you can enter
   Expressions, let the backend calculate, and look at the results.
   The commands, the worksheets accept are depending on the chosen backend, so you should
   learn the appropriate Documentation (the Show Help button takes you there directly).
@@ -235,7 +235,7 @@ Screenshot:
       <term>Tab Completion</term>
       <listitem>
 	<para>
-	  When this is enabled, &mathematik; will show you possible completions
+	  When this is enabled, &cantor; will show you possible completions
 	  for the command you are currently typing when you press the Tab-key. If there is only one choice
 	  left, it will insert the rest of the command for you.
 	</para>
@@ -265,7 +265,7 @@ TODO add screenshots and descriptions of each assistant
 <title>Command Reference</title>
 
 <sect1 id="kapp-mainwindow">
-<title>The main &mathematik; window</title>
+<title>The main &cantor; window</title>
 
 <sect2 id="file-menu">
 <title>The <guimenu>File</guimenu> Menu</title>
@@ -299,7 +299,7 @@ TODO add screenshots and descriptions of each assistant
 <guimenu>File</guimenu>
 <guimenuitem>Quit</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Quits</action> &mathematik;</para></listitem>
+<listitem><para><action>Quits</action> &cantor;</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
@@ -317,16 +317,16 @@ TODO add screenshots and descriptions of each assistant
 </chapter>
 
 <chapter id="developers">
-<title>Developer's Guide to &mathematik;</title>
+<title>Developer's Guide to &cantor;</title>
 
 <para>
-&mathematik; is easily extendable by plugins. You can write
+&cantor; is easily extendable by plugins. You can write
 <variablelist>
   <varlistentry>
     <term>Backends:</term>
     <listitem>
       <para>
-	A new backend enables you to use the &mathematik; interface with a different program
+	A new backend enables you to use the &cantor; interface with a different program
       </para>
     </listitem>
   </varlistentry>
@@ -342,7 +342,7 @@ TODO add screenshots and descriptions of each assistant
 </para>
 <para>
 Currently there are no special developer tutorials or Api-Docs, so if you want to write a plugin, you'll have to read through the sources.
-All interface definitions are in the lib directory. For example implementations, just see some of the plugins shipped with &mathematik;
+All interface definitions are in the lib directory. For example implementations, just see some of the plugins shipped with &cantor;
 </para>
 
 </chapter>
@@ -362,7 +362,7 @@ All interface definitions are in the lib directory. For example implementations,
   <question><para>I've installed Sage/Maxima, but the appropriate backend doesn't show up</para></question>
   <answer>
     <para>
-      Maybe &mathematik; didn't detect the location right. Go to the Settings dialog and change
+      Maybe &cantor; didn't detect the location right. Go to the Settings dialog and change
       the Path to the appropriate application
     </para>
   </answer>
@@ -375,7 +375,7 @@ All interface definitions are in the lib directory. For example implementations,
 <title>Credits and License</title>
 
 <para>
-&mathematik;
+&cantor;
 </para>
 <para>
 Program copyright 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
@@ -395,7 +395,7 @@ Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmai
 <title>Installation</title>
 
 <sect1 id="getting-kapp">
-<title>How to obtain &mathematik;</title>
+<title>How to obtain &cantor;</title>
 
 &install.intro.documentation;
 
@@ -405,14 +405,14 @@ Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmai
 <title>Requirements</title>
 
 <para>
-In order to successfully use &mathematik;, you need &kde; 4 and LibSpectre.
+In order to successfully use &cantor;, you need &kde; 4 and LibSpectre.
 To use the different Backends, the appropriate math package is required.
 </para>
 
 <!--
 <para>
-All required libraries as well as &mathematik; itself can be found
-on <ulink url="ftp://ftp.kapp.org">The &mathematik; home page</ulink>.
+All required libraries as well as &cantor; itself can be found
+on <ulink url="ftp://ftp.kapp.org">The &cantor; home page</ulink>.
 </para>
 -->
 
@@ -439,7 +439,7 @@ url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
 
 <para>
   Depending on your system, you may need to adjust the paths to the
-  different applications, used by &mathematik;
+  different applications, used by &cantor;
 </para>
 
 </sect1>
