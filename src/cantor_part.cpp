@@ -18,9 +18,9 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
 
-#include "mathematik_part.h"
+#include "cantor_part.h"
 
-#include "mathematik_part.moc"
+#include "cantor_part.moc"
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -52,29 +52,29 @@
 
 #include "settings.h"
 
-typedef KParts::GenericFactory<MathematiKPart> MathematiKPartFactory;
-K_EXPORT_COMPONENT_FACTORY( libmathematikpart, MathematiKPartFactory )
+typedef KParts::GenericFactory<CantorPart> CantorPartFactory;
+K_EXPORT_COMPONENT_FACTORY( libcantorpart, CantorPartFactory )
 
-MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QStringList & args ): KParts::ReadWritePart(parent)
+CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringList & args ): KParts::ReadWritePart(parent)
 {
     // we need an instance
-    setComponentData( MathematiKPartFactory::componentData() );
+    setComponentData( CantorPartFactory::componentData() );
 
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_scriptEditor=0;
 
-    kDebug()<<"Created a MathematiKPart";
+    kDebug()<<"Created a CantorPart";
     QString backendName;
     if(args.isEmpty())
         backendName="nullbackend";
     else
         backendName=args.first();
 
-    MathematiK::Backend* b=MathematiK::Backend::createBackend(backendName);
+    Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if(!b)
     {
-        KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - MathematiK"));
+        KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - Cantor"));
         setWidget(new QWidget(parentWidget));
         return;
     }
@@ -156,7 +156,7 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
 
 
     // set our XML-UI resource file
-    setXMLFile("mathematik_part.rc");
+    setXMLFile("cantor_part.rc");
 
     // we are read-write by default
     setReadWrite(true);
@@ -167,11 +167,11 @@ MathematiKPart::MathematiKPart( QWidget *parentWidget, QObject *parent, const QS
     worksheetSessionChanged();
 }
 
-MathematiKPart::~MathematiKPart()
+CantorPart::~CantorPart()
 {
 }
 
-void MathematiKPart::setReadWrite(bool rw)
+void CantorPart::setReadWrite(bool rw)
 {
     // notify your internal widget of the read-write state
     m_worksheet->setReadOnly(!rw);
@@ -179,7 +179,7 @@ void MathematiKPart::setReadWrite(bool rw)
     ReadWritePart::setReadWrite(rw);
 }
 
-void MathematiKPart::setModified(bool modified)
+void CantorPart::setModified(bool modified)
 {
     // get a handle on our Save action and make sure it is valid
     if (!m_save)
@@ -196,17 +196,17 @@ void MathematiKPart::setModified(bool modified)
     ReadWritePart::setModified(modified);
 }
 
-KAboutData *MathematiKPart::createAboutData()
+KAboutData *CantorPart::createAboutData()
 {
     // the non-i18n name here must be the same as the directory in
     // which the part's rc file is installed ('partrcdir' in the
     // Makefile)
-    KAboutData *aboutData = new KAboutData("mathematikpart", 0, ki18n("MathematiKPart"), "0.1");
+    KAboutData *aboutData = new KAboutData("cantorpart", 0, ki18n("CantorPart"), "0.1");
     aboutData->addAuthor(ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com");
     return aboutData;
 }
 
-bool MathematiKPart::openFile()
+bool CantorPart::openFile()
 {
     m_worksheet->load(localFilePath());
 
@@ -218,7 +218,7 @@ bool MathematiKPart::openFile()
     return true;
 }
 
-bool MathematiKPart::saveFile()
+bool CantorPart::saveFile()
 {
     // if we aren't read-write, return immediately
     if (isReadWrite() == false)
@@ -240,16 +240,16 @@ bool MathematiKPart::saveFile()
     return true;
 }
 
-void MathematiKPart::fileSaveAs()
+void CantorPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected,
-    QString filter=i18n("*.mws|MathematiK Worksheet");
+    QString filter=i18n("*.mws|Cantor Worksheet");
 
     //if the backend supports scripts, also append their scriptFile endings to the filter
-    MathematiK::Backend * const backend=m_worksheet->session()->backend();
+    Cantor::Backend * const backend=m_worksheet->session()->backend();
     if (backend->extensions().contains("ScriptExtension"))
     {
-        MathematiK::ScriptExtension* e=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
         filter+='\n'+e->scriptFileFilter();
     }
 
@@ -260,7 +260,7 @@ void MathematiKPart::fileSaveAs()
     updateCaption();
 }
 
-void MathematiKPart::guiActivateEvent( KParts::GUIActivateEvent * event )
+void CantorPart::guiActivateEvent( KParts::GUIActivateEvent * event )
 {
     KParts::ReadWritePart::guiActivateEvent(event);
     if(event->activated())
@@ -274,7 +274,7 @@ void MathematiKPart::guiActivateEvent( KParts::GUIActivateEvent * event )
     }
 }
 
-void MathematiKPart::evaluateOrInterrupt()
+void CantorPart::evaluateOrInterrupt()
 {
     kDebug()<<"evalorinterrupt";
     if(m_worksheet->isRunning())
@@ -282,16 +282,16 @@ void MathematiKPart::evaluateOrInterrupt()
     else
         m_worksheet->evaluate();
 }
-void MathematiKPart::restartBackend()
+void CantorPart::restartBackend()
 {
     m_worksheet->session()->logout();
     m_worksheet->session()->login();
 }
 
-void MathematiKPart::worksheetStatusChanged(MathematiK::Session::Status status)
+void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 {
     kDebug()<<"wsStatusChange"<<status;
-    if(status==MathematiK::Session::Running)
+    if(status==Cantor::Session::Running)
     {
         m_evaluate->setText(i18n("Interrupt"));
         m_evaluate->setIcon(KIcon("dialog-close"));
@@ -306,9 +306,9 @@ void MathematiKPart::worksheetStatusChanged(MathematiK::Session::Status status)
     }
 }
 
-void MathematiKPart::worksheetSessionChanged()
+void CantorPart::worksheetSessionChanged()
 {
-    connect(m_worksheet->session(), SIGNAL(statusChanged(MathematiK::Session::Status)), this, SLOT(worksheetStatusChanged(MathematiK::Session::Status)));
+    connect(m_worksheet->session(), SIGNAL(statusChanged(Cantor::Session::Status)), this, SLOT(worksheetStatusChanged(Cantor::Session::Status)));
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
 
     loadAssistants();
@@ -316,13 +316,13 @@ void MathematiKPart::worksheetSessionChanged()
 
     if(!m_initProgressDlg)
     {
-        m_initProgressDlg=new KProgressDialog(widget(), i18n("MathematiK"), i18n("Initializing Session"));
+        m_initProgressDlg=new KProgressDialog(widget(), i18n("Cantor"), i18n("Initializing Session"));
         m_initProgressDlg->setMinimumDuration(500);
         m_initProgressDlg->progressBar()->setRange(0, 0);
     }
 }
 
-void MathematiKPart::initialized()
+void CantorPart::initialized()
 {
     m_worksheet->setEnabled(true);
     emit setStatusBarText(i18n("Initialization complete"));
@@ -335,26 +335,26 @@ void MathematiKPart::initialized()
     updateCaption();
 }
 
-void MathematiKPart::enableTypesetting(bool enable)
+void CantorPart::enableTypesetting(bool enable)
 {
     m_worksheet->session()->setTypesettingEnabled(enable);
 }
 
-void MathematiKPart::showBackendHelp()
+void CantorPart::showBackendHelp()
 {
     kDebug()<<"showing backends help";
-    MathematiK::Backend* backend=m_worksheet->session()->backend();
+    Cantor::Backend* backend=m_worksheet->session()->backend();
     KUrl url=backend->helpUrl();
     kDebug()<<"launching url "<<url;
     new KRun(url, widget());
 }
 
-Worksheet* MathematiKPart::worksheet()
+Worksheet* CantorPart::worksheet()
 {
     return m_worksheet;
 }
 
-void MathematiKPart::updateCaption()
+void CantorPart::updateCaption()
 {
     QString filename=url().fileName();
     //strip away the extension
@@ -366,21 +366,21 @@ void MathematiKPart::updateCaption()
     emit setCaption(i18n("%1: %2", m_worksheet->session()->backend()->name(), filename));
 }
 
-void MathematiKPart::loadAssistants()
+void CantorPart::loadAssistants()
 {
     kDebug()<<"loading assistants...";
 
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
-    services = trader->query("MathematiK/Assistant");
+    services = trader->query("Cantor/Assistant");
 
     foreach (const KService::Ptr &service,   services)
     {
         QString error;
 
         kDebug()<<"found service"<<service->name();
-        MathematiK::Assistant* assistant=service->createInstance<MathematiK::Assistant>(this,  QVariantList(),   &error);
+        Cantor::Assistant* assistant=service->createInstance<Cantor::Assistant>(this,  QVariantList(),   &error);
         if (assistant==0)
         {
             kDebug()<<"error loading assistant"<<service->name()<<":  "<<error;
@@ -388,7 +388,7 @@ void MathematiKPart::loadAssistants()
         }
 
         kDebug()<<"created it";
-        MathematiK::Backend* backend=worksheet()->session()->backend();
+        Cantor::Backend* backend=worksheet()->session()->backend();
         KPluginInfo info(service);
         assistant->setPluginInfo(info);
         assistant->setBackend(backend);
@@ -413,37 +413,37 @@ void MathematiKPart::loadAssistants()
 
 }
 
-void MathematiKPart::runAssistant()
+void CantorPart::runAssistant()
 {
-    MathematiK::Assistant* a=qobject_cast<MathematiK::Assistant*>(sender());
+    Cantor::Assistant* a=qobject_cast<Cantor::Assistant*>(sender());
     QStringList cmds=a->run(widget());
     kDebug()<<cmds;
     if(!cmds.isEmpty())
         m_worksheet->appendEntry(cmds.join("\n"));
 }
 
-void MathematiKPart::adjustGuiToSession()
+void CantorPart::adjustGuiToSession()
 {
-    m_typeset->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(MathematiK::Backend::LaTexOutput));
-    m_tabcompletion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(MathematiK::Backend::TabCompletion));
+    m_typeset->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::LaTexOutput));
+    m_tabcompletion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::TabCompletion));
 
     //this is 0 on the first call
     if(m_showBackendHelp)
         m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
 }
 
-void MathematiKPart::publishWorksheet()
+void CantorPart::publishWorksheet()
 {
     int ret = KMessageBox::questionYesNo(widget(),
                                          i18n("Do you want to upload current Worksheet to public web server ?"),
-                                         i18n("Question - MathematiK"));
+                                         i18n("Question - Cantor"));
     if (ret != KMessageBox::Yes) return;
 
     if (isModified()||url().isEmpty())
     {
         ret = KMessageBox::warningContinueCancel(widget(),
                                                  i18n("The Worksheet is not saved. You should save it before uploading."),
-                                                 i18n("Warning - MathematiK"),  KStandardGuiItem::save(),  KStandardGuiItem::cancel());
+                                                 i18n("Warning - Cantor"),  KStandardGuiItem::save(),  KStandardGuiItem::cancel());
         if (ret != KMessageBox::Continue) return;
         if (!saveFile()) return;
     }
@@ -451,19 +451,19 @@ void MathematiKPart::publishWorksheet()
     kDebug()<<"uploading file "<<url();
 
     KNS::Engine engine(widget());
-    engine.init("mathematik.knsrc");
+    engine.init("cantor.knsrc");
     KNS::Entry *entry = engine.uploadDialogModal(url().toLocalFile());
 
     if(entry)
     {
-        KMessageBox::information(widget(), i18n("Uploading successful"), i18n("MathematiK"));
+        KMessageBox::information(widget(), i18n("Uploading successful"), i18n("Cantor"));
     }else
     {
-        KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - MathematiK"));
+        KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - Cantor"));
     }
 }
 
-void MathematiKPart::print()
+void CantorPart::print()
 {
     QPrinter printer;
     QPointer<QPrintDialog> dialog = new QPrintDialog(&printer,  widget());
@@ -477,18 +477,18 @@ void MathematiKPart::print()
     delete dialog;
 }
 
-void MathematiKPart::showScriptEditor(bool show)
+void CantorPart::showScriptEditor(bool show)
 {
-    MathematiK::Backend* backend=m_worksheet->session()->backend();
+    Cantor::Backend* backend=m_worksheet->session()->backend();
     if(!backend->extensions().contains("ScriptExtension"))
     {
-        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - MathematiK"));
+        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - Cantor"));
         return;
     }
 
     if(show)
     {
-        MathematiK::ScriptExtension* scriptE=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+        Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
         m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter());
         connect(m_scriptEditor, SIGNAL(runScript(const QString&)), this, SLOT(runScript(const QString&)));
         m_scriptEditor->show();
@@ -499,15 +499,15 @@ void MathematiKPart::showScriptEditor(bool show)
     }
 }
 
-void MathematiKPart::runScript(const QString& file)
+void CantorPart::runScript(const QString& file)
 {
-    MathematiK::Backend* backend=m_worksheet->session()->backend();
+    Cantor::Backend* backend=m_worksheet->session()->backend();
     if(!backend->extensions().contains("ScriptExtension"))
     {
-        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - MathematiK"));
+        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - Cantor"));
         return;
     }
 
-    MathematiK::ScriptExtension* scriptE=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+    Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
     m_worksheet->appendEntry(scriptE->runExternalScript(file));
 }

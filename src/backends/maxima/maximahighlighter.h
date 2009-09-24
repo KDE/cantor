@@ -23,7 +23,7 @@
 
 #include "defaulthighlighter.h"
 
-class MaximaHighlighter : public MathematiK::DefaultHighlighter
+class MaximaHighlighter : public Cantor::DefaultHighlighter
 {
   public:
     MaximaHighlighter( QTextEdit* edit);

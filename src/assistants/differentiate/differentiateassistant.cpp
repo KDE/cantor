@@ -24,7 +24,7 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include "ui_differentiatedlg.h"
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
 
@@ -40,7 +40,7 @@ DifferentiateAssistant::~DifferentiateAssistant()
 
 void DifferentiateAssistant::initActions()
 {
-    setXMLFile("mathematik_differentiate_assistant.rc");
+    setXMLFile("cantor_differentiate_assistant.rc");
     KAction* differentiate=new KAction(i18n("Differentiate"), actionCollection());
     differentiate->setIcon(KIcon(icon()));
     actionCollection()->addAction("differentiate_assistant", differentiate);
@@ -62,7 +62,7 @@ QStringList DifferentiateAssistant::run(QWidget* parent)
         QString variable=base.variable->text();
         int times=base.times->value();
 
-        MathematiK::CalculusExtension* ext= dynamic_cast<MathematiK::CalculusExtension*>(backend()->extension("CalculusExtension"));
+        Cantor::CalculusExtension* ext= dynamic_cast<Cantor::CalculusExtension*>(backend()->extension("CalculusExtension"));
 
         result<<ext->differentiate(expression, variable, times);
     }
@@ -71,4 +71,4 @@ QStringList DifferentiateAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(differentiateassistant, DifferentiateAssistant)
+K_EXPORT_CANTOR_PLUGIN(differentiateassistant, DifferentiateAssistant)

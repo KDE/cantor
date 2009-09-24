@@ -24,16 +24,16 @@
 #include <QVariant>
 #include <QDomElement>
 #include <kurl.h>
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
 class KZip;
 
-namespace MathematiK
+namespace Cantor
 {
 
 class ResultPrivate;
 
-class MATHEMATIK_EXPORT Result
+class CANTOR_EXPORT Result
 {
   public:
     Result( );

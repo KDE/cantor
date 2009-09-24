@@ -24,7 +24,7 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kfiledialog.h>
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
 
@@ -40,7 +40,7 @@ RunScriptAssistant::~RunScriptAssistant()
 
 void RunScriptAssistant::initActions()
 {
-    setXMLFile("mathematik_runscript_assistant.rc");
+    setXMLFile("cantor_runscript_assistant.rc");
     KAction* runscript=new KAction(i18n("Run Script"), actionCollection());
     runscript->setIcon(KIcon(icon()));
     actionCollection()->addAction("runscript_assistant", runscript);
@@ -49,8 +49,8 @@ void RunScriptAssistant::initActions()
 
 QStringList RunScriptAssistant::run(QWidget* parent)
 {
-    MathematiK::ScriptExtension* ext= dynamic_cast<MathematiK::ScriptExtension*>(backend()->extension("ScriptExtension"));
-    QString file=KFileDialog::getOpenFileName(KUrl("kfiledialog://mathematik_script"), ext->scriptFileFilter(), parent);
+    Cantor::ScriptExtension* ext= dynamic_cast<Cantor::ScriptExtension*>(backend()->extension("ScriptExtension"));
+    QString file=KFileDialog::getOpenFileName(KUrl("kfiledialog://cantor_script"), ext->scriptFileFilter(), parent);
 
     if(file.isNull())
     {
@@ -61,4 +61,4 @@ QStringList RunScriptAssistant::run(QWidget* parent)
     }
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(runscriptassistant, RunScriptAssistant)
+K_EXPORT_CANTOR_PLUGIN(runscriptassistant, RunScriptAssistant)

@@ -23,15 +23,15 @@
 
 #include "backend.h"
 
-class RBackend : public MathematiK::Backend
+class RBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
     explicit RBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~RBackend();
 
-    MathematiK::Session *createSession();
-    MathematiK::Backend::Capabilities capabilities();
+    Cantor::Session *createSession();
+    Cantor::Backend::Capabilities capabilities();
     bool requirementsFullfilled();
 
     virtual QWidget* settingsWidget(QWidget* parent);

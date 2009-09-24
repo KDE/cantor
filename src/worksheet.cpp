@@ -58,7 +58,7 @@
 
 #include "settings.h"
 
-Worksheet::Worksheet(MathematiK::Backend* backend, QWidget* parent) : KTextEdit(parent)
+Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(parent)
 {
     m_session=backend->createSession();
     m_session->login();
@@ -123,7 +123,7 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
                 KTextEdit::keyPressEvent(event);
             }else
             {
-                MathematiK::TabCompletionObject* tco=m_session->tabCompletionFor(line);
+                Cantor::TabCompletionObject* tco=m_session->tabCompletionFor(line);
                 if(tco)
                 current->setTabCompletion(tco);
             }
@@ -254,7 +254,7 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
     WorksheetEntry* current=entryAt(cursorAtMouse);
     if(current&&current->isInResultCell(cursorAtMouse)&&current->expression()&&current->expression()->result())
     {
-        MathematiK::Result* result=current->expression()->result();
+        Cantor::Result* result=current->expression()->result();
         kDebug()<<"context menu in result...";
         KMenu* popup=new KMenu(this);
         if(!popup)
@@ -262,9 +262,9 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
 
         QAction* saveAction=popup->addAction(i18n("Save result"));
         QAction* showCodeAction=0;
-        if(result->type()==MathematiK::LatexResult::Type)
+        if(result->type()==Cantor::LatexResult::Type)
         {
-            if(dynamic_cast<MathematiK::LatexResult*>(result)->isCodeShown())
+            if(dynamic_cast<Cantor::LatexResult*>(result)->isCodeShown())
                 showCodeAction=popup->addAction(i18n("Show Rendered"));
             else
                 showCodeAction=popup->addAction(i18n("Show Code"));
@@ -287,7 +287,7 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
             result->save(filename);
         }else if(selectedAction==showCodeAction)
         {
-            MathematiK::LatexResult* res=dynamic_cast<MathematiK::LatexResult*>(result);
+            Cantor::LatexResult* res=dynamic_cast<Cantor::LatexResult*>(result);
             if(res->isCodeShown())
                 res->showRendered();
             else
@@ -310,7 +310,7 @@ void Worksheet::evaluate()
     foreach(WorksheetEntry* entry, m_entries)
     {
         QString cmd=entry->command();
-        MathematiK::Expression* expr;
+        Cantor::Expression* expr;
         if(cmd.isEmpty()) return;
 
         expr=m_session->evaluateExpression(cmd);
@@ -336,7 +336,7 @@ void Worksheet::evaluateCurrentEntry()
     if (entry->isInCommandCell(textCursor()))
     {
         QString cmd=entry->command();
-        MathematiK::Expression* expr;
+        Cantor::Expression* expr;
         if(cmd.isEmpty()) return;
 
         expr=m_session->evaluateExpression(cmd);
@@ -441,7 +441,7 @@ void Worksheet::interrupt()
 
 void Worksheet::interruptCurrentExpression()
 {
-    MathematiK::Expression* expr=currentEntry()->expression();
+    Cantor::Expression* expr=currentEntry()->expression();
     if(expr)
         expr->interrupt();
 }
@@ -455,7 +455,7 @@ void Worksheet::enableHighlighting(bool highlight)
         m_highlighter=session()->backend()->syntaxHighlighter(this);
         if(!m_highlighter)
         {
-            m_highlighter=new MathematiK::DefaultHighlighter(this);
+            m_highlighter=new Cantor::DefaultHighlighter(this);
         }
     }else
     {
@@ -470,14 +470,14 @@ void Worksheet::enableTabCompletion(bool enable)
     m_tabCompletionEnabled=enable;
 }
 
-MathematiK::Session* Worksheet::session()
+Cantor::Session* Worksheet::session()
 {
     return m_session;
 }
 
 bool Worksheet::isRunning()
 {
-    return m_session->status()==MathematiK::Session::Running;
+    return m_session->status()==Cantor::Session::Running;
 }
 
 void Worksheet::save( const QString& filename )
@@ -489,11 +489,11 @@ void Worksheet::save( const QString& filename )
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
         KMessageBox::error( this,  i18n( "Cannot write file %1:\n." , filename ),
-                            i18n( "Error - MathematiK" ));
+                            i18n( "Error - Cantor" ));
         return;
     }
 
-    QDomDocument doc( "MathematiKWorksheet" );
+    QDomDocument doc( "CantorWorksheet" );
     QDomElement root=doc.createElement( "Worksheet" );
     root.setAttribute("backend", m_session->backend()->name());
     doc.appendChild(root);
@@ -522,15 +522,15 @@ void Worksheet::savePlain(const QString& filename)
     QFile file(filename);
     if(!file.open(QIODevice::WriteOnly))
     {
-        KMessageBox::error(this, i18n("Error saving file %1", filename), i18n("Error - MathematiK"));
+        KMessageBox::error(this, i18n("Error saving file %1", filename), i18n("Error - Cantor"));
         return;
     }
 
     QString cmdSep=";\n";
-    MathematiK::Backend * const backend=session()->backend();
+    Cantor::Backend * const backend=session()->backend();
     if (backend->extensions().contains("ScriptExtension"))
     {
-        MathematiK::ScriptExtension* e=dynamic_cast<MathematiK::ScriptExtension*>(backend->extension("ScriptExtension"));
+        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
         cmdSep=e->commandSeparator();
     }
 
@@ -569,10 +569,10 @@ void Worksheet::load(const QString& filename )
     kDebug()<<root.tagName();
 
     const QString backendName=root.attribute("backend");
-    MathematiK::Backend* b=MathematiK::Backend::createBackend(backendName);
+    Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if (!b)
     {
-        KMessageBox::error(this, i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("MathematiK"));
+        KMessageBox::error(this, i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("Cantor"));
         return;
     }
 
@@ -610,9 +610,9 @@ void Worksheet::load(const QString& filename )
 
 void Worksheet::gotResult()
 {
-    MathematiK::Expression* expr=qobject_cast<MathematiK::Expression*>(sender());
+    Cantor::Expression* expr=qobject_cast<Cantor::Expression*>(sender());
     //We're only interested in help results, others are handled by the WorksheetEntry
-    if(expr->result()->type()==MathematiK::HelpResult::Type)
+    if(expr->result()->type()==Cantor::HelpResult::Type)
     {
         QString help=expr->result()->toHtml();
         //Do some basic LaTex replacing

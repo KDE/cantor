@@ -27,11 +27,11 @@
 class KTemporaryFile;
 class QTimer;
 
-class MaximaExpression : public MathematiK::Expression
+class MaximaExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    MaximaExpression( MathematiK::Session* session);
+    MaximaExpression( Cantor::Session* session);
     ~MaximaExpression();
 
     void evaluate();

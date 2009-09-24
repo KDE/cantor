@@ -22,14 +22,14 @@
 #define _EPSRESULT_H
 
 #include "result.h"
-#include "mathematik_export.h"
+#include "cantor_export.h"
 #include "kurl.h"
 
-namespace MathematiK
+namespace Cantor
 {
 class EpsResultPrivate;
 
-class MATHEMATIK_EXPORT EpsResult : public Result
+class CANTOR_EXPORT EpsResult : public Result
 {
   public:
     enum {Type=5};

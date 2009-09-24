@@ -28,7 +28,7 @@
 
 #include <signal.h>
 
-RSession::RSession( MathematiK::Backend* backend) : Session(backend)
+RSession::RSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_rProcess=0;
@@ -48,15 +48,15 @@ void RSession::login()
     m_rProcess=new KProcess(this);
     m_rProcess->setOutputChannelMode(KProcess::ForwardedChannels);
 
-    (*m_rProcess)<<KStandardDirs::findExe( "mathematik_rserver" );
+    (*m_rProcess)<<KStandardDirs::findExe( "cantor_rserver" );
 
     m_rProcess->start();
 
-    m_rServer=new org::kde::MathematiK::R(QString("org.kde.mathematik_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
+    m_rServer=new org::kde::Cantor::R(QString("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
 
-    changeStatus(MathematiK::Session::Done);
+    changeStatus(Cantor::Session::Done);
 
     connect(m_rServer, SIGNAL(ready()), this, SIGNAL(ready()));
 }
@@ -71,10 +71,10 @@ void RSession::interrupt()
 {
     kDebug()<<"interrupt";
     kill(m_rProcess->pid(), 2);
-    changeStatus(MathematiK::Session::Done);
+    changeStatus(Cantor::Session::Done);
 }
 
-MathematiK::Expression* RSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
+Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     RExpression* expr=new RExpression(this);
@@ -83,7 +83,7 @@ MathematiK::Expression* RSession::evaluateExpression(const QString& cmd, Mathema
 
     expr->evaluate();
 
-    changeStatus(MathematiK::Session::Running);
+    changeStatus(Cantor::Session::Running);
 
     return expr;
 }
@@ -92,7 +92,7 @@ void RSession::queueExpression(RExpression* expr)
 {
     m_expressionQueue.append(expr);
 
-    if(status()==MathematiK::Session::Done)
+    if(status()==Cantor::Session::Done)
         QTimer::singleShot(0, this, SLOT(runNextExpression()));
 }
 
@@ -109,12 +109,12 @@ void RSession::serverChangedStatus(int status)
         }
 
         if(m_expressionQueue.isEmpty())
-            changeStatus(MathematiK::Session::Done);
+            changeStatus(Cantor::Session::Done);
         else
             runNextExpression();
     }
     else
-        changeStatus(MathematiK::Session::Running);
+        changeStatus(Cantor::Session::Running);
 }
 
 void RSession::runNextExpression()

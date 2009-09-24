@@ -26,7 +26,7 @@
 #include <kdebug.h>
 #include <QTimer>
 
-NullExpression::NullExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
+NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug();
     m_timer=new QTimer(this);
@@ -43,7 +43,7 @@ NullExpression::~NullExpression()
 void NullExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
-    setStatus(MathematiK::Expression::Computing);
+    setStatus(Cantor::Expression::Computing);
 
     m_timer->start(1000);
 }
@@ -52,18 +52,18 @@ void NullExpression::interrupt()
 {
     kDebug()<<"interruptinging command";
     m_timer->stop();
-    setStatus(MathematiK::Expression::Interrupted);
+    setStatus(Cantor::Expression::Interrupted);
 }
 
 void NullExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
     if ( command()=="img" )
-        setResult( new MathematiK::ImageResult( KUrl("/home/alex/out.png"), "alternativ" ) );
+        setResult( new Cantor::ImageResult( KUrl("/home/alex/out.png"), "alternativ" ) );
     else
-        setResult(new MathematiK::TextResult("result: "+command()));
+        setResult(new Cantor::TextResult("result: "+command()));
 
-    setStatus(MathematiK::Expression::Done);
+    setStatus(Cantor::Expression::Done);
 }
 
 #include "nullexpression.moc"

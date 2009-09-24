@@ -23,11 +23,11 @@
 
 #include "expression.h"
 
-class SageExpression : public MathematiK::Expression
+class SageExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    SageExpression( MathematiK::Session* session);
+    SageExpression( Cantor::Session* session);
     ~SageExpression();
 
     void evaluate();

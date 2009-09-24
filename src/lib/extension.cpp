@@ -19,7 +19,7 @@
  */
 
 #include "extension.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <QStringList>
 

@@ -23,17 +23,17 @@
 
 #include <QObject>
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
 #include "expression.h"
 
-namespace MathematiK
+namespace Cantor
 {
 class Backend;
 class SessionPrivate;
 class TabCompletionObject;
 
-class MATHEMATIK_EXPORT Session : public QObject
+class CANTOR_EXPORT Session : public QObject
 {
   Q_OBJECT
   public:
@@ -66,16 +66,16 @@ class MATHEMATIK_EXPORT Session : public QObject
 
     Backend* backend();
 
-    MathematiK::Session::Status status();
+    Cantor::Session::Status status();
     bool isTypesettingEnabled();
     
     int nextExpressionId();
 
   protected:
-    void changeStatus(MathematiK::Session::Status newStatus);
+    void changeStatus(Cantor::Session::Status newStatus);
 
   signals:
-    void statusChanged(MathematiK::Session::Status newStatus);
+    void statusChanged(Cantor::Session::Status newStatus);
     void ready();
 
 

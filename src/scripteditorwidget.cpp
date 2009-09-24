@@ -94,7 +94,7 @@ void ScriptEditorWidget::newScript()
 
 void ScriptEditorWidget::open()
 {
-    KUrl url=KFileDialog::getOpenFileName(KUrl("kfiledialog://mathematik_script"), m_filter, this);
+    KUrl url=KFileDialog::getOpenFileName(KUrl("kfiledialog://cantor_script"), m_filter, this);
     m_script->openUrl(url);
 }
 
@@ -112,7 +112,7 @@ void ScriptEditorWidget::run()
         if(m_tmpFile==0)
         {
             m_tmpFile=new KTemporaryFile();
-            m_tmpFile->setPrefix( "mathematik/" );
+            m_tmpFile->setPrefix( "cantor/" );
         }
 
         m_tmpFile->open();

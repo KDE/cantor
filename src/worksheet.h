@@ -24,7 +24,7 @@
 #include <ktextedit.h>
 #include <QHash>
 
-namespace MathematiK{
+namespace Cantor{
     class Backend;
     class Session;
     class Expression;
@@ -36,10 +36,10 @@ class Worksheet : public KTextEdit
 {
   Q_OBJECT
   public:
-    Worksheet( MathematiK::Backend* backend, QWidget* parent );
+    Worksheet( Cantor::Backend* backend, QWidget* parent );
     ~Worksheet();
 
-    MathematiK::Session* session();
+    Cantor::Session* session();
 
     bool isRunning();
     bool showExpressionIds();
@@ -88,7 +88,7 @@ class Worksheet : public KTextEdit
     WorksheetEntry* entryAt(const QTextCursor& cursor);
     WorksheetEntry* entryAt(int row);
   private:
-    MathematiK::Session *m_session;
+    Cantor::Session *m_session;
     ResultProxy* m_proxy;
     QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;

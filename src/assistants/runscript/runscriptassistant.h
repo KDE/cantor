@@ -23,7 +23,7 @@
 
 #include "assistant.h"
 
-class RunScriptAssistant : public MathematiK::Assistant
+class RunScriptAssistant : public Cantor::Assistant
 {
   public:
     RunScriptAssistant( QObject* parent, QList<QVariant> args );

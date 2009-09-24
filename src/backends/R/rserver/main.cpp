@@ -27,14 +27,14 @@
 #include <kconfiggroup.h>
 
 static const char description[] =
-    I18N_NOOP("Server for the MathematiK R Backend");
+    I18N_NOOP("Server for the Cantor R Backend");
 
 static const char version[] = "0.1";
 
 int main(int argc, char **argv)
 {
-    KAboutData about("mathematik_rserver", 0,
-                     ki18n("MathematiK Server for R"),
+    KAboutData about("cantor_rserver", 0,
+                     ki18n("Cantor Server for R"),
                      version, ki18n(description),
                      KAboutData::License_GPL,
                      ki18n("(C) 2009 Alexander Rieder"),

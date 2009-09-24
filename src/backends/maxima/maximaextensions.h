@@ -23,7 +23,7 @@
 
 #include "extension.h"
 
-class MaximaHistoryExtension : public MathematiK::HistoryExtension
+class MaximaHistoryExtension : public Cantor::HistoryExtension
 {
   public:
     MaximaHistoryExtension( QObject* parent );
@@ -32,7 +32,7 @@ class MaximaHistoryExtension : public MathematiK::HistoryExtension
     QString lastResult();
 };
 
-class MaximaScriptExtension : public MathematiK::ScriptExtension
+class MaximaScriptExtension : public Cantor::ScriptExtension
 {
   public:
     MaximaScriptExtension(QObject* parent);
@@ -43,7 +43,7 @@ class MaximaScriptExtension : public MathematiK::ScriptExtension
 };
 
 
-class MaximaCASExtension : public MathematiK::CASExtension
+class MaximaCASExtension : public Cantor::CASExtension
 {
   public:
     MaximaCASExtension( QObject* parent);
@@ -56,7 +56,7 @@ class MaximaCASExtension : public MathematiK::CASExtension
 
 };
 
-class MaximaCalculusExtension : public MathematiK::CalculusExtension
+class MaximaCalculusExtension : public Cantor::CalculusExtension
 {
   public:
     MaximaCalculusExtension( QObject* parent);

@@ -23,13 +23,13 @@
 
 #include "result.h"
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
-namespace MathematiK
+namespace Cantor
 {
 
 class TextResultPrivate;
-class MATHEMATIK_EXPORT TextResult : public Result
+class CANTOR_EXPORT TextResult : public Result
 {
   public:
     enum { Type=1 };

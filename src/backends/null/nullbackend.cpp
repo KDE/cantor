@@ -24,10 +24,10 @@
 
 #include "kdebug.h"
 
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 
 
-NullBackend::NullBackend( QObject* parent,const QList<QVariant> args ) : MathematiK::Backend( parent,args )
+NullBackend::NullBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     setObjectName("nullbackend");
     kDebug()<<"Creating NullBackend";
@@ -39,19 +39,19 @@ NullBackend::~NullBackend()
     kDebug()<<"Destroying NullBackend";
 }
 
-MathematiK::Session* NullBackend::createSession()
+Cantor::Session* NullBackend::createSession()
 {
     kDebug()<<"Spawning a new Null session";
 
     return new NullSession(this);
 }
 
-MathematiK::Backend::Capabilities NullBackend::capabilities()
+Cantor::Backend::Capabilities NullBackend::capabilities()
 {
     kDebug()<<"Requesting capabilities of NullSession";
-    return MathematiK::Backend::Nothing;
+    return Cantor::Backend::Nothing;
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(nullbackend, NullBackend)
+K_EXPORT_CANTOR_PLUGIN(nullbackend, NullBackend)
 
 #include "nullbackend.moc"

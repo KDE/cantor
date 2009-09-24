@@ -23,7 +23,7 @@
 
 #include "assistant.h"
 
-class InvertMatrixAssistant : public MathematiK::Assistant
+class InvertMatrixAssistant : public Cantor::Assistant
 {
   public:
     InvertMatrixAssistant( QObject* parent, QList<QVariant> args );

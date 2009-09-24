@@ -24,7 +24,7 @@
 
 #include <kdebug.h>
 
-NullSession::NullSession( MathematiK::Backend* backend) : Session(backend)
+NullSession::NullSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
 }
@@ -37,7 +37,7 @@ NullSession::~NullSession()
 void NullSession::login()
 {
     kDebug()<<"login";
-    changeStatus(MathematiK::Session::Done);
+    changeStatus(Cantor::Session::Done);
     emit ready();
 }
 
@@ -49,30 +49,30 @@ void NullSession::logout()
 void NullSession::interrupt()
 {
     kDebug()<<"interrupt";
-    foreach(MathematiK::Expression* e, m_runningExpressions)
+    foreach(Cantor::Expression* e, m_runningExpressions)
         e->interrupt();
     m_runningExpressions.clear();
-    changeStatus(MathematiK::Session::Done);
+    changeStatus(Cantor::Session::Done);
 }
 
-MathematiK::Expression* NullSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
+Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     NullExpression* expr=new NullExpression(this);
     expr->setFinishingBehavior(behave);
-    connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(expressionFinished()));
+    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished()));
     expr->setCommand(cmd);
     expr->evaluate();
 
     if(m_runningExpressions.isEmpty())
-        changeStatus(MathematiK::Session::Running);
+        changeStatus(Cantor::Session::Running);
     m_runningExpressions.append(expr);
 
 
     return expr;
 }
 
-MathematiK::TabCompletionObject* NullSession::tabCompletionFor(const QString& command)
+Cantor::TabCompletionObject* NullSession::tabCompletionFor(const QString& command)
 {
     kDebug()<<"tab completion for "<<command;
     return new NullTabCompletionObject(command, this);
@@ -84,7 +84,7 @@ void NullSession::expressionFinished()
     m_runningExpressions.removeAll(qobject_cast<NullExpression*>(sender()));
     kDebug()<<"size: "<<m_runningExpressions.size();
     if(m_runningExpressions.isEmpty())
-       changeStatus(MathematiK::Session::Done);
+       changeStatus(Cantor::Session::Done);
 }
 
 #include "nullsession.moc"

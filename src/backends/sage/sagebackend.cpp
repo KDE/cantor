@@ -29,10 +29,10 @@
 #include "kdebug.h"
 #include <QWidget>
 
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 
 
-SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : MathematiK::Backend( parent,args )
+SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     setObjectName("sagebackend");
     kDebug()<<"Creating SageBackend";
@@ -49,17 +49,17 @@ SageBackend::~SageBackend()
     kDebug()<<"Destroying SageBackend";
 }
 
-MathematiK::Session* SageBackend::createSession()
+Cantor::Session* SageBackend::createSession()
 {
     kDebug()<<"Spawning a new Sage session";
 
     return new SageSession(this);
 }
 
-MathematiK::Backend::Capabilities SageBackend::capabilities()
+Cantor::Backend::Capabilities SageBackend::capabilities()
 {
     kDebug()<<"Requesting capabilities of SageSession";
-    return MathematiK::Backend::LaTexOutput|MathematiK::Backend::SyntaxHighlighting|MathematiK::Backend::TabCompletion;
+    return Cantor::Backend::LaTexOutput|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::TabCompletion;
 }
 
 bool SageBackend::requirementsFullfilled()
@@ -92,6 +92,6 @@ QString SageBackend::description()
                 "It combines the power of many existing open-source packages into a common Python-based interface.");
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(sagebackend, SageBackend)
+K_EXPORT_CANTOR_PLUGIN(sagebackend, SageBackend)
 
 #include "sagebackend.moc"

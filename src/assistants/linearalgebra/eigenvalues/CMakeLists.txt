@@ -4,9 +4,9 @@ set( EigenValuesAssistant_SRCS
 
 kde4_add_ui_files(EigenValuesAssistant_SRCS eigenvaluesdlg.ui)
 
-kde4_add_plugin( mathematik_eigenvaluesassistant ${EigenValuesAssistant_SRCS} )
-target_link_libraries( mathematik_eigenvaluesassistant ${KDE4_KDEUI_LIBS} mathematiklibs)
+kde4_add_plugin( cantor_eigenvaluesassistant ${EigenValuesAssistant_SRCS} )
+target_link_libraries( cantor_eigenvaluesassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
-install( FILES eigenvaluesassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/mathematik)
-install( FILES mathematik_eigenvalues_assistant.rc  DESTINATION  ${DATA_INSTALL_DIR}/mathematik )
-install(TARGETS mathematik_eigenvaluesassistant DESTINATION ${PLUGIN_INSTALL_DIR})
+install( FILES eigenvaluesassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
+install( FILES cantor_eigenvalues_assistant.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )
+install(TARGETS cantor_eigenvaluesassistant DESTINATION ${PLUGIN_INSTALL_DIR})

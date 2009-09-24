@@ -23,7 +23,7 @@
 
 #include "assistant.h"
 
-class IntegrateAssistant : public MathematiK::Assistant
+class IntegrateAssistant : public Cantor::Assistant
 {
   public:
     IntegrateAssistant( QObject* parent, QList<QVariant> args );

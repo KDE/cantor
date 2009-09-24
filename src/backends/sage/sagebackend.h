@@ -23,15 +23,15 @@
 
 #include "backend.h"
 
-class SageBackend : public MathematiK::Backend
+class SageBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
     explicit SageBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~SageBackend();
 
-    MathematiK::Session *createSession();
-    MathematiK::Backend::Capabilities capabilities();
+    Cantor::Session *createSession();
+    Cantor::Backend::Capabilities capabilities();
     virtual bool requirementsFullfilled();
 
     QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);

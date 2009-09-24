@@ -25,11 +25,11 @@
 
 class SageSession;
 
-namespace MathematiK{
+namespace Cantor{
     class Expression;
 }
 
-class SageTabCompletionObject : public MathematiK::TabCompletionObject
+class SageTabCompletionObject : public Cantor::TabCompletionObject
 {
   Q_OBJECT
   public:
@@ -41,7 +41,7 @@ class SageTabCompletionObject : public MathematiK::TabCompletionObject
     void fetchingDone();
 
   private:
-    MathematiK::Expression* m_expression;
+    Cantor::Expression* m_expression;
 };
 
 #endif /* _SAGETABCOMPLETIONOBJECT_H */

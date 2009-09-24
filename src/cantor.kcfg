@@ -4,7 +4,7 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile/>
-  <group name="MathematiK">
+  <group name="Cantor">
     <entry name="DefaultBackend" type="String">
       <label>The Backend that is used by default</label>
       <default>Sage</default>

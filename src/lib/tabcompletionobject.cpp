@@ -19,14 +19,14 @@
  */
 
 #include "tabcompletionobject.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <QStringList>
 #include <QTimer>
 
 #include "session.h"
 
-class MathematiK::TabCompletionObjectPrivate
+class Cantor::TabCompletionObjectPrivate
 {
   public:
     QStringList completions;

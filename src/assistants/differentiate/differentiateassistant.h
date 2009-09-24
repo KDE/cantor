@@ -23,7 +23,7 @@
 
 #include "assistant.h"
 
-class DifferentiateAssistant : public MathematiK::Assistant
+class DifferentiateAssistant : public Cantor::Assistant
 {
   public:
     DifferentiateAssistant( QObject* parent, QList<QVariant> args );

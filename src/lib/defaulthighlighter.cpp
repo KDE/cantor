@@ -24,9 +24,9 @@
 #include <QtCore/QLocale>
 #include <QTextEdit>
 
-using namespace MathematiK;
+using namespace Cantor;
 
-class MathematiK::DefaultHighlighterPrivate
+class Cantor::DefaultHighlighterPrivate
 {
   public:
     QTextEdit* parent;

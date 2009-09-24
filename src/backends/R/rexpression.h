@@ -23,12 +23,12 @@
 
 #include "expression.h"
 
-class RExpression : public MathematiK::Expression
+class RExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
     enum ServerReturnCode{SuccessCode=0, ErrorCode, InterruptedCode};
-    RExpression( MathematiK::Session* session);
+    RExpression( Cantor::Session* session);
     ~RExpression();
 
     void evaluate();

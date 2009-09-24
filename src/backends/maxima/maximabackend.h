@@ -23,15 +23,15 @@
 
 #include "backend.h"
 
-class MaximaBackend : public MathematiK::Backend
+class MaximaBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
     explicit MaximaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~MaximaBackend();
 
-    MathematiK::Session *createSession();
-    MathematiK::Backend::Capabilities capabilities();
+    Cantor::Session *createSession();
+    Cantor::Backend::Capabilities capabilities();
     bool requirementsFullfilled();
 
     QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);

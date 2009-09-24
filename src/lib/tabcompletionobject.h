@@ -23,14 +23,14 @@
 
 #include <kcompletion.h>
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
-namespace MathematiK
+namespace Cantor
 {
 class TabCompletionObjectPrivate;
 class Session;
 
-class MATHEMATIK_EXPORT TabCompletionObject : public KCompletion
+class CANTOR_EXPORT TabCompletionObject : public KCompletion
 {
   Q_OBJECT
   public:

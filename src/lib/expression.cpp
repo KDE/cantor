@@ -19,7 +19,7 @@
  */
 
 #include "expression.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include "session.h"
 #include "result.h"
@@ -37,7 +37,7 @@ using namespace MathematiK;
 #include <kzip.h>
 
 
-class MathematiK::ExpressionPrivate
+class Cantor::ExpressionPrivate
 {
 public:
     ExpressionPrivate() {
@@ -153,11 +153,11 @@ void Expression::renderResultAsLatex()
     kDebug()<<"rendering as latex";
     kDebug()<<"checking if it really is a formula that can be typeset";
 
-    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+    QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
 
-    //Check if the mathematik subdir exists, if not, create it
+    //Check if the cantor subdir exists, if not, create it
     KTemporaryFile *texFile=new KTemporaryFile();
-    texFile->setPrefix( "mathematik/" );
+    texFile->setPrefix( "cantor/" );
     texFile->setSuffix( ".tex" );
     texFile->open();
 
@@ -198,7 +198,7 @@ void Expression::latexRendered()
 {
     kDebug()<<"rendered file "<<d->latexFilename;
     //cleanup the temp directory a bit...
-    QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+    QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
     QStringList unneededExtensions;
     unneededExtensions<<".log"<<".aux"<<".tex"<<".dvi";
     foreach(const QString& ext, unneededExtensions)

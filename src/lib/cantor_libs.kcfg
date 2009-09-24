@@ -5,7 +5,7 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile/>
   <include>kstandarddirs.h</include>
-  <group name="MathematiK">
+  <group name="Cantor">
     <entry name="LatexCommand" type="String">
       <label>Path to the latex executable</label>
       <default code="true">KStandardDirs::findExe( "latex" )</default>

@@ -28,10 +28,10 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 
 
-RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : MathematiK::Backend( parent,args )
+RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     setObjectName("rbackend");
     kDebug()<<"Creating RBackend";
@@ -44,22 +44,22 @@ RBackend::~RBackend()
     kDebug()<<"Destroying RBackend";
 }
 
-MathematiK::Session* RBackend::createSession()
+Cantor::Session* RBackend::createSession()
 {
     kDebug()<<"Spawning a new R session";
 
     return new RSession(this);
 }
 
-MathematiK::Backend::Capabilities RBackend::capabilities()
+Cantor::Backend::Capabilities RBackend::capabilities()
 {
     kDebug()<<"Requesting capabilities of RSession";
-    return MathematiK::Backend::InteractiveMode;
+    return Cantor::Backend::InteractiveMode;
 }
 
 bool RBackend::requirementsFullfilled()
 {
-    QFileInfo info(KStandardDirs::findExe( "mathematik_rserver" ) );
+    QFileInfo info(KStandardDirs::findExe( "cantor_rserver" ) );
     return info.isExecutable();
 }
 
@@ -86,6 +86,6 @@ QString RBackend::description()
                 "and R provides an Open Source route to participation in that activity.");
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(rbackend, RBackend)
+K_EXPORT_CANTOR_PLUGIN(rbackend, RBackend)
 
 #include "rbackend.moc"

@@ -25,11 +25,11 @@
 
 class QTimer;
 
-class NullExpression : public MathematiK::Expression
+class NullExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    NullExpression( MathematiK::Session* session);
+    NullExpression( Cantor::Session* session);
     ~NullExpression();
 
     void evaluate();

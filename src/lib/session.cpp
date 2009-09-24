@@ -19,11 +19,11 @@
  */
 
 #include "session.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include "backend.h"
 
-class MathematiK::SessionPrivate
+class Cantor::SessionPrivate
 {
   public:
     SessionPrivate()
@@ -59,7 +59,7 @@ Backend* Session::backend()
     return d->backend;
 }
 
-MathematiK::Session::Status Session::status()
+Cantor::Session::Status Session::status()
 {
     return d->status;
 }

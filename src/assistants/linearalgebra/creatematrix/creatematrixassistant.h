@@ -23,7 +23,7 @@
 
 #include "assistant.h"
 
-class CreateMatrixAssistant : public MathematiK::Assistant
+class CreateMatrixAssistant : public Cantor::Assistant
 {
   public:
     CreateMatrixAssistant( QObject* parent, QList<QVariant> args );

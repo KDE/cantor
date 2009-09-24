@@ -26,20 +26,20 @@
 #include <kxmlguiclient.h>
 #include <kplugininfo.h>
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
 class KConfigSkeleton;
 class QWidget;
 class QSyntaxHighlighter;
 class QTextEdit;
 
-namespace MathematiK
+namespace Cantor
 {
 class Session;
 class Extension;
 class BackendPrivate;
 
-class MATHEMATIK_EXPORT Backend : public QObject, public KXMLGUIClient
+class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
   public:

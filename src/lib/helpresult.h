@@ -23,14 +23,14 @@
 
 #include "textresult.h"
 
-namespace MathematiK
+namespace Cantor
 {
 
 /** this is basically a TextResult, just with a different Type
     so that the application can show it in another way than the
     normal results
 **/
-class MATHEMATIK_EXPORT HelpResult : public TextResult
+class CANTOR_EXPORT HelpResult : public TextResult
 {
   public:
     enum {Type=3};

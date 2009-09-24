@@ -24,13 +24,13 @@
 #include <QObject>
 #include <QTextCursor>
 
-namespace MathematiK
+namespace Cantor
 {
     class Result;
 }
 
 /**
-   This class is used to translate from the MathematiK::Result classes,
+   This class is used to translate from the Cantor::Result classes,
    which need to be indipendent of the rendering used, to the actually
    used QTextDocument and the containing QTextObjects
  **/
@@ -41,12 +41,12 @@ class ResultProxy : public QObject
     ResultProxy( QTextDocument* parent );
     ~ResultProxy();
 
-    void insertResult(QTextCursor& pos, MathematiK::Result* result);
+    void insertResult(QTextCursor& pos, Cantor::Result* result);
 
     void setScale(qreal scale);
     void scale(qreal value);
   private:
-    QTextCharFormat renderEps(MathematiK::Result* result);
+    QTextCharFormat renderEps(Cantor::Result* result);
 
   private:
     QTextDocument* m_document;

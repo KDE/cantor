@@ -19,13 +19,13 @@
  */
 
 #include "epsresult.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <kdebug.h>
 #include <kzip.h>
 #include <kio/job.h>
 
-class MathematiK::EpsResultPrivate{
+class Cantor::EpsResultPrivate{
     public:
         KUrl url;
 };

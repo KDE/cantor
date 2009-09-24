@@ -36,7 +36,7 @@
 
 #define ASK_TIME 100
 
-MaximaExpression::MaximaExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
+MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug();
     m_tempFile=0;
@@ -56,7 +56,7 @@ MaximaExpression::~MaximaExpression()
 void MaximaExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
-    setStatus(MathematiK::Expression::Computing);
+    setStatus(Cantor::Expression::Computing);
 
     m_isHelpRequest=false;
     if(m_tempFile)
@@ -74,7 +74,7 @@ void MaximaExpression::evaluate()
     {
         m_isPlot=true;
         m_tempFile=new KTemporaryFile();
-        m_tempFile->setPrefix( "mathematik_maxima-" );
+        m_tempFile->setPrefix( "cantor_maxima-" );
         m_tempFile->setSuffix( ".eps" );
         m_tempFile->open();
 
@@ -132,7 +132,7 @@ void MaximaExpression::addInformation(const QString& information)
     QString inf=information;
     if(!inf.endsWith(';'))
         inf+=';';
-    MathematiK::Expression::addInformation(inf);
+    Cantor::Expression::addInformation(inf);
 
     dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+'\n');
 }
@@ -260,12 +260,12 @@ void MaximaExpression::parseTexResult(const QString& text)
     if(!completeLatex.isEmpty())
     {
         kDebug()<<"latex: "<<completeLatex;
-        MathematiK::TextResult* result=new MathematiK::TextResult(completeLatex);
-        result->setFormat(MathematiK::TextResult::LatexFormat);
+        Cantor::TextResult* result=new Cantor::TextResult(completeLatex);
+        result->setFormat(Cantor::TextResult::LatexFormat);
 
         m_outputCache.clear();
         setResult(result);
-        setStatus(MathematiK::Expression::Done);
+        setStatus(Cantor::Expression::Done);
     }
 }
 
@@ -279,31 +279,31 @@ void MaximaExpression::evalFinished()
     if(!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
         text.replace(' ', "&nbsp;");
 
-    MathematiK::TextResult* result;
+    Cantor::TextResult* result;
 
     if(m_tempFile)
         QTimer::singleShot(500, this, SLOT(imageChanged()));
 
     if(m_isHelpRequest)
     {
-        result=new MathematiK::HelpResult(m_errCache);
+        result=new Cantor::HelpResult(m_errCache);
         setResult(result);
-        setStatus(MathematiK::Expression::Done);
+        setStatus(Cantor::Expression::Done);
     }
     else
     {
-        result=new MathematiK::TextResult(text);
+        result=new Cantor::TextResult(text);
 
         setResult(result);
 
         if(!m_errCache.isEmpty())
         {
             setErrorMessage(m_errCache);
-            setStatus(MathematiK::Expression::Error);
+            setStatus(Cantor::Expression::Error);
         }
         else
         {
-            setStatus(MathematiK::Expression::Done);
+            setStatus(Cantor::Expression::Done);
         }
     }
 
@@ -314,11 +314,11 @@ void MaximaExpression::evalFinished()
 bool MaximaExpression::needsLatexResult()
 {
     bool needsLatex=session()->isTypesettingEnabled() &&
-        status()!=MathematiK::Expression::Error &&
-        finishingBehavior()==MathematiK::Expression::DoNotDelete;
+        status()!=Cantor::Expression::Error &&
+        finishingBehavior()==Cantor::Expression::DoNotDelete;
 
-    if (result()&&result()->type()==MathematiK::TextResult::Type&&result()->data().toString()!="false" )
-       return needsLatex && dynamic_cast<MathematiK::TextResult*>(result())->format()!=MathematiK::TextResult::LatexFormat;
+    if (result()&&result()->type()==Cantor::TextResult::Type&&result()->data().toString()!="false" )
+       return needsLatex && dynamic_cast<Cantor::TextResult*>(result())->format()!=Cantor::TextResult::LatexFormat;
     else
         return false;
 }
@@ -328,8 +328,8 @@ void MaximaExpression::imageChanged()
     kDebug()<<"the temp image has changed";
     if(m_tempFile->size()>0)
     {
-        setResult( new MathematiK::EpsResult( KUrl(m_tempFile->fileName()) ) );
-        setStatus(MathematiK::Expression::Done);
+        setResult( new Cantor::EpsResult( KUrl(m_tempFile->fileName()) ) );
+        setStatus(Cantor::Expression::Done);
     }
 }
 

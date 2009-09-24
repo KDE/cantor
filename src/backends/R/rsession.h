@@ -27,11 +27,11 @@
 class RExpression;
 class KProcess;
 
-class RSession : public MathematiK::Session
+class RSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    RSession( MathematiK::Backend* backend);
+    RSession( Cantor::Backend* backend);
     ~RSession();
 
     void login();
@@ -39,7 +39,7 @@ class RSession : public MathematiK::Session
 
     void interrupt();
 
-    MathematiK::Expression* evaluateExpression(const QString& command, MathematiK::Expression::FinishingBehavior behave);
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);
@@ -50,7 +50,7 @@ class RSession : public MathematiK::Session
 
   private:
     KProcess* m_rProcess;
-    org::kde::MathematiK::R* m_rServer;
+    org::kde::Cantor::R* m_rServer;
     QList<RExpression*> m_expressionQueue;
 };
 

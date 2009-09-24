@@ -33,10 +33,10 @@
     dealing with loaded Worksheets instead of newly 
     created ones.
 **/
-class LoadedExpression : public MathematiK::Expression
+class LoadedExpression : public Cantor::Expression
 {
   public:
-    LoadedExpression( MathematiK::Session* session );
+    LoadedExpression( Cantor::Session* session );
     ~LoadedExpression();
 
     void evaluate();

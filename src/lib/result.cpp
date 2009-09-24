@@ -19,9 +19,9 @@
  */
 
 #include "result.h"
-using namespace MathematiK;
+using namespace Cantor;
 
-class MathematiK::ResultPrivate
+class Cantor::ResultPrivate
 {
   public:
 

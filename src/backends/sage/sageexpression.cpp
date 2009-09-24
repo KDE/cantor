@@ -30,7 +30,7 @@
 #include <kurl.h>
 #include <QRegExp>
 
-SageExpression::SageExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
+SageExpression::SageExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug();
 }
@@ -43,7 +43,7 @@ SageExpression::~SageExpression()
 void SageExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
-    setStatus(MathematiK::Expression::Computing);
+    setStatus(Cantor::Expression::Computing);
     m_imagePath.clear();
 
     m_isHelpRequest=false;
@@ -95,7 +95,7 @@ void SageExpression::parseOutput(const QString& text)
         {
             interrupt();
             setErrorMessage(i18n("Syntax Error"));
-            setStatus(MathematiK::Expression::Error);
+            setStatus(Cantor::Expression::Error);
             return;
         }
 
@@ -110,8 +110,8 @@ void SageExpression::parseOutput(const QString& text)
 void SageExpression::parseError(const QString& text)
 {
     kDebug()<<"error";
-    setResult(new MathematiK::TextResult(text));
-    setStatus(MathematiK::Expression::Error);
+    setResult(new Cantor::TextResult(text));
+    setStatus(Cantor::Expression::Error);
 }
 
 void SageExpression::addFileResult( const QString& path )
@@ -131,7 +131,7 @@ void SageExpression::evalFinished()
 
     if ( m_imagePath.isNull() ) //If this result contains a file, drop the text information
     {
-        MathematiK::TextResult* result=0;
+        Cantor::TextResult* result=0;
 
         QString stripped=m_outputCache;
         const bool isHtml=stripped.startsWith(QLatin1String("<html>"));
@@ -161,30 +161,30 @@ void SageExpression::evalFinished()
             //make things quoted in `` `` bold
             stripped.replace(QRegExp("``([^`]*)``"), "<b>\\1</b>");
 
-            result=new MathematiK::HelpResult(stripped);
+            result=new Cantor::HelpResult(stripped);
         }
         else
         {
-            result=new MathematiK::TextResult(stripped);
+            result=new Cantor::TextResult(stripped);
         }
 
         if(isLatex)
-            result->setFormat(MathematiK::TextResult::LatexFormat);
+            result->setFormat(Cantor::TextResult::LatexFormat);
 
         setResult(result);
     }
     else
     {
-      setResult( new MathematiK::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
+      setResult( new Cantor::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
     }
-    setStatus(MathematiK::Expression::Done);
+    setStatus(Cantor::Expression::Done);
 }
 
 void SageExpression::onProcessError(const QString& msg)
 {
     QString errMsg=i18n("%1\nThe last output was: \n %2", msg, m_outputCache.trimmed());
     setErrorMessage(errMsg);
-    setStatus(MathematiK::Expression::Error);
+    setStatus(Cantor::Expression::Error);
 }
 
 QString SageExpression::additionalLatexHeaders()

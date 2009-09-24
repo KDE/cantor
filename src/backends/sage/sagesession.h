@@ -31,20 +31,20 @@ class SageExpression;
 class KPtyProcess;
 
 
-class SageSession : public MathematiK::Session
+class SageSession : public Cantor::Session
 {
   Q_OBJECT
   public:
     static const QByteArray SagePrompt;
     static const QByteArray SageAlternativePrompt;
 
-    SageSession( MathematiK::Backend* backend);
+    SageSession( Cantor::Backend* backend);
     ~SageSession();
 
     void login();
     void logout();
 
-    MathematiK::Expression* evaluateExpression(const QString& command,MathematiK::Expression::FinishingBehavior behave);
+    Cantor::Expression* evaluateExpression(const QString& command,Cantor::Expression::FinishingBehavior behave);
 
     void appendExpressionToQueue(SageExpression* expr);
 
@@ -55,14 +55,14 @@ class SageSession : public MathematiK::Session
 
     void setTypesettingEnabled(bool enable);
 
-    MathematiK::TabCompletionObject* tabCompletionFor(const QString& command);
+    Cantor::TabCompletionObject* tabCompletionFor(const QString& command);
 
   public slots:
     void readStdOut();
     void readStdErr();
 
   private slots:
-    void currentExpressionChangedStatus(MathematiK::Expression::Status status);
+    void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void fileCreated(const QString& path);
 

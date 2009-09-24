@@ -17,8 +17,8 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
-#include "mathematik.h"
-#include "mathematik.moc"
+#include "cantor.h"
+#include "cantor.moc"
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -50,27 +50,27 @@
 #include "ui_settings.h"
 #include "backendchoosedialog.h"
 
-MathematiKShell::MathematiKShell()
+CantorShell::CantorShell()
     : KParts::MainWindow( )
 {
     m_part=0;
 
     // set the shell's ui resource file
-    setXMLFile("mathematik_shell.rc");
+    setXMLFile("cantor_shell.rc");
 
     // then, setup our actions
     setupActions();
 
     QDockWidget* dock=new QDockWidget(i18n("Help"), this);
     m_helpView=new KTextEdit(dock);
-    m_helpView->setText(i18n("<h1>MathematiK</h1>The KDE way to do Mathematics"));
+    m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
     m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
     dock->setWidget(m_helpView);
     addDockWidget ( Qt::RightDockWidgetArea,  dock );
 
     createGUI(0);
     bool hasBackend=false;
-    foreach(MathematiK::Backend* b, MathematiK::Backend::availableBackends())
+    foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
     {
         if(b->isEnabled())
             hasBackend=true;
@@ -88,7 +88,7 @@ MathematiKShell::MathematiKShell()
     {
         KTextBrowser *browser=new KTextBrowser(this);
         QString backendList="<ul>";
-        foreach(MathematiK::Backend* b, MathematiK::Backend::availableBackends())
+        foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
         {
             if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
                 backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
@@ -112,11 +112,11 @@ MathematiKShell::MathematiKShell()
     setAutoSaveSettings();
 }
 
-MathematiKShell::~MathematiKShell()
+CantorShell::~CantorShell()
 {
 }
 
-void MathematiKShell::load(const KUrl& url)
+void CantorShell::load(const KUrl& url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
@@ -126,7 +126,7 @@ void MathematiKShell::load(const KUrl& url)
     m_part->openUrl( url );
 }
 
-void MathematiKShell::setupActions()
+void CantorShell::setupActions()
 {
     KStandardAction::openNew(this, SLOT(fileNew()), actionCollection());
     KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
@@ -155,14 +155,14 @@ void MathematiKShell::setupActions()
     connect(openExample, SIGNAL(triggered()), this, SLOT(openExample()));
 }
 
-void MathematiKShell::saveProperties(KConfigGroup & /*config*/)
+void CantorShell::saveProperties(KConfigGroup & /*config*/)
 {
     // the 'config' object points to the session managed
     // config file.  anything you write here will be available
     // later when this app is restored
 }
 
-void MathematiKShell::readProperties(const KConfigGroup & /*config*/)
+void CantorShell::readProperties(const KConfigGroup & /*config*/)
 {
     // the 'config' object points to the session managed
     // config file.  this function is automatically called whenever
@@ -170,20 +170,20 @@ void MathematiKShell::readProperties(const KConfigGroup & /*config*/)
     // in 'saveProperties'
 }
 
-void MathematiKShell::fileNew()
+void CantorShell::fileNew()
 {
     addWorksheet();
 }
 
-void MathematiKShell::optionsConfigureKeys()
+void CantorShell::optionsConfigureKeys()
 {
   /*KShortcutsDialog dlg( KKeyChooser::AllActions, KKeyChooser::LetterShortcutsDisallowed, this );
-  dlg.insert( actionCollection(), "mathematik_shell.rc" );
-  dlg.insert( m_part->actionCollection(), "mathematik_part.rc" );
+  dlg.insert( actionCollection(), "cantor_shell.rc" );
+  dlg.insert( m_part->actionCollection(), "cantor_part.rc" );
   (void) dlg.configure( true );*/
 }
 
-void MathematiKShell::optionsConfigureToolbars()
+void CantorShell::optionsConfigureToolbars()
 {
     //saveMainWindowSettings(KGlobal::config(), autoSaveGroup());
 
@@ -194,17 +194,17 @@ void MathematiKShell::optionsConfigureToolbars()
     dlg.exec();*/
 }
 
-void MathematiKShell::applyNewToolbarConfig()
+void CantorShell::applyNewToolbarConfig()
 {
     //applyMainWindowSettings(KGlobal::config(), autoSaveGroup());
 }
 
-void MathematiKShell::fileOpen()
+void CantorShell::fileOpen()
 {
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-    KUrl url = KFileDialog::getOpenUrl( KUrl(), i18n("*.mws|MathematiK Worksheet"), this );
+    KUrl url = KFileDialog::getOpenUrl( KUrl(), i18n("*.mws|Cantor Worksheet"), this );
 
     if (url.isEmpty() == false)
     {
@@ -220,7 +220,7 @@ void MathematiKShell::fileOpen()
         else
         {
             // we open the file in a new window...
-            MathematiKShell* newWin = new MathematiKShell;
+            CantorShell* newWin = new CantorShell;
             newWin->load( url );
             newWin->show();
             }*/
@@ -228,7 +228,7 @@ void MathematiKShell::fileOpen()
     }
 }
 
-void MathematiKShell::addWorksheet()
+void CantorShell::addWorksheet()
 {
     QPointer<BackendChooseDialog> dlg=new BackendChooseDialog(this);
     if(dlg->exec())
@@ -240,19 +240,19 @@ void MathematiKShell::addWorksheet()
     delete dlg;
 }
 
-void MathematiKShell::addWorksheet(const QString& backendName)
+void CantorShell::addWorksheet(const QString& backendName)
 {
     static int sessionCount=1;
 
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KLibFactory *factory = KLibLoader::self()->factory("libmathematikpart");
+    KLibFactory *factory = KLibLoader::self()->factory("libcantorpart");
     if (factory)
     {
         // now that the Part is loaded, we cast it to a Part to get
         // our hands on it
-        KParts::ReadWritePart* part = dynamic_cast<KParts::ReadWritePart *>(factory->create(m_tabWidget, "MathematiKPart", QStringList()<<backendName ));
+        KParts::ReadWritePart* part = dynamic_cast<KParts::ReadWritePart *>(factory->create(m_tabWidget, "CantorPart", QStringList()<<backendName ));
 
         if (part)
         {
@@ -271,7 +271,7 @@ void MathematiKShell::addWorksheet(const QString& backendName)
     {
         // if we couldn't find our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Could not find the MathematiK Part."));
+        KMessageBox::error(this, i18n("Could not find the Cantor Part."));
         qApp->quit();
         // we return here, cause qApp->quit() only means "exit the
         // next time we enter the event loop...
@@ -280,7 +280,7 @@ void MathematiKShell::addWorksheet(const QString& backendName)
 
 }
 
-void MathematiKShell::activateWorksheet(int index)
+void CantorShell::activateWorksheet(int index)
 {
     m_part=m_parts.value(index);
     if(m_part)
@@ -291,7 +291,7 @@ void MathematiKShell::activateWorksheet(int index)
     m_tabWidget->setCurrentIndex(index);
 }
 
-void MathematiKShell::setTabCaption(const QString& caption)
+void CantorShell::setTabCaption(const QString& caption)
 {
     if (caption.isEmpty()) return;
 
@@ -299,7 +299,7 @@ void MathematiKShell::setTabCaption(const QString& caption)
     m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
 }
 
-void MathematiKShell::closeTab(QWidget* widget)
+void CantorShell::closeTab(QWidget* widget)
 {
     if(widget==0) widget=m_part->widget();
     int index=m_tabWidget->indexOf(widget);
@@ -310,16 +310,16 @@ void MathematiKShell::closeTab(QWidget* widget)
     part->deleteLater();
 }
 
-void MathematiKShell::showSettings()
+void CantorShell::showSettings()
 {
     KConfigDialog *dialog = new KConfigDialog(this,  "settings", Settings::self());
     QWidget *generalSettings = new QWidget;
     Ui::SettingsBase base;
     base.setupUi(generalSettings);
-    base.kcfg_DefaultBackend->addItems(MathematiK::Backend::listAvailableBackends());
+    base.kcfg_DefaultBackend->addItems(Cantor::Backend::listAvailableBackends());
 
     dialog->addPage(generalSettings, i18n("General"), "preferences-other");
-    foreach(MathematiK::Backend* backend, MathematiK::Backend::availableBackends())
+    foreach(Cantor::Backend* backend, Cantor::Backend::availableBackends())
     {
         if (backend->config()) //It has something to configure, so add it to the dialog
             dialog->addPage(backend->settingsWidget(dialog), backend->config(), backend->name(),  backend->icon());
@@ -328,7 +328,7 @@ void MathematiKShell::showSettings()
     dialog->show();
 }
 
-void MathematiKShell::downloadExamples()
+void CantorShell::downloadExamples()
 {
     KNS::Entry::List entries = KNS::Engine::download();
     // list of changed entries
@@ -344,7 +344,7 @@ void MathematiKShell::downloadExamples()
     qDeleteAll(entries);
 }
 
-void MathematiKShell::openExample()
+void CantorShell::openExample()
 {
     QString dir = KStandardDirs::locateLocal("appdata",  "examples");
     if (dir.isEmpty()) return;

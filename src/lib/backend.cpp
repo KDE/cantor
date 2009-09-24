@@ -19,7 +19,7 @@
  */
 
 #include "backend.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <kservicetypetrader.h>
 #include <kservice.h>
@@ -29,7 +29,7 @@ using namespace MathematiK;
 
 #include "extension.h"
 
-class MathematiK::BackendPrivate
+class Cantor::BackendPrivate
 {
   public:
     QString name;
@@ -120,7 +120,7 @@ QList<Backend*> Backend::availableBackends()
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
     QString error;
 
-    services = trader->query("MathematiK/Backend");
+    services = trader->query("Cantor/Backend");
 
     foreach (const KService::Ptr &service,  services)
     {
@@ -135,7 +135,7 @@ QList<Backend*> Backend::availableBackends()
         backend->d->comment=info.comment();
         backend->d->icon=info.icon();
         backend->d->url=info.website();
-        backend->d->helpUrl=info.property("X-MathematiK-HelpUrl").toUrl();
+        backend->d->helpUrl=info.property("X-Cantor-HelpUrl").toUrl();
         backendCache<<backend;
     }
     return backendCache;

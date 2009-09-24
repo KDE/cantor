@@ -23,7 +23,7 @@
 
 #include "extension.h"
 
-class SageHistoryExtension : public MathematiK::HistoryExtension
+class SageHistoryExtension : public Cantor::HistoryExtension
 {
   public:
     SageHistoryExtension( QObject* parent );
@@ -32,7 +32,7 @@ class SageHistoryExtension : public MathematiK::HistoryExtension
     QString lastResult();
 };
 
-class SageScriptExtension : public MathematiK::ScriptExtension
+class SageScriptExtension : public Cantor::ScriptExtension
 {
   public:
     SageScriptExtension(QObject* parent);
@@ -42,7 +42,7 @@ class SageScriptExtension : public MathematiK::ScriptExtension
     virtual QString scriptFileFilter();
 };
 
-class SageCASExtension : public MathematiK::CASExtension
+class SageCASExtension : public Cantor::CASExtension
 {
   public:
     SageCASExtension( QObject* parent);
@@ -55,7 +55,7 @@ class SageCASExtension : public MathematiK::CASExtension
 
 };
 
-class SageCalculusExtension : public MathematiK::CalculusExtension
+class SageCalculusExtension : public Cantor::CalculusExtension
 {
   public:
     SageCalculusExtension( QObject* parent);
@@ -68,7 +68,7 @@ class SageCalculusExtension : public MathematiK::CalculusExtension
     QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
 };
 
-class SageLinearAlgebraExtension : public MathematiK::LinearAlgebraExtension
+class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
   public:
     SageLinearAlgebraExtension( QObject* parent);

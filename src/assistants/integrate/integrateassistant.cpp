@@ -24,7 +24,7 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include "ui_integratedlg.h"
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
 
@@ -40,7 +40,7 @@ IntegrateAssistant::~IntegrateAssistant()
 
 void IntegrateAssistant::initActions()
 {
-    setXMLFile("mathematik_integrate_assistant.rc");
+    setXMLFile("cantor_integrate_assistant.rc");
     KAction* integrate=new KAction(i18n("Integrate"), actionCollection());
     integrate->setIcon(KIcon(icon()));
     actionCollection()->addAction("integrate_assistant", integrate);
@@ -61,7 +61,7 @@ QStringList IntegrateAssistant::run(QWidget* parent)
         QString expression=base.expression->text();
         QString variable=base.variable->text();
 
-        MathematiK::CalculusExtension* ext= dynamic_cast<MathematiK::CalculusExtension*>(backend()->extension("CalculusExtension"));
+        Cantor::CalculusExtension* ext= dynamic_cast<Cantor::CalculusExtension*>(backend()->extension("CalculusExtension"));
         if (base.isDefinite->isChecked())
         {
             QString lower=base.lowerLimit->text();
@@ -78,4 +78,4 @@ QStringList IntegrateAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(integrateassistant, IntegrateAssistant)
+K_EXPORT_CANTOR_PLUGIN(integrateassistant, IntegrateAssistant)

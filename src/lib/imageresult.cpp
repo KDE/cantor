@@ -19,14 +19,14 @@
  */
 
 #include "imageresult.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <QImage>
 #include <QImageWriter>
 #include <kzip.h>
 #include <kdebug.h>
 
-class MathematiK::ImageResultPrivate
+class Cantor::ImageResultPrivate
 {
   public:
     ImageResultPrivate()

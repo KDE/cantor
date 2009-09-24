@@ -25,7 +25,7 @@
 
 #include <kdebug.h>
 
-SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSession* session) : MathematiK::TabCompletionObject(command, session)
+SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSession* session) : Cantor::TabCompletionObject(command, session)
 {
     m_expression=0;
 
@@ -64,8 +64,8 @@ void SageTabCompletionObject::fetchCompletions()
 
 void SageTabCompletionObject::fetchingDone()
 {
-    MathematiK::Result* res=m_expression->result();
-    if(!res||!res->type()==MathematiK::TextResult::Type)
+    Cantor::Result* res=m_expression->result();
+    if(!res||!res->type()==Cantor::TextResult::Type)
     {
         kDebug()<<"something went wrong fetching tab completion";
         return;

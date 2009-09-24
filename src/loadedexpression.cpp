@@ -28,7 +28,7 @@
 #include <kglobal.h>
 #include <kstandarddirs.h>
 
-LoadedExpression::LoadedExpression( MathematiK::Session* session ) : MathematiK::Expression( session )
+LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session )
 {
 
 }
@@ -53,11 +53,11 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
     setCommand(xml.firstChildElement("Command").text());
 
     QDomElement resultElement=xml.firstChildElement("Result");
-    MathematiK::Result* result=0;
+    Cantor::Result* result=0;
     const QString& type=resultElement.attribute("type");
     if ( type == "text")
     {
-        result=new MathematiK::TextResult(resultElement.text());
+        result=new Cantor::TextResult(resultElement.text());
     }
     else if (type == "image" || type == "latex")
     {
@@ -65,18 +65,18 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=KGlobal::dirs()->saveLocation("tmp", "mathematik/");
+            QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
             imageFile->copyTo(dir);
             KUrl imageUrl=dir+'/'+imageFile->name();
             if(type=="latex")
             {
-                result=new MathematiK::LatexResult(resultElement.text(), imageUrl);
+                result=new Cantor::LatexResult(resultElement.text(), imageUrl);
             }else if(imageFile->name().endsWith(QLatin1String(".eps")))
             {
-                result=new MathematiK::EpsResult(imageUrl);
+                result=new Cantor::EpsResult(imageUrl);
             }else
             {
-                result=new MathematiK::ImageResult(imageUrl);
+                result=new Cantor::ImageResult(imageUrl);
             }
         }
     }

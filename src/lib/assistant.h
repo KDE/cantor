@@ -25,14 +25,14 @@
 #include <QObject>
 #include <kplugininfo.h>
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
-namespace MathematiK
+namespace Cantor
 {
 class Backend;
 class AssistantPrivate;
 
-class MATHEMATIK_EXPORT Assistant : public QObject, public KXMLGUIClient
+class CANTOR_EXPORT Assistant : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
   public:

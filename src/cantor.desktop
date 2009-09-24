@@ -1,15 +1,15 @@
 [Desktop Entry]
-Name=MathematiK
-Name[pt]=MathematiK
-Name[pt_BR]=MathematiK
+Name=Cantor
+Name[pt]=Cantor
+Name[pt_BR]=Cantor
 Name[sv]=Matematik
-Name[tr]=MathematiK
-Name[uk]=MathematiK
-Name[x-test]=xxMathematiKxx
-Exec=mathematik %i -caption "%c"
-Icon=mathematik
+Name[tr]=Cantor
+Name[uk]=Cantor
+Name[x-test]=xxCantorxx
+Exec=cantor %i -caption "%c"
+Icon=cantor
 Type=Application
-X-DocPath=mathematik/index.html
+X-DocPath=cantor/index.html
 GenericName=KDE Frontend to Mathematical Software.
 GenericName[pt]=Interface para KDE de Aplicações Matemáticas.
 GenericName[pt_BR]=Uma interface do KDE para software matemático.

@@ -19,9 +19,9 @@
  */
 
 #include "assistant.h"
-using namespace MathematiK;
+using namespace Cantor;
 
-class MathematiK::AssistantPrivate
+class Cantor::AssistantPrivate
 {
   public:
     QString name;
@@ -41,7 +41,7 @@ Assistant::~Assistant()
 
 }
 
-void Assistant::setBackend(MathematiK::Backend* backend)
+void Assistant::setBackend(Cantor::Backend* backend)
 {
     d->backend=backend;
 }

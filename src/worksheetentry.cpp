@@ -83,7 +83,7 @@ QString WorksheetEntry::command()
     return cmd;
 }
 
-void WorksheetEntry::setExpression(MathematiK::Expression* expr)
+void WorksheetEntry::setExpression(Cantor::Expression* expr)
 {
     if ( m_expression )
         m_expression->deleteLater();
@@ -102,7 +102,7 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateResult()));
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
-    connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(expressionChangedStatus(MathematiK::Expression::Status)));
+    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
 
     updatePrompt();
@@ -111,7 +111,7 @@ void WorksheetEntry::setExpression(MathematiK::Expression* expr)
         updateResult();
 }
 
-MathematiK::Expression* WorksheetEntry::expression()
+Cantor::Expression* WorksheetEntry::expression()
 {
     return m_expression;
 }
@@ -131,7 +131,7 @@ void WorksheetEntry::updateResult()
     if (m_expression==0||m_expression->result()==0)  //Don't crash if we don't have a result
         return;
 
-    if (m_expression->result()->type()==MathematiK::HelpResult::Type) return;  //Help is handled elsewhere
+    if (m_expression->result()->type()==Cantor::HelpResult::Type) return;  //Help is handled elsewhere
 
     if(!m_resultCell.isValid())
     {
@@ -158,9 +158,9 @@ void WorksheetEntry::updateResult()
     m_worksheet->ensureCursorVisible();
 }
 
-void WorksheetEntry::expressionChangedStatus(MathematiK::Expression::Status status)
+void WorksheetEntry::expressionChangedStatus(Cantor::Expression::Status status)
 {
-    if(status==MathematiK::Expression::Error)
+    if(status==Cantor::Expression::Error)
     {
         if(!m_errorCell.isValid())
         {
@@ -193,7 +193,7 @@ bool WorksheetEntry::isEmpty()
     return text.trimmed().isEmpty();
 }
 
-void WorksheetEntry::setTabCompletion(MathematiK::TabCompletionObject* tc)
+void WorksheetEntry::setTabCompletion(Cantor::TabCompletionObject* tc)
 {
     if(m_tabCompletionObject)
         m_tabCompletionObject->deleteLater();

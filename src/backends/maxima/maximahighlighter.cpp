@@ -22,7 +22,7 @@
 
 #include <QTextEdit>
 
-MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : MathematiK::DefaultHighlighter(edit)
+MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
 {
     HighlightingRule rule;
 

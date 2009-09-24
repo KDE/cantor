@@ -22,7 +22,7 @@
 
 #include <klocale.h>
 
-RScriptExtension::RScriptExtension(QObject* parent) : MathematiK::ScriptExtension(parent)
+RScriptExtension::RScriptExtension(QObject* parent) : Cantor::ScriptExtension(parent)
 {
 
 }

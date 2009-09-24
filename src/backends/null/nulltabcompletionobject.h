@@ -25,7 +25,7 @@
 
 class NullSession;
 
-class NullTabCompletionObject : public MathematiK::TabCompletionObject
+class NullTabCompletionObject : public Cantor::TabCompletionObject
 {
   public:
     NullTabCompletionObject( const QString& command, NullSession* session);

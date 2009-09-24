@@ -50,14 +50,14 @@ void ResultProxy::scale(qreal value)
     m_scale*=value;
 }
 
-void ResultProxy::insertResult(QTextCursor& cursor, MathematiK::Result* result)
+void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 {
     switch(result->type())
     {
-        case MathematiK::LatexResult::Type:
+        case Cantor::LatexResult::Type:
             //if the lr is in Code-Mode, insert its html.
             //otherwise fallthrough to the EpsRendering code
-            if(dynamic_cast<MathematiK::LatexResult*>(result)->isCodeShown())
+            if(dynamic_cast<Cantor::LatexResult*>(result)->isCodeShown())
             {
                 QString html=result->toHtml().trimmed();
                 if(html.isEmpty())
@@ -67,7 +67,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, MathematiK::Result* result)
 
                 break;
             }
-        case MathematiK::EpsResult::Type:
+        case Cantor::EpsResult::Type:
             cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
             break;
         default:
@@ -80,7 +80,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, MathematiK::Result* result)
 }
 
 //private result specific rendering methods
-QTextCharFormat ResultProxy::renderEps(MathematiK::Result* result)
+QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
 {
     QTextImageFormat epsCharFormat;
 

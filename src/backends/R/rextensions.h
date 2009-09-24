@@ -23,7 +23,7 @@
 
 #include "extension.h"
 
-class RScriptExtension : public MathematiK::ScriptExtension
+class RScriptExtension : public Cantor::ScriptExtension
 {
   public:
     RScriptExtension(QObject* parent);

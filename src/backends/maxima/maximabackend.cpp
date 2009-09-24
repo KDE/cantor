@@ -29,10 +29,10 @@
 #include "kdebug.h"
 #include <QWidget>
 
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 
 
-MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : MathematiK::Backend( parent,args )
+MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     setObjectName("maximabackend");
     kDebug()<<"Creating MaximaBackend";
@@ -48,17 +48,17 @@ MaximaBackend::~MaximaBackend()
     kDebug()<<"Destroying MaximaBackend";
 }
 
-MathematiK::Session* MaximaBackend::createSession()
+Cantor::Session* MaximaBackend::createSession()
 {
     kDebug()<<"Spawning a new Maxima session";
 
     return new MaximaSession(this);
 }
 
-MathematiK::Backend::Capabilities MaximaBackend::capabilities()
+Cantor::Backend::Capabilities MaximaBackend::capabilities()
 {
     kDebug()<<"Requesting capabilities of MaximaSession";
-    return MathematiK::Backend::LaTexOutput|MathematiK::Backend::InteractiveMode|MathematiK::Backend::SyntaxHighlighting;
+    return Cantor::Backend::LaTexOutput|Cantor::Backend::InteractiveMode|Cantor::Backend::SyntaxHighlighting;
 }
 
 bool MaximaBackend::requirementsFullfilled()
@@ -96,6 +96,6 @@ QString MaximaBackend::description()
                 "floating point numbers. Maxima can plot functions and data in two and three dimensions. ");
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(maximabackend, MaximaBackend)
+K_EXPORT_CANTOR_PLUGIN(maximabackend, MaximaBackend)
 
 #include "maximabackend.moc"

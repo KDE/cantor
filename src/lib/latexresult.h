@@ -22,9 +22,9 @@
 #define _LATEXRESULT_H
 
 #include "epsresult.h"
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
-namespace MathematiK{
+namespace Cantor{
 class LatexResultPrivate;
 
 /**Class used for LaTeX results, it is basically an Eps result,
@@ -32,7 +32,7 @@ class LatexResultPrivate;
    LaTeX code, used to generate the Eps, so it can be retrieved
    later
 **/
-class MATHEMATIK_EXPORT LatexResult : public EpsResult
+class CANTOR_EXPORT LatexResult : public EpsResult
 {
   public:
     enum {Type=7};

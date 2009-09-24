@@ -24,7 +24,7 @@
 #include <kaction.h>
 #include <kdebug.h>
 #include <kactioncollection.h>
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
 #include "ui_eigenvaluesdlg.h"
@@ -41,7 +41,7 @@ EigenValuesAssistant::~EigenValuesAssistant()
 
 void EigenValuesAssistant::initActions()
 {
-    setXMLFile("mathematik_eigenvalues_assistant.rc");
+    setXMLFile("cantor_eigenvalues_assistant.rc");
     KAction* eigenvalues=new KAction(i18n("Compute Eigenvalues"), actionCollection());
     //eigenvalues->setIcon(KIcon(icon()));
     actionCollection()->addAction("eigenvalues_assistant", eigenvalues);
@@ -56,14 +56,14 @@ QStringList EigenValuesAssistant::run(QWidget* parent)
     base.setupUi(widget);
     dlg->setMainWidget(widget);
 
-    MathematiK::HistoryExtension* hist= dynamic_cast<MathematiK::HistoryExtension*>(backend()->extension("HistoryExtension"));
+    Cantor::HistoryExtension* hist= dynamic_cast<Cantor::HistoryExtension*>(backend()->extension("HistoryExtension"));
     base.matrix->setText(hist->lastResult());
 
     QStringList result;
     if( dlg->exec())
     {
         const QString& m=base.matrix->text();
-        MathematiK::LinearAlgebraExtension* ext= dynamic_cast<MathematiK::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
+        Cantor::LinearAlgebraExtension* ext= dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
         result<<ext->eigenValues(m);
     }
 
@@ -71,4 +71,4 @@ QStringList EigenValuesAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(eigenvaluesassistant, EigenValuesAssistant)
+K_EXPORT_CANTOR_PLUGIN(eigenvaluesassistant, EigenValuesAssistant)

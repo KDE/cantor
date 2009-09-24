@@ -24,7 +24,7 @@
 #include <kaction.h>
 #include <kactioncollection.h>
 #include "ui_solvedlg.h"
-#include "mathematik_macros.h"
+#include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
 
@@ -40,7 +40,7 @@ SolveAssistant::~SolveAssistant()
 
 void SolveAssistant::initActions()
 {
-    setXMLFile("mathematik_solve_assistant.rc");
+    setXMLFile("cantor_solve_assistant.rc");
     KAction* solve=new KAction(i18n("Solve equations"), actionCollection());
     solve->setIcon(KIcon(icon()));
     actionCollection()->addAction("solve_assistant", solve);
@@ -61,7 +61,7 @@ QStringList SolveAssistant::run(QWidget* parent)
         QStringList equations=base.equations->toPlainText().split('\n');
         QStringList variables=base.variables->text().split(", ");
 
-        MathematiK::CASExtension* ext= dynamic_cast<MathematiK::CASExtension*>(backend()->extension("CASExtension"));
+        Cantor::CASExtension* ext= dynamic_cast<Cantor::CASExtension*>(backend()->extension("CASExtension"));
 
         result<<ext->solve(equations, variables);
     }
@@ -70,4 +70,4 @@ QStringList SolveAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_MATHEMATIK_PLUGIN(solveassistant, SolveAssistant)
+K_EXPORT_CANTOR_PLUGIN(solveassistant, SolveAssistant)

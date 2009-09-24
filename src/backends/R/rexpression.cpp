@@ -33,7 +33,7 @@
 #include <QFile>
 #include <QStringList>
 
-RExpression::RExpression( MathematiK::Session* session ) : MathematiK::Expression(session)
+RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug();
 
@@ -48,7 +48,7 @@ RExpression::~RExpression()
 void RExpression::evaluate()
 {
     kDebug()<<"evaluating "<<command();
-    setStatus(MathematiK::Expression::Computing);
+    setStatus(Cantor::Expression::Computing);
     if(command().startsWith('?'))
         m_isHelpRequest=true;
     else
@@ -60,28 +60,28 @@ void RExpression::evaluate()
 void RExpression::interrupt()
 {
     kDebug()<<"interrupting command";
-    if(status()==MathematiK::Expression::Computing)
+    if(status()==Cantor::Expression::Computing)
         session()->interrupt();
-    setStatus(MathematiK::Expression::Interrupted);
+    setStatus(Cantor::Expression::Interrupted);
 }
 
 void RExpression::finished(int returnCode, const QString& text)
 {
     if(returnCode==RExpression::SuccessCode)
     {
-        setResult(new MathematiK::TextResult(text));
-        setStatus(MathematiK::Expression::Done);
+        setResult(new Cantor::TextResult(text));
+        setStatus(Cantor::Expression::Done);
     }else if (returnCode==RExpression::ErrorCode)
     {
-        setResult(new MathematiK::TextResult(text));
-        setStatus(MathematiK::Expression::Error);
+        setResult(new Cantor::TextResult(text));
+        setStatus(Cantor::Expression::Error);
         setErrorMessage(text);
     }
 }
 
 void RExpression::evaluationStarted()
 {
-    setStatus(MathematiK::Expression::Computing);
+    setStatus(Cantor::Expression::Computing);
 }
 
 void RExpression::addInformation(const QString& information)
@@ -99,16 +99,16 @@ void RExpression::showFilesAsResult(const QStringList& files)
         if(type->is("application/postscript"))
         {
             kDebug()<<"its PostScript";
-            setResult(new MathematiK::EpsResult(file));
+            setResult(new Cantor::EpsResult(file));
         }else if(type->is("text/plain"))
         {
             kDebug()<<"its plain text";
             QFile f(file);
             if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
             {
-                setResult(new MathematiK::TextResult(i18n("Error opening file %1", file)));
+                setResult(new Cantor::TextResult(i18n("Error opening file %1", file)));
                 setErrorMessage(i18n("Error opening file %1", file));
-                setStatus(MathematiK::Expression::Error);
+                setStatus(Cantor::Expression::Error);
             }
             QString content=QTextStream(&f).readAll();
             //replace appearing backspaces, as they mess the whole output up
@@ -119,18 +119,18 @@ void RExpression::showFilesAsResult(const QStringList& files)
 
             kDebug()<<"content: "<<content;
             if(m_isHelpRequest)
-                setResult(new MathematiK::HelpResult(content));
+                setResult(new Cantor::HelpResult(content));
             else
-                setResult(new MathematiK::TextResult(content));
+                setResult(new Cantor::TextResult(content));
         }else if (type->name().contains("image"))
         {
-            setResult(new MathematiK::ImageResult(file));
+            setResult(new Cantor::ImageResult(file));
         }
         else
         {
-            setResult(new MathematiK::TextResult(i18n("cannot open file %1: Unknown MimeType", file)));
+            setResult(new Cantor::TextResult(i18n("cannot open file %1: Unknown MimeType", file)));
             setErrorMessage(i18n("cannot open file %1: Unknown MimeType", file));
-            setStatus(MathematiK::Expression::Error);
+            setStatus(Cantor::Expression::Error);
         }
     }
 }

@@ -19,13 +19,13 @@
  */
 
 #include "latexresult.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <QFile>
 #include <QTextStream>
 #include <kdebug.h>
 
-class MathematiK::LatexResultPrivate
+class Cantor::LatexResultPrivate
 {
   public:
     LatexResultPrivate()

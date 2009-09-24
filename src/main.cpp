@@ -18,7 +18,7 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "mathematik.h"
+#include "cantor.h"
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
@@ -32,8 +32,8 @@ static const char version[] = "0.1";
 
 int main(int argc, char **argv)
 {
-    KAboutData about("mathematik", 0,
-                     ki18n("MathematiK"),
+    KAboutData about("cantor", 0,
+                     ki18n("Cantor"),
                      version, ki18n(description),
                      KAboutData::License_GPL,
                      ki18n("(C) 2009 Alexander Rieder"),
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 
     // see if we are starting with session management
     if (app.isSessionRestored())
-        RESTORE(MathematiKShell)
+        RESTORE(CantorShell)
     else
     {
         // no session.. just start up normally
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 
         if ( args->count() == 0 )
         {
-            MathematiKShell *widget = new MathematiKShell;
+            CantorShell *widget = new CantorShell;
             widget->show();
             if(args->isSet("backend"))
             {
@@ -75,7 +75,7 @@ int main(int argc, char **argv)
             int i = 0;
             for (; i < args->count(); i++ )
             {
-                MathematiKShell *widget = new MathematiKShell;
+                CantorShell *widget = new CantorShell;
                 widget->show();
                 widget->load( args->url( i ) );
             }

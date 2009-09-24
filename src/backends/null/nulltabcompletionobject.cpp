@@ -25,7 +25,7 @@
 
 #include "nullsession.h"
 
-NullTabCompletionObject::NullTabCompletionObject(const QString& command, NullSession* session) : MathematiK::TabCompletionObject(command, session)
+NullTabCompletionObject::NullTabCompletionObject(const QString& command, NullSession* session) : Cantor::TabCompletionObject(command, session)
 {
 
 }

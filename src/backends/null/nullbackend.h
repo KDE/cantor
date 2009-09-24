@@ -23,15 +23,15 @@
 
 #include "backend.h"
 
-class NullBackend : public MathematiK::Backend
+class NullBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
     explicit NullBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~NullBackend();
 
-    MathematiK::Session *createSession();
-    MathematiK::Backend::Capabilities capabilities();
+    Cantor::Session *createSession();
+    Cantor::Backend::Capabilities capabilities();
 
 };
 

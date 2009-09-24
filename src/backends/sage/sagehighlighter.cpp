@@ -22,7 +22,7 @@
 
 #include <QTextEdit>
 
-SageHighlighter::SageHighlighter(QTextEdit* edit) : MathematiK::DefaultHighlighter(edit)
+SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
 {
     HighlightingRule rule;
 

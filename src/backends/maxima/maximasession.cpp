@@ -40,7 +40,7 @@ static QByteArray initCmd="display2d:false$                     \n"\
                           "print(____END_OF_INIT____);          \n";
 static QByteArray texInitCmd="simp: false$ \n";
 
-MaximaSession::MaximaSession( MathematiK::Backend* backend) : Session(backend)
+MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
@@ -77,7 +77,7 @@ void MaximaSession::logout()
     disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
 
     if(m_expressionQueue.isEmpty())
-        evaluateExpression("quit();", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("quit();", Cantor::Expression::DeleteOnFinish);
     else
         interrupt();
     //Give maxima time to clean up
@@ -90,7 +90,7 @@ void MaximaSession::logout()
     m_expressionQueue.clear();
 }
 
-MathematiK::Expression* MaximaSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
+Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     MaximaExpression* expr=new MaximaExpression(this);
@@ -107,7 +107,7 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 
     if(m_expressionQueue.size()==1)
     {
-        changeStatus(MathematiK::Session::Running);
+        changeStatus(Cantor::Session::Running);
         runFirstExpression();
     }
 }
@@ -129,10 +129,10 @@ void MaximaSession::readStdOut()
         m_isInitialized=true;
 
         runFirstExpression();
-        evaluateExpression("kill(labels);", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
 
 
-        changeStatus(MathematiK::Session::Done);
+        changeStatus(Cantor::Session::Done);
 
         emit ready();
     }
@@ -168,14 +168,14 @@ void MaximaSession::readTeX()
     }
 }
 
-void MaximaSession::currentExpressionChangedStatus(MathematiK::Expression::Status status)
+void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
-    if(status!=MathematiK::Expression::Computing) //The session is ready for the next command
+    if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
         kDebug()<<"expression finished";
         MaximaExpression* expression=m_expressionQueue.first();
-        disconnect(expression, SIGNAL(statusChanged(MathematiK::Expression::Status)),
-                   this, SLOT(currentExpressionChangedStatus(MathematiK::Expression::Status)));
+        disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
+                   this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
         if(expression->needsLatexResult())
         {
@@ -188,7 +188,7 @@ void MaximaSession::currentExpressionChangedStatus(MathematiK::Expression::Statu
         kDebug()<<"running next command";
         m_expressionQueue.removeFirst();
         if(m_expressionQueue.isEmpty())
-            changeStatus(MathematiK::Session::Done);
+            changeStatus(Cantor::Session::Done);
         runFirstExpression();
 
     }
@@ -200,7 +200,7 @@ void MaximaSession::runFirstExpression()
     if(!m_expressionQueue.isEmpty()&&m_isInitialized)
     {
         MaximaExpression* expr=m_expressionQueue.first();
-        connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(currentExpressionChangedStatus(MathematiK::Expression::Status)));
+        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
         QString command=expr->internalCommand();
 
         kDebug()<<"writing "<<command+'\n'<<" to the process";
@@ -249,7 +249,7 @@ void MaximaSession::interrupt()
     if(!m_expressionQueue.isEmpty())
         m_expressionQueue.first()->interrupt();
     m_expressionQueue.clear();
-    changeStatus(MathematiK::Session::Done);
+    changeStatus(Cantor::Session::Done);
 }
 
 void MaximaSession::sendSignalToProcess(int signal)
@@ -296,14 +296,14 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     {
         startTexConvertProcess();
         //LaTeX and Display2d don't go together and even deliver wrong results
-        evaluateExpression("display2d:false", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("display2d:false", Cantor::Expression::DeleteOnFinish);
     }
     else if(m_texConvertProcess)
     {
         disconnect(m_texConvertProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
         m_texConvertProcess->deleteLater();
     }
-    MathematiK::Session::setTypesettingEnabled(enable);
+    Cantor::Session::setTypesettingEnabled(enable);
 }
 
 #include "maximasession.moc"

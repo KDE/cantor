@@ -23,7 +23,7 @@
 
 #include "assistant.h"
 
-class EigenValuesAssistant : public MathematiK::Assistant
+class EigenValuesAssistant : public Cantor::Assistant
 {
   public:
     EigenValuesAssistant( QObject* parent, QList<QVariant> args );

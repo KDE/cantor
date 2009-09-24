@@ -36,7 +36,7 @@ class Expression
 class RServer : public QObject
 {
   Q_OBJECT
-  Q_CLASSINFO("D-Bus Interface", "org.kde.MathematiK.R")
+  Q_CLASSINFO("D-Bus Interface", "org.kde.Cantor.R")
 
   public:
     enum Status { Idle=0, Busy };

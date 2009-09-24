@@ -29,7 +29,7 @@
   Python programming Language, as Sage is based on
   it
 */
-class SageHighlighter : public MathematiK::DefaultHighlighter
+class SageHighlighter : public Cantor::DefaultHighlighter
 {
   public:
     SageHighlighter( QTextEdit* edit);

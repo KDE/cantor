@@ -22,9 +22,9 @@
 #define _EXTENSION_H
 
 #include <QObject>
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
-namespace MathematiK
+namespace Cantor
 {
 /** This is the base class for all Extensions.
     An Extension provides a set of Methods to
@@ -33,7 +33,7 @@ namespace MathematiK
     tasks like solving equations etc. to be able
     to provide Backend independent Dialogs
 **/
-class MATHEMATIK_EXPORT Extension : public QObject
+class CANTOR_EXPORT Extension : public QObject
 {
   public:
     Extension( const QString& name, QObject* parent );
@@ -45,7 +45,7 @@ class MATHEMATIK_EXPORT Extension : public QObject
 
 /** An Extension providing commands for command history
  **/
-class MATHEMATIK_EXPORT HistoryExtension : public Extension
+class CANTOR_EXPORT HistoryExtension : public Extension
 {
   public:
     HistoryExtension(QObject* parent);
@@ -58,7 +58,7 @@ class MATHEMATIK_EXPORT HistoryExtension : public Extension
 /** An Extension providing commands to interact
     with external scripts
 **/
-class MATHEMATIK_EXPORT ScriptExtension : public Extension
+class CANTOR_EXPORT ScriptExtension : public Extension
 {
   public:
     ScriptExtension(QObject* parent);
@@ -75,7 +75,7 @@ class MATHEMATIK_EXPORT ScriptExtension : public Extension
     in computer algebra, like solving, simplifying
     etc
 **/
-class MATHEMATIK_EXPORT CASExtension : public Extension
+class CANTOR_EXPORT CASExtension : public Extension
 {
   public:
     CASExtension(QObject* parent);
@@ -90,7 +90,7 @@ class MATHEMATIK_EXPORT CASExtension : public Extension
 /** An extension providing the basic calculus
     stuff like limits, diffrentiate, integrate etc.
 **/
-class MATHEMATIK_EXPORT CalculusExtension : public Extension
+class CANTOR_EXPORT CalculusExtension : public Extension
 {
   public:
     CalculusExtension(QObject* parent);
@@ -105,7 +105,7 @@ class MATHEMATIK_EXPORT CalculusExtension : public Extension
 
 /** An extension providing basic plotting facilities
  **/
-class MATHEMATIK_EXPORT PlotExtension : public Extension
+class CANTOR_EXPORT PlotExtension : public Extension
 {
   public:
     PlotExtension(QObject* parent);
@@ -117,7 +117,7 @@ class MATHEMATIK_EXPORT PlotExtension : public Extension
 
 /** An extension for basic Linear Algebra
  **/
-class MATHEMATIK_EXPORT LinearAlgebraExtension : public Extension
+class CANTOR_EXPORT LinearAlgebraExtension : public Extension
 {
   public:
     enum VectorType { ColumnVector, RowVector };

@@ -1,7 +1,7 @@
 set(GENERIC_LIB_VERSION "0.0.1")
 set(GENERIC_LIB_SOVERSION "1")
 
-set( mathematik_LIB_SRCS
+set( cantor_LIB_SRCS
   session.cpp
   expression.cpp
   backend.cpp
@@ -17,32 +17,32 @@ set( mathematik_LIB_SRCS
   defaulthighlighter.cpp
 )
  
-Set( mathematik_LIB_HDRS 
+Set( cantor_LIB_HDRS 
      backend.h
      session.h
      expression.h
      backend_macros.h
 )
 
-kde4_add_kcfg_files(mathematik_LIB_SRCS settings.kcfgc)
-install(FILES mathematik_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+kde4_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
+install(FILES cantor_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-kde4_add_library( mathematiklibs  SHARED ${mathematik_LIB_SRCS} )
+kde4_add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
  
-target_link_libraries( mathematiklibs
+target_link_libraries( cantorlibs
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KIO_LIBS}
 )
-set_target_properties( mathematiklibs
+set_target_properties( cantorlibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
  
-install( TARGETS mathematiklibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 #install( FILES ${myshared_LIB_HDRS}
-#  DESTINATION ${INCLUDE_INSTALL_DIR}/mathematik
+#  DESTINATION ${INCLUDE_INSTALL_DIR}/cantor
 #  COMPONENT Devel
 #)
 
-install( FILES mathematik_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install( FILES mathematik_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})

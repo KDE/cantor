@@ -21,15 +21,15 @@
 #ifndef DEFAULTHIGHLIGHTER_H
 #define DEFAULTHIGHLIGHTER_H
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
 #include <QtGui/QSyntaxHighlighter>
 
-namespace MathematiK
+namespace Cantor
 {
 class DefaultHighlighterPrivate;
 
-class MATHEMATIK_EXPORT DefaultHighlighter : public QSyntaxHighlighter
+class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 {
   public:
     DefaultHighlighter(QTextEdit* parent);

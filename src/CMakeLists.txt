@@ -7,36 +7,36 @@ include_directories( lib )
 add_subdirectory(backends)
 add_subdirectory(assistants)
 
-set(mathematik_SRCS
+set(cantor_SRCS
    main.cpp
-   mathematik.cpp
+   cantor.cpp
    backendchoosedialog.cpp
  )
 
-kde4_add_kcfg_files(mathematik_SRCS settings.kcfgc)
-install(FILES mathematik.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+kde4_add_kcfg_files(cantor_SRCS settings.kcfgc)
+install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-kde4_add_ui_files(mathematik_SRCS settings.ui)
-kde4_add_ui_files(mathematik_SRCS backendchooser.ui)
+kde4_add_ui_files(cantor_SRCS settings.ui)
+kde4_add_ui_files(cantor_SRCS backendchooser.ui)
 
-kde4_add_executable(mathematik ${mathematik_SRCS})
+kde4_add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(mathematik ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} mathematiklibs)
+target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} cantorlibs)
 
 ########### install files ###############
-install(TARGETS mathematik ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( FILES mathematik.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES mathematik_shell.rc  DESTINATION  ${DATA_INSTALL_DIR}/mathematik )
+install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( FILES cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install( FILES cantor_shell.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )
 
-install( FILES mathematik.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 
 
 #########################################################################
 # KPART SECTION
 #########################################################################
-#kde_module_LTLIBRARIES = libmathematikpart.la
-set(mathematik_PART_SRCS
-   mathematik_part.cpp
+#kde_module_LTLIBRARIES = libcantorpart.la
+set(cantor_PART_SRCS
+   cantor_part.cpp
    worksheet.cpp
    worksheetentry.cpp
    scripteditorwidget.cpp
@@ -44,15 +44,15 @@ set(mathematik_PART_SRCS
    loadedexpression.cpp
  )
 
-kde4_add_kcfg_files(mathematik_PART_SRCS settings.kcfgc)
+kde4_add_kcfg_files(cantor_PART_SRCS settings.kcfgc)
 
-kde4_add_plugin(mathematikpart WITH_PREFIX ${mathematik_PART_SRCS})
+kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 
-target_link_libraries(mathematikpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS}
+target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS}
 				     ${KDE4_KTEXTEDITOR_LIBS} ${LIBSPECTRE_LIBRARY} 
-				     mathematiklibs )
+				     cantorlibs )
 
-install( FILES mathematik_part.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
-install( FILES mathematik_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/mathematikpart )
+install( FILES cantor_part.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( FILES cantor_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantorpart )
 
-install(TARGETS mathematikpart  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS cantorpart  DESTINATION ${PLUGIN_INSTALL_DIR} )

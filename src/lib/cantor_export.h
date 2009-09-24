@@ -18,21 +18,24 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _MATHEMATIK_MACROS_H
-#define _MATHEMATIK_MACROS_H
+#ifndef _CANTOR_EXPORT_H
+#define _CANTOR_EXPORT_H
 
+// needed for KDE_EXPORT and KDE_IMPORT macros
 #include <kdemacros.h>
-#include <KPluginFactory>
-#include <KPluginLoader>
 
-#define MATHEMATIK_VERSION 1
- 
-/**
-  Exports Backend plugin.
-*/
-#define K_EXPORT_MATHEMATIK_PLUGIN(libname, classname) \
-    K_PLUGIN_FACTORY(factory, registerPlugin<classname>();) \
-    K_EXPORT_PLUGIN(factory("mathematik_" #libname)) \
-    K_EXPORT_PLUGIN_VERSION(MATHEMATIK_VERSION)
+#ifndef CANTOR_EXPORT
+# if defined(MAKE_CANTORLIBS_LIB)
+// We are building this library
+#  define CANTOR_EXPORT KDE_EXPORT
+# else
+// We are using this library
+#  define CANTOR_EXPORT KDE_IMPORT
+# endif
+#endif
 
-#endif /* _MATHEMATIK_MACROS_H */
+# ifndef CANTOR_EXPORT_DEPRECATED
+#  define CANTOR_EXPORT_DEPRECATED KDE_DEPRECATED CANTOR_EXPORT
+# endif
+
+#endif /* _CANTOR_EXPORT_H */

@@ -18,8 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
 */
 
-#ifndef MATHEMATIKPART_H
-#define MATHEMATIKPART_H
+#ifndef CANTORPART_H
+#define CANTORPART_H
 
 #include <kparts/part.h>
 #include <lib/session.h>
@@ -39,19 +39,19 @@ class KProgressDialog;
  * @short Main Part
  * @author Alexander Rieder <alexanderrieder@gmail.com>
  */
-class MathematiKPart : public KParts::ReadWritePart
+class CantorPart : public KParts::ReadWritePart
 {
     Q_OBJECT
 public:
     /**
      * Default constructor
      */
-    MathematiKPart(QWidget *parentWidget,QObject *parent, const QStringList &args);
+    CantorPart(QWidget *parentWidget,QObject *parent, const QStringList &args);
 
     /**
      * Destructor
      */
-    virtual ~MathematiKPart();
+    virtual ~CantorPart();
 
     /**
      * This is a virtual function inherited from KParts::ReadWritePart.
@@ -102,7 +102,7 @@ protected slots:
     void showBackendHelp();
     void print();
     
-    void worksheetStatusChanged(MathematiK::Session::Status stauts);
+    void worksheetStatusChanged(Cantor::Session::Status stauts);
     void worksheetSessionChanged();
     void initialized();
     void updateCaption();
@@ -126,4 +126,4 @@ private:
     KAction* m_showBackendHelp;
 };
 
-#endif // MATHEMATIKPART_H
+#endif // CANTORPART_H

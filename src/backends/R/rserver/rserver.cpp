@@ -45,7 +45,7 @@ RServer::RServer()
     dbus.registerObject("/R",  this);
     m_isInitialized=false;
 
-    m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString("mathematik/rserver-%1").arg(getpid()));
+    m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString("cantor/rserver-%1").arg(getpid()));
     kDebug()<<"storing plots at "<<m_tmpDir;
 
     initR();
@@ -74,7 +74,7 @@ void RServer::initR()
 
     //R_SignalHandlers = 0;               // Don't let R set up its own signal handlers
 
-    const char *R_argv[] = {"MathematiK",  "--no-save",  "--no-readline",  "",  ""}; //--gui=none
+    const char *R_argv[] = {"Cantor",  "--no-save",  "--no-readline",  "",  ""}; //--gui=none
     const char *R_argv_opt[] = {"--vanilla",  "--slave"};
     int R_argc = (sizeof(R_argv) - sizeof(R_argv_opt) ) / sizeof(R_argv[0]);
 

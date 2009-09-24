@@ -18,8 +18,8 @@
  */
 
 
-#ifndef MATHEMATIK_H
-#define MATHEMATIK_H
+#ifndef CANTOR_H
+#define CANTOR_H
 
 #include <kparts/mainwindow.h>
 
@@ -32,19 +32,19 @@ class KTextEdit;
  * This is the application "Shell".  It has a menubar, toolbar, and
  * statusbar but relies on the "Part" to do all the real work.
  */
-class MathematiKShell : public KParts::MainWindow
+class CantorShell : public KParts::MainWindow
 {
     Q_OBJECT
 public:
     /**
      * Default Constructor
      */
-    MathematiKShell();
+    CantorShell();
 
     /**
      * Default Destructor
      */
-    virtual ~MathematiKShell();
+    virtual ~CantorShell();
 
     /**
      * Use this method to load whatever file/URL you have
@@ -96,4 +96,4 @@ private:
     KTextEdit* m_helpView;
 };
 
-#endif // MATHEMATIK_H
+#endif // CANTOR_H

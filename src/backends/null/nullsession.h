@@ -25,11 +25,11 @@
 
 class NullExpression;
 
-class NullSession : public MathematiK::Session
+class NullSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    NullSession( MathematiK::Backend* backend);
+    NullSession( Cantor::Backend* backend);
     ~NullSession();
 
     void login();
@@ -37,8 +37,8 @@ class NullSession : public MathematiK::Session
 
     void interrupt();
 
-    MathematiK::Expression* evaluateExpression(const QString& command, MathematiK::Expression::FinishingBehavior behave);
-    MathematiK::TabCompletionObject* tabCompletionFor(const QString& cmd);
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+    Cantor::TabCompletionObject* tabCompletionFor(const QString& cmd);
 
   private slots:
     void expressionFinished();

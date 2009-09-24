@@ -25,7 +25,7 @@
 #include <QTextTableCell>
 #include "lib/expression.h"
 
-namespace MathematiK{
+namespace Cantor{
     class Expression;
     class Result;
     class TabCompletionObject;
@@ -50,15 +50,15 @@ class WorksheetEntry : public QObject
     ~WorksheetEntry();
 
     QString command();
-    void setExpression(MathematiK::Expression* expr);
-    MathematiK::Expression* expression();
+    void setExpression(Cantor::Expression* expr);
+    Cantor::Expression* expression();
 
     //returns the line of the command cell, the textCursor is currently in
     QString currentLine(const QTextCursor& cursor);
 
     bool isEmpty();
 
-    void setTabCompletion(MathematiK::TabCompletionObject* tc);
+    void setTabCompletion(Cantor::TabCompletionObject* tc);
 
     QTextTableCell commandCell();
     QTextTableCell actualInformationCell();
@@ -84,7 +84,7 @@ class WorksheetEntry : public QObject
   public slots:
     void updateResult();
     void updatePrompt();
-    void expressionChangedStatus(MathematiK::Expression::Status status);
+    void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
     void applyTabCompletion();
   private slots:
@@ -96,10 +96,10 @@ class WorksheetEntry : public QObject
     QList<QTextTableCell> m_informationCells;
     QTextTableCell m_errorCell;
     QTextTableCell m_resultCell;
-    MathematiK::Expression* m_expression;
+    Cantor::Expression* m_expression;
     Worksheet* m_worksheet;
 
-    MathematiK::TabCompletionObject* m_tabCompletionObject;
+    Cantor::TabCompletionObject* m_tabCompletionObject;
 };
 
 #endif /* _WORKSHEETENTRY_H */

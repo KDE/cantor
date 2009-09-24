@@ -19,14 +19,14 @@
  */
 
 #include "textresult.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 #include <kdebug.h>
 
 #include <QFile>
 #include <QTextStream>
 
-class MathematiK::TextResultPrivate
+class Cantor::TextResultPrivate
 {
 public:
     TextResultPrivate()

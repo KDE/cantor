@@ -35,7 +35,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
     connect(m_ui.backendList, SIGNAL(currentItemChanged ( QListWidgetItem *,  QListWidgetItem *)), this, SLOT(updateDescription()));
     connect(m_ui.backendList, SIGNAL(itemDoubleClicked( QListWidgetItem *)), this, SLOT(accept()));
 
-    foreach(MathematiK::Backend* backend,  MathematiK::Backend::availableBackends())
+    foreach(Cantor::Backend* backend,  Cantor::Backend::availableBackends())
     {
         if(!backend->isEnabled()) //don't show disabled backends
             continue;
@@ -66,7 +66,7 @@ void BackendChooseDialog::onAccept()
 
 void BackendChooseDialog::updateDescription()
 {
-    MathematiK::Backend* current=MathematiK::Backend::createBackend( m_ui.backendList->currentItem()->text() );
+    Cantor::Backend* current=Cantor::Backend::createBackend( m_ui.backendList->currentItem()->text() );
     m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate, current->name(), current->description(), current->url()));
 }
 

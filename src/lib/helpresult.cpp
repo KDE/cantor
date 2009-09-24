@@ -19,7 +19,7 @@
  */
 
 #include "helpresult.h"
-using namespace MathematiK;
+using namespace Cantor;
 
 
 HelpResult::HelpResult(const QString& text) : TextResult(text)

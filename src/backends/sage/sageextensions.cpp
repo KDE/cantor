@@ -104,7 +104,7 @@ QString SageLinearAlgebraExtension::createVector(const QStringList& entries, Vec
     cmd.chop(1);
     cmd+=')';
 
-    if(type==MathematiK::LinearAlgebraExtension::ColumnVector)
+    if(type==Cantor::LinearAlgebraExtension::ColumnVector)
         cmd+=".transpose()";
 
     return cmd;
@@ -113,7 +113,7 @@ QString SageLinearAlgebraExtension::createVector(const QStringList& entries, Vec
 QString SageLinearAlgebraExtension::nullVector(int size, VectorType type)
 {
     QString cmd=QString("vector(seq(0 for i in range(0,%1)))").arg(size);
-    if(type==MathematiK::LinearAlgebraExtension::ColumnVector)
+    if(type==Cantor::LinearAlgebraExtension::ColumnVector)
         cmd+=".transpose()";
 
     return cmd;

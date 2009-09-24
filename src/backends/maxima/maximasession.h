@@ -31,20 +31,20 @@ class MaximaExpression;
 class KPtyProcess;
 
 
-class MaximaSession : public MathematiK::Session
+class MaximaSession : public Cantor::Session
 {
   Q_OBJECT
   public:
     static const QRegExp MaximaPrompt;
     static const QRegExp MaximaOutputPrompt;
 
-    MaximaSession( MathematiK::Backend* backend);
+    MaximaSession( Cantor::Backend* backend);
     ~MaximaSession();
 
     void login();
     void logout();
 
-    MathematiK::Expression* evaluateExpression(const QString& command, MathematiK::Expression::FinishingBehavior behave);
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
 
     void appendExpressionToQueue(MaximaExpression* expr);
 
@@ -61,7 +61,7 @@ class MaximaSession : public MathematiK::Session
     void readTeX();
 
   private slots:
-    void currentExpressionChangedStatus(MathematiK::Expression::Status status);
+    void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
 
     void runFirstExpression();

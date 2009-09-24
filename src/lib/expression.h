@@ -24,17 +24,17 @@
 #include <QObject>
 #include <QDomElement>
 
-#include "mathematik_export.h"
+#include "cantor_export.h"
 
 class KZip;
 
-namespace MathematiK
+namespace Cantor
 {
 class Session;
 class Result;
 class ExpressionPrivate;
 
-class MATHEMATIK_EXPORT Expression : public QObject
+class CANTOR_EXPORT Expression : public QObject
 {
   Q_OBJECT
   public:
@@ -82,7 +82,7 @@ class MATHEMATIK_EXPORT Expression : public QObject
   Q_SIGNALS:
     void idChanged();
     void gotResult();
-    void statusChanged(MathematiK::Expression::Status status);
+    void statusChanged(Cantor::Expression::Status status);
     void needsAdditionalInformation(const QString& question);
 
   //These are protected, because only subclasses will handle results/status changes

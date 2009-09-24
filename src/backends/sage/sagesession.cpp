@@ -43,7 +43,7 @@ static QByteArray initCmd="os.environ['PAGER'] = 'cat'                     \n "\
                            "print '____TMP_DIR____', sage.misc.misc.SAGE_TMP\n"\
                            "print '____END_OF_INIT____'                    \n ";
 
-SageSession::SageSession( MathematiK::Backend* backend) : Session(backend)
+SageSession::SageSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
@@ -87,7 +87,7 @@ void SageSession::logout()
     m_expressionQueue.clear();
 }
 
-MathematiK::Expression* SageSession::evaluateExpression(const QString& cmd, MathematiK::Expression::FinishingBehavior behave)
+Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     kDebug()<<"evaluating: "<<cmd;
     SageExpression* expr=new SageExpression(this);
@@ -104,7 +104,7 @@ void SageSession::appendExpressionToQueue(SageExpression* expr)
 
     if(m_expressionQueue.size()==1)
     {
-        changeStatus(MathematiK::Session::Running);
+        changeStatus(Cantor::Session::Running);
         runFirstExpression();
     }
 }
@@ -134,7 +134,7 @@ void SageSession::readStdOut()
         out.remove(SagePrompt);
         m_isInitialized=true;
         runFirstExpression();
-        changeStatus(MathematiK::Session::Done);
+        changeStatus(Cantor::Session::Done);
         emit ready();
     }
 
@@ -157,13 +157,13 @@ void SageSession::readStdErr()
     }
 }
 
-void SageSession::currentExpressionChangedStatus(MathematiK::Expression::Status status)
+void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
-    if(status!=MathematiK::Expression::Computing) //The session is ready for the next command
+    if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
         m_expressionQueue.removeFirst();
         if(m_expressionQueue.isEmpty())
-            changeStatus(MathematiK::Session::Done);
+            changeStatus(Cantor::Session::Done);
         runFirstExpression();
     }
 
@@ -180,7 +180,7 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
         }else
         {
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
-            KMessageBox::error(0, i18n("The Sage process crashed"), i18n("MathematiK"));
+            KMessageBox::error(0, i18n("The Sage process crashed"), i18n("Cantor"));
         }
     }else
     {
@@ -190,7 +190,7 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
         }else
         {
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
-            KMessageBox::error(0, i18n("The Sage process exited"), i18n("MathematiK"));
+            KMessageBox::error(0, i18n("The Sage process exited"), i18n("Cantor"));
         }
     }
 }
@@ -200,7 +200,7 @@ void SageSession::runFirstExpression()
     if(!m_expressionQueue.isEmpty()&&m_isInitialized)
     {
         SageExpression* expr=m_expressionQueue.first();
-        connect(expr, SIGNAL(statusChanged(MathematiK::Expression::Status)), this, SLOT(currentExpressionChangedStatus(MathematiK::Expression::Status)));
+        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
         QString command=expr->command();
         if(command.endsWith('?'))
             command=("help("+command.left(command.size()-1)+')');
@@ -217,7 +217,7 @@ void SageSession::interrupt()
     if(!m_expressionQueue.isEmpty())
         m_expressionQueue.first()->interrupt();
     m_expressionQueue.clear();
-    changeStatus(MathematiK::Session::Done);
+    changeStatus(Cantor::Session::Done);
 }
 
 void SageSession::sendSignalToProcess(int signal)
@@ -248,18 +248,18 @@ void SageSession::fileCreated( const QString& path )
 
 void SageSession::setTypesettingEnabled(bool enable)
 {
-    MathematiK::Session::setTypesettingEnabled(enable);
+    Cantor::Session::setTypesettingEnabled(enable);
 
     //tell the sage server to enable/disable pretty_print
     //the _ and __IP.outputcache() are needed to keep the
     // _ operator working
     if (enable)
-        evaluateExpression("sage.misc.latex.pretty_print_default(true);_;__IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("sage.misc.latex.pretty_print_default(true);_;__IP.outputcache()", Cantor::Expression::DeleteOnFinish);
     else
-        evaluateExpression("sage.misc.latex.pretty_print_default(false);_;__IP.outputcache()", MathematiK::Expression::DeleteOnFinish);
+        evaluateExpression("sage.misc.latex.pretty_print_default(false);_;__IP.outputcache()", Cantor::Expression::DeleteOnFinish);
 }
 
-MathematiK::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)
+Cantor::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)
 {
     return new SageTabCompletionObject(command, this);
 }

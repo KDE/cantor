@@ -25,11 +25,11 @@
 
 #include <kurl.h>
 
-namespace MathematiK
+namespace Cantor
 {
 class ImageResultPrivate;
 
-class MATHEMATIK_EXPORT ImageResult : public Result
+class CANTOR_EXPORT ImageResult : public Result
 {
   public:
     enum{Type=2};
