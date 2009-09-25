@@ -1,11 +1,5 @@
 [Desktop Entry]
 Name=Cantor
-Name[pt]=Cantor
-Name[pt_BR]=Cantor
-Name[sv]=Matematik
-Name[tr]=Cantor
-Name[uk]=Cantor
-Name[x-test]=xxCantorxx
 Exec=cantor %i -caption "%c"
 Icon=cantor
 Type=Application
