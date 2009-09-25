@@ -27,7 +27,6 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
-#include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
 #include <KTextEditor/EditorChooser>

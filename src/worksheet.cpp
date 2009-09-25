@@ -39,7 +39,6 @@
 #include <QKeyEvent>
 #include <QTextCursor>
 #include <QTimer>
-#include <QTextTable>
 #include <QTextLength>
 #include <QFontMetrics>
 #include <QSyntaxHighlighter>
