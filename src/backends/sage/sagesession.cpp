@@ -37,6 +37,7 @@ const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outpu
 static QByteArray initCmd="os.environ['PAGER'] = 'cat'                     \n "\
                            "sage.misc.pager.EMBEDDED_MODE = True           \n "\
                            "sage.misc.viewer.BROWSER=''                    \n "\
+                           "sage.plot.plot3d.base.SHOW_DEFAULTS['viewer'] = 'tachyon' \n"\
                            "sage.misc.latex.EMBEDDED_MODE = True           \n "\
                            "os.environ['PAGER'] = 'cat'                    \n "\
                            " __IPYTHON__.shell.autoindent=False            \n "\
