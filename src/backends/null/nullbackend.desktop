@@ -13,3 +13,7 @@ X-KDE-PluginInfo-Name=nullbackend
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Cantor for testing purposes
+Comment[pt]=Infra-estrutura do Cantor para fins de testes
+Comment[sv]=Bakgrundsprogram för Cantor i testsyfte
+Comment[uk]=Тестовий сервер Cantor
+Comment[x-test]=xxBackend for Cantor for testing purposesxx

@@ -2,6 +2,7 @@
 Type=Service
 Icon=rbackend
 Name=R
+Name[nl]=R
 Name[pt]=R
 Name[pt_BR]=R
 Name[sv]=R

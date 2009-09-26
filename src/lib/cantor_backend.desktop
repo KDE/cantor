@@ -2,6 +2,10 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/Backend
 Comment=A Backend for Cantor
+Comment[pt]=Uma Infra-Estrutura para o Cantor
+Comment[sv]=Ett bakgrundsprogram för Cantor
+Comment[uk]=Сервер Cantor
+Comment[x-test]=xxA Backend for Cantorxx
 
 [PropertyDef::X-Cantor-HelpUrl]
 Type=QUrl

@@ -2,6 +2,7 @@
 Type=Service
 Icon=dialog-ok
 Name=Solve
+Name[nl]=Oplossen
 Name[pt]=Resolução
 Name[pt_BR]=Resolver
 Name[sv]=Lös
