@@ -21,6 +21,8 @@
 #include "expression.h"
 using namespace Cantor;
 
+#include "config.h"
+
 #include "session.h"
 #include "result.h"
 #include "textresult.h"
@@ -111,6 +113,7 @@ void Expression::setResult(Result* result)
     if(result!=0)
     {
         kDebug()<<"settting result to a type "<<result->type()<<" result";
+        #ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
         if ( session()->isTypesettingEnabled()&&
              result->type()==TextResult::Type &&
@@ -120,6 +123,7 @@ void Expression::setResult(Result* result)
         {
             renderResultAsLatex();
         }
+        #endif
     }
 
     emit gotResult();

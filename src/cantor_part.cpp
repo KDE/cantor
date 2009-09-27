@@ -22,6 +22,8 @@
 
 #include "cantor_part.moc"
 
+#include "config.h"
+
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <kcomponentdata.h>
@@ -424,7 +426,11 @@ void CantorPart::runAssistant()
 
 void CantorPart::adjustGuiToSession()
 {
+#ifdef WITH_EPS
     m_typeset->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::LaTexOutput));
+#else
+    m_typeset->setVisible(false);
+#endif
     m_tabcompletion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::TabCompletion));
 
     //this is 0 on the first call

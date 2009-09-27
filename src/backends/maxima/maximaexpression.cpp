@@ -20,6 +20,8 @@
 
 #include "maximaexpression.h"
 
+#include "config.h"
+
 #include "maximasession.h"
 #include "textresult.h"
 #include "epsresult.h"
@@ -75,7 +77,11 @@ void MaximaExpression::evaluate()
         m_isPlot=true;
         m_tempFile=new KTemporaryFile();
         m_tempFile->setPrefix( "cantor_maxima-" );
+#ifdef WITH_EPS
         m_tempFile->setSuffix( ".eps" );
+#else
+        m_tempFile->setSuffix( ".png" );
+#endif
         m_tempFile->open();
 
         disconnect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
@@ -106,9 +112,16 @@ QString MaximaExpression::internalCommand()
         if(!m_tempFile) return QString();
         QString fileName = m_tempFile->fileName();
 
-        QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
-        QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
+#ifdef WITH_EPS
+        const QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
+        const QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
+#else
+        const QString preamble="set terminal png size 500,340; set output '" + fileName + "';";
+        const QString plotParameters = "[gnuplot_preamble,\"" + preamble + "\"]";
+
+#endif
         cmd.replace(QRegExp("((plot2d|plot3d)\\(.*)\\)([;\n]|$)"), "\\1, "+plotParameters+");");
+
     }
 
     if (!cmd.endsWith('$'))
@@ -328,7 +341,11 @@ void MaximaExpression::imageChanged()
     kDebug()<<"the temp image has changed";
     if(m_tempFile->size()>0)
     {
+#ifdef WITH_EPS
         setResult( new Cantor::EpsResult( KUrl(m_tempFile->fileName()) ) );
+#else
+        setResult( new Cantor::ImageResult( KUrl(m_tempFile->fileName()) ) );
+#endif
         setStatus(Cantor::Expression::Done);
     }
 }

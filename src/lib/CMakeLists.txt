@@ -27,6 +27,8 @@ Set( cantor_LIB_HDRS
 kde4_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
 install(FILES cantor_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
+configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h )
+
 kde4_add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
  
 target_link_libraries( cantorlibs

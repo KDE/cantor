@@ -45,6 +45,7 @@ MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
     kDebug();
     m_isInitialized=false;
     m_process=0;
+    m_texConvertProcess=0;
 }
 
 MaximaSession::~MaximaSession()

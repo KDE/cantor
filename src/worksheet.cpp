@@ -34,6 +34,7 @@
 #include "worksheetentry.h"
 #include "resultproxy.h"
 #include "loadedexpression.h"
+#include "config.h"
 
 #include <QEvent>
 #include <QKeyEvent>
@@ -73,7 +74,12 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(pare
     enableHighlighting(Settings::self()->highlightDefault());
     enableTabCompletion(Settings::self()->tabCompletionDefault());
     enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+#ifdef WITH_EPS
     session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+#else
+    session()->setTypesettingEnabled(false);
+#endif
+
 
     m_proxy=new ResultProxy(document());
 }

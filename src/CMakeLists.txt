@@ -3,7 +3,7 @@
 #########################################################################
 add_subdirectory(lib)
 
-include_directories( lib )
+include_directories( lib ${CMAKE_CURRENT_BINARY_DIR}/lib)
 add_subdirectory(backends)
 add_subdirectory(assistants)
 
@@ -45,6 +45,9 @@ set(cantor_PART_SRCS
  )
 
 kde4_add_kcfg_files(cantor_PART_SRCS settings.kcfgc)
+
+configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h )
+
 
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 

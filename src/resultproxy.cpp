@@ -20,13 +20,18 @@
 
 #include "resultproxy.h"
 
+#include "config.h"
+
 #include "lib/result.h"
 #include "lib/epsresult.h"
 #include "lib/latexresult.h"
 
-#include "libspectre/spectre.h"
+#ifdef LIBSPECTRE_FOUND
+  #include "libspectre/spectre.h"
+#endif
 
 #include <kdebug.h>
+#include <klocale.h>
 #include <QTextDocument>
 
 ResultProxy::ResultProxy(QTextDocument* parent) : QObject(parent)
@@ -52,6 +57,7 @@ void ResultProxy::scale(qreal value)
 
 void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 {
+    QTextCharFormat format;
     switch(result->type())
     {
         case Cantor::LatexResult::Type:
@@ -68,7 +74,12 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
                 break;
             }
         case Cantor::EpsResult::Type:
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
+            format=renderEps(result);
+            if(format.isValid())
+                cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
+            else
+                cursor.insertText(i18n("Can not render Eps file. You may need additional packages"));
+
             break;
         default:
             QString html=result->toHtml().trimmed();
@@ -82,6 +93,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 //private result specific rendering methods
 QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
 {
+#ifdef LIBSPECTRE_FOUND
     QTextImageFormat epsCharFormat;
 
     SpectreDocument* doc=spectre_document_new();;
@@ -111,4 +123,9 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
     spectre_render_context_free(rc);
 
     return epsCharFormat;
+#else
+    Q_UNUSED(result);
+    return QTextFormat().toCharFormat();
+#endif
+
 }

@@ -21,6 +21,8 @@
 #include "epsresult.h"
 using namespace Cantor;
 
+#include "config.h"
+
 #include <kdebug.h>
 #include <kzip.h>
 #include <kio/job.h>
@@ -34,6 +36,9 @@ class Cantor::EpsResultPrivate{
 EpsResult::EpsResult(const KUrl& url) : d(new EpsResultPrivate)
 {
     d->url=url;
+#ifndef WITH_EPS
+    kError()<<"Creating an EpsResult in an environment compiled without EPS support!";
+#endif
 }
 
 EpsResult::~EpsResult()
