@@ -289,8 +289,12 @@ void MaximaExpression::evalFinished()
     kDebug()<<"err: "<<m_errCache;
 
     QString text=m_outputCache;
-    if(!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
+    if(!m_isHelpRequest&&!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
         text.replace(' ', "&nbsp;");
+
+    //Replace < and > with their html code, so they won't be confused as html tags
+    text.replace( '<' , "&lt;");
+    text.replace( '>' , "&gt;");
 
     Cantor::TextResult* result;
 
@@ -299,7 +303,7 @@ void MaximaExpression::evalFinished()
 
     if(m_isHelpRequest)
     {
-        result=new Cantor::HelpResult(m_errCache);
+        result=new Cantor::HelpResult(text);
         setResult(result);
         setStatus(Cantor::Expression::Done);
     }

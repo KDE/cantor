@@ -22,8 +22,7 @@
 #include "maximaexpression.h"
 
 #include <kdebug.h>
-#include <kptyprocess.h>
-#include <kptydevice.h>
+#include <kprocess.h>
 #include <signal.h>
 #include "settings.h"
 
@@ -59,17 +58,17 @@ void MaximaSession::login()
     if (m_process)
         m_process->deleteLater();
 
-    m_process=new KPtyProcess(this);
+    m_process=new KProcess(this);
     m_process->setProgram(MaximaSettings::self()->path().toLocalFile());
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    m_process->setPtyChannels(KPtyProcess::AllChannels);
-    m_process->pty()->setEcho(false);
+    //m_process->setPtyChannels(KProcess::AllChannels);
+    //m_process->pty()->setEcho(false);
     //m_process->setUseUtmp(true);
 
-    connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
+    connect(m_process, SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     m_process->start();
-    m_process->pty()->write(initCmd);
+    m_process->write(initCmd);
 }
 
 void MaximaSession::logout()
@@ -118,7 +117,7 @@ void MaximaSession::readStdOut()
 //    if(!m_process->canReadLine()) return;
 
     kDebug()<<"reading stdOut";
-    QString out=m_process->pty()->readAll();
+    QString out=m_process->readAll();
     kDebug()<<"out: "<<out;
 
 
@@ -149,7 +148,7 @@ void MaximaSession::readStdOut()
 void MaximaSession::readTeX()
 {
     kDebug()<<"reading stdOut";
-    QString out=m_texConvertProcess->pty()->readAll();
+    QString out=m_texConvertProcess->readAll();
     kDebug()<<"out: "<<out;
 
     kDebug()<<"queuesize: "<<m_texQueue.size();
@@ -205,7 +204,7 @@ void MaximaSession::runFirstExpression()
         QString command=expr->internalCommand();
 
         kDebug()<<"writing "<<command+'\n'<<" to the process";
-        m_process->pty()->write((command+'\n').toLatin1());
+        m_process->write((command+'\n').toLatin1());
     }
 }
 
@@ -236,7 +235,7 @@ void MaximaSession::runNextTexCommand()
                 texCmd+=QString("tex(%1);").arg(part);
             }
             texCmd+='\n';
-            m_texConvertProcess->pty()->write(texCmd.toUtf8());
+            m_texConvertProcess->write(texCmd.toUtf8());
         }else
         {
             kDebug()<<"current tex request is empty, so drop it";
@@ -263,7 +262,7 @@ void MaximaSession::sendInputToProcess(const QString& input)
 {
     kDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
     kDebug()<<"running "<<input;
-    m_process->pty()->write(input.toLatin1());
+    m_process->write(input.toLatin1());
 }
 
 void MaximaSession::restartMaxima()
@@ -278,17 +277,17 @@ void MaximaSession::restartMaxima()
 void MaximaSession::startTexConvertProcess()
 {
     //Start the process that is used to convert to LaTeX
-    m_texConvertProcess=new KPtyProcess(this);
+    m_texConvertProcess=new KProcess(this);
     m_texConvertProcess->setProgram(MaximaSettings::self()->path().toLocalFile());
     m_texConvertProcess->setOutputChannelMode(KProcess::SeparateChannels);
-    m_texConvertProcess->setPtyChannels(KPtyProcess::AllChannels);
-    m_texConvertProcess->pty()->setEcho(false);
+    //m_texConvertProcess->setPtyChannels(KProcess::AllChannels);
+    //m_texConvertProcess->pty()->setEcho(false);
 
-    connect(m_texConvertProcess->pty(), SIGNAL(readyRead()), this, SLOT(readTeX()));
+    connect(m_texConvertProcess, SIGNAL(readyRead()), this, SLOT(readTeX()));
     connect(m_texConvertProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
     m_texConvertProcess->start();
-    m_texConvertProcess->pty()->write(texInitCmd);
-    m_texConvertProcess->pty()->write(initCmd);
+    m_texConvertProcess->write(texInitCmd);
+    m_texConvertProcess->write(initCmd);
 }
 
 void MaximaSession::setTypesettingEnabled(bool enable)

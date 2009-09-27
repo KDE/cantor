@@ -28,7 +28,7 @@
 #include <QRegExp>
 
 class MaximaExpression;
-class KPtyProcess;
+class KProcess;
 
 
 class MaximaSession : public Cantor::Session
@@ -68,8 +68,8 @@ class MaximaSession : public Cantor::Session
     void runNextTexCommand();
     void startTexConvertProcess();
   private:
-    KPtyProcess* m_process;
-    KPtyProcess* m_texConvertProcess; //only used to convert from expression to TeX
+    KProcess* m_process;
+    KProcess* m_texConvertProcess; //only used to convert from expression to TeX
     QList<MaximaExpression*> m_expressionQueue;
     QList<MaximaExpression*> m_texQueue; //Queue used for Expressions that need to be converted to LaTeX
 
