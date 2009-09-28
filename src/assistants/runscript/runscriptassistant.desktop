@@ -2,6 +2,7 @@
 Type=Service
 Icon=system-run
 Name=RunScript
+Name[fr]=RunScript
 Name[pt]=Execução de Programas
 Name[sv]=Kör skript
 Name[tr]=Betik Çalıştır
@@ -13,6 +14,7 @@ X-KDE-PluginInfo-Name=RunScript
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant for running an external Script file
+Comment[fr]=Un assistant pour le lancement d'un fichier script externe
 Comment[pt]=Uma janela assistente para executar um programa externo
 Comment[sv]=En guide för att köra en extern skriptfil
 Comment[tr]=Dış betik dosyası çalıştırmak için bir yardımcı

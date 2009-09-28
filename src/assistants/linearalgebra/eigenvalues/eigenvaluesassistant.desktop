@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=Eigenvalues
+Name[fr]=Eigenvalues
 Name[pt]=Valores de Eigen
 Name[sv]=Egenvärden
 Name[tr]=Eigen değerleri
