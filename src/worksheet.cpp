@@ -34,7 +34,7 @@
 #include "worksheetentry.h"
 #include "resultproxy.h"
 #include "loadedexpression.h"
-#include "config.h"
+#include "config-cantor.h"
 
 #include <QEvent>
 #include <QKeyEvent>

@@ -46,7 +46,7 @@ set(cantor_PART_SRCS
 
 kde4_add_kcfg_files(cantor_PART_SRCS settings.kcfgc)
 
-configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h )
+configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
 
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})

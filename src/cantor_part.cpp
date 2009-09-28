@@ -22,7 +22,7 @@
 
 #include "cantor_part.moc"
 
-#include "config.h"
+#include "config-cantor.h"
 
 #include <kaction.h>
 #include <kactioncollection.h>

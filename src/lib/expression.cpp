@@ -21,7 +21,7 @@
 #include "expression.h"
 using namespace Cantor;
 
-#include "config.h"
+#include "config-cantorlib.h"
 
 #include "session.h"
 #include "result.h"
