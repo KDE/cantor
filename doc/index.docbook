@@ -69,7 +69,6 @@ nice worksheet view to other Free Software Math packages
 mathematical applications from within a nice &kde;-integrated
 Worksheet Interface. It offers assistant dialogs for common tasks
 and allows you to share your worksheets with others.
-Please report any problems or feature requests to alexanderrieder@gmail.com.
 </para>
 </chapter>
 
@@ -366,6 +365,10 @@ All interface definitions are in the lib directory. For example implementations,
       the Path to the appropriate application
     </para>
   </answer>
+</qandaentry>
+<qandaentry>
+  <question><para>What a stupid name, what has it to do with mathematics?</para></question>
+  <answer><para>Cantor is named after German mathematician Georg Cantor, the crator of set theory</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>
