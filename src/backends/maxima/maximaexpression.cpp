@@ -20,7 +20,7 @@
 
 #include "maximaexpression.h"
 
-#include "config.h"
+#include "config-cantorlib.h"
 
 #include "maximasession.h"
 #include "textresult.h"
