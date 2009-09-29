@@ -71,6 +71,8 @@ void SageExpression::parseOutput(const QString& text)
     QString output=text;
     //replace appearing backspaces, as they mess the whole output up
     output.remove(QRegExp(".\b"));
+    //replace Escape sequences (only tested with `ls` command)
+    output.remove(QRegExp("\e\\][^\a]*\a"));
 
     m_outputCache+=output;
 
