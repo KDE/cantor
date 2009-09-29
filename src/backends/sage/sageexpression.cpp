@@ -69,6 +69,8 @@ void SageExpression::interrupt()
 void SageExpression::parseOutput(const QString& text)
 {
     QString output=text;
+    //remove carriage returns, we only use \n internally
+    output.remove("\r");
     //replace appearing backspaces, as they mess the whole output up
     output.remove(QRegExp(".\b"));
     //replace Escape sequences (only tested with `ls` command)
@@ -78,19 +80,41 @@ void SageExpression::parseOutput(const QString& text)
     const QRegExp promptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SagePrompt)));
     const QRegExp altPromptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SageAlternativePrompt)));
 
+    bool endsWithAlternativePrompt=output.endsWith(SageSession::SageAlternativePrompt);
+
     //remove all prompts. we do this in a loop, because after we removed the first prompt,
     //there could be a second one, that isn't matched by promptRegexp in the first run, because
     //it originally isn't at the beginning of a line.
-    while (output.contains(promptRegexp))
+    int index=-1, index2=-1;
+    while ( (index=output.indexOf(promptRegexp)) != -1 || (index2=output.indexOf(altPromptRegexp)) != -1 )
     {
-        m_promptCount-=output.count(promptRegexp);
-        output.remove(promptRegexp);
-    }
+        kDebug()<<"got prompt"<<index<<"  "<<index2;
+        if(index!=-1)
+        {
+            m_promptCount--;
 
-    while (output.contains(promptRegexp))
-    {
-        m_promptCount-=output.count(altPromptRegexp);
-        output.remove(altPromptRegexp);
+            //remove this prompt, the if is needed, because, if the prompt is on the
+            //beginning of the string, index points to the "s", if it is within the string
+            //index points to the newline
+            if(output[index]=='\n')
+                output.remove(index+1, SageSession::SagePrompt.length());
+            else
+                output.remove(index, SageSession::SagePrompt.length());
+        }
+
+        if(index2!=-1)
+        {
+            m_promptCount--;
+
+            //see comment above, for the reason for this "if"
+            if(output[index2]=='\n')
+                output.remove(index2+1, SageSession::SageAlternativePrompt.length());
+            else
+                output.remove(index2, SageSession::SageAlternativePrompt.length());
+        }
+
+        //reset the indices
+        index=index2=-1;
     }
 
     m_outputCache+=output;
@@ -105,7 +129,7 @@ void SageExpression::parseOutput(const QString& text)
         //indicates that all information has been passed to sage.
         //This means that the user has entered an invalid command.
         //interrupt it and show an error message
-        if(m_outputCache.endsWith(SageSession::SageAlternativePrompt))
+        if(endsWithAlternativePrompt)
         {
             interrupt();
             setErrorMessage(i18n("Syntax Error"));

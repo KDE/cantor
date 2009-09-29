@@ -231,7 +231,7 @@ void SageSession::sendSignalToProcess(int signal)
     //for a bash process which is child of this sessions sage process, and only kill the
     //ipython process which is child of the bash process
     // the tree looks like: m_sageprocess->bash->sage-ipython
-    QString cmd=QString("pkill -%1 -P `pgrep  -P %2 bash` sage-ipython").arg(signal).arg(m_process->pid());
+    QString cmd=QString("pkill -%1 -f -P `pgrep  -P %2 bash` .*sage-ipython.*").arg(signal).arg(m_process->pid());
     KProcess proc(this);
     proc.setShellCommand(cmd);
     proc.execute();

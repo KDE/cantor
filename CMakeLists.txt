@@ -18,6 +18,7 @@ include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} ${LIBSPECTRE_INCLUDE_DIR})
 
 add_subdirectory( src )
 add_subdirectory( icons )
+add_subdirectory( tests )
 
 macro_display_feature_log()
 
