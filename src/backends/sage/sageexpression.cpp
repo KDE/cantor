@@ -74,14 +74,26 @@ void SageExpression::parseOutput(const QString& text)
     //replace Escape sequences (only tested with `ls` command)
     output.remove(QRegExp("\e\\][^\a]*\a"));
 
-    m_outputCache+=output;
-
-    const QString promptRegexpBase("(^|\\n)%1($|\\n)");
+    const QString promptRegexpBase("(^|\\n)%1");
     const QRegExp promptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SagePrompt)));
     const QRegExp altPromptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SageAlternativePrompt)));
 
-    m_promptCount-=output.count(promptRegexp);
-    m_promptCount-=output.count(altPromptRegexp);
+    //remove all prompts. we do this in a loop, because after we removed the first prompt,
+    //there could be a second one, that isn't matched by promptRegexp in the first run, because
+    //it originally isn't at the beginning of a line.
+    while (output.contains(promptRegexp))
+    {
+        m_promptCount-=output.count(promptRegexp);
+        output.remove(promptRegexp);
+    }
+
+    while (output.contains(promptRegexp))
+    {
+        m_promptCount-=output.count(altPromptRegexp);
+        output.remove(altPromptRegexp);
+    }
+
+    m_outputCache+=output;
 
     if(m_promptCount<=0)
     {
@@ -101,8 +113,6 @@ void SageExpression::parseOutput(const QString& text)
             return;
         }
 
-        m_outputCache.remove(SageSession::SagePrompt);
-        m_outputCache.remove(SageSession::SageAlternativePrompt);
         m_outputCache=m_outputCache.trimmed();
         evalFinished();
     }
