@@ -2,6 +2,7 @@
 Type=Service
 Icon=maximabackend
 Name=Maxima
+Name[es]=Maxima
 Name[fr]=Maxima
 Name[pt]=Maxima
 Name[pt_BR]=Maxima
@@ -16,6 +17,7 @@ X-KDE-PluginInfo-Name=Maxima
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for the Maxima Computer Algebra System
+Comment[es]=Motor para el sistema de álgebra computacional Maxima
 Comment[fr]=Moteur pour le système d'algèbre par ordinateur Maxima
 Comment[pt]=Infra-estrutura para o sistema algébrico por computador Maxima
 Comment[pt_BR]=Infraestrutura para o Maxima Computer Algebra System

@@ -2,6 +2,7 @@
 Type=Service
 Icon=system-run
 Name=RunScript
+Name[es]=Ejecutar script
 Name[fr]=RunScript
 Name[pt]=Execução de Programas
 Name[sv]=Kör skript
@@ -14,6 +15,7 @@ X-KDE-PluginInfo-Name=RunScript
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant for running an external Script file
+Comment[es]=Un diálogo asistente para ejecutar un archivo externo de script
 Comment[fr]=Un assistant pour le lancement d'un fichier script externe
 Comment[pt]=Uma janela assistente para executar um programa externo
 Comment[sv]=En guide för att köra en extern skriptfil

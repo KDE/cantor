@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=Create Matrix
+Name[es]=Crear matriz
 Name[fr]=Créer une matrice
 Name[pt]=Criar uma Matriz
 Name[pt_BR]=Criar matriz
@@ -13,6 +14,7 @@ X-KDE-PluginInfo-Name=Create Matrix
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify entering of matrices
+Comment[es]=Un diálogo asistente para simplificar el ingreso de matrices
 Comment[fr]=Un assistant graphique simplifiant la saisie de matrices
 Comment[pt]=Uma janela assistente para simplificar a introdução de matrizes
 Comment[sv]=En dialogruta med en guide för att förenkla inmatning av matriser

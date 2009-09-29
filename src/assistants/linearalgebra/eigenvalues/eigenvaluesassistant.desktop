@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=Eigenvalues
+Name[es]=Eigenvalores
 Name[fr]=Eigenvalues
 Name[pt]=Valores de Eigen
 Name[sv]=Egenvärden
@@ -13,6 +14,7 @@ X-KDE-PluginInfo-Name=Create Matrix
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify calculating of Eigenvalues
+Comment[es]=Un diálogo asistente para simplificar el cálculo de eigenvalores
 Comment[pt]=Uma janela assistente para simplificar o cálculo dos valores de Eigen
 Comment[sv]=En dialogruta med en guide för att förenkla beräkning av egenvärden
 Comment[uk]=Діалогове вікно помічника у обчисленні власних значень

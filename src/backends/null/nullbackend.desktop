@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=nullbackend
+Name[es]=motor nulo
 Name[fr]=nullbackend
 Name[pt]=infra-estrutura nula
 Name[pt_BR]=infraestrutura vazia
@@ -14,6 +15,7 @@ X-KDE-PluginInfo-Name=nullbackend
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Cantor for testing purposes
+Comment[es]=Motor de realización de pruebas para Cantor
 Comment[fr]=Moteur pour Cantor permettant de tester
 Comment[pt]=Infra-estrutura do Cantor para fins de testes
 Comment[sv]=Bakgrundsprogram för Cantor i testsyfte

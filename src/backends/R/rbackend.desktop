@@ -2,6 +2,7 @@
 Type=Service
 Icon=rbackend
 Name=R
+Name[es]=R
 Name[fr]=R
 Name[nl]=R
 Name[pt]=R
@@ -16,6 +17,7 @@ X-KDE-PluginInfo-Name=R
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for The R Project for Statistical Computing
+Comment[es]=Motor para el proyecto R de estadística computacional
 Comment[fr]=Moteur pour le projet R de calcul statistique par ordinateur
 Comment[pt]=Infra-estrutura para o projecto de computação estatística R
 Comment[sv]=Bakgrundsprogram för R-projektet i statistisk datorberäkning

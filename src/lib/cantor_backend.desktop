@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/Backend
 Comment=A Backend for Cantor
+Comment[es]=Un motor para Cantor
 Comment[fr]=Un moteur pour Cantor
 Comment[pt]=Uma Infra-Estrutura para o Cantor
 Comment[sv]=Ett bakgrundsprogram för Cantor
