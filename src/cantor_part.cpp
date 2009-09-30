@@ -231,7 +231,7 @@ bool CantorPart::saveFile()
         fileSaveAs();
     else
     {
-        if(url().fileName().endsWith(QLatin1String(".mws")))
+        if(url().fileName().endsWith(QLatin1String(".cws")) || url().fileName().endsWith(QLatin1String(".mws")))
             m_worksheet->save( localFilePath() );
         else
             m_worksheet->savePlain( localFilePath());
@@ -245,7 +245,7 @@ bool CantorPart::saveFile()
 void CantorPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected,
-    QString filter=i18n("*.mws|Cantor Worksheet");
+    QString filter=i18n("*.cws|Cantor Worksheet");
 
     //if the backend supports scripts, also append their scriptFile endings to the filter
     Cantor::Backend * const backend=m_worksheet->session()->backend();
