@@ -368,7 +368,7 @@ All interface definitions are in the lib directory. For example implementations,
 </qandaentry>
 <qandaentry>
   <question><para>What a stupid name, what has it to do with mathematics?</para></question>
-  <answer><para>Cantor is named after German mathematician Georg Cantor, the crator of set theory</para></answer>
+  <answer><para>Cantor is named after German mathematician Georg Cantor, the creator of set theory</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>
