@@ -21,6 +21,7 @@
 #include "maximasession.h"
 #include "maximaexpression.h"
 
+#include <QTimer>
 #include <kdebug.h>
 #include <kprocess.h>
 #include <signal.h>
@@ -121,7 +122,7 @@ void MaximaSession::readStdOut()
     kDebug()<<"out: "<<out;
 
 
-    if(out.contains("____END_OF_INIT____"))
+    if(out.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____"))))
     {
         kDebug()<<"initialized";
         out.remove("____END_OF_INIT____");
@@ -129,12 +130,9 @@ void MaximaSession::readStdOut()
         m_isInitialized=true;
 
         runFirstExpression();
-        evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
 
-
-        changeStatus(Cantor::Session::Done);
-
-        emit ready();
+        QTimer::singleShot(0, this, SLOT(killLabels()));
+        return;
     }
 
     kDebug()<<"queuesize: "<<m_expressionQueue.size();
@@ -143,6 +141,12 @@ void MaximaSession::readStdOut()
         MaximaExpression* expr=m_expressionQueue.first();
         expr->parseOutput(out);
     }
+}
+
+void MaximaSession::killLabels()
+{
+    Cantor::Expression* e=evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
+    connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
 }
 
 void MaximaSession::readTeX()

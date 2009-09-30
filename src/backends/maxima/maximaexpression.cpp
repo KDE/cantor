@@ -299,7 +299,13 @@ void MaximaExpression::evalFinished()
     Cantor::TextResult* result;
 
     if(m_tempFile)
+    {
         QTimer::singleShot(500, this, SLOT(imageChanged()));
+        if(m_errCache.trimmed().isEmpty()&&m_outputCache.trimmed().isEmpty())
+        {
+            return;
+        }
+    }
 
     if(m_isHelpRequest)
     {

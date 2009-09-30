@@ -67,6 +67,8 @@ class MaximaSession : public Cantor::Session
     void runFirstExpression();
     void runNextTexCommand();
     void startTexConvertProcess();
+
+    void killLabels();
   private:
     KProcess* m_process;
     KProcess* m_texConvertProcess; //only used to convert from expression to TeX

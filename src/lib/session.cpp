@@ -30,6 +30,7 @@ class Cantor::SessionPrivate
     {
         backend=0;
         expressionCount=0;
+        typesettingEnabled=false;
     }
 
     Backend* backend;
