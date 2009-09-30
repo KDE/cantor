@@ -52,6 +52,7 @@ class SageSession : public Cantor::Session
 
     void sendSignalToProcess(int signal);
     void sendInputToProcess(const QString& input);
+    void waitForNextPrompt();
 
     void setTypesettingEnabled(bool enable);
 
@@ -74,6 +75,7 @@ class SageSession : public Cantor::Session
     bool m_isInitialized;
     QString m_tmpPath;
     KDirWatch m_dirWatch;
+    bool m_waitingForPrompt;
 };
 
 #endif /* _SAGESESSION_H */

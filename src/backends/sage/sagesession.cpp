@@ -141,6 +141,15 @@ void SageSession::readStdOut()
         emit ready();
     }
 
+    //If we are waiting for another prompt, drop every output
+    //until a prompt is found
+    if(m_waitingForPrompt)
+    {
+        if(out.contains(SagePrompt))
+            m_waitingForPrompt=false;
+        return;
+    }
+
     if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
         SageExpression* expr=m_expressionQueue.first();
@@ -164,7 +173,8 @@ void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status stat
 {
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
-        m_expressionQueue.removeFirst();
+        SageExpression* expr=m_expressionQueue.takeFirst();
+        disconnect(expr, 0, this, 0);
         if(m_expressionQueue.isEmpty())
             changeStatus(Cantor::Session::Done);
         runFirstExpression();
@@ -240,6 +250,11 @@ void SageSession::sendSignalToProcess(int signal)
 void SageSession::sendInputToProcess(const QString& input)
 {
     m_process->pty()->write(input.toUtf8());
+}
+
+void SageSession::waitForNextPrompt()
+{
+    m_waitingForPrompt=true;
 }
 
 void SageSession::fileCreated( const QString& path )

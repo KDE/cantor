@@ -33,6 +33,7 @@
 #include <kglobal.h>
 #include <kcolorscheme.h>
 #include <kcompletionbox.h>
+#include <klocale.h>
 
 const QString WorksheetEntry::Prompt=">>> ";
 
@@ -160,21 +161,36 @@ void WorksheetEntry::updateResult()
 
 void WorksheetEntry::expressionChangedStatus(Cantor::Expression::Status status)
 {
+    QString text;
     if(status==Cantor::Expression::Error)
     {
-        if(!m_errorCell.isValid())
-        {
-            int row;
-            if(actualInformationCell().isValid())
-                row=actualInformationCell().row()+1;
-            else
-                row=commandCell().row()+1;
-            m_table->insertRows(row, 1);
-            m_errorCell=m_table->cellAt(row, 1);
-        }
-
-        m_errorCell.firstCursorPosition().insertText(m_expression->errorMessage());
+        text=m_expression->errorMessage();
+    }else if(status==Cantor::Expression::Interrupted)
+    {
+        text=i18n("Interrupted");
     }
+
+    if(text.isEmpty())
+        return;
+
+    QTextCursor c;
+    if(!m_errorCell.isValid())
+    {
+        int row;
+        if(actualInformationCell().isValid())
+            row=actualInformationCell().row()+1;
+        else
+            row=commandCell().row()+1;
+        m_table->insertRows(row, 1);
+        m_errorCell=m_table->cellAt(row, 1);
+        c=m_errorCell.firstCursorPosition();
+    }else
+    {
+        c=m_errorCell.firstCursorPosition();
+        c.setPosition(m_errorCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
+    }
+
+    c.insertText(text);
 }
 
 bool WorksheetEntry::isEmpty()

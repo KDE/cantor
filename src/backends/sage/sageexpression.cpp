@@ -64,6 +64,9 @@ void SageExpression::interrupt()
 {
     kDebug()<<"interrupting";
     dynamic_cast<SageSession*>(session())->sendSignalToProcess(2);
+    dynamic_cast<SageSession*>(session())->waitForNextPrompt();
+
+    setStatus(Cantor::Expression::Interrupted);
 }
 
 void SageExpression::parseOutput(const QString& text)
