@@ -55,6 +55,11 @@ private slots:
     
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
+
+    //tests a two-line command, where one doesn't deliver output
+    //(source of problem in earlier versions)
+    void testNoOutput();
+
 private:
     Cantor::Session* createSession();
     Cantor::Expression* evalExp(const QString& exp);

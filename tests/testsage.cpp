@@ -119,6 +119,15 @@ void TestSage::testInvalidSyntax()
     QVERIFY( e->errorMessage()== "Syntax Error" );
 }
 
+void TestSage::testNoOutput()
+{
+    Cantor::Expression* e=evalExp(  "f(x)=x^2+3*x+2\nf(0)" );
+
+    QVERIFY( e!=0 );
+    QVERIFY( e->result() != 0 );
+    QCOMPARE( e->result()->toHtml(), QString("2") );
+}
+
 QTEST_MAIN( TestSage )
 
 #include "testsage.moc"
