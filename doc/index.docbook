@@ -180,7 +180,7 @@ Screenshot:
   The Worksheet interface of &cantor; consists of three parts:
   <orderedlist>
     <listitem><para>The Tab-Bar where you can switch through your opened worksheets</para></listitem>
-    <listitem><para>A help panel, where help for a specific command is displayed if you write ?command</para></listitem>
+    <listitem><para>A help panel, where help for a specific command is displayed if you write "? command"</para></listitem>
     <listitem><para>The Worksheet</para></listitem>
   </orderedlist>
 </para>
@@ -191,7 +191,7 @@ Screenshot:
   Expressions, let the backend calculate, and look at the results.
   The commands the worksheets accept depend on the chosen backend, so you should
   learn the appropriate backend syntax (the Show Help button takes you there directly).
-  If you know the command, but you need additional information, you can type "?command",
+  If you know the command, but you need additional information, you can type "? command",
   and contextual help will appear on the right of the worksheet.
   If you want to see some example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
   in the <guimenu>File</guimenu> menu, and download worksheets other users have published.
