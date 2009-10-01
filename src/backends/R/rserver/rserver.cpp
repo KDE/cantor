@@ -29,6 +29,8 @@
 #include <kglobal.h>
 #include <kstandarddirs.h>
 
+#include <unistd.h>
+
 //R includes
 #include <R.h>
 #include <Rembedded.h>
