@@ -44,7 +44,7 @@
 <abstract>
 <para>
 &cantor; is an application, aimed at providing a 
-nice worksheet view to other Free Software Math packages
+nice worksheet view to other Free Software Math packages.
 </para>
 </abstract>
 
@@ -189,11 +189,11 @@ Screenshot:
 <para>
   The worksheet is the basic area for working with &cantor;. In it you can enter
   Expressions, let the backend calculate, and look at the results.
-  The commands, the worksheets accept are depending on the chosen backend, so you should
-  learn the appropriate Documentation (the Show Help button takes you there directly).
+  The commands the worksheets accept depend on the chosen backend, so you should
+  learn the appropriate backend syntax (the Show Help button takes you there directly).
   If you know the command, but you need additional information, you can type "?command",
   and contextual help will appear on the right of the worksheet.
-  If you want to see example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
+  If you want to see some example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
   in the <guimenu>File</guimenu> menu, and download worksheets other users have published.
 </para>
 <sect3 id="worksheet-settings">
