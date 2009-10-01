@@ -12,6 +12,10 @@
     <Action name="file_close"/>
     <Action name="file_quit"/>
   </Menu>
+  <Menu name="view">
+    <Merge/>
+    <Action name="show_help_panel"/>
+  </Menu>
   <Menu  name="settings"><text>&amp;Settings</text>
     <Action name="options_show_toolbar"/>
     <Action name="options_show_statusbar"/>

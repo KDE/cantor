@@ -82,10 +82,10 @@ private slots:
     void closeTab(QWidget* widget = 0);
 
     void showSettings();
+    void showHelpDocker(bool show);
 
     void downloadExamples();
     void openExample();
-
 private:
     void setupActions();
 
@@ -94,6 +94,7 @@ private:
     KParts::ReadWritePart* m_part;
     KTabWidget* m_tabWidget;
     KTextEdit* m_helpView;
+    QDockWidget* m_helpDocker;
 };
 
 #endif // CANTOR_H

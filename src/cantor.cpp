@@ -40,6 +40,7 @@
 #include <kxmlguifactory.h>
 #include <knewstuff2/engine.h>
 #include <kstandarddirs.h>
+#include <ktoggleaction.h>
 
 #include <QDockWidget>
 #include <QApplication>
@@ -61,12 +62,19 @@ CantorShell::CantorShell()
     // then, setup our actions
     setupActions();
 
-    QDockWidget* dock=new QDockWidget(i18n("Help"), this);
-    m_helpView=new KTextEdit(dock);
+    m_helpDocker=new QDockWidget(i18n("Help"), this);
+    m_helpView=new KTextEdit(m_helpDocker);
     m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
     m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    dock->setWidget(m_helpView);
-    addDockWidget ( Qt::RightDockWidgetArea,  dock );
+    m_helpDocker->setWidget(m_helpView);
+    KToggleAction* showHelpPanelAction=new KToggleAction(i18n("Show Help Panel"), actionCollection());
+    showHelpPanelAction->setIcon(KIcon("help-hint"));
+    connect(m_helpDocker, SIGNAL(visibilityChanged(bool)), showHelpPanelAction, SLOT(setChecked(bool)));
+    connect(showHelpPanelAction, SIGNAL(toggled(bool)), this, SLOT(showHelpDocker(bool)));
+    actionCollection()->addAction("show_help_panel", showHelpPanelAction);
+
+    addDockWidget ( Qt::RightDockWidgetArea,  m_helpDocker );
+
 
     createGUI(0);
     bool hasBackend=false;
@@ -326,6 +334,11 @@ void CantorShell::showSettings()
     }
 
     dialog->show();
+}
+
+void CantorShell::showHelpDocker(bool show)
+{
+    m_helpDocker->setVisible(show);
 }
 
 void CantorShell::downloadExamples()
