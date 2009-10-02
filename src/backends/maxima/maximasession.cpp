@@ -118,8 +118,6 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 
 void MaximaSession::readStdOut()
 {
-//    if(!m_process->canReadLine()) return;
-
     kDebug()<<"reading stdOut";
     QString out=m_process->readAll();
     kDebug()<<"out: "<<out;
@@ -131,18 +129,37 @@ void MaximaSession::readStdOut()
         out.remove("____END_OF_INIT____");
 
         m_isInitialized=true;
-
+        m_cache.clear();
         runFirstExpression();
 
         QTimer::singleShot(0, this, SLOT(killLabels()));
+
         return;
     }
 
+    m_cache+=out;
+
+    if(m_cache.contains('\n')||m_cache.contains(MaximaPrompt))
+    {
+        kDebug()<<"letting parse"<<m_cache;
+        letExpressionParseOutput();
+    }
+}
+
+void MaximaSession::letExpressionParseOutput()
+{
     kDebug()<<"queuesize: "<<m_expressionQueue.size();
     if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
         MaximaExpression* expr=m_expressionQueue.first();
-        expr->parseOutput(out);
+
+        //send over the part of the cache to the last newline or last InputPrompt, whatever comes last
+        const int index=m_cache.lastIndexOf('\n')+1;
+        const int index2=MaximaPrompt.lastIndexIn(m_cache)+MaximaPrompt.matchedLength();
+        const int max=qMax(index, index2);
+        QString txt=m_cache.left(max);
+        expr->parseOutput(txt);
+        m_cache.remove(0, max);
     }
 }
 

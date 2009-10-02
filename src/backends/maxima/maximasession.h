@@ -61,6 +61,7 @@ class MaximaSession : public Cantor::Session
     void readTeX();
 
   private slots:
+    void letExpressionParseOutput();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
 
@@ -74,6 +75,7 @@ class MaximaSession : public Cantor::Session
     KProcess* m_texConvertProcess; //only used to convert from expression to TeX
     QList<MaximaExpression*> m_expressionQueue;
     QList<MaximaExpression*> m_texQueue; //Queue used for Expressions that need to be converted to LaTeX
+    QString m_cache;
 
     bool m_isInitialized;
     QString m_tmpPath;
