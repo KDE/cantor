@@ -71,7 +71,7 @@ Cantor::Expression* TestMaxima::evalExp(const QString& exp )
    //Create a timeout, that kills the eventloop, if the expression doesn't finish
    QPointer<QTimer> timeout=new QTimer( this );
    timeout->setSingleShot( true );
-   timeout->start( 5000 );
+   timeout->start( 6000 );
    QEventLoop loop;
    connect( timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
    connect( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ), &loop, SLOT( quit() ) );
@@ -115,6 +115,7 @@ void TestMaxima::testPlot()
 
     QVERIFY( e->result()->type()==Cantor::EpsResult::Type );
     QVERIFY( !e->result()->data().isNull() );
+    QVERIFY( e->errorMessage().isNull() );
 }
 
 void TestMaxima::testInvalidSyntax()
@@ -123,6 +124,21 @@ void TestMaxima::testInvalidSyntax()
 
     QVERIFY( e!=0 );
     QVERIFY( e->status()==Cantor::Expression::Error );
+}
+
+void TestMaxima::testExprNumbering()
+{
+    Cantor::Expression* e=evalExp( "kill(labels)" ); //first reset the labels
+
+    e=evalExp( "2+2" );
+    QVERIFY( e!=0 );
+    int id=e->id();
+    QCOMPARE( id, 1 );
+
+    e=evalExp( QString("%O%1+1" ).arg( id ) );
+    QVERIFY( e != 0 );
+    QVERIFY( e->result()!=0 );
+    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString( "5" ) );
 }
 
 QTEST_MAIN( TestMaxima )

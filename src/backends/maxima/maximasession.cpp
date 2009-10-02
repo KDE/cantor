@@ -29,9 +29,11 @@
 
 #include "result.h"
 
-
-const QRegExp MaximaSession::MaximaPrompt=QRegExp("\\(%I[0-9]*\\)"); //Text, maxima outputs, if it's taking new input
-const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("\\(%O[0-9]*\\)"); //Text, maxima outputs, before any output
+//NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
+//maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
+//the Expressions are encapsulated in () to allow capturing for the text
+const QRegExp MaximaSession::MaximaPrompt=QRegExp("(\\(\\s*%\\s*I\\s*[0-9\\s]*\\))"); //Text, maxima outputs, if it's taking new input
+const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))"); //Text, maxima outputs, before any output
 
 
 static QByteArray initCmd="display2d:false$                     \n"\

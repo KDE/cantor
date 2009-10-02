@@ -160,11 +160,20 @@ void MaximaExpression::parseOutput(const QString& text)
 
     kDebug()<<"parsing: "<<output;
 
-    ///if(output.contains("maxima: "));
-    //output=output.mid(6).trimmed();
+    //Remove all whitespaces and newlines in the occurring prompts, to simplify parsing later
+    int index=-1;
+    while( (index=MaximaSession::MaximaOutputPrompt.indexIn(output, index+1) )>=0 )
+    {
+        QString newPrompt=MaximaSession::MaximaOutputPrompt.cap(0);
+        newPrompt.remove(QRegExp("\\s"));
+        output.replace(index, MaximaSession::MaximaOutputPrompt.matchedLength(), newPrompt);
+    }
 
     bool couldBeQuestion=false;
     const QStringList lines=output.split('\n');
+    //A regexp matching for OutputPrompt, but allowing an arbitary number of spaces at the beginning
+    const QRegExp outputPromptRegexp(QString("\\s*%1").arg(MaximaSession::MaximaOutputPrompt.pattern()));
+
     foreach(QString line, lines) // krazy:exclude=foreach
     {
         if(line.endsWith('\r'))
@@ -177,10 +186,10 @@ void MaximaExpression::parseOutput(const QString& text)
             evalFinished();
             m_onStdoutStroke=false;
             couldBeQuestion=false;
-        }else if(line.indexOf(MaximaSession::MaximaOutputPrompt)==0)
+        }else if(outputPromptRegexp.indexIn(line)==0)
         {
             //find the number if this output in the MaximaOutputPrompt
-            QString prompt=line.mid(MaximaSession::MaximaOutputPrompt.indexIn(line), MaximaSession::MaximaOutputPrompt.matchedLength()).trimmed();
+            QString prompt=outputPromptRegexp.cap(0).trimmed();
             QString id=prompt.mid(3, prompt.length()-4);
             setId(id.toInt());
 

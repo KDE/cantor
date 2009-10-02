@@ -53,6 +53,8 @@ private slots:
     
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
+    //tests if the expression numbering works
+    void testExprNumbering();
 private:
     Cantor::Session* createSession();
     Cantor::Expression* evalExp(const QString& exp);
