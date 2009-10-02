@@ -108,6 +108,7 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 {
     m_expressionQueue.append(expr);
 
+    kDebug()<<"queue: "<<m_expressionQueue.size();
     if(m_expressionQueue.size()==1)
     {
         changeStatus(Cantor::Session::Running);
@@ -203,14 +204,23 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 
 void MaximaSession::runFirstExpression()
 {
-    if(!m_expressionQueue.isEmpty()&&m_isInitialized)
+    kDebug()<<"running next expression";
+
+    if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
         MaximaExpression* expr=m_expressionQueue.first();
-        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
         QString command=expr->internalCommand();
+        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-        kDebug()<<"writing "<<command+'\n'<<" to the process";
-        m_process->write((command+'\n').toLatin1());
+        if(command.isEmpty())
+        {
+            kDebug()<<"empty command";
+            expr->forceDone();
+        }else
+        {
+            kDebug()<<"writing "<<command+'\n'<<" to the process";
+            m_process->write((command+'\n').toLatin1());
+        }
     }
 }
 

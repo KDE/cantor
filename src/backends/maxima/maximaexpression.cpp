@@ -61,6 +61,7 @@ void MaximaExpression::evaluate()
     setStatus(Cantor::Expression::Computing);
 
     m_isHelpRequest=false;
+    m_isPlot=false;
     if(m_tempFile)
         m_tempFile->deleteLater();
     m_tempFile=0;
@@ -94,6 +95,14 @@ void MaximaExpression::evaluate()
     if(commentRegExp.exactMatch(command()))
        return;
 
+    //also drop empty commands
+    if(command().isEmpty())
+    {
+        kDebug()<<"dropping";
+        return;
+    }
+
+
     dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
 }
 
@@ -109,7 +118,11 @@ QString MaximaExpression::internalCommand()
 
     if(m_isPlot)
     {
-        if(!m_tempFile) return QString();
+        if(!m_tempFile)
+        {
+            kDebug()<<"plotting without tempFile";
+            return QString();
+        }
         QString fileName = m_tempFile->fileName();
 
 #ifdef WITH_EPS
@@ -137,6 +150,13 @@ QString MaximaExpression::internalCommand()
     cmd.remove('\n');
 
     return cmd;
+}
+
+void MaximaExpression::forceDone()
+{
+    kDebug()<<"forcing Expression state to DONE";
+    setResult(0);
+    setStatus(Cantor::Expression::Done);
 }
 
 void MaximaExpression::addInformation(const QString& information)

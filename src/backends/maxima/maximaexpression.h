@@ -49,6 +49,9 @@ class MaximaExpression : public Cantor::Expression
     //command() for example to allow plot embedding 
     QString internalCommand();
 
+    //Forces the status of this Expression to done
+    void forceDone();
+    
   public slots:
     void evalFinished();
 
