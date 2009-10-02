@@ -236,6 +236,7 @@ void MaximaSession::runFirstExpression()
         }else
         {
             kDebug()<<"writing "<<command+'\n'<<" to the process";
+            m_cache.clear();
             m_process->write((command+'\n').toLatin1());
         }
     }
