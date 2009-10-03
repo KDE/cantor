@@ -22,8 +22,12 @@
 #include "maximaexpression.h"
 
 #include <QTimer>
+#include <QTcpSocket>
+#include <QTcpServer>
 #include <kdebug.h>
 #include <kprocess.h>
+#include <kmessagebox.h>
+#include <klocale.h>
 #include <signal.h>
 #include "settings.h"
 
@@ -46,8 +50,11 @@ MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
+    m_server=0;
+    m_maxima=0;
     m_process=0;
     m_texConvertProcess=0;
+    m_texMaxima=0;
 }
 
 MaximaSession::~MaximaSession()
@@ -60,18 +67,62 @@ void MaximaSession::login()
     kDebug()<<"login";
     if (m_process)
         m_process->deleteLater();
+    if(!m_server||!m_server->isListening())
+        startServer();
 
+    m_maxima=0;
     m_process=new KProcess(this);
-    m_process->setProgram(MaximaSettings::self()->path().toLocalFile());
-    m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    //m_process->setPtyChannels(KProcess::AllChannels);
-    //m_process->pty()->setEcho(false);
-    //m_process->setUseUtmp(true);
+    QStringList args;
+    //TODO: these parameters may need tweaking to run on windows (see wxmaxima for hints)
+    args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
+    m_process->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
 
-    connect(m_process, SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+
     m_process->start();
-    m_process->write(initCmd);
+}
+
+void MaximaSession::startServer()
+{
+    kDebug()<<"starting up maxima server";
+    const int defaultPort=4060;
+    int port=defaultPort;
+    m_server=new QTcpServer(this);
+    connect(m_server, SIGNAL(newConnection()), this, SLOT(newConnection()));
+
+    while(! m_server->listen(QHostAddress::LocalHost, port) )
+    {
+        kDebug()<<"Could not listen to "<<port;
+        port++;
+        kDebug()<<"Now trying "<<port;
+
+        if(port>defaultPort+50)
+        {
+            KMessageBox::error(0, i18n("Could not start the server."), i18n("Error - Cantor"));
+            return;
+        }
+    }
+
+    kDebug()<<"got a server on "<<port;
+}
+
+void MaximaSession::newMaximaClient(QTcpSocket* socket)
+{
+    kDebug()<<"got new maxima client";
+    m_maxima=socket;
+    connect(m_maxima, SIGNAL(readyRead()), this, SLOT(readStdOut()));
+    m_maxima->write(initCmd);
+}
+
+void MaximaSession::newTexClient(QTcpSocket* socket)
+{
+    kDebug()<<"got new tex client";
+    m_texMaxima=socket;
+
+    connect(m_texMaxima, SIGNAL(readyRead()), this, SLOT(readTeX()));
+
+    m_texMaxima->write(texInitCmd);
+    m_texMaxima->write(initCmd);
 }
 
 void MaximaSession::logout()
@@ -91,6 +142,21 @@ void MaximaSession::logout()
 
     m_process->deleteLater();
     m_expressionQueue.clear();
+}
+
+void MaximaSession::newConnection()
+{
+    QTcpSocket* const socket=m_server->nextPendingConnection();
+    if(m_maxima==0)
+    {
+        newMaximaClient(socket);
+    }else if (m_texMaxima==0)
+    {
+        newTexClient(socket);
+    }else
+    {
+        kDebug()<<"got another client, without needing one";
+    }
 }
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
@@ -119,7 +185,7 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 void MaximaSession::readStdOut()
 {
     kDebug()<<"reading stdOut";
-    QString out=m_process->readAll();
+    QString out=m_maxima->readAll();
     kDebug()<<"out: "<<out;
 
 
@@ -136,6 +202,17 @@ void MaximaSession::readStdOut()
 
         return;
     }
+
+    if(out.contains("(%i1)"))
+    {
+        kDebug()<<"writing; ";
+        m_maxima->write("2+2;\r\n");
+        if (m_maxima->flush())
+            kDebug()<<"flushed";
+    }
+
+    if(!m_isInitialized)
+        return;
 
     m_cache+=out;
 
@@ -172,7 +249,7 @@ void MaximaSession::killLabels()
 void MaximaSession::readTeX()
 {
     kDebug()<<"reading stdOut";
-    QString out=m_texConvertProcess->readAll();
+    QString out=m_texMaxima->readAll();
     kDebug()<<"out: "<<out;
 
     kDebug()<<"queuesize: "<<m_texQueue.size();
@@ -237,7 +314,7 @@ void MaximaSession::runFirstExpression()
         {
             kDebug()<<"writing "<<command+'\n'<<" to the process";
             m_cache.clear();
-            m_process->write((command+'\n').toLatin1());
+            m_maxima->write((command+'\n').toLatin1());
         }
     }
 }
@@ -269,7 +346,7 @@ void MaximaSession::runNextTexCommand()
                 texCmd+=QString("tex(%1);").arg(part);
             }
             texCmd+='\n';
-            m_texConvertProcess->write(texCmd.toUtf8());
+            m_texMaxima->write(texCmd.toUtf8());
         }else
         {
             kDebug()<<"current tex request is empty, so drop it";
@@ -282,21 +359,37 @@ void MaximaSession::interrupt()
 {
     if(!m_expressionQueue.isEmpty())
         m_expressionQueue.first()->interrupt();
+
     m_expressionQueue.clear();
     changeStatus(Cantor::Session::Done);
 }
 
-void MaximaSession::sendSignalToProcess(int signal)
+void MaximaSession::interrupt(MaximaExpression* expr)
 {
-    kDebug()<<"sending signal....."<<signal;
-    kill(m_process->pid(), signal);
+    Q_ASSERT(!m_expressionQueue.isEmpty());
+
+    if(expr==m_expressionQueue.first())
+    {
+        disconnect(m_maxima, 0);
+        disconnect(expr, 0, this, 0);
+        m_maxima->close();
+        m_maxima->deleteLater();
+        m_process->close();
+        m_process->deleteLater();
+        m_maxima=0;
+        m_process=0;
+        //maxima will be restarted automatically
+    }else
+    {
+        m_expressionQueue.removeAll(expr);
+    }
 }
 
 void MaximaSession::sendInputToProcess(const QString& input)
 {
     kDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
     kDebug()<<"running "<<input;
-    m_process->write(input.toLatin1());
+    m_maxima->write(input.toLatin1());
 }
 
 void MaximaSession::restartMaxima()
@@ -310,18 +403,16 @@ void MaximaSession::restartMaxima()
 
 void MaximaSession::startTexConvertProcess()
 {
+    m_texMaxima=0;
     //Start the process that is used to convert to LaTeX
     m_texConvertProcess=new KProcess(this);
-    m_texConvertProcess->setProgram(MaximaSettings::self()->path().toLocalFile());
-    m_texConvertProcess->setOutputChannelMode(KProcess::SeparateChannels);
-    //m_texConvertProcess->setPtyChannels(KProcess::AllChannels);
-    //m_texConvertProcess->pty()->setEcho(false);
+    QStringList args;
+    args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
 
-    connect(m_texConvertProcess, SIGNAL(readyRead()), this, SLOT(readTeX()));
+    m_texConvertProcess->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
+
     connect(m_texConvertProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
     m_texConvertProcess->start();
-    m_texConvertProcess->write(texInitCmd);
-    m_texConvertProcess->write(initCmd);
 }
 
 void MaximaSession::setTypesettingEnabled(bool enable)

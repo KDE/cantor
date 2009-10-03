@@ -29,6 +29,8 @@
 
 class MaximaExpression;
 class KProcess;
+class QTcpServer;
+class QTcpSocket;
 
 
 class MaximaSession : public Cantor::Session
@@ -43,14 +45,16 @@ class MaximaSession : public Cantor::Session
 
     void login();
     void logout();
+    void startServer();
+    void newMaximaClient(QTcpSocket* socket);
+    void newTexClient(QTcpSocket* socket);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
 
     void appendExpressionToQueue(MaximaExpression* expr);
 
     void interrupt();
-
-    void sendSignalToProcess(int signal);
+    void interrupt(MaximaExpression* expr);
     void sendInputToProcess(const QString& input);
 
     void setTypesettingEnabled(bool enable);
@@ -61,6 +65,7 @@ class MaximaSession : public Cantor::Session
     void readTeX();
 
   private slots:
+    void newConnection();
     void letExpressionParseOutput();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
@@ -71,7 +76,10 @@ class MaximaSession : public Cantor::Session
 
     void killLabels();
   private:
+    QTcpServer* m_server;
+    QTcpSocket* m_maxima;
     KProcess* m_process;
+    QTcpSocket* m_texMaxima;
     KProcess* m_texConvertProcess; //only used to convert from expression to TeX
     QList<MaximaExpression*> m_expressionQueue;
     QList<MaximaExpression*> m_texQueue; //Queue used for Expressions that need to be converted to LaTeX
