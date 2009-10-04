@@ -79,6 +79,7 @@ void MaximaSession::login()
     m_process->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
 
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+    connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
     m_process->start();
 }
@@ -237,6 +238,15 @@ void MaximaSession::killLabels()
 {
     Cantor::Expression* e=evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
     connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
+}
+
+void MaximaSession::reportProcessError(QProcess::ProcessError e)
+{
+    if(e==QProcess::FailedToStart)
+    {
+        changeStatus(Cantor::Session::Done);
+        emit error(i18n("Failed to start Maxima"));
+    }
 }
 
 void MaximaSession::readTeX()

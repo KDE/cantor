@@ -581,6 +581,14 @@ void Worksheet::load(const QString& filename )
         return;
     }
 
+    if(!b->isEnabled())
+    {
+        KMessageBox::information(this, i18n("There are some problems with the %1 backend,\n"\
+                                            "please check your configuration or install the needed packages.\n"
+                                            "You will only be able to view this worksheet", backendName), i18n("Cantor"));
+
+    }
+
     //cache the old typesetting state
     bool isLatexEnabled=m_session->isTypesettingEnabled();
     m_session=b->createSession();

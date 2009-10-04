@@ -308,10 +308,18 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
     }
 }
 
+void CantorPart::showSessionError(const QString& message)
+{
+    kDebug()<<"Error: "<<message;
+    initialized();
+    emit setStatusBarText(i18n("Session Error: %1", message));
+}
+
 void CantorPart::worksheetSessionChanged()
 {
     connect(m_worksheet->session(), SIGNAL(statusChanged(Cantor::Session::Status)), this, SLOT(worksheetStatusChanged(Cantor::Session::Status)));
     connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
+    connect(m_worksheet->session(), SIGNAL(error(const QString&)), this, SLOT(showSessionError(const QString&)));
 
     loadAssistants();
     adjustGuiToSession();

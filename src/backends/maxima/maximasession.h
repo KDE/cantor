@@ -26,6 +26,7 @@
 
 #include <kdirwatch.h>
 #include <QRegExp>
+#include <QProcess>
 
 class MaximaExpression;
 class KProcess;
@@ -77,6 +78,8 @@ class MaximaSession : public Cantor::Session
     void startTexConvertProcess();
 
     void killLabels();
+
+    void reportProcessError(QProcess::ProcessError error);
   private:
     QTcpServer* m_server;
     QTcpSocket* m_maxima;

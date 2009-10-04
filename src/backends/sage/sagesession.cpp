@@ -69,6 +69,7 @@ void SageSession::login()
     connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+    connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
     m_process->start();
 
     m_process->pty()->write(initCmd);
@@ -205,6 +206,15 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
             KMessageBox::error(0, i18n("The Sage process exited"), i18n("Cantor"));
         }
+    }
+}
+
+void SageSession::reportProcessError(QProcess::ProcessError e)
+{
+    if(e==QProcess::FailedToStart)
+    {
+        changeStatus(Cantor::Session::Done);
+        emit error(i18n("Failed to start Sage"));
     }
 }
 

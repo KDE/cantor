@@ -103,6 +103,7 @@ protected slots:
     void print();
     
     void worksheetStatusChanged(Cantor::Session::Status stauts);
+    void showSessionError(const QString& error);
     void worksheetSessionChanged();
     void initialized();
     void updateCaption();

@@ -77,7 +77,7 @@ class CANTOR_EXPORT Session : public QObject
   signals:
     void statusChanged(Cantor::Session::Status newStatus);
     void ready();
-
+    void error(const QString& msg);
 
   private:
     SessionPrivate* d;
