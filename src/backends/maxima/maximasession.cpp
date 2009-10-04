@@ -203,14 +203,6 @@ void MaximaSession::readStdOut()
         return;
     }
 
-    if(out.contains("(%i1)"))
-    {
-        kDebug()<<"writing; ";
-        m_maxima->write("2+2;\r\n");
-        if (m_maxima->flush())
-            kDebug()<<"flushed";
-    }
-
     if(!m_isInitialized)
         return;
 
