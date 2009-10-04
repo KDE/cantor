@@ -202,7 +202,7 @@ void MaximaExpression::parseOutput(const QString& text)
         if(line.isEmpty())
             continue;
 
-        if (line.indexOf(MaximaSession::MaximaPrompt)!=-1)
+        if (MaximaSession::MaximaPrompt.exactMatch(line.trimmed()))
         {
             evalFinished();
             m_onStdoutStroke=false;
