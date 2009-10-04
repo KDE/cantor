@@ -3,18 +3,16 @@ BUGS:
 
 FEATURES:
 Maxima-backend:
-- implement tab completion in maxima
+- improve tab completion (ATM it's only a static list of known functions)
 Sage-backend:
 - Handle additional input requests in Sage Backend
 R-Backend:
 - complete it
  - add custom Result types for DataFrames etc. (nice html tables instead of AsciiArt)
 General:
-- change the way backends get chosen (this dialog just doesn't look right)
 - add help browser 
 - improve help/documentation/usability all over the place
 - review and cleanup API
-| GHNS integration
 - Extension infrastructure(backend-specific or using extensions), e.g. to provide variable inspection
 - Add a console, where the user can interact directly with the underlying process (unsing infrastructure from above?)
 - scripted plugins/assistants (with GHNS integration)
