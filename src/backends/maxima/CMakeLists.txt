@@ -6,6 +6,8 @@ set( MaximaBackend_SRCS
  maximaexpression.cpp
  maximaextensions.cpp
  maximahighlighter.cpp
+ maximakeywords.cpp
+ maximatabcompletionobject.cpp
 )
 
 kde4_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)

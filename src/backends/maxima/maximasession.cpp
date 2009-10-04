@@ -20,6 +20,7 @@
 
 #include "maximasession.h"
 #include "maximaexpression.h"
+#include "maximatabcompletionobject.h"
 
 #include <QTimer>
 #include <QTcpSocket>
@@ -421,6 +422,11 @@ void MaximaSession::setTypesettingEnabled(bool enable)
         m_texConvertProcess->deleteLater();
     }
     Cantor::Session::setTypesettingEnabled(enable);
+}
+
+Cantor::TabCompletionObject* MaximaSession::tabCompletionFor(const QString& command)
+{
+    return new MaximaTabCompletionObject(command, this);
 }
 
 #include "maximasession.moc"

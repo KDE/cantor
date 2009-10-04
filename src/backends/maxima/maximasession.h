@@ -59,6 +59,8 @@ class MaximaSession : public Cantor::Session
 
     void setTypesettingEnabled(bool enable);
 
+    Cantor::TabCompletionObject* tabCompletionFor(const QString& command);
+
   public slots:
     void readStdOut();
 
