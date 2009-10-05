@@ -40,6 +40,7 @@ TabCompletionObject::TabCompletionObject(const QString& command, Session* sessio
     setParent(session);
     d->command=command;
     d->session=session;
+    setCompletionMode(KGlobalSettings::CompletionShell);
 
     //start a delayed fetch
     QTimer::singleShot(0, this, SLOT(fetchCompletions()));

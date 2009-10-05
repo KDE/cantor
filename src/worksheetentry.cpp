@@ -220,8 +220,17 @@ void WorksheetEntry::setTabCompletion(Cantor::TabCompletionObject* tc)
 
 void WorksheetEntry::applyTabCompletion()
 {
-    m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
+    QString completion=m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
+    kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_tabCompletionObject->allMatches();
+
+    //replace the current command with the completion
+    QTextCursor cursor=m_worksheet->textCursor();
+    if(!isInCommandCell(cursor)) return;
+
+    QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
+    beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
+    beginC.insertHtml(completion);
 
     if(m_tabCompletionObject->hasMultipleMatches())
     {
@@ -272,17 +281,10 @@ void WorksheetEntry::applyTabCompletion()
 
     }else
     {
-        //there is only one possible completion, so replace the
-        //current command with the match
-        QTextCursor cursor=m_worksheet->textCursor();
-        if(!isInCommandCell(cursor)) return;
-
-        QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
-        beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
-        beginC.insertHtml(m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command()));
-
+        //remove the list if it isn't needed anymore
         removeContextHelp();
     }
+
 
 }
 
