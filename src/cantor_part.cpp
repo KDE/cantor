@@ -65,6 +65,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_scriptEditor=0;
+    m_statusBarBlocked=false;
 
     kDebug()<<"Created a CantorPart";
     QString backendName;
@@ -213,7 +214,7 @@ bool CantorPart::openFile()
     m_worksheet->load(localFilePath());
 
     // just for fun, set the status bar
-    //emit setStatusBarText( m_url.prettyUrl() );
+    //setStatusMessage( m_url.prettyUrl() );
 
     updateCaption();
 
@@ -298,13 +299,13 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
         m_evaluate->setText(i18n("Interrupt"));
         m_evaluate->setIcon(KIcon("dialog-close"));
 
-        emit setStatusBarText(i18n("Calculating..."));
+        setStatusMessage(i18n("Calculating..."));
     }else
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
         m_evaluate->setIcon(KIcon("system-run"));
 
-        emit setStatusBarText(i18n("Ready"));
+        setStatusMessage(i18n("Ready"));
     }
 }
 
@@ -312,7 +313,7 @@ void CantorPart::showSessionError(const QString& message)
 {
     kDebug()<<"Error: "<<message;
     initialized();
-    emit setStatusBarText(i18n("Session Error: %1", message));
+    showImportantStatusMessage(i18n("Session Error: %1", message));
 }
 
 void CantorPart::worksheetSessionChanged()
@@ -335,7 +336,7 @@ void CantorPart::worksheetSessionChanged()
 void CantorPart::initialized()
 {
     m_worksheet->setEnabled(true);
-    emit setStatusBarText(i18n("Initialization complete"));
+    setStatusMessage(i18n("Initialization complete"));
 
     if(m_initProgressDlg)
     {
@@ -524,4 +525,32 @@ void CantorPart::runScript(const QString& file)
 
     Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
     m_worksheet->appendEntry(scriptE->runExternalScript(file));
+}
+
+void CantorPart::blockStatusBar()
+{
+    m_statusBarBlocked=true;
+}
+
+void CantorPart::unblockStatusBar()
+{
+    m_statusBarBlocked=false;
+    if(!m_cachedStatusMessage.isNull())
+        setStatusMessage(m_cachedStatusMessage);
+    m_cachedStatusMessage.clear();
+}
+
+void CantorPart::setStatusMessage(const QString& message)
+{
+    if(!m_statusBarBlocked)
+        emit setStatusBarText(message);
+    else
+        m_cachedStatusMessage=message;
+}
+
+void CantorPart::showImportantStatusMessage(const QString& message)
+{
+    setStatusMessage(message);
+    blockStatusBar();
+    QTimer::singleShot(3000, this, SLOT(unblockStatusBar()));
 }

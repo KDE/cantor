@@ -398,9 +398,11 @@ void MaximaSession::sendInputToProcess(const QString& input)
 void MaximaSession::restartMaxima()
 {
     kDebug()<<"restarting maxima";
+    emit error(i18n("Maxima crashed. restarting..."));
     //remove the command that caused maxima to crash (to avoid infinite loops)
     if(!m_expressionQueue.isEmpty())
         m_expressionQueue.removeFirst();
+
     login();
 }
 

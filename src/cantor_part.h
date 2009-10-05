@@ -113,6 +113,22 @@ protected slots:
 
     void showScriptEditor(bool show);
     void runScript(const QString& file);
+
+    /** sets the status message, or cached it, if the StatusBar is blocked.
+     *  Use this method instead of "emit setStatusBarText"
+     */
+    void setStatusMessage(const QString& message);
+    /** Shows an important status message. It makes sure the message is displayed,
+     *  by blocking the statusbarText for 3 seconds
+     */
+    void showImportantStatusMessage(const QString& message);
+    /** Blocks the StatusBar for new messages, so the currently shown one won't be overridden
+     */
+    void blockStatusBar();
+    /** Removes the block from the StatusBar, and shows the last one of the StatusMessages that
+	where set during the block
+    **/
+    void unblockStatusBar();
 private:
     Worksheet *m_worksheet;
     ScriptEditorWidget* m_scriptEditor;
@@ -125,6 +141,9 @@ private:
     KToggleAction* m_tabcompletion;
     KToggleAction* m_exprNumbering;
     KAction* m_showBackendHelp;
+
+    QString m_cachedStatusMessage;
+    bool m_statusBarBlocked;
 };
 
 #endif // CANTORPART_H
