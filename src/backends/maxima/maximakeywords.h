@@ -32,5 +32,5 @@ namespace MaximaKeywords
     const QStringList& functions();
     const QStringList& keywords();
     const QStringList& variables();
-};
+}
 #endif /* _MAXIMAKEYWORDS_H */
