@@ -73,7 +73,7 @@ void MaximaExpression::evaluate()
     m_outputCache.clear();
     m_errCache.clear();
 
-    if(command().contains(QRegExp("plot2d\\([^\\)]|plot3d\\([^\\)]")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
+    if(command().contains(QRegExp("(?:plot2d|plot3d)\\s*\\([^\\)]")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
     {
         m_isPlot=true;
         m_tempFile=new KTemporaryFile();
@@ -134,7 +134,7 @@ QString MaximaExpression::internalCommand()
         const QString plotParameters = "[gnuplot_preamble,\"" + preamble + "\"]";
 
 #endif
-        cmd.replace(QRegExp("((plot2d|plot3d)\\(.*)\\)([;\n]|$)"), "\\1, "+plotParameters+");");
+        cmd.replace(QRegExp("((plot2d|plot3d)\\s*\\(.*)\\)([;\n]|$)"), "\\1, "+plotParameters+");");
 
     }
 
