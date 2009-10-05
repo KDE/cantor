@@ -98,7 +98,7 @@ SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(e
         m_highlightingRules.append(rule);
     }
 
-    rule.pattern = QRegExp("\\S*\\.");
+    rule.pattern = QRegExp("\\b\\S*[^\\d]+\\S*\\.(?!\\d)");
     rule.format = objectFormat;
     m_highlightingRules.append(rule);
 
