@@ -224,18 +224,19 @@ void WorksheetEntry::applyTabCompletion()
     m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
     if(m_tabCompletionObject->hasMultipleMatches())
     {
+        int oldCursorPos=m_worksheet->textCursor().position();
+
         //Show a list of possible completions
         if(!m_contextHelpCell.isValid())
         {
             //remember the actual cursor position, and reset the cursor later
-            int cursorPos=m_worksheet->textCursor().position();
             int row=m_commandCell.row()+1;
 
             m_table->insertRows(row, 1);
             m_contextHelpCell=m_table->cellAt(row, 1);
 
             QTextCursor c=m_worksheet->textCursor();
-            c.setPosition(cursorPos);
+            c.setPosition(oldCursorPos);
             m_worksheet->setTextCursor(c);
         }
 
@@ -250,6 +251,13 @@ void WorksheetEntry::applyTabCompletion()
         html+="</table>";
 
         cursor.insertHtml(html);
+
+        m_worksheet->setTextCursor(cursor);
+        m_worksheet->ensureCursorVisible();
+        QTextCursor oldC=m_worksheet->textCursor();
+        oldC.setPosition(oldCursorPos);
+        m_worksheet->setTextCursor(oldC);
+        m_worksheet->ensureCursorVisible();
 
     }else
     {
