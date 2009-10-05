@@ -220,8 +220,9 @@ void WorksheetEntry::setTabCompletion(Cantor::TabCompletionObject* tc)
 
 void WorksheetEntry::applyTabCompletion()
 {
-    kDebug()<<"showing "<<m_tabCompletionObject->completions();
     m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
+    kDebug()<<"showing "<<m_tabCompletionObject->allMatches();
+
     if(m_tabCompletionObject->hasMultipleMatches())
     {
         int oldCursorPos=m_worksheet->textCursor().position();
@@ -243,11 +244,21 @@ void WorksheetEntry::applyTabCompletion()
         QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
         cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
 
+        int count=0;
         QString html="<table>";
-        foreach(const QString& item, m_tabCompletionObject->allMatches())
+        const QStringList& matches=m_tabCompletionObject->allMatches();
+        foreach(const QString& item, matches)
         {
             html+="<tr><td>"+item+"</td></tr>";
+            count++;
+            if(count>10)
+                break;
         }
+
+        const int itemsLeft=matches.size()-count;
+        if(itemsLeft>0)
+            html+="<tr><td><b>"+i18n("And %1 more...", itemsLeft)+"<b></td></tr>";
+
         html+="</table>";
 
         cursor.insertHtml(html);
