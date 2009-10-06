@@ -1,10 +1,5 @@
 project(cantor)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules )
-
-find_package(KDE4 REQUIRED)
-include (KDE4Defaults)
-
 macro_optional_find_package(LibSpectre)
 macro_log_feature(LIBSPECTRE_FOUND "libspectre" "A PostScript rendering library" "http://libspectre.freedesktop.org/wiki/" FALSE "${LIBSPECTRE_MINIMUM_VERSION}" "Support for rendering EPS files in Cantor.")
 
@@ -20,5 +15,4 @@ add_subdirectory( src )
 add_subdirectory( icons )
 add_subdirectory( tests )
 
-macro_display_feature_log()
 
