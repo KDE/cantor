@@ -22,6 +22,7 @@ Comment[fr]=Un assistant graphique simplifiant la résolution d'équiations
 Comment[pt]=Uma janela assistente para simplificar a resolução de equações
 Comment[pt_BR]=Um diálogo de assistente para simplificar a resolução de equações
 Comment[sv]=En dialogruta med en guide för att förenkla lösning av ekvationer
+Comment[tr]=Eşitlikleri çözmeye yardımcı olan bir sihirbaz
 Comment[uk]=Діалогове вікно помічника у розв’язанні рівнянь
 Comment[x-test]=xxAn Assistant dialog to simplify solving of equationsxx
 RequiredExtensions=CASExtension
