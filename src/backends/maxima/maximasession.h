@@ -96,6 +96,7 @@ class MaximaSession : public Cantor::Session
 
     QTimer* m_restartCooldown;
     bool m_justRestarted;
+    bool m_useLegacy;
 };
 
 #endif /* _MAXIMASESSION_H */

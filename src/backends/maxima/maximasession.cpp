@@ -57,6 +57,7 @@ MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
     m_texConvertProcess=0;
     m_texMaxima=0;
     m_justRestarted=false;
+    m_useLegacy=false;
 }
 
 MaximaSession::~MaximaSession()
@@ -76,7 +77,11 @@ void MaximaSession::login()
     m_process=new KProcess(this);
     QStringList args;
     //TODO: these parameters may need tweaking to run on windows (see wxmaxima for hints)
-    args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
+    if(m_useLegacy)
+        args<<"-r"<<QString(":lisp (setup-server %1)").arg(m_server->serverPort());
+    else
+        args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
+
     m_process->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
 
     m_process->start();
@@ -395,15 +400,28 @@ void MaximaSession::sendInputToProcess(const QString& input)
 void MaximaSession::restartMaxima()
 {
     kDebug()<<"restarting maxima cooldown: "<<m_justRestarted;
+
     if(!m_justRestarted)
     {
-        emit error(i18n("Maxima crashed. restarting..."));
-        //remove the command that caused maxima to crash (to avoid infinite loops)
-        if(!m_expressionQueue.isEmpty())
-            m_expressionQueue.removeFirst();
+        //If maxima finished, before the session was initialized
+        //We try to use Legacy commands for startups (Maxima <5.18)
+        //In this case, don't require the cooldown
+        if(!m_isInitialized)
+        {
+            m_useLegacy=!m_useLegacy;
+            kDebug()<<"Initializing maxima failed now trying legacy support: "<<m_useLegacy;
+        }
+        else
+        {
+             emit error(i18n("Maxima crashed. restarting..."));
+             //remove the command that caused maxima to crash (to avoid infinite loops)
+             if(!m_expressionQueue.isEmpty())
+                 m_expressionQueue.removeFirst();
 
-        m_justRestarted=true;
-        QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
+            m_justRestarted=true;
+            QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
+        }
+
         disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
         login();
     }else
