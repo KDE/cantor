@@ -5,7 +5,7 @@
   <!ENTITY cantor "<application>Cantor</application>">
   <!ENTITY kappname "&cantor;"><!-- replace kmyapplication here
                                             do *not* replace kappname-->
-  <!ENTITY package "kde-module"><!-- kdebase, kdeadmin, etc.  Leave
+  <!ENTITY package "kdeedu"><!-- kdebase, kdeadmin, etc.  Leave
                                      this unchanged if your
                                      application is not maintained in KDE CVS -->
   <!ENTITY % addindex "IGNORE">
@@ -408,7 +408,8 @@ Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmai
 <title>Requirements</title>
 
 <para>
-In order to successfully use &cantor;, you need &kde; 4 and LibSpectre.
+In order to successfully use &cantor;, you need &kde; 4.
+If you want support for Typesetting, you need LaTeX and LibSpectre.
 To use the different Backends, the appropriate math package is required.
 </para>
 
