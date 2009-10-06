@@ -190,7 +190,9 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
             c.setPosition(current->commandCell().firstCursorPosition().position(), QTextCursor::KeepAnchor);
             QString txt=c.selectedText();
 
-            if(txt.contains(QChar::ParagraphSeparator)||txt.contains('\n')) //there's still a newline above the cursor, so move only one line up
+            if(txt.contains(QChar::ParagraphSeparator)||
+               txt.contains(QChar::LineSeparator)||
+               txt.contains('\n')) //there's still a newline above the cursor, so move only one line up
             {
                 KTextEdit::keyPressEvent(event);
                 return;
@@ -228,7 +230,12 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         QString txt=c.selectedText();
 
         //if we're in the command cell and there is still a newline under the cursor, only move one line down
-        if(current->isInCommandCell(textCursor())&&(txt.contains(QChar::ParagraphSeparator)||txt.contains('\n')))
+        if(current->isInCommandCell(textCursor())&&
+            (txt.contains(QChar::ParagraphSeparator)||
+              txt.contains(QChar::LineSeparator)||
+              txt.contains('\n')
+            )
+          )
         {
             KTextEdit::keyPressEvent(event);
             return;
