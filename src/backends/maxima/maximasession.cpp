@@ -56,6 +56,7 @@ MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
     m_process=0;
     m_texConvertProcess=0;
     m_texMaxima=0;
+    m_justRestarted=false;
 }
 
 MaximaSession::~MaximaSession()
@@ -78,10 +79,10 @@ void MaximaSession::login()
     args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
     m_process->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
 
+    m_process->start();
+
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
-
-    m_process->start();
 }
 
 void MaximaSession::startServer()
@@ -242,6 +243,7 @@ void MaximaSession::killLabels()
 
 void MaximaSession::reportProcessError(QProcess::ProcessError e)
 {
+    kDebug()<<"process error";
     if(e==QProcess::FailedToStart)
     {
         changeStatus(Cantor::Session::Done);
@@ -375,13 +377,8 @@ void MaximaSession::interrupt(MaximaExpression* expr)
     {
         disconnect(m_maxima, 0);
         disconnect(expr, 0, this, 0);
-        m_maxima->close();
-        m_maxima->deleteLater();
-        m_process->close();
-        m_process->deleteLater();
-        m_maxima=0;
-        m_process=0;
-        //maxima will be restarted automatically
+        restartMaxima();
+        kDebug()<<"done interrupting";
     }else
     {
         m_expressionQueue.removeAll(expr);
@@ -397,13 +394,28 @@ void MaximaSession::sendInputToProcess(const QString& input)
 
 void MaximaSession::restartMaxima()
 {
-    kDebug()<<"restarting maxima";
-    emit error(i18n("Maxima crashed. restarting..."));
-    //remove the command that caused maxima to crash (to avoid infinite loops)
-    if(!m_expressionQueue.isEmpty())
-        m_expressionQueue.removeFirst();
+    kDebug()<<"restarting maxima cooldown: "<<m_justRestarted;
+    if(!m_justRestarted)
+    {
+        emit error(i18n("Maxima crashed. restarting..."));
+        //remove the command that caused maxima to crash (to avoid infinite loops)
+        if(!m_expressionQueue.isEmpty())
+            m_expressionQueue.removeFirst();
 
-    login();
+        m_justRestarted=true;
+        QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
+        disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+        login();
+    }else
+    {
+        KMessageBox::error(0, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
+    }
+}
+
+void MaximaSession::restartsCooledDown()
+{
+    kDebug()<<"maxima restart cooldown";
+    m_justRestarted=false;
 }
 
 void MaximaSession::startTexConvertProcess()

@@ -32,7 +32,7 @@ class MaximaExpression;
 class KProcess;
 class QTcpServer;
 class QTcpSocket;
-
+class QTimer;
 
 class MaximaSession : public Cantor::Session
 {
@@ -72,6 +72,7 @@ class MaximaSession : public Cantor::Session
     void letExpressionParseOutput();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
+    void restartsCooledDown();
 
     void runFirstExpression();
     void runNextTexCommand();
@@ -92,6 +93,9 @@ class MaximaSession : public Cantor::Session
 
     bool m_isInitialized;
     QString m_tmpPath;
+
+    QTimer* m_restartCooldown;
+    bool m_justRestarted;
 };
 
 #endif /* _MAXIMASESSION_H */
