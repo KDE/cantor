@@ -1,25 +1,10 @@
 [Desktop Entry]
 Type=Service
 Name=Create Matrix
-Name[es]=Crear matriz
-Name[fr]=Créer une matrice
-Name[pt]=Criar uma Matriz
-Name[pt_BR]=Criar matriz
-Name[sv]=Skapa matris
-Name[tr]=Matris Oluştur
-Name[uk]=Створити матрицю
-Name[x-test]=xxCreate Matrixxx
 X-KDE-ServiceTypes=Cantor/Assistant
 X-KDE-Library=cantor_creatematrixassistant
 X-KDE-PluginInfo-Name=Create Matrix
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify entering of matrices
-Comment[es]=Un diálogo asistente para simplificar el ingreso de matrices
-Comment[fr]=Un assistant graphique simplifiant la saisie de matrices
-Comment[pt]=Uma janela assistente para simplificar a introdução de matrizes
-Comment[pt_BR]=Uma diálogo assistente para simplificar a introdução de matrizes
-Comment[sv]=En dialogruta med en guide för att förenkla inmatning av matriser
-Comment[uk]=Діалогове вікно помічника введення матриць
-Comment[x-test]=xxAn Assistant dialog to simplify entering of matricesxx
 RequiredExtensions=LinearAlgebraExtension
