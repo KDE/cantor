@@ -442,7 +442,10 @@ void MaximaSession::startTexConvertProcess()
     //Start the process that is used to convert to LaTeX
     m_texConvertProcess=new KProcess(this);
     QStringList args;
-    args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
+    if(m_useLegacy)
+        args<<"-r"<<QString(":lisp (setup-server %1)").arg(m_server->serverPort());
+    else
+        args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
 
     m_texConvertProcess->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
 
