@@ -2,6 +2,10 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/Assistant
 Comment=An Assistant for Cantor
+Comment[ca]=Un assistent per al Cantor
+Comment[pt]=Um assistente para o Cantor
+Comment[uk]=Помічник Cantor
+Comment[x-test]=xxAn Assistant for Cantorxx
 
 [PropertyDef::RequiredExtensions]
 Type=QStringList

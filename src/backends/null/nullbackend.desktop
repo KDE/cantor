@@ -1,9 +1,17 @@
 [Desktop Entry]
 Type=Service
 Name=nullbackend
+Name[ca]=DorsalNul
+Name[pt]=testes
+Name[uk]=nullbackend
+Name[x-test]=xxnullbackendxx
 X-KDE-ServiceTypes=Cantor/Backend
 X-KDE-Library=cantor_nullbackend
 X-KDE-PluginInfo-Name=nullbackend
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Cantor for testing purposes
+Comment[ca]=Dorsal per al Cantor, per a fer proves
+Comment[pt]=Infra-estrutura de testes para o Cantor
+Comment[uk]=Тестовий сервер Cantor
+Comment[x-test]=xxBackend for Cantor for testing purposesxx

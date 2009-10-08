@@ -1,10 +1,18 @@
 [Desktop Entry]
 Type=Service
 Name=Eigenvalues
+Name[ca]=Valors propis (Autovalors)
+Name[pt]=Valores de Eigen
+Name[uk]=Власні значення
+Name[x-test]=xxEigenvaluesxx
 X-KDE-ServiceTypes=Cantor/Assistant
 X-KDE-Library=cantor_eigenvaluesassistant
 X-KDE-PluginInfo-Name=Create Matrix
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify calculating of Eigenvalues
+Comment[ca]=Un diàleg assistent per simplificar el càlcul d'autovalors
+Comment[pt]=Uma janela assistente que simplifica o cálculo dos valores de Eigen
+Comment[uk]=Діалогове вікно помічника у обчисленні власних значень
+Comment[x-test]=xxAn Assistant dialog to simplify calculating of Eigenvaluesxx
 RequiredExtensions=LinearAlgebraExtension,HistoryExtension
