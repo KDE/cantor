@@ -2,6 +2,7 @@
 Name=Cantor
 Name[ca]=Cantor
 Name[pt]=Cantor
+Name[pt_BR]=Cantor
 Name[uk]=Cantor
 Name[x-test]=xxCantorxx
 Exec=cantor %i -caption "%c"
@@ -11,6 +12,7 @@ X-DocPath=cantor/index.html
 GenericName=KDE Frontend to Mathematical Software.
 GenericName[ca]=Frontal del KDE per a programari matemàtic
 GenericName[pt]=Interface para o KDE de Aplicações Matemáticas.
+GenericName[pt_BR]=Interface do KDE para software matemático.
 GenericName[uk]=Графічна оболонка KDE до математичного програмного забезпечення.
 GenericName[x-test]=xxKDE Frontend to Mathematical Software.xx
 Terminal=false
