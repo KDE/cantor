@@ -417,6 +417,7 @@ void CantorPart::loadAssistants()
             connect(assistant, SIGNAL(requested()), this, SLOT(runAssistant()));
         }else
         {
+            removeChildClient(assistant);
             assistant->deleteLater();
         }
     }

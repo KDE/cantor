@@ -146,11 +146,10 @@ void CantorShell::setupActions()
     createStandardStatusBarAction();
     //setStandardToolBarMenuEnabled(true);
 
-    //KStandardAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
-    //KStandardAction::configureToolbars(this, SLOT(optionsConfigureToolbars()), actionCollection());
+    KStandardAction::keyBindings(this, SLOT(optionsConfigureKeys()), actionCollection());
+    KStandardAction::configureToolbars(this, SLOT(configureToolbars()), actionCollection());
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
-    KStandardAction::keyBindings( guiFactory(),  SLOT( configureShortcuts() ),  actionCollection() );
 
     KAction* downloadExamples = new KAction(i18n("Download Example Worksheets"), actionCollection());
     downloadExamples->setIcon(KIcon("get-hot-new-stuff"));
@@ -185,26 +184,10 @@ void CantorShell::fileNew()
 
 void CantorShell::optionsConfigureKeys()
 {
-  /*KShortcutsDialog dlg( KKeyChooser::AllActions, KKeyChooser::LetterShortcutsDisallowed, this );
-  dlg.insert( actionCollection(), "cantor_shell.rc" );
-  dlg.insert( m_part->actionCollection(), "cantor_part.rc" );
-  (void) dlg.configure( true );*/
-}
-
-void CantorShell::optionsConfigureToolbars()
-{
-    //saveMainWindowSettings(KGlobal::config(), autoSaveGroup());
-
-    // use the standard toolbar editor
-    /*KEditToolBar dlg(factory());
-    connect(&dlg, SIGNAL(newToolbarConfig()),
-            this, SLOT(applyNewToolbarConfig()));
-    dlg.exec();*/
-}
-
-void CantorShell::applyNewToolbarConfig()
-{
-    //applyMainWindowSettings(KGlobal::config(), autoSaveGroup());
+    KShortcutsDialog dlg( KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsDisallowed, this );
+    dlg.addCollection( actionCollection(), i18n("Cantor") );
+    dlg.addCollection( m_part->actionCollection(), i18n("Cantor") );
+    dlg.configure( true );
 }
 
 void CantorShell::fileOpen()

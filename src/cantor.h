@@ -72,9 +72,6 @@ private slots:
     void fileNew();
     void fileOpen();
     void optionsConfigureKeys();
-    void optionsConfigureToolbars();
-
-    void applyNewToolbarConfig();
 
     void activateWorksheet(int index);
 
