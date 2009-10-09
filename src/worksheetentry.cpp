@@ -354,8 +354,8 @@ void WorksheetEntry::showSyntaxHelp()
     QTextCursor entryCursor=m_table->firstCursorPosition();
     entryCursor.setPosition(m_table->lastCursorPosition().position(), QTextCursor::KeepAnchor);
     QRect tableRect=m_worksheet->cursorRect(entryCursor);
-    tableRect.moveTo(m_worksheet->mapToGlobal(tableRect.topLeft()));
-    QToolTip::showText(pos, msg, m_worksheet, tableRect);
+
+    QToolTip::showText(pos, msg, m_worksheet);
 }
 
 void WorksheetEntry::resultDeleted()
