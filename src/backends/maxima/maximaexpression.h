@@ -29,10 +29,14 @@ class QTimer;
 
 class MaximaExpression : public Cantor::Expression
 {
-  Q_OBJECT
+  Q_OBJECT  
   public:
-    MaximaExpression( Cantor::Session* session);
+    enum Type{NormalExpression, HelpExpression, TexExpression};
+    MaximaExpression( Cantor::Session* session, Type = NormalExpression);
     ~MaximaExpression();
+
+    Type type();
+    void setType(Type type);
 
     void evaluate();
     void interrupt();
@@ -40,6 +44,7 @@ class MaximaExpression : public Cantor::Expression
     void addInformation(const QString& information);
 
     void parseOutput(const QString& text);
+    void parseNormalOutput(const QString& text);
     void parseTexResult(const QString& text);
 
     bool needsLatexResult();
@@ -59,6 +64,7 @@ class MaximaExpression : public Cantor::Expression
     void askForInformation();
     void imageChanged();
   private:
+    Type m_type;
     QString m_outputCache;
     QString m_errCache;
     bool m_onStdoutStroke;

@@ -48,11 +48,13 @@ class MaximaSession : public Cantor::Session
     void logout();
     void startServer();
     void newMaximaClient(QTcpSocket* socket);
-    void newTexClient(QTcpSocket* socket);
+    void newHelperClient(QTcpSocket* socket);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+    MaximaExpression* evaluateHelperExpression(const QString& command);
 
     void appendExpressionToQueue(MaximaExpression* expr);
+    void appendExpressionToHelperQueue(MaximaExpression* expr);
 
     void interrupt();
     void interrupt(MaximaExpression* expr);
@@ -61,22 +63,24 @@ class MaximaSession : public Cantor::Session
     void setTypesettingEnabled(bool enable);
 
     Cantor::TabCompletionObject* tabCompletionFor(const QString& command);
+    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
 
   public slots:
     void readStdOut();
 
-    void readTeX();
+    void readHelperOut();
 
   private slots:
     void newConnection();
     void letExpressionParseOutput();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
+    void currentHelperExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
     void restartsCooledDown();
 
     void runFirstExpression();
-    void runNextTexCommand();
-    void startTexConvertProcess();
+    void runNextHelperCommand();
+    void startHelperProcess();
 
     void killLabels();
 
@@ -85,10 +89,10 @@ class MaximaSession : public Cantor::Session
     QTcpServer* m_server;
     QTcpSocket* m_maxima;
     KProcess* m_process;
-    QTcpSocket* m_texMaxima;
-    KProcess* m_texConvertProcess; //only used to convert from expression to TeX
+    QTcpSocket* m_helperMaxima;
+    KProcess* m_helperProcess; //only used to convert from expression to TeX/get syntax information
     QList<MaximaExpression*> m_expressionQueue;
-    QList<MaximaExpression*> m_texQueue; //Queue used for Expressions that need to be converted to LaTeX
+    QList<MaximaExpression*> m_helperQueue; //Queue used for Expressions that need to be converted to LaTeX
     QString m_cache;
 
     bool m_isInitialized;

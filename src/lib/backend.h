@@ -48,7 +48,8 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
         LaTexOutput = 0x1,
 	InteractiveMode = 0x2,
 	SyntaxHighlighting = 0x4,
-	TabCompletion = 0x8
+	TabCompletion = 0x8,
+	SyntaxHelp = 0x10
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 

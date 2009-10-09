@@ -24,12 +24,15 @@
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/tabcompletionobject.h"
+#include "lib/syntaxhelpobject.h"
+#include "lib/session.h"
 #include "worksheet.h"
 #include "resultproxy.h"
 #include "settings.h"
 
 #include <QTextDocument>
 #include <QTextFrame>
+#include <QToolTip>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcolorscheme.h>
@@ -43,6 +46,7 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
     m_expression=0;
     m_worksheet=parent;
     m_tabCompletionObject=0;
+    m_syntaxHelpObject=0;
 
     QTextTableFormat tableFormat;
     QVector<QTextLength> constraints;
@@ -229,6 +233,7 @@ void WorksheetEntry::applyTabCompletion()
 
     if(m_tabCompletionObject->hasMultipleMatches())
     {
+        QToolTip::showText(QPoint(), QString(), m_worksheet);
         switch(Settings::self()->completionStyle())
         {
             case Settings::PopupCompletion:
@@ -300,6 +305,10 @@ void WorksheetEntry::applyTabCompletion()
     {
         //remove the list if it isn't needed anymore
         removeContextHelp();
+
+        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(completion);
+        if(obj)
+            setSyntaxHelp(obj);
     }
 
 
@@ -314,6 +323,29 @@ void WorksheetEntry::completeCommandTo(const QString& completion)
     QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
     beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
     beginC.insertHtml(completion);
+}
+
+void WorksheetEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
+{
+    if(m_syntaxHelpObject)
+        m_syntaxHelpObject->deleteLater();
+
+    m_syntaxHelpObject=sh;
+    connect(sh, SIGNAL(done()), this, SLOT(showSyntaxHelp()));
+
+}
+
+void WorksheetEntry::showSyntaxHelp()
+{
+    const QString& msg=m_syntaxHelpObject->toHtml();
+    const QRect r=m_worksheet->cursorRect();
+    const QPoint pos=m_worksheet->mapToGlobal(r.topLeft());
+
+    QTextCursor entryCursor=m_table->firstCursorPosition();
+    entryCursor.setPosition(m_table->lastCursorPosition().position(), QTextCursor::KeepAnchor);
+    QRect tableRect=m_worksheet->cursorRect(entryCursor);
+    tableRect.moveTo(m_worksheet->mapToGlobal(tableRect.topLeft()));
+    QToolTip::showText(pos, msg, m_worksheet, tableRect);
 }
 
 void WorksheetEntry::resultDeleted()

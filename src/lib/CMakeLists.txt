@@ -14,6 +14,7 @@ set( cantor_LIB_SRCS
   extension.cpp
   assistant.cpp
   tabcompletionobject.cpp
+  syntaxhelpobject.cpp
   defaulthighlighter.cpp
 )
  

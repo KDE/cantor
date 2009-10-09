@@ -32,6 +32,7 @@ namespace Cantor
 class Backend;
 class SessionPrivate;
 class TabCompletionObject;
+class SyntaxHelpObject;
 
 class CANTOR_EXPORT Session : public QObject
 {
@@ -61,6 +62,13 @@ class CANTOR_EXPORT Session : public QObject
 	listen to the done() Signal of the returned object
      **/
     virtual TabCompletionObject* tabCompletionFor(const QString& cmd);
+
+    /** Returns Syntax help, for this command.
+	It returns a SyntaxHelpObject, that will fetch the
+	needed information asynchrneousely. You need to listen
+	to the done() Signal of the Object
+    **/
+    virtual SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
 
     virtual void setTypesettingEnabled(bool enable);
 

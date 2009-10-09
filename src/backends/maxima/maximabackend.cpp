@@ -58,7 +58,12 @@ Cantor::Session* MaximaBackend::createSession()
 Cantor::Backend::Capabilities MaximaBackend::capabilities()
 {
     kDebug()<<"Requesting capabilities of MaximaSession";
-    return Cantor::Backend::LaTexOutput|Cantor::Backend::InteractiveMode|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::TabCompletion;
+    return
+        Cantor::Backend::LaTexOutput |
+        Cantor::Backend::InteractiveMode|
+        Cantor::Backend::SyntaxHighlighting|
+        Cantor::Backend::TabCompletion |
+        Cantor::Backend::SyntaxHelp;
 }
 
 bool MaximaBackend::requirementsFullfilled()

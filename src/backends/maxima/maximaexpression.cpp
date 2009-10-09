@@ -38,9 +38,10 @@
 
 #define ASK_TIME 100
 
-MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session)
+MaximaExpression::MaximaExpression( Cantor::Session* session, MaximaExpression::Type type ) : Cantor::Expression(session)
 {
     kDebug();
+    m_type=type;
     m_tempFile=0;
     //this is a timer that is triggered if we got output without an output prompt
     //and no new input prompt for some time, so we assume that it's because maxima
@@ -53,6 +54,16 @@ MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Express
 MaximaExpression::~MaximaExpression()
 {
 
+}
+
+void MaximaExpression::setType(Type type)
+{
+    m_type=type;
+}
+
+MaximaExpression::Type MaximaExpression::type()
+{
+    return m_type;
 }
 
 void MaximaExpression::evaluate()
@@ -102,8 +113,10 @@ void MaximaExpression::evaluate()
         return;
     }
 
-
-    dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
+    if(type()==MaximaExpression::NormalExpression)
+        dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
+    else
+        dynamic_cast<MaximaSession*>(session())->appendExpressionToHelperQueue(this);
 }
 
 void MaximaExpression::interrupt()
@@ -172,6 +185,17 @@ void MaximaExpression::addInformation(const QString& information)
 }
 
 void MaximaExpression::parseOutput(const QString& text)
+{
+    if(type()==MaximaExpression::TexExpression)
+    {
+        parseTexResult(text);
+    }else
+    {
+        parseNormalOutput(text);
+    }
+}
+
+void MaximaExpression::parseNormalOutput(const QString& text)
 {
     //new information arrived, stop the question timeout.
     //restart it later after the new information was parsed

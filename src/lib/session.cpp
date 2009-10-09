@@ -91,6 +91,16 @@ TabCompletionObject* Session::tabCompletionFor(const QString& cmd)
     return 0;
 }
 
+SyntaxHelpObject* Session::syntaxHelpFor(const QString& cmd)
+{
+    Q_UNUSED(cmd);
+
+    //Return 0 per default, so Backends not offering tab completions don't have
+    //to reimplement this. This method should only be called on backends with
+    //the SyntaxHelp Capability flag
+    return 0;
+}
+
 int Session::nextExpressionId()
 {
     return d->expressionCount++;

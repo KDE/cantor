@@ -29,6 +29,7 @@ namespace Cantor{
     class Expression;
     class Result;
     class TabCompletionObject;
+    class SyntaxHelpObject;
 }
 class Worksheet;
 
@@ -59,6 +60,7 @@ class WorksheetEntry : public QObject
     bool isEmpty();
 
     void setTabCompletion(Cantor::TabCompletionObject* tc);
+    void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
     QTextTableCell commandCell();
     QTextTableCell actualInformationCell();
@@ -88,6 +90,7 @@ class WorksheetEntry : public QObject
     void showAdditionalInformationPrompt(const QString& question);
     void applyTabCompletion();
     void completeCommandTo(const QString& completion);
+    void showSyntaxHelp();
   private slots:
     void resultDeleted();
   private:
@@ -101,6 +104,7 @@ class WorksheetEntry : public QObject
     Worksheet* m_worksheet;
 
     Cantor::TabCompletionObject* m_tabCompletionObject;
+    Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 };
 
 #endif /* _WORKSHEETENTRY_H */
