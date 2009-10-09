@@ -19,6 +19,7 @@
  */
 
 #include "maximasyntaxhelpobject.h"
+#include "maximakeywords.h"
 
 #include "maximasession.h"
 #include "maximaexpression.h"
@@ -44,8 +45,25 @@ void MaximaSyntaxHelpObject::fetchInformation()
         m_expression->setFinishingBehavior(Cantor::Expression::DeleteOnFinish);
     }
 
-    m_expression=static_cast<MaximaSession*>(session())->evaluateHelperExpression(QString("describe(%1);").arg(command()));
-    connect(m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
+    bool isValid=false;
+    foreach(const QString& func, MaximaKeywords::functions())
+    {
+        if(command()==func)
+        {
+            isValid=true;
+            break;
+        }
+    }
+
+    if(isValid)
+    {
+        m_expression=static_cast<MaximaSession*>(session())->evaluateHelperExpression(QString("describe(%1);").arg(command()));
+        connect(m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
+    }else
+    {
+        kDebug()<<"invalid syntax request";
+        emit done();
+    }
 }
 
 void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status status)
