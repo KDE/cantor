@@ -56,18 +56,22 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         QString text=m_expression->result()->toHtml();
         QStringList lines=text.split('\n');
 
-        QString completions;
+        QString syntax;
         foreach(QString line, lines)
         {
             line=line.trimmed();
+            if(line.endsWith('\r'))
+                line.chop(1);
             if(line.startsWith("-- Function:"))
             {
                 line.remove("-- Function:");
-                completions+=line.trimmed()+'\n';
+                line.remove("<br/>");
+                syntax+=line.trimmed()+'\n';
             }else
                  break;
         }
-        setHtml(completions);
+
+        setHtml("<p style='white-space:pre'>"+syntax+"</p>");
         emit done();
 
         m_expression->deleteLater();
