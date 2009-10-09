@@ -26,6 +26,7 @@
 #include "lib/tabcompletionobject.h"
 #include "worksheet.h"
 #include "resultproxy.h"
+#include "settings.h"
 
 #include <QTextDocument>
 #include <QTextFrame>
@@ -224,60 +225,76 @@ void WorksheetEntry::applyTabCompletion()
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_tabCompletionObject->allMatches();
 
-    //replace the current command with the completion
-    QTextCursor cursor=m_worksheet->textCursor();
-    if(!isInCommandCell(cursor)) return;
-
-    QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
-    beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
-    beginC.insertHtml(completion);
+    completeCommandTo(completion);
 
     if(m_tabCompletionObject->hasMultipleMatches())
     {
-        int oldCursorPos=m_worksheet->textCursor().position();
-
-        //Show a list of possible completions
-        if(!m_contextHelpCell.isValid())
+        switch(Settings::self()->completionStyle())
         {
-            //remember the actual cursor position, and reset the cursor later
-            int row=m_commandCell.row()+1;
+            case Settings::PopupCompletion:
+            {
+                KCompletionBox* compBox=new KCompletionBox(m_worksheet);
+                compBox->setItems(m_tabCompletionObject->allMatches());
+                compBox->setTabHandling(false);
+                connect(compBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
+                connect(m_worksheet, SIGNAL(textChanged()), compBox, SLOT(deleteLater()));
 
-            m_table->insertRows(row, 1);
-            m_contextHelpCell=m_table->cellAt(row, 1);
-
-            QTextCursor c=m_worksheet->textCursor();
-            c.setPosition(oldCursorPos);
-            m_worksheet->setTextCursor(c);
-        }
-
-        QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
-        cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
-
-        int count=0;
-        QString html="<table>";
-        const QStringList& matches=m_tabCompletionObject->allMatches();
-        foreach(const QString& item, matches)
-        {
-            html+="<tr><td>"+item+"</td></tr>";
-            count++;
-            if(count>10)
+                QRect rect=m_worksheet->cursorRect();
+                kDebug()<<"cursor is within: "<<rect;
+                const QPoint popupPoint=rect.bottomLeft();
+                compBox->popup();
+                compBox->move(m_worksheet->mapToGlobal(popupPoint));
                 break;
+            }
+            case Settings::InlineCompletion:
+            {
+                int oldCursorPos=m_worksheet->textCursor().position();
+
+                //Show a list of possible completions
+                if(!m_contextHelpCell.isValid())
+                {
+                    //remember the actual cursor position, and reset the cursor later
+                    int row=m_commandCell.row()+1;
+
+                    m_table->insertRows(row, 1);
+                    m_contextHelpCell=m_table->cellAt(row, 1);
+
+                    QTextCursor c=m_worksheet->textCursor();
+                    c.setPosition(oldCursorPos);
+                    m_worksheet->setTextCursor(c);
+                }
+
+                QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
+                cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
+
+                int count=0;
+                QString html="<table>";
+                const QStringList& matches=m_tabCompletionObject->allMatches();
+                foreach(const QString& item, matches)
+                {
+                    html+="<tr><td>"+item+"</td></tr>";
+                    count++;
+                    if(count>10)
+                        break;
+                }
+
+                const int itemsLeft=matches.size()-count;
+                if(itemsLeft>0)
+                    html+="<tr><td><b>"+i18n("And %1 more...", itemsLeft)+"<b></td></tr>";
+
+                html+="</table>";
+
+                cursor.insertHtml(html);
+
+                m_worksheet->setTextCursor(cursor);
+                m_worksheet->ensureCursorVisible();
+                QTextCursor oldC=m_worksheet->textCursor();
+                oldC.setPosition(oldCursorPos);
+                m_worksheet->setTextCursor(oldC);
+                m_worksheet->ensureCursorVisible();
+                break;
+            }
         }
-
-        const int itemsLeft=matches.size()-count;
-        if(itemsLeft>0)
-            html+="<tr><td><b>"+i18n("And %1 more...", itemsLeft)+"<b></td></tr>";
-
-        html+="</table>";
-
-        cursor.insertHtml(html);
-
-        m_worksheet->setTextCursor(cursor);
-        m_worksheet->ensureCursorVisible();
-        QTextCursor oldC=m_worksheet->textCursor();
-        oldC.setPosition(oldCursorPos);
-        m_worksheet->setTextCursor(oldC);
-        m_worksheet->ensureCursorVisible();
 
     }else
     {
@@ -286,6 +303,17 @@ void WorksheetEntry::applyTabCompletion()
     }
 
 
+}
+
+void WorksheetEntry::completeCommandTo(const QString& completion)
+{
+    //replace the current command with the completion
+    QTextCursor cursor=m_worksheet->textCursor();
+    if(!isInCommandCell(cursor)) return;
+
+    QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
+    beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
+    beginC.insertHtml(completion);
 }
 
 void WorksheetEntry::resultDeleted()

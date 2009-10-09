@@ -87,6 +87,7 @@ class WorksheetEntry : public QObject
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
     void applyTabCompletion();
+    void completeCommandTo(const QString& completion);
   private slots:
     void resultDeleted();
   private:

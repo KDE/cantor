@@ -10,8 +10,8 @@
     <height>288</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
@@ -29,7 +29,32 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Completion Style:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="kcfg_CompletionStyle">
+       <item>
+        <property name="text">
+         <string>Popup</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Inline</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGroupBox" name="groupBox">
@@ -70,7 +95,7 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

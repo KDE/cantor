@@ -9,6 +9,14 @@
       <label>The Backend that is used by default</label>
       <default>Sage</default>
     </entry>
+    <entry name="CompletionStyle" type="Enum">
+      <label>The style used for TabCompletion</label>
+      <choices name="CompletionStyle">
+	<choice name="PopupCompletion" />
+	<choice name="InlineCompletion" />
+      </choices>
+      <default>PopupCompletion</default>
+    </entry>
     <entry name="TypesetDefault" type="Bool">
       <label>Do Typesetting per default</label>
       <default>true</default>
