@@ -306,7 +306,17 @@ void WorksheetEntry::applyTabCompletion()
         //remove the list if it isn't needed anymore
         removeContextHelp();
 
-        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(completion);
+        QString cmd=currentLine(m_worksheet->textCursor());
+        if(cmd.endsWith('('))
+            cmd.chop(1);
+
+        int brIndex=cmd.lastIndexOf('(')+1;
+        int semIndex=cmd.lastIndexOf(';')+1;
+        int spaceIndex=cmd.lastIndexOf(' ')+1;
+
+        cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
+
+        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(cmd);
         if(obj)
             setSyntaxHelp(obj);
     }

@@ -30,6 +30,7 @@ MaximaTabCompletionObject::MaximaTabCompletionObject(const QString& command, Max
     int brIndex=cmd.lastIndexOf('(')+1;
     int semIndex=cmd.lastIndexOf(';')+1;
     int spaceIndex=cmd.lastIndexOf(' ')+1;
+
     cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
 
     setCommand(cmd);
