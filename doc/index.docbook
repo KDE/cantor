@@ -65,9 +65,9 @@ nice worksheet view to other Free Software Math packages.
 <title>Introduction</title>
 
 <para>
-&cantor; is an application, that lets you use your favorite
-mathematical applications from within a nice &kde;-integrated
-Worksheet Interface. It offers assistant dialogs for common tasks
+&cantor; is an application to allow you to you use your favorite
+mathematical applications from within an elegant &kde;-integrated
+Worksheet Interface. It provides dialogs to assist with common tasks
 and allows you to share your worksheets with others.
 </para>
 </chapter>
@@ -78,7 +78,7 @@ and allows you to share your worksheets with others.
 <para>
 Screenshot:
 <screenshot>
-<screeninfo>Here's a screenshot of &cantor;</screeninfo>
+<screeninfo>Here is a screenshot of &cantor;</screeninfo>
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="screenshot.png" format="PNG"/>
@@ -97,21 +97,21 @@ Screenshot:
 <sect1 id="kapp-features">
 <title>&cantor; features</title>
 <itemizedlist>
-  <listitem><para>Nice Worksheet view for evaluating Expressions</para></listitem>
-  <listitem><para>View of plotting results inside the worksheet</para></listitem>
-  <listitem><para>Easy plugin based structure to add different Backends</para></listitem>
-  <listitem><para>GetHotNewStuff integration to up/download example worksheets</para></listitem>
-  <listitem><para>Typesetting of mathematical formulas using LaTeX</para></listitem>
-  <listitem><para>Backend aware Syntax highlighting</para></listitem>
-  <listitem><para>Plugin based assistant dialogs for common tasks (like integrating a function or entering a matrix)</para></listitem>
+  <listitem><para>Intuitive worksheet view for evaluating expressions.</para></listitem>
+  <listitem><para>Results of graph plotting shown inside the worksheet.</para></listitem>
+  <listitem><para>Easy plugin-based structure to allow different backends to be added.</para></listitem>
+  <listitem><para>GetHotNewStuff integration to allow example worksheets to be downloaded (or uploaded.)</para></listitem>
+  <listitem><para>Mathematical formula typesetting using LaTeX.</para></listitem>
+  <listitem><para>Backend-aware syntax highlighting.</para></listitem>
+  <listitem><para>Plugin-based assistant dialogs to help with common tasks, such as integrating a function, or entering a matrix.</para></listitem>
 </itemizedlist>
 </sect1>
 
 <sect1 id="backends">
 <title>The &cantor; backends</title>
 <para>
-  &cantor; offers you several choices for the backend, you want to use it with.
-  Your choice should depend on what task you want to achieve. 
+  &cantor; offers you several choices for the backends you wish to use with it.
+  The choice to make depends on what you want to achieve.
 </para>
 <para>
   Currently the following backends are available:
@@ -121,7 +121,7 @@ Screenshot:
       <listitem>
 	<para>
 	  Sage is a free open-source mathematics software system licensed under the GPL.
-	  It combines the power of many existing open-source packages into a common Python-based interface.
+	  It combines the power of many existing open-source packages, within a common Python-based interface.
 	  See <ulink url="http://sagemath.org">http://sagemath.org</ulink> for more information.
 	</para>
 	</listitem>
@@ -130,10 +130,10 @@ Screenshot:
       <term>Maxima:</term>
       <listitem>
 	<para>
-	  Maxima is a system for the manipulation of symbolic and numerical expressions,
+	  Maxima is a system for the manipulation of symbolic and numeric expressions,
 	  including differentiation, integration, Taylor series, Laplace transforms, 
-	  ordinary differential equations, systems of linear equations, polynomials, and sets,
-	  lists, vectors, matrices, and tensors. Maxima yields high precision numeric results
+	  ordinary differential equations, systems of linear equations, polynomials, sets,
+	  lists, vectors, matrices, and tensors. Maxima yields high-precision numeric results
 	  by using exact fractions, arbitrary precision integers, and variable precision 
 	  floating point numbers. Maxima can plot functions and data in two and three dimensions.
 	  See <ulink url="http://maxima.sourceforge.net">http://maxima.sourceforge.net</ulink> for more information.
@@ -149,7 +149,7 @@ Screenshot:
 	  classical statistical tests, time-series analysis, classification, clustering, ...)
 	  and graphical techniques, and is highly extensible. The S language is often the 
 	  vehicle of choice for research in statistical methodology, 
-	  and R provides an Open Source route to participation in that activity.
+	  and R provides an open-source route to this.
 	  See <ulink url="http://www.r-project.org">http://www.r-project.org</ulink> for more information.
 	</para>
       </listitem>
@@ -179,16 +179,16 @@ Screenshot:
 <para>
   The Worksheet interface of &cantor; consists of three parts:
   <orderedlist>
-    <listitem><para>The Tab-Bar where you can switch through your opened worksheets</para></listitem>
-    <listitem><para>A help panel, where help for a specific command is displayed if you write "? command"</para></listitem>
-    <listitem><para>The Worksheet</para></listitem>
+    <listitem><para>The tab bar, where you can switch through the open worksheets;</para></listitem>
+    <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command";</para></listitem>
+    <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
 </para>
 <sect2 id="worksheet">
 <title>The Worksheet</title>
 <para>
-  The worksheet is the basic area for working with &cantor;. In it you can enter
-  Expressions, let the backend calculate, and look at the results.
+  The worksheet is the basic area for working with &cantor;.  Using it, you can enter
+  expressions, allow the backend to perform calculations, and look at the results.
   The commands the worksheets accept depend on the chosen backend, so you should
   learn the appropriate backend syntax (the Show Help button takes you there directly).
   If you know the command, but you need additional information, you can type "? command",
@@ -207,7 +207,7 @@ Screenshot:
       <term>Typesetting using LaTeX</term>
       <listitem>
 	<para>
-	  This setting changes the way, results are presented to you. If enabled, it passes the result through
+	  This setting changes the way results are presented to you. If enabled, it passes the result through
 	  the LaTeX system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes 
 	  <inlinemediaobject>
 	      <imageobject>
@@ -226,7 +226,7 @@ Screenshot:
       <listitem>
 	<para>
 	  Syntax Highlighting increases the readability of code, by highlighting
-	  Keywords or matching brackets in different colors
+	  Keywords, or matching brackets in different colors.
 	</para>
       </listitem>
     </varlistentry>
@@ -236,7 +236,7 @@ Screenshot:
 	<para>
 	  When this is enabled, &cantor; will show you possible completions
 	  for the command you are currently typing when you press the Tab-key. If there is only one choice
-	  left, it will insert the rest of the command for you.
+	  remaining, it will insert the rest of the command for you.
 	</para>
       </listitem>
     </varlistentry>
@@ -244,8 +244,8 @@ Screenshot:
     <term>Line Numbers</term>
     <listitem>
       <para>
-	This setting controls, whether the different Expressions should have a number in front, so you can,
-	for example in Maxima recall older results with the <quote>%O1</quote> command
+	This setting controls whether the different expressions should have a number in front.  This allows you 
+	to recall older results - in Maxima, for instance, this is done with the <quote>%O1</quote> command.
       </para>
     </listitem>
   </varlistentry>
@@ -325,7 +325,7 @@ TODO add screenshots and descriptions of each assistant
     <term>Backends:</term>
     <listitem>
       <para>
-	A new backend enables you to use the &cantor; interface with a different program
+	A new backend enables you to use the &cantor; interface with a different program.
       </para>
     </listitem>
   </varlistentry>
@@ -333,15 +333,15 @@ TODO add screenshots and descriptions of each assistant
     <term>Assistants:</term>
     <listitem>
       <para>
-	Assistants are dialogs, that automate common jobs (like entering a matrix, running a script), offering a nice &GUI;.
+	Assistants provide dialogs to allow common tasks to be automated (such entering a matrix or running a script.)
       </para>
     </listitem>
   </varlistentry>
 </variablelist>
 </para>
 <para>
-Currently there are no special developer tutorials or Api-Docs, so if you want to write a plugin, you'll have to read through the sources.
-All interface definitions are in the lib directory. For example implementations, just see some of the plugins shipped with &cantor;
+At present, there are no special developer tutorials or API documentation, so if you want to write a plugin you will have to read through the sources.
+All interface definitions are in the lib directory.  For some example implementations, look at the plugins shipped with &cantor;.
 </para>
 
 </chapter>
@@ -354,21 +354,21 @@ All interface definitions are in the lib directory. For example implementations,
 
 <qandaset id="faqlist">
 <qandaentry>
-  <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> isn't available</para></question>
-  <answer><para>Not every Backend supports everyone of the options.</para></answer>
+  <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> is not available</para></question>
+  <answer><para>Not every Backend supports every option.</para></answer>
 </qandaentry>
 <qandaentry>
-  <question><para>I've installed Sage/Maxima, but the appropriate backend doesn't show up</para></question>
+  <question><para>I have installed Sage/Maxima, but the appropriate backend does not appear.</para></question>
   <answer>
     <para>
-      Maybe &cantor; didn't detect the location right. Go to the Settings dialog and change
-      the Path to the appropriate application
+      One possible explanation is that &cantor; did not correctly detect the location. Go to the Settings dialog and change
+      the Path to the appropriate application.
     </para>
   </answer>
 </qandaentry>
 <qandaentry>
-  <question><para>What a stupid name, what has it to do with mathematics?</para></question>
-  <answer><para>Cantor is named after German mathematician Georg Cantor, the creator of set theory</para></answer>
+  <question><para>What a perculiar name - what does it have to do with mathematics?</para></question>
+  <answer><para>Cantor is named after the German mathematician Georg Cantor, the creator of set theory.</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>
@@ -409,7 +409,7 @@ Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmai
 
 <para>
 In order to successfully use &cantor;, you need &kde; 4.
-If you want support for Typesetting, you need LaTeX and LibSpectre.
+If you want support for type-setting to be enabled, you need to install LaTeX and LibSpectre.
 To use the different Backends, the appropriate math package is required.
 </para>
 
@@ -443,7 +443,7 @@ url="http://apps.kde.org/kapp">http://apps.kde.org/kapp</ulink>.
 
 <para>
   Depending on your system, you may need to adjust the paths to the
-  different applications, used by &cantor;
+  different applications used by &cantor;.
 </para>
 
 </sect1>
