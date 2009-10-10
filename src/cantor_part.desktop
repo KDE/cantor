@@ -3,6 +3,7 @@ Name=CantorPart
 Name[ca]=CantorPart
 Name[pt]=CantorPart
 Name[pt_BR]=CantorPart
+Name[sv]=Cantor-delprogram
 Name[uk]=CantorPart
 Name[x-test]=xxCantorPartxx
 MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
