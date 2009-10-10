@@ -4,6 +4,9 @@
 add_subdirectory(lib)
 
 include_directories( lib ${CMAKE_CURRENT_BINARY_DIR}/lib)
+if(LIBSPECTRE_FOUND)
+   include_directories(${LIBSPECTRE_INCLUDE_DIR})
+endif(LIBSPECTRE_FOUND)
 add_subdirectory(backends)
 add_subdirectory(assistants)
 
@@ -52,8 +55,11 @@ configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 
 target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS}
-				     ${KDE4_KTEXTEDITOR_LIBS} ${LIBSPECTRE_LIBRARY} 
+				     ${KDE4_KTEXTEDITOR_LIBS}
 				     cantorlibs )
+if(LIBSPECTRE_FOUND)
+   target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
+endif(LIBSPECTRE_FOUND)
 
 install( FILES cantor_part.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
 install( FILES cantor_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantorpart )
