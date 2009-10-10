@@ -1,5 +1,7 @@
 add_subdirectory(null)
+if(NOT WIN32)
 add_subdirectory(sage)
+endif(NOT WIN32)
 add_subdirectory(maxima)
 
 macro_optional_find_package(R)
