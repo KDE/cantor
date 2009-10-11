@@ -2,6 +2,7 @@
 Type=Service
 Name=nullbackend
 Name[ca]=DorsalNul
+Name[nl]=nullbackend
 Name[pt]=testes
 Name[pt_BR]=infraestrutura vazia
 Name[sv]=Nollbakgrundsprogram
@@ -14,6 +15,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Cantor for testing purposes
 Comment[ca]=Dorsal per al Cantor, per a fer proves
+Comment[nl]=Backend voor Cantor voor testdoeleinden
 Comment[pt]=Infra-estrutura de testes para o Cantor
 Comment[pt_BR]=Infraestrutura para o Cantor com o propósito de testes
 Comment[sv]=Bakgrundsprogram för Cantor i testsyfte

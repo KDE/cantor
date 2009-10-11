@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Cantor
 Name[ca]=Cantor
+Name[nl]=Cantor
 Name[pt]=Cantor
 Name[pt_BR]=Cantor
 Name[sv]=Cantor
@@ -12,6 +13,7 @@ Type=Application
 X-DocPath=cantor/index.html
 GenericName=KDE Frontend to Mathematical Software.
 GenericName[ca]=Frontal del KDE per a programari matemàtic
+GenericName[nl]=KDE-frontend tot wiskundige software.
 GenericName[pt]=Interface para o KDE de Aplicações Matemáticas.
 GenericName[pt_BR]=Interface do KDE para software matemático.
 GenericName[sv]=Ett KDE-gränssnitt till matematisk programvara.
