@@ -451,7 +451,7 @@ void CantorPart::adjustGuiToSession()
 void CantorPart::publishWorksheet()
 {
     int ret = KMessageBox::questionYesNo(widget(),
-                                         i18n("Do you want to upload current Worksheet to public web server ?"),
+                                         i18n("Do you want to upload current Worksheet to public web server?"),
                                          i18n("Question - Cantor"));
     if (ret != KMessageBox::Yes) return;
 
@@ -498,7 +498,7 @@ void CantorPart::showScriptEditor(bool show)
     Cantor::Backend* backend=m_worksheet->session()->backend();
     if(!backend->extensions().contains("ScriptExtension"))
     {
-        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - Cantor"));
+        KMessageBox::error(widget(), i18n("This backend does not support scripts."), i18n("Error - Cantor"));
         return;
     }
 
@@ -520,7 +520,7 @@ void CantorPart::runScript(const QString& file)
     Cantor::Backend* backend=m_worksheet->session()->backend();
     if(!backend->extensions().contains("ScriptExtension"))
     {
-        KMessageBox::error(widget(), i18n("This backend doesn't support scripts"), i18n("Error - Cantor"));
+        KMessageBox::error(widget(), i18n("This backend does not support scripts."), i18n("Error - Cantor"));
         return;
     }
 

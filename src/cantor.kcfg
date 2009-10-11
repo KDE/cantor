@@ -18,19 +18,19 @@
       <default>PopupCompletion</default>
     </entry>
     <entry name="TypesetDefault" type="Bool">
-      <label>Do Typesetting per default</label>
+      <label>Do Typesetting by default</label>
       <default>true</default>
     </entry>
     <entry name="HighlightDefault" type="Bool">
-      <label>Do Syntax Highlighting per default</label>
+      <label>Do Syntax Highlighting by default</label>
       <default>true</default>
     </entry>
     <entry name="TabCompletionDefault" type="Bool">
-      <label>Enable Tab Completions per default</label>
+      <label>Enable Tab Completions by default</label>
       <default>true</default>
     </entry>
     <entry name="ExpressionNumberingDefault" type="Bool">
-      <label>Enable Numbering of Expressions per default</label>
+      <label>Enable Numbering of Expressions by default</label>
       <default>false</default>
     </entry>
   </group>

@@ -78,7 +78,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
             if(format.isValid())
                 cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
             else
-                cursor.insertText(i18n("Can not render Eps file. You may need additional packages"));
+                cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
 
             break;
         default:
