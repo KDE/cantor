@@ -96,6 +96,7 @@ class MaximaSession : public Cantor::Session
     QString m_cache;
 
     bool m_isInitialized;
+    bool m_isHelperReady;
     QString m_tmpPath;
 
     QTimer* m_restartCooldown;

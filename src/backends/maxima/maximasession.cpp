@@ -181,6 +181,8 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
 
 MaximaExpression* MaximaSession::evaluateHelperExpression(const QString& cmd)
 {
+    if(!m_helperMaxima)
+        startHelperProcess();
     MaximaExpression* expr=new MaximaExpression(this, MaximaExpression::HelpExpression);
     expr->setFinishingBehavior(Cantor::Expression::DoNotDelete);
     expr->setCommand(cmd);
@@ -284,6 +286,19 @@ void MaximaSession::readHelperOut()
     QString out=m_helperMaxima->readAll();
     kDebug()<<"out: "<<out;
 
+    if(out.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____"))))
+    {
+        kDebug()<<"helper initialized";
+
+        m_isHelperReady=true;
+        runNextHelperCommand();
+
+        return;
+    }
+
+    if(!m_isHelperReady)
+        return;
+
     kDebug()<<"queuesize: "<<m_helperQueue.size();
     if(!m_helperQueue.isEmpty())
     {
@@ -373,7 +388,7 @@ void MaximaSession::runFirstExpression()
 
 void MaximaSession::runNextHelperCommand()
 {
-    if(!m_helperQueue.isEmpty())
+    if(m_isHelperReady&&!m_helperQueue.isEmpty())
     {
         MaximaExpression* expr=m_helperQueue.first();
 
@@ -500,6 +515,7 @@ void MaximaSession::restartsCooledDown()
 void MaximaSession::startHelperProcess()
 {
     m_helperMaxima=0;
+    m_isHelperReady=false;
     //Start the process that is used to convert to LaTeX
     m_helperProcess=new KProcess(this);
     QStringList args;
@@ -518,14 +534,16 @@ void MaximaSession::setTypesettingEnabled(bool enable)
 {
     if(enable)
     {
-        startHelperProcess();
+        if(!m_isHelperReady)
+            startHelperProcess();
         //LaTeX and Display2d don't go together and even deliver wrong results
         evaluateExpression("display2d:false", Cantor::Expression::DeleteOnFinish);
     }
     else if(m_helperProcess)
     {
-        disconnect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startTexConvertProcess()));
+        disconnect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelperConvertProcess()));
         m_helperProcess->deleteLater();
+        m_helperProcess=0;
     }
     Cantor::Session::setTypesettingEnabled(enable);
 }
