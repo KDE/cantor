@@ -52,6 +52,7 @@ MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
+    m_isHelperReady=false;
     m_server=0;
     m_maxima=0;
     m_process=0;
