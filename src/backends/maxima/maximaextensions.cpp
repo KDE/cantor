@@ -55,17 +55,17 @@ QString MaximaCASExtension::solve(const QStringList& equations, const QStringLis
 
     QString variablestr=QString("[%1]").arg(variables.join(","));
 
-    return QString("solve(%1,%2)").arg(eqstr, variablestr);
+    return QString("solve(%1,%2);").arg(eqstr, variablestr);
 }
 
 QString MaximaCASExtension::simplify(const QString& expression)
 {
-    return QString("simplify(%1)").arg(expression);
+    return QString("simplify(%1);").arg(expression);
 }
 
 QString MaximaCASExtension::expand(const QString& expression)
 {
-    return QString("expand(%1)").arg(expression);
+    return QString("expand(%1);").arg(expression);
 }
 
 //Calculus Extension
@@ -73,20 +73,82 @@ MAXIMA_EXTENSION_CONSTRUCTORS(Calculus)
 
 QString MaximaCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {
-    return QString("limit(%1, %2=%3)").arg(expression, variable, limit);
+    return QString("limit(%1, %2=%3);").arg(expression, variable, limit);
 }
 
 QString MaximaCalculusExtension::differentiate(const QString& function,const QString& variable, int times)
 {
-    return QString("diff(%1, %2, %3)").arg(function, variable, QString::number(times));
+    return QString("diff(%1, %2, %3);").arg(function, variable, QString::number(times));
 }
 
 QString MaximaCalculusExtension::integrate(const QString& function, const QString& variable)
 {
-    return QString("integrate(%1, %2)").arg(function, variable);
+    return QString("integrate(%1, %2);").arg(function, variable);
 }
 
 QString MaximaCalculusExtension::integrate(const QString& function,const QString& variable, const QString& left, const QString& right)
 {
-    return QString("integrate(%1, %2, %3, %4)").arg(function, variable, left, right);
+    return QString("integrate(%1, %2, %3, %4);").arg(function, variable, left, right);
+}
+
+//Linear Algebra Extension
+MAXIMA_EXTENSION_CONSTRUCTORS(LinearAlgebra)
+
+//Commands to create Vectors/Matrices
+QString MaximaLinearAlgebraExtension::createVector(const QStringList& entries, VectorType type)
+{
+    QString list=entries.join(",");
+
+    if(type==Cantor::LinearAlgebraExtension::ColumnVector)
+        return QString("columnvector([%1]);").arg(list);
+    else
+        return QString("rowvector([%1]);").arg(list);
+}
+
+QString MaximaLinearAlgebraExtension::createMatrix(const Matrix& matrix)
+{
+    QString cmd="matrix(";
+    foreach(const QStringList& row, matrix)
+    {
+        cmd+='[';
+        foreach(const QString& entry, row)
+            cmd+=entry+',';
+        cmd.chop(1);
+        cmd+="],";
+    }
+    cmd.chop(1);
+    cmd+=");";
+
+    return cmd;
+}
+
+QString MaximaLinearAlgebraExtension::identityMatrix(int size)
+{
+    return QString("ident(%1);").arg(size);
+}
+
+//basic functions
+QString MaximaLinearAlgebraExtension::rank(const QString& matrix)
+{
+    return QString("rank(%1);").arg(matrix);
+}
+
+QString MaximaLinearAlgebraExtension::invertMatrix(const QString& matrix)
+{
+    return QString("invert(%1);").arg(matrix);
+}
+
+QString MaximaLinearAlgebraExtension::charPoly(const QString& matrix)
+{
+    return QString("charpoly(%1,x);").arg(matrix);
+}
+
+QString MaximaLinearAlgebraExtension::eigenVectors(const QString& matrix)
+{
+    return QString("eigenvectors(%1);").arg(matrix);
+}
+
+QString MaximaLinearAlgebraExtension::eigenValues(const QString& matrix)
+{
+    return QString("eigenvalues(%1);").arg(matrix);
 }

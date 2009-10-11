@@ -41,6 +41,7 @@ MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Can
     new MaximaScriptExtension(this);
     new MaximaCASExtension(this);
     new MaximaCalculusExtension(this);
+    new MaximaLinearAlgebraExtension(this);
 }
 
 MaximaBackend::~MaximaBackend()

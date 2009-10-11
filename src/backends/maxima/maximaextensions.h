@@ -69,4 +69,28 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
     QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
 };
 
+/** An extension for basic Linear Algebra
+ **/
+class CANTOR_EXPORT MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
+{
+  public:
+    MaximaLinearAlgebraExtension(QObject* parent);
+    ~MaximaLinearAlgebraExtension();
+
+  public slots:
+    //Commands to create Vectors/Matrices
+    virtual QString createVector(const QStringList& entries, VectorType type);
+    virtual QString createMatrix(const Matrix& matrix);
+    virtual QString identityMatrix(int size);
+
+    //basic functions
+    virtual QString rank(const QString& matrix);
+    virtual QString invertMatrix(const QString& matrix);
+    virtual QString charPoly(const QString& matrix);
+    virtual QString eigenVectors(const QString& matrix);
+    virtual QString eigenValues(const QString& matrix);
+
+};
+
+
 #endif /* _MAXIMAEXTENSIONS_H */
