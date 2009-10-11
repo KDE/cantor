@@ -220,10 +220,10 @@ void WorksheetEntry::setTabCompletion(Cantor::TabCompletionObject* tc)
         m_tabCompletionObject->deleteLater();
 
     m_tabCompletionObject=tc;
-    connect(tc, SIGNAL(done()), this, SLOT(applyTabCompletion()));
+    connect(tc, SIGNAL(done()), this, SLOT(showTabCompletions()));
 }
 
-void WorksheetEntry::applyTabCompletion()
+void WorksheetEntry::showTabCompletions()
 {
     QString completion=m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
     kDebug()<<"completion: "<<completion;
@@ -238,17 +238,18 @@ void WorksheetEntry::applyTabCompletion()
         {
             case Settings::PopupCompletion:
             {
-                KCompletionBox* compBox=new KCompletionBox(m_worksheet);
-                compBox->setItems(m_tabCompletionObject->allMatches());
-                compBox->setTabHandling(false);
-                connect(compBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
-                connect(m_worksheet, SIGNAL(textChanged()), compBox, SLOT(deleteLater()));
+                m_tabCompletionBox=new KCompletionBox(m_worksheet);
+                m_tabCompletionBox->setItems(m_tabCompletionObject->allMatches());
+                m_tabCompletionBox->setTabHandling(true);
+                m_tabCompletionBox->setActivateOnSelect(true);
+                connect(m_tabCompletionBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
+                connect(m_worksheet, SIGNAL(textChanged()), m_tabCompletionBox, SLOT(deleteLater()));
 
                 QRect rect=m_worksheet->cursorRect();
                 kDebug()<<"cursor is within: "<<rect;
                 const QPoint popupPoint=rect.bottomLeft();
-                compBox->popup();
-                compBox->move(m_worksheet->mapToGlobal(popupPoint));
+                m_tabCompletionBox->popup();
+                m_tabCompletionBox->move(m_worksheet->mapToGlobal(popupPoint));
                 break;
             }
             case Settings::InlineCompletion:
@@ -322,6 +323,20 @@ void WorksheetEntry::applyTabCompletion()
     }
 
 
+}
+
+bool WorksheetEntry::isShowingCompletionPopup()
+{
+
+    return m_tabCompletionBox&&m_tabCompletionBox->isVisible();
+}
+
+void WorksheetEntry::applySelectedTabCompletion()
+{
+    QListWidgetItem* item=m_tabCompletionBox->currentItem();
+    if(item)
+        completeCommandTo(item->text());
+    m_tabCompletionBox->hide();
 }
 
 void WorksheetEntry::completeCommandTo(const QString& completion)

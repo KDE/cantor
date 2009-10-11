@@ -130,10 +130,21 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
             {
                 Cantor::TabCompletionObject* tco=m_session->tabCompletionFor(line);
                 if(tco)
-                current->setTabCompletion(tco);
+                    current->setTabCompletion(tco);
             }
         }
 
+    }else
+    if ( (event->modifiers()==Qt::NoModifier) && (event->key() == Qt::Key_Enter ||event->key() == Qt::Key_Return))
+    {
+        //If the current Entry is showing a popup completion box,
+        //complete to the currently selected item, when enter is pressed
+        //otherwise, just do a normal Enter(line break)
+        WorksheetEntry* entry=currentEntry();
+        if(entry->isShowingCompletionPopup())
+            entry->applySelectedTabCompletion();
+        else
+            KTextEdit::keyPressEvent(event);
     }else
     if ( event->key() == Qt::Key_Left )
     {

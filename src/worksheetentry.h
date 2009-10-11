@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QTextTableCell>
+#include <QPointer>
 #include "lib/expression.h"
 
 namespace Cantor{
@@ -32,6 +33,7 @@ namespace Cantor{
     class SyntaxHelpObject;
 }
 class Worksheet;
+class KCompletionBox;
 
 /**
    An entry in the Worksheet. it contains:
@@ -83,13 +85,16 @@ class WorksheetEntry : public QObject
 
     void removeContextHelp();
 
+    bool isShowingCompletionPopup();
+
   public slots:
     void updateResult();
     void updatePrompt();
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
-    void applyTabCompletion();
+    void showTabCompletions();
     void completeCommandTo(const QString& completion);
+    void applySelectedTabCompletion();
     void showSyntaxHelp();
   private slots:
     void resultDeleted();
@@ -104,6 +109,7 @@ class WorksheetEntry : public QObject
     Worksheet* m_worksheet;
 
     Cantor::TabCompletionObject* m_tabCompletionObject;
+    QPointer<KCompletionBox> m_tabCompletionBox;
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 };
 
