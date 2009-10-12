@@ -54,6 +54,7 @@ class Worksheet : public KTextEdit
 
     void evaluate();
     void evaluateCurrentEntry();
+    void evaluateEntry(WorksheetEntry* entry);
     void interrupt();
     void interruptCurrentExpression();
 

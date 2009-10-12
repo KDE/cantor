@@ -332,18 +332,10 @@ void Worksheet::evaluate()
 {
     foreach(WorksheetEntry* entry, m_entries)
     {
-        QString cmd=entry->command();
-        Cantor::Expression* expr;
-        if(cmd.isEmpty()) return;
-
-        expr=m_session->evaluateExpression(cmd);
-        connect(expr, SIGNAL(gotResult()), this, SLOT(gotResult()));
-
-        entry->setExpression(expr);
-
-        if(!m_entries.last()->isEmpty())
-            appendEntry();
+        evaluateEntry(entry);
     }
+
+
     emit modified();
 }
 
@@ -354,27 +346,34 @@ void Worksheet::evaluateCurrentEntry()
     if(!entry)
         return;
 
-    entry->removeContextHelp();
-
     if (entry->isInCommandCell(textCursor()))
     {
-        QString cmd=entry->command();
-        Cantor::Expression* expr;
-        if(cmd.isEmpty()) return;
-
-        expr=m_session->evaluateExpression(cmd);
-        connect(expr, SIGNAL(gotResult()), this, SLOT(gotResult()));
-
-        entry->setExpression(expr);
-
-        if(!m_entries.last()->isEmpty())
-            appendEntry();
-
-        emit modified();
+        evaluateEntry(entry);
     }else if (entry->isInCurrentInformationCell(textCursor()))
     {
         entry->addInformation();
     }
+}
+
+void Worksheet::evaluateEntry(WorksheetEntry* entry)
+{
+    entry->removeContextHelp();
+
+    QString cmd=entry->command();
+    kDebug()<<"evaluating: "<<cmd;
+
+    Cantor::Expression* expr;
+    if(cmd.isEmpty()) return;
+
+    expr=m_session->evaluateExpression(cmd);
+    connect(expr, SIGNAL(gotResult()), this, SLOT(gotResult()));
+
+    entry->setExpression(expr);
+
+    if(!m_entries.last()->isEmpty())
+        appendEntry();
+
+    emit modified();
 }
 
 WorksheetEntry* Worksheet::currentEntry()
