@@ -71,7 +71,7 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
 
 /** An extension for basic Linear Algebra
  **/
-class CANTOR_EXPORT MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
+class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
   public:
     MaximaLinearAlgebraExtension(QObject* parent);
