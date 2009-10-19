@@ -77,42 +77,13 @@ CantorShell::CantorShell()
 
 
     createGUI(0);
-    bool hasBackend=false;
-    foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
-    {
-        if(b->isEnabled())
-            hasBackend=true;
-    }
 
-    if(hasBackend)
-    {
-        m_tabWidget=new KTabWidget(this);
-        m_tabWidget->setCloseButtonEnabled(true);
-        setCentralWidget(m_tabWidget);
-        connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
-        connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
-    }
-    else
-    {
-        KTextBrowser *browser=new KTextBrowser(this);
-        QString backendList="<ul>";
-        foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
-        {
-            if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
-                backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
-        }
-        browser->setHtml(i18n("<h1>No Backend Found</h1>\n"             \
-                              "<div>You could try:\n"                   \
-                              "  <ul>"                                  \
-                              "    <li>Changing the settings in the config dialog;</li>" \
-                              "    <li>Installing packages for one of the following programs:</li>" \
-                              "     %1 "                                \
-                              "  <ul> "                                 \
-                              "</div> "
-                             , backendList
-                             ));
-        setCentralWidget(browser);
-    }
+    m_tabWidget=new KTabWidget(this);
+    m_tabWidget->setCloseButtonEnabled(true);
+    setCentralWidget(m_tabWidget);
+
+    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
+    connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -132,6 +103,18 @@ void CantorShell::load(const KUrl& url)
         m_tabWidget->setCurrentIndex(m_parts.size()-1);
     }
     m_part->openUrl( url );
+}
+
+bool CantorShell::hasAvailableBackend()
+{
+    bool hasBackend=false;
+    foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
+    {
+        if(b->isEnabled())
+            hasBackend=true;
+    }
+
+    return hasBackend;
 }
 
 void CantorShell::setupActions()
@@ -221,14 +204,39 @@ void CantorShell::fileOpen()
 
 void CantorShell::addWorksheet()
 {
-    QPointer<BackendChooseDialog> dlg=new BackendChooseDialog(this);
-    if(dlg->exec())
+    if(hasAvailableBackend()) //There is no point in asking for the backend, if no one is available
     {
-        addWorksheet(dlg->backendName());
-        activateWorksheet(m_parts.size()-1);
-    }
+        QPointer<BackendChooseDialog> dlg=new BackendChooseDialog(this);
+        if(dlg->exec())
+        {
+            addWorksheet(dlg->backendName());
+            activateWorksheet(m_parts.size()-1);
+        }
 
-    delete dlg;
+        delete dlg;
+    }else
+    {
+        KTextBrowser *browser=new KTextBrowser(this);
+        QString backendList="<ul>";
+        foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
+        {
+            if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
+                backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
+        }
+        browser->setHtml(i18n("<h1>No Backend Found</h1>\n"             \
+                              "<div>You could try:\n"                   \
+                              "  <ul>"                                  \
+                              "    <li>Changing the settings in the config dialog;</li>" \
+                              "    <li>Installing packages for one of the following programs:</li>" \
+                              "     %1 "                                \
+                              "  <ul> "                                 \
+                              "</div> "
+                             , backendList
+                             ));
+
+        browser->setObjectName("ErrorMessage");
+        m_tabWidget->addTab(browser, i18n("Error"));
+    }
 }
 
 void CantorShell::addWorksheet(const QString& backendName)
@@ -273,7 +281,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
 void CantorShell::activateWorksheet(int index)
 {
-    m_part=m_parts.value(index);
+    m_part=findPart(m_tabWidget->widget(index));
     if(m_part)
         createGUI(m_part);
     else
@@ -292,13 +300,24 @@ void CantorShell::setTabCaption(const QString& caption)
 
 void CantorShell::closeTab(QWidget* widget)
 {
-    if(widget==0) widget=m_part->widget();
-    int index=m_tabWidget->indexOf(widget);
+    if(widget==0)
+        widget=m_part->widget();
 
-    KParts::ReadWritePart* part=m_parts.takeAt(index);
+    int index=m_tabWidget->indexOf(widget);
     m_tabWidget->removeTab(index);
 
-    part->deleteLater();
+    if(widget->objectName()=="ErrorMessage")
+    {
+        widget->deleteLater();
+    }else
+    {
+        KParts::ReadWritePart* part= findPart(widget);
+        if(part)
+        {
+            part->deleteLater();
+            m_parts.removeAll(part);
+        }
+    }
 }
 
 void CantorShell::showSettings()
@@ -370,4 +389,14 @@ void CantorShell::openExample()
     }
 
     delete dlg;
+}
+
+KParts::ReadWritePart* CantorShell::findPart(QWidget* widget)
+{
+    foreach( KParts::ReadWritePart* const part, m_parts)
+    {
+        if(part->widget()==widget)
+            return part;
+    }
+    return 0;
 }

@@ -51,6 +51,11 @@ public:
      */
     void load(const KUrl& url);
 
+    /**
+     * checks if at least one usable Backend is installed
+     */
+    bool hasAvailableBackend();
+
 protected:
     /**
      * This method is called when it is time for the app to save its
@@ -85,6 +90,7 @@ private slots:
     void openExample();
 private:
     void setupActions();
+    KParts::ReadWritePart* findPart(QWidget* widget);
 
 private:
     QList<KParts::ReadWritePart *> m_parts;
