@@ -63,6 +63,7 @@ CantorShell::CantorShell()
     setupActions();
 
     m_helpDocker=new QDockWidget(i18n("Help"), this);
+    m_helpDocker->setObjectName("help");
     m_helpView=new KTextEdit(m_helpDocker);
     m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
     m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
