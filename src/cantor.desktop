@@ -29,3 +29,4 @@ GenericName[uk]=Графічна оболонка KDE до математичн�
 GenericName[x-test]=xxKDE Frontend to Mathematical Software.xx
 Terminal=false
 Categories=Qt;KDE;Education;Math;
+MimeType=application/x-cantor
