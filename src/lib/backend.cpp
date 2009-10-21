@@ -128,6 +128,7 @@ QList<Backend*> Backend::availableBackends()
         if(backend==0)
         {
             kDebug()<<"error: "<<error;
+            continue;
         }
 
         KPluginInfo info(service);
