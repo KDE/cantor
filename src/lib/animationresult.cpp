@@ -87,7 +87,7 @@ QDomElement AnimationResult::toXml(QDomDocument& doc)
 {
     kDebug()<<"saving imageresult "<<toHtml();
     QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "image");
+    e.setAttribute("type", "animation");
     e.setAttribute("filename", d->url.fileName());
     kDebug()<<"done";
 

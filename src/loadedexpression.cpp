@@ -24,6 +24,7 @@
 #include "lib/epsresult.h"
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
+#include "lib/animationresult.h"
 
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -59,7 +60,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
     {
         result=new Cantor::TextResult(resultElement.text());
     }
-    else if (type == "image" || type == "latex")
+    else if (type == "image" || type == "latex" || type == "animation")
     {
         const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
         if (imageEntry&&imageEntry->isFile())
@@ -71,6 +72,9 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             if(type=="latex")
             {
                 result=new Cantor::LatexResult(resultElement.text(), imageUrl);
+            }else if(type=="animation")
+            {
+                result=new Cantor::AnimationResult(imageUrl);
             }else if(imageFile->name().endsWith(QLatin1String(".eps")))
             {
                 result=new Cantor::EpsResult(imageUrl);

@@ -35,29 +35,26 @@ QSizeF AnimationHandler::intrinsicSize(QTextDocument *doc, int posInDoc, const Q
 {
     QTextImageFormat imageFormat = format.toImageFormat();
     QString name = imageFormat.name();
-    if (!name.endsWith(".gif")) {
-        return m_defaultAnimationHandler->intrinsicSize(doc, posInDoc, format);
-    }
 
     const AnimationHelperItem& anim = format.property(AnimationHandler::MovieProperty).value<AnimationHelperItem>();
     QMovie* movie=anim.movie();
-    Q_ASSERT(movie);
 
-    return movie->currentImage().size();
+    if (!movie)
+        return m_defaultAnimationHandler->intrinsicSize(doc, posInDoc, format);
+    else
+        return movie->currentImage().size();
 }
 
 void AnimationHandler::drawObject(QPainter *painter, const QRectF &rect, QTextDocument *doc, int posInDoc, const QTextFormat &format)
 {
     QTextImageFormat imageFormat = format.toImageFormat();
     QString name = imageFormat.name();
-    if (!name.endsWith(".gif")) {
-        m_defaultAnimationHandler->drawObject(painter, rect, doc, posInDoc, format);
-    } else {
-        const AnimationHelperItem& anim = format.property(AnimationHandler::MovieProperty).value<AnimationHelperItem>();
-        QMovie* movie=anim.movie();
-        Q_ASSERT(movie);
+    const AnimationHelperItem& anim = format.property(AnimationHandler::MovieProperty).value<AnimationHelperItem>();
+    QMovie* movie=anim.movie();
 
+    if (!movie)
+        m_defaultAnimationHandler->drawObject(painter, rect, doc, posInDoc, format);
+    else
         painter->drawPixmap(rect.topLeft(), movie->currentPixmap());
-    }
 }
 

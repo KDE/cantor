@@ -90,17 +90,18 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 
             break;
         case Cantor::AnimationResult::Type:
-                format=renderGif(result);
-                if(format.isValid())
-                {
-                    cursor.insertText(QString(QChar::ObjectReplacementCharacter), format );
-                    AnimationHelperItem movie = format.property(AnimationHandler::MovieProperty).value<AnimationHelperItem>();
-                    QTextCursor cursor2=cursor;
-                    cursor2.setPosition(cursor.position()-1);
+            kDebug()<<"its an animation";
+            format=renderGif(result);
+            if(format.isValid())
+            {
+                cursor.insertText(QString(QChar::ObjectReplacementCharacter), format );
+                AnimationHelperItem movie = format.property(AnimationHandler::MovieProperty).value<AnimationHelperItem>();
+                QTextCursor cursor2=cursor;
+                cursor2.setPosition(cursor.position()-1);
 
-                    movie.setPosition(cursor2);
-                }
-                break;
+                movie.setPosition(cursor2);
+            }
+            break;
         default:
             QString html=result->toHtml().trimmed();
             if(html.isEmpty())
