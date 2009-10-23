@@ -11,6 +11,7 @@ Name[pt_BR]=CantorPart
 Name[sv]=Cantor-delprogram
 Name[uk]=CantorPart
 Name[x-test]=xxCantorPartxx
+Name[zh_TW]=Cantor 部件
 MimeType=application/x-cantor
 ServiceTypes=KParts/ReadOnlyPart,KParts/ReadWritePart
 X-KDE-Library=libcantorpart
