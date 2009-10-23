@@ -32,7 +32,9 @@
 #include "lib/defaulthighlighter.h"
 
 #include "worksheetentry.h"
+
 #include "resultproxy.h"
+#include "animationhandler.h"
 #include "loadedexpression.h"
 #include "config-cantor.h"
 
@@ -80,8 +82,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(pare
     session()->setTypesettingEnabled(false);
 #endif
 
-
     m_proxy=new ResultProxy(document());
+    document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
 }
 
 Worksheet::~Worksheet()

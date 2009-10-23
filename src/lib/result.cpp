@@ -38,9 +38,15 @@ Result::~Result()
 
 }
 
+KUrl Result::url()
+{
+    return KUrl();
+}
+
 void Result::saveAdditionalData(KZip* archive)
 {
     Q_UNUSED(archive)
     //Do nothing
 }
+
 

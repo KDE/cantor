@@ -18,23 +18,21 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _ANIMATIONRESULT_H
+#define _ANIMATIONRESULT_H
 
 #include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
 
 namespace Cantor
 {
-class EpsResultPrivate;
+class AnimationResultPrivate;
 
-class CANTOR_EXPORT EpsResult : public Result
+class CANTOR_EXPORT AnimationResult : public Result
 {
   public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+    enum{Type=6};
+    AnimationResult( const KUrl& url, const QString& alt=QString() );
+    ~AnimationResult();
 
     QString toHtml();
     QVariant data();
@@ -45,13 +43,13 @@ class CANTOR_EXPORT EpsResult : public Result
 
     QDomElement toXml(QDomDocument& doc);
     void saveAdditionalData(KZip* archive);
-    
-    void save(const QString& filename);
 
+    void save(const QString& filename);
   private:
-    EpsResultPrivate* d;
+    AnimationResultPrivate* d;
+
 };
 
 }
 
-#endif /* _EPSRESULT_H */
+#endif /* _ANIMATIONRESULT_H */

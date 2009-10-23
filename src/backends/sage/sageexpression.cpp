@@ -23,11 +23,13 @@
 #include "sagesession.h"
 #include "textresult.h"
 #include "imageresult.h"
+#include "animationresult.h"
 #include "helpresult.h"
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <kurl.h>
+#include <kmimetype.h>
 #include <QRegExp>
 
 SageExpression::SageExpression( Cantor::Session* session ) : Cantor::Expression(session)
@@ -156,7 +158,9 @@ void SageExpression::parseError(const QString& text)
 void SageExpression::addFileResult( const QString& path )
 {
   KUrl url( path );
-  if ( url.fileName().endsWith(QLatin1String(".png")) )
+  KMimeType::Ptr type=KMimeType::findByUrl(url);
+  kDebug()<<"MimeType: "<<type->name();
+  if(type->name().contains("image"))
   {
     kDebug()<<"adding file "<<path<<"   "<<url;
     m_imagePath=path;
@@ -214,7 +218,11 @@ void SageExpression::evalFinished()
     }
     else
     {
-      setResult( new Cantor::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
+        KMimeType::Ptr type=KMimeType::findByUrl(m_imagePath);
+        if(type->is("image/gif"))
+            setResult( new Cantor::AnimationResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
+        else
+            setResult( new Cantor::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
     }
     setStatus(Cantor::Expression::Done);
 }

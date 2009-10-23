@@ -45,6 +45,8 @@ set(cantor_PART_SRCS
    scripteditorwidget.cpp
    resultproxy.cpp
    loadedexpression.cpp
+   animationhandler.cpp
+   animation.cpp
  )
 
 kde4_add_kcfg_files(cantor_PART_SRCS settings.kcfgc)

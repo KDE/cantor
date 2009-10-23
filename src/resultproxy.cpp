@@ -25,6 +25,10 @@
 #include "lib/result.h"
 #include "lib/epsresult.h"
 #include "lib/latexresult.h"
+#include "lib/imageresult.h"
+#include "lib/animationresult.h"
+#include "animationhandler.h"
+#include "animation.h"
 
 #ifdef LIBSPECTRE_FOUND
   #include "libspectre/spectre.h"
@@ -33,6 +37,10 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <QTextDocument>
+#include <QAbstractTextDocumentLayout>
+#include <QTextObjectInterface>
+#include <QMovie>
+#include <QTimer>
 
 ResultProxy::ResultProxy(QTextDocument* parent) : QObject(parent)
 {
@@ -76,11 +84,23 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
         case Cantor::EpsResult::Type:
             format=renderEps(result);
             if(format.isValid())
-                cursor.insertText(QString(QChar::ObjectReplacementCharacter),  renderEps(result) );
+                cursor.insertText(QString(QChar::ObjectReplacementCharacter),  format );
             else
                 cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
 
             break;
+        case Cantor::AnimationResult::Type:
+                format=renderGif(result);
+                if(format.isValid())
+                {
+                    cursor.insertText(QString(QChar::ObjectReplacementCharacter), format );
+                    AnimationHelperItem movie = format.property(AnimationHandler::MovieProperty).value<AnimationHelperItem>();
+                    QTextCursor cursor2=cursor;
+                    cursor2.setPosition(cursor.position()-1);
+
+                    movie.setPosition(cursor2);
+                }
+                break;
         default:
             QString html=result->toHtml().trimmed();
             if(html.isEmpty())
@@ -128,4 +148,23 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
     return QTextFormat().toCharFormat();
 #endif
 
+}
+
+QTextCharFormat ResultProxy::renderGif(Cantor::Result* result)
+{
+    QTextImageFormat charFormat;
+    KUrl url=result->url();
+
+    AnimationHelperItem anim;
+    QMovie* movie=static_cast<QMovie*>(result->data().value<QObject*>());
+    anim.setMovie(movie);
+
+    charFormat.setProperty(AnimationHandler::MovieProperty, qVariantFromValue(anim));
+    charFormat.setName(url.toLocalFile());
+
+    charFormat.setName(url.url());
+
+    QTimer::singleShot(0, movie, SLOT(start()));
+
+    return charFormat;
 }

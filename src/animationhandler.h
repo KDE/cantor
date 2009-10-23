@@ -18,40 +18,27 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _ANIMATIONHANDLER_H
+#define _ANIMATIONHANDLER_H
 
-#include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
+#include <QTextObjectInterface>
+#include <QTextDocument>
 
-namespace Cantor
+class AnimationHandler : public QObject, public QTextObjectInterface
 {
-class EpsResultPrivate;
+    Q_OBJECT
+    Q_INTERFACES(QTextObjectInterface)
 
-class CANTOR_EXPORT EpsResult : public Result
-{
-  public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+public:
+    enum {MovieProperty = QTextFormat::UserProperty+10};
+    AnimationHandler(QTextDocument *doc);
 
-    QString toHtml();
-    QVariant data();
-    KUrl url();
+    QSizeF intrinsicSize(QTextDocument *doc, int posInDoc, const QTextFormat &format);
 
-    int type();
-    QString mimeType();
+    void drawObject(QPainter *painter, const QRectF &rect, QTextDocument *doc, int posInDoc, const QTextFormat &format);
 
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
-    
-    void save(const QString& filename);
-
-  private:
-    EpsResultPrivate* d;
+private:
+    QTextObjectInterface *m_defaultAnimationHandler;
 };
 
-}
-
-#endif /* _EPSRESULT_H */
+#endif /* _ANIMATIONHANDLER_H */

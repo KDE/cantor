@@ -18,60 +18,72 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "epsresult.h"
+#include "animationresult.h"
 using namespace Cantor;
 
-#include "config-cantorlib.h"
-
-#include <kdebug.h>
+#include <QImage>
+#include <QImageWriter>
 #include <kzip.h>
+#include <kmimetype.h>
+#include <kdebug.h>
 #include <kio/job.h>
+#include <QMovie>
 
-class Cantor::EpsResultPrivate{
-    public:
-        KUrl url;
+class Cantor::AnimationResultPrivate
+{
+  public:
+    AnimationResultPrivate()
+    {
+
+    }
+
+    KUrl url;
+    QMovie* movie;
+    QString alt;
 };
 
-
-EpsResult::EpsResult(const KUrl& url) : d(new EpsResultPrivate)
+AnimationResult::AnimationResult( const KUrl& url, const QString& alt ) : d(new AnimationResultPrivate)
 {
     d->url=url;
-#ifndef WITH_EPS
-    kError()<<"Creating an EpsResult in an environment compiled without EPS support!";
-#endif
+    d->alt=alt;
+    d->movie=new QMovie();
+    d->movie->setFileName(url.toLocalFile());
 }
 
-EpsResult::~EpsResult()
+
+AnimationResult::~AnimationResult()
 {
-    delete d;
+
 }
 
-QString EpsResult::toHtml()
+QString AnimationResult::toHtml()
 {
-    return QString("<img src=\"%1\" />").arg(d->url.url());
+    return QString("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
 }
 
-QVariant EpsResult::data()
+QVariant AnimationResult::data()
 {
-    return QVariant(d->url);
+    return QVariant::fromValue(static_cast<QObject*>(d->movie));
 }
 
-KUrl EpsResult::url()
+KUrl AnimationResult::url()
 {
     return d->url;
 }
 
-int EpsResult::type()
+int AnimationResult::type()
 {
-    return EpsResult::Type;
+    return AnimationResult::Type;
 }
 
-QString EpsResult::mimeType()
+QString AnimationResult::mimeType()
 {
-    return "image/x-eps";
+    KMimeType::Ptr type=KMimeType::findByUrl(d->url);
+
+    return type->name();
 }
 
-QDomElement EpsResult::toXml(QDomDocument& doc)
+QDomElement AnimationResult::toXml(QDomDocument& doc)
 {
     kDebug()<<"saving imageresult "<<toHtml();
     QDomElement e=doc.createElement("Result");
@@ -82,13 +94,13 @@ QDomElement EpsResult::toXml(QDomDocument& doc)
     return e;
 }
 
-void EpsResult::saveAdditionalData(KZip* archive)
+void AnimationResult::saveAdditionalData(KZip* archive)
 {
     archive->addLocalFile(d->url.toLocalFile(), d->url.fileName());
 }
 
-void EpsResult::save(const QString& filename)
+void AnimationResult::save(const QString& filename)
 {
-    //just copy over the eps file..
+    //just copy over the file..
     KIO::file_copy(d->url, KUrl(filename), -1, KIO::HideProgressInfo);
 }

@@ -11,6 +11,7 @@ set( cantor_LIB_SRCS
   epsresult.cpp
   latexresult.cpp
   helpresult.cpp
+  animationresult.cpp
   extension.cpp
   assistant.cpp
   tabcompletionobject.cpp

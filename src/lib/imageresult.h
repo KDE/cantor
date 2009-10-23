@@ -38,6 +38,7 @@ class CANTOR_EXPORT ImageResult : public Result
 
     QString toHtml();
     QVariant data();
+    KUrl url();
 
     int type();
     QString mimeType();

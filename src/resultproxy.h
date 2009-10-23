@@ -47,6 +47,7 @@ class ResultProxy : public QObject
     void scale(qreal value);
   private:
     QTextCharFormat renderEps(Cantor::Result* result);
+    QTextCharFormat renderGif(Cantor::Result* result);
 
   private:
     QTextDocument* m_document;

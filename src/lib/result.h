@@ -41,6 +41,7 @@ class CANTOR_EXPORT Result
 
     virtual QString toHtml() = 0;
     virtual QVariant data() = 0;
+    virtual KUrl url();
 
     virtual int type() = 0;
     virtual QString mimeType() = 0;

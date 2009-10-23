@@ -63,6 +63,11 @@ QVariant ImageResult::data()
     return QVariant(d->img);
 }
 
+KUrl ImageResult::url()
+{
+    return d->url;
+}
+
 int ImageResult::type()
 {
     return ImageResult::Type;
