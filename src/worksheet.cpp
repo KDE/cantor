@@ -36,6 +36,7 @@
 #include "resultproxy.h"
 #include "animationhandler.h"
 #include "loadedexpression.h"
+#include "resultcontextmenu.h"
 #include "config-cantor.h"
 
 #include <QEvent>
@@ -279,50 +280,14 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
     WorksheetEntry* current=entryAt(cursorAtMouse);
     if(current&&current->isInResultCell(cursorAtMouse)&&current->expression()&&current->expression()->result())
     {
-        Cantor::Result* result=current->expression()->result();
         kDebug()<<"context menu in result...";
-        KMenu* popup=new KMenu(this);
-        if(!popup)
-            return;
-
-        QAction* saveAction=popup->addAction(i18n("Save result"));
-        QAction* showCodeAction=0;
-        if(result->type()==Cantor::LatexResult::Type)
-        {
-            if(dynamic_cast<Cantor::LatexResult*>(result)->isCodeShown())
-                showCodeAction=popup->addAction(i18n("Show Rendered"));
-            else
-                showCodeAction=popup->addAction(i18n("Show Code"));
-        }
-
-        popup->setTitle(i18n("Result"));
+        KMenu* popup=new ResultContextMenu(current, this);
 
         QMenu* defaultMenu=mousePopupMenu();
         defaultMenu->setTitle(i18n("Other"));
         popup->addMenu(defaultMenu);
 
-        const QAction* selectedAction=popup->exec(event->globalPos());
-        if(selectedAction==0)
-        {
-
-        }else if(selectedAction==saveAction)
-        {
-            const QString& filename=KFileDialog::getSaveFileName(KUrl(), result->mimeType(), this);
-            kDebug()<<"saving result to "<<filename;
-            result->save(filename);
-        }else if(selectedAction==showCodeAction)
-        {
-            Cantor::LatexResult* res=dynamic_cast<Cantor::LatexResult*>(result);
-            if(res->isCodeShown())
-                res->showRendered();
-            else
-                res->showCode();
-
-            current->updateResult();
-        }
-
-        delete popup;
-        delete defaultMenu;
+        popup->popup(event->globalPos());
 
     }else
     {

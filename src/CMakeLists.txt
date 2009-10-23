@@ -47,6 +47,7 @@ set(cantor_PART_SRCS
    loadedexpression.cpp
    animationhandler.cpp
    animation.cpp
+   resultcontextmenu.cpp
  )
 
 kde4_add_kcfg_files(cantor_PART_SRCS settings.kcfgc)
