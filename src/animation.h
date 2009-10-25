@@ -24,6 +24,7 @@
 #include <QObject>
 #include <QTextCursor>
 #include <QPointer>
+#include <QSharedPointer>
 
 class QMovie;
 
