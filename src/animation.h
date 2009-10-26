@@ -70,6 +70,6 @@ class AnimationHelperItem
 };
 
 
-Q_DECLARE_METATYPE(AnimationHelperItem);
+Q_DECLARE_METATYPE(AnimationHelperItem)
 
 #endif /* _ANIMATION_H */
