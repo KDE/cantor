@@ -30,7 +30,6 @@ Animation::Animation(QObject* parent) : QObject(parent)
 
 Animation::~Animation()
 {
-    kDebug()<<"deleting animation";
     if(m_movie)
         m_movie->stop();
 }
