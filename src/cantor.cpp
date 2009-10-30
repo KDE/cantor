@@ -68,14 +68,13 @@ CantorShell::CantorShell()
     m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
     m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
     m_helpDocker->setWidget(m_helpView);
-    KToggleAction* showHelpPanelAction=new KToggleAction(i18n("Show Help Panel"), actionCollection());
-    showHelpPanelAction->setIcon(KIcon("help-hint"));
-    connect(m_helpDocker, SIGNAL(visibilityChanged(bool)), showHelpPanelAction, SLOT(setChecked(bool)));
-    connect(showHelpPanelAction, SIGNAL(toggled(bool)), this, SLOT(showHelpDocker(bool)));
-    actionCollection()->addAction("show_help_panel", showHelpPanelAction);
-
     addDockWidget ( Qt::RightDockWidgetArea,  m_helpDocker );
 
+    KToggleAction* showHelpPanelAction=new KToggleAction(i18n("Show Help Panel"), actionCollection());
+    showHelpPanelAction->setIcon(KIcon("help-hint"));
+    connect(showHelpPanelAction, SIGNAL(toggled(bool)), this, SLOT(showHelpDocker(bool)));
+    connect(m_helpDocker, SIGNAL(visibilityChanged(bool)), showHelpPanelAction, SLOT(setChecked(bool)));
+    actionCollection()->addAction("show_help_panel", showHelpPanelAction);
 
     createGUI(0);
 
@@ -94,6 +93,7 @@ CantorShell::CantorShell()
 
 CantorShell::~CantorShell()
 {
+
 }
 
 void CantorShell::load(const KUrl& url)
@@ -341,7 +341,10 @@ void CantorShell::showSettings()
 
 void CantorShell::showHelpDocker(bool show)
 {
-    m_helpDocker->setVisible(show);
+    if(show!=m_helpDocker->isVisible())
+    {
+        m_helpDocker->setVisible(show);
+    }
 }
 
 void CantorShell::downloadExamples()
