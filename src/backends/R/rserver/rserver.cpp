@@ -199,6 +199,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
     kDebug()<<"running command "<<cmd;
     Expression* expr=new Expression;
     expr->cmd=cmd;
+    expr->hasOtherResults=false;
 
     setStatus(RServer::Busy);
 
@@ -311,6 +312,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
     //Check if the expression got results other than plain text (like files,etc)
     if(!expr->hasOtherResults)
         emit expressionFinished(returnCode, returnText);
+
     setStatus(Idle);
 }
 
