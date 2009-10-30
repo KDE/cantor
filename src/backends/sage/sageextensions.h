@@ -90,4 +90,13 @@ class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
     QString eigenValues(const QString& matrix);
 };
 
+class SagePlotExtension : public Cantor::PlotExtension
+{
+  public:
+    SagePlotExtension(QObject* parent);
+    ~SagePlotExtension();
+  public slots:
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
+};
+
 #endif /* _SAGEEXTENSIONS_H */

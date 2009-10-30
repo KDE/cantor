@@ -112,7 +112,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
     ~PlotExtension();
   
   public slots:
-    virtual QString plotFunction2D(const QString& function, const QString& variable, const QString& left, const QString& right) = 0;
+    virtual QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) = 0;
 };
 
 /** An extension for basic Linear Algebra

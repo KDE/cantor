@@ -152,3 +152,11 @@ QString MaximaLinearAlgebraExtension::eigenValues(const QString& matrix)
 {
     return QString("eigenvalues(%1);").arg(matrix);
 }
+
+//Plotting
+MAXIMA_EXTENSION_CONSTRUCTORS(Plot)
+
+QString MaximaPlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
+{
+    return QString("plot2d(%1,[%2,%3,%4])").arg(function, variable, left, right);
+}

@@ -92,5 +92,13 @@ class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 
 };
 
+class MaximaPlotExtension : public Cantor::PlotExtension
+{
+  public:
+    MaximaPlotExtension(QObject* parent);
+    ~MaximaPlotExtension();
+  public slots:
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
+};
 
 #endif /* _MAXIMAEXTENSIONS_H */

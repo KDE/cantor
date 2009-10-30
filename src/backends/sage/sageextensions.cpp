@@ -170,3 +170,11 @@ QString SageLinearAlgebraExtension::eigenValues(const QString& matrix)
 {
     return QString("%1.eigenvalues()").arg(matrix);
 }
+
+//Plotting
+SAGE_EXTENSION_CONSTRUCTORS(Plot)
+
+QString SagePlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
+{
+    return QString("plot(%1,%2,%3,%4)").arg(function, variable, left, right);
+}
