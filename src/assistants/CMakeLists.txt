@@ -4,3 +4,5 @@ add_subdirectory(differentiate)
 add_subdirectory(linearalgebra)
 add_subdirectory(runscript)
 add_subdirectory(plot2d)
+add_subdirectory(plot3d)
+

@@ -160,3 +160,12 @@ QString MaximaPlotExtension::plotFunction2d(const QString& function, const QStri
 {
     return QString("plot2d(%1,[%2,%3,%4])").arg(function, variable, left, right);
 }
+
+QString MaximaPlotExtension::plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2)
+{
+    const Interval& int1=var1.second;
+    const Interval& int2=var2.second;
+    return QString("plot3d(%1,[%2,%3,%4],[%6,%7,%8])").arg(function,
+                                                           var1.first, int1.first, int1.second,
+                                                           var2.first, int2.first, int2.second);
+}

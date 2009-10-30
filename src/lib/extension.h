@@ -22,6 +22,7 @@
 #define _EXTENSION_H
 
 #include <QObject>
+#include <QPair>
 #include "cantor_export.h"
 
 namespace Cantor
@@ -108,11 +109,15 @@ class CANTOR_EXPORT CalculusExtension : public Extension
 class CANTOR_EXPORT PlotExtension : public Extension
 {
   public:
+    typedef QPair<QString,QString> Interval;
+    typedef QPair<QString, Interval> VariableParameter;
+
     PlotExtension(QObject* parent);
     ~PlotExtension();
   
   public slots:
     virtual QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) = 0;
+    virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) = 0;
 };
 
 /** An extension for basic Linear Algebra
