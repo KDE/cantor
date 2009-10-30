@@ -232,7 +232,10 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
                 result = R_tryEval(VECTOR_ELT(cmdexpr,  i), NULL, &errorOccurred);
                 if (errorOccurred)
-                    kFatal()<<"Error occurred, handle later";
+                {
+                    kDebug()<<"Error occurred.";
+                    break;
+                }
 
             }
             memBuf.clear();
