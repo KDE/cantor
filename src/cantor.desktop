@@ -32,4 +32,4 @@ GenericName[x-test]=xxKDE Frontend to Mathematical Software.xx
 GenericName[zh_TW]=KDE 數學軟體的前端介面
 Terminal=false
 Categories=Qt;KDE;Education;Math;
-MimeType=application/x-cantor
+MimeType=application/x-cantor;

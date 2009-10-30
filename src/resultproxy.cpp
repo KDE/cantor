@@ -20,7 +20,7 @@
 
 #include "resultproxy.h"
 
-#include "config-cantor.h"
+#include <config-cantor.h>
 
 #include "lib/result.h"
 #include "lib/epsresult.h"

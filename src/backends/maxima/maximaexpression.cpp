@@ -20,7 +20,7 @@
 
 #include "maximaexpression.h"
 
-#include "config-cantorlib.h"
+#include <config-cantorlib.h>
 
 #include "maximasession.h"
 #include "textresult.h"
@@ -216,7 +216,7 @@ void MaximaExpression::parseNormalOutput(const QString& text)
 
     bool couldBeQuestion=false;
     const QStringList lines=output.split('\n');
-    //A regexp matching for OutputPrompt, but allowing an arbitary number of spaces at the beginning
+    //A regexp matching for OutputPrompt, but allowing an arbitrary number of spaces at the beginning
     const QRegExp outputPromptRegexp(QString("\\s*%1").arg(MaximaSession::MaximaOutputPrompt.pattern()));
 
     foreach(QString line, lines) // krazy:exclude=foreach

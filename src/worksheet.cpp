@@ -37,7 +37,7 @@
 #include "animationhandler.h"
 #include "loadedexpression.h"
 #include "resultcontextmenu.h"
-#include "config-cantor.h"
+#include <config-cantor.h>
 
 #include <QEvent>
 #include <QKeyEvent>

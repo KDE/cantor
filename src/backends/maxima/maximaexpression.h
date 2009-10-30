@@ -32,7 +32,7 @@ class MaximaExpression : public Cantor::Expression
   Q_OBJECT  
   public:
     enum Type{NormalExpression, HelpExpression, TexExpression};
-    MaximaExpression( Cantor::Session* session, Type = NormalExpression);
+    explicit MaximaExpression( Cantor::Session* session, Type = NormalExpression);
     ~MaximaExpression();
 
     Type type();

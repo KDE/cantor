@@ -21,7 +21,7 @@
 #include "epsresult.h"
 using namespace Cantor;
 
-#include "config-cantorlib.h"
+#include <config-cantorlib.h>
 
 #include <kdebug.h>
 #include <kzip.h>

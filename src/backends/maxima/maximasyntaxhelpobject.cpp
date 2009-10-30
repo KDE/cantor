@@ -75,12 +75,12 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         QStringList lines=text.split('\n');
 
         QString syntax;
-        foreach(QString line, lines)
+        foreach(QString line, lines) // krazy:exclude=foreach
         {
             line=line.trimmed();
             if(line.endsWith('\r'))
                 line.chop(1);
-            if(line.startsWith("-- Function:"))
+            if(line.startsWith(QLatin1String("-- Function:")))
             {
                 line.remove("-- Function:");
                 line.remove("<br/>");
