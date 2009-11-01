@@ -1,10 +1,17 @@
 [Desktop Entry]
 Type=Service
 Name=Plot3d
+Name[sv]=Rita i tre dimensioner
+Name[tr]=3B Çizim
+Name[uk]=Plot3d
+Name[x-test]=xxPlot3dxx
 X-KDE-ServiceTypes=Cantor/Assistant
 X-KDE-Library=cantor_plot3dassistant
 X-KDE-PluginInfo-Name=Plot3d
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 2D functions
+Comment[sv]=En dialogruta med en guide för att uppritning av tvådimensionella funktioner
+Comment[uk]=Діалогове вікно помічника спрощення побудови графіків на площині
+Comment[x-test]=xxAn Assistant dialog to simplify plotting of 2D functionsxx
 RequiredExtensions=PlotExtension
