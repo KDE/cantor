@@ -24,6 +24,7 @@
 #include "textresult.h"
 
 #include <kdebug.h>
+#include <QStack>
 
 SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSession* session) : Cantor::TabCompletionObject(command, session)
 {
@@ -31,9 +32,29 @@ SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSes
 
     //Only use the completion for the last command part between end and opening bracket or ;
     QString cmd=command;
-    int brIndex=cmd.lastIndexOf('(')+1;
     int semIndex=cmd.lastIndexOf(';')+1;
-    cmd=cmd.mid(qMax(brIndex, semIndex));
+    cmd=cmd.mid(semIndex);
+
+    //Find last unmatched open bracket
+    QStack<int> brIndex;
+    for(int i=0;i<cmd.length();i++)
+    {
+        if(cmd[i]=='(')
+        {
+            brIndex.push(i);
+        }
+
+        if(cmd[i]==')')
+        {
+            brIndex.pop();
+         }
+    }
+
+    if(!brIndex.isEmpty())
+    {
+        int index=brIndex.pop()+1;
+        cmd=cmd.mid(index);
+    }
 
     setCommand(cmd);
 }
