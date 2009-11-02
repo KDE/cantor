@@ -1,6 +1,8 @@
 [Desktop Entry]
 Type=Service
 Name=Plot2d
+Name[en_GB]=Plot2d
+Name[pt]=Gráfico2D
 Name[sv]=Rita i två dimensioner
 Name[tr]=2B Çizim
 Name[uk]=Plot2d
@@ -11,6 +13,8 @@ X-KDE-PluginInfo-Name=Plot2d
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 2D functions
+Comment[en_GB]=An Assistant dialogue to simplify plotting of 2D functions
+Comment[pt]=Uma janela assistente que simplifica o desenho de gráficos de funções em 2D
 Comment[sv]=En dialogruta med en guide för att uppritning av tvådimensionella funktioner
 Comment[uk]=Діалогове вікно помічника спрощення побудови графіків на площині
 Comment[x-test]=xxAn Assistant dialog to simplify plotting of 2D functionsxx
