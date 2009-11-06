@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Name=kalgebrabackend
+Icon=kalgebra
+X-KDE-ServiceTypes=Cantor/Backend
+X-KDE-Library=cantor_kalgebrabackend
+X-KDE-PluginInfo-Name=kalgebrabackend
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=KAlgebra backend for Cantor
