@@ -43,6 +43,7 @@ MaximaExpression::MaximaExpression( Cantor::Session* session, MaximaExpression::
     kDebug();
     m_type=type;
     m_tempFile=0;
+    m_latexFailed=false;
     //this is a timer that is triggered if we got output without an output prompt
     //and no new input prompt for some time, so we assume that it's because maxima
     //is asking for information
@@ -332,8 +333,14 @@ void MaximaExpression::parseTexResult(const QString& text)
 
         m_outputCache.clear();
         setResult(result);
-        setStatus(Cantor::Expression::Done);
+    }else
+    {
+        //Running TeX seems to have failed...
+        m_latexFailed=true;
     }
+
+    setStatus(Cantor::Expression::Done);
+
 }
 
 void MaximaExpression::evalFinished()
@@ -390,7 +397,8 @@ void MaximaExpression::evalFinished()
 
 bool MaximaExpression::needsLatexResult()
 {
-    bool needsLatex=session()->isTypesettingEnabled() &&
+    bool needsLatex=!m_latexFailed&&
+        session()->isTypesettingEnabled() &&
         status()!=Cantor::Expression::Error &&
         finishingBehavior()==Cantor::Expression::DoNotDelete;
 
