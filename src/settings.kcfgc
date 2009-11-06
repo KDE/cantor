@@ -1,3 +1,4 @@
 File=cantor.kcfg
 ClassName=Settings
 Singleton=true
+Visibility=KDE_EXPORT

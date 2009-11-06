@@ -10,13 +10,18 @@ endif(LIBSPECTRE_FOUND)
 add_subdirectory(backends)
 add_subdirectory(assistants)
 
+#build the config object in a separate library, shared between shell and part
+kde4_add_kcfg_files(config_SRCS settings.kcfgc)
+kde4_add_library( cantor_config  SHARED ${config_SRCS} )
+target_link_libraries( cantor_config ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} )
+install( TARGETS cantor_config  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+
 set(cantor_SRCS
    main.cpp
    cantor.cpp
    backendchoosedialog.cpp
  )
 
-kde4_add_kcfg_files(cantor_SRCS settings.kcfgc)
 install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 kde4_add_ui_files(cantor_SRCS settings.ui)
@@ -24,7 +29,7 @@ kde4_add_ui_files(cantor_SRCS backendchooser.ui)
 
 kde4_add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} cantorlibs)
+target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
@@ -50,16 +55,13 @@ set(cantor_PART_SRCS
    resultcontextmenu.cpp
  )
 
-kde4_add_kcfg_files(cantor_PART_SRCS settings.kcfgc)
-
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
-
 
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 
 target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS}
 				     ${KDE4_KTEXTEDITOR_LIBS}
-				     cantorlibs )
+				     cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
