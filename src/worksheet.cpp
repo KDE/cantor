@@ -64,7 +64,6 @@
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(parent)
 {
     m_session=backend->createSession();
-    m_session->login();
 
     setFont(KGlobalSettings::fixedFont());
 
@@ -85,11 +84,19 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(pare
 
     m_proxy=new ResultProxy(document());
     document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
+
+    //postpone login, until everything is set up correctly
+    QTimer::singleShot(0, this, SLOT(loginToSession()));
 }
 
 Worksheet::~Worksheet()
 {
     m_session->logout();
+}
+
+void Worksheet::loginToSession()
+{
+    m_session->login();
 }
 
 bool Worksheet::event(QEvent* event)

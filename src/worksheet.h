@@ -82,6 +82,7 @@ class Worksheet : public KTextEdit
     void contextMenuEvent(QContextMenuEvent *event);
 
   private slots:
+    void loginToSession();
     void removeEntry(QObject* object);
     void checkEntriesForSanity();
   private:
