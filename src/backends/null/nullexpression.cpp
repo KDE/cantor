@@ -24,6 +24,7 @@
 #include "imageresult.h"
 #include "helpresult.h"
 #include <kdebug.h>
+#include <kiconloader.h>
 #include <QTimer>
 
 NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(session)
@@ -59,7 +60,7 @@ void NullExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
     if ( command()=="img" )
-        setResult( new Cantor::ImageResult( KUrl("/home/alex/out.png"), "alternativ" ) );
+        setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath("kde", KIconLoader::Desktop)), "alternative" ) );
     else
         setResult(new Cantor::TextResult("result: "+command()));
 
