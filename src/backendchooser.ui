@@ -56,7 +56,7 @@
    <item row="2" column="0">
     <widget class="QCheckBox" name="makeDefault">
      <property name="text">
-      <string>Make  this the default backend</string>
+      <string>Make this the default backend</string>
      </property>
     </widget>
    </item>
