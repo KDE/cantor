@@ -34,11 +34,12 @@ KAlgebraTabCompletionObject::~KAlgebraTabCompletionObject()
 
 void KAlgebraTabCompletionObject::fetchCompletions()
 {
-    QModelIndexList idxs=s_ops->match(QModelIndex(), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
+    QModelIndexList idxs=s_ops->match(s_ops->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
     QStringList comp;
     foreach(const QModelIndex& idx, idxs)
         comp << idx.data().toString();
     
+    qDebug() << "piiiiii" << comp << command() << idxs;
     setCompletions(comp);
     emit done();
 }

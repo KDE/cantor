@@ -45,7 +45,7 @@ void KAlgebraExpression::evaluate()
         res=a->evaluate();
     
     if(a->isCorrect()) {
-        setResult(new Cantor::TextResult(i18n("Result: %1", res.toString())));
+        setResult(new Cantor::TextResult(res.toString()));
         setStatus(Cantor::Expression::Done);
     } else {
         QString error=i18n("Error: %1", a->errors().join("\n"));

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-Name=kalgebrabackend
+Name=KAlgebra
 Icon=kalgebra
 X-KDE-ServiceTypes=Cantor/Backend
 X-KDE-Library=cantor_kalgebrabackend
