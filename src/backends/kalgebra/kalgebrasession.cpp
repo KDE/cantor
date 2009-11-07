@@ -20,6 +20,7 @@
 #include "kalgebraexpression.h"
 #include "kalgebratabcompletionobject.h"
 #include <analitza/analitza.h>
+#include <kdebug.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
     : Session(backend)
@@ -43,9 +44,6 @@ void KAlgebraSession::logout()
 
 void KAlgebraSession::interrupt()
 {
-    foreach(Cantor::Expression* e, m_runningExpressions)
-        e->interrupt();
-    m_runningExpressions.clear();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -54,25 +52,16 @@ Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
 {
     KAlgebraExpression* expr=new KAlgebraExpression(this);
     expr->setFinishingBehavior(behave);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished()));
+
+    changeStatus(Cantor::Session::Running);
     expr->setCommand(cmd);
     expr->evaluate();
-    
-    if(m_runningExpressions.isEmpty())
-        changeStatus(Cantor::Session::Running);
-    m_runningExpressions.append(expr);
-    
+    changeStatus(Cantor::Session::Done);
+
     return expr;
 }
 
 Cantor::TabCompletionObject* KAlgebraSession::tabCompletionFor(const QString& command)
 {
     return new KAlgebraTabCompletionObject(command, this);
-}
-
-void KAlgebraSession::expressionFinished()
-{
-    m_runningExpressions.removeAll(qobject_cast<KAlgebraExpression*>(sender()));
-    if(m_runningExpressions.isEmpty())
-        changeStatus(Cantor::Session::Done);
 }

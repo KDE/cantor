@@ -42,10 +42,8 @@ class KAlgebraSession : public Cantor::Session
         Analitza::Analitza* analitza() const { return m_analitza; }
 
     private slots:
-        void expressionFinished();
 
     private:
-        QList<KAlgebraExpression*> m_runningExpressions;
         Analitza::Analitza* m_analitza;
 };
 
