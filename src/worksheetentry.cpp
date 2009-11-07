@@ -115,6 +115,8 @@ void WorksheetEntry::setExpression(Cantor::Expression* expr)
 
     if(expr->result())
         updateResult();
+    if(expr->status()!=Cantor::Expression::Computing)
+        expressionChangedStatus(expr->status());
 }
 
 Cantor::Expression* WorksheetEntry::expression()
