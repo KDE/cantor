@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>620</width>
-    <height>512</height>
+    <height>461</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -30,16 +30,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="KTextBrowser" name="descriptionView">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>2</horstretch>
-       <verstretch>1</verstretch>
-      </sizepolicy>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0">
     <widget class="KListWidget" name="backendList">
      <property name="flow">
@@ -50,6 +40,23 @@
      </property>
      <property name="viewMode">
       <enum>QListView::ListMode</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="KTextBrowser" name="descriptionView">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>2</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="makeDefault">
+     <property name="text">
+      <string>Make  this the default backend</string>
      </property>
     </widget>
    </item>
