@@ -25,7 +25,14 @@
 
 KAlgebraTabCompletionObject::KAlgebraTabCompletionObject(const QString& command, KAlgebraSession* session)
     : Cantor::TabCompletionObject(command, session)
-{}
+{
+    //We only want identifiers
+    int i;
+    for(i=command.size()-1; i>=0 && command[i].isLetter(); i--) {}
+    
+    if(i>=0)
+        setCommand(command.mid(i+1));
+}
 
 KAlgebraTabCompletionObject::~KAlgebraTabCompletionObject()
 {}
