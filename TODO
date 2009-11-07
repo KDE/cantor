@@ -10,6 +10,7 @@ R-Backend:
 - complete it
  - add custom Result types for DataFrames etc. (nice html tables instead of AsciiArt)
 General:
+- MathML rendering
 - add help browser 
 - improve help/documentation/usability all over the place
 - review and cleanup API
