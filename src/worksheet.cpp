@@ -73,14 +73,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(pare
     appendEntry();
 
     m_highlighter=0;
-    enableHighlighting(Settings::self()->highlightDefault());
-    enableTabCompletion(Settings::self()->tabCompletionDefault());
-    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
-#ifdef WITH_EPS
-    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
-#else
-    session()->setTypesettingEnabled(false);
-#endif
 
     m_proxy=new ResultProxy(document());
     document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
@@ -97,6 +89,16 @@ Worksheet::~Worksheet()
 void Worksheet::loginToSession()
 {
     m_session->login();
+
+    enableHighlighting(Settings::self()->highlightDefault());
+    enableTabCompletion(Settings::self()->tabCompletionDefault());
+    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+#ifdef WITH_EPS
+    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+#else
+    session()->setTypesettingEnabled(false);
+#endif
+
 }
 
 bool Worksheet::event(QEvent* event)
@@ -448,7 +450,7 @@ void Worksheet::enableHighlighting(bool highlight)
     {
         if(m_highlighter)
             m_highlighter->deleteLater();
-        m_highlighter=session()->backend()->syntaxHighlighter(this);
+        m_highlighter=session()->syntaxHighlighter(this);
         if(!m_highlighter)
         {
             m_highlighter=new Cantor::DefaultHighlighter(this);

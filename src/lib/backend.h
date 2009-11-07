@@ -30,8 +30,6 @@
 
 class KConfigSkeleton;
 class QWidget;
-class QSyntaxHighlighter;
-class QTextEdit;
 
 namespace Cantor
 {
@@ -59,7 +57,6 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     virtual Session* createSession() = 0;
     virtual Capabilities capabilities() = 0; 
     virtual bool requirementsFullfilled();
-    virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
     //Stuff extracted from the .desktop file
     QString name();

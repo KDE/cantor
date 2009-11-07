@@ -20,8 +20,6 @@
 #include "kalgebrasession.h"
 
 #include "cantor_macros.h"
-#include <analitzagui/algebrahighlighter.h>
-#include <QTextEdit>
 
 KAlgebraBackend::KAlgebraBackend( QObject* parent,const QList<QVariant> args )
     : Cantor::Backend( parent,args )
@@ -41,11 +39,5 @@ Cantor::Backend::Capabilities KAlgebraBackend::capabilities()
 {
     return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting;
 }
-
-QSyntaxHighlighter* KAlgebraBackend::syntaxHighlighter(QTextEdit* parent)
-{
-    return new AlgebraHighlighter(parent->document());
-}
-
 
 K_EXPORT_CANTOR_PLUGIN(kalgebrabackend, KAlgebraBackend)

@@ -22,6 +22,7 @@
 #include "maximaexpression.h"
 #include "maximatabcompletionobject.h"
 #include "maximasyntaxhelpobject.h"
+#include "maximahighlighter.h"
 
 #include <QTimer>
 #include <QTcpSocket>
@@ -558,5 +559,12 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
 {
     return new MaximaSyntaxHelpObject(command, this);
 }
+
+QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new MaximaHighlighter(parent);
+}
+
+
 
 #include "maximasession.moc"

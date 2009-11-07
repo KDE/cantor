@@ -24,7 +24,6 @@
 #include "settings.h"
 #include "ui_settings.h"
 #include "maximaextensions.h"
-#include "maximahighlighter.h"
 
 #include "kdebug.h"
 #include <QWidget>
@@ -73,12 +72,6 @@ bool MaximaBackend::requirementsFullfilled()
     QFileInfo info(MaximaSettings::self()->path().toLocalFile());
     return info.isExecutable();
 }
-
-QSyntaxHighlighter* MaximaBackend::syntaxHighlighter(QTextEdit* parent)
-{
-    return new MaximaHighlighter(parent);
-}
-
 
 QWidget* MaximaBackend::settingsWidget(QWidget* parent)
 {

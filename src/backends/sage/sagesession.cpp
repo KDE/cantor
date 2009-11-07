@@ -21,6 +21,7 @@
 #include "sagesession.h"
 #include "sageexpression.h"
 #include "sagetabcompletionobject.h"
+#include "sagehighlighter.h"
 
 #include <kdebug.h>
 #include <kptyprocess.h>
@@ -28,7 +29,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include "settings.h"
-
+#include "sagehighlighter.h"
 
 const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after each command
 const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input
@@ -291,5 +292,11 @@ Cantor::TabCompletionObject* SageSession::tabCompletionFor(const QString& comman
 {
     return new SageTabCompletionObject(command, this);
 }
+
+QSyntaxHighlighter* SageSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new SageHighlighter(parent);
+}
+
 
 #include "sagesession.moc"

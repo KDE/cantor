@@ -27,6 +27,9 @@
 
 #include "expression.h"
 
+class QTextEdit;
+class QSyntaxHighlighter;
+
 namespace Cantor
 {
 class Backend;
@@ -69,6 +72,9 @@ class CANTOR_EXPORT Session : public QObject
 	to the done() Signal of the Object
     **/
     virtual SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
+
+    /**returns a syntax highlighter for this session **/
+    virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
     virtual void setTypesettingEnabled(bool enable);
 

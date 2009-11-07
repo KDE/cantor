@@ -64,6 +64,7 @@ class MaximaSession : public Cantor::Session
 
     Cantor::TabCompletionObject* tabCompletionFor(const QString& command);
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
+    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
   public slots:
     void readStdOut();

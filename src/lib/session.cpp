@@ -101,6 +101,12 @@ SyntaxHelpObject* Session::syntaxHelpFor(const QString& cmd)
     return 0;
 }
 
+QSyntaxHighlighter* Session::syntaxHighlighter(QTextEdit* parent)
+{
+    Q_UNUSED(parent);
+    return 0;
+}
+
 int Session::nextExpressionId()
 {
     return d->expressionCount++;

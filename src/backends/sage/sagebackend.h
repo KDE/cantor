@@ -34,7 +34,6 @@ class SageBackend : public Cantor::Backend
     Cantor::Backend::Capabilities capabilities();
     virtual bool requirementsFullfilled();
 
-    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
     QWidget* settingsWidget(QWidget* parent);
     KConfigSkeleton* config();
 

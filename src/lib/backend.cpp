@@ -185,11 +185,6 @@ bool Backend::requirementsFullfilled()
     return true;
 }
 
-QSyntaxHighlighter* Backend::syntaxHighlighter(QTextEdit* parent)
-{
-    Q_UNUSED(parent);
-    return 0;
-}
 
 
 

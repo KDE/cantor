@@ -19,7 +19,10 @@
 #include "kalgebrasession.h"
 #include "kalgebraexpression.h"
 #include "kalgebratabcompletionobject.h"
+#include <analitzagui/algebrahighlighter.h>
 #include <analitza/analitza.h>
+#include <QTextEdit>
+
 #include <kdebug.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
@@ -64,4 +67,9 @@ Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
 Cantor::TabCompletionObject* KAlgebraSession::tabCompletionFor(const QString& command)
 {
     return new KAlgebraTabCompletionObject(command, this);
+}
+
+QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new AlgebraHighlighter(parent->document());
 }

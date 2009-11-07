@@ -30,7 +30,6 @@ class KAlgebraBackend : public Cantor::Backend
 
         Cantor::Session *createSession();
         Cantor::Backend::Capabilities capabilities();
-        QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 };
 
 

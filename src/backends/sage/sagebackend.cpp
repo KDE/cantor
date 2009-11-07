@@ -69,11 +69,6 @@ bool SageBackend::requirementsFullfilled()
     return info.isExecutable();
 }
 
-QSyntaxHighlighter* SageBackend::syntaxHighlighter(QTextEdit* parent)
-{
-    return new SageHighlighter(parent);
-}
-
 QWidget* SageBackend::settingsWidget(QWidget* parent)
 {
     QWidget* widget=new QWidget(parent);
