@@ -10,6 +10,7 @@ Available Backends
 - Sage Mathematics Software: http://www.sagemath.org
 - Maxima Computer Algebra System: http://maxima.sourceforge.net
 - R Project for Statistical Computing: http://www.r-project.org
+- KAlgebra: http://edu.kde.org/kalgebra/
 
 How To Build This Application
 -=-=-=-=-=-=-=-=-=-=-=-=-=
