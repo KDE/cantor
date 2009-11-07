@@ -1,6 +1,9 @@
 add_subdirectory(null)
 add_subdirectory(maxima)
-add_subdirectory(kalgebra)
+
+if(BUILD_kalgebra)
+	add_subdirectory(kalgebra)
+endif(BUILD_kalgebra)
 
 if(NOT WIN32)
 	add_subdirectory(sage)
