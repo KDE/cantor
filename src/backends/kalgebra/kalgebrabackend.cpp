@@ -37,7 +37,7 @@ Cantor::Session* KAlgebraBackend::createSession()
 
 Cantor::Backend::Capabilities KAlgebraBackend::capabilities()
 {
-    return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting;
+    return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
 }
 
 K_EXPORT_CANTOR_PLUGIN(kalgebrabackend, KAlgebraBackend)

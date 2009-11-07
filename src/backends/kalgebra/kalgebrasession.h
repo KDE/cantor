@@ -21,6 +21,7 @@
 
 #include "session.h"
 
+class OperatorsModel;
 class KAlgebraExpression;
 
 namespace Analitza { class Analitza; }
@@ -39,13 +40,14 @@ class KAlgebraSession : public Cantor::Session
 
         Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
         Cantor::TabCompletionObject* tabCompletionFor(const QString& cmd);
+        Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
         Analitza::Analitza* analitza() const { return m_analitza; }
+        OperatorsModel* operatorsModel();
         QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
-
-    private slots:
 
     private:
         Analitza::Analitza* m_analitza;
+        OperatorsModel* m_operatorsModel;
 };
 
 #endif

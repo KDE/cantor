@@ -23,8 +23,6 @@
 #include "kalgebrasession.h"
 #include <analitzagui/operatorsmodel.h>
 
-static OperatorsModel* s_ops=new OperatorsModel;
-
 KAlgebraTabCompletionObject::KAlgebraTabCompletionObject(const QString& command, KAlgebraSession* session)
     : Cantor::TabCompletionObject(command, session)
 {}
@@ -34,12 +32,13 @@ KAlgebraTabCompletionObject::~KAlgebraTabCompletionObject()
 
 void KAlgebraTabCompletionObject::fetchCompletions()
 {
-    QModelIndexList idxs=s_ops->match(s_ops->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
+    OperatorsModel* opm=static_cast<KAlgebraSession*>(session())->operatorsModel();
+    
+    QModelIndexList idxs=opm->match(opm->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
     QStringList comp;
     foreach(const QModelIndex& idx, idxs)
         comp << idx.data().toString();
     
-    qDebug() << "piiiiii" << comp << command() << idxs;
     setCompletions(comp);
     emit done();
 }

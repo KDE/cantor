@@ -1,6 +1,7 @@
 include_directories(${analitza_SOURCE_DIR}/../)
 
-set( KAlgebraBackend_SRCS 
+set( KAlgebraBackend_SRCS
+ kalgebrasyntaxhelpobject.cpp 
  kalgebrabackend.cpp  
  kalgebrasession.cpp
  kalgebraexpression.cpp
