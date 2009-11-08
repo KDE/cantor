@@ -31,51 +31,159 @@
 class KConfigSkeleton;
 class QWidget;
 
+/**
+ * Namespace collecting all Classes of the Cantor Libraries
+ */
 namespace Cantor
 {
 class Session;
 class Extension;
 class BackendPrivate;
 
+/**
+ * The Backend class provides access to information about the backend.
+ * It provides access to what features are supported by the backend, and
+ * a factory method to create a new Session
+ * It needs to be subclassed by all Backends.
+ *
+ * @author Alexander Rieder
+ */
+
 class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
   public:
+    /**
+     * This enum is used to specify the Features, supported by a backend.
+     */
     enum Capability{
-        Nothing = 0x0,
-        LaTexOutput = 0x1,
-	InteractiveMode = 0x2,
-	SyntaxHighlighting = 0x4,
-	TabCompletion = 0x8,
-	SyntaxHelp = 0x10
+        Nothing = 0x0,             ///< the Backend doesn't support any of the optional features
+        LaTexOutput = 0x1,         ///< it can output results as LaTeX code
+	InteractiveMode = 0x2,     /**< it supports an interactive workflow. (It means a command 
+				        can ask for additional input while running
+				   */
+	SyntaxHighlighting = 0x4,  ///< it offers a custom Syntax Highlighter 
+	TabCompletion = 0x8,       ///< it offers completion of partially typed commands
+	SyntaxHelp = 0x10          /**< it offers help about a commands syntax, that will
+				        be shown in a tooltip
+				   */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
+  protected:
+    /**
+     * @aram parent the Parent object
+     * @param args optional arguments (not used)
+     */
     explicit Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
+    ///Destructor. Doesn't anything.
     virtual ~Backend();
-
+  public:
+    
+    /**
+     * Creates a new Session. It is the way to go to create a Session,
+     * don't call new Session on your own.
+     * @return a new Session of this Backend, or 0 if creating failed
+     */
     virtual Session* createSession() = 0;
+    /**
+     * Returns list of the supported optional features
+     * @return a list of features, containing items of the Capabiltiy enum, ORed together
+     */
     virtual Capabilities capabilities() = 0; 
+    /**
+     * Returns wether all of this backends requirements are fulfiled, or if some are missing.
+     * @return @c true if all the requirements needed to use this Backend are fulfilled
+     * @return @c false some requirements are missing. e.g. the maxima executable can not be found
+     * @see Capablility
+    */
     virtual bool requirementsFullfilled();
 
     //Stuff extracted from the .desktop file
+    /**
+     * Returns the name of the backend
+     * @return the backends name
+     */
     QString name();
+    /**
+     * Returns a short comment about the backend.
+     * @return comment about the backend
+     */
     QString comment();
+    /**
+     * Returns the icon to use with this backend
+     * @return name of the icon
+     */
     QString icon();
+    /**
+     * Returns the Url of the Homepage for the Backend
+     * @return the url
+     */
     QString url();
+    /**
+     * Returns an Url pointing to the Help of the Backend
+     * To change this Url, set the X-Cantor-HelpUrl property in the .desktop file
+     * @return Url of the help
+     */
     KUrl helpUrl();
+    /**
+     * Returns if the backend should be enabled (shown in the Backend dialog)
+     * @return @c true, if the enabled flag is set to true, and the requirements are fullfilled
+     * @return @c false, if the backend was purposedly disabled, or requirements are missing
+     * @see requirementsFullfilled()
+     */
     bool isEnabled();
+    /**
+     * Enables/disables this backend
+     * @param enabled true to enable backend false to disable
+     */
     void setEnabled(bool enabled);
 
+    /**
+     * Returns a longer description of the Backend, e.g. purpose, strengths etc.
+     * It should help the user to decide between the different Backends
+     * @return a description of the backend. It can contain html
+     */
     virtual QString description();
+    /**
+     * Returns a Widget for configuring this backend
+     * @return Widget for usage in the Settings dialog
+     */
     virtual QWidget* settingsWidget(QWidget* parent);
+    /**
+     * Returns a KConfig object, containing all the settings,
+     * the backend might need
+     * @return a KConfigSkeleton object, for configuring this backend
+     */
     virtual KConfigSkeleton* config();
-
+    /**
+     * Returns a list of the names of all the Extensions supported by this backend
+     * @return a list of the names of all the Extensions supported by this backend
+     * @see extension(const QString& name)
+     */
     QStringList extensions();
+    /**
+     * Returns an Extension of this backend for the given name, or null
+     * if the Backend doesn't have an extension with this name.
+     * @return Pointer to the Extension object with the given name
+     */
     Extension * extension(const QString& name);
 
+    /**
+     * Returns a list of the names of all the installed and enabled backends
+     * @return a list of the names of all the installed and enabled backends
+     * @see isEnabled()
+     */
     static QStringList listAvailableBackends();
+    /**
+     * Returns Pointers to all the installed backends
+     * @return Pointers to all the installed backends
+     */
     static QList<Backend*> availableBackends();
+    /**
+     * Returns the backend with the given name, or null if it isn't found
+     * @return the backend with the given name, or null if it isn't found
+     */
     static Backend* createBackend(const QString& name);
   private:
     BackendPrivate* d;
