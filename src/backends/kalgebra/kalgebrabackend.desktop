@@ -55,3 +55,7 @@ X-KDE-PluginInfo-Name=kalgebrabackend
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=KAlgebra backend for Cantor
+Comment[en_GB]=KAlgebra backend for Cantor
+Comment[pt_BR]=Infraestrutura do KAlgebra para o Cantor
+Comment[uk]=Сервер KAlgebra для Cantor
+Comment[x-test]=xxKAlgebra backend for Cantorxx
