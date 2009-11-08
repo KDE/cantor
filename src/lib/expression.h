@@ -205,6 +205,9 @@ class CANTOR_EXPORT Expression : public QObject
     /**
      * Set the result of the Expression.
      * this will cause gotResult() to be emited
+     * The old result will be deleted, and the Expression
+     * takes over ownership of the result object, taking
+     * care of deleting it.
      * @param result the new result
      */
     void setResult(Result* result);
