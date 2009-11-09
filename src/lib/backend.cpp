@@ -36,7 +36,6 @@ class Cantor::BackendPrivate
     QString comment;
     QString icon;
     QString url;
-    KUrl helpUrl;
     bool enabled;
 };
 
@@ -79,7 +78,7 @@ QString Backend::url()
 
 KUrl Backend::helpUrl()
 {
-    return d->helpUrl;
+    return KUrl();
 }
 
 bool Backend::isEnabled()
@@ -136,7 +135,6 @@ QList<Backend*> Backend::availableBackends()
         backend->d->comment=info.comment();
         backend->d->icon=info.icon();
         backend->d->url=info.website();
-        backend->d->helpUrl=info.property("X-Cantor-HelpUrl").toUrl();
         backendCache<<backend;
     }
     return backendCache;

@@ -37,6 +37,7 @@ class RBackend : public Cantor::Backend
     virtual QWidget* settingsWidget(QWidget* parent);
     virtual KConfigSkeleton* config();
 
+    KUrl helpUrl();
     QString description();
 };
 

@@ -15,6 +15,3 @@ Comment[tr]=Bir Cantor arka ucu
 Comment[uk]=Сервер Cantor
 Comment[x-test]=xxA Backend for Cantorxx
 Comment[zh_TW]=Cantor 後端介面
-
-[PropertyDef::X-Cantor-HelpUrl]
-Type=QUrl

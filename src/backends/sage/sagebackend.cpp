@@ -82,6 +82,12 @@ KConfigSkeleton* SageBackend::config()
     return SageSettings::self();
 }
 
+KUrl SageBackend::helpUrl()
+{
+    return i18nc("the url to the documentation of Sage, please check if there is a translated version and use the correct url",
+                 "http://www.sagemath.org/doc/reference/index.html");
+}
+
 QString SageBackend::description()
 {
     return i18n("Sage is a free open-source mathematics software system licensed under the GPL. <br/>" \

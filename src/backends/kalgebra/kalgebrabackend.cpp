@@ -40,4 +40,11 @@ Cantor::Backend::Capabilities KAlgebraBackend::capabilities()
     return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
 }
 
+KUrl KAlgebraBackend::helpUrl()
+{
+    return i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
+                 "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
+}
+
+
 K_EXPORT_CANTOR_PLUGIN(kalgebrabackend, KAlgebraBackend)

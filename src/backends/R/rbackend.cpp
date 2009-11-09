@@ -76,6 +76,12 @@ KConfigSkeleton* RBackend::config()
     return RServerSettings::self();
 }
 
+KUrl RBackend::helpUrl()
+{
+    return i18nc("the url to the documentation of R, please check if there is a translated version and use the correct url",
+                 "http://wiki.r-project.org/rwiki/doku.php?id=rdoc:rdoc");
+}
+
 QString RBackend::description()
 {
     return i18n("R is a language and environment for statistical computing and graphics, similar to the S language and environment. <br/>"\

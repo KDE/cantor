@@ -122,10 +122,13 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     QString url();
     /**
      * Returns an Url pointing to the Help of the Backend
-     * To change this Url, set the X-Cantor-HelpUrl property in the .desktop file
+     * The method should be overwritten by all Backends(who have an online help)
+     * You should make the returned Url translateble, e.g. by doing something like:
+     * return i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
+     *   "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
      * @return Url of the help
      */
-    KUrl helpUrl();
+    virtual KUrl helpUrl();
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
      * @return @c true, if the enabled flag is set to true, and the requirements are fullfilled
