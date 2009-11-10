@@ -145,6 +145,15 @@ Screenshot:
 	</para>
       </listitem>
     </varlistentry>
+    <varlistentry>
+      <term>KAlgebra:</term>
+      <listitem>
+	<para>
+	  KAlgebra is a MathML-based graph calculator, that ships with KDE Education project.
+	  See <ulink url="http://edu.kde.org/kalgebra/">http://edu.kde.org/kalgebra/</ulink> for more information.
+	  </para>
+      </listitem>
+    </varlistentry>
   </variablelist>
 </para>
 </sect1>
