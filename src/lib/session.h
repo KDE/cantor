@@ -84,10 +84,11 @@ class CANTOR_EXPORT Session : public QObject
      * signal as soon as the computation is done. The result will 
      * then be acessible by Expression::result()
      * @param command the command that should be run by the backend.
-     * @param finishingBehaviour the FinishingBehaviour that should be used for this command. @see Expression::FinishingBehaviour
-     * @return An Expression object, representing this command
+     * @param finishingBehavior the FinishingBehaviour that should be used for this command. @see Expression::FinishingBehaviour
+     * @return an Expression object, representing this command
      */
     virtual Expression* evaluateExpression(const QString& command, Expression::FinishingBehavior finishingBehavior) = 0;
+
     /**
      * Reimplements evaluateExpression, setting the finishingBehaviour to DoNotDelete
      * @see evaluateExpressionconst(QString& command, Expression::FinishingBehavior finishingBehavior)
@@ -110,7 +111,7 @@ class CANTOR_EXPORT Session : public QObject
      */
     virtual TabCompletionObject* tabCompletionFor(const QString& cmd);
 
-    /** 
+    /**
      * Returns Syntax help, for this command.
      * It returns a SyntaxHelpObject, that will fetch the
      * needed information asynchroneousely. You need to listen
@@ -132,7 +133,7 @@ class CANTOR_EXPORT Session : public QObject
      * Enables/disables Typesetting for this session.
      * For this setting to make effect, the Backend must support
      * LaTeX typesetting (as indicated by the capabilities() flag.
-     * @param true to enable, false to disable typesetting
+     * @param enable true to enable, false to disable typesetting
      */
     virtual void setTypesettingEnabled(bool enable);
 

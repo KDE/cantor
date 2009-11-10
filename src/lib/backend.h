@@ -72,11 +72,15 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
 
   protected:
     /**
-     * @aram parent the Parent object
+     * Create a new Backend. Normally the static createBackend factory method
+     * should be used.
+     * @param parent the Parent object
      * @param args optional arguments (not used)
      */
     explicit Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
-    ///Destructor. Doesn't anything.
+    /**
+     * Destructor. Doesn't anything.
+     */
     virtual ~Backend();
   public:
     

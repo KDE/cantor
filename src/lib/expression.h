@@ -93,16 +93,19 @@ class CANTOR_EXPORT Expression : public QObject
      * @return the unique id of the Expression
      */
     int id();
+
     /**
      * set the id of the Expression. It should be unique
-     * @param the new Id
+     * @param id the new Id
      */
     void setId(int id);
+
     /**
      * set the finishing behaviour
      * @param behaviour the new Finishing Behaviour
      */
-    void setFinishingBehavior(FinishingBehavior behevior);
+    void setFinishingBehavior(FinishingBehavior behavior);
+
     /**
      * get the Expressions finishing behaviour
      * @return the current finishing behaviour
@@ -111,16 +114,17 @@ class CANTOR_EXPORT Expression : public QObject
 
     /**
      * Sets the command, represented by this Expression
-     * @param the command
+     * @param cmd the command
      */
     void setCommand( const QString& cmd );
+
     /**
      * Returns the command, represented by this Expression
      * @return the command, represented by this Expression
      */
     QString command();
 
-    /** 
+    /**
      * Adds some additional information/input to this expression.
      * this is needed, when the Expression has emitted the needsAdditionalInformation signal,
      * and the user has answered the question. This is used for e.g. if maxima asks wether
@@ -135,6 +139,7 @@ class CANTOR_EXPORT Expression : public QObject
      * @see errorMessage()
      */
     void setErrorMessage( const QString& cmd);
+
     /**
      * returns the Error message, if an error occurred during
      * the evaluation of the expression.

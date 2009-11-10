@@ -39,17 +39,22 @@ class ResultPrivate;
 class CANTOR_EXPORT Result
 {
   public:
-    ///Default constructor
+    /**
+     * Default constructor
+     */
     Result( );
-    ///Destructor
+    /**
+     * Destructor
+     */
     virtual ~Result();
 
     /**
      * returns html code, that represents this result,
-     * e.g. <img src="" /> for images
+     * e.g. <img /> for images
      * @return html code representing this result
      */
     virtual QString toHtml() = 0;
+
     /**
      * returns data associated with this result
      * (text/images/etc)
