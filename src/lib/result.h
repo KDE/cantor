@@ -50,7 +50,7 @@ class CANTOR_EXPORT Result
 
     /**
      * returns html code, that represents this result,
-     * e.g. <img /> for images
+     * e.g. an img tag for images
      * @return html code representing this result
      */
     virtual QString toHtml() = 0;

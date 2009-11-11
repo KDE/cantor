@@ -102,7 +102,7 @@ class CANTOR_EXPORT Expression : public QObject
 
     /**
      * set the finishing behaviour
-     * @param behaviour the new Finishing Behaviour
+     * @param behavior the new Finishing Behaviour
      */
     void setFinishingBehavior(FinishingBehavior behavior);
 

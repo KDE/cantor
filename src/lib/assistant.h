@@ -52,10 +52,10 @@ class CANTOR_EXPORT Assistant : public QObject, public KXMLGUIClient
     ~Assistant();
 
     /**
-     * sets the backend, this Assistant operates on
-     * @param b the new backend
+     * Sets the backend, this Assistant operates on
+     * @param backend the new backend
      */
-    void setBackend(Backend* b);
+    void setBackend(Backend* backend);
 
     /**
      * Sets the properties of this Assistant
