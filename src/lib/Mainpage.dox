@@ -18,6 +18,9 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
+/**
+ * Namespace collecting all Classes of the Cantor Libraries
+ */
 namespace Cantor {
 /** @mainpage Cantor
 
