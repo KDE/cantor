@@ -62,3 +62,4 @@ Comment[et]=Cantori KAlgebra taustaprogramm. Võimaldab kasutada Cantori tööle
 Comment[pt]=Infra-estrutura do KAlgebra para o Cantor. Permite-lhe usar a mesma linguagem que usa na aplicação KAlgebra, nas folhas de cálculo do Cantor.
 Comment[uk]=Сервер KAlgebra для Cantor. Надає вам змогу використовувати мову команд програми KAlgebra на робочих аркушах Cantor.
 Comment[x-test]=xxKAlgebra backend for Cantor. Lets you use the same language you use in the KAlgebra application in Cantor worksheets.xx
+Comment[zh_TW]=KAlgebra 的 Cantor 後端介面。讓您使用與在 KAlgebra 應用程式中的 Cantor 工作表中相同的語言。
