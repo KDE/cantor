@@ -22,6 +22,7 @@ General:
 - export to latex
 - add an about-backend dialog
 - add gui option to configure latex path. hide typesetting option if LaTex is not available
+- add context menu to entries, e.g. for evaluating, removing, inserting
 
 BACKENDS:
 - Octave backend
@@ -33,3 +34,5 @@ ASSISTANTS:
 
 OTHER:
 / write documentation
+- complete apidox
+- write tutorial on howto implement backends/assistants
