@@ -543,9 +543,11 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     }
     else if(m_helperProcess)
     {
-        disconnect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelperConvertProcess()));
+        disconnect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelperProcess()));
         m_helperProcess->deleteLater();
         m_helperProcess=0;
+        m_helperMaxima=0;
+        m_isHelperReady=false;
     }
     Cantor::Session::setTypesettingEnabled(enable);
 }
