@@ -23,6 +23,7 @@
 
 #include "expression.h"
 #include "kdirwatch.h"
+#include <QStringList>
 
 class KTemporaryFile;
 class QTimer;
@@ -56,6 +57,9 @@ class MaximaExpression : public Cantor::Expression
 
     //Forces the status of this Expression to done
     void forceDone();
+
+    //returns the Output, that was prefixed by %O labels
+    QStringList output();
     
   public slots:
     void evalFinished();
@@ -65,7 +69,12 @@ class MaximaExpression : public Cantor::Expression
     void imageChanged();
   private:
     Type m_type;
-    QString m_outputCache;
+    //variables to store the output of the command
+    //stuff printed before first %O label
+    QString m_outputPrefix;
+    //list of text printed with %O
+    QStringList m_output;
+    
     QString m_errCache;
     bool m_onStdoutStroke;
     bool m_latexFailed;

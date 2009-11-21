@@ -82,7 +82,8 @@ void MaximaExpression::evaluate()
         m_isHelpRequest=true;
 
     m_onStdoutStroke=false;
-    m_outputCache.clear();
+    m_outputPrefix.clear();
+    m_output.clear();
     m_errCache.clear();
 
     if(command().contains(QRegExp("(?:plot2d|plot3d)\\s*\\([^\\)]")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
@@ -244,13 +245,10 @@ void MaximaExpression::parseNormalOutput(const QString& text)
             //prepend the error Buffer to the output Buffer, as
             //for example when display2d:true, the ouputPrompt doesn't
             //need to be in the first line
-            if(m_outputCache.isEmpty())
+            if(m_output.isEmpty())
             {
-                m_outputCache.prepend(m_errCache);
+                m_outputPrefix=m_errCache;
                 m_errCache.clear();
-            }else
-            {
-                m_outputCache+=QChar::ParagraphSeparator;
             }
 
             //append the line to the output cache, but
@@ -258,13 +256,13 @@ void MaximaExpression::parseNormalOutput(const QString& text)
             //containing "%O1 false" means that this
             //output can be ignored
             if(line.trimmed() != "false" )
-                m_outputCache+=line+'\n';
+                m_output.append(line+'\n');
 
             m_onStdoutStroke=true;
             couldBeQuestion=false;
         }else if (m_onStdoutStroke)
         {
-            m_outputCache+=line+'\n';
+            m_output.last()+=line+'\n';
         }
         else
         {
@@ -287,7 +285,8 @@ void MaximaExpression::parseNormalOutput(const QString& text)
 void MaximaExpression::askForInformation()
 {
     emit needsAdditionalInformation(m_errCache.trimmed());
-    m_outputCache.clear();
+    m_outputPrefix.clear();
+    m_output.clear();
     m_onStdoutStroke=false;
     m_errCache.clear();
 }
@@ -296,20 +295,23 @@ void MaximaExpression::parseTexResult(const QString& text)
 {
     const QString& output=text.trimmed();
 
-    m_outputCache+=output;
+    m_errCache+=output;
 
     kDebug()<<"parsing "<<text;
+    kDebug()<<"prefix: "<<m_outputPrefix;
 
     //If we haven't got the Input prompt yet, postpone the parsing
-    if(!m_outputCache.contains(MaximaSession::MaximaPrompt))
+    if(!m_errCache.contains(MaximaSession::MaximaPrompt))
         return;
 
     QString completeLatex;
-    while(m_outputCache.contains(MaximaSession::MaximaOutputPrompt))
+    if(!m_outputPrefix.isEmpty())
+        completeLatex="{ \\small \\noindent "+m_outputPrefix.trimmed().replace("\n", "\\newline ")+"} \n";
+    while(m_errCache.contains(MaximaSession::MaximaOutputPrompt))
     {
-        kDebug()<<"got prompt"<<m_outputCache;
-        int pos=m_outputCache.indexOf(MaximaSession::MaximaOutputPrompt);
-        QString latex=m_outputCache.mid(0, pos).trimmed();
+        kDebug()<<"got prompt"<<m_errCache;
+        int pos=m_errCache.indexOf(MaximaSession::MaximaOutputPrompt);
+        QString latex=m_errCache.mid(0, pos).trimmed();
         if(latex.startsWith(QLatin1String("$$")))
         {
             latex=latex.mid(2);
@@ -322,7 +324,7 @@ void MaximaExpression::parseTexResult(const QString& text)
         }
         completeLatex+=latex+'\n';
 
-        m_outputCache.remove(0, (m_outputCache.indexOf("false", pos)+5));
+        m_errCache.remove(0, (m_errCache.indexOf("false", pos)+5));
     }
 
     if(!completeLatex.isEmpty())
@@ -331,7 +333,7 @@ void MaximaExpression::parseTexResult(const QString& text)
         Cantor::TextResult* result=new Cantor::TextResult(completeLatex);
         result->setFormat(Cantor::TextResult::LatexFormat);
 
-        m_outputCache.clear();
+        m_outputPrefix.clear();
         setResult(result);
     }else
     {
@@ -346,10 +348,12 @@ void MaximaExpression::parseTexResult(const QString& text)
 void MaximaExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
-    kDebug()<<"out: "<<m_outputCache;
+    kDebug()<<"out: "<<m_outputPrefix;
+    kDebug()<<"out: "<<m_output;
     kDebug()<<"err: "<<m_errCache;
 
-    QString text=m_outputCache;
+    QString text=m_outputPrefix;
+    text+=m_output.join(QLatin1String("\n"));
     if(!m_isHelpRequest&&!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
         text.replace(' ', "&nbsp;");
 
@@ -362,7 +366,7 @@ void MaximaExpression::evalFinished()
     if(m_tempFile)
     {
         QTimer::singleShot(500, this, SLOT(imageChanged()));
-        if(m_errCache.trimmed().isEmpty()&&m_outputCache.trimmed().isEmpty())
+        if(m_errCache.trimmed().isEmpty()&&text.trimmed().isEmpty())
         {
             return;
         }
@@ -390,9 +394,6 @@ void MaximaExpression::evalFinished()
             setStatus(Cantor::Expression::Done);
         }
     }
-
-    m_outputCache.clear();
-    m_errCache.clear();
 }
 
 bool MaximaExpression::needsLatexResult()
@@ -420,6 +421,11 @@ void MaximaExpression::imageChanged()
 #endif
         setStatus(Cantor::Expression::Done);
     }
+}
+
+QStringList MaximaExpression::output()
+{
+    return m_output;
 }
 
 #include "maximaexpression.moc"
