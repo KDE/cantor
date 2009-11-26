@@ -37,6 +37,7 @@ SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSes
 
     //Find last unmatched open bracket
     QStack<int> brIndex;
+    QPair<int,int> lastClosedBracket=QPair<int, int>(0, 0);
     for(int i=0;i<cmd.length();i++)
     {
         if(cmd[i]=='(')
@@ -46,14 +47,33 @@ SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSes
 
         if(cmd[i]==')')
         {
-            brIndex.pop();
+            const int index=brIndex.pop();
+            lastClosedBracket.first=index;
+            lastClosedBracket.second=i;
          }
     }
 
+    //remove code before the last unmatched bracket
     if(!brIndex.isEmpty())
     {
-        int index=brIndex.pop()+1;
+        const int index=brIndex.pop()+1;
         cmd=cmd.mid(index);
+        lastClosedBracket.first-=index;
+        lastClosedBracket.second-=index;
+    }
+
+    //remove code before the outermost block, keeping the part between the last +-*/ and the opening bracket
+    {
+        const int index=cmd.lastIndexOf(QRegExp("[=\\+\\-\\*\\/\\<\\>]"), lastClosedBracket.first)+1;
+        cmd=cmd.mid(index);
+        lastClosedBracket.second-=index;
+    }
+
+    //only keep code between the last sign, outside of a ()-block, and the end
+    {
+        const int index=cmd.lastIndexOf(QRegExp("[=\\+\\-\\*\\/\\<\\>]"))+1;
+        if(index>=lastClosedBracket.second)
+            cmd=cmd.mid(index);
     }
 
     setCommand(cmd);
