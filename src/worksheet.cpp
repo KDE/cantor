@@ -585,7 +585,6 @@ void Worksheet::load(const QString& filename )
     //cache the old typesetting state
     bool isLatexEnabled=m_session->isTypesettingEnabled();
     m_session=b->createSession();
-    m_session->login();
     emit sessionChanged();
 
     //Set the Highlighting, depending on the current state

@@ -521,7 +521,7 @@ void MaximaSession::startHelperProcess()
 
     m_helperProcess->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
 
-    connect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelpProcess()));
+    connect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelperProcess()));
     m_helperProcess->start();
 }
 
