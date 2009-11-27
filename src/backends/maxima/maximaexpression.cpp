@@ -366,7 +366,7 @@ void MaximaExpression::evalFinished()
     if(m_tempFile)
     {
         QTimer::singleShot(500, this, SLOT(imageChanged()));
-        if(m_errCache.trimmed().isEmpty()&&text.trimmed().isEmpty())
+        if(m_errCache.trimmed().isEmpty()&&m_output.join(" ").trimmed().isEmpty())
         {
             return;
         }
