@@ -59,10 +59,11 @@ public:
     QString latexFilename;
 };
 
-static const QString tex="\\documentclass[12pt]{article}                \n "\
+static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
                          "\\setlength\\textwidth{5in}                   \n "\
+                         "\\setlength{\\parindent}{0pt}                 \n "\
                          "%1                                            \n "\
                          "\\pagestyle{empty}                            \n "\
                          "\\begin{document}                             \n "\
