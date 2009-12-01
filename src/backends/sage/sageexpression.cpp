@@ -178,7 +178,7 @@ void SageExpression::evalFinished()
         Cantor::TextResult* result=0;
 
         QString stripped=m_outputCache;
-        const bool isHtml=stripped.startsWith(QLatin1String("<html>"));
+        const bool isHtml=stripped.contains(QLatin1String("<html>"));
         const bool isLatex=m_outputCache.contains("class=\"math\""); //Check if it's latex stuff
         if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
