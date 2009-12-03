@@ -56,7 +56,7 @@ Cantor::Session* MaximaBackend::createSession()
     return new MaximaSession(this);
 }
 
-Cantor::Backend::Capabilities MaximaBackend::capabilities()
+Cantor::Backend::Capabilities MaximaBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of MaximaSession";
     return
@@ -67,19 +67,19 @@ Cantor::Backend::Capabilities MaximaBackend::capabilities()
         Cantor::Backend::SyntaxHelp;
 }
 
-bool MaximaBackend::requirementsFullfilled()
+bool MaximaBackend::requirementsFullfilled() const
 {
     QFileInfo info(MaximaSettings::self()->path().toLocalFile());
     return info.isExecutable();
 }
 
-KUrl MaximaBackend::helpUrl()
+KUrl MaximaBackend::helpUrl() const
 {
     return i18nc("the url to the documentation of Maxima, please check if there is a translated version and use the correct url",
                  "http://maxima.sourceforge.net/docs/manual/en/maxima.html");
 }
 
-QWidget* MaximaBackend::settingsWidget(QWidget* parent)
+QWidget* MaximaBackend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);
     Ui::MaximaSettingsBase s;
@@ -87,12 +87,12 @@ QWidget* MaximaBackend::settingsWidget(QWidget* parent)
     return widget;
 }
 
-KConfigSkeleton* MaximaBackend::config()
+KConfigSkeleton* MaximaBackend::config() const
 {
     return MaximaSettings::self();
 }
 
-QString MaximaBackend::description()
+QString MaximaBackend::description() const
 {
     return i18n("Maxima is a system for the manipulation of symbolic and numerical expressions, "\
                 "including differentiation, integration, Taylor series, Laplace transforms, "\

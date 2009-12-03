@@ -46,7 +46,7 @@ Cantor::Session* NullBackend::createSession()
     return new NullSession(this);
 }
 
-Cantor::Backend::Capabilities NullBackend::capabilities()
+Cantor::Backend::Capabilities NullBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of NullSession";
     return Cantor::Backend::Nothing;

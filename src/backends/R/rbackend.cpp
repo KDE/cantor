@@ -51,19 +51,19 @@ Cantor::Session* RBackend::createSession()
     return new RSession(this);
 }
 
-Cantor::Backend::Capabilities RBackend::capabilities()
+Cantor::Backend::Capabilities RBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of RSession";
     return Cantor::Backend::InteractiveMode;
 }
 
-bool RBackend::requirementsFullfilled()
+bool RBackend::requirementsFullfilled() const
 {
     QFileInfo info(KStandardDirs::findExe( "cantor_rserver" ) );
     return info.isExecutable();
 }
 
-QWidget* RBackend::settingsWidget(QWidget* parent)
+QWidget* RBackend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);
     Ui::RSettingsBase s;
@@ -71,18 +71,18 @@ QWidget* RBackend::settingsWidget(QWidget* parent)
     return widget;
 }
 
-KConfigSkeleton* RBackend::config()
+KConfigSkeleton* RBackend::config() const
 {
     return RServerSettings::self();
 }
 
-KUrl RBackend::helpUrl()
+KUrl RBackend::helpUrl() const
 {
     return i18nc("the url to the documentation of R, please check if there is a translated version and use the correct url",
                  "http://wiki.r-project.org/rwiki/doku.php?id=rdoc:rdoc");
 }
 
-QString RBackend::description()
+QString RBackend::description() const
 {
     return i18n("R is a language and environment for statistical computing and graphics, similar to the S language and environment. <br/>"\
                 "It provides a wide variety of statistical (linear and nonlinear modelling, "\

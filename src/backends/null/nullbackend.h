@@ -31,7 +31,7 @@ class NullBackend : public Cantor::Backend
     ~NullBackend();
 
     Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities();
+    Cantor::Backend::Capabilities capabilities() const;
 
 };
 

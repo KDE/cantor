@@ -31,14 +31,14 @@ class SageBackend : public Cantor::Backend
     ~SageBackend();
 
     Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities();
-    virtual bool requirementsFullfilled();
+    Cantor::Backend::Capabilities capabilities() const;
+    virtual bool requirementsFullfilled() const;
 
-    QWidget* settingsWidget(QWidget* parent);
-    KConfigSkeleton* config();
+    QWidget* settingsWidget(QWidget* parent) const;
+    KConfigSkeleton* config() const;
 
-    KUrl helpUrl();
-    QString description();
+    KUrl helpUrl() const;
+    QString description() const;
 };
 
 

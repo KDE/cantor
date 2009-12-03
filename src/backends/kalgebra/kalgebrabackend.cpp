@@ -35,12 +35,12 @@ Cantor::Session* KAlgebraBackend::createSession()
     return new KAlgebraSession(this);
 }
 
-Cantor::Backend::Capabilities KAlgebraBackend::capabilities()
+Cantor::Backend::Capabilities KAlgebraBackend::capabilities() const
 {
     return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
 }
 
-KUrl KAlgebraBackend::helpUrl()
+KUrl KAlgebraBackend::helpUrl() const
 {
     return i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
                  "http://docs.kde.org/stable/en/kdeedu/kalgebra/");

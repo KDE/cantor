@@ -31,14 +31,14 @@ class RBackend : public Cantor::Backend
     ~RBackend();
 
     Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities();
-    bool requirementsFullfilled();
+    Cantor::Backend::Capabilities capabilities() const;
+    bool requirementsFullfilled() const;
 
-    virtual QWidget* settingsWidget(QWidget* parent);
-    virtual KConfigSkeleton* config();
+    virtual QWidget* settingsWidget(QWidget* parent) const;
+    virtual KConfigSkeleton* config() const;
 
-    KUrl helpUrl();
-    QString description();
+    KUrl helpUrl() const;
+    QString description() const;
 };
 
 

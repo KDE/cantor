@@ -51,37 +51,37 @@ Backend::~Backend()
 
 }
 
-QString Backend::name()
+QString Backend::name() const
 {
     return d->name;
 }
 
-QString Backend::comment()
+QString Backend::comment() const
 {
     return d->comment;
 }
 
-QString Backend::description()
+QString Backend::description() const
 {
     return comment();
 }
 
-QString Backend::icon()
+QString Backend::icon() const
 {
     return d->icon;
 }
 
-QString Backend::url()
+QString Backend::url() const
 {
     return d->url;
 }
 
-KUrl Backend::helpUrl()
+KUrl Backend::helpUrl() const
 {
     return KUrl();
 }
 
-bool Backend::isEnabled()
+bool Backend::isEnabled() const
 {
     return d->enabled&&requirementsFullfilled();
 }
@@ -152,19 +152,19 @@ Backend* Backend::createBackend(const QString& name)
     return 0;
 }
 
-QWidget* Backend::settingsWidget(QWidget* parent)
+QWidget* Backend::settingsWidget(QWidget* parent) const
 {
     Q_UNUSED(parent)
         return 0;
 }
 
-KConfigSkeleton* Backend::config()
+KConfigSkeleton* Backend::config() const
 {
     return 0;
 }
 
 
-QStringList Backend::extensions()
+QStringList Backend::extensions() const
 {
     QList<Extension*> extensions=findChildren<Extension*>(QRegExp(".*Extension"));
     QStringList names;
@@ -173,12 +173,12 @@ QStringList Backend::extensions()
     return names;
 }
 
-Extension* Backend::extension(const QString& name)
+Extension* Backend::extension(const QString& name) const
 {
     return findChild<Extension*>(name);
 }
 
-bool Backend::requirementsFullfilled()
+bool Backend::requirementsFullfilled() const
 {
     return true;
 }

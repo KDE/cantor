@@ -29,9 +29,9 @@ class KAlgebraBackend : public Cantor::Backend
         ~KAlgebraBackend();
 
         Cantor::Session *createSession();
-        Cantor::Backend::Capabilities capabilities();
+        Cantor::Backend::Capabilities capabilities() const;
 
-	KUrl helpUrl();
+	KUrl helpUrl() const;
 };
 
 

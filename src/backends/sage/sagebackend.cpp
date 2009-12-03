@@ -57,19 +57,19 @@ Cantor::Session* SageBackend::createSession()
     return new SageSession(this);
 }
 
-Cantor::Backend::Capabilities SageBackend::capabilities()
+Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of SageSession";
     return Cantor::Backend::LaTexOutput|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::TabCompletion;
 }
 
-bool SageBackend::requirementsFullfilled()
+bool SageBackend::requirementsFullfilled() const
 {
     QFileInfo info(SageSettings::self()->path().toLocalFile());
     return info.isExecutable();
 }
 
-QWidget* SageBackend::settingsWidget(QWidget* parent)
+QWidget* SageBackend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);
     Ui::SageSettingsBase s;
@@ -77,18 +77,18 @@ QWidget* SageBackend::settingsWidget(QWidget* parent)
     return widget;
 }
 
-KConfigSkeleton* SageBackend::config()
+KConfigSkeleton* SageBackend::config() const
 {
     return SageSettings::self();
 }
 
-KUrl SageBackend::helpUrl()
+KUrl SageBackend::helpUrl() const
 {
     return i18nc("the url to the documentation of Sage, please check if there is a translated version and use the correct url",
                  "http://www.sagemath.org/doc/reference/index.html");
 }
 
-QString SageBackend::description()
+QString SageBackend::description() const
 {
     return i18n("Sage is a free open-source mathematics software system licensed under the GPL. <br/>" \
                 "It combines the power of many existing open-source packages into a common Python-based interface.");

@@ -31,14 +31,14 @@ class MaximaBackend : public Cantor::Backend
     ~MaximaBackend();
 
     Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities();
-    bool requirementsFullfilled();
+    Cantor::Backend::Capabilities capabilities() const;
+    bool requirementsFullfilled() const;
 
-    KUrl helpUrl();
-    QWidget* settingsWidget(QWidget* parent);
-    KConfigSkeleton* config();
+    KUrl helpUrl() const;
+    QWidget* settingsWidget(QWidget* parent) const;
+    KConfigSkeleton* config() const;
 
-    QString description();
+    QString description() const;
 };
 
 

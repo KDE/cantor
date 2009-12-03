@@ -94,36 +94,36 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Returns list of the supported optional features
      * @return a list of features, containing items of the Capabiltiy enum, ORed together
      */
-    virtual Capabilities capabilities() = 0; 
+    virtual Capabilities capabilities() const = 0; 
     /**
      * Returns wether all of this backends requirements are fulfiled, or if some are missing.
      * @return @c true if all the requirements needed to use this Backend are fulfilled
      * @return @c false some requirements are missing. e.g. the maxima executable can not be found
      * @see Capablility
     */
-    virtual bool requirementsFullfilled();
+    virtual bool requirementsFullfilled() const;
 
     //Stuff extracted from the .desktop file
     /**
      * Returns the name of the backend
      * @return the backends name
      */
-    QString name();
+    QString name() const;
     /**
      * Returns a short comment about the backend.
      * @return comment about the backend
      */
-    QString comment();
+    QString comment() const;
     /**
      * Returns the icon to use with this backend
      * @return name of the icon
      */
-    QString icon();
+    QString icon() const;
     /**
      * Returns the Url of the Homepage for the Backend
      * @return the url
      */
-    QString url();
+    QString url() const;
     /**
      * Returns an Url pointing to the Help of the Backend
      * The method should be overwritten by all Backends(who have an online help)
@@ -132,14 +132,14 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      *   "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
      * @return Url of the help
      */
-    virtual KUrl helpUrl();
+    virtual KUrl helpUrl() const;
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
      * @return @c true, if the enabled flag is set to true, and the requirements are fullfilled
      * @return @c false, if the backend was purposedly disabled, or requirements are missing
      * @see requirementsFullfilled()
      */
-    bool isEnabled();
+    bool isEnabled() const;
     /**
      * Enables/disables this backend
      * @param enabled true to enable backend false to disable
@@ -151,30 +151,30 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * It should help the user to decide between the different Backends
      * @return a description of the backend. It can contain html
      */
-    virtual QString description();
+    virtual QString description() const;
     /**
      * Returns a Widget for configuring this backend
      * @return Widget for usage in the Settings dialog
      */
-    virtual QWidget* settingsWidget(QWidget* parent);
+    virtual QWidget* settingsWidget(QWidget* parent) const;
     /**
      * Returns a KConfig object, containing all the settings,
      * the backend might need
      * @return a KConfigSkeleton object, for configuring this backend
      */
-    virtual KConfigSkeleton* config();
+    virtual KConfigSkeleton* config() const;
     /**
      * Returns a list of the names of all the Extensions supported by this backend
      * @return a list of the names of all the Extensions supported by this backend
      * @see extension(const QString& name)
      */
-    QStringList extensions();
+    QStringList extensions() const;
     /**
      * Returns an Extension of this backend for the given name, or null
      * if the Backend doesn't have an extension with this name.
      * @return Pointer to the Extension object with the given name
      */
-    Extension * extension(const QString& name);
+    Extension * extension(const QString& name) const;
 
     /**
      * Returns a list of the names of all the installed and enabled backends
