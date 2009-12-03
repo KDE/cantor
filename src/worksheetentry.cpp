@@ -197,7 +197,7 @@ void WorksheetEntry::expressionChangedStatus(Cantor::Expression::Status status)
         c.setPosition(m_errorCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
     }
 
-    c.insertText(text);
+    c.insertHtml(text);
 }
 
 bool WorksheetEntry::isEmpty()
