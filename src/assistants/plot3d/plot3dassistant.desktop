@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=Plot3d
+Name[ca]=Plot3d
 Name[en_GB]=Plot3d
 Name[es]=Plot3d
 Name[et]=3Djoonis
@@ -19,6 +20,7 @@ X-KDE-PluginInfo-Name=Plot3d
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 2D functions
+Comment[ca]=Un diàleg assistent per simplificar la representació gràfica de funcions 2D
 Comment[en_GB]=An Assistant dialogue to simplify plotting of 2D functions
 Comment[es]=Un diálogo asistente para simplificar el trazado de funciones 2D
 Comment[et]=2D jooniste loomist lihtsustav abiline
