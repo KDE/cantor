@@ -24,6 +24,11 @@ General:
 - add gui option to configure latex path. hide typesetting option if LaTex is not available
 - add context menu to entries, e.g. for evaluating, removing, inserting
 
+- improve tab-completion:
+   "I'd like to see completion with "real" CompletionItems, like in Kate, with an ::execute() method
+   this would make it possible to e.g. complete functions directly with the ()
+   or at least some way to mark "this is a function, complete it so that () is appended and the cursor should be inside the parens)"
+
 BACKENDS:
 - Octave backend
 - SciPy backend
