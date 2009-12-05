@@ -63,7 +63,10 @@ void BackendChooseDialog::onAccept()
 {
     m_backend=m_ui.backendList->currentItem()->text();
     if(m_ui.makeDefault->isChecked())
+    {
         Settings::self()->setDefaultBackend(m_backend);
+        Settings::self()->writeConfig();
+    }
 }
 
 void BackendChooseDialog::updateDescription()
