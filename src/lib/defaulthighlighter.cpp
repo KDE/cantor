@@ -24,6 +24,7 @@
 #include <QtCore/QLocale>
 #include <QTextEdit>
 #include <kcolorscheme.h>
+#include <kglobalsettings.h>
 
 using namespace Cantor;
 
@@ -51,32 +52,8 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 {
     d->parent=parent;
 
-    //initialize char-formats
-    KColorScheme scheme(QPalette::Active);
-
-    d->functionFormat.setForeground(scheme.foreground(KColorScheme::LinkText));
-    d->functionFormat.setFontWeight(QFont::DemiBold);
-
-    d->variableFormat.setForeground(scheme.foreground(KColorScheme::ActiveText));
-
-    d->objectFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
-    d->objectFormat.setFontWeight(QFont::Bold);
-
-    d->keywordFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
-    d->keywordFormat.setFontWeight(QFont::Bold);
-
-    d->numberFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
-
-    d->operatorFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
-    d->operatorFormat.setFontWeight(QFont::Bold);
-
-    d->errorFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
-    d->errorFormat.setUnderlineColor(scheme.foreground(KColorScheme::NegativeText).color());
-    d->errorFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
-
-    d->commentFormat.setForeground(scheme.foreground(KColorScheme::InactiveText));
-
-    d->stringFormat.setForeground(scheme.foreground(KColorScheme::PositiveText));
+    updateFormats();
+    connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
 }
 
 
@@ -196,3 +173,35 @@ QTextCharFormat DefaultHighlighter::stringFormat() const
 {
     return d->stringFormat;
 }
+
+void DefaultHighlighter::updateFormats()
+{
+    //initialize char-formats
+    KColorScheme scheme(QPalette::Active);
+
+    d->functionFormat.setForeground(scheme.foreground(KColorScheme::LinkText));
+    d->functionFormat.setFontWeight(QFont::DemiBold);
+
+    d->variableFormat.setForeground(scheme.foreground(KColorScheme::ActiveText));
+
+    d->objectFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
+    d->objectFormat.setFontWeight(QFont::Bold);
+
+    d->keywordFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
+    d->keywordFormat.setFontWeight(QFont::Bold);
+
+    d->numberFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
+
+    d->operatorFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
+    d->operatorFormat.setFontWeight(QFont::Bold);
+
+    d->errorFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
+    d->errorFormat.setUnderlineColor(scheme.foreground(KColorScheme::NegativeText).color());
+    d->errorFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+
+    d->commentFormat.setForeground(scheme.foreground(KColorScheme::InactiveText));
+
+    d->stringFormat.setForeground(scheme.foreground(KColorScheme::PositiveText));
+}
+
+#include  "defaulthighlighter.moc"

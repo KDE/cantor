@@ -31,6 +31,7 @@ class DefaultHighlighterPrivate;
 
 class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 {
+  Q_OBJECT
   public:
     DefaultHighlighter(QTextEdit* parent);
     ~DefaultHighlighter();
@@ -48,6 +49,9 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     QTextCharFormat errorFormat() const;
     QTextCharFormat commentFormat() const;
     QTextCharFormat stringFormat() const;
+
+  private slots:
+    void updateFormats();
 
   private:
     DefaultHighlighterPrivate* d;
