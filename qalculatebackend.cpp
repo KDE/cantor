@@ -38,6 +38,7 @@ QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
 
 QalculateBackend::~QalculateBackend()
 {
+    CALCULATOR->abort();
 }
 
 Cantor::Session* QalculateBackend::createSession()
@@ -47,7 +48,7 @@ Cantor::Session* QalculateBackend::createSession()
 
 Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 {
-    return Cantor::Backend::Nothing;
+    return Cantor::Backend::TabCompletion;
 //     return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHelp;
 }
 

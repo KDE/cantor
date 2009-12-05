@@ -30,6 +30,8 @@
 #include <libqalculate/Variable.h>
 #include <libqalculate/Function.h>
 
+#include <string>
+
 #include <KGlobal>
 #include <KMessageBox>
 #include <KColorScheme>
@@ -55,11 +57,13 @@ void QalculateExpression::evaluate()
 
     // copy'n'pasted from qalculate plasma applet
 
-    const char *ctext = command().replace(QChar(0xA3), "GBP")
+    string expression = CALCULATOR->unlocalizeExpression(
+                        command().replace(QChar(0xA3), "GBP")
                                 .replace(QChar(0xA5), "JPY")
                                 .replace("$", "USD")
                                 .replace(QChar(0x20AC), "EUR")
-                            .toLatin1().data();
+                            .toLatin1().data()
+                    );;
 
     EvaluationOptions eo;
 
@@ -100,7 +104,7 @@ void QalculateExpression::evaluate()
     }
     */
 
-    MathStructure result = CALCULATOR->calculate(ctext, eo);
+    MathStructure result = CALCULATOR->calculate(expression, eo);
 
     // error handling, most of it copied from qalculate-kde
     if ( CALCULATOR->message() ) {

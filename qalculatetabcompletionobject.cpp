@@ -20,6 +20,8 @@
 
 #include <QStringList>
 
+#include <libqalculate/Calculator.h>
+
 #include "qalculatesession.h"
 
 QalculateTabCompletionObject::QalculateTabCompletionObject(const QString& command, QalculateSession* session)
@@ -42,8 +44,6 @@ QalculateTabCompletionObject::~QalculateTabCompletionObject()
 void QalculateTabCompletionObject::fetchCompletions()
 {
     /*
-    OperatorsModel* opm=static_cast<QalculateSession*>(session())->operatorsModel();
-
     QModelIndexList idxs=opm->match(opm->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
     QStringList comp;
     foreach(const QModelIndex& idx, idxs)
