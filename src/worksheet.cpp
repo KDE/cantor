@@ -147,6 +147,10 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         }
 
     }else
+    if ( (event->modifiers()==Qt::ShiftModifier) && (event->key() == Qt::Key_Delete)) //TODO: make configurable
+    {
+        removeCurrentEntry();
+    }else
     if ( (event->modifiers()==Qt::NoModifier) && (event->key() == Qt::Key_Enter ||event->key() == Qt::Key_Return))
     {
         //If the current Entry is showing a popup completion box,
@@ -370,7 +374,7 @@ WorksheetEntry* Worksheet::entryAt(const QTextCursor& cursor)
 
 WorksheetEntry* Worksheet::entryAt(int row)
 {
-    if(row<m_entries.size())
+    if(row>=0&&row<m_entries.size())
         return m_entries[row];
     else
         return 0;
@@ -646,6 +650,35 @@ void Worksheet::removeEntry(QObject* object)
     m_entries.removeAll(entry);
     if(m_entries.isEmpty())
         appendEntry();
+}
+
+void Worksheet::removeCurrentEntry()
+{
+    kDebug()<<"removing current entry";
+    WorksheetEntry* entry=currentEntry();
+    if(!entry)
+        return;
+
+    int index=m_entries.indexOf(entry);
+
+    QTextCursor cursor=entry->table()->firstCursorPosition();
+    cursor.setPosition(cursor.position()-2);
+    cursor.setPosition(entry->table()->lastCursorPosition().position()+1, QTextCursor::KeepAnchor);
+    cursor.removeSelectedText();
+
+    m_entries.removeAll(entry);
+    int relIndices[]={0, -1, 1};
+    kDebug()<<"index: "<<index;
+    for(int i=0;i<3;i++)
+    {
+        kDebug()<<"trying "<<index+relIndices[i];
+        entry=entryAt( index+relIndices[i] );
+        if(entry)
+        {
+            kDebug()<<"found at "<<relIndices[i];
+            setTextCursor(entry->commandCell().firstCursorPosition());
+        }
+    }
 }
 
 void Worksheet::checkEntriesForSanity()

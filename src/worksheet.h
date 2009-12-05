@@ -84,6 +84,7 @@ class Worksheet : public KTextEdit
   private slots:
     void loginToSession();
     void removeEntry(QObject* object);
+    void removeCurrentEntry();
     void checkEntriesForSanity();
   private:
     WorksheetEntry* currentEntry();

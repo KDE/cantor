@@ -64,6 +64,7 @@ class WorksheetEntry : public QObject
     void setTabCompletion(Cantor::TabCompletionObject* tc);
     void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
+    QTextTable* table();
     QTextTableCell commandCell();
     QTextTableCell actualInformationCell();
     QTextTableCell resultCell();

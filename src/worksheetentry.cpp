@@ -380,6 +380,11 @@ void WorksheetEntry::resultDeleted()
     kDebug()<<"result got removed...";
 }
 
+QTextTable* WorksheetEntry::table()
+{
+    return m_table;
+}
+
 QTextTableCell WorksheetEntry::commandCell()
 {
     return m_commandCell;
