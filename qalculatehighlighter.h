@@ -19,9 +19,9 @@
 #ifndef QALCULATEHIGHLIGHTER_H
 #define QALCULATEHIGHLIGHTER_H
 
-#include <QtGui/QSyntaxHighlighter>
+#include "defaulthighlighter.h"
 
-class QalculateHighlighter : public QSyntaxHighlighter
+class QalculateHighlighter : public Cantor::DefaultHighlighter
 {
 public:
     QalculateHighlighter(QTextEdit* parent);
@@ -31,15 +31,7 @@ protected:
     virtual void highlightBlock(const QString& text);
 
 private:
-    bool isIdentifier(const QString &identifier);
-
-    QTextCharFormat* m_errFormat;
-    QTextCharFormat* m_funcFormat;
-    QTextCharFormat* m_varFormat;
-    QTextCharFormat* m_unitFormat;
-    ///TODO:
-    QTextCharFormat* m_numFormat;
-    QTextCharFormat* m_opFormat;
+    bool isOperatorAndWhitespace(const QString &word) const;
 };
 
 #endif // QALCULATEHIGHLIGHTER_H

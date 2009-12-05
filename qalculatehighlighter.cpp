@@ -28,27 +28,8 @@
 
 
 QalculateHighlighter::QalculateHighlighter(QTextEdit* parent)
-    : QSyntaxHighlighter(parent),
-    m_errFormat(new QTextCharFormat), m_funcFormat(new QTextCharFormat),
-    m_varFormat(new QTextCharFormat), m_unitFormat(new QTextCharFormat),
-    m_numFormat(new QTextCharFormat), m_opFormat(new QTextCharFormat)
+    : Cantor::DefaultHighlighter(parent)
 {
-    KColorScheme scheme(QPalette::Active);
-
-    ///TODO: what happens when the global KDE style changes
-    m_varFormat->setForeground(scheme.foreground(KColorScheme::ActiveText));
-
-    m_funcFormat->setForeground(scheme.foreground(KColorScheme::LinkText));
-    m_funcFormat->setFontWeight(QFont::DemiBold);
-
-    m_unitFormat->setForeground(scheme.foreground(KColorScheme::PositiveText));
-    m_unitFormat->setFontItalic(true);
-
-    m_numFormat->setForeground(scheme.foreground(KColorScheme::NeutralText));
-
-    m_errFormat->setForeground(scheme.foreground(KColorScheme::NormalText));
-    m_errFormat->setUnderlineColor(scheme.foreground(KColorScheme::NegativeText).color());
-    m_errFormat->setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
 }
 
 QalculateHighlighter::~QalculateHighlighter()
@@ -59,8 +40,6 @@ void QalculateHighlighter::highlightBlock(const QString& text)
 {
     int pos = 0;
     int count;
-    QTextCharFormat* format;
-
     ///TODO: Can't we use CALCULATOR->parse() or similar?
     ///      Question is how to get the connection between
     ///      MathStructur and position+length in @p text
@@ -73,51 +52,43 @@ void QalculateHighlighter::highlightBlock(const QString& text)
 
         kDebug() << words[i];
 
-        format = 0;
-        string needle(words[i].trimmed().toUtf8().constData());
+        QTextCharFormat format = errorFormat();
 
-        if ( i < words.size() - 1 && words[i+1].trimmed() == "(" && CALCULATOR->getFunction(needle) ) {
+        if ( i < words.size() - 1 && words[i+1].trimmed() == "(" && CALCULATOR->getFunction(words[i].toUtf8().constData()) ) {
             // should be a function
             kDebug() << "function";
-            format = m_funcFormat;
+            format = functionFormat();
+        } else if ( isOperatorAndWhitespace(words[i]) ) {
+            // stuff like ") * (" is an invalid expression, but acutally OK
+            kDebug() << "operator / whitespace";
+            format = operatorFormat();
         } else {
             MathStructure expr = CALCULATOR->parse(words[i].toAscii().constData());
             if ( expr.isNumber() || expr.isNumber_exp() ) {
                 kDebug() << "number";
-                format = m_numFormat;
+                format = numberFormat();
             } else if ( expr.isVariable() ) {
                 kDebug() << "variable";
-                format = m_varFormat;
+                format = variableFormat();
             } else if ( expr.isUndefined() ) {
                 kDebug() << "undefined";
-                format = m_errFormat;
             } else if ( expr.isUnit() || expr.isUnit_exp() ) {
                 kDebug() << "unit";
-                format = m_unitFormat;
+                format = keywordFormat();
             }
         }
 
-        if ( !format ) {
-            kDebug() << "error";
-            format = m_errFormat;
-        }
-
-        kDebug() << "setting format from" << pos << "to" << (pos+count) << '(' << words[i] << ')';
-        setFormat(pos, count, *format);
+        setFormat(pos, count, format);
     }
 
     CALCULATOR->endTemporaryStopMessages();
 
 }
 
-
-bool QalculateHighlighter::isIdentifier(const QString& identifier)
+bool QalculateHighlighter::isOperatorAndWhitespace(const QString& word) const
 {
-    if ( !identifier[0].isLetter() ) {
-        return false;
-    }
-    for ( int i = 1; i < identifier.size(); ++i ) {
-        if ( !identifier[i].isLetterOrNumber() ) {
+    foreach ( const QChar& c, word ) {
+        if ( c.isLetterOrNumber() ) {
             return false;
         }
     }
