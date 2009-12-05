@@ -1,6 +1,10 @@
 [Desktop Entry]
 Type=Service
 Name=Qalculate
+Name[en_GB]=Qalculate
+Name[pt]=Qalculate
+Name[uk]=Qalculate
+Name[x-test]=xxQalculatexx
 Icon=qalculate
 X-KDE-ServiceTypes=Cantor/Backend
 X-KDE-Library=cantor_qalculatebackend
@@ -9,3 +13,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Website=http://qalculate.sourceforge.net/
 Comment=Qalculate backend for Cantor. Gives you the advanced features of Qalculate
+Comment[en_GB]=Qalculate backend for Cantor. Gives you the advanced features of Qalculate
+Comment[pt]=Infra-estrutura do Qalculate para o Cantor. Dá-lhe as funcionalidades avançadas do Qalculate
+Comment[uk]=Сервер Qalculate для Cantor. Надає до ваших послуг додаткові можливості Qalculate
+Comment[x-test]=xxQalculate backend for Cantor. Gives you the advanced features of Qalculatexx
