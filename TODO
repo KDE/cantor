@@ -29,6 +29,9 @@ General:
    this would make it possible to e.g. complete functions directly with the ()
    or at least some way to mark "this is a function, complete it so that () is appended and the cursor should be inside the parens)"
 
+- Don't hardcode Tab-key for completions (and rename TabCompletion-classes)
+- Group Actions in Settings menu, so its clear (e.g. in the Shortcut-dialog) that theyre settings
+
 BACKENDS:
 - Octave backend
 - SciPy backend

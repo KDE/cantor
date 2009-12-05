@@ -51,17 +51,17 @@ TabCompletionObject::~TabCompletionObject()
     delete d;
 }
 
-QString TabCompletionObject::command()
+QString TabCompletionObject::command() const
 {
     return d->command;
 }
 
-Session* TabCompletionObject::session()
+Session* TabCompletionObject::session() const
 {
     return d->session;
 }
 
-QStringList TabCompletionObject::completions()
+QStringList TabCompletionObject::completions() const
 {
     return d->completions;
 }

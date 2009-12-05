@@ -57,17 +57,17 @@ class CANTOR_EXPORT TabCompletionObject : public KCompletion
      * Returns a list of completions
      * @return a list of completions
      */
-    QStringList completions();
+    QStringList completions() const;
     /**
      * returns the command, this completion is for
      * @return the command, this completion is for
      */
-    QString command();
+    QString command() const;
     /**
      * returns the sessiion, this object belongs to
      * @return the sessiion, this object belongs to
      */
-    Session* session();
+    Session* session() const;
   protected:
     /**
      * Sets the completions
