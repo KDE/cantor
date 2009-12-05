@@ -21,8 +21,12 @@
 #include <QStringList>
 
 #include <libqalculate/Calculator.h>
+#include <libqalculate/Variable.h>
+#include <libqalculate/Function.h>
 
 #include "qalculatesession.h"
+
+#include <KDebug>
 
 QalculateTabCompletionObject::QalculateTabCompletionObject(const QString& command, QalculateSession* session)
     : Cantor::TabCompletionObject(command, session)
@@ -43,13 +47,22 @@ QalculateTabCompletionObject::~QalculateTabCompletionObject()
 
 void QalculateTabCompletionObject::fetchCompletions()
 {
-    /*
-    QModelIndexList idxs=opm->match(opm->index(0,0), Qt::DisplayRole, command(), 5, Qt::MatchStartsWith);
     QStringList comp;
-    foreach(const QModelIndex& idx, idxs)
-        comp << idx.data().toString();
+    foreach ( ExpressionItem* item, CALCULATOR->variables ) {
+        //TODO: this is fugly...
+        QString str(item->name(true).c_str());
+        if ( str.startsWith(command(), Qt::CaseInsensitive) ) {
+            comp << str;
+        }
+    }
+    foreach ( ExpressionItem* item, CALCULATOR->functions ) {
+        //TODO: this is fugly...
+        QString str(item->name(true).c_str());
+        if ( str.startsWith(command(), Qt::CaseInsensitive) ) {
+            comp << str;
+        }
+    }
 
     setCompletions(comp);
     emit done();
-    */
 }
