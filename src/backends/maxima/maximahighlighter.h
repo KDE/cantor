@@ -41,15 +41,6 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
 
      QVector<HighlightingRule> m_highlightingRules;
 
-     //Different formats, used for highlighting
-     QTextCharFormat maximaKeywordFormat;
-     QTextCharFormat maximaFunctionFormat;
-     QTextCharFormat maximaVariableFormat;
-     QTextCharFormat specialCommentFormat;  
-     QTextCharFormat quotationFormat;
-     QTextCharFormat functionFormat;
-     QTextCharFormat multiLineCommentFormat;
-
      QRegExp commentStartExpression;
      QRegExp commentEndExpression;
 };

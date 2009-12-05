@@ -27,33 +27,16 @@ MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
 {
     HighlightingRule rule;
 
-    //initialize the different formats used to highlight
-    maximaKeywordFormat.setForeground(Qt::darkBlue);
-    maximaKeywordFormat.setFontWeight(QFont::Bold);
-
-    functionFormat.setFontItalic(true);
-    functionFormat.setForeground(Qt::blue);
-
-    maximaFunctionFormat.setForeground(Qt::darkGreen);
-    maximaFunctionFormat.setFontWeight(QFont::Bold);
-
-    specialCommentFormat.setForeground(Qt::magenta);
-    specialCommentFormat.setFontWeight(QFont::Bold);
-
-    multiLineCommentFormat.setForeground(Qt::red);
-
-    quotationFormat.setForeground(Qt::darkGreen);
-
     //Setup the highlighting rules
     rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-    rule.format = functionFormat;
+    rule.format = functionFormat();
     m_highlightingRules.append(rule);
 
     //Code highlighting the different keywords
     foreach (const QString &pattern, MaximaKeywords::keywords())
     {
         rule.pattern = QRegExp("\\b"+QRegExp::escape(pattern)+"\\b");
-        rule.format = maximaKeywordFormat;
+        rule.format = keywordFormat();
         m_highlightingRules.append(rule);
     }
 
@@ -65,7 +48,7 @@ MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
     foreach (const QString &pattern, specialCommentPatterns )
     {
         rule.pattern = QRegExp(pattern);
-        rule.format = specialCommentFormat;
+        rule.format = commentFormat();
         m_highlightingRules.append(rule);
     }
 
@@ -73,7 +56,7 @@ MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
     foreach (const QString &pattern, MaximaKeywords::functions() )
     {
         rule.pattern = QRegExp("\\b"+QRegExp::escape(pattern)+"\\b");
-        rule.format = maximaFunctionFormat;
+        rule.format = functionFormat();
         m_highlightingRules.append(rule);
     }
 
@@ -81,17 +64,17 @@ MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
     foreach (const QString &pattern, MaximaKeywords::variables() )
     {
         rule.pattern = QRegExp("\\b"+QRegExp::escape(pattern)+"\\b");
-        rule.format = maximaVariableFormat;
+        rule.format = variableFormat();
         m_highlightingRules.append(rule);
     }
 
 
     rule.pattern = QRegExp("\".*\"");
-    rule.format = quotationFormat;
+    rule.format = stringFormat();
     m_highlightingRules.append(rule);
 
     rule.pattern= QRegExp("'.*'");
-    rule.format = quotationFormat;
+    rule.format = stringFormat();
     m_highlightingRules.append(rule);
 
     commentStartExpression = QRegExp("/\\*");
@@ -138,7 +121,7 @@ void MaximaHighlighter::highlightBlock(const QString& text)
             commentLength = endIndex - startIndex
                 + commentEndExpression.matchedLength();
         }
-        setFormat(startIndex,  commentLength,  multiLineCommentFormat);
+        setFormat(startIndex,  commentLength,  commentFormat());
         startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
     }
 }

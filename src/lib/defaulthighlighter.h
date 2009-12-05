@@ -39,6 +39,16 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     virtual void highlightBlock(const QString& text);
     void matchBrackets(QChar openSymbol,QChar closeSymbol, QTextCharFormat& format, const QString& text);
 
+    QTextCharFormat functionFormat() const;
+    QTextCharFormat variableFormat() const;
+    QTextCharFormat objectFormat() const;
+    QTextCharFormat keywordFormat() const;
+    QTextCharFormat numberFormat() const;
+    QTextCharFormat operatorFormat() const;
+    QTextCharFormat errorFormat() const;
+    QTextCharFormat commentFormat() const;
+    QTextCharFormat stringFormat() const;
+
   private:
     DefaultHighlighterPrivate* d;
 };

@@ -26,28 +26,9 @@ SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(e
 {
     HighlightingRule rule;
 
-    //initialize the different formats used to highlight
-    keywordFormat.setForeground(Qt::darkBlue);
-    keywordFormat.setFontWeight(QFont::Bold);
-
-    functionFormat.setFontItalic(true);
-    functionFormat.setForeground(Qt::blue);
-
-    builtinFuncFormat.setForeground(Qt::darkGreen);
-    builtinFuncFormat.setFontWeight(QFont::Bold);
-
-    exceptionFormat.setForeground(Qt::darkMagenta);
-    exceptionFormat.setFontWeight(QFont::Bold);
-
-    objectFormat.setFontWeight(QFont::Bold);
-
-    quotationFormat.setForeground(Qt::darkGreen);
-
-    singleLineCommentFormat.setForeground(Qt::red);
-
     //Setup the highlighting rules
     rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-    rule.format = functionFormat;
+    rule.format = functionFormat();
     m_highlightingRules.append(rule);
 
     QStringList keywordPatterns;
@@ -71,7 +52,7 @@ SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(e
 
     foreach (const QString &pattern,  keywordPatterns) {
         rule.pattern = QRegExp(pattern);
-        rule.format = keywordFormat;
+        rule.format = keywordFormat();
         m_highlightingRules.append(rule);
     }
 
@@ -94,12 +75,12 @@ SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(e
 
     foreach (const QString &pattern,  builtinFunctionPatterns) {
         rule.pattern = QRegExp(pattern);
-        rule.format = builtinFuncFormat;
+        rule.format = functionFormat();
         m_highlightingRules.append(rule);
     }
 
     rule.pattern = QRegExp("\\b\\S*[a-zA-Z\\-\\_]+\\S*\\.(?!\\d)");
-    rule.format = objectFormat;
+    rule.format = objectFormat();
     m_highlightingRules.append(rule);
 
     QStringList exceptionPatterns;
@@ -121,20 +102,20 @@ SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(e
 
     foreach (const QString &pattern,  exceptionPatterns) {
         rule.pattern = QRegExp(pattern);
-        rule.format = exceptionFormat;
+        rule.format = objectFormat();//exceptionFormat;
         m_highlightingRules.append(rule);
     }
 
     rule.pattern = QRegExp("\".*\"");
-    rule.format = quotationFormat;
+    rule.format = stringFormat();
     m_highlightingRules.append(rule);
 
     rule.pattern= QRegExp("'.*'");
-    rule.format = quotationFormat;
+    rule.format = stringFormat();
     m_highlightingRules.append(rule);
 
     rule.pattern = QRegExp("#[^\n]*");
-    rule.format = singleLineCommentFormat;
+    rule.format = commentFormat();
     m_highlightingRules.append(rule);
 
 }

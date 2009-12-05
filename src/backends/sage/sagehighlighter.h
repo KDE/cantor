@@ -46,15 +46,6 @@ class SageHighlighter : public Cantor::DefaultHighlighter
      };
 
      QVector<HighlightingRule> m_highlightingRules;
-
-     //Different formats, used for highlighting
-     QTextCharFormat keywordFormat;
-     QTextCharFormat builtinFuncFormat;
-     QTextCharFormat objectFormat;
-     QTextCharFormat exceptionFormat;
-     QTextCharFormat singleLineCommentFormat;
-     QTextCharFormat quotationFormat;
-     QTextCharFormat functionFormat;
 };
 
 #endif /* _SAGEHIGHLIGHTER_H */

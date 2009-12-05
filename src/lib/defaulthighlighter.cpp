@@ -23,6 +23,7 @@
 
 #include <QtCore/QLocale>
 #include <QTextEdit>
+#include <kcolorscheme.h>
 
 using namespace Cantor;
 
@@ -30,6 +31,18 @@ class Cantor::DefaultHighlighterPrivate
 {
   public:
     QTextEdit* parent;
+
+    //Character formats to use for the highlighing
+    QTextCharFormat functionFormat;
+    QTextCharFormat variableFormat;
+    QTextCharFormat objectFormat;
+    QTextCharFormat keywordFormat;
+    QTextCharFormat numberFormat;
+    QTextCharFormat operatorFormat;
+    QTextCharFormat errorFormat;
+    QTextCharFormat commentFormat;
+    QTextCharFormat stringFormat;
+
 };
 
 DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
@@ -37,6 +50,33 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 	d(new DefaultHighlighterPrivate)
 {
     d->parent=parent;
+
+    //initialize char-formats
+    KColorScheme scheme(QPalette::Active);
+
+    d->functionFormat.setForeground(scheme.foreground(KColorScheme::LinkText));
+    d->functionFormat.setFontWeight(QFont::DemiBold);
+
+    d->variableFormat.setForeground(scheme.foreground(KColorScheme::ActiveText));
+
+    d->objectFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
+    d->objectFormat.setFontWeight(QFont::Bold);
+
+    d->keywordFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
+    d->keywordFormat.setFontWeight(QFont::Bold);
+
+    d->numberFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
+
+    d->operatorFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
+    d->operatorFormat.setFontWeight(QFont::Bold);
+
+    d->errorFormat.setForeground(scheme.foreground(KColorScheme::NormalText));
+    d->errorFormat.setUnderlineColor(scheme.foreground(KColorScheme::NegativeText).color());
+    d->errorFormat.setUnderlineStyle(QTextCharFormat::SpellCheckUnderline);
+
+    d->commentFormat.setForeground(scheme.foreground(KColorScheme::InactiveText));
+
+    d->stringFormat.setForeground(scheme.foreground(KColorScheme::PositiveText));
 }
 
 
@@ -112,3 +152,47 @@ void DefaultHighlighter::matchBrackets(QChar openSymbol, QChar closeSymbol, QTex
     //END highlight matched brackets
 }
 
+QTextCharFormat DefaultHighlighter::functionFormat() const
+{
+    return d->functionFormat;
+}
+
+QTextCharFormat DefaultHighlighter::variableFormat() const
+{
+    return d->variableFormat;
+}
+
+QTextCharFormat DefaultHighlighter::objectFormat() const
+{
+    return d->objectFormat;
+}
+
+QTextCharFormat DefaultHighlighter::keywordFormat() const
+{
+    return d->keywordFormat;
+}
+
+QTextCharFormat DefaultHighlighter::numberFormat() const
+{
+    return d->numberFormat;
+}
+
+QTextCharFormat DefaultHighlighter::operatorFormat() const
+{
+    return d->operatorFormat;
+}
+
+QTextCharFormat DefaultHighlighter::errorFormat() const
+{
+    return d->errorFormat;
+}
+
+QTextCharFormat DefaultHighlighter::commentFormat() const
+{
+    return d->commentFormat;
+}
+
+QTextCharFormat DefaultHighlighter::stringFormat() const
+{
+    return d->stringFormat;
+}
