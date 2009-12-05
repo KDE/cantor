@@ -4,11 +4,12 @@ set(CMAKE_CXX_FLAGS "${KDE4_ENABLE_EXCEPTIONS} -Wno-deprecated")
 add_definitions(${QALCULATE_CFLAGS})
 
 set( QalculateBackend_SRCS
- qalculatesyntaxhelpobject.cpp
- qalculatebackend.cpp
- qalculatesession.cpp
- qalculateexpression.cpp
- qalculatetabcompletionobject.cpp
+qalculatesyntaxhelpobject.cpp
+qalculatebackend.cpp
+qalculatesession.cpp
+qalculatehighlighter.cpp
+qalculateexpression.cpp
+qalculatetabcompletionobject.cpp
 )
 
 

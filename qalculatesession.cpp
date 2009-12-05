@@ -19,6 +19,7 @@
 #include "qalculatesession.h"
 #include "qalculateexpression.h"
 #include "qalculatetabcompletionobject.h"
+#include "qalculatehighlighter.h"
 
 #include <QTextEdit>
 
@@ -28,6 +29,7 @@
 #include <libqalculate/Prefix.h>
 #include <libqalculate/Variable.h>
 #include <libqalculate/Function.h>
+
 #include <KDebug>
 
 #include "qalculatesyntaxhelpobject.h"
@@ -77,4 +79,9 @@ Cantor::TabCompletionObject* QalculateSession::tabCompletionFor(const QString& c
 Cantor::SyntaxHelpObject* QalculateSession::syntaxHelpFor(const QString& cmd)
 {
     return new QalculateSyntaxHelpObject(cmd, this);
+}
+
+QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new QalculateHighlighter(parent);
 }

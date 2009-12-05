@@ -48,7 +48,7 @@ Cantor::Session* QalculateBackend::createSession()
 
 Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 {
-    return Cantor::Backend::TabCompletion;
+    return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting;
 //     return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHelp;
 }
 
