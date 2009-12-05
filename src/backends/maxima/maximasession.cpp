@@ -223,7 +223,9 @@ void MaximaSession::readStdOut()
     kDebug()<<"out: "<<out;
 
 
-    if(out.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____"))))
+    m_cache+=out;
+
+    if(m_cache.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____"))))
     {
         kDebug()<<"initialized";
         out.remove("____END_OF_INIT____");
@@ -239,8 +241,6 @@ void MaximaSession::readStdOut()
 
     if(!m_isInitialized)
         return;
-
-    m_cache+=out;
 
     if(m_cache.contains('\n')||m_cache.contains(MaximaPrompt))
     {
