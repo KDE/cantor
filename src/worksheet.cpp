@@ -370,7 +370,10 @@ WorksheetEntry* Worksheet::entryAt(const QTextCursor& cursor)
 
 WorksheetEntry* Worksheet::entryAt(int row)
 {
-    return m_entries[row];
+    if(row<m_entries.size())
+        return m_entries[row];
+    else
+        return 0;
 }
 
 WorksheetEntry* Worksheet::appendEntry()
@@ -411,13 +414,20 @@ WorksheetEntry* Worksheet::insertEntry()
     if(current)
     {
         int index=m_entries.indexOf(current);
-        QTextCursor c=QTextCursor(document());
-        c.setPosition(current->lastPosition()+2);
-        WorksheetEntry* entry=new WorksheetEntry(c, this);
-        connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
-        m_entries.insert(index+1, entry);
+        WorksheetEntry* nextE=entryAt(index+1);
+        if(!nextE||!nextE->isEmpty())
+        {
+            QTextCursor c=QTextCursor(document());
+            c.setPosition(current->lastPosition()+2);
+            WorksheetEntry* entry=new WorksheetEntry(c, this);
+            connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
+            m_entries.insert(index+1, entry);
 
-        return entry;
+            return entry;
+        }else
+        {
+            return nextE;
+        }
     }
 
     return 0;
