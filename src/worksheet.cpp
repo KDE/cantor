@@ -414,6 +414,7 @@ WorksheetEntry* Worksheet::insertEntry()
         QTextCursor c=QTextCursor(document());
         c.setPosition(current->lastPosition()+2);
         WorksheetEntry* entry=new WorksheetEntry(c, this);
+        connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
         m_entries.insert(index+1, entry);
 
         return entry;
