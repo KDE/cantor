@@ -33,11 +33,15 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 {
   Q_OBJECT
   public:
+    enum BlockType {UnknownBlock = 0, ErrorBlock = 1, ResultBlock = 2, CommandBlock = 3 };
+    enum { BlockTypeProperty = QTextFormat::UserProperty +25 };
     DefaultHighlighter(QTextEdit* parent);
     ~DefaultHighlighter();
 
   protected:
     virtual void highlightBlock(const QString& text);
+
+    BlockType currentBlockType();
 
     QTextCharFormat functionFormat() const;
     QTextCharFormat variableFormat() const;

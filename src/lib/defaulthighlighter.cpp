@@ -25,6 +25,7 @@
 #include <QTextEdit>
 #include <kcolorscheme.h>
 #include <kglobalsettings.h>
+#include <kdebug.h>
 
 using namespace Cantor;
 
@@ -47,7 +48,7 @@ class Cantor::DefaultHighlighterPrivate
 
     bool wasTextChanged;
     bool haveHighlightedPairs;
-    // each two consecutive items build a pari
+    // each two consecutive items build a pair
     QList<QChar> pairs;
 };
 
@@ -150,6 +151,14 @@ void DefaultHighlighter::highlightPairAtPos(const int pos, const QString& text)
         }
     }
     setFormat(pos, 1, errorFormat());
+}
+
+DefaultHighlighter::BlockType DefaultHighlighter::currentBlockType()
+{
+    QTextBlock block=currentBlock();
+    BlockType type=(BlockType) block.charFormat().intProperty(BlockTypeProperty);
+
+    return type;
 }
 
 QTextCharFormat DefaultHighlighter::functionFormat() const

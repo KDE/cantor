@@ -22,6 +22,7 @@
 #include "maximakeywords.h"
 
 #include <QTextEdit>
+#include <kdebug.h>
 
 MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
 {

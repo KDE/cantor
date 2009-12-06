@@ -25,6 +25,7 @@
 #include "lib/helpresult.h"
 #include "lib/tabcompletionobject.h"
 #include "lib/syntaxhelpobject.h"
+#include "lib/defaulthighlighter.h"
 #include "lib/session.h"
 #include "worksheet.h"
 #include "resultproxy.h"
@@ -69,6 +70,11 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
     connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
 
     m_table->cellAt(0, 0).firstCursorPosition().insertText(Prompt);
+
+    QTextCharFormat cmdF=m_table->cellAt(0, 1).format();
+    cmdF.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::CommandBlock);
+    m_table->cellAt(0, 1).setFormat(cmdF);
+
     //m_table->mergeCells(0, 1, 1, 2);
     m_commandCell=m_table->cellAt(0, 1);
 }
@@ -151,10 +157,14 @@ void WorksheetEntry::updateResult()
         m_table->insertRows(row, 1);
         //m_table->mergeCells(row, 1, 1, 2);
         m_resultCell=m_table->cellAt(row, 1);
+        QTextCharFormat resF=m_table->cellAt(0, 1).format();
+        resF.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::ResultBlock);
+        m_resultCell.setFormat(resF);
     }
 
     QTextBlockFormat block;
     block.setAlignment(Qt::AlignJustify);
+    block.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::ResultBlock);
     QTextCursor cursor(m_resultCell.firstCursorPosition());
     cursor.setBlockFormat(block);
     cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
@@ -190,6 +200,10 @@ void WorksheetEntry::expressionChangedStatus(Cantor::Expression::Status status)
             row=commandCell().row()+1;
         m_table->insertRows(row, 1);
         m_errorCell=m_table->cellAt(row, 1);
+        QTextCharFormat errF=m_table->cellAt(0, 1).format();
+        errF.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::ErrorBlock);
+        m_errorCell.setFormat(errF);
+
         c=m_errorCell.firstCursorPosition();
     }else
     {
