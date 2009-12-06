@@ -65,8 +65,6 @@ DefaultHighlighter::~ DefaultHighlighter()
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    // Good color defaults borrowed from Abakus - thanks! :)
-
     if (text.isEmpty())
         return;
 
