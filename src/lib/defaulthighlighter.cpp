@@ -43,6 +43,7 @@ class Cantor::DefaultHighlighterPrivate
     QTextCharFormat errorFormat;
     QTextCharFormat commentFormat;
     QTextCharFormat stringFormat;
+    QTextCharFormat matchingPairFormat;
 
 };
 
@@ -69,16 +70,13 @@ void DefaultHighlighter::highlightBlock(const QString& text)
     if (text.isEmpty())
         return;
 
-    QTextCharFormat matchedParenthesis;
-    matchedParenthesis.setBackground(QColor(255, 255, 183));
-
     //highlight brackets
-    matchBrackets('(', ')', matchedParenthesis, text);
-    matchBrackets('[', ']', matchedParenthesis, text);
-    matchBrackets('{', '}', matchedParenthesis, text);
+    matchPair('(', ')', text);
+    matchPair('[', ']', text);
+    matchPair('{', '}', text);
 }
 
-void DefaultHighlighter::matchBrackets(QChar openSymbol, QChar closeSymbol, QTextCharFormat& format, const QString& text)
+void DefaultHighlighter::matchPair(QChar openSymbol, QChar closeSymbol, const QString& text)
 {
     //BEGIN highlight matched brackets
     int cursorPos = d->parent->textCursor().position();
@@ -109,8 +107,8 @@ void DefaultHighlighter::matchBrackets(QChar openSymbol, QChar closeSymbol, QTex
 
             if (level == 0) {
                 // Matched!
-                setFormat(cursorPos, 1, format);
-                setFormat(i, 1, format);
+                setFormat(cursorPos, 1, matchingPairFormat());
+                setFormat(i, 1, matchingPairFormat());
                 break;
             }
         }
@@ -163,6 +161,11 @@ QTextCharFormat DefaultHighlighter::stringFormat() const
     return d->stringFormat;
 }
 
+QTextCharFormat DefaultHighlighter::matchingPairFormat() const
+{
+    return d->matchingPairFormat;
+}
+
 void DefaultHighlighter::updateFormats()
 {
     //initialize char-formats
@@ -191,6 +194,9 @@ void DefaultHighlighter::updateFormats()
     d->commentFormat.setForeground(scheme.foreground(KColorScheme::InactiveText));
 
     d->stringFormat.setForeground(scheme.foreground(KColorScheme::PositiveText));
+
+    d->matchingPairFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
+    d->matchingPairFormat.setBackground(scheme.background(KColorScheme::NeutralBackground));
 }
 
 #include  "defaulthighlighter.moc"
