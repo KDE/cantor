@@ -39,7 +39,9 @@ QalculateHighlighter::~QalculateHighlighter()
 
 void QalculateHighlighter::highlightBlock(const QString& text)
 {
-    if ( text.isEmpty() || text.trimmed().isEmpty() ) {
+    if ( text.isEmpty() || text.trimmed().isEmpty() || text.startsWith(QLatin1String(">>> "))
+            // filter error messages, they get highlighted via html
+            || text.startsWith(i18n("ERROR")+':') || text.startsWith(i18n("WARNING")+':') ) {
         return;
     }
 

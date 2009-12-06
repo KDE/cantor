@@ -112,7 +112,7 @@ void QalculateExpression::evaluate()
         KColorScheme scheme(QApplication::palette().currentColorGroup());
         const QString errorColor = scheme.foreground(KColorScheme::NegativeText).color().name();
         const QString warningColor = scheme.foreground(KColorScheme::NeutralText).color().name();
-        const QString msgFormat("<font color=\"%1\">%2</font><br>\n");
+        const QString msgFormat("<font color=\"%1\">%2: %3</font><br>\n");
         MessageType mtype;
         while(true) {
             mtype = CALCULATOR->message()->type();
@@ -123,9 +123,9 @@ void QalculateExpression::evaluate()
                 text.replace("<", "&lt;");
 
                 if (mtype == MESSAGE_ERROR) {
-                    msg.append(msgFormat.arg(errorColor, i18n("ERROR: %1", text)));
+                    msg.append(msgFormat.arg(errorColor, i18n("ERROR"), text));
                 } else {
-                    msg.append(msgFormat.arg(errorColor, i18n("WARNING: %1", text)));
+                    msg.append(msgFormat.arg(errorColor, i18n("WARNING"), text));
                 }
             } else {
                 KMessageBox::information(QApplication::activeWindow(), CALCULATOR->message()->message().c_str());
