@@ -3,6 +3,7 @@ Type=Service
 Icon=dialog-ok
 Name=Solve
 Name[ca]=Resol
+Name[de]=Lösen
 Name[en_GB]=Solve
 Name[es]=Resolver
 Name[et]=Lahendamine

@@ -2,6 +2,7 @@
 Type=Service
 Name=Eigenvalues
 Name[ca]=Valors propis (Autovalors)
+Name[de]=Eigenwerte
 Name[en_GB]=Eigenvalues
 Name[es]=Autovalores
 Name[et]=Omaväärtused

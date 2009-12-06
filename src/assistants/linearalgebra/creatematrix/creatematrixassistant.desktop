@@ -2,6 +2,7 @@
 Type=Service
 Name=Create Matrix
 Name[ca]=Crea matriu
+Name[de]=Matrix erstellen
 Name[en_GB]=Create Matrix
 Name[es]=Crear matriz
 Name[et]=Maatriksi loomine

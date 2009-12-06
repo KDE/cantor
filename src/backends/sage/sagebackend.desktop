@@ -3,6 +3,7 @@ Type=Service
 Icon=sagebackend
 Name=Sage
 Name[ca]=Sage
+Name[de]=Sage
 Name[en_GB]=Sage
 Name[eo]=Sage
 Name[es]=Sage

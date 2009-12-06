@@ -2,6 +2,7 @@
 Type=Service
 Name=Eigenvectors
 Name[ca]=Vectors propis (Autovectors)
+Name[de]=Eigenvektoren
 Name[en_GB]=Eigenvectors
 Name[es]=Autovectores
 Name[et]=Omavektorid
