@@ -25,7 +25,8 @@
 
 #include <KColorScheme>
 #include <KDebug>
-
+#include <KGlobal>
+#include <KLocale>
 
 QalculateHighlighter::QalculateHighlighter(QTextEdit* parent)
     : Cantor::DefaultHighlighter(parent)
@@ -38,6 +39,10 @@ QalculateHighlighter::~QalculateHighlighter()
 
 void QalculateHighlighter::highlightBlock(const QString& text)
 {
+    if ( text.isEmpty() || text.trimmed().isEmpty() ) {
+        return;
+    }
+
     int pos = 0;
     int count;
     ///TODO: Can't we use CALCULATOR->parse() or similar?
@@ -45,12 +50,19 @@ void QalculateHighlighter::highlightBlock(const QString& text)
     ///      MathStructur and position+length in @p text
     const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
 
+    kDebug() << "highlight block:" << text;
+
     CALCULATOR->beginTemporaryStopMessages();
+
+    const QString decimalSymbol = KGlobal::locale()->decimalSymbol();
 
     for ( int i = 0; i < words.size(); ++i, pos += count ) {
         count = words[i].size();
+        if ( words[i].trimmed().isEmpty() ) {
+            continue;
+        }
 
-        kDebug() << words[i];
+        kDebug() << "highlight word:" << words[i];
 
         QTextCharFormat format = errorFormat();
 
@@ -60,8 +72,33 @@ void QalculateHighlighter::highlightBlock(const QString& text)
             format = functionFormat();
         } else if ( isOperatorAndWhitespace(words[i]) ) {
             // stuff like ") * (" is an invalid expression, but acutally OK
-            kDebug() << "operator / whitespace";
-            format = operatorFormat();
+
+            // check if last number is actually a float
+            bool isFloat = false;
+            if ( words[i].trimmed() == decimalSymbol ) {
+                if ( i > 0 ) {
+                    // lookbehind
+                    QString lastWord = words[i-1].trimmed();
+                    if ( !lastWord.isEmpty() && lastWord.at(lastWord.size()-1).isNumber() ) {
+                        kDebug() << "actually float";
+                        isFloat = true;
+                    }
+                }
+                if ( !isFloat && i < words.size() - 1 ) {
+                    // lookahead
+                    QString nextWord = words[i+1].trimmed();
+                    if ( !nextWord.isEmpty() && nextWord.at(0).isNumber() ) {
+                        kDebug() << "float coming";
+                        isFloat = true;
+                    }
+                }
+            }
+            if ( !isFloat ) {
+                kDebug() << "operator / whitespace";
+                format = operatorFormat();
+            } else {
+                format = numberFormat();
+            }
         } else {
             MathStructure expr = CALCULATOR->parse(words[i].toAscii().constData());
             if ( expr.isNumber() || expr.isNumber_exp() ) {
