@@ -97,6 +97,7 @@ class Worksheet : public KTextEdit
     QList<WorksheetEntry*> m_entries;
     bool m_tabCompletionEnabled;
     bool m_showExpressionIds;
+    bool m_loginFlag;
 };
 
 #endif /* _WORKSHEET_H */

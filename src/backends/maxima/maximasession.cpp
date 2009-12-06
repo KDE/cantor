@@ -91,6 +91,9 @@ void MaximaSession::login()
 
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
+
+    if(!m_helperQueue.isEmpty())
+       runNextHelperCommand();
 }
 
 void MaximaSession::startServer()
@@ -511,6 +514,11 @@ void MaximaSession::startHelperProcess()
 {
     m_helperMaxima=0;
     m_isHelperReady=false;
+    if(!m_server)
+    {
+        kDebug()<<"WARNING: you tried to create a helper process, without running server";
+        return;
+    }
     //Start the process that is used to convert to LaTeX
     m_helperProcess=new KProcess(this);
     QStringList args;

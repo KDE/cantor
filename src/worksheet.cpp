@@ -78,6 +78,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(pare
     document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
 
     //postpone login, until everything is set up correctly
+    m_loginFlag=true;
     QTimer::singleShot(0, this, SLOT(loginToSession()));
 }
 
@@ -88,16 +89,20 @@ Worksheet::~Worksheet()
 
 void Worksheet::loginToSession()
 {
-    m_session->login();
+    if(m_loginFlag==true)
+    {
+        m_session->login();
 
-    enableHighlighting(Settings::self()->highlightDefault());
-    enableTabCompletion(Settings::self()->tabCompletionDefault());
-    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+        enableHighlighting(Settings::self()->highlightDefault());
+        enableTabCompletion(Settings::self()->tabCompletionDefault());
+        enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
 #ifdef WITH_EPS
-    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+        session()->setTypesettingEnabled(Settings::self()->typesetDefault());
 #else
-    session()->setTypesettingEnabled(false);
+        session()->setTypesettingEnabled(false);
 #endif
+        m_loginFlag=false;
+    }
 
 }
 
@@ -597,15 +602,13 @@ void Worksheet::load(const QString& filename )
 
     }
 
-    //cache the old typesetting state
-    bool isLatexEnabled=m_session->isTypesettingEnabled();
     m_session=b->createSession();
+    m_loginFlag=true;
+    QTimer::singleShot(0, this, SLOT(loginToSession()));
     emit sessionChanged();
 
     //Set the Highlighting, depending on the current state
     enableHighlighting(m_highlighter!=0);
-    //re-set the typesetting state as it used to be
-    m_session->setTypesettingEnabled(isLatexEnabled);
 
     clear();
     m_entries.clear();
