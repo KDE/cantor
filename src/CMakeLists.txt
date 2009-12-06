@@ -29,8 +29,6 @@ kde4_add_ui_files(cantor_SRCS backendchooser.ui)
 
 kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
-kde4_add_app_icon(cantor_SRCS
-   "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
 kde4_add_executable(cantor ${cantor_SRCS})
 
 target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} cantorlibs cantor_config)
