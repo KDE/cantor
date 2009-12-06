@@ -69,19 +69,8 @@ void DefaultHighlighter::highlightBlock(const QString& text)
     if (text.isEmpty())
         return;
 
-    QTextCharFormat number;
-    number.setForeground(QColor(0, 0, 127));
-
-    QTextCharFormat function;
-    function.setForeground(QColor(85, 0, 0));
-
-    QTextCharFormat variable;
-    variable.setForeground(QColor(0, 85, 0));
-
     QTextCharFormat matchedParenthesis;
     matchedParenthesis.setBackground(QColor(255, 255, 183));
-
-    QTextCharFormat other;
 
     //highlight brackets
     matchBrackets('(', ')', matchedParenthesis, text);
