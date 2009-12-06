@@ -35,10 +35,9 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   public:
     DefaultHighlighter(QTextEdit* parent);
     ~DefaultHighlighter();
-        
+
   protected:
     virtual void highlightBlock(const QString& text);
-    void matchPair(QChar openSymbol,QChar closeSymbol, const QString& text);
 
     QTextCharFormat functionFormat() const;
     QTextCharFormat variableFormat() const;
@@ -51,10 +50,20 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     QTextCharFormat stringFormat() const;
     QTextCharFormat matchingPairFormat() const;
 
+    /// Call this to add a pair of symbols for highlighting
+    /// Default implementation already adds (), {} and [].
+    void addPair(const QChar& openSymbol, const QChar& closeSymbol);
+
+    /// highlight added pairs
+    void highlightPairs(const QString& text);
+
   private slots:
+    void positionChanged();
+    void contentsChanged();
     void updateFormats();
 
   private:
+    void highlightPairAtPos(const int pos, const QString& text);
     DefaultHighlighterPrivate* d;
 };
 

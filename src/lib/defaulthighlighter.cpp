@@ -45,6 +45,10 @@ class Cantor::DefaultHighlighterPrivate
     QTextCharFormat stringFormat;
     QTextCharFormat matchingPairFormat;
 
+    bool wasTextChanged;
+    bool haveHighlightedPairs;
+    // each two consecutive items build a pari
+    QList<QChar> pairs;
 };
 
 DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
@@ -52,66 +56,100 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 	d(new DefaultHighlighterPrivate)
 {
     d->parent=parent;
+    d->wasTextChanged=false;
+    d->haveHighlightedPairs=false;
+
+    addPair('(', ')');
+    addPair('[', ']');
+    addPair('{', '}');
 
     updateFormats();
     connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
+    connect(parent, SIGNAL(cursorPositionChanged()), this, SLOT(positionChanged()));
+    connect(parent->document(), SIGNAL(contentsChanged()), this, SLOT(contentsChanged()));
 }
-
 
 DefaultHighlighter::~ DefaultHighlighter()
 {
 }
 
-
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    if (text.isEmpty())
+    if ( text.isEmpty())
         return;
 
-    //highlight brackets
-    matchPair('(', ')', text);
-    matchPair('[', ']', text);
-    matchPair('{', '}', text);
+    highlightPairs(text);
 }
 
-void DefaultHighlighter::matchPair(QChar openSymbol, QChar closeSymbol, const QString& text)
+void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymbol)
 {
-    //BEGIN highlight matched brackets
-    int cursorPos = d->parent->textCursor().position();
+    Q_ASSERT(!d->pairs.contains(openSymbol));
+    Q_ASSERT(!d->pairs.contains(closeSymbol));
+    d->pairs << openSymbol << closeSymbol;
+}
+
+void DefaultHighlighter::highlightPairs(const QString& text)
+{
+    d->haveHighlightedPairs = false;
+    if (!d->parent->hasFocus()) {
+        return;
+    }
+
+    int cursorPos = d->parent->textCursor().position() - currentBlock().position();
+
     if (cursorPos < 0)
         cursorPos = 0;
 
-    // Adjust cursorpos to allow for a bracket before the cursor position
     if (cursorPos >= text.size())
         cursorPos = text.size() - 1;
-    else if (cursorPos > 0 && (text[cursorPos-1] == openSymbol || text[cursorPos-1] == closeSymbol))
-		cursorPos--;
 
-    bool haveOpen =  text[cursorPos] == openSymbol;
-    bool haveClose = text[cursorPos] == closeSymbol;
+    highlightPairAtPos(cursorPos, text);
 
-    if ((haveOpen || haveClose) && d->parent->hasFocus())
-    {
-        // Search for the other bracket
+    if ( cursorPos > 0 ) {
+      // Adjust cursorpos to allow for a symbol before the cursor position
+      highlightPairAtPos(cursorPos - 1, text);
+    }
+}
 
-        int inc = haveOpen ? 1 : -1; // which direction to search in
+void DefaultHighlighter::highlightPairAtPos(const int pos, const QString& text)
+{
+    int idx = d->pairs.indexOf(text[pos]);
+    if ( idx == -1 ) {
+        return;
+    }
 
-        int level = 0;
-        for (int i = cursorPos; i >= 0 && i < text.size(); i += inc) {
-            if (text[i] == closeSymbol)
-                level--;
-            else if (text[i] == openSymbol)
-                level++;
+    QChar openSymbol;
+    QChar closeSymbol;
+    int inc; // which direction to search in
 
-            if (level == 0) {
-                // Matched!
-                setFormat(cursorPos, 1, matchingPairFormat());
-                setFormat(i, 1, matchingPairFormat());
-                break;
-            }
+    if ( idx % 2 == 0 ) {
+        // currently at openSymbol
+        openSymbol = d->pairs[idx];
+        closeSymbol = d->pairs[idx + 1];
+        inc = +1;
+    } else {
+        // currently at closeSymbol
+        openSymbol = d->pairs[idx - 1];
+        closeSymbol = d->pairs[idx];
+        inc = -1;
+    }
+
+    int level = 0;
+    for (int i = pos; i >= 0 && i < text.size(); i += inc) {
+        if (text[i] == closeSymbol)
+            level--;
+        else if (text[i] == openSymbol)
+            level++;
+
+        if (level == 0) {
+            // Matched!
+            setFormat(pos, 1, matchingPairFormat());
+            setFormat(i, 1, matchingPairFormat());
+            d->haveHighlightedPairs = true;
+            return;
         }
     }
-    //END highlight matched brackets
+    setFormat(pos, 1, errorFormat());
 }
 
 QTextCharFormat DefaultHighlighter::functionFormat() const
@@ -195,6 +233,31 @@ void DefaultHighlighter::updateFormats()
 
     d->matchingPairFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
     d->matchingPairFormat.setBackground(scheme.background(KColorScheme::NeutralBackground));
+}
+
+void DefaultHighlighter::positionChanged()
+{
+    if ( d->wasTextChanged ) {
+        d->wasTextChanged = false;
+        return;
+    }
+
+    int pos = d->parent->textCursor().position();
+    // don't do anything if we have not highlighted a pair and the current pos is not position-sensitive
+    if ( !d->haveHighlightedPairs && !d->pairs.contains(d->parent->document()->characterAt(pos)) &&
+         !( pos > 0 && d->pairs.contains(d->parent->document()->characterAt(pos - 1)) ) ) {
+        return;
+    }
+
+    // either add the pair-highlighting or remove it
+    rehighlightBlock(d->parent->textCursor().block());
+}
+
+void DefaultHighlighter::contentsChanged()
+{
+    // editing text makes the cursor move, and triggers a re-highlight
+    // so to prevent duplicate, useless highlighting eat the next positionChanged signal
+    d->wasTextChanged = true;
 }
 
 #include  "defaulthighlighter.moc"
