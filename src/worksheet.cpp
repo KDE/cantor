@@ -162,7 +162,7 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         //complete to the currently selected item, when enter is pressed
         //otherwise, just do a normal Enter(line break)
         WorksheetEntry* entry=currentEntry();
-        if(entry->isShowingCompletionPopup())
+        if(entry&&entry->isShowingCompletionPopup())
             entry->applySelectedTabCompletion();
         else
             KTextEdit::keyPressEvent(event);
