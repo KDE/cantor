@@ -126,7 +126,7 @@ SageHighlighter::~SageHighlighter()
 
 void SageHighlighter::highlightBlock(const QString& text)
 {
-    if(text.isEmpty())
+    if(text.isEmpty()||currentBlockType()!=DefaultHighlighter::CommandBlock)
         return;
 
     //Do some backend independent highlighting (brackets etc.)
