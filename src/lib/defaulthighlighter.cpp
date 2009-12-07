@@ -101,11 +101,10 @@ void DefaultHighlighter::highlightPairs(const QString& text)
     if (cursorPos < 0)
         cursorPos = 0;
 
-    if (cursorPos >= text.size())
-        cursorPos = text.size() - 1;
+    if (cursorPos > text.size())
+        return;
 
     highlightPairAtPos(cursorPos, text);
-
     if ( cursorPos > 0 ) {
       // Adjust cursorpos to allow for a symbol before the cursor position
       highlightPairAtPos(cursorPos - 1, text);
@@ -260,6 +259,10 @@ void DefaultHighlighter::positionChanged()
 
     // either add the pair-highlighting or remove it
     rehighlightBlock(d->parent->textCursor().block());
+
+    //rehighlighting causes a contentsChanged signal.
+    //Make sure to mark that no text has changed since the last rehighlight
+    d->wasTextChanged=false;
 }
 
 void DefaultHighlighter::contentsChanged()
