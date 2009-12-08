@@ -26,6 +26,7 @@
 #include <kcolorscheme.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
+#include <QStack>
 
 using namespace Cantor;
 
@@ -46,8 +47,8 @@ class Cantor::DefaultHighlighterPrivate
     QTextCharFormat stringFormat;
     QTextCharFormat matchingPairFormat;
 
-    bool wasTextChanged;
-    bool haveHighlightedPairs;
+    int lastBlockNumber;
+    int lastPosition;
     // each two consecutive items build a pair
     QList<QChar> pairs;
 };
@@ -57,8 +58,8 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 	d(new DefaultHighlighterPrivate)
 {
     d->parent=parent;
-    d->wasTextChanged=false;
-    d->haveHighlightedPairs=false;
+    d->lastBlockNumber=-1;
+    d->lastPosition=-1;
 
     addPair('(', ')');
     addPair('[', ']');
@@ -67,7 +68,6 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
     updateFormats();
     connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
     connect(parent, SIGNAL(cursorPositionChanged()), this, SLOT(positionChanged()));
-    connect(parent->document(), SIGNAL(contentsChanged()), this, SLOT(contentsChanged()));
 }
 
 DefaultHighlighter::~ DefaultHighlighter()
@@ -91,65 +91,64 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    d->haveHighlightedPairs = false;
-    if (!d->parent->hasFocus()) {
-        return;
+    const QTextCursor& cursor = d->parent->textCursor();
+    int cursorPos = -1;
+    if ( cursor.blockNumber() == currentBlock().blockNumber() ) {
+        cursorPos = cursor.position() - currentBlock().position();
+        // when text changes, this will be called before the positionChanged signal
+        // gets emitted. Hence update the position so we don't highlight twice
+        d->lastPosition = cursor.position();
     }
 
-    int cursorPos = d->parent->textCursor().position() - currentBlock().position();
+    // positions of opened pairs
+    // key: same index as the opener has in d->pairs
+    // value: position in text where it was opened
+    QHash<int, QStack<int>* > opened;
+    QHash<int, QStack<int>* >::iterator it;
 
-    if (cursorPos < 0)
-        cursorPos = 0;
-
-    if (cursorPos > text.size())
-        return;
-
-    highlightPairAtPos(cursorPos, text);
-    if ( cursorPos > 0 ) {
-      // Adjust cursorpos to allow for a symbol before the cursor position
-      highlightPairAtPos(cursorPos - 1, text);
-    }
-}
-
-void DefaultHighlighter::highlightPairAtPos(const int pos, const QString& text)
-{
-    int idx = d->pairs.indexOf(text[pos]);
-    if ( idx == -1 ) {
-        return;
-    }
-
-    QChar openSymbol;
-    QChar closeSymbol;
-    int inc; // which direction to search in
-
-    if ( idx % 2 == 0 ) {
-        // currently at openSymbol
-        openSymbol = d->pairs[idx];
-        closeSymbol = d->pairs[idx + 1];
-        inc = +1;
-    } else {
-        // currently at closeSymbol
-        openSymbol = d->pairs[idx - 1];
-        closeSymbol = d->pairs[idx];
-        inc = -1;
-    }
-
-    int level = 0;
-    for (int i = pos; i >= 0 && i < text.size(); i += inc) {
-        if (text[i] == closeSymbol)
-            level--;
-        else if (text[i] == openSymbol)
-            level++;
-
-        if (level == 0) {
-            // Matched!
-            setFormat(pos, 1, matchingPairFormat());
-            setFormat(i, 1, matchingPairFormat());
-            d->haveHighlightedPairs = true;
-            return;
+    ///TODO: use setCurrentBlockUserData to keep track of matched pairs
+    ///      of course, keep track of changes and update the cache properly
+    for ( int i = 0; i < text.size(); ++i ) {
+        int idx = d->pairs.indexOf(text[i]);
+        if ( idx != -1 ) {
+            if ( idx % 2 == 0 ) {
+                // opener of a pair
+                it = opened.find(idx);
+                if ( it == opened.end() ) {
+                    it = opened.insert(idx, new QStack<int>());
+                }
+                (*it)->push(i);
+            } else {
+                // closer of a pair, find opener
+                it = opened.find(idx - 1);
+                if ( it == opened.end() || (*it)->isEmpty() ) {
+                    // unmatched
+                    setFormat(i, 1, errorFormat());
+                } else {
+                    // matched
+                    int lastPos = (*it)->pop();
+                    // check if we have to highlight the matched pair
+                    // at the current cursor position
+                    if ( cursorPos != -1 &&
+                        ( lastPos == cursorPos || lastPos == cursorPos - 1 ||
+                            i == cursorPos || i == cursorPos - 1 ) )
+                    {
+                        // yep, we want it highlighted
+                        setFormat(lastPos, 1, matchingPairFormat());
+                        setFormat(i, 1, matchingPairFormat());
+                    }
+                }
+            }
         }
     }
-    setFormat(pos, 1, errorFormat());
+
+    // handled unterminated pairs
+    foreach ( QStack<int>* positions, opened ) {
+        while ( !positions->isEmpty() ) {
+            setFormat(positions->pop(), 1, errorFormat());
+        }
+    }
+    qDeleteAll(opened.values());
 }
 
 DefaultHighlighter::BlockType DefaultHighlighter::currentBlockType()
@@ -245,31 +244,24 @@ void DefaultHighlighter::updateFormats()
 
 void DefaultHighlighter::positionChanged()
 {
-    if ( d->wasTextChanged ) {
-        d->wasTextChanged = false;
+    const QTextCursor& cursor = d->parent->textCursor();
+
+    if ( cursor.blockNumber() != d->lastBlockNumber ) {
+        // remove highlight from last focused block
+        kDebug() << "cleaning up last block";
+        rehighlightBlock(d->parent->document()->findBlockByNumber(d->lastBlockNumber));
+    }
+
+    d->lastBlockNumber = cursor.blockNumber();
+
+    if ( d->lastPosition == cursor.position() ) {
         return;
     }
 
-    int pos = d->parent->textCursor().position();
-    // don't do anything if we have not highlighted a pair and the current pos is not position-sensitive
-    if ( !d->haveHighlightedPairs && !d->pairs.contains(d->parent->document()->characterAt(pos)) &&
-         !( pos > 0 && d->pairs.contains(d->parent->document()->characterAt(pos - 1)) ) ) {
-        return;
-    }
+    kDebug() << "position changed, rehighlight block";
 
-    // either add the pair-highlighting or remove it
-    rehighlightBlock(d->parent->textCursor().block());
-
-    //rehighlighting causes a contentsChanged signal.
-    //Make sure to mark that no text has changed since the last rehighlight
-    d->wasTextChanged=false;
-}
-
-void DefaultHighlighter::contentsChanged()
-{
-    // editing text makes the cursor move, and triggers a re-highlight
-    // so to prevent duplicate, useless highlighting eat the next positionChanged signal
-    d->wasTextChanged = true;
+    rehighlightBlock(cursor.block());
+    d->lastPosition = cursor.position();
 }
 
 #include  "defaulthighlighter.moc"

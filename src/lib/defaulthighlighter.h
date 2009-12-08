@@ -63,11 +63,9 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 
   private slots:
     void positionChanged();
-    void contentsChanged();
     void updateFormats();
 
   private:
-    void highlightPairAtPos(const int pos, const QString& text);
     DefaultHighlighterPrivate* d;
 };
 
