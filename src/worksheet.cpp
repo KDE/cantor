@@ -131,6 +131,8 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
     if(current&&current->isInPromptCell(textCursor()))
        setTextCursor(current->commandCell().firstCursorPosition());
 
+    QTimer::singleShot(0, this, SLOT(moveToClosestValidCursor()));
+
     if ( event->key() == Qt::Key_Tab &&m_tabCompletionEnabled )
     {
         // special tab handling here
@@ -309,8 +311,31 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
 
     }else
     {
+        QTextCursor oldCursor=textCursor();
         KTextEdit::contextMenuEvent(event);
+        if(!currentEntry())
+            setTextCursor(oldCursor);
     }
+}
+
+void Worksheet::mousePressEvent(QMouseEvent* event)
+{
+    KTextEdit::mousePressEvent(event);
+    moveToClosestValidCursor();
+}
+
+void Worksheet::mouseReleaseEvent(QMouseEvent* event)
+{
+    QTextCursor oldCursor=textCursor();
+    KTextEdit::mouseMoveEvent(event);
+    if(!currentEntry())
+        setTextCursor(oldCursor);
+}
+
+void Worksheet::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    KTextEdit::mousePressEvent(event);
+    moveToClosestValidCursor();
 }
 
 void Worksheet::evaluate()
@@ -383,6 +408,28 @@ WorksheetEntry* Worksheet::entryAt(int row)
         return m_entries[row];
     else
         return 0;
+}
+
+QTextCursor Worksheet::closestValidCursor(const QTextCursor& cursor)
+{
+    if(cursor.position()>m_entries.last()->lastPosition())
+    {
+        QTextCursor c=cursor;
+        c.setPosition(m_entries.last()->lastPosition());
+        return c;
+    }
+
+    foreach(WorksheetEntry* entry, m_entries)
+    {
+        if(entry->contains(cursor))
+        {
+            return cursor;
+        }
+        else if (entry->firstPosition()>cursor.position())
+        {
+            return entry->commandCell().firstCursorPosition();
+        }
+    }
 }
 
 WorksheetEntry* Worksheet::appendEntry()
@@ -690,6 +737,11 @@ void Worksheet::checkEntriesForSanity()
     {
         e->checkForSanity();
     }
+}
+
+void Worksheet::moveToClosestValidCursor()
+{
+    setTextCursor(closestValidCursor(textCursor()));
 }
 
 bool Worksheet::showExpressionIds()

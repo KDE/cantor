@@ -80,15 +80,20 @@ class Worksheet : public KTextEdit
     bool event(QEvent* event);
     void keyPressEvent(QKeyEvent *event);
     void contextMenuEvent(QContextMenuEvent *event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mouseDoubleClickEvent(QMouseEvent* event);
 
   private slots:
     void loginToSession();
     void removeEntry(QObject* object);
     void removeCurrentEntry();
     void checkEntriesForSanity();
+    void moveToClosestValidCursor();
   private:
     WorksheetEntry* currentEntry();
     WorksheetEntry* entryAt(const QTextCursor& cursor);
+    QTextCursor closestValidCursor(const QTextCursor& cursor);
     WorksheetEntry* entryAt(int row);
   private:
     Cantor::Session *m_session;
