@@ -655,7 +655,8 @@ void Worksheet::load(const QString& filename )
     emit sessionChanged();
 
     //Set the Highlighting, depending on the current state
-    enableHighlighting(m_highlighter!=0);
+    //If the session isn't logged in, use the default
+    enableHighlighting( m_highlighter!=0 || (m_loginFlag && Settings::highlightDefault()) );
 
     clear();
     m_entries.clear();
