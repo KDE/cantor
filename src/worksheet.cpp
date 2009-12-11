@@ -430,6 +430,8 @@ QTextCursor Worksheet::closestValidCursor(const QTextCursor& cursor)
             return entry->commandCell().firstCursorPosition();
         }
     }
+
+    return QTextCursor();
 }
 
 WorksheetEntry* Worksheet::appendEntry()
