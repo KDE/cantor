@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=Cantor/Assistant
 Comment=An Assistant for Cantor
 Comment[ca]=Un assistent per al Cantor
+Comment[de]=Ein Assistent für Cantor
 Comment[en_GB]=An Assistant for Cantor
 Comment[es]=Un asistente para Cantor
 Comment[et]=Cantori abiline
