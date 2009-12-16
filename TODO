@@ -1,6 +1,3 @@
-BUGS:
-- bracket highlighting doesn't disappear after moving the cursor away
-
 FEATURES:
 Maxima-backend:
 - improve tab completion (ATM it's only a static list of known functions)
