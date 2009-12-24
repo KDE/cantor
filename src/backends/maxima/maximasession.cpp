@@ -147,7 +147,9 @@ void MaximaSession::logout()
     if(m_expressionQueue.isEmpty())
         evaluateExpression("quit();", Cantor::Expression::DeleteOnFinish);
     else
-        interrupt();
+    {
+        m_expressionQueue.clear();
+    }
     //Give maxima time to clean up
     if(!m_process->waitForFinished(3000))
     {
