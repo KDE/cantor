@@ -145,8 +145,7 @@ QString MaximaExpression::internalCommand()
         const QString psParam="[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]";
         const QString plotParameters = "[psfile, \""+ fileName+"\"],"+psParam;
 #else
-        const QString preamble="set terminal png size 500,340; set output '" + fileName + "';";
-        const QString plotParameters = "[gnuplot_preamble,\"" + preamble + "\"]";
+        const QString plotParameters = "[gnuplot_term, \"png size 500,340\"], [gnuplot_out_file, \""+fileName+"\"]";
 
 #endif
         cmd.replace(QRegExp("((plot2d|plot3d)\\s*\\(.*)\\)([;\n]|$)"), "\\1, "+plotParameters+");");
