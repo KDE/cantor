@@ -555,7 +555,7 @@ void Worksheet::save( const QString& filename )
 
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
-        KMessageBox::error( this,  i18n( "Cannot write file %1:\n." , filename ),
+        KMessageBox::error( this,  i18n( "Cannot write file %1\n." , filename ),
                             i18n( "Error - Cantor" ));
         return;
     }
@@ -647,7 +647,7 @@ void Worksheet::load(const QString& filename )
     {
         KMessageBox::information(this, i18n("There are some problems with the %1 backend,\n"\
                                             "please check your configuration or install the needed packages.\n"
-                                            "You will only be able to view this worksheet", backendName), i18n("Cantor"));
+                                            "You will only be able to view this worksheet.", backendName), i18n("Cantor"));
 
     }
 
