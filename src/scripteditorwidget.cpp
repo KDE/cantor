@@ -113,7 +113,10 @@ void ScriptEditorWidget::run()
             m_tmpFile=new KTemporaryFile();
             m_tmpFile->setPrefix( "cantor/" );
         }
-
+        else
+        {
+            m_tmpFile->resize(0);
+        }
         m_tmpFile->open();
         QString text=m_script->text();
         m_tmpFile->write(text.toUtf8());
