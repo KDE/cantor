@@ -15,6 +15,7 @@ Name[sv]=Cantor-delprogram
 Name[tr]=CantorPart
 Name[uk]=CantorPart
 Name[x-test]=xxCantorPartxx
+Name[zh_CN]=Cantor 组件
 Name[zh_TW]=Cantor 部件
 MimeType=application/x-cantor
 ServiceTypes=KParts/ReadOnlyPart,KParts/ReadWritePart

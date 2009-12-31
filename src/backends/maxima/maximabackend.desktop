@@ -19,6 +19,7 @@ Name[sv]=Maxima
 Name[tr]=Maxima
 Name[uk]=Maxima
 Name[x-test]=xxMaximaxx
+Name[zh_CN]=Maxima
 Name[zh_TW]=Maxima
 X-KDE-PluginInfo-Website=http://maxima.sourceforge.net/
 X-KDE-ServiceTypes=Cantor/Backend
@@ -39,5 +40,6 @@ Comment[pt_BR]=Infraestrutura para o Maxima Computer Algebra System
 Comment[sv]=Bakgrundsprogram för datoralgebrasystemet Maxima
 Comment[uk]=Сервер системи комп’ютерної алгебри Maxima
 Comment[x-test]=xxBackend for the Maxima Computer Algebra Systemxx
+Comment[zh_CN]=Maxima 计算器代数系统后端
 Comment[zh_TW]=Maxima 電腦代數系統的後端介面
 
