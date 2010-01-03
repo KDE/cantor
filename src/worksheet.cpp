@@ -555,7 +555,7 @@ void Worksheet::save( const QString& filename )
 
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
-        KMessageBox::error( this,  i18n( "Cannot write file %1\n." , filename ),
+        KMessageBox::error( this,  i18n( "Cannot write file %1." , filename ),
                             i18n( "Error - Cantor" ));
         return;
     }
