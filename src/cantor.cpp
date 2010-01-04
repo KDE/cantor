@@ -302,9 +302,15 @@ void CantorShell::setTabCaption(const QString& caption)
 void CantorShell::closeTab(QWidget* widget)
 {
     if(widget==0)
-        widget=m_part->widget();
+    {
+        if(m_part!=0)
+            widget=m_part->widget();
+        else
+            return;
+    }
 
     int index=m_tabWidget->indexOf(widget);
+
     m_tabWidget->removeTab(index);
 
     if(widget->objectName()=="ErrorMessage")
