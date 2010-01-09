@@ -67,6 +67,9 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
     position=(position.insertFrame(frameFormat))->firstCursorPosition();
 
     m_table=position.insertTable(1, 2, tableFormat);
+    //make sure, everything is invalid, when the table gets removed
+    connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(invalidate()));
+    //delete the worksheet entry, when the table gets removed from the worksheet
     connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
 
     m_table->cellAt(0, 0).firstCursorPosition().insertText(Prompt);
@@ -453,6 +456,9 @@ void WorksheetEntry::showAdditionalInformationPrompt(const QString& question)
 
 bool WorksheetEntry::contains(const QTextCursor& cursor)
 {
+    if(!m_table)
+        return false;
+
     if(cursor.position()>=m_table->firstCursorPosition().position()&&cursor.position()<=m_table->lastCursorPosition().position())
         return true;
     else
@@ -461,12 +467,18 @@ bool WorksheetEntry::contains(const QTextCursor& cursor)
 
 int WorksheetEntry::firstPosition()
 {
-    return m_table->firstCursorPosition().position();
+    if(m_table)
+        return m_table->firstCursorPosition().position();
+    else
+        return -1;
 }
 
 int WorksheetEntry::lastPosition()
 {
-    return m_table->lastCursorPosition().position();
+    if(m_table)
+        return m_table->lastCursorPosition().position();
+    return
+        -1;
 }
 
 bool WorksheetEntry::isInCurrentInformationCell(const QTextCursor& cursor)
@@ -542,6 +554,16 @@ void WorksheetEntry::updatePrompt()
         c.insertHtml(QString("<b>%1</b>%2").arg(QString::number(m_expression->id()), WorksheetEntry::Prompt));
     else
         c.insertHtml(WorksheetEntry::Prompt);
+}
+
+void WorksheetEntry::invalidate()
+{
+    m_table=0;
+    m_commandCell=QTextTableCell();
+    m_contextHelpCell=QTextTableCell();
+    m_informationCells.clear();
+    m_errorCell=QTextTableCell();
+    m_resultCell=QTextTableCell();
 }
 
 #include "worksheetentry.moc"

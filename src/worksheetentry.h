@@ -98,6 +98,7 @@ class WorksheetEntry : public QObject
     void applySelectedTabCompletion();
     void showSyntaxHelp();
   private slots:
+    void invalidate();
     void resultDeleted();
   private:
     QTextTable* m_table;
