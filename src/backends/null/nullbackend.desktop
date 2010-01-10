@@ -2,6 +2,7 @@
 Type=Service
 Name=nullbackend
 Name[ca]=DorsalNul
+Name[ca@valencia]=DorsalNul
 Name[en_GB]=nullbackend
 Name[es]=nullbackend
 Name[et]=nullbackend
@@ -24,6 +25,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Cantor for testing purposes
 Comment[ca]=Dorsal per al Cantor, per a fer proves
+Comment[ca@valencia]=Dorsal per al Cantor, per a fer proves
 Comment[en_GB]=Backend for Cantor for testing purposes
 Comment[es]=Motor de Cantor para realizar pruebas
 Comment[et]=Cantori taustaprogramm testimiseks
