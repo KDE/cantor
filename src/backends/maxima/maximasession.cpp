@@ -142,26 +142,56 @@ void MaximaSession::newHelperClient(QTcpSocket* socket)
 void MaximaSession::logout()
 {
     kDebug()<<"logout";
+
+    if(!m_process||!m_maxima)
+        return;
+
     disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
 
     if(m_expressionQueue.isEmpty())
-        evaluateExpression("quit();", Cantor::Expression::DeleteOnFinish);
+    {
+        m_maxima->write("quit();\n");
+        m_maxima->flush();
+        //evaluateExpression("quit();", Cantor::Expression::DeleteOnFinish);
+    }
     else
     {
         m_expressionQueue.clear();
     }
+
     //Give maxima time to clean up
-    if(!m_process->waitForFinished(3000))
+    kDebug()<<"waiting for maxima to finish";
+
+    if(m_process->state()!=QProcess::NotRunning)
     {
-        m_process->kill();
+        if(!m_maxima->waitForDisconnected(3000))
+        {
+            m_process->kill();
+            m_maxima->waitForDisconnected(3000);
+        }
     }
 
-    m_process->deleteLater();
+    m_maxima->close();
+
+    kDebug()<<"done logging out";
+
+    delete m_process;
+    m_process=0;
+    delete m_helperProcess;
+    m_helperProcess=0;
+    delete m_helperMaxima;
+    m_helperMaxima=0;
+    delete m_maxima;
+    m_maxima=0;
+
+    kDebug()<<"destroyed maxima";
+
     m_expressionQueue.clear();
 }
 
 void MaximaSession::newConnection()
 {
+    kDebug()<<"new connection";
     QTcpSocket* const socket=m_server->nextPendingConnection();
     if(m_maxima==0)
     {
@@ -514,6 +544,7 @@ void MaximaSession::restartsCooledDown()
 
 void MaximaSession::startHelperProcess()
 {
+    kDebug()<<"starting helper";
     m_helperMaxima=0;
     m_isHelperReady=false;
     if(!m_server)
@@ -569,7 +600,5 @@ QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QTextEdit* parent)
 {
     return new MaximaHighlighter(parent);
 }
-
-
 
 #include "maximasession.moc"
