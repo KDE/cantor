@@ -1,5 +1,7 @@
-[KNewStuff2]
-ProvidersUrl=http://newstuff.kde.org/cgi-bin/hotstuff-provider?site=cantor
-CustomName=true
-Uncompress=never
+[KNewStuff3]
+ProvidersUrl=http://download.kde.org/ocs/providers.xml
+Categories=Cantor (Maxima),Cantor (Sage), Cantor (KAlgebra),Cantor (Qalculate)
+UploadCategories=Cantor (Maxima),Cantor (Sage), Cantor (KAlgebra),Cantor (Qalculate)
 TargetDir=cantor/examples
+Uncompress=never
+CustomName=true

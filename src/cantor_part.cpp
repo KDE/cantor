@@ -38,7 +38,7 @@
 #include <krun.h>
 #include <kprogressdialog.h>
 #include <kmessagebox.h>
-#include <knewstuff2/engine.h>
+#include <knewstuff3/uploaddialog.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -466,17 +466,12 @@ void CantorPart::publishWorksheet()
 
     kDebug()<<"uploading file "<<url();
 
-    KNS::Engine engine(widget());
-    engine.init("cantor.knsrc");
-    KNS::Entry *entry = engine.uploadDialogModal(url().toLocalFile());
-
-    if(entry)
-    {
-        KMessageBox::information(widget(), i18n("Uploading successful"), i18n("Cantor"));
-    }else
-    {
-        KMessageBox::error(widget(), i18n("Error uploading File %1", url().toLocalFile()), i18n("Error - Cantor"));
-    }
+    // upload
+    //HACK: use different .knsrc files for each category
+    //remove this once KNS3 gains the ability to select category
+    KNS3::UploadDialog dialog(QString("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->name().toLower()), widget());
+    dialog.setUploadFile(url());
+    dialog.exec();
 }
 
 void CantorPart::print()
