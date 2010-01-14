@@ -38,9 +38,10 @@
 #include <ktextedit.h>
 #include <ktextbrowser.h>
 #include <kxmlguifactory.h>
-#include <knewstuff2/engine.h>
 #include <kstandarddirs.h>
 #include <ktoggleaction.h>
+
+#include <knewstuff3/downloaddialog.h>
 
 #include <QDockWidget>
 #include <QApplication>
@@ -355,18 +356,12 @@ void CantorShell::showHelpDocker(bool show)
 
 void CantorShell::downloadExamples()
 {
-    KNS::Entry::List entries = KNS::Engine::download();
-    // list of changed entries
-    foreach(KNS::Entry* entry,  entries)
+    KNS3::DownloadDialog dialog;
+    dialog.exec();
+    foreach (const KNS3::Entry& e,  dialog.changedEntries())
     {
-        // care only about installed ones
-        if (entry->status() == KNS::Entry::Installed)
-        {
-            //kDebug()<<"downloaded example "<<entry->name();
-        }
+        kDebug() << "Changed Entry: " << e.name();
     }
-
-    qDeleteAll(entries);
 }
 
 void CantorShell::openExample()

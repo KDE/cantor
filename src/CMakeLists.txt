@@ -13,7 +13,7 @@ add_subdirectory(assistants)
 #build the config object in a separate library, shared between shell and part
 kde4_add_kcfg_files(config_SRCS settings.kcfgc)
 kde4_add_library( cantor_config  SHARED ${config_SRCS} )
-target_link_libraries( cantor_config ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} )
+target_link_libraries( cantor_config ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} )
 install( TARGETS cantor_config  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 set(cantor_SRCS
@@ -31,7 +31,7 @@ kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
 kde4_add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS} cantorlibs cantor_config)
+target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
@@ -39,6 +39,10 @@ install( FILES cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES cantor_shell.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )
 
 install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES cantor_maxima.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES cantor_sage.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES cantor_kalgebra.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install( FILES cantor_r.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 
 
 #########################################################################
@@ -61,7 +65,7 @@ configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.
 
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 
-target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF2_LIBS}
+target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
 				     ${KDE4_KTEXTEDITOR_LIBS}
 				     cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
