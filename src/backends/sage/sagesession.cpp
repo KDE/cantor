@@ -85,7 +85,7 @@ void SageSession::logout()
 
     m_process->deleteLater();
     //Run sage-cleaner to kill all the orphans
-    KProcess::execute(SageSettings::self()->path().toLocalFile(),QStringList()<<"-cleaner");
+    KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<"-cleaner");
 
     m_expressionQueue.clear();
 }
