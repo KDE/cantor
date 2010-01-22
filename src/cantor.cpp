@@ -231,7 +231,7 @@ void CantorShell::addWorksheet()
                               "    <li>Changing the settings in the config dialog;</li>" \
                               "    <li>Installing packages for one of the following programs:</li>" \
                               "     %1 "                                \
-                              "  <ul> "                                 \
+                              "  </ul> "                                 \
                               "</div> "
                              , backendList
                              ));
