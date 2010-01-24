@@ -69,6 +69,7 @@ Comment[gl]=Infraestrutura de KAlgebra para Cantor. Permite empregar a mesma lin
 Comment[it]=Motore KAlgebra per Cantor. Permette di usare in Cantor lo stesso linguaggio usato in KAlgebra.
 Comment[nb]=KAlgebra bakgrunnsmotor for Cantor. Gjør at samme språk som brukes i programmet KAlgebra kan brukes i Cantor arbeidsark.
 Comment[nl]=Kalgebra backend voor Cantor. Het laat u dezelfde taal als in Kalgebra gebruiken in Cantor-werkbladen.
+Comment[nn]=KAlgebra-motor for Cantor. Lèt deg bruka same språket som du brukar i KAlgebra-programmet i Cantor-arbeidsark.
 Comment[pt]=Infra-estrutura do KAlgebra para o Cantor. Permite-lhe usar a mesma linguagem que usa na aplicação KAlgebra, nas folhas de cálculo do Cantor.
 Comment[pt_BR]=Infraestrutura do KAlgebra para o Cantor. Permite-lhe usar a mesma linguagem usada no aplicativo KAlgebra, nas planilhas do Cantor.
 Comment[sv]=Kalgebra bakgrundsprogram för Cantor. Låter dig använda samma språk i Cantors arbetsblad som i programmet Kalgebra.
