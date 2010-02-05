@@ -27,7 +27,6 @@ General:
    or at least some way to mark "this is a function, complete it so that () is appended and the cursor should be inside the parens)"
 - Don't hardcode Tab-key for completions (and rename TabCompletion-classes)
 - Group Actions in Settings menu, so its clear (e.g. in the Shortcut-dialog) that theyre settings
-- a mode that, when I change an entry in my worksheet, reevaluates the lines below (for use with ans / ans2 / ans3 )
 
 BACKENDS:
 - Octave backend

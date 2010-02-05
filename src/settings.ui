@@ -55,6 +55,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="kcfg_AutoEval">
+     <property name="toolTip">
+      <string>When enabled, Cantor will automatically evaluate every entries below the current one</string>
+     </property>
+     <property name="text">
+      <string>Reevaluate Entries automatically</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGroupBox" name="groupBox">

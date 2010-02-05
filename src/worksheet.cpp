@@ -359,6 +359,22 @@ void Worksheet::evaluateCurrentEntry()
     if (entry->isInCommandCell(textCursor()))
     {
         evaluateEntry(entry);
+
+        if(Settings::self()->autoEval())
+        {
+            QList<WorksheetEntry*>::iterator it=m_entries.begin();
+            while((*it)!=entry&&it!=m_entries.end())
+                ++it;
+
+            it++;
+
+            for(;it!=m_entries.end();++it)
+            {
+                //kDebug()<<"evaluate"<<entry->command();
+                evaluateEntry(*it);
+            }
+        }
+
     }else if (entry->isInCurrentInformationCell(textCursor()))
     {
         entry->addInformation();
