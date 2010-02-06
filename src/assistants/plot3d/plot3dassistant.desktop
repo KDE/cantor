@@ -29,4 +29,7 @@ X-KDE-PluginInfo-Name=Plot3d
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 3D functions
+Comment[es]=Un diálogo asistente para simplificar el trazado de funciones 3D
+Comment[uk]=Діалогове вікно помічника спрощення побудови поверхонь
+Comment[x-test]=xxAn Assistant dialog to simplify plotting of 3D functionsxx
 RequiredExtensions=PlotExtension
