@@ -220,21 +220,33 @@ void CantorShell::addWorksheet()
     {
         KTextBrowser *browser=new KTextBrowser(this);
         QString backendList="<ul>";
+        int backendListSize = 0;
         foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
         {
             if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
+            {
                 backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
+                ++backendListSize;
+            }
         }
-        browser->setHtml(i18n("<h1>No Backend Found</h1>\n"             \
-                              "<div>You could try:\n"                   \
-                              "  <ul>"                                  \
-                              "    <li>Changing the settings in the config dialog;</li>" \
-                              "    <li>Installing packages for one of the following programs:</li>" \
-                              "     %1 "                                \
-                              "  </ul> "                                 \
-                              "</div> "
-                             , backendList
-                             ));
+        browser->setHtml(i18np("<h1>No Backend Found</h1>\n"             \
+                               "<div>You could try:\n"                   \
+                               "  <ul>"                                  \
+                               "    <li>Changing the settings in the config dialog;</li>" \
+                               "    <li>Installing packages for the following program:</li>" \
+                               "     %2 "                                \
+                               "  </ul> "                                 \
+                               "</div> "
+                              , "<h1>No Backend Found</h1>\n"             \
+                               "<div>You could try:\n"                   \
+                               "  <ul>"                                  \
+                               "    <li>Changing the settings in the config dialog;</li>" \
+                               "    <li>Installing packages for one of the following programs:</li>" \
+                               "     %2 "                                \
+                               "  </ul> "                                 \
+                               "</div> "
+                              , backendListSize, backendList
+                              ));
 
         browser->setObjectName("ErrorMessage");
         m_tabWidget->addTab(browser, i18n("Error"));
