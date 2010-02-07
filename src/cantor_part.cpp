@@ -79,6 +79,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     {
         KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - Cantor"));
         setWidget(new QWidget(parentWidget));
+        //fake being modified so the shell won't try to reuse this part
+        ReadWritePart::setModified(true);
         return;
     }
 
@@ -211,6 +213,13 @@ KAboutData *CantorPart::createAboutData()
 
 bool CantorPart::openFile()
 {
+    //don't crash if for some reason the worksheet is invalid
+    if(m_worksheet==0)
+    {
+        kWarning()<<"trying to open in an invalid cantor part";
+        return false;
+    }
+
     m_worksheet->load(localFilePath());
 
     // just for fun, set the status bar
