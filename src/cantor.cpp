@@ -101,7 +101,7 @@ void CantorShell::load(const KUrl& url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
-        addWorksheet("nullbackend");
+        addWorksheet("null");
         m_tabWidget->setCurrentIndex(m_parts.size()-1);
     }
     m_part->openUrl( url );

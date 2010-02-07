@@ -44,6 +44,11 @@ RBackend::~RBackend()
     kDebug()<<"Destroying RBackend";
 }
 
+QString RBackend::id() const
+{
+    return "r";
+}
+
 Cantor::Session* RBackend::createSession()
 {
     kDebug()<<"Spawning a new R session";

@@ -70,7 +70,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     kDebug()<<"Created a CantorPart";
     QString backendName;
     if(args.isEmpty())
-        backendName="nullbackend";
+        backendName="null";
     else
         backendName=args.first();
 

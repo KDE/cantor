@@ -30,6 +30,7 @@ class RBackend : public Cantor::Backend
     explicit RBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~RBackend();
 
+    QString id() const;
     Cantor::Session *createSession();
     Cantor::Backend::Capabilities capabilities() const;
     bool requirementsFullfilled() const;

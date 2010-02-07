@@ -30,6 +30,11 @@ KAlgebraBackend::KAlgebraBackend( QObject* parent,const QList<QVariant> args )
 KAlgebraBackend::~KAlgebraBackend()
 {}
 
+QString KAlgebraBackend::id() const
+{
+    return "kalgebra";
+}
+
 Cantor::Session* KAlgebraBackend::createSession()
 {
     return new KAlgebraSession(this);

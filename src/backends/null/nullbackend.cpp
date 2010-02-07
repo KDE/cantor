@@ -39,6 +39,11 @@ NullBackend::~NullBackend()
     kDebug()<<"Destroying NullBackend";
 }
 
+QString NullBackend::id() const
+{
+    return "null";
+}
+
 Cantor::Session* NullBackend::createSession()
 {
     kDebug()<<"Spawning a new Null session";

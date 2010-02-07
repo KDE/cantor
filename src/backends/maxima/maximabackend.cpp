@@ -49,6 +49,11 @@ MaximaBackend::~MaximaBackend()
     kDebug()<<"Destroying MaximaBackend";
 }
 
+QString MaximaBackend::id() const
+{
+    return "maxima";
+}
+
 Cantor::Session* MaximaBackend::createSession()
 {
     kDebug()<<"Spawning a new Maxima session";
