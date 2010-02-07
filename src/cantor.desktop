@@ -31,6 +31,7 @@ Type=Application
 X-DocPath=cantor/index.html
 GenericName=KDE Frontend to Mathematical Software
 GenericName[es]=Motor de KDE para software matemático
+GenericName[sv]=KDE-gränssnitt till matematisk programvara
 GenericName[uk]=Графічна оболонка KDE до математичного програмного забезпечення
 GenericName[x-test]=xxKDE Frontend to Mathematical Softwarexx
 Terminal=false
