@@ -50,6 +50,11 @@ SageBackend::~SageBackend()
     kDebug()<<"Destroying SageBackend";
 }
 
+QString SageBackend::id() const
+{
+    return "sage";
+}
+
 Cantor::Session* SageBackend::createSession()
 {
     kDebug()<<"Spawning a new Sage session";

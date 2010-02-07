@@ -30,6 +30,7 @@ class SageBackend : public Cantor::Backend
     explicit SageBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~SageBackend();
 
+    QString id() const;
     Cantor::Session *createSession();
     Cantor::Backend::Capabilities capabilities() const;
     virtual bool requirementsFullfilled() const;

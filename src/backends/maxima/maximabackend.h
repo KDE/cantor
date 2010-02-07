@@ -30,6 +30,7 @@ class MaximaBackend : public Cantor::Backend
     explicit MaximaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~MaximaBackend();
 
+    QString id() const;
     Cantor::Session *createSession();
     Cantor::Backend::Capabilities capabilities() const;
     bool requirementsFullfilled() const;
