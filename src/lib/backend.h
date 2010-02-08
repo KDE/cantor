@@ -107,6 +107,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Returns a unique string to identify this backend.
      * In contrast to name() this string isn't translated
      * @return string to identify backend
+     */
     virtual QString id() const = 0;
 
     //Stuff extracted from the .desktop file
