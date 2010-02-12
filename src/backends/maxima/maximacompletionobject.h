@@ -18,21 +18,21 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _MAXIMATABCOMPLETIONOBJECT_H
-#define _MAXIMATABCOMPLETIONOBJECT_H
+#ifndef _MAXIMACOMPLETIONOBJECT_H
+#define _MAXIMACOMPLETIONOBJECT_H
 
-#include "tabcompletionobject.h"
+#include "completionobject.h"
 
 class MaximaSession;
 
-class MaximaTabCompletionObject : public Cantor::TabCompletionObject
+class MaximaCompletionObject : public Cantor::CompletionObject
 {
   public:
-    MaximaTabCompletionObject( const QString& cmd, MaximaSession* session );
-    ~MaximaTabCompletionObject();
+    MaximaCompletionObject( const QString& cmd, MaximaSession* session );
+    ~MaximaCompletionObject();
     
   protected slots:
     void fetchCompletions();
 };
 
-#endif /* _MAXIMATABCOMPLETIONOBJECT_H */
+#endif /* _MAXIMACOMPLETIONOBJECT_H */

@@ -18,24 +18,24 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "nulltabcompletionobject.h"
+#include "nullcompletionobject.h"
 
 #include <QStringList>
 #include <kdebug.h>
 
 #include "nullsession.h"
 
-NullTabCompletionObject::NullTabCompletionObject(const QString& command, NullSession* session) : Cantor::TabCompletionObject(command, session)
+NullCompletionObject::NullCompletionObject(const QString& command, NullSession* session) : Cantor::CompletionObject(command, session)
 {
 
 }
 
-NullTabCompletionObject::~NullTabCompletionObject()
+NullCompletionObject::~NullCompletionObject()
 {
 
 }
 
-void NullTabCompletionObject::fetchCompletions()
+void NullCompletionObject::fetchCompletions()
 {
     kDebug()<<"fetching...";
     QStringList comp;

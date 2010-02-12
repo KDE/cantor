@@ -16,15 +16,15 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
-#include "kalgebratabcompletionobject.h"
+#include "kalgebracompletionobject.h"
 
 #include <QStringList>
 
 #include "kalgebrasession.h"
 #include <analitzagui/operatorsmodel.h>
 
-KAlgebraTabCompletionObject::KAlgebraTabCompletionObject(const QString& command, KAlgebraSession* session)
-    : Cantor::TabCompletionObject(command, session)
+KAlgebraCompletionObject::KAlgebraCompletionObject(const QString& command, KAlgebraSession* session)
+    : Cantor::CompletionObject(command, session)
 {
     //We only want identifiers
     int i;
@@ -34,10 +34,10 @@ KAlgebraTabCompletionObject::KAlgebraTabCompletionObject(const QString& command,
         setCommand(command.mid(i+1));
 }
 
-KAlgebraTabCompletionObject::~KAlgebraTabCompletionObject()
+KAlgebraCompletionObject::~KAlgebraCompletionObject()
 {}
 
-void KAlgebraTabCompletionObject::fetchCompletions()
+void KAlgebraCompletionObject::fetchCompletions()
 {
     OperatorsModel* opm=static_cast<KAlgebraSession*>(session())->operatorsModel();
     

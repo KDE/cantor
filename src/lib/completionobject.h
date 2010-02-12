@@ -18,8 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _TABCOMPLETIONOBJECT_H
-#define _TABCOMPLETIONOBJECT_H
+#ifndef _COMPLETIONOBJECT_H
+#define _COMPLETIONOBJECT_H
 
 #include <kcompletion.h>
 
@@ -27,18 +27,18 @@
 
 namespace Cantor
 {
-class TabCompletionObjectPrivate;
+class CompletionObjectPrivate;
 class Session;
 
 /**
  * This Object is used to provide a Tab Completion, in an asynchroneous way.
  * Each backend, supporting tab completion, needs to provide their own
- * TabCompletionObject, that reimplements the fetching of the completions
+ * CompletionObject, that reimplements the fetching of the completions
  * and emits done() as soon as the completions are available
  * 
  * @author Alexander Rieder
  */
-class CANTOR_EXPORT TabCompletionObject : public KCompletion
+class CANTOR_EXPORT CompletionObject : public KCompletion
 {
   Q_OBJECT
   public:
@@ -49,9 +49,9 @@ class CANTOR_EXPORT TabCompletionObject : public KCompletion
      *                 for completion
      * @param parent the session, this object belongs to
      */
-    TabCompletionObject( const QString& command, Session* parent);
+    CompletionObject( const QString& command, Session* parent);
     ///Destrutctor
-    ~TabCompletionObject();
+    ~CompletionObject();
 
     /**
      * Returns a list of completions
@@ -93,9 +93,9 @@ class CANTOR_EXPORT TabCompletionObject : public KCompletion
      */
     void done();
   private:
-    TabCompletionObjectPrivate* d;
+    CompletionObjectPrivate* d;
 };
 
 }
 
-#endif /* _TABCOMPLETIONOBJECT_H */
+#endif /* _COMPLETIONOBJECT_H */

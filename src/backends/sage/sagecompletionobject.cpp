@@ -18,7 +18,7 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "sagetabcompletionobject.h"
+#include "sagecompletionobject.h"
 
 #include "sagesession.h"
 #include "textresult.h"
@@ -26,7 +26,7 @@
 #include <kdebug.h>
 #include <QStack>
 
-SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSession* session) : Cantor::TabCompletionObject(command, session)
+SageCompletionObject::SageCompletionObject(const QString& command, SageSession* session) : Cantor::CompletionObject(command, session)
 {
     m_expression=0;
 
@@ -79,7 +79,7 @@ SageTabCompletionObject::SageTabCompletionObject(const QString& command, SageSes
     setCommand(cmd);
 }
 
-SageTabCompletionObject::~SageTabCompletionObject()
+SageCompletionObject::~SageCompletionObject()
 {
     if(m_expression)
     {
@@ -88,7 +88,7 @@ SageTabCompletionObject::~SageTabCompletionObject()
     }
 }
 
-void SageTabCompletionObject::fetchCompletions()
+void SageCompletionObject::fetchCompletions()
 {
     bool t=session()->isTypesettingEnabled();
     if(t)
@@ -103,7 +103,7 @@ void SageTabCompletionObject::fetchCompletions()
         session()->setTypesettingEnabled(true);
 }
 
-void SageTabCompletionObject::fetchingDone()
+void SageCompletionObject::fetchingDone()
 {
     Cantor::Result* res=m_expression->result();
     if(!res||!res->type()==Cantor::TextResult::Type)

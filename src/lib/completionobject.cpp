@@ -18,7 +18,7 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "tabcompletionobject.h"
+#include "completionobject.h"
 using namespace Cantor;
 
 #include <QStringList>
@@ -26,7 +26,7 @@ using namespace Cantor;
 
 #include "session.h"
 
-class Cantor::TabCompletionObjectPrivate
+class Cantor::CompletionObjectPrivate
 {
   public:
     QStringList completions;
@@ -34,8 +34,8 @@ class Cantor::TabCompletionObjectPrivate
     Session* session;
 };
 
-TabCompletionObject::TabCompletionObject(const QString& command, Session* session) :
-                                                                                     d(new TabCompletionObjectPrivate)
+CompletionObject::CompletionObject(const QString& command, Session* session) :
+                                                                                     d(new CompletionObjectPrivate)
 {
     setParent(session);
     d->command=command;
@@ -46,27 +46,27 @@ TabCompletionObject::TabCompletionObject(const QString& command, Session* sessio
     QTimer::singleShot(0, this, SLOT(fetchCompletions()));
 }
 
-TabCompletionObject::~TabCompletionObject()
+CompletionObject::~CompletionObject()
 {
     delete d;
 }
 
-QString TabCompletionObject::command() const
+QString CompletionObject::command() const
 {
     return d->command;
 }
 
-Session* TabCompletionObject::session() const
+Session* CompletionObject::session() const
 {
     return d->session;
 }
 
-QStringList TabCompletionObject::completions() const
+QStringList CompletionObject::completions() const
 {
     return d->completions;
 }
 
-void TabCompletionObject::setCompletions(const QStringList& completions)
+void CompletionObject::setCompletions(const QStringList& completions)
 {
     d->completions=completions;
     foreach(const QString& comp, d->completions)
@@ -75,9 +75,9 @@ void TabCompletionObject::setCompletions(const QStringList& completions)
     }
 }
 
-void TabCompletionObject::setCommand(const QString& cmd)
+void CompletionObject::setCommand(const QString& cmd)
 {
     d->command=cmd;
 }
 
-#include "tabcompletionobject.moc"
+#include "completionobject.moc"

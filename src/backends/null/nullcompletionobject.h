@@ -18,22 +18,22 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _NULLTABCOMPLETIONOBJECT_H
-#define _NULLTABCOMPLETIONOBJECT_H
+#ifndef _NULLCOMPLETIONOBJECT_H
+#define _NULLCOMPLETIONOBJECT_H
 
-#include "tabcompletionobject.h"
+#include "completionobject.h"
 
 class NullSession;
 
-class NullTabCompletionObject : public Cantor::TabCompletionObject
+class NullCompletionObject : public Cantor::CompletionObject
 {
   public:
-    NullTabCompletionObject( const QString& command, NullSession* session);
-    ~NullTabCompletionObject();
+    NullCompletionObject( const QString& command, NullSession* session);
+    ~NullCompletionObject();
 
   protected slots:
     void fetchCompletions();
 
 };
 
-#endif /* _NULLTABCOMPLETIONOBJECT_H */
+#endif /* _NULLCOMPLETIONOBJECT_H */

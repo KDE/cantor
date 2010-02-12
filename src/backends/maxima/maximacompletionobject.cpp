@@ -18,12 +18,12 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "maximatabcompletionobject.h"
+#include "maximacompletionobject.h"
 
 #include "maximasession.h"
 #include "maximakeywords.h"
 
-MaximaTabCompletionObject::MaximaTabCompletionObject(const QString& command, MaximaSession* session) : Cantor::TabCompletionObject(command, session)
+MaximaCompletionObject::MaximaCompletionObject(const QString& command, MaximaSession* session) : Cantor::CompletionObject(command, session)
 {
     //Only use the completion for the last command part between end and opening bracket or ; or space
     QString cmd=command;
@@ -36,12 +36,12 @@ MaximaTabCompletionObject::MaximaTabCompletionObject(const QString& command, Max
     setCommand(cmd);
 }
 
-MaximaTabCompletionObject::~MaximaTabCompletionObject()
+MaximaCompletionObject::~MaximaCompletionObject()
 {
 
 }
 
-void MaximaTabCompletionObject::fetchCompletions()
+void MaximaCompletionObject::fetchCompletions()
 {
     QStringList allCompletions;
     allCompletions<<MaximaKeywords::variables();

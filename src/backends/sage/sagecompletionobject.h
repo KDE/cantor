@@ -18,10 +18,10 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _SAGETABCOMPLETIONOBJECT_H
-#define _SAGETABCOMPLETIONOBJECT_H
+#ifndef _SAGECOMPLETIONOBJECT_H
+#define _SAGECOMPLETIONOBJECT_H
 
-#include "tabcompletionobject.h"
+#include "completionobject.h"
 
 class SageSession;
 
@@ -29,12 +29,12 @@ namespace Cantor{
     class Expression;
 }
 
-class SageTabCompletionObject : public Cantor::TabCompletionObject
+class SageCompletionObject : public Cantor::CompletionObject
 {
   Q_OBJECT
   public:
-    SageTabCompletionObject( const QString& command, SageSession* session);
-    ~SageTabCompletionObject();
+    SageCompletionObject( const QString& command, SageSession* session);
+    ~SageCompletionObject();
 
   protected slots:
     void fetchCompletions();
@@ -44,4 +44,4 @@ class SageTabCompletionObject : public Cantor::TabCompletionObject
     Cantor::Expression* m_expression;
 };
 
-#endif /* _SAGETABCOMPLETIONOBJECT_H */
+#endif /* _SAGECOMPLETIONOBJECT_H */
