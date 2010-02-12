@@ -10,7 +10,7 @@
       <default>Sage</default>
     </entry>
     <entry name="CompletionStyle" type="Enum">
-      <label>The style used for TabCompletion</label>
+      <label>The style used for Completion</label>
       <choices name="CompletionStyle">
 	<choice name="PopupCompletion" />
 	<choice name="InlineCompletion" />
@@ -25,8 +25,8 @@
       <label>Do Syntax Highlighting by default</label>
       <default>true</default>
     </entry>
-    <entry name="TabCompletionDefault" type="Bool">
-      <label>Enable Tab Completions by default</label>
+    <entry name="CompletionDefault" type="Bool">
+      <label>Enable Completions by default</label>
       <default>true</default>
     </entry>
     <entry name="ExpressionNumberingDefault" type="Bool">

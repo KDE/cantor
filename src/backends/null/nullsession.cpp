@@ -20,7 +20,7 @@
 
 #include "nullsession.h"
 #include "nullexpression.h"
-#include "nulltabcompletionobject.h"
+#include "nullcompletionobject.h"
 
 #include <kdebug.h>
 
@@ -72,10 +72,10 @@ Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::
     return expr;
 }
 
-Cantor::TabCompletionObject* NullSession::tabCompletionFor(const QString& command)
+Cantor::CompletionObject* NullSession::completionFor(const QString& command)
 {
     kDebug()<<"tab completion for "<<command;
-    return new NullTabCompletionObject(command, this);
+    return new NullCompletionObject(command, this);
 }
 
 void NullSession::expressionFinished()

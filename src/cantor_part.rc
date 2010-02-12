@@ -16,7 +16,7 @@
   <Menu name="settings">
     <Action name="enable_typesetting"/>
     <Action name="enable_highlighting"/>
-    <Action name="enable_tabcompletion"/>
+    <Action name="enable_completion"/>
     <Action name="enable_expression_numbers"/>
   </Menu>
   <Menu name="worksheet"><text>&amp;Worksheet</text>

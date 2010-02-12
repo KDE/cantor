@@ -138,7 +138,7 @@ private:
     KAction* m_save;
     KToggleAction* m_typeset;
     KToggleAction* m_highlight;
-    KToggleAction* m_tabcompletion;
+    KToggleAction* m_completion;
     KToggleAction* m_exprNumbering;
     KAction* m_showBackendHelp;
 

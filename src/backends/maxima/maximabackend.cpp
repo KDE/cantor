@@ -68,7 +68,7 @@ Cantor::Backend::Capabilities MaximaBackend::capabilities() const
         Cantor::Backend::LaTexOutput |
         Cantor::Backend::InteractiveMode|
         Cantor::Backend::SyntaxHighlighting|
-        Cantor::Backend::TabCompletion |
+        Cantor::Backend::Completion |
         Cantor::Backend::SyntaxHelp;
 }
 

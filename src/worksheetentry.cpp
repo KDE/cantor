@@ -23,7 +23,7 @@
 #include "lib/expression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
-#include "lib/tabcompletionobject.h"
+#include "lib/completionobject.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/session.h"
@@ -46,7 +46,7 @@ WorksheetEntry::WorksheetEntry( QTextCursor position,Worksheet* parent ) : QObje
 {
     m_expression=0;
     m_worksheet=parent;
-    m_tabCompletionObject=0;
+    m_completionObject=0;
     m_syntaxHelpObject=0;
 
     QTextTableFormat tableFormat;
@@ -233,42 +233,42 @@ bool WorksheetEntry::isEmpty()
     return text.trimmed().isEmpty();
 }
 
-void WorksheetEntry::setTabCompletion(Cantor::TabCompletionObject* tc)
+void WorksheetEntry::setCompletion(Cantor::CompletionObject* tc)
 {
-    if(m_tabCompletionObject)
-        m_tabCompletionObject->deleteLater();
+    if(m_completionObject)
+        m_completionObject->deleteLater();
 
-    m_tabCompletionObject=tc;
-    connect(tc, SIGNAL(done()), this, SLOT(showTabCompletions()));
+    m_completionObject=tc;
+    connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
 }
 
-void WorksheetEntry::showTabCompletions()
+void WorksheetEntry::showCompletions()
 {
-    QString completion=m_tabCompletionObject->makeCompletion(m_tabCompletionObject->command());
+    QString completion=m_completionObject->makeCompletion(m_completionObject->command());
     kDebug()<<"completion: "<<completion;
-    kDebug()<<"showing "<<m_tabCompletionObject->allMatches();
+    kDebug()<<"showing "<<m_completionObject->allMatches();
 
     completeCommandTo(completion);
 
-    if(m_tabCompletionObject->hasMultipleMatches())
+    if(m_completionObject->hasMultipleMatches())
     {
         QToolTip::showText(QPoint(), QString(), m_worksheet);
         switch(Settings::self()->completionStyle())
         {
             case Settings::PopupCompletion:
             {
-                m_tabCompletionBox=new KCompletionBox(m_worksheet);
-                m_tabCompletionBox->setItems(m_tabCompletionObject->allMatches());
-                m_tabCompletionBox->setTabHandling(true);
-                m_tabCompletionBox->setActivateOnSelect(true);
-                connect(m_tabCompletionBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
-                connect(m_worksheet, SIGNAL(textChanged()), m_tabCompletionBox, SLOT(deleteLater()));
+                m_completionBox=new KCompletionBox(m_worksheet);
+                m_completionBox->setItems(m_completionObject->allMatches());
+                m_completionBox->setTabHandling(true);
+                m_completionBox->setActivateOnSelect(true);
+                connect(m_completionBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
+                connect(m_worksheet, SIGNAL(textChanged()), m_completionBox, SLOT(deleteLater()));
 
                 QRect rect=m_worksheet->cursorRect();
                 kDebug()<<"cursor is within: "<<rect;
                 const QPoint popupPoint=rect.bottomLeft();
-                m_tabCompletionBox->popup();
-                m_tabCompletionBox->move(m_worksheet->mapToGlobal(popupPoint));
+                m_completionBox->popup();
+                m_completionBox->move(m_worksheet->mapToGlobal(popupPoint));
                 break;
             }
             case Settings::InlineCompletion:
@@ -294,7 +294,7 @@ void WorksheetEntry::showTabCompletions()
 
                 int count=0;
                 QString html="<table>";
-                const QStringList& matches=m_tabCompletionObject->allMatches();
+                const QStringList& matches=m_completionObject->allMatches();
                 foreach(const QString& item, matches)
                 {
                     html+="<tr><td>"+item+"</td></tr>";
@@ -347,15 +347,15 @@ void WorksheetEntry::showTabCompletions()
 bool WorksheetEntry::isShowingCompletionPopup()
 {
 
-    return m_tabCompletionBox&&m_tabCompletionBox->isVisible();
+    return m_completionBox&&m_completionBox->isVisible();
 }
 
-void WorksheetEntry::applySelectedTabCompletion()
+void WorksheetEntry::applySelectedCompletion()
 {
-    QListWidgetItem* item=m_tabCompletionBox->currentItem();
+    QListWidgetItem* item=m_completionBox->currentItem();
     if(item)
         completeCommandTo(item->text());
-    m_tabCompletionBox->hide();
+    m_completionBox->hide();
 }
 
 void WorksheetEntry::completeCommandTo(const QString& completion)
@@ -364,7 +364,7 @@ void WorksheetEntry::completeCommandTo(const QString& completion)
     QTextCursor cursor=m_worksheet->textCursor();
     if(!isInCommandCell(cursor)) return;
 
-    QTextCursor beginC=m_worksheet->document()->find(m_tabCompletionObject->command(), cursor, QTextDocument::FindBackward);
+    QTextCursor beginC=m_worksheet->document()->find(m_completionObject->command(), cursor, QTextDocument::FindBackward);
     beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
     beginC.insertHtml(completion);
 }
@@ -533,10 +533,10 @@ void WorksheetEntry::checkForSanity()
 
 void WorksheetEntry::removeContextHelp()
 {
-    if(m_tabCompletionObject)
-        m_tabCompletionObject->deleteLater();
+    if(m_completionObject)
+        m_completionObject->deleteLater();
 
-    m_tabCompletionObject=0;
+    m_completionObject=0;
     if(m_contextHelpCell.isValid())
     {
         m_table->removeRows(m_contextHelpCell.row(), 1);

@@ -38,7 +38,7 @@ class NullSession : public Cantor::Session
     void interrupt();
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::TabCompletionObject* tabCompletionFor(const QString& cmd);
+    Cantor::CompletionObject* completionFor(const QString& cmd);
 
   private slots:
     void expressionFinished();

@@ -87,9 +87,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QCheckBox" name="kcfg_TabCompletionDefault">
+         <widget class="QCheckBox" name="kcfg_CompletionDefault">
           <property name="text">
-           <string>Enable Tab Completion</string>
+           <string>Enable Completion</string>
           </property>
          </widget>
         </item>

@@ -56,7 +56,7 @@ class SageSession : public Cantor::Session
 
     void setTypesettingEnabled(bool enable);
 
-    Cantor::TabCompletionObject* tabCompletionFor(const QString& command);
+    Cantor::CompletionObject* completionFor(const QString& command);
     QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
 

@@ -62,7 +62,7 @@ class MaximaSession : public Cantor::Session
 
     void setTypesettingEnabled(bool enable);
 
-    Cantor::TabCompletionObject* tabCompletionFor(const QString& command);
+    Cantor::CompletionObject* completionFor(const QString& command);
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
     QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 

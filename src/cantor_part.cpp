@@ -119,10 +119,10 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     actionCollection()->addAction("enable_highlighting", m_highlight);
     connect(m_highlight, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableHighlighting(bool)));
 
-    m_tabcompletion=new KToggleAction(i18n("Tab Completion"), actionCollection());
-    m_tabcompletion->setChecked(Settings::self()->tabCompletionDefault());
-    actionCollection()->addAction("enable_tabcompletion", m_tabcompletion);
-    connect(m_tabcompletion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableTabCompletion(bool)));
+    m_completion=new KToggleAction(i18n("Completion"), actionCollection());
+    m_completion->setChecked(Settings::self()->completionDefault());
+    actionCollection()->addAction("enable_completion", m_completion);
+    connect(m_completion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableCompletion(bool)));
 
     m_exprNumbering=new KToggleAction(i18n("Line Numbers"), actionCollection());
     m_exprNumbering->setChecked(Settings::self()->expressionNumberingDefault());
@@ -158,6 +158,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     showEditor->setChecked(false);
     actionCollection()->addAction("show_editor", showEditor);
     connect(showEditor, SIGNAL(toggled(bool)), this, SLOT(showScriptEditor(bool)));
+
+    KAction* showCompletion=new KAction(i18n("Show Completion"), actionCollection());
+    actionCollection()->addAction("show_completion", showCompletion);
+    showCompletion->setShortcut(Qt::Key_Tab); //Qt::CTRL + Qt::Key_Space);
+    connect(showCompletion, SIGNAL(triggered()), m_worksheet, SLOT(showCompletion()));
 
 
     // set our XML-UI resource file
@@ -450,7 +455,7 @@ void CantorPart::adjustGuiToSession()
 #else
     m_typeset->setVisible(false);
 #endif
-    m_tabcompletion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::TabCompletion));
+    m_completion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::Completion));
 
     //this is 0 on the first call
     if(m_showBackendHelp)

@@ -61,12 +61,12 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
         LaTexOutput = 0x1,         ///< it can output results as LaTeX code
         InteractiveMode = 0x2,     /**< it supports an interactive workflow. (It means a command
                                         can ask for additional input while running
-                                    */
+				   */
         SyntaxHighlighting = 0x4,  ///< it offers a custom Syntax Highlighter
-        TabCompletion = 0x8,       ///< it offers completion of partially typed commands
+        Completion = 0x8,          ///< it offers completion of partially typed commands
         SyntaxHelp = 0x10          /**< it offers help about a commands syntax, that will
                                         be shown in a tooltip
-                                    */
+				   */
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 

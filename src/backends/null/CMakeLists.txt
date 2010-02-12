@@ -2,7 +2,7 @@ set( NullBackend_SRCS
  nullbackend.cpp  
  nullsession.cpp
  nullexpression.cpp
- nulltabcompletionobject.cpp
+ nullcompletionobject.cpp
 )
 
 kde4_add_plugin( cantor_nullbackend ${NullBackend_SRCS} )

@@ -37,7 +37,7 @@ namespace Cantor
 {
 class Backend;
 class SessionPrivate;
-class TabCompletionObject;
+class CompletionObject;
 class SyntaxHelpObject;
 
 /**
@@ -102,14 +102,14 @@ class CANTOR_EXPORT Session : public QObject
 
     /**
      * Returns tab-completion, for this command/command-part.
-     * The return type is a TabCompletionObject. The fetching
+     * The return type is a CompletionObject. The fetching
      * of the completions works asynchronously, you'll have to 
      * listen to the done() Signal of the returned object
      * @param cmd The partial command that should be completed
-     * @return a TabCompletion object, representing this completion
-     * @see TabCompletionObject
+     * @return a Completion object, representing this completion
+     * @see CompletionObject
      */
-    virtual TabCompletionObject* tabCompletionFor(const QString& cmd);
+    virtual CompletionObject* completionFor(const QString& cmd);
 
     /**
      * Returns Syntax help, for this command.

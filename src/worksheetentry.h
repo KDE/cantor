@@ -29,7 +29,7 @@
 namespace Cantor{
     class Expression;
     class Result;
-    class TabCompletionObject;
+    class CompletionObject;
     class SyntaxHelpObject;
 }
 class Worksheet;
@@ -61,7 +61,7 @@ class WorksheetEntry : public QObject
 
     bool isEmpty();
 
-    void setTabCompletion(Cantor::TabCompletionObject* tc);
+    void setCompletion(Cantor::CompletionObject* tc);
     void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
     QTextTable* table();
@@ -93,9 +93,9 @@ class WorksheetEntry : public QObject
     void updatePrompt();
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
-    void showTabCompletions();
+    void showCompletions();
     void completeCommandTo(const QString& completion);
-    void applySelectedTabCompletion();
+    void applySelectedCompletion();
     void showSyntaxHelp();
   private slots:
     void invalidate();
@@ -110,8 +110,8 @@ class WorksheetEntry : public QObject
     Cantor::Expression* m_expression;
     Worksheet* m_worksheet;
 
-    Cantor::TabCompletionObject* m_tabCompletionObject;
-    QPointer<KCompletionBox> m_tabCompletionBox;
+    Cantor::CompletionObject* m_completionObject;
+    QPointer<KCompletionBox> m_completionBox;
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 };
 

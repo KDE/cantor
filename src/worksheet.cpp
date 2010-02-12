@@ -94,7 +94,7 @@ void Worksheet::loginToSession()
         m_session->login();
 
         enableHighlighting(Settings::self()->highlightDefault());
-        enableTabCompletion(Settings::self()->tabCompletionDefault());
+        enableCompletion(Settings::self()->completionDefault());
         enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
 #ifdef WITH_EPS
         session()->setTypesettingEnabled(Settings::self()->typesetDefault());
@@ -118,8 +118,28 @@ bool Worksheet::event(QEvent* event)
             e->ignore();
             return false;
         }
-    }
 
+        if ( e->key() == Qt::Key_Tab && m_completionEnabled )
+        {
+            WorksheetEntry* current=currentEntry();
+            // special tab handling here
+            if (current)
+            {
+                //get the current line of the entry. If it's empty, do a regular tab(indent),
+                //otherwise check for tab completion (if supported by the backend)
+                const QString line=current->currentLine(textCursor()).trimmed();
+
+                if(line.isEmpty())
+                {
+                    return KTextEdit::event(e);
+                }else
+                {
+                    e->ignore();
+                    return false;
+                }
+            }
+        }
+    }
     return KTextEdit::event(event);
 }
 
@@ -133,27 +153,6 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
 
     QTimer::singleShot(0, this, SLOT(moveToClosestValidCursor()));
 
-    if ( event->key() == Qt::Key_Tab &&m_tabCompletionEnabled )
-    {
-        // special tab handling here
-        if (current)
-        {
-            //get the current line of the entry. If it's empty, do a regular tab(indent),
-            //otherwise check for tab completion (if supported by the backend)
-            const QString line=current->currentLine(textCursor()).trimmed();
-
-            if(line.isEmpty())
-            {
-                KTextEdit::keyPressEvent(event);
-            }else
-            {
-                Cantor::TabCompletionObject* tco=m_session->tabCompletionFor(line);
-                if(tco)
-                    current->setTabCompletion(tco);
-            }
-        }
-
-    }else
     if ( (event->modifiers()==Qt::ShiftModifier) && (event->key() == Qt::Key_Delete)) //TODO: make configurable
     {
         removeCurrentEntry();
@@ -165,7 +164,7 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
         //otherwise, just do a normal Enter(line break)
         WorksheetEntry* entry=currentEntry();
         if(entry&&entry->isShowingCompletionPopup())
-            entry->applySelectedTabCompletion();
+            entry->applySelectedCompletion();
         else
             KTextEdit::keyPressEvent(event);
     }else
@@ -402,6 +401,24 @@ void Worksheet::evaluateEntry(WorksheetEntry* entry)
     emit modified();
 }
 
+void Worksheet::showCompletion()
+{
+    WorksheetEntry* current=currentEntry();
+    //get the current line of the entry. If it's empty, do a regular tab(indent),
+    //otherwise check for tab completion (if supported by the backend)
+    const QString line=current->currentLine(textCursor()).trimmed();
+
+    if(line.isEmpty())
+    {
+        return;
+    }else
+    {
+        Cantor::CompletionObject* tco=m_session->completionFor(line);
+        if(tco)
+            current->setCompletion(tco);
+    }
+}
+
 WorksheetEntry* Worksheet::currentEntry()
 {
     return entryAt(textCursor());
@@ -548,9 +565,9 @@ void Worksheet::enableHighlighting(bool highlight)
     }
 }
 
-void Worksheet::enableTabCompletion(bool enable)
+void Worksheet::enableCompletion(bool enable)
 {
-    m_tabCompletionEnabled=enable;
+    m_completionEnabled=enable;
 }
 
 Cantor::Session* Worksheet::session()

@@ -20,7 +20,7 @@
 
 #include "maximasession.h"
 #include "maximaexpression.h"
-#include "maximatabcompletionobject.h"
+#include "maximacompletionobject.h"
 #include "maximasyntaxhelpobject.h"
 #include "maximahighlighter.h"
 
@@ -586,9 +586,9 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     Cantor::Session::setTypesettingEnabled(enable);
 }
 
-Cantor::TabCompletionObject* MaximaSession::tabCompletionFor(const QString& command)
+Cantor::CompletionObject* MaximaSession::completionFor(const QString& command)
 {
-    return new MaximaTabCompletionObject(command, this);
+    return new MaximaCompletionObject(command, this);
 }
 
 Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)

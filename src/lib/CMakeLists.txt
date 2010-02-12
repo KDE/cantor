@@ -14,7 +14,7 @@ set( cantor_LIB_SRCS
   animationresult.cpp
   extension.cpp
   assistant.cpp
-  tabcompletionobject.cpp
+  completionobject.cpp
   syntaxhelpobject.cpp
   defaulthighlighter.cpp
 )

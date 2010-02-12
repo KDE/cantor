@@ -5,7 +5,7 @@ set( KAlgebraBackend_SRCS
  kalgebrabackend.cpp  
  kalgebrasession.cpp
  kalgebraexpression.cpp
- kalgebratabcompletionobject.cpp
+ kalgebracompletionobject.cpp
 )
 
 kde4_add_plugin( cantor_kalgebrabackend ${KAlgebraBackend_SRCS} )

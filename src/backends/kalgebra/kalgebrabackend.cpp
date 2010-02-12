@@ -42,7 +42,7 @@ Cantor::Session* KAlgebraBackend::createSession()
 
 Cantor::Backend::Capabilities KAlgebraBackend::capabilities() const
 {
-    return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
+    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
 }
 
 KUrl KAlgebraBackend::helpUrl() const

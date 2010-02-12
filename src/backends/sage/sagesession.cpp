@@ -20,7 +20,7 @@
 
 #include "sagesession.h"
 #include "sageexpression.h"
-#include "sagetabcompletionobject.h"
+#include "sagecompletionobject.h"
 #include "sagehighlighter.h"
 
 #include <kdebug.h>
@@ -288,9 +288,9 @@ void SageSession::setTypesettingEnabled(bool enable)
         evaluateExpression("sage.misc.latex.pretty_print_default(false);_;__IP.outputcache()", Cantor::Expression::DeleteOnFinish);
 }
 
-Cantor::TabCompletionObject* SageSession::tabCompletionFor(const QString& command)
+Cantor::CompletionObject* SageSession::completionFor(const QString& command)
 {
-    return new SageTabCompletionObject(command, this);
+    return new SageCompletionObject(command, this);
 }
 
 QSyntaxHighlighter* SageSession::syntaxHighlighter(QTextEdit* parent)

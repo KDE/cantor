@@ -7,7 +7,7 @@ set( MaximaBackend_SRCS
  maximaextensions.cpp
  maximahighlighter.cpp
  maximakeywords.cpp
- maximatabcompletionobject.cpp
+ maximacompletionobject.cpp
  maximasyntaxhelpobject.cpp
 )
 

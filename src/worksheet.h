@@ -58,8 +58,10 @@ class Worksheet : public KTextEdit
     void interrupt();
     void interruptCurrentExpression();
 
+    void showCompletion();
+
     void enableHighlighting(bool highlight);
-    void enableTabCompletion(bool enable);
+    void enableCompletion(bool enable);
     void enableExpressionNumbering(bool enable);
 
     void zoomIn(int range=1);
@@ -100,7 +102,7 @@ class Worksheet : public KTextEdit
     ResultProxy* m_proxy;
     QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;
-    bool m_tabCompletionEnabled;
+    bool m_completionEnabled;
     bool m_showExpressionIds;
     bool m_loginFlag;
 };

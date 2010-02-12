@@ -65,7 +65,7 @@ Cantor::Session* SageBackend::createSession()
 Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of SageSession";
-    return Cantor::Backend::LaTexOutput|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::TabCompletion;
+    return Cantor::Backend::LaTexOutput|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
 }
 
 bool SageBackend::requirementsFullfilled() const
