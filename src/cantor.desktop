@@ -39,6 +39,7 @@ GenericName[pt_BR]=Interface do KDE para software matemático
 GenericName[sv]=KDE-gränssnitt till matematisk programvara
 GenericName[uk]=Графічна оболонка KDE до математичного програмного забезпечення
 GenericName[x-test]=xxKDE Frontend to Mathematical Softwarexx
+GenericName[zh_CN]=数学软件的 KDE 前端
 Terminal=false
 Categories=Qt;KDE;Education;Math;
 MimeType=application/x-cantor;
