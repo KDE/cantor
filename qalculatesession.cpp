@@ -18,7 +18,7 @@
 
 #include "qalculatesession.h"
 #include "qalculateexpression.h"
-#include "qalculatetabcompletionobject.h"
+#include "qalculatecompletionobject.h"
 #include "qalculatehighlighter.h"
 
 #include <QTextEdit>
@@ -71,9 +71,9 @@ Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Can
     return expr;
 }
 
-Cantor::TabCompletionObject* QalculateSession::tabCompletionFor(const QString& command)
+Cantor::CompletionObject* QalculateSession::completionFor(const QString& command)
 {
-    return new QalculateTabCompletionObject(command, this);
+    return new QalculateCompletionObject(command, this);
 }
 
 Cantor::SyntaxHelpObject* QalculateSession::syntaxHelpFor(const QString& cmd)

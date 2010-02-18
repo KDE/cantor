@@ -16,21 +16,21 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
-#ifndef QALCULATE_TABCOMPLETIONOBJECT_H
-#define QALCULATE_TABCOMPLETIONOBJECT_H
+#ifndef QALCULATE_COMPLETIONOBJECT_H
+#define QALCULATE_COMPLETIONOBJECT_H
 
-#include "tabcompletionobject.h"
+#include "completionobject.h"
 
 class QalculateSession;
 
-class QalculateTabCompletionObject : public Cantor::TabCompletionObject
+class QalculateCompletionObject : public Cantor::CompletionObject
 {
     public:
-        QalculateTabCompletionObject( const QString& command, QalculateSession* session);
-        ~QalculateTabCompletionObject();
+        QalculateCompletionObject( const QString& command, QalculateSession* session);
+        ~QalculateCompletionObject();
 
     protected slots:
         void fetchCompletions();
 };
 
-#endif /* _NULLTABCOMPLETIONOBJECT_H */
+#endif /* _NULLCOMPLETIONOBJECT_H */

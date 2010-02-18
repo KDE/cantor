@@ -16,7 +16,7 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
-#include "qalculatetabcompletionobject.h"
+#include "qalculatecompletionobject.h"
 
 #include <QStringList>
 
@@ -28,8 +28,8 @@
 
 #include <KDebug>
 
-QalculateTabCompletionObject::QalculateTabCompletionObject(const QString& command, QalculateSession* session)
-    : Cantor::TabCompletionObject(command, session)
+QalculateCompletionObject::QalculateCompletionObject(const QString& command, QalculateSession* session)
+    : Cantor::CompletionObject(command, session)
 {
     //We only want identifiers
     int i;
@@ -41,11 +41,11 @@ QalculateTabCompletionObject::QalculateTabCompletionObject(const QString& comman
     }
 }
 
-QalculateTabCompletionObject::~QalculateTabCompletionObject()
+QalculateCompletionObject::~QalculateCompletionObject()
 {
 }
 
-void QalculateTabCompletionObject::fetchCompletions()
+void QalculateCompletionObject::fetchCompletions()
 {
     QStringList comp;
     foreach ( ExpressionItem* item, CALCULATOR->variables ) {

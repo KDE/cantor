@@ -41,6 +41,11 @@ QalculateBackend::~QalculateBackend()
     CALCULATOR->abort();
 }
 
+QString QalculateBackend::id() const
+{
+    return "qalculate";
+}
+
 Cantor::Session* QalculateBackend::createSession()
 {
     return new QalculateSession(this);
@@ -48,8 +53,8 @@ Cantor::Session* QalculateBackend::createSession()
 
 Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 {
-    return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHighlighting;
-//     return Cantor::Backend::TabCompletion | Cantor::Backend::SyntaxHelp;
+    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting;
+//     return Cantor::Backend::Completion | Cantor::Backend::SyntaxHelp;
 }
 
 KUrl QalculateBackend::helpUrl() const

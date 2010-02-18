@@ -29,6 +29,8 @@ public:
     explicit QalculateBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~QalculateBackend();
 
+    QString id() const;
+
     virtual Cantor::Session *createSession();
     virtual Cantor::Backend::Capabilities capabilities() const;
     virtual KUrl helpUrl() const;
