@@ -23,6 +23,7 @@
     <Action name="evaluate_worksheet"/>
     <Action name="evaluate_current"/>
     <Action name="insert_entry"/>
+    <Action name="remove_current"/>
   </Menu>
   <Menu name="help">
     <Action name="backend_help"/>

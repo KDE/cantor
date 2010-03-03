@@ -144,6 +144,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     actionCollection()->addAction("insert_entry",  insertEntry);
     connect(insertEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertEntry()));
 
+    KAction* removeCurrent=new KAction(i18n("Remove current Entry"), actionCollection());
+    removeCurrent->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
+    actionCollection()->addAction("remove_current", removeCurrent);
+    connect(removeCurrent, SIGNAL(triggered()), m_worksheet, SLOT(removeCurrentEntry()));
+
     m_showBackendHelp=new KAction(i18n("Show %1 Help", b->name()) , actionCollection());
     m_showBackendHelp->setIcon(KIcon("help-contents"));
     actionCollection()->addAction("backend_help", m_showBackendHelp);

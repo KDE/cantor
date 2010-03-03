@@ -111,14 +111,20 @@ bool Worksheet::event(QEvent* event)
     if (event->type() == QEvent::ShortcutOverride)
     {
         QKeyEvent *e = static_cast<QKeyEvent *>( event );
-        //ignore the Shift+Return shortcut, so it can be used as a Shortcut for a KAction
+        //ignore the following shortcuts, so they can be used as a Shortcut for a KAction:
+        //Shift+Return
+        //Tab (only if completion is enabled)
+        //Shift+Delete
         if (e->modifiers() == Qt::ShiftModifier&&
             (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter))
         {
             e->ignore();
             return false;
-        }
-
+        }else if ( (e->modifiers()==Qt::ShiftModifier) && (e->key() == Qt::Key_Delete))
+        {
+            e->ignore();
+            return false;
+        }else
         if ( e->key() == Qt::Key_Tab && m_completionEnabled )
         {
             WorksheetEntry* current=currentEntry();
@@ -153,10 +159,6 @@ void Worksheet::keyPressEvent(QKeyEvent* event)
 
     QTimer::singleShot(0, this, SLOT(moveToClosestValidCursor()));
 
-    if ( (event->modifiers()==Qt::ShiftModifier) && (event->key() == Qt::Key_Delete)) //TODO: make configurable
-    {
-        removeCurrentEntry();
-    }else
     if ( (event->modifiers()==Qt::NoModifier) && (event->key() == Qt::Key_Enter ||event->key() == Qt::Key_Return))
     {
         //If the current Entry is showing a popup completion box,

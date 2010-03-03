@@ -73,6 +73,8 @@ class Worksheet : public KTextEdit
 
     void gotResult();
 
+    void removeCurrentEntry();
+
   signals:
     void modified();
     void sessionChanged();
@@ -89,7 +91,6 @@ class Worksheet : public KTextEdit
   private slots:
     void loginToSession();
     void removeEntry(QObject* object);
-    void removeCurrentEntry();
     void checkEntriesForSanity();
     void moveToClosestValidCursor();
   private:
