@@ -1,5 +1,7 @@
 project(cantor)
 
+find_package(LibAttica REQUIRED)
+
 if(NOT WIN32)
   macro_optional_find_package(LibSpectre)
   macro_log_feature(LIBSPECTRE_FOUND "libspectre" "A PostScript rendering library" "http://libspectre.freedesktop.org/wiki/" FALSE "${LIBSPECTRE_MINIMUM_VERSION}" "Support for rendering EPS files in Cantor.")
