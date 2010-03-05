@@ -1,5 +1,8 @@
 project(cantor)
 
+macro_optional_find_package(R)
+macro_log_feature(R_FOUND "R" "A free software environment for statistical computing and graphics" "http://www.r-project.org/" FALSE "" "Backend to use R with Cantor.")
+
 if(NOT WIN32)
   macro_optional_find_package(LibSpectre)
   macro_log_feature(LIBSPECTRE_FOUND "libspectre" "A PostScript rendering library" "http://libspectre.freedesktop.org/wiki/" FALSE "${LIBSPECTRE_MINIMUM_VERSION}" "Support for rendering EPS files in Cantor.")
