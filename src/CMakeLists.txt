@@ -43,8 +43,9 @@ install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES cantor_maxima.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES cantor_sage.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES cantor_kalgebra.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_r.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-
+if (R_FOUND)
+  install( FILES cantor_r.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+endif (R_FOUND)
 
 #########################################################################
 # KPART SECTION
