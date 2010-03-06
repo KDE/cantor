@@ -69,6 +69,7 @@ class Worksheet : public KTextEdit
 
     void save(const QString& filename);
     void savePlain(const QString& filename);
+    void saveLatex(const QString& filename, bool exportImages);
     void load(const QString& filename);
 
     void gotResult();

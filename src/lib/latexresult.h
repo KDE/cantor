@@ -49,6 +49,7 @@ class CANTOR_EXPORT LatexResult : public EpsResult
     QString code();
 
     QString toHtml();
+    QString toLatex();
     QVariant data();
 
     QDomElement toXml(QDomDocument& doc);

@@ -56,6 +56,14 @@ class CANTOR_EXPORT Result
     virtual QString toHtml() = 0;
 
     /**
+     * returns latex code, that represents this result
+     * e.g. a includegraphics command for images
+     * it falls back to toHtml if not implemented
+     * @return latex code representing this result
+     */
+    virtual QString toLatex();
+
+    /**
      * returns data associated with this result
      * (text/images/etc)
      * @return data associated with this result

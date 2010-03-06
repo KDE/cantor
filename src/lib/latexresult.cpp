@@ -103,6 +103,11 @@ QString LatexResult::toHtml()
     }
 }
 
+QString LatexResult::toLatex()
+{
+    return code();
+}
+
 QDomElement LatexResult::toXml(QDomDocument& doc)
 {
     kDebug()<<"saving textresult "<<toHtml();

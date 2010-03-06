@@ -4,6 +4,7 @@
   <Menu name="file">
     <Action name="file_save"/>
     <Action name="file_save_as"/>
+    <Action name="file_export_latex"/>
     <Action name="file_publish_worksheet"/>
     <Separator/>
     <Action name="file_print"/>

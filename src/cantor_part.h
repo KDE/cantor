@@ -96,6 +96,7 @@ protected:
 
 protected slots:
     void fileSaveAs();
+    void exportToLatex();
     void evaluateOrInterrupt();
     void restartBackend();
     void enableTypesetting(bool enable);

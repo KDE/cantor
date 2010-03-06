@@ -99,6 +99,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
 
+    KAction* latexExport=new KAction(i18n("Export to LaTex"), actionCollection());
+    actionCollection()->addAction("file_export_latex", latexExport);
+    latexExport->setIcon(KIcon("document-export"));
+    connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
+
     KStandardAction::print(this, SLOT(print()), actionCollection());
 
     KStandardAction::zoomIn(m_worksheet, SLOT(zoomIn()), actionCollection());
@@ -280,6 +285,20 @@ void CantorPart::fileSaveAs()
         saveAs(file_name);
 
     updateCaption();
+}
+
+void CantorPart::exportToLatex()
+{
+    // this slot is called whenever the File->Save As menu is selected,
+    QString filter=i18n("*.tex|LaTex Document");
+
+    QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
+
+    if (file_name.isEmpty() == false)
+    {
+        int exportImages=KMessageBox::questionYesNo(widget(), i18n("Do you also want to export the images?"), i18n("Question - Cantor"));
+        m_worksheet->saveLatex( file_name , exportImages==KMessageBox::Yes);
+    }
 }
 
 void CantorPart::guiActivateEvent( KParts::GUIActivateEvent * event )

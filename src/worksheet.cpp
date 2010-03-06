@@ -648,6 +648,67 @@ void Worksheet::savePlain(const QString& filename)
     file.close();
 }
 
+void Worksheet::saveLatex(const QString& filename,  bool exportImages)
+{
+    kDebug()<<"exporting to Latex: "<<filename;
+    kDebug()<<(exportImages ? "": "Not ")<<"exporting images";
+    QFile file(filename);
+    if(!file.open(QIODevice::WriteOnly))
+    {
+        KMessageBox::error(this, i18n("Error saving file %1", filename), i18n("Error - Cantor"));
+        return;
+    }
+
+    QTextStream stream(&file);
+
+    stream<<
+        "\\documentclass[a4paper,10pt,fleqn]{article}\n" \
+        "\\usepackage{fullpage}\n" \
+        "\\usepackage{graphicx}\n" \
+        "\\usepackage[utf8]{inputenc} \n"\
+        "\\usepackage{amsmath,amssymb} \n" \
+        "\n\n"\
+        "\\begin{document}\n";
+    stream<<endl;
+
+    foreach(WorksheetEntry * const entry, m_entries)
+    {
+        const QString& cmd=entry->command();
+
+        stream<<"\\noindent ";
+        stream<<QString(" { \\large \\bf \\begin{verbatim} %1 \\end{verbatim}  }\n\n").arg(cmd);
+
+        if(entry->expression()&&entry->expression()->result())
+            stream<<entry->expression()->result()->toLatex();
+
+        stream<<endl<<endl;
+    }
+
+    stream<<endl;
+    stream<<"\\end{document}\n";
+
+    file.close();
+
+    if(exportImages)
+    {
+        foreach( WorksheetEntry* entry, m_entries )
+        {
+            if ( entry->expression() )
+            {
+                Cantor::Result* result=entry->expression()->result();
+                if(!result)
+                    continue;
+                KUrl dest(filename);
+                dest.setFileName(result->url().fileName());
+                kDebug()<<"saving image to "<<dest;
+                if(result->type()==Cantor::ImageResult::Type||result->type()==Cantor::EpsResult::Type)
+                    result->save(dest.toLocalFile());
+            }
+        }
+    }
+
+}
+
 void Worksheet::load(const QString& filename )
 {
     // m_file is always local so we can use QFile on it

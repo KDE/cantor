@@ -55,6 +55,11 @@ QString ImageResult::toHtml()
     return QString("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
 }
 
+QString ImageResult::toLatex()
+{
+    return QString(" \\begin{center} \n \\includegraphics[width=12cm]{%1} \n \\end{center}").arg(d->url.fileName());
+}
+
 QVariant ImageResult::data()
 {
     if(d->img.isNull())

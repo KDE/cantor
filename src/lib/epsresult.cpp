@@ -51,6 +51,11 @@ QString EpsResult::toHtml()
     return QString("<img src=\"%1\" />").arg(d->url.url());
 }
 
+QString EpsResult::toLatex()
+{
+    return QString(" \\begin{center} \n \\includegraphics[width=12cm]{%1}\n \\end{center}").arg(d->url.fileName());
+}
+
 QVariant EpsResult::data()
 {
     return QVariant(d->url);

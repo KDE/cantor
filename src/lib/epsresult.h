@@ -37,6 +37,7 @@ class CANTOR_EXPORT EpsResult : public Result
     ~EpsResult();
 
     QString toHtml();
+    QString toLatex();
     QVariant data();
     KUrl url();
 

@@ -43,6 +43,11 @@ KUrl Result::url()
     return KUrl();
 }
 
+QString Result::toLatex()
+{
+    return toHtml();
+}
+
 void Result::saveAdditionalData(KZip* archive)
 {
     Q_UNUSED(archive)
