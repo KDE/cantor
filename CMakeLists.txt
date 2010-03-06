@@ -1,7 +1,5 @@
 project(cantor)
 
-find_package(LibAttica REQUIRED)
-
 macro_optional_find_package(R)
 macro_log_feature(R_FOUND "R" "A free software environment for statistical computing and graphics" "http://www.r-project.org/" FALSE "" "Backend to use R with Cantor.")
 

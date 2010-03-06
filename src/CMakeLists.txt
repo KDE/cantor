@@ -4,7 +4,6 @@
 add_subdirectory(lib)
 
 include_directories( lib ${CMAKE_CURRENT_BINARY_DIR}/lib)
-include_directories(${LIBATTICA_INCLUDE_DIR})
 if(LIBSPECTRE_FOUND)
    include_directories(${LIBSPECTRE_INCLUDE_DIR})
 endif(LIBSPECTRE_FOUND)
