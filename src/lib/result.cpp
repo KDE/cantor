@@ -21,6 +21,8 @@
 #include "result.h"
 using namespace Cantor;
 
+#include <QRegExp>
+
 class Cantor::ResultPrivate
 {
   public:
@@ -45,7 +47,12 @@ KUrl Result::url()
 
 QString Result::toLatex()
 {
-    return toHtml();
+    QString html=toHtml();
+    //replace linebreaks
+    html.replace(QRegExp("<br/>[\n]"), "\n");
+    //remove all the unknown tags
+    html.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+    return QString("\\begin{verbatim} %1 \\end{verbatim}").arg(html);
 }
 
 void Result::saveAdditionalData(KZip* archive)
