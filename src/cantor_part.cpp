@@ -507,7 +507,7 @@ void CantorPart::publishWorksheet()
     // upload
     //HACK: use different .knsrc files for each category
     //remove this once KNS3 gains the ability to select category
-    KNS3::UploadDialog dialog(QString("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->name().toLower()), widget());
+    KNS3::UploadDialog dialog(QString("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->id().toLower()), widget());
     dialog.setUploadFile(url());
     dialog.exec();
 }
