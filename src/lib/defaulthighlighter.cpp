@@ -72,6 +72,7 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 
 DefaultHighlighter::~ DefaultHighlighter()
 {
+    delete d;
 }
 
 void DefaultHighlighter::highlightBlock(const QString& text)
