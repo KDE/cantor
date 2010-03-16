@@ -38,7 +38,7 @@ Assistant::Assistant(QObject* parent) : QObject(parent), KXMLGUIClient(dynamic_c
 
 Assistant::~Assistant()
 {
-
+    delete d;
 }
 
 void Assistant::setBackend(Cantor::Backend* backend)
