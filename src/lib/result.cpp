@@ -37,7 +37,7 @@ Result::Result() : d(new ResultPrivate)
 
 Result::~Result()
 {
-
+    delete d;
 }
 
 KUrl Result::url()

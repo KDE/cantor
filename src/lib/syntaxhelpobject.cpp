@@ -44,7 +44,7 @@ SyntaxHelpObject::SyntaxHelpObject(const QString& command, Cantor::Session* sess
 
 SyntaxHelpObject::~SyntaxHelpObject()
 {
-
+    delete d;
 }
 
 QString SyntaxHelpObject::toHtml()

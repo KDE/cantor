@@ -53,7 +53,8 @@ AnimationResult::AnimationResult( const KUrl& url, const QString& alt ) : d(new 
 
 AnimationResult::~AnimationResult()
 {
-
+    delete d->movie;
+    delete d;
 }
 
 QString AnimationResult::toHtml()

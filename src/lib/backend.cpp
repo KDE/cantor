@@ -48,7 +48,7 @@ Backend::Backend(QObject* parent, const QList<QVariant> args) : QObject(parent),
 
 Backend::~Backend()
 {
-
+    delete d;
 }
 
 QString Backend::name() const
