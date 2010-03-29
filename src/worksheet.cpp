@@ -106,6 +106,21 @@ void Worksheet::loginToSession()
 
 }
 
+void Worksheet::print( QPrinter* printer )
+{
+    m_proxy->useHighResolution(true);
+    foreach(WorksheetEntry* e, m_entries)
+        e->updateResult();
+
+
+    KTextEdit::print(printer);
+
+    m_proxy->useHighResolution(false);
+    foreach(WorksheetEntry* e, m_entries)
+        e->updateResult();
+
+}
+
 bool Worksheet::event(QEvent* event)
 {
     if (event->type() == QEvent::ShortcutOverride)

@@ -45,13 +45,17 @@ class ResultProxy : public QObject
 
     void setScale(qreal scale);
     void scale(qreal value);
+    qreal scale();
+
+    void useHighResolution(bool use);
   private:
     QTextCharFormat renderEps(Cantor::Result* result);
     QTextCharFormat renderGif(Cantor::Result* result);
 
-  private:
+  private:    
     QTextDocument* m_document;
     qreal m_scale;
+    bool m_useHighRes;
 };
 
 #endif /* _RESULTPROXY_H */

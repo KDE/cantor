@@ -46,6 +46,8 @@ class Worksheet : public KTextEdit
 
     ResultProxy* resultProxy();
 
+    void print(QPrinter* printer);
+
   public slots:
     WorksheetEntry* appendEntry();
     void appendEntry(const QString& text);

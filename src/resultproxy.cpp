@@ -46,6 +46,7 @@ ResultProxy::ResultProxy(QTextDocument* parent) : QObject(parent)
 {
     m_document=parent;
     m_scale=1.0;
+    m_useHighRes=false;
 }
 
 ResultProxy::~ResultProxy()
@@ -63,8 +64,20 @@ void ResultProxy::scale(qreal value)
     m_scale*=value;
 }
 
+qreal ResultProxy::scale()
+{
+    return m_scale;
+}
+
+void ResultProxy::useHighResolution(bool use)
+{
+    m_useHighRes=use;
+
+}
+
 void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 {
+    kDebug()<<"inserting new format";
     QTextCharFormat format;
     switch(result->type())
     {
@@ -126,7 +139,12 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
     spectre_document_load(doc, url.toLocalFile().toUtf8());
 
     int w, h;
-    double scale=1.8*m_scale;
+    double scale;
+    if(m_useHighRes)
+        scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
+    else
+        scale=1.8*m_scale;
+
     spectre_document_get_page_size(doc, &w, &h);
     kDebug()<<"dimension: "<<w<<"x"<<h;
     unsigned char* data;
@@ -139,6 +157,17 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
 
     m_document->addResource(QTextDocument::ImageResource, url, QVariant(img) );
     epsCharFormat.setName(url.url());
+    if(m_useHighRes)
+    {
+       epsCharFormat.setWidth(w*1.2);
+       epsCharFormat.setHeight(h*1.2);
+    }
+    else
+    {
+        epsCharFormat.setWidth(w*scale);
+        epsCharFormat.setHeight(h*scale);
+    }
+
 
     spectre_document_free(doc);
     spectre_render_context_free(rc);
