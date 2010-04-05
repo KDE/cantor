@@ -1,0 +1,25 @@
+This backend allows Cantor to use the Maxima Computer Algebra System.
+
+It works by starting a Tcp Server on an open port (it just tries some, until one is
+open), and then letting maxima connect to it(see setup-client command of maxima).
+Once maxima has connected, the backend sends the commands through the socket, and
+parses the delivered output.
+The parsing itself is a bit tricky, as Maxima output can have different formattings.
+1) it contains an output prompt.
+2) no prompt: this means that either maxima has asked a question, or there has happened an
+   error. To determine which of the two it is, Cantor uses a timer, if for more than 100ms
+   no new output arrives it assumes that it's a question. This works fairly well, as this
+   case is rather seldom, and when an error occurs, maxima will soon deliver a new input prompt.
+3) it contains a new input prompt: This means the computation is finished. If running the timer
+   from 2) is stopped, and the read output is prepared to be put into a Result.
+
+To allow embedding of plots, the backend watches if the commands contain a plot command
+(using some regexp magic), sets a flag, and sends a slightly altered plot command to
+maxima that contains a temporary target file.
+
+SyntaxHighlighting and TabCompletion are implemented in a very simplistic way,
+by just using a static list of known functions/keywords.
+
+To allow SyntaxHelp and Typesetting, it launches a separate maxima process, that
+then evaluates "? command" or "tex(expr)", and then the output is parsed.
+

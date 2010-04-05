@@ -1,0 +1,22 @@
+This backend creates a bridge between Cantor and the Sage mathematical software.
+
+To accomplish this, it launches a sage session using KPtyProcess.
+It sends the input to the process, and tries to parse the output.
+(NOTE: KPtyProcess is used instead of a regular KProcess, because
+when using KProcess, some weird errors showed up. e.g. when running
+sage.misc.latex.pretty_print_default)
+
+The backend basically works by comparing the number of lines,
+fed to the process, and the number of prompts read from it to
+determine when a process is finished. To find out if a computation
+has returned an image(e.g. whe plotting) it monitors the tmp directory
+used by sage using KDirWatch, and returns an ImageResult if a new
+file was created there while the computation was in progress.
+
+Sage offers the pretty_print_default option to automatically return latex code
+for the results. This is used when Typesetting is enabled.
+
+TabCompletion is implemented by calling __IPYTHON.complete in the Session and parsing the
+output. To make sure it doesn't mess with the history, some tricks are used. (see the code)
+
+Highlighting uses a simple list of known keywords and some regular expressions. (so no magic here)

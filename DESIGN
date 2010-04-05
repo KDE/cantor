@@ -1,0 +1,153 @@
+
+General:
+
+Cantor is designed to be very modular. It is split into these important parts:
+
+- Main application:
+The Cantor application itself is stored in the src/ directory. It implements the worksheet and all the
+Graphical user interface. It uses the Cantor library to access the different backends.
+Cantor consists of two important parts, a KPart that contains one Worksheet, and a shell,
+that contains several parts, and sorts them into Tabs.
+
+- Cantor library:
+The library provides all the interfaces for using the different Backends. It should be completely
+independend of the final graphical representation of the results. (e.g. always keep the possibility
+of a Cantor KRunner or plasmoid in mind). It resides in src/lib/
+
+- Backends
+The src/backends directory contains all the different Backends. They all reimplement the interfaces found in
+the Cantor library, to enable access to a math package. There are lots of different ways to communicate with the
+Math app. To check how a backend is designed, look at the DESIGN file in the backends directory.
+
+For dependencies between these modules, these rules apply:
+- everything can depend on lib
+- the main app can depend on any other module
+- lib doesn't depend on other modules
+- each backend, and the assistants only depend on lib
+
+
+Coding style:
+
+Generally Cantor follows the KDELibs coding style (see http://techbase.kde.org/Policies/Kdelibs_Coding_Style ).
+Some notes:
+- use 4 spaces for intendation
+- use m_ prefix for member variables. no other prefixes
+- for the library use d-pointers (see http://techbase.kde.org/Policies/Library_Code_Policy#D-Pointers) to allow binary compatibility later
+- if you add things to the library, remember to add apidocs
+
+
+The Worksheet:
+
+Cantors worksheet is implemented as a KTextEdit, as it allows easy editing of text and images.
+It is quite heavily customized, to behave like a Worksheet. The relevant code is in the 
+Worksheet and WorksheetEntry classes.
+Each entry in the worksheet is represented by it's own WorksheetEntry. An entry contains a table
+in which all the information is stored. There are several rows/cells, each with its own purpose:
+
+_______________________
+| prompt     | command |
+------------------------
+| question   | answer  |  <---- optionally one or more lines for additional questions asked by the backend (see interactive mode)
+-----------------------
+|       result         |  <---- a row dedicated to the result of the computation ( text, image etc).
+-----------------------
+
+The WorksheetEntry holds an Expression object, and reacts on it's status changes, and arriving results.
+Also it is in charge of requesting Completions or SyntaxHelp.
+
+To allow different results than simple images or text in the Worksheet (e.g. eps graphics) there is
+a Class called ResultProxy, that translates between the Result class(from the lib) to a format 
+QTextEdit understands. For example it renders eps files to a pixmap, and lets QTextDocument embed
+that image.
+
+Note: The HelpResult is not handled by the Entry, but by the Worksheet, and it forwards
+it's content outside of the part using a signal. So the CantorShell can show it in the 
+side-panel.
+
+
+The library:
+The library consists of a bunch of interfaces, for the different backends, and some
+stuff that is useful for math applications, independend of the Design of the ui(not limited to Worksheet-interfaces).
+Things should not be depending on a specific backend, but it's acceptable to have interfaces only implemented by
+one backend. (allthough that might change once a better plugin infrastructure is in place)
+
+- Basic design of a backend:
+This is just a brief introduction of the concepts relevant to the Backends.
+For more information please see the apidocs of the relevant classes.
+For a simple sample of a backend you can look at the NullBackend. It only echoes
+the entered command, or shows an image if you type "img", so it akts as a good
+example on how to do things.
+
+Backends are implemented as plugins that are found on runtime, to allow easy installation of
+additional backends. 
+
+A backend consists of the following parts:
+- Backend:
+  This class is used to store some static information of the backend, like its name, some links, or the
+  features it supports. Each backend can supply a widget, for changing the relevant settings.
+- Session:
+  A session is where a connection to an instance of the math-app is created, e.g. by spawning a maxima process.
+  It implements methods for evaluating expressions, it delivers a syntax highlighter, or CompletionObjects.
+  The most important methods are login(), logout() and evaluateExpression(). see the apidocs for more information.
+- Expression:
+  The Expression encapsulates one specific command send to the backend, and its result. It gets created by
+  the session, and destroyed by the Worksheet when the entry is deleted or replaced by a new Expression.
+  When the expression is run, it sends the command to the underlying backend to do the computation, and sets
+  the state to Computing.
+  Once the task is completed it should sets the state to Done or Error, depending on the result, to notify
+  the worksheet that it is no longer busy.
+  Once the result arrives, it emits the resultChanged() signal, so that the Worksheet can display it.
+  Remember, the state and the result are independent, e.g. if you have typesetting enabled, the state will
+  be set to done when the computation is finished, and the result will be set to a text-result. Once the 
+  typesetting is done the result changes again.
+
+  To be as flexible as possible regarding different kinds of results (a computation can deliver some text,
+  a plot, a formula, an animation etc.), Cantor uses the concept of Results.
+  For each kind of result there is a subclass, that stores the informations relevant for the kind of result
+  (e.g. the text, the image, an url etc.). Your backend is in charge of creating the right Result Type, and 
+  feeding it the information. The ResultProxy is then used to render the result in the Worksheet(@see The Worksheet)
+
+
+- Syntax Highlighting:
+  Syntax highlighting is a very useful feature for entering commands. In Cantor it's implemented using
+  Qt's QSyntaxHighlighter functionality. The Session is in charge for creating a SyntaxHighlighter object,
+  so it can access all the Session relevant information (if you want to). While you can use an ordinary
+  QSyntaxHighlighter object, you may want to use the DefaultHighlighter class. It delivers highlighting for
+  parenthesis, and information on the different Blocks inside a Worksheet, e.g. to check if the part
+  you're highlighting is a command or not.
+
+- Completion:
+  To allow Completion of partially entered Commands in a Backend-agnostic way, Cantor uses
+  so called CompletionObjects. To get a completion, Cantor calls the Sessions completionFor
+  method which is then in charge of creating a Backend-Specific CompletionObject.
+  A CompletionObject should fetch the information from the backend, and emit the done()
+  signal when finished, so the process of fetching should (but doesn't have to) be async
+  to make sure the gui doesn't get blocked.
+
+- SyntaxHelp:
+  Syntax Help is the little tooltip, you get when pressing Tab, on an already complete
+  command, that shows syntax information (see Maxima or KAlgebra for an implementation).
+  The concept works similar to Completion. Cantor asks the session for a SyntaxHelpObject
+  which then fetches the information asynchroneously, and emits done().
+
+- Extensions:
+  To allow backend-independend functionalities like Assistant dialogs, Cantor uses so called
+  Extensions.
+  These are subclasses of the Cantor::Extension class, that are created by the backend,
+  and that translate between Cantor and the Backends specific Syntax. For example the
+  PlotExtension translates PlotExtension::plot2d("sin(x)","x","-3.14","3.14") to maxima
+  syntax "plot2d(sin(x),[x,-3.14,3.14])"
+
+- Assistants
+  Assistants are Dialogs, used for common tasks like entering a matrix, solving equations etc.
+  Assistants are implemented as plugins, found at runtime. Each assistant has a list
+  of Extensions it needs to work (located in the .desktop file), so they only will be shown
+  for backends, capable of all the needed things. The Assistant will be run, and once it
+  is finished, it returns a list of commands, to achieve the task. They will then be
+  added to the Worksheet and executed.
+  The philosophy behind this is not to hide the syntax from the user, so he may
+  learn how things are done.
+  NOTE: currently assistants can only work through extensions, but in the future,
+  also backend-specific assistants will be possible.
+ 
+

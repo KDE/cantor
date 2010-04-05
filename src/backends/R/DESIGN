@@ -1,0 +1,24 @@
+This backend integrates the R environment into Cantor.
+
+The design of the R backend is different from the other backends:
+As R offers a C API, there is no necesity for parsing output.
+As the R API is not thread-save and to not let the backend freeze
+Cantors ui, the backend is implemented as 2 parts:
+
+- The RServer:
+  This is a separate application, that uses the R-API to run commands,
+  and exposes it's functionality over DBUS
+
+- The R backend:
+  This implements the Cantor interfaces, and starts the RServer. It delivers
+  the commands to the server over DBUS, and connects to it's signals to get
+  the result.
+
+To embed plots, the RServer creates a png paint device, and checks if it gets
+changed while a computation is running. If so, the url of the png is delivered
+as result, and a new png-device is created, with a new temporary file.
+(NOTE: instead of png, eps should be used, but there were some problems when I first
+tried)
+
+The Code to access the R-API is heavily based on the RInside library
+by Dirk Eddelbuettel, see http://dirk.eddelbuettel.com/code/rinside.html
