@@ -73,7 +73,7 @@ if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
-install( FILES cantor_part.desktop  DESTINATION ${XDG_APPS_INSTALL_DIR} )
+install( FILES cantor_part.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor )
 install( FILES cantor_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantorpart )
 
 install(TARGETS cantorpart  DESTINATION ${PLUGIN_INSTALL_DIR} )
