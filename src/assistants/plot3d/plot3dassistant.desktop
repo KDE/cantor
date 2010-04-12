@@ -31,6 +31,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 3D functions
 Comment[da]=En hjælpedialog til at gøre plotning af 3D-funktioner lettere
+Comment[de]=Ein Assistent, um das Zeichnen von 3D-Funktionen zu vereinfachen
 Comment[el]=Ένα βοηθητικό πλαίσιο διαλόγου για την απλοποίηση της δημιουργίας τρισδιάστατων γραφημάτων των συναρτήσεων.
 Comment[en_GB]=An Assistant dialogue to simplify plotting of 3D functions
 Comment[es]=Un diálogo asistente para simplificar el trazado de funciones 3D
