@@ -24,7 +24,7 @@
 class OperatorsModel;
 class KAlgebraExpression;
 
-namespace Analitza { class Analitza; }
+namespace Analitza { class Analyzer; }
 
 class KAlgebraSession : public Cantor::Session
 {
@@ -41,12 +41,12 @@ class KAlgebraSession : public Cantor::Session
         Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
         Cantor::CompletionObject* completionFor(const QString& cmd);
         Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
-        Analitza::Analitza* analitza() const { return m_analitza; }
+        Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
         QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
     private:
-        Analitza::Analitza* m_analitza;
+        Analitza::Analyzer* m_analyzer;
         OperatorsModel* m_operatorsModel;
 };
 

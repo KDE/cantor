@@ -20,7 +20,7 @@
 #include "kalgebraexpression.h"
 #include "kalgebracompletionobject.h"
 #include <analitzagui/algebrahighlighter.h>
-#include <analitza/analitza.h>
+#include <analitza/analyzer.h>
 #include <QTextEdit>
 
 #include <kdebug.h>
@@ -30,14 +30,14 @@
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
     : Session(backend)
 {
-    m_analitza = new Analitza::Analitza;
+    m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;
-    m_operatorsModel->setVariables(m_analitza->variables());
+    m_operatorsModel->setVariables(m_analyzer->variables());
 }
 
 KAlgebraSession::~KAlgebraSession()
 {
-    delete m_analitza;
+    delete m_analyzer;
 }
 
 void KAlgebraSession::login()
@@ -65,7 +65,7 @@ Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
     expr->evaluate();
     changeStatus(Cantor::Session::Done);
 
-    m_operatorsModel->setVariables(m_analitza->variables());
+    m_operatorsModel->setVariables(m_analyzer->variables());
     return expr;
 }
 

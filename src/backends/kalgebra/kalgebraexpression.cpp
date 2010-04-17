@@ -24,7 +24,7 @@
 #include <KLocale>
 
 #include <analitza/expression.h>
-#include <analitza/analitza.h>
+#include <analitza/analyzer.h>
 
 KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session )
     : Cantor::Expression(session)
@@ -36,14 +36,14 @@ KAlgebraExpression::~KAlgebraExpression()
 void KAlgebraExpression::evaluate()
 {
     setStatus(Cantor::Expression::Computing);
-    
-    Analitza::Analitza* a=static_cast<KAlgebraSession*>(session())->analitza();
+
+    Analitza::Analyzer* a=static_cast<KAlgebraSession*>(session())->analyzer();
     a->setExpression(Analitza::Expression(command()));
-    
+
     Analitza::Expression res;
     if(a->isCorrect())
         res=a->evaluate();
-    
+
     if(a->isCorrect()) {
         setResult(new Cantor::TextResult(res.toString()));
         setStatus(Cantor::Expression::Done);
