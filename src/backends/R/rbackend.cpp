@@ -84,7 +84,7 @@ KConfigSkeleton* RBackend::config() const
 KUrl RBackend::helpUrl() const
 {
     return i18nc("the url to the documentation of R, please check if there is a translated version and use the correct url",
-                 "http://wiki.r-project.org/rwiki/doku.php?id=rdoc:rdoc");
+                 "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc" );
 }
 
 QString RBackend::description() const
