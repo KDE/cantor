@@ -221,7 +221,7 @@ KAboutData *CantorPart::createAboutData()
     // the non-i18n name here must be the same as the directory in
     // which the part's rc file is installed ('partrcdir' in the
     // Makefile)
-    KAboutData *aboutData = new KAboutData("cantorpart",  "cantor",  ki18n("CantorPart"), "0.1");
+    KAboutData *aboutData = new KAboutData("cantorpart",  "cantor",  ki18n("CantorPart"), "0.2");
     aboutData->addAuthor(ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com");
     return aboutData;
 }
