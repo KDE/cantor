@@ -20,75 +20,67 @@
 
 #include "scripteditorwidget.h"
 
-#include <QGridLayout>
-#include <QPushButton>
 #include <ktemporaryfile.h>
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 #include <kfiledialog.h>
+#include <kaction.h>
+#include <kstandardaction.h>
+#include <kactioncollection.h>
+#include <kxmlguifactory.h>
+#include <kglobal.h>
+#include <kconfiggroup.h>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
 #include <KTextEditor/EditorChooser>
 
-
-ScriptEditorWidget::ScriptEditorWidget(const QString& filter, QWidget* parent) : QWidget(parent)
+ScriptEditorWidget::ScriptEditorWidget(const QString& filter, QWidget* parent) : KXmlGuiWindow(parent)
 {
+    setObjectName("ScriptEditor");
+
     m_filter=filter;
     m_tmpFile=0;
-    m_layout=new QGridLayout();
 
-    //create the buttons
-    QPushButton* newBtn=new QPushButton(KIcon("document-new"), i18n("New"), this);
-    QPushButton* openBtn=new QPushButton(KIcon("document-open"), i18n("Open"), this);
-    QPushButton* saveBtn=new QPushButton(KIcon("document-save"), i18n("Save"), this);
-    QPushButton* runBtn=new QPushButton(KIcon("system-run"), i18n("Run Script"), this);
+    KStandardAction::openNew(this, SLOT(newScript()), actionCollection());
+    KStandardAction::open(this, SLOT(open()), actionCollection());
+    KStandardAction::close(this, SLOT(close()), actionCollection());
+    KAction* runAction = actionCollection()->addAction("file_execute", this, SLOT(run()));
+    runAction->setIcon(KIcon("system-run"));
+    runAction->setText(i18n("Run Script"));
 
-    connect(newBtn, SIGNAL(clicked()), this, SLOT(newScript()));
-    connect(openBtn, SIGNAL(clicked()), this, SLOT(open()));
-    connect(saveBtn, SIGNAL(clicked()), this, SLOT(save()));
-    connect(runBtn, SIGNAL(clicked()), this, SLOT(run()));
+    KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
+    if (!editor)
+    {
+        KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
+                                       "please check your KDE installation."));
+    }
+    else
+    {
+        m_script=editor->createDocument(0);
+        m_editor=qobject_cast<KTextEditor::View*>(m_script->createView(this));
 
-    m_layout->addWidget(newBtn,  0, 0);
-    m_layout->addWidget(openBtn, 0, 1);
-    m_layout->addWidget(saveBtn, 0, 2);
-    m_layout->addWidget(runBtn,  0, 3);
+        KConfigGroup cg(KGlobal::config(), "ScriptEditor");
+        setAutoSaveSettings(cg, true);
 
-    m_script=0;
-    m_editor=0;
-    newScript();
+        setCentralWidget(m_editor);
+        setupGUI(QSize(500,600), Default, "cantor_scripteditor.rc");
+        guiFactory()->addClient(m_editor);
+        restoreWindowSize(cg);
 
-    setLayout(m_layout);
-
+        connect(m_script, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(updateCaption()));
+        connect(m_script, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(updateCaption()));
+        updateCaption();
+    }
 }
 
 ScriptEditorWidget::~ScriptEditorWidget()
 {
-
 }
 
 void ScriptEditorWidget::newScript()
 {
-    if(m_script)
-    {
-        m_script->deleteLater();
-        m_editor->deleteLater();
-    }
-
-    //Get a text editor
-    KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
-    if (!editor)
-    {
-        KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
-                                           "please check your KDE installation."));
-    }
-
-    m_script = editor->createDocument(0);
-    m_editor=qobject_cast<KTextEditor::View*>(m_script->createView(this));
-    m_layout->addWidget(m_editor, 1, 0, 1, 4);
-
-    m_editor->setMinimumHeight(500);
-    setTabOrder(0, m_editor);
+    m_script->closeUrl();
 }
 
 void ScriptEditorWidget::open()
@@ -97,21 +89,15 @@ void ScriptEditorWidget::open()
     m_script->openUrl(url);
 }
 
-void ScriptEditorWidget::save()
-{
-    m_script->documentSave();
-}
-
 void ScriptEditorWidget::run()
 {
     QString filename;
-    if(m_script->url().isEmpty())
+    if(!m_script->url().isLocalFile())
     {
-        //Write the stuff to a temporary file
+        // If the script is not in a local file, write it to a temporary file
         if(m_tmpFile==0)
         {
             m_tmpFile=new KTemporaryFile();
-            m_tmpFile->setPrefix( "cantor/" );
         }
         else
         {
@@ -125,11 +111,30 @@ void ScriptEditorWidget::run()
         filename=m_tmpFile->fileName();
     }else
     {
+        m_script->save();
         filename=m_script->url().toLocalFile();
     }
 
     kDebug()<<"running "<<filename;
     emit runScript(filename);
+}
+
+bool ScriptEditorWidget::queryClose()
+{
+    return m_script->queryClose();
+}
+
+void ScriptEditorWidget::updateCaption()
+{
+    QString fileName = m_script->url().toLocalFile();
+    bool modified = m_script->isModified();
+    if (fileName.isEmpty())
+    {
+        setCaption(i18n("Script Editor"), modified);
+    }else
+    {
+         setCaption(i18n("Script Editor - %1", fileName), modified);
+    }
 }
 
 #include "scripteditorwidget.moc"

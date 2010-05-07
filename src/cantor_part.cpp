@@ -64,7 +64,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
 
     m_showBackendHelp=0;
     m_initProgressDlg=0;
-    m_scriptEditor=0;
     m_statusBarBlocked=false;
 
     kDebug()<<"Created a CantorPart";
@@ -168,6 +167,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     showEditor->setChecked(false);
     actionCollection()->addAction("show_editor", showEditor);
     connect(showEditor, SIGNAL(toggled(bool)), this, SLOT(showScriptEditor(bool)));
+    showEditor->setEnabled(b->extensions().contains("ScriptExtension"));
 
     KAction* showCompletion=new KAction(i18n("Show Completion"), actionCollection());
     actionCollection()->addAction("show_completion", showCompletion);
@@ -189,6 +189,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
 
 CantorPart::~CantorPart()
 {
+    if (m_scriptEditor)
+    {
+        disconnect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
+        delete m_scriptEditor;
+    }
 }
 
 void CantorPart::setReadWrite(bool rw)
@@ -528,23 +533,33 @@ void CantorPart::print()
 
 void CantorPart::showScriptEditor(bool show)
 {
-    Cantor::Backend* backend=m_worksheet->session()->backend();
-    if(!backend->extensions().contains("ScriptExtension"))
-    {
-        KMessageBox::error(widget(), i18n("This backend does not support scripts."), i18n("Error - Cantor"));
-        return;
-    }
-
     if(show)
     {
-        Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
-        m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter());
+        if (m_scriptEditor)
+        {
+            return;
+        }
+        Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(m_worksheet->session()->backend()->extension("ScriptExtension"));
+        if (!scriptE)
+        {
+            return;
+        }
+        m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter(), widget()->window());
         connect(m_scriptEditor, SIGNAL(runScript(const QString&)), this, SLOT(runScript(const QString&)));
+        connect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
         m_scriptEditor->show();
     }else
     {
-        m_scriptEditor->deleteLater();
-        m_scriptEditor=0;
+        delete m_scriptEditor;
+    }
+}
+
+void CantorPart::scriptEditorClosed()
+{
+    QAction* showEditor = actionCollection()->action("show_editor");
+    if (showEditor)
+    {
+        showEditor->setChecked(false);
     }
 }
 

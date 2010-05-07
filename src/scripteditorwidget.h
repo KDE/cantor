@@ -21,7 +21,7 @@
 #ifndef _SCRIPTEDITORWIDGET_H
 #define _SCRIPTEDITORWIDGET_H
 
-#include <QWidget>
+#include <kxmlguiwindow.h>
 
 class KTemporaryFile;
 class QGridLayout;
@@ -32,7 +32,7 @@ namespace KTextEditor
 }
 
 
-class ScriptEditorWidget : public QWidget
+class ScriptEditorWidget : public KXmlGuiWindow
 {
   Q_OBJECT
   public:
@@ -45,15 +45,17 @@ class ScriptEditorWidget : public QWidget
   private slots:
     void newScript();
     void open();
-    void save();
     void run();
+    void updateCaption();
+
+  protected:
+    virtual bool queryClose();
+
   private:
     QString m_filter;
-    QGridLayout* m_layout;
     KTextEditor::View* m_editor;
     KTextEditor::Document* m_script;
     KTemporaryFile* m_tmpFile;
-
 };
 
 #endif /* _SCRIPTEDITORWIDGET_H */

@@ -334,8 +334,8 @@ void CantorShell::closeTab(QWidget* widget)
         KParts::ReadWritePart* part= findPart(widget);
         if(part)
         {
-            part->deleteLater();
             m_parts.removeAll(part);
+            delete part;
         }
     }
 }

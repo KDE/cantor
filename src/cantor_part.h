@@ -113,6 +113,7 @@ protected slots:
     void publishWorksheet();
 
     void showScriptEditor(bool show);
+    void scriptEditorClosed();
     void runScript(const QString& file);
 
     /** sets the status message, or cached it, if the StatusBar is blocked.
@@ -132,7 +133,7 @@ protected slots:
     void unblockStatusBar();
 private:
     Worksheet *m_worksheet;
-    ScriptEditorWidget* m_scriptEditor;
+    QPointer<ScriptEditorWidget> m_scriptEditor;
 
     KProgressDialog* m_initProgressDlg;
     KAction* m_evaluate;
