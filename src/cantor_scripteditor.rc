@@ -1,0 +1,28 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="cantor_scripteditor" version="1">
+<MenuBar>
+  <Menu name="file">
+    <Merge/>
+    <Action name="file_execute"/>
+  </Menu>
+  <Merge/>
+</MenuBar>
+<ToolBar name="mainToolBar">
+  <Merge/>
+  <Action name="file_execute"/>
+</ToolBar>
+</kpartgui>
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="cantor_scripteditor" version="1">
+<MenuBar>
+  <Menu name="file">
+    <Merge/>
+    <Action name="file_execute"/>
+  </Menu>
+  <Merge/>
+</MenuBar>
+<ToolBar name="mainToolBar">
+  <Merge/>
+  <Action name="file_execute"/>
+</ToolBar>
+</kpartgui>
