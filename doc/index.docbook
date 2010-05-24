@@ -231,7 +231,7 @@ Screenshot:
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>Tab Completion</term>
+      <term>Completion</term>
       <listitem>
 	<para>
 	  When this is enabled, &cantor; will show you possible completions
