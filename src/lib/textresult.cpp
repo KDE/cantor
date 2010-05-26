@@ -25,6 +25,7 @@ using namespace Cantor;
 
 #include <QFile>
 #include <QTextStream>
+#include <QTextDocument>
 
 class Cantor::TextResultPrivate
 {
@@ -50,9 +51,7 @@ TextResult::~TextResult()
 
 QString TextResult::toHtml()
 {
-    QString s=d->data;
-    s.replace('\n', "<br/>\n");
-    return s;
+    return Qt::convertFromPlainText(d->data);
 }
 
 QVariant TextResult::data()
