@@ -32,6 +32,7 @@
 #include <kmimetype.h>
 #include <QFile>
 #include <QStringList>
+#include <QTextDocument>
 
 RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
@@ -69,13 +70,13 @@ void RExpression::finished(int returnCode, const QString& text)
 {
     if(returnCode==RExpression::SuccessCode)
     {
-        setResult(new Cantor::TextResult(text));
+        setResult(new Cantor::TextResult(Qt::convertFromPlainText(text)));
         setStatus(Cantor::Expression::Done);
     }else if (returnCode==RExpression::ErrorCode)
     {
-        setResult(new Cantor::TextResult(text));
+        setResult(new Cantor::TextResult(Qt::convertFromPlainText(text)));
         setStatus(Cantor::Expression::Error);
-        setErrorMessage(text);
+        setErrorMessage(Qt::convertFromPlainText(text));
     }
 }
 
