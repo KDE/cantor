@@ -11,6 +11,7 @@
       <arg name="text" type="s" direction="out"/>
     </signal>
     <signal name="completionFinished">
+      <arg name="token" type="s" direction="out"/>
       <arg name="options" type="as" direction="out"/>
     </signal>
     <signal name="showFilesNeeded">

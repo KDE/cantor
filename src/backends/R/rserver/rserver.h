@@ -55,7 +55,7 @@ class RServer : public QObject
     void ready();
     void statusChanged(int status);
     void expressionFinished(int returnCode, const QString& text);
-    void completionFinished(const QStringList& options);
+    void completionFinished(const QString& token,const QStringList& options);
     void showFilesNeeded(const QStringList& files);
     void inputRequested(const QString& prompt);
 

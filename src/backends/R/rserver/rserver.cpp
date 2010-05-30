@@ -361,7 +361,7 @@ void RServer::completeCommand(const QString& cmd)
     R_tryEval(lang2(buffer_end_func,ScalarInteger(cmd.size())),comp_env,&errorOccurred);
     
     /* Passing the tokenizing work to professionals */
-    R_tryEval(lang1(tokenizer_func),comp_env,&errorOccurred);
+    SEXP token=PROTECT(R_tryEval(lang1(tokenizer_func),comp_env,&errorOccurred));
     
     /* Doing the actual stuff */
     R_tryEval(lang1(complete_func),comp_env,&errorOccurred);
@@ -371,9 +371,10 @@ void RServer::completeCommand(const QString& cmd)
     QStringList completionOptions;
     for (int i=0;i<length(completions);i++)
         completionOptions<<translateCharUTF8(STRING_ELT(completions,i));
-    UNPROTECT(1);
+    QString qToken=translateCharUTF8(STRING_ELT(token,0));
+    UNPROTECT(2);
     
-    emit completionFinished(completionOptions);
+    emit completionFinished(qToken,completionOptions);
 }
 
 void RServer::setStatus(Status status)
