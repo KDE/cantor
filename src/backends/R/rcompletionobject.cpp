@@ -29,7 +29,7 @@ RCompletionObject::RCompletionObject(const QString& command, RSession* session) 
 
 RCompletionObject::~RCompletionObject()
 {
-    emit destroyed(this);
+  //  emit destroyed(this);
 }
 
 void RCompletionObject::fetchCompletions()

@@ -94,19 +94,8 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command)
     RCompletionObject *cmp=new RCompletionObject(command, this);
     connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
     connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
-    connect(cmp,SIGNAL(destroyed(QObject*)),this,SLOT(disconnectCompletionObject(QObject*)));
-    // BUG: correctly disconnect on death
     return cmp;
 }
-
-void RSession::disconnectCompletionObject(QObject* cmp)
-{
-    // TODO: ask arieder if this way is comme-il-faut
-    disconnect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),0,0);
-    disconnect(cmp,SIGNAL(requestCompletion(const QString&)),0,0);
-    disconnect(cmp,SIGNAL(destroyed(QObject*)),0,0);
-}
-
 
 void RSession::queueExpression(RExpression* expr)
 {
