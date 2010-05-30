@@ -94,7 +94,7 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command)
     RCompletionObject *cmp=new RCompletionObject(command, this);
     connect(m_rServer,SIGNAL(completionFinished(const QStringList&)),cmp,SLOT(recieveCompletions(const QStringList&)));
     connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
-    connect(cmp,SIGNAL(goesOutOfScope(Cantor::CompletionObject* cmp)),this,SLOT(disconnectCompletionObject(Cantor::CompletionObject* cmp)));
+    connect(cmp,SIGNAL(goesOutOfScope(Cantor::CompletionObject*)),this,SLOT(disconnectCompletionObject(Cantor::CompletionObject*)));
     // BUG: correctly disconnect on death
     return cmp;
 }
@@ -104,7 +104,7 @@ void RSession::disconnectCompletionObject(Cantor::CompletionObject* cmp)
     // TODO: ask arieder if this way is comme-il-faut
     connect(m_rServer,SIGNAL(completionFinished(const QStringList&)),0,0);
     connect(cmp,SIGNAL(requestCompletion(const QString&)),0,0);
-    connect(cmp,SIGNAL(goesOutOfScope(Cantor::CompletionObject* cmp)),0,0);
+    connect(cmp,SIGNAL(goesOutOfScope(Cantor::CompletionObject*)),0,0);
 }
 
 

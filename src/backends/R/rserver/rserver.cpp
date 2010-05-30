@@ -40,12 +40,11 @@
 #include <Rinterface.h>
 #include <R_ext/Parse.h>
 
-RServer::RServer()
+RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
     new RAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject("/R",  this);
-    m_isInitialized=false;
 
     m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString("cantor/rserver-%1").arg(getpid()));
     kDebug()<<"storing plots at "<<m_tmpDir;
@@ -187,6 +186,31 @@ void RServer::autoload()
 	}
     }
     UNPROTECT(ptct);
+    
+    /* Initialize the completion libraries if needed, adapted from sys-std.c of R */ 
+    // TODO: should we do this or init on demand?
+    // if (completion is needed) // TODO: discuss how to pass parameter
+    {
+        /* First check if namespace is loaded */
+        if  (findVarInFrame(R_NamespaceRegistry,install("utils"))==R_UnboundValue)
+        { /* Then try to load it */
+            SEXP cmdSexp, cmdexpr;
+            ParseStatus status;
+            int i;
+            const char *p="try(loadNamespace('rcompgen'), silent=TRUE)";
+
+            PROTECT(cmdSexp=mkString(p));
+            cmdexpr=PROTECT(R_ParseVector(cmdSexp,-1,&status,R_NilValue));
+            if(status==PARSE_OK)
+            {
+                for(i=0;i<length(cmdexpr);i++)
+                    eval(VECTOR_ELT(cmdexpr,i),R_GlobalEnv);
+            }
+            UNPROTECT(2);
+            /* Completion is available if the namespace is correctly loaded */
+            m_isCompletionAvailable= (findVarInFrame(R_NamespaceRegistry,install("utils"))!=R_UnboundValue);
+        }
+    }
 }
 
 void RServer::endR()
@@ -318,9 +342,39 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
 void RServer::completeCommand(const QString& cmd)
 {
-    // TODO: Lord A.S. Stub resides here temporarily
-    // Feature test, using last letter
-    emit completionFinished(QStringList()<<"All"<<"work"<<"and"<<"no"<<"play"<<"makes"<<"Jack"<<"a"<<"dull"<<"boy");
+    // TODO: is static okay? guess RServer is a singletone, but ...
+    // TODO: error handling?
+    // TODO: investigate encoding problem
+    // TODO: propage the flexibility of token selection upward
+    // TODO: what if install() fails? investigate
+    // TODO: investigate why errors break the whole foodchain of RServer callbacks in here
+    // TODO: make 100% sure on how to set linebuffer end
+    static SEXP comp_env=R_FindNamespace(mkString("utils"));
+    static SEXP tokenizer_func=install(".guessTokenFromLine");
+    static SEXP linebuffer_func=install(".assignLinebuffer");
+    static SEXP buffer_end_func=install(".assignEnd");
+    static SEXP complete_func=install(".completeToken");
+    static SEXP retrieve_func=install(".retrieveCompletions");
+    
+    /* Setting buffer parameters */
+    int errorOccurred=0; // TODO: error cheks, too lazy to do it now
+    R_tryEval(lang2(linebuffer_func,mkString(cmd.toUtf8().data())),comp_env,&errorOccurred);
+    R_tryEval(lang2(buffer_end_func,ScalarInteger(cmd.size()-1)),comp_env,&errorOccurred);
+    
+    /* Passing the tokenizing work to professionals */
+    R_tryEval(lang1(tokenizer_func),comp_env,&errorOccurred);
+    
+    /* Doing the actual stuff */
+    R_tryEval(lang1(complete_func),comp_env,&errorOccurred);
+    SEXP completions=PROTECT(R_tryEval(lang1(retrieve_func),comp_env,&errorOccurred));
+    
+    /* Populating the list of completions */
+    QStringList completionOptions;
+    for (int i=0;i<length(completions);i++)
+        completionOptions<<translateCharUTF8(STRING_ELT(completions,i));
+    UNPROTECT(1);
+    
+    emit completionFinished(completionOptions);
 }
 
 void RServer::setStatus(Status status)

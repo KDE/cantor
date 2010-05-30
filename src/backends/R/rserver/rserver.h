@@ -70,6 +70,7 @@ class RServer : public QObject
     void newPlotDevice();
   private:
     bool m_isInitialized;
+    bool m_isCompletionAvailable;
     Status m_status;
     QString m_requestCache;
     QString m_tmpDir;
