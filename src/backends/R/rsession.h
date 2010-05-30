@@ -48,6 +48,7 @@ class RSession : public Cantor::Session
   protected slots:
     void serverChangedStatus(int status);
     void runNextExpression();
+    void disconnectCompletionObject(Cantor::CompletionObject *);
 
   private:
     KProcess* m_rProcess;
