@@ -29,7 +29,7 @@ RCompletionObject::RCompletionObject(const QString& command, RSession* session) 
 
 RCompletionObject::~RCompletionObject()
 {
-    emit goesOutOfScope(this);
+    emit destroyed(this);
 }
 
 void RCompletionObject::fetchCompletions()

@@ -38,7 +38,6 @@ class RCompletionObject : public Cantor::CompletionObject
 
   signals:
     void requestCompletion(const QString&);
-    void goesOutOfScope(Cantor::CompletionObject*);
 };
 
 #endif /* _RCOMPLETIONOBJECT_H */
