@@ -20,6 +20,7 @@
 
 #include "rsession.h"
 #include "rexpression.h"
+#include "rcompletionobject.h"
 
 #include <QTimer>
 #include <kdebug.h>
@@ -87,6 +88,12 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 
     return expr;
 }
+
+Cantor::CompletionObject* RSession::completionFor(const QString& command)
+{
+    return new RCompletionObject(command, this);
+}
+
 
 void RSession::queueExpression(RExpression* expr)
 {

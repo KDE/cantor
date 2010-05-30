@@ -40,6 +40,7 @@ class RSession : public Cantor::Session
     void interrupt();
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+    Cantor::CompletionObject* completionFor(const QString& command);
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);

@@ -316,6 +316,19 @@ void RServer::runCommand(const QString& cmd, bool internal)
     setStatus(Idle);
 }
 
+void RServer::completeCommand(const QString& cmd)
+{
+    // TODO: Lord A.S. Stub resides here temporarily
+    // Feature test, using last letter
+    if (cmd.size()>0)
+        if (cmd[cmd.size()-1]=='a')
+            emit completionFinished(QStringList()<<"Vædrøs");
+        else
+            emit completionFinished(QStringList());
+    else
+    emit completionFinished(QStringList()<<"All"<<"work"<<"and"<<"no"<<"play"<<"makes"<<"Jack"<<"a"<<"dull"<<"boy");
+}
+
 void RServer::setStatus(Status status)
 {
     if(m_status!=status)

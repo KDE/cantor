@@ -55,6 +55,7 @@ class RServer : public QObject
     void ready();
     void statusChanged(int status);
     void expressionFinished(int returnCode, const QString& text);
+    void completionFinished(const QStringList& options);
     void showFilesNeeded(const QStringList& files);
     void inputRequested(const QString& prompt);
 
@@ -63,6 +64,7 @@ class RServer : public QObject
   public slots:
     void runCommand(const QString& cmd, bool internal=false);
     void answerRequest(const QString& answer);
+    void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
   private:
     void setStatus(Status status);
     void newPlotDevice();

@@ -59,7 +59,8 @@ Cantor::Session* RBackend::createSession()
 Cantor::Backend::Capabilities RBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of RSession";
-    return Cantor::Backend::InteractiveMode;
+    return  Cantor::Backend::InteractiveMode |
+            Cantor::Backend::Completion;
 }
 
 bool RBackend::requirementsFullfilled() const
