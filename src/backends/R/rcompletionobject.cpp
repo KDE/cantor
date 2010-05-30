@@ -37,7 +37,7 @@ void RCompletionObject::fetchCompletions()
     emit requestCompletion(command());
 }
 
-void RCompletionObject::recieveCompletions(const QString& token,const QStringList& options)
+void RCompletionObject::receiveCompletions(const QString& token,const QStringList& options)
 {
     /* Setting up both completion variants -and- the token R generously found for us */
     //setCommand(token);

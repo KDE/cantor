@@ -92,7 +92,7 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 Cantor::CompletionObject* RSession::completionFor(const QString& command)
 {
     RCompletionObject *cmp=new RCompletionObject(command, this);
-    connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(recieveCompletions(const QString&,const QStringList&)));
+    connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
     connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
     connect(cmp,SIGNAL(goesOutOfScope(Cantor::CompletionObject*)),this,SLOT(disconnectCompletionObject(Cantor::CompletionObject*)));
     // BUG: correctly disconnect on death

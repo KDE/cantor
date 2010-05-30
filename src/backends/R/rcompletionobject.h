@@ -34,7 +34,7 @@ class RCompletionObject : public Cantor::CompletionObject
 
   protected slots:
     void fetchCompletions();
-    void recieveCompletions(const QString& token,const QStringList& options);
+    void receiveCompletions(const QString& token,const QStringList& options);
 
   signals:
     void requestCompletion(const QString&);
