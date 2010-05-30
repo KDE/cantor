@@ -348,7 +348,6 @@ void RServer::completeCommand(const QString& cmd)
     // TODO: propage the flexibility of token selection upward
     // TODO: what if install() fails? investigate
     // TODO: investigate why errors break the whole foodchain of RServer callbacks in here
-    // TODO: make 100% sure on how to set linebuffer end
     static SEXP comp_env=R_FindNamespace(mkString("utils"));
     static SEXP tokenizer_func=install(".guessTokenFromLine");
     static SEXP linebuffer_func=install(".assignLinebuffer");
@@ -359,7 +358,7 @@ void RServer::completeCommand(const QString& cmd)
     /* Setting buffer parameters */
     int errorOccurred=0; // TODO: error cheks, too lazy to do it now
     R_tryEval(lang2(linebuffer_func,mkString(cmd.toUtf8().data())),comp_env,&errorOccurred);
-    R_tryEval(lang2(buffer_end_func,ScalarInteger(cmd.size()-1)),comp_env,&errorOccurred);
+    R_tryEval(lang2(buffer_end_func,ScalarInteger(cmd.size())),comp_env,&errorOccurred);
     
     /* Passing the tokenizing work to professionals */
     R_tryEval(lang1(tokenizer_func),comp_env,&errorOccurred);
