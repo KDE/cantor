@@ -47,5 +47,6 @@ Comment[pt_BR]=Um diálogo de assistente para simplificar o desenho de gráficos
 Comment[sv]=En dialogruta med guide för att förenkla uppritning av tredimensionella funktioner
 Comment[uk]=Діалогове вікно помічника спрощення побудови поверхонь
 Comment[x-test]=xxAn Assistant dialog to simplify plotting of 3D functionsxx
+Comment[zh_CN]=用于简化三维函数图绘制的助手对话框
 Comment[zh_TW]=簡化繪製三維函式小助手對話框
 RequiredExtensions=PlotExtension
