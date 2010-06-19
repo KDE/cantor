@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
  */
 
 #ifndef _WORKSHEETENTRY_H
@@ -24,6 +25,7 @@
 #include <QObject>
 #include <QTextTableCell>
 #include <QPointer>
+#include <QKeyEvent>
 #include "lib/expression.h"
 
 namespace Cantor{
@@ -35,84 +37,68 @@ namespace Cantor{
 class Worksheet;
 class KCompletionBox;
 
-/**
-   An entry in the Worksheet. it contains:
-     1 Row to take command from the user
-     0+ Rows for addition questions/answers from the backend
-     0/1 Row for contextual help like Tab Completion offers
-     1 Row for the Result
- **/
-
 class WorksheetEntry : public QObject
 {
   Q_OBJECT
   public:
-    static const QString Prompt;
-
     WorksheetEntry(QTextCursor position, Worksheet* parent);
     ~WorksheetEntry();
 
-    QString command();
-    void setExpression(Cantor::Expression* expr);
-    Cantor::Expression* expression();
+    enum {Type = 0};
 
-    //returns the line of the command cell, the textCursor is currently in
-    QString currentLine(const QTextCursor& cursor);
+    virtual int type();
 
-    bool isEmpty();
+    virtual bool isEmpty()=0;
 
-    void setCompletion(Cantor::CompletionObject* tc);
-    void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
-
-    QTextTable* table();
-    QTextTableCell commandCell();
-    QTextTableCell actualInformationCell();
-    QTextTableCell resultCell();
-
-    void addInformation();
+    virtual void setActive(bool active, bool moveCursor);
 
     int firstPosition();
     int lastPosition();
-
+    QTextCursor firstCursorPosition();
+    QTextCursor lastCursorPosition();
     bool contains(const QTextCursor& cursor);
-    bool isInCurrentInformationCell(const QTextCursor& cursor);
-    bool isInCommandCell(const QTextCursor& cursor);
-    bool isInPromptCell(const QTextCursor& cursor);
-    bool isInResultCell(const QTextCursor& cursor);
 
-    //checks if this entry has still anything needed (aka the user didn't delete anything
-    //like the prompt. Readd missing things
-    void checkForSanity();
+    virtual QTextCursor closestValidCursor(const QTextCursor& cursor)=0;
+    virtual QTextCursor firstValidCursorPosition()=0;
+    virtual QTextCursor lastValidCursorPosition()=0;
+    int firstValidPosition();
+    int lastValidPosition();
+    virtual bool isValidCursor(const QTextCursor& cursor)=0;
 
-    void removeContextHelp();
+    virtual bool worksheetShortcutOverrideEvent(QKeyEvent* event, const QTextCursor& cursor);
+    virtual bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
+    virtual bool worksheetMousePressEvent(QMouseEvent* event, const QTextCursor& cursor);
+    virtual bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
 
-    bool isShowingCompletionPopup();
+    virtual bool acceptRichText()=0;
+    virtual bool acceptsDrop(const QTextCursor& cursor)=0;
+
+    virtual void setContent(const QString& content)=0;
+    virtual void setContent(const QDomElement& content, const KZip& file)=0;
+
+    virtual QDomElement toXml(QDomDocument& doc, KZip* archive)=0;
+    virtual QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)=0;
+
+    virtual void interruptEvaluation()=0;
+
+    virtual bool evaluate(bool current)=0;
+
+    virtual void checkForSanity();
+
+    virtual void showCompletion();
+
+  signals:
+    void leftmostValidPositionReached();
+    void rightmostValidPositionReached();
+    void topmostValidLineReached();
+    void bottommostValidLineReached();
 
   public slots:
-    void updateResult();
-    void updatePrompt();
-    void expressionChangedStatus(Cantor::Expression::Status status);
-    void showAdditionalInformationPrompt(const QString& question);
-    void showCompletions();
-    void completeCommandTo(const QString& completion);
-    void applySelectedCompletion();
-    void showSyntaxHelp();
-  private slots:
-    void invalidate();
-    void resultDeleted();
-  private:
-    QTextTable* m_table;
-    QTextTableCell m_commandCell;
-    QTextTableCell m_contextHelpCell;
-    QList<QTextTableCell> m_informationCells;
-    QTextTableCell m_errorCell;
-    QTextTableCell m_resultCell;
-    Cantor::Expression* m_expression;
-    Worksheet* m_worksheet;
+    virtual void update()=0;
 
-    Cantor::CompletionObject* m_completionObject;
-    QPointer<KCompletionBox> m_completionBox;
-    Cantor::SyntaxHelpObject* m_syntaxHelpObject;
+  protected:
+    QTextFrame* m_frame;
+    Worksheet* m_worksheet;
 };
 
 #endif /* _WORKSHEETENTRY_H */

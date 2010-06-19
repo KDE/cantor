@@ -40,7 +40,7 @@ public:
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
 {
-    d->data=data;
+    d->data=data.trimmed();
 }
 
 TextResult::~TextResult()

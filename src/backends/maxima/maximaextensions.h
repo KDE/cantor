@@ -40,6 +40,8 @@ class MaximaScriptExtension : public Cantor::ScriptExtension
   public slots:
     virtual QString runExternalScript(const QString& file);
     virtual QString scriptFileFilter();
+    QString commentStartingSequence();
+    QString commentEndingSequence();
 };
 
 
@@ -48,7 +50,7 @@ class MaximaCASExtension : public Cantor::CASExtension
   public:
     MaximaCASExtension( QObject* parent);
     ~MaximaCASExtension();
-    
+
   public slots:
     virtual QString solve(const QStringList& equations, const QStringList& variables);
     virtual QString simplify(const QString& expression);
@@ -66,7 +68,7 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
     QString limit(const QString& expression, const QString& variable, const QString& limit);
     QString differentiate(const QString& function,const QString& variable, int times);
     QString integrate(const QString& function, const QString& variable);
-    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right);
 };
 
 /** An extension for basic Linear Algebra

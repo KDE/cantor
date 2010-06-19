@@ -50,6 +50,19 @@ QString ScriptExtension::commandSeparator()
     return ";\n";
 }
 
+//implement this here, as it's "#" most of the time
+QString ScriptExtension::commentStartingSequence()
+{
+    return "#";
+}
+
+//implement this here, as it's "" most of the time
+QString ScriptExtension::commentEndingSequence()
+{
+    return "";
+}
+
+
 //some convenience functions, but normally backends have a special command to create
 //these matrices/vectors.
 

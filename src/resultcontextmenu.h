@@ -23,7 +23,7 @@
 
 #include <kmenu.h>
 
-class WorksheetEntry;
+class CommandEntry;
 namespace Cantor{
     class Result;
 }
@@ -37,10 +37,10 @@ class ResultContextMenu : public KMenu
 {
   Q_OBJECT
   public:
-    ResultContextMenu( WorksheetEntry* entry, QWidget* parent);
+    ResultContextMenu( CommandEntry* entry, QWidget* parent);
     ~ResultContextMenu();
 
-    WorksheetEntry* entry();
+    CommandEntry* entry();
     Cantor::Result* result();
 
   public slots:
@@ -54,7 +54,7 @@ class ResultContextMenu : public KMenu
     void addTypeSpecificActions();
 
   private:
-    WorksheetEntry* m_entry;
+    CommandEntry* m_entry;
     Cantor::Result* m_result;
 
 };

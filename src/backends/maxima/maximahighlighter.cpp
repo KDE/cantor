@@ -88,7 +88,7 @@ MaximaHighlighter::~MaximaHighlighter()
 
 void MaximaHighlighter::highlightBlock(const QString& text)
 {
-    if(text.isEmpty())
+    if (skipHighlighting(text))
         return;
 
     //Do some backend independent highlighting (brackets etc.)

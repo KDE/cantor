@@ -18,8 +18,6 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "worksheet.h"
-
 #include "lib/backend.h"
 #include "lib/session.h"
 #include "lib/extension.h"
@@ -32,11 +30,11 @@
 #include "lib/defaulthighlighter.h"
 
 #include "worksheetentry.h"
+#include "commandentry.h"
+#include "textentry.h"
 
 #include "resultproxy.h"
 #include "animationhandler.h"
-#include "loadedexpression.h"
-#include "resultcontextmenu.h"
 #include <config-cantor.h>
 
 #include <QEvent>
@@ -46,6 +44,8 @@
 #include <QTextLength>
 #include <QFontMetrics>
 #include <QSyntaxHighlighter>
+#include <QDomDocument>
+#include <QXmlQuery>
 
 #include <kdebug.h>
 #include <kzip.h>
@@ -59,18 +59,26 @@
 #include <kfiledialog.h>
 #include <kmenu.h>
 
+#include "worksheet.h"
 #include "settings.h"
 
-Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KTextEdit(parent)
+
+Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KRichTextWidget(parent)
 {
+    setAcceptRichText(true);
+    setWordWrapMode(QTextOption::WordWrap);
+    setRichTextSupport( FullTextFormattingSupport
+    | FullListSupport
+    | SupportAlignment
+    | SupportRuleLine
+    | SupportFormatPainting );
+
     m_session=backend->createSession();
 
     setFont(KGlobalSettings::fixedFont());
 
     QFontMetrics metrics(document()->defaultFont());
     setTabStopWidth(4*metrics.width(' '));
-
-    appendEntry();
 
     m_highlighter=0;
 
@@ -110,14 +118,14 @@ void Worksheet::print( QPrinter* printer )
 {
     m_proxy->useHighResolution(true);
     foreach(WorksheetEntry* e, m_entries)
-        e->updateResult();
+        e->update();
 
 
     KTextEdit::print(printer);
 
     m_proxy->useHighResolution(false);
     foreach(WorksheetEntry* e, m_entries)
-        e->updateResult();
+        e->update();
 
 }
 
@@ -125,219 +133,82 @@ bool Worksheet::event(QEvent* event)
 {
     if (event->type() == QEvent::ShortcutOverride)
     {
-        QKeyEvent *e = static_cast<QKeyEvent *>( event );
-        //ignore the following shortcuts, so they can be used as a Shortcut for a KAction:
-        //Shift+Return
-        //Tab (only if completion is enabled)
-        //Shift+Delete
-        if (e->modifiers() == Qt::ShiftModifier&&
-            (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter))
+        //ignore the shortcuts that are used to trigger valid KActions
+        //for the current WorksheetEntry
+        WorksheetEntry* entry = currentEntry();
+        QKeyEvent* ke = static_cast<QKeyEvent *>( event );
+        if (entry && entry->worksheetShortcutOverrideEvent( ke, textCursor() ))
         {
-            e->ignore();
-            return false;
-        }else if ( (e->modifiers()==Qt::ShiftModifier) && (e->key() == Qt::Key_Delete))
-        {
-            e->ignore();
-            return false;
-        }else
-        if ( e->key() == Qt::Key_Tab && m_completionEnabled )
-        {
-            WorksheetEntry* current=currentEntry();
-            // special tab handling here
-            if (current)
-            {
-                //get the current line of the entry. If it's empty, do a regular tab(indent),
-                //otherwise check for tab completion (if supported by the backend)
-                const QString line=current->currentLine(textCursor()).trimmed();
-
-                if(line.isEmpty())
-                {
-                    return KTextEdit::event(e);
-                }else
-                {
-                    e->ignore();
-                    return false;
-                }
-            }
+                event->ignore();
+                return false;
         }
     }
-    return KTextEdit::event(event);
+
+    return KRichTextWidget::event(event);
+}
+
+void Worksheet::setCurrentEntry(WorksheetEntry * entry, bool moveCursor)
+{
+    if (!entry)
+        return;
+    bool rt = entry->acceptRichText();
+    setActionsEnabled(rt);
+    setAcceptRichText(rt);
+    m_currentEntry = entry;
+    entry->setActive(true, moveCursor);
+    ensureCursorVisible();
+}
+
+void Worksheet::moveToPreviousEntry()
+{
+    int index=m_entries.indexOf(currentEntry());
+    kDebug()<<"index: "<<index;
+    if(index>0)
+        setCurrentEntry(m_entries[index-1]);
+}
+
+void Worksheet::moveToNextEntry()
+{
+    int index=m_entries.indexOf(currentEntry());
+    kDebug()<<"index: "<<index;
+    if(index < m_entries.size() - 1)
+        setCurrentEntry(m_entries[index+1]);
 }
 
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
-    //if the textCursor is inside a prompt cell, set it to the next
-    //command cell.
     WorksheetEntry* current=currentEntry();
-    if(current&&current->isInPromptCell(textCursor()))
-       setTextCursor(current->commandCell().firstCursorPosition());
-
-    QTimer::singleShot(0, this, SLOT(moveToClosestValidCursor()));
-
-    if ( (event->modifiers()==Qt::NoModifier) && (event->key() == Qt::Key_Enter ||event->key() == Qt::Key_Return))
-    {
-        //If the current Entry is showing a popup completion box,
-        //complete to the currently selected item, when enter is pressed
-        //otherwise, just do a normal Enter(line break)
-        WorksheetEntry* entry=currentEntry();
-        if(entry&&entry->isShowingCompletionPopup())
-            entry->applySelectedCompletion();
-        else
-            KTextEdit::keyPressEvent(event);
-    }else
-    if ( event->key() == Qt::Key_Left )
-    {
-        KTextEdit::keyPressEvent(event);
-        if(current&&current->isInPromptCell(textCursor())) //The cursor is placed at the prompt column. move it up if possible
-        {
-            int index=m_entries.indexOf(current);
-            kDebug()<<"index: "<<index;
-            WorksheetEntry* newEntry;
-            if(index>0)
-                newEntry=m_entries[index-1];
-            else
-                newEntry=current;
-
-            setTextCursor(newEntry->commandCell().firstCursorPosition());
-        }
-    }else if ( event->key() == Qt::Key_Right )
-    {
-        KTextEdit::keyPressEvent(event);
-        if(current&&!current->isInCommandCell(textCursor()))
-        {
-            int index=m_entries.indexOf(current);
-
-            if(index<m_entries.size()-1)
-            {
-                setTextCursor(m_entries[index+1]->commandCell().firstCursorPosition());
-            }else
-            {
-                setTextCursor(current->commandCell().lastCursorPosition());
-            }
-        }else
-        {
-            //If the cursor is behind the last entry, set it to the last position of the last entry
-            current=m_entries.last();
-            if(textCursor().position()>current->lastPosition())
-                setTextCursor(current->commandCell().lastCursorPosition());
-        }
-    }else if ( event->key() == Qt::Key_Up )
-    {
-        if(!current)
-        {
-            KTextEdit::keyPressEvent(event);
-            return;
-        }
-
-        //Check if we are in the top line of the command cell,
-        //if so, pressing up means we want to go to the previous entry
-
-        if(current->isInCommandCell(textCursor())) //We are in the command cell.
-        {
-            //get the text written between the current cursor, and the beginning
-            //of the commandCell
-            QTextCursor c=textCursor();
-            c.setPosition(current->commandCell().firstCursorPosition().position(), QTextCursor::KeepAnchor);
-            QString txt=c.selectedText();
-
-            if(txt.contains(QChar::ParagraphSeparator)||
-               txt.contains(QChar::LineSeparator)||
-               txt.contains('\n')) //there's still a newline above the cursor, so move only one line up
-            {
-                KTextEdit::keyPressEvent(event);
-                return;
-            }else
-            {
-                int index=m_entries.indexOf(current);
-                kDebug()<<"index: "<<index;
-                WorksheetEntry* newEntry;
-                if(index>0)
-                    newEntry=m_entries[index-1];
-                else
-                    newEntry=current;
-
-                setTextCursor(newEntry->commandCell().firstCursorPosition());
-            }
-        }else
-        {
-            setTextCursor(current->commandCell().firstCursorPosition());
-        }
-    }else if ( event->key() == Qt::Key_Down )
-    {
-        if(!current)
-        {
-            KTextEdit::keyPressEvent(event);
-            return;
-        }
-
-        //Check if we are in the bottom line of the command cell,
-        //if so, pressing down means we want to go to the next entry
-
-        //get the text written between the current cursor, and the end
-        //of the commandCell
-        QTextCursor c=textCursor();
-        c.setPosition(current->commandCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
-        QString txt=c.selectedText();
-
-        //if we're in the command cell and there is still a newline under the cursor, only move one line down
-        if(current->isInCommandCell(textCursor())&&
-            (txt.contains(QChar::ParagraphSeparator)||
-              txt.contains(QChar::LineSeparator)||
-              txt.contains('\n')
-            )
-          )
-        {
-            KTextEdit::keyPressEvent(event);
-            return;
-        }else
-        {
-            //move to the next entry
-            int index=m_entries.indexOf(current);
-            WorksheetEntry* newEntry;
-            if(index<m_entries.size()-1)
-                newEntry=m_entries[index+1];
-            else
-                newEntry=current;
-
-            setTextCursor(newEntry->commandCell().firstCursorPosition());
-        }
-    }
-    else
-    {
-        KTextEdit::keyPressEvent(event);
-        QTimer::singleShot(0, this, SLOT(checkEntriesForSanity()));
-    }
-
-}
-
-void Worksheet::contextMenuEvent(QContextMenuEvent *event)
-{
-    QTextCursor cursorAtMouse=cursorForPosition(event->pos());
-    WorksheetEntry* current=entryAt(cursorAtMouse);
-    if(current&&current->isInResultCell(cursorAtMouse)&&current->expression()&&current->expression()->result())
-    {
-        kDebug()<<"context menu in result...";
-        KMenu* popup=new ResultContextMenu(current, this);
-
-        QMenu* defaultMenu=mousePopupMenu();
-        defaultMenu->setTitle(i18n("Other"));
-        popup->addMenu(defaultMenu);
-
-        popup->popup(event->globalPos());
-
-    }else
-    {
-        QTextCursor oldCursor=textCursor();
-        KTextEdit::contextMenuEvent(event);
-        if(!currentEntry())
-            setTextCursor(oldCursor);
-    }
+    if (current && !current->worksheetKeyPressEvent(event, textCursor()))
+        KRichTextWidget::keyPressEvent(event);
 }
 
 void Worksheet::mousePressEvent(QMouseEvent* event)
 {
-    KTextEdit::mousePressEvent(event);
-    moveToClosestValidCursor();
+    kDebug()<<"mousePressEvent";
+    const QTextCursor cursor = cursorForPosition(event->pos());
+    WorksheetEntry *entry = entryAt(cursor);
+    if (entry)
+    {
+        if (!entry->worksheetMousePressEvent(event, cursor))
+            KRichTextWidget::mousePressEvent(event);
+        if (entry != m_currentEntry)
+            setCurrentEntry(entry);
+    }
+}
+
+void Worksheet::contextMenuEvent(QContextMenuEvent *event)
+{
+    kDebug() << "contextMenuEvent";
+    const QTextCursor cursor = cursorForPosition(event->pos());
+    WorksheetEntry* entry = entryAt(cursor);
+
+    if (entry)
+    {
+        if (!entry->worksheetContextMenuEvent(event, cursor))
+            KRichTextWidget::contextMenuEvent(event);
+        if (entry != m_currentEntry)
+            setCurrentEntry(entry);
+    }
 }
 
 void Worksheet::mouseReleaseEvent(QMouseEvent* event)
@@ -350,17 +221,36 @@ void Worksheet::mouseReleaseEvent(QMouseEvent* event)
 
 void Worksheet::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    KTextEdit::mousePressEvent(event);
-    moveToClosestValidCursor();
+    mousePressEvent(event);
+}
+
+void Worksheet::dragMoveEvent(QDragMoveEvent *event)
+{
+    const QPoint pos = event->answerRect().topLeft();
+    const QTextCursor cursor = cursorForPosition(event->pos());
+    WorksheetEntry *entry = entryAt(cursor);
+    if (entry && entry->acceptsDrop(cursor))
+        event->setAccepted(true);
+    else
+        event->setAccepted(false);
+}
+
+void Worksheet::dropEvent(QDropEvent *event)
+{
+    const QTextCursor cursor = cursorForPosition(event->pos());
+    WorksheetEntry *entry = entryAt(cursor);
+    if (entry != m_currentEntry)
+        setCurrentEntry(entry, false);
+    KRichTextWidget::dropEvent(event);
 }
 
 void Worksheet::evaluate()
 {
+    kDebug()<<"evaluate worksheet";
     foreach(WorksheetEntry* entry, m_entries)
     {
-        evaluateEntry(entry);
+        entry->evaluate(false);
     }
-
 
     emit modified();
 }
@@ -371,74 +261,41 @@ void Worksheet::evaluateCurrentEntry()
     WorksheetEntry* entry=currentEntry();
     if(!entry)
         return;
-
-    if (entry->isInCommandCell(textCursor()))
+    if (!entry->evaluate(true))
+        return;
+    if(Settings::self()->autoEval())
     {
-        evaluateEntry(entry);
+        QList<WorksheetEntry*>::iterator it=m_entries.begin();
+        while((*it)!=entry&&it!=m_entries.end())
+            ++it;
 
-        if(Settings::self()->autoEval())
+        it++;
+
+        for(;it!=m_entries.end();++it)
         {
-            QList<WorksheetEntry*>::iterator it=m_entries.begin();
-            while((*it)!=entry&&it!=m_entries.end())
-                ++it;
-
-            it++;
-
-            for(;it!=m_entries.end();++it)
-            {
-                //kDebug()<<"evaluate"<<entry->command();
-                evaluateEntry(*it);
-            }
+            //kDebug()<<"evaluate"<<entry->command();
+            (*it)->evaluate(false);
         }
-
-    }else if (entry->isInCurrentInformationCell(textCursor()))
-    {
-        entry->addInformation();
     }
+    if(!m_entries.last()->isEmpty())
+        appendCommandEntry();
+    emit modified();
 }
 
-void Worksheet::evaluateEntry(WorksheetEntry* entry)
+bool Worksheet::completionEnabled()
 {
-    entry->removeContextHelp();
-
-    QString cmd=entry->command();
-    kDebug()<<"evaluating: "<<cmd;
-
-    Cantor::Expression* expr;
-    if(cmd.isEmpty()) return;
-
-    expr=m_session->evaluateExpression(cmd);
-    connect(expr, SIGNAL(gotResult()), this, SLOT(gotResult()));
-
-    entry->setExpression(expr);
-
-    if(!m_entries.last()->isEmpty())
-        appendEntry();
-
-    emit modified();
+    return m_completionEnabled;
 }
 
 void Worksheet::showCompletion()
 {
     WorksheetEntry* current=currentEntry();
-    //get the current line of the entry. If it's empty, do a regular tab(indent),
-    //otherwise check for tab completion (if supported by the backend)
-    const QString line=current->currentLine(textCursor()).trimmed();
-
-    if(line.isEmpty())
-    {
-        return;
-    }else
-    {
-        Cantor::CompletionObject* tco=m_session->completionFor(line);
-        if(tco)
-            current->setCompletion(tco);
-    }
+    current->showCompletion();
 }
 
 WorksheetEntry* Worksheet::currentEntry()
 {
-    return entryAt(textCursor());
+    return m_currentEntry;
 }
 
 WorksheetEntry* Worksheet::entryAt(const QTextCursor& cursor)
@@ -460,95 +317,135 @@ WorksheetEntry* Worksheet::entryAt(int row)
         return 0;
 }
 
-QTextCursor Worksheet::closestValidCursor(const QTextCursor& cursor)
+WorksheetEntry* Worksheet::insertEntryAt(const int type, const QTextCursor& cursor)
 {
-    if(cursor.position()>m_entries.last()->lastPosition())
+    WorksheetEntry* entry;
+
+    switch(type)
     {
-        QTextCursor c=cursor;
-        c.setPosition(m_entries.last()->lastPosition());
-        return c;
+    case (TextEntry::Type):
+        entry = new TextEntry(cursor, this);
+    break;
+    case (CommandEntry::Type):
+        entry = new CommandEntry(cursor, this);
+    break;
+    default:
+        entry = 0;
     }
 
-    foreach(WorksheetEntry* entry, m_entries)
+    return entry;
+}
+
+WorksheetEntry* Worksheet::appendEntry(const int type)
+{
+    QTextCursor cursor=document()->rootFrame()->lastCursorPosition();
+    WorksheetEntry* entry = insertEntryAt(type, cursor);
+    if (entry)
     {
-        if(entry->contains(cursor))
-        {
-            return cursor;
-        }
-        else if (entry->firstPosition()>cursor.position())
-        {
-            return entry->commandCell().firstCursorPosition();
-        }
+        kDebug() << "Entry Appended";
+        m_entries.append(entry);
+        setCurrentEntry(entry);
     }
-
-    return QTextCursor();
+    return entry;
 }
 
-WorksheetEntry* Worksheet::appendEntry()
+WorksheetEntry* Worksheet::appendCommandEntry()
 {
-   QTextCursor cursor=document()->rootFrame()->lastCursorPosition();
-   WorksheetEntry* entry=new WorksheetEntry( cursor, this );
-
-   connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
-   m_entries.append(entry);
-
-   setTextCursor(entry->commandCell().firstCursorPosition());
-   ensureCursorVisible();
-
-   return entry;
+   return appendEntry(CommandEntry::Type);
 }
 
-void Worksheet::appendEntry(const QString& text)
+WorksheetEntry* Worksheet::appendTextEntry()
 {
-    WorksheetEntry* oldE=m_entries.last();
-    WorksheetEntry* newE=appendEntry();
-    WorksheetEntry* target=0;
-    if(oldE->isEmpty())
-        target=oldE;
-    else
-        target=newE;
-
-    target->commandCell().firstCursorPosition().insertText(text);
-    setTextCursor(target->commandCell().firstCursorPosition());
-    ensureCursorVisible();
-
-    evaluateCurrentEntry();
-
+   return appendEntry(TextEntry::Type);
 }
 
-WorksheetEntry* Worksheet::insertEntry()
+void Worksheet::appendCommandEntry(const QString& text)
+{
+     WorksheetEntry* entry=appendCommandEntry();
+     if (entry)
+     {
+         entry->setContent(text);
+         evaluateCurrentEntry();
+     }
+}
+
+WorksheetEntry* Worksheet::insertEntry(int type)
 {
     WorksheetEntry* current=currentEntry();
     if(current)
     {
         int index=m_entries.indexOf(current);
-        WorksheetEntry* nextE=entryAt(index+1);
-        if(!nextE||!nextE->isEmpty())
-        {
-            QTextCursor c=QTextCursor(document());
-            c.setPosition(current->lastPosition()+2);
-            WorksheetEntry* entry=new WorksheetEntry(c, this);
-            connect(entry, SIGNAL(destroyed(QObject*)), this, SLOT(removeEntry(QObject*)));
-            m_entries.insert(index+1, entry);
+        WorksheetEntry* nextE = entryAt(index+1);
 
-            return entry;
-        }else
+        if(!nextE || nextE->type() != type || !nextE->isEmpty())
         {
-            return nextE;
+            QTextCursor cursor = QTextCursor(document());
+            cursor.setPosition(current->lastPosition()+1);
+            nextE = insertEntryAt(type, cursor);
+
+            m_entries.insert(index+1, nextE);
+
         }
+        setCurrentEntry(nextE);
+        return nextE;
     }
 
     return 0;
 }
 
-void Worksheet::insertEntry(const QString& text)
+WorksheetEntry* Worksheet::insertTextEntry()
 {
-    WorksheetEntry* entry=insertEntry();
+    return insertEntry(TextEntry::Type);
+}
+
+WorksheetEntry* Worksheet::insertCommandEntry()
+{
+    return insertEntry(CommandEntry::Type);
+}
+
+void Worksheet::insertCommandEntry(const QString& text)
+{
+    WorksheetEntry* entry = insertCommandEntry();
     if(entry&&!text.isNull())
     {
-        entry->commandCell().firstCursorPosition().insertText(text);
+        entry->setContent(text);
         evaluateCurrentEntry();
     }
+}
+
+WorksheetEntry* Worksheet::insertEntryBefore(int type)
+{
+    WorksheetEntry* current=currentEntry();
+    if(current)
+    {
+        int index=m_entries.indexOf(current);
+        WorksheetEntry* prevE = entryAt(index-1);
+
+        if(!prevE || prevE->type() != type || !prevE->isEmpty())
+        {
+            QTextCursor cursor = QTextCursor(document());
+            cursor.setPosition(current->firstPosition()-1);
+            prevE = insertEntryAt(type, cursor);
+
+            m_entries.insert(index, prevE);
+
+        }
+
+        setCurrentEntry(prevE);
+        return prevE;
+    }
+
+    return 0;
+}
+
+WorksheetEntry* Worksheet::insertTextEntryBefore()
+{
+    return insertEntryBefore(TextEntry::Type);
+}
+
+WorksheetEntry* Worksheet::insertCommandEntryBefore()
+{
+    return insertEntryBefore(CommandEntry::Type);
 }
 
 void Worksheet::interrupt()
@@ -556,11 +453,9 @@ void Worksheet::interrupt()
     m_session->interrupt();
 }
 
-void Worksheet::interruptCurrentExpression()
+void Worksheet::interruptCurrentEntryEvaluation()
 {
-    Cantor::Expression* expr=currentEntry()->expression();
-    if(expr)
-        expr->interrupt();
+    currentEntry()->interruptEvaluation();
 }
 
 void Worksheet::enableHighlighting(bool highlight)
@@ -597,6 +492,21 @@ bool Worksheet::isRunning()
     return m_session->status()==Cantor::Session::Running;
 }
 
+QDomDocument Worksheet::toXML(KZip* archive)
+{
+    QDomDocument doc( "CantorWorksheet" );
+    QDomElement root=doc.createElement( "Worksheet" );
+    root.setAttribute("backend", m_session->backend()->name());
+    doc.appendChild(root);
+
+    foreach( WorksheetEntry* entry, m_entries )
+    {
+        QDomElement el = entry->toXml(doc, archive);
+        root.appendChild( el );
+    }
+    return doc;
+}
+
 void Worksheet::save( const QString& filename )
 {
     kDebug()<<"saving to filename";
@@ -610,29 +520,13 @@ void Worksheet::save( const QString& filename )
         return;
     }
 
-    QDomDocument doc( "CantorWorksheet" );
-    QDomElement root=doc.createElement( "Worksheet" );
-    root.setAttribute("backend", m_session->backend()->name());
-    doc.appendChild(root);
-
-    foreach( WorksheetEntry* entry, m_entries )
-    {
-        if ( entry->expression() )
-            root.appendChild( entry->expression()->toXml(doc) );
-    }
-
-    QByteArray content=doc.toByteArray();
+    QByteArray content = toXML(&zipFile).toByteArray();
     kDebug()<<"content: "<<content;
     zipFile.writeFile( "content.xml", QString(), QString(), content.data(), content.size() );
 
-    foreach( WorksheetEntry* entry, m_entries )
-    {
-        if ( entry->expression() )
-            entry->expression()->saveAdditionalData( &zipFile );
-    }
-
     /*zipFile.close();*/
 }
+
 
 void Worksheet::savePlain(const QString& filename)
 {
@@ -644,20 +538,25 @@ void Worksheet::savePlain(const QString& filename)
     }
 
     QString cmdSep=";\n";
+    QString commentStartingSeq = "";
+    QString commentEndingSeq = "";
+
     Cantor::Backend * const backend=session()->backend();
     if (backend->extensions().contains("ScriptExtension"))
     {
         Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
         cmdSep=e->commandSeparator();
+        commentStartingSeq = e->commentStartingSequence();
+        commentEndingSeq = e->commentEndingSequence();
     }
 
     QTextStream stream(&file);
 
     foreach(WorksheetEntry * const entry, m_entries)
     {
-        const QString& cmd=entry->command();
-        if(!cmd.isEmpty())
-            stream<<cmd+cmdSep+'\n';
+        const QString& str=entry->toPlain(cmdSep, commentStartingSeq, commentEndingSeq);
+        if(!str.isEmpty())
+            stream << str + '\n';
     }
 
     file.close();
@@ -675,54 +574,44 @@ void Worksheet::saveLatex(const QString& filename,  bool exportImages)
     }
 
     QTextStream stream(&file);
+    QXmlQuery query(QXmlQuery::XSLT20);
+    kDebug() << toXML().toString();
+    query.setFocus(toXML().toString());
 
-    stream<<
-        "\\documentclass[a4paper,10pt,fleqn]{article}\n" \
-        "\\usepackage{fullpage}\n" \
-        "\\usepackage{graphicx}\n" \
-        "\\usepackage[utf8]{inputenc} \n"\
-        "\\usepackage{amsmath,amssymb} \n" \
-        "\n\n"\
-        "\\begin{document}\n";
-    stream<<endl;
-
-    foreach(WorksheetEntry * const entry, m_entries)
+    QString stylesheet = KStandardDirs::locate("appdata", "xslt/latex.xsl");
+    if (stylesheet.isEmpty())
     {
-        const QString& cmd=entry->command();
-
-        stream<<"\\noindent ";
-        stream<<QString(" { \\large \\bf \\begin{verbatim} %1 \\end{verbatim}  }\n\n").arg(cmd);
-
-        if(entry->expression()&&entry->expression()->result())
-            stream<<entry->expression()->result()->toLatex();
-
-        stream<<endl<<endl;
+        KMessageBox::error(this, i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));
+        return;
     }
 
-    stream<<endl;
-    stream<<"\\end{document}\n";
-
+    query.setQuery(QUrl(stylesheet));
+    QString out;
+    if (query.evaluateTo(&out))
+        stream << out;
     file.close();
 
-    if(exportImages)
-    {
-        foreach( WorksheetEntry* entry, m_entries )
-        {
-            if ( entry->expression() )
-            {
-                Cantor::Result* result=entry->expression()->result();
-                if(!result)
-                    continue;
-                KUrl dest(filename);
-                dest.setFileName(result->url().fileName());
-                kDebug()<<"saving image to "<<dest;
-                if(result->type()==Cantor::ImageResult::Type||result->type()==Cantor::EpsResult::Type)
-                    result->save(dest.toLocalFile());
-            }
-        }
-    }
+//
+//     if(exportImages)
+//     {
+//         foreach( WorksheetEntry* entry, m_entries )
+//         {
+//             if ( entry->expression() )
+//             {
+//                 Cantor::Result* result=entry->expression()->result();
+//                 if(!result)
+//                     continue;
+//                 KUrl dest(filename);
+//                 dest.setFileName(result->url().fileName());
+//                 kDebug()<<"saving image to "<<dest;
+//                 if(result->type()==Cantor::ImageResult::Type||result->type()==Cantor::EpsResult::Type)
+//                     result->save(dest.toLocalFile());
+//             }
+//         }
+//     }
 
 }
+
 
 void Worksheet::load(const QString& filename )
 {
@@ -775,22 +664,26 @@ void Worksheet::load(const QString& filename )
     m_entries.clear();
 
     kDebug()<<"loading entries";
-    QDomElement expressionChild = root.firstChildElement("Expression");
+    QDomElement expressionChild = root.firstChildElement();
+    WorksheetEntry* entry;
     while (!expressionChild.isNull()) {
-        appendEntry();
-        WorksheetEntry* entry=m_entries.last();
+        QString tag = expressionChild.tagName();
+        if (tag == "Expression")
+        {
+            entry = appendCommandEntry();
+            entry->setContent(expressionChild, file);
+        }
+        else if (tag == "Text")
+        {
+            entry = appendTextEntry();
+            entry->setContent(expressionChild, file);
+        }
 
-        entry->commandCell().firstCursorPosition().insertText(expressionChild.firstChildElement("Command").text());
-
-        LoadedExpression* expr=new LoadedExpression( m_session );
-        expr->loadFromXml(expressionChild, file);
-
-        entry->setExpression(expr);
-
-        expressionChild = expressionChild.nextSiblingElement("Expression");
+        expressionChild = expressionChild.nextSiblingElement();
     }
 
 }
+
 
 void Worksheet::gotResult()
 {
@@ -813,7 +706,7 @@ void Worksheet::removeEntry(QObject* object)
     WorksheetEntry* entry=static_cast<WorksheetEntry*>(object);
     m_entries.removeAll(entry);
     if(m_entries.isEmpty())
-        appendEntry();
+        appendCommandEntry();
 }
 
 void Worksheet::removeCurrentEntry()
@@ -825,25 +718,24 @@ void Worksheet::removeCurrentEntry()
 
     int index=m_entries.indexOf(entry);
 
-    QTextCursor cursor=entry->table()->firstCursorPosition();
-    cursor.setPosition(cursor.position()-2);
-    cursor.setPosition(entry->table()->lastCursorPosition().position()+1, QTextCursor::KeepAnchor);
+    int position=entry->firstPosition();
+    kDebug()<<position;
+    QTextCursor cursor = textCursor();
+    cursor.setPosition(position - 1);
+    cursor.setPosition(entry->lastPosition() + 1, QTextCursor::KeepAnchor);
     cursor.removeSelectedText();
 
+    delete entry;
     m_entries.removeAll(entry);
-    int relIndices[]={0, -1, 1};
-    kDebug()<<"index: "<<index;
-    for(int i=0;i<3;i++)
-    {
-        kDebug()<<"trying "<<index+relIndices[i];
-        entry=entryAt( index+relIndices[i] );
-        if(entry)
-        {
-            kDebug()<<"found at "<<relIndices[i];
-            setTextCursor(entry->commandCell().firstCursorPosition());
-        }
-    }
+
+    entry = entryAt(index);
+    if (!entry)
+        entry = entryAt(index + 1);
+    if (!entry)
+        entry = appendCommandEntry();
+    setCurrentEntry(entry);
 }
+
 
 void Worksheet::checkEntriesForSanity()
 {
@@ -851,11 +743,6 @@ void Worksheet::checkEntriesForSanity()
     {
         e->checkForSanity();
     }
-}
-
-void Worksheet::moveToClosestValidCursor()
-{
-    setTextCursor(closestValidCursor(textCursor()));
 }
 
 bool Worksheet::showExpressionIds()
@@ -866,11 +753,7 @@ bool Worksheet::showExpressionIds()
 void Worksheet::enableExpressionNumbering(bool enable)
 {
     m_showExpressionIds=enable;
-
-    foreach(WorksheetEntry* entry, m_entries)
-    {
-        entry->updatePrompt();
-    }
+    emit updatePrompt();
 }
 
 void Worksheet::zoomIn(int range)
@@ -880,7 +763,7 @@ void Worksheet::zoomIn(int range)
     m_proxy->scale(1+range/10.0); //Scale images for 10%
 
     foreach(WorksheetEntry* e, m_entries)
-        e->updateResult();
+        e->update();
 }
 
 void Worksheet::zoomOut(int range)
@@ -889,7 +772,7 @@ void Worksheet::zoomOut(int range)
     m_proxy->scale(1-range/10.0); //Scale images for 10%
 
     foreach(WorksheetEntry* e, m_entries)
-        e->updateResult();
+        e->update();
 }
 
 ResultProxy* Worksheet::resultProxy()

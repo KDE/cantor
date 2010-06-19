@@ -21,7 +21,7 @@
 #ifndef _WORKSHEET_H
 #define _WORKSHEET_H
 
-#include <ktextedit.h>
+#include <krichtextwidget.h>
 #include <QHash>
 
 namespace Cantor{
@@ -29,10 +29,12 @@ namespace Cantor{
     class Session;
     class Expression;
 }
+//class QTextCursor;
 class WorksheetEntry;
 class ResultProxy;
+class TextEntry;
 
-class Worksheet : public KTextEdit
+class Worksheet : public KRichTextWidget
 {
   Q_OBJECT
   public:
@@ -49,17 +51,25 @@ class Worksheet : public KTextEdit
     void print(QPrinter* printer);
 
   public slots:
-    WorksheetEntry* appendEntry();
-    void appendEntry(const QString& text);
-    WorksheetEntry* insertEntry();
-    void insertEntry(const QString& text);
+    WorksheetEntry* appendCommandEntry();
+    void appendCommandEntry(const QString& text);
+    WorksheetEntry* appendTextEntry();
+    WorksheetEntry* insertCommandEntry();
+    void insertCommandEntry(const QString& text);
+    WorksheetEntry* insertTextEntry();
+    WorksheetEntry* insertCommandEntryBefore();
+    WorksheetEntry* insertTextEntryBefore();
+
+    void setCurrentEntry(WorksheetEntry * entry, bool moveCursor = true);
+    void moveToPreviousEntry();
+    void moveToNextEntry();
 
     void evaluate();
     void evaluateCurrentEntry();
-    void evaluateEntry(WorksheetEntry* entry);
     void interrupt();
-    void interruptCurrentExpression();
+    void interruptCurrentEntryEvaluation();
 
+    bool completionEnabled();
     void showCompletion();
 
     void enableHighlighting(bool highlight);
@@ -68,6 +78,8 @@ class Worksheet : public KTextEdit
 
     void zoomIn(int range=1);
     void zoomOut(int range=1);
+
+    QDomDocument toXML(KZip* archive=0);
 
     void save(const QString& filename);
     void savePlain(const QString& filename);
@@ -82,7 +94,8 @@ class Worksheet : public KTextEdit
     void modified();
     void sessionChanged();
     void showHelp(const QString& help);
-  
+    void updatePrompt();
+
   protected:
     bool event(QEvent* event);
     void keyPressEvent(QKeyEvent *event);
@@ -90,22 +103,28 @@ class Worksheet : public KTextEdit
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseDoubleClickEvent(QMouseEvent* event);
+    void dragMoveEvent(QDragMoveEvent* event);
+    void dropEvent(QDropEvent *event);
 
   private slots:
     void loginToSession();
     void removeEntry(QObject* object);
     void checkEntriesForSanity();
-    void moveToClosestValidCursor();
+
+    WorksheetEntry* insertEntryAt(int type, const QTextCursor& cursor);
+    WorksheetEntry* appendEntry(int type);
+    WorksheetEntry* insertEntry(int type);
+    WorksheetEntry* insertEntryBefore(int type);
   private:
     WorksheetEntry* currentEntry();
     WorksheetEntry* entryAt(const QTextCursor& cursor);
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
     WorksheetEntry* entryAt(int row);
   private:
     Cantor::Session *m_session;
     ResultProxy* m_proxy;
     QSyntaxHighlighter* m_highlighter;
     QList<WorksheetEntry*> m_entries;
+    WorksheetEntry* m_currentEntry;
     bool m_completionEnabled;
     bool m_showExpressionIds;
     bool m_loginFlag;

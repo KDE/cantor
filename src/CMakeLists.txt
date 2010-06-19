@@ -9,6 +9,7 @@ if(LIBSPECTRE_FOUND)
 endif(LIBSPECTRE_FOUND)
 add_subdirectory(backends)
 add_subdirectory(assistants)
+add_subdirectory(xslt)
 
 #build the config object in a separate library, shared between shell and part
 kde4_add_kcfg_files(config_SRCS settings.kcfgc)
@@ -54,6 +55,8 @@ set(cantor_PART_SRCS
    cantor_part.cpp
    worksheet.cpp
    worksheetentry.cpp
+   commandentry.cpp
+   textentry.cpp
    scripteditorwidget.cpp
    resultproxy.cpp
    loadedexpression.cpp
@@ -67,7 +70,7 @@ configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 
 target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
-				     ${KDE4_KTEXTEDITOR_LIBS}
+				     ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTXMLPATTERNS_LIBRARY}
 				     cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})

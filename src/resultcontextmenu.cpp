@@ -23,7 +23,7 @@
 #include "lib/result.h"
 #include "lib/latexresult.h"
 #include "lib/animationresult.h"
-#include "worksheetentry.h"
+#include "commandentry.h"
 
 #include <qmovie.h>
 
@@ -31,7 +31,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-ResultContextMenu::ResultContextMenu(WorksheetEntry* entry, QWidget* parent) : KMenu(parent)
+ResultContextMenu::ResultContextMenu(CommandEntry* entry, QWidget* parent) : KMenu(parent)
 {
     setTitle(i18n("Result"));
     m_entry=entry;
@@ -88,7 +88,7 @@ void ResultContextMenu::addTypeSpecificActions()
     }
 }
 
-WorksheetEntry* ResultContextMenu::entry()
+CommandEntry* ResultContextMenu::entry()
 {
     return m_entry;
 }
@@ -114,7 +114,7 @@ void ResultContextMenu::latexToggleShowCode()
      else
          lr->showCode();
 
-     entry()->updateResult();
+     entry()->update();
 }
 
 void ResultContextMenu::animationPause()

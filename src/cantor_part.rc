@@ -23,7 +23,10 @@
   <Menu name="worksheet"><text>&amp;Worksheet</text>
     <Action name="evaluate_worksheet"/>
     <Action name="evaluate_current"/>
-    <Action name="insert_entry"/>
+    <Action name="insert_command_entry"/>
+    <Action name="insert_text_entry"/>
+    <Action name="insert_command_entry_before"/>
+    <Action name="insert_text_entry_before"/>
     <Action name="remove_current"/>
   </Menu>
   <Menu name="help">
@@ -38,6 +41,27 @@
   <Action name="evaluate_worksheet"/>
   <Action name="restart_backend"/>
   <Action name="backend_help"/>
+  <Separator/>
+</ToolBar>
+<ToolBar noMerge="1" name="textEditToolBar">
+  <Separator/>
+  <Action name="format_text_bold"/>
+  <Action name="format_text_italic"/>
+  <Action name="format_text_underline"/>
+  <Action name="format_text_strikeout"/>
+  <Action name="format_text_foreground_color"/>
+  <Action name="format_text_background_color"/>
+  <Separator/>
+  <Action name="format_font_family"/>
+  <Action name="format_font_size"/>
+  <Separator/>
+  <Action name="format_align_left"/>
+  <Action name="format_align_center"/>
+  <Action name="format_align_right"/>
+  <Action name="format_align_justify"/>
+  <Action name="format_list_style"/>
+  <Action name="format_list_indent_more"/>
+  <Action name="format_list_indent_less"/>
   <Separator/>
 </ToolBar>
 </kpartgui>

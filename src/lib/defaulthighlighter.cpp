@@ -75,9 +75,14 @@ DefaultHighlighter::~ DefaultHighlighter()
     delete d;
 }
 
+bool DefaultHighlighter::skipHighlighting(const QString& text)
+{
+    return (text.isEmpty() || currentBlockType() == NoHighlightBlock);
+}
+
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    if ( text.isEmpty())
+    if (skipHighlighting(text))
         return;
 
     highlightPairs(text);

@@ -46,6 +46,16 @@ QString MaximaScriptExtension::scriptFileFilter()
     return i18n("*.mac|Maxima batch File");
 }
 
+QString MaximaScriptExtension::commentStartingSequence()
+{
+    return "/* ";
+}
+
+QString MaximaScriptExtension::commentEndingSequence()
+{
+    return " */";
+}
+
 //CAS Extension
 MAXIMA_EXTENSION_CONSTRUCTORS(CAS)
 

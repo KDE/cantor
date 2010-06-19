@@ -95,6 +95,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     setWidget(m_worksheet);
 
     // create our actions
+    m_worksheet->createActions( actionCollection() );
+
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
 
@@ -143,10 +145,25 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     actionCollection()->addAction("evaluate_current",  evaluateCurrent);
     connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
 
-    KAction* insertEntry=new KAction(i18n("Insert Entry"), actionCollection());
-    insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_entry",  insertEntry);
-    connect(insertEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertEntry()));
+    KAction* insertCommandEntry=new KAction(i18n("Insert Command Entry"), actionCollection());
+    insertCommandEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_command_entry",  insertCommandEntry);
+    connect(insertCommandEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntry()));
+
+    KAction* insertTextEntry=new KAction(i18n("Insert Text Entry"), actionCollection());
+    //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_text_entry",  insertTextEntry);
+    connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
+
+    KAction* insertCommandEntryBefore=new KAction(i18n("Insert Command Entry Before"), actionCollection());
+    //insertCommandEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_command_entry_before",  insertCommandEntryBefore);
+    connect(insertCommandEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntryBefore()));
+
+    KAction* insertTextEntryBefore=new KAction(i18n("Insert Text Entry Before"), actionCollection());
+    //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_text_entry_before",  insertTextEntryBefore);
+    connect(insertTextEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntryBefore()));
 
     KAction* removeCurrent=new KAction(i18n("Remove current Entry"), actionCollection());
     removeCurrent->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
@@ -173,7 +190,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     actionCollection()->addAction("show_completion", showCompletion);
     showCompletion->setShortcut(Qt::Key_Tab); //Qt::CTRL + Qt::Key_Space);
     connect(showCompletion, SIGNAL(triggered()), m_worksheet, SLOT(showCompletion()));
-
 
     // set our XML-UI resource file
     setXMLFile("cantor_part.rc");
@@ -378,7 +394,9 @@ void CantorPart::worksheetSessionChanged()
 
 void CantorPart::initialized()
 {
+    m_worksheet->appendCommandEntry();
     m_worksheet->setEnabled(true);
+    m_worksheet->setFocus();
     setStatusMessage(i18n("Initialization complete"));
 
     if(m_initProgressDlg)
@@ -474,7 +492,7 @@ void CantorPart::runAssistant()
     QStringList cmds=a->run(widget());
     kDebug()<<cmds;
     if(!cmds.isEmpty())
-        m_worksheet->appendEntry(cmds.join("\n"));
+        m_worksheet->appendCommandEntry(cmds.join("\n"));
 }
 
 void CantorPart::adjustGuiToSession()
@@ -573,7 +591,7 @@ void CantorPart::runScript(const QString& file)
     }
 
     Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
-    m_worksheet->appendEntry(scriptE->runExternalScript(file));
+    m_worksheet->appendCommandEntry(scriptE->runExternalScript(file));
 }
 
 void CantorPart::blockStatusBar()
