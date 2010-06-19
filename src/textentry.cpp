@@ -28,7 +28,7 @@
 #include <QTextDocumentFragment>
 
 #include <kdebug.h>
-
+#include <kzip.h>
 
 
 TextEntry::TextEntry(QTextCursor position, Worksheet* parent ) : WorksheetEntry( position, parent )

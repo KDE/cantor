@@ -26,6 +26,7 @@
 
 class Worksheet;
 class WorksheetEntry;
+class KZip;
 
 class TextEntry : public WorksheetEntry
 {
