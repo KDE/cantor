@@ -33,6 +33,7 @@ Icon=cantor
 Type=Application
 X-DocPath=cantor/index.html
 GenericName=KDE Frontend to Mathematical Software
+GenericName[ca]=Frontal del KDE per a programari matemàtic
 GenericName[da]=KDE-brugerflade til matematisk software
 GenericName[de]=Eine KDE-Oberfläche für mathematische Software
 GenericName[el]=Περιβάλλον του KDE για μαθηματικό λογισμικό
