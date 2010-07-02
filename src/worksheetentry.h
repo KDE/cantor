@@ -65,10 +65,12 @@ class WorksheetEntry : public QObject
     int lastValidPosition();
     virtual bool isValidCursor(const QTextCursor& cursor)=0;
 
+    // Handlers for the worksheet input events affecting worksheetentries
     virtual bool worksheetShortcutOverrideEvent(QKeyEvent* event, const QTextCursor& cursor);
     virtual bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
     virtual bool worksheetMousePressEvent(QMouseEvent* event, const QTextCursor& cursor);
     virtual bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
+    virtual bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
 
     virtual bool acceptRichText()=0;
     virtual bool acceptsDrop(const QTextCursor& cursor)=0;

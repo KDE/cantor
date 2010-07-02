@@ -33,6 +33,9 @@
 
 TextEntry::TextEntry(QTextCursor position, Worksheet* parent ) : WorksheetEntry( position, parent )
 {
+    QTextFrameFormat frameFormat = m_frame->frameFormat();
+    frameFormat.setPadding(10);
+    m_frame->setFrameFormat(frameFormat);
     QTextCharFormat format = firstCursorPosition().blockCharFormat();
     format.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::NoHighlightBlock);
     firstCursorPosition().setBlockCharFormat(format);

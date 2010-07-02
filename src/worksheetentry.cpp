@@ -199,6 +199,14 @@ bool WorksheetEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const Q
     return false;
 }
 
+bool WorksheetEntry::worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor)
+{
+    Q_UNUSED(event);
+    Q_UNUSED(cursor);
+
+    return false;
+}
+
 void WorksheetEntry::checkForSanity()
 {
 

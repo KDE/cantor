@@ -177,8 +177,8 @@ void Worksheet::moveToNextEntry()
 
 void Worksheet::keyPressEvent(QKeyEvent* event)
 {
-    WorksheetEntry* current=currentEntry();
-    if (current && !current->worksheetKeyPressEvent(event, textCursor()))
+    WorksheetEntry *entry = entryAt(textCursor());
+    if (entry && !entry->worksheetKeyPressEvent(event, textCursor()))
         KRichTextWidget::keyPressEvent(event);
 }
 
@@ -221,7 +221,15 @@ void Worksheet::mouseReleaseEvent(QMouseEvent* event)
 
 void Worksheet::mouseDoubleClickEvent(QMouseEvent* event)
 {
-    mousePressEvent(event);
+    kDebug()<<"mouseDoubleClickEvent";
+    const QTextCursor cursor = cursorForPosition(event->pos());
+    WorksheetEntry *entry = entryAt(cursor);
+    if (!entry)
+        return;
+    KRichTextWidget::mouseDoubleClickEvent(event);
+    entry->worksheetMouseDoubleClickEvent(event, textCursor());
+    if (entry != m_currentEntry)
+        setCurrentEntry(entry);
 }
 
 void Worksheet::dragMoveEvent(QDragMoveEvent *event)
@@ -257,8 +265,8 @@ void Worksheet::evaluate()
 
 void Worksheet::evaluateCurrentEntry()
 {
-    kDebug()<<"evaluation requested...";
-    WorksheetEntry* entry=currentEntry();
+    kDebug() << "evaluation requested...";
+    WorksheetEntry* entry = currentEntry();
     if(!entry)
         return;
     if (!entry->evaluate(true))
@@ -276,9 +284,18 @@ void Worksheet::evaluateCurrentEntry()
             //kDebug()<<"evaluate"<<entry->command();
             (*it)->evaluate(false);
         }
+        if(!m_entries.last()->isEmpty())
+            appendCommandEntry();
+        else
+            setCurrentEntry(m_entries.last());
     }
-    if(!m_entries.last()->isEmpty())
-        appendCommandEntry();
+    else
+    {
+        if (entry == m_entries.last())
+            appendCommandEntry();
+        else
+            moveToNextEntry();
+    }
     emit modified();
 }
 
