@@ -14,7 +14,7 @@
    <item>
     <widget class="QCheckBox" name="kcfg_integratePlots">
      <property name="text">
-      <string>integrate Plots in Worksheet</string>
+      <string>Integrate Plots in Worksheet</string>
      </property>
     </widget>
    </item>
