@@ -1,5 +1,6 @@
 add_subdirectory(null)
 add_subdirectory(maxima)
+add_subdirectory(octave)
 
 if(BUILD_kalgebra)
 	add_subdirectory(kalgebra)

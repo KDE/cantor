@@ -1,0 +1,10 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 1124619)
++++ CMakeLists.txt	(working copy)
+@@ -12,3 +12,5 @@
+ if(R_FOUND)
+ 	macro_optional_add_subdirectory(R)
+ endif(R_FOUND)
++
++add_subdirectory(octave)
