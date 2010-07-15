@@ -40,7 +40,7 @@ OctaveExpression::~OctaveExpression()
 
 void OctaveExpression::interrupt()
 {
-
+    setStatus(Interrupted);
 }
 
 void OctaveExpression::evaluate()
@@ -60,7 +60,10 @@ void OctaveExpression::evaluate()
 void OctaveExpression::parseOutput ( QString output )
 {
     m_resultString += output;
-    setResult(new Cantor::TextResult(m_resultString));
+    if (!m_resultString.trimmed().isEmpty())
+    {
+        setResult(new Cantor::TextResult(m_resultString));
+    }
 }
 
 void OctaveExpression::parseError(QString error)

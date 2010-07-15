@@ -33,7 +33,9 @@
 #include <QtCore/QTimer>
 #include <QtCore/QFile>
 #include "octavehighlighter.h"
-#include <../../../build/cantor/src/backends/octave/settings.h>
+#include <settings.h>
+
+#include <signal.h>
 
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend )
 {
@@ -50,19 +52,19 @@ OctaveSession::~OctaveSession()
 
 void OctaveSession::login()
 {
-    kDebug();  
+    kDebug();
     m_plotFile = KStandardDirs::locateLocal("tmp", "cantor_octave_plot.eps");
-  
+
     m_process = new KProcess ( this );
     QStringList args;
     args << "--silent";
     args << "--interactive";
     args << "--persist";
-    
+
     // Add the cantor script directory to search path
     args << "--eval";
     args << QString("addpath %1;").arg(octaveScriptInstallDir);
-    
+
     if (OctaveSettings::integratePlots())
     {
 	// Do not show the popup when plotting, rather only print to a file
@@ -74,15 +76,15 @@ void OctaveSession::login()
 	args << "--eval";
 	args << "set (0, \"defaultfigurevisible\",\"on\");";
     }
-      
+
     // Do not show extra text in help commands
     args << "--eval";
     args << "suppress_verbose_help_message(1);";
-    
+
     // Print the temp dir, used for plot files
     args << "--eval";
     args << "____TMP_DIR____ = tempdir";
-    
+
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
     kDebug() << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
@@ -90,7 +92,7 @@ void OctaveSession::login()
     connect ( m_process, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
     connect ( m_process, SIGNAL ( error ( QProcess::ProcessError ) ), SLOT ( processError() ) );
     m_process->start();
-    
+
     if (OctaveSettings::integratePlots())
     {
 	m_watch = new KDirWatch;
@@ -114,10 +116,9 @@ void OctaveSession::interrupt()
         m_currentExpression->interrupt();
     }
     m_expressionQueue.clear();
-    //TODO: Don't know how
-    kDebug() << "Interrupted";
-    m_stream.setDevice(m_process);
-  //  m_stream << "\003" << flush; // Ctrl-C, it interrupts the current command
+    kDebug() << "Sending SIGINT to Octave";
+    kill(m_process->pid(), SIGINT);
+    changeStatus(Done);
 }
 
 void OctaveSession::processError()
@@ -221,7 +222,7 @@ void OctaveSession::readOutput()
 		line += QString::fromLocal8Bit(m_process->readLine());
 	    }
 	    m_currentExpression->parseOutput(line);
-	    
+
         }
     }
 }
