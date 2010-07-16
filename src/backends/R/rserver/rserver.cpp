@@ -16,7 +16,11 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2010 Oleksiy Protas <elfy.ua@gmail.com>
  */
+
+// TODO: setStatus in syntax and completions, to be or not to be? 
+// on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
 #include <kio/netaccess.h>
@@ -95,6 +99,9 @@ void RServer::initR()
     }
 
     kDebug()<<"done initializing";
+    
+    // FIXME: other way to search symbols, see listSymbols for details
+    listSymbols();
 }
 
 //Code from the RInside library
@@ -338,10 +345,15 @@ void RServer::runCommand(const QString& cmd, bool internal)
         emit expressionFinished(returnCode, returnText);
 
     setStatus(Idle);
+    
+    // FIXME: Calling this every evaluation is probably ugly
+    listSymbols();
 }
 
 void RServer::completeCommand(const QString& cmd)
 {
+//     setStatus(RServer::Busy);
+    
     // TODO: is static okay? guess RServer is a singletone, but ...
     // TODO: error handling?
     // TODO: investigate encoding problem
@@ -375,6 +387,44 @@ void RServer::completeCommand(const QString& cmd)
     UNPROTECT(2);
     
     emit completionFinished(qToken,completionOptions);
+    
+//     setStatus(RServer::Idle);
+}
+
+// FIXME: This scheme is somewhat placeholder, I honestly don't like it too much
+// I am not sure whether or not asking the server with each keypress if what he typed was
+// acceptable or not is a good idea. I'll leave it under investigation, let it be this way just for now
+// ~Landswellsong
+
+void RServer::listSymbols()
+{
+//     setStatus(RServer::Busy);
+    
+    QStringList vars,funcs, namespaces;
+    int errorOccurred; // TODO: error checks
+    
+    /* Obtaining a list of user namespace objects */
+    SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),NULL,&errorOccurred));
+    for (int i=0;i<length(usr);i++)
+        vars<<translateCharUTF8(STRING_ELT(usr,i));
+    UNPROTECT(1);
+    
+    /* Obtaining a list of active packages */
+    SEXP packages=PROTECT(R_tryEval(lang1(install("search")),NULL,&errorOccurred));
+    for (int i=1;i<length(packages);i++) // Package #0 is user environment, so starting with 1
+    {
+        char pos[32];
+        sprintf(pos,"%d",i+1);
+        SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),NULL,&errorOccurred));
+        for (int i=0;i<length(f);i++)
+            funcs<<translateCharUTF8(STRING_ELT(f,i));
+        UNPROTECT(1);
+    }
+    UNPROTECT(1);
+    
+    emit symbolList(vars,funcs);
+    
+//     setStatus(RServer::Idle);
 }
 
 void RServer::setStatus(Status status)

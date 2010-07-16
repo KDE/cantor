@@ -100,7 +100,9 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command)
 
 QSyntaxHighlighter* RSession::syntaxHighlighter(QTextEdit* parent)
 {
-    return new RHighlighter(parent);
+    RHighlighter *h=new RHighlighter(parent);
+    connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),h,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
+    return h;
 }
 
 void RSession::queueExpression(RExpression* expr)

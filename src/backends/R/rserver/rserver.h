@@ -60,11 +60,14 @@ class RServer : public QObject
     void inputRequested(const QString& prompt);
 
     void requestAnswered();
+    void symbolList(const QStringList& variables, const QStringList& functions);
     
   public slots:
     void runCommand(const QString& cmd, bool internal=false);
     void answerRequest(const QString& answer);
     void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
+    void listSymbols();
+    
   private:
     void setStatus(Status status);
     void newPlotDevice();

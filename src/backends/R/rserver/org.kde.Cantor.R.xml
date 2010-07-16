@@ -14,6 +14,10 @@
       <arg name="token" type="s" direction="out"/>
       <arg name="options" type="as" direction="out"/>
     </signal>
+    <signal name="symbolList">
+      <arg name="variables" type="as" direction="out"/>
+      <arg name="functions" type="as" direction="out"/>
+    </signal>
     <signal name="showFilesNeeded">
       <arg name="files" type="as" direction="out"/>
     </signal>
@@ -30,6 +34,8 @@
     </method>
     <method name="answerRequest">
       <arg name="answer" type="s" direction="in"/>
+    </method>
+    <method name="listSymbols">
     </method>
   </interface>
 </node>
