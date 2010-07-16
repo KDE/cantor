@@ -57,6 +57,7 @@ void RSession::login()
     m_rServer=new org::kde::Cantor::R(QString("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
+    connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),this,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
 
     changeStatus(Cantor::Session::Done);
 
@@ -101,8 +102,28 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command)
 QSyntaxHighlighter* RSession::syntaxHighlighter(QTextEdit* parent)
 {
     RHighlighter *h=new RHighlighter(parent);
-    connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),h,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
+    connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));
+    connect(this,SIGNAL(symbolsChanged()),h,SLOT(refreshSyntaxRegExps()));
     return h;
+}
+
+void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
+{
+    // WARNING: current implementation as-in-maxima is a performance hit
+    // think about grouping expressions together or only fetching needed ones
+    v.clear(); f.clear();
+    foreach (const QString s, m_variables)
+        v.append(QRegExp(s));
+    foreach (const QString s, m_functions)
+        f.append(QRegExp(s));
+}
+
+void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
+{
+    m_variables=v;
+    m_functions=f;
+
+    emit symbolsChanged();
 }
 
 void RSession::queueExpression(RExpression* expr)
