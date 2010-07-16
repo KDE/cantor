@@ -19,7 +19,7 @@
  */
 
 #ifndef _RHIGHLIGHTER_H
-#define _RHLIGHTER_H
+#define _RHIGHLIGHTER_H
 
 #include "defaulthighlighter.h"
 

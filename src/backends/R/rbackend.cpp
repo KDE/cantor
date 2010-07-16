@@ -23,7 +23,7 @@
 #include "rsession.h"
 #include "rextensions.h"
 #include "settings.h"
-#include "ui_settings.h"
+#include "rsettingswidget.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -72,10 +72,7 @@ bool RBackend::requirementsFullfilled() const
 
 QWidget* RBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::RSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new RSettingsWidget(parent);
 }
 
 KConfigSkeleton* RBackend::config() const
