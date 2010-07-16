@@ -33,4 +33,15 @@ class RScriptExtension : public Cantor::ScriptExtension
     virtual QString scriptFileFilter();
 };
 
+class RPlotExtension : public Cantor::PlotExtension
+{
+  public:
+    RPlotExtension(QObject* parent) : Cantor::PlotExtension(parent) {}
+    ~RPlotExtension() {}
+  public slots:
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) { return ""; }
+    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) { return ""; }
+    QString RPlot(const QString& expression,const QString& lab,const QString& xlab, const QString& ylab,bool needXrange,double xmin,double xmax,bool needYrange,double ymin,double ymax);
+};
+
 #endif /* _REXTENSIONS_H */

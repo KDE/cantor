@@ -34,8 +34,8 @@ namespace Cantor
  * abstract away the backends syntax for common
  * tasks like solving equations etc. to be able
  * to provide Backend independent Dialogs
- * 
- * @author Alexander Rieder 
+ *
+ * @author Alexander Rieder
  */
 class CANTOR_EXPORT Extension : public QObject
 {
@@ -85,7 +85,7 @@ class CANTOR_EXPORT ScriptExtension : public Extension
      * @return file filter used for Script Files (e.g. *.py)
      */
     virtual QString scriptFileFilter() = 0;
-    
+
     /**
      * returns a string used to separate commands (usually ;)
      * @return a string used to separate commands (usually ;)
@@ -119,7 +119,7 @@ class CANTOR_EXPORT CASExtension : public Extension
      */
     virtual QString simplify(const QString& expression) = 0;
     /**
-     * returns the command for expanding an expression 
+     * returns the command for expanding an expression
      * @param expression the expression that should be expanded
      * @return command for expanded the expression
      */
@@ -168,7 +168,7 @@ class CANTOR_EXPORT CalculusExtension : public Extension
      * @param right the right border of the integral
      * @return the command to compute the integrate
      */
-    virtual QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right) = 0; 
+    virtual QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right) = 0;
 };
 
 /**
@@ -182,7 +182,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
 
     PlotExtension(QObject* parent);
     ~PlotExtension();
-  
+
   public slots:
     /**
      * returns the command for plotting a 2 dimensional function.
@@ -201,6 +201,16 @@ class CANTOR_EXPORT PlotExtension : public Extension
      * @return the command for plotting
      */
     virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) = 0;
+
+    //FIXME: temporary function by Landswellsong
+    // STUB, horrific function, should be worked around by polymorphic plotting parameters
+    virtual QString RPlot(const QString& expression,const QString& lab,const QString& xlab, const QString& ylab,bool needXrange,double xmin,double xmax,bool needYrange,double ymin,double ymax)
+    {
+        // Making compiler not complain
+        QString a=expression; a=lab; a=xlab; a=ylab; if (needXrange||needYrange) a=QString().setNum(xmax)+QString().setNum(xmin)+QString().setNum(ymax)+QString().setNum(ymin);
+        a="";
+        return a;
+    }
 };
 
 /**

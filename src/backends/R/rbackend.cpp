@@ -37,6 +37,7 @@ RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backe
     kDebug()<<"Creating RBackend";
 
     new RScriptExtension(this);
+    new RPlotExtension(this);
 }
 
 RBackend::~RBackend()
