@@ -2,6 +2,9 @@
 Type=Service
 Icon=octavebackend
 Name=Octave
+Name[pt]=Octave
+Name[sv]=Octave
+Name[uk]=Octave
 Name[x-test]=xxOctavexx
 X-KDE-PluginInfo-Website=http://www.octave.org/
 X-KDE-ServiceTypes=Cantor/Backend
@@ -10,4 +13,7 @@ X-KDE-PluginInfo-Name=Octave
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for GNU Octave
+Comment[pt]=Infra-Estrutura para o Octave da GNU
+Comment[sv]=Ett bakgrundsprogram för GNU Octave
+Comment[uk]=Сервер GNU Octave
 Comment[x-test]=xxBackend for GNU Octavexx
