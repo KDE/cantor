@@ -9,6 +9,7 @@ set( RBackend_SRCS
  rexpression.cpp
  rextensions.cpp
  rcompletionobject.cpp
+ rhighlighter.cpp
 )
 
 kde4_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)

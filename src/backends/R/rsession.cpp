@@ -21,6 +21,7 @@
 #include "rsession.h"
 #include "rexpression.h"
 #include "rcompletionobject.h"
+#include "rhighlighter.h"
 
 #include <QTimer>
 #include <kdebug.h>
@@ -95,6 +96,11 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command)
     connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
     connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
     return cmp;
+}
+
+QSyntaxHighlighter* RSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new RHighlighter(parent);
 }
 
 void RSession::queueExpression(RExpression* expr)
