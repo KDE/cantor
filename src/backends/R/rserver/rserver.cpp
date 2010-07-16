@@ -97,6 +97,14 @@ void RServer::initR()
         kDebug()<<"integrating plots";
         newPlotDevice();
     }
+    
+    //Loading automatic run scripts
+    foreach (const QString& path, RServerSettings::self()->autorunScripts())
+    {
+        int errorOccurred=0;
+        R_tryEval(lang2(install("source"),mkString(path.toUtf8().data())),NULL,&errorOccurred);
+        // TODO: error handling
+    }
 
     kDebug()<<"done initializing";
     
