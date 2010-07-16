@@ -18,54 +18,34 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _TESTSAGE_H
-#define _TESTSAGE_H
+#ifndef _TESTMAXIMA_H
+#define _TESTMAXIMA_H
 
-#include <QtTest>
-#include <QtCore>
+#include "backendtest.h"
 
-namespace Cantor
-{
-    class Session;
-    class Expression;
-}
-
-
-/** This class test some of the basic functions of the sage backend
+/** This class test some of the basic functions of the maxima backend
     The different tests represent some general expressions, as well
     as expressions, that are known to have caused problems in earlier
     versions
 **/
-class TestSage : public QObject
+class TestMaxima : public BackendTest
 {
   Q_OBJECT
-
-public:
-    TestSage();
 
 private slots:
     //tests evaluating a simple command
     void testSimpleCommand();
     //tests a command, containing more than 1 line
     void testMultilineCommand();
-    //tests defining and calling a function
-    void testDefineFunction();
     //tests doing a plot
     void testPlot();
-    
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
-
-    //tests a two-line command, where one doesn't deliver output
-    //(source of problem in earlier versions)
-    void testNoOutput();
+    //tests if the expression numbering works
+    void testExprNumbering();
 
 private:
-    Cantor::Session* createSession();
-    Cantor::Expression* evalExp(const QString& exp);
-
-private:
-    Cantor::Session* m_session;
+    virtual QString backendName();
 };
 
-#endif /* _TESTSAGE_H */
+#endif /* _TESTMAXIMA_H */

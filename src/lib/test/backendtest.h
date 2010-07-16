@@ -18,11 +18,14 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _TESTMAXIMA_H
-#define _TESTMAXIMA_H
+#ifndef BACKENDTEST_H
+#define BACKENDTEST_H
 
+#include <QObject>
 #include <QtTest>
 #include <QtCore>
+
+#include "cantor_export.h"
 
 namespace Cantor
 {
@@ -30,37 +33,25 @@ namespace Cantor
     class Expression;
 }
 
-
-/** This class test some of the basic functions of the maxima backend
-    The different tests represent some general expressions, as well
-    as expressions, that are known to have caused problems in earlier
-    versions
-**/
-class TestMaxima : public QObject
+class CANTOR_EXPORT BackendTest : public QObject
 {
-  Q_OBJECT
+    Q_OBJECT
+    private slots:
+        void initTestCase();
+        void cleanupTestCase();
 
-public:
-    TestMaxima();
+    protected:
+        Cantor::Expression* evalExp(const QString& exp);
+        /**
+         * simple method that removes whitespaces/other irrelevant stuff,
+         * so comparing results is easier
+         */
+        QString cleanOutput( const QString& out );
 
-private slots:
-    //tests evaluating a simple command
-    void testSimpleCommand();
-    //tests a command, containing more than 1 line
-    void testMultilineCommand();
-    //tests doing a plot
-    void testPlot();
-    
-    //tests a syntax error (not closing bracket)
-    void testInvalidSyntax();
-    //tests if the expression numbering works
-    void testExprNumbering();
-private:
-    Cantor::Session* createSession();
-    Cantor::Expression* evalExp(const QString& exp);
-
-private:
-    Cantor::Session* m_session;
+    private:
+        void createSession();
+        Cantor::Session* m_session;
+        virtual QString backendName() = 0;
 };
 
-#endif /* _TESTMAXIMA_H */
+#endif // BACKENDTEST_H

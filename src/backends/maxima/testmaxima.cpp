@@ -29,59 +29,11 @@
 
 #include <kdebug.h>
 
-//simple method that removes whitespaces/other irrelevant stuff,
-//so comparing results is easier
-QString cleanOutput( const QString& out )
+QString TestMaxima::backendName()
 {
-    QString cleaned=out;
-    cleaned.replace( "&nbsp;"," " );
-    cleaned.remove( "<br/>" );
-    cleaned.replace( QChar::ParagraphSeparator, '\n' );
-    cleaned.replace( QRegExp( "\\n\\n" ), "\n" );
-    cleaned.replace( QRegExp( "\\n\\s*" ), "\n" );
-
-    return cleaned.trimmed();
+    return "maxima";
 }
 
-TestMaxima::TestMaxima()
-{
-    m_session=createSession();
-}
-
-Cantor::Session* TestMaxima::createSession()
-{
-    Cantor::Backend* b=Cantor::Backend::createBackend( "maxima" );
-    if(!b )
-        return 0;
-
-    Cantor::Session* session=b->createSession();
-    session->login();
-
-    QEventLoop loop;
-    connect( session, SIGNAL( ready() ), &loop, SLOT( quit() ) );
-    loop.exec();
-
-   return session;
-}
-
-Cantor::Expression* TestMaxima::evalExp(const QString& exp )
-{
-   Cantor::Expression* e=m_session->evaluateExpression(exp);
-
-   //Create a timeout, that kills the eventloop, if the expression doesn't finish
-   QPointer<QTimer> timeout=new QTimer( this );
-   timeout->setSingleShot( true );
-   timeout->start( 6000 );
-   QEventLoop loop;
-   connect( timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
-   connect( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ), &loop, SLOT( quit() ) );
-
-   loop.exec();
-
-   delete timeout;
-
-   return e;
-}
 
 void TestMaxima::testSimpleCommand()
 {
@@ -92,6 +44,7 @@ void TestMaxima::testSimpleCommand()
 
     QCOMPARE( cleanOutput( e->result()->toHtml() ), QString("4") );
 }
+
 void TestMaxima::testMultilineCommand()
 {
     Cantor::Expression* e=evalExp( "2+2;3+3" );
@@ -113,7 +66,7 @@ void TestMaxima::testPlot()
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QVERIFY( e->result()->type()==Cantor::EpsResult::Type );
+    QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
 }

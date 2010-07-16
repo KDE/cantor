@@ -28,44 +28,9 @@
 
 #include <kdebug.h>
 
-TestSage::TestSage()
+QString TestSage::backendName()
 {
-    m_session=createSession();
-}
-
-Cantor::Session* TestSage::createSession()
-{
-    Cantor::Backend* b=Cantor::Backend::createBackend( "sage" );
-    if(!b )
-        return 0;
-
-    Cantor::Session* session=b->createSession();
-    session->login();
-
-    QEventLoop loop;
-    connect( session, SIGNAL( ready() ), &loop, SLOT( quit() ) );
-    loop.exec();
-
-   return session;
-}
-
-Cantor::Expression* TestSage::evalExp(const QString& exp )
-{
-   Cantor::Expression* e=m_session->evaluateExpression(exp);
-
-   //Create a timeout, that kills the eventloop, if the expression doesn't finish
-   QPointer<QTimer> timeout=new QTimer( this );
-   timeout->setSingleShot( true );
-   timeout->start( 5000 );
-   QEventLoop loop;
-   connect( timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
-   connect( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ), &loop, SLOT( quit() ) );
-
-   loop.exec();
-
-   delete timeout;
-
-   return e;
+    return "sage";
 }
 
 void TestSage::testSimpleCommand()

@@ -41,6 +41,10 @@ set_target_properties( cantorlibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
+if (KDE4_BUILD_TESTS)
+    add_subdirectory(test)
+endif (KDE4_BUILD_TESTS)
+
 install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 #install( FILES ${myshared_LIB_HDRS}
