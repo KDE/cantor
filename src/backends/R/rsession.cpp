@@ -112,10 +112,13 @@ void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
     // WARNING: current implementation as-in-maxima is a performance hit
     // think about grouping expressions together or only fetching needed ones
     v.clear(); f.clear();
+
     foreach (const QString s, m_variables)
-        v.append(QRegExp("\\b"+s+"\\b"));
+        if (!s.contains(QRegExp("[^A-Za-z0-9_.]")))
+            v.append(QRegExp("\\b"+s+"\\b"));
     foreach (const QString s, m_functions)
-        f.append(QRegExp("\\b"+s+"\\b"));
+        if (!s.contains(QRegExp("[^A-Za-z0-9_.]")))
+            f.append(QRegExp("\\b"+s+"\\b"));
 }
 
 void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
