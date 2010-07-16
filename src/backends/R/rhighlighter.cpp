@@ -34,17 +34,16 @@ const QStringList RHighlighter::operators_list=QStringList()
    << "%[^%]*%"; // Taken in Kate highlighter
 
 const QStringList RHighlighter::specials_list=QStringList()
-    << "\\bBUG\\b" << "\\bTODO\\b" << "\\bFIXME\\b" << "\\bNB\\b" << "\\bWARNING\\b" << "\\bERROR\\b";
-
+    << "BUG" << "TODO" << "FIXME" << "NB" << "WARNING" << "ERROR";
 
 RHighlighter::RHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
 {
     foreach (const QString& s, keywords_list)
-        keywords.append(QRegExp(s));
+        keywords.append(QRegExp("\\b"+s+"\\b"));
     foreach (const QString& s, operators_list)
         operators.append(QRegExp(s));
     foreach (const QString& s, specials_list)
-        specials.append(QRegExp(s));
+        specials.append(QRegExp("\\b"+s+"\\b"));
 }
 
 RHighlighter::~RHighlighter()
@@ -56,20 +55,22 @@ void RHighlighter::refreshSyntaxRegExps()
     emit syntaxRegExps(variables,functions);
 }
 
-void RHighlighter::formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text)
+// FIXME: due to lack of lookbehinds in QRegExp here we use a flag showing if we need to shift the boundary of formating
+// to make up for the accidently matched character
+void RHighlighter::formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift)
 {
     int index = p.indexIn(text);
     while (index >= 0) {
         int length = p.matchedLength();
-        setFormat(index,  length,  fmt);
+        setFormat(index+(shift?1:0),  length-(shift?1:0),  fmt);
        index = p.indexIn(text,  index + length);
     }
 }
 
-void RHighlighter::massFormat(const QVector<QRegExp> &p, const QTextCharFormat &fmt, const QString& text)
+void RHighlighter::massFormat(const QVector<QRegExp> &p, const QTextCharFormat &fmt, const QString& text,bool shift)
 {
     foreach (const QRegExp &rule, p)
-        formatRule(rule,fmt,text);
+        formatRule(rule,fmt,text,shift);
 }
 
 
@@ -85,9 +86,11 @@ void RHighlighter::highlightBlock(const QString& text)
     // TODO: find more elegant solution not involving double formatting
     //formatRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"),errorFormat(),text);
 
+    formatRule(QRegExp("[^A-Za-z_]-?([0-9]+)?(((e|i)?-?)|\\.)[0-9]*L?"),numberFormat(),text,true); // TODO: errorneous number formats, refine
     massFormat(keywords,keywordFormat(),text);
     massFormat(operators,operatorFormat(),text);
     massFormat(specials,commentFormat(),text); // FIXME must be distinc
     massFormat(functions,functionFormat(),text);
     massFormat(variables,variableFormat(),text);
+    formatRule(QRegExp("\"[^\"]+\""),stringFormat(),text); // WARNING a bit redundant
 }
