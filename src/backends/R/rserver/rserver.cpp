@@ -420,7 +420,7 @@ void RServer::listSymbols()
     /* Obtaining a list of active packages */
     SEXP packages=PROTECT(R_tryEval(lang1(install("search")),NULL,&errorOccurred));
     int i=1; // HACK to prevent scalability issues
-//     for (int i=1;i<length(packages);i++) // Package #0 is user environment, so starting with 1
+    //for (int i=1;i<length(packages);i++) // Package #0 is user environment, so starting with 1
     {
         char pos[32];
         sprintf(pos,"%d",i+1);
