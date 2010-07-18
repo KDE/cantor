@@ -20,7 +20,7 @@ install(FILES octavebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 kde4_add_ui_files(OctaveBackend_SRCS settings.ui)
 
 kde4_add_plugin( cantor_octavebackend ${OctaveBackend_SRCS} )
-target_link_libraries( cantor_octavebackend ${KDE4_KDEUI_LIBS} cantorlibs kpty ${KDE4_KIO_LIBS})
+target_link_libraries( cantor_octavebackend ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
 
 kde4_add_unit_test( testoctave testoctave.cpp)
 target_link_libraries( testoctave
