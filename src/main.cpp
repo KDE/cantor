@@ -36,7 +36,7 @@ int main(int argc, char **argv)
                      ki18n("Cantor"),
                      version, ki18n(description),
                      KAboutData::License_GPL,
-                     ki18n("(C) 2009 Alexander Rieder"),
+                     ki18n("(C) 2009-2010 Alexander Rieder"),
                      KLocalizedString(), 0
         );
     about.addAuthor( ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com" );
