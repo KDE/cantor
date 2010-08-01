@@ -92,3 +92,4 @@ KConfigSkeleton* OctaveBackend::config() const
 K_EXPORT_CANTOR_PLUGIN(octavebackend, OctaveBackend)
 
 #include "octavebackend.moc"
+
