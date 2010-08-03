@@ -279,7 +279,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * @param parent the pointer to parent widget passed to newly created widget
              * @return pointer to the newly-created widget
              */
-            virtual QWidget* widget(QWidget*) const=0;
+            static QWidget* widget(QWidget*) { return new QWidget(parent); }
 
             /**
              * in order to make dual dispatching this should be present in any derived class
