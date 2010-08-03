@@ -22,6 +22,7 @@
 using namespace Cantor;
 
 #include <QStringList>
+#include <typeinfo> // For AdvancedPlotExtension debugging
 
 #define EXTENSION_CONSTRUCTORS(name) name::name(QObject* parent) : Extension(#name,parent) {} \
                                      name::~name() {}
@@ -42,6 +43,7 @@ EXTENSION_CONSTRUCTORS(ScriptExtension)
 EXTENSION_CONSTRUCTORS(CASExtension)
 EXTENSION_CONSTRUCTORS(CalculusExtension)
 EXTENSION_CONSTRUCTORS(PlotExtension)
+EXTENSION_CONSTRUCTORS(AdvancedPlotExtension)
 EXTENSION_CONSTRUCTORS(LinearAlgebraExtension)
 
 //implement this here, as it's ";" most of the time
@@ -89,4 +91,32 @@ QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
     }
 
     return createMatrix(m);
+}
+
+QString AdvancedPlotExtension::plotFunction2d(const QString& expression, const QVector<PlotDirective*> directives) const
+{
+    QString params="";
+    foreach (PlotDirective* dir, directives)
+    {
+        QString param=dispatchDirective(*dir);
+        if (param.length()>0)
+            params+=separatorSymbol()+param;
+    }
+    return plotCommand()+"("+expression+params+")";
+}
+
+QString AdvancedPlotExtension::dispatchDirective(const PlotDirective& directive) const
+{
+    const AcceptorBase* acceptor=dynamic_cast<const AcceptorBase*>(this);
+    if (acceptor=NULL)
+    {
+        kDebug()<<"Plotting extension does not support any directives, but was asked to process one";
+        return "";
+    }
+    return directive.dispatch(*acceptor);
+}
+
+QString AdvancedPlotExtension::separatorSymbol() const
+{
+    return ",";
 }

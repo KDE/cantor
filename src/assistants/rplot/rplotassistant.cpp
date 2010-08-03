@@ -58,11 +58,11 @@ QStringList RPlotAssistant::run(QWidget* parent)
     if( dlg->exec())
     {
        Cantor::PlotExtension* ptr= dynamic_cast<Cantor::PlotExtension*>(backend()->extension("PlotExtension"));
-       result<<ptr->RPlot(base.expression->text(),base.captionEdit->text(),
+    /*   result<<ptr->RPlot(base.expression->text(),base.captionEdit->text(),
             base.XGroup->isChecked()? base.XLabEdit->text() : "",
             base.YGroup->isChecked()? base.YLabEdit->text() : "",
             base.XGroup->isChecked() && base.XRangeGroup->isChecked(), base.XMinEdit->value(), base.XMaxEdit->value(),
-            base.YGroup->isChecked() && base.YRangeGroup->isChecked(), base.XMinEdit->value(), base.XMaxEdit->value());
+            base.YGroup->isChecked() && base.YRangeGroup->isChecked(), base.XMinEdit->value(), base.XMaxEdit->value()); */
     }
 
     delete dlg;

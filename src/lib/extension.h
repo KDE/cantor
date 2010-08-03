@@ -23,6 +23,8 @@
 
 #include <QObject>
 #include <QPair>
+#include <QVector>
+#include <kdebug.h>
 #include "cantor_export.h"
 
 namespace Cantor
@@ -201,17 +203,131 @@ class CANTOR_EXPORT PlotExtension : public Extension
      * @return the command for plotting
      */
     virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) = 0;
-
-    //FIXME: temporary function by Landswellsong
-    // STUB, horrific function, should be worked around by polymorphic plotting parameters
-    virtual QString RPlot(const QString& expression,const QString& lab,const QString& xlab, const QString& ylab,bool needXrange,double xmin,double xmax,bool needYrange,double ymin,double ymax)
-    {
-        // Making compiler not complain
-        QString a=expression; a=lab; a=xlab; a=ylab; if (needXrange||needYrange) a=QString().setNum(xmax)+QString().setNum(xmin)+QString().setNum(ymax)+QString().setNum(ymin);
-        a="";
-        return a;
-    }
 };
+
+#define PLOT_DIRECTIVE_DISPATCHING(x) QString dispatch(const AcceptorBase& acc) const \
+ { \
+    const DirectiveAcceptor<x>* adaptor=dynamic_cast<const DirectiveAcceptor<x>*>(&acc); \
+    if (adaptor==NULL) { kDebug()<<"Backend incapable of processing directives of type "#x;  return ""; } \
+    else \
+        return adaptor->accept(*this); \
+ }
+
+/**
+ * An extension providing advanced plotting facilities. Will supersede PlotExtension
+ */
+class CANTOR_EXPORT AdvancedPlotExtension : public Extension
+{
+  public:
+    AdvancedPlotExtension(QObject* parent);
+    ~AdvancedPlotExtension();
+
+    // TODO comment
+
+    class PlotDirective;
+
+    class AcceptorBase
+    {
+        public:
+            virtual ~AcceptorBase() {};
+
+            /**
+             * utilitary typename for easying the code
+             */
+            typedef QWidget * (PlotDirective::*widgetProc)(QWidget*);
+
+            /**
+             * returns a constant reference to the list of widget generating procedures
+             * which contains means of creating all the widgets a backend knows how to process
+             * @return the constant reference to a QVector of QWidget* (*)(QWidget*) pointers
+             */
+            const QVector<widgetProc>& widgets() const { return _widgets; };
+
+        protected:
+            /**
+             * constructor only allowed for derived classes
+             **/
+            AcceptorBase() : _widgets() {};
+
+            QVector<widgetProc> _widgets;
+    };
+
+    template <class Directive> class DirectiveAcceptor : virtual public AcceptorBase
+    {
+
+        public:
+            /**
+             * virtual interface to acceptor function mechanics
+             * @param directive the directive to process
+             * @return the parameter corresponding the directive
+             */
+            virtual QString accept(const Directive& directive) const=0;
+
+        protected:
+            /**
+             * constructor only allowed for derived classes
+             **/
+            DirectiveAcceptor();
+    };
+
+    class PlotDirective
+    {
+
+        public:
+            /**
+             * creates a new widget for editing the value and returns the pointer to it
+             * @param parent the pointer to parent widget passed to newly created widget
+             * @return pointer to the newly-created widget
+             */
+            virtual QWidget* widget(QWidget*) const=0;
+
+            /**
+             * in order to make dual dispatching this should be present in any derived class
+             * without virtual keyword and with correct class name
+             **/
+            virtual PLOT_DIRECTIVE_DISPATCHING(PlotDirective);
+            // TODO: find a workaround not to put class names manually
+
+        protected:
+            /**
+             * only derived classes may construct
+             **/
+            PlotDirective() {};
+            virtual ~PlotDirective() {};
+    };
+
+  public slots:
+    /**
+     * returns the command for plotting a 2 dimensional data set.
+     * @param expression the expression to plot
+     * @param directives the array of directives toward the generator
+     * @return the command for plotting
+     */
+    QString plotFunction2d(const QString& expression, const QVector<PlotDirective*> directives) const;
+
+    /**
+     * returns the parameter expression according to a directive.
+     * @param directive the directive toward the generator
+     * @return the parameter for plotting
+     */
+    QString dispatchDirective(const PlotDirective& directive) const;
+
+    /**
+     * returns the command name for plotting a 2 dimensional data set.
+     * @return the command for plotting
+     */
+    virtual QString plotCommand() const=0;
+    /**
+     * returns the separator symbol in a plotting command.
+     * @return the separator symbol or string
+     */
+    virtual QString separatorSymbol() const;
+};
+
+template <class Directive> AdvancedPlotExtension::DirectiveAcceptor<Directive>::DirectiveAcceptor()
+{
+    _widgets.push_back(&Directive::widget);
+}
 
 /**
  * An extension for basic Linear Algebra
