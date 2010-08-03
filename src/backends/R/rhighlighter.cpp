@@ -84,7 +84,7 @@ void RHighlighter::highlightBlock(const QString& text)
 
     //Let's mark every functionlike call as an error, then paint right ones in their respective format
     // TODO: find more elegant solution not involving double formatting
-    //formatRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"),errorFormat(),text);
+    formatRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"),errorFormat(),text);
 
     formatRule(QRegExp("[^A-Za-z_]-?([0-9]+)?(((e|i)?-?)|\\.)[0-9]*L?"),numberFormat(),text,true); // TODO: errorneous number formats, refine
     massFormat(keywords,keywordFormat(),text);
