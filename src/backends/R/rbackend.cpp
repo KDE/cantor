@@ -29,7 +29,7 @@
 #include <kstandarddirs.h>
 
 #include "cantor_macros.h"
-
+#include <QMessageBox>
 
 RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
@@ -37,7 +37,14 @@ RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backe
     kDebug()<<"Creating RBackend";
 
     new RScriptExtension(this);
-    new RPlotExtension(this);
+    //Simple debugging feature for proof of concept
+    //TODO: remove the commented part the next commit
+    //TODO: encoding?
+    /*RPlotExtension *pext=*/new RPlotExtension(this);
+//     QVector<Cantor::AdvancedPlotExtension::PlotDirective*> list;
+//     list.push_back(new Cantor::PlotTitleDirective("Daß ist ein Test"));
+//     list.push_back(new Cantor::OrdinateScaleDirective(10,100));
+//     QMessageBox::information(NULL,"Your command is ready, sir",pext->plotFunction2d("sqrt(c(1:500))",list));
 }
 
 RBackend::~RBackend()

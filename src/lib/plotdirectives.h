@@ -30,7 +30,7 @@ namespace Cantor
     class CANTOR_EXPORT PlotTitleDirective : public Cantor::AdvancedPlotExtension::PlotDirective
     {
         public:
-            PLOT_DIRECTIVE_DISPATCHING(PlotDirective);
+            PLOT_DIRECTIVE_DISPATCHING(PlotTitleDirective);
             const QString& title() const { return _title; };
             PlotTitleDirective(const QString& str) : _title(str) {}
 
@@ -41,7 +41,7 @@ namespace Cantor
     class CANTOR_EXPORT AbstractScaleDirective : public Cantor::AdvancedPlotExtension::PlotDirective
     {
         public:
-            PLOT_DIRECTIVE_DISPATCHING(PlotDirective);
+            PLOT_DIRECTIVE_DISPATCHING(AbstractScaleDirective);
             double min() const { return _min; }
             double max() const { return _max; }
 
@@ -56,13 +56,15 @@ namespace Cantor
     class CANTOR_EXPORT OrdinateScaleDirective : public Cantor::AbstractScaleDirective
     {
         public:
-            PLOT_DIRECTIVE_DISPATCHING(PlotDirective);
+            PLOT_DIRECTIVE_DISPATCHING(OrdinateScaleDirective);
+            OrdinateScaleDirective(double a,double b) : AbstractScaleDirective(a,b) {}
     };
 
     class CANTOR_EXPORT AbscissScaleDirective : public Cantor::AbstractScaleDirective
     {
         public:
-            PLOT_DIRECTIVE_DISPATCHING(PlotDirective);
+            PLOT_DIRECTIVE_DISPATCHING(AbscissScaleDirective);
+            AbscissScaleDirective(double a,double b) : AbstractScaleDirective(a,b) {}
     };
 };
 
