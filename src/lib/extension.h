@@ -25,6 +25,7 @@
 #include <QPair>
 #include <QVector>
 #include <kdebug.h>
+#include <QWidget>
 #include "cantor_export.h"
 
 namespace Cantor
@@ -205,9 +206,10 @@ class CANTOR_EXPORT PlotExtension : public Extension
     virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) = 0;
 };
 
-#define PLOT_DIRECTIVE_DISPATCHING(x) QString dispatch(const AcceptorBase& acc) const \
+#define PLOT_DIRECTIVE_DISPATCHING(x) QString dispatch(const Cantor::AdvancedPlotExtension::AcceptorBase& acc) const \
  { \
-    const DirectiveAcceptor<x>* adaptor=dynamic_cast<const DirectiveAcceptor<x>*>(&acc); \
+    const Cantor::AdvancedPlotExtension::DirectiveAcceptor<x>* adaptor= \
+        dynamic_cast<const Cantor::AdvancedPlotExtension::DirectiveAcceptor<x>*>(&acc); \
     if (adaptor==NULL) { kDebug()<<"Backend incapable of processing directives of type "#x;  return ""; } \
     else \
         return adaptor->accept(*this); \
@@ -234,7 +236,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             /**
              * utilitary typename for easying the code
              */
-            typedef QWidget * (PlotDirective::*widgetProc)(QWidget*);
+            typedef QWidget * (*widgetProc)(QWidget*);
 
             /**
              * returns a constant reference to the list of widget generating procedures
@@ -279,7 +281,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * @param parent the pointer to parent widget passed to newly created widget
              * @return pointer to the newly-created widget
              */
-            static QWidget* widget(QWidget*) { return new QWidget(parent); }
+            static QWidget* widget(QWidget* parent) { return new QWidget(parent); }
 
             /**
              * in order to make dual dispatching this should be present in any derived class
@@ -312,6 +314,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
      */
     QString dispatchDirective(const PlotDirective& directive) const;
 
+  protected:
     /**
      * returns the command name for plotting a 2 dimensional data set.
      * @return the command for plotting

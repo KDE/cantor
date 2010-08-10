@@ -42,21 +42,21 @@ QString RScriptExtension::scriptFileFilter()
     return i18n("*.R|R script file");
 }
 
-
-// TODO: remove ASAP
-QString RPlotExtension::RPlot(const QString& expression,const QString& lab,const QString& xlab, const QString& ylab,bool needXrange,double xmin,double xmax,bool needYrange,double ymin,double ymax)
+RPlotExtension::RPlotExtension(QObject* parent) : Cantor::AdvancedPlotExtension(parent)
 {
-    //Sanitizing the human-readable strings
-    QString _lab=QString(lab).replace("\"","\\\\");
-    QString _xlab=QString(xlab).replace("\"","\\\\");
-    QString _ylab=QString(ylab).replace("\"","\\\\");
-    //Composing the command itself
-    return QString("plot(%1%2%3%4%5%6)").arg(
-        expression,                                                  // Expression itself
-        (lab.length()>0)? QString(",main=\"%1\"").arg(lab) : "",     // Main label
-        (xlab.length()>0)? QString(",xlab=\"%1\"").arg(xlab) : "",   // X label
-        (ylab.length()>0)? QString(",ylab=\"%1\"").arg(ylab) : "",   // Y label
-        // Ranges
-        (needXrange)? QString(",xlim=range(%1,%2)").arg(QString().setNum(xmin),QString().setNum(xmax)) : "",
-        (needYrange)? QString(",ylim=range(%1,%2)").arg(QString().setNum(ymin),QString().setNum(ymax)) : "");
+}
+// TODO: injection prevention
+QString RPlotExtension::accept(const Cantor::PlotTitleDirective& directive) const
+{
+    return "main=\""+directive.title()+"\"";
+}
+
+QString RPlotExtension::accept(const Cantor::OrdinateScaleDirective& directive) const
+{
+    return "ylim=range("+QString::number(directive.min())+","+QString::number(directive.max())+")";
+}
+
+QString RPlotExtension::accept(const Cantor::AbscissScaleDirective& directive) const
+{
+    return "xlim=range("+QString::number(directive.min())+","+QString::number(directive.max())+")";
 }
