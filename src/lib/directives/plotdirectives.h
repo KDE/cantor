@@ -33,9 +33,12 @@ namespace Cantor
             PLOT_DIRECTIVE_DISPATCHING(PlotTitleDirective);
             const QString& title() const { return _title; };
             PlotTitleDirective(const QString& str) : _title(str) {}
+            static QWidget* widget(QWidget* parent);
+            static QString label() { return /*i18n(*/"Main title"/*)*/; }
 
         private:
             QString _title;
+
     };
 
     class CANTOR_EXPORT AbstractScaleDirective : public Cantor::AdvancedPlotExtension::PlotDirective
@@ -44,6 +47,7 @@ namespace Cantor
             PLOT_DIRECTIVE_DISPATCHING(AbstractScaleDirective);
             double min() const { return _min; }
             double max() const { return _max; }
+            static QWidget* widget(QWidget* parent);
 
         protected:
             AbstractScaleDirective(double a,double b) : _min(a),_max(b) { }
@@ -58,6 +62,7 @@ namespace Cantor
         public:
             PLOT_DIRECTIVE_DISPATCHING(OrdinateScaleDirective);
             OrdinateScaleDirective(double a,double b) : AbstractScaleDirective(a,b) {}
+            static QString label() { return  /*i18n(*/"Ordinate scale"/*)*/; }
     };
 
     class CANTOR_EXPORT AbscissScaleDirective : public Cantor::AbstractScaleDirective
@@ -65,6 +70,7 @@ namespace Cantor
         public:
             PLOT_DIRECTIVE_DISPATCHING(AbscissScaleDirective);
             AbscissScaleDirective(double a,double b) : AbstractScaleDirective(a,b) {}
+            static QString label() { return  /*i18n(*/"Absciss scale"/*)*/; }
     };
 };
 

@@ -22,7 +22,7 @@
 #define _REXTENSIONS_H
 
 #include "extension.h"
-#include "plotdirectives.h"
+#include "directives/plotdirectives.h"
 
 class RScriptExtension : public Cantor::ScriptExtension
 {

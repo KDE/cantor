@@ -15,28 +15,30 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2009 Oleksiy Protas <elfy.ua@gmail.com>
+    Copyright (C) 2010 Oleksiy Protas <elfy.ua@gmail.com>
  */
 
-#ifndef _RPLOTASSISTANT_H
-#define _RPLOTASSISTANT_H
+#include "directives/plotdirectives.h"
+#include "ui_axisrange.h"
+#include "ui_plottitle.h"
 
-#include "assistant.h"
-
-// WARNING: this assistant serves as a stub to implement the rich plotting features of R.
-// therefore, when finished it is to be backported and merged with plot2d
-
-class RPlotAssistant : public Cantor::Assistant
+namespace Cantor
 {
-  public:
-    RPlotAssistant( QObject* parent, QList<QVariant> args );
-    ~RPlotAssistant();
 
-    void initActions();
+QWidget* PlotTitleDirective::widget(QWidget* parent)
+{
+    QWidget *w=new QWidget(parent);
+    Ui_PlotTitleControl base;
+    base.setupUi(w);
+    return w;
+}
 
-    QStringList run(QWidget* parentt);
+QWidget* AbstractScaleDirective::widget(QWidget* parent)
+{
+    QWidget *w=new QWidget(parent);
+    Ui_AxisRangeControl base;
+    base.setupUi(w);
+    return w;
+}
 
-};
-
-#endif /* _RPLOTASSISTANT_H */
+}

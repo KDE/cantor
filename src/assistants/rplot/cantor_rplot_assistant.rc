@@ -1,8 +1,0 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="cantor_rplot_assistant" version="1">
-<MenuBar>
-  <Menu name="Plot"><text>R-&amp;Plot STUB</text>
-    <Action name="rplot_assistant"/>
-  </Menu>
-</MenuBar>
-</kpartgui>
