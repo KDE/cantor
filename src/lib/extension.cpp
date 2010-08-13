@@ -120,3 +120,43 @@ QString AdvancedPlotExtension::separatorSymbol() const
 {
     return ",";
 }
+
+QWidget* AdvancedPlotExtension::PlotDirective::widget(QWidget* parent)
+{
+    return new QWidget(parent);
+}
+
+QString AdvancedPlotExtension::PlotDirective::label()
+{
+    return "If you see this, you see a bug";
+}
+
+AdvancedPlotExtension::PlotDirective::PlotDirective()
+{
+}
+
+AdvancedPlotExtension::PlotDirective::~PlotDirective()
+{
+}
+
+AdvancedPlotExtension::AcceptorBase::AcceptorBase() : m_widgets(),m_labels()
+{
+}
+
+AdvancedPlotExtension::AcceptorBase::~AcceptorBase()
+{
+}
+
+const QVector<AdvancedPlotExtension::AcceptorBase::widgetProc>& AdvancedPlotExtension::AcceptorBase::widgets() const
+{
+    return m_widgets;
+}
+
+const QStringList AdvancedPlotExtension::AcceptorBase::labels() const
+{
+    return m_labels;
+}
+
+AdvancedPlotExtension::DirectiveProducer::DirectiveProducer(QWidget* parent) : QWidget(parent)
+{
+}

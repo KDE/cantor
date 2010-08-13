@@ -59,14 +59,59 @@ class OrdinateScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_A
         }
 };
 
+const QString& PlotTitleDirective::title() const
+{
+    return m_title;
+}
+
+PlotTitleDirective::PlotTitleDirective(const QString& str) : m_title(str)
+{
+}
+
+QString PlotTitleDirective::label()
+{
+    return /*i18n(*/"Main title"/*)*/;
+}
+
 AdvancedPlotExtension::DirectiveProducer* PlotTitleDirective::widget(QWidget* parent)
 {
     return new PlotTitleControl(parent);
 }
 
+double AbstractScaleDirective::min() const
+{
+    return m_min;
+}
+double AbstractScaleDirective::max() const
+{
+    return m_max;
+}
+
+AbstractScaleDirective::AbstractScaleDirective(double a,double b) : m_min(a),m_max(b)
+{
+}
+
+AbscissScaleDirective::AbscissScaleDirective(double a,double b) : AbstractScaleDirective(a,b)
+{
+}
+
+QString AbscissScaleDirective::label()
+{
+    return  /*i18n(*/"Absciss scale"/*)*/;
+}
+
 AdvancedPlotExtension::DirectiveProducer* AbscissScaleDirective::widget(QWidget* parent)
 {
     return new AbscissScaleControl(parent);
+}
+
+OrdinateScaleDirective::OrdinateScaleDirective(double a,double b) : AbstractScaleDirective(a,b)
+{
+}
+
+QString OrdinateScaleDirective::label()
+{
+    return  /*i18n(*/"Ordinate scale"/*)*/;
 }
 
 AdvancedPlotExtension::DirectiveProducer* OrdinateScaleDirective::widget(QWidget* parent)

@@ -232,7 +232,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     class DirectiveProducer : public QWidget
     {
         public:
-            DirectiveProducer(QWidget* parent) : QWidget(parent) { }
+            DirectiveProducer(QWidget* parent);
             virtual PlotDirective* produceDirective() const=0;
     };
 
@@ -247,8 +247,6 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     class AcceptorBase
     {
         public:
-            virtual ~AcceptorBase() {};
-
             /**
              * utilitary typename for easying the code
              */
@@ -259,17 +257,18 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * which contains means of creating all the widgets a backend knows how to process
              * @return the constant reference to a QVector of QWidget* (*)(QWidget*) pointers
              */
-            const QVector<widgetProc>& widgets() const { return _widgets; };
-            const QStringList labels() const { return _labels; }
+            const QVector<widgetProc>& widgets() const;
+            const QStringList labels() const;
 
         protected:
             /**
              * constructor only allowed for derived classes
              **/
-            AcceptorBase() : _widgets() {};
+            AcceptorBase();
+            virtual ~AcceptorBase();
 
-            QVector<widgetProc> _widgets;
-            QStringList _labels;
+            QVector<widgetProc> m_widgets;
+            QStringList m_labels;
     };
 
     template <class Directive> class DirectiveAcceptor : virtual public AcceptorBase
@@ -298,14 +297,14 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * @param parent the pointer to parent widget passed to newly created widget
              * @return pointer to the newly-created widget
              */
-            static QWidget* widget(QWidget* parent) { return new QWidget(parent); }
+            static QWidget* widget(QWidget* parent);
 
             /**
              * creates a new widget for editing the value and returns the pointer to it
              * @param parent the pointer to parent widget passed to newly created widget
              * @return pointer to the newly-created widget
              *///TODO: fix comment
-            static QString label() { return "If you see this, you see a bug"; }
+            static QString label();
 
             /**
              * in order to make dual dispatching this should be present in any derived class
@@ -318,8 +317,8 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             /**
              * only derived classes may construct
              **/
-            PlotDirective() {};
-            virtual ~PlotDirective() {};
+            PlotDirective();
+            virtual ~PlotDirective();
     };
 
   public slots:
@@ -353,8 +352,8 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
 
 template <class Directive> AdvancedPlotExtension::DirectiveAcceptor<Directive>::DirectiveAcceptor()
 {
-    _widgets.push_back(&Directive::widget);
-    _labels<<(Directive::label());
+    m_widgets.push_back(&Directive::widget);
+    m_labels<<(Directive::label());
 }
 
 /**
