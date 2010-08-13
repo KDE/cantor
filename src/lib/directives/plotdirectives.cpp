@@ -28,8 +28,8 @@ namespace Cantor
 // FIXME maybe this belongs to headers rather
 class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotTitleControl>
 {
-    public:
-        PlotTitleControl(QWidget *parent) : AbstractParent(parent) {}
+    public: // FIXME: move window title setting upward, or maybe not
+        PlotTitleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Main title")); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {
@@ -40,7 +40,7 @@ class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotT
 class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
 {
     public:
-        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) {}
+        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Absciss scale")); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {
@@ -51,13 +51,14 @@ class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_Ax
 class OrdinateScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
 {
     public:
-        OrdinateScaleControl(QWidget *parent) : AbstractParent(parent) {}
+        OrdinateScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Ordinate scale")); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {
             return new OrdinateScaleDirective(minEdit->value(),maxEdit->value());
         }
 };
+
 
 const QString& PlotTitleDirective::title() const
 {
@@ -66,11 +67,6 @@ const QString& PlotTitleDirective::title() const
 
 PlotTitleDirective::PlotTitleDirective(const QString& str) : m_title(str)
 {
-}
-
-QString PlotTitleDirective::label()
-{
-    return /*i18n(*/"Main title"/*)*/;
 }
 
 AdvancedPlotExtension::DirectiveProducer* PlotTitleDirective::widget(QWidget* parent)
@@ -95,11 +91,6 @@ AbscissScaleDirective::AbscissScaleDirective(double a,double b) : AbstractScaleD
 {
 }
 
-QString AbscissScaleDirective::label()
-{
-    return  /*i18n(*/"Absciss scale"/*)*/;
-}
-
 AdvancedPlotExtension::DirectiveProducer* AbscissScaleDirective::widget(QWidget* parent)
 {
     return new AbscissScaleControl(parent);
@@ -107,11 +98,6 @@ AdvancedPlotExtension::DirectiveProducer* AbscissScaleDirective::widget(QWidget*
 
 OrdinateScaleDirective::OrdinateScaleDirective(double a,double b) : AbstractScaleDirective(a,b)
 {
-}
-
-QString OrdinateScaleDirective::label()
-{
-    return  /*i18n(*/"Ordinate scale"/*)*/;
 }
 
 AdvancedPlotExtension::DirectiveProducer* OrdinateScaleDirective::widget(QWidget* parent)

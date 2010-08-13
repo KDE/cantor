@@ -258,7 +258,6 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * @return the constant reference to a QVector of QWidget* (*)(QWidget*) pointers
              */
             const QVector<widgetProc>& widgets() const;
-            const QStringList labels() const;
 
         protected:
             /**
@@ -268,7 +267,6 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             virtual ~AcceptorBase();
 
             QVector<widgetProc> m_widgets;
-            QStringList m_labels;
     };
 
     template <class Directive> class DirectiveAcceptor : virtual public AcceptorBase
@@ -292,19 +290,14 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     class PlotDirective
     {
         public:
+            virtual ~PlotDirective();
+
             /**
              * creates a new widget for editing the value and returns the pointer to it
              * @param parent the pointer to parent widget passed to newly created widget
              * @return pointer to the newly-created widget
              */
             static QWidget* widget(QWidget* parent);
-
-            /**
-             * creates a new widget for editing the value and returns the pointer to it
-             * @param parent the pointer to parent widget passed to newly created widget
-             * @return pointer to the newly-created widget
-             *///TODO: fix comment
-            static QString label();
 
             /**
              * in order to make dual dispatching this should be present in any derived class
@@ -318,7 +311,6 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * only derived classes may construct
              **/
             PlotDirective();
-            virtual ~PlotDirective();
     };
 
   public slots:
@@ -353,7 +345,6 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
 template <class Directive> AdvancedPlotExtension::DirectiveAcceptor<Directive>::DirectiveAcceptor()
 {
     m_widgets.push_back(&Directive::widget);
-    m_labels<<(Directive::label());
 }
 
 /**

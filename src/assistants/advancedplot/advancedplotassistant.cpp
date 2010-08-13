@@ -69,21 +69,17 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
     Cantor::AdvancedPlotExtension::AcceptorBase *pAcceptor=dynamic_cast<Cantor::AdvancedPlotExtension::AcceptorBase*>(pPlotter);
     if (pAcceptor!=NULL)
     {
-        QStringList::const_iterator i=pAcceptor->labels().constBegin();
         foreach (const Cantor::AdvancedPlotExtension::AcceptorBase::widgetProc& wProc, pAcceptor->widgets())
         {
-    //         QGroupBox *container=new QGroupBox(NULL);
-    //         Ui::directiveContainer uicont;
-    //         uicont.setupUi(container);
-
-    /*        QVBoxLayout *layout = new QVBoxLayout;
-            wProc(container);
-            container->setLayout(layout);*/
-            //TODO: find out why group box draws itself silly
+//             QGroupBox *container=new QGroupBox(NULL);
+//             wProc(container);
+//             Ui::directiveContainer uicont;
+//             uicont.setupUi(container);
+//             container->setLayout(new QVBoxLayout);
+//
+//             //TODO: find out why group box draws itself silly
             Cantor::AdvancedPlotExtension::DirectiveProducer *container=wProc(NULL);
-
-            base.directivesTabs->addTab(container,(*i));
-            ++i; //WARNING: assuming the lists are filled correctly
+            base.directivesTabs->addTab(container,container->windowTitle());
         }
     }
 
@@ -101,6 +97,8 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
             list.push_back(w->produceDirective());
         }
         result<<pPlotter->plotFunction2d(base.expressionEdit->text(),list);
+        for (QVector<Cantor::AdvancedPlotExtension::PlotDirective*>::const_iterator i=list.begin(); i!=list.end(); ++i)
+            delete (*i);
     }
 
     delete dlg;

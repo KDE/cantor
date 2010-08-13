@@ -34,7 +34,6 @@ namespace Cantor
             const QString& title() const;
             PlotTitleDirective(const QString& str);
             static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
-            static QString label();
 
         private:
             QString m_title;
@@ -61,7 +60,6 @@ namespace Cantor
         public:
             PLOT_DIRECTIVE_DISPATCHING(OrdinateScaleDirective);
             OrdinateScaleDirective(double a,double b);
-            static QString label();
             static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
     };
 
@@ -70,7 +68,6 @@ namespace Cantor
         public:
             PLOT_DIRECTIVE_DISPATCHING(AbscissScaleDirective);
             AbscissScaleDirective(double a,double b);
-            static QString label();
             static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
     };
 };
