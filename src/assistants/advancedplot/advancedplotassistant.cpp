@@ -67,19 +67,20 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
 
     //Filling up the form accordingly
     Cantor::AdvancedPlotExtension::AcceptorBase *pAcceptor=dynamic_cast<Cantor::AdvancedPlotExtension::AcceptorBase*>(pPlotter);
+    QVector<Cantor::AdvancedPlotExtension::DirectiveProducer *> controls;
     if (pAcceptor!=NULL)
     {
         foreach (const Cantor::AdvancedPlotExtension::AcceptorBase::widgetProc& wProc, pAcceptor->widgets())
         {
-//             QGroupBox *container=new QGroupBox(NULL);
-//             wProc(container);
-//             Ui::directiveContainer uicont;
-//             uicont.setupUi(container);
-//             container->setLayout(new QVBoxLayout);
-//
-//             //TODO: find out why group box draws itself silly
-            Cantor::AdvancedPlotExtension::DirectiveProducer *container=wProc(NULL);
-            base.directivesTabs->addTab(container,container->windowTitle());
+            QGroupBox *container=new QGroupBox(NULL);
+            Cantor::AdvancedPlotExtension::DirectiveProducer *cargo=wProc(NULL);
+            Ui::directiveContainer uicont;
+            uicont.setupUi(container);
+            QVBoxLayout *layout=new QVBoxLayout;
+            layout->addWidget(cargo);
+            container->setLayout(layout);
+            base.directivesTabs->addTab(container,cargo->windowTitle());
+            controls.push_back(cargo);
         }
     }
 
@@ -90,11 +91,11 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
         //FIXME lots of dynamic casts :(
         for (int i=0;i<base.directivesTabs->count();i++)
         {
-            Cantor::AdvancedPlotExtension::DirectiveProducer *w=dynamic_cast
-                <Cantor::AdvancedPlotExtension::DirectiveProducer *>(base.directivesTabs->widget(i));
-            // assert (w!=NULL)
-            // TODO replace most of dynamic cast if's with asserts
-            list.push_back(w->produceDirective());
+            QGroupBox *group=dynamic_cast<QGroupBox*>(base.directivesTabs->widget(i));
+            if (group->isChecked())
+            {
+                list.push_back(controls[i]->produceDirective());
+            }
         }
         result<<pPlotter->plotFunction2d(base.expressionEdit->text(),list);
         for (QVector<Cantor::AdvancedPlotExtension::PlotDirective*>::const_iterator i=list.begin(); i!=list.end(); ++i)
