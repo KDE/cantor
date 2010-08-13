@@ -25,20 +25,53 @@
 namespace Cantor
 {
 
-QWidget* PlotTitleDirective::widget(QWidget* parent)
+// FIXME maybe this belongs to headers rather
+class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotTitleControl>
 {
-    QWidget *w=new QWidget(parent);
-    Ui_PlotTitleControl base;
-    base.setupUi(w);
-    return w;
+    public:
+        PlotTitleControl(QWidget *parent) : AbstractParent(parent) {}
+
+        AdvancedPlotExtension::PlotDirective* produceDirective() const
+        {
+            return new PlotTitleDirective(titleEdit->text());
+        }
+};
+
+class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
+{
+    public:
+        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) {}
+
+        AdvancedPlotExtension::PlotDirective* produceDirective() const
+        {
+            return new AbscissScaleDirective(minEdit->value(),maxEdit->value());
+        }
+};
+
+class OrdinateScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
+{
+    public:
+        OrdinateScaleControl(QWidget *parent) : AbstractParent(parent) {}
+
+        AdvancedPlotExtension::PlotDirective* produceDirective() const
+        {
+            return new OrdinateScaleDirective(minEdit->value(),maxEdit->value());
+        }
+};
+
+AdvancedPlotExtension::DirectiveProducer* PlotTitleDirective::widget(QWidget* parent)
+{
+    return new PlotTitleControl(parent);
 }
 
-QWidget* AbstractScaleDirective::widget(QWidget* parent)
+AdvancedPlotExtension::DirectiveProducer* AbscissScaleDirective::widget(QWidget* parent)
 {
-    QWidget *w=new QWidget(parent);
-    Ui_AxisRangeControl base;
-    base.setupUi(w);
-    return w;
+    return new AbscissScaleControl(parent);
+}
+
+AdvancedPlotExtension::DirectiveProducer* OrdinateScaleDirective::widget(QWidget* parent)
+{
+    return new OrdinateScaleControl(parent);
 }
 
 }

@@ -27,13 +27,13 @@
 //TODO: comments
 namespace Cantor
 {
-    class CANTOR_EXPORT PlotTitleDirective : public Cantor::AdvancedPlotExtension::PlotDirective
+    class CANTOR_EXPORT PlotTitleDirective : public AdvancedPlotExtension::PlotDirective
     {
         public:
             PLOT_DIRECTIVE_DISPATCHING(PlotTitleDirective);
             const QString& title() const { return _title; };
             PlotTitleDirective(const QString& str) : _title(str) {}
-            static QWidget* widget(QWidget* parent);
+            static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
             static QString label() { return /*i18n(*/"Main title"/*)*/; }
 
         private:
@@ -41,13 +41,12 @@ namespace Cantor
 
     };
 
-    class CANTOR_EXPORT AbstractScaleDirective : public Cantor::AdvancedPlotExtension::PlotDirective
+    class CANTOR_EXPORT AbstractScaleDirective : public AdvancedPlotExtension::PlotDirective
     {
         public:
             PLOT_DIRECTIVE_DISPATCHING(AbstractScaleDirective);
             double min() const { return _min; }
             double max() const { return _max; }
-            static QWidget* widget(QWidget* parent);
 
         protected:
             AbstractScaleDirective(double a,double b) : _min(a),_max(b) { }
@@ -57,20 +56,22 @@ namespace Cantor
             double _max;
     };
 
-    class CANTOR_EXPORT OrdinateScaleDirective : public Cantor::AbstractScaleDirective
+    class CANTOR_EXPORT OrdinateScaleDirective : public AbstractScaleDirective
     {
         public:
             PLOT_DIRECTIVE_DISPATCHING(OrdinateScaleDirective);
             OrdinateScaleDirective(double a,double b) : AbstractScaleDirective(a,b) {}
             static QString label() { return  /*i18n(*/"Ordinate scale"/*)*/; }
+            static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
     };
 
-    class CANTOR_EXPORT AbscissScaleDirective : public Cantor::AbstractScaleDirective
+    class CANTOR_EXPORT AbscissScaleDirective : public AbstractScaleDirective
     {
         public:
             PLOT_DIRECTIVE_DISPATCHING(AbscissScaleDirective);
             AbscissScaleDirective(double a,double b) : AbstractScaleDirective(a,b) {}
             static QString label() { return  /*i18n(*/"Absciss scale"/*)*/; }
+            static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
     };
 };
 

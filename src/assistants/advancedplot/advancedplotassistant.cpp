@@ -80,7 +80,7 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
             wProc(container);
             container->setLayout(layout);*/
             //TODO: find out why group box draws itself silly
-            QWidget *container=wProc(NULL);
+            Cantor::AdvancedPlotExtension::DirectiveProducer *container=wProc(NULL);
 
             base.directivesTabs->addTab(container,(*i));
             ++i; //WARNING: assuming the lists are filled correctly
@@ -90,7 +90,17 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
     QStringList result;
     if( dlg->exec())
     {
-
+        QVector<Cantor::AdvancedPlotExtension::PlotDirective*> list;
+        //FIXME lots of dynamic casts :(
+        for (int i=0;i<base.directivesTabs->count();i++)
+        {
+            Cantor::AdvancedPlotExtension::DirectiveProducer *w=dynamic_cast
+                <Cantor::AdvancedPlotExtension::DirectiveProducer *>(base.directivesTabs->widget(i));
+            // assert (w!=NULL)
+            // TODO replace most of dynamic cast if's with asserts
+            list.push_back(w->produceDirective());
+        }
+        result<<pPlotter->plotFunction2d(base.expressionEdit->text(),list);
     }
 
     delete dlg;

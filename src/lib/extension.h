@@ -228,6 +228,22 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
 
     class PlotDirective;
 
+    // TODO move the hell out of here
+    class DirectiveProducer : public QWidget
+    {
+        public:
+            DirectiveProducer(QWidget* parent) : QWidget(parent) { }
+            virtual PlotDirective* produceDirective() const=0;
+    };
+
+    template <class UI> class DirectiveControl : protected UI, public DirectiveProducer
+    {
+        public:
+            DirectiveControl(QWidget* parent) : DirectiveProducer(parent) { setupUi(this); }
+        protected:
+            typedef DirectiveControl<UI> AbstractParent;
+    };
+
     class AcceptorBase
     {
         public:
@@ -236,7 +252,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             /**
              * utilitary typename for easying the code
              */
-            typedef QWidget * (*widgetProc)(QWidget*);
+            typedef DirectiveProducer * (*widgetProc)(QWidget*);
 
             /**
              * returns a constant reference to the list of widget generating procedures
@@ -288,7 +304,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * creates a new widget for editing the value and returns the pointer to it
              * @param parent the pointer to parent widget passed to newly created widget
              * @return pointer to the newly-created widget
-             */
+             *///TODO: fix comment
             static QString label() { return "If you see this, you see a bug"; }
 
             /**
