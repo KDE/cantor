@@ -102,8 +102,13 @@ void RServer::initR()
     foreach (const QString& path, RServerSettings::self()->autorunScripts())
     {
         int errorOccurred=0;
-        R_tryEval(lang2(install("source"),mkString(path.toUtf8().data())),NULL,&errorOccurred);
+        if (QFile::exists(path))
+            R_tryEval(lang2(install("source"),mkString(path.toUtf8().data())),NULL,&errorOccurred);
         // TODO: error handling
+        else
+        {
+            kDebug()<<("Script "+path+" not found"); // FIXME: or should we throw a messagebox
+        }
     }
 
     kDebug()<<"done initializing";
