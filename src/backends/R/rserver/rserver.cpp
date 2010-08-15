@@ -44,6 +44,40 @@
 #include <Rinterface.h>
 #include <R_ext/Parse.h>
 
+// Not making a member to prevent pulling R headers into rserver.h
+void htmlVector(SEXP expr, QTextStream& fp)
+{
+    // TODO TextResult clamps the newlines, beware
+//     fp << "<html>\n"; // TODO move this to some other place and make configurable
+    fp << "<table border=\"1\" align=\"center\" valign=\"center\">";
+    fp << "<tr><td bgcolor=\"#AAAAAA\">[1]</td>";
+    int leftOnThisRow=25;
+    for (int i=0; i<length(expr); i++)
+    {
+        if (leftOnThisRow==0)
+        {
+            fp << "</tr>";
+            fp << "<tr><td bgcolor=\"#AAAAAA\">["+QString::number(i+1)+"]</td>";
+            leftOnThisRow=25;
+        }
+        QString cellData;
+        switch (TYPEOF(expr))
+        {
+            case REALSXP:
+                cellData=QString::number(REAL(expr)[i]); break; 
+            case INTSXP:
+                cellData=QString::number(INTEGER(expr)[i]); break; 
+            case STRSXP: 
+                cellData=CHAR(STRING_ELT(expr,i)); break; 
+        }
+        fp << "<td>"+cellData+"</td>"; // TODO HTML-safening
+        leftOnThisRow--;
+    }
+    fp << "</tr>";
+    fp << "<table>";
+//     fp << "</html>";
+}
+
 RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
     new RAdaptor(this);
@@ -254,6 +288,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
     ReturnCode returnCode=RServer::SuccessCode;
     QString returnText;
+    QStringList neededFiles;
 
     //Code to evaluate an R function (taken from RInside library)
     ParseStatus status;
@@ -281,7 +316,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
                     kDebug()<<"Error occurred.";
                     break;
                 }
-
+                // TODO: multiple results
             }
             memBuf.clear();
             break;
@@ -316,7 +351,24 @@ void RServer::runCommand(const QString& cmd, bool internal)
         if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
         {
             kDebug()<<"printing result...";
-            Rf_PrintValue(result);
+            SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),NULL,&errorOccurred)); // TODO: error checks
+            if (*INTEGER(count)==1)
+                Rf_PrintValue(result);
+            else
+            {
+                static int htmlresult_id=0;
+                QString fname=QString("%1/Rtable%2.html").arg(m_tmpDir,QString::number(htmlresult_id++));
+                QFile fp(fname);
+                if (fp.open(QIODevice::WriteOnly))
+                {
+                    QTextStream s(&fp);
+                    htmlVector(result,s);
+                    fp.close();
+                    neededFiles<<fname;
+                    expr->hasOtherResults=true;
+                }
+            }
+            UNPROTECT(1);
         }
 
         setCurrentExpression(0); //is this save?
@@ -350,12 +402,14 @@ void RServer::runCommand(const QString& cmd, bool internal)
     {
         expr->hasOtherResults=true;
         newPlotDevice();
-        showFiles(QStringList()<<f.filePath());
+        neededFiles<<f.filePath();
     }
 
     //Check if the expression got results other than plain text (like files,etc)
     if(!expr->hasOtherResults)
         emit expressionFinished(returnCode, returnText);
+    else
+        showFiles(neededFiles);
 
     setStatus(Idle);
     

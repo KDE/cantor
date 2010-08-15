@@ -92,10 +92,9 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
         for (int i=0;i<base.directivesTabs->count();i++)
         {
             QGroupBox *group=dynamic_cast<QGroupBox*>(base.directivesTabs->widget(i));
-            if (group->isChecked())
-            {
-                list.push_back(controls[i]->produceDirective());
-            }
+            if (group!=NULL)
+                if (group->isChecked())
+                    list.push_back(controls[i]->produceDirective());
         }
         result<<pPlotter->plotFunction2d(base.expressionEdit->text(),list);
         for (QVector<Cantor::AdvancedPlotExtension::PlotDirective*>::const_iterator i=list.begin(); i!=list.end(); ++i)

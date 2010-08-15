@@ -101,9 +101,14 @@ void RExpression::showFilesAsResult(const QStringList& files)
         {
             kDebug()<<"its PostScript";
             setResult(new Cantor::EpsResult(file));
-        }else if(type->is("text/plain"))
+        } else if(type->is("text/plain"))
         {
-            kDebug()<<"its plain text";
+            //Htmls are also plain texts, combining this in one
+            if(type->is("text/html"))
+                kDebug()<<"its a HTML document";
+            else
+                kDebug()<<"its plain text";
+
             QFile f(file);
             if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
             {
@@ -112,11 +117,14 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 setStatus(Cantor::Expression::Error);
             }
             QString content=QTextStream(&f).readAll();
-            //replace appearing backspaces, as they mess the whole output up
-            content.remove(QRegExp(".\b"));
-            //Replace < and > with their html code, so they won't be confused as html tags
-            content.replace( '<' ,  "&lt;");
-            content.replace( '>' ,  "&gt;");
+            if (!type->is("text/html"))
+            {
+                //replace appearing backspaces, as they mess the whole output up
+                content.remove(QRegExp(".\b"));
+                //Replace < and > with their html code, so they won't be confused as html tags
+                content.replace( '<' ,  "&lt;");
+                content.replace( '>' ,  "&gt;");
+            }
 
             kDebug()<<"content: "<<content;
             if(m_isHelpRequest)
