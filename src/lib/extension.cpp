@@ -22,7 +22,6 @@
 using namespace Cantor;
 
 #include <QStringList>
-#include <typeinfo> // For AdvancedPlotExtension debugging
 
 #define EXTENSION_CONSTRUCTORS(name) name::name(QObject* parent) : Extension(#name,parent) {} \
                                      name::~name() {}
