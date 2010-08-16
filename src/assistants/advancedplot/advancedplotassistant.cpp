@@ -57,20 +57,20 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
     dlg->setMainWidget(widget);
 
     //Casting the extension to correct type and checking it
-    Cantor::AdvancedPlotExtension * pPlotter=dynamic_cast<Cantor::AdvancedPlotExtension*>
+    Cantor::AdvancedPlotExtension * plotter=dynamic_cast<Cantor::AdvancedPlotExtension*>
         (backend()->extension("AdvancedPlotExtension"));
-    if (pPlotter==NULL)
+    if (plotter==NULL)
     {
         kDebug()<<"Advanced plotting extension is messed up, that's a bug.";
         return QStringList();
     }
 
     //Filling up the form accordingly
-    Cantor::AdvancedPlotExtension::AcceptorBase *pAcceptor=dynamic_cast<Cantor::AdvancedPlotExtension::AcceptorBase*>(pPlotter);
+    Cantor::AdvancedPlotExtension::AcceptorBase *acceptor=dynamic_cast<Cantor::AdvancedPlotExtension::AcceptorBase*>(plotter);
     QVector<Cantor::AdvancedPlotExtension::DirectiveProducer *> controls;
-    if (pAcceptor!=NULL)
+    if (acceptor!=NULL)
     {
-        foreach (const Cantor::AdvancedPlotExtension::AcceptorBase::widgetProc& wProc, pAcceptor->widgets())
+        foreach (const Cantor::AdvancedPlotExtension::AcceptorBase::widgetProc& wProc, acceptor->widgets())
         {
             QGroupBox *container=new QGroupBox(NULL);
             Cantor::AdvancedPlotExtension::DirectiveProducer *cargo=wProc(NULL);
@@ -96,7 +96,7 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
                 if (group->isChecked())
                     list.push_back(controls[i]->produceDirective());
         }
-        result<<pPlotter->plotFunction2d(base.expressionEdit->text(),list);
+        result<<plotter->plotFunction2d(base.expressionEdit->text(),list);
         for (QVector<Cantor::AdvancedPlotExtension::PlotDirective*>::const_iterator i=list.begin(); i!=list.end(); ++i)
             delete (*i);
     }
