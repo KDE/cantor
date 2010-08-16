@@ -45,7 +45,7 @@
 #include <R_ext/Parse.h>
 
 // Not making a member to prevent pulling R headers into rserver.h
-void htmlVector(SEXP expr, QTextStream& fp)
+bool htmlVector(SEXP expr, QTextStream& fp)
 {
     // TODO TextResult clamps the newlines, beware
 //     fp << "<html>\n"; // TODO move this to some other place and make configurable
@@ -69,6 +69,8 @@ void htmlVector(SEXP expr, QTextStream& fp)
                 cellData=QString::number(INTEGER(expr)[i]); break; 
             case STRSXP: 
                 cellData=CHAR(STRING_ELT(expr,i)); break; 
+            default:
+                return false;
         }
         fp << "<td>"+cellData+"</td>"; // TODO HTML-safening
         leftOnThisRow--;
@@ -76,6 +78,7 @@ void htmlVector(SEXP expr, QTextStream& fp)
     fp << "</tr>";
     fp << "<table>";
 //     fp << "</html>";
+    return true;
 }
 
 RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
@@ -362,10 +365,15 @@ void RServer::runCommand(const QString& cmd, bool internal)
                 if (fp.open(QIODevice::WriteOnly))
                 {
                     QTextStream s(&fp);
-                    htmlVector(result,s);
+                    bool canProcess=htmlVector(result,s);
                     fp.close();
-                    neededFiles<<fname;
-                    expr->hasOtherResults=true;
+                    if (canProcess)
+                    {
+                        neededFiles<<fname;
+                        expr->hasOtherResults=true;
+                    }
+                    else
+                        Rf_PrintValue(result); //In case we do not know yet how to display it
                 }
             }
             UNPROTECT(1);
