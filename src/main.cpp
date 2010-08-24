@@ -41,6 +41,7 @@ int main(int argc, char **argv)
         );
     about.addAuthor( ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com" );
     about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("KAlgebra backend"), "aleixpol@kde.org" );
+    about.addAuthor( ki18n("Miha Čančula"), ki18n("Octave backend"), "miha.cancula@gmail.com" );
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;
