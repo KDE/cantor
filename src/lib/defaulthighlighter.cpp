@@ -30,6 +30,17 @@
 
 using namespace Cantor;
 
+struct HighlightingRule
+{
+    QRegExp regExp;
+    QTextCharFormat format;
+};
+
+bool operator==(const HighlightingRule& rule1, const HighlightingRule& rule2)
+{
+    return rule1.regExp == rule2.regExp;
+}
+
 class Cantor::DefaultHighlighterPrivate
 {
   public:
@@ -51,6 +62,9 @@ class Cantor::DefaultHighlighterPrivate
     int lastPosition;
     // each two consecutive items build a pair
     QList<QChar> pairs;
+
+    QList<HighlightingRule> regExpRules;
+    QHash<QString, QTextCharFormat> wordRules;
 };
 
 DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
@@ -77,15 +91,20 @@ DefaultHighlighter::~ DefaultHighlighter()
 
 bool DefaultHighlighter::skipHighlighting(const QString& text)
 {
-    return (text.isEmpty() || currentBlockType() == NoHighlightBlock);
+    return (text.isEmpty() || currentBlockType() == NoHighlightBlock || currentBlockType() == UnknownBlock );
 }
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
+    QTextCursor cursor;
+    d->lastBlockNumber = cursor.blockNumber();
+
     if (skipHighlighting(text))
         return;
 
     highlightPairs(text);
+    highlightWords(text);
+    highlightRegExps(text);
 }
 
 void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymbol)
@@ -155,6 +174,37 @@ void DefaultHighlighter::highlightPairs(const QString& text)
         }
     }
     qDeleteAll(opened.values());
+}
+
+void DefaultHighlighter::highlightWords(const QString& text)
+{
+    const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
+    int count;
+    int pos = 0;
+    const int n = words.size();
+    for (int i = 0; i < n; ++i)
+    {
+        count = words[i].size();
+        const QString word = words[i].trimmed();
+        if (d->wordRules.contains(word))
+        {
+            setFormat(pos, count, d->wordRules[word]);
+        }
+        pos += count;
+    }
+}
+
+void DefaultHighlighter::highlightRegExps(const QString& text)
+{
+    foreach (const HighlightingRule& rule, d->regExpRules)
+    {
+        int index = rule.regExp.indexIn(text);
+        while (index >= 0) {
+            int length = rule.regExp.matchedLength();
+            setFormat(index,  length,  rule.format);
+            index = rule.regExp.indexIn(text,  index + length);
+        }
+    }
 }
 
 DefaultHighlighter::BlockType DefaultHighlighter::currentBlockType()
@@ -254,7 +304,6 @@ void DefaultHighlighter::positionChanged()
 
     if ( cursor.blockNumber() != d->lastBlockNumber ) {
         // remove highlight from last focused block
-        kDebug() << "cleaning up last block";
         rehighlightBlock(d->parent->document()->findBlockByNumber(d->lastBlockNumber));
     }
 
@@ -264,10 +313,32 @@ void DefaultHighlighter::positionChanged()
         return;
     }
 
-    kDebug() << "position changed, rehighlight block";
-
     rehighlightBlock(cursor.block());
     d->lastPosition = cursor.position();
 }
+
+void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
+{
+    d->wordRules[word] = format;
+}
+
+void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& format)
+{
+    HighlightingRule rule = { regexp, format };
+    d->regExpRules.removeAll(rule);
+    d->regExpRules.append(rule);
+}
+
+void DefaultHighlighter::removeRule(const QString& word)
+{
+    d->wordRules.remove(word);
+}
+
+void DefaultHighlighter::removeRule(const QRegExp& regexp)
+{
+    HighlightingRule rule = { regexp, QTextCharFormat() };
+    d->regExpRules.removeAll(rule);
+}
+
 
 #include  "defaulthighlighter.moc"

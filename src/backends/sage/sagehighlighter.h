@@ -25,27 +25,16 @@
 
 
 /*
-  this is basically a syntax highlighter for the 
+  this is basically a syntax highlighter for the
   Python programming Language, as Sage is based on
   it
 */
+
 class SageHighlighter : public Cantor::DefaultHighlighter
 {
   public:
     SageHighlighter( QTextEdit* edit);
     ~SageHighlighter();
-
-  protected:
-    void highlightBlock(const QString &text);
-
-  private:
-     struct HighlightingRule
-     {
-	     QRegExp pattern;
-	     QTextCharFormat format;
-     };
-
-     QVector<HighlightingRule> m_highlightingRules;
 };
 
 #endif /* _SAGEHIGHLIGHTER_H */

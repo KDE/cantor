@@ -33,14 +33,6 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
     void highlightBlock(const QString &text);
 
   private:
-     struct HighlightingRule
-     {
-	     QRegExp pattern;
-	     QTextCharFormat format;
-     };
-
-     QVector<HighlightingRule> m_highlightingRules;
-
      QRegExp commentStartExpression;
      QRegExp commentEndExpression;
 };

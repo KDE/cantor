@@ -31,31 +31,28 @@ namespace Cantor
 class OctaveHighlighter : public Cantor::DefaultHighlighter
 {
   Q_OBJECT
-  
+
   public:
     OctaveHighlighter(QTextEdit* parent, Cantor::Session* session);
     virtual ~OctaveHighlighter();
 
-  
-protected:
-    virtual void highlightBlock(const QString& text);
-    
   public Q_SLOTS:
     void receiveFunctions();
     void receiveVariables();
-    
+
     void updateFunctions();
     void updateVariables();
-    
+
   private:
-    QStringList m_functions;
-    QStringList m_variables;
-    QStringList m_operators;
-    QStringList m_keywords;
-    
     Cantor::Session* m_session;
     Cantor::Expression* m_functionsExpr;
     Cantor::Expression* m_varsExpr;
+    bool m_functionsReceived;
+    bool m_variablesReceived;
+
+    QStringList m_operators;
+    QStringList m_keywords;
+    QStringList m_variables;
 };
 
 #endif // OCTAVEHIGHLIGHTER_H

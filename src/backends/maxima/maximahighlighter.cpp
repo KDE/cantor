@@ -26,57 +26,19 @@
 
 MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
 {
-    HighlightingRule rule;
-
-    //Setup the highlighting rules
-    rule.pattern = QRegExp("\\b[A-Za-z0-9_]+(?=\\()");
-    rule.format = functionFormat();
-    m_highlightingRules.append(rule);
+    addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
 
     //Code highlighting the different keywords
-    foreach (const QString &pattern, MaximaKeywords::keywords())
-    {
-        rule.pattern = QRegExp("\\b"+QRegExp::escape(pattern)+"\\b");
-        rule.format = keywordFormat();
-        m_highlightingRules.append(rule);
-    }
+    addKeywords(MaximaKeywords::keywords());
 
+    addRule("FIXME", commentFormat());
+    addRule("TODO", commentFormat());
 
-    QStringList specialCommentPatterns;
-    specialCommentPatterns
-        <<"\\bFIXME\\b" <<"\\bTODO\\b" ;
+    addFunctions(MaximaKeywords::functions());
+    addVariables(MaximaKeywords::variables());
 
-    foreach (const QString &pattern, specialCommentPatterns )
-    {
-        rule.pattern = QRegExp(pattern);
-        rule.format = commentFormat();
-        m_highlightingRules.append(rule);
-    }
-
-
-    foreach (const QString &pattern, MaximaKeywords::functions() )
-    {
-        rule.pattern = QRegExp("\\b"+QRegExp::escape(pattern)+"\\b");
-        rule.format = functionFormat();
-        m_highlightingRules.append(rule);
-    }
-
-
-    foreach (const QString &pattern, MaximaKeywords::variables() )
-    {
-        rule.pattern = QRegExp("\\b"+QRegExp::escape(pattern)+"\\b");
-        rule.format = variableFormat();
-        m_highlightingRules.append(rule);
-    }
-
-
-    rule.pattern = QRegExp("\".*\"");
-    rule.format = stringFormat();
-    m_highlightingRules.append(rule);
-
-    rule.pattern= QRegExp("'.*'");
-    rule.format = stringFormat();
-    m_highlightingRules.append(rule);
+    addRule(QRegExp("\".*\""), stringFormat());
+    addRule(QRegExp("'.*'"), stringFormat());
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");
@@ -93,16 +55,6 @@ void MaximaHighlighter::highlightBlock(const QString& text)
 
     //Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
-
-    foreach (const HighlightingRule &rule,  m_highlightingRules) {
-        QRegExp expression(rule.pattern);
-        int index = expression.indexIn(text);
-        while (index >= 0) {
-            int length = expression.matchedLength();
-            setFormat(index,  length,  rule.format);
-            index = expression.indexIn(text,  index + length);
-        }
-    }
 
     setCurrentBlockState(0);
 
