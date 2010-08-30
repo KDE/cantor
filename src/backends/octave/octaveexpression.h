@@ -21,6 +21,7 @@
 #define OCTAVEEXPRESSION_H
 
 #include <expression.h>
+#include <QStringList>
 
 
 class OctaveExpression : public Cantor::Expression
@@ -44,6 +45,7 @@ class OctaveExpression : public Cantor::Expression
 	bool m_plotPending;
 	bool m_finished;
 	bool m_error;
+    QStringList m_plotCommands;
 
 };
 

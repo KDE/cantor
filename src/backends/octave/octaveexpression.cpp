@@ -26,9 +26,13 @@
 #include <KDebug>
 #include <QtCore/QFile>
 
+static const char* printCommand = "print('-depsc',strcat(tempname(tempdir,'c-ob-'),'.eps'),'-S480,336','-tight');";
+
 OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session)
 {
-
+    m_plotCommands << "plot" << "semilogx" << "semilogy" << "loglog" << "polar"
+                   << "mesh" << "contour" << "bar" << "stairs" << "errorbar";
+    m_plotCommands << "cantor_plot2d" << "cantor_plot3d";
 }
 
 
@@ -45,9 +49,32 @@ void OctaveExpression::interrupt()
 
 void OctaveExpression::evaluate()
 {
-    setPlotPending( command().contains("plot") );
+    setPlotPending(false);
+    QString cmd = command();
+    QStringList cmdWords = cmd.split(QRegExp("\\b"), QString::SkipEmptyParts);
+    if (!cmdWords.contains("help") && !cmdWords.contains("completion_matches"))
+    {
+        foreach (const QString& plotCmd, m_plotCommands)
+        {
+            if (cmdWords.contains(plotCmd))
+            {
+                setPlotPending(true);
+                kDebug() << "Executing a plot command";
+                break;
+            }
+        }
+    }
+    if ( m_plotPending && !cmd.contains("cantor_plot"))
+    {
+        // This was a manual plot, we have to add a print command
+        if (!cmd.endsWith(';') && !cmd.endsWith(','))
+        {
+            cmd += ',';
+        }
+        cmd += printCommand;
+        setCommand(cmd);
+    }
     m_finished = false;
-    // disabled for testing, it's not needed anyway
     setStatus(Computing);
     OctaveSession* octaveSession = dynamic_cast<OctaveSession*>(session());
     if (octaveSession)
