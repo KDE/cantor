@@ -45,7 +45,6 @@ void OctaveCompletionObject::fetchCompletions()
 
 void OctaveCompletionObject::fetchingDone()
 {
-    kDebug();
     if (!m_expression || m_expression->status() != Cantor::Expression::Done)
     {
         return;
@@ -55,7 +54,7 @@ void OctaveCompletionObject::fetchingDone()
     {
         QString res = result->toHtml();
         QStringList completions = res.split("<br/>\n", QString::SkipEmptyParts);
-        kDebug() << completions;
+        kDebug() << "Adding" << completions.size() << "completions";
         setCompletions( completions );
     }
     m_expression->deleteLater();

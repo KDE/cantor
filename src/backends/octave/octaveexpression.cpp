@@ -21,18 +21,30 @@
 #include "octavesession.h"
 
 #include "textresult.h"
-#include "epsresult.h"
 
 #include <KDebug>
 #include <QtCore/QFile>
+#include <helpresult.h>
 
-static const char* printCommand = "print('-depsc',strcat(tempname(tempdir,'c-ob-'),'.eps'),'-S480,336','-tight');";
+#ifdef WITH_EPS
+#include "epsresult.h"
+typedef Cantor::EpsResult OctavePlotResult;
+#else
+#include "imageresult.h"
+typedef Cantor::ImageResult OctavePlotResult;
+#endif
+
+static const char* printCommand = "cantor_print();";
 
 OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session)
 {
     m_plotCommands << "plot" << "semilogx" << "semilogy" << "loglog" << "polar"
-                   << "mesh" << "contour" << "bar" << "stairs" << "errorbar";
+                   << "mesh" << "contour" << "bar" << "stairs" << "errorbar"
+                   << "surf" << "sombrero";
     m_plotCommands << "cantor_plot2d" << "cantor_plot3d";
+
+    m_error = false;
+    m_plotPending = false;
 }
 
 
@@ -49,7 +61,6 @@ void OctaveExpression::interrupt()
 
 void OctaveExpression::evaluate()
 {
-    setPlotPending(false);
     QString cmd = command();
     QStringList cmdWords = cmd.split(QRegExp("\\b"), QString::SkipEmptyParts);
     if (!cmdWords.contains("help") && !cmdWords.contains("completion_matches"))
@@ -89,23 +100,37 @@ void OctaveExpression::parseOutput ( QString output )
     m_resultString += output;
     if (!m_resultString.trimmed().isEmpty())
     {
-        setResult(new Cantor::TextResult(m_resultString));
+        if (command().contains("help"))
+        {
+            setResult(new Cantor::HelpResult(m_resultString));
+        }
+        else
+        {
+            setResult(new Cantor::TextResult(m_resultString));
+        }
     }
 }
 
 void OctaveExpression::parseError(QString error)
 {
     kDebug() << error;
-    // setErrorMessage doesn't preserve Octave's the formatting
-    setResult(new Cantor::TextResult(error));
-    m_error = true;
+    if (false && error.contains("warning"))
+    {
+        parseOutput(error);
+    }
+    else
+    {
+        m_error = true;
+        setErrorMessage(error);
+        setStatus(Error);
+    }
 }
 
 void OctaveExpression::parseEpsFile(QString file)
 {
     if (QFile::exists(file))
     {
-        setResult(new Cantor::EpsResult(file));
+        setResult(new OctavePlotResult(file));
         setPlotPending(false);
         if (m_finished)
         {
@@ -116,6 +141,7 @@ void OctaveExpression::parseEpsFile(QString file)
 
 void OctaveExpression::finalize()
 {
+    kDebug() << m_plotPending << m_error;
     m_finished = true;
     if (!m_plotPending)
     {
