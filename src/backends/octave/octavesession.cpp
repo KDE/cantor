@@ -67,14 +67,14 @@ void OctaveSession::login()
 
     if (OctaveSettings::integratePlots())
     {
-	// Do not show the popup when plotting, rather only print to a file
-	args << "--eval";
-	args << "set (0, \"defaultfigurevisible\",\"off\");";
+        // Do not show the popup when plotting, rather only print to a file
+        args << "--eval";
+        args << "set (0, \"defaultfigurevisible\",\"off\");";
     }
     else
     {
-	args << "--eval";
-	args << "set (0, \"defaultfigurevisible\",\"on\");";
+        args << "--eval";
+        args << "set (0, \"defaultfigurevisible\",\"on\");";
     }
 
     // Do not show extra text in help commands
@@ -95,8 +95,8 @@ void OctaveSession::login()
 
     if (OctaveSettings::integratePlots())
     {
-	m_watch = new KDirWatch;
-	connect (m_watch, SIGNAL(dirty(QString)), SLOT( plotFileChanged(QString) ));
+        m_watch = new KDirWatch;
+        connect (m_watch, SIGNAL(dirty(QString)), SLOT( plotFileChanged(QString) ));
     }
 }
 
@@ -167,14 +167,14 @@ void OctaveSession::readError()
 
 void OctaveSession::readOutput()
 {
-    while(m_process->bytesAvailable() > 0)
+    while (m_process->bytesAvailable() > 0)
     {
-	if (m_tempDir.isEmpty() && !m_process->canReadLine())
-	{
-	  kDebug() << "Waiting";
-	  // Wait for the full line containing octave's tempDir
-	  return;
-	}
+        if (m_tempDir.isEmpty() && !m_process->canReadLine())
+        {
+            kDebug() << "Waiting";
+            // Wait for the full line containing octave's tempDir
+            return;
+        }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         kDebug() << line;
         if (!m_currentExpression)
@@ -185,19 +185,19 @@ void OctaveSession::readOutput()
                 line.replace(":1", ":[0-9]+");
                 m_prompt.setPattern(line);
                 changeStatus(Done);
-		if (!m_expressionQueue.isEmpty())
-		{
-		    runExpression(m_expressionQueue.dequeue());
-		}
-		emit ready();
+                if (!m_expressionQueue.isEmpty())
+                {
+                    runExpression(m_expressionQueue.dequeue());
+                }
+                emit ready();
             }
             else if (line.contains("____TMP_DIR____"))
-	    {
-		line.remove(0,18);
-		line.chop(1); // isolate the tempDir's location
-		m_tempDir = line;
-		m_watch->addDir(m_tempDir);
-	    }
+            {
+                line.remove(0,18);
+                line.chop(1); // isolate the tempDir's location
+                m_tempDir = line;
+                m_watch->addDir(m_tempDir);
+            }
         }
         else if (line.contains(m_prompt))
         {
@@ -205,23 +205,24 @@ void OctaveSession::readOutput()
             // this makes sure that all errors are caught
             readError();
             m_currentExpression->finalize();
-	    if (m_currentExpression->command().contains(" = "))
-	    {
-	      emit variablesChanged();
-	    }
-	    if (m_currentExpression->command().contains("function "))
-	    {
-	      emit functionsChanged();
-	    }
+            if (m_currentExpression->command().contains(" = "))
+            {
+                emit variablesChanged();
+            }
+            if (m_currentExpression->command().contains("function "))
+            {
+                emit functionsChanged();
+            }
         }
         else
         {
-	    // Avoid many calls to setResult if a lot of output came at the same time
-	    while (m_process->canReadLine())
-	    {
-		line += QString::fromLocal8Bit(m_process->readLine());
-	    }
-	    m_currentExpression->parseOutput(line);
+            // Avoid many calls to setResult if a lot of output came at the same time
+            while (m_process->canReadLine())
+            {
+                line += QString::fromLocal8Bit(m_process->readLine());
+            }
+            kDebug() << line;
+            m_currentExpression->parseOutput(line);
 
         }
     }
@@ -252,14 +253,14 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
 void OctaveSession::plotFileChanged(QString filename)
 {
-  if (!QFile::exists(filename) || !filename.split('/').last().contains("c-ob-"))
-  {
-    return;
-  }
-  if (m_currentExpression)
-  {
-    m_currentExpression->parseEpsFile(filename);
-  }
+    if (!QFile::exists(filename) || !filename.split('/').last().contains("c-ob-"))
+    {
+        return;
+    }
+    if (m_currentExpression)
+    {
+        m_currentExpression->parseEpsFile(filename);
+    }
 }
 
 
