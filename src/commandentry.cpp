@@ -113,11 +113,18 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         m_expression->deleteLater();
     m_expression=expr;
 
+    // Delete any previus error and/or result
     if(m_errorCell.isValid())
     {
         m_table->removeRows(m_errorCell.row(), 1);
         m_errorCell=QTextTableCell();
     }
+    if(m_resultCell.isValid())
+    {
+        m_table->removeRows(m_resultCell.row(), 1);
+        m_resultCell=QTextTableCell();
+    }
+
     foreach(const QTextTableCell& cell, m_informationCells)
     {
         m_table->removeRows(cell.row()-1, 2);
