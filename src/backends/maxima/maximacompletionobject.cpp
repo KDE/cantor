@@ -44,9 +44,9 @@ MaximaCompletionObject::~MaximaCompletionObject()
 void MaximaCompletionObject::fetchCompletions()
 {
     QStringList allCompletions;
-    allCompletions<<MaximaKeywords::variables();
-    allCompletions<<MaximaKeywords::functions();
-    allCompletions<<MaximaKeywords::keywords();
+    allCompletions<<MaximaKeywords::instance()->variables();
+    allCompletions<<MaximaKeywords::instance()->functions();
+    allCompletions<<MaximaKeywords::instance()->keywords();
 
     setCompletions(allCompletions);
 

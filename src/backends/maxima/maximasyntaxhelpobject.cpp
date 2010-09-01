@@ -46,7 +46,7 @@ void MaximaSyntaxHelpObject::fetchInformation()
     }
 
     bool isValid=false;
-    foreach(const QString& func, MaximaKeywords::functions())
+    foreach(const QString& func, MaximaKeywords::instance()->functions())
     {
         if(command()==func)
         {

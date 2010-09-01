@@ -24,13 +24,27 @@
 #include <QStringList>
 
 /*
-  Namespace containing lists of names, known to maxima
+  Class storint a listsof names, known to maxima
   used for syntax highlighting and tab completion
  */
-namespace MaximaKeywords
+class MaximaKeywords
 {
-    const QStringList& functions();
-    const QStringList& keywords();
-    const QStringList& variables();
-}
+  private:
+    MaximaKeywords();
+    ~MaximaKeywords();
+  public:
+    static MaximaKeywords* instance();
+
+    const QStringList& functions() const;
+    const QStringList& keywords() const;
+    const QStringList& variables() const;
+
+  private:
+    void loadFromFile();
+
+  private:
+    QStringList m_functions;
+    QStringList m_keywords;
+    QStringList m_variables;
+};
 #endif /* _MAXIMAKEYWORDS_H */

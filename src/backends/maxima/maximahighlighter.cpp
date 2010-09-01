@@ -29,13 +29,13 @@ MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
     addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
 
     //Code highlighting the different keywords
-    addKeywords(MaximaKeywords::keywords());
+    addKeywords(MaximaKeywords::instance()->keywords());
 
     addRule("FIXME", commentFormat());
     addRule("TODO", commentFormat());
 
-    addFunctions(MaximaKeywords::functions());
-    addVariables(MaximaKeywords::variables());
+    addFunctions(MaximaKeywords::instance()->functions());
+    addVariables(MaximaKeywords::instance()->variables());
 
     addRule(QRegExp("\".*\""), stringFormat());
     addRule(QRegExp("'.*'"), stringFormat());
