@@ -97,6 +97,7 @@ class CommandEntry : public WorksheetEntry
     void checkForSanity();
 
     void removeContextHelp();
+    void removeResult();
 
     bool evaluate(bool current);
     bool evaluateCommand();

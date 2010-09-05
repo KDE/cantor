@@ -135,6 +135,14 @@ Result* Expression::result()
     return d->result;
 }
 
+void Expression::clearResult()
+{
+    if(d->result)
+        delete d->result;
+
+    d->result=0;
+}
+
 void Expression::setStatus(Expression::Status status)
 {
     d->status=status;

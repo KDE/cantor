@@ -111,7 +111,6 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 {
     if ( m_expression )
         m_expression->deleteLater();
-    m_expression=expr;
 
     // Delete any previus error and/or result
     if(m_errorCell.isValid())
@@ -119,17 +118,23 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         m_table->removeRows(m_errorCell.row(), 1);
         m_errorCell=QTextTableCell();
     }
-    if(m_resultCell.isValid())
-    {
-        m_table->removeRows(m_resultCell.row(), 1);
-        m_resultCell=QTextTableCell();
-    }
+
+    removeResult();
 
     foreach(const QTextTableCell& cell, m_informationCells)
     {
         m_table->removeRows(cell.row()-1, 2);
     }
     m_informationCells.clear();
+
+    // Delete any previous result
+    if (m_table && m_resultCell.isValid())
+    {
+        m_table->removeRows(m_resultCell.row(),  m_resultCell.rowSpan());
+        m_resultCell=QTextTableCell();
+    }
+
+    m_expression=expr;
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(update()));
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
@@ -351,7 +356,8 @@ bool CommandEntry::evaluateCommand()
     kDebug()<<"evaluating: "<<cmd;
 
     Cantor::Expression* expr;
-    if(cmd.isEmpty()) return false;
+    if(cmd.isEmpty())
+        return false;
 
     expr=m_worksheet->session()->evaluateExpression(cmd);
     connect(expr, SIGNAL(gotResult()), m_worksheet, SLOT(gotResult()));
@@ -741,6 +747,22 @@ void CommandEntry::checkForSanity()
     if(c.selectedText()!=CommandEntry::Prompt)
         updatePrompt();
 }
+
+void CommandEntry::removeResult()
+{
+    if(m_resultCell.isValid())
+    {
+        m_table->removeRows(m_resultCell.row(), 1);
+        m_resultCell=QTextTableCell();
+    }
+
+    if(m_expression)
+    {
+        m_expression->clearResult();
+    }
+
+}
+
 
 void CommandEntry::removeContextHelp()
 {

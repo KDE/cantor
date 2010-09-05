@@ -49,6 +49,9 @@ void ResultContextMenu::addGeneralActions()
 {
     QAction* saveAction=addAction(i18n("Save result"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveResult()));
+
+    QAction* removeAction=addAction(KIcon("edit-delete"), i18n("Remove result"));
+    connect(removeAction, SIGNAL(triggered()), this, SLOT(removeResult()));
 }
 
 void ResultContextMenu::addTypeSpecificActions()
@@ -104,6 +107,11 @@ void ResultContextMenu::saveResult()
     const QString& filename=KFileDialog::getSaveFileName(KUrl(), result()->mimeType(), this);
     kDebug()<<"saving result to "<<filename;
     result()->save(filename);
+}
+
+void ResultContextMenu::removeResult()
+{
+    entry()->removeResult();
 }
 
 void ResultContextMenu::latexToggleShowCode()

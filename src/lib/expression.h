@@ -157,6 +157,12 @@ class CANTOR_EXPORT Expression : public QObject
      * @return the result of the Expression, 0 if it isn't yet set
      */
     Result* result();
+
+    /**
+     * Deletes the result of this expression.
+     *
+     */
+    void clearResult();
     
     /**
      * Returns the status of this Expression

@@ -45,6 +45,7 @@ class ResultContextMenu : public KMenu
 
   public slots:
     void saveResult();
+    void removeResult();
     void latexToggleShowCode();
     void animationPause();
     void animationRestart();
