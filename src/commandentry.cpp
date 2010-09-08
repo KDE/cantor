@@ -263,11 +263,16 @@ bool CommandEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTe
         defaultMenu->addAction(KStandardAction::copy(m_worksheet));
         defaultMenu->addAction(KStandardAction::paste(m_worksheet));
         defaultMenu->addSeparator();
+
         defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
         if (!isEmpty())
             defaultMenu->addAction(i18n("Evaluate Entry"),m_worksheet,SLOT(evaluateCurrentEntry()),0);
+        defaultMenu->addSeparator();
+
+        defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
         subMenuInsert->setTitle(i18n("Insert Entry"));
-        defaultMenu->addSeparator( );
+        defaultMenu->addSeparator();
+
         defaultMenu->addMenu(subMenuInsert);
         defaultMenu->popup(event->globalPos());
 
