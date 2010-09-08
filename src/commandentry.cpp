@@ -45,7 +45,8 @@
 #include <kcolorscheme.h>
 #include <kcompletionbox.h>
 #include <klocale.h>
-#include <kmenu.h>
+#include <kstandardaction.h>
+#include <kaction.h>
 
 const QString CommandEntry::Prompt=">>> ";
 
@@ -246,6 +247,29 @@ bool CommandEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTe
         popup->addMenu(defaultMenu);
 
         popup->popup(event->globalPos());
+
+        return true;
+    }else if(isInCommandCell(cursor))
+    {
+        KMenu* defaultMenu = new KMenu(m_worksheet);
+        KMenu* subMenuInsert = new KMenu(defaultMenu);
+
+        subMenuInsert->addAction(i18n("Command Entry"), m_worksheet, SLOT(insertCommandEntry()));
+        subMenuInsert->addAction(i18n("Command Entry Before"), m_worksheet, SLOT(insertCommandEntryBefore()));
+        subMenuInsert->addAction(i18n("Text Entry"), m_worksheet, SLOT(insertTextEntry()));
+        subMenuInsert->addAction(i18n("Text Entry Before"), m_worksheet, SLOT(insertTextEntryBefore()));
+
+        defaultMenu->addAction(KStandardAction::cut(m_worksheet));
+        defaultMenu->addAction(KStandardAction::copy(m_worksheet));
+        defaultMenu->addAction(KStandardAction::paste(m_worksheet));
+        defaultMenu->addSeparator();
+        defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
+        if (!isEmpty())
+            defaultMenu->addAction(i18n("Evaluate Entry"),m_worksheet,SLOT(evaluateCurrentEntry()),0);
+        subMenuInsert->setTitle(i18n("Insert Entry"));
+        defaultMenu->addSeparator( );
+        defaultMenu->addMenu(subMenuInsert);
+        defaultMenu->popup(event->globalPos());
 
         return true;
     }
