@@ -81,6 +81,7 @@ CantorShell::CantorShell()
 
     m_tabWidget=new KTabWidget(this);
     m_tabWidget->setCloseButtonEnabled(true);
+    m_tabWidget->setMovable( true );
     setCentralWidget(m_tabWidget);
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
