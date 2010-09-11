@@ -119,6 +119,7 @@ class Worksheet : public KRichTextWidget
     WorksheetEntry* currentEntry();
     WorksheetEntry* entryAt(const QTextCursor& cursor);
     WorksheetEntry* entryAt(int row);
+    WorksheetEntry* entryNextTo(const QTextCursor& cursor);
   private:
     Cantor::Session *m_session;
     ResultProxy* m_proxy;

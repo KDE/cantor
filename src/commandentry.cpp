@@ -141,6 +141,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
+    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(updatePrompt()));
 
     updatePrompt();
 
@@ -264,9 +265,14 @@ bool CommandEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTe
         defaultMenu->addAction(KStandardAction::paste(m_worksheet));
         defaultMenu->addSeparator();
 
-        defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
-        if (!isEmpty())
-            defaultMenu->addAction(i18n("Evaluate Entry"),m_worksheet,SLOT(evaluateCurrentEntry()),0);
+        if(!m_worksheet->isRunning())
+        {
+            defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
+            if (!isEmpty())
+                defaultMenu->addAction(i18n("Evaluate Entry"),m_worksheet,SLOT(evaluateCurrentEntry()),0);
+        }
+        else
+            defaultMenu->addAction(KIcon("process-stop"),i18n("Interrupt"),m_worksheet,SLOT(interrupt()),0);
         defaultMenu->addSeparator();
 
         defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
@@ -808,14 +814,35 @@ void CommandEntry::removeContextHelp()
 
 void CommandEntry::updatePrompt()
 {
+    KColorScheme color = KColorScheme( QPalette::Normal, KColorScheme::View);
     QTextTableCell cell=m_table->cellAt(0, 0);
     QTextCursor c=cell.firstCursorPosition();
-    c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+    QTextCharFormat cformat = c.charFormat();
 
+    cformat.clearForeground();
+    c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+    c.setCharFormat(cformat);
+    cformat.setFontWeight(QFont::Bold);
+
+    //insert the session id if available
     if(m_expression&&m_worksheet->showExpressionIds())
-        c.insertHtml(QString("<b>%1</b>%2").arg(QString::number(m_expression->id()), CommandEntry::Prompt));
-    else
-        c.insertHtml(CommandEntry::Prompt);
+        c.insertText(QString::number(m_expression->id()),cformat);
+
+    //detect the correct color for the prompt, depending on the
+    //Expression state
+    if(m_expression)
+    {
+        if(m_expression ->status() == Cantor::Expression::Computing&& m_worksheet->isRunning())
+            cformat.setForeground(color.foreground(KColorScheme::PositiveText));
+        else if(m_expression ->status() == Cantor::Expression::Error)
+            cformat.setForeground(color.foreground(KColorScheme::NegativeText));
+        else if(m_expression ->status() == Cantor::Expression::Interrupted)
+            cformat.setForeground(color.foreground(KColorScheme::NeutralText));
+        else
+            cformat.setFontWeight(QFont::Normal);
+    }
+
+    c.insertText(CommandEntry::Prompt,cformat);
 }
 
 void CommandEntry::invalidate()

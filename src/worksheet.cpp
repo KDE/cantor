@@ -209,6 +209,32 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
         if (entry != m_currentEntry)
             setCurrentEntry(entry);
     }
+    else
+    {
+        KMenu* defaultMenu = new KMenu(this);
+
+        if(!isRunning())
+            defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),this,SLOT(evaluate()),0);
+        else
+            defaultMenu->addAction(KIcon("process-stop"),i18n("Interrupt"),this,SLOT(interrupt()),0);
+
+        defaultMenu ->addSeparator();
+
+        if(m_entries.last()->lastPosition() < cursor.position())
+        {
+            defaultMenu->addAction(i18n("Append Command Entry"),this,SLOT(appendCommandEntry()),0);
+            defaultMenu->addAction(i18n("Append Text Entry"),this,SLOT(appendTextEntry()),0);
+
+        }
+        else
+        {
+            setCurrentEntry(entryNextTo(cursor));
+            defaultMenu->addAction(i18n("Insert Command Entry"),this,SLOT(insertCommandEntryBefore()),0);
+            defaultMenu->addAction(i18n("Insert Text Entry"),this,SLOT(insertTextEntryBefore()),0);
+        }
+
+        defaultMenu->popup(event->globalPos());
+    }
 }
 
 void Worksheet::mouseReleaseEvent(QMouseEvent* event)
@@ -353,6 +379,19 @@ WorksheetEntry* Worksheet::insertEntryAt(const int type, const QTextCursor& curs
     return entry;
 }
 
+WorksheetEntry* Worksheet::entryNextTo(const QTextCursor& cursor)
+{
+    WorksheetEntry* entry=0;
+    foreach(entry, m_entries)
+    {
+        if (entry->lastPosition() > cursor.position())
+            break;
+    }
+
+    return entry;
+}
+
+
 WorksheetEntry* Worksheet::appendEntry(const int type)
 {
     QTextCursor cursor=document()->rootFrame()->lastCursorPosition();
@@ -468,6 +507,7 @@ WorksheetEntry* Worksheet::insertCommandEntryBefore()
 void Worksheet::interrupt()
 {
     m_session->interrupt();
+    emit updatePrompt();
 }
 
 void Worksheet::interruptCurrentEntryEvaluation()
