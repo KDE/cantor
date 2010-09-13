@@ -99,6 +99,8 @@ void TextEntry::setContent(const QString& content)
 void TextEntry::setContent(const QDomElement& content, const KZip& file)
 {
     Q_UNUSED(file);
+    if(content.firstChildElement("body").isNull())
+	return;
 
     QDomDocument doc = QDomDocument();
     QDomNode n = doc.importNode(content.firstChildElement("body"), true);
