@@ -64,9 +64,10 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
 				   */
         SyntaxHighlighting = 0x4,  ///< it offers a custom Syntax Highlighter
         Completion = 0x8,          ///< it offers completion of partially typed commands
-        SyntaxHelp = 0x10          /**< it offers help about a commands syntax, that will
+        SyntaxHelp = 0x10,         /**< it offers help about a commands syntax, that will
                                         be shown in a tooltip
 				   */
+	VariableManagement= 0x20   ///< it offers access to the variables (for variable management panel)
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 

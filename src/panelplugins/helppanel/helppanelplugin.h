@@ -15,37 +15,32 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2010 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _NULLSESSION_H
-#define _NULLSESSION_H
+#ifndef _HELPPANELPLUGIN_H
+#define _HELPPANELPLUGIN_H
 
-#include "session.h"
+#include "panelplugin.h"
 
 
-class NullExpression;
+class KTextEdit;
 
-class NullSession : public Cantor::Session
+class HelpPanelPlugin : public Cantor::PanelPlugin
 {
   Q_OBJECT
   public:
-    NullSession( Cantor::Backend* backend);
-    ~NullSession();
+    HelpPanelPlugin( QObject* parent, QList<QVariant> args);
+    ~HelpPanelPlugin();
 
-    void login();
-    void logout();
+    QWidget* widget();
 
-    void interrupt();
-
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& cmd);
-
-  private slots:
-    void expressionFinished();
+  public slots:
+    void showHelp(const QString& help);
 
   private:
-    QList<NullExpression*> m_runningExpressions;
+    QPointer<KTextEdit> m_edit;
+
 };
 
-#endif /* _NULLSESSION_H */
+#endif /* _HELPPANELPLUGIN_H */

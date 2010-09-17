@@ -88,6 +88,8 @@ private slots:
 
     void downloadExamples();
     void openExample();
+
+    void updatePanel();
 private:
     void setupActions();
     KParts::ReadWritePart* findPart(QWidget* widget);
@@ -97,6 +99,7 @@ private:
     KParts::ReadWritePart* m_part;
     KTabWidget* m_tabWidget;
     KTextEdit* m_helpView;
+    QList<QDockWidget*> m_panels;
     QDockWidget* m_helpDocker;
 };
 

@@ -19,12 +19,14 @@
 #include "kalgebrabackend.h"
 #include "kalgebrasession.h"
 
+#include "kalgebraextensions.h"
 #include "cantor_macros.h"
 
 KAlgebraBackend::KAlgebraBackend( QObject* parent,const QList<QVariant> args )
     : Cantor::Backend( parent,args )
 {
     setObjectName("kalgebrabackend");
+    new KAlgebraVariableManagementExtension(this);
 }
 
 KAlgebraBackend::~KAlgebraBackend()
@@ -42,7 +44,7 @@ Cantor::Session* KAlgebraBackend::createSession()
 
 Cantor::Backend::Capabilities KAlgebraBackend::capabilities() const
 {
-    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
+    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp | Cantor::Backend::VariableManagement;
 }
 
 KUrl KAlgebraBackend::helpUrl() const

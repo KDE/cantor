@@ -182,7 +182,3 @@ bool Backend::requirementsFullfilled() const
 {
     return true;
 }
-
-
-
-

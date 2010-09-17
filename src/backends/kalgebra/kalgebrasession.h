@@ -22,6 +22,7 @@
 #include "session.h"
 
 class OperatorsModel;
+class VariablesModel;
 class KAlgebraExpression;
 
 namespace Analitza { class Analyzer; }
@@ -44,10 +45,12 @@ class KAlgebraSession : public Cantor::Session
         Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
         QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+	QAbstractItemModel* variableModel();
 
     private:
         Analitza::Analyzer* m_analyzer;
         OperatorsModel* m_operatorsModel;
+	VariablesModel* m_variablesModel;
 };
 
 #endif

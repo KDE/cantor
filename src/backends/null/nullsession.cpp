@@ -81,8 +81,10 @@ Cantor::CompletionObject* NullSession::completionFor(const QString& command)
 void NullSession::expressionFinished()
 {
     kDebug()<<"finished";
-    m_runningExpressions.removeAll(qobject_cast<NullExpression*>(sender()));
+    NullExpression* expression=qobject_cast<NullExpression*>(sender());
+    m_runningExpressions.removeAll(expression);
     kDebug()<<"size: "<<m_runningExpressions.size();
+
     if(m_runningExpressions.isEmpty())
        changeStatus(Cantor::Session::Done);
 }

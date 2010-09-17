@@ -17,6 +17,8 @@ set( cantor_LIB_SRCS
   completionobject.cpp
   syntaxhelpobject.cpp
   defaulthighlighter.cpp
+  panelplugin.cpp
+  panelpluginhandler.cpp
 )
 
 Set( cantor_LIB_HDRS
@@ -54,3 +56,4 @@ install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install( FILES cantor_panelplugin.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})

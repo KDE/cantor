@@ -15,37 +15,34 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2010 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _NULLSESSION_H
-#define _NULLSESSION_H
+#ifndef _VARIABLEMANAGERPLUGIN_H
+#define _VARIABLEMANAGERPLUGIN_H
 
-#include "session.h"
+#include "panelplugin.h"
 
+class VariableManagerWidget;
 
-class NullExpression;
-
-class NullSession : public Cantor::Session
+class VariableManagerPlugin : public Cantor::PanelPlugin
 {
   Q_OBJECT
   public:
-    NullSession( Cantor::Backend* backend);
-    ~NullSession();
+    VariableManagerPlugin( QObject* parent, QList<QVariant> args);
+    ~VariableManagerPlugin();
 
-    void login();
-    void logout();
+    QWidget* widget();
 
-    void interrupt();
+    Cantor::Backend::Capabilities requiredCapabilities();
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& cmd);
+  protected:
+    void onSessionChanged();
 
-  private slots:
-    void expressionFinished();
 
   private:
-    QList<NullExpression*> m_runningExpressions;
+    QPointer<VariableManagerWidget> m_widget;
+
 };
 
-#endif /* _NULLSESSION_H */
+#endif /* _VARIABLEMANAGERPLUGIN_H */

@@ -32,6 +32,10 @@ class KAction;
 class KToggleAction;
 class KProgressDialog;
 
+namespace Cantor{
+    class PanelPluginHandler;
+};
+
 /**
  * This is a "Part".  It that does all the real work in a KPart
  * application.
@@ -109,6 +113,9 @@ protected slots:
     void initialized();
     void updateCaption();
 
+    void pluginsChanged();
+    void runCommand(const QString& value);
+
     void runAssistant();  
     void publishWorksheet();
 
@@ -134,6 +141,7 @@ protected slots:
 private:
     Worksheet *m_worksheet;
     QPointer<ScriptEditorWidget> m_scriptEditor;
+    Cantor::PanelPluginHandler* m_panelHandler;
 
     KProgressDialog* m_initProgressDlg;
     KAction* m_evaluate;

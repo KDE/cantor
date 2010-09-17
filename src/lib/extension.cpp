@@ -43,6 +43,7 @@ EXTENSION_CONSTRUCTORS(CASExtension)
 EXTENSION_CONSTRUCTORS(CalculusExtension)
 EXTENSION_CONSTRUCTORS(PlotExtension)
 EXTENSION_CONSTRUCTORS(LinearAlgebraExtension)
+EXTENSION_CONSTRUCTORS(VariableManagementExtension)
 
 //implement this here, as it's ";" most of the time
 QString ScriptExtension::commandSeparator()

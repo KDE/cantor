@@ -295,5 +295,16 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
 
 };
 
+class CANTOR_EXPORT VariableManagementExtension : public Extension
+{
+  public:
+    VariableManagementExtension( QObject* parent );
+    ~VariableManagementExtension();
+
+  public slots:
+    virtual QString addVariable(const QString& name, const QString& value) = 0;
+    virtual QString setValue(const QString& name,const QString& value) = 0;
+};
+
 }
 #endif /* _EXTENSION_H */

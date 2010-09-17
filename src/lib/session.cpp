@@ -107,6 +107,14 @@ QSyntaxHighlighter* Session::syntaxHighlighter(QTextEdit* parent)
     return 0;
 }
 
+QAbstractItemModel* Session::variableModel()
+{
+    //Return 0 per default, so Backends not offering variable management don't
+    //have to reimplement this. This method should only be called on backends with
+    //VariableManagement Capability flag
+    return 0;
+}
+
 int Session::nextExpressionId()
 {
     return d->expressionCount++;

@@ -88,6 +88,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KRichTextWidge
     //postpone login, until everything is set up correctly
     m_loginFlag=true;
     QTimer::singleShot(0, this, SLOT(loginToSession()));
+
 }
 
 Worksheet::~Worksheet()
@@ -711,7 +712,6 @@ void Worksheet::load(const QString& filename )
     m_session=b->createSession();
     m_loginFlag=true;
     QTimer::singleShot(0, this, SLOT(loginToSession()));
-    emit sessionChanged();
 
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
@@ -739,6 +739,7 @@ void Worksheet::load(const QString& filename )
         expressionChild = expressionChild.nextSiblingElement();
     }
 
+    emit sessionChanged();
 }
 
 

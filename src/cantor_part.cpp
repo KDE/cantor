@@ -51,6 +51,8 @@
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/assistant.h"
+#include "lib/panelpluginhandler.h"
+#include "lib/panelplugin.h"
 
 #include "settings.h"
 
@@ -65,6 +67,9 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_statusBarBlocked=false;
+
+    m_panelHandler=new Cantor::PanelPluginHandler(this);
+    connect(m_panelHandler, SIGNAL(pluginsChanged()), this, SLOT(pluginsChanged()));
 
     kDebug()<<"Created a CantorPart";
     QString backendName;
@@ -382,6 +387,7 @@ void CantorPart::worksheetSessionChanged()
     connect(m_worksheet->session(), SIGNAL(error(const QString&)), this, SLOT(showSessionError(const QString&)));
 
     loadAssistants();
+    m_panelHandler->setSession(m_worksheet->session());
     adjustGuiToSession();
 
     if(!m_initProgressDlg)
@@ -438,6 +444,14 @@ void CantorPart::updateCaption()
     emit setCaption(i18n("%1: %2", m_worksheet->session()->backend()->name(), filename));
 }
 
+void CantorPart::pluginsChanged()
+{
+    foreach(Cantor::PanelPlugin* plugin, m_panelHandler->plugins())
+    {
+        connect(plugin, SIGNAL(requestRunCommand(QString)), this, SLOT(runCommand(QString)));
+    }
+}
+
 void CantorPart::loadAssistants()
 {
     kDebug()<<"loading assistants...";
@@ -492,7 +506,12 @@ void CantorPart::runAssistant()
     QStringList cmds=a->run(widget());
     kDebug()<<cmds;
     if(!cmds.isEmpty())
-        m_worksheet->appendCommandEntry(cmds.join("\n"));
+        runCommand(cmds.join("\n"));
+}
+
+void CantorPart::runCommand(const QString& cmd)
+{
+    m_worksheet->appendCommandEntry(cmd);
 }
 
 void CantorPart::adjustGuiToSession()

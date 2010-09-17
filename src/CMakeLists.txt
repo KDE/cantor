@@ -14,6 +14,8 @@ endif(LIBSPECTRE_FOUND)
 add_subdirectory(backends)
 add_subdirectory(assistants)
 add_subdirectory(xslt)
+add_subdirectory(panelplugins)
+
 
 #build the config object in a separate library, shared between shell and part
 kde4_add_kcfg_files(config_SRCS settings.kcfgc)

@@ -15,37 +15,28 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2010 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _NULLSESSION_H
-#define _NULLSESSION_H
+#include "kalgebraextensions.h"
 
-#include "session.h"
-
-
-class NullExpression;
-
-class NullSession : public Cantor::Session
+KAlgebraVariableManagementExtension::KAlgebraVariableManagementExtension(QObject* parent) : Cantor::VariableManagementExtension(parent)
 {
-  Q_OBJECT
-  public:
-    NullSession( Cantor::Backend* backend);
-    ~NullSession();
 
-    void login();
-    void logout();
+}
 
-    void interrupt();
+KAlgebraVariableManagementExtension::~KAlgebraVariableManagementExtension()
+{
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& cmd);
+}
 
-  private slots:
-    void expressionFinished();
+QString KAlgebraVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    //Kalgebra uses the same command for adding and setting a variable
+    return setValue(name, value);
+}
 
-  private:
-    QList<NullExpression*> m_runningExpressions;
-};
-
-#endif /* _NULLSESSION_H */
+QString KAlgebraVariableManagementExtension::setValue(const QString& name,const QString& value)
+{
+    return QString("%1:=%2").arg(name, value);
+}

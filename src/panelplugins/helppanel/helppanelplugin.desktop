@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+Icon=
+Name=Help
+X-KDE-ServiceTypes=Cantor/PanelPlugin
+X-KDE-Library=cantor_helppanelplugin
+X-KDE-PluginInfo-Name=HelpPanel
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=A panel to display help
+RequiredExtensions=

@@ -26,12 +26,14 @@
 #include <kdebug.h>
 #include "kalgebrasyntaxhelpobject.h"
 #include <analitzagui/operatorsmodel.h>
+#include <analitzagui/variablesmodel.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
     : Session(backend)
 {
     m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;
+    m_variablesModel = new VariablesModel(m_analyzer->variables());
     m_operatorsModel->setVariables(m_analyzer->variables());
 }
 
@@ -66,6 +68,7 @@ Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
     changeStatus(Cantor::Session::Done);
 
     m_operatorsModel->setVariables(m_analyzer->variables());
+    m_variablesModel->updateInformation();
     return expr;
 }
 
@@ -88,4 +91,9 @@ OperatorsModel* KAlgebraSession::operatorsModel()
 QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QTextEdit* parent)
 {
     return new AlgebraHighlighter(parent->document());
+}
+
+QAbstractItemModel* KAlgebraSession::variableModel()
+{
+    return m_variablesModel;
 }

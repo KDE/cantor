@@ -47,6 +47,9 @@
 #include <QApplication>
 
 #include "lib/backend.h"
+#include "lib/panelpluginhandler.h"
+#include "lib/panelplugin.h"
+
 
 #include "settings.h"
 #include "ui_settings.h"
@@ -63,19 +66,19 @@ CantorShell::CantorShell()
     // then, setup our actions
     setupActions();
 
-    m_helpDocker=new QDockWidget(i18n("Help"), this);
-    m_helpDocker->setObjectName("help");
-    m_helpView=new KTextEdit(m_helpDocker);
-    m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
-    m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    m_helpDocker->setWidget(m_helpView);
-    addDockWidget ( Qt::RightDockWidgetArea,  m_helpDocker );
+    //m_helpDocker=new QDockWidget(i18n("Help"), this);
+    //m_helpDocker->setObjectName("help");
+    //m_helpView=new KTextEdit(m_helpDocker);
+    //m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
+    //m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
+    //m_helpDocker->setWidget(m_helpView);
+    //addDockWidget ( Qt::RightDockWidgetArea,  m_helpDocker );
 
-    KToggleAction* showHelpPanelAction=new KToggleAction(i18n("Show Help Panel"), actionCollection());
-    showHelpPanelAction->setIcon(KIcon("help-hint"));
-    connect(showHelpPanelAction, SIGNAL(toggled(bool)), this, SLOT(showHelpDocker(bool)));
-    connect(m_helpDocker, SIGNAL(visibilityChanged(bool)), showHelpPanelAction, SLOT(setChecked(bool)));
-    actionCollection()->addAction("show_help_panel", showHelpPanelAction);
+    //KToggleAction* showHelpPanelAction=new KToggleAction(i18n("Show Help Panel"), actionCollection());
+    //showHelpPanelAction->setIcon(KIcon("help-hint"));
+    //connect(showHelpPanelAction, SIGNAL(toggled(bool)), this, SLOT(showHelpDocker(bool)));
+    //connect(m_helpDocker, SIGNAL(visibilityChanged(bool)), showHelpPanelAction, SLOT(setChecked(bool)));
+    //actionCollection()->addAction("show_help_panel", showHelpPanelAction);
 
     createGUI(0);
 
@@ -92,6 +95,8 @@ CantorShell::CantorShell()
     // to automatically save settings if changed: window size, toolbar
     // position, icon size, etc.
     setAutoSaveSettings();
+
+    setDockOptions(QMainWindow::AnimatedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::VerticalTabs);
 }
 
 CantorShell::~CantorShell()
@@ -271,8 +276,9 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            connect(part, SIGNAL(showHelp(const QString&)), m_helpView, SLOT(setHtml(const QString&)));
+            //connect(part, SIGNAL(showHelp(const QString&)), m_helpView, SLOT(setHtml(const QString&)));
             connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
+
             m_parts.append(part);
             m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
         }
@@ -297,9 +303,18 @@ void CantorShell::addWorksheet(const QString& backendName)
 
 void CantorShell::activateWorksheet(int index)
 {
+    QObject* pluginHandler=m_part->findChild<QObject*>("PanelPluginHandler");
+    disconnect(pluginHandler,SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
+
     m_part=findPart(m_tabWidget->widget(index));
     if(m_part)
+    {
         createGUI(m_part);
+
+        QObject* pluginHandler=m_part->findChild<QObject*>("PanelPluginHandler");
+        connect(pluginHandler, SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
+        updatePanel();
+    }
     else
         kDebug()<<"selected part doesn't exist";
 
@@ -418,4 +433,55 @@ KParts::ReadWritePart* CantorShell::findPart(QWidget* widget)
             return part;
     }
     return 0;
+}
+
+void CantorShell::updatePanel()
+{
+    kDebug()<<"updating panels";
+
+    //remove all of the previous panels (but do not delete the widgets)
+    foreach(QDockWidget* dock, m_panels)
+    {
+        QWidget* widget=dock->widget();
+        if(widget!=0)
+        {
+            widget->setParent(this);
+            widget->hide();
+        }
+        dock->deleteLater();
+    }
+    m_panels.clear();
+
+    Cantor::PanelPluginHandler* handler=m_part->findChild<Cantor::PanelPluginHandler*>("PanelPluginHandler");
+    if(!handler)
+    {
+        kDebug()<<"no PanelPluginHandle found for this part";
+        return;
+    }
+
+    QDockWidget* last=0;
+
+    QList<Cantor::PanelPlugin*> plugins=handler->plugins();
+    foreach(Cantor::PanelPlugin* plugin, plugins)
+    {
+        if(plugin==0)
+        {
+            kDebug()<<"somethings wrong";
+            continue;
+        }
+
+        kDebug()<<"adding panel for "<<plugin->name();
+        plugin->setParentWidget(this);
+
+        QDockWidget* docker=new QDockWidget(plugin->name(), this);
+        docker->setObjectName(plugin->name());
+        docker->setWidget(plugin->widget());
+        addDockWidget ( Qt::RightDockWidgetArea,  docker );
+
+        if(last!=0)
+            tabifyDockWidget(last, docker);
+        last=docker;
+
+        m_panels.append(docker);
+    }
 }

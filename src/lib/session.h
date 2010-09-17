@@ -29,6 +29,7 @@
 
 class QTextEdit;
 class QSyntaxHighlighter;
+class QAbstractItemModel;
 
 /**
  * Namespace collecting all Classes of the Cantor Libraries
@@ -128,6 +129,12 @@ class CANTOR_EXPORT Session : public QObject
      * @return QSyntaxHighlighter doing the highlighting for this Session
      */
     virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+
+    /**
+     * returns a Model to interact with the variables
+     * @return QAbstractItemModel to interact with the variables
+     */
+    virtual QAbstractItemModel* variableModel();
 
     /**
      * Enables/disables Typesetting for this session.

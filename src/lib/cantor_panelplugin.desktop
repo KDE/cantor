@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=ServiceType
+X-KDE-ServiceType=Cantor/PanelPlugin
+Comment=A Plugin for Cantors Panel
+
+[PropertyDef::RequiredExtensions]
+Type=QStringList
