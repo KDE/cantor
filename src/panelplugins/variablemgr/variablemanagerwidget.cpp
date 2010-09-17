@@ -40,21 +40,12 @@
 
 VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent)
 {
-
-    setSession(session);
+    m_session=0;
 
     QVBoxLayout* layout=new QVBoxLayout(this);
 
     m_table=new QTreeView(this);
-    m_model=session->variableModel();
-    m_table->setModel(m_model);
     m_table->setRootIsDecorated(false);
-    /*QStringList headers;
-    headers << i18n("Name")
-            << i18n("Value");
-
-    m_table->setHorizontalHeaderLabels(headers);
-    connect(m_table, SIGNAL(cellChanged(int, int)), this, SLOT(cellChanged(int, int)));*/
 
     layout->addWidget(m_table, 1);
 
@@ -93,6 +84,8 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     layout->addLayout(btnLayout);
 
     setLayout(layout);
+
+    setSession(session);
 }
 
 VariableManagerWidget::~VariableManagerWidget()
@@ -102,10 +95,12 @@ VariableManagerWidget::~VariableManagerWidget()
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
+    kDebug()<<"setting session to "<<session;
     m_session=session;
     if(session)
     {
         m_model=session->variableModel();
+        kDebug()<<"model: "<<m_model;
         if(m_table)
             m_table->setModel(m_model);
     }
@@ -146,7 +141,7 @@ void VariableManagerWidget::newVariable()
         const QString& val=base.value->text();
 
         Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
-        //m_model->insertVariable(name, val);
+
         const QString& cmd=ext->addVariable(name, val);
 
         emit runCommand(cmd);

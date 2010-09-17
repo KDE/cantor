@@ -41,10 +41,6 @@ class VariableManagerWidget : public QWidget
     void setSession(Cantor::Session* session);
 
   public slots:
-    /*void onVariableAdded(const Cantor::VariableManagerExtension::Variable& var);
-    void onVariableRemoved(const Cantor::VariableManagerExtension::Variable& var);
-    void onVariableChanged(const Cantor::VariableManagerExtension::Variable& var);*/
-
     void clearVariables();
 
     void save();

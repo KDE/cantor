@@ -22,6 +22,7 @@
 using namespace Cantor;
 
 #include <kplugininfo.h>
+#include <kdebug.h>
 
 class Cantor::PanelPluginPrivate
 {
@@ -36,6 +37,7 @@ PanelPlugin::PanelPlugin( QObject* parent) : QObject(parent), /* KXMLGUIClient(d
                                              d(new PanelPluginPrivate)
 {
     d->parentWidget=0;
+    d->session=0;
 }
 
 PanelPlugin::~PanelPlugin()
@@ -82,6 +84,7 @@ Session* PanelPlugin::session()
 
 void PanelPlugin::setSession(Session* session)
 {
+    kDebug()<<"setting session to "<<session;
     d->session=session;
     onSessionChanged();
 }
