@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=ServiceType
 X-KDE-ServiceType=Cantor/PanelPlugin
-Comment=A Plugin for Cantors Panel
+Comment=A Plugin for Cantor's Panel
 Comment[x-test]=xxA Plugin for Cantors Panelxx
 
 [PropertyDef::RequiredExtensions]
