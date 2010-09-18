@@ -84,7 +84,6 @@ private slots:
     void closeTab(QWidget* widget = 0);
 
     void showSettings();
-    void showHelpDocker(bool show);
 
     void downloadExamples();
     void openExample();
@@ -98,7 +97,6 @@ private:
     QList<KParts::ReadWritePart *> m_parts;
     KParts::ReadWritePart* m_part;
     KTabWidget* m_tabWidget;
-    KTextEdit* m_helpView;
     QList<QDockWidget*> m_panels;
     QDockWidget* m_helpDocker;
 };

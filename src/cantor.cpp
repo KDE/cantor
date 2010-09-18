@@ -66,20 +66,6 @@ CantorShell::CantorShell()
     // then, setup our actions
     setupActions();
 
-    //m_helpDocker=new QDockWidget(i18n("Help"), this);
-    //m_helpDocker->setObjectName("help");
-    //m_helpView=new KTextEdit(m_helpDocker);
-    //m_helpView->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
-    //m_helpView->setTextInteractionFlags(Qt::TextBrowserInteraction);
-    //m_helpDocker->setWidget(m_helpView);
-    //addDockWidget ( Qt::RightDockWidgetArea,  m_helpDocker );
-
-    //KToggleAction* showHelpPanelAction=new KToggleAction(i18n("Show Help Panel"), actionCollection());
-    //showHelpPanelAction->setIcon(KIcon("help-hint"));
-    //connect(showHelpPanelAction, SIGNAL(toggled(bool)), this, SLOT(showHelpDocker(bool)));
-    //connect(m_helpDocker, SIGNAL(visibilityChanged(bool)), showHelpPanelAction, SLOT(setChecked(bool)));
-    //actionCollection()->addAction("show_help_panel", showHelpPanelAction);
-
     createGUI(0);
 
     m_tabWidget=new KTabWidget(this);
@@ -276,7 +262,6 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            //connect(part, SIGNAL(showHelp(const QString&)), m_helpView, SLOT(setHtml(const QString&)));
             connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
 
             m_parts.append(part);
@@ -375,14 +360,6 @@ void CantorShell::showSettings()
     dialog->show();
 }
 
-void CantorShell::showHelpDocker(bool show)
-{
-    if(show!=m_helpDocker->isVisible())
-    {
-        m_helpDocker->setVisible(show);
-    }
-}
-
 void CantorShell::downloadExamples()
 {
     KNS3::DownloadDialog dialog;
@@ -439,6 +416,8 @@ void CantorShell::updatePanel()
 {
     kDebug()<<"updating panels";
 
+    unplugActionList("view_show_panels");
+
     //remove all of the previous panels (but do not delete the widgets)
     foreach(QDockWidget* dock, m_panels)
     {
@@ -451,6 +430,8 @@ void CantorShell::updatePanel()
         dock->deleteLater();
     }
     m_panels.clear();
+
+    QList<QAction*> panelActions;
 
     Cantor::PanelPluginHandler* handler=m_part->findChild<Cantor::PanelPluginHandler*>("PanelPluginHandler");
     if(!handler)
@@ -483,5 +464,11 @@ void CantorShell::updatePanel()
         last=docker;
 
         m_panels.append(docker);
+
+        //Create the action to show/hide this panel
+        panelActions<<docker->toggleViewAction();
+
     }
+
+    plugActionList("view_show_panel_list", panelActions);
 }
