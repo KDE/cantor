@@ -2,10 +2,12 @@
 Type=Service
 Icon=
 Name=Help
+Name[x-test]=xxHelpxx
 X-KDE-ServiceTypes=Cantor/PanelPlugin
 X-KDE-Library=cantor_helppanelplugin
 X-KDE-PluginInfo-Name=HelpPanel
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=A panel to display help
+Comment[x-test]=xxA panel to display helpxx
 RequiredExtensions=
