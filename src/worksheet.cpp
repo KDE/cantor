@@ -418,12 +418,18 @@ WorksheetEntry* Worksheet::appendTextEntry()
 
 void Worksheet::appendCommandEntry(const QString& text)
 {
-     WorksheetEntry* entry=appendCommandEntry();
-     if (entry)
-     {
-         entry->setContent(text);
-         evaluateCurrentEntry();
-     }
+    WorksheetEntry* entry=m_entries.last();
+    if(!entry->isEmpty())
+    {
+        entry=appendCommandEntry();
+    }
+
+    if (entry)
+    {
+        setCurrentEntry(entry);
+        entry->setContent(text);
+        evaluateCurrentEntry();
+    }
 }
 
 WorksheetEntry* Worksheet::insertEntry(int type)
