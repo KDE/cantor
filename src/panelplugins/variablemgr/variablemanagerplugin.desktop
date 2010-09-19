@@ -2,6 +2,10 @@
 Type=Service
 Icon=
 Name=Variable Manager
+Name[en_GB]=Variable Manager
+Name[pt]=Gestor de Variáveis
+Name[pt_BR]=Gerenciador de variáveis
+Name[uk]=Керування змінними
 Name[x-test]=xxVariable Managerxx
 X-KDE-ServiceTypes=Cantor/PanelPlugin
 X-KDE-Library=cantor_variablemanagerplugin
@@ -9,5 +13,5 @@ X-KDE-PluginInfo-Name=VariableManager
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=A panel to manage the variables of a session
-Comment[x-test]=xxA panel to manager the variables of a sessionxx
+Comment[x-test]=xxA panel to manage the variables of a sessionxx
 RequiredExtensions=VariableManagementExtension

@@ -2,7 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/PanelPlugin
 Comment=A Plugin for Cantor's Panel
-Comment[x-test]=xxA Plugin for Cantors Panelxx
+Comment[x-test]=xxA Plugin for Cantor's Panelxx
 
 [PropertyDef::RequiredExtensions]
 Type=QStringList
