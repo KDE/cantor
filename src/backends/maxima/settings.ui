@@ -16,7 +16,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Path to Maxima</string>
+        <string>Path to Maxima:</string>
        </property>
       </widget>
      </item>

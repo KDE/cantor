@@ -16,7 +16,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Path to Octave</string>
+        <string>Path to Octave:</string>
        </property>
       </widget>
      </item>

@@ -16,7 +16,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Path to Sage</string>
+        <string>Path to Sage:</string>
        </property>
       </widget>
      </item>
