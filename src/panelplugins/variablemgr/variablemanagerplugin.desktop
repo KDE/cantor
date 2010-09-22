@@ -2,6 +2,7 @@
 Type=Service
 Icon=
 Name=Variable Manager
+Name[de]=Variablen-Verwaltung
 Name[en_GB]=Variable Manager
 Name[pt]=Gestor de Variáveis
 Name[pt_BR]=Gerenciador de variáveis
