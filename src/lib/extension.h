@@ -304,6 +304,11 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
   public slots:
     virtual QString addVariable(const QString& name, const QString& value) = 0;
     virtual QString setValue(const QString& name,const QString& value) = 0;
+    virtual QString removeVariable(const QString& name) = 0;
+
+    virtual QString saveVariables(const QString& fileName) = 0;
+    virtual QString loadVariables(const QString& fileName) = 0;
+    virtual QString clearVariables() = 0;
 };
 
 }

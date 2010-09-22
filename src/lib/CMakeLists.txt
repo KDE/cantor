@@ -17,6 +17,7 @@ set( cantor_LIB_SRCS
   completionobject.cpp
   syntaxhelpobject.cpp
   defaulthighlighter.cpp
+  defaultvariablemodel.cpp
   panelplugin.cpp
   panelpluginhandler.cpp
 )
