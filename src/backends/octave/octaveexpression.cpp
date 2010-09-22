@@ -19,12 +19,15 @@
 
 #include "octaveexpression.h"
 #include "octavesession.h"
+#include "defaultvariablemodel.h"
 
 #include "textresult.h"
 
 #include <KDebug>
 #include <QtCore/QFile>
 #include <helpresult.h>
+
+#include <config-cantorlib.h>
 
 #ifdef WITH_EPS
 #include "epsresult.h"
@@ -126,7 +129,7 @@ void OctaveExpression::parseError(QString error)
     }
 }
 
-void OctaveExpression::parseEpsFile(QString file)
+void OctaveExpression::parsePlotFile(QString file)
 {
     if (QFile::exists(file))
     {
@@ -141,6 +144,24 @@ void OctaveExpression::parseEpsFile(QString file)
 
 void OctaveExpression::finalize()
 {
+    kDebug() << m_resultString;
+    foreach ( const QString& line, m_resultString.split('\n', QString::SkipEmptyParts) )
+    {
+        if (m_resultString.contains('='))
+        {
+            kDebug() << line;
+            // Probably a new variable
+            QStringList parts = line.split('=');
+            if (parts.size() >= 2)
+            {
+                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+                if (model)
+                {
+                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
+                }
+            }
+        }
+    }
     kDebug() << m_plotPending << m_error;
     m_finished = true;
     if (!m_plotPending)

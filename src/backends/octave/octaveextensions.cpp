@@ -169,6 +169,42 @@ QString OctaveLinearAlgebraExtension::rank(const QString& matrix)
     return QString("rank(%1)").arg(matrix);
 }
 
+OCTAVE_EXT_CDTOR(VariableManagement)
+
+QString OctaveVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    return setValue(name,value);
+}
+
+QString OctaveVariableManagementExtension::setValue(const QString& name, const QString& value)
+{
+    return QString("%1 = %2").arg(name).arg(value);
+}
+
+QString OctaveVariableManagementExtension::removeVariable(const QString& name)
+{
+    return QString("clear %1;").arg(name);
+}
+
+QString OctaveVariableManagementExtension::clearVariables()
+{
+    return QString("clear;");
+}
+
+QString OctaveVariableManagementExtension::saveVariables(const QString& fileName)
+{
+    return QString("save %1;").arg(fileName);
+}
+
+QString OctaveVariableManagementExtension::loadVariables(const QString& fileName)
+{
+    return QString("load %1;").arg(fileName);
+}
+
+
+
+
+
 
 
 

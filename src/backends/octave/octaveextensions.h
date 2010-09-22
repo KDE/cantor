@@ -64,4 +64,17 @@ class OctaveLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
     virtual QString eigenVectors(const QString& matrix);
     virtual QString eigenValues(const QString& matrix);
 };
+
+class OctaveVariableManagementExtension : public Cantor::VariableManagementExtension
+{
+    public:
+    OCTAVE_EXT_CDTOR_DECL(VariableManagement)
+    virtual QString addVariable(const QString& name, const QString& value);
+    virtual QString setValue(const QString& name, const QString& value);
+    virtual QString removeVariable(const QString& name);
+    virtual QString saveVariables(const QString& fileName);
+    virtual QString loadVariables(const QString& fileName);
+    virtual QString clearVariables();
+};
+
 #endif // OCTAVEEXTENSIONS_H

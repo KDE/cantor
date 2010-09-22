@@ -26,6 +26,10 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QPointer>
 
+namespace Cantor {
+class DefaultVariableModel;
+}
+
 class KTemporaryFile;
 class KDirWatch;
 class OctaveExpression;
@@ -45,21 +49,21 @@ class OctaveSession : public Cantor::Session
     virtual Cantor::CompletionObject* completionFor(const QString& cmd);
     virtual Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
     virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    virtual QAbstractItemModel* variableModel();
 
     void runExpression(OctaveExpression* expression);
 
     private:
         KProcess* m_process;
         QTextStream m_stream;
-        bool m_isBusy;
         QQueue <OctaveExpression*> m_expressionQueue;
         QPointer <OctaveExpression> m_currentExpression;
         QRegExp m_prompt;
 
         KDirWatch* m_watch;
-        KTemporaryFile* m_tempFile;
-    QString m_plotFile;
-    QString m_tempDir;
+        QString m_tempDir;
+
+        Cantor::DefaultVariableModel* m_variableModel;
 
         void readFromOctave(QByteArray data);
 
@@ -70,7 +74,7 @@ class OctaveSession : public Cantor::Session
         void processError();
 	void plotFileChanged(QString filename);
     void runSpecificCommands();
-    
+
   Q_SIGNALS:
     void functionsChanged();
     void variablesChanged();

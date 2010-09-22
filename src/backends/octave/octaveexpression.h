@@ -34,7 +34,7 @@ class OctaveExpression : public Cantor::Expression
 	virtual void evaluate();
         void parseOutput ( QString output );
         void parseError(QString error);
-	void parseEpsFile(QString file);
+	void parsePlotFile(QString file);
 
         void finalize();
 	void setPlotPending(bool plot);

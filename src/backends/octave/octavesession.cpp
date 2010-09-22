@@ -36,13 +36,14 @@
 #include <settings.h>
 
 #include <signal.h>
+#include <defaultvariablemodel.h>
 
-OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend )
+OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
+m_process(0),
+m_currentExpression(0),
+m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     kDebug() << octaveScriptInstallDir;
-    m_process = 0;
-    m_currentExpression = 0;
-    m_isBusy = false;
 }
 
 OctaveSession::~OctaveSession()
@@ -53,7 +54,6 @@ OctaveSession::~OctaveSession()
 void OctaveSession::login()
 {
     kDebug();
-    m_plotFile = KStandardDirs::locateLocal("tmp", "cantor_octave_plot.eps");
 
     m_process = new KProcess ( this );
     QStringList args;
@@ -95,8 +95,9 @@ void OctaveSession::login()
 
     if (OctaveSettings::integratePlots())
     {
-        m_watch = new KDirWatch;
-        connect (m_watch, SIGNAL(dirty(QString)), SLOT( plotFileChanged(QString) ));
+        m_watch = new KDirWatch(this);
+        m_watch->setObjectName("OctaveDirWatch");
+        connect (m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)) );
     }
 }
 
@@ -139,7 +140,6 @@ Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, 
 
 void OctaveSession::runExpression ( OctaveExpression* expression )
 {
-    kDebug();
     if ( status() != Done ) {
         m_expressionQueue.enqueue ( expression );
         kDebug() << m_expressionQueue.size();
@@ -157,7 +157,6 @@ void OctaveSession::runExpression ( OctaveExpression* expression )
 void OctaveSession::readError()
 {
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
-    kDebug() << error;
     if (!m_currentExpression || error.isEmpty())
     {
         return;
@@ -176,7 +175,6 @@ void OctaveSession::readOutput()
             return;
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
-        kDebug() << line;
         if (!m_currentExpression)
         {
             if (m_prompt.isEmpty() && line.contains(":1>"))
@@ -193,10 +191,11 @@ void OctaveSession::readOutput()
             }
             else if (line.contains("____TMP_DIR____"))
             {
-                line.remove(0,18);
-                line.chop(1); // isolate the tempDir's location
                 m_tempDir = line;
-                m_watch->addDir(m_tempDir);
+                m_tempDir.remove(0,18);
+                m_tempDir.chop(1); // isolate the tempDir's location
+                kDebug() << "Got temporary file dir:" << m_tempDir;
+                m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
             }
         }
         else if (line.contains(m_prompt))
@@ -221,7 +220,6 @@ void OctaveSession::readOutput()
             {
                 line += QString::fromLocal8Bit(m_process->readLine());
             }
-            kDebug() << line;
             m_currentExpression->parseOutput(line);
 
         }
@@ -259,7 +257,7 @@ void OctaveSession::plotFileChanged(QString filename)
     }
     if (m_currentExpression)
     {
-        m_currentExpression->parseEpsFile(filename);
+        m_currentExpression->parsePlotFile(filename);
     }
 }
 
@@ -281,6 +279,12 @@ QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QTextEdit* parent )
     connect ( this, SIGNAL(variablesChanged()), highlighter, SLOT(updateVariables()) );
     return highlighter;
 }
+
+QAbstractItemModel* OctaveSession::variableModel()
+{
+    return m_variableModel;
+}
+
 
 void OctaveSession::runSpecificCommands()
 {
