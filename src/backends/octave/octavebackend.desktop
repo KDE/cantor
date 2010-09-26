@@ -24,6 +24,7 @@ X-KDE-PluginInfo-License=GPL
 Comment=Backend for GNU Octave
 Comment[en_GB]=Backend for GNU Octave
 Comment[es]=Un motor para GNU Octave
+Comment[ja]=GNU Cantor のバックエンド
 Comment[nb]=En bakgrunnsmotor for GNU Octave
 Comment[nl]=Een backend voor GNU Octave
 Comment[pt]=Infra-Estrutura para o Octave da GNU
