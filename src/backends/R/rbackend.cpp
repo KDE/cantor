@@ -23,13 +23,13 @@
 #include "rsession.h"
 #include "rextensions.h"
 #include "settings.h"
-#include "ui_settings.h"
+#include "rsettingswidget.h"
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
 
 #include "cantor_macros.h"
-
+#include <QMessageBox>
 
 RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
@@ -37,6 +37,7 @@ RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backe
     kDebug()<<"Creating RBackend";
 
     new RScriptExtension(this);
+    new RPlotExtension(this);
 }
 
 RBackend::~RBackend()
@@ -59,7 +60,9 @@ Cantor::Session* RBackend::createSession()
 Cantor::Backend::Capabilities RBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of RSession";
-    return Cantor::Backend::InteractiveMode;
+    return  Cantor::Backend::InteractiveMode |
+            Cantor::Backend::SyntaxHighlighting |
+            Cantor::Backend::Completion;
 }
 
 bool RBackend::requirementsFullfilled() const
@@ -70,10 +73,7 @@ bool RBackend::requirementsFullfilled() const
 
 QWidget* RBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::RSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new RSettingsWidget(parent);
 }
 
 KConfigSkeleton* RBackend::config() const

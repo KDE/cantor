@@ -21,6 +21,9 @@
 #ifndef _RSESSION_H
 #define _RSESSION_H
 
+#include <QRegExp>
+#include <QStringList>
+
 #include "session.h"
 #include "rserver_interface.h"
 
@@ -40,6 +43,8 @@ class RSession : public Cantor::Session
     void interrupt();
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+    Cantor::CompletionObject* completionFor(const QString& command);
+    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);
@@ -47,11 +52,21 @@ class RSession : public Cantor::Session
   protected slots:
     void serverChangedStatus(int status);
     void runNextExpression();
+    void receiveSymbols(const QStringList& v, const QStringList & f);
+    void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
+
+  signals:
+    void symbolsChanged();
+
 
   private:
     KProcess* m_rProcess;
     org::kde::Cantor::R* m_rServer;
     QList<RExpression*> m_expressionQueue;
+
+    /* Available variables and functions, TODO make full classes and type infos */
+    QStringList m_variables;
+    QStringList m_functions;
 };
 
 #endif /* _RSESSION_H */

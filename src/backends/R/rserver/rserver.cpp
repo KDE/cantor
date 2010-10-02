@@ -16,7 +16,11 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2010 Oleksiy Protas <elfy.ua@gmail.com>
  */
+
+// TODO: setStatus in syntax and completions, to be or not to be? 
+// on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
 #include <kio/netaccess.h>
@@ -40,12 +44,48 @@
 #include <Rinterface.h>
 #include <R_ext/Parse.h>
 
-RServer::RServer()
+// Not making a member to prevent pulling R headers into rserver.h
+bool htmlVector(SEXP expr, QTextStream& fp)
+{
+    // TODO TextResult clamps the newlines, beware
+//     fp << "<html>\n"; // TODO move this to some other place and make configurable
+    fp << "<table border=\"1\" align=\"center\" valign=\"center\">";
+    fp << "<tr><td bgcolor=\"#AAAAAA\">[1]</td>";
+    int leftOnThisRow=25;
+    for (int i=0; i<length(expr); i++)
+    {
+        if (leftOnThisRow==0)
+        {
+            fp << "</tr>";
+            fp << "<tr><td bgcolor=\"#AAAAAA\">["+QString::number(i+1)+"]</td>";
+            leftOnThisRow=25;
+        }
+        QString cellData;
+        switch (TYPEOF(expr))
+        {
+            case REALSXP:
+                cellData=QString::number(REAL(expr)[i]); break; 
+            case INTSXP:
+                cellData=QString::number(INTEGER(expr)[i]); break; 
+            case STRSXP: 
+                cellData=CHAR(STRING_ELT(expr,i)); break; 
+            default:
+                return false;
+        }
+        fp << "<td>"+cellData+"</td>"; // TODO HTML-safening
+        leftOnThisRow--;
+    }
+    fp << "</tr>";
+    fp << "<table>";
+//     fp << "</html>";
+    return true;
+}
+
+RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
     new RAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject("/R",  this);
-    m_isInitialized=false;
 
     m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString("cantor/rserver-%1").arg(getpid()));
     kDebug()<<"storing plots at "<<m_tmpDir;
@@ -94,8 +134,24 @@ void RServer::initR()
         kDebug()<<"integrating plots";
         newPlotDevice();
     }
+    
+    //Loading automatic run scripts
+    foreach (const QString& path, RServerSettings::self()->autorunScripts())
+    {
+        int errorOccurred=0;
+        if (QFile::exists(path))
+            R_tryEval(lang2(install("source"),mkString(path.toUtf8().data())),NULL,&errorOccurred);
+        // TODO: error handling
+        else
+        {
+            kDebug()<<("Script "+path+" not found"); // FIXME: or should we throw a messagebox
+        }
+    }
 
     kDebug()<<"done initializing";
+    
+    // FIXME: other way to search symbols, see listSymbols for details
+    listSymbols();
 }
 
 //Code from the RInside library
@@ -187,6 +243,31 @@ void RServer::autoload()
 	}
     }
     UNPROTECT(ptct);
+    
+    /* Initialize the completion libraries if needed, adapted from sys-std.c of R */ 
+    // TODO: should we do this or init on demand?
+    // if (completion is needed) // TODO: discuss how to pass parameter
+    {
+        /* First check if namespace is loaded */
+        if  (findVarInFrame(R_NamespaceRegistry,install("utils"))==R_UnboundValue)
+        { /* Then try to load it */
+            SEXP cmdSexp, cmdexpr;
+            ParseStatus status;
+            int i;
+            const char *p="try(loadNamespace('rcompgen'), silent=TRUE)";
+
+            PROTECT(cmdSexp=mkString(p));
+            cmdexpr=PROTECT(R_ParseVector(cmdSexp,-1,&status,R_NilValue));
+            if(status==PARSE_OK)
+            {
+                for(i=0;i<length(cmdexpr);i++)
+                    eval(VECTOR_ELT(cmdexpr,i),R_GlobalEnv);
+            }
+            UNPROTECT(2);
+            /* Completion is available if the namespace is correctly loaded */
+            m_isCompletionAvailable= (findVarInFrame(R_NamespaceRegistry,install("utils"))!=R_UnboundValue);
+        }
+    }
 }
 
 void RServer::endR()
@@ -210,6 +291,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
     ReturnCode returnCode=RServer::SuccessCode;
     QString returnText;
+    QStringList neededFiles;
 
     //Code to evaluate an R function (taken from RInside library)
     ParseStatus status;
@@ -237,7 +319,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
                     kDebug()<<"Error occurred.";
                     break;
                 }
-
+                // TODO: multiple results
             }
             memBuf.clear();
             break;
@@ -272,7 +354,29 @@ void RServer::runCommand(const QString& cmd, bool internal)
         if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
         {
             kDebug()<<"printing result...";
-            Rf_PrintValue(result);
+            SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),NULL,&errorOccurred)); // TODO: error checks
+            if (*INTEGER(count)==1)
+                Rf_PrintValue(result);
+            else
+            {
+                static int htmlresult_id=0;
+                QString fname=QString("%1/Rtable%2.html").arg(m_tmpDir,QString::number(htmlresult_id++));
+                QFile fp(fname);
+                if (fp.open(QIODevice::WriteOnly))
+                {
+                    QTextStream s(&fp);
+                    bool canProcess=htmlVector(result,s);
+                    fp.close();
+                    if (canProcess)
+                    {
+                        neededFiles<<fname;
+                        expr->hasOtherResults=true;
+                    }
+                    else
+                        Rf_PrintValue(result); //In case we do not know yet how to display it
+                }
+            }
+            UNPROTECT(1);
         }
 
         setCurrentExpression(0); //is this save?
@@ -306,14 +410,97 @@ void RServer::runCommand(const QString& cmd, bool internal)
     {
         expr->hasOtherResults=true;
         newPlotDevice();
-        showFiles(QStringList()<<f.filePath());
+        neededFiles<<f.filePath();
     }
 
     //Check if the expression got results other than plain text (like files,etc)
     if(!expr->hasOtherResults)
         emit expressionFinished(returnCode, returnText);
+    else
+        showFiles(neededFiles);
 
     setStatus(Idle);
+    
+    // FIXME: Calling this every evaluation is probably ugly
+    listSymbols();
+}
+
+void RServer::completeCommand(const QString& cmd)
+{
+//     setStatus(RServer::Busy);
+    
+    // TODO: is static okay? guess RServer is a singletone, but ...
+    // TODO: error handling?
+    // TODO: investigate encoding problem
+    // TODO: propage the flexibility of token selection upward
+    // TODO: what if install() fails? investigate
+    // TODO: investigate why errors break the whole foodchain of RServer callbacks in here
+    static SEXP comp_env=R_FindNamespace(mkString("utils"));
+    static SEXP tokenizer_func=install(".guessTokenFromLine");
+    static SEXP linebuffer_func=install(".assignLinebuffer");
+    static SEXP buffer_end_func=install(".assignEnd");
+    static SEXP complete_func=install(".completeToken");
+    static SEXP retrieve_func=install(".retrieveCompletions");
+    
+    /* Setting buffer parameters */
+    int errorOccurred=0; // TODO: error cheks, too lazy to do it now
+    R_tryEval(lang2(linebuffer_func,mkString(cmd.toUtf8().data())),comp_env,&errorOccurred);
+    R_tryEval(lang2(buffer_end_func,ScalarInteger(cmd.size())),comp_env,&errorOccurred);
+    
+    /* Passing the tokenizing work to professionals */
+    SEXP token=PROTECT(R_tryEval(lang1(tokenizer_func),comp_env,&errorOccurred));
+    
+    /* Doing the actual stuff */
+    R_tryEval(lang1(complete_func),comp_env,&errorOccurred);
+    SEXP completions=PROTECT(R_tryEval(lang1(retrieve_func),comp_env,&errorOccurred));
+    
+    /* Populating the list of completions */
+    QStringList completionOptions;
+    for (int i=0;i<length(completions);i++)
+        completionOptions<<translateCharUTF8(STRING_ELT(completions,i));
+    QString qToken=translateCharUTF8(STRING_ELT(token,0));
+    UNPROTECT(2);
+    
+    emit completionFinished(qToken,completionOptions);
+    
+//     setStatus(RServer::Idle);
+}
+
+// FIXME: This scheme is somewhat placeholder, I honestly don't like it too much
+// I am not sure whether or not asking the server with each keypress if what he typed was
+// acceptable or not is a good idea. I'll leave it under investigation, let it be this way just for now
+// ~Landswellsong
+
+void RServer::listSymbols()
+{
+//     setStatus(RServer::Busy);
+    
+    QStringList vars,funcs, namespaces;
+    int errorOccurred; // TODO: error checks
+    
+    /* Obtaining a list of user namespace objects */
+    SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),NULL,&errorOccurred));
+    for (int i=0;i<length(usr);i++)
+        vars<<translateCharUTF8(STRING_ELT(usr,i));
+    UNPROTECT(1);
+    
+    /* Obtaining a list of active packages */
+    SEXP packages=PROTECT(R_tryEval(lang1(install("search")),NULL,&errorOccurred));
+    //int i=1; // HACK to prevent scalability issues
+    for (int i=1;i<length(packages);i++) // Package #0 is user environment, so starting with 1
+    {
+        char pos[32];
+        sprintf(pos,"%d",i+1);
+        SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),NULL,&errorOccurred));
+        for (int i=0;i<length(f);i++)
+            funcs<<translateCharUTF8(STRING_ELT(f,i));
+        UNPROTECT(1);
+    }
+    UNPROTECT(1);
+    
+    emit symbolList(vars,funcs);
+    
+//     setStatus(RServer::Idle);
 }
 
 void RServer::setStatus(Status status)

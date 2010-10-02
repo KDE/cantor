@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="cantor_advancedplot_assistant" version="1">
+<MenuBar>
+  <Menu name="Plot"><text>&amp;Plot</text>
+    <Action name="advancedplot_assistant"/>
+  </Menu>
+</MenuBar>
+</kpartgui>

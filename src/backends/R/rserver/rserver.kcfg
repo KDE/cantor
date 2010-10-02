@@ -9,5 +9,8 @@
       <label>Integrate Plots into the Worksheet</label>
       <default>true</default>
     </entry>
+    <entry name="autorunScripts" type="StringList">
+      <label>List of scripts to autorun at the beginning of session</label>
+    </entry>
   </group>
 </kcfg>

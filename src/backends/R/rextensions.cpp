@@ -41,3 +41,22 @@ QString RScriptExtension::scriptFileFilter()
 {
     return i18n("*.R|R script file");
 }
+
+RPlotExtension::RPlotExtension(QObject* parent) : Cantor::AdvancedPlotExtension(parent)
+{
+}
+// TODO: injection prevention
+QString RPlotExtension::accept(const Cantor::PlotTitleDirective& directive) const
+{
+    return "main=\""+directive.title()+"\"";
+}
+
+QString RPlotExtension::accept(const Cantor::OrdinateScaleDirective& directive) const
+{
+    return "ylim=range("+QString::number(directive.min())+","+QString::number(directive.max())+")";
+}
+
+QString RPlotExtension::accept(const Cantor::AbscissScaleDirective& directive) const
+{
+    return "xlim=range("+QString::number(directive.min())+","+QString::number(directive.max())+")";
+}

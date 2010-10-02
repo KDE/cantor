@@ -20,6 +20,7 @@ set( cantor_LIB_SRCS
   defaultvariablemodel.cpp
   panelplugin.cpp
   panelpluginhandler.cpp
+  directives/plotdirectives.cpp
 )
 
 Set( cantor_LIB_HDRS
@@ -27,7 +28,10 @@ Set( cantor_LIB_HDRS
      session.h
      expression.h
      backend_macros.h
+     directives/plotdirectives.h
 )
+
+kde4_add_ui_files(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
 
 kde4_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
 install(FILES cantor_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
@@ -44,9 +48,6 @@ set_target_properties( cantorlibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
-if (KDE4_BUILD_TESTS)
-    add_subdirectory(test)
-endif (KDE4_BUILD_TESTS)
 
 install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
@@ -58,3 +59,7 @@ install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_panelplugin.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
+
+if (KDE4_BUILD_TESTS)
+    add_subdirectory(test)
+endif (KDE4_BUILD_TESTS)

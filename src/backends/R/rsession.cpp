@@ -20,6 +20,8 @@
 
 #include "rsession.h"
 #include "rexpression.h"
+#include "rcompletionobject.h"
+#include "rhighlighter.h"
 
 #include <QTimer>
 #include <kdebug.h>
@@ -55,6 +57,7 @@ void RSession::login()
     m_rServer=new org::kde::Cantor::R(QString("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
+    connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),this,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
 
     changeStatus(Cantor::Session::Done);
 
@@ -86,6 +89,44 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
     changeStatus(Cantor::Session::Running);
 
     return expr;
+}
+
+Cantor::CompletionObject* RSession::completionFor(const QString& command)
+{
+    RCompletionObject *cmp=new RCompletionObject(command, this);
+    connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
+    connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
+    return cmp;
+}
+
+QSyntaxHighlighter* RSession::syntaxHighlighter(QTextEdit* parent)
+{
+    RHighlighter *h=new RHighlighter(parent);
+    connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));
+    connect(this,SIGNAL(symbolsChanged()),h,SLOT(refreshSyntaxRegExps()));
+    return h;
+}
+
+void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
+{
+    // WARNING: current implementation as-in-maxima is a performance hit
+    // think about grouping expressions together or only fetching needed ones
+    v.clear(); f.clear();
+
+    foreach (const QString s, m_variables)
+        if (!s.contains(QRegExp("[^A-Za-z0-9_.]")))
+            v.append(QRegExp("\\b"+s+"\\b"));
+    foreach (const QString s, m_functions)
+        if (!s.contains(QRegExp("[^A-Za-z0-9_.]")))
+            f.append(QRegExp("\\b"+s+"\\b"));
+}
+
+void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
+{
+    m_variables=v;
+    m_functions=f;
+
+    emit symbolsChanged();
 }
 
 void RSession::queueExpression(RExpression* expr)

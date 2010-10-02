@@ -22,6 +22,7 @@
 #define _REXTENSIONS_H
 
 #include "extension.h"
+#include "directives/plotdirectives.h"
 
 class RScriptExtension : public Cantor::ScriptExtension
 {
@@ -31,6 +32,21 @@ class RScriptExtension : public Cantor::ScriptExtension
   public slots:
     virtual QString runExternalScript(const QString& path);
     virtual QString scriptFileFilter();
+};
+
+class RPlotExtension :  public Cantor::AdvancedPlotExtension,
+                        public Cantor::AdvancedPlotExtension::DirectiveAcceptor<Cantor::PlotTitleDirective>,
+                        public Cantor::AdvancedPlotExtension::DirectiveAcceptor<Cantor::OrdinateScaleDirective>,
+                        public Cantor::AdvancedPlotExtension::DirectiveAcceptor<Cantor::AbscissScaleDirective>
+{
+  public:
+    RPlotExtension(QObject* parent);
+    ~RPlotExtension() {}
+    QString accept(const Cantor::PlotTitleDirective& directive) const;
+    QString accept(const Cantor::OrdinateScaleDirective& directive) const;
+    QString accept(const Cantor::AbscissScaleDirective& directive) const;
+  protected:
+    QString plotCommand() const { return "plot"; }
 };
 
 #endif /* _REXTENSIONS_H */
