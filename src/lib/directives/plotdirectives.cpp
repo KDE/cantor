@@ -40,7 +40,7 @@ class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotT
 class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
 {
     public:
-        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Absciss scale")); }
+        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Abscissa scale")); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {
