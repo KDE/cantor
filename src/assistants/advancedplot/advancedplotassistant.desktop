@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=AdvancedPlot
+Name[x-test]=xxAdvancedPlotxx
 RequiredExtensions=AdvancedPlotExtension
 X-KDE-ServiceTypes=Cantor/Assistant
 X-KDE-Library=cantor_advancedplotassistant
