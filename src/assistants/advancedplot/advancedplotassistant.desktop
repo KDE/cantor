@@ -1,6 +1,10 @@
 [Desktop Entry]
 Type=Service
 Name=AdvancedPlot
+Name[es]=AdvancedPlot
+Name[pt]=Gráfico Avançado
+Name[sv]=Avancerat diagram
+Name[uk]=Складне креслення
 Name[x-test]=xxAdvancedPlotxx
 RequiredExtensions=AdvancedPlotExtension
 X-KDE-ServiceTypes=Cantor/Assistant
