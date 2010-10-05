@@ -2,7 +2,9 @@
 Type=Service
 Name=AdvancedPlot
 Name[es]=AdvancedPlot
+Name[et]=Täiustatud joonis
 Name[pt]=Gráfico Avançado
+Name[pt_BR]=Gráfico avançado
 Name[sv]=Avancerat diagram
 Name[uk]=Складне креслення
 Name[x-test]=xxAdvancedPlotxx
