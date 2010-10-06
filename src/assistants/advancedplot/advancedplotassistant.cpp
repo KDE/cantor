@@ -97,8 +97,7 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
                     list.push_back(controls[i]->produceDirective());
         }
         result<<plotter->plotFunction2d(base.expressionEdit->text(),list);
-        for (QVector<Cantor::AdvancedPlotExtension::PlotDirective*>::const_iterator i=list.begin(); i!=list.end(); ++i)
-            delete (*i);
+        qDeleteAll(list);
     }
 
     delete dlg;
