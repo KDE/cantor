@@ -239,7 +239,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     class PlotDirective;
 
     // TODO move the hell out of here
-    class DirectiveProducer : public QWidget
+    class CANTOR_EXPORT DirectiveProducer : public QWidget
     {
         public:
             DirectiveProducer(QWidget* parent);
@@ -254,7 +254,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             typedef DirectiveControl<UI> AbstractParent;
     };
 
-    class AcceptorBase
+    class CANTOR_EXPORT AcceptorBase
     {
         public:
             /**
@@ -297,7 +297,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             DirectiveAcceptor();
     };
 
-    class PlotDirective
+    class CANTOR_EXPORT PlotDirective
     {
         public:
             virtual ~PlotDirective();
