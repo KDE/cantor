@@ -60,6 +60,7 @@ X-KDE-PluginInfo-Website=http://edu.kde.org/kalgebra
 Comment=KAlgebra backend for Cantor. Lets you use the same language you use in the KAlgebra application in Cantor worksheets.
 Comment[ca]=Dorsal de KAlgebra per al Cantor. Us permet utilitzar als fulls de treball del Cantor el mateix llenguatge que feu servir a l'aplicació KAlgebra.
 Comment[ca@valencia]=Dorsal de KAlgebra per al Cantor. Vos permet utilitzar als fulls de treball del Cantor el mateix llenguatge que feu servir a l'aplicació KAlgebra.
+Comment[cs]=Podpůrná vrstva KAlgebra pro Cantor. Umožňuje v listech Cantoru používat stejný jazyk jako v KAlgebře.
 Comment[da]=KAlgebra-backend til Cantor. Lader dig bruge de samme sprog som du bruger i programmet KAlgebra i Cantor-arbejdsark.
 Comment[de]=KAlgebra-Modul für Cantor. Damit können Sie für die Arbeitsblätter in Cantor dieselbe Sprache wie in KAlgebra verwenden.
 Comment[el]=Υποσύστημα KAlgebra για το Cantor. Χρησιμοποιήστε την ίδια γλώσσα που χρησιμοποιείτε και στην εφαρμογή KAlgebra για τα φύλλα εργασιών του Cantor.7
