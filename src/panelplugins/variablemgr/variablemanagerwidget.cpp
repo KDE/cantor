@@ -86,6 +86,17 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     setLayout(layout);
 
     setSession(session);
+
+    //check for the methods the backend actually supports, and disable the buttons accordingly
+    Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+    if(ext->loadVariables(QString::null).isNull())
+        m_loadBtn->setDisabled(true);
+    if(ext->saveVariables(QString::null).isNull())
+        m_saveBtn->setDisabled(true);
+    if(ext->addVariable(QString::null, QString::null).isNull())
+        m_newBtn->setDisabled(true);
+    if(ext->clearVariables().isNull())
+        m_clearBtn->setDisabled(true);
 }
 
 VariableManagerWidget::~VariableManagerWidget()
@@ -111,20 +122,41 @@ void VariableManagerWidget::clearVariables()
     int btn=KMessageBox::questionYesNo(this,  i18n("Are you sure you want to remove all variables?"), i18n("Confirmation - Cantor"));
     if(btn==KMessageBox::Yes)
     {
+        kDebug()<<"removing it all";
         m_model->removeRows(0, m_model->rowCount());
+
+        //evaluate the "clear" command
+        Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+        const QString& cmd=ext->clearVariables();
+        emit runCommand(cmd);
+
+        //HACK? should the model detect that this happened on its own?
+        //inform the model that all variables have been removed.
+        //Do so by trying to evaluate the clearVariables slot of
+        //DefaultVariableModel. If our model isn't one of those,
+        //this call will just do nothing.
+        QMetaObject::invokeMethod(m_model,  "clearVariables", Qt::QueuedConnection);
     }
 }
 
 void VariableManagerWidget::save()
 {
     const QString file=KFileDialog::getSaveFileName(KUrl(),  QString(),  this);
-    //vmgr()->storeVariables(file);
+
+    Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+
+    const QString& cmd=ext->saveVariables(file);
+    emit runCommand(cmd);
 }
 
 void VariableManagerWidget::load()
 {
     const QString file=KFileDialog::getOpenFileName(KUrl(),  QString(),  this);
-    //vmgr()->loadVariables(file);
+
+    Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+
+    const QString& cmd=ext->loadVariables(file);
+    emit runCommand(cmd);
 }
 
 void VariableManagerWidget::newVariable()
