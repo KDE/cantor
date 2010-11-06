@@ -70,6 +70,6 @@ namespace Cantor
             AbscissScaleDirective(double a,double b);
             static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
     };
-};
+}
 
 #endif // _PLOT_DIRECTIVES_H

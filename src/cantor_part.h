@@ -34,7 +34,7 @@ class KProgressDialog;
 
 namespace Cantor{
     class PanelPluginHandler;
-};
+}
 
 /**
  * This is a "Part".  It that does all the real work in a KPart
