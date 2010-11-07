@@ -2,6 +2,7 @@
 Type=Service
 Icon=
 Name=Help
+Name[ca]=Ajuda
 Name[de]=Hilfe
 Name[en_GB]=Help
 Name[es]=Ayuda
@@ -21,6 +22,7 @@ X-KDE-PluginInfo-Name=HelpPanel
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=A panel to display help
+Comment[ca]=Un panell per mostrar les pàgines d'ajuda
 Comment[en_GB]=A panel to display help
 Comment[es]=Un panel para mostrar ayuda
 Comment[et]=Abi näitav paneel

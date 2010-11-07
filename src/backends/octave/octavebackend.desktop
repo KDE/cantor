@@ -2,6 +2,7 @@
 Type=Service
 Icon=octavebackend
 Name=Octave
+Name[ca]=Octave
 Name[cs]=Octave
 Name[de]=Octave
 Name[en_GB]=Octave
@@ -25,6 +26,7 @@ X-KDE-PluginInfo-Name=Octave
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for GNU Octave
+Comment[ca]=Un dorsal per al GNU Octave
 Comment[cs]=Podpůrná vrstva pro GNU Octave
 Comment[en_GB]=Backend for GNU Octave
 Comment[es]=Un motor para GNU Octave
