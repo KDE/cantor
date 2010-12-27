@@ -24,11 +24,27 @@ set( cantor_LIB_SRCS
 )
 
 Set( cantor_LIB_HDRS
-     backend.h
-     session.h
-     expression.h
-     backend_macros.h
-     directives/plotdirectives.h
+  cantor_macros.h
+  cantor_export.h
+  #base classes
+  backend.h
+  session.h
+  expression.h
+  extension.h
+  syntaxhelpobject.h
+  completionobject.h
+  #results
+  animationresult.h
+  epsresult.h
+  helpresult.h
+  imageresult.h
+  latexresult.h
+  result.h
+  textresult.h
+  #helper classes
+  defaulthighlighter.h
+  defaultvariablemodel.h
+  
 )
 
 kde4_add_ui_files(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
@@ -51,10 +67,10 @@ set_target_properties( cantorlibs
 
 install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
-#install( FILES ${myshared_LIB_HDRS}
-#  DESTINATION ${INCLUDE_INSTALL_DIR}/cantor
-#  COMPONENT Devel
-#)
+install( FILES ${cantor_LIB_HDRS}
+  DESTINATION ${INCLUDE_INSTALL_DIR}/cantor
+  COMPONENT Devel
+)
 
 install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
