@@ -1,5 +1,6 @@
 /*************************************************************************************
-*  Copyright (C) 2009 by Milian Wolff <mail@milianw.de>                               *
+*  Copyright (C) 2009 by Milian Wolff <mail@milianw.de>                             *
+*  Copyright (C) 2011 by Matteo Agostinelli <agostinelli@gmail.com>                 *
 *                                                                                   *
 *  This program is free software; you can redistribute it and/or                    *
 *  modify it under the terms of the GNU General Public License                      *
@@ -17,11 +18,11 @@
 *************************************************************************************/
 
 #include "qalculateexpression.h"
+#include "qalculatesession.h"
 
 #include "textresult.h"
 #include "helpresult.h"
-#include "qalculatesession.h"
-#include <KLocale>
+#include "settings.h"
 
 #include <libqalculate/Calculator.h>
 #include <libqalculate/ExpressionItem.h>
@@ -35,6 +36,7 @@
 #include <KGlobal>
 #include <KMessageBox>
 #include <KColorScheme>
+#include <KLocale>
 
 #include <QApplication>
 
@@ -63,14 +65,14 @@ void QalculateExpression::evaluate()
                                 .replace("$", "USD")
                                 .replace(QChar(0x20AC), "EUR")
                             .toLatin1().data()
-                    );;
+                    );
 
     EvaluationOptions eo;
 
-//     eo.auto_post_conversion = m_settings->convertToBestUnits() ? POST_CONVERSION_BEST : POST_CONVERSION_NONE;
+    eo.auto_post_conversion = QalculateSettings::postConversion() ? POST_CONVERSION_BEST : POST_CONVERSION_NONE;
     eo.keep_zero_units = false;
-    /*TODO: enable settings
-    switch (m_settings->angleUnit()) {
+
+    switch (QalculateSettings::angleUnit()) {
         case 0:
             eo.parse_options.angle_unit = ANGLE_UNIT_NONE;
             break;
@@ -85,13 +87,9 @@ void QalculateExpression::evaluate()
             break;
     }
 
-    eo.parse_options.rpn = m_settings->rpn();
-    eo.parse_options.base = m_settings->base();
-    eo.parse_options.preserve_format = m_settings->preserveFormat();
-    eo.parse_options.read_precision = (ReadPrecisionMode) m_settings->readPrecisionMode();
+    eo.parse_options.base = QalculateSettings::base();
 
-
-    switch (m_settings->structuring()) {
+    switch (QalculateSettings::structuring()) {
         case 0:
             eo.structuring = STRUCTURING_NONE;
             break;
@@ -102,7 +100,7 @@ void QalculateExpression::evaluate()
             eo.structuring = STRUCTURING_FACTORIZE;
             break;
     }
-    */
+
 
     MathStructure result = CALCULATOR->calculate(expression, eo);
 
@@ -140,8 +138,8 @@ void QalculateExpression::evaluate()
     }
 
     PrintOptions po;
-    /*
-    switch (m_settings->fractionDisplay()) {
+
+    switch (QalculateSettings::fractionFormat()) {
     case 0:
         po.number_fraction_format = FRACTION_DECIMAL;
         break;
@@ -155,17 +153,15 @@ void QalculateExpression::evaluate()
         po.number_fraction_format = FRACTION_COMBINED;
         break;
     }
-    po.indicate_infinite_series = m_settings->indicateInfiniteSeries();
-    po.use_all_prefixes = m_settings->useAllPrefixes();
-    po.use_denominator_prefix = m_settings->useDenominatorPrefix();
-    po.negative_exponents = m_settings->negativeExponents();
-    */
-    //     po.lower_case_e = true;
-    //     po.base = m_settings->baseDisplay();
+    po.indicate_infinite_series = QalculateSettings::indicateInfiniteSeries();
+    po.use_all_prefixes = QalculateSettings::useAllPrefixes();
+    po.negative_exponents = QalculateSettings::negativeExponents();
+
+    po.lower_case_e = true;
+    po.base = QalculateSettings::base();
     po.decimalpoint_sign = KGlobal::locale()->decimalSymbol().toLocal8Bit().data();
 
-    /*
-    switch (m_settings->minExp()) {
+    switch (QalculateSettings::minExp()) {
     case 0:
         po.min_exp = EXP_NONE;
         break;
@@ -182,22 +178,8 @@ void QalculateExpression::evaluate()
         po.min_exp = EXP_BASE_3;
         break;
     }
-    */
 
     result.format(po);
-
-//     m_lastResult = result.print(po).c_str();
-//     emit resultReady(m_lastResult);
-
-//     QalculateLabels label;
-//     emit formattedResultReady(label.drawStructure(result, po));
-
-//     Analitza::Analitza* a=static_cast<QalculateSession*>(session())->analitza();
-//     a->setExpression(Analitza::Expression(command()));
-
-//     Analitza::Expression res;
-//     if(a->isCorrect())
-//         res=a->evaluate();
 
     setResult(new Cantor::TextResult(result.print(po).c_str()));
     setStatus(Done);

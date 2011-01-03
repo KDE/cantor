@@ -12,6 +12,10 @@ qalculateexpression.cpp
 qalculatecompletionobject.cpp
 )
 
+kde4_add_kcfg_files(QalculateBackend_SRCS settings.kcfgc)
+install(FILES qalculatebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+
+kde4_add_ui_files(QalculateBackend_SRCS settings.ui)
 
 kde4_add_plugin( cantor_qalculatebackend ${QalculateBackend_SRCS} )
 message(STATUS ${CLN_LIBRARIES})

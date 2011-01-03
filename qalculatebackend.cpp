@@ -20,6 +20,9 @@
 #include "qalculatebackend.h"
 #include "qalculatesession.h"
 
+#include "settings.h"
+#include "ui_settings.h"
+
 #include "cantor_macros.h"
 
 #include <KLocalizedString>
@@ -63,6 +66,19 @@ KUrl QalculateBackend::helpUrl() const
 {
     // A sub-optimal solution but still this manual is fairly complete
     return KUrl("http://qalculate.sourceforge.net/gtk-manual/index.html");
+}
+
+KConfigSkeleton* QalculateBackend::config() const
+{
+    return QalculateSettings::self();
+}
+
+QWidget* QalculateBackend::settingsWidget(QWidget* parent) const
+{
+    QWidget* widget=new QWidget(parent);
+    Ui::QalculateSettingsBase s;
+    s.setupUi(widget);
+    return widget;
 }
 
 K_EXPORT_CANTOR_PLUGIN(qalculatebackend, QalculateBackend)
