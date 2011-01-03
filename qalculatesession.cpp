@@ -37,10 +37,17 @@
 QalculateSession::QalculateSession( Cantor::Backend* backend)
     : Session(backend)
 {
+    if ( !CALCULATOR ) {
+             new Calculator();
+             CALCULATOR->loadGlobalDefinitions();
+             CALCULATOR->loadLocalDefinitions();
+             CALCULATOR->loadExchangeRates();
+    }
 }
 
 QalculateSession::~QalculateSession()
 {
+    CALCULATOR->abort();
 }
 
 void QalculateSession::login()
