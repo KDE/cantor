@@ -1,5 +1,6 @@
-/*************************************************************************************
-*  Copyright (C) 2009 by Milian Wolff <mail@milianw.de>                               *
+/************************************************************************************
+*  Copyright (C) 2009 by Milian Wolff <mail@milianw.de>                             *
+*  Copyright (C) 2011 by Matteo Agostinelli <agostinelli@gmail.com>                 *
 *                                                                                   *
 *  This program is free software; you can redistribute it and/or                    *
 *  modify it under the terms of the GNU General Public License                      *
@@ -21,24 +22,17 @@
 
 #include "cantor_macros.h"
 
-#include <libqalculate/Calculator.h>
+#include <KLocalizedString>
 
 QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
   : Cantor::Backend( parent, args )
 {
     setObjectName("qalculatebackend");
-
-    if ( !CALCULATOR ) {
-        new Calculator();
-        CALCULATOR->loadGlobalDefinitions();
-        CALCULATOR->loadLocalDefinitions();
-        CALCULATOR->loadExchangeRates();
-    }
 }
 
 QalculateBackend::~QalculateBackend()
 {
-    CALCULATOR->abort();
+
 }
 
 QString QalculateBackend::id() const
@@ -53,14 +47,22 @@ Cantor::Session* QalculateBackend::createSession()
 
 Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 {
-    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting;
+    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
 //     return Cantor::Backend::Completion | Cantor::Backend::SyntaxHelp;
+}
+
+QString QalculateBackend::description() const
+{
+    return i18n("Qalculate! is not your regular software replication of the cheapest available calculator. Qalculate! aims to make full use of the superior interface, power and flexibility of modern computers."\
+    "The center of attention in Qalculate! is the expression entry, Instead of entering each number in a mathematical expression separately, you can directly write the whole expression and later modify it."\
+    "The interpretation of expressions is flexible and fault tolerant, and if you nevertheless do something wrong, Qalculate! will tell you so. Not fully solvable expressions are however not errors. Qalculate! will simplify as far as it can and answer with an expression."\
+    "In addition to numbers and arithmetic operators, an expression may contain any combination of variables, units, and functions.");
 }
 
 KUrl QalculateBackend::helpUrl() const
 {
-    //TODO: not really a "helpUrl", is it?
-    return KUrl("http://qalculate.sourceforge.net/");
+    // A sub-optimal solution but still this manual is fairly complete
+    return KUrl("http://qalculate.sourceforge.net/gtk-manual/index.html");
 }
 
 K_EXPORT_CANTOR_PLUGIN(qalculatebackend, QalculateBackend)

@@ -1,5 +1,6 @@
-/*************************************************************************************
-*  Copyright (C) 2009 by Milian Wolff <mail@milianw.de>                               *
+/************************************************************************************
+*  Copyright (C) 2009 by Milian Wolff <mail@milianw.de>                             *
+*  Copyright (C) 2011 by Matteo Agostinelli <agostinelli@gmail.com>                 *
 *                                                                                   *
 *  This program is free software; you can redistribute it and/or                    *
 *  modify it under the terms of the GNU General Public License                      *
@@ -33,6 +34,7 @@ public:
 
     virtual Cantor::Session *createSession();
     virtual Cantor::Backend::Capabilities capabilities() const;
+    virtual QString description() const;
     virtual KUrl helpUrl() const;
 };
 
