@@ -10,6 +10,7 @@ qalculatesession.cpp
 qalculatehighlighter.cpp
 qalculateexpression.cpp
 qalculatecompletionobject.cpp
+settingswidget.cpp
 )
 
 kde4_add_kcfg_files(QalculateBackend_SRCS settings.kcfgc)

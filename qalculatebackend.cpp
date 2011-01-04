@@ -21,7 +21,7 @@
 #include "qalculatesession.h"
 
 #include "settings.h"
-#include "ui_settings.h"
+#include "settingswidget.h"
 
 #include "cantor_macros.h"
 
@@ -75,10 +75,7 @@ KConfigSkeleton* QalculateBackend::config() const
 
 QWidget* QalculateBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::QalculateSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new QalculateSettingsWidget(parent);
 }
 
 K_EXPORT_CANTOR_PLUGIN(qalculatebackend, QalculateBackend)

@@ -37,6 +37,7 @@
 #include <KMessageBox>
 #include <KColorScheme>
 #include <KLocale>
+#include <KDebug>
 
 #include <QApplication>
 
@@ -67,6 +68,7 @@ void QalculateExpression::evaluate()
                             .toLatin1().data()
                     );
 
+    kDebug() << "EXPR: " << QString(expression.c_str());
     EvaluationOptions eo;
 
     eo.auto_post_conversion = QalculateSettings::postConversion() ? POST_CONVERSION_BEST : POST_CONVERSION_NONE;
