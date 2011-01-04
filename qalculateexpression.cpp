@@ -58,6 +58,13 @@ void QalculateExpression::evaluate()
         return;
     }
 
+    if (command().contains("help")) {
+        setResult(new Cantor::HelpResult("<p>Testing</p>"));
+        kDebug() << "Inside help";
+        setStatus(Cantor::Expression::Done);
+        return;
+    }
+
     // copy'n'pasted from qalculate plasma applet
 
     string expression = CALCULATOR->unlocalizeExpression(
@@ -186,3 +193,4 @@ void QalculateExpression::evaluate()
     setResult(new Cantor::TextResult(result.print(po).c_str()));
     setStatus(Done);
 }
+
