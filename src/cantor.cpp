@@ -40,6 +40,7 @@
 #include <kxmlguifactory.h>
 #include <kstandarddirs.h>
 #include <ktoggleaction.h>
+#include <kmenu.h>
 
 #include <knewstuff3/downloaddialog.h>
 
@@ -157,6 +158,16 @@ void CantorShell::readProperties(const KConfigGroup & /*config*/)
 
 void CantorShell::fileNew()
 {
+    if (sender()->inherits("KAction"))
+    {
+        KAction* a = qobject_cast<KAction*>(sender());
+        QString backendName = a->data().toString();
+        if (!backendName.isEmpty())
+        {
+            addWorksheet(backendName);
+            return;
+        }
+    }
     addWorksheet();
 }
 
@@ -201,14 +212,20 @@ void CantorShell::addWorksheet()
 {
     if(hasAvailableBackend()) //There is no point in asking for the backend, if no one is available
     {
-        QPointer<BackendChooseDialog> dlg=new BackendChooseDialog(this);
-        if(dlg->exec())
+        QString backend = Settings::self()->defaultBackend();
+        if (backend.isEmpty())
         {
-            addWorksheet(dlg->backendName());
-            activateWorksheet(m_parts.size()-1);
-        }
+            QPointer<BackendChooseDialog> dlg=new BackendChooseDialog(this);
+            if(dlg->exec())
+            {
+                backend = dlg->backendName();
+            }
 
-        delete dlg;
+            delete dlg;
+        }
+        addWorksheet(backend);
+        activateWorksheet(m_parts.size()-1);
+
     }else
     {
         KTextBrowser *browser=new KTextBrowser(this);
@@ -265,7 +282,8 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
 
             m_parts.append(part);
-            m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
+            int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
+            m_tabWidget->setCurrentIndex(tab);
         }
         else
         {
@@ -471,4 +489,17 @@ void CantorShell::updatePanel()
     }
 
     plugActionList("view_show_panel_list", panelActions);
+
+    unplugActionList("new_worksheet_with_backend_list");
+    QList<QAction*> newBackendActions;
+    foreach (Cantor::Backend* backend, Cantor::Backend::availableBackends())
+    {
+        if (!backend->isEnabled())
+            continue;
+        KAction* action = new KAction(KIcon(backend->icon()), backend->name(), 0);
+        action->setData(backend->name());
+        connect(action, SIGNAL(triggered()), this, SLOT(fileNew()));
+        newBackendActions << action;
+    }
+    plugActionList("new_worksheet_with_backend_list", newBackendActions);
 }
