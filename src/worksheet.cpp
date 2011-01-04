@@ -749,9 +749,13 @@ void Worksheet::load(const QString& filename )
 }
 
 
-void Worksheet::gotResult()
+void Worksheet::gotResult(Cantor::Expression* expr)
 {
-    Cantor::Expression* expr=qobject_cast<Cantor::Expression*>(sender());
+    if(expr==0)
+        expr=qobject_cast<Cantor::Expression*>(sender());
+
+    if(expr==0)
+        return;
     //We're only interested in help results, others are handled by the WorksheetEntry
     if(expr->result()->type()==Cantor::HelpResult::Type)
     {

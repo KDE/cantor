@@ -146,9 +146,14 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     updatePrompt();
 
     if(expr->result())
+    {
+        m_worksheet->gotResult(expr);
         update();
+    }
     if(expr->status()!=Cantor::Expression::Computing)
+    {
         expressionChangedStatus(expr->status());
+    }
 }
 
 Cantor::Expression* CommandEntry::expression()

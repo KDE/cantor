@@ -86,7 +86,7 @@ class Worksheet : public KRichTextWidget
     void saveLatex(const QString& filename, bool exportImages);
     void load(const QString& filename);
 
-    void gotResult();
+    void gotResult(Cantor::Expression* expr=0);
 
     void removeCurrentEntry();
 
