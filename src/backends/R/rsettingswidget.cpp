@@ -22,6 +22,7 @@
 #include <keditlistbox.h>
 #include <klineedit.h>
 #include <kfiledialog.h>
+#include <klocale.h>
 #include <QMouseEvent>
 
 RSettingsWidget::RSettingsWidget(QWidget *parent) : QWidget(parent)
@@ -29,7 +30,7 @@ RSettingsWidget::RSettingsWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
     kcfg_autorunScripts->lineEdit()->setReadOnly(true);
     kcfg_autorunScripts->lineEdit()->installEventFilter(this);
-    kcfg_autorunScripts->lineEdit()->setToolTip(tr("Double click to open file selection dialog"));
+    kcfg_autorunScripts->lineEdit()->setToolTip(i18n("Double click to open file selection dialog"));
 }
 
 bool RSettingsWidget::eventFilter(QObject *obj, QEvent *event)
@@ -49,7 +50,7 @@ bool RSettingsWidget::eventFilter(QObject *obj, QEvent *event)
 
 void RSettingsWidget::displayFileSelectionDialog()
 {
-    QString path=KFileDialog::getOpenFileName(kcfg_autorunScripts->lineEdit()->text(),tr("*.R *.r|R source files (*.R, *.r)"),this);
+    QString path=KFileDialog::getOpenFileName(kcfg_autorunScripts->lineEdit()->text(),i18n("*.R *.r|R source files (*.R, *.r)"),this);
     if (path.length()>0)
         kcfg_autorunScripts->lineEdit()->setText(path);
 }
