@@ -18,33 +18,86 @@
 
 #include "qalculatesyntaxhelpobject.h"
 #include "qalculatesession.h"
+
 #include <KLocale>
+#include <KDebug>
+
+#include <libqalculate/Calculator.h>
+#include <libqalculate/ExpressionItem.h>
+#include <libqalculate/Unit.h>
+#include <libqalculate/Prefix.h>
+#include <libqalculate/Variable.h>
+#include <libqalculate/Function.h>
 
 QalculateSyntaxHelpObject::QalculateSyntaxHelpObject(const QString& command, QalculateSession* session)
-    : SyntaxHelpObject(command, session)
+    : SyntaxHelpObject(command, session), m_answer(QString())
 {
 }
 
 void QalculateSyntaxHelpObject::fetchInformation()
 {
-    /*
-    OperatorsModel* opm=static_cast<QalculateSession*>(session())->operatorsModel();
-    QModelIndexList idxs=opm->match(opm->index(0,0), Qt::DisplayRole, command(), 1, Qt::MatchExactly);
-    Q_ASSERT(idxs.size()<=1);
+    std::string cmd = command().remove("help").simplified().toLatin1().data();
+    kDebug() << "HELP CALLED FOR:" << QString(cmd.c_str());
+    ExpressionItem *item = CALCULATOR->getActiveExpressionItem(cmd);
 
-    if(!idxs.isEmpty()) {
-        QString result;
-        QModelIndex idx=idxs.first();
-        int c=opm->columnCount(idx);
-        for(int i=0; i<c; i++) {
-            result += i18n("<p><b>%1:</b> %2</p>",
-                           opm->headerData(i, Qt::Horizontal).toString(),
-                           opm->data(idx.sibling(idx.row(), i)).toString());
-        }
-
-        setHtml(result);
-        emit done();
+    if (!item) {
+        m_answer = i18n("No function, variable or unit with specified name exist.");
+        return;
     }
-    */
+
+    switch(item->type()) {
+    case TYPE_FUNCTION:
+        MathFunction *f = (MathFunction*) item;
+        QString title = i18n("Function: %1").arg(item->title().c_str());
+        const ExpressionName *ename = &f->preferredName(false);
+        int iargs = f->maxargs();
+        if(iargs < 0) {
+            iargs = f->minargs() + 1;
+        }
+        QString str,str2;
+        str = "<p>";
+        str += ename->name.c_str();
+        str += "(";
+        if(iargs != 0) {
+            Argument *arg;
+            Argument default_arg;
+            for(int i2 = 1; i2 <= iargs; i2++) {
+                if(i2 > f->minargs()) {
+                    str += "[";
+                }
+                if(i2 > 1) {
+                    str += QString(CALCULATOR->getComma().c_str());
+                    str += " ";
+                }
+                arg = f->getArgumentDefinition(i2);
+                if(arg && !arg->name().empty()) {
+                    str2 = arg->name().c_str();
+                } else {
+                    str2 = "argument";
+                    str2 += " ";
+                    str2 += QString::number(i2);
+                }
+                str += str2;
+                if(i2 > f->minargs()) {
+                    str += "]";
+                }
+            }
+            if(f->maxargs() < 0) {
+                str += CALCULATOR->getComma().c_str();
+                str += " ...";
+            }
+        }
+        str += ")</p>";
+        QString syntax = str;
+        QString desc = QString("<p>%2</p>").arg(item->description().c_str());
+
+        m_answer = title + syntax + desc;
+    }
+}
+
+QString QalculateSyntaxHelpObject::answer()
+{
+    fetchInformation();
+    return m_answer;
 }
 

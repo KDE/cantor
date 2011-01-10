@@ -19,6 +19,7 @@
 
 #include "qalculateexpression.h"
 #include "qalculatesession.h"
+#include "qalculatesyntaxhelpobject.h"
 
 #include "textresult.h"
 #include "helpresult.h"
@@ -59,8 +60,8 @@ void QalculateExpression::evaluate()
     }
 
     if (command().contains("help")) {
-        setResult(new Cantor::HelpResult("<p>Testing</p>"));
-        kDebug() << "Inside help";
+        QalculateSyntaxHelpObject* helper = new QalculateSyntaxHelpObject(command(), (QalculateSession*) session());
+        setResult(new Cantor::HelpResult(helper->answer()));
         setStatus(Cantor::Expression::Done);
         return;
     }

@@ -27,9 +27,12 @@ class QalculateSyntaxHelpObject : public Cantor::SyntaxHelpObject
 {
 public:
     QalculateSyntaxHelpObject( const QString& command, QalculateSession* session );
+    QString answer();
 
 protected:
     virtual void fetchInformation();
+
+    QString m_answer;
 };
 
 #endif // QALCULATESYNTAXHELPOBJECT_H
