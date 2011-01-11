@@ -2,12 +2,14 @@
 Type=Service
 Name=AdvancedPlot
 Name[ca]=GràficAvançat
+Name[ca@valencia]=GràficAvançat
 Name[da]=AdvancedPlot
 Name[en_GB]=AdvancedPlot
 Name[es]=AdvancedPlot
 Name[et]=Täiustatud joonis
 Name[gl]=AdvancedPlot
 Name[it]=Grafico avanzato
+Name[km]=AdvancedPlot
 Name[nb]=Avansert plott
 Name[nl]=AdvancedPlot
 Name[pt]=Gráfico Avançado
