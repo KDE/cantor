@@ -62,6 +62,7 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
     if (plotter==NULL)
     {
         kDebug()<<"Advanced plotting extension is messed up, that's a bug.";
+	delete dlg;
         return QStringList();
     }
 
