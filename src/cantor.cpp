@@ -219,12 +219,15 @@ void CantorShell::addWorksheet()
             if(dlg->exec())
             {
                 backend = dlg->backendName();
+                addWorksheet(backend);
             }
 
             delete dlg;
         }
-        addWorksheet(backend);
-        activateWorksheet(m_parts.size()-1);
+        else
+        {
+            addWorksheet(backend);
+        }
 
     }else
     {
