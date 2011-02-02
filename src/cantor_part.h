@@ -50,7 +50,7 @@ public:
     /**
      * Default constructor
      */
-    CantorPart(QWidget *parentWidget,QObject *parent, const QStringList &args);
+    CantorPart(QWidget *parentWidget,QObject *parent, const QVariantList &args);
 
     /**
      * Destructor
@@ -106,7 +106,7 @@ protected slots:
     void enableTypesetting(bool enable);
     void showBackendHelp();
     void print();
-    
+
     void worksheetStatusChanged(Cantor::Session::Status stauts);
     void showSessionError(const QString& error);
     void worksheetSessionChanged();
@@ -116,7 +116,7 @@ protected slots:
     void pluginsChanged();
     void runCommand(const QString& value);
 
-    void runAssistant();  
+    void runAssistant();
     void publishWorksheet();
 
     void showScriptEditor(bool show);

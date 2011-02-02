@@ -83,7 +83,7 @@ if(LIBSPECTRE_FOUND)
 endif(LIBSPECTRE_FOUND)
 
 install( FILES cantor_part.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor )
-install( FILES cantor_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantorpart )
+install( FILES cantor_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${DATA_INSTALL_DIR}/cantor )
 
 install(TARGETS cantorpart  DESTINATION ${PLUGIN_INSTALL_DIR} )

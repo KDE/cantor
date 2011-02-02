@@ -70,7 +70,7 @@ CantorShell::CantorShell()
     createGUI(0);
 
     m_tabWidget=new KTabWidget(this);
-    m_tabWidget->setCloseButtonEnabled(true);
+    m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);
     m_tabWidget->setDocumentMode(true);
     setCentralWidget(m_tabWidget);
@@ -270,12 +270,12 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KLibFactory *factory = KLibLoader::self()->factory("libcantorpart");
+    KPluginFactory* factory = KPluginLoader("libcantorpart").factory();
     if (factory)
     {
         // now that the Part is loaded, we cast it to a Part to get
         // our hands on it
-        KParts::ReadWritePart* part = dynamic_cast<KParts::ReadWritePart *>(factory->create(m_tabWidget, "CantorPart", QStringList()<<backendName ));
+        KParts::ReadWritePart* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
 
         if (part)
         {

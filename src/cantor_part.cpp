@@ -56,10 +56,10 @@
 
 #include "settings.h"
 
-typedef KParts::GenericFactory<CantorPart> CantorPartFactory;
-K_EXPORT_COMPONENT_FACTORY( libcantorpart, CantorPartFactory )
+K_PLUGIN_FACTORY(CantorPartFactory, registerPlugin<CantorPart>();)
+K_EXPORT_PLUGIN(CantorPartFactory("cantor"))
 
-CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringList & args ): KParts::ReadWritePart(parent)
+CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
 {
     // we need an instance
     setComponentData( CantorPartFactory::componentData() );
@@ -76,7 +76,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QStringLis
     if(args.isEmpty())
         backendName="null";
     else
-        backendName=args.first();
+        backendName=args.first().toString();
 
     Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if(!b)
