@@ -27,4 +27,7 @@ add_subdirectory( doc )
 add_subdirectory( src )
 add_subdirectory( icons )
 
+if (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+   macro_display_feature_log()
+endif (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 
