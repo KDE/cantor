@@ -1,6 +1,7 @@
 find_package(KDE4 REQUIRED KIO KDIRWATCH)
 
 set( ScilabBackend_SRCS
+     scilabbackend.cpp
 
 )
 
