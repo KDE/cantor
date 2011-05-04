@@ -61,13 +61,13 @@ QString ScilabBackend::id() const
 //
 //     return new ScilabSession(this);
 // }
-//
-// Cantor::Backend::Capabilities ScilabBackend::capabilities() const
-// {
-//     kDebug()<<"Requesting capabilities of SageSession";
-//     return Cantor::Backend::LaTexOutput|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
-// }
-//
+
+Cantor::Backend::Capabilities ScilabBackend::capabilities() const
+{
+    kDebug()<<"Requesting capabilities of SageSession";
+    return Cantor::Backend::Nothing;
+}
+
 // bool ScilabBackend::requirementsFullfilled() const
 // {
 //     QFileInfo info(ScilabSettings::self()->path().toLocalFile());
@@ -99,6 +99,6 @@ QString ScilabBackend::description() const
                 "It combines the power of many existing open-source packages into a common Python-based interface.");
 }
 
-K_EXPORT_CANTOR_PLUGIN(sagebackend, ScilabBackend)
+K_EXPORT_CANTOR_PLUGIN(scilabbackend, ScilabBackend)
 
-// #include "sagebackend.moc"
+#include "scilabbackend.moc"

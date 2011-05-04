@@ -32,7 +32,7 @@ class ScilabBackend : public Cantor::Backend
 
     QString id() const;
 //     Cantor::Session *createSession();
-//     Cantor::Backend::Capabilities capabilities() const;
+    Cantor::Backend::Capabilities capabilities() const;
 //     virtual bool requirementsFullfilled() const;
 
     QWidget* settingsWidget(QWidget* parent) const;
