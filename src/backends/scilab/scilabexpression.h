@@ -18,29 +18,28 @@
     Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _SCILABBACKEND_H
-#define _SCILABBACKEND_H
+#ifndef _SCILABEXPRESSION_H
+#define _SCILABEXPRESSION_H
 
-#include "backend.h"
+#include "expression.h"
 
-class ScilabBackend : public Cantor::Backend
+class QTimer;
+
+class ScilabExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-    ~ScilabBackend();
+    ScilabExpression( Cantor::Session* session);
+    ~ScilabExpression();
 
-    QString id() const;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    virtual bool requirementsFullfilled() const;
+    void evaluate();
+    void interrupt();
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+  public slots:
+    void evalFinished();
 
-    KUrl helpUrl() const;
-    QString description() const;
+  private:
+    QTimer* m_timer;
 };
 
-
-#endif /* _SCILABBACKEND_H */
+#endif /* _SCILABEXPRESSION_H */

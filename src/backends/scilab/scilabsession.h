@@ -18,29 +18,34 @@
     Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _SCILABBACKEND_H
-#define _SCILABBACKEND_H
+#ifndef _SCILABSESSION_H
+#define _SCILABSESSION_H
 
-#include "backend.h"
+#include "session.h"
 
-class ScilabBackend : public Cantor::Backend
+
+class ScilabExpression;
+
+class ScilabSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-    ~ScilabBackend();
+    ScilabSession( Cantor::Backend* backend);
+    ~ScilabSession();
 
-    QString id() const;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    virtual bool requirementsFullfilled() const;
+    void login();
+    void logout();
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+    void interrupt();
 
-    KUrl helpUrl() const;
-    QString description() const;
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+//     Cantor::CompletionObject* completionFor(const QString& cmd);
+
+  private slots:
+    void expressionFinished();
+
+  private:
+    QList<ScilabExpression*> m_runningExpressions;
 };
 
-
-#endif /* _SCILABBACKEND_H */
+#endif /* _SCILABSESSION_H */

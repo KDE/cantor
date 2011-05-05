@@ -2,7 +2,8 @@ find_package(KDE4 REQUIRED KIO KDIRWATCH)
 
 set( ScilabBackend_SRCS
      scilabbackend.cpp
-
+     scilabsession.cpp
+     scilabexpression.cpp
 )
 
 kde4_add_kcfg_files(ScilabBackend_SRCS settings.kcfgc)

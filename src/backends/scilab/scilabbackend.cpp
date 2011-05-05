@@ -20,7 +20,7 @@
 
 #include "scilabbackend.h"
 
-// #include "sagesession.h"
+#include "scilabsession.h"
 #include "settings.h"
 #include "ui_settings.h"
 // #include "sageextensions.h"
@@ -31,9 +31,12 @@
 
 #include "cantor_macros.h"
 
+#include <iostream>
+using std::cout;
 
 ScilabBackend::ScilabBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
+    cout << "Construtor do Scilab";
     setObjectName("scilabbackend");
     kDebug()<<"Creating ScilabBackend";
     //initialize the supported extensions
@@ -55,24 +58,24 @@ QString ScilabBackend::id() const
     return "scilab";
 }
 
-// Cantor::Session* ScilabBackend::createSession()
-// {
-//     kDebug()<<"Spawning a new Sage session";
-//
-//     return new ScilabSession(this);
-// }
+Cantor::Session* ScilabBackend::createSession()
+{
+    kDebug()<<"Spawning a new Scilab session";
+
+    return new ScilabSession(this);
+}
 
 Cantor::Backend::Capabilities ScilabBackend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of SageSession";
+    kDebug()<<"Requesting capabilities of ScilabSession";
     return Cantor::Backend::Nothing;
 }
 
-// bool ScilabBackend::requirementsFullfilled() const
-// {
-//     QFileInfo info(ScilabSettings::self()->path().toLocalFile());
-//     return info.isExecutable();
-// }
+bool ScilabBackend::requirementsFullfilled() const
+{
+    QFileInfo info(ScilabSettings::self()->path().toLocalFile());
+    return info.isExecutable();
+}
 
 QWidget* ScilabBackend::settingsWidget(QWidget* parent) const
 {
