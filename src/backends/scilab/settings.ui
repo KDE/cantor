@@ -16,7 +16,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Path to Scilab:</string>
+        <string>Path to scilab-cli command:</string>
        </property>
       </widget>
      </item>
