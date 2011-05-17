@@ -2,6 +2,7 @@
 Type=Service
 Icon=dialog-ok
 Name=Solve
+Name[bs]=Riješi
 Name[ca]=Resol
 Name[ca@valencia]=Resol
 Name[cs]=Vyřešit

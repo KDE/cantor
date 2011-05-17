@@ -2,6 +2,7 @@
 Type=Service
 Icon=system-run
 Name=RunScript
+Name[bs]=PokreniSkriptu
 Name[ca]=ExecutaScript
 Name[ca@valencia]=ExecutaScript
 Name[cs]=Spustit skript

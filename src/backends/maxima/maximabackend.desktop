@@ -2,6 +2,7 @@
 Type=Service
 Icon=maximabackend
 Name=Maxima
+Name[bs]=Maxima
 Name[ca]=Maxima
 Name[ca@valencia]=Maxima
 Name[cs]=Maxima

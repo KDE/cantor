@@ -2,6 +2,7 @@
 Type=Service
 Icon=rbackend
 Name=R
+Name[bs]=R
 Name[ca]=R
 Name[ca@valencia]=R
 Name[cs]=R

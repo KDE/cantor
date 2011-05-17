@@ -2,6 +2,7 @@
 Type=Service
 Icon=office-chart-area
 Name=Differentiate
+Name[bs]=Nađi izvod
 Name[ca]=Deriva
 Name[ca@valencia]=Deriva
 Name[cs]=Diferencovat
