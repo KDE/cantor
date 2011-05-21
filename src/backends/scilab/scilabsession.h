@@ -23,8 +23,8 @@
 
 #include "session.h"
 
-
 class ScilabExpression;
+class KProcess;
 
 class ScilabSession : public Cantor::Session
 {
@@ -37,15 +37,21 @@ class ScilabSession : public Cantor::Session
     void logout();
 
     void interrupt();
+    void runExpression(ScilabExpression* expr);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-//     Cantor::CompletionObject* completionFor(const QString& cmd);
+
+  public slots:
+    void readOutput();
+    void readError();
+
+  private:
+    KProcess* m_process;
+    QList<ScilabExpression*> m_runningExpressions;
 
   private slots:
     void expressionFinished();
-
-  private:
-    QList<ScilabExpression*> m_runningExpressions;
+    void currentExpressionStatusChanged(Cantor::Expression::Status status);
 };
 
 #endif /* _SCILABSESSION_H */

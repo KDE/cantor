@@ -26,10 +26,11 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <QTimer>
+#include "scilabsession.h"
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    kDebug();
+    kDebug() << "ScilabExpression construtor";
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
@@ -40,13 +41,30 @@ ScilabExpression::~ScilabExpression()
 
 }
 
-
 void ScilabExpression::evaluate()
 {
-    kDebug()<<"evaluating "<<command();
+    kDebug() << "evaluating " << command();
     setStatus(Cantor::Expression::Computing);
 
+    ScilabSession* scilabSession = dynamic_cast<ScilabSession*>(session());
+
+    scilabSession->runExpression(this);
+
     m_timer->start(1000);
+}
+
+void ScilabExpression::parseOutput(QString output)
+{
+    kDebug() << "output: " << output;
+    setResult(new Cantor::TextResult(output));
+}
+
+void ScilabExpression::parseError(QString error)
+{
+    kDebug() << "error" << error;
+    setResult(new Cantor::TextResult(error));
+    setErrorMessage(error);
+    setStatus(Cantor::Expression::Error);
 }
 
 void ScilabExpression::interrupt()
@@ -59,11 +77,6 @@ void ScilabExpression::interrupt()
 void ScilabExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
-    if ( command()=="img" )
-        setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath("kde", KIconLoader::Desktop)), "alternative" ) );
-    else
-        setResult(new Cantor::TextResult("result: "+command()));
-
     setStatus(Cantor::Expression::Done);
 }
 

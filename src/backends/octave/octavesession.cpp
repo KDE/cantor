@@ -53,7 +53,7 @@ OctaveSession::~OctaveSession()
 
 void OctaveSession::login()
 {
-    kDebug();
+    kDebug() << "login";
 
     m_process = new KProcess ( this );
     QStringList args;
@@ -103,6 +103,7 @@ void OctaveSession::login()
 
 void OctaveSession::logout()
 {
+    kDebug() << "logout";
     m_process->write("exit\n");
     if (!m_process->waitForFinished(1000))
     {
@@ -112,6 +113,7 @@ void OctaveSession::logout()
 
 void OctaveSession::interrupt()
 {
+    kDebug() << "interrupt";
     if (m_currentExpression)
     {
         m_currentExpression->interrupt();
@@ -124,12 +126,13 @@ void OctaveSession::interrupt()
 
 void OctaveSession::processError()
 {
+    kDebug() << "processError";
     emit error(m_process->errorString());
 }
 
 Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior )
 {
-    kDebug() << command;
+    kDebug() << "evaluateExpression: " << command;
     OctaveExpression* expression = new OctaveExpression ( this );
     expression->setCommand ( command );
     expression->setFinishingBehavior ( finishingBehavior );
@@ -140,6 +143,7 @@ Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, 
 
 void OctaveSession::runExpression ( OctaveExpression* expression )
 {
+    kDebug() << "runExpression";
     if ( status() != Done ) {
         m_expressionQueue.enqueue ( expression );
         kDebug() << m_expressionQueue.size();
@@ -156,6 +160,7 @@ void OctaveSession::runExpression ( OctaveExpression* expression )
 
 void OctaveSession::readError()
 {
+    kDebug() << "readError";
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
     if (!m_currentExpression || error.isEmpty())
     {
@@ -166,6 +171,7 @@ void OctaveSession::readError()
 
 void OctaveSession::readOutput()
 {
+    kDebug() << "readOutput";
     while (m_process->bytesAvailable() > 0)
     {
         if (m_tempDir.isEmpty() && !m_process->canReadLine())
@@ -228,6 +234,7 @@ void OctaveSession::readOutput()
 
 void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
+    kDebug() << "currentExpressionStatusChanged";
     if (!m_currentExpression)
     {
         return;

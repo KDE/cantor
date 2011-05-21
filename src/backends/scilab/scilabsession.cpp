@@ -20,12 +20,14 @@
 
 #include "scilabsession.h"
 #include "scilabexpression.h"
-// #include "scilabcompletionobject.h"
 
 #include <kdebug.h>
+#include <KProcess>
+#include <settings.h>
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend)
 {
+    m_process = 0;
     kDebug();
 }
 
@@ -37,56 +39,118 @@ ScilabSession::~ScilabSession()
 void ScilabSession::login()
 {
     kDebug()<<"login";
-    changeStatus(Cantor::Session::Done);
+
+    m_process = new KProcess(this);
+    m_process->setProgram(ScilabSettings::self()->path().toLocalFile());
+
+    kDebug() << m_process->program();
+
+    m_process->setOutputChannelMode(KProcess::SeparateChannels);
+    connect (m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
+    connect (m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+
+    m_process->start();
     emit ready();
 }
 
 void ScilabSession::logout()
 {
     kDebug()<<"logout";
+
+    m_process->write("exit\n");
+    m_process->kill();
+
+    m_runningExpressions.clear();
+    changeStatus(Cantor::Session::Done);
 }
 
 void ScilabSession::interrupt()
 {
     kDebug()<<"interrupt";
+
     foreach(Cantor::Expression* e, m_runningExpressions)
         e->interrupt();
+
     m_runningExpressions.clear();
     changeStatus(Cantor::Session::Done);
 }
 
 Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    kDebug()<<"evaluating: "<<cmd;
-    ScilabExpression* expr=new ScilabExpression(this);
+    kDebug() << "evaluating: " << cmd;
+    ScilabExpression* expr = new ScilabExpression(this);
+
+    changeStatus(Cantor::Session::Running);
+
     expr->setFinishingBehavior(behave);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished()));
     expr->setCommand(cmd);
     expr->evaluate();
-
-    if(m_runningExpressions.isEmpty())
-        changeStatus(Cantor::Session::Running);
-    m_runningExpressions.append(expr);
-
 
     return expr;
 }
 
-// Cantor::CompletionObject* ScilabSession::completionFor(const QString& command)
-// {
-//     kDebug()<<"tab completion for "<<command;
-//     return new ScilabCompletionObject(command, this);
-// }
+void ScilabSession::runExpression(ScilabExpression* expr)
+{
+    QString command = expr->command();
+
+    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
+
+    kDebug() << "Writing command to process" << command;
+
+    command += '\n';
+    m_process->write(command.toUtf8());
+}
 
 void ScilabSession::expressionFinished()
 {
     kDebug()<<"finished";
-    ScilabExpression* expression=qobject_cast<ScilabExpression*>(sender());
-    m_runningExpressions.removeAll(expression);
-    kDebug()<<"size: "<<m_runningExpressions.size();
+    ScilabExpression* expression = qobject_cast<ScilabExpression*>(sender());
 
-    if(m_runningExpressions.isEmpty())
-       changeStatus(Cantor::Session::Done);
+    m_runningExpressions.removeAll(expression);
+    kDebug() << "size: " << m_runningExpressions.size();
+}
+
+void ScilabSession::readError()
+{
+    kDebug() << "readError";
+
+    QString error = m_process->readAllStandardError();
+
+    kDebug() << "error: " << error;
+
+    kDebug() << "error";
+}
+
+void ScilabSession::readOutput()
+{
+    kDebug() << "readOutput";
+
+    QString output = m_process->readAllStandardOutput();
+
+    kDebug() << "output: " << output;
+
+    ScilabExpression* scilabExpression = new ScilabExpression(this);
+    scilabExpression->parseOutput(output);
+}
+
+void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
+{
+    kDebug() << "currentExpressionStatusChanged: " << status;
+
+    switch (status)
+    {
+        case Cantor::Expression::Computing:
+            break;
+
+        case Cantor::Expression::Interrupted:
+            break;
+
+        case Cantor::Expression::Done:
+        case Cantor::Expression::Error:
+            changeStatus(Done);
+
+            break;
+    }
 }
 
 #include "scilabsession.moc"

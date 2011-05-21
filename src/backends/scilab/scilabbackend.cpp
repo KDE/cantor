@@ -23,29 +23,17 @@
 #include "scilabsession.h"
 #include "settings.h"
 #include "ui_settings.h"
-// #include "sageextensions.h"
-// #include "sagehighlighter.h"
 
 #include "kdebug.h"
 #include <QWidget>
 
 #include "cantor_macros.h"
 
-#include <iostream>
-using std::cout;
-
 ScilabBackend::ScilabBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    cout << "Construtor do Scilab";
-    setObjectName("scilabbackend");
     kDebug()<<"Creating ScilabBackend";
-    //initialize the supported extensions
-//     new SageHistoryExtension(this);
-//     new SageScriptExtension(this);
-//     new SageCASExtension(this);
-//     new SageCalculusExtension(this);
-//     new SageLinearAlgebraExtension(this);
-//     new SagePlotExtension(this);
+
+    setObjectName("scilabbackend");
 }
 
 ScilabBackend::~ScilabBackend()
@@ -92,14 +80,13 @@ KConfigSkeleton* ScilabBackend::config() const
 
 KUrl ScilabBackend::helpUrl() const
 {
-    return i18nc("the url to the documentation of Sage, please check if there is a translated version and use the correct url",
-                 "http://www.sagemath.org/doc/reference/index.html");
+    return i18nc("the url to the documentation of Scilab, please check if there is a translated version and use the correct url", "http://www.scilab.org/support/documentation");
 }
 
 QString ScilabBackend::description() const
 {
-    return i18n("Sage is a free open-source mathematics software system licensed under the GPL. <br/>" \
-                "It combines the power of many existing open-source packages into a common Python-based interface.");
+    return i18n("Scilab is an free software, cross-platform numerical computational package and a high-level, numerically oriented programming language. <br/>" \
+        "Scilab is distributed under CeCILL license (GPL compatible)");
 }
 
 K_EXPORT_CANTOR_PLUGIN(scilabbackend, ScilabBackend)

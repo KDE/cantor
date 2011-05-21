@@ -41,6 +41,7 @@ static const char* printCommand = "cantor_print();";
 
 OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session)
 {
+    kDebug() << "OctaveExpression construtor";
     m_plotCommands << "plot" << "semilogx" << "semilogy" << "loglog" << "polar"
                    << "mesh" << "contour" << "bar" << "stairs" << "errorbar"
                    << "surf" << "sombrero";
@@ -59,11 +60,13 @@ OctaveExpression::~OctaveExpression()
 
 void OctaveExpression::interrupt()
 {
+    kDebug() << "interrupt";
     setStatus(Interrupted);
 }
 
 void OctaveExpression::evaluate()
 {
+    kDebug() << "evaluate";
     QString cmd = command();
     QStringList cmdWords = cmd.split(QRegExp("\\b"), QString::SkipEmptyParts);
     if (!cmdWords.contains("help") && !cmdWords.contains("completion_matches"))
@@ -100,6 +103,7 @@ void OctaveExpression::evaluate()
 
 void OctaveExpression::parseOutput ( QString output )
 {
+    kDebug() << "parseOutput: " << output;
     m_resultString += output;
     if (!m_resultString.trimmed().isEmpty())
     {
@@ -131,6 +135,7 @@ void OctaveExpression::parseError(QString error)
 
 void OctaveExpression::parsePlotFile(QString file)
 {
+    kDebug() << "parsePlotFile";
     if (QFile::exists(file))
     {
         setResult(new OctavePlotResult(file));
@@ -144,7 +149,7 @@ void OctaveExpression::parsePlotFile(QString file)
 
 void OctaveExpression::finalize()
 {
-    kDebug() << m_resultString;
+    kDebug() << "finalize: " << m_resultString;
     foreach ( const QString& line, m_resultString.split('\n', QString::SkipEmptyParts) )
     {
         if (m_resultString.contains('='))
