@@ -45,7 +45,7 @@ void ScilabSession::login()
 
     kDebug() << m_process->program();
 
-    m_process->setOutputChannelMode(KProcess::SeparateChannels);
+    m_process->setOutputChannelMode(KProcess::ForwardedChannels);
     connect (m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
     connect (m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
