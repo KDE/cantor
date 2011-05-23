@@ -48,6 +48,7 @@ class ScilabSession : public Cantor::Session
   private:
     KProcess* m_process;
     QList<ScilabExpression*> m_runningExpressions;
+    ScilabExpression* m_currentExpression;
 
   private slots:
     void expressionFinished();

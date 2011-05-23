@@ -46,8 +46,8 @@ void ScilabSession::login()
     kDebug() << m_process->program();
 
     m_process->setOutputChannelMode(KProcess::ForwardedChannels);
-    connect (m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
-    connect (m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
+    QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
     m_process->start();
     emit ready();
@@ -92,13 +92,16 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
 void ScilabSession::runExpression(ScilabExpression* expr)
 {
     QString command = expr->command();
+    m_currentExpression = expr;
 
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
+    connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
 
     kDebug() << "Writing command to process" << command;
 
     command += '\n';
     m_process->write(command.toUtf8());
+
+    readOutput();
 }
 
 void ScilabSession::expressionFinished()
@@ -117,8 +120,6 @@ void ScilabSession::readError()
     QString error = m_process->readAllStandardError();
 
     kDebug() << "error: " << error;
-
-    kDebug() << "error";
 }
 
 void ScilabSession::readOutput()
@@ -126,11 +127,11 @@ void ScilabSession::readOutput()
     kDebug() << "readOutput";
 
     QString output = m_process->readAllStandardOutput();
+    output += " output\n";
 
     kDebug() << "output: " << output;
 
-    ScilabExpression* scilabExpression = new ScilabExpression(this);
-    scilabExpression->parseOutput(output);
+    m_currentExpression->parseOutput(output);
 }
 
 void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
