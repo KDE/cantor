@@ -33,6 +33,7 @@ ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend)
 
 ScilabSession::~ScilabSession()
 {
+    m_process->terminate();
     kDebug();
 }
 
@@ -40,16 +41,21 @@ void ScilabSession::login()
 {
     kDebug()<<"login";
 
+    QStringList args;
+
+    args << "-nb";
+
     m_process = new KProcess(this);
-    m_process->setProgram(ScilabSettings::self()->path().toLocalFile());
+    m_process->setProgram(ScilabSettings::self()->path().toLocalFile(), args);
 
     kDebug() << m_process->program();
 
-    m_process->setOutputChannelMode(KProcess::ForwardedChannels);
+    m_process->setOutputChannelMode(KProcess::SeparateChannels);
     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
     m_process->start();
+
     emit ready();
 }
 
@@ -61,6 +67,7 @@ void ScilabSession::logout()
     m_process->kill();
 
     m_runningExpressions.clear();
+    kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -100,8 +107,6 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 
     command += '\n';
     m_process->write(command.toUtf8());
-
-    readOutput();
 }
 
 void ScilabSession::expressionFinished()
@@ -127,11 +132,14 @@ void ScilabSession::readOutput()
     kDebug() << "readOutput";
 
     QString output = m_process->readAllStandardOutput();
-    output += " output\n";
+
+    if(status() != Running){
+        return;
+    }
 
     kDebug() << "output: " << output;
-
     m_currentExpression->parseOutput(output);
+
 }
 
 void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
