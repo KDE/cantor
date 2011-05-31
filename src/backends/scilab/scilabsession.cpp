@@ -51,7 +51,7 @@ void ScilabSession::login()
     kDebug() << m_process->program();
 
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
+//     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
     m_process->start();
@@ -64,7 +64,10 @@ void ScilabSession::logout()
     kDebug()<<"logout";
 
     m_process->write("exit\n");
-    m_process->kill();
+    if (!m_process->waitForFinished(1000))
+    {
+        m_process->kill();
+    }
 
     m_runningExpressions.clear();
     kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
@@ -99,6 +102,7 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
 void ScilabSession::runExpression(ScilabExpression* expr)
 {
     QString command = expr->command();
+
     m_currentExpression = expr;
 
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
@@ -107,6 +111,9 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 
     command += '\n';
     m_process->write(command.toUtf8());
+
+    while(m_process->waitForReadyRead(50));
+        readOutput();
 }
 
 void ScilabSession::expressionFinished()
@@ -133,7 +140,8 @@ void ScilabSession::readOutput()
 
     QString output = m_process->readAllStandardOutput();
 
-    if(status() != Running){
+    kDebug() << "output.isNull? " << output.isNull();
+    if(status() != Running || output.isNull()){
         return;
     }
 
