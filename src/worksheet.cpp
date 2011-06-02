@@ -715,16 +715,17 @@ void Worksheet::load(const QString& filename )
 
     }
 
-    m_session=b->createSession();
-    m_loginFlag=true;
-    QTimer::singleShot(0, this, SLOT(loginToSession()));
 
-    //Set the Highlighting, depending on the current state
-    //If the session isn't logged in, use the default
-    enableHighlighting( m_highlighter!=0 || (m_loginFlag && Settings::highlightDefault()) );
-
+    //cleanup the worksheet and all it contains
+    delete m_session;
+    m_session=0;
+    foreach(WorksheetEntry* entry, m_entries)
+        delete entry;
     clear();
     m_entries.clear();
+
+    m_session=b->createSession();
+    m_loginFlag=true;
 
     kDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
@@ -744,6 +745,16 @@ void Worksheet::load(const QString& filename )
 
         expressionChild = expressionChild.nextSiblingElement();
     }
+
+    //login to the session, but let Qt process all the events in its pipeline
+    //first.
+    QTimer::singleShot(0, this, SLOT(loginToSession()));
+
+    //Set the Highlighting, depending on the current state
+    //If the session isn't logged in, use the default
+    enableHighlighting( m_highlighter!=0 || (m_loginFlag && Settings::highlightDefault()) );
+
+
 
     emit sessionChanged();
 }
