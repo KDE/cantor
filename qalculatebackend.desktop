@@ -17,6 +17,7 @@ Name[sv]=Beräkna
 Name[tr]=Qalculate
 Name[uk]=Qalculate
 Name[x-test]=xxQalculatexx
+Name[zh_CN]=计算器
 Icon=qalculatebackend
 X-KDE-ServiceTypes=Cantor/Backend
 X-KDE-Library=cantor_qalculatebackend
