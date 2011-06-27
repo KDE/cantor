@@ -20,17 +20,31 @@
 
 #include "scilabexpression.h"
 
+#include <config-cantorlib.h>
+
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <QTimer>
+#include <QFile>
 #include "scilabsession.h"
+
+#ifdef WITH_EPS
+#include "epsresult.h"
+typedef Cantor::EpsResult ScilabPlotResult;
+#else
+#include "imageresult.h"
+typedef Cantor::ImageResult ScilabPlotResult;
+#endif
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug() << "ScilabExpression construtor";
+
+    m_plotCommands << "plot";
+
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
@@ -65,6 +79,20 @@ void ScilabExpression::parseError(QString error)
     setResult(new Cantor::TextResult(error));
     setErrorMessage(error);
     setStatus(Cantor::Expression::Error);
+}
+
+void ScilabExpression::parsePlotFile(QString file)
+{
+    kDebug() << "parsePlotFile";
+    if (QFile::exists(file))
+    {
+        setResult(new ScilabPlotResult(file));
+//         setPlotPending(false);
+        if (m_finished)
+        {
+            setStatus(Done);
+        }
+    }
 }
 
 void ScilabExpression::interrupt()

@@ -23,6 +23,10 @@
 
 #include <kdebug.h>
 #include <KProcess>
+#include <KDirWatch>
+
+#include <QtCore/QFile>
+
 #include <settings.h>
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend)
@@ -53,6 +57,13 @@ void ScilabSession::login()
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
 //     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+
+    if(ScilabSettings::integratePlots())
+    {
+        m_watch = new KDirWatch(this);
+        m_watch->setObjectName("ScilabDirWatch");
+        connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
+    }
 
     m_process->start();
 
@@ -132,6 +143,7 @@ void ScilabSession::readError()
     QString error = m_process->readAllStandardError();
 
     kDebug() << "error: " << error;
+//     m_currentExpression->parseError(error);
 }
 
 void ScilabSession::readOutput()
@@ -148,6 +160,23 @@ void ScilabSession::readOutput()
     kDebug() << "output: " << output;
     m_currentExpression->parseOutput(output);
 
+}
+
+void ScilabSession::plotFileChanged(QString filename)
+{
+    kDebug() << "plotFileChanged filename:" << filename;
+
+    if (!QFile::exists(filename) || !filename.split('/').last().contains("c-ob-"))
+    {
+        kDebug() << "plotFileChanged - return";
+        return;
+    }
+
+    if (m_currentExpression)
+    {
+         kDebug() << "m_currentExpression - true";
+         m_currentExpression->parsePlotFile(filename);
+    }
 }
 
 void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status status)

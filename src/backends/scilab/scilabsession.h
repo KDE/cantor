@@ -24,6 +24,8 @@
 #include "session.h"
 
 class ScilabExpression;
+class KTemporaryFile;
+class KDirWatch;
 class KProcess;
 
 class ScilabSession : public Cantor::Session
@@ -47,12 +49,16 @@ class ScilabSession : public Cantor::Session
 
   private:
     KProcess* m_process;
+    KDirWatch* m_watch;
+    QString m_tempDir;
+
     QList<ScilabExpression*> m_runningExpressions;
     ScilabExpression* m_currentExpression;
 
   private slots:
     void expressionFinished();
     void currentExpressionStatusChanged(Cantor::Expression::Status status);
+    void plotFileChanged(QString filename);
 };
 
 #endif /* _SCILABSESSION_H */

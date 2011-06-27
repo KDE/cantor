@@ -22,6 +22,7 @@
 #define _SCILABEXPRESSION_H
 
 #include "expression.h"
+#include <QStringList>
 
 class QTimer;
 
@@ -36,12 +37,15 @@ class ScilabExpression : public Cantor::Expression
     void interrupt();
     void parseOutput(QString output);
     void parseError(QString error);
+    void parsePlotFile(QString file);
 
   public slots:
     void evalFinished();
 
   private:
     QTimer* m_timer;
+    bool m_finished;
+    QStringList m_plotCommands;
 };
 
 #endif /* _SCILABEXPRESSION_H */
