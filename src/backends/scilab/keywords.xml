@@ -8,23 +8,206 @@
     <word>%pi</word>
   </variables>
   <functions>
+    <!-- Bitwise operations -->
+    <word>bitand</word>
+    <word>bitcmp</word>
+    <word>bitget</word>
+    <word>bitor</word>
+    <word>bitset</word>
+    <word>bitxor</word>
+    <!-- Complex -->
+    <word>complex</word>
+    <word>imag</word>
+    <word>imult</word>
+    <word>isreal</word>
+    <word>real</word>
+    <!-- Discrete mathematics -->
+    <word>binomial</word>
+    <word>factor</word>
+    <word>factorial</word>
+    <word>perms</word>
+    <word>primes</word>
+    <word>rat</word>
+    <!-- Elementary matrices -->
+    <word>diag</word>
+    <word>eye</word>
+    <word>ind2sub</word>
+    <word>linspace</word>
+    <word>logspace</word>
+    <word>meshgrid</word>
+    <word>ndgrid</word>
+    <word>ones</word>
+    <word>rand</word>
+    <word>sub2ind</word>
+    <word>zeros</word>
+    <!-- Floating point -->
+    <word>ceil</word>
+    <word>double</word>
+    <word>fix</word>
+    <word>floor</word>
+    <word>frexp</word>
+    <word>int</word>
+    <word>isinf</word>
+    <word>isnan</word>
+    <word>nearfloat</word>
+    <word>nextpow2</word>
+    <word>number_properties</word>
+    <word>round</word>
+    <!-- Integer representation -->
+    <word>base2dec</word>
+    <word>bin2dec</word>
+    <word>dec2bin</word>
+    <word>dec2hex</word>
+    <word>dec2oct</word>
+    <word>hex2dec</word>
+    <word>oct2dec</word>
+    <!-- Matrix manipulation -->
+    <word>flipdim</word>
+    <word>permute</word>
+    <word>repmat</word>
+    <word>resize_matrix</word>
+    <!-- Matrix operations -->
+    <word>cumprod</word>
+    <word>cumsum</word>
+    <word>kron</word>
+    <word>prod</word>
+    <word>sum</word>
+    <word>tril</word>
+    <word>triu</word>
+    <!-- Search and sort -->
+    <word>dsearch</word>
+    <word>gsort</word>
+    <word>lex_sort</word>
+    <word>vectorfind</word>
+    <!-- Set operations -->
+    <word>intersect</word>
+    <word>setdiff</word>
+    <word>union</word>
+    <word>unique</word>
+    <!-- Signal processing -->
+    <word>bloc2exp</word>
+    <word>bloc2ss</word>
+    <word>pen2ea</word>
+    <word>ssrand</word>
+    <word>sysconv</word>
+    <word>sysdiag</word>
+    <word>syslin</word>
+    <word>trfmod</word>
+    <!-- Symbolic -->
+    <word>solve</word>
+    <word>trianfml</word>
+    <word>trisolve</word>
+    <!-- Trigonometry -->
+    <word>acos</word>
+    <word>acosd</word>
+    <word>acosh</word>
+    <word>acoshm</word>
+    <word>acosm</word>
+    <word>acot</word>
+    <word>acotd</word>
+    <word>acoth</word>
+    <word>acsc</word>
+    <word>acscd</word>
+    <word>acsch</word>
+    <word>asec</word>
+    <word>asecd</word>
+    <word>asech</word>
+    <word>asin</word>
+    <word>asind</word>
+    <word>asinh</word>
+    <word>asinhm</word>
+    <word>asinm</word>
+    <word>atan</word>
+    <word>atand</word>
+    <word>atanh</word>
+    <word>atanhm</word>
+    <word>atanm</word>
+    <word>conj</word>
+    <word>cos</word>
+    <word>cosd</word>
+    <word>cosh</word>
+    <word>coshm</word>
+    <word>cosm</word>
+    <word>cotd</word>
+    <word>cotg</word>
+    <word>coth</word>
+    <word>cothm</word>
+    <word>csc</word>
+    <word>cscd</word>
+    <word>csch</word>
+    <word>csgn</word>
+    <word>sec</word>
+    <word>secd</word>
+    <word>sech</word>
+    <word>sin</word>
+    <word>sinc</word>
+    <word>sind</word>
+    <word>sinh</word>
+    <word>sinhm</word>
+    <word>sinm</word>
+    <word>tan</word>
+    <word>tand</word>
+    <word>tanh</word>
+    <word>tanhm</word>
+    <word>tanm</word>
+    <!-- Others functions -->
+    <word>abs</word>
+    <word>amell</word>
+    <word>and</word>
+    <word>and_op</word>
+    <word>cat</word>
+    <word>cell2mat</word>
+    <word>cellstr</word>
+    <word>char</word>
+    <word>delip</word>
+    <word>diff</word>
+    <word>exp</word>
+    <word>inttrap</word>
+    <word>isdef</word>
+    <word>isempty</word>
+    <word>isequal</word>
+    <word>isequalbitwise</word>
+    <word>isvector</word>
+    <word>log</word>
+    <word>log10</word>
+    <word>log1p</word>
+    <word>log2</word>
+    <word>logm</word>
+    <word>lstsize</word>
+    <word>max</word>
+    <word>min</word>
+    <word>modulo</word>
+    <word>ndims</word>
+    <word>norm</word>
+    <word>or</word>
+    <word>or_op</word>
+    <word>pertrans</word>
+    <word>sign</word>
+    <word>signm</word>
+    <word>size</word>
+    <word>sqrt</word>
+    <word>sqrtm</word>
+    <word>squarewave</word>
+    <word>toeplitz</word>
+    <word>typeof</word>
+    <!-- Graphical Functions -->
     <word>plot</word>
   </functions>
   <keywords>
-    <word>and</word>
+    <word>ans</word>
+    <word>case</word>
+    <word>catch</word>
     <word>do</word>
     <word>else</word>
     <word>elseif</word>
-    <word>false</word>
+    <word>end</word>
     <word>for</word>
+    <word>global</word>
     <word>if</word>
-    <word>in</word>
-    <word>not</word>
-    <word>or</word>
-    <word>step</word>
+    <word>return</word>
+    <word>select</word>
     <word>then</word>
-    <word>thru</word>
-    <word>true</word>
+    <word>try</word>
     <word>while</word>
   </keywords>
 </scilab>

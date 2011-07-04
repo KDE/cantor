@@ -119,16 +119,17 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 {
     QString command;
 
-    if(ScilabSettings::integratePlots())
-    {
-        command += "xs2png(gcf(), 'foo.png');\n";
-    }
+//     if(ScilabSettings::integratePlots())
+//     {
+//         command += "xs2png(gcf(), 'foo.png');\n";
+//     }
 
     command += expr->command();
 
     m_currentExpression = expr;
 
-    connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
+    connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this,
+            SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
 
     command += '\n';
 

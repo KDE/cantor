@@ -24,5 +24,6 @@ target_link_libraries( cantor_scilabbackend ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4
 #   cantortest
 # )
 
-install( FILES scilabbackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
+install(FILES scilabbackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
+install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/scilabbackend)
 install(TARGETS cantor_scilabbackend DESTINATION ${PLUGIN_INSTALL_DIR})

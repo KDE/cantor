@@ -59,7 +59,7 @@ void ScilabKeywords::loadFromFile()
 
     if(!file.open(QIODevice::ReadOnly))
     {
-        kDebug()<<"error opening keywords.xml file. highlighting and completion won't work";
+        kDebug() << "error opening keywords.xml file. highlighting and completion won't work";
         return;
     }
 
@@ -70,19 +70,21 @@ void ScilabKeywords::loadFromFile()
     {
         const QStringRef name=xml.name();
 
-        if(name=="keywords"||name=="variables"||name=="functions")
+        if((name == "keywords")|| (name == "variables") || (name == "functions"))
         {
             while(xml.readNextStartElement())
             {
                 Q_ASSERT(xml.isStartElement() && xml.name() == "word");
 
-                const QString text=xml.readElementText();
+                const QString text = xml.readElementText();
 
-                if(name=="keywords")
-                    m_keywords<<text;
-                else if(name=="variables")
-                    m_variables<<text;
-                else if(name=="functions")
+                if(name == "keywords")
+                    m_keywords << text;
+
+                else if(name == "variables")
+                    m_variables << text;
+
+                else if(name == "functions")
                     m_functions<<text;
             }
         }
@@ -94,8 +96,8 @@ void ScilabKeywords::loadFromFile()
 
     if (xml.hasError())
     {
-        kDebug()<<"error parsing element";
-        kDebug()<<"error: "<<xml.errorString();
+        kDebug() << "error parsing element";
+        kDebug() << "error: "<< xml.errorString();
     }
 
 }
