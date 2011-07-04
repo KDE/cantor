@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scilab>
+  <variables>
+    <word>_</word>
+    <word>__</word>
+    <word>%</word>
+    <word>%%</word>
+    <word>%pi</word>
+  </variables>
+  <functions>
+    <word>plot</word>
+  </functions>
+  <keywords>
+    <word>and</word>
+    <word>do</word>
+    <word>else</word>
+    <word>elseif</word>
+    <word>false</word>
+    <word>for</word>
+    <word>if</word>
+    <word>in</word>
+    <word>not</word>
+    <word>or</word>
+    <word>step</word>
+    <word>then</word>
+    <word>thru</word>
+    <word>true</word>
+    <word>while</word>
+  </keywords>
+</scilab>

@@ -20,12 +20,14 @@
 
 #include "scilabsession.h"
 #include "scilabexpression.h"
+#include "scilabhighlighter.h"
 
 #include <kdebug.h>
 #include <KProcess>
 #include <KDirWatch>
 
 #include <QtCore/QFile>
+#include <QTextEdit>
 
 #include <settings.h>
 
@@ -60,8 +62,11 @@ void ScilabSession::login()
 
     if(ScilabSettings::integratePlots())
     {
+        kDebug() << "integratePlots";
+
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("ScilabDirWatch");
+
         connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
@@ -112,15 +117,23 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
 
 void ScilabSession::runExpression(ScilabExpression* expr)
 {
-    QString command = expr->command();
+    QString command;
+
+    if(ScilabSettings::integratePlots())
+    {
+        command += "xs2png(gcf(), 'foo.png');\n";
+    }
+
+    command += expr->command();
 
     m_currentExpression = expr;
 
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
 
+    command += '\n';
+
     kDebug() << "Writing command to process" << command;
 
-    command += '\n';
     m_process->write(command.toUtf8());
 
     while(m_process->waitForReadyRead(50));
@@ -166,7 +179,7 @@ void ScilabSession::plotFileChanged(QString filename)
 {
     kDebug() << "plotFileChanged filename:" << filename;
 
-    if (!QFile::exists(filename) || !filename.split('/').last().contains("c-ob-"))
+    if (!QFile::exists(filename))
     {
         kDebug() << "plotFileChanged - return";
         return;
@@ -197,6 +210,11 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
             break;
     }
+}
+
+QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new ScilabHighlighter(parent);
 }
 
 #include "scilabsession.moc"

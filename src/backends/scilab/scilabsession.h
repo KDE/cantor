@@ -41,6 +41,8 @@ class ScilabSession : public Cantor::Session
     void interrupt();
     void runExpression(ScilabExpression* expr);
 
+    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
 
   public slots:

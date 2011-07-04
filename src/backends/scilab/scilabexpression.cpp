@@ -43,7 +43,9 @@ ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Express
 {
     kDebug() << "ScilabExpression construtor";
 
-    m_plotCommands << "plot";
+    m_plotCommands << "plot"
+                   << "plot2d" << "plot2d1" << "plot2d2" << "plot2d3" << "plot2d4"
+                   << "plot3d" << "plot3d1" << "plot3d2" << "plot3d3";
 
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
