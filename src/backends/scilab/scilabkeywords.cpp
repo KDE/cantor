@@ -40,10 +40,10 @@ ScilabKeywords::~ScilabKeywords()
 
 ScilabKeywords* ScilabKeywords::instance()
 {
-    static ScilabKeywords* inst=0;
-    if(inst==0)
+    static ScilabKeywords* inst = 0;
+    if(inst == 0)
     {
-        inst=new ScilabKeywords();
+        inst = new ScilabKeywords();
         inst->loadFromFile();
     }
 
@@ -68,9 +68,9 @@ void ScilabKeywords::loadFromFile()
     xml.readNextStartElement();
     while(xml.readNextStartElement())
     {
-        const QStringRef name=xml.name();
+        const QStringRef name = xml.name();
 
-        if((name == "keywords")|| (name == "variables") || (name == "functions"))
+        if((name == "keywords") || (name == "variables") || (name == "functions"))
         {
             while(xml.readNextStartElement())
             {
@@ -81,11 +81,13 @@ void ScilabKeywords::loadFromFile()
                 if(name == "keywords")
                     m_keywords << text;
 
-                else if(name == "variables")
+                else if(name == "variables"){
+                    kDebug() << text;
                     m_variables << text;
+                }
 
                 else if(name == "functions")
-                    m_functions<<text;
+                    m_functions << text;
             }
         }
         else

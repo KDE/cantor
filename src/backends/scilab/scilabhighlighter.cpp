@@ -52,8 +52,12 @@ ScilabHighlighter::~ScilabHighlighter()
 void ScilabHighlighter::highlightBlock(const QString& text)
 {
     kDebug() << "ScilabHighlighter::highlightBlock";
-    if (skipHighlighting(text))
+    kDebug() << "text: " << text;
+
+    if (skipHighlighting(text)){
+        kDebug() << "skipHighlighting(" << text << " ) " << "== true";
         return;
+    }
 
     //Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
@@ -66,7 +70,7 @@ void ScilabHighlighter::highlightBlock(const QString& text)
 
     while (startIndex >= 0) {
 
-        int endIndex = commentEndExpression.indexIn(text,  startIndex);
+        int endIndex = commentEndExpression.indexIn(text, startIndex);
         int commentLength;
         if (endIndex == -1) {
 
