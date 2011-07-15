@@ -29,6 +29,7 @@
 
 #include <kdebug.h>
 #include <kmenu.h>
+#include <klocale.h>
 
 WorksheetEntry::WorksheetEntry(QTextCursor position, Worksheet* parent ) : QObject( parent )
 {
@@ -216,5 +217,28 @@ void WorksheetEntry::showCompletion()
 {
 
 }
+
+void WorksheetEntry::createSubMenuInsert(KMenu* menu)
+{
+    KMenu* subMenuInsert = new KMenu(menu);
+    KMenu* subMenuInsertBefore = new KMenu(menu);
+    
+    subMenuInsert->addAction(i18n("Command Entry"), m_worksheet, SLOT(insertCommandEntry()));
+    subMenuInsert->addAction(i18n("Text Entry"), m_worksheet, SLOT(insertTextEntry()));
+    subMenuInsert->addAction(i18n("Image Entry"), m_worksheet, SLOT(insertImageEntry()));
+    subMenuInsert->addAction(i18n("Page Break"), m_worksheet, SLOT(insertPageBreakEntry()));
+
+    subMenuInsertBefore->addAction(i18n("Command Entry"), m_worksheet, SLOT(insertCommandEntryBefore()));
+    subMenuInsertBefore->addAction(i18n("Text Entry"), m_worksheet, SLOT(insertTextEntryBefore()));
+    subMenuInsertBefore->addAction(i18n("Image Entry"), m_worksheet, SLOT(insertImageEntryBefore()));
+    subMenuInsertBefore->addAction(i18n("Page Break"), m_worksheet, SLOT(insertPageBreakEntryBefore()));
+
+    subMenuInsert->setTitle(i18n("Insert Entry"));
+    subMenuInsertBefore->setTitle(i18n("Insert Entry Before"));
+    menu->addSeparator();
+    menu->addMenu(subMenuInsert);
+    menu->addMenu(subMenuInsertBefore);
+}
+
 
 #include "worksheetentry.moc"

@@ -26,6 +26,7 @@
 #include <QTextTableCell>
 #include <QPointer>
 #include <QKeyEvent>
+#include <kmenu.h>
 #include "lib/expression.h"
 
 namespace Cantor{
@@ -97,6 +98,9 @@ class WorksheetEntry : public QObject
 
   public slots:
     virtual void update()=0;
+
+  protected:
+    void createSubMenuInsert(KMenu* menu);
 
   protected:
     QTextFrame* m_frame;

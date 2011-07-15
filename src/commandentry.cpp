@@ -258,12 +258,6 @@ bool CommandEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTe
     }else if(isInCommandCell(cursor))
     {
         KMenu* defaultMenu = new KMenu(m_worksheet);
-        KMenu* subMenuInsert = new KMenu(defaultMenu);
-
-        subMenuInsert->addAction(i18n("Command Entry"), m_worksheet, SLOT(insertCommandEntry()));
-        subMenuInsert->addAction(i18n("Command Entry Before"), m_worksheet, SLOT(insertCommandEntryBefore()));
-        subMenuInsert->addAction(i18n("Text Entry"), m_worksheet, SLOT(insertTextEntry()));
-        subMenuInsert->addAction(i18n("Text Entry Before"), m_worksheet, SLOT(insertTextEntryBefore()));
 
         defaultMenu->addAction(KStandardAction::cut(m_worksheet));
         defaultMenu->addAction(KStandardAction::copy(m_worksheet));
@@ -281,10 +275,9 @@ bool CommandEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTe
         defaultMenu->addSeparator();
 
         defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
-        subMenuInsert->setTitle(i18n("Insert Entry"));
-        defaultMenu->addSeparator();
 
-        defaultMenu->addMenu(subMenuInsert);
+	createSubMenuInsert(defaultMenu);
+
         defaultMenu->popup(event->globalPos());
 
         return true;

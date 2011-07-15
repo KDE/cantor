@@ -29,6 +29,11 @@
 
 #include <kdebug.h>
 #include <kzip.h>
+#include <kmenu.h>
+#include <kicon.h>
+#include <klocale.h>
+#include <kstandardaction.h>
+#include <kaction.h>
 
 
 TextEntry::TextEntry(QTextCursor position, Worksheet* parent ) : WorksheetEntry( position, parent )
@@ -90,6 +95,32 @@ bool TextEntry::acceptsDrop(const QTextCursor& cursor)
 
     return true;
 }
+
+bool TextEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor)
+{
+    Q_UNUSED(cursor);
+    KMenu* defaultMenu = new KMenu(m_worksheet);
+
+    defaultMenu->addAction(KStandardAction::cut(m_worksheet));
+    defaultMenu->addAction(KStandardAction::copy(m_worksheet));
+    defaultMenu->addAction(KStandardAction::paste(m_worksheet));
+    defaultMenu->addSeparator();
+
+    if(!m_worksheet->isRunning())
+	defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
+    else
+	defaultMenu->addAction(KIcon("process-stop"),i18n("Interrupt"),m_worksheet,SLOT(interrupt()),0);
+    defaultMenu->addSeparator();
+
+    defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
+
+    createSubMenuInsert(defaultMenu);
+
+    defaultMenu->popup(event->globalPos());
+	
+    return true;
+}
+
 
 void TextEntry::setContent(const QString& content)
 {

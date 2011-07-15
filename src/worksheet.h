@@ -50,15 +50,23 @@ class Worksheet : public KRichTextWidget
 
     void print(QPrinter* printer);
 
+    bool isPrinting();
+
   public slots:
     WorksheetEntry* appendCommandEntry();
     void appendCommandEntry(const QString& text);
     WorksheetEntry* appendTextEntry();
+    WorksheetEntry* appendImageEntry();
+    WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* insertCommandEntry();
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry();
+    WorksheetEntry* insertImageEntry();
+    WorksheetEntry* insertPageBreakEntry();
     WorksheetEntry* insertCommandEntryBefore();
     WorksheetEntry* insertTextEntryBefore();
+    WorksheetEntry* insertImageEntryBefore();
+    WorksheetEntry* insertPageBreakEntryBefore();
 
     void setCurrentEntry(WorksheetEntry * entry, bool moveCursor = true);
     void moveToPreviousEntry();
@@ -129,6 +137,7 @@ class Worksheet : public KRichTextWidget
     bool m_completionEnabled;
     bool m_showExpressionIds;
     bool m_loginFlag;
+    bool m_isPrinting;
 };
 
 #endif /* _WORKSHEET_H */

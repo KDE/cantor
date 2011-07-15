@@ -45,6 +45,8 @@ class TextEntry : public WorksheetEntry
     QTextCursor lastValidCursorPosition();
     bool isValidCursor(const QTextCursor& cursor);
 
+    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
+
     bool acceptRichText();
     bool acceptsDrop(const QTextCursor& cursor);
 

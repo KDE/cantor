@@ -27,6 +27,22 @@
 <xsl:text>&#xA;\end{verbatim}&#xA;</xsl:text>
 </xsl:template>
 
+<xsl:template match="PageBreak">
+<xsl:apply-templates/>
+<xsl:text>&#xA;\newpage{}&#xA;</xsl:text>
+</xsl:template>
+
+<xsl:template match="Image">
+<xsl:if test="Path != ''">
+<xsl:text>\begin{center}
+\includegraphics</xsl:text>
+<xsl:value-of select="LatexSizeString" />
+<xsl:text>{</xsl:text>
+<xsl:value-of select="Path" />
+<xsl:text>}&#xA;\end{center}&#xA;</xsl:text>
+</xsl:if>
+</xsl:template>
+
 <xsl:template match="p">
 <xsl:apply-templates/>
 <xsl:text>&#xA;</xsl:text>

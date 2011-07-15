@@ -32,6 +32,8 @@
 #include "worksheetentry.h"
 #include "commandentry.h"
 #include "textentry.h"
+#include "imageentry.h"
+#include "pagebreakentry.h"
 
 #include "resultproxy.h"
 #include "animationhandler.h"
@@ -85,6 +87,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KRichTextWidge
     m_proxy=new ResultProxy(document());
     document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
 
+    m_isPrinting=false;
     //postpone login, until everything is set up correctly
     m_loginFlag=true;
     QTimer::singleShot(0, this, SLOT(loginToSession()));
@@ -118,16 +121,24 @@ void Worksheet::loginToSession()
 void Worksheet::print( QPrinter* printer )
 {
     m_proxy->useHighResolution(true);
+    m_isPrinting = true;
     foreach(WorksheetEntry* e, m_entries)
         e->update();
 
 
     KTextEdit::print(printer);
 
+    m_isPrinting = false;
+
     m_proxy->useHighResolution(false);
     foreach(WorksheetEntry* e, m_entries)
         e->update();
 
+}
+
+bool Worksheet::isPrinting()
+{
+    return m_isPrinting;
 }
 
 bool Worksheet::event(QEvent* event)
@@ -203,14 +214,9 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
     const QTextCursor cursor = cursorForPosition(event->pos());
     WorksheetEntry* entry = entryAt(cursor);
 
-    if (entry)
-    {
-        if (!entry->worksheetContextMenuEvent(event, cursor))
-            KRichTextWidget::contextMenuEvent(event);
-        if (entry != m_currentEntry)
-            setCurrentEntry(entry);
-    }
-    else
+    if (entry && entry != m_currentEntry)
+	setCurrentEntry(entry);
+    if (!entry || !entry->worksheetContextMenuEvent(event, cursor))
     {
         KMenu* defaultMenu = new KMenu(this);
 
@@ -225,6 +231,8 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
         {
             defaultMenu->addAction(i18n("Append Command Entry"),this,SLOT(appendCommandEntry()),0);
             defaultMenu->addAction(i18n("Append Text Entry"),this,SLOT(appendTextEntry()),0);
+            defaultMenu->addAction(i18n("Append Image"),this,SLOT(appendImageEntry()),0);
+            defaultMenu->addAction(i18n("Append Page Break"),this,SLOT(appendPageBreakEntry()),0);
 
         }
         else
@@ -232,6 +240,8 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
             setCurrentEntry(entryNextTo(cursor));
             defaultMenu->addAction(i18n("Insert Command Entry"),this,SLOT(insertCommandEntryBefore()),0);
             defaultMenu->addAction(i18n("Insert Text Entry"),this,SLOT(insertTextEntryBefore()),0);
+            defaultMenu->addAction(i18n("Insert Image"),this,SLOT(insertImageEntryBefore()),0);
+            defaultMenu->addAction(i18n("Insert Page Break"),this,SLOT(insertPageBreakEntryBefore()),0);
         }
 
         defaultMenu->popup(event->globalPos());
@@ -373,6 +383,12 @@ WorksheetEntry* Worksheet::insertEntryAt(const int type, const QTextCursor& curs
     case (CommandEntry::Type):
         entry = new CommandEntry(cursor, this);
     break;
+    case (ImageEntry::Type):
+	entry = new ImageEntry(cursor, this);
+	break;
+    case (PageBreakEntry::Type):
+	entry = new PageBreakEntry(cursor, this);
+	break;
     default:
         entry = 0;
     }
@@ -414,6 +430,17 @@ WorksheetEntry* Worksheet::appendCommandEntry()
 WorksheetEntry* Worksheet::appendTextEntry()
 {
    return appendEntry(TextEntry::Type);
+}
+
+
+WorksheetEntry* Worksheet::appendPageBreakEntry()
+{
+    return appendEntry(PageBreakEntry::Type);
+}
+
+WorksheetEntry* Worksheet::appendImageEntry()
+{
+   return appendEntry(ImageEntry::Type);
 }
 
 void Worksheet::appendCommandEntry(const QString& text)
@@ -461,9 +488,19 @@ WorksheetEntry* Worksheet::insertTextEntry()
     return insertEntry(TextEntry::Type);
 }
 
+WorksheetEntry* Worksheet::insertImageEntry()
+{
+    return insertEntry(ImageEntry::Type);
+}
+
 WorksheetEntry* Worksheet::insertCommandEntry()
 {
     return insertEntry(CommandEntry::Type);
+}
+
+WorksheetEntry* Worksheet::insertPageBreakEntry()
+{
+    return insertEntry(PageBreakEntry::Type);
 }
 
 void Worksheet::insertCommandEntry(const QString& text)
@@ -509,6 +546,16 @@ WorksheetEntry* Worksheet::insertTextEntryBefore()
 WorksheetEntry* Worksheet::insertCommandEntryBefore()
 {
     return insertEntryBefore(CommandEntry::Type);
+}
+
+WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
+{
+    return insertEntryBefore(PageBreakEntry::Type);
+}
+
+WorksheetEntry* Worksheet::insertImageEntryBefore()
+{
+    return insertEntryBefore(ImageEntry::Type);
 }
 
 void Worksheet::interrupt()
@@ -742,6 +789,16 @@ void Worksheet::load(const QString& filename )
             entry = appendTextEntry();
             entry->setContent(expressionChild, file);
         }
+	else if (tag == "PageBreak")
+	{
+	    entry = appendPageBreakEntry();
+	    entry->setContent(expressionChild, file);
+	}
+	else if (tag == "Image")
+	{
+	  entry = appendImageEntry();
+	  entry->setContent(expressionChild, file);
+	}
 
         expressionChild = expressionChild.nextSiblingElement();
     }

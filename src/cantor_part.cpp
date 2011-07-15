@@ -160,6 +160,15 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction("insert_text_entry",  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
+    KAction* insertPageBreakEntry=new KAction(i18n("Insert Page Break"), actionCollection());
+    actionCollection()->addAction("insert_page_break_entry", insertPageBreakEntry);
+    connect(insertPageBreakEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntry()));
+
+    KAction* insertImageEntry=new KAction(i18n("Insert Image"), actionCollection());
+    actionCollection()->addAction("insert_image_entry", insertImageEntry);
+    connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
+
+    /*
     KAction* insertCommandEntryBefore=new KAction(i18n("Insert Command Entry Before"), actionCollection());
     //insertCommandEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction("insert_command_entry_before",  insertCommandEntryBefore);
@@ -169,6 +178,16 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction("insert_text_entry_before",  insertTextEntryBefore);
     connect(insertTextEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntryBefore()));
+
+    KAction* insertPageBreakEntryBefore=new KAction(i18n("Insert Page Break Before"), actionCollection());
+    actionCollection()->addAction("insert_page_break_entry_before", insertPageBreakEntryBefore);
+    connect(insertPageBreakEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntryBefore()));
+
+    KAction* insertImageEntryBefore=new KAction(i18n("Insert Image Entry Before"), actionCollection());
+    //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_image_entry_before",  insertImageEntryBefore);
+    connect(insertImageEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntryBefore()));
+    */
 
     KAction* removeCurrent=new KAction(i18n("Remove current Entry"), actionCollection());
     removeCurrent->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
