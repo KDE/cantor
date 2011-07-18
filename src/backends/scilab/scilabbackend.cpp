@@ -57,7 +57,8 @@ Cantor::Backend::Capabilities ScilabBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of ScilabSession";
 
-    return Cantor::Backend::SyntaxHighlighting;
+    return Cantor::Backend::SyntaxHighlighting |
+           Cantor::Backend::Completion;
 }
 
 bool ScilabBackend::requirementsFullfilled() const

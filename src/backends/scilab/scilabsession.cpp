@@ -21,6 +21,7 @@
 #include "scilabsession.h"
 #include "scilabexpression.h"
 #include "scilabhighlighter.h"
+#include "scilabcompletionobject.h"
 
 #include <kdebug.h>
 #include <KProcess>
@@ -216,6 +217,11 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QTextEdit* parent)
 {
     return new ScilabHighlighter(parent);
+}
+
+Cantor::CompletionObject* ScilabSession::completionFor(const QString& command)
+{
+    return new ScilabCompletionObject(command, this);
 }
 
 #include "scilabsession.moc"

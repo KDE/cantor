@@ -82,7 +82,7 @@ void ScilabKeywords::loadFromFile()
                     m_keywords << text;
 
                 else if(name == "variables"){
-                    kDebug() << text;
+//                     kDebug() << text;
                     m_variables << text;
                 }
 

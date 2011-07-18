@@ -15,19 +15,19 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
 #include <kdebug.h>
 
-#include "maximacompletionobject.h"
+#include "scilabcompletionobject.h"
 
-#include "maximasession.h"
-#include "maximakeywords.h"
+#include "scilabsession.h"
+#include "scilabkeywords.h"
 
-MaximaCompletionObject::MaximaCompletionObject(const QString& command, MaximaSession* session) : Cantor::CompletionObject(command, session)
+ScilabCompletionObject::ScilabCompletionObject(const QString& command, ScilabSession* session) : Cantor::CompletionObject(command, session)
 {
-    kDebug() << "MaximaCompletionObject construtor";
+    kDebug() << "ScilabCompletionObject construtor";
 
     //Only use the completion for the last command part between end and opening bracket or ; or space
     QString cmd=command;
@@ -40,17 +40,18 @@ MaximaCompletionObject::MaximaCompletionObject(const QString& command, MaximaSes
     setCommand(cmd);
 }
 
-MaximaCompletionObject::~MaximaCompletionObject()
+ScilabCompletionObject::~ScilabCompletionObject()
 {
 
 }
 
-void MaximaCompletionObject::fetchCompletions()
+void ScilabCompletionObject::fetchCompletions()
 {
     QStringList allCompletions;
-    allCompletions<<MaximaKeywords::instance()->variables();
-    allCompletions<<MaximaKeywords::instance()->functions();
-    allCompletions<<MaximaKeywords::instance()->keywords();
+
+    allCompletions << ScilabKeywords::instance()->variables();
+    allCompletions << ScilabKeywords::instance()->functions();
+    allCompletions << ScilabKeywords::instance()->keywords();
 
     setCompletions(allCompletions);
 

@@ -4,8 +4,9 @@ set( ScilabBackend_SRCS
      scilabbackend.cpp
      scilabsession.cpp
      scilabexpression.cpp
-     scilabhighlighter.cpp
      scilabkeywords.cpp
+     scilabhighlighter.cpp
+     scilabcompletionobject.cpp
 )
 
 kde4_add_kcfg_files(ScilabBackend_SRCS settings.kcfgc)

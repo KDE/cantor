@@ -40,6 +40,7 @@ ScilabHighlighter::ScilabHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
 
     addRule(QRegExp("\".*\""), stringFormat());
     addRule(QRegExp("'.*'"), stringFormat());
+    addRule(QRegExp("//[^\n]*"), commentFormat());
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");

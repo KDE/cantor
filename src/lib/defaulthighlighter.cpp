@@ -181,15 +181,27 @@ void DefaultHighlighter::highlightWords(const QString& text)
     const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
     int count;
     int pos = 0;
+    int lastPos=0;
     const int n = words.size();
     for (int i = 0; i < n; ++i)
     {
         count = words[i].size();
         const QString word = words[i].trimmed();
+
         if (d->wordRules.contains(word))
         {
             setFormat(pos, count, d->wordRules[word]);
+        }else
+        {
+            //HACK: to also catch words starting with a symbol, like %pi (for example in SciLab)
+            //see if we have a rule when we join this word with the last word.
+            QString newW=text.mid(lastPos, pos+count).trimmed();
+            if (d->wordRules.contains(newW))
+            {
+                setFormat(lastPos, pos-lastPos+count, d->wordRules[newW]);
+            }
         }
+        lastPos=pos;
         pos += count;
     }
 }
