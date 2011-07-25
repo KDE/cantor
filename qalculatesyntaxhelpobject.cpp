@@ -54,8 +54,7 @@ void QalculateSyntaxHelpObject::fetchInformation()
         if(iargs < 0) {
             iargs = f->minargs() + 1;
         }
-        QString str,str2;
-        str = "<p>";
+        QString str,str2,syntax;
         str += ename->name.c_str();
         str += "(";
         if(iargs != 0) {
@@ -86,12 +85,42 @@ void QalculateSyntaxHelpObject::fetchInformation()
                 str += CALCULATOR->getComma().c_str();
                 str += " ...";
             }
-        }
-        str += ")</p>";
-        QString syntax = str;
-        QString desc = QString("<p>%2</p>").arg(item->description().c_str());
+            str += ")";
+            syntax = QString("<p>%1</p>").arg(str);
 
-        m_answer = title + syntax + desc;
+            for(int i2 = 1; i2 <= iargs; i2++) {
+                arg = f->getArgumentDefinition(i2);
+                if(arg && !arg->name().empty()) {
+                    str = arg->name().c_str();
+                } else {
+                    str = QString::number(i2);
+                }
+                str += ": ";
+                if(arg) {
+                    str2 = arg->printlong().c_str();
+                } else {
+                    str2 = default_arg.printlong().c_str();
+                }
+                if(i2 > f->minargs()) {
+                    str2 += " (";
+                    //optional argument, in description
+                    str2 += "optional";
+                    if(!f->getDefaultValue(i2).empty()) {
+                        str2 += ", ";
+                        //argument default, in description
+                        str2 += "default: ";
+                        str2 += f->getDefaultValue(i2).c_str();
+                    }
+                    str2 += ")";
+                }
+                str += str2;
+            }
+        }
+        QString arguments = QString("<p>%1</p>").arg(str);
+
+        QString desc = QString("<p>%1</p>").arg(item->description().c_str());
+
+        m_answer = title + desc + syntax + arguments;
     }
 }
 
