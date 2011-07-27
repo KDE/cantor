@@ -2,6 +2,7 @@
 Type=Service
 Icon=
 Name=Variable Manager
+Name[bg]=Управление на променливи
 Name[ca]=Gestor de variables
 Name[ca@valencia]=Gestor de variables
 Name[da]=Håndtering af variabler
@@ -33,6 +34,7 @@ X-KDE-PluginInfo-Name=VariableManager
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=A panel to manage the variables of a session
+Comment[bg]=Панел за управление променливите на сесията
 Comment[ca]=Un plafó per gestionar les variables d'una sessió
 Comment[ca@valencia]=Un plafó per gestionar les variables d'una sessió
 Comment[da]=Et panel til at håndtere variablerne i en session
