@@ -232,7 +232,7 @@ void SageSession::runFirstExpression()
             command=("help("+command.mid(1)+')');
 
         kDebug()<<"writing "<<command<<" to the process";
-        m_process->pty()->write((command+'\n').toUtf8());
+        m_process->pty()->write(QString(command+'\n').toUtf8());
     }
 }
 

@@ -22,6 +22,8 @@ else(NOT WIN32)
 endif(NOT WIN32)
 
 include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+
 
 add_subdirectory( doc )
 add_subdirectory( src )

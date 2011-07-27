@@ -68,7 +68,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
             QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
             imageFile->copyTo(dir);
-            KUrl imageUrl=dir+'/'+imageFile->name();
+            KUrl imageUrl=QString(dir+QLatin1Char('/')+imageFile->name());
             if(type=="latex")
             {
                 result=new Cantor::LatexResult(resultElement.text(), imageUrl);
