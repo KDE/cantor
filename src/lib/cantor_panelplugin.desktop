@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/PanelPlugin
 Comment=A Plugin for Cantor's Panel
+Comment[bg]=Приставка за панела на Cantor
 Comment[ca]=Un endollable per al plafó del Cantor
 Comment[ca@valencia]=Un endollable per al plafó del Cantor
 Comment[da]=Et plugin til Cantor's panel

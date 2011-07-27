@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/Assistant
 Comment=An Assistant for Cantor
+Comment[bg]=Помощник за Cantor
 Comment[bs]=Asistent za Cantor
 Comment[ca]=Un assistent per al Cantor
 Comment[ca@valencia]=Un assistent per al Cantor

@@ -2,6 +2,7 @@
 Type=Service
 Icon=
 Name=Help
+Name[bg]=Помощ
 Name[ca]=Ajuda
 Name[ca@valencia]=Ajuda
 Name[cs]=Nápověda
@@ -35,6 +36,7 @@ X-KDE-PluginInfo-Name=HelpPanel
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=A panel to display help
+Comment[bg]=Панел за показване на помощ
 Comment[ca]=Un plafó per mostrar les pàgines d'ajuda
 Comment[ca@valencia]=Un plafó per mostrar les pàgines d'ajuda
 Comment[da]=Et panel til at vise hjælp
