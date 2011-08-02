@@ -153,6 +153,12 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      */
     void highlightRegExps(const QString& text);
 
+    /**
+     * Returns a string  that contains a regular expression that matches for characters thar are allowed inside
+     * words for this backend. For example, maxima or scilab allow % at the beginning of variable names
+     */
+    QString nonSeparatingCharacters() const;
+
   private slots:
     void positionChanged();
     void updateFormats();

@@ -178,30 +178,56 @@ void DefaultHighlighter::highlightPairs(const QString& text)
 
 void DefaultHighlighter::highlightWords(const QString& text)
 {
+    kDebug() << "DefaultHighlighter::highlightWords";
+
     const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
     int count;
     int pos = 0;
-    int lastPos=0;
+
     const int n = words.size();
     for (int i = 0; i < n; ++i)
     {
         count = words[i].size();
-        const QString word = words[i].trimmed();
+        QString word = words[i];
+
+        //kind of a HACK:
+        //look at previous words, if they end with allowed characters,
+        //prepend them to the current word. This allows for example
+        //to highlight words that start with a "Non-word"-character
+        //e.g. %pi in the scilab backend.
+        kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
+        if(!nonSeparatingCharacters().isNull())
+        {
+            for(int j = i - 1; j >= 0; j--)
+            {
+                kDebug() << "j: " << j << "w: " << words[j];
+                const QString& w = words[j];
+                const QString exp = QString("(%1)*$").arg(nonSeparatingCharacters());
+                kDebug() << "exp: " << exp;
+                int idx = w.indexOf(QRegExp(exp));
+                const QString& s = w.mid(idx);
+                kDebug() << "s: " << s;
+
+                if(s.size() > 0)
+                {
+                    pos -= s.size();
+                    count += s.size();
+                    word = s + word;
+                } else{
+                    break;
+                }
+            }
+        }
+
+        word = word.trimmed();
+
+        kDebug() << "highlighing: " << word;
 
         if (d->wordRules.contains(word))
         {
             setFormat(pos, count, d->wordRules[word]);
-        }else
-        {
-            //HACK: to also catch words starting with a symbol, like %pi (for example in SciLab)
-            //see if we have a rule when we join this word with the last word.
-            QString newW=text.mid(lastPos, pos+count).trimmed();
-            if (d->wordRules.contains(newW))
-            {
-                setFormat(lastPos, pos-lastPos+count, d->wordRules[newW]);
-            }
         }
-        lastPos=pos;
+
         pos += count;
     }
 }
@@ -352,5 +378,9 @@ void DefaultHighlighter::removeRule(const QRegExp& regexp)
     d->regExpRules.removeAll(rule);
 }
 
+QString DefaultHighlighter::nonSeparatingCharacters() const
+{
+    return QString();
+}
 
 #include  "defaulthighlighter.moc"

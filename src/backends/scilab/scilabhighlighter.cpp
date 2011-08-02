@@ -85,3 +85,9 @@ void ScilabHighlighter::highlightBlock(const QString& text)
         startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
     }
 }
+
+QString ScilabHighlighter::nonSeparatingCharacters() const
+{
+    kDebug() << "ScilabHighlighter::nonSeparatingCharacters() function";
+    return "[%]";
+}
