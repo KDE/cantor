@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name="cantorrc"/>
+  <group name="QalculateBackend">
+    <entry name="postConversion" type="bool">
+      <label>If and how units will be automatically converted. If true, convert to the best suited SI units (the least amount of units).</label>
+      <default>true</default>
+    </entry>
+    <entry name="angleUnit" type="Enum">
+        <label>Default angle unit for trigonometric functions.</label>
+        <choices name="AngleUnit">
+            <choice name="ANGLE_UNIT_NONE" />
+            <choice name="ANGLE_UNIT_RADIANS" />
+            <choice name="ANGLE_UNIT_DEGREES" />
+            <choice name="ANGLE_UNIT_GRADIANS" />
+        </choices>
+    </entry>
+    <entry name="base" type="int">
+      <label>Base of parsed and evaluated numbers.</label>
+      <default>10</default>
+    </entry>
+    <entry name="structuring" type="Enum">
+        <choices name="StructuringMode">
+            <choice name="STRUCTURING_NONE" />
+            <choice name="STRUCTURING_SIMPLIFY" />
+            <choice name="STRUCTURING_FACTORIZE" />
+        </choices>
+        <label>If the evaluation result will be simplified or factorized.</label>
+        <default>0</default>
+    </entry>
+    <entry name="fractionFormat" type="Enum">
+        <choices name="NumberFractionFormat">
+             <choice name="FRACTION_DECIMAL" />
+             <choice name="FRACTION_DECIMAL_EXACT" />
+             <choice name="FRACTION_FRACTIONAL" />
+             <choice name="FRACTION_COMBINED" />
+        </choices>
+        <label>If rational numbers will be displayed with decimals, as a fraction, or something in between.</label>
+        <default>0</default>
+    </entry>
+    <entry name="indicateInfiniteSeries" type="bool">
+      <label>Show that the digit series of a number continues forever with three dots, instead of rounding (ex. 2/3 displays as 0.666666... instead of 0.666667).</label>
+      <default>false</default>
+    </entry>
+    <entry name="useAllPrefixes" type="bool">
+      <label>Use all decimal SI prefixes. If false, prefixes which is not a multiple of thousand (centi, deci, deca, hecto) will not be used automatically.</label>
+      <default>false</default>
+    </entry>
+    <entry name="negativeExponents" type="bool">
+      <label>If true, negative exponents will be used instead of division (ex. 5/x^2 becomes 5*x^-2).</label>
+      <default>false</default>
+    </entry>
+    <entry name="minExp" type="Enum">
+        <choices name="ExpMode">
+            <choice name="EXP_NONE" />
+            <choice name="EXP_PURE" />
+            <choice name="EXP_SCIENTIFIC" />
+            <choice name="EXP_PRECISION" />
+        </choices>
+        <label>Numerical display.</label>
+        <default>3</default>
+    </entry>
+  </group>
+</kcfg>
