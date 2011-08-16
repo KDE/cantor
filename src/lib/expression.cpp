@@ -29,6 +29,7 @@ using namespace Cantor;
 #include "imageresult.h"
 #include "latexresult.h"
 #include "settings.h"
+#include "latexrenderer.h"
 
 #include <QFileInfo>
 
@@ -55,8 +56,6 @@ public:
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
-
-    QString latexFilename;
 };
 
 static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
@@ -166,69 +165,33 @@ void Expression::renderResultAsLatex()
     kDebug()<<"rendering as latex";
     kDebug()<<"checking if it really is a formula that can be typeset";
 
-    QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+    LatexRenderer* renderer=new LatexRenderer(this);
+    renderer->setLatexCode(result()->data().toString().trimmed());
+    renderer->addHeader(additionalLatexHeaders());
 
-    //Check if the cantor subdir exists, if not, create it
-    KTemporaryFile *texFile=new KTemporaryFile();
-    texFile->setPrefix( "cantor/" );
-    texFile->setSuffix( ".tex" );
-    texFile->open();
+    connect(renderer, SIGNAL(done()), this, SLOT(latexRendered()));
+    connect(renderer, SIGNAL(error()), this, SLOT(latexRendered()));
 
-    QString expressionTex=tex;
-    expressionTex=expressionTex.arg(additionalLatexHeaders());
-    expressionTex=expressionTex.arg(result()->data().toString().trimmed());
-
-    texFile->write(expressionTex.toUtf8());
-    texFile->flush();
-
-    QString fileName = texFile->fileName();
-    kDebug()<<"fileName: "<<fileName;
-    d->latexFilename=fileName;
-    d->latexFilename.replace(".tex", ".eps");
-    KProcess *p=new KProcess( this );
-    p->setWorkingDirectory(dir);
-
-    (*p)<<Settings::self()->latexCommand()<<"-interaction=batchmode"<<"-halt-on-error"<<fileName;
-
-    connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertToPs() ) );
-    p->start();
-}
-
-void Expression::convertToPs()
-{
-    kDebug()<<"converting to ps";
-    QString dviFile=d->latexFilename;
-    dviFile.replace(".eps", ".dvi");
-    KProcess *p=new KProcess( this );
-    kDebug()<<"running: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
-    (*p)<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
-
-    connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( latexRendered() ) );
-    p->start();
+    renderer->render();
 }
 
 void Expression::latexRendered()
 {
-    kDebug()<<"rendered file "<<d->latexFilename;
-    //cleanup the temp directory a bit...
-    QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
-    QStringList unneededExtensions;
-    unneededExtensions<<".log"<<".aux"<<".tex"<<".dvi";
-    foreach(const QString& ext, unneededExtensions)
-    {
-        QString s=d->latexFilename;
-        s.replace(".eps", ext);
-        QFile f(s);
-        //f.remove();
-    }
+    LatexRenderer* renderer=qobject_cast<LatexRenderer*>(sender());
 
+    kDebug()<<"rendered a result to "<<renderer->imagePath();
     //replace the textresult with the rendered latex image result
     //ImageResult* latex=new ImageResult( d->latexFilename );
-    if(QFileInfo(d->latexFilename).exists())
+    if(renderer->renderingSuccessful())
     {
-        LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(d->latexFilename));
+        LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(renderer->imagePath()));
         setResult( latex );
+    }else
+    {
+        kDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
+
+    renderer->deleteLater();
 }
 
 //saving code

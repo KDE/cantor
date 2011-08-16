@@ -10,6 +10,7 @@ set( cantor_LIB_SRCS
   imageresult.cpp
   epsresult.cpp
   latexresult.cpp
+  latexrenderer.cpp
   helpresult.cpp
   animationresult.cpp
   extension.cpp
