@@ -106,6 +106,7 @@ QString Expression::errorMessage()
 
 void Expression::setResult(Result* result)
 {
+
     if(d->result)
         delete d->result;
 

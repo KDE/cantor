@@ -138,8 +138,11 @@ void OctaveExpression::parsePlotFile(QString file)
     kDebug() << "parsePlotFile";
     if (QFile::exists(file))
     {
+        kDebug() << "OctaveExpression::parsePlotFile: " << file;
+
         setResult(new OctavePlotResult(file));
         setPlotPending(false);
+
         if (m_finished)
         {
             setStatus(Done);

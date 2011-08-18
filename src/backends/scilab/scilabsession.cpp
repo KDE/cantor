@@ -58,20 +58,27 @@ void ScilabSession::login()
     kDebug() << m_process->program();
 
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-//     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
+    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+
+    m_process->start();
 
     if(ScilabSettings::integratePlots())
     {
         kDebug() << "integratePlots";
 
+//         m_process->write("driver('GIF');");
+        m_process->write("chdir('/tmp');");
+
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("ScilabDirWatch");
 
-        connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
-    }
+        m_watch->addDir("/tmp");
 
-    m_process->start();
+        kDebug() << "addDir /tmp? " << m_watch->contains("/tmp");
+
+        QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
+    }
 
     emit ready();
 }
@@ -138,8 +145,6 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 
     m_process->write(command.toUtf8());
 
-    while(m_process->waitForReadyRead(50));
-        readOutput();
 }
 
 void ScilabSession::expressionFinished()
@@ -158,7 +163,7 @@ void ScilabSession::readError()
     QString error = m_process->readAllStandardError();
 
     kDebug() << "error: " << error;
-//     m_currentExpression->parseError(error);
+    m_currentExpression->parseError(error);
 }
 
 void ScilabSession::readOutput()
@@ -168,11 +173,13 @@ void ScilabSession::readOutput()
     QString output = m_process->readAllStandardOutput();
 
     kDebug() << "output.isNull? " << output.isNull();
+
     if(status() != Running || output.isNull()){
         return;
     }
 
     kDebug() << "output: " << output;
+
     m_currentExpression->parseOutput(output);
 
 }
@@ -184,7 +191,7 @@ void ScilabSession::plotFileChanged(QString filename)
     if (!QFile::exists(filename))
     {
         kDebug() << "plotFileChanged - return";
-        return;
+        //         return;
     }
 
     if (m_currentExpression)

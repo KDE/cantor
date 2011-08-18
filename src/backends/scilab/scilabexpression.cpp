@@ -31,13 +31,13 @@
 #include <QFile>
 #include "scilabsession.h"
 
-#ifdef WITH_EPS
+/*#ifdef WITH_EPS
 #include "epsresult.h"
 typedef Cantor::EpsResult ScilabPlotResult;
-#else
+#else*/
 #include "imageresult.h"
 typedef Cantor::ImageResult ScilabPlotResult;
-#endif
+// #endif
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
@@ -88,10 +88,14 @@ void ScilabExpression::parsePlotFile(QString file)
     kDebug() << "parsePlotFile";
     if (QFile::exists(file))
     {
+        kDebug() << "ScilabExpression::parsePlotFile: " << file;
+
         setResult(new ScilabPlotResult(file));
-//         setPlotPending(false);
+        setPlotPending(false);
+
         if (m_finished)
         {
+            kDebug() << "ScilabExpression::parsePlotFile: done";
             setStatus(Done);
         }
     }
@@ -110,4 +114,7 @@ void ScilabExpression::evalFinished()
     setStatus(Cantor::Expression::Done);
 }
 
-#include "scilabexpression.moc"
+void ScilabExpression::setPlotPending(bool plot)
+{
+    m_plotPending = plot;
+}

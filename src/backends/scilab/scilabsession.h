@@ -49,6 +49,7 @@ class ScilabSession : public Cantor::Session
   public slots:
     void readOutput();
     void readError();
+    void plotFileChanged(QString filename);
 
   private:
     KProcess* m_process;
@@ -61,7 +62,6 @@ class ScilabSession : public Cantor::Session
   private slots:
     void expressionFinished();
     void currentExpressionStatusChanged(Cantor::Expression::Status status);
-    void plotFileChanged(QString filename);
 };
 
 #endif /* _SCILABSESSION_H */

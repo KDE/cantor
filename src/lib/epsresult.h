@@ -46,7 +46,7 @@ class CANTOR_EXPORT EpsResult : public Result
 
     QDomElement toXml(QDomDocument& doc);
     void saveAdditionalData(KZip* archive);
-    
+
     void save(const QString& filename);
 
   private:
