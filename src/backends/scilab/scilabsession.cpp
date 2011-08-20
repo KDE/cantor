@@ -67,13 +67,12 @@ void ScilabSession::login()
     {
         kDebug() << "integratePlots";
 
-//         m_process->write("driver('GIF');");
         m_process->write("chdir('/tmp');");
 
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("ScilabDirWatch");
 
-        m_watch->addDir("/tmp");
+        m_watch->addDir("/tmp", KDirWatch::WatchFiles);
 
         kDebug() << "addDir /tmp? " << m_watch->contains("/tmp");
 
@@ -127,19 +126,12 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 {
     QString command;
 
-//     if(ScilabSettings::integratePlots())
-//     {
-//         command += "xs2png(gcf(), 'foo.png');\n";
-//     }
-
     command += expr->command();
 
     m_currentExpression = expr;
 
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this,
             SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
-
-    command += '\n';
 
     kDebug() << "Writing command to process" << command;
 
@@ -182,22 +174,27 @@ void ScilabSession::readOutput()
 
     m_currentExpression->parseOutput(output);
 
+    kDebug() << "Exist plot in command? " << m_currentExpression->command().contains("plot");
+
+    if(m_currentExpression->command().contains("plot"))
+        m_currentExpression->parsePlotFile();
+
 }
 
 void ScilabSession::plotFileChanged(QString filename)
 {
     kDebug() << "plotFileChanged filename:" << filename;
 
-    if (!QFile::exists(filename))
-    {
-        kDebug() << "plotFileChanged - return";
-        //         return;
-    }
+//     if (!QFile::exists(filename))
+//     {
+//         kDebug() << "plotFileChanged - return";
+//         return;
+//     }
 
-    if (m_currentExpression)
+    if ((m_currentExpression) && (filename.contains("cantor-export-figure")))
     {
-         kDebug() << "m_currentExpression - true";
-         m_currentExpression->parsePlotFile(filename);
+         kDebug() << "Calling parsePlotFile";
+         m_currentExpression->parsePlotFile();
     }
 }
 

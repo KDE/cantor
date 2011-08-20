@@ -30,6 +30,7 @@
 #include <QTimer>
 #include <QFile>
 #include "scilabsession.h"
+#include "settings.h"
 
 /*#ifdef WITH_EPS
 #include "epsresult.h"
@@ -64,12 +65,14 @@ void ScilabExpression::evaluate()
 
     ScilabSession* scilabSession = dynamic_cast<ScilabSession*>(session());
 
-    if(command().contains("plot")){
+    if((ScilabSettings::integratePlots()) && (command().contains("plot"))){
+
+        kDebug() << "Preparing export figures property";
 
         QString exportCommand;
 
         int countPlotCommand = command().count("plot");
-        int numPlot = 0;
+        numPlot = 0;
 
         QStringList commandList = command().split("\n");
 
@@ -89,6 +92,7 @@ void ScilabExpression::evaluate()
         }
 
         QString newCommand = commandList.join("\n");
+        newCommand.append("\n");
 
         this->setCommand(newCommand);
 
@@ -115,21 +119,35 @@ void ScilabExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-void ScilabExpression::parsePlotFile(QString file)
+void ScilabExpression::parsePlotFile()
 {
     kDebug() << "parsePlotFile";
-    if (QFile::exists(file))
-    {
-        kDebug() << "ScilabExpression::parsePlotFile: " << file;
 
-        setResult(new ScilabPlotResult(file));
-        setPlotPending(false);
+    if(numPlot != 0){
 
-        if (m_finished)
-        {
-            kDebug() << "ScilabExpression::parsePlotFile: done";
-            setStatus(Done);
+        QString plotId;
+
+        for(int count = 0; count <= numPlot; count++){
+            plotId = QString("/tmp/cantor-export-figure-%1.gif").arg(count);
+
+            if (QFile::exists(plotId))
+            {
+                kDebug() << "ScilabExpression::parsePlotFile: " << plotId;
+
+                setResult(new ScilabPlotResult(plotId));
+
+                plotId.clear();
+            }
         }
+    }
+
+    numPlot = 0;
+    setPlotPending(false);
+
+    if (m_finished)
+    {
+        kDebug() << "ScilabExpression::parsePlotFile: done";
+        setStatus(Done);
     }
 }
 
