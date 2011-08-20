@@ -13,7 +13,7 @@
     </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
-      <default>true</default>
+      <default>false</default>
     </entry>
   </group>
 </kcfg>

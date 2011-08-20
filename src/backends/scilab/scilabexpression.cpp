@@ -64,6 +64,38 @@ void ScilabExpression::evaluate()
 
     ScilabSession* scilabSession = dynamic_cast<ScilabSession*>(session());
 
+    if(command().contains("plot")){
+
+        QString exportCommand;
+
+        int countPlotCommand = command().count("plot");
+        int numPlot = 0;
+
+        QStringList commandList = command().split("\n");
+
+        for(int count = 0; count < commandList.size(); count++){
+
+            if(commandList.at(count).toLocal8Bit().contains("plot")){
+
+                exportCommand = QString("\nxs2gif(gcf(), 'cantor-export-figure-%1.gif');").arg(numPlot);
+
+                commandList[count].append(exportCommand);
+
+                exportCommand.clear();
+                numPlot++;
+            }
+
+            kDebug() << "Command " << count << ": " << commandList.at(count).toLocal8Bit().constData();
+        }
+
+        QString newCommand = commandList.join("\n");
+
+        this->setCommand(newCommand);
+
+        kDebug() << "New Command " << command();
+
+    }
+
     scilabSession->runExpression(this);
 
     m_timer->start(1000);
