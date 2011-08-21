@@ -63,6 +63,7 @@
 
 #include "worksheet.h"
 #include "settings.h"
+#include "formulatextobject.h"
 
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KRichTextWidget(parent)
@@ -86,6 +87,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) : KRichTextWidge
 
     m_proxy=new ResultProxy(document());
     document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
+    document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
 
     m_isPrinting=false;
     //postpone login, until everything is set up correctly

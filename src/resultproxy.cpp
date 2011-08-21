@@ -127,14 +127,49 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 //private result specific rendering methods
 QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
 {
-#ifdef LIBSPECTRE_FOUND
+    double scale;
+    if(m_useHighRes)
+        scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
+    else
+        scale=1.8*m_scale;
+
     QTextImageFormat epsCharFormat;
 
+    KUrl url=result->data().toUrl();
+
+    QSize s;
+    bool success=renderEpsToResource(url, &s);
+
+    KUrl internal=url;
+    internal.setProtocol("internal");
+    if(success)
+    {
+        epsCharFormat.setName(internal.url());
+        if(m_useHighRes)
+        {
+            epsCharFormat.setWidth(s.width()*1.2);
+            epsCharFormat.setHeight(s.height()*1.2);
+        }
+        else
+        {
+            epsCharFormat.setWidth(s.width()*scale);
+            epsCharFormat.setHeight(s.height()*scale);
+        }
+    }
+
+    return epsCharFormat;
+}
+
+bool ResultProxy::renderEpsToResource(const KUrl& url, QSize* size)
+{
+#ifdef LIBSPECTRE_FOUND
     SpectreDocument* doc=spectre_document_new();;
     SpectreRenderContext* rc=spectre_render_context_new();
 
-    KUrl url=result->data().toUrl();
     kDebug()<<"rendering eps file: "<<url;
+    KUrl internal=url;
+    internal.setProtocol("internal");
+    kDebug()<<internal;
 
     spectre_document_load(doc, url.toLocalFile().toUtf8());
 
@@ -144,6 +179,8 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
         scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
     else
         scale=1.8*m_scale;
+
+    kDebug()<<"scale: "<<scale;
 
     spectre_document_get_page_size(doc, &w, &h);
     kDebug()<<"dimension: "<<w<<"x"<<h;
@@ -155,29 +192,18 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
 
     QImage img(data, w*scale, h*scale, rowLength, QImage::Format_RGB32);
 
-    m_document->addResource(QTextDocument::ImageResource, url, QVariant(img) );
-    epsCharFormat.setName(url.url());
-    if(m_useHighRes)
-    {
-       epsCharFormat.setWidth(w*1.2);
-       epsCharFormat.setHeight(h*1.2);
-    }
-    else
-    {
-        epsCharFormat.setWidth(w*scale);
-        epsCharFormat.setHeight(h*scale);
-    }
-
+    m_document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
 
     spectre_document_free(doc);
     spectre_render_context_free(rc);
 
-    return epsCharFormat;
-#else
-    Q_UNUSED(result);
-    return QTextFormat().toCharFormat();
-#endif
+    if(size)
+        *size=QSize(w, h);
 
+    return true;
+#else
+    return false;
+#endif
 }
 
 QTextCharFormat ResultProxy::renderGif(Cantor::Result* result)

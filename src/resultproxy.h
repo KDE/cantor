@@ -23,6 +23,8 @@
 
 #include <QObject>
 #include <QTextCursor>
+#include <QSize>
+#include <kurl.h>
 
 namespace Cantor
 {
@@ -48,6 +50,10 @@ class ResultProxy : public QObject
     qreal scale();
 
     void useHighResolution(bool use);
+
+    //this doesn't belong here!
+    bool renderEpsToResource(const KUrl& url, QSize* size = 0);
+
   private:
     QTextCharFormat renderEps(Cantor::Result* result);
     QTextCharFormat renderGif(Cantor::Result* result);

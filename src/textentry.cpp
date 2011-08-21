@@ -21,11 +21,16 @@
 #include "textentry.h"
 #include "worksheetentry.h"
 #include "worksheet.h"
+#include "resultproxy.h"
 #include "lib/defaulthighlighter.h"
+#include "lib/latexrenderer.h"
+
+#include "formulatextobject.h"
 
 #include <QEvent>
 #include <QKeyEvent>
 #include <QTextDocumentFragment>
+#include <QUrl>
 
 #include <kdebug.h>
 #include <kzip.h>
@@ -84,6 +89,19 @@ bool TextEntry::isEmpty()
     return cursor.selection().isEmpty();
 }
 
+bool TextEntry::worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor)
+{
+    QTextCursor c=cursor;
+
+    for(int pos=cursor.selectionStart()+1;pos<=cursor.selectionEnd();pos++)
+    {
+        c.setPosition(pos);
+        if (c.charFormat().objectType() == FormulaTextObject::FormulaTextFormat)
+            showLatexCode(c);
+    }
+    return true;
+}
+
 bool TextEntry::acceptRichText()
 {
     return true;
@@ -117,7 +135,7 @@ bool TextEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTextC
     createSubMenuInsert(defaultMenu);
 
     defaultMenu->popup(event->globalPos());
-	
+
     return true;
 }
 
@@ -178,10 +196,121 @@ void TextEntry::interruptEvaluation()
 bool TextEntry::evaluate(bool current)
 {
     Q_UNUSED(current);
+
+    QTextDocument *doc = m_frame->document();
+    //blahtex::Interface *translator = m_worksheet->translator();
+
+    QTextCursor cursor = findLatexCode(doc);
+    while (!cursor.isNull())
+    {
+        QString latexCode = cursor.selectedText();
+        kDebug()<<"found latex: "<<latexCode;
+
+        latexCode.remove(0, 1);
+        latexCode.remove(latexCode.length() - 1, 1);
+
+
+        Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
+        renderer->setLatexCode(latexCode);
+        renderer->setEquationOnly(true);
+        renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
+        renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
+
+        renderer->renderBlocking();
+
+#if 0
+        QTextCharFormat mmlCharFormat;
+        mmlCharFormat.setObjectType(MmlTextObject::MmlTextFormat);
+        mmlCharFormat.setProperty(MmlTextObject::LatexCode, latexCode);
+
+        if (!translator->ProcessInput(latexCode.toStdWString()))
+            break;
+        QString mmlCode = QString::fromStdWString(translator->GetMathml());
+        kDebug() << mmlCode;
+        if (mmlCode.isEmpty())
+            break;
+
+        QtMmlDocument renderer;
+        renderer.setBaseFontPointSize(cursor.charFormat().fontPointSize());
+        renderer.setFontName(QtMmlWidget::NormalFont, "STIXGeneral");
+        renderer.setContent(mmlCode);
+
+        QImage mmlBufferImage(renderer.size(), QImage::Format_ARGB32);
+        mmlBufferImage.fill(QColor(0, 0, 0, 0).value());
+        QPainter painter(&mmlBufferImage);
+        renderer.paint(&painter, mmlBufferImage.rect().topLeft ());
+
+        mmlCharFormat.setProperty(MmlTextObject::MmlData, mmlBufferImage);
+
+        cursor.removeSelectedText();
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), mmlCharFormat);
+
+#endif
+
+        bool success=m_worksheet->resultProxy()->renderEpsToResource(renderer->imagePath());
+        kDebug()<<"rendering successfull? "<<success;
+
+        QString path=renderer->imagePath();
+        KUrl internal=KUrl(path);
+        internal.setProtocol("internal");
+        kDebug()<<"int: "<<internal;
+
+        QTextCharFormat formulaFormat;
+        formulaFormat.setObjectType(FormulaTextObject::FormulaTextFormat);
+        formulaFormat.setProperty( FormulaTextObject::Data,renderer->imagePath());
+        formulaFormat.setProperty( FormulaTextObject::ResourceUrl, internal);
+        formulaFormat.setProperty( FormulaTextObject::LatexCode, latexCode);
+        formulaFormat.setProperty( FormulaTextObject::FormulaType, renderer->method());
+
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+        delete renderer;
+
+        cursor = findLatexCode(doc);
+
+    }
+
     return true;
 }
 
 void TextEntry::update()
 {
+    QTextCursor cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), m_frame->firstCursorPosition());
+    while(!cursor.isNull()&&cursor.position()<=m_frame->lastPosition())
+    {
+        QTextCharFormat format=cursor.charFormat();
+        if (format.objectType() == FormulaTextObject::FormulaTextFormat)
+        {
+            kDebug()<<"found a formula... rendering the eps...";
+            QUrl url=qVariantValue<QUrl>(format.property(FormulaTextObject::Data));
+            bool success=m_worksheet->resultProxy()->renderEpsToResource(url);
+            kDebug()<<"rendering successfull? "<<success;
 
+            //HACK: reinsert this image, to make sure the layout is updated to the new size
+            cursor.deletePreviousChar();
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+        }
+
+        cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+
+}
+
+QTextCursor TextEntry::findLatexCode(QTextDocument *doc) const
+{
+    QTextCursor startCursor = doc->find("$");
+    if (startCursor.isNull())
+        return startCursor;
+    const QTextCursor endCursor = doc->find("$", startCursor);
+    if (endCursor.isNull())
+        return endCursor;
+    startCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, 1);
+    startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
+    return startCursor;
+}
+
+void TextEntry::showLatexCode(QTextCursor cursor)
+{
+    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
+    cursor.deletePreviousChar();
+    cursor.insertText('$'+latexCode+'$');
 }

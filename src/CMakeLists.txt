@@ -73,11 +73,15 @@ set(cantor_PART_SRCS
    animationhandler.cpp
    animation.cpp
    resultcontextmenu.cpp
+   formulatextobject.cpp
  )
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
 kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
+
+#add_library(blahtexcore STATIC IMPORTED)
+#set_property(TARGET blahtexcore PROPERTY IMPORTED_LOCATION Path_To_BlahtexCore_Library/libblahtexcore.a)
 
 target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
 				     ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTXMLPATTERNS_LIBRARY}

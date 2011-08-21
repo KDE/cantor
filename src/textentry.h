@@ -46,6 +46,7 @@ class TextEntry : public WorksheetEntry
     bool isValidCursor(const QTextCursor& cursor);
 
     bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
+    bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
 
     bool acceptRichText();
     bool acceptsDrop(const QTextCursor& cursor);
@@ -61,6 +62,10 @@ class TextEntry : public WorksheetEntry
     bool evaluate(bool current);
   public slots:
     void update();
+  private:
+    QTextCursor findLatexCode(QTextDocument *doc) const;
+    void showLatexCode(QTextCursor cursor);
+
 };
 
 #endif /* _TEXTENTRY_H */

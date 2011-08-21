@@ -29,7 +29,6 @@ namespace Cantor{
     class Session;
     class Expression;
 }
-//class QTextCursor;
 class WorksheetEntry;
 class ResultProxy;
 class TextEntry;

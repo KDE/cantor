@@ -31,7 +31,8 @@ class CANTOR_EXPORT LatexRenderer : public QObject
 {
   Q_OBJECT
   public:
-    enum Method{ LatexMethod, MmlMethod};
+    enum Method{ LatexMethod = 0, MmlMethod = 1};
+    enum EquationType{ InlineEquation = 0, FullEquation = 1};
     LatexRenderer( QObject* parent = 0);
     ~LatexRenderer();
 
@@ -42,6 +43,10 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     void setHeader(const QString& header);
     Method method() const;
     void setMethod( Method method);
+    void setEquationOnly(bool isEquationOnly);
+    bool isEquationOnly() const;
+    void setEquationType(EquationType type);
+    EquationType equationType() const;
 
     QString errorMessage() const;
     bool renderingSuccessful() const;
@@ -54,6 +59,8 @@ class CANTOR_EXPORT LatexRenderer : public QObject
 
   public slots:
     void render();
+    
+    void renderBlocking();
 
   private:
     void setErrorMessage(const QString& msg);

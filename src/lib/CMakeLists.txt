@@ -60,6 +60,8 @@ kde4_add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
 target_link_libraries( cantorlibs
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KIO_LIBS}
+  ${QT_LIBRARIES}
+  ${QT_QTXML_LIBRARY}
 )
 set_target_properties( cantorlibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}

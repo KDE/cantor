@@ -38,6 +38,8 @@ WorksheetEntry::WorksheetEntry(QTextCursor position, Worksheet* parent ) : QObje
     QTextFrameFormat frameFormat;
     frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
     frameFormat.setBorder(1);
+    frameFormat.setLeftMargin(6);
+    frameFormat.setRightMargin(6);
 
     connect(this, SIGNAL(destroyed(QObject*)), m_worksheet, SLOT(removeEntry(QObject*)));
     connect(this, SIGNAL(leftmostValidPositionReached()), m_worksheet, SLOT(moveToPreviousEntry()));
@@ -222,7 +224,7 @@ void WorksheetEntry::createSubMenuInsert(KMenu* menu)
 {
     KMenu* subMenuInsert = new KMenu(menu);
     KMenu* subMenuInsertBefore = new KMenu(menu);
-    
+
     subMenuInsert->addAction(i18n("Command Entry"), m_worksheet, SLOT(insertCommandEntry()));
     subMenuInsert->addAction(i18n("Text Entry"), m_worksheet, SLOT(insertTextEntry()));
     subMenuInsert->addAction(i18n("Image Entry"), m_worksheet, SLOT(insertImageEntry()));

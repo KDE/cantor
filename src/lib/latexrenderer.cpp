@@ -26,6 +26,7 @@ using namespace Cantor;
 #include <kprocess.h>
 #include <kdebug.h>
 #include <QFileInfo>
+#include <QEventLoop>
 
 #include <config-cantorlib.h>
 #include "settings.h"
@@ -36,6 +37,8 @@ class Cantor::LatexRendererPrivate
     QString latexCode;
     QString header;
     LatexRenderer::Method method;
+    bool isEquationOnly;
+    LatexRenderer::EquationType equationType;
     QString errorMessage;
     bool success;
     QString latexFilename;
@@ -52,11 +55,15 @@ static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
                          "%2                                            \n "\
                          "\\end{document}\n";
 
+static const QString eqnHeader="\\begin{eqnarray*}%1\\end{eqnarray*}    \n ";
+static const QString inlineEqnHeader="$%1$ \n";
 
 LatexRenderer::LatexRenderer(QObject* parent) : QObject(parent),
                                                 d(new LatexRendererPrivate)
 {
     d->method=LatexMethod;
+    d->isEquationOnly=false;
+    d->equationType=InlineEquation;
     d->success=false;
 }
 
@@ -100,6 +107,17 @@ void LatexRenderer::setMethod(LatexRenderer::Method method)
     d->method=method;
 }
 
+void LatexRenderer::setEquationType(LatexRenderer::EquationType type)
+{
+    d->equationType=type;
+}
+
+LatexRenderer::EquationType LatexRenderer::equationType() const
+{
+    return d->equationType;
+}
+
+
 void LatexRenderer::setErrorMessage(const QString& msg)
 {
     d->errorMessage=msg;
@@ -115,6 +133,17 @@ bool LatexRenderer::renderingSuccessful() const
     return d->success;
 }
 
+void LatexRenderer::setEquationOnly(bool isEquationOnly)
+{
+    d->isEquationOnly=isEquationOnly;
+}
+
+bool LatexRenderer::isEquationOnly() const
+{
+    return d->isEquationOnly;
+}
+
+
 QString LatexRenderer::imagePath() const
 {
     return d->latexFilename;
@@ -127,6 +156,16 @@ void LatexRenderer::render()
         case LatexRenderer::LatexMethod:  renderWithLatex(); break;
         case LatexRenderer::MmlMethod:    renderWithMml(); break;
     };
+}
+
+void LatexRenderer::renderBlocking()
+{
+    QEventLoop event;
+    connect(this, SIGNAL(done()), &event, SLOT(quit()));
+    connect(this, SIGNAL(error()), &event, SLOT(quit()));
+
+    render();
+    event.exec();
 }
 
 void LatexRenderer::renderWithLatex()
@@ -142,7 +181,17 @@ void LatexRenderer::renderWithLatex()
 
     QString expressionTex=tex;
     expressionTex=expressionTex.arg(d->header);
+    if(isEquationOnly())
+    {
+        switch(equationType())
+        {
+            case FullEquation: expressionTex=expressionTex.arg(eqnHeader); break;
+            case InlineEquation: expressionTex=expressionTex.arg(inlineEqnHeader); break;
+        }
+    }
     expressionTex=expressionTex.arg(d->latexCode);
+
+    kDebug()<<"full tex: "<<expressionTex;
 
     texFile->write(expressionTex.toUtf8());
     texFile->flush();
