@@ -70,9 +70,9 @@ void ScilabExpression::evaluate()
         kDebug() << "Preparing export figures property";
 
         QString exportCommand;
-
-        int countPlotCommand = command().count("plot");
         numPlot = 0;
+
+        system("rm -f /tmp/cantor-export-figure*");
 
         QStringList commandList = command().split("\n");
 
@@ -80,7 +80,7 @@ void ScilabExpression::evaluate()
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
 
-                exportCommand = QString("\nxs2gif(gcf(), 'cantor-export-figure-%1.gif');").arg(numPlot);
+                exportCommand = QString("\nxs2png(gcf(), 'cantor-export-figure-%1.png');").arg(numPlot);
 
                 commandList[count].append(exportCommand);
 
@@ -92,6 +92,7 @@ void ScilabExpression::evaluate()
         }
 
         QString newCommand = commandList.join("\n");
+        newCommand.prepend("clf();\n");
         newCommand.append("\n");
 
         this->setCommand(newCommand);
@@ -128,7 +129,7 @@ void ScilabExpression::parsePlotFile()
         QString plotId;
 
         for(int count = 0; count <= numPlot; count++){
-            plotId = QString("/tmp/cantor-export-figure-%1.gif").arg(count);
+            plotId = QString("/tmp/cantor-export-figure-%1.png").arg(count);
 
             if (QFile::exists(plotId))
             {

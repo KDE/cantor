@@ -67,7 +67,9 @@ void ScilabSession::login()
     {
         kDebug() << "integratePlots";
 
-        m_process->write("chdir('/tmp');");
+        m_process->write("chdir('/tmp');\n");
+        m_process->write("x = 0;\n");
+        m_process->write("plot(x);\n");
 
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("ScilabDirWatch");
@@ -76,7 +78,7 @@ void ScilabSession::login()
 
         kDebug() << "addDir /tmp? " << m_watch->contains("/tmp");
 
-        QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
+//         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
     emit ready();
@@ -94,6 +96,7 @@ void ScilabSession::logout()
 
     m_runningExpressions.clear();
     kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
+    system("rm -f /tmp/cantor-export-figure*");
     changeStatus(Cantor::Session::Done);
 }
 
@@ -133,9 +136,10 @@ void ScilabSession::runExpression(ScilabExpression* expr)
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this,
             SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
 
+    command += "\n";
     kDebug() << "Writing command to process" << command;
 
-    m_process->write(command.toUtf8());
+    m_process->write(command.toLocal8Bit());
 
 }
 
@@ -165,31 +169,26 @@ void ScilabSession::readOutput()
     QString output = m_process->readAllStandardOutput();
 
     kDebug() << "output.isNull? " << output.isNull();
+    kDebug() << "output: " << output;
 
     if(status() != Running || output.isNull()){
         return;
     }
 
-    kDebug() << "output: " << output;
-
     m_currentExpression->parseOutput(output);
 
     kDebug() << "Exist plot in command? " << m_currentExpression->command().contains("plot");
 
-    if(m_currentExpression->command().contains("plot"))
+    if(m_currentExpression->command().contains("plot")){
+        m_process->waitForReadyRead(2000);
         m_currentExpression->parsePlotFile();
+    }
 
 }
 
 void ScilabSession::plotFileChanged(QString filename)
 {
     kDebug() << "plotFileChanged filename:" << filename;
-
-//     if (!QFile::exists(filename))
-//     {
-//         kDebug() << "plotFileChanged - return";
-//         return;
-//     }
 
     if ((m_currentExpression) && (filename.contains("cantor-export-figure")))
     {
