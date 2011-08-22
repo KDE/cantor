@@ -57,15 +57,18 @@ class Worksheet : public KRichTextWidget
     WorksheetEntry* appendTextEntry();
     WorksheetEntry* appendImageEntry();
     WorksheetEntry* appendPageBreakEntry();
+    WorksheetEntry* appendLatexEntry();
     WorksheetEntry* insertCommandEntry();
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry();
     WorksheetEntry* insertImageEntry();
     WorksheetEntry* insertPageBreakEntry();
+    WorksheetEntry* insertLatexEntry();
     WorksheetEntry* insertCommandEntryBefore();
     WorksheetEntry* insertTextEntryBefore();
     WorksheetEntry* insertImageEntryBefore();
     WorksheetEntry* insertPageBreakEntryBefore();
+    WorksheetEntry* insertLatexEntryBefore();
 
     void setCurrentEntry(WorksheetEntry * entry, bool moveCursor = true);
     void moveToPreviousEntry();

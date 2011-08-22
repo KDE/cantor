@@ -66,6 +66,7 @@ set(cantor_PART_SRCS
    textentry.cpp
    pagebreakentry.cpp
    imageentry.cpp
+   latexentry.cpp
    imagesettingsdialog.cpp
    scripteditorwidget.cpp
    resultproxy.cpp

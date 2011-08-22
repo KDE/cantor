@@ -34,6 +34,7 @@
 #include "textentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
+#include "latexentry.h"
 
 #include "resultproxy.h"
 #include "animationhandler.h"
@@ -233,6 +234,7 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
         {
             defaultMenu->addAction(i18n("Append Command Entry"),this,SLOT(appendCommandEntry()),0);
             defaultMenu->addAction(i18n("Append Text Entry"),this,SLOT(appendTextEntry()),0);
+            defaultMenu->addAction(i18n("Append Latex Entry"),this,SLOT(appendLatexEntry()),0);
             defaultMenu->addAction(i18n("Append Image"),this,SLOT(appendImageEntry()),0);
             defaultMenu->addAction(i18n("Append Page Break"),this,SLOT(appendPageBreakEntry()),0);
 
@@ -242,6 +244,7 @@ void Worksheet::contextMenuEvent(QContextMenuEvent *event)
             setCurrentEntry(entryNextTo(cursor));
             defaultMenu->addAction(i18n("Insert Command Entry"),this,SLOT(insertCommandEntryBefore()),0);
             defaultMenu->addAction(i18n("Insert Text Entry"),this,SLOT(insertTextEntryBefore()),0);
+            defaultMenu->addAction(i18n("Insert Latex Entry"),this,SLOT(insertLatexEntryBefore()),0);
             defaultMenu->addAction(i18n("Insert Image"),this,SLOT(insertImageEntryBefore()),0);
             defaultMenu->addAction(i18n("Insert Page Break"),this,SLOT(insertPageBreakEntryBefore()),0);
         }
@@ -379,20 +382,23 @@ WorksheetEntry* Worksheet::insertEntryAt(const int type, const QTextCursor& curs
 
     switch(type)
     {
-    case (TextEntry::Type):
-        entry = new TextEntry(cursor, this);
-    break;
-    case (CommandEntry::Type):
-        entry = new CommandEntry(cursor, this);
-    break;
-    case (ImageEntry::Type):
-	entry = new ImageEntry(cursor, this);
-	break;
-    case (PageBreakEntry::Type):
-	entry = new PageBreakEntry(cursor, this);
-	break;
-    default:
-        entry = 0;
+        case TextEntry::Type:
+            entry = new TextEntry(cursor, this);
+            break;
+        case CommandEntry::Type:
+            entry = new CommandEntry(cursor, this);
+            break;
+        case ImageEntry::Type:
+            entry = new ImageEntry(cursor, this);
+            break;
+        case PageBreakEntry::Type:
+            entry = new PageBreakEntry(cursor, this);
+            break;
+        case LatexEntry::Type:
+            entry = new LatexEntry(cursor,this);
+            break;
+        default:
+            entry = 0;
     }
 
     return entry;
@@ -443,6 +449,11 @@ WorksheetEntry* Worksheet::appendPageBreakEntry()
 WorksheetEntry* Worksheet::appendImageEntry()
 {
    return appendEntry(ImageEntry::Type);
+}
+
+WorksheetEntry* Worksheet::appendLatexEntry()
+{
+    return appendEntry(LatexEntry::Type);
 }
 
 void Worksheet::appendCommandEntry(const QString& text)
@@ -505,6 +516,11 @@ WorksheetEntry* Worksheet::insertPageBreakEntry()
     return insertEntry(PageBreakEntry::Type);
 }
 
+WorksheetEntry* Worksheet::insertLatexEntry()
+{
+    return insertEntry(LatexEntry::Type);
+}
+
 void Worksheet::insertCommandEntry(const QString& text)
 {
     WorksheetEntry* entry = insertCommandEntry();
@@ -558,6 +574,11 @@ WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
 WorksheetEntry* Worksheet::insertImageEntryBefore()
 {
     return insertEntryBefore(ImageEntry::Type);
+}
+
+WorksheetEntry* Worksheet::insertLatexEntryBefore()
+{
+    return insertEntryBefore(LatexEntry::Type);
 }
 
 void Worksheet::interrupt()
@@ -789,6 +810,10 @@ void Worksheet::load(const QString& filename )
         else if (tag == "Text")
         {
             entry = appendTextEntry();
+            entry->setContent(expressionChild, file);
+        }else if (tag == "Latex")
+        {
+            entry = appendLatexEntry();
             entry->setContent(expressionChild, file);
         }
 	else if (tag == "PageBreak")
