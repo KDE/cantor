@@ -206,8 +206,8 @@ bool TextEntry::evaluate(bool current)
         QString latexCode = cursor.selectedText();
         kDebug()<<"found latex: "<<latexCode;
 
-        latexCode.remove(0, 1);
-        latexCode.remove(latexCode.length() - 1, 1);
+        latexCode.remove(0, 2);
+        latexCode.remove(latexCode.length() - 2, 2);
 
 
         Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
@@ -297,13 +297,13 @@ void TextEntry::update()
 
 QTextCursor TextEntry::findLatexCode(QTextDocument *doc) const
 {
-    QTextCursor startCursor = doc->find("$");
+    QTextCursor startCursor = doc->find("$$");
     if (startCursor.isNull())
         return startCursor;
-    const QTextCursor endCursor = doc->find("$", startCursor);
+    const QTextCursor endCursor = doc->find("$$", startCursor);
     if (endCursor.isNull())
         return endCursor;
-    startCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, 1);
+    startCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, 2);
     startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
     return startCursor;
 }
@@ -312,5 +312,5 @@ void TextEntry::showLatexCode(QTextCursor cursor)
 {
     QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
     cursor.deletePreviousChar();
-    cursor.insertText('$'+latexCode+'$');
+    cursor.insertText("$$"+latexCode+"$$");
 }
