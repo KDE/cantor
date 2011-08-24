@@ -9,6 +9,7 @@ qalculatebackend.cpp
 qalculatesession.cpp
 qalculatehighlighter.cpp
 qalculateexpression.cpp
+qalculateextensions.cpp
 qalculatecompletionobject.cpp
 settingswidget.cpp
 )

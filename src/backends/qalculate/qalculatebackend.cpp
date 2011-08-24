@@ -19,6 +19,7 @@
 
 #include "qalculatebackend.h"
 #include "qalculatesession.h"
+#include "qalculateextensions.h"
 
 #include "settings.h"
 #include "settingswidget.h"
@@ -27,10 +28,14 @@
 
 #include <KLocalizedString>
 
+
 QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
   : Cantor::Backend( parent, args )
 {
     setObjectName("qalculatebackend");
+
+    new QalculateHistoryExtension(this);
+    new QalculateVariableManagementExtension(this);
 }
 
 QalculateBackend::~QalculateBackend()
@@ -50,7 +55,7 @@ Cantor::Session* QalculateBackend::createSession()
 
 Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 {
-    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp;
+    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp | Cantor::Backend::VariableManagement;
 //     return Cantor::Backend::Completion | Cantor::Backend::SyntaxHelp;
 }
 
