@@ -20,6 +20,8 @@
 #include "qalculatebackend.h"
 #include "qalculatesession.h"
 
+#include "qalculateextensions.h"
+
 #include "settings.h"
 #include "settingswidget.h"
 
@@ -31,6 +33,10 @@ QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
   : Cantor::Backend( parent, args )
 {
     setObjectName("qalculatebackend");
+
+    new QalculateCalculusExtension(this);
+    new QalculateCASExtension(this);
+    new QalculateLinearAlgebraExtension(this);
 }
 
 QalculateBackend::~QalculateBackend()
