@@ -15,27 +15,21 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
+    Copyright (C) 2011 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _TEXTENTRY_H
-#define _TEXTENTRY_H
+#ifndef _LATEXENTRY_H
+#define _LATEXENTRY_H
 
 #include "worksheetentry.h"
-#include <QObject>
 
-class Worksheet;
-class WorksheetEntry;
-class KZip;
-
-class TextEntry : public WorksheetEntry
+class LatexEntry : public WorksheetEntry
 {
-  Q_OBJECT
   public:
-    TextEntry(QTextCursor position, Worksheet* parent);
-    ~TextEntry();
+    LatexEntry( QTextCursor position, Worksheet* parent);
+    ~LatexEntry();
 
-    enum {Type = 1};
+    enum {Type = 5};
     int type();
 
     bool isEmpty();
@@ -62,10 +56,10 @@ class TextEntry : public WorksheetEntry
     bool evaluate(bool current);
   public slots:
     void update();
+
   private:
-    QTextCursor findLatexCode(QTextDocument *doc) const;
-    void showLatexCode(QTextCursor cursor);
+    bool m_isShowingCode;
 
 };
 
-#endif /* _TEXTENTRY_H */
+#endif /* _LATEXENTRY_H */
