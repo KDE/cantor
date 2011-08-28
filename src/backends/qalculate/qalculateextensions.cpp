@@ -26,6 +26,19 @@
   Qalculate##name##Extension::~Qalculate##name##Extension() {}
 
 
+// Custom Plot Extension. This extension does not fit into the normal pattern,
+// because it inherts Cantor::Extension directly.
+// Also it does not do anything at all, because all the work is done by the
+// QalculatePlotAssistant
+QalculatePlotExtension::QalculatePlotExtension(QObject* parent) :
+    Cantor::Extension("QalculatePlotExtension", parent)
+{
+}
+
+QalculatePlotExtension::~QalculatePlotExtension()
+{
+}
+
 //CAS Extension
 QALCULATE_EXTENSION_CONSTRUCTORS(CAS)
 

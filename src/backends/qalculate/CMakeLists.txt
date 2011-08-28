@@ -1,3 +1,4 @@
+add_subdirectory(plotassistant)
 project(cantor-qalculate-backend)
 
 set(CMAKE_CXX_FLAGS "${KDE4_ENABLE_EXCEPTIONS} -Wno-deprecated")

@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QalculatePlotAssistantBase</class>
+ <widget class="QWidget" name="QalculatePlotAssistantBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>470</width>
+    <height>489</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Cantor - Plot Dialog</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="KTabWidget" name="ktabwidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Functions</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QTableWidget" name="functionTable">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <column>
+          <property name="text">
+           <string>Title</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Expression</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="KButtonGroup" name="kbuttongroup">
+         <property name="flat">
+          <bool>false</bool>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>220</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="KPushButton" name="addButton">
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="KPushButton" name="removeButton">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="KPushButton" name="clearButton">
+            <property name="text">
+             <string>Clear List</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>X variable</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="xVarEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>x</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Style</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="styleBox">
+           <item>
+            <property name="text">
+             <string>Lines</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Points</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Points and Lines</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Boxes</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Histogram</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Steps</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Candlesticks</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Dots</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Smoothing</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="smoothingBox">
+           <item>
+            <property name="text">
+             <string>None</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Monotonic</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Natural Cubic Splines</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bezier</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bezier (monotonic)</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string>Function Range</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>X range</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="KLineEdit" name="xMinEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>0</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>-</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="KLineEdit" name="xMaxEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>10</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QRadioButton" name="stepsButton">
+            <property name="text">
+             <string>Sampling rate</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QRadioButton" name="stepButton">
+            <property name="text">
+             <string>Step size</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="KLineEdit" name="stepEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KLineEdit" name="stepsEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Options</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_25">
+         <item>
+          <widget class="QLabel" name="label_19">
+           <property name="text">
+            <string>Plot title</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="plotTitleEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_24">
+         <item>
+          <widget class="QLabel" name="label_20">
+           <property name="text">
+            <string>X-axis label</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="xLabelEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_23">
+         <item>
+          <widget class="QLabel" name="label_21">
+           <property name="text">
+            <string>Y-axis label</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="yLabelEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_22">
+         <item>
+          <widget class="QLabel" name="label_22">
+           <property name="text">
+            <string>Legend position</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="legendBox">
+           <item>
+            <property name="text">
+             <string>Hide legend</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Top-left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Top-right</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bottom-left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bottom-right</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Below</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Outside</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_21">
+         <item>
+          <widget class="QCheckBox" name="gridCheckBox">
+           <property name="text">
+            <string>Display Grid</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="borderCheckBox">
+           <property name="text">
+            <string>Display full border</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_20">
+         <item>
+          <widget class="QCheckBox" name="colorCheckBox">
+           <property name="text">
+            <string>Use Colors</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="inlineCheckBox">
+           <property name="text">
+            <string>Display inline</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_19">
+         <item>
+          <widget class="QCheckBox" name="xLogCheckBox">
+           <property name="text">
+            <string>Logarithmic x scale</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="xLogEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QCheckBox" name="yLogCheckBox">
+           <property name="text">
+            <string>Logarithmic y scale</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KLineEdit" name="yLogEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>File Options</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="saveCheckBox">
+            <property name="text">
+             <string>Save plot to file</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KLineEdit" name="saveFileEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="showClearButton" stdset="0">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_23">
+            <property name="text">
+             <string>File type</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KComboBox" name="saveFileBox">
+            <item>
+             <property name="text">
+              <string>Detect from filename</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>PNG</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>PS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>EPS</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>LaTeX</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>SVG</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>FIG</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>119</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KButtonGroup</class>
+   <extends>QGroupBox</extends>
+   <header>kbuttongroup.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>ktabwidget</tabstop>
+  <tabstop>functionTable</tabstop>
+  <tabstop>addButton</tabstop>
+  <tabstop>removeButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>xVarEdit</tabstop>
+  <tabstop>styleBox</tabstop>
+  <tabstop>smoothingBox</tabstop>
+  <tabstop>xMinEdit</tabstop>
+  <tabstop>xMaxEdit</tabstop>
+  <tabstop>stepsButton</tabstop>
+  <tabstop>stepsEdit</tabstop>
+  <tabstop>stepButton</tabstop>
+  <tabstop>stepEdit</tabstop>
+  <tabstop>plotTitleEdit</tabstop>
+  <tabstop>xLabelEdit</tabstop>
+  <tabstop>yLabelEdit</tabstop>
+  <tabstop>legendBox</tabstop>
+  <tabstop>gridCheckBox</tabstop>
+  <tabstop>borderCheckBox</tabstop>
+  <tabstop>colorCheckBox</tabstop>
+  <tabstop>inlineCheckBox</tabstop>
+  <tabstop>xLogCheckBox</tabstop>
+  <tabstop>xLogEdit</tabstop>
+  <tabstop>yLogCheckBox</tabstop>
+  <tabstop>yLogEdit</tabstop>
+  <tabstop>saveCheckBox</tabstop>
+  <tabstop>saveFileEdit</tabstop>
+  <tabstop>saveFileBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>stepsButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>stepButton</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>74</x>
+     <y>437</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>81</x>
+     <y>463</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stepButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>stepsButton</receiver>
+   <slot>toggle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>452</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>105</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stepButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>stepEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>168</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>462</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>xLogCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>xLogEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>111</x>
+     <y>79</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>yLogCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>yLogEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>82</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>111</x>
+     <y>82</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>saveFileEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>111</x>
+     <y>84</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>saveFileBox</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>111</x>
+     <y>84</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saveCheckBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_23</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>67</x>
+     <y>84</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stepsButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>stepsEdit</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>427</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>254</x>
+     <y>436</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

@@ -23,6 +23,13 @@
 
 #include "extension.h"
 
+class QalculatePlotExtension : public Cantor::Extension
+{
+public:
+    QalculatePlotExtension(QObject* parent);
+    ~QalculatePlotExtension();
+};
+
 class QalculateCASExtension : public Cantor::CASExtension
 {
   public:

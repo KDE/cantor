@@ -37,6 +37,7 @@ QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
     new QalculateCalculusExtension(this);
     new QalculateCASExtension(this);
     new QalculateLinearAlgebraExtension(this);
+    new QalculatePlotExtension(this);
 }
 
 QalculateBackend::~QalculateBackend()
