@@ -54,6 +54,8 @@ void QalculatePlotAssistant::initDialog(QWidget* parent)
     connect(m_base.removeButton, SIGNAL(clicked()), this, SLOT(removeSelection()));
     connect(m_base.clearButton, SIGNAL(clicked()), this, SLOT(clearFunctions()));
     connect(m_base.functionTable, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(currentItemChanged(int, int, int, int)));
+    connect(m_base.stepsButton, SIGNAL(toggled(bool)), this, SLOT(toggleStep()));
+    connect(m_base.stepButton, SIGNAL(toggled(bool)), this, SLOT(toggleSteps()));
     m_base.inlineCheckBox->setChecked(QalculateSettings::inlinePlot());
     m_base.colorCheckBox->setChecked(QalculateSettings::coloredPlot());
     m_base.gridCheckBox->setChecked(QalculateSettings::plotGrid());
@@ -62,6 +64,7 @@ void QalculatePlotAssistant::initDialog(QWidget* parent)
     m_base.styleBox->setCurrentIndex(QalculateSettings::plotStyle());
     m_base.legendBox->setCurrentIndex(QalculateSettings::plotLegend());
     m_base.stepsEdit->setText(QString::number(QalculateSettings::plotSteps()));
+    m_base.stepEdit->setDisabled(true);
 }
 
 QStringList QalculatePlotAssistant::run(QWidget* parent)
@@ -71,7 +74,8 @@ QStringList QalculatePlotAssistant::run(QWidget* parent)
 	
     QStringList result;
     if (m_dlg->exec()) {
-	saveRowInformation(m_base.functionTable->currentRow());
+	if (m_base.functionTable->currentRow() >= 0)
+	    saveRowInformation(m_base.functionTable->currentRow());
 	result << plotCommand();
     }
 
@@ -108,6 +112,16 @@ void QalculatePlotAssistant::clearFunctions()
     m_smoothingList.clear();
     while (m_base.functionTable->rowCount())
 	m_base.functionTable->removeRow(0);
+}
+
+void QalculatePlotAssistant::toggleSteps()
+{
+    m_base.stepsButton->setChecked(!m_base.stepButton->isChecked());
+}
+
+void QalculatePlotAssistant::toggleStep()
+{
+    m_base.stepButton->setChecked(!m_base.stepsButton->isChecked());
 }
 
 void QalculatePlotAssistant::currentItemChanged(int newRow, int newColumn, int oldRow, int oldColumn)

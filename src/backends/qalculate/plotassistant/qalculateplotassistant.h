@@ -46,6 +46,8 @@ public slots:
     void removeSelection();
     void clearFunctions();
     void currentItemChanged(int, int, int, int);
+    void toggleSteps();
+    void toggleStep();
 
 public:
     QalculatePlotAssistant(QObject* parent, QList<QVariant> args);

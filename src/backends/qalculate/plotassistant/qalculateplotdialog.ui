@@ -666,38 +666,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>stepsButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>stepButton</receiver>
-   <slot>toggle()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>74</x>
-     <y>437</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>81</x>
-     <y>463</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>stepButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>stepsButton</receiver>
-   <slot>toggle()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>102</x>
-     <y>452</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>105</x>
-     <y>433</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>stepButton</sender>
    <signal>toggled(bool)</signal>
    <receiver>stepEdit</receiver>
