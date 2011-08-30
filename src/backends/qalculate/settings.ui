@@ -304,6 +304,306 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>Plotting</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Display plots inline:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_inlinePlot">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <item>
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Colored Plots:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_coloredPlot">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Show grid:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_plotGrid">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Show full borders:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="kcfg_plotBorder">
+           <property name="text">
+            <string>Enabled</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Width of lines:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KIntNumInput" name="kcfg_plotLineWidth">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
+         <item>
+          <widget class="QLabel" name="label_18">
+           <property name="text">
+            <string>Sampling rate</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KIntNumInput" name="kcfg_plotSteps">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Smoothing Mode:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="kcfg_plotSmoothing">
+           <item>
+            <property name="text">
+             <string>None</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Monotonic</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Natural cubic Splines</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bezier</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bezier (monotonic)</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string>Plot Style:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="kcfg_plotStyle">
+           <item>
+            <property name="text">
+             <string>Lines</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Points</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Points and Lines</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Boxes</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Histogram</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Steps</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Candlesticks</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Dots</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_16">
+         <item>
+          <widget class="QLabel" name="label_16">
+           <property name="text">
+            <string>Legend Position:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="KComboBox" name="kcfg_plotLegend">
+           <item>
+            <property name="text">
+             <string>Hide legend</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Top-left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Top-right</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bottom-left</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bottom-right</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Below</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Outside</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>22</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -325,7 +625,33 @@
    <header>ktabwidget.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>KIntNumInput</class>
+   <extends>QWidget</extends>
+   <header>knuminput.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>ktabwidget</tabstop>
+  <tabstop>kcfg_base</tabstop>
+  <tabstop>kcfg_fractionFormat</tabstop>
+  <tabstop>kcfg_minExp</tabstop>
+  <tabstop>kcfg_indicateInfiniteSeries</tabstop>
+  <tabstop>kcfg_useAllPrefixes</tabstop>
+  <tabstop>kcfg_negativeExponents</tabstop>
+  <tabstop>kcfg_postConversion</tabstop>
+  <tabstop>kcfg_angleUnit</tabstop>
+  <tabstop>kcfg_structuring</tabstop>
+  <tabstop>kcfg_inlinePlot</tabstop>
+  <tabstop>kcfg_coloredPlot</tabstop>
+  <tabstop>kcfg_plotGrid</tabstop>
+  <tabstop>kcfg_plotBorder</tabstop>
+  <tabstop>kcfg_plotLineWidth</tabstop>
+  <tabstop>kcfg_plotSteps</tabstop>
+  <tabstop>kcfg_plotSmoothing</tabstop>
+  <tabstop>kcfg_plotStyle</tabstop>
+  <tabstop>kcfg_plotLegend</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

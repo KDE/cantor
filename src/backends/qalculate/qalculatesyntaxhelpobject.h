@@ -32,6 +32,8 @@ public:
 protected:
     virtual void fetchInformation();
 
+    void setPlotInformation();
+
     QString m_answer;
 };
 

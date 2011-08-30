@@ -43,4 +43,54 @@ class QalculateVariableManagementExtension : public Cantor::VariableManagementEx
     virtual QString clearVariables();
 };
 
-#endif // QALCULATEEXTENSIONS_H
+class QalculatePlotExtension : public Cantor::Extension
+{
+public:
+    QALCULATE_EXT_CDTOR_DECL(Plot)
+};
+
+class QalculateCASExtension : public Cantor::CASExtension
+{
+  public:
+    QALCULATE_EXT_CDTOR_DECL(CAS)
+
+  public slots:
+    virtual QString solve(const QStringList& equations, const QStringList& variables);
+    virtual QString simplify(const QString& expression);
+    virtual QString expand(const QString& expression);
+
+};
+
+class QalculateCalculusExtension : public Cantor::CalculusExtension
+{
+  public:
+    QALCULATE_EXT_CDTOR_DECL(Calculus)
+
+  public slots:
+    QString limit(const QString& expression, const QString& variable, const QString& limit);
+    QString differentiate(const QString& function,const QString& variable, int times);
+    QString integrate(const QString& function, const QString& variable);
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right);
+};
+
+class QalculateLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
+{
+  public:
+    QALCULATE_EXT_CDTOR_DECL(LinearAlgebra)
+
+  public slots:
+    //Commands to create Vectors/Matrices
+    virtual QString createVector(const QStringList& entries, VectorType type);
+    virtual QString createMatrix(const Matrix& matrix);
+    virtual QString identityMatrix(int size);
+
+    //basic functions
+    virtual QString rank(const QString& matrix);
+    virtual QString invertMatrix(const QString& matrix);
+    virtual QString charPoly(const QString& matrix);
+    virtual QString eigenVectors(const QString& matrix);
+    virtual QString eigenValues(const QString& matrix);
+
+};
+
+#endif /* QALCULATEEXTENSIONS_H */

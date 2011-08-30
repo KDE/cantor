@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Name=QalculatePlot
+X-KDE-ServiceTypes=Cantor/Assistant
+X-KDE-Library=cantor_qalculateplotassistant
+X-KDE-PluginInfo-Name=Plot2d
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=An Assistant for plotting with the Qalculate backend.
+RequiredExtensions=QalculatePlotExtension

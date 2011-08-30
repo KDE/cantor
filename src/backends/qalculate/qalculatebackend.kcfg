@@ -63,5 +63,67 @@
         <label>Numerical display.</label>
         <default>3</default>
     </entry>
+    <entry name="inlinePlot" type="bool">
+      <label>If true, plots will be displayed inside the worksheet. If not they appear in a seperate window.</label>
+      <default>true</default>
+    </entry>
+    <entry name="coloredPlot" type="bool">
+      <label>Whether colors should be used in plots.</label>
+      <default>true</default>
+    </entry>
+    <entry name="plotGrid" type="bool">
+      <label>Whether a grid should be plotted.</label>
+      <default>false</default>
+    </entry>
+    <entry name="plotBorder" type="bool">
+      <label>Whether full borders should be drawn around the plot.</label>
+      <default>false</default>
+    </entry>
+    <entry name="plotLineWidth" type="int">
+      <label>Width of lines, in pixels.</label>
+      <default>2</default>
+    </entry>
+    <entry name="plotSteps" type="int">
+      <label>Number of interpolation steps to be used in plotting.</label>
+      <default>100</default>
+    </entry>
+    <entry name="plotSmoothing" type="Enum">
+        <choices name="SmoothingMode">
+            <choice name="SMOOTHING_NONE" />
+            <choice name="SMOOTHING_UNIQUE" />
+            <choice name="SMOOTHING_CSPLINES" />
+            <choice name="SMOOTHING_BEZIER" />
+            <choice name="SMOOTHING_SBEZIER" />
+        </choices>
+        <label>Smoothing mode in plots.</label>
+        <default>0</default>
+    </entry>
+    <entry name="plotStyle" type="Enum">
+        <choices name="PlotStyle">
+            <choice name="STYLE_LINES" />
+            <choice name="STYLE_POINTS" />
+            <choice name="STYLE_LINES_POINTS" />
+            <choice name="STYLE_BOXES" />
+            <choice name="STYLE_HISTOGRAM" />
+            <choice name="STYLE_STEPS" />
+            <choice name="STYLE_CANDLESTICKS" />
+            <choice name="STYLE_DOTS" />
+        </choices>
+        <label>Style of plots.</label>
+        <default>0</default>
+    </entry>
+    <entry name="plotLegend" type="Enum">
+        <choices name="LegendPosition">
+            <choice name="LEGEND_NONE" />
+            <choice name="LEGEND_TOP_LEFT" />
+            <choice name="LEGEND_TOP_RIGHT" />
+            <choice name="LEGEND_BOTTOM_LEFT" />
+            <choice name="LEGEND_BOTTOM_RIGHT" />
+            <choice name="LEGEND_BELOW" />
+            <choice name="LEGEND_OUTSIDE" />
+        </choices>
+        <label>Legend position in plots.</label>
+        <default>2</default>
+    </entry>
   </group>
 </kcfg>

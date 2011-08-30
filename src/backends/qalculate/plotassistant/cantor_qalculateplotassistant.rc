@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="cantor_qalculateplotassistant" version="1">
+<MenuBar>
+  <Menu name="Plot"><text>&amp;Plot</text>
+    <Action name="qalculateplotassistant"/>
+  </Menu>
+</MenuBar>
+</kpartgui>
