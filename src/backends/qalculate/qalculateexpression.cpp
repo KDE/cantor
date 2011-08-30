@@ -39,7 +39,6 @@
 #include <string>
 // required for the plotting interface of Qalculator
 #include <vector>
-#include <iostream>
 
 #include <KGlobal>
 #include <KMessageBox>
@@ -326,7 +325,6 @@ void QalculateExpression::evaluatePlotCommand()
 	int lastExpressionEntry = -1;
 	for (int j = 0; j < arguments.size(); ++j) {
 	    QString argument = arguments[j];
-	    std::cout << i << " " << j << " " << argument.toLatin1().data() << "\n";
 	    // PlotParameters
 	    if (argument.startsWith("plottitle="))
 		plotParameters.title = argument.mid(10).toLatin1().data();
@@ -621,9 +619,7 @@ void QalculateExpression::evaluatePlotCommand()
 	if (plotDataParams->title.empty())
 	    plotDataParams->title = expression;
 	MathStructure x_vec, y_vec;
-	std::cout << expression << "\n";
 	x_vec.clearVector();
-	std::cout << xMin.print() << " " << xMax.print() << "\n";
 	if (!stepLength.isUndefined())
 	    y_vec = CALCULATOR->expressionToPlotVector(expression, xMin, xMax, stepLength, &x_vec, xVariable, eo.parse_options);
 	else

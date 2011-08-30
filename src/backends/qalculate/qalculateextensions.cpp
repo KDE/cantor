@@ -56,7 +56,7 @@ QString QalculateVariableManagementExtension::removeVariable(const QString& name
 
 QString QalculateVariableManagementExtension::clearVariables()
 {
-    CALCULATOR->resetVariables();
+    //CALCULATOR->resetVariables();
     return QString();
 }
 
