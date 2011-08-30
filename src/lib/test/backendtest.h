@@ -33,7 +33,7 @@ namespace Cantor
     class Expression;
 }
 
-class CANTOR_EXPORT BackendTest : public QObject
+class CANTORTEST_EXPORT BackendTest : public QObject
 {
     Q_OBJECT
     private slots:

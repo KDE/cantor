@@ -23,6 +23,8 @@ kde4_add_unit_test( testmaxima testmaxima.cpp)
 target_link_libraries( testmaxima
   cantorlibs
   cantortest
+  ${QT_QTCORE_LIBRARY}
+  ${QT_QTTEST_LIBRARY}
 )
 
 install( FILES maximabackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
