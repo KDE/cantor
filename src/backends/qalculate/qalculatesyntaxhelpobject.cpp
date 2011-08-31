@@ -19,6 +19,7 @@
 #include "settings.h"
 #include "qalculatesyntaxhelpobject.h"
 #include "qalculatesession.h"
+#include "settings.h"
 
 #include <KLocale>
 #include <KDebug>
@@ -42,6 +43,14 @@ void QalculateSyntaxHelpObject::fetchInformation()
 
     if (cmd == "plot") {
 	setPlotInformation();
+	return;
+    }
+    if (cmd == "saveVariables") {
+	setSaveVariablesInformation();
+	return;
+    }
+    if (cmd == "loadVariables") {
+	setLoadVariablesInformation();
 	return;
     }
 
@@ -92,9 +101,14 @@ void QalculateSyntaxHelpObject::fetchInformation()
                 str += CALCULATOR->getComma().c_str();
                 str += " ...";
             }
-            str += ")";
-            syntax = QString("<p>%1</p>").arg(str);
+	}
+	str += ")";
+	syntax = QString("<p>%1</p>").arg(str);
 
+	QString arguments = "";
+        if(iargs != 0) {
+            Argument *arg;
+            Argument default_arg;
             for(int i2 = 1; i2 <= iargs; i2++) {
                 arg = f->getArgumentDefinition(i2);
                 if(arg && !arg->name().empty()) {
@@ -121,9 +135,9 @@ void QalculateSyntaxHelpObject::fetchInformation()
                     str2 += ")";
                 }
                 str += str2;
+		arguments += QString("<p>%1</p>").arg(str);
             }
         }
-        QString arguments = QString("<p>%1</p>").arg(str);
 
         QString desc = QString("<p>%1</p>").arg(item->description().c_str());
 
@@ -138,7 +152,7 @@ void QalculateSyntaxHelpObject::setPlotInformation()
     QString expression = i18n("expression");
     QString option = i18n("option");
     QString value = i18n("value");
-    QString syntax = QString("plot %1 [%2=%3 ...] [, %4 [%5=%6 ...]] ...");
+    QString syntax = QString("<p>plot %1 [%2=%3 ...] [, %4 [%5=%6 ...]] ...</p>");
     syntax = syntax.arg(expression, option, value, expression, option, value);
     
     QString integer = i18n("integer");
@@ -229,11 +243,31 @@ void QalculateSyntaxHelpObject::setPlotInformation()
     arguments += optionFormat4.arg("inline", i18n("If the plot is to be drawn inline, instead of in a new window."), boolean, defaultValue.arg(boolList[QalculateSettings::inlinePlot()]));
     arguments += optionFormat3.arg("step", i18n("Distance between two interpolation points. See also steps."), number);
     arguments += optionFormat4.arg("steps", i18n("Number of interpolation points. See also step."), integer, defaultValue.arg(QString::number(QalculateSettings::plotSteps())));
-    arguments += optionFormat3.arg("xvar", i18n("The name of the x variable. This must be a free variable"), defaultValue.arg("x"));
+    arguments += optionFormat3.arg("xvar", i18n("The name of the x variable. This must be an unknown variable"), defaultValue.arg("x"));
     
     m_answer = title + desc + syntax + arguments;
 
     
+}
+
+void QalculateSyntaxHelpObject::setSaveVariablesInformation()
+{
+    QString title = "<p>" + i18n("Save variables to a file") + "</p>";
+    QString desc = "<p>" + i18n("Save all currently defined variables to a file. They can be reloaded with %1.").arg("loadVariables") + "</p>";
+    QString syntax = "<p>saveVariables " + i18n("file") + "</p>";
+    QString arguments = "<p>" + i18n("file") + ": " + 
+	i18n("the file to save to") + "</p>";
+    m_answer = title + desc + syntax + arguments;
+}
+
+void QalculateSyntaxHelpObject::setLoadVariablesInformation()
+{
+    QString title = "<p>" + i18n("Load variables from a file") + "</p>";
+    QString desc = "<p>" + i18n("Load variables from a file that has previously been created by %1.").arg("saveVariables") + "</p>";
+    QString syntax = "<p>loadVariables " + i18n("file") + "</p>";
+    QString arguments = "<p>" + i18n("file") + ": " + 
+	i18n("the file to load") + "</p>";
+    m_answer = title + desc + syntax + arguments;
 }
 
 

@@ -39,6 +39,10 @@ private:
     enum MsgType { MSG_NONE=0, MSG_INFO=1, MSG_WARN=2, MSG_ERR=4 }; 
     
     void evaluatePlotCommand();
+    void evaluateLoadVariablesCommand();
+    void evaluateSaveVariablesCommand();
+
+    QString parseForFilename(QString argument, QString usage);
     bool stringToBool(const QString&, bool*);
     void deletePlotDataParameters(const std::vector<PlotDataParameters*>&);
     void showMessage(QString msg, MessageType mtype);

@@ -62,15 +62,18 @@ QString QalculateVariableManagementExtension::clearVariables()
 
 QString QalculateVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    // not supported
-    return QString();
+    QString escapedFileName = fileName;
+    escapedFileName.replace(' ', "\\ ");
+    return QString("saveVariables %1").arg(escapedFileName);
 }
 
 QString QalculateVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    // not supported
-    return QString();
+    QString escapedFileName = fileName;
+    escapedFileName.replace(' ', "\\ ");
+    return QString("loadVariables %1").arg(escapedFileName);
 }
+
 // Custom Plot Extension. This extension does not fit into the normal pattern,
 // because it inherts Cantor::Extension directly.
 // Also it does not do anything at all, because all the work is done by the

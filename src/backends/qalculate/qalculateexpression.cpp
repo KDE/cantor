@@ -81,6 +81,18 @@ void QalculateExpression::evaluate()
         evaluatePlotCommand();
 	return;
     }
+    else if (command().trimmed().startsWith("saveVariables") &&
+	     (command().indexOf("saveVariables")+13 == command().size() ||
+	      command()[command().indexOf("saveVariables")+13].isSpace())) {
+        evaluateSaveVariablesCommand();
+	return;
+    }
+    else if (command().trimmed().startsWith("loadVariables") &&
+	     (command().indexOf("loadVariables")+13 == command().size() ||
+	      command()[command().indexOf("loadVariables")+13].isSpace())) {
+        evaluateLoadVariablesCommand();
+	return;
+    }
 
     string expression = unlocalizeExpression(command());
 
@@ -145,6 +157,116 @@ void QalculateExpression::evaluate()
     setStatus(Done);
 }
 
+void QalculateExpression::evaluateSaveVariablesCommand()
+{
+    QString argString = command().mid(command().indexOf("saveVariables")+13);
+    argString = argString.trimmed();
+
+    QString usage = i18n("Usage: saveVariables file");
+
+    QString fileName = parseForFilename(argString, usage);
+    if (fileName.isNull())
+	return;
+    
+    // We want to save Temporary variables, but Qalculate does not.
+    std::vector<Variable*> variables = CALCULATOR->variables;
+    // If somebody saves his variables in Cantor_Internal_Temporary
+    // he deserves unexpected behavior.
+    std::string tmpCategory = "Temporary";
+    std::string newCategory = "Cantor_Internal_Temporary";
+    for (int i = 0; i < variables.size(); ++i) {
+	if (variables[i]->category() == tmpCategory)
+	    variables[i]->setCategory(newCategory);
+    }
+
+    int res = CALCULATOR->saveVariables(fileName.toLatin1().data());
+
+    for (int i = 0; i < variables.size(); ++i) {
+	if (variables[i]->category() == newCategory)
+	    variables[i]->setCategory(tmpCategory);
+    }
+
+
+    if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
+	return;
+    }
+    if (res < 0) {
+	showMessage(i18n("Saving failed."), MESSAGE_ERROR);
+	return;
+    }
+
+    setStatus(Done);
+}
+
+void QalculateExpression::evaluateLoadVariablesCommand()
+{
+    QString argString = command().mid(command().indexOf("loadVariables")+13);
+    argString = argString.trimmed();
+
+    QString usage = i18n("Usage: loadVariables file");
+
+    QString fileName = parseForFilename(argString, usage);
+    if (fileName.isNull())
+	return;
+    
+    int res = CALCULATOR->loadDefinitions(fileName.toLatin1().data());
+    if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
+	return;
+    }
+    if (res < 0) {
+	showMessage(i18n("Loading failed."), MESSAGE_ERROR);
+	return;
+    }
+
+    // We have to store temporary variables in a different category
+    // (see parseSaveVariablesCommand())
+    std::vector<Variable*> variables = CALCULATOR->variables;
+    std::string tmpCategory = "Temporary";
+    std::string newCategory = "Cantor_Internal_Temporary";
+
+    for (int i = 0; i < variables.size(); ++i) {
+	if (variables[i]->category() == newCategory)
+	    variables[i]->setCategory(tmpCategory);
+    }
+
+    setStatus(Done);
+}
+
+QString QalculateExpression::parseForFilename(QString argument, QString usage)
+{
+    if (argument.isEmpty()) {
+	showMessage(usage, MESSAGE_ERROR);
+	return QString();
+    }
+
+    QString fileName = "";
+    QChar sep = '\0';
+    int i = 0;
+    if (argument[0] == '\'' || argument[0] == '"') {
+	sep = argument[0];
+	i = 1;
+    }
+    while (i < argument.size() && !argument[i].isSpace() && 
+	   argument[i] != sep) {
+	if (argument[i] == '\\' && i < argument.size()-1)
+	    ++i;
+	fileName += argument[i];
+	++i;
+    }
+
+    if (sep != '\0' && i == argument.size()) {
+	showMessage(QString(i18n("missing %1").arg(sep)), MESSAGE_ERROR);
+	return QString();
+    }
+    
+    if (i < argument.size() - 1) {
+	showMessage(usage, MESSAGE_ERROR);
+	return QString();
+    }
+
+    return fileName;
+}
+
 void QalculateExpression::evaluatePlotCommand()
 {
     QString argString = command().mid(command().indexOf("plot")+4);
@@ -161,37 +283,43 @@ void QalculateExpression::evaluatePlotCommand()
     const QString msgFormat("<font color=\"%1\">%2: %3</font><br>\n");
 
     if (!CALCULATOR->canPlot()) {
-	showMessage("Qalculate reports it cannot print. Is gnuplot installed?",
-		    MESSAGE_ERROR);
+	showMessage(i18n("Qalculate reports it cannot print. Is gnuplot installed?"), MESSAGE_ERROR);
 	return;
     }
 
     // Split argString into the arguments
     int i=0;
-    int j=1;
+    int j=0;
     QString arg = "";
     while (i < argString.size()) {
         if (argString[i] == '"' || argString[i] == '\'') {
+	    ++j;
 	    while(j < argString.size() && argString[j] != argString[i]) {
-	        if (argString[j] == '\\')
+	        if (argString[j] == '\\') {
 		    ++j;
+		    if (j == argString.size())
+			continue; // just ignore trailing backslashes
+		}
 		arg += argString[j];
 	        ++j;
 	    }
 	    if (j == argString.size()) {
-		showMessage(QString("missing %1").arg(argString[i]), MESSAGE_ERROR);
+		showMessage(QString(i18n("missing %1")).arg(argString[i]), MESSAGE_ERROR);
 		return;
 	    }
 	    ++j;
         } else if (argString[i] == ',') {
   	    argumentsList.append(arguments);
 	    arguments.clear();
+	    ++j;
 	} else {
-	    arg += argString[i];
 	    while(j < argString.size() && !argString[j].isSpace() && 
 		  argString[j] != '=' && argString[j] != ',') {
-	        if (argString[j] == '\\')
+	        if (argString[j] == '\\') {
 		    ++j;
+		    if (j == argString.size())
+			continue; // just ignore trailing backslashes
+		}
 		arg += argString[j];
 		++j;
 	    }
@@ -200,7 +328,6 @@ void QalculateExpression::evaluatePlotCommand()
 	    // Parse things like title="..." as one argument
 	    arg += '=';
 	    i = ++j;
-	    ++j;
 	    continue;
 	}
 	if (!arg.isEmpty()) {
@@ -210,7 +337,6 @@ void QalculateExpression::evaluatePlotCommand()
 	while (j < argString.size() && argString[j].isSpace())
 	    ++j;
 	i = j;
-	++j;
     }
     argumentsList.append(arguments);
 

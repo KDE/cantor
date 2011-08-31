@@ -33,6 +33,8 @@ protected:
     virtual void fetchInformation();
 
     void setPlotInformation();
+    void setSaveVariablesInformation();
+    void setLoadVariablesInformation();
 
     QString m_answer;
 };
