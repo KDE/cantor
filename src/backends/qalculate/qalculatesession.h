@@ -21,11 +21,18 @@
 
 #include "session.h"
 
+#include <libqalculate/Variable.h>
+#include <libqalculate/MathStructure.h>
+
+
 class QalculateEngine;
 
 class QalculateSession : public Cantor::Session
 {
     Q_OBJECT
+
+private:
+    QList<KnownVariable*> m_ansVariables;
 
 public:
     QalculateSession( Cantor::Backend* backend);
@@ -40,6 +47,8 @@ public:
     virtual Cantor::CompletionObject* completionFor(const QString& cmd);
     virtual Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
     virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+
+    void setLastResult(MathStructure);
 };
 
 #endif

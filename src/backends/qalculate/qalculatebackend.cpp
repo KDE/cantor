@@ -17,11 +17,11 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
+#include "settings.h"
 #include "qalculatebackend.h"
 #include "qalculatesession.h"
 #include "qalculateextensions.h"
 
-#include "settings.h"
 #include "settingswidget.h"
 
 #include "cantor_macros.h"

@@ -90,6 +90,9 @@ void QalculateExpression::evaluate()
 
     MathStructure result = CALCULATOR->calculate(expression, eo);
 
+    // update the answer variables
+    static_cast<QalculateSession*>(session())->setLastResult(result);
+
     // error handling
     if (checkForCalculatorMessages() & (MSG_WARN | MSG_WARN))
 	return;

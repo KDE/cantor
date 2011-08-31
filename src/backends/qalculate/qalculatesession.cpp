@@ -44,6 +44,17 @@ QalculateSession::QalculateSession( Cantor::Backend* backend)
              CALCULATOR->loadLocalDefinitions();
              CALCULATOR->loadExchangeRates();
     }
+    // from qalc.cc in libqalculate
+    std::string ansName = "ans";
+    // m_undefined is not a variable in this class, but is defined in
+    // libqalculate/includes.h
+    m_ansVariables.append(static_cast<KnownVariable*>(CALCULATOR->addVariable(new KnownVariable("Temporary", ansName, m_undefined, "Last Answer", false))));
+    m_ansVariables[0]->addName("answer");
+    m_ansVariables[0]->addName(ansName + "1");
+    m_ansVariables.append(static_cast<KnownVariable*>(CALCULATOR->addVariable(new KnownVariable("Temporary", ansName+"2", m_undefined, "Answer 2", false))));
+    m_ansVariables.append(static_cast<KnownVariable*>(CALCULATOR->addVariable(new KnownVariable("Temporary", ansName+"3", m_undefined, "Answer 3", false))));
+    m_ansVariables.append(static_cast<KnownVariable*>(CALCULATOR->addVariable(new KnownVariable("Temporary", ansName+"4", m_undefined, "Answer 4", false))));
+    m_ansVariables.append(static_cast<KnownVariable*>(CALCULATOR->addVariable(new KnownVariable("Temporary", ansName+"5", m_undefined, "Answer 5", false))));
 }
 
 QalculateSession::~QalculateSession()
@@ -92,4 +103,12 @@ Cantor::SyntaxHelpObject* QalculateSession::syntaxHelpFor(const QString& cmd)
 QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QTextEdit* parent)
 {
     return new QalculateHighlighter(parent);
+}
+
+void QalculateSession::setLastResult(MathStructure result)
+{
+    for (int i = m_ansVariables.size()-1; i >0 ; --i) {
+	m_ansVariables[i]->set(m_ansVariables[i-1]->get());
+    }
+    m_ansVariables[0]->set(result);
 }
