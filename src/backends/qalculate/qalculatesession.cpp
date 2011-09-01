@@ -21,6 +21,7 @@
 #include "qalculateexpression.h"
 #include "qalculatecompletionobject.h"
 #include "qalculatehighlighter.h"
+#include "defaultvariablemodel.h"
 
 #include <QTextEdit>
 
@@ -36,7 +37,8 @@
 #include "qalculatesyntaxhelpobject.h"
 
 QalculateSession::QalculateSession( Cantor::Backend* backend)
-    : Session(backend)
+    : Session(backend),
+      m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     if ( !CALCULATOR ) {
              new Calculator();
@@ -111,4 +113,9 @@ void QalculateSession::setLastResult(MathStructure result)
 	m_ansVariables[i]->set(m_ansVariables[i-1]->get());
     }
     m_ansVariables[0]->set(result);
+}
+
+QAbstractItemModel* QalculateSession::variableModel()
+{
+    return m_variableModel;
 }

@@ -24,6 +24,7 @@
 #include "imageresult.h"
 #include "epsresult.h"
 #include "settings.h"
+#include "defaultvariablemodel.h"
 
 #include "qalculateexpression.h"
 #include "qalculatesession.h"
@@ -47,6 +48,7 @@
 #include <KDebug>
 
 #include <QApplication>
+#include <QStack>
 
 QalculateExpression::QalculateExpression( QalculateSession* session )
     : Cantor::Expression(session)
@@ -109,51 +111,13 @@ void QalculateExpression::evaluate()
     if (checkForCalculatorMessages() & (MSG_WARN | MSG_WARN))
 	return;
 
-    PrintOptions po;
+    updateVariables(CALCULATOR->parse(expression, eo.parse_options));
 
-    switch (QalculateSettings::fractionFormat()) {
-    case 0:
-        po.number_fraction_format = FRACTION_DECIMAL;
-        break;
-    case 1:
-        po.number_fraction_format = FRACTION_DECIMAL_EXACT;
-        break;
-    case 2:
-        po.number_fraction_format = FRACTION_FRACTIONAL;
-        break;
-    case 3:
-        po.number_fraction_format = FRACTION_COMBINED;
-        break;
-    }
-    po.indicate_infinite_series = QalculateSettings::indicateInfiniteSeries();
-    po.use_all_prefixes = QalculateSettings::useAllPrefixes();
-    po.negative_exponents = QalculateSettings::negativeExponents();
+    QSharedPointer<PrintOptions> po = printOptions();
 
-    po.lower_case_e = true;
-    po.base = QalculateSettings::base();
-    po.decimalpoint_sign = KGlobal::locale()->decimalSymbol().toLocal8Bit().data();
+    result.format(*po);
 
-    switch (QalculateSettings::minExp()) {
-    case 0:
-        po.min_exp = EXP_NONE;
-        break;
-    case 1:
-        po.min_exp = EXP_PURE;
-        break;
-    case 2:
-        po.min_exp = EXP_SCIENTIFIC;
-        break;
-    case 3:
-        po.min_exp = EXP_PRECISION;
-        break;
-    case 4:
-        po.min_exp = EXP_BASE_3;
-        break;
-    }
-
-    result.format(po);
-
-    setResult(new Cantor::TextResult(result.print(po).c_str()));
+    setResult(new Cantor::TextResult(result.print(*po).c_str()));
     setStatus(Done);
 }
 
@@ -962,4 +926,76 @@ std::string QalculateExpression::unlocalizeExpression(QString expr)
                  .replace(QChar(0x20AC), "EUR")
                  .toLatin1().data()
            );
+}
+
+void QalculateExpression::updateVariables(MathStructure command)
+{
+    Cantor::DefaultVariableModel* model = 
+	static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+    QStack<MathStructure*> stack;
+    stack.push(&command);
+    QSharedPointer<PrintOptions> po = printOptions();
+    while (!stack.isEmpty()) {
+	MathStructure* current = stack.pop();
+	if (current->isFunction() && current->function()->name() == "save" &&
+	    current->countChildren() >= 2 && current->getChild(2)->isSymbolic())
+	{
+	    // I'd like to use CALCULATOR->getVariable and KnownVariable::get,
+	    // but that doesn't work for built in variables, as it keeps
+	    // returning the old value
+	    std::string name = current->getChild(2)->symbol();
+	    MathStructure m = CALCULATOR->calculate(name, evaluationOptions());
+	    m.format(*po);
+	    model->addVariable(name.c_str(), m.print(*po).c_str());
+	}
+	for (int i = 0; i < current->countChildren(); ++i) {
+	    stack.push(current->getChild(i+1));
+	}
+    }
+}
+
+QSharedPointer<PrintOptions> QalculateExpression::printOptions()
+{
+    QSharedPointer<PrintOptions> po(new PrintOptions);
+
+    switch (QalculateSettings::fractionFormat()) {
+    case 0:
+        po->number_fraction_format = FRACTION_DECIMAL;
+        break;
+    case 1:
+        po->number_fraction_format = FRACTION_DECIMAL_EXACT;
+        break;
+    case 2:
+        po->number_fraction_format = FRACTION_FRACTIONAL;
+        break;
+    case 3:
+        po->number_fraction_format = FRACTION_COMBINED;
+        break;
+    }
+    po->indicate_infinite_series = QalculateSettings::indicateInfiniteSeries();
+    po->use_all_prefixes = QalculateSettings::useAllPrefixes();
+    po->negative_exponents = QalculateSettings::negativeExponents();
+
+    po->lower_case_e = true;
+    po->base = QalculateSettings::base();
+    po->decimalpoint_sign = KGlobal::locale()->decimalSymbol().toLocal8Bit().data();
+
+    switch (QalculateSettings::minExp()) {
+    case 0:
+        po->min_exp = EXP_NONE;
+        break;
+    case 1:
+        po->min_exp = EXP_PURE;
+        break;
+    case 2:
+        po->min_exp = EXP_SCIENTIFIC;
+        break;
+    case 3:
+        po->min_exp = EXP_PRECISION;
+        break;
+    case 4:
+        po->min_exp = EXP_BASE_3;
+        break;
+    }
+    return po;
 }

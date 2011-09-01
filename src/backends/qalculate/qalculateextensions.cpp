@@ -51,7 +51,8 @@ QString QalculateVariableManagementExtension::setValue(const QString& name, cons
 
 QString QalculateVariableManagementExtension::removeVariable(const QString& name)
 {
-    CALCULATOR->getVariable(name.toStdString())->setActive(false);
+    //CALCULATOR->getVariable(name.toStdString())->setActive(false);
+    return QString();
 }
 
 QString QalculateVariableManagementExtension::clearVariables()

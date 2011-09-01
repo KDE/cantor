@@ -21,9 +21,14 @@
 
 #include "session.h"
 
+#include <QSharedPointer>
+
 #include <libqalculate/Variable.h>
 #include <libqalculate/MathStructure.h>
 
+namespace Cantor {
+class DefaultVariableModel;
+}
 
 class QalculateEngine;
 
@@ -33,6 +38,7 @@ class QalculateSession : public Cantor::Session
 
 private:
     QList<KnownVariable*> m_ansVariables;
+    Cantor::DefaultVariableModel* m_variableModel;
 
 public:
     QalculateSession( Cantor::Backend* backend);
@@ -49,6 +55,7 @@ public:
     virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
 
     void setLastResult(MathStructure);
+    QAbstractItemModel* variableModel();
 };
 
 #endif

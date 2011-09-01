@@ -24,6 +24,7 @@
 #include <string>
 #include <libqalculate/Calculator.h>
 
+#include <QSharedPointer>
 #include <KTemporaryFile>
 
 class QalculateSession;
@@ -47,6 +48,8 @@ private:
     void deletePlotDataParameters(const std::vector<PlotDataParameters*>&);
     void showMessage(QString msg, MessageType mtype);
     int checkForCalculatorMessages();
+    void updateVariables(MathStructure);
+    QSharedPointer<PrintOptions> printOptions();
     EvaluationOptions evaluationOptions();
     ParseOptions parseOptions();
     std::string unlocalizeExpression(QString expr);
