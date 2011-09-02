@@ -40,6 +40,7 @@
 #include <klocale.h>
 #include <kstandardaction.h>
 #include <kaction.h>
+#include <kstandarddirs.h>
 
 
 LatexEntry::LatexEntry(QTextCursor position, Worksheet* parent ) : WorksheetEntry( position, parent )
@@ -152,16 +153,49 @@ void LatexEntry::setContent(const QString& content)
 
 void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    Q_UNUSED(file);
-    if(content.firstChildElement("body").isNull())
-	return;
+    QString latexCode= content.text();
+    kDebug() << latexCode;
 
-    QDomDocument doc = QDomDocument();
-    QDomNode n = doc.importNode(content.firstChildElement("body"), true);
-    doc.appendChild(n);
-    QString html = doc.toString();
-    kDebug() << html;
-    firstValidCursorPosition().insertHtml(html);
+    QTextCursor cursor=firstValidCursorPosition();
+    cursor.setPosition(lastValidPosition(), QTextCursor::KeepAnchor);
+    cursor.removeSelectedText();
+    cursor=firstValidCursorPosition();
+
+    if(content.hasAttribute("filename"))
+    {
+        const KArchiveEntry* imageEntry=file.directory()->entry(content.attribute("filename"));
+        if (imageEntry&&imageEntry->isFile())
+        {
+            const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+            QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+            imageFile->copyTo(dir);
+            QString imagePath=QString(dir+QLatin1Char('/')+imageFile->name());
+
+            KUrl internal=KUrl(imagePath);
+            internal.setProtocol("internal");
+
+            bool success=m_worksheet->resultProxy()->renderEpsToResource(imagePath);
+            kDebug()<<"rendering successfull? "<<success;
+
+            QTextCharFormat formulaFormat;
+            formulaFormat.setObjectType(FormulaTextObject::FormulaTextFormat);
+            formulaFormat.setProperty( FormulaTextObject::Data,imagePath);
+            formulaFormat.setProperty( FormulaTextObject::ResourceUrl, internal);
+            formulaFormat.setProperty( FormulaTextObject::LatexCode, latexCode);
+            formulaFormat.setProperty( FormulaTextObject::FormulaType, Cantor::LatexRenderer::LatexMethod); //So far only latex is supported
+
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+            m_isShowingCode=false;
+        }else
+        {
+            cursor.insertText(latexCode);
+            m_isShowingCode=true;
+        }
+    }else
+    {
+        cursor.insertText(latexCode);
+        m_isShowingCode=true;
+    }
 }
 
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -169,22 +203,33 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     Q_UNUSED(archive);
 
     QString html;
+    QString image;
     if(m_isShowingCode)
     {
         QTextCursor cursor = firstValidCursorPosition();
         cursor.setPosition(lastValidPosition(), QTextCursor::KeepAnchor);
-        html = cursor.selection().toHtml();
+        html = cursor.selectedText();
     }else
     {
         QTextCursor cursor=firstValidCursorPosition();
         html=qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
+        if(cursor.charFormat().intProperty(FormulaTextObject::FormulaType)==FormulaTextObject::LatexFormula)
+            image=qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::Data));
+    }
+
+    QDomElement el = doc.createElement("Latex");
+
+    if(!image.isNull())
+    {
+        KUrl url(image);
+        el.setAttribute("filename", url.fileName());
+        archive->addLocalFile(image, url.fileName());
     }
 
     kDebug() << html;
-    QDomElement el = doc.createElement("Latex");
-    QDomDocument myDoc = QDomDocument();
-    myDoc.setContent(html);
-    el.appendChild(myDoc.documentElement().firstChildElement("body"));
+    QDomText text=doc.createTextNode(html);
+
+    el.appendChild(text);
 
     return el;
 }
@@ -239,6 +284,7 @@ bool LatexEntry::evaluate(bool current)
     QString path=renderer->imagePath();
     KUrl internal=KUrl(path);
     internal.setProtocol("internal");
+
     kDebug()<<"int: "<<internal;
 
     QTextCharFormat formulaFormat;
