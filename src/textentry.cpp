@@ -163,14 +163,34 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
 
-    QTextCursor cursor = firstValidCursorPosition();
+    bool needsEval=false;
+    //make sure that the latex code is shown instead of the rendered formulas
+    QTextCursor cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), m_frame->firstCursorPosition());
+    while(!cursor.isNull()&&cursor.position()<=m_frame->lastPosition())
+    {
+        QTextCharFormat format=cursor.charFormat();
+        if (format.objectType() == FormulaTextObject::FormulaTextFormat)
+        {
+            showLatexCode(cursor);
+            needsEval=true;
+        }
+
+        cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+
+
+    cursor = firstValidCursorPosition();
     cursor.setPosition(lastValidPosition(), QTextCursor::KeepAnchor);
+
     const QString& html = cursor.selection().toHtml();
     kDebug() << html;
     QDomElement el = doc.createElement("Text");
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
     el.appendChild(myDoc.documentElement().firstChildElement("body"));
+
+    if(needsEval)
+        evaluate(false);
     return el;
 }
 
@@ -292,7 +312,6 @@ void TextEntry::update()
 
         cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
-
 }
 
 QTextCursor TextEntry::findLatexCode(QTextDocument *doc) const
