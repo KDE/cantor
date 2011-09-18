@@ -22,7 +22,6 @@
 using namespace Cantor;
 
 #include <kdebug.h>
-#include <kparts/genericfactory.h>
 #include <kservice.h>
 #include <kservicetypetrader.h>
 #include <kplugininfo.h>

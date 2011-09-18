@@ -28,7 +28,7 @@
 #include <kactioncollection.h>
 #include <kcomponentdata.h>
 #include <kfiledialog.h>
-#include <kparts/genericfactory.h>
+#include <kpluginfactory.h>
 #include <kparts/event.h>
 #include <kstandardaction.h>
 #include <kzip.h>
