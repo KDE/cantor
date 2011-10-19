@@ -2,9 +2,9 @@ add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)
 
-if(BUILD_kalgebra)
+if(ANALITZA_FOUND)
 	add_subdirectory(kalgebra)
-endif(BUILD_kalgebra)
+endif(ANALITZA_FOUND)
 
 if(NOT WIN32)
 	add_subdirectory(sage)

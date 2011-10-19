@@ -1,4 +1,4 @@
-include_directories(${analitza_SOURCE_DIR}/../)
+include_directories(${ANALITZA_INCLUDES})
 
 set( KAlgebraBackend_SRCS
  kalgebrasyntaxhelpobject.cpp 
@@ -10,7 +10,7 @@ set( KAlgebraBackend_SRCS
 )
 
 kde4_add_plugin( cantor_kalgebrabackend ${KAlgebraBackend_SRCS} )
-target_link_libraries( cantor_kalgebrabackend ${KDE4_KDEUI_LIBS} cantorlibs analitza analitzagui)
+target_link_libraries( cantor_kalgebrabackend ${KDE4_KDEUI_LIBS} cantorlibs ${ANALITZA_LIBS})
 
 install( FILES kalgebrabackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_kalgebrabackend DESTINATION ${PLUGIN_INSTALL_DIR})
