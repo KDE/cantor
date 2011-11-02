@@ -6,7 +6,7 @@ include(KDE4Defaults)
 set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 macro_optional_find_package(Analitza)
-macro_log_feature(ANALITZA_FOUND "libanalitza" "A library provided by KAlgebra" FALSE "" "Backend to use KAlgebra with Cantor.")
+macro_log_feature(Analitza_FOUND "libanalitza" "A library provided by KAlgebra" FALSE "" "Backend to use KAlgebra with Cantor.")
 
 macro_optional_find_package(R)
 macro_log_feature(R_FOUND "R" "A free software environment for statistical computing and graphics" "http://www.r-project.org/" FALSE "" "Backend to use R with Cantor.")
