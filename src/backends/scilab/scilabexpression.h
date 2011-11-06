@@ -15,44 +15,39 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _SCILABEXPRESSION_H
+#define _SCILABEXPRESSION_H
 
-#include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
+#include "expression.h"
+#include <QStringList>
 
-namespace Cantor
+class QTimer;
+
+class ScilabExpression : public Cantor::Expression
 {
-class EpsResultPrivate;
-
-class CANTOR_EXPORT EpsResult : public Result
-{
+  Q_OBJECT
   public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+    ScilabExpression( Cantor::Session* session);
+    ~ScilabExpression();
 
-    QString toHtml();
-    QString toLatex();
-    QVariant data();
-    KUrl url();
+    void evaluate();
+    void interrupt();
+    void parseOutput(QString output);
+    void parseError(QString error);
+    void parsePlotFile();
+    void setPlotPending(bool plot);
 
-    int type();
-    QString mimeType();
-
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
-
-    void save(const QString& filename);
+  public slots:
+    void evalFinished();
 
   private:
-    EpsResultPrivate* d;
+    QTimer* m_timer;
+    bool m_finished;
+    bool m_plotPending;
+    int numPlot;
 };
 
-}
-
-#endif /* _EPSRESULT_H */
+#endif /* _SCILABEXPRESSION_H */

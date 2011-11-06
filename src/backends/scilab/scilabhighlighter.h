@@ -15,44 +15,27 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _SCILABHIGHLIGHTER_H
+#define _SCILABHIGHLIGHTER_H
 
-#include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
+#include "defaulthighlighter.h"
 
-namespace Cantor
-{
-class EpsResultPrivate;
-
-class CANTOR_EXPORT EpsResult : public Result
+class ScilabHighlighter : public Cantor::DefaultHighlighter
 {
   public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+    ScilabHighlighter(QTextEdit* edit);
+    ~ScilabHighlighter();
 
-    QString toHtml();
-    QString toLatex();
-    QVariant data();
-    KUrl url();
-
-    int type();
-    QString mimeType();
-
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
-
-    void save(const QString& filename);
+  protected:
+    void highlightBlock(const QString &text);
+    QString nonSeparatingCharacters() const;
 
   private:
-    EpsResultPrivate* d;
+     QRegExp commentStartExpression;
+     QRegExp commentEndExpression;
 };
 
-}
-
-#endif /* _EPSRESULT_H */
+#endif /* _SCILABHIGHLIGHTER_H */

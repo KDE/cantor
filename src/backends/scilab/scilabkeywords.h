@@ -15,44 +15,36 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _SCILABKEYWORDS_H
+#define _SCILABKEYWORDS_H
 
-#include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
+#include <QStringList>
 
-namespace Cantor
+/*
+  Class storint a listsof names, known to maxima
+  used for syntax highlighting and tab completion
+ */
+class ScilabKeywords
 {
-class EpsResultPrivate;
-
-class CANTOR_EXPORT EpsResult : public Result
-{
+  private:
+    ScilabKeywords();
+    ~ScilabKeywords();
   public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+    static ScilabKeywords* instance();
 
-    QString toHtml();
-    QString toLatex();
-    QVariant data();
-    KUrl url();
-
-    int type();
-    QString mimeType();
-
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
-
-    void save(const QString& filename);
+    const QStringList& functions() const;
+    const QStringList& keywords() const;
+    const QStringList& variables() const;
 
   private:
-    EpsResultPrivate* d;
+    void loadFromFile();
+
+  private:
+    QStringList m_functions;
+    QStringList m_keywords;
+    QStringList m_variables;
 };
-
-}
-
-#endif /* _EPSRESULT_H */
+#endif /* _SCILABKEYWORDS_H */

@@ -15,44 +15,24 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _SCILABCOMPLETIONOBJECT_H
+#define _SCILABCOMPLETIONOBJECT_H
 
-#include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
+#include "completionobject.h"
 
-namespace Cantor
-{
-class EpsResultPrivate;
+class ScilabSession;
 
-class CANTOR_EXPORT EpsResult : public Result
+class ScilabCompletionObject : public Cantor::CompletionObject
 {
   public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+    ScilabCompletionObject(const QString& cmd, ScilabSession* session);
+    ~ScilabCompletionObject();
 
-    QString toHtml();
-    QString toLatex();
-    QVariant data();
-    KUrl url();
-
-    int type();
-    QString mimeType();
-
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
-
-    void save(const QString& filename);
-
-  private:
-    EpsResultPrivate* d;
+  protected slots:
+    void fetchCompletions();
 };
 
-}
-
-#endif /* _EPSRESULT_H */
+#endif /* _SCILABCOMPLETIONOBJECT_H */

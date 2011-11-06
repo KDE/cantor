@@ -15,44 +15,32 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
  */
 
-#ifndef _EPSRESULT_H
-#define _EPSRESULT_H
+#ifndef _SCILABBACKEND_H
+#define _SCILABBACKEND_H
 
-#include "result.h"
-#include "cantor_export.h"
-#include "kurl.h"
+#include "backend.h"
 
-namespace Cantor
+class ScilabBackend : public Cantor::Backend
 {
-class EpsResultPrivate;
-
-class CANTOR_EXPORT EpsResult : public Result
-{
+  Q_OBJECT
   public:
-    enum {Type=5};
-    EpsResult( const KUrl& url);
-    ~EpsResult();
+    explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    ~ScilabBackend();
 
-    QString toHtml();
-    QString toLatex();
-    QVariant data();
-    KUrl url();
+    QString id() const;
+    Cantor::Session *createSession();
+    Cantor::Backend::Capabilities capabilities() const;
+    virtual bool requirementsFullfilled() const;
 
-    int type();
-    QString mimeType();
+    QWidget* settingsWidget(QWidget* parent) const;
+    KConfigSkeleton* config() const;
 
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
-
-    void save(const QString& filename);
-
-  private:
-    EpsResultPrivate* d;
+    KUrl helpUrl() const;
+    QString description() const;
 };
 
-}
 
-#endif /* _EPSRESULT_H */
+#endif /* _SCILABBACKEND_H */

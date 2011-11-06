@@ -1,0 +1,14 @@
+# Author: Filipe Saraiva (filip.saraiva at gmail.com)
+# Date: 2011.27.04
+
+# Personal configurarion files
+*.user
+cantor.kdev4
+.kdev4/*
+
+# Temporary files
+*~
+
+# Folder to compile source code
+build/
+build/*
