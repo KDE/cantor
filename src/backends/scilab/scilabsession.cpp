@@ -68,8 +68,6 @@ void ScilabSession::login()
         kDebug() << "integratePlots";
 
         m_process->write("chdir('/tmp');\n");
-        m_process->write("x = 0;\n");
-        m_process->write("plot(x);\n");
 
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("ScilabDirWatch");
@@ -78,7 +76,7 @@ void ScilabSession::login()
 
         kDebug() << "addDir /tmp? " << m_watch->contains("/tmp");
 
-//         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
+        QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
     emit ready();
@@ -96,7 +94,7 @@ void ScilabSession::logout()
 
     m_runningExpressions.clear();
     kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
-    system("rm -f /tmp/cantor-export-figure*");
+
     changeStatus(Cantor::Session::Done);
 }
 
@@ -176,13 +174,6 @@ void ScilabSession::readOutput()
     }
 
     m_currentExpression->parseOutput(output);
-
-    kDebug() << "Exist plot in command? " << m_currentExpression->command().contains("plot");
-
-    if(m_currentExpression->command().contains("plot")){
-        m_process->waitForReadyRead(2000);
-        m_currentExpression->parsePlotFile();
-    }
 
 }
 

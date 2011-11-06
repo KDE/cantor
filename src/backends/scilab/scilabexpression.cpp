@@ -32,21 +32,12 @@
 #include "scilabsession.h"
 #include "settings.h"
 
-/*#ifdef WITH_EPS
-#include "epsresult.h"
-typedef Cantor::EpsResult ScilabPlotResult;
-#else*/
 #include "imageresult.h"
 typedef Cantor::ImageResult ScilabPlotResult;
-// #endif
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug() << "ScilabExpression construtor";
-
-    m_plotCommands << "plot"
-                   << "plot2d" << "plot2d1" << "plot2d2" << "plot2d3" << "plot2d4"
-                   << "plot3d" << "plot3d1" << "plot3d2" << "plot3d3";
 
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
@@ -72,15 +63,13 @@ void ScilabExpression::evaluate()
         QString exportCommand;
         numPlot = 0;
 
-        system("rm -f /tmp/cantor-export-figure*");
-
         QStringList commandList = command().split("\n");
 
         for(int count = 0; count < commandList.size(); count++){
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
 
-                exportCommand = QString("\nxs2png(gcf(), 'cantor-export-figure-%1.png');").arg(numPlot);
+                exportCommand = QString("\nxs2png(gcf(), 'cantor-export-figure-%1.png');\ndelete(gcf());").arg(numPlot);
 
                 commandList[count].append(exportCommand);
 
@@ -136,6 +125,8 @@ void ScilabExpression::parsePlotFile()
                 kDebug() << "ScilabExpression::parsePlotFile: " << plotId;
 
                 setResult(new ScilabPlotResult(plotId));
+
+                QFile::remove(plotId);
 
                 plotId.clear();
             }

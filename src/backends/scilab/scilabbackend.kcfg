@@ -8,8 +8,10 @@
   <group name="ScilabBackend">
     <entry name="Path" type="Url">
       <label>Path to the Scilab executable</label>
-      <!-- default code="true">KStandardDirs::findExe( "scilab-adv-cli" )</default -->
-      <default>/home/kdevil/scilab/bin/scilab-adv-cli</default>
+      <!-- default code="true">KStandardDirs::findExe("scilab-adv-cli")</default -->
+      <default code="true">KStandardDirs::findExe("/home/kdevil/scilab/bin/scilab-adv-cli")</default>
+      <label>Warning: Scilab version must better or equal than 5.4 version</label>
+      <label>Scilab version of the master branch of the Scilab's repository is compatible</label>
     </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
