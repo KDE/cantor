@@ -519,7 +519,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Steps</string>
+             <string comment="Plot Style">Steps</string>
             </property>
            </item>
            <item>
