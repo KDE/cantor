@@ -148,7 +148,7 @@ void QalculateSyntaxHelpObject::fetchInformation()
 void QalculateSyntaxHelpObject::setPlotInformation()
 {
     QString title = "<p>" + i18n("Plotting interface") + "</p>";
-    QString desc = "<p>" + i18n("Plots one or more functions either inline or in a seperate window.") + "</p>";
+    QString desc = "<p>" + i18n("Plots one or more functions either inline or in a separate window.") + "</p>";
     QString expression = i18n("expression");
     QString option = i18n("option");
     QString value = i18n("value");
@@ -228,10 +228,10 @@ void QalculateSyntaxHelpObject::setPlotInformation()
     arguments += optionFormat4.arg("color", i18n("Set to true for colored plot, false for monochrome."), boolean, defaultValue.arg(boolList[QalculateSettings::coloredPlot()]));
     arguments += optionFormat3.arg("xmin", i18n("Minimum x-axis value."), number);
     arguments += optionFormat3.arg("xmax", i18n("Maximum x-axis value."), number);
-    arguments += optionFormat4.arg("xlog", i18n("If a logarithimic scale shall be used for the x-axis."), boolean, defaultValue.arg("false"));
-    arguments += optionFormat4.arg("ylog", i18n("If a logarithimic scale shall be used for the y-axis."), boolean, defaultValue.arg("false"));
-    arguments += optionFormat4.arg("xlogbase", i18n("Logarithimic base for the x-axis."), number, defaultValue.arg("10"));
-    arguments += optionFormat4.arg("ylogbase", i18n("Logarithimic base for the y-axis."), boolean, defaultValue.arg("10"));
+    arguments += optionFormat4.arg("xlog", i18n("If a logarithmic scale shall be used for the x-axis."), boolean, defaultValue.arg("false"));
+    arguments += optionFormat4.arg("ylog", i18n("If a logarithmic scale shall be used for the y-axis."), boolean, defaultValue.arg("false"));
+    arguments += optionFormat4.arg("xlogbase", i18n("Logarithmic base for the x-axis."), number, defaultValue.arg("10"));
+    arguments += optionFormat4.arg("ylogbase", i18n("Logarithmic base for the y-axis."), boolean, defaultValue.arg("10"));
     arguments += optionFormat4.arg("grid", i18n("If a grid shall be shown in the plot."), boolean, defaultValue.arg(boolList[QalculateSettings::plotGrid()]));
     arguments += optionFormat4.arg("border", i18n("If the plot shall be surrounded by borders on all sides (not just axis)."), boolean, defaultValue.arg(boolList[QalculateSettings::plotBorder()]));
     arguments += optionFormat4.arg("linewidth", i18n("Width of lines."), integer, defaultValue.arg(QString::number(QalculateSettings::plotLineWidth())));

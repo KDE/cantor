@@ -119,7 +119,7 @@
          <item>
           <widget class="QLabel" name="label_6">
            <property name="text">
-            <string>Indicate infinte series:</string>
+            <string>Indicate infinite series:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

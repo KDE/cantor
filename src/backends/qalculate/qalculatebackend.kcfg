@@ -64,7 +64,7 @@
         <default>3</default>
     </entry>
     <entry name="inlinePlot" type="bool">
-      <label>If true, plots will be displayed inside the worksheet. If not they appear in a seperate window.</label>
+      <label>If true, plots will be displayed inside the worksheet. If not they appear in a separate window.</label>
       <default>true</default>
     </entry>
     <entry name="coloredPlot" type="bool">
