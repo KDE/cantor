@@ -467,9 +467,6 @@ TODO add screenshots and descriptions of each assistant
 <variablelist>
 <varlistentry>
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo>
-</shortcut>
 <guimenu>Worksheet</guimenu>
 <guimenuitem>Evaluate Worksheet</guimenuitem>
 </menuchoice></term>
