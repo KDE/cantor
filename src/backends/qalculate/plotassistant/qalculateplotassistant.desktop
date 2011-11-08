@@ -1,10 +1,20 @@
 [Desktop Entry]
 Type=Service
 Name=QalculatePlot
+Name[es]=QalculatePlot
+Name[pt]=Gráfico do Qalculate
+Name[sv]=Rita med Qalculate
+Name[uk]=QalculatePlot
+Name[x-test]=xxQalculatePlotxx
 X-KDE-ServiceTypes=Cantor/Assistant
 X-KDE-Library=cantor_qalculateplotassistant
 X-KDE-PluginInfo-Name=Plot2d
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant for plotting with the Qalculate backend.
+Comment[es]=Un asistente para gráficos con el motor Qalculate.
+Comment[pt]=Um Assistente de gráficos com a infra-estrutura do Qalculate.
+Comment[sv]=En guide för att rita med bakgrundsprogrammet Qalculate.
+Comment[uk]=Допоміжна програма для креслення за допомогою сервера Qalculate.
+Comment[x-test]=xxAn Assistant for plotting with the Qalculate backend.xx
 RequiredExtensions=QalculatePlotExtension
