@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
-<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN" 
+<!DOCTYPE book PUBLIC "-//KDE//DTD DocBook XML V4.2-Based Variant V1.1//EN"
 "dtd/kdex.dtd" [
 
   <!ENTITY kappname "&cantor;">
   <!ENTITY package "kdeedu">
   <!ENTITY % addindex "IGNORE">
-  <!ENTITY % English "INCLUDE"> 
+  <!ENTITY % English "INCLUDE">
 ]>
 <book lang="&language;">
 
@@ -29,12 +29,12 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2009-08-26</date>
-<releaseinfo>0.1</releaseinfo>
+<date>2011-11-08</date>
+<releaseinfo>0.3</releaseinfo>
 
 <abstract>
 <para>
-&cantor; is an application, aimed at providing a 
+&cantor; is an application, aimed at providing a
 nice worksheet view to other Free Software Math packages.
 </para>
 </abstract>
@@ -73,9 +73,6 @@ Screenshot:
 	<mediaobject>
 	  <imageobject>
 	    <imagedata fileref="screenshot.png" format="PNG"/>
-	  </imageobject>
-	  <imageobject>
-	    <imagedata fileref="screenshot.eps" format="EPS"/>
 	  </imageobject>
 	  <textobject>
 	    <phrase>Screenshot</phrase>
@@ -122,10 +119,10 @@ Screenshot:
       <listitem>
 	<para>
 	  Maxima is a system for the manipulation of symbolic and numeric expressions,
-	  including differentiation, integration, Taylor series, Laplace transforms, 
+	  including differentiation, integration, Taylor series, Laplace transforms,
 	  ordinary differential equations, systems of linear equations, polynomials, sets,
 	  lists, vectors, matrices, and tensors. Maxima yields high-precision numeric results
-	  by using exact fractions, arbitrary precision integers, and variable precision 
+	  by using exact fractions, arbitrary precision integers, and variable precision
 	  floating point numbers. Maxima can plot functions and data in two and three dimensions.
 	  See <ulink url="http://maxima.sourceforge.net">http://maxima.sourceforge.net</ulink> for more information.
 	</para>
@@ -138,8 +135,8 @@ Screenshot:
 	  R is a language and environment for statistical computing and graphics, similar to the S language and environment.
 	  It provides a wide variety of statistical (linear and nonlinear modelling,
 	  classical statistical tests, time-series analysis, classification, clustering, ...)
-	  and graphical techniques, and is highly extensible. The S language is often the 
-	  vehicle of choice for research in statistical methodology, 
+	  and graphical techniques, and is highly extensible. The S language is often the
+	  vehicle of choice for research in statistical methodology,
 	  and R provides an open-source route to this.
 	  See <ulink url="http://www.r-project.org">http://www.r-project.org</ulink> for more information.
 	</para>
@@ -154,6 +151,45 @@ Screenshot:
 	  </para>
       </listitem>
     </varlistentry>
+    <varlistentry>
+      <term>Qalculate!:</term>
+      <listitem>
+  <para>
+    Qalculate! is not your regular software replication of the cheapest
+    available calculator. Qalculate! aims to make full use of the superior
+    interface, power and flexibility of modern computers. The center of
+    attention in Qalculate! is the expression entry. Instead of entering each
+    number in a mathematical expression separately, you can directly write the
+    whole expression and later modify it. The interpretation of expressions is
+    flexible and fault tolerant, and if you nevertheless do something wrong,
+    Qalculate! will tell you so. Not fully solvable expressions are however not
+    errors. Qalculate! will simplify as far as it can and answer with an
+    expression. In addition to numbers and arithmetic operators, an expression
+    may contain any combination of variables, units, and functions.
+    See <ulink url="http://qalculate.sourceforge.net/">http://qalculate.sourceforge.net/</ulink> for more information.
+  </para>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Sage:</term>
+      <listitem>
+  <para>
+    Scilab is an free software, cross-platform numerical computational package
+    and a high-level, numerically oriented programming language.
+  </para>
+  <para>Scilab is distributed under CeCILL license (GPL compatible).
+    See <ulink url="http://www.scilab.org/">http://www.scilab.org/</ulink> for more information.
+  </para>
+  <warning>
+    <para>
+      You need Scilab version 5.4 or higher to be installed in your system to make this backend usable.
+    </para>
+    <para>
+      Scilab version of the master branch of the Scilab's repository is compatible.
+    </para>
+  </warning>
+  </listitem>
+    </varlistentry>
   </variablelist>
 </para>
 </sect1>
@@ -166,9 +202,6 @@ Screenshot:
   <mediaobject>
     <imageobject>
       <imagedata fileref="screenshot.png" format="PNG"/>
-    </imageobject>
-    <imageobject>
-      <imagedata fileref="screenshot.eps" format="EPS"/>
     </imageobject>
     <textobject>
       <phrase>Screenshot of the &cantor; Workspace</phrase>
@@ -208,13 +241,10 @@ Screenshot:
       <listitem>
 	<para>
 	  This setting changes the way results are presented to you. If enabled, it passes the result through
-	  the LaTeX system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes 
+	  the LaTeX system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes
 	  <inlinemediaobject>
 	      <imageobject>
 		<imagedata fileref="latex_formula.png" format="PNG"/>
-	      </imageobject>
-	      <imageobject>
-		<imagedata fileref="latex_formula.eps" format="EPS"/>
 	      </imageobject>
 	      <textobject><phrase>3*x^2*sqrt(2)*x+2/3</phrase></textobject>
 	  </inlinemediaobject>
@@ -244,7 +274,7 @@ Screenshot:
     <term>Line Numbers</term>
     <listitem>
       <para>
-	This setting controls whether the different expressions should have a number in front.  This allows you 
+	This setting controls whether the different expressions should have a number in front.  This allows you
 	to recall older results - in Maxima, for instance, this is done with the <quote>%O1</quote> command.
       </para>
     </listitem>
@@ -267,7 +297,7 @@ TODO add screenshots and descriptions of each assistant
 <title>The main &cantor; window</title>
 
 <sect2 id="file-menu">
-<title>The <guimenu>File</guimenu> Menu</title>
+<title>The File Menu</title>
 <para>
 <variablelist>
 <varlistentry>
@@ -278,7 +308,41 @@ TODO add screenshots and descriptions of each assistant
 <guimenu>File</guimenu>
 <guimenuitem>New</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Creates a new document</action></para></listitem>
+<listitem><para><action>Creates a new worksheet with the default backend.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>New</guisubmenu>
+<guimenuitem><replaceable>Backend</replaceable></guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Creates a new worksheet with the chosen backend.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the chosen worksheet that was saved earlier.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Download Example Worksheets</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the dialog to download examples uploaded by other &cantor; users with
+ <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Open Example</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the dialog to choose an example to load.</action> The examples should be downloaded with <menuchoice><guimenu>File</guimenu>
+<guimenuitem>Download Example Worksheets</guimenuitem></menuchoice> beforehand.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -288,7 +352,56 @@ TODO add screenshots and descriptions of each assistant
 <guimenu>File</guimenu>
 <guimenuitem>Save</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Saves the document</action></para></listitem>
+<listitem><para><action>Saves the current worksheet.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Save As...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows saving the current worksheet with a new name.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export to LaTex</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows saving the current worksheet as a LaTeX document.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Publish Worksheet</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the dialog to publish your current worksheet and make it available to other &cantor; users through
+ <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Print</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the printing dialog for the current worksheet.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Run Script</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows to load and run the batch scripts for the current backend.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Close</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Closes the current worksheet.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -305,8 +418,127 @@ TODO add screenshots and descriptions of each assistant
 
 </sect2>
 
+<sect2 id="view-menu">
+<title>The View Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Zoom In</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Zoom in</action> the current worksheet by 10%.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>-</keycap></keycombo>
+</shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Zoom Out</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Zoom out</action> the current worksheet by 10%.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guimenuitem>Show Script Editor</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens the batch script editor window for the current backend.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Panels</guisubmenu>
+<guimenuitem>Help</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles</action> the visibility of the <guilabel>Help</guilabel> sidebar.</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="worsheet-menu">
+<title>The Worksheet Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Evaluate Worksheet</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Triggers</action> the evaluation of the whole worksheet.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Shift;<keycap>Return</keycap></keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Evaluate Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Triggers</action> the current entry evaluation.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Command Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a new command entry below the current cursor position.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Text Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a new text entry below the current cursor position.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Image</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts the image template below the current cursor position.</action> You will need to click with &RMB; at the template to configure the image details.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Page Break</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts the page break below the current cursor position.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Shift;<keycap>Del</keycap></keycombo>
+</shortcut>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Remove current Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Removes</action> current entry from the worksheet.</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="settings-menu">
+<title>The Settings Menu</title>
+<para>
+This menu contains standard &kde; <guimenu>Settings</guimenu> items aas well as the items described in <link linkend="worksheet-settings">Settings section</link>.
+</para>
+</sect2>
+
 <sect2 id="help-menu">
-<title>The <guimenu>Help</guimenu> Menu</title>
+<title>The Help Menu</title>
 
 &help.menu.documentation;
 
@@ -381,11 +613,11 @@ All interface definitions are in the lib directory.  For some example implementa
 &cantor;
 </para>
 <para>
-Program copyright 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
+Program copyright 2009-2011 Alexander Rieder <email>alexanderrieder@gmail.com</email>
 </para>
 
 <para>
-Documentation Copyright &copy; 2009 Alexander Rieder <email>alexanderrieder@gmail.com</email>
+Documentation Copyright &copy; 2009-2011 Alexander Rieder <email>alexanderrieder@gmail.com</email>
 </para>
 
 <!-- TRANS:CREDIT_FOR_TRANSLATORS -->
