@@ -530,7 +530,7 @@ TODO add screenshots and descriptions of each assistant
 <sect2 id="settings-menu">
 <title>The Settings Menu</title>
 <para>
-This menu contains standard &kde; <guimenu>Settings</guimenu> items aas well as the items described in <link linkend="worksheet-settings">Settings section</link>.
+This menu contains standard &kde; <guimenu>Settings</guimenu> items, as well as the items described in <link linkend="worksheet-settings">Settings section</link>.
 </para>
 </sect2>
 
