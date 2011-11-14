@@ -64,7 +64,7 @@ void QalculateSyntaxHelpObject::fetchInformation()
     switch(item->type()) {
     case TYPE_FUNCTION:
         MathFunction *f = (MathFunction*) item;
-        QString title = i18n("Function: %1").arg(item->title().c_str());
+        QString title = i18n("Function: %1", item->title().c_str());
         const ExpressionName *ename = &f->preferredName(false);
         int iargs = f->maxargs();
         if(iargs < 0) {
@@ -253,20 +253,18 @@ void QalculateSyntaxHelpObject::setPlotInformation()
 void QalculateSyntaxHelpObject::setSaveVariablesInformation()
 {
     QString title = "<p>" + i18n("Save variables to a file") + "</p>";
-    QString desc = "<p>" + i18n("Save all currently defined variables to a file. They can be reloaded with %1.").arg("loadVariables") + "</p>";
+    QString desc = "<p>" + i18n("Save all currently defined variables to a file. They can be reloaded with %1.", QLatin1String("loadVariables")) + "</p>";
     QString syntax = "<p>saveVariables " + i18n("file") + "</p>";
-    QString arguments = "<p>" + i18n("file") + ": " + 
-	i18n("the file to save to") + "</p>";
+    QString arguments = "<p>" + i18n("file: the file to save to") + "</p>";
     m_answer = title + desc + syntax + arguments;
 }
 
 void QalculateSyntaxHelpObject::setLoadVariablesInformation()
 {
     QString title = "<p>" + i18n("Load variables from a file") + "</p>";
-    QString desc = "<p>" + i18n("Load variables from a file that has previously been created by %1.").arg("saveVariables") + "</p>";
+    QString desc = "<p>" + i18n("Load variables from a file that has previously been created by %1.", QLatin1String("saveVariables")) + "</p>";
     QString syntax = "<p>loadVariables " + i18n("file") + "</p>";
-    QString arguments = "<p>" + i18n("file") + ": " + 
-	i18n("the file to load") + "</p>";
+    QString arguments = "<p>" + i18n("file: the file to load") + "</p>";
     m_answer = title + desc + syntax + arguments;
 }
 

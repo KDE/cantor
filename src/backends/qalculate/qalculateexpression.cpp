@@ -219,7 +219,7 @@ QString QalculateExpression::parseForFilename(QString argument, QString usage)
     }
 
     if (sep != '\0' && i == argument.size()) {
-	showMessage(QString(i18n("missing %1").arg(sep)), MESSAGE_ERROR);
+	showMessage(i18n("missing %1", sep), MESSAGE_ERROR);
 	return QString();
     }
     
@@ -268,7 +268,7 @@ void QalculateExpression::evaluatePlotCommand()
 	        ++j;
 	    }
 	    if (j == argString.size()) {
-		showMessage(QString(i18n("missing %1")).arg(argString[i]), MESSAGE_ERROR);
+		showMessage(i18n("missing %1", argString[i]), MESSAGE_ERROR);
 		return;
 	    }
 	    ++j;
@@ -688,8 +688,7 @@ void QalculateExpression::evaluatePlotCommand()
 		lastExpressionEntry = j;
 	    }
 	    else {
-		QString msg = i18n("found multiple expressions in one plot command (%1 and %2).");
-		msg = msg.arg(QString(expression.c_str()), argument);
+		QString msg = i18n("found multiple expressions in one plot command (%1 and %2).", QString(expression.c_str()), argument);
 		showMessage(msg, MESSAGE_ERROR);
 		deletePlotDataParameters(plotDataParameterList);
 		return;
