@@ -22,6 +22,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for the Scilab Scientific Programming Environment
 Comment[ca]=Dorsal per a l'entorn de programació científic Scilab
+Comment[de]=Modul für die wissenschaftliche Programmierumgebung Scilab
 Comment[es]=Motor para el entorno de programación científico Scilab
 Comment[nl]=Backend voor de Scilab wetenschappelijke programmeeromgeving
 Comment[pt]=Infra-Estrutura do Ambiente de Programação Científica Scilab
