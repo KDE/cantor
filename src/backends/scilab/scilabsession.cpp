@@ -31,6 +31,7 @@
 #include <QTextEdit>
 
 #include <settings.h>
+#include <qdir.h>
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend)
 {
@@ -67,14 +68,22 @@ void ScilabSession::login()
     {
         kDebug() << "integratePlots";
 
-        m_process->write("chdir('/tmp');\n");
+        QString tempPath = QDir::tempPath();
+
+        QString pathScilabOperations = tempPath;
+        pathScilabOperations.prepend("chdir('");
+        pathScilabOperations.append("');\n");
+
+        kDebug() << "Processing command to change chdir in Scilab. Command " << pathScilabOperations.toLocal8Bit();
+
+        m_process->write(pathScilabOperations.toLocal8Bit());
 
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("ScilabDirWatch");
 
-        m_watch->addDir("/tmp", KDirWatch::WatchFiles);
+        m_watch->addDir(tempPath, KDirWatch::WatchFiles);
 
-        kDebug() << "addDir /tmp? " << m_watch->contains("/tmp");
+        kDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(tempPath.toLocal8Bit());
 
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
@@ -185,6 +194,9 @@ void ScilabSession::plotFileChanged(QString filename)
     {
          kDebug() << "Calling parsePlotFile";
          m_currentExpression->parsePlotFile();
+
+//          bool removed = QFile::remove(filename);
+//          kDebug() << "Removed file " << filename << "? " << removed;
     }
 }
 

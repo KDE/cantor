@@ -33,6 +33,7 @@
 #include "settings.h"
 
 #include "imageresult.h"
+#include <qdir.h>
 typedef Cantor::ImageResult ScilabPlotResult;
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
@@ -118,7 +119,10 @@ void ScilabExpression::parsePlotFile()
         QString plotId;
 
         for(int count = 0; count <= numPlot; count++){
-            plotId = QString("/tmp/cantor-export-figure-%1.png").arg(count);
+            plotId = QString("/cantor-export-figure-%1.png").arg(count);
+            plotId.prepend(QDir::tempPath());
+
+            kDebug() << "Exist file " << plotId << "? " << QFile::exists(plotId);
 
             if (QFile::exists(plotId))
             {
@@ -126,7 +130,8 @@ void ScilabExpression::parsePlotFile()
 
                 setResult(new ScilabPlotResult(plotId));
 
-                QFile::remove(plotId);
+                bool removed = QFile::remove(plotId);
+                kDebug() << "Removed file " << plotId << "? " << removed;
 
                 plotId.clear();
             }
