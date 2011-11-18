@@ -103,7 +103,7 @@ void MaximaExpression::evaluate()
         connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
     }
 
-    //if the whole command consists of a command, drop it
+    //if the whole command consists of a comment, drop it
     static const QRegExp commentRegExp("^/\\*.*\\*/$");
     if(commentRegExp.exactMatch(command()))
        return;
