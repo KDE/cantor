@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 Filipe Saraiva <filip.saraiva@gmail.com>
+    Copyright (C) 2011 Filipe Saraiva <filipe@kde.org>
  */
 
 #ifndef _SCILABSESSION_H
