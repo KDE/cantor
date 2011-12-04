@@ -42,6 +42,7 @@ ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Express
 
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
+
     connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
 }
 
@@ -62,7 +63,6 @@ void ScilabExpression::evaluate()
         kDebug() << "Preparing export figures property";
 
         QString exportCommand;
-        numPlot = 0;
 
         QStringList commandList = command().split("\n");
 
@@ -70,12 +70,11 @@ void ScilabExpression::evaluate()
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
 
-                exportCommand = QString("\nxs2png(gcf(), 'cantor-export-figure-%1.png');\ndelete(gcf());").arg(numPlot);
+                exportCommand = QString("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(rand());
 
                 commandList[count].append(exportCommand);
 
                 exportCommand.clear();
-                numPlot++;
             }
 
             kDebug() << "Command " << count << ": " << commandList.at(count).toLocal8Bit().constData();
@@ -110,35 +109,14 @@ void ScilabExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-void ScilabExpression::parsePlotFile()
+void ScilabExpression::parsePlotFile(QString filename)
 {
     kDebug() << "parsePlotFile";
 
-    if(numPlot != 0){
+    kDebug() << "ScilabExpression::parsePlotFile: " << filename;
 
-        QString plotId;
+    setResult(new ScilabPlotResult(filename));
 
-        for(int count = 0; count <= numPlot; count++){
-            plotId = QString("/cantor-export-figure-%1.png").arg(count);
-            plotId.prepend(QDir::tempPath());
-
-            kDebug() << "Exist file " << plotId << "? " << QFile::exists(plotId);
-
-            if (QFile::exists(plotId))
-            {
-                kDebug() << "ScilabExpression::parsePlotFile: " << plotId;
-
-                setResult(new ScilabPlotResult(plotId));
-
-                bool removed = QFile::remove(plotId);
-                kDebug() << "Removed file " << plotId << "? " << removed;
-
-                plotId.clear();
-            }
-        }
-    }
-
-    numPlot = 0;
     setPlotPending(false);
 
     if (m_finished)

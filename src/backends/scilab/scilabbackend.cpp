@@ -87,7 +87,8 @@ KUrl ScilabBackend::helpUrl() const
 
 QString ScilabBackend::description() const
 {
-    return i18n("Scilab is an free software, cross-platform numerical computational package and a high-level, numerically oriented programming language. <br/>" \
+    return i18n("<p><b>Warning:</b> this backend works only with Scilab version 5.4 or later</p>"\
+        "<p>Scilab is an free software, cross-platform numerical computational package and a high-level, numerically oriented programming language.</p>" \
         "Scilab is distributed under CeCILL license (GPL compatible)");
 }
 

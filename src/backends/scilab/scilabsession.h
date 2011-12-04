@@ -22,6 +22,7 @@
 #define _SCILABSESSION_H
 
 #include "session.h"
+#include <QStringList>
 
 class ScilabExpression;
 class KTemporaryFile;
@@ -55,6 +56,7 @@ class ScilabSession : public Cantor::Session
     KProcess* m_process;
     KDirWatch* m_watch;
     QString m_tempDir;
+    QStringList m_listPlotName;
 
     QList<ScilabExpression*> m_runningExpressions;
     ScilabExpression* m_currentExpression;

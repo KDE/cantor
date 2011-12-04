@@ -29,6 +29,8 @@
 
 #include <QtCore/QFile>
 #include <QTextEdit>
+#include <QListIterator>
+#include <QDir>
 
 #include <settings.h>
 #include <qdir.h>
@@ -103,6 +105,13 @@ void ScilabSession::logout()
 
     m_runningExpressions.clear();
     kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
+
+    QDir removePlotFigures;
+    QListIterator<QString> i(m_listPlotName);
+
+    while(i.hasNext()){
+        removePlotFigures.remove(i.next().toLocal8Bit().constData());
+    }
 
     changeStatus(Cantor::Session::Done);
 }
@@ -190,13 +199,12 @@ void ScilabSession::plotFileChanged(QString filename)
 {
     kDebug() << "plotFileChanged filename:" << filename;
 
-    if ((m_currentExpression) && (filename.contains("cantor-export-figure")))
+    if ((m_currentExpression) && (filename.contains("cantor-export-scilab-figure")))
     {
          kDebug() << "Calling parsePlotFile";
-         m_currentExpression->parsePlotFile();
+         m_currentExpression->parsePlotFile(filename);
 
-//          bool removed = QFile::remove(filename);
-//          kDebug() << "Removed file " << filename << "? " << removed;
+         m_listPlotName.append(filename);
     }
 }
 

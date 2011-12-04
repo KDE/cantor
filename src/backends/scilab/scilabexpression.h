@@ -37,7 +37,7 @@ class ScilabExpression : public Cantor::Expression
     void interrupt();
     void parseOutput(QString output);
     void parseError(QString error);
-    void parsePlotFile();
+    void parsePlotFile(QString filename);
     void setPlotPending(bool plot);
 
   public slots:
@@ -47,7 +47,6 @@ class ScilabExpression : public Cantor::Expression
     QTimer* m_timer;
     bool m_finished;
     bool m_plotPending;
-    int numPlot;
 };
 
 #endif /* _SCILABEXPRESSION_H */
