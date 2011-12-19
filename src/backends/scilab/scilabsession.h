@@ -55,8 +55,8 @@ class ScilabSession : public Cantor::Session
   private:
     KProcess* m_process;
     KDirWatch* m_watch;
-    QString m_tempDir;
     QStringList m_listPlotName;
+    QString m_output;
 
     QList<ScilabExpression*> m_runningExpressions;
     ScilabExpression* m_currentExpression;

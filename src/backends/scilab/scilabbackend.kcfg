@@ -7,9 +7,9 @@
   <include>kstandarddirs.h</include>
   <group name="ScilabBackend">
     <entry name="Path" type="Url">
-      <label>Path to the Scilab executable Warning: Scilab version must better or equal than 5.4 version</label>
+      <label>Path to scilab-adv-cli command (Warning: Scilab version must better or equal than 5.4 version)</label>
       <!-- default code="true">KStandardDirs::findExe("scilab-adv-cli")</default -->
-      <default code="true">KStandardDirs::findExe("/home/kdevil/scilab/bin/scilab-adv-cli")</default>
+      <default code="true">KStandardDirs::findExe("scilab-adv-cli")</default>
     </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>

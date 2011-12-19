@@ -31,6 +31,8 @@
 #include <QTextEdit>
 #include <QListIterator>
 #include <QDir>
+#include <QIODevice>
+#include <QByteArray>
 
 #include <settings.h>
 #include <qdir.h>
@@ -61,7 +63,8 @@ void ScilabSession::login()
     kDebug() << m_process->program();
 
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT(readOutput()));
+
+    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
     m_process->start();
@@ -145,6 +148,7 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 {
     QString command;
 
+    command.prepend("\nprintf('begin-cantor-scilab-command-processing')\n");
     command += expr->command();
 
     m_currentExpression = expr;
@@ -152,11 +156,10 @@ void ScilabSession::runExpression(ScilabExpression* expr)
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this,
             SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
 
-    command += "\n";
+    command += "\nprintf('terminated-cantor-scilab-command-processing')\n";
     kDebug() << "Writing command to process" << command;
 
     m_process->write(command.toLocal8Bit());
-
 }
 
 void ScilabSession::expressionFinished()
@@ -182,17 +185,27 @@ void ScilabSession::readOutput()
 {
     kDebug() << "readOutput";
 
-    QString output = m_process->readAllStandardOutput();
+    while(m_process->bytesAvailable() > 0){
+        m_output.append(QString::fromLocal8Bit(m_process->readLine()));
+    }
 
-    kDebug() << "output.isNull? " << output.isNull();
-    kDebug() << "output: " << output;
+    kDebug() << "output.isNull? " << m_output.isNull();
+    kDebug() << "output: " << m_output;
 
-    if(status() != Running || output.isNull()){
+    if(status() != Running || m_output.isNull()){
         return;
     }
 
-    m_currentExpression->parseOutput(output);
+    if(m_output.contains("begin-cantor-scilab-command-processing") &&
+        m_output.contains("terminated-cantor-scilab-command-processing")){
 
+        m_output.remove("begin-cantor-scilab-command-processing");
+        m_output.remove("terminated-cantor-scilab-command-processing");
+
+        m_currentExpression->parseOutput(m_output);
+
+        m_output.clear();
+    }
 }
 
 void ScilabSession::plotFileChanged(QString filename)
