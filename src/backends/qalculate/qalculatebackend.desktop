@@ -2,6 +2,7 @@
 Type=Service
 Name=Qalculate
 Name[ca]=Qalculate
+Name[da]=Qalculate
 Name[de]=Qalculate
 Name[es]=Qalculate
 Name[et]=Qalculate
@@ -26,6 +27,7 @@ X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Website=http://qalculate.sourceforge.net/
 Comment=Qalculate backend for Cantor. Gives you the advanced features of Qalculate
 Comment[ca]=Dorsal de Qalculate per al Cantor. Us ofereix les característiques avançades de Qalculate
+Comment[da]=Qalculate-backend til Cantor. Giver dig Qalculates avancerede funktioner
 Comment[de]=Qalculate-Modul für Cantor. Ermöglicht die Nutzung der weiterführenden Funktionen von Qalculate
 Comment[es]=Motor Qalculate para Cantor. Le proporciona las características avanzadas de Qalculate
 Comment[et]=Cantori Qalculate'i taustaprogramm. Tagab Qalculate'i enamiku omaduste kasutamise.
