@@ -189,11 +189,11 @@ Session* DefaultVariableModel::session() const
     return d->session;
 }
 
-}
-
 bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor::DefaultVariableModel::Variable& other)
 {
     return one.name == other.name;
+}
+
 }
 
 #include  "defaultvariablemodel.moc"

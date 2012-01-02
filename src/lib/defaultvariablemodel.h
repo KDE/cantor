@@ -136,8 +136,8 @@ private:
     Q_DECLARE_PRIVATE(DefaultVariableModel)
 };
 
-}
-
 bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor::DefaultVariableModel::Variable& other);
+
+}
 
 #endif // CANTOR_DEFAULTVARIABLEMODEL_H
