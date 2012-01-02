@@ -249,7 +249,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     template <class UI> class DirectiveControl : protected UI, public DirectiveProducer
     {
         public:
-            DirectiveControl(QWidget* parent) : DirectiveProducer(parent) { setupUi(this); }
+            DirectiveControl(QWidget* parent) : DirectiveProducer(parent) { UI::setupUi(this); }
         protected:
             typedef DirectiveControl<UI> AbstractParent;
     };
