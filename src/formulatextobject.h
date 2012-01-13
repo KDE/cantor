@@ -32,7 +32,7 @@ class QPainter;
 class QRectF;
 class QSizeF;
 
-class CANTOR_EXPORT FormulaTextObject : public QObject, public QTextObjectInterface
+class FormulaTextObject : public QObject, public QTextObjectInterface
 {
     Q_OBJECT
     Q_INTERFACES(QTextObjectInterface)
