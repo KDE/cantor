@@ -30,6 +30,7 @@
 #include <kicon.h>
 #include <klocale.h>
 #include <kdebug.h>
+#include <kzip.h>
 
 #include <kdebug.h>
 #include <qurl.h>

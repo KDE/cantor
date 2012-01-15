@@ -25,6 +25,7 @@
 #include <kmenu.h>
 #include <kicon.h>
 #include <klocale.h>
+#include <kzip.h>
 
 PageBreakEntry::PageBreakEntry(QTextCursor position, Worksheet* parent) : 
     WorksheetEntry( position, parent )
@@ -166,7 +167,7 @@ void PageBreakEntry::update()
     cursor.setPosition(m_frame->lastPosition(), QTextCursor::KeepAnchor);
     cursor.removeSelectedText();
 
-    if (not m_worksheet->isPrinting())
+    if (!m_worksheet->isPrinting())
     {
 	QTextBlockFormat block(cursor.blockFormat());
 	block.setAlignment(Qt::AlignCenter);
