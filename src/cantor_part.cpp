@@ -105,7 +105,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
 
-    KAction* latexExport=new KAction(i18n("Export to LaTex"), actionCollection());
+    KAction* latexExport=new KAction(i18n("Export to LaTeX"), actionCollection());
     actionCollection()->addAction("file_export_latex", latexExport);
     latexExport->setIcon(KIcon("document-export"));
     connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
