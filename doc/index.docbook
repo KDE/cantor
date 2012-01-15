@@ -364,7 +364,7 @@ TODO add screenshots and descriptions of each assistant
 <varlistentry>
 <term><menuchoice>
 <guimenu>File</guimenu>
-<guimenuitem>Export to LaTex</guimenuitem>
+<guimenuitem>Export to LaTeX</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Allows saving the current worksheet as a LaTeX document.</action></para></listitem>
 </varlistentry>

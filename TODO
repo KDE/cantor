@@ -8,7 +8,7 @@ R-Backend:
  - add custom Result types for DataFrames etc. (nice html tables instead of AsciiArt)
 General:
 - MathML rendering
-- add help browser 
+- add help browser
 - improve help/documentation/usability all over the place
 - review and cleanup API
 - Extension infrastructure(backend-specific or using extensions), e.g. to provide variable inspection
@@ -18,7 +18,7 @@ General:
 - add way to show disabled backends, and reason why they are disabled
 - export to latex
 - add an about-backend dialog
-- add gui option to configure latex path. hide typesetting option if LaTex is not available
+- add gui option to configure latex path. hide typesetting option if LaTeX is not available
 - add context menu to entries, e.g. for evaluating, removing, inserting
 
 - improve tab-completion:

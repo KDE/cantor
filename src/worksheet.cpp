@@ -855,7 +855,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
     if(expr->result()->type()==Cantor::HelpResult::Type)
     {
         QString help=expr->result()->toHtml();
-        //Do some basic LaTex replacing
+        //Do some basic LaTeX replacing
         help.replace(QRegExp("\\\\code\\{([^\\}]*)\\}"), "<b>\\1</b>");
         help.replace(QRegExp("\\$([^\\$])\\$"), "<i>\\1</i>");
 

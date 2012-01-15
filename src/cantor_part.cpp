@@ -335,7 +335,7 @@ void CantorPart::fileSaveAs()
 void CantorPart::exportToLatex()
 {
     // this slot is called whenever the File->Save As menu is selected,
-    QString filter=i18n("*.tex|LaTex Document");
+    QString filter=i18n("*.tex|LaTeX Document");
 
     QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
 
