@@ -72,7 +72,7 @@ class OctaveSession : public Cantor::Session
         void readError();
         void currentExpressionStatusChanged(Cantor::Expression::Status status);
         void processError();
-	void plotFileChanged(QString filename);
+    void plotFileChanged(const QString& filename);
     void runSpecificCommands();
 
   Q_SIGNALS:
