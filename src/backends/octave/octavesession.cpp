@@ -41,6 +41,7 @@
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
 m_process(0),
 m_currentExpression(0),
+m_watch(0),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     kDebug() << octaveScriptInstallDir;
@@ -201,7 +202,10 @@ void OctaveSession::readOutput()
                 m_tempDir.remove(0,18);
                 m_tempDir.chop(1); // isolate the tempDir's location
                 kDebug() << "Got temporary file dir:" << m_tempDir;
-                m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
+                if (m_watch)
+                {
+                    m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
+                }
             }
         }
         else if (line.contains(m_prompt))
