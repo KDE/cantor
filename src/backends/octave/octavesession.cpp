@@ -97,7 +97,7 @@ void OctaveSession::login()
     {
         m_watch = new KDirWatch(this);
         m_watch->setObjectName("OctaveDirWatch");
-        connect (m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)) );
+        connect (m_watch, SIGNAL(dirty(QString)), SLOT(plotFileChanged(QString)) );
     }
 }
 
@@ -256,7 +256,7 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     }
 }
 
-void OctaveSession::plotFileChanged(QString filename)
+void OctaveSession::plotFileChanged(const QString& filename)
 {
     if (!QFile::exists(filename) || !filename.split('/').last().contains("c-ob-"))
     {
@@ -267,7 +267,6 @@ void OctaveSession::plotFileChanged(QString filename)
         m_currentExpression->parsePlotFile(filename);
     }
 }
-
 
 Cantor::CompletionObject* OctaveSession::completionFor ( const QString& cmd )
 {
