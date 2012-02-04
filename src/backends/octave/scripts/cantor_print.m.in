@@ -18,5 +18,9 @@
 %}
 
 function cantor_print()
-  print('-d${PLOT_FILE_FORMAT}',strcat(tempname(tempdir,'c-ob-'),'.${PLOT_FILE_SUFFIX}'),'-S480,336','-tight');
+  try
+    print('-d${PLOT_FILE_FORMAT}',strcat(tempname(tempdir,'c-ob-'),'.${PLOT_FILE_SUFFIX}'),'-S480,336','-tight');
+  catch
+    print('-d${PLOT_FILE_FORMAT}',strcat(tempname(tempdir,'c-ob-'),'.${PLOT_FILE_SUFFIX}'),'-S480,336');
+  end_try_catch
 endfunction
