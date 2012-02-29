@@ -65,7 +65,18 @@ void ScilabSession::login()
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
 
     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
-    QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+
+    /*
+     * Apparently, Scilab receive error messages by output standard stream.
+     * So, standard error will be commented to verified it and fix a bug.
+     *
+     * See bug 292611
+     * -> https://bugs.kde.org/show_bug.cgi?id=292611
+     *
+     * Filipe Saraiva - filipe@kde.org
+     *
+     * QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+     */
 
     m_process->start();
 
