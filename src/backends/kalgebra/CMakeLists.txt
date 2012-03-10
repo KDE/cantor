@@ -1,4 +1,4 @@
-include_directories(${ANALITZA_INCLUDES})
+include_directories(${ANALITZA_INCLUDE_DIR})
 
 set( KAlgebraBackend_SRCS
  kalgebrasyntaxhelpobject.cpp 
