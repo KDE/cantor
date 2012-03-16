@@ -41,13 +41,13 @@ void MaximaCompletionObject::fetchIdentifierType()
     if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
 		    MaximaKeywords::instance()->functions().end(), identifier())
 	!= MaximaKeywords::instance()->functions().end())
-	completeFunctionLine();
+	emit fetchingTypeDone(FunctionType);
     else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
 			 MaximaKeywords::instance()->keywords().end(), identifier())
 	!= MaximaKeywords::instance()->keywords().end())
-	completeKeywordLine();
+	emit fetchingTypeDone(KeywordType);
     else
-	completeVariableLine();
+	emit fetchingTypeDone(VariableType);
 }
 
 void MaximaCompletionObject::fetchCompletions()
@@ -59,7 +59,7 @@ void MaximaCompletionObject::fetchCompletions()
 
     setCompletions(allCompletions);
 
-    emit done();
+    emit fetchingDone();
 }
 
 bool MaximaCompletionObject::mayIdentifierContain(QChar c) const

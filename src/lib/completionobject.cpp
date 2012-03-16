@@ -50,7 +50,7 @@ CompletionObject::CompletionObject(Session* session) :
     d->position = -1;
     d->session=session;
 
-    connect(this, SIGNAL(match(const QString&)), this, SLOT(setCompletion(const QString&)));
+    connect(this, SIGNAL(fetchingDone()), this, SLOT(findCompletion()));
     setCompletionMode(KGlobalSettings::CompletionShell);
 }
 
@@ -123,6 +123,8 @@ void CompletionObject::completeLine(const QString& comp, CompletionObject::LineC
     } else if (mode == PreliminaryCompletion) {
 	completeUnknownLine();
     } else /* mode == FinalCompletion */ {
+	connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this, 
+		SLOT(completeLineWithType(IdentifierType)));
 	QTimer::singleShot(0, this, SLOT(fetchIdentifierType()));
     }
 }
@@ -137,11 +139,6 @@ void CompletionObject::setCompletions(const QStringList& completions)
 {
     d->completions=completions;
     this->setItems(completions);
-}
-
-void CompletionObject::setCompletion(const QString& completion)
-{
-    d->completion = completion;
 }
 
 void CompletionObject::setCommand(const QString& cmd)
@@ -173,7 +170,32 @@ bool CompletionObject::mayIdentifierBeginWith(QChar c) const
     return c.isLetter() || c == '_';
 }
 
-void CompletionObject::completeFunctionLine(FunctionType type)
+void CompletionObject::findCompletion()
+{
+    d->completion = makeCompletion(command());
+    emit done();
+}
+
+void CompletionObject::completeLineWithType(IdentifierType type)
+{
+    switch(type) {
+    case VariableType:
+	completeVariableLine();
+	break;
+    case FunctionWithArguments:
+    case FunctionWithoutArguments:
+	completeFunctionLine(type);
+	break;
+    case KeywordType:
+	completeKeywordLine();
+	break;
+    case UnknownType:
+	completeUnknownLine();
+	break;
+    }
+}
+
+void CompletionObject::completeFunctionLine(IdentifierType type)
 {
     QString newline;
     int newindex;

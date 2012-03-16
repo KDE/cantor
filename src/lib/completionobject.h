@@ -104,9 +104,13 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
 
   protected:
 
-    enum FunctionType {
+    enum IdentifierType {
+	VariableType,   ///< a variable
 	FunctionWithArguments,   ///< a function that takes arguments
-	FunctionWithoutArguments ///< a function that takes no arguments
+	FunctionType = FunctionWithArguments, ///< an alias for function with arguments
+	FunctionWithoutArguments, ///< a function that takes no arguments
+	KeywordType,  ///< a keyword
+	UnknownType   ///< no identifier type was found
     };
     /**
      * returns the identifier for fetchIdentifierType
@@ -145,7 +149,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * completed line. Helper function for completeLine.
      * @param type whether the function takes arguments, default: FunctionWithArguments
      */
-    void completeFunctionLine(FunctionType type = FunctionWithArguments);
+    void completeFunctionLine(IdentifierType type = FunctionWithArguments);
     /**
      * Completes line with keyword identifier and emitts lineDone with the 
      * completed line. Helper function for completeLine.
@@ -165,27 +169,45 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
     /**
      * This function should be reimplemented to start the actual fetching
      * of the completions. It can be asynchroneous.
-     * Rememver to emit done, if the fetching is complete
+     * Remember to emit fetchingDone, if the fetching is complete
      */
     virtual void fetchCompletions() = 0;
     /**
-     * Fetch the identifier type of d->commandCompletion, reimplement in
+     * Fetch the identifier type of d->commandCompletion; reimplemented in
      * the backends. Call the appropriate complete*Line function when done.
      */
     virtual void fetchIdentifierType();
     /**
-     * Set the current completion. To be connected with SIGNAL(match(const QString&))
+     * Find the completion. To be called when fetching is done.
+     * Emits done() when done.
      */
-    void setCompletion(const QString&);
+    void findCompletion();
+    /**
+     * Calls the appropriate complete*Line based on type
+     * @param type the identifier type found in line()
+     */
+    void completeLineWithType(IdentifierType type);
   Q_SIGNALS:
     /**
-     * indicates that the fetching of completions is done, 
-     * and that the completions can be used now
+     * indicates that the fetching of completions is done
+     */
+    void fetchingDone();
+    /**
+     * indicates that the type of identifier() was found and passes the 
+     * type as an argument
+     * @param type the identifier type
+     */
+    void fetchingTypeDone(IdentifierType type);
+    /**
+     * indicates that the possible completions and a common completion string
+     * have been found
      */
     void done();
     /**
      * emitted when the line completion is done, passes the new line and
      * the cursor index
+     * @param line the new line
+     * @param index the new cursor index
      */
     void lineDone(QString line, int index);
   private:

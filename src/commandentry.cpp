@@ -539,7 +539,7 @@ void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 void CommandEntry::showCompletions()
 {
     disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
-    QString completion=m_completionObject->makeCompletion(m_completionObject->command());
+    QString completion=m_completionObject->completion();
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
 
@@ -660,7 +660,7 @@ void CommandEntry::updateCompletions()
 {
     if (!m_completionObject)
 	return;
-    QString completion=m_completionObject->makeCompletion(m_completionObject->command());
+    QString completion=m_completionObject->completion();
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
 

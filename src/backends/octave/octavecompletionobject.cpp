@@ -43,10 +43,10 @@ void OctaveCompletionObject::fetchCompletions()
     kDebug() << "Fetching completions for" << command();
     QString expr = QString("completion_matches(\"%1\")").arg(command());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(fetchingDone()));
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getCompletionsFromExpression()));
 }
 
-void OctaveCompletionObject::fetchingDone()
+void OctaveCompletionObject::getCompletionsFromExpression()
 {
     if (!m_expression)
 	return;
@@ -66,7 +66,7 @@ void OctaveCompletionObject::fetchingDone()
     }
     m_expression->deleteLater();
     m_expression = 0;
-    emit done();
+    emit fetchingDone();
 }
 
 void OctaveCompletionObject::fetchIdentifierType()
@@ -79,10 +79,10 @@ void OctaveCompletionObject::fetchIdentifierType()
     // __cantor_tmp2__ = 5
     QString expr = QString("__cantor_tmp1__ = ans; type(\"%1\"); __cantor_tmp2__ = ans; ans = __cantor_tmp1__; __cantor_tmp2__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(fetchingTypeDone()));
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getIdentifierTypeFromExpression()));
 }
 
-void OctaveCompletionObject::fetchingTypeDone()
+void OctaveCompletionObject::getIdentifierTypeFromExpression()
 {
     kDebug() << "type fetching done";
     if (!m_expression)
@@ -111,11 +111,11 @@ void OctaveCompletionObject::fetchingTypeDone()
     // but sets ans to 103
     if (line1.endsWith("function") || line1.contains("user-defined function") 
 	|| line2.endsWith("103"))
-	completeFunctionLine();
+	emit fetchingTypeDone(FunctionType);
     else if (res.endsWith("variable"))
-	completeVariableLine();
+	emit fetchingTypeDone(VariableType);
     else if (res.endsWith("keyword"))
-	completeKeywordLine();
+	emit fetchingTypeDone(KeywordType);
     else
-	completeUnknownLine();
+	emit fetchingTypeDone(UnknownType);
 }

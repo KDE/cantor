@@ -45,11 +45,11 @@ void QalculateCompletionObject::fetchIdentifierType()
 	completeVariableLine();
     MathFunction* func = CALCULATOR->getFunction(identifier().toLatin1().data());
     if (!func) // can this happen?
-	completeUnknownLine();
+	emit fetchingTypeDone(UnknownType);
     else if (func->args() == 0)
-	completeFunctionLine(FunctionWithoutArguments);
+	emit fetchingTypeDone(FunctionWithoutArguments);
     else 
-	completeFunctionLine(FunctionWithArguments);
+	emit fetchingTypeDone(FunctionWithArguments);
 }
 
 int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) const
@@ -87,5 +87,5 @@ void QalculateCompletionObject::fetchCompletions()
     }
 
     setCompletions(comp);
-    emit done();
+    emit fetchingDone();
 }
