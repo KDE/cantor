@@ -36,6 +36,10 @@ class SageCompletionObject : public Cantor::CompletionObject
     SageCompletionObject( const QString& command, int index, SageSession* session);
     ~SageCompletionObject();
 
+  protected:
+    bool mayIdentifierContain(QChar c) const;
+    bool mayIdentifierBeginWith(QChar c) const;
+
   protected slots:
     void fetchCompletions();
     void getCompletionsFromExpression();

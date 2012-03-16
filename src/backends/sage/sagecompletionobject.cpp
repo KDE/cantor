@@ -121,8 +121,18 @@ void SageCompletionObject::getIdentifierTypeFromExpression()
 	return;
 
     QString res = result->toHtml();
-    if (res.contains("function"))
+    if (res.contains("function") || res.contains("method"))
 	emit fetchingTypeDone(FunctionType);
     else
 	emit fetchingTypeDone(VariableType);
+}
+
+bool SageCompletionObject::mayIdentifierContain(QChar c) const
+{
+    return c.isLetter() || c.isDigit() || c == '_' || c == '.';
+}
+
+bool SageCompletionObject::mayIdentifierBeginWith(QChar c) const
+{
+    return c.isLetter() || c.isDigit() || c == '_';
 }
