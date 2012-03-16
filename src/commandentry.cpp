@@ -224,6 +224,16 @@ bool CommandEntry::worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& c
         applySelectedCompletion();
         return true;
     }
+    else if ((event->key() == Qt::Key_Tab) && m_worksheet->completionEnabled())
+    {
+	if (event->modifiers() == Qt::NoModifier) {
+	    showCompletion();
+	    return true;
+	} else if (event->modifiers() == Qt::ShiftModifier && isShowingCompletionPopup()) {
+	    m_completionBox->up();
+	    return true;
+	}
+    }
     else if (!(isInCommandCell(cursor) || isInCurrentInformationCell(cursor)))
     {
         return true;
@@ -321,7 +331,22 @@ void CommandEntry::showCompletion()
     if(line.trimmed().isEmpty())
     {
         return;
-    }else
+    } else if (isShowingCompletionPopup()) {
+	QString comp = m_completionObject->lastMatch();
+	kDebug() << "command" << m_completionObject->command();
+	kDebug() << "completion" << comp;
+	if (comp != m_completionObject->command() 
+	    || !m_completionObject->hasMultipleMatches()) {
+	    if (m_completionObject->hasMultipleMatches()) {
+		completeCommandTo(comp, PreliminaryCompletion);
+	    } else {
+		completeCommandTo(comp, FinalCompletion);
+		m_completionBox->hide();
+	    }
+	} else {
+	    m_completionBox->down();
+	}
+    } else
     {
         Cantor::CompletionObject* tco=m_worksheet->session()->completionFor(line, m_worksheet->textCursor().positionInBlock());
         if(tco)
@@ -503,8 +528,10 @@ bool CommandEntry::isEmpty()
 
 void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 {
-    if(m_completionObject)
+    if(m_completionObject) {
         m_completionObject->deleteLater();
+	disconnect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
+    }
 
     m_completionObject=tc;
     connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
@@ -529,9 +556,12 @@ void CommandEntry::showCompletions()
 		    m_completionBox->deleteLater();
                 m_completionBox=new KCompletionBox(m_worksheet);
                 m_completionBox->setItems(m_completionObject->allMatches());
-                m_completionBox->setTabHandling(true);
+		QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
+		if (!items.empty())
+		    m_completionBox->setCurrentItem(items.first());
+                m_completionBox->setTabHandling(false);
                 m_completionBox->setActivateOnSelect(true);
-                connect(m_completionBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
+                connect(m_completionBox, SIGNAL(activated(const QString&)), this, SLOT(applySelectedCompletion()));
 		connect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
 
                 QRect rect=m_worksheet->cursorRect();
@@ -645,12 +675,11 @@ void CommandEntry::updateCompletions()
             case Settings::PopupCompletion:
             {
                 m_completionBox->setItems(m_completionObject->allMatches());
+		QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
+		if (!items.empty())
+		    m_completionBox->setCurrentItem(items.first());
 
                 QRect rect=m_worksheet->cursorRect();
-		if (m_completionObject->hasMultipleMatches())
-		    m_completionBox->setTabHandling(true);
-		else
-		    m_completionBox->setTabHandling(false);
                 kDebug()<<"cursor is within: "<<rect;
                 const QPoint popupPoint=rect.bottomLeft();
                 //m_completionBox->popup();
@@ -722,6 +751,8 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
     else
 	cmode = Cantor::CompletionObject::FinalCompletion;
     QPair<QString, int> linecomp = m_completionObject->completeLine(completion, cmode);
+    kDebug() << "completion: " << completion;
+    kDebug() << "line completion: " << linecomp.first;
     QTextCursor cursor = m_worksheet->textCursor();
     if(!isInCommandCell(cursor)) return;
     cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::MoveAnchor);
