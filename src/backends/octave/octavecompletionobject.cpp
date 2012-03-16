@@ -77,7 +77,7 @@ void OctaveCompletionObject::fetchIdentifierType()
     // The ouput should look like
     // sin is a built-in function
     // __cantor_tmp2__ = 5
-    QString expr = QString("__cantor_tmp1__ = ans; type(\"%1\"); __cantor_tmp2__ = ans; ans = __cantor_tmp1__; __cantor_tmp2__").arg(identifier());
+    QString expr = QString("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
     connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getIdentifierTypeFromExpression()));
 }
@@ -87,16 +87,13 @@ void OctaveCompletionObject::getIdentifierTypeFromExpression()
     kDebug() << "type fetching done";
     if (!m_expression)
 	return;
-    kDebug() << "m_expression != 0";
     if (m_expression->status() != Cantor::Expression::Done)
     {
-	kDebug() << "m_expression->status() == " << m_expression->status();
 	m_expression->deleteLater();
 	m_expression = 0;
         return;
     }
     Cantor::Result* result = m_expression->result();
-    kDebug() << result;
     m_expression->deleteLater();
     m_expression = 0;
     if (!result)

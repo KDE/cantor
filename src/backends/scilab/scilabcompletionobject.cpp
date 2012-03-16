@@ -37,6 +37,9 @@ ScilabCompletionObject::~ScilabCompletionObject()
 
 void ScilabCompletionObject::fetchCompletions()
 {
+    // A more elegant approach would be to use Scilab's completion() function,
+    // similiarly to how fetching is done in OctaveCompletionObject.
+    // Unfortunately its interactive behavior is not handled well by cantor.
     QStringList allCompletions;
 
     allCompletions << ScilabKeywords::instance()->variables();
@@ -45,5 +48,33 @@ void ScilabCompletionObject::fetchCompletions()
 
     setCompletions(allCompletions);
 
-    emit done();
+    emit fetchingDone();
+}
+
+void ScilabCompletionObject::fetchIdentifierType()
+{
+    // Scilab's typeof function could be used here, but as long as these lists
+    // are used just looking up the name is easier.
+
+    // Can't use qBinaryFind, because keywords.xml is not sorted
+    if (qFind(ScilabKeywords::instance()->functions().begin(),
+	      ScilabKeywords::instance()->functions().end(), identifier())
+	!= ScilabKeywords::instance()->functions().end())
+	emit fetchingTypeDone(FunctionType);
+    else if (qFind(ScilabKeywords::instance()->keywords().begin(),
+		   ScilabKeywords::instance()->keywords().end(), identifier())
+	!= ScilabKeywords::instance()->keywords().end())
+	emit fetchingTypeDone(KeywordType);
+    else
+	emit fetchingTypeDone(VariableType);
+}
+
+bool ScilabCompletionObject::mayIdentifierContain(QChar c) const
+{
+    return c.isLetter() || c.isDigit() || c == '_' || c == '%' || c == '$';
+}
+
+bool ScilabCompletionObject::mayIdentifierBeginWith(QChar c) const
+{
+    return c.isLetter() || c == '_' || c == '%' || c == '$';
 }

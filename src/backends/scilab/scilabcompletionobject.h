@@ -31,8 +31,12 @@ class ScilabCompletionObject : public Cantor::CompletionObject
     ScilabCompletionObject(const QString& cmd, int index, ScilabSession* session) ;
     ~ScilabCompletionObject();
 
+  protected:
+    virtual bool mayIdentifierContain(QChar c) const;
+    virtual bool mayIdentifierBeginWith(QChar c) const;
   protected slots:
     void fetchCompletions();
+    void fetchIdentifierType();
 };
 
 #endif /* _SCILABCOMPLETIONOBJECT_H */

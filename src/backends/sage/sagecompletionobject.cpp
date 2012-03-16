@@ -21,6 +21,7 @@
 #include "sagecompletionobject.h"
 
 #include "sagesession.h"
+#include "sagekeywords.h"
 #include "textresult.h"
 
 #include <kdebug.h>
@@ -43,6 +44,8 @@ SageCompletionObject::~SageCompletionObject()
 
 void SageCompletionObject::fetchCompletions()
 {
+    if (m_expression)
+	return;
     bool t=session()->isTypesettingEnabled();
     if(t)
         session()->setTypesettingEnabled(false);
@@ -50,15 +53,19 @@ void SageCompletionObject::fetchCompletions()
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
     m_expression=session()->evaluateExpression("__hist_tmp__=_; __IPYTHON__.complete(\""+command()+"\");_=__hist_tmp__");
-    connect(m_expression, SIGNAL(gotResult()), this, SLOT(fetchingDone()));
+    connect(m_expression, SIGNAL(gotResult()), this, 
+	    SLOT(getCompletionsFromExpression()));
 
     if(t)
         session()->setTypesettingEnabled(true);
 }
 
-void SageCompletionObject::fetchingDone()
+void SageCompletionObject::getCompletionsFromExpression()
 {
     Cantor::Result* res=m_expression->result();
+    m_expression->deleteLater();
+    m_expression=0;
+
     if(!res||!res->type()==Cantor::TextResult::Type)
     {
         kDebug()<<"something went wrong fetching tab completion";
@@ -80,13 +87,42 @@ void SageCompletionObject::fetchingDone()
         completions<<c.mid(1);
     }
 
+    completions << SageKeywords::instance()->keywords();
     setCompletions(completions);
 
-    m_expression->deleteLater();
-    m_expression=0;
-
-    emit done();
+    emit fetchingDone();
 }
 
+void SageCompletionObject::fetchIdentifierType()
+{
+    if (m_expression)
+	return;
+    if (SageKeywords::instance()->keywords().contains(identifier())) {
+	emit fetchingTypeDone(KeywordType);
+	return;
+    }
+    QString expr = QString("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
+    m_expression = session()->evaluateExpression(expr);
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getIdentifierTypeFromExpression()));
+}
 
+void SageCompletionObject::getIdentifierTypeFromExpression()
+{
+    if (m_expression->status() != Cantor::Expression::Done)
+    {
+	m_expression->deleteLater();
+	m_expression = 0;
+        return;
+    }
+    Cantor::Result* result = m_expression->result();
+    m_expression->deleteLater();
+    m_expression = 0;
+    if (!result)
+	return;
 
+    QString res = result->toHtml();
+    if (res.contains("function"))
+	emit fetchingTypeDone(FunctionType);
+    else
+	emit fetchingTypeDone(VariableType);
+}

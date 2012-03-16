@@ -5,6 +5,7 @@ set( SageBackend_SRCS
  sagesession.cpp
  sageexpression.cpp
  sageextensions.cpp
+ sagekeywords.cpp
  sagehighlighter.cpp
  sagecompletionobject.cpp
 )
@@ -27,3 +28,4 @@ target_link_libraries( testsage
 
 install( FILES sagebackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_sagebackend DESTINATION ${PLUGIN_INSTALL_DIR})
+install( FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/sagebackend)
