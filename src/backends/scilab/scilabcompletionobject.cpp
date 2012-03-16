@@ -25,8 +25,9 @@
 #include "scilabsession.h"
 #include "scilabkeywords.h"
 
-ScilabCompletionObject::ScilabCompletionObject(const QString& command, int index, ScilabSession* session) : Cantor::CompletionObject(command, index, session)
+ScilabCompletionObject::ScilabCompletionObject(const QString& command, int index, ScilabSession* session) : Cantor::CompletionObject(session)
 {
+    setLine(command, index);
 }
 
 ScilabCompletionObject::~ScilabCompletionObject()

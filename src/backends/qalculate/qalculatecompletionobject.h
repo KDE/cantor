@@ -30,12 +30,11 @@ class QalculateCompletionObject : public Cantor::CompletionObject
         ~QalculateCompletionObject();
 
     protected:
-        virtual IdentifierType identifierType(const QString& identifier) const;
-
         virtual int locateIdentifier(const QString& cmd, int index) const;
 
     protected slots:
         void fetchCompletions();
+        void fetchIdentifierType();
 };
 
 #endif /* _NULLCOMPLETIONOBJECT_H */

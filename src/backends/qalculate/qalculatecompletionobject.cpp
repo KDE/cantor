@@ -29,26 +29,27 @@
 #include <KDebug>
 
 QalculateCompletionObject::QalculateCompletionObject(const QString& command, int index, QalculateSession* session)
-    : Cantor::CompletionObject(command, index, session)
+    : Cantor::CompletionObject(session)
 {
+    setLine(command, index);
 }
 
 QalculateCompletionObject::~QalculateCompletionObject()
 {
 }
 
-Cantor::CompletionObject::IdentifierType QalculateCompletionObject::identifierType(const QString& identifier) const
+void QalculateCompletionObject::fetchIdentifierType()
 {
-    Variable* var = CALCULATOR->getVariable(identifier.toLatin1().data());
+    Variable* var = CALCULATOR->getVariable(identifier().toLatin1().data());
     if (var)
-	return VariableIdentifier;
-    MathFunction* func = CALCULATOR->getFunction(identifier.toLatin1().data());
+	completeVariableLine();
+    MathFunction* func = CALCULATOR->getFunction(identifier().toLatin1().data());
     if (!func) // can this happen?
-	return UnknownIdentifier;
+	completeUnknownLine();
     else if (func->args() == 0)
-	return FunctionWithoutArgumentsIdentifier;
+	completeFunctionLine(FunctionWithoutArguments);
     else 
-	return FunctionWithArgumentsIdentifier;
+	completeFunctionLine(FunctionWithArguments);
 }
 
 int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) const

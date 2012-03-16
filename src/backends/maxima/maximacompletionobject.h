@@ -32,13 +32,12 @@ class MaximaCompletionObject : public Cantor::CompletionObject
     ~MaximaCompletionObject();
     
   protected:
-    virtual IdentifierType identifierType(const QString& identifier) const;
-
     virtual bool mayIdentifierContain(QChar c) const;
     virtual bool mayIdentifierBeginWith(QChar c) const;
 
   protected slots:
     void fetchCompletions();
+    void fetchIdentifierType();
 };
 
 #endif /* _MAXIMACOMPLETIONOBJECT_H */

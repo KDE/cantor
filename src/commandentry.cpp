@@ -528,17 +528,17 @@ bool CommandEntry::isEmpty()
 
 void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 {
-    if(m_completionObject) {
-        m_completionObject->deleteLater();
-	disconnect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
-    }
+    if(m_completionObject)
+        removeContextHelp();
 
     m_completionObject=tc;
     connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
+    connect(tc, SIGNAL(lineDone(QString, int)), this, SLOT(completeLineTo(QString, int)));
 }
 
 void CommandEntry::showCompletions()
 {
+    disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
     QString completion=m_completionObject->makeCompletion(m_completionObject->command());
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
@@ -563,6 +563,7 @@ void CommandEntry::showCompletions()
                 m_completionBox->setActivateOnSelect(true);
                 connect(m_completionBox, SIGNAL(activated(const QString&)), this, SLOT(applySelectedCompletion()));
 		connect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
+		connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
 
                 QRect rect=m_worksheet->cursorRect();
                 kDebug()<<"cursor is within: "<<rect;
@@ -647,14 +648,10 @@ void CommandEntry::completedLineChanged()
 {
     if (!isShowingCompletionPopup()) {
 	// the completion popup is not visible anymore, so let's clean up
-	disconnect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
 	removeContextHelp();
 	return;
     }
     const QString line=currentLine(m_worksheet->textCursor());
-    disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
-    disconnect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
-    connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));    
     m_completionObject->updateLine(line, m_worksheet->textCursor().positionInBlock());
     
 }     
@@ -745,30 +742,43 @@ void CommandEntry::updateCompletions()
 
 void CommandEntry::completeCommandTo(const QString& completion, CompletionMode mode)
 {
+    kDebug() << "completion: " << completion;
+
+    if (mode == FinalCompletion) {
+        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(completion);
+        if(obj)
+            setSyntaxHelp(obj);
+    } else {
+	if(m_syntaxHelpObject)
+	    m_syntaxHelpObject->deleteLater();
+	m_syntaxHelpObject=0;
+    }
+
     Cantor::CompletionObject::LineCompletionMode cmode;
     if (mode == PreliminaryCompletion)
 	cmode = Cantor::CompletionObject::PreliminaryCompletion;
     else
 	cmode = Cantor::CompletionObject::FinalCompletion;
-    QPair<QString, int> linecomp = m_completionObject->completeLine(completion, cmode);
-    kDebug() << "completion: " << completion;
-    kDebug() << "line completion: " << linecomp.first;
+    m_completionObject->completeLine(completion, cmode);
+
+    if (mode == FinalCompletion)
+	removeContextHelp();
+}
+
+void CommandEntry::completeLineTo(const QString& line, int index)
+{
+    kDebug() << "line completion: " << line;
     QTextCursor cursor = m_worksheet->textCursor();
     if(!isInCommandCell(cursor)) return;
     cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::MoveAnchor);
     cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
     int startPosition = cursor.position();
-    cursor.insertText(linecomp.first);
-    cursor.setPosition(startPosition + linecomp.second);
+    cursor.insertText(line);
+    cursor.setPosition(startPosition + index);
     m_worksheet->setTextCursor(cursor);
 
-    if (mode == FinalCompletion) {
-        //remove the list if it isn't needed anymore
-        removeContextHelp();
-        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(completion);
-        if(obj)
-            setSyntaxHelp(obj);
-    }
+    if (m_syntaxHelpObject)
+	m_syntaxHelpObject->fetchSyntaxHelp();
 }
 
 void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
@@ -778,7 +788,6 @@ void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
 
     m_syntaxHelpObject=sh;
     connect(sh, SIGNAL(done()), this, SLOT(showSyntaxHelp()));
-
 }
 
 void CommandEntry::showSyntaxHelp()
@@ -786,10 +795,6 @@ void CommandEntry::showSyntaxHelp()
     const QString& msg=m_syntaxHelpObject->toHtml();
     const QRect r=m_worksheet->cursorRect();
     const QPoint pos=m_worksheet->mapToGlobal(r.topLeft());
-
-    QTextCursor entryCursor=m_table->firstCursorPosition();
-    entryCursor.setPosition(m_table->lastCursorPosition().position(), QTextCursor::KeepAnchor);
-    //QRect tableRect=m_worksheet->cursorRect(entryCursor);
 
     QToolTip::showText(pos, msg, m_worksheet);
 }
@@ -935,6 +940,7 @@ void CommandEntry::removeResult()
 
 void CommandEntry::removeContextHelp()
 {
+    disconnect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
     if(m_completionObject)
         m_completionObject->deleteLater();
 

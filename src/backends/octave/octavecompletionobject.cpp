@@ -25,8 +25,9 @@
 
 #include <KDebug>
 
-OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent): CompletionObject(command, index, parent)
+OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent): CompletionObject(parent)
 {
+    setLine(command, index);
 }
 
 OctaveCompletionObject::~OctaveCompletionObject()

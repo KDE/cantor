@@ -44,14 +44,10 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
   public:
     /**
      * Constructor
-     * @param command command-part, that should be completed (this always contains the whole line entered in
-     *                 the worksheet. It's up to the CompletionObject to decide up to where the command is useful
-     *                 for completion
-     * @param index the cursor position in command
      * @param parent the session, this object belongs to
      */
-    CompletionObject( const QString& command, int index, Session* parent);
-    ///Destrutctor
+    CompletionObject(Session* parent);
+    ///Destructor
     ~CompletionObject();
 
     enum LineCompletionMode {
@@ -76,35 +72,42 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
     Session* session() const;
 
     /**
+     * Sets the line and cursor index at which a completion should be found
+     * This triggers an asynchronous fetching of completions,
+     * which emitts done() when done.
+     * @param line the line that is to be completed
+     * @param index the cursor postition in line
+     */
+    void setLine(const QString& line, int index);
+    /**
      * Takes the changed line and updates the command accordingly.
+     * This triggers an asynchronous fetching of completions,
+     * which emitts done() when done.
      * @param line the line that is to be completed
      * @param index the cursor position in line
      */
     void updateLine(const QString& line, int index);
     /**
-     * Takes a completion and returns the complete line with this completion
-     * inserted and the index for the new cursor position. If type is 
-     * FinalCompletion some postprocessing is done, like adding () for 
-     * functions.
+     * Takes a completion and a completion mode and triggers and calculates
+     * the new line with this completion. If the completion mode is 
+     * FinalCompletion some postprocessing is done asynchronously.
+     * Emits lineDone when finished.
      * @param comp the completion that's to be processed
      * @param type whether the completion is final
-     * @return QPair containing the completed line and the cursor position
      */
-    QPair<QString, int> completeLine(const QString& comp, LineCompletionMode mode);
+    void completeLine(const QString& comp, LineCompletionMode mode);
 
-    // This enum should be protected, but I don't see a way of defining a 
-    // function returning a protected type
-    // Also the names should be shorter, but Variable, Function and Keyword
-    // might lead to name clashes (Variable does, in the qalculate backend)
-    enum IdentifierType {
-	VariableIdentifier,   ///< a variable
-	FunctionWithArgumentsIdentifier,    ///< a function that takes arguments
-	FunctionIdentifier = FunctionWithArgumentsIdentifier, ///< a function (that needs arguments)
-	FunctionWithoutArgumentsIdentifier, ///< a function that takes no arguments
-	KeywordIdentifier,    ///< a keyword
-	UnknownIdentifier ///< other / unable to determine
-    };
   protected:
+
+    enum FunctionType {
+	FunctionWithArguments,   ///< a function that takes arguments
+	FunctionWithoutArguments ///< a function that takes no arguments
+    };
+    /**
+     * returns the identifier for fetchIdentifierType
+     * @return the identifier for fetchIdentifierType
+     */
+    QString identifier() const;
 
     /**
      * Sets the completions
@@ -133,31 +136,26 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     virtual bool mayIdentifierBeginWith(QChar c) const;
     /**
-     * Takes an identifier name and returns its type
+     * Completes line with function identifier and emitts lineDone with the 
+     * completed line. Helper function for completeLine.
+     * @param type whether the function takes arguments, default: FunctionWithArguments
      */
-    virtual IdentifierType identifierType(const QString& identifier) const;
+    void completeFunctionLine(FunctionType type = FunctionWithArguments);
     /**
-     * Takes a function completion and returns the completed line. 
-     * Helper function for completeLine.
-     * @param func the completion that's to be processed
-     * @param type whether the function takes arguments, default: HasArguments
-     * @return QPair containing the processed completion and the cursor offset
+     * Completes line with keyword identifier and emitts lineDone with the 
+     * completed line. Helper function for completeLine.
      */
-    QPair<QString, int> completeFunctionLine(const QString& func, IdentifierType type = FunctionWithArgumentsIdentifier) const;
+    void completeKeywordLine();
     /**
-     * Takes a keyword completion and returns the completed line.
-     * Helper function for completeLine.
-     * @param keyword the completion that's to be processed
-     * @return QPair containing the processed completion and the cursor offset
+     * Completes line with variable identifier and emitts lineDone with the 
+     * completed line. Helper function for completeLine.
      */
-    QPair<QString, int> completeKeywordLine(const QString& keyword) const;
+    void completeVariableLine();
     /**
-     * Takes a variable completion and returns the completed line.
-     * Helper function for completeLine.
-     * @param var the completion that's to be processed
-     * @return QPair containing the processed completion and the cursor offset
+     * Completes line with identifier of unknown type and emitts lineDone with 
+     * the completed line. Helper function for completeLine.
      */
-    QPair<QString, int> completeVariableLine(const QString& var) const;
+    void completeUnknownLine();
   protected Q_SLOTS:
     /**
      * This function should be reimplemented to start the actual fetching
@@ -165,12 +163,22 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * Rememver to emit done, if the fetching is complete
      */
     virtual void fetchCompletions() = 0;
+    /**
+     * Fetch the identifier type of d->commandCompletion, reimplement in
+     * the backends. Call the appropriate complete*Line function when done.
+     */
+    virtual void fetchIdentifierType();
   Q_SIGNALS:
     /**
      * indicates that the fetching of completions is done, 
      * and that the completions can be used now
      */
     void done();
+    /**
+     * emitted when the line completion is done, passes the new line and
+     * the cursor index
+     */
+    void lineDone(QString line, int index);
   private:
     CompletionObjectPrivate* d;
 };

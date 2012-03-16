@@ -31,31 +31,23 @@ class Cantor::CompletionObjectPrivate
 {
   public:
     QStringList completions;
-    QString context;
+    QString line;
     QString command;
+    QString identifier;
     int position;
     Session* session;
 };
 
-CompletionObject::CompletionObject(const QString& command, int index, Session* session) :
+CompletionObject::CompletionObject(Session* session) :
     d(new CompletionObjectPrivate)
 {
     setParent(session);
-    d->context=command;
+    d->line = QString();
+    d->command = QString();
+    d->position = -1;
     d->session=session;
 
-    if (index < 0)
-	index = command.length();
-    int cmd_index = locateIdentifier(command, index-1);
-    if (cmd_index < 0)
-	cmd_index = index;
-    d->position=cmd_index;
-    d->command=command.mid(cmd_index, index-cmd_index);
-
     setCompletionMode(KGlobalSettings::CompletionShell);
-
-    //start a delayed fetch
-    QTimer::singleShot(0, this, SLOT(fetchCompletions()));
 }
 
 CompletionObject::~CompletionObject()
@@ -78,14 +70,34 @@ QStringList CompletionObject::completions() const
     return d->completions;
 }
 
-void CompletionObject::updateLine(const QString& line, int index)
+QString CompletionObject::identifier() const
 {
+    return d->identifier;
+}
+
+void CompletionObject::setLine(const QString& line, int index)
+{
+    d->line = line;
     if (index < 0)
 	index = line.length();
     int cmd_index = locateIdentifier(line, index-1);
     if (cmd_index < 0)
 	cmd_index = index;
-    d->context = line;
+    d->position=cmd_index;
+    d->command=line.mid(cmd_index, index-cmd_index);
+
+    //start a delayed fetch
+    QTimer::singleShot(0, this, SLOT(fetchCompletions()));
+}
+
+void CompletionObject::updateLine(const QString& line, int index)
+{
+    d->line = line;
+    if (index < 0)
+	index = line.length();
+    int cmd_index = locateIdentifier(line, index-1);
+    if (cmd_index < 0)
+	cmd_index = index;
     d->command=line.mid(cmd_index, index-cmd_index);
     
     // start a delayed fetch
@@ -93,40 +105,22 @@ void CompletionObject::updateLine(const QString& line, int index)
     QTimer::singleShot(0, this, SLOT(fetchCompletions()));
 }
 
-QPair<QString, int> CompletionObject::completeLine(const QString& comp, CompletionObject::LineCompletionMode mode)
+void CompletionObject::completeLine(const QString& comp, CompletionObject::LineCompletionMode mode)
 {
-    IdentifierType type;
+    d->identifier = comp;
     if (comp.isEmpty()) {
 	int index = d->position + d->command.length();
-	return QPair<QString, int>(d->context, index);
+	emit lineDone(d->line, index);
     } else if (mode == PreliminaryCompletion) {
-	type = UnknownIdentifier;
+	completeUnknownLine();
     } else /* mode == FinalCompletion */ {
-	type = identifierType(comp);
+	QTimer::singleShot(0, this, SLOT(fetchIdentifierType()));
     }
-    QPair<QString, int> lineCompletion;
-    switch(type) {
-    case VariableIdentifier:
-    case UnknownIdentifier: // we can handle this case just like a variable
-	lineCompletion = completeVariableLine(comp);
-	break;
-    case FunctionWithArgumentsIdentifier:
-	lineCompletion = completeFunctionLine(comp, FunctionWithArgumentsIdentifier);
-	break;
-    case FunctionWithoutArgumentsIdentifier:
-	lineCompletion = completeFunctionLine(comp, FunctionWithoutArgumentsIdentifier);
-	break;
-    case KeywordIdentifier:
-	lineCompletion = completeKeywordLine(comp);
-	break;
-    }
-    return lineCompletion;
 }
 
-CompletionObject::IdentifierType CompletionObject::identifierType(const QString& identifier) const
+void CompletionObject::fetchIdentifierType()
 {
-    Q_UNUSED(identifier);
-    return UnknownIdentifier;
+    completeVariableLine();
 }
 
 
@@ -165,58 +159,78 @@ bool CompletionObject::mayIdentifierBeginWith(QChar c) const
     return c.isLetter() || c == '_';
 }
 
-QPair<QString, int> CompletionObject::completeFunctionLine(const QString& func, IdentifierType type) const
+void CompletionObject::completeFunctionLine(FunctionType type)
 {
+    QString newline;
+    int newindex;
+
+    QString func = d->identifier;
     int after_command =  d->position + d->command.length();
-    QString part1 = d->context.left(d->position) + func;
+    QString part1 = d->line.left(d->position) + func;
     int index = d->position + func.length() + 1;
-    if (after_command < d->context.length() && d->context.at(after_command) == '(') {
-	QString part2 = d->context.mid(after_command+1);
+    if (after_command < d->line.length() && d->line.at(after_command) == '(') {
+	QString part2 = d->line.mid(after_command+1);
 	int i;
 	// search for next non-space position
 	for (i = after_command+1; 
-	     i < d->context.length() && d->context.at(i).isSpace(); 
+	     i < d->line.length() && d->line.at(i).isSpace(); 
 	     ++i) {}
-	if (type == FunctionWithArgumentsIdentifier) {
-	    if (i < d->context.length()) {
-		return QPair<QString, int>(part1+'('+part2, index);
+	if (type == FunctionWithArguments) {
+	    if (i < d->line.length()) {
+		newline = part1+'('+part2;
+		newindex = index;
 	    } else {
-		return QPair<QString, int>(part1+"()"+part2, index);
+		newline = part1+"()"+part2;
+		newindex = index;
 	    }
-	} else /*type == FunctionWithoutArgumentsIdentifier*/ {
-	    if (i < d->context.length() && d->context.at(i) == ')') {
-		return QPair<QString, int>(part1+'('+part2, index+i-after_command);
+	} else /*type == FunctionWithoutArguments*/ {
+	    if (i < d->line.length() && d->line.at(i) == ')') {
+		newline = part1+'('+part2;
+		newindex = index+i-after_command;
 	    } else {
-		return QPair<QString, int>(part1+"()"+part2, index+1);
+		newline = part1+"()"+part2;
+		newindex = index+1;
 	    }
 	}
     } else {
-	QString part2 = d->context.mid(after_command);
-	if (type == FunctionWithArgumentsIdentifier)
-	    return QPair<QString, int>(part1+"()"+part2, index);
-	else /*type == FunctionWithoutArguments*/
-	    return QPair<QString, int>(part1+"()"+part2, index+1);
+	QString part2 = d->line.mid(after_command);
+	if (type == FunctionWithArguments) {
+	    newline = part1+"()"+part2;
+	    newindex = index;
+	} else /*type == FunctionWithoutArguments*/ {
+	    newline = part1+"()"+part2;
+	    newindex = index+1;
+	}
     }
+    emit lineDone(newline, newindex);
 }
 
-QPair<QString, int> CompletionObject::completeKeywordLine(const QString& keyword) const
+void CompletionObject::completeKeywordLine()
 {
+    QString keyword = d->identifier;
     int after_command = d->position + d->command.length();
     int newindex = d->position + keyword.length() + 1;
-    QString part1 = d->context.left(d->position) + keyword;
-    QString part2 = d->context.mid(after_command);
-    if (after_command < d->context.length() && d->context.at(after_command) == ' ')
-	return QPair<QString, int>(part1+part2, newindex);
+    QString part1 = d->line.left(d->position) + keyword;
+    QString part2 = d->line.mid(after_command);
+    if (after_command < d->line.length() && d->line.at(after_command) == ' ')
+	emit lineDone(part1+part2, newindex);
     else
-	return QPair<QString, int>(part1+' '+part2, newindex);
+	emit lineDone(part1+' '+part2, newindex);
 }
 
-QPair<QString, int> CompletionObject::completeVariableLine(const QString& var) const
+void CompletionObject::completeVariableLine()
 {
+    QString var = d->identifier;
     int after_command = d->position + d->command.length();
-    QString newline = d->context.left(d->position) + var + d->context.mid(after_command);
+    QString newline = d->line.left(d->position) + var + d->line.mid(after_command);
     int newindex = d->position + var.length();
-    return QPair<QString, int>(newline, newindex);
+    emit lineDone(newline, newindex);
+}
+
+void CompletionObject::completeUnknownLine()
+{
+    // identifiers of unknown type are completed like variables
+    completeVariableLine();
 }
 
 #include "completionobject.moc"

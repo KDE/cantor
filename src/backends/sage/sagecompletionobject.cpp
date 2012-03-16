@@ -26,8 +26,9 @@
 #include <kdebug.h>
 #include <QStack>
 
-SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(command, index, session)
+SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(session)
 {
+    setLine(command, index);
     m_expression=0;
 }
 

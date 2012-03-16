@@ -21,8 +21,9 @@
 #include "rcompletionobject.h"
 #include "rsession.h"
 
-RCompletionObject::RCompletionObject(const QString& command, int index, RSession* session) : Cantor::CompletionObject(command, index, session)
+RCompletionObject::RCompletionObject(const QString& command, int index, RSession* session) : Cantor::CompletionObject(session)
 {
+    setLine(command, index);
 }
 
 RCompletionObject::~RCompletionObject()

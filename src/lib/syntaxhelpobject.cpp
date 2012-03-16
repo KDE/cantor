@@ -37,15 +37,19 @@ SyntaxHelpObject::SyntaxHelpObject(const QString& command, Cantor::Session* sess
 {
     d->command=command;
     d->session=session;
-
-    //Start a delayed fetch
-    QTimer::singleShot(0, this, SLOT(fetchInformation()));
 }
 
 SyntaxHelpObject::~SyntaxHelpObject()
 {
     delete d;
 }
+
+void SyntaxHelpObject::fetchSyntaxHelp()
+{
+    //Start a delayed fetch
+    QTimer::singleShot(0, this, SLOT(fetchInformation()));
+}
+
 
 QString SyntaxHelpObject::toHtml()
 {

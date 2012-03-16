@@ -25,9 +25,9 @@
 
 #include "nullsession.h"
 
-NullCompletionObject::NullCompletionObject(const QString& command, int index, NullSession* session) : Cantor::CompletionObject(command, index, session)
+NullCompletionObject::NullCompletionObject(const QString& command, int index, NullSession* session) : Cantor::CompletionObject(session)
 {
-
+    setLine(command, index);
 }
 
 NullCompletionObject::~NullCompletionObject()

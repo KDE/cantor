@@ -114,6 +114,7 @@ class CommandEntry : public WorksheetEntry
     void applySelectedCompletion();
     void completedLineChanged();
     void showSyntaxHelp();
+    void completeLineTo(const QString& line, int index);
   private:
     enum CompletionMode {
 	PreliminaryCompletion,

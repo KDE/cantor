@@ -24,8 +24,9 @@
 #include <analitzagui/operatorsmodel.h>
 
 KAlgebraCompletionObject::KAlgebraCompletionObject(const QString& command, int index, KAlgebraSession* session)
-    : Cantor::CompletionObject(command, index, session)
+    : Cantor::CompletionObject(session)
 {
+    setLine(command, index);
 }
 
 KAlgebraCompletionObject::~KAlgebraCompletionObject()

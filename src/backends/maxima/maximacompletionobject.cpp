@@ -25,9 +25,10 @@
 #include "maximasession.h"
 #include "maximakeywords.h"
 
-MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(command, index, session)
+MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(session)
 {
     kDebug() << "MaximaCompletionObject construtor";
+    setLine(command, index);
 }
 
 MaximaCompletionObject::~MaximaCompletionObject()
@@ -35,18 +36,18 @@ MaximaCompletionObject::~MaximaCompletionObject()
 
 }
 
-Cantor::CompletionObject::IdentifierType MaximaCompletionObject::identifierType(const QString& identifier) const
+void MaximaCompletionObject::fetchIdentifierType()
 {
     if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
-		    MaximaKeywords::instance()->functions().end(), identifier)
+		    MaximaKeywords::instance()->functions().end(), identifier())
 	!= MaximaKeywords::instance()->functions().end())
-	return FunctionIdentifier;
+	completeFunctionLine();
     else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
-			 MaximaKeywords::instance()->keywords().end(), identifier)
+			 MaximaKeywords::instance()->keywords().end(), identifier())
 	!= MaximaKeywords::instance()->keywords().end())
-	return KeywordIdentifier;
+	completeKeywordLine();
     else
-	return VariableIdentifier;
+	completeVariableLine();
 }
 
 void MaximaCompletionObject::fetchCompletions()
