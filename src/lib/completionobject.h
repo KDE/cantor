@@ -49,7 +49,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      *                 for completion
      * @param parent the session, this object belongs to
      */
-    CompletionObject( const QString& command, Session* parent);
+    CompletionObject( const QString& command, int index, Session* parent);
     ///Destrutctor
     ~CompletionObject();
 
@@ -79,6 +79,22 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @param cmd the command/command-part
      */
     void setCommand(const QString& cmd);
+    /**
+     * Find an identifier in cmd that includes position index
+     * @param cmd the command
+     * @param index the index to look at
+     */
+    virtual int locateIdentifier(const QString& cmd, int index) const;
+    /**
+     * return true if c may be used in identifier names
+     * @param c the character
+     */
+    virtual bool mayIdentifierContain(QChar c) const;
+    /**
+     * return true if identifier names can begin with c
+     * @param c the character
+     */
+    virtual bool mayIdentifierBeginWith(QChar c) const;
   protected Q_SLOTS:
     /**
      * This function should be reimplemented to start the actual fetching

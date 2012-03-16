@@ -91,9 +91,9 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
     return expr;
 }
 
-Cantor::CompletionObject* RSession::completionFor(const QString& command)
+Cantor::CompletionObject* RSession::completionFor(const QString& command, int index)
 {
-    RCompletionObject *cmp=new RCompletionObject(command, this);
+    RCompletionObject *cmp=new RCompletionObject(command, index, this);
     connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
     connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
     return cmp;

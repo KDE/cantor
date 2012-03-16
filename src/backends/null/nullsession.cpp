@@ -72,10 +72,10 @@ Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::
     return expr;
 }
 
-Cantor::CompletionObject* NullSession::completionFor(const QString& command)
+Cantor::CompletionObject* NullSession::completionFor(const QString& command, int index)
 {
     kDebug()<<"tab completion for "<<command;
-    return new NullCompletionObject(command, this);
+    return new NullCompletionObject(command, index, this);
 }
 
 void NullSession::expressionFinished()

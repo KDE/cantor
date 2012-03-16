@@ -272,9 +272,9 @@ void OctaveSession::plotFileChanged(const QString& filename)
     }
 }
 
-Cantor::CompletionObject* OctaveSession::completionFor ( const QString& cmd )
+Cantor::CompletionObject* OctaveSession::completionFor ( const QString& cmd, int index )
 {
-    return new OctaveCompletionObject ( cmd, this );
+    return new OctaveCompletionObject ( cmd, index, this );
 }
 
 Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor ( const QString& cmd )

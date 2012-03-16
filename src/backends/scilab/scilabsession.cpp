@@ -258,9 +258,9 @@ QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QTextEdit* parent)
     return new ScilabHighlighter(parent);
 }
 
-Cantor::CompletionObject* ScilabSession::completionFor(const QString& command)
+Cantor::CompletionObject* ScilabSession::completionFor(const QString& command, int index)
 {
-    return new ScilabCompletionObject(command, this);
+    return new ScilabCompletionObject(command, index, this);
 }
 
 #include "scilabsession.moc"

@@ -25,19 +25,8 @@
 #include "scilabsession.h"
 #include "scilabkeywords.h"
 
-ScilabCompletionObject::ScilabCompletionObject(const QString& command, ScilabSession* session) : Cantor::CompletionObject(command, session)
+ScilabCompletionObject::ScilabCompletionObject(const QString& command, int index, ScilabSession* session) : Cantor::CompletionObject(command, index, session)
 {
-    kDebug() << "ScilabCompletionObject construtor";
-
-    //Only use the completion for the last command part between end and opening bracket or ; or space
-    QString cmd=command;
-    int brIndex=cmd.lastIndexOf('(')+1;
-    int semIndex=cmd.lastIndexOf(';')+1;
-    int spaceIndex=cmd.lastIndexOf(' ')+1;
-
-    cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
-
-    setCommand(cmd);
 }
 
 ScilabCompletionObject::~ScilabCompletionObject()

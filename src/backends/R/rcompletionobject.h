@@ -29,7 +29,7 @@ class RCompletionObject : public Cantor::CompletionObject
 {
   Q_OBJECT
   public:
-    RCompletionObject( const QString& cmd, RSession* session );
+    RCompletionObject( const QString& cmd, int index, RSession* session );
     ~RCompletionObject();
 
   protected slots:

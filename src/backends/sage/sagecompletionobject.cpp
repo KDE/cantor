@@ -26,12 +26,14 @@
 #include <kdebug.h>
 #include <QStack>
 
-SageCompletionObject::SageCompletionObject(const QString& command, SageSession* session) : Cantor::CompletionObject(command, session)
+SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(command, index, session)
 {
     m_expression=0;
 
-    //Only use the completion for the last command part between end and opening bracket or ;
-    QString cmd=command;
+    //Only use the completion for the last command part between index and opening bracket or ;
+    if (index < 0)
+	index = command.size();
+    QString cmd=command.left(index);
     int semIndex=cmd.lastIndexOf(';')+1;
     cmd=cmd.mid(semIndex);
 

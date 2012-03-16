@@ -23,15 +23,9 @@
 #include "kalgebrasession.h"
 #include <analitzagui/operatorsmodel.h>
 
-KAlgebraCompletionObject::KAlgebraCompletionObject(const QString& command, KAlgebraSession* session)
-    : Cantor::CompletionObject(command, session)
+KAlgebraCompletionObject::KAlgebraCompletionObject(const QString& command, int index, KAlgebraSession* session)
+    : Cantor::CompletionObject(command, index, session)
 {
-    //We only want identifiers
-    int i;
-    for(i=command.size()-1; i>=0 && command[i].isLetter(); i--) {}
-    
-    if(i>=0)
-        setCommand(command.mid(i+1));
 }
 
 KAlgebraCompletionObject::~KAlgebraCompletionObject()
@@ -48,4 +42,9 @@ void KAlgebraCompletionObject::fetchCompletions()
     
     setCompletions(comp);
     emit done();
+}
+
+bool KAlgebraCompletionObject::mayIdentifierBeginWith(QChar c) const
+{
+    return c.isLetter();
 }

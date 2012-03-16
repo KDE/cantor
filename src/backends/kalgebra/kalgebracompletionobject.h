@@ -26,8 +26,11 @@ class KAlgebraSession;
 class KAlgebraCompletionObject : public Cantor::CompletionObject
 {
     public:
-        KAlgebraCompletionObject( const QString& command, KAlgebraSession* session);
+         KAlgebraCompletionObject( const QString& command, int index, KAlgebraSession* session);
         ~KAlgebraCompletionObject();
+
+    protected:
+        bool mayIdentifierBeginWith(QChar c) const;
 
     protected slots:
         void fetchCompletions();

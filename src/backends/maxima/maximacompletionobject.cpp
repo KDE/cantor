@@ -25,19 +25,9 @@
 #include "maximasession.h"
 #include "maximakeywords.h"
 
-MaximaCompletionObject::MaximaCompletionObject(const QString& command, MaximaSession* session) : Cantor::CompletionObject(command, session)
+MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(command, index, session)
 {
     kDebug() << "MaximaCompletionObject construtor";
-
-    //Only use the completion for the last command part between end and opening bracket or ; or space
-    QString cmd=command;
-    int brIndex=cmd.lastIndexOf('(')+1;
-    int semIndex=cmd.lastIndexOf(';')+1;
-    int spaceIndex=cmd.lastIndexOf(' ')+1;
-
-    cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
-
-    setCommand(cmd);
 }
 
 MaximaCompletionObject::~MaximaCompletionObject()

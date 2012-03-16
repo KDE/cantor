@@ -92,9 +92,9 @@ Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Can
     return expr;
 }
 
-Cantor::CompletionObject* QalculateSession::completionFor(const QString& command)
+Cantor::CompletionObject* QalculateSession::completionFor(const QString& command, int index)
 {
-    return new QalculateCompletionObject(command, this);
+    return new QalculateCompletionObject(command, index, this);
 }
 
 Cantor::SyntaxHelpObject* QalculateSession::syntaxHelpFor(const QString& cmd)

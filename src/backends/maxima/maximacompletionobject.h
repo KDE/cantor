@@ -28,7 +28,7 @@ class MaximaSession;
 class MaximaCompletionObject : public Cantor::CompletionObject
 {
   public:
-    MaximaCompletionObject( const QString& cmd, MaximaSession* session );
+    MaximaCompletionObject( const QString& cmd, int index, MaximaSession* session );
     ~MaximaCompletionObject();
     
   protected slots:

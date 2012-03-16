@@ -586,9 +586,9 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     Cantor::Session::setTypesettingEnabled(enable);
 }
 
-Cantor::CompletionObject* MaximaSession::completionFor(const QString& command)
+Cantor::CompletionObject* MaximaSession::completionFor(const QString& command, int index)
 {
-    return new MaximaCompletionObject(command, this);
+    return new MaximaCompletionObject(command, index, this);
 }
 
 Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)

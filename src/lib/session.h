@@ -107,10 +107,12 @@ class CANTOR_EXPORT Session : public QObject
      * of the completions works asynchronously, you'll have to 
      * listen to the done() Signal of the returned object
      * @param cmd The partial command that should be completed
+     * @param index The index (cursor position) at which completion
+     * was invoked. Defaults to -1, indicating the end of the string.
      * @return a Completion object, representing this completion
      * @see CompletionObject
      */
-    virtual CompletionObject* completionFor(const QString& cmd);
+    virtual CompletionObject* completionFor(const QString& cmd, int index = -1);
 
     /**
      * Returns Syntax help, for this command.

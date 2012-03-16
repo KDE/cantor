@@ -72,9 +72,9 @@ Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
     return expr;
 }
 
-Cantor::CompletionObject* KAlgebraSession::completionFor(const QString& command)
+Cantor::CompletionObject* KAlgebraSession::completionFor(const QString& command, int index)
 {
-    return new KAlgebraCompletionObject(command, this);
+    return new KAlgebraCompletionObject(command, index, this);
 }
 
 Cantor::SyntaxHelpObject* KAlgebraSession::syntaxHelpFor(const QString& cmd)

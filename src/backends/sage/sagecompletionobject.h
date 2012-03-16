@@ -33,7 +33,7 @@ class SageCompletionObject : public Cantor::CompletionObject
 {
   Q_OBJECT
   public:
-    SageCompletionObject( const QString& command, SageSession* session);
+    SageCompletionObject( const QString& command, int index, SageSession* session);
     ~SageCompletionObject();
 
   protected slots:

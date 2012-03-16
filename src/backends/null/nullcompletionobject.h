@@ -28,7 +28,7 @@ class NullSession;
 class NullCompletionObject : public Cantor::CompletionObject
 {
   public:
-    NullCompletionObject( const QString& command, NullSession* session);
+    NullCompletionObject( const QString& command, int index, NullSession* session);
     ~NullCompletionObject();
 
   protected slots:

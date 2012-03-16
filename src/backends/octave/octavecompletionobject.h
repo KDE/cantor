@@ -31,7 +31,7 @@ class OctaveCompletionObject : public Cantor::CompletionObject
 {
     Q_OBJECT
     public:
-	OctaveCompletionObject(const QString& command, Cantor::Session* parent);
+        OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent);
 	virtual ~OctaveCompletionObject();
 
     protected:

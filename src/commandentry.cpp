@@ -315,14 +315,14 @@ void CommandEntry::showCompletion()
 {
     //get the current line of the entry. If it's empty, ignore the call,
     //otherwise check for tab completion (if supported by the backend)
-    const QString line=currentLine(m_worksheet->textCursor()).trimmed();
+    const QString line=currentLine(m_worksheet->textCursor()); //.trimmed();
 
-    if(line.isEmpty())
+    if(line.trimmed().isEmpty())
     {
         return;
     }else
     {
-        Cantor::CompletionObject* tco=m_worksheet->session()->completionFor(line);
+        Cantor::CompletionObject* tco=m_worksheet->session()->completionFor(line, m_worksheet->textCursor().positionInBlock());
         if(tco)
             setCompletion(tco);
     }

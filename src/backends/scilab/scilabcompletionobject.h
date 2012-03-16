@@ -28,7 +28,7 @@ class ScilabSession;
 class ScilabCompletionObject : public Cantor::CompletionObject
 {
   public:
-    ScilabCompletionObject(const QString& cmd, ScilabSession* session);
+    ScilabCompletionObject(const QString& cmd, int index, ScilabSession* session) ;
     ~ScilabCompletionObject();
 
   protected slots:

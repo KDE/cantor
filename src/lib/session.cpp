@@ -81,9 +81,10 @@ bool Session::isTypesettingEnabled()
     return d->typesettingEnabled;
 }
 
-CompletionObject* Session::completionFor(const QString& cmd)
+CompletionObject* Session::completionFor(const QString& cmd, int index)
 {
     Q_UNUSED(cmd);
+    Q_UNUSED(index);
     //Return 0 per default, so Backends not offering tab completions don't have
     //to reimplement this. This method should only be called on backends with
     //the Completion Capability flag
