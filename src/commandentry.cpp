@@ -89,7 +89,8 @@ CommandEntry::CommandEntry( QTextCursor position, Worksheet* parent ) : Workshee
 
 CommandEntry::~CommandEntry()
 {
-
+    if(m_completionBox)
+        m_completionBox->deleteLater();
 }
 
 int CommandEntry::type()
@@ -524,12 +525,14 @@ void CommandEntry::showCompletions()
         {
             case Settings::PopupCompletion:
             {
+		if (m_completionBox)
+		    m_completionBox->deleteLater();
                 m_completionBox=new KCompletionBox(m_worksheet);
                 m_completionBox->setItems(m_completionObject->allMatches());
                 m_completionBox->setTabHandling(true);
                 m_completionBox->setActivateOnSelect(true);
                 connect(m_completionBox, SIGNAL(activated(const QString&)), this, SLOT(completeCommandTo(const QString&)));
-                connect(m_worksheet, SIGNAL(textChanged()), m_completionBox, SLOT(deleteLater()));
+		connect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
 
                 QRect rect=m_worksheet->cursorRect();
                 kDebug()<<"cursor is within: "<<rect;
@@ -610,6 +613,106 @@ void CommandEntry::applySelectedCompletion()
     m_completionBox->hide();
 }
 
+void CommandEntry::completedLineChanged()
+{
+    if (!isShowingCompletionPopup()) {
+	// the completion popup is not visible anymore, so let's clean up
+	disconnect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
+	removeContextHelp();
+	return;
+    }
+    const QString line=currentLine(m_worksheet->textCursor());
+    disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
+    disconnect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
+    connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));    
+    m_completionObject->updateLine(line, m_worksheet->textCursor().positionInBlock());
+    
+}     
+
+void CommandEntry::updateCompletions()
+{
+    if (!m_completionObject)
+	return;
+    QString completion=m_completionObject->makeCompletion(m_completionObject->command());
+    kDebug()<<"completion: "<<completion;
+    kDebug()<<"showing "<<m_completionObject->allMatches();
+
+    if(m_completionObject->hasMultipleMatches() || !completion.isEmpty())
+    {
+        QToolTip::showText(QPoint(), QString(), m_worksheet);
+        switch(Settings::self()->completionStyle())
+        {
+            case Settings::PopupCompletion:
+            {
+                m_completionBox->setItems(m_completionObject->allMatches());
+
+                QRect rect=m_worksheet->cursorRect();
+		if (m_completionObject->hasMultipleMatches())
+		    m_completionBox->setTabHandling(true);
+		else
+		    m_completionBox->setTabHandling(false);
+                kDebug()<<"cursor is within: "<<rect;
+                const QPoint popupPoint=rect.bottomLeft();
+                //m_completionBox->popup();
+                m_completionBox->move(m_worksheet->mapToGlobal(popupPoint));
+                break;
+            }
+            case Settings::InlineCompletion:
+            {
+                int oldCursorPos=m_worksheet->textCursor().position();
+
+                //Show a list of possible completions
+                if(!m_contextHelpCell.isValid())
+                {
+                    //remember the actual cursor position, and reset the cursor later
+                    int row=m_commandCell.row()+1;
+
+                    m_table->insertRows(row, 1);
+                    m_contextHelpCell=m_table->cellAt(row, 1);
+
+                    QTextCursor c=m_worksheet->textCursor();
+                    c.setPosition(oldCursorPos);
+                    m_worksheet->setTextCursor(c);
+                }
+
+                QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
+                cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
+
+                int count=0;
+                QString html="<table>";
+                const QStringList& matches=m_completionObject->allMatches();
+                foreach(const QString& item, matches)
+                {
+                    html+="<tr><td>"+item+"</td></tr>";
+                    count++;
+                    if(count>10)
+                        break;
+                }
+
+                const int itemsLeft=matches.size()-count;
+                if(itemsLeft>0)
+                    html+="<tr><td><b>"+i18n("And %1 more...", itemsLeft)+"<b></td></tr>";
+
+                html+="</table>";
+
+                cursor.insertHtml(html);
+
+                m_worksheet->setTextCursor(cursor);
+                m_worksheet->ensureCursorVisible();
+                QTextCursor oldC=m_worksheet->textCursor();
+                oldC.setPosition(oldCursorPos);
+                m_worksheet->setTextCursor(oldC);
+                m_worksheet->ensureCursorVisible();
+                break;
+            }
+        }
+
+    } else
+    {
+        removeContextHelp();
+    }
+
+}
 
 void CommandEntry::completeCommandTo(const QString& completion, CompletionMode mode)
 {
@@ -655,7 +758,7 @@ void CommandEntry::showSyntaxHelp()
 
     QTextCursor entryCursor=m_table->firstCursorPosition();
     entryCursor.setPosition(m_table->lastCursorPosition().position(), QTextCursor::KeepAnchor);
-    QRect tableRect=m_worksheet->cursorRect(entryCursor);
+    //QRect tableRect=m_worksheet->cursorRect(entryCursor);
 
     QToolTip::showText(pos, msg, m_worksheet);
 }
@@ -804,7 +907,9 @@ void CommandEntry::removeContextHelp()
     if(m_completionObject)
         m_completionObject->deleteLater();
 
-    m_completionObject=0;
+    m_completionObject = 0;
+    if (m_completionBox)
+	m_completionBox->hide();
     if(m_contextHelpCell.isValid())
     {
         m_table->removeRows(m_contextHelpCell.row(), 1);

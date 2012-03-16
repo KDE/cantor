@@ -78,6 +78,21 @@ QStringList CompletionObject::completions() const
     return d->completions;
 }
 
+void CompletionObject::updateLine(const QString& line, int index)
+{
+    if (index < 0)
+	index = line.length();
+    int cmd_index = locateIdentifier(line, index-1);
+    if (cmd_index < 0)
+	cmd_index = index;
+    d->context = line;
+    d->command=line.mid(cmd_index, index-cmd_index);
+    
+    // start a delayed fetch
+    // For some backends this is a lot of unnecessary work...
+    QTimer::singleShot(0, this, SLOT(fetchCompletions()));
+}
+
 QPair<QString, int> CompletionObject::completeLine(const QString& comp, CompletionObject::LineCompletionMode mode)
 {
     IdentifierType type;

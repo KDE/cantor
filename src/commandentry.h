@@ -112,6 +112,7 @@ class CommandEntry : public WorksheetEntry
     void showAdditionalInformationPrompt(const QString& question);
     void showCompletions();
     void applySelectedCompletion();
+    void completedLineChanged();
     void showSyntaxHelp();
   private:
     enum CompletionMode {
@@ -121,6 +122,7 @@ class CommandEntry : public WorksheetEntry
   private slots:
     void invalidate();
     void resultDeleted();
+    void updateCompletions();
     void completeCommandTo(const QString& completion, CompletionMode mode = PreliminaryCompletion);
 
   private:

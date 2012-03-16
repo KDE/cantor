@@ -63,12 +63,10 @@ void MaximaCompletionObject::fetchCompletions()
 
 bool MaximaCompletionObject::mayIdentifierContain(QChar c) const
 {
-    kWarning() << '%';
     return c.isLetter() || c.isDigit() || c == '_' || c == '%';
 }
 
 bool MaximaCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
-    kWarning() << '%';
     return c.isLetter() || c == '_' || c == '%';
 }

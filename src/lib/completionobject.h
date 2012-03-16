@@ -47,6 +47,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @param command command-part, that should be completed (this always contains the whole line entered in
      *                 the worksheet. It's up to the CompletionObject to decide up to where the command is useful
      *                 for completion
+     * @param index the cursor position in command
      * @param parent the session, this object belongs to
      */
     CompletionObject( const QString& command, int index, Session* parent);
@@ -73,6 +74,13 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @return the session, this object belongs to
      */
     Session* session() const;
+
+    /**
+     * Takes the changed line and updates the command accordingly.
+     * @param line the line that is to be completed
+     * @param index the cursor position in line
+     */
+    void updateLine(const QString& line, int index);
     /**
      * Takes a completion and returns the complete line with this completion
      * inserted and the index for the new cursor position. If type is 
