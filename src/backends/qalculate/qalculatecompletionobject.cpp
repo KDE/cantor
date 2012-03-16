@@ -28,22 +28,47 @@
 
 #include <KDebug>
 
-QalculateCompletionObject::QalculateCompletionObject(const QString& command, QalculateSession* session)
-    : Cantor::CompletionObject(command, session)
+QalculateCompletionObject::QalculateCompletionObject(const QString& command, int index, QalculateSession* session)
+    : Cantor::CompletionObject(session)
 {
-    //We only want identifiers
-    int i;
-    for ( i = command.size()-1; i >= 0 && command[i].isLetter(); i--) {
-    }
-
-    if (i >= 0) {
-        setCommand( command.mid(i+1) );
-    }
+    setLine(command, index);
 }
 
 QalculateCompletionObject::~QalculateCompletionObject()
 {
 }
+
+void QalculateCompletionObject::fetchIdentifierType()
+{
+    Variable* var = CALCULATOR->getVariable(identifier().toLatin1().data());
+    if (var) {
+	emit fetchingTypeDone(VariableType);
+	return;
+    }
+    MathFunction* func = CALCULATOR->getFunction(identifier().toLatin1().data());
+    if (!func) // can this happen?
+	emit fetchingTypeDone(UnknownType);
+    else if (func->args() == 0)
+	emit fetchingTypeDone(FunctionWithoutArguments);
+    else 
+	emit fetchingTypeDone(FunctionWithArguments);
+}
+
+int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) const
+{
+    if (index < 0)
+	return -1;
+
+    int i;
+    int start_index = -1;
+    for (i=index; i>=0 && mayIdentifierContain(cmd[i]); --i) {
+	if (mayIdentifierBeginWith(cmd[i]))
+	    start_index = i;
+    }
+    
+    return start_index;
+}
+
 
 void QalculateCompletionObject::fetchCompletions()
 {
@@ -64,5 +89,5 @@ void QalculateCompletionObject::fetchCompletions()
     }
 
     setCompletions(comp);
-    emit done();
+    emit fetchingDone();
 }

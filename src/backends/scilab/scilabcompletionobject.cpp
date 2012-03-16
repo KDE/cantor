@@ -25,19 +25,9 @@
 #include "scilabsession.h"
 #include "scilabkeywords.h"
 
-ScilabCompletionObject::ScilabCompletionObject(const QString& command, ScilabSession* session) : Cantor::CompletionObject(command, session)
+ScilabCompletionObject::ScilabCompletionObject(const QString& command, int index, ScilabSession* session) : Cantor::CompletionObject(session)
 {
-    kDebug() << "ScilabCompletionObject construtor";
-
-    //Only use the completion for the last command part between end and opening bracket or ; or space
-    QString cmd=command;
-    int brIndex=cmd.lastIndexOf('(')+1;
-    int semIndex=cmd.lastIndexOf(';')+1;
-    int spaceIndex=cmd.lastIndexOf(' ')+1;
-
-    cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
-
-    setCommand(cmd);
+    setLine(command, index);
 }
 
 ScilabCompletionObject::~ScilabCompletionObject()
@@ -47,6 +37,9 @@ ScilabCompletionObject::~ScilabCompletionObject()
 
 void ScilabCompletionObject::fetchCompletions()
 {
+    // A more elegant approach would be to use Scilab's completion() function,
+    // similiarly to how fetching is done in OctaveCompletionObject.
+    // Unfortunately its interactive behavior is not handled well by cantor.
     QStringList allCompletions;
 
     allCompletions << ScilabKeywords::instance()->variables();
@@ -55,5 +48,32 @@ void ScilabCompletionObject::fetchCompletions()
 
     setCompletions(allCompletions);
 
-    emit done();
+    emit fetchingDone();
+}
+
+void ScilabCompletionObject::fetchIdentifierType()
+{
+    // Scilab's typeof function could be used here, but as long as these lists
+    // are used just looking up the name is easier.
+
+    if (qBinaryFind(ScilabKeywords::instance()->functions().begin(),
+		    ScilabKeywords::instance()->functions().end(), identifier())
+	!= ScilabKeywords::instance()->functions().end())
+	emit fetchingTypeDone(FunctionType);
+    else if (qBinaryFind(ScilabKeywords::instance()->keywords().begin(),
+			 ScilabKeywords::instance()->keywords().end(), identifier())
+	!= ScilabKeywords::instance()->keywords().end())
+	emit fetchingTypeDone(KeywordType);
+    else
+	emit fetchingTypeDone(VariableType);
+}
+
+bool ScilabCompletionObject::mayIdentifierContain(QChar c) const
+{
+    return c.isLetter() || c.isDigit() || c == '_' || c == '%' || c == '$';
+}
+
+bool ScilabCompletionObject::mayIdentifierBeginWith(QChar c) const
+{
+    return c.isLetter() || c == '_' || c == '%' || c == '$';
 }

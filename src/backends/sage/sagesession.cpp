@@ -288,9 +288,9 @@ void SageSession::setTypesettingEnabled(bool enable)
         evaluateExpression("sage.misc.latex.pretty_print_default(false);_;__IP.outputcache()", Cantor::Expression::DeleteOnFinish);
 }
 
-Cantor::CompletionObject* SageSession::completionFor(const QString& command)
+Cantor::CompletionObject* SageSession::completionFor(const QString& command, int index)
 {
-    return new SageCompletionObject(command, this);
+    return new SageCompletionObject(command, index, this);
 }
 
 QSyntaxHighlighter* SageSession::syntaxHighlighter(QTextEdit* parent)

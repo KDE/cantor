@@ -25,24 +25,29 @@
 #include "maximasession.h"
 #include "maximakeywords.h"
 
-MaximaCompletionObject::MaximaCompletionObject(const QString& command, MaximaSession* session) : Cantor::CompletionObject(command, session)
+MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(session)
 {
     kDebug() << "MaximaCompletionObject construtor";
-
-    //Only use the completion for the last command part between end and opening bracket or ; or space
-    QString cmd=command;
-    int brIndex=cmd.lastIndexOf('(')+1;
-    int semIndex=cmd.lastIndexOf(';')+1;
-    int spaceIndex=cmd.lastIndexOf(' ')+1;
-
-    cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
-
-    setCommand(cmd);
+    setLine(command, index);
 }
 
 MaximaCompletionObject::~MaximaCompletionObject()
 {
 
+}
+
+void MaximaCompletionObject::fetchIdentifierType()
+{
+    if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
+		    MaximaKeywords::instance()->functions().end(), identifier())
+	!= MaximaKeywords::instance()->functions().end())
+	emit fetchingTypeDone(FunctionType);
+    else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
+			 MaximaKeywords::instance()->keywords().end(), identifier())
+	!= MaximaKeywords::instance()->keywords().end())
+	emit fetchingTypeDone(KeywordType);
+    else
+	emit fetchingTypeDone(VariableType);
 }
 
 void MaximaCompletionObject::fetchCompletions()
@@ -54,5 +59,15 @@ void MaximaCompletionObject::fetchCompletions()
 
     setCompletions(allCompletions);
 
-    emit done();
+    emit fetchingDone();
+}
+
+bool MaximaCompletionObject::mayIdentifierContain(QChar c) const
+{
+    return c.isLetter() || c.isDigit() || c == '_' || c == '%';
+}
+
+bool MaximaCompletionObject::mayIdentifierBeginWith(QChar c) const
+{
+    return c.isLetter() || c == '_' || c == '%';
 }

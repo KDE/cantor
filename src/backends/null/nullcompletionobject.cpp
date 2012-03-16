@@ -25,9 +25,9 @@
 
 #include "nullsession.h"
 
-NullCompletionObject::NullCompletionObject(const QString& command, NullSession* session) : Cantor::CompletionObject(command, session)
+NullCompletionObject::NullCompletionObject(const QString& command, int index, NullSession* session) : Cantor::CompletionObject(session)
 {
-
+    setLine(command, index);
 }
 
 NullCompletionObject::~NullCompletionObject()
@@ -42,5 +42,5 @@ void NullCompletionObject::fetchCompletions()
     for (int i=0;i<5;i++)
         comp<<QString("%1 %2").arg(command()).arg(i);
     setCompletions(comp);
-    emit done();
+    emit fetchingDone();
 }

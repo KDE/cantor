@@ -26,11 +26,15 @@ class QalculateSession;
 class QalculateCompletionObject : public Cantor::CompletionObject
 {
     public:
-        QalculateCompletionObject( const QString& command, QalculateSession* session);
+        QalculateCompletionObject( const QString& command, int index, QalculateSession* session);
         ~QalculateCompletionObject();
+
+    protected:
+        virtual int locateIdentifier(const QString& cmd, int index) const;
 
     protected slots:
         void fetchCompletions();
+        void fetchIdentifierType();
 };
 
 #endif /* _NULLCOMPLETIONOBJECT_H */

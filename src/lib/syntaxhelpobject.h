@@ -52,6 +52,11 @@ class CANTOR_EXPORT SyntaxHelpObject : public QObject
     ~SyntaxHelpObject();
 
     /**
+     * Start fetching the syntax help, emitting done() when done.
+     */
+    void fetchSyntaxHelp();
+
+    /**
      * Returns Html text of the Syntax Help
      */
     QString toHtml();

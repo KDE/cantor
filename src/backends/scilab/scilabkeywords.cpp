@@ -22,6 +22,7 @@
 
 #include <QFile>
 #include <QXmlStreamReader>
+#include <QtAlgorithms>
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -45,6 +46,9 @@ ScilabKeywords* ScilabKeywords::instance()
     {
         inst = new ScilabKeywords();
         inst->loadFromFile();
+	qSort(inst->m_variables);
+	qSort(inst->m_functions);
+	qSort(inst->m_keywords);
     }
 
     return inst;

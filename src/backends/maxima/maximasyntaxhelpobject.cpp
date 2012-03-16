@@ -99,3 +99,4 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         kDebug()<<"not done: "<<status;
     }
 }
+

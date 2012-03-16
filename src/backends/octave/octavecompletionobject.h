@@ -31,14 +31,15 @@ class OctaveCompletionObject : public Cantor::CompletionObject
 {
     Q_OBJECT
     public:
-	OctaveCompletionObject(const QString& command, Cantor::Session* parent);
+        OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent);
 	virtual ~OctaveCompletionObject();
 
     protected:
 	virtual void fetchCompletions();
-
+        virtual void fetchIdentifierType();
     private Q_SLOTS:
-	void fetchingDone();
+	void getCompletionsFromExpression();
+        void getIdentifierTypeFromExpression();
 
     private:
 	Cantor::Expression* m_expression;

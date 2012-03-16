@@ -21,62 +21,16 @@
 #include "sagecompletionobject.h"
 
 #include "sagesession.h"
+#include "sagekeywords.h"
 #include "textresult.h"
 
 #include <kdebug.h>
 #include <QStack>
 
-SageCompletionObject::SageCompletionObject(const QString& command, SageSession* session) : Cantor::CompletionObject(command, session)
+SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(session)
 {
+    setLine(command, index);
     m_expression=0;
-
-    //Only use the completion for the last command part between end and opening bracket or ;
-    QString cmd=command;
-    int semIndex=cmd.lastIndexOf(';')+1;
-    cmd=cmd.mid(semIndex);
-
-    //Find last unmatched open bracket
-    QStack<int> brIndex;
-    QPair<int,int> lastClosedBracket=QPair<int, int>(0, 0);
-    for(int i=0;i<cmd.length();i++)
-    {
-        if(cmd[i]=='(')
-        {
-            brIndex.push(i);
-        }
-
-        if(cmd[i]==')')
-        {
-            const int index=brIndex.pop();
-            lastClosedBracket.first=index;
-            lastClosedBracket.second=i;
-         }
-    }
-
-    //remove code before the last unmatched bracket
-    if(!brIndex.isEmpty())
-    {
-        const int index=brIndex.pop()+1;
-        cmd=cmd.mid(index);
-        lastClosedBracket.first-=index;
-        lastClosedBracket.second-=index;
-    }
-
-    //remove code before the outermost block, keeping the part between the last +-*/ and the opening bracket
-    {
-        const int index=cmd.lastIndexOf(QRegExp("[=\\+\\-\\*\\/\\<\\>]"), lastClosedBracket.first)+1;
-        cmd=cmd.mid(index);
-        lastClosedBracket.second-=index;
-    }
-
-    //only keep code between the last sign, outside of a ()-block, and the end
-    {
-        const int index=cmd.lastIndexOf(QRegExp("[=\\+\\-\\*\\/\\<\\>]"))+1;
-        if(index>=lastClosedBracket.second)
-            cmd=cmd.mid(index);
-    }
-
-    setCommand(cmd);
 }
 
 SageCompletionObject::~SageCompletionObject()
@@ -90,6 +44,8 @@ SageCompletionObject::~SageCompletionObject()
 
 void SageCompletionObject::fetchCompletions()
 {
+    if (m_expression)
+	return;
     bool t=session()->isTypesettingEnabled();
     if(t)
         session()->setTypesettingEnabled(false);
@@ -97,15 +53,19 @@ void SageCompletionObject::fetchCompletions()
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
     m_expression=session()->evaluateExpression("__hist_tmp__=_; __IPYTHON__.complete(\""+command()+"\");_=__hist_tmp__");
-    connect(m_expression, SIGNAL(gotResult()), this, SLOT(fetchingDone()));
+    connect(m_expression, SIGNAL(gotResult()), this, 
+	    SLOT(getCompletionsFromExpression()));
 
     if(t)
         session()->setTypesettingEnabled(true);
 }
 
-void SageCompletionObject::fetchingDone()
+void SageCompletionObject::getCompletionsFromExpression()
 {
     Cantor::Result* res=m_expression->result();
+    m_expression->deleteLater();
+    m_expression=0;
+
     if(!res||!res->type()==Cantor::TextResult::Type)
     {
         kDebug()<<"something went wrong fetching tab completion";
@@ -127,13 +87,42 @@ void SageCompletionObject::fetchingDone()
         completions<<c.mid(1);
     }
 
+    completions << SageKeywords::instance()->keywords();
     setCompletions(completions);
 
-    m_expression->deleteLater();
-    m_expression=0;
-
-    emit done();
+    emit fetchingDone();
 }
 
+void SageCompletionObject::fetchIdentifierType()
+{
+    if (m_expression)
+	return;
+    if (SageKeywords::instance()->keywords().contains(identifier())) {
+	emit fetchingTypeDone(KeywordType);
+	return;
+    }
+    QString expr = QString("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
+    m_expression = session()->evaluateExpression(expr);
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getIdentifierTypeFromExpression()));
+}
 
+void SageCompletionObject::getIdentifierTypeFromExpression()
+{
+    if (m_expression->status() != Cantor::Expression::Done)
+    {
+	m_expression->deleteLater();
+	m_expression = 0;
+        return;
+    }
+    Cantor::Result* result = m_expression->result();
+    m_expression->deleteLater();
+    m_expression = 0;
+    if (!result)
+	return;
 
+    QString res = result->toHtml();
+    if (res.contains("function"))
+	emit fetchingTypeDone(FunctionType);
+    else
+	emit fetchingTypeDone(VariableType);
+}

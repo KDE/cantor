@@ -21,10 +21,9 @@
 #include "rcompletionobject.h"
 #include "rsession.h"
 
-RCompletionObject::RCompletionObject(const QString& command, RSession* session) : Cantor::CompletionObject(command, session)
+RCompletionObject::RCompletionObject(const QString& command, int index, RSession* session) : Cantor::CompletionObject(session)
 {
-    setCommand(command);
-    // STUB
+    setLine(command, index);
 }
 
 RCompletionObject::~RCompletionObject()
@@ -58,7 +57,7 @@ void RCompletionObject::receiveCompletions(const QString& token,const QStringLis
         setCompletions(options);
     }
 
-    emit done();
+    emit fetchingDone();
 }
 
 #include "rcompletionobject.moc"

@@ -22,6 +22,7 @@
 
 #include <QFile>
 #include <QXmlStreamReader>
+#include <QtAlgorithms>
 
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -44,6 +45,10 @@ MaximaKeywords* MaximaKeywords::instance()
     {
         inst=new MaximaKeywords();
         inst->loadFromFile();
+	// they appear to be sorted already, but this way we are safe if anything changes
+	qSort(inst->m_variables);
+	qSort(inst->m_functions);
+	qSort(inst->m_keywords);
     }
 
     return inst;

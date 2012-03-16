@@ -28,11 +28,16 @@ class MaximaSession;
 class MaximaCompletionObject : public Cantor::CompletionObject
 {
   public:
-    MaximaCompletionObject( const QString& cmd, MaximaSession* session );
+    MaximaCompletionObject( const QString& cmd, int index, MaximaSession* session );
     ~MaximaCompletionObject();
     
+  protected:
+    virtual bool mayIdentifierContain(QChar c) const;
+    virtual bool mayIdentifierBeginWith(QChar c) const;
+
   protected slots:
     void fetchCompletions();
+    void fetchIdentifierType();
 };
 
 #endif /* _MAXIMACOMPLETIONOBJECT_H */

@@ -19,6 +19,7 @@
  */
 
 #include "sagehighlighter.h"
+#include "sagekeywords.h"
 
 #include <QTextEdit>
 
@@ -28,18 +29,7 @@ SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(e
 
     QStringList keywords;
     //Preprocessor
-    keywords << "import" << "from" << "as";
-    //defs
-    keywords << "class" << "def" << "del"
-             << "global" << "lambda";
-    //operators
-    keywords <<"and" << "assert" << "in" << "is"
-             <<"not" << "or";
-    //flow
-    keywords <<"beak" << "continue" << "elif" << "else"
-             <<"except" << "finally" << "for" << "if"
-             <<"pass" << "raise" << "return" << "try"
-             <<"while" << "yield";
+    keywords = SageKeywords::instance()->keywords();
     //specialvars
     keywords << "None" << "self" << "True" << "true" << "False" << "false"
              << "NotImplemented" << "Ellipsis";
