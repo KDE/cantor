@@ -111,12 +111,17 @@ class CommandEntry : public WorksheetEntry
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
     void showCompletions();
-    void completeCommandTo(const QString& completion);
     void applySelectedCompletion();
     void showSyntaxHelp();
+  private:
+    enum CompletionMode {
+	PreliminaryCompletion,
+	FinalCompletion
+    };
   private slots:
     void invalidate();
     void resultDeleted();
+    void completeCommandTo(const QString& completion, CompletionMode mode = PreliminaryCompletion);
 
   private:
     QTextTable* m_table;

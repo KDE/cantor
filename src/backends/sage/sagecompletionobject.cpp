@@ -29,56 +29,6 @@
 SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(command, index, session)
 {
     m_expression=0;
-
-    //Only use the completion for the last command part between index and opening bracket or ;
-    if (index < 0)
-	index = command.size();
-    QString cmd=command.left(index);
-    int semIndex=cmd.lastIndexOf(';')+1;
-    cmd=cmd.mid(semIndex);
-
-    //Find last unmatched open bracket
-    QStack<int> brIndex;
-    QPair<int,int> lastClosedBracket=QPair<int, int>(0, 0);
-    for(int i=0;i<cmd.length();i++)
-    {
-        if(cmd[i]=='(')
-        {
-            brIndex.push(i);
-        }
-
-        if(cmd[i]==')')
-        {
-            const int index=brIndex.pop();
-            lastClosedBracket.first=index;
-            lastClosedBracket.second=i;
-         }
-    }
-
-    //remove code before the last unmatched bracket
-    if(!brIndex.isEmpty())
-    {
-        const int index=brIndex.pop()+1;
-        cmd=cmd.mid(index);
-        lastClosedBracket.first-=index;
-        lastClosedBracket.second-=index;
-    }
-
-    //remove code before the outermost block, keeping the part between the last +-*/ and the opening bracket
-    {
-        const int index=cmd.lastIndexOf(QRegExp("[=\\+\\-\\*\\/\\<\\>]"), lastClosedBracket.first)+1;
-        cmd=cmd.mid(index);
-        lastClosedBracket.second-=index;
-    }
-
-    //only keep code between the last sign, outside of a ()-block, and the end
-    {
-        const int index=cmd.lastIndexOf(QRegExp("[=\\+\\-\\*\\/\\<\\>]"))+1;
-        if(index>=lastClosedBracket.second)
-            cmd=cmd.mid(index);
-    }
-
-    setCommand(cmd);
 }
 
 SageCompletionObject::~SageCompletionObject()

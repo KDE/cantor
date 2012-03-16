@@ -53,7 +53,12 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
     ///Destrutctor
     ~CompletionObject();
 
-    /**
+    enum LineCompletionMode {
+	PreliminaryCompletion, ///< Only insert the completion
+	FinalCompletion        ///< also add () for functions, etc
+    };
+
+   /**
      * Returns a list of completions
      * @return a list of completions
      */
@@ -64,11 +69,26 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     QString command() const;
     /**
-     * returns the sessiion, this object belongs to
-     * @return the sessiion, this object belongs to
+     * returns the session, this object belongs to
+     * @return the session, this object belongs to
      */
     Session* session() const;
+    /**
+     * Takes a completion and returns the complete line with this completion
+     * inserted and the index for the new cursor position. If type is 
+     * FinalCompletion some postprocessing is done, like adding () for 
+     * functions.
+     * @param comp the completion that's to be processed
+     * @param type whether the completion is final
+     * @return QPair containing the completed line and the cursor position
+     */
+    virtual QPair<QString, int> completeLine(const QString& comp, LineCompletionMode mode);
   protected:
+
+    enum FunctionType {
+	HasNoArguments, ///< The function does not take arguments
+	HasArguments    ///< The function may take arguments
+    };
     /**
      * Sets the completions
      * @param completions list of possible completions
@@ -80,7 +100,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     void setCommand(const QString& cmd);
     /**
-     * Find an identifier in cmd that includes position index
+     * Find an identifier in cmd that ends at index
      * @param cmd the command
      * @param index the index to look at
      */
@@ -95,6 +115,28 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @param c the character
      */
     virtual bool mayIdentifierBeginWith(QChar c) const;
+    /**
+     * Takes a function completion and returns the completed line. 
+     * Helper function for completeLine.
+     * @param func the completion that's to be processed
+     * @param type whether the function takes arguments, default: HasArguments
+     * @return QPair containing the processed completion and the cursor offset
+     */
+    QPair<QString, int> completeFunctionLine(const QString& func, FunctionType type = HasArguments) const;
+    /**
+     * Takes a keyword completion and returns the completed line.
+     * Helper function for completeLine.
+     * @param keyword the completion that's to be processed
+     * @return QPair containing the processed completion and the cursor offset
+     */
+    QPair<QString, int> completeKeywordLine(const QString& keyword) const;
+    /**
+     * Takes a variable completion and returns the completed line.
+     * Helper function for completeLine.
+     * @param var the completion that's to be processed
+     * @return QPair containing the processed completion and the cursor offset
+     */
+    QPair<QString, int> completeVariableLine(const QString& var) const;
   protected Q_SLOTS:
     /**
      * This function should be reimplemented to start the actual fetching

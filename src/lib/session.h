@@ -75,7 +75,7 @@ class CANTOR_EXPORT Session : public QObject
     /**
      * Log out of the Session. Destroy everything specific to a single session, e.g.
      * stop all the running processes etc.
-     * NOTE: resatring the session consists of first logout() and then login()
+     * NOTE: restaring the session consists of first logout() and then login()
      */
     virtual void logout() = 0;
     

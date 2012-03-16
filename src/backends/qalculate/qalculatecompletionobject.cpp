@@ -37,6 +37,29 @@ QalculateCompletionObject::~QalculateCompletionObject()
 {
 }
 
+QPair<QString, int> QalculateCompletionObject::completeLine(const QString& comp, LineCompletionMode mode)
+{
+    // TODO: This test is already in CompletionObject::completeLine;
+    // it should not be necessary in every backend.
+    //if (comp.isEmpty()) {
+    //	int index = d->position + d->command.length();
+    //	return QPair<QString, int>(d->context, index);
+    //}
+    if (mode == PreliminaryCompletion)
+	return this->CompletionObject::completeLine(comp, mode);
+    Variable* var = CALCULATOR->getVariable(comp.toLatin1().data());
+    if (var)
+	return completeVariableLine(comp);
+    MathFunction* func = CALCULATOR->getFunction(comp.toLatin1().data());
+    if (!func) // this should not happen...
+	return this->CompletionObject::completeLine(comp, mode);
+    else if (func->args() == 0)
+	return completeFunctionLine(comp, HasNoArguments);
+    else 
+	return completeFunctionLine(comp, HasArguments);
+}
+
+
 int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) const
 {
     if (index < 0)

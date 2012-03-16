@@ -384,6 +384,7 @@ bool CommandEntry::evaluate(bool current)
 bool CommandEntry::evaluateCommand()
 {
     removeContextHelp();
+    QToolTip::hideText();
 
     QString cmd = command();
     kDebug()<<"evaluating: "<<cmd;
@@ -514,10 +515,10 @@ void CommandEntry::showCompletions()
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
 
-    completeCommandTo(completion);
-
     if(m_completionObject->hasMultipleMatches())
     {
+	completeCommandTo(completion);
+
         QToolTip::showText(QPoint(), QString(), m_worksheet);
         switch(Settings::self()->completionStyle())
         {
@@ -587,24 +588,9 @@ void CommandEntry::showCompletions()
             }
         }
 
-    }else
+    } else
     {
-        //remove the list if it isn't needed anymore
-        removeContextHelp();
-
-        QString cmd=currentLine(m_worksheet->textCursor());
-        if(cmd.endsWith('('))
-            cmd.chop(1);
-
-        int brIndex=cmd.lastIndexOf('(')+1;
-        int semIndex=cmd.lastIndexOf(';')+1;
-        int spaceIndex=cmd.lastIndexOf(' ')+1;
-
-        cmd=cmd.mid(qMax(brIndex, qMax(semIndex, spaceIndex)));
-
-        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(cmd);
-        if(obj)
-            setSyntaxHelp(obj);
+	completeCommandTo(completion, FinalCompletion);
     }
 
 
@@ -620,19 +606,35 @@ void CommandEntry::applySelectedCompletion()
 {
     QListWidgetItem* item=m_completionBox->currentItem();
     if(item)
-        completeCommandTo(item->text());
+	completeCommandTo(item->text(), FinalCompletion);
     m_completionBox->hide();
 }
 
-void CommandEntry::completeCommandTo(const QString& completion)
-{
-    //replace the current command with the completion
-    QTextCursor cursor=m_worksheet->textCursor();
-    if(!isInCommandCell(cursor)) return;
 
-    QTextCursor beginC=m_worksheet->document()->find(m_completionObject->command(), cursor, QTextDocument::FindBackward);
-    beginC.setPosition(cursor.position(), QTextCursor::KeepAnchor);
-    beginC.insertHtml(completion);
+void CommandEntry::completeCommandTo(const QString& completion, CompletionMode mode)
+{
+    Cantor::CompletionObject::LineCompletionMode cmode;
+    if (mode == PreliminaryCompletion)
+	cmode = Cantor::CompletionObject::PreliminaryCompletion;
+    else
+	cmode = Cantor::CompletionObject::FinalCompletion;
+    QPair<QString, int> linecomp = m_completionObject->completeLine(completion, cmode);
+    QTextCursor cursor = m_worksheet->textCursor();
+    if(!isInCommandCell(cursor)) return;
+    cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::MoveAnchor);
+    cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
+    int startPosition = cursor.position();
+    cursor.insertText(linecomp.first);
+    cursor.setPosition(startPosition + linecomp.second);
+    m_worksheet->setTextCursor(cursor);
+
+    if (mode == FinalCompletion) {
+        //remove the list if it isn't needed anymore
+        removeContextHelp();
+        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(completion);
+        if(obj)
+            setSyntaxHelp(obj);
+    }
 }
 
 void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
