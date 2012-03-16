@@ -60,6 +60,11 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @return a list of completions
      */
     QStringList completions() const;
+   /**
+     * Returns the last completion
+     * @return the last completion
+     */
+    QString completion() const;
     /**
      * returns the command, this completion is for
      * @return the command, this completion is for
@@ -168,6 +173,10 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * the backends. Call the appropriate complete*Line function when done.
      */
     virtual void fetchIdentifierType();
+    /**
+     * Set the current completion. To be connected with SIGNAL(match(const QString&))
+     */
+    void setCompletion(const QString&);
   Q_SIGNALS:
     /**
      * indicates that the fetching of completions is done, 

@@ -332,7 +332,7 @@ void CommandEntry::showCompletion()
     {
         return;
     } else if (isShowingCompletionPopup()) {
-	QString comp = m_completionObject->lastMatch();
+	QString comp = m_completionObject->completion();
 	kDebug() << "command" << m_completionObject->command();
 	kDebug() << "completion" << comp;
 	if (comp != m_completionObject->command() 
@@ -760,9 +760,6 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
     else
 	cmode = Cantor::CompletionObject::FinalCompletion;
     m_completionObject->completeLine(completion, cmode);
-
-    if (mode == FinalCompletion)
-	removeContextHelp();
 }
 
 void CommandEntry::completeLineTo(const QString& line, int index)
@@ -777,8 +774,12 @@ void CommandEntry::completeLineTo(const QString& line, int index)
     cursor.setPosition(startPosition + index);
     m_worksheet->setTextCursor(cursor);
 
-    if (m_syntaxHelpObject)
+    if (m_syntaxHelpObject) {
 	m_syntaxHelpObject->fetchSyntaxHelp();
+	// If we are about to show syntax help, then this was the final
+	// completion, and we should clean up. 
+	removeContextHelp();
+    }
 }
 
 void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)

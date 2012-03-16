@@ -36,9 +36,10 @@ class OctaveCompletionObject : public Cantor::CompletionObject
 
     protected:
 	virtual void fetchCompletions();
-
+        virtual void fetchIdentifierType();
     private Q_SLOTS:
 	void fetchingDone();
+        void fetchingTypeDone();
 
     private:
 	Cantor::Expression* m_expression;

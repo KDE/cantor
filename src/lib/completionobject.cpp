@@ -34,6 +34,7 @@ class Cantor::CompletionObjectPrivate
     QString line;
     QString command;
     QString identifier;
+    QString completion;
     int position;
     Session* session;
 };
@@ -44,9 +45,12 @@ CompletionObject::CompletionObject(Session* session) :
     setParent(session);
     d->line = QString();
     d->command = QString();
+    d->identifier = QString();
+    d->completion = QString();
     d->position = -1;
     d->session=session;
 
+    connect(this, SIGNAL(match(const QString&)), this, SLOT(setCompletion(const QString&)));
     setCompletionMode(KGlobalSettings::CompletionShell);
 }
 
@@ -73,6 +77,11 @@ QStringList CompletionObject::completions() const
 QString CompletionObject::identifier() const
 {
     return d->identifier;
+}
+
+QString CompletionObject::completion() const
+{
+    return d->completion;
 }
 
 void CompletionObject::setLine(const QString& line, int index)
@@ -128,6 +137,11 @@ void CompletionObject::setCompletions(const QStringList& completions)
 {
     d->completions=completions;
     this->setItems(completions);
+}
+
+void CompletionObject::setCompletion(const QString& completion)
+{
+    d->completion = completion;
 }
 
 void CompletionObject::setCommand(const QString& cmd)
