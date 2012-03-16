@@ -42,5 +42,5 @@ void NullCompletionObject::fetchCompletions()
     for (int i=0;i<5;i++)
         comp<<QString("%1 %2").arg(command()).arg(i);
     setCompletions(comp);
-    emit done();
+    emit fetchingDone();
 }

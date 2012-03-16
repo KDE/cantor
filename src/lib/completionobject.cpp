@@ -137,7 +137,7 @@ void CompletionObject::completeLine(const QString& comp, CompletionObject::LineC
 
 void CompletionObject::fetchIdentifierType()
 {
-    completeVariableLine();
+    emit fetchingTypeDone(UnknownType);
 }
 
 

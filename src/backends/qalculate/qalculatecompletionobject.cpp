@@ -41,8 +41,10 @@ QalculateCompletionObject::~QalculateCompletionObject()
 void QalculateCompletionObject::fetchIdentifierType()
 {
     Variable* var = CALCULATOR->getVariable(identifier().toLatin1().data());
-    if (var)
-	completeVariableLine();
+    if (var) {
+	emit fetchingTypeDone(VariableType);
+	return;
+    }
     MathFunction* func = CALCULATOR->getFunction(identifier().toLatin1().data());
     if (!func) // can this happen?
 	emit fetchingTypeDone(UnknownType);

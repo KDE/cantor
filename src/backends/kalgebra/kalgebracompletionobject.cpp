@@ -42,7 +42,7 @@ void KAlgebraCompletionObject::fetchCompletions()
         comp << idx.data().toString();
     
     setCompletions(comp);
-    emit done();
+    emit fetchingDone();
 }
 
 bool KAlgebraCompletionObject::mayIdentifierBeginWith(QChar c) const
