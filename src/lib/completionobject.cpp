@@ -37,6 +37,7 @@ class Cantor::CompletionObjectPrivate
     QString completion;
     int position;
     Session* session;
+    bool parenCompletion;
 };
 
 CompletionObject::CompletionObject(Session* session) :
@@ -51,6 +52,8 @@ CompletionObject::CompletionObject(Session* session) :
     d->session=session;
 
     connect(this, SIGNAL(fetchingDone()), this, SLOT(findCompletion()));
+    connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this, 
+	    SLOT(completeLineWithType(IdentifierType)));
     setCompletionMode(KGlobalSettings::CompletionShell);
 }
 
@@ -86,9 +89,14 @@ QString CompletionObject::completion() const
 
 void CompletionObject::setLine(const QString& line, int index)
 {
+    d->parenCompletion = false;
     d->line = line;
     if (index < 0)
 	index = line.length();
+    if (index > 1 && line[index-1] == '(') {
+	--index;                   // move before the parenthesis
+	d->parenCompletion = true; // but remember it was there
+    }
     int cmd_index = locateIdentifier(line, index-1);
     if (cmd_index < 0)
 	cmd_index = index;
@@ -123,8 +131,6 @@ void CompletionObject::completeLine(const QString& comp, CompletionObject::LineC
     } else if (mode == PreliminaryCompletion) {
 	completeUnknownLine();
     } else /* mode == FinalCompletion */ {
-	connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this, 
-		SLOT(completeLineWithType(IdentifierType)));
 	QTimer::singleShot(0, this, SLOT(fetchIdentifierType()));
     }
 }
@@ -172,8 +178,28 @@ bool CompletionObject::mayIdentifierBeginWith(QChar c) const
 
 void CompletionObject::findCompletion()
 {
+    if (d->parenCompletion) {
+	disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), 0, 0);
+	connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this,
+		SLOT(handleParenCompletionWithType(IdentifierType)));
+	d->identifier = d->command;
+	fetchIdentifierType();
+	return;
+    }
     d->completion = makeCompletion(command());
     emit done();
+}
+
+void CompletionObject::handleParenCompletionWithType(IdentifierType type)
+{
+    disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), 0, 0);
+    connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this,
+	    SLOT(completeLineWithType(IdentifierType)));
+    
+    if (type == FunctionWithArguments || type == FunctionWithoutArguments) {
+	d->completion = d->command;
+	emit done();
+    }
 }
 
 void CompletionObject::completeLineWithType(IdentifierType type)

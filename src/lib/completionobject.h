@@ -187,6 +187,11 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @param type the identifier type found in line()
      */
     void completeLineWithType(IdentifierType type);
+    /**
+     * Handle a completion request after a opening parenthesis.
+     * @param type the type of the identifier before the parenthesis
+     */
+    void handleParenCompletionWithType(IdentifierType type);
   Q_SIGNALS:
     /**
      * indicates that the fetching of completions is done
