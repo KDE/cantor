@@ -31,9 +31,9 @@ class MaximaCompletionObject : public Cantor::CompletionObject
     MaximaCompletionObject( const QString& cmd, int index, MaximaSession* session );
     ~MaximaCompletionObject();
     
-    QPair<QString, int> completeLine(const QString& comp, LineCompletionMode mode);
-
   protected:
+    virtual IdentifierType identifierType(const QString& identifier) const;
+
     virtual bool mayIdentifierContain(QChar c) const;
     virtual bool mayIdentifierBeginWith(QChar c) const;
 

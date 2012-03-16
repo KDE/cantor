@@ -35,28 +35,18 @@ MaximaCompletionObject::~MaximaCompletionObject()
 
 }
 
-QPair<QString, int> MaximaCompletionObject::completeLine(const QString& comp, LineCompletionMode mode)
+Cantor::CompletionObject::IdentifierType MaximaCompletionObject::identifierType(const QString& identifier) const
 {
-    // TODO: This test is already in CompletionObject::completeLine;
-    // it should not be necessary in every backend.
-    //if (comp.isEmpty()) {
-    //	int index = d->position + d->command.length();
-    //	return QPair<QString, int>(d->context, index);
-    //}
-    if (mode == PreliminaryCompletion)
-	return this->CompletionObject::completeLine(comp, mode);
     if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
-		    MaximaKeywords::instance()->functions().end(), comp)
+		    MaximaKeywords::instance()->functions().end(), identifier)
 	!= MaximaKeywords::instance()->functions().end())
-	// TODO: Test if the function takes arguments. This information is 
-	// available in MaximaSyntaxHelpObject, but I'd rather not copy that code
-	return completeFunctionLine(comp);
+	return FunctionIdentifier;
     else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
-			 MaximaKeywords::instance()->keywords().end(), comp)
+			 MaximaKeywords::instance()->keywords().end(), identifier)
 	!= MaximaKeywords::instance()->keywords().end())
-	return completeKeywordLine(comp);
-    else 
-	return completeVariableLine(comp);
+	return KeywordIdentifier;
+    else
+	return VariableIdentifier;
 }
 
 void MaximaCompletionObject::fetchCompletions()

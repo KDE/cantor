@@ -82,13 +82,22 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @param type whether the completion is final
      * @return QPair containing the completed line and the cursor position
      */
-    virtual QPair<QString, int> completeLine(const QString& comp, LineCompletionMode mode);
+    QPair<QString, int> completeLine(const QString& comp, LineCompletionMode mode);
+
+    // This enum should be protected, but I don't see a way of defining a 
+    // function returning a protected type
+    // Also the names should be shorter, but Variable, Function and Keyword
+    // might lead to name clashes (Variable does, in the qalculate backend)
+    enum IdentifierType {
+	VariableIdentifier,   ///< a variable
+	FunctionWithArgumentsIdentifier,    ///< a function that takes arguments
+	FunctionIdentifier = FunctionWithArgumentsIdentifier, ///< a function (that needs arguments)
+	FunctionWithoutArgumentsIdentifier, ///< a function that takes no arguments
+	KeywordIdentifier,    ///< a keyword
+	UnknownIdentifier ///< other / unable to determine
+    };
   protected:
 
-    enum FunctionType {
-	HasNoArguments, ///< The function does not take arguments
-	HasArguments    ///< The function may take arguments
-    };
     /**
      * Sets the completions
      * @param completions list of possible completions
@@ -116,13 +125,17 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     virtual bool mayIdentifierBeginWith(QChar c) const;
     /**
+     * Takes an identifier name and returns its type
+     */
+    virtual IdentifierType identifierType(const QString& identifier) const;
+    /**
      * Takes a function completion and returns the completed line. 
      * Helper function for completeLine.
      * @param func the completion that's to be processed
      * @param type whether the function takes arguments, default: HasArguments
      * @return QPair containing the processed completion and the cursor offset
      */
-    QPair<QString, int> completeFunctionLine(const QString& func, FunctionType type = HasArguments) const;
+    QPair<QString, int> completeFunctionLine(const QString& func, IdentifierType type = FunctionWithArgumentsIdentifier) const;
     /**
      * Takes a keyword completion and returns the completed line.
      * Helper function for completeLine.

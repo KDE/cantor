@@ -80,17 +80,40 @@ QStringList CompletionObject::completions() const
 
 QPair<QString, int> CompletionObject::completeLine(const QString& comp, CompletionObject::LineCompletionMode mode)
 {
-    Q_UNUSED(mode);
+    IdentifierType type;
     if (comp.isEmpty()) {
 	int index = d->position + d->command.length();
 	return QPair<QString, int>(d->context, index);
-    } else {
-	QString newline = d->context.left(d->position) + comp + 
-	    d->context.mid(d->position + d->command.length());
-	int newindex = d->position + comp.length();
-	return QPair<QString, int>(newline, newindex);
+    } else if (mode == PreliminaryCompletion) {
+	type = UnknownIdentifier;
+    } else /* mode == FinalCompletion */ {
+	type = identifierType(comp);
     }
+    QPair<QString, int> lineCompletion;
+    switch(type) {
+    case VariableIdentifier:
+    case UnknownIdentifier: // we can handle this case just like a variable
+	lineCompletion = completeVariableLine(comp);
+	break;
+    case FunctionWithArgumentsIdentifier:
+	lineCompletion = completeFunctionLine(comp, FunctionWithArgumentsIdentifier);
+	break;
+    case FunctionWithoutArgumentsIdentifier:
+	lineCompletion = completeFunctionLine(comp, FunctionWithoutArgumentsIdentifier);
+	break;
+    case KeywordIdentifier:
+	lineCompletion = completeKeywordLine(comp);
+	break;
+    }
+    return lineCompletion;
 }
+
+CompletionObject::IdentifierType CompletionObject::identifierType(const QString& identifier) const
+{
+    Q_UNUSED(identifier);
+    return UnknownIdentifier;
+}
+
 
 void CompletionObject::setCompletions(const QStringList& completions)
 {
@@ -127,7 +150,7 @@ bool CompletionObject::mayIdentifierBeginWith(QChar c) const
     return c.isLetter() || c == '_';
 }
 
-QPair<QString, int> CompletionObject::completeFunctionLine(const QString& func, FunctionType type) const
+QPair<QString, int> CompletionObject::completeFunctionLine(const QString& func, IdentifierType type) const
 {
     int after_command =  d->position + d->command.length();
     QString part1 = d->context.left(d->position) + func;
@@ -139,13 +162,13 @@ QPair<QString, int> CompletionObject::completeFunctionLine(const QString& func, 
 	for (i = after_command+1; 
 	     i < d->context.length() && d->context.at(i).isSpace(); 
 	     ++i) {}
-	if (type == HasArguments) {
+	if (type == FunctionWithArgumentsIdentifier) {
 	    if (i < d->context.length()) {
 		return QPair<QString, int>(part1+'('+part2, index);
 	    } else {
 		return QPair<QString, int>(part1+"()"+part2, index);
 	    }
-	} else /*type == HasNoArguments*/ {
+	} else /*type == FunctionWithoutArgumentsIdentifier*/ {
 	    if (i < d->context.length() && d->context.at(i) == ')') {
 		return QPair<QString, int>(part1+'('+part2, index+i-after_command);
 	    } else {
@@ -154,9 +177,9 @@ QPair<QString, int> CompletionObject::completeFunctionLine(const QString& func, 
 	}
     } else {
 	QString part2 = d->context.mid(after_command);
-	if (type == HasArguments)
+	if (type == FunctionWithArgumentsIdentifier)
 	    return QPair<QString, int>(part1+"()"+part2, index);
-	else /*type == HasNoArguments*/
+	else /*type == FunctionWithoutArguments*/
 	    return QPair<QString, int>(part1+"()"+part2, index+1);
     }
 }

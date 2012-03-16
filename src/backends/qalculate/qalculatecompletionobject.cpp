@@ -37,28 +37,19 @@ QalculateCompletionObject::~QalculateCompletionObject()
 {
 }
 
-QPair<QString, int> QalculateCompletionObject::completeLine(const QString& comp, LineCompletionMode mode)
+Cantor::CompletionObject::IdentifierType QalculateCompletionObject::identifierType(const QString& identifier) const
 {
-    // TODO: This test is already in CompletionObject::completeLine;
-    // it should not be necessary in every backend.
-    //if (comp.isEmpty()) {
-    //	int index = d->position + d->command.length();
-    //	return QPair<QString, int>(d->context, index);
-    //}
-    if (mode == PreliminaryCompletion)
-	return this->CompletionObject::completeLine(comp, mode);
-    Variable* var = CALCULATOR->getVariable(comp.toLatin1().data());
+    Variable* var = CALCULATOR->getVariable(identifier.toLatin1().data());
     if (var)
-	return completeVariableLine(comp);
-    MathFunction* func = CALCULATOR->getFunction(comp.toLatin1().data());
-    if (!func) // this should not happen...
-	return this->CompletionObject::completeLine(comp, mode);
+	return VariableIdentifier;
+    MathFunction* func = CALCULATOR->getFunction(identifier.toLatin1().data());
+    if (!func) // can this happen?
+	return UnknownIdentifier;
     else if (func->args() == 0)
-	return completeFunctionLine(comp, HasNoArguments);
+	return FunctionWithoutArgumentsIdentifier;
     else 
-	return completeFunctionLine(comp, HasArguments);
+	return FunctionWithArgumentsIdentifier;
 }
-
 
 int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) const
 {

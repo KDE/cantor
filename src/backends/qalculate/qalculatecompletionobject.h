@@ -29,9 +29,9 @@ class QalculateCompletionObject : public Cantor::CompletionObject
         QalculateCompletionObject( const QString& command, int index, QalculateSession* session);
         ~QalculateCompletionObject();
 
-        virtual QPair<QString, int> completeLine(const QString& comp, LineCompletionMode mode);
-
     protected:
+        virtual IdentifierType identifierType(const QString& identifier) const;
+
         virtual int locateIdentifier(const QString& cmd, int index) const;
 
     protected slots:
