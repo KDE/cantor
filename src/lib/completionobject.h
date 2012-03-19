@@ -79,7 +79,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
     /**
      * Sets the line and cursor index at which a completion should be found
      * This triggers an asynchronous fetching of completions,
-     * which emitts done() when done.
+     * which emits done() when done.
      * @param line the line that is to be completed
      * @param index the cursor postition in line
      */
@@ -87,7 +87,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
     /**
      * Takes the changed line and updates the command accordingly.
      * This triggers an asynchronous fetching of completions,
-     * which emitts done() when done.
+     * which emits done() when done.
      * @param line the line that is to be completed
      * @param index the cursor position in line
      */
@@ -145,23 +145,23 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     virtual bool mayIdentifierBeginWith(QChar c) const;
     /**
-     * Completes line with function identifier and emitts lineDone with the 
+     * Completes line with function identifier and emits lineDone with the 
      * completed line. Helper function for completeLine.
      * @param type whether the function takes arguments, default: FunctionWithArguments
      */
     void completeFunctionLine(IdentifierType type = FunctionWithArguments);
     /**
-     * Completes line with keyword identifier and emitts lineDone with the 
+     * Completes line with keyword identifier and emits lineDone with the 
      * completed line. Helper function for completeLine.
      */
     void completeKeywordLine();
     /**
-     * Completes line with variable identifier and emitts lineDone with the 
+     * Completes line with variable identifier and emits lineDone with the 
      * completed line. Helper function for completeLine.
      */
     void completeVariableLine();
     /**
-     * Completes line with identifier of unknown type and emitts lineDone with 
+     * Completes line with identifier of unknown type and emits lineDone with 
      * the completed line. Helper function for completeLine.
      */
     void completeUnknownLine();
@@ -173,8 +173,8 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     virtual void fetchCompletions() = 0;
     /**
-     * Fetch the identifier type of d->commandCompletion; reimplemented in
-     * the backends. Call the appropriate complete*Line function when done.
+     * Fetch the identifier type of d->identifier; reimplemented in
+     * the backends. Emit fetchingTypeDone when done.
      */
     virtual void fetchIdentifierType();
     /**

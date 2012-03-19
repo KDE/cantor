@@ -21,6 +21,7 @@
 #include <QStringList>
 
 #include <libqalculate/Calculator.h>
+#include <libqalculate/Unit.h>
 #include <libqalculate/Variable.h>
 #include <libqalculate/Function.h>
 
@@ -73,17 +74,36 @@ int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) c
 void QalculateCompletionObject::fetchCompletions()
 {
     QStringList comp;
+    // Matching Qt::CaseInsensitive here does not help, because a) Qalculate
+    // does distinguish cases, and b) KCompletion::makeCompletion matches
+    // case sensitive.
+    foreach ( Unit* item, CALCULATOR->units ) {
+        //TODO: this is fugly...
+        QString str(item->name(true).c_str());
+        if ( str.startsWith(command(), Qt::CaseSensitive) ) {
+            comp << str;
+        }
+	QString str2(item->singular().c_str());
+	if (str2.startsWith(command(), Qt::CaseSensitive) ) {
+	    comp << str2;
+	}
+	// Also include the plural form for completion? 
+	//QString str3(item->plural().c_str());
+	//if (str3.startsWith(command(), Qt::CaseSensitive) ) {
+	//    comp << str3;
+	//}
+    }
     foreach ( ExpressionItem* item, CALCULATOR->variables ) {
         //TODO: this is fugly...
         QString str(item->name(true).c_str());
-        if ( str.startsWith(command(), Qt::CaseInsensitive) ) {
+        if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;
         }
     }
     foreach ( ExpressionItem* item, CALCULATOR->functions ) {
         //TODO: this is fugly...
         QString str(item->name(true).c_str());
-        if ( str.startsWith(command(), Qt::CaseInsensitive) ) {
+        if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;
         }
     }
