@@ -38,9 +38,9 @@ private:
 public:
     static SageKeywords* instance();
 
-    const QStringList& functions() const;
     const QStringList& keywords() const;
-    const QStringList& variables() const;
+    //const QStringList& functions() const;
+    //const QStringList& variables() const;
 
   private:
     void loadFromFile();

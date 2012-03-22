@@ -92,16 +92,6 @@ void SageKeywords::loadFromFile()
 
 }
 
-const QStringList& SageKeywords::variables() const
-{
-    return QStringList();
-}
-
-const QStringList& SageKeywords::functions() const
-{
-    return QStringList();
-}
-
 const QStringList& SageKeywords::keywords() const
 {
     return m_keywords;
