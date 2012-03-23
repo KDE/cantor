@@ -42,9 +42,9 @@ class SageCompletionObject : public Cantor::CompletionObject
 
   protected slots:
     void fetchCompletions();
-    void getCompletionsFromExpression();
+    void extractCompletions();
     void fetchIdentifierType();
-    void getIdentifierTypeFromExpression();
+    void extractIdentifierType();
 
   private:
     Cantor::Expression* m_expression;

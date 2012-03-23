@@ -43,10 +43,10 @@ void OctaveCompletionObject::fetchCompletions()
     kDebug() << "Fetching completions for" << command();
     QString expr = QString("completion_matches(\"%1\")").arg(command());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getCompletionsFromExpression()));
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractCompletions()));
 }
 
-void OctaveCompletionObject::getCompletionsFromExpression()
+void OctaveCompletionObject::extractCompletions()
 {
     if (!m_expression)
 	return;
@@ -79,10 +79,10 @@ void OctaveCompletionObject::fetchIdentifierType()
     // __cantor_tmp2__ = 5
     QString expr = QString("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getIdentifierTypeFromExpression()));
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractIdentifierType()));
 }
 
-void OctaveCompletionObject::getIdentifierTypeFromExpression()
+void OctaveCompletionObject::extractIdentifierType()
 {
     kDebug() << "type fetching done";
     if (!m_expression)

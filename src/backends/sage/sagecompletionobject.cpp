@@ -54,13 +54,13 @@ void SageCompletionObject::fetchCompletions()
     //after complete() was evaluated
     m_expression=session()->evaluateExpression("__hist_tmp__=_; __IPYTHON__.complete(\""+command()+"\");_=__hist_tmp__");
     connect(m_expression, SIGNAL(gotResult()), this, 
-	    SLOT(getCompletionsFromExpression()));
+	    SLOT(extractCompletions()));
 
     if(t)
         session()->setTypesettingEnabled(true);
 }
 
-void SageCompletionObject::getCompletionsFromExpression()
+void SageCompletionObject::extractCompletions()
 {
     Cantor::Result* res=m_expression->result();
     m_expression->deleteLater();
@@ -103,10 +103,10 @@ void SageCompletionObject::fetchIdentifierType()
     }
     QString expr = QString("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(getIdentifierTypeFromExpression()));
+    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractIdentifierType()));
 }
 
-void SageCompletionObject::getIdentifierTypeFromExpression()
+void SageCompletionObject::extractIdentifierType()
 {
     if (m_expression->status() != Cantor::Expression::Done)
     {
