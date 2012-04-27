@@ -15,66 +15,36 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _WORKSHEETENTRY_H
-#define _WORKSHEETENTRY_H
+#ifndef WORKSHEETENTRY_H
+#define WORKSHEETENTRY_H
 
-#include <QObject>
-#include <QTextTableCell>
-#include <QPointer>
-#include <QKeyEvent>
-#include <kmenu.h>
-#include "lib/expression.h"
+#include <graphicswidget.h>
 
-namespace Cantor{
-    class Expression;
-    class Result;
-    class CompletionObject;
-    class SyntaxHelpObject;
-}
-class Worksheet;
-class KCompletionBox;
+#include "worksheet.h"
 
-class WorksheetEntry : public QObject
+class TextEntry;
+class CommandEntry;
+class ImageEntry;
+class PageBreakEntry;
+class LaTeXEntry;
+
+class WorksheetEntry : public QGraphicsWidget
 {
   Q_OBJECT
-  public:
-    WorksheetEntry(QTextCursor position, Worksheet* parent);
+  private:
+    WorksheetEntry();
     ~WorksheetEntry();
 
-    enum {Type = 0};
+    enum {Type = UserType};
 
-    virtual int type();
+    virtual int type() const;
 
-    virtual bool isEmpty()=0;
+    static WorksheetEntry* create(int t);
 
-    virtual void setActive(bool active, bool moveCursor);
-
-    int firstPosition();
-    int lastPosition();
-    QTextCursor firstCursorPosition();
-    QTextCursor lastCursorPosition();
-    bool contains(const QTextCursor& cursor);
-
-    virtual QTextCursor closestValidCursor(const QTextCursor& cursor)=0;
-    virtual QTextCursor firstValidCursorPosition()=0;
-    virtual QTextCursor lastValidCursorPosition()=0;
-    int firstValidPosition();
-    int lastValidPosition();
-    virtual bool isValidCursor(const QTextCursor& cursor)=0;
-
-    // Handlers for the worksheet input events affecting worksheetentries
-    virtual bool worksheetShortcutOverrideEvent(QKeyEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetMousePressEvent(QMouseEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
-
-    virtual bool acceptRichText()=0;
-    virtual bool acceptsDrop(const QTextCursor& cursor)=0;
+    virtual bool acceptRichText() = 0;
 
     virtual void setContent(const QString& content)=0;
     virtual void setContent(const QDomElement& content, const KZip& file)=0;
@@ -86,25 +56,10 @@ class WorksheetEntry : public QObject
 
     virtual bool evaluate(bool current)=0;
 
-    virtual void checkForSanity();
-
-    virtual void showCompletion();
-
-  signals:
-    void leftmostValidPositionReached();
-    void rightmostValidPositionReached();
-    void topmostValidLineReached();
-    void bottommostValidLineReached();
-
-  public slots:
-    virtual void update()=0;
+    virtual void enableHighlighting(bool highlight)=0;
 
   protected:
-    void createSubMenuInsert(KMenu* menu);
-
-  protected:
-    QTextFrame* m_frame;
-    Worksheet* m_worksheet;
+    Worksheet* worksheet();
 };
 
-#endif /* _WORKSHEETENTRY_H */
+#endif // WORKSHEETENTRY_H

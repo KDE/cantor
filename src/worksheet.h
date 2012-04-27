@@ -15,41 +15,43 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _WORKSHEET_H
-#define _WORKSHEET_H
+#ifndef WORKSHEET_H
+#define WORKSHEET_H
 
-#include <krichtextwidget.h>
-#include <QHash>
+#include <qgraphicsscene.h>
 
-namespace Cantor{
+namespace Cantor {
     class Backend;
     class Session;
     class Expression;
 }
-class WorksheetEntry;
-class ResultProxy;
-class TextEntry;
 
-class Worksheet : public KRichTextWidget
+class ResultProxy;
+
+class Worksheet : public QGraphicsScene
 {
   Q_OBJECT
   public:
-    Worksheet( Cantor::Backend* backend, QWidget* parent );
+    Worksheet(Cantor::Backend* backend, QWidget* parent);
     ~Worksheet();
 
     Cantor::Session* session();
-
-    bool isRunning();
-    bool showExpressionIds();
-
+    
     ResultProxy* resultProxy();
 
+    bool isRunning();
+    //This should be called showLineNumbers. And it should do that, really.
+    //bool showExpressionIds();
+    bool showLineNumbers();
+    
     void print(QPrinter* printer);
 
     bool isPrinting();
+
+    void setViewSize(qreal w, qreal h);
 
   public slots:
     WorksheetEntry* appendCommandEntry();
@@ -70,7 +72,7 @@ class Worksheet : public KRichTextWidget
     WorksheetEntry* insertPageBreakEntryBefore();
     WorksheetEntry* insertLatexEntryBefore();
 
-    void setCurrentEntry(WorksheetEntry * entry, bool moveCursor = true);
+    void setCurrentEntry(WorksheetEntry * entry);
     void moveToPreviousEntry();
     void moveToNextEntry();
 
@@ -85,9 +87,6 @@ class Worksheet : public KRichTextWidget
     void enableHighlighting(bool highlight);
     void enableCompletion(bool enable);
     void enableExpressionNumbering(bool enable);
-
-    void zoomIn(int range=1);
-    void zoomOut(int range=1);
 
     QDomDocument toXML(KZip* archive=0);
 
@@ -106,40 +105,32 @@ class Worksheet : public KRichTextWidget
     void showHelp(const QString& help);
     void updatePrompt();
 
-  protected:
-    bool event(QEvent* event);
-    void keyPressEvent(QKeyEvent *event);
-    void contextMenuEvent(QContextMenuEvent *event);
-    void mousePressEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent* event);
-    void mouseDoubleClickEvent(QMouseEvent* event);
-    void dragMoveEvent(QDragMoveEvent* event);
-    void dropEvent(QDropEvent *event);
 
   private slots:
     void loginToSession();
-    void removeEntry(QObject* object);
     void checkEntriesForSanity();
 
-    WorksheetEntry* insertEntryAt(int type, const QTextCursor& cursor);
     WorksheetEntry* appendEntry(int type);
     WorksheetEntry* insertEntry(int type);
     WorksheetEntry* insertEntryBefore(int type);
+
   private:
     WorksheetEntry* currentEntry();
-    WorksheetEntry* entryAt(const QTextCursor& cursor);
+    WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(int row);
-    WorksheetEntry* entryNextTo(const QTextCursor& cursor);
+    int entryCount();
+
   private:
     Cantor::Session *m_session;
-    ResultProxy* m_proxy;
-    QSyntaxHighlighter* m_highlighter;
+    //ResultProxy* m_proxy;
     QList<WorksheetEntry*> m_entries;
     WorksheetEntry* m_currentEntry;
+    QGraphicsWidget* m_rootitem;
+    QGrahicsLinearLayout* m_rootlayout;
+    
     bool m_completionEnabled;
-    bool m_showExpressionIds;
     bool m_loginFlag;
     bool m_isPrinting;
 };
 
-#endif /* _WORKSHEET_H */
+#endif // WORKSHEET_H

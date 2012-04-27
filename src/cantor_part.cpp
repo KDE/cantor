@@ -47,6 +47,7 @@
 #include <QtGui/QPrintDialog>
 
 #include "worksheet.h"
+#include "worksheetview.h"
 #include "scripteditorwidget.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -91,16 +92,18 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
     m_worksheet=new Worksheet(b, parentWidget);
-    m_worksheet->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
+    m_worksheetview=new WorksheetView(m_worksheet, parentWidget);
+    m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
     // notify the part that this is our internal widget
-    setWidget(m_worksheet);
+    setWidget(m_worksheetview);
 
-    // create our actions
-    m_worksheet->createActions( actionCollection() );
+    /// How should we add the rich text editing actions?
+     // create our actions
+     //m_worksheet->createActions( actionCollection() );
 
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
@@ -112,8 +115,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     KStandardAction::print(this, SLOT(print()), actionCollection());
 
-    KStandardAction::zoomIn(m_worksheet, SLOT(zoomIn()), actionCollection());
-    KStandardAction::zoomOut(m_worksheet, SLOT(zoomOut()), actionCollection());
+    KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
+    KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());
 
     m_evaluate=new KAction(i18n("Evaluate Worksheet"), actionCollection());
     actionCollection()->addAction("evaluate_worksheet", m_evaluate);
@@ -239,7 +242,7 @@ CantorPart::~CantorPart()
 void CantorPart::setReadWrite(bool rw)
 {
     // notify your internal widget of the read-write state
-    m_worksheet->setReadOnly(!rw);
+    m_worksheetview->setInteractive(rw);
 
     ReadWritePart::setReadWrite(rw);
 }
@@ -420,8 +423,8 @@ void CantorPart::worksheetSessionChanged()
 void CantorPart::initialized()
 {
     m_worksheet->appendCommandEntry();
-    m_worksheet->setEnabled(true);
-    m_worksheet->setFocus();
+    m_worksheetview->setEnabled(true);
+    m_worksheetview->setFocus();
     setStatusMessage(i18n("Initialization complete"));
 
     if(m_initProgressDlg)
@@ -578,8 +581,9 @@ void CantorPart::print()
     QPrinter printer;
     QPointer<QPrintDialog> dialog = new QPrintDialog(&printer,  widget());
 
-    if (m_worksheet->textCursor().hasSelection())
-        dialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    // TODO: Re-enable print selection
+    //if (m_worksheet->textCursor().hasSelection())
+    //    dialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
 
     if (dialog->exec() == QDialog::Accepted)
         m_worksheet->print(&printer);

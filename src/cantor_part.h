@@ -26,6 +26,7 @@
 
 class QWidget;
 class Worksheet;
+class WorksheetView;
 class ScriptEditorWidget;
 class KAboutData;
 class KAction;
@@ -140,6 +141,7 @@ protected slots:
     void unblockStatusBar();
 private:
     Worksheet *m_worksheet;
+    WorksheetView *m_worksheetview;
     QPointer<ScriptEditorWidget> m_scriptEditor;
     Cantor::PanelPluginHandler* m_panelHandler;
 

@@ -15,41 +15,35 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _TEXTENTRY_H
-#define _TEXTENTRY_H
+#ifndef TEXTENTRY_H
+#define TEXTENTRY_H
+
+#include <qstring.h>
+#include <qdomelement.h>
+#include <qdomdocument.h>
+#include <kzip>
 
 #include "worksheetentry.h"
-#include <QObject>
-
-class Worksheet;
-class WorksheetEntry;
-class KZip;
+#include "worksheettextitem.h"
 
 class TextEntry : public WorksheetEntry
 {
   Q_OBJECT
   public:
-    TextEntry(QTextCursor position, Worksheet* parent);
+    TextEntry();
     ~TextEntry();
 
-    enum {Type = 1};
-    int type();
+    enum {Type = UserType + 1};
+    int type() const;
 
     bool isEmpty();
 
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-    bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
-
-    bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
+    // do we need/get this?
+    //bool worksheetContextMenuEvent(...);
+    vool mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
@@ -60,12 +54,10 @@ class TextEntry : public WorksheetEntry
     void interruptEvaluation();
 
     bool evaluate(bool current);
-  public slots:
-    void update();
+
   private:
-    QTextCursor findLatexCode(QTextDocument *doc) const;
-    void showLatexCode(QTextCursor cursor);
+    WorksheetTextItem m_textItem;
 
 };
 
-#endif /* _TEXTENTRY_H */
+#endif TEXTENTRY_H
