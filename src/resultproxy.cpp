@@ -103,7 +103,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 
             break;
         case Cantor::AnimationResult::Type:
-            kDebug()<<"its an animation";
+            kDebug()<<"it's an animation";
             format=renderGif(result);
             if(format.isValid())
             {

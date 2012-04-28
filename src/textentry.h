@@ -41,6 +41,8 @@ class TextEntry : public WorksheetEntry
 
     bool isEmpty();
 
+    bool acceptRichText();
+
     // do we need/get this?
     //bool worksheetContextMenuEvent(...);
     vool mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
@@ -54,6 +56,13 @@ class TextEntry : public WorksheetEntry
     void interruptEvaluation();
 
     bool evaluate(bool current);
+
+  public slots:
+    void updateEntry();
+
+  private:
+    QTextCursor findLatexCode(QTextDocument *doc) const;
+    void showLatexCode(QTextCursor cursor);
 
   private:
     WorksheetTextItem m_textItem;

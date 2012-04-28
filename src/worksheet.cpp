@@ -50,7 +50,12 @@ void Worksheet::setViewSize(qreal w, qreal h)
 
 WorksheetEntry* Worksheet::currentEntry()
 {
-    return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(m_currentEntryIndex));
+    QGraphicsItem* item = focusItem();
+    while (item && item->type() < QGraphicsItem::UserType)
+	item = item->parentItem();
+    if (item)
+	return qt_cast<WorksheetEntry*>(item);
+    return 0;
 }
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
@@ -75,32 +80,38 @@ int Worksheet::entryCount()
     return m_entries->size();
 }
 
-void Worksheet::setCurrentEntry(WorksheetEntry *entry)
+void Worksheet::focusEntry(WorksheetEntry *entry)
 {
     if (!entry)
         return;
-    m_currentEntry = entry;
-    //bool rt = m_currentEntry->acceptRichText();
+    // todo: pass information about the cursor position
+    entry->setFocus();
+    bool rt = entry->acceptRichText();
     //setActionsEnabled(rt);
     //setAcceptRichText(rt);
-    m_currentEntry->setActive(true);
     //ensureCursorVisible();
 }
 
 void Worksheet::moveToPreviousEntry()
 {
-    int index = m_entries.indexOf(m_currentEntry);
+    int index = m_entries.indexOf(currentEntry());
     kDebug() << "index: " << index;
-    if(index_ > 0)
-        setCurrentEntry(index - 1);
+    --index;
+    while (index >= 0 && (m_entries[index].flags() & QGraphicsItem::ItemIsFocusable))
+	--index;
+    if(index >= 0)
+        setCurrentEntry(m_entries[index]);
 }
 
 void Worksheet::moveToNextEntry()
 {
-    int index = m_entries.indexOf(m_currentEntry);
+    int index = m_entries.indexOf(currentEntry());
     kDebug() << "index: " << index;
-    if(index > entryCount() - 1)
-        setCurrentEntry(index + 1);
+    ++index;
+    while (index < entryCount() && (m_entries[index].flags() & QGraphicsItem::ItemIsFocusable))
+	++index;
+    if(index < entryCount())
+        setCurrentEntry(m_entries[index]);
 }
 
 

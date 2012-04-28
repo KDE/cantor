@@ -72,9 +72,9 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertPageBreakEntryBefore();
     WorksheetEntry* insertLatexEntryBefore();
 
-    void setCurrentEntry(WorksheetEntry * entry);
-    void moveToPreviousEntry();
-    void moveToNextEntry();
+    void focusEntry(WorksheetEntry * entry /*, WorksheetEntry::CursorPositionHint pos*/);
+    void moveToPreviousEntry(/*WorksheetEntry::CursorPositionHint pos*/);
+    void moveToNextEntry(/*WorksheetEntry::CursorPositionHint pos*/);
 
     void evaluate();
     void evaluateCurrentEntry();
@@ -122,9 +122,8 @@ class Worksheet : public QGraphicsScene
 
   private:
     Cantor::Session *m_session;
-    //ResultProxy* m_proxy;
+    ResultProxy* m_proxy;
     QList<WorksheetEntry*> m_entries;
-    WorksheetEntry* m_currentEntry;
     QGraphicsWidget* m_rootitem;
     QGrahicsLinearLayout* m_rootlayout;
     

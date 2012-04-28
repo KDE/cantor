@@ -58,6 +58,9 @@ class WorksheetEntry : public QGraphicsWidget
 
     virtual void enableHighlighting(bool highlight)=0;
 
+  public slots:
+    virtual void updateEntry() = 0;
+
   protected:
     Worksheet* worksheet();
 };

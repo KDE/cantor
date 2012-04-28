@@ -61,7 +61,9 @@ endif (R_FOUND)
 set(cantor_PART_SRCS
    cantor_part.cpp
    worksheet.cpp
+   worksheetview.cpp
    worksheetentry.cpp
+   worksheettextitem.cpp
    commandentry.cpp
    textentry.cpp
    pagebreakentry.cpp
