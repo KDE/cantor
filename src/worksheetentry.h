@@ -44,6 +44,12 @@ class WorksheetEntry : public QGraphicsWidget
 
     static WorksheetEntry* create(int t);
 
+    WorksheetEntry* next() const;
+    WorksheetEntry* previous() const;
+
+    void setNext(WorksheetEntry*);
+    void setPrevious(WorksheetEntry*);
+
     virtual bool acceptRichText() = 0;
 
     virtual void setContent(const QString& content)=0;
@@ -63,6 +69,10 @@ class WorksheetEntry : public QGraphicsWidget
 
   protected:
     Worksheet* worksheet();
+
+  private:
+    WorksheetEntry* m_prev;
+    WorksheetEntry* m_next;
 };
 
 #endif // WORKSHEETENTRY_H

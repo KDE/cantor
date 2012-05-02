@@ -84,6 +84,8 @@ class Worksheet : public QGraphicsScene
     bool completionEnabled();
     void showCompletion();
 
+    void highlightDocument(QTextDocument*);
+
     void enableHighlighting(bool highlight);
     void enableCompletion(bool enable);
     void enableExpressionNumbering(bool enable);
@@ -116,6 +118,8 @@ class Worksheet : public QGraphicsScene
 
   private:
     WorksheetEntry* currentEntry();
+    WorksheetEntry* firstEntry();
+    WorksheetEntry* lastEntry();
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(int row);
     int entryCount();
@@ -123,9 +127,9 @@ class Worksheet : public QGraphicsScene
   private:
     Cantor::Session *m_session;
     ResultProxy* m_proxy;
-    QList<WorksheetEntry*> m_entries;
     QGraphicsWidget* m_rootitem;
     QGrahicsLinearLayout* m_rootlayout;
+    QSyntaxHighlighter* m_highlighter;
     
     bool m_completionEnabled;
     bool m_loginFlag;

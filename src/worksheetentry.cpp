@@ -3,6 +3,9 @@
 
 WorksheetEntry::WorksheetEntry() : QGraphicsWidget()
 {
+    m_next = 0;
+    m_prev = 0;
+
     connect(this, SIGNAL(destroyed(QObject*)), m_worksheet, SLOT(removeEntry(QObject*)));
 }
 
@@ -33,6 +36,26 @@ static Worksheet* WorksheetEntry::create(int t)
     default:
 	return 0;
     }
+}
+
+WorksheetEntry* WorksheetEntry::next() const
+{
+    return m_next;
+}
+
+WorksheetEntry* WorksheetEntry::previous() const
+{
+    return m_prev;
+}
+
+void WorksheetEntry::setNext(WorksheetEntry* n)
+{
+    m_next = n;
+}
+
+void WorksheetEntry::setPrevious(WorksheetEntry* p)
+{
+    m_prev = p;
 }
 
 Worksheet* WorksheetEntry::worksheet()

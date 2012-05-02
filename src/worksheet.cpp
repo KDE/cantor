@@ -10,6 +10,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_rootwidget = new QGraohicsWidget;
     m_rootwidget.setLayout(m_rootlayout);
 
+    m_highlighter = 0;
     // todo: set scene rect
 
     //...
@@ -30,6 +31,8 @@ void Worksheet::loginToSession()
     {
         m_session->login();
 
+        enableHighlighting(Settings::self()->highlightDefault());
+        enableCompletion(Settings::self()->completionDefault());
 	// ...
 
 
@@ -58,6 +61,21 @@ WorksheetEntry* Worksheet::currentEntry()
     return 0;
 }
 
+WorksheetEntry* Workseet::firstEntry()
+{
+    if (m_rootlayout->count() == 0)
+	return 0;
+    return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(0));
+}
+
+WorksheetEntry* Workseet::lastEntry()
+{
+    int c = m_rootlayout->count();
+    if (c == 0)
+	return 0;
+    return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(c-1));
+}
+
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
     QGraphicsItem* item = itemAt(x, y);
@@ -71,13 +89,13 @@ WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 WorksheetEntry* Worksheet::entryAt(int row)
 {
     if (row >= 0 && row < entryCount())
-	return m_entries[row];
+	return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(row));
     return 0;
 }
 
 int Worksheet::entryCount()
 {
-    return m_entries->size();
+    return m_rootlayout->count();
 }
 
 void Worksheet::focusEntry(WorksheetEntry *entry)
@@ -94,31 +112,27 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 
 void Worksheet::moveToPreviousEntry()
 {
-    int index = m_entries.indexOf(currentEntry());
-    kDebug() << "index: " << index;
-    --index;
-    while (index >= 0 && (m_entries[index].flags() & QGraphicsItem::ItemIsFocusable))
-	--index;
-    if(index >= 0)
-        setCurrentEntry(m_entries[index]);
+    WorksheetEntry* entry = currentEntry()->previous();
+    while (entry && !(entry->flags() & QGraphicsItem::ItemIsFocusable))
+	entry = entry->previous();
+    if(entry)
+        setCurrentEntry(entry);
 }
 
 void Worksheet::moveToNextEntry()
 {
-    int index = m_entries.indexOf(currentEntry());
-    kDebug() << "index: " << index;
-    ++index;
-    while (index < entryCount() && (m_entries[index].flags() & QGraphicsItem::ItemIsFocusable))
-	++index;
-    if(index < entryCount())
-        setCurrentEntry(m_entries[index]);
+    WorksheetEntry* entry = currentEntry()->next();
+    while (entry && !(entry->flags() & QGraphicsItem::ItemIsFocusable))
+	entry = entry->next();
+    if(entry)
+        setCurrentEntry(entry);
 }
 
 
 void Worksheet::evaluate()
 {
     kDebug()<<"evaluate worksheet";
-    foreach(WorksheetEntry* entry, m_entries)
+    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
     {
         entry->evaluate(false);
     }
@@ -136,25 +150,17 @@ void Worksheet::evaluateCurrentEntry()
         return;
     if(Settings::self()->autoEval())
     {
-        QList<WorksheetEntry*>::iterator it=m_entries.begin();
-        while((*it)!=entry&&it!=m_entries.end())
-            ++it;
+	for (entry = entry->next(); entry; entry = entry->next())
+	    entry->evaluate(false);
 
-        it++;
-
-        for(;it!=m_entries.end();++it)
-        {
-            //kDebug()<<"evaluate"<<entry->command();
-            (*it)->evaluate(false);
-        }
-        if(!m_entries.last()->isEmpty())
+        if(!lastEntry()->isEmpty())
             appendCommandEntry();
         else
-            setCurrentEntry(m_entries.last());
+            setCurrentEntry(lastEntry());
     }
     else
     {
-        if (entry == m_entries.last())
+        if (entry == lastEntry())
             appendCommandEntry();
         else
             moveToNextEntry();
@@ -176,12 +182,14 @@ void Worksheet::showCompletion()
 WorksheetEntry* Worksheet::appendEntry(const int type)
 {
     WorksheetEntry* entry = WorksheetEntry::create(type);
-    m_rootlayout.addItem(entry);
-    prev->setOwnedByLayout(false);
     if (entry)
     {
         kDebug() << "Entry Appended";
-        m_entries.append(entry);
+	entry->setPrevious(lastEntry());
+	if (lastEntry())
+	    lastEntry()->setNext(entry);
+	m_rootlayout.addItem(entry);
+	entry->setOwnedByLayout(false);
         setCurrentEntry(entry);
     }
     return entry;
@@ -215,10 +223,10 @@ WorksheetEntry* Worksheet::appendLatexEntry()
 
 void Worksheet::appendCommandEntry(const QString& text)
 {
-    WorksheetEntry* entry=m_entries.last();
+    WorksheetEntry* entry = lastEntry();
     if(!entry->isEmpty())
     {
-        entry=appendCommandEntry();
+        entry = appendCommandEntry();
     }
 
     if (entry)
@@ -237,19 +245,26 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     if (!current)
 	return 0;
     
-    int index = m_entries.indexOf(current);
-    WorksheetEntry *next = entryAt(index + 1);
+    WorksheetEntry *next = current->next();
+    WorksheetEntry *entry = 0;
 
     if (!next || next->type() != type || !next->isEmpty())
     {
-	next = WorksheetEntry::create(type);
-	m_rootlayout.insertItem(index + 1, next);
-	prev->setOwnedByLayout(false);
-	m_entries.insert(index+1, next);
+	entry = WorksheetEntry::create(type);
+	entry->setPrevious(current);
+	entry->setNext(next);
+	current->setNext(entry);
+	if (next)
+	    next->setPrevious(entry);
+	int index = entryCount();
+	for (; next; next = next->next())
+	    --index;
+	m_rootlayout.insertItem(index, entry);
+	entry->setOwnedByLayout(false);
     }
 
-    setCurrentEntry(next);
-    return next;
+    setCurrentEntry(entry);
+    return entry;
 }
 
 WorksheetEntry* Worksheet::insertTextEntry()
@@ -295,19 +310,26 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
     if (!current)
 	return 0;
     
-    int index = m_entries.indexOf(current);
-    WorksheetEntry *prev = entryAt(index - 1);
+    WorksheetEntry *prev = current->previous();
+    WorksheetEntry *entry = 0;
 
-    if(!prevE || prevE->type() != type || !prevE->isEmpty())
+    if(!prev || prev->type() != type || !prev->isEmpty())
     {
-	prev = WorksheetEntry::create(type);
-	m_rootlayout.insertItem(index, prev);
-	prev->setOwnedByLayout(false);
-	m_entries.insert(index, prev);
+	entry = WorksheetEntry::create(type);
+	entry->setNext(current);
+	entry->setPrevious(prev);
+	current->setPrevious(entry);
+	if (prev)
+	    prev->setNext(entry);
+	int index = 0;
+	for (; prev; prev = prev->previous())
+	    ++index;
+	m_rootlayout.insertItem(index, entry);
+	entry->setOwnedByLayout(false);
     }
 
-    setCurrentEntry(prev);
-    return prev;
+    setCurrentEntry(entry);
+    return entry;
 }
 
 WorksheetEntry* Worksheet::insertTextEntryBefore()
@@ -346,11 +368,24 @@ void Worksheet::interruptCurrentEntryEvaluation()
     currentEntry()->interruptEvaluation();
 }
 
+void Worksheet::highlightDocument(QTextDocument* doc)
+{
+    if (m_highlighter)
+	m_highlighter->setDocument(doc);
+}
+
 void Worksheet::enableHighlighting(bool highlight)
 {
-    foreach( WorksheetEntry* entry, m_entries )
-    {
-	entry->enableHighlighting(highlight);
+    if(highlight) {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=session()->syntaxHighlighter(this);
+        if(!m_highlighter)
+            m_highlighter=new Cantor::DefaultHighlighter(this);
+    } else {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=0;
     }
 }
 
@@ -376,7 +411,7 @@ QDomDocument Worksheet::toXML(KZip* archive)
     root.setAttribute("backend", m_session->backend()->name());
     doc.appendChild(root);
 
-    foreach( WorksheetEntry* entry, m_entries )
+    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry.next())
     {
         QDomElement el = entry->toXml(doc, archive);
         root.appendChild( el );
@@ -429,7 +464,7 @@ void Worksheet::savePlain(const QString& filename)
 
     QTextStream stream(&file);
 
-    foreach(WorksheetEntry * const entry, m_entries)
+    for(WorksheetEntry * entry = firstEntry(), entry; entry = entry.next())
     {
         const QString& str=entry->toPlain(cmdSep, commentStartingSeq, commentEndingSeq);
         if(!str.isEmpty())
@@ -511,10 +546,11 @@ void Worksheet::load(const QString& filename )
     //cleanup the worksheet and all it contains
     delete m_session;
     m_session=0;
-    foreach(WorksheetEntry* entry, m_entries)
+    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next()) {
         delete entry;
+	m_rootlayout->removeItem(entry);
+    }
     clear();
-    m_entries.clear();
 
     m_session=b->createSession();
     m_loginFlag=true;
@@ -591,19 +627,18 @@ void Worksheet::removeCurrentEntry()
     if(!entry)
         return;
 
-    int index=m_entries.indexOf(entry);
-
     m_rootlayout->removeItem(entry);
+    if (entry->previous())
+	entry->previous()->setNext(entry->next());
+    if (entry->next())
+	entry->next()->setPrevious(entry->previous());
 
+    WorksheetEntry* next = entry->next();
     delete entry;
-    m_entries.removeAll(entry);
 
-    entry = entryAt(index);
-    //if (!entry)
-    //    entry = entryAt(index + 1);
-    if (!entry)
-        entry = appendCommandEntry();
-    setCurrentEntry(entry);
+    if (!next)
+        next = appendCommandEntry();
+    setCurrentEntry(next);
 }
 
 

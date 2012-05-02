@@ -1,9 +1,9 @@
 
 #include "worksheettextitem.h"
 
-WorksheetTextItem::WorksheetTextItem() : QGraphicsTextItem()
+WorksheetTextItem::WorksheetTextItem(QGraphicsItem* parent) 
+  : QGraphicsTextItem(parent)
 {
-    m_highlighter = 0;
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -37,34 +37,39 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	if (textCursor().atStart()) {
 	    emit leftmostValidPositionReached();
 	    kDebug()<<"Reached leftmost valid position";
-	    return true;
+	    return;
 	}
 	break;
     case Qt::Key_Right:
 	if (textCursor().atEnd()) {
 	    emit rightmostValidPositionReached();
 	    kDebug()<<"Reached rightmost valid position";
-	    return true;
+	    return;
 	}
 	break;
     case Qt::Key_Up:
 	if (!textCursor().movePosition(QTextCursor::Up)) {
 	    emit topmostValidPositionReached();
 	    kDebug()<<"Reached topmost valid position";
-	    return true;
+	    return;
 	}
 	break;
     case Qt::Key_Down:
 	if (!textCursor().movePosition(QTextCursor::Down)) {
 	    emit bottommostValidPositionReached();
 	    kDebug()<<"Reached bottommost valid position";
-	    return true;
+	    return;
 	}
 	break;
     default:
 	break;
     }
-    return this->QGraphicsTextItem::keyEvent(event);
+    this->QGraphicsTextItem::keyEvent(event);
+}
+
+void WorksheetTextItem::focusInEvent(QFocusEvent *event)
+{
+    emit receivedFocus(document());
 }
 
 #include "worksheettextitem.moc"

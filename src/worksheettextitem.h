@@ -6,25 +6,22 @@ class WorksheetTextItem : public QGraphicsTextItem
 {
   Q_OBJECT
   public:
-    WorksheetTextItem();
+    WorksheetTextItem(QGraphicsItem* parent);
     ~WorksheetTextItem();
-
-    void enableHighlighting(bool highlight);
 
   signals:
     void leftmostValidPositionReached();
     void rightmostValidPositionReached();
     void topmostValidLineReached();
     void bottommostValidLineReached();
+    void receivedFocus(QTextDocument*);
     
   protected:
-    bool keyPressEvent(QKeyEvent * event);
+    void keyPressEvent(QKeyEvent *event);
+    void focusInEvent(QFocusEvent *event);
 
   private:
     Cantor::Session* session();
-
-  private:
-    QSyntaxHighlighter *m_highlighter;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H

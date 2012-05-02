@@ -3,7 +3,7 @@
 #include "animationhandler.h"
 #include "formulatextobject.h"
 
-TextEntry::TextEntry() : WorksheetEntry(), m_textItem(this)
+TextEntry::TextEntry() : WorksheetEntry(), m_textItem(new WorksheetItem(this))
 {
     m_textItem.document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
     m_textItem.document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
@@ -21,6 +21,8 @@ TextEntry::TextEntry() : WorksheetEntry(), m_textItem(this)
 	    worksheet(), SLOT(moveToPreviousEntry()));
     connect(m_textItem, SIGNAL(bottommostValidLineReached()), 
 	    worksheet(), SLOT(moveToNextEntry()));
+    connect(m_textItem, SIGNAL(receivedFocus(QTextDocument*)),
+	    worksheet(), SLOT(highlightDocument(QTextDocument*)));
 }
 
 TextEntry::~TextEntry()

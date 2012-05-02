@@ -65,7 +65,7 @@ class TextEntry : public WorksheetEntry
     void showLatexCode(QTextCursor cursor);
 
   private:
-    WorksheetTextItem m_textItem;
+    WorksheetTextItem* m_textItem;
 
 };
 
