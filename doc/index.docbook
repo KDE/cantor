@@ -290,6 +290,7 @@ TODO add screenshots and descriptions of each assistant
 </sect1>
 -->
 </chapter>
+<!--this chapter is boring and completely useless, only default menu items well known to any kde user-->
 <chapter id="commands">
 <title>Command Reference</title>
 
@@ -585,6 +586,7 @@ All interface definitions are in the lib directory.  For some example implementa
 <qandaentry>
   <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> is not available</para></question>
   <answer><para>Not every Backend supports every option.</para></answer>
+<!-- which backends support "Typeset using LaTeX"-->
 </qandaentry>
 <qandaentry>
   <question><para>I have installed Sage/Maxima, but the appropriate backend does not appear.</para></question>
