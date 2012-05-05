@@ -49,6 +49,13 @@ void Worksheet::setViewSize(qreal w, qreal h)
 {
     m_rootwidget.setMaximumWidth(w);
     m_rootwidget.setMinimumHeight(h);
+
+    m_proxy->setScale(worksheetView()->scale());
+}
+
+WorksheetView* Worksheet::worksheetView()
+{
+    return qt_cast<WorksheetView*>(views()[0]);
 }
 
 WorksheetEntry* Worksheet::currentEntry()
@@ -205,16 +212,16 @@ WorksheetEntry* Worksheet::appendTextEntry()
    return appendEntry(TextEntry::Type);
 }
 
-
 WorksheetEntry* Worksheet::appendPageBreakEntry()
 {
     return appendEntry(PageBreakEntry::Type);
 }
 
-WorksheetEntry* Worksheet::appendImageEntry()
+/*WorksheetEntry* Worksheet::appendImageEntry()
 {
    return appendEntry(ImageEntry::Type);
 }
+*/
 
 WorksheetEntry* Worksheet::appendLatexEntry()
 {

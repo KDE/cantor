@@ -9,13 +9,16 @@ class WorksheetTextItem : public QGraphicsTextItem
     WorksheetTextItem(QGraphicsItem* parent);
     ~WorksheetTextItem();
 
+    bool setCursorPosition(const QPointF& pos);
+    QPointF cursorPosition() const;
+
   signals:
     void leftmostValidPositionReached();
     void rightmostValidPositionReached();
     void topmostValidLineReached();
     void bottommostValidLineReached();
     void receivedFocus(QTextDocument*);
-    
+
   protected:
     void keyPressEvent(QKeyEvent *event);
     void focusInEvent(QFocusEvent *event);

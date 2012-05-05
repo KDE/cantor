@@ -15,11 +15,10 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
 #include "commandentry.h"
-#include "worksheetentry.h"
 
 #include "lib/expression.h"
 #include "lib/result.h"
@@ -29,83 +28,58 @@
 #include "lib/defaulthighlighter.h"
 #include "lib/session.h"
 #include "worksheet.h"
-#include "resultproxy.h"
-#include "resultcontextmenu.h"
-#include "settings.h"
-#include "loadedexpression.h"
 
-#include <QEvent>
-#include <QKeyEvent>
-#include <QTimer>
-#include <QTextDocument>
-#include <QTextFrame>
-#include <QToolTip>
-#include <kdebug.h>
-#include <kglobal.h>
-#include <kcolorscheme.h>
-#include <kcompletionbox.h>
-#include <klocale.h>
-#include <kstandardaction.h>
-#include <kaction.h>
-
-const QString CommandEntry::Prompt=">>> ";
-
-CommandEntry::CommandEntry( QTextCursor position, Worksheet* parent ) : WorksheetEntry( position, parent )
+CommandEntry::CommandEntry() : WorksheetEntry()
 {
-    m_expression=0;
-    m_completionObject=0;
-    m_syntaxHelpObject=0;
+    m_expression = 0;
+    m_completionObject = 0;
+    m_syntaxHelpObject = 0;
 
-    connect(m_worksheet, SIGNAL(updatePrompt()), this, SLOT(updatePrompt()));
 
-    QTextTableFormat tableFormat;
-    QVector<QTextLength> constraints;
-    QFontMetrics metrics(parent->document()->defaultFont());
-    constraints<< QTextLength(QTextLength::FixedLength, metrics.width(CommandEntry::Prompt))
-               <<QTextLength(QTextLength::PercentageLength, 100);
+    QGraphicsLinearLayout *horizontalLayout = new QGraphicsLinearLayout(Qt::Horizontal);
+    m_promptItem = new QGraphicsTextItem(this);
+    horizontalLayout->addItem(m_promptItem);
+    m_verticalLayout = new QGraphicsLinearLayout(Qt::Vertical, horizontalLayout);
+    m_commandItem = new WorksheetTextItem(this);
+    verticalLayout->addItem(m_commandItem);
+    m_errorItem = 0;
+    m_resultItem = 0;
 
-    tableFormat.setColumnWidthConstraints(constraints);
-    tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
-    tableFormat.setCellSpacing(10);
-    tableFormat.setTopMargin(5);
+    m_promptItem->setOwnedByLayout(false);
+    m_commandItem->setOwnedByLayout(false);
+    this->setLayout(horizontalLayout);
 
-    position=m_frame->firstCursorPosition();
+    m_commandItem.setTextIteractionFlags(Qt::TextEditorInteraction);
+    // ToDo: pass information about the desired cursor position.
+    connect(m_commandItem, SIGNAL(leftmostValidPositionReached()),
+	    worksheet(), SLOT(moveToPreviousEntry()));
+    connect(m_commandItem, SIGNAL(rightmostValidPositionReached()),
+	    worksheet(), SLOT(moveToNextEntry())); // change!
+    connect(m_commandItem, SIGNAL(topmostValidLineReached()),
+	    worksheet(), SLOT(moveToPreviousEntry()));
+    connect(m_commandItem, SIGNAL(bottommostValidLineReached()),
+	    worksheet(), SLOT(moveToNextEntry())); // change!
+    connect(m_commandItem, SIGNAL(receivedFocus(QTextDocument*)),
+	    worksheet(), SLOT(highlightDocument(QTextDocument*)));
 
-    m_table=position.insertTable(1, 2, tableFormat);
-    //make sure, everything is invalid, when the table gets removed
-    connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(invalidate()));
-    //delete the worksheet entry, when the table gets removed from the worksheet
-    connect(m_table, SIGNAL(destroyed(QObject*)), this, SLOT(deleteLater()));
-
-    m_table->cellAt(0, 0).firstCursorPosition().insertText(Prompt);
-
-    QTextCharFormat cmdF=m_table->cellAt(0, 1).format();
-    cmdF.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::CommandBlock);
-    m_table->cellAt(0, 1).setFormat(cmdF);
-
-    //m_table->mergeCells(0, 1, 1, 2);
-    m_commandCell=m_table->cellAt(0, 1);
 }
 
 CommandEntry::~CommandEntry()
 {
-    if(m_completionBox)
-        m_completionBox->deleteLater();
+    if (m_completionBox)
+	m_completionBox->deleteLater();
 }
 
-int CommandEntry::type()
+int CommandEntry::type() const
 {
-    return Type;
+    return type;
 }
 
 QString CommandEntry::command()
 {
-    QTextCursor c=m_commandCell.firstCursorPosition();
-    c.setPosition(m_commandCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
-    QString cmd=c.selectedText();
+    QString cmd = m_commandItem->toPlainText();
     cmd.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
     cmd.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
-
     return cmd;
 }
 
@@ -115,25 +89,27 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         m_expression->deleteLater();
 
     // Delete any previus error and/or result
-    if(m_errorCell.isValid())
+    if(m_errorItem)
     {
-        m_table->removeRows(m_errorCell.row(), 1);
-        m_errorCell=QTextTableCell();
+	m_verticalLayout->removeItem(m_errorItem);
+        m_errorItem->deleteLater();
+	m_errorItem = 0;
     }
 
     removeResult();
 
-    foreach(const QTextTableCell& cell, m_informationCells)
+    foreach(QGraphicsSimpleTextItem* item, m_informationItems)
     {
-        m_table->removeRows(cell.row()-1, 2);
+	m_verticalLayout->removeItem(item);
+	item->deleteLater();
     }
-    m_informationCells.clear();
+    m_informationItems.clear();
 
     // Delete any previous result
-    if (m_table && m_resultCell.isValid())
+    if (m_resultItem)
     {
-        m_table->removeRows(m_resultCell.row(),  m_resultCell.rowSpan());
-        m_resultCell=QTextTableCell();
+	m_verticalLayout->removeItem(m_resultItem);
+	m_resultItem = 0;
     }
 
     m_expression=expr;
@@ -148,7 +124,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 
     if(expr->result())
     {
-        m_worksheet->gotResult(expr);
+        worksheet()->gotResult(expr);
         update();
     }
     if(expr->status()!=Cantor::Expression::Computing)
@@ -162,159 +138,29 @@ Cantor::Expression* CommandEntry::expression()
     return m_expression;
 }
 
-QTextCursor CommandEntry::firstValidCursorPosition()
+void CommandEntry::keyPressEvent(QKeyEvent* event)
 {
-    return m_commandCell.firstCursorPosition();
+    // ... This function is not called when m_commandItem has the
+    // focus. Is there a function that is called before
+    // the keyEvent reaches the QGraphicsTextItem?
 }
 
-QTextCursor CommandEntry::lastValidCursorPosition()
-{
-    return m_commandCell.lastCursorPosition();
-}
 
-QTextCursor CommandEntry::closestValidCursor(const QTextCursor& cursor)
-{
-    if (firstValidCursorPosition().position() <= cursor.position() &&
-            cursor.position() <= lastValidCursorPosition().position())
-    {
-        kDebug()<<"In CommandCell";
-        return cursor;
-    }
-    else
-        return firstValidCursorPosition();
-}
 
-bool CommandEntry::isValidCursor(const QTextCursor& cursor)
-{
-    return isInCommandCell(cursor)
-            || isInCurrentInformationCell(cursor)
-            || isInResultCell(cursor)
-            || isInErrorCell(cursor);
-}
-
-bool CommandEntry::worksheetShortcutOverrideEvent(QKeyEvent* event, const QTextCursor& cursor)
-{
-    if (WorksheetEntry::worksheetShortcutOverrideEvent(event, cursor))
-        return true;
-
-    if (event->key() == Qt::Key_Tab && m_worksheet->completionEnabled())
-    {
-        // special tab handling here
-        // get the current line of the entry. If it's empty, do a regular tab(indent),
-        // otherwise check for tab completion (if supported by the backend)
-        const QString line=currentLine(cursor).trimmed();
-        if(line.isEmpty())
-            return false;
-        return true;
-    }
-
-    return false;
-}
-
-bool CommandEntry::worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor)
-{
-    if (WorksheetEntry::worksheetKeyPressEvent(event, cursor))
-    {
-        return true;
-    }
-    else if (event->modifiers() == Qt::NoModifier
-            && (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
-            && isShowingCompletionPopup())
-    {
-        applySelectedCompletion();
-        return true;
-    }
-    else if ((event->key() == Qt::Key_Tab) && m_worksheet->completionEnabled())
-    {
-	if (event->modifiers() == Qt::NoModifier) {
-	    showCompletion();
-	    return true;
-	} else if (event->modifiers() == Qt::ShiftModifier && isShowingCompletionPopup()) {
-	    m_completionBox->up();
-	    return true;
-	}
-    }
-    else if (!(isInCommandCell(cursor) || isInCurrentInformationCell(cursor)))
-    {
-        return true;
-    }
-
-    return false;
-}
-
-bool CommandEntry::worksheetMousePressEvent(QMouseEvent* event, const QTextCursor& cursor)
-{
-    Q_UNUSED(event);
-
-    if (!isValidCursor(cursor))
-        return true;
-
-    return false;
-}
-
-bool CommandEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor)
-{
-    if(isInResultCell(cursor) && expression() && expression()->result())
-    {
-        kDebug()<<"context menu in result...";
-        KMenu* popup=new ResultContextMenu(this, m_worksheet);
-
-        QMenu* defaultMenu=m_worksheet->mousePopupMenu();
-        defaultMenu->setTitle(i18n("Other"));
-        popup->addMenu(defaultMenu);
-
-        popup->popup(event->globalPos());
-
-        return true;
-    }else if(isInCommandCell(cursor))
-    {
-        KMenu* defaultMenu = new KMenu(m_worksheet);
-
-        defaultMenu->addAction(KStandardAction::cut(m_worksheet));
-        defaultMenu->addAction(KStandardAction::copy(m_worksheet));
-        defaultMenu->addAction(KStandardAction::paste(m_worksheet));
-        defaultMenu->addSeparator();
-
-        if(!m_worksheet->isRunning())
-        {
-            defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
-            if (!isEmpty())
-                defaultMenu->addAction(i18n("Evaluate Entry"),m_worksheet,SLOT(evaluateCurrentEntry()),0);
-        }
-        else
-            defaultMenu->addAction(KIcon("process-stop"),i18n("Interrupt"),m_worksheet,SLOT(interrupt()),0);
-        defaultMenu->addSeparator();
-
-        defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
-
-	createSubMenuInsert(defaultMenu);
-
-        defaultMenu->popup(event->globalPos());
-
-        return true;
-    }
-
-    return false;
-}
 
 bool CommandEntry::acceptRichText()
 {
     return false;
 }
 
-bool CommandEntry::acceptsDrop(const QTextCursor& cursor)
-{
-    return isInCommandCell(cursor);
-}
-
 void CommandEntry::setContent(const QString& content)
 {
-    firstValidCursorPosition().insertText(content);
+    m_commandItem.setText(content);
 }
 
 void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    firstValidCursorPosition().insertText(content.firstChildElement("Command").text());
+    m_commandItem.setText(content.firstChildElement("Command").text());
 
     LoadedExpression* expr=new LoadedExpression( m_worksheet->session() );
     expr->loadFromXml(content, file);
@@ -322,39 +168,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
     setExpression(expr);
 }
 
-void CommandEntry::showCompletion()
-{
-    //get the current line of the entry. If it's empty, ignore the call,
-    //otherwise check for tab completion (if supported by the backend)
-    const QString line=currentLine(m_worksheet->textCursor()); //.trimmed();
-
-    if(line.trimmed().isEmpty())
-    {
-        return;
-    } else if (isShowingCompletionPopup()) {
-	QString comp = m_completionObject->completion();
-	kDebug() << "command" << m_completionObject->command();
-	kDebug() << "completion" << comp;
-	if (comp != m_completionObject->command() 
-	    || !m_completionObject->hasMultipleMatches()) {
-	    if (m_completionObject->hasMultipleMatches()) {
-		completeCommandTo(comp, PreliminaryCompletion);
-	    } else {
-		completeCommandTo(comp, FinalCompletion);
-		m_completionBox->hide();
-	    }
-	} else {
-	    m_completionBox->down();
-	}
-    } else
-    {
-        Cantor::CompletionObject* tco=m_worksheet->session()->completionFor(line, m_worksheet->textCursor().positionInBlock());
-        if(tco)
-            setCompletion(tco);
-    }
-}
-
-QString CommandEntry::toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)
+QString CommandEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commentStartingSeq);
     Q_UNUSED(commentEndingSeq);
@@ -380,29 +194,24 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     return expr;
 }
 
-QString CommandEntry::currentLine(const QTextCursor& cursor)
+QString CommandEntry::currentLine()
 {
-    if(!isInCommandCell(cursor))
-        return QString();
+    if (!m_commandItem->hasFocus())
+	return QString();
 
-    QTextBlock block=m_worksheet->document()->findBlock(cursor.position());
-
+    QTextBlock block = m_commandItem->textCursor().block();
     return block.text();
 }
 
 bool CommandEntry::evaluate(bool current)
 {
     if (!current)
-        return evaluateCommand();
-
-    const QTextCursor c=m_worksheet->textCursor();
-    if (isInCommandCell(c))
-    {
-        return evaluateCommand();
-    }else if (isInCurrentInformationCell(c))
-    {
-        addInformation();
-        return true;
+	return evaluateCommand();
+    if (m_commandItem->hasFocus()) {
+	return evaluateCommand();
+    } else if (informationItemHasFocus()) {
+	addInformation();
+	return true;
     }
     return false;
 }
@@ -415,10 +224,10 @@ bool CommandEntry::evaluateCommand()
     QString cmd = command();
     kDebug()<<"evaluating: "<<cmd;
 
-    Cantor::Expression* expr;
     if(cmd.isEmpty())
         return false;
 
+    Cantor::Expression* expr;
     expr=m_worksheet->session()->evaluateExpression(cmd);
     connect(expr, SIGNAL(gotResult()), m_worksheet, SLOT(gotResult()));
 
@@ -429,45 +238,28 @@ bool CommandEntry::evaluateCommand()
 
 void CommandEntry::interruptEvaluation()
 {
-    Cantor::Expression* expr=expression();
+    Cantor::Expression *expr = expression();
     if(expr)
         expr->interrupt();
 }
 
-void CommandEntry::update()
+void CommandEntry::updateEntry()
 {
-    if (m_expression==0||m_expression->result()==0)  //Don't crash if we don't have a result
-        return;
+    Cantor::Expression *expr = expression();
+    if (expr == 0 || expr->type() == 0)
+	return;
 
-    if (m_expression->result()->type()==Cantor::HelpResult::Type) return;  //Help is handled elsewhere
+    if (expr->result()->type() == Cantor::HelpResult::Type)
+	return; // Help is handled elsewhere
 
-    if(!m_resultCell.isValid())
-    {
-        int row=0;
-        if(actualInformationCell().isValid())
-            row=actualInformationCell().row()+1;
-        else
-            row=m_commandCell.row()+1;
-        m_table->insertRows(row, 1);
-        //m_table->mergeCells(row, 1, 1, 2);
-        m_resultCell=m_table->cellAt(row, 1);
-        QTextCharFormat resF=m_table->cellAt(0, 1).format();
-        resF.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::ResultBlock);
-        m_resultCell.setFormat(resF);
+    if (!m_resultItem) {
+	m_resultItem = new QGraphicsTextItem(this);
+	m_verticalLayout->addItem(m_resultItem);
     }
-
-    QTextBlockFormat block;
-    block.setAlignment(Qt::AlignJustify);
-    block.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::ResultBlock);
-    QTextCursor cursor(m_resultCell.firstCursorPosition());
-    cursor.setBlockFormat(block);
-    cursor.setPosition(m_resultCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
-
-    kDebug()<<"setting cell to "<<m_expression->result()->toHtml();
-
-    m_worksheet->resultProxy()->insertResult(cursor, m_expression->result());
-
-    m_worksheet->ensureCursorVisible();
+    QTextCursor cursor = m_resultItem->textCursor();
+    cursor.movePosition(QTextCursor::Start);
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+    worksheet()->resultProxy()->insertResult(cursor, expr->result());
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
@@ -475,71 +267,54 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     QString text;
     switch (status)
     {
-        case Cantor::Expression::Error:
-            text=m_expression->errorMessage();
-        break;
-        case Cantor::Expression::Interrupted:
-            text=i18n("Interrupted");
-        break;
+    case Cantor::Expression::Error:
+	text = m_expression->errorMessage();
+	break;
+    case Cantor::Expression::Interrupted:
+	text = i18n("Interrupted");
+	break;
+    default:
+	return;
     }
 
-    if(text.isEmpty())
-        return;
-
-    QTextCursor c;
-    if(!m_errorCell.isValid())
+    if(!m_errorItem)
     {
         int row;
-        if(actualInformationCell().isValid())
-            row=actualInformationCell().row()+1;
+        if(m_resultItem)
+            row = m_verticalLayout->count() - 1;
         else
-            row=commandCell().row()+1;
-        m_table->insertRows(row, 1);
-        m_errorCell=m_table->cellAt(row, 1);
-        QTextCharFormat errF=m_table->cellAt(0, 1).format();
-        errF.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::ErrorBlock);
-        m_errorCell.setFormat(errF);
-
-        c=m_errorCell.firstCursorPosition();
-    }else
-    {
-        c=m_errorCell.firstCursorPosition();
-        c.setPosition(m_errorCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
+            row = m_verticalLayout->count();
+	m_errorItem = new QGraphicsTextItem(this);
+	m_verticalLayout->insertItem(row, m_errorItem);
     }
 
-    c.insertHtml(text);
+    m_errorItem->setHtml(text);
 }
 
 bool CommandEntry::isEmpty()
 {
-    QTextCursor c=m_commandCell.firstCursorPosition();
-    c.setPosition(m_commandCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
-    QString text=c.selectedText();
-    if(m_resultCell.isValid())
-    {
-        c=m_resultCell.firstCursorPosition();
-        c.setPosition( m_resultCell.lastCursorPosition().position(),  QTextCursor::KeepAnchor);
-        text+=c.selectedText();
+    if (m_commandItem->toPlainText().trimmed().isEmpty()) {
+	if (m_resultItem && !m_resultItem->toPlainText().trimmed().isEmpty())
+	    return false;
+	return true;
     }
-    text.remove(QRegExp("[\n\t\r]"));
-    kDebug()<<"text: "<<text;
-    return text.trimmed().isEmpty();
+    return false;
 }
 
 void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 {
-    if(m_completionObject)
-        removeContextHelp();
+    if (m_completionObject)
+	removeContextHelp();
 
-    m_completionObject=tc;
-    connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
+    m_completionObject = tc;
+    connect(tc, SIGNAL(done()). this, SLOT(showCompletions()));
     connect(tc, SIGNAL(lineDone(QString, int)), this, SLOT(completeLineTo(QString, int)));
 }
 
 void CommandEntry::showCompletions()
 {
     disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
-    QString completion=m_completionObject->completion();
+    QString completion = m_completionObject->completion();
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
 
@@ -547,98 +322,42 @@ void CommandEntry::showCompletions()
     {
 	completeCommandTo(completion);
 
-        QToolTip::showText(QPoint(), QString(), m_worksheet);
-        switch(Settings::self()->completionStyle())
-        {
-            case Settings::PopupCompletion:
-            {
-		if (m_completionBox)
-		    m_completionBox->deleteLater();
-                m_completionBox=new KCompletionBox(m_worksheet);
-                m_completionBox->setItems(m_completionObject->allMatches());
-		QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
-		if (!items.empty())
-		    m_completionBox->setCurrentItem(items.first());
-                m_completionBox->setTabHandling(false);
-                m_completionBox->setActivateOnSelect(true);
-                connect(m_completionBox, SIGNAL(activated(const QString&)), this, SLOT(applySelectedCompletion()));
-		connect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
-		connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
+        QToolTip::showText(QPoint(), QString(), worksheet());
+	if (m_completionBox)
+	    m_completionBox->deleteLater();
+	m_completionBox = new KCompletionBox(m_worksheet);
+	m_completionBox->setItems(m_completionObject->allMatches());
+	QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
+	if (!items.empty())
+	    m_completionBox->setCurrentItem(items.first());
+	m_completionBox->setTabHandling(false);
+	m_completionBox->setActivateOnSelect(true);
+	connect(m_completionBox, SIGNAL(activated(const QString&)), this,
+		SLOT(applySelectedCompletion()));
+	connect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
+		SLOT(completedLineChanged()));
+	connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
 
-                QRect rect=m_worksheet->cursorRect();
-                kDebug()<<"cursor is within: "<<rect;
-                const QPoint popupPoint=rect.bottomLeft();
-                m_completionBox->popup();
-                m_completionBox->move(m_worksheet->mapToGlobal(popupPoint));
-                break;
-            }
-            case Settings::InlineCompletion:
-            {
-                int oldCursorPos=m_worksheet->textCursor().position();
-
-                //Show a list of possible completions
-                if(!m_contextHelpCell.isValid())
-                {
-                    //remember the actual cursor position, and reset the cursor later
-                    int row=m_commandCell.row()+1;
-
-                    m_table->insertRows(row, 1);
-                    m_contextHelpCell=m_table->cellAt(row, 1);
-
-                    QTextCursor c=m_worksheet->textCursor();
-                    c.setPosition(oldCursorPos);
-                    m_worksheet->setTextCursor(c);
-                }
-
-                QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
-                cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
-
-                int count=0;
-                QString html="<table>";
-                const QStringList& matches=m_completionObject->allMatches();
-                foreach(const QString& item, matches)
-                {
-                    html+="<tr><td>"+item+"</td></tr>";
-                    count++;
-                    if(count>10)
-                        break;
-                }
-
-                const int itemsLeft=matches.size()-count;
-                if(itemsLeft>0)
-                    html+="<tr><td><b>"+i18n("And %1 more...", itemsLeft)+"<b></td></tr>";
-
-                html+="</table>";
-
-                cursor.insertHtml(html);
-
-                m_worksheet->setTextCursor(cursor);
-                m_worksheet->ensureCursorVisible();
-                QTextCursor oldC=m_worksheet->textCursor();
-                oldC.setPosition(oldCursorPos);
-                m_worksheet->setTextCursor(oldC);
-                m_worksheet->ensureCursorVisible();
-                break;
-            }
-        }
-
+	QPointF cursorPos = m_commandItem->cursorPosition();
+	cursorPos = mapToScene(popupPoint);
+	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPoint);
+	m_completionBox->popup();
+	m_completionBox->move(worksheetView()->mapToGlobal(popupPoint));
     } else
     {
 	completeCommandTo(completion, FinalCompletion);
     }
-
-
 }
 
 bool CommandEntry::isShowingCompletionPopup()
 {
 
-    return m_completionBox&&m_completionBox->isVisible();
+    return m_completionBox && m_completionBox->isVisible();
 }
 
 void CommandEntry::applySelectedCompletion()
 {
-    QListWidgetItem* item=m_completionBox->currentItem();
+    QListWidgetItem* item = m_completionBox->currentItem();
     if(item)
 	completeCommandTo(item->text(), FinalCompletion);
     m_completionBox->hide();
@@ -651,93 +370,35 @@ void CommandEntry::completedLineChanged()
 	removeContextHelp();
 	return;
     }
-    const QString line=currentLine(m_worksheet->textCursor());
-    m_completionObject->updateLine(line, m_worksheet->textCursor().positionInBlock());
-    
-}     
+    const QString line = currentLine(m_worksheet->textCursor());
+    m_completionObject->updateLine(line, m_commandItem->textCursor().positionInBlock());
+}
 
 void CommandEntry::updateCompletions()
 {
     if (!m_completionObject)
 	return;
-    QString completion=m_completionObject->completion();
+    QString completion = m_completionObject->completion();
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
 
     if(m_completionObject->hasMultipleMatches() || !completion.isEmpty())
     {
         QToolTip::showText(QPoint(), QString(), m_worksheet);
-        switch(Settings::self()->completionStyle())
-        {
-            case Settings::PopupCompletion:
-            {
-                m_completionBox->setItems(m_completionObject->allMatches());
-		QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
-		if (!items.empty())
-		    m_completionBox->setCurrentItem(items.first());
+	m_completionBox->setItems(m_completionObject->allMatches());
+	QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
+	if (!items.empty())
+	    m_completionBox->setCurrentItem(items.first());
 
-                QRect rect=m_worksheet->cursorRect();
-                kDebug()<<"cursor is within: "<<rect;
-                const QPoint popupPoint=rect.bottomLeft();
-                //m_completionBox->popup();
-                m_completionBox->move(m_worksheet->mapToGlobal(popupPoint));
-                break;
-            }
-            case Settings::InlineCompletion:
-            {
-                int oldCursorPos=m_worksheet->textCursor().position();
-
-                //Show a list of possible completions
-                if(!m_contextHelpCell.isValid())
-                {
-                    //remember the actual cursor position, and reset the cursor later
-                    int row=m_commandCell.row()+1;
-
-                    m_table->insertRows(row, 1);
-                    m_contextHelpCell=m_table->cellAt(row, 1);
-
-                    QTextCursor c=m_worksheet->textCursor();
-                    c.setPosition(oldCursorPos);
-                    m_worksheet->setTextCursor(c);
-                }
-
-                QTextCursor cursor=m_contextHelpCell.firstCursorPosition();
-                cursor.setPosition(m_contextHelpCell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
-
-                int count=0;
-                QString html="<table>";
-                const QStringList& matches=m_completionObject->allMatches();
-                foreach(const QString& item, matches)
-                {
-                    html+="<tr><td>"+item+"</td></tr>";
-                    count++;
-                    if(count>10)
-                        break;
-                }
-
-                const int itemsLeft=matches.size()-count;
-                if(itemsLeft>0)
-                    html+="<tr><td><b>"+i18n("And %1 more...", itemsLeft)+"<b></td></tr>";
-
-                html+="</table>";
-
-                cursor.insertHtml(html);
-
-                m_worksheet->setTextCursor(cursor);
-                m_worksheet->ensureCursorVisible();
-                QTextCursor oldC=m_worksheet->textCursor();
-                oldC.setPosition(oldCursorPos);
-                m_worksheet->setTextCursor(oldC);
-                m_worksheet->ensureCursorVisible();
-                break;
-            }
-        }
-
+	QPointF cursorPos = m_commandItem->cursorPosition();
+	cursorPos = mapToScene(popupPoint);
+	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPoint);
+	//m_completionBox->popup();
+	m_completionBox->move(worksheetView()->mapToGlobal(popupPoint));
     } else
     {
         removeContextHelp();
     }
-
 }
 
 void CommandEntry::completeCommandTo(const QString& completion, CompletionMode mode)
@@ -745,7 +406,7 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
     kDebug() << "completion: " << completion;
 
     if (mode == FinalCompletion) {
-        Cantor::SyntaxHelpObject* obj=m_worksheet->session()->syntaxHelpFor(completion);
+        Cantor::SyntaxHelpObject* obj = m_worksheet->session()->syntaxHelpFor(completion);
         if(obj)
             setSyntaxHelp(obj);
     } else {
@@ -765,19 +426,18 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
 void CommandEntry::completeLineTo(const QString& line, int index)
 {
     kDebug() << "line completion: " << line;
-    QTextCursor cursor = m_worksheet->textCursor();
-    if(!isInCommandCell(cursor)) return;
+    QTextCursor cursor = m_commandItem->textCursor();
     cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::MoveAnchor);
     cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
     int startPosition = cursor.position();
     cursor.insertText(line);
     cursor.setPosition(startPosition + index);
-    m_worksheet->setTextCursor(cursor);
+    m_commandItem->setTextCursor(cursor);
 
     if (m_syntaxHelpObject) {
 	m_syntaxHelpObject->fetchSyntaxHelp();
 	// If we are about to show syntax help, then this was the final
-	// completion, and we should clean up. 
+	// completion, and we should clean up.
 	removeContextHelp();
     }
 }
@@ -793,9 +453,11 @@ void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
 
 void CommandEntry::showSyntaxHelp()
 {
-    const QString& msg=m_syntaxHelpObject->toHtml();
-    const QRect r=m_worksheet->cursorRect();
-    const QPoint pos=m_worksheet->mapToGlobal(r.topLeft());
+    const QString& msg = m_syntaxHelpObject->toHtml();
+    QPointF cursorPos = m_commandItem->cursorPosition();
+    cursorPos = mapToScene(popupPoint);
+    const QPoint popupPoint = worksheetView()->mapFromScene(cursorPoint);
+    const QPoint pos = worksheetView()->mapToGlobal(popupPoint);
 
     QToolTip::showText(pos, msg, m_worksheet);
 }
@@ -805,37 +467,11 @@ void CommandEntry::resultDeleted()
     kDebug()<<"result got removed...";
 }
 
-QTextTable* CommandEntry::table()
-{
-    return m_table;
-}
-
-QTextTableCell CommandEntry::commandCell()
-{
-    return m_commandCell;
-}
-
-QTextTableCell CommandEntry::actualInformationCell()
-{
-    if(m_informationCells.isEmpty())
-        return QTextTableCell();
-    else
-        return m_informationCells.last();
-}
-
-QTextTableCell CommandEntry::resultCell()
-{
-    return m_resultCell;
-}
-
 void CommandEntry::addInformation()
 {
-    QTextCursor c=actualInformationCell().firstCursorPosition();
-    c.setPosition(actualInformationCell().lastCursorPosition().position(), QTextCursor::KeepAnchor);
-    QString inf=c.selectedText();
-
-    inf.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
-    inf.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
+    QString inf = m_informationItems.last()->toPlainText();
+    inf.replace(QChar::ParagraphSeparator, '\n');
+    inf.replace(QChar::LineSeparator, '\n');
 
     kDebug()<<"adding information: "<<inf;
     if(m_expression)
@@ -846,89 +482,26 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
     int row;
     if (actualInformationCell().isValid())
-        row=actualInformationCell().row()+1;
+        row = m_informationItems.size() + 1;
     else
-        row=commandCell().row()+1;
+        row = 1;
 
-    //insert two rows, one for the question, one for the answer
-    m_table->insertRows(row, 2);
+    QGraphicsSimpleTextItem* questionItem = new QGraphicsSimpleTextItem(this);
+    WorksheetTextItem* answerItem = new WorksheetTextItem(this);
+    questionItem->setText(question);
+    m_verticalLayout->addItem(questionItem);
+    m_verticalLayout->addItem(answerItem);
+    m_informationItems.append(answerItem);
 
-    QTextTableCell cell=m_table->cellAt(row, 1);
-    cell.firstCursorPosition().insertText(question);
-    cell=m_table->cellAt(row+1, 1);
-    m_informationCells.append(cell);
-
-    m_worksheet->setTextCursor(cell.firstCursorPosition());
-    m_worksheet->ensureCursorVisible();
-    m_worksheet->setCurrentEntry(this, false);
-}
-
-bool CommandEntry::isInCurrentInformationCell(const QTextCursor& cursor)
-{
-    if(m_informationCells.isEmpty())
-        return false;
-
-    QTextTableCell cell=m_informationCells.last();
-    if(cursor.position()>=cell.firstCursorPosition().position()&&cursor.position()<=cell.lastCursorPosition().position())
-        return true;
-    else
-        return false;
-}
-
-bool CommandEntry::isInCommandCell(const QTextCursor& cursor)
-{
-    if(cursor.position()>=m_commandCell.firstCursorPosition().position()&&cursor.position()<=m_commandCell.lastCursorPosition().position())
-        return true;
-    else
-        return false;
-}
-
-bool CommandEntry::isInPromptCell(const QTextCursor& cursor)
-{
-    const QTextTableCell cell=m_table->cellAt(0, 0);
-    if(cursor.position()>=cell.firstCursorPosition().position()&&cursor.position()<=cell.lastCursorPosition().position())
-        return true;
-    else
-        return false;
-}
-
-bool CommandEntry::isInResultCell(const QTextCursor& cursor)
-{
-    if(!m_resultCell.isValid())
-        return false;
-
-    if(cursor.position()>=m_resultCell.firstCursorPosition().position()&&cursor.position()<=m_resultCell.lastCursorPosition().position())
-        return true;
-    else
-        return false;
-}
-
-bool CommandEntry::isInErrorCell(const QTextCursor& cursor)
-{
-    if(!m_errorCell.isValid())
-        return false;
-
-    if(cursor.position()>=m_errorCell.firstCursorPosition().position()&&cursor.position()<=m_errorCell.lastCursorPosition().position())
-        return true;
-    else
-        return false;
-}
-
-void CommandEntry::checkForSanity()
-{
-    QTextTableCell cell=m_table->cellAt(0, 0);
-    QTextCursor c=cell.firstCursorPosition();
-    c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
-    if(c.selectedText()!=CommandEntry::Prompt)
-        updatePrompt();
+    answerItem->setFocus();
 }
 
 void CommandEntry::removeResult()
 {
-    if(m_resultCell.isValid())
-    {
-        m_table->removeRows(m_resultCell.row(), 1);
-        m_resultCell=QTextTableCell();
+    if (m_resultItem) {
+	m_verticalLayout->removeItem(m_resultItem);
+	m_resultItem->deleteLater();
+	m_resultItem = 0;
     }
 
     if(m_expression)
@@ -938,37 +511,33 @@ void CommandEntry::removeResult()
 
 }
 
-
 void CommandEntry::removeContextHelp()
 {
-    disconnect(m_worksheet, SIGNAL(textChanged()), this, SLOT(completedLineChanged()));
+    disconnect(worksheet(), SIGNAL(textChanged()), this,
+	       SLOT(completedLineChanged()));
     if(m_completionObject)
         m_completionObject->deleteLater();
 
     m_completionObject = 0;
     if (m_completionBox)
 	m_completionBox->hide();
-    if(m_contextHelpCell.isValid())
-    {
-        m_table->removeRows(m_contextHelpCell.row(), 1);
-        m_contextHelpCell=QTextTableCell();
-    }
 }
+
 
 void CommandEntry::updatePrompt()
 {
     KColorScheme color = KColorScheme( QPalette::Normal, KColorScheme::View);
-    QTextTableCell cell=m_table->cellAt(0, 0);
-    QTextCursor c=cell.firstCursorPosition();
+
+    m_promptItem->setPlainText("");
+    QTextCursor c = m_promptItem->textCursor();
     QTextCharFormat cformat = c.charFormat();
 
     cformat.clearForeground();
-    c.setPosition(cell.lastCursorPosition().position(), QTextCursor::KeepAnchor);
     c.setCharFormat(cformat);
     cformat.setFontWeight(QFont::Bold);
 
     //insert the session id if available
-    if(m_expression&&m_worksheet->showExpressionIds())
+    if(m_expression && worksheet()->showExpressionIds())
         c.insertText(QString::number(m_expression->id()),cformat);
 
     //detect the correct color for the prompt, depending on the
@@ -988,12 +557,8 @@ void CommandEntry::updatePrompt()
     c.insertText(CommandEntry::Prompt,cformat);
 }
 
-void CommandEntry::invalidate()
+WorksheetView* CommandEntry::worksheetView()
 {
-    m_table=0;
-    m_commandCell=QTextTableCell();
-    m_contextHelpCell=QTextTableCell();
-    m_informationCells.clear();
-    m_errorCell=QTextTableCell();
-    m_resultCell=QTextTableCell();
+    return worksheet()->worksheetView();
 }
+

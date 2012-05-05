@@ -39,19 +39,21 @@ class Worksheet : public QGraphicsScene
     ~Worksheet();
 
     Cantor::Session* session();
-    
+
     ResultProxy* resultProxy();
 
     bool isRunning();
     //This should be called showLineNumbers. And it should do that, really.
     //bool showExpressionIds();
     bool showLineNumbers();
-    
+
     void print(QPrinter* printer);
 
     bool isPrinting();
 
     void setViewSize(qreal w, qreal h);
+
+    WorksheetView* worksheetView();
 
   public slots:
     WorksheetEntry* appendCommandEntry();
@@ -130,7 +132,7 @@ class Worksheet : public QGraphicsScene
     QGraphicsWidget* m_rootitem;
     QGrahicsLinearLayout* m_rootlayout;
     QSyntaxHighlighter* m_highlighter;
-    
+
     bool m_completionEnabled;
     bool m_loginFlag;
     bool m_isPrinting;

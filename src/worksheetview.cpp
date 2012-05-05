@@ -17,6 +17,11 @@ void WorksheetView::resizeEvent(QResizeEvent * event)
     updateSceneSize();
 }
 
+qreal WorksheetView::scale()
+{
+    return m_scale;
+}
+
 void WorksheetView::updateSceneSize()
 {
     scene()->setViewSize(event.width() / m_scale, event.height() / m_scale);

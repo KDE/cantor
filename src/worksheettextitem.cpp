@@ -10,19 +10,23 @@ WorksheetTextItem::~WorksheetTextItem()
 {
 }
 
-void WorksheetTextItem::enableHighlighting(bool highlight)
+bool WorksheetTextItem::setCursorPosition(const QPointF& pos)
 {
-    if (!highlight) {
-	if (m_highlighter)
-	    m_highlighter->deleteLater();
-	m_highlighter = 0;
-    } else {
-	if (!m_highlighter)
-	    m_highlighter = session()->syntaxHighlighter();
-	if (!m_highlighter)
-	    m_highlighter = new Cantor::DefaultHighlighter;
-	m_highlighter.setDocument(document());
-    }
+    QPointF localPos = mapFromParent(pos);
+    int p = document()->documentLayout()->hitTest(localPos, Qt::FuzzyHit);
+    QTextCursor cursor = textCursor();
+    cursor.setPosition(p);
+    setTextCursor(cursor);
+}
+
+QPointF WorksheetTextItem::cursorPosition() const
+{
+    QTextCursor cursor = textCursor();
+    QTextBlock block = cursor.block();
+    int p = cursor.position();
+    QTextLine line = block.layout()->lineForTextPosition(p);
+    QPointF localPos(line.cursorToX(p), line.y());
+    return mapToParent(localPos);
 }
 
 Cantor::Session* WorksheetTextItem::session()

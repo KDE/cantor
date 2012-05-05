@@ -15,36 +15,28 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2011 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _LATEXENTRY_H
-#define _LATEXENTRY_H
+#ifndef LATEXENTRY_H
+#define LATEXENTRY_H
 
 #include "worksheetentry.h"
+#include "worksheettextitem.h"
 
 class LatexEntry : public WorksheetEntry
 {
   public:
-    LatexEntry( QTextCursor position, Worksheet* parent);
+    LatexEntry();
     ~LatexEntry();
 
-    enum {Type = 5};
-    int type();
+    enum {Type = UserType + 5};
+    int type() const;
 
     bool isEmpty();
 
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-    bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
-
     bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
-
+   
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
 
@@ -55,11 +47,14 @@ class LatexEntry : public WorksheetEntry
 
     bool evaluate(bool current);
   public slots:
-    void update();
+    void updateEntry();
 
   private:
-    bool m_isShowingCode;
+    QString latexCode();
+    bool isOneImageOnly();
 
+  private:
+    WorksheetTextItem* m_textItem;
 };
 
-#endif /* _LATEXENTRY_H */
+#endif // LATEXENTRY_H

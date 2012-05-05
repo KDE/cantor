@@ -9,6 +9,8 @@ class WorksheetView : public QGraphicsView
     ~WorksheetView();
 		    
     void resizeEvent(QResizeEvent* event);
+
+    qreal scale();
 		    
   public slots:
     void zoomIn();

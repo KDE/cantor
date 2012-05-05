@@ -31,7 +31,7 @@ TextEntry::~TextEntry()
 
 bool TextEntry::isEmpty()
 {
-    return m_textItem.decument().isEmpty();
+    return m_textItem.document().isEmpty();
 }
 
 int TextEntry::type() const
