@@ -572,7 +572,7 @@ This menu contains standard &kde; <guimenu>Settings</guimenu> items, as well as 
 </para>
 <para>
 At present, there are no special developer tutorials or API documentation, so if you want to write a plugin you will have to read through the sources.
-All interface definitions are in the <filename role ="directory">lib</filename> directory.  For some example implementations, look at the plugins shipped with &cantor;.
+All interface definitions are in the <filename role="directory">lib</filename> directory.  For some example implementations, look at the plugins shipped with &cantor;.
 </para>
 
 </chapter>
