@@ -23,7 +23,7 @@
 
 #include <KDebug>
 
-OctaveHighlighter::OctaveHighlighter(QTextEdit* parent, Cantor::Session* session): DefaultHighlighter(parent), m_session(session)
+OctaveHighlighter::OctaveHighlighter(QObject* parent, Cantor::Session* session): DefaultHighlighter(parent), m_session(session)
 {
   updateFunctions();
   updateVariables();

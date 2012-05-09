@@ -163,6 +163,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction("insert_text_entry",  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
+    /*
     KAction* insertPageBreakEntry=new KAction(i18n("Insert Page Break"), actionCollection());
     actionCollection()->addAction("insert_page_break_entry", insertPageBreakEntry);
     connect(insertPageBreakEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntry()));
@@ -170,6 +171,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     KAction* insertImageEntry=new KAction(i18n("Insert Image"), actionCollection());
     actionCollection()->addAction("insert_image_entry", insertImageEntry);
     connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
+    */
 
     /*
     KAction* insertCommandEntryBefore=new KAction(i18n("Insert Command Entry Before"), actionCollection());

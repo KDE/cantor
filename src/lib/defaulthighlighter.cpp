@@ -44,7 +44,7 @@ bool operator==(const HighlightingRule& rule1, const HighlightingRule& rule2)
 class Cantor::DefaultHighlighterPrivate
 {
   public:
-    QTextEdit* parent;
+    //QTextEdit* parent;
 
     //Character formats to use for the highlighing
     QTextCharFormat functionFormat;
@@ -67,11 +67,11 @@ class Cantor::DefaultHighlighterPrivate
     QHash<QString, QTextCharFormat> wordRules;
 };
 
-DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
+DefaultHighlighter::DefaultHighlighter(QObject* parent)
 	: QSyntaxHighlighter(parent),
 	d(new DefaultHighlighterPrivate)
 {
-    d->parent=parent;
+    //d->parent=parent;
     d->lastBlockNumber=-1;
     d->lastPosition=-1;
 
@@ -81,7 +81,7 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 
     updateFormats();
     connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
-    connect(parent, SIGNAL(cursorPositionChanged()), this, SLOT(positionChanged()));
+    //connect(parent, SIGNAL(cursorPositionChanged()), this, SLOT(positionChanged()));
 }
 
 DefaultHighlighter::~ DefaultHighlighter()
@@ -116,14 +116,15 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    const QTextCursor& cursor = d->parent->textCursor();
+    //const QTextCursor& cursor = d->parent->textCursor();
     int cursorPos = -1;
+    /*
     if ( cursor.blockNumber() == currentBlock().blockNumber() ) {
         cursorPos = cursor.position() - currentBlock().position();
         // when text changes, this will be called before the positionChanged signal
         // gets emitted. Hence update the position so we don't highlight twice
         d->lastPosition = cursor.position();
-    }
+	}*/
 
     // positions of opened pairs
     // key: same index as the opener has in d->pairs
@@ -336,6 +337,7 @@ void DefaultHighlighter::updateFormats()
     d->matchingPairFormat.setBackground(scheme.background(KColorScheme::NeutralBackground));
 }
 
+/*
 void DefaultHighlighter::positionChanged()
 {
     const QTextCursor& cursor = d->parent->textCursor();
@@ -354,6 +356,7 @@ void DefaultHighlighter::positionChanged()
     rehighlightBlock(cursor.block());
     d->lastPosition = cursor.position();
 }
+*/
 
 void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
 {

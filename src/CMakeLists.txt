@@ -63,11 +63,12 @@ set(cantor_PART_SRCS
    worksheet.cpp
    worksheetview.cpp
    worksheetentry.cpp
+   worksheetstatictextitem.cpp
    worksheettextitem.cpp
    commandentry.cpp
    textentry.cpp
-   pagebreakentry.cpp
-   imageentry.cpp
+   #pagebreakentry.cpp
+   #imageentry.cpp
    latexentry.cpp
    imagesettingsdialog.cpp
    scripteditorwidget.cpp

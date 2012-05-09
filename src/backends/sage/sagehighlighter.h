@@ -33,7 +33,7 @@
 class SageHighlighter : public Cantor::DefaultHighlighter
 {
   public:
-    SageHighlighter( QTextEdit* edit);
+    SageHighlighter( QObject* parent);
     ~SageHighlighter();
 };
 

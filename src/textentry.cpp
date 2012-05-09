@@ -1,28 +1,27 @@
 
 #include "textentry.h"
+#include "worksheettextitem.h"
 #include "animationhandler.h"
 #include "formulatextobject.h"
+#include "latexrenderer.h"
+#include "resultproxy.h"
 
-TextEntry::TextEntry() : WorksheetEntry(), m_textItem(new WorksheetItem(this))
+#include <kdebug.h>
+#include <KUrl>
+
+TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
 {
-    m_textItem.document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(document()));
-    m_textItem.document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
+    m_textItem->document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(m_textItem->document()));
+    m_textItem->document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
 
     setFlag(QGraphicsItem::ItemIsFocusable);
-    setFocusProxy(&m_textItem);
+    setFocusProxy(m_textItem);
 
-    m_textItem.setTextIteractionFlags(Qt::TextEditorInteraction);
-    // ToDo: pass information about the desired cursor position.
-    connect(m_textItem, SIGNAL(leftmostValidPositionReached()), 
-	    worksheet(), SLOT(moveToPreviousEntry()));
-    connect(m_textItem, SIGNAL(rightmostValidPositionReached()), 
-	    worksheet(), SLOT(moveToNextEntry()));
-    connect(m_textItem, SIGNAL(topmostValidLineReached()), 
-	    worksheet(), SLOT(moveToPreviousEntry()));
-    connect(m_textItem, SIGNAL(bottommostValidLineReached()), 
-	    worksheet(), SLOT(moveToNextEntry()));
-    connect(m_textItem, SIGNAL(receivedFocus(QTextDocument*)),
-	    worksheet(), SLOT(highlightDocument(QTextDocument*)));
+    m_textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+    connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
+	    this, SLOT(moveToPreviousEntry(int, qreal)));
+    connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
+	    this, SLOT(moveToNextEntry(int, qreal)));
 }
 
 TextEntry::~TextEntry()
@@ -31,7 +30,7 @@ TextEntry::~TextEntry()
 
 bool TextEntry::isEmpty()
 {
-    return m_textItem.document().isEmpty();
+    return m_textItem->document()->isEmpty();
 }
 
 int TextEntry::type() const
@@ -44,23 +43,30 @@ bool TextEntry::acceptRichText()
     return true;
 }
 
-bool TextEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+void TextEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(event);
     QTextCursor c;
 
-    for (int pos = m_textItem.textCursor().selectionStart()+1;
-	 pos <= m_textItem.textCursor().selectionEnd(); ++pos)
+    for (int pos = m_textItem->textCursor().selectionStart()+1;
+	 pos <= m_textItem->textCursor().selectionEnd(); ++pos)
     {
 	c.setPosition(pos);
         if (c.charFormat().objectType() == FormulaTextObject::FormulaTextFormat)
             showLatexCode(c);
     }
+}
+
+bool TextEntry::focusEntry(int pos, qreal xCoord)
+{
+    m_textItem->focusItem(pos, xCoord);
     return true;
 }
 
+
 void TextEntry::setContent(const QString& content)
 {
-    m_textItem.setPlainText(content);
+    m_textItem->setPlainText(content);
 }
 
 void TextEntry::setContent(const QDomElement& content, const KZip& file)
@@ -74,7 +80,7 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
     doc.appendChild(n);
     QString html = doc.toString();
     kDebug() << html;
-    m_textItem.setHtml(html);
+    m_textItem->setHtml(html);
 }
 
 QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -93,10 +99,10 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
             needsEval=true;
         }
 
-        cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 
-    const QString& html = m_textItem.toHtml();
+    const QString& html = m_textItem->toHtml();
     kDebug() << html;
     QDomElement el = doc.createElement("Text");
     QDomDocument myDoc = QDomDocument();
@@ -108,14 +114,13 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     return el;
 }
 
-QString TextEntry::toPlain(QString& commandSep, QString& commentStartingSeq, 
-			   QString& commentEndingSeq)
+QString TextEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commandSep);
 
     if (commentStartingSeq.isEmpty())
         return QString();
-    QString text = m_textItem.toPlainText();
+    QString text = m_textItem->toPlainText();
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + "\n";
     return commentStartingSeq + text.replace("\n", "\n" + commentStartingSeq) + "\n";
@@ -151,7 +156,7 @@ bool TextEntry::evaluate(bool current)
 
         renderer->renderBlocking();
 
-        bool success=m_worksheet->resultProxy()->renderEpsToResource(renderer->imagePath());
+        bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
         kDebug()<<"rendering successfull? "<<success;
 
         QString path=renderer->imagePath();
@@ -185,7 +190,7 @@ void TextEntry::updateEntry()
         {
             kDebug() << "found a formula... rendering the eps...";
             QUrl url=qVariantValue<QUrl>(format.property(FormulaTextObject::Data));
-            bool success=m_worksheet->resultProxy()->renderEpsToResource(url);
+            bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), url);
             kDebug() << "rendering successfull? " << success;
 
             //HACK: reinsert this image, to make sure the layout is updated to the new size

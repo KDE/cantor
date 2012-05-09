@@ -99,7 +99,7 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command, int in
     return cmp;
 }
 
-QSyntaxHighlighter* RSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
 {
     RHighlighter *h=new RHighlighter(parent);
     connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));

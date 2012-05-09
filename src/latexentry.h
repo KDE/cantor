@@ -27,7 +27,7 @@
 class LatexEntry : public WorksheetEntry
 {
   public:
-    LatexEntry();
+    LatexEntry(Worksheet* worksheet);
     ~LatexEntry();
 
     enum {Type = UserType + 5};
@@ -36,12 +36,14 @@ class LatexEntry : public WorksheetEntry
     bool isEmpty();
 
     bool acceptRichText();
+
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
    
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
     void interruptEvaluation();
 

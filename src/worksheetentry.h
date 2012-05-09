@@ -21,9 +21,10 @@
 #ifndef WORKSHEETENTRY_H
 #define WORKSHEETENTRY_H
 
-#include <graphicswidget.h>
+#include <QGraphicsWidget>
 
 #include "worksheet.h"
+#include "worksheettextitem.h"
 
 class TextEntry;
 class CommandEntry;
@@ -34,15 +35,17 @@ class LaTeXEntry;
 class WorksheetEntry : public QGraphicsWidget
 {
   Q_OBJECT
-  private:
-    WorksheetEntry();
+  public:
+    WorksheetEntry(Worksheet* worksheet);
     ~WorksheetEntry();
 
     enum {Type = UserType};
 
     virtual int type() const;
 
-    static WorksheetEntry* create(int t);
+    virtual bool isEmpty()=0;
+
+    static WorksheetEntry* create(int t, Worksheet* worksheet);
 
     WorksheetEntry* next() const;
     WorksheetEntry* previous() const;
@@ -56,16 +59,20 @@ class WorksheetEntry : public QGraphicsWidget
     virtual void setContent(const QDomElement& content, const KZip& file)=0;
 
     virtual QDomElement toXml(QDomDocument& doc, KZip* archive)=0;
-    virtual QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)=0;
+    virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
     virtual void interruptEvaluation()=0;
 
     virtual bool evaluate(bool current)=0;
 
-    virtual void enableHighlighting(bool highlight)=0;
+    virtual void showCompletion();
+
+    virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
   public slots:
     virtual void updateEntry() = 0;
+    void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x=0);
+    void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x=0);
 
   protected:
     Worksheet* worksheet();

@@ -48,7 +48,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   public:
     enum BlockType {UnknownBlock = 0, ErrorBlock = 1, ResultBlock = 2, CommandBlock = 3, NoHighlightBlock = 4};
     enum { BlockTypeProperty = QTextFormat::UserProperty +25 };
-    DefaultHighlighter(QTextEdit* parent);
+    DefaultHighlighter(QObject* parent);
     ~DefaultHighlighter();
 
   protected:
@@ -160,7 +160,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     virtual QString nonSeparatingCharacters() const;
 
   private slots:
-    void positionChanged();
+    //void positionChanged();
     void updateFormats();
 
   private:

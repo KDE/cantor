@@ -21,7 +21,14 @@
 #ifndef WORKSHEET_H
 #define WORKSHEET_H
 
-#include <qgraphicsscene.h>
+#include <QGraphicsScene>
+#include <QDomElement>
+#include <QGraphicsLinearLayout>
+#include <QSyntaxHighlighter>
+
+#include <KZip>
+
+#include "worksheetview.h"
 
 namespace Cantor {
     class Backend;
@@ -30,6 +37,7 @@ namespace Cantor {
 }
 
 class ResultProxy;
+class WorksheetEntry;
 
 class Worksheet : public QGraphicsScene
 {
@@ -43,9 +51,7 @@ class Worksheet : public QGraphicsScene
     ResultProxy* resultProxy();
 
     bool isRunning();
-    //This should be called showLineNumbers. And it should do that, really.
-    //bool showExpressionIds();
-    bool showLineNumbers();
+    bool showExpressionIds();
 
     void print(QPrinter* printer);
 
@@ -59,24 +65,22 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendCommandEntry();
     void appendCommandEntry(const QString& text);
     WorksheetEntry* appendTextEntry();
-    WorksheetEntry* appendImageEntry();
-    WorksheetEntry* appendPageBreakEntry();
+    //WorksheetEntry* appendImageEntry();
+    //WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
     WorksheetEntry* insertCommandEntry();
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry();
-    WorksheetEntry* insertImageEntry();
-    WorksheetEntry* insertPageBreakEntry();
+    //WorksheetEntry* insertImageEntry();
+    //WorksheetEntry* insertPageBreakEntry();
     WorksheetEntry* insertLatexEntry();
     WorksheetEntry* insertCommandEntryBefore();
     WorksheetEntry* insertTextEntryBefore();
-    WorksheetEntry* insertImageEntryBefore();
-    WorksheetEntry* insertPageBreakEntryBefore();
+    //WorksheetEntry* insertImageEntryBefore();
+    //WorksheetEntry* insertPageBreakEntryBefore();
     WorksheetEntry* insertLatexEntryBefore();
 
-    void focusEntry(WorksheetEntry * entry /*, WorksheetEntry::CursorPositionHint pos*/);
-    void moveToPreviousEntry(/*WorksheetEntry::CursorPositionHint pos*/);
-    void moveToNextEntry(/*WorksheetEntry::CursorPositionHint pos*/);
+    void focusEntry(WorksheetEntry * entry);
 
     void evaluate();
     void evaluateCurrentEntry();
@@ -84,7 +88,7 @@ class Worksheet : public QGraphicsScene
     void interruptCurrentEntryEvaluation();
 
     bool completionEnabled();
-    void showCompletion();
+    //void showCompletion();
 
     void highlightDocument(QTextDocument*);
 
@@ -112,7 +116,7 @@ class Worksheet : public QGraphicsScene
 
   private slots:
     void loginToSession();
-    void checkEntriesForSanity();
+    //void checkEntriesForSanity();
 
     WorksheetEntry* appendEntry(int type);
     WorksheetEntry* insertEntry(int type);
@@ -129,11 +133,12 @@ class Worksheet : public QGraphicsScene
   private:
     Cantor::Session *m_session;
     ResultProxy* m_proxy;
-    QGraphicsWidget* m_rootitem;
-    QGrahicsLinearLayout* m_rootlayout;
+    QGraphicsWidget* m_rootwidget;
+    QGraphicsLinearLayout* m_rootlayout;
     QSyntaxHighlighter* m_highlighter;
 
     bool m_completionEnabled;
+    bool m_showExpressionIds;
     bool m_loginFlag;
     bool m_isPrinting;
 };

@@ -23,37 +23,35 @@
 #include "worksheetentry.h"
 #include "worksheet.h"
 #include "resultproxy.h"
+#include "formulatextobject.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/latexrenderer.h"
 
-#include "formulatextobject.h"
+#include <kdebug.h>
+#include <kglobal.h>
+#include <KStandardDirs>
 
-LatexEntry::LateyEntry() : WorksheetENtry(). m_textitem(new WorksheetTextItem(this))
+LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
 {
-    m_textItem.setTextIteractionFlags(Qt::TextEditorInteraction);
-    // ToDo: pass information about the desired cursor position.
-    connect(m_textItem, SIGNAL(leftmostValidPositionReached()), 
-	    worksheet(), SLOT(moveToPreviousEntry()));
-    connect(m_textItem, SIGNAL(rightmostValidPositionReached()), 
-	    worksheet(), SLOT(moveToNextEntry()));
-    connect(m_textItem, SIGNAL(topmostValidLineReached()), 
-	    worksheet(), SLOT(moveToPreviousEntry()));
-    connect(m_textItem, SIGNAL(bottommostValidLineReached()), 
-	    worksheet(), SLOT(moveToNextEntry()));
+    m_textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+    connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
+	    this, SLOT(moveToPreviousEntry(int, qreal)));
+    connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
+	    this, SLOT(moveToNextEntry(int, qreal)));
 }
 
 LatexEntry::~LatexEntry()
 {
 }
 
-int LatexEntry::type()
+int LatexEntry::type() const
 {
-    return type;
+    return Type;
 }
 
 bool LatexEntry::isEmpty()
 {
-    return m_textItem.document().isEmpty();
+    return m_textItem->document()->isEmpty();
 }
 
 bool LatexEntry::acceptRichText()
@@ -61,9 +59,15 @@ bool LatexEntry::acceptRichText()
     return false;
 }
 
+bool LatexEntry::focusEntry(int pos, qreal xCoord)
+{
+    m_textItem->focusItem(pos, xCoord);
+    return true;
+}
+
 void LatexEntry::setContent(const QString& content)
 {
-    m_textItem.setPlainText(content);
+    m_textItem->setPlainText(content);
 }
 
 void LatexEntry::setContent(const QDomElement& content, const KZip& file)
@@ -88,7 +92,7 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             KUrl internal=KUrl(imagePath);
             internal.setProtocol("internal");
 
-            bool success=m_worksheet->resultProxy()->renderEpsToResource(imagePath);
+            bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), imagePath);
             kDebug()<<"rendering successfull? "<<success;
 
             QTextCharFormat formulaFormat;
@@ -144,7 +148,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     return el;
 }
 
-QString LatexEntry::toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)
+QString LatexEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commandSep);
 
@@ -169,7 +173,6 @@ bool LatexEntry::evaluate(bool current)
     if (isOneImageOnly())
 	return true; // the image is rendered already
 
-    QTextDocument *doc = m_frame->document();
     QString latex = latexCode();
 
     Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
@@ -179,7 +182,7 @@ bool LatexEntry::evaluate(bool current)
 
     renderer->renderBlocking();
 
-    bool success=m_worksheet->resultProxy()->renderEpsToResource(renderer->imagePath());
+    bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
     kDebug()<<"rendering successfull? "<<success;
 
     QString path=renderer->imagePath();
@@ -212,7 +215,7 @@ void LatexEntry::updateEntry()
         kDebug()<<"found a formula... rendering the eps...";
         QTextCharFormat format=cursor.charFormat();
         QUrl url=qVariantValue<QUrl>(format.property(FormulaTextObject::Data));
-        bool success=m_worksheet->resultProxy()->renderEpsToResource(url);
+        bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), url);
         kDebug()<<"rendering successfull? "<<success;
 
         //HACK: reinsert this image, to make sure the layout is updated to the new size
@@ -256,3 +259,4 @@ bool LatexEntry::isOneImageOnly()
 
     return (cursor.selectionEnd() == 1 && cursor.selectedText() == QString(QChar::ObjectReplacementCharacter));
 }
+

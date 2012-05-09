@@ -21,10 +21,10 @@
 #ifndef TEXTENTRY_H
 #define TEXTENTRY_H
 
-#include <qstring.h>
-#include <qdomelement.h>
-#include <qdomdocument.h>
-#include <kzip>
+#include <QString>
+#include <QDomElement>
+#include <QDomDocument>
+#include <KZip>
 
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
@@ -33,7 +33,7 @@ class TextEntry : public WorksheetEntry
 {
   Q_OBJECT
   public:
-    TextEntry();
+    TextEntry(Worksheet* worksheet);
     ~TextEntry();
 
     enum {Type = UserType + 1};
@@ -43,15 +43,17 @@ class TextEntry : public WorksheetEntry
 
     bool acceptRichText();
 
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord=0);
+
     // do we need/get this?
     //bool worksheetContextMenuEvent(...);
-    vool mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
     void interruptEvaluation();
 
@@ -69,4 +71,4 @@ class TextEntry : public WorksheetEntry
 
 };
 
-#endif TEXTENTRY_H
+#endif //TEXTENTRY_H

@@ -52,7 +52,7 @@ public:
     virtual Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     virtual Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
     virtual Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
-    virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     void setLastResult(MathStructure);
     QAbstractItemModel* variableModel();

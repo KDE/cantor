@@ -44,7 +44,7 @@ class RSession : public Cantor::Session
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
-    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);

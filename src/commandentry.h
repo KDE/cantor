@@ -21,10 +21,22 @@
 #ifndef COMMANDENTRY_H
 #define COMMANDENTRY_H
 
+#include <QPointer>
+#include <KCompletionBox>
+#include <QGraphicsLinearLayout>
+
 #include "worksheetentry.h"
+#include "worksheetstatictextitem.h"
+#include "worksheettextitem.h"
+#include "lib/expression.h"
 
 class Worksheet;
 
+namespace Cantor{
+    class Result;
+    class CompletionObject;
+    class SyntaxHelpObject;
+}
 
 class CommandEntry : public WorksheetEntry
 {
@@ -32,7 +44,7 @@ class CommandEntry : public WorksheetEntry
   public:
     static const QString Prompt;
 
-    CommandEntry();
+    CommandEntry(Worksheet* worksheet);
     ~CommandEntry();
 
     enum {Type = UserType + 2};
@@ -50,26 +62,28 @@ class CommandEntry : public WorksheetEntry
     void setContent(const QDomElement& content, const KZip& file);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
     void showCompletion();
     void setCompletion(Cantor::CompletionObject* tc);
     void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
-
-    void addInformation();
 
     bool acceptRichText();
 
     void removeContextHelp();
     void removeResult();
 
-    bool evaluate(bool current);
-    bool evaluateCommand();
     void interruptEvaluation();
 
     bool isShowingCompletionPopup();
 
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
+
   public slots:
+    bool evaluate(bool current);
+    bool evaluateCommand();
+    void addInformation();
+
     void updateEntry();
     void updatePrompt();
     void expressionChangedStatus(Cantor::Expression::Status status);
@@ -82,6 +96,7 @@ class CommandEntry : public WorksheetEntry
 
   private:
     WorksheetView* worksheetView();
+    bool informationItemHasFocus();
 
   private:
     enum CompletionMode {
@@ -95,10 +110,10 @@ class CommandEntry : public WorksheetEntry
     void completeCommandTo(const QString& completion, CompletionMode mode = PreliminaryCompletion);
 
   private:
-    QGraphicsTextItem* m_promptItem;
+    WorksheetStaticTextItem* m_promptItem;
     WorksheetTextItem* m_commandItem;
-    WorksheetTextItem* m_resultItem;
-    QGraphicsTextItem* m_errorItem;
+    WorksheetStaticTextItem* m_resultItem;
+    WorksheetStaticTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;
     QGraphicsLinearLayout *m_verticalLayout;

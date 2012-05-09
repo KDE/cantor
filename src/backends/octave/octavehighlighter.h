@@ -33,7 +33,7 @@ class OctaveHighlighter : public Cantor::DefaultHighlighter
   Q_OBJECT
 
   public:
-    OctaveHighlighter(QTextEdit* parent, Cantor::Session* session);
+    OctaveHighlighter(QObject* parent, Cantor::Session* session);
     virtual ~OctaveHighlighter();
 
   public Q_SLOTS:

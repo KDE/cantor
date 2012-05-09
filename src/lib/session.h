@@ -127,10 +127,10 @@ class CANTOR_EXPORT Session : public QObject
 
     /**
      * returns a syntax highlighter for this session
-     * @param parent QTextEdit the Highlighter should be operating on
+     * @param parent QObject the Highlighter's parent
      * @return QSyntaxHighlighter doing the highlighting for this Session
      */
-    virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     /**
      * returns a Model to interact with the variables

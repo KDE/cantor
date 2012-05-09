@@ -1,19 +1,39 @@
 
-#include "worksheet.h"
+#include <QGraphicsWidget>
+#include <QTimer>
+#include <QXmlQuery>
 
+#include <KMessageBox>
+#include <KStandardDirs>
+
+#include "worksheet.h"
+#include "settings.h"
+#include "resultproxy.h"
+#include "commandentry.h"
+#include "textentry.h"
+#include "latexentry.h"
+#include "lib/backend.h"
+#include "lib/extension.h"
+#include "lib/result.h"
+#include "lib/helpresult.h"
+#include "lib/session.h"
+#include "lib/defaulthighlighter.h"
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) 
     : QGraphicsScene(parent)
 {
     m_session = backend->createSession();
     m_rootlayout = new QGraphicsLinearLayout(Qt::Vertical);
-    m_rootwidget = new QGraohicsWidget;
-    m_rootwidget.setLayout(m_rootlayout);
+    m_rootwidget = new QGraphicsWidget;
+    m_rootwidget->setLayout(m_rootlayout);
+    addItem(m_rootwidget);
 
     m_highlighter = 0;
     // todo: set scene rect
 
     //...
+
+    m_proxy=new ResultProxy(this);
 
     m_isPrinting = false;
     m_loginFlag = true;
@@ -40,6 +60,11 @@ void Worksheet::loginToSession()
     }
 }
 
+void Worksheet::print(QPrinter* printer)
+{
+    Q_UNUSED(printer);
+}
+
 bool Worksheet::isPrinting()
 {
     return m_isPrinting;
@@ -47,15 +72,17 @@ bool Worksheet::isPrinting()
 
 void Worksheet::setViewSize(qreal w, qreal h)
 {
-    m_rootwidget.setMaximumWidth(w);
-    m_rootwidget.setMinimumHeight(h);
+    Q_UNUSED(h)
+    m_rootwidget->setMaximumWidth(w);
+    //m_rootwidget->setMinimumWidth(w);
+    //m_rootwidget->setMinimumHeight(h);
 
-    m_proxy->setScale(worksheetView()->scale());
+    m_proxy->setScale(worksheetView()->scaleFactor());
 }
 
 WorksheetView* Worksheet::worksheetView()
 {
-    return qt_cast<WorksheetView*>(views()[0]);
+    return qobject_cast<WorksheetView*>(views()[0]);
 }
 
 WorksheetEntry* Worksheet::currentEntry()
@@ -64,23 +91,25 @@ WorksheetEntry* Worksheet::currentEntry()
     while (item && item->type() < QGraphicsItem::UserType)
 	item = item->parentItem();
     if (item)
-	return qt_cast<WorksheetEntry*>(item);
+	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
     return 0;
 }
 
-WorksheetEntry* Workseet::firstEntry()
+WorksheetEntry* Worksheet::firstEntry()
 {
     if (m_rootlayout->count() == 0)
 	return 0;
-    return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(0));
+    QGraphicsItem* item = m_rootlayout->itemAt(0)->graphicsItem();
+    return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
 }
 
-WorksheetEntry* Workseet::lastEntry()
+WorksheetEntry* Worksheet::lastEntry()
 {
     int c = m_rootlayout->count();
     if (c == 0)
 	return 0;
-    return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(c-1));
+    QGraphicsItem* item = m_rootlayout->itemAt(c-1)->graphicsItem();
+    return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
 }
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
@@ -89,14 +118,16 @@ WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
     while (item && item->type() < QGraphicsItem::UserType)
 	item = item->parentItem();
     if (item)
-	return qt_cast<WorksheetEntry*>(item);
+	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
     return 0;
 }
 
 WorksheetEntry* Worksheet::entryAt(int row)
 {
-    if (row >= 0 && row < entryCount())
-	return qt_cast<WorksheetEntry*>(m_rootlayout->itemAt(row));
+    if (row >= 0 && row < entryCount()) {
+	QGraphicsItem* item = m_rootlayout->itemAt(row)->graphicsItem();
+	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+    }
     return 0;
 }
 
@@ -109,32 +140,12 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 {
     if (!entry)
         return;
-    // todo: pass information about the cursor position
-    entry->setFocus();
-    bool rt = entry->acceptRichText();
+    entry->focusEntry();
+    //bool rt = entry->acceptRichText();
     //setActionsEnabled(rt);
     //setAcceptRichText(rt);
     //ensureCursorVisible();
 }
-
-void Worksheet::moveToPreviousEntry()
-{
-    WorksheetEntry* entry = currentEntry()->previous();
-    while (entry && !(entry->flags() & QGraphicsItem::ItemIsFocusable))
-	entry = entry->previous();
-    if(entry)
-        setCurrentEntry(entry);
-}
-
-void Worksheet::moveToNextEntry()
-{
-    WorksheetEntry* entry = currentEntry()->next();
-    while (entry && !(entry->flags() & QGraphicsItem::ItemIsFocusable))
-	entry = entry->next();
-    if(entry)
-        setCurrentEntry(entry);
-}
-
 
 void Worksheet::evaluate()
 {
@@ -163,14 +174,14 @@ void Worksheet::evaluateCurrentEntry()
         if(!lastEntry()->isEmpty())
             appendCommandEntry();
         else
-            setCurrentEntry(lastEntry());
+            focusEntry(lastEntry());
     }
     else
     {
         if (entry == lastEntry())
             appendCommandEntry();
         else
-            moveToNextEntry();
+            entry->moveToNextEntry();
     }
     emit modified();
 }
@@ -180,25 +191,28 @@ bool Worksheet::completionEnabled()
     return m_completionEnabled;
 }
 
-void Worksheet::showCompletion()
+/*void Worksheet::showCompletion()
 {
-    WorksheetEntry* current=currentEntry();
+    WorksheetEntry* current = currentEntry();
     current->showCompletion();
 }
+*/
 
 WorksheetEntry* Worksheet::appendEntry(const int type)
 {
-    WorksheetEntry* entry = WorksheetEntry::create(type);
+    WorksheetEntry* entry = WorksheetEntry::create(type, this);
     if (entry)
     {
         kDebug() << "Entry Appended";
+	addItem(entry);
 	entry->setPrevious(lastEntry());
 	if (lastEntry())
 	    lastEntry()->setNext(entry);
-	m_rootlayout.addItem(entry);
-	entry->setOwnedByLayout(false);
-        setCurrentEntry(entry);
+	m_rootlayout->addItem(entry);
+        focusEntry(entry);
     }
+    kDebug() << "Entry position: " << entry->mapRectToScene(entry->rect());
+    kDebug() << "Entry boundary: " << entry->mapRectToScene(entry->boundingRect());
     return entry;
 }
 
@@ -212,12 +226,13 @@ WorksheetEntry* Worksheet::appendTextEntry()
    return appendEntry(TextEntry::Type);
 }
 
+/*
 WorksheetEntry* Worksheet::appendPageBreakEntry()
 {
     return appendEntry(PageBreakEntry::Type);
 }
 
-/*WorksheetEntry* Worksheet::appendImageEntry()
+WorksheetEntry* Worksheet::appendImageEntry()
 {
    return appendEntry(ImageEntry::Type);
 }
@@ -238,7 +253,7 @@ void Worksheet::appendCommandEntry(const QString& text)
 
     if (entry)
     {
-        setCurrentEntry(entry);
+        focusEntry(entry);
         entry->setContent(text);
         evaluateCurrentEntry();
     }
@@ -257,7 +272,8 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
 
     if (!next || next->type() != type || !next->isEmpty())
     {
-	entry = WorksheetEntry::create(type);
+	entry = WorksheetEntry::create(type, this);
+	addItem(entry);
 	entry->setPrevious(current);
 	entry->setNext(next);
 	current->setNext(entry);
@@ -266,11 +282,10 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
 	int index = entryCount();
 	for (; next; next = next->next())
 	    --index;
-	m_rootlayout.insertItem(index, entry);
-	entry->setOwnedByLayout(false);
+	m_rootlayout->insertItem(index, entry);
     }
 
-    setCurrentEntry(entry);
+    focusEntry(entry);
     return entry;
 }
 
@@ -279,20 +294,22 @@ WorksheetEntry* Worksheet::insertTextEntry()
     return insertEntry(TextEntry::Type);
 }
 
-WorksheetEntry* Worksheet::insertImageEntry()
-{
-    return insertEntry(ImageEntry::Type);
-}
-
 WorksheetEntry* Worksheet::insertCommandEntry()
 {
     return insertEntry(CommandEntry::Type);
+}
+
+/*
+WorksheetEntry* Worksheet::insertImageEntry()
+{
+    return insertEntry(ImageEntry::Type);
 }
 
 WorksheetEntry* Worksheet::insertPageBreakEntry()
 {
     return insertEntry(PageBreakEntry::Type);
 }
+*/
 
 WorksheetEntry* Worksheet::insertLatexEntry()
 {
@@ -322,7 +339,8 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
 
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
-	entry = WorksheetEntry::create(type);
+	entry = WorksheetEntry::create(type, this);
+	addItem(entry);
 	entry->setNext(current);
 	entry->setPrevious(prev);
 	current->setPrevious(entry);
@@ -331,11 +349,10 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
 	int index = 0;
 	for (; prev; prev = prev->previous())
 	    ++index;
-	m_rootlayout.insertItem(index, entry);
-	entry->setOwnedByLayout(false);
+	m_rootlayout->insertItem(index, entry);
     }
 
-    setCurrentEntry(entry);
+    focusEntry(entry);
     return entry;
 }
 
@@ -349,6 +366,7 @@ WorksheetEntry* Worksheet::insertCommandEntryBefore()
     return insertEntryBefore(CommandEntry::Type);
 }
 
+/*
 WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
 {
     return insertEntryBefore(PageBreakEntry::Type);
@@ -358,6 +376,7 @@ WorksheetEntry* Worksheet::insertImageEntryBefore()
 {
     return insertEntryBefore(ImageEntry::Type);
 }
+*/
 
 WorksheetEntry* Worksheet::insertLatexEntryBefore()
 {
@@ -386,9 +405,12 @@ void Worksheet::enableHighlighting(bool highlight)
     if(highlight) {
         if(m_highlighter)
             m_highlighter->deleteLater();
+	// todo: if this design is going to stay, then these NULL-arguments
+	// should be removed
         m_highlighter=session()->syntaxHighlighter(this);
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);
+	// todo: highlight every entry
     } else {
         if(m_highlighter)
             m_highlighter->deleteLater();
@@ -406,9 +428,25 @@ Cantor::Session* Worksheet::session()
     return m_session;
 }
 
+ResultProxy* Worksheet::resultProxy()
+{
+    return m_proxy;
+}
+
 bool Worksheet::isRunning()
 {
     return m_session->status()==Cantor::Session::Running;
+}
+
+bool Worksheet::showExpressionIds()
+{
+    return m_showExpressionIds;
+}
+
+void Worksheet::enableExpressionNumbering(bool enable)
+{
+    m_showExpressionIds=enable;
+    emit updatePrompt();
 }
 
 QDomDocument Worksheet::toXML(KZip* archive)
@@ -418,7 +456,7 @@ QDomDocument Worksheet::toXML(KZip* archive)
     root.setAttribute("backend", m_session->backend()->name());
     doc.appendChild(root);
 
-    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry.next())
+    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
     {
         QDomElement el = entry->toXml(doc, archive);
         root.appendChild( el );
@@ -434,7 +472,8 @@ void Worksheet::save( const QString& filename )
 
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
-        KMessageBox::error( this,  i18n( "Cannot write file %1." , filename ),
+        KMessageBox::error( worksheetView(),  
+			    i18n( "Cannot write file %1." , filename ),
                             i18n( "Error - Cantor" ));
         return;
     }
@@ -452,7 +491,7 @@ void Worksheet::savePlain(const QString& filename)
     QFile file(filename);
     if(!file.open(QIODevice::WriteOnly))
     {
-        KMessageBox::error(this, i18n("Error saving file %1", filename), i18n("Error - Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Error saving file %1", filename), i18n("Error - Cantor"));
         return;
     }
 
@@ -471,7 +510,7 @@ void Worksheet::savePlain(const QString& filename)
 
     QTextStream stream(&file);
 
-    for(WorksheetEntry * entry = firstEntry(), entry; entry = entry.next())
+    for(WorksheetEntry * entry = firstEntry(); entry; entry = entry->next())
     {
         const QString& str=entry->toPlain(cmdSep, commentStartingSeq, commentEndingSeq);
         if(!str.isEmpty())
@@ -488,7 +527,7 @@ void Worksheet::saveLatex(const QString& filename,  bool exportImages)
     QFile file(filename);
     if(!file.open(QIODevice::WriteOnly))
     {
-        KMessageBox::error(this, i18n("Error saving file %1", filename), i18n("Error - Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Error saving file %1", filename), i18n("Error - Cantor"));
         return;
     }
 
@@ -500,7 +539,7 @@ void Worksheet::saveLatex(const QString& filename,  bool exportImages)
     QString stylesheet = KStandardDirs::locate("appdata", "xslt/latex.xsl");
     if (stylesheet.isEmpty())
     {
-        KMessageBox::error(this, i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));
         return;
     }
 
@@ -537,13 +576,13 @@ void Worksheet::load(const QString& filename )
     Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if (!b)
     {
-        KMessageBox::error(this, i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("Cantor"));
+        KMessageBox::error(worksheetView(), i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("Cantor"));
         return;
     }
 
     if(!b->isEnabled())
     {
-        KMessageBox::information(this, i18n("There are some problems with the %1 backend,\n"\
+        KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
                                             "please check your configuration or install the needed packages.\n"
                                             "You will only be able to view this worksheet.", backendName), i18n("Cantor"));
 
@@ -581,6 +620,7 @@ void Worksheet::load(const QString& filename )
             entry = appendLatexEntry();
             entry->setContent(expressionChild, file);
         }
+	/*
 	else if (tag == "PageBreak")
 	{
 	    entry = appendPageBreakEntry();
@@ -591,6 +631,7 @@ void Worksheet::load(const QString& filename )
 	  entry = appendImageEntry();
 	  entry->setContent(expressionChild, file);
 	}
+	*/
 
         expressionChild = expressionChild.nextSiblingElement();
     }
@@ -645,7 +686,7 @@ void Worksheet::removeCurrentEntry()
 
     if (!next)
         next = appendCommandEntry();
-    setCurrentEntry(next);
+    focusEntry(next);
 }
 
 

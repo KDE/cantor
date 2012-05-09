@@ -1,6 +1,10 @@
 #ifndef WORKSHEETVIEW_H
 #define WORKSHEETVIEW_H
 
+#include <QGraphicsView>
+
+class Worksheet;
+
 class WorksheetView : public QGraphicsView
 {
   Q_OBJECT
@@ -10,7 +14,9 @@ class WorksheetView : public QGraphicsView
 		    
     void resizeEvent(QResizeEvent* event);
 
-    qreal scale();
+    qreal scaleFactor();
+
+    void mousePressEvent(QMouseEvent* event);
 		    
   public slots:
     void zoomIn();
@@ -19,6 +25,7 @@ class WorksheetView : public QGraphicsView
     void updateSceneSize();
   private:
     qreal m_scale;
+    Worksheet* m_worksheet;
 };
 
-#endif WORKSHEETVIEW_H
+#endif //WORKSHEETVIEW_H

@@ -1,16 +1,27 @@
 
 #include "worksheetentry.h"
+#include "commandentry.h"
+#include "textentry.h"
+#include "latexentry.h"
 
-WorksheetEntry::WorksheetEntry() : QGraphicsWidget()
+
+WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsWidget()
 {
+    Q_UNUSED(worksheet)
+
     m_next = 0;
     m_prev = 0;
 
-    connect(this, SIGNAL(destroyed(QObject*)), m_worksheet, SLOT(removeEntry(QObject*)));
+    setOwnedByLayout(false);
+    //connect(this, SIGNAL(destroyed(QObject*)), worksheet, SLOT(removeEntry(QObject*)));
 }
 
 WorksheetEntry::~WorksheetEntry()
 {
+    if (next())
+	next()->setPrevious(previous());
+    if (previous())
+	previous()->setNext(next());
 }
 
 int WorksheetEntry::type() const
@@ -19,23 +30,29 @@ int WorksheetEntry::type() const
 }
 
 
-static Worksheet* WorksheetEntry::create(int t)
+WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
 {
     switch(t)
     {
     case TextEntry::Type:
-	return new TextEntry;
+	return new TextEntry(worksheet);
     case CommandEntry::Type:
-	return new CommandEntry;
+	return new CommandEntry(worksheet);
+	/*
     case ImageEntry::Type:
 	return new ImageEntry;
     case PageBreakEntry::Type:
 	return new PageBreakEntry;
+	*/
     case LatexEntry::Type:
-	return new LatexEntry;
+	return new LatexEntry(worksheet);
     default:
 	return 0;
     }
+}
+
+void WorksheetEntry::showCompletion()
+{
 }
 
 WorksheetEntry* WorksheetEntry::next() const
@@ -58,13 +75,29 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
     m_prev = p;
 }
 
+bool WorksheetEntry::focusEntry(int pos, qreal xCoord)
+{
+    Q_UNUSED(pos)
+    Q_UNUSED(xCoord)
+    return false;
+}
+
+void WorksheetEntry::moveToPreviousEntry(int pos, qreal x)
+{
+    if (previous())
+	previous()->focusEntry(pos, x);
+}
+
+void WorksheetEntry::moveToNextEntry(int pos, qreal x)
+{
+    if (next())
+	next()->focusEntry(pos, x);
+}
+
 Worksheet* WorksheetEntry::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
 }
-
-
-
 
 
 #include "worksheetentry.moc"

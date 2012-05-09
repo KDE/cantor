@@ -40,7 +40,7 @@ class ResultProxy : public QObject
 {
  Q_OBJECT
   public:
-    ResultProxy( QTextDocument* parent );
+    ResultProxy(QObject* parent);
     ~ResultProxy();
 
     void insertResult(QTextCursor& pos, Cantor::Result* result);
@@ -52,14 +52,13 @@ class ResultProxy : public QObject
     void useHighResolution(bool use);
 
     //this doesn't belong here!
-    bool renderEpsToResource(const KUrl& url, QSize* size = 0);
+    bool renderEpsToResource(QTextDocument* document, const KUrl& url, QSize* size = 0);
 
   private:
-    QTextCharFormat renderEps(Cantor::Result* result);
+    QTextCharFormat renderEps(QTextDocument* doc, Cantor::Result* result);
     QTextCharFormat renderGif(Cantor::Result* result);
 
   private:    
-    QTextDocument* m_document;
     qreal m_scale;
     bool m_useHighRes;
 };

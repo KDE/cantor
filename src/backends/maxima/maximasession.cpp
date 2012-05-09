@@ -596,7 +596,7 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
     return new MaximaSyntaxHelpObject(command, this);
 }
 
-QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 {
     return new MaximaHighlighter(parent);
 }

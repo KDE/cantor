@@ -19,6 +19,10 @@
  */
 
 #include "commandentry.h"
+#include "worksheet.h"
+#include "worksheettextitem.h"
+#include "loadedexpression.h"
+#include "resultproxy.h"
 
 #include "lib/expression.h"
 #include "lib/result.h"
@@ -27,40 +31,47 @@
 #include "lib/syntaxhelpobject.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/session.h"
-#include "worksheet.h"
 
-CommandEntry::CommandEntry() : WorksheetEntry()
+#include <QTextDocument>
+#include <QTextCursor>
+#include <QTextLine>
+#include <QToolTip>
+
+#include <kdebug.h>
+#include <klocale.h>
+#include <KColorScheme>
+
+const QString CommandEntry::Prompt=">>> ";
+
+CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
     m_expression = 0;
     m_completionObject = 0;
     m_syntaxHelpObject = 0;
 
-
-    QGraphicsLinearLayout *horizontalLayout = new QGraphicsLinearLayout(Qt::Horizontal);
-    m_promptItem = new QGraphicsTextItem(this);
+    QGraphicsLinearLayout *horizontalLayout = new QGraphicsLinearLayout(Qt::Horizontal, this);
+    m_promptItem = new WorksheetStaticTextItem(this, horizontalLayout);
+    m_promptItem->setPlainText(Prompt);
     horizontalLayout->addItem(m_promptItem);
     m_verticalLayout = new QGraphicsLinearLayout(Qt::Vertical, horizontalLayout);
-    m_commandItem = new WorksheetTextItem(this);
-    verticalLayout->addItem(m_commandItem);
+    horizontalLayout->addItem(m_verticalLayout);
+    m_commandItem = new WorksheetTextItem(this, m_verticalLayout);
+    m_verticalLayout->addItem(m_commandItem);
     m_errorItem = 0;
     m_resultItem = 0;
 
-    m_promptItem->setOwnedByLayout(false);
-    m_commandItem->setOwnedByLayout(false);
+    kDebug() << "Prompt boundary: " << mapRectToScene(m_promptItem->boundingRect());
+    kDebug() << "Command boundary: " << mapRectToScene(m_commandItem->boundingRect());
     this->setLayout(horizontalLayout);
 
-    m_commandItem.setTextIteractionFlags(Qt::TextEditorInteraction);
-    // ToDo: pass information about the desired cursor position.
-    connect(m_commandItem, SIGNAL(leftmostValidPositionReached()),
-	    worksheet(), SLOT(moveToPreviousEntry()));
-    connect(m_commandItem, SIGNAL(rightmostValidPositionReached()),
-	    worksheet(), SLOT(moveToNextEntry())); // change!
-    connect(m_commandItem, SIGNAL(topmostValidLineReached()),
-	    worksheet(), SLOT(moveToPreviousEntry()));
-    connect(m_commandItem, SIGNAL(bottommostValidLineReached()),
-	    worksheet(), SLOT(moveToNextEntry())); // change!
+    connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluateCommand()));
+
+    connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
+	    this, SLOT(moveToPreviousEntry(int, qreal)));
+    connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
+	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_commandItem, SIGNAL(receivedFocus(QTextDocument*)),
-	    worksheet(), SLOT(highlightDocument(QTextDocument*)));
+	    worksheet, SLOT(highlightDocument(QTextDocument*)));
 
 }
 
@@ -72,7 +83,7 @@ CommandEntry::~CommandEntry()
 
 int CommandEntry::type() const
 {
-    return type;
+    return Type;
 }
 
 QString CommandEntry::command()
@@ -98,7 +109,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 
     removeResult();
 
-    foreach(QGraphicsSimpleTextItem* item, m_informationItems)
+    foreach(WorksheetTextItem* item, m_informationItems)
     {
 	m_verticalLayout->removeItem(item);
 	item->deleteLater();
@@ -114,7 +125,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 
     m_expression=expr;
 
-    connect(expr, SIGNAL(gotResult()), this, SLOT(update()));
+    connect(expr, SIGNAL(gotResult()), this, SLOT(updateEntry()));
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
@@ -125,7 +136,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     if(expr->result())
     {
         worksheet()->gotResult(expr);
-        update();
+        updateEntry();
     }
     if(expr->status()!=Cantor::Expression::Computing)
     {
@@ -138,14 +149,6 @@ Cantor::Expression* CommandEntry::expression()
     return m_expression;
 }
 
-void CommandEntry::keyPressEvent(QKeyEvent* event)
-{
-    // ... This function is not called when m_commandItem has the
-    // focus. Is there a function that is called before
-    // the keyEvent reaches the QGraphicsTextItem?
-}
-
-
 
 
 bool CommandEntry::acceptRichText()
@@ -155,17 +158,49 @@ bool CommandEntry::acceptRichText()
 
 void CommandEntry::setContent(const QString& content)
 {
-    m_commandItem.setText(content);
+    m_commandItem->setPlainText(content);
 }
 
 void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    m_commandItem.setText(content.firstChildElement("Command").text());
+    m_commandItem->setPlainText(content.firstChildElement("Command").text());
 
-    LoadedExpression* expr=new LoadedExpression( m_worksheet->session() );
+    LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromXml(content, file);
 
     setExpression(expr);
+}
+
+void CommandEntry::showCompletion()
+{
+    //get the current line of the entry. If it's empty, ignore the call,
+    //otherwise check for tab completion (if supported by the backend)
+    const QString line = currentLine();
+
+    if(line.trimmed().isEmpty())
+    {
+        return;
+    } else if (isShowingCompletionPopup()) {
+	QString comp = m_completionObject->completion();
+	kDebug() << "command" << m_completionObject->command();
+	kDebug() << "completion" << comp;
+	if (comp != m_completionObject->command() 
+	    || !m_completionObject->hasMultipleMatches()) {
+	    if (m_completionObject->hasMultipleMatches()) {
+		completeCommandTo(comp, PreliminaryCompletion);
+	    } else {
+		completeCommandTo(comp, FinalCompletion);
+		m_completionBox->hide();
+	    }
+	} else {
+	    m_completionBox->down();
+	}
+    } else
+    {
+        Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, m_commandItem->textCursor().positionInBlock());
+        if(tco)
+            setCompletion(tco);
+    }
 }
 
 QString CommandEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
@@ -228,8 +263,8 @@ bool CommandEntry::evaluateCommand()
         return false;
 
     Cantor::Expression* expr;
-    expr=m_worksheet->session()->evaluateExpression(cmd);
-    connect(expr, SIGNAL(gotResult()), m_worksheet, SLOT(gotResult()));
+    expr = worksheet()->session()->evaluateExpression(cmd);
+    connect(expr, SIGNAL(gotResult()), worksheet(), SLOT(gotResult()));
 
     setExpression(expr);
 
@@ -246,15 +281,16 @@ void CommandEntry::interruptEvaluation()
 void CommandEntry::updateEntry()
 {
     Cantor::Expression *expr = expression();
-    if (expr == 0 || expr->type() == 0)
+    if (expr == 0 || expr->result() == 0)
 	return;
 
     if (expr->result()->type() == Cantor::HelpResult::Type)
 	return; // Help is handled elsewhere
 
     if (!m_resultItem) {
-	m_resultItem = new QGraphicsTextItem(this);
+	m_resultItem = new WorksheetStaticTextItem(this);
 	m_verticalLayout->addItem(m_resultItem);
+	m_verticalLayout->updateGeometry();
     }
     QTextCursor cursor = m_resultItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
@@ -273,6 +309,12 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     case Cantor::Expression::Interrupted:
 	text = i18n("Interrupted");
 	break;
+    case Cantor::Expression::Done:
+	if (next())
+	    next()->focusEntry(WorksheetTextItem::BottomRight);
+	else
+	    worksheet()->appendCommandEntry();
+	return;
     default:
 	return;
     }
@@ -284,7 +326,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
             row = m_verticalLayout->count() - 1;
         else
             row = m_verticalLayout->count();
-	m_errorItem = new QGraphicsTextItem(this);
+	m_errorItem = new WorksheetStaticTextItem(this);
 	m_verticalLayout->insertItem(row, m_errorItem);
     }
 
@@ -301,13 +343,27 @@ bool CommandEntry::isEmpty()
     return false;
 }
 
+bool CommandEntry::focusEntry(int pos, qreal xCoord)
+{
+    WorksheetTextItem* item;
+    if (pos == WorksheetTextItem::TopLeft || pos == WorksheetTextItem::TopCoord)
+	item = m_commandItem;
+    else if (m_informationItems.size() && m_informationItems.last()->isEditable())
+	item = m_informationItems.last();
+    else
+	item = m_commandItem;
+
+    item->focusItem(pos, xCoord);
+    return true;
+}
+
 void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 {
     if (m_completionObject)
 	removeContextHelp();
 
     m_completionObject = tc;
-    connect(tc, SIGNAL(done()). this, SLOT(showCompletions()));
+    connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
     connect(tc, SIGNAL(lineDone(QString, int)), this, SLOT(completeLineTo(QString, int)));
 }
 
@@ -322,10 +378,10 @@ void CommandEntry::showCompletions()
     {
 	completeCommandTo(completion);
 
-        QToolTip::showText(QPoint(), QString(), worksheet());
+        QToolTip::showText(QPoint(), QString(), worksheetView());
 	if (m_completionBox)
 	    m_completionBox->deleteLater();
-	m_completionBox = new KCompletionBox(m_worksheet);
+	m_completionBox = new KCompletionBox(worksheetView());
 	m_completionBox->setItems(m_completionObject->allMatches());
 	QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
 	if (!items.empty())
@@ -339,8 +395,8 @@ void CommandEntry::showCompletions()
 	connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
 
 	QPointF cursorPos = m_commandItem->cursorPosition();
-	cursorPos = mapToScene(popupPoint);
-	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPoint);
+	cursorPos = mapToScene(cursorPos);
+	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPos);
 	m_completionBox->popup();
 	m_completionBox->move(worksheetView()->mapToGlobal(popupPoint));
     } else
@@ -370,7 +426,7 @@ void CommandEntry::completedLineChanged()
 	removeContextHelp();
 	return;
     }
-    const QString line = currentLine(m_worksheet->textCursor());
+    const QString line = currentLine();
     m_completionObject->updateLine(line, m_commandItem->textCursor().positionInBlock());
 }
 
@@ -384,15 +440,15 @@ void CommandEntry::updateCompletions()
 
     if(m_completionObject->hasMultipleMatches() || !completion.isEmpty())
     {
-        QToolTip::showText(QPoint(), QString(), m_worksheet);
+        QToolTip::showText(QPoint(), QString(), worksheetView());
 	m_completionBox->setItems(m_completionObject->allMatches());
 	QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
 	if (!items.empty())
 	    m_completionBox->setCurrentItem(items.first());
 
 	QPointF cursorPos = m_commandItem->cursorPosition();
-	cursorPos = mapToScene(popupPoint);
-	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPoint);
+	cursorPos = mapToScene(cursorPos);
+	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPos);
 	//m_completionBox->popup();
 	m_completionBox->move(worksheetView()->mapToGlobal(popupPoint));
     } else
@@ -406,7 +462,7 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
     kDebug() << "completion: " << completion;
 
     if (mode == FinalCompletion) {
-        Cantor::SyntaxHelpObject* obj = m_worksheet->session()->syntaxHelpFor(completion);
+        Cantor::SyntaxHelpObject* obj = worksheet()->session()->syntaxHelpFor(completion);
         if(obj)
             setSyntaxHelp(obj);
     } else {
@@ -455,11 +511,11 @@ void CommandEntry::showSyntaxHelp()
 {
     const QString& msg = m_syntaxHelpObject->toHtml();
     QPointF cursorPos = m_commandItem->cursorPosition();
-    cursorPos = mapToScene(popupPoint);
-    const QPoint popupPoint = worksheetView()->mapFromScene(cursorPoint);
+    cursorPos = mapToScene(cursorPos);
+    const QPoint popupPoint = worksheetView()->mapFromScene(cursorPos);
     const QPoint pos = worksheetView()->mapToGlobal(popupPoint);
 
-    QToolTip::showText(pos, msg, m_worksheet);
+    QToolTip::showText(pos, msg, worksheetView());
 }
 
 void CommandEntry::resultDeleted()
@@ -480,19 +536,19 @@ void CommandEntry::addInformation()
 
 void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    int row;
-    if (actualInformationCell().isValid())
-        row = m_informationItems.size() + 1;
-    else
-        row = 1;
+    int row = m_informationItems.size() + 1;
 
-    QGraphicsSimpleTextItem* questionItem = new QGraphicsSimpleTextItem(this);
+    WorksheetStaticTextItem* questionItem = new WorksheetStaticTextItem(this);
     WorksheetTextItem* answerItem = new WorksheetTextItem(this);
-    questionItem->setText(question);
-    m_verticalLayout->addItem(questionItem);
-    m_verticalLayout->addItem(answerItem);
+    questionItem->setPlainText(question);
+    if (!m_informationItems.isEmpty())
+	m_informationItems.last()->setEditable(false);
+    m_verticalLayout->insertItem(row, questionItem);
+    m_verticalLayout->insertItem(row+1, answerItem);
+    m_verticalLayout->updateGeometry();
     m_informationItems.append(answerItem);
 
+    connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
     answerItem->setFocus();
 }
 
@@ -544,7 +600,7 @@ void CommandEntry::updatePrompt()
     //Expression state
     if(m_expression)
     {
-        if(m_expression ->status() == Cantor::Expression::Computing&& m_worksheet->isRunning())
+        if(m_expression ->status() == Cantor::Expression::Computing&&worksheet()->isRunning())
             cformat.setForeground(color.foreground(KColorScheme::PositiveText));
         else if(m_expression ->status() == Cantor::Expression::Error)
             cformat.setForeground(color.foreground(KColorScheme::NegativeText));
@@ -562,3 +618,12 @@ WorksheetView* CommandEntry::worksheetView()
     return worksheet()->worksheetView();
 }
 
+bool CommandEntry::informationItemHasFocus()
+{
+    return m_informationItems.last()->hasFocus();
+}
+
+void CommandEntry::invalidate()
+{
+    kDebug() << "ToDo: Invalidate here";
+}

@@ -42,9 +42,8 @@
 #include <QMovie>
 #include <QTimer>
 
-ResultProxy::ResultProxy(QTextDocument* parent) : QObject(parent)
+ResultProxy::ResultProxy(QObject* parent) : QObject(parent)
 {
-    m_document=parent;
     m_scale=1.0;
     m_useHighRes=false;
 }
@@ -95,7 +94,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
                 break;
             }
         case Cantor::EpsResult::Type:
-            format=renderEps(result);
+            format=renderEps(cursor.document(), result);
             if(format.isValid())
                 cursor.insertText(QString(QChar::ObjectReplacementCharacter),  format );
             else
@@ -125,7 +124,7 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 }
 
 //private result specific rendering methods
-QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
+QTextCharFormat ResultProxy::renderEps(QTextDocument* doc, Cantor::Result* result)
 {
     double scale;
     if(m_useHighRes)
@@ -138,7 +137,7 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
     KUrl url=result->data().toUrl();
 
     QSize s;
-    bool success=renderEpsToResource(url, &s);
+    bool success=renderEpsToResource(doc, url, &s);
 
     KUrl internal=url;
     internal.setProtocol("internal");
@@ -160,7 +159,7 @@ QTextCharFormat ResultProxy::renderEps(Cantor::Result* result)
     return epsCharFormat;
 }
 
-bool ResultProxy::renderEpsToResource(const KUrl& url, QSize* size)
+bool ResultProxy::renderEpsToResource(QTextDocument* document, const KUrl& url, QSize* size)
 {
 #ifdef LIBSPECTRE_FOUND
     SpectreDocument* doc=spectre_document_new();;
@@ -192,7 +191,7 @@ bool ResultProxy::renderEpsToResource(const KUrl& url, QSize* size)
 
     QImage img(data, w*scale, h*scale, rowLength, QImage::Format_RGB32);
 
-    m_document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
+    document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
 
     spectre_document_free(doc);
     spectre_render_context_free(rc);
