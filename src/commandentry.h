@@ -15,6 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
@@ -80,7 +81,7 @@ class CommandEntry : public WorksheetEntry
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
   public slots:
-    bool evaluate(bool current);
+    bool evaluate(int evalOp = 0);
     bool evaluateCommand();
     void addInformation();
 
@@ -95,8 +96,10 @@ class CommandEntry : public WorksheetEntry
     void completeLineTo(const QString& line, int index);
 
   private:
+    WorksheetTextItem* currentInformationItem();
     WorksheetView* worksheetView();
     bool informationItemHasFocus();
+    bool focusWithinThisItem();
 
   private:
     enum CompletionMode {
@@ -114,13 +117,15 @@ class CommandEntry : public WorksheetEntry
     WorksheetTextItem* m_commandItem;
     WorksheetStaticTextItem* m_resultItem;
     WorksheetStaticTextItem* m_errorItem;
-    QList<WorksheetTextItem*> m_informationItems;
+    QList<WorksheetStaticTextItem*> m_informationItems;
     Cantor::Expression* m_expression;
     QGraphicsLinearLayout *m_verticalLayout;
 
     Cantor::CompletionObject* m_completionObject;
     QPointer<KCompletionBox> m_completionBox;
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
+    
+    int m_evaluationFlag;
 };
 
 #endif // COMMANDENTRY_H

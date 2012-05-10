@@ -1,3 +1,23 @@
+/*
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+
+    ---
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
+ */
 
 #include "textentry.h"
 #include "worksheettextitem.h"
@@ -5,6 +25,8 @@
 #include "formulatextobject.h"
 #include "latexrenderer.h"
 #include "resultproxy.h"
+
+#include <QGraphicsLinearLayout>
 
 #include <kdebug.h>
 #include <KUrl>
@@ -14,14 +36,15 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textIt
     m_textItem->document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(m_textItem->document()));
     m_textItem->document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
 
-    setFlag(QGraphicsItem::ItemIsFocusable);
-    setFocusProxy(m_textItem);
-
     m_textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+    QGraphicsLinearLayout *layout = new QGraphicsLinearLayout(this);
+    layout->addItem(m_textItem);
+    setLayout(layout);
     connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
 	    this, SLOT(moveToPreviousEntry(int, qreal)));
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
+    connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
 }
 
 TextEntry::~TextEntry()
@@ -131,10 +154,8 @@ void TextEntry::interruptEvaluation()
 {
 }
 
-bool TextEntry::evaluate(bool current)
+bool TextEntry::evaluate(int evalOp)
 {
-    Q_UNUSED(current);
-
     QTextDocument *doc = m_textItem->document();
     //blahtex::Interface *translator = m_worksheet->translator();
 
@@ -176,6 +197,8 @@ bool TextEntry::evaluate(bool current)
 
         cursor = findLatexCode(doc);
     }
+
+    evaluateNext(evalOp);
 
     return true;
 }

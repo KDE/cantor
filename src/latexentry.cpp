@@ -15,6 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
@@ -33,11 +34,14 @@
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
 {
-    m_textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+    QGraphicsLinearLayout *layout = new QGraphicsLinearLayout(this);
+    layout->addItem(m_textItem);
+    setLayout(layout);
     connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
 	    this, SLOT(moveToPreviousEntry(int, qreal)));
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
+    connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
 }
 
 LatexEntry::~LatexEntry()
@@ -166,10 +170,8 @@ void LatexEntry::interruptEvaluation()
 
 }
 
-bool LatexEntry::evaluate(bool current)
+bool LatexEntry::evaluate(int evalOp)
 {
-    Q_UNUSED(current);
-
     if (isOneImageOnly())
 	return true; // the image is rendered already
 
@@ -203,6 +205,8 @@ bool LatexEntry::evaluate(bool current)
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
     delete renderer;
+
+    evaluateNext(evalOp);
 
     return true;
 }

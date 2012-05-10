@@ -99,5 +99,23 @@ Worksheet* WorksheetEntry::worksheet()
     return qobject_cast<Worksheet*>(scene());
 }
 
+void WorksheetEntry::evaluateNext(int opt)
+{
+    if (next()) {
+	if (opt & EvaluateNextEntries) {
+	    next()->evaluate(EvaluateNextEntries);
+	} else {
+	    worksheet()->setModified();
+	    next()->focusEntry(WorksheetTextItem::BottomRight);
+	}
+    } else {
+	if (!isEmpty())
+	    worksheet()->appendCommandEntry();
+	else
+	    focusEntry();
+	worksheet()->setModified();
+    }
+}
+
 
 #include "worksheetentry.moc"

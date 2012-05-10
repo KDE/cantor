@@ -15,6 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
@@ -60,6 +61,8 @@ class Worksheet : public QGraphicsScene
     void setViewSize(qreal w, qreal h);
 
     WorksheetView* worksheetView();
+
+    void setModified();
 
   public slots:
     WorksheetEntry* appendCommandEntry();

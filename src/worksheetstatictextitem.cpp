@@ -24,7 +24,7 @@
 #include "kdebug.h"
 
 WorksheetStaticTextItem::WorksheetStaticTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent) :
-    QGraphicsTextItem(parent), QGraphicsLayoutItem(lparent ? lparent : parent)
+    QGraphicsTextItem(parent), QGraphicsLayoutItem(lparent)
 {
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);

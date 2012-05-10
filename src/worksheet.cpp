@@ -1,3 +1,23 @@
+/*
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+
+    ---
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
+ */
 
 #include <QGraphicsWidget>
 #include <QTimer>
@@ -85,6 +105,11 @@ WorksheetView* Worksheet::worksheetView()
     return qobject_cast<WorksheetView*>(views()[0]);
 }
 
+void Worksheet::setModified()
+{
+    emit modified();
+}
+
 WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
@@ -150,10 +175,7 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 void Worksheet::evaluate()
 {
     kDebug()<<"evaluate worksheet";
-    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
-    {
-        entry->evaluate(false);
-    }
+    firstEntry()->evaluate(WorksheetEntry::EvaluateNextEntries);
 
     emit modified();
 }
@@ -164,26 +186,7 @@ void Worksheet::evaluateCurrentEntry()
     WorksheetEntry* entry = currentEntry();
     if(!entry)
         return;
-    if (!entry->evaluate(true))
-        return;
-    if(Settings::self()->autoEval())
-    {
-	for (entry = entry->next(); entry; entry = entry->next())
-	    entry->evaluate(false);
-
-        if(!lastEntry()->isEmpty())
-            appendCommandEntry();
-        else
-            focusEntry(lastEntry());
-    }
-    else
-    {
-        if (entry == lastEntry())
-            appendCommandEntry();
-        else
-            entry->moveToNextEntry();
-    }
-    emit modified();
+    entry->evaluate(WorksheetEntry::FocusedItemOnly);
 }
 
 bool Worksheet::completionEnabled()

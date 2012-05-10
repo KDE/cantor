@@ -15,6 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
@@ -23,6 +24,7 @@
 #include "worksheettextitem.h"
 #include "loadedexpression.h"
 #include "resultproxy.h"
+#include "settings.h"
 
 #include "lib/expression.h"
 #include "lib/result.h"
@@ -109,7 +111,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 
     removeResult();
 
-    foreach(WorksheetTextItem* item, m_informationItems)
+    foreach(WorksheetStaticTextItem* item, m_informationItems)
     {
 	m_verticalLayout->removeItem(item);
 	item->deleteLater();
@@ -238,17 +240,23 @@ QString CommandEntry::currentLine()
     return block.text();
 }
 
-bool CommandEntry::evaluate(bool current)
+bool CommandEntry::evaluate(int evalOp)
 {
-    if (!current)
-	return evaluateCommand();
-    if (m_commandItem->hasFocus()) {
-	return evaluateCommand();
+    bool success = false;
+
+    if (!(evalOp & FocusedItemOnly) || m_commandItem->hasFocus()) {
+	success = evaluateCommand();
     } else if (informationItemHasFocus()) {
 	addInformation();
-	return true;
+	success = true;
     }
-    return false;
+
+    if (evalOp & EvaluateNextEntries || Settings::self()->autoEval())
+	m_evaluationFlag = EvaluateNextEntries;
+    else
+	m_evaluationFlag = 0;
+
+    return success;
 }
 
 bool CommandEntry::evaluateCommand()
@@ -259,8 +267,15 @@ bool CommandEntry::evaluateCommand()
     QString cmd = command();
     kDebug()<<"evaluating: "<<cmd;
 
-    if(cmd.isEmpty())
+    if (Settings::self()->autoEval())
+	m_evaluationFlag = EvaluateNextEntries;
+    else
+	m_evaluationFlag = 0;
+
+    if(cmd.isEmpty()) {
+	evaluateNext(m_evaluationFlag);
         return false;
+    }
 
     Cantor::Expression* expr;
     expr = worksheet()->session()->evaluateExpression(cmd);
@@ -310,15 +325,14 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 	text = i18n("Interrupted");
 	break;
     case Cantor::Expression::Done:
-	if (next())
-	    next()->focusEntry(WorksheetTextItem::BottomRight);
-	else
-	    worksheet()->appendCommandEntry();
+	evaluateNext(m_evaluationFlag);
 	return;
     default:
 	return;
     }
 
+    m_commandItem->focusItem(WorksheetTextItem::BottomRight, 0);
+    
     if(!m_errorItem)
     {
         int row;
@@ -348,8 +362,8 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
     WorksheetTextItem* item;
     if (pos == WorksheetTextItem::TopLeft || pos == WorksheetTextItem::TopCoord)
 	item = m_commandItem;
-    else if (m_informationItems.size() && m_informationItems.last()->isEditable())
-	item = m_informationItems.last();
+    else if (m_informationItems.size() && currentInformationItem()->isEditable())
+	item = currentInformationItem();
     else
 	item = m_commandItem;
 
@@ -525,6 +539,7 @@ void CommandEntry::resultDeleted()
 
 void CommandEntry::addInformation()
 {
+    currentInformationItem()->setEditable(false);
     QString inf = m_informationItems.last()->toPlainText();
     inf.replace(QChar::ParagraphSeparator, '\n');
     inf.replace(QChar::LineSeparator, '\n');
@@ -541,11 +556,10 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     WorksheetStaticTextItem* questionItem = new WorksheetStaticTextItem(this);
     WorksheetTextItem* answerItem = new WorksheetTextItem(this);
     questionItem->setPlainText(question);
-    if (!m_informationItems.isEmpty())
-	m_informationItems.last()->setEditable(false);
     m_verticalLayout->insertItem(row, questionItem);
     m_verticalLayout->insertItem(row+1, answerItem);
     m_verticalLayout->updateGeometry();
+    m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
 
     connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
@@ -569,7 +583,7 @@ void CommandEntry::removeResult()
 
 void CommandEntry::removeContextHelp()
 {
-    disconnect(worksheet(), SIGNAL(textChanged()), this,
+    disconnect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
 	       SLOT(completedLineChanged()));
     if(m_completionObject)
         m_completionObject->deleteLater();
@@ -613,6 +627,13 @@ void CommandEntry::updatePrompt()
     c.insertText(CommandEntry::Prompt,cformat);
 }
 
+WorksheetTextItem* CommandEntry::currentInformationItem()
+{
+    if (m_informationItems.isEmpty())
+	return 0;
+    return qobject_cast<WorksheetTextItem*>(m_informationItems.last());
+}
+
 WorksheetView* CommandEntry::worksheetView()
 {
     return worksheet()->worksheetView();
@@ -620,7 +641,15 @@ WorksheetView* CommandEntry::worksheetView()
 
 bool CommandEntry::informationItemHasFocus()
 {
+    if (m_informationItems.isEmpty())
+	return false;
     return m_informationItems.last()->hasFocus();
+}
+
+bool CommandEntry::focusWithinThisItem()
+{
+    QGraphicsItem* focusItem = scene()->focusItem();
+    return focusItem && isAncestorOf(focusItem);
 }
 
 void CommandEntry::invalidate()

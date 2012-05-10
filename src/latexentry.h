@@ -15,7 +15,8 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 Martin Kuettler <martin.kuettler@gmail.com>
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
 #ifndef LATEXENTRY_H
@@ -47,8 +48,8 @@ class LatexEntry : public WorksheetEntry
 
     void interruptEvaluation();
 
-    bool evaluate(bool current);
   public slots:
+    bool evaluate(int evalOp = 0);
     void updateEntry();
 
   private:

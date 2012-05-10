@@ -31,6 +31,7 @@ namespace Cantor {
 class WorksheetTextItem : public WorksheetStaticTextItem
 {
   Q_OBJECT
+  Q_INTERFACES(QGraphicsLayoutItem)
   public:
     WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent = 0);
     ~WorksheetTextItem();
@@ -46,10 +47,6 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void focusItem(int pos = TopLeft, qreal xCoord = 0);
 
   signals:
-    //void leftmostValidPositionReached();
-    //void rightmostValidPositionReached();
-    //void topmostValidLineReached();
-    //void bottommostValidLineReached();
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
     void receivedFocus(QTextDocument*);

@@ -63,19 +63,24 @@ class WorksheetEntry : public QGraphicsWidget
 
     virtual void interruptEvaluation()=0;
 
-    virtual bool evaluate(bool current)=0;
-
     virtual void showCompletion();
 
     virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
+    enum EvaluationOption {
+	FocusedItemOnly = 1,
+	EvaluateNextEntries = 2
+    };
+
   public slots:
+    virtual bool evaluate(int evalOp = 0) = 0;
     virtual void updateEntry() = 0;
-    void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x=0);
-    void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x=0);
+    void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
+    void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
 
   protected:
     Worksheet* worksheet();
+    void evaluateNext(int opt);
 
   private:
     WorksheetEntry* m_prev;
