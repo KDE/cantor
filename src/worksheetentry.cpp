@@ -94,6 +94,12 @@ void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 	next()->focusEntry(pos, x);
 }
 
+void WorksheetEntry::recalculateSize()
+{
+    layout()->updateGeometry();
+    //
+}
+
 Worksheet* WorksheetEntry::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());

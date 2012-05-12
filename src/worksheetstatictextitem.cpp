@@ -27,7 +27,7 @@ WorksheetStaticTextItem::WorksheetStaticTextItem(QGraphicsWidget* parent, QGraph
     QGraphicsTextItem(parent), QGraphicsLayoutItem(lparent)
 {
     setTextInteractionFlags(Qt::TextSelectableByMouse);
-    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
 }
 
 WorksheetStaticTextItem::~WorksheetStaticTextItem()
@@ -38,12 +38,14 @@ void WorksheetStaticTextItem::setGeometry(const QRectF& rect)
 {
     //setTextWidth(rect.width());
     setPos(rect.topLeft());
+    QGraphicsLayoutItem::setGeometry(rect);
+    setTextWidth(rect.width());
     kDebug() << rect;
 }
 
 QSizeF WorksheetStaticTextItem::sizeHint(Qt::SizeHint which, const QSizeF & constraint ) const
 {
-    qreal oldTextWidth = document()->textWidth();
+    qreal oldTextWidth = -1;
     QSizeF size;
 
     /* I am ignoring a potential height constraint here, because I do not
@@ -54,13 +56,16 @@ QSizeF WorksheetStaticTextItem::sizeHint(Qt::SizeHint which, const QSizeF & cons
     switch (which) {
     case Qt::MinimumSize:
     case Qt::PreferredSize:
-	document()->setTextWidth(-1);
-
-	if (constraint.width() >= 0 && document()->textWidth() > constraint.width())
-	    document()->setTextWidth(constraint.width());
-	size =  document()->size();
-	if (oldTextWidth >= 0)
-	    document()->setTextWidth(oldTextWidth);
+	//document()->setTextWidth(-1);
+	//
+	//if (constraint.width() >= 0 && textWidth() > constraint.width()) {
+	//    oldTextWidth = textWidth();
+	//    document()->setTextWidth(constraint.width());
+	//}
+	size = document()->size();
+	//if (oldTextWidth >= 0)
+	//    setTextWidth(oldTextWidth);
+	kDebug() << size;
 	return size;
     case Qt::MaximumSize:
 	return QSizeF();

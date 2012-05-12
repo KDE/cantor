@@ -93,9 +93,8 @@ bool Worksheet::isPrinting()
 void Worksheet::setViewSize(qreal w, qreal h)
 {
     Q_UNUSED(h)
-    m_rootwidget->setMaximumWidth(w);
-    //m_rootwidget->setMinimumWidth(w);
-    //m_rootwidget->setMinimumHeight(h);
+    m_rootlayout->setMaximumWidth(w);
+    m_rootlayout->setMinimumWidth(w);
 
     m_proxy->setScale(worksheetView()->scaleFactor());
 }

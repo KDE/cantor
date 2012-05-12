@@ -52,6 +52,7 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void receivedFocus(QTextDocument*);
     void tabPressed();
     void execute();
+    void sizeChanged();
 
   protected:
     void keyPressEvent(QKeyEvent *event);

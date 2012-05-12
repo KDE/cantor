@@ -25,12 +25,7 @@
     <Action name="evaluate_current"/>
     <Action name="insert_command_entry"/>
     <Action name="insert_text_entry"/>
-    <Action name="insert_image_entry"/>
-    <Action name="insert_page_break_entry"/>
-    <!--<Action name="insert_command_entry_before"/>-->
-    <!--<Action name="insert_text_entry_before"/>-->
-    <!--<Action name="insert_image_entry_before"/>-->
-    <!--<Action name="insert_page_break_entry_before"/>-->
+    <Action name="insert_latex_entry"/>
     <Action name="remove_current"/>
   </Menu>
   <Menu name="help">

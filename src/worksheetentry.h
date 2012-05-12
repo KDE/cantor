@@ -77,6 +77,7 @@ class WorksheetEntry : public QGraphicsWidget
     virtual void updateEntry() = 0;
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
+    void recalculateSize();
 
   protected:
     Worksheet* worksheet();

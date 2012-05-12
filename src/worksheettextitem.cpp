@@ -26,6 +26,7 @@
 #include <QTextCursor>
 #include <QTextBlock>
 #include <QTextLine>
+#include <QGraphicsSceneResizeEvent>
 
 #include <kdebug.h>
 
@@ -33,7 +34,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutIte
     : WorksheetStaticTextItem(parent, lparent)
 {
     setTextInteractionFlags(Qt::TextEditorInteraction);
-    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -64,6 +65,8 @@ QPointF WorksheetTextItem::localCursorPosition() const
     QTextBlock block = cursor.block();
     int p = cursor.position();
     QTextLine line = block.layout()->lineForTextPosition(p);
+    if (!line.isValid()) // this can happen for empty lines
+	return block.layout()->position();
     return QPointF(line.cursorToX(p), line.y());
 }
 
@@ -93,7 +96,8 @@ void WorksheetTextItem::focusItem(int pos, qreal xCoord)
 	    line = document()->firstBlock().layout()->lineAt(0);
 	} else {
 	    QTextLayout* layout = document()->lastBlock().layout();
-	    line = layout->lineAt(layout->lineCount()-1);
+	    kDebug() << document()->lastBlock().lineCount() << "lines";
+	    line = layout->lineAt(document()->lastBlock().lineCount()-1);
 	}
 	qreal x = mapFromScene(xCoord, 0).x();
 	kDebug() << x;
@@ -156,7 +160,12 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     default:
 	break;
     }
+    qreal h = boundingRect().height();
     this->QGraphicsTextItem::keyPressEvent(event);
+    if (h != boundingRect().height()) {
+	updateGeometry();
+	emit sizeChanged();
+    }
 }
 
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)

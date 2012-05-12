@@ -36,7 +36,6 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textIt
     m_textItem->document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(m_textItem->document()));
     m_textItem->document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
 
-    m_textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
     QGraphicsLinearLayout *layout = new QGraphicsLinearLayout(this);
     layout->addItem(m_textItem);
     setLayout(layout);
@@ -177,8 +176,12 @@ bool TextEntry::evaluate(int evalOp)
 
         renderer->renderBlocking();
 
-        bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
+        bool success=renderer->renderingSuccessful() && worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
         kDebug()<<"rendering successfull? "<<success;
+	if (!success) {
+	    cursor = findLatexCode(doc, cursor);
+	    continue;
+	}
 
         QString path=renderer->imagePath();
         KUrl internal=KUrl(path);
@@ -195,9 +198,10 @@ bool TextEntry::evaluate(int evalOp)
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
         delete renderer;
 
-        cursor = findLatexCode(doc);
+        cursor = findLatexCode(doc, cursor);
     }
 
+    layout()->updateGeometry();
     evaluateNext(evalOp);
 
     return true;
@@ -225,15 +229,19 @@ void TextEntry::updateEntry()
     }
 }
 
-QTextCursor TextEntry::findLatexCode(QTextDocument *doc) const
+QTextCursor TextEntry::findLatexCode(QTextDocument *doc, QTextCursor cursor) const
 {
-    QTextCursor startCursor = doc->find("$$");
+    QTextCursor startCursor;
+    if (cursor.isNull())
+	startCursor = doc->find("$$");
+    else
+	startCursor = doc->find("$$", cursor);
     if (startCursor.isNull())
         return startCursor;
     const QTextCursor endCursor = doc->find("$$", startCursor);
     if (endCursor.isNull())
         return endCursor;
-    startCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, 2);
+    startCursor.setPosition(startCursor.selectionStart());
     startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
     return startCursor;
 }

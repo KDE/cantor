@@ -34,6 +34,8 @@
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
 {
+    m_textItem->document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
+
     QGraphicsLinearLayout *layout = new QGraphicsLinearLayout(this);
     layout->addItem(m_textItem);
     setLayout(layout);
@@ -184,8 +186,14 @@ bool LatexEntry::evaluate(int evalOp)
 
     renderer->renderBlocking();
 
-    bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
+    bool success = renderer->renderingSuccessful() && worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
     kDebug()<<"rendering successfull? "<<success;
+
+    if (!success) {
+	delete renderer;
+	evaluateNext(evalOp);
+	return false;
+    }
 
     QString path=renderer->imagePath();
     KUrl internal=KUrl(path);
@@ -206,6 +214,7 @@ bool LatexEntry::evaluate(int evalOp)
     cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
     delete renderer;
 
+    layout()->updateGeometry();
     evaluateNext(evalOp);
 
     return true;

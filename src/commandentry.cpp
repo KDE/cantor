@@ -65,7 +65,10 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     kDebug() << "Prompt boundary: " << mapRectToScene(m_promptItem->boundingRect());
     kDebug() << "Command boundary: " << mapRectToScene(m_commandItem->boundingRect());
     this->setLayout(horizontalLayout);
+    horizontalLayout->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
 
+    connect(m_commandItem, SIGNAL(sizeChanged()), 
+    	    this, SLOT(recalculateSize()));
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluateCommand()));
 
     connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
@@ -624,7 +627,9 @@ void CommandEntry::updatePrompt()
             cformat.setFontWeight(QFont::Normal);
     }
 
+    m_promptItem->setTextWidth(-1);
     c.insertText(CommandEntry::Prompt,cformat);
+    m_promptItem->updateGeometry();
 }
 
 WorksheetTextItem* CommandEntry::currentInformationItem()

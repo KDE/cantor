@@ -163,6 +163,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction("insert_text_entry",  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
+    KAction* insertLatexEntry=new KAction(i18n("Insert Latex Entry"), actionCollection());
+    //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_latex_entry",  insertLatexEntry);
+    connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
+
     /*
     KAction* insertPageBreakEntry=new KAction(i18n("Insert Page Break"), actionCollection());
     actionCollection()->addAction("insert_page_break_entry", insertPageBreakEntry);

@@ -26,6 +26,7 @@
 #include <QDomElement>
 #include <QDomDocument>
 #include <KZip>
+#include <QTextCursor>
 
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
@@ -63,7 +64,7 @@ class TextEntry : public WorksheetEntry
     void updateEntry();
 
   private:
-    QTextCursor findLatexCode(QTextDocument *doc) const;
+    QTextCursor findLatexCode(QTextDocument *doc, QTextCursor cursor = QTextCursor()) const;
     void showLatexCode(QTextCursor cursor);
 
   private:
