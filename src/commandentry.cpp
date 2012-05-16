@@ -112,8 +112,6 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 	m_errorItem = 0;
     }
 
-    removeResult();
-
     foreach(WorksheetStaticTextItem* item, m_informationItems)
     {
 	m_verticalLayout->removeItem(item);
@@ -121,12 +119,9 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     }
     m_informationItems.clear();
 
+    m_expression = 0;
     // Delete any previous result
-    if (m_resultItem)
-    {
-	m_verticalLayout->removeItem(m_resultItem);
-	m_resultItem = 0;
-    }
+    removeResult();
 
     m_expression=expr;
 
@@ -298,6 +293,7 @@ void CommandEntry::interruptEvaluation()
 
 void CommandEntry::updateEntry()
 {
+    kDebug() << "update Entry";
     Cantor::Expression *expr = expression();
     if (expr == 0 || expr->result() == 0)
 	return;
@@ -306,14 +302,17 @@ void CommandEntry::updateEntry()
 	return; // Help is handled elsewhere
 
     if (!m_resultItem) {
-	m_resultItem = new WorksheetStaticTextItem(this);
+	m_resultItem = new WorksheetStaticTextItem(this, m_verticalLayout);
 	m_verticalLayout->addItem(m_resultItem);
-	m_verticalLayout->updateGeometry();
     }
     QTextCursor cursor = m_resultItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     worksheet()->resultProxy()->insertResult(cursor, expr->result());
+    // I am not entirely sure why both are needed, but removing one 
+    // results in overlaping items
+    m_resultItem->updateGeometry();
+    m_verticalLayout->updateGeometry();
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
@@ -334,7 +333,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 	return;
     }
 
-    m_commandItem->focusItem(WorksheetTextItem::BottomRight, 0);
+    m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
     
     if(!m_errorItem)
     {
@@ -348,6 +347,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     }
 
     m_errorItem->setHtml(text);
+    m_verticalLayout->updateGeometry();
 }
 
 bool CommandEntry::isEmpty()
@@ -370,7 +370,7 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
     else
 	item = m_commandItem;
 
-    item->focusItem(pos, xCoord);
+    item->setFocusAt(pos, xCoord);
     return true;
 }
 
@@ -653,8 +653,7 @@ bool CommandEntry::informationItemHasFocus()
 
 bool CommandEntry::focusWithinThisItem()
 {
-    QGraphicsItem* focusItem = scene()->focusItem();
-    return focusItem && isAncestorOf(focusItem);
+    return focusItem() != 0;
 }
 
 void CommandEntry::invalidate()

@@ -81,7 +81,7 @@ void TextEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 bool TextEntry::focusEntry(int pos, qreal xCoord)
 {
-    m_textItem->focusItem(pos, xCoord);
+    m_textItem->setFocusAt(pos, xCoord);
     return true;
 }
 

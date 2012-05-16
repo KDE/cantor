@@ -83,7 +83,7 @@ bool WorksheetTextItem::isEditable()
     return textInteractionFlags() & Qt::TextEditable;
 }
 
-void WorksheetTextItem::focusItem(int pos, qreal xCoord)
+void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
 {
     QTextCursor cursor = textCursor();
     if (pos == TopLeft) {
@@ -96,7 +96,8 @@ void WorksheetTextItem::focusItem(int pos, qreal xCoord)
 	    line = document()->firstBlock().layout()->lineAt(0);
 	} else {
 	    QTextLayout* layout = document()->lastBlock().layout();
-	    kDebug() << document()->lastBlock().lineCount() << "lines";
+	    kDebug() << document()->blockCount() << "blocks";
+	    kDebug() << document()->lastBlock().lineCount() << "lines in last block";
 	    line = layout->lineAt(document()->lastBlock().lineCount()-1);
 	}
 	qreal x = mapFromScene(xCoord, 0).x();
@@ -170,8 +171,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
-    Q_UNUSED(event);
-
+    QGraphicsTextItem::focusInEvent(event);
     emit receivedFocus(document());
 }
 

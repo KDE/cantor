@@ -26,6 +26,7 @@
 #include <KMessageBox>
 #include <KStandardDirs>
 
+#include "config-cantor.h"
 #include "worksheet.h"
 #include "settings.h"
 #include "resultproxy.h"
@@ -49,9 +50,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     addItem(m_rootwidget);
 
     m_highlighter = 0;
-    // todo: set scene rect
-
-    //...
 
     m_proxy=new ResultProxy(this);
 
@@ -73,8 +71,12 @@ void Worksheet::loginToSession()
 
         enableHighlighting(Settings::self()->highlightDefault());
         enableCompletion(Settings::self()->completionDefault());
-	// ...
-
+        enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+#ifdef WITH_EPS
+        session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+#else
+        session()->setTypesettingEnabled(false);
+#endif
 
         m_loginFlag=false;
     }
@@ -407,8 +409,6 @@ void Worksheet::enableHighlighting(bool highlight)
     if(highlight) {
         if(m_highlighter)
             m_highlighter->deleteLater();
-	// todo: if this design is going to stay, then these NULL-arguments
-	// should be removed
         m_highlighter=session()->syntaxHighlighter(this);
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);

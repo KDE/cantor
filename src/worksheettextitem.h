@@ -44,7 +44,7 @@ class WorksheetTextItem : public WorksheetStaticTextItem
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
 
-    void focusItem(int pos = TopLeft, qreal xCoord = 0);
+    void setFocusAt(int pos = TopLeft, qreal xCoord = 0);
 
   signals:
     void moveToPrevious(int pos, qreal xCoord);

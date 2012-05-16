@@ -67,7 +67,7 @@ bool LatexEntry::acceptRichText()
 
 bool LatexEntry::focusEntry(int pos, qreal xCoord)
 {
-    m_textItem->focusItem(pos, xCoord);
+    m_textItem->setFocusAt(pos, xCoord);
     return true;
 }
 
