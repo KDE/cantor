@@ -44,6 +44,7 @@ LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_text
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
+    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImage()));
 }
 
 LatexEntry::~LatexEntry()
@@ -214,6 +215,7 @@ bool LatexEntry::evaluate(int evalOp)
     cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
     delete renderer;
 
+    m_textItem->updateGeometry();
     layout()->updateGeometry();
     evaluateNext(evalOp);
 
@@ -237,6 +239,27 @@ void LatexEntry::updateEntry()
 	cursor.movePosition(QTextCursor::NextCharacter);
 
 	cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+    m_textItem->updateGeometry();
+    layout()->updateGeometry();
+}
+
+void LatexEntry::resolveImage()
+{
+    QTextCursor cursor = m_textItem->textCursor();
+    // When there is no latex image under the current cursor try the next
+    // position, but only once.
+    for (int i = 2; i; --i) {
+	if (m_textItem->document()->characterAt(cursor.position()-1) == QChar::ObjectReplacementCharacter &&
+	    cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
+	    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
+	    cursor.deletePreviousChar();
+	    cursor.insertText(latexCode);
+	    m_textItem->updateGeometry();
+	    layout()->updateGeometry();
+	    return;
+	}
+	cursor.movePosition(QTextCursor::NextCharacter);
     }
 }
 

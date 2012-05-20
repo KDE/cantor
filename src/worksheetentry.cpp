@@ -115,7 +115,7 @@ void WorksheetEntry::evaluateNext(int opt)
 	    next()->focusEntry(WorksheetTextItem::BottomRight);
 	}
     } else {
-	if (!isEmpty())
+	if (!isEmpty() || type() != CommandEntry::Type)
 	    worksheet()->appendCommandEntry();
 	else
 	    focusEntry();

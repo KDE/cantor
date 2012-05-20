@@ -61,6 +61,7 @@ class TextEntry : public WorksheetEntry
 
   public slots:
     bool evaluate(int evalOp = 0);
+    void resolveImage();
     void updateEntry();
 
   private:

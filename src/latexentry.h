@@ -27,6 +27,8 @@
 
 class LatexEntry : public WorksheetEntry
 {
+  Q_OBJECT
+
   public:
     LatexEntry(Worksheet* worksheet);
     ~LatexEntry();
@@ -50,6 +52,7 @@ class LatexEntry : public WorksheetEntry
 
   public slots:
     bool evaluate(int evalOp = 0);
+    void resolveImage();
     void updateEntry();
 
   private:

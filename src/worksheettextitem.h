@@ -57,6 +57,7 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void tabPressed();
     void backtabPressed();
     void applyCompletion();
+    void doubleClick();
     void execute();
     void sizeChanged();
 
@@ -68,6 +69,7 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void focusInEvent(QFocusEvent *event);
     void focusOutEvent(QFocusEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     bool sceneEvent(QEvent *event);
 
   private:

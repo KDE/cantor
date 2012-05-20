@@ -44,6 +44,7 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textIt
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
+    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImage()));
 }
 
 TextEntry::~TextEntry()
@@ -201,6 +202,7 @@ bool TextEntry::evaluate(int evalOp)
         cursor = findLatexCode(doc, cursor);
     }
 
+    m_textItem->updateGeometry();
     layout()->updateGeometry();
     evaluateNext(evalOp);
 
@@ -226,6 +228,25 @@ void TextEntry::updateEntry()
         }
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+    m_textItem->updateGeometry();
+    layout()->updateGeometry();
+}
+
+void TextEntry::resolveImage()
+{
+    QTextCursor cursor = m_textItem->textCursor();
+    // When there is no latex image under the current cursor try the next
+    // position, but only once.
+    for (int i = 2; i; --i) {
+	if (m_textItem->document()->characterAt(cursor.position()-1) == QChar::ObjectReplacementCharacter &&
+	    cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
+	    showLatexCode(cursor);
+	    m_textItem->updateGeometry();
+	    layout()->updateGeometry();
+	    return;
+	}
+	cursor.movePosition(QTextCursor::NextCharacter);
     }
 }
 

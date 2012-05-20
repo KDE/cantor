@@ -228,6 +228,13 @@ void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	emit cursorPositionChanged(textCursor());
 }
 
+void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+    Q_UNUSED(event)
+
+    emit doubleClick();
+}
+
 void WorksheetTextItem::insertTab()
 {
     QTextLayout *layout = textCursor().block().layout();
