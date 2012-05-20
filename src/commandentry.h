@@ -65,7 +65,6 @@ class CommandEntry : public WorksheetEntry
     QDomElement toXml(QDomDocument& doc, KZip* archive);
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
-    void showCompletion();
     void setCompletion(Cantor::CompletionObject* tc);
     void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
@@ -85,6 +84,8 @@ class CommandEntry : public WorksheetEntry
     bool evaluateCommand();
     void addInformation();
 
+    void showCompletion();
+    void selectPreviousCompletion();
     void updateEntry();
     void updatePrompt();
     void expressionChangedStatus(Cantor::Expression::Status status);
@@ -100,6 +101,8 @@ class CommandEntry : public WorksheetEntry
     WorksheetView* worksheetView();
     bool informationItemHasFocus();
     bool focusWithinThisItem();
+
+    QPoint toGlobalPosition(const QPointF& localPos);
 
   private:
     enum CompletionMode {

@@ -35,6 +35,8 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutIte
 {
     setTextInteractionFlags(Qt::TextEditorInteraction);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    m_completionEnabled = false;
+    m_completionActive = false;
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -67,7 +69,7 @@ QPointF WorksheetTextItem::localCursorPosition() const
     QTextLine line = block.layout()->lineForTextPosition(p);
     if (!line.isValid()) // this can happen for empty lines
 	return block.layout()->position();
-    return QPointF(line.cursorToX(p), line.y());
+    return QPointF(line.cursorToX(p), line.y() + line.height());
 }
 
 void WorksheetTextItem::setEditable(bool e)
@@ -81,6 +83,16 @@ void WorksheetTextItem::setEditable(bool e)
 bool WorksheetTextItem::isEditable()
 {
     return textInteractionFlags() & Qt::TextEditable;
+}
+
+void WorksheetTextItem::enableCompletion(bool e)
+{
+    m_completionEnabled = e;
+}
+
+void WorksheetTextItem::activateCompletion(bool a)
+{
+    m_completionActive = a;
 }
 
 void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
@@ -147,14 +159,13 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	    return;
 	}
 	break;
-    case Qt::Key_Tab:
-	emit tabPressed();
-	// returning here should probably be optional
-	return;
     case Qt::Key_Enter:
     case Qt::Key_Return:
 	if (event->modifiers() == Qt::ShiftModifier) {
 	    emit execute();
+	    return;
+	} else if (event->modifiers() == Qt::NoModifier && m_completionActive) {
+	    emit applyCompletion();
 	    return;
 	}
 	break;
@@ -162,17 +173,54 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	break;
     }
     qreal h = boundingRect().height();
-    this->QGraphicsTextItem::keyPressEvent(event);
+    this->WorksheetStaticTextItem::keyPressEvent(event);
     if (h != boundingRect().height()) {
 	updateGeometry();
 	emit sizeChanged();
     }
 }
 
+bool WorksheetTextItem::sceneEvent(QEvent *event)
+{
+    // QGraphicsTextItem's TabChangesFocus feature prevents calls to
+    // keyPressEvent for Tab, even when it's turned off. So we got to catch
+    // that here.
+    if (event->type() == QEvent::KeyPress) {
+	QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
+	if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
+	    if (!m_completionEnabled)
+		insertTab();
+	    else
+		emit tabPressed();
+	    return true;
+	} else if ((kev->key() == Qt::Key_Tab && 
+		    kev->modifiers() == Qt::ShiftModifier) ||
+		   kev->key() == Qt::Key_Backtab) {
+	    emit backtabPressed();
+	    return true;
+	}
+    }
+    return WorksheetStaticTextItem::sceneEvent(event);
+}
+
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
-    QGraphicsTextItem::focusInEvent(event);
+    WorksheetStaticTextItem::focusInEvent(event);
     emit receivedFocus(document());
 }
+
+void WorksheetTextItem::insertTab()
+{
+    QTextLayout *layout = textCursor().block().layout();
+    if (!layout) {
+	textCursor().insertText("    ");
+	return;
+    }
+    QTextLine line = layout->lineAt(textCursor().position());
+    int i = textCursor().position() - line.textStart();
+    i = ((i+4) & (~3)) - i;
+    textCursor().insertText(QString(' ').repeated(i));
+}
+
 
 #include "worksheettextitem.moc"

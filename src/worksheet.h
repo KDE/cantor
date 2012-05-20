@@ -119,6 +119,7 @@ class Worksheet : public QGraphicsScene
 
   private slots:
     void loginToSession();
+    void showCompletion();
     //void checkEntriesForSanity();
 
     WorksheetEntry* appendEntry(int type);

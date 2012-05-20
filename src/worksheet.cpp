@@ -195,12 +195,11 @@ bool Worksheet::completionEnabled()
     return m_completionEnabled;
 }
 
-/*void Worksheet::showCompletion()
+void Worksheet::showCompletion()
 {
     WorksheetEntry* current = currentEntry();
     current->showCompletion();
 }
-*/
 
 WorksheetEntry* Worksheet::appendEntry(const int type)
 {

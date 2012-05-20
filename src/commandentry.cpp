@@ -58,6 +58,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     m_verticalLayout = new QGraphicsLinearLayout(Qt::Vertical, horizontalLayout);
     horizontalLayout->addItem(m_verticalLayout);
     m_commandItem = new WorksheetTextItem(this, m_verticalLayout);
+    m_commandItem->enableCompletion(true);
     m_verticalLayout->addItem(m_commandItem);
     m_errorItem = 0;
     m_resultItem = 0;
@@ -67,10 +68,14 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     this->setLayout(horizontalLayout);
     horizontalLayout->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
 
+    connect(m_commandItem, SIGNAL(tabPressed()), this, SLOT(showCompletion()));
+    connect(m_commandItem, SIGNAL(backtabPressed()), 
+	    this, SLOT(selectPreviousCompletion()));
+    connect(m_commandItem, SIGNAL(applyCompletion()), 
+	    this, SLOT(applySelectedCompletion()));
     connect(m_commandItem, SIGNAL(sizeChanged()), 
     	    this, SLOT(recalculateSize()));
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluateCommand()));
-
     connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
 	    this, SLOT(moveToPreviousEntry(int, qreal)));
     connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
@@ -201,6 +206,12 @@ void CommandEntry::showCompletion()
         if(tco)
             setCompletion(tco);
     }
+}
+
+void CommandEntry::selectPreviousCompletion()
+{
+    if (isShowingCompletionPopup())
+	m_completionBox->up();
 }
 
 QString CommandEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
@@ -411,11 +422,10 @@ void CommandEntry::showCompletions()
 		SLOT(completedLineChanged()));
 	connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
 
+	m_commandItem->activateCompletion(true);
 	QPointF cursorPos = m_commandItem->cursorPosition();
-	cursorPos = mapToScene(cursorPos);
-	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPos);
 	m_completionBox->popup();
-	m_completionBox->move(worksheetView()->mapToGlobal(popupPoint));
+	m_completionBox->move(toGlobalPosition(cursorPos));
     } else
     {
 	completeCommandTo(completion, FinalCompletion);
@@ -464,10 +474,7 @@ void CommandEntry::updateCompletions()
 	    m_completionBox->setCurrentItem(items.first());
 
 	QPointF cursorPos = m_commandItem->cursorPosition();
-	cursorPos = mapToScene(cursorPos);
-	const QPoint popupPoint = worksheetView()->mapFromScene(cursorPos);
-	//m_completionBox->popup();
-	m_completionBox->move(worksheetView()->mapToGlobal(popupPoint));
+	m_completionBox->move(toGlobalPosition(cursorPos));
     } else
     {
         removeContextHelp();
@@ -527,12 +534,9 @@ void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
 void CommandEntry::showSyntaxHelp()
 {
     const QString& msg = m_syntaxHelpObject->toHtml();
-    QPointF cursorPos = m_commandItem->cursorPosition();
-    cursorPos = mapToScene(cursorPos);
-    const QPoint popupPoint = worksheetView()->mapFromScene(cursorPos);
-    const QPoint pos = worksheetView()->mapToGlobal(popupPoint);
+    const QPointF cursorPos = m_commandItem->cursorPosition();
 
-    QToolTip::showText(pos, msg, worksheetView());
+    QToolTip::showText(toGlobalPosition(cursorPos), msg, worksheetView());
 }
 
 void CommandEntry::resultDeleted()
@@ -591,6 +595,7 @@ void CommandEntry::removeContextHelp()
     if(m_completionObject)
         m_completionObject->deleteLater();
 
+    m_commandItem->activateCompletion(false);
     m_completionObject = 0;
     if (m_completionBox)
 	m_completionBox->hide();
@@ -659,4 +664,11 @@ bool CommandEntry::focusWithinThisItem()
 void CommandEntry::invalidate()
 {
     kDebug() << "ToDo: Invalidate here";
+}
+
+QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
+{
+    const QPointF scenePos = mapToScene(localPos);
+    const QPoint viewportPos = worksheetView()->mapFromScene(scenePos);
+    return worksheetView()->viewport()->mapToGlobal(viewportPos);
 }

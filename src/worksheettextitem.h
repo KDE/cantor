@@ -46,24 +46,36 @@ class WorksheetTextItem : public WorksheetStaticTextItem
 
     void setFocusAt(int pos = TopLeft, qreal xCoord = 0);
 
+    void enableCompletion(bool e);
+    void activateCompletion(bool a);
+
   signals:
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
     void receivedFocus(QTextDocument*);
     void tabPressed();
+    void backtabPressed();
+    void applyCompletion();
     void execute();
     void sizeChanged();
+
+  public slots:
+    void insertTab();
 
   protected:
     void keyPressEvent(QKeyEvent *event);
     void focusInEvent(QFocusEvent *event);
+    bool sceneEvent(QEvent *event);
 
   private:
     void setLocalCursorPosition(const QPointF& pos);
     QPointF localCursorPosition() const;
 
-  private:
     Cantor::Session* session();
+
+  private:
+    bool m_completionEnabled;
+    bool m_completionActive;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H
