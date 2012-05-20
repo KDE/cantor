@@ -59,6 +59,7 @@ void WorksheetTextItem::setLocalCursorPosition(const QPointF& pos)
     QTextCursor cursor = textCursor();
     cursor.setPosition(p);
     setTextCursor(cursor);
+    emit cursorPositionChanged(cursor);
 }
 
 QPointF WorksheetTextItem::localCursorPosition() const
@@ -118,6 +119,7 @@ void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
 	cursor.setPosition(p);
     }
     setTextCursor(cursor);
+    emit cursorPositionChanged(cursor);
     setFocus();
 }
 
@@ -130,21 +132,21 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
     case Qt::Key_Left:
-	if (textCursor().atStart()) {
+	if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {
 	    emit moveToPrevious(BottomRight, 0);
 	    kDebug()<<"Reached leftmost valid position";
 	    return;
 	}
 	break;
     case Qt::Key_Right:
-	if (textCursor().atEnd()) {
+	if (event->modifiers() == Qt::NoModifier && textCursor().atEnd()) {
 	    emit moveToNext(TopLeft, 0);
 	    kDebug()<<"Reached rightmost valid position";
 	    return;
 	}
 	break;
     case Qt::Key_Up:
-	if (!textCursor().movePosition(QTextCursor::Up)) {
+	if (event->modifiers() == Qt::NoModifier && !textCursor().movePosition(QTextCursor::Up)) {
 	    qreal x = mapToScene(localCursorPosition()).x();
 	    emit moveToPrevious(BottomCoord, x);
 	    kDebug()<<"Reached topmost valid position" << localCursorPosition().x();
@@ -152,7 +154,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	}
 	break;
     case Qt::Key_Down:
-	if (!textCursor().movePosition(QTextCursor::Down)) {
+	if (event->modifiers() == Qt::NoModifier && !textCursor().movePosition(QTextCursor::Down)) {
 	    qreal x = mapToScene(localCursorPosition()).x();
 	    emit moveToNext(TopCoord, x);
 	    kDebug()<<"Reached bottommost valid position" << localCursorPosition().x();
@@ -173,11 +175,14 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	break;
     }
     qreal h = boundingRect().height();
+    int p = textCursor().position();
     this->WorksheetStaticTextItem::keyPressEvent(event);
     if (h != boundingRect().height()) {
 	updateGeometry();
 	emit sizeChanged();
     }
+    if (p != textCursor().position())
+	emit cursorPositionChanged(textCursor());
 }
 
 bool WorksheetTextItem::sceneEvent(QEvent *event)
@@ -206,7 +211,21 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
     WorksheetStaticTextItem::focusInEvent(event);
-    emit receivedFocus(document());
+    emit receivedFocus(this);
+}
+
+void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
+{
+    WorksheetStaticTextItem::focusOutEvent(event);
+    emit cursorPositionChanged(QTextCursor());
+}
+
+void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    int p = textCursor().position();
+    WorksheetStaticTextItem::mousePressEvent(event);
+    if (p != textCursor().position())
+	emit cursorPositionChanged(textCursor());
 }
 
 void WorksheetTextItem::insertTab()
@@ -214,12 +233,14 @@ void WorksheetTextItem::insertTab()
     QTextLayout *layout = textCursor().block().layout();
     if (!layout) {
 	textCursor().insertText("    ");
-	return;
+    } else {
+	QTextLine line = layout->lineAt(textCursor().position());
+	int i = textCursor().position() - line.textStart();
+	i = ((i+4) & (~3)) - i;
+	textCursor().insertText(QString(' ').repeated(i));
     }
-    QTextLine line = layout->lineAt(textCursor().position());
-    int i = textCursor().position() - line.textStart();
-    i = ((i+4) & (~3)) - i;
-    textCursor().insertText(QString(' ').repeated(i));
+
+    emit cursorPositionChanged(textCursor());
 }
 
 

@@ -39,6 +39,7 @@ namespace Cantor {
 
 class ResultProxy;
 class WorksheetEntry;
+class WorksheetTextItem;
 
 class Worksheet : public QGraphicsScene
 {
@@ -93,7 +94,7 @@ class Worksheet : public QGraphicsScene
     bool completionEnabled();
     //void showCompletion();
 
-    void highlightDocument(QTextDocument*);
+    void highlightItem(WorksheetTextItem*);
 
     void enableHighlighting(bool highlight);
     void enableCompletion(bool enable);

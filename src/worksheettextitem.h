@@ -52,7 +52,8 @@ class WorksheetTextItem : public WorksheetStaticTextItem
   signals:
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
-    void receivedFocus(QTextDocument*);
+    void cursorPositionChanged(QTextCursor);
+    void receivedFocus(WorksheetTextItem*);
     void tabPressed();
     void backtabPressed();
     void applyCompletion();
@@ -65,6 +66,8 @@ class WorksheetTextItem : public WorksheetStaticTextItem
   protected:
     void keyPressEvent(QKeyEvent *event);
     void focusInEvent(QFocusEvent *event);
+    void focusOutEvent(QFocusEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
     bool sceneEvent(QEvent *event);
 
   private:

@@ -20,6 +20,8 @@
  */
 
 #include <QGraphicsWidget>
+#include <QTextLayout>
+#include <QTextDocument>
 #include <QTimer>
 #include <QXmlQuery>
 
@@ -40,7 +42,7 @@
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
 
-Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent) 
+Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
 {
     m_session = backend->createSession();
@@ -266,10 +268,10 @@ void Worksheet::appendCommandEntry(const QString& text)
 WorksheetEntry* Worksheet::insertEntry(const int type)
 {
     WorksheetEntry *current = currentEntry();
-    
+
     if (!current)
 	return 0;
-    
+
     WorksheetEntry *next = current->next();
     WorksheetEntry *entry = 0;
 
@@ -333,10 +335,10 @@ void Worksheet::insertCommandEntry(const QString& text)
 WorksheetEntry* Worksheet::insertEntryBefore(int type)
 {
     WorksheetEntry *current = currentEntry();
-    
+
     if (!current)
 	return 0;
-    
+
     WorksheetEntry *prev = current->previous();
     WorksheetEntry *entry = 0;
 
@@ -397,10 +399,36 @@ void Worksheet::interruptCurrentEntryEvaluation()
     currentEntry()->interruptEvaluation();
 }
 
-void Worksheet::highlightDocument(QTextDocument* doc)
+void Worksheet::highlightItem(WorksheetTextItem* item)
 {
-    if (m_highlighter)
-	m_highlighter->setDocument(doc);
+    if (!m_highlighter)
+	return;
+
+    QTextDocument *oldDocument = m_highlighter->document();
+    QList<QList<QTextLayout::FormatRange> > formats;
+
+    if (oldDocument)
+	for (QTextBlock b = oldDocument->firstBlock();
+	     b.isValid(); b = b.next())
+	    formats.append(b.layout()->additionalFormats());
+
+    // Not every highlighter is a Cantor::DefaultHighligther (e.g. the
+    // highlighter for KAlgebra)
+    Cantor::DefaultHighlighter* hl = qobject_cast<Cantor::DefaultHighlighter*>(m_highlighter);
+    if (hl) {
+	hl->setTextItem(item);
+    } else {
+	m_highlighter->setDocument(item->document());
+    }
+
+    if (oldDocument)
+	for (QTextBlock b = oldDocument->firstBlock();
+	     b.isValid(); b = b.next()) {
+
+	    b.layout()->setAdditionalFormats(formats.first());
+	    formats.pop_front();
+	}
+
 }
 
 void Worksheet::enableHighlighting(bool highlight)
@@ -473,7 +501,7 @@ void Worksheet::save( const QString& filename )
 
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
-        KMessageBox::error( worksheetView(),  
+        KMessageBox::error( worksheetView(),
 			    i18n( "Cannot write file %1." , filename ),
                             i18n( "Error - Cantor" ));
         return;
@@ -685,9 +713,14 @@ void Worksheet::removeCurrentEntry()
     WorksheetEntry* next = entry->next();
     delete entry;
 
-    if (!next)
-        next = appendCommandEntry();
-    focusEntry(next);
+    if (!next) {
+	if (entry->previous() && entry->previous()->isEmpty()) {
+	    focusEntry(entry->previous());
+	} else {
+	    next = appendCommandEntry();
+	    focusEntry(next);
+	}
+    }
 }
 
 

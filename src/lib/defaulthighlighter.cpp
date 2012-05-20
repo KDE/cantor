@@ -22,7 +22,9 @@
 #include "defaulthighlighter.h"
 
 #include <QtCore/QLocale>
-#include <QTextEdit>
+#include <QTextDocument>
+#include <QTextCursor>
+#include <QGraphicsTextItem>
 #include <kcolorscheme.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
@@ -44,7 +46,7 @@ bool operator==(const HighlightingRule& rule1, const HighlightingRule& rule2)
 class Cantor::DefaultHighlighterPrivate
 {
   public:
-    //QTextEdit* parent;
+    QTextCursor cursor;
 
     //Character formats to use for the highlighing
     QTextCharFormat functionFormat;
@@ -71,7 +73,7 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
 	: QSyntaxHighlighter(parent),
 	d(new DefaultHighlighterPrivate)
 {
-    //d->parent=parent;
+    d->cursor = QTextCursor();
     d->lastBlockNumber=-1;
     d->lastPosition=-1;
 
@@ -81,22 +83,37 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
 
     updateFormats();
     connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
-    //connect(parent, SIGNAL(cursorPositionChanged()), this, SLOT(positionChanged()));
 }
 
-DefaultHighlighter::~ DefaultHighlighter()
+DefaultHighlighter::~DefaultHighlighter()
 {
     delete d;
 }
 
+void DefaultHighlighter::setTextItem(QGraphicsTextItem* item)
+{
+    d->cursor = item->textCursor();
+    setDocument(item->document());
+    // make sure every item is connected only once
+    item->disconnect(this, SLOT(positionChanged(QTextCursor)));
+    // QGraphicsTextItem has no signal cursorPositionChanged, but item really
+    // is a WorksheetTextItem
+    connect(item, SIGNAL(cursorPositionChanged(QTextCursor)),
+	    this, SLOT(positionChanged(QTextCursor)));
+
+    d->lastBlockNumber = -1;
+    d->lastPosition = -1;
+}
+
 bool DefaultHighlighter::skipHighlighting(const QString& text)
 {
-    return (text.isEmpty() || currentBlockType() == NoHighlightBlock || currentBlockType() == UnknownBlock );
+    return text.isEmpty();
 }
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    QTextCursor cursor;
+    kDebug() << text;
+    const QTextCursor& cursor = d->cursor;
     d->lastBlockNumber = cursor.blockNumber();
 
     if (skipHighlighting(text))
@@ -116,15 +133,15 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    //const QTextCursor& cursor = d->parent->textCursor();
+    kDebug() << text;
+    const QTextCursor& cursor = d->cursor;
     int cursorPos = -1;
-    /*
-    if ( cursor.blockNumber() == currentBlock().blockNumber() ) {
+    if (cursor.blockNumber() == currentBlock().blockNumber() ) {
         cursorPos = cursor.position() - currentBlock().position();
         // when text changes, this will be called before the positionChanged signal
         // gets emitted. Hence update the position so we don't highlight twice
         d->lastPosition = cursor.position();
-	}*/
+    }
 
     // positions of opened pairs
     // key: same index as the opener has in d->pairs
@@ -246,14 +263,6 @@ void DefaultHighlighter::highlightRegExps(const QString& text)
     }
 }
 
-DefaultHighlighter::BlockType DefaultHighlighter::currentBlockType()
-{
-    QTextBlock block=currentBlock();
-    BlockType type=(BlockType) block.charFormat().intProperty(BlockTypeProperty);
-
-    return type;
-}
-
 QTextCharFormat DefaultHighlighter::functionFormat() const
 {
     return d->functionFormat;
@@ -337,14 +346,25 @@ void DefaultHighlighter::updateFormats()
     d->matchingPairFormat.setBackground(scheme.background(KColorScheme::NeutralBackground));
 }
 
-/*
-void DefaultHighlighter::positionChanged()
-{
-    const QTextCursor& cursor = d->parent->textCursor();
 
-    if ( cursor.blockNumber() != d->lastBlockNumber ) {
+void DefaultHighlighter::positionChanged(QTextCursor cursor)
+{
+    if (!cursor.isNull() && cursor.document() != document())
+	// A new item notified us, but we did not yet change our document.
+	// We are waiting for that to happen.
+	return;
+
+    d->cursor = cursor;
+    if ( (cursor.isNull() || cursor.blockNumber() != d->lastBlockNumber) &&
+	 d->lastBlockNumber >= 0 ) {
         // remove highlight from last focused block
-        rehighlightBlock(d->parent->document()->findBlockByNumber(d->lastBlockNumber));
+        rehighlightBlock(document()->findBlockByNumber(d->lastBlockNumber));
+    }
+
+    if (cursor.isNull()) {
+	d->lastBlockNumber = -1;
+	d->lastPosition = -1;
+	return;
     }
 
     d->lastBlockNumber = cursor.blockNumber();
@@ -356,7 +376,6 @@ void DefaultHighlighter::positionChanged()
     rehighlightBlock(cursor.block());
     d->lastPosition = cursor.position();
 }
-*/
 
 void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
 {

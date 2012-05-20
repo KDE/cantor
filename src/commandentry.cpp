@@ -80,8 +80,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	    this, SLOT(moveToPreviousEntry(int, qreal)));
     connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
-    connect(m_commandItem, SIGNAL(receivedFocus(QTextDocument*)),
-	    worksheet, SLOT(highlightDocument(QTextDocument*)));
+    connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
+	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
 
 }
 
