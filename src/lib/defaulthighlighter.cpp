@@ -43,6 +43,15 @@ bool operator==(const HighlightingRule& rule1, const HighlightingRule& rule2)
     return rule1.regExp == rule2.regExp;
 }
 
+struct PairOpener {
+    PairOpener() : position(-1), type(-1) { }
+    PairOpener(int p, int t) : position(p), type(t) { }
+
+    int position;
+    int type;
+};
+
+
 class Cantor::DefaultHighlighterPrivate
 {
   public:
@@ -59,6 +68,7 @@ class Cantor::DefaultHighlighterPrivate
     QTextCharFormat commentFormat;
     QTextCharFormat stringFormat;
     QTextCharFormat matchingPairFormat;
+    QTextCharFormat mismatchingPairFormat;
 
     int lastBlockNumber;
     int lastPosition;
@@ -143,55 +153,37 @@ void DefaultHighlighter::highlightPairs(const QString& text)
         d->lastPosition = cursor.position();
     }
 
-    // positions of opened pairs
-    // key: same index as the opener has in d->pairs
-    // value: position in text where it was opened
-    QHash<int, QStack<int>* > opened;
-    QHash<int, QStack<int>* >::iterator it;
+    QStack<PairOpener> opened;
 
-    ///TODO: use setCurrentBlockUserData to keep track of matched pairs
-    ///      of course, keep track of changes and update the cache properly
-    for ( int i = 0; i < text.size(); ++i ) {
-        int idx = d->pairs.indexOf(text[i]);
-        if ( idx != -1 ) {
-            if ( idx % 2 == 0 ) {
-                // opener of a pair
-                it = opened.find(idx);
-                if ( it == opened.end() ) {
-                    it = opened.insert(idx, new QStack<int>());
-                }
-                (*it)->push(i);
-            } else {
-                // closer of a pair, find opener
-                it = opened.find(idx - 1);
-                if ( it == opened.end() || (*it)->isEmpty() ) {
-                    // unmatched
-                    setFormat(i, 1, errorFormat());
-                } else {
-                    // matched
-                    int lastPos = (*it)->pop();
-                    // check if we have to highlight the matched pair
-                    // at the current cursor position
-                    if ( cursorPos != -1 &&
-                        ( lastPos == cursorPos || lastPos == cursorPos - 1 ||
-                            i == cursorPos || i == cursorPos - 1 ) )
-                    {
-                        // yep, we want it highlighted
-                        setFormat(lastPos, 1, matchingPairFormat());
-                        setFormat(i, 1, matchingPairFormat());
-                    }
-                }
-            }
-        }
+    for (int i = 0; i < text.size(); ++i) {
+	int idx = d->pairs.indexOf(text[i]);
+	if (idx == -1)
+	    continue;
+	if (idx % 2 == 0) { //opener of a pair
+	    opened.push(PairOpener(i, idx));
+	} else if (opened.isEmpty()) { //closer with no previous opener
+	    setFormat(i, 1, errorFormat());
+	} else if (opened.top().type == idx - 1) { //closer with matched opener
+	    int openPos = opened.pop().position;
+	    if  (cursorPos != -1 &&
+		 (openPos == cursorPos || openPos == cursorPos - 1 ||
+		  i == cursorPos || i == cursorPos - 1)) {
+		setFormat(openPos, 1, matchingPairFormat());
+		setFormat(i, 1, matchingPairFormat());
+	    }
+	} else { //closer with mismatching opener
+	    int openPos = opened.pop().position;
+	    setFormat(openPos, 1, mismatchingPairFormat());
+	    setFormat(i, 1, mismatchingPairFormat());
+	}
     }
 
     // handled unterminated pairs
-    foreach ( QStack<int>* positions, opened ) {
-        while ( !positions->isEmpty() ) {
-            setFormat(positions->pop(), 1, errorFormat());
-        }
+    while (!opened.isEmpty()) {
+	int position = opened.pop().position;
+	setFormat(position, 1, errorFormat());
     }
-    qDeleteAll(opened.values());
+
 }
 
 void DefaultHighlighter::highlightWords(const QString& text)
@@ -313,6 +305,11 @@ QTextCharFormat DefaultHighlighter::matchingPairFormat() const
     return d->matchingPairFormat;
 }
 
+QTextCharFormat DefaultHighlighter::mismatchingPairFormat() const
+{
+    return d->mismatchingPairFormat;
+}
+
 void DefaultHighlighter::updateFormats()
 {
     //initialize char-formats
@@ -344,6 +341,9 @@ void DefaultHighlighter::updateFormats()
 
     d->matchingPairFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
     d->matchingPairFormat.setBackground(scheme.background(KColorScheme::NeutralBackground));
+
+    d->mismatchingPairFormat.setForeground(scheme.foreground(KColorScheme::NegativeText));
+    d->mismatchingPairFormat.setBackground(scheme.background(KColorScheme::NegativeBackground));
 }
 
 

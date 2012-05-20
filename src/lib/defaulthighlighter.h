@@ -82,6 +82,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     QTextCharFormat commentFormat() const;
     QTextCharFormat stringFormat() const;
     QTextCharFormat matchingPairFormat() const;
+    QTextCharFormat mismatchingPairFormat() const;
 
     /**
      * Call this to add a pair of symbols for highlighting.
