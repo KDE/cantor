@@ -52,7 +52,7 @@ class LatexEntry : public WorksheetEntry
 
   public slots:
     bool evaluate(int evalOp = 0);
-    void resolveImage();
+    void resolveImageAtCursor();
     void updateEntry();
 
   private:

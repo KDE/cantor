@@ -200,9 +200,9 @@ void CommandEntry::showCompletion()
 	} else {
 	    m_completionBox->down();
 	}
-    } else
-    {
-        Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, m_commandItem->textCursor().positionInBlock());
+    } else {
+	int p = m_commandItem->textCursor().positionInBlock();
+        Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, p);
         if(tco)
             setCompletion(tco);
     }

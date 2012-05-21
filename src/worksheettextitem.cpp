@@ -30,7 +30,7 @@
 
 #include <kdebug.h>
 
-WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent) 
+WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent)
     : WorksheetStaticTextItem(parent, lparent)
 {
     setTextInteractionFlags(Qt::TextEditorInteraction);
@@ -66,9 +66,9 @@ QPointF WorksheetTextItem::localCursorPosition() const
 {
     QTextCursor cursor = textCursor();
     QTextBlock block = cursor.block();
-    int p = cursor.position();
+    int p = cursor.position() - block.position();
     QTextLine line = block.layout()->lineForTextPosition(p);
-    if (!line.isValid()) // this can happen for empty lines
+    if (!line.isValid()) // can this happen?
 	return block.layout()->position();
     return QPointF(line.cursorToX(p), line.y() + line.height());
 }
@@ -114,9 +114,13 @@ void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
 	    line = layout->lineAt(document()->lastBlock().lineCount()-1);
 	}
 	qreal x = mapFromScene(xCoord, 0).x();
-	kDebug() << x;
 	int p = line.xToCursor(x);
 	cursor.setPosition(p);
+	// Hack: The code for selecting the last line above does not work.
+	// This is a workaround
+	if (pos == BottomCoord)
+	    while (cursor.movePosition(QTextCursor::Down))
+		;
     }
     setTextCursor(cursor);
     emit cursorPositionChanged(cursor);
@@ -193,12 +197,31 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
     if (event->type() == QEvent::KeyPress) {
 	QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
 	if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
-	    if (!m_completionEnabled)
+	    QTextCursor cursor = textCursor();
+	    // maybe we can do something smart with selections here,
+	    // but for now we just ignore them.
+	    cursor.clearSelection();
+	    cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
+	    QString sel = cursor.selectedText();
+	    bool spacesOnly = true;
+	    for (QString::iterator it = sel.begin(); it != sel.end(); ++it) {
+		if (*it != ' ') {
+		    spacesOnly = false;
+		    break;
+		}
+	    }
+
+	    if (spacesOnly) {
+		cursor.setPosition(cursor.selectionEnd());
+		while (document()->characterAt(cursor.position()) == ' ')
+		    cursor.movePosition(QTextCursor::NextCharacter);
+		setTextCursor(cursor);
 		insertTab();
-	    else
+	    } else if (m_completionEnabled) {
 		emit tabPressed();
+	    }
 	    return true;
-	} else if ((kev->key() == Qt::Key_Tab && 
+	} else if ((kev->key() == Qt::Key_Tab &&
 		    kev->modifiers() == Qt::ShiftModifier) ||
 		   kev->key() == Qt::Key_Backtab) {
 	    emit backtabPressed();
@@ -230,23 +253,44 @@ void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    Q_UNUSED(event)
+    QTextCursor cursor = textCursor();
+    const QChar repl = QChar::ObjectReplacementCharacter;
 
-    emit doubleClick();
+    if (!cursor.hasSelection()) {
+	// We look at the current cursor and the next cursor for a
+	// ObjectReplacementCharacter
+	for (int i = 2; i; --i) {
+	    if (document()->characterAt(cursor.position()-1) == repl) {
+		setTextCursor(cursor);
+		emit doubleClick();
+		return;
+	    }
+	    cursor.movePosition(QTextCursor::NextCharacter);
+	}
+    } else if (cursor.selectedText().contains(repl)) {
+	emit doubleClick();
+	return;
+    }
+
+    WorksheetStaticTextItem::mouseDoubleClickEvent(event);
 }
 
 void WorksheetTextItem::insertTab()
 {
     QTextLayout *layout = textCursor().block().layout();
+    QTextCursor cursor = textCursor();
     if (!layout) {
-	textCursor().insertText("    ");
+	cursor.insertText("    ");
     } else {
-	QTextLine line = layout->lineAt(textCursor().position());
-	int i = textCursor().position() - line.textStart();
+	cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
+	int i = cursor.selectionEnd() - cursor.selectionStart();
 	i = ((i+4) & (~3)) - i;
-	textCursor().insertText(QString(' ').repeated(i));
+	cursor.setPosition(cursor.selectionEnd());
+	cursor.insertText(QString(' ').repeated(i));
     }
-
+    // without this line subsequent cursor movement up or down uses the old
+    // position
+    setTextCursor(cursor);
     emit cursorPositionChanged(textCursor());
 }
 

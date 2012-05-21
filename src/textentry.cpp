@@ -44,7 +44,7 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textIt
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImage()));
+    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImageAtCursor()));
 }
 
 TextEntry::~TextEntry()
@@ -233,20 +233,31 @@ void TextEntry::updateEntry()
     layout()->updateGeometry();
 }
 
-void TextEntry::resolveImage()
+void TextEntry::resolveImageAtCursor()
 {
+    int start;
+    int end;
     QTextCursor cursor = m_textItem->textCursor();
-    // When there is no latex image under the current cursor try the next
-    // position, but only once.
-    for (int i = 2; i; --i) {
-	if (m_textItem->document()->characterAt(cursor.position()-1) == QChar::ObjectReplacementCharacter &&
+
+    if (cursor.hasSelection()) {
+	start = cursor.selectionStart() + 1;
+	end = cursor.selectionEnd();
+	cursor.clearSelection();
+    } else {
+	start = cursor.position();
+	end = cursor.position();
+    }
+
+    kDebug() << "resolving from" << start << "to" << end;
+    for (int p = start; p <= end; ++p) {
+	cursor.setPosition(p);
+	if (m_textItem->document()->characterAt(p-1) == QChar::ObjectReplacementCharacter &&
 	    cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
-	    showLatexCode(cursor);
+	    QString latexCode = showLatexCode(cursor);
+	    end += latexCode.length() - 1;
 	    m_textItem->updateGeometry();
 	    layout()->updateGeometry();
-	    return;
 	}
-	cursor.movePosition(QTextCursor::NextCharacter);
     }
 }
 
@@ -267,9 +278,11 @@ QTextCursor TextEntry::findLatexCode(QTextDocument *doc, QTextCursor cursor) con
     return startCursor;
 }
 
-void TextEntry::showLatexCode(QTextCursor cursor)
+QString TextEntry::showLatexCode(QTextCursor cursor)
 {
     QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
     cursor.deletePreviousChar();
-    cursor.insertText("$$"+latexCode+"$$");
+    latexCode = "$$"+latexCode+"$$";
+    cursor.insertText(latexCode);
+    return latexCode;
 }

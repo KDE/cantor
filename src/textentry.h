@@ -61,12 +61,12 @@ class TextEntry : public WorksheetEntry
 
   public slots:
     bool evaluate(int evalOp = 0);
-    void resolveImage();
+    void resolveImageAtCursor();
     void updateEntry();
 
   private:
     QTextCursor findLatexCode(QTextDocument *doc, QTextCursor cursor = QTextCursor()) const;
-    void showLatexCode(QTextCursor cursor);
+    QString showLatexCode(QTextCursor cursor);
 
   private:
     WorksheetTextItem* m_textItem;
