@@ -28,6 +28,7 @@
 #include <QSyntaxHighlighter>
 
 #include <KZip>
+#include <KMenu>
 
 #include "worksheetview.h"
 
@@ -64,6 +65,9 @@ class Worksheet : public QGraphicsScene
     WorksheetView* worksheetView();
 
     void setModified();
+
+    KMenu* createContextMenu();
+    void populateMenu(KMenu* menu);
 
   public slots:
     WorksheetEntry* appendCommandEntry();
@@ -117,6 +121,8 @@ class Worksheet : public QGraphicsScene
     void showHelp(const QString& help);
     void updatePrompt();
 
+  protected:
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 
   private slots:
     void loginToSession();

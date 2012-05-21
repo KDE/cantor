@@ -39,7 +39,7 @@ class FormulaTextObject : public QObject, public QTextObjectInterface
 	
   public:
     enum { FormulaTextFormat = QTextFormat::UserObject + 1 };
-    enum FormulaProperties { LatexCode = 1, FormulaType = 2, Data = 3, ResourceUrl = 4 };
+    enum FormulaProperties { LatexCode = 1, FormulaType = 2, Data = 3, ResourceUrl = 4, Delimiter = 5 };
     enum FormulaType { LatexFormula=0, MmlFormula=1 };
     
 

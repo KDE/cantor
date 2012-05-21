@@ -4,6 +4,8 @@
 #include "textentry.h"
 #include "latexentry.h"
 
+#include <KIcon>
+#include <KLocale>
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsWidget()
 {
@@ -103,6 +105,22 @@ void WorksheetEntry::recalculateSize()
 Worksheet* WorksheetEntry::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
+}
+
+void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    KMenu *menu = worksheet()->createContextMenu();
+    populateMenu(menu);
+
+    menu->popup(event->screenPos());
+}
+
+void WorksheetEntry::populateMenu(KMenu *menu)
+{
+    if (!worksheet()->isRunning() && wantToEvaluate())
+	menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
+
+    worksheet()->populateMenu(menu);
 }
 
 void WorksheetEntry::evaluateNext(int opt)

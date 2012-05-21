@@ -49,6 +49,10 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void enableCompletion(bool e);
     void activateCompletion(bool a);
 
+    void populateMenu(KMenu *menu);
+
+    QString resolveImages(const QTextCursor& cursor);
+
   signals:
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
@@ -63,6 +67,9 @@ class WorksheetTextItem : public WorksheetStaticTextItem
 
   public slots:
     void insertTab();
+    void copy();
+    void cut();
+    void paste();
 
   protected:
     void keyPressEvent(QKeyEvent *event);

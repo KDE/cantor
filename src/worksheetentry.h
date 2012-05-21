@@ -22,6 +22,7 @@
 #define WORKSHEETENTRY_H
 
 #include <QGraphicsWidget>
+#include <QGraphicsSceneContextMenuEvent>
 
 #include "worksheet.h"
 #include "worksheettextitem.h"
@@ -37,7 +38,7 @@ class WorksheetEntry : public QGraphicsWidget
   Q_OBJECT
   public:
     WorksheetEntry(Worksheet* worksheet);
-    ~WorksheetEntry();
+    virtual ~WorksheetEntry();
 
     enum {Type = UserType};
 
@@ -67,6 +68,8 @@ class WorksheetEntry : public QGraphicsWidget
 
     virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
+    virtual void populateMenu(KMenu *menu);
+
     enum EvaluationOption {
 	FocusedItemOnly = 1,
 	EvaluateNextEntries = 2
@@ -81,7 +84,10 @@ class WorksheetEntry : public QGraphicsWidget
 
   protected:
     Worksheet* worksheet();
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void evaluateNext(int opt);
+
+    virtual bool wantToEvaluate() = 0;
 
   private:
     WorksheetEntry* m_prev;

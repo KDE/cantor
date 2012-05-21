@@ -723,5 +723,62 @@ void Worksheet::removeCurrentEntry()
     }
 }
 
+KMenu* Worksheet::createContextMenu()
+{
+    KMenu *menu = new KMenu(worksheetView());
+    connect(menu, SIGNAL(aboutToHide()), menu, SLOT(deleteLater()));
+
+    return menu;
+}
+
+void Worksheet::populateMenu(KMenu *menu)
+{
+    WorksheetEntry* entry = currentEntry();
+
+    if (!isRunning())
+	menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
+			this, SLOT(evaluate()), 0);
+    else
+	menu->addAction(KIcon("process-stop"), i18n("Interrupt"), this,
+			SLOT(interrupt()), 0);
+    menu->addSeparator();
+
+    if (entry) {
+	KMenu* insert = new KMenu(menu);
+	KMenu* insertBefore = new KMenu(menu);
+
+	insert->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntry()));
+	insert->addAction(i18n("Text Entry"), this, SLOT(insertTextEntry()));
+	insert->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntry()));
+
+	insertBefore->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntryBefore()));
+	insertBefore->addAction(i18n("Text Entry"), this, SLOT(insertTextEntryBefore()));
+	insertBefore->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntryBefore()));
+
+	insert->setTitle(i18n("Insert"));
+	insertBefore->setTitle(i18n("Insert Before"));
+	menu->addMenu(insert);
+	menu->addMenu(insertBefore);
+    } else {
+	menu->addAction(i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
+	menu->addAction(i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
+	menu->addAction(i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
+    }
+}
+
+void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    // forward the event to the items
+    QGraphicsScene::contextMenuEvent(event);
+
+    if (!event->isAccepted()) {
+	event->accept();
+	KMenu *menu = createContextMenu();
+	populateMenu(menu);
+
+	menu->popup(event->screenPos());
+    }
+}
+
 
 #include "worksheet.moc"

@@ -50,10 +50,15 @@ class LatexEntry : public WorksheetEntry
 
     void interruptEvaluation();
 
+    void populateMenu(KMenu *menu);
+
   public slots:
     bool evaluate(int evalOp = 0);
-    void resolveImageAtCursor();
+    void resolveImagesAtCursor();
     void updateEntry();
+
+  protected:
+    bool wantToEvaluate();
 
   private:
     QString latexCode();

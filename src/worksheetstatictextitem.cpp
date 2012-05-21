@@ -19,10 +19,17 @@
  */
 
 #include "worksheetstatictextitem.h"
+#include "worksheet.h"
+#include "worksheetentry.h"
 
 #include <QTextDocument>
-#include <kglobalsettings.h>
+#include <QTextCursor>
+#include <QApplication>
+#include <QClipboard>
 
+#include <kglobalsettings.h>
+#include <KStandardAction>
+#include <KAction>
 #include "kdebug.h"
 
 WorksheetStaticTextItem::WorksheetStaticTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent) :
@@ -67,6 +74,39 @@ QSizeF WorksheetStaticTextItem::sizeHint(Qt::SizeHint which, const QSizeF & cons
     default: // I don't think any other values are possible here
 	return QSizeF();
     }
+}
+
+void WorksheetStaticTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    Worksheet *worksheet = qobject_cast<Worksheet*>(scene());
+
+    KMenu *menu = worksheet->createContextMenu();
+    populateMenu(menu);
+
+    menu->popup(event->screenPos());
+}
+
+void WorksheetStaticTextItem::populateMenu(KMenu *menu)
+{
+    // Hack: If the menu is empty this is not a WorksheetTextItem
+    if (menu->isEmpty()) {
+	KAction *copy = KStandardAction::copy(this, SLOT(copy()), menu);
+	if (!textCursor().hasSelection())
+	    copy->setEnabled(false);
+	menu->addAction(copy);
+    }
+
+    WorksheetEntry *entry = qobject_cast<WorksheetEntry*>(parentObject());
+
+    if (entry)
+	entry->populateMenu(menu);
+}
+
+void WorksheetStaticTextItem::copy()
+{
+    if (!textCursor().hasSelection())
+        return;
+    QApplication::clipboard()->setText(textCursor().selectedText());
 }
 
 #include "worksheetstatictextitem.moc"

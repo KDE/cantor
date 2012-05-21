@@ -31,6 +31,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <KStandardDirs>
+#include <KLocale>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
 {
@@ -44,11 +45,39 @@ LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_text
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImageAtCursor()));
+    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImagesAtCursor()));
 }
 
 LatexEntry::~LatexEntry()
 {
+}
+
+void LatexEntry::populateMenu(KMenu *menu)
+{
+    bool imageSelected;
+    QTextCursor cursor = m_textItem->textCursor();
+    const QChar repl = QChar::ObjectReplacementCharacter;
+    if (cursor.hasSelection()) {
+	QString selection = m_textItem->textCursor().selectedText();
+	imageSelected = selection.contains(repl);
+    } else {
+	// we need to try both the current cursor and the one after the that
+	for (int i = 2; i; --i) {
+	    int p = cursor.position();
+	    if (m_textItem->document()->characterAt(p-1) == repl &&
+		cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
+		m_textItem->setTextCursor(cursor);
+		imageSelected = true;
+		break;
+	    }
+	    cursor.movePosition(QTextCursor::NextCharacter);
+	}
+    }
+    if (imageSelected) {
+	menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
+	menu->addSeparator();
+    }
+    WorksheetEntry::populateMenu(menu);
 }
 
 int LatexEntry::type() const
@@ -244,57 +273,24 @@ void LatexEntry::updateEntry()
     layout()->updateGeometry();
 }
 
-void LatexEntry::resolveImageAtCursor()
+void LatexEntry::resolveImagesAtCursor()
 {
-    int start;
-    int end;
     QTextCursor cursor = m_textItem->textCursor();
-    if (cursor.hasSelection()) {
-	start = cursor.selectionStart() + 1;
-	end = cursor.selectionEnd();
-	cursor.clearSelection();
-    } else {
-	start = cursor.position();
-	end = cursor.position();
-    }
+    if (!cursor.hasSelection())
+	cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
 
-    kDebug() << "resolving from" << start << "to" << end;
-    for (int p = start; p <= end; ++p) {
-	cursor.setPosition(p);
-	if (m_textItem->document()->characterAt(p-1) == QChar::ObjectReplacementCharacter &&
-	    cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
-	    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
-	    cursor.deletePreviousChar();
-	    cursor.insertText(latexCode);
-	    end += latexCode.length() - 1;
-	    m_textItem->updateGeometry();
-	    layout()->updateGeometry();
-	}
-    }
+    cursor.insertText(m_textItem->resolveImages(cursor));
+    m_textItem->updateGeometry();
+    layout()->updateGeometry();
 }
 
 QString LatexEntry::latexCode()
 {
-    QString latex = "";
-    
-    QTextCursor cursor1 = m_textItem->textCursor();
-    cursor1.movePosition(QTextCursor::Start);
-    QTextCursor cursor2 = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    QTextCursor cursor = m_textItem->textCursor();
+    cursor.movePosition(QTextCursor::Start);
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
 
-    // find all rendered images, and concatenate the latex code
-    for(; !cursor2.isNull(); cursor2 = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor1)) 
-    {
-	cursor1.setPosition(cursor2.selectionStart(), QTextCursor::KeepAnchor);
-	latex += cursor1.selectedText();
-	latex += qVariantValue<QString>(cursor2.charFormat().property(FormulaTextObject::LatexCode));
-
-	cursor1.setPosition(cursor2.selectionEnd());
-    }
-
-    cursor1.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-    latex += cursor1.selectedText();
-  
-    return latex;
+    return m_textItem->resolveImages(cursor);
 }
 
 bool LatexEntry::isOneImageOnly()
@@ -306,3 +302,7 @@ bool LatexEntry::isOneImageOnly()
     return (cursor.selectionEnd() == 1 && cursor.selectedText() == QString(QChar::ObjectReplacementCharacter));
 }
 
+bool LatexEntry::wantToEvaluate()
+{
+    return !isOneImageOnly();
+}

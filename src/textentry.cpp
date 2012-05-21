@@ -30,6 +30,7 @@
 
 #include <kdebug.h>
 #include <KUrl>
+#include <KLocale>
 
 TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
 {
@@ -44,11 +45,39 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textIt
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
 	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImageAtCursor()));
+    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImagesAtCursor()));
 }
 
 TextEntry::~TextEntry()
 {
+}
+
+void TextEntry::populateMenu(KMenu *menu)
+{
+    bool imageSelected;
+    QTextCursor cursor = m_textItem->textCursor();
+    const QChar repl = QChar::ObjectReplacementCharacter;
+    if (cursor.hasSelection()) {
+	QString selection = m_textItem->textCursor().selectedText();
+	imageSelected = selection.contains(repl);
+    } else {
+	// we need to try both the current cursor and the one after the that
+	for (int i = 2; i; --i) {
+	    int p = cursor.position();
+	    if (m_textItem->document()->characterAt(p-1) == repl &&
+		cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
+		m_textItem->setTextCursor(cursor);
+		imageSelected = true;
+		break;
+	    }
+	    cursor.movePosition(QTextCursor::NextCharacter);
+	}
+    }
+    if (imageSelected) {
+	menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
+	menu->addSeparator();
+    }
+    WorksheetEntry::populateMenu(menu);
 }
 
 bool TextEntry::isEmpty()
@@ -156,10 +185,7 @@ void TextEntry::interruptEvaluation()
 
 bool TextEntry::evaluate(int evalOp)
 {
-    QTextDocument *doc = m_textItem->document();
-    //blahtex::Interface *translator = m_worksheet->translator();
-
-    QTextCursor cursor = findLatexCode(doc);
+    QTextCursor cursor = findLatexCode();
     while (!cursor.isNull())
     {
         QString latexCode = cursor.selectedText();
@@ -180,7 +206,7 @@ bool TextEntry::evaluate(int evalOp)
         bool success=renderer->renderingSuccessful() && worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
         kDebug()<<"rendering successfull? "<<success;
 	if (!success) {
-	    cursor = findLatexCode(doc, cursor);
+	    cursor = findLatexCode(cursor);
 	    continue;
 	}
 
@@ -195,11 +221,12 @@ bool TextEntry::evaluate(int evalOp)
         formulaFormat.setProperty( FormulaTextObject::ResourceUrl, internal);
         formulaFormat.setProperty( FormulaTextObject::LatexCode, latexCode);
         formulaFormat.setProperty( FormulaTextObject::FormulaType, renderer->method());
+        formulaFormat.setProperty( FormulaTextObject::Delimiter, "$$");
 
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
         delete renderer;
 
-        cursor = findLatexCode(doc, cursor);
+        cursor = findLatexCode(cursor);
     }
 
     m_textItem->updateGeometry();
@@ -233,36 +260,19 @@ void TextEntry::updateEntry()
     layout()->updateGeometry();
 }
 
-void TextEntry::resolveImageAtCursor()
+void TextEntry::resolveImagesAtCursor()
 {
-    int start;
-    int end;
     QTextCursor cursor = m_textItem->textCursor();
-
-    if (cursor.hasSelection()) {
-	start = cursor.selectionStart() + 1;
-	end = cursor.selectionEnd();
-	cursor.clearSelection();
-    } else {
-	start = cursor.position();
-	end = cursor.position();
-    }
-
-    kDebug() << "resolving from" << start << "to" << end;
-    for (int p = start; p <= end; ++p) {
-	cursor.setPosition(p);
-	if (m_textItem->document()->characterAt(p-1) == QChar::ObjectReplacementCharacter &&
-	    cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
-	    QString latexCode = showLatexCode(cursor);
-	    end += latexCode.length() - 1;
-	    m_textItem->updateGeometry();
-	    layout()->updateGeometry();
-	}
-    }
+    if (!cursor.hasSelection())
+	cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+    cursor.insertText(m_textItem->resolveImages(cursor));
+    m_textItem->updateGeometry();
+    layout()->updateGeometry();
 }
 
-QTextCursor TextEntry::findLatexCode(QTextDocument *doc, QTextCursor cursor) const
+QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
 {
+    QTextDocument *doc = m_textItem->document();
     QTextCursor startCursor;
     if (cursor.isNull())
 	startCursor = doc->find("$$");
@@ -285,4 +295,9 @@ QString TextEntry::showLatexCode(QTextCursor cursor)
     latexCode = "$$"+latexCode+"$$";
     cursor.insertText(latexCode);
     return latexCode;
+}
+
+bool TextEntry::wantToEvaluate()
+{
+    return !findLatexCode().isNull();
 }

@@ -20,7 +20,10 @@
 
 #include "worksheettextitem.h"
 #include "worksheet.h"
+#include "formulatextobject.h"
 
+#include <QApplication>
+#include <QClipboard>
 #include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
 #include <QTextCursor>
@@ -29,6 +32,8 @@
 #include <QGraphicsSceneResizeEvent>
 
 #include <kdebug.h>
+#include <KStandardAction>
+#include <KAction>
 
 WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent)
     : WorksheetStaticTextItem(parent, lparent)
@@ -41,6 +46,76 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutIte
 
 WorksheetTextItem::~WorksheetTextItem()
 {
+}
+
+void WorksheetTextItem::populateMenu(KMenu *menu)
+{
+    KAction* cut = KStandardAction::cut(this, SLOT(cut()), menu);
+    KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
+    KAction* paste = KStandardAction::paste(this, SLOT(paste()), menu);
+    if (!textCursor().hasSelection()) {
+	cut->setEnabled(false);
+	copy->setEnabled(false);
+    }
+    if (QApplication::clipboard()->text().isEmpty()) {
+	paste->setEnabled(false);
+    }
+    if (isEditable())
+	menu->addAction(cut);
+    menu->addAction(copy);
+    if (isEditable())
+	menu->addAction(paste);
+    menu->addSeparator();
+
+    WorksheetStaticTextItem::populateMenu(menu);
+}
+
+QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
+{
+    int start = cursor.selectionStart();
+    int end = cursor.selectionEnd();
+
+    const QString repl = QString(QChar::ObjectReplacementCharacter);
+    QString result;
+    QTextCursor cursor1 = textCursor();
+    cursor1.setPosition(start);
+    QTextCursor cursor2 = document()->find(repl, cursor1);
+
+    for (; !cursor2.isNull() && cursor2.selectionEnd() <= end;
+	 cursor2 = document()->find(repl, cursor1)) {
+	cursor1.setPosition(cursor2.selectionStart(), QTextCursor::KeepAnchor);
+	result += cursor1.selectedText();
+	QVariant var = cursor2.charFormat().property(FormulaTextObject::Delimiter);
+	QString delim;
+	if (var.isValid())
+	    delim = qVariantValue<QString>(var);
+	else
+	    delim = "";
+	result += delim + qVariantValue<QString>(cursor2.charFormat().property(FormulaTextObject::LatexCode)) + delim;
+	cursor1.setPosition(cursor2.selectionEnd());
+    }
+
+    cursor1.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+    result += cursor1.selectedText();
+    return result;
+}
+
+void WorksheetTextItem::cut()
+{
+    copy();
+    textCursor().removeSelectedText();
+}
+
+void WorksheetTextItem::copy()
+{
+    if (!textCursor().hasSelection())
+        return;
+    QApplication::clipboard()->setText(resolveImages(textCursor()));
+}
+
+void WorksheetTextItem::paste()
+{
+    textCursor().insertText(QApplication::clipboard()->text());
 }
 
 void WorksheetTextItem::setCursorPosition(const QPointF& pos)
@@ -172,6 +247,25 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	    return;
 	} else if (event->modifiers() == Qt::NoModifier && m_completionActive) {
 	    emit applyCompletion();
+	    return;
+	}
+	break;
+	/* call our custom functions for cut, copy and paste */
+    case Qt::Key_C:
+	if (event->modifiers() == Qt::ControlModifier) {
+	    copy();
+	    return;
+	}
+	break;
+    case Qt::Key_X:
+	if (event->modifiers() == Qt::ControlModifier) {
+	    cut();
+	    return;
+	}
+	break;
+    case Qt::Key_V:
+	if (event->modifiers() == Qt::ControlModifier) {
+	    paste();
 	    return;
 	}
 	break;

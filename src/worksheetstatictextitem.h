@@ -25,6 +25,8 @@
 #include <QGraphicsLayoutItem>
 #include <QGraphicsWidget>
 
+#include <KMenu>
+
 /*
  * A QGraphicsTextItem that is also a QGraphicsLayoutItem, so that it can
  * be used in a QGraphicsLayout. This class is intended for static text,
@@ -38,12 +40,18 @@ class WorksheetStaticTextItem
   Q_INTERFACES(QGraphicsLayoutItem)
   public:
     WorksheetStaticTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent = 0);
-    ~WorksheetStaticTextItem();
+    virtual ~WorksheetStaticTextItem();
 
     void setGeometry(const QRectF& rect);
 
+    virtual void populateMenu(KMenu *menu);
+
+  public slots:
+    void copy();
+
   protected:
     QSizeF sizeHint(Qt::SizeHint which, const QSizeF & constraint = QSizeF() ) const;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 };
 
 #endif //WORKSHEET_STATIC_TEXT_ENTRY_H

@@ -79,9 +79,11 @@ class CommandEntry : public WorksheetEntry
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
+    void populateMenu(KMenu *menu);
+
   public slots:
     bool evaluate(int evalOp = 0);
-    bool evaluateCommand();
+    bool evaluateCommand(int evalOp = 0);
     void addInformation();
 
     void showCompletion();
@@ -95,6 +97,9 @@ class CommandEntry : public WorksheetEntry
     void completedLineChanged();
     void showSyntaxHelp();
     void completeLineTo(const QString& line, int index);
+
+  protected:
+    bool wantToEvaluate();
 
   private:
     WorksheetTextItem* currentInformationItem();

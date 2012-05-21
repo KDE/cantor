@@ -59,13 +59,18 @@ class TextEntry : public WorksheetEntry
 
     void interruptEvaluation();
 
+    void populateMenu(KMenu *menu);
+
   public slots:
     bool evaluate(int evalOp = 0);
-    void resolveImageAtCursor();
+    void resolveImagesAtCursor();
     void updateEntry();
 
+  protected:
+    bool wantToEvaluate();
+
   private:
-    QTextCursor findLatexCode(QTextDocument *doc, QTextCursor cursor = QTextCursor()) const;
+    QTextCursor findLatexCode(QTextCursor cursor = QTextCursor()) const;
     QString showLatexCode(QTextCursor cursor);
 
   private:

@@ -96,6 +96,11 @@ int CommandEntry::type() const
     return Type;
 }
 
+void CommandEntry::populateMenu(KMenu *menu)
+{
+    WorksheetEntry::populateMenu(menu);
+}
+
 QString CommandEntry::command()
 {
     QString cmd = m_commandItem->toPlainText();
@@ -254,7 +259,7 @@ bool CommandEntry::evaluate(int evalOp)
     bool success = false;
 
     if (!(evalOp & FocusedItemOnly) || m_commandItem->hasFocus()) {
-	success = evaluateCommand();
+	success = evaluateCommand(evalOp);
     } else if (informationItemHasFocus()) {
 	addInformation();
 	success = true;
@@ -268,7 +273,7 @@ bool CommandEntry::evaluate(int evalOp)
     return success;
 }
 
-bool CommandEntry::evaluateCommand()
+bool CommandEntry::evaluateCommand(int evalOp)
 {
     removeContextHelp();
     QToolTip::hideText();
@@ -276,7 +281,7 @@ bool CommandEntry::evaluateCommand()
     QString cmd = command();
     kDebug()<<"evaluating: "<<cmd;
 
-    if (Settings::self()->autoEval())
+    if (evalOp & EvaluateNextEntries || Settings::self()->autoEval())
 	m_evaluationFlag = EvaluateNextEntries;
     else
 	m_evaluationFlag = 0;
@@ -664,6 +669,11 @@ bool CommandEntry::focusWithinThisItem()
 void CommandEntry::invalidate()
 {
     kDebug() << "ToDo: Invalidate here";
+}
+
+bool CommandEntry::wantToEvaluate()
+{
+    return !isEmpty();
 }
 
 QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
