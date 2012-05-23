@@ -30,6 +30,9 @@ namespace Cantor
 {
     class Result;
 }
+class Worksheet;
+
+class Worksheet;
 
 /**
    This class is used to translate from the Cantor::Result classes,
@@ -40,27 +43,17 @@ class ResultProxy : public QObject
 {
  Q_OBJECT
   public:
-    ResultProxy(QObject* parent);
+    ResultProxy(Worksheet* parent);
     ~ResultProxy();
 
     void insertResult(QTextCursor& pos, Cantor::Result* result);
-
-    void setScale(qreal scale);
-    void scale(qreal value);
-    qreal scale();
-
-    void useHighResolution(bool use);
-
-    //this doesn't belong here!
-    bool renderEpsToResource(QTextDocument* document, const KUrl& url, QSize* size = 0);
 
   private:
     QTextCharFormat renderEps(QTextDocument* doc, Cantor::Result* result);
     QTextCharFormat renderGif(Cantor::Result* result);
 
-  private:    
-    qreal m_scale;
-    bool m_useHighRes;
+  private:
+    Worksheet* m_worksheet;
 };
 
 #endif /* _RESULTPROXY_H */

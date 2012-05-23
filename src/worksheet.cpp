@@ -96,11 +96,29 @@ bool Worksheet::isPrinting()
 
 void Worksheet::setViewSize(qreal w, qreal h)
 {
-    Q_UNUSED(h)
-    m_rootlayout->setMaximumWidth(w);
-    m_rootlayout->setMinimumWidth(w);
+    Q_UNUSED(h);
 
-    m_proxy->setScale(worksheetView()->scaleFactor());
+    m_rootlayout->setMinimumWidth(w);
+    m_rootlayout->setMaximumWidth(w);
+    qreal left, right;
+    m_rootlayout->getContentsMargins(&left, 0, &right, 0);
+    w -= left + right;
+    m_epsRenderer.setScale(worksheetView()->scaleFactor());
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next()) {
+	// not optimal: layOutForWidth is called twice
+	kDebug() << entry;
+	entry->layOutForWidth(w);
+	entry->updateEntry();
+    }
+
+    //m_rootlayout->updateGeometry();
+}
+
+qreal Worksheet::contentsWidth()
+{
+    qreal left, right;
+    m_rootlayout->getContentsMargins(&left, 0, &right, 0);
+    return m_rootlayout->geometry().width() - left - right;
 }
 
 WorksheetView* Worksheet::worksheetView()
@@ -206,6 +224,7 @@ void Worksheet::showCompletion()
 WorksheetEntry* Worksheet::appendEntry(const int type)
 {
     WorksheetEntry* entry = WorksheetEntry::create(type, this);
+    entry->layOutForWidth(contentsWidth());
     if (entry)
     {
         kDebug() << "Entry Appended";
@@ -278,6 +297,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     if (!next || next->type() != type || !next->isEmpty())
     {
 	entry = WorksheetEntry::create(type, this);
+	entry->layOutForWidth(contentsWidth());
 	addItem(entry);
 	entry->setPrevious(current);
 	entry->setNext(next);
@@ -345,6 +365,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
 	entry = WorksheetEntry::create(type, this);
+	entry->layOutForWidth(contentsWidth());
 	addItem(entry);
 	entry->setNext(current);
 	entry->setPrevious(prev);
@@ -721,6 +742,11 @@ void Worksheet::removeCurrentEntry()
 	    focusEntry(next);
 	}
     }
+}
+
+EpsRenderer* Worksheet::epsRenderer()
+{
+    return &m_epsRenderer;
 }
 
 KMenu* Worksheet::createContextMenu()

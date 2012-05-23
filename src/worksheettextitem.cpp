@@ -20,7 +20,8 @@
 
 #include "worksheettextitem.h"
 #include "worksheet.h"
-#include "formulatextobject.h"
+#include "worksheetentry.h"
+#include "epsrenderer.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -32,16 +33,17 @@
 #include <QGraphicsSceneResizeEvent>
 
 #include <kdebug.h>
+#include <kglobalsettings.h>
 #include <KStandardAction>
 #include <KAction>
 
-WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent)
-    : WorksheetStaticTextItem(parent, lparent)
+WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, Qt::TextInteractionFlags ti)
+    : QGraphicsTextItem(parent)
 {
-    setTextInteractionFlags(Qt::TextEditorInteraction);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+    setTextInteractionFlags(ti);
     m_completionEnabled = false;
     m_completionActive = false;
+    setFont(KGlobalSettings::fixedFont());
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -67,7 +69,28 @@ void WorksheetTextItem::populateMenu(KMenu *menu)
 	menu->addAction(paste);
     menu->addSeparator();
 
-    WorksheetStaticTextItem::populateMenu(menu);
+    WorksheetEntry *entry = qobject_cast<WorksheetEntry*>(parentObject());
+
+    if (entry)
+	entry->populateMenu(menu);
+}
+
+void WorksheetTextItem::cut()
+{
+    copy();
+    textCursor().removeSelectedText();
+}
+
+void WorksheetTextItem::paste()
+{
+    textCursor().insertText(QApplication::clipboard()->text());
+}
+
+void WorksheetTextItem::copy()
+{
+    if (!textCursor().hasSelection())
+        return;
+    QApplication::clipboard()->setText(resolveImages(textCursor()));
 }
 
 QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
@@ -85,37 +108,19 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
 	 cursor2 = document()->find(repl, cursor1)) {
 	cursor1.setPosition(cursor2.selectionStart(), QTextCursor::KeepAnchor);
 	result += cursor1.selectedText();
-	QVariant var = cursor2.charFormat().property(FormulaTextObject::Delimiter);
+	QVariant var = cursor2.charFormat().property(EpsRenderer::Delimiter);
 	QString delim;
 	if (var.isValid())
 	    delim = qVariantValue<QString>(var);
 	else
 	    delim = "";
-	result += delim + qVariantValue<QString>(cursor2.charFormat().property(FormulaTextObject::LatexCode)) + delim;
+	result += delim + qVariantValue<QString>(cursor2.charFormat().property(EpsRenderer::Code)) + delim;
 	cursor1.setPosition(cursor2.selectionEnd());
     }
 
     cursor1.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     result += cursor1.selectedText();
     return result;
-}
-
-void WorksheetTextItem::cut()
-{
-    copy();
-    textCursor().removeSelectedText();
-}
-
-void WorksheetTextItem::copy()
-{
-    if (!textCursor().hasSelection())
-        return;
-    QApplication::clipboard()->setText(resolveImages(textCursor()));
-}
-
-void WorksheetTextItem::paste()
-{
-    textCursor().insertText(QApplication::clipboard()->text());
 }
 
 void WorksheetTextItem::setCursorPosition(const QPointF& pos)
@@ -148,6 +153,7 @@ QPointF WorksheetTextItem::localCursorPosition() const
     return QPointF(line.cursorToX(p), line.y() + line.height());
 }
 
+/*
 void WorksheetTextItem::setEditable(bool e)
 {
     if (e)
@@ -155,6 +161,7 @@ void WorksheetTextItem::setEditable(bool e)
     else
 	setTextInteractionFlags(Qt::TextSelectableByMouse);
 }
+*/
 
 bool WorksheetTextItem::isEditable()
 {
@@ -204,11 +211,20 @@ void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
 
 Cantor::Session* WorksheetTextItem::session()
 {
-    return qobject_cast<Worksheet*>(scene())->session();
+    return worksheet()->session();
 }
 
 void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 {
+    if (event->key() == Qt::Key_C && event->modifiers() == Qt::ControlModifier)
+    {
+	copy();
+	return;
+    }
+
+    if (!isEditable())
+	return;
+
     switch (event->key()) {
     case Qt::Key_Left:
 	if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {
@@ -250,13 +266,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	    return;
 	}
 	break;
-	/* call our custom functions for cut, copy and paste */
-    case Qt::Key_C:
-	if (event->modifiers() == Qt::ControlModifier) {
-	    copy();
-	    return;
-	}
-	break;
+	/* call our custom functions for cut and paste */
     case Qt::Key_X:
 	if (event->modifiers() == Qt::ControlModifier) {
 	    cut();
@@ -274,11 +284,9 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     }
     qreal h = boundingRect().height();
     int p = textCursor().position();
-    this->WorksheetStaticTextItem::keyPressEvent(event);
-    if (h != boundingRect().height()) {
-	updateGeometry();
+    QGraphicsTextItem::keyPressEvent(event);
+    if (h != boundingRect().height())
 	emit sizeChanged();
-    }
     if (p != textCursor().position())
 	emit cursorPositionChanged(textCursor());
 }
@@ -322,25 +330,30 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
 	    return true;
 	}
     }
-    return WorksheetStaticTextItem::sceneEvent(event);
+    return QGraphicsTextItem::sceneEvent(event);
 }
 
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
-    WorksheetStaticTextItem::focusInEvent(event);
+    QGraphicsTextItem::focusInEvent(event);
     emit receivedFocus(this);
 }
 
 void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 {
-    WorksheetStaticTextItem::focusOutEvent(event);
+    if (event->reason() == Qt::MouseFocusReason) {
+	QTextCursor cursor = textCursor();
+	cursor.clearSelection();
+	setTextCursor(cursor);
+    }
+    QGraphicsTextItem::focusOutEvent(event);
     emit cursorPositionChanged(QTextCursor());
 }
 
 void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     int p = textCursor().position();
-    WorksheetStaticTextItem::mousePressEvent(event);
+    QGraphicsTextItem::mousePressEvent(event);
     if (p != textCursor().position())
 	emit cursorPositionChanged(textCursor());
 }
@@ -366,7 +379,15 @@ void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 	return;
     }
 
-    WorksheetStaticTextItem::mouseDoubleClickEvent(event);
+    QGraphicsTextItem::mouseDoubleClickEvent(event);
+}
+
+void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    KMenu *menu = worksheet()->createContextMenu();
+    populateMenu(menu);
+
+    menu->popup(event->screenPos());
 }
 
 void WorksheetTextItem::insertTab()
@@ -388,5 +409,19 @@ void WorksheetTextItem::insertTab()
     emit cursorPositionChanged(textCursor());
 }
 
+double WorksheetTextItem::width()
+{
+    return document()->size().width();
+}
+
+double WorksheetTextItem::height()
+{
+    return document()->size().height();
+}
+
+Worksheet* WorksheetTextItem::worksheet()
+{
+    return qobject_cast<Worksheet*>(scene());
+}
 
 #include "worksheettextitem.moc"

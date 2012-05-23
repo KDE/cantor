@@ -63,7 +63,6 @@ set(cantor_PART_SRCS
    worksheet.cpp
    worksheetview.cpp
    worksheetentry.cpp
-   worksheetstatictextitem.cpp
    worksheettextitem.cpp
    commandentry.cpp
    textentry.cpp
@@ -77,7 +76,7 @@ set(cantor_PART_SRCS
    animationhandler.cpp
    animation.cpp
    resultcontextmenu.cpp
-   formulatextobject.cpp
+   epsrenderer.cpp
  )
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )

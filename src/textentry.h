@@ -49,7 +49,7 @@ class TextEntry : public WorksheetEntry
 
     // do we need/get this?
     //bool worksheetContextMenuEvent(...);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    //void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
@@ -60,6 +60,7 @@ class TextEntry : public WorksheetEntry
     void interruptEvaluation();
 
     void populateMenu(KMenu *menu);
+    void layOutForWidth(double w, bool force = false);
 
   public slots:
     bool evaluate(int evalOp = 0);

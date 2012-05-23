@@ -54,6 +54,7 @@ class WorksheetEntry : public QGraphicsWidget
     void setNext(WorksheetEntry*);
     void setPrevious(WorksheetEntry*);
 
+    QSizeF sizeHint(Qt::SizeHint which, const QSizeF & constraint) const;
     virtual bool acceptRichText() = 0;
 
     virtual void setContent(const QString& content)=0;
@@ -67,6 +68,8 @@ class WorksheetEntry : public QGraphicsWidget
     virtual void showCompletion();
 
     virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
+
+    virtual void layOutForWidth(double w, bool force = false) = 0;
 
     virtual void populateMenu(KMenu *menu);
 
@@ -87,9 +90,13 @@ class WorksheetEntry : public QGraphicsWidget
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void evaluateNext(int opt);
 
+    void setEntrySize(QSizeF size);
+    QSizeF entrySize();
+
     virtual bool wantToEvaluate() = 0;
 
   private:
+    QSizeF m_size;
     WorksheetEntry* m_prev;
     WorksheetEntry* m_next;
 };

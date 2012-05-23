@@ -31,6 +31,7 @@
 #include <KMenu>
 
 #include "worksheetview.h"
+#include "epsrenderer.h"
 
 namespace Cantor {
     class Backend;
@@ -68,6 +69,8 @@ class Worksheet : public QGraphicsScene
 
     KMenu* createContextMenu();
     void populateMenu(KMenu* menu);
+    EpsRenderer* epsRenderer();
+    qreal contentsWidth();
 
   public slots:
     WorksheetEntry* appendCommandEntry();
@@ -147,6 +150,7 @@ class Worksheet : public QGraphicsScene
     QGraphicsWidget* m_rootwidget;
     QGraphicsLinearLayout* m_rootlayout;
     QSyntaxHighlighter* m_highlighter;
+    EpsRenderer m_epsRenderer;
 
     bool m_completionEnabled;
     bool m_showExpressionIds;

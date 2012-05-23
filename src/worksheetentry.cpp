@@ -98,9 +98,19 @@ void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 
 void WorksheetEntry::recalculateSize()
 {
-    layout()->updateGeometry();
-    //
+    layOutForWidth(entrySize().width(), true);
+    updateGeometry();
 }
+
+QSizeF WorksheetEntry::sizeHint(Qt::SizeHint which, const QSizeF & constraint) const
+{
+    // layOutForWidth must be called to change the size
+    Q_UNUSED(which);
+    Q_UNUSED(constraint);
+
+    return m_size;
+}
+
 
 Worksheet* WorksheetEntry::worksheet()
 {
@@ -141,5 +151,14 @@ void WorksheetEntry::evaluateNext(int opt)
     }
 }
 
+void WorksheetEntry::setEntrySize(QSizeF size)
+{
+    m_size = size;
+}
+
+QSizeF WorksheetEntry::entrySize()
+{
+    return m_size;
+}
 
 #include "worksheetentry.moc"

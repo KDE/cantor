@@ -51,6 +51,7 @@ class LatexEntry : public WorksheetEntry
     void interruptEvaluation();
 
     void populateMenu(KMenu *menu);
+    void layOutForWidth(double w, bool force = false);
 
   public slots:
     bool evaluate(int evalOp = 0);

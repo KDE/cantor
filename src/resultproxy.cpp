@@ -29,10 +29,7 @@
 #include "lib/animationresult.h"
 #include "animationhandler.h"
 #include "animation.h"
-
-#ifdef LIBSPECTRE_FOUND
-  #include "libspectre/spectre.h"
-#endif
+#include "worksheet.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -42,35 +39,13 @@
 #include <QMovie>
 #include <QTimer>
 
-ResultProxy::ResultProxy(QObject* parent) : QObject(parent)
+ResultProxy::ResultProxy(Worksheet* parent) : QObject(parent)
 {
-    m_scale=1.0;
-    m_useHighRes=false;
+    m_worksheet = parent;
 }
 
 ResultProxy::~ResultProxy()
 {
-
-}
-
-void ResultProxy::setScale(qreal scale)
-{
-    m_scale=scale;
-}
-
-void ResultProxy::scale(qreal value)
-{
-    m_scale*=value;
-}
-
-qreal ResultProxy::scale()
-{
-    return m_scale;
-}
-
-void ResultProxy::useHighResolution(bool use)
-{
-    m_useHighRes=use;
 
 }
 
@@ -126,83 +101,23 @@ void ResultProxy::insertResult(QTextCursor& cursor, Cantor::Result* result)
 //private result specific rendering methods
 QTextCharFormat ResultProxy::renderEps(QTextDocument* doc, Cantor::Result* result)
 {
-    double scale;
-    if(m_useHighRes)
-        scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
-    else
-        scale=1.8*m_scale;
-
-    QTextImageFormat epsCharFormat;
-
-    KUrl url=result->data().toUrl();
-
-    QSize s;
-    bool success=renderEpsToResource(doc, url, &s);
-
-    KUrl internal=url;
-    internal.setProtocol("internal");
-    if(success)
-    {
-        epsCharFormat.setName(internal.url());
-        if(m_useHighRes)
-        {
-            epsCharFormat.setWidth(s.width()*1.2);
-            epsCharFormat.setHeight(s.height()*1.2);
-        }
-        else
-        {
-            epsCharFormat.setWidth(s.width()*scale);
-            epsCharFormat.setHeight(s.height()*scale);
-        }
+    QTextImageFormat format;
+    format = m_worksheet->epsRenderer()->renderEps(doc, result->data().toUrl());
+    if (result->type() == Cantor::LatexResult::Type) {
+	kDebug() << "latex result" << result->toLatex();
+	format.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
+	//format.setProperty(EpsReader::ImagePath, "");
+	QString latex = result->toLatex();
+	if (latex.startsWith("\\begin{eqnarray*}"))
+	    latex = latex.mid(17);
+	if (latex.endsWith("\\end{eqnarray*}"))
+	    latex = latex.left(latex.size() - 15);
+	format.setProperty(EpsRenderer::Code, latex);
+	format.setProperty(EpsRenderer::Delimiter, "$$");
+    } else {
+	kDebug() << "eps result";
     }
-
-    return epsCharFormat;
-}
-
-bool ResultProxy::renderEpsToResource(QTextDocument* document, const KUrl& url, QSize* size)
-{
-#ifdef LIBSPECTRE_FOUND
-    SpectreDocument* doc=spectre_document_new();;
-    SpectreRenderContext* rc=spectre_render_context_new();
-
-    kDebug()<<"rendering eps file: "<<url;
-    KUrl internal=url;
-    internal.setProtocol("internal");
-    kDebug()<<internal;
-
-    spectre_document_load(doc, url.toLocalFile().toUtf8());
-
-    int w, h;
-    double scale;
-    if(m_useHighRes)
-        scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
-    else
-        scale=1.8*m_scale;
-
-    kDebug()<<"scale: "<<scale;
-
-    spectre_document_get_page_size(doc, &w, &h);
-    kDebug()<<"dimension: "<<w<<"x"<<h;
-    unsigned char* data;
-    int rowLength;
-
-    spectre_render_context_set_scale(rc, scale, scale);
-    spectre_document_render_full( doc, rc, &data, &rowLength);
-
-    QImage img(data, w*scale, h*scale, rowLength, QImage::Format_RGB32);
-
-    document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
-
-    spectre_document_free(doc);
-    spectre_render_context_free(rc);
-
-    if(size)
-        *size=QSize(w, h);
-
-    return true;
-#else
-    return false;
-#endif
+    return format;
 }
 
 QTextCharFormat ResultProxy::renderGif(Cantor::Result* result)

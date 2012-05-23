@@ -27,7 +27,6 @@
 #include <QGraphicsLinearLayout>
 
 #include "worksheetentry.h"
-#include "worksheetstatictextitem.h"
 #include "worksheettextitem.h"
 #include "lib/expression.h"
 
@@ -79,6 +78,8 @@ class CommandEntry : public WorksheetEntry
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
+    void layOutForWidth(double w, bool force = false);
+
     void populateMenu(KMenu *menu);
 
   public slots:
@@ -121,13 +122,15 @@ class CommandEntry : public WorksheetEntry
     void completeCommandTo(const QString& completion, CompletionMode mode = PreliminaryCompletion);
 
   private:
-    WorksheetStaticTextItem* m_promptItem;
+    static const double HorizontalSpacing;
+    static const double VerticalSpacing;
+
+    WorksheetTextItem* m_promptItem;
     WorksheetTextItem* m_commandItem;
-    WorksheetStaticTextItem* m_resultItem;
-    WorksheetStaticTextItem* m_errorItem;
-    QList<WorksheetStaticTextItem*> m_informationItems;
+    WorksheetTextItem* m_resultItem;
+    WorksheetTextItem* m_errorItem;
+    QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;
-    QGraphicsLinearLayout *m_verticalLayout;
 
     Cantor::CompletionObject* m_completionObject;
     QPointer<KCompletionBox> m_completionBox;

@@ -25,7 +25,6 @@
 #include "loadedexpression.h"
 #include "resultproxy.h"
 #include "settings.h"
-
 #include "lib/expression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
@@ -38,12 +37,15 @@
 #include <QTextCursor>
 #include <QTextLine>
 #include <QToolTip>
+#include <QtGlobal>
 
 #include <kdebug.h>
 #include <klocale.h>
 #include <KColorScheme>
 
 const QString CommandEntry::Prompt=">>> ";
+const double CommandEntry::HorizontalSpacing = 4;
+const double CommandEntry::VerticalSpacing = 4;
 
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -51,23 +53,14 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     m_completionObject = 0;
     m_syntaxHelpObject = 0;
 
-    QGraphicsLinearLayout *horizontalLayout = new QGraphicsLinearLayout(Qt::Horizontal, this);
-    m_promptItem = new WorksheetStaticTextItem(this, horizontalLayout);
+    m_promptItem = new WorksheetTextItem(this, Qt::NoTextInteraction);
     m_promptItem->setPlainText(Prompt);
-    horizontalLayout->addItem(m_promptItem);
-    m_verticalLayout = new QGraphicsLinearLayout(Qt::Vertical, horizontalLayout);
-    horizontalLayout->addItem(m_verticalLayout);
-    m_commandItem = new WorksheetTextItem(this, m_verticalLayout);
+    m_commandItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
     m_commandItem->enableCompletion(true);
-    m_verticalLayout->addItem(m_commandItem);
     m_errorItem = 0;
     m_resultItem = 0;
 
-    kDebug() << "Prompt boundary: " << mapRectToScene(m_promptItem->boundingRect());
-    kDebug() << "Command boundary: " << mapRectToScene(m_commandItem->boundingRect());
-    this->setLayout(horizontalLayout);
-    horizontalLayout->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Maximum);
-
+    kDebug() << size();
     connect(m_commandItem, SIGNAL(tabPressed()), this, SLOT(showCompletion()));
     connect(m_commandItem, SIGNAL(backtabPressed()), 
 	    this, SLOT(selectPreviousCompletion()));
@@ -82,7 +75,6 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	    this, SLOT(moveToNextEntry(int, qreal)));
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
 	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
-
 }
 
 CommandEntry::~CommandEntry()
@@ -117,14 +109,12 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     // Delete any previus error and/or result
     if(m_errorItem)
     {
-	m_verticalLayout->removeItem(m_errorItem);
         m_errorItem->deleteLater();
 	m_errorItem = 0;
     }
 
-    foreach(WorksheetStaticTextItem* item, m_informationItems)
+    foreach(WorksheetTextItem* item, m_informationItems)
     {
-	m_verticalLayout->removeItem(item);
 	item->deleteLater();
     }
     m_informationItems.clear();
@@ -287,6 +277,12 @@ bool CommandEntry::evaluateCommand(int evalOp)
 	m_evaluationFlag = 0;
 
     if(cmd.isEmpty()) {
+	removeResult();
+	foreach(WorksheetTextItem* item, m_informationItems) {
+	    item->deleteLater();
+	}
+	m_informationItems.clear();
+
 	evaluateNext(m_evaluationFlag);
         return false;
     }
@@ -317,18 +313,15 @@ void CommandEntry::updateEntry()
     if (expr->result()->type() == Cantor::HelpResult::Type)
 	return; // Help is handled elsewhere
 
-    if (!m_resultItem) {
-	m_resultItem = new WorksheetStaticTextItem(this, m_verticalLayout);
-	m_verticalLayout->addItem(m_resultItem);
-    }
+    if (!m_resultItem)
+	m_resultItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+
     QTextCursor cursor = m_resultItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     worksheet()->resultProxy()->insertResult(cursor, expr->result());
-    // I am not entirely sure why both are needed, but removing one 
-    // results in overlaping items
-    m_resultItem->updateGeometry();
-    m_verticalLayout->updateGeometry();
+
+    recalculateSize();
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
@@ -353,17 +346,11 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     
     if(!m_errorItem)
     {
-        int row;
-        if(m_resultItem)
-            row = m_verticalLayout->count() - 1;
-        else
-            row = m_verticalLayout->count();
-	m_errorItem = new WorksheetStaticTextItem(this);
-	m_verticalLayout->insertItem(row, m_errorItem);
+	m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
     }
 
     m_errorItem->setHtml(text);
-    m_verticalLayout->updateGeometry();
+    recalculateSize();
 }
 
 bool CommandEntry::isEmpty()
@@ -551,7 +538,7 @@ void CommandEntry::resultDeleted()
 
 void CommandEntry::addInformation()
 {
-    currentInformationItem()->setEditable(false);
+    currentInformationItem()->setTextInteractionFlags(Qt::TextSelectableByMouse);
     QString inf = m_informationItems.last()->toPlainText();
     inf.replace(QChar::ParagraphSeparator, '\n');
     inf.replace(QChar::LineSeparator, '\n');
@@ -563,16 +550,12 @@ void CommandEntry::addInformation()
 
 void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    int row = m_informationItems.size() + 1;
-
-    WorksheetStaticTextItem* questionItem = new WorksheetStaticTextItem(this);
-    WorksheetTextItem* answerItem = new WorksheetTextItem(this);
+    WorksheetTextItem* questionItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+    WorksheetTextItem* answerItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
     questionItem->setPlainText(question);
-    m_verticalLayout->insertItem(row, questionItem);
-    m_verticalLayout->insertItem(row+1, answerItem);
-    m_verticalLayout->updateGeometry();
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
+    recalculateSize();
 
     connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
     answerItem->setFocus();
@@ -581,7 +564,6 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 void CommandEntry::removeResult()
 {
     if (m_resultItem) {
-	m_verticalLayout->removeItem(m_resultItem);
 	m_resultItem->deleteLater();
 	m_resultItem = 0;
     }
@@ -637,16 +619,15 @@ void CommandEntry::updatePrompt()
             cformat.setFontWeight(QFont::Normal);
     }
 
-    m_promptItem->setTextWidth(-1);
     c.insertText(CommandEntry::Prompt,cformat);
-    m_promptItem->updateGeometry();
+    recalculateSize();
 }
 
 WorksheetTextItem* CommandEntry::currentInformationItem()
 {
     if (m_informationItems.isEmpty())
 	return 0;
-    return qobject_cast<WorksheetTextItem*>(m_informationItems.last());
+    return m_informationItems.last();
 }
 
 WorksheetView* CommandEntry::worksheetView()
@@ -682,3 +663,41 @@ QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
     const QPoint viewportPos = worksheetView()->mapFromScene(scenePos);
     return worksheetView()->viewport()->mapToGlobal(viewportPos);
 }
+
+void CommandEntry::layOutForWidth(double w, bool force)
+{
+    if (w == entrySize().width() && !force)
+	return;
+
+    m_promptItem->setPos(0,0);
+    double x = 0 + m_promptItem->width() + HorizontalSpacing;
+    double y = 0;
+
+    m_commandItem->setPos(x,y);
+    m_commandItem->setTextWidth(w-x /* ToDo: find better number */ -8);
+
+    y += qMax(m_commandItem->height(), m_promptItem->height());
+    foreach(WorksheetTextItem* information, m_informationItems) {
+	y += VerticalSpacing;
+	information->setPos(x,y);
+	information->setTextWidth(w-x -8);
+	y += information->height();
+    }
+    
+    if (m_errorItem) {
+	y += VerticalSpacing;
+	m_errorItem->setPos(x,y);
+	m_errorItem->setTextWidth(w-x -8);
+	y += m_errorItem->height();
+    }
+
+    if (m_resultItem) {
+	y += VerticalSpacing;
+	m_resultItem->setPos(x,y);
+	m_resultItem->setTextWidth(w-x -8);
+	y+= m_resultItem->height();
+    }
+    
+    setEntrySize(QSizeF(w,y));
+}
+

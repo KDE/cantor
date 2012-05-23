@@ -22,9 +22,8 @@
 #include "textentry.h"
 #include "worksheettextitem.h"
 #include "animationhandler.h"
-#include "formulatextobject.h"
+#include "epsrenderer.h"
 #include "latexrenderer.h"
-#include "resultproxy.h"
 
 #include <QGraphicsLinearLayout>
 
@@ -32,14 +31,8 @@
 #include <KUrl>
 #include <KLocale>
 
-TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this))
+TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
-    m_textItem->document()->documentLayout()->registerHandler(QTextFormat::ImageObject, new AnimationHandler(m_textItem->document()));
-    m_textItem->document()->documentLayout()->registerHandler(FormulaTextObject::FormulaTextFormat, new FormulaTextObject());
-
-    QGraphicsLinearLayout *layout = new QGraphicsLinearLayout(this);
-    layout->addItem(m_textItem);
-    setLayout(layout);
     connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
 	    this, SLOT(moveToPreviousEntry(int, qreal)));
     connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
@@ -65,7 +58,7 @@ void TextEntry::populateMenu(KMenu *menu)
 	for (int i = 2; i; --i) {
 	    int p = cursor.position();
 	    if (m_textItem->document()->characterAt(p-1) == repl &&
-		cursor.charFormat().objectType() == FormulaTextObject::FormulaTextFormat) {
+		cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
 		m_textItem->setTextCursor(cursor);
 		imageSelected = true;
 		break;
@@ -95,6 +88,7 @@ bool TextEntry::acceptRichText()
     return true;
 }
 
+/*
 void TextEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
     Q_UNUSED(event);
@@ -104,10 +98,11 @@ void TextEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 	 pos <= m_textItem->textCursor().selectionEnd(); ++pos)
     {
 	c.setPosition(pos);
-        if (c.charFormat().objectType() == FormulaTextObject::FormulaTextFormat)
+        if (c.charFormat().hasProperty(EpsRenderer::CantorFormula))
             showLatexCode(c);
     }
 }
+*/
 
 bool TextEntry::focusEntry(int pos, qreal xCoord)
 {
@@ -145,7 +140,7 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
-        if (format.objectType() == FormulaTextObject::FormulaTextFormat)
+        if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             showLatexCode(cursor);
             needsEval=true;
@@ -203,25 +198,23 @@ bool TextEntry::evaluate(int evalOp)
 
         renderer->renderBlocking();
 
-        bool success=renderer->renderingSuccessful() && worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), renderer->imagePath());
+        bool success;
+	QTextImageFormat formulaFormat;
+	if (renderer->renderingSuccessful()) {
+	    EpsRenderer* epsRend = worksheet()->epsRenderer();
+	    formulaFormat = epsRend->renderEps(m_textItem->document(), renderer);
+	    success = !formulaFormat.name().isEmpty();
+	} else {
+	    success = false;
+	}
+
         kDebug()<<"rendering successfull? "<<success;
 	if (!success) {
 	    cursor = findLatexCode(cursor);
 	    continue;
 	}
 
-        QString path=renderer->imagePath();
-        KUrl internal=KUrl(path);
-        internal.setProtocol("internal");
-        kDebug()<<"int: "<<internal;
-
-        QTextCharFormat formulaFormat;
-        formulaFormat.setObjectType(FormulaTextObject::FormulaTextFormat);
-        formulaFormat.setProperty( FormulaTextObject::Data,renderer->imagePath());
-        formulaFormat.setProperty( FormulaTextObject::ResourceUrl, internal);
-        formulaFormat.setProperty( FormulaTextObject::LatexCode, latexCode);
-        formulaFormat.setProperty( FormulaTextObject::FormulaType, renderer->method());
-        formulaFormat.setProperty( FormulaTextObject::Delimiter, "$$");
+        formulaFormat.setProperty(EpsRenderer::Delimiter, "$$");
 
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
         delete renderer;
@@ -229,8 +222,7 @@ bool TextEntry::evaluate(int evalOp)
         cursor = findLatexCode(cursor);
     }
 
-    m_textItem->updateGeometry();
-    layout()->updateGeometry();
+    recalculateSize();
     evaluateNext(evalOp);
 
     return true;
@@ -238,26 +230,26 @@ bool TextEntry::evaluate(int evalOp)
 
 void TextEntry::updateEntry()
 {
+    kDebug() << "update Entry";
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
     {
+	kDebug() << "orc at" << cursor.position();
         QTextCharFormat format = cursor.charFormat();
-        if (format.objectType() == FormulaTextObject::FormulaTextFormat)
+        if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             kDebug() << "found a formula... rendering the eps...";
-            QUrl url=qVariantValue<QUrl>(format.property(FormulaTextObject::Data));
-            bool success=worksheet()->resultProxy()->renderEpsToResource(m_textItem->document(), url);
-            kDebug() << "rendering successfull? " << success;
+            QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
+            QSize s = worksheet()->epsRenderer()->renderEpsToResource(m_textItem->document(), url);
+            kDebug() << "rendering successfull? " << s.isValid();
 
-            //HACK: reinsert this image, to make sure the layout is updated to the new size
-            cursor.deletePreviousChar();
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            //cursor.deletePreviousChar();
+            //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
         }
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
-    m_textItem->updateGeometry();
-    layout()->updateGeometry();
+    recalculateSize();
 }
 
 void TextEntry::resolveImagesAtCursor()
@@ -266,8 +258,7 @@ void TextEntry::resolveImagesAtCursor()
     if (!cursor.hasSelection())
 	cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
     cursor.insertText(m_textItem->resolveImages(cursor));
-    m_textItem->updateGeometry();
-    layout()->updateGeometry();
+    recalculateSize();
 }
 
 QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
@@ -290,11 +281,21 @@ QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
 
 QString TextEntry::showLatexCode(QTextCursor cursor)
 {
-    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
+    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(EpsRenderer::Code));
     cursor.deletePreviousChar();
     latexCode = "$$"+latexCode+"$$";
     cursor.insertText(latexCode);
     return latexCode;
+}
+
+void TextEntry::layOutForWidth(double w, bool force)
+{
+    if (entrySize().width() == w && !force)
+	return;
+
+    m_textItem->setPos(0,0);
+    m_textItem->setTextWidth(w);
+    setEntrySize(QSizeF(w, m_textItem->height()));
 }
 
 bool TextEntry::wantToEvaluate()

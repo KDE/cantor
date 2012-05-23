@@ -22,25 +22,26 @@
 #ifndef WORKSHEET_TEXT_ITEM_H
 #define WORKSHEET_TEXT_ITEM_H
 
-#include "worksheetstatictextitem.h"
+#include <QGraphicsTextItem>
+
+#include <KMenu>
+
+class Worksheet;
 
 namespace Cantor {
     class Session;
 }
 
-class WorksheetTextItem : public WorksheetStaticTextItem
+class WorksheetTextItem : public QGraphicsTextItem
 {
   Q_OBJECT
-  Q_INTERFACES(QGraphicsLayoutItem)
   public:
-    WorksheetTextItem(QGraphicsWidget* parent, QGraphicsLayoutItem* lparent = 0);
+    WorksheetTextItem(QGraphicsWidget* parent, 
+		      Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem();
 
     void setCursorPosition(const QPointF& pos);
     QPointF cursorPosition() const;
-
-    void setEditable(bool e);
-    bool isEditable();
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
 
@@ -50,8 +51,13 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void activateCompletion(bool a);
 
     void populateMenu(KMenu *menu);
-
     QString resolveImages(const QTextCursor& cursor);
+
+    bool isEditable();
+    double width();
+    double height();
+
+    Worksheet* worksheet();
 
   signals:
     void moveToPrevious(int pos, qreal xCoord);
@@ -67,8 +73,8 @@ class WorksheetTextItem : public WorksheetStaticTextItem
 
   public slots:
     void insertTab();
-    void copy();
     void cut();
+    void copy();
     void paste();
 
   protected:
@@ -77,6 +83,7 @@ class WorksheetTextItem : public WorksheetStaticTextItem
     void focusOutEvent(QFocusEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     bool sceneEvent(QEvent *event);
 
   private:
