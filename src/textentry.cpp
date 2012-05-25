@@ -45,9 +45,9 @@ TextEntry::~TextEntry()
 {
 }
 
-void TextEntry::populateMenu(KMenu *menu)
+void TextEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    bool imageSelected;
+    bool imageSelected = false;
     QTextCursor cursor = m_textItem->textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
     if (cursor.hasSelection()) {
@@ -55,6 +55,8 @@ void TextEntry::populateMenu(KMenu *menu)
 	imageSelected = selection.contains(repl);
     } else {
 	// we need to try both the current cursor and the one after the that
+	cursor = m_textItem->cursorForPosition(pos);
+	kDebug() << cursor.position();
 	for (int i = 2; i; --i) {
 	    int p = cursor.position();
 	    if (m_textItem->document()->characterAt(p-1) == repl &&
@@ -70,7 +72,7 @@ void TextEntry::populateMenu(KMenu *menu)
 	menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
 	menu->addSeparator();
     }
-    WorksheetEntry::populateMenu(menu);
+    WorksheetEntry::populateMenu(menu, pos);
 }
 
 bool TextEntry::isEmpty()
@@ -222,7 +224,6 @@ bool TextEntry::evaluate(int evalOp)
         cursor = findLatexCode(cursor);
     }
 
-    recalculateSize();
     evaluateNext(evalOp);
 
     return true;
@@ -249,7 +250,6 @@ void TextEntry::updateEntry()
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
-    recalculateSize();
 }
 
 void TextEntry::resolveImagesAtCursor()
@@ -258,7 +258,6 @@ void TextEntry::resolveImagesAtCursor()
     if (!cursor.hasSelection())
 	cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
     cursor.insertText(m_textItem->resolveImages(cursor));
-    recalculateSize();
 }
 
 QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
@@ -294,7 +293,7 @@ void TextEntry::layOutForWidth(double w, bool force)
 	return;
 
     m_textItem->setPos(0,0);
-    m_textItem->setTextWidth(w);
+    m_textItem->setTextWidth(w - 8);
     setEntrySize(QSizeF(w, m_textItem->height()));
 }
 

@@ -41,16 +41,34 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, Qt::TextInteractio
     : QGraphicsTextItem(parent)
 {
     setTextInteractionFlags(ti);
+    if (ti & Qt::TextEditable)
+	connect(this, SIGNAL(sizeChanged()), parentEntry(),
+		SLOT(recalculateSize()));
     m_completionEnabled = false;
     m_completionActive = false;
     setFont(KGlobalSettings::fixedFont());
+    connect(document(), SIGNAL(contentsChange(int, int, int)),
+	    this, SLOT(setHeight()));
+    connect(document(), SIGNAL(contentsChanged()),
+	    this, SLOT(testHeight()));
 }
 
 WorksheetTextItem::~WorksheetTextItem()
 {
 }
 
-void WorksheetTextItem::populateMenu(KMenu *menu)
+void WorksheetTextItem::setHeight()
+{
+    m_height = height();
+}
+
+void WorksheetTextItem::testHeight()
+{
+    if (m_height != height())
+	emit sizeChanged();
+}
+
+void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
 {
     KAction* cut = KStandardAction::cut(this, SLOT(cut()), menu);
     KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
@@ -69,10 +87,10 @@ void WorksheetTextItem::populateMenu(KMenu *menu)
 	menu->addAction(paste);
     menu->addSeparator();
 
-    WorksheetEntry *entry = qobject_cast<WorksheetEntry*>(parentObject());
+    WorksheetEntry *entry = parentEntry();
 
     if (entry)
-	entry->populateMenu(menu);
+	entry->populateMenu(menu, mapToParent(pos));
 }
 
 void WorksheetTextItem::cut()
@@ -118,14 +136,17 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
 	cursor1.setPosition(cursor2.selectionEnd());
     }
 
-    cursor1.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+    cursor1.setPosition(end, QTextCursor::KeepAnchor);
     result += cursor1.selectedText();
     return result;
 }
 
 void WorksheetTextItem::setCursorPosition(const QPointF& pos)
 {
-    setLocalCursorPosition(mapFromParent(pos));
+    QTextCursor cursor = cursorForPosition(pos);
+    setTextCursor(cursor);
+    emit cursorPositionChanged(cursor);
+    //setLocalCursorPosition(mapFromParent(pos));
 }
 
 QPointF WorksheetTextItem::cursorPosition() const
@@ -151,6 +172,15 @@ QPointF WorksheetTextItem::localCursorPosition() const
     if (!line.isValid()) // can this happen?
 	return block.layout()->position();
     return QPointF(line.cursorToX(p), line.y() + line.height());
+}
+
+QTextCursor WorksheetTextItem::cursorForPosition(const QPointF& pos) const
+{
+    QPointF lpos = mapFromParent(pos);
+    int p = document()->documentLayout()->hitTest(lpos, Qt::FuzzyHit);
+    QTextCursor cursor = textCursor();
+    cursor.setPosition(p);
+    return cursor;
 }
 
 /*
@@ -282,11 +312,8 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     default:
 	break;
     }
-    qreal h = boundingRect().height();
     int p = textCursor().position();
     QGraphicsTextItem::keyPressEvent(event);
-    if (h != boundingRect().height())
-	emit sizeChanged();
     if (p != textCursor().position())
 	emit cursorPositionChanged(textCursor());
 }
@@ -341,7 +368,8 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 
 void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 {
-    if (event->reason() == Qt::MouseFocusReason) {
+    if (event->reason() == Qt::MouseFocusReason || 
+	event->reason() == Qt::OtherFocusReason) {
 	QTextCursor cursor = textCursor();
 	cursor.clearSelection();
 	setTextCursor(cursor);
@@ -385,7 +413,7 @@ void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     KMenu *menu = worksheet()->createContextMenu();
-    populateMenu(menu);
+    populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
 }
@@ -422,6 +450,11 @@ double WorksheetTextItem::height()
 Worksheet* WorksheetTextItem::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
+}
+
+WorksheetEntry* WorksheetTextItem::parentEntry()
+{
+    return qobject_cast<WorksheetEntry*>(parentObject());
 }
 
 #include "worksheettextitem.moc"

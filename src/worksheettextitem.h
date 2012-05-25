@@ -27,6 +27,7 @@
 #include <KMenu>
 
 class Worksheet;
+class WorksheetEntry;
 
 namespace Cantor {
     class Session;
@@ -42,6 +43,7 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     void setCursorPosition(const QPointF& pos);
     QPointF cursorPosition() const;
+    QTextCursor cursorForPosition(const QPointF& pos) const;
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
 
@@ -50,7 +52,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void enableCompletion(bool e);
     void activateCompletion(bool a);
 
-    void populateMenu(KMenu *menu);
+    void populateMenu(KMenu *menu, const QPointF& pos);
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();
@@ -86,6 +88,12 @@ class WorksheetTextItem : public QGraphicsTextItem
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     bool sceneEvent(QEvent *event);
 
+    WorksheetEntry* parentEntry();
+
+  private slots:
+    void setHeight();
+    void testHeight();
+
   private:
     void setLocalCursorPosition(const QPointF& pos);
     QPointF localCursorPosition() const;
@@ -95,6 +103,7 @@ class WorksheetTextItem : public QGraphicsTextItem
   private:
     bool m_completionEnabled;
     bool m_completionActive;
+    qreal m_height;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H

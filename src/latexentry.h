@@ -50,7 +50,7 @@ class LatexEntry : public WorksheetEntry
 
     void interruptEvaluation();
 
-    void populateMenu(KMenu *menu);
+    void populateMenu(KMenu *menu, const QPointF& pos);
     void layOutForWidth(double w, bool force = false);
 
   public slots:

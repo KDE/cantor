@@ -66,8 +66,6 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	    this, SLOT(selectPreviousCompletion()));
     connect(m_commandItem, SIGNAL(applyCompletion()), 
 	    this, SLOT(applySelectedCompletion()));
-    connect(m_commandItem, SIGNAL(sizeChanged()), 
-    	    this, SLOT(recalculateSize()));
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluateCommand()));
     connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
 	    this, SLOT(moveToPreviousEntry(int, qreal)));
@@ -88,9 +86,9 @@ int CommandEntry::type() const
     return Type;
 }
 
-void CommandEntry::populateMenu(KMenu *menu)
+void CommandEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    WorksheetEntry::populateMenu(menu);
+    WorksheetEntry::populateMenu(menu, pos);
 }
 
 QString CommandEntry::command()
@@ -282,6 +280,7 @@ bool CommandEntry::evaluateCommand(int evalOp)
 	    item->deleteLater();
 	}
 	m_informationItems.clear();
+	recalculateSize();
 
 	evaluateNext(m_evaluationFlag);
         return false;
@@ -320,7 +319,6 @@ void CommandEntry::updateEntry()
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     worksheet()->resultProxy()->insertResult(cursor, expr->result());
-
     recalculateSize();
 }
 
@@ -555,10 +553,10 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     questionItem->setPlainText(question);
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
-    recalculateSize();
 
     connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
     answerItem->setFocus();
+    recalculateSize();
 }
 
 void CommandEntry::removeResult()
@@ -566,6 +564,7 @@ void CommandEntry::removeResult()
     if (m_resultItem) {
 	m_resultItem->deleteLater();
 	m_resultItem = 0;
+	recalculateSize();
     }
 
     if(m_expression)

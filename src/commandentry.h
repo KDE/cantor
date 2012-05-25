@@ -80,7 +80,7 @@ class CommandEntry : public WorksheetEntry
 
     void layOutForWidth(double w, bool force = false);
 
-    void populateMenu(KMenu *menu);
+    void populateMenu(KMenu *menu, const QPointF& pos);
 
   public slots:
     bool evaluate(int evalOp = 0);

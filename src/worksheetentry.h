@@ -71,7 +71,7 @@ class WorksheetEntry : public QGraphicsWidget
 
     virtual void layOutForWidth(double w, bool force = false) = 0;
 
-    virtual void populateMenu(KMenu *menu);
+    virtual void populateMenu(KMenu *menu, const QPointF& pos);
 
     enum EvaluationOption {
 	FocusedItemOnly = 1,

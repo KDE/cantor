@@ -757,8 +757,10 @@ KMenu* Worksheet::createContextMenu()
     return menu;
 }
 
-void Worksheet::populateMenu(KMenu *menu)
+void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 {
+    Q_UNUSED(pos);
+
     WorksheetEntry* entry = currentEntry();
 
     if (!isRunning())
@@ -800,7 +802,7 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     if (!event->isAccepted()) {
 	event->accept();
 	KMenu *menu = createContextMenu();
-	populateMenu(menu);
+	populateMenu(menu, event->scenePos());
 
 	menu->popup(event->screenPos());
     }

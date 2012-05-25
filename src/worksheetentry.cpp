@@ -120,17 +120,17 @@ Worksheet* WorksheetEntry::worksheet()
 void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     KMenu *menu = worksheet()->createContextMenu();
-    populateMenu(menu);
+    populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
 }
 
-void WorksheetEntry::populateMenu(KMenu *menu)
+void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
     if (!worksheet()->isRunning() && wantToEvaluate())
 	menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
-    worksheet()->populateMenu(menu);
+    worksheet()->populateMenu(menu, mapToScene(pos));
 }
 
 void WorksheetEntry::evaluateNext(int opt)

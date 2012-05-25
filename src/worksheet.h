@@ -68,7 +68,7 @@ class Worksheet : public QGraphicsScene
     void setModified();
 
     KMenu* createContextMenu();
-    void populateMenu(KMenu* menu);
+    void populateMenu(KMenu* menu, const QPointF& pos);
     EpsRenderer* epsRenderer();
     qreal contentsWidth();
 
