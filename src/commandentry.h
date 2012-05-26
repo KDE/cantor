@@ -73,7 +73,6 @@ class CommandEntry : public WorksheetEntry
     void removeResult();
 
     void interruptEvaluation();
-
     bool isShowingCompletionPopup();
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
@@ -98,6 +97,9 @@ class CommandEntry : public WorksheetEntry
     void completedLineChanged();
     void showSyntaxHelp();
     void completeLineTo(const QString& line, int index);
+
+    void moveToNextItem(int pos, qreal x);
+    void moveToPreviousItem(int pos, qreal x);
 
   protected:
     bool wantToEvaluate();

@@ -62,15 +62,15 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     kDebug() << size();
     connect(m_commandItem, SIGNAL(tabPressed()), this, SLOT(showCompletion()));
-    connect(m_commandItem, SIGNAL(backtabPressed()), 
+    connect(m_commandItem, SIGNAL(backtabPressed()),
 	    this, SLOT(selectPreviousCompletion()));
-    connect(m_commandItem, SIGNAL(applyCompletion()), 
+    connect(m_commandItem, SIGNAL(applyCompletion()),
 	    this, SLOT(applySelectedCompletion()));
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluateCommand()));
     connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
-	    this, SLOT(moveToPreviousEntry(int, qreal)));
+	    this, SLOT(moveToPreviousItem(int, qreal)));
     connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
-	    this, SLOT(moveToNextEntry(int, qreal)));
+	    this, SLOT(moveToNextItem(int, qreal)));
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
 	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
 }
@@ -89,6 +89,37 @@ int CommandEntry::type() const
 void CommandEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
     WorksheetEntry::populateMenu(menu, pos);
+}
+
+void CommandEntry::moveToNextItem(int pos, qreal x)
+{
+    WorksheetTextItem* item = qobject_cast<WorksheetTextItem*>(sender());
+
+    if (!item)
+	return;
+
+    if (item == m_commandItem || item == 0) {
+	if (m_informationItems.isEmpty())
+	    moveToNextEntry(pos, x);
+	else
+	    currentInformationItem()->setFocusAt(pos, x);
+    } else if (item == currentInformationItem()) {
+	moveToNextEntry(pos, x);
+    }
+}
+
+void CommandEntry::moveToPreviousItem(int pos, qreal x)
+{
+    WorksheetTextItem* item = qobject_cast<WorksheetTextItem*>(sender());
+
+    if (!item)
+	return;
+
+    if (item == m_commandItem || item == 0) {
+	moveToPreviousEntry(pos, x);
+    } else if (item == currentInformationItem()) {
+	m_commandItem->setFocusAt(pos, x);
+    }
 }
 
 QString CommandEntry::command()
@@ -182,7 +213,7 @@ void CommandEntry::showCompletion()
 	QString comp = m_completionObject->completion();
 	kDebug() << "command" << m_completionObject->command();
 	kDebug() << "completion" << comp;
-	if (comp != m_completionObject->command() 
+	if (comp != m_completionObject->command()
 	    || !m_completionObject->hasMultipleMatches()) {
 	    if (m_completionObject->hasMultipleMatches()) {
 		completeCommandTo(comp, PreliminaryCompletion);
@@ -341,7 +372,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     }
 
     m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
-    
+
     if(!m_errorItem)
     {
 	m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
@@ -536,8 +567,10 @@ void CommandEntry::resultDeleted()
 
 void CommandEntry::addInformation()
 {
-    currentInformationItem()->setTextInteractionFlags(Qt::TextSelectableByMouse);
-    QString inf = m_informationItems.last()->toPlainText();
+    WorksheetTextItem *answerItem = currentInformationItem();
+    answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
+
+    QString inf = answerItem->toPlainText();
     inf.replace(QChar::ParagraphSeparator, '\n');
     inf.replace(QChar::LineSeparator, '\n');
 
@@ -553,6 +586,10 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     questionItem->setPlainText(question);
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
+    connect(answerItem, SIGNAL(moveToPrevious(int, qreal)),
+	    this, SLOT(moveToPreviousItem(int, qreal)));
+    connect(answerItem, SIGNAL(moveToNext(int, qreal)),
+	    this, SLOT(moveToNextItem(int, qreal)));
 
     connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
     answerItem->setFocus();
@@ -682,7 +719,7 @@ void CommandEntry::layOutForWidth(double w, bool force)
 	information->setTextWidth(w-x -8);
 	y += information->height();
     }
-    
+
     if (m_errorItem) {
 	y += VerticalSpacing;
 	m_errorItem->setPos(x,y);
@@ -696,7 +733,7 @@ void CommandEntry::layOutForWidth(double w, bool force)
 	m_resultItem->setTextWidth(w-x -8);
 	y+= m_resultItem->height();
     }
-    
+
     setEntrySize(QSizeF(w,y));
 }
 
