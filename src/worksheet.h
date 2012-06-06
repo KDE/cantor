@@ -127,6 +127,7 @@ class Worksheet : public QGraphicsScene
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void focusOutEvent(QFocusEvent* focusEvent);
 
   private slots:
     void loginToSession();

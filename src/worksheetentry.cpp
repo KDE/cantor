@@ -178,6 +178,7 @@ void WorksheetEntry::removeEntry()
 	    next->focusEntry();
 	}
     }
+    worksheet()->updateLayout();
     deleteLater();
 }
 

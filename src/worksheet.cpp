@@ -133,12 +133,16 @@ void Worksheet::setModified()
 
 WorksheetEntry* Worksheet::currentEntry()
 {
-    return m_currentEntry;
     QGraphicsItem* item = focusItem();
-    while (item && item->type() < QGraphicsItem::UserType)
+    while (item && (item->type() < QGraphicsItem::UserType ||
+		    item->type() >= QGraphicsItem::UserType + 100))
 	item = item->parentItem();
-    if (item)
-	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+    if (item) {
+	m_currentEntry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+	return m_currentEntry;
+    } else {
+	return m_currentEntry;
+    }
     return 0;
 }
 
@@ -705,6 +709,7 @@ void Worksheet::removeCurrentEntry()
     if(!entry)
         return;
 
+    m_currentEntry = 0;
     entry->removeEntry();
 }
 
@@ -770,6 +775,12 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 	menu->popup(event->screenPos());
     }
+}
+
+void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
+{
+    currentEntry();
+    QGraphicsScene::focusOutEvent(focusEvent);
 }
 
 
