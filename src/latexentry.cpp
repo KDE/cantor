@@ -125,7 +125,7 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             KUrl internal=KUrl(imagePath);
             internal.setProtocol("internal");
 
-            QTextImageFormat format = worksheet()->epsRenderer()->renderEps(m_textItem->document(), imagePath);
+            QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), imagePath);
             kDebug()<<"rendering successfull? " << !format.name().isEmpty();
 
 
@@ -215,7 +215,7 @@ bool LatexEntry::evaluate(int evalOp)
     QTextImageFormat formulaFormat;
     if (renderer->renderingSuccessful()) {
 	EpsRenderer* epsRend = worksheet()->epsRenderer();
-	formulaFormat = epsRend->renderEps(m_textItem->document(), renderer);
+	formulaFormat = epsRend->render(m_textItem->document(), renderer);
 	success = !formulaFormat.name().isEmpty();
     } else {
 	success = false;
@@ -248,7 +248,7 @@ void LatexEntry::updateEntry()
         kDebug()<<"found a formula... rendering the eps...";
         QTextCharFormat format=cursor.charFormat();
         QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
-        QSize s = worksheet()->epsRenderer()->renderEpsToResource(m_textItem->document(), url);
+        QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
         kDebug()<<"rendering successfull? "<< !s.isValid();
 
         //HACK: reinsert this image, to make sure the layout is updated to the new size
@@ -289,12 +289,12 @@ bool LatexEntry::isOneImageOnly()
 
 void LatexEntry::layOutForWidth(double w, bool force)
 {
-    if (entrySize().width() == w && !force)
+    if (size().width() == w && !force)
 	return;
 
     m_textItem->setPos(0,0);
-    m_textItem->setTextWidth(w - 8);
-    setEntrySize(QSizeF(w, m_textItem->height()));
+    m_textItem->setTextWidth(w);
+    setSize(QSizeF(w, m_textItem->height()));
 }
 
 bool LatexEntry::wantToEvaluate()

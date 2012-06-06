@@ -31,7 +31,6 @@
 #include "config-cantor.h"
 #include "worksheet.h"
 #include "settings.h"
-#include "resultproxy.h"
 #include "commandentry.h"
 #include "textentry.h"
 #include "latexentry.h"
@@ -42,18 +41,20 @@
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
 
+const double Worksheet::LeftMargin = 4;
+const double Worksheet::RightMargin = 4;
+const double Worksheet::TopMargin = 4;
+
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
 {
     m_session = backend->createSession();
-    m_rootlayout = new QGraphicsLinearLayout(Qt::Vertical);
-    m_rootwidget = new QGraphicsWidget;
-    m_rootwidget->setLayout(m_rootlayout);
-    addItem(m_rootwidget);
-
     m_highlighter = 0;
 
-    m_proxy=new ResultProxy(this);
+    m_firstEntry = 0;
+    m_lastEntry = 0;
+    m_currentEntry = 0;
+    m_width = 0;
 
     m_isPrinting = false;
     m_loginFlag = true;
@@ -98,27 +99,26 @@ void Worksheet::setViewSize(qreal w, qreal h)
 {
     Q_UNUSED(h);
 
-    m_rootlayout->setMinimumWidth(w);
-    m_rootlayout->setMaximumWidth(w);
-    qreal left, right;
-    m_rootlayout->getContentsMargins(&left, 0, &right, 0);
-    w -= left + right;
+    m_width = w;
     m_epsRenderer.setScale(worksheetView()->scaleFactor());
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next()) {
-	// not optimal: layOutForWidth is called twice
-	kDebug() << entry;
-	entry->layOutForWidth(w);
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
 	entry->updateEntry();
-    }
+    updateLayout();
+}
 
-    //m_rootlayout->updateGeometry();
+void Worksheet::updateLayout()
+{
+    const qreal w = m_width - LeftMargin - RightMargin;
+    qreal y = TopMargin;
+    const qreal x = LeftMargin;
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+	y += entry->setGeometry(x, y, w);
+    setSceneRect(QRectF(0, 0, m_width, y));
 }
 
 qreal Worksheet::contentsWidth()
 {
-    qreal left, right;
-    m_rootlayout->getContentsMargins(&left, 0, &right, 0);
-    return m_rootlayout->geometry().width() - left - right;
+    return m_width - LeftMargin - RightMargin;
 }
 
 WorksheetView* Worksheet::worksheetView()
@@ -133,6 +133,7 @@ void Worksheet::setModified()
 
 WorksheetEntry* Worksheet::currentEntry()
 {
+    return m_currentEntry;
     QGraphicsItem* item = focusItem();
     while (item && item->type() < QGraphicsItem::UserType)
 	item = item->parentItem();
@@ -143,19 +144,22 @@ WorksheetEntry* Worksheet::currentEntry()
 
 WorksheetEntry* Worksheet::firstEntry()
 {
-    if (m_rootlayout->count() == 0)
-	return 0;
-    QGraphicsItem* item = m_rootlayout->itemAt(0)->graphicsItem();
-    return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+    return m_firstEntry;
 }
 
 WorksheetEntry* Worksheet::lastEntry()
 {
-    int c = m_rootlayout->count();
-    if (c == 0)
-	return 0;
-    QGraphicsItem* item = m_rootlayout->itemAt(c-1)->graphicsItem();
-    return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+    return m_lastEntry;
+}
+
+void Worksheet::setFirstEntry(WorksheetEntry* entry)
+{
+    m_firstEntry = entry;
+}
+
+void Worksheet::setLastEntry(WorksheetEntry* entry)
+{
+    m_lastEntry = entry;
 }
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
@@ -166,20 +170,6 @@ WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
     if (item)
 	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
     return 0;
-}
-
-WorksheetEntry* Worksheet::entryAt(int row)
-{
-    if (row >= 0 && row < entryCount()) {
-	QGraphicsItem* item = m_rootlayout->itemAt(row)->graphicsItem();
-	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
-    }
-    return 0;
-}
-
-int Worksheet::entryCount()
-{
-    return m_rootlayout->count();
 }
 
 void Worksheet::focusEntry(WorksheetEntry *entry)
@@ -224,7 +214,7 @@ void Worksheet::showCompletion()
 WorksheetEntry* Worksheet::appendEntry(const int type)
 {
     WorksheetEntry* entry = WorksheetEntry::create(type, this);
-    entry->layOutForWidth(contentsWidth());
+
     if (entry)
     {
         kDebug() << "Entry Appended";
@@ -232,11 +222,12 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
 	entry->setPrevious(lastEntry());
 	if (lastEntry())
 	    lastEntry()->setNext(entry);
-	m_rootlayout->addItem(entry);
+	if (!firstEntry())
+	    m_firstEntry = entry;
+	m_lastEntry = entry;
+	updateLayout();
         focusEntry(entry);
     }
-    kDebug() << "Entry position: " << entry->mapRectToScene(entry->rect());
-    kDebug() << "Entry boundary: " << entry->mapRectToScene(entry->boundingRect());
     return entry;
 }
 
@@ -297,17 +288,15 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     if (!next || next->type() != type || !next->isEmpty())
     {
 	entry = WorksheetEntry::create(type, this);
-	entry->layOutForWidth(contentsWidth());
 	addItem(entry);
 	entry->setPrevious(current);
 	entry->setNext(next);
 	current->setNext(entry);
 	if (next)
 	    next->setPrevious(entry);
-	int index = entryCount();
-	for (; next; next = next->next())
-	    --index;
-	m_rootlayout->insertItem(index, entry);
+	else
+	    m_lastEntry = entry;
+	updateLayout();
     }
 
     focusEntry(entry);
@@ -365,17 +354,15 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
 	entry = WorksheetEntry::create(type, this);
-	entry->layOutForWidth(contentsWidth());
 	addItem(entry);
 	entry->setNext(current);
 	entry->setPrevious(prev);
 	current->setPrevious(entry);
 	if (prev)
 	    prev->setNext(entry);
-	int index = 0;
-	for (; prev; prev = prev->previous())
-	    ++index;
-	m_rootlayout->insertItem(index, entry);
+	else
+	    m_firstEntry = entry;
+	updateLayout();
     }
 
     focusEntry(entry);
@@ -476,11 +463,6 @@ void Worksheet::enableCompletion(bool enable)
 Cantor::Session* Worksheet::session()
 {
     return m_session;
-}
-
-ResultProxy* Worksheet::resultProxy()
-{
-    return m_proxy;
 }
 
 bool Worksheet::isRunning()
@@ -642,10 +624,8 @@ void Worksheet::load(const QString& filename )
     //cleanup the worksheet and all it contains
     delete m_session;
     m_session=0;
-    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next()) {
+    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
         delete entry;
-	m_rootlayout->removeItem(entry);
-    }
     clear();
 
     m_session=b->createSession();
@@ -725,23 +705,7 @@ void Worksheet::removeCurrentEntry()
     if(!entry)
         return;
 
-    m_rootlayout->removeItem(entry);
-    if (entry->previous())
-	entry->previous()->setNext(entry->next());
-    if (entry->next())
-	entry->next()->setPrevious(entry->previous());
-
-    WorksheetEntry* next = entry->next();
-    delete entry;
-
-    if (!next) {
-	if (entry->previous() && entry->previous()->isEmpty()) {
-	    focusEntry(entry->previous());
-	} else {
-	    next = appendCommandEntry();
-	    focusEntry(next);
-	}
-    }
+    entry->removeEntry();
 }
 
 EpsRenderer* Worksheet::epsRenderer()

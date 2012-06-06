@@ -39,7 +39,6 @@ namespace Cantor {
     class Expression;
 }
 
-class ResultProxy;
 class WorksheetEntry;
 class WorksheetTextItem;
 
@@ -52,8 +51,6 @@ class Worksheet : public QGraphicsScene
 
     Cantor::Session* session();
 
-    ResultProxy* resultProxy();
-
     bool isRunning();
     bool showExpressionIds();
 
@@ -62,6 +59,7 @@ class Worksheet : public QGraphicsScene
     bool isPrinting();
 
     void setViewSize(qreal w, qreal h);
+    void updateLayout();
 
     WorksheetView* worksheetView();
 
@@ -118,6 +116,9 @@ class Worksheet : public QGraphicsScene
 
     void removeCurrentEntry();
 
+    void setFirstEntry(WorksheetEntry* entry);
+    void setLastEntry(WorksheetEntry* entry);
+
   signals:
     void modified();
     void sessionChanged();
@@ -145,17 +146,21 @@ class Worksheet : public QGraphicsScene
     int entryCount();
 
   private:
+    static const double LeftMargin;
+    static const double RightMargin;
+    static const double TopMargin;
     Cantor::Session *m_session;
-    ResultProxy* m_proxy;
-    QGraphicsWidget* m_rootwidget;
-    QGraphicsLinearLayout* m_rootlayout;
     QSyntaxHighlighter* m_highlighter;
     EpsRenderer m_epsRenderer;
+    WorksheetEntry* m_firstEntry;
+    WorksheetEntry* m_lastEntry;
+    WorksheetEntry* m_currentEntry;
 
     bool m_completionEnabled;
     bool m_showExpressionIds;
     bool m_loginFlag;
     bool m_isPrinting;
+    double m_width;
 };
 
 #endif // WORKSHEET_H

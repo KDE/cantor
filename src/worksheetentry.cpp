@@ -7,15 +7,13 @@
 #include <KIcon>
 #include <KLocale>
 
-WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsWidget()
+WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
 {
     Q_UNUSED(worksheet)
 
     m_next = 0;
     m_prev = 0;
 
-    setOwnedByLayout(false);
-    //connect(this, SIGNAL(destroyed(QObject*)), worksheet, SLOT(removeEntry(QObject*)));
 }
 
 WorksheetEntry::~WorksheetEntry()
@@ -77,6 +75,18 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
     m_prev = p;
 }
 
+QRectF WorksheetEntry::boundingRect() const
+{
+    return QRectF(QPointF(0,0), m_size);
+}
+
+void WorksheetEntry::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
+    Q_UNUSED(painter);
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+}
+
 bool WorksheetEntry::focusEntry(int pos, qreal xCoord)
 {
     Q_UNUSED(pos)
@@ -96,21 +106,18 @@ void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 	next()->focusEntry(pos, x);
 }
 
+qreal WorksheetEntry::setGeometry(qreal x, qreal y, qreal w)
+{
+    setPos(x, y);
+    layOutForWidth(w);
+    return size().height();
+}
+
 void WorksheetEntry::recalculateSize()
 {
-    layOutForWidth(entrySize().width(), true);
-    updateGeometry();
+    layOutForWidth(size().width(), true);
+    worksheet()->updateLayout();
 }
-
-QSizeF WorksheetEntry::sizeHint(Qt::SizeHint which, const QSizeF & constraint) const
-{
-    // layOutForWidth must be called to change the size
-    Q_UNUSED(which);
-    Q_UNUSED(constraint);
-
-    return m_size;
-}
-
 
 Worksheet* WorksheetEntry::worksheet()
 {
@@ -130,6 +137,7 @@ void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
     if (!worksheet()->isRunning() && wantToEvaluate())
 	menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
+    menu->addAction(i18n("Remove Entry"), this, SLOT(removeEntry()), 0);
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
 
@@ -151,12 +159,34 @@ void WorksheetEntry::evaluateNext(int opt)
     }
 }
 
-void WorksheetEntry::setEntrySize(QSizeF size)
+void WorksheetEntry::removeEntry()
+{
+    if (previous())
+	previous()->setNext(next());
+    else
+	worksheet()->setFirstEntry(next());
+    if (next())
+	next()->setPrevious(previous());
+    else
+	worksheet()->setLastEntry(previous());
+
+    if (!next()) {
+	if (previous() && previous()->isEmpty()) {
+	    previous()->focusEntry();
+	} else {
+	    WorksheetEntry* next = worksheet()->appendCommandEntry();
+	    next->focusEntry();
+	}
+    }
+    deleteLater();
+}
+
+void WorksheetEntry::setSize(QSizeF size)
 {
     m_size = size;
 }
 
-QSizeF WorksheetEntry::entrySize()
+QSizeF WorksheetEntry::size()
 {
     return m_size;
 }

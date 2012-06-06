@@ -50,35 +50,29 @@ void EpsRenderer::useHighResolution(bool b)
     m_useHighRes = b;
 }
 
-QTextImageFormat EpsRenderer::renderEps(QTextDocument *document, const KUrl& url)
+QTextImageFormat EpsRenderer::render(QTextDocument *document, const KUrl& url)
 {
-    double scale;
-    if(m_useHighRes)
-        scale = 1.2;
-    else
-        scale = 1.8;
-
     QTextImageFormat epsCharFormat;
 
-    QSize s = renderEpsToResource(document, url);
+    QSizeF s = renderToResource(document, url);
 
     KUrl internal = url;
     internal.setProtocol("internal");
     if(s.isValid())
     {
         epsCharFormat.setName(internal.url());
-	epsCharFormat.setWidth(s.width()*scale);
-	epsCharFormat.setHeight(s.height()*scale);
+	epsCharFormat.setWidth(s.width());
+	epsCharFormat.setHeight(s.height());
     }
 
     return epsCharFormat;
 }
 
-QTextImageFormat EpsRenderer::renderEps(QTextDocument *document, 
-					const Cantor::LatexRenderer* latex)
+QTextImageFormat EpsRenderer::render(QTextDocument *document,
+				     const Cantor::LatexRenderer* latex)
 {
-    QTextImageFormat format = renderEps(document, latex->imagePath());
-    
+    QTextImageFormat format = render(document, latex->imagePath());
+
     if (!format.name().isEmpty()) {
 	format.setProperty(CantorFormula, latex->method());
 	format.setProperty(ImagePath, latex->imagePath());
@@ -88,29 +82,44 @@ QTextImageFormat EpsRenderer::renderEps(QTextDocument *document,
     return format;
 }
 
-QSize EpsRenderer::renderEpsToResource(QTextDocument *document, const KUrl& url)
+QSizeF EpsRenderer::renderToResource(QTextDocument *document, const KUrl& url)
+{
+    QSizeF size;
+    QImage img = renderToImage(url, &size);
+
+    KUrl internal = url;
+    internal.setProtocol("internal");
+    kDebug() << internal;
+    document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
+    return size;
+}
+
+QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
 {
 #ifdef LIBSPECTRE_FOUND
     SpectreDocument* doc = spectre_document_new();
     SpectreRenderContext* rc = spectre_render_context_new();
 
     kDebug() << "rendering eps file: " << url;
-    KUrl internal = url;
-    internal.setProtocol("internal");
-    kDebug() << internal;
 
     spectre_document_load(doc, url.toLocalFile().toUtf8());
 
-    int w, h;
+    int wdoc, hdoc;
+    qreal w, h;
     double scale;
-    if(m_useHighRes)
+    spectre_document_get_page_size(doc, &wdoc, &hdoc);
+    if(m_useHighRes) {
         scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
-    else
+	w = 1.2 * wdoc;
+	h = 1.2 * hdoc;
+    } else {
         scale=1.8*m_scale;
+	w = 1.8 * wdoc;
+	h = 1.8 * hdoc;
+    }
 
     kDebug()<<"scale: "<<scale;
 
-    spectre_document_get_page_size(doc, &w, &h);
     kDebug()<<"dimension: "<<w<<"x"<<h;
     unsigned char* data;
     int rowLength;
@@ -118,17 +127,14 @@ QSize EpsRenderer::renderEpsToResource(QTextDocument *document, const KUrl& url)
     spectre_render_context_set_scale(rc, scale, scale);
     spectre_document_render_full( doc, rc, &data, &rowLength);
 
-    QImage img(data, w*scale, h*scale, rowLength, QImage::Format_RGB32);
-
-    document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
-
+    QImage img(data, wdoc*scale, hdoc*scale, rowLength, QImage::Format_RGB32);
     spectre_document_free(doc);
     spectre_render_context_free(rc);
 
-    QSize size(w, h);
-
-    return size;
+    if (size)
+	*size = QSizeF(w,h);
+    return img;
 #else
-    return QSize();
+    return QImage();
 #endif
 }

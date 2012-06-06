@@ -22,8 +22,8 @@
 #include "commandentry.h"
 #include "worksheet.h"
 #include "worksheettextitem.h"
+#include "resultitem.h"
 #include "loadedexpression.h"
-#include "resultproxy.h"
 #include "settings.h"
 #include "lib/expression.h"
 #include "lib/result.h"
@@ -88,6 +88,7 @@ int CommandEntry::type() const
 
 void CommandEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
+    kDebug() << "populate Menu";
     WorksheetEntry::populateMenu(menu, pos);
 }
 
@@ -344,12 +345,12 @@ void CommandEntry::updateEntry()
 	return; // Help is handled elsewhere
 
     if (!m_resultItem)
-	m_resultItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+	m_resultItem = ResultItem::create(this, expr->result());
+    else
+	m_resultItem = m_resultItem->updateFromResult(expr->result());
 
-    QTextCursor cursor = m_resultItem->textCursor();
-    cursor.movePosition(QTextCursor::Start);
-    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-    worksheet()->resultProxy()->insertResult(cursor, expr->result());
+    kDebug() << "result item used" << expr->result()->type();
+
     recalculateSize();
 }
 
@@ -385,7 +386,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 bool CommandEntry::isEmpty()
 {
     if (m_commandItem->toPlainText().trimmed().isEmpty()) {
-	if (m_resultItem && !m_resultItem->toPlainText().trimmed().isEmpty())
+	if (m_resultItem)
 	    return false;
 	return true;
     }
@@ -702,38 +703,37 @@ QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
 
 void CommandEntry::layOutForWidth(double w, bool force)
 {
-    if (w == entrySize().width() && !force)
+    if (w == size().width() && !force)
 	return;
 
+    prepareGeometryChange();
     m_promptItem->setPos(0,0);
     double x = 0 + m_promptItem->width() + HorizontalSpacing;
     double y = 0;
 
     m_commandItem->setPos(x,y);
-    m_commandItem->setTextWidth(w-x /* ToDo: find better number */ -8);
+    m_commandItem->setTextWidth(w-x);
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
     foreach(WorksheetTextItem* information, m_informationItems) {
 	y += VerticalSpacing;
 	information->setPos(x,y);
-	information->setTextWidth(w-x -8);
+	information->setTextWidth(w-x);
 	y += information->height();
     }
 
     if (m_errorItem) {
 	y += VerticalSpacing;
 	m_errorItem->setPos(x,y);
-	m_errorItem->setTextWidth(w-x -8);
+	m_errorItem->setTextWidth(w-x);
 	y += m_errorItem->height();
     }
 
     if (m_resultItem) {
 	y += VerticalSpacing;
-	m_resultItem->setPos(x,y);
-	m_resultItem->setTextWidth(w-x -8);
-	y+= m_resultItem->height();
+	y += m_resultItem->setGeometry(x, y, w-x);
     }
 
-    setEntrySize(QSizeF(w,y));
+    setSize(QSizeF(w,y));
 }
 

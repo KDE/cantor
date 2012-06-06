@@ -23,6 +23,8 @@
 
 #include <QTextDocument>
 #include <QTextImageFormat>
+#include <QPixmap>
+#include <QSizeF>
 
 #include <KUrl>
 
@@ -39,16 +41,18 @@ class EpsRenderer
     enum FormulaType {LatexFormula = Cantor::LatexRenderer::LatexMethod,
 		      MmlFormula = Cantor::LatexRenderer::MmlMethod};
 
-    QTextImageFormat renderEps(QTextDocument *document, const KUrl& url);
-    QTextImageFormat renderEps(QTextDocument *document, 
-			       const Cantor::LatexRenderer* latex);
+    QPixmap render(const KUrl& url, QSizeF* size = 0);
+    QTextImageFormat render(QTextDocument *document, const KUrl& url);
+    QTextImageFormat render(QTextDocument *document, 
+			    const Cantor::LatexRenderer* latex);
 
     void setScale(qreal scale);
     qreal scale();
 
     void useHighResolution(bool b);
 
-    QSize renderEpsToResource(QTextDocument *document, const KUrl& url);
+    QSizeF renderToResource(QTextDocument *document, const KUrl& url);
+    QImage renderToImage(const KUrl& url, QSizeF* size = 0);
 
   private:
     double m_scale;

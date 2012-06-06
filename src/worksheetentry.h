@@ -21,7 +21,7 @@
 #ifndef WORKSHEETENTRY_H
 #define WORKSHEETENTRY_H
 
-#include <QGraphicsWidget>
+#include <QGraphicsObject>
 #include <QGraphicsSceneContextMenuEvent>
 
 #include "worksheet.h"
@@ -33,7 +33,11 @@ class ImageEntry;
 class PageBreakEntry;
 class LaTeXEntry;
 
-class WorksheetEntry : public QGraphicsWidget
+class QPainter;
+class QStykeOptionGraphicsItem;
+class QWidget;
+
+class WorksheetEntry : public QGraphicsObject
 {
   Q_OBJECT
   public:
@@ -54,7 +58,9 @@ class WorksheetEntry : public QGraphicsWidget
     void setNext(WorksheetEntry*);
     void setPrevious(WorksheetEntry*);
 
-    QSizeF sizeHint(Qt::SizeHint which, const QSizeF & constraint) const;
+    QRectF boundingRect() const;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+
     virtual bool acceptRichText() = 0;
 
     virtual void setContent(const QString& content)=0;
@@ -69,9 +75,12 @@ class WorksheetEntry : public QGraphicsWidget
 
     virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
-    virtual void layOutForWidth(double w, bool force = false) = 0;
+    virtual qreal setGeometry(qreal x, qreal y, qreal w);
+    virtual void layOutForWidth(qreal w, bool force = false) = 0;
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
+
+    QSizeF size();
 
     enum EvaluationOption {
 	FocusedItemOnly = 1,
@@ -81,6 +90,7 @@ class WorksheetEntry : public QGraphicsWidget
   public slots:
     virtual bool evaluate(int evalOp = 0) = 0;
     virtual void updateEntry() = 0;
+    virtual void removeEntry();
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
     void recalculateSize();
@@ -90,8 +100,7 @@ class WorksheetEntry : public QGraphicsWidget
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void evaluateNext(int opt);
 
-    void setEntrySize(QSizeF size);
-    QSizeF entrySize();
+    void setSize(QSizeF size);
 
     virtual bool wantToEvaluate() = 0;
 

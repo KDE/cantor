@@ -64,6 +64,7 @@ set(cantor_PART_SRCS
    worksheetview.cpp
    worksheetentry.cpp
    worksheettextitem.cpp
+   worksheetimageitem.cpp
    commandentry.cpp
    textentry.cpp
    #pagebreakentry.cpp
@@ -71,11 +72,13 @@ set(cantor_PART_SRCS
    latexentry.cpp
    imagesettingsdialog.cpp
    scripteditorwidget.cpp
-   resultproxy.cpp
+   resultitem.cpp
+   textresultitem.cpp
+   imageresultitem.cpp
+   animationresultitem.cpp
    loadedexpression.cpp
    animationhandler.cpp
    animation.cpp
-   resultcontextmenu.cpp
    epsrenderer.cpp
  )
 

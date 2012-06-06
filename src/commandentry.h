@@ -31,6 +31,7 @@
 #include "lib/expression.h"
 
 class Worksheet;
+class ResultItem;
 
 namespace Cantor{
     class Result;
@@ -70,7 +71,6 @@ class CommandEntry : public WorksheetEntry
     bool acceptRichText();
 
     void removeContextHelp();
-    void removeResult();
 
     void interruptEvaluation();
     bool isShowingCompletionPopup();
@@ -79,12 +79,11 @@ class CommandEntry : public WorksheetEntry
 
     void layOutForWidth(double w, bool force = false);
 
-    void populateMenu(KMenu *menu, const QPointF& pos);
-
   public slots:
     bool evaluate(int evalOp = 0);
     bool evaluateCommand(int evalOp = 0);
     void addInformation();
+    void removeResult();
 
     void showCompletion();
     void selectPreviousCompletion();
@@ -100,6 +99,8 @@ class CommandEntry : public WorksheetEntry
 
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
+
+    void populateMenu(KMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();
@@ -129,7 +130,7 @@ class CommandEntry : public WorksheetEntry
 
     WorksheetTextItem* m_promptItem;
     WorksheetTextItem* m_commandItem;
-    WorksheetTextItem* m_resultItem;
+    ResultItem* m_resultItem;
     WorksheetTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;

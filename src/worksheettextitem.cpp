@@ -37,12 +37,12 @@
 #include <KStandardAction>
 #include <KAction>
 
-WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, Qt::TextInteractionFlags ti)
+WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
 {
     setTextInteractionFlags(ti);
     if (ti & Qt::TextEditable)
-	connect(this, SIGNAL(sizeChanged()), parentEntry(),
+	connect(this, SIGNAL(sizeChanged()), parent,
 		SLOT(recalculateSize()));
     m_completionEnabled = false;
     m_completionActive = false;
@@ -51,10 +51,17 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsWidget* parent, Qt::TextInteractio
 	    this, SLOT(setHeight()));
     connect(document(), SIGNAL(contentsChanged()),
 	    this, SLOT(testHeight()));
+    connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
+	    SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
 }
 
 WorksheetTextItem::~WorksheetTextItem()
 {
+}
+
+int WorksheetTextItem::type() const
+{
+    return Type;
 }
 
 void WorksheetTextItem::setHeight()
@@ -64,12 +71,14 @@ void WorksheetTextItem::setHeight()
 
 void WorksheetTextItem::testHeight()
 {
+    kDebug() << m_height << height();
     if (m_height != height())
 	emit sizeChanged();
 }
 
 void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
 {
+    kDebug() << "populate Menu in WorksheetItem";
     KAction* cut = KStandardAction::cut(this, SLOT(cut()), menu);
     KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
     KAction* paste = KStandardAction::paste(this, SLOT(paste()), menu);
@@ -87,10 +96,7 @@ void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
 	menu->addAction(paste);
     menu->addSeparator();
 
-    WorksheetEntry *entry = parentEntry();
-
-    if (entry)
-	entry->populateMenu(menu, mapToParent(pos));
+    emit menuCreated(menu, mapToParent(pos));
 }
 
 void WorksheetTextItem::cut()
@@ -291,8 +297,17 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	if (event->modifiers() == Qt::ShiftModifier) {
 	    emit execute();
 	    return;
+	} else if (event->modifiers() == Qt::ControlModifier) {
+	    emit appendCommandEntry();
+	    return;
 	} else if (event->modifiers() == Qt::NoModifier && m_completionActive) {
 	    emit applyCompletion();
+	    return;
+	}
+	break;
+    case Qt::Key_Delete:
+	if (event->modifiers() == Qt::ShiftModifier) {
+	    emit deleteEntry();
 	    return;
 	}
 	break;
@@ -363,12 +378,13 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
     QGraphicsTextItem::focusInEvent(event);
+    parentItem()->ensureVisible();
     emit receivedFocus(this);
 }
 
 void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 {
-    if (event->reason() == Qt::MouseFocusReason || 
+    if (event->reason() == Qt::MouseFocusReason ||
 	event->reason() == Qt::OtherFocusReason) {
 	QTextCursor cursor = textCursor();
 	cursor.clearSelection();
@@ -450,11 +466,6 @@ double WorksheetTextItem::height()
 Worksheet* WorksheetTextItem::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
-}
-
-WorksheetEntry* WorksheetTextItem::parentEntry()
-{
-    return qobject_cast<WorksheetEntry*>(parentObject());
 }
 
 #include "worksheettextitem.moc"

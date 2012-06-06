@@ -27,7 +27,6 @@
 #include <KMenu>
 
 class Worksheet;
-class WorksheetEntry;
 
 namespace Cantor {
     class Session;
@@ -37,7 +36,7 @@ class WorksheetTextItem : public QGraphicsTextItem
 {
   Q_OBJECT
   public:
-    WorksheetTextItem(QGraphicsWidget* parent, 
+    WorksheetTextItem(QGraphicsObject* parent,
 		      Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem();
 
@@ -46,13 +45,16 @@ class WorksheetTextItem : public QGraphicsTextItem
     QTextCursor cursorForPosition(const QPointF& pos) const;
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
+    enum {Type = UserType + 100};
+
+    int type() const;
 
     void setFocusAt(int pos = TopLeft, qreal xCoord = 0);
 
     void enableCompletion(bool e);
     void activateCompletion(bool a);
 
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    virtual void populateMenu(KMenu *menu, const QPointF& pos);
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();
@@ -71,7 +73,10 @@ class WorksheetTextItem : public QGraphicsTextItem
     void applyCompletion();
     void doubleClick();
     void execute();
+    void appendCommandEntry();
+    void deleteEntry();
     void sizeChanged();
+    void menuCreated(KMenu*, const QPointF&);
 
   public slots:
     void insertTab();
@@ -87,8 +92,6 @@ class WorksheetTextItem : public QGraphicsTextItem
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     bool sceneEvent(QEvent *event);
-
-    WorksheetEntry* parentEntry();
 
   private slots:
     void setHeight();
