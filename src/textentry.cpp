@@ -90,22 +90,6 @@ bool TextEntry::acceptRichText()
     return true;
 }
 
-/*
-void TextEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
-{
-    Q_UNUSED(event);
-    QTextCursor c;
-
-    for (int pos = m_textItem->textCursor().selectionStart()+1;
-	 pos <= m_textItem->textCursor().selectionEnd(); ++pos)
-    {
-	c.setPosition(pos);
-        if (c.charFormat().hasProperty(EpsRenderer::CantorFormula))
-            showLatexCode(c);
-    }
-}
-*/
-
 bool TextEntry::focusEntry(int pos, qreal xCoord)
 {
     m_textItem->setFocusAt(pos, xCoord);
@@ -169,6 +153,16 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
 
     if (commentStartingSeq.isEmpty())
         return QString();
+    /*
+    // whould this be plain enought?
+    QTextCursor cursor = m_textItem->textCursor();
+    cursor.movePosition(QTextCursor::Start);
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+
+    QString text = m_textItem->resolveImages(cursor);
+    text.replace(QChar::ParagraphSeparator, '\n');
+    text.replace(QChar::LineSeparator, '\n');
+    */
     QString text = m_textItem->toPlainText();
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + "\n";
@@ -190,6 +184,8 @@ bool TextEntry::evaluate(int evalOp)
 
         latexCode.remove(0, 2);
         latexCode.remove(latexCode.length() - 2, 2);
+	latexCode.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
+	latexCode.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
 
 
         Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);

@@ -59,13 +59,13 @@ class TextEntry : public WorksheetEntry
 
     void interruptEvaluation();
 
-    void populateMenu(KMenu *menu, const QPointF& pos);
     void layOutForWidth(double w, bool force = false);
 
   public slots:
     bool evaluate(int evalOp = 0);
     void resolveImagesAtCursor();
     void updateEntry();
+    void populateMenu(KMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();

@@ -275,7 +275,10 @@ QString LatexEntry::latexCode()
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
 
-    return m_textItem->resolveImages(cursor);
+    QString code = m_textItem->resolveImages(cursor);
+    code.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
+    code.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
+    return code;
 }
 
 bool LatexEntry::isOneImageOnly()

@@ -78,7 +78,7 @@ void WorksheetTextItem::testHeight()
 
 void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    kDebug() << "populate Menu in WorksheetItem";
+    kDebug() << "populate Menu";
     KAction* cut = KStandardAction::cut(this, SLOT(cut()), menu);
     KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
     KAction* paste = KStandardAction::paste(this, SLOT(paste()), menu);
