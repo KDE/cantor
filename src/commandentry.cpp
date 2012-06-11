@@ -60,7 +60,6 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     m_errorItem = 0;
     m_resultItem = 0;
 
-    kDebug() << size();
     connect(m_commandItem, SIGNAL(tabPressed()), this, SLOT(showCompletion()));
     connect(m_commandItem, SIGNAL(backtabPressed()),
 	    this, SLOT(selectPreviousCompletion()));
@@ -344,14 +343,15 @@ void CommandEntry::updateEntry()
     if (expr->result()->type() == Cantor::HelpResult::Type)
 	return; // Help is handled elsewhere
 
-    if (!m_resultItem)
+    if (!m_resultItem) {
 	m_resultItem = ResultItem::create(this, expr->result());
-    else
+	kDebug() << "new result";
+	animateSizeChange();
+    } else {
 	m_resultItem = m_resultItem->updateFromResult(expr->result());
-
-    kDebug() << "result item used" << expr->result()->type();
-
-    recalculateSize();
+	kDebug() << "update result";
+	animateSizeChange();
+    }
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
@@ -599,17 +599,16 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 
 void CommandEntry::removeResult()
 {
-    if (m_resultItem) {
-	m_resultItem->deleteLater();
-	m_resultItem = 0;
-	recalculateSize();
-    }
-
     if(m_expression)
     {
         m_expression->clearResult();
     }
 
+    if (m_resultItem) {
+	QGraphicsObject* obj = m_resultItem->graphicsObject();
+	m_resultItem = 0;
+	fadeOutItem(obj);
+    }
 }
 
 void CommandEntry::removeContextHelp()
@@ -706,7 +705,6 @@ void CommandEntry::layOutForWidth(double w, bool force)
     if (w == size().width() && !force)
 	return;
 
-    prepareGeometryChange();
     m_promptItem->setPos(0,0);
     double x = 0 + m_promptItem->width() + HorizontalSpacing;
     double y = 0;
@@ -734,6 +732,11 @@ void CommandEntry::layOutForWidth(double w, bool force)
 	y += m_resultItem->setGeometry(x, y, w-x);
     }
 
-    setSize(QSizeF(w,y));
+    QSizeF s(w, y);
+    if (animationActive()) {
+	updateAnimation(s);
+    } else {
+	setSize(s);
+    }
 }
 

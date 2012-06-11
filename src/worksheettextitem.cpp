@@ -53,6 +53,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
 	    this, SLOT(testHeight()));
     connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
 	    SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
+    connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
 }
 
 WorksheetTextItem::~WorksheetTextItem()

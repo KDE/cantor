@@ -59,7 +59,6 @@ class Worksheet : public QGraphicsScene
     bool isPrinting();
 
     void setViewSize(qreal w, qreal h);
-    void updateLayout();
 
     WorksheetView* worksheetView();
 
@@ -88,6 +87,9 @@ class Worksheet : public QGraphicsScene
     //WorksheetEntry* insertImageEntryBefore();
     //WorksheetEntry* insertPageBreakEntryBefore();
     WorksheetEntry* insertLatexEntryBefore();
+
+    void updateLayout();
+    void updateEntrySize(WorksheetEntry* entry);
 
     void focusEntry(WorksheetEntry * entry);
 

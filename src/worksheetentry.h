@@ -36,6 +36,9 @@ class LaTeXEntry;
 class QPainter;
 class QStykeOptionGraphicsItem;
 class QWidget;
+class QPropertyAnimation;
+
+struct AnimationData;
 
 class WorksheetEntry : public QGraphicsObject
 {
@@ -77,6 +80,7 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual qreal setGeometry(qreal x, qreal y, qreal w);
     virtual void layOutForWidth(qreal w, bool force = false) = 0;
+    QPropertyAnimation* sizeChangeAnimation();
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
 
@@ -90,10 +94,18 @@ class WorksheetEntry : public QGraphicsObject
   public slots:
     virtual bool evaluate(int evalOp = 0) = 0;
     virtual void updateEntry() = 0;
-    virtual void removeEntry();
+    virtual void sizeAnimated();
+    virtual void startRemoving();
+    virtual void remove();
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
     void recalculateSize();
+    // similiar to recalculateSize, but the size change is animated
+    void animateSizeChange();
+    // animate the size change and the opacity of item
+    void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
+    void fadeOutItem(QGraphicsObject* item = 0, const char* slot = SLOT(deleteLater()));
+    void endAnimation();
 
   protected:
     Worksheet* worksheet();
@@ -102,12 +114,18 @@ class WorksheetEntry : public QGraphicsObject
 
     void setSize(QSizeF size);
 
+    bool animationActive();
+    void updateAnimation(const QSizeF& size);
+
     virtual bool wantToEvaluate() = 0;
 
   private:
     QSizeF m_size;
     WorksheetEntry* m_prev;
     WorksheetEntry* m_next;
+    Q_PROPERTY(QSizeF m_size READ size WRITE setSize);
+    AnimationData* m_animation;
+    bool m_aboutToBeRemoved;
 };
 
 #endif // WORKSHEETENTRY_H

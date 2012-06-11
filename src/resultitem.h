@@ -39,6 +39,7 @@ class WorksheetEntry;
 class KMenu;
 class QObject;
 class QPointF;
+class QGraphicsObject;
 
 class ResultItem
 {
@@ -56,6 +57,8 @@ class ResultItem
     virtual void deleteLater() = 0;
 
     virtual Cantor::Result* result() = 0;
+
+    QGraphicsObject* graphicsObject();
 
   protected:
     static void addCommonActions(QObject* self, KMenu* menu);

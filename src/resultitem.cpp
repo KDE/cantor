@@ -80,3 +80,7 @@ void ResultItem::addCommonActions(QObject* self, KMenu* menu)
 		    self, SIGNAL(removeResult()));
 }
 
+QGraphicsObject* ResultItem::graphicsObject()
+{
+    return dynamic_cast<QGraphicsObject*>(this);
+}

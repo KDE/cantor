@@ -100,9 +100,12 @@ void Worksheet::setViewSize(qreal w, qreal h)
     Q_UNUSED(h);
 
     m_width = w;
-    m_epsRenderer.setScale(worksheetView()->scaleFactor());
-    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
-	entry->updateEntry();
+    qreal newScale = worksheetView()->scaleFactor();
+    if (newScale != m_epsRenderer.scale()) {
+	m_epsRenderer.setScale(newScale);
+	for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+	    entry->updateEntry();
+    }
     updateLayout();
 }
 
@@ -113,6 +116,16 @@ void Worksheet::updateLayout()
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
 	y += entry->setGeometry(x, y, w);
+    setSceneRect(QRectF(0, 0, m_width, y));
+}
+
+void Worksheet::updateEntrySize(WorksheetEntry* entry)
+{
+    qreal y = entry->y() + entry->size().height();
+    for (entry = entry->next(); entry; entry = entry->next()) {
+	entry->setY(y);
+	y += entry->size().height();
+    }
     setSceneRect(QRectF(0, 0, m_width, y));
 }
 
@@ -710,7 +723,7 @@ void Worksheet::removeCurrentEntry()
         return;
 
     m_currentEntry = 0;
-    entry->removeEntry();
+    entry->startRemoving();
 }
 
 EpsRenderer* Worksheet::epsRenderer()
