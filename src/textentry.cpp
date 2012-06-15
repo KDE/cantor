@@ -92,6 +92,8 @@ bool TextEntry::acceptRichText()
 
 bool TextEntry::focusEntry(int pos, qreal xCoord)
 {
+    if (aboutToBeRemoved())
+	return false;
     m_textItem->setFocusAt(pos, xCoord);
     return true;
 }
@@ -289,7 +291,7 @@ void TextEntry::layOutForWidth(double w, bool force)
 
     m_textItem->setPos(0,0);
     m_textItem->setTextWidth(w);
-    setSize(QSizeF(w, m_textItem->height()));
+    setSize(QSizeF(w, m_textItem->height() + VerticalMargin));
 }
 
 bool TextEntry::wantToEvaluate()

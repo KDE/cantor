@@ -44,14 +44,39 @@ int WorksheetImageItem::type() const
     return Type;
 }
 
+bool WorksheetImageItem::imageIsValid()
+{
+    return !m_image.isNull();
+}
+
 qreal WorksheetImageItem::height() const
 {
-    return m_image.height();
+    return m_size.height();
 }
 
 qreal WorksheetImageItem::width() const
 {
-    return m_image.width();
+    return m_size.width();
+}
+
+QSizeF WorksheetImageItem::size()
+{
+    return m_size;
+}
+
+void WorksheetImageItem::setSize(QSizeF size)
+{
+    m_size = size;
+}
+
+QSize WorksheetImageItem::imageSize()
+{
+    return m_image.size();
+}
+
+QRectF WorksheetImageItem::boundingRect() const
+{
+    return QRectF(QPointF(0, 0), m_size);
 }
 
 void WorksheetImageItem::paint(QPainter *painter, 

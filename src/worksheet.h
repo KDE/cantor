@@ -58,7 +58,7 @@ class Worksheet : public QGraphicsScene
 
     bool isPrinting();
 
-    void setViewSize(qreal w, qreal h);
+    void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);
 
     WorksheetView* worksheetView();
 
@@ -73,18 +73,18 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendCommandEntry();
     void appendCommandEntry(const QString& text);
     WorksheetEntry* appendTextEntry();
-    //WorksheetEntry* appendImageEntry();
+    WorksheetEntry* appendImageEntry();
     //WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
     WorksheetEntry* insertCommandEntry();
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry();
-    //WorksheetEntry* insertImageEntry();
+    WorksheetEntry* insertImageEntry();
     //WorksheetEntry* insertPageBreakEntry();
     WorksheetEntry* insertLatexEntry();
     WorksheetEntry* insertCommandEntryBefore();
     WorksheetEntry* insertTextEntryBefore();
-    //WorksheetEntry* insertImageEntryBefore();
+    WorksheetEntry* insertImageEntryBefore();
     //WorksheetEntry* insertPageBreakEntryBefore();
     WorksheetEntry* insertLatexEntryBefore();
 

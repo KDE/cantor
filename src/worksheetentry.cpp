@@ -1,8 +1,28 @@
+/*
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA  02110-1301, USA.
+
+    ---
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
+ */
 
 #include "worksheetentry.h"
 #include "commandentry.h"
 #include "textentry.h"
 #include "latexentry.h"
+#include "imageentry.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -18,6 +38,8 @@ struct AnimationData
     const char* slot;
     QGraphicsObject* item;
 };
+
+const qreal WorksheetEntry::VerticalMargin = 4;
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
 {
@@ -42,7 +64,6 @@ int WorksheetEntry::type() const
     return Type;
 }
 
-
 WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
 {
     switch(t)
@@ -51,9 +72,9 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
 	return new TextEntry(worksheet);
     case CommandEntry::Type:
 	return new CommandEntry(worksheet);
-	/*
     case ImageEntry::Type:
-	return new ImageEntry;
+	return new ImageEntry(worksheet);
+	/*
     case PageBreakEntry::Type:
 	return new PageBreakEntry;
 	*/
@@ -109,19 +130,51 @@ bool WorksheetEntry::focusEntry(int pos, qreal xCoord)
 
 void WorksheetEntry::moveToPreviousEntry(int pos, qreal x)
 {
-    if (previous())
-	previous()->focusEntry(pos, x);
+    WorksheetEntry* entry = previous();
+    while (entry && !entry->focusEntry(pos, x))
+	entry = entry->previous();
 }
 
 void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 {
-    if (next())
-	next()->focusEntry(pos, x);
+    WorksheetEntry* entry = next();
+    while (entry && !entry->focusEntry(pos, x))
+	entry = entry->next();
 }
 
 Worksheet* WorksheetEntry::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
+}
+
+void WorksheetEntry::keyPressEvent(QKeyEvent* event)
+{
+    // This event is used in Entries that set the ItemIsFocusable flag
+    switch(event->key()) {
+    case Qt::Key_Left:
+    case Qt::Key_Up:
+	if (event->modifiers() == Qt::NoModifier)
+	    moveToPreviousEntry(WorksheetTextItem::BottomRight, 0);
+	break;
+    case Qt::Key_Right:
+    case Qt::Key_Down:
+	if (event->modifiers() == Qt::NoModifier)
+	    moveToNextEntry(WorksheetTextItem::TopLeft, 0);
+	break;
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+	if (event->modifiers() == Qt::ShiftModifier)
+	    evaluate();
+	else if (event->modifiers() == Qt::ControlModifier)
+	    worksheet()->insertCommandEntry();
+	break;
+    case Qt::Key_Delete:
+	if (event->modifiers() == Qt::ShiftModifier)
+	    startRemoving();
+	break;
+    default:
+	event->ignore();
+    }
 }
 
 void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
@@ -319,6 +372,11 @@ void WorksheetEntry::updateAnimation(const QSizeF& size)
     QSizeF newStart = 1/(1-value) * (sizeAn->currentValue().value<QSizeF>() -
 				     value * size);
     sizeAn->setStartValue(newStart);
+}
+
+bool WorksheetEntry::aboutToBeRemoved()
+{
+    return m_aboutToBeRemoved;
 }
 
 void WorksheetEntry::startRemoving()

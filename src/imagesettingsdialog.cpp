@@ -28,9 +28,8 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     QWidget *w = new QWidget(this);
     m_ui.setupUi(w);
     setMainWidget(w);
-    this->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
+    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
 
-    m_units << "(auto)" << "px" << "%";
     m_unitNames << i18n("(auto)") << i18n("px") << i18n("%");
 
     m_ui.displayWidthCombo->addItems(m_unitNames);
@@ -85,22 +84,10 @@ void ImageSettingsDialog::setData(const QString& file, const ImageSize& displayS
 	m_ui.printWidthInput->setValue(printSize.width);
     if (printSize.height >= 0)
 	m_ui.printHeightInput->setValue(printSize.height);
-    if (displaySize.widthUnit.isEmpty())
-	m_ui.displayWidthCombo->setCurrentIndex(0);
-    else
-	m_ui.displayWidthCombo->setCurrentIndex(m_units.indexOf(displaySize.widthUnit));
-    if (displaySize.heightUnit.isEmpty())
-	m_ui.displayHeightCombo->setCurrentIndex(0);
-    else
-	m_ui.displayHeightCombo->setCurrentIndex(m_units.indexOf(displaySize.heightUnit));
-    if (printSize.widthUnit.isEmpty())
-	m_ui.printWidthCombo->setCurrentIndex(0);
-    else
-	m_ui.printWidthCombo->setCurrentIndex(m_units.indexOf(printSize.widthUnit));
-    if (printSize.heightUnit.isEmpty())
-	m_ui.printHeightCombo->setCurrentIndex(0);
-    else
-	m_ui.printHeightCombo->setCurrentIndex(m_units.indexOf(printSize.heightUnit));
+    m_ui.displayWidthCombo->setCurrentIndex(displaySize.widthUnit);
+    m_ui.displayHeightCombo->setCurrentIndex(displaySize.heightUnit);
+    m_ui.printWidthCombo->setCurrentIndex(printSize.widthUnit);
+    m_ui.printHeightCombo->setCurrentIndex(printSize.heightUnit);
     if (useDisplaySizeForPrinting)
 	m_ui.useDisplaySize->setCheckState(Qt::Checked);
     else
@@ -123,12 +110,12 @@ void ImageSettingsDialog::sendChanges()
     ImageSize displaySize, printSize;
     displaySize.width = m_ui.displayWidthInput->value();
     displaySize.height = m_ui.displayHeightInput->value();
-    displaySize.widthUnit = m_units[m_ui.displayWidthCombo->currentIndex()];
-    displaySize.heightUnit = m_units[m_ui.displayHeightCombo->currentIndex()];
+    displaySize.widthUnit = m_ui.displayWidthCombo->currentIndex();
+    displaySize.heightUnit = m_ui.displayHeightCombo->currentIndex();
     printSize.width = m_ui.printWidthInput->value();
     printSize.height = m_ui.printHeightInput->value();
-    printSize.widthUnit = m_units[m_ui.printWidthCombo->currentIndex()];
-    printSize.heightUnit = m_units[m_ui.printHeightCombo->currentIndex()];
+    printSize.widthUnit = m_ui.printWidthCombo->currentIndex();
+    printSize.heightUnit = m_ui.printHeightCombo->currentIndex();
 
     emit dataChanged
 	(m_ui.pathEdit->text(), displaySize, printSize,

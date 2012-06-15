@@ -15,78 +15,68 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 martin Kuettler <martin.kuettler@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _IMAGEENTRY_H
-#define _IMAGEENTRY_H
+#ifndef IMAGEENTRY_H
+#define IMAGEENTRY_H
 
 #include "worksheetentry.h"
 #include "imagesettingsdialog.h"
-#include <config-cantor.h>
 
-#include <QObject>
+#include <QString>
 #include <QFileSystemWatcher>
 
 class Worksheet;
-class WorksheetEntry;
+class WorksheetImageItem;
 
 class ImageEntry : public WorksheetEntry
 {
-  Q_OBJECT
+  Q_OBJECT;
+
   public:
-    ImageEntry(QTextCursor position, Worksheet* parent);
+    ImageEntry(Worksheet* worksheet);
     ~ImageEntry();
 
-    enum {Type = 4};
-
-    int type();
+    enum {Type = UserType + 4};
+    int type() const;
 
     bool isEmpty();
-    
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    // Handlers for the worksheet input events affecting worksheetentries
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-
     bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
-
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
-
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
+
+    QSizeF imageSize(const ImageSize& imgSize);
 
     void interruptEvaluation();
-    bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
-    
-    bool evaluate(bool current);
+
+    void layOutForWidth(qreal w, bool force = false);
+
+    bool focusEntry(int pos, qreal xCoord);
 
   public slots:
-    void update();
+    bool evaluate(int evalOp = 0);
+    void updateEntry();
 
+    void populateMenu(KMenu *menu, const QPointF& pos);
     void startConfigDialog();
-    void setImageData(const QString& path, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting);
+    void setImageData(const QString& path, const ImageSize& displaySize, 
+		      const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
-  private:
-#ifdef LIBSPECTRE_FOUND
-    QTextImageFormat renderEps(const ImageSize& imageSize);
-#endif
-    void calculateImageSize(int imgWidth, int imgHeight, const ImageSize& imageSize, double& newWidth, double& newHeight);
-    QString makeLatexSizeString(const ImageSize&);
+  protected:
+    bool wantToEvaluate();
+    qreal height();
 
   private:
     QString m_imagePath;
     ImageSize m_displaySize;
     ImageSize m_printSize;
     bool m_useDisplaySizeForPrinting;
-    QFileSystemWatcher m_imageWatcher;
-    ImageSettingsDialog* m_settingsDialog;
-
+    WorksheetImageItem* m_imageItem;
+    WorksheetTextItem* m_textItem;
+    QFileSystemWatcher* m_imageWatcher;
 };
 
-#endif /* _IMAGEENTRY_H */
+#endif /* IMAGEENTRY_H */

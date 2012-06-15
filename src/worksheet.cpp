@@ -23,6 +23,7 @@
 #include <QTextLayout>
 #include <QTextDocument>
 #include <QTimer>
+#include <QPrinter>
 #include <QXmlQuery>
 
 #include <KMessageBox>
@@ -34,6 +35,7 @@
 #include "commandentry.h"
 #include "textentry.h"
 #include "latexentry.h"
+#include "imageentry.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/result.h"
@@ -87,7 +89,48 @@ void Worksheet::loginToSession()
 
 void Worksheet::print(QPrinter* printer)
 {
-    Q_UNUSED(printer);
+    m_epsRenderer.useHighResolution(true);
+    m_isPrinting = true;
+    QRect pageRect = printer->pageRect();
+    qreal scale = 1; // todo: find good scale for page size
+    // todo: use epsRenderer()->scale() for printing ?
+    const qreal width = pageRect.width()/scale;
+    const qreal height = pageRect.height()/scale;
+    setViewSize(width, height, scale, true);
+
+    QPainter painter(printer);
+    painter.scale(scale, scale);
+    painter.setRenderHint(QPainter::Antialiasing);
+    WorksheetEntry* entry = firstEntry();
+    qreal y = 0;
+
+    while (entry) {
+	qreal h = 0;
+	do {
+	    /*
+	    if (entry->type() == PageBreakEntry::Type) {
+		entry = entry->next();
+		break;
+	    }
+	    */
+	    h += entry->size().height();
+	    entry = entry->next();
+	} while (entry && h + entry->size().height() <= height);
+
+	render(&painter, QRectF(0, 0, width, height),
+	       QRectF(0, y, width, h));
+	y += h;
+	if (entry)
+	    printer->newPage();
+    }
+
+    //render(&painter);
+
+    painter.end();
+    m_isPrinting = false;
+    m_epsRenderer.useHighResolution(false);
+    m_epsRenderer.setScale(-1);  // force update in next call to setViewSize,
+    worksheetView()->updateSceneSize(); // ... which happens in here
 }
 
 bool Worksheet::isPrinting()
@@ -95,14 +138,13 @@ bool Worksheet::isPrinting()
     return m_isPrinting;
 }
 
-void Worksheet::setViewSize(qreal w, qreal h)
+void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
 {
     Q_UNUSED(h);
 
     m_width = w;
-    qreal newScale = worksheetView()->scaleFactor();
-    if (newScale != m_epsRenderer.scale()) {
-	m_epsRenderer.setScale(newScale);
+    if (s != m_epsRenderer.scale() || forceUpdate) {
+	m_epsRenderer.setScale(s);
 	for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
 	    entry->updateEntry();
     }
@@ -182,7 +224,8 @@ void Worksheet::setLastEntry(WorksheetEntry* entry)
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
     QGraphicsItem* item = itemAt(x, y);
-    while (item && item->type() < QGraphicsItem::UserType)
+    while (item && (item->type() < QGraphicsItem::UserType ||
+		    item->type() >= QGraphicsItem::UserType + 100))
 	item = item->parentItem();
     if (item)
 	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
@@ -263,12 +306,11 @@ WorksheetEntry* Worksheet::appendPageBreakEntry()
 {
     return appendEntry(PageBreakEntry::Type);
 }
-
+*/
 WorksheetEntry* Worksheet::appendImageEntry()
 {
    return appendEntry(ImageEntry::Type);
 }
-*/
 
 WorksheetEntry* Worksheet::appendLatexEntry()
 {
@@ -330,12 +372,12 @@ WorksheetEntry* Worksheet::insertCommandEntry()
     return insertEntry(CommandEntry::Type);
 }
 
-/*
 WorksheetEntry* Worksheet::insertImageEntry()
 {
     return insertEntry(ImageEntry::Type);
 }
 
+/*
 WorksheetEntry* Worksheet::insertPageBreakEntry()
 {
     return insertEntry(PageBreakEntry::Type);
@@ -401,12 +443,12 @@ WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
 {
     return insertEntryBefore(PageBreakEntry::Type);
 }
+*/
 
 WorksheetEntry* Worksheet::insertImageEntryBefore()
 {
     return insertEntryBefore(ImageEntry::Type);
 }
-*/
 
 WorksheetEntry* Worksheet::insertLatexEntryBefore()
 {
@@ -657,12 +699,11 @@ void Worksheet::load(const QString& filename )
         {
             entry = appendCommandEntry();
             entry->setContent(expressionChild, file);
-        }
-        else if (tag == "Text")
+        } else if (tag == "Text")
         {
             entry = appendTextEntry();
             entry->setContent(expressionChild, file);
-        }else if (tag == "Latex")
+        } else if (tag == "Latex")
         {
             entry = appendLatexEntry();
             entry->setContent(expressionChild, file);
@@ -673,12 +714,12 @@ void Worksheet::load(const QString& filename )
 	    entry = appendPageBreakEntry();
 	    entry->setContent(expressionChild, file);
 	}
+	*/
 	else if (tag == "Image")
 	{
 	  entry = appendImageEntry();
 	  entry->setContent(expressionChild, file);
 	}
-	*/
 
         expressionChild = expressionChild.nextSiblingElement();
     }
@@ -743,7 +784,8 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 {
     Q_UNUSED(pos);
 
-    WorksheetEntry* entry = currentEntry();
+    WorksheetEntry* entry = entryAt(pos.x(), pos.y());
+    m_currentEntry = entry;
 
     if (!isRunning())
 	menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
@@ -760,10 +802,12 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 	insert->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntry()));
 	insert->addAction(i18n("Text Entry"), this, SLOT(insertTextEntry()));
 	insert->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntry()));
+	insert->addAction(i18n("Image"), this, SLOT(insertImageEntry()));
 
 	insertBefore->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntryBefore()));
 	insertBefore->addAction(i18n("Text Entry"), this, SLOT(insertTextEntryBefore()));
 	insertBefore->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntryBefore()));
+	insertBefore->addAction(i18n("Image"), this, SLOT(insertImageEntryBefore()));
 
 	insert->setTitle(i18n("Insert"));
 	insertBefore->setTitle(i18n("Insert Before"));
@@ -773,6 +817,7 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 	menu->addAction(i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
 	menu->addAction(i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
 	menu->addAction(i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
+	menu->addAction(i18n("Insert Image"), this, SLOT(appendImageEntry()));
     }
 }
 

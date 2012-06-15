@@ -46,6 +46,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
 		SLOT(recalculateSize()));
     m_completionEnabled = false;
     m_completionActive = false;
+    m_height = 0;
     setFont(KGlobalSettings::fixedFont());
     connect(document(), SIGNAL(contentsChange(int, int, int)),
 	    this, SLOT(setHeight()));
@@ -54,6 +55,8 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
 	    SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
+    connect(this, SIGNAL(appendCommandEntry()),
+	    worksheet(), SLOT(insertCommandEntry()));
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -72,7 +75,6 @@ void WorksheetTextItem::setHeight()
 
 void WorksheetTextItem::testHeight()
 {
-    kDebug() << m_height << height();
     if (m_height != height())
 	emit sizeChanged();
 }

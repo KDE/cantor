@@ -48,7 +48,7 @@ qreal WorksheetView::scaleFactor()
 void WorksheetView::updateSceneSize()
 {
     QSize s = viewport()->size();
-    m_worksheet->setViewSize(s.width() / m_scale, s.height() / m_scale);
+    m_worksheet->setViewSize(s.width()/m_scale, s.height()/m_scale, m_scale);
 }
 
 void WorksheetView::zoomIn()

@@ -110,14 +110,19 @@ class WorksheetEntry : public QGraphicsObject
   protected:
     Worksheet* worksheet();
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     void evaluateNext(int opt);
 
     void setSize(QSizeF size);
 
     bool animationActive();
     void updateAnimation(const QSizeF& size);
+    bool aboutToBeRemoved();
 
     virtual bool wantToEvaluate() = 0;
+
+  protected:
+    static const qreal VerticalMargin;
 
   private:
     QSizeF m_size;

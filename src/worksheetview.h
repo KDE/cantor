@@ -31,18 +31,17 @@ class WorksheetView : public QGraphicsView
   public:
     WorksheetView(Worksheet* scene, QWidget* parent);
     ~WorksheetView();
-		    
+
     void resizeEvent(QResizeEvent* event);
 
     qreal scaleFactor();
-    
-    //void mousePressEvent(QMouseEvent* event);
-		    
+
+    void updateSceneSize();
+
   public slots:
     void zoomIn();
     void zoomOut();
-  private:
-    void updateSceneSize();
+
   private:
     qreal m_scale;
     Worksheet* m_worksheet;

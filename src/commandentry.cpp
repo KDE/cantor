@@ -395,6 +395,8 @@ bool CommandEntry::isEmpty()
 
 bool CommandEntry::focusEntry(int pos, qreal xCoord)
 {
+    if (aboutToBeRemoved())
+	return false;
     WorksheetTextItem* item;
     if (pos == WorksheetTextItem::TopLeft || pos == WorksheetTextItem::TopCoord)
 	item = m_commandItem;
@@ -731,6 +733,7 @@ void CommandEntry::layOutForWidth(double w, bool force)
 	y += VerticalSpacing;
 	y += m_resultItem->setGeometry(x, y, w-x);
     }
+    y += VerticalMargin;
 
     QSizeF s(w, y);
     if (animationActive()) {

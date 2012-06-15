@@ -42,8 +42,15 @@ class WorksheetImageItem : public QGraphicsObject
     
     int type() const;
 
+    bool imageIsValid();
+
     qreal height() const;
     qreal width() const;
+    QSizeF size();
+    void setSize(QSizeF size);
+    QSize imageSize();
+
+    QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 	       QWidget *widget = 0);
