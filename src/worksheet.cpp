@@ -36,6 +36,7 @@
 #include "textentry.h"
 #include "latexentry.h"
 #include "imageentry.h"
+#include "pagebreakentry.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/result.h"
@@ -107,12 +108,10 @@ void Worksheet::print(QPrinter* printer)
     while (entry) {
 	qreal h = 0;
 	do {
-	    /*
 	    if (entry->type() == PageBreakEntry::Type) {
 		entry = entry->next();
 		break;
 	    }
-	    */
 	    h += entry->size().height();
 	    entry = entry->next();
 	} while (entry && h + entry->size().height() <= height);
@@ -301,12 +300,12 @@ WorksheetEntry* Worksheet::appendTextEntry()
    return appendEntry(TextEntry::Type);
 }
 
-/*
+
 WorksheetEntry* Worksheet::appendPageBreakEntry()
 {
     return appendEntry(PageBreakEntry::Type);
 }
-*/
+
 WorksheetEntry* Worksheet::appendImageEntry()
 {
    return appendEntry(ImageEntry::Type);
@@ -377,12 +376,10 @@ WorksheetEntry* Worksheet::insertImageEntry()
     return insertEntry(ImageEntry::Type);
 }
 
-/*
 WorksheetEntry* Worksheet::insertPageBreakEntry()
 {
     return insertEntry(PageBreakEntry::Type);
 }
-*/
 
 WorksheetEntry* Worksheet::insertLatexEntry()
 {
@@ -438,12 +435,10 @@ WorksheetEntry* Worksheet::insertCommandEntryBefore()
     return insertEntryBefore(CommandEntry::Type);
 }
 
-/*
 WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
 {
     return insertEntryBefore(PageBreakEntry::Type);
 }
-*/
 
 WorksheetEntry* Worksheet::insertImageEntryBefore()
 {
@@ -707,14 +702,11 @@ void Worksheet::load(const QString& filename )
         {
             entry = appendLatexEntry();
             entry->setContent(expressionChild, file);
-        }
-	/*
-	else if (tag == "PageBreak")
+        } else if (tag == "PageBreak")
 	{
 	    entry = appendPageBreakEntry();
 	    entry->setContent(expressionChild, file);
 	}
-	*/
 	else if (tag == "Image")
 	{
 	  entry = appendImageEntry();
@@ -803,11 +795,13 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 	insert->addAction(i18n("Text Entry"), this, SLOT(insertTextEntry()));
 	insert->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntry()));
 	insert->addAction(i18n("Image"), this, SLOT(insertImageEntry()));
+	insert->addAction(i18n("Page Break"), this, SLOT(insertPageBreakEntry()));
 
 	insertBefore->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntryBefore()));
 	insertBefore->addAction(i18n("Text Entry"), this, SLOT(insertTextEntryBefore()));
 	insertBefore->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntryBefore()));
 	insertBefore->addAction(i18n("Image"), this, SLOT(insertImageEntryBefore()));
+	insertBefore->addAction(i18n("Page Break"), this, SLOT(insertPageBreakEntryBefore()));
 
 	insert->setTitle(i18n("Insert"));
 	insertBefore->setTitle(i18n("Insert Before"));
@@ -818,6 +812,7 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 	menu->addAction(i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
 	menu->addAction(i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
 	menu->addAction(i18n("Insert Image"), this, SLOT(appendImageEntry()));
+	menu->addAction(i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
     }
 }
 

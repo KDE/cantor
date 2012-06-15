@@ -74,18 +74,18 @@ class Worksheet : public QGraphicsScene
     void appendCommandEntry(const QString& text);
     WorksheetEntry* appendTextEntry();
     WorksheetEntry* appendImageEntry();
-    //WorksheetEntry* appendPageBreakEntry();
+    WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
     WorksheetEntry* insertCommandEntry();
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry();
     WorksheetEntry* insertImageEntry();
-    //WorksheetEntry* insertPageBreakEntry();
+    WorksheetEntry* insertPageBreakEntry();
     WorksheetEntry* insertLatexEntry();
     WorksheetEntry* insertCommandEntryBefore();
     WorksheetEntry* insertTextEntryBefore();
     WorksheetEntry* insertImageEntryBefore();
-    //WorksheetEntry* insertPageBreakEntryBefore();
+    WorksheetEntry* insertPageBreakEntryBefore();
     WorksheetEntry* insertLatexEntryBefore();
 
     void updateLayout();

@@ -54,8 +54,6 @@ class ImageEntry : public WorksheetEntry
 
     void layOutForWidth(qreal w, bool force = false);
 
-    bool focusEntry(int pos, qreal xCoord);
-
   public slots:
     bool evaluate(int evalOp = 0);
     void updateEntry();
@@ -67,6 +65,7 @@ class ImageEntry : public WorksheetEntry
 
   protected:
     bool wantToEvaluate();
+    bool wantFocus();
     qreal height();
 
   private:

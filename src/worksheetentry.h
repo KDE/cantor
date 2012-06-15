@@ -120,6 +120,7 @@ class WorksheetEntry : public QGraphicsObject
     bool aboutToBeRemoved();
 
     virtual bool wantToEvaluate() = 0;
+    virtual bool wantFocus();
 
   protected:
     static const qreal VerticalMargin;

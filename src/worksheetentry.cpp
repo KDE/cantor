@@ -23,6 +23,7 @@
 #include "textentry.h"
 #include "latexentry.h"
 #include "imageentry.h"
+#include "pagebreakentry.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -74,10 +75,8 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
 	return new CommandEntry(worksheet);
     case ImageEntry::Type:
 	return new ImageEntry(worksheet);
-	/*
     case PageBreakEntry::Type:
-	return new PageBreakEntry;
-	*/
+	return new PageBreakEntry(worksheet);
     case LatexEntry::Type:
 	return new LatexEntry(worksheet);
     default:
@@ -123,22 +122,27 @@ void WorksheetEntry::paint(QPainter* painter, const QStyleOptionGraphicsItem* op
 
 bool WorksheetEntry::focusEntry(int pos, qreal xCoord)
 {
-    Q_UNUSED(pos)
-    Q_UNUSED(xCoord)
+    Q_UNUSED(pos);
+    Q_UNUSED(xCoord);
+
+    if (flags() & QGraphicsItem::ItemIsFocusable) {
+	setFocus();
+	return true;
+    }
     return false;
 }
 
 void WorksheetEntry::moveToPreviousEntry(int pos, qreal x)
 {
     WorksheetEntry* entry = previous();
-    while (entry && !entry->focusEntry(pos, x))
+    while (entry && !(entry->wantFocus() && entry->focusEntry(pos, x)))
 	entry = entry->previous();
 }
 
 void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 {
     WorksheetEntry* entry = next();
-    while (entry && !entry->focusEntry(pos, x))
+    while (entry && !(entry->wantFocus() && entry->focusEntry(pos, x)))
 	entry = entry->next();
 }
 
@@ -381,6 +385,8 @@ bool WorksheetEntry::aboutToBeRemoved()
 
 void WorksheetEntry::startRemoving()
 {
+    if (m_aboutToBeRemoved)
+	return;
     if (!next()) {
 	if (previous() && previous()->isEmpty()) {
 	    previous()->focusEntry();
@@ -444,6 +450,11 @@ void WorksheetEntry::setSize(QSizeF size)
 QSizeF WorksheetEntry::size()
 {
     return m_size;
+}
+
+bool WorksheetEntry::wantFocus()
+{
+    return true;
 }
 
 #include "worksheetentry.moc"

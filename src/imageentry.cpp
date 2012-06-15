@@ -72,11 +72,6 @@ bool ImageEntry::acceptRichText()
     return false;
 }
 
-bool ImageEntry::focusEntry(int, qreal)
-{
-    return false;
-}
-
 void ImageEntry::setContent(const QString& content)
 {
     Q_UNUSED(content);
@@ -241,10 +236,16 @@ void ImageEntry::layOutForWidth(double w, bool force)
 	m_imageItem->setPos(w/2 - m_imageItem->width()/2, 0);
     else
 	m_textItem->setPos(w/2 - m_textItem->width()/2, 0);
+
     setSize(QSizeF(w, height() + VerticalMargin));
 }
 
 bool ImageEntry::wantToEvaluate()
+{
+    return false;
+}
+
+bool ImageEntry::wantFocus()
 {
     return false;
 }

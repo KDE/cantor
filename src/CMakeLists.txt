@@ -67,7 +67,7 @@ set(cantor_PART_SRCS
    worksheetimageitem.cpp
    commandentry.cpp
    textentry.cpp
-   #pagebreakentry.cpp
+   pagebreakentry.cpp
    imageentry.cpp
    latexentry.cpp
    imagesettingsdialog.cpp
