@@ -428,7 +428,8 @@ void CantorPart::worksheetSessionChanged()
 
 void CantorPart::initialized()
 {
-    m_worksheet->appendCommandEntry();
+    if (m_worksheet->isEmpty())
+	m_worksheet->appendCommandEntry();
     m_worksheetview->setEnabled(true);
     m_worksheetview->setFocus();
     setStatusMessage(i18n("Initialization complete"));

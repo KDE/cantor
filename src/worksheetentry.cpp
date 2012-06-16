@@ -200,12 +200,17 @@ void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
 
 void WorksheetEntry::evaluateNext(int opt)
 {
-    if (next()) {
+    WorksheetEntry* entry = next();
+
+    while (entry && !entry->wantFocus())
+	entry = entry->next();
+
+    if (entry) {
 	if (opt & EvaluateNextEntries) {
-	    next()->evaluate(EvaluateNextEntries);
+	    entry->evaluate(EvaluateNextEntries);
 	} else {
 	    worksheet()->setModified();
-	    next()->focusEntry(WorksheetTextItem::BottomRight);
+	    entry->focusEntry(WorksheetTextItem::BottomRight);
 	}
     } else {
 	if (!isEmpty() || type() != CommandEntry::Type)

@@ -68,6 +68,7 @@ class Worksheet : public QGraphicsScene
     void populateMenu(KMenu* menu, const QPointF& pos);
     EpsRenderer* epsRenderer();
     qreal contentsWidth();
+    bool isEmpty();
 
   public slots:
     WorksheetEntry* appendCommandEntry();

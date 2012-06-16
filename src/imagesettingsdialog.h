@@ -27,7 +27,7 @@
 
 struct ImageSize
 {
-    enum {AutoSize = 0, PixelSize = 1, PercentSize = 2};
+    enum {Auto = 0, Pixel = 1, Percent = 2};
     double width;
     double height;
     int widthUnit;

@@ -68,6 +68,8 @@ class ImageEntry : public WorksheetEntry
     bool wantFocus();
     qreal height();
 
+    QString latexSizeString(const ImageSize& imgSize);
+
   private:
     QString m_imagePath;
     ImageSize m_displaySize;

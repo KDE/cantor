@@ -175,6 +175,11 @@ qreal Worksheet::contentsWidth()
     return m_width - LeftMargin - RightMargin;
 }
 
+bool Worksheet::isEmpty()
+{
+    return !m_firstEntry;
+}
+
 WorksheetView* Worksheet::worksheetView()
 {
     return qobject_cast<WorksheetView*>(views()[0]);
@@ -681,6 +686,8 @@ void Worksheet::load(const QString& filename )
     for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
         delete entry;
     clear();
+    m_firstEntry = 0;
+    m_lastEntry = 0;
 
     m_session=b->createSession();
     m_loginFlag=true;

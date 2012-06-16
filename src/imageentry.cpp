@@ -33,10 +33,10 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     m_displaySize.height = -1;
     m_printSize.width = -1;
     m_printSize.height = -1;
-    m_displaySize.widthUnit = ImageSize::AutoSize;
-    m_displaySize.heightUnit = ImageSize::AutoSize;
-    m_printSize.widthUnit = ImageSize::AutoSize;
-    m_printSize.heightUnit = ImageSize::AutoSize;
+    m_displaySize.widthUnit = ImageSize::Auto;
+    m_displaySize.heightUnit = ImageSize::Auto;
+    m_printSize.widthUnit = ImageSize::Auto;
+    m_printSize.heightUnit = ImageSize::Auto;
     m_useDisplaySizeForPrinting = true;
     connect(m_imageWatcher, SIGNAL(fileChanged(const QString&)),
 	    this, SLOT(updateEntry()));
@@ -80,18 +80,65 @@ void ImageEntry::setContent(const QString& content)
 
 void ImageEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    Q_UNUSED(content);
     Q_UNUSED(file);
-    // ...
+    static QStringList unitNames;
+    if (unitNames.isEmpty())
+	unitNames << "(auto)" << "px" << "%";
+
+    QDomElement pathElement = content.firstChildElement("Path");
+    QDomElement displayElement = content.firstChildElement("Display");
+    QDomElement printElement = content.firstChildElement("Print");
+    m_imagePath = pathElement.text();
+    m_displaySize.width = displayElement.attribute("width").toDouble();
+    m_displaySize.height = displayElement.attribute("height").toDouble();
+    m_displaySize.widthUnit = unitNames.indexOf(displayElement.attribute("widthUnit"));
+    m_displaySize.heightUnit = unitNames.indexOf(displayElement.attribute("heightUnit"));
+    m_useDisplaySizeForPrinting = printElement.attribute("useDisplaySize").toInt();
+    m_printSize.width = printElement.attribute("width").toDouble();
+    m_printSize.height = printElement.attribute("height").toDouble();
+    m_printSize.widthUnit = unitNames.indexOf(printElement.attribute("widthUnit"));
+    m_printSize.heightUnit = unitNames.indexOf(printElement.attribute("heightUnit"));
+    updateEntry();
 }
 
 QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
 {
-    Q_UNUSED(doc);
     Q_UNUSED(archive);
 
+    static QStringList unitNames;
+    if (unitNames.isEmpty())
+	unitNames << "(auto)" << "px" << "%";
+
     QDomElement image = doc.createElement("Image");
-    // ...
+    QDomElement path = doc.createElement("Path");
+    QDomText pathText = doc.createTextNode(m_imagePath);
+    path.appendChild(pathText);
+    image.appendChild(path);
+    QDomElement display = doc.createElement("Display");
+    display.setAttribute("width", m_displaySize.width);
+    display.setAttribute("widthUnit", unitNames[m_displaySize.widthUnit]);
+    display.setAttribute("height", m_displaySize.height);
+    display.setAttribute("heightUnit", unitNames[m_displaySize.heightUnit]);
+    image.appendChild(display);
+    QDomElement print = doc.createElement("Print");
+    print.setAttribute("useDisplaySize", m_useDisplaySizeForPrinting);
+    print.setAttribute("width", m_printSize.width);
+    print.setAttribute("widthUnit", unitNames[m_printSize.widthUnit]);
+    print.setAttribute("height", m_printSize.height);
+    print.setAttribute("heightUnit", unitNames[m_printSize.heightUnit]);
+    image.appendChild(print);
+
+    // For the conversion to latex
+    QDomElement latexSize = doc.createElement("LatexSizeString");
+    QString sizeString;
+    if (m_useDisplaySizeForPrinting)
+        sizeString = latexSizeString(m_displaySize);
+    else
+        sizeString = latexSizeString(m_printSize);
+    QDomText latexSizeString = doc.createTextNode(sizeString);
+    latexSize.appendChild(latexSizeString);
+    image.appendChild(latexSize);
+
     return image;
 }
 
@@ -100,6 +147,36 @@ QString ImageEntry::toPlain(const QString& commandSep, const QString& commentSta
     Q_UNUSED(commandSep);
 
     return commentStartingSeq + "image: " + m_imagePath  + commentEndingSeq;
+}
+
+QString ImageEntry::latexSizeString(const ImageSize& imgSize)
+{
+    // We use the transformation 1 px = 1/72 in ( = 1 pt in Latex)
+
+    QString sizeString="";
+    if (imgSize.widthUnit == ImageSize::Auto &&
+	imgSize.heightUnit == ImageSize::Auto)
+        return QString("");
+
+    if (imgSize.widthUnit == ImageSize::Percent) {
+	if (imgSize.heightUnit == ImageSize::Auto ||
+	    (imgSize.heightUnit == ImageSize::Percent &&
+	     imgSize.width == imgSize.height))
+	    return "[scale=" + QString::number(imgSize.width / 100) + "]";
+	// else? We could set the size based on the actual image size
+    } else if (imgSize.widthUnit == ImageSize::Auto &&
+	       imgSize.heightUnit == ImageSize::Percent) {
+        return "[scale=" + QString::number(imgSize.height / 100) + "]";
+    }
+
+    if (imgSize.heightUnit == ImageSize::Pixel)
+        sizeString = "height=" + QString::number(imgSize.height) + "pt";
+    if (imgSize.widthUnit == ImageSize::Pixel) {
+        if (!sizeString.isEmpty())
+            sizeString += ",";
+        sizeString += "width=" + QString::number(imgSize.width) + "pt";
+    }
+    return "[" + sizeString + "]";
 }
 
 void ImageEntry::interruptEvaluation()
@@ -171,23 +248,23 @@ QSizeF ImageEntry::imageSize(const ImageSize& imgSize)
 {
     const QSize& srcSize = m_imageItem->imageSize();
     qreal w, h;
-    if (imgSize.heightUnit == ImageSize::PercentSize)
+    if (imgSize.heightUnit == ImageSize::Percent)
 	h = srcSize.height() * imgSize.height / 100;
-    else if (imgSize.heightUnit == ImageSize::PixelSize)
+    else if (imgSize.heightUnit == ImageSize::Pixel)
 	h = imgSize.height;
-    if (imgSize.widthUnit == ImageSize::PercentSize)
+    if (imgSize.widthUnit == ImageSize::Percent)
 	w = srcSize.width() * imgSize.width / 100;
-    else if (imgSize.widthUnit == ImageSize::PixelSize)
+    else if (imgSize.widthUnit == ImageSize::Pixel)
 	w = imgSize.width;
 
-    if (imgSize.widthUnit == ImageSize::AutoSize) {
-	if (imgSize.heightUnit == ImageSize::AutoSize)
+    if (imgSize.widthUnit == ImageSize::Auto) {
+	if (imgSize.heightUnit == ImageSize::Auto)
 	    return QSizeF(srcSize.width(), srcSize.height());
 	else if (h == 0)
 	    w = 0;
 	else
 	    w = h / srcSize.height() * srcSize.width();
-    } else if (imgSize.heightUnit == ImageSize::AutoSize) {
+    } else if (imgSize.heightUnit == ImageSize::Auto) {
 	if (w == 0)
 	    h = 0;
 	else
