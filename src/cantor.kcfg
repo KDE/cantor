@@ -33,6 +33,10 @@
       <label>Enable Numbering of Expressions by default</label>
       <default>false</default>
     </entry>
+    <entry name="AnimationDefault" type="Bool">
+      <label>Animate changes in the Worksheet by default</label>
+      <default>true</default>
+    </entry>
     <entry name="AutoEval" type="Bool">
       <label>Automatically reevaluate the entries below the current</label>
       <default>false</default>

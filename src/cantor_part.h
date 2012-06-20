@@ -101,6 +101,7 @@ protected:
 
 protected slots:
     void fileSaveAs();
+    void fileSavePlain();
     void exportToLatex();
     void evaluateOrInterrupt();
     void restartBackend();
@@ -152,6 +153,7 @@ private:
     KToggleAction* m_highlight;
     KToggleAction* m_completion;
     KToggleAction* m_exprNumbering;
+    KToggleAction* m_animateWorksheet;
     KAction* m_showBackendHelp;
 
     QString m_cachedStatusMessage;

@@ -4,6 +4,7 @@
   <Menu name="file">
     <Action name="file_save"/>
     <Action name="file_save_as"/>
+    <Action name="file_save_plain"/>
     <Action name="file_export_latex"/>
     <Action name="file_publish_worksheet"/>
     <Separator/>
@@ -19,6 +20,7 @@
     <Action name="enable_highlighting"/>
     <Action name="enable_completion"/>
     <Action name="enable_expression_numbers"/>
+    <Action name="enable_animations"/>
   </Menu>
   <Menu name="worksheet"><text>&amp;Worksheet</text>
     <Action name="evaluate_worksheet"/>

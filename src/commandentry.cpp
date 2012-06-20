@@ -72,6 +72,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	    this, SLOT(moveToNextItem(int, qreal)));
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
 	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
+    connect(worksheet, SIGNAL(updatePrompt()),
+	    this, SLOT(updatePrompt()));
 }
 
 CommandEntry::~CommandEntry()

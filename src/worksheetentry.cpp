@@ -260,7 +260,7 @@ void WorksheetEntry::sizeAnimated()
 
 void WorksheetEntry::animateSizeChange()
 {
-    if (m_animation) {
+    if (m_animation || !worksheet()->animationsEnabled()) {
 	layOutForWidth(size().width(), true);
 	return;
     }
@@ -278,7 +278,7 @@ void WorksheetEntry::animateSizeChange()
 
 void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 {
-    if (m_animation) {
+    if (m_animation || !worksheet()->animationsEnabled()) {
 	layOutForWidth(size().width(), true);
 	return;
     }
@@ -307,7 +307,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 
 void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 {
-    if (m_animation) {
+    if (m_animation || !worksheet()->animationsEnabled()) {
 	layOutForWidth(size().width(), true);
 	return;
     }
@@ -327,6 +327,8 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 
     m_animation->animation->addAnimation(sizeAn);
     m_animation->animation->addAnimation(opacAn);
+    connect(m_animation->animation, SIGNAL(finished()),
+	    item, SLOT(deleteLater()));
     connect(m_animation->animation, SIGNAL(finished()),
 	    this, SLOT(endAnimation()));
 
@@ -390,6 +392,10 @@ bool WorksheetEntry::aboutToBeRemoved()
 
 void WorksheetEntry::startRemoving()
 {
+    if (!worksheet()->animationsEnabled()) {
+	remove();
+	return;
+    }
     if (m_aboutToBeRemoved)
 	return;
     if (!next()) {

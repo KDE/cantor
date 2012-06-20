@@ -78,6 +78,7 @@ void Worksheet::loginToSession()
         enableHighlighting(Settings::self()->highlightDefault());
         enableCompletion(Settings::self()->completionDefault());
         enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+	enableAnimations(Settings::self()->animationDefault());
 #ifdef WITH_EPS
         session()->setTypesettingEnabled(Settings::self()->typesetDefault());
 #else
@@ -532,6 +533,16 @@ bool Worksheet::isRunning()
 bool Worksheet::showExpressionIds()
 {
     return m_showExpressionIds;
+}
+
+bool Worksheet::animationsEnabled()
+{
+    return m_animationsEnabled;
+}
+
+void Worksheet::enableAnimations(bool enable)
+{
+    m_animationsEnabled = enable;
 }
 
 void Worksheet::enableExpressionNumbering(bool enable)

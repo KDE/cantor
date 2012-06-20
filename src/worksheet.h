@@ -53,6 +53,7 @@ class Worksheet : public QGraphicsScene
 
     bool isRunning();
     bool showExpressionIds();
+    bool animationsEnabled();
 
     void print(QPrinter* printer);
 
@@ -107,6 +108,7 @@ class Worksheet : public QGraphicsScene
     void enableHighlighting(bool highlight);
     void enableCompletion(bool enable);
     void enableExpressionNumbering(bool enable);
+    void enableAnimations(bool enable);
 
     QDomDocument toXML(KZip* archive=0);
 
@@ -162,6 +164,7 @@ class Worksheet : public QGraphicsScene
 
     bool m_completionEnabled;
     bool m_showExpressionIds;
+    bool m_animationsEnabled;
     bool m_loginFlag;
     bool m_isPrinting;
     double m_width;

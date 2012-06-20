@@ -108,6 +108,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
 
+    KAction* savePlain=new KAction(i18n("Save Plain Text"), actionCollection());
+    actionCollection()->addAction("file_save_plain", savePlain);
+    savePlain->setIcon(KIcon("document-save"));
+    connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
+
     KAction* latexExport=new KAction(i18n("Export to LaTeX"), actionCollection());
     actionCollection()->addAction("file_export_latex", latexExport);
     latexExport->setIcon(KIcon("document-export"));
@@ -142,6 +147,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_exprNumbering->setChecked(Settings::self()->expressionNumberingDefault());
     actionCollection()->addAction("enable_expression_numbers", m_exprNumbering);
     connect(m_exprNumbering, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableExpressionNumbering(bool)));
+
+    m_animateWorksheet=new KToggleAction(i18n("Animate Worksheet"), actionCollection());
+    m_animateWorksheet->setChecked(Settings::self()->animationDefault());
+    actionCollection()->addAction("enable_animations", m_animateWorksheet);
+    connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
     KAction* restart=new KAction(i18n("Restart Backend"), actionCollection());
     actionCollection()->addAction("restart_backend", restart);
@@ -309,13 +319,7 @@ bool CantorPart::saveFile()
     if (url().isEmpty())
         fileSaveAs();
     else
-    {
-        if(url().fileName().endsWith(QLatin1String(".cws")) || url().fileName().endsWith(QLatin1String(".mws")))
-            m_worksheet->save( localFilePath() );
-        else
-            m_worksheet->savePlain( localFilePath());
-
-    }
+	m_worksheet->save( localFilePath() );
     setModified(false);
 
     return true;
@@ -335,10 +339,21 @@ void CantorPart::fileSaveAs()
     }
 
     QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
-    if (file_name.isEmpty() == false)
+    if (!file_name.isEmpty()) {
+	if (!file_name.endsWith(QLatin1String(".cws")) &&
+	    !file_name.endsWith(QLatin1String(".mws")))
+	    file_name += ".cws";
         saveAs(file_name);
+    }
 
     updateCaption();
+}
+
+void CantorPart::fileSavePlain()
+{
+    QString file_name = KFileDialog::getSaveFileName(KUrl(), "", widget());
+    if (!file_name.isEmpty())
+        m_worksheet->savePlain(file_name);
 }
 
 void CantorPart::exportToLatex()
