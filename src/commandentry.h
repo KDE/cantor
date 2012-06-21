@@ -79,6 +79,8 @@ class CommandEntry : public WorksheetEntry
 
     void layOutForWidth(double w, bool force = false);
 
+    WorksheetTextItem* highlightItem();
+
   public slots:
     bool evaluate(int evalOp = 0);
     bool evaluateCommand(int evalOp = 0);

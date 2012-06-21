@@ -33,6 +33,8 @@ class ImageEntry;
 class PageBreakEntry;
 class LaTeXEntry;
 
+class WorksheetTextItem;
+
 class QPainter;
 class QStykeOptionGraphicsItem;
 class QWidget;
@@ -90,6 +92,8 @@ class WorksheetEntry : public QGraphicsObject
 	FocusedItemOnly = 1,
 	EvaluateNextEntries = 2
     };
+
+    virtual WorksheetTextItem* highlightItem();
 
   public slots:
     virtual bool evaluate(int evalOp = 0) = 0;

@@ -204,6 +204,9 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 
 void CommandEntry::showCompletion()
 {
+    if (!worksheet()->completionEnabled())
+	return;
+
     //get the current line of the entry. If it's empty, ignore the call,
     //otherwise check for tab completion (if supported by the backend)
     const QString line = currentLine();
@@ -745,3 +748,7 @@ void CommandEntry::layOutForWidth(double w, bool force)
     }
 }
 
+WorksheetTextItem* CommandEntry::highlightItem()
+{
+    return m_commandItem;
+}

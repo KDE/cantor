@@ -507,11 +507,36 @@ void Worksheet::enableHighlighting(bool highlight)
         m_highlighter=session()->syntaxHighlighter(this);
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);
-	// todo: highlight every entry
+
+	// highlight every entry
+	WorksheetEntry* entry;
+	for (entry = firstEntry(); entry; entry = entry->next()) {
+	    WorksheetTextItem* item = entry->highlightItem();
+	    if (!item)
+		continue;
+	    highlightItem(item);
+	    m_highlighter->rehighlight();
+	}
+	entry = currentEntry();
+	WorksheetTextItem* textitem = entry ? entry->highlightItem() : 0;
+	if (textitem && textitem->hasFocus())
+	    highlightItem(textitem);
     } else {
         if(m_highlighter)
             m_highlighter->deleteLater();
         m_highlighter=0;
+
+	// remove highlighting from entries
+	WorksheetEntry* entry;
+	for (entry = firstEntry(); entry; entry = entry->next()) {
+	    WorksheetTextItem* item = entry->highlightItem();
+	    if (!item)
+		continue;
+	    for (QTextBlock b = item->document()->firstBlock();
+		 b.isValid(); b = b.next())
+		b.layout()->clearAdditionalFormats();
+	}
+	update();
     }
 }
 

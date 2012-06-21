@@ -358,7 +358,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
 		}
 	    }
 
-	    if (spacesOnly) {
+	    if (spacesOnly || !worksheet()->completionEnabled()) {
 		cursor.setPosition(cursor.selectionEnd());
 		while (document()->characterAt(cursor.position()) == ' ')
 		    cursor.movePosition(QTextCursor::NextCharacter);

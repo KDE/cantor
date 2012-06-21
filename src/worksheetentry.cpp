@@ -463,6 +463,11 @@ QSizeF WorksheetEntry::size()
     return m_size;
 }
 
+WorksheetTextItem* WorksheetEntry::highlightItem()
+{
+    return 0;
+}
+
 bool WorksheetEntry::wantFocus()
 {
     return true;
