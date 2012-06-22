@@ -55,6 +55,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     m_promptItem = new WorksheetTextItem(this, Qt::NoTextInteraction);
     m_promptItem->setPlainText(Prompt);
+    m_promptItem->enableDragging(true);
     m_commandItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
     m_commandItem->enableCompletion(true);
     m_errorItem = 0;
@@ -72,6 +73,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	    this, SLOT(moveToNextItem(int, qreal)));
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
 	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
+    connect(m_promptItem, SIGNAL(drag(const QPointF&, const QPointF&)),
+	    this, SLOT(startDrag(const QPointF&, const QPointF&)));
     connect(worksheet, SIGNAL(updatePrompt()),
 	    this, SLOT(updatePrompt()));
 }
@@ -698,6 +701,20 @@ void CommandEntry::invalidate()
 bool CommandEntry::wantToEvaluate()
 {
     return !isEmpty();
+}
+
+void CommandEntry::startDrag(const QPointF& grabPos, const QPointF& pos)
+{
+    Q_UNUSED(pos);
+    QDrag* drag = new QDrag(worksheetView());
+    QPixmap pixmap(size().toSize());
+    QPainter painter(&pixmap);
+    QStyleOptionGraphicsItem styleOptions;
+    paint(&painter, &styleOptions);
+    drag->setPixmap(pixmap);
+    drag->setHotSpot(grabPos.toPoint());
+
+    worksheet()->startDrag(this, drag);
 }
 
 QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)

@@ -46,7 +46,9 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
 		SLOT(recalculateSize()));
     m_completionEnabled = false;
     m_completionActive = false;
+    m_draggingEnabled = false;
     m_height = 0;
+    setAcceptDrops(true);
     setFont(KGlobalSettings::fixedFont());
     connect(document(), SIGNAL(contentsChange(int, int, int)),
 	    this, SLOT(setHeight()));
@@ -94,7 +96,8 @@ void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
     }
     if (isEditable())
 	menu->addAction(cut);
-    menu->addAction(copy);
+    if (!m_draggingEnabled)
+	menu->addAction(copy);
     if (isEditable())
 	menu->addAction(paste);
     menu->addSeparator();
@@ -207,14 +210,19 @@ bool WorksheetTextItem::isEditable()
     return textInteractionFlags() & Qt::TextEditable;
 }
 
-void WorksheetTextItem::enableCompletion(bool e)
+void WorksheetTextItem::enableCompletion(bool b)
 {
-    m_completionEnabled = e;
+    m_completionEnabled = b;
 }
 
-void WorksheetTextItem::activateCompletion(bool a)
+void WorksheetTextItem::activateCompletion(bool b)
 {
-    m_completionActive = a;
+    m_completionActive = b;
+}
+
+void WorksheetTextItem::enableDragging(bool b)
+{
+    m_draggingEnabled = b;
 }
 
 void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
@@ -399,14 +407,29 @@ void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 
 void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    kDebug() << "mouse pressed";
     int p = textCursor().position();
     QGraphicsTextItem::mousePressEvent(event);
     if (p != textCursor().position())
 	emit cursorPositionChanged(textCursor());
 }
 
+void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+    kDebug() << "mouse moved";
+    const QPointF buttonDownPos = event->buttonDownPos(Qt::LeftButton);
+    if (m_draggingEnabled && event->button() == Qt::LeftButton &&
+	contains(buttonDownPos) &&
+	(event->pos() - buttonDownPos).manhattanLength() >= QApplication::startDragDistance()) {
+	emit drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
+    } else {
+	QGraphicsTextItem::mouseMoveEvent(event);
+    }
+}
+
 void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    kDebug() << "mouse double click";
     QTextCursor cursor = textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
 
@@ -427,6 +450,39 @@ void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 
     QGraphicsTextItem::mouseDoubleClickEvent(event);
+}
+
+void WorksheetTextItem::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
+{
+    if (isEditable() && event->mimeData()->hasFormat("text/plain")) {
+	if (event->proposedAction() & (Qt::CopyAction | Qt::MoveAction)) {
+	    event->acceptProposedAction();
+	} else if (event->possibleActions() & Qt::CopyAction) {
+	    event->setDropAction(Qt::CopyAction);
+	    event->accept();
+	} else if (event->possibleActions() & Qt::MoveAction) {
+	    event->setDropAction(Qt::MoveAction);
+	    event->accept();
+	} else {
+	    event->ignore();
+	}
+    } else {
+	event->ignore();
+    }
+}
+
+void WorksheetTextItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
+{
+    if (isEditable() && event->mimeData()->hasFormat("text/plain"))
+	setLocalCursorPosition(mapFromScene(event->scenePos()));
+}
+
+void WorksheetTextItem::dropEvent(QGraphicsSceneDragDropEvent* event)
+{
+    if (isEditable()) {
+	textCursor().insertText(event->mimeData()->text());
+	event->accept();
+    }
 }
 
 void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)

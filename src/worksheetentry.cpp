@@ -284,8 +284,6 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     sizeAn->setEasingCurve(QEasingCurve::OutCubic);
-    if (slot)
-	connect(sizeAn, SIGNAL(finished()), item, slot);
     QPropertyAnimation* opacAn = new QPropertyAnimation(item, "opacity", this);
     opacAn->setDuration(200);
     opacAn->setStartValue(0);
@@ -299,6 +297,8 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 
     m_animation->animation->addAnimation(sizeAn);
     m_animation->animation->addAnimation(opacAn);
+    if (slot)
+	connect(m_animation->animation, SIGNAL(finished()), item, slot);
     connect(m_animation->animation, SIGNAL(finished()),
 	    this, SLOT(endAnimation()));
 
@@ -312,8 +312,6 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 	return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
-    if (slot)
-	connect(sizeAn, SIGNAL(finished()), item, slot);
     QPropertyAnimation* opacAn = new QPropertyAnimation(item, "opacity", this);
     opacAn->setDuration(200);
     opacAn->setStartValue(1);
@@ -327,8 +325,8 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 
     m_animation->animation->addAnimation(sizeAn);
     m_animation->animation->addAnimation(opacAn);
-    connect(m_animation->animation, SIGNAL(finished()),
-	    item, SLOT(deleteLater()));
+    if (slot)
+	connect(m_animation->animation, SIGNAL(finished()), item, slot);
     connect(m_animation->animation, SIGNAL(finished()),
 	    this, SLOT(endAnimation()));
 

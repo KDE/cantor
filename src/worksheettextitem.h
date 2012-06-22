@@ -51,8 +51,9 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     void setFocusAt(int pos = TopLeft, qreal xCoord = 0);
 
-    void enableCompletion(bool e);
-    void activateCompletion(bool a);
+    void enableCompletion(bool b);
+    void activateCompletion(bool b);
+    void enableDragging(bool b);
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
     QString resolveImages(const QTextCursor& cursor);
@@ -77,6 +78,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void deleteEntry();
     void sizeChanged();
     void menuCreated(KMenu*, const QPointF&);
+    void drag(const QPointF&, const QPointF&);
 
   public slots:
     void insertTab();
@@ -90,7 +92,12 @@ class WorksheetTextItem : public QGraphicsTextItem
     void focusOutEvent(QFocusEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
+    //void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
+    void dropEvent(QGraphicsSceneDragDropEvent* event);
     bool sceneEvent(QEvent *event);
 
   private slots:
@@ -106,6 +113,7 @@ class WorksheetTextItem : public QGraphicsTextItem
   private:
     bool m_completionEnabled;
     bool m_completionActive;
+    bool m_draggingEnabled;
     qreal m_height;
 };
 

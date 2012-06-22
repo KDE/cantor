@@ -57,6 +57,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_firstEntry = 0;
     m_lastEntry = 0;
     m_currentEntry = 0;
+    m_dragEntry = 0;
     m_width = 0;
 
     m_isPrinting = false;
@@ -246,6 +247,13 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
     //setActionsEnabled(rt);
     //setAcceptRichText(rt);
     //ensureCursorVisible();
+}
+
+void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
+{
+    entry->setOpacity(0);
+    m_dragEntry = entry;
+    drag->exec();
 }
 
 void Worksheet::evaluate()
@@ -879,5 +887,22 @@ void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
     QGraphicsScene::focusOutEvent(focusEvent);
 }
 
+/*
+void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
+{
+}
+
+void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
+{
+}
+
+void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
+{
+}
+
+void Worksheet::dropEvent(QGraphicsSceneDragDropEvent* event)
+{
+}
+*/
 
 #include "worksheet.moc"

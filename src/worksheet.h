@@ -42,6 +42,8 @@ namespace Cantor {
 class WorksheetEntry;
 class WorksheetTextItem;
 
+class QDrag;
+
 class Worksheet : public QGraphicsScene
 {
   Q_OBJECT
@@ -64,6 +66,8 @@ class Worksheet : public QGraphicsScene
     WorksheetView* worksheetView();
 
     void setModified();
+
+    void startDrag(WorksheetEntry* entry, QDrag* drag);
 
     KMenu* createContextMenu();
     void populateMenu(KMenu* menu, const QPointF& pos);
@@ -133,7 +137,12 @@ class Worksheet : public QGraphicsScene
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void focusOutEvent(QFocusEvent* focusEvent);
-
+    /*
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
+    void dropEvent(QGraphicsSceneDragDropEvent* event);
+    */
   private slots:
     void loginToSession();
     void showCompletion();
@@ -161,6 +170,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_currentEntry;
+    WorksheetEntry* m_dragEntry;
 
     bool m_completionEnabled;
     bool m_showExpressionIds;

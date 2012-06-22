@@ -104,6 +104,8 @@ class CommandEntry : public WorksheetEntry
 
     void populateMenu(KMenu *menu, const QPointF& pos);
 
+    void startDrag(const QPointF& grabPos, const QPointF& pos);
+
   protected:
     bool wantToEvaluate();
 
