@@ -47,6 +47,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     m_completionEnabled = false;
     m_completionActive = false;
     m_draggingEnabled = false;
+    m_richTextEnabled = false;
     m_height = 0;
     setAcceptDrops(true);
     setFont(KGlobalSettings::fixedFont());
@@ -105,22 +106,56 @@ void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
     emit menuCreated(menu, mapToParent(pos));
 }
 
+QKeyEvent* WorksheetTextItem::eventForStandardAction(KStandardAction::StandardAction actionID)
+{
+    // there must be a better way to get the shortcut...
+    KAction* action = KStandardAction::create(actionID, this, 0, this);
+    QKeySequence keySeq = action->shortcut().primary();
+    // we do not support key sequences with multiple keys here
+    int code = keySeq[0];
+    const int ModMask = Qt::ShiftModifier | Qt::ControlModifier |
+	Qt::AltModifier | Qt::MetaModifier;
+    const int KeyMask = ~ModMask;
+    QKeyEvent* event = new QKeyEvent(QEvent::KeyPress, code & KeyMask,
+				     QFlags<Qt::KeyboardModifier>(code & ModMask));
+    delete action;
+    return event;
+}
+
 void WorksheetTextItem::cut()
 {
-    copy();
-    textCursor().removeSelectedText();
+    if (richTextEnabled()) {
+	QKeyEvent* event = eventForStandardAction(KStandardAction::Cut);
+	QApplication::sendEvent(worksheet(), event);
+	delete event;
+    } else {
+	copy();
+	textCursor().removeSelectedText();
+    }
 }
 
 void WorksheetTextItem::paste()
 {
-    textCursor().insertText(QApplication::clipboard()->text());
+    if (richTextEnabled()) {
+	QKeyEvent* event = eventForStandardAction(KStandardAction::Paste);
+	QApplication::sendEvent(worksheet(), event);
+	delete event;
+    } else {
+	textCursor().insertText(QApplication::clipboard()->text());
+    }
 }
 
 void WorksheetTextItem::copy()
 {
-    if (!textCursor().hasSelection())
-        return;
-    QApplication::clipboard()->setText(resolveImages(textCursor()));
+    if (richTextEnabled()) {
+	QKeyEvent* event = eventForStandardAction(KStandardAction::Copy);
+	QApplication::sendEvent(worksheet(), event);
+	delete event;
+    } else {
+	if (!textCursor().hasSelection())
+	    return;
+	QApplication::clipboard()->setText(resolveImages(textCursor()));
+    }
 }
 
 QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
@@ -195,19 +230,14 @@ QTextCursor WorksheetTextItem::cursorForPosition(const QPointF& pos) const
     return cursor;
 }
 
-/*
-void WorksheetTextItem::setEditable(bool e)
-{
-    if (e)
-	setTextInteractionFlags(Qt::TextEditorInteraction);
-    else
-	setTextInteractionFlags(Qt::TextSelectableByMouse);
-}
-*/
-
 bool WorksheetTextItem::isEditable()
 {
     return textInteractionFlags() & Qt::TextEditable;
+}
+
+bool WorksheetTextItem::richTextEnabled()
+{
+    return m_richTextEnabled;
 }
 
 void WorksheetTextItem::enableCompletion(bool b)
@@ -223,6 +253,11 @@ void WorksheetTextItem::activateCompletion(bool b)
 void WorksheetTextItem::enableDragging(bool b)
 {
     m_draggingEnabled = b;
+}
+
+void WorksheetTextItem::enableRichText(bool b)
+{
+    m_richTextEnabled = b;
 }
 
 void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
@@ -265,7 +300,10 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_C && event->modifiers() == Qt::ControlModifier)
     {
-	copy();
+	if (!richTextEnabled())
+	    copy();
+	else
+	    QGraphicsTextItem::keyPressEvent(event);
 	return;
     }
 
@@ -322,15 +360,16 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	    return;
 	}
 	break;
-	/* call our custom functions for cut and paste */
+	/* Call our custom functions for cut and paste, unless richtext is
+	   enabled */
     case Qt::Key_X:
-	if (event->modifiers() == Qt::ControlModifier) {
+	if (event->modifiers() == Qt::ControlModifier && !richTextEnabled()) {
 	    cut();
 	    return;
 	}
 	break;
     case Qt::Key_V:
-	if (event->modifiers() == Qt::ControlModifier) {
+	if (event->modifiers() == Qt::ControlModifier && !richTextEnabled()) {
 	    paste();
 	    return;
 	}
@@ -439,8 +478,8 @@ void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     // custom middle-click paste that does not copy rich text
     if (isEditable() && event->button() == Qt::MiddleButton &&
-	QApplication::clipboard()->supportsSelection() /* &&
-	isPlainText() */) {
+	QApplication::clipboard()->supportsSelection() &&
+	!richTextEnabled()) {
 	setLocalCursorPosition(mapFromScene(event->scenePos()));
 	const QString& text = QApplication::clipboard()->text(QClipboard::Selection);
 	textCursor().insertText(text);
@@ -504,7 +543,10 @@ void WorksheetTextItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 void WorksheetTextItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (isEditable()) {
-	textCursor().insertText(event->mimeData()->text());
+	if (richTextEnabled() && event->mimeData()->hasFormat("text/html"))
+	    textCursor().insertHtml(event->mimeData()->html());
+	else
+	    textCursor().insertText(event->mimeData()->text());
 	event->accept();
     }
 }

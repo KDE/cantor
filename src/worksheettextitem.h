@@ -25,6 +25,7 @@
 #include <QGraphicsTextItem>
 
 #include <KMenu>
+#include <KStandardAction>
 
 class Worksheet;
 
@@ -54,11 +55,13 @@ class WorksheetTextItem : public QGraphicsTextItem
     void enableCompletion(bool b);
     void activateCompletion(bool b);
     void enableDragging(bool b);
+    void enableRichText(bool b);
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();
+    bool richTextEnabled();
     double width();
     double height();
 
@@ -109,12 +112,14 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setLocalCursorPosition(const QPointF& pos);
     QPointF localCursorPosition() const;
 
+    QKeyEvent* eventForStandardAction(KStandardAction::StandardAction actionID);
     Cantor::Session* session();
 
   private:
     bool m_completionEnabled;
     bool m_completionActive;
     bool m_draggingEnabled;
+    bool m_richTextEnabled;
     qreal m_height;
 };
 
