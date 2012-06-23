@@ -407,16 +407,21 @@ void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 
 void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    kDebug() << "mouse pressed";
     int p = textCursor().position();
+
     QGraphicsTextItem::mousePressEvent(event);
+
+    if (isEditable() && event->button() == Qt::MiddleButton &&
+	QApplication::clipboard()->supportsSelection() &&
+	!event->isAccepted())
+	event->accept();
+
     if (p != textCursor().position())
 	emit cursorPositionChanged(textCursor());
 }
 
 void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
-    kDebug() << "mouse moved";
     const QPointF buttonDownPos = event->buttonDownPos(Qt::LeftButton);
     if (m_draggingEnabled && event->button() == Qt::LeftButton &&
 	contains(buttonDownPos) &&
@@ -427,9 +432,28 @@ void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
+void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    kDebug() << "mouse released";
+    int p = textCursor().position();
+
+    // custom middle-click paste that does not copy rich text
+    if (isEditable() && event->button() == Qt::MiddleButton &&
+	QApplication::clipboard()->supportsSelection() /* &&
+	isPlainText() */) {
+	setLocalCursorPosition(mapFromScene(event->scenePos()));
+	const QString& text = QApplication::clipboard()->text(QClipboard::Selection);
+	textCursor().insertText(text);
+    } else {
+	QGraphicsTextItem::mouseReleaseEvent(event);
+    }
+
+    if (p != textCursor().position())
+	emit cursorPositionChanged(textCursor());
+}
+
 void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    kDebug() << "mouse double click";
     QTextCursor cursor = textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
 
