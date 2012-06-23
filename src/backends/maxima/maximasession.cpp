@@ -254,6 +254,8 @@ void MaximaSession::appendExpressionToHelperQueue(MaximaExpression* expr)
 void MaximaSession::readStdOut()
 {
     kDebug()<<"reading stdOut";
+    if (!m_maxima)
+	return;
     QString out=m_maxima->readAll();
     kDebug()<<"out: "<<out;
 

@@ -137,10 +137,13 @@ QString CommandEntry::command()
 
 void CommandEntry::setExpression(Cantor::Expression* expr)
 {
-    if ( m_expression )
+    if ( m_expression ) {
+	if (m_expression->status() == Cantor::Expression::Computing)
+	    m_expression->interrupt();
         m_expression->deleteLater();
+    }
 
-    // Delete any previus error and/or result
+    // Delete any previus error
     if(m_errorItem)
     {
         m_errorItem->deleteLater();
