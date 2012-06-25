@@ -28,10 +28,13 @@
 #include <KStandardAction>
 
 class Worksheet;
+class WorksheetView;
 
 namespace Cantor {
     class Session;
 }
+
+class QTextCharFormat;
 
 class WorksheetTextItem : public QGraphicsTextItem
 {
@@ -66,6 +69,20 @@ class WorksheetTextItem : public QGraphicsTextItem
     double height();
 
     Worksheet* worksheet();
+    WorksheetView* worksheetView();
+
+    void clearSelection();
+
+    // richtext stuff
+    void setTextForegroundColor();
+    void setTextBackgroundColor();
+    void setTextBold(bool b);
+    void setTextItalic(bool b);
+    void setTextUnderline(bool b);
+    void setTextStrikeOut(bool b);
+    void setAlignment(Qt::Alignment a);
+    void setFontFamily(const QString& font);
+    void setFontSize(int size);
 
   signals:
     void moveToPrevious(int pos, qreal xCoord);
@@ -107,6 +124,7 @@ class WorksheetTextItem : public QGraphicsTextItem
   private slots:
     void setHeight();
     void testHeight();
+    void updateRichTextActions(QTextCursor cursor);
 
   private:
     void setLocalCursorPosition(const QPointF& pos);
@@ -114,6 +132,9 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     QKeyEvent* eventForStandardAction(KStandardAction::StandardAction actionID);
     Cantor::Session* session();
+
+    // richtext
+    void mergeFormatOnWordOrSelection(const QTextCharFormat &format);
 
   private:
     bool m_completionEnabled;

@@ -36,6 +36,8 @@
 #include <kglobalsettings.h>
 #include <KStandardAction>
 #include <KAction>
+#include <KColorDialog>
+#include <KColorScheme>
 
 WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
@@ -60,6 +62,8 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
     connect(this, SIGNAL(appendCommandEntry()),
 	    worksheet(), SLOT(insertCommandEntry()));
+    connect(this, SIGNAL(cursorPositionChanged(QTextCursor)), this,
+	    SLOT(updateRichTextActions(QTextCursor)));
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -429,17 +433,14 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
     QGraphicsTextItem::focusInEvent(event);
     parentItem()->ensureVisible();
+    worksheet()->setAcceptRichText(richTextEnabled());
+    worksheet()->updateFocusedTextItem(this);
     emit receivedFocus(this);
+    emit cursorPositionChanged(textCursor());
 }
 
 void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 {
-    if (event->reason() == Qt::MouseFocusReason ||
-	event->reason() == Qt::OtherFocusReason) {
-	QTextCursor cursor = textCursor();
-	cursor.clearSelection();
-	setTextCursor(cursor);
-    }
     QGraphicsTextItem::focusOutEvent(event);
     emit cursorPositionChanged(QTextCursor());
 }
@@ -473,7 +474,6 @@ void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void WorksheetTextItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    kDebug() << "mouse released";
     int p = textCursor().position();
 
     // custom middle-click paste that does not copy rich text
@@ -591,6 +591,147 @@ double WorksheetTextItem::height()
 Worksheet* WorksheetTextItem::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
+}
+
+WorksheetView* WorksheetTextItem::worksheetView()
+{
+    return worksheet()->worksheetView();
+}
+
+void WorksheetTextItem::clearSelection()
+{
+    QTextCursor cursor = textCursor();
+    cursor.clearSelection();
+    setTextCursor(cursor);
+}
+
+
+// RichText
+
+void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
+{
+    if (cursor.isNull())
+	return;
+    Worksheet::RichTextInfo info;
+    QTextCharFormat fmt = cursor.charFormat();
+    info.bold = (fmt.fontWeight() == QFont::Bold);
+    info.italic = fmt.fontItalic();
+    info.underline = fmt.fontUnderline();
+    info.strikeOut = fmt.fontStrikeOut();
+    info.font = fmt.fontFamily();
+    info.fontSize = fmt.fontPointSize();
+
+    QTextBlockFormat bfmt = cursor.blockFormat();
+    info.align = bfmt.alignment();
+
+    worksheet()->setRichTextInformation(info);
+}
+
+void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
+{
+    QTextCursor cursor = textCursor();
+    QTextCursor wordStart(cursor);
+    QTextCursor wordEnd(cursor);
+
+    wordStart.movePosition(QTextCursor::StartOfWord);
+    wordEnd.movePosition(QTextCursor::EndOfWord);
+
+    cursor.beginEditBlock();
+    if (!cursor.hasSelection() && cursor.position() != wordStart.position() && cursor.position() != wordEnd.position())
+        cursor.select(QTextCursor::WordUnderCursor);
+    cursor.mergeCharFormat(format);
+    //q->mergeCurrentCharFormat(format);
+    cursor.endEditBlock();
+    setTextCursor(cursor);
+}
+
+void WorksheetTextItem::setTextForegroundColor()
+{
+    QTextCharFormat fmt = textCursor().charFormat();
+    QColor color = fmt.foreground().color();
+
+    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() , worksheetView());
+    if (!color.isValid())
+        color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() ;
+    if (result != QDialog::Accepted)
+        return;
+
+    QTextCharFormat newFmt;
+    newFmt.setForeground(color);
+    mergeFormatOnWordOrSelection(newFmt);
+}
+
+void WorksheetTextItem::setTextBackgroundColor()
+{
+    QTextCharFormat fmt = textCursor().charFormat();
+    QColor color = fmt.background().color();
+
+    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() , worksheetView());
+    if (!color.isValid())
+        color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() ;
+    if (result != QDialog::Accepted)
+        return;
+
+    QTextCharFormat newFmt;
+    newFmt.setBackground(color);
+    mergeFormatOnWordOrSelection(newFmt);
+
+}
+
+void WorksheetTextItem::setTextBold(bool b)
+{
+    QTextCharFormat fmt;
+    fmt.setFontWeight(b ? QFont::Bold : QFont::Normal);
+    mergeFormatOnWordOrSelection(fmt);
+}
+
+void WorksheetTextItem::setTextItalic(bool b)
+{
+    QTextCharFormat fmt;
+    fmt.setFontItalic(b);
+    mergeFormatOnWordOrSelection(fmt);
+}
+
+void WorksheetTextItem::setTextUnderline(bool b)
+{
+    QTextCharFormat fmt;
+    fmt.setFontUnderline(b);
+    mergeFormatOnWordOrSelection(fmt);
+}
+
+void WorksheetTextItem::setTextStrikeOut(bool b)
+{
+    QTextCharFormat fmt;
+    fmt.setFontStrikeOut(b);
+    mergeFormatOnWordOrSelection(fmt);
+}
+
+void WorksheetTextItem::setAlignment(Qt::Alignment a)
+{
+    QTextBlockFormat fmt;
+    fmt.setAlignment(a);
+    QTextCursor cursor = textCursor();
+    cursor.mergeBlockFormat(fmt);
+    setTextCursor(cursor);
+}
+
+
+void WorksheetTextItem::setFontFamily(const QString& font)
+{
+    if (!richTextEnabled())
+	return;
+    QTextCharFormat fmt;
+    fmt.setFontFamily(font);
+    mergeFormatOnWordOrSelection(fmt);
+}
+
+void WorksheetTextItem::setFontSize(int size)
+{
+    if (!richTextEnabled())
+	return;
+    QTextCharFormat fmt;
+    fmt.setFontPointSize(size);
+    mergeFormatOnWordOrSelection(fmt);
 }
 
 #include "worksheettextitem.moc"

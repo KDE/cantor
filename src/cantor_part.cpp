@@ -101,12 +101,12 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     // notify the part that this is our internal widget
     setWidget(m_worksheetview);
 
-    /// How should we add the rich text editing actions?
-     // create our actions
-     //m_worksheet->createActions( actionCollection() );
+    // create our actions
+    m_worksheet->createActions(actionCollection());
 
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
+    m_save->setPriority(QAction::LowPriority);
 
     KAction* savePlain=new KAction(i18n("Save Plain Text"), actionCollection());
     actionCollection()->addAction("file_save_plain", savePlain);
@@ -118,7 +118,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     latexExport->setIcon(KIcon("document-export"));
     connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
 
-    KStandardAction::print(this, SLOT(print()), actionCollection());
+    KAction* print = KStandardAction::print(this, SLOT(print()), actionCollection());
+    print->setPriority(QAction::LowPriority);
 
     KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
     KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());

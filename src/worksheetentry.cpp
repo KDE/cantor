@@ -396,6 +396,7 @@ void WorksheetEntry::startRemoving()
     }
     if (m_aboutToBeRemoved)
 	return;
+
     if (!next()) {
 	if (previous() && previous()->isEmpty()) {
 	    previous()->focusEntry();

@@ -86,6 +86,7 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
 
+    bool aboutToBeRemoved();
     QSizeF size();
 
     enum EvaluationOption {
@@ -121,7 +122,6 @@ class WorksheetEntry : public QGraphicsObject
 
     bool animationActive();
     void updateAnimation(const QSizeF& size);
-    bool aboutToBeRemoved();
 
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();

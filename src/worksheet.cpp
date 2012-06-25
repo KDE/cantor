@@ -28,6 +28,12 @@
 
 #include <KMessageBox>
 #include <KStandardDirs>
+#include <KActionCollection>
+#include <KAction>
+#include <KFontAction>
+#include <KFontSizeAction>
+#include <KSelectAction>
+#include <KToggleAction>
 
 #include "config-cantor.h"
 #include "worksheet.h"
@@ -56,7 +62,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_firstEntry = 0;
     m_lastEntry = 0;
-    m_currentEntry = 0;
+    m_focusItem = 0;
     m_dragEntry = 0;
     m_width = 0;
 
@@ -195,14 +201,20 @@ void Worksheet::setModified()
 WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
+    if (!item && !hasFocus())
+	item = m_focusItem;
+    else
+	m_focusItem = item;
     while (item && (item->type() < QGraphicsItem::UserType ||
 		    item->type() >= QGraphicsItem::UserType + 100))
 	item = item->parentItem();
     if (item) {
-	m_currentEntry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
-	return m_currentEntry;
-    } else {
-	return m_currentEntry;
+	WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+	if (entry && entry->aboutToBeRemoved()) {
+	    m_focusItem = 0;
+	    return 0;
+	}
+	return entry;
     }
     return 0;
 }
@@ -352,7 +364,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     WorksheetEntry *current = currentEntry();
 
     if (!current)
-	return 0;
+	return appendEntry(type);
 
     WorksheetEntry *next = current->next();
     WorksheetEntry *entry = 0;
@@ -806,7 +818,8 @@ void Worksheet::removeCurrentEntry()
     if(!entry)
         return;
 
-    m_currentEntry = 0;
+    // In case we just removed this
+    m_focusItem = 0;
     entry->startRemoving();
 }
 
@@ -828,7 +841,7 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
     Q_UNUSED(pos);
 
     WorksheetEntry* entry = entryAt(pos.x(), pos.y());
-    m_currentEntry = entry;
+    //m_currentEntry = entry;
 
     if (!isRunning())
 	menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
@@ -883,8 +896,345 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
 {
-    currentEntry();
+    m_focusItem = focusItem();
     QGraphicsScene::focusOutEvent(focusEvent);
+}
+
+void Worksheet::createActions(KActionCollection* collection)
+{
+    // Mostly copied from KRichTextWidget::createActions(KActionCollection*)
+    // It would be great if this wasn't necessary.
+
+    // Text color
+    KAction* action;
+    /* This is "format-stroke-color" in KRichTextWidget */
+    action = new KAction(KIcon("format-text-color"),
+			 i18nc("@action", "Text &Color..."), collection);
+    action->setIconText(i18nc("@label text color", "Color"));
+    action->setPriority(QAction::LowPriority);
+    m_richTextActionList.append(action);
+    collection->addAction("format_text_foreground_color", action);
+    connect(action, SIGNAL(triggered()), this, SLOT(setTextForegroundColor()));
+
+    // Text color
+    action = new KAction(KIcon("format-fill-color"),
+			 i18nc("@action", "Text &Highlight..."), collection);
+    action->setPriority(QAction::LowPriority);
+    m_richTextActionList.append(action);
+    collection->addAction("format_text_background_color", action);
+    connect(action, SIGNAL(triggered()), this, SLOT(setTextBackgroundColor()));
+
+    // Font Family
+    m_fontAction = new KFontAction(i18nc("@action", "&Font"), collection);
+    m_richTextActionList.append(m_fontAction);
+    collection->addAction("format_font_family", m_fontAction);
+    connect(m_fontAction, SIGNAL(triggered(QString)), this,
+	    SLOT(setFontFamily(QString)));
+
+    // Font Size
+    m_fontSizeAction = new KFontSizeAction(i18nc("@action", "Font &Size"),
+					   collection);
+    m_richTextActionList.append(m_fontSizeAction);
+    collection->addAction("format_font_size", m_fontSizeAction);
+    connect(m_fontSizeAction, SIGNAL(fontSizeChanged(int)), this,
+	    SLOT(setFontSize(int)));
+
+    // Bold
+    m_boldAction = new KToggleAction(KIcon("format-text-bold"),
+				     i18nc("@action boldify selected text", "&Bold"),
+				     collection);
+    m_boldAction->setPriority(QAction::LowPriority);
+    QFont bold;
+    bold.setBold(true);
+    m_boldAction->setFont(bold);
+    m_richTextActionList.append(m_boldAction);
+    collection->addAction("format_text_bold", m_boldAction);
+    m_boldAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_B));
+    connect(m_boldAction, SIGNAL(triggered(bool)), this,
+	    SLOT(setTextBold(bool)));
+
+    // Italic
+    m_italicAction = new KToggleAction(KIcon("format-text-italic"),
+				       i18nc("@action italicize selected text",
+					     "&Italic"),
+				       collection);
+    m_italicAction->setPriority(QAction::LowPriority);
+    QFont italic;
+    italic.setItalic(true);
+    m_italicAction->setFont(italic);
+    m_richTextActionList.append(m_italicAction);
+    collection->addAction("format_text_italic", m_italicAction);
+    m_italicAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_I));
+    connect(m_italicAction, SIGNAL(triggered(bool)), this,
+	    SLOT(setTextItalic(bool)));
+
+    // Underline
+    m_underlineAction = new KToggleAction(KIcon("format-text-underline"),
+					  i18nc("@action underline selected text",
+						"&Underline"),
+					  collection);
+    m_underlineAction->setPriority(QAction::LowPriority);
+    QFont underline;
+    underline.setUnderline(true);
+    m_underlineAction->setFont(underline);
+    m_richTextActionList.append(m_underlineAction);
+    collection->addAction("format_text_underline", m_underlineAction);
+    m_underlineAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_U));
+    connect(m_underlineAction, SIGNAL(triggered(bool)), this,
+	    SLOT(setTextUnderline(bool)));
+
+    // Strike
+    m_strikeOutAction = new KToggleAction(KIcon("format-text-strikethrough"),
+					  i18nc("@action", "&Strike Out"),
+					  collection);
+    m_strikeOutAction->setPriority(QAction::LowPriority);
+    m_richTextActionList.append(m_strikeOutAction);
+    collection->addAction("format_text_strikeout", m_strikeOutAction);
+    m_strikeOutAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_L));
+    connect(m_strikeOutAction, SIGNAL(triggered(bool)), this,
+	    SLOT(setTextStrikeOut(bool)));
+
+    // Alignment
+    QActionGroup *alignmentGroup = new QActionGroup(this);
+
+    //   Align left
+    m_alignLeftAction = new KToggleAction(KIcon("format-justify-left"),
+					  i18nc("@action", "Align &Left"),
+					  collection);
+    m_alignLeftAction->setPriority(QAction::LowPriority);
+    m_alignLeftAction->setIconText(i18nc("@label left justify", "Left"));
+    m_richTextActionList.append(m_alignLeftAction);
+    collection->addAction("format_align_left", m_alignLeftAction);
+    connect(m_alignLeftAction, SIGNAL(triggered()), this,
+	    SLOT(setAlignLeft()));
+    alignmentGroup->addAction(m_alignLeftAction);
+
+     //   Align center
+    m_alignCenterAction = new KToggleAction(KIcon("format-justify-center"),
+					    i18nc("@action", "Align &Center"),
+					    collection);
+    m_alignCenterAction->setPriority(QAction::LowPriority);
+    m_alignCenterAction->setIconText(i18nc("@label center justify", "Center"));
+    m_richTextActionList.append(m_alignCenterAction);
+    collection->addAction("format_align_center", m_alignCenterAction);
+    connect(m_alignCenterAction, SIGNAL(triggered()), this,
+	    SLOT(setAlignCenter()));
+    alignmentGroup->addAction(m_alignCenterAction);
+
+    //   Align right
+    m_alignRightAction = new KToggleAction(KIcon("format-justify-right"),
+					   i18nc("@action", "Align &Right"),
+					   collection);
+    m_alignRightAction->setPriority(QAction::LowPriority);
+    m_alignRightAction->setIconText(i18nc("@label right justify", "Right"));
+    m_richTextActionList.append(m_alignRightAction);
+    collection->addAction("format_align_right", m_alignRightAction);
+    connect(m_alignRightAction, SIGNAL(triggered()), this,
+	    SLOT(setAlignRight()));
+    alignmentGroup->addAction(m_alignRightAction);
+
+    //   Align justify
+    m_alignJustifyAction = new KToggleAction(KIcon("format-justify-fill"),
+					     i18nc("@action", "&Justify"),
+					     collection);
+    m_alignJustifyAction->setPriority(QAction::LowPriority);
+    m_alignJustifyAction->setIconText(i18nc("@label justify fill", "Justify"));
+    m_richTextActionList.append(m_alignJustifyAction);
+    collection->addAction("format_align_justify", m_alignJustifyAction);
+    connect(m_alignJustifyAction, SIGNAL(triggered()), this,
+	    SLOT(setAlignJustify()));
+    alignmentGroup->addAction(m_alignJustifyAction);
+
+     /*
+     // List style
+     KSelectAction* selAction;
+     selAction = new KSelectAction(KIcon("format-list-unordered"),
+				   i18nc("@title:menu", "List Style"),
+				   collection);
+     QStringList listStyles;
+     listStyles      << i18nc("@item:inmenu no list style", "None")
+		     << i18nc("@item:inmenu disc list style", "Disc")
+		     << i18nc("@item:inmenu circle list style", "Circle")
+		     << i18nc("@item:inmenu square list style", "Square")
+		     << i18nc("@item:inmenu numbered lists", "123")
+		     << i18nc("@item:inmenu lowercase abc lists", "abc")
+		     << i18nc("@item:inmenu uppercase abc lists", "ABC");
+     selAction->setItems(listStyles);
+     selAction->setCurrentItem(0);
+     action = selAction;
+     m_richTextActionList.append(action);
+     collection->addAction("format_list_style", action);
+     connect(action, SIGNAL(triggered(int)),
+	     this, SLOT(_k_setListStyle(int)));
+     connect(action, SIGNAL(triggered()),
+	     this, SLOT(_k_updateMiscActions()));
+
+     // Indent
+     action = new KAction(KIcon("format-indent-more"),
+			  i18nc("@action", "Increase Indent"), collection);
+     action->setPriority(QAction::LowPriority);
+     m_richTextActionList.append(action);
+     collection->addAction("format_list_indent_more", action);
+     connect(action, SIGNAL(triggered()),
+	     this, SLOT(indentListMore()));
+     connect(action, SIGNAL(triggered()),
+	     this, SLOT(_k_updateMiscActions()));
+
+     // Dedent
+     action = new KAction(KIcon("format-indent-less"),
+			  i18nc("@action", "Decrease Indent"), collection);
+     action->setPriority(QAction::LowPriority);
+     m_richTextActionList.append(action);
+     collection->addAction("format_list_indent_less", action);
+     connect(action, SIGNAL(triggered()), this, SLOT(indentListLess()));
+     connect(action, SIGNAL(triggered()), this, SLOT(_k_updateMiscActions()));
+     */
+}
+
+void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
+{
+    QGraphicsItem* item = m_focusItem;
+    while (item && item->type() != WorksheetTextItem::Type)
+	item = item->parentItem();
+
+    WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
+
+    if (oldItem)
+	oldItem->clearSelection();
+
+    m_focusItem = newItem;
+}
+
+void Worksheet::setRichTextInformation(const RichTextInfo& info)
+{
+    m_boldAction->setChecked(info.bold);
+    m_italicAction->setChecked(info.italic);
+    m_underlineAction->setChecked(info.underline);
+    m_strikeOutAction->setChecked(info.strikeOut);
+    m_fontAction->setFont(info.font);
+    if (info.fontSize > 0)
+	m_fontSizeAction->setFontSize(info.fontSize);
+
+    if (info.align & Qt::AlignLeft)
+	m_alignLeftAction->setChecked(true);
+    else if (info.align & Qt::AlignCenter)
+	m_alignCenterAction->setChecked(true);
+    else if (info.align & Qt::AlignRight)
+	m_alignRightAction->setChecked(true);
+    else if (info.align & Qt::AlignJustify)
+	m_alignJustifyAction->setChecked(true);
+}
+
+void Worksheet::setAcceptRichText(bool b)
+{
+    foreach(KAction* action, m_richTextActionList) {
+	action->setEnabled(b);
+    }
+
+    /*
+    foreach(QWidget* widget, m_fontAction->createdWidgets()) {
+	widget->setEnabled(b);
+    }
+
+    foreach(QWidget* widget, m_fontSizeAction->createdWidgets()) {
+	widget->setEnabled(b);
+    }
+    */
+}
+
+WorksheetTextItem* Worksheet::currentTextItem()
+{
+    QGraphicsItem* item = focusItem();
+    if (!item)
+	item = m_focusItem;
+    while (item && item->type() != WorksheetTextItem::Type)
+	item = item->parentItem();
+
+    return qgraphicsitem_cast<WorksheetTextItem*>(item);
+}
+
+void Worksheet::setTextForegroundColor()
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setTextForegroundColor();
+}
+
+void Worksheet::setTextBackgroundColor()
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setTextBackgroundColor();
+}
+
+void Worksheet::setTextBold(bool b)
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setTextBold(b);
+}
+
+void Worksheet::setTextItalic(bool b)
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setTextItalic(b);
+}
+
+void Worksheet::setTextUnderline(bool b)
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setTextUnderline(b);
+}
+
+void Worksheet::setTextStrikeOut(bool b)
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setTextStrikeOut(b);
+}
+
+void Worksheet::setAlignLeft()
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setAlignment(Qt::AlignLeft);
+}
+
+void Worksheet::setAlignRight()
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setAlignment(Qt::AlignRight);
+}
+
+void Worksheet::setAlignCenter()
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setAlignment(Qt::AlignCenter);
+}
+
+void Worksheet::setAlignJustify()
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setAlignment(Qt::AlignJustify);
+}
+
+void Worksheet::setFontFamily(QString font)
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setFontFamily(font);
+}
+
+void Worksheet::setFontSize(int size)
+{
+    WorksheetTextItem* item = currentTextItem();
+    if (item)
+	item->setFontSize(size);
 }
 
 /*

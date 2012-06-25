@@ -43,6 +43,11 @@ class WorksheetEntry;
 class WorksheetTextItem;
 
 class QDrag;
+class KAction;
+class KActionCollection;
+class KToggleAction;
+class KFontAction;
+class KFontSizeAction;
 
 class Worksheet : public QGraphicsScene
 {
@@ -69,11 +74,23 @@ class Worksheet : public QGraphicsScene
 
     void startDrag(WorksheetEntry* entry, QDrag* drag);
 
+    void createActions(KActionCollection* collection);
     KMenu* createContextMenu();
     void populateMenu(KMenu* menu, const QPointF& pos);
     EpsRenderer* epsRenderer();
     qreal contentsWidth();
     bool isEmpty();
+
+    // richtext
+    struct RichTextInfo {
+	bool bold;
+	bool italic;
+	bool underline;
+	bool strikeOut;
+	QString font;
+	qreal fontSize;
+	Qt::Alignment align;
+    };
 
   public slots:
     WorksheetEntry* appendCommandEntry();
@@ -128,6 +145,25 @@ class Worksheet : public QGraphicsScene
     void setFirstEntry(WorksheetEntry* entry);
     void setLastEntry(WorksheetEntry* entry);
 
+    void updateFocusedTextItem(WorksheetTextItem* item);
+
+    // richtext
+    void setRichTextInformation(const RichTextInfo&);
+    void setAcceptRichText(bool b);
+
+    void setTextForegroundColor();
+    void setTextBackgroundColor();
+    void setTextBold(bool b);
+    void setTextItalic(bool b);
+    void setTextUnderline(bool b);
+    void setTextStrikeOut(bool b);
+    void setAlignLeft();
+    void setAlignRight();
+    void setAlignCenter();
+    void setAlignJustify();
+    void setFontFamily(QString font);
+    void setFontSize(int size);
+
   signals:
     void modified();
     void sessionChanged();
@@ -159,6 +195,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(int row);
     int entryCount();
+    WorksheetTextItem* currentTextItem();
 
   private:
     static const double LeftMargin;
@@ -169,8 +206,20 @@ class Worksheet : public QGraphicsScene
     EpsRenderer m_epsRenderer;
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
-    WorksheetEntry* m_currentEntry;
     WorksheetEntry* m_dragEntry;
+    QGraphicsItem* m_focusItem;
+
+    QList<KAction*> m_richTextActionList;
+    KToggleAction* m_boldAction;
+    KToggleAction* m_italicAction;
+    KToggleAction* m_underlineAction;
+    KToggleAction* m_strikeOutAction;
+    KFontAction* m_fontAction;
+    KFontSizeAction* m_fontSizeAction;
+    KToggleAction* m_alignLeftAction;
+    KToggleAction* m_alignCenterAction;
+    KToggleAction* m_alignRightAction;
+    KToggleAction* m_alignJustifyAction;
 
     bool m_completionEnabled;
     bool m_showExpressionIds;
