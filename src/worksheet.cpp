@@ -358,7 +358,6 @@ void Worksheet::appendCommandEntry(const QString& text)
     }
 }
 
-
 WorksheetEntry* Worksheet::insertEntry(const int type)
 {
     WorksheetEntry *current = currentEntry();

@@ -121,7 +121,7 @@ class WorksheetEntry : public QGraphicsObject
     void setSize(QSizeF size);
 
     bool animationActive();
-    void updateAnimation(const QSizeF& size);
+    void updateAnimation(const QSizeF& size, const QPointF& pos = QPointF());
 
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
