@@ -38,8 +38,4 @@
     <Merge />
   </Menu>
 </MenuBar>
-<ToolBar name="mainToolBar"><text>Main Toolbar</text>
-  <Action name="file_new"/>
-  <Merge/>
-</ToolBar>
 </kpartgui>
