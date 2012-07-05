@@ -72,8 +72,9 @@ void RSession::logout()
 
 void RSession::interrupt()
 {
-    kDebug()<<"interrupt";
+    kDebug()<<"interrupt" << m_rProcess->pid();
     kill(m_rProcess->pid(), 2);
+    m_expressionQueue.removeFirst();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -160,6 +161,8 @@ void RSession::serverChangedStatus(int status)
 
 void RSession::runNextExpression()
 {
+    if (m_expressionQueue.isEmpty())
+	return;
     disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
     disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
     disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
