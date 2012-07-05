@@ -405,6 +405,8 @@ void MaximaSession::currentHelperExpressionChangedStatus(Cantor::Expression::Sta
 void MaximaSession::runFirstExpression()
 {
     kDebug()<<"running next expression";
+    if (!m_maxima)
+	return;
 
     if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
@@ -534,6 +536,8 @@ void MaximaSession::restartMaxima()
         login();
     }else
     {
+	if(!m_expressionQueue.isEmpty())
+	    m_expressionQueue.removeFirst();
         KMessageBox::error(0, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
     }
 }
