@@ -73,7 +73,8 @@ void RSession::logout()
 void RSession::interrupt()
 {
     kDebug()<<"interrupt" << m_rProcess->pid();
-    kill(m_rProcess->pid(), 2);
+    if (m_rProcess->pid())
+	kill(m_rProcess->pid(), 2);
     m_expressionQueue.removeFirst();
     changeStatus(Cantor::Session::Done);
 }
