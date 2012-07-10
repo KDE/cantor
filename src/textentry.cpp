@@ -285,6 +285,27 @@ QString TextEntry::showLatexCode(QTextCursor cursor)
     return latexCode;
 }
 
+WorksheetCursor TextEntry::search(QString pattern, unsigned flags, 
+				  const WorksheetCursor& pos)
+{
+    if (!(flags & WorksheetEntry::SearchText))
+	return WorksheetCursor();
+    if (pos.isValid() && (pos.entry() != this || pos.textItem() != m_textItem))
+	return WorksheetCursor();
+
+    QTextDocument* doc = m_textItem->document();
+    QTextCursor cursor;
+    if (pos.isValid())
+	cursor = doc->find(pattern, pos.textCursor());
+    else
+	cursor = doc->find(pattern);
+    if (cursor.isNull())
+	return WorksheetCursor();
+
+    return WorksheetCursor(this, m_textItem, cursor);
+}
+
+
 void TextEntry::layOutForWidth(double w, bool force)
 {
     if (size().width() == w && !force)

@@ -198,6 +198,24 @@ void Worksheet::setModified()
     emit modified();
 }
 
+WorksheetCursor Worksheet::worksheetCursor()
+{
+    WorksheetEntry* entry = currentEntry();
+    WorksheetTextItem* item = currentTextItem();
+
+    if (!entry || !item)
+	return WorksheetCursor();
+    return WorksheetCursor(entry, item, item->textCursor());
+}
+
+void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
+{
+    if (!cursor.isValid())
+	return;
+
+    cursor.textItem()->setTextCursor(cursor.textCursor());
+}
+
 WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
@@ -895,7 +913,9 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
 {
-    m_focusItem = focusItem();
+    QGraphicsItem* item = focusItem();
+    if (item)
+	m_focusItem = item;
     QGraphicsScene::focusOutEvent(focusEvent);
 }
 
@@ -1098,7 +1118,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 
     WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
 
-    if (oldItem)
+    if (oldItem && oldItem != newItem)
 	oldItem->clearSelection();
 
     m_focusItem = newItem;

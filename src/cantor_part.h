@@ -27,6 +27,8 @@
 class QWidget;
 class Worksheet;
 class WorksheetView;
+class SarchBar;
+class SearchBar;
 class ScriptEditorWidget;
 class KAboutData;
 class KAction;
@@ -125,6 +127,10 @@ protected slots:
     void scriptEditorClosed();
     void runScript(const QString& file);
 
+    void showSearchBar();
+    void showExtendedSearchBar();
+    void searchBarDeleted();
+
     /** sets the status message, or cached it, if the StatusBar is blocked.
      *  Use this method instead of "emit setStatusBarText"
      */
@@ -143,6 +149,7 @@ protected slots:
 private:
     Worksheet *m_worksheet;
     WorksheetView *m_worksheetview;
+    SearchBar *m_searchBar;
     QPointer<ScriptEditorWidget> m_scriptEditor;
     Cantor::PanelPluginHandler* m_panelHandler;
 

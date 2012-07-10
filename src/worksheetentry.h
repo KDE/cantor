@@ -26,6 +26,7 @@
 
 #include "worksheet.h"
 #include "worksheettextitem.h"
+#include "worksheetcursor.h"
 
 class TextEntry;
 class CommandEntry;
@@ -95,6 +96,11 @@ class WorksheetEntry : public QGraphicsObject
     };
 
     virtual WorksheetTextItem* highlightItem();
+
+    enum SearchFlag {SearchText=1, SearchCommand=2, SearchResult=4};
+
+    virtual WorksheetCursor search(QString pattern, unsigned flags, 
+				   const WorksheetCursor& pos = WorksheetCursor()) /*=0*/ {return WorksheetCursor();};
 
   public slots:
     virtual bool evaluate(int evalOp = 0) = 0;

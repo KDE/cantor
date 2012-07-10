@@ -629,6 +629,7 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
 
 void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
+    kDebug() << format;
     QTextCursor cursor = textCursor();
     QTextCursor wordStart(cursor);
     QTextCursor wordEnd(cursor);
@@ -636,12 +637,12 @@ void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &form
     wordStart.movePosition(QTextCursor::StartOfWord);
     wordEnd.movePosition(QTextCursor::EndOfWord);
 
-    cursor.beginEditBlock();
+    //cursor.beginEditBlock();
     if (!cursor.hasSelection() && cursor.position() != wordStart.position() && cursor.position() != wordEnd.position())
         cursor.select(QTextCursor::WordUnderCursor);
     cursor.mergeCharFormat(format);
     //q->mergeCurrentCharFormat(format);
-    cursor.endEditBlock();
+    //cursor.endEditBlock();
     setTextCursor(cursor);
 }
 
