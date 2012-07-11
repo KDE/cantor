@@ -619,7 +619,7 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
     info.underline = fmt.fontUnderline();
     info.strikeOut = fmt.fontStrikeOut();
     info.font = fmt.fontFamily();
-    info.fontSize = fmt.fontPointSize();
+    info.fontSize = fmt.font().pointSize();
 
     QTextBlockFormat bfmt = cursor.blockFormat();
     info.align = bfmt.alignment();
@@ -650,9 +650,9 @@ void WorksheetTextItem::setTextForegroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.foreground().color();
 
-    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() , worksheetView());
+    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color(), worksheetView());
     if (!color.isValid())
-        color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() ;
+        color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color();
     if (result != QDialog::Accepted)
         return;
 
@@ -666,16 +666,15 @@ void WorksheetTextItem::setTextBackgroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.background().color();
 
-    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() , worksheetView());
+    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).background().color(), worksheetView());
     if (!color.isValid())
-        color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color() ;
+        color = KColorScheme(QPalette::Active, KColorScheme::View).background().color() ;
     if (result != QDialog::Accepted)
         return;
 
     QTextCharFormat newFmt;
     newFmt.setBackground(color);
     mergeFormatOnWordOrSelection(newFmt);
-
 }
 
 void WorksheetTextItem::setTextBold(bool b)

@@ -34,6 +34,8 @@
 #include <KFontSizeAction>
 #include <KSelectAction>
 #include <KToggleAction>
+#include <KColorDialog>
+#include <KColorScheme>
 
 #include "config-cantor.h"
 #include "worksheet.h"
@@ -1098,7 +1100,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 
     WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
 
-    if (oldItem)
+    if (oldItem && oldItem != newItem)
 	oldItem->clearSelection();
 
     m_focusItem = newItem;
