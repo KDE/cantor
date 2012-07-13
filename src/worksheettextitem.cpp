@@ -22,6 +22,7 @@
 #include "worksheet.h"
 #include "worksheetentry.h"
 #include "epsrenderer.h"
+#include "worksheetcursor.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -605,6 +606,29 @@ void WorksheetTextItem::clearSelection()
     setTextCursor(cursor);
 }
 
+
+QTextCursor WorksheetTextItem::search(QString pattern, unsigned flags,
+				      QTextDocument::FindFlags qt_flags,
+				      const WorksheetCursor& pos)
+{
+    if (pos.isValid() && pos.textItem() != this)
+	return QTextCursor();
+
+    QTextDocument* doc = document();
+    QTextCursor cursor;
+    if (pos.isValid()) {
+	cursor = doc->find(pattern, pos.textCursor(), qt_flags);
+    } else {
+	cursor = textCursor();
+	if (qt_flags & QTextDocument::FindBackward)
+	    cursor.movePosition(QTextCursor::End);
+	else
+	    cursor.movePosition(QTextCursor::Start);
+	cursor = doc->find(pattern, cursor, qt_flags);
+    }
+
+    return cursor;
+}
 
 // RichText
 

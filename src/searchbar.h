@@ -23,6 +23,7 @@
 
 #include <QWidget>
 #include <QList>
+#include <QTextDocument>
 
 #include "ui_standardsearchbar.h"
 #include "ui_extendedsearchbar.h"
@@ -46,14 +47,19 @@ class SearchBar : public QWidget
     void next();
     void prev();
 
-    void search();
+    void searchForward(bool skipFirstChar = false);
+    void searchBackward(bool skipFirstChar = false);
 
   public slots:
     void on_close_clicked();
     void on_openExtended_clicked();
     void on_openStandard_clicked();
+    void on_next_clicked();
+    void on_previous_clicked();
+    void on_replace_clicked();
+    void on_replaceAll_clicked();
     void on_pattern_textChanged(const QString& p);
-    void on_replace_textChanged(const QString& r);
+    void on_replacement_textChanged(const QString& r);
     void on_matchCase_toggled(bool b);
 
   private:
@@ -74,9 +80,13 @@ class SearchBar : public QWidget
 
     Worksheet* m_worksheet;
     QString m_pattern;
-    QString m_replace;
-    bool m_matchCase;
+    QString m_replacement;
+    QTextDocument::FindFlags m_qtFlags;
     unsigned int m_searchFlags;
+
+    bool m_atBeginning;
+    bool m_atEnd;
+    bool m_notFound;
 };
 
 #endif // SEARCHBAR_H

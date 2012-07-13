@@ -97,10 +97,12 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual WorksheetTextItem* highlightItem();
 
-    enum SearchFlag {SearchText=1, SearchCommand=2, SearchResult=4};
+    enum SearchFlag {SearchCommand=1, SearchResult=2, SearchError=4,
+		     SearchText=8, SearchLaTeX=16};
 
-    virtual WorksheetCursor search(QString pattern, unsigned flags, 
-				   const WorksheetCursor& pos = WorksheetCursor()) /*=0*/ {return WorksheetCursor();};
+    virtual WorksheetCursor search(QString pattern, unsigned flags,
+				   QTextDocument::FindFlags qt_flags,
+				   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
     virtual bool evaluate(int evalOp = 0) = 0;

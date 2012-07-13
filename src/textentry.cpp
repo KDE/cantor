@@ -170,7 +170,7 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + "\n";
     return commentStartingSeq + text.replace("\n", "\n" + commentStartingSeq) + "\n";
-    
+
 }
 
 void TextEntry::interruptEvaluation()
@@ -285,24 +285,19 @@ QString TextEntry::showLatexCode(QTextCursor cursor)
     return latexCode;
 }
 
-WorksheetCursor TextEntry::search(QString pattern, unsigned flags, 
+WorksheetCursor TextEntry::search(QString pattern, unsigned flags,
+				  QTextDocument::FindFlags qt_flags,
 				  const WorksheetCursor& pos)
 {
-    if (!(flags & WorksheetEntry::SearchText))
-	return WorksheetCursor();
-    if (pos.isValid() && (pos.entry() != this || pos.textItem() != m_textItem))
+    if (!(flags & WorksheetEntry::SearchText) ||
+	(pos.isValid() && pos.entry() != this))
 	return WorksheetCursor();
 
-    QTextDocument* doc = m_textItem->document();
-    QTextCursor cursor;
-    if (pos.isValid())
-	cursor = doc->find(pattern, pos.textCursor());
-    else
-	cursor = doc->find(pattern);
+    QTextCursor cursor = m_textItem->search(pattern, flags, qt_flags, pos);
     if (cursor.isNull())
 	return WorksheetCursor();
-
-    return WorksheetCursor(this, m_textItem, cursor);
+    else
+	return WorksheetCursor(this, m_textItem, cursor);
 }
 
 

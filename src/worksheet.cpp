@@ -213,6 +213,17 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
     if (!cursor.isValid())
 	return;
 
+    QGraphicsItem* item = m_focusItem;
+    while (item && item->type() != WorksheetTextItem::Type)
+	item = item->parentItem();
+
+    WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
+
+    if (oldItem)
+	oldItem->clearSelection();
+
+    m_focusItem = cursor.textItem();
+
     cursor.textItem()->setTextCursor(cursor.textCursor());
 }
 

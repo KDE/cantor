@@ -119,17 +119,20 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     savePlain->setIcon(KIcon("document-save"));
     connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
 
-    KAction* find=new KAction(i18n("Find"), actionCollection());
+    KAction* find=KStandardAction::find(this, SLOT(showSearchBar()),
+					actionCollection());
     find->setPriority(QAction::LowPriority);
-    actionCollection()->addAction("edit_find", find);
-    find->setIcon(KIcon("edit-find"));
-    connect(find, SIGNAL(triggered()), this, SLOT(showSearchBar()));
 
-    KAction* replace=new KAction(i18n("Replace"), actionCollection());
+    KAction* replace=KStandardAction::replace(this, SLOT(showExtendedSearchBar()),
+					      actionCollection());
     replace->setPriority(QAction::LowPriority);
-    actionCollection()->addAction("edit_find_replace", replace);
-    replace->setIcon(KIcon("edit-find-replace"));
-    connect(replace, SIGNAL(triggered()), this, SLOT(showExtendedSearchBar()));
+
+    m_findNext = KStandardAction::findNext(this, SLOT(findNext()),
+					   actionCollection());
+    m_findNext->setEnabled(false);
+    m_findPrev = KStandardAction::findPrev(this, SLOT(findPrev()),
+					   actionCollection());
+    m_findPrev->setEnabled(false);
 
     KAction* latexExport=new KAction(i18n("Export to LaTeX"), actionCollection());
     actionCollection()->addAction("file_export_latex", latexExport);
@@ -586,6 +589,9 @@ void CantorPart::showSearchBar()
 		this, SLOT(searchBarDeleted()));
     }
 
+    m_findNext->setEnabled(true);
+    m_findPrev->setEnabled(true);
+
     m_searchBar->showStandard();
     m_searchBar->setFocus();
 }
@@ -599,13 +605,30 @@ void CantorPart::showExtendedSearchBar()
 		this, SLOT(searchBarDeleted()));
     }
 
+    m_findNext->setEnabled(true);
+    m_findPrev->setEnabled(true);
+
     m_searchBar->showExtended();
     m_searchBar->setFocus();
+}
+
+void CantorPart::findNext()
+{
+    if (m_searchBar)
+	m_searchBar->next();
+}
+
+void CantorPart::findPrev()
+{
+    if (m_searchBar)
+	m_searchBar->prev();
 }
 
 void CantorPart::searchBarDeleted()
 {
     m_searchBar = 0;
+    m_findNext->setEnabled(false);
+    m_findPrev->setEnabled(false);
 }
 
 void CantorPart::adjustGuiToSession()

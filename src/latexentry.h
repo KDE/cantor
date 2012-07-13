@@ -41,7 +41,7 @@ class LatexEntry : public WorksheetEntry
     bool acceptRichText();
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
-   
+
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
 
@@ -51,6 +51,10 @@ class LatexEntry : public WorksheetEntry
     void interruptEvaluation();
 
     void layOutForWidth(double w, bool force = false);
+
+    WorksheetCursor search(QString pattern, unsigned flags,
+			   QTextDocument::FindFlags qt_flags,
+			   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
     bool evaluate(int evalOp = 0);

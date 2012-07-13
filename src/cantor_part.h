@@ -129,6 +129,8 @@ protected slots:
 
     void showSearchBar();
     void showExtendedSearchBar();
+    void findNext();
+    void findPrev();
     void searchBarDeleted();
 
     /** sets the status message, or cached it, if the StatusBar is blocked.
@@ -156,6 +158,8 @@ private:
     KProgressDialog* m_initProgressDlg;
     KAction* m_evaluate;
     KAction* m_save;
+    KAction* m_findNext;
+    KAction* m_findPrev;
     KToggleAction* m_typeset;
     KToggleAction* m_highlight;
     KToggleAction* m_completion;
