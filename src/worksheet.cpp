@@ -200,6 +200,35 @@ void Worksheet::setModified()
     emit modified();
 }
 
+WorksheetCursor Worksheet::worksheetCursor()
+{
+    WorksheetEntry* entry = currentEntry();
+    WorksheetTextItem* item = currentTextItem();
+
+    if (!entry || !item)
+	return WorksheetCursor();
+    return WorksheetCursor(entry, item, item->textCursor());
+}
+
+void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
+{
+    if (!cursor.isValid())
+	return;
+
+    QGraphicsItem* item = m_focusItem;
+    while (item && item->type() != WorksheetTextItem::Type)
+	item = item->parentItem();
+
+    WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
+
+    if (oldItem)
+	oldItem->clearSelection();
+
+    m_focusItem = cursor.textItem();
+
+    cursor.textItem()->setTextCursor(cursor.textCursor());
+}
+
 WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
@@ -897,7 +926,9 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
 {
-    m_focusItem = focusItem();
+    QGraphicsItem* item = focusItem();
+    if (item)
+	m_focusItem = item;
     QGraphicsScene::focusOutEvent(focusEvent);
 }
 

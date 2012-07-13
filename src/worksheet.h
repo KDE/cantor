@@ -32,6 +32,7 @@
 
 #include "worksheetview.h"
 #include "epsrenderer.h"
+#include "worksheetcursor.h"
 
 namespace Cantor {
     class Backend;
@@ -80,6 +81,13 @@ class Worksheet : public QGraphicsScene
     EpsRenderer* epsRenderer();
     qreal contentsWidth();
     bool isEmpty();
+
+    WorksheetEntry* currentEntry();
+    WorksheetEntry* firstEntry();
+    WorksheetEntry* lastEntry();
+
+    WorksheetCursor worksheetCursor();
+    void setWorksheetCursor(const WorksheetCursor&);
 
     // richtext
     struct RichTextInfo {
@@ -189,9 +197,6 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertEntryBefore(int type);
 
   private:
-    WorksheetEntry* currentEntry();
-    WorksheetEntry* firstEntry();
-    WorksheetEntry* lastEntry();
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(int row);
     int entryCount();

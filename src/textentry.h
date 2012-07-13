@@ -61,6 +61,10 @@ class TextEntry : public WorksheetEntry
 
     void layOutForWidth(double w, bool force = false);
 
+    WorksheetCursor search(QString pattern, unsigned flags,
+			   QTextDocument::FindFlags qt_flags,
+			   const WorksheetCursor& pos = WorksheetCursor());
+
   public slots:
     bool evaluate(int evalOp = 0);
     void resolveImagesAtCursor();

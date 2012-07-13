@@ -158,6 +158,18 @@ Worksheet* WorksheetEntry::worksheet()
     return qobject_cast<Worksheet*>(scene());
 }
 
+WorksheetCursor WorksheetEntry::search(QString pattern, unsigned flags,
+				   QTextDocument::FindFlags qt_flags,
+				   const WorksheetCursor& pos)
+{
+    Q_UNUSED(pattern);
+    Q_UNUSED(flags);
+    Q_UNUSED(qt_flags);
+    Q_UNUSED(pos);
+
+    return WorksheetCursor();
+}
+
 void WorksheetEntry::keyPressEvent(QKeyEvent* event)
 {
     // This event is used in Entries that set the ItemIsFocusable flag

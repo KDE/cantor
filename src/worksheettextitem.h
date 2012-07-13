@@ -23,12 +23,14 @@
 #define WORKSHEET_TEXT_ITEM_H
 
 #include <QGraphicsTextItem>
+#include <QTextDocument>
 
 #include <KMenu>
 #include <KStandardAction>
 
 class Worksheet;
 class WorksheetView;
+class WorksheetCursor;
 
 namespace Cantor {
     class Session;
@@ -83,6 +85,10 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setAlignment(Qt::Alignment a);
     void setFontFamily(const QString& font);
     void setFontSize(int size);
+
+    QTextCursor search(QString pattern, unsigned flags,
+		       QTextDocument::FindFlags qt_flags,
+		       const WorksheetCursor& pos);
 
   signals:
     void moveToPrevious(int pos, qreal xCoord);

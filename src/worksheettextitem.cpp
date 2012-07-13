@@ -22,6 +22,7 @@
 #include "worksheet.h"
 #include "worksheetentry.h"
 #include "epsrenderer.h"
+#include "worksheetcursor.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -606,6 +607,29 @@ void WorksheetTextItem::clearSelection()
 }
 
 
+QTextCursor WorksheetTextItem::search(QString pattern, unsigned flags,
+				      QTextDocument::FindFlags qt_flags,
+				      const WorksheetCursor& pos)
+{
+    if (pos.isValid() && pos.textItem() != this)
+	return QTextCursor();
+
+    QTextDocument* doc = document();
+    QTextCursor cursor;
+    if (pos.isValid()) {
+	cursor = doc->find(pattern, pos.textCursor(), qt_flags);
+    } else {
+	cursor = textCursor();
+	if (qt_flags & QTextDocument::FindBackward)
+	    cursor.movePosition(QTextCursor::End);
+	else
+	    cursor.movePosition(QTextCursor::Start);
+	cursor = doc->find(pattern, cursor, qt_flags);
+    }
+
+    return cursor;
+}
+
 // RichText
 
 void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
@@ -629,6 +653,7 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
 
 void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
+    kDebug() << format;
     QTextCursor cursor = textCursor();
     QTextCursor wordStart(cursor);
     QTextCursor wordEnd(cursor);
@@ -636,12 +661,12 @@ void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &form
     wordStart.movePosition(QTextCursor::StartOfWord);
     wordEnd.movePosition(QTextCursor::EndOfWord);
 
-    cursor.beginEditBlock();
+    //cursor.beginEditBlock();
     if (!cursor.hasSelection() && cursor.position() != wordStart.position() && cursor.position() != wordEnd.position())
         cursor.select(QTextCursor::WordUnderCursor);
     cursor.mergeCharFormat(format);
     //q->mergeCurrentCharFormat(format);
-    cursor.endEditBlock();
+    //cursor.endEditBlock();
     setTextCursor(cursor);
 }
 

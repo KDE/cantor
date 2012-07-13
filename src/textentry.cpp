@@ -170,7 +170,7 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + "\n";
     return commentStartingSeq + text.replace("\n", "\n" + commentStartingSeq) + "\n";
-    
+
 }
 
 void TextEntry::interruptEvaluation()
@@ -284,6 +284,22 @@ QString TextEntry::showLatexCode(QTextCursor cursor)
     cursor.insertText(latexCode);
     return latexCode;
 }
+
+WorksheetCursor TextEntry::search(QString pattern, unsigned flags,
+				  QTextDocument::FindFlags qt_flags,
+				  const WorksheetCursor& pos)
+{
+    if (!(flags & WorksheetEntry::SearchText) ||
+	(pos.isValid() && pos.entry() != this))
+	return WorksheetCursor();
+
+    QTextCursor cursor = m_textItem->search(pattern, flags, qt_flags, pos);
+    if (cursor.isNull())
+	return WorksheetCursor();
+    else
+	return WorksheetCursor(this, m_textItem, cursor);
+}
+
 
 void TextEntry::layOutForWidth(double w, bool force)
 {

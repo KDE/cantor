@@ -81,6 +81,10 @@ class CommandEntry : public WorksheetEntry
 
     WorksheetTextItem* highlightItem();
 
+    WorksheetCursor search(QString pattern, unsigned flags,
+			   QTextDocument::FindFlags qt_flags,
+			   const WorksheetCursor& pos = WorksheetCursor());
+
   public slots:
     bool evaluate(int evalOp = 0);
     bool evaluateCommand(int evalOp = 0);
@@ -142,7 +146,7 @@ class CommandEntry : public WorksheetEntry
     Cantor::CompletionObject* m_completionObject;
     QPointer<KCompletionBox> m_completionBox;
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
-    
+
     int m_evaluationFlag;
 };
 

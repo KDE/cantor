@@ -727,6 +727,37 @@ QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
     return worksheetView()->viewport()->mapToGlobal(viewportPos);
 }
 
+WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
+				     QTextDocument::FindFlags qt_flags,
+				     const WorksheetCursor& pos)
+{
+    if (pos.isValid() && pos.entry() != this)
+	return WorksheetCursor();
+
+    QTextCursor cursor;
+    if (flags & WorksheetEntry::SearchCommand) {
+	cursor = m_commandItem->search(pattern, flags, qt_flags, pos);
+	if (!cursor.isNull())
+	    return WorksheetCursor(this, m_commandItem, cursor);
+    }
+
+    if (m_errorItem && flags & WorksheetEntry::SearchError) {
+	cursor = m_errorItem->search(pattern, flags, qt_flags, pos);
+	if (!cursor.isNull())
+	    return WorksheetCursor(this, m_errorItem, cursor);
+    }
+
+    WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
+	(m_resultItem);
+    if (textResult && flags & WorksheetEntry::SearchResult) {
+	cursor = textResult->search(pattern, flags, qt_flags, pos);
+	if (!cursor.isNull())
+	    return WorksheetCursor(this, textResult, cursor);
+    }
+
+    return WorksheetCursor();
+}
+
 void CommandEntry::layOutForWidth(double w, bool force)
 {
     if (w == size().width() && !force)

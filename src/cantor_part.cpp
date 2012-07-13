@@ -45,9 +45,11 @@
 #include <QtGui/QTextEdit>
 #include <QtGui/QPrinter>
 #include <QtGui/QPrintDialog>
+#include <QtGui/QVBoxLayout>
 
 #include "worksheet.h"
 #include "worksheetview.h"
+#include "searchbar.h"
 #include "scripteditorwidget.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -91,15 +93,19 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
-    m_worksheet=new Worksheet(b, parentWidget);
-    m_worksheetview=new WorksheetView(m_worksheet, parentWidget);
+    QWidget* widget = new QWidget(parentWidget);
+    QVBoxLayout* layout = new QVBoxLayout(widget);
+    m_worksheet=new Worksheet(b, widget);
+    m_worksheetview=new WorksheetView(m_worksheet, widget);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
+    m_searchBar = 0;
+    layout->addWidget(m_worksheetview);
     // notify the part that this is our internal widget
-    setWidget(m_worksheetview);
+    setWidget(widget);
 
     // create our actions
     m_worksheet->createActions(actionCollection());
@@ -112,6 +118,21 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction("file_save_plain", savePlain);
     savePlain->setIcon(KIcon("document-save"));
     connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
+
+    KAction* find=KStandardAction::find(this, SLOT(showSearchBar()),
+					actionCollection());
+    find->setPriority(QAction::LowPriority);
+
+    KAction* replace=KStandardAction::replace(this, SLOT(showExtendedSearchBar()),
+					      actionCollection());
+    replace->setPriority(QAction::LowPriority);
+
+    m_findNext = KStandardAction::findNext(this, SLOT(findNext()),
+					   actionCollection());
+    m_findNext->setEnabled(false);
+    m_findPrev = KStandardAction::findPrev(this, SLOT(findPrev()),
+					   actionCollection());
+    m_findPrev->setEnabled(false);
 
     KAction* latexExport=new KAction(i18n("Export to LaTeX"), actionCollection());
     actionCollection()->addAction("file_export_latex", latexExport);
@@ -557,6 +578,57 @@ void CantorPart::runAssistant()
 void CantorPart::runCommand(const QString& cmd)
 {
     m_worksheet->appendCommandEntry(cmd);
+}
+
+void CantorPart::showSearchBar()
+{
+    if (!m_searchBar) {
+	m_searchBar = new SearchBar(widget(), m_worksheet);
+	widget()->layout()->addWidget(m_searchBar);
+	connect(m_searchBar, SIGNAL(destroyed(QObject*)),
+		this, SLOT(searchBarDeleted()));
+    }
+
+    m_findNext->setEnabled(true);
+    m_findPrev->setEnabled(true);
+
+    m_searchBar->showStandard();
+    m_searchBar->setFocus();
+}
+
+void CantorPart::showExtendedSearchBar()
+{
+    if (!m_searchBar) {
+	m_searchBar = new SearchBar(widget(), m_worksheet);
+	widget()->layout()->addWidget(m_searchBar);
+	connect(m_searchBar, SIGNAL(destroyed(QObject*)),
+		this, SLOT(searchBarDeleted()));
+    }
+
+    m_findNext->setEnabled(true);
+    m_findPrev->setEnabled(true);
+
+    m_searchBar->showExtended();
+    m_searchBar->setFocus();
+}
+
+void CantorPart::findNext()
+{
+    if (m_searchBar)
+	m_searchBar->next();
+}
+
+void CantorPart::findPrev()
+{
+    if (m_searchBar)
+	m_searchBar->prev();
+}
+
+void CantorPart::searchBarDeleted()
+{
+    m_searchBar = 0;
+    m_findNext->setEnabled(false);
+    m_findPrev->setEnabled(false);
 }
 
 void CantorPart::adjustGuiToSession()
