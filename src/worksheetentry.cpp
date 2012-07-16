@@ -213,7 +213,8 @@ void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
     if (!worksheet()->isRunning() && wantToEvaluate())
 	menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
-    menu->addAction(i18n("Remove Entry"), this, SLOT(startRemoving()), 0);
+    menu->addAction(KIcon("edit-delete"), i18n("Remove Entry"), this,
+		    SLOT(startRemoving()), 0);
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
 

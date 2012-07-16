@@ -70,7 +70,7 @@ class WorksheetImageItem : public QGraphicsObject
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
  
   private:
-    QImage m_image;
+    QPixmap m_pixmap;
     QSizeF m_size;
 };
 

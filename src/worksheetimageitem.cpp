@@ -46,7 +46,7 @@ int WorksheetImageItem::type() const
 
 bool WorksheetImageItem::imageIsValid()
 {
-    return !m_image.isNull();
+    return !m_pixmap.isNull();
 }
 
 qreal WorksheetImageItem::height() const
@@ -71,7 +71,7 @@ void WorksheetImageItem::setSize(QSizeF size)
 
 QSize WorksheetImageItem::imageSize()
 {
-    return m_image.size();
+    return m_pixmap.size();
 }
 
 QRectF WorksheetImageItem::boundingRect() const
@@ -85,26 +85,27 @@ void WorksheetImageItem::paint(QPainter *painter,
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    painter->drawImage(QRectF(QPointF(0,0), m_size), m_image,
-			m_image.rect());
+    painter->drawPixmap(QRectF(QPointF(0,0), m_size), m_pixmap,
+			m_pixmap.rect());
 }
 
 void WorksheetImageItem::setEps(const KUrl& url)
 {
     const QImage img = worksheet()->epsRenderer()->renderToImage(url, &m_size);
-    m_image = img;
+    m_pixmap = QPixmap::fromImage(img.convertToFormat(QImage::Format_ARGB32));
 }
 
 void WorksheetImageItem::setImage(QImage img)
 {
-    m_image = img;
-    m_size = m_image.size();
+    m_pixmap = QPixmap::fromImage(img);
+    m_size = m_pixmap.size();
 }
 
 void WorksheetImageItem::setPixmap(QPixmap pixmap)
 {
-    m_image = pixmap.toImage();
-    m_size = m_image.size();
+    //m_image = pixmap.toImage();
+    //m_size = m_image.size();
+    m_pixmap = pixmap;
 }
 
 void WorksheetImageItem::populateMenu(KMenu *menu, const QPointF& pos)
