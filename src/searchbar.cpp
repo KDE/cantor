@@ -419,6 +419,7 @@ void SearchBar::setupStdUi()
     m_stdUi->next->setIcon(KIcon("go-down-search"));
     m_stdUi->previous->setIcon(KIcon("go-up-search"));
 
+    m_stdUi->close->setShortcut(Qt::Key_Escape);
     setFocusProxy(m_stdUi->pattern);
 }
 
@@ -439,6 +440,7 @@ void SearchBar::setupExtUi()
     m_extUi->addFlag->setIcon(KIcon("list-add"));
     m_extUi->removeFlag->setIcon(KIcon("list-remove"));
 
+    m_extUi->close->setShortcut(Qt::Key_Escape);
     setFocusProxy(m_extUi->pattern);
     updateSearchLocations();
 }

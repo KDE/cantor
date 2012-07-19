@@ -292,6 +292,24 @@ bool LatexEntry::isOneImageOnly()
     return (cursor.selectionEnd() == 1 && cursor.selectedText() == QString(QChar::ObjectReplacementCharacter));
 }
 
+int LatexEntry::searchText(QString text, QString pattern,
+			  QTextDocument::FindFlags qt_flags)
+{
+    Qt::CaseSensitivity caseSensitivity;
+    if (qt_flags & QTextDocument::FindCaseSensitively)
+	caseSensitivity = Qt::CaseSensitive;
+    else
+	caseSensitivity = Qt::CaseInsensitive;
+
+    int position;
+    if (qt_flags & QTextDocument::FindBackward)
+	position = text.lastIndexOf(pattern, -1, caseSensitivity);
+    else
+	position = text.indexOf(pattern, 0, caseSensitivity);
+
+    return position;
+}
+
 WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
 				   QTextDocument::FindFlags qt_flags,
 				   const WorksheetCursor& pos)
@@ -301,34 +319,39 @@ WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
     if (pos.isValid() && (pos.entry() != this || pos.textItem() != m_textItem))
 	return WorksheetCursor();
 
-    QString text = latexCode();
-    Qt::CaseSensitivity caseSensitivity;
-    if (qt_flags & QTextDocument::FindCaseSensitively)
-	caseSensitivity = Qt::CaseSensitive;
-    else
-	caseSensitivity = Qt::CaseInsensitive;
+    QTextCursor textCursor = m_textItem->search(pattern, flags, qt_flags, pos);
     int position;
-    if (pos.isValid()) {
-	if (qt_flags & QTextDocument::FindBackward)
-	    position = text.lastIndexOf(pattern, pos.textCursor().position(),
-					caseSensitivity);
-	else
-	    position = text.indexOf(pattern, pos.textCursor().position(),
-				    caseSensitivity);
-    } else {
-	if (qt_flags & QTextDocument::FindBackward)
-	    position = text.lastIndexOf(pattern, -1, caseSensitivity);
-	else
-	    position = text.indexOf(pattern, 0, caseSensitivity);
+    QString latex;
+    const QString repl = QString(QChar::ObjectReplacementCharacter);
+    QTextCursor latexCursor = m_textItem->search(repl, flags, qt_flags, pos);
+
+    while (!latexCursor.isNull()) {
+	latex = m_textItem->resolveImages(latexCursor);
+	position = searchText(latex, pattern, qt_flags);
+	if (position >= 0) {
+	    break;
+	}
+	WorksheetCursor c(this, m_textItem, latexCursor);
+	latexCursor = m_textItem->search(repl, flags, qt_flags, c);
     }
 
-    QTextCursor cursor = m_textItem->textCursor();
-    if (position >= 0) {
-	/* todo: resolve images if needed */
-	cursor.setPosition(position);
-	return WorksheetCursor(this, m_textItem, cursor);
+    if (latexCursor.isNull()) {
+	if (textCursor.isNull())
+	    return WorksheetCursor();
+	else
+	    return WorksheetCursor(this, m_textItem, textCursor);
     } else {
-	return WorksheetCursor();
+	if (textCursor.isNull() || latexCursor < textCursor) {
+	    int start = latexCursor.selectionStart();
+	    latexCursor.insertText(latex);
+	    QTextCursor c = m_textItem->textCursor();
+	    c.setPosition(start + position);
+	    c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor,
+			   pattern.length());
+	    return WorksheetCursor(this, m_textItem, c);
+	} else {
+	    return WorksheetCursor(this, m_textItem, textCursor);
+	}
     }
 }
 
