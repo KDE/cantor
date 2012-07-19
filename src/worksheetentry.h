@@ -98,7 +98,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual WorksheetTextItem* highlightItem();
 
     enum SearchFlag {SearchCommand=1, SearchResult=2, SearchError=4,
-		     SearchText=8, SearchLaTeX=16};
+		     SearchText=8, SearchLaTeX=16, SearchAll=31};
 
     virtual WorksheetCursor search(QString pattern, unsigned flags,
 				   QTextDocument::FindFlags qt_flags,

@@ -323,12 +323,13 @@ WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
     }
 
     QTextCursor cursor = m_textItem->textCursor();
-    if (position >= 0)
+    if (position >= 0) {
+	/* todo: resolve images if needed */
 	cursor.setPosition(position);
-    else
-	cursor = QTextCursor();
-
-    return WorksheetCursor(this, m_textItem, cursor);
+	return WorksheetCursor(this, m_textItem, cursor);
+    } else {
+	return WorksheetCursor();
+    }
 }
 
 void LatexEntry::layOutForWidth(double w, bool force)

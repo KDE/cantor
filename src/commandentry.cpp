@@ -734,23 +734,30 @@ WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
     if (pos.isValid() && pos.entry() != this)
 	return WorksheetCursor();
 
+    WorksheetCursor p = pos;
     QTextCursor cursor;
     if (flags & WorksheetEntry::SearchCommand) {
-	cursor = m_commandItem->search(pattern, flags, qt_flags, pos);
+	cursor = m_commandItem->search(pattern, flags, qt_flags, p);
 	if (!cursor.isNull())
 	    return WorksheetCursor(this, m_commandItem, cursor);
     }
 
+    if (p.textItem() == m_commandItem)
+	p = WorksheetCursor();
+
     if (m_errorItem && flags & WorksheetEntry::SearchError) {
-	cursor = m_errorItem->search(pattern, flags, qt_flags, pos);
+	cursor = m_errorItem->search(pattern, flags, qt_flags, p);
 	if (!cursor.isNull())
 	    return WorksheetCursor(this, m_errorItem, cursor);
     }
 
+    if (p.textItem() == m_errorItem)
+	p = WorksheetCursor();
+
     WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
 	(m_resultItem);
     if (textResult && flags & WorksheetEntry::SearchResult) {
-	cursor = textResult->search(pattern, flags, qt_flags, pos);
+	cursor = textResult->search(pattern, flags, qt_flags, p);
 	if (!cursor.isNull())
 	    return WorksheetCursor(this, textResult, cursor);
     }

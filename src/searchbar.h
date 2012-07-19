@@ -34,6 +34,8 @@ class Worksheet;
 class WorksheetEntry;
 class WorksheetTextItem;
 
+class KMenu;
+
 class SearchBar : public QWidget
 {
   Q_OBJECT;
@@ -60,9 +62,20 @@ class SearchBar : public QWidget
     void on_replaceAll_clicked();
     void on_pattern_textChanged(const QString& p);
     void on_replacement_textChanged(const QString& r);
+    void on_addFlag_clicked();
+    void on_removeFlag_clicked();
     void on_matchCase_toggled(bool b);
 
+    void invalidateStartCursor();
+    void invalidateCurrentCursor();
+
+  protected slots:
+    void toggleFlag();
+
   private:
+
+    void updateSearchLocations();
+    void fillLocationsMenu(KMenu* menu, int flags);
 
     void setupStdUi();
     void setupExtUi();
@@ -70,8 +83,12 @@ class SearchBar : public QWidget
     void setStatus(QString);
     void clearStatus();
 
+    void setStartCursor(WorksheetCursor cursor);
+    void setCurrentCursor(WorksheetCursor cursor);
+
     Worksheet* worksheet();
 
+  private:
     Ui::StandardSearchBar* m_stdUi;
     Ui::ExtendedSearchBar* m_extUi;
 
