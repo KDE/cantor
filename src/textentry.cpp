@@ -21,7 +21,6 @@
 
 #include "textentry.h"
 #include "worksheettextitem.h"
-#include "animationhandler.h"
 #include "epsrenderer.h"
 #include "latexrenderer.h"
 

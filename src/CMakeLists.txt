@@ -81,7 +81,6 @@ set(cantor_PART_SRCS
    imageresultitem.cpp
    animationresultitem.cpp
    loadedexpression.cpp
-   animationhandler.cpp
    animation.cpp
    epsrenderer.cpp
  )
