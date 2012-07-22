@@ -79,7 +79,6 @@ class Worksheet : public QGraphicsScene
     KMenu* createContextMenu();
     void populateMenu(KMenu* menu, const QPointF& pos);
     EpsRenderer* epsRenderer();
-    qreal contentsWidth();
     bool isEmpty();
 
     WorksheetEntry* currentEntry();
@@ -88,6 +87,10 @@ class Worksheet : public QGraphicsScene
 
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
+
+    void addProtrusion(qreal width);
+    void updateProtrusion(qreal oldWidth, qreal newWidth);
+    void removeProtrusion(qreal width);
 
     // richtext
     struct RichTextInfo {
@@ -214,6 +217,10 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_dragEntry;
     QGraphicsItem* m_focusItem;
 
+    double m_viewWidth;
+    double m_protrusion;
+    QMap<qreal, int> m_itemProtrusions;
+
     QList<KAction*> m_richTextActionList;
     KToggleAction* m_boldAction;
     KToggleAction* m_italicAction;
@@ -231,7 +238,6 @@ class Worksheet : public QGraphicsScene
     bool m_animationsEnabled;
     bool m_loginFlag;
     bool m_isPrinting;
-    double m_width;
 };
 
 #endif // WORKSHEET_H

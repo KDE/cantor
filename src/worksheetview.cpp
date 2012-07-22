@@ -27,7 +27,8 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent)
     m_scale = 1;
     m_worksheet = qobject_cast<Worksheet*>(scene);
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
 
 WorksheetView::~WorksheetView()

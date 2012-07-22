@@ -445,7 +445,8 @@ void WorksheetEntry::startRemoving()
 	return;
 
     if (!next()) {
-	if (previous() && previous()->isEmpty()) {
+	if (previous() && previous()->isEmpty() &&
+	    !previous()->aboutToBeRemoved()) {
 	    previous()->focusEntry();
 	} else {
 	    WorksheetEntry* next = worksheet()->appendCommandEntry();

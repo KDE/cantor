@@ -46,9 +46,7 @@ TextResultItem::~TextResultItem()
 
 double TextResultItem::setGeometry(double x, double y, double w)
 {
-    setPos(x,y);
-    setTextWidth(w);
-    return height();
+    return WorksheetTextItem::setGeometry(x, y, w);
 }
 
 void TextResultItem::populateMenu(KMenu* menu, const QPointF& pos)

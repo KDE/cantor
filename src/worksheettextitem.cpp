@@ -44,31 +44,36 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     : QGraphicsTextItem(parent)
 {
     setTextInteractionFlags(ti);
-    if (ti & Qt::TextEditable)
+    if (ti & Qt::TextEditable) {
+	setCursor(Qt::IBeamCursor);
 	connect(this, SIGNAL(sizeChanged()), parent,
 		SLOT(recalculateSize()));
+    }
     m_completionEnabled = false;
     m_completionActive = false;
     m_draggingEnabled = false;
     m_richTextEnabled = false;
-    m_height = 0;
+    m_size = document()->size();;
+    m_maxWidth = -1;
     setAcceptDrops(true);
     setFont(KGlobalSettings::fixedFont());
-    connect(document(), SIGNAL(contentsChange(int, int, int)),
-	    this, SLOT(setHeight()));
+    //connect(document(), SIGNAL(contentsChange(int, int, int)),
+    //        this, SLOT(setHeight()));
     connect(document(), SIGNAL(contentsChanged()),
-	    this, SLOT(testHeight()));
+	    this, SLOT(testSize()));
     connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
 	    SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
-    connect(this, SIGNAL(appendCommandEntry()),
-	    worksheet(), SLOT(insertCommandEntry()));
     connect(this, SIGNAL(cursorPositionChanged(QTextCursor)), this,
 	    SLOT(updateRichTextActions(QTextCursor)));
 }
 
 WorksheetTextItem::~WorksheetTextItem()
 {
+    if (hasFocus())
+	worksheet()->updateFocusedTextItem(0);
+    if (worksheet() && m_maxWidth > 0 && width() > m_maxWidth)
+	worksheet()->removeProtrusion(width() - m_maxWidth);
 }
 
 int WorksheetTextItem::type() const
@@ -76,15 +81,67 @@ int WorksheetTextItem::type() const
     return Type;
 }
 
+/*
 void WorksheetTextItem::setHeight()
 {
     m_height = height();
 }
+*/
 
-void WorksheetTextItem::testHeight()
+void WorksheetTextItem::testSize()
 {
-    if (m_height != height())
+    qreal h = document()->size().height();
+    if (h != m_size.height()) {
 	emit sizeChanged();
+	m_size.setHeight(h);
+    }
+
+    qreal w = document()->size().width();
+    kDebug() << m_size.width() << w << m_maxWidth;
+    if (w != m_size.width()) {
+	if (m_maxWidth > 0) {
+	    qreal oldDiff = m_size.width() - m_maxWidth;
+	    qreal newDiff = w - m_maxWidth;
+	    if (w > m_maxWidth) {
+		if (m_size.width() > m_maxWidth)
+		    worksheet()->updateProtrusion(oldDiff, newDiff);
+		else
+		    worksheet()->addProtrusion(newDiff);
+	    } else if (m_size.width() > m_maxWidth) {
+		worksheet()->removeProtrusion(oldDiff);
+	    }
+	}
+	m_size.setWidth(w);
+    }
+}
+
+qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
+{
+    if (m_size.width() < w && centered)
+	setPos(x + w/2 - m_size.width()/2, y);
+    else
+	setPos(x,y);
+
+    qreal oldDiff = 0;
+    if (m_maxWidth > 0 && width() > m_maxWidth)
+	oldDiff = width() - m_maxWidth;
+    m_maxWidth = w;
+    setTextWidth(w);
+    m_size = document()->size();
+
+    if (oldDiff) {
+	if (m_size.width() > m_maxWidth) {
+	    qreal newDiff = m_size.width() - m_maxWidth;
+	    worksheet()->updateProtrusion(oldDiff, newDiff);
+	} else {
+	    worksheet()->removeProtrusion(oldDiff);
+	}
+    } else if (m_size.width() > m_maxWidth) {
+	qreal newDiff = m_size.width() - m_maxWidth;
+	worksheet()->addProtrusion(newDiff);
+    }
+
+    return m_size.height();
 }
 
 void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
@@ -351,9 +408,6 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 	if (event->modifiers() == Qt::ShiftModifier) {
 	    emit execute();
 	    return;
-	} else if (event->modifiers() == Qt::ControlModifier) {
-	    emit appendCommandEntry();
-	    return;
 	} else if (event->modifiers() == Qt::NoModifier && m_completionActive) {
 	    emit applyCompletion();
 	    return;
@@ -433,7 +487,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
     QGraphicsTextItem::focusInEvent(event);
-    parentItem()->ensureVisible();
+    parentItem()->ensureVisible(QRectF(), 0, 0);
     worksheet()->setAcceptRichText(richTextEnabled());
     worksheet()->updateFocusedTextItem(this);
     emit receivedFocus(this);
@@ -581,12 +635,12 @@ void WorksheetTextItem::insertTab()
 
 double WorksheetTextItem::width()
 {
-    return document()->size().width();
+    return m_size.width();
 }
 
 double WorksheetTextItem::height()
 {
-    return document()->size().height();
+    return m_size.height();
 }
 
 Worksheet* WorksheetTextItem::worksheet()
@@ -607,7 +661,7 @@ void WorksheetTextItem::clearSelection()
 }
 
 
-QTextCursor WorksheetTextItem::search(QString pattern, unsigned flags,
+QTextCursor WorksheetTextItem::search(QString pattern,
 				      QTextDocument::FindFlags qt_flags,
 				      const WorksheetCursor& pos)
 {

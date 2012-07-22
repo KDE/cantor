@@ -104,7 +104,7 @@ void PageBreakEntry::layOutForWidth(qreal w, bool force)
 	return;
 
     if (m_msgItem->isVisible()) {
-	m_msgItem->setPos(w/2 - m_msgItem->width()/2, 0);
+	m_msgItem->setGeometry(0, 0, w, true);
 
 	setSize(QSizeF(w, m_msgItem->height() + VerticalMargin));
     } else {

@@ -737,7 +737,7 @@ WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
     WorksheetCursor p = pos;
     QTextCursor cursor;
     if (flags & WorksheetEntry::SearchCommand) {
-	cursor = m_commandItem->search(pattern, flags, qt_flags, p);
+	cursor = m_commandItem->search(pattern, qt_flags, p);
 	if (!cursor.isNull())
 	    return WorksheetCursor(this, m_commandItem, cursor);
     }
@@ -746,7 +746,7 @@ WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
 	p = WorksheetCursor();
 
     if (m_errorItem && flags & WorksheetEntry::SearchError) {
-	cursor = m_errorItem->search(pattern, flags, qt_flags, p);
+	cursor = m_errorItem->search(pattern, qt_flags, p);
 	if (!cursor.isNull())
 	    return WorksheetCursor(this, m_errorItem, cursor);
     }
@@ -757,7 +757,7 @@ WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
     WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
 	(m_resultItem);
     if (textResult && flags & WorksheetEntry::SearchResult) {
-	cursor = textResult->search(pattern, flags, qt_flags, p);
+	cursor = textResult->search(pattern, qt_flags, p);
 	if (!cursor.isNull())
 	    return WorksheetCursor(this, textResult, cursor);
     }
@@ -774,22 +774,17 @@ void CommandEntry::layOutForWidth(double w, bool force)
     double x = 0 + m_promptItem->width() + HorizontalSpacing;
     double y = 0;
 
-    m_commandItem->setPos(x,y);
-    m_commandItem->setTextWidth(w-x);
+    m_commandItem->setGeometry(x,y, w-x);
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
     foreach(WorksheetTextItem* information, m_informationItems) {
 	y += VerticalSpacing;
-	information->setPos(x,y);
-	information->setTextWidth(w-x);
-	y += information->height();
+	y += information->setGeometry(x,y,w-x);
     }
 
     if (m_errorItem) {
 	y += VerticalSpacing;
-	m_errorItem->setPos(x,y);
-	m_errorItem->setTextWidth(w-x);
-	y += m_errorItem->height();
+	y += m_errorItem->setGeometry(x,y,w-x);
     }
 
     if (m_resultItem) {

@@ -33,10 +33,13 @@ WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
 {
     connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
 	    SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
+    m_maxWidth = 0;
 }
 
 WorksheetImageItem::~WorksheetImageItem()
 {
+    if (worksheet() && m_maxWidth > 0 && width() > m_maxWidth)
+	worksheet()->removeProtrusion(width() - m_maxWidth);
 }
 
 int WorksheetImageItem::type() const
@@ -47,6 +50,22 @@ int WorksheetImageItem::type() const
 bool WorksheetImageItem::imageIsValid()
 {
     return !m_pixmap.isNull();
+}
+
+qreal WorksheetImageItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
+{
+    if (width() <= w && centered) {
+	setPos(x + w/2 - width()/2, y);
+    } else {
+	setPos(x, y);
+	if (m_maxWidth < width())
+	    worksheet()->updateProtrusion(width() - m_maxWidth, width() - w);
+	else
+	    worksheet()->addProtrusion(width() - w);
+    }
+    m_maxWidth = w;
+
+    return height();
 }
 
 qreal WorksheetImageItem::height() const
@@ -66,6 +85,17 @@ QSizeF WorksheetImageItem::size()
 
 void WorksheetImageItem::setSize(QSizeF size)
 {
+    qreal oldProtrusion = x() + m_size.width() - m_maxWidth;
+    qreal newProtrusion = x() + size.width() - m_maxWidth;
+    if (oldProtrusion > 0) {
+	if (newProtrusion > 0)
+	    worksheet()->updateProtrusion(oldProtrusion, newProtrusion);
+	else
+	    worksheet()->removeProtrusion(oldProtrusion);
+    } else {
+	if (newProtrusion > 0)
+	    worksheet()->addProtrusion(newProtrusion);
+    }
     m_size = size;
 }
 
@@ -98,13 +128,11 @@ void WorksheetImageItem::setEps(const KUrl& url)
 void WorksheetImageItem::setImage(QImage img)
 {
     m_pixmap = QPixmap::fromImage(img);
-    m_size = m_pixmap.size();
+    setSize(m_pixmap.size());
 }
 
 void WorksheetImageItem::setPixmap(QPixmap pixmap)
 {
-    //m_image = pixmap.toImage();
-    //m_size = m_image.size();
     m_pixmap = pixmap;
 }
 

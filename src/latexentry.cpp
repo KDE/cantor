@@ -319,11 +319,11 @@ WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
     if (pos.isValid() && (pos.entry() != this || pos.textItem() != m_textItem))
 	return WorksheetCursor();
 
-    QTextCursor textCursor = m_textItem->search(pattern, flags, qt_flags, pos);
+    QTextCursor textCursor = m_textItem->search(pattern, qt_flags, pos);
     int position;
     QString latex;
     const QString repl = QString(QChar::ObjectReplacementCharacter);
-    QTextCursor latexCursor = m_textItem->search(repl, flags, qt_flags, pos);
+    QTextCursor latexCursor = m_textItem->search(repl, qt_flags, pos);
 
     while (!latexCursor.isNull()) {
 	latex = m_textItem->resolveImages(latexCursor);
@@ -332,7 +332,7 @@ WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
 	    break;
 	}
 	WorksheetCursor c(this, m_textItem, latexCursor);
-	latexCursor = m_textItem->search(repl, flags, qt_flags, c);
+	latexCursor = m_textItem->search(repl, qt_flags, c);
     }
 
     if (latexCursor.isNull()) {
@@ -360,8 +360,7 @@ void LatexEntry::layOutForWidth(double w, bool force)
     if (size().width() == w && !force)
 	return;
 
-    m_textItem->setPos(0,0);
-    m_textItem->setTextWidth(w);
+    m_textItem->setGeometry(0, 0, w);
     setSize(QSizeF(w, m_textItem->height() + VerticalMargin));
 }
 

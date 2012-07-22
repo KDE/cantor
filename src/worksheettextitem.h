@@ -69,6 +69,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool richTextEnabled();
     double width();
     double height();
+    virtual qreal setGeometry(qreal x, qreal y, qreal w, bool centered=false);
 
     Worksheet* worksheet();
     WorksheetView* worksheetView();
@@ -86,7 +87,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setFontFamily(const QString& font);
     void setFontSize(int size);
 
-    QTextCursor search(QString pattern, unsigned flags,
+    QTextCursor search(QString pattern,
 		       QTextDocument::FindFlags qt_flags,
 		       const WorksheetCursor& pos);
 
@@ -100,7 +101,6 @@ class WorksheetTextItem : public QGraphicsTextItem
     void applyCompletion();
     void doubleClick();
     void execute();
-    void appendCommandEntry();
     void deleteEntry();
     void sizeChanged();
     void menuCreated(KMenu*, const QPointF&);
@@ -128,8 +128,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool sceneEvent(QEvent *event);
 
   private slots:
-    void setHeight();
-    void testHeight();
+    //void setHeight();
+    void testSize();
     void updateRichTextActions(QTextCursor cursor);
 
   private:
@@ -143,11 +143,12 @@ class WorksheetTextItem : public QGraphicsTextItem
     void mergeFormatOnWordOrSelection(const QTextCharFormat &format);
 
   private:
+    QSizeF m_size;
+    qreal m_maxWidth;
     bool m_completionEnabled;
     bool m_completionActive;
     bool m_draggingEnabled;
     bool m_richTextEnabled;
-    qreal m_height;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H

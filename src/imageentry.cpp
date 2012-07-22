@@ -310,9 +310,9 @@ void ImageEntry::layOutForWidth(double w, bool force)
 	return;
 
     if (m_imageItem && m_imageItem->isVisible())
-	m_imageItem->setPos(w/2 - m_imageItem->width()/2, 0);
+	m_imageItem->setGeometry(0, 0, w, true);
     else
-	m_textItem->setPos(w/2 - m_textItem->width()/2, 0);
+	m_textItem->setGeometry(0, 0, w, true);
 
     setSize(QSizeF(w, height() + VerticalMargin));
 }

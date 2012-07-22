@@ -44,6 +44,8 @@ class WorksheetImageItem : public QGraphicsObject
 
     bool imageIsValid();
 
+    virtual qreal setGeometry(qreal x, qreal y, qreal w, bool centered=false);
+
     qreal height() const;
     qreal width() const;
     QSizeF size();
@@ -72,6 +74,7 @@ class WorksheetImageItem : public QGraphicsObject
   private:
     QPixmap m_pixmap;
     QSizeF m_size;
+    qreal m_maxWidth;
 };
 
 #endif //WORKSHEETIMAGEITEM_H

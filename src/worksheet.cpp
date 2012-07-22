@@ -66,7 +66,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_lastEntry = 0;
     m_focusItem = 0;
     m_dragEntry = 0;
-    m_width = 0;
+    m_viewWidth = 0;
+    m_protrusion = 0;
 
     m_isPrinting = false;
     m_loginFlag = true;
@@ -151,7 +152,7 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
 {
     Q_UNUSED(h);
 
-    m_width = w;
+    m_viewWidth = w;
     if (s != m_epsRenderer.scale() || forceUpdate) {
 	m_epsRenderer.setScale(s);
 	for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
@@ -162,12 +163,12 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
 
 void Worksheet::updateLayout()
 {
-    const qreal w = m_width - LeftMargin - RightMargin;
+    const qreal w = m_viewWidth - LeftMargin - RightMargin;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
 	y += entry->setGeometry(x, y, w);
-    setSceneRect(QRectF(0, 0, m_width, y));
+    setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
 }
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
@@ -177,12 +178,43 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
 	entry->setY(y);
 	y += entry->size().height();
     }
-    setSceneRect(QRectF(0, 0, m_width, y));
+    setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
 }
 
-qreal Worksheet::contentsWidth()
+void Worksheet::addProtrusion(qreal width)
 {
-    return m_width - LeftMargin - RightMargin;
+    if (m_itemProtrusions.contains(width))
+	++m_itemProtrusions[width];
+    else
+	m_itemProtrusions.insert(width, 1);
+    if (width > m_protrusion) {
+	m_protrusion = width;
+	qreal y = lastEntry()->size().height() + lastEntry()->y();
+	setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+    }
+}
+
+void Worksheet::updateProtrusion(qreal oldWidth, qreal newWidth)
+{
+    removeProtrusion(oldWidth);
+    addProtrusion(newWidth);
+}
+
+void Worksheet::removeProtrusion(qreal width)
+{
+    if (--m_itemProtrusions[width] == 0) {
+	m_itemProtrusions.remove(width);
+	if (width == m_protrusion) {
+	    qreal max = -1;
+	    foreach (qreal p, m_itemProtrusions.keys()) {
+		if (p > max)
+		    max = p;
+	    }
+	    m_protrusion = max;
+	    qreal y = lastEntry()->size().height() + lastEntry()->y();
+	    setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+	}
+    }
 }
 
 bool Worksheet::isEmpty()
