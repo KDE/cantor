@@ -83,7 +83,7 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual qreal setGeometry(qreal x, qreal y, qreal w);
     virtual void layOutForWidth(qreal w, bool force = false) = 0;
-    QPropertyAnimation* sizeChangeAnimation();
+    QPropertyAnimation* sizeChangeAnimation(QSizeF s = QSizeF());
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
 
@@ -91,8 +91,7 @@ class WorksheetEntry : public QGraphicsObject
     QSizeF size();
 
     enum EvaluationOption {
-	FocusedItemOnly = 1,
-	EvaluateNextEntries = 2
+	DoNothing, FocusNext, EvaluateNext
     };
 
     virtual WorksheetTextItem* highlightItem();
@@ -105,7 +104,8 @@ class WorksheetEntry : public QGraphicsObject
 				   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
-    virtual bool evaluate(int evalOp = 0) = 0;
+    virtual bool evaluate(EvaluationOption evalOp = FocusNext) = 0;
+    virtual bool evaluateCurrentItem();
     virtual void updateEntry() = 0;
     virtual void sizeAnimated();
     virtual void startRemoving();
@@ -117,19 +117,21 @@ class WorksheetEntry : public QGraphicsObject
     void animateSizeChange();
     // animate the size change and the opacity of item
     void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
-    void fadeOutItem(QGraphicsObject* item = 0, const char* slot = SLOT(deleteLater()));
+    void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
     void endAnimation();
 
   protected:
     Worksheet* worksheet();
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void keyPressEvent(QKeyEvent *event);
-    void evaluateNext(int opt);
+    void evaluateNext(EvaluationOption opt);
 
     void setSize(QSizeF size);
 
     bool animationActive();
-    void updateAnimation(const QSizeF& size, const QPointF& pos = QPointF());
+    void updateSizeAnimation(const QSizeF& size);
+
+    void invokeSlotOnObject(const char* slot, QObject* obj);
 
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();

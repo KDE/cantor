@@ -199,7 +199,7 @@ void LatexEntry::interruptEvaluation()
 
 }
 
-bool LatexEntry::evaluate(int evalOp)
+bool LatexEntry::evaluate(EvaluationOption evalOp)
 {
     if (isOneImageOnly())
 	return true; // the image is rendered already

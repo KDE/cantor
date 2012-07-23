@@ -55,7 +55,7 @@ class ImageEntry : public WorksheetEntry
     void layOutForWidth(qreal w, bool force = false);
 
   public slots:
-    bool evaluate(int evalOp = 0);
+    bool evaluate(EvaluationOption evalOp = FocusNext);
     void updateEntry();
 
     void populateMenu(KMenu *menu, const QPointF& pos);

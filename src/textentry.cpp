@@ -145,7 +145,7 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     el.appendChild(myDoc.documentElement().firstChildElement("body"));
 
     if (needsEval)
-	evaluate(false);
+	evaluate();
     return el;
 }
 
@@ -176,7 +176,7 @@ void TextEntry::interruptEvaluation()
 {
 }
 
-bool TextEntry::evaluate(int evalOp)
+bool TextEntry::evaluate(EvaluationOption evalOp)
 {
     QTextCursor cursor = findLatexCode();
     while (!cursor.isNull())

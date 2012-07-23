@@ -66,7 +66,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 	    this, SLOT(selectPreviousCompletion()));
     connect(m_commandItem, SIGNAL(applyCompletion()),
 	    this, SLOT(applySelectedCompletion()));
-    connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluateCommand()));
+    connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluate()));
     connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
 	    this, SLOT(moveToPreviousItem(int, qreal)));
     connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
@@ -137,11 +137,14 @@ QString CommandEntry::command()
 
 void CommandEntry::setExpression(Cantor::Expression* expr)
 {
+    /*
     if ( m_expression ) {
-	if (m_expression->status() == Cantor::Expression::Computing)
+	if (m_expression->status() == Cantor::Expression::Computing) {
+	    kDebug() << "OLD EXPRESSION STILL ACTIVE";
 	    m_expression->interrupt();
+	}
         m_expression->deleteLater();
-    }
+	}*/
 
     // Delete any previus error
     if(m_errorItem)
@@ -284,37 +287,26 @@ QString CommandEntry::currentLine()
     return block.text();
 }
 
-bool CommandEntry::evaluate(int evalOp)
+bool CommandEntry::evaluateCurrentItem()
 {
-    bool success = false;
-
-    if (!(evalOp & FocusedItemOnly) || m_commandItem->hasFocus()) {
-	success = evaluateCommand(evalOp);
+    if (m_commandItem->hasFocus()) {
+	return evaluate();
     } else if (informationItemHasFocus()) {
 	addInformation();
-	success = true;
+	return true;
     }
 
-    if (evalOp & EvaluateNextEntries || Settings::self()->autoEval())
-	m_evaluationFlag = EvaluateNextEntries;
-    else
-	m_evaluationFlag = 0;
-
-    return success;
+    return false;
 }
 
-bool CommandEntry::evaluateCommand(int evalOp)
+bool CommandEntry::evaluate(EvaluationOption evalOp)
 {
     removeContextHelp();
     QToolTip::hideText();
 
     QString cmd = command();
     kDebug()<<"evaluating: "<<cmd;
-
-    if (evalOp & EvaluateNextEntries || Settings::self()->autoEval())
-	m_evaluationFlag = EvaluateNextEntries;
-    else
-	m_evaluationFlag = 0;
+    m_evaluationOption = evalOp;
 
     if(cmd.isEmpty()) {
 	removeResult();
@@ -324,7 +316,7 @@ bool CommandEntry::evaluateCommand(int evalOp)
 	m_informationItems.clear();
 	recalculateSize();
 
-	evaluateNext(m_evaluationFlag);
+	evaluateNext(m_evaluationOption);
         return false;
     }
 
@@ -377,7 +369,8 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 	text = i18n("Interrupted");
 	break;
     case Cantor::Expression::Done:
-	evaluateNext(m_evaluationFlag);
+	evaluateNext(m_evaluationOption);
+	m_evaluationOption = DoNothing;
 	return;
     default:
 	return;
@@ -795,7 +788,7 @@ void CommandEntry::layOutForWidth(double w, bool force)
 
     QSizeF s(w, y);
     if (animationActive()) {
-	updateAnimation(s);
+	updateSizeAnimation(s);
     } else {
 	setSize(s);
     }

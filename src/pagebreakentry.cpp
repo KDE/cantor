@@ -112,7 +112,7 @@ void PageBreakEntry::layOutForWidth(qreal w, bool force)
     }
 }
 
-bool PageBreakEntry::evaluate(int evalOp)
+bool PageBreakEntry::evaluate(EvaluationOption evalOp)
 {
     evaluateNext(evalOp);
     return true;

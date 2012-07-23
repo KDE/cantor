@@ -68,7 +68,7 @@ class TextEntry : public WorksheetEntry
 			   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
-    bool evaluate(int evalOp = 0);
+    bool evaluate(EvaluationOption evalOp = FocusNext);
     void resolveImagesAtCursor();
     void updateEntry();
     void populateMenu(KMenu *menu, const QPointF& pos);

@@ -183,7 +183,7 @@ void ImageEntry::interruptEvaluation()
 {
 }
 
-bool ImageEntry::evaluate(int evalOp)
+bool ImageEntry::evaluate(EvaluationOption evalOp)
 {
     evaluateNext(evalOp);
     return true;

@@ -86,8 +86,8 @@ class CommandEntry : public WorksheetEntry
 			   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
-    bool evaluate(int evalOp = 0);
-    bool evaluateCommand(int evalOp = 0);
+    bool evaluateCurrentItem();
+    bool evaluate(EvaluationOption evalOp = FocusNext);
     void addInformation();
     void removeResult();
 
@@ -147,7 +147,7 @@ class CommandEntry : public WorksheetEntry
     QPointer<KCompletionBox> m_completionBox;
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 
-    int m_evaluationFlag;
+    EvaluationOption m_evaluationOption;
 };
 
 #endif // COMMANDENTRY_H

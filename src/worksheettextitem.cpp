@@ -97,7 +97,6 @@ void WorksheetTextItem::testSize()
     }
 
     qreal w = document()->size().width();
-    kDebug() << m_size.width() << w << m_maxWidth;
     if (w != m_size.width()) {
 	if (m_maxWidth > 0) {
 	    qreal oldDiff = m_size.width() - m_maxWidth;

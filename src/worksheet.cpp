@@ -334,7 +334,7 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 void Worksheet::evaluate()
 {
     kDebug()<<"evaluate worksheet";
-    firstEntry()->evaluate(WorksheetEntry::EvaluateNextEntries);
+    firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
 
     emit modified();
 }
@@ -345,7 +345,7 @@ void Worksheet::evaluateCurrentEntry()
     WorksheetEntry* entry = currentEntry();
     if(!entry)
         return;
-    entry->evaluate(WorksheetEntry::FocusedItemOnly);
+    entry->evaluateCurrentItem();
 }
 
 bool Worksheet::completionEnabled()

@@ -24,6 +24,7 @@
 #include "latexentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
+#include "settings.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -218,7 +219,14 @@ void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
 
-void WorksheetEntry::evaluateNext(int opt)
+bool WorksheetEntry::evaluateCurrentItem()
+{
+    // A default implementation that works well for most entries,
+    // because they have only one item.
+    return evaluate();
+}
+
+void WorksheetEntry::evaluateNext(EvaluationOption opt)
 {
     WorksheetEntry* entry = next();
 
@@ -226,13 +234,15 @@ void WorksheetEntry::evaluateNext(int opt)
 	entry = entry->next();
 
     if (entry) {
-	if (opt & EvaluateNextEntries) {
-	    entry->evaluate(EvaluateNextEntries);
-	} else {
+	if (opt == EvaluateNext || Settings::self()->autoEval()) {
+	    entry->evaluate(EvaluateNext);
+	} else if (opt == FocusNext) {
 	    worksheet()->setModified();
 	    entry->focusEntry(WorksheetTextItem::BottomRight);
+	} else {
+	    worksheet()->setModified();
 	}
-    } else {
+    } else if (opt != DoNothing) {
 	if (!isEmpty() || type() != CommandEntry::Type)
 	    worksheet()->appendCommandEntry();
 	else
@@ -256,11 +266,18 @@ void WorksheetEntry::recalculateSize()
 	worksheet()->updateEntrySize(this);
 }
 
-QPropertyAnimation* WorksheetEntry::sizeChangeAnimation()
+QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
 {
-    QSizeF oldSize = size();
-    layOutForWidth(size().width(), true);
-    QSizeF newSize = size();
+    QSizeF oldSize;
+    QSizeF newSize;
+    if (s.isValid()) {
+	oldSize = size();
+	newSize = s;
+    } else {
+	oldSize = size();
+	layOutForWidth(size().width(), true);
+	newSize = size();
+    }
     kDebug() << oldSize << newSize;
 
     QPropertyAnimation* sizeAn = new QPropertyAnimation(this, "m_size", this);
@@ -280,7 +297,11 @@ void WorksheetEntry::sizeAnimated()
 
 void WorksheetEntry::animateSizeChange()
 {
-    if (m_animation || !worksheet()->animationsEnabled()) {
+    if (!worksheet()->animationsEnabled()) {
+	recalculateSize();
+	return;
+    }
+    if (m_animation) {
 	layOutForWidth(size().width(), true);
 	return;
     }
@@ -301,8 +322,17 @@ void WorksheetEntry::animateSizeChange()
 
 void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 {
-    if (m_animation || !worksheet()->animationsEnabled()) {
+    if (!worksheet()->animationsEnabled()) {
+	recalculateSize();
+	if (slot)
+	    invokeSlotOnObject(slot, item);
+	return;
+    }
+    if (m_animation) {
+	// this calculates the new size and calls updateSizeAnimation
 	layOutForWidth(size().width(), true);
+	if (slot)
+	    invokeSlotOnObject(slot, item);
 	return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
@@ -322,8 +352,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);
-    if (slot)
-	connect(m_animation->animation, SIGNAL(finished()), item, slot);
+
     connect(m_animation->animation, SIGNAL(finished()),
 	    this, SLOT(endAnimation()));
 
@@ -332,8 +361,19 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 
 void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 {
-    if (m_animation || !worksheet()->animationsEnabled()) {
+    // Note: The default value for slot is SLOT(deleteLater()), so item
+    // will be deleted after the animation.
+    if (!worksheet()->animationsEnabled()) {
+	recalculateSize();
+	if (slot)
+	    invokeSlotOnObject(slot, item);
+	return;
+    }
+    if (m_animation) {
+	// this calculates the new size and calls updateSizeAnimation
 	layOutForWidth(size().width(), true);
+	if (slot)
+	    invokeSlotOnObject(slot, item);
 	return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
@@ -352,8 +392,7 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);
-    if (slot)
-	connect(m_animation->animation, SIGNAL(finished()), item, slot);
+
     connect(m_animation->animation, SIGNAL(finished()),
 	    this, SLOT(endAnimation()));
 
@@ -379,12 +418,8 @@ void WorksheetEntry::endAnimation()
 	}
 
 	// If the animation was connected to a slot, call it
-	if (m_animation->slot) {
-	    const QMetaObject* metaObj = m_animation->item->metaObject();
-	    int slotIndex = metaObj->indexOfSlot(m_animation->slot);
-	    QMetaMethod method = metaObj->method(slotIndex);
-	    method.invoke(m_animation->item, Qt::DirectConnection);
-	}
+	if (m_animation->slot)
+	    invokeSlotOnObject(m_animation->slot, m_animation->item);
     }
     m_animation->animation->deleteLater();
     delete m_animation;
@@ -396,7 +431,7 @@ bool WorksheetEntry::animationActive()
     return m_animation;
 }
 
-void WorksheetEntry::updateAnimation(const QSizeF& size, const QPointF& pos)
+void WorksheetEntry::updateSizeAnimation(const QSizeF& size)
 {
     // Update the current animation, so that the new ending will be size
 
@@ -406,7 +441,7 @@ void WorksheetEntry::updateAnimation(const QSizeF& size, const QPointF& pos)
     if (m_aboutToBeRemoved)
 	// do not modify the remove-animation
 	return;
-    if (size.isValid()) {
+    if (m_animation->sizeAnimation) {
 	QPropertyAnimation* sizeAn = m_animation->sizeAnimation;
 	qreal progress = static_cast<qreal>(sizeAn->currentTime()) /
 	    sizeAn->totalDuration();
@@ -416,18 +451,25 @@ void WorksheetEntry::updateAnimation(const QSizeF& size, const QPointF& pos)
 	QSizeF newStart = 1/(1-value)*(sizeAn->currentValue().value<QSizeF>() -
 				       value * size);
 	sizeAn->setStartValue(newStart);
+    } else {
+	m_animation->sizeAnimation = sizeChangeAnimation(size);
+	int d = m_animation->animation->duration() -
+	    m_animation->animation->currentTime();
+	m_animation->sizeAnimation->setDuration(d);
+	m_animation->animation->addAnimation(m_animation->sizeAnimation);
     }
-    if (!pos.isNull()) {
-	QPropertyAnimation* posAn = m_animation->posAnimation;
-	qreal progress = static_cast<qreal>(posAn->currentTime()) /
-	    posAn->totalDuration();
-	QEasingCurve curve = posAn->easingCurve();
-	qreal value = curve.valueForProgress(progress);
-	posAn->setEndValue(size);
-	QPointF newStart = 1/(1-value)*(posAn->currentValue().value<QPointF>()-
-					value * pos);
-	posAn->setStartValue(newStart);
-    }
+}
+
+void WorksheetEntry::invokeSlotOnObject(const char* slot, QObject* obj)
+{
+    kDebug() << slot << obj;
+    const QMetaObject* metaObj = obj->metaObject();
+    const QByteArray normSlot = QMetaObject::normalizedSignature(slot);
+    const int slotIndex = metaObj->indexOfSlot(normSlot);
+    if (slotIndex == -1)
+	kDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
+    const QMetaMethod method = metaObj->method(slotIndex);
+    method.invoke(obj, Qt::DirectConnection);
 }
 
 bool WorksheetEntry::aboutToBeRemoved()

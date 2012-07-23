@@ -51,7 +51,7 @@ class PageBreakEntry : public WorksheetEntry
     //	       QWidget * widget = 0);
 
   public slots:
-    bool evaluate(int evalOp = 0);
+    bool evaluate(EvaluationOption evalOp = FocusNext);
     void updateEntry();
     void populateMenu(KMenu *menu, const QPointF& pos);
 
