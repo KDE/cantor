@@ -133,6 +133,7 @@ void SearchBar::searchBackward(bool skipFirstChar)
 	if (result.textCursor().hasSelection())
 	    c.setPosition(result.textCursor().selectionStart());
 	setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
+	worksheet()->makeVisible(m_currentCursor);
 	clearStatus();
 	worksheet()->setWorksheetCursor(result);
     } else {
@@ -181,6 +182,7 @@ void SearchBar::searchForward(bool skipFirstChar)
 	if (result.textCursor().hasSelection())
 	    c.setPosition(result.textCursor().selectionStart());
 	setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
+	worksheet()->makeVisible(m_currentCursor);
 	clearStatus();
 	worksheet()->setWorksheetCursor(result);
     } else {

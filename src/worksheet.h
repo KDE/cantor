@@ -71,6 +71,9 @@ class Worksheet : public QGraphicsScene
 
     WorksheetView* worksheetView();
 
+    void makeVisible(WorksheetEntry* entry);
+    void makeVisible(const WorksheetCursor& cursor);
+
     void setModified();
 
     void startDrag(WorksheetEntry* entry, QDrag* drag);

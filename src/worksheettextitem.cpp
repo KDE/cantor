@@ -32,6 +32,7 @@
 #include <QTextBlock>
 #include <QTextLine>
 #include <QGraphicsSceneResizeEvent>
+#include <QtGlobal>
 
 #include <kdebug.h>
 #include <kglobalsettings.h>
@@ -282,6 +283,36 @@ QPointF WorksheetTextItem::localCursorPosition() const
     return QPointF(line.cursorToX(p), line.y() + line.height());
 }
 
+QRectF WorksheetTextItem::cursorRect(QTextCursor cursor) const
+{
+    if (cursor.isNull())
+	cursor = textCursor();
+    QTextCursor startCursor = cursor;
+    startCursor.setPosition(cursor.selectionStart());
+    QTextBlock block = startCursor.block();
+    int p = startCursor.position() - block.position();
+    QTextLine line = block.layout()->lineForTextPosition(p);
+    QRectF r1(line.cursorToX(p), line.y(), 1, line.height()+line.leading());
+    r1 = mapRectToScene(r1);
+
+    if (!cursor.hasSelection())
+	return r1;
+
+    QTextCursor endCursor = cursor;
+    endCursor.setPosition(cursor.selectionEnd());
+    block = endCursor.block();
+    p = endCursor.position() - block.position();
+    line = block.layout()->lineForTextPosition(p);
+    QRectF r2(line.cursorToX(p), line.y(), 1, line.height()+line.leading());
+    r2 = mapRectToScene(r2);
+
+    if (r1.y() == r2.y())
+	return r1.united(r2);
+    else
+	return QRectF(x(), qMin(r1.y(), r2.y()), boundingRect().width(),
+		      qMax(r1.y() + r1.height(), r2.y() + r2.height()));
+}
+
 QTextCursor WorksheetTextItem::cursorForPosition(const QPointF& pos) const
 {
     QPointF lpos = mapFromParent(pos);
@@ -486,7 +517,10 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
 void WorksheetTextItem::focusInEvent(QFocusEvent *event)
 {
     QGraphicsTextItem::focusInEvent(event);
-    parentItem()->ensureVisible(QRectF(), 0, 0);
+    //parentItem()->ensureVisible(QRectF(), 0, 0);
+    WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(parentObject());
+    WorksheetCursor c(entry, this, textCursor());
+    worksheet()->makeVisible(c);
     worksheet()->setAcceptRichText(richTextEnabled());
     worksheet()->updateFocusedTextItem(this);
     emit receivedFocus(this);

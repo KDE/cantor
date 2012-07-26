@@ -24,6 +24,7 @@
 
 #include <QGraphicsTextItem>
 #include <QTextDocument>
+#include <QTextCursor>
 
 #include <KMenu>
 #include <KStandardAction>
@@ -49,6 +50,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setCursorPosition(const QPointF& pos);
     QPointF cursorPosition() const;
     QTextCursor cursorForPosition(const QPointF& pos) const;
+    QRectF cursorRect(QTextCursor cursor = QTextCursor()) const;
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
     enum {Type = UserType + 100};

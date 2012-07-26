@@ -163,22 +163,44 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
 
 void Worksheet::updateLayout()
 {
+    bool cursorRectVisible = false;
+    bool atEnd = worksheetView()->isAtEnd();
+    if (currentTextItem()) {
+	QRectF cursorRect = currentTextItem()->cursorRect();
+	cursorRectVisible = worksheetView()->isVisible(cursorRect);
+    }
+
     const qreal w = m_viewWidth - LeftMargin - RightMargin;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
 	y += entry->setGeometry(x, y, w);
     setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+    if (cursorRectVisible)
+	makeVisible(worksheetCursor());
+    else if (atEnd)
+	worksheetView()->scrollToEnd();
 }
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
 {
+    bool cursorRectVisible = false;
+    bool atEnd = worksheetView()->isAtEnd();
+    if (currentTextItem()) {
+	QRectF cursorRect = currentTextItem()->cursorRect();
+	cursorRectVisible = worksheetView()->isVisible(cursorRect);
+    }
+
     qreal y = entry->y() + entry->size().height();
     for (entry = entry->next(); entry; entry = entry->next()) {
 	entry->setY(y);
 	y += entry->size().height();
     }
     setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+    if (cursorRectVisible)
+	makeVisible(worksheetCursor());
+    else if (atEnd)
+	worksheetView()->scrollToEnd();
 }
 
 void Worksheet::addProtrusion(qreal width)
@@ -220,6 +242,29 @@ void Worksheet::removeProtrusion(qreal width)
 bool Worksheet::isEmpty()
 {
     return !m_firstEntry;
+}
+
+void Worksheet::makeVisible(WorksheetEntry* entry)
+{
+    QRectF r = entry->boundingRect();
+    r = entry->mapRectToScene(r);
+    r.adjust(0, -10, 0, 10);
+    worksheetView()->makeVisible(r);
+}
+
+void Worksheet::makeVisible(const WorksheetCursor& cursor)
+{
+    if (cursor.textCursor().isNull()) {
+	makeVisible(cursor.entry());
+	return;
+    }
+    QRectF r = cursor.textItem()->cursorRect(cursor.textCursor());
+    QRectF er = cursor.entry()->boundingRect();
+    er = cursor.entry()->mapRectToScene(er);
+    er.adjust(0, -10, 0, 10);
+    r.adjust(0, qMax(-100.0, er.top() - r.top()), 
+	     0, qMin(100.0, er.bottom() - r.bottom()));
+    worksheetView()->makeVisible(r);
 }
 
 WorksheetView* Worksheet::worksheetView()
@@ -374,6 +419,7 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
 	    m_firstEntry = entry;
 	m_lastEntry = entry;
 	updateLayout();
+	makeVisible(entry);
         focusEntry(entry);
     }
     return entry;
@@ -446,6 +492,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     }
 
     focusEntry(entry);
+    makeVisible(entry);
     return entry;
 }
 

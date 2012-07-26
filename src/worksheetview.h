@@ -23,6 +23,9 @@
 
 #include <QGraphicsView>
 
+class QParallelAnimationGroup;
+class QPropertyAnimation;
+
 class Worksheet;
 
 class WorksheetView : public QGraphicsView
@@ -31,6 +34,11 @@ class WorksheetView : public QGraphicsView
   public:
     WorksheetView(Worksheet* scene, QWidget* parent);
     ~WorksheetView();
+
+    void makeVisible(const QRectF& rect);
+    bool isVisible(const QRectF& rect);
+    bool isAtEnd();
+    void scrollToEnd();
 
     void resizeEvent(QResizeEvent* event);
 
@@ -41,9 +49,13 @@ class WorksheetView : public QGraphicsView
   public slots:
     void zoomIn();
     void zoomOut();
+    void endAnimation();
 
   private:
     qreal m_scale;
+    QParallelAnimationGroup* m_animation;
+    QPropertyAnimation* m_hAnimation;
+    QPropertyAnimation* m_vAnimation;
     Worksheet* m_worksheet;
 };
 
