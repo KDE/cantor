@@ -187,6 +187,8 @@ class Worksheet : public QGraphicsScene
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void focusOutEvent(QFocusEvent* focusEvent);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+
     /*
     void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
     void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);

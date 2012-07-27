@@ -262,7 +262,7 @@ void Worksheet::makeVisible(const WorksheetCursor& cursor)
     QRectF er = cursor.entry()->boundingRect();
     er = cursor.entry()->mapRectToScene(er);
     er.adjust(0, -10, 0, 10);
-    r.adjust(0, qMax(-100.0, er.top() - r.top()), 
+    r.adjust(0, qMax(-100.0, er.top() - r.top()),
 	     0, qMin(100.0, er.bottom() - r.bottom()));
     worksheetView()->makeVisible(r);
 }
@@ -309,7 +309,7 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
-    if (!item && !hasFocus())
+    if (!item /*&& !hasFocus()*/)
 	item = m_focusItem;
     else
 	m_focusItem = item;
@@ -950,6 +950,8 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
     Q_UNUSED(pos);
 
     WorksheetEntry* entry = entryAt(pos.x(), pos.y());
+    if (entry && !entry->isAncestorOf(m_focusItem))
+	m_focusItem = itemAt(pos);
     //m_currentEntry = entry;
 
     if (!isRunning())
@@ -1010,6 +1012,15 @@ void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
 	m_focusItem = item;
     QGraphicsScene::focusOutEvent(focusEvent);
 }
+
+void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsScene::mousePressEvent(event);
+    if (event->button() == Qt::LeftButton && !focusItem() && lastEntry() &&
+	event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
+	lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
+}
+
 
 void Worksheet::createActions(KActionCollection* collection)
 {
