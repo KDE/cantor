@@ -120,6 +120,9 @@ class WorksheetEntry : public QGraphicsObject
     void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
     void endAnimation();
 
+  signals:
+    void aboutToBeDeleted();
+
   protected:
     Worksheet* worksheet();
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

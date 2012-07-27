@@ -91,7 +91,7 @@ void SearchBar::next()
 
 void SearchBar::prev()
 {
-    if (!m_currentCursor.isValid() && !m_currentCursor.entry() && 
+    if (!m_currentCursor.isValid() && !m_currentCursor.entry() &&
 	!m_atBeginning)
 	return;
     searchBackward(true);
@@ -258,10 +258,23 @@ void SearchBar::on_pattern_textChanged(const QString& p)
     if (!p.startsWith(m_pattern))
 	setCurrentCursor(m_startCursor);
     m_pattern = p;
-    if (!m_pattern.isEmpty())
+    if (!m_pattern.isEmpty()) {
 	searchForward();
-    else
+	nextButton()->setEnabled(true);
+	previousButton()->setEnabled(true);
+	if (m_extUi) {
+	    m_extUi->replace->setEnabled(true);
+	    m_extUi->replaceAll->setEnabled(true);
+	}
+    } else {
 	worksheet()->setWorksheetCursor(m_startCursor);
+	nextButton()->setEnabled(false);
+	previousButton()->setEnabled(false);
+	if (m_extUi) {
+	    m_extUi->replace->setEnabled(false);
+	    m_extUi->replaceAll->setEnabled(false);
+	}
+    }
 }
 
 void SearchBar::on_replacement_textChanged(const QString& r)
@@ -291,9 +304,9 @@ void SearchBar::invalidateStartCursor()
 	return;
 
     WorksheetEntry* entry = m_startCursor.entry()->next();
-    if (!entry)
+    if (!entry && worksheet()->firstEntry() != m_startCursor.entry())
 	entry = worksheet()->firstEntry();
-    
+
     setStartCursor(WorksheetCursor(entry, 0, QTextCursor()));
 }
 
@@ -373,22 +386,22 @@ void SearchBar::fillLocationsMenu(KMenu* menu, int flags)
 void SearchBar::setStartCursor(WorksheetCursor cursor)
 {
     if (m_startCursor.entry())
-	disconnect(m_startCursor.entry(), SIGNAL(destroyed(QObject*)), this, 
+	disconnect(m_startCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
 		   SLOT(invalidateStartCursor()));
     if (cursor.entry())
-	connect(cursor.entry(), SIGNAL(destroyed(QObject*)), this, 
-		SLOT(invalidateStartCursor()));
+	connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+		SLOT(invalidateStartCursor()), Qt::DirectConnection);
     m_startCursor = cursor;
 }
 
 void SearchBar::setCurrentCursor(WorksheetCursor cursor)
 {
     if (m_currentCursor.entry())
-	disconnect(m_currentCursor.entry(), SIGNAL(destroyed(QObject*)), this, 
+	disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
 		   SLOT(invalidateCurrentCursor()));
     if (cursor.entry())
-	connect(cursor.entry(), SIGNAL(destroyed(QObject*)), this, 
-		SLOT(invalidateCurrentCursor()));
+	connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+		SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
     m_currentCursor = cursor;
 }
 
@@ -420,6 +433,10 @@ void SearchBar::setupStdUi()
     m_stdUi->matchCase->setChecked(m_qtFlags & QTextDocument::FindCaseSensitively);
     m_stdUi->next->setIcon(KIcon("go-down-search"));
     m_stdUi->previous->setIcon(KIcon("go-up-search"));
+    if (m_pattern.isEmpty()) {
+	m_stdUi->next->setEnabled(false);
+	m_stdUi->previous->setEnabled(false);
+    }
 
     m_stdUi->close->setShortcut(Qt::Key_Escape);
     setFocusProxy(m_stdUi->pattern);
@@ -438,6 +455,12 @@ void SearchBar::setupExtUi()
     m_extUi->matchCase->setChecked(m_qtFlags & QTextDocument::FindCaseSensitively);
     m_extUi->next->setIcon(KIcon("go-down-search"));
     m_extUi->previous->setIcon(KIcon("go-up-search"));
+    if (m_pattern.isEmpty()) {
+	m_extUi->next->setEnabled(false);
+	m_extUi->previous->setEnabled(false);
+	m_extUi->replace->setEnabled(false);
+	m_extUi->replaceAll->setEnabled(false);
+    }
 
     m_extUi->addFlag->setIcon(KIcon("list-add"));
     m_extUi->removeFlag->setIcon(KIcon("list-remove"));
@@ -445,6 +468,22 @@ void SearchBar::setupExtUi()
     m_extUi->close->setShortcut(Qt::Key_Escape);
     setFocusProxy(m_extUi->pattern);
     updateSearchLocations();
+}
+
+QPushButton* SearchBar::previousButton()
+{
+    if (m_stdUi)
+	return m_stdUi->previous;
+    else
+	return m_extUi->previous;
+}
+
+QPushButton* SearchBar::nextButton()
+{
+    if (m_stdUi)
+	return m_stdUi->next;
+    else
+	return m_extUi->next;
 }
 
 Worksheet* SearchBar::worksheet()

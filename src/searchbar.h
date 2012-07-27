@@ -88,6 +88,9 @@ class SearchBar : public QWidget
 
     Worksheet* worksheet();
 
+    QPushButton* nextButton();
+    QPushButton* previousButton();
+
   private:
     Ui::StandardSearchBar* m_stdUi;
     Ui::ExtendedSearchBar* m_extUi;

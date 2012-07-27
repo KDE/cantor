@@ -58,6 +58,7 @@ WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
 
 WorksheetEntry::~WorksheetEntry()
 {
+    emit aboutToBeDeleted();
     if (next())
 	next()->setPrevious(previous());
     if (previous())

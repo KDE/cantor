@@ -158,6 +158,8 @@ class Worksheet : public QGraphicsScene
 
     void setFirstEntry(WorksheetEntry* entry);
     void setLastEntry(WorksheetEntry* entry);
+    void invalidateFirstEntry();
+    void invalidateLastEntry();
 
     void updateFocusedTextItem(WorksheetTextItem* item);
 

@@ -76,6 +76,10 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
 Worksheet::~Worksheet()
 {
+    // This is necessary, because a SeachBar might access firstEntry()
+    // while the scene is deleted. Maybe there is a better solution to
+    // this problem, but I can't seem to find it.
+    m_firstEntry = 0;
     m_session->logout();
 }
 
@@ -339,12 +343,36 @@ WorksheetEntry* Worksheet::lastEntry()
 
 void Worksheet::setFirstEntry(WorksheetEntry* entry)
 {
+    if (m_firstEntry)
+	disconnect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
+		   this, SLOT(invalidateFirstEntry()));
     m_firstEntry = entry;
+    if (m_firstEntry)
+	connect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
+		this, SLOT(invalidateFirstEntry()), Qt::DirectConnection);
 }
 
 void Worksheet::setLastEntry(WorksheetEntry* entry)
 {
+    if (m_lastEntry)
+	disconnect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
+		   this, SLOT(invalidateLastEntry()));
     m_lastEntry = entry;
+    if (m_lastEntry)
+	connect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
+		this, SLOT(invalidateLastEntry()), Qt::DirectConnection);
+}
+
+void Worksheet::invalidateFirstEntry()
+{
+    if (m_firstEntry)
+	setFirstEntry(m_firstEntry->next());
+}
+
+void Worksheet::invalidateLastEntry()
+{
+    if (m_lastEntry)
+	setLastEntry(m_lastEntry->previous());
 }
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
@@ -416,8 +444,8 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
 	if (lastEntry())
 	    lastEntry()->setNext(entry);
 	if (!firstEntry())
-	    m_firstEntry = entry;
-	m_lastEntry = entry;
+	    setFirstEntry(entry);
+	setLastEntry(entry);
 	updateLayout();
 	makeVisible(entry);
         focusEntry(entry);
@@ -487,7 +515,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
 	if (next)
 	    next->setPrevious(entry);
 	else
-	    m_lastEntry = entry;
+	    setLastEntry(entry);
 	updateLayout();
     }
 
@@ -552,7 +580,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
 	if (prev)
 	    prev->setNext(entry);
 	else
-	    m_firstEntry = entry;
+	    setFirstEntry(entry);
 	updateLayout();
     }
 
@@ -851,8 +879,8 @@ void Worksheet::load(const QString& filename )
     for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
         delete entry;
     clear();
-    m_firstEntry = 0;
-    m_lastEntry = 0;
+    setFirstEntry(0);
+    setLastEntry(0);
 
     m_session=b->createSession();
     m_loginFlag=true;

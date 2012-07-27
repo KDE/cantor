@@ -275,6 +275,8 @@ CantorPart::~CantorPart()
         disconnect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
         delete m_scriptEditor;
     }
+    if (m_searchBar)
+	delete m_searchBar;
 }
 
 void CantorPart::setReadWrite(bool rw)
