@@ -22,7 +22,7 @@
 #define QALCULATE_PLOT_ASSISTANT_H
 
 #include "assistant.h"
-#include "../settings.h"
+#include "settings.h"
 #include "ui_qalculateplotdialog.h"
 #include <kdialog.h>
 #include <qlist.h>
