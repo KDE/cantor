@@ -52,7 +52,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     }
     m_completionEnabled = false;
     m_completionActive = false;
-    m_draggingEnabled = false;
+    m_itemDragable = false;
     m_richTextEnabled = false;
     m_size = document()->size();;
     m_maxWidth = -1;
@@ -159,7 +159,7 @@ void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
     }
     if (isEditable())
 	menu->addAction(cut);
-    if (!m_draggingEnabled)
+    if (!m_itemDragable)
 	menu->addAction(copy);
     if (isEditable())
 	menu->addAction(paste);
@@ -342,9 +342,9 @@ void WorksheetTextItem::activateCompletion(bool b)
     m_completionActive = b;
 }
 
-void WorksheetTextItem::enableDragging(bool b)
+void WorksheetTextItem::setItemDragable(bool b)
 {
-    m_draggingEnabled = b;
+    m_itemDragable = b;
 }
 
 void WorksheetTextItem::enableRichText(bool b)
@@ -544,6 +544,9 @@ void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 	!event->isAccepted())
 	event->accept();
 
+    if (m_itemDragable && event->button() == Qt::LeftButton)
+	event->accept();
+
     if (p != textCursor().position())
 	emit cursorPositionChanged(textCursor());
 }
@@ -551,10 +554,12 @@ void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 {
     const QPointF buttonDownPos = event->buttonDownPos(Qt::LeftButton);
-    if (m_draggingEnabled && event->button() == Qt::LeftButton &&
+    if (m_itemDragable && event->buttons() == Qt::LeftButton &&
 	contains(buttonDownPos) &&
 	(event->pos() - buttonDownPos).manhattanLength() >= QApplication::startDragDistance()) {
+	ungrabMouse();
 	emit drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
+	event->accept();
     } else {
 	QGraphicsTextItem::mouseMoveEvent(event);
     }

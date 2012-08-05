@@ -45,6 +45,7 @@
 #include "latexentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
+#include "placeholderentry.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/result.h"
@@ -66,6 +67,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_lastEntry = 0;
     m_focusItem = 0;
     m_dragEntry = 0;
+    m_placeholderEntry = 0;
     m_viewWidth = 0;
     m_protrusion = 0;
 
@@ -399,9 +401,49 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 
 void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 {
-    entry->setOpacity(0);
     m_dragEntry = entry;
-    drag->exec();
+    WorksheetEntry* prev = entry->previous();
+    WorksheetEntry* next = entry->next();
+    m_placeholderEntry = new PlaceHolderEntry(this, entry->size());
+    m_placeholderEntry->setPrevious(prev);
+    m_placeholderEntry->setNext(next);
+    if (prev)
+	prev->setNext(m_placeholderEntry);
+    else
+	setFirstEntry(m_placeholderEntry);
+    if (next)
+	next->setPrevious(m_placeholderEntry);
+    else
+	setLastEntry(m_placeholderEntry);
+    m_dragEntry->hide();
+    Qt::DropAction action = drag->exec();
+
+    kDebug() << action;
+    if (action == Qt::MoveAction && m_placeholderEntry) {
+	kDebug() << "insert in new position";
+	prev = m_placeholderEntry->previous();
+	next = m_placeholderEntry->next();
+    }
+    m_dragEntry->setPrevious(prev);
+    m_dragEntry->setNext(next);
+    if (prev)
+	prev->setNext(m_dragEntry);
+    else
+	setFirstEntry(m_dragEntry);
+    if (next)
+	next->setPrevious(m_dragEntry);
+    else
+	setLastEntry(m_dragEntry);
+    m_dragEntry->show();
+    updateLayout();
+    if (m_placeholderEntry) {
+	m_placeholderEntry->setPrevious(0);
+	m_placeholderEntry->setNext(0);
+	m_placeholderEntry->hide();
+	m_placeholderEntry->deleteLater();
+	m_placeholderEntry = 0;
+    }
+    m_dragEntry = 0;
 }
 
 void Worksheet::evaluate()
@@ -439,7 +481,6 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
     if (entry)
     {
         kDebug() << "Entry Appended";
-	addItem(entry);
 	entry->setPrevious(lastEntry());
 	if (lastEntry())
 	    lastEntry()->setNext(entry);
@@ -508,7 +549,6 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     if (!next || next->type() != type || !next->isEmpty())
     {
 	entry = WorksheetEntry::create(type, this);
-	addItem(entry);
 	entry->setPrevious(current);
 	entry->setNext(next);
 	current->setNext(entry);
@@ -573,7 +613,6 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
 	entry = WorksheetEntry::create(type, this);
-	addItem(entry);
 	entry->setNext(current);
 	entry->setPrevious(prev);
 	current->setPrevious(entry);
@@ -1387,22 +1426,94 @@ void Worksheet::setFontSize(int size)
 	item->setFontSize(size);
 }
 
-/*
+
 void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
+    kDebug() << "enter";
+    if (m_dragEntry)
+	event->accept();
+    else
+	QGraphicsScene::dragEnterEvent(event);
 }
 
 void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
 {
+    if (!m_dragEntry) {
+	QGraphicsScene::dragLeaveEvent(event);
+	return;
+    }
+
+    kDebug() << "leave";
+    event->accept();
+    if (m_placeholderEntry) {
+	m_placeholderEntry->startRemoving();
+	m_placeholderEntry = 0;
+    }
 }
 
 void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
+    if (!m_dragEntry) {
+	QGraphicsScene::dragMoveEvent(event);
+	return;
+    }
+
+    QPointF pos = event->scenePos();
+    WorksheetEntry* entry = entryAt(pos.x(), pos.y());
+    WorksheetEntry* prev = 0;
+    WorksheetEntry* next = 0;
+    if (entry) {
+	if (pos.y() < entry->y() + entry->size().height()/2) {
+	    prev = entry->previous();
+	    next = entry;
+	} else if (pos.y() >= entry->y() + entry->size().height()/2) {
+	    prev = entry;
+	    next = entry->next();
+	}
+    } else {
+	WorksheetEntry* last = lastEntry();
+	if (last && pos.y() > last->y() + last->size().height()) {
+	    prev = last;
+	    next = 0;
+	}
+    }
+
+    if (prev || next) {
+	PlaceHolderEntry* oldPlaceHolder = m_placeholderEntry;
+	if (prev && prev->type() == PlaceHolderEntry::Type &&
+	    (!prev->aboutToBeRemoved() || prev->stopRemoving())) {
+	    m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(prev);
+	    m_placeholderEntry->changeSize(m_dragEntry->size());
+	} else if (next && next->type() == PlaceHolderEntry::Type &&
+		   (!next->aboutToBeRemoved() || next->stopRemoving())) {
+	    m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(next);
+	    m_placeholderEntry->changeSize(m_dragEntry->size());
+	} else {
+	    m_placeholderEntry = new PlaceHolderEntry(this, m_dragEntry->size());
+	    m_placeholderEntry->setPrevious(prev);
+	    m_placeholderEntry->setNext(next);
+	    if (prev)
+		prev->setNext(m_placeholderEntry);
+	    else
+		setFirstEntry(m_placeholderEntry);
+	    if (next)
+		next->setPrevious(m_placeholderEntry);
+	    else
+		setLastEntry(m_placeholderEntry);
+	}
+	if (oldPlaceHolder && oldPlaceHolder != m_placeholderEntry)
+	    oldPlaceHolder->startRemoving();
+	updateLayout();
+    }
+    event->accept();
 }
 
 void Worksheet::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
+    if (!m_dragEntry)
+	QGraphicsScene::dropEvent(event);
+    event->accept();
 }
-*/
+
 
 #include "worksheet.moc"

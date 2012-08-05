@@ -109,6 +109,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual void updateEntry() = 0;
     virtual void sizeAnimated();
     virtual void startRemoving();
+    bool stopRemoving();
     virtual void remove();
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
@@ -118,13 +119,17 @@ class WorksheetEntry : public QGraphicsObject
     // animate the size change and the opacity of item
     void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
     void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
+
     void endAnimation();
+
+    void startDrag(const QPointF& grabPos, const QPointF& pos);
 
   signals:
     void aboutToBeDeleted();
 
   protected:
     Worksheet* worksheet();
+    WorksheetView* worksheetView();
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void keyPressEvent(QKeyEvent *event);
     void evaluateNext(EvaluationOption opt);

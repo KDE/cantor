@@ -61,7 +61,7 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     void enableCompletion(bool b);
     void activateCompletion(bool b);
-    void enableDragging(bool b);
+    void setItemDragable(bool b);
     void enableRichText(bool b);
 
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
@@ -149,7 +149,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     qreal m_maxWidth;
     bool m_completionEnabled;
     bool m_completionActive;
-    bool m_draggingEnabled;
+    bool m_itemDragable;
     bool m_richTextEnabled;
 };
 

@@ -103,19 +103,18 @@ class CommandEntry : public WorksheetEntry
     void showSyntaxHelp();
     void completeLineTo(const QString& line, int index);
 
+    void startRemoving();
+
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
 
     void populateMenu(KMenu *menu, const QPointF& pos);
-
-    void startDrag(const QPointF& grabPos, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();
 
   private:
     WorksheetTextItem* currentInformationItem();
-    WorksheetView* worksheetView();
     bool informationItemHasFocus();
     bool focusWithinThisItem();
 

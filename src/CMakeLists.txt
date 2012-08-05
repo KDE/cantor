@@ -72,6 +72,7 @@ set(cantor_PART_SRCS
    pagebreakentry.cpp
    imageentry.cpp
    latexentry.cpp
+   placeholderentry.cpp
    worksheetcursor.cpp
    searchbar.cpp
    imagesettingsdialog.cpp

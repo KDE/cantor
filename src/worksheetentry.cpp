@@ -48,12 +48,11 @@ const qreal WorksheetEntry::VerticalMargin = 4;
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
 {
-    Q_UNUSED(worksheet)
-
     m_next = 0;
     m_prev = 0;
     m_animation = 0;
     m_aboutToBeRemoved = false;
+    worksheet->addItem(this);
 }
 
 WorksheetEntry::~WorksheetEntry()
@@ -117,6 +116,54 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
     m_prev = p;
 }
 
+void WorksheetEntry::startDrag(const QPointF& grabPos, const QPointF& pos)
+{
+    Q_UNUSED(pos);
+    Q_UNUSED(grabPos);
+    QDrag* drag = new QDrag(worksheetView());
+    kDebug() << size();
+    QPixmap pixmap(size().toSize());
+    pixmap.fill(QColor(0,0,0,0));
+    QPainter painter(&pixmap);
+    QStyleOptionGraphicsItem styleOptions;
+    paint(&painter, &styleOptions);
+
+    // paint all our descendents
+    QList<int> indexStack;
+    QList<QGraphicsItem*> itemStack;
+    QList<QGraphicsItem*> children = childItems();
+    int i = 0;
+    indexStack.append(i);
+    itemStack.append(this);
+    painter.save();
+    while (!itemStack.isEmpty()) {
+	QGraphicsItem* child = children[i];
+	painter.save();
+	painter.translate(child->x(), child->y());
+	child->paint(&painter, &styleOptions);
+	if (!child->childItems().isEmpty()) {
+	    indexStack.append(++i);
+	    itemStack.append(child);
+	    children = child->childItems();
+	    i = 0;
+	} else {
+	    ++i;
+	    painter.restore();
+	}
+	if (i == children.size()) {
+	    painter.restore();
+	    i = indexStack.takeLast();
+	    children = itemStack.takeLast()->childItems();
+	}
+    }
+    drag->setPixmap(pixmap);
+    drag->setHotSpot(grabPos.toPoint());
+    drag->setMimeData(new QMimeData());
+
+    worksheet()->startDrag(this, drag);
+}
+
+
 QRectF WorksheetEntry::boundingRect() const
 {
     return QRectF(QPointF(0,0), m_size);
@@ -158,6 +205,11 @@ void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 Worksheet* WorksheetEntry::worksheet()
 {
     return qobject_cast<Worksheet*>(scene());
+}
+
+WorksheetView* WorksheetEntry::worksheetView()
+{
+    return worksheet()->worksheetView();
 }
 
 WorksheetCursor WorksheetEntry::search(QString pattern, unsigned flags,
@@ -463,7 +515,6 @@ void WorksheetEntry::updateSizeAnimation(const QSizeF& size)
 
 void WorksheetEntry::invokeSlotOnObject(const char* slot, QObject* obj)
 {
-    kDebug() << slot << obj;
     const QMetaObject* metaObj = obj->metaObject();
     const QByteArray normSlot = QMetaObject::normalizedSignature(slot);
     const int slotIndex = metaObj->indexOfSlot(normSlot);
@@ -487,17 +538,21 @@ void WorksheetEntry::startRemoving()
     if (m_aboutToBeRemoved)
 	return;
 
-    if (!next()) {
-	if (previous() && previous()->isEmpty() &&
-	    !previous()->aboutToBeRemoved()) {
-	    previous()->focusEntry();
+    kDebug() << this;
+
+    if (focusItem()) {
+	if (!next()) {
+	    if (previous() && previous()->isEmpty() &&
+		!previous()->aboutToBeRemoved()) {
+		previous()->focusEntry();
+	    } else {
+		WorksheetEntry* next = worksheet()->appendCommandEntry();
+		setNext(next);
+		next->focusEntry();
+	    }
 	} else {
-	    WorksheetEntry* next = worksheet()->appendCommandEntry();
-	    setNext(next);
-	    next->focusEntry();
+	    next()->focusEntry();
 	}
-    } else {
-	next()->focusEntry();
     }
 
     if (m_animation) {
@@ -529,17 +584,38 @@ void WorksheetEntry::startRemoving()
     m_animation->animation->start();
 }
 
+bool WorksheetEntry::stopRemoving()
+{
+    if (!m_aboutToBeRemoved)
+	return true;
+
+    kDebug() << this;
+
+    if (m_animation->animation->state() == QAbstractAnimation::Stopped)
+	// we are too late to stop the deletion
+	return false;
+
+    m_aboutToBeRemoved = false;
+    m_animation->animation->stop();
+    m_animation->animation->deleteLater();
+    delete m_animation;
+    m_animation = 0;
+    return true;
+}
+
 void WorksheetEntry::remove()
 {
-    if (previous())
+    if (previous() && previous()->next() == this)
 	previous()->setNext(next());
     else
 	worksheet()->setFirstEntry(next());
-    if (next())
+    if (next() && next()->previous() == this)
 	next()->setPrevious(previous());
     else
 	worksheet()->setLastEntry(previous());
 
+    // make the entry invisible to QGraphicsScene's itemAt() function
+    hide();
     worksheet()->updateLayout();
     deleteLater();
 }

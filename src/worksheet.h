@@ -41,6 +41,7 @@ namespace Cantor {
 }
 
 class WorksheetEntry;
+class PlaceHolderEntry;
 class WorksheetTextItem;
 
 class QDrag;
@@ -191,12 +192,12 @@ class Worksheet : public QGraphicsScene
     void focusOutEvent(QFocusEvent* focusEvent);
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
-    /*
+
     void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
     void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
     void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
     void dropEvent(QGraphicsSceneDragDropEvent* event);
-    */
+
   private slots:
     void loginToSession();
     void showCompletion();
@@ -222,6 +223,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
+    PlaceHolderEntry* m_placeholderEntry;
     QGraphicsItem* m_focusItem;
 
     double m_viewWidth;

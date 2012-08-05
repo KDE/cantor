@@ -55,7 +55,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     m_promptItem = new WorksheetTextItem(this, Qt::NoTextInteraction);
     m_promptItem->setPlainText(Prompt);
-    m_promptItem->enableDragging(true);
+    m_promptItem->setItemDragable(true);
     m_commandItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
     m_commandItem->enableCompletion(true);
     m_errorItem = 0;
@@ -672,11 +672,6 @@ WorksheetTextItem* CommandEntry::currentInformationItem()
     return m_informationItems.last();
 }
 
-WorksheetView* CommandEntry::worksheetView()
-{
-    return worksheet()->worksheetView();
-}
-
 bool CommandEntry::informationItemHasFocus()
 {
     if (m_informationItems.isEmpty())
@@ -697,20 +692,6 @@ void CommandEntry::invalidate()
 bool CommandEntry::wantToEvaluate()
 {
     return !isEmpty();
-}
-
-void CommandEntry::startDrag(const QPointF& grabPos, const QPointF& pos)
-{
-    Q_UNUSED(pos);
-    QDrag* drag = new QDrag(worksheetView());
-    QPixmap pixmap(size().toSize());
-    QPainter painter(&pixmap);
-    QStyleOptionGraphicsItem styleOptions;
-    paint(&painter, &styleOptions);
-    drag->setPixmap(pixmap);
-    drag->setHotSpot(grabPos.toPoint());
-
-    worksheet()->startDrag(this, drag);
 }
 
 QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
@@ -792,6 +773,12 @@ void CommandEntry::layOutForWidth(double w, bool force)
     } else {
 	setSize(s);
     }
+}
+
+void CommandEntry::startRemoving()
+{
+    m_promptItem->setItemDragable(false);
+    WorksheetEntry::startRemoving();
 }
 
 WorksheetTextItem* CommandEntry::highlightItem()
