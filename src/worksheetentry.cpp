@@ -532,13 +532,12 @@ bool WorksheetEntry::aboutToBeRemoved()
 void WorksheetEntry::startRemoving()
 {
     if (!worksheet()->animationsEnabled()) {
+	m_aboutToBeRemoved = true;
 	remove();
 	return;
     }
     if (m_aboutToBeRemoved)
 	return;
-
-    kDebug() << this;
 
     if (focusItem()) {
 	if (!next()) {
@@ -589,8 +588,6 @@ bool WorksheetEntry::stopRemoving()
     if (!m_aboutToBeRemoved)
 	return true;
 
-    kDebug() << this;
-
     if (m_animation->animation->state() == QAbstractAnimation::Stopped)
 	// we are too late to stop the deletion
 	return false;
@@ -605,6 +602,9 @@ bool WorksheetEntry::stopRemoving()
 
 void WorksheetEntry::remove()
 {
+    if (!m_aboutToBeRemoved)
+	return;
+
     if (previous() && previous()->next() == this)
 	previous()->setNext(next());
     else

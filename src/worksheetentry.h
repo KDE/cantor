@@ -110,7 +110,6 @@ class WorksheetEntry : public QGraphicsObject
     virtual void sizeAnimated();
     virtual void startRemoving();
     bool stopRemoving();
-    virtual void remove();
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
     void recalculateSize();
@@ -143,6 +142,9 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
+
+  protected slots:
+    virtual void remove();
 
   protected:
     static const qreal VerticalMargin;

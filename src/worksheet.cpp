@@ -1489,7 +1489,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 	    m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(next);
 	    m_placeholderEntry->changeSize(m_dragEntry->size());
 	} else {
-	    m_placeholderEntry = new PlaceHolderEntry(this, m_dragEntry->size());
+	    m_placeholderEntry = new PlaceHolderEntry(this, QSizeF(0,0));
 	    m_placeholderEntry->setPrevious(prev);
 	    m_placeholderEntry->setNext(next);
 	    if (prev)
@@ -1500,6 +1500,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 		next->setPrevious(m_placeholderEntry);
 	    else
 		setLastEntry(m_placeholderEntry);
+	    m_placeholderEntry->changeSize(m_dragEntry->size());
 	}
 	if (oldPlaceHolder && oldPlaceHolder != m_placeholderEntry)
 	    oldPlaceHolder->startRemoving();

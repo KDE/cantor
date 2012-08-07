@@ -111,6 +111,7 @@ void PlaceHolderEntry::changeSize(QSizeF s)
 
     QPropertyAnimation* sizeAn = sizeChangeAnimation(s);
 
+    sizeAn->setEasingCurve(QEasingCurve::InOutQuad);
     sizeAn->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
