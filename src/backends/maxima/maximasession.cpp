@@ -225,7 +225,7 @@ void MaximaSession::readStdOut()
         m_cache.clear();
         runFirstExpression();
 
-        QTimer::singleShot(500, this, SLOT(killLabels())); //TODO change this back to 0
+        QTimer::singleShot(0, this, SLOT(killLabels()));
 
         changeStatus(Cantor::Session::Done);
 
@@ -239,6 +239,14 @@ void MaximaSession::readStdOut()
     bool parsingSuccessfull=true;
     while(!m_cache.isEmpty()&&parsingSuccessfull)
     {
+        if(m_expressionQueue.isEmpty())
+        {
+            kDebug()<<"got output without active expression. dropping: "<<endl
+                    <<m_cache;
+            m_cache.clear();
+            break;
+        }
+
         MaximaExpression* expr=m_expressionQueue.first();
         if(expr)
             parsingSuccessfull=expr->parseOutput(m_cache);

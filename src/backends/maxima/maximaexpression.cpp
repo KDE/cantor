@@ -397,7 +397,7 @@ void MaximaExpression::parseResult(int* idx, QString& out)
     QString text;
     QString latex;
 
-    bool isLatexComplete;
+    bool isLatexComplete=false;
 
     while(*idx<out.size())
     {
@@ -419,6 +419,7 @@ void MaximaExpression::parseResult(int* idx, QString& out)
 
         kDebug()<<"content: "<<content;
     }
+
 
     //Replace < and > with their html code, so they won't be confused as html tags
     text.replace( '<' , "&lt;");
@@ -443,9 +444,11 @@ void MaximaExpression::parseResult(int* idx, QString& out)
         //incomplete results.
         if(!isLatexComplete||latex.trimmed().isEmpty())
         {
+            kDebug()<<"using text";
             result=new Cantor::TextResult(text);
         }else
         {
+            kDebug()<<"using latex";
             //strip away the latex code for the label.
             //it is contained in an \mbox{} call
             int i;
