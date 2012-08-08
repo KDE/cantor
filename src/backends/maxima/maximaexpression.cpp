@@ -165,7 +165,7 @@ inline void skipWhitespaces(int* idx, const QString& txt)
     for(;(txt[*idx]).isSpace();++(*idx));
 }
 
-QString readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
+QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
 {
     kDebug()<<"trying to read an opening tag";
     skipWhitespaces(idx, txt);
@@ -180,7 +180,7 @@ QString readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
         int newIdx=txt.indexOf('<', *idx);
         if(newIdx==-1) //no more opening brackets in this string
         {
-            return QString::null;
+            return QStringRef();
         }else
         {
             (*idx)=newIdx+1;
@@ -191,6 +191,8 @@ QString readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
         ++ (*idx);
     }
 
+    int startIndex=*idx;
+    int length=0;
     QString name;
     while(*idx<txt.size())
     {
@@ -201,19 +203,21 @@ QString readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
         {
             if(isComplete)
                 *isComplete=true;
-            return name;
+            break;
         }else
-            name+=c;
+            length++;
     }
 
-    return name;
+    return QStringRef(&txt, startIndex, length);
 }
 
-QString readXmlTagContent(int* idx, const QString& txt, const QString& name, bool* isComplete=0)
+QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& name, bool* isComplete=0)
 {
-    QString content;
-    QString currentTagName;
     bool readingClosingTag=false;
+    int contentStartIdx=*idx;
+    unsigned int contentLength=0;
+    int currentTagStartIdx=-1;
+    unsigned int currentTagLength=0;
 
     if(isComplete)
         *isComplete=false;
@@ -225,14 +229,18 @@ QString readXmlTagContent(int* idx, const QString& txt, const QString& name, boo
         if(c=='/'&&(*idx)>0&&txt[(*idx)-1]=='<')
         {
             //remove the opening <
-            content.chop(1);
+            contentLength--;
+            currentTagStartIdx=*idx+1;
+            currentTagLength=0;
             readingClosingTag=true;
         }
         else if(readingClosingTag)
         {
             if(c=='>')
             {
+                const QStringRef currentTagName(&txt, currentTagStartIdx, currentTagLength);
                 kDebug()<<"a tag just closed: "<<currentTagName;
+
                 if(currentTagName==name)
                 {
                     //eat up the closing >
@@ -241,25 +249,25 @@ QString readXmlTagContent(int* idx, const QString& txt, const QString& name, boo
                         (*isComplete)=true;
                     break;
                 }
-                else
-                {
-                    content+="</"+currentTagName;
-                    currentTagName.clear();
-                }
 
                 readingClosingTag=false;
             }else
-                currentTagName+=c;
+                currentTagLength++;
         }
         else
-            content+=c;
+            contentLength++;
 
 
         ++(*idx);
 
     }
 
-    return content;
+    if(contentStartIdx+contentLength>txt.size())
+    {
+        kDebug()<<"something is wrong: "<<contentStartIdx+contentLength<<
+            " vs: "<<txt.size();
+    }
+    return QStringRef(&txt,contentStartIdx, contentLength);
 }
 
 bool MaximaExpression::parseOutput(QString& out)
@@ -267,9 +275,9 @@ bool MaximaExpression::parseOutput(QString& out)
     enum ParserStatus{ReadingOpeningTag, ReadingClosingTag, ReadingText};
     int idx=0;
     ParserStatus status;
-    QString tagName;
-    QString textBuffer;
-    QString errorBuffer;
+    QStringRef tagName;
+    QStringRef textBuffer;
+    QStringRef errorBuffer;
     kDebug()<<"attempting to parse "<<out;
 
     QChar c;
@@ -286,16 +294,14 @@ bool MaximaExpression::parseOutput(QString& out)
     kDebug()<<"idx2: "<<idx2;
 
 
-    errorBuffer=out.left(idx);
+    errorBuffer=QStringRef(&out, 0, idx);
     kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
 
     while(idx<out.size())
     {
-        kDebug()<<"1)idx: "<<idx;
         skipWhitespaces(&idx, out);
-        kDebug()<<"2)idx: "<<idx;
 
-        QString tag=readXmlOpeningTag(&idx, out);
+        const QStringRef& tag=readXmlOpeningTag(&idx, out);
 
         kDebug()<<"big loop read " <<tag;
         if(tag=="result")
@@ -312,18 +318,18 @@ bool MaximaExpression::parseOutput(QString& out)
             //We got a child tag
             if(out[idx]=='<')
             {
-                const QString& tag=readXmlOpeningTag(&idx, out);
-                kDebug()<<"got an information request!"<<tag;
+                const QStringRef& childTag=readXmlOpeningTag(&idx, out);
+                kDebug()<<"got an information request!"<<childTag;
 
-                QString text;
-                QString latex;
+                QStringRef text;
+                QStringRef latex;
                 while(idx<out.size())
                 {
-                    const QString type=readXmlOpeningTag(&idx, out);
+                    const QStringRef& type=readXmlOpeningTag(&idx, out);
                     kDebug()<<"its a "<<type;
                     if(type=="/result")
                         break;
-                    const QString& content=readXmlTagContent(&idx, out, type);
+                    const QStringRef& content=readXmlTagContent(&idx, out, type);
 
                     if(type=="text")
                         text=content;
@@ -335,43 +341,44 @@ bool MaximaExpression::parseOutput(QString& out)
 
                 bool isComplete;
                 //readup the rest of the element and discard it
-                readXmlTagContent(&idx, out, "prompt", &isComplete);
+                readXmlTagContent(&idx, out,tag, &isComplete);
 
                 if(!isComplete)
                     return false;
 
+                //send out the information request
+                emit needsAdditionalInformation(text.toString());
+
                 out=out.mid(idx);
                 idx=0;
-
-                //send out the information request
-                emit needsAdditionalInformation(text);
 
                 return true;
 
             }else //got a regular prompt. Just read it all
             {
                 bool isComplete;
-                const QString& content=readXmlTagContent(&idx, out, "prompt", &isComplete);
+                const QStringRef& content=readXmlTagContent(&idx, out, tag, &isComplete);
 
                 if(!isComplete)
                     return false;
 
-                out=out.mid(idx);
-                idx=0;
-
-                if(!errorBuffer.trimmed().isEmpty())
+                QString errorMessage=errorBuffer.toString();
+                if(!errorMessage.trimmed().isEmpty())
                 {
                     //Replace < and > with their html code, so they won't be confused as html tags
-                    errorBuffer.replace( '<' , "&lt;");
-                    errorBuffer.replace( '>' , "&gt;");
+                    errorMessage.replace( '<' , "&lt;");
+                    errorMessage.replace( '>' , "&gt;");
 
-                    setErrorMessage(errorBuffer.trimmed());
+                    setErrorMessage(errorMessage.trimmed());
                     setStatus(Cantor::Expression::Error);
                 }
                 else
                 {
                     setStatus(Cantor::Expression::Done);
                 }
+
+                out=out.mid(idx);
+                idx=0;
 
                 return true;
             }
@@ -395,19 +402,19 @@ void MaximaExpression::parseResult(int* idx, QString& out)
     while(*idx<out.size())
     {
         bool isComplete;
-        const QString type=readXmlOpeningTag(idx, out);
+        const QStringRef& type=readXmlOpeningTag(idx, out);
         kDebug()<<"its a "<<type;
         if(type=="/result")
             break;
 
-        const QString& content=readXmlTagContent(idx, out, type, &isComplete);
+        const QStringRef& content=readXmlTagContent(idx, out, type, &isComplete);
 
         if(type=="text")
-            text=content.trimmed();
+            text=content.toString().trimmed();
         else if(type=="latex")
         {
             isLatexComplete=isComplete;
-            latex=content.trimmed();
+            latex=content.toString().trimmed();
         }
 
         kDebug()<<"content: "<<content;
@@ -461,7 +468,7 @@ void MaximaExpression::parseResult(int* idx, QString& out)
             if(latex.trimmed().isEmpty())
             {
                 if(m_isPlot)
-                    result=new Cantor::TextResult(i18n("Loading Image..."));
+                    result=new Cantor::TextResult(i18n("Waiting for Image..."));
                 else
                     result=0;
             }else
