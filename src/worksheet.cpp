@@ -441,6 +441,7 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
     else
 	setLastEntry(m_dragEntry);
     m_dragEntry->show();
+    m_dragEntry->focusEntry();
     updateLayout();
     if (m_placeholderEntry) {
 	m_placeholderEntry->setPrevious(0);

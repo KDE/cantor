@@ -26,11 +26,11 @@
 #include "pagebreakentry.h"
 #include "settings.h"
 #include "actionbar.h"
+#include "worksheettoolbutton.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
-#include <QToolButton>
 #include <QGraphicsProxyWidget>
 
 #include <KIcon>
@@ -640,6 +640,8 @@ void WorksheetEntry::setSize(QSizeF size)
 {
     prepareGeometryChange();
     m_size = size;
+    if (m_actionBar)
+	m_actionBar->updatePosition(size);
 }
 
 QSizeF WorksheetEntry::size()
@@ -668,24 +670,18 @@ void WorksheetEntry::showActionBar()
     if (!m_actionBar) {
 	m_actionBar = new ActionBar(this);
 
-	QToolButton* closeButton = new QToolButton();
-	closeButton->setIcon(KIcon("edit-delete"));
-	closeButton->setToolTip(i18n("Remove Entry"));
-	connect(closeButton, SIGNAL(clicked()), this,	SLOT(startRemoving()));
-	m_actionBar->addButton(closeButton);
+	m_actionBar->addButton(KIcon("edit-delete"), i18n("Remove Entry"),
+			       this, SLOT(startRemoving()));
 
-	QToolButton* moveButton = new QToolButton();
-	moveButton->setIcon(KIcon("transform-move"));
-	moveButton->setToolTip(i18n("Drag Entry"));
-	connect(moveButton, SIGNAL(pressed()), this, SLOT(startDrag()));
-	m_actionBar->addButton(moveButton);
+	WorksheetToolButton* dragButton;
+	dragButton = m_actionBar->addButton(KIcon("transform-move"),
+					    i18n("Drag Entry"));
+	connect(dragButton, SIGNAL(pressed()), this, SLOT(startDrag()));
 
 	if (wantToEvaluate()) {
-	    QToolButton* evalButton = new QToolButton();
-	    evalButton->setIcon(KIcon("view-refresh"));
-	    evalButton->setToolTip(i18n("Evaluate Entry"));
-	    connect(evalButton, SIGNAL(clicked()), this, SLOT(evaluate()));
-	    m_actionBar->addButton(evalButton);
+	    QString toolTip = i18n("Evaluate Entry");
+	    m_actionBar->addButton(KIcon("view-refresh"), toolTip,
+				   this, SLOT(evaluate()));
 	}
 
 	m_actionBar->addSpace();

@@ -76,6 +76,7 @@ set(cantor_PART_SRCS
    worksheetcursor.cpp
    searchbar.cpp
    actionbar.cpp
+   worksheettoolbutton.cpp
    imagesettingsdialog.cpp
    scripteditorwidget.cpp
    resultitem.cpp

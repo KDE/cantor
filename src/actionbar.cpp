@@ -20,8 +20,8 @@
 
 #include "actionbar.h"
 #include "worksheetentry.h"
+#include "worksheettoolbutton.h"
 
-#include <QToolButton>
 #include <QGraphicsProxyWidget>
 
 ActionBar::ActionBar(WorksheetEntry* parent)
@@ -36,13 +36,18 @@ ActionBar::~ActionBar()
 {
 }
 
-void ActionBar::addButton(QToolButton* button)
+WorksheetToolButton* ActionBar::addButton(const KIcon& icon, QString toolTip,
+				   QObject* receiver, const char* method )
 {
-    QGraphicsProxyWidget* widget = new QGraphicsProxyWidget(this);
-    widget->setWidget(button);
-    m_pos -= button->width();
-    m_height = m_height > button->height() ? m_height : button->height();
-    widget->setPos(m_pos, 0);
+    WorksheetToolButton* button = new WorksheetToolButton(this);
+    button->setIcon(icon);
+    button->setToolTip(toolTip);
+    if (receiver && method)
+	connect(button, SIGNAL(clicked()), receiver, method);
+    m_pos -= button->width() + 2;
+    m_height = (m_height > button->height()) ? m_height : button->height();
+    button->setPos(m_pos, 2);
+    return button;
 }
 
 void ActionBar::addSpace()
@@ -50,9 +55,9 @@ void ActionBar::addSpace()
     m_pos -= 8;
 }
 
-void ActionBar::updatePosition()
+void ActionBar::updatePosition(const QSizeF& parentSize)
 {
-    setPos(parentEntry()->size().width(), 0);
+    setPos(parentSize.width(), 0);
 }
 
 WorksheetEntry* ActionBar::parentEntry()

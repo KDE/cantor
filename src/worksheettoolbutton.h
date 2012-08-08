@@ -18,38 +18,39 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef ACTIONBAR_H
-#define ACTIONBAR_H
+#ifndef WORKSHEETTOOLBUTTON_H
+#define WORKSHEETTOOLBUTTON_H
 
 #include <QGraphicsObject>
 
 #include <KIcon>
 
-class WorksheetEntry;
-class WorksheetToolButton;
-
-class ActionBar : public QGraphicsObject
+class WorksheetToolButton : public QGraphicsObject
 {
   Q_OBJECT
   public:
-    ActionBar(WorksheetEntry* parent);
-    ~ActionBar();
+    WorksheetToolButton(QGraphicsItem* parent);
+    ~WorksheetToolButton();
 
-    WorksheetToolButton* addButton(const KIcon& icon, QString toolTip,
-				   QObject* receiver = 0,
-				   const char* method = 0);
-    void addSpace();
+    void setIcon(const KIcon& icon);
 
-    void updatePosition(const QSizeF& parentSize);
-
-    WorksheetEntry* parentEntry();
-
+    qreal width();
+    qreal height();
     QRectF boundingRect() const;
-    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
+	       QWidget* widget = 0);
+
+  signals:
+    void clicked();
+    void pressed();
+
+  protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+
   private:
-    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity);
-    qreal m_pos;
-    qreal m_height;
+    QSize m_size;
+    KIcon m_icon;
 };
 
-#endif // ACTIONBAR_H
+#endif //WORKSHEETTOOLBUTTON_H
