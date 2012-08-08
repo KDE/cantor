@@ -74,7 +74,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
 	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
     connect(m_promptItem, SIGNAL(drag(const QPointF&, const QPointF&)),
-	    this, SLOT(startDrag(const QPointF&, const QPointF&)));
+	    this, SLOT(startDrag(const QPointF&)));
     connect(worksheet, SIGNAL(updatePrompt()),
 	    this, SLOT(updatePrompt()));
 }

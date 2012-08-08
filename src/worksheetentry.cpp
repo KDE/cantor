@@ -25,10 +25,13 @@
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "settings.h"
+#include "actionbar.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
+#include <QToolButton>
+#include <QGraphicsProxyWidget>
 
 #include <KIcon>
 #include <KLocale>
@@ -51,6 +54,8 @@ WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
     m_next = 0;
     m_prev = 0;
     m_animation = 0;
+    m_actionBar = 0;
+    m_actionBarAnimation = 0;
     m_aboutToBeRemoved = false;
     worksheet->addItem(this);
 }
@@ -116,10 +121,8 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
     m_prev = p;
 }
 
-void WorksheetEntry::startDrag(const QPointF& grabPos, const QPointF& pos)
+void WorksheetEntry::startDrag(const QPointF& grabPos)
 {
-    Q_UNUSED(pos);
-    Q_UNUSED(grabPos);
     QDrag* drag = new QDrag(worksheetView());
     kDebug() << size();
     QPixmap pixmap(size().toSize());
@@ -133,31 +136,44 @@ void WorksheetEntry::startDrag(const QPointF& grabPos, const QPointF& pos)
     QList<QGraphicsItem*> itemStack;
     QList<QGraphicsItem*> children = childItems();
     int i = 0;
-    indexStack.append(i);
-    itemStack.append(this);
-    painter.save();
-    while (!itemStack.isEmpty()) {
-	QGraphicsItem* child = children[i];
+    bool done = false;
+    QGraphicsItem* parent = this;
+    while (true) {
+	while (i == children.size()) {
+	    if (itemStack.isEmpty()) {
+		done = true;
+		break;
+	    }
+	    painter.restore();
+	    i = indexStack.takeLast();
+	    parent = itemStack.takeLast();
+	    children = parent->childItems();
+	}
+	if (done)
+	    break;
 	painter.save();
+	QGraphicsItem* child = children[i];
 	painter.translate(child->x(), child->y());
 	child->paint(&painter, &styleOptions);
 	if (!child->childItems().isEmpty()) {
 	    indexStack.append(++i);
-	    itemStack.append(child);
+	    itemStack.append(parent);
+	    parent = child;
 	    children = child->childItems();
 	    i = 0;
 	} else {
 	    ++i;
 	    painter.restore();
 	}
-	if (i == children.size()) {
-	    painter.restore();
-	    i = indexStack.takeLast();
-	    children = itemStack.takeLast()->childItems();
-	}
     }
     drag->setPixmap(pixmap);
-    drag->setHotSpot(grabPos.toPoint());
+    if (grabPos.isNull()) {
+	const QPoint viewPos = worksheetView()->mapFromGlobal(QCursor::pos());
+	const QPointF scenePos = worksheetView()->mapToScene(viewPos);
+	drag->setHotSpot(mapFromScene(scenePos).toPoint());
+    } else {
+	drag->setHotSpot(grabPos.toPoint());
+    }
     drag->setMimeData(new QMimeData());
 
     worksheet()->startDrag(this, drag);
@@ -333,7 +349,7 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
     }
     kDebug() << oldSize << newSize;
 
-    QPropertyAnimation* sizeAn = new QPropertyAnimation(this, "m_size", this);
+    QPropertyAnimation* sizeAn = new QPropertyAnimation(this, "size", this);
     sizeAn->setDuration(200);
     sizeAn->setStartValue(oldSize);
     sizeAn->setEndValue(newSize);
@@ -560,7 +576,7 @@ void WorksheetEntry::startRemoving()
 
     m_aboutToBeRemoved = true;
     m_animation = new AnimationData;
-    m_animation->sizeAnimation = new QPropertyAnimation(this, "m_size", this);
+    m_animation->sizeAnimation = new QPropertyAnimation(this, "size", this);
     m_animation->sizeAnimation->setDuration(300);
     m_animation->sizeAnimation->setEndValue(QSizeF(size().width(), 0));
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
@@ -629,6 +645,116 @@ void WorksheetEntry::setSize(QSizeF size)
 QSizeF WorksheetEntry::size()
 {
     return m_size;
+}
+
+bool WorksheetEntry::hasActionBar()
+{
+    return m_actionBar;
+}
+
+void WorksheetEntry::showActionBar()
+{
+    if (m_actionBar && !m_actionBarAnimation)
+	return;
+
+    if (m_actionBarAnimation) {
+	if (m_actionBarAnimation->endValue().toReal() == 1)
+	    return;
+	m_actionBarAnimation->stop();
+	delete m_actionBarAnimation;
+	m_actionBarAnimation = 0;
+    }
+
+    if (!m_actionBar) {
+	m_actionBar = new ActionBar(this);
+
+	QToolButton* closeButton = new QToolButton();
+	closeButton->setIcon(KIcon("edit-delete"));
+	closeButton->setToolTip(i18n("Remove Entry"));
+	connect(closeButton, SIGNAL(clicked()), this,	SLOT(startRemoving()));
+	m_actionBar->addButton(closeButton);
+
+	QToolButton* moveButton = new QToolButton();
+	moveButton->setIcon(KIcon("transform-move"));
+	moveButton->setToolTip(i18n("Drag Entry"));
+	connect(moveButton, SIGNAL(pressed()), this, SLOT(startDrag()));
+	m_actionBar->addButton(moveButton);
+
+	if (wantToEvaluate()) {
+	    QToolButton* evalButton = new QToolButton();
+	    evalButton->setIcon(KIcon("view-refresh"));
+	    evalButton->setToolTip(i18n("Evaluate Entry"));
+	    connect(evalButton, SIGNAL(clicked()), this, SLOT(evaluate()));
+	    m_actionBar->addButton(evalButton);
+	}
+
+	m_actionBar->addSpace();
+
+	addActionsToBar(m_actionBar);
+    }
+
+    if (worksheet()->animationsEnabled()) {
+	m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
+						      this);
+	m_actionBarAnimation->setStartValue(0);
+	m_actionBarAnimation->setEndValue(1);
+	m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
+	m_actionBarAnimation->setDuration(200);
+	connect(m_actionBarAnimation, SIGNAL(finished()), this,
+		SLOT(deleteActionBarAnimation()));
+
+	m_actionBarAnimation->start();
+    }
+}
+
+void WorksheetEntry::hideActionBar()
+{
+    if (!m_actionBar)
+	return;
+
+    if (m_actionBarAnimation) {
+	if (m_actionBarAnimation->endValue().toReal() == 0)
+	    return;
+	m_actionBarAnimation->stop();
+	delete m_actionBarAnimation;
+	m_actionBarAnimation = 0;
+    }
+
+    if (worksheet()->animationsEnabled()) {
+	m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
+						      this);
+	m_actionBarAnimation->setEndValue(0);
+	m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
+	m_actionBarAnimation->setDuration(200);
+	connect(m_actionBarAnimation, SIGNAL(finished()), this,
+		SLOT(deleteActionBar()));
+
+	m_actionBarAnimation->start();
+    } else {
+	deleteActionBar();
+    }
+}
+
+void WorksheetEntry::deleteActionBarAnimation()
+{
+    if (m_actionBarAnimation) {
+	delete m_actionBarAnimation;
+	m_actionBarAnimation = 0;
+    }
+}
+
+void WorksheetEntry::deleteActionBar()
+{
+    if (m_actionBar) {
+	delete m_actionBar;
+	m_actionBar = 0;
+    }
+
+    deleteActionBarAnimation();
+}
+
+void WorksheetEntry::addActionsToBar(ActionBar*)
+{
 }
 
 WorksheetTextItem* WorksheetEntry::highlightItem()

@@ -70,6 +70,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_placeholderEntry = 0;
     m_viewWidth = 0;
     m_protrusion = 0;
+    m_actionBarTimer = 0;
 
     m_isPrinting = false;
     m_loginFlag = true;
@@ -380,12 +381,17 @@ void Worksheet::invalidateLastEntry()
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
     QGraphicsItem* item = itemAt(x, y);
-    while (item && (item->type() < QGraphicsItem::UserType ||
+    while (item && (item->type() <= QGraphicsItem::UserType ||
 		    item->type() >= QGraphicsItem::UserType + 100))
 	item = item->parentItem();
     if (item)
 	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
     return 0;
+}
+
+WorksheetEntry* Worksheet::entryAt(QPointF p)
+{
+    return entryAt(p.x(), p.y());
 }
 
 void Worksheet::focusEntry(WorksheetEntry *entry)
@@ -1014,9 +1020,7 @@ KMenu* Worksheet::createContextMenu()
 
 void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    Q_UNUSED(pos);
-
-    WorksheetEntry* entry = entryAt(pos.x(), pos.y());
+    WorksheetEntry* entry = entryAt(pos);
     if (entry && !entry->isAncestorOf(m_focusItem))
 	m_focusItem = itemAt(pos);
     //m_currentEntry = entry;
@@ -1088,6 +1092,28 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 	lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
 }
 
+void Worksheet::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsScene::mouseMoveEvent(event);
+
+    if (m_actionBarTimer) {
+	delete m_actionBarTimer;
+	m_actionBarTimer = 0;
+    }
+    WorksheetEntry* entry = entryAt(event->scenePos());
+    if (entry) {
+	m_actionBarTimer = new QTimer(this);
+	m_actionBarTimer->setInterval(400);
+	m_actionBarTimer->setSingleShot(true);
+	connect(m_actionBarTimer, SIGNAL(timeout()), entry,
+		SLOT(showActionBar()));
+	m_actionBarTimer->start();
+    }
+    
+    WorksheetEntry* oldEntry = entryAt(event->lastScenePos());
+    if (oldEntry && oldEntry != entry)
+	oldEntry->hideActionBar();
+}
 
 void Worksheet::createActions(KActionCollection* collection)
 {
@@ -1459,7 +1485,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
     }
 
     QPointF pos = event->scenePos();
-    WorksheetEntry* entry = entryAt(pos.x(), pos.y());
+    WorksheetEntry* entry = entryAt(pos);
     WorksheetEntry* prev = 0;
     WorksheetEntry* next = 0;
     if (entry) {

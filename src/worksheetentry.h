@@ -35,9 +35,9 @@ class PageBreakEntry;
 class LaTeXEntry;
 
 class WorksheetTextItem;
+class ActionBar;
 
 class QPainter;
-class QStykeOptionGraphicsItem;
 class QWidget;
 class QPropertyAnimation;
 
@@ -96,6 +96,8 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual WorksheetTextItem* highlightItem();
 
+    bool hasActionBar();
+
     enum SearchFlag {SearchCommand=1, SearchResult=2, SearchError=4,
 		     SearchText=8, SearchLaTeX=16, SearchAll=31};
 
@@ -113,15 +115,18 @@ class WorksheetEntry : public QGraphicsObject
     void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
     void recalculateSize();
+
     // similiar to recalculateSize, but the size change is animated
     void animateSizeChange();
     // animate the size change and the opacity of item
     void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
     void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
-
     void endAnimation();
 
-    void startDrag(const QPointF& grabPos, const QPointF& pos);
+    void showActionBar();
+    void hideActionBar();
+
+    void startDrag(const QPointF& grabPos = QPointF());
 
   signals:
     void aboutToBeDeleted();
@@ -140,11 +145,15 @@ class WorksheetEntry : public QGraphicsObject
 
     void invokeSlotOnObject(const char* slot, QObject* obj);
 
+    virtual void addActionsToBar(ActionBar* actionBar);
+
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
 
   protected slots:
     virtual void remove();
+    void deleteActionBar();
+    void deleteActionBarAnimation();
 
   protected:
     static const qreal VerticalMargin;
@@ -153,8 +162,10 @@ class WorksheetEntry : public QGraphicsObject
     QSizeF m_size;
     WorksheetEntry* m_prev;
     WorksheetEntry* m_next;
-    Q_PROPERTY(QSizeF m_size READ size WRITE setSize);
+    Q_PROPERTY(QSizeF size READ size WRITE setSize);
     AnimationData* m_animation;
+    ActionBar* m_actionBar;
+    QPropertyAnimation* m_actionBarAnimation;
     bool m_aboutToBeRemoved;
 };
 
