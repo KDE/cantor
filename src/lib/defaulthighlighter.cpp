@@ -178,7 +178,7 @@ void DefaultHighlighter::highlightPairs(const QString& text)
 
 void DefaultHighlighter::highlightWords(const QString& text)
 {
-    kDebug() << "DefaultHighlighter::highlightWords";
+    //kDebug() << "DefaultHighlighter::highlightWords";
 
     const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
     int count;
@@ -195,18 +195,18 @@ void DefaultHighlighter::highlightWords(const QString& text)
         //prepend them to the current word. This allows for example
         //to highlight words that start with a "Non-word"-character
         //e.g. %pi in the scilab backend.
-        kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
+        //kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
         if(!nonSeparatingCharacters().isNull())
         {
             for(int j = i - 1; j >= 0; j--)
             {
-                kDebug() << "j: " << j << "w: " << words[j];
+                //kDebug() << "j: " << j << "w: " << words[j];
                 const QString& w = words[j];
                 const QString exp = QString("(%1)*$").arg(nonSeparatingCharacters());
-                kDebug() << "exp: " << exp;
+                //kDebug() << "exp: " << exp;
                 int idx = w.indexOf(QRegExp(exp));
                 const QString& s = w.mid(idx);
-                kDebug() << "s: " << s;
+                //kDebug() << "s: " << s;
 
                 if(s.size() > 0)
                 {
@@ -221,7 +221,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
 
         word = word.trimmed();
 
-        kDebug() << "highlighing: " << word;
+        //kDebug() << "highlighing: " << word;
 
         if (d->wordRules.contains(word))
         {

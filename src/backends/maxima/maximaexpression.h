@@ -24,29 +24,23 @@
 #include "expression.h"
 #include "kdirwatch.h"
 #include <QStringList>
+#include <QXmlStreamReader>
 
 class KTemporaryFile;
 class QTimer;
+
 
 class MaximaExpression : public Cantor::Expression
 {
   Q_OBJECT  
   public:
-    enum Type{NormalExpression, HelpExpression, TexExpression};
-    explicit MaximaExpression( Cantor::Session* session, Type = NormalExpression);
+    explicit MaximaExpression( Cantor::Session* session);
     ~MaximaExpression();
-
-    Type type();
-    void setType(Type type);
 
     void evaluate();
     void interrupt();
 
     void addInformation(const QString& information);
-
-    void parseOutput(const QString& text);
-    void parseNormalOutput(const QString& text);
-    void parseTexResult(const QString& text);
 
     bool needsLatexResult();
 
@@ -58,26 +52,16 @@ class MaximaExpression : public Cantor::Expression
     //Forces the status of this Expression to done
     void forceDone();
 
-    //returns the Output, that was prefixed by %O labels
-    QStringList output();
+    //reads from @param out until a prompt indicates that a new expression has started
+    bool parseOutput(QString& out);
     
-  public slots:
-    void evalFinished();
-
   private slots:
-    void askForInformation();
     void imageChanged();
+
   private:
-    Type m_type;
-    //variables to store the output of the command
-    //stuff printed before first %O label
-    QString m_outputPrefix;
-    //list of text printed with %O
-    QStringList m_output;
-    
-    QString m_errCache;
-    bool m_onStdoutStroke;
-    bool m_latexFailed;
+    virtual QString additionalLatexHeaders();
+    void parseResult(int* idx,QString& out);
+  private:
     KTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
     bool m_isHelpRequest; 

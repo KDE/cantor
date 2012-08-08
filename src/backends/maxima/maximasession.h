@@ -27,6 +27,7 @@
 #include <kdirwatch.h>
 #include <QRegExp>
 #include <QProcess>
+#include <QXmlStreamReader>
 
 class MaximaExpression;
 class KProcess;
@@ -48,13 +49,10 @@ class MaximaSession : public Cantor::Session
     void logout();
     void startServer();
     void newMaximaClient(QTcpSocket* socket);
-    void newHelperClient(QTcpSocket* socket);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    MaximaExpression* evaluateHelperExpression(const QString& command);
 
     void appendExpressionToQueue(MaximaExpression* expr);
-    void appendExpressionToHelperQueue(MaximaExpression* expr);
 
     void interrupt();
     void interrupt(MaximaExpression* expr);
@@ -69,20 +67,13 @@ class MaximaSession : public Cantor::Session
   public slots:
     void readStdOut();
 
-    void readHelperOut();
-
   private slots:
     void newConnection();
-    void letExpressionParseOutput();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
-    void currentHelperExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
     void restartsCooledDown();
 
     void runFirstExpression();
-    void runNextHelperCommand();
-    void startHelperProcess();
-
     void killLabels();
 
     void reportProcessError(QProcess::ProcessError error);
@@ -90,14 +81,10 @@ class MaximaSession : public Cantor::Session
     QTcpServer* m_server;
     QTcpSocket* m_maxima;
     KProcess* m_process;
-    QTcpSocket* m_helperMaxima;
-    KProcess* m_helperProcess; //only used to convert from expression to TeX/get syntax information
     QList<MaximaExpression*> m_expressionQueue;
-    QList<MaximaExpression*> m_helperQueue; //Queue used for Expressions that need to be converted to LaTeX
     QString m_cache;
 
     bool m_isInitialized;
-    bool m_isHelperReady;
     QString m_tmpPath;
 
     QTimer* m_restartCooldown;

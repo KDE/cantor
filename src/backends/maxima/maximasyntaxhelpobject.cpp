@@ -57,8 +57,12 @@ void MaximaSyntaxHelpObject::fetchInformation()
 
     if(isValid)
     {
+
+        kDebug()<<"WARNING: Syntax Help is not implemented at the moment!";
+#if 0
         m_expression=static_cast<MaximaSession*>(session())->evaluateHelperExpression(QString("describe(%1);").arg(command()));
         connect(m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
+#endif
     }else
     {
         kDebug()<<"invalid syntax request";

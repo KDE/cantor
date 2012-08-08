@@ -35,21 +35,12 @@
 #include <ktemporaryfile.h>
 #include <QTimer>
 #include <QRegExp>
+#include <QChar>
 
-#define ASK_TIME 100
-
-MaximaExpression::MaximaExpression( Cantor::Session* session, MaximaExpression::Type type ) : Cantor::Expression(session)
+MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug();
-    m_type=type;
     m_tempFile=0;
-    m_latexFailed=false;
-    //this is a timer that is triggered if we got output without an output prompt
-    //and no new input prompt for some time, so we assume that it's because maxima
-    //is asking for information
-    m_askTimer=new QTimer(this);
-    m_askTimer->setSingleShot(true);
-    connect(m_askTimer, SIGNAL(timeout()), this, SLOT(askForInformation()));
 }
 
 MaximaExpression::~MaximaExpression()
@@ -57,15 +48,6 @@ MaximaExpression::~MaximaExpression()
 
 }
 
-void MaximaExpression::setType(Type type)
-{
-    m_type=type;
-}
-
-MaximaExpression::Type MaximaExpression::type()
-{
-    return m_type;
-}
 
 void MaximaExpression::evaluate()
 {
@@ -80,11 +62,6 @@ void MaximaExpression::evaluate()
     //check if this is a ?command
     if(command().startsWith('?')||command().startsWith(QLatin1String("describe("))||command().startsWith(QLatin1String("example(")))
         m_isHelpRequest=true;
-
-    m_onStdoutStroke=false;
-    m_outputPrefix.clear();
-    m_output.clear();
-    m_errCache.clear();
 
     if(command().contains(QRegExp("(?:plot2d|plot3d)\\s*\\([^\\)]")) && MaximaSettings::self()->integratePlots() && !command().contains("psfile"))
     {
@@ -115,10 +92,8 @@ void MaximaExpression::evaluate()
         return;
     }
 
-    if(type()==MaximaExpression::NormalExpression)
-        dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
-    else
-        dynamic_cast<MaximaSession*>(session())->appendExpressionToHelperQueue(this);
+    dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
+
 }
 
 void MaximaExpression::interrupt()
@@ -185,227 +160,322 @@ void MaximaExpression::addInformation(const QString& information)
     dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+'\n');
 }
 
-void MaximaExpression::parseOutput(const QString& text)
+inline void skipWhitespaces(int* idx, const QString& txt)
 {
-    if(type()==MaximaExpression::TexExpression)
-    {
-        parseTexResult(text);
-    }else
-    {
-        parseNormalOutput(text);
-    }
+    for(;(txt[*idx]).isSpace();++(*idx));
 }
 
-void MaximaExpression::parseNormalOutput(const QString& text)
+QString readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
 {
-    //new information arrived, stop the question timeout.
-    //restart it later after the new information was parsed
-    m_askTimer->stop();
+    kDebug()<<"trying to read an opening tag";
+    skipWhitespaces(idx, txt);
 
-    QString output=text;
+    if(isComplete)
+        *isComplete=false;
 
-    kDebug()<<"parsing: "<<output;
-
-    //Remove all whitespaces and newlines in the occurring prompts, to simplify parsing later
-    int index=-1;
-    while( (index=MaximaSession::MaximaOutputPrompt.indexIn(output, index+1) )>=0 )
+    if(txt[*idx]!='<')
     {
-        QString newPrompt=MaximaSession::MaximaOutputPrompt.cap(0);
-        newPrompt.remove(QRegExp("\\s"));
-        output.replace(index, MaximaSession::MaximaOutputPrompt.matchedLength(), newPrompt);
+        kDebug()<<"THIS is NOT AN OPENING TAG, stupid! "<<endl
+                <<"Dropping everything until next opening; This starts with a " <<txt[*idx];
+        int newIdx=txt.indexOf('<', *idx);
+        if(newIdx==-1) //no more opening brackets in this string
+        {
+            return QString::null;
+        }else
+        {
+            (*idx)=newIdx+1;
+        }
+
+    }else
+    {
+        ++ (*idx);
     }
 
-    bool couldBeQuestion=false;
-    const QStringList lines=output.split('\n');
-    //A regexp matching for OutputPrompt, but allowing an arbitrary number of spaces at the beginning
-    const QRegExp outputPromptRegexp(QString("\\s*%1").arg(MaximaSession::MaximaOutputPrompt.pattern()));
-
-    foreach(QString line, lines) // krazy:exclude=foreach
+    QString name;
+    while(*idx<txt.size())
     {
-        if(line.endsWith('\r'))
-            line.chop(1);
-        if(line.isEmpty())
-            continue;
+        const QChar c=txt[*idx];
+        ++(*idx);
 
-        if (MaximaSession::MaximaPrompt.exactMatch(line.trimmed()))
+        if(c=='>')
         {
-            evalFinished();
-            m_onStdoutStroke=false;
-            couldBeQuestion=false;
-        }else if(outputPromptRegexp.indexIn(line)==0)
-        {
-            //find the number if this output in the MaximaOutputPrompt
-            QString prompt=outputPromptRegexp.cap(0).trimmed();
-            QString id=prompt.mid(3, prompt.length()-4);
-            setId(id.toInt());
+            if(isComplete)
+                *isComplete=true;
+            return name;
+        }else
+            name+=c;
+    }
 
-            line.remove(MaximaSession::MaximaOutputPrompt);
-            //we got regular output. this means no error occurred,
-            //prepend the error Buffer to the output Buffer, as
-            //for example when display2d:true, the ouputPrompt doesn't
-            //need to be in the first line
-            if(m_output.isEmpty())
+    return name;
+}
+
+QString readXmlTagContent(int* idx, const QString& txt, const QString& name, bool* isComplete=0)
+{
+    QString content;
+    QString currentTagName;
+    bool readingClosingTag=false;
+
+    if(isComplete)
+        *isComplete=false;
+
+    while(*idx<txt.size())
+    {
+        const QChar c=txt[*idx];
+
+        if(c=='/'&&(*idx)>0&&txt[(*idx)-1]=='<')
+        {
+            //remove the opening <
+            content.chop(1);
+            readingClosingTag=true;
+        }
+        else if(readingClosingTag)
+        {
+            if(c=='>')
             {
-                m_outputPrefix=m_errCache;
-                m_errCache.clear();
-            }
+                kDebug()<<"a tag just closed: "<<currentTagName;
+                if(currentTagName==name)
+                {
+                    //eat up the closing >
+                    ++(*idx);
+                    if(isComplete)
+                        (*isComplete)=true;
+                    break;
+                }
+                else
+                {
+                    content+="</"+currentTagName;
+                    currentTagName.clear();
+                }
 
-            //append the line to the output cache, but
-            //only it isn't false, as a line only
-            //containing "%O1 false" means that this
-            //output can be ignored
-            if(line.trimmed() != "false" )
-                m_output.append(line+'\n');
-
-            m_onStdoutStroke=true;
-            couldBeQuestion=false;
-        }else if (m_onStdoutStroke)
-        {
-            m_output.last()+=line+'\n';
+                readingClosingTag=false;
+            }else
+                currentTagName+=c;
         }
         else
+            content+=c;
+
+
+        ++(*idx);
+
+    }
+
+    return content;
+}
+
+bool MaximaExpression::parseOutput(QString& out)
+{
+    enum ParserStatus{ReadingOpeningTag, ReadingClosingTag, ReadingText};
+    int idx=0;
+    ParserStatus status;
+    QString tagName;
+    QString textBuffer;
+    QString errorBuffer;
+    kDebug()<<"attempting to parse "<<out;
+
+    QChar c;
+    //first read the part not enclosed in tags. it most likely belongs to an error message
+    int idx1=out.indexOf("<prompt>");
+    int idx2=out.indexOf("<result>");
+
+    idx1=(idx1==-1) ? out.size():idx1;
+    idx2=(idx2==-1) ? out.size():idx2;
+    idx=qMin(idx1, idx2);
+
+    kDebug()<<"out.size(): "<<out.size();
+    kDebug()<<"idx1: "<<idx1;
+    kDebug()<<"idx2: "<<idx2;
+
+
+    errorBuffer=out.left(idx);
+    kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
+
+    while(idx<out.size())
+    {
+        kDebug()<<"1)idx: "<<idx;
+        skipWhitespaces(&idx, out);
+        kDebug()<<"2)idx: "<<idx;
+
+        QString tag=readXmlOpeningTag(&idx, out);
+
+        kDebug()<<"big loop read " <<tag;
+        if(tag=="result")
         {
-            kDebug()<<"got something";
-            m_errCache+=line+'\n';
-            m_onStdoutStroke=false;
-            couldBeQuestion=true;
+            kDebug()<<"hey, I got a result";
+            parseResult(&idx, out);
+
+        }else if (tag=="prompt")
+        {
+            kDebug()<<"i got a prompt: "<<idx;
+
+            skipWhitespaces(&idx, out);
+
+            //We got a child tag
+            if(out[idx]=='<')
+            {
+                const QString& tag=readXmlOpeningTag(&idx, out);
+                kDebug()<<"got an information request!"<<tag;
+
+                QString text;
+                QString latex;
+                while(idx<out.size())
+                {
+                    const QString type=readXmlOpeningTag(&idx, out);
+                    kDebug()<<"its a "<<type;
+                    if(type=="/result")
+                        break;
+                    const QString& content=readXmlTagContent(&idx, out, type);
+
+                    if(type=="text")
+                        text=content;
+                    else if(type=="latex")
+                        latex=content;
+
+                    kDebug()<<"content: "<<content;
+                }
+
+                bool isComplete;
+                //readup the rest of the element and discard it
+                readXmlTagContent(&idx, out, "prompt", &isComplete);
+
+                if(!isComplete)
+                    return false;
+
+                out=out.mid(idx);
+                idx=0;
+
+                //send out the information request
+                emit needsAdditionalInformation(text);
+
+                return true;
+
+            }else //got a regular prompt. Just read it all
+            {
+                bool isComplete;
+                const QString& content=readXmlTagContent(&idx, out, "prompt", &isComplete);
+
+                if(!isComplete)
+                    return false;
+
+                out=out.mid(idx);
+                idx=0;
+
+                if(!errorBuffer.trimmed().isEmpty())
+                {
+                    //Replace < and > with their html code, so they won't be confused as html tags
+                    errorBuffer.replace( '<' , "&lt;");
+                    errorBuffer.replace( '>' , "&gt;");
+
+                    setErrorMessage(errorBuffer.trimmed());
+                    setStatus(Cantor::Expression::Error);
+                }
+                else
+                {
+                    setStatus(Cantor::Expression::Done);
+                }
+
+                return true;
+            }
+        }else
+        {
+            kDebug()<<"tag: "<<tag;
+            kDebug()<<"WTF are you doing?";
         }
     }
 
-    //wait a bit if another chunk of data comes in, containing the needed PROMPT
-    if(couldBeQuestion)
-    {
-            m_askTimer->stop();
-            m_askTimer->start(ASK_TIME);
-    }
-
+    return false;
 }
 
-void MaximaExpression::askForInformation()
+void MaximaExpression::parseResult(int* idx, QString& out)
 {
-    emit needsAdditionalInformation(m_errCache.trimmed());
-    m_outputPrefix.clear();
-    m_output.clear();
-    m_onStdoutStroke=false;
-    m_errCache.clear();
-}
+    QString text;
+    QString latex;
 
-void MaximaExpression::parseTexResult(const QString& text)
-{
-    const QString& output=text.trimmed();
+    bool isLatexComplete;
 
-    m_errCache+=output;
-
-    kDebug()<<"parsing "<<text;
-    kDebug()<<"prefix: "<<m_outputPrefix;
-
-    //If we haven't got the Input prompt yet, postpone the parsing
-    if(!m_errCache.contains(MaximaSession::MaximaPrompt))
-        return;
-
-    QString completeLatex;
-    if(!m_outputPrefix.isEmpty())
-        completeLatex="{ \\small \\noindent "+m_outputPrefix.trimmed().replace("\n", "\\newline ")+"} \n";
-    while(m_errCache.contains(MaximaSession::MaximaOutputPrompt))
+    while(*idx<out.size())
     {
-        kDebug()<<"got prompt"<<m_errCache;
-        int pos=m_errCache.indexOf(MaximaSession::MaximaOutputPrompt);
-        QString latex=m_errCache.mid(0, pos).trimmed();
-        if(latex.startsWith(QLatin1String("$$")))
+        bool isComplete;
+        const QString type=readXmlOpeningTag(idx, out);
+        kDebug()<<"its a "<<type;
+        if(type=="/result")
+            break;
+
+        const QString& content=readXmlTagContent(idx, out, type, &isComplete);
+
+        if(type=="text")
+            text=content.trimmed();
+        else if(type=="latex")
         {
-            latex=latex.mid(2);
-            latex.prepend("\\begin{eqnarray*}");
+            isLatexComplete=isComplete;
+            latex=content.trimmed();
         }
-        if(latex.endsWith(QLatin1String("$$")))
-        {
-            latex.chop(2);
-            latex.append("\\end{eqnarray*}");
-        }
-        completeLatex+=latex+'\n';
 
-        m_errCache.remove(0, (m_errCache.indexOf("false", pos)+5));
+        kDebug()<<"content: "<<content;
     }
-
-    if(!completeLatex.isEmpty())
-    {
-        kDebug()<<"latex: "<<completeLatex;
-        Cantor::TextResult* result=new Cantor::TextResult(completeLatex);
-        result->setFormat(Cantor::TextResult::LatexFormat);
-
-        m_outputPrefix.clear();
-        setResult(result);
-    }else
-    {
-        //Running TeX seems to have failed...
-        m_latexFailed=true;
-    }
-
-    setStatus(Cantor::Expression::Done);
-
-}
-
-void MaximaExpression::evalFinished()
-{
-    kDebug()<<"evaluation finished";
-    kDebug()<<"out: "<<m_outputPrefix;
-    kDebug()<<"out: "<<m_output;
-    kDebug()<<"err: "<<m_errCache;
-
-    QString text=m_outputPrefix;
-    text+=m_output.join(QLatin1String("\n"));
-    if(!m_isHelpRequest&&!session()->isTypesettingEnabled()) //don't screw up Maximas Ascii-Art
-        text.replace(' ', "&nbsp;");
 
     //Replace < and > with their html code, so they won't be confused as html tags
     text.replace( '<' , "&lt;");
     text.replace( '>' , "&gt;");
 
-    Cantor::TextResult* result;
-
     if(m_tempFile)
     {
         QTimer::singleShot(500, this, SLOT(imageChanged()));
-        if(m_errCache.trimmed().isEmpty()&&m_output.join(" ").trimmed().isEmpty())
-        {
-            return;
-        }
     }
 
+    Cantor::TextResult* result=0;
     if(m_isHelpRequest)
     {
+        kDebug()<<"its a help thing!";
         result=new Cantor::HelpResult(text);
         setResult(result);
-        setStatus(Cantor::Expression::Done);
     }
     else
     {
-        result=new Cantor::TextResult(text);
-
-        setResult(result);
-
-        if(!m_errCache.isEmpty())
+        //if the <latex> element wasn't read completely, there
+        //is no point in trying to render it. Use text for
+        //incomplete results.
+        if(!isLatexComplete||latex.trimmed().isEmpty())
         {
-            setErrorMessage(m_errCache);
-            setStatus(Cantor::Expression::Error);
-        }
-        else
+            result=new Cantor::TextResult(text);
+        }else
         {
-            setStatus(Cantor::Expression::Done);
+            //strip away the latex code for the label.
+            //it is contained in an \mbox{} call
+            int i;
+            int pcount=0;
+            for(i=latex.indexOf("\\mbox{")+5;i<latex.size();i++)
+            {
+                if(latex[i]=='{')
+                    pcount++;
+                else if(latex[i]=='}')
+                    pcount--;
+
+                if(pcount==0)
+                    break;
+            }
+
+            kDebug()<<"stripping i="<<i<<" characters";
+            latex=latex.mid(i+1);
+
+            //no need to render empty latex.
+            if(latex.trimmed().isEmpty())
+            {
+                if(m_isPlot)
+                    result=new Cantor::TextResult(i18n("Loading Image..."));
+                else
+                    result=0;
+            }else
+            {
+                latex.prepend("\\begin{eqnarray*}\n");
+                latex.append("\n\\end{eqnarray*}\n");
+                result=new Cantor::TextResult(latex);
+                result->setFormat(Cantor::TextResult::LatexFormat);
+            }
         }
+
+        if(result)
+            setResult(result);
     }
-}
-
-bool MaximaExpression::needsLatexResult()
-{
-    bool needsLatex=!m_latexFailed&&
-        session()->isTypesettingEnabled() &&
-        status()!=Cantor::Expression::Error &&
-        finishingBehavior()==Cantor::Expression::DoNotDelete;
-
-    if (result()&&result()->type()==Cantor::TextResult::Type&&result()->data().toString()!="false" )
-       return needsLatex && dynamic_cast<Cantor::TextResult*>(result())->format()!=Cantor::TextResult::LatexFormat;
-    else
-        return false;
 }
 
 void MaximaExpression::imageChanged()
@@ -422,9 +492,10 @@ void MaximaExpression::imageChanged()
     }
 }
 
-QStringList MaximaExpression::output()
+
+QString MaximaExpression::additionalLatexHeaders()
 {
-    return m_output;
+    return QString::null;
 }
 
 #include "maximaexpression.moc"

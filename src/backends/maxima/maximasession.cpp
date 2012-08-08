@@ -39,28 +39,25 @@
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
 //the Expressions are encapsulated in () to allow capturing for the text
-const QRegExp MaximaSession::MaximaPrompt=QRegExp("(\\(\\s*%\\s*I\\s*[0-9\\s]*\\))"); //Text, maxima outputs, if it's taking new input
+const QRegExp MaximaSession::MaximaPrompt=QRegExp("(<prompt>\\s<prompt>)"); //Text, maxima outputs, if it's taking new input
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))"); //Text, maxima outputs, before any output
 
 
-static QByteArray initCmd="display2d:false$                     \n"\
-                          "inchar:%I$                           \n"\
-                          "outchar:%O$                          \n"\
-                          "print(____END_OF_INIT____);          \n";
-static QByteArray helperInitCmd="simp: false$ \n";
+static QString initCmd=":lisp-quiet ($load \"%1\") \n"\
+    "inchar:%I$\n"\
+    "outchar:%O$\n"\
+    "print(____END_OF_INIT____); \n\n";
 
 MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
-    m_isHelperReady=false;
     m_server=0;
     m_maxima=0;
     m_process=0;
-    m_helperProcess=0;
-    m_helperMaxima=0;
     m_justRestarted=false;
     m_useLegacy=false;
+
 }
 
 MaximaSession::~MaximaSession()
@@ -92,8 +89,6 @@ void MaximaSession::login()
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
-    if(!m_helperQueue.isEmpty())
-       runNextHelperCommand();
 }
 
 void MaximaSession::startServer()
@@ -125,18 +120,10 @@ void MaximaSession::newMaximaClient(QTcpSocket* socket)
     kDebug()<<"got new maxima client";
     m_maxima=socket;
     connect(m_maxima, SIGNAL(readyRead()), this, SLOT(readStdOut()));
-    m_maxima->write(initCmd);
-}
 
-void MaximaSession::newHelperClient(QTcpSocket* socket)
-{
-    kDebug()<<"got new helper client";
-    m_helperMaxima=socket;
-
-    connect(m_helperMaxima, SIGNAL(readyRead()), this, SLOT(readHelperOut()));
-
-    m_helperMaxima->write(helperInitCmd);
-    m_helperMaxima->write(initCmd);
+    QString cmd=initCmd.arg(KStandardDirs::locate("appdata",   "maximabackend/cantor-initmaxima.lisp"));
+    kDebug()<<"sending cmd: "<<cmd<<endl;
+    m_maxima->write(cmd.toUtf8());
 }
 
 void MaximaSession::logout()
@@ -177,10 +164,6 @@ void MaximaSession::logout()
 
     delete m_process;
     m_process=0;
-    delete m_helperProcess;
-    m_helperProcess=0;
-    delete m_helperMaxima;
-    m_helperMaxima=0;
     delete m_maxima;
     m_maxima=0;
 
@@ -193,16 +176,11 @@ void MaximaSession::newConnection()
 {
     kDebug()<<"new connection";
     QTcpSocket* const socket=m_server->nextPendingConnection();
-    if(m_maxima==0)
-    {
-        newMaximaClient(socket);
-    }else if (m_helperMaxima==0)
-    {
-        newHelperClient(socket);
-    }else
-    {
-        kDebug()<<"got another client, without needing one";
-    }
+
+    if(m_maxima!=0)
+        kDebug()<<"WARNING: got a new client without needing one";
+
+    newMaximaClient(socket);
 }
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
@@ -216,17 +194,6 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-MaximaExpression* MaximaSession::evaluateHelperExpression(const QString& cmd)
-{
-    if(!m_helperMaxima)
-        startHelperProcess();
-    MaximaExpression* expr=new MaximaExpression(this, MaximaExpression::HelpExpression);
-    expr->setFinishingBehavior(Cantor::Expression::DoNotDelete);
-    expr->setCommand(cmd);
-    expr->evaluate();
-
-    return expr;
-}
 
 void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 {
@@ -240,17 +207,6 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
     }
 }
 
-void MaximaSession::appendExpressionToHelperQueue(MaximaExpression* expr)
-{
-   m_helperQueue.append(expr);
-
-   kDebug()<<"helper queue: "<<m_helperQueue.size();
-   if(m_helperQueue.size()==1)
-   {
-       runNextHelperCommand();
-   }
-}
-
 void MaximaSession::readStdOut()
 {
     kDebug()<<"reading stdOut";
@@ -260,7 +216,7 @@ void MaximaSession::readStdOut()
 
     m_cache+=out;
 
-    if(m_cache.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____"))))
+    if(m_cache.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____")))&&m_cache.contains("</prompt>"))
     {
         kDebug()<<"initialized";
         out.remove("____END_OF_INIT____");
@@ -269,7 +225,9 @@ void MaximaSession::readStdOut()
         m_cache.clear();
         runFirstExpression();
 
-        QTimer::singleShot(0, this, SLOT(killLabels()));
+        QTimer::singleShot(500, this, SLOT(killLabels())); //TODO change this back to 0
+
+        changeStatus(Cantor::Session::Done);
 
         return;
     }
@@ -277,29 +235,17 @@ void MaximaSession::readStdOut()
     if(!m_isInitialized)
         return;
 
-    if(m_cache.contains('\n')||m_cache.contains(MaximaPrompt))
-    {
-        kDebug()<<"letting parse"<<m_cache;
-        letExpressionParseOutput();
-    }
-}
 
-void MaximaSession::letExpressionParseOutput()
-{
-    kDebug()<<"queuesize: "<<m_expressionQueue.size();
-    if(m_isInitialized&&!m_expressionQueue.isEmpty())
+    bool parsingSuccessfull=true;
+    while(!m_cache.isEmpty()&&parsingSuccessfull)
     {
         MaximaExpression* expr=m_expressionQueue.first();
+        if(expr)
+            parsingSuccessfull=expr->parseOutput(m_cache);
 
-        //send over the part of the cache to the last newline or last InputPrompt, whatever comes last
-        const int index=m_cache.lastIndexOf('\n')+1;
-        const int index2=MaximaPrompt.lastIndexIn(m_cache)+MaximaPrompt.matchedLength();
-        const int max=qMax(index, index2);
-        QString txt=m_cache.left(max);
-        expr->parseOutput(txt);
-        m_cache.remove(0, max);
     }
 }
+
 
 void MaximaSession::killLabels()
 {
@@ -317,42 +263,6 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
     }
 }
 
-void MaximaSession::readHelperOut()
-{
-    kDebug()<<"reading stdOut from helper process";
-    QString out=m_helperMaxima->readAll();
-    kDebug()<<"out: "<<out;
-
-    if(out.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____"))))
-    {
-        kDebug()<<"helper initialized";
-
-        m_isHelperReady=true;
-        runNextHelperCommand();
-
-        return;
-    }
-
-    if(!m_isHelperReady)
-        return;
-
-    kDebug()<<"queuesize: "<<m_helperQueue.size();
-    if(!m_helperQueue.isEmpty())
-    {
-        MaximaExpression* expr=m_helperQueue.first();
-        kDebug()<<"needs latex?: "<<expr->needsLatexResult();
-
-        expr->parseOutput(out);
-
-        if(expr->type()==MaximaExpression::TexExpression&&!expr->needsLatexResult())
-        {
-            kDebug()<<"expression doesn't need latex anymore";
-            m_helperQueue.removeFirst();
-            runNextHelperCommand();
-        }
-    }
-}
-
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
@@ -362,40 +272,11 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
         disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
                    this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-        if(expression->needsLatexResult())
-        {
-            kDebug()<<"asking for tex version";
-            expression->setType(MaximaExpression::TexExpression);
-
-            m_helperQueue<<expression;
-            if(m_helperQueue.size()==1) //It only contains the actual item. start processing it
-                runNextHelperCommand();
-        }
-
         kDebug()<<"running next command";
         m_expressionQueue.removeFirst();
         if(m_expressionQueue.isEmpty())
             changeStatus(Cantor::Session::Done);
         runFirstExpression();
-
-    }
-
-}
-
-void MaximaSession::currentHelperExpressionChangedStatus(Cantor::Expression::Status status)
-{
-    if(status!=Cantor::Expression::Computing) //The session is ready for the next command
-    {
-        kDebug()<<"expression finished";
-        MaximaExpression* expression=m_helperQueue.first();
-        disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
-                   this, SLOT(currentHelperExpressionChangedStatus(Cantor::Expression::Status)));
-
-        kDebug()<<"running next command";
-        m_helperQueue.removeFirst();
-        if(m_helperQueue.isEmpty())
-            runNextHelperCommand();
-
     }
 
 }
@@ -419,54 +300,6 @@ void MaximaSession::runFirstExpression()
             kDebug()<<"writing "<<command+'\n'<<" to the process";
             m_cache.clear();
             m_maxima->write((command+'\n').toLatin1());
-        }
-    }
-}
-
-void MaximaSession::runNextHelperCommand()
-{
-    kDebug()<<"helperQueue: "<<m_helperQueue.size();
-    if(m_isHelperReady&&!m_helperQueue.isEmpty())
-    {
-        kDebug()<<"running next helper command";
-        MaximaExpression* expr=m_helperQueue.first();
-
-        if(expr->type()==MaximaExpression::TexExpression)
-        {
-            QStringList out=expr->output();
-
-            if(!out.isEmpty())
-            {
-                QString texCmd;
-                foreach(const QString& part, out)
-                {
-                    if(part.isEmpty())
-                        continue;
-                    kDebug()<<"running "<<QString("tex(%1);").arg(part);
-                    texCmd+=QString("tex(%1);").arg(part);
-                }
-                texCmd+='\n';
-                m_helperMaxima->write(texCmd.toUtf8());
-            }else
-            {
-                kDebug()<<"current tex request is empty, so drop it";
-                m_helperQueue.removeFirst();
-            }
-        }else
-        {
-            QString command=expr->internalCommand();
-            connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentHelperExpressionChangedStatus(Cantor::Expression::Status)));
-
-            if(command.isEmpty())
-            {
-                kDebug()<<"empty command";
-                expr->forceDone();
-            }else
-            {
-                kDebug()<<"writing "<<command+'\n'<<" to the process";
-                m_cache.clear();
-                m_helperMaxima->write((command+'\n').toLatin1());
-            }
         }
     }
 }
@@ -542,47 +375,18 @@ void MaximaSession::restartsCooledDown()
     m_justRestarted=false;
 }
 
-void MaximaSession::startHelperProcess()
-{
-    kDebug()<<"starting helper";
-    m_helperMaxima=0;
-    m_isHelperReady=false;
-    if(!m_server)
-    {
-        kDebug()<<"WARNING: you tried to create a helper process, without running server";
-        return;
-    }
-    //Start the process that is used to convert to LaTeX
-    m_helperProcess=new KProcess(this);
-    QStringList args;
-    if(m_useLegacy)
-        args<<"-r"<<QString(":lisp (setup-server %1)").arg(m_server->serverPort());
-    else
-        args<<"-r"<<QString(":lisp (setup-client %1)").arg(m_server->serverPort());
-
-    m_helperProcess->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
-
-    connect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelperProcess()));
-    m_helperProcess->start();
-}
 
 void MaximaSession::setTypesettingEnabled(bool enable)
 {
     if(enable)
     {
-        if(!m_isHelperReady)
-            startHelperProcess();
-        //LaTeX and Display2d don't go together and even deliver wrong results
+        evaluateExpression("display2d:true", Cantor::Expression::DeleteOnFinish);
+    }
+    else
+    {
         evaluateExpression("display2d:false", Cantor::Expression::DeleteOnFinish);
     }
-    else if(m_helperProcess)
-    {
-        disconnect(m_helperProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startHelperProcess()));
-        m_helperProcess->deleteLater();
-        m_helperProcess=0;
-        m_helperMaxima=0;
-        m_isHelperReady=false;
-    }
+
     Cantor::Session::setTypesettingEnabled(enable);
 }
 
