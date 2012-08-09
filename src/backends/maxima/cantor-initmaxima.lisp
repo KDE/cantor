@@ -56,7 +56,7 @@
   (princ "<result>")
   (princ "<text>")
   (linear-displa x)
-  (princ "<text>")
+  (princ "</text>")
   (princ "</result>")
 )
 
