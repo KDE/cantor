@@ -22,6 +22,7 @@
 #define WORKSHEETTOOLBUTTON_H
 
 #include <QGraphicsObject>
+#include <QPixmap>
 
 #include <KIcon>
 
@@ -37,6 +38,7 @@ class WorksheetToolButton : public QGraphicsObject
     qreal width();
     qreal height();
     QRectF boundingRect() const;
+    void setIconScale(qreal scale);
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
 	       QWidget* widget = 0);
 
@@ -50,7 +52,9 @@ class WorksheetToolButton : public QGraphicsObject
 
   private:
     QSize m_size;
+    QPixmap m_pixmap;
     KIcon m_icon;
+    qreal m_scale;
 };
 
 #endif //WORKSHEETTOOLBUTTON_H

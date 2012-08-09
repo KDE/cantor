@@ -442,6 +442,9 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 	setLastEntry(m_dragEntry);
     m_dragEntry->show();
     m_dragEntry->focusEntry();
+    const QPointF scenePos = worksheetView()->sceneCursorPos();
+    if (entryAt(scenePos) != m_dragEntry)
+	m_dragEntry->hideActionBar();
     updateLayout();
     if (m_placeholderEntry) {
 	m_placeholderEntry->setPrevious(0);

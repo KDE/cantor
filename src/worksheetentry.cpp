@@ -125,9 +125,11 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
 {
     QDrag* drag = new QDrag(worksheetView());
     kDebug() << size();
-    QPixmap pixmap(size().toSize());
+    const qreal scale = worksheet()->epsRenderer()->scale();
+    QPixmap pixmap(size().toSize()*scale);
     pixmap.fill(QColor(0,0,0,0));
     QPainter painter(&pixmap);
+    painter.scale(scale, scale);
     QStyleOptionGraphicsItem styleOptions;
     paint(&painter, &styleOptions);
 
@@ -168,11 +170,10 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
     }
     drag->setPixmap(pixmap);
     if (grabPos.isNull()) {
-	const QPoint viewPos = worksheetView()->mapFromGlobal(QCursor::pos());
-	const QPointF scenePos = worksheetView()->mapToScene(viewPos);
-	drag->setHotSpot(mapFromScene(scenePos).toPoint());
+	const QPointF scenePos = worksheetView()->sceneCursorPos();
+	drag->setHotSpot(mapFromScene(scenePos).toPoint() * scale);
     } else {
-	drag->setHotSpot(grabPos.toPoint());
+	drag->setHotSpot(grabPos.toPoint() * scale);
     }
     drag->setMimeData(new QMimeData());
 
@@ -639,9 +640,9 @@ void WorksheetEntry::remove()
 void WorksheetEntry::setSize(QSizeF size)
 {
     prepareGeometryChange();
-    m_size = size;
-    if (m_actionBar)
+    if (m_actionBar && size != m_size)
 	m_actionBar->updatePosition(size);
+    m_size = size;
 }
 
 QSizeF WorksheetEntry::size()

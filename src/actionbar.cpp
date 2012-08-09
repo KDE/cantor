@@ -19,6 +19,7 @@
  */
 
 #include "actionbar.h"
+#include "worksheet.h"
 #include "worksheetentry.h"
 #include "worksheettoolbutton.h"
 
@@ -41,12 +42,14 @@ WorksheetToolButton* ActionBar::addButton(const KIcon& icon, QString toolTip,
 {
     WorksheetToolButton* button = new WorksheetToolButton(this);
     button->setIcon(icon);
+    button->setIconScale(worksheet()->epsRenderer()->scale());
     button->setToolTip(toolTip);
     if (receiver && method)
 	connect(button, SIGNAL(clicked()), receiver, method);
     m_pos -= button->width() + 2;
     m_height = (m_height > button->height()) ? m_height : button->height();
-    button->setPos(m_pos, 2);
+    button->setPos(m_pos, 4);
+    m_buttons.append(button);
     return button;
 }
 
@@ -58,6 +61,10 @@ void ActionBar::addSpace()
 void ActionBar::updatePosition(const QSizeF& parentSize)
 {
     setPos(parentSize.width(), 0);
+    const qreal scale = worksheet()->epsRenderer()->scale();
+    foreach(WorksheetToolButton* button, m_buttons) {
+	button->setIconScale(scale);
+    }
 }
 
 WorksheetEntry* ActionBar::parentEntry()
@@ -74,3 +81,7 @@ void ActionBar::paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*)
 {
 }
 
+Worksheet* ActionBar::worksheet()
+{
+    return qobject_cast<Worksheet*>(scene());
+}

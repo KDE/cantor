@@ -29,6 +29,7 @@ WorksheetToolButton::WorksheetToolButton(QGraphicsItem* parent)
 {
     m_size = QSize(16, 16);
     setCursor(QCursor(Qt::ArrowCursor));
+    m_scale = 0;
 }
 
 WorksheetToolButton::~WorksheetToolButton()
@@ -55,14 +56,22 @@ QRectF WorksheetToolButton::boundingRect() const
     return QRectF(0, 0, m_size.width(), m_size.height());
 }
 
+void WorksheetToolButton::setIconScale(qreal scale)
+{
+    m_scale = scale;
+    m_pixmap = m_icon.pixmap(m_size * m_scale);
+}
+
 void WorksheetToolButton::paint(QPainter* painter,
 				const QStyleOptionGraphicsItem* option,
 				QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    QPixmap pixmap = m_icon.pixmap(m_size);
-    painter->drawPixmap(QRectF(QPointF(0,0), m_size), pixmap, pixmap.rect());
+    if (m_scale == 0)
+	setIconScale(1);
+    QRectF rect(QPointF(0,0), m_size);
+    painter->drawPixmap(rect, m_pixmap, m_pixmap.rect());
 }
 
 void WorksheetToolButton::mousePressEvent(QGraphicsSceneMouseEvent* event)

@@ -40,6 +40,8 @@ class WorksheetView : public QGraphicsView
     bool isAtEnd();
     void scrollToEnd();
 
+    QPointF sceneCursorPos();
+
     void resizeEvent(QResizeEvent* event);
 
     qreal scaleFactor();

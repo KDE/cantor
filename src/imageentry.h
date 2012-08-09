@@ -28,6 +28,7 @@
 #include <QFileSystemWatcher>
 
 class Worksheet;
+class ActionBar;
 class WorksheetImageItem;
 
 class ImageEntry : public WorksheetEntry
@@ -69,6 +70,7 @@ class ImageEntry : public WorksheetEntry
     qreal height();
 
     QString latexSizeString(const ImageSize& imgSize);
+    void addActionsToBar(ActionBar* actionBar);
 
   private:
     QString m_imagePath;

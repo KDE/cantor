@@ -20,6 +20,7 @@
 
 #include "imageentry.h"
 #include "worksheetimageitem.h"
+#include "actionbar.h"
 
 #include <KMenu>
 #include <KDebug>
@@ -303,6 +304,13 @@ void ImageEntry::setImageData(const QString& path,
 
     updateEntry();
 }
+
+void ImageEntry::addActionsToBar(ActionBar* actionBar)
+{
+    actionBar->addButton(KIcon("configure"), i18n("Configure Image"),
+			 this, SLOT(startConfigDialog()));
+}
+
 
 void ImageEntry::layOutForWidth(double w, bool force)
 {

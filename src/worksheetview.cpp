@@ -193,6 +193,12 @@ void WorksheetView::endAnimation()
     m_animation = 0;
 }
 
+QPointF WorksheetView::sceneCursorPos()
+{
+    const QPoint viewPos = viewport()->mapFromGlobal(QCursor::pos());
+    return mapToScene(viewPos);
+}
+
 void WorksheetView::resizeEvent(QResizeEvent * event)
 {
     Q_UNUSED(event);

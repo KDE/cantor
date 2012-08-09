@@ -25,6 +25,7 @@
 
 #include <KIcon>
 
+class Worksheet;
 class WorksheetEntry;
 class WorksheetToolButton;
 
@@ -46,8 +47,13 @@ class ActionBar : public QGraphicsObject
 
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
+
+  private:
+    Worksheet* worksheet();
+
   private:
     Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity);
+    QList<WorksheetToolButton*> m_buttons;
     qreal m_pos;
     qreal m_height;
 };
