@@ -131,6 +131,8 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
     QPainter painter(&pixmap);
     painter.scale(scale, scale);
     QStyleOptionGraphicsItem styleOptions;
+    styleOptions.rect = pixmap.rect();
+    styleOptions.exposedRect = pixmap.rect();
     paint(&painter, &styleOptions);
 
     // paint all our descendents
@@ -155,8 +157,10 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
 	    break;
 	painter.save();
 	QGraphicsItem* child = children[i];
-	painter.translate(child->x(), child->y());
-	child->paint(&painter, &styleOptions);
+	if (child->isVisible()) {
+	    painter.translate(child->x(), child->y());
+	    child->paint(&painter, &styleOptions);
+	}
 	if (!child->childItems().isEmpty()) {
 	    indexStack.append(++i);
 	    itemStack.append(parent);

@@ -88,6 +88,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* currentEntry();
     WorksheetEntry* firstEntry();
     WorksheetEntry* lastEntry();
+    WorksheetTextItem* currentTextItem();
 
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
@@ -212,7 +213,6 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(QPointF p);
     WorksheetEntry* entryAt(int row);
     int entryCount();
-    WorksheetTextItem* currentTextItem();
 
   private:
     static const double LeftMargin;

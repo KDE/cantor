@@ -103,8 +103,9 @@ void CommandEntry::moveToNextItem(int pos, qreal x)
     if (!item)
 	return;
 
-    if (item == m_commandItem || item == 0) {
-	if (m_informationItems.isEmpty())
+    if (item == m_commandItem) {
+	if (m_informationItems.isEmpty() ||
+	    !currentInformationItem()->isEditable())
 	    moveToNextEntry(pos, x);
 	else
 	    currentInformationItem()->setFocusAt(pos, x);

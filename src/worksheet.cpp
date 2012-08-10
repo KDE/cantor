@@ -1312,11 +1312,7 @@ void Worksheet::createActions(KActionCollection* collection)
 
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
-    QGraphicsItem* item = m_focusItem;
-    while (item && item->type() != WorksheetTextItem::Type)
-	item = item->parentItem();
-
-    WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
+    WorksheetTextItem* oldItem = currentTextItem();
 
     if (oldItem && oldItem != newItem)
 	oldItem->clearSelection();
