@@ -383,8 +383,14 @@ bool MaximaExpression::parseOutput(QString& out)
                     errorMsg.replace( '<' , "&lt;");
                     errorMsg.replace( '>' , "&gt;");
 
-                    //Help Messages are also provided in the errorBuffer.
-                    if(m_isHelpRequest)
+                    if(command().startsWith(":lisp")||command().startsWith(":lisp-quiet"))
+                    {
+                        Cantor::TextResult* result=new Cantor::TextResult(errorMsg);
+                        setResult(result);
+                        setStatus(Cantor::Expression::Done);
+                    }else
+                    if(m_isHelpRequest) //Help Messages are also provided in the errorBuffer.
+
                     {
                         Cantor::HelpResult* result=new Cantor::HelpResult(errorMsg);
                         setResult(result);
