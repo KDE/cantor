@@ -139,6 +139,11 @@ QString MaximaExpression::internalCommand()
     //prompt after each line
     cmd.remove('\n');
 
+    //lisp-quiet doesn't print a prompt after the command
+    //is completed, which causes the parsing to hang.
+    //replace the command with the non-quiet version
+    cmd.replace(QRegExp("^:lisp-quiet"), ":lisp");
+
     return cmd;
 }
 
