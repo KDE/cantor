@@ -452,8 +452,17 @@ void MaximaExpression::parseResult(int* idx, QString& out)
     text.replace( '<' , "&lt;");
     text.replace( '>' , "&gt;");
 
-    QRegExp outputPromptExp=QRegExp('^'+MaximaSession::MaximaOutputPrompt.pattern());
-    text.remove(outputPromptExp);
+    QRegExp outputPromptRegexp=QRegExp('^'+MaximaSession::MaximaOutputPrompt.pattern());
+    int idxOfPrompt=outputPromptRegexp.indexIn(text);
+    text.remove(idxOfPrompt, outputPromptRegexp.matchedLength());
+
+    //find the number if this output in the MaximaOutputPrompt
+    QString prompt=outputPromptRegexp.cap(0).trimmed();
+    QString id=prompt.mid(3, prompt.length()-4);
+    setId(id.toInt());
+    kDebug()<<"prompt: "<<prompt<<" id: "<<id;
+
+
 
     if(m_tempFile)
     {

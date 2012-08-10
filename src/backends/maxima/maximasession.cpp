@@ -250,6 +250,8 @@ void MaximaSession::readStdOut()
         MaximaExpression* expr=m_expressionQueue.first();
         if(expr)
             parsingSuccessfull=expr->parseOutput(m_cache);
+        else
+            parsingSuccessfull=false;
 
     }
 }
