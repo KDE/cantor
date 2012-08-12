@@ -281,7 +281,6 @@ bool MaximaExpression::parseOutput(QString& out)
     int idx=0;
     ParserStatus status;
     QStringRef tagName;
-    QStringRef textBuffer;
     QStringRef errorBuffer;
     kDebug()<<"attempting to parse "<<out;
 
@@ -303,6 +302,10 @@ bool MaximaExpression::parseOutput(QString& out)
     kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
 
     int numResults=0;
+    QString textBuffer;
+    QString latexBuffer;
+
+    Cantor::Result* result;
     while(idx<out.size())
     {
         skipWhitespaces(&idx, out);
@@ -313,20 +316,17 @@ bool MaximaExpression::parseOutput(QString& out)
         if(tag=="result")
         {
             kDebug()<<"hey, I got a result";
-            if(numResults==0)
-            {
-                parseResult(&idx, out);
-                numResults++;
-            }else
-            {
-                //if there is a previous text result, just drop it.
-                //(happens for example when example(cmd) is called with
-                //a command for which no example is available
 
-                //read up the rest of the tag
-                QStringRef content=readXmlTagContent(&idx, out, tag);
-                kDebug()<<"got a "<<numResults<<"th result: "<<content;
+            if(numResults>0)
+            {
+                textBuffer.append("\n");
+                latexBuffer.append("\n");
             }
+
+            result=parseResult(&idx, out, textBuffer, latexBuffer);
+            numResults++;
+
+            kDebug()<<"got "<<numResults<<"th result.";
 
         }else if (tag=="prompt")
         {
@@ -410,7 +410,10 @@ bool MaximaExpression::parseOutput(QString& out)
                 else
                 {
                     if(errorMessage().isEmpty())
+                    {
+                        setResult(result);
                         setStatus(Cantor::Expression::Done);
+                    }
                     else
                         setStatus(Cantor::Expression::Error);
                 }
@@ -427,15 +430,17 @@ bool MaximaExpression::parseOutput(QString& out)
         }
     }
 
+    //show partial result
+    setResult(result);
     return false;
 }
 
-void MaximaExpression::parseResult(int* idx, QString& out)
+Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
+                                              QString& textBuffer, QString& latexBuffer)
 {
-    QString text;
-    QString latex;
-
     bool isLatexComplete=false;
+    QString latex;
+    QString text;
 
     while(*idx<out.size())
     {
@@ -448,16 +453,15 @@ void MaximaExpression::parseResult(int* idx, QString& out)
         const QStringRef& content=readXmlTagContent(idx, out, type, &isComplete);
 
         if(type=="text")
-            text+=content.toString().trimmed();
+            text=content.toString().trimmed();
         else if(type=="latex")
         {
             isLatexComplete=isComplete;
-            latex+=content.toString().trimmed();
+            latex=content.toString().trimmed();
         }
 
         kDebug()<<"content: "<<content;
     }
-
 
     //Replace < and > with their html code, so they won't be confused as html tags
     text.replace( '<' , "&lt;");
@@ -482,13 +486,19 @@ void MaximaExpression::parseResult(int* idx, QString& out)
 
     Cantor::TextResult* result=0;
 
+    //if this is not the first result, prepend the results
+    //found in the earlier tags.
+    textBuffer.append(text);
+
     //if the <latex> element wasn't read completely, there
     //is no point in trying to render it. Use text for
     //incomplete results.
-    if(!isLatexComplete||latex.trimmed().isEmpty()||m_isHelpRequest)
+    if(!isLatexComplete
+       ||(latexBuffer.trimmed().isEmpty()&&latex.isEmpty())
+       ||m_isHelpRequest)
     {
         kDebug()<<"using text";
-        result=new Cantor::TextResult(text);
+        result=new Cantor::TextResult(textBuffer);
     }else
     {
         kDebug()<<"using latex";
@@ -511,7 +521,7 @@ void MaximaExpression::parseResult(int* idx, QString& out)
         latex=latex.mid(i+1);
 
         //no need to render empty latex.
-        if(latex.trimmed().isEmpty())
+        if(latexBuffer.trimmed().isEmpty()&&latex.trimmed().isEmpty())
         {
             if(m_isPlot)
                 result=new Cantor::TextResult(i18n("Waiting for Image..."));
@@ -520,14 +530,15 @@ void MaximaExpression::parseResult(int* idx, QString& out)
         }else
         {
             latex.prepend("\\begin{eqnarray*}\n");
-            latex.append("\n\\end{eqnarray*}\n");
-            result=new Cantor::TextResult(latex);
+            latex.append("\n\\end{eqnarray*}");
+            latexBuffer.append(latex);
+            result=new Cantor::TextResult(latexBuffer);
             result->setFormat(Cantor::TextResult::LatexFormat);
         }
     }
 
-    if(result)
-        setResult(result);
+
+    return result;
 }
 
 void MaximaExpression::imageChanged()

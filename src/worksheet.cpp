@@ -852,7 +852,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
     if(expr==0)
         return;
     //We're only interested in help results, others are handled by the WorksheetEntry
-    if(expr->result()->type()==Cantor::HelpResult::Type)
+    if(expr->result()&&expr->result()->type()==Cantor::HelpResult::Type)
     {
         QString help=expr->result()->toHtml();
         //Do some basic LaTeX replacing

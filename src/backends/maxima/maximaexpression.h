@@ -60,7 +60,7 @@ class MaximaExpression : public Cantor::Expression
 
   private:
     virtual QString additionalLatexHeaders();
-    void parseResult(int* idx,QString& out);
+    Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
   private:
     KTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
