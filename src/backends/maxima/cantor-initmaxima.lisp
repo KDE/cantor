@@ -10,9 +10,10 @@
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
 
-;inchar:%I$
-;outchar:%O$
 
+(setf $inchar "%I")
+(setf $outchar "%O")
+(setf $display2d nil)
 
 ;#-gcl(setf *debug-io* (make-two-way-stream *standard-input* *standard-output*))
 ;#+(or cmu sbcl scl)

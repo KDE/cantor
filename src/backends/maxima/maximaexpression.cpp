@@ -305,7 +305,7 @@ bool MaximaExpression::parseOutput(QString& out)
     QString textBuffer;
     QString latexBuffer;
 
-    Cantor::Result* result;
+    Cantor::Result* result=0;
     while(idx<out.size())
     {
         skipWhitespaces(&idx, out);

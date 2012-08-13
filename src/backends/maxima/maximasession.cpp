@@ -43,15 +43,12 @@ const QRegExp MaximaSession::MaximaPrompt=QRegExp("(<prompt>\\s<prompt>)"); //Te
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))"); //Text, maxima outputs, before any output
 
 
-static QString initCmd=":lisp-quiet ($load \"%1\") \n"\
-    "inchar:%I$\n"\
-    "outchar:%O$\n"\
-    "print(____END_OF_INIT____); \n\n";
+static QString initCmd=":lisp($load \"%1\")";
 
 MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
-    m_isInitialized=false;
+    m_initState=MaximaSession::NotInitialized;
     m_server=0;
     m_maxima=0;
     m_process=0;
@@ -121,9 +118,22 @@ void MaximaSession::newMaximaClient(QTcpSocket* socket)
     m_maxima=socket;
     connect(m_maxima, SIGNAL(readyRead()), this, SLOT(readStdOut()));
 
-    QString cmd=initCmd.arg(KStandardDirs::locate("appdata",   "maximabackend/cantor-initmaxima.lisp"));
+    QString initFile=KStandardDirs::locate("data",   "cantor/maximabackend/cantor-initmaxima.lisp");
+    kDebug()<<"initFile: "<<initFile;
+    QString cmd=initCmd.arg(initFile);
     kDebug()<<"sending cmd: "<<cmd<<endl;
-    m_maxima->write(cmd.toUtf8());
+
+    m_maxima->write(cmd.toLatin1());
+
+
+    Cantor::Expression* expr=evaluateExpression("print(____END_OF_INIT____);",
+                                                Cantor::Expression::DeleteOnFinish);
+
+    //move this expression to the front
+    m_expressionQueue.prepend(m_expressionQueue.takeLast());
+
+    m_initState=MaximaSession::Initializing;
+    runFirstExpression();
 }
 
 void MaximaSession::logout()
@@ -216,24 +226,15 @@ void MaximaSession::readStdOut()
 
     m_cache+=out;
 
+    /*
     if(m_cache.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____")))&&m_cache.contains("</prompt>"))
     {
-        kDebug()<<"initialized";
-        out.remove("____END_OF_INIT____");
 
-        m_isInitialized=true;
-        m_cache.clear();
-        runFirstExpression();
-
-        QTimer::singleShot(0, this, SLOT(killLabels()));
-
-        changeStatus(Cantor::Session::Done);
-
-        return;
     }
+    */
 
-    if(!m_isInitialized)
-        return;
+    //if(!m_initState==MaximaExpression::Initialized)
+    //    return;
 
 
     bool parsingSuccessfull=true;
@@ -275,6 +276,25 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
+    MaximaExpression* expression=m_expressionQueue.first();
+
+    if(m_initState==MaximaSession::Initializing)
+    {
+        kDebug()<<"initialized";
+
+        m_initState=MaximaSession::Initialized;
+        m_cache.clear();
+        runFirstExpression();
+
+        //QTimer::singleShot(0, this, SLOT(killLabels()));
+        killLabels();
+
+        changeStatus(Cantor::Session::Done);
+
+        return;
+    }
+
+
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
         kDebug()<<"expression finished";
@@ -293,9 +313,15 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 
 void MaximaSession::runFirstExpression()
 {
+    if(!m_maxima||m_initState==MaximaSession::NotInitialized)
+    {
+        kDebug()<<"not ready to run expression";
+        return;
+
+    }
     kDebug()<<"running next expression";
 
-    if(m_isInitialized&&!m_expressionQueue.isEmpty())
+    if(!m_expressionQueue.isEmpty())
     {
         MaximaExpression* expr=m_expressionQueue.first();
         QString command=expr->internalCommand();
@@ -355,7 +381,7 @@ void MaximaSession::restartMaxima()
         //If maxima finished, before the session was initialized
         //We try to use Legacy commands for startups (Maxima <5.18)
         //In this case, don't require the cooldown
-        if(!m_isInitialized)
+        if(m_initState!=MaximaSession::Initialized)
         {
             m_useLegacy=!m_useLegacy;
             kDebug()<<"Initializing maxima failed now trying legacy support: "<<m_useLegacy;

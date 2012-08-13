@@ -84,7 +84,8 @@ class MaximaSession : public Cantor::Session
     QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
 
-    bool m_isInitialized;
+    enum InitState{NotInitialized, Initializing, Initialized};
+    InitState m_initState;
     QString m_tmpPath;
 
     QTimer* m_restartCooldown;
