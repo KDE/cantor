@@ -127,13 +127,14 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
     kDebug() << size();
     const qreal scale = worksheet()->epsRenderer()->scale();
     QPixmap pixmap(size().toSize()*scale);
-    pixmap.fill(QColor(0,0,0,0));
+    pixmap.fill(QColor(0, 0, 0, 0));
     QPainter painter(&pixmap);
     painter.scale(scale, scale);
     QStyleOptionGraphicsItem styleOptions;
     styleOptions.rect = pixmap.rect();
     styleOptions.exposedRect = pixmap.rect();
-    paint(&painter, &styleOptions);
+    styleOptions.direction = worksheetView()->viewport()->layoutDirection();
+    paint(&painter, &styleOptions, worksheetView()->viewport());
 
     // paint all our descendents
     QList<int> indexStack;
@@ -159,7 +160,7 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
 	QGraphicsItem* child = children[i];
 	if (child->isVisible()) {
 	    painter.translate(child->x(), child->y());
-	    child->paint(&painter, &styleOptions);
+	    child->paint(&painter, &styleOptions, worksheetView()->viewport());
 	}
 	if (!child->childItems().isEmpty()) {
 	    indexStack.append(++i);

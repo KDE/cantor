@@ -41,7 +41,6 @@ class EpsRenderer
     enum FormulaType {LatexFormula = Cantor::LatexRenderer::LatexMethod,
 		      MmlFormula = Cantor::LatexRenderer::MmlMethod};
 
-    QPixmap render(const KUrl& url, QSizeF* size = 0);
     QTextImageFormat render(QTextDocument *document, const KUrl& url);
     QTextImageFormat render(QTextDocument *document, 
 			    const Cantor::LatexRenderer* latex);
