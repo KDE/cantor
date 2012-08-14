@@ -15,30 +15,47 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _ANIMATIONHANDLER_H
-#define _ANIMATIONHANDLER_H
+#include "worksheetcursor.h"
 
-#include <QTextObjectInterface>
-#include <QTextDocument>
-
-class AnimationHandler : public QObject, public QTextObjectInterface
+WorksheetCursor::WorksheetCursor()
 {
-    Q_OBJECT
-    Q_INTERFACES(QTextObjectInterface)
+    m_entry = 0;
+    m_textItem = 0;
+    m_textCursor = QTextCursor();
+}
 
-public:
-    enum {MovieProperty = QTextFormat::UserProperty+10};
-    AnimationHandler(QTextDocument *doc);
+WorksheetCursor::WorksheetCursor(WorksheetEntry* entry, WorksheetTextItem* item,
+				 const QTextCursor& cursor)
+{
+    m_entry = entry;
+    m_textItem = item;
+    m_textCursor = cursor;
+}
 
-    QSizeF intrinsicSize(QTextDocument *doc, int posInDoc, const QTextFormat &format);
+WorksheetCursor::~WorksheetCursor()
+{
+}
 
-    void drawObject(QPainter *painter, const QRectF &rect, QTextDocument *doc, int posInDoc, const QTextFormat &format);
+WorksheetEntry* WorksheetCursor::entry() const
+{
+    return m_entry;
+}
 
-private:
-    QTextObjectInterface *m_defaultAnimationHandler;
-};
+WorksheetTextItem* WorksheetCursor::textItem() const
+{
+    return m_textItem;
+}
 
-#endif /* _ANIMATIONHANDLER_H */
+QTextCursor WorksheetCursor::textCursor() const
+{
+    return m_textCursor;
+}
+
+bool WorksheetCursor::isValid() const
+{
+    return m_entry && m_textItem;
+}
+

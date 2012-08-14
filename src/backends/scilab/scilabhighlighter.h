@@ -26,7 +26,7 @@
 class ScilabHighlighter : public Cantor::DefaultHighlighter
 {
   public:
-    ScilabHighlighter(QTextEdit* edit);
+    ScilabHighlighter(QObject* parent);
     ~ScilabHighlighter();
 
   protected:

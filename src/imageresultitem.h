@@ -15,49 +15,41 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _RESULTCONTEXTMENU_H
-#define _RESULTCONTEXTMENU_H
+#ifndef IMAGERESULTITEM_H
+#define IMAGERESULTITEM_H
 
-#include <kmenu.h>
+#include "resultitem.h"
+#include "worksheetimageitem.h"
+#include "worksheetentry.h"
+#include "epsrenderer.h"
 
-class CommandEntry;
-namespace Cantor{
-    class Result;
-}
-
-/**
- * this is the Menu shown when Right clicking on a Result.
- *  It offers different options depending on the Type of the
- *  result.
- **/
-class ResultContextMenu : public KMenu
+class ImageResultItem : public WorksheetImageItem, public ResultItem
 {
   Q_OBJECT
   public:
-    ResultContextMenu( CommandEntry* entry, QWidget* parent);
-    ~ResultContextMenu();
+    ImageResultItem(QGraphicsObject* parent);
+    ~ImageResultItem();
 
-    CommandEntry* entry();
+    double setGeometry(double x, double y, double w);
+    void populateMenu(KMenu* menu, const QPointF& pos);
+
+    ResultItem* updateFromResult(Cantor::Result* result);
+    
+    QRectF boundingRect() const;
+
+    void deleteLater();
+    EpsRenderer* epsRenderer();
+    CommandEntry* parentEntry();
     Cantor::Result* result();
 
-  public slots:
-    void saveResult();
+  signals:
     void removeResult();
-    void latexToggleShowCode();
-    void animationPause();
-    void animationRestart();
 
-  private:
-    void addGeneralActions();
-    void addTypeSpecificActions();
-
-  private:
-    CommandEntry* m_entry;
-    Cantor::Result* m_result;
-
+  protected slots:
+    void saveResult();
 };
 
-#endif /* _RESULTCONTEXTMENU_H */
+#endif // IMAGERESULTITEM_H

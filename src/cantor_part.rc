@@ -4,34 +4,39 @@
   <Menu name="file">
     <Action name="file_save"/>
     <Action name="file_save_as"/>
+    <Action name="file_save_plain"/>
     <Action name="file_export_latex"/>
     <Action name="file_publish_worksheet"/>
     <Separator/>
     <Action name="file_print"/>
+  </Menu>
+  <Menu name="edit"><text>&amp;Edit</text>
+    <Action name="edit_find"/>
+    <Action name="edit_replace"/>
+    <Action name="edit_find_next"/>
+    <Action name="edit_find_prev"/>
   </Menu>
   <Menu name="view"><text>&amp;View</text>
     <Action name="view_zoom_in"/>
     <Action name="view_zoom_out"/>
     <Action name="show_editor"/>
   </Menu>
-  <Menu name="settings">
-    <Action name="enable_typesetting"/>
-    <Action name="enable_highlighting"/>
-    <Action name="enable_completion"/>
-    <Action name="enable_expression_numbers"/>
-  </Menu>
   <Menu name="worksheet"><text>&amp;Worksheet</text>
     <Action name="evaluate_worksheet"/>
     <Action name="evaluate_current"/>
     <Action name="insert_command_entry"/>
     <Action name="insert_text_entry"/>
-    <Action name="insert_image_entry"/>
+    <Action name="insert_latex_entry"/>
+    <Action name="insert_image"/>
     <Action name="insert_page_break_entry"/>
-    <!--<Action name="insert_command_entry_before"/>-->
-    <!--<Action name="insert_text_entry_before"/>-->
-    <!--<Action name="insert_image_entry_before"/>-->
-    <!--<Action name="insert_page_break_entry_before"/>-->
     <Action name="remove_current"/>
+  </Menu>
+  <Menu name="settings">
+    <Action name="enable_typesetting"/>
+    <Action name="enable_highlighting"/>
+    <Action name="enable_completion"/>
+    <Action name="enable_expression_numbers"/>
+    <Action name="enable_animations"/>
   </Menu>
   <Menu name="help">
     <Action name="backend_help"/>
@@ -39,9 +44,11 @@
   <Merge/>
 </MenuBar>
 <ToolBar name="mainToolBar">
+  <Action name="file_new"/>
   <Action name="file_open"/>
   <Action name="file_save"/>
   <Action name="file_print"/>
+  <Action name="edit_find"/>
   <Action name="evaluate_worksheet"/>
   <Action name="restart_backend"/>
   <Action name="backend_help"/>

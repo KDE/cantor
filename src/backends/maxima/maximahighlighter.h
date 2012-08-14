@@ -26,7 +26,7 @@
 class MaximaHighlighter : public Cantor::DefaultHighlighter
 {
   public:
-    MaximaHighlighter( QTextEdit* edit);
+    MaximaHighlighter( QObject* parent);
     ~MaximaHighlighter();
 
   protected:

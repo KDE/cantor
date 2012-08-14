@@ -16,24 +16,28 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _COMMANDENTRY_H
-#define _COMMANDENTRY_H
+#ifndef COMMANDENTRY_H
+#define COMMANDENTRY_H
+
+#include <QPointer>
+#include <KCompletionBox>
+#include <QGraphicsLinearLayout>
 
 #include "worksheetentry.h"
-#include <QObject>
+#include "worksheettextitem.h"
+#include "lib/expression.h"
 
 class Worksheet;
-class WorksheetEntry;
+class ResultItem;
 
-/**
-   An entry in the Worksheet. it contains:
-     1 Row to take command from the user
-     0+ Rows for addition questions/answers from the backend
-     0/1 Row for contextual help like Tab Completion offers
-     1 Row for the Result
- **/
+namespace Cantor{
+    class Result;
+    class CompletionObject;
+    class SyntaxHelpObject;
+}
 
 class CommandEntry : public WorksheetEntry
 {
@@ -41,18 +45,17 @@ class CommandEntry : public WorksheetEntry
   public:
     static const QString Prompt;
 
-    CommandEntry(QTextCursor position, Worksheet* parent);
+    CommandEntry(Worksheet* worksheet);
     ~CommandEntry();
 
-    enum {Type = 2};
-    int type();
+    enum {Type = UserType + 2};
+    int type() const;
 
     QString command();
     void setExpression(Cantor::Expression* expr);
     Cantor::Expression* expression();
 
-    //returns the line of the command cell, the textCursor is currently in
-    QString currentLine(const QTextCursor& cursor);
+    QString currentLine();
 
     bool isEmpty();
 
@@ -60,53 +63,37 @@ class CommandEntry : public WorksheetEntry
     void setContent(const QDomElement& content, const KZip& file);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
-    void showCompletion();
     void setCompletion(Cantor::CompletionObject* tc);
     void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
-    QTextTable* table();
-    QTextTableCell commandCell();
-    QTextTableCell actualInformationCell();
-    QTextTableCell resultCell();
-
-    void addInformation();
-
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    bool worksheetShortcutOverrideEvent(QKeyEvent* event, const QTextCursor& cursor);
-    bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
-    bool worksheetMousePressEvent(QMouseEvent* event, const QTextCursor& cursor);
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-
     bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
-
-    bool isInCurrentInformationCell(const QTextCursor& cursor);
-    bool isInCommandCell(const QTextCursor& cursor);
-    bool isInPromptCell(const QTextCursor& cursor);
-    bool isInResultCell(const QTextCursor& cursor);
-    bool isInErrorCell(const QTextCursor& cursor);
-
-    //checks if this entry has still anything needed (aka the user didn't delete anything
-    //like the prompt. Readd missing things
-    void checkForSanity();
 
     void removeContextHelp();
-    void removeResult();
 
-    bool evaluate(bool current);
-    bool evaluateCommand();
     void interruptEvaluation();
-
     bool isShowingCompletionPopup();
 
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
+
+    void layOutForWidth(double w, bool force = false);
+
+    WorksheetTextItem* highlightItem();
+
+    WorksheetCursor search(QString pattern, unsigned flags,
+			   QTextDocument::FindFlags qt_flags,
+			   const WorksheetCursor& pos = WorksheetCursor());
+
   public slots:
-    void update();
+    bool evaluateCurrentItem();
+    bool evaluate(EvaluationOption evalOp = FocusNext);
+    void addInformation();
+    void removeResult();
+
+    void showCompletion();
+    void selectPreviousCompletion();
+    void updateEntry();
     void updatePrompt();
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
@@ -115,6 +102,24 @@ class CommandEntry : public WorksheetEntry
     void completedLineChanged();
     void showSyntaxHelp();
     void completeLineTo(const QString& line, int index);
+
+    void startRemoving();
+
+    void moveToNextItem(int pos, qreal x);
+    void moveToPreviousItem(int pos, qreal x);
+
+    void populateMenu(KMenu *menu, const QPointF& pos);
+
+  protected:
+    bool wantToEvaluate();
+
+  private:
+    WorksheetTextItem* currentInformationItem();
+    bool informationItemHasFocus();
+    bool focusWithinThisItem();
+
+    QPoint toGlobalPosition(const QPointF& localPos);
+
   private:
     enum CompletionMode {
 	PreliminaryCompletion,
@@ -127,17 +132,21 @@ class CommandEntry : public WorksheetEntry
     void completeCommandTo(const QString& completion, CompletionMode mode = PreliminaryCompletion);
 
   private:
-    QTextTable* m_table;
-    QTextTableCell m_commandCell;
-    QTextTableCell m_contextHelpCell;
-    QList<QTextTableCell> m_informationCells;
-    QTextTableCell m_errorCell;
-    QTextTableCell m_resultCell;
+    static const double HorizontalSpacing;
+    static const double VerticalSpacing;
+
+    WorksheetTextItem* m_promptItem;
+    WorksheetTextItem* m_commandItem;
+    ResultItem* m_resultItem;
+    WorksheetTextItem* m_errorItem;
+    QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;
 
     Cantor::CompletionObject* m_completionObject;
     QPointer<KCompletionBox> m_completionBox;
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
+
+    EvaluationOption m_evaluationOption;
 };
 
-#endif /* _COMMANDENTRY_H */
+#endif // COMMANDENTRY_H

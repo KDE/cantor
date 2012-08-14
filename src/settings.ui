@@ -30,31 +30,6 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Completion Style:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KComboBox" name="kcfg_CompletionStyle">
-       <item>
-        <property name="text">
-         <string>Popup</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Inline</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="QCheckBox" name="kcfg_AutoEval">
      <property name="toolTip">
       <string>When enabled, Cantor will automatically evaluate every entry below the current one.</string>
@@ -97,6 +72,13 @@
          <widget class="QCheckBox" name="kcfg_ExpressionNumberingDefault">
           <property name="text">
            <string>Enable Line Numbers</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="kcfg_AnimationDefault">
+          <property name="text">
+           <string>Enable Worksheet Animations</string>
           </property>
          </widget>
         </item>

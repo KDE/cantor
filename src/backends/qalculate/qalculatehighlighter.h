@@ -24,7 +24,7 @@
 class QalculateHighlighter : public Cantor::DefaultHighlighter
 {
 public:
-    QalculateHighlighter(QTextEdit* parent);
+    QalculateHighlighter(QObject* parent);
     ~QalculateHighlighter();
 
 protected:

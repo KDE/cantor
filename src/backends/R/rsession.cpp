@@ -72,8 +72,10 @@ void RSession::logout()
 
 void RSession::interrupt()
 {
-    kDebug()<<"interrupt";
-    kill(m_rProcess->pid(), 2);
+    kDebug()<<"interrupt" << m_rProcess->pid();
+    if (m_rProcess->pid())
+	kill(m_rProcess->pid(), 2);
+    m_expressionQueue.removeFirst();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -99,7 +101,7 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command, int in
     return cmp;
 }
 
-QSyntaxHighlighter* RSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
 {
     RHighlighter *h=new RHighlighter(parent);
     connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));
@@ -160,6 +162,8 @@ void RSession::serverChangedStatus(int status)
 
 void RSession::runNextExpression()
 {
+    if (m_expressionQueue.isEmpty())
+	return;
     disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
     disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
     disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);

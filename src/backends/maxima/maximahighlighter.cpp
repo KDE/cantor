@@ -24,7 +24,7 @@
 #include <QTextEdit>
 #include <kdebug.h>
 
-MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
+MaximaHighlighter::MaximaHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
     addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
 

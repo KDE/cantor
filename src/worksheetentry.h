@@ -15,96 +15,158 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _WORKSHEETENTRY_H
-#define _WORKSHEETENTRY_H
+#ifndef WORKSHEETENTRY_H
+#define WORKSHEETENTRY_H
 
-#include <QObject>
-#include <QTextTableCell>
-#include <QPointer>
-#include <QKeyEvent>
-#include <kmenu.h>
-#include "lib/expression.h"
+#include <QGraphicsObject>
+#include <QGraphicsSceneContextMenuEvent>
 
-namespace Cantor{
-    class Expression;
-    class Result;
-    class CompletionObject;
-    class SyntaxHelpObject;
-}
-class Worksheet;
-class KCompletionBox;
+#include "worksheet.h"
+#include "worksheettextitem.h"
+#include "worksheetcursor.h"
 
-class WorksheetEntry : public QObject
+class TextEntry;
+class CommandEntry;
+class ImageEntry;
+class PageBreakEntry;
+class LaTeXEntry;
+
+class WorksheetTextItem;
+class ActionBar;
+
+class QPainter;
+class QWidget;
+class QPropertyAnimation;
+
+struct AnimationData;
+
+class WorksheetEntry : public QGraphicsObject
 {
   Q_OBJECT
   public:
-    WorksheetEntry(QTextCursor position, Worksheet* parent);
-    ~WorksheetEntry();
+    WorksheetEntry(Worksheet* worksheet);
+    virtual ~WorksheetEntry();
 
-    enum {Type = 0};
+    enum {Type = UserType};
 
-    virtual int type();
+    virtual int type() const;
 
     virtual bool isEmpty()=0;
 
-    virtual void setActive(bool active, bool moveCursor);
+    static WorksheetEntry* create(int t, Worksheet* worksheet);
 
-    int firstPosition();
-    int lastPosition();
-    QTextCursor firstCursorPosition();
-    QTextCursor lastCursorPosition();
-    bool contains(const QTextCursor& cursor);
+    WorksheetEntry* next() const;
+    WorksheetEntry* previous() const;
 
-    virtual QTextCursor closestValidCursor(const QTextCursor& cursor)=0;
-    virtual QTextCursor firstValidCursorPosition()=0;
-    virtual QTextCursor lastValidCursorPosition()=0;
-    int firstValidPosition();
-    int lastValidPosition();
-    virtual bool isValidCursor(const QTextCursor& cursor)=0;
+    void setNext(WorksheetEntry*);
+    void setPrevious(WorksheetEntry*);
 
-    // Handlers for the worksheet input events affecting worksheetentries
-    virtual bool worksheetShortcutOverrideEvent(QKeyEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetMousePressEvent(QMouseEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-    virtual bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
+    QRectF boundingRect() const;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
 
-    virtual bool acceptRichText()=0;
-    virtual bool acceptsDrop(const QTextCursor& cursor)=0;
+    virtual bool acceptRichText() = 0;
 
     virtual void setContent(const QString& content)=0;
     virtual void setContent(const QDomElement& content, const KZip& file)=0;
 
     virtual QDomElement toXml(QDomDocument& doc, KZip* archive)=0;
-    virtual QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)=0;
+    virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
     virtual void interruptEvaluation()=0;
 
-    virtual bool evaluate(bool current)=0;
-
-    virtual void checkForSanity();
-
     virtual void showCompletion();
 
-  signals:
-    void leftmostValidPositionReached();
-    void rightmostValidPositionReached();
-    void topmostValidLineReached();
-    void bottommostValidLineReached();
+    virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
+
+    virtual qreal setGeometry(qreal x, qreal y, qreal w);
+    virtual void layOutForWidth(qreal w, bool force = false) = 0;
+    QPropertyAnimation* sizeChangeAnimation(QSizeF s = QSizeF());
+
+    virtual void populateMenu(KMenu *menu, const QPointF& pos);
+
+    bool aboutToBeRemoved();
+    QSizeF size();
+
+    enum EvaluationOption {
+	DoNothing, FocusNext, EvaluateNext
+    };
+
+    virtual WorksheetTextItem* highlightItem();
+
+    bool hasActionBar();
+
+    enum SearchFlag {SearchCommand=1, SearchResult=2, SearchError=4,
+		     SearchText=8, SearchLaTeX=16, SearchAll=31};
+
+    virtual WorksheetCursor search(QString pattern, unsigned flags,
+				   QTextDocument::FindFlags qt_flags,
+				   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
-    virtual void update()=0;
+    virtual bool evaluate(EvaluationOption evalOp = FocusNext) = 0;
+    virtual bool evaluateCurrentItem();
+    virtual void updateEntry() = 0;
+    virtual void sizeAnimated();
+    virtual void startRemoving();
+    bool stopRemoving();
+    void moveToPreviousEntry(int pos = WorksheetTextItem::BottomRight, qreal x = 0);
+    void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
+    void recalculateSize();
+
+    // similiar to recalculateSize, but the size change is animated
+    void animateSizeChange();
+    // animate the size change and the opacity of item
+    void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
+    void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
+    void endAnimation();
+
+    void showActionBar();
+    void hideActionBar();
+
+    void startDrag(const QPointF& grabPos = QPointF());
+
+  signals:
+    void aboutToBeDeleted();
 
   protected:
-    void createSubMenuInsert(KMenu* menu);
+    Worksheet* worksheet();
+    WorksheetView* worksheetView();
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void keyPressEvent(QKeyEvent *event);
+    void evaluateNext(EvaluationOption opt);
+
+    void setSize(QSizeF size);
+
+    bool animationActive();
+    void updateSizeAnimation(const QSizeF& size);
+
+    void invokeSlotOnObject(const char* slot, QObject* obj);
+
+    virtual void addActionsToBar(ActionBar* actionBar);
+
+    virtual bool wantToEvaluate() = 0;
+    virtual bool wantFocus();
+
+  protected slots:
+    virtual void remove();
+    void deleteActionBar();
+    void deleteActionBarAnimation();
 
   protected:
-    QTextFrame* m_frame;
-    Worksheet* m_worksheet;
+    static const qreal VerticalMargin;
+
+  private:
+    QSizeF m_size;
+    WorksheetEntry* m_prev;
+    WorksheetEntry* m_next;
+    Q_PROPERTY(QSizeF size READ size WRITE setSize);
+    AnimationData* m_animation;
+    ActionBar* m_actionBar;
+    QPropertyAnimation* m_actionBarAnimation;
+    bool m_aboutToBeRemoved;
 };
 
-#endif /* _WORKSHEETENTRY_H */
+#endif // WORKSHEETENTRY_H

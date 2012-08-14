@@ -9,14 +9,6 @@
       <label>The Backend that is used by default</label>
       <default></default>
     </entry>
-    <entry name="CompletionStyle" type="Enum">
-      <label>The style used for Completion</label>
-      <choices name="CompletionStyle">
-	<choice name="PopupCompletion" />
-	<choice name="InlineCompletion" />
-      </choices>
-      <default>PopupCompletion</default>
-    </entry>
     <entry name="TypesetDefault" type="Bool">
       <label>Do Typesetting by default</label>
       <default>true</default>
@@ -32,6 +24,10 @@
     <entry name="ExpressionNumberingDefault" type="Bool">
       <label>Enable Numbering of Expressions by default</label>
       <default>false</default>
+    </entry>
+    <entry name="AnimationDefault" type="Bool">
+      <label>Animate changes in the Worksheet by default</label>
+      <default>true</default>
     </entry>
     <entry name="AutoEval" type="Bool">
       <label>Automatically reevaluate the entries below the current</label>
