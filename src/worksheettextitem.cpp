@@ -290,6 +290,8 @@ QRectF WorksheetTextItem::cursorRect(QTextCursor cursor) const
     QTextCursor startCursor = cursor;
     startCursor.setPosition(cursor.selectionStart());
     QTextBlock block = startCursor.block();
+    if (!block.layout())
+	return mapRectToScene(boundingRect());
     int p = startCursor.position() - block.position();
     QTextLine line = block.layout()->lineForTextPosition(p);
     QRectF r1(line.cursorToX(p), line.y(), 1, line.height()+line.leading());
