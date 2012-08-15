@@ -59,7 +59,7 @@ void SearchBar::showStandard()
     delete m_extUi;
     m_extUi = 0;
     foreach(QObject* child, children()) {
-	child->deleteLater();
+	delete child;
     }
     delete layout();
     m_stdUi = new Ui::StandardSearchBar();
