@@ -117,9 +117,6 @@ void WorksheetImageItem::paint(QPainter *painter,
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
-    kDebug() << option->exposedRect << option->direction << option->palette
-	     << option->rect << option->state << option->type;
-    kDebug() << widget;
     painter->drawPixmap(QRectF(QPointF(0,0), m_size), m_pixmap,
 			m_pixmap.rect());
 }

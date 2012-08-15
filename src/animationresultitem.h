@@ -51,6 +51,8 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
 
   protected slots:
     void saveResult();
+    void stopMovie();
+    void pauseMovie();
 
   private:
     void setMovie(QMovie* movie);

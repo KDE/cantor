@@ -25,6 +25,7 @@
 
 #include <KFileDialog>
 #include <KDebug>
+#include <KLocale>
 
 AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
     : WorksheetImageItem(parent), ResultItem(), m_height(0), m_movie(0)
@@ -50,6 +51,18 @@ void AnimationResultItem::populateMenu(KMenu* menu, const QPointF& pos)
     addCommonActions(this, menu);
 
     menu->addSeparator();
+    if (m_movie) {
+	if (m_movie->state() == QMovie::Running)
+	    menu->addAction(KIcon("media-playback-pause"), i18n("Pause"),
+			    this, SLOT(pauseMovie()));
+	else
+	    menu->addAction(KIcon("media-playback-start"), i18n("Start"),
+			    m_movie, SLOT(start()));
+	if (m_movie->state() == QMovie::Running ||
+	    m_movie->state() == QMovie::Paused)
+	    menu->addAction(KIcon("media-playback-stop"), i18n("Stop"),
+			    this, SLOT(stopMovie()));
+    }
     kDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
@@ -81,15 +94,19 @@ void AnimationResultItem::setMovie(QMovie* movie)
     }
     m_movie = movie;
     m_height = 0;
-    connect(m_movie, SIGNAL(frameChanged(int)), this,
-	    SLOT(updateFrame()));
-    connect(m_movie, SIGNAL(resized(const QSize&)), 
-	    this, SLOT(updateSize(const QSize&)));
+    if (m_movie) {
+	connect(m_movie, SIGNAL(frameChanged(int)), this,
+		SLOT(updateFrame()));
+	connect(m_movie, SIGNAL(resized(const QSize&)),
+		this, SLOT(updateSize(const QSize&)));
+	m_movie->start();
+    }
 }
 
 void AnimationResultItem::updateFrame()
 {
     setImage(m_movie->currentImage());
+    worksheet()->update(mapRectToScene(boundingRect()));
 }
 
 void AnimationResultItem::updateSize(const QSize& size)
@@ -106,6 +123,21 @@ void AnimationResultItem::saveResult()
     const QString& filename=KFileDialog::getSaveFileName(KUrl(), res->mimeType(), worksheet()->worksheetView());
     kDebug()<<"saving result to "<<filename;
     res->save(filename);
+}
+
+void AnimationResultItem::stopMovie()
+{
+    if (m_movie) {
+	m_movie->stop();
+	m_movie->jumpToFrame(0);
+	worksheet()->update(mapRectToScene(boundingRect()));
+    }
+}
+
+void AnimationResultItem::pauseMovie()
+{
+    if (m_movie)
+	m_movie->setPaused(true);
 }
 
 void AnimationResultItem::deleteLater()
