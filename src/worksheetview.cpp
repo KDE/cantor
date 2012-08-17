@@ -47,7 +47,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
 {
     const qreal w = viewport()->width() / m_scale;
     const qreal h = viewport()->height() / m_scale;
-    
+
     qreal x,y;
     if (m_animation) {
 	x = m_hAnimation->endValue().toReal();
@@ -56,7 +56,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
 	if (QRectF(x,y,w,h).contains(rect))
 	    return;
     }
-    
+
     if (horizontalScrollBar())
 	x = horizontalScrollBar()->value();
     else
@@ -67,10 +67,10 @@ void WorksheetView::makeVisible(const QRectF& rect)
 	y = 0;
 
     kDebug() << rect << QRectF(x,y,w,h);
-    
+
     if (!m_animation && QRectF(x,y,w,h).contains(rect))
 	return;
-    
+
     qreal nx, ny;
     if (y > rect.y() || rect.height() > h)
 	ny = rect.y();
@@ -90,7 +90,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
 	    verticalScrollBar()->setValue(ny);
 	return;
     }
-    
+
     if (!m_animation)
 	m_animation = new QParallelAnimationGroup(this);
 
@@ -116,7 +116,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
     } else {
 	m_hAnimation = 0;
     }
-	
+
     if (verticalScrollBar()) {
 	if (!m_vAnimation) {
 	    m_vAnimation = new QPropertyAnimation(verticalScrollBar(),
@@ -149,7 +149,7 @@ bool WorksheetView::isVisible(const QRectF& rect)
 {
     const qreal w = viewport()->width() / m_scale;
     const qreal h = viewport()->height() / m_scale;
-    
+
     qreal x,y;
     if (m_animation) {
 	x = m_hAnimation->endValue().toReal();
@@ -164,7 +164,7 @@ bool WorksheetView::isVisible(const QRectF& rect)
 	else
 	    y = 0;
     }
-    
+
     return QRectF(x,y,w,h).contains(rect);
 }
 
@@ -182,6 +182,28 @@ void WorksheetView::scrollToEnd()
 	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 }
 
+void WorksheetView::scrollBy(int dy)
+{
+    if (!verticalScrollBar())
+	return;
+
+    int ny = verticalScrollBar()->value() + dy;
+    if (ny < 0)
+	ny = 0;
+    else if (ny > verticalScrollBar()->maximum())
+	ny = verticalScrollBar()->maximum();
+
+    int x;
+    if (horizontalScrollBar())
+	x = horizontalScrollBar()->value();
+    else
+	x = 0;
+
+    const qreal w = viewport()->width() / m_scale;
+    const qreal h = viewport()->height() / m_scale;
+    makeVisible(QRectF(x, ny, w, h));
+}
+
 void WorksheetView::endAnimation()
 {
     if (!m_animation)
@@ -193,10 +215,14 @@ void WorksheetView::endAnimation()
     m_animation = 0;
 }
 
+QPoint WorksheetView::viewCursorPos()
+{
+    return viewport()->mapFromGlobal(QCursor::pos());
+}
+
 QPointF WorksheetView::sceneCursorPos()
 {
-    const QPoint viewPos = viewport()->mapFromGlobal(QCursor::pos());
-    return mapToScene(viewPos);
+    return mapToScene(viewCursorPos());
 }
 
 void WorksheetView::resizeEvent(QResizeEvent * event)

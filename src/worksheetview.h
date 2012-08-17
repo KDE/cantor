@@ -39,7 +39,9 @@ class WorksheetView : public QGraphicsView
     bool isVisible(const QRectF& rect);
     bool isAtEnd();
     void scrollToEnd();
+    void scrollBy(int dy); 
 
+    QPoint viewCursorPos();
     QPointF sceneCursorPos();
 
     void resizeEvent(QResizeEvent* event);

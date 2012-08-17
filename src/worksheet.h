@@ -165,6 +165,8 @@ class Worksheet : public QGraphicsScene
 
     void updateFocusedTextItem(WorksheetTextItem* item);
 
+    void updateDragScrollTimer();
+
     // richtext
     void setRichTextInformation(const RichTextInfo&);
     void setAcceptRichText(bool b);
@@ -227,6 +229,7 @@ class Worksheet : public QGraphicsScene
     PlaceHolderEntry* m_placeholderEntry;
     QGraphicsItem* m_focusItem;
     QTimer* m_actionBarTimer;
+    QTimer* m_dragScrollTimer;
 
     double m_viewWidth;
     double m_protrusion;

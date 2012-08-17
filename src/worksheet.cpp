@@ -71,6 +71,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_viewWidth = 0;
     m_protrusion = 0;
     m_actionBarTimer = 0;
+    m_dragScrollTimer = 0;
 
     m_isPrinting = false;
     m_loginFlag = true;
@@ -1113,7 +1114,7 @@ void Worksheet::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 		SLOT(showActionBar()));
 	m_actionBarTimer->start();
     }
-    
+
     WorksheetEntry* oldEntry = entryAt(event->lastScenePos());
     if (oldEntry && oldEntry != entry)
 	oldEntry->hideActionBar();
@@ -1532,6 +1533,19 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 	    oldPlaceHolder->startRemoving();
 	updateLayout();
     }
+
+    const QPoint viewPos = worksheetView()->mapFromScene(pos);
+    const int viewHeight = worksheetView()->viewport()->height();
+    if ((viewPos.y() < 10 || viewPos.y() > viewHeight - 10) &&
+	!m_dragScrollTimer) {
+	m_dragScrollTimer = new QTimer(this);
+	m_dragScrollTimer->setSingleShot(true);
+	m_dragScrollTimer->setInterval(100);
+	connect(m_dragScrollTimer, SIGNAL(timeout()), this,
+		SLOT(updateDragScrollTimer()));
+	m_dragScrollTimer->start();
+    }
+
     event->accept();
 }
 
@@ -1542,5 +1556,27 @@ void Worksheet::dropEvent(QGraphicsSceneDragDropEvent* event)
     event->accept();
 }
 
+void Worksheet::updateDragScrollTimer()
+{
+    if (!m_dragScrollTimer)
+	return;
+
+    const QPoint viewPos = worksheetView()->viewCursorPos();
+    const QWidget* viewport = worksheetView()->viewport();
+    const int viewHeight = viewport->height();
+    if (!m_dragEntry || !(viewport->rect().contains(viewPos)) ||
+	(viewPos.y() >= 10 && viewPos.y() <= viewHeight - 10)) {
+	delete m_dragScrollTimer;
+	m_dragScrollTimer = 0;
+	return;
+    }
+
+    if (viewPos.y() < 10)
+	worksheetView()->scrollBy(-10*(10 - viewPos.y()));
+    else
+	worksheetView()->scrollBy(10*(viewHeight - viewPos.y()));
+
+    m_dragScrollTimer->start();
+}
 
 #include "worksheet.moc"
