@@ -115,8 +115,10 @@ bool CantorShell::hasAvailableBackend()
 
 void CantorShell::setupActions()
 {
-    KStandardAction::openNew(this, SLOT(fileNew()), actionCollection());
-    KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
+    KAction* openNew = KStandardAction::openNew(this, SLOT(fileNew()), actionCollection());
+    openNew->setPriority(QAction::LowPriority);
+    KAction* open = KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
+    open->setPriority(QAction::LowPriority);
 
     KStandardAction::close (this,  SLOT(closeTab()),  actionCollection());
 

@@ -15,51 +15,64 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _LATEXENTRY_H
-#define _LATEXENTRY_H
+#ifndef LATEXENTRY_H
+#define LATEXENTRY_H
 
 #include "worksheetentry.h"
+#include "worksheettextitem.h"
 
 class LatexEntry : public WorksheetEntry
 {
+  Q_OBJECT
+
   public:
-    LatexEntry( QTextCursor position, Worksheet* parent);
+    LatexEntry(Worksheet* worksheet);
     ~LatexEntry();
 
-    enum {Type = 5};
-    int type();
+    enum {Type = UserType + 5};
+    int type() const;
 
     bool isEmpty();
 
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-    bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
-
     bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
+
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
     void interruptEvaluation();
 
-    bool evaluate(bool current);
+    void layOutForWidth(double w, bool force = false);
+
+    int searchText(QString text, QString pattern,
+		   QTextDocument::FindFlags qt_flags);
+    WorksheetCursor search(QString pattern, unsigned flags,
+			   QTextDocument::FindFlags qt_flags,
+			   const WorksheetCursor& pos = WorksheetCursor());
+
   public slots:
-    void update();
+    bool evaluate(EvaluationOption evalOp = FocusNext);
+    void resolveImagesAtCursor();
+    void updateEntry();
+    void populateMenu(KMenu *menu, const QPointF& pos);
+
+  protected:
+    bool wantToEvaluate();
 
   private:
-    bool m_isShowingCode;
+    QString latexCode();
+    bool isOneImageOnly();
 
+  private:
+    WorksheetTextItem* m_textItem;
 };
 
-#endif /* _LATEXENTRY_H */
+#endif // LATEXENTRY_H

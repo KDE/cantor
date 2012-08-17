@@ -15,57 +15,74 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _TEXTENTRY_H
-#define _TEXTENTRY_H
+#ifndef TEXTENTRY_H
+#define TEXTENTRY_H
+
+#include <QString>
+#include <QDomElement>
+#include <QDomDocument>
+#include <KZip>
+#include <QTextCursor>
 
 #include "worksheetentry.h"
-#include <QObject>
-
-class Worksheet;
-class WorksheetEntry;
-class KZip;
+#include "worksheettextitem.h"
 
 class TextEntry : public WorksheetEntry
 {
   Q_OBJECT
   public:
-    TextEntry(QTextCursor position, Worksheet* parent);
+    TextEntry(Worksheet* worksheet);
     ~TextEntry();
 
-    enum {Type = 1};
-    int type();
+    enum {Type = UserType + 1};
+    int type() const;
 
     bool isEmpty();
 
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-    bool worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor);
-
     bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
+
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord=0);
+
+    // do we need/get this?
+    //bool worksheetContextMenuEvent(...);
+    //void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
     void interruptEvaluation();
 
-    bool evaluate(bool current);
+    void layOutForWidth(double w, bool force = false);
+
+    int searchText(QString text, QString pattern,
+		   QTextDocument::FindFlags qt_flags);
+    WorksheetCursor search(QString pattern, unsigned flags,
+			   QTextDocument::FindFlags qt_flags,
+			   const WorksheetCursor& pos = WorksheetCursor());
+
   public slots:
-    void update();
+    bool evaluate(EvaluationOption evalOp = FocusNext);
+    void resolveImagesAtCursor();
+    void updateEntry();
+    void populateMenu(KMenu *menu, const QPointF& pos);
+
+  protected:
+    bool wantToEvaluate();
+
   private:
-    QTextCursor findLatexCode(QTextDocument *doc) const;
-    void showLatexCode(QTextCursor cursor);
+    QTextCursor findLatexCode(QTextCursor cursor = QTextCursor()) const;
+    QString showLatexCode(QTextCursor cursor);
+
+  private:
+    WorksheetTextItem* m_textItem;
 
 };
 
-#endif /* _TEXTENTRY_H */
+#endif //TEXTENTRY_H

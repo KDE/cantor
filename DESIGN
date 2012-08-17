@@ -38,27 +38,17 @@ Some notes:
 
 The Worksheet:
 
-Cantors worksheet is implemented as a KTextEdit, as it allows easy editing of text and images.
-It is quite heavily customized, to behave like a Worksheet. The relevant code is in the 
-Worksheet and WorksheetEntry classes.
-Each entry in the worksheet is represented by it's own WorksheetEntry. An entry contains a table
-in which all the information is stored. There are several rows/cells, each with its own purpose:
+Cantor's worksheet is implemented as a QGraphicsScene (the Worksheet class) with a corresponding QGraphicsView (the WorksheetView class).
+Each entry in the worksheet is represented by its own WorksheetEntry, which is a subclass of QGraphicsObject.
+The entries can have child items to display text (WorksheetTextItem) or images (WorksheetImageItem). The layout of
+these child items is defined in WorksheetEntry::layOutForWidth(double width, bool force).
+To display the calculation results the special items TextResultItem, ImageResultItem and AnimationResultItem are available.
 
-_______________________
-| prompt     | command |
-------------------------
-| question   | answer  |  <---- optionally one or more lines for additional questions asked by the backend (see interactive mode)
------------------------
-|       result         |  <---- a row dedicated to the result of the computation ( text, image etc).
------------------------
-
-The WorksheetEntry holds an Expression object, and reacts on it's status changes, and arriving results.
+The WorksheetEntry holds an Expression object, and reacts on its status changes, and arriving results.
 Also it is in charge of requesting Completions or SyntaxHelp.
 
-To allow different results than simple images or text in the Worksheet (e.g. eps graphics) there is
-a Class called ResultProxy, that translates between the Result class(from the lib) to a format 
-QTextEdit understands. For example it renders eps files to a pixmap, and lets QTextDocument embed
-that image.
+The worksheet also stores one instance of the EpsRenderer, which is used whenever eps images need to be displayed,
+e.g. in LaTeX results.
 
 Note: The HelpResult is not handled by the Entry, but by the Worksheet, and it forwards
 it's content outside of the part using a signal. So the CantorShell can show it in the 

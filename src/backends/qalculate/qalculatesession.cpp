@@ -102,7 +102,7 @@ Cantor::SyntaxHelpObject* QalculateSession::syntaxHelpFor(const QString& cmd)
     return new QalculateSyntaxHelpObject(cmd, this);
 }
 
-QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QObject* parent)
 {
     return new QalculateHighlighter(parent);
 }

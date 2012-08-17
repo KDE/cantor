@@ -15,12 +15,16 @@
     <Action name="file_close"/>
     <Action name="file_quit"/>
   </Menu>
+  <Menu name="edit"><text>&amp;Edit</text>
+    <Merge/>
+  </Menu>
   <Menu name="view"><text>&amp;View</text>
     <Merge/>
     <Menu name="panels"><text>Panels</text>
       <ActionList name="view_show_panel_list" />
     </Menu>
   </Menu>
+  <Merge/>
   <Menu  name="settings"><text>&amp;Settings</text>
     <Action name="options_show_toolbar"/>
     <Action name="options_show_statusbar"/>
@@ -33,13 +37,8 @@
     <Separator/>
     <Merge/>
   </Menu>
-  <Merge/>
   <Menu name="help">
     <Merge />
   </Menu>
 </MenuBar>
-<ToolBar name="mainToolBar"><text>Main Toolbar</text>
-  <Action name="file_new"/>
-  <Merge/>
-</ToolBar>
 </kpartgui>

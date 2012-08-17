@@ -62,7 +62,7 @@ class MaximaSession : public Cantor::Session
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
-    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
   public slots:
     void readStdOut();

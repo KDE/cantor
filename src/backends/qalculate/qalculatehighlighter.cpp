@@ -28,7 +28,7 @@
 #include <KGlobal>
 #include <KLocale>
 
-QalculateHighlighter::QalculateHighlighter(QTextEdit* parent)
+QalculateHighlighter::QalculateHighlighter(QObject* parent)
     : Cantor::DefaultHighlighter(parent)
 {
 }

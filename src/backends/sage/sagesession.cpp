@@ -293,7 +293,7 @@ Cantor::CompletionObject* SageSession::completionFor(const QString& command, int
     return new SageCompletionObject(command, index, this);
 }
 
-QSyntaxHighlighter* SageSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* SageSession::syntaxHighlighter(QObject* parent)
 {
     return new SageHighlighter(parent);
 }

@@ -28,7 +28,7 @@ class RHighlighter : public Cantor::DefaultHighlighter
   Q_OBJECT
 
   public:
-    RHighlighter( QTextEdit* edit);
+    RHighlighter( QObject* parent);
     ~RHighlighter();
 
   protected:

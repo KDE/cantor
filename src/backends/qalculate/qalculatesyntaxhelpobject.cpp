@@ -142,6 +142,8 @@ void QalculateSyntaxHelpObject::fetchInformation()
         QString desc = QString("<p>%1</p>").arg(item->description().c_str());
 
         m_answer = title + desc + syntax + arguments;
+	setHtml("<p style='white-space:pre'>"+syntax+"</p>");
+	emit done();
     }
 }
 

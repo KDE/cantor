@@ -45,8 +45,11 @@
 #include <QtGui/QTextEdit>
 #include <QtGui/QPrinter>
 #include <QtGui/QPrintDialog>
+#include <QtGui/QVBoxLayout>
 
 #include "worksheet.h"
+#include "worksheetview.h"
+#include "searchbar.h"
 #include "scripteditorwidget.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -90,30 +93,57 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
-    m_worksheet=new Worksheet(b, parentWidget);
-    m_worksheet->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
+    QWidget* widget = new QWidget(parentWidget);
+    QVBoxLayout* layout = new QVBoxLayout(widget);
+    m_worksheet=new Worksheet(b, widget);
+    m_worksheetview=new WorksheetView(m_worksheet, widget);
+    m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
 
+    m_searchBar = 0;
+    layout->addWidget(m_worksheetview);
     // notify the part that this is our internal widget
-    setWidget(m_worksheet);
+    setWidget(widget);
 
     // create our actions
-    m_worksheet->createActions( actionCollection() );
+    m_worksheet->createActions(actionCollection());
 
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
+    m_save->setPriority(QAction::LowPriority);
+
+    KAction* savePlain=new KAction(i18n("Save Plain Text"), actionCollection());
+    actionCollection()->addAction("file_save_plain", savePlain);
+    savePlain->setIcon(KIcon("document-save"));
+    connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
+
+    KAction* find=KStandardAction::find(this, SLOT(showSearchBar()),
+					actionCollection());
+    find->setPriority(QAction::LowPriority);
+
+    KAction* replace=KStandardAction::replace(this, SLOT(showExtendedSearchBar()),
+					      actionCollection());
+    replace->setPriority(QAction::LowPriority);
+
+    m_findNext = KStandardAction::findNext(this, SLOT(findNext()),
+					   actionCollection());
+    m_findNext->setEnabled(false);
+    m_findPrev = KStandardAction::findPrev(this, SLOT(findPrev()),
+					   actionCollection());
+    m_findPrev->setEnabled(false);
 
     KAction* latexExport=new KAction(i18n("Export to LaTeX"), actionCollection());
     actionCollection()->addAction("file_export_latex", latexExport);
     latexExport->setIcon(KIcon("document-export"));
     connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
 
-    KStandardAction::print(this, SLOT(print()), actionCollection());
+    KAction* print = KStandardAction::print(this, SLOT(print()), actionCollection());
+    print->setPriority(QAction::LowPriority);
 
-    KStandardAction::zoomIn(m_worksheet, SLOT(zoomIn()), actionCollection());
-    KStandardAction::zoomOut(m_worksheet, SLOT(zoomOut()), actionCollection());
+    KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
+    KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());
 
     m_evaluate=new KAction(i18n("Evaluate Worksheet"), actionCollection());
     actionCollection()->addAction("evaluate_worksheet", m_evaluate);
@@ -140,6 +170,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction("enable_expression_numbers", m_exprNumbering);
     connect(m_exprNumbering, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableExpressionNumbering(bool)));
 
+    m_animateWorksheet=new KToggleAction(i18n("Animate Worksheet"), actionCollection());
+    m_animateWorksheet->setChecked(Settings::self()->animationDefault());
+    actionCollection()->addAction("enable_animations", m_animateWorksheet);
+    connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
+
     KAction* restart=new KAction(i18n("Restart Backend"), actionCollection());
     actionCollection()->addAction("restart_backend", restart);
     restart->setIcon(KIcon("system-reboot"));
@@ -160,6 +195,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction("insert_text_entry",  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
+    KAction* insertLatexEntry=new KAction(i18n("Insert Latex Entry"), actionCollection());
+    //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
+    actionCollection()->addAction("insert_latex_entry",  insertLatexEntry);
+    connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
+
     KAction* insertPageBreakEntry=new KAction(i18n("Insert Page Break"), actionCollection());
     actionCollection()->addAction("insert_page_break_entry", insertPageBreakEntry);
     connect(insertPageBreakEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntry()));
@@ -167,6 +207,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     KAction* insertImageEntry=new KAction(i18n("Insert Image"), actionCollection());
     actionCollection()->addAction("insert_image_entry", insertImageEntry);
     connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
+
 
     /*
     KAction* insertCommandEntryBefore=new KAction(i18n("Insert Command Entry Before"), actionCollection());
@@ -234,12 +275,14 @@ CantorPart::~CantorPart()
         disconnect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
         delete m_scriptEditor;
     }
+    if (m_searchBar)
+	delete m_searchBar;
 }
 
 void CantorPart::setReadWrite(bool rw)
 {
     // notify your internal widget of the read-write state
-    m_worksheet->setReadOnly(!rw);
+    m_worksheetview->setInteractive(rw);
 
     ReadWritePart::setReadWrite(rw);
 }
@@ -300,13 +343,7 @@ bool CantorPart::saveFile()
     if (url().isEmpty())
         fileSaveAs();
     else
-    {
-        if(url().fileName().endsWith(QLatin1String(".cws")) || url().fileName().endsWith(QLatin1String(".mws")))
-            m_worksheet->save( localFilePath() );
-        else
-            m_worksheet->savePlain( localFilePath());
-
-    }
+	m_worksheet->save( localFilePath() );
     setModified(false);
 
     return true;
@@ -326,10 +363,21 @@ void CantorPart::fileSaveAs()
     }
 
     QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
-    if (file_name.isEmpty() == false)
+    if (!file_name.isEmpty()) {
+	if (!file_name.endsWith(QLatin1String(".cws")) &&
+	    !file_name.endsWith(QLatin1String(".mws")))
+	    file_name += ".cws";
         saveAs(file_name);
+    }
 
     updateCaption();
+}
+
+void CantorPart::fileSavePlain()
+{
+    QString file_name = KFileDialog::getSaveFileName(KUrl(), "", widget());
+    if (!file_name.isEmpty())
+        m_worksheet->savePlain(file_name);
 }
 
 void CantorPart::exportToLatex()
@@ -419,9 +467,10 @@ void CantorPart::worksheetSessionChanged()
 
 void CantorPart::initialized()
 {
-    m_worksheet->appendCommandEntry();
-    m_worksheet->setEnabled(true);
-    m_worksheet->setFocus();
+    if (m_worksheet->isEmpty())
+	m_worksheet->appendCommandEntry();
+    m_worksheetview->setEnabled(true);
+    m_worksheetview->setFocus();
     setStatusMessage(i18n("Initialization complete"));
 
     if(m_initProgressDlg)
@@ -533,6 +582,57 @@ void CantorPart::runCommand(const QString& cmd)
     m_worksheet->appendCommandEntry(cmd);
 }
 
+void CantorPart::showSearchBar()
+{
+    if (!m_searchBar) {
+	m_searchBar = new SearchBar(widget(), m_worksheet);
+	widget()->layout()->addWidget(m_searchBar);
+	connect(m_searchBar, SIGNAL(destroyed(QObject*)),
+		this, SLOT(searchBarDeleted()));
+    }
+
+    m_findNext->setEnabled(true);
+    m_findPrev->setEnabled(true);
+
+    m_searchBar->showStandard();
+    m_searchBar->setFocus();
+}
+
+void CantorPart::showExtendedSearchBar()
+{
+    if (!m_searchBar) {
+	m_searchBar = new SearchBar(widget(), m_worksheet);
+	widget()->layout()->addWidget(m_searchBar);
+	connect(m_searchBar, SIGNAL(destroyed(QObject*)),
+		this, SLOT(searchBarDeleted()));
+    }
+
+    m_findNext->setEnabled(true);
+    m_findPrev->setEnabled(true);
+
+    m_searchBar->showExtended();
+    m_searchBar->setFocus();
+}
+
+void CantorPart::findNext()
+{
+    if (m_searchBar)
+	m_searchBar->next();
+}
+
+void CantorPart::findPrev()
+{
+    if (m_searchBar)
+	m_searchBar->prev();
+}
+
+void CantorPart::searchBarDeleted()
+{
+    m_searchBar = 0;
+    m_findNext->setEnabled(false);
+    m_findPrev->setEnabled(false);
+}
+
 void CantorPart::adjustGuiToSession()
 {
 #ifdef WITH_EPS
@@ -578,8 +678,9 @@ void CantorPart::print()
     QPrinter printer;
     QPointer<QPrintDialog> dialog = new QPrintDialog(&printer,  widget());
 
-    if (m_worksheet->textCursor().hasSelection())
-        dialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
+    // TODO: Re-enable print selection
+    //if (m_worksheet->textCursor().hasSelection())
+    //    dialog->addEnabledOption(QAbstractPrintDialog::PrintSelection);
 
     if (dialog->exec() == QDialog::Accepted)
         m_worksheet->print(&printer);

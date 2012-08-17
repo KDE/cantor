@@ -42,7 +42,7 @@ class ScilabSession : public Cantor::Session
     void interrupt();
     void runExpression(ScilabExpression* expr);
 
-    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);

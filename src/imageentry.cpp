@@ -15,122 +15,61 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 martin Kuettler <martin.kuettler@gmail.com>
+    Copyright (C) 2012 martin Kuettler <martin.kuettler@gmail.com>
  */
 
 #include "imageentry.h"
-#include "worksheet.h"
+#include "worksheetimageitem.h"
+#include "actionbar.h"
 
-#ifdef LIBSPECTRE_FOUND
-  #include "libspectre/spectre.h"
-#endif
+#include <KMenu>
+#include <KDebug>
 
-#include <kcolorscheme.h>
-#include <kmenu.h>
-#include <kicon.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kzip.h>
-
-#include <kdebug.h>
-#include <qurl.h>
-
-ImageEntry::ImageEntry(QTextCursor position, Worksheet* parent) :
-    WorksheetEntry( position, parent )
+ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
-    m_imagePath = QString();
+    m_imageItem = 0;
+    m_textItem = new WorksheetTextItem(this);
+    m_imageWatcher = new QFileSystemWatcher(this);
     m_displaySize.width = -1;
     m_displaySize.height = -1;
     m_printSize.width = -1;
     m_printSize.height = -1;
-    m_displaySize.widthUnit = QString();
-    m_displaySize.heightUnit = QString();
-    m_printSize.widthUnit = QString();
-    m_printSize.heightUnit = QString();
+    m_displaySize.widthUnit = ImageSize::Auto;
+    m_displaySize.heightUnit = ImageSize::Auto;
+    m_printSize.widthUnit = ImageSize::Auto;
+    m_printSize.heightUnit = ImageSize::Auto;
     m_useDisplaySizeForPrinting = true;
-    m_settingsDialog = 0;
+    connect(m_imageWatcher, SIGNAL(fileChanged(const QString&)),
+	    this, SLOT(updateEntry()));
 
-    connect(&m_imageWatcher, SIGNAL(fileChanged(const QString&)), this, SLOT(update()));
-
-    /*QTextFrameFormat frameFormat = m_frame->frameFormat();
-      frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
-      m_frame->setFrameFormat(frameFormat);*/
-
-    update();
+    setFlag(QGraphicsItem::ItemIsFocusable);
+    updateEntry();
 }
 
 ImageEntry::~ImageEntry()
 {
-    if (m_settingsDialog != 0)
-	delete m_settingsDialog;
 }
 
-int ImageEntry::type()
+void ImageEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    return Type;
+    menu->addAction(i18n("Configure Image"), this, SLOT(startConfigDialog()));
+    menu->addSeparator();
+
+    WorksheetEntry::populateMenu(menu, pos);
 }
 
 bool ImageEntry::isEmpty()
 {
-    /* Are we empty? */
-    return m_imagePath.isEmpty();
-}
-
-QTextCursor ImageEntry::closestValidCursor(const QTextCursor& cursor)
-{
-    Q_UNUSED(cursor);
-    return firstValidCursorPosition();
-}
-
-QTextCursor ImageEntry::firstValidCursorPosition()
-{
-    return m_frame->lastCursorPosition();
-}
-
-QTextCursor ImageEntry::lastValidCursorPosition()
-{
-    return m_frame->lastCursorPosition();
-}
-
-bool ImageEntry::isValidCursor(const QTextCursor& cursor)
-{
-    Q_UNUSED(cursor);
     return false;
 }
 
-bool ImageEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor)
+int ImageEntry::type() const
 {
-    Q_UNUSED(cursor);
-    KMenu* defaultMenu = new KMenu(m_worksheet);
-
-    defaultMenu->addAction(i18n("Configure Image"), this, SLOT(startConfigDialog()));
-    defaultMenu->addSeparator();
-    
-    if(!m_worksheet->isRunning())
-	defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
-    else
-	defaultMenu->addAction(KIcon("process-stop"),i18n("Interrupt"),m_worksheet,SLOT(interrupt()),0);
-    defaultMenu->addSeparator();
-
-    defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
-    
-    createSubMenuInsert(defaultMenu);
-
-    defaultMenu->popup(event->globalPos());
-    
-    return true;
-    
+    return Type;
 }
 
 bool ImageEntry::acceptRichText()
 {
-    return false;
-}
-
-bool ImageEntry::acceptsDrop(const QTextCursor& cursor)
-{
-    // Maybe we will, someday.
-    Q_UNUSED(cursor);
     return false;
 }
 
@@ -143,6 +82,9 @@ void ImageEntry::setContent(const QString& content)
 void ImageEntry::setContent(const QDomElement& content, const KZip& file)
 {
     Q_UNUSED(file);
+    static QStringList unitNames;
+    if (unitNames.isEmpty())
+	unitNames << "(auto)" << "px" << "%";
 
     QDomElement pathElement = content.firstChildElement("Path");
     QDomElement displayElement = content.firstChildElement("Display");
@@ -150,21 +92,24 @@ void ImageEntry::setContent(const QDomElement& content, const KZip& file)
     m_imagePath = pathElement.text();
     m_displaySize.width = displayElement.attribute("width").toDouble();
     m_displaySize.height = displayElement.attribute("height").toDouble();
-    m_displaySize.widthUnit = displayElement.attribute("widthUnit");
-    m_displaySize.heightUnit = displayElement.attribute("heightUnit");
+    m_displaySize.widthUnit = unitNames.indexOf(displayElement.attribute("widthUnit"));
+    m_displaySize.heightUnit = unitNames.indexOf(displayElement.attribute("heightUnit"));
     m_useDisplaySizeForPrinting = printElement.attribute("useDisplaySize").toInt();
     m_printSize.width = printElement.attribute("width").toDouble();
     m_printSize.height = printElement.attribute("height").toDouble();
-    m_printSize.widthUnit = printElement.attribute("widthUnit");
-    m_printSize.heightUnit = printElement.attribute("heightUnit");
-
-    update();
+    m_printSize.widthUnit = unitNames.indexOf(printElement.attribute("widthUnit"));
+    m_printSize.heightUnit = unitNames.indexOf(printElement.attribute("heightUnit"));
+    updateEntry();
 }
 
 QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
-    
+
+    static QStringList unitNames;
+    if (unitNames.isEmpty())
+	unitNames << "(auto)" << "px" << "%";
+
     QDomElement image = doc.createElement("Image");
     QDomElement path = doc.createElement("Path");
     QDomText pathText = doc.createTextNode(m_imagePath);
@@ -172,280 +117,222 @@ QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
     image.appendChild(path);
     QDomElement display = doc.createElement("Display");
     display.setAttribute("width", m_displaySize.width);
-    display.setAttribute("widthUnit", m_displaySize.widthUnit);
+    display.setAttribute("widthUnit", unitNames[m_displaySize.widthUnit]);
     display.setAttribute("height", m_displaySize.height);
-    display.setAttribute("heightUnit", m_displaySize.heightUnit);
+    display.setAttribute("heightUnit", unitNames[m_displaySize.heightUnit]);
     image.appendChild(display);
     QDomElement print = doc.createElement("Print");
     print.setAttribute("useDisplaySize", m_useDisplaySizeForPrinting);
     print.setAttribute("width", m_printSize.width);
-    print.setAttribute("widthUnit", m_printSize.widthUnit);
+    print.setAttribute("widthUnit", unitNames[m_printSize.widthUnit]);
     print.setAttribute("height", m_printSize.height);
-    print.setAttribute("heightUnit", m_printSize.heightUnit);
+    print.setAttribute("heightUnit", unitNames[m_printSize.heightUnit]);
     image.appendChild(print);
-    /* This element contains redundant information, but constructing
-     * the size string with xslt seems to be an unelegant solution to me.
-     */
+
+    // For the conversion to latex
     QDomElement latexSize = doc.createElement("LatexSizeString");
     QString sizeString;
-    if (m_useDisplaySizeForPrinting) {
-	sizeString = makeLatexSizeString(m_displaySize);
-    }
-    else {
-	sizeString = makeLatexSizeString(m_printSize);
-    }
+    if (m_useDisplaySizeForPrinting)
+        sizeString = latexSizeString(m_displaySize);
+    else
+        sizeString = latexSizeString(m_printSize);
     QDomText latexSizeString = doc.createTextNode(sizeString);
     latexSize.appendChild(latexSizeString);
     image.appendChild(latexSize);
-    
+
     return image;
 }
 
-QString ImageEntry::toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)
+QString ImageEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commandSep);
-    
+
     return commentStartingSeq + "image: " + m_imagePath  + commentEndingSeq;
-    
 }
 
-void ImageEntry::interruptEvaluation()
-{
-    return;
-}
-
-bool ImageEntry::evaluate(bool current)
-{
-    Q_UNUSED(current);
-    return true;
-}
-
-bool ImageEntry::worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor)
-{
-    if (WorksheetEntry::worksheetKeyPressEvent(event, cursor))
-    {
-        return true;
-    }
-
-    return true;
-}
-
-void ImageEntry::update()
-{
-    QTextCursor cursor(m_frame->firstCursorPosition());
-    cursor.setPosition(m_frame->lastPosition(), QTextCursor::KeepAnchor);
-    cursor.removeSelectedText();    
-
-    if (m_imagePath.isEmpty())
-    {
-	if (m_worksheet->isPrinting())
-	{
-	    QTextFrameFormat frameFormat = m_frame->frameFormat();
-	    frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
-
-	    m_frame->setFrameFormat(frameFormat);
-	    return;
-	}
-	QTextBlockFormat block(cursor.blockFormat());
-	block.setAlignment(Qt::AlignCenter);
-	cursor.setBlockFormat(block);
-
-	KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
-	cursor.insertText(i18n("Right click here to insert image"));
-
-	return;
-    }
-
-    QImage img(m_imagePath);
-
-    if (img.isNull())
-    {
-	if (m_worksheet->isPrinting())
-	{
-	    QTextFrameFormat frameFormat = m_frame->frameFormat();
-	    frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_None);
-
-	    m_frame->setFrameFormat(frameFormat);
-	    return;
-	}
-	QTextBlockFormat block(cursor.blockFormat());
-	block.setAlignment(Qt::AlignCenter);
-	cursor.setBlockFormat(block);
-
-	KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
-	cursor.insertText(i18n("Cannot load image ")+m_imagePath);
-
-	return;
-    }
-
-    QTextImageFormat imgFormat;
-
-#ifdef LIBSPECTRE_FOUND
-    // a better way to test for eps-files?
-    if (m_imagePath.endsWith(".eps"))
-    {
-      imgFormat = renderEps(m_printSize);
-    }
-    else
-#endif
-    if (m_worksheet->isPrinting() && !m_useDisplaySizeForPrinting)
-    {
-        double w, h;
-	m_worksheet->document()->addResource(QTextDocument::ImageResource, QUrl(m_imagePath), QVariant(img));
-	imgFormat.setName(m_imagePath);
-	calculateImageSize(img.width(), img.height(), m_printSize, w, h);
-	imgFormat.setWidth(w);
-	imgFormat.setHeight(h);
-    }
-    else
-    {
-        double w, h;
-	m_worksheet->document()->addResource(QTextDocument::ImageResource, QUrl(m_imagePath), QVariant(img));
-	imgFormat.setName(m_imagePath);
-	calculateImageSize(img.width(), img.height(), m_displaySize, w, h);
-	imgFormat.setWidth(w);
-	imgFormat.setHeight(h);
-    }
-
-    QTextBlockFormat block(cursor.blockFormat());
-    block.setAlignment(Qt::AlignCenter);
-    cursor.setBlockFormat(block);
-    cursor.insertImage(imgFormat);
-}
-
-void ImageEntry::setImageData(const QString& path, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting)
-{
-    m_imageWatcher.removePath(m_imagePath);
-    m_imageWatcher.addPath(path);
-
-    m_imagePath = path;
-    m_displaySize = displaySize;
-    m_printSize = printSize;
-    m_useDisplaySizeForPrinting = useDisplaySizeForPrinting;
-
-    update();
-}
-
-void ImageEntry::startConfigDialog()
-{
-    if (m_settingsDialog == 0)
-    {
-	m_settingsDialog = new ImageSettingsDialog(m_worksheet);
-	m_settingsDialog->setData(m_imagePath, m_displaySize, m_printSize, m_useDisplaySizeForPrinting);
-	connect(m_settingsDialog, SIGNAL(dataChanged(const QString&, const ImageSize&, const ImageSize&, bool)), 
-		this, SLOT(setImageData(const QString&, const ImageSize&, const ImageSize&, bool)));
-    }
-  
-    if (m_settingsDialog->isHidden())
-	m_settingsDialog->show();
-    else
-	m_settingsDialog->activateWindow();
-}
-
-void ImageEntry::calculateImageSize(int imgWidth, int imgHeight, const ImageSize& imageSize, double& newWidth, double& newHeight)
-{
-    if (imgWidth == 0 || imgHeight == 0)
-    {
-	newWidth = 0;
-	newHeight = 0;
-	return;
-    }
-    
-    if (imageSize.heightUnit == "%")
-	newHeight = imgHeight * imageSize.height / 100;
-    else if (imageSize.heightUnit == "px")
-	newHeight = imageSize.height;
-    if (imageSize.widthUnit == "%")
-	newWidth= imgWidth * imageSize.width / 100;
-    else if (imageSize.widthUnit == "px")
-	newWidth = imageSize.width;
-    
-    if (imageSize.widthUnit == "(auto)")
-    {
-	if (imageSize.heightUnit == "(auto)") 
-	{
-	    newWidth = imgWidth;
-	    newHeight = imgHeight;
-	    return;
-	}
-	else 
-	    newWidth = newHeight / imgHeight * imgWidth;
-    }
-    else if (imageSize.heightUnit == "(auto)")
-	newHeight = newWidth / imgWidth * imgHeight;
-}
-
-QString ImageEntry::makeLatexSizeString(const ImageSize& imageSize)
+QString ImageEntry::latexSizeString(const ImageSize& imgSize)
 {
     // We use the transformation 1 px = 1/72 in ( = 1 pt in Latex)
-    // TODO: Handle missing cases; that requires the image size to be known
-    //  (so it can only be done when m_imagePath points to a valid image)
 
     QString sizeString="";
-    if (imageSize.widthUnit == "(auto)" && imageSize.heightUnit == "(auto)") {
-	return QString("");
+    if (imgSize.widthUnit == ImageSize::Auto &&
+	imgSize.heightUnit == ImageSize::Auto)
+        return QString("");
+
+    if (imgSize.widthUnit == ImageSize::Percent) {
+	if (imgSize.heightUnit == ImageSize::Auto ||
+	    (imgSize.heightUnit == ImageSize::Percent &&
+	     imgSize.width == imgSize.height))
+	    return "[scale=" + QString::number(imgSize.width / 100) + "]";
+	// else? We could set the size based on the actual image size
+    } else if (imgSize.widthUnit == ImageSize::Auto &&
+	       imgSize.heightUnit == ImageSize::Percent) {
+        return "[scale=" + QString::number(imgSize.height / 100) + "]";
     }
 
-    if (imageSize.widthUnit == "%" && (imageSize.heightUnit == "(auto)" ||
-				       (imageSize.heightUnit == "%" &&
-					imageSize.width == imageSize.height))) {
-	return "[scale=" + QString::number(imageSize.width / 100) + "]";
-    }
-    else if (imageSize.widthUnit == "(auto)" && imageSize.heightUnit == "%") {
-	return "[scale=" + QString::number(imageSize.height / 100) + "]";
-    }
-
-    if (imageSize.heightUnit == "px")
-	sizeString = "height=" + QString::number(imageSize.height) + "pt";
-    if (imageSize.widthUnit == "px") {
-	if (!sizeString.isEmpty())
-	    sizeString += ",";
-	sizeString += "width=" + QString::number(imageSize.width) + "pt";
+    if (imgSize.heightUnit == ImageSize::Pixel)
+        sizeString = "height=" + QString::number(imgSize.height) + "pt";
+    if (imgSize.widthUnit == ImageSize::Pixel) {
+        if (!sizeString.isEmpty())
+            sizeString += ",";
+        sizeString += "width=" + QString::number(imgSize.width) + "pt";
     }
     return "[" + sizeString + "]";
 }
 
-#ifdef LIBSPECTRE_FOUND
-QTextImageFormat ImageEntry::renderEps(const ImageSize& imageSize)
+void ImageEntry::interruptEvaluation()
 {
-    QTextImageFormat epsCharFormat;
-
-    SpectreDocument* doc=spectre_document_new();;
-    SpectreRenderContext* rc=spectre_render_context_new();
-
-    spectre_document_load(doc, m_imagePath.toUtf8());
-
-    int w, h;
-    spectre_document_get_page_size(doc, &w, &h);
-    kDebug()<<"dimension: "<<w<<"x"<<h;
-
-    double newWidth, newHeight;
-    calculateImageSize(w, h, imageSize, newWidth, newHeight);
-
-    double scale, xScale, yScale;
-    if(m_worksheet->isPrinting())
-        scale=4.0; //4x for high resolution
-    else
-        scale=1.0;
-    xScale = newWidth/w * scale;
-    yScale = newHeight/h * scale;
-
-    unsigned char* data;
-    int rowLength;
-
-    spectre_render_context_set_scale(rc, xScale, yScale);
-    spectre_document_render_full(doc, rc, &data, &rowLength);
-
-    QImage img(data, w*xScale, h*yScale, rowLength, QImage::Format_RGB32);
-
-    m_worksheet->document()->addResource(QTextDocument::ImageResource, m_imagePath, QVariant(img) );
-    epsCharFormat.setName(m_imagePath);
-    epsCharFormat.setWidth(newWidth);
-    epsCharFormat.setHeight(newHeight);
-
-    spectre_document_free(doc);
-    spectre_render_context_free(rc);
-
-    return epsCharFormat;
 }
-#endif
+
+bool ImageEntry::evaluate(EvaluationOption evalOp)
+{
+    evaluateNext(evalOp);
+    return true;
+}
+
+qreal ImageEntry::height()
+{
+    if (m_imageItem && m_imageItem->isVisible())
+	return m_imageItem->height();
+    else
+	return m_textItem->height();
+}
+
+void ImageEntry::updateEntry()
+{
+    qreal oldHeight = height();
+    if (m_imagePath.isEmpty()) {
+	m_textItem->setPlainText(i18n("Right click here to insert image"));
+	m_textItem->setVisible(true);
+	if (m_imageItem)
+	    m_imageItem->setVisible(false);
+    }
+
+    else {
+	if (!m_imageItem)
+	    m_imageItem = new WorksheetImageItem(this);
+
+	if (m_imagePath.toLower().endsWith(".eps")) {
+	    m_imageItem->setEps(m_imagePath);
+	} else {
+	    QImage img(m_imagePath);
+	    m_imageItem->setImage(img);
+	}
+
+	if (!m_imageItem->imageIsValid()) {
+	    const QString msg = i18n("Cannot load image %1").arg(m_imagePath);
+	    m_textItem->setPlainText(msg);
+	    m_textItem->setVisible(true);
+	    m_imageItem->setVisible(false);
+	} else {
+	    QSizeF size;
+	    if (worksheet()->isPrinting() && ! m_useDisplaySizeForPrinting)
+		size = imageSize(m_printSize);
+	    else
+		size = imageSize(m_displaySize);
+	    // Hack: Eps images need to be scaled
+	    if (m_imagePath.toLower().endsWith(".eps"))
+		size /= worksheet()->epsRenderer()->scale();
+	    m_imageItem->setSize(size);
+	    kDebug() << size;
+	    m_textItem->setVisible(false);
+	    m_imageItem->setVisible(true);
+	}
+    }
+
+    kDebug() << oldHeight << height();
+    if (oldHeight != height())
+	recalculateSize();
+}
+
+QSizeF ImageEntry::imageSize(const ImageSize& imgSize)
+{
+    const QSize& srcSize = m_imageItem->imageSize();
+    qreal w, h;
+    if (imgSize.heightUnit == ImageSize::Percent)
+	h = srcSize.height() * imgSize.height / 100;
+    else if (imgSize.heightUnit == ImageSize::Pixel)
+	h = imgSize.height;
+    if (imgSize.widthUnit == ImageSize::Percent)
+	w = srcSize.width() * imgSize.width / 100;
+    else if (imgSize.widthUnit == ImageSize::Pixel)
+	w = imgSize.width;
+
+    if (imgSize.widthUnit == ImageSize::Auto) {
+	if (imgSize.heightUnit == ImageSize::Auto)
+	    return QSizeF(srcSize.width(), srcSize.height());
+	else if (h == 0)
+	    w = 0;
+	else
+	    w = h / srcSize.height() * srcSize.width();
+    } else if (imgSize.heightUnit == ImageSize::Auto) {
+	if (w == 0)
+	    h = 0;
+	else
+	    h = w / srcSize.width() * srcSize.height();
+    }
+
+    return QSizeF(w,h);
+}
+
+void ImageEntry::startConfigDialog()
+{
+    ImageSettingsDialog* dialog = new ImageSettingsDialog(worksheet()->worksheetView());
+    dialog->setData(m_imagePath, m_displaySize, m_printSize,
+		    m_useDisplaySizeForPrinting);
+    connect(dialog, SIGNAL(dataChanged(const QString&, const ImageSize&,
+				       const ImageSize&, bool)),
+	    this, SLOT(setImageData(const QString&, const ImageSize&,
+				    const ImageSize&, bool)));
+    dialog->show();
+}
+
+void ImageEntry::setImageData(const QString& path,
+			      const ImageSize& displaySize,
+			      const ImageSize& printSize,
+			      bool useDisplaySizeForPrinting)
+{
+    if (path != m_imagePath) {
+	m_imageWatcher->removePath(m_imagePath);
+	m_imageWatcher->addPath(path);
+	m_imagePath = path;
+    }
+
+    m_displaySize = displaySize;
+    m_printSize = printSize;
+    m_useDisplaySizeForPrinting = useDisplaySizeForPrinting;
+
+    updateEntry();
+}
+
+void ImageEntry::addActionsToBar(ActionBar* actionBar)
+{
+    actionBar->addButton(KIcon("configure"), i18n("Configure Image"),
+			 this, SLOT(startConfigDialog()));
+}
+
+
+void ImageEntry::layOutForWidth(double w, bool force)
+{
+    if (size().width() == w && !force)
+	return;
+
+    if (m_imageItem && m_imageItem->isVisible())
+	m_imageItem->setGeometry(0, 0, w, true);
+    else
+	m_textItem->setGeometry(0, 0, w, true);
+
+    setSize(QSizeF(w, height() + VerticalMargin));
+}
+
+bool ImageEntry::wantToEvaluate()
+{
+    return false;
+}
+
+bool ImageEntry::wantFocus()
+{
+    return false;
+}
+
+#include "imageentry.moc"

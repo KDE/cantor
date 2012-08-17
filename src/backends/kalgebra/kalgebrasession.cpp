@@ -88,9 +88,11 @@ OperatorsModel* KAlgebraSession::operatorsModel()
 }
 
 
-QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
 {
-    return new AlgebraHighlighter(parent->document());
+    //return new AlgebraHighlighter(parent->document());
+    // TODO: Think of something better here.
+    return new AlgebraHighlighter(NULL);
 }
 
 QAbstractItemModel* KAlgebraSession::variableModel()

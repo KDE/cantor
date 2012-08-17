@@ -26,6 +26,9 @@
 
 class QWidget;
 class Worksheet;
+class WorksheetView;
+class SarchBar;
+class SearchBar;
 class ScriptEditorWidget;
 class KAboutData;
 class KAction;
@@ -100,6 +103,7 @@ protected:
 
 protected slots:
     void fileSaveAs();
+    void fileSavePlain();
     void exportToLatex();
     void evaluateOrInterrupt();
     void restartBackend();
@@ -123,6 +127,12 @@ protected slots:
     void scriptEditorClosed();
     void runScript(const QString& file);
 
+    void showSearchBar();
+    void showExtendedSearchBar();
+    void findNext();
+    void findPrev();
+    void searchBarDeleted();
+
     /** sets the status message, or cached it, if the StatusBar is blocked.
      *  Use this method instead of "emit setStatusBarText"
      */
@@ -140,16 +150,21 @@ protected slots:
     void unblockStatusBar();
 private:
     Worksheet *m_worksheet;
+    WorksheetView *m_worksheetview;
+    SearchBar *m_searchBar;
     QPointer<ScriptEditorWidget> m_scriptEditor;
     Cantor::PanelPluginHandler* m_panelHandler;
 
     KProgressDialog* m_initProgressDlg;
     KAction* m_evaluate;
     KAction* m_save;
+    KAction* m_findNext;
+    KAction* m_findPrev;
     KToggleAction* m_typeset;
     KToggleAction* m_highlight;
     KToggleAction* m_completion;
     KToggleAction* m_exprNumbering;
+    KToggleAction* m_animateWorksheet;
     KAction* m_showBackendHelp;
 
     QString m_cachedStatusMessage;

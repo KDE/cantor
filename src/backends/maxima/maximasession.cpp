@@ -220,6 +220,8 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 void MaximaSession::readStdOut()
 {
     kDebug()<<"reading stdOut";
+    if (!m_maxima)
+	return;
     QString out=m_maxima->readAll();
     kDebug()<<"out: "<<out;
 
@@ -320,6 +322,8 @@ void MaximaSession::runFirstExpression()
 
     }
     kDebug()<<"running next expression";
+    if (!m_maxima)
+	return;
 
     if(!m_expressionQueue.isEmpty())
     {
@@ -401,6 +405,8 @@ void MaximaSession::restartMaxima()
         login();
     }else
     {
+	if(!m_expressionQueue.isEmpty())
+	    m_expressionQueue.removeFirst();
         KMessageBox::error(0, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
     }
 }
@@ -436,7 +442,7 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
     return new MaximaSyntaxHelpObject(command, this);
 }
 
-QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 {
     return new MaximaHighlighter(parent);
 }

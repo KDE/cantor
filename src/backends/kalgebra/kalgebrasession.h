@@ -44,7 +44,7 @@ class KAlgebraSession : public Cantor::Session
         Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
         Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
-        QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+        QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 	QAbstractItemModel* variableModel();
 
     private:
