@@ -50,6 +50,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setCursorPosition(const QPointF& pos);
     QPointF cursorPosition() const;
     QTextCursor cursorForPosition(const QPointF& pos) const;
+    QRectF sceneCursorRect(QTextCursor cursor = QTextCursor()) const;
     QRectF cursorRect(QTextCursor cursor = QTextCursor()) const;
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};

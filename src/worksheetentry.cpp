@@ -126,59 +126,19 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
     QDrag* drag = new QDrag(worksheetView());
     kDebug() << size();
     const qreal scale = worksheet()->epsRenderer()->scale();
-    QPixmap pixmap(size().toSize()*scale);
+    QPixmap pixmap((size()*scale).toSize());
     pixmap.fill(QColor(0, 0, 0, 0));
     QPainter painter(&pixmap);
-    painter.scale(scale, scale);
-    QStyleOptionGraphicsItem styleOptions;
-    styleOptions.rect = pixmap.rect();
-    styleOptions.exposedRect = pixmap.rect();
-    styleOptions.direction = worksheetView()->viewport()->layoutDirection();
-    paint(&painter, &styleOptions, worksheetView()->viewport());
+    const QRectF sceneRect = mapRectToScene(boundingRect());
+    worksheet()->render(&painter, pixmap.rect(), sceneRect);
+    painter.end();
 
-    // paint all our descendents
-    QList<int> indexStack;
-    QList<QGraphicsItem*> itemStack;
-    QList<QGraphicsItem*> children = childItems();
-    int i = 0;
-    bool done = false;
-    QGraphicsItem* parent = this;
-    while (true) {
-	while (i == children.size()) {
-	    if (itemStack.isEmpty()) {
-		done = true;
-		break;
-	    }
-	    painter.restore();
-	    i = indexStack.takeLast();
-	    parent = itemStack.takeLast();
-	    children = parent->childItems();
-	}
-	if (done)
-	    break;
-	painter.save();
-	QGraphicsItem* child = children[i];
-	if (child->isVisible()) {
-	    painter.translate(child->x(), child->y());
-	    child->paint(&painter, &styleOptions, worksheetView()->viewport());
-	}
-	if (!child->childItems().isEmpty()) {
-	    indexStack.append(++i);
-	    itemStack.append(parent);
-	    parent = child;
-	    children = child->childItems();
-	    i = 0;
-	} else {
-	    ++i;
-	    painter.restore();
-	}
-    }
     drag->setPixmap(pixmap);
     if (grabPos.isNull()) {
 	const QPointF scenePos = worksheetView()->sceneCursorPos();
-	drag->setHotSpot(mapFromScene(scenePos).toPoint() * scale);
+	drag->setHotSpot((mapFromScene(scenePos) * scale).toPoint());
     } else {
-	drag->setHotSpot(grabPos.toPoint() * scale);
+	drag->setHotSpot((grabPos * scale).toPoint());
     }
     drag->setMimeData(new QMimeData());
 

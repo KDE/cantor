@@ -174,7 +174,7 @@ void Worksheet::updateLayout()
     bool cursorRectVisible = false;
     bool atEnd = worksheetView()->isAtEnd();
     if (currentTextItem()) {
-	QRectF cursorRect = currentTextItem()->cursorRect();
+	QRectF cursorRect = currentTextItem()->sceneCursorRect();
 	cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
@@ -195,7 +195,7 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
     bool cursorRectVisible = false;
     bool atEnd = worksheetView()->isAtEnd();
     if (currentTextItem()) {
-	QRectF cursorRect = currentTextItem()->cursorRect();
+	QRectF cursorRect = currentTextItem()->sceneCursorRect();
 	cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
@@ -266,7 +266,7 @@ void Worksheet::makeVisible(const WorksheetCursor& cursor)
 	makeVisible(cursor.entry());
 	return;
     }
-    QRectF r = cursor.textItem()->cursorRect(cursor.textCursor());
+    QRectF r = cursor.textItem()->sceneCursorRect(cursor.textCursor());
     QRectF er = cursor.entry()->boundingRect();
     er = cursor.entry()->mapRectToScene(er);
     er.adjust(0, -10, 0, 10);

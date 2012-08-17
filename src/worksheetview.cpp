@@ -43,10 +43,12 @@ WorksheetView::~WorksheetView()
 {
 }
 
-void WorksheetView::makeVisible(const QRectF& rect)
+void WorksheetView::makeVisible(const QRectF& sceneRect)
 {
-    const qreal w = viewport()->width() / m_scale;
-    const qreal h = viewport()->height() / m_scale;
+    const qreal w = viewport()->width();
+    const qreal h = viewport()->height();
+
+    QRectF rect(m_scale*sceneRect.topLeft(), m_scale*sceneRect.size());
 
     qreal x,y;
     if (m_animation) {
@@ -145,10 +147,12 @@ void WorksheetView::makeVisible(const QRectF& rect)
     m_animation->start();
 }
 
-bool WorksheetView::isVisible(const QRectF& rect)
+bool WorksheetView::isVisible(const QRectF& sceneRect)
 {
-    const qreal w = viewport()->width() / m_scale;
-    const qreal h = viewport()->height() / m_scale;
+    const qreal w = viewport()->width();
+    const qreal h = viewport()->height();
+
+    QRectF rect(m_scale*sceneRect.topLeft(), m_scale*sceneRect.size());
 
     qreal x,y;
     if (m_animation) {

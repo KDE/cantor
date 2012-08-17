@@ -283,6 +283,11 @@ QPointF WorksheetTextItem::localCursorPosition() const
     return QPointF(line.cursorToX(p), line.y() + line.height());
 }
 
+QRectF WorksheetTextItem::sceneCursorRect(QTextCursor cursor) const
+{
+    return mapRectToScene(cursorRect(cursor));
+}
+
 QRectF WorksheetTextItem::cursorRect(QTextCursor cursor) const
 {
     if (cursor.isNull())
@@ -295,7 +300,6 @@ QRectF WorksheetTextItem::cursorRect(QTextCursor cursor) const
     int p = startCursor.position() - block.position();
     QTextLine line = block.layout()->lineForTextPosition(p);
     QRectF r1(line.cursorToX(p), line.y(), 1, line.height()+line.leading());
-    r1 = mapRectToScene(r1);
 
     if (!cursor.hasSelection())
 	return r1;
@@ -306,7 +310,6 @@ QRectF WorksheetTextItem::cursorRect(QTextCursor cursor) const
     p = endCursor.position() - block.position();
     line = block.layout()->lineForTextPosition(p);
     QRectF r2(line.cursorToX(p), line.y(), 1, line.height()+line.leading());
-    r2 = mapRectToScene(r2);
 
     if (r1.y() == r2.y())
 	return r1.united(r2);
