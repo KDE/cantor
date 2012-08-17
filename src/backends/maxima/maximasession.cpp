@@ -424,14 +424,10 @@ void MaximaSession::restartsCooledDown()
 
 void MaximaSession::setTypesettingEnabled(bool enable)
 {
-    if(enable)
-    {
-        evaluateExpression("display2d:true", Cantor::Expression::DeleteOnFinish);
-    }
-    else
-    {
-        evaluateExpression("display2d:false", Cantor::Expression::DeleteOnFinish);
-    }
+    //we use the lisp command to set the variable, as those commands
+    //don't mess with the labels and history
+    const QString& val=(enable==true ? "t":"nil");
+    evaluateExpression(QString(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish);
 
     Cantor::Session::setTypesettingEnabled(enable);
 }
