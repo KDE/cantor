@@ -89,6 +89,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* firstEntry();
     WorksheetEntry* lastEntry();
     WorksheetTextItem* currentTextItem();
+    WorksheetTextItem* lastFocusedTextItem();
 
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
@@ -192,7 +193,6 @@ class Worksheet : public QGraphicsScene
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void focusOutEvent(QFocusEvent* focusEvent);
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
@@ -227,7 +227,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
     PlaceHolderEntry* m_placeholderEntry;
-    QGraphicsItem* m_focusItem;
+    WorksheetTextItem* m_lastFocusedTextItem;
     QTimer* m_actionBarTimer;
     QTimer* m_dragScrollTimer;
 

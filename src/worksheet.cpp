@@ -65,7 +65,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_firstEntry = 0;
     m_lastEntry = 0;
-    m_focusItem = 0;
+    m_lastFocusedTextItem = 0;
     m_dragEntry = 0;
     m_placeholderEntry = 0;
     m_viewWidth = 0;
@@ -300,16 +300,10 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
     if (!cursor.isValid())
 	return;
 
-    QGraphicsItem* item = m_focusItem;
-    while (item && item->type() != WorksheetTextItem::Type)
-	item = item->parentItem();
+    if (m_lastFocusedTextItem)
+	m_lastFocusedTextItem->clearSelection();
 
-    WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
-
-    if (oldItem)
-	oldItem->clearSelection();
-
-    m_focusItem = cursor.textItem();
+    m_lastFocusedTextItem = cursor.textItem();
 
     cursor.textItem()->setTextCursor(cursor.textCursor());
 }
@@ -318,16 +312,17 @@ WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
     if (!item /*&& !hasFocus()*/)
-	item = m_focusItem;
-    else
-	m_focusItem = item;
+	item = m_lastFocusedTextItem;
+    /*else
+      m_focusItem = item;*/
     while (item && (item->type() < QGraphicsItem::UserType ||
 		    item->type() >= QGraphicsItem::UserType + 100))
 	item = item->parentItem();
     if (item) {
 	WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
 	if (entry && entry->aboutToBeRemoved()) {
-	    m_focusItem = 0;
+	    if (entry->isAncestorOf(m_lastFocusedTextItem))
+		m_lastFocusedTextItem = 0;
 	    return 0;
 	}
 	return entry;
@@ -1006,7 +1001,8 @@ void Worksheet::removeCurrentEntry()
         return;
 
     // In case we just removed this
-    m_focusItem = 0;
+    if (entry->isAncestorOf(m_lastFocusedTextItem))
+	m_lastFocusedTextItem = 0;
     entry->startRemoving();
 }
 
@@ -1026,9 +1022,12 @@ KMenu* Worksheet::createContextMenu()
 void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 {
     WorksheetEntry* entry = entryAt(pos);
-    if (entry && !entry->isAncestorOf(m_focusItem))
-	m_focusItem = itemAt(pos);
-    //m_currentEntry = entry;
+    if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
+	WorksheetTextItem* item =
+	    qgraphicsitem_cast<WorksheetTextItem*>(itemAt(pos));
+	if (item && item->isEditable())
+	    m_lastFocusedTextItem = item;
+    }
 
     if (!isRunning())
 	menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
@@ -1079,14 +1078,6 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 	menu->popup(event->screenPos());
     }
-}
-
-void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
-{
-    QGraphicsItem* item = focusItem();
-    if (item)
-	m_focusItem = item;
-    QGraphicsScene::focusOutEvent(focusEvent);
 }
 
 void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
@@ -1311,14 +1302,17 @@ void Worksheet::createActions(KActionCollection* collection)
      */
 }
 
+WorksheetTextItem* Worksheet::lastFocusedTextItem()
+{
+    return m_lastFocusedTextItem;
+}
+
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
-    WorksheetTextItem* oldItem = currentTextItem();
+    if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem)
+	m_lastFocusedTextItem->clearSelection();
 
-    if (oldItem && oldItem != newItem)
-	oldItem->clearSelection();
-
-    m_focusItem = newItem;
+    m_lastFocusedTextItem = newItem;
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)
@@ -1362,7 +1356,7 @@ WorksheetTextItem* Worksheet::currentTextItem()
 {
     QGraphicsItem* item = focusItem();
     if (!item)
-	item = m_focusItem;
+	item = m_lastFocusedTextItem;
     while (item && item->type() != WorksheetTextItem::Type)
 	item = item->parentItem();
 

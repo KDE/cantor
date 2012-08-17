@@ -71,7 +71,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
 
 WorksheetTextItem::~WorksheetTextItem()
 {
-    if (worksheet() && this == worksheet()->currentTextItem())
+    if (worksheet() && this == worksheet()->lastFocusedTextItem())
 	worksheet()->updateFocusedTextItem(0);
     if (worksheet() && m_maxWidth > 0 && width() > m_maxWidth)
 	worksheet()->removeProtrusion(width() - m_maxWidth);
