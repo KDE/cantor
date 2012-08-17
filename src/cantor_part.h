@@ -145,7 +145,7 @@ protected slots:
      */
     void blockStatusBar();
     /** Removes the block from the StatusBar, and shows the last one of the StatusMessages that
-	where set during the block
+        where set during the block
     **/
     void unblockStatusBar();
 private:

@@ -30,7 +30,7 @@ ImageResultItem::ImageResultItem(QGraphicsObject* parent)
     : WorksheetImageItem(parent), ResultItem()
 {
     connect(this, SIGNAL(removeResult()), parentEntry(),
-	    SLOT(removeResult()));
+            SLOT(removeResult()));
 }
 
 ImageResultItem::~ImageResultItem()
@@ -57,14 +57,14 @@ ResultItem* ImageResultItem::updateFromResult(Cantor::Result* result)
 {
     switch(result->type()) {
     case Cantor::ImageResult::Type:
-	setImage(result->data().value<QImage>());
-	return this;
+        setImage(result->data().value<QImage>());
+        return this;
     case Cantor::EpsResult::Type:
-	setEps(result->data().toUrl());
-	return this;
+        setEps(result->data().toUrl());
+        return this;
     default:
-	deleteLater();
-	return create(parentEntry(), result);
+        deleteLater();
+        return create(parentEntry(), result);
     }
 }
 

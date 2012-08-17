@@ -33,7 +33,7 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent)
     m_animation = 0;
     m_hAnimation = 0;
     m_vAnimation = 0;
-    m_worksheet = qobject_cast<Worksheet*>(scene);
+    m_worksheet = scene;
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
     //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -52,95 +52,95 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
 
     qreal x,y;
     if (m_animation) {
-	x = m_hAnimation->endValue().toReal();
-	y = m_vAnimation->endValue().toReal();
+        x = m_hAnimation->endValue().toReal();
+        y = m_vAnimation->endValue().toReal();
 
-	if (QRectF(x,y,w,h).contains(rect))
-	    return;
+        if (QRectF(x,y,w,h).contains(rect))
+            return;
     }
 
     if (horizontalScrollBar())
-	x = horizontalScrollBar()->value();
+        x = horizontalScrollBar()->value();
     else
-	x = 0;
+        x = 0;
     if (verticalScrollBar())
-	y = verticalScrollBar()->value();
+        y = verticalScrollBar()->value();
     else
-	y = 0;
+        y = 0;
 
     kDebug() << rect << QRectF(x,y,w,h);
 
     if (!m_animation && QRectF(x,y,w,h).contains(rect))
-	return;
+        return;
 
     qreal nx, ny;
     if (y > rect.y() || rect.height() > h)
-	ny = rect.y();
+        ny = rect.y();
     else
-	ny = rect.y() + rect.height() - h;
+        ny = rect.y() + rect.height() - h;
     if (rect.x() + rect.width() <= w || x > rect.x())
-	nx = 0;
+        nx = 0;
     else
-	nx = rect.x() + rect.width() - w;
+        nx = rect.x() + rect.width() - w;
 
     kDebug() << nx << ny;
 
     if (!m_worksheet->animationsEnabled()) {
-	if (horizontalScrollBar())
-	    horizontalScrollBar()->setValue(nx);
-	if (verticalScrollBar())
-	    verticalScrollBar()->setValue(ny);
-	return;
+        if (horizontalScrollBar())
+            horizontalScrollBar()->setValue(nx);
+        if (verticalScrollBar())
+            verticalScrollBar()->setValue(ny);
+        return;
     }
 
     if (!m_animation)
-	m_animation = new QParallelAnimationGroup(this);
+        m_animation = new QParallelAnimationGroup(this);
 
     if (horizontalScrollBar()) {
-	if (!m_hAnimation) {
-	    m_hAnimation = new QPropertyAnimation(horizontalScrollBar(),
-						  "value", this);
-	    m_hAnimation->setStartValue(horizontalScrollBar()->value());
-	    nx = qBound(0.0, nx, 0.0+horizontalScrollBar()->maximum());
-	    m_hAnimation->setEndValue(nx);
-	    m_hAnimation->setDuration(100);
-	    m_animation->addAnimation(m_hAnimation);
-	} else {
-	    qreal progress = static_cast<qreal>(m_hAnimation->currentTime()) /
-		m_hAnimation->totalDuration();
-	    QEasingCurve curve = m_hAnimation->easingCurve();
-	    qreal value = curve.valueForProgress(progress);
-	    qreal sx = 1/(1-value)*(m_hAnimation->currentValue().toReal() -
-				    value * nx);
-	    m_hAnimation->setStartValue(sx);
-	    m_hAnimation->setEndValue(nx);
-	}
+        if (!m_hAnimation) {
+            m_hAnimation = new QPropertyAnimation(horizontalScrollBar(),
+                                                  "value", this);
+            m_hAnimation->setStartValue(horizontalScrollBar()->value());
+            nx = qBound(0.0, nx, 0.0+horizontalScrollBar()->maximum());
+            m_hAnimation->setEndValue(nx);
+            m_hAnimation->setDuration(100);
+            m_animation->addAnimation(m_hAnimation);
+        } else {
+            qreal progress = static_cast<qreal>(m_hAnimation->currentTime()) /
+                m_hAnimation->totalDuration();
+            QEasingCurve curve = m_hAnimation->easingCurve();
+            qreal value = curve.valueForProgress(progress);
+            qreal sx = 1/(1-value)*(m_hAnimation->currentValue().toReal() -
+                                    value * nx);
+            m_hAnimation->setStartValue(sx);
+            m_hAnimation->setEndValue(nx);
+        }
     } else {
-	m_hAnimation = 0;
+        m_hAnimation = 0;
     }
 
     if (verticalScrollBar()) {
-	if (!m_vAnimation) {
-	    m_vAnimation = new QPropertyAnimation(verticalScrollBar(),
-						  "value", this);
-	    m_vAnimation->setStartValue(verticalScrollBar()->value());
-	    ny = qBound(0.0, ny, 0.0+verticalScrollBar()->maximum());
-	    m_vAnimation->setEndValue(ny);
-	    m_vAnimation->setDuration(100);
-	    m_animation->addAnimation(m_vAnimation);
-	} else {
-	    qreal progress = static_cast<qreal>(m_vAnimation->currentTime()) /
-		m_vAnimation->totalDuration();
-	    QEasingCurve curve = m_vAnimation->easingCurve();
-	    qreal value = curve.valueForProgress(progress);
-	    qreal sy = 1/(1-value)*(m_vAnimation->currentValue().toReal() -
-				    value * ny);
-	    m_vAnimation->setStartValue(sy);
-	    m_vAnimation->setEndValue(ny);
-	    //kDebug() << sy << value << ny;
-	}
+        if (!m_vAnimation) {
+            m_vAnimation = new QPropertyAnimation(verticalScrollBar(),
+                                                  "value", this);
+            m_vAnimation->setStartValue(verticalScrollBar()->value());
+            ny = qBound(0.0, ny, 0.0+verticalScrollBar()->maximum());
+            m_vAnimation->setEndValue(ny);
+            m_vAnimation->setDuration(100);
+            m_animation->addAnimation(m_vAnimation);
+        } else {
+            qreal progress = static_cast<qreal>(m_vAnimation->currentTime()) /
+                m_vAnimation->totalDuration();
+            QEasingCurve curve = m_vAnimation->easingCurve();
+            qreal value = curve.valueForProgress(progress);
+            qreal sy = 1/(1-value)*(m_vAnimation->currentValue().toReal() -
+                                    value * ny);
+            m_vAnimation->setStartValue(sy);
+            m_vAnimation->setEndValue(ny);
+            //kDebug() << sy << value << ny;
+        }
     } else {
-	m_vAnimation = 0;
+        m_vAnimation = 0;
     }
 
     connect(m_animation, SIGNAL(finished()), this, SLOT(endAnimation()));
@@ -156,17 +156,17 @@ bool WorksheetView::isVisible(const QRectF& sceneRect)
 
     qreal x,y;
     if (m_animation) {
-	x = m_hAnimation->endValue().toReal();
-	y = m_vAnimation->endValue().toReal();
+        x = m_hAnimation->endValue().toReal();
+        y = m_vAnimation->endValue().toReal();
     } else {
-	if (horizontalScrollBar())
-	    x = horizontalScrollBar()->value();
-	else
-	    x = 0;
-	if (verticalScrollBar())
-	    y = verticalScrollBar()->value();
-	else
-	    y = 0;
+        if (horizontalScrollBar())
+            x = horizontalScrollBar()->value();
+        else
+            x = 0;
+        if (verticalScrollBar())
+            y = verticalScrollBar()->value();
+        else
+            y = 0;
     }
 
     return QRectF(x,y,w,h).contains(rect);
@@ -176,32 +176,32 @@ bool WorksheetView::isAtEnd()
 {
     bool atEnd = true;
     if (verticalScrollBar())
-	atEnd &= (verticalScrollBar()->value()==verticalScrollBar()->maximum());
+        atEnd &= (verticalScrollBar()->value()==verticalScrollBar()->maximum());
     return atEnd;
 }
 
 void WorksheetView::scrollToEnd()
 {
     if (verticalScrollBar())
-	verticalScrollBar()->setValue(verticalScrollBar()->maximum());
+        verticalScrollBar()->setValue(verticalScrollBar()->maximum());
 }
 
 void WorksheetView::scrollBy(int dy)
 {
     if (!verticalScrollBar())
-	return;
+        return;
 
     int ny = verticalScrollBar()->value() + dy;
     if (ny < 0)
-	ny = 0;
+        ny = 0;
     else if (ny > verticalScrollBar()->maximum())
-	ny = verticalScrollBar()->maximum();
+        ny = verticalScrollBar()->maximum();
 
     int x;
     if (horizontalScrollBar())
-	x = horizontalScrollBar()->value();
+        x = horizontalScrollBar()->value();
     else
-	x = 0;
+        x = 0;
 
     const qreal w = viewport()->width() / m_scale;
     const qreal h = viewport()->height() / m_scale;
@@ -211,7 +211,7 @@ void WorksheetView::scrollBy(int dy)
 void WorksheetView::endAnimation()
 {
     if (!m_animation)
-	return;
+        return;
 
     m_animation->deleteLater();
     m_hAnimation = 0;
@@ -268,7 +268,7 @@ void WorksheetView::mousePressEvent(QMouseEvent* event)
     QPointF pos = mapToScene(event->pos());
     kDebug() << "Click at" << pos;
     if (QGraphicsItem* item = scene()->itemAt(pos))
-	kDebug() << "item " << item;
+        kDebug() << "item " << item;
 }
 */
 

@@ -38,14 +38,14 @@ ActionBar::~ActionBar()
 }
 
 WorksheetToolButton* ActionBar::addButton(const KIcon& icon, QString toolTip,
-				   QObject* receiver, const char* method )
+                                   QObject* receiver, const char* method )
 {
     WorksheetToolButton* button = new WorksheetToolButton(this);
     button->setIcon(icon);
     button->setIconScale(worksheet()->epsRenderer()->scale());
     button->setToolTip(toolTip);
     if (receiver && method)
-	connect(button, SIGNAL(clicked()), receiver, method);
+        connect(button, SIGNAL(clicked()), receiver, method);
     m_pos -= button->width() + 2;
     m_height = (m_height > button->height()) ? m_height : button->height();
     button->setPos(m_pos, 4);
@@ -63,7 +63,7 @@ void ActionBar::updatePosition(const QSizeF& parentSize)
     setPos(parentSize.width(), 0);
     const qreal scale = worksheet()->epsRenderer()->scale();
     foreach(WorksheetToolButton* button, m_buttons) {
-	button->setIconScale(scale);
+        button->setIconScale(scale);
     }
 }
 

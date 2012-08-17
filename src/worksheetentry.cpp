@@ -127,7 +127,7 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
     kDebug() << size();
     const qreal scale = worksheet()->epsRenderer()->scale();
     QPixmap pixmap((size()*scale).toSize());
-    pixmap.fill(QColor(0, 0, 0, 0));
+    pixmap.fill(QColor(255, 255, 255, 0));
     QPainter painter(&pixmap);
     const QRectF sceneRect = mapRectToScene(boundingRect());
     worksheet()->render(&painter, pixmap.rect(), sceneRect);

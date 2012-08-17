@@ -31,7 +31,7 @@ AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
     : WorksheetImageItem(parent), ResultItem(), m_height(0), m_movie(0)
 {
     connect(this, SIGNAL(removeResult()), parentEntry(),
-	    SLOT(removeResult()));
+            SLOT(removeResult()));
 }
 
 AnimationResultItem::~AnimationResultItem()
@@ -52,16 +52,16 @@ void AnimationResultItem::populateMenu(KMenu* menu, const QPointF& pos)
 
     menu->addSeparator();
     if (m_movie) {
-	if (m_movie->state() == QMovie::Running)
-	    menu->addAction(KIcon("media-playback-pause"), i18n("Pause"),
-			    this, SLOT(pauseMovie()));
-	else
-	    menu->addAction(KIcon("media-playback-start"), i18n("Start"),
-			    m_movie, SLOT(start()));
-	if (m_movie->state() == QMovie::Running ||
-	    m_movie->state() == QMovie::Paused)
-	    menu->addAction(KIcon("media-playback-stop"), i18n("Stop"),
-			    this, SLOT(stopMovie()));
+        if (m_movie->state() == QMovie::Running)
+            menu->addAction(KIcon("media-playback-pause"), i18n("Pause"),
+                            this, SLOT(pauseMovie()));
+        else
+            menu->addAction(KIcon("media-playback-start"), i18n("Start"),
+                            m_movie, SLOT(start()));
+        if (m_movie->state() == QMovie::Running ||
+            m_movie->state() == QMovie::Paused)
+            menu->addAction(KIcon("media-playback-stop"), i18n("Stop"),
+                            this, SLOT(stopMovie()));
     }
     kDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
@@ -72,12 +72,12 @@ ResultItem* AnimationResultItem::updateFromResult(Cantor::Result* result)
     QMovie* mov;
     switch(result->type()) {
     case Cantor::AnimationResult::Type:
-	mov = static_cast<QMovie*>(result->data().value<QObject*>());
-	setMovie(mov);
-	return this;
+        mov = static_cast<QMovie*>(result->data().value<QObject*>());
+        setMovie(mov);
+        return this;
     default:
-	deleteLater();
-	return create(parentEntry(), result);
+        deleteLater();
+        return create(parentEntry(), result);
     }
 }
 
@@ -89,17 +89,17 @@ QRectF AnimationResultItem::boundingRect() const
 void AnimationResultItem::setMovie(QMovie* movie)
 {
     if (m_movie) {
-	m_movie->disconnect(this, SLOT(updateFrame()));
-	m_movie->disconnect(this, SLOT(updateSize()));
+        m_movie->disconnect(this, SLOT(updateFrame()));
+        m_movie->disconnect(this, SLOT(updateSize()));
     }
     m_movie = movie;
     m_height = 0;
     if (m_movie) {
-	connect(m_movie, SIGNAL(frameChanged(int)), this,
-		SLOT(updateFrame()));
-	connect(m_movie, SIGNAL(resized(const QSize&)),
-		this, SLOT(updateSize(const QSize&)));
-	m_movie->start();
+        connect(m_movie, SIGNAL(frameChanged(int)), this,
+                SLOT(updateFrame()));
+        connect(m_movie, SIGNAL(resized(const QSize&)),
+                this, SLOT(updateSize(const QSize&)));
+        m_movie->start();
     }
 }
 
@@ -112,8 +112,8 @@ void AnimationResultItem::updateFrame()
 void AnimationResultItem::updateSize(const QSize& size)
 {
     if (m_height != size.height()) {
-	m_height = size.height();
-	emit sizeChanged();
+        m_height = size.height();
+        emit sizeChanged();
     }
 }
 
@@ -128,16 +128,16 @@ void AnimationResultItem::saveResult()
 void AnimationResultItem::stopMovie()
 {
     if (m_movie) {
-	m_movie->stop();
-	m_movie->jumpToFrame(0);
-	worksheet()->update(mapRectToScene(boundingRect()));
+        m_movie->stop();
+        m_movie->jumpToFrame(0);
+        worksheet()->update(mapRectToScene(boundingRect()));
     }
 }
 
 void AnimationResultItem::pauseMovie()
 {
     if (m_movie)
-	m_movie->setPaused(true);
+        m_movie->setPaused(true);
 }
 
 void AnimationResultItem::deleteLater()

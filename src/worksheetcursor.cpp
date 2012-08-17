@@ -28,7 +28,7 @@ WorksheetCursor::WorksheetCursor()
 }
 
 WorksheetCursor::WorksheetCursor(WorksheetEntry* entry, WorksheetTextItem* item,
-				 const QTextCursor& cursor)
+                                 const QTextCursor& cursor)
 {
     m_entry = entry;
     m_textItem = item;

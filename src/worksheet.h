@@ -100,13 +100,13 @@ class Worksheet : public QGraphicsScene
 
     // richtext
     struct RichTextInfo {
-	bool bold;
-	bool italic;
-	bool underline;
-	bool strikeOut;
-	QString font;
-	qreal fontSize;
-	Qt::Alignment align;
+        bool bold;
+        bool italic;
+        bool underline;
+        bool strikeOut;
+        QString font;
+        qreal fontSize;
+        Qt::Alignment align;
     };
 
   public slots:

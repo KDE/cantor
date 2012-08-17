@@ -101,14 +101,14 @@ void PageBreakEntry::interruptEvaluation()
 void PageBreakEntry::layOutForWidth(qreal w, bool force)
 {
     if (size().width() == w && !force)
-	return;
+        return;
 
     if (m_msgItem->isVisible()) {
-	m_msgItem->setGeometry(0, 0, w, true);
+        m_msgItem->setGeometry(0, 0, w, true);
 
-	setSize(QSizeF(w, m_msgItem->height() + VerticalMargin));
+        setSize(QSizeF(w, m_msgItem->height() + VerticalMargin));
     } else {
-	setSize(QSizeF(w, 0));
+        setSize(QSizeF(w, 0));
     }
 }
 
@@ -121,24 +121,24 @@ bool PageBreakEntry::evaluate(EvaluationOption evalOp)
 void PageBreakEntry::updateEntry()
 {
     if (worksheet()->isPrinting()) {
-	m_msgItem->setVisible(false);
-	recalculateSize();
+        m_msgItem->setVisible(false);
+        recalculateSize();
     } else if (!m_msgItem->isVisible()) {
-	m_msgItem->setVisible(true);
-	recalculateSize();
+        m_msgItem->setVisible(true);
+        recalculateSize();
     }
     return;
 }
 
 /*
 void PageBreakEntry::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
-			   QWidget*)
+                           QWidget*)
 {
     if (worksheet()->isPrinting()) {
-	QPaintDevice* device = painter->paintEngine()->paintDevice();
-	QPrinter* printer = qobject_cast<QPrinter*>(device);
-	if (printer)
-	    printer->newPage();
+        QPaintDevice* device = painter->paintEngine()->paintDevice();
+        QPrinter* printer = qobject_cast<QPrinter*>(device);
+        if (printer)
+            printer->newPage();
     }
 }
 */

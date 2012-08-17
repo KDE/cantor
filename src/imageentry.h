@@ -62,7 +62,7 @@ class ImageEntry : public WorksheetEntry
     void populateMenu(KMenu *menu, const QPointF& pos);
     void startConfigDialog();
     void setImageData(const QString& path, const ImageSize& displaySize, 
-		      const ImageSize& printSize, bool useDisplaySizeForPrinting);
+                      const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
   protected:
     bool wantToEvaluate();

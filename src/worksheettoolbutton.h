@@ -39,8 +39,8 @@ class WorksheetToolButton : public QGraphicsObject
     qreal height();
     QRectF boundingRect() const;
     void setIconScale(qreal scale);
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, 
-	       QWidget* widget = 0);
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
+               QWidget* widget = 0);
 
   signals:
     void clicked();

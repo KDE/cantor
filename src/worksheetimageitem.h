@@ -39,7 +39,7 @@ class WorksheetImageItem : public QGraphicsObject
     ~WorksheetImageItem();
 
     enum {Type = UserType + 101};
-    
+
     int type() const;
 
     bool imageIsValid();
@@ -54,13 +54,13 @@ class WorksheetImageItem : public QGraphicsObject
 
     QRectF boundingRect() const;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
-	       QWidget *widget = 0);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+               QWidget *widget = 0);
 
     void setEps(const KUrl& url);
     void setImage(QImage img);
     void setPixmap(QPixmap pixmap);
-    
+
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
     Worksheet* worksheet();
 
@@ -70,7 +70,7 @@ class WorksheetImageItem : public QGraphicsObject
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
- 
+
   private:
     QPixmap m_pixmap;
     QSizeF m_size;

@@ -63,26 +63,26 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     connect(m_commandItem, SIGNAL(tabPressed()), this, SLOT(showCompletion()));
     connect(m_commandItem, SIGNAL(backtabPressed()),
-	    this, SLOT(selectPreviousCompletion()));
+            this, SLOT(selectPreviousCompletion()));
     connect(m_commandItem, SIGNAL(applyCompletion()),
-	    this, SLOT(applySelectedCompletion()));
+            this, SLOT(applySelectedCompletion()));
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluate()));
     connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
-	    this, SLOT(moveToPreviousItem(int, qreal)));
+            this, SLOT(moveToPreviousItem(int, qreal)));
     connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
-	    this, SLOT(moveToNextItem(int, qreal)));
+            this, SLOT(moveToNextItem(int, qreal)));
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
-	    worksheet, SLOT(highlightItem(WorksheetTextItem*)));
+            worksheet, SLOT(highlightItem(WorksheetTextItem*)));
     connect(m_promptItem, SIGNAL(drag(const QPointF&, const QPointF&)),
-	    this, SLOT(startDrag(const QPointF&)));
+            this, SLOT(startDrag(const QPointF&)));
     connect(worksheet, SIGNAL(updatePrompt()),
-	    this, SLOT(updatePrompt()));
+            this, SLOT(updatePrompt()));
 }
 
 CommandEntry::~CommandEntry()
 {
     if (m_completionBox)
-	m_completionBox->deleteLater();
+        m_completionBox->deleteLater();
 }
 
 int CommandEntry::type() const
@@ -101,16 +101,16 @@ void CommandEntry::moveToNextItem(int pos, qreal x)
     WorksheetTextItem* item = qobject_cast<WorksheetTextItem*>(sender());
 
     if (!item)
-	return;
+        return;
 
     if (item == m_commandItem) {
-	if (m_informationItems.isEmpty() ||
-	    !currentInformationItem()->isEditable())
-	    moveToNextEntry(pos, x);
-	else
-	    currentInformationItem()->setFocusAt(pos, x);
+        if (m_informationItems.isEmpty() ||
+            !currentInformationItem()->isEditable())
+            moveToNextEntry(pos, x);
+        else
+            currentInformationItem()->setFocusAt(pos, x);
     } else if (item == currentInformationItem()) {
-	moveToNextEntry(pos, x);
+        moveToNextEntry(pos, x);
     }
 }
 
@@ -119,12 +119,12 @@ void CommandEntry::moveToPreviousItem(int pos, qreal x)
     WorksheetTextItem* item = qobject_cast<WorksheetTextItem*>(sender());
 
     if (!item)
-	return;
+        return;
 
     if (item == m_commandItem || item == 0) {
-	moveToPreviousEntry(pos, x);
+        moveToPreviousEntry(pos, x);
     } else if (item == currentInformationItem()) {
-	m_commandItem->setFocusAt(pos, x);
+        m_commandItem->setFocusAt(pos, x);
     }
 }
 
@@ -140,23 +140,23 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
 {
     /*
     if ( m_expression ) {
-	if (m_expression->status() == Cantor::Expression::Computing) {
-	    kDebug() << "OLD EXPRESSION STILL ACTIVE";
-	    m_expression->interrupt();
-	}
+        if (m_expression->status() == Cantor::Expression::Computing) {
+            kDebug() << "OLD EXPRESSION STILL ACTIVE";
+            m_expression->interrupt();
+        }
         m_expression->deleteLater();
-	}*/
+        }*/
 
     // Delete any previus error
     if(m_errorItem)
     {
         m_errorItem->deleteLater();
-	m_errorItem = 0;
+        m_errorItem = 0;
     }
 
     foreach(WorksheetTextItem* item, m_informationItems)
     {
-	item->deleteLater();
+        item->deleteLater();
     }
     m_informationItems.clear();
 
@@ -215,7 +215,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 void CommandEntry::showCompletion()
 {
     if (!worksheet()->completionEnabled())
-	return;
+        return;
 
     //get the current line of the entry. If it's empty, ignore the call,
     //otherwise check for tab completion (if supported by the backend)
@@ -225,22 +225,22 @@ void CommandEntry::showCompletion()
     {
         return;
     } else if (isShowingCompletionPopup()) {
-	QString comp = m_completionObject->completion();
-	kDebug() << "command" << m_completionObject->command();
-	kDebug() << "completion" << comp;
-	if (comp != m_completionObject->command()
-	    || !m_completionObject->hasMultipleMatches()) {
-	    if (m_completionObject->hasMultipleMatches()) {
-		completeCommandTo(comp, PreliminaryCompletion);
-	    } else {
-		completeCommandTo(comp, FinalCompletion);
-		m_completionBox->hide();
-	    }
-	} else {
-	    m_completionBox->down();
-	}
+        QString comp = m_completionObject->completion();
+        kDebug() << "command" << m_completionObject->command();
+        kDebug() << "completion" << comp;
+        if (comp != m_completionObject->command()
+            || !m_completionObject->hasMultipleMatches()) {
+            if (m_completionObject->hasMultipleMatches()) {
+                completeCommandTo(comp, PreliminaryCompletion);
+            } else {
+                completeCommandTo(comp, FinalCompletion);
+                m_completionBox->hide();
+            }
+        } else {
+            m_completionBox->down();
+        }
     } else {
-	int p = m_commandItem->textCursor().positionInBlock();
+        int p = m_commandItem->textCursor().positionInBlock();
         Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, p);
         if(tco)
             setCompletion(tco);
@@ -250,7 +250,7 @@ void CommandEntry::showCompletion()
 void CommandEntry::selectPreviousCompletion()
 {
     if (isShowingCompletionPopup())
-	m_completionBox->up();
+        m_completionBox->up();
 }
 
 QString CommandEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
@@ -282,7 +282,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 QString CommandEntry::currentLine()
 {
     if (!m_commandItem->hasFocus())
-	return QString();
+        return QString();
 
     QTextBlock block = m_commandItem->textCursor().block();
     return block.text();
@@ -291,10 +291,10 @@ QString CommandEntry::currentLine()
 bool CommandEntry::evaluateCurrentItem()
 {
     if (m_commandItem->hasFocus()) {
-	return evaluate();
+        return evaluate();
     } else if (informationItemHasFocus()) {
-	addInformation();
-	return true;
+        addInformation();
+        return true;
     }
 
     return false;
@@ -310,14 +310,14 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
     m_evaluationOption = evalOp;
 
     if(cmd.isEmpty()) {
-	removeResult();
-	foreach(WorksheetTextItem* item, m_informationItems) {
-	    item->deleteLater();
-	}
-	m_informationItems.clear();
-	recalculateSize();
+        removeResult();
+        foreach(WorksheetTextItem* item, m_informationItems) {
+            item->deleteLater();
+        }
+        m_informationItems.clear();
+        recalculateSize();
 
-	evaluateNext(m_evaluationOption);
+        evaluateNext(m_evaluationOption);
         return false;
     }
 
@@ -342,19 +342,19 @@ void CommandEntry::updateEntry()
     kDebug() << "update Entry";
     Cantor::Expression *expr = expression();
     if (expr == 0 || expr->result() == 0)
-	return;
+        return;
 
     if (expr->result()->type() == Cantor::HelpResult::Type)
-	return; // Help is handled elsewhere
+        return; // Help is handled elsewhere
 
     if (!m_resultItem) {
-	m_resultItem = ResultItem::create(this, expr->result());
-	kDebug() << "new result";
-	animateSizeChange();
+        m_resultItem = ResultItem::create(this, expr->result());
+        kDebug() << "new result";
+        animateSizeChange();
     } else {
-	m_resultItem = m_resultItem->updateFromResult(expr->result());
-	kDebug() << "update result";
-	animateSizeChange();
+        m_resultItem = m_resultItem->updateFromResult(expr->result());
+        kDebug() << "update result";
+        animateSizeChange();
     }
 }
 
@@ -364,24 +364,24 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     switch (status)
     {
     case Cantor::Expression::Error:
-	text = m_expression->errorMessage();
-	break;
+        text = m_expression->errorMessage();
+        break;
     case Cantor::Expression::Interrupted:
-	text = i18n("Interrupted");
-	break;
+        text = i18n("Interrupted");
+        break;
     case Cantor::Expression::Done:
-	evaluateNext(m_evaluationOption);
-	m_evaluationOption = DoNothing;
-	return;
+        evaluateNext(m_evaluationOption);
+        m_evaluationOption = DoNothing;
+        return;
     default:
-	return;
+        return;
     }
 
     m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
 
     if(!m_errorItem)
     {
-	m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+        m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
     }
 
     m_errorItem->setHtml(text);
@@ -391,9 +391,9 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 bool CommandEntry::isEmpty()
 {
     if (m_commandItem->toPlainText().trimmed().isEmpty()) {
-	if (m_resultItem)
-	    return false;
-	return true;
+        if (m_resultItem)
+            return false;
+        return true;
     }
     return false;
 }
@@ -401,14 +401,14 @@ bool CommandEntry::isEmpty()
 bool CommandEntry::focusEntry(int pos, qreal xCoord)
 {
     if (aboutToBeRemoved())
-	return false;
+        return false;
     WorksheetTextItem* item;
     if (pos == WorksheetTextItem::TopLeft || pos == WorksheetTextItem::TopCoord)
-	item = m_commandItem;
+        item = m_commandItem;
     else if (m_informationItems.size() && currentInformationItem()->isEditable())
-	item = currentInformationItem();
+        item = currentInformationItem();
     else
-	item = m_commandItem;
+        item = m_commandItem;
 
     item->setFocusAt(pos, xCoord);
     return true;
@@ -417,7 +417,7 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
 void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 {
     if (m_completionObject)
-	removeContextHelp();
+        removeContextHelp();
 
     m_completionObject = tc;
     connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
@@ -433,31 +433,31 @@ void CommandEntry::showCompletions()
 
     if(m_completionObject->hasMultipleMatches())
     {
-	completeCommandTo(completion);
+        completeCommandTo(completion);
 
         QToolTip::showText(QPoint(), QString(), worksheetView());
-	if (m_completionBox)
-	    m_completionBox->deleteLater();
-	m_completionBox = new KCompletionBox(worksheetView());
-	m_completionBox->setItems(m_completionObject->allMatches());
-	QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
-	if (!items.empty())
-	    m_completionBox->setCurrentItem(items.first());
-	m_completionBox->setTabHandling(false);
-	m_completionBox->setActivateOnSelect(true);
-	connect(m_completionBox, SIGNAL(activated(const QString&)), this,
-		SLOT(applySelectedCompletion()));
-	connect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
-		SLOT(completedLineChanged()));
-	connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
+        if (m_completionBox)
+            m_completionBox->deleteLater();
+        m_completionBox = new KCompletionBox(worksheetView());
+        m_completionBox->setItems(m_completionObject->allMatches());
+        QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
+        if (!items.empty())
+            m_completionBox->setCurrentItem(items.first());
+        m_completionBox->setTabHandling(false);
+        m_completionBox->setActivateOnSelect(true);
+        connect(m_completionBox, SIGNAL(activated(const QString&)), this,
+                SLOT(applySelectedCompletion()));
+        connect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
+                SLOT(completedLineChanged()));
+        connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
 
-	m_commandItem->activateCompletion(true);
-	QPointF cursorPos = m_commandItem->cursorPosition();
-	m_completionBox->popup();
-	m_completionBox->move(toGlobalPosition(cursorPos));
+        m_commandItem->activateCompletion(true);
+        QPointF cursorPos = m_commandItem->cursorPosition();
+        m_completionBox->popup();
+        m_completionBox->move(toGlobalPosition(cursorPos));
     } else
     {
-	completeCommandTo(completion, FinalCompletion);
+        completeCommandTo(completion, FinalCompletion);
     }
 }
 
@@ -471,16 +471,16 @@ void CommandEntry::applySelectedCompletion()
 {
     QListWidgetItem* item = m_completionBox->currentItem();
     if(item)
-	completeCommandTo(item->text(), FinalCompletion);
+        completeCommandTo(item->text(), FinalCompletion);
     m_completionBox->hide();
 }
 
 void CommandEntry::completedLineChanged()
 {
     if (!isShowingCompletionPopup()) {
-	// the completion popup is not visible anymore, so let's clean up
-	removeContextHelp();
-	return;
+        // the completion popup is not visible anymore, so let's clean up
+        removeContextHelp();
+        return;
     }
     const QString line = currentLine();
     m_completionObject->updateLine(line, m_commandItem->textCursor().positionInBlock());
@@ -489,7 +489,7 @@ void CommandEntry::completedLineChanged()
 void CommandEntry::updateCompletions()
 {
     if (!m_completionObject)
-	return;
+        return;
     QString completion = m_completionObject->completion();
     kDebug()<<"completion: "<<completion;
     kDebug()<<"showing "<<m_completionObject->allMatches();
@@ -497,13 +497,13 @@ void CommandEntry::updateCompletions()
     if(m_completionObject->hasMultipleMatches() || !completion.isEmpty())
     {
         QToolTip::showText(QPoint(), QString(), worksheetView());
-	m_completionBox->setItems(m_completionObject->allMatches());
-	QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
-	if (!items.empty())
-	    m_completionBox->setCurrentItem(items.first());
+        m_completionBox->setItems(m_completionObject->allMatches());
+        QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
+        if (!items.empty())
+            m_completionBox->setCurrentItem(items.first());
 
-	QPointF cursorPos = m_commandItem->cursorPosition();
-	m_completionBox->move(toGlobalPosition(cursorPos));
+        QPointF cursorPos = m_commandItem->cursorPosition();
+        m_completionBox->move(toGlobalPosition(cursorPos));
     } else
     {
         removeContextHelp();
@@ -519,16 +519,16 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
         if(obj)
             setSyntaxHelp(obj);
     } else {
-	if(m_syntaxHelpObject)
-	    m_syntaxHelpObject->deleteLater();
-	m_syntaxHelpObject=0;
+        if(m_syntaxHelpObject)
+            m_syntaxHelpObject->deleteLater();
+        m_syntaxHelpObject=0;
     }
 
     Cantor::CompletionObject::LineCompletionMode cmode;
     if (mode == PreliminaryCompletion)
-	cmode = Cantor::CompletionObject::PreliminaryCompletion;
+        cmode = Cantor::CompletionObject::PreliminaryCompletion;
     else
-	cmode = Cantor::CompletionObject::FinalCompletion;
+        cmode = Cantor::CompletionObject::FinalCompletion;
     m_completionObject->completeLine(completion, cmode);
 }
 
@@ -544,10 +544,10 @@ void CommandEntry::completeLineTo(const QString& line, int index)
     m_commandItem->setTextCursor(cursor);
 
     if (m_syntaxHelpObject) {
-	m_syntaxHelpObject->fetchSyntaxHelp();
-	// If we are about to show syntax help, then this was the final
-	// completion, and we should clean up.
-	removeContextHelp();
+        m_syntaxHelpObject->fetchSyntaxHelp();
+        // If we are about to show syntax help, then this was the final
+        // completion, and we should clean up.
+        removeContextHelp();
     }
 }
 
@@ -595,9 +595,9 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
     connect(answerItem, SIGNAL(moveToPrevious(int, qreal)),
-	    this, SLOT(moveToPreviousItem(int, qreal)));
+            this, SLOT(moveToPreviousItem(int, qreal)));
     connect(answerItem, SIGNAL(moveToNext(int, qreal)),
-	    this, SLOT(moveToNextItem(int, qreal)));
+            this, SLOT(moveToNextItem(int, qreal)));
 
     connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
     answerItem->setFocus();
@@ -612,23 +612,23 @@ void CommandEntry::removeResult()
     }
 
     if (m_resultItem) {
-	QGraphicsObject* obj = m_resultItem->graphicsObject();
-	m_resultItem = 0;
-	fadeOutItem(obj);
+        QGraphicsObject* obj = m_resultItem->graphicsObject();
+        m_resultItem = 0;
+        fadeOutItem(obj);
     }
 }
 
 void CommandEntry::removeContextHelp()
 {
     disconnect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
-	       SLOT(completedLineChanged()));
+               SLOT(completedLineChanged()));
     if(m_completionObject)
         m_completionObject->deleteLater();
 
     m_commandItem->activateCompletion(false);
     m_completionObject = 0;
     if (m_completionBox)
-	m_completionBox->hide();
+        m_completionBox->hide();
 }
 
 
@@ -669,14 +669,14 @@ void CommandEntry::updatePrompt()
 WorksheetTextItem* CommandEntry::currentInformationItem()
 {
     if (m_informationItems.isEmpty())
-	return 0;
+        return 0;
     return m_informationItems.last();
 }
 
 bool CommandEntry::informationItemHasFocus()
 {
     if (m_informationItems.isEmpty())
-	return false;
+        return false;
     return m_informationItems.last()->hasFocus();
 }
 
@@ -703,38 +703,38 @@ QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
 }
 
 WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
-				     QTextDocument::FindFlags qt_flags,
-				     const WorksheetCursor& pos)
+                                     QTextDocument::FindFlags qt_flags,
+                                     const WorksheetCursor& pos)
 {
     if (pos.isValid() && pos.entry() != this)
-	return WorksheetCursor();
+        return WorksheetCursor();
 
     WorksheetCursor p = pos;
     QTextCursor cursor;
     if (flags & WorksheetEntry::SearchCommand) {
-	cursor = m_commandItem->search(pattern, qt_flags, p);
-	if (!cursor.isNull())
-	    return WorksheetCursor(this, m_commandItem, cursor);
+        cursor = m_commandItem->search(pattern, qt_flags, p);
+        if (!cursor.isNull())
+            return WorksheetCursor(this, m_commandItem, cursor);
     }
 
     if (p.textItem() == m_commandItem)
-	p = WorksheetCursor();
+        p = WorksheetCursor();
 
     if (m_errorItem && flags & WorksheetEntry::SearchError) {
-	cursor = m_errorItem->search(pattern, qt_flags, p);
-	if (!cursor.isNull())
-	    return WorksheetCursor(this, m_errorItem, cursor);
+        cursor = m_errorItem->search(pattern, qt_flags, p);
+        if (!cursor.isNull())
+            return WorksheetCursor(this, m_errorItem, cursor);
     }
 
     if (p.textItem() == m_errorItem)
-	p = WorksheetCursor();
+        p = WorksheetCursor();
 
     WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
-	(m_resultItem);
+        (m_resultItem);
     if (textResult && flags & WorksheetEntry::SearchResult) {
-	cursor = textResult->search(pattern, qt_flags, p);
-	if (!cursor.isNull())
-	    return WorksheetCursor(this, textResult, cursor);
+        cursor = textResult->search(pattern, qt_flags, p);
+        if (!cursor.isNull())
+            return WorksheetCursor(this, textResult, cursor);
     }
 
     return WorksheetCursor();
@@ -743,7 +743,7 @@ WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
 void CommandEntry::layOutForWidth(double w, bool force)
 {
     if (w == size().width() && !force)
-	return;
+        return;
 
     m_promptItem->setPos(0,0);
     double x = 0 + m_promptItem->width() + HorizontalSpacing;
@@ -753,26 +753,26 @@ void CommandEntry::layOutForWidth(double w, bool force)
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
     foreach(WorksheetTextItem* information, m_informationItems) {
-	y += VerticalSpacing;
-	y += information->setGeometry(x,y,w-x);
+        y += VerticalSpacing;
+        y += information->setGeometry(x,y,w-x);
     }
 
     if (m_errorItem) {
-	y += VerticalSpacing;
-	y += m_errorItem->setGeometry(x,y,w-x);
+        y += VerticalSpacing;
+        y += m_errorItem->setGeometry(x,y,w-x);
     }
 
     if (m_resultItem) {
-	y += VerticalSpacing;
-	y += m_resultItem->setGeometry(x, y, w-x);
+        y += VerticalSpacing;
+        y += m_resultItem->setGeometry(x, y, w-x);
     }
     y += VerticalMargin;
 
     QSizeF s(w, y);
     if (animationActive()) {
-	updateSizeAnimation(s);
+        updateSizeAnimation(s);
     } else {
-	setSize(s);
+        setSize(s);
     }
 }
 

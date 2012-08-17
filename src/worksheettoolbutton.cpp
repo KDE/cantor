@@ -63,13 +63,13 @@ void WorksheetToolButton::setIconScale(qreal scale)
 }
 
 void WorksheetToolButton::paint(QPainter* painter,
-				const QStyleOptionGraphicsItem* option,
-				QWidget* widget)
+                                const QStyleOptionGraphicsItem* option,
+                                QWidget* widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
     if (m_scale == 0)
-	setIconScale(1);
+        setIconScale(1);
     QRectF rect(QPointF(0,0), m_size);
     painter->drawPixmap(rect, m_pixmap, m_pixmap.rect());
 }
@@ -84,5 +84,5 @@ void WorksheetToolButton::mousePressEvent(QGraphicsSceneMouseEvent* event)
 void WorksheetToolButton::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     if (boundingRect().contains(event->pos()))
-	emit clicked();
+        emit clicked();
 }

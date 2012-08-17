@@ -44,7 +44,7 @@ class WorksheetTextItem : public QGraphicsTextItem
   Q_OBJECT
   public:
     WorksheetTextItem(QGraphicsObject* parent,
-		      Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
+                      Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem();
 
     void setCursorPosition(const QPointF& pos);
@@ -91,8 +91,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setFontSize(int size);
 
     QTextCursor search(QString pattern,
-		       QTextDocument::FindFlags qt_flags,
-		       const WorksheetCursor& pos);
+                       QTextDocument::FindFlags qt_flags,
+                       const WorksheetCursor& pos);
 
   signals:
     void moveToPrevious(int pos, qreal xCoord);

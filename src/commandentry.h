@@ -82,8 +82,8 @@ class CommandEntry : public WorksheetEntry
     WorksheetTextItem* highlightItem();
 
     WorksheetCursor search(QString pattern, unsigned flags,
-			   QTextDocument::FindFlags qt_flags,
-			   const WorksheetCursor& pos = WorksheetCursor());
+                           QTextDocument::FindFlags qt_flags,
+                           const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
     bool evaluateCurrentItem();
@@ -122,8 +122,8 @@ class CommandEntry : public WorksheetEntry
 
   private:
     enum CompletionMode {
-	PreliminaryCompletion,
-	FinalCompletion
+        PreliminaryCompletion,
+        FinalCompletion
     };
   private slots:
     void invalidate();
