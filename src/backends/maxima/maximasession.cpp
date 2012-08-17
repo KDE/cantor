@@ -125,12 +125,15 @@ void MaximaSession::newMaximaClient(QTcpSocket* socket)
 
     m_maxima->write(cmd.toLatin1());
 
-
     Cantor::Expression* expr=evaluateExpression("print(____END_OF_INIT____);",
                                                 Cantor::Expression::DeleteOnFinish);
 
     //move this expression to the front
     m_expressionQueue.prepend(m_expressionQueue.takeLast());
+
+    //reset the typesetting state
+    setTypesettingEnabled(isTypesettingEnabled());
+
 
     m_initState=MaximaSession::Initializing;
     runFirstExpression();
@@ -280,7 +283,8 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 {
     MaximaExpression* expression=m_expressionQueue.first();
 
-    if(m_initState==MaximaSession::Initializing)
+    if(m_initState==MaximaSession::Initializing
+       && expression->command().contains( "____END_OF_INIT____"))
     {
         kDebug()<<"initialized";
 
