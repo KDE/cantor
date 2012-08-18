@@ -58,15 +58,16 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     m_maxWidth = -1;
     setAcceptDrops(true);
     setFont(KGlobalSettings::fixedFont());
-    //connect(document(), SIGNAL(contentsChange(int, int, int)),
-    //        this, SLOT(setHeight()));
-    connect(document(), SIGNAL(contentsChanged()),
-            this, SLOT(testSize()));
+    connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
     connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
             SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
     connect(this, SIGNAL(cursorPositionChanged(QTextCursor)), this,
             SLOT(updateRichTextActions(QTextCursor)));
+    connect(document(), SIGNAL(undoAvailable(bool)),
+            this, SIGNAL(undoAvailable(bool)));
+    connect(document(), SIGNAL(redoAvailable(bool)),
+            this, SIGNAL(redoAvailable(bool)));
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -157,13 +158,21 @@ void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
     if (QApplication::clipboard()->text().isEmpty()) {
         paste->setEnabled(false);
     }
-    if (isEditable())
+    bool actionAdded = false;
+    if (isEditable()) {
         menu->addAction(cut);
-    if (!m_itemDragable)
+        actionAdded = true;
+    }
+    if (!m_itemDragable && (flags() & Qt::TextSelectableByMouse)) {
         menu->addAction(copy);
-    if (isEditable())
+        actionAdded = true;
+    }
+    if (isEditable()) {
         menu->addAction(paste);
-    menu->addSeparator();
+        actionAdded = true;
+    }
+    if (actionAdded)
+        menu->addSeparator();
 
     emit menuCreated(menu, mapToParent(pos));
 }
@@ -218,6 +227,29 @@ void WorksheetTextItem::copy()
             return;
         QApplication::clipboard()->setText(resolveImages(textCursor()));
     }
+}
+
+void WorksheetTextItem::undo()
+{
+    document()->undo();
+}
+
+void WorksheetTextItem::redo()
+{
+    document()->redo();
+}
+
+void WorksheetTextItem::clipboardChanged()
+{
+    if (isEditable())
+        emit pasteAvailable(!QApplication::clipboard()->text().isEmpty());
+}
+
+void WorksheetTextItem::selectionChanged()
+{
+    emit copyAvailable(textCursor().hasSelection());
+    if (isEditable())
+        emit cutAvailable(textCursor().hasSelection());
 }
 
 QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
@@ -395,15 +427,6 @@ Cantor::Session* WorksheetTextItem::session()
 
 void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_C && event->modifiers() == Qt::ControlModifier)
-    {
-        if (!richTextEnabled())
-            copy();
-        else
-            QGraphicsTextItem::keyPressEvent(event);
-        return;
-    }
-
     if (!isEditable())
         return;
 
@@ -454,27 +477,16 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
             return;
         }
         break;
-        /* Call our custom functions for cut and paste, unless richtext is
-           enabled */
-    case Qt::Key_X:
-        if (event->modifiers() == Qt::ControlModifier && !richTextEnabled()) {
-            cut();
-            return;
-        }
-        break;
-    case Qt::Key_V:
-        if (event->modifiers() == Qt::ControlModifier && !richTextEnabled()) {
-            paste();
-            return;
-        }
-        break;
     default:
         break;
     }
     int p = textCursor().position();
+    bool b = textCursor().hasSelection();
     QGraphicsTextItem::keyPressEvent(event);
     if (p != textCursor().position())
         emit cursorPositionChanged(textCursor());
+    if (b != textCursor().hasSelection())
+        selectionChanged();
 }
 
 bool WorksheetTextItem::sceneEvent(QEvent *event)
@@ -526,8 +538,9 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
     WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(parentObject());
     WorksheetCursor c(entry, this, textCursor());
     worksheet()->makeVisible(c);
-    worksheet()->setAcceptRichText(richTextEnabled());
     worksheet()->updateFocusedTextItem(this);
+    connect(QApplication::clipboard(), SIGNAL(dataChanged()), this,
+            SLOT(clipboardChanged()));
     emit receivedFocus(this);
     emit cursorPositionChanged(textCursor());
 }
@@ -541,6 +554,7 @@ void WorksheetTextItem::focusOutEvent(QFocusEvent *event)
 void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     int p = textCursor().position();
+    bool b = textCursor().hasSelection();
 
     QGraphicsTextItem::mousePressEvent(event);
 
@@ -554,6 +568,8 @@ void WorksheetTextItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     if (p != textCursor().position())
         emit cursorPositionChanged(textCursor());
+    if (b != textCursor().hasSelection())
+        selectionChanged();
 }
 
 void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
@@ -566,7 +582,10 @@ void WorksheetTextItem::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
         emit drag(mapToParent(buttonDownPos), mapToParent(event->pos()));
         event->accept();
     } else {
+        bool b = textCursor().hasSelection();
         QGraphicsTextItem::mouseMoveEvent(event);
+        if (b != textCursor().hasSelection())
+            selectionChanged();
     }
 }
 
@@ -701,8 +720,33 @@ void WorksheetTextItem::clearSelection()
     QTextCursor cursor = textCursor();
     cursor.clearSelection();
     setTextCursor(cursor);
+    selectionChanged();
 }
 
+bool WorksheetTextItem::isUndoAvailable()
+{
+    return document()->isUndoAvailable();
+}
+
+bool WorksheetTextItem::isRedoAvailable()
+{
+    return document()->isRedoAvailable();
+}
+
+bool WorksheetTextItem::isCutAvailable()
+{
+    return isEditable() && textCursor().hasSelection();
+}
+
+bool WorksheetTextItem::isCopyAvailable()
+{
+    return !m_itemDragable && textCursor().hasSelection();
+}
+
+bool WorksheetTextItem::isPasteAvailable()
+{
+    return isEditable() && !QApplication::clipboard()->text().isEmpty();
+}
 
 QTextCursor WorksheetTextItem::search(QString pattern,
                                       QTextDocument::FindFlags qt_flags,

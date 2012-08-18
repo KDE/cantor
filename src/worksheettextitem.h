@@ -79,6 +79,12 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     void clearSelection();
 
+    bool isUndoAvailable();
+    bool isRedoAvailable();
+    bool isCutAvailable();
+    bool isCopyAvailable();
+    bool isPasteAvailable();
+
     // richtext stuff
     void setTextForegroundColor();
     void setTextBackgroundColor();
@@ -108,12 +114,21 @@ class WorksheetTextItem : public QGraphicsTextItem
     void sizeChanged();
     void menuCreated(KMenu*, const QPointF&);
     void drag(const QPointF&, const QPointF&);
+    void undoAvailable(bool);
+    void redoAvailable(bool);
+    void cutAvailable(bool);
+    void copyAvailable(bool);
+    void pasteAvailable(bool);
 
   public slots:
     void insertTab();
     void cut();
     void copy();
     void paste();
+    void undo();
+    void redo();
+    void clipboardChanged();
+    void selectionChanged();
 
   protected:
     void keyPressEvent(QKeyEvent *event);

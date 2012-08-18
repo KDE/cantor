@@ -190,6 +190,16 @@ class Worksheet : public QGraphicsScene
     void sessionChanged();
     void showHelp(const QString& help);
     void updatePrompt();
+    void undoAvailable(bool);
+    void redoAvailable(bool);
+    void undo();
+    void redo();
+    void cutAvailable(bool);
+    void copyAvailable(bool);
+    void pasteAvailable(bool);
+    void cut();
+    void copy();
+    void paste();
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

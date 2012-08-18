@@ -119,6 +119,33 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     savePlain->setIcon(KIcon("document-save"));
     connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
 
+    KAction* undo=KStandardAction::undo(m_worksheet, SIGNAL(undo()),
+                                        actionCollection());
+    undo->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(undoAvailable(bool)),
+            undo, SLOT(setEnabled(bool)));
+    KAction* redo=KStandardAction::redo(m_worksheet, SIGNAL(redo()),
+                                        actionCollection());
+    redo->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(redoAvailable(bool)),
+            redo, SLOT(setEnabled(bool)));
+
+    KAction* cut=KStandardAction::cut(m_worksheet, SIGNAL(cut()),
+                                      actionCollection());
+    cut->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(cutAvailable(bool)),
+            cut, SLOT(setEnabled(bool)));
+    KAction* copy=KStandardAction::copy(m_worksheet, SIGNAL(copy()),
+                                        actionCollection());
+    copy->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(copyAvailable(bool)),
+            copy, SLOT(setEnabled(bool)));
+    KAction* paste=KStandardAction::paste(m_worksheet, SIGNAL(paste()),
+                                          actionCollection());
+    paste->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(pasteAvailable(bool)),
+            paste, SLOT(setEnabled(bool)));
+
     KAction* find=KStandardAction::find(this, SLOT(showSearchBar()),
                                         actionCollection());
     find->setPriority(QAction::LowPriority);

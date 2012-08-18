@@ -1314,10 +1314,53 @@ WorksheetTextItem* Worksheet::lastFocusedTextItem()
 
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
-    if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem)
+    if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem) {
+        disconnect(m_lastFocusedTextItem, SIGNAL(undoAvailable(bool)),
+                   this, SIGNAL(undoAvailable(bool)));
+        disconnect(m_lastFocusedTextItem, SIGNAL(redoAvailable(bool)),
+                   this, SIGNAL(redoAvailable(bool)));
+        disconnect(this, SIGNAL(undo()), m_lastFocusedTextItem, SLOT(undo()));
+        disconnect(this, SIGNAL(redo()), m_lastFocusedTextItem, SLOT(redo()));
+        disconnect(m_lastFocusedTextItem, SIGNAL(cutAvailable(bool)),
+                this, SIGNAL(cutAvailable(bool)));
+        disconnect(m_lastFocusedTextItem, SIGNAL(copyAvailable(bool)),
+                this, SIGNAL(copyAvailable(bool)));
+        disconnect(m_lastFocusedTextItem, SIGNAL(pasteAvailable(bool)),
+                this, SIGNAL(pasteAvailable(bool)));
+        disconnect(this, SIGNAL(cut()), m_lastFocusedTextItem, SLOT(cut()));
+        disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
+        disconnect(this, SIGNAL(paste()), m_lastFocusedTextItem, SLOT(paste()));
+
         m_lastFocusedTextItem->clearSelection();
+    }
 
     m_lastFocusedTextItem = newItem;
+    if (newItem) {
+        setAcceptRichText(newItem->richTextEnabled());
+        emit undoAvailable(newItem->isUndoAvailable());
+        emit redoAvailable(newItem->isRedoAvailable());
+        connect(newItem, SIGNAL(undoAvailable(bool)),
+                this, SIGNAL(undoAvailable(bool)));
+        connect(newItem, SIGNAL(redoAvailable(bool)),
+                this, SIGNAL(redoAvailable(bool)));
+        connect(this, SIGNAL(undo()), newItem, SLOT(undo()));
+        connect(this, SIGNAL(redo()), newItem, SLOT(redo()));
+        emit cutAvailable(newItem->isCutAvailable());
+        emit copyAvailable(newItem->isCopyAvailable());
+        emit pasteAvailable(newItem->isPasteAvailable());
+        connect(newItem, SIGNAL(cutAvailable(bool)),
+                this, SIGNAL(cutAvailable(bool)));
+        connect(newItem, SIGNAL(copyAvailable(bool)),
+                this, SIGNAL(copyAvailable(bool)));
+        connect(newItem, SIGNAL(pasteAvailable(bool)),
+                this, SIGNAL(pasteAvailable(bool)));
+        connect(this, SIGNAL(cut()), newItem, SLOT(cut()));
+        connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
+        connect(this, SIGNAL(paste()), newItem, SLOT(paste()));
+    } else {
+        emit undoAvailable(false);
+        emit redoAvailable(false);
+    }
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)

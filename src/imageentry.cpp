@@ -52,7 +52,8 @@ ImageEntry::~ImageEntry()
 
 void ImageEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    menu->addAction(i18n("Configure Image"), this, SLOT(startConfigDialog()));
+    menu->addAction(KIcon("configure"), i18n("Configure Image"),
+                    this, SLOT(startConfigDialog()));
     menu->addSeparator();
 
     WorksheetEntry::populateMenu(menu, pos);
