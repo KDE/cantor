@@ -1322,11 +1322,11 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         disconnect(this, SIGNAL(undo()), m_lastFocusedTextItem, SLOT(undo()));
         disconnect(this, SIGNAL(redo()), m_lastFocusedTextItem, SLOT(redo()));
         disconnect(m_lastFocusedTextItem, SIGNAL(cutAvailable(bool)),
-                this, SIGNAL(cutAvailable(bool)));
+                   this, SIGNAL(cutAvailable(bool)));
         disconnect(m_lastFocusedTextItem, SIGNAL(copyAvailable(bool)),
-                this, SIGNAL(copyAvailable(bool)));
+                   this, SIGNAL(copyAvailable(bool)));
         disconnect(m_lastFocusedTextItem, SIGNAL(pasteAvailable(bool)),
-                this, SIGNAL(pasteAvailable(bool)));
+                   this, SIGNAL(pasteAvailable(bool)));
         disconnect(this, SIGNAL(cut()), m_lastFocusedTextItem, SLOT(cut()));
         disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
         disconnect(this, SIGNAL(paste()), m_lastFocusedTextItem, SLOT(paste()));
@@ -1334,8 +1334,7 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         m_lastFocusedTextItem->clearSelection();
     }
 
-    m_lastFocusedTextItem = newItem;
-    if (newItem) {
+    if (newItem && m_lastFocusedTextItem != newItem) {
         setAcceptRichText(newItem->richTextEnabled());
         emit undoAvailable(newItem->isUndoAvailable());
         emit redoAvailable(newItem->isRedoAvailable());
@@ -1357,10 +1356,14 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         connect(this, SIGNAL(cut()), newItem, SLOT(cut()));
         connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
         connect(this, SIGNAL(paste()), newItem, SLOT(paste()));
-    } else {
+    } else if (!newItem) {
         emit undoAvailable(false);
         emit redoAvailable(false);
+        emit cutAvailable(false);
+        emit copyAvailable(false);
+        emit pasteAvailable(false);
     }
+    m_lastFocusedTextItem = newItem;
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)

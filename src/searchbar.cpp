@@ -49,6 +49,13 @@ SearchBar::~SearchBar()
         delete m_stdUi;
     else
         delete m_extUi;
+    if (m_currentCursor.isValid()) {
+        worksheet()->worksheetView()->setFocus();
+        m_currentCursor.entry()->focusEntry();
+    } else if (m_startCursor.isValid()) {
+        worksheet()->worksheetView()->setFocus();
+        m_startCursor.entry()->focusEntry();
+    }
 }
 
 void SearchBar::showStandard()
