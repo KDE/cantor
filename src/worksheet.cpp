@@ -1498,6 +1498,36 @@ void Worksheet::setFontSize(int size)
         item->setFontSize(size);
 }
 
+bool Worksheet::isShortcut(QKeySequence sequence)
+{
+    return m_shortcuts.contains(sequence);
+}
+
+void Worksheet::registerShortcut(QAction* action)
+{
+    kDebug() << action->shortcuts();
+    foreach(QKeySequence shortcut, action->shortcuts()) {
+        m_shortcuts.insert(shortcut, action);
+    }
+    connect(action, SIGNAL(changed()), this, SLOT(updateShortcut()));
+}
+
+void Worksheet::updateShortcut()
+{
+    QAction* action = qobject_cast<QAction*>(sender());
+    if (!action)
+        return;
+
+    // delete the old shortcuts of this action
+    QList<QKeySequence> shortcuts = m_shortcuts.keys(action);
+    foreach(QKeySequence shortcut, shortcuts) {
+        m_shortcuts.remove(shortcut);
+    }
+    // add the new shortcuts
+    foreach(QKeySequence shortcut, action->shortcuts()) {
+        m_shortcuts.insert(shortcut, action);
+    }
+}
 
 void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {

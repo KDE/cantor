@@ -463,17 +463,8 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_Enter:
     case Qt::Key_Return:
-        if (event->modifiers() == Qt::ShiftModifier) {
-            emit execute();
-            return;
-        } else if (event->modifiers() == Qt::NoModifier && m_completionActive) {
+        if (event->modifiers() == Qt::NoModifier && m_completionActive) {
             emit applyCompletion();
-            return;
-        }
-        break;
-    case Qt::Key_Delete:
-        if (event->modifiers() == Qt::ShiftModifier) {
-            emit deleteEntry();
             return;
         }
         break;
@@ -491,10 +482,10 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 
 bool WorksheetTextItem::sceneEvent(QEvent *event)
 {
-    // QGraphicsTextItem's TabChangesFocus feature prevents calls to
-    // keyPressEvent for Tab, even when it's turned off. So we got to catch
-    // that here.
     if (event->type() == QEvent::KeyPress) {
+        // QGraphicsTextItem's TabChangesFocus feature prevents calls to
+        // keyPressEvent for Tab, even when it's turned off. So we got to catch
+        // that here.
         QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
         if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
             QTextCursor cursor = textCursor();
@@ -526,6 +517,14 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
                    kev->key() == Qt::Key_Backtab) {
             emit backtabPressed();
             return true;
+        }
+    } else if (event->type() == QEvent::ShortcutOverride) {
+        QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
+        QKeySequence seq(kev->key() + kev->modifiers());
+        if (worksheet()->isShortcut(seq)) {
+            kDebug() << "ShortcutOverride" << kev->key() << kev->modifiers();
+            kev->ignore();
+            return false;
         }
     }
     return QGraphicsTextItem::sceneEvent(event);

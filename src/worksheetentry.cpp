@@ -64,12 +64,12 @@ WorksheetEntry::~WorksheetEntry()
 {
     emit aboutToBeDeleted();
     if (next())
-	next()->setPrevious(previous());
+        next()->setPrevious(previous());
     if (previous())
-	previous()->setNext(next());
+        previous()->setNext(next());
     if (m_animation) {
-	m_animation->animation->deleteLater();
-	delete m_animation;
+        m_animation->animation->deleteLater();
+        delete m_animation;
     }
 }
 
@@ -83,17 +83,17 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
     switch(t)
     {
     case TextEntry::Type:
-	return new TextEntry(worksheet);
+        return new TextEntry(worksheet);
     case CommandEntry::Type:
-	return new CommandEntry(worksheet);
+        return new CommandEntry(worksheet);
     case ImageEntry::Type:
-	return new ImageEntry(worksheet);
+        return new ImageEntry(worksheet);
     case PageBreakEntry::Type:
-	return new PageBreakEntry(worksheet);
+        return new PageBreakEntry(worksheet);
     case LatexEntry::Type:
-	return new LatexEntry(worksheet);
+        return new LatexEntry(worksheet);
     default:
-	return 0;
+        return 0;
     }
 }
 
@@ -135,10 +135,10 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
 
     drag->setPixmap(pixmap);
     if (grabPos.isNull()) {
-	const QPointF scenePos = worksheetView()->sceneCursorPos();
-	drag->setHotSpot((mapFromScene(scenePos) * scale).toPoint());
+        const QPointF scenePos = worksheetView()->sceneCursorPos();
+        drag->setHotSpot((mapFromScene(scenePos) * scale).toPoint());
     } else {
-	drag->setHotSpot((grabPos * scale).toPoint());
+        drag->setHotSpot((grabPos * scale).toPoint());
     }
     drag->setMimeData(new QMimeData());
 
@@ -164,8 +164,8 @@ bool WorksheetEntry::focusEntry(int pos, qreal xCoord)
     Q_UNUSED(xCoord);
 
     if (flags() & QGraphicsItem::ItemIsFocusable) {
-	setFocus();
-	return true;
+        setFocus();
+        return true;
     }
     return false;
 }
@@ -174,14 +174,14 @@ void WorksheetEntry::moveToPreviousEntry(int pos, qreal x)
 {
     WorksheetEntry* entry = previous();
     while (entry && !(entry->wantFocus() && entry->focusEntry(pos, x)))
-	entry = entry->previous();
+        entry = entry->previous();
 }
 
 void WorksheetEntry::moveToNextEntry(int pos, qreal x)
 {
     WorksheetEntry* entry = next();
     while (entry && !(entry->wantFocus() && entry->focusEntry(pos, x)))
-	entry = entry->next();
+        entry = entry->next();
 }
 
 Worksheet* WorksheetEntry::worksheet()
@@ -195,8 +195,8 @@ WorksheetView* WorksheetEntry::worksheetView()
 }
 
 WorksheetCursor WorksheetEntry::search(QString pattern, unsigned flags,
-				   QTextDocument::FindFlags qt_flags,
-				   const WorksheetCursor& pos)
+                                   QTextDocument::FindFlags qt_flags,
+                                   const WorksheetCursor& pos)
 {
     Q_UNUSED(pattern);
     Q_UNUSED(flags);
@@ -212,27 +212,27 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
     switch(event->key()) {
     case Qt::Key_Left:
     case Qt::Key_Up:
-	if (event->modifiers() == Qt::NoModifier)
-	    moveToPreviousEntry(WorksheetTextItem::BottomRight, 0);
-	break;
+        if (event->modifiers() == Qt::NoModifier)
+            moveToPreviousEntry(WorksheetTextItem::BottomRight, 0);
+        break;
     case Qt::Key_Right:
     case Qt::Key_Down:
-	if (event->modifiers() == Qt::NoModifier)
-	    moveToNextEntry(WorksheetTextItem::TopLeft, 0);
-	break;
-    case Qt::Key_Enter:
+        if (event->modifiers() == Qt::NoModifier)
+            moveToNextEntry(WorksheetTextItem::TopLeft, 0);
+        break;
+        /*case Qt::Key_Enter:
     case Qt::Key_Return:
-	if (event->modifiers() == Qt::ShiftModifier)
-	    evaluate();
-	else if (event->modifiers() == Qt::ControlModifier)
-	    worksheet()->insertCommandEntry();
-	break;
+        if (event->modifiers() == Qt::ShiftModifier)
+            evaluate();
+        else if (event->modifiers() == Qt::ControlModifier)
+            worksheet()->insertCommandEntry();
+        break;
     case Qt::Key_Delete:
-	if (event->modifiers() == Qt::ShiftModifier)
-	    startRemoving();
-	break;
-    default:
-	event->ignore();
+        if (event->modifiers() == Qt::ShiftModifier)
+            startRemoving();
+        break;
+        default:*/
+        event->ignore();
     }
 }
 
@@ -247,10 +247,10 @@ void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
     if (!worksheet()->isRunning() && wantToEvaluate())
-	menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
+        menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
     menu->addAction(KIcon("edit-delete"), i18n("Remove Entry"), this,
-		    SLOT(startRemoving()), 0);
+                    SLOT(startRemoving()), 0);
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
 
@@ -266,23 +266,23 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
     WorksheetEntry* entry = next();
 
     while (entry && !entry->wantFocus())
-	entry = entry->next();
+        entry = entry->next();
 
     if (entry) {
-	if (opt == EvaluateNext || Settings::self()->autoEval()) {
-	    entry->evaluate(EvaluateNext);
-	} else if (opt == FocusNext) {
-	    worksheet()->setModified();
-	    entry->focusEntry(WorksheetTextItem::BottomRight);
-	} else {
-	    worksheet()->setModified();
-	}
+        if (opt == EvaluateNext || Settings::self()->autoEval()) {
+            entry->evaluate(EvaluateNext);
+        } else if (opt == FocusNext) {
+            worksheet()->setModified();
+            entry->focusEntry(WorksheetTextItem::BottomRight);
+        } else {
+            worksheet()->setModified();
+        }
     } else if (opt != DoNothing) {
-	if (!isEmpty() || type() != CommandEntry::Type)
-	    worksheet()->appendCommandEntry();
-	else
-	    focusEntry();
-	worksheet()->setModified();
+        if (!isEmpty() || type() != CommandEntry::Type)
+            worksheet()->appendCommandEntry();
+        else
+            focusEntry();
+        worksheet()->setModified();
     }
 }
 
@@ -298,7 +298,7 @@ void WorksheetEntry::recalculateSize()
     qreal height = size().height();
     layOutForWidth(size().width(), true);
     if (height != size().height())
-	worksheet()->updateEntrySize(this);
+        worksheet()->updateEntrySize(this);
 }
 
 QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
@@ -306,12 +306,12 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
     QSizeF oldSize;
     QSizeF newSize;
     if (s.isValid()) {
-	oldSize = size();
-	newSize = s;
+        oldSize = size();
+        newSize = s;
     } else {
-	oldSize = size();
-	layOutForWidth(size().width(), true);
-	newSize = size();
+        oldSize = size();
+        layOutForWidth(size().width(), true);
+        newSize = size();
     }
     kDebug() << oldSize << newSize;
 
@@ -321,7 +321,7 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
     sizeAn->setEndValue(newSize);
     sizeAn->setEasingCurve(QEasingCurve::InOutQuad);
     connect(sizeAn, SIGNAL(valueChanged(const QVariant&)),
-	    this, SLOT(sizeAnimated()));
+            this, SLOT(sizeAnimated()));
     return sizeAn;
 }
 
@@ -333,12 +333,12 @@ void WorksheetEntry::sizeAnimated()
 void WorksheetEntry::animateSizeChange()
 {
     if (!worksheet()->animationsEnabled()) {
-	recalculateSize();
-	return;
+        recalculateSize();
+        return;
     }
     if (m_animation) {
-	layOutForWidth(size().width(), true);
-	return;
+        layOutForWidth(size().width(), true);
+        return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     m_animation = new AnimationData;
@@ -351,24 +351,24 @@ void WorksheetEntry::animateSizeChange()
     m_animation->animation = new QParallelAnimationGroup(this);
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     connect(m_animation->animation, SIGNAL(finished()),
-	    this, SLOT(endAnimation()));
+            this, SLOT(endAnimation()));
     m_animation->animation->start();
 }
 
 void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
 {
     if (!worksheet()->animationsEnabled()) {
-	recalculateSize();
-	if (slot)
-	    invokeSlotOnObject(slot, item);
-	return;
+        recalculateSize();
+        if (slot)
+            invokeSlotOnObject(slot, item);
+        return;
     }
     if (m_animation) {
-	// this calculates the new size and calls updateSizeAnimation
-	layOutForWidth(size().width(), true);
-	if (slot)
-	    invokeSlotOnObject(slot, item);
-	return;
+        // this calculates the new size and calls updateSizeAnimation
+        layOutForWidth(size().width(), true);
+        if (slot)
+            invokeSlotOnObject(slot, item);
+        return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     m_animation = new AnimationData;
@@ -389,7 +389,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     m_animation->animation->addAnimation(m_animation->opacAnimation);
 
     connect(m_animation->animation, SIGNAL(finished()),
-	    this, SLOT(endAnimation()));
+            this, SLOT(endAnimation()));
 
     m_animation->animation->start();
 }
@@ -399,17 +399,17 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
     // Note: The default value for slot is SLOT(deleteLater()), so item
     // will be deleted after the animation.
     if (!worksheet()->animationsEnabled()) {
-	recalculateSize();
-	if (slot)
-	    invokeSlotOnObject(slot, item);
-	return;
+        recalculateSize();
+        if (slot)
+            invokeSlotOnObject(slot, item);
+        return;
     }
     if (m_animation) {
-	// this calculates the new size and calls updateSizeAnimation
-	layOutForWidth(size().width(), true);
-	if (slot)
-	    invokeSlotOnObject(slot, item);
-	return;
+        // this calculates the new size and calls updateSizeAnimation
+        layOutForWidth(size().width(), true);
+        if (slot)
+            invokeSlotOnObject(slot, item);
+        return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     m_animation = new AnimationData;
@@ -429,7 +429,7 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
     m_animation->animation->addAnimation(m_animation->opacAnimation);
 
     connect(m_animation->animation, SIGNAL(finished()),
-	    this, SLOT(endAnimation()));
+            this, SLOT(endAnimation()));
 
     m_animation->animation->start();
 }
@@ -437,24 +437,24 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 void WorksheetEntry::endAnimation()
 {
     if (!m_animation)
-	return;
+        return;
     QAnimationGroup* anim = m_animation->animation;
     if (anim->state() == QAbstractAnimation::Running) {
-	anim->stop();
-	if (m_animation->sizeAnimation)
-	    setSize(m_animation->sizeAnimation->endValue().value<QSizeF>());
-	if (m_animation->opacAnimation) {
-	    qreal opac = m_animation->opacAnimation->endValue().value<qreal>();
-	    m_animation->item->setOpacity(opac);
-	}
-	if (m_animation->posAnimation) {
-	    const QPointF& pos = m_animation->posAnimation->endValue().value<QPointF>();
-	    m_animation->item->setPos(pos);
-	}
+        anim->stop();
+        if (m_animation->sizeAnimation)
+            setSize(m_animation->sizeAnimation->endValue().value<QSizeF>());
+        if (m_animation->opacAnimation) {
+            qreal opac = m_animation->opacAnimation->endValue().value<qreal>();
+            m_animation->item->setOpacity(opac);
+        }
+        if (m_animation->posAnimation) {
+            const QPointF& pos = m_animation->posAnimation->endValue().value<QPointF>();
+            m_animation->item->setPos(pos);
+        }
 
-	// If the animation was connected to a slot, call it
-	if (m_animation->slot)
-	    invokeSlotOnObject(m_animation->slot, m_animation->item);
+        // If the animation was connected to a slot, call it
+        if (m_animation->slot)
+            invokeSlotOnObject(m_animation->slot, m_animation->item);
     }
     m_animation->animation->deleteLater();
     delete m_animation;
@@ -471,27 +471,27 @@ void WorksheetEntry::updateSizeAnimation(const QSizeF& size)
     // Update the current animation, so that the new ending will be size
 
     if (!m_animation)
-	return;
+        return;
 
     if (m_aboutToBeRemoved)
-	// do not modify the remove-animation
-	return;
+        // do not modify the remove-animation
+        return;
     if (m_animation->sizeAnimation) {
-	QPropertyAnimation* sizeAn = m_animation->sizeAnimation;
-	qreal progress = static_cast<qreal>(sizeAn->currentTime()) /
-	    sizeAn->totalDuration();
-	QEasingCurve curve = sizeAn->easingCurve();
-	qreal value = curve.valueForProgress(progress);
-	sizeAn->setEndValue(size);
-	QSizeF newStart = 1/(1-value)*(sizeAn->currentValue().value<QSizeF>() -
-				       value * size);
-	sizeAn->setStartValue(newStart);
+        QPropertyAnimation* sizeAn = m_animation->sizeAnimation;
+        qreal progress = static_cast<qreal>(sizeAn->currentTime()) /
+            sizeAn->totalDuration();
+        QEasingCurve curve = sizeAn->easingCurve();
+        qreal value = curve.valueForProgress(progress);
+        sizeAn->setEndValue(size);
+        QSizeF newStart = 1/(1-value)*(sizeAn->currentValue().value<QSizeF>() -
+                                       value * size);
+        sizeAn->setStartValue(newStart);
     } else {
-	m_animation->sizeAnimation = sizeChangeAnimation(size);
-	int d = m_animation->animation->duration() -
-	    m_animation->animation->currentTime();
-	m_animation->sizeAnimation->setDuration(d);
-	m_animation->animation->addAnimation(m_animation->sizeAnimation);
+        m_animation->sizeAnimation = sizeChangeAnimation(size);
+        int d = m_animation->animation->duration() -
+            m_animation->animation->currentTime();
+        m_animation->sizeAnimation->setDuration(d);
+        m_animation->animation->addAnimation(m_animation->sizeAnimation);
     }
 }
 
@@ -501,7 +501,7 @@ void WorksheetEntry::invokeSlotOnObject(const char* slot, QObject* obj)
     const QByteArray normSlot = QMetaObject::normalizedSignature(slot);
     const int slotIndex = metaObj->indexOfSlot(normSlot);
     if (slotIndex == -1)
-	kDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
+        kDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
     const QMetaMethod method = metaObj->method(slotIndex);
     method.invoke(obj, Qt::DirectConnection);
 }
@@ -514,30 +514,30 @@ bool WorksheetEntry::aboutToBeRemoved()
 void WorksheetEntry::startRemoving()
 {
     if (!worksheet()->animationsEnabled()) {
-	m_aboutToBeRemoved = true;
-	remove();
-	return;
+        m_aboutToBeRemoved = true;
+        remove();
+        return;
     }
     if (m_aboutToBeRemoved)
-	return;
+        return;
 
     if (focusItem()) {
-	if (!next()) {
-	    if (previous() && previous()->isEmpty() &&
-		!previous()->aboutToBeRemoved()) {
-		previous()->focusEntry();
-	    } else {
-		WorksheetEntry* next = worksheet()->appendCommandEntry();
-		setNext(next);
-		next->focusEntry();
-	    }
-	} else {
-	    next()->focusEntry();
-	}
+        if (!next()) {
+            if (previous() && previous()->isEmpty() &&
+                !previous()->aboutToBeRemoved()) {
+                previous()->focusEntry();
+            } else {
+                WorksheetEntry* next = worksheet()->appendCommandEntry();
+                setNext(next);
+                next->focusEntry();
+            }
+        } else {
+            next()->focusEntry();
+        }
     }
 
     if (m_animation) {
-	endAnimation();
+        endAnimation();
     }
 
     m_aboutToBeRemoved = true;
@@ -548,9 +548,9 @@ void WorksheetEntry::startRemoving()
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
 
     connect(m_animation->sizeAnimation, SIGNAL(valueChanged(const QVariant&)),
-	    this, SLOT(sizeAnimated()));
+            this, SLOT(sizeAnimated()));
     connect(m_animation->sizeAnimation, SIGNAL(finished()),
-	    this, SLOT(remove()));
+            this, SLOT(remove()));
 
     m_animation->opacAnimation = new QPropertyAnimation(this, "opacity", this);
     m_animation->opacAnimation->setDuration(300);
@@ -568,11 +568,11 @@ void WorksheetEntry::startRemoving()
 bool WorksheetEntry::stopRemoving()
 {
     if (!m_aboutToBeRemoved)
-	return true;
+        return true;
 
     if (m_animation->animation->state() == QAbstractAnimation::Stopped)
-	// we are too late to stop the deletion
-	return false;
+        // we are too late to stop the deletion
+        return false;
 
     m_aboutToBeRemoved = false;
     m_animation->animation->stop();
@@ -585,16 +585,16 @@ bool WorksheetEntry::stopRemoving()
 void WorksheetEntry::remove()
 {
     if (!m_aboutToBeRemoved)
-	return;
+        return;
 
     if (previous() && previous()->next() == this)
-	previous()->setNext(next());
+        previous()->setNext(next());
     else
-	worksheet()->setFirstEntry(next());
+        worksheet()->setFirstEntry(next());
     if (next() && next()->previous() == this)
-	next()->setPrevious(previous());
+        next()->setPrevious(previous());
     else
-	worksheet()->setLastEntry(previous());
+        worksheet()->setLastEntry(previous());
 
     // make the entry invisible to QGraphicsScene's itemAt() function
     hide();
@@ -606,7 +606,7 @@ void WorksheetEntry::setSize(QSizeF size)
 {
     prepareGeometryChange();
     if (m_actionBar && size != m_size)
-	m_actionBar->updatePosition(size);
+        m_actionBar->updatePosition(size);
     m_size = size;
 }
 
@@ -623,93 +623,93 @@ bool WorksheetEntry::hasActionBar()
 void WorksheetEntry::showActionBar()
 {
     if (m_actionBar && !m_actionBarAnimation)
-	return;
+        return;
 
     if (m_actionBarAnimation) {
-	if (m_actionBarAnimation->endValue().toReal() == 1)
-	    return;
-	m_actionBarAnimation->stop();
-	delete m_actionBarAnimation;
-	m_actionBarAnimation = 0;
+        if (m_actionBarAnimation->endValue().toReal() == 1)
+            return;
+        m_actionBarAnimation->stop();
+        delete m_actionBarAnimation;
+        m_actionBarAnimation = 0;
     }
 
     if (!m_actionBar) {
-	m_actionBar = new ActionBar(this);
+        m_actionBar = new ActionBar(this);
 
-	m_actionBar->addButton(KIcon("edit-delete"), i18n("Remove Entry"),
-			       this, SLOT(startRemoving()));
+        m_actionBar->addButton(KIcon("edit-delete"), i18n("Remove Entry"),
+                               this, SLOT(startRemoving()));
 
-	WorksheetToolButton* dragButton;
-	dragButton = m_actionBar->addButton(KIcon("transform-move"),
-					    i18n("Drag Entry"));
-	connect(dragButton, SIGNAL(pressed()), this, SLOT(startDrag()));
+        WorksheetToolButton* dragButton;
+        dragButton = m_actionBar->addButton(KIcon("transform-move"),
+                                            i18n("Drag Entry"));
+        connect(dragButton, SIGNAL(pressed()), this, SLOT(startDrag()));
 
-	if (wantToEvaluate()) {
-	    QString toolTip = i18n("Evaluate Entry");
-	    m_actionBar->addButton(KIcon("view-refresh"), toolTip,
-				   this, SLOT(evaluate()));
-	}
+        if (wantToEvaluate()) {
+            QString toolTip = i18n("Evaluate Entry");
+            m_actionBar->addButton(KIcon("view-refresh"), toolTip,
+                                   this, SLOT(evaluate()));
+        }
 
-	m_actionBar->addSpace();
+        m_actionBar->addSpace();
 
-	addActionsToBar(m_actionBar);
+        addActionsToBar(m_actionBar);
     }
 
     if (worksheet()->animationsEnabled()) {
-	m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
-						      this);
-	m_actionBarAnimation->setStartValue(0);
-	m_actionBarAnimation->setEndValue(1);
-	m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
-	m_actionBarAnimation->setDuration(200);
-	connect(m_actionBarAnimation, SIGNAL(finished()), this,
-		SLOT(deleteActionBarAnimation()));
+        m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
+                                                      this);
+        m_actionBarAnimation->setStartValue(0);
+        m_actionBarAnimation->setEndValue(1);
+        m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
+        m_actionBarAnimation->setDuration(200);
+        connect(m_actionBarAnimation, SIGNAL(finished()), this,
+                SLOT(deleteActionBarAnimation()));
 
-	m_actionBarAnimation->start();
+        m_actionBarAnimation->start();
     }
 }
 
 void WorksheetEntry::hideActionBar()
 {
     if (!m_actionBar)
-	return;
+        return;
 
     if (m_actionBarAnimation) {
-	if (m_actionBarAnimation->endValue().toReal() == 0)
-	    return;
-	m_actionBarAnimation->stop();
-	delete m_actionBarAnimation;
-	m_actionBarAnimation = 0;
+        if (m_actionBarAnimation->endValue().toReal() == 0)
+            return;
+        m_actionBarAnimation->stop();
+        delete m_actionBarAnimation;
+        m_actionBarAnimation = 0;
     }
 
     if (worksheet()->animationsEnabled()) {
-	m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
-						      this);
-	m_actionBarAnimation->setEndValue(0);
-	m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
-	m_actionBarAnimation->setDuration(200);
-	connect(m_actionBarAnimation, SIGNAL(finished()), this,
-		SLOT(deleteActionBar()));
+        m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
+                                                      this);
+        m_actionBarAnimation->setEndValue(0);
+        m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
+        m_actionBarAnimation->setDuration(200);
+        connect(m_actionBarAnimation, SIGNAL(finished()), this,
+                SLOT(deleteActionBar()));
 
-	m_actionBarAnimation->start();
+        m_actionBarAnimation->start();
     } else {
-	deleteActionBar();
+        deleteActionBar();
     }
 }
 
 void WorksheetEntry::deleteActionBarAnimation()
 {
     if (m_actionBarAnimation) {
-	delete m_actionBarAnimation;
-	m_actionBarAnimation = 0;
+        delete m_actionBarAnimation;
+        m_actionBarAnimation = 0;
     }
 }
 
 void WorksheetEntry::deleteActionBar()
 {
     if (m_actionBar) {
-	delete m_actionBar;
-	m_actionBar = 0;
+        delete m_actionBar;
+        m_actionBar = 0;
     }
 
     deleteActionBarAnimation();

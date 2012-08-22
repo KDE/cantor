@@ -98,6 +98,8 @@ class Worksheet : public QGraphicsScene
     void updateProtrusion(qreal oldWidth, qreal newWidth);
     void removeProtrusion(qreal width);
 
+    bool isShortcut(QKeySequence sequence);
+
     // richtext
     struct RichTextInfo {
         bool bold;
@@ -167,6 +169,9 @@ class Worksheet : public QGraphicsScene
     void updateFocusedTextItem(WorksheetTextItem* item);
 
     void updateDragScrollTimer();
+
+    void registerShortcut(QAction*);
+    void updateShortcut();
 
     // richtext
     void setRichTextInformation(const RichTextInfo&);
@@ -244,6 +249,8 @@ class Worksheet : public QGraphicsScene
     double m_viewWidth;
     double m_protrusion;
     QMap<qreal, int> m_itemProtrusions;
+
+    QMap<QKeySequence, QAction*> m_shortcuts;
 
     QList<KAction*> m_richTextActionList;
     KToggleAction* m_boldAction;

@@ -101,6 +101,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
     connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
+    connect(actionCollection(), SIGNAL(inserted(QAction*)), m_worksheet,
+            SLOT(registerShortcut(QAction*)));
 
     m_searchBar = 0;
     layout->addWidget(m_worksheetview);
