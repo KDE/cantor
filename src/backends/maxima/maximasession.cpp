@@ -365,7 +365,10 @@ void MaximaSession::interrupt(MaximaExpression* expr)
     {
         disconnect(m_maxima, 0);
         disconnect(expr, 0, this, 0);
-        restartMaxima();
+        //TODO for non unix platforms sending signals probably won't work
+        const int pid=m_process->pid();
+        kill(pid, SIGINT);
+
         kDebug()<<"done interrupting";
     }else
     {
