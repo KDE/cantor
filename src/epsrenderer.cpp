@@ -130,6 +130,7 @@ QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
     QImage img(data, wdoc*scale, hdoc*scale, rowLength, QImage::Format_RGB32);
     spectre_document_free(doc);
     spectre_render_context_free(rc);
+    img = img.convertToFormat(QImage::Format_ARGB32);
 
     if (size)
         *size = QSizeF(w,h);

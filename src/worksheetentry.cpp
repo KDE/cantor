@@ -32,6 +32,7 @@
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
 #include <QGraphicsProxyWidget>
+#include <QBitmap>
 
 #include <KIcon>
 #include <KLocale>
@@ -132,6 +133,9 @@ void WorksheetEntry::startDrag(const QPointF& grabPos)
     const QRectF sceneRect = mapRectToScene(boundingRect());
     worksheet()->render(&painter, pixmap.rect(), sceneRect);
     painter.end();
+    QBitmap mask = pixmap.createMaskFromColor(QColor(255, 255, 255),
+                                              Qt::MaskInColor);
+    pixmap.setMask(mask);
 
     drag->setPixmap(pixmap);
     if (grabPos.isNull()) {
