@@ -231,7 +231,7 @@ QPointF WorksheetView::sceneCursorPos()
 
 void WorksheetView::resizeEvent(QResizeEvent * event)
 {
-    Q_UNUSED(event);
+    QGraphicsView::resizeEvent(event);
     updateSceneSize();
 }
 
