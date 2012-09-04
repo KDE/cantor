@@ -85,5 +85,5 @@ GenericName[x-test]=xxKDE Frontend to Mathematical Softwarexx
 GenericName[zh_CN]=数学软件的 KDE 前端
 GenericName[zh_TW]=KDE 數學軟體的前端介面
 Terminal=false
-Categories=Qt;KDE;Education;Math;
+Categories=Qt;KDE;Education;Math;Science;
 MimeType=application/x-cantor;
