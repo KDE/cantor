@@ -98,6 +98,57 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
     }
 }
 
+void WorksheetEntry::insertCommandEntry()
+{
+    worksheet()->insertCommandEntry(this);
+}
+
+void WorksheetEntry::insertTextEntry()
+{
+    worksheet()->insertTextEntry(this);
+}
+
+void WorksheetEntry::insertLatexEntry()
+{
+    worksheet()->insertLatexEntry(this);
+}
+
+void WorksheetEntry::insertImageEntry()
+{
+    worksheet()->insertImageEntry(this);
+}
+
+void WorksheetEntry::insertPageBreakEntry()
+{
+    worksheet()->insertPageBreakEntry(this);
+}
+
+void WorksheetEntry::insertCommandEntryBefore()
+{
+    worksheet()->insertCommandEntryBefore(this);
+}
+
+void WorksheetEntry::insertTextEntryBefore()
+{
+    worksheet()->insertTextEntryBefore(this);
+}
+
+void WorksheetEntry::insertLatexEntryBefore()
+{
+    worksheet()->insertLatexEntryBefore(this);
+}
+
+void WorksheetEntry::insertImageEntryBefore()
+{
+    worksheet()->insertImageEntryBefore(this);
+}
+
+void WorksheetEntry::insertPageBreakEntryBefore()
+{
+    worksheet()->insertPageBreakEntryBefore(this);
+}
+
+
 void WorksheetEntry::showCompletion()
 {
 }

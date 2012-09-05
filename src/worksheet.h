@@ -118,17 +118,17 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendImageEntry();
     WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
-    WorksheetEntry* insertCommandEntry();
+    WorksheetEntry* insertCommandEntry(WorksheetEntry* current = 0);
     void insertCommandEntry(const QString& text);
-    WorksheetEntry* insertTextEntry();
-    WorksheetEntry* insertImageEntry();
-    WorksheetEntry* insertPageBreakEntry();
-    WorksheetEntry* insertLatexEntry();
-    WorksheetEntry* insertCommandEntryBefore();
-    WorksheetEntry* insertTextEntryBefore();
-    WorksheetEntry* insertImageEntryBefore();
-    WorksheetEntry* insertPageBreakEntryBefore();
-    WorksheetEntry* insertLatexEntryBefore();
+    WorksheetEntry* insertTextEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertImageEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertPageBreakEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertLatexEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertCommandEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertTextEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertImageEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertPageBreakEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = 0);
 
     void updateLayout();
     void updateEntrySize(WorksheetEntry* entry);
@@ -222,8 +222,8 @@ class Worksheet : public QGraphicsScene
     //void checkEntriesForSanity();
 
     WorksheetEntry* appendEntry(int type);
-    WorksheetEntry* insertEntry(int type);
-    WorksheetEntry* insertEntryBefore(int type);
+    WorksheetEntry* insertEntry(int type, WorksheetEntry* current = 0);
+    WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = 0);
 
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);

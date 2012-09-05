@@ -543,9 +543,10 @@ void Worksheet::appendCommandEntry(const QString& text)
     }
 }
 
-WorksheetEntry* Worksheet::insertEntry(const int type)
+WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
 {
-    WorksheetEntry *current = currentEntry();
+    if (!current)
+        current = currentEntry();
 
     if (!current)
         return appendEntry(type);
@@ -571,29 +572,29 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     return entry;
 }
 
-WorksheetEntry* Worksheet::insertTextEntry()
+WorksheetEntry* Worksheet::insertTextEntry(WorksheetEntry* current)
 {
-    return insertEntry(TextEntry::Type);
+    return insertEntry(TextEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertCommandEntry()
+WorksheetEntry* Worksheet::insertCommandEntry(WorksheetEntry* current)
 {
-    return insertEntry(CommandEntry::Type);
+    return insertEntry(CommandEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertImageEntry()
+WorksheetEntry* Worksheet::insertImageEntry(WorksheetEntry* current)
 {
-    return insertEntry(ImageEntry::Type);
+    return insertEntry(ImageEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertPageBreakEntry()
+WorksheetEntry* Worksheet::insertPageBreakEntry(WorksheetEntry* current)
 {
-    return insertEntry(PageBreakEntry::Type);
+    return insertEntry(PageBreakEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertLatexEntry()
+WorksheetEntry* Worksheet::insertLatexEntry(WorksheetEntry* current)
 {
-    return insertEntry(LatexEntry::Type);
+    return insertEntry(LatexEntry::Type, current);
 }
 
 void Worksheet::insertCommandEntry(const QString& text)
@@ -607,9 +608,10 @@ void Worksheet::insertCommandEntry(const QString& text)
 }
 
 
-WorksheetEntry* Worksheet::insertEntryBefore(int type)
+WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
 {
-    WorksheetEntry *current = currentEntry();
+    if (!current)
+        current = currentEntry();
 
     if (!current)
         return 0;
@@ -634,29 +636,29 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type)
     return entry;
 }
 
-WorksheetEntry* Worksheet::insertTextEntryBefore()
+WorksheetEntry* Worksheet::insertTextEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(TextEntry::Type);
+    return insertEntryBefore(TextEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertCommandEntryBefore()
+WorksheetEntry* Worksheet::insertCommandEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(CommandEntry::Type);
+    return insertEntryBefore(CommandEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
+WorksheetEntry* Worksheet::insertPageBreakEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(PageBreakEntry::Type);
+    return insertEntryBefore(PageBreakEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertImageEntryBefore()
+WorksheetEntry* Worksheet::insertImageEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(ImageEntry::Type);
+    return insertEntryBefore(ImageEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertLatexEntryBefore()
+WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(LatexEntry::Type);
+    return insertEntryBefore(LatexEntry::Type, current);
 }
 
 void Worksheet::interrupt()
@@ -1046,17 +1048,17 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
         KMenu* insert = new KMenu(menu);
         KMenu* insertBefore = new KMenu(menu);
 
-        insert->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntry()));
-        insert->addAction(i18n("Text Entry"), this, SLOT(insertTextEntry()));
-        insert->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntry()));
-        insert->addAction(i18n("Image"), this, SLOT(insertImageEntry()));
-        insert->addAction(i18n("Page Break"), this, SLOT(insertPageBreakEntry()));
+        insert->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
+        insert->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntry()));
+        insert->addAction(i18n("LaTeX Entry"), entry, SLOT(insertLatexEntry()));
+        insert->addAction(i18n("Image"), entry, SLOT(insertImageEntry()));
+        insert->addAction(i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
 
-        insertBefore->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntryBefore()));
-        insertBefore->addAction(i18n("Text Entry"), this, SLOT(insertTextEntryBefore()));
-        insertBefore->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntryBefore()));
-        insertBefore->addAction(i18n("Image"), this, SLOT(insertImageEntryBefore()));
-        insertBefore->addAction(i18n("Page Break"), this, SLOT(insertPageBreakEntryBefore()));
+        insertBefore->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
+        insertBefore->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
+        insertBefore->addAction(i18n("LaTeX Entry"), entry, SLOT(insertLatexEntryBefore()));
+        insertBefore->addAction(i18n("Image"), entry, SLOT(insertImageEntryBefore()));
+        insertBefore->addAction(i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
 
         insert->setTitle(i18n("Insert"));
         insertBefore->setTitle(i18n("Insert Before"));
