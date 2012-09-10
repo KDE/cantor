@@ -104,4 +104,21 @@ class MaximaPlotExtension : public Cantor::PlotExtension
     QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
 };
 
+class MaximaVariableManagementExtension : public Cantor::VariableManagementExtension
+{
+  public:
+    MaximaVariableManagementExtension( QObject* parent );
+    ~MaximaVariableManagementExtension();
+
+  public slots:
+    virtual QString addVariable(const QString& name, const QString& value);
+    virtual QString setValue(const QString& name,const QString& value);
+    virtual QString removeVariable(const QString& name);
+
+    virtual QString saveVariables(const QString& fileName);
+    virtual QString loadVariables(const QString& fileName);
+    virtual QString clearVariables();
+};
+
+
 #endif /* _MAXIMAEXTENSIONS_H */

@@ -23,6 +23,7 @@
 #include "maximacompletionobject.h"
 #include "maximasyntaxhelpobject.h"
 #include "maximahighlighter.h"
+#include "maximavariablemodel.h"
 
 #include <QTimer>
 #include <QTcpSocket>
@@ -45,7 +46,7 @@ const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\
 
 static QString initCmd=":lisp($load \"%1\")";
 
-MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
+MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 {
     kDebug();
     m_initState=MaximaSession::NotInitialized;
@@ -55,6 +56,7 @@ MaximaSession::MaximaSession( Cantor::Backend* backend) : Session(backend)
     m_justRestarted=false;
     m_useLegacy=false;
 
+    m_variableModel=new MaximaVariableModel(this);
 }
 
 MaximaSession::~MaximaSession()
@@ -202,6 +204,15 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
     MaximaExpression* expr=new MaximaExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
+
+    //crude detection if a variable could have been set with this command.
+    //to make sure update the variable model
+    if(cmd.contains(":="))
+        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), m_variableModel, SLOT(checkForNewFunctions()));
+    if(cmd.contains(":")&&!cmd.startsWith(":lisp"))
+        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), m_variableModel, SLOT(checkForNewVariables()));
+
+
     expr->evaluate();
 
     return expr;
@@ -448,6 +459,11 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
 QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 {
     return new MaximaHighlighter(parent);
+}
+
+QAbstractItemModel* MaximaSession::variableModel()
+{
+    return m_variableModel;
 }
 
 #include "maximasession.moc"

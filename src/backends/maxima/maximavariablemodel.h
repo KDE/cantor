@@ -15,47 +15,38 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#ifndef _TEXTRESULT_H
-#define _TEXTRESULT_H
+#ifndef _MAXIMAVARIABLEMODEL_H
+#define _MAXIMAVARIABLEMODEL_H
 
-#include "result.h"
+#include "defaultvariablemodel.h"
 
-#include "cantor_export.h"
+class MaximaSession;
 
-namespace Cantor
+class MaximaVariableModel : public Cantor::DefaultVariableModel
 {
-
-class TextResultPrivate;
-class CANTOR_EXPORT TextResult : public Result
-{
+  Q_OBJECT
   public:
-    enum { Type=1 };
-    enum Format { PlainTextFormat, LatexFormat};
-    TextResult(const QString& text);
-    TextResult(const QString& text, const QString& plain);
-    ~TextResult();
+    MaximaVariableModel( MaximaSession* session);
+    ~MaximaVariableModel();
 
-    QString toHtml();
-    QVariant data();
+  public slots:
+      void checkForNewVariables();
+      void checkForNewFunctions();
 
-    QString plain();
+  private slots:
+      void parseNewVariables();
+      void parseNewFunctions();
 
-    int type();
-    QString mimeType();
-
-    Format format();
-    void setFormat(Format f);
-
-    QDomElement toXml(QDomDocument& doc);
-
-    void save(const QString& filename);
+  private:    
+    MaximaSession* maximaSession();
 
   private:
-    TextResultPrivate* d;
+    QList<Variable> m_variables;
+    QList<Variable> m_functions;
+
 };
 
-}
-#endif /* _TEXTRESULT_H */
+#endif /* _MAXIMAVARIABLEMODEL_H */

@@ -185,7 +185,8 @@ void Expression::latexRendered()
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(renderer->renderingSuccessful())
     {
-        LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(renderer->imagePath()));
+        TextResult* r=dynamic_cast<TextResult*>(result());
+        LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
         setResult( latex );
     }else
     {

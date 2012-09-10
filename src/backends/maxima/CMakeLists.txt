@@ -9,6 +9,7 @@ set( MaximaBackend_SRCS
  maximakeywords.cpp
  maximacompletionobject.cpp
  maximasyntaxhelpobject.cpp
+ maximavariablemodel.cpp
 )
 
 kde4_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)

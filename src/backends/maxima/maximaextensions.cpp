@@ -179,3 +179,36 @@ QString MaximaPlotExtension::plotFunction3d(const QString& function, VariablePar
                                                            var1.first, int1.first, int1.second,
                                                            var2.first, int2.first, int2.second);
 }
+
+//Variable Management
+MAXIMA_EXTENSION_CONSTRUCTORS(VariableManagement)
+
+QString MaximaVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    return QString("%1: %2").arg(name).arg(value);
+}
+
+QString MaximaVariableManagementExtension::setValue(const QString& name,const QString& value)
+{
+    return QString("%1: %2").arg(name).arg(value);
+}
+
+QString MaximaVariableManagementExtension::removeVariable(const QString& name)
+{
+    return QString("kill(%1)").arg(name);
+}
+
+QString MaximaVariableManagementExtension::saveVariables(const QString& fileName)
+{
+    return QString("disp \"TODO: implement me!\"");
+}
+
+QString MaximaVariableManagementExtension::loadVariables(const QString& fileName)
+{
+    return QString("disp \"TODO: implement me!\"");
+}
+
+QString MaximaVariableManagementExtension::clearVariables()
+{
+    return QString("kill(all)");
+}

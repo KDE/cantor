@@ -122,7 +122,7 @@ bool DefaultHighlighter::skipHighlighting(const QString& text)
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    kDebug() << text;
+    //kDebug() << text;
     const QTextCursor& cursor = d->cursor;
     d->lastBlockNumber = cursor.blockNumber();
 
@@ -143,7 +143,7 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    kDebug() << text;
+    //kDebug() << text;
     const QTextCursor& cursor = d->cursor;
     int cursorPos = -1;
     if (cursor.blockNumber() == currentBlock().blockNumber() ) {

@@ -30,10 +30,12 @@
 #include <QXmlStreamReader>
 
 class MaximaExpression;
+class MaximaVariableModel;
 class KProcess;
 class QTcpServer;
 class QTcpSocket;
 class QTimer;
+class QAbstractItemModel;
 
 class MaximaSession : public Cantor::Session
 {
@@ -63,6 +65,7 @@ class MaximaSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
+    QAbstractItemModel* variableModel();
 
   public slots:
     void readStdOut();
@@ -83,6 +86,7 @@ class MaximaSession : public Cantor::Session
     KProcess* m_process;
     QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
+    MaximaVariableModel* m_variableModel;
 
     enum InitState{NotInitialized, Initializing, Initialized};
     InitState m_initState;

@@ -47,7 +47,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
 {
     const qreal w = viewport()->width() / m_scale;
     const qreal h = viewport()->height() / m_scale;
-    
+
     qreal x,y;
     if (m_animation) {
 	x = m_hAnimation->endValue().toReal();
@@ -56,7 +56,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
 	if (QRectF(x,y,w,h).contains(rect))
 	    return;
     }
-    
+
     if (horizontalScrollBar())
 	x = horizontalScrollBar()->value();
     else
@@ -66,11 +66,11 @@ void WorksheetView::makeVisible(const QRectF& rect)
     else
 	y = 0;
 
-    kDebug() << rect << QRectF(x,y,w,h);
-    
+    //kDebug() << rect << QRectF(x,y,w,h);
+
     if (!m_animation && QRectF(x,y,w,h).contains(rect))
 	return;
-    
+
     qreal nx, ny;
     if (y > rect.y() || rect.height() > h)
 	ny = rect.y();
@@ -81,7 +81,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
     else
 	nx = rect.x() + rect.width() - w;
 
-    kDebug() << nx << ny;
+    //kDebug() << nx << ny;
 
     if (!m_worksheet->animationsEnabled()) {
 	if (horizontalScrollBar())
@@ -90,7 +90,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
 	    verticalScrollBar()->setValue(ny);
 	return;
     }
-    
+
     if (!m_animation)
 	m_animation = new QParallelAnimationGroup(this);
 
@@ -116,7 +116,7 @@ void WorksheetView::makeVisible(const QRectF& rect)
     } else {
 	m_hAnimation = 0;
     }
-	
+
     if (verticalScrollBar()) {
 	if (!m_vAnimation) {
 	    m_vAnimation = new QPropertyAnimation(verticalScrollBar(),
@@ -149,7 +149,7 @@ bool WorksheetView::isVisible(const QRectF& rect)
 {
     const qreal w = viewport()->width() / m_scale;
     const qreal h = viewport()->height() / m_scale;
-    
+
     qreal x,y;
     if (m_animation) {
 	x = m_hAnimation->endValue().toReal();
@@ -164,7 +164,7 @@ bool WorksheetView::isVisible(const QRectF& rect)
 	else
 	    y = 0;
     }
-    
+
     return QRectF(x,y,w,h).contains(rect);
 }
 

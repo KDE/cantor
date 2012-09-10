@@ -532,7 +532,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
             latex.prepend("\\begin{eqnarray*}\n");
             latex.append("\n\\end{eqnarray*}");
             latexBuffer.append(latex);
-            result=new Cantor::TextResult(latexBuffer);
+            result=new Cantor::TextResult(latexBuffer, textBuffer);
             result->setFormat(Cantor::TextResult::LatexFormat);
         }
     }
