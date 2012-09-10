@@ -29,7 +29,7 @@
 
 
 //command used to inspect a maxima variable. %1 is the name of that variable
-static const QString inspectCommand=":lisp($disp $%1)";
+const QString MaximaVariableModel::inspectCommand=":lisp($disp $%1)";
 
 MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session)
 {
@@ -113,12 +113,32 @@ void MaximaVariableModel::parseNewVariables()
     kDebug()<<"parsing variables";
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
-    QList<Variable> vars=parse(expr);
-    m_variables<<vars;
+    QList<Variable> newVars=parse(expr);
 
-    foreach(const Variable& var, vars)
+    //remove the old variables
+    foreach(const Variable& var,m_variables)
+    {
+        //check if this var is present in the new variables
+        bool found=false;
+        foreach(const Variable& var2, newVars)
+        {
+            if(var.name==var2.name)
+            {
+                found=true;
+                break;
+            }
+        }
+
+        if(!found)
+        {
+            removeVariable(var);
+        }
+    }
+
+    foreach(const Variable& var, newVars)
         addVariable(var);
 
+    m_variables=newVars;
 
     //the expression is not needed anymore
     expr->deleteLater();
@@ -131,10 +151,33 @@ void MaximaVariableModel::parseNewFunctions()
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
     QList<Variable> vars=parse(expr);
-    m_functions<<vars;
 
-    foreach(const Variable& var, vars)
+        QList<Variable> newVars=parse(expr);
+
+    //remove the old variables
+    foreach(const Variable& var,m_functions)
+    {
+        //check if this var is present in the new variables
+        bool found=false;
+        foreach(const Variable& var2, newVars)
+        {
+            if(var.name==var2.name)
+            {
+                found=true;
+                break;
+            }
+        }
+
+        if(!found)
+        {
+            removeVariable(var);
+        }
+    }
+
+    foreach(const Variable& var, newVars)
         addVariable(var);
+
+    m_functions=newVars;
 
     //the expression is not needed anymore
     expr->deleteLater();

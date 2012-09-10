@@ -205,12 +205,15 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 
-    //crude detection if a variable could have been set with this command.
-    //to make sure update the variable model
-    if(cmd.contains(":="))
+    //after each command update the status of the variable model
+    //(except for the commands used for the checking the status of course)
+    //TODO: maybe do some magic to see if this command actually might affect some variables
+    QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
+    if(!exp.exactMatch(cmd))
+    {
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), m_variableModel, SLOT(checkForNewFunctions()));
-    if(cmd.contains(":")&&!cmd.startsWith(":lisp"))
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), m_variableModel, SLOT(checkForNewVariables()));
+    }
 
 
     expr->evaluate();

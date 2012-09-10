@@ -23,12 +23,14 @@
 
 #include "defaultvariablemodel.h"
 
+
 class MaximaSession;
 
 class MaximaVariableModel : public Cantor::DefaultVariableModel
 {
   Q_OBJECT
   public:
+  static const QString inspectCommand;
     MaximaVariableModel( MaximaSession* session);
     ~MaximaVariableModel();
 
