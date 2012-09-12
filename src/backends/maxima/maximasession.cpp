@@ -205,17 +205,6 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 
-    //after each command update the status of the variable model
-    //(except for the commands used for the checking the status of course)
-    //TODO: maybe do some magic to see if this command actually might affect some variables
-    QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
-    if(!exp.exactMatch(cmd))
-    {
-        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), m_variableModel, SLOT(checkForNewFunctions()));
-        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), m_variableModel, SLOT(checkForNewVariables()));
-    }
-
-
     expr->evaluate();
 
     return expr;
@@ -325,7 +314,20 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
         kDebug()<<"running next command";
         m_expressionQueue.removeFirst();
         if(m_expressionQueue.isEmpty())
-            changeStatus(Cantor::Session::Done);
+        {
+            //if we are done with all the commands in the queue,
+            //use the opportinity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
+            QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
+            if(!exp.exactMatch(expression->command()))
+            {
+                m_variableModel->checkForNewFunctions();
+                m_variableModel->checkForNewVariables();
+            }else
+            {
+                changeStatus(Cantor::Session::Done);
+            }
+
+        }
         runFirstExpression();
     }
 
