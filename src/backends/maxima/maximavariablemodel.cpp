@@ -115,6 +115,8 @@ void MaximaVariableModel::parseNewVariables()
 
     QList<Variable> newVars=parse(expr);
 
+    QStringList addedVars;
+    QStringList removedVars;
     //remove the old variables
     foreach(const Variable& var,m_variables)
     {
@@ -132,17 +134,24 @@ void MaximaVariableModel::parseNewVariables()
         if(!found)
         {
             removeVariable(var);
+            removedVars<<var.name;
         }
     }
 
     foreach(const Variable& var, newVars)
+    {
         addVariable(var);
+
+        addedVars<<var.name;
+    }
 
     m_variables=newVars;
 
     //the expression is not needed anymore
     expr->deleteLater();
 
+    emit variablesAdded(addedVars);
+    emit variablesRemoved(removedVars);
 }
 
 void MaximaVariableModel::parseNewFunctions()
@@ -150,9 +159,9 @@ void MaximaVariableModel::parseNewFunctions()
     kDebug()<<"parsing functions";
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
-    QList<Variable> vars=parse(expr);
-
-        QList<Variable> newVars=parse(expr);
+    QList<Variable> newVars=parse(expr);
+    QStringList addedVars;
+    QStringList removedVars;
 
     //remove the old variables
     foreach(const Variable& var,m_functions)
@@ -171,16 +180,24 @@ void MaximaVariableModel::parseNewFunctions()
         if(!found)
         {
             removeVariable(var);
+            removedVars<<var.name;
         }
     }
 
     foreach(const Variable& var, newVars)
+    {
         addVariable(var);
+        //todo: check if the variable is actually new?
+        addedVars<<var.name;
+    }
 
     m_functions=newVars;
 
     //the expression is not needed anymore
     expr->deleteLater();
+
+    emit functionsAdded(addedVars);
+    emit functionsRemoved(removedVars);
 }
 
 MaximaSession* MaximaVariableModel::maximaSession()

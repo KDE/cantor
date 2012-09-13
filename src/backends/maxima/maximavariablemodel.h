@@ -22,7 +22,7 @@
 #define _MAXIMAVARIABLEMODEL_H
 
 #include "defaultvariablemodel.h"
-
+#include <QStringList>
 
 class MaximaSession;
 
@@ -30,9 +30,12 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
 {
   Q_OBJECT
   public:
-  static const QString inspectCommand;
+    static const QString inspectCommand;
     MaximaVariableModel( MaximaSession* session);
     ~MaximaVariableModel();
+
+    QList<Variable> variables();
+    QList<Variable> functions();
 
   public slots:
       void checkForNewVariables();
@@ -41,6 +44,13 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
   private slots:
       void parseNewVariables();
       void parseNewFunctions();
+
+  signals:
+      void variablesAdded(const QStringList variables);
+      void variablesRemoved(const QStringList variables);
+
+      void functionsAdded(const QStringList variables);
+      void functionsRemoved(const QStringList variables);
 
   private:    
     MaximaSession* maximaSession();

@@ -463,7 +463,7 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
 
 QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 {
-    return new MaximaHighlighter(parent);
+    return new MaximaHighlighter(parent, this);
 }
 
 QAbstractItemModel* MaximaSession::variableModel()

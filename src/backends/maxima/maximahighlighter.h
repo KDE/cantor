@@ -22,15 +22,24 @@
 #define _MAXIMAHIGHLIGHTER_H
 
 #include "defaulthighlighter.h"
+class MaximaSession;
 
 class MaximaHighlighter : public Cantor::DefaultHighlighter
 {
+  Q_OBJECT
   public:
-    MaximaHighlighter( QObject* parent);
+    MaximaHighlighter( QObject* parent, MaximaSession* session);
     ~MaximaHighlighter();
 
   protected:
     void highlightBlock(const QString &text);
+
+  private slots:
+      void addUserVariables(const QStringList variables);
+      void removeUserVariables(const QStringList variables);
+      
+      void addUserFunctions(const QStringList functions);
+      void removeUserFunctions(const QStringList functions);
 
   private:
      QRegExp commentStartExpression;
