@@ -380,6 +380,7 @@ void DefaultHighlighter::positionChanged(QTextCursor cursor)
 void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
 {
     d->wordRules[word] = format;
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& format)
@@ -387,17 +388,23 @@ void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& f
     HighlightingRule rule = { regexp, format };
     d->regExpRules.removeAll(rule);
     d->regExpRules.append(rule);
+
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QString& word)
 {
     d->wordRules.remove(word);
+
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QRegExp& regexp)
 {
     HighlightingRule rule = { regexp, QTextCharFormat() };
     d->regExpRules.removeAll(rule);
+
+    emit rulesChanged();
 }
 
 QString DefaultHighlighter::nonSeparatingCharacters() const

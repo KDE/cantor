@@ -705,18 +705,14 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
 
 }
 
-void Worksheet::enableHighlighting(bool highlight)
+void Worksheet::rehighlight()
 {
-    if(highlight) {
-        if(m_highlighter)
-            m_highlighter->deleteLater();
-        m_highlighter=session()->syntaxHighlighter(this);
-        if(!m_highlighter)
-            m_highlighter=new Cantor::DefaultHighlighter(this);
-
-	// highlight every entry
+    if(m_highlighter)
+    {
+        // highlight every entry
 	WorksheetEntry* entry;
-	for (entry = firstEntry(); entry; entry = entry->next()) {
+	for (entry = firstEntry(); entry; entry = entry->next())
+        {
 	    WorksheetTextItem* item = entry->highlightItem();
 	    if (!item)
 		continue;
@@ -727,12 +723,9 @@ void Worksheet::enableHighlighting(bool highlight)
 	WorksheetTextItem* textitem = entry ? entry->highlightItem() : 0;
 	if (textitem && textitem->hasFocus())
 	    highlightItem(textitem);
-    } else {
-        if(m_highlighter)
-            m_highlighter->deleteLater();
-        m_highlighter=0;
-
-	// remove highlighting from entries
+    }else
+    {
+        // remove highlighting from entries
 	WorksheetEntry* entry;
 	for (entry = firstEntry(); entry; entry = entry->next()) {
 	    WorksheetTextItem* item = entry->highlightItem();
@@ -740,10 +733,34 @@ void Worksheet::enableHighlighting(bool highlight)
 		continue;
 	    for (QTextBlock b = item->document()->firstBlock();
 		 b.isValid(); b = b.next())
+            {
 		b.layout()->clearAdditionalFormats();
+            }
 	}
 	update();
     }
+}
+
+void Worksheet::enableHighlighting(bool highlight)
+{
+    if(highlight)
+    {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=session()->syntaxHighlighter(this);
+        if(!m_highlighter)
+            m_highlighter=new Cantor::DefaultHighlighter(this);
+
+        connect(m_highlighter, SIGNAL(rulesChanged()), this, SLOT(rehighlight()));
+
+    } else
+    {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=0;
+    }
+
+    rehighlight();
 }
 
 void Worksheet::enableCompletion(bool enable)
@@ -1113,7 +1130,7 @@ void Worksheet::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 		SLOT(showActionBar()));
 	m_actionBarTimer->start();
     }
-    
+
     WorksheetEntry* oldEntry = entryAt(event->lastScenePos());
     if (oldEntry && oldEntry != entry)
 	oldEntry->hideActionBar();
