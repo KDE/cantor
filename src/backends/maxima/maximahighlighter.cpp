@@ -50,17 +50,9 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : 
     connect(session->variableModel(), SIGNAL(functionsAdded(QStringList)), this, SLOT(addUserFunctions(QStringList)));
     connect(session->variableModel(), SIGNAL(functionsRemoved(QStringList)), this, SLOT(removeUserFunctions(QStringList)));
 
-    QStringList variableNames;
-    QList<Cantor::DefaultVariableModel::Variable> variables=static_cast<MaximaVariableModel*>(session->variableModel())->variables();
-    foreach(const Cantor::DefaultVariableModel::Variable v, variables)
-        variableNames<<v.name;
-    addUserVariables(variableNames);
-
-    QStringList functionNames;
-    QList<Cantor::DefaultVariableModel::Variable> functions=static_cast<MaximaVariableModel*>(session->variableModel())->functions();
-    foreach(const Cantor::DefaultVariableModel::Variable f, functions)
-        functionNames<<f.name;
-    addUserFunctions(functionNames);
+    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session->variableModel());
+    addUserVariables(model->variableNames());
+    addUserFunctions(model->functionNames());
 }
 
 MaximaHighlighter::~MaximaHighlighter()

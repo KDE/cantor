@@ -24,6 +24,7 @@
 
 #include "maximasession.h"
 #include "maximakeywords.h"
+#include "maximavariablemodel.h"
 
 MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(session)
 {
@@ -38,13 +39,22 @@ MaximaCompletionObject::~MaximaCompletionObject()
 
 void MaximaCompletionObject::fetchIdentifierType()
 {
-    if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
+    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session()->variableModel());
+    QStringList userVariableNames=model->variableNames();
+    QStringList userFunctionNames=model->functionNames(true);
+    if (qBinaryFind(userVariableNames.begin(), userVariableNames.end(), identifier())
+	!= userVariableNames.end())
+	emit fetchingTypeDone(VariableType);
+    else if (qBinaryFind(userFunctionNames.begin(), userFunctionNames.end(), identifier())
+             != userFunctionNames.end())
+        emit fetchingTypeDone(FunctionType);
+    else if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
 		    MaximaKeywords::instance()->functions().end(), identifier())
-	!= MaximaKeywords::instance()->functions().end())
+             != MaximaKeywords::instance()->functions().end())
 	emit fetchingTypeDone(FunctionType);
     else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
 			 MaximaKeywords::instance()->keywords().end(), identifier())
-	!= MaximaKeywords::instance()->keywords().end())
+             != MaximaKeywords::instance()->keywords().end())
 	emit fetchingTypeDone(KeywordType);
     else
 	emit fetchingTypeDone(VariableType);
@@ -52,10 +62,14 @@ void MaximaCompletionObject::fetchIdentifierType()
 
 void MaximaCompletionObject::fetchCompletions()
 {
+    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session()->variableModel());
+
     QStringList allCompletions;
     allCompletions<<MaximaKeywords::instance()->variables();
     allCompletions<<MaximaKeywords::instance()->functions();
     allCompletions<<MaximaKeywords::instance()->keywords();
+    allCompletions<<model->variableNames();
+    allCompletions<<model->functionNames(true);
 
     setCompletions(allCompletions);
 

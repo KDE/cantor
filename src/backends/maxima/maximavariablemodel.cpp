@@ -214,3 +214,28 @@ QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::functions()
 {
     return m_functions;
 }
+
+QStringList MaximaVariableModel::variableNames()
+{
+    QStringList names;
+    foreach(const Cantor::DefaultVariableModel::Variable& var, m_variables)
+        names<<var.name;
+
+    return names;
+}
+
+QStringList MaximaVariableModel::functionNames(bool stripParameters)
+{
+    QStringList names;
+    foreach(const Cantor::DefaultVariableModel::Variable& var, m_functions)
+    {
+        QString name=var.name;
+        if(stripParameters)
+        {
+            name=name.left(name.lastIndexOf('('));
+        }
+        names<<name;
+    }
+
+    return names;
+}

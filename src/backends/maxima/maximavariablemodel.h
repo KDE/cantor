@@ -37,6 +37,9 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     QList<Variable> variables();
     QList<Variable> functions();
 
+    QStringList variableNames();
+    QStringList functionNames(bool stripParameters=false);
+
   public slots:
       void checkForNewVariables();
       void checkForNewFunctions();
