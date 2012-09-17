@@ -205,3 +205,12 @@ MaximaSession* MaximaVariableModel::maximaSession()
     return static_cast<MaximaSession*> (session());
 }
 
+QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::variables()
+{
+    return m_variables;
+}
+
+QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::functions()
+{
+    return m_functions;
+}
