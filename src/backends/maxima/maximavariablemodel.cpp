@@ -26,7 +26,7 @@
 #include "latexresult.h"
 
 #include <kdebug.h>
-
+#include <klocale.h>
 
 //command used to inspect a maxima variable. %1 is the name of that variable
 const QString MaximaVariableModel::inspectCommand=":lisp($disp $%1)";
@@ -199,8 +199,9 @@ void MaximaVariableModel::parseNewFunctions()
         }
     }
 
-    foreach(const Variable& var, newVars)
+    foreach(Variable var, newVars)
     {
+        var.value=i18n("function");
         addVariable(var);
         //todo: check if the variable is actually new?
         addedVars<<var.name;
