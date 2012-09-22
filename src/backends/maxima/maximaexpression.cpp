@@ -495,7 +495,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
     //incomplete results.
     if(!isLatexComplete
        ||(latexBuffer.trimmed().isEmpty()&&latex.isEmpty())
-       ||m_isHelpRequest)
+       ||m_isHelpRequest||isInternal())
     {
         kDebug()<<"using text";
         result=new Cantor::TextResult(textBuffer);

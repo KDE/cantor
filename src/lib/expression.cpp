@@ -46,6 +46,7 @@ public:
     ExpressionPrivate() {
         result=0;
         session=0;
+        isInternal=false;
     }
 
     int id;
@@ -56,6 +57,7 @@ public:
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
+    bool isInternal;
 };
 
 static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
@@ -119,7 +121,9 @@ void Expression::setResult(Result* result)
         if ( session()->isTypesettingEnabled()&&
              result->type()==TextResult::Type &&
              dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
-             !result->toHtml().trimmed().isEmpty()
+             !result->toHtml().trimmed().isEmpty() &&
+             finishingBehavior()!=DeleteOnFinish &&
+             !isInternal()
             )
         {
             renderResultAsLatex();
@@ -250,6 +254,16 @@ void Expression::setFinishingBehavior(Expression::FinishingBehavior behavior)
 Expression::FinishingBehavior Expression::finishingBehavior()
 {
     return d->finishingBehavior;
+}
+
+void Expression::setInternal(bool internal)
+{
+    d->isInternal=internal;
+}
+
+bool Expression::isInternal()
+{
+    return d->isInternal;
 }
 
 #include "expression.moc"

@@ -130,6 +130,7 @@ void MaximaSession::newMaximaClient(QTcpSocket* socket)
     Cantor::Expression* expr=evaluateExpression("print(____END_OF_INIT____);",
                                                 Cantor::Expression::DeleteOnFinish);
 
+    expr->setInternal(true);
     //move this expression to the front
     m_expressionQueue.prepend(m_expressionQueue.takeLast());
 
@@ -269,6 +270,7 @@ void MaximaSession::readStdOut()
 void MaximaSession::killLabels()
 {
     Cantor::Expression* e=evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
+    e->setInternal(true);
     connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
 }
 
@@ -447,7 +449,8 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     //we use the lisp command to set the variable, as those commands
     //don't mess with the labels and history
     const QString& val=(enable==true ? "t":"nil");
-    evaluateExpression(QString(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish);
+    Cantor::Expression* exp=evaluateExpression(QString(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish);
+    exp->setInternal(true);
 
     Cantor::Session::setTypesettingEnabled(enable);
 }
