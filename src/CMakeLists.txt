@@ -33,9 +33,6 @@ install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 kde4_add_ui_files(cantor_SRCS settings.ui)
 kde4_add_ui_files(cantor_SRCS backendchooser.ui)
-kde4_add_ui_files(cantor_SRCS imagesettings.ui)
-kde4_add_ui_files(cantor_SRCS standardsearchbar.ui)
-kde4_add_ui_files(cantor_SRCS extendedsearchbar.ui)
 
 kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
@@ -87,6 +84,11 @@ set(cantor_PART_SRCS
    animation.cpp
    epsrenderer.cpp
  )
+
+kde4_add_ui_files(cantor_PART_SRCS imagesettings.ui)
+kde4_add_ui_files(cantor_PART_SRCS standardsearchbar.ui)
+kde4_add_ui_files(cantor_PART_SRCS extendedsearchbar.ui)
+
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
