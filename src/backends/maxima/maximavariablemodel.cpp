@@ -30,6 +30,7 @@
 
 //command used to inspect a maxima variable. %1 is the name of that variable
 const QString MaximaVariableModel::inspectCommand=":lisp($disp $%1)";
+const QString MaximaVariableModel::variableInspectCommand=":lisp(cantor-inspect $%1)";
 
 MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session)
 {
@@ -46,7 +47,7 @@ MaximaVariableModel::~MaximaVariableModel()
 void MaximaVariableModel::checkForNewVariables()
 {
     kDebug()<<"checking for new variables";
-    const QString& cmd=inspectCommand.arg("values");
+    const QString& cmd=variableInspectCommand.arg("values");
     Cantor::Expression* expr=session()->evaluateExpression(cmd);
 
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(parseNewVariables()));
@@ -74,35 +75,48 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         text=dynamic_cast<Cantor::LatexResult*>(expr->result())->plain();
     else
     {
-        kDebug()<<"unsupportet type: "<<expr->result()->type()<<endl;
+        kDebug()<<"unsupported type: "<<expr->result()->type()<<endl;
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 
 
     kDebug()<<"got "<<text;
 
-    text.chop(1);
-    text=text.mid(1);
-    text=text.trimmed();
+    const int nameIndex=text.indexOf(']');
+    kDebug()<<"idx: "<<nameIndex;
+    QString namesString=text.left(nameIndex);
+    //namesString.chop(1);
+    namesString=namesString.mid(1);
+    namesString=namesString.trimmed();
 
-    if(text.isEmpty())
+    kDebug()<<"names: "<<namesString;
+    if(namesString.isEmpty())
         return QList<Cantor::DefaultVariableModel::Variable>();
 
-    QStringList variableNames=text.trimmed().split(',');
+    QStringList variableNames=namesString.split(',');
+
+    QString valuesString=text.right(nameIndex).trimmed();
+
+    QStringList variableValues=valuesString.split('\n');
+    bool hasValues=variableValues.isEmpty();
 
     kDebug()<<variableNames;
+    kDebug()<<"string: "<<valuesString;
+    kDebug()<<"values: "<<variableValues;
+    kDebug()<<"has Values: "<<hasValues;
 
     QList<Cantor::DefaultVariableModel::Variable> variables;
     variables.reserve(variableNames.size());
-    foreach(const QString& name, variableNames)
+    for(int i=0;i<variableNames.size();i++)
     {
         Cantor::DefaultVariableModel::Variable var;
-        var.name=name;
-        var.value="unknown";
-
+        var.name=variableNames.at(i);;
+        if(variableValues.size()>i)
+            var.value=variableValues.at(i);
+        else
+            var.value="unknown";
         variables<<var;
 
-        //TODO: get the values of the variables
     }
 
     return variables;

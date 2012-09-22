@@ -61,6 +61,11 @@
   (princ "</result>")
 )
 
+(defun cantor-inspect (var)
+  ($disp var)
+  (mapc (lambda (x)  ($disp (eval x))) (cdr var))
+)
+
 
 #+clisp (setf custom:*suppress-check-redefinition*
 	      *old-suppress-check-redefinition*)

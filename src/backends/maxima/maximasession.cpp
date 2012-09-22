@@ -318,7 +318,8 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
             //if we are done with all the commands in the queue,
             //use the opportinity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
             QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
-            if(!exp.exactMatch(expression->command()))
+            QRegExp exp2=QRegExp(QRegExp::escape(MaximaVariableModel::variableInspectCommand).arg("(values|functions)"));
+            if(expression->status()==Cantor::Expression::Done&&!exp.exactMatch(expression->command())&&!exp2.exactMatch(expression->command()))
             {
                 m_variableModel->checkForNewFunctions();
                 m_variableModel->checkForNewVariables();
