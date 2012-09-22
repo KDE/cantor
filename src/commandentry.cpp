@@ -290,7 +290,10 @@ QString CommandEntry::currentLine()
 
 bool CommandEntry::evaluateCurrentItem()
 {
-    if (m_commandItem->hasFocus()) {
+    // we can't use m_commandItem->hasFocus() here, because
+    // that doesn't work when the scene doesn't have the focus,
+    // e.g. when an assistant is used.
+    if (m_commandItem == worksheet()->focusItem()) {
         return evaluate();
     } else if (informationItemHasFocus()) {
         addInformation();
