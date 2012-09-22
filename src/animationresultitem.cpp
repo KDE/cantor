@@ -86,6 +86,17 @@ QRectF AnimationResultItem::boundingRect() const
     return QRectF(0, 0, width(), height());
 }
 
+double AnimationResultItem::width() const
+{
+    return WorksheetImageItem::width();
+}
+
+double AnimationResultItem::height() const
+{
+    return WorksheetImageItem::height();
+}
+
+
 void AnimationResultItem::setMovie(QMovie* movie)
 {
     if (m_movie) {

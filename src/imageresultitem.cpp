@@ -73,6 +73,16 @@ QRectF ImageResultItem::boundingRect() const
     return QRectF(0, 0, width(), height());
 }
 
+double ImageResultItem::width() const
+{
+    return WorksheetImageItem::width();
+}
+
+double ImageResultItem::height() const
+{
+    return WorksheetImageItem::height();
+}
+
 void ImageResultItem::saveResult()
 {
     Cantor::Result* res = result();

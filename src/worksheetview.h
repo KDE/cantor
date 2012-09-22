@@ -39,10 +39,12 @@ class WorksheetView : public QGraphicsView
     bool isVisible(const QRectF& sceneRect);
     bool isAtEnd();
     void scrollToEnd();
-    void scrollBy(int dy); 
+    void scrollBy(int dy);
 
     QPoint viewCursorPos();
     QPointF sceneCursorPos();
+
+    QRectF viewRect();
 
     void resizeEvent(QResizeEvent* event);
 
@@ -50,10 +52,15 @@ class WorksheetView : public QGraphicsView
 
     void updateSceneSize();
 
+  signals:
+    void viewRectChanged(QRectF rect);
+
   public slots:
     void zoomIn();
     void zoomOut();
     void endAnimation();
+    void sceneRectChanged(const QRectF& sceneRect);
+    void sendViewRectChange();
 
   private:
     qreal m_scale;

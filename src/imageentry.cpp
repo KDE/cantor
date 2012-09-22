@@ -318,12 +318,16 @@ void ImageEntry::layOutForWidth(double w, bool force)
     if (size().width() == w && !force)
         return;
 
-    if (m_imageItem && m_imageItem->isVisible())
+    double width;
+    if (m_imageItem && m_imageItem->isVisible()) {
         m_imageItem->setGeometry(0, 0, w, true);
-    else
+        width = m_imageItem->width();
+    } else {
         m_textItem->setGeometry(0, 0, w, true);
+        width = m_textItem->width();
+    }
 
-    setSize(QSizeF(w, height() + VerticalMargin));
+    setSize(QSizeF(width, height() + VerticalMargin));
 }
 
 bool ImageEntry::wantToEvaluate()

@@ -41,12 +41,13 @@ class ActionBar : public QGraphicsObject
                                    const char* method = 0);
     void addSpace();
 
-    void updatePosition(const QSizeF& parentSize);
-
     WorksheetEntry* parentEntry();
 
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
+
+  public slots:
+    void updatePosition();
 
   private:
     Worksheet* worksheet();

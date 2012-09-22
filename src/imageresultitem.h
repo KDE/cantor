@@ -33,12 +33,15 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     ImageResultItem(QGraphicsObject* parent);
     ~ImageResultItem();
 
+    using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w);
     void populateMenu(KMenu* menu, const QPointF& pos);
 
     ResultItem* updateFromResult(Cantor::Result* result);
-    
+
     QRectF boundingRect() const;
+    virtual double width() const;
+    virtual double height() const;
 
     void deleteLater();
     EpsRenderer* epsRenderer();

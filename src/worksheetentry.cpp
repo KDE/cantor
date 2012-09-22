@@ -662,7 +662,7 @@ void WorksheetEntry::setSize(QSizeF size)
 {
     prepareGeometryChange();
     if (m_actionBar && size != m_size)
-        m_actionBar->updatePosition(size);
+        m_actionBar->updatePosition();
     m_size = size;
 }
 
@@ -712,9 +712,6 @@ void WorksheetEntry::showActionBar()
     }
 
     if (worksheet()->animationsEnabled()) {
-        qreal waitingTime = 400;
-        if (m_actionBar)
-            waitingTime = 0;
         m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
                                                       this);
         m_actionBarAnimation->setStartValue(0);
@@ -780,11 +777,13 @@ void WorksheetEntry::addActionsToBar(ActionBar*)
 
 void WorksheetEntry::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
 {
+    Q_UNUSED(event);
     showActionBar();
 }
 
 void WorksheetEntry::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 {
+    Q_UNUSED(event);
     hideActionBar();
 }
 

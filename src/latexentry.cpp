@@ -361,7 +361,7 @@ void LatexEntry::layOutForWidth(double w, bool force)
         return;
 
     m_textItem->setGeometry(0, 0, w);
-    setSize(QSizeF(w, m_textItem->height() + VerticalMargin));
+    setSize(QSizeF(m_textItem->width(), m_textItem->height() + VerticalMargin));
 }
 
 bool LatexEntry::wantToEvaluate()
