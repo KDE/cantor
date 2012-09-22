@@ -150,6 +150,9 @@ class WorksheetEntry : public QGraphicsObject
     void keyPressEvent(QKeyEvent *event);
     void evaluateNext(EvaluationOption opt);
 
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+
     void setSize(QSizeF size);
 
     bool animationActive();
