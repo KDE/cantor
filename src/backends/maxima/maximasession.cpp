@@ -125,7 +125,7 @@ void MaximaSession::newMaximaClient(QTcpSocket* socket)
     QString cmd=initCmd.arg(initFile);
     kDebug()<<"sending cmd: "<<cmd<<endl;
 
-    m_maxima->write(cmd.toLatin1());
+    m_maxima->write(cmd.toUtf8());
 
     Cantor::Expression* expr=evaluateExpression("print(____END_OF_INIT____);",
                                                 Cantor::Expression::DeleteOnFinish);
@@ -362,7 +362,8 @@ void MaximaSession::runFirstExpression()
         {
             kDebug()<<"writing "<<command+'\n'<<" to the process";
             m_cache.clear();
-            m_maxima->write((command+'\n').toLatin1());
+            QString cmd=(command+'\n');
+            m_maxima->write(cmd.toUtf8());
         }
     }
 }
@@ -399,7 +400,7 @@ void MaximaSession::sendInputToProcess(const QString& input)
 {
     kDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
     kDebug()<<"running "<<input;
-    m_maxima->write(input.toLatin1());
+    m_maxima->write(input.toUtf8());
 }
 
 void MaximaSession::restartMaxima()
