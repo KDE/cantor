@@ -38,11 +38,28 @@ void KAlgebraExpression::evaluate()
     setStatus(Cantor::Expression::Computing);
 
     Analitza::Analyzer* a=static_cast<KAlgebraSession*>(session())->analyzer();
-    a->setExpression(Analitza::Expression(command()));
-
     Analitza::Expression res;
-    if(a->isCorrect())
-        res=a->evaluate();
+    QString cmd = command();
+    QScopedPointer<QTextStream> stream(new QTextStream(&cmd));
+
+    QString line;
+    for(bool done=!stream->atEnd(); done; done=!stream->atEnd() || !line.isEmpty()) {
+        line += stream->readLine(); // line of text excluding '\n'
+        line += '\n'; //make sure the \n is passed so that comments work properly
+
+        if(Analitza::Expression::isCompleteExpression(line) || stream->atEnd()) {
+            if(stream->atEnd() && !Analitza::Expression::isCompleteExpression(line, true))
+                break;
+
+            a->setExpression(Analitza::Expression(line, Analitza::Expression::isMathML(line)));
+
+            res = a->evaluate();
+            line.clear();
+
+            if(!a->isCorrect())
+                break;
+        }
+    }
 
     if(a->isCorrect()) {
         setResult(new Cantor::TextResult(res.toString()));
@@ -53,3 +70,6 @@ void KAlgebraExpression::evaluate()
         setStatus(Cantor::Expression::Error);
     }
 }
+
+void KAlgebraExpression::interrupt()
+{}
