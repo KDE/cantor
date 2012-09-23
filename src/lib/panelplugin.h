@@ -103,6 +103,7 @@ class CANTOR_EXPORT PanelPlugin : public QObject /*, public KXMLGUIClient*/
 
   signals:
     void requestRunCommand(const QString& cmd);
+    void visibilityRequested();
 
   protected:
     virtual void onSessionChanged();

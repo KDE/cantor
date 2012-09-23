@@ -486,6 +486,8 @@ void CantorShell::updatePanel()
             tabifyDockWidget(last, docker);
         last=docker;
 
+        connect(plugin, SIGNAL(visibilityRequested()), docker, SLOT(raise()));
+
         m_panels.append(docker);
 
         //Create the action to show/hide this panel
