@@ -51,19 +51,19 @@ class CANTOR_EXPORT Expression : public QObject
   Q_OBJECT
   public:
     enum Status{ Computing,   ///< The Expression is still being computed
-		 Done,        ///< The Running of the Expression is finished sucessfully
-		 Error,       ///< An Error occurred when running the Expression
-		 Interrupted  ///< The Expression was interrupted by the user while running
+                 Done,        ///< The Running of the Expression is finished sucessfully
+                 Error,       ///< An Error occurred when running the Expression
+                 Interrupted  ///< The Expression was interrupted by the user while running
     };
 
     /**
      * Enum indicating how this Expression behaves on finishing
      */
-    enum FinishingBehavior { 
-	DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
-	DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
-			       All output/results will be dropped
-			 */
+    enum FinishingBehavior {
+        DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
+        DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
+                               All output/results will be dropped
+                         */
     };
     /**
      * Expression constructor. Should only be called from Session::evaulateExpression
@@ -83,11 +83,11 @@ class CANTOR_EXPORT Expression : public QObject
      */
     virtual void evaluate() = 0;
     /**
-     * Interrupt the running of the Expression. 
+     * Interrupt the running of the Expression.
      * This should set the state to Interrupted.
      */
     virtual void interrupt() = 0;
-    
+
     /**
      * Returns the unique id of the Expression
      * @return the unique id of the Expression
@@ -148,22 +148,22 @@ class CANTOR_EXPORT Expression : public QObject
     QString errorMessage();
 
     /**
-     * The result of this Expression. It can have different types, represented by various
+     * The results of this Expression. They can have different types, represented by various
      * subclasses of Result, like text, image, etc.
-     * The result will be null, until the computation is completed.
-     * When the result changes, the gotResult() signal is emitted.
-     * The Result object is owned by the Expression, and will get deleted, as
+     * The list will be empty, until the computation is completed.
+     * When the results change, the gotResult() signal is emitted.
+     * The Result objects are owned by the Expression, and will get deleted, as
      * soon as the Expression dies, or newer results appear.
-     * @return the result of the Expression, 0 if it isn't yet set
+     * @return the results of the Expression
      */
-    Result* result();
+    QList<Result*> results();
 
     /**
      * Deletes the result of this expression.
      *
      */
-    void clearResult();
-    
+    void clearResults();
+
     /**
      * Returns the status of this Expression
      * @return the status of this Expression
@@ -183,8 +183,8 @@ class CANTOR_EXPORT Expression : public QObject
      */
     QDomElement toXml(QDomDocument& doc);
     /**
-     * saves all the data, that can't be saved in xml 
-     * in an extra file in the archive. for Example 
+     * saves all the data, that can't be saved in xml
+     * in an extra file in the archive. for Example
      * images of plots
      * @param archive a Zip archive, the data should be stored in
      */
@@ -216,12 +216,20 @@ class CANTOR_EXPORT Expression : public QObject
     /**
      * Set the result of the Expression.
      * this will cause gotResult() to be emited
-     * The old result will be deleted, and the Expression
+     * The old results will be deleted, and the Expression
      * takes over ownership of the result object, taking
      * care of deleting it.
      * @param result the new result
      */
     void setResult(Result* result);
+    /**
+     * Set the results of the Expression.
+     * This will cause gotResult() to be emited.
+     * The old results will be deleted, and the Expression
+     * takes over ownership of the new result objects.
+     * @param results the new results
+     */
+    void setResults(QList<Results*> results);
     /**
      * Set the status
      * statusChanged will be emitted
@@ -230,11 +238,11 @@ class CANTOR_EXPORT Expression : public QObject
     void setStatus(Status status);
 
   protected:
-    //returns a string of latex commands, that is inserted into the header. 
+    //returns a string of latex commands, that is inserted into the header.
     //used for example if special packages are needed
     virtual QString additionalLatexHeaders();
   private:
-    void renderResultAsLatex();
+    void renderResultsAsLatex();
   private Q_SLOTS:
     void latexRendered();
 

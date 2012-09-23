@@ -52,7 +52,8 @@ public:
     QString command;
     QString error;
     QList<QString> information;
-    Result* result;
+    QList<Result*> results;
+    QList<int> latexResultIndices;
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
@@ -105,42 +106,56 @@ QString Expression::errorMessage()
 
 void Expression::setResult(Result* result)
 {
+    QList<Result*> results;
+    if (result)
+        results.append(result);
+    setResults(results)
+}
 
-    if(d->result)
-        delete d->result;
+void Expression::setResults(QList<Result*> results)
+{
+    foreach(Result* r, d->results) {
+        delete r;
+    }
+    r->results.clear();
 
-    d->result=result;
+    d->results = results;
 
-    if(result!=0)
-    {
-        kDebug()<<"settting result to a type "<<result->type()<<" result";
+    d->latexResultIndices.clear();
+    for(int i = 0; i < d->results.size(); ++i) {
+        Result* r = d->results.at(i);
+        kDebug()<<"setting result to a type "<<r->type()<<" result";
         #ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
         if ( session()->isTypesettingEnabled()&&
-             result->type()==TextResult::Type &&
-             dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
-             !result->toHtml().trimmed().isEmpty()
+             r->type()==TextResult::Type &&
+             dynamic_cast<TextResult*>(r)->format()==TextResult::LatexFormat &&
+             !r->toHtml().trimmed().isEmpty()
             )
         {
-            renderResultAsLatex();
+            d->latexResultIndices.append(i);
         }
         #endif
     }
 
+    if (!d->latexResultIndices.isEmpty())
+        renderResultsAsLatex();
+
     emit gotResult();
 }
 
-Result* Expression::result()
+QList<Result*> Expression::results()
 {
-    return d->result;
+    return d->results;
 }
 
-void Expression::clearResult()
+void Expression::clearResults()
 {
-    if(d->result)
-        delete d->result;
+    foreach(Result* r, d->results) {
+        delete d;
+    }
 
-    d->result=0;
+    r->results.clear();
 }
 
 void Expression::setStatus(Expression::Status status)
@@ -166,8 +181,10 @@ void Expression::renderResultAsLatex()
     kDebug()<<"rendering as latex";
     kDebug()<<"checking if it really is a formula that can be typeset";
 
+    int i = d->latexResultIndices.first();
+    Result* result = d->results.at(i);
     LatexRenderer* renderer=new LatexRenderer(this);
-    renderer->setLatexCode(result()->data().toString().trimmed());
+    renderer->setLatexCode(result->data().toString().trimmed());
     renderer->addHeader(additionalLatexHeaders());
 
     connect(renderer, SIGNAL(done()), this, SLOT(latexRendered()));
@@ -180,16 +197,24 @@ void Expression::latexRendered()
 {
     LatexRenderer* renderer=qobject_cast<LatexRenderer*>(sender());
 
+    int i = d->latexResultIndices.first();
+    Result* result = d->results.at(i);
     kDebug()<<"rendered a result to "<<renderer->imagePath();
     //replace the textresult with the rendered latex image result
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(renderer->renderingSuccessful())
     {
         LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(renderer->imagePath()));
-        setResult( latex );
-    }else
+        delete d->results.at(i);
+        d->results[i] = latex;
+    } else
     {
         kDebug()<<"error rendering latex: "<<renderer->errorMessage();
+    }
+
+    d->latexResultIndices.removeFirst();
+    if (!d->latexResultIndices.isEmpty()) {
+        renderResultAsLatex();
     }
 
     renderer->deleteLater();
