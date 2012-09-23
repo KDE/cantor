@@ -200,12 +200,12 @@ QString MaximaVariableManagementExtension::removeVariable(const QString& name)
 
 QString MaximaVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return QString("disp \"TODO: implement me!\"");
+    return QString("save(\"%1\", values,functions)").arg(fileName);
 }
 
 QString MaximaVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return QString("disp \"TODO: implement me!\"");
+    return QString("load(\"%1\")").arg(fileName);
 }
 
 QString MaximaVariableManagementExtension::clearVariables()
