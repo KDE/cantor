@@ -65,12 +65,13 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_firstEntry = 0;
     m_lastEntry = 0;
-    m_focusItem = 0;
+    m_lastFocusedTextItem = 0;
     m_dragEntry = 0;
     m_placeholderEntry = 0;
     m_viewWidth = 0;
     m_protrusion = 0;
     m_actionBarTimer = 0;
+    m_dragScrollTimer = 0;
 
     m_isPrinting = false;
     m_loginFlag = true;
@@ -95,7 +96,7 @@ void Worksheet::loginToSession()
         enableHighlighting(Settings::self()->highlightDefault());
         enableCompletion(Settings::self()->completionDefault());
         enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
-	enableAnimations(Settings::self()->animationDefault());
+        enableAnimations(Settings::self()->animationDefault());
 #ifdef WITH_EPS
         session()->setTypesettingEnabled(Settings::self()->typesetDefault());
 #else
@@ -124,21 +125,21 @@ void Worksheet::print(QPrinter* printer)
     qreal y = 0;
 
     while (entry) {
-	qreal h = 0;
-	do {
-	    if (entry->type() == PageBreakEntry::Type) {
-		entry = entry->next();
-		break;
-	    }
-	    h += entry->size().height();
-	    entry = entry->next();
-	} while (entry && h + entry->size().height() <= height);
+        qreal h = 0;
+        do {
+            if (entry->type() == PageBreakEntry::Type) {
+                entry = entry->next();
+                break;
+            }
+            h += entry->size().height();
+            entry = entry->next();
+        } while (entry && h + entry->size().height() <= height);
 
-	render(&painter, QRectF(0, 0, width, height),
-	       QRectF(0, y, width, h));
-	y += h;
-	if (entry)
-	    printer->newPage();
+        render(&painter, QRectF(0, 0, width, height),
+               QRectF(0, y, width, h));
+        y += h;
+        if (entry)
+            printer->newPage();
     }
 
     //render(&painter);
@@ -161,9 +162,9 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
 
     m_viewWidth = w;
     if (s != m_epsRenderer.scale() || forceUpdate) {
-	m_epsRenderer.setScale(s);
-	for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
-	    entry->updateEntry();
+        m_epsRenderer.setScale(s);
+        for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+            entry->updateEntry();
     }
     updateLayout();
 }
@@ -173,20 +174,20 @@ void Worksheet::updateLayout()
     bool cursorRectVisible = false;
     bool atEnd = worksheetView()->isAtEnd();
     if (currentTextItem()) {
-	QRectF cursorRect = currentTextItem()->cursorRect();
-	cursorRectVisible = worksheetView()->isVisible(cursorRect);
+        QRectF cursorRect = currentTextItem()->sceneCursorRect();
+        cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
     const qreal w = m_viewWidth - LeftMargin - RightMargin;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
-	y += entry->setGeometry(x, y, w);
+        y += entry->setGeometry(x, y, w);
     setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     if (cursorRectVisible)
-	makeVisible(worksheetCursor());
+        makeVisible(worksheetCursor());
     else if (atEnd)
-	worksheetView()->scrollToEnd();
+        worksheetView()->scrollToEnd();
 }
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
@@ -194,32 +195,32 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
     bool cursorRectVisible = false;
     bool atEnd = worksheetView()->isAtEnd();
     if (currentTextItem()) {
-	QRectF cursorRect = currentTextItem()->cursorRect();
-	cursorRectVisible = worksheetView()->isVisible(cursorRect);
+        QRectF cursorRect = currentTextItem()->sceneCursorRect();
+        cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
     qreal y = entry->y() + entry->size().height();
     for (entry = entry->next(); entry; entry = entry->next()) {
-	entry->setY(y);
-	y += entry->size().height();
+        entry->setY(y);
+        y += entry->size().height();
     }
     setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     if (cursorRectVisible)
-	makeVisible(worksheetCursor());
+        makeVisible(worksheetCursor());
     else if (atEnd)
-	worksheetView()->scrollToEnd();
+        worksheetView()->scrollToEnd();
 }
 
 void Worksheet::addProtrusion(qreal width)
 {
     if (m_itemProtrusions.contains(width))
-	++m_itemProtrusions[width];
+        ++m_itemProtrusions[width];
     else
-	m_itemProtrusions.insert(width, 1);
+        m_itemProtrusions.insert(width, 1);
     if (width > m_protrusion) {
-	m_protrusion = width;
-	qreal y = lastEntry()->size().height() + lastEntry()->y();
-	setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+        m_protrusion = width;
+        qreal y = lastEntry()->size().height() + lastEntry()->y();
+        setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     }
 }
 
@@ -232,17 +233,17 @@ void Worksheet::updateProtrusion(qreal oldWidth, qreal newWidth)
 void Worksheet::removeProtrusion(qreal width)
 {
     if (--m_itemProtrusions[width] == 0) {
-	m_itemProtrusions.remove(width);
-	if (width == m_protrusion) {
-	    qreal max = -1;
-	    foreach (qreal p, m_itemProtrusions.keys()) {
-		if (p > max)
-		    max = p;
-	    }
-	    m_protrusion = max;
-	    qreal y = lastEntry()->size().height() + lastEntry()->y();
-	    setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
-	}
+        m_itemProtrusions.remove(width);
+        if (width == m_protrusion) {
+            qreal max = -1;
+            foreach (qreal p, m_itemProtrusions.keys()) {
+                if (p > max)
+                    max = p;
+            }
+            m_protrusion = max;
+            qreal y = lastEntry()->size().height() + lastEntry()->y();
+            setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+        }
     }
 }
 
@@ -262,15 +263,16 @@ void Worksheet::makeVisible(WorksheetEntry* entry)
 void Worksheet::makeVisible(const WorksheetCursor& cursor)
 {
     if (cursor.textCursor().isNull()) {
-	makeVisible(cursor.entry());
-	return;
+        if (cursor.entry())
+            makeVisible(cursor.entry());
+        return;
     }
-    QRectF r = cursor.textItem()->cursorRect(cursor.textCursor());
+    QRectF r = cursor.textItem()->sceneCursorRect(cursor.textCursor());
     QRectF er = cursor.entry()->boundingRect();
     er = cursor.entry()->mapRectToScene(er);
     er.adjust(0, -10, 0, 10);
     r.adjust(0, qMax(-100.0, er.top() - r.top()),
-	     0, qMin(100.0, er.bottom() - r.bottom()));
+             0, qMin(100.0, er.bottom() - r.bottom()));
     worksheetView()->makeVisible(r);
 }
 
@@ -290,25 +292,19 @@ WorksheetCursor Worksheet::worksheetCursor()
     WorksheetTextItem* item = currentTextItem();
 
     if (!entry || !item)
-	return WorksheetCursor();
+        return WorksheetCursor();
     return WorksheetCursor(entry, item, item->textCursor());
 }
 
 void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 {
     if (!cursor.isValid())
-	return;
+        return;
 
-    QGraphicsItem* item = m_focusItem;
-    while (item && item->type() != WorksheetTextItem::Type)
-	item = item->parentItem();
+    if (m_lastFocusedTextItem)
+        m_lastFocusedTextItem->clearSelection();
 
-    WorksheetTextItem* oldItem = qgraphicsitem_cast<WorksheetTextItem*>(item);
-
-    if (oldItem)
-	oldItem->clearSelection();
-
-    m_focusItem = cursor.textItem();
+    m_lastFocusedTextItem = cursor.textItem();
 
     cursor.textItem()->setTextCursor(cursor.textCursor());
 }
@@ -317,19 +313,20 @@ WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
     if (!item /*&& !hasFocus()*/)
-	item = m_focusItem;
-    else
-	m_focusItem = item;
+        item = m_lastFocusedTextItem;
+    /*else
+      m_focusItem = item;*/
     while (item && (item->type() < QGraphicsItem::UserType ||
-		    item->type() >= QGraphicsItem::UserType + 100))
-	item = item->parentItem();
+                    item->type() >= QGraphicsItem::UserType + 100))
+        item = item->parentItem();
     if (item) {
-	WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
-	if (entry && entry->aboutToBeRemoved()) {
-	    m_focusItem = 0;
-	    return 0;
-	}
-	return entry;
+        WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+        if (entry && entry->aboutToBeRemoved()) {
+            if (entry->isAncestorOf(m_lastFocusedTextItem))
+                m_lastFocusedTextItem = 0;
+            return 0;
+        }
+        return entry;
     }
     return 0;
 }
@@ -347,45 +344,45 @@ WorksheetEntry* Worksheet::lastEntry()
 void Worksheet::setFirstEntry(WorksheetEntry* entry)
 {
     if (m_firstEntry)
-	disconnect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
-		   this, SLOT(invalidateFirstEntry()));
+        disconnect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
+                   this, SLOT(invalidateFirstEntry()));
     m_firstEntry = entry;
     if (m_firstEntry)
-	connect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
-		this, SLOT(invalidateFirstEntry()), Qt::DirectConnection);
+        connect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
+                this, SLOT(invalidateFirstEntry()), Qt::DirectConnection);
 }
 
 void Worksheet::setLastEntry(WorksheetEntry* entry)
 {
     if (m_lastEntry)
-	disconnect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
-		   this, SLOT(invalidateLastEntry()));
+        disconnect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
+                   this, SLOT(invalidateLastEntry()));
     m_lastEntry = entry;
     if (m_lastEntry)
-	connect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
-		this, SLOT(invalidateLastEntry()), Qt::DirectConnection);
+        connect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
+                this, SLOT(invalidateLastEntry()), Qt::DirectConnection);
 }
 
 void Worksheet::invalidateFirstEntry()
 {
     if (m_firstEntry)
-	setFirstEntry(m_firstEntry->next());
+        setFirstEntry(m_firstEntry->next());
 }
 
 void Worksheet::invalidateLastEntry()
 {
     if (m_lastEntry)
-	setLastEntry(m_lastEntry->previous());
+        setLastEntry(m_lastEntry->previous());
 }
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
     QGraphicsItem* item = itemAt(x, y);
     while (item && (item->type() <= QGraphicsItem::UserType ||
-		    item->type() >= QGraphicsItem::UserType + 100))
-	item = item->parentItem();
+                    item->type() >= QGraphicsItem::UserType + 100))
+        item = item->parentItem();
     if (item)
-	return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
+        return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
     return 0;
 }
 
@@ -414,44 +411,44 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
     m_placeholderEntry->setPrevious(prev);
     m_placeholderEntry->setNext(next);
     if (prev)
-	prev->setNext(m_placeholderEntry);
+        prev->setNext(m_placeholderEntry);
     else
-	setFirstEntry(m_placeholderEntry);
+        setFirstEntry(m_placeholderEntry);
     if (next)
-	next->setPrevious(m_placeholderEntry);
+        next->setPrevious(m_placeholderEntry);
     else
-	setLastEntry(m_placeholderEntry);
+        setLastEntry(m_placeholderEntry);
     m_dragEntry->hide();
     Qt::DropAction action = drag->exec();
 
     kDebug() << action;
     if (action == Qt::MoveAction && m_placeholderEntry) {
-	kDebug() << "insert in new position";
-	prev = m_placeholderEntry->previous();
-	next = m_placeholderEntry->next();
+        kDebug() << "insert in new position";
+        prev = m_placeholderEntry->previous();
+        next = m_placeholderEntry->next();
     }
     m_dragEntry->setPrevious(prev);
     m_dragEntry->setNext(next);
     if (prev)
-	prev->setNext(m_dragEntry);
+        prev->setNext(m_dragEntry);
     else
-	setFirstEntry(m_dragEntry);
+        setFirstEntry(m_dragEntry);
     if (next)
-	next->setPrevious(m_dragEntry);
+        next->setPrevious(m_dragEntry);
     else
-	setLastEntry(m_dragEntry);
+        setLastEntry(m_dragEntry);
     m_dragEntry->show();
     m_dragEntry->focusEntry();
     const QPointF scenePos = worksheetView()->sceneCursorPos();
     if (entryAt(scenePos) != m_dragEntry)
-	m_dragEntry->hideActionBar();
+        m_dragEntry->hideActionBar();
     updateLayout();
     if (m_placeholderEntry) {
-	m_placeholderEntry->setPrevious(0);
-	m_placeholderEntry->setNext(0);
-	m_placeholderEntry->hide();
-	m_placeholderEntry->deleteLater();
-	m_placeholderEntry = 0;
+        m_placeholderEntry->setPrevious(0);
+        m_placeholderEntry->setNext(0);
+        m_placeholderEntry->hide();
+        m_placeholderEntry->deleteLater();
+        m_placeholderEntry = 0;
     }
     m_dragEntry = 0;
 }
@@ -491,14 +488,14 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
     if (entry)
     {
         kDebug() << "Entry Appended";
-	entry->setPrevious(lastEntry());
-	if (lastEntry())
-	    lastEntry()->setNext(entry);
-	if (!firstEntry())
-	    setFirstEntry(entry);
-	setLastEntry(entry);
-	updateLayout();
-	makeVisible(entry);
+        entry->setPrevious(lastEntry());
+        if (lastEntry())
+            lastEntry()->setNext(entry);
+        if (!firstEntry())
+            setFirstEntry(entry);
+        setLastEntry(entry);
+        updateLayout();
+        makeVisible(entry);
         focusEntry(entry);
     }
     return entry;
@@ -546,27 +543,28 @@ void Worksheet::appendCommandEntry(const QString& text)
     }
 }
 
-WorksheetEntry* Worksheet::insertEntry(const int type)
+WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
 {
-    WorksheetEntry *current = currentEntry();
+    if (!current)
+        current = currentEntry();
 
     if (!current)
-	return appendEntry(type);
+        return appendEntry(type);
 
     WorksheetEntry *next = current->next();
     WorksheetEntry *entry = 0;
 
     if (!next || next->type() != type || !next->isEmpty())
     {
-	entry = WorksheetEntry::create(type, this);
-	entry->setPrevious(current);
-	entry->setNext(next);
-	current->setNext(entry);
-	if (next)
-	    next->setPrevious(entry);
-	else
-	    setLastEntry(entry);
-	updateLayout();
+        entry = WorksheetEntry::create(type, this);
+        entry->setPrevious(current);
+        entry->setNext(next);
+        current->setNext(entry);
+        if (next)
+            next->setPrevious(entry);
+        else
+            setLastEntry(entry);
+        updateLayout();
     }
 
     focusEntry(entry);
@@ -574,29 +572,29 @@ WorksheetEntry* Worksheet::insertEntry(const int type)
     return entry;
 }
 
-WorksheetEntry* Worksheet::insertTextEntry()
+WorksheetEntry* Worksheet::insertTextEntry(WorksheetEntry* current)
 {
-    return insertEntry(TextEntry::Type);
+    return insertEntry(TextEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertCommandEntry()
+WorksheetEntry* Worksheet::insertCommandEntry(WorksheetEntry* current)
 {
-    return insertEntry(CommandEntry::Type);
+    return insertEntry(CommandEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertImageEntry()
+WorksheetEntry* Worksheet::insertImageEntry(WorksheetEntry* current)
 {
-    return insertEntry(ImageEntry::Type);
+    return insertEntry(ImageEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertPageBreakEntry()
+WorksheetEntry* Worksheet::insertPageBreakEntry(WorksheetEntry* current)
 {
-    return insertEntry(PageBreakEntry::Type);
+    return insertEntry(PageBreakEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertLatexEntry()
+WorksheetEntry* Worksheet::insertLatexEntry(WorksheetEntry* current)
 {
-    return insertEntry(LatexEntry::Type);
+    return insertEntry(LatexEntry::Type, current);
 }
 
 void Worksheet::insertCommandEntry(const QString& text)
@@ -610,56 +608,57 @@ void Worksheet::insertCommandEntry(const QString& text)
 }
 
 
-WorksheetEntry* Worksheet::insertEntryBefore(int type)
+WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
 {
-    WorksheetEntry *current = currentEntry();
+    if (!current)
+        current = currentEntry();
 
     if (!current)
-	return 0;
+        return 0;
 
     WorksheetEntry *prev = current->previous();
     WorksheetEntry *entry = 0;
 
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
-	entry = WorksheetEntry::create(type, this);
-	entry->setNext(current);
-	entry->setPrevious(prev);
-	current->setPrevious(entry);
-	if (prev)
-	    prev->setNext(entry);
-	else
-	    setFirstEntry(entry);
-	updateLayout();
+        entry = WorksheetEntry::create(type, this);
+        entry->setNext(current);
+        entry->setPrevious(prev);
+        current->setPrevious(entry);
+        if (prev)
+            prev->setNext(entry);
+        else
+            setFirstEntry(entry);
+        updateLayout();
     }
 
     focusEntry(entry);
     return entry;
 }
 
-WorksheetEntry* Worksheet::insertTextEntryBefore()
+WorksheetEntry* Worksheet::insertTextEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(TextEntry::Type);
+    return insertEntryBefore(TextEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertCommandEntryBefore()
+WorksheetEntry* Worksheet::insertCommandEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(CommandEntry::Type);
+    return insertEntryBefore(CommandEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertPageBreakEntryBefore()
+WorksheetEntry* Worksheet::insertPageBreakEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(PageBreakEntry::Type);
+    return insertEntryBefore(PageBreakEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertImageEntryBefore()
+WorksheetEntry* Worksheet::insertImageEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(ImageEntry::Type);
+    return insertEntryBefore(ImageEntry::Type, current);
 }
 
-WorksheetEntry* Worksheet::insertLatexEntryBefore()
+WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(LatexEntry::Type);
+    return insertEntryBefore(LatexEntry::Type, current);
 }
 
 void Worksheet::interrupt()
@@ -676,32 +675,34 @@ void Worksheet::interruptCurrentEntryEvaluation()
 void Worksheet::highlightItem(WorksheetTextItem* item)
 {
     if (!m_highlighter)
-	return;
+        return;
 
     QTextDocument *oldDocument = m_highlighter->document();
     QList<QList<QTextLayout::FormatRange> > formats;
 
     if (oldDocument)
-	for (QTextBlock b = oldDocument->firstBlock();
-	     b.isValid(); b = b.next())
-	    formats.append(b.layout()->additionalFormats());
+        for (QTextBlock b = oldDocument->firstBlock();
+             b.isValid(); b = b.next())
+        {
+            formats.append(b.layout()->additionalFormats());
+        }
 
     // Not every highlighter is a Cantor::DefaultHighligther (e.g. the
     // highlighter for KAlgebra)
     Cantor::DefaultHighlighter* hl = qobject_cast<Cantor::DefaultHighlighter*>(m_highlighter);
     if (hl) {
-	hl->setTextItem(item);
+        hl->setTextItem(item);
     } else {
-	m_highlighter->setDocument(item->document());
+        m_highlighter->setDocument(item->document());
     }
 
     if (oldDocument)
-	for (QTextBlock b = oldDocument->firstBlock();
-	     b.isValid(); b = b.next()) {
-
-	    b.layout()->setAdditionalFormats(formats.first());
-	    formats.pop_front();
-	}
+        for (QTextBlock b = oldDocument->firstBlock();
+             b.isValid(); b = b.next())
+        {
+            b.layout()->setAdditionalFormats(formats.first());
+            formats.pop_front();
+        }
 
 }
 
@@ -710,34 +711,33 @@ void Worksheet::rehighlight()
     if(m_highlighter)
     {
         // highlight every entry
-	WorksheetEntry* entry;
-	for (entry = firstEntry(); entry; entry = entry->next())
-        {
-	    WorksheetTextItem* item = entry->highlightItem();
-	    if (!item)
-		continue;
-	    highlightItem(item);
-	    m_highlighter->rehighlight();
-	}
-	entry = currentEntry();
-	WorksheetTextItem* textitem = entry ? entry->highlightItem() : 0;
-	if (textitem && textitem->hasFocus())
-	    highlightItem(textitem);
-    }else
+        WorksheetEntry* entry;
+        for (entry = firstEntry(); entry; entry = entry->next()) {
+            WorksheetTextItem* item = entry->highlightItem();
+            if (!item)
+                continue;
+            highlightItem(item);
+            m_highlighter->rehighlight();
+        }
+        entry = currentEntry();
+        WorksheetTextItem* textitem = entry ? entry->highlightItem() : 0;
+        if (textitem && textitem->hasFocus())
+            highlightItem(textitem);
+    } else
     {
         // remove highlighting from entries
-	WorksheetEntry* entry;
-	for (entry = firstEntry(); entry; entry = entry->next()) {
-	    WorksheetTextItem* item = entry->highlightItem();
-	    if (!item)
-		continue;
-	    for (QTextBlock b = item->document()->firstBlock();
-		 b.isValid(); b = b.next())
+        WorksheetEntry* entry;
+        for (entry = firstEntry(); entry; entry = entry->next()) {
+            WorksheetTextItem* item = entry->highlightItem();
+            if (!item)
+                continue;
+            for (QTextBlock b = item->document()->firstBlock();
+                 b.isValid(); b = b.next())
             {
-		b.layout()->clearAdditionalFormats();
+                b.layout()->clearAdditionalFormats();
             }
-	}
-	update();
+        }
+        update();
     }
 }
 
@@ -753,7 +753,7 @@ void Worksheet::enableHighlighting(bool highlight)
 
         connect(m_highlighter, SIGNAL(rulesChanged()), this, SLOT(rehighlight()));
 
-    } else
+    }else
     {
         if(m_highlighter)
             m_highlighter->deleteLater();
@@ -823,7 +823,7 @@ void Worksheet::save( const QString& filename )
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
         KMessageBox::error( worksheetView(),
-			    i18n( "Cannot write file %1." , filename ),
+                            i18n( "Cannot write file %1." , filename ),
                             i18n( "Error - Cantor" ));
         return;
     }
@@ -969,15 +969,15 @@ void Worksheet::load(const QString& filename )
             entry = appendLatexEntry();
             entry->setContent(expressionChild, file);
         } else if (tag == "PageBreak")
-	{
-	    entry = appendPageBreakEntry();
-	    entry->setContent(expressionChild, file);
-	}
-	else if (tag == "Image")
-	{
-	  entry = appendImageEntry();
-	  entry->setContent(expressionChild, file);
-	}
+        {
+            entry = appendPageBreakEntry();
+            entry->setContent(expressionChild, file);
+        }
+        else if (tag == "Image")
+        {
+          entry = appendImageEntry();
+          entry->setContent(expressionChild, file);
+        }
 
         expressionChild = expressionChild.nextSiblingElement();
     }
@@ -1022,7 +1022,8 @@ void Worksheet::removeCurrentEntry()
         return;
 
     // In case we just removed this
-    m_focusItem = 0;
+    if (entry->isAncestorOf(m_lastFocusedTextItem))
+        m_lastFocusedTextItem = 0;
     entry->startRemoving();
 }
 
@@ -1042,44 +1043,47 @@ KMenu* Worksheet::createContextMenu()
 void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
 {
     WorksheetEntry* entry = entryAt(pos);
-    if (entry && !entry->isAncestorOf(m_focusItem))
-	m_focusItem = itemAt(pos);
-    //m_currentEntry = entry;
+    if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
+        WorksheetTextItem* item =
+            qgraphicsitem_cast<WorksheetTextItem*>(itemAt(pos));
+        if (item && item->isEditable())
+            m_lastFocusedTextItem = item;
+    }
 
     if (!isRunning())
-	menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
-			this, SLOT(evaluate()), 0);
+        menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
+                        this, SLOT(evaluate()), 0);
     else
-	menu->addAction(KIcon("process-stop"), i18n("Interrupt"), this,
-			SLOT(interrupt()), 0);
+        menu->addAction(KIcon("process-stop"), i18n("Interrupt"), this,
+                        SLOT(interrupt()), 0);
     menu->addSeparator();
 
     if (entry) {
-	KMenu* insert = new KMenu(menu);
-	KMenu* insertBefore = new KMenu(menu);
+        KMenu* insert = new KMenu(menu);
+        KMenu* insertBefore = new KMenu(menu);
 
-	insert->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntry()));
-	insert->addAction(i18n("Text Entry"), this, SLOT(insertTextEntry()));
-	insert->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntry()));
-	insert->addAction(i18n("Image"), this, SLOT(insertImageEntry()));
-	insert->addAction(i18n("Page Break"), this, SLOT(insertPageBreakEntry()));
+        insert->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
+        insert->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntry()));
+        insert->addAction(i18n("LaTeX Entry"), entry, SLOT(insertLatexEntry()));
+        insert->addAction(i18n("Image"), entry, SLOT(insertImageEntry()));
+        insert->addAction(i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
 
-	insertBefore->addAction(i18n("Command Entry"), this, SLOT(insertCommandEntryBefore()));
-	insertBefore->addAction(i18n("Text Entry"), this, SLOT(insertTextEntryBefore()));
-	insertBefore->addAction(i18n("LaTeX Entry"), this, SLOT(insertLatexEntryBefore()));
-	insertBefore->addAction(i18n("Image"), this, SLOT(insertImageEntryBefore()));
-	insertBefore->addAction(i18n("Page Break"), this, SLOT(insertPageBreakEntryBefore()));
+        insertBefore->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
+        insertBefore->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
+        insertBefore->addAction(i18n("LaTeX Entry"), entry, SLOT(insertLatexEntryBefore()));
+        insertBefore->addAction(i18n("Image"), entry, SLOT(insertImageEntryBefore()));
+        insertBefore->addAction(i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
 
-	insert->setTitle(i18n("Insert"));
-	insertBefore->setTitle(i18n("Insert Before"));
-	menu->addMenu(insert);
-	menu->addMenu(insertBefore);
+        insert->setTitle(i18n("Insert"));
+        insertBefore->setTitle(i18n("Insert Before"));
+        menu->addMenu(insert);
+        menu->addMenu(insertBefore);
     } else {
-	menu->addAction(i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
-	menu->addAction(i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
-	menu->addAction(i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
-	menu->addAction(i18n("Insert Image"), this, SLOT(appendImageEntry()));
-	menu->addAction(i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
+        menu->addAction(i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
+        menu->addAction(i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
+        menu->addAction(i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
+        menu->addAction(i18n("Insert Image"), this, SLOT(appendImageEntry()));
+        menu->addAction(i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
     }
 }
 
@@ -1089,28 +1093,20 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     QGraphicsScene::contextMenuEvent(event);
 
     if (!event->isAccepted()) {
-	event->accept();
-	KMenu *menu = createContextMenu();
-	populateMenu(menu, event->scenePos());
+        event->accept();
+        KMenu *menu = createContextMenu();
+        populateMenu(menu, event->scenePos());
 
-	menu->popup(event->screenPos());
+        menu->popup(event->screenPos());
     }
-}
-
-void Worksheet::focusOutEvent(QFocusEvent* focusEvent)
-{
-    QGraphicsItem* item = focusItem();
-    if (item)
-	m_focusItem = item;
-    QGraphicsScene::focusOutEvent(focusEvent);
 }
 
 void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene::mousePressEvent(event);
     if (event->button() == Qt::LeftButton && !focusItem() && lastEntry() &&
-	event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
-	lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
+        event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
+        lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
 }
 
 void Worksheet::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
@@ -1118,22 +1114,22 @@ void Worksheet::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
     QGraphicsScene::mouseMoveEvent(event);
 
     if (m_actionBarTimer) {
-	delete m_actionBarTimer;
-	m_actionBarTimer = 0;
+        delete m_actionBarTimer;
+        m_actionBarTimer = 0;
     }
     WorksheetEntry* entry = entryAt(event->scenePos());
     if (entry) {
-	m_actionBarTimer = new QTimer(this);
-	m_actionBarTimer->setInterval(400);
-	m_actionBarTimer->setSingleShot(true);
-	connect(m_actionBarTimer, SIGNAL(timeout()), entry,
-		SLOT(showActionBar()));
-	m_actionBarTimer->start();
+        m_actionBarTimer = new QTimer(this);
+        m_actionBarTimer->setInterval(400);
+        m_actionBarTimer->setSingleShot(true);
+        connect(m_actionBarTimer, SIGNAL(timeout()), entry,
+                SLOT(showActionBar()));
+        m_actionBarTimer->start();
     }
 
     WorksheetEntry* oldEntry = entryAt(event->lastScenePos());
     if (oldEntry && oldEntry != entry)
-	oldEntry->hideActionBar();
+        oldEntry->hideActionBar();
 }
 
 void Worksheet::createActions(KActionCollection* collection)
@@ -1145,7 +1141,7 @@ void Worksheet::createActions(KActionCollection* collection)
     KAction* action;
     /* This is "format-stroke-color" in KRichTextWidget */
     action = new KAction(KIcon("format-text-color"),
-			 i18nc("@action", "Text &Color..."), collection);
+                         i18nc("@action", "Text &Color..."), collection);
     action->setIconText(i18nc("@label text color", "Color"));
     action->setPriority(QAction::LowPriority);
     m_richTextActionList.append(action);
@@ -1154,7 +1150,7 @@ void Worksheet::createActions(KActionCollection* collection)
 
     // Text color
     action = new KAction(KIcon("format-fill-color"),
-			 i18nc("@action", "Text &Highlight..."), collection);
+                         i18nc("@action", "Text &Highlight..."), collection);
     action->setPriority(QAction::LowPriority);
     m_richTextActionList.append(action);
     collection->addAction("format_text_background_color", action);
@@ -1165,20 +1161,20 @@ void Worksheet::createActions(KActionCollection* collection)
     m_richTextActionList.append(m_fontAction);
     collection->addAction("format_font_family", m_fontAction);
     connect(m_fontAction, SIGNAL(triggered(QString)), this,
-	    SLOT(setFontFamily(QString)));
+            SLOT(setFontFamily(QString)));
 
     // Font Size
     m_fontSizeAction = new KFontSizeAction(i18nc("@action", "Font &Size"),
-					   collection);
+                                           collection);
     m_richTextActionList.append(m_fontSizeAction);
     collection->addAction("format_font_size", m_fontSizeAction);
     connect(m_fontSizeAction, SIGNAL(fontSizeChanged(int)), this,
-	    SLOT(setFontSize(int)));
+            SLOT(setFontSize(int)));
 
     // Bold
     m_boldAction = new KToggleAction(KIcon("format-text-bold"),
-				     i18nc("@action boldify selected text", "&Bold"),
-				     collection);
+                                     i18nc("@action boldify selected text", "&Bold"),
+                                     collection);
     m_boldAction->setPriority(QAction::LowPriority);
     QFont bold;
     bold.setBold(true);
@@ -1187,13 +1183,13 @@ void Worksheet::createActions(KActionCollection* collection)
     collection->addAction("format_text_bold", m_boldAction);
     m_boldAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_B));
     connect(m_boldAction, SIGNAL(triggered(bool)), this,
-	    SLOT(setTextBold(bool)));
+            SLOT(setTextBold(bool)));
 
     // Italic
     m_italicAction = new KToggleAction(KIcon("format-text-italic"),
-				       i18nc("@action italicize selected text",
-					     "&Italic"),
-				       collection);
+                                       i18nc("@action italicize selected text",
+                                             "&Italic"),
+                                       collection);
     m_italicAction->setPriority(QAction::LowPriority);
     QFont italic;
     italic.setItalic(true);
@@ -1202,13 +1198,13 @@ void Worksheet::createActions(KActionCollection* collection)
     collection->addAction("format_text_italic", m_italicAction);
     m_italicAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_I));
     connect(m_italicAction, SIGNAL(triggered(bool)), this,
-	    SLOT(setTextItalic(bool)));
+            SLOT(setTextItalic(bool)));
 
     // Underline
     m_underlineAction = new KToggleAction(KIcon("format-text-underline"),
-					  i18nc("@action underline selected text",
-						"&Underline"),
-					  collection);
+                                          i18nc("@action underline selected text",
+                                                "&Underline"),
+                                          collection);
     m_underlineAction->setPriority(QAction::LowPriority);
     QFont underline;
     underline.setUnderline(true);
@@ -1217,108 +1213,108 @@ void Worksheet::createActions(KActionCollection* collection)
     collection->addAction("format_text_underline", m_underlineAction);
     m_underlineAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_U));
     connect(m_underlineAction, SIGNAL(triggered(bool)), this,
-	    SLOT(setTextUnderline(bool)));
+            SLOT(setTextUnderline(bool)));
 
     // Strike
     m_strikeOutAction = new KToggleAction(KIcon("format-text-strikethrough"),
-					  i18nc("@action", "&Strike Out"),
-					  collection);
+                                          i18nc("@action", "&Strike Out"),
+                                          collection);
     m_strikeOutAction->setPriority(QAction::LowPriority);
     m_richTextActionList.append(m_strikeOutAction);
     collection->addAction("format_text_strikeout", m_strikeOutAction);
     m_strikeOutAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_L));
     connect(m_strikeOutAction, SIGNAL(triggered(bool)), this,
-	    SLOT(setTextStrikeOut(bool)));
+            SLOT(setTextStrikeOut(bool)));
 
     // Alignment
     QActionGroup *alignmentGroup = new QActionGroup(this);
 
     //   Align left
     m_alignLeftAction = new KToggleAction(KIcon("format-justify-left"),
-					  i18nc("@action", "Align &Left"),
-					  collection);
+                                          i18nc("@action", "Align &Left"),
+                                          collection);
     m_alignLeftAction->setPriority(QAction::LowPriority);
     m_alignLeftAction->setIconText(i18nc("@label left justify", "Left"));
     m_richTextActionList.append(m_alignLeftAction);
     collection->addAction("format_align_left", m_alignLeftAction);
     connect(m_alignLeftAction, SIGNAL(triggered()), this,
-	    SLOT(setAlignLeft()));
+            SLOT(setAlignLeft()));
     alignmentGroup->addAction(m_alignLeftAction);
 
      //   Align center
     m_alignCenterAction = new KToggleAction(KIcon("format-justify-center"),
-					    i18nc("@action", "Align &Center"),
-					    collection);
+                                            i18nc("@action", "Align &Center"),
+                                            collection);
     m_alignCenterAction->setPriority(QAction::LowPriority);
     m_alignCenterAction->setIconText(i18nc("@label center justify", "Center"));
     m_richTextActionList.append(m_alignCenterAction);
     collection->addAction("format_align_center", m_alignCenterAction);
     connect(m_alignCenterAction, SIGNAL(triggered()), this,
-	    SLOT(setAlignCenter()));
+            SLOT(setAlignCenter()));
     alignmentGroup->addAction(m_alignCenterAction);
 
     //   Align right
     m_alignRightAction = new KToggleAction(KIcon("format-justify-right"),
-					   i18nc("@action", "Align &Right"),
-					   collection);
+                                           i18nc("@action", "Align &Right"),
+                                           collection);
     m_alignRightAction->setPriority(QAction::LowPriority);
     m_alignRightAction->setIconText(i18nc("@label right justify", "Right"));
     m_richTextActionList.append(m_alignRightAction);
     collection->addAction("format_align_right", m_alignRightAction);
     connect(m_alignRightAction, SIGNAL(triggered()), this,
-	    SLOT(setAlignRight()));
+            SLOT(setAlignRight()));
     alignmentGroup->addAction(m_alignRightAction);
 
     //   Align justify
     m_alignJustifyAction = new KToggleAction(KIcon("format-justify-fill"),
-					     i18nc("@action", "&Justify"),
-					     collection);
+                                             i18nc("@action", "&Justify"),
+                                             collection);
     m_alignJustifyAction->setPriority(QAction::LowPriority);
     m_alignJustifyAction->setIconText(i18nc("@label justify fill", "Justify"));
     m_richTextActionList.append(m_alignJustifyAction);
     collection->addAction("format_align_justify", m_alignJustifyAction);
     connect(m_alignJustifyAction, SIGNAL(triggered()), this,
-	    SLOT(setAlignJustify()));
+            SLOT(setAlignJustify()));
     alignmentGroup->addAction(m_alignJustifyAction);
 
      /*
      // List style
      KSelectAction* selAction;
      selAction = new KSelectAction(KIcon("format-list-unordered"),
-				   i18nc("@title:menu", "List Style"),
-				   collection);
+                                   i18nc("@title:menu", "List Style"),
+                                   collection);
      QStringList listStyles;
      listStyles      << i18nc("@item:inmenu no list style", "None")
-		     << i18nc("@item:inmenu disc list style", "Disc")
-		     << i18nc("@item:inmenu circle list style", "Circle")
-		     << i18nc("@item:inmenu square list style", "Square")
-		     << i18nc("@item:inmenu numbered lists", "123")
-		     << i18nc("@item:inmenu lowercase abc lists", "abc")
-		     << i18nc("@item:inmenu uppercase abc lists", "ABC");
+                     << i18nc("@item:inmenu disc list style", "Disc")
+                     << i18nc("@item:inmenu circle list style", "Circle")
+                     << i18nc("@item:inmenu square list style", "Square")
+                     << i18nc("@item:inmenu numbered lists", "123")
+                     << i18nc("@item:inmenu lowercase abc lists", "abc")
+                     << i18nc("@item:inmenu uppercase abc lists", "ABC");
      selAction->setItems(listStyles);
      selAction->setCurrentItem(0);
      action = selAction;
      m_richTextActionList.append(action);
      collection->addAction("format_list_style", action);
      connect(action, SIGNAL(triggered(int)),
-	     this, SLOT(_k_setListStyle(int)));
+             this, SLOT(_k_setListStyle(int)));
      connect(action, SIGNAL(triggered()),
-	     this, SLOT(_k_updateMiscActions()));
+             this, SLOT(_k_updateMiscActions()));
 
      // Indent
      action = new KAction(KIcon("format-indent-more"),
-			  i18nc("@action", "Increase Indent"), collection);
+                          i18nc("@action", "Increase Indent"), collection);
      action->setPriority(QAction::LowPriority);
      m_richTextActionList.append(action);
      collection->addAction("format_list_indent_more", action);
      connect(action, SIGNAL(triggered()),
-	     this, SLOT(indentListMore()));
+             this, SLOT(indentListMore()));
      connect(action, SIGNAL(triggered()),
-	     this, SLOT(_k_updateMiscActions()));
+             this, SLOT(_k_updateMiscActions()));
 
      // Dedent
      action = new KAction(KIcon("format-indent-less"),
-			  i18nc("@action", "Decrease Indent"), collection);
+                          i18nc("@action", "Decrease Indent"), collection);
      action->setPriority(QAction::LowPriority);
      m_richTextActionList.append(action);
      collection->addAction("format_list_indent_less", action);
@@ -1327,14 +1323,63 @@ void Worksheet::createActions(KActionCollection* collection)
      */
 }
 
+WorksheetTextItem* Worksheet::lastFocusedTextItem()
+{
+    return m_lastFocusedTextItem;
+}
+
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
-    WorksheetTextItem* oldItem = currentTextItem();
+    if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem) {
+        disconnect(m_lastFocusedTextItem, SIGNAL(undoAvailable(bool)),
+                   this, SIGNAL(undoAvailable(bool)));
+        disconnect(m_lastFocusedTextItem, SIGNAL(redoAvailable(bool)),
+                   this, SIGNAL(redoAvailable(bool)));
+        disconnect(this, SIGNAL(undo()), m_lastFocusedTextItem, SLOT(undo()));
+        disconnect(this, SIGNAL(redo()), m_lastFocusedTextItem, SLOT(redo()));
+        disconnect(m_lastFocusedTextItem, SIGNAL(cutAvailable(bool)),
+                   this, SIGNAL(cutAvailable(bool)));
+        disconnect(m_lastFocusedTextItem, SIGNAL(copyAvailable(bool)),
+                   this, SIGNAL(copyAvailable(bool)));
+        disconnect(m_lastFocusedTextItem, SIGNAL(pasteAvailable(bool)),
+                   this, SIGNAL(pasteAvailable(bool)));
+        disconnect(this, SIGNAL(cut()), m_lastFocusedTextItem, SLOT(cut()));
+        disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
+        disconnect(this, SIGNAL(paste()), m_lastFocusedTextItem, SLOT(paste()));
 
-    if (oldItem && oldItem != newItem)
-	oldItem->clearSelection();
+        m_lastFocusedTextItem->clearSelection();
+    }
 
-    m_focusItem = newItem;
+    if (newItem && m_lastFocusedTextItem != newItem) {
+        setAcceptRichText(newItem->richTextEnabled());
+        emit undoAvailable(newItem->isUndoAvailable());
+        emit redoAvailable(newItem->isRedoAvailable());
+        connect(newItem, SIGNAL(undoAvailable(bool)),
+                this, SIGNAL(undoAvailable(bool)));
+        connect(newItem, SIGNAL(redoAvailable(bool)),
+                this, SIGNAL(redoAvailable(bool)));
+        connect(this, SIGNAL(undo()), newItem, SLOT(undo()));
+        connect(this, SIGNAL(redo()), newItem, SLOT(redo()));
+        emit cutAvailable(newItem->isCutAvailable());
+        emit copyAvailable(newItem->isCopyAvailable());
+        emit pasteAvailable(newItem->isPasteAvailable());
+        connect(newItem, SIGNAL(cutAvailable(bool)),
+                this, SIGNAL(cutAvailable(bool)));
+        connect(newItem, SIGNAL(copyAvailable(bool)),
+                this, SIGNAL(copyAvailable(bool)));
+        connect(newItem, SIGNAL(pasteAvailable(bool)),
+                this, SIGNAL(pasteAvailable(bool)));
+        connect(this, SIGNAL(cut()), newItem, SLOT(cut()));
+        connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
+        connect(this, SIGNAL(paste()), newItem, SLOT(paste()));
+    } else if (!newItem) {
+        emit undoAvailable(false);
+        emit redoAvailable(false);
+        emit cutAvailable(false);
+        emit copyAvailable(false);
+        emit pasteAvailable(false);
+    }
+    m_lastFocusedTextItem = newItem;
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)
@@ -1345,31 +1390,31 @@ void Worksheet::setRichTextInformation(const RichTextInfo& info)
     m_strikeOutAction->setChecked(info.strikeOut);
     m_fontAction->setFont(info.font);
     if (info.fontSize > 0)
-	m_fontSizeAction->setFontSize(info.fontSize);
+        m_fontSizeAction->setFontSize(info.fontSize);
 
     if (info.align & Qt::AlignLeft)
-	m_alignLeftAction->setChecked(true);
+        m_alignLeftAction->setChecked(true);
     else if (info.align & Qt::AlignCenter)
-	m_alignCenterAction->setChecked(true);
+        m_alignCenterAction->setChecked(true);
     else if (info.align & Qt::AlignRight)
-	m_alignRightAction->setChecked(true);
+        m_alignRightAction->setChecked(true);
     else if (info.align & Qt::AlignJustify)
-	m_alignJustifyAction->setChecked(true);
+        m_alignJustifyAction->setChecked(true);
 }
 
 void Worksheet::setAcceptRichText(bool b)
 {
     foreach(KAction* action, m_richTextActionList) {
-	action->setEnabled(b);
+        action->setEnabled(b);
     }
 
     /*
     foreach(QWidget* widget, m_fontAction->createdWidgets()) {
-	widget->setEnabled(b);
+        widget->setEnabled(b);
     }
 
     foreach(QWidget* widget, m_fontSizeAction->createdWidgets()) {
-	widget->setEnabled(b);
+        widget->setEnabled(b);
     }
     */
 }
@@ -1378,9 +1423,9 @@ WorksheetTextItem* Worksheet::currentTextItem()
 {
     QGraphicsItem* item = focusItem();
     if (!item)
-	item = m_focusItem;
+        item = m_lastFocusedTextItem;
     while (item && item->type() != WorksheetTextItem::Type)
-	item = item->parentItem();
+        item = item->parentItem();
 
     return qgraphicsitem_cast<WorksheetTextItem*>(item);
 }
@@ -1389,116 +1434,146 @@ void Worksheet::setTextForegroundColor()
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setTextForegroundColor();
+        item->setTextForegroundColor();
 }
 
 void Worksheet::setTextBackgroundColor()
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setTextBackgroundColor();
+        item->setTextBackgroundColor();
 }
 
 void Worksheet::setTextBold(bool b)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setTextBold(b);
+        item->setTextBold(b);
 }
 
 void Worksheet::setTextItalic(bool b)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setTextItalic(b);
+        item->setTextItalic(b);
 }
 
 void Worksheet::setTextUnderline(bool b)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setTextUnderline(b);
+        item->setTextUnderline(b);
 }
 
 void Worksheet::setTextStrikeOut(bool b)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setTextStrikeOut(b);
+        item->setTextStrikeOut(b);
 }
 
 void Worksheet::setAlignLeft()
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setAlignment(Qt::AlignLeft);
+        item->setAlignment(Qt::AlignLeft);
 }
 
 void Worksheet::setAlignRight()
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setAlignment(Qt::AlignRight);
+        item->setAlignment(Qt::AlignRight);
 }
 
 void Worksheet::setAlignCenter()
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setAlignment(Qt::AlignCenter);
+        item->setAlignment(Qt::AlignCenter);
 }
 
 void Worksheet::setAlignJustify()
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setAlignment(Qt::AlignJustify);
+        item->setAlignment(Qt::AlignJustify);
 }
 
 void Worksheet::setFontFamily(QString font)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setFontFamily(font);
+        item->setFontFamily(font);
 }
 
 void Worksheet::setFontSize(int size)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
-	item->setFontSize(size);
+        item->setFontSize(size);
 }
 
+bool Worksheet::isShortcut(QKeySequence sequence)
+{
+    return m_shortcuts.contains(sequence);
+}
+
+void Worksheet::registerShortcut(QAction* action)
+{
+    kDebug() << action->shortcuts();
+    foreach(QKeySequence shortcut, action->shortcuts()) {
+        m_shortcuts.insert(shortcut, action);
+    }
+    connect(action, SIGNAL(changed()), this, SLOT(updateShortcut()));
+}
+
+void Worksheet::updateShortcut()
+{
+    QAction* action = qobject_cast<QAction*>(sender());
+    if (!action)
+        return;
+
+    // delete the old shortcuts of this action
+    QList<QKeySequence> shortcuts = m_shortcuts.keys(action);
+    foreach(QKeySequence shortcut, shortcuts) {
+        m_shortcuts.remove(shortcut);
+    }
+    // add the new shortcuts
+    foreach(QKeySequence shortcut, action->shortcuts()) {
+        m_shortcuts.insert(shortcut, action);
+    }
+}
 
 void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
     kDebug() << "enter";
     if (m_dragEntry)
-	event->accept();
+        event->accept();
     else
-	QGraphicsScene::dragEnterEvent(event);
+        QGraphicsScene::dragEnterEvent(event);
 }
 
 void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (!m_dragEntry) {
-	QGraphicsScene::dragLeaveEvent(event);
-	return;
+        QGraphicsScene::dragLeaveEvent(event);
+        return;
     }
 
     kDebug() << "leave";
     event->accept();
     if (m_placeholderEntry) {
-	m_placeholderEntry->startRemoving();
-	m_placeholderEntry = 0;
+        m_placeholderEntry->startRemoving();
+        m_placeholderEntry = 0;
     }
 }
 
 void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (!m_dragEntry) {
-	QGraphicsScene::dragMoveEvent(event);
-	return;
+        QGraphicsScene::dragMoveEvent(event);
+        return;
     }
 
     QPointF pos = event->scenePos();
@@ -1506,58 +1581,93 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
     WorksheetEntry* prev = 0;
     WorksheetEntry* next = 0;
     if (entry) {
-	if (pos.y() < entry->y() + entry->size().height()/2) {
-	    prev = entry->previous();
-	    next = entry;
-	} else if (pos.y() >= entry->y() + entry->size().height()/2) {
-	    prev = entry;
-	    next = entry->next();
-	}
+        if (pos.y() < entry->y() + entry->size().height()/2) {
+            prev = entry->previous();
+            next = entry;
+        } else if (pos.y() >= entry->y() + entry->size().height()/2) {
+            prev = entry;
+            next = entry->next();
+        }
     } else {
-	WorksheetEntry* last = lastEntry();
-	if (last && pos.y() > last->y() + last->size().height()) {
-	    prev = last;
-	    next = 0;
-	}
+        WorksheetEntry* last = lastEntry();
+        if (last && pos.y() > last->y() + last->size().height()) {
+            prev = last;
+            next = 0;
+        }
     }
 
     if (prev || next) {
-	PlaceHolderEntry* oldPlaceHolder = m_placeholderEntry;
-	if (prev && prev->type() == PlaceHolderEntry::Type &&
-	    (!prev->aboutToBeRemoved() || prev->stopRemoving())) {
-	    m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(prev);
-	    m_placeholderEntry->changeSize(m_dragEntry->size());
-	} else if (next && next->type() == PlaceHolderEntry::Type &&
-		   (!next->aboutToBeRemoved() || next->stopRemoving())) {
-	    m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(next);
-	    m_placeholderEntry->changeSize(m_dragEntry->size());
-	} else {
-	    m_placeholderEntry = new PlaceHolderEntry(this, QSizeF(0,0));
-	    m_placeholderEntry->setPrevious(prev);
-	    m_placeholderEntry->setNext(next);
-	    if (prev)
-		prev->setNext(m_placeholderEntry);
-	    else
-		setFirstEntry(m_placeholderEntry);
-	    if (next)
-		next->setPrevious(m_placeholderEntry);
-	    else
-		setLastEntry(m_placeholderEntry);
-	    m_placeholderEntry->changeSize(m_dragEntry->size());
-	}
-	if (oldPlaceHolder && oldPlaceHolder != m_placeholderEntry)
-	    oldPlaceHolder->startRemoving();
-	updateLayout();
+        PlaceHolderEntry* oldPlaceHolder = m_placeholderEntry;
+        if (prev && prev->type() == PlaceHolderEntry::Type &&
+            (!prev->aboutToBeRemoved() || prev->stopRemoving())) {
+            m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(prev);
+            m_placeholderEntry->changeSize(m_dragEntry->size());
+        } else if (next && next->type() == PlaceHolderEntry::Type &&
+                   (!next->aboutToBeRemoved() || next->stopRemoving())) {
+            m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(next);
+            m_placeholderEntry->changeSize(m_dragEntry->size());
+        } else {
+            m_placeholderEntry = new PlaceHolderEntry(this, QSizeF(0,0));
+            m_placeholderEntry->setPrevious(prev);
+            m_placeholderEntry->setNext(next);
+            if (prev)
+                prev->setNext(m_placeholderEntry);
+            else
+                setFirstEntry(m_placeholderEntry);
+            if (next)
+                next->setPrevious(m_placeholderEntry);
+            else
+                setLastEntry(m_placeholderEntry);
+            m_placeholderEntry->changeSize(m_dragEntry->size());
+        }
+        if (oldPlaceHolder && oldPlaceHolder != m_placeholderEntry)
+            oldPlaceHolder->startRemoving();
+        updateLayout();
     }
+
+    const QPoint viewPos = worksheetView()->mapFromScene(pos);
+    const int viewHeight = worksheetView()->viewport()->height();
+    if ((viewPos.y() < 10 || viewPos.y() > viewHeight - 10) &&
+        !m_dragScrollTimer) {
+        m_dragScrollTimer = new QTimer(this);
+        m_dragScrollTimer->setSingleShot(true);
+        m_dragScrollTimer->setInterval(100);
+        connect(m_dragScrollTimer, SIGNAL(timeout()), this,
+                SLOT(updateDragScrollTimer()));
+        m_dragScrollTimer->start();
+    }
+
     event->accept();
 }
 
 void Worksheet::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (!m_dragEntry)
-	QGraphicsScene::dropEvent(event);
+        QGraphicsScene::dropEvent(event);
     event->accept();
 }
 
+void Worksheet::updateDragScrollTimer()
+{
+    if (!m_dragScrollTimer)
+        return;
+
+    const QPoint viewPos = worksheetView()->viewCursorPos();
+    const QWidget* viewport = worksheetView()->viewport();
+    const int viewHeight = viewport->height();
+    if (!m_dragEntry || !(viewport->rect().contains(viewPos)) ||
+        (viewPos.y() >= 10 && viewPos.y() <= viewHeight - 10)) {
+        delete m_dragScrollTimer;
+        m_dragScrollTimer = 0;
+        return;
+    }
+
+    if (viewPos.y() < 10)
+        worksheetView()->scrollBy(-10*(10 - viewPos.y()));
+    else
+        worksheetView()->scrollBy(10*(viewHeight - viewPos.y()));
+
+    m_dragScrollTimer->start();
+}
 
 #include "worksheet.moc"

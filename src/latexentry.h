@@ -53,10 +53,10 @@ class LatexEntry : public WorksheetEntry
     void layOutForWidth(double w, bool force = false);
 
     int searchText(QString text, QString pattern,
-		   QTextDocument::FindFlags qt_flags);
+                   QTextDocument::FindFlags qt_flags);
     WorksheetCursor search(QString pattern, unsigned flags,
-			   QTextDocument::FindFlags qt_flags,
-			   const WorksheetCursor& pos = WorksheetCursor());
+                           QTextDocument::FindFlags qt_flags,
+                           const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
     bool evaluate(EvaluationOption evalOp = FocusNext);

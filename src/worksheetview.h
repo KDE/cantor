@@ -35,11 +35,13 @@ class WorksheetView : public QGraphicsView
     WorksheetView(Worksheet* scene, QWidget* parent);
     ~WorksheetView();
 
-    void makeVisible(const QRectF& rect);
-    bool isVisible(const QRectF& rect);
+    void makeVisible(const QRectF& sceneRect);
+    bool isVisible(const QRectF& sceneRect);
     bool isAtEnd();
     void scrollToEnd();
+    void scrollBy(int dy); 
 
+    QPoint viewCursorPos();
     QPointF sceneCursorPos();
 
     void resizeEvent(QResizeEvent* event);

@@ -46,20 +46,27 @@ SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent)
 SearchBar::~SearchBar()
 {
     if (m_stdUi)
-	delete m_stdUi;
+        delete m_stdUi;
     else
-	delete m_extUi;
+        delete m_extUi;
+    if (m_currentCursor.isValid()) {
+        worksheet()->worksheetView()->setFocus();
+        m_currentCursor.entry()->focusEntry();
+    } else if (m_startCursor.isValid()) {
+        worksheet()->worksheetView()->setFocus();
+        m_startCursor.entry()->focusEntry();
+    }
 }
 
 void SearchBar::showStandard()
 {
     if (m_stdUi)
-	return;
+        return;
 
     delete m_extUi;
     m_extUi = 0;
     foreach(QObject* child, children()) {
-	delete child;
+        delete child;
     }
     delete layout();
     m_stdUi = new Ui::StandardSearchBar();
@@ -69,12 +76,12 @@ void SearchBar::showStandard()
 void SearchBar::showExtended()
 {
     if (m_extUi)
-	return;
+        return;
 
     delete m_stdUi;
     m_stdUi = 0;
     foreach(QObject* child, children()) {
-	delete child;
+        delete child;
     }
     delete layout();
     m_extUi = new Ui::ExtendedSearchBar();
@@ -85,15 +92,15 @@ void SearchBar::showExtended()
 void SearchBar::next()
 {
     if (!m_currentCursor.isValid() && !m_currentCursor.entry() && !m_atEnd)
-	return;
+        return;
     searchForward(true);
 }
 
 void SearchBar::prev()
 {
     if (!m_currentCursor.isValid() && !m_currentCursor.entry() &&
-	!m_atBeginning)
-	return;
+        !m_atBeginning)
+        return;
     searchBackward(true);
 }
 
@@ -104,47 +111,47 @@ void SearchBar::searchBackward(bool skipFirstChar)
     worksheet()->setWorksheetCursor(WorksheetCursor());
     QTextDocument::FindFlags f = m_qtFlags | QTextDocument::FindBackward;
     if (m_currentCursor.isValid()) {
-	bool atBeginningOfEntry = false;
-	if (skipFirstChar) {
-	    QTextCursor c = m_currentCursor.textCursor();
-	    c.movePosition(QTextCursor::PreviousCharacter);
-	    atBeginningOfEntry = (c == m_currentCursor.textCursor());
-	    setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
-					     m_currentCursor.textItem(), c));
-	}
-	if (!atBeginningOfEntry)
-	    result = m_currentCursor.entry()->search(m_pattern, m_searchFlags,
-						 f, m_currentCursor);
-	entry = m_currentCursor.entry()->previous();
+        bool atBeginningOfEntry = false;
+        if (skipFirstChar) {
+            QTextCursor c = m_currentCursor.textCursor();
+            c.movePosition(QTextCursor::PreviousCharacter);
+            atBeginningOfEntry = (c == m_currentCursor.textCursor());
+            setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
+                                             m_currentCursor.textItem(), c));
+        }
+        if (!atBeginningOfEntry)
+            result = m_currentCursor.entry()->search(m_pattern, m_searchFlags,
+                                                 f, m_currentCursor);
+        entry = m_currentCursor.entry()->previous();
     } else if (m_currentCursor.entry() && m_currentCursor.entry()->previous()) {
-	entry = m_currentCursor.entry()->previous();
+        entry = m_currentCursor.entry()->previous();
     } else {
-	entry = worksheet()->lastEntry();
+        entry = worksheet()->lastEntry();
     }
     setCurrentCursor(WorksheetCursor());
 
     while (!result.isValid() && entry) {
-	result = entry->search(m_pattern, m_searchFlags, f);
-	entry = entry->previous();
+        result = entry->search(m_pattern, m_searchFlags, f);
+        entry = entry->previous();
     }
     if (result.isValid()) {
-	m_atBeginning = false;
-	QTextCursor c = result.textCursor();
-	if (result.textCursor().hasSelection())
-	    c.setPosition(result.textCursor().selectionStart());
-	setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
-	worksheet()->makeVisible(m_currentCursor);
-	clearStatus();
-	worksheet()->setWorksheetCursor(result);
+        m_atBeginning = false;
+        QTextCursor c = result.textCursor();
+        if (result.textCursor().hasSelection())
+            c.setPosition(result.textCursor().selectionStart());
+        setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
+        worksheet()->makeVisible(m_currentCursor);
+        clearStatus();
+        worksheet()->setWorksheetCursor(result);
     } else {
-	if (m_atBeginning) {
-	    m_notFound = true;
-	    setStatus(i18n("Not found"));
-	} else {
-	    m_atBeginning = true;
-	    setStatus(i18n("Reached beginning"));
-	}
-	worksheet()->setWorksheetCursor(m_startCursor);
+        if (m_atBeginning) {
+            m_notFound = true;
+            setStatus(i18n("Not found"));
+        } else {
+            m_atBeginning = true;
+            setStatus(i18n("Reached beginning"));
+        }
+        worksheet()->setWorksheetCursor(m_startCursor);
     }
 }
 
@@ -154,46 +161,46 @@ void SearchBar::searchForward(bool skipFirstChar)
     WorksheetEntry* entry;
     worksheet()->setWorksheetCursor(WorksheetCursor());
     if (m_currentCursor.isValid()) {
-	if (skipFirstChar) {
-	    QTextCursor c = m_currentCursor.textCursor();
-	    c.movePosition(QTextCursor::NextCharacter);
-	    kDebug() << c.position();
-	    setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
-					     m_currentCursor.textItem(), c));
-	}
-	result = m_currentCursor.entry()->search(m_pattern, m_searchFlags,
-						 m_qtFlags, m_currentCursor);
-	entry = m_currentCursor.entry()->next();
+        if (skipFirstChar) {
+            QTextCursor c = m_currentCursor.textCursor();
+            c.movePosition(QTextCursor::NextCharacter);
+            kDebug() << c.position();
+            setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
+                                             m_currentCursor.textItem(), c));
+        }
+        result = m_currentCursor.entry()->search(m_pattern, m_searchFlags,
+                                                 m_qtFlags, m_currentCursor);
+        entry = m_currentCursor.entry()->next();
     } else if (m_currentCursor.entry()) {
-	entry = m_currentCursor.entry();
+        entry = m_currentCursor.entry();
     } else {
-	entry = worksheet()->firstEntry();
+        entry = worksheet()->firstEntry();
     }
     setCurrentCursor(WorksheetCursor());
 
     while (!result.isValid() && entry) {
-	result = entry->search(m_pattern, m_searchFlags, m_qtFlags);
-	entry = entry->next();
+        result = entry->search(m_pattern, m_searchFlags, m_qtFlags);
+        entry = entry->next();
     }
 
     if (result.isValid()) {
-	m_atEnd = false;
-	QTextCursor c = result.textCursor();
-	if (result.textCursor().hasSelection())
-	    c.setPosition(result.textCursor().selectionStart());
-	setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
-	worksheet()->makeVisible(m_currentCursor);
-	clearStatus();
-	worksheet()->setWorksheetCursor(result);
+        m_atEnd = false;
+        QTextCursor c = result.textCursor();
+        if (result.textCursor().hasSelection())
+            c.setPosition(result.textCursor().selectionStart());
+        setCurrentCursor(WorksheetCursor(result.entry(), result.textItem(), c));
+        worksheet()->makeVisible(m_currentCursor);
+        clearStatus();
+        worksheet()->setWorksheetCursor(result);
     } else {
-	if (m_atEnd) {
-	    m_notFound = true;
-	    setStatus(i18n("Not found"));
-	} else {
-	    m_atEnd = true;
-	    setStatus(i18n("Reached end"));
-	}
-	worksheet()->setWorksheetCursor(m_startCursor);
+        if (m_atEnd) {
+            m_notFound = true;
+            setStatus(i18n("Not found"));
+        } else {
+            m_atEnd = true;
+            setStatus(i18n("Reached end"));
+        }
+        worksheet()->setWorksheetCursor(m_startCursor);
     }
 }
 
@@ -225,11 +232,11 @@ void SearchBar::on_previous_clicked()
 void SearchBar::on_replace_clicked()
 {
     if (!m_currentCursor.isValid())
-	return;
+        return;
 
     QTextCursor cursor = m_currentCursor.textCursor();
     cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor,
-			m_pattern.length());
+                        m_pattern.length());
     cursor.insertText(m_replacement);
     next();
 }
@@ -240,13 +247,13 @@ void SearchBar::on_replaceAll_clicked()
     WorksheetEntry* entry = worksheet()->firstEntry();
     WorksheetCursor cursor;
     for (; entry; entry = entry->next()) {
-	cursor = entry->search(m_pattern, m_searchFlags, m_qtFlags);
-	while (cursor.isValid()) {
-	    cursor.textCursor().insertText(m_replacement);
-	    cursor = entry->search(m_pattern, m_searchFlags, m_qtFlags,
-				   cursor);
-	    ++count;
-	}
+        cursor = entry->search(m_pattern, m_searchFlags, m_qtFlags);
+        while (cursor.isValid()) {
+            cursor.textCursor().insertText(m_replacement);
+            cursor = entry->search(m_pattern, m_searchFlags, m_qtFlags,
+                                   cursor);
+            ++count;
+        }
     }
     setStatus(i18n("Replaced %1 instances").arg(count));
 }
@@ -256,24 +263,24 @@ void SearchBar::on_pattern_textChanged(const QString& p)
     worksheet()->setWorksheetCursor(WorksheetCursor());
     m_atBeginning = m_atEnd = m_notFound = false;
     if (!p.startsWith(m_pattern))
-	setCurrentCursor(m_startCursor);
+        setCurrentCursor(m_startCursor);
     m_pattern = p;
     if (!m_pattern.isEmpty()) {
-	searchForward();
-	nextButton()->setEnabled(true);
-	previousButton()->setEnabled(true);
-	if (m_extUi) {
-	    m_extUi->replace->setEnabled(true);
-	    m_extUi->replaceAll->setEnabled(true);
-	}
+        searchForward();
+        nextButton()->setEnabled(true);
+        previousButton()->setEnabled(true);
+        if (m_extUi) {
+            m_extUi->replace->setEnabled(true);
+            m_extUi->replaceAll->setEnabled(true);
+        }
     } else {
-	worksheet()->setWorksheetCursor(m_startCursor);
-	nextButton()->setEnabled(false);
-	previousButton()->setEnabled(false);
-	if (m_extUi) {
-	    m_extUi->replace->setEnabled(false);
-	    m_extUi->replaceAll->setEnabled(false);
-	}
+        worksheet()->setWorksheetCursor(m_startCursor);
+        nextButton()->setEnabled(false);
+        previousButton()->setEnabled(false);
+        if (m_extUi) {
+            m_extUi->replace->setEnabled(false);
+            m_extUi->replaceAll->setEnabled(false);
+        }
     }
 }
 
@@ -301,11 +308,11 @@ void SearchBar::on_addFlag_clicked()
 void SearchBar::invalidateStartCursor()
 {
     if (!m_startCursor.isValid())
-	return;
+        return;
 
     WorksheetEntry* entry = m_startCursor.entry()->next();
     if (!entry && worksheet()->firstEntry() != m_startCursor.entry())
-	entry = worksheet()->firstEntry();
+        entry = worksheet()->firstEntry();
 
     setStartCursor(WorksheetCursor(entry, 0, QTextCursor()));
 }
@@ -313,11 +320,11 @@ void SearchBar::invalidateStartCursor()
 void SearchBar::invalidateCurrentCursor()
 {
     if (!m_currentCursor.isValid())
-	return;
+        return;
 
     WorksheetEntry* entry = m_currentCursor.entry()->next();
     if (!entry)
-	entry = worksheet()->firstEntry();
+        entry = worksheet()->firstEntry();
 
     setCurrentCursor(WorksheetCursor(entry, 0, QTextCursor()));
 }
@@ -325,7 +332,7 @@ void SearchBar::invalidateCurrentCursor()
 void SearchBar::toggleFlag()
 {
     if (!sender())
-	return;
+        return;
     int flag = sender()->property("searchFlag").toInt();
     m_searchFlags ^= flag;
     updateSearchLocations();
@@ -335,7 +342,7 @@ void SearchBar::on_matchCase_toggled(bool b)
 {
     m_qtFlags &= ~QTextDocument::FindCaseSensitively;
     if (b)
-	m_qtFlags |= QTextDocument::FindCaseSensitively;
+        m_qtFlags |= QTextDocument::FindCaseSensitively;
     searchForward();
 }
 
@@ -343,28 +350,28 @@ void SearchBar::updateSearchLocations()
 {
     static QList<QString> names;
     if (names.empty())
-	names << i18n("Commands") << i18n("Results") << i18n("Errors")
-	      << i18n("Text") << i18n("LaTeX Code");
+        names << i18n("Commands") << i18n("Results") << i18n("Errors")
+              << i18n("Text") << i18n("LaTeX Code");
 
     QString text = "";
     int flag = 1;
     for (int i = 0; flag < WorksheetEntry::SearchAll; flag = (1<<(++i))) {
-	if (m_searchFlags & flag) {
-	    if (!text.isEmpty())
-		text += ", ";
-	    text += names.at(i);
-	}
+        if (m_searchFlags & flag) {
+            if (!text.isEmpty())
+                text += ", ";
+            text += names.at(i);
+        }
     }
     m_extUi->searchFlagsList->setText(text);
     if (m_searchFlags == 0) {
-	m_extUi->removeFlag->setEnabled(false);
-	m_extUi->addFlag->setEnabled(true);
+        m_extUi->removeFlag->setEnabled(false);
+        m_extUi->addFlag->setEnabled(true);
     } else if (m_searchFlags == WorksheetEntry::SearchAll) {
-	m_extUi->removeFlag->setEnabled(true);
-	m_extUi->addFlag->setEnabled(false);
+        m_extUi->removeFlag->setEnabled(true);
+        m_extUi->addFlag->setEnabled(false);
     } else {
-	m_extUi->addFlag->setEnabled(true);
-	m_extUi->removeFlag->setEnabled(true);
+        m_extUi->addFlag->setEnabled(true);
+        m_extUi->removeFlag->setEnabled(true);
     }
 }
 
@@ -372,36 +379,36 @@ void SearchBar::fillLocationsMenu(KMenu* menu, int flags)
 {
     static QList<QString> names;
     if (names.empty())
-	names << i18n("Commands") << i18n("Results") << i18n("Errors")
-	      << i18n("Text") << i18n("LaTeX Code");
+        names << i18n("Commands") << i18n("Results") << i18n("Errors")
+              << i18n("Text") << i18n("LaTeX Code");
     int flag = 1;
     for (int i = 0; flag < WorksheetEntry::SearchAll; flag = (1<<(++i))) {
-	if (flags & flag) {
-	    QAction* a = menu->addAction(names.at(i), this, SLOT(toggleFlag()));
-	    a->setProperty("searchFlag", flag);
-	}
+        if (flags & flag) {
+            QAction* a = menu->addAction(names.at(i), this, SLOT(toggleFlag()));
+            a->setProperty("searchFlag", flag);
+        }
     }
 }
 
 void SearchBar::setStartCursor(WorksheetCursor cursor)
 {
     if (m_startCursor.entry())
-	disconnect(m_startCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-		   SLOT(invalidateStartCursor()));
+        disconnect(m_startCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+                   SLOT(invalidateStartCursor()));
     if (cursor.entry())
-	connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-		SLOT(invalidateStartCursor()), Qt::DirectConnection);
+        connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+                SLOT(invalidateStartCursor()), Qt::DirectConnection);
     m_startCursor = cursor;
 }
 
 void SearchBar::setCurrentCursor(WorksheetCursor cursor)
 {
     if (m_currentCursor.entry())
-	disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-		   SLOT(invalidateCurrentCursor()));
+        disconnect(m_currentCursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+                   SLOT(invalidateCurrentCursor()));
     if (cursor.entry())
-	connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
-		SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
+        connect(cursor.entry(), SIGNAL(aboutToBeDeleted()), this,
+                SLOT(invalidateCurrentCursor()), Qt::DirectConnection);
     m_currentCursor = cursor;
 }
 
@@ -409,9 +416,9 @@ void SearchBar::setStatus(QString message)
 {
     KSqueezedTextLabel* status;
     if (m_stdUi)
-	status = m_stdUi->status;
+        status = m_stdUi->status;
     else
-	status = m_extUi->status;
+        status = m_extUi->status;
 
     status->setText(message);
 }
@@ -424,7 +431,7 @@ void SearchBar::clearStatus()
 void SearchBar::setupStdUi()
 {
     if (!m_stdUi)
-	return;
+        return;
 
     m_stdUi->setupUi(this);
     m_stdUi->close->setIcon(KIcon("dialog-close"));
@@ -434,8 +441,8 @@ void SearchBar::setupStdUi()
     m_stdUi->next->setIcon(KIcon("go-down-search"));
     m_stdUi->previous->setIcon(KIcon("go-up-search"));
     if (m_pattern.isEmpty()) {
-	m_stdUi->next->setEnabled(false);
-	m_stdUi->previous->setEnabled(false);
+        m_stdUi->next->setEnabled(false);
+        m_stdUi->previous->setEnabled(false);
     }
 
     m_stdUi->close->setShortcut(Qt::Key_Escape);
@@ -445,7 +452,7 @@ void SearchBar::setupStdUi()
 void SearchBar::setupExtUi()
 {
     if (!m_extUi)
-	return;
+        return;
 
     m_extUi->setupUi(this);
     m_extUi->close->setIcon(KIcon("dialog-close"));
@@ -456,10 +463,10 @@ void SearchBar::setupExtUi()
     m_extUi->next->setIcon(KIcon("go-down-search"));
     m_extUi->previous->setIcon(KIcon("go-up-search"));
     if (m_pattern.isEmpty()) {
-	m_extUi->next->setEnabled(false);
-	m_extUi->previous->setEnabled(false);
-	m_extUi->replace->setEnabled(false);
-	m_extUi->replaceAll->setEnabled(false);
+        m_extUi->next->setEnabled(false);
+        m_extUi->previous->setEnabled(false);
+        m_extUi->replace->setEnabled(false);
+        m_extUi->replaceAll->setEnabled(false);
     }
 
     m_extUi->addFlag->setIcon(KIcon("list-add"));
@@ -473,17 +480,17 @@ void SearchBar::setupExtUi()
 QPushButton* SearchBar::previousButton()
 {
     if (m_stdUi)
-	return m_stdUi->previous;
+        return m_stdUi->previous;
     else
-	return m_extUi->previous;
+        return m_extUi->previous;
 }
 
 QPushButton* SearchBar::nextButton()
 {
     if (m_stdUi)
-	return m_stdUi->next;
+        return m_stdUi->next;
     else
-	return m_extUi->next;
+        return m_extUi->next;
 }
 
 Worksheet* SearchBar::worksheet()

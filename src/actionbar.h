@@ -37,8 +37,8 @@ class ActionBar : public QGraphicsObject
     ~ActionBar();
 
     WorksheetToolButton* addButton(const KIcon& icon, QString toolTip,
-				   QObject* receiver = 0,
-				   const char* method = 0);
+                                   QObject* receiver = 0,
+                                   const char* method = 0);
     void addSpace();
 
     void updatePosition(const QSizeF& parentSize);

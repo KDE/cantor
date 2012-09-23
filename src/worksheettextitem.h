@@ -44,12 +44,13 @@ class WorksheetTextItem : public QGraphicsTextItem
   Q_OBJECT
   public:
     WorksheetTextItem(QGraphicsObject* parent,
-		      Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
+                      Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem();
 
     void setCursorPosition(const QPointF& pos);
     QPointF cursorPosition() const;
     QTextCursor cursorForPosition(const QPointF& pos) const;
+    QRectF sceneCursorRect(QTextCursor cursor = QTextCursor()) const;
     QRectF cursorRect(QTextCursor cursor = QTextCursor()) const;
 
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
@@ -78,6 +79,12 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     void clearSelection();
 
+    bool isUndoAvailable();
+    bool isRedoAvailable();
+    bool isCutAvailable();
+    bool isCopyAvailable();
+    bool isPasteAvailable();
+
     // richtext stuff
     void setTextForegroundColor();
     void setTextBackgroundColor();
@@ -90,8 +97,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setFontSize(int size);
 
     QTextCursor search(QString pattern,
-		       QTextDocument::FindFlags qt_flags,
-		       const WorksheetCursor& pos);
+                       QTextDocument::FindFlags qt_flags,
+                       const WorksheetCursor& pos);
 
   signals:
     void moveToPrevious(int pos, qreal xCoord);
@@ -107,12 +114,21 @@ class WorksheetTextItem : public QGraphicsTextItem
     void sizeChanged();
     void menuCreated(KMenu*, const QPointF&);
     void drag(const QPointF&, const QPointF&);
+    void undoAvailable(bool);
+    void redoAvailable(bool);
+    void cutAvailable(bool);
+    void copyAvailable(bool);
+    void pasteAvailable(bool);
 
   public slots:
     void insertTab();
     void cut();
     void copy();
     void paste();
+    void undo();
+    void redo();
+    void clipboardChanged();
+    void selectionChanged();
 
   protected:
     void keyPressEvent(QKeyEvent *event);

@@ -91,7 +91,7 @@ class WorksheetEntry : public QGraphicsObject
     QSizeF size();
 
     enum EvaluationOption {
-	DoNothing, FocusNext, EvaluateNext
+        DoNothing, FocusNext, EvaluateNext
     };
 
     virtual WorksheetTextItem* highlightItem();
@@ -99,16 +99,28 @@ class WorksheetEntry : public QGraphicsObject
     bool hasActionBar();
 
     enum SearchFlag {SearchCommand=1, SearchResult=2, SearchError=4,
-		     SearchText=8, SearchLaTeX=16, SearchAll=31};
+                     SearchText=8, SearchLaTeX=16, SearchAll=31};
 
     virtual WorksheetCursor search(QString pattern, unsigned flags,
-				   QTextDocument::FindFlags qt_flags,
-				   const WorksheetCursor& pos = WorksheetCursor());
+                                   QTextDocument::FindFlags qt_flags,
+                                   const WorksheetCursor& pos = WorksheetCursor());
 
   public slots:
     virtual bool evaluate(EvaluationOption evalOp = FocusNext) = 0;
     virtual bool evaluateCurrentItem();
     virtual void updateEntry() = 0;
+
+    void insertCommandEntry();
+    void insertTextEntry();
+    void insertLatexEntry();
+    void insertImageEntry();
+    void insertPageBreakEntry();
+    void insertCommandEntryBefore();
+    void insertTextEntryBefore();
+    void insertLatexEntryBefore();
+    void insertImageEntryBefore();
+    void insertPageBreakEntryBefore();
+
     virtual void sizeAnimated();
     virtual void startRemoving();
     bool stopRemoving();

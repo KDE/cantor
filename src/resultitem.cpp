@@ -50,26 +50,26 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     switch(result->type()) {
     case Cantor::TextResult::Type:
     case Cantor::LatexResult::Type:
-	{
-	    TextResultItem* item = new TextResultItem(parent);
-	    item->updateFromResult(result);
-	    return item;
-	}
+        {
+            TextResultItem* item = new TextResultItem(parent);
+            item->updateFromResult(result);
+            return item;
+        }
     case Cantor::ImageResult::Type:
     case Cantor::EpsResult::Type:
-	{
-	    ImageResultItem* item = new ImageResultItem(parent);
-	    item->updateFromResult(result);
-	    return item;
-	}
+        {
+            ImageResultItem* item = new ImageResultItem(parent);
+            item->updateFromResult(result);
+            return item;
+        }
     case Cantor::AnimationResult::Type:
-	{
-	    AnimationResultItem* item = new AnimationResultItem(parent);
-	    item->updateFromResult(result);
-	    return item;
-	}
+        {
+            AnimationResultItem* item = new AnimationResultItem(parent);
+            item->updateFromResult(result);
+            return item;
+        }
     default:
-	return 0;
+        return 0;
     }
 }
 
@@ -77,7 +77,7 @@ void ResultItem::addCommonActions(QObject* self, KMenu* menu)
 {
     menu->addAction(i18n("Save result"), self, SLOT(saveResult()));
     menu->addAction(KIcon("edit-delete"), i18n("Remove result"),
-		    self, SIGNAL(removeResult()));
+                    self, SIGNAL(removeResult()));
 }
 
 QGraphicsObject* ResultItem::graphicsObject()

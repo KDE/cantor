@@ -48,7 +48,7 @@ class PageBreakEntry : public WorksheetEntry
     void layOutForWidth(qreal w, bool force = false);
 
     //void paint(QPainter* painter, const QStyleOptionGraphicsItem * option,
-    //	       QWidget * widget = 0);
+    //         QWidget * widget = 0);
 
   public slots:
     bool evaluate(EvaluationOption evalOp = FocusNext);

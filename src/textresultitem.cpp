@@ -37,7 +37,7 @@ TextResultItem::TextResultItem(QGraphicsObject* parent)
 {
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     connect(this, SIGNAL(removeResult()), parentEntry(),
-	    SLOT(removeResult()));
+            SLOT(removeResult()));
 }
 
 TextResultItem::~TextResultItem()
@@ -53,21 +53,21 @@ void TextResultItem::populateMenu(KMenu* menu, const QPointF& pos)
 {
     KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
     if (!textCursor().hasSelection())
-	copy->setEnabled(false);
+        copy->setEnabled(false);
     menu->addAction(copy);
     addCommonActions(this, menu);
 
     Cantor::Result* res = result();
     if (res->type() == Cantor::LatexResult::Type) {
-	QAction* showCodeAction = 0;
-	Cantor::LatexResult* lres = dynamic_cast<Cantor::LatexResult*>(res);
-	if (lres->isCodeShown())
-	    showCodeAction = menu->addAction(i18n("Show Rendered"));
-	else
-	    showCodeAction = menu->addAction(i18n("Show Code"));
+        QAction* showCodeAction = 0;
+        Cantor::LatexResult* lres = dynamic_cast<Cantor::LatexResult*>(res);
+        if (lres->isCodeShown())
+            showCodeAction = menu->addAction(i18n("Show Rendered"));
+        else
+            showCodeAction = menu->addAction(i18n("Show Code"));
 
-	connect(showCodeAction, SIGNAL(triggered()), this,
-		SLOT(toggleLatexCode()));
+        connect(showCodeAction, SIGNAL(triggered()), this,
+                SLOT(toggleLatexCode()));
     }
 
     menu->addSeparator();
@@ -79,23 +79,23 @@ ResultItem* TextResultItem::updateFromResult(Cantor::Result* result)
 {
     switch(result->type()) {
     case Cantor::TextResult::Type:
-	{
-	    QTextCursor cursor = textCursor();
-	    cursor.movePosition(QTextCursor::Start);
-	    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-	    QString html = result->toHtml();
-	    if (html.isEmpty())
-		cursor.removeSelectedText();
-	    else
-		cursor.insertHtml(html);
-	    return this;
-	}
+        {
+            QTextCursor cursor = textCursor();
+            cursor.movePosition(QTextCursor::Start);
+            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+            QString html = result->toHtml();
+            if (html.isEmpty())
+                cursor.removeSelectedText();
+            else
+                cursor.insertHtml(html);
+            return this;
+        }
     case Cantor::LatexResult::Type:
-	setLatex(dynamic_cast<Cantor::LatexResult*>(result));
-	return this;
+        setLatex(dynamic_cast<Cantor::LatexResult*>(result));
+        return this;
     default:
-	deleteLater();
-	return create(parentEntry(), result);
+        deleteLater();
+        return create(parentEntry(), result);
     }
 }
 
@@ -105,28 +105,28 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     QString latex = result->toLatex().trimmed();
-    if (latex.startsWith("\\begin{eqnarray*}") && 
-	latex.endsWith("\\end{eqnarray*}")) {
-	latex = latex.mid(17);
-	latex = latex.left(latex.size() - 15);
+    if (latex.startsWith("\\begin{eqnarray*}") &&
+        latex.endsWith("\\end{eqnarray*}")) {
+        latex = latex.mid(17);
+        latex = latex.left(latex.size() - 15);
     }
     if (result->isCodeShown()) {
-	if (latex.isEmpty())
-	    cursor.removeSelectedText();
-	else
-	    cursor.insertText(latex);
+        if (latex.isEmpty())
+            cursor.removeSelectedText();
+        else
+            cursor.insertText(latex);
     } else {
-	QTextImageFormat format;
-	format = epsRenderer()->render(cursor.document(),
-				       result->data().toUrl());
-	format.setProperty(EpsRenderer::CantorFormula,
-			   EpsRenderer::LatexFormula);
-	format.setProperty(EpsRenderer::Code, latex);
-	format.setProperty(EpsRenderer::Delimiter, "$$");
-	if(format.isValid())
-	    cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
-	else
-	    cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
+        QTextImageFormat format;
+        format = epsRenderer()->render(cursor.document(),
+                                       result->data().toUrl());
+        format.setProperty(EpsRenderer::CantorFormula,
+                           EpsRenderer::LatexFormula);
+        format.setProperty(EpsRenderer::Code, latex);
+        format.setProperty(EpsRenderer::Delimiter, "$$");
+        if(format.isValid())
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+        else
+            cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
     }
 }
 

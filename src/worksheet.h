@@ -89,6 +89,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* firstEntry();
     WorksheetEntry* lastEntry();
     WorksheetTextItem* currentTextItem();
+    WorksheetTextItem* lastFocusedTextItem();
 
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
@@ -97,15 +98,17 @@ class Worksheet : public QGraphicsScene
     void updateProtrusion(qreal oldWidth, qreal newWidth);
     void removeProtrusion(qreal width);
 
+    bool isShortcut(QKeySequence sequence);
+
     // richtext
     struct RichTextInfo {
-	bool bold;
-	bool italic;
-	bool underline;
-	bool strikeOut;
-	QString font;
-	qreal fontSize;
-	Qt::Alignment align;
+        bool bold;
+        bool italic;
+        bool underline;
+        bool strikeOut;
+        QString font;
+        qreal fontSize;
+        Qt::Alignment align;
     };
 
   public slots:
@@ -115,17 +118,17 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendImageEntry();
     WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
-    WorksheetEntry* insertCommandEntry();
+    WorksheetEntry* insertCommandEntry(WorksheetEntry* current = 0);
     void insertCommandEntry(const QString& text);
-    WorksheetEntry* insertTextEntry();
-    WorksheetEntry* insertImageEntry();
-    WorksheetEntry* insertPageBreakEntry();
-    WorksheetEntry* insertLatexEntry();
-    WorksheetEntry* insertCommandEntryBefore();
-    WorksheetEntry* insertTextEntryBefore();
-    WorksheetEntry* insertImageEntryBefore();
-    WorksheetEntry* insertPageBreakEntryBefore();
-    WorksheetEntry* insertLatexEntryBefore();
+    WorksheetEntry* insertTextEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertImageEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertPageBreakEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertLatexEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertCommandEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertTextEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertImageEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertPageBreakEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = 0);
 
     void updateLayout();
     void updateEntrySize(WorksheetEntry* entry);
@@ -166,6 +169,11 @@ class Worksheet : public QGraphicsScene
 
     void updateFocusedTextItem(WorksheetTextItem* item);
 
+    void updateDragScrollTimer();
+
+    void registerShortcut(QAction*);
+    void updateShortcut();
+
     // richtext
     void setRichTextInformation(const RichTextInfo&);
     void setAcceptRichText(bool b);
@@ -188,10 +196,19 @@ class Worksheet : public QGraphicsScene
     void sessionChanged();
     void showHelp(const QString& help);
     void updatePrompt();
+    void undoAvailable(bool);
+    void redoAvailable(bool);
+    void undo();
+    void redo();
+    void cutAvailable(bool);
+    void copyAvailable(bool);
+    void pasteAvailable(bool);
+    void cut();
+    void copy();
+    void paste();
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void focusOutEvent(QFocusEvent* focusEvent);
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
@@ -206,8 +223,8 @@ class Worksheet : public QGraphicsScene
     //void checkEntriesForSanity();
 
     WorksheetEntry* appendEntry(int type);
-    WorksheetEntry* insertEntry(int type);
-    WorksheetEntry* insertEntryBefore(int type);
+    WorksheetEntry* insertEntry(int type, WorksheetEntry* current = 0);
+    WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = 0);
 
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);
@@ -226,12 +243,15 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
     PlaceHolderEntry* m_placeholderEntry;
-    QGraphicsItem* m_focusItem;
+    WorksheetTextItem* m_lastFocusedTextItem;
     QTimer* m_actionBarTimer;
+    QTimer* m_dragScrollTimer;
 
     double m_viewWidth;
     double m_protrusion;
     QMap<qreal, int> m_itemProtrusions;
+
+    QMap<QKeySequence, QAction*> m_shortcuts;
 
     QList<KAction*> m_richTextActionList;
     KToggleAction* m_boldAction;

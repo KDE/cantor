@@ -61,22 +61,22 @@ QTextImageFormat EpsRenderer::render(QTextDocument *document, const KUrl& url)
     if(s.isValid())
     {
         epsCharFormat.setName(internal.url());
-	epsCharFormat.setWidth(s.width());
-	epsCharFormat.setHeight(s.height());
+        epsCharFormat.setWidth(s.width());
+        epsCharFormat.setHeight(s.height());
     }
 
     return epsCharFormat;
 }
 
 QTextImageFormat EpsRenderer::render(QTextDocument *document,
-				     const Cantor::LatexRenderer* latex)
+                                     const Cantor::LatexRenderer* latex)
 {
     QTextImageFormat format = render(document, latex->imagePath());
 
     if (!format.name().isEmpty()) {
-	format.setProperty(CantorFormula, latex->method());
-	format.setProperty(ImagePath, latex->imagePath());
-	format.setProperty(Code, latex->latexCode());
+        format.setProperty(CantorFormula, latex->method());
+        format.setProperty(ImagePath, latex->imagePath());
+        format.setProperty(Code, latex->latexCode());
     }
 
     return format;
@@ -110,12 +110,12 @@ QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
     spectre_document_get_page_size(doc, &wdoc, &hdoc);
     if(m_useHighRes) {
         scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
-	w = 1.2 * wdoc;
-	h = 1.2 * hdoc;
+        w = 1.2 * wdoc;
+        h = 1.2 * hdoc;
     } else {
         scale=1.8*m_scale;
-	w = 1.8 * wdoc;
-	h = 1.8 * hdoc;
+        w = 1.8 * wdoc;
+        h = 1.8 * hdoc;
     }
 
     kDebug()<<"scale: "<<scale;
@@ -130,9 +130,10 @@ QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
     QImage img(data, wdoc*scale, hdoc*scale, rowLength, QImage::Format_RGB32);
     spectre_document_free(doc);
     spectre_render_context_free(rc);
+    img = img.convertToFormat(QImage::Format_ARGB32);
 
     if (size)
-	*size = QSizeF(w,h);
+        *size = QSizeF(w,h);
     return img;
 #else
     return QImage();

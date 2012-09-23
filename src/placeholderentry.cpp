@@ -99,15 +99,15 @@ bool PlaceHolderEntry::wantToEvaluate()
 void PlaceHolderEntry::changeSize(QSizeF s)
 {
     if (!worksheet()->animationsEnabled()) {
-	setSize(s);
-	worksheet()->updateEntrySize(this);
-	return;
+        setSize(s);
+        worksheet()->updateEntrySize(this);
+        return;
     }
     if (aboutToBeRemoved())
-	return;
+        return;
 
     if (animationActive())
-	endAnimation();
+        endAnimation();
 
     QPropertyAnimation* sizeAn = sizeChangeAnimation(s);
 

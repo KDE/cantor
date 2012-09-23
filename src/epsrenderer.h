@@ -37,13 +37,13 @@ class EpsRenderer
     ~EpsRenderer();
 
     enum FormulaProperties {CantorFormula = 1, ImagePath = 2, Code = 3,
-			    Delimiter = 4};
+                            Delimiter = 4};
     enum FormulaType {LatexFormula = Cantor::LatexRenderer::LatexMethod,
-		      MmlFormula = Cantor::LatexRenderer::MmlMethod};
+                      MmlFormula = Cantor::LatexRenderer::MmlMethod};
 
     QTextImageFormat render(QTextDocument *document, const KUrl& url);
-    QTextImageFormat render(QTextDocument *document, 
-			    const Cantor::LatexRenderer* latex);
+    QTextImageFormat render(QTextDocument *document,
+                            const Cantor::LatexRenderer* latex);
 
     void setScale(qreal scale);
     qreal scale();
