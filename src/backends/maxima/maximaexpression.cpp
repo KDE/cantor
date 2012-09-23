@@ -134,7 +134,7 @@ QString MaximaExpression::internalCommand()
             cmd+=';';
     }
 
-    //remove all newlines, as maxima isn't sensitive about
+    //replace all newlines with spaces, as maxima isn't sensitive about
     //whitespaces, and without newlines the whole command
     //is executed at once, without outputting an input
     //prompt after each line
@@ -303,15 +303,9 @@ bool MaximaExpression::parseOutput(QString& out)
         int idx1=out.indexOf("<cantor-prompt>", idx);
         int idx2=out.indexOf("<cantor-result>", idx);
 
-        kDebug()<<"idx: "<<idx;
-        kDebug()<<"idx1: "<<idx1;
-        kDebug()<<"idx2: "<<idx2;
-
         idx1=(idx1==-1) ? out.size():idx1;
         idx2=(idx2==-1) ? out.size():idx2;
         int newIdx=qMin(idx1, idx2);
-
-        kDebug()<<"idx: "<<newIdx;
 
         if(newIdx>idx)
         {
