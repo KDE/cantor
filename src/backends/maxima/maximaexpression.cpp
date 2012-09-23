@@ -137,7 +137,7 @@ QString MaximaExpression::internalCommand()
     //whitespaces, and without newlines the whole command
     //is executed at once, without outputting an input
     //prompt after each line
-    cmd.remove('\n');
+    cmd.replace('\n', ' ');
 
     //lisp-quiet doesn't print a prompt after the command
     //is completed, which causes the parsing to hang.
