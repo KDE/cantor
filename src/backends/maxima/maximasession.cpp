@@ -295,6 +295,7 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 
         m_initState=MaximaSession::Initialized;
         m_cache.clear();
+
         runFirstExpression();
 
         //QTimer::singleShot(0, this, SLOT(killLabels()));
@@ -314,13 +315,16 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
                    this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
         kDebug()<<"running next command";
+
         m_expressionQueue.removeFirst();
         if(m_expressionQueue.isEmpty())
         {
             //if we are done with all the commands in the queue,
-            //use the opportinity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
+            //use the opportunity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
             QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
             QRegExp exp2=QRegExp(QRegExp::escape(MaximaVariableModel::variableInspectCommand).arg("(values|functions)"));
+
+            //if(expression->status()==Cantor::Expression::Done&&!expression->isInternal())
             if(expression->status()==Cantor::Expression::Done&&!exp.exactMatch(expression->command())&&!exp2.exactMatch(expression->command()))
             {
                 m_variableModel->checkForNewFunctions();
@@ -330,8 +334,10 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
                 changeStatus(Cantor::Session::Done);
             }
 
+        }else
+        {
+            runFirstExpression();
         }
-        runFirstExpression();
     }
 
 }
