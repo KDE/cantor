@@ -468,6 +468,9 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
             return;
         }
         break;
+    case Qt::Key_Tab:
+        kDebug() << "Tab";
+        break;
     default:
         break;
     }
@@ -488,30 +491,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
         // that here.
         QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
         if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
-            QTextCursor cursor = textCursor();
-            // maybe we can do something smart with selections here,
-            // but for now we just ignore them.
-            cursor.clearSelection();
-            cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
-            QString sel = cursor.selectedText();
-            bool spacesOnly = true;
-            kDebug() << sel;
-            for (QString::iterator it = sel.begin(); it != sel.end(); ++it) {
-                if (! it->isSpace()) {
-                    spacesOnly = false;
-                    break;
-                }
-            }
-
-            if (spacesOnly || !worksheet()->completionEnabled()) {
-                cursor.setPosition(cursor.selectionEnd());
-                while (document()->characterAt(cursor.position()) == ' ')
-                    cursor.movePosition(QTextCursor::NextCharacter);
-                setTextCursor(cursor);
-                insertTab();
-            } else if (m_completionEnabled) {
-                emit tabPressed();
-            }
+            emit tabPressed();
             return true;
         } else if ((kev->key() == Qt::Key_Tab &&
                     kev->modifiers() == Qt::ShiftModifier) ||
@@ -678,8 +658,26 @@ void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void WorksheetTextItem::insertTab()
 {
-    QTextLayout *layout = textCursor().block().layout();
     QTextCursor cursor = textCursor();
+    cursor.clearSelection();
+    cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
+    QString sel = cursor.selectedText();
+    bool spacesOnly = true;
+    kDebug() << sel;
+    for (QString::iterator it = sel.begin(); it != sel.end(); ++it) {
+        if (! it->isSpace()) {
+            spacesOnly = false;
+            break;
+        }
+    }
+
+    cursor.setPosition(cursor.selectionEnd());
+    if (spacesOnly) {
+        while (document()->characterAt(cursor.position()) == ' ')
+            cursor.movePosition(QTextCursor::NextCharacter);
+    }
+
+    QTextLayout *layout = textCursor().block().layout();
     if (!layout) {
         cursor.insertText("    ");
     } else {
@@ -689,8 +687,6 @@ void WorksheetTextItem::insertTab()
         cursor.setPosition(cursor.selectionEnd());
         cursor.insertText(QString(' ').repeated(i));
     }
-    // without this line subsequent cursor movement up or down uses the old
-    // position
     setTextCursor(cursor);
     emit cursorPositionChanged(textCursor());
 }

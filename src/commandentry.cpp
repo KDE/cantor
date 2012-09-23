@@ -216,15 +216,12 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 
 void CommandEntry::showCompletion()
 {
-    if (!worksheet()->completionEnabled())
-        return;
-
-    //get the current line of the entry. If it's empty, ignore the call,
-    //otherwise check for tab completion (if supported by the backend)
     const QString line = currentLine();
 
-    if(line.trimmed().isEmpty())
+    if(!worksheet()->completionEnabled() || line.trimmed().isEmpty())
     {
+        if (m_commandItem->hasFocus())
+            m_commandItem->insertTab();
         return;
     } else if (isShowingCompletionPopup()) {
         QString comp = m_completionObject->completion();
