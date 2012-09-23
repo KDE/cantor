@@ -495,8 +495,9 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
             cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
             QString sel = cursor.selectedText();
             bool spacesOnly = true;
+            kDebug() << sel;
             for (QString::iterator it = sel.begin(); it != sel.end(); ++it) {
-                if (*it != ' ') {
+                if (! it->isSpace()) {
                     spacesOnly = false;
                     break;
                 }

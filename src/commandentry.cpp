@@ -38,6 +38,8 @@
 #include <QTextLine>
 #include <QToolTip>
 #include <QtGlobal>
+#include <QApplication>
+#include <QDesktopWidget>
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -455,9 +457,8 @@ void CommandEntry::showCompletions()
         connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
 
         m_commandItem->activateCompletion(true);
-        QPointF cursorPos = m_commandItem->cursorPosition();
         m_completionBox->popup();
-        m_completionBox->move(toGlobalPosition(cursorPos));
+        m_completionBox->move(getPopupPosition());
     } else
     {
         completeCommandTo(completion, FinalCompletion);
@@ -505,8 +506,7 @@ void CommandEntry::updateCompletions()
         if (!items.empty())
             m_completionBox->setCurrentItem(items.first());
 
-        QPointF cursorPos = m_commandItem->cursorPosition();
-        m_completionBox->move(toGlobalPosition(cursorPos));
+        m_completionBox->move(getPopupPosition());
     } else
     {
         removeContextHelp();
@@ -686,6 +686,24 @@ bool CommandEntry::informationItemHasFocus()
 bool CommandEntry::focusWithinThisItem()
 {
     return focusItem() != 0;
+}
+
+QPoint CommandEntry::getPopupPosition()
+{
+    const QPointF cursorPos = m_commandItem->cursorPosition();
+    const QPoint globalPos = toGlobalPosition(cursorPos);
+    const QDesktopWidget* desktop = QApplication::desktop();
+    const QRect screenRect = desktop->screenGeometry(globalPos);
+    if (globalPos.y() + m_completionBox->height() < screenRect.bottom()) {
+        return (globalPos);
+    } else {
+        QTextBlock block = m_commandItem->textCursor().block();
+        QTextLayout* layout = block.layout();
+        int pos = m_commandItem->textCursor().position() - block.position();
+        QTextLine line = layout->lineForTextPosition(pos);
+        int dy = - m_completionBox->height() - line.height() - line.leading();
+        return QPoint(globalPos.x(), globalPos.y() + dy);
+    }
 }
 
 void CommandEntry::invalidate()
