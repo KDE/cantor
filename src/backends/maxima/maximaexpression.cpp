@@ -81,15 +81,29 @@ void MaximaExpression::evaluate()
         connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
     }
 
+    const QString& cmd=command();
     //if the whole command consists of a comment, drop it
-    static const QRegExp commentRegExp("^/\\*.*\\*/$");
-    if(commentRegExp.exactMatch(command()))
-       return;
+    bool isComment=true;
+    for(int idx=0;idx<cmd.size();idx=cmd.indexOf("*/")+2)
+    {
+        if(cmd.mid(idx, 2)!="/*")
+        {
+            isComment=false;
+            break;
+        }
+    }
+
+    if(isComment)
+    {
+        setStatus(Cantor::Expression::Done);
+        return;
+    }
 
     //also drop empty commands
     if(command().isEmpty())
     {
         kDebug()<<"dropping";
+        setStatus(Cantor::Expression::Done);
         return;
     }
 
