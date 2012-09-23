@@ -1,3 +1,5 @@
+;;this file is partially based on similar files from the WxMaxima and Texmacs projects
+
 (in-package :maxima)
 #+clisp (defvar *old-suppress-check-redefinition* 
 	      custom:*suppress-check-redefinition*)
