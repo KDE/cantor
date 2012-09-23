@@ -4,8 +4,8 @@
 #+clisp (setf custom:*suppress-check-redefinition* t)
 (setf *alt-display2d* 'cantor-latex-print)
 (setf *alt-display1d* 'cantor-regular-print)
-(setf *prompt-prefix* "<prompt>")
-(setf *prompt-suffix* "</prompt>")
+(setf *prompt-prefix* "<cantor-prompt>")
+(setf *prompt-suffix* "</cantor-prompt>")
 ;(setf *general-display-prefix* "DISPLAY_PREFIX")
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
@@ -41,24 +41,24 @@
 
 
 (defun cantor-latex-print (x)
-  (princ "<result>")
-  (princ "<text>")
+  (princ "<cantor-result>")
+  (princ "<cantor-text>")
   (linear-displa x )
-  (princ "</text>")
+  (princ "</cantor-text>")
 
   (let ((ccol 1))
     (mapc #'myprinc
-        (tex x '("<latex>") '("</latex>") 'mparen 'mparen)))
+        (tex x '("<cantor-latex>") '("</cantor-latex>") 'mparen 'mparen)))
 
-  (princ "</result>")
+  (princ "</cantor-result>")
 )
 
 (defun cantor-regular-print (x)
-  (princ "<result>")
-  (princ "<text>")
+  (princ "<cantor-result>")
+  (princ "<cantor-text>")
   (linear-displa x)
-  (princ "</text>")
-  (princ "</result>")
+  (princ "</cantor-text>")
+  (princ "</cantor-result>")
 )
 
 (defun cantor-inspect (var)

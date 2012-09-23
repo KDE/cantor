@@ -41,7 +41,6 @@ class MaximaSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    static const QRegExp MaximaPrompt;
     static const QRegExp MaximaOutputPrompt;
 
     MaximaSession( Cantor::Backend* backend);

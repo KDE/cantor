@@ -165,6 +165,10 @@ void MaximaExpression::addInformation(const QString& information)
     dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+'\n');
 }
 
+
+//The maxima backend is modified, so that it outputs
+//xml-style tags around outputs, input prompts etc.
+//the following are some simple helper functions to faciliate parsing
 inline void skipWhitespaces(int* idx, const QString& txt)
 {
     for(;(txt[*idx]).isSpace();++(*idx));
@@ -180,7 +184,7 @@ QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
 
     if(txt[*idx]!='<')
     {
-        kDebug()<<"THIS is NOT AN OPENING TAG, stupid! "<<endl
+        kDebug()<<"This is NOT AN OPENING TAG."<<endl
                 <<"Dropping everything until next opening; This starts with a " <<txt[*idx];
         int newIdx=txt.indexOf('<', *idx);
         if(newIdx==-1) //no more opening brackets in this string
@@ -220,9 +224,9 @@ QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& nam
 {
     bool readingClosingTag=false;
     int contentStartIdx=*idx;
-    unsigned int contentLength=0;
+    int contentLength=0;
     int currentTagStartIdx=-1;
-    unsigned int currentTagLength=0;
+    int currentTagLength=0;
 
     if(isComplete)
         *isComplete=false;
@@ -244,7 +248,6 @@ QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& nam
             if(c=='>')
             {
                 const QStringRef currentTagName(&txt, currentTagStartIdx, currentTagLength);
-                kDebug()<<"a tag just closed: "<<currentTagName;
 
                 if(currentTagName==name)
                 {
@@ -269,7 +272,7 @@ QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& nam
 
     if(contentStartIdx+contentLength>txt.size())
     {
-        kDebug()<<"something is wrong: "<<contentStartIdx+contentLength<<
+        kDebug()<<"something is wrong with the content-length "<<contentStartIdx+contentLength<<
             " vs: "<<txt.size();
     }
     return QStringRef(&txt,contentStartIdx, contentLength);
@@ -286,17 +289,12 @@ bool MaximaExpression::parseOutput(QString& out)
 
     QChar c;
     //first read the part not enclosed in tags. it most likely belongs to an error message
-    int idx1=out.indexOf("<prompt>");
-    int idx2=out.indexOf("<result>");
+    int idx1=out.indexOf("<cantor-prompt>");
+    int idx2=out.indexOf("<cantor-result>");
 
     idx1=(idx1==-1) ? out.size():idx1;
     idx2=(idx2==-1) ? out.size():idx2;
     idx=qMin(idx1, idx2);
-
-    kDebug()<<"out.size(): "<<out.size();
-    kDebug()<<"idx1: "<<idx1;
-    kDebug()<<"idx2: "<<idx2;
-
 
     errorBuffer=QStringRef(&out, 0, idx);
     kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
@@ -312,10 +310,9 @@ bool MaximaExpression::parseOutput(QString& out)
 
         const QStringRef& tag=readXmlOpeningTag(&idx, out);
 
-        kDebug()<<"big loop read " <<tag;
-        if(tag=="result")
+        if(tag=="cantor-result")
         {
-            kDebug()<<"hey, I got a result";
+            kDebug()<<"got a result";
 
             if(numResults>0)
             {
@@ -328,7 +325,7 @@ bool MaximaExpression::parseOutput(QString& out)
 
             kDebug()<<"got "<<numResults<<"th result.";
 
-        }else if (tag=="prompt")
+        }else if (tag=="cantor-prompt")
         {
             kDebug()<<"i got a prompt: "<<idx;
 
@@ -346,13 +343,13 @@ bool MaximaExpression::parseOutput(QString& out)
                 {
                     const QStringRef& type=readXmlOpeningTag(&idx, out);
                     kDebug()<<"its a "<<type;
-                    if(type=="/result")
+                    if(type=="/cantor-result")
                         break;
                     const QStringRef& content=readXmlTagContent(&idx, out, type);
 
-                    if(type=="text")
+                    if(type=="cantor-text")
                         text=content;
-                    else if(type=="latex")
+                    else if(type=="cantor-latex")
                         latex=content;
 
                     kDebug()<<"content: "<<content;
@@ -425,8 +422,7 @@ bool MaximaExpression::parseOutput(QString& out)
             }
         }else
         {
-            kDebug()<<"tag: "<<tag;
-            kDebug()<<"WTF are you doing?";
+            kDebug()<<"unknown tag"<<tag;
         }
     }
 
@@ -446,21 +442,19 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
     {
         bool isComplete;
         const QStringRef& type=readXmlOpeningTag(idx, out);
-        kDebug()<<"its a "<<type;
-        if(type=="/result")
+
+        if(type=="/cantor-result")
             break;
 
         const QStringRef& content=readXmlTagContent(idx, out, type, &isComplete);
 
-        if(type=="text")
+        if(type=="cantor-text")
             text=content.toString().trimmed();
-        else if(type=="latex")
+        else if(type=="cantor-latex")
         {
             isLatexComplete=isComplete;
             latex=content.toString().trimmed();
         }
-
-        kDebug()<<"content: "<<content;
     }
 
     //Replace < and > with their html code, so they won't be confused as html tags
@@ -476,8 +470,6 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
     QString id=prompt.mid(3, prompt.length()-4);
     setId(id.toInt());
     kDebug()<<"prompt: "<<prompt<<" id: "<<id;
-
-
 
     if(m_tempFile)
     {
@@ -517,7 +509,6 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
                 break;
         }
 
-        kDebug()<<"stripping i="<<i<<" characters";
         latex=latex.mid(i+1);
 
         //no need to render empty latex.

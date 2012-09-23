@@ -40,7 +40,6 @@
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
 //the Expressions are encapsulated in () to allow capturing for the text
-const QRegExp MaximaSession::MaximaPrompt=QRegExp("(<prompt>\\s<prompt>)"); //Text, maxima outputs, if it's taking new input
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))"); //Text, maxima outputs, before any output
 
 
@@ -235,17 +234,6 @@ void MaximaSession::readStdOut()
 
     m_cache+=out;
 
-    /*
-    if(m_cache.contains(QRegExp(QString("%1 %2").arg(MaximaOutputPrompt.pattern()).arg("____END_OF_INIT____")))&&m_cache.contains("</prompt>"))
-    {
-
-    }
-    */
-
-    //if(!m_initState==MaximaExpression::Initialized)
-    //    return;
-
-
     bool parsingSuccessfull=true;
     while(!m_cache.isEmpty()&&parsingSuccessfull)
     {
@@ -324,7 +312,6 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
             QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
             QRegExp exp2=QRegExp(QRegExp::escape(MaximaVariableModel::variableInspectCommand).arg("(values|functions)"));
 
-            //if(expression->status()==Cantor::Expression::Done&&!expression->isInternal())
             if(expression->status()==Cantor::Expression::Done&&!exp.exactMatch(expression->command())&&!exp2.exactMatch(expression->command()))
             {
                 m_variableModel->checkForNewFunctions();
