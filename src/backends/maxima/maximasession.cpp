@@ -44,7 +44,7 @@ const QRegExp MaximaSession::MaximaPrompt=QRegExp("(<prompt>\\s<prompt>)"); //Te
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))"); //Text, maxima outputs, before any output
 
 
-static QString initCmd=":lisp($load \"%1\")";
+static QString initCmd=":lisp($load \"%1\")\n";
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 {
