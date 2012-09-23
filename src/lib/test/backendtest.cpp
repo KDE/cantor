@@ -86,6 +86,11 @@ void BackendTest::cleanupTestCase()
     }
 }
 
+Cantor::Session* BackendTest::session()
+{
+    return m_session;
+}
+
 
 #include "backendtest.moc"
 

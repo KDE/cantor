@@ -79,6 +79,7 @@ class SageSession : public Cantor::Session
     QString m_tmpPath;
     KDirWatch m_dirWatch;
     bool m_waitingForPrompt;
+    QString m_outputCache;
 };
 
 #endif /* _SAGESESSION_H */

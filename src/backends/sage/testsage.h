@@ -35,10 +35,16 @@ class TestSage : public BackendTest
 private slots:
     //tests evaluating a simple command
     void testSimpleCommand();
+
+    //tests if the backend gets confused if more than
+    //one command is in the queue
+    void testCommandQueue();
     //tests a command, containing more than 1 line
     void testMultilineCommand();
+
     //tests defining and calling a function
     void testDefineFunction();
+
     //tests doing a plot
     void testPlot();
 
