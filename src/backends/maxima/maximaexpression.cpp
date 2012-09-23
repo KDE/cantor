@@ -228,12 +228,16 @@ void MaximaExpression::addInformation(const QString& information)
 //the following are some simple helper functions to faciliate parsing
 inline void skipWhitespaces(int* idx, const QString& txt)
 {
-    for(;(txt[*idx]).isSpace();++(*idx));
+    for(;*idx < txt.size() && (txt[*idx]).isSpace();++(*idx));
 }
 
 QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
 {
     kDebug()<<"trying to read an opening tag";
+
+    if (*idx >= txt.size())
+        return QStringRef();
+
     skipWhitespaces(idx, txt);
 
     if(isComplete)
@@ -349,8 +353,6 @@ bool MaximaExpression::parseOutput(QString& out)
     int numResults=0;
     QString textBuffer;
     QString latexBuffer;
-
-    kDebug()<<"not parsing for:  "<<command();
 
     Cantor::Result* result=0;
     while(idx<out.size())
