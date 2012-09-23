@@ -194,6 +194,10 @@ void Expression::latexRendered()
         setResult( latex );
     }else
     {
+        //if rendering with latex was not successfull, just use the plain text version
+        //if available
+        TextResult* r=dynamic_cast<TextResult*>(result());
+        setResult(new TextResult(r->plain()));
         kDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 
