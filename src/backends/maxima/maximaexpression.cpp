@@ -27,6 +27,7 @@
 #include "epsresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
+#include "latexresult.h"
 #include "settings.h"
 
 #include <kdebug.h>
@@ -284,20 +285,10 @@ bool MaximaExpression::parseOutput(QString& out)
     int idx=0;
     ParserStatus status;
     QStringRef tagName;
-    QStringRef errorBuffer;
+    QString errorBuffer;
     kDebug()<<"attempting to parse "<<out;
 
     QChar c;
-    //first read the part not enclosed in tags. it most likely belongs to an error message
-    int idx1=out.indexOf("<cantor-prompt>");
-    int idx2=out.indexOf("<cantor-result>");
-
-    idx1=(idx1==-1) ? out.size():idx1;
-    idx2=(idx2==-1) ? out.size():idx2;
-    idx=qMin(idx1, idx2);
-
-    errorBuffer=QStringRef(&out, 0, idx);
-    kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
 
     int numResults=0;
     QString textBuffer;
@@ -307,6 +298,27 @@ bool MaximaExpression::parseOutput(QString& out)
     while(idx<out.size())
     {
         skipWhitespaces(&idx, out);
+
+        //first read the part not enclosed in tags. it most likely belongs to an error message
+        int idx1=out.indexOf("<cantor-prompt>", idx);
+        int idx2=out.indexOf("<cantor-result>", idx);
+
+        kDebug()<<"idx: "<<idx;
+        kDebug()<<"idx1: "<<idx1;
+        kDebug()<<"idx2: "<<idx2;
+
+        idx1=(idx1==-1) ? out.size():idx1;
+        idx2=(idx2==-1) ? out.size():idx2;
+        int newIdx=qMin(idx1, idx2);
+
+        kDebug()<<"idx: "<<newIdx;
+
+        if(newIdx>idx)
+        {
+            errorBuffer+=out.mid(idx, newIdx-idx);
+            kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
+            idx=newIdx;
+        }
 
         const QStringRef& tag=readXmlOpeningTag(&idx, out);
 
@@ -378,29 +390,44 @@ bool MaximaExpression::parseOutput(QString& out)
                 if(!isComplete)
                     return false;
 
-                QString errorMsg=errorBuffer.toString();
-                if(!errorMsg.trimmed().isEmpty())
+                if(!errorBuffer.trimmed().isEmpty())
                 {
                     //Replace < and > with their html code, so they won't be confused as html tags
-                    errorMsg.replace( '<' , "&lt;");
-                    errorMsg.replace( '>' , "&gt;");
+                    errorBuffer.replace( '<' , "&lt;");
+                    errorBuffer.replace( '>' , "&gt;");
 
                     if(command().startsWith(":lisp")||command().startsWith(":lisp-quiet"))
                     {
-                        Cantor::TextResult* result=new Cantor::TextResult(errorMsg);
+                        if(result)
+                        {
+                            if(result->type()==Cantor::TextResult::Type)
+                                errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
+                            else if(result->type()==Cantor::LatexResult::Type)
+                                errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
+                        }
+
+                        Cantor::TextResult* result=new Cantor::TextResult(errorBuffer);
                         setResult(result);
                         setStatus(Cantor::Expression::Done);
                     }else
                     if(m_isHelpRequest) //Help Messages are also provided in the errorBuffer.
 
                     {
-                        Cantor::HelpResult* result=new Cantor::HelpResult(errorMsg);
+                        Cantor::HelpResult* result=new Cantor::HelpResult(errorBuffer);
                         setResult(result);
 
                         setStatus(Cantor::Expression::Done);
                     }else
                     {
-                        setErrorMessage(errorMsg.trimmed());
+                        if(result)
+                        {
+                            if(result->type()==Cantor::TextResult::Type)
+                                errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
+                            else if(result->type()==Cantor::LatexResult::Type)
+                                errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
+                        }
+
+                        setErrorMessage(errorBuffer.trimmed());
                         setStatus(Cantor::Expression::Error);
                     }
                 }
