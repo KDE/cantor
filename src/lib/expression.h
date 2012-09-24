@@ -159,6 +159,11 @@ class CANTOR_EXPORT Expression : public QObject
     QList<Result*> results();
 
     /**
+     * @return true if the Expression has results, false otherwise
+     */
+    bool hasResults();
+
+    /**
      * Deletes the result of this expression.
      *
      */
@@ -229,7 +234,7 @@ class CANTOR_EXPORT Expression : public QObject
      * takes over ownership of the new result objects.
      * @param results the new results
      */
-    void setResults(QList<Results*> results);
+    void setResults(QList<Result*> results);
     /**
      * Set the status
      * statusChanged will be emitted
@@ -242,7 +247,7 @@ class CANTOR_EXPORT Expression : public QObject
     //used for example if special packages are needed
     virtual QString additionalLatexHeaders();
   private:
-    void renderResultsAsLatex();
+    void renderResultAsLatex();
   private Q_SLOTS:
     void latexRendered();
 

@@ -27,6 +27,7 @@
 #include "settings.h"
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
+#include "graphicsitemgroupobject.h"
 
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -45,7 +46,7 @@ struct AnimationData
     QPropertyAnimation* opacAnimation;
     QPropertyAnimation* posAnimation;
     const char* slot;
-    QGraphicsObject* item;
+    QObject* item;
 };
 
 const qreal WorksheetEntry::VerticalMargin = 4;
@@ -488,6 +489,57 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
             this, SLOT(endAnimation()));
 
     m_animation->animation->start();
+}
+
+void WorksheetEntry::fadeOutItems(QList<QGraphicsObject*> items,
+                                  const char* slot)
+{
+    // Note: The default value for slot is SLOT(deleteLater()), so the items
+    // will be deleted after the animation.
+    if (!worksheet()->animationsEnabled()) {
+        recalculateSize();
+        if (slot)
+            foreach(QGraphicsObject* item, items)
+                invokeSlotOnObject(slot, item);
+        return;
+    }
+    if (m_animation) {
+        // this calculates the new size and calls updateSizeAnimation
+        layOutForWidth(size().width(), true);
+        if (slot)
+            foreach(QGraphicsObject* item, items)
+                invokeSlotOnObject(slot, item);
+        return;
+    }
+
+    GraphicsItemGroupObject* itemGroup = new GraphicsItemGroupObject(this);
+    foreach(QGraphicsObject* item, items) {
+        itemGroup->addItem(item);
+    }
+
+    QPropertyAnimation* sizeAn = sizeChangeAnimation();
+    m_animation = new AnimationData;
+    m_animation->sizeAnimation = sizeAn;
+    m_animation->opacAnimation = new QPropertyAnimation(itemGroup, "opacity",
+                                                        this);
+    m_animation->opacAnimation->setDuration(200);
+    m_animation->opacAnimation->setStartValue(1);
+    m_animation->opacAnimation->setEndValue(0);
+    m_animation->opacAnimation->setEasingCurve(QEasingCurve::OutCubic);
+    m_animation->posAnimation = 0;
+
+    m_animation->animation = new QParallelAnimationGroup(this);
+    m_animation->item = itemGroup;
+    m_animation->slot = slot;
+
+    m_animation->animation->addAnimation(m_animation->sizeAnimation);
+    m_animation->animation->addAnimation(m_animation->opacAnimation);
+
+    connect(m_animation->animation, SIGNAL(finished()),
+            this, SLOT(endAnimation()));
+
+    m_animation->animation->start();
+
 }
 
 void WorksheetEntry::endAnimation()

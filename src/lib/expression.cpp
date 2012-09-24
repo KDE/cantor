@@ -44,7 +44,6 @@ class Cantor::ExpressionPrivate
 {
 public:
     ExpressionPrivate() {
-        result=0;
         session=0;
     }
 
@@ -80,7 +79,8 @@ Expression::Expression( Session* session ) : QObject( session ),
 
 Expression::~Expression()
 {
-    delete d->result;
+    foreach(Result* result, d->results)
+        delete result;
     delete d;
 }
 
@@ -109,7 +109,7 @@ void Expression::setResult(Result* result)
     QList<Result*> results;
     if (result)
         results.append(result);
-    setResults(results)
+    setResults(results);
 }
 
 void Expression::setResults(QList<Result*> results)
@@ -117,7 +117,7 @@ void Expression::setResults(QList<Result*> results)
     foreach(Result* r, d->results) {
         delete r;
     }
-    r->results.clear();
+    d->results.clear();
 
     d->results = results;
 
@@ -139,7 +139,7 @@ void Expression::setResults(QList<Result*> results)
     }
 
     if (!d->latexResultIndices.isEmpty())
-        renderResultsAsLatex();
+        renderResultAsLatex();
 
     emit gotResult();
 }
@@ -149,13 +149,18 @@ QList<Result*> Expression::results()
     return d->results;
 }
 
+bool Expression::hasResults()
+{
+    return !d->results.isEmpty();
+}
+
 void Expression::clearResults()
 {
     foreach(Result* r, d->results) {
-        delete d;
+        delete r;
     }
 
-    r->results.clear();
+    d->results.clear();
 }
 
 void Expression::setStatus(Expression::Status status)
@@ -204,7 +209,7 @@ void Expression::latexRendered()
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(renderer->renderingSuccessful())
     {
-        LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(renderer->imagePath()));
+        LatexResult* latex=new LatexResult(result->data().toString().trimmed(), KUrl(renderer->imagePath()));
         delete d->results.at(i);
         d->results[i] = latex;
     } else
@@ -228,10 +233,10 @@ QDomElement Expression::toXml(QDomDocument& doc)
     QDomText cmdText=doc.createTextNode( command() );
     cmd.appendChild( cmdText );
     expr.appendChild( cmd );
-    if ( result() )
+    foreach(Result* result, results())
     {
-        kDebug()<<"result: "<<result();
-        QDomElement resXml=result()->toXml( doc );
+        kDebug()<<"result: "<<result;
+        QDomElement resXml=result->toXml( doc );
         expr.appendChild( resXml );
     }
 
@@ -241,8 +246,8 @@ QDomElement Expression::toXml(QDomDocument& doc)
 void Expression::saveAdditionalData(KZip* archive)
 {
     //just pass this call to the result
-    if(result())
-        result()->saveAdditionalData(archive);
+    foreach(Result* result, results())
+        result->saveAdditionalData(archive);
 }
 
 void Expression::addInformation(const QString& information)

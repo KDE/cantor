@@ -133,6 +133,8 @@ class WorksheetEntry : public QGraphicsObject
     // animate the size change and the opacity of item
     void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
     void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
+    void fadeOutItems(QList<QGraphicsObject*> item,
+                      const char* slot = "deleteLater()");
     void endAnimation();
 
     void showActionBar();

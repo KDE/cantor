@@ -89,7 +89,7 @@ class CommandEntry : public WorksheetEntry
     bool evaluateCurrentItem();
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void addInformation();
-    void removeResult();
+    void removeResults();
 
     void showCompletion();
     void selectPreviousCompletion();
@@ -138,7 +138,7 @@ class CommandEntry : public WorksheetEntry
 
     WorksheetTextItem* m_promptItem;
     WorksheetTextItem* m_commandItem;
-    ResultItem* m_resultItem;
+    QList<ResultItem*> m_resultItems;
     WorksheetTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;

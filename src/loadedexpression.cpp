@@ -53,37 +53,35 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 {
     setCommand(xml.firstChildElement("Command").text());
 
+    QList<Result*> results;
     QDomElement resultElement=xml.firstChildElement("Result");
-    Cantor::Result* result=0;
-    const QString& type=resultElement.attribute("type");
-    if ( type == "text")
-    {
-        result=new Cantor::TextResult(resultElement.text());
-    }
-    else if (type == "image" || type == "latex" || type == "animation")
-    {
-        const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
-        if (imageEntry&&imageEntry->isFile())
-        {
-            const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
-            imageFile->copyTo(dir);
-            KUrl imageUrl=QString(dir+QLatin1Char('/')+imageFile->name());
-            if(type=="latex")
-            {
-                result=new Cantor::LatexResult(resultElement.text(), imageUrl);
-            }else if(type=="animation")
-            {
-                result=new Cantor::AnimationResult(imageUrl);
-            }else if(imageFile->name().endsWith(QLatin1String(".eps")))
-            {
-                result=new Cantor::EpsResult(imageUrl);
-            }else
-            {
-                result=new Cantor::ImageResult(imageUrl);
+    while (!resultElement.isNull()) {
+        Cantor::Result* result=0;
+        const QString& type=resultElement.attribute("type");
+        if ( type == "text") {
+            result=new Cantor::TextResult(resultElement.text());
+        }
+        else if (type == "image" || type == "latex" || type == "animation") {
+            const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
+            if (imageEntry&&imageEntry->isFile()) {
+                const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+                QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+                imageFile->copyTo(dir);
+                KUrl imageUrl=QString(dir+QLatin1Char('/')+imageFile->name());
+                if(type=="latex") {
+                    result=new Cantor::LatexResult(resultElement.text(), imageUrl);
+                } else if(type=="animation") {
+                    result=new Cantor::AnimationResult(imageUrl);
+                } else if(imageFile->name().endsWith(QLatin1String(".eps"))) {
+                    result=new Cantor::EpsResult(imageUrl);
+                } else {
+                    result=new Cantor::ImageResult(imageUrl);
+                }
             }
         }
+        results.append(result);
+        resultElement = resultElement.nextSibling();
     }
 
-    setResult(result);
+    setResults(results);
 }

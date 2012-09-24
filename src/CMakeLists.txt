@@ -83,6 +83,7 @@ set(cantor_PART_SRCS
    loadedexpression.cpp
    animation.cpp
    epsrenderer.cpp
+   graphicsitemgroupobject.cpp
  )
 
 kde4_add_ui_files(cantor_PART_SRCS imagesettings.ui)
@@ -98,8 +99,8 @@ kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
 #set_property(TARGET blahtexcore PROPERTY IMPORTED_LOCATION Path_To_BlahtexCore_Library/libblahtexcore.a)
 
 target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
-				     ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTXMLPATTERNS_LIBRARY}
-				     cantorlibs cantor_config )
+                                     ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTXMLPATTERNS_LIBRARY}
+                                     cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
