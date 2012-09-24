@@ -93,11 +93,53 @@ void MaximaExpression::evaluate()
         }
     }
 
+
+    //check that for each comment-opening-tag there is a resulting closing tag,
+    //as otherwise maxima would keep waiting for new input
+    bool matched=true;
+    int idx2=0;
+
+    QString tmp=cmd;
+    int cnt=0;
+    for(int idx=tmp.indexOf("/*");idx!=-1;idx=tmp.indexOf("/*", idx))
+    {
+        kDebug()<<"idx: "<<idx<<" cnt: "<<cnt;
+        if(idx==0||tmp[idx-1]!='*')
+        {
+            cnt++;
+            tmp.remove(idx, 2);
+        }else
+        {
+            idx++;
+        }
+    }
+
+    for(int idx=tmp.indexOf("*/");idx!=-1;idx=tmp.indexOf("*/", idx))
+    {
+        if(idx==0||tmp[idx-1]!='/')
+        {
+            cnt--;
+            tmp.remove(idx, 2);
+        }else
+        {
+            idx++;
+        }
+    }
+
+    if(cnt!=0)
+    {
+        kDebug()<<"missmatched!";
+        setErrorMessage(i18n("Error: Comment tags don't match"));
+        setStatus(Cantor::Expression::Error);
+        return;
+    }
+
     if(isComment)
     {
         setStatus(Cantor::Expression::Done);
         return;
     }
+
 
     //also drop empty commands
     if(command().isEmpty())

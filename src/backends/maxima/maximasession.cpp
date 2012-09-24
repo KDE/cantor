@@ -130,8 +130,13 @@ void MaximaSession::newMaximaClient(QTcpSocket* socket)
                                                 Cantor::Expression::DeleteOnFinish);
 
     expr->setInternal(true);
-    //move this expression to the front
-    m_expressionQueue.prepend(m_expressionQueue.takeLast());
+    //check if we actually landed in the queue and there wasn't some
+    //error beforehand instead
+    if(m_expressionQueue.contains(dynamic_cast<MaximaExpression*>(expr)))
+    {
+        //move this expression to the front
+        m_expressionQueue.prepend(m_expressionQueue.takeLast());
+    }
 
     //reset the typesetting state
     setTypesettingEnabled(isTypesettingEnabled());
