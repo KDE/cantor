@@ -52,6 +52,7 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     case Cantor::LatexResult::Type:
         {
             TextResultItem* item = new TextResultItem(parent);
+            item->setResult(result);
             item->updateFromResult(result);
             return item;
         }
@@ -59,12 +60,14 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     case Cantor::EpsResult::Type:
         {
             ImageResultItem* item = new ImageResultItem(parent);
+            item->setResult(result);
             item->updateFromResult(result);
             return item;
         }
     case Cantor::AnimationResult::Type:
         {
             AnimationResultItem* item = new AnimationResultItem(parent);
+            item->setResult(result);
             item->updateFromResult(result);
             return item;
         }
@@ -83,4 +86,14 @@ void ResultItem::addCommonActions(QObject* self, KMenu* menu)
 QGraphicsObject* ResultItem::graphicsObject()
 {
     return dynamic_cast<QGraphicsObject*>(this);
+}
+
+void ResultItem::setResult(Cantor::Result* result)
+{
+    m_result = result;
+}
+
+Cantor::Result* ResultItem::result()
+{
+    return m_result;
 }

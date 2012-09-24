@@ -56,8 +56,6 @@ class ResultItem
 
     virtual void deleteLater() = 0;
 
-    virtual Cantor::Result* result() = 0;
-
     virtual double width() const = 0;
     virtual double height() const = 0;
 
@@ -65,6 +63,11 @@ class ResultItem
 
   protected:
     static void addCommonActions(QObject* self, KMenu* menu);
+    void setResult(Cantor::Result* result);
+    Cantor::Result* result();
+
+  private:
+    Cantor::Result* m_result;
 };
 
 #endif // RESULTITEM_H

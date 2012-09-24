@@ -49,7 +49,6 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     void deleteLater();
     EpsRenderer* epsRenderer();
     CommandEntry* parentEntry();
-    Cantor::Result* result();
 
   signals:
     void removeResult();
