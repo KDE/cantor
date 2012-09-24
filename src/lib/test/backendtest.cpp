@@ -94,5 +94,17 @@ Cantor::Session* BackendTest::session()
     return m_session;
 }
 
+void BackendTest::waitForSignal(QObject* sender, const char* signal)
+{
+    QTimer timeout( this );
+    timeout.setSingleShot( true );
+
+    QEventLoop loop;
+    connect( sender, signal, &loop, SLOT( quit() ) );
+    connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
+    timeout.start( 5000 );
+    loop.exec();
+}
+
 
 #include "backendtest.moc"
