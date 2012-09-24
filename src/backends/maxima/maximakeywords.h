@@ -24,7 +24,7 @@
 #include <QStringList>
 
 /*
-  Class storint a listsof names, known to maxima
+  Class storing a list of names, known to maxima
   used for syntax highlighting and tab completion
  */
 class MaximaKeywords

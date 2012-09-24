@@ -45,6 +45,7 @@ class Cantor::ExpressionPrivate
 public:
     ExpressionPrivate() {
         session=0;
+        isInternal=false;
     }
 
     int id;
@@ -56,6 +57,7 @@ public:
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
+    bool isInternal;
 };
 
 static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
@@ -130,7 +132,9 @@ void Expression::setResults(QList<Result*> results)
         if ( session()->isTypesettingEnabled()&&
              r->type()==TextResult::Type &&
              dynamic_cast<TextResult*>(r)->format()==TextResult::LatexFormat &&
-             !r->toHtml().trimmed().isEmpty()
+             !r->toHtml().trimmed().isEmpty() &&
+             finishingBehavior()!=DeleteOnFinish &&
+             !isInternal()
             )
         {
             d->latexResultIndices.append(i);
@@ -209,11 +213,16 @@ void Expression::latexRendered()
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(renderer->renderingSuccessful())
     {
-        LatexResult* latex=new LatexResult(result->data().toString().trimmed(), KUrl(renderer->imagePath()));
+        TextResult* r=dynamic_cast<TextResult*>(result);
+        LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
         delete d->results.at(i);
         d->results[i] = latex;
     } else
     {
+        //if rendering with latex was not successfull, just use the plain text version
+        //if available
+        TextResult* r=dynamic_cast<TextResult*>(result());
+        setResult(new TextResult(r->plain()));
         kDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 
@@ -279,6 +288,16 @@ void Expression::setFinishingBehavior(Expression::FinishingBehavior behavior)
 Expression::FinishingBehavior Expression::finishingBehavior()
 {
     return d->finishingBehavior;
+}
+
+void Expression::setInternal(bool internal)
+{
+    d->isInternal=internal;
+}
+
+bool Expression::isInternal()
+{
+    return d->isInternal;
 }
 
 #include "expression.moc"

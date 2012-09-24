@@ -37,12 +37,20 @@ private slots:
     void testSimpleCommand();
     //tests a command, containing more than 1 line
     void testMultilineCommand();
+    //tests if the command queue works correcly
+    void testCommandQueue();
     //tests doing a plot
     void testPlot();
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
     //tests if the expression numbering works
     void testExprNumbering();
+
+    //some tests to see if comments are working correctly
+    void testSimpleExpressionWithComment();
+    void testCommentExpression();
+    void testNestedComment();
+    void testUnmatchedComment();
 
 private:
     virtual QString backendName();

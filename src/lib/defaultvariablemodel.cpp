@@ -170,6 +170,8 @@ void DefaultVariableModel::removeVariable(const Cantor::DefaultVariableModel::Va
 {
     Q_D(DefaultVariableModel);
     int row = d->variables.indexOf(variable);
+    if(row==-1)
+        return;
     beginRemoveRows(QModelIndex(), row, row);
     d->variables.removeAt(row);
     endRemoveRows();

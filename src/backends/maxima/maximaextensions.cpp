@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
 #include "maximaextensions.h"
@@ -178,4 +178,37 @@ QString MaximaPlotExtension::plotFunction3d(const QString& function, VariablePar
     return QString("plot3d(%1,[%2,%3,%4],[%6,%7,%8])").arg(function,
                                                            var1.first, int1.first, int1.second,
                                                            var2.first, int2.first, int2.second);
+}
+
+//Variable Management
+MAXIMA_EXTENSION_CONSTRUCTORS(VariableManagement)
+
+QString MaximaVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    return QString("%1: %2").arg(name).arg(value);
+}
+
+QString MaximaVariableManagementExtension::setValue(const QString& name,const QString& value)
+{
+    return QString("%1: %2").arg(name).arg(value);
+}
+
+QString MaximaVariableManagementExtension::removeVariable(const QString& name)
+{
+    return QString("kill(%1)").arg(name);
+}
+
+QString MaximaVariableManagementExtension::saveVariables(const QString& fileName)
+{
+    return QString("save(\"%1\", values,functions)").arg(fileName);
+}
+
+QString MaximaVariableManagementExtension::loadVariables(const QString& fileName)
+{
+    return QString("load(\"%1\")").arg(fileName);
+}
+
+QString MaximaVariableManagementExtension::clearVariables()
+{
+    return QString("kill(all)");
 }

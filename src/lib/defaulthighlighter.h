@@ -172,6 +172,9 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   private slots:
     void updateFormats();
 
+  signals:
+    void rulesChanged();
+
   private:
     DefaultHighlighterPrivate* d;
 };

@@ -144,6 +144,7 @@ class Worksheet : public QGraphicsScene
     //void showCompletion();
 
     void highlightItem(WorksheetTextItem*);
+    void rehighlight();
 
     void enableHighlighting(bool highlight);
     void enableCompletion(bool enable);

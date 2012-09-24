@@ -42,6 +42,7 @@ MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Can
     new MaximaCalculusExtension(this);
     new MaximaLinearAlgebraExtension(this);
     new MaximaPlotExtension(this);
+    new MaximaVariableManagementExtension(this);
 }
 
 MaximaBackend::~MaximaBackend()
@@ -69,7 +70,8 @@ Cantor::Backend::Capabilities MaximaBackend::capabilities() const
         Cantor::Backend::InteractiveMode|
         Cantor::Backend::SyntaxHighlighting|
         Cantor::Backend::Completion |
-        Cantor::Backend::SyntaxHelp;
+        Cantor::Backend::SyntaxHelp |
+        Cantor::Backend::VariableManagement;
 }
 
 bool MaximaBackend::requirementsFullfilled() const
