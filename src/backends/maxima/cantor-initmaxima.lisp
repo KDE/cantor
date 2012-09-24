@@ -65,7 +65,12 @@
 
 (defun cantor-inspect (var)
   ($disp var)
-  (mapc (lambda (x)  ($disp (eval x))) (cdr var))
+  (mapc #'(lambda (x)
+	    ($disp (eval x))
+	    ($disp "-cantor-value-separator-")
+	  )
+	(cdr var)
+	)
 )
 
 

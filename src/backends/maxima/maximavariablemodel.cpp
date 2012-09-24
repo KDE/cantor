@@ -98,7 +98,7 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 
     QString valuesString=text.mid(nameIndex+1).trimmed();
 
-    QStringList variableValues=valuesString.split('\n');
+    QStringList variableValues=valuesString.split("\"-cantor-value-separator-\"");
     bool hasValues=variableValues.isEmpty();
 
     kDebug()<<variableNames;
@@ -113,7 +113,7 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         Cantor::DefaultVariableModel::Variable var;
         var.name=variableNames.at(i);;
         if(variableValues.size()>i)
-            var.value=variableValues.at(i);
+            var.value=variableValues.at(i).trimmed();
         else
             var.value="unknown";
         variables<<var;
