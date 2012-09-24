@@ -527,7 +527,6 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
     QString latex;
     QString text;
 
-    kDebug()<<"hi!";
     while(*idx<out.size())
     {
         bool isComplete;
@@ -547,8 +546,6 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
         }
     }
 
-    kDebug()<<"bye!";
-
     //Replace < and > with their html code, so they won't be confused as html tags
     text.replace( '<' , "&lt;");
     text.replace( '>' , "&gt;");
@@ -565,7 +562,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
 
     if(m_tempFile)
     {
-        //QTimer::singleShot(500, this, SLOT(imageChanged()));
+        QTimer::singleShot(500, this, SLOT(imageChanged()));
     }
 
     Cantor::TextResult* result=0;
