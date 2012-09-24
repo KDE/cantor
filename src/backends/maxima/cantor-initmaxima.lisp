@@ -12,7 +12,6 @@
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
 
-
 (setf $inchar "%I")
 (setf $outchar "%O")
 (setf $display2d nil)

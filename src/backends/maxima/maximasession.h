@@ -31,9 +31,11 @@
 
 class MaximaExpression;
 class MaximaVariableModel;
+#ifndef Q_OS_WIN
+  class KPtyProcess;
+#endif
 class KProcess;
 class QTcpServer;
-class QTcpSocket;
 class QTimer;
 class QAbstractItemModel;
 
@@ -48,8 +50,6 @@ class MaximaSession : public Cantor::Session
 
     void login();
     void logout();
-    void startServer();
-    void newMaximaClient(QTcpSocket* socket);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
 
@@ -68,9 +68,9 @@ class MaximaSession : public Cantor::Session
 
   public slots:
     void readStdOut();
+    void readStdErr();
 
   private slots:
-    void newConnection();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
     void restartsCooledDown();
@@ -80,9 +80,12 @@ class MaximaSession : public Cantor::Session
 
     void reportProcessError(QProcess::ProcessError error);
   private:
-    QTcpServer* m_server;
-    QTcpSocket* m_maxima;
+//windows doesn't support Pty
+#ifdef Q_OS_WIN
     KProcess* m_process;
+#else
+    KPtyProcess* m_process;
+#endif
     QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
     MaximaVariableModel* m_variableModel;

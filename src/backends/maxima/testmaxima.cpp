@@ -66,7 +66,11 @@ void TestMaxima::testPlot()
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QEXPECT_FAIL("",  "In the current implementation the image result might arrive after the expression is done running",  Continue);
+    if(e->result()->type()!= Cantor::EpsResult::Type)
+    {
+        waitForSignal(e, SIGNAL(gotResult()));
+    }
+
     QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
@@ -150,6 +154,36 @@ void TestMaxima::testUnmatchedComment()
     QVERIFY(e->status()==Cantor::Expression::Error);
 }
 
+void TestMaxima::testInvalidAssignment()
+{
+    Cantor::Expression* e=evalExp("0:a");
+    QVERIFY(e!=0);
+    //QVERIFY(e->result()==0);
+    //QVERIFY(e->status()==Cantor::Expression::Error);
+
+    if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL( statusChanged(Cantor::Session::Status)));
+
+    //make sure we didn't screw up the session
+    Cantor::Expression* e2=evalExp("2+2");
+    QVERIFY(e2!=0);
+    QVERIFY(e2->result()!=0);
+
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("4"));
+}
+
+void TestMaxima::testInformationRequest()
+{
+    Cantor::Expression* e=session()->evaluateExpression("integrate(x^n,x)");
+    QVERIFY(e!=0);
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    e->addInformation("nonzero;");
+
+    waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+    QVERIFY(e->result()!=0);
+
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("x^(n+1)/(n+1)"));
+}
 
 
 QTEST_MAIN( TestMaxima )

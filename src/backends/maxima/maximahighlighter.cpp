@@ -39,8 +39,8 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : 
     addFunctions(MaximaKeywords::instance()->functions());
     addVariables(MaximaKeywords::instance()->variables());
 
-    addRule(QRegExp("\".*\""), stringFormat());
-    addRule(QRegExp("'.*'"), stringFormat());
+    //addRule(QRegExp("\".*\""), stringFormat());
+    //addRule(QRegExp("'.*'"), stringFormat());
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");
@@ -67,26 +67,53 @@ void MaximaHighlighter::highlightBlock(const QString& text)
     //Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
 
-    setCurrentBlockState(0);
+    setCurrentBlockState(-1);
 
-    int startIndex = 0;
-    if (previousBlockState() != 1)
-        startIndex = commentStartExpression.indexIn(text);
+    int commentLevel = 0;
+    bool inString = false;
+    int startIndex = -1;
 
-    while (startIndex >= 0) {
+    if (previousBlockState() > 0) {
+        commentLevel = previousBlockState();
+        startIndex = 0;
+    } else if (previousBlockState() < -1) {
+        inString = true;
+        startIndex = 0;
+    }
 
-        int endIndex = commentEndExpression.indexIn(text,  startIndex);
-        int commentLength;
-        if (endIndex == -1) {
-
-            setCurrentBlockState(1);
-            commentLength = text.length() - startIndex;
-        } else {
-            commentLength = endIndex - startIndex
-                + commentEndExpression.matchedLength();
+    for (int i = 0; i < text.size(); ++i) {
+        if (text[i] == '\\') {
+            ++i; // skip the next character
+        } else if (text[i] == '"' && commentLevel == 0) {
+            if (!inString)
+                startIndex = i;
+            else
+                setFormat(startIndex, i - startIndex + 1, stringFormat());
+            inString = !inString;
+        } else if (text.mid(i,2) == "/*" && !inString) {
+            if (commentLevel == 0)
+                startIndex = i;
+            ++commentLevel;
+            ++i;
+        } else if (text.mid(i,2) == "*/" && !inString) {
+            if (commentLevel == 0) {
+                setFormat(i, 2, errorFormat());
+                // undo the --commentLevel below, so we stay at 0
+                ++commentLevel;
+            } else if (commentLevel == 1) {
+                setFormat(startIndex, i - startIndex + 2, commentFormat());
+            }
+            ++i;
+            --commentLevel;
         }
-        setFormat(startIndex,  commentLength,  commentFormat());
-        startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
+    }
+
+    if (inString) {
+        setCurrentBlockState(-2);
+        setFormat(startIndex, text.size() - startIndex, stringFormat());
+    } else if (commentLevel > 0) {
+        setCurrentBlockState(commentLevel);
+        setFormat(startIndex, text.size() - startIndex, commentFormat());
     }
 }
 

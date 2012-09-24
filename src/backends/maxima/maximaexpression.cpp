@@ -57,6 +57,7 @@ void MaximaExpression::evaluate()
 
     m_isHelpRequest=false;
     m_isPlot=false;
+    m_gotErrorContent=false;
     if(m_tempFile)
         m_tempFile->deleteLater();
     m_tempFile=0;
@@ -82,69 +83,50 @@ void MaximaExpression::evaluate()
     }
 
     const QString& cmd=command();
-    //if the whole command consists of a comment, drop it
-    bool isComment=true;
-    for(int idx=0;idx<cmd.size();idx=cmd.indexOf("*/")+2)
-    {
-        if(cmd.mid(idx, 2)!="/*")
-        {
-            isComment=false;
-            break;
+
+    bool isComment = true;
+    int commentLevel = 0;
+    bool inString = false;
+    for (int i = 0; i < cmd.size(); ++i) {
+        if (cmd[i] == '\\') {
+            ++i; // skip the next character
+            if (commentLevel == 0 && !inString) {
+                isComment = false;
+            }
+        } else if (cmd[i] == '"' && commentLevel == 0) {
+            inString = !inString;
+            isComment = false;
+        } else if (cmd.mid(i,2) == "/*" && !inString) {
+            ++commentLevel;
+            ++i;
+        } else if (cmd.mid(i,2) == "*/" && !inString) {
+            if (commentLevel == 0) {
+                kDebug() << "Comments mismatched!";
+                setErrorMessage(i18n("Error: Too many */"));
+                setStatus(Cantor::Expression::Error);
+                return;
+            }
+            ++i;
+            --commentLevel;
+        } else if (isComment && commentLevel == 0 && !cmd[i].isSpace()) {
+            isComment = false;
         }
     }
 
-
-    //check that for each comment-opening-tag there is a resulting closing tag,
-    //as otherwise maxima would keep waiting for new input
-    bool matched=true;
-    int idx2=0;
-
-    QString tmp=cmd;
-    int cnt=0;
-    for(int idx=tmp.indexOf("/*");idx!=-1;idx=tmp.indexOf("/*", idx))
-    {
-        kDebug()<<"idx: "<<idx<<" cnt: "<<cnt;
-        if(idx==0||tmp[idx-1]!='*')
-        {
-            cnt++;
-            tmp.remove(idx, 2);
-        }else
-        {
-            idx++;
-        }
-    }
-
-    for(int idx=tmp.indexOf("*/");idx!=-1;idx=tmp.indexOf("*/", idx))
-    {
-        if(idx==0||tmp[idx-1]!='/')
-        {
-            cnt--;
-            tmp.remove(idx, 2);
-        }else
-        {
-            idx++;
-        }
-    }
-
-    if(cnt!=0)
-    {
-        kDebug()<<"missmatched!";
-        setErrorMessage(i18n("Error: Comment tags don't match"));
+    if (commentLevel > 0) {
+        kDebug() << "Comments mismatched!";
+        setErrorMessage(i18n("Error: Too many /*"));
         setStatus(Cantor::Expression::Error);
         return;
     }
-
-    if(isComment)
-    {
-        setStatus(Cantor::Expression::Done);
+    if (inString) {
+        kDebug() << "String not closed";
+        setErrorMessage(i18n("Error: expected \" before ;"));
+        setStatus(Cantor::Expression::Error);
         return;
     }
-
-
-    //also drop empty commands
-    if(command().isEmpty())
+    if(isComment)
     {
-        kDebug()<<"dropping";
         setStatus(Cantor::Expression::Done);
         return;
     }
@@ -345,7 +327,7 @@ bool MaximaExpression::parseOutput(QString& out)
     int idx=0;
     ParserStatus status;
     QStringRef tagName;
-    QString errorBuffer;
+
     kDebug()<<"attempting to parse "<<out;
 
     QChar c;
@@ -369,8 +351,11 @@ bool MaximaExpression::parseOutput(QString& out)
 
         if(newIdx>idx)
         {
-            errorBuffer+=out.mid(idx, newIdx-idx);
-            kDebug()<<"the unmatched part of the output is: "<<errorBuffer;
+            const QString& err=out.mid(idx, newIdx-idx);
+            if(!err.isEmpty())
+                m_gotErrorContent=true;
+            m_errorBuffer+=err;
+            kDebug()<<"the unmatched part of the output is: "<<err;
             idx=newIdx;
         }
 
@@ -444,44 +429,48 @@ bool MaximaExpression::parseOutput(QString& out)
                 if(!isComplete)
                     return false;
 
-                if(!errorBuffer.trimmed().isEmpty())
+                if(!m_errorBuffer.trimmed().isEmpty())
                 {
                     //Replace < and > with their html code, so they won't be confused as html tags
-                    errorBuffer.replace( '<' , "&lt;");
-                    errorBuffer.replace( '>' , "&gt;");
+                    m_errorBuffer.replace( '<' , "&lt;");
+                    m_errorBuffer.replace( '>' , "&gt;");
 
                     if(command().startsWith(":lisp")||command().startsWith(":lisp-quiet"))
                     {
                         if(result)
                         {
                             if(result->type()==Cantor::TextResult::Type)
-                                errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
+                                m_errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
                             else if(result->type()==Cantor::LatexResult::Type)
-                                errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
+                                m_errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
                         }
 
-                        Cantor::TextResult* result=new Cantor::TextResult(errorBuffer);
+                        Cantor::TextResult* result=new Cantor::TextResult(m_errorBuffer);
                         setResult(result);
                         setStatus(Cantor::Expression::Done);
                     }else
                     if(m_isHelpRequest) //Help Messages are also provided in the errorBuffer.
                     {
-                        Cantor::HelpResult* result=new Cantor::HelpResult(errorBuffer);
+                        Cantor::HelpResult* result=new Cantor::HelpResult(m_errorBuffer);
                         setResult(result);
 
                         setStatus(Cantor::Expression::Done);
                     }else
                     {
-                        /*if(result)
+                        if(result)
                         {
+                            kDebug()<<"result: "<<result->toHtml();
                             if(result->type()==Cantor::TextResult::Type)
-                                errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
+                                m_errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
                             else if(result->type()==Cantor::LatexResult::Type)
-                                errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
-                        }*/
+                                m_errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
+                        }
 
-                        setErrorMessage(errorBuffer.trimmed());
-                        if(result==0)
+                        kDebug()<<"errorBuffer: "<<m_errorBuffer;
+
+
+                        setErrorMessage(m_errorBuffer.trimmed());
+                        if(m_gotErrorContent)
                             setStatus(Cantor::Expression::Error);
                         else
                             setStatus(Cantor::Expression::Done);
@@ -619,6 +608,11 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
 
 
     return result;
+}
+
+void MaximaExpression::parseError(const QString& out)
+{
+    m_errorBuffer.append(out);
 }
 
 void MaximaExpression::imageChanged()

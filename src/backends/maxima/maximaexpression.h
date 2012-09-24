@@ -54,6 +54,7 @@ class MaximaExpression : public Cantor::Expression
 
     //reads from @param out until a prompt indicates that a new expression has started
     bool parseOutput(QString& out);
+    void parseError(const QString& out);
 
   private slots:
     void imageChanged();
@@ -67,6 +68,8 @@ class MaximaExpression : public Cantor::Expression
     bool m_isHelpRequest; 
     bool m_isPlot;
     QTimer* m_askTimer;
+    QString m_errorBuffer;
+    bool m_gotErrorContent;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */
