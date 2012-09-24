@@ -130,6 +130,16 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
     }
 }
 
+double TextResultItem::width() const
+{
+    return WorksheetTextItem::width();
+}
+
+double TextResultItem::height() const
+{
+    return WorksheetTextItem::height();
+}
+
 void TextResultItem::toggleLatexCode()
 {
      Cantor::LatexResult* lr = dynamic_cast<Cantor::LatexResult*>(result());

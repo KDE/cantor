@@ -70,8 +70,8 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     bool isEditable();
     bool richTextEnabled();
-    double width();
-    double height();
+    double width() const;
+    double height() const;
     virtual qreal setGeometry(qreal x, qreal y, qreal w, bool centered=false);
 
     Worksheet* worksheet();

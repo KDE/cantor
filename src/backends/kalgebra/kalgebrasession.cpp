@@ -87,7 +87,6 @@ OperatorsModel* KAlgebraSession::operatorsModel()
     return m_operatorsModel;
 }
 
-
 QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
 {
     //return new AlgebraHighlighter(parent->document());

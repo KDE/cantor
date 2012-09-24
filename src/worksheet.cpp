@@ -70,7 +70,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_placeholderEntry = 0;
     m_viewWidth = 0;
     m_protrusion = 0;
-    m_actionBarTimer = 0;
     m_dragScrollTimer = 0;
 
     m_isPrinting = false;
@@ -1107,29 +1106,6 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
     if (event->button() == Qt::LeftButton && !focusItem() && lastEntry() &&
         event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
         lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
-}
-
-void Worksheet::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
-{
-    QGraphicsScene::mouseMoveEvent(event);
-
-    if (m_actionBarTimer) {
-        delete m_actionBarTimer;
-        m_actionBarTimer = 0;
-    }
-    WorksheetEntry* entry = entryAt(event->scenePos());
-    if (entry) {
-        m_actionBarTimer = new QTimer(this);
-        m_actionBarTimer->setInterval(400);
-        m_actionBarTimer->setSingleShot(true);
-        connect(m_actionBarTimer, SIGNAL(timeout()), entry,
-                SLOT(showActionBar()));
-        m_actionBarTimer->start();
-    }
-
-    WorksheetEntry* oldEntry = entryAt(event->lastScenePos());
-    if (oldEntry && oldEntry != entry)
-        oldEntry->hideActionBar();
 }
 
 void Worksheet::createActions(KActionCollection* collection)

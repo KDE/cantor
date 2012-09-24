@@ -210,7 +210,6 @@ class Worksheet : public QGraphicsScene
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
 
     void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
     void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
@@ -244,7 +243,6 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_dragEntry;
     PlaceHolderEntry* m_placeholderEntry;
     WorksheetTextItem* m_lastFocusedTextItem;
-    QTimer* m_actionBarTimer;
     QTimer* m_dragScrollTimer;
 
     double m_viewWidth;

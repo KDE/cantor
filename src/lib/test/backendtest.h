@@ -48,6 +48,7 @@ class CANTORTEST_EXPORT BackendTest : public QObject
          */
         QString cleanOutput( const QString& out );
 
+	Cantor::Session* session();
     private:
         void createSession();
         Cantor::Session* m_session;

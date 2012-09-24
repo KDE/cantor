@@ -40,17 +40,17 @@ class KAlgebraSession : public Cantor::Session
         void interrupt();
 
         Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
+        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
         Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
         Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
-	QAbstractItemModel* variableModel();
+        QAbstractItemModel* variableModel();
 
     private:
         Analitza::Analyzer* m_analyzer;
         OperatorsModel* m_operatorsModel;
-	VariablesModel* m_variablesModel;
+        VariablesModel* m_variablesModel;
 };
 
 #endif

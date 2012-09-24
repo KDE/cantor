@@ -694,12 +694,12 @@ void WorksheetTextItem::insertTab()
     emit cursorPositionChanged(textCursor());
 }
 
-double WorksheetTextItem::width()
+double WorksheetTextItem::width() const
 {
     return m_size.width();
 }
 
-double WorksheetTextItem::height()
+double WorksheetTextItem::height() const
 {
     return m_size.height();
 }

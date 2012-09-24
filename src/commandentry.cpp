@@ -290,7 +290,10 @@ QString CommandEntry::currentLine()
 
 bool CommandEntry::evaluateCurrentItem()
 {
-    if (m_commandItem->hasFocus()) {
+    // we can't use m_commandItem->hasFocus() here, because
+    // that doesn't work when the scene doesn't have the focus,
+    // e.g. when an assistant is used.
+    if (m_commandItem == worksheet()->focusItem()) {
         return evaluate();
     } else if (informationItemHasFocus()) {
         addInformation();
@@ -748,27 +751,32 @@ void CommandEntry::layOutForWidth(double w, bool force)
     m_promptItem->setPos(0,0);
     double x = 0 + m_promptItem->width() + HorizontalSpacing;
     double y = 0;
+    double width = 0;
 
     m_commandItem->setGeometry(x,y, w-x);
+    width = qMax(width, m_commandItem->width());
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
     foreach(WorksheetTextItem* information, m_informationItems) {
         y += VerticalSpacing;
         y += information->setGeometry(x,y,w-x);
+        width = qMax(width, information->width());
     }
 
     if (m_errorItem) {
         y += VerticalSpacing;
         y += m_errorItem->setGeometry(x,y,w-x);
+        width = qMax(width, m_errorItem->width());
     }
 
     if (m_resultItem) {
         y += VerticalSpacing;
         y += m_resultItem->setGeometry(x, y, w-x);
+        width = qMax(width, m_resultItem->width());
     }
     y += VerticalMargin;
 
-    QSizeF s(w, y);
+    QSizeF s(x+ width, y);
     if (animationActive()) {
         updateSizeAnimation(s);
     } else {

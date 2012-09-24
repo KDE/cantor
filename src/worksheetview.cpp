@@ -34,6 +34,8 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent)
     m_hAnimation = 0;
     m_vAnimation = 0;
     m_worksheet = scene;
+    connect(scene, SIGNAL(sceneRectChanged(const QRectF&)),
+            this, SLOT(sceneRectChanged(const QRectF&)));
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
     //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -229,6 +231,15 @@ QPointF WorksheetView::sceneCursorPos()
     return mapToScene(viewCursorPos());
 }
 
+QRectF WorksheetView::viewRect()
+{
+    const qreal w = viewport()->width() / m_scale;
+    const qreal h = viewport()->height() / m_scale;
+    qreal y = verticalScrollBar()->value();
+    qreal x = horizontalScrollBar() ? horizontalScrollBar()->value() : 0;
+    return QRectF(x, y, w, h);
+}
+
 void WorksheetView::resizeEvent(QResizeEvent * event)
 {
     QGraphicsView::resizeEvent(event);
@@ -244,6 +255,23 @@ void WorksheetView::updateSceneSize()
 {
     QSize s = viewport()->size();
     m_worksheet->setViewSize(s.width()/m_scale, s.height()/m_scale, m_scale);
+    sendViewRectChange();
+}
+
+void WorksheetView::sceneRectChanged(const QRectF& sceneRect)
+{
+    Q_UNUSED(sceneRect);
+    if (verticalScrollBar())
+        connect(verticalScrollBar(), SIGNAL(valueChanged(int)),
+                this, SLOT(sendViewRectChange()), Qt::UniqueConnection);
+    if (horizontalScrollBar())
+        connect(horizontalScrollBar(), SIGNAL(valueChanged(int)),
+                this, SLOT(sendViewRectChange()), Qt::UniqueConnection);
+}
+
+void WorksheetView::sendViewRectChange()
+{
+    emit viewRectChanged(viewRect());
 }
 
 void WorksheetView::zoomIn()
@@ -259,17 +287,5 @@ void WorksheetView::zoomOut()
     scale(1/1.1, 1/1.1);
     updateSceneSize();
 }
-
-/*
-#include "kdebug.h"
-
-void WorksheetView::mousePressEvent(QMouseEvent* event)
-{
-    QPointF pos = mapToScene(event->pos());
-    kDebug() << "Click at" << pos;
-    if (QGraphicsItem* item = scene()->itemAt(pos))
-        kDebug() << "item " << item;
-}
-*/
 
 #include "worksheetview.moc"

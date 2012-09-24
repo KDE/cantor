@@ -28,9 +28,14 @@
 ActionBar::ActionBar(WorksheetEntry* parent)
     : QGraphicsObject(parent)
 {
-    setPos(parent->size().width(), 0);
     m_pos = 0;
     m_height = 0;
+    QPointF p = worksheet()->worksheetView()->viewRect().topRight();
+    qreal w = qMin(parent->size().width(),
+                   parent->mapFromScene(p).x());
+    setPos(w, 0);
+    connect(worksheet()->worksheetView(), SIGNAL(viewRectChanged(QRectF)),
+            this, SLOT(updatePosition()));
 }
 
 ActionBar::~ActionBar()
@@ -58,9 +63,14 @@ void ActionBar::addSpace()
     m_pos -= 8;
 }
 
-void ActionBar::updatePosition(const QSizeF& parentSize)
+void ActionBar::updatePosition()
 {
-    setPos(parentSize.width(), 0);
+    if (!parentEntry())
+        return;
+    QPointF p = worksheet()->worksheetView()->viewRect().topRight();
+    qreal w = qMin(parentEntry()->size().width(),
+                   parentEntry()->mapFromScene(p).x());
+    setPos(w, 0);
     const qreal scale = worksheet()->epsRenderer()->scale();
     foreach(WorksheetToolButton* button, m_buttons) {
         button->setIconScale(scale);
@@ -69,7 +79,7 @@ void ActionBar::updatePosition(const QSizeF& parentSize)
 
 WorksheetEntry* ActionBar::parentEntry()
 {
-    return qgraphicsitem_cast<WorksheetEntry*>(parentItem());
+    return qobject_cast<WorksheetEntry*>(parentObject());
 }
 
 QRectF ActionBar::boundingRect() const

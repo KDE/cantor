@@ -35,6 +35,7 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     AnimationResultItem(QGraphicsObject* parent);
     ~AnimationResultItem();
 
+    using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w);
     void populateMenu(KMenu* menu, const QPointF& pos);
 
@@ -43,6 +44,8 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     void deleteLater();
 
     QRectF boundingRect() const;
+    double width() const;
+    double height() const;
     CommandEntry* parentEntry();
     Cantor::Result* result();
 

@@ -58,6 +58,7 @@ WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
     m_actionBar = 0;
     m_actionBarAnimation = 0;
     m_aboutToBeRemoved = false;
+    setAcceptHoverEvents(true);
     worksheet->addItem(this);
 }
 
@@ -661,7 +662,7 @@ void WorksheetEntry::setSize(QSizeF size)
 {
     prepareGeometryChange();
     if (m_actionBar && size != m_size)
-        m_actionBar->updatePosition(size);
+        m_actionBar->updatePosition();
     m_size = size;
 }
 
@@ -714,9 +715,9 @@ void WorksheetEntry::showActionBar()
         m_actionBarAnimation = new QPropertyAnimation(m_actionBar, "opacity",
                                                       this);
         m_actionBarAnimation->setStartValue(0);
+        m_actionBarAnimation->setKeyValueAt(0.666, 0);
         m_actionBarAnimation->setEndValue(1);
-        m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
-        m_actionBarAnimation->setDuration(200);
+        m_actionBarAnimation->setDuration(600);
         connect(m_actionBarAnimation, SIGNAL(finished()), this,
                 SLOT(deleteActionBarAnimation()));
 
@@ -772,6 +773,18 @@ void WorksheetEntry::deleteActionBar()
 
 void WorksheetEntry::addActionsToBar(ActionBar*)
 {
+}
+
+void WorksheetEntry::hoverEnterEvent(QGraphicsSceneHoverEvent* event)
+{
+    Q_UNUSED(event);
+    showActionBar();
+}
+
+void WorksheetEntry::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
+{
+    Q_UNUSED(event);
+    hideActionBar();
 }
 
 WorksheetTextItem* WorksheetEntry::highlightItem()

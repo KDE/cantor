@@ -35,12 +35,16 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     TextResultItem(QGraphicsObject* parent);
     ~TextResultItem();
 
+    using WorksheetTextItem::setGeometry;
     double setGeometry(double x, double y, double w);
     void populateMenu(KMenu* menu, const QPointF& pos);
 
     ResultItem* updateFromResult(Cantor::Result* result);
 
     void setLatex(Cantor::LatexResult* result);
+
+    double width() const;
+    double height() const;
 
     void deleteLater();
     EpsRenderer* epsRenderer();

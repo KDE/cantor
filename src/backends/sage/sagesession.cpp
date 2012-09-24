@@ -114,48 +114,55 @@ void SageSession::appendExpressionToQueue(SageExpression* expr)
 
 void SageSession::readStdOut()
 {
-    QString out=m_process->pty()->readAll();
-    kDebug()<<"out: "<<out;
+    m_outputCache.append(m_process->pty()->readAll());
+    kDebug()<<"out: "<<m_outputCache;
 
-    if ( out.contains( "___TMP_DIR___" ) )
+    if ( m_outputCache.contains( "___TMP_DIR___" ) )
     {
-        int index=out.indexOf("___TMP_DIR___" )+14;
-        int endIndex=out.indexOf("\n", index);
+        int index=m_outputCache.indexOf("___TMP_DIR___" )+14;
+        int endIndex=m_outputCache.indexOf("\n", index);
 
         if(endIndex==-1)
-            m_tmpPath=out.mid( index ).trimmed();
+            m_tmpPath=m_outputCache.mid( index ).trimmed();
         else
-            m_tmpPath=out.mid( index, endIndex-index ).trimmed();
+            m_tmpPath=m_outputCache.mid( index, endIndex-index ).trimmed();
 
         kDebug()<<"tmp path: "<<m_tmpPath;
 
         m_dirWatch.addDir( m_tmpPath, KDirWatch::WatchFiles );
     }
 
-    if(out.contains("____END_OF_INIT____"))
+    int indexOfEOI=m_outputCache.indexOf("____END_OF_INIT____");
+    if(indexOfEOI!=-1&&m_outputCache.indexOf(SagePrompt, indexOfEOI)!=-1)
     {
         kDebug()<<"initialized";
-        out.remove("____END_OF_INIT____");
-        out.remove(SagePrompt);
+        //out.remove("____END_OF_INIT____");
+        //out.remove(SagePrompt);
         m_isInitialized=true;
+        m_waitingForPrompt=false;
         runFirstExpression();
         changeStatus(Cantor::Session::Done);
         emit ready();
+        m_outputCache.clear();
     }
 
     //If we are waiting for another prompt, drop every output
     //until a prompt is found
-    if(m_waitingForPrompt)
+    if(m_isInitialized&&m_waitingForPrompt)
     {
-        if(out.contains(SagePrompt))
+        kDebug()<<"waiting for prompt";
+        if(m_outputCache.contains(SagePrompt))
             m_waitingForPrompt=false;
+
+        m_outputCache.clear();
         return;
     }
 
     if(m_isInitialized&&!m_expressionQueue.isEmpty())
     {
         SageExpression* expr=m_expressionQueue.first();
-        expr->parseOutput(out);
+        expr->parseOutput(m_outputCache);
+        m_outputCache.clear();
     }
 }
 
@@ -232,7 +239,7 @@ void SageSession::runFirstExpression()
             command=("help("+command.mid(1)+')');
 
         kDebug()<<"writing "<<command<<" to the process";
-        m_process->pty()->write(QString(command+'\n').toUtf8());
+        m_process->pty()->write(QString(command+"\n\n").toUtf8());
     }
 }
 

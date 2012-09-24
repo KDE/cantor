@@ -58,6 +58,9 @@ class ResultItem
 
     virtual Cantor::Result* result() = 0;
 
+    virtual double width() const = 0;
+    virtual double height() const = 0;
+
     QGraphicsObject* graphicsObject();
 
   protected:
