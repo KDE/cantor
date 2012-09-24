@@ -98,6 +98,7 @@ void MaximaExpression::evaluate()
             isComment = false;
         } else if (cmd.mid(i,2) == "/*" && !inString) {
             ++commentLevel;
+            ++i;
         } else if (cmd.mid(i,2) == "*/" && !inString) {
             if (commentLevel == 0) {
                 kDebug() << "Comments mismatched!";
