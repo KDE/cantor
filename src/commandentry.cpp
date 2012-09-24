@@ -349,7 +349,10 @@ void CommandEntry::updateEntry()
     if (expr->result()->type() == Cantor::HelpResult::Type)
         return; // Help is handled elsewhere
 
-    if (!m_resultItem) {
+    if (expr->result()->type() == Cantor::TextResult::Type &&
+        expr->result()->toHtml().trimmed().isEmpty()) {
+        return;
+    } else if (!m_resultItem) {
         m_resultItem = ResultItem::create(this, expr->result());
         kDebug() << "new result";
         animateSizeChange();
