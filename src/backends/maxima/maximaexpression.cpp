@@ -350,6 +350,8 @@ bool MaximaExpression::parseOutput(QString& out)
     QString textBuffer;
     QString latexBuffer;
 
+    kDebug()<<"not parsing for:  "<<command();
+
     Cantor::Result* result=0;
     while(idx<out.size())
     {
@@ -461,7 +463,6 @@ bool MaximaExpression::parseOutput(QString& out)
                         setStatus(Cantor::Expression::Done);
                     }else
                     if(m_isHelpRequest) //Help Messages are also provided in the errorBuffer.
-
                     {
                         Cantor::HelpResult* result=new Cantor::HelpResult(errorBuffer);
                         setResult(result);
@@ -469,27 +470,36 @@ bool MaximaExpression::parseOutput(QString& out)
                         setStatus(Cantor::Expression::Done);
                     }else
                     {
-                        if(result)
+                        /*if(result)
                         {
                             if(result->type()==Cantor::TextResult::Type)
                                 errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
                             else if(result->type()==Cantor::LatexResult::Type)
                                 errorBuffer.prepend(dynamic_cast<Cantor::LatexResult*>(result)->plain()+"\n");
-                        }
+                        }*/
 
                         setErrorMessage(errorBuffer.trimmed());
-                        setStatus(Cantor::Expression::Error);
+                        if(result==0)
+                            setStatus(Cantor::Expression::Error);
+                        else
+                            setStatus(Cantor::Expression::Done);
                     }
                 }
                 else
                 {
-                    if(errorMessage().isEmpty())
+                    //if we got an error message, but also a result, lets just+
+                    //assume that it was just a warning, as obviously something worked
+                    if(errorMessage().isEmpty()||result!=0)
                     {
                         setResult(result);
                         setStatus(Cantor::Expression::Done);
                     }
                     else
-                        setStatus(Cantor::Expression::Error);
+                    {
+                        if(!result)
+                            setStatus(Cantor::Expression::Error);
+
+                    }
                 }
 
                 out=out.mid(idx);
@@ -515,6 +525,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
     QString latex;
     QString text;
 
+    kDebug()<<"hi!";
     while(*idx<out.size())
     {
         bool isComplete;
@@ -534,6 +545,8 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
         }
     }
 
+    kDebug()<<"bye!";
+
     //Replace < and > with their html code, so they won't be confused as html tags
     text.replace( '<' , "&lt;");
     text.replace( '>' , "&gt;");
@@ -550,7 +563,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
 
     if(m_tempFile)
     {
-        QTimer::singleShot(500, this, SLOT(imageChanged()));
+        //QTimer::singleShot(500, this, SLOT(imageChanged()));
     }
 
     Cantor::TextResult* result=0;

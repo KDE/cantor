@@ -251,6 +251,7 @@ void MaximaSession::readStdOut()
         }
 
         MaximaExpression* expr=m_expressionQueue.first();
+
         if(expr)
             parsingSuccessfull=expr->parseOutput(m_cache);
         else
@@ -285,6 +286,7 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
        && expression->command().contains( "____END_OF_INIT____"))
     {
         kDebug()<<"initialized";
+        m_expressionQueue.removeFirst();
 
         m_initState=MaximaSession::Initialized;
         m_cache.clear();
