@@ -83,69 +83,49 @@ void MaximaExpression::evaluate()
     }
 
     const QString& cmd=command();
-    //if the whole command consists of a comment, drop it
-    bool isComment=true;
-    for(int idx=0;idx<cmd.size();idx=cmd.indexOf("*/")+2)
-    {
-        if(cmd.mid(idx, 2)!="/*")
-        {
-            isComment=false;
-            break;
+
+    bool isComment = true;
+    int commentLevel = 0;
+    bool inString = false;
+    for (int i = 0; i < cmd.size(); ++i) {
+        if (cmd[i] == '\\') {
+            ++i; // skip the next character
+            if (commentLevel == 0 && !inString) {
+                isComment = false;
+            }
+        } else if (cmd[i] == '"' && commentLevel == 0) {
+            inString = !inString;
+            isComment = false;
+        } else if (cmd.mid(i,2) == "/*" && !inString) {
+            ++commentLevel;
+        } else if (cmd.mid(i,2) == "*/" && !inString) {
+            if (commentLevel == 0) {
+                kDebug() << "Comments mismatched!";
+                setErrorMessage(i18n("Error: Too many */"));
+                setStatus(Cantor::Expression::Error);
+                return;
+            }
+            ++i;
+            --commentLevel;
+        } else if (isComment && commentLevel == 0 && !cmd[i].isSpace()) {
+            isComment = false;
         }
     }
 
-
-    //check that for each comment-opening-tag there is a resulting closing tag,
-    //as otherwise maxima would keep waiting for new input
-    bool matched=true;
-    int idx2=0;
-
-    QString tmp=cmd;
-    int cnt=0;
-    for(int idx=tmp.indexOf("/*");idx!=-1;idx=tmp.indexOf("/*", idx))
-    {
-        kDebug()<<"idx: "<<idx<<" cnt: "<<cnt;
-        if(idx==0||tmp[idx-1]!='*')
-        {
-            cnt++;
-            tmp.remove(idx, 2);
-        }else
-        {
-            idx++;
-        }
-    }
-
-    for(int idx=tmp.indexOf("*/");idx!=-1;idx=tmp.indexOf("*/", idx))
-    {
-        if(idx==0||tmp[idx-1]!='/')
-        {
-            cnt--;
-            tmp.remove(idx, 2);
-        }else
-        {
-            idx++;
-        }
-    }
-
-    if(cnt!=0)
-    {
-        kDebug()<<"missmatched!";
-        setErrorMessage(i18n("Error: Comment tags don't match"));
+    if (commentLevel > 0) {
+        kDebug() << "Comments mismatched!";
+        setErrorMessage(i18n("Error: Too many /*"));
         setStatus(Cantor::Expression::Error);
         return;
     }
-
-    if(isComment)
-    {
-        setStatus(Cantor::Expression::Done);
+    if (inString) {
+        kDebug() << "String not closed";
+        setErrorMessage(i18n("Error: expected \" before ;"));
+        setStatus(Cantor::Expression::Error);
         return;
     }
-
-
-    //also drop empty commands
-    if(command().isEmpty())
+    if(isComment)
     {
-        kDebug()<<"dropping";
         setStatus(Cantor::Expression::Done);
         return;
     }
