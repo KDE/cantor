@@ -95,6 +95,63 @@ void TestMaxima::testExprNumbering()
     QCOMPARE( cleanOutput( e->result()->toHtml() ), QString( "5" ) );
 }
 
+void TestMaxima::testCommandQueue()
+{
+    //only wait for the last Expression to return, so the queue gets
+    //actually filled
+
+    Cantor::Expression* e1=session()->evaluateExpression("0+1");
+    Cantor::Expression* e2=session()->evaluateExpression("1+1");
+    Cantor::Expression* e3=evalExp("1+2");
+
+    QVERIFY(e1!=0);
+    QVERIFY(e2!=0);
+    QVERIFY(e3!=0);
+
+    QVERIFY(e1->result());
+    QVERIFY(e2->result());
+    QVERIFY(e3->result());
+
+    QCOMPARE(cleanOutput(e1->result()->toHtml()), QString("1"));
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("2"));
+    QCOMPARE(cleanOutput(e3->result()->toHtml()), QString("3"));
+}
+
+void TestMaxima::testSimpleExpressionWithComment()
+{
+    Cantor::Expression* e=evalExp("/*this is a comment*/2+2");
+    QVERIFY(e!=0);
+    QVERIFY(e->result()!=0);
+
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("4"));
+}
+
+void TestMaxima::testCommentExpression()
+{
+    Cantor::Expression* e=evalExp("/*this is a comment*");
+    QVERIFY(e!=0);
+    QVERIFY(e->result()==0||e->result()->toHtml().isEmpty());
+}
+
+void TestMaxima::testNestedComment()
+{
+    Cantor::Expression* e=evalExp("/*/*this is still a comment*/*/2+2/*still/*a*/comment*//**/");
+    QVERIFY(e!=0);
+    QVERIFY(e->result()!=0);
+
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("4"));
+}
+
+void TestMaxima::testUnmatchedComment()
+{
+    Cantor::Expression* e=evalExp("/*this comment doesn't end here!");
+    QVERIFY(e!=0);
+    QVERIFY(e->result()==0);
+    QVERIFY(e->status()==Cantor::Expression::Error);
+}
+
+
+
 QTEST_MAIN( TestMaxima )
 
 #include "testmaxima.moc"
