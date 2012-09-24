@@ -1004,7 +1004,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
     //We're only interested in help results, others are handled by the WorksheetEntry
     foreach(Cantor::Result* result, expr->results()) {
         if(result->type()==Cantor::HelpResult::Type) {
-            QString help=expr->result()->toHtml();
+            QString help=result->toHtml();
             //Do some basic LaTeX replacing
             help.replace(QRegExp("\\\\code\\{([^\\}]*)\\}"), "<b>\\1</b>");
             help.replace(QRegExp("\\$([^\\$])\\$"), "<i>\\1</i>");

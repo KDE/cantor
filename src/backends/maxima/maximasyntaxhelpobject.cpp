@@ -78,7 +78,9 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
     if(status==Cantor::Expression::Done)
     {
         kDebug()<<"expr done";
-        QString text=m_expression->result()->toHtml();
+        if (!m_expression->hasResults())
+            return;
+        QString text=m_expression->results().at(0)->toHtml();
         QStringList lines=text.split('\n');
 
         QString syntax;

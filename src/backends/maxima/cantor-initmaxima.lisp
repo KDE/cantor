@@ -1,8 +1,8 @@
 ;;this file is partially based on similar files from the WxMaxima and Texmacs projects
 
 (in-package :maxima)
-#+clisp (defvar *old-suppress-check-redefinition* 
-	      custom:*suppress-check-redefinition*)
+#+clisp (defvar *old-suppress-check-redefinition*
+              custom:*suppress-check-redefinition*)
 #+clisp (setf custom:*suppress-check-redefinition* t)
 (setf *alt-display2d* 'cantor-latex-print)
 (setf *alt-display1d* 'cantor-regular-print)
@@ -25,12 +25,12 @@
 ;; Andrey Grozin, 2001-2006
 
 ;(defun main-prompt ()
-;  (format () "~A(~A~D) ~A" *prompt-prefix* 
+;  (format () "~A(~A~D) ~A" *prompt-prefix*
 ;    (tex-stripdollar $inchar) $linenum *prompt-suffix*))
 
 (declare-top
-	 (special lop rop ccol $gcprint $inchar)
-	 (*expr tex-lbp tex-rbp))
+         (special lop rop ccol $gcprint $inchar)
+         (*expr tex-lbp tex-rbp))
 (defconstant texport *standard-output*)
 
 (defun tex-stripdollar (x)
@@ -66,13 +66,13 @@
 (defun cantor-inspect (var)
   ($disp var)
   (mapc #'(lambda (x)
-	    ($disp (eval x))
-	    ($disp "-cantor-value-separator-")
-	  )
-	(cdr var)
-	)
+            ($disp (eval x))
+            ($disp "-cantor-value-separator-")
+          )
+        (cdr var)
+        )
 )
 
 
 #+clisp (setf custom:*suppress-check-redefinition*
-	      *old-suppress-check-redefinition*)
+              *old-suppress-check-redefinition*)

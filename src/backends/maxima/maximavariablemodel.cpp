@@ -65,18 +65,20 @@ void MaximaVariableModel::checkForNewFunctions()
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
+    // Should we really just use results().at(0) here?
+    // It wouldn't be much of a problem to iterate the lists
     kDebug()<<"parsing it!";
     if(!expr||expr->status()!=Cantor::Expression::Done)
         return QList<Cantor::DefaultVariableModel::Variable>();
 
     QString text;
-    if(expr->result()->type()==Cantor::TextResult::Type)
-        text=dynamic_cast<Cantor::TextResult*>(expr->result())->plain();
-    else if(expr->result()->type()==Cantor::LatexResult::Type)
-        text=dynamic_cast<Cantor::LatexResult*>(expr->result())->plain();
+    if(expr->results().at(0)->type()==Cantor::TextResult::Type)
+        text=dynamic_cast<Cantor::TextResult*>(expr->results().at(0))->plain();
+    else if(expr->results().at(0)->type()==Cantor::LatexResult::Type)
+        text=dynamic_cast<Cantor::LatexResult*>(expr->results().at(0))->plain();
     else
     {
-        kDebug()<<"unsupported type: "<<expr->result()->type()<<endl;
+        kDebug()<<"unsupported type: "<<expr->results().at(0)->type()<<endl;
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 

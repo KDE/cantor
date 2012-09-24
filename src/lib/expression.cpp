@@ -221,7 +221,7 @@ void Expression::latexRendered()
     {
         //if rendering with latex was not successfull, just use the plain text version
         //if available
-        TextResult* r=dynamic_cast<TextResult*>(result());
+        TextResult* r=dynamic_cast<TextResult*>(result);
         setResult(new TextResult(r->plain()));
         kDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }

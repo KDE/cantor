@@ -46,7 +46,7 @@ struct AnimationData
     QPropertyAnimation* opacAnimation;
     QPropertyAnimation* posAnimation;
     const char* slot;
-    QObject* item;
+    QGraphicsObject* item;
 };
 
 const qreal WorksheetEntry::VerticalMargin = 4;
@@ -399,8 +399,8 @@ void WorksheetEntry::animateSizeChange()
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     m_animation = new AnimationData;
-    m_animation->item = 0;
     m_animation->slot = 0;
+    m_animation->item = 0;
     m_animation->opacAnimation = 0;
     m_animation->posAnimation = 0;
     m_animation->sizeAnimation = sizeAn;
@@ -439,7 +439,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     m_animation->posAnimation = 0;
 
     m_animation->animation = new QParallelAnimationGroup(this);
-    m_animation->item = item;
+    m_animation->item  = item;
     m_animation->slot = slot;
 
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
@@ -494,6 +494,9 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
 void WorksheetEntry::fadeOutItems(QList<QGraphicsObject*> items,
                                   const char* slot)
 {
+    if (items.size() == 0)
+        return;
+
     // Note: The default value for slot is SLOT(deleteLater()), so the items
     // will be deleted after the animation.
     if (!worksheet()->animationsEnabled()) {
@@ -512,15 +515,12 @@ void WorksheetEntry::fadeOutItems(QList<QGraphicsObject*> items,
         return;
     }
 
-    GraphicsItemGroupObject* itemGroup = new GraphicsItemGroupObject(this);
-    foreach(QGraphicsObject* item, items) {
-        itemGroup->addItem(item);
-    }
-
+    GraphicsItemGroupObject* group = new GraphicsItemGroupObject(this);
+    group->setItems(items);
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     m_animation = new AnimationData;
     m_animation->sizeAnimation = sizeAn;
-    m_animation->opacAnimation = new QPropertyAnimation(itemGroup, "opacity",
+    m_animation->opacAnimation = new QPropertyAnimation(group, "itemOpacity",
                                                         this);
     m_animation->opacAnimation->setDuration(200);
     m_animation->opacAnimation->setStartValue(1);
@@ -529,8 +529,13 @@ void WorksheetEntry::fadeOutItems(QList<QGraphicsObject*> items,
     m_animation->posAnimation = 0;
 
     m_animation->animation = new QParallelAnimationGroup(this);
-    m_animation->item = itemGroup;
-    m_animation->slot = slot;
+    m_animation->item = group;
+    m_animation->slot = SLOT(deleteLater());
+    if (slot) {
+        foreach(QGraphicsObject* item, items) {
+            connect(group, SIGNAL(deleted()), item, slot);
+        }
+    }
 
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);

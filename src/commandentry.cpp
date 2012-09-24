@@ -347,19 +347,19 @@ void CommandEntry::updateEntry()
 
     bool hadResults = !m_resultItems.isEmpty();
     removeResults();
-    foreach(Result* r, expr->results()) {
-        if (expr->result()->type() == Cantor::HelpResult::Type)
+    foreach(Cantor::Result* r, expr->results()) {
+        if (r->type() == Cantor::HelpResult::Type)
             continue; // Help is handled elsewhere
 
-        if (expr->result()->type() == Cantor::TextResult::Type &&
-            expr->result()->toHtml().trimmed().isEmpty()) {
+        if (r->type() == Cantor::TextResult::Type &&
+            r->toHtml().trimmed().isEmpty()) {
             continue; // Skip empty results
         } else {
-            m_resultItems.append(ResultItem::create(this, expr->result()));
+            m_resultItems.append(ResultItem::create(this, r));
             kDebug() << "new result";
         }
     }
-    if (had_results || !m_resultItems.isEmpty())
+    if (hadResults || !m_resultItems.isEmpty())
         animateSizeChange();
 }
 
@@ -616,7 +616,7 @@ void CommandEntry::removeResults()
 
     QList<QGraphicsObject*> resultObjects;
     foreach(ResultItem* item, m_resultItems) {
-        resultObjects.append(m_resultItem->graphicsObject());
+        resultObjects.append(item->graphicsObject());
     }
     m_resultItems.clear();
     fadeOutItems(resultObjects);
