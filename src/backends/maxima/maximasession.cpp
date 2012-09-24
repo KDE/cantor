@@ -232,7 +232,7 @@ void MaximaSession::readStdOut()
 {
     kDebug()<<"reading stdOut";
     if (!m_maxima)
-	return;
+        return;
     QString out=m_maxima->readAll();
     kDebug()<<"out: "<<out;
 
@@ -281,6 +281,7 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
     MaximaExpression* expression=m_expressionQueue.first();
+    kDebug() << expression << status;
 
     if(m_initState==MaximaSession::Initializing
        && expression->command().contains( "____END_OF_INIT____"))
@@ -305,7 +306,6 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
         kDebug()<<"expression finished";
-        MaximaExpression* expression=m_expressionQueue.first();
         disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
                    this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
@@ -346,7 +346,7 @@ void MaximaSession::runFirstExpression()
     }
     kDebug()<<"running next expression";
     if (!m_maxima)
-	return;
+        return;
 
     if(!m_expressionQueue.isEmpty())
     {
@@ -432,8 +432,8 @@ void MaximaSession::restartMaxima()
         login();
     }else
     {
-	if(!m_expressionQueue.isEmpty())
-	    m_expressionQueue.removeFirst();
+        if(!m_expressionQueue.isEmpty())
+            m_expressionQueue.removeFirst();
         KMessageBox::error(0, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
     }
 }
