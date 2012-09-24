@@ -59,12 +59,21 @@ void TestOctave::testPlot()
 {
     Cantor::Expression* e=evalExp( "cantor_plot2d('sin(x)', 'x', -10,10);" );
 
+    int cnt=0;
+    //give some time to create the image, but at most 5sec
+    while(e->result()==0)
+    {
+        QTest::qWait(250);
+        cnt+=250;
+        if(cnt>5000)
+            break;
+    }
+
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
     QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
     QVERIFY( !e->result()->data().isNull() );
-    QVERIFY( e->errorMessage().isNull() );
 }
 
 void TestOctave::testInvalidSyntax()

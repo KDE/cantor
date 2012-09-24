@@ -19,7 +19,7 @@
     Copyright (C) 2010 Oleksiy Protas <elfy.ua@gmail.com>
  */
 
-// TODO: setStatus in syntax and completions, to be or not to be? 
+// TODO: setStatus in syntax and completions, to be or not to be?
 // on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
@@ -64,11 +64,11 @@ bool htmlVector(SEXP expr, QTextStream& fp)
         switch (TYPEOF(expr))
         {
             case REALSXP:
-                cellData=QString::number(REAL(expr)[i]); break; 
+                cellData=QString::number(REAL(expr)[i]); break;
             case INTSXP:
-                cellData=QString::number(INTEGER(expr)[i]); break; 
-            case STRSXP: 
-                cellData=CHAR(STRING_ELT(expr,i)); break; 
+                cellData=QString::number(INTEGER(expr)[i]); break;
+            case STRSXP:
+                cellData=CHAR(STRING_ELT(expr,i)); break;
             default:
                 return false;
         }
@@ -134,7 +134,7 @@ void RServer::initR()
         kDebug()<<"integrating plots";
         newPlotDevice();
     }
-    
+
     //Loading automatic run scripts
     foreach (const QString& path, RServerSettings::self()->autorunScripts())
     {
@@ -149,7 +149,7 @@ void RServer::initR()
     }
 
     kDebug()<<"done initializing";
-    
+
     // FIXME: other way to search symbols, see listSymbols for details
     listSymbols();
 }
@@ -194,7 +194,7 @@ void RServer::autoload()
     PROTECT(AutoloadEnv = Rf_findVar(Rf_install(".AutoloadEnv"), R_GlobalEnv));
     if (AutoloadEnv == R_NilValue){
         kError()<<"Cannot find .AutoloadEnv";
-	//exit(1);
+        //exit(1);
     }
     PROTECT(dacall = allocVector(LANGSXP,5));
     SETCAR(dacall,da);
@@ -213,38 +213,38 @@ void RServer::autoload()
 
     ptct = 5;
     for(i = 0; i < packc; ++i){
-	idx += (i != 0)? packobjc[i-1] : 0;
-	for (j = 0; j < packobjc[i]; ++j){
-	    /*printf("autload(%s,%s)\n",packobj[idx+j],pack[i]);*/
+        idx += (i != 0)? packobjc[i-1] : 0;
+        for (j = 0; j < packobjc[i]; ++j){
+            /*printf("autload(%s,%s)\n",packobj[idx+j],pack[i]);*/
 
-	    PROTECT(name = NEW_CHARACTER(1));
-	    PROTECT(package = NEW_CHARACTER(1));
-	    SET_STRING_ELT(name, 0, COPY_TO_USER_STRING(packobj[idx+j]));
-	    SET_STRING_ELT(package, 0, COPY_TO_USER_STRING(pack[i]));
+            PROTECT(name = NEW_CHARACTER(1));
+            PROTECT(package = NEW_CHARACTER(1));
+            SET_STRING_ELT(name, 0, COPY_TO_USER_STRING(packobj[idx+j]));
+            SET_STRING_ELT(package, 0, COPY_TO_USER_STRING(pack[i]));
 
-	    /* Set up autoloader call */
-	    PROTECT(alcall = allocVector(LANGSXP,3));
-	    SET_TAG(alcall, R_NilValue); /* just like do_ascall() does */
-	    SETCAR(alcall,al);
-	    SETCAR(CDR(alcall),name);
-	    SETCAR(CDR(CDR(alcall)),package);
+            /* Set up autoloader call */
+            PROTECT(alcall = allocVector(LANGSXP,3));
+            SET_TAG(alcall, R_NilValue); /* just like do_ascall() does */
+            SETCAR(alcall,al);
+            SETCAR(CDR(alcall),name);
+            SETCAR(CDR(CDR(alcall)),package);
 
-	    /* Setup delayedAssign call */
-	    SETCAR(CDR(dacall),name);
-	    SETCAR(CDR(CDR(dacall)),alcall);
+            /* Setup delayedAssign call */
+            SETCAR(CDR(dacall),name);
+            SETCAR(CDR(CDR(dacall)),alcall);
 
-	    R_tryEval(dacall,R_GlobalEnv,&errorOccurred);
-	    if (errorOccurred){
+            R_tryEval(dacall,R_GlobalEnv,&errorOccurred);
+            if (errorOccurred){
                 kError()<<"Error calling delayedAssign!";
                 //exit(1);
-	    }
+            }
 
-	    ptct += 3;
-	}
+            ptct += 3;
+        }
     }
     UNPROTECT(ptct);
-    
-    /* Initialize the completion libraries if needed, adapted from sys-std.c of R */ 
+
+    /* Initialize the completion libraries if needed, adapted from sys-std.c of R */
     // TODO: should we do this or init on demand?
     // if (completion is needed) // TODO: discuss how to pass parameter
     {
@@ -349,6 +349,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
         kDebug()<<"std: "<<expr->std_buffer<<" err: "<<expr->err_buffer;
         //if the command didn't print anything on its own, print the result
 
+
         //TODO: handle some known result types like lists, matrices spearately
         //      to make the output look better, by using html (tables etc.)
         if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
@@ -378,6 +379,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
             }
             UNPROTECT(1);
         }
+
 
         setCurrentExpression(0); //is this save?
 
@@ -420,7 +422,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
         showFiles(neededFiles);
 
     setStatus(Idle);
-    
+
     // FIXME: Calling this every evaluation is probably ugly
     listSymbols();
 }
@@ -428,7 +430,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
 void RServer::completeCommand(const QString& cmd)
 {
 //     setStatus(RServer::Busy);
-    
+
     // TODO: is static okay? guess RServer is a singletone, but ...
     // TODO: error handling?
     // TODO: investigate encoding problem
@@ -441,28 +443,28 @@ void RServer::completeCommand(const QString& cmd)
     static SEXP buffer_end_func=install(".assignEnd");
     static SEXP complete_func=install(".completeToken");
     static SEXP retrieve_func=install(".retrieveCompletions");
-    
+
     /* Setting buffer parameters */
     int errorOccurred=0; // TODO: error cheks, too lazy to do it now
     R_tryEval(lang2(linebuffer_func,mkString(cmd.toUtf8().data())),comp_env,&errorOccurred);
     R_tryEval(lang2(buffer_end_func,ScalarInteger(cmd.size())),comp_env,&errorOccurred);
-    
+
     /* Passing the tokenizing work to professionals */
     SEXP token=PROTECT(R_tryEval(lang1(tokenizer_func),comp_env,&errorOccurred));
-    
+
     /* Doing the actual stuff */
     R_tryEval(lang1(complete_func),comp_env,&errorOccurred);
     SEXP completions=PROTECT(R_tryEval(lang1(retrieve_func),comp_env,&errorOccurred));
-    
+
     /* Populating the list of completions */
     QStringList completionOptions;
     for (int i=0;i<length(completions);i++)
         completionOptions<<translateCharUTF8(STRING_ELT(completions,i));
     QString qToken=translateCharUTF8(STRING_ELT(token,0));
     UNPROTECT(2);
-    
+
     emit completionFinished(qToken,completionOptions);
-    
+
 //     setStatus(RServer::Idle);
 }
 
@@ -474,16 +476,16 @@ void RServer::completeCommand(const QString& cmd)
 void RServer::listSymbols()
 {
 //     setStatus(RServer::Busy);
-    
+
     QStringList vars,funcs, namespaces;
     int errorOccurred; // TODO: error checks
-    
+
     /* Obtaining a list of user namespace objects */
     SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),NULL,&errorOccurred));
     for (int i=0;i<length(usr);i++)
         vars<<translateCharUTF8(STRING_ELT(usr,i));
     UNPROTECT(1);
-    
+
     /* Obtaining a list of active packages */
     SEXP packages=PROTECT(R_tryEval(lang1(install("search")),NULL,&errorOccurred));
     //int i=1; // HACK to prevent scalability issues
@@ -497,9 +499,9 @@ void RServer::listSymbols()
         UNPROTECT(1);
     }
     UNPROTECT(1);
-    
+
     emit symbolList(vars,funcs);
-    
+
 //     setStatus(RServer::Idle);
 }
 

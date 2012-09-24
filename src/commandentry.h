@@ -117,6 +117,7 @@ class CommandEntry : public WorksheetEntry
     WorksheetTextItem* currentInformationItem();
     bool informationItemHasFocus();
     bool focusWithinThisItem();
+    QPoint getPopupPosition();
 
     QPoint toGlobalPosition(const QPointF& localPos);
 

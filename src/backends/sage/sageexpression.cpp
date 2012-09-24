@@ -57,7 +57,7 @@ void SageExpression::evaluate()
     //coun't how many newlines are in the command,
     //as sage will output one "sage: " or "....:" for
     //each.
-    m_promptCount=command().count('\n')+1;
+    m_promptCount=command().count('\n')+2;
 
     dynamic_cast<SageSession*>(session())->appendExpressionToQueue(this);
 }
