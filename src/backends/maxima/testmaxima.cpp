@@ -150,6 +150,33 @@ void TestMaxima::testUnmatchedComment()
     QVERIFY(e->status()==Cantor::Expression::Error);
 }
 
+void TestMaxima::testInvalidAssignment()
+{
+    Cantor::Expression* e=evalExp("0:a");
+    QVERIFY(e!=0);
+    //QVERIFY(e->result()==0);
+    //QVERIFY(e->status()==Cantor::Expression::Error);
+
+    if(session()->status()==Cantor::Session::Running)
+    {
+        QTimer timeout( this );
+        timeout.setSingleShot( true );
+
+        QEventLoop loop;
+        connect( session(), SIGNAL( statusChanged(Cantor::Session::Status) ), &loop, SLOT( quit() ) );
+        connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
+        timeout.start( 5000 );
+        loop.exec();
+    }
+
+    //make sure we didn't screw up the session
+    Cantor::Expression* e2=evalExp("2+2");
+    QVERIFY(e2!=0);
+    QVERIFY(e2->result()!=0);
+
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("4"));
+}
+
 
 
 QTEST_MAIN( TestMaxima )

@@ -52,6 +52,8 @@ private slots:
     void testNestedComment();
     void testUnmatchedComment();
 
+    void testInvalidAssignment();
+
 private:
     virtual QString backendName();
 };
