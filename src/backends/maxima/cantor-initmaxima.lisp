@@ -1,7 +1,7 @@
 ;;this file is partially based on similar files from the WxMaxima and Texmacs projects
 
 (in-package :maxima)
-#+clisp (defvar *old-suppress-check-redefinition* 
+#+clisp (defvar *old-suppress-check-redefinition*
 	      custom:*suppress-check-redefinition*)
 #+clisp (setf custom:*suppress-check-redefinition* t)
 (setf *alt-display2d* 'cantor-latex-print)
@@ -11,7 +11,7 @@
 ;(setf *general-display-prefix* "DISPLAY_PREFIX")
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
-
+(setf *query-io* *standard-input*)
 
 (setf $inchar "%I")
 (setf $outchar "%O")
@@ -25,7 +25,7 @@
 ;; Andrey Grozin, 2001-2006
 
 ;(defun main-prompt ()
-;  (format () "~A(~A~D) ~A" *prompt-prefix* 
+;  (format () "~A(~A~D) ~A" *prompt-prefix*
 ;    (tex-stripdollar $inchar) $linenum *prompt-suffix*))
 
 (declare-top

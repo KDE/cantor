@@ -54,6 +54,8 @@ private slots:
 
     void testInvalidAssignment();
 
+    void testInformationRequest();
+
 private:
     virtual QString backendName();
 };

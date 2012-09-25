@@ -158,16 +158,7 @@ void TestMaxima::testInvalidAssignment()
     //QVERIFY(e->status()==Cantor::Expression::Error);
 
     if(session()->status()==Cantor::Session::Running)
-    {
-        QTimer timeout( this );
-        timeout.setSingleShot( true );
-
-        QEventLoop loop;
-        connect( session(), SIGNAL( statusChanged(Cantor::Session::Status) ), &loop, SLOT( quit() ) );
-        connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
-        timeout.start( 5000 );
-        loop.exec();
-    }
+        waitForSignal(session(), SIGNAL( statusChanged(Cantor::Session::Status)));
 
     //make sure we didn't screw up the session
     Cantor::Expression* e2=evalExp("2+2");
@@ -177,6 +168,18 @@ void TestMaxima::testInvalidAssignment()
     QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("4"));
 }
 
+void TestMaxima::testInformationRequest()
+{
+    Cantor::Expression* e=session()->evaluateExpression("integrate(x^n,x)");
+    QVERIFY(e!=0);
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    e->addInformation("nonzero;");
+
+    waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+    QVERIFY(e->result()!=0);
+
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("x^(n+1)/(n+1)"));
+}
 
 
 QTEST_MAIN( TestMaxima )
