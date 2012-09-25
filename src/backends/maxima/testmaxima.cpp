@@ -26,6 +26,7 @@
 #include "result.h"
 #include "imageresult.h"
 #include "epsresult.h"
+#include "syntaxhelpobject.h"
 
 #include <kdebug.h>
 
@@ -185,6 +186,13 @@ void TestMaxima::testInformationRequest()
     QCOMPARE(cleanOutput(e->result()->toHtml()), QString("x^(n+1)/(n+1)"));
 }
 
+void TestMaxima::testSyntaxHelp()
+{
+    Cantor::SyntaxHelpObject* help = session()->syntaxHelpFor("simplify_sum");
+    help->fetchSyntaxHelp();
+    waitForSignal(help, SIGNAL(done()));
+    QVERIFY(!help->toHtml().isEmpty());
+}
 
 QTEST_MAIN( TestMaxima )
 

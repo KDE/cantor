@@ -56,6 +56,8 @@ private slots:
 
     void testInformationRequest();
 
+    void testSyntaxHelp();
+
 private:
     virtual QString backendName();
 };
