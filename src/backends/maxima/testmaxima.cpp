@@ -66,7 +66,11 @@ void TestMaxima::testPlot()
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QEXPECT_FAIL("",  "In the current implementation the image result might arrive after the expression is done running",  Continue);
+    if(e->result()->type()!= Cantor::EpsResult::Type)
+    {
+        waitForSignal(e, SIGNAL(gotResult()));
+    }
+
     QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
