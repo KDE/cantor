@@ -640,7 +640,7 @@ void MaximaExpression::imageChanged()
 
 QString MaximaExpression::additionalLatexHeaders()
 {
-    return QString::null;
+    return QString();
 }
 
 #include "maximaexpression.moc"

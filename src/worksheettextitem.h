@@ -43,7 +43,7 @@ class WorksheetTextItem : public QGraphicsTextItem
 {
   Q_OBJECT
   public:
-    WorksheetTextItem(QGraphicsObject* parent,
+    explicit WorksheetTextItem(QGraphicsObject* parent,
                       Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem();
 
