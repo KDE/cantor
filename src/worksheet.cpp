@@ -705,15 +705,10 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
 
 }
 
-void Worksheet::enableHighlighting(bool highlight)
+void Worksheet::rehighlight()
 {
-    if(highlight) {
-        if(m_highlighter)
-            m_highlighter->deleteLater();
-        m_highlighter=session()->syntaxHighlighter(this);
-        if(!m_highlighter)
-            m_highlighter=new Cantor::DefaultHighlighter(this);
-
+    if(m_highlighter)
+    {
         // highlight every entry
         WorksheetEntry* entry;
         for (entry = firstEntry(); entry; entry = entry->next()) {
@@ -727,11 +722,8 @@ void Worksheet::enableHighlighting(bool highlight)
         WorksheetTextItem* textitem = entry ? entry->highlightItem() : 0;
         if (textitem && textitem->hasFocus())
             highlightItem(textitem);
-    } else {
-        if(m_highlighter)
-            m_highlighter->deleteLater();
-        m_highlighter=0;
-
+    } else
+    {
         // remove highlighting from entries
         WorksheetEntry* entry;
         for (entry = firstEntry(); entry; entry = entry->next()) {
@@ -746,6 +738,28 @@ void Worksheet::enableHighlighting(bool highlight)
         }
         update();
     }
+}
+
+void Worksheet::enableHighlighting(bool highlight)
+{
+    if(highlight)
+    {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=session()->syntaxHighlighter(this);
+        if(!m_highlighter)
+            m_highlighter=new Cantor::DefaultHighlighter(this);
+
+        connect(m_highlighter, SIGNAL(rulesChanged()), this, SLOT(rehighlight()));
+
+    }else
+    {
+        if(m_highlighter)
+            m_highlighter->deleteLater();
+        m_highlighter=0;
+    }
+
+    rehighlight();
 }
 
 void Worksheet::enableCompletion(bool enable)
@@ -988,7 +1002,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
     if(expr==0)
         return;
     //We're only interested in help results, others are handled by the WorksheetEntry
-    if(expr->result()->type()==Cantor::HelpResult::Type)
+    if(expr->result()&&expr->result()->type()==Cantor::HelpResult::Type)
     {
         QString help=expr->result()->toHtml();
         //Do some basic LaTeX replacing

@@ -122,7 +122,7 @@ bool DefaultHighlighter::skipHighlighting(const QString& text)
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    kDebug() << text;
+    //kDebug() << text;
     const QTextCursor& cursor = d->cursor;
     d->lastBlockNumber = cursor.blockNumber();
 
@@ -143,7 +143,7 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    kDebug() << text;
+    //kDebug() << text;
     const QTextCursor& cursor = d->cursor;
     int cursorPos = -1;
     if (cursor.blockNumber() == currentBlock().blockNumber() ) {
@@ -188,7 +188,7 @@ void DefaultHighlighter::highlightPairs(const QString& text)
 
 void DefaultHighlighter::highlightWords(const QString& text)
 {
-    kDebug() << "DefaultHighlighter::highlightWords";
+    //kDebug() << "DefaultHighlighter::highlightWords";
 
     const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
     int count;
@@ -205,18 +205,18 @@ void DefaultHighlighter::highlightWords(const QString& text)
         //prepend them to the current word. This allows for example
         //to highlight words that start with a "Non-word"-character
         //e.g. %pi in the scilab backend.
-        kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
+        //kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
         if(!nonSeparatingCharacters().isNull())
         {
             for(int j = i - 1; j >= 0; j--)
             {
-                kDebug() << "j: " << j << "w: " << words[j];
+                //kDebug() << "j: " << j << "w: " << words[j];
                 const QString& w = words[j];
                 const QString exp = QString("(%1)*$").arg(nonSeparatingCharacters());
-                kDebug() << "exp: " << exp;
+                //kDebug() << "exp: " << exp;
                 int idx = w.indexOf(QRegExp(exp));
                 const QString& s = w.mid(idx);
-                kDebug() << "s: " << s;
+                //kDebug() << "s: " << s;
 
                 if(s.size() > 0)
                 {
@@ -231,7 +231,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
 
         word = word.trimmed();
 
-        kDebug() << "highlighing: " << word;
+        //kDebug() << "highlighing: " << word;
 
         if (d->wordRules.contains(word))
         {
@@ -380,6 +380,7 @@ void DefaultHighlighter::positionChanged(QTextCursor cursor)
 void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
 {
     d->wordRules[word] = format;
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& format)
@@ -387,17 +388,23 @@ void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& f
     HighlightingRule rule = { regexp, format };
     d->regExpRules.removeAll(rule);
     d->regExpRules.append(rule);
+
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QString& word)
 {
     d->wordRules.remove(word);
+
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QRegExp& regexp)
 {
     HighlightingRule rule = { regexp, QTextCharFormat() };
     d->regExpRules.removeAll(rule);
+
+    emit rulesChanged();
 }
 
 QString DefaultHighlighter::nonSeparatingCharacters() const

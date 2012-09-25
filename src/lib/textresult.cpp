@@ -35,13 +35,22 @@ public:
     }
 
     QString data;
+    QString plain;
     TextResult::Format format;
 };
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
 {
     d->data=data.trimmed();
+    d->plain=data.trimmed();
 }
+
+TextResult::TextResult(const QString& data, const QString& plain) : d(new TextResultPrivate)
+{
+    d->data=data.trimmed();
+    d->plain=plain.trimmed();
+}
+
 
 TextResult::~TextResult()
 {
@@ -58,6 +67,11 @@ QString TextResult::toHtml()
 QVariant TextResult::data()
 {
     return QVariant(d->data);
+}
+
+QString TextResult::plain()
+{
+    return d->plain;
 }
 
 int TextResult::type()

@@ -35,10 +35,13 @@ class CANTOR_EXPORT TextResult : public Result
     enum { Type=1 };
     enum Format { PlainTextFormat, LatexFormat};
     TextResult(const QString& text);
+    TextResult(const QString& text, const QString& plain);
     ~TextResult();
 
     QString toHtml();
     QVariant data();
+
+    QString plain();
 
     int type();
     QString mimeType();

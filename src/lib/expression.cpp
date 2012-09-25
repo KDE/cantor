@@ -46,6 +46,7 @@ public:
     ExpressionPrivate() {
         result=0;
         session=0;
+        isInternal=false;
     }
 
     int id;
@@ -56,6 +57,7 @@ public:
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
+    bool isInternal;
 };
 
 static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
@@ -119,7 +121,9 @@ void Expression::setResult(Result* result)
         if ( session()->isTypesettingEnabled()&&
              result->type()==TextResult::Type &&
              dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
-             !result->toHtml().trimmed().isEmpty()
+             !result->toHtml().trimmed().isEmpty() &&
+             finishingBehavior()!=DeleteOnFinish &&
+             !isInternal()
             )
         {
             renderResultAsLatex();
@@ -185,10 +189,15 @@ void Expression::latexRendered()
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(renderer->renderingSuccessful())
     {
-        LatexResult* latex=new LatexResult(result()->data().toString().trimmed(), KUrl(renderer->imagePath()));
+        TextResult* r=dynamic_cast<TextResult*>(result());
+        LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
         setResult( latex );
     }else
     {
+        //if rendering with latex was not successfull, just use the plain text version
+        //if available
+        TextResult* r=dynamic_cast<TextResult*>(result());
+        setResult(new TextResult(r->plain()));
         kDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 
@@ -249,6 +258,16 @@ void Expression::setFinishingBehavior(Expression::FinishingBehavior behavior)
 Expression::FinishingBehavior Expression::finishingBehavior()
 {
     return d->finishingBehavior;
+}
+
+void Expression::setInternal(bool internal)
+{
+    d->isInternal=internal;
+}
+
+bool Expression::isInternal()
+{
+    return d->isInternal;
 }
 
 #include "expression.moc"

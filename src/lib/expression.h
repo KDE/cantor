@@ -190,6 +190,17 @@ class CANTOR_EXPORT Expression : public QObject
      */
     void saveAdditionalData(KZip* archive);
 
+    /**
+     * returns whether or not this expression is internal, or
+     * comes from the user
+     */
+    bool isInternal();
+    /**
+     * mark this expression as an internal expression,
+     * so for example latex will not be run on it
+     */
+    void setInternal(bool internal);
+
   Q_SIGNALS:
     /**
      * the Id of this Expression changed

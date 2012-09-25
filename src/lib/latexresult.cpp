@@ -35,12 +35,14 @@ class Cantor::LatexResultPrivate
 
     bool showCode;
     QString code;
+    QString plain;
 };
 
-LatexResult::LatexResult(const QString& code, const KUrl& url) : EpsResult( url ),
-                                                                 d(new LatexResultPrivate)
+LatexResult::LatexResult(const QString& code, const KUrl& url, const QString& plain) : EpsResult( url ),
+                                                                                       d(new LatexResultPrivate)
 {
     d->code=code;
+    d->plain=plain;
 }
 
 LatexResult::~LatexResult()
@@ -64,6 +66,11 @@ QString LatexResult::mimeType()
 QString LatexResult::code()
 {
     return d->code;
+}
+
+QString LatexResult::plain()
+{
+    return d->plain;
 }
 
 bool LatexResult::isCodeShown()
