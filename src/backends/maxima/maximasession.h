@@ -31,9 +31,11 @@
 
 class MaximaExpression;
 class MaximaVariableModel;
+#ifndef Q_OS_WIN
+  class KPtyProcess;
+#endif
 class KProcess;
 class QTcpServer;
-class QTcpSocket;
 class QTimer;
 class QAbstractItemModel;
 
@@ -78,7 +80,12 @@ class MaximaSession : public Cantor::Session
 
     void reportProcessError(QProcess::ProcessError error);
   private:
+//windows doesn't support Pty
+#ifdef Q_OS_WIN
     KProcess* m_process;
+#else
+    KPtyProcess* m_process;
+#endif
     QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
     MaximaVariableModel* m_variableModel;

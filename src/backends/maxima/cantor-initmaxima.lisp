@@ -11,7 +11,6 @@
 ;(setf *general-display-prefix* "DISPLAY_PREFIX")
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
-(setf *query-io* *standard-input*)
 
 (setf $inchar "%I")
 (setf $outchar "%O")

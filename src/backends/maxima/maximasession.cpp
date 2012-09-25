@@ -29,11 +29,17 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <kdebug.h>
-#include <kprocess.h>
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <signal.h>
 #include "settings.h"
+
+#ifdef Q_OS_WIN
+  #include <kprocess.h>
+#else
+  #include <kptyprocess.h>
+  #include <kptydevice.h>
+#endif
 
 #include "result.h"
 
@@ -67,15 +73,26 @@ void MaximaSession::login()
     kDebug()<<"login";
     if (m_process)
         m_process->deleteLater();
+#ifndef Q_OS_WIN
+    m_process=new KPtyProcess(this);
+    m_process->setPtyChannels(KPtyProcess::StdinChannel|KPtyProcess::StdoutChannel);
+    m_process->pty()->setEcho(false);
+#else
     m_process=new KProcess(this);
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    QStringList args;
-    m_process->setProgram(MaximaSettings::self()->path().toLocalFile(),args);
+#endif
+
+    m_process->setProgram(MaximaSettings::self()->path().toLocalFile());
 
     m_process->start();
 
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+
+#ifndef Q_OS_WIN
+    connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
+#else
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
+#endif
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
@@ -84,7 +101,11 @@ void MaximaSession::login()
     QString cmd=initCmd.arg(initFile);
     kDebug()<<"sending cmd: "<<cmd<<endl;
 
+#ifndef Q_OS_WIN
+    m_process->pty()->write(cmd.toUtf8());
+#else
     m_process->write(cmd.toUtf8());
+#endif
 
     Cantor::Expression* expr=evaluateExpression("print(____END_OF_INIT____);",
                                                 Cantor::Expression::DeleteOnFinish);
@@ -118,17 +139,23 @@ void MaximaSession::logout()
 
     if(status()==Cantor::Session::Done)
     {
+#ifndef Q_OS_WIN
+        m_process->pty()->write("quit();\n");
+#else
         m_process->write("quit();\n");
-            //Give maxima time to clean up
+#endif
+
+#ifdef Q_OS_WIN
+        //Give maxima time to clean up
         kDebug()<<"waiting for maxima to finish";
 
         m_process->waitForFinished();
+#endif
     }
     else
     {
         m_expressionQueue.clear();
     }
-
 
     //if it is still running, kill just kill it
     if(m_process->state()!=QProcess::NotRunning)
@@ -190,7 +217,12 @@ void MaximaSession::readStdOut()
     kDebug()<<"reading stdOut";
     if (!m_process)
 	return;
+#ifndef Q_OS_WIN
+    QString out=m_process->pty()->readAll();
+#else
     QString out=m_process->readAllStandardOutput();
+#endif
+
     kDebug()<<"out: "<<out;
 
 
@@ -221,7 +253,6 @@ void MaximaSession::readStdOut()
 
 }
 
-
 void MaximaSession::killLabels()
 {
     Cantor::Expression* e=evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
@@ -231,7 +262,7 @@ void MaximaSession::killLabels()
 
 void MaximaSession::reportProcessError(QProcess::ProcessError e)
 {
-    kDebug()<<"process error";
+    kDebug()<<"process error"<<e;
     if(e==QProcess::FailedToStart)
     {
         changeStatus(Cantor::Session::Done);
@@ -324,7 +355,11 @@ void MaximaSession::runFirstExpression()
             kDebug()<<"writing "<<command+'\n'<<" to the process";
             m_cache.clear();
             QString cmd=(command+'\n');
+#ifndef Q_OS_WIN
+            m_process->pty()->write(cmd.toUtf8());
+#else
             m_process->write(cmd.toUtf8());
+#endif
         }
     }
 }
@@ -360,7 +395,12 @@ void MaximaSession::sendInputToProcess(const QString& input)
 {
     kDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
     kDebug()<<"running "<<input;
-    m_process->write(input.toUtf8());
+
+#ifndef Q_OS_WIN
+            m_process->pty()->write(input.toUtf8());
+#else
+            m_process->write(input.toUtf8());
+#endif
 }
 
 void MaximaSession::restartMaxima()
