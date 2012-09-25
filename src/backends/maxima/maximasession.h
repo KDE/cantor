@@ -48,8 +48,6 @@ class MaximaSession : public Cantor::Session
 
     void login();
     void logout();
-    void startServer();
-    void newMaximaClient(QTcpSocket* socket);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
 
@@ -68,9 +66,9 @@ class MaximaSession : public Cantor::Session
 
   public slots:
     void readStdOut();
+    void readStdErr();
 
   private slots:
-    void newConnection();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
     void restartsCooledDown();
@@ -80,8 +78,6 @@ class MaximaSession : public Cantor::Session
 
     void reportProcessError(QProcess::ProcessError error);
   private:
-    QTcpServer* m_server;
-    QTcpSocket* m_maxima;
     KProcess* m_process;
     QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
