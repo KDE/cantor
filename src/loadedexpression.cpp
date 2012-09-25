@@ -53,7 +53,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 {
     setCommand(xml.firstChildElement("Command").text());
 
-    QList<Result*> results;
+    QList<Cantor::Result*> results;
     QDomElement resultElement=xml.firstChildElement("Result");
     while (!resultElement.isNull()) {
         Cantor::Result* result=0;
@@ -80,7 +80,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             }
         }
         results.append(result);
-        resultElement = resultElement.nextSibling();
+        resultElement = resultElement.nextSiblingElement();
     }
 
     setResults(results);

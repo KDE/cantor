@@ -48,13 +48,13 @@ void OctaveSyntaxHelpObject::fetchingDone()
     {
         return;
     }
-    Cantor::Result* result = m_expression->result();
-    if (result)
+    if (m_expression->results().size() > 0)
     {
-      QString res = result->toHtml();
-      res.remove("<br/>");
-      res.remove(0, res.indexOf("--"));
-      setHtml(' ' + res.trimmed());
+        Cantor::Result* result = m_expression->results().at(0);
+        QString res = result->toHtml();
+        res.remove("<br/>");
+        res.remove(0, res.indexOf("--"));
+        setHtml(' ' + res.trimmed());
     }
     m_expression->deleteLater();
     emit done();

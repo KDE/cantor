@@ -45,7 +45,7 @@ SageCompletionObject::~SageCompletionObject()
 void SageCompletionObject::fetchCompletions()
 {
     if (m_expression)
-	return;
+        return;
     bool t=session()->isTypesettingEnabled();
     if(t)
         session()->setTypesettingEnabled(false);
@@ -53,8 +53,8 @@ void SageCompletionObject::fetchCompletions()
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
     m_expression=session()->evaluateExpression("__hist_tmp__=_; __IPYTHON__.complete(\""+command()+"\");_=__hist_tmp__");
-    connect(m_expression, SIGNAL(gotResult()), this, 
-	    SLOT(extractCompletions()));
+    connect(m_expression, SIGNAL(gotResult()), this,
+            SLOT(extractCompletions()));
 
     if(t)
         session()->setTypesettingEnabled(true);
@@ -62,15 +62,21 @@ void SageCompletionObject::fetchCompletions()
 
 void SageCompletionObject::extractCompletions()
 {
-    Cantor::Result* res=m_expression->result();
-    m_expression->deleteLater();
-    m_expression=0;
-
-    if(!res||!res->type()==Cantor::TextResult::Type)
+    bool resultOk = m_expression->results().size() > 0 &&
+        m_expression->results().at(0)->type() == Cantor::TextResult::Type;
+    Cantor::Result* res;
+    if (resultOk) {
+        res=m_expression->results().at(0);
+        m_expression->deleteLater();
+        m_expression=0;
+    } else
     {
+        m_expression->deleteLater();
+        m_expression=0;
         kDebug()<<"something went wrong fetching tab completion";
         return;
     }
+
 
     //the result looks like "['comp1', 'comp2']" parse it
     QString txt=res->toHtml().trimmed();
@@ -96,10 +102,10 @@ void SageCompletionObject::extractCompletions()
 void SageCompletionObject::fetchIdentifierType()
 {
     if (m_expression)
-	return;
+        return;
     if (SageKeywords::instance()->keywords().contains(identifier())) {
-	emit fetchingTypeDone(KeywordType);
-	return;
+        emit fetchingTypeDone(KeywordType);
+        return;
     }
     QString expr = QString("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
@@ -110,21 +116,26 @@ void SageCompletionObject::extractIdentifierType()
 {
     if (m_expression->status() != Cantor::Expression::Done)
     {
-	m_expression->deleteLater();
-	m_expression = 0;
+        m_expression->deleteLater();
+        m_expression = 0;
         return;
     }
-    Cantor::Result* result = m_expression->result();
+    if (m_expression->results().size() == 0) {
+        m_expression->deleteLater();
+        m_expression = 0;
+        return;
+    }
+    Cantor::Result* result = m_expression->results().at(0);
     m_expression->deleteLater();
     m_expression = 0;
     if (!result)
-	return;
+        return;
 
     QString res = result->toHtml();
     if (res.contains("function") || res.contains("method"))
-	emit fetchingTypeDone(FunctionType);
+        emit fetchingTypeDone(FunctionType);
     else
-	emit fetchingTypeDone(VariableType);
+        emit fetchingTypeDone(VariableType);
 }
 
 bool SageCompletionObject::mayIdentifierContain(QChar c) const

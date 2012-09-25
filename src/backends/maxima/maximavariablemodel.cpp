@@ -68,7 +68,8 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
     // Should we really just use results().at(0) here?
     // It wouldn't be much of a problem to iterate the lists
     kDebug()<<"parsing it!";
-    if(!expr||expr->status()!=Cantor::Expression::Done)
+    if(!expr||expr->status()!=Cantor::Expression::Done||
+       expr->results().size() == 0)
         return QList<Cantor::DefaultVariableModel::Variable>();
 
     QString text;

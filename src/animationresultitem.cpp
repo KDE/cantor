@@ -67,17 +67,18 @@ void AnimationResultItem::populateMenu(KMenu* menu, const QPointF& pos)
     emit menuCreated(menu, mapToParent(pos));
 }
 
-ResultItem* AnimationResultItem::updateFromResult(Cantor::Result* result)
+void AnimationResultItem::update()
 {
     QMovie* mov;
-    switch(result->type()) {
+    switch(result()->type()) {
     case Cantor::AnimationResult::Type:
-        mov = static_cast<QMovie*>(result->data().value<QObject*>());
+        mov = static_cast<QMovie*>(result()->data().value<QObject*>());
         setMovie(mov);
-        return this;
+        break;
     default:
-        deleteLater();
-        return create(parentEntry(), result);
+        kDebug() << "ERROR: Invalid result type " << result()->type()
+                 <<" in AnimationResultItem";
+        break;
     }
 }
 
@@ -159,11 +160,6 @@ void AnimationResultItem::deleteLater()
 CommandEntry* AnimationResultItem::parentEntry()
 {
     return qobject_cast<CommandEntry*>(parentObject());
-}
-
-Cantor::Result* AnimationResultItem::result()
-{
-    return parentEntry()->expression()->result();
 }
 
 #include "animationresultitem.moc"

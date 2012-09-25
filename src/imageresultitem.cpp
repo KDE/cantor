@@ -53,18 +53,19 @@ void ImageResultItem::populateMenu(KMenu* menu, const QPointF& pos)
     emit menuCreated(menu, mapToParent(pos));
 }
 
-ResultItem* ImageResultItem::updateFromResult(Cantor::Result* result)
+void ImageResultItem::update()
 {
-    switch(result->type()) {
+    switch(result()->type()) {
     case Cantor::ImageResult::Type:
-        setImage(result->data().value<QImage>());
-        return this;
+        setImage(result()->data().value<QImage>());
+        break;
     case Cantor::EpsResult::Type:
-        setEps(result->data().toUrl());
-        return this;
+        setEps(result()->data().toUrl());
+        break;
     default:
-        deleteLater();
-        return create(parentEntry(), result);
+        kDebug() << "ERROR: Invalid result type " << result()->type()
+                 <<" in ImageResultItem";
+        break;
     }
 }
 
@@ -104,11 +105,6 @@ EpsRenderer* ImageResultItem::epsRenderer()
 CommandEntry* ImageResultItem::parentEntry()
 {
     return qobject_cast<CommandEntry*>(parentObject());
-}
-
-Cantor::Result* ImageResultItem::result()
-{
-    return parentEntry()->expression()->result();
 }
 
 #include "imageresultitem.moc"

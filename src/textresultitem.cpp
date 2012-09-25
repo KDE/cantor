@@ -75,27 +75,28 @@ void TextResultItem::populateMenu(KMenu* menu, const QPointF& pos)
     emit menuCreated(menu, mapToParent(pos));
 }
 
-ResultItem* TextResultItem::updateFromResult(Cantor::Result* result)
+void TextResultItem::update()
 {
-    switch(result->type()) {
+    switch(result()->type()) {
     case Cantor::TextResult::Type:
         {
             QTextCursor cursor = textCursor();
             cursor.movePosition(QTextCursor::Start);
             cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-            QString html = result->toHtml();
+            QString html = result()->toHtml();
             if (html.isEmpty())
                 cursor.removeSelectedText();
             else
                 cursor.insertHtml(html);
-            return this;
+            break;
         }
     case Cantor::LatexResult::Type:
-        setLatex(dynamic_cast<Cantor::LatexResult*>(result));
-        return this;
+        setLatex(dynamic_cast<Cantor::LatexResult*>(result()));
+        break;
     default:
-        deleteLater();
-        return create(parentEntry(), result);
+        kDebug() << "ERROR: Invalid result type " << result()->type()
+                 <<" in TextResultItem";
+        break;
     }
 }
 
@@ -172,11 +173,6 @@ EpsRenderer* TextResultItem::epsRenderer()
 CommandEntry* TextResultItem::parentEntry()
 {
     return qobject_cast<CommandEntry*>(parentObject());
-}
-
-Cantor::Result* TextResultItem::result()
-{
-    return parentEntry()->expression()->result();
 }
 
 #include "textresultitem.moc"

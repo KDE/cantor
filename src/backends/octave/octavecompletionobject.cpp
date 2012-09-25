@@ -39,7 +39,7 @@ OctaveCompletionObject::~OctaveCompletionObject()
 void OctaveCompletionObject::fetchCompletions()
 {
     if (m_expression)
-	return;
+        return;
     kDebug() << "Fetching completions for" << command();
     QString expr = QString("completion_matches(\"%1\")").arg(command());
     m_expression = session()->evaluateExpression(expr);
@@ -49,16 +49,15 @@ void OctaveCompletionObject::fetchCompletions()
 void OctaveCompletionObject::extractCompletions()
 {
     if (!m_expression)
-	return;
+        return;
     if (m_expression->status() != Cantor::Expression::Done)
     {
-	m_expression->deleteLater();
-	m_expression = 0;
+        m_expression->deleteLater();
+        m_expression = 0;
         return;
     }
-    Cantor::Result* result = m_expression->result();
-    if (result)
-    {
+    if (m_expression->results().size() > 0) {
+        Cantor::Result* result = m_expression->results().at(0);
         QString res = result->toHtml();
         QStringList completions = res.split("<br/>\n", QString::SkipEmptyParts);
         kDebug() << "Adding" << completions.size() << "completions";
@@ -72,7 +71,7 @@ void OctaveCompletionObject::extractCompletions()
 void OctaveCompletionObject::fetchIdentifierType()
 {
     if (m_expression)
-	return;
+        return;
     kDebug() << "Fetching type of " << identifier();
     // The ouput should look like
     // sin is a built-in function
@@ -86,18 +85,20 @@ void OctaveCompletionObject::extractIdentifierType()
 {
     kDebug() << "type fetching done";
     if (!m_expression)
-	return;
+        return;
     if (m_expression->status() != Cantor::Expression::Done)
     {
-	m_expression->deleteLater();
-	m_expression = 0;
+        m_expression->deleteLater();
+        m_expression = 0;
         return;
     }
-    Cantor::Result* result = m_expression->result();
+    Cantor::Result* result = 0;
+    if (m_expression->results().size() > 0)
+        result = m_expression->results().at(0);
     m_expression->deleteLater();
     m_expression = 0;
     if (!result)
-	return;
+        return;
 
     QString res = result->toHtml();
     int endOfLine1 = res.indexOf("<br/>");
@@ -106,13 +107,13 @@ void OctaveCompletionObject::extractIdentifierType()
     QString line2 = res.mid(endOfLine1, endOfLine2-endOfLine1);
     // for functions defined on the command line type says "undefined",
     // but sets ans to 103
-    if (line1.endsWith("function") || line1.contains("user-defined function") 
-	|| line2.endsWith("103"))
-	emit fetchingTypeDone(FunctionType);
+    if (line1.endsWith("function") || line1.contains("user-defined function")
+        || line2.endsWith("103"))
+        emit fetchingTypeDone(FunctionType);
     else if (res.endsWith("variable"))
-	emit fetchingTypeDone(VariableType);
+        emit fetchingTypeDone(VariableType);
     else if (res.endsWith("keyword"))
-	emit fetchingTypeDone(KeywordType);
+        emit fetchingTypeDone(KeywordType);
     else
-	emit fetchingTypeDone(UnknownType);
+        emit fetchingTypeDone(UnknownType);
 }

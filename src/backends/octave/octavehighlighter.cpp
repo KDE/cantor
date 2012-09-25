@@ -68,12 +68,13 @@ void OctaveHighlighter::updateVariables()
 void OctaveHighlighter::receiveFunctions()
 {
   kDebug();
-  if (m_functionsExpr->status() != Cantor::Expression::Done || !m_functionsExpr->result())
+  if (m_functionsExpr->status() != Cantor::Expression::Done ||
+      !m_functionsExpr->results().size())
   {
     return;
   }
 
-  QStringList names = m_functionsExpr->result()->toHtml().split("<br/>\n");
+  QStringList names = m_functionsExpr->results().at(0)->toHtml().split("<br/>\n");
 
   QLatin1String under("__");
   while (!names.first().contains(under))
@@ -103,11 +104,12 @@ void OctaveHighlighter::receiveFunctions()
 
 void OctaveHighlighter::receiveVariables()
 {
-  if (m_varsExpr->status() != Cantor::Expression::Done || !m_varsExpr->result())
+    if (m_varsExpr->status() != Cantor::Expression::Done ||
+        !m_varsExpr->results().size())
   {
     return;
   }
-  QString res = m_varsExpr->result()->toHtml();
+    QString res = m_varsExpr->results().at(0)->toHtml();
   res.replace("<br/>"," ");
   res.remove(0, res.indexOf('\n'));
   res.remove('\n');

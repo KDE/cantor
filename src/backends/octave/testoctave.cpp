@@ -39,20 +39,22 @@ void TestOctave::testSimpleCommand()
     Cantor::Expression* e=evalExp( "2+2" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e->results().size() == 1 );
 
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString("ans =  4") );
+    QCOMPARE( cleanOutput( e->results().at(0)->toHtml() ), QString("ans =  4") );
 }
 void TestOctave::testMultilineCommand()
 {
     Cantor::Expression* e=evalExp( "a = 2+2, b = 3+3" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e->results().size() == 2 );
 
-    QString result=e->result()->toHtml();
+    QString result0=e->results().at(0)->toHtml();
+    QString result1=e->results().at(1)->toHtml();
 
-    QCOMPARE( cleanOutput(result ), QString("a =  4\nb =  6") );
+    QCOMPARE( cleanOutput(result0 ), QString("a =  4") );
+    QCOMPARE( cleanOutput(result1 ), QString("b =  6") );
 }
 
 void TestOctave::testPlot()
@@ -61,7 +63,7 @@ void TestOctave::testPlot()
 
     int cnt=0;
     //give some time to create the image, but at most 5sec
-    while(e->result()==0)
+    while(e->results().size()==0)
     {
         QTest::qWait(250);
         cnt+=250;
@@ -70,10 +72,10 @@ void TestOctave::testPlot()
     }
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e->results().size() ==0 );
 
-    QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
-    QVERIFY( !e->result()->data().isNull() );
+    QCOMPARE( e->results().at(0)->type(), (int)Cantor::EpsResult::Type );
+    QVERIFY( !e->results().at(0)->data().isNull() );
 }
 
 void TestOctave::testInvalidSyntax()

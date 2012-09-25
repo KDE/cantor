@@ -53,7 +53,6 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
         {
             TextResultItem* item = new TextResultItem(parent);
             item->setResult(result);
-            item->updateFromResult(result);
             return item;
         }
     case Cantor::ImageResult::Type:
@@ -61,14 +60,12 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
         {
             ImageResultItem* item = new ImageResultItem(parent);
             item->setResult(result);
-            item->updateFromResult(result);
             return item;
         }
     case Cantor::AnimationResult::Type:
         {
             AnimationResultItem* item = new AnimationResultItem(parent);
             item->setResult(result);
-            item->updateFromResult(result);
             return item;
         }
     default:
@@ -91,6 +88,7 @@ QGraphicsObject* ResultItem::graphicsObject()
 void ResultItem::setResult(Cantor::Result* result)
 {
     m_result = result;
+    update();
 }
 
 Cantor::Result* ResultItem::result()

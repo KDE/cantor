@@ -39,7 +39,7 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     double setGeometry(double x, double y, double w);
     void populateMenu(KMenu* menu, const QPointF& pos);
 
-    ResultItem* updateFromResult(Cantor::Result* result);
+    void update();
 
     void deleteLater();
 
@@ -47,7 +47,6 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     double width() const;
     double height() const;
     CommandEntry* parentEntry();
-    Cantor::Result* result();
 
   signals:
     void removeResult();

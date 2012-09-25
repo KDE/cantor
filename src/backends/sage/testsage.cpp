@@ -38,8 +38,8 @@ void TestSage::testSimpleCommand()
     Cantor::Expression* e=evalExp( "2+2" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
-    QCOMPARE( e->result()->toHtml(), QString("4") );
+    QVERIFY( e->results().size() == 1 );
+    QCOMPARE( e->results().at(0)->toHtml(), QString("4") );
 }
 
 void TestSage::testCommandQueue()
@@ -55,13 +55,13 @@ void TestSage::testCommandQueue()
     QVERIFY(e2!=0);
     QVERIFY(e3!=0);
 
-    QVERIFY(e1->result());
-    QVERIFY(e2->result());
-    QVERIFY(e3->result());
+    QVERIFY(e1->results().size() == 1);
+    QVERIFY(e2->results().size() == 1);
+    QVERIFY(e3->results().size() == 1);
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QString("1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QString("3"));
+    QCOMPARE(cleanOutput(e1->results().at(0)->toHtml()), QString("1"));
+    QCOMPARE(cleanOutput(e2->results().at(0)->toHtml()), QString("2"));
+    QCOMPARE(cleanOutput(e3->results().at(0)->toHtml()), QString("3"));
 }
 
 void TestSage::testMultilineCommand()
@@ -69,8 +69,9 @@ void TestSage::testMultilineCommand()
     Cantor::Expression* e=evalExp( "2+2 \n simplify(1 - x + x)" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
-    QCOMPARE( e->result()->toHtml(), QString("4<br/>\n1") );
+    QVERIFY( e->results().size() == 2 );
+    QCOMPARE( e->results().at(0)->toHtml(), QString("4") );
+    QCOMPARE( e->results().at(1)->toHtml(), QString("1") );
 }
 
 void TestSage::testDefineFunction()
@@ -81,12 +82,12 @@ void TestSage::testDefineFunction()
     Cantor::Expression* e1=evalExp( cmd );
 
     QVERIFY( e1!=0 );
-    QVERIFY( e1->result()!=0 );
+    QVERIFY( e1->results().size() > 0 );
 
     Cantor::Expression* e2=evalExp( "func1(2)" );
     QVERIFY( e2!=0 );
-    QVERIFY( e2->result()!=0 );
-    QCOMPARE( e2->result()->toHtml(), QString("4") );
+    QVERIFY( e2->results().size() == 1 );
+    QCOMPARE( e2->results().at(0)->toHtml(), QString("4") );
 }
 
 void TestSage::testPlot()
@@ -94,9 +95,9 @@ void TestSage::testPlot()
     Cantor::Expression* e=evalExp( "plot(sin(x))" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
-    QVERIFY( e->result()->type()==Cantor::ImageResult::Type );
-    QVERIFY( !e->result()->data().isNull() );
+    QVERIFY( e->results().size() == 1 );
+    QVERIFY( e->results().at(0)->type()==Cantor::ImageResult::Type );
+    QVERIFY( !e->results().at(0)->data().isNull() );
 }
 
 void TestSage::testInvalidSyntax()
@@ -112,8 +113,8 @@ void TestSage::testNoOutput()
     Cantor::Expression* e=evalExp(  "f(x)=x^2+3*x+2\nf(0)" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result() != 0 );
-    QCOMPARE( e->result()->toHtml(), QString("2") );
+    QVERIFY( e->results().size() == 1 );
+    QCOMPARE( e->results().at(0)->toHtml(), QString("2") );
 }
 
 

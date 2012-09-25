@@ -37,7 +37,7 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     double setGeometry(double x, double y, double w);
     void populateMenu(KMenu* menu, const QPointF& pos);
 
-    ResultItem* updateFromResult(Cantor::Result* result);
+    void update();
 
     QRectF boundingRect() const;
     virtual double width() const;
@@ -46,7 +46,6 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     void deleteLater();
     EpsRenderer* epsRenderer();
     CommandEntry* parentEntry();
-    Cantor::Result* result();
 
   signals:
     void removeResult();

@@ -342,11 +342,12 @@ void CommandEntry::updateEntry()
 {
     kDebug() << "update Entry";
     Cantor::Expression *expr = expression();
-    if (expr == 0 || !expr->hasResults() == 0)
+    if (expr == 0 || !expr->hasResults())
         return;
 
     bool hadResults = !m_resultItems.isEmpty();
     removeResults();
+    kDebug() << "Got" << expr->results().size() << "results";
     foreach(Cantor::Result* r, expr->results()) {
         if (r->type() == Cantor::HelpResult::Type)
             continue; // Help is handled elsewhere

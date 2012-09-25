@@ -52,8 +52,7 @@ class ResultItem
     virtual double setGeometry(double x, double y, double w) = 0;
     virtual void populateMenu(KMenu* menu, const QPointF& pos) = 0;
 
-    virtual ResultItem* updateFromResult(Cantor::Result* result) = 0;
-
+    virtual void update() = 0;
     virtual void deleteLater() = 0;
 
     virtual double width() const = 0;

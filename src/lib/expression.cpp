@@ -116,6 +116,7 @@ void Expression::setResult(Result* result)
 
 void Expression::setResults(QList<Result*> results)
 {
+    kDebug() << "    SET RESULTS" << this << results.size();
     foreach(Result* r, d->results) {
         delete r;
     }
@@ -160,6 +161,7 @@ bool Expression::hasResults()
 
 void Expression::clearResults()
 {
+    kDebug() << "    CLEAR RESULTS" << this << 0;
     foreach(Result* r, d->results) {
         delete r;
     }
@@ -185,6 +187,7 @@ Session* Expression::session()
 {
     return d->session;
 }
+
 void Expression::renderResultAsLatex()
 {
     kDebug()<<"rendering as latex";
@@ -207,6 +210,7 @@ void Expression::latexRendered()
     LatexRenderer* renderer=qobject_cast<LatexRenderer*>(sender());
 
     int i = d->latexResultIndices.first();
+    kDebug() << i << d->results.size();
     Result* result = d->results.at(i);
     kDebug()<<"rendered a result to "<<renderer->imagePath();
     //replace the textresult with the rendered latex image result

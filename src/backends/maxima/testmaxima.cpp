@@ -40,9 +40,9 @@ void TestMaxima::testSimpleCommand()
     Cantor::Expression* e=evalExp( "2+2" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e->results().size() == 1 );
 
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString("4") );
+    QCOMPARE( cleanOutput( e->results().at(0)->toHtml() ), QString("4") );
 }
 
 void TestMaxima::testMultilineCommand()
@@ -50,11 +50,13 @@ void TestMaxima::testMultilineCommand()
     Cantor::Expression* e=evalExp( "2+2;3+3" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e->results().size() == 2 );
 
-    QString result=e->result()->toHtml();
+    QString result0=e->results().at(0)->toHtml();
+    QString result1=e->results().at(1)->toHtml();
 
-    QCOMPARE( cleanOutput(result ), QString("4\n6") );
+    QCOMPARE( cleanOutput(result0), QString("4") );
+    QCOMPARE( cleanOutput(result1), QString("6") );
 }
 
 //WARNING: for this test to work, Integration of Plots must be anabled
@@ -64,15 +66,16 @@ void TestMaxima::testPlot()
     Cantor::Expression* e=evalExp( "plot2d(sin(x), [x, -10,10])" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e->results().size() ==0 );
 
-    if(e->result()->type()!= Cantor::EpsResult::Type)
+    Cantor::Result* result = e->results().at(0);
+    if(result->type()!= Cantor::EpsResult::Type)
     {
         waitForSignal(e, SIGNAL(gotResult()));
     }
 
-    QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
-    QVERIFY( !e->result()->data().isNull() );
+    QCOMPARE( result->type(), (int)Cantor::EpsResult::Type );
+    QVERIFY( !result->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
 }
 
@@ -95,8 +98,8 @@ void TestMaxima::testExprNumbering()
 
     e=evalExp( QString("%O%1+1" ).arg( id ) );
     QVERIFY( e != 0 );
-    QVERIFY( e->result()!=0 );
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString( "5" ) );
+    QVERIFY( e->results().size() == 1 );
+    QCOMPARE( cleanOutput( e->results().at(0)->toHtml() ), QString( "5" ) );
 }
 
 void TestMaxima::testCommandQueue()
@@ -112,45 +115,45 @@ void TestMaxima::testCommandQueue()
     QVERIFY(e2!=0);
     QVERIFY(e3!=0);
 
-    QVERIFY(e1->result());
-    QVERIFY(e2->result());
-    QVERIFY(e3->result());
+    QVERIFY(e1->results().size() == 1);
+    QVERIFY(e2->results().size() == 1);
+    QVERIFY(e3->results().size() == 1);
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QString("1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QString("3"));
+    QCOMPARE(cleanOutput(e1->results().at(0)->toHtml()), QString("1"));
+    QCOMPARE(cleanOutput(e2->results().at(0)->toHtml()), QString("2"));
+    QCOMPARE(cleanOutput(e3->results().at(0)->toHtml()), QString("3"));
 }
 
 void TestMaxima::testSimpleExpressionWithComment()
 {
     Cantor::Expression* e=evalExp("/*this is a comment*/2+2");
     QVERIFY(e!=0);
-    QVERIFY(e->result()!=0);
+    QVERIFY(e->results().size() == 1);
 
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("4"));
+    QCOMPARE(cleanOutput(e->results().at(0)->toHtml()), QString("4"));
 }
 
 void TestMaxima::testCommentExpression()
 {
     Cantor::Expression* e=evalExp("/*this is a comment*");
     QVERIFY(e!=0);
-    QVERIFY(e->result()==0||e->result()->toHtml().isEmpty());
+    QVERIFY(e->results().size()==0||e->results().at(0)->toHtml().isEmpty());
 }
 
 void TestMaxima::testNestedComment()
 {
     Cantor::Expression* e=evalExp("/*/*this is still a comment*/*/2+2/*still/*a*/comment*//**/");
     QVERIFY(e!=0);
-    QVERIFY(e->result()!=0);
+    QVERIFY(e->results().size() == 1);
 
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("4"));
+    QCOMPARE(cleanOutput(e->results().at(0)->toHtml()), QString("4"));
 }
 
 void TestMaxima::testUnmatchedComment()
 {
     Cantor::Expression* e=evalExp("/*this comment doesn't end here!");
     QVERIFY(e!=0);
-    QVERIFY(e->result()==0);
+    QVERIFY(e->results().size()==0);
     QVERIFY(e->status()==Cantor::Expression::Error);
 }
 
@@ -167,9 +170,9 @@ void TestMaxima::testInvalidAssignment()
     //make sure we didn't screw up the session
     Cantor::Expression* e2=evalExp("2+2");
     QVERIFY(e2!=0);
-    QVERIFY(e2->result()!=0);
+    QVERIFY(e2->results().size() == 1);
 
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("4"));
+    QCOMPARE(cleanOutput(e2->results().at(0)->toHtml()), QString("4"));
 }
 
 void TestMaxima::testInformationRequest()
@@ -180,9 +183,9 @@ void TestMaxima::testInformationRequest()
     e->addInformation("nonzero;");
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
-    QVERIFY(e->result()!=0);
+    QVERIFY(e->results().size() == 1);
 
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("x^(n+1)/(n+1)"));
+    QCOMPARE(cleanOutput(e->results().at(0)->toHtml()), QString("x^(n+1)/(n+1)"));
 }
 
 
