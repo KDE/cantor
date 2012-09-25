@@ -222,12 +222,13 @@ void Expression::latexRendered()
         delete d->results.at(i);
         d->results[i] = latex;
         emit gotResult();
-    } else
-    {
+    } else {
         //if rendering with latex was not successfull, just use the plain text version
         //if available
         TextResult* r=dynamic_cast<TextResult*>(result);
-        setResult(new TextResult(r->plain()));
+        TextResult* textResult = new TextResult(r->plain());
+        delete d->results.at(i);
+        d->results[i] = textResult;
         kDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 
