@@ -618,6 +618,17 @@ void CommandEntry::removeResults()
     fadeOutItems(resultObjects);
 }
 
+void CommandEntry::removeSendingResult()
+{
+    ResultItem* item = dynamic_cast<ResultItem*>(sender());
+    if (item == 0)
+        return;
+
+    m_resultItems.removeAll(item);
+    QGraphicsObject* graphicsObject = item->graphicsObject();
+    fadeOutItem(graphicsObject);
+}
+
 void CommandEntry::removeContextHelp()
 {
     disconnect(m_commandItem->document(), SIGNAL(contentsChanged()), this,

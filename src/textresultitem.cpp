@@ -37,7 +37,7 @@ TextResultItem::TextResultItem(QGraphicsObject* parent)
 {
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     connect(this, SIGNAL(removeResult()), parentEntry(),
-            SLOT(removeResult()));
+            SLOT(removeSendingResult()));
 }
 
 TextResultItem::~TextResultItem()

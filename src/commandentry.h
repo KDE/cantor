@@ -90,6 +90,7 @@ class CommandEntry : public WorksheetEntry
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void addInformation();
     void removeResults();
+    void removeSendingResult();
 
     void showCompletion();
     void selectPreviousCompletion();
