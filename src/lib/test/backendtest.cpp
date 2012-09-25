@@ -44,15 +44,18 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
 {
    Cantor::Expression* e=m_session->evaluateExpression(exp);
 
-   //Create a timeout, that kills the eventloop, if the expression doesn't finish
-   QTimer timeout( this );
-   timeout.setSingleShot( true );
-   timeout.start( 5000 );
-   QEventLoop loop;
-   connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
-   connect( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ), &loop, SLOT( quit() ) );
+   if(e->status()==Cantor::Expression::Computing)
+   {
+       //Create a timeout, that kills the eventloop, if the expression doesn't finish
+       QTimer timeout( this );
+       timeout.setSingleShot( true );
+       timeout.start( 5000 );
+       QEventLoop loop;
+       connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
+       connect( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ), &loop, SLOT( quit() ) );
 
-   loop.exec();
+       loop.exec();
+   }
    return e;
 }
 
@@ -93,4 +96,3 @@ Cantor::Session* BackendTest::session()
 
 
 #include "backendtest.moc"
-
