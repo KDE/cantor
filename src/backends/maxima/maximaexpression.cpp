@@ -55,6 +55,9 @@ void MaximaExpression::evaluate()
     kDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
 
+    //until we get the real output Id from maxima, set it to invalid
+    setId(-1);
+
     m_isHelpRequest=false;
     m_isPlot=false;
     m_gotErrorContent=false;
@@ -545,8 +548,13 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
 
     //find the number if this output in the MaximaOutputPrompt
     QString prompt=outputPromptRegexp.cap(0).trimmed();
-    QString id=prompt.mid(3, prompt.length()-4);
-    setId(id.toInt());
+    bool ok;
+    QString idString=prompt.mid(3, prompt.length()-4);
+    int id=idString.toInt(&ok);
+    if(ok)
+        setId(id);
+    else
+        setId(-1);
     kDebug()<<"prompt: "<<prompt<<" id: "<<id;
 
     if(m_tempFile)
