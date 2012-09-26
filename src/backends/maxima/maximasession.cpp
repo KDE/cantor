@@ -311,7 +311,7 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
             QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
             QRegExp exp2=QRegExp(QRegExp::escape(MaximaVariableModel::variableInspectCommand).arg("(values|functions)"));
 
-            if(!exp.exactMatch(expression->command())&&!exp2.exactMatch(expression->command()))
+            if(MaximaSettings::variableManagement()&&!exp.exactMatch(expression->command())&&!exp2.exactMatch(expression->command()))
             {
                 m_variableModel->checkForNewFunctions();
                 m_variableModel->checkForNewVariables();

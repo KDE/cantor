@@ -3,7 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
-  <kcfgfile name="cantorrc"/>  
+  <kcfgfile name="cantorrc"/>
   <include>kstandarddirs.h</include>
   <group name="MaximaBackend">
     <entry name="Path" type="Url">
@@ -12,6 +12,10 @@
     </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
+      <default>true</default>
+    </entry>
+    <entry name="variableManagement" type="Bool">
+      <label>Enable Variable Management</label>
       <default>true</default>
     </entry>
   </group>
