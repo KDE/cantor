@@ -58,7 +58,6 @@ MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
     //m_maxima=0;
     m_process=0;
     m_justRestarted=false;
-    m_useLegacy=false;
 
     m_variableModel=new MaximaVariableModel(this);
 }
@@ -409,24 +408,13 @@ void MaximaSession::restartMaxima()
 
     if(!m_justRestarted)
     {
-        //If maxima finished, before the session was initialized
-        //We try to use Legacy commands for startups (Maxima <5.18)
-        //In this case, don't require the cooldown
-        if(m_initState!=MaximaSession::Initialized)
-        {
-            m_useLegacy=!m_useLegacy;
-            kDebug()<<"Initializing maxima failed now trying legacy support: "<<m_useLegacy;
-        }
-        else
-        {
-             emit error(i18n("Maxima crashed. restarting..."));
-             //remove the command that caused maxima to crash (to avoid infinite loops)
-             if(!m_expressionQueue.isEmpty())
-                 m_expressionQueue.removeFirst();
+        emit error(i18n("Maxima crashed. restarting..."));
+        //remove the command that caused maxima to crash (to avoid infinite loops)
+        if(!m_expressionQueue.isEmpty())
+            m_expressionQueue.removeFirst();
 
-            m_justRestarted=true;
-            QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
-        }
+        m_justRestarted=true;
+        QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
 
         disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
         login();
