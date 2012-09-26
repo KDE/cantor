@@ -215,15 +215,16 @@ void MaximaSession::readStdOut()
 {
     kDebug()<<"reading stdOut";
     if (!m_process)
-	return;
+        return;
 #ifndef Q_OS_WIN
     QString out=m_process->pty()->readAll();
 #else
     QString out=m_process->readAllStandardOutput();
 #endif
 
-    kDebug()<<"out: "<<out;
+    out.remove('\r');
 
+    kDebug()<<"out: "<<out;
 
     m_cache+=out;
 
@@ -337,7 +338,7 @@ void MaximaSession::runFirstExpression()
     }
     kDebug()<<"running next expression";
     if (!m_process)
-	return;
+        return;
 
     if(!m_expressionQueue.isEmpty())
     {
