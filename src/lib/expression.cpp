@@ -114,6 +114,33 @@ void Expression::setResult(Result* result)
     setResults(results);
 }
 
+void Expression::setResult(Result* result, int index)
+{
+    if(index>=d->results.size())
+    {
+        kDebug()<<"trying to set an invalid index: "<<index;
+        return;
+    }
+
+    d->results[index]=result;
+#ifdef WITH_EPS
+    //If it's text, and latex typesetting is enabled, render it
+    if ( session()->isTypesettingEnabled()&&
+         result->type()==TextResult::Type &&
+         dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
+         !result->toHtml().trimmed().isEmpty() &&
+         finishingBehavior()!=DeleteOnFinish &&
+         !isInternal()
+        )
+    {
+        d->latexResultIndices.append(index);
+        renderResultAsLatex();
+    }
+#endif
+
+    emit gotResult();
+}
+
 void Expression::setResults(QList<Result*> results)
 {
     kDebug() << "    SET RESULTS" << this << results.size();

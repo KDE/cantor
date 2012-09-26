@@ -246,6 +246,15 @@ class CANTOR_EXPORT Expression : public QObject
      * @param results the new results
      */
     void setResults(QList<Result*> results);
+
+    /**
+     * Sets the result at index @index to @result
+     * This will cause gotResult() to be emited.
+     * The old result will be deleted, and the Expression
+     * takes over ownership of the new result object.
+     * @param results the new results
+     */
+    void setResult(Result* result,int index);
     /**
      * Set the status
      * statusChanged will be emitted

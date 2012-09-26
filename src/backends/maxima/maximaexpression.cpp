@@ -556,11 +556,18 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out)
 
     Cantor::TextResult* result=0;
 
+    if(m_isPlot&&text.trimmed()=="\"\"")
+    {
+        kDebug()<<"result is a plot!";
+        result=new Cantor::TextResult(i18n("Waiting for Image..."), "cantor-internal-plot");
+        return result;
+    }
+
     //if the <latex> element wasn't read completely, there
     //is no point in trying to render it. Use text for
     //incomplete results.
     if(!isLatexComplete
-       ||latex.isEmpty()
+       ||latex.trimmed().isEmpty()
        ||m_isHelpRequest||isInternal())
     {
         kDebug()<<"using text";
@@ -589,7 +596,11 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out)
         if(latex.trimmed().isEmpty())
         {
             if(m_isPlot)
-                result=new Cantor::TextResult(i18n("Waiting for Image..."));
+            {
+                kDebug()<<"result is a plot!";
+                result=new Cantor::TextResult(i18n("Waiting for Image..."), "cantor-internal-plot");
+                return result;
+            }
             else
                 result=0;
         }else
@@ -615,12 +626,19 @@ void MaximaExpression::imageChanged()
     kDebug()<<"the temp image has changed";
     if(m_tempFile->size()>0)
     {
+        for(int i=0;i<results().size();i++)
+        {
+            Cantor::Result* result=results().at(i);
+            if(result->type()==Cantor::TextResult::Type &&static_cast<Cantor::TextResult*>(result)->plain()=="cantor-internal-plot")
+            {
 #ifdef WITH_EPS
-        setResult( new Cantor::EpsResult( KUrl(m_tempFile->fileName()) ) );
+                setResult( new Cantor::EpsResult( KUrl(m_tempFile->fileName()) ) , i);
 #else
-        setResult( new Cantor::ImageResult( KUrl(m_tempFile->fileName()) ) );
+                setResult( new Cantor::ImageResult( KUrl(m_tempFile->fileName()) ) , i);
 #endif
-        setStatus(Cantor::Expression::Done);
+                setStatus(Cantor::Expression::Done);
+            }
+        }
     }
 }
 
