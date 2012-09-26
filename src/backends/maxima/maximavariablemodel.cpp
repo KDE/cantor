@@ -66,7 +66,8 @@ void MaximaVariableModel::checkForNewFunctions()
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
     kDebug()<<"parsing it!";
-    if(!expr||expr->status()!=Cantor::Expression::Done)
+    if(!expr||expr->status()!=Cantor::Expression::Done||
+       !expr->result())
         return QList<Cantor::DefaultVariableModel::Variable>();
 
     QString text;
