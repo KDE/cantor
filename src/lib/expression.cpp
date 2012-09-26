@@ -128,7 +128,7 @@ void Expression::setResults(QList<Result*> results)
     for(int i = 0; i < d->results.size(); ++i) {
         Result* r = d->results.at(i);
         kDebug()<<"setting result to a type "<<r->type()<<" result";
-        #ifdef WITH_EPS
+#ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
         if ( session()->isTypesettingEnabled()&&
              r->type()==TextResult::Type &&
@@ -140,7 +140,7 @@ void Expression::setResults(QList<Result*> results)
         {
             d->latexResultIndices.append(i);
         }
-        #endif
+#endif
     }
 
     if (!d->latexResultIndices.isEmpty())
@@ -221,6 +221,7 @@ void Expression::latexRendered()
         LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
         delete d->results.at(i);
         d->results[i] = latex;
+        emit gotResult();
     } else
     {
         //if rendering with latex was not successfull, just use the plain text version
@@ -305,4 +306,3 @@ bool Expression::isInternal()
 }
 
 #include "expression.moc"
-

@@ -610,11 +610,6 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 
 void CommandEntry::removeResults()
 {
-    if(m_expression)
-    {
-        m_expression->clearResults();
-    }
-
     QList<QGraphicsObject*> resultObjects;
     foreach(ResultItem* item, m_resultItems) {
         resultObjects.append(item->graphicsObject());
