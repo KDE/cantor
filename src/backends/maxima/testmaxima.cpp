@@ -191,6 +191,12 @@ void TestMaxima::testSyntaxHelp()
     Cantor::SyntaxHelpObject* help = session()->syntaxHelpFor("simplify_sum");
     help->fetchSyntaxHelp();
     waitForSignal(help, SIGNAL(done()));
+
+    help = session()->syntaxHelpFor("simplify_sum");
+    help->fetchSyntaxHelp();
+    waitForSignal(help, SIGNAL(done()));
+
+    qWarning()<<help->toHtml();
     QVERIFY(!help->toHtml().isEmpty());
 }
 

@@ -57,7 +57,7 @@ MaximaKeywords* MaximaKeywords::instance()
 void MaximaKeywords::loadFromFile()
 {
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("appdata",  "maximabackend/keywords.xml"));
+    QFile file(KStandardDirs::locate("data",  "cantor/maximabackend/keywords.xml"));
 
     if(!file.open(QIODevice::ReadOnly))
     {
