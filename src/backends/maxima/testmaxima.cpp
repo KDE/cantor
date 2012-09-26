@@ -133,7 +133,7 @@ void TestMaxima::testSimpleExpressionWithComment()
 
 void TestMaxima::testCommentExpression()
 {
-    Cantor::Expression* e=evalExp("/*this is a comment*");
+    Cantor::Expression* e=evalExp("/*this is a comment*/");
     QVERIFY(e!=0);
     QVERIFY(e->result()==0||e->result()->toHtml().isEmpty());
 }
