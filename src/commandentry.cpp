@@ -650,7 +650,7 @@ void CommandEntry::updatePrompt()
     cformat.setFontWeight(QFont::Bold);
 
     //insert the session id if available
-    if(m_expression && worksheet()->showExpressionIds())
+    if(m_expression && worksheet()->showExpressionIds()&&m_expression->id()!=-1)
         c.insertText(QString::number(m_expression->id()),cformat);
 
     //detect the correct color for the prompt, depending on the

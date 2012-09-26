@@ -24,6 +24,7 @@
 #include <KLocale>
 
 #include <analitza/expression.h>
+#include <analitza/expressionstream.h>
 #include <analitza/analyzer.h>
 
 KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session )
@@ -40,33 +41,22 @@ void KAlgebraExpression::evaluate()
     Analitza::Analyzer* a=static_cast<KAlgebraSession*>(session())->analyzer();
     Analitza::Expression res;
     QString cmd = command();
-    QScopedPointer<QTextStream> stream(new QTextStream(&cmd));
+    QTextStream stream(&cmd);
 
-    QString line;
-    for(bool done=!stream->atEnd(); done; done=!stream->atEnd() || !line.isEmpty()) {
-        line += stream->readLine(); // line of text excluding '\n'
-        line += '\n'; //make sure the \n is passed so that comments work properly
+    Analitza::ExpressionStream s(&stream);
+    for(; !s.atEnd();) {
+        a->setExpression(s.next());
+        res = a->evaluate();
 
-        if(Analitza::Expression::isCompleteExpression(line) || stream->atEnd()) {
-            if(stream->atEnd() && !Analitza::Expression::isCompleteExpression(line, true))
-                break;
-
-            a->setExpression(Analitza::Expression(line, Analitza::Expression::isMathML(line)));
-
-            res = a->evaluate();
-            line.clear();
-
-            if(!a->isCorrect())
-                break;
-        }
+        if(!a->isCorrect())
+            break;
     }
 
     if(a->isCorrect()) {
         setResult(new Cantor::TextResult(res.toString()));
         setStatus(Cantor::Expression::Done);
     } else {
-        QString error=i18n("Error: %1", a->errors().join("\n"));
-        setErrorMessage(error);
+        setErrorMessage(i18n("Error: %1", a->errors().join("\n")));
         setStatus(Cantor::Expression::Error);
     }
 }
