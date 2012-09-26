@@ -32,7 +32,7 @@ class QTimer;
 
 class MaximaExpression : public Cantor::Expression
 {
-  Q_OBJECT  
+  Q_OBJECT
   public:
     explicit MaximaExpression( Cantor::Session* session);
     ~MaximaExpression();
@@ -44,9 +44,9 @@ class MaximaExpression : public Cantor::Expression
 
     bool needsLatexResult();
 
-    //returns the command that should be send to 
+    //returns the command that should be send to
     //the Maxima process, it's different from the
-    //command() for example to allow plot embedding 
+    //command() for example to allow plot embedding
     QString internalCommand();
 
     //Forces the status of this Expression to done
@@ -61,11 +61,11 @@ class MaximaExpression : public Cantor::Expression
 
   private:
     virtual QString additionalLatexHeaders();
-    Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
+    Cantor::Result* parseResult(int* idx,QString& out);
   private:
     KTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
-    bool m_isHelpRequest; 
+    bool m_isHelpRequest;
     bool m_isPlot;
     QTimer* m_askTimer;
     QString m_errorBuffer;

@@ -66,13 +66,16 @@ void TestMaxima::testPlot()
     Cantor::Expression* e=evalExp( "plot2d(sin(x), [x, -10,10])" );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->results().size() ==0 );
+    QVERIFY( e->results().size() == 1 );
 
     Cantor::Result* result = e->results().at(0);
     if(result->type()!= Cantor::EpsResult::Type)
     {
         waitForSignal(e, SIGNAL(gotResult()));
     }
+
+    QVERIFY( e->results().size() == 1 );
+    result = e->results().at(0);
 
     QCOMPARE( result->type(), (int)Cantor::EpsResult::Type );
     QVERIFY( !result->data().isNull() );

@@ -336,10 +336,8 @@ bool MaximaExpression::parseOutput(QString& out)
     QChar c;
 
     int numResults=0;
-    QString textBuffer;
-    QString latexBuffer;
 
-    Cantor::Result* result=0;
+    QList<Cantor::Result*> results;
     while(idx<out.size())
     {
         skipWhitespaces(&idx, out);
@@ -368,13 +366,8 @@ bool MaximaExpression::parseOutput(QString& out)
         {
             kDebug()<<"got a result";
 
-            if(numResults>0)
-            {
-                textBuffer.append("\n");
-                latexBuffer.append("\n");
-            }
-
-            result=parseResult(&idx, out, textBuffer, latexBuffer);
+            Cantor::Result* result=parseResult(&idx, out);
+            results<<result;
             numResults++;
 
             kDebug()<<"got "<<numResults<<"th result.";
@@ -440,7 +433,7 @@ bool MaximaExpression::parseOutput(QString& out)
 
                     if(command().startsWith(":lisp")||command().startsWith(":lisp-quiet"))
                     {
-                        if(result)
+                        foreach(Cantor::Result* result, results)
                         {
                             if(result->type()==Cantor::TextResult::Type)
                                 m_errorBuffer.prepend(dynamic_cast<Cantor::TextResult*>(result)->plain()+"\n");
@@ -460,7 +453,7 @@ bool MaximaExpression::parseOutput(QString& out)
                         setStatus(Cantor::Expression::Done);
                     }else
                     {
-                        if(result)
+                        foreach(Cantor::Result* result, results)
                         {
                             kDebug()<<"result: "<<result->toHtml();
                             if(result->type()==Cantor::TextResult::Type)
@@ -481,16 +474,16 @@ bool MaximaExpression::parseOutput(QString& out)
                 }
                 else
                 {
-                    //if we got an error message, but also a result, lets just+
+                    //if we got an error message, but also a result, lets just
                     //assume that it was just a warning, as obviously something worked
-                    if(errorMessage().isEmpty()||result!=0)
+                    if(errorMessage().isEmpty()||results.size()>0)
                     {
-                        setResult(result);
+                        setResults(results);
                         setStatus(Cantor::Expression::Done);
                     }
                     else
                     {
-                        if(!result)
+                        if(results.size()==0)
                             setStatus(Cantor::Expression::Error);
 
                     }
@@ -508,12 +501,11 @@ bool MaximaExpression::parseOutput(QString& out)
     }
 
     //show partial result
-    setResult(result);
+    setResults(results);
     return false;
 }
 
-Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
-                                              QString& textBuffer, QString& latexBuffer)
+Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out)
 {
     bool isLatexComplete=false;
     QString latex;
@@ -564,19 +556,15 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
 
     Cantor::TextResult* result=0;
 
-    //if this is not the first result, prepend the results
-    //found in the earlier tags.
-    textBuffer.append(text);
-
     //if the <latex> element wasn't read completely, there
     //is no point in trying to render it. Use text for
     //incomplete results.
     if(!isLatexComplete
-       ||(latexBuffer.trimmed().isEmpty()&&latex.isEmpty())
+       ||latex.isEmpty()
        ||m_isHelpRequest||isInternal())
     {
         kDebug()<<"using text";
-        result=new Cantor::TextResult(textBuffer);
+        result=new Cantor::TextResult(text);
     }else
     {
         kDebug()<<"using latex";
@@ -598,7 +586,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
         latex=latex.mid(i+1);
 
         //no need to render empty latex.
-        if(latexBuffer.trimmed().isEmpty()&&latex.trimmed().isEmpty())
+        if(latex.trimmed().isEmpty())
         {
             if(m_isPlot)
                 result=new Cantor::TextResult(i18n("Waiting for Image..."));
@@ -608,8 +596,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
         {
             latex.prepend("\\begin{eqnarray*}\n");
             latex.append("\n\\end{eqnarray*}");
-            latexBuffer.append(latex);
-            result=new Cantor::TextResult(latexBuffer, textBuffer);
+            result=new Cantor::TextResult(latex, text);
             result->setFormat(Cantor::TextResult::LatexFormat);
         }
     }
