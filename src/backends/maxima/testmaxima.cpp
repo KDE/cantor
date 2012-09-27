@@ -80,7 +80,7 @@ void TestMaxima::testPlot()
         waitForSignal(e, SIGNAL(gotResult()));
     }
 
-#ifndef WITH_EPS
+#ifdef WITH_EPS
     QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
 #else
     QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
