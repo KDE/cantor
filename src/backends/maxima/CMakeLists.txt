@@ -29,6 +29,7 @@ target_link_libraries( testmaxima
   cantortest
   ${QT_QTCORE_LIBRARY}
   ${QT_QTTEST_LIBRARY}
+  ${KDE4_KDECORE_LIBS}
 )
 
 install( FILES maximabackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

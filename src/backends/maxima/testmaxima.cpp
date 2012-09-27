@@ -28,7 +28,10 @@
 #include "epsresult.h"
 #include "syntaxhelpobject.h"
 
+#include <config-cantorlib.h>
+
 #include <kdebug.h>
+#include <kstandarddirs.h>
 
 QString TestMaxima::backendName()
 {
@@ -62,6 +65,11 @@ void TestMaxima::testMultilineCommand()
 //and CantorLib must be compiled with EPS-support
 void TestMaxima::testPlot()
 {
+    if(KStandardDirs::findExe("gnuplot").isNull())
+    {
+        QSKIP("gnuplot not found maxima needs it for plotting", SkipSingle);
+    }
+
     Cantor::Expression* e=evalExp( "plot2d(sin(x), [x, -10,10])" );
 
     QVERIFY( e!=0 );
@@ -72,7 +80,11 @@ void TestMaxima::testPlot()
         waitForSignal(e, SIGNAL(gotResult()));
     }
 
+#ifndef WITH_EPS
     QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
+#else
+    QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
+#endif
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
 }
