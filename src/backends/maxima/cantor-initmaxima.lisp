@@ -7,7 +7,11 @@
 (setf *alt-display2d* 'cantor-latex-print)
 (setf *alt-display1d* 'cantor-regular-print)
 (setf *prompt-prefix* "<cantor-prompt>")
-(setf *prompt-suffix* "</cantor-prompt>")
+;;the newline at the end of the next line is needed, as we otherwise might run into
+;;weird issues with KPtyProcess caching the line of the prompt, and sending it twice
+;;to readStdOut()
+(setf *prompt-suffix* "</cantor-prompt>
+")
 ;(setf *general-display-prefix* "DISPLAY_PREFIX")
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
