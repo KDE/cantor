@@ -62,8 +62,10 @@ ResultItem* QmlResultItem::updateFromResult(Cantor::Result* result)
             qmlresult = dynamic_cast<Cantor::QmlResult*>(result);
             m_engine = new QDeclarativeEngine(this);
             m_context = new QDeclarativeContext(m_engine, this);
-            foreach(Cantor::ContextProperty prop, qmlresult->properties()) {
-                m_context->setContextProperty(prop.name, prop.value);
+            QVariantMap props = qmlresult->properties();
+            for (QVariantMap::ConstIterator i = props.constBegin();
+                 i != props.constEnd(); ++i) {
+                m_context->setContextProperty(i.key(), i.value());
             }
             QDeclarativeComponent component(m_engine);
             component.setData(qmlresult->qml().toUtf8(), QString());
