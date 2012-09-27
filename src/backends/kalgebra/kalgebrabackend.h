@@ -28,12 +28,12 @@ class KAlgebraBackend : public Cantor::Backend
         explicit KAlgebraBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
         ~KAlgebraBackend();
 
-	QString id() const;
+        QString id() const;
         Cantor::Session *createSession();
         Cantor::Backend::Capabilities capabilities() const;
 
-	KUrl helpUrl() const;
+        KUrl helpUrl() const;
+        QStringList addFunction(const QString& expression, double up, double down);
 };
 
-
-#endif /* _NULLBACKEND_H */
+#endif

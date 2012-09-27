@@ -53,5 +53,4 @@ KUrl KAlgebraBackend::helpUrl() const
                  "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
 }
 
-
 K_EXPORT_CANTOR_PLUGIN(kalgebrabackend, KAlgebraBackend)

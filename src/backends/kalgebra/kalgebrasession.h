@@ -25,7 +25,8 @@ class OperatorsModel;
 class VariablesModel;
 class KAlgebraExpression;
 
-namespace Analitza { class Analyzer; }
+namespace Analitza { class Analyzer; class Variables;
+}
 
 class KAlgebraSession : public Cantor::Session
 {
@@ -46,6 +47,7 @@ class KAlgebraSession : public Cantor::Session
         OperatorsModel* operatorsModel();
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
         QAbstractItemModel* variableModel();
+        Analitza::Variables* variables();
 
     private:
         Analitza::Analyzer* m_analyzer;

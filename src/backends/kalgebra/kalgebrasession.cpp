@@ -22,11 +22,14 @@
 #include <analitzagui/algebrahighlighter.h>
 #include <analitza/analyzer.h>
 #include <QTextEdit>
+#include <qdeclarative.h>
 
 #include <kdebug.h>
 #include "kalgebrasyntaxhelpobject.h"
+#include "graph2dmobile.h"
 #include <analitzagui/operatorsmodel.h>
 #include <analitzagui/variablesmodel.h>
+#include <analitzaplot/plotsmodel.h>
 
 KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
     : Session(backend)
@@ -35,6 +38,11 @@ KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
     m_operatorsModel = new OperatorsModel;
     m_variablesModel = new VariablesModel(m_analyzer->variables());
     m_operatorsModel->setVariables(m_analyzer->variables());
+
+    qmlRegisterType<PlotsModel>("org.kde.analitza", 1, 0, "PlotsModel");
+    qmlRegisterType<Graph2DMobile>("org.kde.analitza", 1, 0, "Graph2DView");
+    qmlRegisterType<VariablesModel>("org.kde.analitza", 1, 0, "VariablesModel");
+    qmlRegisterType<QAbstractItemModel>();
 }
 
 KAlgebraSession::~KAlgebraSession()
@@ -97,4 +105,9 @@ QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
 QAbstractItemModel* KAlgebraSession::variableModel()
 {
     return m_variablesModel;
+}
+
+Analitza::Variables* KAlgebraSession::variables()
+{
+    return m_variablesModel->variables();
 }

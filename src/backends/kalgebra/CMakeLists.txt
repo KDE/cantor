@@ -1,16 +1,17 @@
 include_directories(${ANALITZA_INCLUDE_DIR})
 
 set( KAlgebraBackend_SRCS
- kalgebrasyntaxhelpobject.cpp 
- kalgebrabackend.cpp  
+ kalgebrasyntaxhelpobject.cpp
+ kalgebrabackend.cpp
  kalgebrasession.cpp
  kalgebraexpression.cpp
  kalgebracompletionobject.cpp
  kalgebraextensions.cpp
+ graph2dmobile.cpp
 )
 
 kde4_add_plugin( cantor_kalgebrabackend ${KAlgebraBackend_SRCS} )
-target_link_libraries( cantor_kalgebrabackend ${KDE4_KDEUI_LIBS} cantorlibs ${ANALITZA_LIBS})
+target_link_libraries( cantor_kalgebrabackend ${KDE4_KDEUI_LIBS} ${QT_QTDECLARATIVE_LIBRARY} cantorlibs ${ANALITZA_LIBS})
 
 install( FILES kalgebrabackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_kalgebrabackend DESTINATION ${PLUGIN_INSTALL_DIR})

@@ -21,6 +21,7 @@
 
 #include "expression.h"
 
+class PlotsModel;
 class KAlgebraSession;
 
 class KAlgebraExpression : public Cantor::Expression
@@ -32,6 +33,11 @@ class KAlgebraExpression : public Cantor::Expression
 
         void evaluate();
         void interrupt();
+
+    private:
+        KAlgebraSession* m_session;
+        QStringList addFunction(const QString& expression, double up, double down);
+        PlotsModel* m_model;
 };
 
 #endif
