@@ -338,6 +338,7 @@ bool MaximaExpression::parseOutput(QString& out)
     int numResults=0;
     QString textBuffer;
     QString latexBuffer;
+    QString errorBuffer;
 
     Cantor::Result* result=0;
     while(idx<out.size())
@@ -357,7 +358,7 @@ bool MaximaExpression::parseOutput(QString& out)
             const QString& err=out.mid(idx, newIdx-idx);
             if(!err.isEmpty())
                 m_gotErrorContent=true;
-            m_errorBuffer+=err;
+            errorBuffer+=err;
             kDebug()<<"the unmatched part of the output is: "<<err;
             idx=newIdx;
         }
@@ -432,6 +433,7 @@ bool MaximaExpression::parseOutput(QString& out)
                 if(!isComplete)
                     return false;
 
+                m_errorBuffer+=errorBuffer;
                 if(!m_errorBuffer.trimmed().isEmpty())
                 {
                     //Replace < and > with their html code, so they won't be confused as html tags
