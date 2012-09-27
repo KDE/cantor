@@ -76,7 +76,7 @@ void NullExpression::evalFinished()
         setResult( result );
 
         //temporarily test the rendering code inside QmlResult
-        result->save("/tmp/somefile.png");
+        //result->save("/tmp/somefile.png");
     }
     else
         setResult(new Cantor::TextResult("result: "+command()));

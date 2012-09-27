@@ -22,6 +22,7 @@
 #include "textresultitem.h"
 #include "imageresultitem.h"
 #include "animationresultitem.h"
+#include "qmlresultitem.h"
 #include "worksheetentry.h"
 
 #include "lib/result.h"
@@ -29,6 +30,7 @@
 #include "lib/latexresult.h"
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
+#include "lib/qmlresult.h"
 #include "lib/animationresult.h"
 
 #include <QObject>
@@ -65,6 +67,12 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     case Cantor::AnimationResult::Type:
         {
             AnimationResultItem* item = new AnimationResultItem(parent);
+            item->updateFromResult(result);
+            return item;
+        }
+    case Cantor::QmlResult::Type:
+        {
+            QmlResultItem* item = new QmlResultItem(parent);
             item->updateFromResult(result);
             return item;
         }
