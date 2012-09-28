@@ -23,9 +23,17 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
+#include "qmlresult.h"
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <QTimer>
+
+static QString qml="import QtQuick 1.0 \
+ Item {                                \
+     width: 200                        \
+     height: 200                       \
+ }";
+
 
 NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
@@ -61,8 +69,17 @@ void NullExpression::evalFinished()
     kDebug()<<"evaluation finished";
     if ( command()=="img" )
         setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath("kde", KIconLoader::Desktop)), "alternative" ) );
+    else if( command()=="qml")
+    {
+        Cantor::QmlResult* result=new Cantor::QmlResult(qml, Cantor::ContextPropertyList());
+        setResult( result );
+
+        //temporarily test the rendering code inside QmlResult
+        result->save("/tmp/somefile.png");
+    }
     else
         setResult(new Cantor::TextResult("result: "+command()));
+
 
     setStatus(Cantor::Expression::Done);
 }

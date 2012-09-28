@@ -43,7 +43,7 @@ class Cantor::QmlResultPrivate
         KUrl tmpFile;
 };
 
-QmlResult::QmlResult(const QString& qml, const ContextPropertyList& properties)
+QmlResult::QmlResult(const QString& qml, const ContextPropertyList& properties) : d(new QmlResultPrivate)
 {
     d->qml=qml;
     d->properties=properties;
@@ -128,11 +128,28 @@ QImage QmlResult::renderToImage()
     component.setData(d->qml.toUtf8(), QUrl());
 
     QObject *myObject = component.create();
+
+    if(component.isError())
+    {
+        kDebug()<<"errror: "<<component.errors();
+    }
+
     QDeclarativeItem *item = qobject_cast<QDeclarativeItem*>(myObject);
+    kDebug()<<"bla: "<<myObject<<" : "<<item;
     QImage pix(item->width(),  item->height(), QImage::Format_ARGB32);
     QPainter painter(&pix);
     QStyleOptionGraphicsItem option;
     item->paint(&painter,  &option,  NULL);
 
     return pix;
+}
+
+QString QmlResult::qml() const
+{
+    return d->qml;
+}
+
+ContextPropertyList QmlResult::properties() const
+{
+    return d->properties;
 }

@@ -23,6 +23,8 @@
 
 #include "result.h"
 
+#include "cantor_export.h"
+
 namespace Cantor{
 
 struct ContextProperty{
@@ -34,7 +36,7 @@ typedef QList<ContextProperty> ContextPropertyList;
 
 class QmlResultPrivate;
 
-class QmlResult : public Result
+class  CANTOR_EXPORT QmlResult : public Result
 {
   public:
     enum { Type = 8 };
@@ -43,6 +45,9 @@ class QmlResult : public Result
 
     QString toHtml();
     QVariant data();
+
+    QString qml() const;
+    ContextPropertyList properties() const;
 
     QString plain();
 

@@ -13,6 +13,7 @@ set( cantor_LIB_SRCS
   latexrenderer.cpp
   helpresult.cpp
   animationresult.cpp
+  qmlresult.cpp
   extension.cpp
   assistant.cpp
   completionobject.cpp
@@ -45,7 +46,7 @@ Set( cantor_LIB_HDRS
   #helper classes
   defaulthighlighter.h
   defaultvariablemodel.h
-  
+
 )
 
 kde4_add_ui_files(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
@@ -62,6 +63,7 @@ target_link_libraries( cantorlibs
   ${KDE4_KIO_LIBS}
   ${QT_LIBRARIES}
   ${QT_QTXML_LIBRARY}
+  ${QT_QTDECLARATIVE_LIBRARY}
 )
 set_target_properties( cantorlibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
