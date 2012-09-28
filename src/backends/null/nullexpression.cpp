@@ -72,7 +72,7 @@ void NullExpression::evalFinished()
         setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath("kde", KIconLoader::Desktop)), "alternative" ) );
     else if( command()=="qml")
     {
-        Cantor::QmlResult* result=new Cantor::QmlResult(qml, Cantor::ContextPropertyList());
+        Cantor::QmlResult* result=new Cantor::QmlResult(qml, QVariantMap());
         setResult( result );
 
         //temporarily test the rendering code inside QmlResult

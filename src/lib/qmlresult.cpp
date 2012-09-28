@@ -38,12 +38,12 @@ class Cantor::QmlResultPrivate
 {
     public:
         QString qml;
-        ContextPropertyList properties;
+        QVariantMap properties;
 
         KUrl tmpFile;
 };
 
-QmlResult::QmlResult(const QString& qml, const ContextPropertyList& properties) : d(new QmlResultPrivate)
+QmlResult::QmlResult(const QString& qml, const QVariantMap& properties) : d(new QmlResultPrivate)
 {
     d->qml=qml;
     d->properties=properties;
@@ -119,9 +119,9 @@ QImage QmlResult::renderToImage()
 {
     QDeclarativeEngine engine;
     QDeclarativeContext *context = new QDeclarativeContext(engine.rootContext());
-    foreach(const ContextProperty& property, d->properties)
+    foreach(const QString& property, d->properties.keys())
     {
-        context->setContextProperty(property.name, property.value);
+        context->setContextProperty(property, d->properties[property]);
     }
 
     QDeclarativeComponent component(&engine);
@@ -153,7 +153,7 @@ QString QmlResult::qml() const
     return d->qml;
 }
 
-ContextPropertyList QmlResult::properties() const
+QVariantMap QmlResult::properties() const
 {
     return d->properties;
 }

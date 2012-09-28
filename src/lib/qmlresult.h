@@ -27,27 +27,20 @@
 
 namespace Cantor{
 
-struct ContextProperty{
-    QString name;
-    QVariant value;
-};
-
-typedef QList<ContextProperty> ContextPropertyList;
-
 class QmlResultPrivate;
 
 class  CANTOR_EXPORT QmlResult : public Result
 {
   public:
     enum { Type = 8 };
-    QmlResult( const QString& qml, const ContextPropertyList& properties);
+    QmlResult( const QString& qml, const QVariantMap& properties);
     ~QmlResult();
 
     QString toHtml();
     QVariant data();
 
     QString qml() const;
-    ContextPropertyList properties() const;
+    QVariantMap properties() const;
 
     QString plain();
 
