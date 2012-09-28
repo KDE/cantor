@@ -564,6 +564,8 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
         else
             setLastEntry(entry);
         updateLayout();
+    } else {
+        entry = next;
     }
 
     focusEntry(entry);
