@@ -131,17 +131,21 @@ QImage QmlResult::renderToImage()
 
     if(component.isError())
     {
-        kDebug()<<"errror: "<<component.errors();
+        kDebug()<<"error: "<<component.errors();
+    }else
+    {
+
+        QDeclarativeItem *item = qobject_cast<QDeclarativeItem*>(myObject);
+        kDebug()<<"bla: "<<myObject<<" : "<<item;
+        QImage pix(item->width(),  item->height(), QImage::Format_ARGB32);
+
+        QPainter painter(&pix);
+        QStyleOptionGraphicsItem option;
+        item->paint(&painter,  &option,  NULL);
+        return pix;
     }
 
-    QDeclarativeItem *item = qobject_cast<QDeclarativeItem*>(myObject);
-    kDebug()<<"bla: "<<myObject<<" : "<<item;
-    QImage pix(item->width(),  item->height(), QImage::Format_ARGB32);
-    QPainter painter(&pix);
-    QStyleOptionGraphicsItem option;
-    item->paint(&painter,  &option,  NULL);
-
-    return pix;
+    return QImage();
 }
 
 QString QmlResult::qml() const

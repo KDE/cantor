@@ -28,10 +28,11 @@
 #include <kiconloader.h>
 #include <QTimer>
 
-static QString qml="import QtQuick 1.0 \
- Item {                                \
-     width: 200                        \
-     height: 200                       \
+static QString qml="import QtQuick 1.0; \
+ Rectangle {                            \
+     width: 200;                        \
+     height: 200;                       \
+     color: \"red\";                    \
  }";
 
 
