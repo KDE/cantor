@@ -33,6 +33,7 @@
 #include <analitzaplot/planecurve.h>
 #include <analitzagui/variablesmodel.h>
 
+using namespace Analitza;
 
 KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session )
     : Cantor::Expression(session)

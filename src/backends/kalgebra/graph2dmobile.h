@@ -23,7 +23,7 @@
 #include <QDeclarativeItem>
 #include <analitzaplot/plotter2d.h>
 
-class Graph2DMobile : public QDeclarativeItem, public Plotter2D
+class Graph2DMobile : public QDeclarativeItem, public Analitza::Plotter2D
 {
 	Q_OBJECT
 	Q_PROPERTY(QAbstractItemModel* model READ model WRITE setModel);
@@ -33,30 +33,30 @@ class Graph2DMobile : public QDeclarativeItem, public Plotter2D
 	Q_PROPERTY(int currentFunction READ currentFunction WRITE setCurrentFunction)
 	public:
 		Graph2DMobile(QDeclarativeItem* parent = 0);
-		
+
 		virtual void forceRepaint();
 		virtual void viewportChanged() {}
 		virtual void modelChanged();
 		virtual int currentFunction() const { return m_currentFunction; }
-		
+
 		virtual void paint(QPainter* p, const QStyleOptionGraphicsItem* options, QWidget* w);
-		
+
 		void setCurrentFunction(int f) { m_currentFunction = f; }
-		
+
 	public slots:
 		void translate(qreal x, qreal y);
 		void scale(qreal s, int x, int y);
 		void resetViewport();
-		
+
 	private slots:
 		void updateFuncs(const QModelIndex& start, const QModelIndex& end);
 		void addFuncs(const QModelIndex& parent, int start, int end);
 		void removeFuncs(const QModelIndex& parent, int start, int end);
-		
+
 	private:
 		bool m_dirty;
 		int m_currentFunction;
-		
+
 		QPixmap m_buffer;
 		QRectF defViewport;
 };

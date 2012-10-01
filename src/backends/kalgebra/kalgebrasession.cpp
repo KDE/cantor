@@ -39,7 +39,7 @@ KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
     m_variablesModel = new VariablesModel(m_analyzer->variables());
     m_operatorsModel->setVariables(m_analyzer->variables());
 
-    qmlRegisterType<PlotsModel>("org.kde.analitza", 1, 0, "PlotsModel");
+    qmlRegisterType<Analitza::PlotsModel>("org.kde.analitza", 1, 0, "PlotsModel");
     qmlRegisterType<Graph2DMobile>("org.kde.analitza", 1, 0, "Graph2DView");
     qmlRegisterType<VariablesModel>("org.kde.analitza", 1, 0, "VariablesModel");
     qmlRegisterType<QAbstractItemModel>();
