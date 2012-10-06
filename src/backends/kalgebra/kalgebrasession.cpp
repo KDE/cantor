@@ -33,7 +33,7 @@ KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
 {
     m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;
-    m_variablesModel = new VariablesModel(m_analyzer->variables());
+    m_variablesModel = new Analitza::VariablesModel(m_analyzer->variables());
     m_operatorsModel->setVariables(m_analyzer->variables());
 }
 

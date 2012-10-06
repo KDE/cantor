@@ -22,10 +22,12 @@
 #include "session.h"
 
 class OperatorsModel;
-class VariablesModel;
 class KAlgebraExpression;
 
-namespace Analitza { class Analyzer; }
+namespace Analitza {
+class Analyzer;
+class VariablesModel;
+}
 
 class KAlgebraSession : public Cantor::Session
 {
@@ -50,7 +52,11 @@ class KAlgebraSession : public Cantor::Session
     private:
         Analitza::Analyzer* m_analyzer;
         OperatorsModel* m_operatorsModel;
+<<<<<<< HEAD
 	VariablesModel* m_variablesModel;
+=======
+        Analitza::VariablesModel* m_variablesModel;
+>>>>>>> 789892a... VariablesModel is now in the Analitza namespace
 };
 
 #endif
