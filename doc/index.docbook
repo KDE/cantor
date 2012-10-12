@@ -30,7 +30,7 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2011-11-08</date>
+<date>2012-10-12</date>
 <releaseinfo>0.3</releaseinfo>
 
 <abstract>
@@ -185,11 +185,20 @@ Screenshot:
     <para>
       You need Scilab version 5.4 or higher to be installed in your system to make this backend usable.
     </para>
-    <para>
-      Scilab version of the master branch of the Scilab's repository is compatible.
-    </para>
   </warning>
   </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Octave:</term>
+      <listitem>
+  <para>
+    GNU Octave is a high-level language, primarily intended for numerical
+    computations. It provides a convenient command line interface for
+    solving linear and nonlinear problems numerically, and for performing other
+    numerical experiments using a language that is mostly compatible with <ulink url="http://www.mathworks.com/products/matlab/">MATLAB</ulink>.
+    See <ulink url="http://www.gnu.org/software/octave/">http://www.gnu.org/software/octave/</ulink> for more information.
+    </para>
+      </listitem>
     </varlistentry>
   </variablelist>
 </para>
@@ -213,8 +222,9 @@ Screenshot:
 <para>
   The Worksheet interface of &cantor; consists of three parts:
   <orderedlist>
-    <listitem><para>The tab bar, where you can switch through the open worksheets;</para></listitem>
-    <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command";</para></listitem>
+    <listitem><para>The tab bar, where you can switch through the open worksheets.</para></listitem>
+    <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command".</para></listitem>
+    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Managers panel will be shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), KAlgebra, Octave, and Qualculate backends only.</para></listitem>
     <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
 </para>
@@ -225,10 +235,16 @@ Screenshot:
   expressions, allow the backend to perform calculations, and look at the results.
   The commands the worksheets accept depend on the chosen backend, so you should
   learn the appropriate backend syntax (the Show Help button takes you there directly).
-  If you know the command, but you need additional information, you can type "? command",
+  If you know the command, but you need additional information, you can type "? <replaceable>command</replaceable>",
   and contextual help will appear on the right of the worksheet.
   If you want to see some example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
   in the <guimenu>File</guimenu> menu, and download worksheets other users have published.
+</para>
+<para>
+  To control each command entry of the worksheet you can use control buttons shown at the right part of the worksheet when hovering the entry field with a mouse cursor. There are three basic actions for each entry: <guilabel>Evaluate Entry</guilabel> to update the result of calculations for the entry, <guilabel>Drag Entry</guilabel> to move the entry at the other place of the current worksheet and <guilabel>Remove Entry</guilabel> to remove the entry from the current worksheet.
+</para>
+<para>
+  Font settings and alignment of worksheet entries can be changed using a toolbar above the worksheet.
 </para>
 <sect3 id="worksheet-settings">
   <title>Settings</title>
@@ -277,6 +293,14 @@ Screenshot:
       <para>
 	This setting controls whether the different expressions should have a number in front.  This allows you
 	to recall older results - in Maxima, for instance, this is done with the <quote>%O1</quote> command.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>Animate Worksheet</term>
+    <listitem>
+      <para>
+  This setting controls whether the different animations will be used to highlight changes on a worksheet.
       </para>
     </listitem>
   </varlistentry>
@@ -362,6 +386,13 @@ TODO add screenshots and descriptions of each assistant
 <guimenuitem>Save As...</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Allows saving the current worksheet with a new name.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Save Plain Text</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Allows saving the current worksheet as a plain text document.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -457,7 +488,15 @@ TODO add screenshots and descriptions of each assistant
 <guisubmenu>Panels</guisubmenu>
 <guimenuitem>Help</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Toggles</action> the visibility of the <guilabel>Help</guilabel> sidebar.</para></listitem>
+<listitem><para><action>Toggles</action> the visibility of the <guilabel>Help</guilabel> tab in the sidebar.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>View</guimenu>
+<guisubmenu>Panels</guisubmenu>
+<guimenuitem>Variable Manager</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Toggles</action> the visibility of the <guilabel>Variable Manager</guilabel> tab in the sidebar.</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
