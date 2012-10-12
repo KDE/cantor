@@ -10,7 +10,7 @@
 ]>
 <book id="cantor" lang="&language;">
 
-<bookinfo>
+<book id="cantor"info>
 <title>The &cantor; Handbook</title>
 
 <authorgroup>
