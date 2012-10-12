@@ -8,9 +8,9 @@
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
-<book lang="&language;">
+<book id="cantor" lang="&language;">
 
-<bookinfo>
+<book id="cantor"info>
 <title>The &cantor; Handbook</title>
 
 <authorgroup>
