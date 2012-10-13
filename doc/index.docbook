@@ -31,7 +31,7 @@
 <legalnotice>&FDLNotice;</legalnotice>
 
 <date>2012-10-12</date>
-<releaseinfo>0.3</releaseinfo>
+<releaseinfo>0.3 (&kde; 4.10)</releaseinfo>
 
 <abstract>
 <para>
@@ -224,7 +224,7 @@ Screenshot:
   <orderedlist>
     <listitem><para>The tab bar, where you can switch through the open worksheets.</para></listitem>
     <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command".</para></listitem>
-    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Managers panel will be shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), KAlgebra, Octave, and Qualculate backends only.</para></listitem>
+    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), KAlgebra, Octave, and Qualculate backends only.</para></listitem>
     <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
 </para>
@@ -315,12 +315,19 @@ TODO add screenshots and descriptions of each assistant
 </sect1>
 -->
 </chapter>
-<!--this chapter is boring and completely useless, only default menu items well known to any kde user-->
 <chapter id="commands">
 <title>Command Reference</title>
 
 <sect1 id="kapp-mainwindow">
 <title>The main &cantor; window</title>
+
+<para>
+&cantor; has the common &kde; menu items, for more information read the <ulink url="help:/fundamentals/ui.html#menus"
+>Menu</ulink> chapter of the &kde; Fundamentals.
+</para>
+
+<para>Additional or special menu items in &cantor;:
+</para>
 
 <sect2 id="file-menu">
 <title>The File Menu</title>
@@ -346,16 +353,6 @@ TODO add screenshots and descriptions of each assistant
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Open</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Opens the chosen worksheet that was saved earlier.</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Download Example Worksheets</guimenuitem>
 </menuchoice></term>
@@ -369,23 +366,6 @@ TODO add screenshots and descriptions of each assistant
 </menuchoice></term>
 <listitem><para><action>Opens the dialog to choose an example to load.</action> The examples should be downloaded with <menuchoice><guimenu>File</guimenu>
 <guimenuitem>Download Example Worksheets</guimenuitem></menuchoice> beforehand.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Save</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Saves the current worksheet.</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Save As...</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Allows saving the current worksheet with a new name.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -411,40 +391,10 @@ TODO add screenshots and descriptions of each assistant
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>P</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Print</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Opens the printing dialog for the current worksheet.</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Run Script</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Allows to load and run the batch scripts for the current backend.</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Close</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Closes the current worksheet.</action></para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Q</keycap></keycombo>
-</shortcut>
-<guimenu>File</guimenu>
-<guimenuitem>Quit</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Quits</action> &cantor;</para></listitem>
 </varlistentry>
 </variablelist>
 </para>
