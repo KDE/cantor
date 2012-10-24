@@ -25,6 +25,8 @@
 
 #include <QtGui/QSyntaxHighlighter>
 
+class QGraphicsTextItem;
+
 namespace Cantor
 {
 class DefaultHighlighterPrivate;
@@ -46,10 +48,19 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 {
   Q_OBJECT
   public:
-    enum BlockType {UnknownBlock = 0, ErrorBlock = 1, ResultBlock = 2, CommandBlock = 3, NoHighlightBlock = 4};
-    enum { BlockTypeProperty = QTextFormat::UserProperty +25 };
-    DefaultHighlighter(QTextEdit* parent);
+    DefaultHighlighter(QObject* parent);
     ~DefaultHighlighter();
+
+    /**
+     * Change the item beeing highlighted.
+     */
+    void setTextItem(QGraphicsTextItem* item);
+
+  public slots:
+    /**
+     * Called when the cursor moved. Rehighlights accordingly.
+     */
+    void positionChanged(QTextCursor);
 
   protected:
     /**
@@ -61,8 +72,6 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
 
     bool skipHighlighting(const QString& text);
 
-    BlockType currentBlockType();
-
     QTextCharFormat functionFormat() const;
     QTextCharFormat variableFormat() const;
     QTextCharFormat objectFormat() const;
@@ -73,6 +82,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     QTextCharFormat commentFormat() const;
     QTextCharFormat stringFormat() const;
     QTextCharFormat matchingPairFormat() const;
+    QTextCharFormat mismatchingPairFormat() const;
 
     /**
      * Call this to add a pair of symbols for highlighting.
@@ -160,8 +170,10 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     virtual QString nonSeparatingCharacters() const;
 
   private slots:
-    void positionChanged();
     void updateFormats();
+
+  signals:
+    void rulesChanged();
 
   private:
     DefaultHighlighterPrivate* d;

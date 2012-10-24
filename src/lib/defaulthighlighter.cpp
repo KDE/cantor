@@ -22,7 +22,9 @@
 #include "defaulthighlighter.h"
 
 #include <QtCore/QLocale>
-#include <QTextEdit>
+#include <QTextDocument>
+#include <QTextCursor>
+#include <QGraphicsTextItem>
 #include <kcolorscheme.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
@@ -41,10 +43,19 @@ bool operator==(const HighlightingRule& rule1, const HighlightingRule& rule2)
     return rule1.regExp == rule2.regExp;
 }
 
+struct PairOpener {
+    PairOpener() : position(-1), type(-1) { }
+    PairOpener(int p, int t) : position(p), type(t) { }
+
+    int position;
+    int type;
+};
+
+
 class Cantor::DefaultHighlighterPrivate
 {
   public:
-    QTextEdit* parent;
+    QTextCursor cursor;
 
     //Character formats to use for the highlighing
     QTextCharFormat functionFormat;
@@ -57,6 +68,7 @@ class Cantor::DefaultHighlighterPrivate
     QTextCharFormat commentFormat;
     QTextCharFormat stringFormat;
     QTextCharFormat matchingPairFormat;
+    QTextCharFormat mismatchingPairFormat;
 
     int lastBlockNumber;
     int lastPosition;
@@ -67,11 +79,11 @@ class Cantor::DefaultHighlighterPrivate
     QHash<QString, QTextCharFormat> wordRules;
 };
 
-DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
+DefaultHighlighter::DefaultHighlighter(QObject* parent)
 	: QSyntaxHighlighter(parent),
 	d(new DefaultHighlighterPrivate)
 {
-    d->parent=parent;
+    d->cursor = QTextCursor();
     d->lastBlockNumber=-1;
     d->lastPosition=-1;
 
@@ -81,22 +93,37 @@ DefaultHighlighter::DefaultHighlighter(QTextEdit* parent)
 
     updateFormats();
     connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
-    connect(parent, SIGNAL(cursorPositionChanged()), this, SLOT(positionChanged()));
 }
 
-DefaultHighlighter::~ DefaultHighlighter()
+DefaultHighlighter::~DefaultHighlighter()
 {
     delete d;
 }
 
+void DefaultHighlighter::setTextItem(QGraphicsTextItem* item)
+{
+    d->cursor = item->textCursor();
+    setDocument(item->document());
+    // make sure every item is connected only once
+    item->disconnect(this, SLOT(positionChanged(QTextCursor)));
+    // QGraphicsTextItem has no signal cursorPositionChanged, but item really
+    // is a WorksheetTextItem
+    connect(item, SIGNAL(cursorPositionChanged(QTextCursor)),
+	    this, SLOT(positionChanged(QTextCursor)));
+
+    d->lastBlockNumber = -1;
+    d->lastPosition = -1;
+}
+
 bool DefaultHighlighter::skipHighlighting(const QString& text)
 {
-    return (text.isEmpty() || currentBlockType() == NoHighlightBlock || currentBlockType() == UnknownBlock );
+    return text.isEmpty();
 }
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    QTextCursor cursor;
+    //kDebug() << text;
+    const QTextCursor& cursor = d->cursor;
     d->lastBlockNumber = cursor.blockNumber();
 
     if (skipHighlighting(text))
@@ -116,69 +143,52 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    const QTextCursor& cursor = d->parent->textCursor();
+    //kDebug() << text;
+    const QTextCursor& cursor = d->cursor;
     int cursorPos = -1;
-    if ( cursor.blockNumber() == currentBlock().blockNumber() ) {
+    if (cursor.blockNumber() == currentBlock().blockNumber() ) {
         cursorPos = cursor.position() - currentBlock().position();
         // when text changes, this will be called before the positionChanged signal
         // gets emitted. Hence update the position so we don't highlight twice
         d->lastPosition = cursor.position();
     }
 
-    // positions of opened pairs
-    // key: same index as the opener has in d->pairs
-    // value: position in text where it was opened
-    QHash<int, QStack<int>* > opened;
-    QHash<int, QStack<int>* >::iterator it;
+    QStack<PairOpener> opened;
 
-    ///TODO: use setCurrentBlockUserData to keep track of matched pairs
-    ///      of course, keep track of changes and update the cache properly
-    for ( int i = 0; i < text.size(); ++i ) {
-        int idx = d->pairs.indexOf(text[i]);
-        if ( idx != -1 ) {
-            if ( idx % 2 == 0 ) {
-                // opener of a pair
-                it = opened.find(idx);
-                if ( it == opened.end() ) {
-                    it = opened.insert(idx, new QStack<int>());
-                }
-                (*it)->push(i);
-            } else {
-                // closer of a pair, find opener
-                it = opened.find(idx - 1);
-                if ( it == opened.end() || (*it)->isEmpty() ) {
-                    // unmatched
-                    setFormat(i, 1, errorFormat());
-                } else {
-                    // matched
-                    int lastPos = (*it)->pop();
-                    // check if we have to highlight the matched pair
-                    // at the current cursor position
-                    if ( cursorPos != -1 &&
-                        ( lastPos == cursorPos || lastPos == cursorPos - 1 ||
-                            i == cursorPos || i == cursorPos - 1 ) )
-                    {
-                        // yep, we want it highlighted
-                        setFormat(lastPos, 1, matchingPairFormat());
-                        setFormat(i, 1, matchingPairFormat());
-                    }
-                }
-            }
-        }
+    for (int i = 0; i < text.size(); ++i) {
+	int idx = d->pairs.indexOf(text[i]);
+	if (idx == -1)
+	    continue;
+	if (idx % 2 == 0) { //opener of a pair
+	    opened.push(PairOpener(i, idx));
+	} else if (opened.isEmpty()) { //closer with no previous opener
+	    setFormat(i, 1, errorFormat());
+	} else if (opened.top().type == idx - 1) { //closer with matched opener
+	    int openPos = opened.pop().position;
+	    if  (cursorPos != -1 &&
+		 (openPos == cursorPos || openPos == cursorPos - 1 ||
+		  i == cursorPos || i == cursorPos - 1)) {
+		setFormat(openPos, 1, matchingPairFormat());
+		setFormat(i, 1, matchingPairFormat());
+	    }
+	} else { //closer with mismatching opener
+	    int openPos = opened.pop().position;
+	    setFormat(openPos, 1, mismatchingPairFormat());
+	    setFormat(i, 1, mismatchingPairFormat());
+	}
     }
 
     // handled unterminated pairs
-    foreach ( QStack<int>* positions, opened ) {
-        while ( !positions->isEmpty() ) {
-            setFormat(positions->pop(), 1, errorFormat());
-        }
+    while (!opened.isEmpty()) {
+	int position = opened.pop().position;
+	setFormat(position, 1, errorFormat());
     }
-    qDeleteAll(opened.values());
+
 }
 
 void DefaultHighlighter::highlightWords(const QString& text)
 {
-    kDebug() << "DefaultHighlighter::highlightWords";
+    //kDebug() << "DefaultHighlighter::highlightWords";
 
     const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
     int count;
@@ -195,18 +205,18 @@ void DefaultHighlighter::highlightWords(const QString& text)
         //prepend them to the current word. This allows for example
         //to highlight words that start with a "Non-word"-character
         //e.g. %pi in the scilab backend.
-        kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
+        //kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
         if(!nonSeparatingCharacters().isNull())
         {
             for(int j = i - 1; j >= 0; j--)
             {
-                kDebug() << "j: " << j << "w: " << words[j];
+                //kDebug() << "j: " << j << "w: " << words[j];
                 const QString& w = words[j];
                 const QString exp = QString("(%1)*$").arg(nonSeparatingCharacters());
-                kDebug() << "exp: " << exp;
+                //kDebug() << "exp: " << exp;
                 int idx = w.indexOf(QRegExp(exp));
                 const QString& s = w.mid(idx);
-                kDebug() << "s: " << s;
+                //kDebug() << "s: " << s;
 
                 if(s.size() > 0)
                 {
@@ -221,7 +231,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
 
         word = word.trimmed();
 
-        kDebug() << "highlighing: " << word;
+        //kDebug() << "highlighing: " << word;
 
         if (d->wordRules.contains(word))
         {
@@ -243,14 +253,6 @@ void DefaultHighlighter::highlightRegExps(const QString& text)
             index = rule.regExp.indexIn(text,  index + length);
         }
     }
-}
-
-DefaultHighlighter::BlockType DefaultHighlighter::currentBlockType()
-{
-    QTextBlock block=currentBlock();
-    BlockType type=(BlockType) block.charFormat().intProperty(BlockTypeProperty);
-
-    return type;
 }
 
 QTextCharFormat DefaultHighlighter::functionFormat() const
@@ -303,6 +305,11 @@ QTextCharFormat DefaultHighlighter::matchingPairFormat() const
     return d->matchingPairFormat;
 }
 
+QTextCharFormat DefaultHighlighter::mismatchingPairFormat() const
+{
+    return d->mismatchingPairFormat;
+}
+
 void DefaultHighlighter::updateFormats()
 {
     //initialize char-formats
@@ -334,15 +341,30 @@ void DefaultHighlighter::updateFormats()
 
     d->matchingPairFormat.setForeground(scheme.foreground(KColorScheme::NeutralText));
     d->matchingPairFormat.setBackground(scheme.background(KColorScheme::NeutralBackground));
+
+    d->mismatchingPairFormat.setForeground(scheme.foreground(KColorScheme::NegativeText));
+    d->mismatchingPairFormat.setBackground(scheme.background(KColorScheme::NegativeBackground));
 }
 
-void DefaultHighlighter::positionChanged()
-{
-    const QTextCursor& cursor = d->parent->textCursor();
 
-    if ( cursor.blockNumber() != d->lastBlockNumber ) {
+void DefaultHighlighter::positionChanged(QTextCursor cursor)
+{
+    if (!cursor.isNull() && cursor.document() != document())
+	// A new item notified us, but we did not yet change our document.
+	// We are waiting for that to happen.
+	return;
+
+    d->cursor = cursor;
+    if ( (cursor.isNull() || cursor.blockNumber() != d->lastBlockNumber) &&
+	 d->lastBlockNumber >= 0 ) {
         // remove highlight from last focused block
-        rehighlightBlock(d->parent->document()->findBlockByNumber(d->lastBlockNumber));
+        rehighlightBlock(document()->findBlockByNumber(d->lastBlockNumber));
+    }
+
+    if (cursor.isNull()) {
+	d->lastBlockNumber = -1;
+	d->lastPosition = -1;
+	return;
     }
 
     d->lastBlockNumber = cursor.blockNumber();
@@ -358,6 +380,7 @@ void DefaultHighlighter::positionChanged()
 void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
 {
     d->wordRules[word] = format;
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& format)
@@ -365,17 +388,23 @@ void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& f
     HighlightingRule rule = { regexp, format };
     d->regExpRules.removeAll(rule);
     d->regExpRules.append(rule);
+
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QString& word)
 {
     d->wordRules.remove(word);
+
+    emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QRegExp& regexp)
 {
     HighlightingRule rule = { regexp, QTextCharFormat() };
     d->regExpRules.removeAll(rule);
+
+    emit rulesChanged();
 }
 
 QString DefaultHighlighter::nonSeparatingCharacters() const

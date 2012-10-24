@@ -23,7 +23,7 @@
 
 #include <QTextEdit>
 
-SageHighlighter::SageHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
+SageHighlighter::SageHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
     addRule(QRegExp("[A-Za-z0-9_]+(?=\\()"), functionFormat());
 

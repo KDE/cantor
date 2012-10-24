@@ -24,7 +24,7 @@
 #include <QTextEdit>
 #include <kdebug.h>
 
-ScilabHighlighter::ScilabHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
+ScilabHighlighter::ScilabHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
     kDebug() << "ScilabHighlighter construtor";
     addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());

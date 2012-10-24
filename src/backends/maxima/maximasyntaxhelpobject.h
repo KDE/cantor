@@ -25,7 +25,6 @@
 
 #include "expression.h"
 
-class MaximaExpression;
 class MaximaSession;
 
 class MaximaSyntaxHelpObject : public Cantor::SyntaxHelpObject
@@ -41,7 +40,7 @@ class MaximaSyntaxHelpObject : public Cantor::SyntaxHelpObject
     void expressionChangedStatus(Cantor::Expression::Status status);
 
   private:
-    MaximaExpression* m_expression;
+    Cantor::Expression* m_expression;
 };
 
 #endif /* _MAXIMASYNTAXHELPOBJECT_H */

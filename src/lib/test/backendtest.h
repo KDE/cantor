@@ -48,6 +48,12 @@ class CANTORTEST_EXPORT BackendTest : public QObject
          */
         QString cleanOutput( const QString& out );
 
+	Cantor::Session* session();
+
+	/**
+	 * simple method that blocks and waits for a signal to be emitted
+	 */
+	void waitForSignal( QObject* sender, const char* signal);
     private:
         void createSession();
         Cantor::Session* m_session;

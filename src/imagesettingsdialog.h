@@ -18,8 +18,8 @@
     Copyright (C) 2011 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _IMAGESETTINGSDIALOG_H
-#define _IMAGESETTINGSDIALOG_H
+#ifndef IMAGESETTINGSDIALOG_H
+#define IMAGESETTINGSDIALOG_H
 
 #include <kdialog.h>
 
@@ -27,10 +27,11 @@
 
 struct ImageSize
 {
+    enum {Auto = 0, Pixel = 1, Percent = 2};
     double width;
     double height;
-    QString widthUnit;
-    QString heightUnit;
+    int widthUnit;
+    int heightUnit;
 };
 
 class ImageSettingsDialog : public KDialog
@@ -55,10 +56,9 @@ class ImageSettingsDialog : public KDialog
     void updatePrintingGroup(int b);
 
   private:
-    /*static*/ QList<QString> m_units;
-    /*static*/ QList<QString> m_unitNames;
+    QList<QString> m_unitNames;
     Ui_ImageSettingsBase m_ui;
     
 };
 
-#endif //_IMAGESETTINGSDIALOG_H
+#endif //IMAGESETTINGSDIALOG_H

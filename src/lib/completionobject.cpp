@@ -44,10 +44,6 @@ CompletionObject::CompletionObject(Session* session) :
     d(new CompletionObjectPrivate)
 {
     setParent(session);
-    d->line = QString();
-    d->command = QString();
-    d->identifier = QString();
-    d->completion = QString();
     d->position = -1;
     d->session=session;
 

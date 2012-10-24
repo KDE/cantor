@@ -31,7 +31,7 @@ class KAlgebraExpression : public Cantor::Expression
         ~KAlgebraExpression();
 
         void evaluate();
-        void interrupt() {}
+        void interrupt();
 };
 
 #endif

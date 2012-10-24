@@ -102,7 +102,7 @@ SyntaxHelpObject* Session::syntaxHelpFor(const QString& cmd)
     return 0;
 }
 
-QSyntaxHighlighter* Session::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* Session::syntaxHighlighter(QObject* parent)
 {
     Q_UNUSED(parent);
     return 0;

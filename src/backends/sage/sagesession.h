@@ -57,7 +57,7 @@ class SageSession : public Cantor::Session
     void setTypesettingEnabled(bool enable);
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
-    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
 
   public slots:
@@ -79,6 +79,7 @@ class SageSession : public Cantor::Session
     QString m_tmpPath;
     KDirWatch m_dirWatch;
     bool m_waitingForPrompt;
+    QString m_outputCache;
 };
 
 #endif /* _SAGESESSION_H */

@@ -12,3 +12,11 @@ cantor.kdev4
 # Folder to compile source code
 build/
 build/*
+
+# cmake stuff
+*.cmake
+
+# moc files
+*.moc
+moc_*
+*_automoc.cpp*

@@ -15,91 +15,74 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2010 Raffaele De Feo <alberthilbert@gmail.com>
+    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
 #include "textentry.h"
-#include "worksheetentry.h"
-#include "worksheet.h"
-#include "resultproxy.h"
-#include "lib/defaulthighlighter.h"
-#include "lib/latexrenderer.h"
+#include "worksheettextitem.h"
+#include "epsrenderer.h"
+#include "latexrenderer.h"
 
-#include "formulatextobject.h"
-
-#include <QEvent>
-#include <QKeyEvent>
-#include <QTextDocumentFragment>
-#include <QUrl>
+#include <QGraphicsLinearLayout>
 
 #include <kdebug.h>
-#include <kzip.h>
-#include <kmenu.h>
-#include <kicon.h>
-#include <klocale.h>
-#include <kstandardaction.h>
-#include <kaction.h>
+#include <KUrl>
+#include <KLocale>
 
-
-TextEntry::TextEntry(QTextCursor position, Worksheet* parent ) : WorksheetEntry( position, parent )
+TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
-    QTextFrameFormat frameFormat = m_frame->frameFormat();
-    frameFormat.setPadding(10);
-    m_frame->setFrameFormat(frameFormat);
-    QTextCharFormat format = firstCursorPosition().blockCharFormat();
-    format.setProperty(Cantor::DefaultHighlighter::BlockTypeProperty, Cantor::DefaultHighlighter::NoHighlightBlock);
-    firstCursorPosition().setBlockCharFormat(format);
+    m_textItem->enableRichText(true);
+    connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
+            this, SLOT(moveToPreviousEntry(int, qreal)));
+    connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
+            this, SLOT(moveToNextEntry(int, qreal)));
+    connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
+    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImagesAtCursor()));
 }
 
 TextEntry::~TextEntry()
 {
-
 }
 
-int TextEntry::type()
+void TextEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    return Type;
-}
-
-QTextCursor TextEntry::firstValidCursorPosition()
-{
-    return firstCursorPosition();
-}
-
-QTextCursor TextEntry::lastValidCursorPosition()
-{
-    return lastCursorPosition();
-}
-
-QTextCursor TextEntry::closestValidCursor(const QTextCursor& cursor)
-{
-    return QTextCursor(cursor);
-}
-
-bool TextEntry::isValidCursor(const QTextCursor& cursor)
-{
-    int pos = cursor.position();
-    return (firstValidPosition() <= pos && pos <= lastValidPosition());
+    bool imageSelected = false;
+    QTextCursor cursor = m_textItem->textCursor();
+    const QChar repl = QChar::ObjectReplacementCharacter;
+    if (cursor.hasSelection()) {
+        QString selection = m_textItem->textCursor().selectedText();
+        imageSelected = selection.contains(repl);
+    } else {
+        // we need to try both the current cursor and the one after the that
+        cursor = m_textItem->cursorForPosition(pos);
+        kDebug() << cursor.position();
+        for (int i = 2; i; --i) {
+            int p = cursor.position();
+            if (m_textItem->document()->characterAt(p-1) == repl &&
+                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
+                m_textItem->setTextCursor(cursor);
+                imageSelected = true;
+                break;
+            }
+            cursor.movePosition(QTextCursor::NextCharacter);
+        }
+    }
+    if (imageSelected) {
+        menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
+        menu->addSeparator();
+    }
+    WorksheetEntry::populateMenu(menu, pos);
 }
 
 bool TextEntry::isEmpty()
 {
-    QTextCursor cursor = firstValidCursorPosition();
-    cursor.setPosition(lastValidPosition(), QTextCursor::KeepAnchor);
-    return cursor.selection().isEmpty();
+    return m_textItem->document()->isEmpty();
 }
 
-bool TextEntry::worksheetMouseDoubleClickEvent(QMouseEvent* event, const QTextCursor& cursor)
+int TextEntry::type() const
 {
-    QTextCursor c=cursor;
-
-    for(int pos=cursor.selectionStart()+1;pos<=cursor.selectionEnd();pos++)
-    {
-        c.setPosition(pos);
-        if (c.charFormat().objectType() == FormulaTextObject::FormulaTextFormat)
-            showLatexCode(c);
-    }
-    return true;
+    return Type;
 }
 
 bool TextEntry::acceptRichText()
@@ -107,56 +90,32 @@ bool TextEntry::acceptRichText()
     return true;
 }
 
-bool TextEntry::acceptsDrop(const QTextCursor& cursor)
+bool TextEntry::focusEntry(int pos, qreal xCoord)
 {
-    Q_UNUSED(cursor);
-
-    return true;
-}
-
-bool TextEntry::worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor)
-{
-    Q_UNUSED(cursor);
-    KMenu* defaultMenu = new KMenu(m_worksheet);
-
-    defaultMenu->addAction(KStandardAction::cut(m_worksheet));
-    defaultMenu->addAction(KStandardAction::copy(m_worksheet));
-    defaultMenu->addAction(KStandardAction::paste(m_worksheet));
-    defaultMenu->addSeparator();
-
-    if(!m_worksheet->isRunning())
-	defaultMenu->addAction(KIcon("system-run"),i18n("Evaluate Worksheet"),m_worksheet,SLOT(evaluate()),0);
-    else
-	defaultMenu->addAction(KIcon("process-stop"),i18n("Interrupt"),m_worksheet,SLOT(interrupt()),0);
-    defaultMenu->addSeparator();
-
-    defaultMenu->addAction(KIcon("edit-delete"),i18n("Remove Entry"), m_worksheet, SLOT(removeCurrentEntry()));
-
-    createSubMenuInsert(defaultMenu);
-
-    defaultMenu->popup(event->globalPos());
-
+    if (aboutToBeRemoved())
+        return false;
+    m_textItem->setFocusAt(pos, xCoord);
     return true;
 }
 
 
 void TextEntry::setContent(const QString& content)
 {
-    firstValidCursorPosition().insertText(content);
+    m_textItem->setPlainText(content);
 }
 
 void TextEntry::setContent(const QDomElement& content, const KZip& file)
 {
     Q_UNUSED(file);
     if(content.firstChildElement("body").isNull())
-	return;
+        return;
 
     QDomDocument doc = QDomDocument();
     QDomNode n = doc.importNode(content.firstChildElement("body"), true);
     doc.appendChild(n);
     QString html = doc.toString();
     kDebug() << html;
-    firstValidCursorPosition().insertHtml(html);
+    m_textItem->setHtml(html);
 }
 
 QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -165,62 +124,61 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
 
     bool needsEval=false;
     //make sure that the latex code is shown instead of the rendered formulas
-    QTextCursor cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), m_frame->firstCursorPosition());
-    while(!cursor.isNull()&&cursor.position()<=m_frame->lastPosition())
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    while(!cursor.isNull())
     {
-        QTextCharFormat format=cursor.charFormat();
-        if (format.objectType() == FormulaTextObject::FormulaTextFormat)
+        QTextCharFormat format = cursor.charFormat();
+        if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             showLatexCode(cursor);
             needsEval=true;
         }
 
-        cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 
-
-    cursor = firstValidCursorPosition();
-    cursor.setPosition(lastValidPosition(), QTextCursor::KeepAnchor);
-
-    const QString& html = cursor.selection().toHtml();
+    const QString& html = m_textItem->toHtml();
     kDebug() << html;
     QDomElement el = doc.createElement("Text");
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
     el.appendChild(myDoc.documentElement().firstChildElement("body"));
 
-    if(needsEval)
-        evaluate(false);
+    if (needsEval)
+        evaluate();
     return el;
 }
 
-QString TextEntry::toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq)
+QString TextEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commandSep);
 
     if (commentStartingSeq.isEmpty())
         return QString();
-    QTextCursor cursor = firstValidCursorPosition();
-    cursor.setPosition(lastValidPosition(), QTextCursor::KeepAnchor);
-    QString text = cursor.selection().toPlainText();
+    /*
+    // whould this be plain enought?
+    QTextCursor cursor = m_textItem->textCursor();
+    cursor.movePosition(QTextCursor::Start);
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+
+    QString text = m_textItem->resolveImages(cursor);
+    text.replace(QChar::ParagraphSeparator, '\n');
+    text.replace(QChar::LineSeparator, '\n');
+    */
+    QString text = m_textItem->toPlainText();
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + "\n";
     return commentStartingSeq + text.replace("\n", "\n" + commentStartingSeq) + "\n";
+
 }
 
 void TextEntry::interruptEvaluation()
 {
-
 }
 
-bool TextEntry::evaluate(bool current)
+bool TextEntry::evaluate(EvaluationOption evalOp)
 {
-    Q_UNUSED(current);
-
-    QTextDocument *doc = m_frame->document();
-    //blahtex::Interface *translator = m_worksheet->translator();
-
-    QTextCursor cursor = findLatexCode(doc);
+    QTextCursor cursor = findLatexCode();
     while (!cursor.isNull())
     {
         QString latexCode = cursor.selectedText();
@@ -228,6 +186,8 @@ bool TextEntry::evaluate(bool current)
 
         latexCode.remove(0, 2);
         latexCode.remove(latexCode.length() - 2, 2);
+        latexCode.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
+        latexCode.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
 
 
         Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
@@ -238,98 +198,167 @@ bool TextEntry::evaluate(bool current)
 
         renderer->renderBlocking();
 
-#if 0
-        QTextCharFormat mmlCharFormat;
-        mmlCharFormat.setObjectType(MmlTextObject::MmlTextFormat);
-        mmlCharFormat.setProperty(MmlTextObject::LatexCode, latexCode);
+        bool success;
+        QTextImageFormat formulaFormat;
+        if (renderer->renderingSuccessful()) {
+            EpsRenderer* epsRend = worksheet()->epsRenderer();
+            formulaFormat = epsRend->render(m_textItem->document(), renderer);
+            success = !formulaFormat.name().isEmpty();
+        } else {
+            success = false;
+        }
 
-        if (!translator->ProcessInput(latexCode.toStdWString()))
-            break;
-        QString mmlCode = QString::fromStdWString(translator->GetMathml());
-        kDebug() << mmlCode;
-        if (mmlCode.isEmpty())
-            break;
-
-        QtMmlDocument renderer;
-        renderer.setBaseFontPointSize(cursor.charFormat().fontPointSize());
-        renderer.setFontName(QtMmlWidget::NormalFont, "STIXGeneral");
-        renderer.setContent(mmlCode);
-
-        QImage mmlBufferImage(renderer.size(), QImage::Format_ARGB32);
-        mmlBufferImage.fill(QColor(0, 0, 0, 0).value());
-        QPainter painter(&mmlBufferImage);
-        renderer.paint(&painter, mmlBufferImage.rect().topLeft ());
-
-        mmlCharFormat.setProperty(MmlTextObject::MmlData, mmlBufferImage);
-
-        cursor.removeSelectedText();
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), mmlCharFormat);
-
-#endif
-
-        bool success=m_worksheet->resultProxy()->renderEpsToResource(renderer->imagePath());
         kDebug()<<"rendering successfull? "<<success;
+        if (!success) {
+            cursor = findLatexCode(cursor);
+            continue;
+        }
 
-        QString path=renderer->imagePath();
-        KUrl internal=KUrl(path);
-        internal.setProtocol("internal");
-        kDebug()<<"int: "<<internal;
-
-        QTextCharFormat formulaFormat;
-        formulaFormat.setObjectType(FormulaTextObject::FormulaTextFormat);
-        formulaFormat.setProperty( FormulaTextObject::Data,renderer->imagePath());
-        formulaFormat.setProperty( FormulaTextObject::ResourceUrl, internal);
-        formulaFormat.setProperty( FormulaTextObject::LatexCode, latexCode);
-        formulaFormat.setProperty( FormulaTextObject::FormulaType, renderer->method());
+        formulaFormat.setProperty(EpsRenderer::Delimiter, "$$");
 
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
         delete renderer;
 
-        cursor = findLatexCode(doc);
-
+        cursor = findLatexCode(cursor);
     }
+
+    evaluateNext(evalOp);
 
     return true;
 }
 
-void TextEntry::update()
+void TextEntry::updateEntry()
 {
-    QTextCursor cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), m_frame->firstCursorPosition());
-    while(!cursor.isNull()&&cursor.position()<=m_frame->lastPosition())
+    kDebug() << "update Entry";
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    while(!cursor.isNull())
     {
-        QTextCharFormat format=cursor.charFormat();
-        if (format.objectType() == FormulaTextObject::FormulaTextFormat)
+        QTextCharFormat format = cursor.charFormat();
+        if (format.hasProperty(EpsRenderer::CantorFormula))
         {
-            kDebug()<<"found a formula... rendering the eps...";
-            QUrl url=qVariantValue<QUrl>(format.property(FormulaTextObject::Data));
-            bool success=m_worksheet->resultProxy()->renderEpsToResource(url);
-            kDebug()<<"rendering successfull? "<<success;
+            kDebug() << "found a formula... rendering the eps...";
+            QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
+            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
+            kDebug() << "rendering successfull? " << s.isValid();
 
-            //HACK: reinsert this image, to make sure the layout is updated to the new size
-            cursor.deletePreviousChar();
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            //cursor.deletePreviousChar();
+            //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
         }
 
-        cursor = m_worksheet->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 }
 
-QTextCursor TextEntry::findLatexCode(QTextDocument *doc) const
+void TextEntry::resolveImagesAtCursor()
 {
-    QTextCursor startCursor = doc->find("$$");
+    QTextCursor cursor = m_textItem->textCursor();
+    if (!cursor.hasSelection())
+        cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+    cursor.insertText(m_textItem->resolveImages(cursor));
+}
+
+QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
+{
+    QTextDocument *doc = m_textItem->document();
+    QTextCursor startCursor;
+    if (cursor.isNull())
+        startCursor = doc->find("$$");
+    else
+        startCursor = doc->find("$$", cursor);
     if (startCursor.isNull())
         return startCursor;
     const QTextCursor endCursor = doc->find("$$", startCursor);
     if (endCursor.isNull())
         return endCursor;
-    startCursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::MoveAnchor, 2);
+    startCursor.setPosition(startCursor.selectionStart());
     startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
     return startCursor;
 }
 
-void TextEntry::showLatexCode(QTextCursor cursor)
+QString TextEntry::showLatexCode(QTextCursor cursor)
 {
-    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(FormulaTextObject::LatexCode));
+    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(EpsRenderer::Code));
     cursor.deletePreviousChar();
-    cursor.insertText("$$"+latexCode+"$$");
+    latexCode = "$$"+latexCode+"$$";
+    cursor.insertText(latexCode);
+    return latexCode;
+}
+
+int TextEntry::searchText(QString text, QString pattern,
+                          QTextDocument::FindFlags qt_flags)
+{
+    Qt::CaseSensitivity caseSensitivity;
+    if (qt_flags & QTextDocument::FindCaseSensitively)
+        caseSensitivity = Qt::CaseSensitive;
+    else
+        caseSensitivity = Qt::CaseInsensitive;
+
+    int position;
+    if (qt_flags & QTextDocument::FindBackward)
+        position = text.lastIndexOf(pattern, -1, caseSensitivity);
+    else
+        position = text.indexOf(pattern, 0, caseSensitivity);
+
+    return position;
+}
+
+WorksheetCursor TextEntry::search(QString pattern, unsigned flags,
+                                  QTextDocument::FindFlags qt_flags,
+                                  const WorksheetCursor& pos)
+{
+    if (!(flags & WorksheetEntry::SearchText) ||
+        (pos.isValid() && pos.entry() != this))
+        return WorksheetCursor();
+
+    QTextCursor textCursor = m_textItem->search(pattern, qt_flags, pos);
+    int position;
+    QTextCursor latexCursor;
+    QString latex;
+    if (flags & WorksheetEntry::SearchLaTeX) {
+        const QString repl = QString(QChar::ObjectReplacementCharacter);
+        latexCursor = m_textItem->search(repl, qt_flags, pos);
+        while (!latexCursor.isNull()) {
+            latex = m_textItem->resolveImages(latexCursor);
+            position = searchText(latex, pattern, qt_flags);
+            if (position >= 0) {
+                break;
+            }
+            WorksheetCursor c(this, m_textItem, latexCursor);
+            latexCursor = m_textItem->search(repl, qt_flags, c);
+        }
+    }
+
+    if (latexCursor.isNull()) {
+        if (textCursor.isNull())
+            return WorksheetCursor();
+        else
+            return WorksheetCursor(this, m_textItem, textCursor);
+    } else {
+        if (textCursor.isNull() || latexCursor < textCursor) {
+            int start = latexCursor.selectionStart();
+            latexCursor.insertText(latex);
+            QTextCursor c = m_textItem->textCursor();
+            c.setPosition(start + position);
+            c.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor,
+                           pattern.length());
+            return WorksheetCursor(this, m_textItem, c);
+        } else {
+            return WorksheetCursor(this, m_textItem, textCursor);
+        }
+    }
+}
+
+
+void TextEntry::layOutForWidth(double w, bool force)
+{
+    if (size().width() == w && !force)
+        return;
+
+    m_textItem->setGeometry(0, 0, w);
+    setSize(QSizeF(m_textItem->width(), m_textItem->height() + VerticalMargin));
+}
+
+bool TextEntry::wantToEvaluate()
+{
+    return !findLatexCode().isNull();
 }

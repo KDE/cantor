@@ -71,53 +71,62 @@ void QalculateExpression::evaluate()
         return;
     }
 
-    if (command().contains("help")) {
-        QalculateSyntaxHelpObject* helper = new QalculateSyntaxHelpObject(command(), (QalculateSession*) session());
-        setResult(new Cantor::HelpResult(helper->answer()));
-        setStatus(Cantor::Expression::Done);
-        return;
+    QStringList commands=command().split('\n');
+    QString resultString;
+
+    foreach(const QString& command, commands)
+    {
+        if (command.contains("help")) {
+            QalculateSyntaxHelpObject* helper = new QalculateSyntaxHelpObject(command, (QalculateSession*) session());
+            setResult(new Cantor::HelpResult(helper->answer()));
+            setStatus(Cantor::Expression::Done);
+            return;
+        }
+        else if (command.trimmed().startsWith("plot") &&
+                 (command.indexOf("plot")+4 == command.size() ||
+                  command[command.indexOf("plot")+4].isSpace())) {
+            evaluatePlotCommand();
+            return;
+        }
+        else if (command.trimmed().startsWith("saveVariables") &&
+                 (command.indexOf("saveVariables")+13 == command.size() ||
+                  command[command.indexOf("saveVariables")+13].isSpace())) {
+            evaluateSaveVariablesCommand();
+            return;
+        }
+        else if (command.trimmed().startsWith("loadVariables") &&
+                 (command.indexOf("loadVariables")+13 == command.size() ||
+                  command[command.indexOf("loadVariables")+13].isSpace())) {
+            evaluateLoadVariablesCommand();
+            return;
+        }
+
+        string expression = unlocalizeExpression(command);
+
+        kDebug() << "EXPR: " << QString(expression.c_str());
+
+        EvaluationOptions eo = evaluationOptions();
+
+        MathStructure result = CALCULATOR->calculate(expression, eo);
+
+        // update the answer variables
+        static_cast<QalculateSession*>(session())->setLastResult(result);
+
+        // error handling
+        if (checkForCalculatorMessages() & (MSG_WARN | MSG_WARN))
+            return;
+
+        updateVariables(CALCULATOR->parse(expression, eo.parse_options));
+
+        QSharedPointer<PrintOptions> po = printOptions();
+
+        result.format(*po);
+
+        resultString+=QString(result.print(*po).c_str())+'\n';
+
     }
-    else if (command().trimmed().startsWith("plot") &&
-	     (command().indexOf("plot")+4 == command().size() ||
-	      command()[command().indexOf("plot")+4].isSpace())) {
-        evaluatePlotCommand();
-	return;
-    }
-    else if (command().trimmed().startsWith("saveVariables") &&
-	     (command().indexOf("saveVariables")+13 == command().size() ||
-	      command()[command().indexOf("saveVariables")+13].isSpace())) {
-        evaluateSaveVariablesCommand();
-	return;
-    }
-    else if (command().trimmed().startsWith("loadVariables") &&
-	     (command().indexOf("loadVariables")+13 == command().size() ||
-	      command()[command().indexOf("loadVariables")+13].isSpace())) {
-        evaluateLoadVariablesCommand();
-	return;
-    }
 
-    string expression = unlocalizeExpression(command());
-
-    kDebug() << "EXPR: " << QString(expression.c_str());
-
-    EvaluationOptions eo = evaluationOptions();
-
-    MathStructure result = CALCULATOR->calculate(expression, eo);
-
-    // update the answer variables
-    static_cast<QalculateSession*>(session())->setLastResult(result);
-
-    // error handling
-    if (checkForCalculatorMessages() & (MSG_WARN | MSG_WARN))
-	return;
-
-    updateVariables(CALCULATOR->parse(expression, eo.parse_options));
-
-    QSharedPointer<PrintOptions> po = printOptions();
-
-    result.format(*po);
-
-    setResult(new Cantor::TextResult(result.print(*po).c_str()));
+    setResult(new Cantor::TextResult(resultString));
     setStatus(Done);
 }
 
@@ -131,7 +140,7 @@ void QalculateExpression::evaluateSaveVariablesCommand()
     QString fileName = parseForFilename(argString, usage);
     if (fileName.isNull())
 	return;
-    
+
     // We want to save Temporary variables, but Qalculate does not.
     std::vector<Variable*> variables = CALCULATOR->variables;
     // If somebody saves his variables in Cantor_Internal_Temporary
@@ -172,7 +181,7 @@ void QalculateExpression::evaluateLoadVariablesCommand()
     QString fileName = parseForFilename(argString, usage);
     if (fileName.isNull())
 	return;
-    
+
     int res = CALCULATOR->loadDefinitions(fileName.toLatin1().data());
     if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 	return;
@@ -210,7 +219,7 @@ QString QalculateExpression::parseForFilename(QString argument, QString usage)
 	sep = argument[0];
 	i = 1;
     }
-    while (i < argument.size() && !argument[i].isSpace() && 
+    while (i < argument.size() && !argument[i].isSpace() &&
 	   argument[i] != sep) {
 	if (argument[i] == '\\' && i < argument.size()-1)
 	    ++i;
@@ -222,7 +231,7 @@ QString QalculateExpression::parseForFilename(QString argument, QString usage)
 	showMessage(i18n("missing %1", sep), MESSAGE_ERROR);
 	return QString();
     }
-    
+
     if (i < argument.size() - 1) {
 	showMessage(usage, MESSAGE_ERROR);
 	return QString();
@@ -277,7 +286,7 @@ void QalculateExpression::evaluatePlotCommand()
 	    arguments.clear();
 	    ++j;
 	} else {
-	    while(j < argString.size() && !argString[j].isSpace() && 
+	    while(j < argString.size() && !argString[j].isSpace() &&
 		  argString[j] != '=' && argString[j] != ',') {
 	        if (argString[j] == '\\') {
 		    ++j;
@@ -304,7 +313,7 @@ void QalculateExpression::evaluatePlotCommand()
     }
     argumentsList.append(arguments);
 
-    // Parse the arguments and compute the points to be plotted 
+    // Parse the arguments and compute the points to be plotted
     std::vector<MathStructure> y_vectors;
     std::vector<MathStructure> x_vectors;
     std::vector<PlotDataParameters*> plotDataParameterList;
@@ -357,7 +366,7 @@ void QalculateExpression::evaluatePlotCommand()
     MathStructure stepLength;
     stepLength.setUndefined();
     int steps = QalculateSettings::plotSteps();
-    
+
     QString mustBeNumber = i18n("%1 must be a number.");
     QString mustBeInteger = i18n("%1 must be a integer.");
     QString mustBeBoolean = i18n("%1 must be a boolean.");
@@ -726,7 +735,7 @@ void QalculateExpression::evaluatePlotCommand()
 
 	//PrintOptions po;
 	//y_vec.format(po);
-	
+
 	//setResult(new Cantor::TextResult(y_vec.print(po).c_str()));
 	//setStatus(Done);
 	//deletePlotDataParameters(plotDataParameterList);
@@ -748,7 +757,7 @@ void QalculateExpression::evaluatePlotCommand()
 	plotParameters.filetype = PLOT_FILETYPE_AUTO;
     }
 
-    CALCULATOR->plotVectors(&plotParameters, y_vectors, x_vectors, 
+    CALCULATOR->plotVectors(&plotParameters, y_vectors, x_vectors,
 			    plotDataParameterList);
     if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 	deletePlotDataParameters(plotDataParameterList);
@@ -765,7 +774,7 @@ void QalculateExpression::evaluatePlotCommand()
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 4 &&
 	     plotParameters.filename.substr(p-4,4) == ".eps") ||
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 3 &&
-	     plotParameters.filename.substr(p-3,3) == ".ps")) 
+	     plotParameters.filename.substr(p-3,3) == ".ps"))
 	    setResult(new Cantor::EpsResult(KUrl(plotParameters.filename.c_str())));
 	else
 	    setResult(new Cantor::ImageResult(KUrl(plotParameters.filename.c_str())));
@@ -820,7 +829,7 @@ EvaluationOptions QalculateExpression::evaluationOptions()
             eo.structuring = STRUCTURING_FACTORIZE;
             break;
     }
-    
+
     return eo;
 }
 
@@ -929,7 +938,7 @@ std::string QalculateExpression::unlocalizeExpression(QString expr)
 
 void QalculateExpression::updateVariables(MathStructure command)
 {
-    Cantor::DefaultVariableModel* model = 
+    Cantor::DefaultVariableModel* model =
 	static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
     QStack<MathStructure*> stack;
     stack.push(&command);

@@ -282,7 +282,7 @@ Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor ( const QString& cmd )
     return new OctaveSyntaxHelpObject ( cmd, this );
 }
 
-QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QTextEdit* parent )
+QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QObject* parent )
 {
     OctaveHighlighter* highlighter = new OctaveHighlighter ( parent, this );
     connect ( this, SIGNAL(functionsChanged()), highlighter, SLOT(updateFunctions()) );

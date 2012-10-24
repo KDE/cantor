@@ -44,7 +44,7 @@ OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session
     kDebug() << "OctaveExpression construtor";
     m_plotCommands << "plot" << "semilogx" << "semilogy" << "loglog" << "polar"
                    << "mesh" << "contour" << "bar" << "stairs" << "errorbar"
-                   << "surf" << "sombrero";
+                   << "surf" << "sombrero"<< "hist";
     m_plotCommands << "cantor_plot2d" << "cantor_plot3d";
 
     m_error = false;

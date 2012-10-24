@@ -36,7 +36,7 @@ const QStringList RHighlighter::operators_list=QStringList()
 const QStringList RHighlighter::specials_list=QStringList()
     << "BUG" << "TODO" << "FIXME" << "NB" << "WARNING" << "ERROR";
 
-RHighlighter::RHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
+RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
     foreach (const QString& s, keywords_list)
         keywords.append(QRegExp("\\b"+s+"\\b"));

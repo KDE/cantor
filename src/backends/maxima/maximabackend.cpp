@@ -42,6 +42,7 @@ MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Can
     new MaximaCalculusExtension(this);
     new MaximaLinearAlgebraExtension(this);
     new MaximaPlotExtension(this);
+    new MaximaVariableManagementExtension(this);
 }
 
 MaximaBackend::~MaximaBackend()
@@ -64,12 +65,16 @@ Cantor::Session* MaximaBackend::createSession()
 Cantor::Backend::Capabilities MaximaBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of MaximaSession";
-    return
+    Cantor::Backend::Capabilities cap=
         Cantor::Backend::LaTexOutput |
         Cantor::Backend::InteractiveMode|
         Cantor::Backend::SyntaxHighlighting|
         Cantor::Backend::Completion |
         Cantor::Backend::SyntaxHelp;
+    if(MaximaSettings::self()->variableManagement())
+        cap|=Cantor::Backend::VariableManagement;
+
+    return cap;
 }
 
 bool MaximaBackend::requirementsFullfilled() const

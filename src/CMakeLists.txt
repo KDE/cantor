@@ -33,7 +33,6 @@ install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 kde4_add_ui_files(cantor_SRCS settings.ui)
 kde4_add_ui_files(cantor_SRCS backendchooser.ui)
-kde4_add_ui_files(cantor_SRCS imagesettings.ui)
 
 kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
@@ -61,21 +60,35 @@ endif (R_FOUND)
 set(cantor_PART_SRCS
    cantor_part.cpp
    worksheet.cpp
+   worksheetview.cpp
    worksheetentry.cpp
+   worksheettextitem.cpp
+   worksheetimageitem.cpp
    commandentry.cpp
    textentry.cpp
    pagebreakentry.cpp
    imageentry.cpp
    latexentry.cpp
+   placeholderentry.cpp
+   worksheetcursor.cpp
+   searchbar.cpp
+   actionbar.cpp
+   worksheettoolbutton.cpp
    imagesettingsdialog.cpp
    scripteditorwidget.cpp
-   resultproxy.cpp
+   resultitem.cpp
+   textresultitem.cpp
+   imageresultitem.cpp
+   animationresultitem.cpp
    loadedexpression.cpp
-   animationhandler.cpp
    animation.cpp
-   resultcontextmenu.cpp
-   formulatextobject.cpp
+   epsrenderer.cpp
  )
+
+kde4_add_ui_files(cantor_PART_SRCS imagesettings.ui)
+kde4_add_ui_files(cantor_PART_SRCS standardsearchbar.ui)
+kde4_add_ui_files(cantor_PART_SRCS extendedsearchbar.ui)
+
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 

@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
 #ifndef _MAXIMASESSION_H
@@ -27,18 +27,22 @@
 #include <kdirwatch.h>
 #include <QRegExp>
 #include <QProcess>
+#include <QXmlStreamReader>
 
 class MaximaExpression;
+class MaximaVariableModel;
+#ifndef Q_OS_WIN
+  class KPtyProcess;
+#endif
 class KProcess;
 class QTcpServer;
-class QTcpSocket;
 class QTimer;
+class QAbstractItemModel;
 
 class MaximaSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    static const QRegExp MaximaPrompt;
     static const QRegExp MaximaOutputPrompt;
 
     MaximaSession( Cantor::Backend* backend);
@@ -46,15 +50,10 @@ class MaximaSession : public Cantor::Session
 
     void login();
     void logout();
-    void startServer();
-    void newMaximaClient(QTcpSocket* socket);
-    void newHelperClient(QTcpSocket* socket);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    MaximaExpression* evaluateHelperExpression(const QString& command);
 
     void appendExpressionToQueue(MaximaExpression* expr);
-    void appendExpressionToHelperQueue(MaximaExpression* expr);
 
     void interrupt();
     void interrupt(MaximaExpression* expr);
@@ -64,45 +63,39 @@ class MaximaSession : public Cantor::Session
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
-    QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
+    QAbstractItemModel* variableModel();
 
   public slots:
     void readStdOut();
-
-    void readHelperOut();
+    void readStdErr();
 
   private slots:
-    void newConnection();
-    void letExpressionParseOutput();
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
-    void currentHelperExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
     void restartsCooledDown();
 
     void runFirstExpression();
-    void runNextHelperCommand();
-    void startHelperProcess();
-
     void killLabels();
 
     void reportProcessError(QProcess::ProcessError error);
   private:
-    QTcpServer* m_server;
-    QTcpSocket* m_maxima;
+//windows doesn't support Pty
+#ifdef Q_OS_WIN
     KProcess* m_process;
-    QTcpSocket* m_helperMaxima;
-    KProcess* m_helperProcess; //only used to convert from expression to TeX/get syntax information
+#else
+    KPtyProcess* m_process;
+#endif
     QList<MaximaExpression*> m_expressionQueue;
-    QList<MaximaExpression*> m_helperQueue; //Queue used for Expressions that need to be converted to LaTeX
     QString m_cache;
+    MaximaVariableModel* m_variableModel;
 
-    bool m_isInitialized;
-    bool m_isHelperReady;
+    enum InitState{NotInitialized, Initializing, Initialized};
+    InitState m_initState;
     QString m_tmpPath;
 
     QTimer* m_restartCooldown;
     bool m_justRestarted;
-    bool m_useLegacy;
 };
 
 #endif /* _MAXIMASESSION_H */

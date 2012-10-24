@@ -43,6 +43,7 @@ QWidget* HelpPanelPlugin::widget()
         m_edit->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
         connect(parent()->parent(), SIGNAL(showHelp(QString)), m_edit, SLOT(setHtml(QString)));
+        connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SIGNAL(visibilityRequested()));
     }
 
     return m_edit;

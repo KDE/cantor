@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
 #include "maximasyntaxhelpobject.h"
@@ -57,8 +57,15 @@ void MaximaSyntaxHelpObject::fetchInformation()
 
     if(isValid)
     {
-        m_expression=static_cast<MaximaSession*>(session())->evaluateHelperExpression(QString("describe(%1);").arg(command()));
+        //use the lisp command, instead of directly calling the
+        //maxima function "describe" to avoid generating a new
+        //output label that would mess up history
+        QString cmd=":lisp(cl-info::info-exact \"%1\")";
+
+        m_expression=session()->evaluateExpression(cmd.arg(command()));
+
         connect(m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
+
     }else
     {
         kDebug()<<"invalid syntax request";

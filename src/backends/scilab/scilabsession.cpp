@@ -253,7 +253,7 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     }
 }
 
-QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 {
     return new ScilabHighlighter(parent);
 }

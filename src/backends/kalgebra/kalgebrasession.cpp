@@ -33,7 +33,7 @@ KAlgebraSession::KAlgebraSession( Cantor::Backend* backend)
 {
     m_analyzer = new Analitza::Analyzer;
     m_operatorsModel = new OperatorsModel;
-    m_variablesModel = new VariablesModel(m_analyzer->variables());
+    m_variablesModel = new Analitza::VariablesModel(m_analyzer->variables());
     m_operatorsModel->setVariables(m_analyzer->variables());
 }
 
@@ -87,10 +87,11 @@ OperatorsModel* KAlgebraSession::operatorsModel()
     return m_operatorsModel;
 }
 
-
-QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
 {
-    return new AlgebraHighlighter(parent->document());
+    //return new AlgebraHighlighter(parent->document());
+    // TODO: Think of something better here.
+    return new AlgebraHighlighter(NULL);
 }
 
 QAbstractItemModel* KAlgebraSession::variableModel()

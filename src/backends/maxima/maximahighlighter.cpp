@@ -15,18 +15,20 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
 #include "maximahighlighter.h"
 #include "maximakeywords.h"
+#include "maximasession.h"
+#include "maximavariablemodel.h"
 
 #include <QTextEdit>
 #include <kdebug.h>
 
-MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlighter(edit)
+MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : Cantor::DefaultHighlighter(parent)
 {
-    addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
+    //addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
 
     //Code highlighting the different keywords
     addKeywords(MaximaKeywords::instance()->keywords());
@@ -37,11 +39,20 @@ MaximaHighlighter::MaximaHighlighter(QTextEdit* edit) : Cantor::DefaultHighlight
     addFunctions(MaximaKeywords::instance()->functions());
     addVariables(MaximaKeywords::instance()->variables());
 
-    addRule(QRegExp("\".*\""), stringFormat());
-    addRule(QRegExp("'.*'"), stringFormat());
+    //addRule(QRegExp("\".*\""), stringFormat());
+    //addRule(QRegExp("'.*'"), stringFormat());
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");
+
+    connect(session->variableModel(), SIGNAL(variablesAdded(QStringList)), this, SLOT(addUserVariables(QStringList)));
+    connect(session->variableModel(), SIGNAL(variablesRemoved(QStringList)), this, SLOT(removeUserVariables(QStringList)));
+    connect(session->variableModel(), SIGNAL(functionsAdded(QStringList)), this, SLOT(addUserFunctions(QStringList)));
+    connect(session->variableModel(), SIGNAL(functionsRemoved(QStringList)), this, SLOT(removeUserFunctions(QStringList)));
+
+    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session->variableModel());
+    addUserVariables(model->variableNames());
+    addUserFunctions(model->functionNames());
 }
 
 MaximaHighlighter::~MaximaHighlighter()
@@ -56,25 +67,85 @@ void MaximaHighlighter::highlightBlock(const QString& text)
     //Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
 
-    setCurrentBlockState(0);
+    setCurrentBlockState(-1);
 
-    int startIndex = 0;
-    if (previousBlockState() != 1)
-        startIndex = commentStartExpression.indexIn(text);
+    int commentLevel = 0;
+    bool inString = false;
+    int startIndex = -1;
 
-    while (startIndex >= 0) {
+    if (previousBlockState() > 0) {
+        commentLevel = previousBlockState();
+        startIndex = 0;
+    } else if (previousBlockState() < -1) {
+        inString = true;
+        startIndex = 0;
+    }
 
-        int endIndex = commentEndExpression.indexIn(text,  startIndex);
-        int commentLength;
-        if (endIndex == -1) {
-
-            setCurrentBlockState(1);
-            commentLength = text.length() - startIndex;
-        } else {
-            commentLength = endIndex - startIndex
-                + commentEndExpression.matchedLength();
+    for (int i = 0; i < text.size(); ++i) {
+        if (text[i] == '\\') {
+            ++i; // skip the next character
+        } else if (text[i] == '"' && commentLevel == 0) {
+            if (!inString)
+                startIndex = i;
+            else
+                setFormat(startIndex, i - startIndex + 1, stringFormat());
+            inString = !inString;
+        } else if (text.mid(i,2) == "/*" && !inString) {
+            if (commentLevel == 0)
+                startIndex = i;
+            ++commentLevel;
+            ++i;
+        } else if (text.mid(i,2) == "*/" && !inString) {
+            if (commentLevel == 0) {
+                setFormat(i, 2, errorFormat());
+                // undo the --commentLevel below, so we stay at 0
+                ++commentLevel;
+            } else if (commentLevel == 1) {
+                setFormat(startIndex, i - startIndex + 2, commentFormat());
+            }
+            ++i;
+            --commentLevel;
         }
-        setFormat(startIndex,  commentLength,  commentFormat());
-        startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
+    }
+
+    if (inString) {
+        setCurrentBlockState(-2);
+        setFormat(startIndex, text.size() - startIndex, stringFormat());
+    } else if (commentLevel > 0) {
+        setCurrentBlockState(commentLevel);
+        setFormat(startIndex, text.size() - startIndex, commentFormat());
     }
 }
+
+void MaximaHighlighter::addUserVariables(const QStringList variables)
+{
+    addVariables(variables);
+}
+
+void MaximaHighlighter::removeUserVariables(const QStringList variables)
+{
+    foreach(const QString& var, variables)
+        removeRule(var);
+}
+
+void MaximaHighlighter::addUserFunctions(const QStringList functions)
+{
+    //remove the trailing (x)
+    foreach(const QString& func, functions)
+    {
+        int idx=func.lastIndexOf('(');
+        addRule(func.left(idx), functionFormat());
+    }
+}
+
+void MaximaHighlighter::removeUserFunctions(const QStringList functions)
+{
+    //remove the trailing (x)
+    foreach(const QString& func, functions)
+    {
+        int idx=func.lastIndexOf('(');
+        removeRule(func.left(idx));
+    }
+
+}
+

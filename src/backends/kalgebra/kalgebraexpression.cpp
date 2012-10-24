@@ -24,6 +24,7 @@
 #include <KLocale>
 
 #include <analitza/expression.h>
+#include <analitza/expressionstream.h>
 #include <analitza/analyzer.h>
 
 KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session )
@@ -38,18 +39,27 @@ void KAlgebraExpression::evaluate()
     setStatus(Cantor::Expression::Computing);
 
     Analitza::Analyzer* a=static_cast<KAlgebraSession*>(session())->analyzer();
-    a->setExpression(Analitza::Expression(command()));
-
     Analitza::Expression res;
-    if(a->isCorrect())
-        res=a->evaluate();
+    QString cmd = command();
+    QTextStream stream(&cmd);
+
+    Analitza::ExpressionStream s(&stream);
+    for(; !s.atEnd();) {
+        a->setExpression(s.next());
+        res = a->evaluate();
+
+        if(!a->isCorrect())
+            break;
+    }
 
     if(a->isCorrect()) {
         setResult(new Cantor::TextResult(res.toString()));
         setStatus(Cantor::Expression::Done);
     } else {
-        QString error=i18n("Error: %1", a->errors().join("\n"));
-        setErrorMessage(error);
+        setErrorMessage(i18n("Error: %1", a->errors().join("\n")));
         setStatus(Cantor::Expression::Error);
     }
 }
+
+void KAlgebraExpression::interrupt()
+{}

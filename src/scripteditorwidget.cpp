@@ -54,6 +54,7 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, QWidget* parent) :
     {
         KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
                                        "please check your KDE installation."));
+        m_script=0;
     }
     else
     {
@@ -121,7 +122,10 @@ void ScriptEditorWidget::run()
 
 bool ScriptEditorWidget::queryClose()
 {
-    return m_script->queryClose();
+    if(m_script)
+        return m_script->queryClose();
+    else
+        return true;
 }
 
 void ScriptEditorWidget::updateCaption()

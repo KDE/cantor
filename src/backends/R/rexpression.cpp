@@ -131,9 +131,11 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 setResult(new Cantor::HelpResult(content));
             else
                 setResult(new Cantor::TextResult(content));
+	    setStatus(Cantor::Expression::Done);
         }else if (type->name().contains("image"))
         {
             setResult(new Cantor::ImageResult(file));
+	    setStatus(Cantor::Expression::Done);
         }
         else
         {

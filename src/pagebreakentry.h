@@ -15,58 +15,53 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2011 Martin Kuettler <martinkuettler@gmail.com>
+    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef _PAGEBREAKENTRY_H
-#define _PAGEBREAKENTRY_H
+#ifndef PAGEBREAKENTRY_H
+#define PAGEBREAKENTRY_H
 
 #include "worksheetentry.h"
-#include <QObject>
 
-class Worksheet;
-class WorksheetEntry;
-
-/**
-   An entry in the worksheet that tells the printer to insert a page break.
- **/
+class WorksheetTextItem;
 
 class PageBreakEntry : public WorksheetEntry
 {
-  Q_OBJECT
+  Q_OBJECT;
+
   public:
-    
-    PageBreakEntry(QTextCursor position, Worksheet* parent);
+    PageBreakEntry(Worksheet* worksheet);
     ~PageBreakEntry();
 
-    enum {Type = 3};
-    int type();
-    
+    enum {Type = UserType + 3};
+    int type() const;
+
     bool isEmpty();
-
-    QTextCursor closestValidCursor(const QTextCursor& cursor);
-    QTextCursor firstValidCursorPosition();
-    QTextCursor lastValidCursorPosition();
-    bool isValidCursor(const QTextCursor& cursor);
-
-    bool worksheetKeyPressEvent(QKeyEvent* event, const QTextCursor& cursor);
-    bool worksheetContextMenuEvent(QContextMenuEvent* event, const QTextCursor& cursor);
-
     bool acceptRichText();
-    bool acceptsDrop(const QTextCursor& cursor);
-
     void setContent(const QString& content);
     void setContent(const QDomElement& content, const KZip& file);
-
     QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(QString& commandSep, QString& commentStartingSeq, QString& commentEndingSeq);
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
 
     void interruptEvaluation();
 
-    bool evaluate(bool current);
+    void layOutForWidth(qreal w, bool force = false);
+
+    //void paint(QPainter* painter, const QStyleOptionGraphicsItem * option,
+    //         QWidget * widget = 0);
 
   public slots:
-    void update();
+    bool evaluate(EvaluationOption evalOp = FocusNext);
+    void updateEntry();
+    void populateMenu(KMenu *menu, const QPointF& pos);
+
+  protected:
+    bool wantToEvaluate();
+    bool wantFocus();
+
+  private:
+    WorksheetTextItem* m_msgItem;
 };
 
-#endif /* _PAGEBREAKENTRY_H */
+#endif /* PAGEBREAKENTRY_H */
+

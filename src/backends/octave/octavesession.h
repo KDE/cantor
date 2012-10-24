@@ -48,7 +48,7 @@ class OctaveSession : public Cantor::Session
     virtual void login();
     virtual Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
     virtual Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
-    virtual QSyntaxHighlighter* syntaxHighlighter(QTextEdit* parent);
+    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     virtual QAbstractItemModel* variableModel();
 
     void runExpression(OctaveExpression* expression);

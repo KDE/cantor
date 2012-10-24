@@ -17,6 +17,7 @@
             <choice name="ANGLE_UNIT_DEGREES" />
             <choice name="ANGLE_UNIT_GRADIANS" />
         </choices>
+	<default>1</default>
     </entry>
     <entry name="base" type="int">
       <label>Base of parsed and evaluated numbers.</label>

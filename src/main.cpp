@@ -36,13 +36,14 @@ int main(int argc, char **argv)
                      ki18n("Cantor"),
                      version, ki18n(description),
                      KAboutData::License_GPL,
-                     ki18n("(C) 2009-2011 Alexander Rieder"),
+                     ki18n("(C) 2009-2012 Alexander Rieder"),
                      KLocalizedString(), 0
         );
     about.addAuthor( ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com" );
     about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("KAlgebra backend"), "aleixpol@kde.org" );
     about.addAuthor( ki18n("Miha Čančula"), ki18n("Octave backend"), "miha.cancula@gmail.com" );
     about.addAuthor( ki18n("Filipe Saraiva"), ki18n("Scilab backend"), "filipe@kde.org", "http://filipesaraiva.info/" );
+    about.addAuthor( ki18n("Martin Küttler"), ki18n("Interface"), "martin.kuettler@gmail.com" );
     KCmdLineArgs::init(argc, argv, &about);
 
     KCmdLineOptions options;

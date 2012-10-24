@@ -89,11 +89,11 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
 
     //check for the methods the backend actually supports, and disable the buttons accordingly
     Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
-    if(ext->loadVariables(QString::null).isNull())
+    if(ext->loadVariables(QString()).isNull())
         m_loadBtn->setDisabled(true);
-    if(ext->saveVariables(QString::null).isNull())
+    if(ext->saveVariables(QString()).isNull())
         m_saveBtn->setDisabled(true);
-    if(ext->addVariable(QString::null, QString::null).isNull())
+    if(ext->addVariable(QString(), QString()).isNull())
         m_newBtn->setDisabled(true);
     if(ext->clearVariables().isNull())
         m_clearBtn->setDisabled(true);
