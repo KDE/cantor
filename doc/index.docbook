@@ -4,6 +4,7 @@
 
   <!ENTITY kappname "&cantor;">
   <!ENTITY package "kdeedu">
+  <!ENTITY latex "L<superscript>A</superscript>T<subscript>E</subscript>X">
   <!ENTITY % addindex "IGNORE">
   <!ENTITY % English "INCLUDE">
 ]>
@@ -89,7 +90,7 @@ Screenshot:
   <listitem><para>Results of graph plotting shown inside the worksheet.</para></listitem>
   <listitem><para>Easy plugin-based structure to allow different backends to be added.</para></listitem>
   <listitem><para>GetHotNewStuff integration to allow example worksheets to be downloaded (or uploaded.)</para></listitem>
-  <listitem><para>Mathematical formula typesetting using LaTeX.</para></listitem>
+  <listitem><para>Mathematical formula typesetting using &latex;.</para></listitem>
   <listitem><para>Backend-aware syntax highlighting.</para></listitem>
   <listitem><para>Plugin-based assistant dialogs to help with common tasks, such as integrating a function, or entering a matrix.</para></listitem>
 </itemizedlist>
@@ -237,11 +238,11 @@ Screenshot:
   </para>
   <variablelist>
     <varlistentry>
-      <term>Typesetting using LaTeX</term>
+      <term>Typesetting using &latex;</term>
       <listitem>
 	<para>
 	  This setting changes the way results are presented to you. If enabled, it passes the result through
-	  the LaTeX system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes
+	  the &latex; system, to produce visually appealing formulas. For example, <quote>3*x^2*sqrt(2)*x+2/3</quote> becomes
 	  <inlinemediaobject>
 	      <imageobject>
 		<imagedata fileref="latex_formula.png" format="PNG"/>
@@ -290,6 +291,7 @@ TODO add screenshots and descriptions of each assistant
 </sect1>
 -->
 </chapter>
+<!--this chapter is boring and completely useless, only default menu items well known to any kde user-->
 <chapter id="commands">
 <title>Command Reference</title>
 
@@ -366,7 +368,7 @@ TODO add screenshots and descriptions of each assistant
 <guimenu>File</guimenu>
 <guimenuitem>Export to LaTeX</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Allows saving the current worksheet as a LaTeX document.</action></para></listitem>
+<listitem><para><action>Allows saving the current worksheet as a &latex; document.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -570,7 +572,7 @@ This menu contains standard &kde; <guimenu>Settings</guimenu> items, as well as 
 </para>
 <para>
 At present, there are no special developer tutorials or API documentation, so if you want to write a plugin you will have to read through the sources.
-All interface definitions are in the lib directory.  For some example implementations, look at the plugins shipped with &cantor;.
+All interface definitions are in the <filename role="directory">lib</filename> directory.  For some example implementations, look at the plugins shipped with &cantor;.
 </para>
 
 </chapter>
@@ -584,20 +586,20 @@ All interface definitions are in the lib directory.  For some example implementa
 <qandaset id="faqlist">
 <qandaentry>
   <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> is not available</para></question>
-  <answer><para>Not every Backend supports every option.</para></answer>
+  <answer><para>Not every backend supports every option. Current version supports &latex; output for Maxima, Qualculate! and Sage backends.</para></answer>
 </qandaentry>
 <qandaentry>
   <question><para>I have installed Sage/Maxima, but the appropriate backend does not appear.</para></question>
   <answer>
     <para>
-      One possible explanation is that &cantor; did not correctly detect the location. Go to the Settings dialog and change
-      the Path to the appropriate application.
+      One possible explanation is that &cantor; did not correctly detect the location. Go to the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem></menuchoice> dialog and change
+      the <guilabel>Path</guilabel> to the appropriate application.
     </para>
   </answer>
 </qandaentry>
 <qandaentry>
   <question><para>What a peculiar name - what does it have to do with mathematics?</para></question>
-  <answer><para>Cantor is named after the German mathematician Georg Cantor, the creator of set theory.</para></answer>
+  <answer><para>Cantor is named after the German mathematician <ulink url="http://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</ulink>, the creator of set theory.</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>
@@ -638,7 +640,7 @@ Documentation Copyright &copy; 2009-2011 Alexander Rieder <email>alexanderrieder
 
 <para>
 In order to successfully use &cantor;, you need &kde; 4.
-If you want support for type-setting to be enabled, you need to install LaTeX and LibSpectre.
+If you want support for type-setting to be enabled, you need to install &latex; and LibSpectre.
 To use the different Backends, the appropriate math package is required.
 </para>
 
