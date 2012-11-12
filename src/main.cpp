@@ -28,7 +28,7 @@
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
 
-static const char version[] = "0.3";
+static const char version[] = "0.4";
 
 int main(int argc, char **argv)
 {

@@ -1,4 +1,4 @@
-set(GENERIC_LIB_VERSION "0.0.3")
+set(GENERIC_LIB_VERSION "0.0.4")
 set(GENERIC_LIB_SOVERSION "1")
 
 set( cantor_LIB_SRCS
@@ -45,7 +45,7 @@ Set( cantor_LIB_HDRS
   #helper classes
   defaulthighlighter.h
   defaultvariablemodel.h
-  
+
 )
 
 kde4_add_ui_files(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
