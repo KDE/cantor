@@ -349,7 +349,7 @@ WorksheetCursor TextEntry::search(QString pattern, unsigned flags,
 }
 
 
-void TextEntry::layOutForWidth(double w, bool force)
+void TextEntry::layOutForWidth(qreal w, bool force)
 {
     if (size().width() == w && !force)
         return;

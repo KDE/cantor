@@ -77,7 +77,7 @@ class CommandEntry : public WorksheetEntry
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
-    void layOutForWidth(double w, bool force = false);
+    void layOutForWidth(qreal w, bool force = false);
 
     WorksheetTextItem* highlightItem();
 

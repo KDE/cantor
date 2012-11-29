@@ -59,7 +59,7 @@ class TextEntry : public WorksheetEntry
 
     void interruptEvaluation();
 
-    void layOutForWidth(double w, bool force = false);
+    void layOutForWidth(qreal w, bool force = false);
 
     int searchText(QString text, QString pattern,
                    QTextDocument::FindFlags qt_flags);

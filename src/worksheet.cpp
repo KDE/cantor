@@ -270,8 +270,8 @@ void Worksheet::makeVisible(const WorksheetCursor& cursor)
     QRectF er = cursor.entry()->boundingRect();
     er = cursor.entry()->mapRectToScene(er);
     er.adjust(0, -10, 0, 10);
-    r.adjust(0, qMax(-100.0, er.top() - r.top()),
-             0, qMin(100.0, er.bottom() - r.bottom()));
+    r.adjust(0, qMax(qreal(-100.0), er.top() - r.top()),
+             0, qMin(qreal(100.0), er.bottom() - r.bottom()));
     worksheetView()->makeVisible(r);
 }
 

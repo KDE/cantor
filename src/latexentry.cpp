@@ -355,7 +355,7 @@ WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
     }
 }
 
-void LatexEntry::layOutForWidth(double w, bool force)
+void LatexEntry::layOutForWidth(qreal w, bool force)
 {
     if (size().width() == w && !force)
         return;
