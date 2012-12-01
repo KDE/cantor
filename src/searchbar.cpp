@@ -255,7 +255,7 @@ void SearchBar::on_replaceAll_clicked()
             ++count;
         }
     }
-    setStatus(i18n("Replaced %1 instances").arg(count));
+    setStatus(i18nc("Replaced %1 instance", "Replaced %1 instances", count));
 }
 
 void SearchBar::on_pattern_textChanged(const QString& p)
