@@ -91,8 +91,6 @@ void PythonExpression::evaluate()
 //     }
 
     pythonSession->runExpression(this);
-
-//     m_timer->start(1000);
 }
 
 void PythonExpression::parseOutput(QString output)
@@ -121,7 +119,6 @@ void PythonExpression::parseOutput(QString output)
 void PythonExpression::interrupt()
 {
     kDebug()<<"interruptinging command";
-//     m_timer->stop();
     setStatus(Cantor::Expression::Interrupted);
 }
 

@@ -106,25 +106,23 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     command += expr->command();
 
-    QString classOutputPython =
-"import sys\n\
-class CatchOut:\n\
-    def __init__(self):\n\
-        self.value = ''\n\
-    def write(self, txt):\n\
-        self.value += txt\n\
-output = CatchOut()\n\
-sys.stdout = output\n\
-sys.stderr = output\n\
-";
+    QString classOutputPython = "import sys\n"                  \
+                                "class CatchOut:\n"             \
+                                "    def __init__(self):\n"     \
+                                "        self.value = ''\n"     \
+                                "    def write(self, txt):\n"   \
+                                "        self.value += txt\n"   \
+                                "output = CatchOut()\n"         \
+                                "sys.stdout = output\n"         \
+                                "sys.stderr = output\n\n";
 
     PyObject *pModule = PyImport_AddModule("__main__");
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 
     PyRun_SimpleString(command.toStdString().c_str());
-    PyObject *outputPython = PyObject_GetAttrString(pModule,"output");
+    PyObject *outputPython = PyObject_GetAttrString(pModule, "output");
 
-    PyObject *output = PyObject_GetAttrString(outputPython,"value");
+    PyObject *output = PyObject_GetAttrString(outputPython, "value");
 
     string outputString = PyString_AsString(output);
 
@@ -143,17 +141,13 @@ void PythonSession::expressionFinished()
     kDebug() << "size: " << m_runningExpressions.size();
 }
 
-// void PythonSession::readOutput()
-// {
-//     kDebug() << "readOutput";
-//
-//     kDebug() << "output.isNull? " << m_output.isNull();
-//     kDebug() << "output: " << m_output;
-//
-//     if(status() != Running || m_output.isNull()){
-//         return;
-//     }
-// }
+void PythonSession::readOutput()
+{
+    kDebug() << "readOutput";
+
+    kDebug() << "output.isNull? " << m_output.isNull();
+    kDebug() << "output: " << m_output;
+}
 
 // void PythonSession::plotFileChanged(QString filename)
 // {
