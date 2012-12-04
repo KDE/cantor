@@ -313,7 +313,7 @@ void ImageEntry::addActionsToBar(ActionBar* actionBar)
 }
 
 
-void ImageEntry::layOutForWidth(double w, bool force)
+void ImageEntry::layOutForWidth(qreal w, bool force)
 {
     if (size().width() == w && !force)
         return;

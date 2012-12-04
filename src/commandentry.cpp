@@ -761,7 +761,7 @@ WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
     return WorksheetCursor();
 }
 
-void CommandEntry::layOutForWidth(double w, bool force)
+void CommandEntry::layOutForWidth(qreal w, bool force)
 {
     if (w == size().width() && !force)
         return;

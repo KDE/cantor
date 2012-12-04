@@ -103,7 +103,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
             m_hAnimation = new QPropertyAnimation(horizontalScrollBar(),
                                                   "value", this);
             m_hAnimation->setStartValue(horizontalScrollBar()->value());
-            nx = qBound(0.0, nx, 0.0+horizontalScrollBar()->maximum());
+            nx = qBound(qreal(0.0), nx, qreal(0.0+horizontalScrollBar()->maximum()));
             m_hAnimation->setEndValue(nx);
             m_hAnimation->setDuration(100);
             m_animation->addAnimation(m_hAnimation);
@@ -126,7 +126,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
             m_vAnimation = new QPropertyAnimation(verticalScrollBar(),
                                                   "value", this);
             m_vAnimation->setStartValue(verticalScrollBar()->value());
-            ny = qBound(0.0, ny, 0.0+verticalScrollBar()->maximum());
+            ny = qBound(qreal(0.0), ny, qreal(0.0+verticalScrollBar()->maximum()));
             m_vAnimation->setEndValue(ny);
             m_vAnimation->setDuration(100);
             m_animation->addAnimation(m_vAnimation);
