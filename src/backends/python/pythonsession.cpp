@@ -100,6 +100,8 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
 
 void PythonSession::runExpression(PythonExpression* expr)
 {
+    kDebug() << "run expression";
+
     QString command;
 
     command += expr->command();
@@ -128,7 +130,8 @@ sys.stderr = output\n\
 
     m_output = QString(outputString.c_str());
     expr->parseOutput(m_output);
-    readOutput();
+    expr->evalFinished();
+    changeStatus(Cantor::Session::Done);
 }
 
 void PythonSession::expressionFinished()
@@ -140,17 +143,17 @@ void PythonSession::expressionFinished()
     kDebug() << "size: " << m_runningExpressions.size();
 }
 
-void PythonSession::readOutput()
-{
-    kDebug() << "readOutput";
-
-    kDebug() << "output.isNull? " << m_output.isNull();
-    kDebug() << "output: " << m_output;
-
-    if(status() != Running || m_output.isNull()){
-        return;
-    }
-}
+// void PythonSession::readOutput()
+// {
+//     kDebug() << "readOutput";
+//
+//     kDebug() << "output.isNull? " << m_output.isNull();
+//     kDebug() << "output: " << m_output;
+//
+//     if(status() != Running || m_output.isNull()){
+//         return;
+//     }
+// }
 
 // void PythonSession::plotFileChanged(QString filename)
 // {

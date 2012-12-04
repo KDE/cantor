@@ -81,12 +81,14 @@ KConfigSkeleton* PythonBackend::config() const
 
 KUrl PythonBackend::helpUrl() const
 {
-    return i18nc(" ", "http://www.python.org/");
+    return i18nc("the url to the documentation of Scipy and Numpy packages", "http://docs.scipy.org/doc/");
 }
 
 QString PythonBackend::description() const
 {
-    return i18n(" ");
+    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains." \
+                "There are several Python packages to scientific programming.</p>" \
+                "<p>This backend supports <b>Scipy</b>, <b>Numpy</b>, and <b>Matplotlib</b> packages.</p>");
 }
 
 K_EXPORT_CANTOR_PLUGIN(pythonbackend, PythonBackend)

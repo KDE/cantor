@@ -17,14 +17,6 @@ kde4_add_ui_files(ScilabBackend_SRCS settings.ui)
 kde4_add_plugin( cantor_scilabbackend ${ScilabBackend_SRCS} )
 target_link_libraries( cantor_scilabbackend ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
 
-# kde4_add_unit_test( testsage testsage.cpp)
-# target_link_libraries( testsage
-#   ${KDE4_KDECORE_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   cantorlibs
-#   cantortest
-# )
-
 install(FILES scilabbackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/scilabbackend)
 install(TARGETS cantor_scilabbackend DESTINATION ${PLUGIN_INSTALL_DIR})
