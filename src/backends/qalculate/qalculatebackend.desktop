@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=Qalculate
+Name[bs]=Qalculate
 Name[ca]=Qalculate
 Name[ca@valencia]=Qalculate
 Name[cs]=Qalculate
@@ -40,6 +41,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 X-KDE-PluginInfo-Website=http://qalculate.sourceforge.net/
 Comment=Qalculate backend for Cantor. Gives you the advanced features of Qalculate
+Comment[bs]=Qalculate pozadina Cantor. Pruža napredne mogućnosti programa Qalculate
 Comment[ca]=Dorsal de Qalculate per al Cantor. Us ofereix les característiques avançades de Qalculate
 Comment[ca@valencia]=Dorsal de Qalculate per al Cantor. Vos ofereix les característiques avançades de Qalculate
 Comment[cs]=Podpůrná vrstva Qalculate pro Cantor. Poskytuje pokročilé vlastnosti Qalculate

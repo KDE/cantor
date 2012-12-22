@@ -50,6 +50,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for the Maxima Computer Algebra System
 Comment[bg]=Ядро за компютърната система за алгебра Maxima
+Comment[bs]=Pozadinski program za Maxima kompjuterski algebarski sistem
 Comment[ca]=Dorsal per al Maxima: un sistema d'àlgebra per ordinador
 Comment[ca@valencia]=Dorsal per al Maxima: un sistema d'àlgebra per ordinador
 Comment[cs]=Podpůrná vrstva pro počítačový systém algebry Maxima
