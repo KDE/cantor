@@ -2,7 +2,6 @@
 Type=Service
 Name=Plot2d
 Name[bg]=Plot2d
-Name[bs]=Crtanje2d
 Name[ca]=Plot2d
 Name[ca@valencia]=Plot2d
 Name[cs]=Graf2d
@@ -48,7 +47,6 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 2D functions
 Comment[bg]=Помощен прозорец за улесняване чертаенето на двуизмерни функции
-Comment[bs]=Pomoćni prozor za jednostavnije crtanje 2D funkcija
 Comment[ca]=Un diàleg assistent per simplificar la representació gràfica de funcions 2D
 Comment[ca@valencia]=Un diàleg assistent per simplificar la representació gràfica de funcions 2D
 Comment[cs]=Pomocný dialog pro zjednodušení vytvoření grafu dvourozměrných funkcí
