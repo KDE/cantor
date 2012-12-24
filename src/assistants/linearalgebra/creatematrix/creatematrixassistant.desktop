@@ -2,6 +2,7 @@
 Type=Service
 Name=Create Matrix
 Name[bg]=Създаване на матрица
+Name[bs]=Kreiraj matricu
 Name[ca]=Crea una matriu
 Name[ca@valencia]=Crea una matriu
 Name[cs]=Vytvořit matici
@@ -48,6 +49,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify entering of matrices
 Comment[bg]=Помощен прозорец за улесняване въвеждането на матрици
+Comment[bs]=Pomoćni prozor za jednostavniji ulazak u matrice
 Comment[ca]=Un diàleg assistent per simplificar la introducció de matrius
 Comment[ca@valencia]=Un diàleg assistent per simplificar la introducció de matrius
 Comment[cs]=Pomocný dialog pro zjednodušení zadávání matic

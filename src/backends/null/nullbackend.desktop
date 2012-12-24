@@ -2,6 +2,7 @@
 Type=Service
 Name=nullbackend
 Name[bg]=празно ядро
+Name[bs]=ne vrši računanje
 Name[ca]=DorsalNul
 Name[ca@valencia]=DorsalNul
 Name[cs]=žádná podpůrná vrstva
@@ -45,6 +46,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Cantor for testing purposes
 Comment[bg]=Ядро на Cantor за проби
+Comment[bs]=Pozadinski program za Cantor
 Comment[ca]=Dorsal per al Cantor, per a fer proves
 Comment[ca@valencia]=Dorsal per al Cantor, per a fer proves
 Comment[cs]=Podpůrná vrstva pro Cantor pro účely testování
