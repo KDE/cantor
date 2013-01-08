@@ -48,6 +48,7 @@ X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=An Assistant dialog to simplify plotting of 3D functions
 Comment[bg]=Помощен прозорец за улесняване чертаенето на триизмерни функции
+Comment[bs]=Pomoćni prozor za jednostavnije crtanje 3D funkcija
 Comment[ca]=Un diàleg assistent per simplificar la representació gràfica de funcions 3D
 Comment[ca@valencia]=Un diàleg assistent per simplificar la representació gràfica de funcions 3D
 Comment[cs]=Pomocný dialog pro zjednodušení vytvoření grafu trojrozměrných funkcí
