@@ -1,4 +1,4 @@
-# - Try to find R 
+# - Try to find R
 # Once done this will define
 #
 #  R_FOUND - system has R
@@ -10,6 +10,7 @@
 # find the R binary
 FIND_PROGRAM(R_EXECUTABLE R)
 
+SET(ABORT_CONFIG FALSE)
 IF(R_EXECUTABLE)
 
   # find R_HOME
@@ -40,7 +41,7 @@ IF(R_EXECUTABLE)
     MESSAGE(STATUS "R_Home not findable via R. Guessing")
   ENDIF(NOT R_INCLUDE_DIR)
 
-  FIND_PATH(R_INCLUDE_DIR R.h) 
+  FIND_PATH(R_INCLUDE_DIR R.h)
 
   # check for existence of libR.so
 
@@ -69,10 +70,17 @@ IF(R_EXECUTABLE)
     #MESSAGE(STATUS "Yes, ${R_LAPACK_LIBRARY} exists")
     SET(R_LIBRARIES ${R_LIBRARIES} ${R_LAPACK_LIBRARY})
     IF(NOT WIN32)
-      # needed when linking to Rlapack on linux for some unknown reason.
-      # apparently not needed on windows (let's see, when it comes back to bite us, though)
-      # and compiling on windows is hard enough even without requiring libgfortran, too.
-      SET(R_LIBRARIES ${R_LIBRARIES} gfortran)
+      FIND_LIBRARY(GFORTRAN_LIBRARY
+        gfortran)
+      IF (GFORTRAN_LIBRARY)
+        # needed when linking to Rlapack on linux for some unknown reason.
+        # apparently not needed on windows (let's see, when it comes back to bite us, though)
+        # and compiling on windows is hard enough even without requiring libgfortran, too.
+        SET(R_LIBRARIES ${R_LIBRARIES} gfortran)
+      ELSE (GFORTRAN_LIBRARY)
+        MESSAGE(STATUS "gfortran is needed for Rlapack but it could not be found")
+        SET(ABORT_CONFIG TRUE)
+      ENDIF (GFORTRAN_LIBRARY)
     ENDIF(NOT WIN32)
   ENDIF(NOT R_LAPACK_LIBRARY)
 
@@ -93,8 +101,12 @@ IF(R_EXECUTABLE)
 
 ENDIF( R_EXECUTABLE )
 
-INCLUDE(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(R  DEFAULT_MSG 
+IF(ABORT_CONFIG)
+  SET(R_FOUND FALSE)
+ELSE(ABORT_CONFIG)
+  INCLUDE(FindPackageHandleStandardArgs)
+  FIND_PACKAGE_HANDLE_STANDARD_ARGS(R  DEFAULT_MSG
                                   R_EXECUTABLE R_INCLUDE_DIR R_R_LIBRARY)
 
-MARK_AS_ADVANCED(R_INCLUDE_DIR R_R_LIBRARY R_LAPACK_LIBRARY R_BLAS_LIBRARY)
+  MARK_AS_ADVANCED(R_INCLUDE_DIR R_R_LIBRARY R_LAPACK_LIBRARY R_BLAS_LIBRARY)
+ENDIF(ABORT_CONFIG)
