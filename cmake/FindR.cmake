@@ -71,12 +71,14 @@ IF(R_EXECUTABLE)
     IF(NOT WIN32)
       FIND_LIBRARY(GFORTRAN_LIBRARY
         gfortran)
-      if (GFORTRAN_LIBRARY)
+      IF (GFORTRAN_LIBRARY)
         # needed when linking to Rlapack on linux for some unknown reason.
         # apparently not needed on windows (let's see, when it comes back to bite us, though)
         # and compiling on windows is hard enough even without requiring libgfortran, too.
         SET(R_LIBRARIES ${R_LIBRARIES} gfortran)
-      endif (GFORTRAN_LIBRARY)
+      ELSE (GFORTRAN_LIBRARY)
+        SET(R_FOUND false)
+      ENDIF (GFORTRAN_LIBRARY)
     ENDIF(NOT WIN32)
   ENDIF(NOT R_LAPACK_LIBRARY)
 
