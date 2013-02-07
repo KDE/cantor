@@ -70,13 +70,26 @@ IF(R_EXECUTABLE)
     #MESSAGE(STATUS "Yes, ${R_LAPACK_LIBRARY} exists")
     SET(R_LIBRARIES ${R_LIBRARIES} ${R_LAPACK_LIBRARY})
     IF(NOT WIN32)
-      FIND_LIBRARY(GFORTRAN_LIBRARY
-        gfortran)
+      # Query gfortran to get the libgfortran.so path
+      FIND_PROGRAM(_GFORTRAN_EXECUTABLE NAMES gfortran)
+      IF(_GFORTRAN_EXECUTABLE)
+        EXECUTE_PROCESS(COMMAND ${_GFORTRAN_EXECUTABLE} -print-file-name=libgfortran.so
+                        OUTPUT_VARIABLE _libgfortran_path
+                        OUTPUT_STRIP_TRAILING_WHITESPACE
+                       )
+      ENDIF()
+      IF(EXISTS ${_libgfortran_path})
+        SET(GFORTRAN_LIBRARY ${_libgfortran_path})
+      ELSE()
+        # if libgfortran wasn't found at this point, the installation is probably broken
+        # Let's try to find the library nonetheless.
+        FIND_LIBRARY(GFORTRAN_LIBRARY gfortran)
+      ENDIF()
       IF (GFORTRAN_LIBRARY)
         # needed when linking to Rlapack on linux for some unknown reason.
         # apparently not needed on windows (let's see, when it comes back to bite us, though)
         # and compiling on windows is hard enough even without requiring libgfortran, too.
-        SET(R_LIBRARIES ${R_LIBRARIES} gfortran)
+        SET(R_LIBRARIES ${R_LIBRARIES} ${GFORTRAN_LIBRARY})
       ELSE (GFORTRAN_LIBRARY)
         MESSAGE(STATUS "gfortran is needed for Rlapack but it could not be found")
         SET(ABORT_CONFIG TRUE)
