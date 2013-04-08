@@ -179,7 +179,7 @@ void SageExpression::evalFinished()
 
         QString stripped=m_outputCache;
         const bool isHtml=stripped.contains(QLatin1String("<html>"));
-        const bool isLatex=m_outputCache.contains("class=\"math\""); //Check if it's latex stuff
+        const bool isLatex=m_outputCache.contains("class=\"math\"")||m_outputCache.contains(QRegExp("type=\"math/tex[^\"]*\"")); //Check if it's latex stuff
         if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
             stripped.replace("<html>", "\\begin{eqnarray*}");

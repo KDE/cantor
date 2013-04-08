@@ -1,11 +1,12 @@
 [Desktop Entry]
 Type=Service
 Name=AdvancedPlot
+Name[bs]=AdvancedPlot
 Name[ca]=GràficAvançat
 Name[ca@valencia]=GràficAvançat
 Name[cs]=Pokročilý graf
 Name[da]=AdvancedPlot
-Name[de]=AdvancedPlot
+Name[de]=Erweitertes Plotten
 Name[el]=ΠροχωρημένηΓραφικήΑπεικόνιση
 Name[en_GB]=AdvancedPlot
 Name[es]=AdvancedPlot
@@ -28,6 +29,7 @@ Name[ru]=Настраиваемый график
 Name[sk]=AdvancedPlot
 Name[sl]=Napreden Graf
 Name[sv]=Avancerat diagram
+Name[tr]=GelişmişGrafik
 Name[ug]=AdvancedPlot
 Name[uk]=Складне креслення
 Name[x-test]=xxAdvancedPlotxx
