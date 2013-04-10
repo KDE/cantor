@@ -20,7 +20,7 @@
 
 #include "pythonsession.h"
 #include "pythonexpression.h"
-// #include "pythonhighlighter.h"
+#include "pythonhighlighter.h"
 // #include "pythoncompletionobject.h"
 
 #include <kdebug.h>
@@ -182,11 +182,11 @@ void PythonSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     }
 }
 
-// QSyntaxHighlighter* PythonSession::syntaxHighlighter(QTextEdit* parent)
-// {
-//     return new PythonHighlighter(parent);
-// }
-//
+QSyntaxHighlighter* PythonSession::syntaxHighlighter(QTextEdit* parent)
+{
+    return new PythonHighlighter(parent);
+}
+
 // Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
 // {
 //     return new PythonCompletionObject(command, index, this);

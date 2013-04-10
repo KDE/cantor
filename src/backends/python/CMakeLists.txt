@@ -4,6 +4,8 @@ set( PythonBackend_SRCS
      pythonbackend.cpp
      pythonsession.cpp
      pythonexpression.cpp
+     pythonkeywords.cpp
+     pythonhighlighter.cpp
 )
 
 find_package(PythonLibs REQUIRED)
@@ -19,5 +21,5 @@ kde4_add_plugin(cantor_pythonbackend ${PythonBackend_SRCS})
 target_link_libraries(cantor_pythonbackend ${PYTHON_LIBRARIES} ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
 
 install(FILES pythonbackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-# install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/pythonbackend)
+install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/pythonbackend)
 install(TARGETS cantor_pythonbackend DESTINATION ${PLUGIN_INSTALL_DIR})
