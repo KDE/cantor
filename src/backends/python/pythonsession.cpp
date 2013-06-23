@@ -182,7 +182,7 @@ void PythonSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     }
 }
 
-QSyntaxHighlighter* PythonSession::syntaxHighlighter(QTextEdit* parent)
+QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
     return new PythonHighlighter(parent);
 }
