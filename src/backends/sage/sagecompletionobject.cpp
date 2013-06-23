@@ -52,7 +52,7 @@ void SageCompletionObject::fetchCompletions()
 
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
-    m_expression=session()->evaluateExpression("__hist_tmp__=_; __IPYTHON__.complete(\""+command()+"\");_=__hist_tmp__");
+    m_expression=session()->evaluateExpression("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\""+command()+"\");_=__hist_tmp__");
     connect(m_expression, SIGNAL(gotResult()), this, 
 	    SLOT(extractCompletions()));
 
@@ -61,6 +61,56 @@ void SageCompletionObject::fetchCompletions()
 }
 
 void SageCompletionObject::extractCompletions()
+{
+  SageSession* s=qobject_cast<SageSession*>(session());
+  if(s&&s->inLegacyMode())
+    extractCompletionsLegacy();
+  else
+    extractCompletionsNew();
+}
+
+void SageCompletionObject::extractCompletionsNew()
+{
+    Cantor::Result* res=m_expression->result();
+    m_expression->deleteLater();
+    m_expression=0;
+
+    if(!res||!res->type()==Cantor::TextResult::Type)
+    {
+        kDebug()<<"something went wrong fetching tab completion";
+        return;
+    }
+    
+    //the result looks like "['comp1', 'comp2']" parse it
+
+    //for sage version 5.7 this looks like
+    //('s1', ['comp1','comp2']) where s1 is the string we called complete with
+
+    QString txt=res->toHtml().trimmed();
+    txt.remove("<br/>");
+    txt=txt.mid(txt.indexOf(command())+command().length()+2).trimmed();
+    txt=txt.mid(1); //remove [
+    txt.chop(2); //remove ]
+
+    kDebug()<<"completion string: "<<txt;
+
+    QStringList tmp=txt.split(',');
+    QStringList completions;
+
+    foreach(QString c, tmp) // krazy:exclude=foreach
+    {
+        c=c.trimmed();
+        c.chop(1);
+        completions<<c.mid(1);
+    }
+
+    completions << SageKeywords::instance()->keywords();
+    setCompletions(completions);
+
+    emit fetchingDone();
+}
+
+void SageCompletionObject::extractCompletionsLegacy()
 {
     Cantor::Result* res=m_expression->result();
     m_expression->deleteLater();
@@ -92,6 +142,7 @@ void SageCompletionObject::extractCompletions()
 
     emit fetchingDone();
 }
+
 
 void SageCompletionObject::fetchIdentifierType()
 {

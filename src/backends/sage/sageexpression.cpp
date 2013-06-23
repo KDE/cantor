@@ -122,7 +122,7 @@ void SageExpression::parseOutput(const QString& text)
         //reset the indices
         index=index2=-1;
     }
-
+    
     m_outputCache+=output;
 
     if(m_promptCount<=0)
@@ -160,11 +160,9 @@ void SageExpression::addFileResult( const QString& path )
 {
   KUrl url( path );
   KMimeType::Ptr type=KMimeType::findByUrl(url);
-  kDebug()<<"MimeType: "<<type->name();
-  if(type->name().contains("image"))
+  if(m_imagePath.isEmpty()||type->name().contains("image")||path.endsWith(".png")||path.endsWith(".gif"))
   {
-    kDebug()<<"adding file "<<path<<"   "<<url;
-    m_imagePath=path;
+      m_imagePath=path;
   }
 }
 
@@ -172,8 +170,11 @@ void SageExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
     kDebug()<<m_outputCache;
+    
+    //check if our image path contains a valid image that we can try to show
+    bool hasImage=!m_imagePath.isNull();
 
-    if ( m_imagePath.isNull() ) //If this result contains a file, drop the text information
+    if ( !hasImage ) //If this result contains a file, drop the text information
     {
         Cantor::TextResult* result=0;
 
@@ -219,7 +220,7 @@ void SageExpression::evalFinished()
     }
     else
     {
-        KMimeType::Ptr type=KMimeType::findByUrl(m_imagePath);
+	KMimeType::Ptr type=KMimeType::findByUrl(m_imagePath);
         if(type->is("image/gif"))
             setResult( new Cantor::AnimationResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
         else

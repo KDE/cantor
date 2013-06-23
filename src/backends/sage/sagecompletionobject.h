@@ -40,11 +40,16 @@ class SageCompletionObject : public Cantor::CompletionObject
     bool mayIdentifierContain(QChar c) const;
     bool mayIdentifierBeginWith(QChar c) const;
 
+
   protected slots:
     void fetchCompletions();
     void extractCompletions();
     void fetchIdentifierType();
     void extractIdentifierType();
+
+ private:
+    void extractCompletionsNew();
+    void extractCompletionsLegacy();
 
   private:
     Cantor::Expression* m_expression;
