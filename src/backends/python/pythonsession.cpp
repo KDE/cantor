@@ -21,7 +21,7 @@
 #include "pythonsession.h"
 #include "pythonexpression.h"
 #include "pythonhighlighter.h"
-// #include "pythoncompletionobject.h"
+#include "pythoncompletionobject.h"
 
 #include <kdebug.h>
 #include <KDirWatch>
@@ -32,6 +32,7 @@
 #include <QDir>
 #include <QIODevice>
 #include <QByteArray>
+#include <QStringList>
 
 #include <settings.h>
 #include <qdir.h>
@@ -119,7 +120,58 @@ void PythonSession::runExpression(PythonExpression* expr)
     PyObject *pModule = PyImport_AddModule("__main__");
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 
-    PyRun_SimpleString(command.toStdString().c_str());
+    QStringList commandLine = command.split("\n");
+    QString commandProcessing;
+
+    for(int contLine = 0; contLine < commandLine.size(); contLine++){
+
+        if((!commandLine.at(contLine).contains("import ")) && (!commandLine.at(contLine).contains("=")) &&
+           (!commandLine.at(contLine).contains("print"))   && (!commandLine.at(contLine).endsWith(":")) &&
+           (!commandLine.at(contLine).startsWith(" "))){
+
+            commandProcessing += "print " + commandLine.at(contLine) + "\n";
+
+            continue;
+        }
+
+        if(commandLine.at(contLine).startsWith(" ")){
+
+            kDebug() << "Chegou aqui!";
+
+            if((commandLine.at(contLine).contains("import ")) || (commandLine.at(contLine).contains("=")) ||
+               (commandLine.at(contLine).contains("print"))   || (commandLine.at(contLine).endsWith(":"))){
+
+                commandProcessing += commandLine.at(contLine) + "\n";
+
+                continue;
+            }
+
+            int contIdentationSpace;
+
+            for(contIdentationSpace = 0; !commandLine.at(contLine).at(contIdentationSpace).isSpace(); contIdentationSpace++);
+
+            kDebug() << "contIdentationSpace: " << contIdentationSpace;
+
+            QString commandIdentation;
+
+            commandIdentation = commandLine.at(contLine);
+
+            commandIdentation.insert(contIdentationSpace + 1, QString("print "));
+
+            kDebug() << "commandIdentation: " << commandIdentation;
+
+            commandProcessing += commandIdentation + "\n";
+
+            continue;
+        }
+
+        commandProcessing += commandLine.at(contLine) + "\n";
+
+    }
+
+    kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
+    PyRun_SimpleString(commandProcessing.toStdString().c_str());
+
     PyObject *outputPython = PyObject_GetAttrString(pModule, "output");
 
     PyObject *output = PyObject_GetAttrString(outputPython, "value");
@@ -127,6 +179,7 @@ void PythonSession::runExpression(PythonExpression* expr)
     string outputString = PyString_AsString(output);
 
     m_output = QString(outputString.c_str());
+
     expr->parseOutput(m_output);
     expr->evalFinished();
     changeStatus(Cantor::Session::Done);
@@ -187,9 +240,9 @@ QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
     return new PythonHighlighter(parent);
 }
 
-// Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
-// {
-//     return new PythonCompletionObject(command, index, this);
-// }
+Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
+{
+    return new PythonCompletionObject(command, index, this);
+}
 
 #include "pythonsession.moc"

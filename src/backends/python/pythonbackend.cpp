@@ -57,7 +57,8 @@ Cantor::Backend::Capabilities PythonBackend::capabilities() const
 {
     kDebug()<<"Requesting capabilities of PythonSession";
 
-    return Cantor::Backend::SyntaxHighlighting;
+    return Cantor::Backend::SyntaxHighlighting |
+           Cantor::Backend::Completion;
 }
 
 bool PythonBackend::requirementsFullfilled() const

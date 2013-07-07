@@ -45,7 +45,7 @@ class PythonSession : public Cantor::Session
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-//     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
+    Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
 
   public slots:
     void readOutput();
