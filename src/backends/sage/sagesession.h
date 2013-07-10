@@ -59,7 +59,7 @@ class SageSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
-
+    bool inLegacyMode();
   public slots:
     void readStdOut();
     void readStdErr();
@@ -75,11 +75,13 @@ class SageSession : public Cantor::Session
   private:
     KPtyProcess* m_process;
     QList<SageExpression*> m_expressionQueue;
-    bool m_isInitialized;
+    int m_isInitialized;
     QString m_tmpPath;
     KDirWatch m_dirWatch;
     bool m_waitingForPrompt;
     QString m_outputCache;
+    bool m_inLegacyMode;
+    bool m_haveSentInitCmd;
 };
 
 #endif /* _SAGESESSION_H */

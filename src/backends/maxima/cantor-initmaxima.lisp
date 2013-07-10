@@ -52,7 +52,7 @@
   (princ "</cantor-text>")
 
   (let ((ccol 1))
-    (mapc #'myprinc
+    (mapc #'princ
         (tex x '("<cantor-latex>") '("</cantor-latex>") 'mparen 'mparen)))
 
   (princ "</cantor-result>")
