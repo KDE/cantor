@@ -46,9 +46,9 @@ PythonKeywords* PythonKeywords::instance()
     {
         inst = new PythonKeywords();
         inst->loadFromFile();
-	qSort(inst->m_variables);
-	qSort(inst->m_functions);
-	qSort(inst->m_keywords);
+        qSort(inst->m_variables);
+        qSort(inst->m_functions);
+        qSort(inst->m_keywords);
     }
 
     return inst;

@@ -136,8 +136,6 @@ void PythonSession::runExpression(PythonExpression* expr)
 
         if(commandLine.at(contLine).startsWith(" ")){
 
-            kDebug() << "Chegou aqui!";
-
             if((commandLine.at(contLine).contains("import ")) || (commandLine.at(contLine).contains("=")) ||
                (commandLine.at(contLine).contains("print"))   || (commandLine.at(contLine).endsWith(":"))){
 
@@ -148,7 +146,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
             int contIdentationSpace;
 
-            for(contIdentationSpace = 0; !commandLine.at(contLine).at(contIdentationSpace).isSpace(); contIdentationSpace++);
+            for(contIdentationSpace = 0; commandLine.at(contLine).at(contIdentationSpace).isSpace(); contIdentationSpace++);
 
             kDebug() << "contIdentationSpace: " << contIdentationSpace;
 
@@ -156,9 +154,12 @@ void PythonSession::runExpression(PythonExpression* expr)
 
             commandIdentation = commandLine.at(contLine);
 
-            commandIdentation.insert(contIdentationSpace + 1, QString("print "));
+            kDebug() << "Insert print in " << contIdentationSpace << "space";
+            kDebug() << "commandIdentation before insert " << commandIdentation;
 
-            kDebug() << "commandIdentation: " << commandIdentation;
+            commandIdentation.insert(contIdentationSpace, QString("print "));
+
+            kDebug() << "commandIdentation after insert" << commandIdentation;
 
             commandProcessing += commandIdentation + "\n";
 
