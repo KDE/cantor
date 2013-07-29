@@ -86,7 +86,6 @@ void PythonKeywords::loadFromFile()
                     m_keywords << text;
 
                 else if(name == "variables"){
-//                     kDebug() << text;
                     m_variables << text;
                 }
 
@@ -106,6 +105,18 @@ void PythonKeywords::loadFromFile()
         kDebug() << "error: "<< xml.errorString();
     }
 
+}
+
+void PythonKeywords::loadFromModule(QString module, QStringList keywords)
+{
+    kDebug() << "Module imported" << module;
+    kDebug() << "keywords" << keywords;
+
+    m_keywords << module;
+
+    for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
+        m_functions << module + "." + keywords.at(contKeyword);
+    }
 }
 
 const QStringList& PythonKeywords::variables() const

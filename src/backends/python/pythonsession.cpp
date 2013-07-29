@@ -22,6 +22,7 @@
 #include "pythonexpression.h"
 #include "pythonhighlighter.h"
 #include "pythoncompletionobject.h"
+#include "pythonkeywords.h"
 
 #include <kdebug.h>
 #include <KDirWatch>
@@ -121,9 +122,16 @@ void PythonSession::runExpression(PythonExpression* expr)
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 
     QStringList commandLine = command.split("\n");
+    QStringList modulesImported;
+
     QString commandProcessing;
 
     for(int contLine = 0; contLine < commandLine.size(); contLine++){
+
+        if(commandLine.at(contLine).contains("import ")){
+            QString module = commandLine.at(contLine);
+            modulesImported << module.remove("import ");
+        }
 
         if((!commandLine.at(contLine).contains("import ")) && (!commandLine.at(contLine).contains("=")) &&
            (!commandLine.at(contLine).contains("print"))   && (!commandLine.at(contLine).endsWith(":")) &&
@@ -182,7 +190,43 @@ void PythonSession::runExpression(PythonExpression* expr)
     m_output = QString(outputString.c_str());
 
     expr->parseOutput(m_output);
+
+    if(modulesImported.size() > 0){
+        for(int contModule = 0; contModule < modulesImported.size(); contModule++){
+            PyRun_SimpleString(classOutputPython.toStdString().c_str());
+
+            QString listKeywords;
+
+            listKeywords += "print dir(" + modulesImported.at(contModule) + ")\n";
+
+            PyRun_SimpleString(listKeywords.toStdString().c_str());
+            PyObject *outputPython = PyObject_GetAttrString(pModule, "output");
+            PyObject *output = PyObject_GetAttrString(outputPython, "value");
+
+            string outputString = PyString_AsString(output);
+
+            QString keywordsString = QString(outputString.c_str());
+
+            keywordsString.remove("'");
+            keywordsString.remove(" ");
+            keywordsString.remove("[");
+            keywordsString.remove("]");
+            kDebug() << "keywordsString" << keywordsString;
+
+            QStringList keywordsList = keywordsString.split(",");
+
+            kDebug() << "keywordsList" << keywordsList;
+
+            PythonKeywords* pythonKeywords;
+
+            pythonKeywords->instance()->loadFromModule(modulesImported.at(contModule), keywordsList);
+
+            kDebug() << "Module imported" << modulesImported.at(contModule);
+        }
+    }
+
     expr->evalFinished();
+
     changeStatus(Cantor::Session::Done);
 }
 

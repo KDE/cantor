@@ -39,6 +39,8 @@ class PythonKeywords
     const QStringList& keywords() const;
     const QStringList& variables() const;
 
+    void loadFromModule(QString module, QStringList keywords);
+
   private:
     void loadFromFile();
 
