@@ -38,7 +38,6 @@
 #include <settings.h>
 #include <qdir.h>
 
-#include <Python.h>
 #include <string>
 
 using namespace std;
@@ -58,6 +57,8 @@ void PythonSession::login()
     kDebug()<<"login";
 
     Py_Initialize();
+    m_pModule = PyImport_AddModule("__main__");
+
     emit ready();
 }
 
@@ -100,14 +101,8 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-void PythonSession::runExpression(PythonExpression* expr)
+QString PythonSession::getClassOutputPython()
 {
-    kDebug() << "run expression";
-
-    QString command;
-
-    command += expr->command();
-
     QString classOutputPython = "import sys\n"                  \
                                 "class CatchOut:\n"             \
                                 "    def __init__(self):\n"     \
@@ -118,19 +113,41 @@ void PythonSession::runExpression(PythonExpression* expr)
                                 "sys.stdout = output\n"         \
                                 "sys.stderr = output\n\n";
 
-    PyObject *pModule = PyImport_AddModule("__main__");
-    PyRun_SimpleString(classOutputPython.toStdString().c_str());
+    return classOutputPython;
+}
+
+QString PythonSession::getPythonCommandOutput(QString commandProcessing)
+{
+    kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
+    PyRun_SimpleString(commandProcessing.toStdString().c_str());
+
+    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "output");
+    PyObject *output = PyObject_GetAttrString(outputPython, "value");
+    string outputString = PyString_AsString(output);
+
+    return QString(outputString.c_str());
+}
+
+void PythonSession::runExpression(PythonExpression* expr)
+{
+    kDebug() << "run expression";
+
+    PyRun_SimpleString(this->getClassOutputPython().toStdString().c_str());
+
+    QString command;
+
+    command += expr->command();
 
     QStringList commandLine = command.split("\n");
-    QStringList modulesImported;
 
     QString commandProcessing;
 
     for(int contLine = 0; contLine < commandLine.size(); contLine++){
 
         if(commandLine.at(contLine).contains("import ")){
-            QString module = commandLine.at(contLine);
-            modulesImported << module.remove("import ");
+            this->identifyKeywords(commandLine.at(contLine).simplified());
+
+            continue;
         }
 
         if((!commandLine.at(contLine).contains("import ")) && (!commandLine.at(contLine).contains("=")) &&
@@ -178,56 +195,94 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     }
 
-    kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
-    PyRun_SimpleString(commandProcessing.toStdString().c_str());
-
-    PyObject *outputPython = PyObject_GetAttrString(pModule, "output");
-
-    PyObject *output = PyObject_GetAttrString(outputPython, "value");
-
-    string outputString = PyString_AsString(output);
-
-    m_output = QString(outputString.c_str());
+    m_output = QString(this->getPythonCommandOutput(commandProcessing));
 
     expr->parseOutput(m_output);
-
-    if(modulesImported.size() > 0){
-        for(int contModule = 0; contModule < modulesImported.size(); contModule++){
-            PyRun_SimpleString(classOutputPython.toStdString().c_str());
-
-            QString listKeywords;
-
-            listKeywords += "print dir(" + modulesImported.at(contModule) + ")\n";
-
-            PyRun_SimpleString(listKeywords.toStdString().c_str());
-            PyObject *outputPython = PyObject_GetAttrString(pModule, "output");
-            PyObject *output = PyObject_GetAttrString(outputPython, "value");
-
-            string outputString = PyString_AsString(output);
-
-            QString keywordsString = QString(outputString.c_str());
-
-            keywordsString.remove("'");
-            keywordsString.remove(" ");
-            keywordsString.remove("[");
-            keywordsString.remove("]");
-            kDebug() << "keywordsString" << keywordsString;
-
-            QStringList keywordsList = keywordsString.split(",");
-
-            kDebug() << "keywordsList" << keywordsList;
-
-            PythonKeywords* pythonKeywords;
-
-            pythonKeywords->instance()->loadFromModule(modulesImported.at(contModule), keywordsList);
-
-            kDebug() << "Module imported" << modulesImported.at(contModule);
-        }
-    }
 
     expr->evalFinished();
 
     changeStatus(Cantor::Session::Done);
+}
+
+void PythonSession::identifyKeywords(QString command)
+{
+    PyRun_SimpleString(command.toStdString().c_str());
+    PyRun_SimpleString(this->getClassOutputPython().toStdString().c_str());
+
+    QString listKeywords;
+    QString keywordsString;
+
+    QString moduleImported;
+    QString moduleVariable;
+
+    moduleImported += this->identifyPythonModule(command);
+    moduleVariable += this->identifyVariableModule(command);
+
+    if((moduleVariable.isEmpty()) && (!command.endsWith("*"))){
+        keywordsString = command.section(" ", 3).remove(" ");
+    }
+
+    if(moduleVariable.isEmpty() && (command.endsWith("*"))){
+        listKeywords += "import " + moduleImported + "\n"    \
+                        "print dir(" + moduleImported + ")\n";
+    }
+
+    if(!moduleVariable.isEmpty()){
+        listKeywords += "print dir(" + moduleVariable + ")\n";
+    }
+
+    if(!listKeywords.isEmpty()){
+        keywordsString = QString(this->getPythonCommandOutput(listKeywords));
+
+        keywordsString.remove("'");
+        keywordsString.remove(" ");
+        keywordsString.remove("[");
+        keywordsString.remove("]");
+    }
+
+    kDebug() << "keywordsString" << keywordsString;
+
+    QStringList keywordsList = keywordsString.split(",");
+
+    kDebug() << "keywordsList" << keywordsList;
+
+    PythonKeywords::instance()->loadFromModule(moduleVariable, keywordsList);
+
+    kDebug() << "Module imported" << moduleImported;
+
+    PyRun_SimpleString(this->getClassOutputPython().toStdString().c_str());
+}
+
+QString PythonSession::identifyPythonModule(QString command)
+{
+    QString module;
+
+    if(command.contains("import ")){
+        module = command.section(" ", 1, 1);
+    }
+
+    kDebug() << "module identified" << module;
+    return module;
+}
+
+QString PythonSession::identifyVariableModule(QString command)
+{
+    QString variable;
+
+    if(command.contains("import ")){
+        variable = command.section(" ", 1, 1);
+    }
+
+    if((command.contains("import ")) && (command.contains(" as "))){
+        variable = command.section(" ", 3, 3);
+    }
+
+    if(command.contains("from ")){
+        variable = "";
+    }
+
+    kDebug() << "variable identified" << variable;
+    return variable;
 }
 
 void PythonSession::expressionFinished()

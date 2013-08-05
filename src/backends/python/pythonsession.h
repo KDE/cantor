@@ -24,6 +24,8 @@
 #include "session.h"
 #include <QStringList>
 
+#include <Python.h>
+
 class PythonExpression;
 class KTemporaryFile;
 class KDirWatch;
@@ -56,8 +58,17 @@ class PythonSession : public Cantor::Session
     QStringList m_listPlotName;
     QString m_output;
 
+    PyObject *m_pModule;
+
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
+
+    QString getClassOutputPython();
+    QString getPythonCommandOutput(QString commandProcessing);
+
+    QString identifyPythonModule(QString command);
+    QString identifyVariableModule(QString command);
+    void identifyKeywords(QString command);
 
   private slots:
     void expressionFinished();

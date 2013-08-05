@@ -112,10 +112,16 @@ void PythonKeywords::loadFromModule(QString module, QStringList keywords)
     kDebug() << "Module imported" << module;
     kDebug() << "keywords" << keywords;
 
-    m_keywords << module;
+    if (module.isEmpty()){
+        for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
+            m_functions << keywords.at(contKeyword);
+        }
+    } else {
+        m_keywords << module;
 
-    for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
-        m_functions << module + "." + keywords.at(contKeyword);
+        for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
+            m_functions << module + "." + keywords.at(contKeyword);
+        }
     }
 }
 
