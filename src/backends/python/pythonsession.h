@@ -50,7 +50,7 @@ class PythonSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
 
   public slots:
-    void readOutput();
+    void readOutput(PythonExpression* expr, QString commandProcessing);
 //     void plotFileChanged(QString filename);
 
   private:
@@ -63,12 +63,13 @@ class PythonSession : public Cantor::Session
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
 
-    QString getClassOutputPython();
+    void runClassOutputPython();
+    
     QString getPythonCommandOutput(QString commandProcessing);
 
     QString identifyPythonModule(QString command);
     QString identifyVariableModule(QString command);
-    void identifyKeywords(QString command);
+    bool identifyKeywords(QString command);
 
   private slots:
     void expressionFinished();

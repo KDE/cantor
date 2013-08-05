@@ -101,38 +101,9 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-QString PythonSession::getClassOutputPython()
-{
-    QString classOutputPython = "import sys\n"                  \
-                                "class CatchOut:\n"             \
-                                "    def __init__(self):\n"     \
-                                "        self.value = ''\n"     \
-                                "    def write(self, txt):\n"   \
-                                "        self.value += txt\n"   \
-                                "output = CatchOut()\n"         \
-                                "sys.stdout = output\n"         \
-                                "sys.stderr = output\n\n";
-
-    return classOutputPython;
-}
-
-QString PythonSession::getPythonCommandOutput(QString commandProcessing)
-{
-    kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
-    PyRun_SimpleString(commandProcessing.toStdString().c_str());
-
-    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "output");
-    PyObject *output = PyObject_GetAttrString(outputPython, "value");
-    string outputString = PyString_AsString(output);
-
-    return QString(outputString.c_str());
-}
-
 void PythonSession::runExpression(PythonExpression* expr)
 {
     kDebug() << "run expression";
-
-    PyRun_SimpleString(this->getClassOutputPython().toStdString().c_str());
 
     QString command;
 
@@ -145,9 +116,13 @@ void PythonSession::runExpression(PythonExpression* expr)
     for(int contLine = 0; contLine < commandLine.size(); contLine++){
 
         if(commandLine.at(contLine).contains("import ")){
-            this->identifyKeywords(commandLine.at(contLine).simplified());
 
-            continue;
+            if(this->identifyKeywords(commandLine.at(contLine).simplified())){
+                continue;
+            } else {
+                this->readOutput(expr, commandLine.at(contLine).simplified());
+                return;
+            }
         }
 
         if((!commandLine.at(contLine).contains("import ")) && (!commandLine.at(contLine).contains("=")) &&
@@ -195,25 +170,59 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     }
 
-    m_output = QString(this->getPythonCommandOutput(commandProcessing));
-
-    expr->parseOutput(m_output);
-
-    expr->evalFinished();
-
-    changeStatus(Cantor::Session::Done);
+    this->readOutput(expr, commandProcessing);
 }
 
-void PythonSession::identifyKeywords(QString command)
+void PythonSession::runClassOutputPython()
 {
-    PyRun_SimpleString(command.toStdString().c_str());
-    PyRun_SimpleString(this->getClassOutputPython().toStdString().c_str());
+    QString classOutputPython = "import sys\n"                  \
+                                "class CatchOut:\n"             \
+                                "    def __init__(self):\n"     \
+                                "        self.value = ''\n"     \
+                                "    def write(self, txt):\n"   \
+                                "        self.value += txt\n"   \
+                                "output = CatchOut()\n"         \
+                                "sys.stdout = output\n"         \
+                                "sys.stderr = output\n\n";
+
+    PyRun_SimpleString(classOutputPython.toStdString().c_str());
+}
+
+QString PythonSession::getPythonCommandOutput(QString commandProcessing)
+{
+    kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
+
+    this->runClassOutputPython();
+    PyRun_SimpleString(commandProcessing.toStdString().c_str());
+
+    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "output");
+    PyObject *output = PyObject_GetAttrString(outputPython, "value");
+    string outputString = PyString_AsString(output);
+
+    return QString(outputString.c_str());
+}
+
+bool PythonSession::identifyKeywords(QString command)
+{
+    QString verifyErrorImport;
 
     QString listKeywords;
     QString keywordsString;
 
     QString moduleImported;
     QString moduleVariable;
+
+    verifyErrorImport = this->getPythonCommandOutput(command);
+
+    kDebug() << "verifyErrorImport: " << verifyErrorImport;
+
+    if((verifyErrorImport.contains("ImportError: ")) ||
+        (verifyErrorImport.contains("SyntaxError: "))){
+
+        kDebug() << "returned false";
+
+        return false;
+    }
 
     moduleImported += this->identifyPythonModule(command);
     moduleVariable += this->identifyVariableModule(command);
@@ -250,7 +259,7 @@ void PythonSession::identifyKeywords(QString command)
 
     kDebug() << "Module imported" << moduleImported;
 
-    PyRun_SimpleString(this->getClassOutputPython().toStdString().c_str());
+    return true;
 }
 
 QString PythonSession::identifyPythonModule(QString command)
@@ -294,11 +303,17 @@ void PythonSession::expressionFinished()
     kDebug() << "size: " << m_runningExpressions.size();
 }
 
-void PythonSession::readOutput()
+void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing)
 {
     kDebug() << "readOutput";
 
-    kDebug() << "output.isNull? " << m_output.isNull();
+    m_output = QString(this->getPythonCommandOutput(commandProcessing));
+
+    expr->parseOutput(m_output);
+    expr->evalFinished();
+
+    changeStatus(Cantor::Session::Done);
+
     kDebug() << "output: " << m_output;
 }
 
