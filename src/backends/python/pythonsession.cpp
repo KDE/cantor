@@ -117,10 +117,10 @@ void PythonSession::runExpression(PythonExpression* expr)
 
         if(commandLine.at(contLine).contains("import ")){
 
-            if(this->identifyKeywords(commandLine.at(contLine).simplified())){
+            if(identifyKeywords(commandLine.at(contLine).simplified())){
                 continue;
             } else {
-                this->readOutput(expr, commandLine.at(contLine).simplified());
+                readOutput(expr, commandLine.at(contLine).simplified());
                 return;
             }
         }
@@ -170,7 +170,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     }
 
-    this->readOutput(expr, commandProcessing);
+    readOutput(expr, commandProcessing);
 }
 
 void PythonSession::runClassOutputPython()
@@ -192,7 +192,7 @@ QString PythonSession::getPythonCommandOutput(QString commandProcessing)
 {
     kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
 
-    this->runClassOutputPython();
+    runClassOutputPython();
     PyRun_SimpleString(commandProcessing.toStdString().c_str());
 
     PyObject *outputPython = PyObject_GetAttrString(m_pModule, "output");
@@ -212,7 +212,7 @@ bool PythonSession::identifyKeywords(QString command)
     QString moduleImported;
     QString moduleVariable;
 
-    verifyErrorImport = this->getPythonCommandOutput(command);
+    verifyErrorImport = getPythonCommandOutput(command);
 
     kDebug() << "verifyErrorImport: " << verifyErrorImport;
 
@@ -224,8 +224,8 @@ bool PythonSession::identifyKeywords(QString command)
         return false;
     }
 
-    moduleImported += this->identifyPythonModule(command);
-    moduleVariable += this->identifyVariableModule(command);
+    moduleImported += identifyPythonModule(command);
+    moduleVariable += identifyVariableModule(command);
 
     if((moduleVariable.isEmpty()) && (!command.endsWith("*"))){
         keywordsString = command.section(" ", 3).remove(" ");
@@ -241,7 +241,7 @@ bool PythonSession::identifyKeywords(QString command)
     }
 
     if(!listKeywords.isEmpty()){
-        keywordsString = QString(this->getPythonCommandOutput(listKeywords));
+        keywordsString = QString(getPythonCommandOutput(listKeywords));
 
         keywordsString.remove("'");
         keywordsString.remove(" ");
@@ -307,7 +307,7 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
 {
     kDebug() << "readOutput";
 
-    m_output = QString(this->getPythonCommandOutput(commandProcessing));
+    m_output = QString(getPythonCommandOutput(commandProcessing));
 
     expr->parseOutput(m_output);
     expr->evalFinished();

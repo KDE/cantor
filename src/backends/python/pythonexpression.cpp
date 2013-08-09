@@ -84,7 +84,7 @@ void PythonExpression::evaluate()
 //         newCommand.prepend("clf();\n");
 //         newCommand.append("\n");
 //
-//         this->setCommand(newCommand);
+//         setCommand(newCommand);
 //
 //         kDebug() << "New Command " << command();
 //
