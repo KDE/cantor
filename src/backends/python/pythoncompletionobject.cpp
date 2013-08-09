@@ -67,7 +67,7 @@ void PythonCompletionObject::fetchIdentifierType()
 
 bool PythonCompletionObject::mayIdentifierContain(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_' || c == '%' || c == '$';
+    return c.isLetter() || c.isDigit() || c == '_' || c == '%' || c == '$' || c == '.';
 }
 
 bool PythonCompletionObject::mayIdentifierBeginWith(QChar c) const

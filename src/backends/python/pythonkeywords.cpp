@@ -117,7 +117,7 @@ void PythonKeywords::loadFromModule(QString module, QStringList keywords)
             m_functions << keywords.at(contKeyword);
         }
     } else {
-        m_keywords << module;
+        m_variables << module;
 
         for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
             m_functions << module + "." + keywords.at(contKeyword);
