@@ -232,8 +232,9 @@ bool PythonSession::identifyKeywords(QString command)
     }
 
     if(moduleVariable.isEmpty() && (command.endsWith("*"))){
-        listKeywords += "import " + moduleImported + "\n"    \
-                        "print dir(" + moduleImported + ")\n";
+        listKeywords += "import " + moduleImported + "\n"     \
+                        "print dir(" + moduleImported + ")\n" \
+                        "del " + moduleImported + "\n";
     }
 
     if(!moduleVariable.isEmpty()){
