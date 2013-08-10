@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+Name=Import Package
+X-KDE-ServiceTypes=Cantor/Assistant
+X-KDE-Library=cantor_importpackageassistant
+X-KDE-PluginInfo-Name=Import package
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+Comment=An Assistant dialog to import a specific package (or library or module) to Cantor workspace
+RequiredExtensions=PackagingExtension

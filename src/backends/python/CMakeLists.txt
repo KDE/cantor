@@ -7,6 +7,7 @@ set( PythonBackend_SRCS
      pythonkeywords.cpp
      pythonhighlighter.cpp
      pythoncompletionobject.cpp
+     pythonextensions.cpp
 )
 
 find_package(PythonLibs REQUIRED)

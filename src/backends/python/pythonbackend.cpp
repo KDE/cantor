@@ -21,6 +21,7 @@
 #include "pythonbackend.h"
 
 #include "pythonsession.h"
+#include "pythonextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -32,6 +33,8 @@
 PythonBackend::PythonBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     kDebug()<<"Creating PythonBackend";
+
+    new PythonPackagingExtension(this);
 
     setObjectName("pythonbackend");
 }

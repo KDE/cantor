@@ -455,5 +455,15 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
     virtual QString clearVariables() = 0;
 };
 
+class CANTOR_EXPORT PackagingExtension : public Extension
+{
+  public:
+    PackagingExtension(QObject* parent);
+    ~PackagingExtension();
+
+  public slots:
+    virtual QString importPackage(const QString& package) = 0;
+};
+
 }
 #endif /* _EXTENSION_H */
