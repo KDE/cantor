@@ -96,7 +96,12 @@ void PythonExpression::evaluate()
 void PythonExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
-    setResult(new Cantor::TextResult(output));
+
+    if(command().contains("help(")){
+        setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf("None"), 4)));
+    } else {
+        setResult(new Cantor::TextResult(output));
+    }
 }
 
 // void PythonExpression::parsePlotFile(QString filename)
