@@ -102,12 +102,17 @@ void PythonExpression::parseOutput(QString output)
     } else {
         setResult(new Cantor::TextResult(output));
     }
+
+    setStatus(Cantor::Expression::Done);
 }
 
 void PythonExpression::parseError(QString error)
 {
     kDebug() << "error: " << error;
     setResult(new Cantor::TextResult(error));
+
+    setErrorMessage(error);
+    setStatus(Cantor::Expression::Error);
 }
 
 // void PythonExpression::parsePlotFile(QString filename)

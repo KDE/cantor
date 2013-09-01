@@ -74,7 +74,6 @@ class PythonSession : public Cantor::Session
 
   private slots:
     void expressionFinished();
-    void currentExpressionStatusChanged(Cantor::Expression::Status status);
 };
 
 #endif /* _PYTHONSESSION_H */

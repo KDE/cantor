@@ -307,7 +307,7 @@ QString PythonSession::identifyVariableModule(QString command)
 
 void PythonSession::expressionFinished()
 {
-    kDebug()<<"finished";
+    kDebug()<< "finished";
     PythonExpression* expression = qobject_cast<PythonExpression*>(sender());
 
     m_runningExpressions.removeAll(expression);
@@ -325,16 +325,12 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
         expr->parseOutput(m_output);
         expr->evalFinished();
 
-        currentExpressionStatusChanged(Cantor::Expression::Done);
-
         kDebug() << "output: " << m_output;
 
     } else {
 
         expr->parseError(m_error);
         expr->evalFinished();
-
-        currentExpressionStatusChanged(Cantor::Expression::Error);
 
         kDebug() << "error: " << m_error;
     }
@@ -354,26 +350,6 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
 //          m_listPlotName.append(filename);
 //     }
 // }
-
-void PythonSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
-{
-    kDebug() << "currentExpressionStatusChanged: " << status;
-
-    switch (status)
-    {
-        case Cantor::Expression::Computing:
-            break;
-
-        case Cantor::Expression::Interrupted:
-            break;
-
-        case Cantor::Expression::Done:
-        case Cantor::Expression::Error:
-            changeStatus(Done);
-
-            break;
-    }
-}
 
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
