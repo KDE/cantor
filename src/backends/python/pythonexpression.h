@@ -36,6 +36,7 @@ class PythonExpression : public Cantor::Expression
     void evaluate();
     void interrupt();
     void parseOutput(QString output);
+    void parseError(QString error);
 //     void parsePlotFile(QString filename);
 //     void setPlotPending(bool plot);
 

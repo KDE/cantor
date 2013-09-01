@@ -182,13 +182,14 @@ void PythonSession::runClassOutputPython()
                                 "    def write(self, txt):\n"   \
                                 "        self.value += txt\n"   \
                                 "output = CatchOut()\n"         \
+                                "error  = CatchOut()\n"         \
                                 "sys.stdout = output\n"         \
-                                "sys.stderr = output\n\n";
+                                "sys.stderr = error\n\n";
 
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 }
 
-QString PythonSession::getPythonCommandOutput(QString commandProcessing)
+void PythonSession::getPythonCommandOutput(QString commandProcessing)
 {
     kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
 
@@ -199,7 +200,15 @@ QString PythonSession::getPythonCommandOutput(QString commandProcessing)
     PyObject *output = PyObject_GetAttrString(outputPython, "value");
     string outputString = PyString_AsString(output);
 
-    return QString(outputString.c_str());
+    PyObject *errorPython = PyObject_GetAttrString(m_pModule, "error");
+    PyObject *error = PyObject_GetAttrString(errorPython, "value");
+    string errorString = PyString_AsString(error);
+
+    m_output.clear();
+    m_output = QString(outputString.c_str());
+
+    m_error.clear();
+    m_error = QString(errorString.c_str());
 }
 
 bool PythonSession::identifyKeywords(QString command)
@@ -212,12 +221,11 @@ bool PythonSession::identifyKeywords(QString command)
     QString moduleImported;
     QString moduleVariable;
 
-    verifyErrorImport = getPythonCommandOutput(command);
+    getPythonCommandOutput(command);
 
-    kDebug() << "verifyErrorImport: " << verifyErrorImport;
+    kDebug() << "verifyErrorImport: ";
 
-    if((verifyErrorImport.contains("ImportError: ")) ||
-        (verifyErrorImport.contains("SyntaxError: "))){
+    if(!m_error.isEmpty()){
 
         kDebug() << "returned false";
 
@@ -242,7 +250,9 @@ bool PythonSession::identifyKeywords(QString command)
     }
 
     if(!listKeywords.isEmpty()){
-        keywordsString = QString(getPythonCommandOutput(listKeywords));
+        getPythonCommandOutput(listKeywords);
+
+        keywordsString = m_output;
 
         keywordsString.remove("'");
         keywordsString.remove(" ");
@@ -308,14 +318,28 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
 {
     kDebug() << "readOutput";
 
-    m_output = QString(getPythonCommandOutput(commandProcessing));
+    getPythonCommandOutput(commandProcessing);
 
-    expr->parseOutput(m_output);
-    expr->evalFinished();
+    if(m_error.isEmpty()){
+
+        expr->parseOutput(m_output);
+        expr->evalFinished();
+
+        currentExpressionStatusChanged(Cantor::Expression::Done);
+
+        kDebug() << "output: " << m_output;
+
+    } else {
+
+        expr->parseError(m_error);
+        expr->evalFinished();
+
+        currentExpressionStatusChanged(Cantor::Expression::Error);
+
+        kDebug() << "error: " << m_error;
+    }
 
     changeStatus(Cantor::Session::Done);
-
-    kDebug() << "output: " << m_output;
 }
 
 // void PythonSession::plotFileChanged(QString filename)

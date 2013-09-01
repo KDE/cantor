@@ -57,6 +57,7 @@ class PythonSession : public Cantor::Session
     KDirWatch* m_watch;
     QStringList m_listPlotName;
     QString m_output;
+    QString m_error;
 
     PyObject *m_pModule;
 
@@ -64,8 +65,8 @@ class PythonSession : public Cantor::Session
     PythonExpression* m_currentExpression;
 
     void runClassOutputPython();
-    
-    QString getPythonCommandOutput(QString commandProcessing);
+
+    void getPythonCommandOutput(QString commandProcessing);
 
     QString identifyPythonModule(QString command);
     QString identifyVariableModule(QString command);
