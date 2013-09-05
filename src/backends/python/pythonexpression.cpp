@@ -27,7 +27,6 @@
 #include "helpresult.h"
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <QTimer>
 #include <QFile>
 #include "pythonsession.h"
 #include "settings.h"
@@ -39,11 +38,6 @@
 PythonExpression::PythonExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug() << "PythonExpression construtor";
-
-    m_timer=new QTimer(this);
-    m_timer->setSingleShot(true);
-
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
 }
 
 PythonExpression::~PythonExpression()
@@ -136,12 +130,6 @@ void PythonExpression::interrupt()
 {
     kDebug()<<"interruptinging command";
     setStatus(Cantor::Expression::Interrupted);
-}
-
-void PythonExpression::evalFinished()
-{
-    kDebug()<<"evaluation finished";
-    setStatus(Cantor::Expression::Done);
 }
 
 // void PythonExpression::setPlotPending(bool plot)

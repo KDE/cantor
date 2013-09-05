@@ -40,11 +40,7 @@ class PythonExpression : public Cantor::Expression
 //     void parsePlotFile(QString filename);
 //     void setPlotPending(bool plot);
 
-  public slots:
-    void evalFinished();
-
   private:
-    QTimer* m_timer;
     bool m_finished;
 //     bool m_plotPending;
 };

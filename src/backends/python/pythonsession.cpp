@@ -323,19 +323,17 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
     if(m_error.isEmpty()){
 
         expr->parseOutput(m_output);
-        expr->evalFinished();
 
         kDebug() << "output: " << m_output;
 
     } else {
 
         expr->parseError(m_error);
-        expr->evalFinished();
 
         kDebug() << "error: " << m_error;
     }
 
-    changeStatus(Cantor::Session::Done);
+    //changeStatus(Cantor::Session::Done);
 }
 
 // void PythonSession::plotFileChanged(QString filename)
