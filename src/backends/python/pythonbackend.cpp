@@ -35,6 +35,7 @@ PythonBackend::PythonBackend( QObject* parent,const QList<QVariant> args ) : Can
     kDebug()<<"Creating PythonBackend";
 
     new PythonPackagingExtension(this);
+    new PythonVariableManagementExtension(this);
 
     setObjectName("pythonbackend");
 }
@@ -62,7 +63,8 @@ Cantor::Backend::Capabilities PythonBackend::capabilities() const
 
     return Cantor::Backend::SyntaxHighlighting |
            Cantor::Backend::Completion         |
-           Cantor::Backend::SyntaxHelp;
+           Cantor::Backend::SyntaxHelp         |
+           Cantor::Backend::VariableManagement;
 }
 
 bool PythonBackend::requirementsFullfilled() const

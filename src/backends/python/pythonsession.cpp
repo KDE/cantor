@@ -36,13 +36,15 @@
 #include <QStringList>
 
 #include <settings.h>
+#include <defaultvariablemodel.h>
 #include <qdir.h>
 
 #include <string>
 
 using namespace std;
 
-PythonSession::PythonSession( Cantor::Backend* backend) : Session(backend)
+PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend),
+m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     kDebug();
 }
@@ -333,7 +335,9 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
         kDebug() << "error: " << m_error;
     }
 
-    //changeStatus(Cantor::Session::Done);
+    listVariables();
+
+    changeStatus(Cantor::Session::Done);
 }
 
 // void PythonSession::plotFileChanged(QString filename)
@@ -349,6 +353,34 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
 //     }
 // }
 
+void PythonSession::listVariables()
+{
+    QString listVariableCommand;
+    listVariableCommand += "print globals()\n";
+
+    getPythonCommandOutput(listVariableCommand);
+
+    m_output.remove("{");
+    m_output.remove("<");
+    m_output.remove(">");
+    m_output.remove("}");
+
+    kDebug() << m_output;
+
+    foreach(QString line, m_output.split(", '")){
+
+        if(!line.startsWith("__") && !line.startsWith("CatchOut':") &&
+           !line.startsWith("error':") && !line.startsWith("output':") &&
+           !line.startsWith("sys':")){
+
+            QStringList parts = line.split(":");
+            m_variableModel->addVariable(parts.first().remove("'").trimmed(), parts.last().trimmed());
+
+        }
+    }
+
+}
+
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
     return new PythonHighlighter(parent);
@@ -357,6 +389,11 @@ QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
 {
     return new PythonCompletionObject(command, index, this);
+}
+
+QAbstractItemModel* PythonSession::variableModel()
+{
+    return m_variableModel;
 }
 
 #include "pythonsession.moc"

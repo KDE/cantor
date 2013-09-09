@@ -26,6 +26,10 @@
 
 #include <Python.h>
 
+namespace Cantor {
+class DefaultVariableModel;
+}
+
 class PythonExpression;
 class KTemporaryFile;
 class KDirWatch;
@@ -48,6 +52,7 @@ class PythonSession : public Cantor::Session
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
+    virtual QAbstractItemModel* variableModel();
 
   public slots:
     void readOutput(PythonExpression* expr, QString commandProcessing);
@@ -58,12 +63,14 @@ class PythonSession : public Cantor::Session
     QStringList m_listPlotName;
     QString m_output;
     QString m_error;
+    Cantor::DefaultVariableModel* m_variableModel;
 
     PyObject *m_pModule;
 
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
 
+    void listVariables();
     void runClassOutputPython();
 
     void getPythonCommandOutput(QString commandProcessing);

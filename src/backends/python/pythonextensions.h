@@ -33,4 +33,16 @@ class PythonPackagingExtension : public Cantor::PackagingExtension
     virtual QString importPackage(const QString& module);
 };
 
+class PythonVariableManagementExtension : public Cantor::VariableManagementExtension
+{
+    public:
+    PYTHON_EXT_CDTOR_DECL(VariableManagement)
+    virtual QString addVariable(const QString& name, const QString& value);
+    virtual QString setValue(const QString& name, const QString& value);
+    virtual QString removeVariable(const QString& name);
+    virtual QString saveVariables(const QString& fileName);
+    virtual QString loadVariables(const QString& fileName);
+    virtual QString clearVariables();
+};
+
 #endif // PYTHONEXTENSIONS_H

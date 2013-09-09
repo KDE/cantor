@@ -31,3 +31,35 @@ QString PythonPackagingExtension::importPackage(const QString& package)
 {
     return QString("import %1").arg(package);
 }
+
+PYTHON_EXT_CDTOR(VariableManagement)
+
+QString PythonVariableManagementExtension::addVariable(const QString& name, const QString& value)
+{
+    return setValue(name,value);
+}
+
+QString PythonVariableManagementExtension::setValue(const QString& name, const QString& value)
+{
+    return QString("%1 = %2").arg(name).arg(value);
+}
+
+QString PythonVariableManagementExtension::removeVariable(const QString& name)
+{
+    return QString("clear %1;").arg(name);
+}
+
+QString PythonVariableManagementExtension::clearVariables()
+{
+    return QString("clear;");
+}
+
+QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
+{
+    return QString("save %1;").arg(fileName);
+}
+
+QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
+{
+    return QString("load %1;").arg(fileName);
+}
