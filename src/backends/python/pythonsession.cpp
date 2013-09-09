@@ -177,16 +177,16 @@ void PythonSession::runExpression(PythonExpression* expr)
 
 void PythonSession::runClassOutputPython()
 {
-    QString classOutputPython = "import sys\n"                  \
-                                "class CatchOut:\n"             \
-                                "    def __init__(self):\n"     \
-                                "        self.value = ''\n"     \
-                                "    def write(self, txt):\n"   \
-                                "        self.value += txt\n"   \
-                                "output = CatchOut()\n"         \
-                                "error  = CatchOut()\n"         \
-                                "sys.stdout = output\n"         \
-                                "sys.stderr = error\n\n";
+    QString classOutputPython = "import sys\n"                                      \
+                                "class CatchOutPythonBackend:\n"                    \
+                                "    def __init__(self):\n"                         \
+                                "        self.value = ''\n"                         \
+                                "    def write(self, txt):\n"                       \
+                                "        self.value += txt\n"                       \
+                                "outputPythonBackend = CatchOutPythonBackend()\n"   \
+                                "errorPythonBackend  = CatchOutPythonBackend()\n"   \
+                                "sys.stdout = outputPythonBackend\n"   \
+                                "sys.stderr = errorPythonBackend\n\n";
 
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 }
@@ -198,11 +198,11 @@ void PythonSession::getPythonCommandOutput(QString commandProcessing)
     runClassOutputPython();
     PyRun_SimpleString(commandProcessing.toStdString().c_str());
 
-    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "output");
+    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
     PyObject *output = PyObject_GetAttrString(outputPython, "value");
     string outputString = PyString_AsString(output);
 
-    PyObject *errorPython = PyObject_GetAttrString(m_pModule, "error");
+    PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
     string errorString = PyString_AsString(error);
 
@@ -369,8 +369,8 @@ void PythonSession::listVariables()
 
     foreach(QString line, m_output.split(", '")){
 
-        if(!line.startsWith("__") && !line.startsWith("CatchOut':") &&
-           !line.startsWith("error':") && !line.startsWith("output':") &&
+        if(!line.startsWith("'__") && !line.startsWith("__") && !line.startsWith("CatchOutPythonBackend':") &&
+           !line.startsWith("errorPythonBackend':") && !line.startsWith("outputPythonBackend':") &&
            !line.startsWith("sys':")){
 
             QStringList parts = line.split(":");
