@@ -58,15 +58,15 @@ QString PythonVariableManagementExtension::saveVariables(const QString& fileName
 {
     QString classSavePythonSession = "import shelve\n"                                                               \
                                      "shelvePythonBackend = shelve.open('%1', 'n')\n"                                \
-                                     "for keyPythonBackend in dir():\n"                                  \
-                                     "    if (not 'PythonBackend' in keyPythonBackend) \ "                           \
-                                     "and (not '__' in keyPythonBackend) \ "                                         \
-                                     "and (not '<module ' in unicode(globals()[keyPythonBackend])):\n"                          \
+                                     "for keyPythonBackend in dir():\n"                                              \
+                                     "    if (not 'PythonBackend' in keyPythonBackend)\ "                            \
+                                     "and (not '__' in keyPythonBackend)\ "                                          \
+                                     "and (not '<module ' in unicode(globals()[keyPythonBackend])):\n"               \
                                      "        shelvePythonBackend[keyPythonBackend] = globals()[keyPythonBackend]\n" \
                                      "shelvePythonBackend.close()\n"                                                 \
                                      "del(shelve)\n"                                                                 \
                                      "del(shelvePythonBackend)\n"                                                    \
-                                     "del(keyPythonBackend)\n\n";
+                                     "del(keyPythonBackend)\n";
 
     return classSavePythonSession.arg(fileName);
 }
@@ -80,7 +80,7 @@ QString PythonVariableManagementExtension::loadVariables(const QString& fileName
                                      "shelvePythonBackend.close()\n"                                             \
                                      "del(shelve)\n"                                                             \
                                      "del(shelvePythonBackend)\n"                                                \
-                                     "del(keyPythonBackend)\n\n";
+                                     "del(keyPythonBackend)\n";
 
     return classLoadPythonSession.arg(fileName);
 }

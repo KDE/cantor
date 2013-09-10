@@ -186,7 +186,7 @@ void PythonSession::runClassOutputPython()
                                 "outputPythonBackend = CatchOutPythonBackend()\n"   \
                                 "errorPythonBackend  = CatchOutPythonBackend()\n"   \
                                 "sys.stdout = outputPythonBackend\n"   \
-                                "sys.stderr = errorPythonBackend\n\n";
+                                "sys.stderr = errorPythonBackend\n";
 
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 }
