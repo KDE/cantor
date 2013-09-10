@@ -139,7 +139,8 @@ void PythonSession::runExpression(PythonExpression* expr)
         if(commandLine.at(contLine).startsWith(" ")){
 
             if((commandLine.at(contLine).contains("import ")) || (commandLine.at(contLine).contains("=")) ||
-               (commandLine.at(contLine).contains("print"))   || (commandLine.at(contLine).endsWith(":"))){
+               (commandLine.at(contLine).contains("print"))   || (commandLine.at(contLine).endsWith(":")) ||
+               (commandLine.at(contLine).contains("del("))){
 
                 commandProcessing += commandLine.at(contLine) + "\n";
 

@@ -51,7 +51,12 @@ QString PythonVariableManagementExtension::removeVariable(const QString& name)
 
 QString PythonVariableManagementExtension::clearVariables()
 {
-    return QString("clear;");
+    QString delVariablesPythonSession = "for keyPythonBackend in dir():\n"                                 \
+                                        "    if (not 'PythonBackend' in keyPythonBackend)\ "               \
+                                        "and (not '__' in keyPythonBackend):\n"                            \
+                                        "        del(globals()[keyPythonBackend])\n"                       \
+                                        "del(keyPythonBackend)\n";
+    return delVariablesPythonSession;
 }
 
 QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
