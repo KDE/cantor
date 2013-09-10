@@ -36,7 +36,7 @@ PYTHON_EXT_CDTOR(VariableManagement)
 
 QString PythonVariableManagementExtension::addVariable(const QString& name, const QString& value)
 {
-    return setValue(name,value);
+    return setValue(name, value);
 }
 
 QString PythonVariableManagementExtension::setValue(const QString& name, const QString& value)
@@ -46,7 +46,7 @@ QString PythonVariableManagementExtension::setValue(const QString& name, const Q
 
 QString PythonVariableManagementExtension::removeVariable(const QString& name)
 {
-    return QString("clear %1;").arg(name);
+    return QString("del(%1)").arg(name);
 }
 
 QString PythonVariableManagementExtension::clearVariables()
@@ -56,10 +56,31 @@ QString PythonVariableManagementExtension::clearVariables()
 
 QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return QString("save %1;").arg(fileName);
+    QString classSavePythonSession = "import shelve\n"                                                               \
+                                     "shelvePythonBackend = shelve.open('%1', 'n')\n"                                \
+                                     "for keyPythonBackend in dir():\n"                                  \
+                                     "    if (not 'PythonBackend' in keyPythonBackend) \ "                           \
+                                     "and (not '__' in keyPythonBackend) \ "                                         \
+                                     "and (not '<module ' in unicode(globals()[keyPythonBackend])):\n"                          \
+                                     "        shelvePythonBackend[keyPythonBackend] = globals()[keyPythonBackend]\n" \
+                                     "shelvePythonBackend.close()\n"                                                 \
+                                     "del(shelve)\n"                                                                 \
+                                     "del(shelvePythonBackend)\n"                                                    \
+                                     "del(keyPythonBackend)\n\n";
+
+    return classSavePythonSession.arg(fileName);
 }
 
 QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return QString("load %1;").arg(fileName);
+    QString classLoadPythonSession = "import shelve\n"                                                           \
+                                     "shelvePythonBackend = shelve.open('%1')\n"                                 \
+                                     "for keyPythonBackend in shelvePythonBackend:\n"                            \
+                                     "    globals()[keyPythonBackend] = shelvePythonBackend[keyPythonBackend]\n" \
+                                     "shelvePythonBackend.close()\n"                                             \
+                                     "del(shelve)\n"                                                             \
+                                     "del(shelvePythonBackend)\n"                                                \
+                                     "del(keyPythonBackend)\n\n";
+
+    return classLoadPythonSession.arg(fileName);
 }
