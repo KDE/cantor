@@ -117,6 +117,8 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     for(int contLine = 0; contLine < commandLine.size(); contLine++){
 
+        QString firstLineWord = commandLine.at(contLine).trimmed().replace("(", " ").split(" ").at(0);
+
         if(commandLine.at(contLine).contains("import ")){
 
             if(identifyKeywords(commandLine.at(contLine).simplified())){
@@ -127,9 +129,8 @@ void PythonSession::runExpression(PythonExpression* expr)
             }
         }
 
-        if((!commandLine.at(contLine).contains("import ")) && (!commandLine.at(contLine).contains("=")) &&
-           (!commandLine.at(contLine).contains("print"))   && (!commandLine.at(contLine).endsWith(":")) &&
-           (!commandLine.at(contLine).startsWith(" "))     && (!commandLine.at(contLine).contains("del("))){
+        if((!PythonKeywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains("=")) &&
+           (!commandLine.at(contLine).endsWith(":")) && (!commandLine.at(contLine).startsWith(" "))){
 
             commandProcessing += "print " + commandLine.at(contLine) + "\n";
 
@@ -138,9 +139,8 @@ void PythonSession::runExpression(PythonExpression* expr)
 
         if(commandLine.at(contLine).startsWith(" ")){
 
-            if((commandLine.at(contLine).contains("import ")) || (commandLine.at(contLine).contains("=")) ||
-               (commandLine.at(contLine).contains("print"))   || (commandLine.at(contLine).endsWith(":")) ||
-               (commandLine.at(contLine).contains("del("))){
+            if((PythonKeywords::instance()->keywords().contains(firstLineWord)) || (commandLine.at(contLine).contains("=")) ||
+               (commandLine.at(contLine).endsWith(":"))){
 
                 commandProcessing += commandLine.at(contLine) + "\n";
 
