@@ -56,7 +56,7 @@ class PythonSession : public Cantor::Session
 
   public slots:
     void readOutput(PythonExpression* expr, QString commandProcessing);
-//     void plotFileChanged(QString filename);
+    void plotFileChanged(QString filename);
 
   private:
     KDirWatch* m_watch;

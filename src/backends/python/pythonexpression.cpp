@@ -33,7 +33,7 @@
 
 #include "imageresult.h"
 #include <qdir.h>
-// typedef Cantor::ImageResult PythonPlotResult;
+typedef Cantor::ImageResult PythonPlotResult;
 
 PythonExpression::PythonExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
@@ -52,37 +52,19 @@ void PythonExpression::evaluate()
 
     PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
 
-//     if((PythonSettings::integratePlots()) && (command().contains("plot"))){
-//
-//         kDebug() << "Preparing export figures property";
-//
-//         QString exportCommand;
-//
-//         QStringList commandList = command().split("\n");
-//
-//         for(int count = 0; count < commandList.size(); count++){
-//
-//             if(commandList.at(count).toLocal8Bit().contains("plot")){
-//
-//                 exportCommand = QString("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(rand());
-//
-//                 commandList[count].append(exportCommand);
-//
-//                 exportCommand.clear();
-//             }
-//
-//             kDebug() << "Command " << count << ": " << commandList.at(count).toLocal8Bit().constData();
-//         }
-//
-//         QString newCommand = commandList.join("\n");
-//         newCommand.prepend("clf();\n");
-//         newCommand.append("\n");
-//
-//         setCommand(newCommand);
-//
-//         kDebug() << "New Command " << command();
-//
-//     }
+    kDebug() << PythonSettings::integratePlots() << command().contains("show()");
+
+    if((PythonSettings::integratePlots()) && (command().contains("show()"))){
+
+        kDebug() << "Preparing export figures property";
+
+        QString saveFigCommand = "savefig('cantor-export-python-figure-%1.png')";
+
+        setCommand(command().replace("show()", saveFigCommand.arg(rand())));
+
+        kDebug() << "New Command " << command();
+
+    }
 
     pythonSession->runExpression(this);
 }
@@ -109,22 +91,22 @@ void PythonExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-// void PythonExpression::parsePlotFile(QString filename)
-// {
-//     kDebug() << "parsePlotFile";
-//
-//     kDebug() << "PythonExpression::parsePlotFile: " << filename;
-//
-//     setResult(new PythonPlotResult(filename));
-//
-//     setPlotPending(false);
-//
-//     if (m_finished)
-//     {
-//         kDebug() << "PythonExpression::parsePlotFile: done";
-//         setStatus(Done);
-//     }
-// }
+void PythonExpression::parsePlotFile(QString filename)
+{
+    kDebug() << "parsePlotFile";
+
+    kDebug() << "PythonExpression::parsePlotFile: " << filename;
+
+    setResult(new PythonPlotResult(filename));
+
+    setPlotPending(false);
+
+    if (m_finished)
+    {
+        kDebug() << "PythonExpression::parsePlotFile: done";
+        setStatus(Done);
+    }
+}
 
 void PythonExpression::interrupt()
 {
@@ -132,7 +114,7 @@ void PythonExpression::interrupt()
     setStatus(Cantor::Expression::Interrupted);
 }
 
-// void PythonExpression::setPlotPending(bool plot)
-// {
-//     m_plotPending = plot;
-// }
+void PythonExpression::setPlotPending(bool plot)
+{
+    m_plotPending = plot;
+}

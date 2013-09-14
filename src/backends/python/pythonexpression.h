@@ -37,12 +37,12 @@ class PythonExpression : public Cantor::Expression
     void interrupt();
     void parseOutput(QString output);
     void parseError(QString error);
-//     void parsePlotFile(QString filename);
-//     void setPlotPending(bool plot);
+    void parsePlotFile(QString filename);
+    void setPlotPending(bool plot);
 
   private:
     bool m_finished;
-//     bool m_plotPending;
+    bool m_plotPending;
 };
 
 #endif /* _PYTHONEXPRESSION_H */

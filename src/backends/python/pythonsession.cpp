@@ -61,6 +61,30 @@ void PythonSession::login()
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
 
+    if(PythonSettings::integratePlots())
+    {
+        kDebug() << "integratePlots";
+
+        QString tempPath = QDir::tempPath();
+
+        QString pathOperations = tempPath;
+        pathOperations.prepend("import os\nos.chdir('");
+        pathOperations.append("')\n");
+
+        kDebug() << "Processing command to change chdir in Python. Command " << pathOperations.toLocal8Bit();
+
+        getPythonCommandOutput(pathOperations);
+
+        m_watch = new KDirWatch(this);
+        m_watch->setObjectName("PythonDirWatch");
+
+        m_watch->addDir(tempPath, KDirWatch::WatchFiles);
+
+        kDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(tempPath.toLocal8Bit());
+
+        QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
+    }
+
     emit ready();
 }
 
@@ -106,6 +130,8 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
 void PythonSession::runExpression(PythonExpression* expr)
 {
     kDebug() << "run expression";
+
+    m_currentExpression = expr;
 
     QString command;
 
@@ -341,18 +367,18 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
     changeStatus(Cantor::Session::Done);
 }
 
-// void PythonSession::plotFileChanged(QString filename)
-// {
-//     kDebug() << "plotFileChanged filename:" << filename;
-//
-//     if ((m_currentExpression) && (filename.contains("cantor-export-scilab-figure")))
-//     {
-//          kDebug() << "Calling parsePlotFile";
-//          m_currentExpression->parsePlotFile(filename);
-//
-//          m_listPlotName.append(filename);
-//     }
-// }
+void PythonSession::plotFileChanged(QString filename)
+{
+    kDebug() << "plotFileChanged filename:" << filename;
+
+    if ((m_currentExpression) && (filename.contains("cantor-export-python-figure")))
+    {
+         kDebug() << "Calling parsePlotFile";
+         m_currentExpression->parsePlotFile(filename);
+
+         m_listPlotName.append(filename);
+    }
+}
 
 void PythonSession::listVariables()
 {
