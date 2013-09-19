@@ -10,7 +10,6 @@ set( PythonBackend_SRCS
      pythonextensions.cpp
 )
 
-find_package(PythonLibs REQUIRED)
 include_directories(${PYTHON_LIBRARIES_DIR})
 include_directories(${PYTHON_INCLUDE_DIR})
 

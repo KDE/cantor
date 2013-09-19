@@ -2,7 +2,6 @@ add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)
 add_subdirectory(scilab)
-add_subdirectory(python)
 
 if(Analitza_FOUND)
 	add_subdirectory(kalgebra)
@@ -21,3 +20,9 @@ macro_log_feature(QALCULATE_FOUND "Qalculate" "A multi-purpose desktop calculato
 if(QALCULATE_FOUND)
     macro_optional_add_subdirectory(qalculate)
 endif(QALCULATE_FOUND)
+
+macro_optional_find_package(PythonLibs 2.7)
+macro_log_feature(PYTHONLIBS_FOUND "Python" "A powerful dynamic programming language" "http://python.org/" FALSE "" "Backend to use Python with Cantor.")
+if(PYTHONLIBS_FOUND)
+    add_subdirectory(python)
+endif(PYTHONLIBS_FOUND)
