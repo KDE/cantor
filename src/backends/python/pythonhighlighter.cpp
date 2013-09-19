@@ -40,7 +40,7 @@ PythonHighlighter::PythonHighlighter(QObject* parent) : Cantor::DefaultHighlight
 
     addRule(QRegExp("\".*\""), stringFormat());
     addRule(QRegExp("'.*'"), stringFormat());
-    addRule(QRegExp("//[^\n]*"), commentFormat());
+    addRule(QRegExp("#[^\n]*"), commentFormat());
 
     commentStartExpression = QRegExp("/\\*");
     commentEndExpression = QRegExp("\\*/");

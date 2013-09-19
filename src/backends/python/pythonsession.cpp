@@ -387,6 +387,8 @@ void PythonSession::listVariables()
 
     getPythonCommandOutput(listVariableCommand);
 
+    kDebug() << m_output;
+
     m_output.remove("{");
     m_output.remove("<");
     m_output.remove(">");
