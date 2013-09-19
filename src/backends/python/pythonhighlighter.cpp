@@ -86,6 +86,14 @@ void PythonHighlighter::highlightBlock(const QString& text)
     }
 }
 
+void PythonHighlighter::updateHighlight()
+{
+    kDebug();
+    
+    addVariables(PythonKeywords::instance()->variables());
+    rehighlight();
+}
+
 QString PythonHighlighter::nonSeparatingCharacters() const
 {
     kDebug() << "PythonHighlighter::nonSeparatingCharacters() function";

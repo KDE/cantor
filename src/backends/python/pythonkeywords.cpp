@@ -125,6 +125,16 @@ void PythonKeywords::loadFromModule(QString module, QStringList keywords)
     }
 }
 
+void PythonKeywords::addVariable(QString variable)
+{
+    kDebug() << "Variable added" << variable;
+
+    if (!m_variables.contains(variable)){
+        m_variables << variable;
+    }
+
+}
+
 const QStringList& PythonKeywords::variables() const
 {
     return m_variables;

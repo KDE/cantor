@@ -25,9 +25,14 @@
 
 class PythonHighlighter : public Cantor::DefaultHighlighter
 {
+    Q_OBJECT
+    
   public:
     PythonHighlighter(QObject* parent);
     ~PythonHighlighter();
+
+  public slots:
+    void updateHighlight();
 
   protected:
     void highlightBlock(const QString &text);
@@ -36,6 +41,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
   private:
      QRegExp commentStartExpression;
      QRegExp commentEndExpression;
+
 };
 
 #endif /* _PYTHONHIGHLIGHTER_H */

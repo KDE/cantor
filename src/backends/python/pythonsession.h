@@ -23,6 +23,7 @@
 
 #include "session.h"
 #include <QStringList>
+#include <QtCore/QPointer>
 
 #include <Python.h>
 
@@ -48,10 +49,9 @@ class PythonSession : public Cantor::Session
     void interrupt();
     void runExpression(PythonExpression* expr);
 
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
-
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
+    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     virtual QAbstractItemModel* variableModel();
 
   public slots:
@@ -81,6 +81,9 @@ class PythonSession : public Cantor::Session
 
   private slots:
     void expressionFinished();
+
+  signals:
+    void updateHighlighter();
 };
 
 #endif /* _PYTHONSESSION_H */

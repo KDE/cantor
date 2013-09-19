@@ -23,10 +23,6 @@
 
 #include <QStringList>
 
-/*
-  Class storint a listsof names, known to maxima
-  used for syntax highlighting and tab completion
- */
 class PythonKeywords
 {
   private:
@@ -40,6 +36,7 @@ class PythonKeywords
     const QStringList& variables() const;
 
     void loadFromModule(QString module, QStringList keywords);
+    void addVariable(QString variable);
 
   private:
     void loadFromFile();

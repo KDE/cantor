@@ -403,16 +403,23 @@ void PythonSession::listVariables()
            !line.startsWith("sys':")){
 
             QStringList parts = line.split(":");
-            m_variableModel->addVariable(parts.first().remove("'").trimmed(), parts.last().trimmed());
+            m_variableModel->addVariable(parts.first().remove("'").simplified(), parts.last().simplified());
+            PythonKeywords::instance()->addVariable(parts.first().remove("'").simplified());
 
         }
     }
+
+    kDebug() << "emitting updateHighlighter";
+    emit updateHighlighter();
 
 }
 
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
-    return new PythonHighlighter(parent);
+    PythonHighlighter* highlighter = new PythonHighlighter(parent);
+    QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
+
+    return highlighter;
 }
 
 Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
