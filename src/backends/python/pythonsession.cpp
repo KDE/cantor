@@ -233,10 +233,8 @@ void PythonSession::getPythonCommandOutput(QString commandProcessing)
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
     string errorString = PyString_AsString(error);
 
-    m_output.clear();
     m_output = QString(outputString.c_str());
 
-    m_error.clear();
     m_error = QString(errorString.c_str());
 }
 
