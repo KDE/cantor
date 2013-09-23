@@ -73,7 +73,7 @@ void PythonExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
 
-    if(command().contains("help(")){
+    if(command().simplified().startsWith("help(")){
         setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf("None"), 4)));
     } else {
         setResult(new Cantor::TextResult(output));
