@@ -27,7 +27,6 @@
 #include "helpresult.h"
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <QTimer>
 #include <QFile>
 #include "scilabsession.h"
 #include "settings.h"

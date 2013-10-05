@@ -24,8 +24,6 @@
 #include "expression.h"
 #include <QStringList>
 
-class QTimer;
-
 class ScilabExpression : public Cantor::Expression
 {
   Q_OBJECT
