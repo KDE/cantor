@@ -39,11 +39,6 @@ typedef Cantor::ImageResult ScilabPlotResult;
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug() << "ScilabExpression construtor";
-
-    m_timer=new QTimer(this);
-    m_timer->setSingleShot(true);
-
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
 }
 
 ScilabExpression::~ScilabExpression()
@@ -91,14 +86,14 @@ void ScilabExpression::evaluate()
     }
 
     scilabSession->runExpression(this);
-
-    m_timer->start(1000);
 }
 
 void ScilabExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
     setResult(new Cantor::TextResult(output));
+
+    evalFinished();
 }
 
 void ScilabExpression::parseError(QString error)
@@ -107,6 +102,8 @@ void ScilabExpression::parseError(QString error)
     setResult(new Cantor::TextResult(error));
     setErrorMessage(error);
     setStatus(Cantor::Expression::Error);
+
+    evalFinished();
 }
 
 void ScilabExpression::parsePlotFile(QString filename)
@@ -129,7 +126,6 @@ void ScilabExpression::parsePlotFile(QString filename)
 void ScilabExpression::interrupt()
 {
     kDebug()<<"interruptinging command";
-    m_timer->stop();
     setStatus(Cantor::Expression::Interrupted);
 }
 

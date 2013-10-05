@@ -33,7 +33,7 @@ class ScilabSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    ScilabSession( Cantor::Backend* backend);
+    ScilabSession(Cantor::Backend* backend);
     ~ScilabSession();
 
     void login();

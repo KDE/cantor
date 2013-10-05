@@ -78,7 +78,6 @@ void ScilabSession::login()
      * QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
      */
 
-
     m_process->start();
 
     if(ScilabSettings::integratePlots())
@@ -113,10 +112,6 @@ void ScilabSession::logout()
     kDebug()<<"logout";
 
     m_process->write("exit\n");
-    if (!m_process->waitForFinished(1000))
-    {
-        m_process->kill();
-    }
 
     m_runningExpressions.clear();
     kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
