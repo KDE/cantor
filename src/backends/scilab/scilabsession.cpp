@@ -63,21 +63,6 @@ void ScilabSession::login()
     kDebug() << m_process->program();
 
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
-
-    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
-
-    /*
-     * Apparently, Scilab receive error messages by output standard stream.
-     * So, standard error will be commented to verified it and fix a bug.
-     *
-     * See bug 292611
-     * -> https://bugs.kde.org/show_bug.cgi?id=292611
-     *
-     * Filipe Saraiva - filipe@kde.org
-     *
-     * QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
-     */
-
     m_process->start();
 
     if(ScilabSettings::integratePlots())
@@ -141,6 +126,9 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
 {
     kDebug() << "evaluating: " << cmd;
     ScilabExpression* expr = new ScilabExpression(this);
+
+    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
+    QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
     changeStatus(Cantor::Session::Running);
 

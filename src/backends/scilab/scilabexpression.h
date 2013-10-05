@@ -30,7 +30,7 @@ class ScilabExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    ScilabExpression( Cantor::Session* session);
+    ScilabExpression(Cantor::Session* session);
     ~ScilabExpression();
 
     void evaluate();
