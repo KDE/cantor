@@ -85,7 +85,7 @@ void PythonExpression::parseOutput(QString output)
 void PythonExpression::parseError(QString error)
 {
     kDebug() << "error: " << error;
-    setResult(new Cantor::TextResult(error));
+    setErrorMessage(error.replace("\n", "<br>"));
 
     setStatus(Cantor::Expression::Error);
 }
