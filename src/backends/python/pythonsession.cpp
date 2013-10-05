@@ -85,6 +85,8 @@ void PythonSession::login()
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
+    listVariables();
+
     emit ready();
 }
 
@@ -396,11 +398,12 @@ void PythonSession::listVariables()
 
     foreach(QString line, m_output.split(", '")){
 
-        if(!line.startsWith("'__") && !line.startsWith("__") && !line.startsWith("CatchOutPythonBackend':") &&
-           !line.startsWith("errorPythonBackend':") && !line.startsWith("outputPythonBackend':") &&
-           !line.startsWith("sys':")){
+        QStringList parts = line.simplified().split(":");
 
-            QStringList parts = line.split(":");
+        if(!parts.first().startsWith("'__") && !parts.first().startsWith("__") && !parts.first().startsWith("CatchOutPythonBackend'") &&
+           !parts.first().startsWith("errorPythonBackend'") && !parts.first().startsWith("outputPythonBackend'") &&
+           !parts.first().startsWith("sys':") && !parts.last().startsWith(" class ") && !parts.last().startsWith(" function ")){
+
             m_variableModel->addVariable(parts.first().remove("'").simplified(), parts.last().simplified());
             PythonKeywords::instance()->addVariable(parts.first().remove("'").simplified());
 
