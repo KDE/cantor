@@ -24,6 +24,10 @@
 #include "session.h"
 #include <QStringList>
 
+namespace Cantor {
+class DefaultVariableModel;
+}
+
 class ScilabExpression;
 class KTemporaryFile;
 class KDirWatch;
@@ -46,6 +50,7 @@ class ScilabSession : public Cantor::Session
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
+    virtual QAbstractItemModel* variableModel();
 
   public slots:
     void readOutput();
@@ -57,6 +62,7 @@ class ScilabSession : public Cantor::Session
     KDirWatch* m_watch;
     QStringList m_listPlotName;
     QString m_output;
+    Cantor::DefaultVariableModel* m_variableModel;
 
     QList<ScilabExpression*> m_runningExpressions;
     ScilabExpression* m_currentExpression;

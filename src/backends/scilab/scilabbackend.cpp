@@ -21,6 +21,7 @@
 #include "scilabbackend.h"
 
 #include "scilabsession.h"
+#include "scilabextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -29,9 +30,11 @@
 
 #include "cantor_macros.h"
 
-ScilabBackend::ScilabBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
+ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Cantor::Backend(parent, args)
 {
     kDebug()<<"Creating ScilabBackend";
+
+    new ScilabVariableManagementExtension(this);
 
     setObjectName("scilabbackend");
 }
@@ -58,7 +61,8 @@ Cantor::Backend::Capabilities ScilabBackend::capabilities() const
     kDebug()<<"Requesting capabilities of ScilabSession";
 
     return Cantor::Backend::SyntaxHighlighting |
-           Cantor::Backend::Completion;
+           Cantor::Backend::Completion         |
+           Cantor::Backend::VariableManagement;
 }
 
 bool ScilabBackend::requirementsFullfilled() const

@@ -30,6 +30,7 @@
 #include <QFile>
 #include "scilabsession.h"
 #include "settings.h"
+#include "defaultvariablemodel.h"
 
 #include "imageresult.h"
 #include <qdir.h>
@@ -90,6 +91,7 @@ void ScilabExpression::evaluate()
 void ScilabExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
+    m_output = output;
     setResult(new Cantor::TextResult(output));
 
     evalFinished();
@@ -131,6 +133,25 @@ void ScilabExpression::interrupt()
 void ScilabExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
+
+    foreach (const QString& line, m_output.simplified().split('\n', QString::SkipEmptyParts))
+    {
+        if (m_output.contains('='))
+        {
+            kDebug() << line;
+
+            QStringList parts = line.split('=');
+            if (parts.size() >= 2)
+            {
+                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+                if (model)
+                {
+                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
+                }
+            }
+        }
+    }
+
     setStatus(Cantor::Expression::Done);
 }
 

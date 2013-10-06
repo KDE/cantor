@@ -23,6 +23,8 @@
 #include "scilabhighlighter.h"
 #include "scilabcompletionobject.h"
 
+#include <defaultvariablemodel.h>
+
 #include <kdebug.h>
 #include <KProcess>
 #include <KDirWatch>
@@ -37,7 +39,8 @@
 #include <settings.h>
 #include <qdir.h>
 
-ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend)
+ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
+m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     m_process = 0;
     kDebug();
@@ -244,6 +247,11 @@ QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 Cantor::CompletionObject* ScilabSession::completionFor(const QString& command, int index)
 {
     return new ScilabCompletionObject(command, index, this);
+}
+
+QAbstractItemModel* ScilabSession::variableModel()
+{
+    return m_variableModel;
 }
 
 #include "scilabsession.moc"

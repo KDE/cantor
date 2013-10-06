@@ -42,6 +42,7 @@ class ScilabExpression : public Cantor::Expression
     void evalFinished();
 
   private:
+    QString m_output;
     bool m_finished;
     bool m_plotPending;
 };
