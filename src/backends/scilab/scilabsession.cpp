@@ -133,6 +133,9 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
+    m_process->readAllStandardOutput().clear();
+    m_process->readAllStandardError().clear();
+
     changeStatus(Cantor::Session::Running);
 
     expr->setFinishingBehavior(behave);
