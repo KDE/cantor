@@ -33,6 +33,8 @@ class ScilabKeywords
 
     void setupKeywords(QString keywords);
 
+    void addVariable(QString variable);
+
     const QStringList& functions() const;
     const QStringList& keywords() const;
     const QStringList& variables() const;

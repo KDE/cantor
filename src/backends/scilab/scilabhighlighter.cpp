@@ -86,6 +86,12 @@ void ScilabHighlighter::highlightBlock(const QString& text)
     }
 }
 
+void ScilabHighlighter::addVariableHighlight()
+{
+    addVariables(ScilabKeywords::instance()->variables());
+    rehighlight();
+}
+
 void ScilabHighlighter::updateHighlight()
 {
     kDebug();
@@ -96,7 +102,6 @@ void ScilabHighlighter::updateHighlight()
 
     rehighlight();
 }
-
 
 QString ScilabHighlighter::nonSeparatingCharacters() const
 {

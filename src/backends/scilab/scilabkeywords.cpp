@@ -101,6 +101,11 @@ void ScilabKeywords::setupKeywords(QString keywords)
     }
 }
 
+void ScilabKeywords::addVariable(QString variable)
+{
+    m_variables << variable;
+}
+
 const QStringList& ScilabKeywords::variables() const
 {
     return m_variables;

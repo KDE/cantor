@@ -74,6 +74,7 @@ class ScilabSession : public Cantor::Session
 
   signals:
      void updateHighlighter();
+     void updateVariableHighlighter();
 
 };
 

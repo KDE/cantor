@@ -243,6 +243,8 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
         case Cantor::Expression::Error:
             changeStatus(Done);
 
+            emit updateVariableHighlighter();
+
             break;
     }
 }
@@ -285,6 +287,7 @@ QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
     ScilabHighlighter *highlighter = new ScilabHighlighter(parent);
 
     QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
+    QObject::connect(this, SIGNAL(updateVariableHighlighter()), highlighter, SLOT(addVariableHighlight()));
     return highlighter;
 }
 
