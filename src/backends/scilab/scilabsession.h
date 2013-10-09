@@ -46,7 +46,7 @@ class ScilabSession : public Cantor::Session
     void interrupt();
     void runExpression(ScilabExpression* expr);
 
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
+    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
@@ -70,6 +70,11 @@ class ScilabSession : public Cantor::Session
   private slots:
     void expressionFinished();
     void currentExpressionStatusChanged(Cantor::Expression::Status status);
+    void listKeywords();
+
+  signals:
+     void updateHighlighter();
+
 };
 
 #endif /* _SCILABSESSION_H */

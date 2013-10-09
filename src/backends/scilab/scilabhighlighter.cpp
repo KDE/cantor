@@ -86,6 +86,18 @@ void ScilabHighlighter::highlightBlock(const QString& text)
     }
 }
 
+void ScilabHighlighter::updateHighlight()
+{
+    kDebug();
+
+    addVariables(ScilabKeywords::instance()->variables());
+    addKeywords(ScilabKeywords::instance()->keywords());
+    addFunctions(ScilabKeywords::instance()->functions());
+
+    rehighlight();
+}
+
+
 QString ScilabHighlighter::nonSeparatingCharacters() const
 {
     kDebug() << "ScilabHighlighter::nonSeparatingCharacters() function";

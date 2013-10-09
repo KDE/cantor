@@ -25,9 +25,14 @@
 
 class ScilabHighlighter : public Cantor::DefaultHighlighter
 {
+    Q_OBJECT
+    
   public:
     ScilabHighlighter(QObject* parent);
     ~ScilabHighlighter();
+
+  public slots:
+    void updateHighlight();
 
   protected:
     void highlightBlock(const QString &text);

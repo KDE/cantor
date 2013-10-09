@@ -21,6 +21,7 @@
 #include "scilabsession.h"
 #include "scilabexpression.h"
 #include "scilabhighlighter.h"
+#include "scilabkeywords.h"
 #include "scilabcompletionobject.h"
 
 #include <defaultvariablemodel.h>
@@ -92,6 +93,16 @@ void ScilabSession::login()
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
+    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (listKeywords()));
+    QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+
+    m_process->readAllStandardOutput().clear();
+    m_process->readAllStandardError().clear();
+
+    ScilabExpression *listKeywords = new ScilabExpression(this);
+    listKeywords->setCommand("disp(getscilabkeywords());");
+    runExpression(listKeywords);
+
     emit ready();
 }
 
@@ -129,12 +140,6 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
 {
     kDebug() << "evaluating: " << cmd;
     ScilabExpression* expr = new ScilabExpression(this);
-
-    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
-    QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
-
-    m_process->readAllStandardOutput().clear();
-    m_process->readAllStandardError().clear();
 
     changeStatus(Cantor::Session::Running);
 
@@ -242,9 +247,45 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     }
 }
 
+void ScilabSession::listKeywords()
+{
+    kDebug();
+
+    while(m_process->bytesAvailable() > 0){
+        m_output.append(QString::fromLocal8Bit(m_process->readLine()));
+    }
+
+    if(m_output.contains("begin-cantor-scilab-command-processing") &&
+        m_output.contains("terminated-cantor-scilab-command-processing")){
+
+        m_output.remove("begin-cantor-scilab-command-processing");
+        m_output.remove("terminated-cantor-scilab-command-processing");
+
+        ScilabKeywords::instance()->setupKeywords(m_output);
+
+        QObject::disconnect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT (listKeywords()));
+        QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
+
+        m_process->readAllStandardOutput().clear();
+        m_process->readAllStandardError().clear();
+
+        m_output.clear();
+    }
+
+    changeStatus(Done);
+    m_currentExpression->evalFinished();
+
+    emit updateHighlighter();
+}
+
 QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 {
-    return new ScilabHighlighter(parent);
+    kDebug();
+
+    ScilabHighlighter *highlighter = new ScilabHighlighter(parent);
+
+    QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
+    return highlighter;
 }
 
 Cantor::CompletionObject* ScilabSession::completionFor(const QString& command, int index)

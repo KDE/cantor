@@ -23,10 +23,6 @@
 
 #include <QStringList>
 
-/*
-  Class storint a listsof names, known to maxima
-  used for syntax highlighting and tab completion
- */
 class ScilabKeywords
 {
   private:
@@ -35,12 +31,11 @@ class ScilabKeywords
   public:
     static ScilabKeywords* instance();
 
+    void setupKeywords(QString keywords);
+
     const QStringList& functions() const;
     const QStringList& keywords() const;
     const QStringList& variables() const;
-
-  private:
-    void loadFromFile();
 
   private:
     QStringList m_functions;

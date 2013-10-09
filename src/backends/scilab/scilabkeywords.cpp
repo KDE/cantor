@@ -20,7 +20,7 @@
 
 #include "scilabkeywords.h"
 
-#include <QFile>
+#include <QStringList>
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
 
@@ -45,67 +45,60 @@ ScilabKeywords* ScilabKeywords::instance()
     if(inst == 0)
     {
         inst = new ScilabKeywords();
-        inst->loadFromFile();
-	qSort(inst->m_variables);
-	qSort(inst->m_functions);
-	qSort(inst->m_keywords);
+        qSort(inst->m_variables);
+        qSort(inst->m_functions);
+        qSort(inst->m_keywords);
     }
 
     return inst;
 }
 
-void ScilabKeywords::loadFromFile()
+void ScilabKeywords::setupKeywords(QString keywords)
 {
-    kDebug() << "ScilabKeywords lodFromFile()";
+    kDebug();
 
-    //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("appdata",  "scilabbackend/keywords.xml"));
+    QStringList key;
+    key = keywords.replace(" !", "\n").replace("!", "").replace(" ", "").split("\n");
 
-    if(!file.open(QIODevice::ReadOnly))
+    for(int count = key.indexOf("(1)"); key.at(count) != "(2)"; count++)
     {
-        kDebug() << "error opening keywords.xml file. highlighting and completion won't work";
-        return;
-    }
-
-    QXmlStreamReader xml(&file);
-
-    xml.readNextStartElement();
-    while(xml.readNextStartElement())
-    {
-        const QStringRef name = xml.name();
-
-        if((name == "keywords") || (name == "variables") || (name == "functions"))
-        {
-            while(xml.readNextStartElement())
-            {
-                Q_ASSERT(xml.isStartElement() && xml.name() == "word");
-
-                const QString text = xml.readElementText();
-
-                if(name == "keywords")
-                    m_keywords << text;
-
-                else if(name == "variables"){
-//                     kDebug() << text;
-                    m_variables << text;
-                }
-
-                else if(name == "functions")
-                    m_functions << text;
-            }
+        if(key.at(count) == ""){
+            continue;
         }
-        else
-        {
-            xml.skipCurrentElement();
-        }
+
+        kDebug() << key.at(count);
+        m_functions << key.at(count);
     }
 
-    if (xml.hasError())
+    for(int count = key.indexOf("(2)"); key.at(count) != "(3)"; count++)
     {
-        kDebug() << "error parsing element";
-        kDebug() << "error: "<< xml.errorString();
+        if(key.at(count) == ""){
+            continue;
+        }
+
+        kDebug() << key.at(count);
+        m_keywords << key.at(count);
     }
 
+    for(int count = key.indexOf("(3)"); key.at(count) != "(4)"; count++)
+    {
+        if(key.at(count) == ""){
+            continue;
+        }
+
+        kDebug() << key.at(count);
+        m_variables << key.at(count);
+    }
+
+    for(int count = key.indexOf("(4)"); count < key.size(); count++)
+    {
+        if(key.at(count) == ""){
+            continue;
+        }
+
+        kDebug() << key.at(count);
+        m_functions << key.at(count);
+    }
 }
 
 const QStringList& ScilabKeywords::variables() const
