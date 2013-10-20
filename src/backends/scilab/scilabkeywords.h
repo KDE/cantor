@@ -25,23 +25,23 @@
 
 class ScilabKeywords
 {
-  private:
-    ScilabKeywords();
-    ~ScilabKeywords();
-  public:
-    static ScilabKeywords* instance();
 
-    void setupKeywords(QString keywords);
+    public:
+        ScilabKeywords();
+        ~ScilabKeywords();
 
-    void addVariable(QString variable);
+        static ScilabKeywords* instance();
 
-    const QStringList& functions() const;
-    const QStringList& keywords() const;
-    const QStringList& variables() const;
+        void setupKeywords(QString keywords);
+        void addVariable(QString variable);
 
-  private:
-    QStringList m_functions;
-    QStringList m_keywords;
-    QStringList m_variables;
+        const QStringList& functions() const;
+        const QStringList& keywords() const;
+        const QStringList& variables() const;
+
+    private:
+        QStringList m_functions;
+        QStringList m_keywords;
+        QStringList m_variables;
 };
 #endif /* _SCILABKEYWORDS_H */

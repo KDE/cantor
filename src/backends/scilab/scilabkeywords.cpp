@@ -30,7 +30,6 @@
 ScilabKeywords::ScilabKeywords()
 {
     kDebug() << "ScilabKeywords construtor";
-
 }
 
 
@@ -42,8 +41,8 @@ ScilabKeywords::~ScilabKeywords()
 ScilabKeywords* ScilabKeywords::instance()
 {
     static ScilabKeywords* inst = 0;
-    if(inst == 0)
-    {
+
+    if(inst == 0){
         inst = new ScilabKeywords();
         qSort(inst->m_variables);
         qSort(inst->m_functions);
@@ -60,8 +59,7 @@ void ScilabKeywords::setupKeywords(QString keywords)
     QStringList key;
     key = keywords.replace(" !", "\n").replace("!", "").replace(" ", "").split("\n");
 
-    for(int count = key.indexOf("(1)"); key.at(count) != "(2)"; count++)
-    {
+    for(int count = key.indexOf("(1)"); key.at(count) != "(2)"; count++){
         if(key.at(count) == ""){
             continue;
         }
@@ -70,8 +68,7 @@ void ScilabKeywords::setupKeywords(QString keywords)
         m_functions << key.at(count);
     }
 
-    for(int count = key.indexOf("(2)"); key.at(count) != "(3)"; count++)
-    {
+    for(int count = key.indexOf("(2)"); key.at(count) != "(3)"; count++){
         if(key.at(count) == ""){
             continue;
         }
@@ -80,8 +77,7 @@ void ScilabKeywords::setupKeywords(QString keywords)
         m_keywords << key.at(count);
     }
 
-    for(int count = key.indexOf("(3)"); key.at(count) != "(4)"; count++)
-    {
+    for(int count = key.indexOf("(3)"); key.at(count) != "(4)"; count++){
         if(key.at(count) == ""){
             continue;
         }
@@ -90,8 +86,7 @@ void ScilabKeywords::setupKeywords(QString keywords)
         m_variables << key.at(count);
     }
 
-    for(int count = key.indexOf("(4)"); count < key.size(); count++)
-    {
+    for(int count = key.indexOf("(4)"); count < key.size(); count++){
         if(key.at(count) == ""){
             continue;
         }

@@ -35,6 +35,7 @@
 
 #include "imageresult.h"
 #include <qdir.h>
+
 typedef Cantor::ImageResult ScilabPlotResult;
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
@@ -118,8 +119,7 @@ void ScilabExpression::parsePlotFile(QString filename)
 
     setPlotPending(false);
 
-    if (m_finished)
-    {
+    if (m_finished){
         kDebug() << "ScilabExpression::parsePlotFile: done";
         setStatus(Done);
     }
@@ -135,18 +135,17 @@ void ScilabExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
 
-    foreach (const QString& line, m_output.simplified().split('\n', QString::SkipEmptyParts))
-    {
-        if (m_output.contains('='))
-        {
+    foreach (const QString& line, m_output.simplified().split('\n', QString::SkipEmptyParts)){
+        if (m_output.contains('=')){
+
             kDebug() << line;
 
             QStringList parts = line.split('=');
-            if (parts.size() >= 2)
-            {
+
+            if (parts.size() >= 2){
                 Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-                if (model)
-                {
+
+                if (model){
                     model->addVariable(parts.first().trimmed(), parts.last().trimmed());
                     ScilabKeywords::instance()->addVariable(parts.first().trimmed());
                 }

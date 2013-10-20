@@ -29,13 +29,13 @@
 class ScilabVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
-    SCILAB_EXT_CDTOR_DECL(VariableManagement)
-    virtual QString addVariable(const QString& name, const QString& value);
-    virtual QString setValue(const QString& name, const QString& value);
-    virtual QString removeVariable(const QString& name);
-    virtual QString saveVariables(const QString& fileName);
-    virtual QString loadVariables(const QString& fileName);
-    virtual QString clearVariables();
+        SCILAB_EXT_CDTOR_DECL(VariableManagement)
+        virtual QString addVariable(const QString& name, const QString& value);
+        virtual QString setValue(const QString& name, const QString& value);
+        virtual QString removeVariable(const QString& name);
+        virtual QString saveVariables(const QString& fileName);
+        virtual QString loadVariables(const QString& fileName);
+        virtual QString clearVariables();
 };
 
 #endif // SCILABEXTENSIONS_H

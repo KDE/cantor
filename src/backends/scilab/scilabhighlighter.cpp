@@ -69,11 +69,11 @@ void ScilabHighlighter::highlightBlock(const QString& text)
     if (previousBlockState() != 1)
         startIndex = commentStartExpression.indexIn(text);
 
-    while (startIndex >= 0) {
+    while (startIndex >= 0){
 
         int endIndex = commentEndExpression.indexIn(text, startIndex);
         int commentLength;
-        if (endIndex == -1) {
+        if (endIndex == -1){
 
             setCurrentBlockState(1);
             commentLength = text.length() - startIndex;

@@ -26,25 +26,26 @@
 
 class ScilabExpression : public Cantor::Expression
 {
-  Q_OBJECT
-  public:
-    ScilabExpression(Cantor::Session* session);
-    ~ScilabExpression();
+    Q_OBJECT
 
-    void evaluate();
-    void interrupt();
-    void parseOutput(QString output);
-    void parseError(QString error);
-    void parsePlotFile(QString filename);
-    void setPlotPending(bool plot);
+    public:
+        ScilabExpression(Cantor::Session* session);
+        ~ScilabExpression();
 
-  public slots:
-    void evalFinished();
+        void evaluate();
+        void interrupt();
+        void parseOutput(QString output);
+        void parseError(QString error);
+        void parsePlotFile(QString filename);
+        void setPlotPending(bool plot);
 
-  private:
-    QString m_output;
-    bool m_finished;
-    bool m_plotPending;
+    public slots:
+        void evalFinished();
+
+    private:
+        QString m_output;
+        bool m_finished;
+        bool m_plotPending;
 };
 
 #endif /* _SCILABEXPRESSION_H */

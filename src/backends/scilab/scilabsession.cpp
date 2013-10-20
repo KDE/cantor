@@ -69,8 +69,8 @@ void ScilabSession::login()
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
     m_process->start();
 
-    if(ScilabSettings::integratePlots())
-    {
+    if(ScilabSettings::integratePlots()){
+
         kDebug() << "integratePlots";
 
         QString tempPath = QDir::tempPath();
@@ -218,8 +218,7 @@ void ScilabSession::plotFileChanged(QString filename)
 {
     kDebug() << "plotFileChanged filename:" << filename;
 
-    if ((m_currentExpression) && (filename.contains("cantor-export-scilab-figure")))
-    {
+    if ((m_currentExpression) && (filename.contains("cantor-export-scilab-figure"))){
          kDebug() << "Calling parsePlotFile";
          m_currentExpression->parsePlotFile(filename);
 
@@ -231,8 +230,7 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 {
     kDebug() << "currentExpressionStatusChanged: " << status;
 
-    switch (status)
-    {
+    switch (status){
         case Cantor::Expression::Computing:
             break;
 
