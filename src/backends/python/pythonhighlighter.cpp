@@ -42,8 +42,8 @@ PythonHighlighter::PythonHighlighter(QObject* parent) : Cantor::DefaultHighlight
     addRule(QRegExp("'.*'"), stringFormat());
     addRule(QRegExp("#[^\n]*"), commentFormat());
 
-    commentStartExpression = QRegExp("/\\*");
-    commentEndExpression = QRegExp("\\*/");
+    commentStartExpression = QRegExp("'''[^\n]*");
+    commentEndExpression = QRegExp("'''");
 }
 
 PythonHighlighter::~PythonHighlighter()
@@ -89,7 +89,7 @@ void PythonHighlighter::highlightBlock(const QString& text)
 void PythonHighlighter::updateHighlight()
 {
     kDebug();
-    
+
     addVariables(PythonKeywords::instance()->variables());
     rehighlight();
 }
