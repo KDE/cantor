@@ -88,14 +88,14 @@ KConfigSkeleton* Python2Backend::config() const
 
 KUrl Python2Backend::helpUrl() const
 {
-    return i18nc("the url to the documentation of Scipy and Numpy packages", "http://docs.scipy.org/doc/");
+    return i18nc("the url to the documentation Python 2", "http://docs.python.org/2/");
 }
 
 QString Python2Backend::description() const
 {
     return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains." \
                 "There are several Python packages to scientific programming.</p>" \
-                "<p>This backend supports <b>Scipy</b>, <b>Numpy</b>, and <b>Matplotlib</b> packages.</p>");
+                "<p>This backend supports Python 2.</p>");
 }
 
 K_EXPORT_CANTOR_PLUGIN(python2backend, Python2Backend)
