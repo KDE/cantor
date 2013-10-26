@@ -455,6 +455,9 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
     virtual QString clearVariables() = 0;
 };
 
+/**
+ * An extension for library/module import
+ */
 class CANTOR_EXPORT PackagingExtension : public Extension
 {
   public:
@@ -462,6 +465,11 @@ class CANTOR_EXPORT PackagingExtension : public Extension
     ~PackagingExtension();
 
   public slots:
+    /**
+     * import library/module
+     * @param package the library/module name
+     * @return the command for import library/module
+     */
     virtual QString importPackage(const QString& package) = 0;
 };
 
