@@ -19,6 +19,7 @@
  */
 
 #include "scilabexpression.h"
+#include "scilabkeywords.h"
 
 #include <config-cantorlib.h>
 
@@ -27,23 +28,19 @@
 #include "helpresult.h"
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <QTimer>
 #include <QFile>
 #include "scilabsession.h"
 #include "settings.h"
+#include "defaultvariablemodel.h"
 
 #include "imageresult.h"
 #include <qdir.h>
+
 typedef Cantor::ImageResult ScilabPlotResult;
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     kDebug() << "ScilabExpression construtor";
-
-    m_timer=new QTimer(this);
-    m_timer->setSingleShot(true);
-
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
 }
 
 ScilabExpression::~ScilabExpression()
@@ -91,14 +88,15 @@ void ScilabExpression::evaluate()
     }
 
     scilabSession->runExpression(this);
-
-    m_timer->start(1000);
 }
 
 void ScilabExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
+    m_output = output;
     setResult(new Cantor::TextResult(output));
+
+    evalFinished();
 }
 
 void ScilabExpression::parseError(QString error)
@@ -107,6 +105,8 @@ void ScilabExpression::parseError(QString error)
     setResult(new Cantor::TextResult(error));
     setErrorMessage(error);
     setStatus(Cantor::Expression::Error);
+
+    evalFinished();
 }
 
 void ScilabExpression::parsePlotFile(QString filename)
@@ -119,8 +119,7 @@ void ScilabExpression::parsePlotFile(QString filename)
 
     setPlotPending(false);
 
-    if (m_finished)
-    {
+    if (m_finished){
         kDebug() << "ScilabExpression::parsePlotFile: done";
         setStatus(Done);
     }
@@ -129,13 +128,31 @@ void ScilabExpression::parsePlotFile(QString filename)
 void ScilabExpression::interrupt()
 {
     kDebug()<<"interruptinging command";
-    m_timer->stop();
     setStatus(Cantor::Expression::Interrupted);
 }
 
 void ScilabExpression::evalFinished()
 {
     kDebug()<<"evaluation finished";
+
+    foreach (const QString& line, m_output.simplified().split('\n', QString::SkipEmptyParts)){
+        if (m_output.contains('=')){
+
+            kDebug() << line;
+
+            QStringList parts = line.split('=');
+
+            if (parts.size() >= 2){
+                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+
+                if (model){
+                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
+                    ScilabKeywords::instance()->addVariable(parts.first().trimmed());
+                }
+            }
+        }
+    }
+
     setStatus(Cantor::Expression::Done);
 }
 

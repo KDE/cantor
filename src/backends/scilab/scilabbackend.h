@@ -25,22 +25,22 @@
 
 class ScilabBackend : public Cantor::Backend
 {
-  Q_OBJECT
-  public:
-    explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-    ~ScilabBackend();
+    Q_OBJECT
+    
+    public:
+        explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+        ~ScilabBackend();
 
-    QString id() const;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    virtual bool requirementsFullfilled() const;
+        QString id() const;
+        Cantor::Session *createSession();
+        Cantor::Backend::Capabilities capabilities() const;
+        virtual bool requirementsFullfilled() const;
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+        QWidget* settingsWidget(QWidget* parent) const;
+        KConfigSkeleton* config() const;
 
-    KUrl helpUrl() const;
-    QString description() const;
+        KUrl helpUrl() const;
+        QString description() const;
 };
-
 
 #endif /* _SCILABBACKEND_H */

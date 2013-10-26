@@ -21,6 +21,7 @@
 #include "scilabbackend.h"
 
 #include "scilabsession.h"
+#include "scilabextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -29,9 +30,11 @@
 
 #include "cantor_macros.h"
 
-ScilabBackend::ScilabBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
+ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Cantor::Backend(parent, args)
 {
     kDebug()<<"Creating ScilabBackend";
+
+    new ScilabVariableManagementExtension(this);
 
     setObjectName("scilabbackend");
 }
@@ -58,7 +61,8 @@ Cantor::Backend::Capabilities ScilabBackend::capabilities() const
     kDebug()<<"Requesting capabilities of ScilabSession";
 
     return Cantor::Backend::SyntaxHighlighting |
-           Cantor::Backend::Completion;
+           Cantor::Backend::Completion         |
+           Cantor::Backend::VariableManagement;
 }
 
 bool ScilabBackend::requirementsFullfilled() const
@@ -87,7 +91,7 @@ KUrl ScilabBackend::helpUrl() const
 
 QString ScilabBackend::description() const
 {
-    return i18n("<p><b>Warning:</b> this backend works only with Scilab version 5.4 or later</p>"\
+    return i18n("<p><b>Warning:</b> this backend works only with Scilab version 5.5 or later</p>"\
         "<p>Scilab is a free software, cross-platform numerical computational package and a high-level, numerically oriented programming language.</p>" \
         "Scilab is distributed under CeCILL license (GPL compatible)");
 }

@@ -69,11 +69,11 @@ void ScilabHighlighter::highlightBlock(const QString& text)
     if (previousBlockState() != 1)
         startIndex = commentStartExpression.indexIn(text);
 
-    while (startIndex >= 0) {
+    while (startIndex >= 0){
 
         int endIndex = commentEndExpression.indexIn(text, startIndex);
         int commentLength;
-        if (endIndex == -1) {
+        if (endIndex == -1){
 
             setCurrentBlockState(1);
             commentLength = text.length() - startIndex;
@@ -84,6 +84,23 @@ void ScilabHighlighter::highlightBlock(const QString& text)
         setFormat(startIndex,  commentLength,  commentFormat());
         startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
     }
+}
+
+void ScilabHighlighter::addVariableHighlight()
+{
+    addVariables(ScilabKeywords::instance()->variables());
+    rehighlight();
+}
+
+void ScilabHighlighter::updateHighlight()
+{
+    kDebug();
+
+    addVariables(ScilabKeywords::instance()->variables());
+    addKeywords(ScilabKeywords::instance()->keywords());
+    addFunctions(ScilabKeywords::instance()->functions());
+
+    rehighlight();
 }
 
 QString ScilabHighlighter::nonSeparatingCharacters() const

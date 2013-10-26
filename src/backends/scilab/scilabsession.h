@@ -24,6 +24,10 @@
 #include "session.h"
 #include <QStringList>
 
+namespace Cantor {
+    class DefaultVariableModel;
+}
+
 class ScilabExpression;
 class KTemporaryFile;
 class KDirWatch;
@@ -31,39 +35,48 @@ class KProcess;
 
 class ScilabSession : public Cantor::Session
 {
-  Q_OBJECT
-  public:
-    ScilabSession( Cantor::Backend* backend);
-    ~ScilabSession();
+    Q_OBJECT
 
-    void login();
-    void logout();
+    public:
+        ScilabSession(Cantor::Backend* backend);
+        ~ScilabSession();
 
-    void interrupt();
-    void runExpression(ScilabExpression* expr);
+        void login();
+        void logout();
 
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
+        void interrupt();
+        void runExpression(ScilabExpression* expr);
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
+        virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
-  public slots:
-    void readOutput();
-    void readError();
-    void plotFileChanged(QString filename);
+        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+        Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
+        virtual QAbstractItemModel* variableModel();
 
-  private:
-    KProcess* m_process;
-    KDirWatch* m_watch;
-    QStringList m_listPlotName;
-    QString m_output;
+    public slots:
+        void readOutput();
+        void readError();
+        void plotFileChanged(QString filename);
 
-    QList<ScilabExpression*> m_runningExpressions;
-    ScilabExpression* m_currentExpression;
+    signals:
+        void updateHighlighter();
+        void updateVariableHighlighter();
 
-  private slots:
-    void expressionFinished();
-    void currentExpressionStatusChanged(Cantor::Expression::Status status);
+    private:
+        KProcess* m_process;
+        KDirWatch* m_watch;
+        QStringList m_listPlotName;
+        QString m_output;
+        Cantor::DefaultVariableModel* m_variableModel;
+
+        QList<ScilabExpression*> m_runningExpressions;
+        ScilabExpression* m_currentExpression;
+
+    private slots:
+        void expressionFinished();
+        void currentExpressionStatusChanged(Cantor::Expression::Status status);
+        void listKeywords();
+
 };
 
 #endif /* _SCILABSESSION_H */

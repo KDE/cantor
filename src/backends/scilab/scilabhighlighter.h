@@ -25,17 +25,23 @@
 
 class ScilabHighlighter : public Cantor::DefaultHighlighter
 {
-  public:
-    ScilabHighlighter(QObject* parent);
-    ~ScilabHighlighter();
+    Q_OBJECT
 
-  protected:
-    void highlightBlock(const QString &text);
-    QString nonSeparatingCharacters() const;
+    public:
+        ScilabHighlighter(QObject* parent);
+        ~ScilabHighlighter();
 
-  private:
-     QRegExp commentStartExpression;
-     QRegExp commentEndExpression;
+    public slots:
+        void updateHighlight();
+        void addVariableHighlight();
+
+    protected:
+        void highlightBlock(const QString &text);
+        QString nonSeparatingCharacters() const;
+
+    private:
+        QRegExp commentStartExpression;
+        QRegExp commentEndExpression;
 };
 
 #endif /* _SCILABHIGHLIGHTER_H */
