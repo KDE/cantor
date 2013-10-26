@@ -3,7 +3,7 @@
 
 # Personal configurarion files
 *.user
-cantor.kdev4
+*.kdev4
 .kdev4/*
 
 # Temporary files

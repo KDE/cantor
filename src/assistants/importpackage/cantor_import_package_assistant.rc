@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="cantor_importpackage_assistant" version="1">
+<MenuBar>
+  <Menu name="import_package"><text>&amp;Package</text>
+    <Action name="importpackage_assistant"/>
+  </Menu>
+</MenuBar>
+</kpartgui>

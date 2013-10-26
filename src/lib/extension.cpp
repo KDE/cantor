@@ -45,6 +45,7 @@ EXTENSION_CONSTRUCTORS(PlotExtension)
 EXTENSION_CONSTRUCTORS(AdvancedPlotExtension)
 EXTENSION_CONSTRUCTORS(LinearAlgebraExtension)
 EXTENSION_CONSTRUCTORS(VariableManagementExtension)
+EXTENSION_CONSTRUCTORS(PackagingExtension)
 
 //implement this here, as it's ";" most of the time
 QString ScriptExtension::commandSeparator()
