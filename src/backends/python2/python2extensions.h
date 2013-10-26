@@ -18,25 +18,25 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef PYTHONEXTENSIONS_H
-#define PYTHONEXTENSIONS_H
+#ifndef PYTHON2EXTENSIONS_H
+#define PYTHON2EXTENSIONS_H
 
 #include <extension.h>
 
-#define PYTHON_EXT_CDTOR_DECL(name) Python##name##Extension(QObject* parent); \
-                                     ~Python##name##Extension();
+#define PYTHON2_EXT_CDTOR_DECL(name) Python2##name##Extension(QObject* parent); \
+                                     ~Python2##name##Extension();
 
-class PythonPackagingExtension : public Cantor::PackagingExtension
+class Python2PackagingExtension : public Cantor::PackagingExtension
 {
     public:
-    PYTHON_EXT_CDTOR_DECL(Packaging)
+    PYTHON2_EXT_CDTOR_DECL(Packaging)
     virtual QString importPackage(const QString& module);
 };
 
-class PythonVariableManagementExtension : public Cantor::VariableManagementExtension
+class Python2VariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
-    PYTHON_EXT_CDTOR_DECL(VariableManagement)
+    PYTHON2_EXT_CDTOR_DECL(VariableManagement)
     virtual QString addVariable(const QString& name, const QString& value);
     virtual QString setValue(const QString& name, const QString& value);
     virtual QString removeVariable(const QString& name);
@@ -45,4 +45,4 @@ class PythonVariableManagementExtension : public Cantor::VariableManagementExten
     virtual QString clearVariables();
 };
 
-#endif // PYTHONEXTENSIONS_H
+#endif // PYTHON2EXTENSIONS_H

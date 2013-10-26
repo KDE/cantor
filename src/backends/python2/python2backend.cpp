@@ -18,10 +18,10 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "pythonbackend.h"
+#include "python2backend.h"
 
-#include "pythonsession.h"
-#include "pythonextensions.h"
+#include "python2session.h"
+#include "python2extensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -30,36 +30,36 @@
 
 #include "cantor_macros.h"
 
-PythonBackend::PythonBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
+Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
 {
-    kDebug()<<"Creating PythonBackend";
+    kDebug()<<"Creating Python2Backend";
 
-    new PythonPackagingExtension(this);
-    new PythonVariableManagementExtension(this);
+    new Python2PackagingExtension(this);
+    new Python2VariableManagementExtension(this);
 
-    setObjectName("pythonbackend");
+    setObjectName("python2backend");
 }
 
-PythonBackend::~PythonBackend()
+Python2Backend::~Python2Backend()
 {
-    kDebug()<<"Destroying PythonBackend";
+    kDebug()<<"Destroying Python2Backend";
 }
 
-QString PythonBackend::id() const
+QString Python2Backend::id() const
 {
-    return "python";
+    return "python2";
 }
 
-Cantor::Session* PythonBackend::createSession()
+Cantor::Session* Python2Backend::createSession()
 {
-    kDebug()<<"Spawning a new Python session";
+    kDebug()<<"Spawning a new Python 2 session";
 
-    return new PythonSession(this);
+    return new Python2Session(this);
 }
 
-Cantor::Backend::Capabilities PythonBackend::capabilities() const
+Cantor::Backend::Capabilities Python2Backend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of PythonSession";
+    kDebug()<<"Requesting capabilities of Python2Session";
 
     return Cantor::Backend::SyntaxHighlighting |
            Cantor::Backend::Completion         |
@@ -67,37 +67,37 @@ Cantor::Backend::Capabilities PythonBackend::capabilities() const
            Cantor::Backend::VariableManagement;
 }
 
-bool PythonBackend::requirementsFullfilled() const
+bool Python2Backend::requirementsFullfilled() const
 {
-    QFileInfo info(PythonSettings::self()->path().toLocalFile());
+    QFileInfo info(Python2Settings::self()->path().toLocalFile());
     return info.isExecutable();
 }
 
-QWidget* PythonBackend::settingsWidget(QWidget* parent) const
+QWidget* Python2Backend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);
-    Ui::PythonSettingsBase s;
+    Ui::Python2SettingsBase s;
     s.setupUi(widget);
     return widget;
 }
 
-KConfigSkeleton* PythonBackend::config() const
+KConfigSkeleton* Python2Backend::config() const
 {
-    return PythonSettings::self();
+    return Python2Settings::self();
 }
 
-KUrl PythonBackend::helpUrl() const
+KUrl Python2Backend::helpUrl() const
 {
     return i18nc("the url to the documentation of Scipy and Numpy packages", "http://docs.scipy.org/doc/");
 }
 
-QString PythonBackend::description() const
+QString Python2Backend::description() const
 {
     return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains." \
                 "There are several Python packages to scientific programming.</p>" \
                 "<p>This backend supports <b>Scipy</b>, <b>Numpy</b>, and <b>Matplotlib</b> packages.</p>");
 }
 
-K_EXPORT_CANTOR_PLUGIN(pythonbackend, PythonBackend)
+K_EXPORT_CANTOR_PLUGIN(python2backend, Python2Backend)
 
-#include "pythonbackend.moc"
+#include "python2backend.moc"

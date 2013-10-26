@@ -18,29 +18,31 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHONBACKEND_H
-#define _PYTHONBACKEND_H
+#ifndef _PYTHON2EXPRESSION_H
+#define _PYTHON2EXPRESSION_H
 
-#include "backend.h"
+#include "expression.h"
+#include <QStringList>
 
-class PythonBackend : public Cantor::Backend
+class QTimer;
+
+class Python2Expression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    explicit PythonBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-    ~PythonBackend();
+    Python2Expression( Cantor::Session* session);
+    ~Python2Expression();
 
-    QString id() const;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    virtual bool requirementsFullfilled() const;
+    void evaluate();
+    void interrupt();
+    void parseOutput(QString output);
+    void parseError(QString error);
+    void parsePlotFile(QString filename);
+    void setPlotPending(bool plot);
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
-
-    KUrl helpUrl() const;
-    QString description() const;
+  private:
+    bool m_finished;
+    bool m_plotPending;
 };
 
-
-#endif /* _PYTHONBACKEND_H */
+#endif /* _PYTHON2EXPRESSION_H */

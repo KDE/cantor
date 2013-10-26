@@ -18,11 +18,11 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "pythonsession.h"
-#include "pythonexpression.h"
-#include "pythonhighlighter.h"
-#include "pythoncompletionobject.h"
-#include "pythonkeywords.h"
+#include "python2session.h"
+#include "python2expression.h"
+#include "python2highlighter.h"
+#include "python2completionobject.h"
+#include "python2keywords.h"
 
 #include <kdebug.h>
 #include <KDirWatch>
@@ -43,25 +43,25 @@
 
 using namespace std;
 
-PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend),
+Python2Session::Python2Session(Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     kDebug();
 }
 
-PythonSession::~PythonSession()
+Python2Session::~Python2Session()
 {
     kDebug();
 }
 
-void PythonSession::login()
+void Python2Session::login()
 {
     kDebug()<<"login";
 
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
 
-    if(PythonSettings::integratePlots())
+    if(Python2Settings::integratePlots())
     {
         kDebug() << "integratePlots";
 
@@ -90,7 +90,7 @@ void PythonSession::login()
     emit ready();
 }
 
-void PythonSession::logout()
+void Python2Session::logout()
 {
     kDebug()<<"logout";
 
@@ -104,7 +104,7 @@ void PythonSession::logout()
     changeStatus(Cantor::Session::Done);
 }
 
-void PythonSession::interrupt()
+void Python2Session::interrupt()
 {
     kDebug()<<"interrupt";
 
@@ -115,10 +115,10 @@ void PythonSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* Python2Session::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     kDebug() << "evaluating: " << cmd;
-    PythonExpression* expr = new PythonExpression(this);
+    Python2Expression* expr = new Python2Expression(this);
 
     changeStatus(Cantor::Session::Running);
 
@@ -129,7 +129,7 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-void PythonSession::runExpression(PythonExpression* expr)
+void Python2Session::runExpression(Python2Expression* expr)
 {
     kDebug() << "run expression";
 
@@ -157,7 +157,7 @@ void PythonSession::runExpression(PythonExpression* expr)
             }
         }
 
-        if((!PythonKeywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains("=")) &&
+        if((!Python2Keywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains("=")) &&
            (!commandLine.at(contLine).endsWith(":")) && (!commandLine.at(contLine).startsWith(" "))){
 
             commandProcessing += "print " + commandLine.at(contLine) + "\n";
@@ -167,7 +167,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
         if(commandLine.at(contLine).startsWith(" ")){
 
-            if((PythonKeywords::instance()->keywords().contains(firstLineWord)) || (commandLine.at(contLine).contains("=")) ||
+            if((Python2Keywords::instance()->keywords().contains(firstLineWord)) || (commandLine.at(contLine).contains("=")) ||
                (commandLine.at(contLine).endsWith(":"))){
 
                 commandProcessing += commandLine.at(contLine) + "\n";
@@ -204,7 +204,7 @@ void PythonSession::runExpression(PythonExpression* expr)
     readOutput(expr, commandProcessing);
 }
 
-void PythonSession::runClassOutputPython()
+void Python2Session::runClassOutputPython()
 {
     QString classOutputPython = "import sys\n"                                      \
                                 "class CatchOutPythonBackend:\n"                    \
@@ -220,7 +220,7 @@ void PythonSession::runClassOutputPython()
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 }
 
-void PythonSession::getPythonCommandOutput(QString commandProcessing)
+void Python2Session::getPythonCommandOutput(QString commandProcessing)
 {
     kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
 
@@ -240,7 +240,7 @@ void PythonSession::getPythonCommandOutput(QString commandProcessing)
     m_error = QString(errorString.c_str());
 }
 
-bool PythonSession::identifyKeywords(QString command)
+bool Python2Session::identifyKeywords(QString command)
 {
     QString verifyErrorImport;
 
@@ -295,14 +295,14 @@ bool PythonSession::identifyKeywords(QString command)
 
     kDebug() << "keywordsList" << keywordsList;
 
-    PythonKeywords::instance()->loadFromModule(moduleVariable, keywordsList);
+    Python2Keywords::instance()->loadFromModule(moduleVariable, keywordsList);
 
     kDebug() << "Module imported" << moduleImported;
 
     return true;
 }
 
-QString PythonSession::identifyPythonModule(QString command)
+QString Python2Session::identifyPythonModule(QString command)
 {
     QString module;
 
@@ -314,7 +314,7 @@ QString PythonSession::identifyPythonModule(QString command)
     return module;
 }
 
-QString PythonSession::identifyVariableModule(QString command)
+QString Python2Session::identifyVariableModule(QString command)
 {
     QString variable;
 
@@ -334,16 +334,16 @@ QString PythonSession::identifyVariableModule(QString command)
     return variable;
 }
 
-void PythonSession::expressionFinished()
+void Python2Session::expressionFinished()
 {
     kDebug()<< "finished";
-    PythonExpression* expression = qobject_cast<PythonExpression*>(sender());
+    Python2Expression* expression = qobject_cast<Python2Expression*>(sender());
 
     m_runningExpressions.removeAll(expression);
     kDebug() << "size: " << m_runningExpressions.size();
 }
 
-void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing)
+void Python2Session::readOutput(Python2Expression* expr, QString commandProcessing)
 {
     kDebug() << "readOutput";
 
@@ -367,7 +367,7 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
     changeStatus(Cantor::Session::Done);
 }
 
-void PythonSession::plotFileChanged(QString filename)
+void Python2Session::plotFileChanged(QString filename)
 {
     kDebug() << "plotFileChanged filename:" << filename;
 
@@ -380,7 +380,7 @@ void PythonSession::plotFileChanged(QString filename)
     }
 }
 
-void PythonSession::listVariables()
+void Python2Session::listVariables()
 {
     QString listVariableCommand;
     listVariableCommand += "print globals()\n";
@@ -405,7 +405,7 @@ void PythonSession::listVariables()
            !parts.first().startsWith("sys':") && !parts.last().startsWith(" class ") && !parts.last().startsWith(" function ")){
 
             m_variableModel->addVariable(parts.first().remove("'").simplified(), parts.last().simplified());
-            PythonKeywords::instance()->addVariable(parts.first().remove("'").simplified());
+            Python2Keywords::instance()->addVariable(parts.first().remove("'").simplified());
 
         }
     }
@@ -415,22 +415,22 @@ void PythonSession::listVariables()
 
 }
 
-QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
+QSyntaxHighlighter* Python2Session::syntaxHighlighter(QObject* parent)
 {
-    PythonHighlighter* highlighter = new PythonHighlighter(parent);
+    Python2Highlighter* highlighter = new Python2Highlighter(parent);
     QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
 
     return highlighter;
 }
 
-Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
+Cantor::CompletionObject* Python2Session::completionFor(const QString& command, int index)
 {
-    return new PythonCompletionObject(command, index, this);
+    return new Python2CompletionObject(command, index, this);
 }
 
-QAbstractItemModel* PythonSession::variableModel()
+QAbstractItemModel* Python2Session::variableModel()
 {
     return m_variableModel;
 }
 
-#include "pythonsession.moc"
+#include "python2session.moc"

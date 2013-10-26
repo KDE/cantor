@@ -15,34 +15,35 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHONEXPRESSION_H
-#define _PYTHONEXPRESSION_H
+#ifndef _PYTHON2KEYWORDS_H
+#define _PYTHON2KEYWORDS_H
 
-#include "expression.h"
 #include <QStringList>
 
-class QTimer;
-
-class PythonExpression : public Cantor::Expression
+class Python2Keywords
 {
-  Q_OBJECT
+  private:
+    Python2Keywords();
+    ~Python2Keywords();
   public:
-    PythonExpression( Cantor::Session* session);
-    ~PythonExpression();
+    static Python2Keywords* instance();
 
-    void evaluate();
-    void interrupt();
-    void parseOutput(QString output);
-    void parseError(QString error);
-    void parsePlotFile(QString filename);
-    void setPlotPending(bool plot);
+    const QStringList& functions() const;
+    const QStringList& keywords() const;
+    const QStringList& variables() const;
+
+    void loadFromModule(QString module, QStringList keywords);
+    void addVariable(QString variable);
 
   private:
-    bool m_finished;
-    bool m_plotPending;
-};
+    void loadFromFile();
 
-#endif /* _PYTHONEXPRESSION_H */
+  private:
+    QStringList m_functions;
+    QStringList m_keywords;
+    QStringList m_variables;
+};
+#endif /* _PYTHON2KEYWORDS_H */

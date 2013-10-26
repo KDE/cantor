@@ -18,25 +18,30 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHONCOMPLETIONOBJECT_H
-#define _PYTHONCOMPLETIONOBJECT_H
+#ifndef _PYTHON2HIGHLIGHTER_H
+#define _PYTHON2HIGHLIGHTER_H
 
-#include "completionobject.h"
+#include "defaulthighlighter.h"
 
-class PythonSession;
-
-class PythonCompletionObject : public Cantor::CompletionObject
+class Python2Highlighter : public Cantor::DefaultHighlighter
 {
+    Q_OBJECT
+
   public:
-    PythonCompletionObject(const QString& cmd, int index, PythonSession* session) ;
-    ~PythonCompletionObject();
+    Python2Highlighter(QObject* parent);
+    ~Python2Highlighter();
+
+  public slots:
+    void updateHighlight();
 
   protected:
-    virtual bool mayIdentifierContain(QChar c) const;
-    virtual bool mayIdentifierBeginWith(QChar c) const;
-  protected slots:
-    void fetchCompletions();
-    void fetchIdentifierType();
+    void highlightBlock(const QString &text);
+    QString nonSeparatingCharacters() const;
+
+  private:
+     QRegExp commentStartExpression;
+     QRegExp commentEndExpression;
+
 };
 
-#endif /* _PYTHONCOMPLETIONOBJECT_H */
+#endif /* _PYTHON2HIGHLIGHTER_H */

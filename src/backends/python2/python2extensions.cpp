@@ -18,38 +18,38 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "pythonextensions.h"
+#include "python2extensions.h"
 #include <KLocale>
 #include <KDebug>
 
-#define PYTHON_EXT_CDTOR(name) Python##name##Extension::Python##name##Extension(QObject* parent) : name##Extension(parent) {} \
-                                     Python##name##Extension::~Python##name##Extension() {}
+#define PYTHON2_EXT_CDTOR(name) Python2##name##Extension::Python2##name##Extension(QObject* parent) : name##Extension(parent) {} \
+                                     Python2##name##Extension::~Python2##name##Extension() {}
 
-PYTHON_EXT_CDTOR(Packaging)
+PYTHON2_EXT_CDTOR(Packaging)
 
-QString PythonPackagingExtension::importPackage(const QString& package)
+QString Python2PackagingExtension::importPackage(const QString& package)
 {
     return QString("import %1").arg(package);
 }
 
-PYTHON_EXT_CDTOR(VariableManagement)
+PYTHON2_EXT_CDTOR(VariableManagement)
 
-QString PythonVariableManagementExtension::addVariable(const QString& name, const QString& value)
+QString Python2VariableManagementExtension::addVariable(const QString& name, const QString& value)
 {
     return setValue(name, value);
 }
 
-QString PythonVariableManagementExtension::setValue(const QString& name, const QString& value)
+QString Python2VariableManagementExtension::setValue(const QString& name, const QString& value)
 {
     return QString("%1 = %2").arg(name).arg(value);
 }
 
-QString PythonVariableManagementExtension::removeVariable(const QString& name)
+QString Python2VariableManagementExtension::removeVariable(const QString& name)
 {
     return QString("del(%1)").arg(name);
 }
 
-QString PythonVariableManagementExtension::clearVariables()
+QString Python2VariableManagementExtension::clearVariables()
 {
     QString delVariablesPythonSession = "for keyPythonBackend in dir():\n"                                 \
                                         "    if (not 'PythonBackend' in keyPythonBackend)\ "               \
@@ -59,7 +59,7 @@ QString PythonVariableManagementExtension::clearVariables()
     return delVariablesPythonSession;
 }
 
-QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
+QString Python2VariableManagementExtension::saveVariables(const QString& fileName)
 {
     QString classSavePythonSession = "import shelve\n"                                                               \
                                      "shelvePythonBackend = shelve.open('%1', 'n')\n"                                \
@@ -76,7 +76,7 @@ QString PythonVariableManagementExtension::saveVariables(const QString& fileName
     return classSavePythonSession.arg(fileName);
 }
 
-QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
+QString Python2VariableManagementExtension::loadVariables(const QString& fileName)
 {
     QString classLoadPythonSession = "import shelve\n"                                                           \
                                      "shelvePythonBackend = shelve.open('%1')\n"                                 \

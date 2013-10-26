@@ -18,32 +18,25 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHONKEYWORDS_H
-#define _PYTHONKEYWORDS_H
+#ifndef _PYTHON2COMPLETIONOBJECT_H
+#define _PYTHON2COMPLETIONOBJECT_H
 
-#include <QStringList>
+#include "completionobject.h"
 
-class PythonKeywords
+class Python2Session;
+
+class Python2CompletionObject : public Cantor::CompletionObject
 {
-  private:
-    PythonKeywords();
-    ~PythonKeywords();
   public:
-    static PythonKeywords* instance();
+    Python2CompletionObject(const QString& cmd, int index, Python2Session* session) ;
+    ~Python2CompletionObject();
 
-    const QStringList& functions() const;
-    const QStringList& keywords() const;
-    const QStringList& variables() const;
-
-    void loadFromModule(QString module, QStringList keywords);
-    void addVariable(QString variable);
-
-  private:
-    void loadFromFile();
-
-  private:
-    QStringList m_functions;
-    QStringList m_keywords;
-    QStringList m_variables;
+  protected:
+    virtual bool mayIdentifierContain(QChar c) const;
+    virtual bool mayIdentifierBeginWith(QChar c) const;
+  protected slots:
+    void fetchCompletions();
+    void fetchIdentifierType();
 };
-#endif /* _PYTHONKEYWORDS_H */
+
+#endif /* _PYTHON2COMPLETIONOBJECT_H */

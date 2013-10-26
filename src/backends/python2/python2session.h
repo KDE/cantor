@@ -18,8 +18,8 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHONSESSION_H
-#define _PYTHONSESSION_H
+#ifndef _PYTHON2SESSION_H
+#define _PYTHON2SESSION_H
 
 #include "session.h"
 #include <QStringList>
@@ -31,23 +31,23 @@ namespace Cantor {
 class DefaultVariableModel;
 }
 
-class PythonExpression;
+class Python2Expression;
 class KTemporaryFile;
 class KDirWatch;
 class KProcess;
 
-class PythonSession : public Cantor::Session
+class Python2Session : public Cantor::Session
 {
   Q_OBJECT
   public:
-    PythonSession( Cantor::Backend* backend);
-    ~PythonSession();
+    Python2Session( Cantor::Backend* backend);
+    ~Python2Session();
 
     void login();
     void logout();
 
     void interrupt();
-    void runExpression(PythonExpression* expr);
+    void runExpression(Python2Expression* expr);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
@@ -55,7 +55,7 @@ class PythonSession : public Cantor::Session
     virtual QAbstractItemModel* variableModel();
 
   public slots:
-    void readOutput(PythonExpression* expr, QString commandProcessing);
+    void readOutput(Python2Expression* expr, QString commandProcessing);
     void plotFileChanged(QString filename);
 
   private:
@@ -67,8 +67,8 @@ class PythonSession : public Cantor::Session
 
     PyObject *m_pModule;
 
-    QList<PythonExpression*> m_runningExpressions;
-    PythonExpression* m_currentExpression;
+    QList<Python2Expression*> m_runningExpressions;
+    Python2Expression* m_currentExpression;
 
     void listVariables();
     void runClassOutputPython();
@@ -86,4 +86,4 @@ class PythonSession : public Cantor::Session
     void updateHighlighter();
 };
 
-#endif /* _PYTHONSESSION_H */
+#endif /* _PYTHON2SESSION_H */

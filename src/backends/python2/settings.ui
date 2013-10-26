@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PythonSettingsBase</class>
- <widget class="QWidget" name="PythonSettingsBase">
+ <class>Python2SettingsBase</class>
+ <widget class="QWidget" name="Python2SettingsBase">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,7 +16,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Path to python command:</string>
+        <string>Path to python2 command:</string>
        </property>
       </widget>
      </item>
