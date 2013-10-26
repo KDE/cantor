@@ -22,7 +22,7 @@ if(QALCULATE_FOUND)
 endif(QALCULATE_FOUND)
 
 macro_optional_find_package(PythonLibs 2.7)
-macro_log_feature(PYTHONLIBS_FOUND "Python" "A powerful dynamic programming language" "http://python.org/" FALSE "" "Backend to use Python with Cantor.")
+macro_log_feature(PYTHONLIBS_FOUND "Python2" "A powerful dynamic programming language" "http://python.org/" FALSE "" "Backend to use Python2 with Cantor.")
 if(PYTHONLIBS_FOUND)
     add_subdirectory(python2)
 endif(PYTHONLIBS_FOUND)
