@@ -93,7 +93,7 @@ KUrl Python2Backend::helpUrl() const
 
 QString Python2Backend::description() const
 {
-    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains." \
+    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
                 "There are several Python packages to scientific programming.</p>" \
                 "<p>This backend supports Python 2.</p>");
 }
