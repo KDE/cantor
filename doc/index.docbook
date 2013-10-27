@@ -30,8 +30,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-10-12</date>
-<releaseinfo>0.4 (&kde; 4.10)</releaseinfo>
+<date>2013-10-27</date>
+<releaseinfo>0.4 (&kde; 4.12)</releaseinfo>
 
 <abstract>
 <para>
@@ -47,6 +47,8 @@ nice worksheet view to other Free Software Math packages.
 <keyword>math</keyword>
 <keyword>Cantor</keyword>
 <keyword>Sage</keyword>
+<keyword>Python</keyword>
+<keyword>Scilab</keyword>
 <keyword>R</keyword>
 <keyword>Maxima</keyword>
 </keywordset>
@@ -144,10 +146,10 @@ Screenshot:
       </listitem>
     </varlistentry>
     <varlistentry>
-      <term>KAlgebra:</term>
+      <term>&kalgebra;:</term>
       <listitem>
 	<para>
-	  KAlgebra is a MathML-based graph calculator, that ships with KDE Education project.
+	  &kalgebra; is a MathML-based graph calculator, that ships with &kde; Education project.
 	  See <ulink url="http://edu.kde.org/kalgebra/">http://edu.kde.org/kalgebra/</ulink> for more information.
 	  </para>
       </listitem>
@@ -172,6 +174,29 @@ Screenshot:
   </listitem>
     </varlistentry>
     <varlistentry>
+      <term>Python2:</term>
+      <listitem>
+  <para>
+    Python is a remarkably powerful dynamic programming language that is used
+in a wide variety of application domains. There are several Python packages
+to scientific programming.
+  </para>
+  <para>Python is distributed under Python Software Foundation license (GPL compatible).
+    See the <ulink url="http://www.python.org/">official website</ulink> for more information.
+  </para>
+  <note>
+    <para>
+      This backend adds an additional item to the &cantor;'s main menu, <guimenu>Package</guimenu>. The only item of this menu is <menuchoice><guimenu>Package</guimenu><guimenuitem>Import Package</guimenuitem></menuchoice>. This item can be used to import Python packages to the worksheet.
+    </para>
+  </note>
+  <warning>
+    <para>
+      This backend supports Python 2 only.
+    </para>
+  </warning>
+  </listitem>
+    </varlistentry>
+    <varlistentry>
       <term>Scilab:</term>
       <listitem>
   <para>
@@ -183,7 +208,7 @@ Screenshot:
   </para>
   <warning>
     <para>
-      You need Scilab version 5.4 or higher to be installed in your system to make this backend usable.
+      You need Scilab version 5.5 or higher to be installed in your system to make this backend usable.
     </para>
   </warning>
   </listitem>
@@ -192,7 +217,7 @@ Screenshot:
       <term>Octave:</term>
       <listitem>
   <para>
-    GNU Octave is a high-level language, primarily intended for numerical
+    &GNU; Octave is a high-level language, primarily intended for numerical
     computations. It provides a convenient command line interface for
     solving linear and nonlinear problems numerically, and for performing other
     numerical experiments using a language that is mostly compatible with <ulink url="http://www.mathworks.com/products/matlab/">MATLAB</ulink>.
@@ -224,7 +249,7 @@ Screenshot:
   <orderedlist>
     <listitem><para>The tab bar, where you can switch through the open worksheets.</para></listitem>
     <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command".</para></listitem>
-    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), KAlgebra, Octave, and Qualculate backends only.</para></listitem>
+    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), &kalgebra;, Octave, Python2, Qualculate, and Scilab backends only.</para></listitem>
     <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
 </para>
@@ -588,7 +613,7 @@ All interface definitions are in the <filename role="directory">lib</filename> d
 </qandaentry>
 <qandaentry>
   <question><para>What a peculiar name - what does it have to do with mathematics?</para></question>
-  <answer><para>Cantor is named after the German mathematician <ulink url="http://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</ulink>, the creator of set theory.</para></answer>
+  <answer><para>&cantor; is named after the German mathematician <ulink url="http://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</ulink>, the creator of set theory.</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>
