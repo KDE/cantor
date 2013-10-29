@@ -419,7 +419,7 @@
          <item>
           <widget class="QLabel" name="label_18">
            <property name="text">
-            <string>Sampling rate</string>
+            <string>Sampling rate:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
