@@ -38,7 +38,7 @@
       <string>Let Cantor follow the creation/destruction of variables</string>
      </property>
      <property name="text">
-      <string> Enable Variable Management</string>
+      <string>Enable Variable Management</string>
      </property>
     </widget>
    </item>
