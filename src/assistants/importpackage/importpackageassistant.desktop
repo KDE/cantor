@@ -1,6 +1,7 @@
 [Desktop Entry]
 Type=Service
 Name=Import Package
+Name[cs]=Importovat balíček
 Name[de]=Paket importieren
 Name[es]=Importar paquete
 Name[fi]=Tuo paketti
