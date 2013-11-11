@@ -90,6 +90,8 @@ class CANTOR_EXPORT ScriptExtension : public Extension
     virtual QString scriptFileFilter() = 0;
     /**
      * return the language to set syntax highlighting (e.g. python)
+     * the value returned must be as written in name attribute from
+     * xml language description in KTextEditor
      * @return language to set syntax highlighting (e.g. python)
      */
     virtual QString languageHighlighting() = 0;
