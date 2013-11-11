@@ -37,6 +37,7 @@ class OctaveScriptExtension : public Cantor::ScriptExtension
     public:
         OCTAVE_EXT_CDTOR_DECL(Script)
     virtual QString scriptFileFilter();
+    virtual QString languageHighlighting();
     virtual QString runExternalScript(const QString& path);
     virtual QString commandSeparator();
 };

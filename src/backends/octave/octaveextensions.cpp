@@ -47,6 +47,11 @@ QString OctaveScriptExtension::scriptFileFilter()
     return i18n("*.m|Octave script file");
 }
 
+QString OctaveScriptExtension::languageHighlighting()
+{
+    return QString("octave");
+}
+
 QString OctaveScriptExtension::commandSeparator()
 {
     return QString(';');
