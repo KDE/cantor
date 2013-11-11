@@ -42,6 +42,11 @@ QString RScriptExtension::scriptFileFilter()
     return i18n("*.R|R script file");
 }
 
+QString RScriptExtension::languageHighlighting()
+{
+    return QString("r");
+}
+
 RPlotExtension::RPlotExtension(QObject* parent) : Cantor::AdvancedPlotExtension(parent)
 {
 }
