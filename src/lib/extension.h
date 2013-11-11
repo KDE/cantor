@@ -88,7 +88,11 @@ class CANTOR_EXPORT ScriptExtension : public Extension
      * @return file filter used for Script Files (e.g. *.py)
      */
     virtual QString scriptFileFilter() = 0;
-
+    /**
+     * return the language to set syntax highlighting (e.g. python)
+     * @return language to set syntax highlighting (e.g. python)
+     */
+    virtual QString languageHighlighting() = 0;
     /**
      * returns a string used to separate commands (usually ;)
      * @return a string used to separate commands (usually ;)

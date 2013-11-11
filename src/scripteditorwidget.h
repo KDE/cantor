@@ -36,7 +36,7 @@ class ScriptEditorWidget : public KXmlGuiWindow
 {
   Q_OBJECT
   public:
-    explicit ScriptEditorWidget( const QString& filter, QWidget* parent = 0 );
+    explicit ScriptEditorWidget( const QString& filter, const QString& languageHighlighting, QWidget* parent = 0 );
     ~ScriptEditorWidget();
 
   signals:
