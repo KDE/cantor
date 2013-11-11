@@ -47,7 +47,7 @@ class SageCASExtension : public Cantor::CASExtension
   public:
     SageCASExtension( QObject* parent);
     ~SageCASExtension();
-    
+
   public slots:
     virtual QString solve(const QStringList& equations, const QStringList& variables);
     virtual QString simplify(const QString& expression);
@@ -65,7 +65,7 @@ class SageCalculusExtension : public Cantor::CalculusExtension
     QString limit(const QString& expression, const QString& variable, const QString& limit);
     QString differentiate(const QString& function,const QString& variable, int times);
     QString integrate(const QString& function, const QString& variable);
-    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right); 
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right);
 };
 
 class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
