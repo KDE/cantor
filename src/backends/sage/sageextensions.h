@@ -40,6 +40,7 @@ class SageScriptExtension : public Cantor::ScriptExtension
   public slots:
     virtual QString runExternalScript(const QString& path);
     virtual QString scriptFileFilter();
+    virtual QString languageHighlighting();
 };
 
 class SageCASExtension : public Cantor::CASExtension

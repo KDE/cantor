@@ -48,6 +48,11 @@ QString SageScriptExtension::scriptFileFilter()
                 "*.sage|Sage script file");
 }
 
+QString SageScriptExtension::languageHighlighting()
+{
+    return QString("python");
+}
+
 //CAS extension
 SAGE_EXTENSION_CONSTRUCTORS(CAS)
 
