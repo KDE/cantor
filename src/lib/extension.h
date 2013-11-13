@@ -89,12 +89,12 @@ class CANTOR_EXPORT ScriptExtension : public Extension
      */
     virtual QString scriptFileFilter() = 0;
     /**
-     * return the language to set syntax highlighting (e.g. python)
-     * the value returned must be as written in name attribute from
-     * xml language description in KTextEditor
-     * @return language to set syntax highlighting (e.g. python)
+     * returns the name of the language to use for syntax highlighting
+     * in the script editor (e.g. python). The value returned must match
+     * the name attribute from the xml language description in KTexteditor.
+     * @return name of the language to use for syntax highlighting (e.g. python)
      */
-    virtual QString languageHighlighting() = 0;
+    virtual QString highlightingMode() = 0;
     /**
      * returns a string used to separate commands (usually ;)
      * @return a string used to separate commands (usually ;)

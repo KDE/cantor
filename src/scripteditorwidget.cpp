@@ -35,7 +35,7 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/EditorChooser>
 
-ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& languageHighlighting, QWidget* parent) : KXmlGuiWindow(parent)
+ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent)
 {
     setObjectName("ScriptEditor");
 
@@ -61,7 +61,7 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& lan
         m_script=editor->createDocument(0);
         m_editor=qobject_cast<KTextEditor::View*>(m_script->createView(this));
 
-        m_script->setHighlightingMode(languageHighlighting);
+        m_script->setHighlightingMode(highlightingMode);
 
         KConfigGroup cg(KGlobal::config(), "ScriptEditor");
         setAutoSaveSettings(cg, true);

@@ -48,7 +48,7 @@ QString SageScriptExtension::scriptFileFilter()
                 "*.sage|Sage script file");
 }
 
-QString SageScriptExtension::languageHighlighting()
+QString SageScriptExtension::highlightingMode()
 {
     return QString("python");
 }

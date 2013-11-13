@@ -730,7 +730,7 @@ void CantorPart::showScriptEditor(bool show)
         {
             return;
         }
-        m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter(), scriptE->languageHighlighting(), widget()->window());
+        m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter(), scriptE->highlightingMode(), widget()->window());
         connect(m_scriptEditor, SIGNAL(runScript(const QString&)), this, SLOT(runScript(const QString&)));
         connect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
         m_scriptEditor->show();

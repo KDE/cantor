@@ -42,7 +42,7 @@ QString RScriptExtension::scriptFileFilter()
     return i18n("*.R|R script file");
 }
 
-QString RScriptExtension::languageHighlighting()
+QString RScriptExtension::highlightingMode()
 {
     return QString("r script");
 }

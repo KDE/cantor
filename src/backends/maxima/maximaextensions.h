@@ -40,7 +40,7 @@ class MaximaScriptExtension : public Cantor::ScriptExtension
   public slots:
     virtual QString runExternalScript(const QString& file);
     virtual QString scriptFileFilter();
-    virtual QString languageHighlighting();
+    virtual QString highlightingMode();
     QString commentStartingSequence();
     QString commentEndingSequence();
 };

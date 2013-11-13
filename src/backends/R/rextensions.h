@@ -32,7 +32,7 @@ class RScriptExtension : public Cantor::ScriptExtension
   public slots:
     virtual QString runExternalScript(const QString& path);
     virtual QString scriptFileFilter();
-    virtual QString languageHighlighting();
+    virtual QString highlightingMode();
 };
 
 class RPlotExtension :  public Cantor::AdvancedPlotExtension,

@@ -46,7 +46,7 @@ QString MaximaScriptExtension::scriptFileFilter()
     return i18n("*.mac|Maxima batch File");
 }
 
-QString MaximaScriptExtension::languageHighlighting()
+QString MaximaScriptExtension::highlightingMode()
 {
     return QString("maxima");
 }
