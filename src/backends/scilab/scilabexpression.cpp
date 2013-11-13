@@ -93,17 +93,25 @@ void ScilabExpression::evaluate()
 void ScilabExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
+
+    if(output.trimmed().isEmpty()){
+        return;
+    }
+
     m_output = output;
     setResult(new Cantor::TextResult(output));
 
     evalFinished();
+    setStatus(Cantor::Expression::Done);
 }
 
 void ScilabExpression::parseError(QString error)
 {
     kDebug() << "error" << error;
+
     setErrorMessage(error.replace("\n", "<br>").remove(0, 2).replace(" ", "&nbsp;"));
 
+    evalFinished();
     setStatus(Cantor::Expression::Error);
 }
 
@@ -150,8 +158,6 @@ void ScilabExpression::evalFinished()
             }
         }
     }
-
-    setStatus(Cantor::Expression::Done);
 }
 
 void ScilabExpression::setPlotPending(bool plot)

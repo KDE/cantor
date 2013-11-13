@@ -211,6 +211,7 @@ void ScilabSession::readOutput()
         m_currentExpression->parseOutput(m_output);
 
         m_output.clear();
+
     }
 }
 
