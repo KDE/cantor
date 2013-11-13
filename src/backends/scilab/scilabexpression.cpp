@@ -94,10 +94,6 @@ void ScilabExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
 
-    if(output.trimmed().isEmpty()){
-        return;
-    }
-
     m_output = output;
     setResult(new Cantor::TextResult(output));
 
