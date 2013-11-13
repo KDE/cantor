@@ -93,20 +93,22 @@ void ScilabExpression::evaluate()
 void ScilabExpression::parseOutput(QString output)
 {
     kDebug() << "output: " << output;
+
     m_output = output;
     setResult(new Cantor::TextResult(output));
 
     evalFinished();
+    setStatus(Cantor::Expression::Done);
 }
 
 void ScilabExpression::parseError(QString error)
 {
     kDebug() << "error" << error;
-    setResult(new Cantor::TextResult(error));
-    setErrorMessage(error);
-    setStatus(Cantor::Expression::Error);
+
+    setErrorMessage(error.replace("\n", "<br>").remove(0, 2).replace(" ", "&nbsp;"));
 
     evalFinished();
+    setStatus(Cantor::Expression::Error);
 }
 
 void ScilabExpression::parsePlotFile(QString filename)
@@ -152,8 +154,6 @@ void ScilabExpression::evalFinished()
             }
         }
     }
-
-    setStatus(Cantor::Expression::Done);
 }
 
 void ScilabExpression::setPlotPending(bool plot)

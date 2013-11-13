@@ -49,10 +49,10 @@ QString ScilabVariableManagementExtension::clearVariables()
 
 QString ScilabVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return QString("save %1;").arg(fileName);
+    return QString("save('%1');").arg(fileName);
 }
 
 QString ScilabVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return QString("load %1;").arg(fileName);
+    return QString("load('%1');").arg(fileName);
 }
