@@ -102,11 +102,9 @@ void ScilabExpression::parseOutput(QString output)
 void ScilabExpression::parseError(QString error)
 {
     kDebug() << "error" << error;
-    setResult(new Cantor::TextResult(error));
-    setErrorMessage(error);
-    setStatus(Cantor::Expression::Error);
+    setErrorMessage(error.replace("\n", "<br>").remove(0, 2).replace(" ", "&nbsp;"));
 
-    evalFinished();
+    setStatus(Cantor::Expression::Error);
 }
 
 void ScilabExpression::parsePlotFile(QString filename)
