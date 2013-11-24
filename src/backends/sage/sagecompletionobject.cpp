@@ -53,7 +53,7 @@ void SageCompletionObject::fetchCompletions()
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
     m_expression=session()->evaluateExpression("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\""+command()+"\");_=__hist_tmp__");
-    connect(m_expression, SIGNAL(gotResult()), this, 
+    connect(m_expression, SIGNAL(gotResult()), this,
 	    SLOT(extractCompletions()));
 
     if(t)
@@ -63,7 +63,7 @@ void SageCompletionObject::fetchCompletions()
 void SageCompletionObject::extractCompletions()
 {
   SageSession* s=qobject_cast<SageSession*>(session());
-  if(s&&s->inLegacyMode())
+  if(s&&s->sageVersion()>SageSession::VersionInfo(5, 7))
     extractCompletionsLegacy();
   else
     extractCompletionsNew();
@@ -80,7 +80,7 @@ void SageCompletionObject::extractCompletionsNew()
         kDebug()<<"something went wrong fetching tab completion";
         return;
     }
-    
+
     //the result looks like "['comp1', 'comp2']" parse it
 
     //for sage version 5.7 this looks like

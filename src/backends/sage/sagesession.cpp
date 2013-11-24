@@ -47,20 +47,62 @@ static QByteArray initCmd="os.environ['PAGER'] = 'cat'                     \n "\
 
 static QByteArray newInitCmd=
     "__CANTOR_IPYTHON_SHELL__=get_ipython()   \n "\
-    "__CANTOR_IPYTHON_SHELL__.autoindent=False\n "\
-    "print '____END_OF_INIT____'              \n ";
+    "__CANTOR_IPYTHON_SHELL__.autoindent=False\n ";
 
 static QByteArray legacyInitCmd=
     "__CANTOR_IPYTHON_SHELL__=__IPYTHON__   \n "  \
-    "__CANTOR_IPYTHON_SHELL__.autoindent=False\n "\
-    "print '____END_OF_INIT____'              \n ";
+    "__CANTOR_IPYTHON_SHELL__.autoindent=False\n ";
 
+static QByteArray endOfInitMarker="print '____END_OF_INIT____'\n ";
+
+
+
+SageSession::VersionInfo::VersionInfo(int major, int minor)
+{
+    m_major=major;
+    m_minor=minor;
+}
+
+int SageSession::VersionInfo::major() const
+{
+    return m_major;
+}
+
+int SageSession::VersionInfo::minor() const
+{
+    return m_minor;
+}
+
+bool SageSession::VersionInfo::operator==(const SageSession::VersionInfo &other) const
+{
+    return m_major==other.m_major&&m_minor==other.m_minor;
+}
+
+bool SageSession::VersionInfo::operator<(const SageSession::VersionInfo &other) const
+{
+    return (m_major!= -1 && other.m_major==-1) ||
+        ( ((m_major!=-1 && other.m_major!=-1) || (m_major==other.m_major && m_major==-1) ) && ( m_major<other.m_major||(m_major==other.m_major&&m_minor<other.m_minor) ) );
+}
+
+bool SageSession::VersionInfo::operator<=(const SageSession::VersionInfo &other) const
+{
+    return (*this < other)||(*this == other);
+}
+
+bool SageSession::VersionInfo::operator>(const SageSession::VersionInfo& other) const
+{
+    return !( (*this <= other ));
+}
+
+bool SageSession::VersionInfo::operator>=(const SageSession::VersionInfo& other) const
+{
+    return !( *this < other);
+}
 
 SageSession::SageSession( Cantor::Backend* backend) : Session(backend)
 {
     kDebug();
     m_isInitialized=false;
-    m_inLegacyMode=false;
     m_haveSentInitCmd=false;
     connect( &m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( fileCreated( const QString& ) ) );
 }
@@ -141,7 +183,7 @@ void SageSession::readStdOut()
 
         kDebug()<<"tmp path: "<<m_tmpPath;
 
-        m_dirWatch.addDir( m_tmpPath, KDirWatch::WatchFiles );     
+        m_dirWatch.addDir( m_tmpPath, KDirWatch::WatchFiles );
     }
 
     if(!m_isInitialized)
@@ -158,30 +200,38 @@ void SageSession::readStdOut()
             {
                 int major=version[1].toInt();
                 int minor=version[2].toInt();
-            
-                if(major<=5&&minor<=7)
+
+
+                m_sageVersion=SageSession::VersionInfo(major, minor);
+
+                if(m_sageVersion<=SageSession::VersionInfo(5, 7))
                 {
-                    m_inLegacyMode=true;
-                    kDebug()<<"using an old version of sage: "<<major<<"."<<minor<<". switching to legacy mode";
+                    kDebug()<<"using an old version of sage: "<<major<<"."<<minor<<". Using the old init command";
                     if(!m_haveSentInitCmd)
                     {
                         m_process->pty()->write(legacyInitCmd);
+                        defineCustomFunctions();
+                        m_process->pty()->write(endOfInitMarker);
                         m_haveSentInitCmd=true;
                     }
 
                 }else
                 {
                     kDebug()<<"using the current set of commands";
+
                     if(!m_haveSentInitCmd)
                     {
                         m_process->pty()->write(newInitCmd);
+                        defineCustomFunctions();
+                        m_process->pty()->write(endOfInitMarker);
                         m_haveSentInitCmd=true;
                     }
                 }
+
             }
         }
     }
-    
+
 
     int indexOfEOI=m_outputCache.indexOf("____END_OF_INIT____");
     if(indexOfEOI!=-1&&m_outputCache.indexOf(SagePrompt, indexOfEOI)!=-1)
@@ -337,23 +387,10 @@ void SageSession::fileCreated( const QString& path )
 void SageSession::setTypesettingEnabled(bool enable)
 {
     Cantor::Session::setTypesettingEnabled(enable);
+
     //tell the sage server to enable/disable pretty_print
-    if(inLegacyMode())
-    {
-        //the _ and __IP.outputcache() are needed to keep the
-        // _ operator working. in modern versions of sage the __IP variable
-        //has been removed
-        if (enable)
-            evaluateExpression("sage.misc.latex.pretty_print_default(true);_;__IP.outputcache()", Cantor::Expression::DeleteOnFinish);
-        else
-            evaluateExpression("sage.misc.latex.pretty_print_default(false);_;__IP.outputcache()", Cantor::Expression::DeleteOnFinish);
-    }else
-    {
-        if (enable)
-            evaluateExpression("sage.misc.latex.pretty_print_default(true)", Cantor::Expression::DeleteOnFinish);
-        else
-            evaluateExpression("sage.misc.latex.pretty_print_default(false)", Cantor::Expression::DeleteOnFinish);
-    }
+    const QString cmd="__cantor_enable_typesetting(%1)";
+    evaluateExpression(cmd.arg(enable ? "true":"false"), Cantor::Expression::DeleteOnFinish);
 }
 
 Cantor::CompletionObject* SageSession::completionFor(const QString& command, int index)
@@ -366,9 +403,33 @@ QSyntaxHighlighter* SageSession::syntaxHighlighter(QObject* parent)
     return new SageHighlighter(parent);
 }
 
-bool SageSession::inLegacyMode()
+SageSession::VersionInfo SageSession::sageVersion()
 {
-  return m_inLegacyMode;
+    return m_sageVersion;
+}
+
+void SageSession::defineCustomFunctions()
+{
+    //typesetting
+    QString cmd="def __cantor_enable_typesetting(enable):\n";
+    if(m_sageVersion<VersionInfo(5, 7))
+    {
+        //the _ and __IP.outputcache() are needed to keep the
+        // _ operator working. in modern versions of sage the __IP variable
+        //has been removed
+        cmd+="\t sage.misc.latex.pretty_print_default(enable);_;__IP.outputcache() \n\n";
+    }else if (m_sageVersion > VersionInfo(5, 7) && m_sageVersion< VersionInfo(5, 12))
+    {
+        cmd+="\t sage.misc.latex.pretty_print_default(enable)\n\n";
+    }else
+    {
+        cmd+="\t if(enable==true):\n "\
+             "\t \t %display typeset \n"\
+             "\t else: \n" \
+             "\t \t %display simple \n\n";
+    }
+
+    sendInputToProcess(cmd);
 }
 
 #include "sagesession.moc"
