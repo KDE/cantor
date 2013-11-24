@@ -38,6 +38,27 @@ class SageSession : public Cantor::Session
     static const QByteArray SagePrompt;
     static const QByteArray SageAlternativePrompt;
 
+    //small helper class to deal with sage versions
+    //Note: major version -1 is treated as most current
+    class VersionInfo{
+      public:
+        VersionInfo(int major = -1, int minor = -1);
+
+        //bool operator <=(const VersionInfo& v2);
+        bool operator <(const VersionInfo& other) const;
+        bool operator <=(const VersionInfo& other) const;
+        bool operator >(const VersionInfo& other) const;
+        bool operator >=(const VersionInfo& other) const;
+        bool operator ==( const VersionInfo& other) const;
+
+        int major() const;
+        int minor() const;
+      private:
+        int m_major;
+        int m_minor;
+    };
+
+
     SageSession( Cantor::Backend* backend);
     ~SageSession();
 
@@ -59,7 +80,7 @@ class SageSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
-    bool inLegacyMode();
+    VersionInfo sageVersion();
   public slots:
     void readStdOut();
     void readStdErr();
@@ -72,6 +93,7 @@ class SageSession : public Cantor::Session
 
   private:
     void runFirstExpression();
+    void defineCustomFunctions();
   private:
     KPtyProcess* m_process;
     QList<SageExpression*> m_expressionQueue;
@@ -80,7 +102,7 @@ class SageSession : public Cantor::Session
     KDirWatch m_dirWatch;
     bool m_waitingForPrompt;
     QString m_outputCache;
-    bool m_inLegacyMode;
+    VersionInfo m_sageVersion;
     bool m_haveSentInitCmd;
 };
 
