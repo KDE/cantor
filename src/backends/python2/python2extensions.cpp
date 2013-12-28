@@ -32,6 +32,23 @@ QString Python2PackagingExtension::importPackage(const QString& package)
     return QString("import %1").arg(package);
 }
 
+PYTHON2_EXT_CDTOR(Script)
+
+QString Python2ScriptExtension::runExternalScript(const QString& path)
+{
+    return QString("execfile(\"%1\")").arg(path);
+}
+
+QString Python2ScriptExtension::scriptFileFilter()
+{
+    return i18n("*.py|Python script file");
+}
+
+QString Python2ScriptExtension::highlightingMode()
+{
+    return QString("python");
+}
+
 PYTHON2_EXT_CDTOR(VariableManagement)
 
 QString Python2VariableManagementExtension::addVariable(const QString& name, const QString& value)

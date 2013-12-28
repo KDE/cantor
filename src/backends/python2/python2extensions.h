@@ -33,6 +33,15 @@ class Python2PackagingExtension : public Cantor::PackagingExtension
     virtual QString importPackage(const QString& module);
 };
 
+class Python2ScriptExtension : public Cantor::ScriptExtension
+{
+    public:
+        PYTHON2_EXT_CDTOR_DECL(Script)
+        virtual QString scriptFileFilter();
+        virtual QString highlightingMode();
+        virtual QString runExternalScript(const QString& path);
+};
+
 class Python2VariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
