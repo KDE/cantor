@@ -35,6 +35,7 @@ ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Canto
     kDebug()<<"Creating ScilabBackend";
 
     new ScilabVariableManagementExtension(this);
+    new ScilabScriptExtension(this);
 
     setObjectName("scilabbackend");
 }

@@ -26,6 +26,16 @@
 #define SCILAB_EXT_CDTOR_DECL(name) Scilab##name##Extension(QObject* parent); \
                                      ~Scilab##name##Extension();
 
+class ScilabScriptExtension : public Cantor::ScriptExtension
+{
+    public:
+        SCILAB_EXT_CDTOR_DECL(Script)
+        virtual QString scriptFileFilter();
+        virtual QString highlightingMode();
+        virtual QString runExternalScript(const QString& path);
+        virtual QString commandSeparator();
+};
+
 class ScilabVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:

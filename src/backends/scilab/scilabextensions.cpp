@@ -25,6 +25,29 @@
 #define SCILAB_EXT_CDTOR(name) Scilab##name##Extension::Scilab##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Scilab##name##Extension::~Scilab##name##Extension() {}
 
+SCILAB_EXT_CDTOR(Script)
+
+QString ScilabScriptExtension::runExternalScript(const QString& path)
+{
+    return QString("exec(\"%1\", -1)").arg(path);
+}
+
+QString ScilabScriptExtension::scriptFileFilter()
+{
+    return i18n("*.sce|Scilab script file\n"\
+                "*.sci|Scilab function file");
+}
+
+QString ScilabScriptExtension::highlightingMode()
+{
+    return QString("scilab");
+}
+
+QString ScilabScriptExtension::commandSeparator()
+{
+    return QString(';');
+}
+
 SCILAB_EXT_CDTOR(VariableManagement)
 
 QString ScilabVariableManagementExtension::addVariable(const QString& name, const QString& value)
