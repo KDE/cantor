@@ -249,7 +249,7 @@ to scientific programming.
   <orderedlist>
     <listitem><para>The tab bar, where you can switch through the open worksheets.</para></listitem>
     <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command".</para></listitem>
-    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), &kalgebra;, Octave, Python2, Qualculate, and Scilab backends only.</para></listitem>
+    <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), &kalgebra;, Octave, Python2, Qalculate, and Scilab backends only.</para></listitem>
     <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
 </para>
@@ -600,7 +600,7 @@ All interface definitions are in the <filename role="directory">lib</filename> d
 <qandaset id="faqlist">
 <qandaentry>
   <question><para>The Menu Item <guimenuitem>Typeset using LaTeX</guimenuitem> is not available</para></question>
-  <answer><para>Not every backend supports every option. Current version supports &latex; output for Maxima, Qualculate! and Sage backends.</para></answer>
+  <answer><para>Not every backend supports every option. Current version supports &latex; output for Maxima, Qalculate! and Sage backends.</para></answer>
 </qandaentry>
 <qandaentry>
   <question><para>I have installed Sage/Maxima, but the appropriate backend does not appear.</para></question>
