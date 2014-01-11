@@ -10,6 +10,11 @@ set( Python2Backend_SRCS
      python2extensions.cpp
 )
 
+if(MSVC)
+    # ssize_t is typedef'd in both kdewin and python headers, this prevents using the kdewin one
+    add_definitions(-D_SSIZE_T_DEFINED)
+endif(MSVC)
+
 include_directories(${PYTHON_LIBRARIES_DIR})
 include_directories(${PYTHON_INCLUDE_DIR})
 
