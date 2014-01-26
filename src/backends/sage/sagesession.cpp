@@ -63,12 +63,12 @@ SageSession::VersionInfo::VersionInfo(int major, int minor)
     m_minor=minor;
 }
 
-int SageSession::VersionInfo::major() const
+int SageSession::VersionInfo::majorVersion() const
 {
     return m_major;
 }
 
-int SageSession::VersionInfo::minor() const
+int SageSession::VersionInfo::minorVersion() const
 {
     return m_minor;
 }

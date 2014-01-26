@@ -51,8 +51,10 @@ class SageSession : public Cantor::Session
         bool operator >=(const VersionInfo& other) const;
         bool operator ==( const VersionInfo& other) const;
 
-        int major() const;
-        int minor() const;
+        // These are not called major() and minor() because some libc's have
+        // macros with those names.
+        int majorVersion() const;
+        int minorVersion() const;
       private:
         int m_major;
         int m_minor;
