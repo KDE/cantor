@@ -63,7 +63,7 @@ void SageCompletionObject::fetchCompletions()
 void SageCompletionObject::extractCompletions()
 {
   SageSession* s=qobject_cast<SageSession*>(session());
-  if(s&&s->sageVersion()>SageSession::VersionInfo(5, 7))
+  if(s&&s->sageVersion()<SageSession::VersionInfo(5, 7))
     extractCompletionsLegacy();
   else
     extractCompletionsNew();
