@@ -39,14 +39,25 @@ QWidget* HelpPanelPlugin::widget()
     if(m_edit==0)
     {
         m_edit=new KTextEdit(parentWidget());
-        m_edit->setText(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
+        setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
         m_edit->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
-        connect(parent()->parent(), SIGNAL(showHelp(QString)), m_edit, SLOT(setHtml(QString)));
+        connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SLOT(setHelpHtml(QString)));
         connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SIGNAL(visibilityRequested()));
     }
 
     return m_edit;
+}
+
+void HelpPanelPlugin::setHelpHtml(const QString& help)
+{
+    if(!m_edit)
+        return;
+
+    m_edit->setHtml(help);
+    m_edit->selectAll();
+    m_edit->setFontFamily("Monospace");
+    m_edit->moveCursor(QTextCursor::Start);
 }
 
 void HelpPanelPlugin::showHelp(const QString& help)

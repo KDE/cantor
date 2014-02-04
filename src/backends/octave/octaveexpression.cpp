@@ -109,6 +109,9 @@ void OctaveExpression::parseOutput ( QString output )
     {
         if (command().contains("help"))
         {
+            //Escape whitespace
+            m_resultString.replace( ' ', "&nbsp;");
+
             setResult(new Cantor::HelpResult(m_resultString));
         }
         else

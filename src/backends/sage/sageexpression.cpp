@@ -203,6 +203,9 @@ void SageExpression::evalFinished()
 
         if (m_isHelpRequest)
         {
+            //Escape whitespace
+            stripped.replace( ' ', "&nbsp;");
+
             //make things quoted in `` `` bold
             stripped.replace(QRegExp("``([^`]*)``"), "<b>\\1</b>");
 

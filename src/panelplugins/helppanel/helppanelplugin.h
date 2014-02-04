@@ -36,6 +36,7 @@ class HelpPanelPlugin : public Cantor::PanelPlugin
     QWidget* widget();
 
   public slots:
+    void setHelpHtml(const QString& help);
     void showHelp(const QString& help);
 
   private:

@@ -119,6 +119,8 @@ void RExpression::showFilesAsResult(const QStringList& files)
             QString content=QTextStream(&f).readAll();
             if (!type->is("text/html"))
             {
+                //Escape whitespace
+                content.replace( ' ', "&nbsp;");
                 //replace appearing backspaces, as they mess the whole output up
                 content.remove(QRegExp(".\b"));
                 //Replace < and > with their html code, so they won't be confused as html tags
