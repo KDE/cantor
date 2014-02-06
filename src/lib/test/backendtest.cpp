@@ -23,6 +23,8 @@
 #include "backend.h"
 #include "session.h"
 
+#include <QSignalSpy>
+
 void BackendTest::createSession()
 {
     Cantor::Backend* b=Cantor::Backend::createBackend( backendName() );
@@ -33,11 +35,13 @@ void BackendTest::createSession()
     }
 
     m_session=b->createSession();
-    m_session->login();
 
-    QEventLoop loop;
-    connect( m_session, SIGNAL( ready() ), &loop, SLOT( quit() ) );
-    loop.exec();
+    QSignalSpy spy(m_session, SIGNAL( ready() ) );
+    m_session->login();
+    if(spy.isEmpty())
+        waitForSignal(m_session, SIGNAL( ready() ) );
+
+    QVERIFY(!spy.isEmpty());
 }
 
 Cantor::Expression* BackendTest::evalExp(const QString& exp )
@@ -46,15 +50,7 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
 
    if(e->status()==Cantor::Expression::Computing)
    {
-       //Create a timeout, that kills the eventloop, if the expression doesn't finish
-       QTimer timeout( this );
-       timeout.setSingleShot( true );
-       timeout.start( 5000 );
-       QEventLoop loop;
-       connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
-       connect( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ), &loop, SLOT( quit() ) );
-
-       loop.exec();
+       waitForSignal( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ) );
    }
    return e;
 }
