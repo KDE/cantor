@@ -83,7 +83,9 @@ ScriptEditorWidget::~ScriptEditorWidget()
 
 void ScriptEditorWidget::newScript()
 {
+    QString highlightingMode = m_script->highlightingMode();
     m_script->closeUrl();
+    m_script->setHighlightingMode(highlightingMode);
 }
 
 void ScriptEditorWidget::open()
