@@ -157,6 +157,12 @@ void Python2Session::runExpression(Python2Expression* expr)
             }
         }
 
+        if(firstLineWord.contains("execfile")){
+
+            commandProcessing += commandLine.at(contLine);
+            continue;
+        }
+
         if((!Python2Keywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains("=")) &&
            (!commandLine.at(contLine).endsWith(":")) && (!commandLine.at(contLine).startsWith(" "))){
 
