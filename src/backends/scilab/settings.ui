@@ -33,6 +33,13 @@
     </widget>
    </item>
    <item>
+    <widget class="KEditListBox" name="kcfg_autorunScripts">
+     <property name="title">
+      <string>Scripts to autorun</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

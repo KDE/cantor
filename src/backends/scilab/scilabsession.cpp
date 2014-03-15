@@ -93,6 +93,11 @@ void ScilabSession::login()
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
+    if(!ScilabSettings::self()->autorunScripts().isEmpty()){
+        QString autorunScripts = ScilabSettings::self()->autorunScripts().join("\n");
+        m_process->write(autorunScripts.toLocal8Bit());
+    }
+
     QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (listKeywords()));
     QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
 
