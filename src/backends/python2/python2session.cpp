@@ -85,6 +85,11 @@ void Python2Session::login()
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
+    if(!Python2Settings::self()->autorunScripts().isEmpty()){
+        QString autorunScripts = Python2Settings::self()->autorunScripts().join("\n");
+        getPythonCommandOutput(autorunScripts);
+    }
+
     listVariables();
 
     emit ready();
