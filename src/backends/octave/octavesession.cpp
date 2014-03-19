@@ -70,6 +70,8 @@ void OctaveSession::login()
     {
         // Do not show the popup when plotting, rather only print to a file
         args << "--eval";
+        args << "graphics_toolkit gnuplot;";
+        args << "--eval";
         args << "set (0, \"defaultfigurevisible\",\"off\");";
     }
     else
