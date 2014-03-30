@@ -100,6 +100,12 @@ void OctaveSession::login()
         m_watch->setObjectName("OctaveDirWatch");
         connect (m_watch, SIGNAL(dirty(QString)), SLOT(plotFileChanged(QString)) );
     }
+
+    if(!OctaveSettings::self()->autorunScripts().isEmpty()){
+        QString autorunScripts = OctaveSettings::self()->autorunScripts().join("\n");
+
+        evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish);
+    }
 }
 
 void OctaveSession::logout()
