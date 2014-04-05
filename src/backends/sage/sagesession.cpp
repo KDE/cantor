@@ -128,6 +128,11 @@ void SageSession::login()
     m_process->start();
 
     m_process->pty()->write(initCmd);
+
+    if(!SageSettings::self()->autorunScripts().isEmpty()){
+        QString autorunScripts = SageSettings::self()->autorunScripts().join("\n");
+        evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish);
+    }
 }
 
 void SageSession::logout()

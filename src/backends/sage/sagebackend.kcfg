@@ -10,5 +10,8 @@
       <label>Path to the Sage executable</label>
       <default code="true">KStandardDirs::findExe( "sage" )</default>
     </entry>
+    <entry name="autorunScripts" type="StringList">
+      <label>List of scripts to autorun at the beginning of session</label>
+    </entry>
   </group>
 </kcfg>
