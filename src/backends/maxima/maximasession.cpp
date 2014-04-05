@@ -123,6 +123,12 @@ void MaximaSession::login()
 
 
     m_initState=MaximaSession::Initializing;
+
+    if(!MaximaSettings::self()->autorunScripts().isEmpty()){
+        QString autorunScripts = MaximaSettings::self()->autorunScripts().join("\n");
+        evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish);
+    }
+
     runFirstExpression();
 
 }
