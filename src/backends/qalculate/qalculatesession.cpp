@@ -17,6 +17,8 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
+#include "settings.h"
+
 #include "qalculatesession.h"
 #include "qalculateexpression.h"
 #include "qalculatecompletionobject.h"
@@ -66,6 +68,12 @@ QalculateSession::~QalculateSession()
 
 void QalculateSession::login()
 {
+    if(!QalculateSettings::autorunScripts().isEmpty()){
+        QString autorunScripts = QalculateSettings::self()->autorunScripts().join("\n");
+
+        evaluateExpression(autorunScripts, QalculateExpression::DeleteOnFinish);
+    }
+
     changeStatus(Cantor::Session::Done);
     emit ready();
 }
