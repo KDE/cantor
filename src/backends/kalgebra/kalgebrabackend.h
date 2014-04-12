@@ -32,6 +32,9 @@ class KAlgebraBackend : public Cantor::Backend
         Cantor::Session *createSession();
         Cantor::Backend::Capabilities capabilities() const;
 
+        QWidget* settingsWidget(QWidget* parent) const;
+        KConfigSkeleton* config() const;
+
 	KUrl helpUrl() const;
 };
 

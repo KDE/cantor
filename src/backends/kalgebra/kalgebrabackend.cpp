@@ -19,6 +19,9 @@
 #include "kalgebrabackend.h"
 #include "kalgebrasession.h"
 
+#include "settings.h"
+#include "ui_settings.h"
+
 #include "kalgebraextensions.h"
 #include "cantor_macros.h"
 
@@ -45,6 +48,19 @@ Cantor::Session* KAlgebraBackend::createSession()
 Cantor::Backend::Capabilities KAlgebraBackend::capabilities() const
 {
     return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp | Cantor::Backend::VariableManagement;
+}
+
+QWidget* KAlgebraBackend::settingsWidget(QWidget* parent) const
+{
+    QWidget* widget=new QWidget(parent);
+    Ui::KAlgebraSettingsBase s;
+    s.setupUi(widget);
+    return widget;
+}
+
+KConfigSkeleton* KAlgebraBackend::config() const
+{
+    return KAlgebraSettings::self();
 }
 
 KUrl KAlgebraBackend::helpUrl() const
