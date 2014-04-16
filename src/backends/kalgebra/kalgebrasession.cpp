@@ -16,6 +16,8 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
+#include "settings.h"
+
 #include "kalgebrasession.h"
 #include "kalgebraexpression.h"
 #include "kalgebracompletionobject.h"
@@ -44,6 +46,12 @@ KAlgebraSession::~KAlgebraSession()
 
 void KAlgebraSession::login()
 {
+    if(!KAlgebraSettings::autorunScripts().isEmpty()){
+        QString autorunScripts = KAlgebraSettings::self()->autorunScripts().join("\n");
+
+        evaluateExpression(autorunScripts, KAlgebraExpression::DeleteOnFinish);
+    }
+
     changeStatus(Cantor::Session::Done);
     emit ready();
 }
