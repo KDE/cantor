@@ -192,3 +192,11 @@ QString SagePlotExtension::plotFunction3d(const QString& function, VariableParam
                                                            var1.first, int1.first, int1.second,
                                                            var2.first, int2.first, int2.second);
 }
+
+//Packaging
+SAGE_EXTENSION_CONSTRUCTORS(Packaging)
+
+QString SagePackagingExtension::importPackage(const QString& module)
+{
+    return QString("import %1").arg(module);
+}

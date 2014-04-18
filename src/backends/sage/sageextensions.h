@@ -101,4 +101,14 @@ class SagePlotExtension : public Cantor::PlotExtension
     QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
 };
 
+class SagePackagingExtension : public Cantor::PackagingExtension
+{
+  public:
+    SagePackagingExtension(QObject* parent);
+    ~SagePackagingExtension();
+
+  public slots:
+    virtual QString importPackage(const QString& module);
+};
+
 #endif /* _SAGEEXTENSIONS_H */

@@ -43,6 +43,7 @@ SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : Cantor:
     new SageCalculusExtension(this);
     new SageLinearAlgebraExtension(this);
     new SagePlotExtension(this);
+    new SagePackagingExtension(this);
 }
 
 SageBackend::~SageBackend()
