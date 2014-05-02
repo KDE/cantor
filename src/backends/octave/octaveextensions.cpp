@@ -206,12 +206,9 @@ QString OctaveVariableManagementExtension::loadVariables(const QString& fileName
     return QString("load %1;").arg(fileName);
 }
 
+OCTAVE_EXT_CDTOR(Packaging)
 
-
-
-
-
-
-
-
-
+QString OctavePackagingExtension::importPackage(const QString& package)
+{
+    return QString("pkg load %1").arg(package);
+}

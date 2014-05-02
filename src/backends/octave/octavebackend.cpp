@@ -37,6 +37,7 @@ OctaveBackend::OctaveBackend(QObject* parent, const QList< QVariant > args): Bac
     new OctavePlotExtension(this);
     new OctaveLinearAlgebraExtension(this);
     new OctaveVariableManagementExtension(this);
+    new OctavePackagingExtension(this);
 }
 
 

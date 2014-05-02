@@ -78,4 +78,11 @@ class OctaveVariableManagementExtension : public Cantor::VariableManagementExten
     virtual QString clearVariables();
 };
 
+class OctavePackagingExtension : public Cantor::PackagingExtension
+{
+    public:
+    OCTAVE_EXT_CDTOR_DECL(Packaging)
+    virtual QString importPackage(const QString& package);
+};
+
 #endif // OCTAVEEXTENSIONS_H
