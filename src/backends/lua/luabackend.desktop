@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Service
+Icon=luabackend
+Name=Lua
+Comment=Backend for luajit
+X-KDE-ServiceTypes=Cantor/Backend
+X-KDE-Library=cantor_luabackend
+X-KDE-PluginInfo-Name=Lua
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Website=http://luajit.org

@@ -26,3 +26,9 @@ macro_log_feature(PYTHONLIBS_FOUND "Python2" "A powerful dynamic programming lan
 if(PYTHONLIBS_FOUND)
     add_subdirectory(python2)
 endif(PYTHONLIBS_FOUND)
+
+macro_optional_find_package(LuaJIT)
+macro_log_feature(LUAJIT_FOUND "Lua" "A lightweight, extensible programming language (luajit implementation)." "http://www.lua.org/" FALSE "" "Backend to use Lua (luajit2) with Cantor")
+if(LUAJIT_FOUND)
+    add_subdirectory(lua)
+endif(LUAJIT_FOUND)
