@@ -30,8 +30,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2013-10-27</date>
-<releaseinfo>0.5 (&kde; 4.12)</releaseinfo>
+<date>2014-05-09</date>
+<releaseinfo>0.5 (&kde; 4.14)</releaseinfo>
 
 <abstract>
 <para>
@@ -48,6 +48,7 @@ nice worksheet view to other Free Software Math packages.
 <keyword>Cantor</keyword>
 <keyword>Sage</keyword>
 <keyword>Python</keyword>
+<keyword>Lua</keyword>
 <keyword>Scilab</keyword>
 <keyword>R</keyword>
 <keyword>Maxima</keyword>
@@ -223,6 +224,20 @@ to scientific programming.
     numerical experiments using a language that is mostly compatible with <ulink url="http://www.mathworks.com/products/matlab/">MATLAB</ulink>.
     See <ulink url="http://www.gnu.org/software/octave/">http://www.gnu.org/software/octave/</ulink> for more information.
     </para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Lua:</term>
+      <listitem>
+  <para>
+    Lua is a fast and lightweight scripting language, with a simple procedural syntax. There are several libraries in Lua aimed at math and science.
+  </para>
+  <para>
+    See <ulink url="http://www.lua.org/">http://www.lua.org/</ulink> for more information.
+  </para>
+  <para>
+    This backend supports <ulink url="http://luajit.org/">luajit 2</ulink>.
+  </para>
       </listitem>
     </varlistentry>
   </variablelist>

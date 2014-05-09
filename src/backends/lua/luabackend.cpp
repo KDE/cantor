@@ -70,7 +70,7 @@ KUrl LuaBackend::helpUrl() const
 
 QString LuaBackend::description() const
 {
-    return i18n("<p> Lua is a fast and lightweight scripting language, with a simple simple procedural syntax." \
+    return i18n("<p> Lua is a fast and lightweight scripting language, with a simple procedural syntax." \
                 " There are several libraries in Lua aimed at math and science.</p>"
                 "<p>This backend supports luajit 2.</p>");
 }
