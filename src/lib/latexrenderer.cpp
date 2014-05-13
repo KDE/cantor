@@ -47,6 +47,7 @@ class Cantor::LatexRendererPrivate
 static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
+                         "\\usepackage[utf8]{inputenc}                  \n "\
                          "\\setlength\\textwidth{5in}                   \n "\
                          "\\setlength{\\parindent}{0pt}                 \n "\
                          "%1                                            \n "\
