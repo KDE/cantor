@@ -68,12 +68,6 @@ Cantor::Backend::Capabilities Python2Backend::capabilities() const
            Cantor::Backend::VariableManagement;
 }
 
-bool Python2Backend::requirementsFullfilled() const
-{
-    QFileInfo info(Python2Settings::self()->path().toLocalFile());
-    return info.isExecutable();
-}
-
 QWidget* Python2Backend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);
