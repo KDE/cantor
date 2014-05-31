@@ -25,6 +25,95 @@
 #define PYTHON2_EXT_CDTOR(name) Python2##name##Extension::Python2##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Python2##name##Extension::~Python2##name##Extension() {}
 
+PYTHON2_EXT_CDTOR(LinearAlgebra)
+
+QString Python2LinearAlgebraExtension::createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type)
+{
+    QString command;
+    command += "numpy.matrix([";
+
+    foreach (const QString& entry, entries)
+    {
+        command += entry + ", ";
+    }
+
+    command.chop(2);
+    command += "])\n";
+    
+    return command;
+}
+
+QString Python2LinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix)
+{
+    QString command;
+    command += "numpy.matrix([[";
+
+    foreach (const QStringList row, matrix)
+    {
+        foreach (const QString entry, row)
+        {
+            command += entry;
+            command += ", ";
+        }
+        command.chop(2);
+        command += "], [";
+    }
+
+    command.chop(3);
+    command += "])";
+
+    return command;
+}
+
+QString Python2LinearAlgebraExtension::eigenValues(const QString& matrix)
+{
+    return QString("numpy.linalg.eigvals(%1)").arg(matrix);
+}
+
+QString Python2LinearAlgebraExtension::eigenVectors(const QString& matrix)
+{
+    return QString("numpy.linalg.eig(%1)").arg(matrix);
+}
+
+QString Python2LinearAlgebraExtension::identityMatrix(int size)
+{
+    return QString("numpy.identity(%1)").arg(size);
+}
+
+QString Python2LinearAlgebraExtension::invertMatrix(const QString& matrix)
+{
+    return QString("numpy.linalg.inv(%1)").arg(matrix);
+}
+
+QString Python2LinearAlgebraExtension::nullMatrix(int rows, int columns)
+{
+    return QString("numpy.zeros(%1, %2)").arg(rows).arg(columns);
+}
+
+QString Python2LinearAlgebraExtension::nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type)
+{
+    QString command = "numpy.zeros(%1, %2)";
+    switch (type)
+    {
+        case ColumnVector:
+            return command.arg(size).arg(1);
+        case RowVector:
+            return command.arg(1).arg(size);
+        default:
+            return Cantor::LinearAlgebraExtension::nullVector(size, type);
+    }
+}
+
+QString Python2LinearAlgebraExtension::rank(const QString& matrix)
+{
+    return QString("numpy.linalg.matrix_rank(%1)").arg(matrix);
+}
+
+QString Python2LinearAlgebraExtension::charPoly(const QString& matrix)
+{
+    return QString("numpy.poly(%1)").arg(matrix);
+}
+
 PYTHON2_EXT_CDTOR(Packaging)
 
 QString Python2PackagingExtension::importPackage(const QString& package)

@@ -26,6 +26,22 @@
 #define PYTHON2_EXT_CDTOR_DECL(name) Python2##name##Extension(QObject* parent); \
                                      ~Python2##name##Extension();
 
+class Python2LinearAlgebraExtension : public Cantor::LinearAlgebraExtension
+{
+    public:
+    PYTHON2_EXT_CDTOR_DECL(LinearAlgebra)
+    virtual QString createVector(const QStringList& entries, VectorType type);
+    virtual QString nullVector(int size, VectorType type);
+    virtual QString createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix);
+    virtual QString identityMatrix(int size);
+    virtual QString nullMatrix(int rows, int columns);
+    virtual QString rank(const QString& matrix);
+    virtual QString invertMatrix(const QString& matrix);
+    virtual QString charPoly(const QString& matrix);
+    virtual QString eigenVectors(const QString& matrix);
+    virtual QString eigenValues(const QString& matrix);
+};
+
 class Python2PackagingExtension : public Cantor::PackagingExtension
 {
     public:
