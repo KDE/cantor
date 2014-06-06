@@ -146,38 +146,12 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
     }
 }
 
-
-
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
 
-    QString image;
-
-    QString latex = latexCode();
-
-    if (isOneImageOnly())
-    {
-        QTextCursor cursor = m_textItem->textCursor();
-
-        if(cursor.charFormat().hasProperty(EpsRenderer::CantorFormula))
-            image = qVariantValue<QString>(cursor.charFormat().property(EpsRenderer::ImagePath));
-    }
-
     QDomElement el = doc.createElement("Latex");
-
-    if(!image.isNull())
-    {
-        KUrl url(image);
-        el.setAttribute("filename", url.fileName());
-        archive->addLocalFile(image, url.fileName());
-    }
-
-    kDebug() << latex;
-    QDomText text = doc.createTextNode(latex);
-
-    el.appendChild(text);
-
+    el.appendChild( doc.createTextNode( latexCode() ));
     return el;
 }
 

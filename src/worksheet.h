@@ -155,7 +155,7 @@ class Worksheet : public QGraphicsScene
 
     void save(const QString& filename);
     void savePlain(const QString& filename);
-    void saveLatex(const QString& filename, bool exportImages);
+    void saveLatex(const QString& filename);
     void load(const QString& filename);
 
     void gotResult(Cantor::Expression* expr=0);

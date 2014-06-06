@@ -417,10 +417,7 @@ void CantorPart::exportToLatex()
     QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
 
     if (file_name.isEmpty() == false)
-    {
-        int exportImages=KMessageBox::questionYesNo(widget(), i18n("Do you also want to export the images?"), i18n("Question - Cantor"));
-        m_worksheet->saveLatex( file_name , exportImages==KMessageBox::Yes);
-    }
+        m_worksheet->saveLatex(file_name);
 }
 
 void CantorPart::guiActivateEvent( KParts::GUIActivateEvent * event )
