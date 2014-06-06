@@ -175,45 +175,43 @@ void LatexEntry::interruptEvaluation()
 
 bool LatexEntry::evaluate(EvaluationOption evalOp)
 {
+    bool success = false;
+
     if (isOneImageOnly())
-        return true; // the image is rendered already
+    {
+        success = true;
+    }
+    else
+    {
+        QString latex = latexCode();
+        Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
+        renderer->setLatexCode(latex);
+        renderer->setEquationOnly(false);
+        renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
+        renderer->renderBlocking();
 
-    QString latex = latexCode();
+        QTextImageFormat formulaFormat;
+        if (renderer->renderingSuccessful())
+        {
+            EpsRenderer* epsRend = worksheet()->epsRenderer();
+            formulaFormat = epsRend->render(m_textItem->document(), renderer);
+            success = !formulaFormat.name().isEmpty();
+        }
 
-    Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
-    renderer->setLatexCode(latex);
-    renderer->setEquationOnly(false);
-    renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
-
-    renderer->renderBlocking();
-
-    bool success;
-    QTextImageFormat formulaFormat;
-    if (renderer->renderingSuccessful()) {
-        EpsRenderer* epsRend = worksheet()->epsRenderer();
-        formulaFormat = epsRend->render(m_textItem->document(), renderer);
-        success = !formulaFormat.name().isEmpty();
-    } else {
-        success = false;
+        if(success)
+        {
+            QTextCursor cursor = m_textItem->textCursor();
+            cursor.movePosition(QTextCursor::Start);
+            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+        }
+        delete renderer;
     }
 
     kDebug()<<"rendering successfull? "<<success;
 
-    if (!success) {
-        delete renderer;
-        evaluateNext(evalOp);
-        return false;
-    }
-
-    QTextCursor cursor = m_textItem->textCursor();
-    cursor.movePosition(QTextCursor::Start);
-    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-    cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
-    delete renderer;
-
     evaluateNext(evalOp);
-
-    return true;
+    return success;
 }
 
 void LatexEntry::updateEntry()
