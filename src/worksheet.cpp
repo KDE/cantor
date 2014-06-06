@@ -871,10 +871,10 @@ void Worksheet::savePlain(const QString& filename)
     file.close();
 }
 
-void Worksheet::saveLatex(const QString& filename,  bool exportImages)
+void Worksheet::saveLatex(const QString& filename)
 {
-    kDebug()<<"exporting to Latex: "<<filename;
-    kDebug()<<(exportImages ? "": "Not ")<<"exporting images";
+    kDebug()<<"exporting to Latex: " <<filename;
+
     QFile file(filename);
     if(!file.open(QIODevice::WriteOnly))
     {
@@ -882,10 +882,10 @@ void Worksheet::saveLatex(const QString& filename,  bool exportImages)
         return;
     }
 
+    QString xml = toXML().toString();
     QTextStream stream(&file);
     QXmlQuery query(QXmlQuery::XSLT20);
-    kDebug() << toXML().toString();
-    query.setFocus(toXML().toString());
+    query.setFocus(xml);
 
     QString stylesheet = KStandardDirs::locate("appdata", "xslt/latex.xsl");
     if (stylesheet.isEmpty())
