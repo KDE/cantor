@@ -36,3 +36,5 @@ if (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
    macro_display_feature_log()
 endif (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 
+install( FILES cantor.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/ )
+
