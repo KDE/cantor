@@ -36,6 +36,7 @@ Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Ca
 
     new Python2LinearAlgebraExtension(this);
     new Python2PackagingExtension(this);
+    new Python2PlotExtension(this);
     new Python2ScriptExtension(this);
     new Python2VariableManagementExtension(this);
 

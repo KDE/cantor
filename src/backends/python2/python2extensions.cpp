@@ -39,7 +39,7 @@ QString Python2LinearAlgebraExtension::createVector(const QStringList& entries, 
 
     command.chop(2);
     command += "])\n";
-    
+
     return command;
 }
 
@@ -119,6 +119,51 @@ PYTHON2_EXT_CDTOR(Packaging)
 QString Python2PackagingExtension::importPackage(const QString& package)
 {
     return QString("import %1").arg(package);
+}
+
+PYTHON2_EXT_CDTOR(Plot)
+
+QString Python2PlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
+{
+    QString argumentToPlot = variable;
+    QString xlimits;
+
+    if(!function.isEmpty()){
+        argumentToPlot = function + "(" + variable + ")";
+    }
+
+    if(!left.isEmpty() && !right.isEmpty()){
+        xlimits = QString("pylab.xlim(%1, %2)\n").arg(left).arg(right);
+    }
+
+    return QString("pylab.clf()\n"                     \
+                   "pylab.plot(%1)\n"                  \
+                   + xlimits +                         \
+                   "pylab.show()").arg(argumentToPlot);
+}
+
+QString Python2PlotExtension::plotFunction3d(const QString& function, Cantor::PlotExtension::VariableParameter var1, Cantor::PlotExtension::VariableParameter var2)
+{
+    const Interval& interval1 = var1.second;
+    const Interval& interval2 = var2.second;
+
+    QString interval1Limits;
+    QString interval2Limits;
+
+    if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
+        interval1Limits = QString("ax3D.set_xlim3d(%1, %2)\n").arg(interval1.first).arg(interval1.second);
+    }
+
+    if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
+        interval2Limits = QString("ax3D.set_ylim3d(%1, %2)\n").arg(interval2.first).arg(interval2.second);
+    }
+
+    return QString("from mpl_toolkits.mplot3d import Axes3D\n\n"                      \
+                   "fig3D = pylab.figure()\n"                                         \
+                   "ax3D = fig3D.gca(projection='3d')\n"                              \
+                   "ax3D.plot_surface(%1, %2, %3(%1, %2), rstride=4, cstride=4)\n"    \
+                   + interval1Limits + interval2Limits +                              \
+                   "pylab.show()").arg(var1.first).arg(var2.first).arg(function);
 }
 
 PYTHON2_EXT_CDTOR(Script)

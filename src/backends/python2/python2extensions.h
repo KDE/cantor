@@ -49,6 +49,14 @@ class Python2PackagingExtension : public Cantor::PackagingExtension
     virtual QString importPackage(const QString& module);
 };
 
+class Python2PlotExtension : public Cantor::PlotExtension
+{
+    public:
+    PYTHON2_EXT_CDTOR_DECL(Plot)
+    virtual QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
+    virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
+};
+
 class Python2ScriptExtension : public Cantor::ScriptExtension
 {
     public:
