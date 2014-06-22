@@ -90,10 +90,10 @@ void Python2Session::login()
         getPythonCommandOutput(autorunScripts);
     }
 
-    QString importDefaultModules = "import numpy\n"    \
-                                   "import scipy\n"    \
-                                   "import mamada\n"    \
-                                   "import matplotlib";
+    QString importDefaultModules = "import numpy\n"      \
+                                   "import scipy\n"      \
+                                   "import matplotlib\n" \
+                                   "import pylab";
 
     evaluateExpression(importDefaultModules, Cantor::Expression::DeleteOnFinish);
 
