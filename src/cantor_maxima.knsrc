@@ -1,6 +1,6 @@
 [KNewStuff3]
 ProvidersUrl=http://download.kde.org/ocs/providers.xml
-Categories=Cantor (Maxima),Cantor (Sage), Cantor (KAlgebra),Cantor (Qalculate)
+Categories=Cantor (Maxima),Cantor (Sage),Cantor (KAlgebra),Cantor (Qalculate),Cantor (Python2)
 UploadCategories=Cantor (Maxima)
 TargetDir=cantor/examples
 Uncompress=never
