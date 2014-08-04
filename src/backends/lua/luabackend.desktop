@@ -2,6 +2,7 @@
 Type=Service
 Icon=luabackend
 Name=Lua
+Name[ca]=Lua
 Name[cs]=Lua
 Name[da]=Lua
 Name[de]=Lua
@@ -25,6 +26,7 @@ Name[uk]=Lua
 Name[x-test]=xxLuaxx
 Name[zh_TW]=Lua
 Comment=Backend for luajit
+Comment[ca]=Dorsal pel Luajit
 Comment[cs]=Podpůrná vrstva pro luajit
 Comment[da]=Backend til luajit
 Comment[de]=Ein Modul für luajit
