@@ -23,10 +23,10 @@ using namespace Cantor;
 
 #include <QImage>
 #include <QImageWriter>
-#include <kzip.h>
-#include <kmimetype.h>
-#include <kdebug.h>
-#include <kio/job.h>
+#include <KZip>
+#include <KMimeType>
+#include <QDebug>
+#include <KIO/Job>
 #include <QMovie>
 
 class Cantor::AnimationResultPrivate
@@ -59,7 +59,7 @@ AnimationResult::~AnimationResult()
 
 QString AnimationResult::toHtml()
 {
-    return QString("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
+    return QString::fromLatin1("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
 }
 
 QVariant AnimationResult::data()
@@ -86,11 +86,11 @@ QString AnimationResult::mimeType()
 
 QDomElement AnimationResult::toXml(QDomDocument& doc)
 {
-    kDebug()<<"saving imageresult "<<toHtml();
-    QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "animation");
-    e.setAttribute("filename", d->url.fileName());
-    kDebug()<<"done";
+    qDebug()<<"saving imageresult "<<toHtml();
+    QDomElement e=doc.createElement(QLatin1String("Result"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("animation"));
+    e.setAttribute(QLatin1String("filename"), d->url.fileName());
+    qDebug()<<"done";
 
     return e;
 }

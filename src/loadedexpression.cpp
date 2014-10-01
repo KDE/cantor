@@ -26,8 +26,8 @@
 #include "lib/latexresult.h"
 #include "lib/animationresult.h"
 
-#include <kglobal.h>
-#include <kstandarddirs.h>
+#include <KGlobal>
+#include <KStandardDirs>
 
 LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session )
 {
@@ -51,28 +51,28 @@ void LoadedExpression::evaluate()
 
 void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 {
-    setCommand(xml.firstChildElement("Command").text());
+    setCommand(xml.firstChildElement(QLatin1String("Command")).text());
 
-    QDomElement resultElement=xml.firstChildElement("Result");
+    QDomElement resultElement=xml.firstChildElement(QLatin1String("Result"));
     Cantor::Result* result=0;
-    const QString& type=resultElement.attribute("type");
-    if ( type == "text")
+    const QString& type=resultElement.attribute(QLatin1String("type"));
+    if ( type == QLatin1String("text"))
     {
         result=new Cantor::TextResult(resultElement.text());
     }
-    else if (type == "image" || type == "latex" || type == "animation")
+    else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
     {
-        const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute("filename"));
+        const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute(QLatin1String("filename")));
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+            QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
             imageFile->copyTo(dir);
-            KUrl imageUrl=QString(dir+QLatin1Char('/')+imageFile->name());
-            if(type=="latex")
+            KUrl imageUrl=QString(dir + QLatin1Char('/') + imageFile->name());
+            if(type==QLatin1String("latex"))
             {
                 result=new Cantor::LatexResult(resultElement.text(), imageUrl);
-            }else if(type=="animation")
+            }else if(type==QLatin1String("animation"))
             {
                 result=new Cantor::AnimationResult(imageUrl);
             }else if(imageFile->name().endsWith(QLatin1String(".eps")))

@@ -26,7 +26,7 @@
   #include "libspectre/spectre.h"
 #endif
 
-#include <kdebug.h>
+#include <QDebug>
 
 EpsRenderer::EpsRenderer() : m_scale(1), m_useHighRes(false)
 {
@@ -57,7 +57,7 @@ QTextImageFormat EpsRenderer::render(QTextDocument *document, const KUrl& url)
     QSizeF s = renderToResource(document, url);
 
     KUrl internal = url;
-    internal.setProtocol("internal");
+    internal.setProtocol(QLatin1String("internal"));
     if(s.isValid())
     {
         epsCharFormat.setName(internal.url());
@@ -88,8 +88,8 @@ QSizeF EpsRenderer::renderToResource(QTextDocument *document, const KUrl& url)
     QImage img = renderToImage(url, &size);
 
     KUrl internal = url;
-    internal.setProtocol("internal");
-    kDebug() << internal;
+    internal.setProtocol(QLatin1String("internal"));
+    qDebug() << internal;
     document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
     return size;
 }
@@ -100,9 +100,9 @@ QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
     SpectreDocument* doc = spectre_document_new();
     SpectreRenderContext* rc = spectre_render_context_new();
 
-    kDebug() << "rendering eps file: " << url;
-
-    spectre_document_load(doc, url.toLocalFile().toUtf8());
+    qDebug() << "rendering eps file: " << url;
+// TODO commented to build by Filipe
+//     spectre_document_load(doc, url.toLocalFile().toUtf8());
 
     int wdoc, hdoc;
     qreal w, h;
@@ -118,9 +118,9 @@ QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
         h = 1.8 * hdoc;
     }
 
-    kDebug()<<"scale: "<<scale;
+    qDebug()<<"scale: "<<scale;
 
-    kDebug()<<"dimension: "<<w<<"x"<<h;
+    qDebug()<<"dimension: "<<w<<"x"<<h;
     unsigned char* data;
     int rowLength;
 

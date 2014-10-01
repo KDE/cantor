@@ -21,10 +21,10 @@
 #include "panelpluginhandler.h"
 using namespace Cantor;
 
-#include <kdebug.h>
-#include <kservice.h>
-#include <kservicetypetrader.h>
-#include <kplugininfo.h>
+#include <QDebug>
+#include <KService>
+#include <KServiceTypeTrader>
+#include <KPluginInfo>
 
 #include "session.h"
 #include "panelplugin.h"
@@ -40,7 +40,7 @@ class Cantor::PanelPluginHandlerPrivate
 PanelPluginHandler::PanelPluginHandler( QObject* parent ) : QObject(parent) ,
                                                             d(new PanelPluginHandlerPrivate)
 {
-    setObjectName("PanelPluginHandler");
+    setObjectName(QLatin1String("PanelPluginHandler"));
     d->session=0;
 }
 
@@ -53,37 +53,37 @@ void PanelPluginHandler::loadPlugins()
 {
     if(d->session==0)
         return;
-    kDebug()<<"loading panel plugins for session of type "<<d->session->backend()->name();
+    qDebug()<<"loading panel plugins for session of type "<<d->session->backend()->name();
 
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
-    services = trader->query("Cantor/PanelPlugin");
+    services = trader->query(QLatin1String("Cantor/PanelPlugin"));
 
     foreach (const KService::Ptr &service,   services)
     {
         QString error;
 
-        kDebug()<<"found service"<<service->name();
+        qDebug()<<"found service"<<service->name();
         Cantor::PanelPlugin* plugin=service->createInstance<Cantor::PanelPlugin>(this,  QVariantList(),   &error);
         if (plugin==0)
         {
-            kDebug()<<"error loading panelplugin"<<service->name()<<":  "<<error;
+            qDebug()<<"error loading panelplugin"<<service->name()<<":  "<<error;
             continue;
         }
 
-        kDebug()<<"created it";
+        qDebug()<<"created it";
 
         KPluginInfo info(service);
         plugin->setPluginInfo(info);
 
-        kDebug()<<"plugin "<<service->name()<<" requires "<<plugin->requiredExtensions();
+        qDebug()<<"plugin "<<service->name()<<" requires "<<plugin->requiredExtensions();
         bool supported=true;
         foreach(const QString& req, plugin->requiredExtensions())
             supported=supported && d->session->backend()->extensions().contains(req);
 
         supported=supported && ( (d->session->backend()->capabilities() & plugin->requiredCapabilities()) == plugin->requiredCapabilities());
-        kDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported";
+        qDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported";
 
         if(supported)
         {

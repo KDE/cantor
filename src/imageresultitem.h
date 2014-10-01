@@ -48,10 +48,10 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     CommandEntry* parentEntry();
     Cantor::Result* result();
 
-  signals:
+  Q_SIGNALS:
     void removeResult();
 
-  protected slots:
+  protected Q_SLOTS:
     void saveResult();
 };
 

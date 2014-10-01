@@ -22,8 +22,9 @@
 #include "worksheetimageitem.h"
 #include "actionbar.h"
 
+#include <KLocale>
 #include <KMenu>
-#include <KDebug>
+#include <QDebug>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -52,7 +53,7 @@ ImageEntry::~ImageEntry()
 
 void ImageEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    menu->addAction(KIcon("configure"), i18n("Configure Image"),
+    menu->addAction(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"),
                     this, SLOT(startConfigDialog()));
     menu->addSeparator();
 
@@ -85,21 +86,21 @@ void ImageEntry::setContent(const QDomElement& content, const KZip& file)
     Q_UNUSED(file);
     static QStringList unitNames;
     if (unitNames.isEmpty())
-        unitNames << "(auto)" << "px" << "%";
+        unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
 
-    QDomElement pathElement = content.firstChildElement("Path");
-    QDomElement displayElement = content.firstChildElement("Display");
-    QDomElement printElement = content.firstChildElement("Print");
+    QDomElement pathElement = content.firstChildElement(QLatin1String("Path"));
+    QDomElement displayElement = content.firstChildElement(QLatin1String("Display"));
+    QDomElement printElement = content.firstChildElement(QLatin1String("Print"));
     m_imagePath = pathElement.text();
-    m_displaySize.width = displayElement.attribute("width").toDouble();
-    m_displaySize.height = displayElement.attribute("height").toDouble();
-    m_displaySize.widthUnit = unitNames.indexOf(displayElement.attribute("widthUnit"));
-    m_displaySize.heightUnit = unitNames.indexOf(displayElement.attribute("heightUnit"));
-    m_useDisplaySizeForPrinting = printElement.attribute("useDisplaySize").toInt();
-    m_printSize.width = printElement.attribute("width").toDouble();
-    m_printSize.height = printElement.attribute("height").toDouble();
-    m_printSize.widthUnit = unitNames.indexOf(printElement.attribute("widthUnit"));
-    m_printSize.heightUnit = unitNames.indexOf(printElement.attribute("heightUnit"));
+    m_displaySize.width = displayElement.attribute(QLatin1String("width")).toDouble();
+    m_displaySize.height = displayElement.attribute(QLatin1String("height")).toDouble();
+    m_displaySize.widthUnit = unitNames.indexOf(displayElement.attribute(QLatin1String("widthUnit")));
+    m_displaySize.heightUnit = unitNames.indexOf(displayElement.attribute(QLatin1String("heightUnit")));
+    m_useDisplaySizeForPrinting = printElement.attribute(QLatin1String("useDisplaySize")).toInt();
+    m_printSize.width = printElement.attribute(QLatin1String("width")).toDouble();
+    m_printSize.height = printElement.attribute(QLatin1String("height")).toDouble();
+    m_printSize.widthUnit = unitNames.indexOf(printElement.attribute(QLatin1String("widthUnit")));
+    m_printSize.heightUnit = unitNames.indexOf(printElement.attribute(QLatin1String("heightUnit")));
     updateEntry();
 }
 
@@ -109,29 +110,29 @@ QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
 
     static QStringList unitNames;
     if (unitNames.isEmpty())
-        unitNames << "(auto)" << "px" << "%";
+        unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
 
-    QDomElement image = doc.createElement("Image");
-    QDomElement path = doc.createElement("Path");
+    QDomElement image = doc.createElement(QLatin1String("Image"));
+    QDomElement path = doc.createElement(QLatin1String("Path"));
     QDomText pathText = doc.createTextNode(m_imagePath);
     path.appendChild(pathText);
     image.appendChild(path);
-    QDomElement display = doc.createElement("Display");
-    display.setAttribute("width", m_displaySize.width);
-    display.setAttribute("widthUnit", unitNames[m_displaySize.widthUnit]);
-    display.setAttribute("height", m_displaySize.height);
-    display.setAttribute("heightUnit", unitNames[m_displaySize.heightUnit]);
+    QDomElement display = doc.createElement(QLatin1String("Display"));
+    display.setAttribute(QLatin1String("width"), m_displaySize.width);
+    display.setAttribute(QLatin1String("widthUnit"), unitNames[m_displaySize.widthUnit]);
+    display.setAttribute(QLatin1String("height"), m_displaySize.height);
+    display.setAttribute(QLatin1String("heightUnit"), unitNames[m_displaySize.heightUnit]);
     image.appendChild(display);
-    QDomElement print = doc.createElement("Print");
-    print.setAttribute("useDisplaySize", m_useDisplaySizeForPrinting);
-    print.setAttribute("width", m_printSize.width);
-    print.setAttribute("widthUnit", unitNames[m_printSize.widthUnit]);
-    print.setAttribute("height", m_printSize.height);
-    print.setAttribute("heightUnit", unitNames[m_printSize.heightUnit]);
+    QDomElement print = doc.createElement(QLatin1String("Print"));
+    print.setAttribute(QLatin1String("useDisplaySize"), m_useDisplaySizeForPrinting);
+    print.setAttribute(QLatin1String("width"), m_printSize.width);
+    print.setAttribute(QLatin1String("widthUnit"), unitNames[m_printSize.widthUnit]);
+    print.setAttribute(QLatin1String("height"), m_printSize.height);
+    print.setAttribute(QLatin1String("heightUnit"), unitNames[m_printSize.heightUnit]);
     image.appendChild(print);
 
     // For the conversion to latex
-    QDomElement latexSize = doc.createElement("LatexSizeString");
+    QDomElement latexSize = doc.createElement(QLatin1String("LatexSizeString"));
     QString sizeString;
     if (m_useDisplaySizeForPrinting)
         sizeString = latexSizeString(m_displaySize);
@@ -148,37 +149,37 @@ QString ImageEntry::toPlain(const QString& commandSep, const QString& commentSta
 {
     Q_UNUSED(commandSep);
 
-    return commentStartingSeq + "image: " + m_imagePath  + commentEndingSeq;
+    return commentStartingSeq + QLatin1String("image: ") + m_imagePath  + commentEndingSeq;
 }
 
 QString ImageEntry::latexSizeString(const ImageSize& imgSize)
 {
     // We use the transformation 1 px = 1/72 in ( = 1 pt in Latex)
 
-    QString sizeString="";
+    QString sizeString=QLatin1String("");
     if (imgSize.widthUnit == ImageSize::Auto &&
         imgSize.heightUnit == ImageSize::Auto)
-        return QString("");
+        return QLatin1String("");
 
     if (imgSize.widthUnit == ImageSize::Percent) {
         if (imgSize.heightUnit == ImageSize::Auto ||
             (imgSize.heightUnit == ImageSize::Percent &&
              imgSize.width == imgSize.height))
-            return "[scale=" + QString::number(imgSize.width / 100) + "]";
+            return QLatin1String("[scale=") + QString::number(imgSize.width / 100) + QLatin1String("]");
         // else? We could set the size based on the actual image size
     } else if (imgSize.widthUnit == ImageSize::Auto &&
                imgSize.heightUnit == ImageSize::Percent) {
-        return "[scale=" + QString::number(imgSize.height / 100) + "]";
+        return QLatin1String("[scale=") + QString::number(imgSize.height / 100) + QLatin1String("]");
     }
 
     if (imgSize.heightUnit == ImageSize::Pixel)
-        sizeString = "height=" + QString::number(imgSize.height) + "pt";
+        sizeString = QLatin1String("height=") + QString::number(imgSize.height) + QLatin1String("pt");
     if (imgSize.widthUnit == ImageSize::Pixel) {
         if (!sizeString.isEmpty())
-            sizeString += ",";
-        sizeString += "width=" + QString::number(imgSize.width) + "pt";
+            sizeString += QLatin1String(",");
+        sizeString += QLatin1String("width=") + QString::number(imgSize.width) + QLatin1String("pt");
     }
-    return "[" + sizeString + "]";
+    return QLatin1String("[") + sizeString + QLatin1String("]");
 }
 
 void ImageEntry::interruptEvaluation()
@@ -213,7 +214,7 @@ void ImageEntry::updateEntry()
         if (!m_imageItem)
             m_imageItem = new WorksheetImageItem(this);
 
-        if (m_imagePath.toLower().endsWith(".eps")) {
+        if (m_imagePath.toLower().endsWith(QLatin1String(".eps"))) {
             m_imageItem->setEps(m_imagePath);
         } else {
             QImage img(m_imagePath);
@@ -232,16 +233,16 @@ void ImageEntry::updateEntry()
             else
                 size = imageSize(m_displaySize);
             // Hack: Eps images need to be scaled
-            if (m_imagePath.toLower().endsWith(".eps"))
+            if (m_imagePath.toLower().endsWith(QLatin1String(".eps")))
                 size /= worksheet()->epsRenderer()->scale();
             m_imageItem->setSize(size);
-            kDebug() << size;
+            qDebug() << size;
             m_textItem->setVisible(false);
             m_imageItem->setVisible(true);
         }
     }
 
-    kDebug() << oldHeight << height();
+    qDebug() << oldHeight << height();
     if (oldHeight != height())
         recalculateSize();
 }
@@ -308,7 +309,7 @@ void ImageEntry::setImageData(const QString& path,
 
 void ImageEntry::addActionsToBar(ActionBar* actionBar)
 {
-    actionBar->addButton(KIcon("configure"), i18n("Configure Image"),
+    actionBar->addButton(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"),
                          this, SLOT(startConfigDialog()));
 }
 

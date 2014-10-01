@@ -27,7 +27,7 @@
 
 #include <kicon.h>
 #include <klocale.h>
-#include <kdebug.h>
+#include <QDebug>
 #include <kiconloader.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
@@ -106,12 +106,12 @@ VariableManagerWidget::~VariableManagerWidget()
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
-    kDebug()<<"setting session to "<<session;
+    qDebug()<<"setting session to "<<session;
     m_session=session;
     if(session)
     {
         m_model=session->variableModel();
-        kDebug()<<"model: "<<m_model;
+        qDebug()<<"model: "<<m_model;
         if(m_table)
             m_table->setModel(m_model);
     }
@@ -122,7 +122,7 @@ void VariableManagerWidget::clearVariables()
     int btn=KMessageBox::questionYesNo(this,  i18n("Are you sure you want to remove all variables?"), i18n("Confirmation - Cantor"));
     if(btn==KMessageBox::Yes)
     {
-        kDebug()<<"removing it all";
+        qDebug()<<"removing it all";
         m_model->removeRows(0, m_model->rowCount());
 
         //evaluate the "clear" command

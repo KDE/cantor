@@ -52,10 +52,10 @@ class WorksheetView : public QGraphicsView
 
     void updateSceneSize();
 
-  signals:
+  Q_SIGNALS:
     void viewRectChanged(QRectF rect);
 
-  public slots:
+  public Q_SLOTS:
     void zoomIn();
     void zoomOut();
     void endAnimation();

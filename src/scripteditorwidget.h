@@ -21,7 +21,7 @@
 #ifndef _SCRIPTEDITORWIDGET_H
 #define _SCRIPTEDITORWIDGET_H
 
-#include <kxmlguiwindow.h>
+#include <KXmlGuiWindow>
 
 class KTemporaryFile;
 class QGridLayout;
@@ -39,10 +39,10 @@ class ScriptEditorWidget : public KXmlGuiWindow
     explicit ScriptEditorWidget( const QString& filter, const QString& highlightingMode, QWidget* parent = 0 );
     ~ScriptEditorWidget();
 
-  signals:
+  Q_SIGNALS:
     void runScript(const QString& filename);
 
-  private slots:
+  private Q_SLOTS:
     void newScript();
     void open();
     void run();

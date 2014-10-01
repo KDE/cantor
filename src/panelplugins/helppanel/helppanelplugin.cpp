@@ -20,7 +20,9 @@
 
 #include "helppanelplugin.h"
 
-#include <ktextedit.h>
+#include <KLocale>
+
+#include <KTextEdit>
 #include "cantor_macros.h"
 
 HelpPanelPlugin::HelpPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
@@ -56,7 +58,7 @@ void HelpPanelPlugin::setHelpHtml(const QString& help)
 
     m_edit->setHtml(help);
     m_edit->selectAll();
-    m_edit->setFontFamily("Monospace");
+    m_edit->setFontFamily(QLatin1String("Monospace"));
     m_edit->moveCursor(QTextCursor::Start);
 }
 

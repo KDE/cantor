@@ -1,40 +1,61 @@
 project(cantor)
 
-find_package(KDE4 REQUIRED)
-include(KDE4Defaults)
+cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
+# set (QT_MIN_VERSION "5.2.0")
 
-set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+add_definitions(-DMAKE_CANTORLIBS_LIB)
 
-macro_optional_find_package(Analitza)
-macro_log_feature(Analitza_FOUND "libanalitza" "A library provided by KAlgebra" FALSE "" "Backend to use KAlgebra with Cantor.")
+find_package(ECM 1.1.0 REQUIRED CONFIG)
+set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-macro_optional_find_package(R)
-macro_log_feature(R_FOUND "R" "A free software environment for statistical computing and graphics" "http://www.r-project.org/" FALSE "" "Backend to use R with Cantor.")
+find_package(Qt5 CONFIG REQUIRED
+    Core
+    Widgets
+    Svg
+    Xml
+    XmlPatterns
+    Test)
+
+find_package(KF5 REQUIRED
+    NewStuff
+    TextEditor
+    CoreAddons
+    Archive
+    Parts
+    KDELibs4Support)
+
+include(FeatureSummary)
+include(ECMInstallIcons)
+include(ECMSetupVersion)
+include(KDEInstallDirs)
+include(KDECompilerSettings)
+include(KDECMakeSettings)
+include(KDEFrameworkCompilerSettings)
 
 if(NOT WIN32)
-  macro_optional_find_package(LibSpectre)
-  macro_log_feature(LIBSPECTRE_FOUND "libspectre" "A PostScript rendering library" "http://libspectre.freedesktop.org/wiki/" FALSE "${LIBSPECTRE_MINIMUM_VERSION}" "Support for rendering EPS files in Cantor.")
+    find_package(LibSpectre)
+    set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
+        URL "http://libspectre.freedesktop.org/wiki/"
+        TYPE OPTIONAL
+        PURPOSE "Support for rendering EPS files in Cantor")
 
-  if(LIBSPECTRE_FOUND)
-    set( WITH_EPS On )
-  else(LIBSPECTRE_FOUND)
-    set( WITH_EPS Off )
-  endif(LIBSPECTRE_FOUND)
+    if(LibSpectre_FOUND)
+        set(WITH_EPS On)
+    else(LibSpectre_FOUND)
+        set(WITH_EPS Off)
+    endif(LibSpectre_FOUND)
+
 else(NOT WIN32)
-  set( WITH_EPS Off )
+    set(WITH_EPS Off)
 endif(NOT WIN32)
 
-include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
+include_directories(${KDE4_INCLUDES})
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
+add_subdirectory(doc)
+add_subdirectory(src)
+add_subdirectory(icons)
 
-add_subdirectory( doc )
-add_subdirectory( src )
-add_subdirectory( icons )
+install(FILES cantor.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
 
-if (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-   macro_display_feature_log()
-endif (${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
-
-install( FILES cantor.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/ )
-
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

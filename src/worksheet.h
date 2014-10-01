@@ -26,6 +26,7 @@
 #include <QDomElement>
 #include <QGraphicsLinearLayout>
 #include <QSyntaxHighlighter>
+#include <QPrinter>
 
 #include <KZip>
 #include <KMenu>
@@ -45,7 +46,7 @@ class PlaceHolderEntry;
 class WorksheetTextItem;
 
 class QDrag;
-class KAction;
+class QAction;
 class KActionCollection;
 class KToggleAction;
 class KFontAction;
@@ -111,7 +112,7 @@ class Worksheet : public QGraphicsScene
         Qt::Alignment align;
     };
 
-  public slots:
+  public Q_SLOTS:
     WorksheetEntry* appendCommandEntry();
     void appendCommandEntry(const QString& text);
     WorksheetEntry* appendTextEntry();
@@ -191,7 +192,7 @@ class Worksheet : public QGraphicsScene
     void setFontFamily(QString font);
     void setFontSize(int size);
 
-  signals:
+  Q_SIGNALS:
     void modified();
     void sessionChanged();
     void showHelp(const QString& help);
@@ -216,7 +217,7 @@ class Worksheet : public QGraphicsScene
     void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
     void dropEvent(QGraphicsSceneDragDropEvent* event);
 
-  private slots:
+  private Q_SLOTS:
     void loginToSession();
     void showCompletion();
     //void checkEntriesForSanity();
@@ -251,7 +252,7 @@ class Worksheet : public QGraphicsScene
 
     QMap<QKeySequence, QAction*> m_shortcuts;
 
-    QList<KAction*> m_richTextActionList;
+    QList<QAction *> m_richTextActionList;
     KToggleAction* m_boldAction;
     KToggleAction* m_italicAction;
     KToggleAction* m_underlineAction;

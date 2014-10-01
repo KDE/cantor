@@ -8,11 +8,11 @@
   <group name="Cantor">
     <entry name="LatexCommand" type="String">
       <label>Path to the latex executable</label>
-      <default code="true">KStandardDirs::findExe( "latex" )</default>
+      <default code="true">KStandardDirs::findExe( QLatin1String("latex") )</default>
     </entry>
     <entry name="DvipsCommand" type="String">
       <label>Path to the dvips executable</label>
-      <default code="true">KStandardDirs::findExe( "dvips" )</default>
+      <default code="true">KStandardDirs::findExe( QLatin1String("dvips") )</default>
     </entry>
   </group>
 </kcfg>

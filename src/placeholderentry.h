@@ -42,7 +42,7 @@ class PlaceHolderEntry : public WorksheetEntry
 
     void layOutForWidth(qreal w, bool force = false);
 
-  public slots:
+  public Q_SLOTS:
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void updateEntry();
 

@@ -23,7 +23,7 @@ using namespace Cantor;
 
 #include <QFile>
 #include <QTextStream>
-#include <kdebug.h>
+#include <QDebug>
 
 class Cantor::LatexResultPrivate
 {
@@ -58,7 +58,7 @@ int LatexResult::type()
 QString LatexResult::mimeType()
 {
     if(isCodeShown())
-        return "text/plain";
+        return QLatin1String("text/plain");
     else
         return EpsResult::mimeType();
 }
@@ -101,7 +101,7 @@ QString LatexResult::toHtml()
     if (isCodeShown())
     {
             QString s=code();
-            s.replace('\n', "<br/>\n");
+//             s.replace('\n', QLatin1String("<br/>\n"));
             return s;
     }
     else
@@ -117,11 +117,11 @@ QString LatexResult::toLatex()
 
 QDomElement LatexResult::toXml(QDomDocument& doc)
 {
-    kDebug()<<"saving textresult "<<toHtml();
-    QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "latex");
+    qDebug()<<"saving textresult "<<toHtml();
+    QDomElement e=doc.createElement(QLatin1String("Result"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("latex"));
     KUrl url=KUrl(EpsResult::data().toUrl());
-    e.setAttribute("filename", url.fileName());
+    e.setAttribute(QLatin1String("filename"), url.fileName());
     QDomText txt=doc.createTextNode(code());
     e.appendChild(txt);
 

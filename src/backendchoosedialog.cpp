@@ -20,6 +20,10 @@
 
 #include "backendchoosedialog.h"
 
+#include <KLocale>
+#include <QIcon>
+#include <KIconLoader>
+
 #include "lib/backend.h"
 #include "settings.h"
 
@@ -42,7 +46,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
 
         QListWidgetItem* item=new QListWidgetItem(m_ui.backendList);
         item->setText(backend->name());
-        item->setIcon(KIcon(backend->icon()));
+        item->setIcon(QIcon::fromTheme(backend->icon()));
         m_ui.backendList->addItem(item);
         if(m_ui.backendList->currentItem() == 0)
             m_ui.backendList->setCurrentItem(item);

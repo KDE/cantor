@@ -22,6 +22,8 @@
 #include "ui_axisrange.h"
 #include "ui_plottitle.h"
 
+#include <KLocalizedString>
+
 namespace Cantor
 {
 
@@ -29,7 +31,7 @@ namespace Cantor
 class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotTitleControl>
 {
     public: // FIXME: move window title setting upward, or maybe not
-        PlotTitleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Main title")); }
+        PlotTitleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(ki18n("Main title").toString()); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {
@@ -40,7 +42,7 @@ class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotT
 class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
 {
     public:
-        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Abscissa scale")); }
+        AbscissScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(ki18n("Abscissa scale").toString()); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {
@@ -51,7 +53,7 @@ class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_Ax
 class OrdinateScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_AxisRangeControl>
 {
     public:
-        OrdinateScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(i18n("Ordinate scale")); }
+        OrdinateScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(ki18n("Ordinate scale").toString()); }
 
         AdvancedPlotExtension::PlotDirective* produceDirective() const
         {

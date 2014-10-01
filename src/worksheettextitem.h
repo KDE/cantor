@@ -100,7 +100,7 @@ class WorksheetTextItem : public QGraphicsTextItem
                        QTextDocument::FindFlags qt_flags,
                        const WorksheetCursor& pos);
 
-  signals:
+  Q_SIGNALS:
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
     void cursorPositionChanged(QTextCursor);
@@ -120,7 +120,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void copyAvailable(bool);
     void pasteAvailable(bool);
 
-  public slots:
+  public Q_SLOTS:
     void insertTab();
     void cut();
     void copy();
@@ -145,7 +145,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void dropEvent(QGraphicsSceneDragDropEvent* event);
     bool sceneEvent(QEvent *event);
 
-  private slots:
+  private Q_SLOTS:
     //void setHeight();
     void testSize();
     void updateRichTextActions(QTextCursor cursor);

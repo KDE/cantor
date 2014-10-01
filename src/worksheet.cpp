@@ -23,13 +23,20 @@
 #include <QTextLayout>
 #include <QTextDocument>
 #include <QTimer>
+#include <QDrag>
 #include <QPrinter>
-#include <QXmlQuery>
+#include <QtXml>
+#include <QtXmlPatterns/QXmlQuery>
+#include <QtXmlPatterns/QXmlNamePool>
+
+#include <KLocale>
+#include <QIcon>
 
 #include <KMessageBox>
 #include <KStandardDirs>
 #include <KActionCollection>
-#include <KAction>
+#include <KShortcut>
+#include <QAction>
 #include <KFontAction>
 #include <KFontSizeAction>
 #include <KSelectAction>
@@ -420,9 +427,9 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
     m_dragEntry->hide();
     Qt::DropAction action = drag->exec();
 
-    kDebug() << action;
+    qDebug() << action;
     if (action == Qt::MoveAction && m_placeholderEntry) {
-        kDebug() << "insert in new position";
+        qDebug() << "insert in new position";
         prev = m_placeholderEntry->previous();
         next = m_placeholderEntry->next();
     }
@@ -454,7 +461,7 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 
 void Worksheet::evaluate()
 {
-    kDebug()<<"evaluate worksheet";
+    qDebug()<<"evaluate worksheet";
     firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
 
     emit modified();
@@ -462,7 +469,7 @@ void Worksheet::evaluate()
 
 void Worksheet::evaluateCurrentEntry()
 {
-    kDebug() << "evaluation requested...";
+    qDebug() << "evaluation requested...";
     WorksheetEntry* entry = currentEntry();
     if(!entry)
         return;
@@ -486,7 +493,7 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
 
     if (entry)
     {
-        kDebug() << "Entry Appended";
+        qDebug() << "Entry Appended";
         entry->setPrevious(lastEntry());
         if (lastEntry())
             lastEntry()->setNext(entry);
@@ -802,9 +809,9 @@ void Worksheet::enableExpressionNumbering(bool enable)
 
 QDomDocument Worksheet::toXML(KZip* archive)
 {
-    QDomDocument doc( "CantorWorksheet" );
-    QDomElement root=doc.createElement( "Worksheet" );
-    root.setAttribute("backend", m_session->backend()->name());
+    QDomDocument doc( QLatin1String("CantorWorksheet") );
+    QDomElement root=doc.createElement( QLatin1String("Worksheet") );
+    root.setAttribute(QLatin1String("backend"), m_session->backend()->name());
     doc.appendChild(root);
 
     for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
@@ -817,7 +824,7 @@ QDomDocument Worksheet::toXML(KZip* archive)
 
 void Worksheet::save( const QString& filename )
 {
-    kDebug()<<"saving to filename";
+    qDebug()<<"saving to filename";
     KZip zipFile( filename );
 
 
@@ -830,8 +837,8 @@ void Worksheet::save( const QString& filename )
     }
 
     QByteArray content = toXML(&zipFile).toByteArray();
-    kDebug()<<"content: "<<content;
-    zipFile.writeFile( "content.xml", QString(), QString(), content.data(), content.size() );
+    qDebug()<<"content: "<<content;
+    zipFile.writeFile( QLatin1String("content.xml"), QString(), QString(), content.data(), content.size() );
 
     /*zipFile.close();*/
 }
@@ -846,14 +853,14 @@ void Worksheet::savePlain(const QString& filename)
         return;
     }
 
-    QString cmdSep=";\n";
-    QString commentStartingSeq = "";
-    QString commentEndingSeq = "";
+    QString cmdSep=QLatin1String(";\n");
+    QString commentStartingSeq = QLatin1String("");
+    QString commentEndingSeq = QLatin1String("");
 
     Cantor::Backend * const backend=session()->backend();
-    if (backend->extensions().contains("ScriptExtension"))
+    if (backend->extensions().contains(QLatin1String("ScriptExtension")))
     {
-        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
+        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String(("ScriptExtension"))));
         cmdSep=e->commandSeparator();
         commentStartingSeq = e->commentStartingSequence();
         commentEndingSeq = e->commentEndingSequence();
@@ -865,7 +872,7 @@ void Worksheet::savePlain(const QString& filename)
     {
         const QString& str=entry->toPlain(cmdSep, commentStartingSeq, commentEndingSeq);
         if(!str.isEmpty())
-            stream << str + '\n';
+            stream << str + QLatin1Char('\n');
     }
 
     file.close();
@@ -873,7 +880,7 @@ void Worksheet::savePlain(const QString& filename)
 
 void Worksheet::saveLatex(const QString& filename)
 {
-    kDebug()<<"exporting to Latex: " <<filename;
+    qDebug()<<"exporting to Latex: " <<filename;
 
     QFile file(filename);
     if(!file.open(QIODevice::WriteOnly))
@@ -887,7 +894,7 @@ void Worksheet::saveLatex(const QString& filename)
     QXmlQuery query(QXmlQuery::XSLT20);
     query.setFocus(xml);
 
-    QString stylesheet = KStandardDirs::locate("appdata", "xslt/latex.xsl");
+    QString stylesheet = KStandardDirs::locate("appdata", QLatin1String("xslt/latex.xsl"));
     if (stylesheet.isEmpty())
     {
         KMessageBox::error(worksheetView(), i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));
@@ -908,22 +915,22 @@ void Worksheet::load(const QString& filename )
     if (!file.open(QIODevice::ReadOnly))
         return ;
 
-    const KArchiveEntry* contentEntry=file.directory()->entry("content.xml");
+    const KArchiveEntry* contentEntry=file.directory()->entry(QLatin1String("content.xml"));
     if (!contentEntry->isFile())
     {
-        kDebug()<<"error";
+        qDebug()<<"error";
     }
     const KArchiveFile* content=static_cast<const KArchiveFile*>(contentEntry);
     QByteArray data=content->data();
 
-    kDebug()<<"read: "<<data;
+    qDebug()<<"read: "<<data;
 
     QDomDocument doc;
     doc.setContent(data);
     QDomElement root=doc.documentElement();
-    kDebug()<<root.tagName();
+    qDebug()<<root.tagName();
 
-    const QString backendName=root.attribute("backend");
+    const QString backendName=root.attribute(QLatin1String("backend"));
     Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if (!b)
     {
@@ -952,29 +959,29 @@ void Worksheet::load(const QString& filename )
     m_session=b->createSession();
     m_loginFlag=true;
 
-    kDebug()<<"loading entries";
+    qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
     WorksheetEntry* entry;
     while (!expressionChild.isNull()) {
         QString tag = expressionChild.tagName();
-        if (tag == "Expression")
+        if (tag == QLatin1String("Expression"))
         {
             entry = appendCommandEntry();
             entry->setContent(expressionChild, file);
-        } else if (tag == "Text")
+        } else if (tag == QLatin1String("Text"))
         {
             entry = appendTextEntry();
             entry->setContent(expressionChild, file);
-        } else if (tag == "Latex")
+        } else if (tag == QLatin1String("Latex"))
         {
             entry = appendLatexEntry();
             entry->setContent(expressionChild, file);
-        } else if (tag == "PageBreak")
+        } else if (tag == QLatin1String("PageBreak"))
         {
             entry = appendPageBreakEntry();
             entry->setContent(expressionChild, file);
         }
-        else if (tag == "Image")
+        else if (tag == QLatin1String("Image"))
         {
           entry = appendImageEntry();
           entry->setContent(expressionChild, file);
@@ -1008,8 +1015,8 @@ void Worksheet::gotResult(Cantor::Expression* expr)
     {
         QString help=expr->result()->toHtml();
         //Do some basic LaTeX replacing
-        help.replace(QRegExp("\\\\code\\{([^\\}]*)\\}"), "<b>\\1</b>");
-        help.replace(QRegExp("\\$([^\\$])\\$"), "<i>\\1</i>");
+        help.replace(QRegExp(QLatin1String("\\\\code\\{([^\\}]*)\\}")), QLatin1String("<b>\\1</b>"));
+        help.replace(QRegExp(QLatin1String("\\$([^\\$])\\$")), QLatin1String("<i>\\1</i>"));
 
         emit showHelp(help);
     }
@@ -1017,7 +1024,7 @@ void Worksheet::gotResult(Cantor::Expression* expr)
 
 void Worksheet::removeCurrentEntry()
 {
-    kDebug()<<"removing current entry";
+    qDebug()<<"removing current entry";
     WorksheetEntry* entry=currentEntry();
     if(!entry)
         return;
@@ -1052,10 +1059,10 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
     }
 
     if (!isRunning())
-        menu->addAction(KIcon("system-run"), i18n("Evaluate Worksheet"),
+        menu->addAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"),
                         this, SLOT(evaluate()), 0);
     else
-        menu->addAction(KIcon("process-stop"), i18n("Interrupt"), this,
+        menu->addAction(QIcon::fromTheme(QLatin1String("process-stop")), i18n("Interrupt"), this,
                         SLOT(interrupt()), 0);
     menu->addSeparator();
 
@@ -1116,28 +1123,28 @@ void Worksheet::createActions(KActionCollection* collection)
     // It would be great if this wasn't necessary.
 
     // Text color
-    KAction* action;
+    QAction * action;
     /* This is "format-stroke-color" in KRichTextWidget */
-    action = new KAction(KIcon("format-text-color"),
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-text-color")),
                          i18nc("@action", "Text &Color..."), collection);
     action->setIconText(i18nc("@label text color", "Color"));
     action->setPriority(QAction::LowPriority);
     m_richTextActionList.append(action);
-    collection->addAction("format_text_foreground_color", action);
+    collection->addAction(QLatin1String("format_text_foreground_color"), action);
     connect(action, SIGNAL(triggered()), this, SLOT(setTextForegroundColor()));
 
     // Text color
-    action = new KAction(KIcon("format-fill-color"),
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-fill-color")),
                          i18nc("@action", "Text &Highlight..."), collection);
     action->setPriority(QAction::LowPriority);
     m_richTextActionList.append(action);
-    collection->addAction("format_text_background_color", action);
+    collection->addAction(QLatin1String("format_text_background_color"), action);
     connect(action, SIGNAL(triggered()), this, SLOT(setTextBackgroundColor()));
 
     // Font Family
     m_fontAction = new KFontAction(i18nc("@action", "&Font"), collection);
     m_richTextActionList.append(m_fontAction);
-    collection->addAction("format_font_family", m_fontAction);
+    collection->addAction(QLatin1String("format_font_family"), m_fontAction);
     connect(m_fontAction, SIGNAL(triggered(QString)), this,
             SLOT(setFontFamily(QString)));
 
@@ -1145,12 +1152,12 @@ void Worksheet::createActions(KActionCollection* collection)
     m_fontSizeAction = new KFontSizeAction(i18nc("@action", "Font &Size"),
                                            collection);
     m_richTextActionList.append(m_fontSizeAction);
-    collection->addAction("format_font_size", m_fontSizeAction);
+    collection->addAction(QLatin1String("format_font_size"), m_fontSizeAction);
     connect(m_fontSizeAction, SIGNAL(fontSizeChanged(int)), this,
             SLOT(setFontSize(int)));
 
     // Bold
-    m_boldAction = new KToggleAction(KIcon("format-text-bold"),
+    m_boldAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-bold")),
                                      i18nc("@action boldify selected text", "&Bold"),
                                      collection);
     m_boldAction->setPriority(QAction::LowPriority);
@@ -1158,13 +1165,13 @@ void Worksheet::createActions(KActionCollection* collection)
     bold.setBold(true);
     m_boldAction->setFont(bold);
     m_richTextActionList.append(m_boldAction);
-    collection->addAction("format_text_bold", m_boldAction);
-    m_boldAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_B));
+    collection->addAction(QLatin1String("format_text_bold"), m_boldAction);
+    m_boldAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
     connect(m_boldAction, SIGNAL(triggered(bool)), this,
             SLOT(setTextBold(bool)));
 
     // Italic
-    m_italicAction = new KToggleAction(KIcon("format-text-italic"),
+    m_italicAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-italic")),
                                        i18nc("@action italicize selected text",
                                              "&Italic"),
                                        collection);
@@ -1173,13 +1180,13 @@ void Worksheet::createActions(KActionCollection* collection)
     italic.setItalic(true);
     m_italicAction->setFont(italic);
     m_richTextActionList.append(m_italicAction);
-    collection->addAction("format_text_italic", m_italicAction);
-    m_italicAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_I));
+    collection->addAction(QLatin1String("format_text_italic"), m_italicAction);
+    m_italicAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_I));
     connect(m_italicAction, SIGNAL(triggered(bool)), this,
             SLOT(setTextItalic(bool)));
 
     // Underline
-    m_underlineAction = new KToggleAction(KIcon("format-text-underline"),
+    m_underlineAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-underline")),
                                           i18nc("@action underline selected text",
                                                 "&Underline"),
                                           collection);
@@ -1188,19 +1195,19 @@ void Worksheet::createActions(KActionCollection* collection)
     underline.setUnderline(true);
     m_underlineAction->setFont(underline);
     m_richTextActionList.append(m_underlineAction);
-    collection->addAction("format_text_underline", m_underlineAction);
-    m_underlineAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_U));
+    collection->addAction(QLatin1String("format_text_underline"), m_underlineAction);
+    m_underlineAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_U));
     connect(m_underlineAction, SIGNAL(triggered(bool)), this,
             SLOT(setTextUnderline(bool)));
 
     // Strike
-    m_strikeOutAction = new KToggleAction(KIcon("format-text-strikethrough"),
+    m_strikeOutAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-strikethrough")),
                                           i18nc("@action", "&Strike Out"),
                                           collection);
     m_strikeOutAction->setPriority(QAction::LowPriority);
     m_richTextActionList.append(m_strikeOutAction);
-    collection->addAction("format_text_strikeout", m_strikeOutAction);
-    m_strikeOutAction->setShortcut(KShortcut(Qt::CTRL + Qt::Key_L));
+    collection->addAction(QLatin1String("format_text_strikeout"), m_strikeOutAction);
+    m_strikeOutAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_L));
     connect(m_strikeOutAction, SIGNAL(triggered(bool)), this,
             SLOT(setTextStrikeOut(bool)));
 
@@ -1208,49 +1215,49 @@ void Worksheet::createActions(KActionCollection* collection)
     QActionGroup *alignmentGroup = new QActionGroup(this);
 
     //   Align left
-    m_alignLeftAction = new KToggleAction(KIcon("format-justify-left"),
+    m_alignLeftAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-left")),
                                           i18nc("@action", "Align &Left"),
                                           collection);
     m_alignLeftAction->setPriority(QAction::LowPriority);
     m_alignLeftAction->setIconText(i18nc("@label left justify", "Left"));
     m_richTextActionList.append(m_alignLeftAction);
-    collection->addAction("format_align_left", m_alignLeftAction);
+    collection->addAction(QLatin1String("format_align_left"), m_alignLeftAction);
     connect(m_alignLeftAction, SIGNAL(triggered()), this,
             SLOT(setAlignLeft()));
     alignmentGroup->addAction(m_alignLeftAction);
 
      //   Align center
-    m_alignCenterAction = new KToggleAction(KIcon("format-justify-center"),
+    m_alignCenterAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-center")),
                                             i18nc("@action", "Align &Center"),
                                             collection);
     m_alignCenterAction->setPriority(QAction::LowPriority);
     m_alignCenterAction->setIconText(i18nc("@label center justify", "Center"));
     m_richTextActionList.append(m_alignCenterAction);
-    collection->addAction("format_align_center", m_alignCenterAction);
+    collection->addAction(QLatin1String("format_align_center"), m_alignCenterAction);
     connect(m_alignCenterAction, SIGNAL(triggered()), this,
             SLOT(setAlignCenter()));
     alignmentGroup->addAction(m_alignCenterAction);
 
     //   Align right
-    m_alignRightAction = new KToggleAction(KIcon("format-justify-right"),
+    m_alignRightAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-right")),
                                            i18nc("@action", "Align &Right"),
                                            collection);
     m_alignRightAction->setPriority(QAction::LowPriority);
     m_alignRightAction->setIconText(i18nc("@label right justify", "Right"));
     m_richTextActionList.append(m_alignRightAction);
-    collection->addAction("format_align_right", m_alignRightAction);
+    collection->addAction(QLatin1String("format_align_right"), m_alignRightAction);
     connect(m_alignRightAction, SIGNAL(triggered()), this,
             SLOT(setAlignRight()));
     alignmentGroup->addAction(m_alignRightAction);
 
     //   Align justify
-    m_alignJustifyAction = new KToggleAction(KIcon("format-justify-fill"),
+    m_alignJustifyAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-fill")),
                                              i18nc("@action", "&Justify"),
                                              collection);
     m_alignJustifyAction->setPriority(QAction::LowPriority);
     m_alignJustifyAction->setIconText(i18nc("@label justify fill", "Justify"));
     m_richTextActionList.append(m_alignJustifyAction);
-    collection->addAction("format_align_justify", m_alignJustifyAction);
+    collection->addAction(QLatin1String("format_align_justify"), m_alignJustifyAction);
     connect(m_alignJustifyAction, SIGNAL(triggered()), this,
             SLOT(setAlignJustify()));
     alignmentGroup->addAction(m_alignJustifyAction);
@@ -1258,7 +1265,7 @@ void Worksheet::createActions(KActionCollection* collection)
      /*
      // List style
      KSelectAction* selAction;
-     selAction = new KSelectAction(KIcon("format-list-unordered"),
+     selAction = new KSelectAction(QIcon::fromTheme("format-list-unordered"),
                                    i18nc("@title:menu", "List Style"),
                                    collection);
      QStringList listStyles;
@@ -1280,7 +1287,7 @@ void Worksheet::createActions(KActionCollection* collection)
              this, SLOT(_k_updateMiscActions()));
 
      // Indent
-     action = new KAction(KIcon("format-indent-more"),
+     action = new QAction(QIcon::fromTheme("format-indent-more"),
                           i18nc("@action", "Increase Indent"), collection);
      action->setPriority(QAction::LowPriority);
      m_richTextActionList.append(action);
@@ -1291,7 +1298,7 @@ void Worksheet::createActions(KActionCollection* collection)
              this, SLOT(_k_updateMiscActions()));
 
      // Dedent
-     action = new KAction(KIcon("format-indent-less"),
+     action = new QAction(QIcon::fromTheme("format-indent-less"),
                           i18nc("@action", "Decrease Indent"), collection);
      action->setPriority(QAction::LowPriority);
      m_richTextActionList.append(action);
@@ -1382,7 +1389,7 @@ void Worksheet::setRichTextInformation(const RichTextInfo& info)
 
 void Worksheet::setAcceptRichText(bool b)
 {
-    foreach(KAction* action, m_richTextActionList) {
+    foreach(QAction * action, m_richTextActionList) {
         action->setEnabled(b);
     }
 
@@ -1499,7 +1506,7 @@ bool Worksheet::isShortcut(QKeySequence sequence)
 
 void Worksheet::registerShortcut(QAction* action)
 {
-    kDebug() << action->shortcuts();
+    qDebug() << action->shortcuts();
     foreach(QKeySequence shortcut, action->shortcuts()) {
         m_shortcuts.insert(shortcut, action);
     }
@@ -1525,7 +1532,7 @@ void Worksheet::updateShortcut()
 
 void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
-    kDebug() << "enter";
+    qDebug() << "enter";
     if (m_dragEntry)
         event->accept();
     else
@@ -1539,7 +1546,7 @@ void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
         return;
     }
 
-    kDebug() << "leave";
+    qDebug() << "leave";
     event->accept();
     if (m_placeholderEntry) {
         m_placeholderEntry->startRemoving();

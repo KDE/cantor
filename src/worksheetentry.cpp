@@ -28,15 +28,17 @@
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
 
+#include <QDrag>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
+#include <QMimeData>
 #include <QGraphicsProxyWidget>
 #include <QBitmap>
 
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
-#include <kdebug.h>
+#include <QDebug>
 
 struct AnimationData
 {
@@ -177,7 +179,7 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
 void WorksheetEntry::startDrag(const QPointF& grabPos)
 {
     QDrag* drag = new QDrag(worksheetView());
-    kDebug() << size();
+    qDebug() << size();
     const qreal scale = worksheet()->epsRenderer()->scale();
     QPixmap pixmap((size()*scale).toSize());
     pixmap.fill(QColor(255, 255, 255, 0));
@@ -305,7 +307,7 @@ void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
     if (!worksheet()->isRunning() && wantToEvaluate())
         menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
-    menu->addAction(KIcon("edit-delete"), i18n("Remove Entry"), this,
+    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"), this,
                     SLOT(startRemoving()), 0);
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
@@ -369,7 +371,7 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
         layOutForWidth(size().width(), true);
         newSize = size();
     }
-    kDebug() << oldSize << newSize;
+    qDebug() << oldSize << newSize;
 
     QPropertyAnimation* sizeAn = new QPropertyAnimation(this, "size", this);
     sizeAn->setDuration(200);
@@ -555,9 +557,9 @@ void WorksheetEntry::invokeSlotOnObject(const char* slot, QObject* obj)
 {
     const QMetaObject* metaObj = obj->metaObject();
     const QByteArray normSlot = QMetaObject::normalizedSignature(slot);
-    const int slotIndex = metaObj->indexOfSlot(normSlot);
+    const int slotIndex = metaObj->indexOfSlot(normSlot.constData());
     if (slotIndex == -1)
-        kDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
+        qDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
     const QMetaMethod method = metaObj->method(slotIndex);
     method.invoke(obj, Qt::DirectConnection);
 }
@@ -692,17 +694,17 @@ void WorksheetEntry::showActionBar()
     if (!m_actionBar) {
         m_actionBar = new ActionBar(this);
 
-        m_actionBar->addButton(KIcon("edit-delete"), i18n("Remove Entry"),
+        m_actionBar->addButton(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"),
                                this, SLOT(startRemoving()));
 
         WorksheetToolButton* dragButton;
-        dragButton = m_actionBar->addButton(KIcon("transform-move"),
+        dragButton = m_actionBar->addButton(QIcon::fromTheme(QLatin1String("transform-move")),
                                             i18n("Drag Entry"));
         connect(dragButton, SIGNAL(pressed()), this, SLOT(startDrag()));
 
         if (wantToEvaluate()) {
             QString toolTip = i18n("Evaluate Entry");
-            m_actionBar->addButton(KIcon("view-refresh"), toolTip,
+            m_actionBar->addButton(QIcon::fromTheme(QLatin1String("view-refresh")), toolTip,
                                    this, SLOT(evaluate()));
         }
 

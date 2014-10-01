@@ -105,7 +105,7 @@ class WorksheetEntry : public QGraphicsObject
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos = WorksheetCursor());
 
-  public slots:
+  public Q_SLOTS:
     virtual bool evaluate(EvaluationOption evalOp = FocusNext) = 0;
     virtual bool evaluateCurrentItem();
     virtual void updateEntry() = 0;
@@ -140,7 +140,7 @@ class WorksheetEntry : public QGraphicsObject
 
     void startDrag(const QPointF& grabPos = QPointF());
 
-  signals:
+  Q_SIGNALS:
     void aboutToBeDeleted();
 
   protected:
@@ -165,7 +165,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
 
-  protected slots:
+  protected Q_SLOTS:
     virtual void remove();
     void deleteActionBar();
     void deleteActionBarAnimation();

@@ -23,7 +23,7 @@
 
 #include <QGraphicsObject>
 
-#include <KIcon>
+#include <QIcon>
 
 class Worksheet;
 class WorksheetEntry;
@@ -36,7 +36,7 @@ class ActionBar : public QGraphicsObject
     ActionBar(WorksheetEntry* parent);
     ~ActionBar();
 
-    WorksheetToolButton* addButton(const KIcon& icon, QString toolTip,
+    WorksheetToolButton* addButton(const QIcon& icon, QString toolTip,
                                    QObject* receiver = 0,
                                    const char* method = 0);
     void addSpace();
@@ -46,7 +46,7 @@ class ActionBar : public QGraphicsObject
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 
-  public slots:
+  public Q_SLOTS:
     void updatePosition();
 
   private:

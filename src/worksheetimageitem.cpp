@@ -26,7 +26,7 @@
 #include <QGraphicsSceneContextMenuEvent>
 #include <KUrl>
 #include <KMenu>
-#include <KDebug>
+#include <QDebug>
 
 WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
     : QGraphicsObject(parent)

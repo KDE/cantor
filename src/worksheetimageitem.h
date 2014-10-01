@@ -64,7 +64,7 @@ class WorksheetImageItem : public QGraphicsObject
     virtual void populateMenu(KMenu *menu, const QPointF& pos);
     Worksheet* worksheet();
 
-  signals:
+  Q_SIGNALS:
     void sizeChanged();
     void menuCreated(KMenu*, const QPointF&);
 

@@ -23,8 +23,9 @@
 
 #include <QObject>
 #include <QVariant>
-#include <kxmlguiclient.h>
-#include <kplugininfo.h>
+#include <KXMLGUIClient>
+#include <KPluginInfo>
+#include <KUrl>
 
 #include "cantor_export.h"
 
@@ -84,7 +85,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      */
     virtual ~Backend();
   public:
-    
+
     /**
      * Creates a new Session. It is the way to go to create a Session,
      * don't call new Session on your own.
@@ -95,7 +96,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Returns list of the supported optional features
      * @return a list of features, containing items of the Capabiltiy enum, ORed together
      */
-    virtual Capabilities capabilities() const = 0; 
+    virtual Capabilities capabilities() const = 0;
     /**
      * Returns wether all of this backends requirements are fulfiled, or if some are missing.
      * @return @c true if all the requirements needed to use this Backend are fulfilled

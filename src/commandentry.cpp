@@ -41,11 +41,11 @@
 #include <QApplication>
 #include <QDesktopWidget>
 
-#include <kdebug.h>
-#include <klocale.h>
+#include <QDebug>
+#include <KLocale>
 #include <KColorScheme>
 
-const QString CommandEntry::Prompt=">>> ";
+const QString CommandEntry::Prompt=QLatin1String(">>> ");
 const double CommandEntry::HorizontalSpacing = 4;
 const double CommandEntry::VerticalSpacing = 4;
 
@@ -94,7 +94,7 @@ int CommandEntry::type() const
 
 void CommandEntry::populateMenu(KMenu *menu, const QPointF& pos)
 {
-    kDebug() << "populate Menu";
+    qDebug() << "populate Menu";
     WorksheetEntry::populateMenu(menu, pos);
 }
 
@@ -133,8 +133,8 @@ void CommandEntry::moveToPreviousItem(int pos, qreal x)
 QString CommandEntry::command()
 {
     QString cmd = m_commandItem->toPlainText();
-    cmd.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
-    cmd.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
+    cmd.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
+    cmd.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
     return cmd;
 }
 
@@ -143,7 +143,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     /*
     if ( m_expression ) {
         if (m_expression->status() == Cantor::Expression::Computing) {
-            kDebug() << "OLD EXPRESSION STILL ACTIVE";
+            qDebug() << "OLD EXPRESSION STILL ACTIVE";
             m_expression->interrupt();
         }
         m_expression->deleteLater();
@@ -206,7 +206,7 @@ void CommandEntry::setContent(const QString& content)
 
 void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    m_commandItem->setPlainText(content.firstChildElement("Command").text());
+    m_commandItem->setPlainText(content.firstChildElement(QLatin1String("Command")).text());
 
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromXml(content, file);
@@ -225,8 +225,8 @@ void CommandEntry::showCompletion()
         return;
     } else if (isShowingCompletionPopup()) {
         QString comp = m_completionObject->completion();
-        kDebug() << "command" << m_completionObject->command();
-        kDebug() << "completion" << comp;
+        qDebug() << "command" << m_completionObject->command();
+        qDebug() << "completion" << comp;
         if (comp != m_completionObject->command()
             || !m_completionObject->hasMultipleMatches()) {
             if (m_completionObject->hasMultipleMatches()) {
@@ -270,8 +270,8 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
             expression()->saveAdditionalData( archive );
         return expression()->toXml(doc);
     }
-    QDomElement expr=doc.createElement( "Expression" );
-    QDomElement cmd=doc.createElement( "Command" );
+    QDomElement expr=doc.createElement( QLatin1String("Expression") );
+    QDomElement cmd=doc.createElement( QLatin1String("Command") );
     QDomText cmdText=doc.createTextNode( command() );
     cmd.appendChild( cmdText );
     expr.appendChild( cmd );
@@ -308,7 +308,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
     QToolTip::hideText();
 
     QString cmd = command();
-    kDebug()<<"evaluating: "<<cmd;
+    qDebug()<<"evaluating: "<<cmd;
     m_evaluationOption = evalOp;
 
     if(cmd.isEmpty()) {
@@ -341,7 +341,7 @@ void CommandEntry::interruptEvaluation()
 
 void CommandEntry::updateEntry()
 {
-    kDebug() << "update Entry";
+    qDebug() << "update Entry";
     Cantor::Expression *expr = expression();
     if (expr == 0 || expr->result() == 0)
         return;
@@ -354,11 +354,11 @@ void CommandEntry::updateEntry()
         return;
     } else if (!m_resultItem) {
         m_resultItem = ResultItem::create(this, expr->result());
-        kDebug() << "new result";
+        qDebug() << "new result";
         animateSizeChange();
     } else {
         m_resultItem = m_resultItem->updateFromResult(expr->result());
-        kDebug() << "update result";
+        qDebug() << "update result";
         animateSizeChange();
     }
 }
@@ -433,8 +433,8 @@ void CommandEntry::showCompletions()
 {
     disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
     QString completion = m_completionObject->completion();
-    kDebug()<<"completion: "<<completion;
-    kDebug()<<"showing "<<m_completionObject->allMatches();
+    qDebug()<<"completion: "<<completion;
+    qDebug()<<"showing "<<m_completionObject->allMatches();
 
     if(m_completionObject->hasMultipleMatches())
     {
@@ -495,8 +495,8 @@ void CommandEntry::updateCompletions()
     if (!m_completionObject)
         return;
     QString completion = m_completionObject->completion();
-    kDebug()<<"completion: "<<completion;
-    kDebug()<<"showing "<<m_completionObject->allMatches();
+    qDebug()<<"completion: "<<completion;
+    qDebug()<<"showing "<<m_completionObject->allMatches();
 
     if(m_completionObject->hasMultipleMatches() || !completion.isEmpty())
     {
@@ -515,7 +515,7 @@ void CommandEntry::updateCompletions()
 
 void CommandEntry::completeCommandTo(const QString& completion, CompletionMode mode)
 {
-    kDebug() << "completion: " << completion;
+    qDebug() << "completion: " << completion;
 
     if (mode == FinalCompletion) {
         Cantor::SyntaxHelpObject* obj = worksheet()->session()->syntaxHelpFor(completion);
@@ -537,7 +537,7 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
 
 void CommandEntry::completeLineTo(const QString& line, int index)
 {
-    kDebug() << "line completion: " << line;
+    qDebug() << "line completion: " << line;
     QTextCursor cursor = m_commandItem->textCursor();
     cursor.movePosition(QTextCursor::EndOfBlock, QTextCursor::MoveAnchor);
     cursor.movePosition(QTextCursor::StartOfBlock, QTextCursor::KeepAnchor);
@@ -573,7 +573,7 @@ void CommandEntry::showSyntaxHelp()
 
 void CommandEntry::resultDeleted()
 {
-    kDebug()<<"result got removed...";
+    qDebug()<<"result got removed...";
 }
 
 void CommandEntry::addInformation()
@@ -582,10 +582,10 @@ void CommandEntry::addInformation()
     answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
     QString inf = answerItem->toPlainText();
-    inf.replace(QChar::ParagraphSeparator, '\n');
-    inf.replace(QChar::LineSeparator, '\n');
+    inf.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+    inf.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
-    kDebug()<<"adding information: "<<inf;
+    qDebug()<<"adding information: "<<inf;
     if(m_expression)
         m_expression->addInformation(inf);
 }
@@ -639,7 +639,7 @@ void CommandEntry::updatePrompt()
 {
     KColorScheme color = KColorScheme( QPalette::Normal, KColorScheme::View);
 
-    m_promptItem->setPlainText("");
+    m_promptItem->setPlainText(QLatin1String(""));
     QTextCursor c = m_promptItem->textCursor();
     QTextCharFormat cformat = c.charFormat();
 
@@ -708,7 +708,7 @@ QPoint CommandEntry::getPopupPosition()
 
 void CommandEntry::invalidate()
 {
-    kDebug() << "ToDo: Invalidate here";
+    qDebug() << "ToDo: Invalidate here";
 }
 
 bool CommandEntry::wantToEvaluate()

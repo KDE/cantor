@@ -23,7 +23,7 @@
 
 #include "cantor_export.h"
 
-#include <QtGui/QSyntaxHighlighter>
+#include <QSyntaxHighlighter>
 
 class QGraphicsTextItem;
 
@@ -56,7 +56,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      */
     void setTextItem(QGraphicsTextItem* item);
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Called when the cursor moved. Rehighlights accordingly.
      */
@@ -169,10 +169,10 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      */
     virtual QString nonSeparatingCharacters() const;
 
-  private slots:
+  private Q_SLOTS:
     void updateFormats();
 
-  signals:
+  Q_SIGNALS:
     void rulesChanged();
 
   private:

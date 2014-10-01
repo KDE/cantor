@@ -23,7 +23,7 @@ using namespace Cantor;
 
 #include <QStringList>
 
-#define EXTENSION_CONSTRUCTORS(name) name::name(QObject* parent) : Extension(#name,parent) {} \
+#define EXTENSION_CONSTRUCTORS(name) name::name(QObject* parent) : Extension(QLatin1String(#name),parent) {} \
                                      name::~name() {}
 
 
@@ -50,19 +50,19 @@ EXTENSION_CONSTRUCTORS(PackagingExtension)
 //implement this here, as it's ";" most of the time
 QString ScriptExtension::commandSeparator()
 {
-    return ";\n";
+    return QLatin1String(";\n");
 }
 
 //implement this here, as it's "#" most of the time
 QString ScriptExtension::commentStartingSequence()
 {
-    return "#";
+    return QLatin1String("#");
 }
 
 //implement this here, as it's "" most of the time
 QString ScriptExtension::commentEndingSequence()
 {
-    return "";
+    return QLatin1String("");
 }
 
 
@@ -73,7 +73,7 @@ QString LinearAlgebraExtension::nullVector(int size, VectorType type)
 {
     QStringList values;
     for (int i=0;i<size;i++)
-        values<<"0";
+        values<<QLatin1String("0");
     return createVector(values, type);
 }
 
@@ -84,7 +84,7 @@ QString LinearAlgebraExtension::identityMatrix(int size)
     {
         QStringList column;
         for(int j=0;j<size;j++)
-            column<<((i==j) ? "1": "0");
+            column<<((i==j) ? QLatin1String("1"): QLatin1String("0"));
 
         m<<column;
     }
@@ -99,7 +99,7 @@ QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
     {
         QStringList column;
         for(int j=0;j<columns;j++)
-            column<<"0";
+            column<<QLatin1String("0");
 
         m<<column;
     }
@@ -109,14 +109,14 @@ QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
 
 QString AdvancedPlotExtension::plotFunction2d(const QString& expression, const QVector<PlotDirective*> directives) const
 {
-    QString params="";
+    QString params = QLatin1String("");
     foreach (PlotDirective* dir, directives)
     {
         QString param=dispatchDirective(*dir);
         if (param.length()>0)
             params+=separatorSymbol()+param;
     }
-    return plotCommand()+"("+expression+params+")";
+    return plotCommand() + QLatin1String("(") + expression + params + QLatin1String(")");
 }
 
 QString AdvancedPlotExtension::dispatchDirective(const PlotDirective& directive) const
@@ -124,15 +124,15 @@ QString AdvancedPlotExtension::dispatchDirective(const PlotDirective& directive)
     const AcceptorBase* acceptor=dynamic_cast<const AcceptorBase*>(this);
     if (acceptor==NULL)
     {
-        kDebug()<<"Plotting extension does not support any directives, but was asked to process one";
-        return "";
+        qDebug()<<"Plotting extension does not support any directives, but was asked to process one";
+        return QLatin1String("");
     }
     return directive.dispatch(*acceptor);
 }
 
 QString AdvancedPlotExtension::separatorSymbol() const
 {
-    return ",";
+    return QLatin1String(",");
 }
 
 QWidget* AdvancedPlotExtension::PlotDirective::widget(QWidget* parent)

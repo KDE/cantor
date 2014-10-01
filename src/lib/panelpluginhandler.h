@@ -49,7 +49,7 @@ class CANTOR_EXPORT PanelPluginHandler : public QObject
 
     void setSession(Session* session);
 
-  signals:
+  Q_SIGNALS:
     void pluginsChanged();
 
   private:

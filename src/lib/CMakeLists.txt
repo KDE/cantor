@@ -48,21 +48,23 @@ Set( cantor_LIB_HDRS
 
 )
 
-kde4_add_ui_files(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
+ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
 
-kde4_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
 install(FILES cantor_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
 configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantorlib.h )
 
-kde4_add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
+add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
 
 target_link_libraries( cantorlibs
-  ${KDE4_KDECORE_LIBS}
-  ${KDE4_KIO_LIBS}
-  ${QT_LIBRARIES}
-  ${QT_QTXML_LIBRARY}
+  KF5::KDELibs4Support
+  KF5::KIOCore
+  KF5::Archive
+  ${QT5_LIBRARIES}
+  Qt5::Xml
 )
+
 set_target_properties( cantorlibs
   PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
 )

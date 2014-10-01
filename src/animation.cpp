@@ -21,7 +21,7 @@
 #include "animation.h"
 
 #include <QMovie>
-#include <kdebug.h>
+#include <QDebug>
 
 Animation::Animation(QObject* parent) : QObject(parent)
 {
@@ -70,7 +70,7 @@ void Animation::movieFrameChanged()
         cursor.mergeCharFormat(format2);
     } else {
         // we got removed from the document
-        kDebug()<<"animation got removed";
+        qDebug()<<"animation got removed";
         disconnect(m_movie, SIGNAL(frameChanged(int)), this, SLOT(movieFrameChanged()));
     }
 }

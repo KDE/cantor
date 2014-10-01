@@ -3,10 +3,10 @@ set( VariableManagerPlugin_SRCS
      variablemanagerwidget.cpp
 )
 
-kde4_add_ui_files(VariableManagerPlugin_SRCS newvardlg.ui)
+qt5_wrap_ui(VariableManagerPlugin_SRCS newvardlg.ui)
 
-kde4_add_plugin( cantor_variablemanagerplugin ${VariableManagerPlugin_SRCS} )
-target_link_libraries( cantor_variablemanagerplugin ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} cantorlibs)
+add_library(cantor_variablemanagerplugin MODULE ${VariableManagerPlugin_SRCS} )
+target_link_libraries( cantor_variablemanagerplugin ${KDE4_KDEUI_LIBS} KF5::KIOWidgets cantorlibs)
 
 install( FILES variablemanagerplugin.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 #install( FILES cantor_help_assistant.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )

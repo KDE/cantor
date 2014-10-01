@@ -20,7 +20,7 @@
 
 #include "variablemanagerplugin.h"
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "cantor_macros.h"
 #include "session.h"
@@ -48,7 +48,7 @@ QWidget* VariableManagerPlugin::widget()
 {
     if(m_widget==0)
     {
-        kDebug()<<"creating new widget";
+        qDebug()<<"creating new widget";
         m_widget=new VariableManagerWidget(session(), parentWidget());
         connect(m_widget, SIGNAL(runCommand(QString)), this, SIGNAL(requestRunCommand(QString)));
     }

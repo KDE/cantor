@@ -40,14 +40,14 @@ class VariableManagerWidget : public QWidget
 
     void setSession(Cantor::Session* session);
 
-  public slots:
+  public Q_SLOTS:
     void clearVariables();
 
     void save();
     void load();
     void newVariable();
 
-  signals:
+  Q_SIGNALS:
     void runCommand(const QString& cmd);
 
   private:

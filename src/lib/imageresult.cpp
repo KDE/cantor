@@ -23,8 +23,8 @@ using namespace Cantor;
 
 #include <QImage>
 #include <QImageWriter>
-#include <kzip.h>
-#include <kdebug.h>
+#include <KZip>
+#include <QDebug>
 
 class Cantor::ImageResultPrivate
 {
@@ -52,12 +52,12 @@ ImageResult::~ImageResult()
 
 QString ImageResult::toHtml()
 {
-    return QString("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
+    return QString::fromLatin1("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
 }
 
 QString ImageResult::toLatex()
 {
-    return QString(" \\begin{center} \n \\includegraphics[width=12cm]{%1} \n \\end{center}").arg(d->url.fileName());
+    return QString::fromLatin1(" \\begin{center} \n \\includegraphics[width=12cm]{%1} \n \\end{center}").arg(d->url.fileName());
 }
 
 QVariant ImageResult::data()
@@ -84,20 +84,20 @@ QString ImageResult::mimeType()
     QString mimetype;
     foreach(const QByteArray& format, formats)
     {
-        mimetype+="image/"+format.toLower()+' ';
+        mimetype+=QLatin1String("image/"+format.toLower()+' ');
     }
-    kDebug()<<"type: "<<mimetype;
+    qDebug()<<"type: "<<mimetype;
 
     return mimetype;
 }
 
 QDomElement ImageResult::toXml(QDomDocument& doc)
 {
-    kDebug()<<"saving imageresult "<<toHtml();
-    QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "image");
-    e.setAttribute("filename", d->url.fileName());
-    kDebug()<<"done";
+    qDebug()<<"saving imageresult "<<toHtml();
+    QDomElement e=doc.createElement(QLatin1String("Result"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("image"));
+    e.setAttribute(QLatin1String("filename"), d->url.fileName());
+    qDebug()<<"done";
 
     return e;
 }

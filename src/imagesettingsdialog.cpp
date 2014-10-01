@@ -18,10 +18,14 @@
     Copyright (C) 2011 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
+#include <KCompletion>
+#include <KLocale>
+#include <KUrl>
+#include <KUrlCompletion>
+
 #include "imagesettingsdialog.h"
 #include "qimagereader.h"
 #include "qfiledialog.h"
-#include "kurlcompletion.h"
 
 ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
 {
@@ -38,7 +42,7 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     m_ui.printHeightCombo->addItems(m_unitNames);
 
     KUrlCompletion* completer = new KUrlCompletion(KUrlCompletion::FileCompletion);
-    completer->setCompletionMode(KGlobalSettings::CompletionMan);
+    completer->setCompletionMode(KCompletion::CompletionMan);
     m_ui.pathEdit->setCompletionObject(completer);
     m_ui.pathEdit->setAutoDeleteCompletionObject( true );
 
@@ -73,7 +77,7 @@ ImageSettingsDialog::~ImageSettingsDialog()
 
 }
 
-void ImageSettingsDialog::setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting) 
+void ImageSettingsDialog::setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting)
 {
     m_ui.pathEdit->setText(file);
     if (displaySize.width >= 0)
@@ -125,12 +129,13 @@ void ImageSettingsDialog::sendChanges()
 void ImageSettingsDialog::openDialog()
 {
     QList<QByteArray> formats = QImageReader::supportedImageFormats();
-    QString formatString = "Images(";
+    QString formatString = QLatin1String("Images(");
     foreach(QByteArray format, formats)
     {
-	formatString += "*." + QString(format).toLower() + " ";
+// TODO commented to build by Filipe
+// 	formatString += QLatin1String("*.") + QString(format).toLower() + QLatin1String(" ");
     }
-    formatString += ")";
+    formatString += QLatin1String(")");
     QString file = QFileDialog::getOpenFileName(this, i18n("Open image file"), m_ui.pathEdit->text(), formatString);
     if (!file.isEmpty())
     {
@@ -155,7 +160,7 @@ void ImageSettingsDialog::updateInputWidgets()
 	m_ui.displayHeightInput->setEnabled(false);
     else
 	m_ui.displayHeightInput->setEnabled(true);
-	
+
     if (m_ui.printWidthCombo->currentIndex() == 0 || !m_ui.printWidthCombo->isEnabled())
 	m_ui.printWidthInput->setEnabled(false);
     else
@@ -169,7 +174,7 @@ void ImageSettingsDialog::updateInputWidgets()
 
 void ImageSettingsDialog::updatePrintingGroup(int b)
 {
-    
+
     m_ui.printWidthCombo->setEnabled(!b);
     m_ui.printHeightCombo->setEnabled(!b);
 

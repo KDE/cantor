@@ -21,7 +21,7 @@
 #ifndef _BACKENDCHOOSEDIALOG_H
 #define _BACKENDCHOOSEDIALOG_H
 
-#include <kdialog.h>
+#include <KDialog>
 
 #include <ui_backendchooser.h>
 
@@ -34,7 +34,7 @@ class BackendChooseDialog : public KDialog
 
     QString backendName();
 
-  protected slots:
+  protected Q_SLOTS:
     void onAccept();
     void updateDescription();
   private:

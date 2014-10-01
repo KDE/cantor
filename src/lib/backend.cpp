@@ -21,11 +21,11 @@
 #include "backend.h"
 using namespace Cantor;
 
-#include <kservicetypetrader.h>
-#include <kservice.h>
-#include <kdebug.h>
-#include <kxmlguifactory.h>
-#include <kplugininfo.h>
+#include <KServiceTypeTrader>
+#include <KService>
+#include <QDebug>
+#include <KXMLGUIFactory>
+#include <KPluginInfo>
 
 #include "extension.h"
 
@@ -119,14 +119,14 @@ QList<Backend*> Backend::availableBackends()
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
     QString error;
 
-    services = trader->query("Cantor/Backend");
+    services = trader->query(QLatin1String("Cantor/Backend"));
 
     foreach (const KService::Ptr &service,  services)
     {
         Backend* backend=service->createInstance<Backend>(0, QVariantList(),  &error);
         if(backend==0)
         {
-            kDebug()<<"error: "<<error;
+            qDebug()<<"error: "<<error;
             continue;
         }
 
@@ -166,7 +166,7 @@ KConfigSkeleton* Backend::config() const
 
 QStringList Backend::extensions() const
 {
-    QList<Extension*> extensions=findChildren<Extension*>(QRegExp(".*Extension"));
+    QList<Extension*> extensions=findChildren<Extension*>(QRegExp(QLatin1String(".*Extension")));
     QStringList names;
     foreach(Extension* e, extensions)
         names<<e->objectName();

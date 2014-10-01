@@ -21,7 +21,7 @@
 #include "textresult.h"
 using namespace Cantor;
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include <QFile>
 #include <QTextStream>
@@ -60,7 +60,7 @@ TextResult::~TextResult()
 QString TextResult::toHtml()
 {
     QString s=d->data;
-    s.replace('\n', "<br/>\n");
+    s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
     return s;
 }
 
@@ -81,11 +81,11 @@ int TextResult::type()
 
 QString TextResult::mimeType()
 {
-    kDebug()<<"format: "<<format();
+    qDebug()<<"format: "<<format();
     if(format()==TextResult::PlainTextFormat)
-        return "text/plain";
+        return QLatin1String("text/plain");
     else
-        return "text/x-tex";
+        return QLatin1String("text/x-tex");
 }
 
 TextResult::Format TextResult::format()
@@ -100,9 +100,9 @@ void TextResult::setFormat(TextResult::Format f)
 
 QDomElement TextResult::toXml(QDomDocument& doc)
 {
-    kDebug()<<"saving textresult "<<toHtml();
-    QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "text");
+    qDebug()<<"saving textresult "<<toHtml();
+    QDomElement e=doc.createElement(QLatin1String("Result"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("text"));
     QDomText txt=doc.createTextNode(data().toString());
     e.appendChild(txt);
 

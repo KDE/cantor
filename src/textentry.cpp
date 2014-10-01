@@ -26,7 +26,7 @@
 
 #include <QGraphicsLinearLayout>
 
-#include <kdebug.h>
+#include <QDebug>
 #include <KUrl>
 #include <KLocale>
 
@@ -56,7 +56,7 @@ void TextEntry::populateMenu(KMenu *menu, const QPointF& pos)
     } else {
         // we need to try both the current cursor and the one after the that
         cursor = m_textItem->cursorForPosition(pos);
-        kDebug() << cursor.position();
+        qDebug() << cursor.position();
         for (int i = 2; i; --i) {
             int p = cursor.position();
             if (m_textItem->document()->characterAt(p-1) == repl &&
@@ -107,14 +107,14 @@ void TextEntry::setContent(const QString& content)
 void TextEntry::setContent(const QDomElement& content, const KZip& file)
 {
     Q_UNUSED(file);
-    if(content.firstChildElement("body").isNull())
+    if(content.firstChildElement(QLatin1String("body")).isNull())
         return;
 
     QDomDocument doc = QDomDocument();
-    QDomNode n = doc.importNode(content.firstChildElement("body"), true);
+    QDomNode n = doc.importNode(content.firstChildElement(QLatin1String("body")), true);
     doc.appendChild(n);
     QString html = doc.toString();
-    kDebug() << html;
+    qDebug() << html;
     m_textItem->setHtml(html);
 }
 
@@ -138,11 +138,11 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     }
 
     const QString& html = m_textItem->toHtml();
-    kDebug() << html;
-    QDomElement el = doc.createElement("Text");
+    qDebug() << html;
+    QDomElement el = doc.createElement(QLatin1String("Text"));
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
-    el.appendChild(myDoc.documentElement().firstChildElement("body"));
+    el.appendChild(myDoc.documentElement().firstChildElement(QLatin1String("body")));
 
     if (needsEval)
         evaluate();
@@ -167,8 +167,8 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
     */
     QString text = m_textItem->toPlainText();
     if (!commentEndingSeq.isEmpty())
-        return commentStartingSeq + text + commentEndingSeq + "\n";
-    return commentStartingSeq + text.replace("\n", "\n" + commentStartingSeq) + "\n";
+        return commentStartingSeq + text + commentEndingSeq + QLatin1String("\n");
+    return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
 
 }
 
@@ -182,12 +182,12 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
     while (!cursor.isNull())
     {
         QString latexCode = cursor.selectedText();
-        kDebug()<<"found latex: "<<latexCode;
+        qDebug()<<"found latex: "<<latexCode;
 
         latexCode.remove(0, 2);
         latexCode.remove(latexCode.length() - 2, 2);
-        latexCode.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
-        latexCode.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
+        latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
+        latexCode.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
 
 
         Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
@@ -208,13 +208,13 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
             success = false;
         }
 
-        kDebug()<<"rendering successfull? "<<success;
+        qDebug()<<"rendering successfull? "<<success;
         if (!success) {
             cursor = findLatexCode(cursor);
             continue;
         }
 
-        formulaFormat.setProperty(EpsRenderer::Delimiter, "$$");
+        formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
 
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
         delete renderer;
@@ -229,17 +229,17 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
 
 void TextEntry::updateEntry()
 {
-    kDebug() << "update Entry";
+    qDebug() << "update Entry";
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
         if (format.hasProperty(EpsRenderer::CantorFormula))
         {
-            kDebug() << "found a formula... rendering the eps...";
+            qDebug() << "found a formula... rendering the eps...";
             QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
             QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
-            kDebug() << "rendering successfull? " << s.isValid();
+            qDebug() << "rendering successfull? " << s.isValid();
 
             //cursor.deletePreviousChar();
             //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
@@ -262,12 +262,12 @@ QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
     QTextDocument *doc = m_textItem->document();
     QTextCursor startCursor;
     if (cursor.isNull())
-        startCursor = doc->find("$$");
+        startCursor = doc->find(QLatin1String("$$"));
     else
-        startCursor = doc->find("$$", cursor);
+        startCursor = doc->find(QLatin1String("$$"), cursor);
     if (startCursor.isNull())
         return startCursor;
-    const QTextCursor endCursor = doc->find("$$", startCursor);
+    const QTextCursor endCursor = doc->find(QLatin1String("$$"), startCursor);
     if (endCursor.isNull())
         return endCursor;
     startCursor.setPosition(startCursor.selectionStart());
@@ -279,7 +279,7 @@ QString TextEntry::showLatexCode(QTextCursor cursor)
 {
     QString latexCode = qVariantValue<QString>(cursor.charFormat().property(EpsRenderer::Code));
     cursor.deletePreviousChar();
-    latexCode = "$$"+latexCode+"$$";
+    latexCode = QLatin1String("$$") + latexCode + QLatin1String("$$");
     cursor.insertText(latexCode);
     return latexCode;
 }

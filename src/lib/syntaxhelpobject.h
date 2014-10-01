@@ -72,14 +72,14 @@ class CANTOR_EXPORT SyntaxHelpObject : public QObject
      */
     Session* session();
 
-  signals:
+  Q_SIGNALS:
     /**
      * The SyntaxHelpObject is done, fetching the Information.
      * The syntax help can be shown now
      */
     void done();
 
-  protected slots:
+  protected Q_SLOTS:
     /**
      * This method should fetch the Syntax help information from the backend
      */

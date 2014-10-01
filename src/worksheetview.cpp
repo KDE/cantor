@@ -24,7 +24,7 @@
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <QScrollBar>
-#include <KDebug>
+#include <QDebug>
 
 WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent)
     : QGraphicsView(scene, parent)
@@ -70,7 +70,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
     else
         y = 0;
 
-    kDebug() << rect << QRectF(x,y,w,h);
+    qDebug() << rect << QRectF(x,y,w,h);
 
     if (!m_animation && QRectF(x,y,w,h).contains(rect))
         return;
@@ -85,7 +85,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
     else
         nx = rect.x() + rect.width() - w;
 
-    kDebug() << nx << ny;
+    qDebug() << nx << ny;
 
     if (!m_worksheet->animationsEnabled()) {
         if (horizontalScrollBar())
@@ -139,7 +139,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
                                     value * ny);
             m_vAnimation->setStartValue(sy);
             m_vAnimation->setEndValue(ny);
-            //kDebug() << sy << value << ny;
+            //qDebug() << sy << value << ny;
         }
     } else {
         m_vAnimation = 0;

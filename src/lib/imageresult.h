@@ -23,7 +23,7 @@
 
 #include "result.h"
 
-#include <kurl.h>
+#include <KUrl>
 
 namespace Cantor
 {

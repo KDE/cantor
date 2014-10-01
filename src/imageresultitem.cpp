@@ -24,7 +24,7 @@
 #include "lib/epsresult.h"
 
 #include <KFileDialog>
-#include <KDebug>
+#include <QDebug>
 
 ImageResultItem::ImageResultItem(QGraphicsObject* parent)
     : WorksheetImageItem(parent), ResultItem()
@@ -49,7 +49,7 @@ void ImageResultItem::populateMenu(KMenu* menu, const QPointF& pos)
     addCommonActions(this, menu);
 
     menu->addSeparator();
-    kDebug() << "populate Menu";
+    qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -87,7 +87,7 @@ void ImageResultItem::saveResult()
 {
     Cantor::Result* res = result();
     const QString& filename=KFileDialog::getSaveFileName(KUrl(), res->mimeType(), worksheet()->worksheetView());
-    kDebug()<<"saving result to "<<filename;
+    qDebug()<<"saving result to "<<filename;
     res->save(filename);
 }
 

@@ -51,10 +51,10 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     CommandEntry* parentEntry();
     Cantor::Result* result();
 
-  signals:
+  Q_SIGNALS:
     void removeResult();
 
-  protected slots:
+  protected Q_SLOTS:
     void toggleLatexCode();
     void saveResult();
 };

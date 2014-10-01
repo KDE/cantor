@@ -21,9 +21,9 @@
 #ifndef _PANEL_PLUGIN_H
 #define _PANEL_PLUGIN_H
 
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 #include <QObject>
-#include <kplugininfo.h>
+#include <KPluginInfo>
 
 #include "backend.h"
 
@@ -42,7 +42,7 @@ class CANTOR_EXPORT PanelPlugin : public QObject /*, public KXMLGUIClient*/
   Q_OBJECT
   public:
     /**
-     * Create a new PanelPlugin 
+     * Create a new PanelPlugin
      * @param parent the parent Object @see QObject
      **/
     PanelPlugin( QObject* parent );
@@ -55,9 +55,9 @@ class CANTOR_EXPORT PanelPlugin : public QObject /*, public KXMLGUIClient*/
      * Sets the properties of this PanelPlugin
      * accodring to KPluginInfo
      * @param info KPluginInfo
-     */     
+     */
     void setPluginInfo(KPluginInfo info);
-    
+
     /**
      * Returns a list of all extensions, the current backend
      * must provide to make this PanelPlugin work. If it doesn't
@@ -101,7 +101,7 @@ class CANTOR_EXPORT PanelPlugin : public QObject /*, public KXMLGUIClient*/
      */
     Session* session();
 
-  signals:
+  Q_SIGNALS:
     void requestRunCommand(const QString& cmd);
     void visibilityRequested();
 

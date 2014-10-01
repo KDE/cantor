@@ -50,7 +50,7 @@ class PageBreakEntry : public WorksheetEntry
     //void paint(QPainter* painter, const QStyleOptionGraphicsItem * option,
     //         QWidget * widget = 0);
 
-  public slots:
+  public Q_SLOTS:
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void updateEntry();
     void populateMenu(KMenu *menu, const QPointF& pos);
