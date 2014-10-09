@@ -92,8 +92,7 @@ void Python2Session::login()
 
     QString importDefaultModules = "import numpy\n"      \
                                    "import scipy\n"      \
-                                   "import matplotlib\n" \
-                                   "import pylab";
+                                   "import matplotlib";
 
     evaluateExpression(importDefaultModules, Cantor::Expression::DeleteOnFinish);
 
