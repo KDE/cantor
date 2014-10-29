@@ -21,7 +21,7 @@
 #include "session.h"
 #include "result.h"
 
-#include <KDebug>
+#include <QDebug>
 
 OctaveSyntaxHelpObject::OctaveSyntaxHelpObject(const QString& command, Cantor::Session* session): SyntaxHelpObject(command, session)
 {
@@ -35,15 +35,15 @@ OctaveSyntaxHelpObject::~OctaveSyntaxHelpObject()
 
 void OctaveSyntaxHelpObject::fetchInformation()
 {
-    kDebug() << "Fetching syntax help for" << command();
-    QString expr = QString("help(\"%1\")").arg(command());
+    qDebug() << "Fetching syntax help for" << command();
+    QString expr = QString::fromLatin1("help(\"%1\")").arg(command());
     m_expression = session()->evaluateExpression(expr);
     connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(fetchingDone()));
 }
 
 void OctaveSyntaxHelpObject::fetchingDone()
 {
-    kDebug();
+    qDebug();
     if (!m_expression || m_expression->status() != Cantor::Expression::Done)
     {
         return;
@@ -52,9 +52,9 @@ void OctaveSyntaxHelpObject::fetchingDone()
     if (result)
     {
       QString res = result->toHtml();
-      res.remove("<br/>");
-      res.remove(0, res.indexOf("--"));
-      setHtml(' ' + res.trimmed());
+      res.remove(QLatin1String("<br/>"));
+      res.remove(0, res.indexOf(QLatin1String("--")));
+      setHtml(QLatin1Char(' ') + res.trimmed());
     }
     m_expression->deleteLater();
     emit done();

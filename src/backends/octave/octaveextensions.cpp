@@ -19,27 +19,27 @@
 
 #include "octaveextensions.h"
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 #define OCTAVE_EXT_CDTOR(name) Octave##name##Extension::Octave##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Octave##name##Extension::~Octave##name##Extension() {}
 
 
-const QList<QChar> octaveMatrixOperators = QList<QChar>() << '*' << '/' << '^';
-const QString octavePrintFileCommand = "print('-depsc',strcat(tempname(tempdir,'c-ob-'),'.eps')); ";
+const QList<QChar> octaveMatrixOperators = QList<QChar>() << QLatin1Char('*') << QLatin1Char('/') << QLatin1Char('^');
+const QString octavePrintFileCommand = QLatin1String("print('-depsc',strcat(tempname(tempdir,'c-ob-'),'.eps')); ");
 
 OCTAVE_EXT_CDTOR(History)
 
 QString OctaveHistoryExtension::lastResult()
 {
-    return "ans";
+    return QLatin1String("ans");
 }
 
 OCTAVE_EXT_CDTOR(Script)
 
 QString OctaveScriptExtension::runExternalScript(const QString& path)
 {
-    return QString("source \"%1\"").arg(path);
+    return QString::fromLatin1("source \"%1\"").arg(path);
 }
 
 QString OctaveScriptExtension::scriptFileFilter()
@@ -49,19 +49,19 @@ QString OctaveScriptExtension::scriptFileFilter()
 
 QString OctaveScriptExtension::highlightingMode()
 {
-    return QString("octave");
+    return QLatin1String("octave");
 }
 
 QString OctaveScriptExtension::commandSeparator()
 {
-    return QString(';');
+    return QLatin1String(";");
 }
 
 OCTAVE_EXT_CDTOR(Plot)
 
 QString OctavePlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
 {
-    return QString("cantor_plot2d('%1','%2',%3,%4);")
+    return QString::fromLatin1("cantor_plot2d('%1','%2',%3,%4);")
 		    .arg(function)
 		    .arg(variable)
 		    .arg(left)
@@ -70,7 +70,7 @@ QString OctavePlotExtension::plotFunction2d(const QString& function, const QStri
 
 QString OctavePlotExtension::plotFunction3d(const QString& function, Cantor::PlotExtension::VariableParameter var1, Cantor::PlotExtension::VariableParameter var2)
 {
-  return QString("cantor_plot3d('%1','%2',%3,%4,'%5',%6,%7);")
+  return QString::fromLatin1("cantor_plot3d('%1','%2',%3,%4,'%5',%6,%7);")
 		  .arg(function)
 		  .arg(var1.first)
 		  .arg(var1.second.first)
@@ -85,25 +85,25 @@ OCTAVE_EXT_CDTOR(LinearAlgebra)
 
 QString OctaveLinearAlgebraExtension::charPoly(const QString& matrix)
 {
-    return QString("poly(%1)").arg(matrix);
+    return QString::fromLatin1("poly(%1)").arg(matrix);
 }
 
 QString OctaveLinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix)
 {
     QString command;
-    command += '[';
+    command += QLatin1Char('[');
     foreach (const QStringList row, matrix)
     {
         foreach (const QString entry, row)
         {
             command += entry;
-            command += ", ";
+            command += QLatin1String(", ");
         }
         command.chop(2); // Removes the last comma
-        command += "; ";
+        command += QLatin1String("; ");
     }
     command.chop(2); // Removes the last semicolon
-    command += ']';
+    command += QLatin1Char(']');
     return command;
 }
 
@@ -112,52 +112,52 @@ QString OctaveLinearAlgebraExtension::createVector(const QStringList& entries, C
     QString separator;
     if (type == ColumnVector)
     {
-        separator = "; ";
+        separator = QLatin1String("; ");
     }
     else
     {
-        separator = ", ";
+        separator = QLatin1String(", ");
     }
     QString command;
-    command += '[';
+    command += QLatin1Char('[');
     foreach (const QString& entry, entries)
     {
         command += entry;
         command += separator;
     }
     command.chop(1);
-    command += ']';
+    command += QLatin1Char(']');
     return command;
 }
 
 QString OctaveLinearAlgebraExtension::eigenValues(const QString& matrix)
 {
-    return QString("eig(%1)").arg(matrix);
+    return QString::fromLatin1("eig(%1)").arg(matrix);
 }
 
 QString OctaveLinearAlgebraExtension::eigenVectors(const QString& matrix)
 {
-    return QString("cantor_eigenvectors(%1)").arg(matrix);
+    return QString::fromLatin1("cantor_eigenvectors(%1)").arg(matrix);
 }
 
 QString OctaveLinearAlgebraExtension::identityMatrix(int size)
 {
-    return QString("eye(%1)").arg(size);
+    return QString::fromLatin1("eye(%1)").arg(size);
 }
 
 QString OctaveLinearAlgebraExtension::invertMatrix(const QString& matrix)
 {
-    return QString("inv(%1)").arg(matrix);
+    return QString::fromLatin1("inv(%1)").arg(matrix);
 }
 
 QString OctaveLinearAlgebraExtension::nullMatrix(int rows, int columns)
 {
-    return QString("zeros(%1,%2)").arg(rows).arg(columns);
+    return QString::fromLatin1("zeros(%1,%2)").arg(rows).arg(columns);
 }
 
 QString OctaveLinearAlgebraExtension::nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type)
 {
-    QString command = "zeros(%1,%2)";
+    QString command = QLatin1String("zeros(%1,%2)");
     switch (type)
     {
         case ColumnVector:
@@ -171,7 +171,7 @@ QString OctaveLinearAlgebraExtension::nullVector(int size, Cantor::LinearAlgebra
 
 QString OctaveLinearAlgebraExtension::rank(const QString& matrix)
 {
-    return QString("rank(%1)").arg(matrix);
+    return QString::fromLatin1("rank(%1)").arg(matrix);
 }
 
 OCTAVE_EXT_CDTOR(VariableManagement)
@@ -183,32 +183,32 @@ QString OctaveVariableManagementExtension::addVariable(const QString& name, cons
 
 QString OctaveVariableManagementExtension::setValue(const QString& name, const QString& value)
 {
-    return QString("%1 = %2").arg(name).arg(value);
+    return QString::fromLatin1("%1 = %2").arg(name).arg(value);
 }
 
 QString OctaveVariableManagementExtension::removeVariable(const QString& name)
 {
-    return QString("clear %1;").arg(name);
+    return QString::fromLatin1("clear %1;").arg(name);
 }
 
 QString OctaveVariableManagementExtension::clearVariables()
 {
-    return QString("clear;");
+    return QLatin1String("clear;");
 }
 
 QString OctaveVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return QString("save %1;").arg(fileName);
+    return QString::fromLatin1("save %1;").arg(fileName);
 }
 
 QString OctaveVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return QString("load %1;").arg(fileName);
+    return QString::fromLatin1("load %1;").arg(fileName);
 }
 
 OCTAVE_EXT_CDTOR(Packaging)
 
 QString OctavePackagingExtension::importPackage(const QString& package)
 {
-    return QString("pkg load %1").arg(package);
+    return QString::fromLatin1("pkg load %1").arg(package);
 }

@@ -17,6 +17,7 @@ find_package(Qt5 CONFIG REQUIRED
     Test)
 
 find_package(KF5 REQUIRED
+    Config
     NewStuff
     TextEditor
     CoreAddons

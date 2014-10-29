@@ -11,7 +11,7 @@ endif(KDE4_BUILD_TESTS)
 if(LIBSPECTRE_FOUND)
    include_directories(${LIBSPECTRE_INCLUDE_DIR})
 endif(LIBSPECTRE_FOUND)
-#add_subdirectory(backends)
+add_subdirectory(backends)
 #add_subdirectory(assistants)
 add_subdirectory(xslt)
 #add_subdirectory(panelplugins)
@@ -38,7 +38,7 @@ kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
 add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor KF5::Parts KF5::NewStuff cantorlibs cantor_config)
+target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::ConfigGui cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )

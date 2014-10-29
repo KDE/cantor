@@ -61,6 +61,8 @@ target_link_libraries( cantorlibs
   KF5::KDELibs4Support
   KF5::KIOCore
   KF5::Archive
+  KF5::ConfigCore
+  KF5::ConfigGui
   ${QT5_LIBRARIES}
   Qt5::Xml
 )

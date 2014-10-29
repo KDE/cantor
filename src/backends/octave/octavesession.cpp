@@ -30,8 +30,8 @@
 #include <KProcess>
 #include <KDirWatch>
 
-#include <QtCore/QTimer>
-#include <QtCore/QFile>
+#include <QTimer>
+#include <QFile>
 #include "octavehighlighter.h"
 #include <settings.h>
 
@@ -44,7 +44,7 @@ m_currentExpression(0),
 m_watch(0),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
-    kDebug() << octaveScriptInstallDir;
+    qDebug() << octaveScriptInstallDir;
 }
 
 OctaveSession::~OctaveSession()
@@ -54,42 +54,42 @@ OctaveSession::~OctaveSession()
 
 void OctaveSession::login()
 {
-    kDebug() << "login";
+    qDebug() << "login";
 
     m_process = new KProcess ( this );
     QStringList args;
-    args << "--silent";
-    args << "--interactive";
-    args << "--persist";
+    args << QLatin1String("--silent");
+    args << QLatin1String("--interactive");
+    args << QLatin1String("--persist");
 
     // Add the cantor script directory to search path
-    args << "--eval";
-    args << QString("addpath %1;").arg(octaveScriptInstallDir);
+    args << QLatin1String("--eval");
+    args << QString::fromLatin1("addpath %1;").arg(octaveScriptInstallDir);
 
     if (OctaveSettings::integratePlots())
     {
         // Do not show the popup when plotting, rather only print to a file
-        args << "--eval";
-        args << "graphics_toolkit gnuplot;";
-        args << "--eval";
-        args << "set (0, \"defaultfigurevisible\",\"off\");";
+        args << QLatin1String("--eval");
+        args << QLatin1String("graphics_toolkit gnuplot;");
+        args << QLatin1String("--eval");
+        args << QLatin1String("set (0, \"defaultfigurevisible\",\"off\");");
     }
     else
     {
-        args << "--eval";
-        args << "set (0, \"defaultfigurevisible\",\"on\");";
+        args << QLatin1String("--eval");
+        args << QLatin1String("set (0, \"defaultfigurevisible\",\"on\");");
     }
 
     // Do not show extra text in help commands
-    args << "--eval";
-    args << "suppress_verbose_help_message(1);";
+    args << QLatin1String("--eval");
+    args << QLatin1String("suppress_verbose_help_message(1);");
 
     // Print the temp dir, used for plot files
-    args << "--eval";
-    args << "____TMP_DIR____ = tempdir";
+    args << QLatin1String("--eval");
+    args << QLatin1String("____TMP_DIR____ = tempdir");
 
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
-    kDebug() << m_process->program();
+    qDebug() << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
     connect ( m_process, SIGNAL ( readyReadStandardOutput() ), SLOT ( readOutput() ) );
     connect ( m_process, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
@@ -99,12 +99,12 @@ void OctaveSession::login()
     if (OctaveSettings::integratePlots())
     {
         m_watch = new KDirWatch(this);
-        m_watch->setObjectName("OctaveDirWatch");
+        m_watch->setObjectName(QLatin1String("OctaveDirWatch"));
         connect (m_watch, SIGNAL(dirty(QString)), SLOT(plotFileChanged(QString)) );
     }
 
     if(!OctaveSettings::self()->autorunScripts().isEmpty()){
-        QString autorunScripts = OctaveSettings::self()->autorunScripts().join("\n");
+        QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish);
     }
@@ -112,7 +112,7 @@ void OctaveSession::login()
 
 void OctaveSession::logout()
 {
-    kDebug() << "logout";
+    qDebug() << "logout";
     m_process->write("exit\n");
     if (!m_process->waitForFinished(1000))
     {
@@ -122,26 +122,26 @@ void OctaveSession::logout()
 
 void OctaveSession::interrupt()
 {
-    kDebug() << "interrupt";
+    qDebug() << "interrupt";
     if (m_currentExpression)
     {
         m_currentExpression->interrupt();
     }
     m_expressionQueue.clear();
-    kDebug() << "Sending SIGINT to Octave";
+    qDebug() << "Sending SIGINT to Octave";
     kill(m_process->pid(), SIGINT);
     changeStatus(Done);
 }
 
 void OctaveSession::processError()
 {
-    kDebug() << "processError";
+    qDebug() << "processError";
     emit error(m_process->errorString());
 }
 
 Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior )
 {
-    kDebug() << "evaluateExpression: " << command;
+    qDebug() << "evaluateExpression: " << command;
     OctaveExpression* expression = new OctaveExpression ( this );
     expression->setCommand ( command );
     expression->setFinishingBehavior ( finishingBehavior );
@@ -152,24 +152,24 @@ Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, 
 
 void OctaveSession::runExpression ( OctaveExpression* expression )
 {
-    kDebug() << "runExpression";
+    qDebug() << "runExpression";
     if ( status() != Done ) {
         m_expressionQueue.enqueue ( expression );
-        kDebug() << m_expressionQueue.size();
+        qDebug() << m_expressionQueue.size();
     } else {
         m_currentExpression = expression;
         changeStatus(Running);
         connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
         QString command = expression->command();
-        command.replace('\n', ',');
-        command += '\n';
+        command.replace(QLatin1Char('\n'), QLatin1Char(','));
+        command += QLatin1Char('\n');
         m_process->write ( command.toLocal8Bit() );
     }
 }
 
 void OctaveSession::readError()
 {
-    kDebug() << "readError";
+    qDebug() << "readError";
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
     if (!m_currentExpression || error.isEmpty())
     {
@@ -180,22 +180,22 @@ void OctaveSession::readError()
 
 void OctaveSession::readOutput()
 {
-    kDebug() << "readOutput";
+    qDebug() << "readOutput";
     while (m_process->bytesAvailable() > 0)
     {
         if (m_tempDir.isEmpty() && !m_process->canReadLine())
         {
-            kDebug() << "Waiting";
+            qDebug() << "Waiting";
             // Wait for the full line containing octave's tempDir
             return;
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         if (!m_currentExpression)
         {
-            if (m_prompt.isEmpty() && line.contains(":1>"))
+            if (m_prompt.isEmpty() && line.contains(QLatin1String(":1>")))
             {
-                kDebug() << "Found Octave prompt:" << line;
-                line.replace(":1", ":[0-9]+");
+                qDebug() << "Found Octave prompt:" << line;
+                line.replace(QLatin1String(":1"), QLatin1String(":[0-9]+"));
                 m_prompt.setPattern(line);
                 changeStatus(Done);
                 if (!m_expressionQueue.isEmpty())
@@ -204,12 +204,12 @@ void OctaveSession::readOutput()
                 }
                 emit ready();
             }
-            else if (line.contains("____TMP_DIR____"))
+            else if (line.contains(QLatin1String("____TMP_DIR____")))
             {
                 m_tempDir = line;
                 m_tempDir.remove(0,18);
                 m_tempDir.chop(1); // isolate the tempDir's location
-                kDebug() << "Got temporary file dir:" << m_tempDir;
+                qDebug() << "Got temporary file dir:" << m_tempDir;
                 if (m_watch)
                 {
                     m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
@@ -222,11 +222,11 @@ void OctaveSession::readOutput()
             // this makes sure that all errors are caught
             readError();
             m_currentExpression->finalize();
-            if (m_currentExpression->command().contains(" = "))
+            if (m_currentExpression->command().contains(QLatin1String(" = ")))
             {
                 emit variablesChanged();
             }
-            if (m_currentExpression->command().contains("function "))
+            if (m_currentExpression->command().contains(QLatin1String("function ")))
             {
                 emit functionsChanged();
             }
@@ -246,7 +246,7 @@ void OctaveSession::readOutput()
 
 void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
-    kDebug() << "currentExpressionStatusChanged";
+    qDebug() << "currentExpressionStatusChanged";
     if (!m_currentExpression)
     {
         return;
@@ -270,7 +270,7 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
 void OctaveSession::plotFileChanged(const QString& filename)
 {
-    if (!QFile::exists(filename) || !filename.split('/').last().contains("c-ob-"))
+    if (!QFile::exists(filename) || !filename.split(QLatin1Char('/')).last().contains(QLatin1String("c-ob-")))
     {
         return;
     }

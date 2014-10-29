@@ -23,7 +23,7 @@
 #include "expression.h"
 #include "result.h"
 
-#include <KDebug>
+#include <QDebug>
 
 OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent): CompletionObject(parent)
 {
@@ -40,8 +40,8 @@ void OctaveCompletionObject::fetchCompletions()
 {
     if (m_expression)
 	return;
-    kDebug() << "Fetching completions for" << command();
-    QString expr = QString("completion_matches(\"%1\")").arg(command());
+    qDebug() << "Fetching completions for" << command();
+    QString expr = QString::fromLatin1("completion_matches(\"%1\")").arg(command());
     m_expression = session()->evaluateExpression(expr);
     connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractCompletions()));
 }
@@ -60,8 +60,8 @@ void OctaveCompletionObject::extractCompletions()
     if (result)
     {
         QString res = result->toHtml();
-        QStringList completions = res.split("<br/>\n", QString::SkipEmptyParts);
-        kDebug() << "Adding" << completions.size() << "completions";
+        QStringList completions = res.split(QLatin1String("<br/>\n"), QString::SkipEmptyParts);
+        qDebug() << "Adding" << completions.size() << "completions";
         setCompletions( completions );
     }
     m_expression->deleteLater();
@@ -73,18 +73,19 @@ void OctaveCompletionObject::fetchIdentifierType()
 {
     if (m_expression)
 	return;
-    kDebug() << "Fetching type of " << identifier();
+    qDebug() << "Fetching type of " << identifier();
     // The ouput should look like
     // sin is a built-in function
     // __cantor_tmp2__ = 5
-    QString expr = QString("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__").arg(identifier());
+    QString expr = QString::fromLatin1("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__")
+                                      .arg(identifier());
     m_expression = session()->evaluateExpression(expr);
     connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractIdentifierType()));
 }
 
 void OctaveCompletionObject::extractIdentifierType()
 {
-    kDebug() << "type fetching done";
+    qDebug() << "type fetching done";
     if (!m_expression)
 	return;
     if (m_expression->status() != Cantor::Expression::Done)
@@ -100,18 +101,18 @@ void OctaveCompletionObject::extractIdentifierType()
 	return;
 
     QString res = result->toHtml();
-    int endOfLine1 = res.indexOf("<br/>");
-    int endOfLine2 = res.indexOf("<br/>", endOfLine1+1);
+    int endOfLine1 = res.indexOf(QLatin1String("<br/>"));
+    int endOfLine2 = res.indexOf(QLatin1String("<br/>"), endOfLine1+1);
     QString line1 = res.left(endOfLine1);
     QString line2 = res.mid(endOfLine1, endOfLine2-endOfLine1);
     // for functions defined on the command line type says "undefined",
     // but sets ans to 103
-    if (line1.endsWith("function") || line1.contains("user-defined function") 
-	|| line2.endsWith("103"))
+    if (line1.endsWith(QLatin1String("function")) || line1.contains(QLatin1String("user-defined function"))
+	|| line2.endsWith(QLatin1String("103")))
 	emit fetchingTypeDone(FunctionType);
-    else if (res.endsWith("variable"))
+    else if (res.endsWith(QLatin1String("variable")))
 	emit fetchingTypeDone(VariableType);
-    else if (res.endsWith("keyword"))
+    else if (res.endsWith(QLatin1String("keyword")))
 	emit fetchingTypeDone(KeywordType);
     else
 	emit fetchingTypeDone(UnknownType);
