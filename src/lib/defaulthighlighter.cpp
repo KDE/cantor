@@ -412,4 +412,4 @@ QString DefaultHighlighter::nonSeparatingCharacters() const
     return QString();
 }
 
-#include  "defaulthighlighter.moc"
+

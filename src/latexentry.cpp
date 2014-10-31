@@ -48,7 +48,7 @@ LatexEntry::~LatexEntry()
 {
 }
 
-void LatexEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void LatexEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     bool imageSelected = false;
     QTextCursor cursor = m_textItem->textCursor();

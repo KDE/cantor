@@ -69,7 +69,7 @@ void BackendChooseDialog::onAccept()
     if(m_ui.makeDefault->isChecked())
     {
         Settings::self()->setDefaultBackend(m_backend);
-        Settings::self()->writeConfig();
+        Settings::self()->save();
     }
 }
 
@@ -84,4 +84,4 @@ QString BackendChooseDialog::backendName()
     return m_backend;
 }
 
-#include "backendchoosedialog.moc"
+

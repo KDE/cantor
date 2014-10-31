@@ -256,4 +256,4 @@ void LatexRenderer::renderWithMml()
     emit done();
 }
 
-#include "latexrenderer.moc"
+

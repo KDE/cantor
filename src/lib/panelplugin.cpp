@@ -94,4 +94,4 @@ void PanelPlugin::onSessionChanged()
 
 }
 
-#include "panelplugin.moc"
+

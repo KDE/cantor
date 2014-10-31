@@ -292,4 +292,4 @@ void CompletionObject::completeUnknownLine()
     completeVariableLine();
 }
 
-#include "completionobject.moc"
+

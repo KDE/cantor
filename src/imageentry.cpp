@@ -23,7 +23,7 @@
 #include "actionbar.h"
 
 #include <KLocale>
-#include <KMenu>
+#include <QMenu>
 #include <QDebug>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
@@ -51,7 +51,7 @@ ImageEntry::~ImageEntry()
 {
 }
 
-void ImageEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void ImageEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     menu->addAction(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"),
                     this, SLOT(startConfigDialog()));
@@ -341,4 +341,4 @@ bool ImageEntry::wantFocus()
     return false;
 }
 
-#include "imageentry.moc"
+

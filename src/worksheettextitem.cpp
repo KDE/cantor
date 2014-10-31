@@ -41,6 +41,7 @@
 #include <QAction>
 #include <KColorDialog>
 #include <KColorScheme>
+#include <QFontDatabase>
 
 WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
@@ -58,10 +59,10 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     m_size = document()->size();;
     m_maxWidth = -1;
     setAcceptDrops(true);
-    setFont(KGlobalSettings::fixedFont());
+    setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
-    connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
-            SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
+    connect(this, SIGNAL(menuCreated(QMenu*, const QPointF&)), parent,
+            SLOT(populateMenu(QMenu*, const QPointF&)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
     connect(this, SIGNAL(cursorPositionChanged(QTextCursor)), this,
             SLOT(updateRichTextActions(QTextCursor)));
@@ -146,7 +147,7 @@ qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     return m_size.height();
 }
 
-void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
+void WorksheetTextItem::populateMenu(QMenu *menu, const QPointF& pos)
 {
     qDebug() << "populate Menu";
     QAction * cut = KStandardAction::cut(this, SLOT(cut()), menu);
@@ -651,7 +652,7 @@ void WorksheetTextItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 
 void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    KMenu *menu = worksheet()->createContextMenu();
+    QMenu *menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
@@ -898,4 +899,4 @@ void WorksheetTextItem::setFontSize(int size)
     mergeFormatOnWordOrSelection(fmt);
 }
 
-#include "worksheettextitem.moc"
+

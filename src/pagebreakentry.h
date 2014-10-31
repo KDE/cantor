@@ -53,7 +53,7 @@ class PageBreakEntry : public WorksheetEntry
   public Q_SLOTS:
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void updateEntry();
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();

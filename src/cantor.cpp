@@ -18,7 +18,7 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 #include "cantor.h"
-#include "cantor.moc"
+
 
 #include <QAction>
 #include <KActionCollection>
@@ -40,13 +40,14 @@
 #include <KXMLGUIFactory>
 #include <KStandardDirs>
 #include <KToggleAction>
-#include <KMenu>
+#include <QMenu>
 
 #include <KNS3/DownloadDialog>
 
 #include <QApplication>
 #include <QDebug>
 #include <QDockWidget>
+#include <QDir>
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
@@ -398,7 +399,7 @@ void CantorShell::openExample()
 {
     QString dir = KStandardDirs::locateLocal("appdata",  QLatin1String("examples"));
     if (dir.isEmpty()) return;
-    KStandardDirs::makeDir(dir);
+    QDir().mkpath(dir);
 
     QStringList files=QDir(dir).entryList(QDir::Files);
     QPointer<KDialog> dlg=new KDialog(this);

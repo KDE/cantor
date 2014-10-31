@@ -296,13 +296,13 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
 
 void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    KMenu *menu = worksheet()->createContextMenu();
+    QMenu *menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
 }
 
-void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void WorksheetEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     if (!worksheet()->isRunning() && wantToEvaluate())
         menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
@@ -799,4 +799,4 @@ bool WorksheetEntry::wantFocus()
     return true;
 }
 
-#include "worksheetentry.moc"
+

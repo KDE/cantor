@@ -55,7 +55,7 @@ int PageBreakEntry::type() const
     return Type;
 }
 
-void PageBreakEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void PageBreakEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     WorksheetEntry::populateMenu(menu, pos);
 }
@@ -153,4 +153,4 @@ bool PageBreakEntry::wantFocus()
     return false;
 }
 
-#include "pagebreakentry.moc"
+

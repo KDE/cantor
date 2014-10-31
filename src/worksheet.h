@@ -29,7 +29,7 @@
 #include <QPrinter>
 
 #include <KZip>
-#include <KMenu>
+#include <QMenu>
 
 #include "worksheetview.h"
 #include "epsrenderer.h"
@@ -81,8 +81,8 @@ class Worksheet : public QGraphicsScene
     void startDrag(WorksheetEntry* entry, QDrag* drag);
 
     void createActions(KActionCollection* collection);
-    KMenu* createContextMenu();
-    void populateMenu(KMenu* menu, const QPointF& pos);
+    QMenu* createContextMenu();
+    void populateMenu(QMenu* menu, const QPointF& pos);
     EpsRenderer* epsRenderer();
     bool isEmpty();
 

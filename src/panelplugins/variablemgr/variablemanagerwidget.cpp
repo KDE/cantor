@@ -184,4 +184,4 @@ void VariableManagerWidget::newVariable()
 }
 
 
-#include "variablemanagerwidget.moc"
+

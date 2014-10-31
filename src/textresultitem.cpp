@@ -49,7 +49,7 @@ double TextResultItem::setGeometry(double x, double y, double w)
     return WorksheetTextItem::setGeometry(x, y, w);
 }
 
-void TextResultItem::populateMenu(KMenu* menu, const QPointF& pos)
+void TextResultItem::populateMenu(QMenu* menu, const QPointF& pos)
 {
     QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
     if (!textCursor().hasSelection())
@@ -179,5 +179,5 @@ Cantor::Result* TextResultItem::result()
     return parentEntry()->expression()->result();
 }
 
-#include "textresultitem.moc"
+
 

@@ -986,7 +986,7 @@ QSharedPointer<PrintOptions> QalculateExpression::printOptions()
 
     po->lower_case_e = true;
     po->base = QalculateSettings::base();
-    po->decimalpoint_sign = KGlobal::locale()->decimalSymbol().toLocal8Bit().data();
+    po->decimalpoint_sign = KLocale::global()->decimalSymbol().toLocal8Bit().data();
 
     switch (QalculateSettings::minExp()) {
     case 0:

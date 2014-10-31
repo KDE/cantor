@@ -104,4 +104,4 @@ void BackendTest::waitForSignal(QObject* sender, const char* signal)
 }
 
 
-#include "backendtest.moc"
+

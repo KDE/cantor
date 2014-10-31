@@ -56,7 +56,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
 
     CALCULATOR->beginTemporaryStopMessages();
 
-    const QString decimalSymbol = KGlobal::locale()->decimalSymbol();
+    const QString decimalSymbol = KLocale::global()->decimalSymbol();
 
     for ( int i = 0; i < words.size(); ++i, pos += count ) {
         count = words[i].size();

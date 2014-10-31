@@ -68,6 +68,6 @@ void HelpPanelPlugin::showHelp(const QString& help)
         m_edit->setHtml(help);
 }
 
-#include "helppanelplugin.moc"
+
 
 K_EXPORT_CANTOR_PLUGIN(helppanelplugin, HelpPanelPlugin)

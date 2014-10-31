@@ -73,7 +73,7 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     }
 }
 
-void ResultItem::addCommonActions(QObject* self, KMenu* menu)
+void ResultItem::addCommonActions(QObject* self, QMenu* menu)
 {
     menu->addAction(i18n("Save result"), self, SLOT(saveResult()));
     menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove result"),

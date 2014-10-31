@@ -36,7 +36,7 @@ namespace Cantor {
 
 class WorksheetEntry;
 
-class KMenu;
+class QMenu;
 class QObject;
 class QPointF;
 class QGraphicsObject;
@@ -50,7 +50,7 @@ class ResultItem
     static ResultItem* create(WorksheetEntry* parent, Cantor::Result* result);
 
     virtual double setGeometry(double x, double y, double w) = 0;
-    virtual void populateMenu(KMenu* menu, const QPointF& pos) = 0;
+    virtual void populateMenu(QMenu* menu, const QPointF& pos) = 0;
 
     virtual ResultItem* updateFromResult(Cantor::Result* result) = 0;
 
@@ -64,7 +64,7 @@ class ResultItem
     QGraphicsObject* graphicsObject();
 
   protected:
-    static void addCommonActions(QObject* self, KMenu* menu);
+    static void addCommonActions(QObject* self, QMenu* menu);
 };
 
 #endif // RESULTITEM_H

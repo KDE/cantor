@@ -44,7 +44,7 @@ double ImageResultItem::setGeometry(double x, double y, double w)
     return height();
 }
 
-void ImageResultItem::populateMenu(KMenu* menu, const QPointF& pos)
+void ImageResultItem::populateMenu(QMenu* menu, const QPointF& pos)
 {
     addCommonActions(this, menu);
 
@@ -111,5 +111,5 @@ Cantor::Result* ImageResultItem::result()
     return parentEntry()->expression()->result();
 }
 
-#include "imageresultitem.moc"
+
 

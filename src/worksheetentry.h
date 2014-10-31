@@ -85,7 +85,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual void layOutForWidth(qreal w, bool force = false) = 0;
     QPropertyAnimation* sizeChangeAnimation(QSizeF s = QSizeF());
 
-    virtual void populateMenu(KMenu *menu, const QPointF& pos);
+    virtual void populateMenu(QMenu *menu, const QPointF& pos);
 
     bool aboutToBeRemoved();
     QSizeF size();

@@ -37,7 +37,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
 
     using WorksheetTextItem::setGeometry;
     double setGeometry(double x, double y, double w);
-    void populateMenu(KMenu* menu, const QPointF& pos);
+    void populateMenu(QMenu* menu, const QPointF& pos);
 
     ResultItem* updateFromResult(Cantor::Result* result);
 

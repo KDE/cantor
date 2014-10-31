@@ -45,7 +45,7 @@ TextEntry::~TextEntry()
 {
 }
 
-void TextEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void TextEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     bool imageSelected = false;
     QTextCursor cursor = m_textItem->textCursor();

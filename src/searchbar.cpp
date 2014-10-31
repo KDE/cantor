@@ -26,7 +26,7 @@
 
 #include <KLocale>
 #include <QIcon>
-#include <KMenu>
+#include <QMenu>
 #include <QDebug>
 
 SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent)
@@ -292,7 +292,7 @@ void SearchBar::on_replacement_textChanged(const QString& r)
 
 void SearchBar::on_removeFlag_clicked()
 {
-    KMenu* menu = new KMenu(this);
+    QMenu* menu = new QMenu(this);
     fillLocationsMenu(menu, m_searchFlags);
     connect(menu, SIGNAL("aboutToHide()"), menu, SLOT("deleteLater()"));
     menu->exec(mapToGlobal(m_extUi->removeFlag->geometry().topLeft()));
@@ -300,7 +300,7 @@ void SearchBar::on_removeFlag_clicked()
 
 void SearchBar::on_addFlag_clicked()
 {
-    KMenu* menu = new KMenu(this);
+    QMenu* menu = new QMenu(this);
     fillLocationsMenu(menu, WorksheetEntry::SearchAll ^ m_searchFlags);
     connect(menu, SIGNAL("aboutToHide()"), menu, SLOT("deleteLater()"));
     menu->exec(mapToGlobal(m_extUi->addFlag->geometry().topLeft()));
@@ -376,7 +376,7 @@ void SearchBar::updateSearchLocations()
     }
 }
 
-void SearchBar::fillLocationsMenu(KMenu* menu, int flags)
+void SearchBar::fillLocationsMenu(QMenu* menu, int flags)
 {
     static QList<QString> names;
     if (names.empty())
@@ -499,4 +499,4 @@ Worksheet* SearchBar::worksheet()
     return m_worksheet;
 }
 
-#include "searchbar.moc"
+

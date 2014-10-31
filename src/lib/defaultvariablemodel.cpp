@@ -198,5 +198,5 @@ bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor:
 
 }
 
-#include  "defaultvariablemodel.moc"
+
 

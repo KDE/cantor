@@ -46,7 +46,7 @@ double AnimationResultItem::setGeometry(double x, double y, double w)
     return m_height;
 }
 
-void AnimationResultItem::populateMenu(KMenu* menu, const QPointF& pos)
+void AnimationResultItem::populateMenu(QMenu* menu, const QPointF& pos)
 {
     addCommonActions(this, menu);
 
@@ -166,4 +166,4 @@ Cantor::Result* AnimationResultItem::result()
     return parentEntry()->expression()->result();
 }
 
-#include "animationresultitem.moc"
+

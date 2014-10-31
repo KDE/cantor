@@ -116,4 +116,4 @@ void PanelPluginHandler::addPlugin(PanelPlugin* plugin)
     d->plugins.append(plugin);
 }
 
-#include "panelpluginhandler.moc"
+

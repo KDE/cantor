@@ -34,7 +34,7 @@ class Worksheet;
 class WorksheetEntry;
 class WorksheetTextItem;
 
-class KMenu;
+class QMenu;
 
 class SearchBar : public QWidget
 {
@@ -75,7 +75,7 @@ class SearchBar : public QWidget
   private:
 
     void updateSearchLocations();
-    void fillLocationsMenu(KMenu* menu, int flags);
+    void fillLocationsMenu(QMenu* menu, int flags);
 
     void setupStdUi();
     void setupExtUi();

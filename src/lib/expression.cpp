@@ -270,5 +270,5 @@ bool Expression::isInternal()
     return d->isInternal;
 }
 
-#include "expression.moc"
+
 

@@ -65,7 +65,7 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
 
         m_script->setHighlightingMode(highlightingMode);
 
-        KConfigGroup cg(KGlobal::config(), "ScriptEditor");
+        KConfigGroup cg(KSharedConfig::openConfig(), "ScriptEditor");
         setAutoSaveSettings(cg, true);
 
         setCentralWidget(m_editor);
@@ -147,4 +147,4 @@ void ScriptEditorWidget::updateCaption()
     }
 }
 
-#include "scripteditorwidget.moc"
+

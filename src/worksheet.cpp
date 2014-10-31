@@ -1040,15 +1040,15 @@ EpsRenderer* Worksheet::epsRenderer()
     return &m_epsRenderer;
 }
 
-KMenu* Worksheet::createContextMenu()
+QMenu* Worksheet::createContextMenu()
 {
-    KMenu *menu = new KMenu(worksheetView());
+    QMenu *menu = new QMenu(worksheetView());
     connect(menu, SIGNAL(aboutToHide()), menu, SLOT(deleteLater()));
 
     return menu;
 }
 
-void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
+void Worksheet::populateMenu(QMenu *menu, const QPointF& pos)
 {
     WorksheetEntry* entry = entryAt(pos);
     if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
@@ -1067,8 +1067,8 @@ void Worksheet::populateMenu(KMenu *menu, const QPointF& pos)
     menu->addSeparator();
 
     if (entry) {
-        KMenu* insert = new KMenu(menu);
-        KMenu* insertBefore = new KMenu(menu);
+        QMenu* insert = new QMenu(menu);
+        QMenu* insertBefore = new QMenu(menu);
 
         insert->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
         insert->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntry()));
@@ -1102,7 +1102,7 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
     if (!event->isAccepted()) {
         event->accept();
-        KMenu *menu = createContextMenu();
+        QMenu *menu = createContextMenu();
         populateMenu(menu, event->scenePos());
 
         menu->popup(event->screenPos());
@@ -1655,4 +1655,4 @@ void Worksheet::updateDragScrollTimer()
     m_dragScrollTimer->start();
 }
 
-#include "worksheet.moc"
+

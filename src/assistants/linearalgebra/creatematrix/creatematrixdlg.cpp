@@ -65,4 +65,4 @@ QString CreateMatrixDlg::value(int i, int j)
         return "0";
 }
 
-#include "creatematrixdlg.moc"
+

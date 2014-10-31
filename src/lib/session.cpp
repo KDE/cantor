@@ -121,5 +121,5 @@ int Session::nextExpressionId()
     return d->expressionCount++;
 }
 
-#include "session.moc"
+
 

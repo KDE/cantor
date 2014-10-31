@@ -110,4 +110,4 @@ QMovie* AnimationHelperItem::movie() const
     return m_animation->movie();
 }
 
-#include "animation.moc"
+

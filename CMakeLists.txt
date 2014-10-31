@@ -5,7 +5,7 @@ cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 
 add_definitions(-DMAKE_CANTORLIBS_LIB)
 
-find_package(ECM 1.1.0 REQUIRED CONFIG)
+find_package(ECM 1.3.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
 find_package(Qt5 CONFIG REQUIRED

@@ -288,4 +288,4 @@ void WorksheetView::zoomOut()
     updateSceneSize();
 }
 
-#include "worksheetview.moc"
+

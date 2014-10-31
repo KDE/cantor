@@ -108,7 +108,7 @@ class CommandEntry : public WorksheetEntry
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
 
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();

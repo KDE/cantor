@@ -62,7 +62,7 @@ class LatexEntry : public WorksheetEntry
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void resolveImagesAtCursor();
     void updateEntry();
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();

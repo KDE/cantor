@@ -92,7 +92,7 @@ int CommandEntry::type() const
     return Type;
 }
 
-void CommandEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void CommandEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     qDebug() << "populate Menu";
     WorksheetEntry::populateMenu(menu, pos);
