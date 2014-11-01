@@ -2,9 +2,9 @@ set( AdvancedPlotAssistant_SRCS
      advancedplotassistant.cpp
 )
 
-kde4_add_ui_files(AdvancedPlotAssistant_SRCS advancedplotdialog.ui directivecontainer.ui)
+ki18n_wrap_ui(AdvancedPlotAssistant_SRCS advancedplotdialog.ui directivecontainer.ui)
 
-kde4_add_plugin( cantor_advancedplotassistant ${AdvancedPlotAssistant_SRCS} )
+add_library( cantor_advancedplotassistant MODULE ${AdvancedPlotAssistant_SRCS} )
 target_link_libraries( cantor_advancedplotassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES advancedplotassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

@@ -21,9 +21,9 @@
 #include "advancedplotassistant.h"
 
 #include <QVBoxLayout>
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "ui_advancedplotdialog.h"
 #include "ui_directivecontainer.h"
 #include "cantor_macros.h"
@@ -42,9 +42,9 @@ AdvancedPlotAssistant::~AdvancedPlotAssistant()
 
 void AdvancedPlotAssistant::initActions()
 {
-    setXMLFile("cantor_advancedplot_assistant.rc");
+    setXMLFile(QLatin1String("cantor_advancedplot_assistant.rc"));
     KAction* advplot=new KAction(i18n("Advanced Plotting"), actionCollection());
-    actionCollection()->addAction("advancedplot_assistant", advplot);
+    actionCollection()->addAction(QLatin1String("advancedplot_assistant"), advplot);
     connect(advplot, SIGNAL(triggered()), this, SIGNAL(requested()));
 }
 
@@ -58,10 +58,10 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
 
     //Casting the extension to correct type and checking it
     Cantor::AdvancedPlotExtension * plotter=dynamic_cast<Cantor::AdvancedPlotExtension*>
-        (backend()->extension("AdvancedPlotExtension"));
+        (backend()->extension(QLatin1String("AdvancedPlotExtension")));
     if (plotter==NULL)
     {
-        kDebug()<<"Advanced plotting extension is messed up, that's a bug.";
+        qDebug()<<"Advanced plotting extension is messed up, that's a bug.";
 	delete dlg;
         return QStringList();
     }
@@ -106,3 +106,4 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(advancedplotassistant, AdvancedPlotAssistant)
+#include "advancedplotassistant.moc"
