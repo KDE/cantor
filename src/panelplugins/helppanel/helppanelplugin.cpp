@@ -71,3 +71,5 @@ void HelpPanelPlugin::showHelp(const QString& help)
 
 
 K_EXPORT_CANTOR_PLUGIN(helppanelplugin, HelpPanelPlugin)
+
+#include "helppanelplugin.moc"
