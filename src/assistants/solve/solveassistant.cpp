@@ -20,9 +20,10 @@
 
 #include "solveassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
+#include <KIcon>
 #include "ui_solvedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -40,10 +41,10 @@ SolveAssistant::~SolveAssistant()
 
 void SolveAssistant::initActions()
 {
-    setXMLFile("cantor_solve_assistant.rc");
+    setXMLFile(QLatin1String("cantor_solve_assistant.rc"));
     KAction* solve=new KAction(i18n("Solve equations"), actionCollection());
     solve->setIcon(KIcon(icon()));
-    actionCollection()->addAction("solve_assistant", solve);
+    actionCollection()->addAction(QLatin1String("solve_assistant"), solve);
     connect(solve, SIGNAL(triggered()), this, SIGNAL(requested()));
 }
 
@@ -58,10 +59,11 @@ QStringList SolveAssistant::run(QWidget* parent)
     QStringList result;
     if( dlg->exec())
     {
-        QStringList equations=base.equations->toPlainText().split('\n');
-        QStringList variables=base.variables->text().split(", ");
+        QStringList equations=base.equations->toPlainText().split(QLatin1Char('\n'));
+        QStringList variables=base.variables->text().split(QLatin1String(", "));
 
-        Cantor::CASExtension* ext= dynamic_cast<Cantor::CASExtension*>(backend()->extension("CASExtension"));
+        Cantor::CASExtension* ext=
+            dynamic_cast<Cantor::CASExtension*>(backend()->extension(QLatin1String("CASExtension")));
 
         result<<ext->solve(equations, variables);
     }
@@ -71,3 +73,4 @@ QStringList SolveAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(solveassistant, SolveAssistant)
+#include "solveassistant.moc"

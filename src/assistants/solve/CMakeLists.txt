@@ -1,10 +1,10 @@
-set( SolveAssistant_SRCS 
+set( SolveAssistant_SRCS
      solveassistant.cpp
 )
 
-kde4_add_ui_files(SolveAssistant_SRCS solvedlg.ui)
+ki18n_wrap_ui(SolveAssistant_SRCS solvedlg.ui)
 
-kde4_add_plugin( cantor_solveassistant ${SolveAssistant_SRCS} )
+add_library( cantor_solveassistant MODULE ${SolveAssistant_SRCS} )
 target_link_libraries( cantor_solveassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES solveassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
