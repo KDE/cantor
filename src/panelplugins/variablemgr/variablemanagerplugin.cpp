@@ -61,7 +61,6 @@ Cantor::Backend::Capabilities VariableManagerPlugin::requiredCapabilities()
     return Cantor::Backend::VariableManagement;
 }
 
-
-
-
 K_EXPORT_CANTOR_PLUGIN(variablemanagerplugin, VariableManagerPlugin)
+
+#include "variablemanagerplugin.moc"
