@@ -1,5 +1,5 @@
 add_subdirectory(solve)
-# add_subdirectory(integrate)
+add_subdirectory(integrate)
 # add_subdirectory(differentiate)
 # add_subdirectory(linearalgebra)
 # add_subdirectory(runscript)
