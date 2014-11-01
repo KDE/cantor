@@ -20,10 +20,9 @@
 
 #include "creatematrixassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -41,9 +40,9 @@ CreateMatrixAssistant::~CreateMatrixAssistant()
 
 void CreateMatrixAssistant::initActions()
 {
-    setXMLFile("cantor_create_matrix_assistant.rc");
+    setXMLFile(QLatin1String("cantor_create_matrix_assistant.rc"));
     KAction* creatematrix=new KAction(i18n("Create Matrix"), actionCollection());
-    actionCollection()->addAction("creatematrix_assistant", creatematrix);
+    actionCollection()->addAction(QLatin1String("creatematrix_assistant"), creatematrix);
     connect(creatematrix, SIGNAL(triggered()), this, SIGNAL(requested()));
 }
 
@@ -63,7 +62,8 @@ QStringList CreateMatrixAssistant::run(QWidget* parent)
              m<<row;
         }
 
-        Cantor::LinearAlgebraExtension* ext= dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
+        Cantor::LinearAlgebraExtension* ext=
+            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
         result<<ext->createMatrix(m);
     }
 
@@ -73,3 +73,4 @@ QStringList CreateMatrixAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(creatematrixassistant, CreateMatrixAssistant)
+#include "creatematrixassistant.moc"

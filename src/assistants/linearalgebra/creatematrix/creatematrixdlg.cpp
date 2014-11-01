@@ -62,7 +62,7 @@ QString CreateMatrixDlg::value(int i, int j)
     if(item)
         return item->text();
     else
-        return "0";
+        return QLatin1String("0");
 }
 
 

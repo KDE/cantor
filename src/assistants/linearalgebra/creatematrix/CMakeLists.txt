@@ -1,11 +1,11 @@
-set( CreateMatrixAssistant_SRCS 
+set( CreateMatrixAssistant_SRCS
      creatematrixassistant.cpp
      creatematrixdlg.cpp
 )
 
-kde4_add_ui_files(CreateMatrixAssistant_SRCS creatematrixdlg.ui)
+ki18n_wrap_ui(CreateMatrixAssistant_SRCS creatematrixdlg.ui)
 
-kde4_add_plugin( cantor_creatematrixassistant ${CreateMatrixAssistant_SRCS} )
+add_library( cantor_creatematrixassistant MODULE ${CreateMatrixAssistant_SRCS} )
 target_link_libraries( cantor_creatematrixassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES creatematrixassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

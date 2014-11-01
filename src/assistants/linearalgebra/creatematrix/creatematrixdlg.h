@@ -36,7 +36,7 @@ class CreateMatrixDlg : public KDialog
 
     QString value(int i,int j);
 
-  public slots:
+  public Q_SLOTS:
     void changeNumRows(int rows);
     void changeNumCols(int cols);
 

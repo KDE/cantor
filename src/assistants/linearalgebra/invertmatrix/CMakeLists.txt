@@ -1,10 +1,10 @@
-set( InvertMatrixAssistant_SRCS 
+set( InvertMatrixAssistant_SRCS
      invertmatrixassistant.cpp
 )
 
-kde4_add_ui_files(InvertMatrixAssistant_SRCS invertmatrixdlg.ui)
+ki18n_wrap_ui(InvertMatrixAssistant_SRCS invertmatrixdlg.ui)
 
-kde4_add_plugin( cantor_invertmatrixassistant ${InvertMatrixAssistant_SRCS} )
+add_library( cantor_invertmatrixassistant MODULE ${InvertMatrixAssistant_SRCS} )
 target_link_libraries( cantor_invertmatrixassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES invertmatrixassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
