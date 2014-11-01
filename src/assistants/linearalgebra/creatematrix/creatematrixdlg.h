@@ -21,7 +21,7 @@
 #ifndef _CREATEMATRIXDLG_H
 #define _CREATEMATRIXDLG_H
 
-#include <kdialog.h>
+#include <KDialog>
 #include "ui_creatematrixdlg.h"
 
 class CreateMatrixDlg : public KDialog
