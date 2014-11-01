@@ -12,7 +12,7 @@ if(LIBSPECTRE_FOUND)
    include_directories(${LIBSPECTRE_INCLUDE_DIR})
 endif(LIBSPECTRE_FOUND)
 add_subdirectory(backends)
-#add_subdirectory(assistants)
+add_subdirectory(assistants)
 add_subdirectory(xslt)
 add_subdirectory(panelplugins)
 

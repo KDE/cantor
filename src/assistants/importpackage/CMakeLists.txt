@@ -2,9 +2,9 @@ set( ImportPackageAssistant_SRCS
      importpackageassistant.cpp
 )
 
-kde4_add_ui_files(ImportPackageAssistant_SRCS importpackagedlg.ui)
+ki18n_wrap_ui(ImportPackageAssistant_SRCS importpackagedlg.ui)
 
-kde4_add_plugin( cantor_importpackageassistant ${ImportPackageAssistant_SRCS} )
+add_library(cantor_importpackageassistant MODULE ${ImportPackageAssistant_SRCS})
 target_link_libraries( cantor_importpackageassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES importpackageassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
