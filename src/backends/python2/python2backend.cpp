@@ -30,6 +30,8 @@
 
 #include "cantor_macros.h"
 
+#include <QLibrary>
+
 Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
 {
     kDebug()<<"Creating Python2Backend";
@@ -41,6 +43,14 @@ Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Ca
     new Python2VariableManagementExtension(this);
 
     setObjectName("python2backend");
+
+    // Because the plugin may not have been loaded with
+    // ExportExternalSymbols, we load the python symbols again
+    // to make sure that python modules such as numpy see them
+    // (see bug #330032)
+    QLibrary pythonLib("python2.7");
+    pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
+    pythonLib.load();
 }
 
 Python2Backend::~Python2Backend()

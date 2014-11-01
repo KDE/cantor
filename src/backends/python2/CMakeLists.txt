@@ -26,6 +26,9 @@ kde4_add_ui_files(Python2Backend_SRCS settings.ui)
 kde4_add_plugin(cantor_python2backend ${Python2Backend_SRCS})
 target_link_libraries(cantor_python2backend ${PYTHON_LIBRARIES} ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
 
+kde4_add_unit_test(testpython2 testpython2.cpp)
+target_link_libraries( testpython2 ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} cantorlibs cantortest )
+
 install(FILES python2backend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/python2backend)
 install(TARGETS cantor_python2backend DESTINATION ${PLUGIN_INSTALL_DIR})
