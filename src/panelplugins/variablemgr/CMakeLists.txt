@@ -3,7 +3,7 @@ set( VariableManagerPlugin_SRCS
      variablemanagerwidget.cpp
 )
 
-qt5_wrap_ui(VariableManagerPlugin_SRCS newvardlg.ui)
+ki18n_wrap_ui(VariableManagerPlugin_SRCS newvardlg.ui)
 
 add_library(cantor_variablemanagerplugin MODULE ${VariableManagerPlugin_SRCS} )
 target_link_libraries( cantor_variablemanagerplugin ${KDE4_KDEUI_LIBS} KF5::KIOWidgets cantorlibs)
