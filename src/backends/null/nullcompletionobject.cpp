@@ -21,7 +21,7 @@
 #include "nullcompletionobject.h"
 
 #include <QStringList>
-#include <kdebug.h>
+#include <QDebug>
 
 #include "nullsession.h"
 
@@ -37,10 +37,10 @@ NullCompletionObject::~NullCompletionObject()
 
 void NullCompletionObject::fetchCompletions()
 {
-    kDebug()<<"fetching...";
+    qDebug()<<"fetching...";
     QStringList comp;
     for (int i=0;i<5;i++)
-        comp<<QString("%1 %2").arg(command()).arg(i);
+        comp<<QString::fromLatin1("%1 %2").arg(command()).arg(i);
     setCompletions(comp);
     emit fetchingDone();
 }

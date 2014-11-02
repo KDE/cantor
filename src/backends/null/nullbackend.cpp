@@ -22,38 +22,38 @@
 
 #include "nullsession.h"
 
-#include "kdebug.h"
+#include <QDebug>
 
 #include "cantor_macros.h"
 
 
 NullBackend::NullBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName("nullbackend");
-    kDebug()<<"Creating NullBackend";
+    setObjectName(QLatin1String("nullbackend"));
+    qDebug()<<"Creating NullBackend";
     setEnabled(false);
 }
 
 NullBackend::~NullBackend()
 {
-    kDebug()<<"Destroying NullBackend";
+    qDebug()<<"Destroying NullBackend";
 }
 
 QString NullBackend::id() const
 {
-    return "null";
+    return QLatin1String("null");
 }
 
 Cantor::Session* NullBackend::createSession()
 {
-    kDebug()<<"Spawning a new Null session";
+    qDebug()<<"Spawning a new Null session";
 
     return new NullSession(this);
 }
 
 Cantor::Backend::Capabilities NullBackend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of NullSession";
+    qDebug()<<"Requesting capabilities of NullSession";
     return Cantor::Backend::Nothing;
 }
 

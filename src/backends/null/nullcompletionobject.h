@@ -31,7 +31,7 @@ class NullCompletionObject : public Cantor::CompletionObject
     NullCompletionObject( const QString& command, int index, NullSession* session);
     ~NullCompletionObject();
 
-  protected slots:
+  protected Q_SLOTS:
     void fetchCompletions();
 
 };
