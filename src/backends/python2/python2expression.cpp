@@ -25,19 +25,19 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
-#include <kdebug.h>
-#include <kiconloader.h>
+#include <QDebug>
+#include <KIconLoader>
 #include <QFile>
 #include "python2session.h"
 #include "settings.h"
 
 #include "imageresult.h"
-#include <qdir.h>
+#include <QDir>
 typedef Cantor::ImageResult Python2PlotResult;
 
 Python2Expression::Python2Expression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    kDebug() << "Python2Expression construtor";
+    qDebug() << "Python2Expression construtor";
 }
 
 Python2Expression::~Python2Expression()
@@ -47,22 +47,22 @@ Python2Expression::~Python2Expression()
 
 void Python2Expression::evaluate()
 {
-    kDebug() << "evaluating " << command();
+    qDebug() << "evaluating " << command();
     setStatus(Cantor::Expression::Computing);
 
     Python2Session* pythonSession = dynamic_cast<Python2Session*>(session());
 
-    kDebug() << Python2Settings::integratePlots() << command().contains("show()");
+    qDebug() << Python2Settings::integratePlots() << command().contains(QLatin1String("show()"));
 
-    if((Python2Settings::integratePlots()) && (command().contains("show()"))){
+    if((Python2Settings::integratePlots()) && (command().contains(QLatin1String("show()")))){
 
-        kDebug() << "Preparing export figures property";
+        qDebug() << "Preparing export figures property";
 
-        QString saveFigCommand = "savefig('cantor-export-python-figure-%1.png')";
+        QString saveFigCommand = QLatin1String("savefig('cantor-export-python-figure-%1.png')");
 
-        setCommand(command().replace("show()", saveFigCommand.arg(rand())));
+        setCommand(command().replace(QLatin1String("show()"), saveFigCommand.arg(rand())));
 
-        kDebug() << "New Command " << command();
+        qDebug() << "New Command " << command();
 
     }
 
@@ -71,10 +71,10 @@ void Python2Expression::evaluate()
 
 void Python2Expression::parseOutput(QString output)
 {
-    kDebug() << "output: " << output;
+    qDebug() << "output: " << output;
 
-    if(command().simplified().startsWith("help(")){
-        setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf("None"), 4)));
+    if(command().simplified().startsWith(QLatin1String("help("))){
+        setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf(QLatin1String("None")), 4)));
     } else {
         setResult(new Cantor::TextResult(output));
     }
@@ -84,17 +84,17 @@ void Python2Expression::parseOutput(QString output)
 
 void Python2Expression::parseError(QString error)
 {
-    kDebug() << "error: " << error;
-    setErrorMessage(error.replace("\n", "<br>"));
+    qDebug() << "error: " << error;
+    setErrorMessage(error.replace(QLatin1String("\n"), QLatin1String("<br>")));
 
     setStatus(Cantor::Expression::Error);
 }
 
 void Python2Expression::parsePlotFile(QString filename)
 {
-    kDebug() << "parsePlotFile";
+    qDebug() << "parsePlotFile";
 
-    kDebug() << "Python2Expression::parsePlotFile: " << filename;
+    qDebug() << "Python2Expression::parsePlotFile: " << filename;
 
     setResult(new Python2PlotResult(filename));
 
@@ -102,14 +102,14 @@ void Python2Expression::parsePlotFile(QString filename)
 
     if (m_finished)
     {
-        kDebug() << "Python2Expression::parsePlotFile: done";
+        qDebug() << "Python2Expression::parsePlotFile: done";
         setStatus(Done);
     }
 }
 
 void Python2Expression::interrupt()
 {
-    kDebug()<<"interruptinging command";
+    qDebug()<<"interruptinging command";
     setStatus(Cantor::Expression::Interrupted);
 }
 

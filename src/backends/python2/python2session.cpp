@@ -24,10 +24,10 @@
 #include "python2completionobject.h"
 #include "python2keywords.h"
 
-#include <kdebug.h>
+#include <QDebug>
 #include <KDirWatch>
 
-#include <QtCore/QFile>
+#include <QFile>
 #include <QTextEdit>
 #include <QListIterator>
 #include <QDir>
@@ -37,7 +37,6 @@
 
 #include <settings.h>
 #include <defaultvariablemodel.h>
-#include <qdir.h>
 
 #include <string>
 
@@ -46,53 +45,53 @@ using namespace std;
 Python2Session::Python2Session(Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
-    kDebug();
+    qDebug();
 }
 
 Python2Session::~Python2Session()
 {
-    kDebug();
+    qDebug();
 }
 
 void Python2Session::login()
 {
-    kDebug()<<"login";
+    qDebug()<<"login";
 
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
 
     if(Python2Settings::integratePlots())
     {
-        kDebug() << "integratePlots";
+        qDebug() << "integratePlots";
 
         QString tempPath = QDir::tempPath();
 
         QString pathOperations = tempPath;
-        pathOperations.prepend("import os\nos.chdir('");
-        pathOperations.append("')\n");
+        pathOperations.prepend(QLatin1String("import os\nos.chdir('"));
+        pathOperations.append(QLatin1String("')\n"));
 
-        kDebug() << "Processing command to change chdir in Python. Command " << pathOperations.toLocal8Bit();
+        qDebug() << "Processing command to change chdir in Python. Command " << pathOperations.toLocal8Bit();
 
         getPythonCommandOutput(pathOperations);
 
         m_watch = new KDirWatch(this);
-        m_watch->setObjectName("PythonDirWatch");
+        m_watch->setObjectName(QLatin1String("PythonDirWatch"));
 
         m_watch->addDir(tempPath, KDirWatch::WatchFiles);
 
-        kDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(tempPath.toLocal8Bit());
+        qDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(QLatin1String(tempPath.toLocal8Bit()));
 
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
     if(!Python2Settings::self()->autorunScripts().isEmpty()){
-        QString autorunScripts = Python2Settings::self()->autorunScripts().join("\n");
+        QString autorunScripts = Python2Settings::self()->autorunScripts().join(QLatin1String("\n"));
         getPythonCommandOutput(autorunScripts);
     }
 
-    QString importDefaultModules = "import numpy\n"      \
-                                   "import scipy\n"      \
-                                   "import matplotlib";
+    QString importDefaultModules = QLatin1String("import numpy\n"      \
+                                                 "import scipy\n"      \
+                                                 "import matplotlib");
 
     evaluateExpression(importDefaultModules, Cantor::Expression::DeleteOnFinish);
 
@@ -103,13 +102,13 @@ void Python2Session::login()
 
 void Python2Session::logout()
 {
-    kDebug()<<"logout";
+    qDebug()<<"logout";
 
     QDir removePlotFigures;
     QListIterator<QString> i(m_listPlotName);
 
     while(i.hasNext()){
-        removePlotFigures.remove(i.next().toLocal8Bit().constData());
+        removePlotFigures.remove(QLatin1String(i.next().toLocal8Bit().constData()));
     }
 
     changeStatus(Cantor::Session::Done);
@@ -117,7 +116,7 @@ void Python2Session::logout()
 
 void Python2Session::interrupt()
 {
-    kDebug()<<"interrupt";
+    qDebug()<<"interrupt";
 
     foreach(Cantor::Expression* e, m_runningExpressions)
         e->interrupt();
@@ -128,7 +127,7 @@ void Python2Session::interrupt()
 
 Cantor::Expression* Python2Session::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    kDebug() << "evaluating: " << cmd;
+    qDebug() << "evaluating: " << cmd;
     Python2Expression* expr = new Python2Expression(this);
 
     changeStatus(Cantor::Session::Running);
@@ -142,7 +141,7 @@ Cantor::Expression* Python2Session::evaluateExpression(const QString& cmd, Canto
 
 void Python2Session::runExpression(Python2Expression* expr)
 {
-    kDebug() << "run expression";
+    qDebug() << "run expression";
 
     m_currentExpression = expr;
 
@@ -150,15 +149,16 @@ void Python2Session::runExpression(Python2Expression* expr)
 
     command += expr->command();
 
-    QStringList commandLine = command.split("\n");
+    QStringList commandLine = command.split(QLatin1String("\n"));
 
     QString commandProcessing;
 
     for(int contLine = 0; contLine < commandLine.size(); contLine++){
 
-        QString firstLineWord = commandLine.at(contLine).trimmed().replace("(", " ").split(" ").at(0);
+        QString firstLineWord = commandLine.at(contLine).trimmed().replace(QLatin1String("("), QLatin1String(" "))
+            .split(QLatin1String(" ")).at(0);
 
-        if(commandLine.at(contLine).contains("import ")){
+        if(commandLine.at(contLine).contains(QLatin1String("import "))){
 
             if(identifyKeywords(commandLine.at(contLine).simplified())){
                 continue;
@@ -168,26 +168,26 @@ void Python2Session::runExpression(Python2Expression* expr)
             }
         }
 
-        if(firstLineWord.contains("execfile")){
+        if(firstLineWord.contains(QLatin1String("execfile"))){
 
             commandProcessing += commandLine.at(contLine);
             continue;
         }
 
-        if((!Python2Keywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains("=")) &&
-           (!commandLine.at(contLine).endsWith(":")) && (!commandLine.at(contLine).startsWith(" "))){
+        if((!Python2Keywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains(QLatin1String("="))) &&
+           (!commandLine.at(contLine).endsWith(QLatin1String(":"))) && (!commandLine.at(contLine).startsWith(QLatin1String(" ")))){
 
-            commandProcessing += "print " + commandLine.at(contLine) + "\n";
+            commandProcessing += QLatin1String("print ") + commandLine.at(contLine) + QLatin1String("\n");
 
             continue;
         }
 
-        if(commandLine.at(contLine).startsWith(" ")){
+        if(commandLine.at(contLine).startsWith(QLatin1String(" "))){
 
-            if((Python2Keywords::instance()->keywords().contains(firstLineWord)) || (commandLine.at(contLine).contains("=")) ||
-               (commandLine.at(contLine).endsWith(":"))){
+            if((Python2Keywords::instance()->keywords().contains(firstLineWord)) || (commandLine.at(contLine).contains(QLatin1String("="))) ||
+               (commandLine.at(contLine).endsWith(QLatin1String(":")))){
 
-                commandProcessing += commandLine.at(contLine) + "\n";
+                commandProcessing += commandLine.at(contLine) + QLatin1String("\n");
 
                 continue;
             }
@@ -196,25 +196,25 @@ void Python2Session::runExpression(Python2Expression* expr)
 
             for(contIdentationSpace = 0; commandLine.at(contLine).at(contIdentationSpace).isSpace(); contIdentationSpace++);
 
-            kDebug() << "contIdentationSpace: " << contIdentationSpace;
+            qDebug() << "contIdentationSpace: " << contIdentationSpace;
 
             QString commandIdentation;
 
             commandIdentation = commandLine.at(contLine);
 
-            kDebug() << "Insert print in " << contIdentationSpace << "space";
-            kDebug() << "commandIdentation before insert " << commandIdentation;
+            qDebug() << "Insert print in " << contIdentationSpace << "space";
+            qDebug() << "commandIdentation before insert " << commandIdentation;
 
-            commandIdentation.insert(contIdentationSpace, QString("print "));
+            commandIdentation.insert(contIdentationSpace, QLatin1String("print "));
 
-            kDebug() << "commandIdentation after insert" << commandIdentation;
+            qDebug() << "commandIdentation after insert" << commandIdentation;
 
-            commandProcessing += commandIdentation + "\n";
+            commandProcessing += commandIdentation + QLatin1String("\n");
 
             continue;
         }
 
-        commandProcessing += commandLine.at(contLine) + "\n";
+        commandProcessing += commandLine.at(contLine) + QLatin1String("\n");
 
     }
 
@@ -223,23 +223,23 @@ void Python2Session::runExpression(Python2Expression* expr)
 
 void Python2Session::runClassOutputPython()
 {
-    QString classOutputPython = "import sys\n"                                      \
-                                "class CatchOutPythonBackend:\n"                    \
-                                "    def __init__(self):\n"                         \
-                                "        self.value = ''\n"                         \
-                                "    def write(self, txt):\n"                       \
-                                "        self.value += txt\n"                       \
-                                "outputPythonBackend = CatchOutPythonBackend()\n"   \
-                                "errorPythonBackend  = CatchOutPythonBackend()\n"   \
-                                "sys.stdout = outputPythonBackend\n"   \
-                                "sys.stderr = errorPythonBackend\n";
+    QString classOutputPython = QLatin1String("import sys\n"                                      \
+                                              "class CatchOutPythonBackend:\n"                    \
+                                              "    def __init__(self):\n"                         \
+                                              "        self.value = ''\n"                         \
+                                              "    def write(self, txt):\n"                       \
+                                              "        self.value += txt\n"                       \
+                                              "outputPythonBackend = CatchOutPythonBackend()\n"   \
+                                              "errorPythonBackend  = CatchOutPythonBackend()\n"   \
+                                              "sys.stdout = outputPythonBackend\n"   \
+                                              "sys.stderr = errorPythonBackend\n");
 
     PyRun_SimpleString(classOutputPython.toStdString().c_str());
 }
 
 void Python2Session::getPythonCommandOutput(QString commandProcessing)
 {
-    kDebug() << "Running python command" << commandProcessing.toStdString().c_str();
+    qDebug() << "Running python command" << commandProcessing.toStdString().c_str();
 
     runClassOutputPython();
     PyRun_SimpleString(commandProcessing.toStdString().c_str());
@@ -252,9 +252,9 @@ void Python2Session::getPythonCommandOutput(QString commandProcessing)
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
     string errorString = PyString_AsString(error);
 
-    m_output = QString(outputString.c_str());
+    m_output = QString::fromLocal8Bit(outputString.c_str());
 
-    m_error = QString(errorString.c_str());
+    m_error = QString::fromLocal8Bit(errorString.c_str());
 }
 
 bool Python2Session::identifyKeywords(QString command)
@@ -269,11 +269,11 @@ bool Python2Session::identifyKeywords(QString command)
 
     getPythonCommandOutput(command);
 
-    kDebug() << "verifyErrorImport: ";
+    qDebug() << "verifyErrorImport: ";
 
     if(!m_error.isEmpty()){
 
-        kDebug() << "returned false";
+        qDebug() << "returned false";
 
         return false;
     }
@@ -281,18 +281,18 @@ bool Python2Session::identifyKeywords(QString command)
     moduleImported += identifyPythonModule(command);
     moduleVariable += identifyVariableModule(command);
 
-    if((moduleVariable.isEmpty()) && (!command.endsWith("*"))){
-        keywordsString = command.section(" ", 3).remove(" ");
+    if((moduleVariable.isEmpty()) && (!command.endsWith(QLatin1String("*")))){
+        keywordsString = command.section(QLatin1String(" "), 3).remove(QLatin1String(" "));
     }
 
-    if(moduleVariable.isEmpty() && (command.endsWith("*"))){
-        listKeywords += "import " + moduleImported + "\n"     \
-                        "print dir(" + moduleImported + ")\n" \
-                        "del " + moduleImported + "\n";
+    if(moduleVariable.isEmpty() && (command.endsWith(QLatin1String("*")))){
+        listKeywords += QString::fromLatin1("import %1\n"     \
+                                            "print dir(%1)\n" \
+                                            "del %1\n").arg(moduleImported);
     }
 
     if(!moduleVariable.isEmpty()){
-        listKeywords += "print dir(" + moduleVariable + ")\n";
+        listKeywords += QLatin1String("print dir(") + moduleVariable + QLatin1String(")\n");
     }
 
     if(!listKeywords.isEmpty()){
@@ -300,21 +300,21 @@ bool Python2Session::identifyKeywords(QString command)
 
         keywordsString = m_output;
 
-        keywordsString.remove("'");
-        keywordsString.remove(" ");
-        keywordsString.remove("[");
-        keywordsString.remove("]");
+        keywordsString.remove(QLatin1String("'"));
+        keywordsString.remove(QLatin1String(" "));
+        keywordsString.remove(QLatin1String("["));
+        keywordsString.remove(QLatin1String("]"));
     }
 
-    kDebug() << "keywordsString" << keywordsString;
+    qDebug() << "keywordsString" << keywordsString;
 
-    QStringList keywordsList = keywordsString.split(",");
+    QStringList keywordsList = keywordsString.split(QLatin1String(","));
 
-    kDebug() << "keywordsList" << keywordsList;
+    qDebug() << "keywordsList" << keywordsList;
 
     Python2Keywords::instance()->loadFromModule(moduleVariable, keywordsList);
 
-    kDebug() << "Module imported" << moduleImported;
+    qDebug() << "Module imported" << moduleImported;
 
     return true;
 }
@@ -323,11 +323,11 @@ QString Python2Session::identifyPythonModule(QString command)
 {
     QString module;
 
-    if(command.contains("import ")){
-        module = command.section(" ", 1, 1);
+    if(command.contains(QLatin1String("import "))){
+        module = command.section(QLatin1String(" "), 1, 1);
     }
 
-    kDebug() << "module identified" << module;
+    qDebug() << "module identified" << module;
     return module;
 }
 
@@ -335,34 +335,34 @@ QString Python2Session::identifyVariableModule(QString command)
 {
     QString variable;
 
-    if(command.contains("import ")){
-        variable = command.section(" ", 1, 1);
+    if(command.contains(QLatin1String("import "))){
+        variable = command.section(QLatin1String(" "), 1, 1);
     }
 
-    if((command.contains("import ")) && (command.contains(" as "))){
-        variable = command.section(" ", 3, 3);
+    if((command.contains(QLatin1String("import "))) && (command.contains(QLatin1String(" as ")))){
+        variable = command.section(QLatin1String(" "), 3, 3);
     }
 
-    if(command.contains("from ")){
-        variable = "";
+    if(command.contains(QLatin1String("from "))){
+        variable = QLatin1String("");
     }
 
-    kDebug() << "variable identified" << variable;
+    qDebug() << "variable identified" << variable;
     return variable;
 }
 
 void Python2Session::expressionFinished()
 {
-    kDebug()<< "finished";
+    qDebug()<< "finished";
     Python2Expression* expression = qobject_cast<Python2Expression*>(sender());
 
     m_runningExpressions.removeAll(expression);
-    kDebug() << "size: " << m_runningExpressions.size();
+    qDebug() << "size: " << m_runningExpressions.size();
 }
 
 void Python2Session::readOutput(Python2Expression* expr, QString commandProcessing)
 {
-    kDebug() << "readOutput";
+    qDebug() << "readOutput";
 
     getPythonCommandOutput(commandProcessing);
 
@@ -370,13 +370,13 @@ void Python2Session::readOutput(Python2Expression* expr, QString commandProcessi
 
         expr->parseOutput(m_output);
 
-        kDebug() << "output: " << m_output;
+        qDebug() << "output: " << m_output;
 
     } else {
 
         expr->parseError(m_error);
 
-        kDebug() << "error: " << m_error;
+        qDebug() << "error: " << m_error;
     }
 
     listVariables();
@@ -386,11 +386,11 @@ void Python2Session::readOutput(Python2Expression* expr, QString commandProcessi
 
 void Python2Session::plotFileChanged(QString filename)
 {
-    kDebug() << "plotFileChanged filename:" << filename;
+    qDebug() << "plotFileChanged filename:" << filename;
 
-    if ((m_currentExpression) && (filename.contains("cantor-export-python-figure")))
+    if ((m_currentExpression) && (filename.contains(QLatin1String("cantor-export-python-figure"))))
     {
-         kDebug() << "Calling parsePlotFile";
+         qDebug() << "Calling parsePlotFile";
          m_currentExpression->parsePlotFile(filename);
 
          m_listPlotName.append(filename);
@@ -400,34 +400,34 @@ void Python2Session::plotFileChanged(QString filename)
 void Python2Session::listVariables()
 {
     QString listVariableCommand;
-    listVariableCommand += "print globals()\n";
+    listVariableCommand += QLatin1String("print globals()\n");
 
     getPythonCommandOutput(listVariableCommand);
 
-    kDebug() << m_output;
+    qDebug() << m_output;
 
-    m_output.remove("{");
-    m_output.remove("<");
-    m_output.remove(">");
-    m_output.remove("}");
+    m_output.remove(QLatin1String("{"));
+    m_output.remove(QLatin1String("<"));
+    m_output.remove(QLatin1String(">"));
+    m_output.remove(QLatin1String("}"));
 
-    kDebug() << m_output;
+    qDebug() << m_output;
 
-    foreach(QString line, m_output.split(", '")){
+    foreach(QString line, m_output.split(QLatin1String(", '"))){
 
-        QStringList parts = line.simplified().split(":");
+        QStringList parts = line.simplified().split(QLatin1String(":"));
 
-        if(!parts.first().startsWith("'__") && !parts.first().startsWith("__") && !parts.first().startsWith("CatchOutPythonBackend'") &&
-           !parts.first().startsWith("errorPythonBackend'") && !parts.first().startsWith("outputPythonBackend'") &&
-           !parts.first().startsWith("sys':") && !parts.last().startsWith(" class ") && !parts.last().startsWith(" function ")){
+        if(!parts.first().startsWith(QLatin1String("'__")) && !parts.first().startsWith(QLatin1String("__")) && !parts.first().startsWith(QLatin1String("CatchOutPythonBackend'")) &&
+           !parts.first().startsWith(QLatin1String("errorPythonBackend'")) && !parts.first().startsWith(QLatin1String("outputPythonBackend'")) &&
+           !parts.first().startsWith(QLatin1String("sys':")) && !parts.last().startsWith(QLatin1String(" class ")) && !parts.last().startsWith(QLatin1String(" function "))){
 
-            m_variableModel->addVariable(parts.first().remove("'").simplified(), parts.last().simplified());
-            Python2Keywords::instance()->addVariable(parts.first().remove("'").simplified());
+            m_variableModel->addVariable(parts.first().remove(QLatin1String("'")).simplified(), parts.last().simplified());
+            Python2Keywords::instance()->addVariable(parts.first().remove(QLatin1String("'")).simplified());
 
         }
     }
 
-    kDebug() << "emitting updateHighlighter";
+    qDebug() << "emitting updateHighlighter";
     emit updateHighlighter();
 
 }

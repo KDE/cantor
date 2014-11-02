@@ -25,14 +25,14 @@
 #include "settings.h"
 #include "ui_settings.h"
 
-#include "kdebug.h"
+#include <QDebug>
 #include <QWidget>
 
 #include "cantor_macros.h"
 
 Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
 {
-    kDebug()<<"Creating Python2Backend";
+    qDebug()<<"Creating Python2Backend";
 
     new Python2LinearAlgebraExtension(this);
     new Python2PackagingExtension(this);
@@ -40,29 +40,29 @@ Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Ca
     new Python2ScriptExtension(this);
     new Python2VariableManagementExtension(this);
 
-    setObjectName("python2backend");
+    setObjectName(QLatin1String("python2backend"));
 }
 
 Python2Backend::~Python2Backend()
 {
-    kDebug()<<"Destroying Python2Backend";
+    qDebug()<<"Destroying Python2Backend";
 }
 
 QString Python2Backend::id() const
 {
-    return "python2";
+    return QLatin1String("python2");
 }
 
 Cantor::Session* Python2Backend::createSession()
 {
-    kDebug()<<"Spawning a new Python 2 session";
+    qDebug()<<"Spawning a new Python 2 session";
 
     return new Python2Session(this);
 }
 
 Cantor::Backend::Capabilities Python2Backend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of Python2Session";
+    qDebug()<<"Requesting capabilities of Python2Session";
 
     return Cantor::Backend::SyntaxHighlighting |
            Cantor::Backend::Completion         |

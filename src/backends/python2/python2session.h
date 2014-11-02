@@ -23,7 +23,7 @@
 
 #include "session.h"
 #include <QStringList>
-#include <QtCore/QPointer>
+#include <QPointer>
 
 #include <Python.h>
 
@@ -54,7 +54,7 @@ class Python2Session : public Cantor::Session
     virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     virtual QAbstractItemModel* variableModel();
 
-  public slots:
+  public Q_SLOTS:
     void readOutput(Python2Expression* expr, QString commandProcessing);
     void plotFileChanged(QString filename);
 
@@ -79,10 +79,10 @@ class Python2Session : public Cantor::Session
     QString identifyVariableModule(QString command);
     bool identifyKeywords(QString command);
 
-  private slots:
+  private Q_SLOTS:
     void expressionFinished();
 
-  signals:
+  Q_SIGNALS:
     void updateHighlighter();
 };
 

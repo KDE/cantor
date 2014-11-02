@@ -1,5 +1,3 @@
-find_package(KDE4 REQUIRED KIO KDIRWATCH)
-
 set( Python2Backend_SRCS
      python2backend.cpp
      python2session.cpp
@@ -18,13 +16,18 @@ endif(MSVC)
 include_directories(${PYTHON_LIBRARIES_DIR})
 include_directories(${PYTHON_INCLUDE_DIR})
 
-kde4_add_kcfg_files(Python2Backend_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(Python2Backend_SRCS settings.kcfgc)
 install(FILES python2backend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-kde4_add_ui_files(Python2Backend_SRCS settings.ui)
+ki18n_wrap_ui(Python2Backend_SRCS settings.ui)
 
-kde4_add_plugin(cantor_python2backend ${Python2Backend_SRCS})
-target_link_libraries(cantor_python2backend ${PYTHON_LIBRARIES} ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
+add_library(cantor_python2backend MODULE ${Python2Backend_SRCS})
+target_link_libraries(cantor_python2backend
+    ${PYTHON_LIBRARIES}
+    cantorlibs
+    KF5::KIOCore
+    KF5::ConfigCore
+    KF5::ConfigGui)
 
 install(FILES python2backend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/python2backend)

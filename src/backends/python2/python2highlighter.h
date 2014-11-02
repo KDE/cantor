@@ -31,7 +31,7 @@ class Python2Highlighter : public Cantor::DefaultHighlighter
     Python2Highlighter(QObject* parent);
     ~Python2Highlighter();
 
-  public slots:
+  public Q_SLOTS:
     void updateHighlight();
 
   protected:

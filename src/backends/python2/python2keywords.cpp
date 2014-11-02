@@ -24,12 +24,12 @@
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <QDebug>
+#include <KStandardDirs>
 
 Python2Keywords::Python2Keywords()
 {
-    kDebug() << "Python2Keywords construtor";
+    qDebug() << "Python2Keywords construtor";
 
 }
 
@@ -56,14 +56,14 @@ Python2Keywords* Python2Keywords::instance()
 
 void Python2Keywords::loadFromFile()
 {
-    kDebug() << "Python2Keywords loadFromFile()";
+    qDebug() << "Python2Keywords loadFromFile()";
 
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("appdata",  "python2backend/keywords.xml"));
+    QFile file(KStandardDirs::locate("appdata",  QLatin1String("python2backend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {
-        kDebug() << "error opening keywords.xml file. highlighting and completion won't work";
+        qDebug() << "error opening keywords.xml file. highlighting and completion won't work";
         return;
     }
 
@@ -74,22 +74,22 @@ void Python2Keywords::loadFromFile()
     {
         const QStringRef name = xml.name();
 
-        if((name == "keywords") || (name == "variables") || (name == "functions"))
+        if((name == QLatin1String("keywords")) || (name == QLatin1String("variables")) || (name == QLatin1String("functions")))
         {
             while(xml.readNextStartElement())
             {
-                Q_ASSERT(xml.isStartElement() && xml.name() == "word");
+                Q_ASSERT(xml.isStartElement() && xml.name() == QLatin1String("word"));
 
                 const QString text = xml.readElementText();
 
-                if(name == "keywords")
+                if(name == QLatin1String("keywords"))
                     m_keywords << text;
 
-                else if(name == "variables"){
+                else if(name == QLatin1String("variables")){
                     m_variables << text;
                 }
 
-                else if(name == "functions")
+                else if(name == QLatin1String("functions"))
                     m_functions << text;
             }
         }
@@ -101,16 +101,16 @@ void Python2Keywords::loadFromFile()
 
     if (xml.hasError())
     {
-        kDebug() << "error parsing element";
-        kDebug() << "error: "<< xml.errorString();
+        qDebug() << "error parsing element";
+        qDebug() << "error: "<< xml.errorString();
     }
 
 }
 
 void Python2Keywords::loadFromModule(QString module, QStringList keywords)
 {
-    kDebug() << "Module imported" << module;
-    kDebug() << "keywords" << keywords;
+    qDebug() << "Module imported" << module;
+    qDebug() << "keywords" << keywords;
 
     if (module.isEmpty()){
         for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
@@ -120,14 +120,14 @@ void Python2Keywords::loadFromModule(QString module, QStringList keywords)
         m_variables << module;
 
         for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
-            m_functions << module + "." + keywords.at(contKeyword);
+            m_functions << module + QLatin1String(".") + keywords.at(contKeyword);
         }
     }
 }
 
 void Python2Keywords::addVariable(QString variable)
 {
-    kDebug() << "Variable added" << variable;
+    qDebug() << "Variable added" << variable;
 
     if (!m_variables.contains(variable)){
         m_variables << variable;

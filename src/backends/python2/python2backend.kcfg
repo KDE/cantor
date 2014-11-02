@@ -4,12 +4,7 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="cantorrc"/>
-  <include>kstandarddirs.h</include>
   <group name="PythonBackend">
-    <entry name="Path" type="Url">
-      <label>Path to python command</label>
-      <default code="true">KStandardDirs::findExe("python")</default>
-    </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
       <default>false</default>

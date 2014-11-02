@@ -18,7 +18,7 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "python2completionobject.h"
 
@@ -67,10 +67,10 @@ void Python2CompletionObject::fetchIdentifierType()
 
 bool Python2CompletionObject::mayIdentifierContain(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_' || c == '%' || c == '$' || c == '.';
+    return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$') || c == QLatin1Char('.');
 }
 
 bool Python2CompletionObject::mayIdentifierBeginWith(QChar c) const
 {
-    return c.isLetter() || c == '_' || c == '%' || c == '$';
+    return c.isLetter() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$');
 }
