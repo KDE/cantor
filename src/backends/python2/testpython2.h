@@ -28,7 +28,7 @@ class TestPython2 : public BackendTest
 {
   Q_OBJECT
 
-private slots:
+private Q_SLOTS:
     void testImportNumpy();
 
 private:

@@ -27,12 +27,12 @@
 
 QString TestPython2::backendName()
 {
-    return "python2";
+    return QLatin1String("python2");
 }
 
 void TestPython2::testImportNumpy()
 {
-    Cantor::Expression* e=evalExp( "import numpy" );
+    Cantor::Expression* e=evalExp( QLatin1String("import numpy" ));
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );

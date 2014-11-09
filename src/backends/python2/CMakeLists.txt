@@ -29,8 +29,8 @@ target_link_libraries(cantor_python2backend
     KF5::ConfigCore
     KF5::ConfigGui)
 
-kde4_add_unit_test(testpython2 testpython2.cpp)
-target_link_libraries( testpython2 ${KDE4_KDECORE_LIBS} ${QT_QTTEST_LIBRARY} cantorlibs cantortest )
+add_executable(testpython2 testpython2.cpp)
+target_link_libraries( testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest )
 
 install(FILES python2backend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(FILES ../python/keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/python2backend)
