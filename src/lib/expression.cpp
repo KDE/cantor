@@ -187,11 +187,20 @@ void Expression::latexRendered()
     qDebug()<<"rendered a result to "<<renderer->imagePath();
     //replace the textresult with the rendered latex image result
     //ImageResult* latex=new ImageResult( d->latexFilename );
-    if(renderer->renderingSuccessful())
+    if(renderer->renderingSuccessful()&&result())
     {
-        TextResult* r=dynamic_cast<TextResult*>(result());
-        LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
-        setResult( latex );
+        if (result()->type() == TextResult::Type)
+        {
+            TextResult* r=dynamic_cast<TextResult*>(result());
+            LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
+            setResult( latex );
+        }
+        else if (result()->type() == LatexResult::Type)
+        {
+            LatexResult* previousLatexResult=dynamic_cast<LatexResult*>(result());
+            LatexResult* latex=new LatexResult(previousLatexResult->data().toString().trimmed(), KUrl(renderer->imagePath()), previousLatexResult->plain());
+            setResult( latex );
+        }
     }else
     {
         //if rendering with latex was not successfull, just use the plain text version
