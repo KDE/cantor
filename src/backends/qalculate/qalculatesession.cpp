@@ -34,8 +34,6 @@
 #include <libqalculate/Variable.h>
 #include <libqalculate/Function.h>
 
-#include <KDebug>
-
 #include "qalculatesyntaxhelpobject.h"
 
 QalculateSession::QalculateSession( Cantor::Backend* backend)
@@ -69,7 +67,7 @@ QalculateSession::~QalculateSession()
 void QalculateSession::login()
 {
     if(!QalculateSettings::autorunScripts().isEmpty()){
-        QString autorunScripts = QalculateSettings::self()->autorunScripts().join("\n");
+        QString autorunScripts = QalculateSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
         evaluateExpression(autorunScripts, QalculateExpression::DeleteOnFinish);
     }

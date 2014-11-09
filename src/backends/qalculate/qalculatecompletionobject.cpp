@@ -27,8 +27,6 @@
 
 #include "qalculatesession.h"
 
-#include <KDebug>
-
 QalculateCompletionObject::QalculateCompletionObject(const QString& command, int index, QalculateSession* session)
     : Cantor::CompletionObject(session)
 {
@@ -51,7 +49,7 @@ void QalculateCompletionObject::fetchIdentifierType()
 	emit fetchingTypeDone(UnknownType);
     else if (func->args() == 0)
 	emit fetchingTypeDone(FunctionWithoutArguments);
-    else 
+    else
 	emit fetchingTypeDone(FunctionWithArguments);
 }
 
@@ -66,7 +64,7 @@ int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) c
 	if (mayIdentifierBeginWith(cmd[i]))
 	    start_index = i;
     }
-    
+
     return start_index;
 }
 
@@ -79,15 +77,15 @@ void QalculateCompletionObject::fetchCompletions()
     // case sensitive.
     foreach ( Unit* item, CALCULATOR->units ) {
         //TODO: this is fugly...
-        QString str(item->name(true).c_str());
+        QString str(QLatin1String(item->name(true).c_str()));
         if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;
         }
-	QString str2(item->singular().c_str());
+	QString str2(QLatin1String(item->singular().c_str()));
 	if (str2.startsWith(command(), Qt::CaseSensitive) ) {
 	    comp << str2;
 	}
-	// Also include the plural form for completion? 
+	// Also include the plural form for completion?
 	//QString str3(item->plural().c_str());
 	//if (str3.startsWith(command(), Qt::CaseSensitive) ) {
 	//    comp << str3;
@@ -95,14 +93,14 @@ void QalculateCompletionObject::fetchCompletions()
     }
     foreach ( ExpressionItem* item, CALCULATOR->variables ) {
         //TODO: this is fugly...
-        QString str(item->name(true).c_str());
+        QString str(QLatin1String(item->name(true).c_str()));
         if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;
         }
     }
     foreach ( ExpressionItem* item, CALCULATOR->functions ) {
         //TODO: this is fugly...
-        QString str(item->name(true).c_str());
+        QString str(QLatin1String(item->name(true).c_str()));
         if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;
         }

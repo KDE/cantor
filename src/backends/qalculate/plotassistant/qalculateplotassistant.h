@@ -24,8 +24,8 @@
 #include "assistant.h"
 #include "settings.h"
 #include "ui_qalculateplotdialog.h"
-#include <kdialog.h>
-#include <qlist.h>
+#include <KDialog>
+#include <QList>
 
 class QalculatePlotAssistant : public Cantor::Assistant
 {
@@ -41,7 +41,7 @@ private:
     void initDialog(QWidget* parent);
     void saveRowInformation(int);
     void loadRowInformation(int);
-public slots:
+public Q_SLOTS:
     void addFunction();
     void removeSelection();
     void clearFunctions();

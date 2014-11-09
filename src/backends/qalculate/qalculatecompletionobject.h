@@ -32,7 +32,7 @@ class QalculateCompletionObject : public Cantor::CompletionObject
     protected:
         virtual int locateIdentifier(const QString& cmd, int index) const;
 
-    protected slots:
+    protected Q_SLOTS:
         void fetchCompletions();
         void fetchIdentifierType();
 };

@@ -26,11 +26,15 @@ add_subdirectory(octave)
 #   add_subdirectory(R)
 # endif(R_FOUND)
 
-# macro_optional_find_package(Qalculate)
-# macro_log_feature(QALCULATE_FOUND "Qalculate" "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision." "http://qalculate.sourceforge.net/" FALSE "" "Backend to use Qalculate with Cantor.")
-# if(QALCULATE_FOUND)
-#     ecm_optional_add_subdirectory(qalculate)
-# endif(QALCULATE_FOUND)
+find_package(Qalculate)
+set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision."
+    URL "http://qalculate.sourceforge.net/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Qalculate with Cantor.")
+    
+if(QALCULATE_FOUND)
+    add_subdirectory(qalculate)
+endif(QALCULATE_FOUND)
 
 find_package(PythonLibs 2.7)
 set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic programming language"

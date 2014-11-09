@@ -20,8 +20,8 @@
 
 #include "qalculateplotassistant.h"
 
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KAction>
+#include <KActionCollection>
 #include "cantor_macros.h"
 
 QalculatePlotAssistant::QalculatePlotAssistant(QObject* parent, QList<QVariant> args) : Assistant(parent)
@@ -37,9 +37,9 @@ QalculatePlotAssistant::~QalculatePlotAssistant()
 
 void QalculatePlotAssistant::initActions()
 {
-    setXMLFile("cantor_qalculateplotassistant.rc");
+    setXMLFile(QLatin1String("cantor_qalculateplotassistant.rc"));
     KAction* plot  = new KAction(i18n("Plot"), actionCollection());
-    actionCollection()->addAction("qalculateplotassistant", plot);
+    actionCollection()->addAction(QLatin1String("qalculateplotassistant"), plot);
     connect(plot, SIGNAL(triggered()), this, SIGNAL(requested()));
 }
 
@@ -71,7 +71,7 @@ QStringList QalculatePlotAssistant::run(QWidget* parent)
 {
     if (!m_dlg)
 	initDialog(parent);
-	
+
     QStringList result;
     if (m_dlg->exec()) {
 	if (m_base.functionTable->currentRow() >= 0)
@@ -86,7 +86,7 @@ QStringList QalculatePlotAssistant::run(QWidget* parent)
 void QalculatePlotAssistant::addFunction()
 {
     m_base.functionTable->insertRow(m_base.functionTable->rowCount());
-    m_xVarList << "";
+    m_xVarList << QLatin1String("");
     m_styleList << QalculateSettings::STYLE_LINES;
     m_smoothingList << QalculateSettings::SMOOTHING_NONE;
     saveRowInformation(m_xVarList.size()-1);
@@ -180,77 +180,77 @@ void QalculatePlotAssistant::loadRowInformation(int row)
 QString QalculatePlotAssistant::plotCommand()
 {
     QStringList boolList;
-    boolList << "false" << "true";
-    QString command = "plot";
+    boolList << QLatin1String("false") << QLatin1String("true");
+    QString command = QLatin1String("plot");
     if (!m_base.plotTitleEdit->text().isEmpty())
-	command += QString(" plottitle='%1'").arg(m_base.plotTitleEdit->text());
+	command += QString::fromLatin1(" plottitle='%1'").arg(m_base.plotTitleEdit->text());
     if (!m_base.xLabelEdit->text().isEmpty())
-	command += QString(" xlabel='%1'").arg(m_base.xLabelEdit->text());
+	command += QString::fromLatin1(" xlabel='%1'").arg(m_base.xLabelEdit->text());
     if (!m_base.yLabelEdit->text().isEmpty())
-	command += QString(" ylabel='%1'").arg(m_base.yLabelEdit->text());
+	command += QString::fromLatin1(" ylabel='%1'").arg(m_base.yLabelEdit->text());
     if (m_base.legendBox->currentIndex() != QalculateSettings::plotLegend()) {
 	QString legend;
 	switch(m_base.legendBox->currentIndex()) {
 	case QalculateSettings::LEGEND_NONE:
-	    legend="none"; break;
+	    legend=QLatin1String("none"); break;
 	case QalculateSettings::LEGEND_TOP_LEFT:
-	    legend="top_left"; break;
+	    legend=QLatin1String("top_left"); break;
 	case QalculateSettings::LEGEND_TOP_RIGHT:
-	    legend="top_right"; break;
+	    legend=QLatin1String("top_right"); break;
 	case QalculateSettings::LEGEND_BOTTOM_LEFT:
-	    legend="bottom_left"; break;
+	    legend=QLatin1String("bottom_left"); break;
 	case QalculateSettings::LEGEND_BOTTOM_RIGHT:
-	    legend="bottom_right"; break;
+	    legend=QLatin1String("bottom_right"); break;
 	case QalculateSettings::LEGEND_BELOW:
-	    legend="below"; break;
+	    legend=QLatin1String("below"); break;
 	case QalculateSettings::LEGEND_OUTSIDE:
-	    legend="outside"; break;
+	    legend=QLatin1String("outside"); break;
 	}
-	command += QString(" legend=%1").arg(legend);
+	command += QString::fromLatin1(" legend=%1").arg(legend);
     }
     if (m_base.gridCheckBox->isChecked() != QalculateSettings::plotGrid())
-	command += QString(" grid=%1").arg(boolList[m_base.gridCheckBox->isChecked()]);
+	command += QString::fromLatin1(" grid=%1").arg(boolList[m_base.gridCheckBox->isChecked()]);
     if (m_base.borderCheckBox->isChecked() != QalculateSettings::plotBorder())
-	command += QString(" border=%1").arg(boolList[m_base.borderCheckBox->isChecked()]);
+	command += QString::fromLatin1(" border=%1").arg(boolList[m_base.borderCheckBox->isChecked()]);
     if (m_base.colorCheckBox->isChecked() != QalculateSettings::coloredPlot())
-	command += QString(" color=%1").arg(boolList[m_base.colorCheckBox->isChecked()]);
+	command += QString::fromLatin1(" color=%1").arg(boolList[m_base.colorCheckBox->isChecked()]);
     if (m_base.inlineCheckBox->isChecked() != QalculateSettings::inlinePlot())
-	command += QString(" inline=%1").arg(boolList[m_base.inlineCheckBox->isChecked()]);
+	command += QString::fromLatin1(" inline=%1").arg(boolList[m_base.inlineCheckBox->isChecked()]);
     if (m_base.xLogCheckBox->isChecked())
-	command += QString(" xlog=true xlogbase='%1'").arg(m_base.xLogEdit->text());
+	command += QString::fromLatin1(" xlog=true xlogbase='%1'").arg(m_base.xLogEdit->text());
     if (m_base.yLogCheckBox->isChecked())
-	command += QString(" ylog=true ylogbase='%1'").arg(m_base.yLogEdit->text());
+	command += QString::fromLatin1(" ylog=true ylogbase='%1'").arg(m_base.yLogEdit->text());
     if (m_base.saveCheckBox->isChecked()) {
 	QString filetype;
 	switch (m_base.saveFileBox->currentIndex()) {
 	case 0:
-	    filetype = "auto"; break;
+	    filetype = QLatin1String("auto"); break;
 	case 1:
-	    filetype = "png"; break;
+	    filetype = QLatin1String("png"); break;
 	case 2:
-	    filetype = "ps"; break;
+	    filetype = QLatin1String("ps"); break;
 	case 3:
-	    filetype = "eps"; break;
+	    filetype = QLatin1String("eps"); break;
 	case 4:
-	    filetype = "latex"; break;
+	    filetype = QLatin1String("latex"); break;
 	case 5:
-	    filetype = "svg"; break;
+	    filetype = QLatin1String("svg"); break;
 	case 6:
-	    filetype = "fig"; break;
+	    filetype = QLatin1String("fig"); break;
 	}
-	command += QString(" filename='%1' filetype=%2").arg
+	command += QString::fromLatin1(" filename='%1' filetype=%2").arg
 	    (m_base.saveFileEdit->text(), filetype);
     }
-    command += QString(" xmin='%1' xmax='%2'").arg
+    command += QString::fromLatin1(" xmin='%1' xmax='%2'").arg
 	(m_base.xMinEdit->text(), m_base.xMaxEdit->text());
     if (m_base.stepsButton->isChecked())
-	command += QString(" steps='%1'").arg(m_base.stepsEdit->text());
+	command += QString::fromLatin1(" steps='%1'").arg(m_base.stepsEdit->text());
     else
-	command += QString(" step='%1'").arg(m_base.stepEdit->text());
+	command += QString::fromLatin1(" step='%1'").arg(m_base.stepEdit->text());
     for (int i = 0; i < m_xVarList.size(); ++i) {
 	if (i>0)
-	    command += ',';
-	command += QString(" title='%1' '%2' xvar='%3'").arg
+	    command += QLatin1Char(',');
+	command += QString::fromLatin1(" title='%1' '%2' xvar='%3'").arg
 	    (m_base.functionTable->item(i,0)->text(),
 	     m_base.functionTable->item(i,1)->text(),
 	     m_xVarList[i]);
@@ -258,42 +258,43 @@ QString QalculatePlotAssistant::plotCommand()
 	    QString style;
 	    switch(m_styleList[i]) {
 	    case QalculateSettings::STYLE_LINES:
-		style="lines"; break;
+		style=QLatin1String("lines"); break;
 	    case QalculateSettings::STYLE_POINTS:
-		style="points"; break;
+		style=QLatin1String("points"); break;
 	    case QalculateSettings::STYLE_LINES_POINTS:
-		style="points_lines"; break;
+		style=QLatin1String("points_lines"); break;
 	    case QalculateSettings::STYLE_BOXES:
-		style="boxes"; break;
+		style=QLatin1String("boxes"); break;
 	    case QalculateSettings::STYLE_HISTOGRAM:
-		style="histogram"; break;
+		style=QLatin1String("histogram"); break;
 	    case QalculateSettings::STYLE_STEPS:
-		style="steps"; break;
+		style=QLatin1String("steps"); break;
 	    case QalculateSettings::STYLE_CANDLESTICKS:
-		style="candlesticks"; break;
+		style=QLatin1String("candlesticks"); break;
 	    case QalculateSettings::STYLE_DOTS:
-		style="dots"; break;
+		style=QLatin1String("dots"); break;
 	    }
-	    command += QString(" style=%1").arg(style);
+	    command += QString::fromLatin1(" style=%1").arg(style);
 	}
 	if (m_smoothingList[i] != QalculateSettings::plotSmoothing()) {
 	    QString smoothing;
 	    switch(m_smoothingList[i]) {
 	    case QalculateSettings::SMOOTHING_NONE:
-		smoothing="none"; break;
+		smoothing=QLatin1String("none"); break;
 	    case QalculateSettings::SMOOTHING_UNIQUE:
-		smoothing="monotonic"; break;
+		smoothing=QLatin1String("monotonic"); break;
 	    case QalculateSettings::SMOOTHING_CSPLINES:
-		smoothing="csplines"; break;
+		smoothing=QLatin1String("csplines"); break;
 	    case QalculateSettings::SMOOTHING_BEZIER:
-		smoothing="bezier"; break;
+		smoothing=QLatin1String("bezier"); break;
 	    case QalculateSettings::SMOOTHING_SBEZIER:
-		smoothing="sbezier"; break;
+		smoothing=QLatin1String("sbezier"); break;
 	    }
-	    command += QString(" smoothing=%1").arg(smoothing);
+	    command += QString::fromLatin1(" smoothing=%1").arg(smoothing);
 	}
     }
     return command;
 }
 
 K_EXPORT_CANTOR_PLUGIN(qalculateplotassistant, QalculatePlotAssistant)
+#include "qalculateplotassistant.moc"
