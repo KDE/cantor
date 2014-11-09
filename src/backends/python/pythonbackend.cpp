@@ -48,7 +48,7 @@ PythonBackend::PythonBackend(QObject* parent,const QList<QVariant> args ) : Cant
     // ExportExternalSymbols, we load the python symbols again
     // to make sure that python modules such as numpy see them
     // (see bug #330032)
-    QLibrary pythonLib("python2.7");
+    QLibrary pythonLib(QLatin1String("python2.7"));
     pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
     pythonLib.load();
 }
