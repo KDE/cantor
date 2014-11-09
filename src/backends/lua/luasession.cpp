@@ -25,7 +25,6 @@
 #include "luahelper.h"
 #include <settings.h>
 #include "ui_settings.h"
-#include <kdebug.h>
 
 LuaSession::LuaSession( Cantor::Backend* backend) : Session(backend)
 {
@@ -41,29 +40,29 @@ void LuaSession::login()
     luaL_openlibs(m_L);
 
     QStringList errors;
-    errors << luahelper_dostring(m_L, "__cantor = {}");
+    errors << luahelper_dostring(m_L, QLatin1String("__cantor = {}"));
 
     errors << luahelper_dostring(m_L,
-        "function print(...)\n"
+        QLatin1String("function print(...)\n"
             "local t = {}\n"
             "for i = 1, select('#',...) do\n"
                 "local a = select(i,...)\n"
                 "t[i] = tostring(a)\n"
             "end\n"
             "table.insert(__cantor, table.concat(t,'\t'))\n"
-        " end");
+        " end"));
 
     errors << luahelper_dostring(m_L,
-        "function show(a)\n"
+        QLatin1String("function show(a)\n"
             "assert(type(a) == 'string')\n"
             "return a\n"
-        "end");
+        "end"));
 
     if(!errors.empty())
-        kDebug() << errors.join("\n");
+        qDebug() << errors.join(QLatin1String("\n"));
 
     foreach (const QString &str, LuaSettings::self()->autorunScripts())
-        evaluateExpression("dofile('" + str + "')", Cantor::Expression::DeleteOnFinish);
+        evaluateExpression(QLatin1String("dofile('") + str + QLatin1String("')"), Cantor::Expression::DeleteOnFinish);
 
     changeStatus(Cantor::Session::Done);
     emit ready();

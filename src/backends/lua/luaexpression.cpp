@@ -27,8 +27,8 @@
 #include "helpresult.h"
 
 #include <luajit-2.0/lua.hpp> // need the luajit-2.0 prefix to avoid conflicts with Lua 5.2
-#include <kdebug.h>
 
+#include <QDebug>
 #include <QString>
 #include <QStringList>
 
@@ -51,7 +51,7 @@ void LuaExpression::evaluate()
     {
         QString cmd = command().simplified();
 
-        if( cmd.startsWith("show(") || cmd.startsWith("show (") )
+        if( cmd.startsWith(QLatin1String("show(")) || cmd.startsWith(QLatin1String("show (")) )
             setResult(new Cantor::ImageResult(ret,ret));
         else
             setResult(new Cantor::TextResult(ret));
@@ -74,7 +74,7 @@ void LuaExpression::execute(QString& ret, Cantor::Expression::Status& status)
     int top = lua_gettop(m_L);
 
     // execute the command
-    QString err = luahelper_dostring(m_L, "return " + command() ); // try to return values...
+    QString err = luahelper_dostring(m_L, QLatin1String("return ") + command() ); // try to return values...
     if( !err.isNull() ) err = luahelper_dostring(m_L, command() ); // try the original expression
 
     if( err.isNull() )
@@ -85,12 +85,12 @@ void LuaExpression::execute(QString& ret, Cantor::Expression::Status& status)
         for(int i = -n_out; i < 0; ++i)
             list << luahelper_tostring(m_L, i);
 
-        ret    = list.join("\n") + luahelper_getprinted(m_L);
+        ret    = list.join(QLatin1String("\n")) + luahelper_getprinted(m_L);
         status = Cantor::Expression::Done;
     }
     else
     {
-        kDebug() << "error when executing" << command() << ":" << err;
+        qDebug() << "error when executing" << command() << ":" << err;
         ret    = err;
         status = Cantor::Expression::Error;
     }

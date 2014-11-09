@@ -43,7 +43,7 @@ public:
     virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     lua_State*                  getState() const;
 
-private slots:
+private Q_SLOTS:
     void expressionFinished();
 
 private:

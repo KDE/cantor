@@ -31,13 +31,13 @@ set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop
     URL "http://qalculate.sourceforge.net/"
     TYPE OPTIONAL
     PURPOSE "Backend to use Qalculate with Cantor.")
-    
+
 if(QALCULATE_FOUND)
     add_subdirectory(qalculate)
 endif(QALCULATE_FOUND)
 
 find_package(PythonLibs 2.7)
-set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic programming language"
+set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic programming language."
     URL "https://www.python.org/"
     TYPE OPTIONAL
     PURPOSE "Backend to use Python 2 with Cantor.")
@@ -46,8 +46,12 @@ if(PYTHONLIBS_FOUND)
     add_subdirectory(python2)
 endif(PYTHONLIBS_FOUND)
 
-# macro_optional_find_package(LuaJIT)
-# macro_log_feature(LUAJIT_FOUND "Lua" "A lightweight, extensible programming language (luajit implementation)." "http://www.lua.org/" FALSE "" "Backend to use Lua (luajit2) with Cantor")
-# if(LUAJIT_FOUND)
-#     add_subdirectory(lua)
-# endif(LUAJIT_FOUND)
+find_package(LuaJIT)
+set_package_properties(LuaJIT PROPERTIES DESCRIPTION "A lightweight, extensible programming language (luajit implementation)."
+    URL "http://www.lua.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Lua (luajit2) with Cantor.")
+
+if(LUAJIT_FOUND)
+    add_subdirectory(lua)
+endif(LUAJIT_FOUND)

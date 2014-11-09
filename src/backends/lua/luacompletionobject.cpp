@@ -21,7 +21,6 @@
 #include "luacompletionobject.h"
 
 #include <QStringList>
-#include <kdebug.h>
 
 #include "luasession.h"
 #include "luahelper.h"
@@ -40,7 +39,7 @@ LuaCompletionObject::~LuaCompletionObject()
 void LuaCompletionObject::fetchCompletions()
 {
     QString name = command();
-    int idx = name.lastIndexOf("=");
+    int idx = name.lastIndexOf(QLatin1String("="));
 
     // gets "table.next" from the expression "varname =   table.next"
     if(idx >= 0)
@@ -52,10 +51,10 @@ void LuaCompletionObject::fetchCompletions()
 
 bool LuaCompletionObject::mayIdentifierContain(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_' || c == '.' || c == ':';
+    return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('.') || c == QLatin1Char(':');
 }
 
 bool LuaCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
-    return c.isLetter() || c == '_';
+    return c.isLetter() || c == QLatin1Char('_');
 }
