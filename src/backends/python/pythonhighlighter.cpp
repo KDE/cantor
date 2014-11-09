@@ -18,25 +18,25 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "python2highlighter.h"
-#include "python2keywords.h"
+#include "pythonhighlighter.h"
+#include "pythonkeywords.h"
 
 #include <QTextEdit>
 #include <QDebug>
 
-Python2Highlighter::Python2Highlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
+PythonHighlighter::PythonHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
-    qDebug() << "Python2Highlighter construtor";
+    qDebug() << "PythonHighlighter construtor";
     addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
 
     //Code highlighting the different keywords
-    addKeywords(Python2Keywords::instance()->keywords());
+    addKeywords(PythonKeywords::instance()->keywords());
 
     addRule(QLatin1String("FIXME"), commentFormat());
     addRule(QLatin1String("TODO"), commentFormat());
 
-    addFunctions(Python2Keywords::instance()->functions());
-    addVariables(Python2Keywords::instance()->variables());
+    addFunctions(PythonKeywords::instance()->functions());
+    addVariables(PythonKeywords::instance()->variables());
 
     addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
     addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
@@ -46,13 +46,13 @@ Python2Highlighter::Python2Highlighter(QObject* parent) : Cantor::DefaultHighlig
     commentEndExpression = QRegExp(QLatin1String("'''"));
 }
 
-Python2Highlighter::~Python2Highlighter()
+PythonHighlighter::~PythonHighlighter()
 {
 }
 
-void Python2Highlighter::highlightBlock(const QString& text)
+void PythonHighlighter::highlightBlock(const QString& text)
 {
-    qDebug() << "Python2Highlighter::highlightBlock";
+    qDebug() << "PythonHighlighter::highlightBlock";
     qDebug() << "text: " << text;
 
     if (skipHighlighting(text)){
@@ -86,16 +86,16 @@ void Python2Highlighter::highlightBlock(const QString& text)
     }
 }
 
-void Python2Highlighter::updateHighlight()
+void PythonHighlighter::updateHighlight()
 {
     qDebug();
 
-    addVariables(Python2Keywords::instance()->variables());
+    addVariables(PythonKeywords::instance()->variables());
     rehighlight();
 }
 
-QString Python2Highlighter::nonSeparatingCharacters() const
+QString PythonHighlighter::nonSeparatingCharacters() const
 {
-    qDebug() << "Python2Highlighter::nonSeparatingCharacters() function";
+    qDebug() << "PythonHighlighter::nonSeparatingCharacters() function";
     return QLatin1String("[%]");
 }

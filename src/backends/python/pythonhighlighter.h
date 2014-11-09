@@ -15,31 +15,33 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHON2BACKEND_H
-#define _PYTHON2BACKEND_H
+#ifndef _PYTHONHIGHLIGHTER_H
+#define _PYTHONHIGHLIGHTER_H
 
-#include "backend.h"
+#include "defaulthighlighter.h"
 
-class Python2Backend : public Cantor::Backend
+class PythonHighlighter : public Cantor::DefaultHighlighter
 {
-  Q_OBJECT
+    Q_OBJECT
+
   public:
-    explicit Python2Backend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-    ~Python2Backend();
+    PythonHighlighter(QObject* parent);
+    ~PythonHighlighter();
 
-    QString id() const;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
+  public Q_SLOTS:
+    void updateHighlight();
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+  protected:
+    void highlightBlock(const QString &text);
+    QString nonSeparatingCharacters() const;
 
-    KUrl helpUrl() const;
-    QString description() const;
+  private:
+     QRegExp commentStartExpression;
+     QRegExp commentEndExpression;
+
 };
 
-
-#endif /* _PYTHON2BACKEND_H */
+#endif /* _PYTHONHIGHLIGHTER_H */

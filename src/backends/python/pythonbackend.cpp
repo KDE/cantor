@@ -18,10 +18,10 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "python2backend.h"
+#include "pythonbackend.h"
 
-#include "python2session.h"
-#include "python2extensions.h"
+#include "pythonsession.h"
+#include "pythonextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -30,37 +30,37 @@
 
 #include "cantor_macros.h"
 
-Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
+PythonBackend::PythonBackend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
 {
     qDebug()<<"Creating Python2Backend";
 
-    new Python2LinearAlgebraExtension(this);
-    new Python2PackagingExtension(this);
-    new Python2PlotExtension(this);
-    new Python2ScriptExtension(this);
-    new Python2VariableManagementExtension(this);
+    new PythonLinearAlgebraExtension(this);
+    new PythonPackagingExtension(this);
+    new PythonPlotExtension(this);
+    new PythonScriptExtension(this);
+    new PythonVariableManagementExtension(this);
 
     setObjectName(QLatin1String("python2backend"));
 }
 
-Python2Backend::~Python2Backend()
+PythonBackend::~PythonBackend()
 {
     qDebug()<<"Destroying Python2Backend";
 }
 
-QString Python2Backend::id() const
+QString PythonBackend::id() const
 {
     return QLatin1String("python2");
 }
 
-Cantor::Session* Python2Backend::createSession()
+Cantor::Session* PythonBackend::createSession()
 {
     qDebug()<<"Spawning a new Python 2 session";
 
-    return new Python2Session(this);
+    return new PythonSession(this);
 }
 
-Cantor::Backend::Capabilities Python2Backend::capabilities() const
+Cantor::Backend::Capabilities PythonBackend::capabilities() const
 {
     qDebug()<<"Requesting capabilities of Python2Session";
 
@@ -70,31 +70,31 @@ Cantor::Backend::Capabilities Python2Backend::capabilities() const
            Cantor::Backend::VariableManagement;
 }
 
-QWidget* Python2Backend::settingsWidget(QWidget* parent) const
+QWidget* PythonBackend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);
-    Ui::Python2SettingsBase s;
+    Ui::PythonSettingsBase s;
     s.setupUi(widget);
     return widget;
 }
 
-KConfigSkeleton* Python2Backend::config() const
+KConfigSkeleton* PythonBackend::config() const
 {
-    return Python2Settings::self();
+    return PythonSettings::self();
 }
 
-KUrl Python2Backend::helpUrl() const
+KUrl PythonBackend::helpUrl() const
 {
     return i18nc("the url to the documentation Python 2", "http://docs.python.org/2/");
 }
 
-QString Python2Backend::description() const
+QString PythonBackend::description() const
 {
     return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
                 "There are several Python packages to scientific programming.</p>" \
                 "<p>This backend supports Python 2.</p>");
 }
 
-K_EXPORT_CANTOR_PLUGIN(python2backend, Python2Backend)
+K_EXPORT_CANTOR_PLUGIN(python2backend, PythonBackend)
 
-#include "python2backend.moc"
+#include "pythonbackend.moc"

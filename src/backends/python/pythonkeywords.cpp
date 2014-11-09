@@ -18,7 +18,7 @@
     Copyright (C) 2011 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "python2keywords.h"
+#include "pythonkeywords.h"
 
 #include <QFile>
 #include <QXmlStreamReader>
@@ -27,24 +27,24 @@
 #include <QDebug>
 #include <KStandardDirs>
 
-Python2Keywords::Python2Keywords()
+PythonKeywords::PythonKeywords()
 {
-    qDebug() << "Python2Keywords construtor";
+    qDebug() << "PythonKeywords construtor";
 
 }
 
 
-Python2Keywords::~Python2Keywords()
+PythonKeywords::~PythonKeywords()
 {
 
 }
 
-Python2Keywords* Python2Keywords::instance()
+PythonKeywords* PythonKeywords::instance()
 {
-    static Python2Keywords* inst = 0;
+    static PythonKeywords* inst = 0;
     if(inst == 0)
     {
-        inst = new Python2Keywords();
+        inst = new PythonKeywords();
         inst->loadFromFile();
         qSort(inst->m_variables);
         qSort(inst->m_functions);
@@ -54,9 +54,9 @@ Python2Keywords* Python2Keywords::instance()
     return inst;
 }
 
-void Python2Keywords::loadFromFile()
+void PythonKeywords::loadFromFile()
 {
-    qDebug() << "Python2Keywords loadFromFile()";
+    qDebug() << "PythonKeywords loadFromFile()";
 
     //load the known keywords from an xml file
     QFile file(KStandardDirs::locate("appdata",  QLatin1String("python2backend/keywords.xml")));
@@ -107,7 +107,7 @@ void Python2Keywords::loadFromFile()
 
 }
 
-void Python2Keywords::loadFromModule(QString module, QStringList keywords)
+void PythonKeywords::loadFromModule(QString module, QStringList keywords)
 {
     qDebug() << "Module imported" << module;
     qDebug() << "keywords" << keywords;
@@ -125,7 +125,7 @@ void Python2Keywords::loadFromModule(QString module, QStringList keywords)
     }
 }
 
-void Python2Keywords::addVariable(QString variable)
+void PythonKeywords::addVariable(QString variable)
 {
     qDebug() << "Variable added" << variable;
 
@@ -135,17 +135,17 @@ void Python2Keywords::addVariable(QString variable)
 
 }
 
-const QStringList& Python2Keywords::variables() const
+const QStringList& PythonKeywords::variables() const
 {
     return m_variables;
 }
 
-const QStringList& Python2Keywords::functions() const
+const QStringList& PythonKeywords::functions() const
 {
     return m_functions;
 }
 
-const QStringList& Python2Keywords::keywords() const
+const QStringList& PythonKeywords::keywords() const
 {
     return m_keywords;
 }

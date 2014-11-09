@@ -18,20 +18,20 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef _PYTHON2EXPRESSION_H
-#define _PYTHON2EXPRESSION_H
+#ifndef _PYTHONEXPRESSION_H
+#define _PYTHONEXPRESSION_H
 
 #include "expression.h"
 #include <QStringList>
 
 class QTimer;
 
-class Python2Expression : public Cantor::Expression
+class PythonExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    Python2Expression( Cantor::Session* session);
-    ~Python2Expression();
+    PythonExpression( Cantor::Session* session);
+    ~PythonExpression();
 
     void evaluate();
     void interrupt();
@@ -45,4 +45,4 @@ class Python2Expression : public Cantor::Expression
     bool m_plotPending;
 };
 
-#endif /* _PYTHON2EXPRESSION_H */
+#endif /* _PYTHONEXPRESSION_H */

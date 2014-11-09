@@ -18,7 +18,7 @@
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "python2expression.h"
+#include "pythonexpression.h"
 
 #include <config-cantorlib.h>
 
@@ -28,33 +28,33 @@
 #include <QDebug>
 #include <KIconLoader>
 #include <QFile>
-#include "python2session.h"
+#include "pythonsession.h"
 #include "settings.h"
 
 #include "imageresult.h"
 #include <QDir>
-typedef Cantor::ImageResult Python2PlotResult;
+typedef Cantor::ImageResult PythonPlotResult;
 
-Python2Expression::Python2Expression( Cantor::Session* session ) : Cantor::Expression(session)
+PythonExpression::PythonExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    qDebug() << "Python2Expression construtor";
+    qDebug() << "PythonExpression construtor";
 }
 
-Python2Expression::~Python2Expression()
+PythonExpression::~PythonExpression()
 {
 
 }
 
-void Python2Expression::evaluate()
+void PythonExpression::evaluate()
 {
     qDebug() << "evaluating " << command();
     setStatus(Cantor::Expression::Computing);
 
-    Python2Session* pythonSession = dynamic_cast<Python2Session*>(session());
+    PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
 
-    qDebug() << Python2Settings::integratePlots() << command().contains(QLatin1String("show()"));
+    qDebug() << PythonSettings::integratePlots() << command().contains(QLatin1String("show()"));
 
-    if((Python2Settings::integratePlots()) && (command().contains(QLatin1String("show()")))){
+    if((PythonSettings::integratePlots()) && (command().contains(QLatin1String("show()")))){
 
         qDebug() << "Preparing export figures property";
 
@@ -69,7 +69,7 @@ void Python2Expression::evaluate()
     pythonSession->runExpression(this);
 }
 
-void Python2Expression::parseOutput(QString output)
+void PythonExpression::parseOutput(QString output)
 {
     qDebug() << "output: " << output;
 
@@ -82,7 +82,7 @@ void Python2Expression::parseOutput(QString output)
     setStatus(Cantor::Expression::Done);
 }
 
-void Python2Expression::parseError(QString error)
+void PythonExpression::parseError(QString error)
 {
     qDebug() << "error: " << error;
     setErrorMessage(error.replace(QLatin1String("\n"), QLatin1String("<br>")));
@@ -90,30 +90,30 @@ void Python2Expression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-void Python2Expression::parsePlotFile(QString filename)
+void PythonExpression::parsePlotFile(QString filename)
 {
     qDebug() << "parsePlotFile";
 
     qDebug() << "Python2Expression::parsePlotFile: " << filename;
 
-    setResult(new Python2PlotResult(filename));
+    setResult(new PythonPlotResult(filename));
 
     setPlotPending(false);
 
     if (m_finished)
     {
-        qDebug() << "Python2Expression::parsePlotFile: done";
+        qDebug() << "PythonExpression::parsePlotFile: done";
         setStatus(Done);
     }
 }
 
-void Python2Expression::interrupt()
+void PythonExpression::interrupt()
 {
     qDebug()<<"interruptinging command";
     setStatus(Cantor::Expression::Interrupted);
 }
 
-void Python2Expression::setPlotPending(bool plot)
+void PythonExpression::setPlotPending(bool plot)
 {
     m_plotPending = plot;
 }

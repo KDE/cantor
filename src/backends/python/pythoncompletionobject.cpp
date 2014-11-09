@@ -20,57 +20,57 @@
 
 #include <QDebug>
 
-#include "python2completionobject.h"
+#include "pythoncompletionobject.h"
 
-#include "python2session.h"
-#include "python2keywords.h"
+#include "pythonsession.h"
+#include "pythonkeywords.h"
 
-Python2CompletionObject::Python2CompletionObject(const QString& command, int index, Python2Session* session) : Cantor::CompletionObject(session)
+PythonCompletionObject::PythonCompletionObject(const QString& command, int index, PythonSession* session) : Cantor::CompletionObject(session)
 {
     setLine(command, index);
 }
 
-Python2CompletionObject::~Python2CompletionObject()
+PythonCompletionObject::~PythonCompletionObject()
 {
 
 }
 
-void Python2CompletionObject::fetchCompletions()
+void PythonCompletionObject::fetchCompletions()
 {
     QStringList allCompletions;
 
-    allCompletions << Python2Keywords::instance()->variables();
-    allCompletions << Python2Keywords::instance()->functions();
-    allCompletions << Python2Keywords::instance()->keywords();
+    allCompletions << PythonKeywords::instance()->variables();
+    allCompletions << PythonKeywords::instance()->functions();
+    allCompletions << PythonKeywords::instance()->keywords();
 
     setCompletions(allCompletions);
 
     emit fetchingDone();
 }
 
-void Python2CompletionObject::fetchIdentifierType()
+void PythonCompletionObject::fetchIdentifierType()
 {
     // Scilab's typeof function could be used here, but as long as these lists
     // are used just looking up the name is easier.
 
-    if (qBinaryFind(Python2Keywords::instance()->functions().begin(),
-		    Python2Keywords::instance()->functions().end(), identifier())
-	!= Python2Keywords::instance()->functions().end())
+    if (qBinaryFind(PythonKeywords::instance()->functions().begin(),
+		    PythonKeywords::instance()->functions().end(), identifier())
+	!= PythonKeywords::instance()->functions().end())
 	emit fetchingTypeDone(FunctionType);
-    else if (qBinaryFind(Python2Keywords::instance()->keywords().begin(),
-			 Python2Keywords::instance()->keywords().end(), identifier())
-	!= Python2Keywords::instance()->keywords().end())
+    else if (qBinaryFind(PythonKeywords::instance()->keywords().begin(),
+			 PythonKeywords::instance()->keywords().end(), identifier())
+	!= PythonKeywords::instance()->keywords().end())
 	emit fetchingTypeDone(KeywordType);
     else
 	emit fetchingTypeDone(VariableType);
 }
 
-bool Python2CompletionObject::mayIdentifierContain(QChar c) const
+bool PythonCompletionObject::mayIdentifierContain(QChar c) const
 {
     return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$') || c == QLatin1Char('.');
 }
 
-bool Python2CompletionObject::mayIdentifierBeginWith(QChar c) const
+bool PythonCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
     return c.isLetter() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$');
 }

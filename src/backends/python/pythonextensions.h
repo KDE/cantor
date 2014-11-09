@@ -18,18 +18,18 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#ifndef PYTHON2EXTENSIONS_H
-#define PYTHON2EXTENSIONS_H
+#ifndef PYTHONEXTENSIONS_H
+#define PYTHONEXTENSIONS_H
 
 #include <extension.h>
 
-#define PYTHON2_EXT_CDTOR_DECL(name) Python2##name##Extension(QObject* parent); \
-                                     ~Python2##name##Extension();
+#define PYTHON_EXT_CDTOR_DECL(name) Python##name##Extension(QObject* parent); \
+                                    ~Python##name##Extension();
 
-class Python2LinearAlgebraExtension : public Cantor::LinearAlgebraExtension
+class PythonLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
     public:
-    PYTHON2_EXT_CDTOR_DECL(LinearAlgebra)
+    PYTHON_EXT_CDTOR_DECL(LinearAlgebra)
     virtual QString createVector(const QStringList& entries, VectorType type);
     virtual QString nullVector(int size, VectorType type);
     virtual QString createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix);
@@ -42,34 +42,34 @@ class Python2LinearAlgebraExtension : public Cantor::LinearAlgebraExtension
     virtual QString eigenValues(const QString& matrix);
 };
 
-class Python2PackagingExtension : public Cantor::PackagingExtension
+class PythonPackagingExtension : public Cantor::PackagingExtension
 {
     public:
-    PYTHON2_EXT_CDTOR_DECL(Packaging)
+    PYTHON_EXT_CDTOR_DECL(Packaging)
     virtual QString importPackage(const QString& module);
 };
 
-class Python2PlotExtension : public Cantor::PlotExtension
+class PythonPlotExtension : public Cantor::PlotExtension
 {
     public:
-    PYTHON2_EXT_CDTOR_DECL(Plot)
+    PYTHON_EXT_CDTOR_DECL(Plot)
     virtual QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
     virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
 };
 
-class Python2ScriptExtension : public Cantor::ScriptExtension
+class PythonScriptExtension : public Cantor::ScriptExtension
 {
     public:
-        PYTHON2_EXT_CDTOR_DECL(Script)
+        PYTHON_EXT_CDTOR_DECL(Script)
         virtual QString scriptFileFilter();
         virtual QString highlightingMode();
         virtual QString runExternalScript(const QString& path);
 };
 
-class Python2VariableManagementExtension : public Cantor::VariableManagementExtension
+class PythonVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
-    PYTHON2_EXT_CDTOR_DECL(VariableManagement)
+    PYTHON_EXT_CDTOR_DECL(VariableManagement)
     virtual QString addVariable(const QString& name, const QString& value);
     virtual QString setValue(const QString& name, const QString& value);
     virtual QString removeVariable(const QString& name);
@@ -78,4 +78,4 @@ class Python2VariableManagementExtension : public Cantor::VariableManagementExte
     virtual QString clearVariables();
 };
 
-#endif // PYTHON2EXTENSIONS_H
+#endif // PYTHONEXTENSIONS_H

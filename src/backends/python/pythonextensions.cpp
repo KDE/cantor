@@ -18,16 +18,16 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#include "python2extensions.h"
+#include "pythonextensions.h"
 #include <KLocale>
 #include <QDebug>
 
-#define PYTHON2_EXT_CDTOR(name) Python2##name##Extension::Python2##name##Extension(QObject* parent) : name##Extension(parent) {} \
-                                     Python2##name##Extension::~Python2##name##Extension() {}
+#define PYTHON_EXT_CDTOR(name) Python##name##Extension::Python##name##Extension(QObject* parent) : name##Extension(parent) {} \
+                                     Python##name##Extension::~Python##name##Extension() {}
 
-PYTHON2_EXT_CDTOR(LinearAlgebra)
+PYTHON_EXT_CDTOR(LinearAlgebra)
 
-QString Python2LinearAlgebraExtension::createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type)
+QString PythonLinearAlgebraExtension::createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type)
 {
     QString command;
     command += QLatin1String("numpy.matrix([");
@@ -43,7 +43,7 @@ QString Python2LinearAlgebraExtension::createVector(const QStringList& entries, 
     return command;
 }
 
-QString Python2LinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix)
+QString PythonLinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix)
 {
     QString command;
     command += QLatin1String("numpy.matrix([[");
@@ -65,32 +65,32 @@ QString Python2LinearAlgebraExtension::createMatrix(const Cantor::LinearAlgebraE
     return command;
 }
 
-QString Python2LinearAlgebraExtension::eigenValues(const QString& matrix)
+QString PythonLinearAlgebraExtension::eigenValues(const QString& matrix)
 {
     return QString::fromLatin1("numpy.linalg.eigvals(%1)").arg(matrix);
 }
 
-QString Python2LinearAlgebraExtension::eigenVectors(const QString& matrix)
+QString PythonLinearAlgebraExtension::eigenVectors(const QString& matrix)
 {
     return QString::fromLatin1("numpy.linalg.eig(%1)").arg(matrix);
 }
 
-QString Python2LinearAlgebraExtension::identityMatrix(int size)
+QString PythonLinearAlgebraExtension::identityMatrix(int size)
 {
     return QString::fromLatin1("numpy.identity(%1)").arg(size);
 }
 
-QString Python2LinearAlgebraExtension::invertMatrix(const QString& matrix)
+QString PythonLinearAlgebraExtension::invertMatrix(const QString& matrix)
 {
     return QString::fromLatin1("numpy.linalg.inv(%1)").arg(matrix);
 }
 
-QString Python2LinearAlgebraExtension::nullMatrix(int rows, int columns)
+QString PythonLinearAlgebraExtension::nullMatrix(int rows, int columns)
 {
     return QString::fromLatin1("numpy.zeros(%1, %2)").arg(rows).arg(columns);
 }
 
-QString Python2LinearAlgebraExtension::nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type)
+QString PythonLinearAlgebraExtension::nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type)
 {
     QString command = QLatin1String("numpy.zeros(%1, %2)");
     switch (type)
@@ -104,26 +104,26 @@ QString Python2LinearAlgebraExtension::nullVector(int size, Cantor::LinearAlgebr
     }
 }
 
-QString Python2LinearAlgebraExtension::rank(const QString& matrix)
+QString PythonLinearAlgebraExtension::rank(const QString& matrix)
 {
     return QString::fromLatin1("numpy.linalg.matrix_rank(%1)").arg(matrix);
 }
 
-QString Python2LinearAlgebraExtension::charPoly(const QString& matrix)
+QString PythonLinearAlgebraExtension::charPoly(const QString& matrix)
 {
     return QString::fromLatin1("numpy.poly(%1)").arg(matrix);
 }
 
-PYTHON2_EXT_CDTOR(Packaging)
+PYTHON_EXT_CDTOR(Packaging)
 
-QString Python2PackagingExtension::importPackage(const QString& package)
+QString PythonPackagingExtension::importPackage(const QString& package)
 {
     return QString::fromLatin1("import %1").arg(package);
 }
 
-PYTHON2_EXT_CDTOR(Plot)
+PYTHON_EXT_CDTOR(Plot)
 
-QString Python2PlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
+QString PythonPlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
 {
     QString argumentToPlot = variable;
     QString xlimits;
@@ -142,7 +142,7 @@ QString Python2PlotExtension::plotFunction2d(const QString& function, const QStr
                                "pylab.show()").arg(argumentToPlot).arg(xlimits);
 }
 
-QString Python2PlotExtension::plotFunction3d(const QString& function, Cantor::PlotExtension::VariableParameter var1, Cantor::PlotExtension::VariableParameter var2)
+QString PythonPlotExtension::plotFunction3d(const QString& function, Cantor::PlotExtension::VariableParameter var1, Cantor::PlotExtension::VariableParameter var2)
 {
     const Interval& interval1 = var1.second;
     const Interval& interval2 = var2.second;
@@ -167,41 +167,41 @@ QString Python2PlotExtension::plotFunction3d(const QString& function, Cantor::Pl
                                    .arg(interval1Limits).arg(interval2Limits);
 }
 
-PYTHON2_EXT_CDTOR(Script)
+PYTHON_EXT_CDTOR(Script)
 
-QString Python2ScriptExtension::runExternalScript(const QString& path)
+QString PythonScriptExtension::runExternalScript(const QString& path)
 {
     return QString::fromLatin1("execfile(\"%1\")").arg(path);
 }
 
-QString Python2ScriptExtension::scriptFileFilter()
+QString PythonScriptExtension::scriptFileFilter()
 {
     return i18n("*.py|Python script file");
 }
 
-QString Python2ScriptExtension::highlightingMode()
+QString PythonScriptExtension::highlightingMode()
 {
     return QLatin1String("python");
 }
 
-PYTHON2_EXT_CDTOR(VariableManagement)
+PYTHON_EXT_CDTOR(VariableManagement)
 
-QString Python2VariableManagementExtension::addVariable(const QString& name, const QString& value)
+QString PythonVariableManagementExtension::addVariable(const QString& name, const QString& value)
 {
     return setValue(name, value);
 }
 
-QString Python2VariableManagementExtension::setValue(const QString& name, const QString& value)
+QString PythonVariableManagementExtension::setValue(const QString& name, const QString& value)
 {
     return QString::fromLatin1("%1 = %2").arg(name).arg(value);
 }
 
-QString Python2VariableManagementExtension::removeVariable(const QString& name)
+QString PythonVariableManagementExtension::removeVariable(const QString& name)
 {
     return QString::fromLatin1("del(%1)").arg(name);
 }
 
-QString Python2VariableManagementExtension::clearVariables()
+QString PythonVariableManagementExtension::clearVariables()
 {
     QString delVariablesPythonSession = QLatin1String("for keyPythonBackend in dir():\n"                                 \
                                                       "    if (not 'PythonBackend' in keyPythonBackend)\ "               \
@@ -211,7 +211,7 @@ QString Python2VariableManagementExtension::clearVariables()
     return delVariablesPythonSession;
 }
 
-QString Python2VariableManagementExtension::saveVariables(const QString& fileName)
+QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
 {
     QString classSavePythonSession = QLatin1String("import shelve\n"                                                               \
                                                    "shelvePythonBackend = shelve.open('%1', 'n')\n"                                \
@@ -228,7 +228,7 @@ QString Python2VariableManagementExtension::saveVariables(const QString& fileNam
     return classSavePythonSession.arg(fileName);
 }
 
-QString Python2VariableManagementExtension::loadVariables(const QString& fileName)
+QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
 {
     QString classLoadPythonSession = QLatin1String("import shelve\n"                                                           \
                                                    "shelvePythonBackend = shelve.open('%1')\n"                                 \
