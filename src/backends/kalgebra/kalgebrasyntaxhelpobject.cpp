@@ -30,7 +30,7 @@ void KAlgebraSyntaxHelpObject::fetchInformation()
     OperatorsModel* opm=static_cast<KAlgebraSession*>(session())->operatorsModel();
     QModelIndexList idxs=opm->match(opm->index(0,0), Qt::DisplayRole, command(), 1, Qt::MatchExactly);
     Q_ASSERT(idxs.size()<=1);
-    
+
     if(!idxs.isEmpty()) {
         QString result;
         QModelIndex idx=idxs.first();
@@ -40,7 +40,7 @@ void KAlgebraSyntaxHelpObject::fetchInformation()
                            opm->headerData(i, Qt::Horizontal).toString(),
                            opm->data(idx.sibling(idx.row(), i)).toString());
         }
-        
+
         setHtml(result);
         emit done();
     }

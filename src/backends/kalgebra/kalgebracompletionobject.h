@@ -32,7 +32,7 @@ class KAlgebraCompletionObject : public Cantor::CompletionObject
     protected:
         bool mayIdentifierBeginWith(QChar c) const;
 
-    protected slots:
+    protected Q_SLOTS:
         void fetchCompletions();
 };
 

@@ -25,7 +25,7 @@
 #include <analitza/analyzer.h>
 #include <QTextEdit>
 
-#include <kdebug.h>
+#include <QDebug>
 #include "kalgebrasyntaxhelpobject.h"
 #include <analitzagui/operatorsmodel.h>
 #include <analitzagui/variablesmodel.h>
@@ -47,7 +47,7 @@ KAlgebraSession::~KAlgebraSession()
 void KAlgebraSession::login()
 {
     if(!KAlgebraSettings::autorunScripts().isEmpty()){
-        QString autorunScripts = KAlgebraSettings::self()->autorunScripts().join("\n");
+        QString autorunScripts = KAlgebraSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
         evaluateExpression(autorunScripts, KAlgebraExpression::DeleteOnFinish);
     }

@@ -28,7 +28,7 @@
 KAlgebraBackend::KAlgebraBackend( QObject* parent,const QList<QVariant> args )
     : Cantor::Backend( parent,args )
 {
-    setObjectName("kalgebrabackend");
+    setObjectName(QLatin1String("kalgebrabackend"));
     new KAlgebraVariableManagementExtension(this);
 }
 
@@ -37,7 +37,7 @@ KAlgebraBackend::~KAlgebraBackend()
 
 QString KAlgebraBackend::id() const
 {
-    return "kalgebra";
+    return QLatin1String("kalgebra");
 }
 
 Cantor::Session* KAlgebraBackend::createSession()
@@ -71,3 +71,4 @@ KUrl KAlgebraBackend::helpUrl() const
 
 
 K_EXPORT_CANTOR_PLUGIN(kalgebrabackend, KAlgebraBackend)
+#include "kalgebrabackend.moc"
