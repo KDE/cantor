@@ -25,7 +25,7 @@
 #include "ui_settings.h"
 #include "maximaextensions.h"
 
-#include "kdebug.h"
+#include <QDebug>
 #include <QWidget>
 
 #include "cantor_macros.h"
@@ -33,8 +33,9 @@
 
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName("maximabackend");
-    kDebug()<<"Creating MaximaBackend";
+    qDebug()<<"oi?";
+    setObjectName(QLatin1String("maximabackend"));
+    qDebug()<<"Creating MaximaBackend";
     //initialize the supported extensions
     new MaximaHistoryExtension(this);
     new MaximaScriptExtension(this);
@@ -47,24 +48,24 @@ MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Can
 
 MaximaBackend::~MaximaBackend()
 {
-    kDebug()<<"Destroying MaximaBackend";
+    qDebug()<<"Destroying MaximaBackend";
 }
 
 QString MaximaBackend::id() const
 {
-    return "maxima";
+    return QLatin1String("maxima");
 }
 
 Cantor::Session* MaximaBackend::createSession()
 {
-    kDebug()<<"Spawning a new Maxima session";
+    qDebug()<<"Spawning a new Maxima session";
 
     return new MaximaSession(this);
 }
 
 Cantor::Backend::Capabilities MaximaBackend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of MaximaSession";
+    qDebug()<<"Requesting capabilities of MaximaSession";
     Cantor::Backend::Capabilities cap=
         Cantor::Backend::LaTexOutput |
         Cantor::Backend::InteractiveMode|

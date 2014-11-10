@@ -18,7 +18,7 @@
     Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "maximacompletionobject.h"
 
@@ -28,7 +28,7 @@
 
 MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(session)
 {
-    kDebug() << "MaximaCompletionObject construtor";
+    qDebug() << "MaximaCompletionObject construtor";
     setLine(command, index);
 }
 
@@ -78,10 +78,10 @@ void MaximaCompletionObject::fetchCompletions()
 
 bool MaximaCompletionObject::mayIdentifierContain(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_' || c == '%';
+    return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('%');
 }
 
 bool MaximaCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
-    return c.isLetter() || c == '_' || c == '%';
+    return c.isLetter() || c == QLatin1Char('_') || c == QLatin1Char('%');
 }

@@ -24,7 +24,7 @@
 #include "session.h"
 #include "expression.h"
 
-#include <kdirwatch.h>
+#include <KDirWatch>
 #include <QRegExp>
 #include <QProcess>
 #include <QXmlStreamReader>
@@ -66,11 +66,11 @@ class MaximaSession : public Cantor::Session
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     QAbstractItemModel* variableModel();
 
-  public slots:
+  public Q_SLOTS:
     void readStdOut();
     void readStdErr();
 
-  private slots:
+  private Q_SLOTS:
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void restartMaxima();
     void restartsCooledDown();

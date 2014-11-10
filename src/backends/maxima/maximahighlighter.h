@@ -34,10 +34,10 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
   protected:
     void highlightBlock(const QString &text);
 
-  private slots:
+  private Q_SLOTS:
       void addUserVariables(const QStringList variables);
       void removeUserVariables(const QStringList variables);
-      
+
       void addUserFunctions(const QStringList functions);
       void removeUserFunctions(const QStringList functions);
 

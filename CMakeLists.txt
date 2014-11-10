@@ -23,6 +23,7 @@ find_package(KF5 REQUIRED
     CoreAddons
     Archive
     Parts
+    Pty
     KDELibs4Support)
 
 include(FeatureSummary)

@@ -30,12 +30,12 @@ class MaximaCompletionObject : public Cantor::CompletionObject
   public:
     MaximaCompletionObject( const QString& cmd, int index, MaximaSession* session );
     ~MaximaCompletionObject();
-    
+
   protected:
     virtual bool mayIdentifierContain(QChar c) const;
     virtual bool mayIdentifierBeginWith(QChar c) const;
 
-  protected slots:
+  protected Q_SLOTS:
     void fetchCompletions();
     void fetchIdentifierType();
 };

@@ -23,8 +23,8 @@
 #include "maximasession.h"
 #include "maximavariablemodel.h"
 
+#include <QDebug>
 #include <QTextEdit>
-#include <kdebug.h>
 
 MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : Cantor::DefaultHighlighter(parent)
 {
@@ -33,8 +33,8 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : 
     //Code highlighting the different keywords
     addKeywords(MaximaKeywords::instance()->keywords());
 
-    addRule("FIXME", commentFormat());
-    addRule("TODO", commentFormat());
+    addRule(QLatin1String("FIXME"), commentFormat());
+    addRule(QLatin1String("TODO"), commentFormat());
 
     addFunctions(MaximaKeywords::instance()->functions());
     addVariables(MaximaKeywords::instance()->variables());
@@ -42,8 +42,8 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : 
     //addRule(QRegExp("\".*\""), stringFormat());
     //addRule(QRegExp("'.*'"), stringFormat());
 
-    commentStartExpression = QRegExp("/\\*");
-    commentEndExpression = QRegExp("\\*/");
+    commentStartExpression = QRegExp(QLatin1String("/\\*"));
+    commentEndExpression = QRegExp(QLatin1String("\\*/"));
 
     connect(session->variableModel(), SIGNAL(variablesAdded(QStringList)), this, SLOT(addUserVariables(QStringList)));
     connect(session->variableModel(), SIGNAL(variablesRemoved(QStringList)), this, SLOT(removeUserVariables(QStringList)));
@@ -82,20 +82,20 @@ void MaximaHighlighter::highlightBlock(const QString& text)
     }
 
     for (int i = 0; i < text.size(); ++i) {
-        if (text[i] == '\\') {
+        if (text[i] == QLatin1Char('\\')) {
             ++i; // skip the next character
-        } else if (text[i] == '"' && commentLevel == 0) {
+        } else if (text[i] == QLatin1Char('"') && commentLevel == 0) {
             if (!inString)
                 startIndex = i;
             else
                 setFormat(startIndex, i - startIndex + 1, stringFormat());
             inString = !inString;
-        } else if (text.mid(i,2) == "/*" && !inString) {
+        } else if (text.mid(i,2) == QLatin1String("/*") && !inString) {
             if (commentLevel == 0)
                 startIndex = i;
             ++commentLevel;
             ++i;
-        } else if (text.mid(i,2) == "*/" && !inString) {
+        } else if (text.mid(i,2) == QLatin1String("*/") && !inString) {
             if (commentLevel == 0) {
                 setFormat(i, 2, errorFormat());
                 // undo the --commentLevel below, so we stay at 0
@@ -133,7 +133,7 @@ void MaximaHighlighter::addUserFunctions(const QStringList functions)
     //remove the trailing (x)
     foreach(const QString& func, functions)
     {
-        int idx=func.lastIndexOf('(');
+        int idx=func.lastIndexOf(QLatin1Char('('));
         addRule(func.left(idx), functionFormat());
     }
 }
@@ -143,7 +143,7 @@ void MaximaHighlighter::removeUserFunctions(const QStringList functions)
     //remove the trailing (x)
     foreach(const QString& func, functions)
     {
-        int idx=func.lastIndexOf('(');
+        int idx=func.lastIndexOf(QLatin1Char('('));
         removeRule(func.left(idx));
     }
 

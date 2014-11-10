@@ -1,5 +1,5 @@
 add_subdirectory(null)
-# add_subdirectory(maxima)
+add_subdirectory(maxima)
 add_subdirectory(octave)
 # add_subdirectory(scilab)
 
