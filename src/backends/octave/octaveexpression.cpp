@@ -29,13 +29,6 @@
 
 #include <config-cantorlib.h>
 
-#ifdef WITH_EPS
-#include "epsresult.h"
-typedef Cantor::EpsResult OctavePlotResult;
-#else
-#include "imageresult.h"
-typedef Cantor::ImageResult OctavePlotResult;
-#endif
 
 static const char* printCommand = "cantor_print();";
 

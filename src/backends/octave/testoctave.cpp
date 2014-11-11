@@ -27,6 +27,8 @@
 #include "imageresult.h"
 #include "epsresult.h"
 
+#include "octaveexpression.h"
+
 #include <QDebug>
 
 QString TestOctave::backendName()
@@ -61,7 +63,7 @@ void TestOctave::testPlot()
 
     int cnt=0;
     //give some time to create the image, but at most 5sec
-    while(e->result()==0)
+    while(e->result()==0||e->result()->type()!=OctavePlotResult::Type )
     {
         QTest::qWait(250);
         cnt+=250;
@@ -72,7 +74,7 @@ void TestOctave::testPlot()
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
+    QCOMPARE( e->result()->type(), (int) OctavePlotResult::Type );
     QVERIFY( !e->result()->data().isNull() );
 }
 
