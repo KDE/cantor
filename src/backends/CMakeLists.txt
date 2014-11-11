@@ -13,9 +13,9 @@ if(Analitza_FOUND)
     add_subdirectory(kalgebra)
 endif(Analitza_FOUND)
 
-# if(NOT WIN32)
-#   add_subdirectory(sage)
-# endif(NOT WIN32)
+if(NOT WIN32)
+    add_subdirectory(sage)
+endif(NOT WIN32)
 
 # find_package(R)
 # set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics"

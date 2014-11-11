@@ -23,8 +23,8 @@
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <QDebug>
+#include <KStandardDirs>
 
 SageKeywords::SageKeywords()
 {
@@ -52,11 +52,11 @@ SageKeywords* SageKeywords::instance()
 void SageKeywords::loadFromFile()
 {
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("appdata",  "sagebackend/keywords.xml"));
+    QFile file(KStandardDirs::locate("appdata",  QLatin1String("sagebackend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {
-        kDebug()<<"error opening keywords.xml file. highlighting and completion won't work";
+        qDebug()<<"error opening keywords.xml file. highlighting and completion won't work";
         return;
     }
 
@@ -67,11 +67,11 @@ void SageKeywords::loadFromFile()
     {
         const QStringRef name=xml.name();
 
-        if(name=="keywords")
+        if(name==QLatin1String("keywords"))
         {
             while(xml.readNextStartElement())
             {
-                Q_ASSERT(xml.isStartElement() && xml.name() == "word");
+                Q_ASSERT(xml.isStartElement() && xml.name() == QLatin1String("word"));
 
                 const QString text=xml.readElementText();
 
@@ -86,8 +86,8 @@ void SageKeywords::loadFromFile()
 
     if (xml.hasError())
     {
-        kDebug()<<"error parsing element";
-        kDebug()<<"error: "<<xml.errorString();
+        qDebug()<<"error parsing element";
+        qDebug()<<"error: "<<xml.errorString();
     }
 
 }

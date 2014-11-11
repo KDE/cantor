@@ -41,7 +41,7 @@ class SageCompletionObject : public Cantor::CompletionObject
     bool mayIdentifierBeginWith(QChar c) const;
 
 
-  protected slots:
+  protected Q_SLOTS:
     void fetchCompletions();
     void extractCompletions();
     void fetchIdentifierType();

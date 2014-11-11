@@ -24,7 +24,7 @@
 #include "session.h"
 #include "expression.h"
 
-#include <kdirwatch.h>
+#include <KDirWatch>
 #include <QProcess>
 
 class SageExpression;
@@ -83,11 +83,11 @@ class SageSession : public Cantor::Session
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     VersionInfo sageVersion();
-  public slots:
+  public Q_SLOTS:
     void readStdOut();
     void readStdErr();
 
-  private slots:
+  private Q_SLOTS:
     void currentExpressionChangedStatus(Cantor::Expression::Status status);
     void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
     void reportProcessError(QProcess::ProcessError error);

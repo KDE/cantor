@@ -26,20 +26,20 @@
 #include "result.h"
 #include "imageresult.h"
 
-#include <kdebug.h>
+#include <QDebug>
 
 QString TestSage::backendName()
 {
-    return "sage";
+    return QLatin1String("sage");
 }
 
 void TestSage::testSimpleCommand()
 {
-    Cantor::Expression* e=evalExp( "2+2" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
-    QCOMPARE( e->result()->toHtml(), QString("4") );
+    QCOMPARE( e->result()->toHtml(), QLatin1String(("4")) );
 }
 
 void TestSage::testCommandQueue()
@@ -47,9 +47,9 @@ void TestSage::testCommandQueue()
     //only wait for the last Expression to return, so the queue gets
     //actually filled
 
-    Cantor::Expression* e1=session()->evaluateExpression("0+1");
-    Cantor::Expression* e2=session()->evaluateExpression("1+1");
-    Cantor::Expression* e3=evalExp("1+2");
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("0+1"));
+    Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
+    Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
 
     QVERIFY(e1!=0);
     QVERIFY(e2!=0);
@@ -59,18 +59,18 @@ void TestSage::testCommandQueue()
     QVERIFY(e2->result());
     QVERIFY(e3->result());
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QString("1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QString("3"));
+    QCOMPARE(cleanOutput(e1->result()->toHtml()), QLatin1String("1"));
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("2"));
+    QCOMPARE(cleanOutput(e3->result()->toHtml()), QLatin1String("3"));
 }
 
 void TestSage::testMultilineCommand()
 {
-    Cantor::Expression* e=evalExp( "2+2 \n simplify(1 - x + x)" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2 \n simplify(1 - x + x)") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
-    QCOMPARE( e->result()->toHtml(), QString("4<br/>\n1") );
+    QCOMPARE( e->result()->toHtml(), QLatin1String("4<br/>\n1") );
 }
 
 void TestSage::testDefineFunction()
@@ -78,20 +78,20 @@ void TestSage::testDefineFunction()
     const char* cmd="def func1(param) : \n" \
                     "    return param*param\n\n";
 
-    Cantor::Expression* e1=evalExp( cmd );
+    Cantor::Expression* e1=evalExp( QLatin1String(cmd) );
 
     QVERIFY( e1!=0 );
     QVERIFY( e1->result()!=0 );
 
-    Cantor::Expression* e2=evalExp( "func1(2)" );
+    Cantor::Expression* e2=evalExp( QLatin1String("func1(2)") );
     QVERIFY( e2!=0 );
     QVERIFY( e2->result()!=0 );
-    QCOMPARE( e2->result()->toHtml(), QString("4") );
+    QCOMPARE( e2->result()->toHtml(), QLatin1String("4") );
 }
 
 void TestSage::testPlot()
 {
-    Cantor::Expression* e=evalExp( "plot(sin(x))" );
+    Cantor::Expression* e=evalExp( QLatin1String("plot(sin(x))") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
@@ -101,19 +101,19 @@ void TestSage::testPlot()
 
 void TestSage::testInvalidSyntax()
 {
-    Cantor::Expression* e=evalExp( "2+2*(" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2*(") );
 
     QVERIFY( e!=0 );
-    QVERIFY( e->errorMessage()== "Syntax Error" );
+    QVERIFY( e->errorMessage()== QLatin1String("Syntax Error") );
 }
 
 void TestSage::testNoOutput()
 {
-    Cantor::Expression* e=evalExp(  "f(x)=x^2+3*x+2\nf(0)" );
+    Cantor::Expression* e=evalExp(  QLatin1String("f(x)=x^2+3*x+2\nf(0)") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result() != 0 );
-    QCOMPARE( e->result()->toHtml(), QString("2") );
+    QCOMPARE( e->result()->toHtml(), QLatin1String("2") );
 }
 
 

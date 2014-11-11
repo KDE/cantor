@@ -4,11 +4,11 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="cantorrc"/>
-  <include>kstandarddirs.h</include>
+  <include>KStandardDirs</include>
   <group name="SageBackend">
     <entry name="Path" type="Url">
       <label>Path to the Sage executable</label>
-      <default code="true">KStandardDirs::findExe( "sage" )</default>
+      <default code="true">QUrl::fromLocalFile(KStandardDirs::findExe( QLatin1String("sage") ))</default>
     </entry>
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>
