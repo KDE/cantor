@@ -1,24 +1,24 @@
 include_directories(${R_INCLUDE_DIR})
 
-set( RServer_SRCS 
+set( RServer_SRCS
    rserver.cpp
    rcallbacks.cpp
    main.cpp
 )
 
-kde4_add_kcfg_files(RServer_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(RServer_SRCS settings.kcfgc)
 install(FILES rserver.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-QT4_ADD_DBUS_ADAPTOR(RServer_SRCS org.kde.Cantor.R.xml
+QT5_ADD_DBUS_ADAPTOR(RServer_SRCS org.kde.Cantor.R.xml
                      rserver.h RServer)
 
 
 add_custom_target(renvvars COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/envvars.r > ${CMAKE_CURRENT_BINARY_DIR}/renvvars.h )
 add_custom_target(rautoloads COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/autoloads.r > ${CMAKE_CURRENT_BINARY_DIR}/rautoloads.h )
 
-kde4_add_executable( cantor_rserver ${RServer_SRCS} )
+add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rserver ${KDE4_KDEUI_LIBS} cantorlibs ${R_LIBRARIES} ${KDE4_KIO_LIBS})
+target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} )
 add_dependencies(cantor_rserver renvvars rautoloads)
 
 install(TARGETS cantor_rserver ${INSTALL_TARGETS_DEFAULT_ARGS} )

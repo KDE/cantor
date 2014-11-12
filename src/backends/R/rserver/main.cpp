@@ -20,11 +20,11 @@
 
 #include "rserver.h"
 
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
-#include <klocale.h>
-#include <kconfiggroup.h>
+#include <QApplication>
+#include <KAboutData>
+#include <QCommandLineParser>
+#include <KLocale>
+#include <KConfigGroup>
 
 static const char description[] =
     I18N_NOOP("Server for the Cantor R Backend");
@@ -33,19 +33,29 @@ static const char version[] = "0.1";
 
 int main(int argc, char **argv)
 {
-    KAboutData about("cantor_rserver", 0,
-                     ki18n("Cantor Server for R"),
-                     version, ki18n(description),
-                     KAboutData::License_GPL,
-                     ki18n("(C) 2009 Alexander Rieder"),
-                     KLocalizedString(), 0,
-                     "alexanderrieder@gmail.com"
-        );
-    about.addAuthor( ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com" );
-    KCmdLineArgs::init(argc, argv, &about);
+    QApplication app(argc, argv);
 
+    app.setApplicationName(QLatin1String("R Server"));
+    app.setOrganizationDomain(QLatin1String("kde.org"));
+    app.setApplicationDisplayName(i18n("R Server"));
 
-    KApplication app;
+    KAboutData about(QLatin1String("cantor_rserver"),
+                     QLatin1String("cantor_rserver"),
+                     QLatin1String(version),
+                     i18n(description),
+                     KAboutLicense::GPL,
+                     i18n("(C) 2009 Alexander Rieder"),
+                     QString(),
+                     QLatin1String("alexanderrieder@gmail.com"));
+
+    about.addAuthor( i18n("Alexander Rieder"), QString(), QLatin1String("alexanderrieder@gmail.com") );
+    KAboutData::setApplicationData(about);
+
+    QCommandLineParser parser;
+
+    about.setupCommandLine(&parser);
+    parser.process(app);
+    about.processCommandLine(&parser);
 
     new RServer();
 

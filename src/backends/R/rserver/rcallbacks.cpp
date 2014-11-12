@@ -22,7 +22,7 @@
 
 #include "rserver.h"
 
-#include <kdebug.h>
+#include <QDebug>
 #include <QStringList>
 
 #include <stdio.h>
@@ -32,7 +32,7 @@ Expression* currentExpression;
 
 void setupCallbacks(RServer* r)
 {
-    kDebug()<<"setting up callbacks";
+    qDebug()<<"setting up callbacks";
 
     server=r;
     currentExpression=0;
@@ -76,20 +76,20 @@ void onShowMessage(const char* text)
 
 void onBusy(int which)
 {
-    kDebug()<<"onBusy: "<<which;
+    qDebug()<<"onBusy: "<<which;
 }
 
 int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
 {
     Q_UNUSED(hist);
-    kDebug()<<"readConsole: "<<prompt;
+    qDebug()<<"readConsole: "<<prompt;
 
-    QString input=server->requestInput(prompt);
+    QString input=server->requestInput(QLatin1String(prompt));
 
     if(input.size()>buflen)
         input.truncate(buflen);
 
-    strcpy( (char*) buf, input.toUtf8());
+    strcpy( (char*) buf, input.toStdString().c_str());
 
     return input.size();
 }
@@ -97,19 +97,19 @@ int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
 int  onShowFiles(int nfile, const char** file, const char** headers, const char* wtitle, Rboolean del, const char* pager)
 {
     int i;
-    kDebug()<<"show files: ";
+    qDebug()<<"show files: ";
     for (i=0;i<nfile; i++)
     {
-        kDebug()<<"show file "<<file[i]<<" header: "<<headers[i];
+        qDebug()<<"show file "<<file[i]<<" header: "<<headers[i];
     }
 
-    kDebug()<<" title: "<<wtitle[i];
-    kDebug()<<"del: "<<del;
-    kDebug()<<"pager: "<<pager;
+    qDebug()<<" title: "<<wtitle[i];
+    qDebug()<<"del: "<<del;
+    qDebug()<<"pager: "<<pager;
 
     QStringList files;
     for(int i=0;i<nfile; i++)
-        files<<QString(file[i]);
+        files<<QLatin1String(file[i]);
 
     server->showFiles(files);
     currentExpression->hasOtherResults=true;

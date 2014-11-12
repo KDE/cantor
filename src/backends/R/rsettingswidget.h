@@ -31,7 +31,7 @@ class RSettingsWidget : public QWidget,public Ui::RSettingsBase
     RSettingsWidget(QWidget *parent = 0);
     bool eventFilter(QObject *obj, QEvent *event);
 
-  public slots:
+  public Q_SLOTS:
     void displayFileSelectionDialog();
 };
 

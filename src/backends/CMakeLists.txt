@@ -17,15 +17,15 @@ if(NOT WIN32)
     add_subdirectory(sage)
 endif(NOT WIN32)
 
-# find_package(R)
-# set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics"
-#                        URL "http://www.r-project.org/"
-#                        TYPE OPTIONAL
-#                        PURPOSE "Backend to use R with Cantor")
-#
-# if(R_FOUND)
-#   add_subdirectory(R)
-# endif(R_FOUND)
+find_package(R)
+set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics."
+    URL "http://www.r-project.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use R with Cantor.")
+
+if(R_FOUND)
+    add_subdirectory(R)
+endif(R_FOUND)
 
 find_package(Qalculate)
 set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision."

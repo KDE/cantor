@@ -34,7 +34,7 @@
   <customwidget>
    <class>KEditListBox</class>
    <extends>QGroupBox</extends>
-   <header>keditlistbox.h</header>
+   <header>KEditListBox</header>
   </customwidget>
  </customwidgets>
  <resources/>

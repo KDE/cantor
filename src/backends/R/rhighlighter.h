@@ -34,10 +34,10 @@ class RHighlighter : public Cantor::DefaultHighlighter
   protected:
     void highlightBlock(const QString &text);
 
-  public slots:
+  public Q_SLOTS:
     void refreshSyntaxRegExps();
 
-  signals:
+  Q_SIGNALS:
     void syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&);
 
   private:

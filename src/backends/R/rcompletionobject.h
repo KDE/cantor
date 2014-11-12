@@ -32,11 +32,11 @@ class RCompletionObject : public Cantor::CompletionObject
     RCompletionObject( const QString& cmd, int index, RSession* session );
     ~RCompletionObject();
 
-  protected slots:
+  protected Q_SLOTS:
     void fetchCompletions();
     void receiveCompletions(const QString& token,const QStringList& options);
 
-  signals:
+  Q_SIGNALS:
     void requestCompletion(const QString&);
 };
 

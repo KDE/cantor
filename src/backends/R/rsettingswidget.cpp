@@ -19,10 +19,10 @@
  */
 
 #include "rsettingswidget.h"
-#include <keditlistbox.h>
-#include <klineedit.h>
-#include <kfiledialog.h>
-#include <klocale.h>
+#include <QGroupBox>
+#include <KLineEdit>
+#include <QFileDialog>
+#include <KLocale>
 #include <QMouseEvent>
 
 RSettingsWidget::RSettingsWidget(QWidget *parent) : QWidget(parent)
@@ -50,7 +50,7 @@ bool RSettingsWidget::eventFilter(QObject *obj, QEvent *event)
 
 void RSettingsWidget::displayFileSelectionDialog()
 {
-    QString path=KFileDialog::getOpenFileName(kcfg_autorunScripts->lineEdit()->text(),i18n("*.R *.r|R source files (*.R, *.r)"),this);
+    QString path=QFileDialog::getOpenFileName(this,kcfg_autorunScripts->lineEdit()->text(),QLatin1String("/home"),i18n("*.R *.r|R source files (*.R, *.r)"));
     if (path.length()>0)
         kcfg_autorunScripts->lineEdit()->setText(path);
 }

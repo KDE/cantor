@@ -23,15 +23,16 @@
 // on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
-#include <kio/netaccess.h>
+ #include <KIO/NetAccess>
 #include "radaptor.h"
 #include "rcallbacks.h"
 #include "settings.h"
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
+#include <KUrl>
+#include <QDebug>
+#include <KLocale>
+#include <KGlobal>
+#include <KStandardDirs>
 
 #include <unistd.h>
 
@@ -49,15 +50,15 @@ bool htmlVector(SEXP expr, QTextStream& fp)
 {
     // TODO TextResult clamps the newlines, beware
 //     fp << "<html>\n"; // TODO move this to some other place and make configurable
-    fp << "<table border=\"1\" align=\"center\" valign=\"center\">";
-    fp << "<tr><td bgcolor=\"#AAAAAA\">[1]</td>";
+    fp << QLatin1String("<table border=\"1\" align=\"center\" valign=\"center\">");
+    fp << QLatin1String("<tr><td bgcolor=\"#AAAAAA\">[1]</td>");
     int leftOnThisRow=25;
     for (int i=0; i<length(expr); i++)
     {
         if (leftOnThisRow==0)
         {
-            fp << "</tr>";
-            fp << "<tr><td bgcolor=\"#AAAAAA\">["+QString::number(i+1)+"]</td>";
+            fp << QLatin1String("</tr>");
+            fp << QLatin1String("<tr><td bgcolor=\"#AAAAAA\">[")+QString::number(i+1)+QLatin1String("]</td>");
             leftOnThisRow=25;
         }
         QString cellData;
@@ -68,15 +69,15 @@ bool htmlVector(SEXP expr, QTextStream& fp)
             case INTSXP:
                 cellData=QString::number(INTEGER(expr)[i]); break;
             case STRSXP:
-                cellData=CHAR(STRING_ELT(expr,i)); break;
+                cellData=QLatin1String(CHAR(STRING_ELT(expr,i))); break;
             default:
                 return false;
         }
-        fp << "<td>"+cellData+"</td>"; // TODO HTML-safening
+        fp << QLatin1String("<td>")+cellData+QLatin1String("</td>"); // TODO HTML-safening
         leftOnThisRow--;
     }
-    fp << "</tr>";
-    fp << "<table>";
+    fp << QLatin1String("</tr>");
+    fp << QLatin1String("<table>");
 //     fp << "</html>";
     return true;
 }
@@ -85,10 +86,10 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
     new RAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerObject("/R",  this);
+    dbus.registerObject(QLatin1String("/R"),  this);
 
-    m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString("cantor/rserver-%1").arg(getpid()));
-    kDebug()<<"storing plots at "<<m_tmpDir;
+    m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString::fromLatin1("cantor/rserver-%1").arg(getpid()));
+    qDebug()<<"storing plots at "<<m_tmpDir;
 
     initR();
     m_status=RServer::Idle;
@@ -111,7 +112,7 @@ void RServer::initR()
     for (int i = 0; R_VARS[i] != NULL; i+= 2)
     {
         if (setenv(R_VARS[i], R_VARS[i+1], 1) != 0)
-            kFatal()<<"ERROR: couldn't set/replace an R environment variable";
+            qDebug()<<"ERROR: couldn't set/replace an R environment variable";
     }
 
     //R_SignalHandlers = 0;               // Don't let R set up its own signal handlers
@@ -131,7 +132,7 @@ void RServer::initR()
     //Setting up some settings dependent stuff
     if(RServerSettings::self()->integratePlots())
     {
-        kDebug()<<"integrating plots";
+        qDebug()<<"integrating plots";
         newPlotDevice();
     }
 
@@ -144,11 +145,11 @@ void RServer::initR()
         // TODO: error handling
         else
         {
-            kDebug()<<("Script "+path+" not found"); // FIXME: or should we throw a messagebox
+            qDebug()<<(QLatin1String("Script ")+path+QLatin1String(" not found")); // FIXME: or should we throw a messagebox
         }
     }
 
-    kDebug()<<"done initializing";
+    qDebug()<<"done initializing";
 
     // FIXME: other way to search symbols, see listSymbols for details
     listSymbols();
@@ -193,7 +194,7 @@ void RServer::autoload()
     PROTECT(da = Rf_findFun(Rf_install("delayedAssign"), R_GlobalEnv));
     PROTECT(AutoloadEnv = Rf_findVar(Rf_install(".AutoloadEnv"), R_GlobalEnv));
     if (AutoloadEnv == R_NilValue){
-        kError()<<"Cannot find .AutoloadEnv";
+        qDebug()<<"Cannot find .AutoloadEnv";
         //exit(1);
     }
     PROTECT(dacall = allocVector(LANGSXP,5));
@@ -235,7 +236,7 @@ void RServer::autoload()
 
             R_tryEval(dacall,R_GlobalEnv,&errorOccurred);
             if (errorOccurred){
-                kError()<<"Error calling delayedAssign!";
+                qDebug()<<"Error calling delayedAssign!";
                 //exit(1);
             }
 
@@ -277,7 +278,7 @@ void RServer::endR()
 
 void RServer::runCommand(const QString& cmd, bool internal)
 {
-    kDebug()<<"running command "<<cmd;
+    qDebug()<<"running command "<<cmd;
     Expression* expr=new Expression;
     expr->cmd=cmd;
     expr->hasOtherResults=false;
@@ -309,14 +310,14 @@ void RServer::runCommand(const QString& cmd, bool internal)
     switch (status)
     {
         case PARSE_OK:
-            kDebug()<<"PARSING "<<cmd<<" went OK";
+            qDebug()<<"PARSING "<<cmd<<" went OK";
             /* Loop is needed here as EXPSEXP might be of length > 1 */
             for (i = 0; i < length(cmdexpr); ++i) {
 
                 result = R_tryEval(VECTOR_ELT(cmdexpr,  i), NULL, &errorOccurred);
                 if (errorOccurred)
                 {
-                    kDebug()<<"Error occurred.";
+                    qDebug()<<"Error occurred.";
                     break;
                 }
                 // TODO: multiple results
@@ -325,28 +326,28 @@ void RServer::runCommand(const QString& cmd, bool internal)
             break;
         case PARSE_INCOMPLETE:
             /* need to read another line */
-            kDebug()<<"parse incomplete..";
+            qDebug()<<"parse incomplete..";
             break;
         case PARSE_NULL:
-            kDebug()<<"ParseStatus is null: "<<status;
+            qDebug()<<"ParseStatus is null: "<<status;
             break;
         case PARSE_ERROR:
-            kDebug()<<"Parse Error: "<<cmd;
+            qDebug()<<"Parse Error: "<<cmd;
             break;
         case PARSE_EOF:
-            kDebug()<<"ParseStatus is eof: "<<status;
+            qDebug()<<"ParseStatus is eof: "<<status;
             break;
         default:
-            kDebug()<<"Parse status is not documented: "<<status;
+            qDebug()<<"Parse status is not documented: "<<status;
             break;
     }
     UNPROTECT(2);
 
     if(status==PARSE_OK)
     {
-        kDebug()<<"done running";
+        qDebug()<<"done running";
 
-        kDebug()<<"std: "<<expr->std_buffer<<" err: "<<expr->err_buffer;
+        qDebug()<<"std: "<<expr->std_buffer<<" err: "<<expr->err_buffer;
         //if the command didn't print anything on its own, print the result
 
 
@@ -354,14 +355,14 @@ void RServer::runCommand(const QString& cmd, bool internal)
         //      to make the output look better, by using html (tables etc.)
         if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
         {
-            kDebug()<<"printing result...";
+            qDebug()<<"printing result...";
             SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),NULL,&errorOccurred)); // TODO: error checks
             if (*INTEGER(count)==1)
                 Rf_PrintValue(result);
             else
             {
                 static int htmlresult_id=0;
-                QString fname=QString("%1/Rtable%2.html").arg(m_tmpDir,QString::number(htmlresult_id++));
+                QString fname=QString::fromLatin1("%1/Rtable%2.html").arg(m_tmpDir,QString::number(htmlresult_id++));
                 QFile fp(fname);
                 if (fp.open(QIODevice::WriteOnly))
                 {
@@ -402,12 +403,12 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
     if(internal)
     {
-        kDebug()<<"internal result: "<<returnCode<<" :: "<<returnText;
+        qDebug()<<"internal result: "<<returnCode<<" :: "<<returnText;
         return;
     }
 
     QFileInfo f(m_curPlotFile);
-    kDebug()<<"file: "<<m_curPlotFile<<" exists: "<<f.exists()<<" size: "<<f.size();
+    qDebug()<<"file: "<<m_curPlotFile<<" exists: "<<f.exists()<<" size: "<<f.size();
     if(f.exists())
     {
         expr->hasOtherResults=true;
@@ -459,8 +460,8 @@ void RServer::completeCommand(const QString& cmd)
     /* Populating the list of completions */
     QStringList completionOptions;
     for (int i=0;i<length(completions);i++)
-        completionOptions<<translateCharUTF8(STRING_ELT(completions,i));
-    QString qToken=translateCharUTF8(STRING_ELT(token,0));
+        completionOptions<<QLatin1String(translateCharUTF8(STRING_ELT(completions,i)));
+    QString qToken=QLatin1String(translateCharUTF8(STRING_ELT(token,0)));
     UNPROTECT(2);
 
     emit completionFinished(qToken,completionOptions);
@@ -483,7 +484,7 @@ void RServer::listSymbols()
     /* Obtaining a list of user namespace objects */
     SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),NULL,&errorOccurred));
     for (int i=0;i<length(usr);i++)
-        vars<<translateCharUTF8(STRING_ELT(usr,i));
+        vars<<QLatin1String(translateCharUTF8(STRING_ELT(usr,i)));
     UNPROTECT(1);
 
     /* Obtaining a list of active packages */
@@ -495,7 +496,7 @@ void RServer::listSymbols()
         sprintf(pos,"%d",i+1);
         SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),NULL,&errorOccurred));
         for (int i=0;i<length(f);i++)
-            funcs<<translateCharUTF8(STRING_ELT(f,i));
+            funcs<<QLatin1String(translateCharUTF8(STRING_ELT(f,i)));
         UNPROTECT(1);
     }
     UNPROTECT(1);
@@ -549,10 +550,10 @@ void RServer::newPlotDevice()
     /*static const QString psCommand=QString("pdf(horizontal = FALSE, onefile = TRUE, " \
                                            "paper=\"special\", width=5, height=4,"\
                                            "print.it=FALSE, bg=\"white\", file=\"%1\" )");*/
-    static const QString command=QString("png(filename=\"%1\", width = 480, height = 480, units = \"px\")");
-    m_curPlotFile=QString("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
+    static const QString command=QLatin1String("png(filename=\"%1\", width = 480, height = 480, units = \"px\")");
+    m_curPlotFile=QString::fromLatin1("%1/Rplot%2.png").arg(m_tmpDir, QString::number(deviceNum++));
     if(m_isInitialized)
-        runCommand("dev.off()", true);
+        runCommand(QLatin1String("dev.off()"), true);
     runCommand(command.arg(m_curPlotFile), true);
 }
 
