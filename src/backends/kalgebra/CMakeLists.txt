@@ -7,6 +7,9 @@ set( KAlgebraBackend_SRCS
  kalgebraextensions.cpp
 )
 
+remove_definitions(-DQT_NO_CAST_TO_ASCII)
+remove_definitions(-DQT_NO_CAST_FROM_ASCII)
+
 kconfig_add_kcfg_files(KAlgebraBackend_SRCS settings.kcfgc)
 install(FILES kalgebrabackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 

@@ -4,9 +4,10 @@
 add_subdirectory(lib)
 
 include_directories( lib ${CMAKE_CURRENT_BINARY_DIR}/lib)
-if(KDE4_BUILD_TESTS)
+if(BUILD_TESTING)
+  include(ECMMarkAsTest)
   include_directories( lib/test )
-endif(KDE4_BUILD_TESTS)
+endif(BUILD_TESTING)
 
 if(LIBSPECTRE_FOUND)
    include_directories(${LIBSPECTRE_INCLUDE_DIR})

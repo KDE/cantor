@@ -23,6 +23,15 @@
 #include <expression.h>
 #include <QStringList>
 
+#ifdef WITH_EPS
+#include "epsresult.h"
+typedef Cantor::EpsResult OctavePlotResult;
+#else
+#include "imageresult.h"
+typedef Cantor::ImageResult OctavePlotResult;
+#endif
+
+
 
 class OctaveExpression : public Cantor::Expression
 {
