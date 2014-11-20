@@ -43,7 +43,7 @@ target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::Confi
 
 ########### install files ###############
 install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( PROGRAMS cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
 install( FILES cantor_shell.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
 
 # install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
