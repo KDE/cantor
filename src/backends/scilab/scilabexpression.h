@@ -39,7 +39,7 @@ class ScilabExpression : public Cantor::Expression
         void parsePlotFile(QString filename);
         void setPlotPending(bool plot);
 
-    public slots:
+    public Q_SLOTS:
         void evalFinished();
 
     private:

@@ -22,28 +22,28 @@
 #include "scilabkeywords.h"
 
 #include <QTextEdit>
-#include <kdebug.h>
+#include <QDebug>
 
 ScilabHighlighter::ScilabHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
-    kDebug() << "ScilabHighlighter construtor";
-    addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
+    qDebug() << "ScilabHighlighter construtor";
+    addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
 
     //Code highlighting the different keywords
     addKeywords(ScilabKeywords::instance()->keywords());
 
-    addRule("FIXME", commentFormat());
-    addRule("TODO", commentFormat());
+    addRule(QLatin1String("FIXME"), commentFormat());
+    addRule(QLatin1String("TODO"), commentFormat());
 
     addFunctions(ScilabKeywords::instance()->functions());
     addVariables(ScilabKeywords::instance()->variables());
 
-    addRule(QRegExp("\".*\""), stringFormat());
-    addRule(QRegExp("'.*'"), stringFormat());
-    addRule(QRegExp("//[^\n]*"), commentFormat());
+    addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
+    addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
+    addRule(QRegExp(QLatin1String("//[^\n]*")), commentFormat());
 
-    commentStartExpression = QRegExp("/\\*");
-    commentEndExpression = QRegExp("\\*/");
+    commentStartExpression = QRegExp(QLatin1String("/\\*"));
+    commentEndExpression = QRegExp(QLatin1String("\\*/"));
 }
 
 ScilabHighlighter::~ScilabHighlighter()
@@ -52,11 +52,11 @@ ScilabHighlighter::~ScilabHighlighter()
 
 void ScilabHighlighter::highlightBlock(const QString& text)
 {
-    kDebug() << "ScilabHighlighter::highlightBlock";
-    kDebug() << "text: " << text;
+    qDebug() << "ScilabHighlighter::highlightBlock";
+    qDebug() << "text: " << text;
 
     if (skipHighlighting(text)){
-        kDebug() << "skipHighlighting(" << text << " ) " << "== true";
+        qDebug() << "skipHighlighting(" << text << " ) " << "== true";
         return;
     }
 
@@ -94,7 +94,7 @@ void ScilabHighlighter::addVariableHighlight()
 
 void ScilabHighlighter::updateHighlight()
 {
-    kDebug();
+    qDebug();
 
     addVariables(ScilabKeywords::instance()->variables());
     addKeywords(ScilabKeywords::instance()->keywords());
@@ -105,6 +105,6 @@ void ScilabHighlighter::updateHighlight()
 
 QString ScilabHighlighter::nonSeparatingCharacters() const
 {
-    kDebug() << "ScilabHighlighter::nonSeparatingCharacters() function";
-    return "[%]";
+    qDebug() << "ScilabHighlighter::nonSeparatingCharacters() function";
+    return QLatin1String("[%]");
 }

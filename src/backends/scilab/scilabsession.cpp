@@ -26,10 +26,11 @@
 
 #include <defaultvariablemodel.h>
 
-#include <kdebug.h>
 #include <KProcess>
 #include <KDirWatch>
 
+#include <QDebug>
+#include <QDir>
 #include <QtCore/QFile>
 #include <QTextEdit>
 #include <QListIterator>
@@ -38,63 +39,62 @@
 #include <QByteArray>
 
 #include <settings.h>
-#include <qdir.h>
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     m_process = 0;
-    kDebug();
+    qDebug();
 }
 
 ScilabSession::~ScilabSession()
 {
     m_process->terminate();
-    kDebug();
+    qDebug();
 }
 
 void ScilabSession::login()
 {
-    kDebug()<<"login";
+    qDebug()<<"login";
 
     QStringList args;
 
-    args << "-nb";
+    args << QLatin1String("-nb");
 
     m_process = new KProcess(this);
     m_process->setProgram(ScilabSettings::self()->path().toLocalFile(), args);
 
-    kDebug() << m_process->program();
+    qDebug() << m_process->program();
 
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
     m_process->start();
 
     if(ScilabSettings::integratePlots()){
 
-        kDebug() << "integratePlots";
+        qDebug() << "integratePlots";
 
         QString tempPath = QDir::tempPath();
 
         QString pathScilabOperations = tempPath;
-        pathScilabOperations.prepend("chdir('");
-        pathScilabOperations.append("');\n");
+        pathScilabOperations.prepend(QLatin1String("chdir('"));
+        pathScilabOperations.append(QLatin1String("');\n"));
 
-        kDebug() << "Processing command to change chdir in Scilab. Command " << pathScilabOperations.toLocal8Bit();
+        qDebug() << "Processing command to change chdir in Scilab. Command " << pathScilabOperations.toLocal8Bit();
 
         m_process->write(pathScilabOperations.toLocal8Bit());
 
         m_watch = new KDirWatch(this);
-        m_watch->setObjectName("ScilabDirWatch");
+        m_watch->setObjectName(QLatin1String("ScilabDirWatch"));
 
         m_watch->addDir(tempPath, KDirWatch::WatchFiles);
 
-        kDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(tempPath.toLocal8Bit());
+        qDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(QLatin1String(tempPath.toLocal8Bit()));
 
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
     if(!ScilabSettings::self()->autorunScripts().isEmpty()){
-        QString autorunScripts = ScilabSettings::self()->autorunScripts().join("\n");
+        QString autorunScripts = ScilabSettings::self()->autorunScripts().join(QLatin1String("\n"));
         m_process->write(autorunScripts.toLocal8Bit());
     }
 
@@ -105,7 +105,7 @@ void ScilabSession::login()
     m_process->readAllStandardError().clear();
 
     ScilabExpression *listKeywords = new ScilabExpression(this);
-    listKeywords->setCommand("disp(getscilabkeywords());");
+    listKeywords->setCommand(QLatin1String("disp(getscilabkeywords());"));
     runExpression(listKeywords);
 
     emit ready();
@@ -113,18 +113,18 @@ void ScilabSession::login()
 
 void ScilabSession::logout()
 {
-    kDebug()<<"logout";
+    qDebug()<<"logout";
 
     m_process->write("exit\n");
 
     m_runningExpressions.clear();
-    kDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
+    qDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
 
     QDir removePlotFigures;
     QListIterator<QString> i(m_listPlotName);
 
     while(i.hasNext()){
-        removePlotFigures.remove(i.next().toLocal8Bit().constData());
+        removePlotFigures.remove(QLatin1String(i.next().toLocal8Bit().constData()));
     }
 
     changeStatus(Cantor::Session::Done);
@@ -132,7 +132,7 @@ void ScilabSession::logout()
 
 void ScilabSession::interrupt()
 {
-    kDebug()<<"interrupt";
+    qDebug()<<"interrupt";
 
     foreach(Cantor::Expression* e, m_runningExpressions)
         e->interrupt();
@@ -143,7 +143,7 @@ void ScilabSession::interrupt()
 
 Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    kDebug() << "evaluating: " << cmd;
+    qDebug() << "evaluating: " << cmd;
     ScilabExpression* expr = new ScilabExpression(this);
 
     changeStatus(Cantor::Session::Running);
@@ -159,7 +159,7 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 {
     QString command;
 
-    command.prepend("\nprintf('begin-cantor-scilab-command-processing')\n");
+    command.prepend(QLatin1String("\nprintf('begin-cantor-scilab-command-processing')\n"));
     command += expr->command();
 
     m_currentExpression = expr;
@@ -167,51 +167,51 @@ void ScilabSession::runExpression(ScilabExpression* expr)
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this,
             SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
 
-    command += "\nprintf('terminated-cantor-scilab-command-processing')\n";
-    kDebug() << "Writing command to process" << command;
+    command += QLatin1String("\nprintf('terminated-cantor-scilab-command-processing')\n");
+    qDebug() << "Writing command to process" << command;
 
     m_process->write(command.toLocal8Bit());
 }
 
 void ScilabSession::expressionFinished()
 {
-    kDebug()<<"finished";
+    qDebug()<<"finished";
     ScilabExpression* expression = qobject_cast<ScilabExpression*>(sender());
 
     m_runningExpressions.removeAll(expression);
-    kDebug() << "size: " << m_runningExpressions.size();
+    qDebug() << "size: " << m_runningExpressions.size();
 }
 
 void ScilabSession::readError()
 {
-    kDebug() << "readError";
+    qDebug() << "readError";
 
-    QString error = m_process->readAllStandardError();
+    QString error = QLatin1String(m_process->readAllStandardError());
 
-    kDebug() << "error: " << error;
+    qDebug() << "error: " << error;
     m_currentExpression->parseError(error);
 }
 
 void ScilabSession::readOutput()
 {
-    kDebug() << "readOutput";
+    qDebug() << "readOutput";
 
     while(m_process->bytesAvailable() > 0){
         m_output.append(QString::fromLocal8Bit(m_process->readLine()));
     }
 
-    kDebug() << "output.isNull? " << m_output.isNull();
-    kDebug() << "output: " << m_output;
+    qDebug() << "output.isNull? " << m_output.isNull();
+    qDebug() << "output: " << m_output;
 
     if(status() != Running || m_output.isNull()){
         return;
     }
 
-    if(m_output.contains("begin-cantor-scilab-command-processing") &&
-        m_output.contains("terminated-cantor-scilab-command-processing")){
+    if(m_output.contains(QLatin1String("begin-cantor-scilab-command-processing")) &&
+        m_output.contains(QLatin1String("terminated-cantor-scilab-command-processing"))){
 
-        m_output.remove("begin-cantor-scilab-command-processing");
-        m_output.remove("terminated-cantor-scilab-command-processing");
+        m_output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
+        m_output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
 
         m_currentExpression->parseOutput(m_output);
 
@@ -222,10 +222,10 @@ void ScilabSession::readOutput()
 
 void ScilabSession::plotFileChanged(QString filename)
 {
-    kDebug() << "plotFileChanged filename:" << filename;
+    qDebug() << "plotFileChanged filename:" << filename;
 
-    if ((m_currentExpression) && (filename.contains("cantor-export-scilab-figure"))){
-         kDebug() << "Calling parsePlotFile";
+    if ((m_currentExpression) && (filename.contains(QLatin1String("cantor-export-scilab-figure")))){
+         qDebug() << "Calling parsePlotFile";
          m_currentExpression->parsePlotFile(filename);
 
          m_listPlotName.append(filename);
@@ -234,7 +234,7 @@ void ScilabSession::plotFileChanged(QString filename)
 
 void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
-    kDebug() << "currentExpressionStatusChanged: " << status;
+    qDebug() << "currentExpressionStatusChanged: " << status;
 
     switch (status){
         case Cantor::Expression::Computing:
@@ -255,17 +255,17 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
 void ScilabSession::listKeywords()
 {
-    kDebug();
+    qDebug();
 
     while(m_process->bytesAvailable() > 0){
         m_output.append(QString::fromLocal8Bit(m_process->readLine()));
     }
 
-    if(m_output.contains("begin-cantor-scilab-command-processing") &&
-        m_output.contains("terminated-cantor-scilab-command-processing")){
+    if(m_output.contains(QLatin1String("begin-cantor-scilab-command-processing")) &&
+        m_output.contains(QLatin1String("terminated-cantor-scilab-command-processing"))){
 
-        m_output.remove("begin-cantor-scilab-command-processing");
-        m_output.remove("terminated-cantor-scilab-command-processing");
+        m_output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
+        m_output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
 
         ScilabKeywords::instance()->setupKeywords(m_output);
 
@@ -286,7 +286,7 @@ void ScilabSession::listKeywords()
 
 QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 {
-    kDebug();
+    qDebug();
 
     ScilabHighlighter *highlighter = new ScilabHighlighter(parent);
 

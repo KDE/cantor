@@ -1,7 +1,7 @@
 add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)
-# add_subdirectory(scilab)
+add_subdirectory(scilab)
 
 find_package(Analitza5)
 set_package_properties(Analitza5 PROPERTIES DESCRIPTION "A library provided by KAlgebra."

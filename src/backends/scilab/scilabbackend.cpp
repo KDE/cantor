@@ -25,41 +25,41 @@
 #include "settings.h"
 #include "ui_settings.h"
 
-#include "kdebug.h"
+#include <QDebug>
 #include <QWidget>
 
 #include "cantor_macros.h"
 
 ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Cantor::Backend(parent, args)
 {
-    kDebug()<<"Creating ScilabBackend";
+    qDebug()<<"Creating ScilabBackend";
 
     new ScilabVariableManagementExtension(this);
     new ScilabScriptExtension(this);
 
-    setObjectName("scilabbackend");
+    setObjectName(QLatin1String("scilabbackend"));
 }
 
 ScilabBackend::~ScilabBackend()
 {
-    kDebug()<<"Destroying ScilabBackend";
+    qDebug()<<"Destroying ScilabBackend";
 }
 
 QString ScilabBackend::id() const
 {
-    return "scilab";
+    return QLatin1String("scilab");
 }
 
 Cantor::Session* ScilabBackend::createSession()
 {
-    kDebug()<<"Spawning a new Scilab session";
+    qDebug()<<"Spawning a new Scilab session";
 
     return new ScilabSession(this);
 }
 
 Cantor::Backend::Capabilities ScilabBackend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of ScilabSession";
+    qDebug()<<"Requesting capabilities of ScilabSession";
 
     return Cantor::Backend::SyntaxHighlighting |
            Cantor::Backend::Completion         |

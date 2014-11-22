@@ -53,12 +53,12 @@ class ScilabSession : public Cantor::Session
         Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
         virtual QAbstractItemModel* variableModel();
 
-    public slots:
+    public Q_SLOTS:
         void readOutput();
         void readError();
         void plotFileChanged(QString filename);
 
-    signals:
+    Q_SIGNALS:
         void updateHighlighter();
         void updateVariableHighlighter();
 
@@ -72,7 +72,7 @@ class ScilabSession : public Cantor::Session
         QList<ScilabExpression*> m_runningExpressions;
         ScilabExpression* m_currentExpression;
 
-    private slots:
+    private Q_SLOTS:
         void expressionFinished();
         void currentExpressionStatusChanged(Cantor::Expression::Status status);
         void listKeywords();
