@@ -3,15 +3,15 @@ add_subdirectory(maxima)
 add_subdirectory(octave)
 # add_subdirectory(scilab)
 
-find_package(Analitza)
-set_package_properties(Analitza PROPERTIES DESCRIPTION "A library provided by KAlgebra."
+find_package(Analitza5)
+set_package_properties(Analitza5 PROPERTIES DESCRIPTION "A library provided by KAlgebra."
     URL "http://edu.kde.org/kalgebra/"
     TYPE OPTIONAL
     PURPOSE "Backend to use KAlgebra with Cantor.")
 
-if(Analitza_FOUND)
+if(Analitza5_FOUND)
     add_subdirectory(kalgebra)
-endif(Analitza_FOUND)
+endif(Analitza5_FOUND)
 
 if(NOT WIN32)
     add_subdirectory(sage)
