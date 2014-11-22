@@ -28,11 +28,11 @@
 #include "rcallbacks.h"
 #include "settings.h"
 
+#include <QDir>
+
 #include <KUrl>
 #include <QDebug>
 #include <KLocale>
-#include <KGlobal>
-#include <KStandardDirs>
 
 #include <unistd.h>
 
@@ -88,7 +88,10 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject(QLatin1String("/R"),  this);
 
-    m_tmpDir=KGlobal::dirs()->saveLocation("tmp",  QString::fromLatin1("cantor/rserver-%1").arg(getpid()));
+    QDir dir;
+
+    dir.mkdir(QDir::tempPath() + QString::fromLatin1("cantor/rserver-%1").arg(getpid()));
+    m_tmpDir=QDir::tempPath() + QString::fromLatin1("cantor/rserver-%1").arg(getpid());
     qDebug()<<"storing plots at "<<m_tmpDir;
 
     initR();

@@ -1,7 +1,7 @@
 include_directories(${R_INCLUDEDIR})
 LINK_DIRECTORIES(${R_SHAREDLIBDIR})
 
-#add_subdirectory(rserver)
+add_subdirectory(rserver)
 
 set( RBackend_SRCS
  rbackend.cpp
