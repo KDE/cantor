@@ -35,12 +35,12 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 
 if(NOT WIN32)
-    find_package(LibSpectre)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
         URL "http://libspectre.freedesktop.org/wiki/"
         TYPE OPTIONAL
         PURPOSE "Support for rendering EPS files in Cantor")
 
+    find_package(LibSpectre)
     if(LibSpectre_FOUND)
         set(WITH_EPS On)
     else(LibSpectre_FOUND)
