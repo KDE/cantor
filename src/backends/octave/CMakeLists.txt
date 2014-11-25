@@ -41,5 +41,6 @@ if(BUILD_TESTING)
  )
 endif(BUILD_TESTING)
 
+install(FILES cantor_octave.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install(FILES octavebackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_octavebackend DESTINATION ${PLUGIN_INSTALL_DIR})

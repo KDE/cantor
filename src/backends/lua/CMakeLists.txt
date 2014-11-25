@@ -19,5 +19,6 @@ include_directories(${LUAJIT_INCLUDE_DIR})
 
 target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY} cantorlibs)
 
+install(FILES cantor_lua.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install(FILES  luabackend.desktop DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_luabackend DESTINATION ${PLUGIN_INSTALL_DIR})

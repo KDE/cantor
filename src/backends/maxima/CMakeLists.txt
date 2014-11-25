@@ -29,6 +29,7 @@ target_link_libraries( testmaxima
   ${QTTEST_LIBRARY}
 )
 
+install( FILES cantor_maxima.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES maximabackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_maximabackend DESTINATION ${PLUGIN_INSTALL_DIR})
 install( FILES keywords.xml cantor-initmaxima.lisp DESTINATION ${DATA_INSTALL_DIR}/cantor/maximabackend)

@@ -23,6 +23,7 @@ target_link_libraries( testsage
   cantortest
 )
 
+install( FILES cantor_sage.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES sagebackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_sagebackend DESTINATION ${PLUGIN_INSTALL_DIR})
 install( FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/sagebackend)

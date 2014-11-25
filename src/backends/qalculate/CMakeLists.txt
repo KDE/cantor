@@ -25,5 +25,6 @@ add_library( cantor_qalculatebackend MODULE ${QalculateBackend_SRCS} )
 message(STATUS ${CLN_LIBRARIES})
 target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
 
+install( FILES cantor_qalculate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES qalculatebackend.desktop DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_qalculatebackend DESTINATION ${PLUGIN_INSTALL_DIR})
