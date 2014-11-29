@@ -44,7 +44,7 @@ void EigenValuesAssistant::initActions()
     KAction* eigenvalues=new KAction(i18n("Compute Eigenvalues"), actionCollection());
     //eigenvalues->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("eigenvalues_assistant"), eigenvalues);
-    connect(eigenvalues, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(eigenvalues, &KAction::triggered, this, &EigenValuesAssistant::requested);
 }
 
 QStringList EigenValuesAssistant::run(QWidget* parent)

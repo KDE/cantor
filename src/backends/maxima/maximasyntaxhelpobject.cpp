@@ -64,7 +64,7 @@ void MaximaSyntaxHelpObject::fetchInformation()
 
         m_expression=session()->evaluateExpression(cmd.arg(command()));
 
-        connect(m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
 
     }else
     {

@@ -43,7 +43,7 @@ void CreateMatrixAssistant::initActions()
     setXMLFile(QLatin1String("cantor_create_matrix_assistant.rc"));
     KAction* creatematrix=new KAction(i18n("Create Matrix"), actionCollection());
     actionCollection()->addAction(QLatin1String("creatematrix_assistant"), creatematrix);
-    connect(creatematrix, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(creatematrix, &KAction::triggered, this, &CreateMatrixAssistant::requested);
 }
 
 QStringList CreateMatrixAssistant::run(QWidget* parent)

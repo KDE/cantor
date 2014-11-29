@@ -43,7 +43,7 @@ void OctaveCompletionObject::fetchCompletions()
     qDebug() << "Fetching completions for" << command();
     QString expr = QString::fromLatin1("completion_matches(\"%1\")").arg(command());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractCompletions()));
+    connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractCompletions);
 }
 
 void OctaveCompletionObject::extractCompletions()
@@ -80,7 +80,7 @@ void OctaveCompletionObject::fetchIdentifierType()
     QString expr = QString::fromLatin1("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__")
                                       .arg(identifier());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractIdentifierType()));
+    connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractIdentifierType);
 }
 
 void OctaveCompletionObject::extractIdentifierType()

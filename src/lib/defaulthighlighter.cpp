@@ -92,7 +92,7 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     addPair(QLatin1Char('{'), QLatin1Char('}'));
 
     updateFormats();
-    connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
+    connect(KGlobalSettings::self(), &KGlobalSettings::kdisplayPaletteChanged, this, &DefaultHighlighter::updateFormats);
 }
 
 DefaultHighlighter::~DefaultHighlighter()

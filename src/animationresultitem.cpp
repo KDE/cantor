@@ -106,10 +106,8 @@ void AnimationResultItem::setMovie(QMovie* movie)
     m_movie = movie;
     m_height = 0;
     if (m_movie) {
-        connect(m_movie, SIGNAL(frameChanged(int)), this,
-                SLOT(updateFrame()));
-        connect(m_movie, SIGNAL(resized(const QSize&)),
-                this, SLOT(updateSize(const QSize&)));
+        connect(m_movie, &QMovie::frameChanged, this, &AnimationResultItem::updateFrame);
+        connect(m_movie, &QMovie::resized, this, &AnimationResultItem::updateSize);
         m_movie->start();
     }
 }

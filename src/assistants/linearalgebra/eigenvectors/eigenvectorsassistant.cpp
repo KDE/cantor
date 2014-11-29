@@ -44,7 +44,7 @@ void EigenVectorsAssistant::initActions()
     KAction* eigenvectors=new KAction(i18n("Compute Eigenvectors"), actionCollection());
     //eigenvectors->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("eigenvectors_assistant"), eigenvectors);
-    connect(eigenvectors, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(eigenvectors, &KAction::triggered, this, &EigenVectorsAssistant::requested);
 }
 
 QStringList EigenVectorsAssistant::run(QWidget* parent)

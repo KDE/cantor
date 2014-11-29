@@ -44,7 +44,7 @@ void ImportPackageAssistant::initActions()
 
     KAction* importpackage = new KAction(i18n("Import Package"), actionCollection());
     actionCollection()->addAction(QLatin1String("importpackage_assistant"), importpackage);
-    connect(importpackage, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(importpackage, &KAction::triggered, this, &ImportPackageAssistant::requested);
 }
 
 QStringList ImportPackageAssistant::run(QWidget* parent)

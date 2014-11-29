@@ -64,8 +64,7 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     connect(this, SIGNAL(menuCreated(QMenu*, const QPointF&)), parent,
             SLOT(populateMenu(QMenu*, const QPointF&)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
-    connect(this, SIGNAL(cursorPositionChanged(QTextCursor)), this,
-            SLOT(updateRichTextActions(QTextCursor)));
+    connect(this, &WorksheetTextItem::cursorPositionChanged, this, &WorksheetTextItem::updateRichTextActions);
     connect(document(), SIGNAL(undoAvailable(bool)),
             this, SIGNAL(undoAvailable(bool)));
     connect(document(), SIGNAL(redoAvailable(bool)),

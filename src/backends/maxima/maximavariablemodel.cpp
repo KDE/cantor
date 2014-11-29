@@ -50,7 +50,7 @@ void MaximaVariableModel::checkForNewVariables()
     const QString& cmd=variableInspectCommand.arg(QLatin1String("values"));
     Cantor::Expression* expr=session()->evaluateExpression(cmd);
     expr->setInternal(true);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(parseNewVariables()));
+    connect(expr, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
 }
 
 void MaximaVariableModel::checkForNewFunctions()
@@ -60,7 +60,7 @@ void MaximaVariableModel::checkForNewFunctions()
     Cantor::Expression* expr=session()->evaluateExpression(cmd);
     expr->setInternal(true);
 
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(parseNewFunctions()));
+    connect(expr, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
 }
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)

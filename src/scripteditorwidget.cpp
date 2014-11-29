@@ -73,8 +73,8 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
         guiFactory()->addClient(m_editor);
         restoreWindowSize(cg);
 
-        connect(m_script, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(updateCaption()));
-        connect(m_script, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(updateCaption()));
+        connect(m_script, &KTextEditor::Document::modifiedChanged, this, &ScriptEditorWidget::updateCaption);
+        connect(m_script, &KTextEditor::Document::documentUrlChanged, this, &ScriptEditorWidget::updateCaption);
         updateCaption();
     }
 }

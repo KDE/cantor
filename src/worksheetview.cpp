@@ -145,7 +145,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
         m_vAnimation = 0;
     }
 
-    connect(m_animation, SIGNAL(finished()), this, SLOT(endAnimation()));
+    connect(m_animation, &QParallelAnimationGroup::finished, this, &WorksheetView::endAnimation);
     m_animation->start();
 }
 

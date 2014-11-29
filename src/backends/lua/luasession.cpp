@@ -88,7 +88,7 @@ Cantor::Expression* LuaSession::evaluateExpression(const QString& cmd, Cantor::E
     changeStatus(Cantor::Session::Running);
 
     LuaExpression* expr = new LuaExpression(this, m_L);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished()));
+    connect(expr, &LuaExpression::statusChanged, this, &LuaSession::expressionFinished);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();

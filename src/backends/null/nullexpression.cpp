@@ -32,7 +32,7 @@ NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(
     qDebug();
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
+    connect(m_timer, &QTimer::timeout, this, &NullExpression::evalFinished);
 }
 
 NullExpression::~NullExpression()

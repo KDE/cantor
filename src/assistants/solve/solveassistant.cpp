@@ -45,7 +45,7 @@ void SolveAssistant::initActions()
     KAction* solve=new KAction(i18n("Solve equations"), actionCollection());
     solve->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("solve_assistant"), solve);
-    connect(solve, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(solve, &KAction::triggered, this, &SolveAssistant::requested);
 }
 
 QStringList SolveAssistant::run(QWidget* parent)

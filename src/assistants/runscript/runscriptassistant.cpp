@@ -46,7 +46,7 @@ void RunScriptAssistant::initActions()
     KAction* runscript=new KAction(i18n("Run Script"), actionCollection());
     runscript->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("runscript_assistant"), runscript);
-    connect(runscript, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(runscript, &KAction::triggered, this, &RunScriptAssistant::requested);
 }
 
 QStringList RunScriptAssistant::run(QWidget* parent)

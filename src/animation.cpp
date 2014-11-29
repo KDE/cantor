@@ -71,7 +71,7 @@ void Animation::movieFrameChanged()
     } else {
         // we got removed from the document
         qDebug()<<"animation got removed";
-        disconnect(m_movie, SIGNAL(frameChanged(int)), this, SLOT(movieFrameChanged()));
+        disconnect(m_movie.data(), &QMovie::frameChanged, this, &Animation::movieFrameChanged);
     }
 }
 

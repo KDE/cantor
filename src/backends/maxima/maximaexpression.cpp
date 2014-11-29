@@ -80,9 +80,9 @@ void MaximaExpression::evaluate()
 #endif
         m_tempFile->open();
 
-        disconnect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
+        disconnect(&m_fileWatch, &KDirWatch::dirty, this, &MaximaExpression::imageChanged);
         m_fileWatch.addFile(m_tempFile->fileName());
-        connect(&m_fileWatch, SIGNAL(dirty(const QString&)), this, SLOT(imageChanged()));
+        connect(&m_fileWatch, &KDirWatch::dirty, this, &MaximaExpression::imageChanged);
     }
 
     const QString& cmd=command();

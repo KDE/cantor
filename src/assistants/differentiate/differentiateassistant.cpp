@@ -45,7 +45,7 @@ void DifferentiateAssistant::initActions()
     KAction* differentiate=new KAction(i18n("Differentiate"), actionCollection());
     differentiate->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("differentiate_assistant"), differentiate);
-    connect(differentiate, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(differentiate, &KAction::triggered, this, &DifferentiateAssistant::requested);
 }
 
 QStringList DifferentiateAssistant::run(QWidget* parent)

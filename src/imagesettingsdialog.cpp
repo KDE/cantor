@@ -55,21 +55,21 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     m_ui.printWidthInput->setSingleStep(1);
     m_ui.printHeightInput->setSingleStep(1);
 
-    connect(this, SIGNAL(okClicked()), this, SLOT(sendChangesAndClose()));
-    connect(this, SIGNAL(applyClicked()), this, SLOT(sendChanges()));
-    connect(this, SIGNAL(cancelClicked()), this, SLOT(close()));
+    connect(this, &ImageSettingsDialog::okClicked, this, &ImageSettingsDialog::sendChangesAndClose);
+    connect(this, &ImageSettingsDialog::applyClicked, this, &ImageSettingsDialog::sendChanges);
+    connect(this, &ImageSettingsDialog::cancelClicked, this, &ImageSettingsDialog::close);
 
-    connect(m_ui.openDialogButton, SIGNAL(clicked()), this, SLOT(openDialog()));
+    connect(m_ui.openDialogButton, &KPushButton::clicked, this, &ImageSettingsDialog::openDialog);
     //connect(m_fileDialog, SIGNAL(accepted()), this, SLOT(updatePath()));
 
-    connect(m_ui.pathEdit, SIGNAL(editingFinished()), this, SLOT(updatePreview()));
+    connect(m_ui.pathEdit, &KLineEdit::editingFinished, this, &ImageSettingsDialog::updatePreview);
 
-    connect(m_ui.displayWidthCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
-    connect(m_ui.displayHeightCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
-    connect(m_ui.printWidthCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
-    connect(m_ui.printHeightCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
+    connect(m_ui.displayWidthCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.displayHeightCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.printWidthCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.printHeightCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
 
-    connect(m_ui.useDisplaySize, SIGNAL(stateChanged(int)), this, SLOT(updatePrintingGroup(int)));
+    connect(m_ui.useDisplaySize, &QCheckBox::stateChanged, this, &ImageSettingsDialog::updatePrintingGroup);
 }
 
 ImageSettingsDialog::~ImageSettingsDialog()

@@ -90,7 +90,7 @@ void ScilabSession::login()
 
         qDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(QLatin1String(tempPath.toLocal8Bit()));
 
-        QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
+        QObject::connect(m_watch, &KDirWatch::created, this, &ScilabSession::plotFileChanged);
     }
 
     if(!ScilabSettings::self()->autorunScripts().isEmpty()){
@@ -98,8 +98,8 @@ void ScilabSession::login()
         m_process->write(autorunScripts.toLocal8Bit());
     }
 
-    QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (listKeywords()));
-    QObject::connect(m_process, SIGNAL(readyReadStandardError()), SLOT (readError()));
+    QObject::connect(m_process, &KProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
+    QObject::connect(m_process, &KProcess::readyReadStandardError, this, &ScilabSession::readError);
 
     m_process->readAllStandardOutput().clear();
     m_process->readAllStandardError().clear();
@@ -164,8 +164,7 @@ void ScilabSession::runExpression(ScilabExpression* expr)
 
     m_currentExpression = expr;
 
-    connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this,
-            SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
+    connect(m_currentExpression, &ScilabExpression::statusChanged, this, &ScilabSession::currentExpressionStatusChanged);
 
     command += QLatin1String("\nprintf('terminated-cantor-scilab-command-processing')\n");
     qDebug() << "Writing command to process" << command;
@@ -269,8 +268,8 @@ void ScilabSession::listKeywords()
 
         ScilabKeywords::instance()->setupKeywords(m_output);
 
-        QObject::disconnect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT (listKeywords()));
-        QObject::connect(m_process, SIGNAL(readyReadStandardOutput()), SLOT (readOutput()));
+        QObject::disconnect(m_process, &KProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
+        QObject::connect(m_process, &KProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
 
         m_process->readAllStandardOutput().clear();
         m_process->readAllStandardError().clear();
@@ -290,8 +289,8 @@ QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 
     ScilabHighlighter *highlighter = new ScilabHighlighter(parent);
 
-    QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
-    QObject::connect(this, SIGNAL(updateVariableHighlighter()), highlighter, SLOT(addVariableHighlight()));
+    QObject::connect(this, &ScilabSession::updateHighlighter, highlighter, &ScilabHighlighter::updateHighlight);
+    QObject::connect(this, &ScilabSession::updateVariableHighlighter, highlighter, &ScilabHighlighter::addVariableHighlight);
     return highlighter;
 }
 

@@ -45,7 +45,7 @@ void AdvancedPlotAssistant::initActions()
     setXMLFile(QLatin1String("cantor_advancedplot_assistant.rc"));
     KAction* advplot=new KAction(i18n("Advanced Plotting"), actionCollection());
     actionCollection()->addAction(QLatin1String("advancedplot_assistant"), advplot);
-    connect(advplot, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(advplot, &KAction::triggered, this, &AdvancedPlotAssistant::requested);
 }
 
 QStringList AdvancedPlotAssistant::run(QWidget* parent)

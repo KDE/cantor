@@ -47,9 +47,8 @@ CompletionObject::CompletionObject(Session* session) :
     d->position = -1;
     d->session=session;
 
-    connect(this, SIGNAL(fetchingDone()), this, SLOT(findCompletion()));
-    connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this,
-	    SLOT(completeLineWithType(IdentifierType)));
+    connect(this, &CompletionObject::fetchingDone, this, &CompletionObject::findCompletion);
+    connect(this, &CompletionObject::fetchingTypeDone, this, &CompletionObject::completeLineWithType);
     // TODO commented to build by Filipe
     setCompletionMode(KCompletion::CompletionShell);
 }
@@ -177,8 +176,7 @@ void CompletionObject::findCompletion()
 {
     if (d->parenCompletion) {
 	disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), 0, 0);
-	connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this,
-		SLOT(handleParenCompletionWithType(IdentifierType)));
+	connect(this, &CompletionObject::fetchingTypeDone, this, &CompletionObject::handleParenCompletionWithType);
 	d->identifier = d->command;
 	fetchIdentifierType();
 	return;
@@ -190,8 +188,7 @@ void CompletionObject::findCompletion()
 void CompletionObject::handleParenCompletionWithType(IdentifierType type)
 {
     disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), 0, 0);
-    connect(this, SIGNAL(fetchingTypeDone(IdentifierType)), this,
-	    SLOT(completeLineWithType(IdentifierType)));
+    connect(this, &CompletionObject::fetchingTypeDone, this, &CompletionObject::completeLineWithType);
 
     if (type == FunctionWithArguments || type == FunctionWithoutArguments) {
 	d->completion = d->command;

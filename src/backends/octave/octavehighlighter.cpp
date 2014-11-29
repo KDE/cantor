@@ -56,13 +56,13 @@ OctaveHighlighter::~OctaveHighlighter()
 void OctaveHighlighter::updateFunctions()
 {
   m_functionsExpr = m_session->evaluateExpression(QLatin1String("completion_matches('')"));
-  connect ( m_functionsExpr, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(receiveFunctions()) );
+  connect(m_functionsExpr, &Cantor::Expression::statusChanged, this, &OctaveHighlighter::receiveFunctions);
 }
 
 void OctaveHighlighter::updateVariables()
 {
   m_varsExpr = m_session->evaluateExpression(QLatin1String("who"));
-  connect ( m_varsExpr, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(receiveVariables()) );
+  connect(m_varsExpr, &Cantor::Expression::statusChanged, this, &OctaveHighlighter::receiveVariables);
 }
 
 

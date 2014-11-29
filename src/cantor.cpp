@@ -286,7 +286,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
+            connect(part, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
 
             m_parts.append(part);
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));

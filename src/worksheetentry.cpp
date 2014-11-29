@@ -378,8 +378,7 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
     sizeAn->setStartValue(oldSize);
     sizeAn->setEndValue(newSize);
     sizeAn->setEasingCurve(QEasingCurve::InOutQuad);
-    connect(sizeAn, SIGNAL(valueChanged(const QVariant&)),
-            this, SLOT(sizeAnimated()));
+    connect(sizeAn, &QPropertyAnimation::valueChanged, this, &WorksheetEntry::sizeAnimated);
     return sizeAn;
 }
 
@@ -408,8 +407,7 @@ void WorksheetEntry::animateSizeChange()
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::OutCubic);
     m_animation->animation = new QParallelAnimationGroup(this);
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
-    connect(m_animation->animation, SIGNAL(finished()),
-            this, SLOT(endAnimation()));
+    connect(m_animation->animation, &QAnimationGroup::finished, this, &WorksheetEntry::endAnimation);
     m_animation->animation->start();
 }
 
@@ -446,8 +444,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);
 
-    connect(m_animation->animation, SIGNAL(finished()),
-            this, SLOT(endAnimation()));
+    connect(m_animation->animation, &QAnimationGroup::finished, this, &WorksheetEntry::endAnimation);
 
     m_animation->animation->start();
 }
@@ -486,8 +483,7 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);
 
-    connect(m_animation->animation, SIGNAL(finished()),
-            this, SLOT(endAnimation()));
+    connect(m_animation->animation, &QAnimationGroup::finished, this, &WorksheetEntry::endAnimation);
 
     m_animation->animation->start();
 }
@@ -605,10 +601,8 @@ void WorksheetEntry::startRemoving()
     m_animation->sizeAnimation->setEndValue(QSizeF(size().width(), 0));
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
 
-    connect(m_animation->sizeAnimation, SIGNAL(valueChanged(const QVariant&)),
-            this, SLOT(sizeAnimated()));
-    connect(m_animation->sizeAnimation, SIGNAL(finished()),
-            this, SLOT(remove()));
+    connect(m_animation->sizeAnimation, &QPropertyAnimation::valueChanged, this, &WorksheetEntry::sizeAnimated);
+    connect(m_animation->sizeAnimation, &QPropertyAnimation::finished, this, &WorksheetEntry::remove);
 
     m_animation->opacAnimation = new QPropertyAnimation(this, "opacity", this);
     m_animation->opacAnimation->setDuration(300);
@@ -720,8 +714,7 @@ void WorksheetEntry::showActionBar()
         m_actionBarAnimation->setKeyValueAt(0.666, 0);
         m_actionBarAnimation->setEndValue(1);
         m_actionBarAnimation->setDuration(600);
-        connect(m_actionBarAnimation, SIGNAL(finished()), this,
-                SLOT(deleteActionBarAnimation()));
+        connect(m_actionBarAnimation, &QPropertyAnimation::finished, this, &WorksheetEntry::deleteActionBarAnimation);
 
         m_actionBarAnimation->start();
     }
@@ -746,8 +739,7 @@ void WorksheetEntry::hideActionBar()
         m_actionBarAnimation->setEndValue(0);
         m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
         m_actionBarAnimation->setDuration(200);
-        connect(m_actionBarAnimation, SIGNAL(finished()), this,
-                SLOT(deleteActionBar()));
+        connect(m_actionBarAnimation, &QPropertyAnimation::finished, this, &WorksheetEntry::deleteActionBar);
 
         m_actionBarAnimation->start();
     } else {

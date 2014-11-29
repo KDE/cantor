@@ -33,12 +33,10 @@
 TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->enableRichText(true);
-    connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
-            this, SLOT(moveToPreviousEntry(int, qreal)));
-    connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
-            this, SLOT(moveToNextEntry(int, qreal)));
+    connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &TextEntry::moveToPreviousEntry);
+    connect(m_textItem, &WorksheetTextItem::moveToNext, this, &TextEntry::moveToNextEntry);
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImagesAtCursor()));
+    connect(m_textItem, &WorksheetTextItem::doubleClick, this, &TextEntry::resolveImagesAtCursor);
 }
 
 TextEntry::~TextEntry()

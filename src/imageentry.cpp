@@ -40,8 +40,7 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     m_printSize.widthUnit = ImageSize::Auto;
     m_printSize.heightUnit = ImageSize::Auto;
     m_useDisplaySizeForPrinting = true;
-    connect(m_imageWatcher, SIGNAL(fileChanged(const QString&)),
-            this, SLOT(updateEntry()));
+    connect(m_imageWatcher, &QFileSystemWatcher::fileChanged, this, &ImageEntry::updateEntry);
 
     setFlag(QGraphicsItem::ItemIsFocusable);
     updateEntry();
@@ -282,10 +281,7 @@ void ImageEntry::startConfigDialog()
     ImageSettingsDialog* dialog = new ImageSettingsDialog(worksheet()->worksheetView());
     dialog->setData(m_imagePath, m_displaySize, m_printSize,
                     m_useDisplaySizeForPrinting);
-    connect(dialog, SIGNAL(dataChanged(const QString&, const ImageSize&,
-                                       const ImageSize&, bool)),
-            this, SLOT(setImageData(const QString&, const ImageSize&,
-                                    const ImageSize&, bool)));
+    connect(dialog, &ImageSettingsDialog::dataChanged, this, &ImageEntry::setImageData);
     dialog->show();
 }
 

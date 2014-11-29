@@ -45,7 +45,7 @@ void IntegrateAssistant::initActions()
     KAction* integrate=new KAction(i18n("Integrate"), actionCollection());
     integrate->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("integrate_assistant"), integrate);
-    connect(integrate, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(integrate, &KAction::triggered, this, &IntegrateAssistant::requested);
 }
 
 QStringList IntegrateAssistant::run(QWidget* parent)

@@ -98,7 +98,7 @@ void BackendTest::waitForSignal(QObject* sender, const char* signal)
 
     QEventLoop loop;
     connect( sender, signal, &loop, SLOT( quit() ) );
-    connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
+    connect(&timeout, &QTimer::timeout, &loop, &QEventLoop::quit);
     timeout.start( 5000 );
     loop.exec();
 }

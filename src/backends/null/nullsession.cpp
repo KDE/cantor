@@ -60,7 +60,7 @@ Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::
     qDebug()<<"evaluating: "<<cmd;
     NullExpression* expr=new NullExpression(this);
     expr->setFinishingBehavior(behave);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished()));
+    connect(expr, &NullExpression::statusChanged, this, &NullSession::expressionFinished);
     expr->setCommand(cmd);
     expr->evaluate();
 

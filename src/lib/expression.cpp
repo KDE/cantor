@@ -174,8 +174,8 @@ void Expression::renderResultAsLatex()
     renderer->setLatexCode(result()->data().toString().trimmed());
     renderer->addHeader(additionalLatexHeaders());
 
-    connect(renderer, SIGNAL(done()), this, SLOT(latexRendered()));
-    connect(renderer, SIGNAL(error()), this, SLOT(latexRendered()));
+    connect(renderer, &LatexRenderer::done, this, &Expression::latexRendered);
+    connect(renderer, &LatexRenderer::error, this, &Expression::latexRendered);
 
     renderer->render();
 }

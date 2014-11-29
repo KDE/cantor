@@ -66,8 +66,7 @@ void TextResultItem::populateMenu(QMenu* menu, const QPointF& pos)
         else
             showCodeAction = menu->addAction(i18n("Show Code"));
 
-        connect(showCodeAction, SIGNAL(triggered()), this,
-                SLOT(toggleLatexCode()));
+        connect(showCodeAction, &QAction::triggered, this, &TextResultItem::toggleLatexCode);
     }
 
     menu->addSeparator();

@@ -44,7 +44,7 @@ void InvertMatrixAssistant::initActions()
     KAction* invertmatrix=new KAction(i18n("Invert Matrix"), actionCollection());
     //invertmatrix->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("invertmatrix_assistant"), invertmatrix);
-    connect(invertmatrix, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(invertmatrix, &KAction::triggered, this, &InvertMatrixAssistant::requested);
 }
 
 QStringList InvertMatrixAssistant::run(QWidget* parent)

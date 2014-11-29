@@ -53,8 +53,7 @@ void SageCompletionObject::fetchCompletions()
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
     m_expression=session()->evaluateExpression(QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__"));
-    connect(m_expression, SIGNAL(gotResult()), this,
-	    SLOT(extractCompletions()));
+    connect(m_expression, &Cantor::Expression::gotResult, this, &SageCompletionObject::extractCompletions);
 
     if(t)
         session()->setTypesettingEnabled(true);
@@ -154,7 +153,7 @@ void SageCompletionObject::fetchIdentifierType()
     }
     QString expr = QString::fromLatin1("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractIdentifierType()));
+    connect(m_expression, &Cantor::Expression::statusChanged, this, &SageCompletionObject::extractIdentifierType);
 }
 
 void SageCompletionObject::extractIdentifierType()

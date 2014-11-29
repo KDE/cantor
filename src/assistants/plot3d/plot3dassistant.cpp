@@ -44,7 +44,7 @@ void Plot3dAssistant::initActions()
     KAction* plot3d=new KAction(i18n("Plot 3D"), actionCollection());
     //plot3d->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("plot3d_assistant"), plot3d);
-    connect(plot3d, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(plot3d, &KAction::triggered, this, &Plot3dAssistant::requested);
 }
 
 QStringList Plot3dAssistant::run(QWidget* parent)

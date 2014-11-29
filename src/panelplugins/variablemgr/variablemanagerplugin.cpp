@@ -50,7 +50,7 @@ QWidget* VariableManagerPlugin::widget()
     {
         qDebug()<<"creating new widget";
         m_widget=new VariableManagerWidget(session(), parentWidget());
-        connect(m_widget, SIGNAL(runCommand(QString)), this, SIGNAL(requestRunCommand(QString)));
+        connect(m_widget.data(), &VariableManagerWidget::runCommand, this, &VariableManagerPlugin::requestRunCommand);
     }
 
     return m_widget;

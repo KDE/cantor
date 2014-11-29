@@ -63,20 +63,15 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     m_errorItem = 0;
     m_resultItem = 0;
 
-    connect(m_commandItem, SIGNAL(tabPressed()), this, SLOT(showCompletion()));
-    connect(m_commandItem, SIGNAL(backtabPressed()),
-            this, SLOT(selectPreviousCompletion()));
-    connect(m_commandItem, SIGNAL(applyCompletion()),
-            this, SLOT(applySelectedCompletion()));
+    connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
+    connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
+    connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_commandItem, SIGNAL(moveToPrevious(int, qreal)),
-            this, SLOT(moveToPreviousItem(int, qreal)));
-    connect(m_commandItem, SIGNAL(moveToNext(int, qreal)),
-            this, SLOT(moveToNextItem(int, qreal)));
+    connect(m_commandItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
+    connect(m_commandItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
     connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
             worksheet, SLOT(highlightItem(WorksheetTextItem*)));
-    connect(m_promptItem, SIGNAL(drag(const QPointF&, const QPointF&)),
-            this, SLOT(startDrag(const QPointF&)));
+    connect(m_promptItem, &WorksheetTextItem::drag, this, &CommandEntry::startDrag);
     connect(worksheet, SIGNAL(updatePrompt()),
             this, SLOT(updatePrompt()));
 }
@@ -431,7 +426,7 @@ void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 
 void CommandEntry::showCompletions()
 {
-    disconnect(m_completionObject, SIGNAL(done()), this, SLOT(showCompletions()));
+    disconnect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::showCompletions);
     QString completion = m_completionObject->completion();
     qDebug()<<"completion: "<<completion;
     qDebug()<<"showing "<<m_completionObject->allMatches();
@@ -450,11 +445,10 @@ void CommandEntry::showCompletions()
             m_completionBox->setCurrentItem(items.first());
         m_completionBox->setTabHandling(false);
         m_completionBox->setActivateOnSelect(true);
-        connect(m_completionBox, SIGNAL(activated(const QString&)), this,
-                SLOT(applySelectedCompletion()));
+        connect(m_completionBox.data(), &KCompletionBox::activated, this, &CommandEntry::applySelectedCompletion);
         connect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
                 SLOT(completedLineChanged()));
-        connect(m_completionObject, SIGNAL(done()), this, SLOT(updateCompletions()));
+        connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::updateCompletions);
 
         m_commandItem->activateCompletion(true);
         m_completionBox->popup();
@@ -597,12 +591,10 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     questionItem->setPlainText(question);
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
-    connect(answerItem, SIGNAL(moveToPrevious(int, qreal)),
-            this, SLOT(moveToPreviousItem(int, qreal)));
-    connect(answerItem, SIGNAL(moveToNext(int, qreal)),
-            this, SLOT(moveToNextItem(int, qreal)));
+    connect(answerItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
+    connect(answerItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
 
-    connect(answerItem, SIGNAL(execute()), this, SLOT(addInformation()));
+    connect(answerItem, &WorksheetTextItem::execute, this, &CommandEntry::addInformation);
     answerItem->setFocus();
     recalculateSize();
 }

@@ -44,7 +44,7 @@ void Plot2dAssistant::initActions()
     KAction* plot2d=new KAction(i18n("Plot 2D"), actionCollection());
     //plot2d->setIcon(KIcon(icon()));
     actionCollection()->addAction(QLatin1String("plot2d_assistant"), plot2d);
-    connect(plot2d, SIGNAL(triggered()), this, SIGNAL(requested()));
+    connect(plot2d, &KAction::triggered, this, &Plot2dAssistant::requested);
 }
 
 QStringList Plot2dAssistant::run(QWidget* parent)

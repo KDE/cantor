@@ -57,7 +57,7 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     m_newBtn->setIcon(KIcon(QLatin1String("document-new")));
     m_newBtn->setToolTip(i18n("Add new variable"));
     m_newBtn->setIconSize(QSize(size, size));
-    connect(m_newBtn, SIGNAL(clicked()), this, SLOT(newVariable()));
+    connect(m_newBtn, &QToolButton::clicked, this, &VariableManagerWidget::newVariable);
     btnLayout->addWidget(m_newBtn);
 
 
@@ -65,21 +65,21 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     m_loadBtn->setIcon(KIcon(QLatin1String("document-open")));
     m_loadBtn->setToolTip(i18n("Load Variables"));
     m_loadBtn->setIconSize(QSize(size, size));
-    connect(m_loadBtn, SIGNAL(clicked()), this, SLOT(load()));
+    connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
     btnLayout->addWidget(m_loadBtn);
 
     m_saveBtn=new QToolButton(this);
     m_saveBtn->setIcon(KIcon(QLatin1String("document-save")));
     m_saveBtn->setToolTip(i18n("Store Variables"));
     m_saveBtn->setIconSize(QSize(size, size));
-    connect(m_saveBtn, SIGNAL(clicked()), this, SLOT(save()));
+    connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
     btnLayout->addWidget(m_saveBtn);
 
     m_clearBtn=new QToolButton(this);
     m_clearBtn->setIcon(KIcon(QLatin1String("edit-clear")));
     m_clearBtn->setToolTip(i18n("Clear Variables"));
     m_clearBtn->setIconSize(QSize(size, size));
-    connect(m_clearBtn, SIGNAL(clicked()), this, SLOT(clearVariables()));
+    connect(m_clearBtn, &QToolButton::clicked, this, &VariableManagerWidget::clearVariables);
     btnLayout->addWidget(m_clearBtn);
 
     layout->addLayout(btnLayout);
