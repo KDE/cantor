@@ -176,8 +176,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
         if((!PythonKeywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains(QLatin1String("="))) &&
            (!commandLine.at(contLine).endsWith(QLatin1String(":"))) && (!commandLine.at(contLine).startsWith(QLatin1String(" ")))){
-
-            commandProcessing += QLatin1String("print ") + commandLine.at(contLine) + QLatin1String("\n");
+            commandProcessing += QLatin1String("print(") + commandLine.at(contLine) + QLatin1String(")\n");
 
             continue;
         }
@@ -204,12 +203,10 @@ void PythonSession::runExpression(PythonExpression* expr)
 
             qDebug() << "Insert print in " << contIdentationSpace << "space";
             qDebug() << "commandIdentation before insert " << commandIdentation;
-
-            commandIdentation.insert(contIdentationSpace, QLatin1String("print "));
+            commandIdentation.insert(contIdentationSpace, QLatin1String("print("));
 
             qDebug() << "commandIdentation after insert" << commandIdentation;
-
-            commandProcessing += commandIdentation + QLatin1String("\n");
+            commandProcessing += commandIdentation + QLatin1String(")\n");
 
             continue;
         }
@@ -246,12 +243,19 @@ void PythonSession::getPythonCommandOutput(QString commandProcessing)
 
     PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
     PyObject *output = PyObject_GetAttrString(outputPython, "value");
+#ifdef BUILD_WITH_PYTHON3
+    string outputString = PyUnicode_AsUTF8(output);
+#else
     string outputString = PyString_AsString(output);
+#endif
 
     PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
+#ifdef BUILD_WITH_PYTHON3
+    string errorString = PyUnicode_AsUTF8(error);
+#else
     string errorString = PyString_AsString(error);
-
+#endif
     m_output = QString::fromLocal8Bit(outputString.c_str());
 
     m_error = QString::fromLocal8Bit(errorString.c_str());
@@ -287,12 +291,12 @@ bool PythonSession::identifyKeywords(QString command)
 
     if(moduleVariable.isEmpty() && (command.endsWith(QLatin1String("*")))){
         listKeywords += QString::fromLatin1("import %1\n"     \
-                                            "print dir(%1)\n" \
+                                            "print(dir(%1))\n" \
                                             "del %1\n").arg(moduleImported);
     }
 
     if(!moduleVariable.isEmpty()){
-        listKeywords += QLatin1String("print dir(") + moduleVariable + QLatin1String(")\n");
+        listKeywords += QLatin1String("print(dir(") + moduleVariable + QLatin1String("))\n");
     }
 
     if(!listKeywords.isEmpty()){
@@ -400,7 +404,7 @@ void PythonSession::plotFileChanged(QString filename)
 void PythonSession::listVariables()
 {
     QString listVariableCommand;
-    listVariableCommand += QLatin1String("print globals()\n");
+    listVariableCommand += QLatin1String("print(globals())\n");
 
     getPythonCommandOutput(listVariableCommand);
 

@@ -47,6 +47,16 @@ if(PYTHONLIBS_FOUND)
     add_subdirectory(python2)
 endif(PYTHONLIBS_FOUND)
 
+set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic programming language."
+    URL "https://www.python.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Python 3 with Cantor.")
+
+find_package(PythonLibs3)
+if(PYTHONLIBS3_FOUND)
+    add_subdirectory(python3)
+endif(PYTHONLIBS3_FOUND)
+
 set_package_properties(LuaJIT PROPERTIES DESCRIPTION "A lightweight, extensible programming language (luajit implementation)."
     URL "http://www.lua.org/"
     TYPE OPTIONAL
