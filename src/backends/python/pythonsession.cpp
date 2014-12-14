@@ -245,20 +245,22 @@ void PythonSession::getPythonCommandOutput(QString commandProcessing)
     PyObject *output = PyObject_GetAttrString(outputPython, "value");
 #ifdef BUILD_WITH_PYTHON3
     string outputString = PyUnicode_AsUTF8(output);
+    m_output = QString::fromUtf8(outputString.c_str());
 #else
     string outputString = PyString_AsString(output);
+    m_output = QString::fromLocal8Bit(outputString.c_str());
 #endif
 
     PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
 #ifdef BUILD_WITH_PYTHON3
     string errorString = PyUnicode_AsUTF8(error);
+    m_error = QString::fromUtf8(errorString.c_str());
 #else
     string errorString = PyString_AsString(error);
-#endif
-    m_output = QString::fromLocal8Bit(outputString.c_str());
-
     m_error = QString::fromLocal8Bit(errorString.c_str());
+#endif
+
 }
 
 bool PythonSession::identifyKeywords(QString command)
