@@ -62,13 +62,16 @@ int main(int argc, char **argv)
     parser.addVersionOption();
     parser.addHelpOption();
 
-    parser.addOption(QCommandLineOption(QLatin1String("backend"),i18n("Use this backend")));;
-    parser.addPositionalArgument(QLatin1String("file"), QCoreApplication::translate("main", "The file to open."));
+    const QCommandLineOption backendOption(QStringList()<<QLatin1String("b")<<QLatin1String("backend"), i18n("Use  backend <backend>"), QLatin1String("backend"));
+    parser.addOption(backendOption);
+
+    parser.addPositionalArgument(QStringLiteral("files"),  i18n("Documents to open."),  QStringLiteral("[files...]"));
 
 
     about.setupCommandLine(&parser);
     parser.process(app);
     about.processCommandLine(&parser);
+
     // see if we are starting with session management
     if (app.isSessionRestored())
         RESTORE(CantorShell)
@@ -97,10 +100,10 @@ int main(int argc, char **argv)
             {
                 CantorShell *widget = new CantorShell;
                 widget->show();
-                widget->load( QUrl(args[i]) );
+                widget->load( QUrl::fromUserInput(args[i]) );
             }
         }
-        
+
     }
 
     return app.exec();
