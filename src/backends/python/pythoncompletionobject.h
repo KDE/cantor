@@ -28,7 +28,7 @@ class PythonSession;
 class PythonCompletionObject : public Cantor::CompletionObject
 {
   public:
-    PythonCompletionObject(const QString& cmd, int index, PythonSession* session) ;
+    PythonCompletionObject(const QString& cmd, int index, PythonSession* session);
     ~PythonCompletionObject();
 
   protected:

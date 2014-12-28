@@ -176,6 +176,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
         if((!PythonKeywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains(QLatin1String("="))) &&
            (!commandLine.at(contLine).endsWith(QLatin1String(":"))) && (!commandLine.at(contLine).startsWith(QLatin1String(" ")))){
+
             commandProcessing += QLatin1String("print(") + commandLine.at(contLine) + QLatin1String(")\n");
 
             continue;
@@ -203,6 +204,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
             qDebug() << "Insert print in " << contIdentationSpace << "space";
             qDebug() << "commandIdentation before insert " << commandIdentation;
+
             commandIdentation.insert(contIdentationSpace, QLatin1String("print("));
 
             qDebug() << "commandIdentation after insert" << commandIdentation;

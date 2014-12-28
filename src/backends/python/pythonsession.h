@@ -40,7 +40,7 @@ class PythonSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    PythonSession( Cantor::Backend* backend);
+    PythonSession(Cantor::Backend* backend);
     ~PythonSession();
 
     void login();

@@ -24,60 +24,36 @@
 #include "pythonextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
-#include "pythonutils.h"
 
 #include <QDebug>
 #include <QWidget>
 
-#include "cantor_macros.h"
-
-#include <QLibrary>
-
-PythonBackend::PythonBackend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
+PythonBackend::PythonBackend(QObject* parent, const QList<QVariant> args) : Cantor::Backend(parent, args)
 {
-    qDebug()<< toPythonVersionSpecific("Creating Python2Backend");
+    qDebug()<<"Creating PythonBackend";
 
     new PythonLinearAlgebraExtension(this);
     new PythonPackagingExtension(this);
     new PythonPlotExtension(this);
     new PythonScriptExtension(this);
     new PythonVariableManagementExtension(this);
-
-    setObjectName(toPythonVersionSpecific("python2backend"));
-
-    // Because the plugin may not have been loaded with
-    // ExportExternalSymbols, we load the python symbols again
-    // to make sure that python modules such as numpy see them
-    // (see bug #330032)
-#ifdef BUILD_WITH_PYTHON3
-    QLibrary pythonLib(QLatin1String(PYTHON3_LIB_NAME));
-#else
-    QLibrary pythonLib(QLatin1String("python2.7"));
-#endif
-    pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
-    pythonLib.load();
 }
 
 PythonBackend::~PythonBackend()
 {
-    qDebug()<<toPythonVersionSpecific("Destroying Python2Backend");
-}
-
-QString PythonBackend::id() const
-{
-    return toPythonVersionSpecific("python2");
+    qDebug()<<"Destroying PythonBackend";
 }
 
 Cantor::Session* PythonBackend::createSession()
 {
-    qDebug()<<toPythonVersionSpecific("Spawning a new Python 2 session");
+    qDebug()<<"Spawning a new Python session";
 
     return new PythonSession(this);
 }
 
 Cantor::Backend::Capabilities PythonBackend::capabilities() const
 {
-    qDebug()<<toPythonVersionSpecific("Requesting capabilities of Python2Session");
+    qDebug()<<"Requesting capabilities of PythonSession";
 
     return Cantor::Backend::SyntaxHighlighting |
            Cantor::Backend::Completion         |
@@ -97,33 +73,5 @@ KConfigSkeleton* PythonBackend::config() const
 {
     return PythonSettings::self();
 }
-
-KUrl PythonBackend::helpUrl() const
-{
-#ifdef BUILD_WITH_PYTHON3
-    return i18nc("the url to the documentation Python 3", "http://docs.python.org/3/");
-#else
-    return i18nc("the url to the documentation Python 2", "http://docs.python.org/2/");
-#endif
-}
-
-QString PythonBackend::description() const
-{
-#ifdef BUILD_WITH_PYTHON3
-    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
-                "There are several Python packages to scientific programming.</p>" \
-                "<p>This backend supports Python 3.</p>");
-#else
-    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
-                "There are several Python packages to scientific programming.</p>" \
-                "<p>This backend supports Python 2.</p>");
-#endif
-}
-
-#ifdef BUILD_WITH_PYTHON3
-K_EXPORT_CANTOR_PLUGIN(python3backend, PythonBackend)
-#else
-K_EXPORT_CANTOR_PLUGIN(python2backend, PythonBackend)
-#endif
 
 #include "pythonbackend.moc"

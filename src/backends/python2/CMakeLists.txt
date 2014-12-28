@@ -6,6 +6,7 @@ set( Python2Backend_SRCS
      ../python/pythonhighlighter.cpp
      ../python/pythoncompletionobject.cpp
      ../python/pythonextensions.cpp
+     python2backend.cpp
 )
 
 if(MSVC)
@@ -30,7 +31,7 @@ target_link_libraries(cantor_python2backend
     KF5::ConfigGui)
 
 add_executable(testpython2 testpython2.cpp)
-target_link_libraries( testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest )
+target_link_libraries(testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest)
 
 add_test(NAME testpython2 COMMAND testpython2)
 

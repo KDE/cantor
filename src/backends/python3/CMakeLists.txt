@@ -8,12 +8,8 @@ set( Python3Backend_SRCS
      ../python/pythonhighlighter.cpp
      ../python/pythoncompletionobject.cpp
      ../python/pythonextensions.cpp
+     python3backend.cpp
 )
-
-if(MSVC)
-    # ssize_t is typedef'd in both kdewin and python headers, this prevents using the kdewin one
-    add_definitions(-D_SSIZE_T_DEFINED)
-endif(MSVC)
 
 string(REPLACE "-l" "" PYTHON3_LIB_NAME ${PYTHONLIBS3_LDFLAGS})
 add_definitions(-DPYTHON3_LIB_NAME="${PYTHON3_LIB_NAME}")

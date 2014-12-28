@@ -30,12 +30,12 @@
 #include <QFile>
 #include "pythonsession.h"
 #include "settings.h"
-#include "pythonutils.h"
+
 #include "imageresult.h"
 #include <QDir>
 typedef Cantor::ImageResult PythonPlotResult;
 
-PythonExpression::PythonExpression( Cantor::Session* session ) : Cantor::Expression(session)
+PythonExpression::PythonExpression(Cantor::Session* session) : Cantor::Expression(session)
 {
     qDebug() << "PythonExpression construtor";
 }
@@ -94,7 +94,7 @@ void PythonExpression::parsePlotFile(QString filename)
 {
     qDebug() << "parsePlotFile";
 
-    qDebug() << toPythonVersionSpecific("Python2Expression::parsePlotFile: ") << filename;
+    qDebug() << "PythonExpression::parsePlotFile: " << filename;
 
     setResult(new PythonPlotResult(filename));
 

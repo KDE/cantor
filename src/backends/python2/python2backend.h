@@ -1,4 +1,4 @@
-/*
+    /*
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
     as published by the Free Software Foundation; either version 2
@@ -15,27 +15,23 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2014 Minh Ngo <minh@fedoraproject.org>
  */
 
-#ifndef _PYTHONBACKEND_H
-#define _PYTHONBACKEND_H
+#ifndef _PYTHON2BACKEND_H
+#define _PYTHON2BACKEND_H
 
-#include "backend.h"
+#include "../python/pythonbackend.h"
 
-class PythonBackend : public Cantor::Backend
+class Python2Backend : public PythonBackend
 {
   Q_OBJECT
   public:
-    explicit PythonBackend(QObject* parent = 0, const QList<QVariant> args = QList<QVariant>());
-    ~PythonBackend();
+    explicit Python2Backend(QObject* parent = 0, const QList<QVariant> args = QList<QVariant>());
 
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+    QString id() const;
+    KUrl helpUrl() const;
+    QString description() const;
 };
 
-
-#endif /* _PYTHONBACKEND_H */
+#endif
