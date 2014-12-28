@@ -689,11 +689,13 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
     QList<QList<QTextLayout::FormatRange> > formats;
 
     if (oldDocument)
+    {
         for (QTextBlock b = oldDocument->firstBlock();
              b.isValid(); b = b.next())
         {
             formats.append(b.layout()->additionalFormats());
         }
+    }
 
     // Not every highlighter is a Cantor::DefaultHighligther (e.g. the
     // highlighter for KAlgebra)
@@ -705,12 +707,17 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
     }
 
     if (oldDocument)
+    {
+        QTextCursor cursor(oldDocument);
+        cursor.beginEditBlock();
         for (QTextBlock b = oldDocument->firstBlock();
              b.isValid(); b = b.next())
         {
             b.layout()->setAdditionalFormats(formats.first());
             formats.pop_front();
         }
+        cursor.endEditBlock();
+    }
 
 }
 
