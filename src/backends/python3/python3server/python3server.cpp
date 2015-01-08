@@ -40,18 +40,18 @@ void Python3Server::runPythonCommand(const QString& command) const
 
 QString Python3Server::getError() const
 {
-    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
-    PyObject *output = PyObject_GetAttrString(outputPython, "value");
-
-    return pyObjectToQString(output);
-}
-
-QString Python3Server::getOutput() const
-{
     PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
 
     return pyObjectToQString(error);
+}
+
+QString Python3Server::getOutput() const
+{
+    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
+    PyObject *output = PyObject_GetAttrString(outputPython, "value");
+
+    return pyObjectToQString(output);
 }
 
 QString Python3Server::pyObjectToQString(PyObject* obj) const
