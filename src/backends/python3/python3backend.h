@@ -29,6 +29,8 @@ class Python3Backend : public PythonBackend
   public:
     explicit Python3Backend(QObject* parent = 0, const QList<QVariant> args = QList<QVariant>());
 
+    Cantor::Session* createSession();
+
     QString id() const;
     KUrl helpUrl() const;
     QString description() const;

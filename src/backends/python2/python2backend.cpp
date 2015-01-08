@@ -22,6 +22,7 @@
 
 #include <klocalizedstring.h>
 
+#include "python2session.h"
 #include "cantor_macros.h"
 
 Python2Backend::Python2Backend(QObject* parent, const QList<QVariant> args)
@@ -35,6 +36,11 @@ Python2Backend::Python2Backend(QObject* parent, const QList<QVariant> args)
     QLibrary pythonLib(QLatin1String("python2.7"));
     pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
     pythonLib.load();
+}
+
+Cantor::Session* Python2Backend::createSession()
+{
+    return new Python2Session(this);
 }
 
 QString Python2Backend::id() const

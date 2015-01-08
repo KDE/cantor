@@ -55,8 +55,8 @@ class PythonSession : public Cantor::Session
     virtual QAbstractItemModel* variableModel();
 
   public Q_SLOTS:
-    void readOutput(PythonExpression* expr, QString commandProcessing);
-    void plotFileChanged(QString filename);
+    void readOutput(PythonExpression* expr, const QString& commandProcessing);
+    void plotFileChanged(const QString& filename);
 
   private:
     KDirWatch* m_watch;
@@ -65,19 +65,21 @@ class PythonSession : public Cantor::Session
     QString m_error;
     Cantor::DefaultVariableModel* m_variableModel;
 
-    PyObject *m_pModule;
-
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
 
     void listVariables();
-    void runClassOutputPython();
+    void runClassOutputPython() const;
 
     void getPythonCommandOutput(QString commandProcessing);
 
-    QString identifyPythonModule(QString command);
-    QString identifyVariableModule(QString command);
-    bool identifyKeywords(QString command);
+    QString identifyPythonModule(const QString& command) const;
+    QString identifyVariableModule(const QString& command) const;
+    bool identifyKeywords(const QString& command);
+
+    virtual void runPythonCommand(const QString& command) const = 0;
+    virtual QString getOutput() const = 0;
+    virtual QString getError() const = 0;
 
   private Q_SLOTS:
     void expressionFinished();

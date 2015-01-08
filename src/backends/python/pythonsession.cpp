@@ -57,9 +57,6 @@ void PythonSession::login()
 {
     qDebug()<<"login";
 
-    Py_Initialize();
-    m_pModule = PyImport_AddModule("__main__");
-
     if(PythonSettings::integratePlots())
     {
         qDebug() << "integratePlots";
@@ -220,7 +217,7 @@ void PythonSession::runExpression(PythonExpression* expr)
     readOutput(expr, commandProcessing);
 }
 
-void PythonSession::runClassOutputPython()
+void PythonSession::runClassOutputPython() const
 {
     QString classOutputPython = QLatin1String("import sys\n"                                      \
                                               "class CatchOutPythonBackend:\n"                    \
@@ -233,39 +230,21 @@ void PythonSession::runClassOutputPython()
                                               "sys.stdout = outputPythonBackend\n"   \
                                               "sys.stderr = errorPythonBackend\n");
 
-    PyRun_SimpleString(classOutputPython.toStdString().c_str());
+    runPythonCommand(classOutputPython);
 }
 
 void PythonSession::getPythonCommandOutput(QString commandProcessing)
 {
-    qDebug() << "Running python command" << commandProcessing.toStdString().c_str();
+    qDebug() << "Running python command" << commandProcessing;
 
     runClassOutputPython();
-    PyRun_SimpleString(commandProcessing.toStdString().c_str());
+    runPythonCommand(commandProcessing);
 
-    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
-    PyObject *output = PyObject_GetAttrString(outputPython, "value");
-#ifdef BUILD_WITH_PYTHON3
-    string outputString = PyUnicode_AsUTF8(output);
-    m_output = QString::fromUtf8(outputString.c_str());
-#else
-    string outputString = PyString_AsString(output);
-    m_output = QString::fromLocal8Bit(outputString.c_str());
-#endif
-
-    PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
-    PyObject *error = PyObject_GetAttrString(errorPython, "value");
-#ifdef BUILD_WITH_PYTHON3
-    string errorString = PyUnicode_AsUTF8(error);
-    m_error = QString::fromUtf8(errorString.c_str());
-#else
-    string errorString = PyString_AsString(error);
-    m_error = QString::fromLocal8Bit(errorString.c_str());
-#endif
-
+    m_output = getOutput();
+    m_error = getError();
 }
 
-bool PythonSession::identifyKeywords(QString command)
+bool PythonSession::identifyKeywords(const QString& command)
 {
     QString verifyErrorImport;
 
@@ -327,7 +306,7 @@ bool PythonSession::identifyKeywords(QString command)
     return true;
 }
 
-QString PythonSession::identifyPythonModule(QString command)
+QString PythonSession::identifyPythonModule(const QString& command) const
 {
     QString module;
 
@@ -339,7 +318,7 @@ QString PythonSession::identifyPythonModule(QString command)
     return module;
 }
 
-QString PythonSession::identifyVariableModule(QString command)
+QString PythonSession::identifyVariableModule(const QString& command) const
 {
     QString variable;
 
@@ -368,7 +347,7 @@ void PythonSession::expressionFinished()
     qDebug() << "size: " << m_runningExpressions.size();
 }
 
-void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing)
+void PythonSession::readOutput(PythonExpression* expr, const QString& commandProcessing)
 {
     qDebug() << "readOutput";
 
@@ -392,7 +371,7 @@ void PythonSession::readOutput(PythonExpression* expr, QString commandProcessing
     changeStatus(Cantor::Session::Done);
 }
 
-void PythonSession::plotFileChanged(QString filename)
+void PythonSession::plotFileChanged(const QString& filename)
 {
     qDebug() << "plotFileChanged filename:" << filename;
 

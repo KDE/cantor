@@ -44,13 +44,6 @@ PythonBackend::~PythonBackend()
     qDebug()<<"Destroying PythonBackend";
 }
 
-Cantor::Session* PythonBackend::createSession()
-{
-    qDebug()<<"Spawning a new Python session";
-
-    return new PythonSession(this);
-}
-
 Cantor::Backend::Capabilities PythonBackend::capabilities() const
 {
     qDebug()<<"Requesting capabilities of PythonSession";

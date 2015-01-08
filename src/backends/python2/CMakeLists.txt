@@ -7,6 +7,7 @@ set( Python2Backend_SRCS
      ../python/pythoncompletionobject.cpp
      ../python/pythonextensions.cpp
      python2backend.cpp
+     python2session.cpp
 )
 
 if(MSVC)

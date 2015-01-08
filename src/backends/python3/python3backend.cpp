@@ -22,12 +22,18 @@
 
 #include <klocalizedstring.h>
 
+#include "python3session.h"
 #include "cantor_macros.h"
 
 Python3Backend::Python3Backend(QObject* parent, const QList<QVariant> args)
     : PythonBackend(parent, args)
 {
     setObjectName(QLatin1String("python3backend"));
+}
+
+Cantor::Session* Python3Backend::createSession()
+{
+    return new Python3Session(this);
     QLibrary pythonLib(QLatin1String(PYTHON3_LIB_NAME));
     pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
     pythonLib.load();

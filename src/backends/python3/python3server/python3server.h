@@ -15,26 +15,34 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
-#ifndef _PYTHONBACKEND_H
-#define _PYTHONBACKEND_H
+#ifndef _PYTHON3SERVER_H
+#define _PYTHON3SERVER_H
+#include <QObject>
+#include <QString>
 
-#include "backend.h"
+struct _object;
+typedef _object PyObject;
 
-class PythonBackend : public Cantor::Backend
+class Python3Server : public QObject
 {
   Q_OBJECT
   public:
-    explicit PythonBackend(QObject* parent = 0, const QList<QVariant> args = QList<QVariant>());
-    ~PythonBackend();
+    Python3Server(QObject* parent = nullptr);
 
-    Cantor::Backend::Capabilities capabilities() const;
+  public Q_SLOTS:
+    Q_SCRIPTABLE void login();
+    Q_SCRIPTABLE void runPythonCommand(const QString& command) const;
+    Q_SCRIPTABLE QString getOutput() const;
+    Q_SCRIPTABLE QString getError() const;
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+  private:
+    QString pyObjectToQString(PyObject* obj) const;
+
+  private:
+    PyObject* m_pModule;
 };
 
-
-#endif /* _PYTHONBACKEND_H */
+#endif

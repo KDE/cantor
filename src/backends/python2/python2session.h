@@ -15,26 +15,33 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
-#ifndef _PYTHONBACKEND_H
-#define _PYTHONBACKEND_H
+#ifndef _PYTHON2SESSION_H
+#define _PYTHON2SESSION_H
 
-#include "backend.h"
+#include "../python/pythonsession.h"
 
-class PythonBackend : public Cantor::Backend
+struct _object;
+typedef _object PyObject;
+
+class Python2Session : public PythonSession
 {
-  Q_OBJECT
   public:
-    explicit PythonBackend(QObject* parent = 0, const QList<QVariant> args = QList<QVariant>());
-    ~PythonBackend();
+    Python2Session(Cantor::Backend* backend);
 
-    Cantor::Backend::Capabilities capabilities() const;
+    void login();
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+  private:
+    void runPythonCommand(const QString& command) const;
+    QString getOutput() const;
+    QString getError() const;
+
+    QString pyObjectToQString(PyObject* obj) const;
+
+  private:
+    PyObject *m_pModule;
 };
 
-
-#endif /* _PYTHONBACKEND_H */
+#endif
