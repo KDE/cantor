@@ -107,7 +107,7 @@ void PythonKeywords::loadFromFile()
 
 }
 
-void PythonKeywords::loadFromModule(QString module, QStringList keywords)
+void PythonKeywords::loadFromModule(const QString& module, const QStringList& keywords)
 {
     qDebug() << "Module imported" << module;
     qDebug() << "keywords" << keywords;
@@ -125,7 +125,7 @@ void PythonKeywords::loadFromModule(QString module, QStringList keywords)
     }
 }
 
-void PythonKeywords::addVariable(QString variable)
+void PythonKeywords::addVariable(const QString& variable)
 {
     qDebug() << "Variable added" << variable;
 

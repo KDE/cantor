@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014 Minh Ngo <minh@fedoraproject.org>
+    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #include "python3backend.h"
@@ -34,9 +34,6 @@ Python3Backend::Python3Backend(QObject* parent, const QList<QVariant> args)
 Cantor::Session* Python3Backend::createSession()
 {
     return new Python3Session(this);
-    QLibrary pythonLib(QLatin1String(PYTHON3_LIB_NAME));
-    pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
-    pythonLib.load();
 }
 
 QString Python3Backend::id() const

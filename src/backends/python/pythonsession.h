@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #ifndef _PYTHONSESSION_H
@@ -24,8 +25,6 @@
 #include "session.h"
 #include <QStringList>
 #include <QPointer>
-
-#include <Python.h>
 
 namespace Cantor {
 class DefaultVariableModel;
@@ -71,7 +70,7 @@ class PythonSession : public Cantor::Session
     void listVariables();
     void runClassOutputPython() const;
 
-    void getPythonCommandOutput(QString commandProcessing);
+    void getPythonCommandOutput(const QString& commandProcessing);
 
     QString identifyPythonModule(const QString& command) const;
     QString identifyVariableModule(const QString& command) const;

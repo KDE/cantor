@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014 Minh Ngo <minh@fedoraproject.org>
+    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #include "python2backend.h"

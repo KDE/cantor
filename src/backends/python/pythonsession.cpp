@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #include "pythonsession.h"
@@ -233,7 +234,7 @@ void PythonSession::runClassOutputPython() const
     runPythonCommand(classOutputPython);
 }
 
-void PythonSession::getPythonCommandOutput(QString commandProcessing)
+void PythonSession::getPythonCommandOutput(const QString& commandProcessing)
 {
     qDebug() << "Running python command" << commandProcessing;
 

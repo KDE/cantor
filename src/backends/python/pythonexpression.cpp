@@ -90,7 +90,7 @@ void PythonExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-void PythonExpression::parsePlotFile(QString filename)
+void PythonExpression::parsePlotFile(const QString& filename)
 {
     qDebug() << "parsePlotFile";
 

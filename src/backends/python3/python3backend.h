@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014 Minh Ngo <minh@fedoraproject.org>
+    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #ifndef _PYTHON3BACKEND_H
@@ -25,9 +25,8 @@
 
 class Python3Backend : public PythonBackend
 {
-  Q_OBJECT
   public:
-    explicit Python3Backend(QObject* parent = 0, const QList<QVariant> args = QList<QVariant>());
+    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
 
     Cantor::Session* createSession();
 
