@@ -22,9 +22,6 @@
 
 #include <Python.h>
 
-#include <QDebug>
-#include <QDBusConnection>
-
 Python3Server::Python3Server(QObject* parent)
     : QObject(parent)
 {

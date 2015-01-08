@@ -20,9 +20,6 @@
 
 #include "python3session.h"
 
-#include <signal.h>
-#include <unistd.h>
-
 #include <QDebug>
 #include <QDBusConnection>
 #include <QDBusInterface>
@@ -72,7 +69,7 @@ void Python3Session::login()
     const QString& serviceName = QString::fromLatin1("org.kde.Cantor.Python3-%1").arg(m_pProcess->pid());
 
     m_pIface =  new QDBusInterface(serviceName,
-                                  QString::fromAscii("/"), QString(), QDBusConnection::sessionBus());
+                                   QString::fromAscii("/"), QString(), QDBusConnection::sessionBus());
     if (!m_pIface->isValid())
     {
         qWarning() << QDBusConnection::sessionBus().lastError().message();
@@ -93,7 +90,7 @@ void Python3Session::logout()
 void Python3Session::interrupt()
 {
     if (m_pProcess->pid())
-        kill(m_pProcess->pid(), 2);
+        m_pProcess->kill();
 
     PythonSession::interrupt();
 }
