@@ -59,7 +59,7 @@ void PythonKeywords::loadFromFile()
     qDebug() << "PythonKeywords loadFromFile()";
 
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("appdata",  QLatin1String("python2backend/keywords.xml")));
+    QFile file(KStandardDirs::locate("appdata",  QLatin1String("pythonbackend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {

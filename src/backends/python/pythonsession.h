@@ -35,7 +35,7 @@ class KTemporaryFile;
 class KDirWatch;
 class KProcess;
 
-class PythonSession : public Cantor::Session
+class CANTOR_EXPORT PythonSession : public Cantor::Session
 {
   Q_OBJECT
   public:

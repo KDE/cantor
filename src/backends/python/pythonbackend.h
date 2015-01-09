@@ -23,7 +23,7 @@
 
 #include "backend.h"
 
-class PythonBackend : public Cantor::Backend
+class CANTOR_EXPORT PythonBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:

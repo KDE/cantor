@@ -43,9 +43,6 @@ set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic pro
     PURPOSE "Backend to use Python 2 with Cantor.")
 
 find_package(PythonLibs 2.7)
-if(PYTHONLIBS_FOUND)
-    add_subdirectory(python2)
-endif(PYTHONLIBS_FOUND)
 
 set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic programming language."
     URL "https://www.python.org/"
@@ -53,6 +50,15 @@ set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic pr
     PURPOSE "Backend to use Python 3 with Cantor.")
 
 find_package(PythonLibs3)
+
+if(PYTHONLIBS_FOUND OR PYTHONLIBS3_FOUND)
+    add_subdirectory(python)
+endif(PYTHONLIBS_FOUND OR PYTHONLIBS3_FOUND)
+
+if(PYTHONLIBS_FOUND)
+    add_subdirectory(python2)
+endif(PYTHONLIBS_FOUND)
+
 if(PYTHONLIBS3_FOUND)
     add_subdirectory(python3)
 endif(PYTHONLIBS3_FOUND)
