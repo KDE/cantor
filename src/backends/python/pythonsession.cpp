@@ -24,6 +24,7 @@
 #include "pythonhighlighter.h"
 #include "pythoncompletionobject.h"
 #include "pythonkeywords.h"
+#include "pythonutils.h"
 
 #include <QDebug>
 #include <QFile>
@@ -53,16 +54,6 @@ m_variableModel(new Cantor::DefaultVariableModel(this))
 PythonSession::~PythonSession()
 {
     qDebug();
-}
-
-namespace
-{
-    inline QString fromSource(const QString& resourceName)
-    {
-        QFile text(resourceName);
-        text.open(QIODevice::ReadOnly);
-        return QString::fromAscii(text.readAll());
-    }
 }
 
 void PythonSession::login()
@@ -98,10 +89,10 @@ void PythonSession::login()
         getPythonCommandOutput(autorunScripts);
     }
 
-    const QString& importer_file = KStandardDirs::locate("appdata",
+    const QString& importerFile = KStandardDirs::locate("appdata",
                                                          QLatin1String("pythonbackend/import_default_modules.py"));
 
-    evaluateExpression(fromSource(importer_file), Cantor::Expression::DeleteOnFinish);
+    evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish);
 
     listVariables();
 

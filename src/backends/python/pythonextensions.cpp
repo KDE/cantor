@@ -19,8 +19,13 @@
  */
 
 #include "pythonextensions.h"
-#include <KLocale>
+
 #include <QDebug>
+
+#include <KLocale>
+#include <KStandardDirs>
+
+#include "pythonutils.h"
 
 #define PYTHON_EXT_CDTOR(name) Python##name##Extension::Python##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Python##name##Extension::~Python##name##Extension() {}
@@ -203,41 +208,23 @@ QString PythonVariableManagementExtension::removeVariable(const QString& name)
 
 QString PythonVariableManagementExtension::clearVariables()
 {
-    QString delVariablesPythonSession = QLatin1String("for keyPythonBackend in dir():\n"                                 \
-                                                      "    if (not 'PythonBackend' in keyPythonBackend)\ "               \
-                                                      "and (not '__' in keyPythonBackend):\n"                            \
-                                                      "        del(globals()[keyPythonBackend])\n"                       \
-                                                      "del(keyPythonBackend)\n");
-    return delVariablesPythonSession;
+    const QString& variablesCleanerFile = KStandardDirs::locate("appdata",
+                                                                QLatin1String("pythonbackend/variables_cleaner.py"));
+    return fromSource(variablesCleanerFile);
 }
 
 QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    QString classSavePythonSession = QLatin1String("import shelve\n"                                                               \
-                                                   "shelvePythonBackend = shelve.open('%1', 'n')\n"                                \
-                                                   "for keyPythonBackend in dir():\n"                                              \
-                                                   "    if (not 'PythonBackend' in keyPythonBackend)\ "                            \
-                                                   "and (not '__' in keyPythonBackend)\ "                                          \
-                                                   "and (not '<module ' in unicode(globals()[keyPythonBackend])):\n"               \
-                                                   "        shelvePythonBackend[keyPythonBackend] = globals()[keyPythonBackend]\n" \
-                                                   "shelvePythonBackend.close()\n"                                                 \
-                                                   "del(shelve)\n"                                                                 \
-                                                   "del(shelvePythonBackend)\n"                                                    \
-                                                   "del(keyPythonBackend)\n");
+    const QString& variablesSaverFile = KStandardDirs::locate("appdata",
+                                                              QLatin1String("pythonbackend/variables_saver.py"));
 
-    return classSavePythonSession.arg(fileName);
+    return fromSource(variablesSaverFile).arg(fileName);
 }
 
 QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    QString classLoadPythonSession = QLatin1String("import shelve\n"                                                           \
-                                                   "shelvePythonBackend = shelve.open('%1')\n"                                 \
-                                                   "for keyPythonBackend in shelvePythonBackend:\n"                            \
-                                                   "    globals()[keyPythonBackend] = shelvePythonBackend[keyPythonBackend]\n" \
-                                                   "shelvePythonBackend.close()\n"                                             \
-                                                   "del(shelve)\n"                                                             \
-                                                   "del(shelvePythonBackend)\n"                                                \
-                                                   "del(keyPythonBackend)\n");
+    const QString& variablesLoaderFile = KStandardDirs::locate("appdata",
+                                                               QLatin1String("pythonbackend/variables_loader.py"));
 
-    return classLoadPythonSession.arg(fileName);
+    return fromSource(variablesLoaderFile).arg(fileName);
 }
