@@ -22,3 +22,4 @@ target_link_libraries(cantor_pythonbackend
 install(TARGETS cantor_pythonbackend DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(FILES pythonbackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/pythonbackend)
+install(DIRECTORY . DESTINATION ${DATA_INSTALL_DIR}/cantor/pythonbackend FILES_MATCHING PATTERN "*.py")

@@ -26,8 +26,6 @@
 #include "pythonkeywords.h"
 
 #include <QDebug>
-#include <KDirWatch>
-
 #include <QFile>
 #include <QTextEdit>
 #include <QListIterator>
@@ -35,6 +33,9 @@
 #include <QIODevice>
 #include <QByteArray>
 #include <QStringList>
+
+#include <KDirWatch>
+#include <KStandardDirs>
 
 #include <settings.h>
 #include <defaultvariablemodel.h>
@@ -52,6 +53,16 @@ m_variableModel(new Cantor::DefaultVariableModel(this))
 PythonSession::~PythonSession()
 {
     qDebug();
+}
+
+namespace
+{
+    inline QString fromSource(const QString& resourceName)
+    {
+        QFile text(resourceName);
+        text.open(QIODevice::ReadOnly);
+        return QString::fromAscii(text.readAll());
+    }
 }
 
 void PythonSession::login()
@@ -87,11 +98,10 @@ void PythonSession::login()
         getPythonCommandOutput(autorunScripts);
     }
 
-    QString importDefaultModules = QLatin1String("import numpy\n"      \
-                                                 "import scipy\n"      \
-                                                 "import matplotlib");
+    const QString& importer_file = KStandardDirs::locate("appdata",
+                                                         QLatin1String("pythonbackend/import_default_modules.py"));
 
-    evaluateExpression(importDefaultModules, Cantor::Expression::DeleteOnFinish);
+    evaluateExpression(fromSource(importer_file), Cantor::Expression::DeleteOnFinish);
 
     listVariables();
 
@@ -220,18 +230,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
 void PythonSession::runClassOutputPython() const
 {
-    QString classOutputPython = QLatin1String("import sys\n"                                      \
-                                              "class CatchOutPythonBackend:\n"                    \
-                                              "    def __init__(self):\n"                         \
-                                              "        self.value = ''\n"                         \
-                                              "    def write(self, txt):\n"                       \
-                                              "        self.value += txt\n"                       \
-                                              "outputPythonBackend = CatchOutPythonBackend()\n"   \
-                                              "errorPythonBackend  = CatchOutPythonBackend()\n"   \
-                                              "sys.stdout = outputPythonBackend\n"   \
-                                              "sys.stderr = errorPythonBackend\n");
-
-    runPythonCommand(classOutputPython);
+    runPythonCommand(fromSource(KStandardDirs::locate("appdata",  QLatin1String("pythonbackend/init.py"))));
 }
 
 void PythonSession::getPythonCommandOutput(const QString& commandProcessing)
