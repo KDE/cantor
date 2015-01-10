@@ -65,12 +65,12 @@ void PythonCompletionObject::fetchIdentifierType()
 	emit fetchingTypeDone(VariableType);
 }
 
-bool PythonCompletionObject::mayIdentifierContain(const QChar& c) const
+bool PythonCompletionObject::mayIdentifierContain(QChar c) const
 {
     return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$') || c == QLatin1Char('.');
 }
 
-bool PythonCompletionObject::mayIdentifierBeginWith(const QChar& c) const
+bool PythonCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
     return c.isLetter() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$');
 }

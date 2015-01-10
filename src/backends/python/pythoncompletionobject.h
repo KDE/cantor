@@ -32,8 +32,8 @@ class PythonCompletionObject : public Cantor::CompletionObject
     ~PythonCompletionObject();
 
   protected:
-    virtual bool mayIdentifierContain(const QChar& c) const;
-    virtual bool mayIdentifierBeginWith(const QChar& c) const;
+    virtual bool mayIdentifierContain(QChar c) const;
+    virtual bool mayIdentifierBeginWith(QChar c) const;
 
   protected Q_SLOTS:
     void fetchCompletions();

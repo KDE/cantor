@@ -34,6 +34,8 @@ PYTHON_EXT_CDTOR(LinearAlgebra)
 
 QString PythonLinearAlgebraExtension::createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type)
 {
+    Q_UNUSED(type);
+
     QString command;
     command += QLatin1String("numpy.matrix([");
 
