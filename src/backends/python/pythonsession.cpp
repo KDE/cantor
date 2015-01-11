@@ -36,7 +36,6 @@
 #include <QStringList>
 
 #include <KDirWatch>
-#include <KStandardDirs>
 
 #include <settings.h>
 #include <defaultvariablemodel.h>
@@ -89,8 +88,7 @@ void PythonSession::login()
         getPythonCommandOutput(autorunScripts);
     }
 
-    const QString& importerFile = KStandardDirs::locate("appdata",
-                                                         QLatin1String("pythonbackend/import_default_modules.py"));
+    const QString& importerFile = QLatin1String(":py/import_default_modules.py");
 
     evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish);
 
@@ -221,7 +219,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
 void PythonSession::runClassOutputPython() const
 {
-    runPythonCommand(fromSource(KStandardDirs::locate("appdata",  QLatin1String("pythonbackend/init.py"))));
+    runPythonCommand(fromSource(QLatin1String(":py/init.py")));
 }
 
 void PythonSession::getPythonCommandOutput(const QString& commandProcessing)

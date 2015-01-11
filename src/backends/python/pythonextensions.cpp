@@ -210,23 +210,15 @@ QString PythonVariableManagementExtension::removeVariable(const QString& name)
 
 QString PythonVariableManagementExtension::clearVariables()
 {
-    const QString& variablesCleanerFile = KStandardDirs::locate("appdata",
-                                                                QLatin1String("pythonbackend/variables_cleaner.py"));
-    return fromSource(variablesCleanerFile);
+    return fromSource(QLatin1String(":py/variables_cleaner.py"));
 }
 
 QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    const QString& variablesSaverFile = KStandardDirs::locate("appdata",
-                                                              QLatin1String("pythonbackend/variables_saver.py"));
-
-    return fromSource(variablesSaverFile).arg(fileName);
+    return fromSource(QLatin1String(":py/variables_saver.py")).arg(fileName);
 }
 
 QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    const QString& variablesLoaderFile = KStandardDirs::locate("appdata",
-                                                               QLatin1String("pythonbackend/variables_loader.py"));
-
-    return fromSource(variablesLoaderFile).arg(fileName);
+    return fromSource(QLatin1String(":py/variables_loader.py")).arg(fileName);
 }
