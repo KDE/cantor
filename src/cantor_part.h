@@ -26,8 +26,6 @@
 #include <KParts/ReadWritePart>
 #include <lib/session.h>
 
-#include "scripteditorwidget.h"
-
 class QWidget;
 class Worksheet;
 class WorksheetView;

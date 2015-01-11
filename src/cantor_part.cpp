@@ -749,7 +749,7 @@ void CantorPart::showScriptEditor(bool show)
         m_scriptEditor->show();
     }else
     {
-        delete m_scriptEditor;
+        m_scriptEditor->deleteLater();
     }
 }
 
