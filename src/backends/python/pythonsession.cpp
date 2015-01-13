@@ -136,6 +136,16 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
+namespace
+{
+    int indentSize(const QString& command)
+    {
+        int contIdentationSpace = 0;
+        for(; command.at(contIdentationSpace).isSpace(); ++contIdentationSpace);
+        return contIdentationSpace;
+    }
+}
+
 void PythonSession::runExpression(PythonExpression* expr)
 {
     qDebug() << "run expression";
@@ -150,54 +160,56 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     QString commandProcessing;
 
-    for(int contLine = 0; contLine < commandLine.size(); contLine++){
-
-        QString firstLineWord = commandLine.at(contLine).trimmed().replace(QLatin1String("("), QLatin1String(" "))
+    for(const QString& command : commandLine){
+        const QString firstLineWord = command.trimmed().replace(QLatin1String("("), QLatin1String(" "))
             .split(QLatin1String(" ")).at(0);
 
-        if(commandLine.at(contLine).contains(QLatin1String("import "))){
+        // Ignore comments
+        if (firstLineWord.length() != 0 && firstLineWord[0] == QLatin1Char('#')){
 
-            if(identifyKeywords(commandLine.at(contLine).simplified())){
+            commandProcessing += command + QLatin1String("\n");
+            continue;
+        }
+
+        if(command.contains(QLatin1String("import "))){
+
+            if(identifyKeywords(command.simplified())){
                 continue;
             } else {
-                readOutput(expr, commandLine.at(contLine).simplified());
+                readOutput(expr, command.simplified());
                 return;
             }
         }
 
         if(firstLineWord.contains(QLatin1String("execfile"))){
 
-            commandProcessing += commandLine.at(contLine);
+            commandProcessing += command;
             continue;
         }
 
-        if((!PythonKeywords::instance()->keywords().contains(firstLineWord)) && (!commandLine.at(contLine).contains(QLatin1String("="))) &&
-           (!commandLine.at(contLine).endsWith(QLatin1String(":"))) && (!commandLine.at(contLine).startsWith(QLatin1String(" ")))){
+        if(!PythonKeywords::instance()->keywords().contains(firstLineWord) && !command.contains(QLatin1String("=")) &&
+           !command.endsWith(QLatin1String(":")) && !command.startsWith(QLatin1String(" "))){
 
-            commandProcessing += QLatin1String("print(") + commandLine.at(contLine) + QLatin1String(")\n");
+            commandProcessing += QLatin1String("print(") + command + QLatin1String(")\n");
 
             continue;
         }
 
-        if(commandLine.at(contLine).startsWith(QLatin1String(" "))){
+        if(command.startsWith(QLatin1String(" "))){
 
-            if((PythonKeywords::instance()->keywords().contains(firstLineWord)) || (commandLine.at(contLine).contains(QLatin1String("="))) ||
-               (commandLine.at(contLine).endsWith(QLatin1String(":")))){
+            if(PythonKeywords::instance()->keywords().contains(firstLineWord) || command.contains(QLatin1String("=")) ||
+               command.endsWith(QLatin1String(":"))){
 
-                commandProcessing += commandLine.at(contLine) + QLatin1String("\n");
+                commandProcessing += command + QLatin1String("\n");
 
                 continue;
             }
 
-            int contIdentationSpace;
-
-            for(contIdentationSpace = 0; commandLine.at(contLine).at(contIdentationSpace).isSpace(); contIdentationSpace++);
+            const int contIdentationSpace = indentSize(command);
 
             qDebug() << "contIdentationSpace: " << contIdentationSpace;
 
-            QString commandIdentation;
-
-            commandIdentation = commandLine.at(contLine);
+            QString commandIdentation = command;
 
             qDebug() << "Insert print in " << contIdentationSpace << "space";
             qDebug() << "commandIdentation before insert " << commandIdentation;
@@ -210,7 +222,7 @@ void PythonSession::runExpression(PythonExpression* expr)
             continue;
         }
 
-        commandProcessing += commandLine.at(contLine) + QLatin1String("\n");
+        commandProcessing += command + QLatin1String("\n");
 
     }
 

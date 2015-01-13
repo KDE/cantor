@@ -32,12 +32,29 @@ QString TestPython2::backendName()
 
 void TestPython2::testImportNumpy()
 {
-    Cantor::Expression* e=evalExp( QLatin1String("import numpy" ));
+    Cantor::Expression* e = evalExp(QLatin1String("import numpy"));
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY(e != 0);
+    QVERIFY(e->result() != 0);
 }
 
-QTEST_MAIN( TestPython2 )
+void TestPython2::testCodeWithComments()
+{
+    {
+    Cantor::Expression* e = evalExp(QLatin1String("#comment\n1+2"));
+
+    QVERIFY(e != 0);
+    QVERIFY(e->result()->data().toString() == QLatin1String("3"));
+    }
+
+    {
+    Cantor::Expression* e = evalExp(QLatin1String("     #comment\n1+2"));
+
+    QVERIFY(e != 0);
+    QVERIFY(e->result()->data().toString() == QLatin1String("3"));
+    }
+}
+
+QTEST_MAIN(TestPython2)
 
 #include "testpython2.moc"
