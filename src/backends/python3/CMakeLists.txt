@@ -14,3 +14,4 @@ install(FILES python3backend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor
 install(TARGETS cantor_python3backend DESTINATION ${PLUGIN_INSTALL_DIR})
 
 add_subdirectory(python3server)
+add_subdirectory(tests)
