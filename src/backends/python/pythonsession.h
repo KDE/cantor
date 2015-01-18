@@ -53,6 +53,9 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     virtual QAbstractItemModel* variableModel();
 
+    virtual bool integratePlots() const = 0;
+    virtual QStringList autorunScripts() const = 0;
+
   public Q_SLOTS:
     void readOutput(PythonExpression* expr, const QString& commandProcessing);
     void plotFileChanged(const QString& filename);

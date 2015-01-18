@@ -19,10 +19,8 @@
  */
 
 #include "pythonbackend.h"
-
 #include "pythonsession.h"
 #include "pythonextensions.h"
-#include "settings.h"
 #include "ui_settings.h"
 
 #include <QDebug>
@@ -60,11 +58,6 @@ QWidget* PythonBackend::settingsWidget(QWidget* parent) const
     Ui::PythonSettingsBase s;
     s.setupUi(widget);
     return widget;
-}
-
-KConfigSkeleton* PythonBackend::config() const
-{
-    return PythonSettings::self();
 }
 
 #include "pythonbackend.moc"

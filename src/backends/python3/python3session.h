@@ -34,6 +34,9 @@ class Python3Session : public PythonSession
     void logout();
     void interrupt();
 
+    bool integratePlots() const;
+    QStringList autorunScripts() const;
+
   private:
     void runPythonCommand(const QString& command) const;
     QString getOutput() const;

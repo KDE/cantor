@@ -37,7 +37,6 @@
 
 #include <KDirWatch>
 
-#include <settings.h>
 #include <defaultvariablemodel.h>
 
 #include <string>
@@ -59,7 +58,7 @@ void PythonSession::login()
 {
     qDebug()<<"login";
 
-    if(PythonSettings::integratePlots())
+    if(integratePlots())
     {
         qDebug() << "integratePlots";
 
@@ -83,8 +82,9 @@ void PythonSession::login()
         QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
     }
 
-    if(!PythonSettings::self()->autorunScripts().isEmpty()){
-        QString autorunScripts = PythonSettings::self()->autorunScripts().join(QLatin1String("\n"));
+    const QStringList& scripts = autorunScripts();
+    if(!scripts.isEmpty()){
+        QString autorunScripts = scripts.join(QLatin1String("\n"));
         getPythonCommandOutput(autorunScripts);
     }
 

@@ -52,9 +52,9 @@ void PythonExpression::evaluate()
 
     PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
 
-    qDebug() << PythonSettings::integratePlots() << command().contains(QLatin1String("show()"));
+    qDebug() << pythonSession->integratePlots() << command().contains(QLatin1String("show()"));
 
-    if((PythonSettings::integratePlots()) && (command().contains(QLatin1String("show()")))){
+    if((pythonSession->integratePlots()) && (command().contains(QLatin1String("show()")))){
 
         qDebug() << "Preparing export figures property";
 

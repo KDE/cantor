@@ -33,7 +33,7 @@ class CANTOR_EXPORT PythonBackend : public Cantor::Backend
     Cantor::Backend::Capabilities capabilities() const;
 
     QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+    virtual KConfigSkeleton* config() const = 0;
 };
 
 

@@ -33,6 +33,9 @@ class Python2Session : public PythonSession
 
     void login();
 
+    bool integratePlots() const;
+    QStringList autorunScripts() const;
+
   private:
     void runPythonCommand(const QString& command) const;
     QString getOutput() const;

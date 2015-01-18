@@ -19,6 +19,7 @@
  */
 
 #include "python3session.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <QDBusConnection>
@@ -116,4 +117,14 @@ QString Python3Session::getError() const
         return reply.value();
 
     return reply.error().message();
+}
+
+bool Python3Session::integratePlots() const
+{
+    return PythonSettings::integratePlots();
+}
+
+QStringList Python3Session::autorunScripts() const
+{
+    return PythonSettings::autorunScripts();
 }

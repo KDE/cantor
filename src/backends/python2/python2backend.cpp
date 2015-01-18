@@ -19,11 +19,11 @@
  */
 
 #include "python2backend.h"
-
-#include <klocalizedstring.h>
-
 #include "python2session.h"
 #include "cantor_macros.h"
+#include "settings.h"
+
+#include <klocalizedstring.h>
 
 Python2Backend::Python2Backend(QObject* parent, const QList<QVariant> args)
     : PythonBackend(parent, args)
@@ -58,6 +58,11 @@ QString Python2Backend::description() const
     return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
                 "There are several Python packages to scientific programming.</p>" \
                 "<p>This backend supports Python 2.</p>");
+}
+
+KConfigSkeleton* Python2Backend::config() const
+{
+    return PythonSettings::self();
 }
 
 K_EXPORT_CANTOR_PLUGIN(python2backend, Python2Backend)

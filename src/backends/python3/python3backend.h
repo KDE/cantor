@@ -33,6 +33,8 @@ class Python3Backend : public PythonBackend
     QString id() const;
     KUrl helpUrl() const;
     QString description() const;
+   
+    KConfigSkeleton* config() const;
 };
 
 #endif

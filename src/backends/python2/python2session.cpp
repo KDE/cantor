@@ -19,6 +19,7 @@
  */
 
 #include "python2session.h"
+#include "settings.h"
 
 #include <Python.h>
 
@@ -60,4 +61,14 @@ QString Python2Session::getError() const
 QString Python2Session::pyObjectToQString(PyObject* obj) const
 {
     return QString::fromLocal8Bit(PyString_AsString(obj));
+}
+
+bool Python2Session::integratePlots() const
+{
+    return PythonSettings::integratePlots();
+}
+
+QStringList Python2Session::autorunScripts() const
+{
+    return PythonSettings::autorunScripts();
 }

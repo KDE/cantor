@@ -19,11 +19,11 @@
  */
 
 #include "python3backend.h"
-
-#include <klocalizedstring.h>
-
 #include "python3session.h"
 #include "cantor_macros.h"
+#include "settings.h"
+
+#include <klocalizedstring.h>
 
 Python3Backend::Python3Backend(QObject* parent, const QList<QVariant> args)
     : PythonBackend(parent, args)
@@ -51,6 +51,11 @@ QString Python3Backend::description() const
     return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
                 "There are several Python packages to scientific programming.</p>" \
                 "<p>This backend supports Python 3.</p>");
+}
+
+KConfigSkeleton* Python3Backend::config() const
+{
+    return PythonSettings::self();
 }
 
 K_EXPORT_CANTOR_PLUGIN(python3backend, Python3Backend)
