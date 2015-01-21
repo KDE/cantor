@@ -2,6 +2,7 @@
 Type=Service
 Icon=scilabbackend
 Name=Scilab
+Name[bg]=Scilab
 Name[bs]=Scilab
 Name[ca]=Scilab
 Name[ca@valencia]=Scilab
@@ -46,6 +47,7 @@ X-KDE-PluginInfo-Name=Scilab
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for the Scilab Scientific Programming Environment
+Comment[bg]=Ядро за научно програмиране със средата Scilab 
 Comment[bs]=Pozadina za Scilab naučno programsko okruženje
 Comment[ca]=Dorsal per a l'entorn de programació científic Scilab
 Comment[ca@valencia]=Dorsal per a l'entorn de programació científic Scilab

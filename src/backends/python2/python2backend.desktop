@@ -2,6 +2,7 @@
 Type=Service
 Icon=pythonbackend
 Name=Python2
+Name[bg]=Python2
 Name[bs]=Python2
 Name[ca]=Python2
 Name[ca@valencia]=Python2
@@ -41,6 +42,7 @@ X-KDE-PluginInfo-Name=Python2
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Python 2 Scientific Programming
+Comment[bg]=Ядро за научно програмиране с Python 2
 Comment[bs]=Pozadina za Python 2 naučno programiranje
 Comment[ca]=Dorsal per a la programació científica Python2
 Comment[ca@valencia]=Dorsal per a la programació científica Python2
