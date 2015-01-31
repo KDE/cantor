@@ -412,7 +412,7 @@ void CantorPart::fileSaveAs()
         if (!file_name.endsWith(QLatin1String(".cws")) &&
             !file_name.endsWith(QLatin1String(".mws")))
             file_name += QLatin1String(".cws");
-        saveAs(QUrl(file_name));
+        saveAs(QUrl::fromLocalFile(file_name));
     }
 
     updateCaption();
