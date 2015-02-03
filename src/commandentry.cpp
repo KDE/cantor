@@ -420,8 +420,8 @@ void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
         removeContextHelp();
 
     m_completionObject = tc;
-    connect(tc, SIGNAL(done()), this, SLOT(showCompletions()));
-    connect(tc, SIGNAL(lineDone(QString, int)), this, SLOT(completeLineTo(QString, int)));
+    connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::showCompletions);
+    connect(m_completionObject, &Cantor::CompletionObject::lineDone, this, &CommandEntry::completeLineTo);
 }
 
 void CommandEntry::showCompletions()
