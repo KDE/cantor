@@ -146,16 +146,16 @@ void QalculateExpression::evaluateSaveVariablesCommand()
     // he deserves unexpected behavior.
     std::string tmpCategory = "Temporary";
     std::string newCategory = "Cantor_Internal_Temporary";
-    for (int i = 0; i < variables.size(); ++i) {
+    for (size_t i = 0; i < variables.size(); ++i) {
 	if (variables[i]->category() == tmpCategory)
 	    variables[i]->setCategory(newCategory);
     }
 
     int res = CALCULATOR->saveVariables(fileName.toLatin1().data());
 
-    for (int i = 0; i < variables.size(); ++i) {
-	if (variables[i]->category() == newCategory)
-	    variables[i]->setCategory(tmpCategory);
+    for (size_t i = 0; i < variables.size(); ++i) {
+        if (variables[i]->category() == newCategory)
+            variables[i]->setCategory(tmpCategory);
     }
 
 
@@ -196,9 +196,9 @@ void QalculateExpression::evaluateLoadVariablesCommand()
     std::string tmpCategory = "Temporary";
     std::string newCategory = "Cantor_Internal_Temporary";
 
-    for (int i = 0; i < variables.size(); ++i) {
-	if (variables[i]->category() == newCategory)
-	    variables[i]->setCategory(tmpCategory);
+    for (size_t i = 0; i < variables.size(); ++i) {
+        if (variables[i]->category() == newCategory)
+            variables[i]->setCategory(tmpCategory);
     }
 
     setStatus(Done);
@@ -858,8 +858,8 @@ ParseOptions QalculateExpression::parseOptions()
 void QalculateExpression::deletePlotDataParameters
     (const std::vector<PlotDataParameters*>& plotDataParameterList)
 {
-    for(int i = 0; i < plotDataParameterList.size(); ++i)
-	delete plotDataParameterList[i];
+    for(size_t i = 0; i < plotDataParameterList.size(); ++i)
+        delete plotDataParameterList[i];
 }
 
 bool QalculateExpression::stringToBool(const QString &string, bool *ok)
@@ -955,7 +955,7 @@ void QalculateExpression::updateVariables(MathStructure command)
 	    m.format(*po);
 	    model->addVariable(QLatin1String(name.c_str()), QLatin1String(m.print(*po).c_str()));
 	}
-	for (int i = 0; i < current->countChildren(); ++i) {
+    for (size_t i = 0; i < current->countChildren(); ++i) {
 	    stack.push(current->getChild(i+1));
 	}
     }

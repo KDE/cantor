@@ -51,6 +51,7 @@ QString QalculateVariableManagementExtension::setValue(const QString& name, cons
 
 QString QalculateVariableManagementExtension::removeVariable(const QString& name)
 {
+    Q_UNUSED(name)
     //CALCULATOR->getVariable(name.toStdString())->setActive(false);
     return QString();
 }
@@ -111,6 +112,9 @@ QString QalculateCASExtension::expand(const QString& expression)
 
 QString QalculateCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {
+    Q_UNUSED(expression)
+    Q_UNUSED(variable)
+    Q_UNUSED(limit)
     // There is no limit function in Qalculate (at least none I know of),
     // but fortunately this function seems not to be used anyway.
     return QLatin1String("");

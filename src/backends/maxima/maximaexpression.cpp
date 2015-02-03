@@ -328,12 +328,8 @@ bool MaximaExpression::parseOutput(QString& out)
 {
     enum ParserStatus{ReadingOpeningTag, ReadingClosingTag, ReadingText};
     int idx=0;
-    ParserStatus status;
-    QStringRef tagName;
 
     qDebug()<<"attempting to parse "<<out;
-
-    QChar c;
 
     int numResults=0;
     QString textBuffer;

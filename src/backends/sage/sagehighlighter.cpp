@@ -18,8 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include "sagehighlighter.h")
-#include "sagekeywords.h")
+#include "sagehighlighter.h"
+#include "sagekeywords.h"
 
 #include <QTextEdit>
 

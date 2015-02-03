@@ -346,12 +346,12 @@ KAboutData& CantorPart::createAboutData()
     // which the part's rc file is installed ('partrcdir' in the
     // Makefile)
 
-    KAboutData about(QLatin1String("cantorpart"),
+    static KAboutData about(QLatin1String("cantorpart"),
                      QLatin1String("Cantor"),
                      QLatin1String("0.5"),
                      i18n("CantorPart"),
                      KAboutLicense::GPL,
-                     i18n("(C) 2009-2013 Alexander Rieder"),
+                     i18n("(C) 2009-2015 Alexander Rieder"),
                      QString(),
                      QLatin1String("http://edu.kde.org/cantor"));
 
