@@ -63,9 +63,9 @@ bool LuaBackend::requirementsFullfilled() const
     return QFileInfo(LuaSettings::self()->path().toLocalFile()).isExecutable();
 }
 
-KUrl LuaBackend::helpUrl() const
+QUrl LuaBackend::helpUrl() const
 {
-    return i18nc("Lua official documentation", "http://www.lua.org/docs.html");
+    return QUrl(i18nc("Lua official documentation", "http://www.lua.org/docs.html"));
 }
 
 QString LuaBackend::description() const

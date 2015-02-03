@@ -35,7 +35,7 @@ public:
     virtual Cantor::Session *createSession();
     virtual Cantor::Backend::Capabilities capabilities() const;
     virtual QString description() const;
-    virtual KUrl helpUrl() const;
+    virtual QUrl helpUrl() const;
 
     QWidget* settingsWidget(QWidget* parent) const;
     KConfigSkeleton* config() const;

@@ -28,7 +28,6 @@
 
 #include <QDebug>
 #include <KLocale>
-#include <KUrl>
 #include <KMimeType>
 #include <QRegExp>
 
@@ -158,7 +157,7 @@ void SageExpression::parseError(const QString& text)
 
 void SageExpression::addFileResult( const QString& path )
 {
-  KUrl url( path );
+  QUrl url = QUrl::fromLocalFile(path);
   KMimeType::Ptr type=KMimeType::findByUrl(url);
   if(m_imagePath.isEmpty()||type->name().contains(QLatin1String("image"))||path.endsWith(QLatin1String(".png"))||path.endsWith(QLatin1String(".gif")))
   {
@@ -223,11 +222,11 @@ void SageExpression::evalFinished()
     }
     else
     {
-	KMimeType::Ptr type=KMimeType::findByUrl(KUrl(m_imagePath));
+    KMimeType::Ptr type=KMimeType::findByUrl(QUrl::fromLocalFile(m_imagePath));
         if(type->is(QLatin1String("image/gif")))
-            setResult( new Cantor::AnimationResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
+            setResult( new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
         else
-            setResult( new Cantor::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
+            setResult( new Cantor::ImageResult( QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
     }
     setStatus(Cantor::Expression::Done);
 }

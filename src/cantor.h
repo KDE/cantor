@@ -26,7 +26,6 @@
 #include <QList>
 
 #include <KParts/ReadWritePart>
-#include <KUrl>
 
 class KTabWidget;
 class KTextEdit;
@@ -52,7 +51,7 @@ public:
     /**
      * Use this method to load whatever file/URL you have
      */
-    void load(const KUrl& url);
+    void load(const QUrl& url);
 
     /**
      * checks if at least one usable Backend is installed

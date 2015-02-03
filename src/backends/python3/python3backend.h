@@ -31,7 +31,7 @@ class Python3Backend : public PythonBackend
     Cantor::Session* createSession();
 
     QString id() const;
-    KUrl helpUrl() const;
+    QUrl helpUrl() const;
     QString description() const;
    
     KConfigSkeleton* config() const;

@@ -144,7 +144,7 @@ void VariableManagerWidget::clearVariables()
 
 void VariableManagerWidget::save()
 {
-    const QString file=KFileDialog::getSaveFileName(KUrl(),  QString(),  this);
+    const QString file=KFileDialog::getSaveFileName(QUrl(),  QString(),  this);
 
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
@@ -155,7 +155,7 @@ void VariableManagerWidget::save()
 
 void VariableManagerWidget::load()
 {
-    const QString file=KFileDialog::getOpenFileName(KUrl(),  QString(),  this);
+    const QString file=KFileDialog::getOpenFileName(QUrl(),  QString(),  this);
 
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));

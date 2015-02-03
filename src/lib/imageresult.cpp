@@ -34,12 +34,12 @@ class Cantor::ImageResultPrivate
 
     }
 
-    KUrl url;
+    QUrl url;
     QImage img;
     QString alt;
 };
 
-ImageResult::ImageResult(const KUrl& url, const QString& alt) :  d(new ImageResultPrivate)
+ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResultPrivate)
 {
     d->url=url;
     d->alt=alt;
@@ -68,7 +68,7 @@ QVariant ImageResult::data()
     return QVariant(d->img);
 }
 
-KUrl ImageResult::url()
+QUrl ImageResult::url()
 {
     return d->url;
 }

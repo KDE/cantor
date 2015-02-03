@@ -71,10 +71,10 @@ QString QalculateBackend::description() const
     "In addition to numbers and arithmetic operators, an expression may contain any combination of variables, units, and functions.");
 }
 
-KUrl QalculateBackend::helpUrl() const
+QUrl QalculateBackend::helpUrl() const
 {
     // A sub-optimal solution but still this manual is fairly complete
-    return KUrl("http://qalculate.sourceforge.net/gtk-manual/index.html");
+    return QUrl(QString::fromLatin1("http://qalculate.sourceforge.net/gtk-manual/index.html"));
 }
 
 KConfigSkeleton* QalculateBackend::config() const

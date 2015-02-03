@@ -22,6 +22,7 @@
 using namespace Cantor;
 
 #include <QRegExp>
+#include <QUrl>
 
 class Cantor::ResultPrivate
 {
@@ -40,9 +41,9 @@ Result::~Result()
     delete d;
 }
 
-KUrl Result::url()
+QUrl Result::url()
 {
-    return KUrl();
+    return QUrl();
 }
 
 QString Result::toLatex()

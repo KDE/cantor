@@ -128,7 +128,6 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
             qDebug()<<"rendering successful? " << !format.name().isEmpty();
 
-
             format.setProperty(EpsRenderer::CantorFormula,
                                EpsRenderer::LatexFormula);
             format.setProperty(EpsRenderer::ImagePath, imagePath);

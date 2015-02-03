@@ -38,7 +38,7 @@ class SageBackend : public Cantor::Backend
     QWidget* settingsWidget(QWidget* parent) const;
     KConfigSkeleton* config() const;
 
-    KUrl helpUrl() const;
+    QUrl helpUrl() const;
     QString description() const;
 };
 

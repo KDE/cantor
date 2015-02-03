@@ -23,7 +23,6 @@
 
 #include <QVariant>
 #include <QDomElement>
-#include <KUrl>
 #include "cantor_export.h"
 
 class KZip;
@@ -74,7 +73,7 @@ class CANTOR_EXPORT Result
      * returns an url, data for this result resides at
      * @return an url, data for this result resides at
      */
-    virtual KUrl url();
+    virtual QUrl url();
 
     /**
      * returns an unique number, representing the type of this

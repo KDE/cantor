@@ -36,7 +36,7 @@ public:
     Cantor::Backend::Capabilities capabilities() const;
 
     bool requirementsFullfilled() const;
-    KUrl helpUrl() const;
+    QUrl helpUrl() const;
     QString description() const;
 
     QWidget *settingsWidget(QWidget *parent) const;

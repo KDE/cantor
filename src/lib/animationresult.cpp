@@ -37,12 +37,12 @@ class Cantor::AnimationResultPrivate
 
     }
 
-    KUrl url;
+    QUrl url;
     QMovie* movie;
     QString alt;
 };
 
-AnimationResult::AnimationResult( const KUrl& url, const QString& alt ) : d(new AnimationResultPrivate)
+AnimationResult::AnimationResult(const QUrl &url, const QString& alt ) : d(new AnimationResultPrivate)
 {
     d->url=url;
     d->alt=alt;
@@ -67,7 +67,7 @@ QVariant AnimationResult::data()
     return QVariant::fromValue(static_cast<QObject*>(d->movie));
 }
 
-KUrl AnimationResult::url()
+QUrl AnimationResult::url()
 {
     return d->url;
 }
@@ -103,5 +103,5 @@ void AnimationResult::saveAdditionalData(KZip* archive)
 void AnimationResult::save(const QString& filename)
 {
     //just copy over the file..
-    KIO::file_copy(d->url, KUrl(filename), -1, KIO::HideProgressInfo);
+    KIO::file_copy(d->url, QUrl::fromLocalFile(filename), -1, KIO::HideProgressInfo);
 }

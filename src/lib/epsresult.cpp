@@ -29,11 +29,11 @@ using namespace Cantor;
 
 class Cantor::EpsResultPrivate{
     public:
-        KUrl url;
+        QUrl url;
 };
 
 
-EpsResult::EpsResult(const KUrl& url) : d(new EpsResultPrivate)
+EpsResult::EpsResult(const QUrl& url) : d(new EpsResultPrivate)
 {
     d->url=url;
 #ifndef WITH_EPS
@@ -61,7 +61,7 @@ QVariant EpsResult::data()
     return QVariant(d->url);
 }
 
-KUrl EpsResult::url()
+QUrl EpsResult::url()
 {
     return d->url;
 }
@@ -95,5 +95,5 @@ void EpsResult::saveAdditionalData(KZip* archive)
 void EpsResult::save(const QString& filename)
 {
     //just copy over the eps file..
-    KIO::file_copy(d->url, KUrl(filename), -1, KIO::HideProgressInfo);
+    KIO::file_copy(d->url, QUrl::fromLocalFile(filename), -1, KIO::HideProgressInfo);
 }

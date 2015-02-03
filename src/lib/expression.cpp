@@ -192,13 +192,13 @@ void Expression::latexRendered()
         if (result()->type() == TextResult::Type)
         {
             TextResult* r=dynamic_cast<TextResult*>(result());
-            LatexResult* latex=new LatexResult(r->data().toString().trimmed(), KUrl(renderer->imagePath()), r->plain());
+            LatexResult* latex=new LatexResult(r->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), r->plain());
             setResult( latex );
         }
         else if (result()->type() == LatexResult::Type)
         {
             LatexResult* previousLatexResult=dynamic_cast<LatexResult*>(result());
-            LatexResult* latex=new LatexResult(previousLatexResult->data().toString().trimmed(), KUrl(renderer->imagePath()), previousLatexResult->plain());
+            LatexResult* latex=new LatexResult(previousLatexResult->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), previousLatexResult->plain());
             setResult( latex );
         }
     }else

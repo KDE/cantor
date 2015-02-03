@@ -66,10 +66,10 @@ bool OctaveBackend::requirementsFullfilled() const
     return QFileInfo(OctaveSettings::path().toLocalFile()).isExecutable();
 }
 
-KUrl OctaveBackend::helpUrl() const
+QUrl OctaveBackend::helpUrl() const
 {
-    return i18nc("the url to the documentation of Octave, please check if there is a translated version (currently Czech and Japanese) and use the correct url",
-    "http://www.gnu.org/software/octave/doc/interpreter/");
+    return QUrl(i18nc("the url to the documentation of Octave, please check if there is a translated version (currently Czech and Japanese) and use the correct url",
+    "http://www.gnu.org/software/octave/doc/interpreter/"));
 }
 
 QString OctaveBackend::description() const

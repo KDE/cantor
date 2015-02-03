@@ -774,11 +774,11 @@ void QalculateExpression::evaluatePlotCommand()
 	     plotParameters.filename.substr(p-4,4) == QLatin1String(".eps")) ||
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 3 &&
 	     plotParameters.filename.substr(p-3,3) == QLatin1String(".ps")))
-	    setResult(new Cantor::EpsResult(KUrl(plotParameters.filename.c_str())));
+        setResult(new Cantor::EpsResult(QUrl(QString::fromStdString(plotParameters.filename))));
 	else
-	    setResult(new Cantor::ImageResult(KUrl(plotParameters.filename.c_str())));
+        setResult(new Cantor::ImageResult(QUrl(QString::fromStdString(plotParameters.filename)));
 #else
-	setResult(new Cantor::ImageResult(KUrl(plotParameters.filename.c_str())));
+    setResult(new Cantor::ImageResult(QUrl::fromLocalFile(QString::fromStdString(plotParameters.filename))));
 #endif
 	setStatus(Cantor::Expression::Done);
     }

@@ -52,7 +52,7 @@ void LuaExpression::evaluate()
         QString cmd = command().simplified();
 
         if( cmd.startsWith(QLatin1String("show(")) || cmd.startsWith(QLatin1String("show (")) )
-            setResult(new Cantor::ImageResult(ret,ret));
+            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(ret), ret));
         else
             setResult(new Cantor::TextResult(ret));
     }

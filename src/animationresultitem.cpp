@@ -129,7 +129,7 @@ void AnimationResultItem::updateSize(const QSize& size)
 void AnimationResultItem::saveResult()
 {
     Cantor::Result* res = result();
-    const QString& filename=KFileDialog::getSaveFileName(KUrl(), res->mimeType(), worksheet()->worksheetView());
+    const QString& filename=KFileDialog::getSaveFileName(QUrl(), res->mimeType(), worksheet()->worksheetView());
     qDebug()<<"saving result to "<<filename;
     res->save(filename);
 }

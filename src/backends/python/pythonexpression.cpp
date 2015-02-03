@@ -95,7 +95,7 @@ void PythonExpression::parsePlotFile(const QString& filename)
 
     qDebug() << "PythonExpression::parsePlotFile: " << filename;
 
-    setResult(new PythonPlotResult(filename));
+    setResult(new PythonPlotResult(QUrl::fromLocalFile(filename)));
 
     setPlotPending(false);
 

@@ -31,12 +31,12 @@ class CANTOR_EXPORT AnimationResult : public Result
 {
   public:
     enum{Type=6};
-    explicit AnimationResult( const KUrl& url, const QString& alt=QString() );
+    explicit AnimationResult( const QUrl& url, const QString& alt=QString() );
     ~AnimationResult();
 
     QString toHtml();
     QVariant data();
-    KUrl url();
+    QUrl url();
 
     int type();
     QString mimeType();

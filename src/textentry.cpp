@@ -27,7 +27,6 @@
 #include <QGraphicsLinearLayout>
 
 #include <QDebug>
-#include <KUrl>
 #include <KLocale>
 
 TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))

@@ -22,8 +22,7 @@
 #define _IMAGERESULT_H
 
 #include "result.h"
-
-#include <KUrl>
+#include <QUrl>
 
 namespace Cantor
 {
@@ -33,13 +32,13 @@ class CANTOR_EXPORT ImageResult : public Result
 {
   public:
     enum{Type=2};
-    explicit ImageResult( const KUrl& url, const QString& alt=QString());
+    explicit ImageResult( const QUrl& url, const QString& alt=QString());
     ~ImageResult();
 
     QString toHtml();
     QString toLatex();
     QVariant data();
-    KUrl url();
+    QUrl url();
 
     int type();
     QString mimeType();

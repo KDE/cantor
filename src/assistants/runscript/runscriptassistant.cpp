@@ -26,6 +26,7 @@
 #include <KFileDialog>
 #include <KIcon>
 #include <KLocale>
+#include <KUrl>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"

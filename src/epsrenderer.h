@@ -25,9 +25,7 @@
 #include <QTextImageFormat>
 #include <QPixmap>
 #include <QSizeF>
-
 #include <QUrl>
-
 #include "lib/latexrenderer.h"
 
 class EpsRenderer

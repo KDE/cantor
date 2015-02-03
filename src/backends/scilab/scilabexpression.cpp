@@ -119,7 +119,7 @@ void ScilabExpression::parsePlotFile(QString filename)
 
     qDebug() << "ScilabExpression::parsePlotFile: " << filename;
 
-    setResult(new ScilabPlotResult(filename));
+    setResult(new ScilabPlotResult(QUrl::fromLocalFile(filename)));
 
     setPlotPending(false);
 

@@ -403,7 +403,7 @@ void CantorPart::fileSaveAs()
         filter+=QLatin1Char('\n')+e->scriptFileFilter();
     }
 
-    QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
+    QString file_name = KFileDialog::getSaveFileName(QUrl(), filter, widget());
     if (!file_name.isEmpty()) {
         if (!file_name.endsWith(QLatin1String(".cws")) &&
             !file_name.endsWith(QLatin1String(".mws")))
@@ -416,7 +416,7 @@ void CantorPart::fileSaveAs()
 
 void CantorPart::fileSavePlain()
 {
-    QString file_name = KFileDialog::getSaveFileName(KUrl(), QLatin1String(""), widget());
+    QString file_name = KFileDialog::getSaveFileName(QUrl(), QLatin1String(""), widget());
     if (!file_name.isEmpty())
         m_worksheet->savePlain(file_name);
 }
@@ -426,7 +426,7 @@ void CantorPart::exportToLatex()
     // this slot is called whenever the File->Save As menu is selected,
     QString filter=i18n("*.tex|LaTeX Document");
 
-    QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
+    QString file_name = KFileDialog::getSaveFileName(QUrl(), filter, widget());
 
     if (file_name.isEmpty() == false)
         m_worksheet->saveLatex(file_name);
@@ -528,7 +528,7 @@ void CantorPart::showBackendHelp()
 {
     qDebug()<<"showing backends help";
     Cantor::Backend* backend=m_worksheet->session()->backend();
-    KUrl url=backend->helpUrl();
+    QUrl url = backend->helpUrl();
     qDebug()<<"launching url "<<url;
     new KRun(url, widget());
 }

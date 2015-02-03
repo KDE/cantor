@@ -41,9 +41,9 @@ QString Python3Backend::id() const
     return QLatin1String("python3");
 }
 
-KUrl Python3Backend::helpUrl() const
+QUrl Python3Backend::helpUrl() const
 {
-    return i18nc("the url to the documentation Python 3", "http://docs.python.org/3/");
+    return QUrl(i18nc("the url to the documentation Python 3", "http://docs.python.org/3/"));
 }
 
 QString Python3Backend::description() const

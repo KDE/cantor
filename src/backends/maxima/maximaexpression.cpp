@@ -31,12 +31,12 @@
 #include "settings.h"
 
 #include <KLocale>
-#include <KUrl>
 #include <KTemporaryFile>
 #include <QDebug>
 #include <QTimer>
 #include <QRegExp>
 #include <QChar>
+#include <QUrl>
 
 MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
@@ -627,9 +627,9 @@ void MaximaExpression::imageChanged()
     if(m_tempFile->size()>0)
     {
 #ifdef WITH_EPS
-        setResult( new Cantor::EpsResult( KUrl(m_tempFile->fileName()) ) );
+        setResult( new Cantor::EpsResult( QUrl::fromLocalFile(m_tempFile->fileName()) ) );
 #else
-        setResult( new Cantor::ImageResult( KUrl(m_tempFile->fileName()) ) );
+        setResult( new Cantor::ImageResult( QUrl::fromLocalFile(m_tempFile->fileName()) ) );
 #endif
         setStatus(Cantor::Expression::Done);
     }

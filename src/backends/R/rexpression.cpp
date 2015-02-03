@@ -104,7 +104,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
         if(type.inherits(QLatin1String("application/postscript")))
         {
             qDebug()<<"its PostScript";
-            setResult(new Cantor::EpsResult(file));
+            setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
         } else if(type.inherits(QLatin1String("text/plain")))
         {
             //Htmls are also plain texts, combining this in one
@@ -140,7 +140,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
 	    setStatus(Cantor::Expression::Done);
         }else if (type.name().contains(QLatin1String("image")))
         {
-            setResult(new Cantor::ImageResult(file));
+            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
 	    setStatus(Cantor::Expression::Done);
         }
         else

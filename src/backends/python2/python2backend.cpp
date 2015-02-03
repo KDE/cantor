@@ -48,9 +48,9 @@ QString Python2Backend::id() const
     return QLatin1String("python2");
 }
 
-KUrl Python2Backend::helpUrl() const
+QUrl Python2Backend::helpUrl() const
 {
-    return i18nc("the url to the documentation Python 2", "http://docs.python.org/2/");
+    return QUrl(i18nc("the url to the documentation Python 2", "http://docs.python.org/2/"));
 }
 
 QString Python2Backend::description() const

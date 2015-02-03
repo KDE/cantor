@@ -121,7 +121,7 @@ void WorksheetImageItem::paint(QPainter *painter,
                         m_pixmap.rect());
 }
 
-void WorksheetImageItem::setEps(const QUrl &url)
+void WorksheetImageItem::setEps(const QUrl& url)
 {
     const QImage img = worksheet()->epsRenderer()->renderToImage(url, &m_size);
     m_pixmap = QPixmap::fromImage(img.convertToFormat(QImage::Format_ARGB32));

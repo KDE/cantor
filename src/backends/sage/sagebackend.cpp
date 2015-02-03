@@ -88,10 +88,10 @@ KConfigSkeleton* SageBackend::config() const
     return SageSettings::self();
 }
 
-KUrl SageBackend::helpUrl() const
+QUrl SageBackend::helpUrl() const
 {
-    return i18nc("the url to the documentation of Sage, please check if there is a translated version and use the correct url",
-                 "http://www.sagemath.org/doc/reference/index.html");
+    return QUrl(i18nc("the url to the documentation of Sage, please check if there is a translated version and use the correct url",
+                 "http://www.sagemath.org/doc/reference/index.html"));
 }
 
 QString SageBackend::description() const

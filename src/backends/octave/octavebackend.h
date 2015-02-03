@@ -33,7 +33,7 @@ class OctaveBackend : public Cantor::Backend
     virtual Cantor::Session* createSession();
 
     virtual bool requirementsFullfilled() const;
-    virtual KUrl helpUrl() const;
+    virtual QUrl helpUrl() const;
     virtual QString description() const;
     virtual QWidget* settingsWidget(QWidget* parent) const;
     virtual KConfigSkeleton* config() const;

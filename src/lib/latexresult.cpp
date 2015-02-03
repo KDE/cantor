@@ -38,7 +38,7 @@ class Cantor::LatexResultPrivate
     QString plain;
 };
 
-LatexResult::LatexResult(const QString& code, const KUrl& url, const QString& plain) : EpsResult( url ),
+LatexResult::LatexResult(const QString& code, const QUrl &url, const QString& plain) : EpsResult( url ),
                                                                                        d(new LatexResultPrivate)
 {
     d->code=code;
@@ -120,7 +120,7 @@ QDomElement LatexResult::toXml(QDomDocument& doc)
     qDebug()<<"saving textresult "<<toHtml();
     QDomElement e=doc.createElement(QLatin1String("Result"));
     e.setAttribute(QLatin1String("type"), QLatin1String("latex"));
-    KUrl url=KUrl(EpsResult::data().toUrl());
+    QUrl url= EpsResult::data().toUrl();
     e.setAttribute(QLatin1String("filename"), url.fileName());
     QDomText txt=doc.createTextNode(code());
     e.appendChild(txt);

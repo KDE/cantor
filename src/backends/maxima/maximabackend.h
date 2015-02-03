@@ -35,7 +35,7 @@ class MaximaBackend : public Cantor::Backend
     Cantor::Backend::Capabilities capabilities() const;
     bool requirementsFullfilled() const;
 
-    KUrl helpUrl() const;
+    QUrl helpUrl() const;
     QWidget* settingsWidget(QWidget* parent) const;
     KConfigSkeleton* config() const;
 

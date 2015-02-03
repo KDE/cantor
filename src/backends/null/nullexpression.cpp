@@ -60,7 +60,7 @@ void NullExpression::evalFinished()
 {
     qDebug()<<"evaluation finished";
     if ( command()==QLatin1String("img") )
-        setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath(QLatin1String("kde"), KIconLoader::Desktop)), QLatin1String("alternative") ) );
+        setResult( new Cantor::ImageResult( QUrl::fromLocalFile(KIconLoader::global()->iconPath(QLatin1String("kde"), KIconLoader::Desktop)), QLatin1String("alternative") ) );
     else
         setResult(new Cantor::TextResult(QLatin1String("result: ")+command()));
 

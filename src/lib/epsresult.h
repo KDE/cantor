@@ -23,7 +23,7 @@
 
 #include "result.h"
 #include "cantor_export.h"
-#include <KUrl>
+#include <QUrl>
 
 namespace Cantor
 {
@@ -33,13 +33,13 @@ class CANTOR_EXPORT EpsResult : public Result
 {
   public:
     enum {Type=5};
-    EpsResult( const KUrl& url);
+    EpsResult( const QUrl& url);
     ~EpsResult();
 
     QString toHtml();
     QString toLatex();
     QVariant data();
-    KUrl url();
+    QUrl url();
 
     int type();
     QString mimeType();

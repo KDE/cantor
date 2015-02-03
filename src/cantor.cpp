@@ -30,7 +30,6 @@
 #include <KMessageBox>
 #include <KStandardAction>
 #include <KStatusBar>
-#include <KUrl>
 #include <QIcon>
 #include <KLocale>
 #include <KTabWidget>
@@ -93,7 +92,7 @@ CantorShell::~CantorShell()
 
 }
 
-void CantorShell::load(const KUrl& url)
+void CantorShell::load(const QUrl &url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
@@ -188,7 +187,7 @@ void CantorShell::fileOpen()
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-    KUrl url = KFileDialog::getOpenUrl( KUrl(), i18n("*.cws|Cantor Worksheet"), this );
+    QUrl url = KFileDialog::getOpenUrl( QUrl(), i18n("*.cws|Cantor Worksheet"), this );
 
     if (url.isEmpty() == false)
     {
@@ -416,9 +415,7 @@ void CantorShell::openExample()
     if (dlg->exec()==QDialog::Accepted&&list->currentRow()>=0)
     {
         const QString& selectedFile=files[list->currentRow()];
-        KUrl url;
-        url.setDirectory(dir);
-        url.setFileName(selectedFile);
+        QUrl url = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(selectedFile));
 
         qDebug()<<"loading file "<<url;
         load(url);

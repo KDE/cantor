@@ -26,6 +26,7 @@ using namespace Cantor;
 #include <QDebug>
 #include <KXMLGUIFactory>
 #include <KPluginInfo>
+#include <QUrl>
 
 #include "extension.h"
 
@@ -76,9 +77,9 @@ QString Backend::url() const
     return d->url;
 }
 
-KUrl Backend::helpUrl() const
+QUrl Backend::helpUrl() const
 {
-    return KUrl();
+    return QUrl();
 }
 
 bool Backend::isEnabled() const

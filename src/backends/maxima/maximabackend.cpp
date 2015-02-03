@@ -83,10 +83,10 @@ bool MaximaBackend::requirementsFullfilled() const
     return info.isExecutable();
 }
 
-KUrl MaximaBackend::helpUrl() const
+QUrl MaximaBackend::helpUrl() const
 {
-    return i18nc("the url to the documentation of Maxima, please check if there is a translated version and use the correct url",
-                 "http://maxima.sourceforge.net/docs/manual/en/maxima.html");
+    return QUrl(i18nc("the url to the documentation of Maxima, please check if there is a translated version and use the correct url",
+                 "http://maxima.sourceforge.net/docs/manual/en/maxima.html"));
 }
 
 QWidget* MaximaBackend::settingsWidget(QWidget* parent) const

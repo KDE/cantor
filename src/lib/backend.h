@@ -25,7 +25,6 @@
 #include <QVariant>
 #include <KXMLGUIClient>
 #include <KPluginInfo>
-#include <KUrl>
 
 #include "cantor_export.h"
 
@@ -141,7 +140,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      *   "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
      * @return Url of the help
      */
-    virtual KUrl helpUrl() const;
+    virtual QUrl helpUrl() const;
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
      * @return @c true, if the enabled flag is set to true, and the requirements are fulfiled
