@@ -178,7 +178,7 @@ PYTHON_EXT_CDTOR(Script)
 
 QString PythonScriptExtension::runExternalScript(const QString& path)
 {
-    return QString::fromLatin1("execfile(\"%1\")").arg(path);
+    return QString::fromLatin1("exec(open(\"%1\").read())").arg(path);
 }
 
 QString PythonScriptExtension::scriptFileFilter()
