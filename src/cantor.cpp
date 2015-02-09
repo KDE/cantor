@@ -441,7 +441,7 @@ void CantorShell::updatePanel()
 {
     qDebug()<<"updating panels";
 
-    unplugActionList(QLatin1String("view_show_panels"));
+    unplugActionList(QLatin1String("view_show_panel_list"));
 
     //remove all of the previous panels (but do not delete the widgets)
     foreach(QDockWidget* dock, m_panels)
