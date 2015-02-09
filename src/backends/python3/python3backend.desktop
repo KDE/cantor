@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Service
 Icon=pythonbackend
-Name=Python3
+Name=Python 3
 X-KDE-PluginInfo-Website=http://python.org/
 X-KDE-ServiceTypes=Cantor/Backend
 X-KDE-Library=cantor_python3backend
-X-KDE-PluginInfo-Name=Python3
+X-KDE-PluginInfo-Name=Python 3
 X-KDE-PluginInfo-Depends=
 X-KDE-PluginInfo-License=GPL
 Comment=Backend for Python 3 Scientific Programming
