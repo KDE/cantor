@@ -39,6 +39,7 @@ int main(int argc, char **argv)
     app.setApplicationName(QLatin1String("cantor"));
     app.setOrganizationDomain(QLatin1String("kde.org"));
     app.setApplicationDisplayName(i18n("Cantor"));
+    app.setWindowIcon(QIcon::fromTheme(QLatin1String("cantor")));
 
     KAboutData about(QLatin1String("cantor"),
                      QLatin1String("Cantor"),
@@ -56,6 +57,9 @@ int main(int argc, char **argv)
                      QLatin1String("http://filipesaraiva.info/") );
     about.addAuthor( i18n("Martin Küttler"), i18n("Interface"), QLatin1String("martin.kuettler@gmail.com") );
 
+    about.addCredit(QLatin1String("Andreas Kainz"), i18n("Cantor icon"), QLatin1String("kainz.a@gmail.com"));
+    about.addCredit(QLatin1String("Uri Herrera"), i18n("Cantor icon"), QLatin1String("kaisergreymon99@gmail.com"),
+                     QLatin1String("http://nitrux.in/"));
 
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
