@@ -68,10 +68,6 @@ K_EXPORT_PLUGIN(CantorPartFactory("cantor"))
 
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
 {
-    // we need an instance
-    // TODO commented to build by Filipe
-    //setComponentData( CantorPartFactory::componentData );
-
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_statusBarBlocked=false;

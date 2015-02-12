@@ -132,8 +132,7 @@ void ImageSettingsDialog::openDialog()
     QString formatString = QLatin1String("Images(");
     foreach(QByteArray format, formats)
     {
-// TODO commented to build by Filipe
-// 	formatString += QLatin1String("*.") + QString(format).toLower() + QLatin1String(" ");
+    formatString += QLatin1String("*.") + QString::fromLatin1(format).toLower() + QLatin1String(" ");
     }
     formatString += QLatin1String(")");
     QString file = QFileDialog::getOpenFileName(this, i18n("Open image file"), m_ui.pathEdit->text(), formatString);

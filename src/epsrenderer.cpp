@@ -101,7 +101,7 @@ QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
     SpectreRenderContext* rc = spectre_render_context_new();
 
     qDebug() << "rendering eps file: " << url;
-// TODO commented to build by Filipe
+
 //     spectre_document_load(doc, url.toLocalFile().toUtf8());
 
     int wdoc, hdoc;

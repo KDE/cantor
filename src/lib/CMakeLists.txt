@@ -83,6 +83,4 @@ install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_panelplugin.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-# if (KDE4_BUILD_TESTS)
-    add_subdirectory(test)
-# endif (KDE4_BUILD_TESTS)
+add_subdirectory(test)

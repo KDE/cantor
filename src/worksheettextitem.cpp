@@ -686,9 +686,9 @@ void WorksheetTextItem::insertTab()
         int i = cursor.selectionEnd() - cursor.selectionStart();
         i = ((i+4) & (~3)) - i;
         cursor.setPosition(cursor.selectionEnd());
-        // TODO commented to build by Filipe
-//         QString insertBlankSpace = QLatin1String(' ');
-//         cursor.insertText(insertBlankSpace.repeated(i));
+
+        QString insertBlankSpace = QLatin1String(" ");
+        cursor.insertText(insertBlankSpace.repeated(i));
     }
     setTextCursor(cursor);
     emit cursorPositionChanged(textCursor());
