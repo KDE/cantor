@@ -21,7 +21,7 @@
 #include "cantor.h"
 #include <QApplication>
 #include <KAboutData>
-
+#include <Kdelibs4ConfigMigrator>
 #include <KLocale>
 #include <KConfigGroup>
 #include <QCommandLineParser>
@@ -34,6 +34,27 @@ static const char version[] = "0.5";
 
 int main(int argc, char **argv)
 {
+    // Migrating configuration from 4.x applications to KF5-based applications
+    QStringList configFiles;
+    QStringList rcFiles;
+
+    configFiles << QLatin1String("cantorrc");
+    rcFiles << QLatin1String("cantor_part.rc") << QLatin1String("cantor_scripteditor.rc")
+            << QLatin1String("cantor_shell.rc") << QLatin1String("cantor_advancedplot_assistant.rc")
+            << QLatin1String("cantor_differentiate_assistant.rc") << QLatin1String("cantor_import_package_assistant.rc")
+            << QLatin1String("cantor_integrate_assistant.rc") << QLatin1String("cantor_create_matrix_assistant.rc")
+            << QLatin1String("cantor_eigenvalues_assistant.rc") << QLatin1String("cantor_eigenvectors_assistant.rc")
+            << QLatin1String("cantor_invert_matrix_assistant.rc") << QLatin1String("cantor_plot2d_assistant.rc")
+            << QLatin1String("cantor_plot3d_assistant.rc") << QLatin1String("cantor_runscript_assistant.rc")
+            << QLatin1String("cantor_solve_assistant.rc") << QLatin1String("cantor_qalculateplotassistant.rc");
+
+    Kdelibs4ConfigMigrator migrator(QLatin1String("cantor"));
+
+    migrator.setConfigFiles(configFiles);
+    migrator.setUiFiles(rcFiles);
+    migrator.migrate();
+    //**********************************
+
     QApplication app(argc, argv);
 
     app.setApplicationName(QLatin1String("cantor"));
