@@ -214,7 +214,7 @@ void ImageEntry::updateEntry()
             m_imageItem = new WorksheetImageItem(this);
 
         if (m_imagePath.toLower().endsWith(QLatin1String(".eps"))) {
-            m_imageItem->setEps(m_imagePath);
+            m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
         } else {
             QImage img(m_imagePath);
             m_imageItem->setImage(img);

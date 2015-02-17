@@ -26,7 +26,7 @@
 #include <QPixmap>
 #include <QSizeF>
 
-#include <KUrl>
+#include <QUrl>
 
 #include "lib/latexrenderer.h"
 
@@ -41,7 +41,7 @@ class EpsRenderer
     enum FormulaType {LatexFormula = Cantor::LatexRenderer::LatexMethod,
                       MmlFormula = Cantor::LatexRenderer::MmlMethod};
 
-    QTextImageFormat render(QTextDocument *document, const KUrl& url);
+    QTextImageFormat render(QTextDocument *document, const QUrl& url);
     QTextImageFormat render(QTextDocument *document,
                             const Cantor::LatexRenderer* latex);
 
@@ -50,8 +50,8 @@ class EpsRenderer
 
     void useHighResolution(bool b);
 
-    QSizeF renderToResource(QTextDocument *document, const KUrl& url);
-    QImage renderToImage(const KUrl& url, QSizeF* size = 0);
+    QSizeF renderToResource(QTextDocument *document, const QUrl& url);
+    QImage renderToImage(const QUrl& url, QSizeF* size = 0);
 
   private:
     double m_scale;

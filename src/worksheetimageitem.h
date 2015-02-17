@@ -28,7 +28,6 @@ class Worksheet;
 class QMovie;
 class QImage;
 class QGraphicsSceneContextMenuEvent;
-class KUrl;
 class QMenu;
 
 class WorksheetImageItem : public QGraphicsObject
@@ -57,7 +56,7 @@ class WorksheetImageItem : public QGraphicsObject
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
 
-    void setEps(const KUrl& url);
+    void setEps(const QUrl &url);
     void setImage(QImage img);
     void setPixmap(QPixmap pixmap);
 

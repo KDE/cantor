@@ -122,10 +122,10 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             imageFile->copyTo(dir);
             QString imagePath=QString(dir+QLatin1Char('/')+imageFile->name());
 
-            KUrl internal=KUrl(imagePath);
-            internal.setProtocol(QLatin1String("internal"));
+            QUrl internal=QUrl::fromLocalFile(imagePath);
+            internal.setScheme(QLatin1String("internal"));
 
-            QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), imagePath);
+            QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
             qDebug()<<"rendering successfull? " << !format.name().isEmpty();
 
 
