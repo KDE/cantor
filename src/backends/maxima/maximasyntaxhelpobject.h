@@ -34,9 +34,9 @@ class MaximaSyntaxHelpObject : public Cantor::SyntaxHelpObject
     MaximaSyntaxHelpObject( const QString& command, MaximaSession* session );
     ~MaximaSyntaxHelpObject();
 
-  protected slots:
+  protected Q_SLOTS:
     void fetchInformation();
-  private slots:
+  private Q_SLOTS:
     void expressionChangedStatus(Cantor::Expression::Status status);
 
   private:

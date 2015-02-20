@@ -23,6 +23,7 @@
 #include "backend.h"
 #include "session.h"
 
+#include <KLocale>
 #include <QSignalSpy>
 
 void BackendTest::createSession()
@@ -58,11 +59,11 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
 QString BackendTest::cleanOutput(const QString& out)
 {
     QString cleaned=out;
-    cleaned.replace( "&nbsp;"," " );
-    cleaned.remove( "<br/>" );
-    cleaned.replace( QChar::ParagraphSeparator, '\n' );
-    cleaned.replace( QRegExp( "\\n\\n" ), "\n" );
-    cleaned.replace( QRegExp( "\\n\\s*" ), "\n" );
+    cleaned.replace( QLatin1String("&nbsp;"),QLatin1String(" ") );
+    cleaned.remove( QLatin1String("<br/>") );
+    cleaned.replace( QChar::ParagraphSeparator, QLatin1Char('\n') );
+    cleaned.replace( QRegExp( QLatin1String("\\n\\n") ), QLatin1String("\n") );
+    cleaned.replace( QRegExp( QLatin1String("\\n\\s*") ), QLatin1String("\n") );
 
     return cleaned.trimmed();
 }
@@ -73,7 +74,7 @@ void BackendTest::initTestCase()
     if (!m_session)
     {
         QString reason = i18n("This test requires a functioning %1 backend", backendName() );
-        QSKIP( reason.toLatin1(), SkipAll );
+        QSKIP( reason.toStdString().c_str(), SkipAll );
     }
 }
 
@@ -97,10 +98,10 @@ void BackendTest::waitForSignal(QObject* sender, const char* signal)
 
     QEventLoop loop;
     connect( sender, signal, &loop, SLOT( quit() ) );
-    connect( &timeout, SIGNAL( timeout() ), &loop, SLOT( quit() ) );
+    connect(&timeout, &QTimer::timeout, &loop, &QEventLoop::quit);
     timeout.start( 5000 );
     loop.exec();
 }
 
 
-#include "backendtest.moc"
+

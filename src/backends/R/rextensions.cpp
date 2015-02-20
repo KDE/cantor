@@ -20,7 +20,7 @@
 
 #include "rextensions.h"
 
-#include <klocale.h>
+#include <KLocale>
 
 RScriptExtension::RScriptExtension(QObject* parent) : Cantor::ScriptExtension(parent)
 {
@@ -34,7 +34,7 @@ RScriptExtension::~RScriptExtension()
 
 QString RScriptExtension::runExternalScript(const QString& path)
 {
-    return QString("source(\"%1\")").arg(path);
+    return QString::fromLatin1("source(\"%1\")").arg(path);
 }
 
 QString RScriptExtension::scriptFileFilter()
@@ -44,7 +44,7 @@ QString RScriptExtension::scriptFileFilter()
 
 QString RScriptExtension::highlightingMode()
 {
-    return QString("r script");
+    return QLatin1String("r script");
 }
 
 RPlotExtension::RPlotExtension(QObject* parent) : Cantor::AdvancedPlotExtension(parent)
@@ -53,15 +53,15 @@ RPlotExtension::RPlotExtension(QObject* parent) : Cantor::AdvancedPlotExtension(
 // TODO: injection prevention
 QString RPlotExtension::accept(const Cantor::PlotTitleDirective& directive) const
 {
-    return "main=\""+directive.title()+"\"";
+    return QLatin1String("main=\"")+directive.title()+QLatin1String("\"");
 }
 
 QString RPlotExtension::accept(const Cantor::OrdinateScaleDirective& directive) const
 {
-    return "ylim=range("+QString::number(directive.min())+","+QString::number(directive.max())+")";
+    return QLatin1String("ylim=range(")+QString::number(directive.min())+QLatin1String(",")+QString::number(directive.max())+QLatin1String(")");
 }
 
 QString RPlotExtension::accept(const Cantor::AbscissScaleDirective& directive) const
 {
-    return "xlim=range("+QString::number(directive.min())+","+QString::number(directive.max())+")";
+    return QLatin1String("xlim=range(")+QString::number(directive.min())+QLatin1String(",")+QString::number(directive.max())+QLatin1String(")");
 }

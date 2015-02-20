@@ -28,8 +28,7 @@ class Worksheet;
 class QMovie;
 class QImage;
 class QGraphicsSceneContextMenuEvent;
-class KUrl;
-class KMenu;
+class QMenu;
 
 class WorksheetImageItem : public QGraphicsObject
 {
@@ -57,16 +56,16 @@ class WorksheetImageItem : public QGraphicsObject
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget = 0);
 
-    void setEps(const KUrl& url);
+    void setEps(const QUrl &url);
     void setImage(QImage img);
     void setPixmap(QPixmap pixmap);
 
-    virtual void populateMenu(KMenu *menu, const QPointF& pos);
+    virtual void populateMenu(QMenu *menu, const QPointF& pos);
     Worksheet* worksheet();
 
-  signals:
+  Q_SIGNALS:
     void sizeChanged();
-    void menuCreated(KMenu*, const QPointF&);
+    void menuCreated(QMenu*, const QPointF&);
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);

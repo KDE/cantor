@@ -44,7 +44,7 @@ class SyntaxHelpObject;
 /**
  * The Session object is the main class used to interact with a Backend.
  * It is used to evaluate Expressions, get completions, syntax highlighting, etc.
- * 
+ *
  * @author Alexander Rieder
  */
 class CANTOR_EXPORT Session : public QObject
@@ -78,11 +78,11 @@ class CANTOR_EXPORT Session : public QObject
      * NOTE: restaring the session consists of first logout() and then login()
      */
     virtual void logout() = 0;
-    
+
     /**
-     * Passes the given command to the backend and returns a Pointer 
-     * to a new Expression object, which will emit the resultArrived() 
-     * signal as soon as the computation is done. The result will 
+     * Passes the given command to the backend and returns a Pointer
+     * to a new Expression object, which will emit the resultArrived()
+     * signal as soon as the computation is done. The result will
      * then be acessible by Expression::result()
      * @param command the command that should be run by the backend.
      * @param finishingBehavior the FinishingBehaviour that should be used for this command. @see Expression::FinishingBehaviour
@@ -104,7 +104,7 @@ class CANTOR_EXPORT Session : public QObject
     /**
      * Returns tab-completion, for this command/command-part.
      * The return type is a CompletionObject. The fetching
-     * of the completions works asynchronously, you'll have to 
+     * of the completions works asynchronously, you'll have to
      * listen to the done() Signal of the returned object
      * @param cmd The partial command that should be completed
      * @param index The index (cursor position) at which completion
@@ -162,7 +162,7 @@ class CANTOR_EXPORT Session : public QObject
      * @return wether typesetting is enabled or not
      */
     bool isTypesettingEnabled();
-    
+
     /**
      * Returns the next available Expression id
      * It is basically a counter, incremented for
@@ -179,7 +179,7 @@ class CANTOR_EXPORT Session : public QObject
      */
     void changeStatus(Cantor::Session::Status newStatus);
 
-  signals:
+Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);
     void ready();
     void error(const QString& msg);

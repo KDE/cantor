@@ -22,33 +22,33 @@
 #include "nullexpression.h"
 #include "nullcompletionobject.h"
 
-#include <kdebug.h>
+#include <QDebug>
 
 NullSession::NullSession( Cantor::Backend* backend) : Session(backend)
 {
-    kDebug();
+    qDebug();
 }
 
 NullSession::~NullSession()
 {
-    kDebug();
+    qDebug();
 }
 
 void NullSession::login()
 {
-    kDebug()<<"login";
+    qDebug()<<"login";
     changeStatus(Cantor::Session::Done);
     emit ready();
 }
 
 void NullSession::logout()
 {
-    kDebug()<<"logout";
+    qDebug()<<"logout";
 }
 
 void NullSession::interrupt()
 {
-    kDebug()<<"interrupt";
+    qDebug()<<"interrupt";
     foreach(Cantor::Expression* e, m_runningExpressions)
         e->interrupt();
     m_runningExpressions.clear();
@@ -57,10 +57,10 @@ void NullSession::interrupt()
 
 Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    kDebug()<<"evaluating: "<<cmd;
+    qDebug()<<"evaluating: "<<cmd;
     NullExpression* expr=new NullExpression(this);
     expr->setFinishingBehavior(behave);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished()));
+    connect(expr, &NullExpression::statusChanged, this, &NullSession::expressionFinished);
     expr->setCommand(cmd);
     expr->evaluate();
 
@@ -74,16 +74,16 @@ Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::
 
 Cantor::CompletionObject* NullSession::completionFor(const QString& command, int index)
 {
-    kDebug()<<"tab completion for "<<command;
+    qDebug()<<"tab completion for "<<command;
     return new NullCompletionObject(command, index, this);
 }
 
 void NullSession::expressionFinished()
 {
-    kDebug()<<"finished";
+    qDebug()<<"finished";
     NullExpression* expression=qobject_cast<NullExpression*>(sender());
     m_runningExpressions.removeAll(expression);
-    kDebug()<<"size: "<<m_runningExpressions.size();
+    qDebug()<<"size: "<<m_runningExpressions.size();
 
     if(m_runningExpressions.isEmpty())
        changeStatus(Cantor::Session::Done);

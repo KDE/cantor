@@ -26,7 +26,7 @@
 #include <QTextDocument>
 #include <QTextCursor>
 
-#include <KMenu>
+#include <QMenu>
 #include <KStandardAction>
 
 class Worksheet;
@@ -65,7 +65,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setItemDragable(bool b);
     void enableRichText(bool b);
 
-    virtual void populateMenu(KMenu *menu, const QPointF& pos);
+    virtual void populateMenu(QMenu *menu, const QPointF& pos);
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();
@@ -100,7 +100,7 @@ class WorksheetTextItem : public QGraphicsTextItem
                        QTextDocument::FindFlags qt_flags,
                        const WorksheetCursor& pos);
 
-  signals:
+  Q_SIGNALS:
     void moveToPrevious(int pos, qreal xCoord);
     void moveToNext(int pos, qreal xCoord);
     void cursorPositionChanged(QTextCursor);
@@ -112,7 +112,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void execute();
     void deleteEntry();
     void sizeChanged();
-    void menuCreated(KMenu*, const QPointF&);
+    void menuCreated(QMenu*, const QPointF&);
     void drag(const QPointF&, const QPointF&);
     void undoAvailable(bool);
     void redoAvailable(bool);
@@ -120,7 +120,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void copyAvailable(bool);
     void pasteAvailable(bool);
 
-  public slots:
+  public Q_SLOTS:
     void insertTab();
     void cut();
     void copy();
@@ -145,7 +145,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void dropEvent(QGraphicsSceneDragDropEvent* event);
     bool sceneEvent(QEvent *event);
 
-  private slots:
+  private Q_SLOTS:
     //void setHeight();
     void testSize();
     void updateRichTextActions(QTextCursor cursor);

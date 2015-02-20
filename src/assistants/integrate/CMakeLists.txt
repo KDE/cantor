@@ -1,10 +1,10 @@
-set( IntegrateAssistant_SRCS 
+set( IntegrateAssistant_SRCS
      integrateassistant.cpp
 )
 
-kde4_add_ui_files(IntegrateAssistant_SRCS integratedlg.ui)
+ki18n_wrap_ui(IntegrateAssistant_SRCS integratedlg.ui)
 
-kde4_add_plugin( cantor_integrateassistant ${IntegrateAssistant_SRCS} )
+add_library( cantor_integrateassistant MODULE ${IntegrateAssistant_SRCS} )
 target_link_libraries( cantor_integrateassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES integrateassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

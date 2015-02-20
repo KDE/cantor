@@ -20,7 +20,8 @@
 
 #include "scilabextensions.h"
 #include <KLocale>
-#include <KDebug>
+
+#include <QDebug>
 
 #define SCILAB_EXT_CDTOR(name) Scilab##name##Extension::Scilab##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Scilab##name##Extension::~Scilab##name##Extension() {}
@@ -29,7 +30,7 @@ SCILAB_EXT_CDTOR(Script)
 
 QString ScilabScriptExtension::runExternalScript(const QString& path)
 {
-    return QString("exec(\"%1\", -1)").arg(path);
+    return QString::fromLatin1("exec(\"%1\", -1)").arg(path);
 }
 
 QString ScilabScriptExtension::scriptFileFilter()
@@ -40,12 +41,12 @@ QString ScilabScriptExtension::scriptFileFilter()
 
 QString ScilabScriptExtension::highlightingMode()
 {
-    return QString("scilab");
+    return QLatin1String("scilab");
 }
 
 QString ScilabScriptExtension::commandSeparator()
 {
-    return QString(';');
+    return QLatin1String(";");
 }
 
 SCILAB_EXT_CDTOR(VariableManagement)
@@ -57,25 +58,25 @@ QString ScilabVariableManagementExtension::addVariable(const QString& name, cons
 
 QString ScilabVariableManagementExtension::setValue(const QString& name, const QString& value)
 {
-    return QString("%1 = %2").arg(name).arg(value);
+    return QString::fromLatin1("%1 = %2").arg(name).arg(value);
 }
 
 QString ScilabVariableManagementExtension::removeVariable(const QString& name)
 {
-    return QString("clear %1;").arg(name);
+    return QString::fromLatin1("clear %1;").arg(name);
 }
 
 QString ScilabVariableManagementExtension::clearVariables()
 {
-    return QString("clear;");
+    return QLatin1String("clear;");
 }
 
 QString ScilabVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return QString("save('%1');").arg(fileName);
+    return QString::fromLatin1("save('%1');").arg(fileName);
 }
 
 QString ScilabVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return QString("load('%1');").arg(fileName);
+    return QString::fromLatin1("load('%1');").arg(fileName);
 }

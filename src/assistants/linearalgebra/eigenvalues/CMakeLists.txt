@@ -1,10 +1,10 @@
-set( EigenValuesAssistant_SRCS 
+set( EigenValuesAssistant_SRCS
      eigenvaluesassistant.cpp
 )
 
-kde4_add_ui_files(EigenValuesAssistant_SRCS eigenvaluesdlg.ui)
+ki18n_wrap_ui(EigenValuesAssistant_SRCS eigenvaluesdlg.ui)
 
-kde4_add_plugin( cantor_eigenvaluesassistant ${EigenValuesAssistant_SRCS} )
+add_library( cantor_eigenvaluesassistant MODULE ${EigenValuesAssistant_SRCS} )
 target_link_libraries( cantor_eigenvaluesassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES eigenvaluesassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

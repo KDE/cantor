@@ -1,10 +1,10 @@
-set( DifferentiateAssistant_SRCS 
+set( DifferentiateAssistant_SRCS
      differentiateassistant.cpp
 )
 
-kde4_add_ui_files(DifferentiateAssistant_SRCS differentiatedlg.ui)
+ki18n_wrap_ui(DifferentiateAssistant_SRCS differentiatedlg.ui)
 
-kde4_add_plugin( cantor_differentiateassistant ${DifferentiateAssistant_SRCS} )
+add_library( cantor_differentiateassistant MODULE ${DifferentiateAssistant_SRCS} )
 target_link_libraries( cantor_differentiateassistant ${KDE4_KDEUI_LIBS} cantorlibs)
 
 install( FILES differentiateassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

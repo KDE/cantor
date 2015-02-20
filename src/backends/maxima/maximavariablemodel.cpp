@@ -25,12 +25,12 @@
 #include "textresult.h"
 #include "latexresult.h"
 
-#include <kdebug.h>
-#include <klocale.h>
+#include <QDebug>
+#include <KLocale>
 
 //command used to inspect a maxima variable. %1 is the name of that variable
-const QString MaximaVariableModel::inspectCommand=":lisp($disp $%1)";
-const QString MaximaVariableModel::variableInspectCommand=":lisp(cantor-inspect $%1)";
+const QString MaximaVariableModel::inspectCommand=QLatin1String(":lisp($disp $%1)");
+const QString MaximaVariableModel::variableInspectCommand=QLatin1String(":lisp(cantor-inspect $%1)");
 
 MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session)
 {
@@ -46,26 +46,26 @@ MaximaVariableModel::~MaximaVariableModel()
 
 void MaximaVariableModel::checkForNewVariables()
 {
-    kDebug()<<"checking for new variables";
-    const QString& cmd=variableInspectCommand.arg("values");
+    qDebug()<<"checking for new variables";
+    const QString& cmd=variableInspectCommand.arg(QLatin1String("values"));
     Cantor::Expression* expr=session()->evaluateExpression(cmd);
     expr->setInternal(true);
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(parseNewVariables()));
+    connect(expr, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
 }
 
 void MaximaVariableModel::checkForNewFunctions()
 {
-    kDebug()<<"checking for new functions";
-    const QString& cmd=inspectCommand.arg("functions");
+    qDebug()<<"checking for new functions";
+    const QString& cmd=inspectCommand.arg(QLatin1String("functions"));
     Cantor::Expression* expr=session()->evaluateExpression(cmd);
     expr->setInternal(true);
 
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(parseNewFunctions()));
+    connect(expr, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
 }
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
-    kDebug()<<"parsing it!";
+    qDebug()<<"parsing it!";
     if(!expr||expr->status()!=Cantor::Expression::Done||
        !expr->result())
         return QList<Cantor::DefaultVariableModel::Variable>();
@@ -77,35 +77,35 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         text=dynamic_cast<Cantor::LatexResult*>(expr->result())->plain();
     else
     {
-        kDebug()<<"unsupported type: "<<expr->result()->type()<<endl;
+        qDebug()<<"unsupported type: "<<expr->result()->type()<<endl;
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 
 
-    kDebug()<<"got "<<text;
+    qDebug()<<"got "<<text;
 
-    const int nameIndex=text.indexOf(']');
-    kDebug()<<"idx: "<<nameIndex;
+    const int nameIndex=text.indexOf(QLatin1Char(']'));
+    qDebug()<<"idx: "<<nameIndex;
     QString namesString=text.left(nameIndex);
     //namesString.chop(1);
     namesString=namesString.mid(1);
     namesString=namesString.trimmed();
 
-    kDebug()<<"names: "<<namesString;
+    qDebug()<<"names: "<<namesString;
     if(namesString.isEmpty())
         return QList<Cantor::DefaultVariableModel::Variable>();
 
-    QStringList variableNames=namesString.split(',');
+    QStringList variableNames=namesString.split(QLatin1Char(','));
 
     QString valuesString=text.mid(nameIndex+1).trimmed();
 
-    QStringList variableValues=valuesString.split("\"-cantor-value-separator-\"");
+    QStringList variableValues=valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
     bool hasValues=variableValues.isEmpty();
 
-    kDebug()<<variableNames;
-    kDebug()<<"string: "<<valuesString;
-    kDebug()<<"values: "<<variableValues;
-    kDebug()<<"has Values: "<<hasValues;
+    qDebug()<<variableNames;
+    qDebug()<<"string: "<<valuesString;
+    qDebug()<<"values: "<<variableValues;
+    qDebug()<<"has Values: "<<hasValues;
 
     QList<Cantor::DefaultVariableModel::Variable> variables;
     variables.reserve(variableNames.size());
@@ -116,7 +116,7 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         if(variableValues.size()>i)
             var.value=variableValues.at(i).trimmed();
         else
-            var.value="unknown";
+            var.value=QLatin1String("unknown");
         variables<<var;
 
     }
@@ -126,7 +126,7 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 
 void MaximaVariableModel::parseNewVariables()
 {
-    kDebug()<<"parsing variables";
+    qDebug()<<"parsing variables";
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
     QList<Variable> newVars=parse(expr);
@@ -172,7 +172,7 @@ void MaximaVariableModel::parseNewVariables()
 
 void MaximaVariableModel::parseNewFunctions()
 {
-    kDebug()<<"parsing functions";
+    qDebug()<<"parsing functions";
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
     QList<Variable> newVars=parse(expr);
@@ -249,7 +249,7 @@ QStringList MaximaVariableModel::functionNames(bool stripParameters)
         QString name=var.name;
         if(stripParameters)
         {
-            name=name.left(name.lastIndexOf('('));
+            name=name.left(name.lastIndexOf(QLatin1Char('(')));
         }
         names<<name;
     }

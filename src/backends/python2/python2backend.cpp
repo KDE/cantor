@@ -15,82 +15,37 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #include "python2backend.h"
-
 #include "python2session.h"
-#include "python2extensions.h"
-#include "settings.h"
-#include "ui_settings.h"
-
-#include "kdebug.h"
-#include <QWidget>
-
 #include "cantor_macros.h"
+#include "settings.h"
 
-#include <QLibrary>
+#include <klocalizedstring.h>
 
-Python2Backend::Python2Backend(QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args)
+Python2Backend::Python2Backend(QObject* parent, const QList<QVariant> args)
+    : PythonBackend(parent, args)
 {
-    kDebug()<<"Creating Python2Backend";
-
-    new Python2LinearAlgebraExtension(this);
-    new Python2PackagingExtension(this);
-    new Python2PlotExtension(this);
-    new Python2ScriptExtension(this);
-    new Python2VariableManagementExtension(this);
-
-    setObjectName("python2backend");
-
+    setObjectName(QLatin1String("python2backend"));
     // Because the plugin may not have been loaded with
     // ExportExternalSymbols, we load the python symbols again
     // to make sure that python modules such as numpy see them
     // (see bug #330032)
-    QLibrary pythonLib("python2.7");
+    QLibrary pythonLib(QLatin1String("python2.7"));
     pythonLib.setLoadHints(QLibrary::ExportExternalSymbolsHint);
     pythonLib.load();
 }
 
-Python2Backend::~Python2Backend()
+Cantor::Session* Python2Backend::createSession()
 {
-    kDebug()<<"Destroying Python2Backend";
+    return new Python2Session(this);
 }
 
 QString Python2Backend::id() const
 {
-    return "python2";
-}
-
-Cantor::Session* Python2Backend::createSession()
-{
-    kDebug()<<"Spawning a new Python 2 session";
-
-    return new Python2Session(this);
-}
-
-Cantor::Backend::Capabilities Python2Backend::capabilities() const
-{
-    kDebug()<<"Requesting capabilities of Python2Session";
-
-    return Cantor::Backend::SyntaxHighlighting |
-           Cantor::Backend::Completion         |
-           Cantor::Backend::SyntaxHelp         |
-           Cantor::Backend::VariableManagement;
-}
-
-QWidget* Python2Backend::settingsWidget(QWidget* parent) const
-{
-    QWidget* widget=new QWidget(parent);
-    Ui::Python2SettingsBase s;
-    s.setupUi(widget);
-    return widget;
-}
-
-KConfigSkeleton* Python2Backend::config() const
-{
-    return Python2Settings::self();
+    return QLatin1String("python2");
 }
 
 KUrl Python2Backend::helpUrl() const
@@ -103,6 +58,11 @@ QString Python2Backend::description() const
     return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
                 "There are several Python packages to scientific programming.</p>" \
                 "<p>This backend supports Python 2.</p>");
+}
+
+KConfigSkeleton* Python2Backend::config() const
+{
+    return PythonSettings::self();
 }
 
 K_EXPORT_CANTOR_PLUGIN(python2backend, Python2Backend)

@@ -20,9 +20,10 @@
 
 #include "differentiateassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
+#include <KIcon>
 #include "ui_differentiatedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -40,11 +41,11 @@ DifferentiateAssistant::~DifferentiateAssistant()
 
 void DifferentiateAssistant::initActions()
 {
-    setXMLFile("cantor_differentiate_assistant.rc");
+    setXMLFile(QLatin1String("cantor_differentiate_assistant.rc"));
     KAction* differentiate=new KAction(i18n("Differentiate"), actionCollection());
     differentiate->setIcon(KIcon(icon()));
-    actionCollection()->addAction("differentiate_assistant", differentiate);
-    connect(differentiate, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("differentiate_assistant"), differentiate);
+    connect(differentiate, &KAction::triggered, this, &DifferentiateAssistant::requested);
 }
 
 QStringList DifferentiateAssistant::run(QWidget* parent)
@@ -62,7 +63,8 @@ QStringList DifferentiateAssistant::run(QWidget* parent)
         QString variable=base.variable->text();
         int times=base.times->value();
 
-        Cantor::CalculusExtension* ext= dynamic_cast<Cantor::CalculusExtension*>(backend()->extension("CalculusExtension"));
+        Cantor::CalculusExtension* ext=
+            dynamic_cast<Cantor::CalculusExtension*>(backend()->extension(QLatin1String("CalculusExtension")));
 
         result<<ext->differentiate(expression, variable, times);
     }
@@ -72,3 +74,4 @@ QStringList DifferentiateAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(differentiateassistant, DifferentiateAssistant)
+#include "differentiateassistant.moc"

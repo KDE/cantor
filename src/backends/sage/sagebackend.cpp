@@ -26,7 +26,7 @@
 #include "sageextensions.h"
 #include "sagehighlighter.h"
 
-#include "kdebug.h"
+#include <QDebug>
 #include <QWidget>
 
 #include "cantor_macros.h"
@@ -34,8 +34,8 @@
 
 SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName("sagebackend");
-    kDebug()<<"Creating SageBackend";
+    setObjectName(QLatin1String("sagebackend"));
+    qDebug()<<"Creating SageBackend";
     //initialize the supported extensions
     new SageHistoryExtension(this);
     new SageScriptExtension(this);
@@ -48,24 +48,24 @@ SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : Cantor:
 
 SageBackend::~SageBackend()
 {
-    kDebug()<<"Destroying SageBackend";
+    qDebug()<<"Destroying SageBackend";
 }
 
 QString SageBackend::id() const
 {
-    return "sage";
+    return QLatin1String("sage");
 }
 
 Cantor::Session* SageBackend::createSession()
 {
-    kDebug()<<"Spawning a new Sage session";
+    qDebug()<<"Spawning a new Sage session";
 
     return new SageSession(this);
 }
 
 Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of SageSession";
+    qDebug()<<"Requesting capabilities of SageSession";
     return Cantor::Backend::LaTexOutput|Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
 }
 

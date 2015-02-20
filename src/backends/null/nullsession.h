@@ -41,7 +41,7 @@ class NullSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
 
-  private slots:
+  private Q_SLOTS:
     void expressionFinished();
 
   private:

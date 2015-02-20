@@ -23,14 +23,14 @@
 
 #include "lib/expression.h"
 
-#include <kzip.h>
+#include <KZip>
 #include <QDomElement>
 
 /** This class is used to hold expressions
     loaded from a file. they can't be evauluated
     and only show the result, they loaded from xml.
-    this is used to avoid most exceptions when 
-    dealing with loaded Worksheets instead of newly 
+    this is used to avoid most exceptions when
+    dealing with loaded Worksheets instead of newly
     created ones.
 **/
 class LoadedExpression : public Cantor::Expression

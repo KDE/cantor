@@ -24,37 +24,37 @@
 #include "rhighlighter.h"
 
 #include <QTimer>
-#include <kdebug.h>
-#include <kprocess.h>
-#include <kstandarddirs.h>
+#include <QDebug>
+#include <KProcess>
+#include <KStandardDirs>
 
 #include <signal.h>
 
 RSession::RSession( Cantor::Backend* backend) : Session(backend)
 {
-    kDebug();
+    qDebug();
     m_rProcess=0;
 }
 
 RSession::~RSession()
 {
-    kDebug();
+    qDebug();
     m_rProcess->terminate();
 }
 
 void RSession::login()
 {
-    kDebug()<<"login";
+    qDebug()<<"login";
     if(m_rProcess)
         m_rProcess->deleteLater();
     m_rProcess=new KProcess(this);
     m_rProcess->setOutputChannelMode(KProcess::ForwardedChannels);
 
-    (*m_rProcess)<<KStandardDirs::findExe( "cantor_rserver" );
+    (*m_rProcess)<<KStandardDirs::findExe( QLatin1String("cantor_rserver") );
 
     m_rProcess->start();
 
-    m_rServer=new org::kde::Cantor::R(QString("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  "/R", QDBusConnection::sessionBus(), this);
+    m_rServer=new org::kde::Cantor::R(QString::fromLatin1("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  QLatin1String("/R"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
     connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),this,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
@@ -66,13 +66,13 @@ void RSession::login()
 
 void RSession::logout()
 {
-    kDebug()<<"logout";
+    qDebug()<<"logout";
     m_rProcess->terminate();
 }
 
 void RSession::interrupt()
 {
-    kDebug()<<"interrupt" << m_rProcess->pid();
+    qDebug()<<"interrupt" << m_rProcess->pid();
     if (m_rProcess->pid())
 	kill(m_rProcess->pid(), 2);
     m_expressionQueue.removeFirst();
@@ -81,7 +81,7 @@ void RSession::interrupt()
 
 Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    kDebug()<<"evaluating: "<<cmd;
+    qDebug()<<"evaluating: "<<cmd;
     RExpression* expr=new RExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
@@ -116,11 +116,11 @@ void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
     v.clear(); f.clear();
 
     foreach (const QString s, m_variables)
-        if (!s.contains(QRegExp("[^A-Za-z0-9_.]")))
-            v.append(QRegExp("\\b"+s+"\\b"));
+        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
+            v.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
     foreach (const QString s, m_functions)
-        if (!s.contains(QRegExp("[^A-Za-z0-9_.]")))
-            f.append(QRegExp("\\b"+s+"\\b"));
+        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
+            f.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
 }
 
 void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
@@ -142,13 +142,13 @@ void RSession::queueExpression(RExpression* expr)
 
 void RSession::serverChangedStatus(int status)
 {
-    kDebug()<<"changed status to "<<status;
+    qDebug()<<"changed status to "<<status;
     if(status==0)
     {
         if(!m_expressionQueue.isEmpty())
         {
             RExpression* expr=m_expressionQueue.takeFirst();
-            kDebug()<<"done running "<<expr<<" "<<expr->command();
+            qDebug()<<"done running "<<expr<<" "<<expr->command();
         }
 
         if(m_expressionQueue.isEmpty())
@@ -167,9 +167,9 @@ void RSession::runNextExpression()
     disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
     disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
     disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
-    kDebug()<<"size: "<<m_expressionQueue.size();
+    qDebug()<<"size: "<<m_expressionQueue.size();
     RExpression* expr=m_expressionQueue.first();
-    kDebug()<<"running expression: "<<expr->command();
+    qDebug()<<"running expression: "<<expr->command();
 
     connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));
     connect(m_rServer, SIGNAL(inputRequested(const QString&)), expr, SIGNAL(needsAdditionalInformation(const QString&)));
@@ -182,8 +182,8 @@ void RSession::runNextExpression()
 void RSession::sendInputToServer(const QString& input)
 {
     QString s=input;
-    if(!input.endsWith('\n'))
-        s+='\n';
+    if(!input.endsWith(QLatin1Char('\n')))
+        s+=QLatin1Char('\n');
     m_rServer->answerRequest(s);
 }
 

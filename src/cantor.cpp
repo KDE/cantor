@@ -18,34 +18,36 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 #include "cantor.h"
-#include "cantor.moc"
 
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <kconfig.h>
-#include <kedittoolbar.h>
-#include <kfiledialog.h>
-#include <kshortcutsdialog.h>
-#include <klibloader.h>
-#include <kmessagebox.h>
-#include <kstandardaction.h>
-#include <kstatusbar.h>
-#include <kurl.h>
-#include <klocale.h>
-#include <ktabwidget.h>
-#include <kdebug.h>
-#include <kconfigdialog.h>
-#include <ktextedit.h>
-#include <ktextbrowser.h>
-#include <kxmlguifactory.h>
-#include <kstandarddirs.h>
-#include <ktoggleaction.h>
-#include <kmenu.h>
 
-#include <knewstuff3/downloaddialog.h>
+#include <QAction>
+#include <KActionCollection>
+#include <KConfig>
+#include <KEditToolBar>
+#include <KFileDialog>
+#include <KShortcutsDialog>
+#include <KLibLoader>
+#include <KMessageBox>
+#include <KStandardAction>
+#include <KStatusBar>
+#include <KUrl>
+#include <QIcon>
+#include <KLocale>
+#include <KTabWidget>
+#include <KConfigDialog>
+#include <KTextEdit>
+#include <KTextBrowser>
+#include <KXMLGUIFactory>
+#include <KStandardDirs>
+#include <KToggleAction>
+#include <QMenu>
 
-#include <QDockWidget>
+#include <KNS3/DownloadDialog>
+
 #include <QApplication>
+#include <QDebug>
+#include <QDockWidget>
+#include <QDir>
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
@@ -62,7 +64,7 @@ CantorShell::CantorShell()
     m_part=0;
 
     // set the shell's ui resource file
-    setXMLFile("cantor_shell.rc");
+    setXMLFile(QLatin1String("cantor_shell.rc"));
 
     // then, setup our actions
     setupActions();
@@ -95,7 +97,7 @@ void CantorShell::load(const KUrl& url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
-        addWorksheet("null");
+        addWorksheet(QLatin1String("null"));
         m_tabWidget->setCurrentIndex(m_parts.size()-1);
     }
     m_part->openUrl( url );
@@ -115,9 +117,9 @@ bool CantorShell::hasAvailableBackend()
 
 void CantorShell::setupActions()
 {
-    KAction* openNew = KStandardAction::openNew(this, SLOT(fileNew()), actionCollection());
+    QAction* openNew = KStandardAction::openNew(this, SLOT(fileNew()), actionCollection());
     openNew->setPriority(QAction::LowPriority);
-    KAction* open = KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
+    QAction* open = KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
     open->setPriority(QAction::LowPriority);
 
     KStandardAction::close (this,  SLOT(closeTab()),  actionCollection());
@@ -132,14 +134,14 @@ void CantorShell::setupActions()
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
 
-    KAction* downloadExamples = new KAction(i18n("Download Example Worksheets"), actionCollection());
-    downloadExamples->setIcon(KIcon("get-hot-new-stuff"));
-    actionCollection()->addAction("file_example_download",  downloadExamples);
+    QAction * downloadExamples = new QAction(i18n("Download Example Worksheets"), actionCollection());
+    downloadExamples->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
+    actionCollection()->addAction(QLatin1String("file_example_download"),  downloadExamples);
     connect(downloadExamples, SIGNAL(triggered()), this,  SLOT(downloadExamples()));
 
-    KAction* openExample =new KAction(i18n("&Open Example"), actionCollection());
-    openExample->setIcon(KIcon("document-open"));
-    actionCollection()->addAction("file_example_open", openExample);
+    QAction * openExample =new QAction(i18n("&Open Example"), actionCollection());
+    openExample->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
+    actionCollection()->addAction(QLatin1String("file_example_open"), openExample);
     connect(openExample, SIGNAL(triggered()), this, SLOT(openExample()));
 }
 
@@ -160,9 +162,9 @@ void CantorShell::readProperties(const KConfigGroup & /*config*/)
 
 void CantorShell::fileNew()
 {
-    if (sender()->inherits("KAction"))
+    if (sender()->inherits("QAction"))
     {
-        KAction* a = qobject_cast<KAction*>(sender());
+        QAction * a = qobject_cast<QAction*>(sender());
         QString backendName = a->data().toString();
         if (!backendName.isEmpty())
         {
@@ -234,13 +236,13 @@ void CantorShell::addWorksheet()
     }else
     {
         KTextBrowser *browser=new KTextBrowser(this);
-        QString backendList="<ul>";
+        QString backendList=QLatin1String("<ul>");
         int backendListSize = 0;
         foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
         {
             if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
             {
-                backendList+=QString("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
+                backendList+=QString::fromLatin1("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
                 ++backendListSize;
             }
         }
@@ -263,7 +265,7 @@ void CantorShell::addWorksheet()
                               , backendListSize, backendList
                               ));
 
-        browser->setObjectName("ErrorMessage");
+        browser->setObjectName(QLatin1String("ErrorMessage"));
         m_tabWidget->addTab(browser, i18n("Error"));
     }
 }
@@ -275,7 +277,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KPluginFactory* factory = KPluginLoader("libcantorpart").factory();
+    KPluginFactory* factory = KPluginLoader(QLatin1String("libcantorpart")).factory();
     if (factory)
     {
         // now that the Part is loaded, we cast it to a Part to get
@@ -284,7 +286,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            connect(part, SIGNAL(setCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
+            connect(part, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
 
             m_parts.append(part);
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
@@ -292,7 +294,7 @@ void CantorShell::addWorksheet(const QString& backendName)
         }
         else
         {
-            kDebug()<<"error creating part ";
+            qDebug()<<"error creating part ";
         }
 
     }
@@ -311,7 +313,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
 void CantorShell::activateWorksheet(int index)
 {
-    QObject* pluginHandler=m_part->findChild<QObject*>("PanelPluginHandler");
+    QObject* pluginHandler=m_part->findChild<QObject*>(QLatin1String("PanelPluginHandler"));
     disconnect(pluginHandler,SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
 
     m_part=findPart(m_tabWidget->widget(index));
@@ -319,12 +321,12 @@ void CantorShell::activateWorksheet(int index)
     {
         createGUI(m_part);
 
-        QObject* pluginHandler=m_part->findChild<QObject*>("PanelPluginHandler");
+        QObject* pluginHandler=m_part->findChild<QObject*>(QLatin1String("PanelPluginHandler"));
         connect(pluginHandler, SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
         updatePanel();
     }
     else
-        kDebug()<<"selected part doesn't exist";
+        qDebug()<<"selected part doesn't exist";
 
     m_tabWidget->setCurrentIndex(index);
 }
@@ -351,7 +353,7 @@ void CantorShell::closeTab(QWidget* widget)
 
     m_tabWidget->removeTab(index);
 
-    if(widget->objectName()=="ErrorMessage")
+    if(widget->objectName()==QLatin1String("ErrorMessage"))
     {
         widget->deleteLater();
     }else
@@ -367,13 +369,13 @@ void CantorShell::closeTab(QWidget* widget)
 
 void CantorShell::showSettings()
 {
-    KConfigDialog *dialog = new KConfigDialog(this,  "settings", Settings::self());
+    KConfigDialog *dialog = new KConfigDialog(this,  QLatin1String("settings"), Settings::self());
     QWidget *generalSettings = new QWidget;
     Ui::SettingsBase base;
     base.setupUi(generalSettings);
     base.kcfg_DefaultBackend->addItems(Cantor::Backend::listAvailableBackends());
 
-    dialog->addPage(generalSettings, i18n("General"), "preferences-other");
+    dialog->addPage(generalSettings, i18n("General"), QLatin1String("preferences-other"));
     foreach(Cantor::Backend* backend, Cantor::Backend::availableBackends())
     {
         if (backend->config()) //It has something to configure, so add it to the dialog
@@ -389,15 +391,15 @@ void CantorShell::downloadExamples()
     dialog.exec();
     foreach (const KNS3::Entry& e,  dialog.changedEntries())
     {
-        kDebug() << "Changed Entry: " << e.name();
+        qDebug() << "Changed Entry: " << e.name();
     }
 }
 
 void CantorShell::openExample()
 {
-    QString dir = KStandardDirs::locateLocal("appdata",  "examples");
+    QString dir = KStandardDirs::locateLocal("appdata",  QLatin1String("examples"));
     if (dir.isEmpty()) return;
-    KStandardDirs::makeDir(dir);
+    QDir().mkpath(dir);
 
     QStringList files=QDir(dir).entryList(QDir::Files);
     QPointer<KDialog> dlg=new KDialog(this);
@@ -405,7 +407,7 @@ void CantorShell::openExample()
     foreach(const QString& file, files)
     {
         QString name=file;
-        name.remove(QRegExp("-.*\\.hotstuff-access$"));
+        name.remove(QRegExp(QLatin1String("-.*\\.hotstuff-access$")));
         list->addItem(name);
     }
 
@@ -418,7 +420,7 @@ void CantorShell::openExample()
         url.setDirectory(dir);
         url.setFileName(selectedFile);
 
-        kDebug()<<"loading file "<<url;
+        qDebug()<<"loading file "<<url;
         load(url);
     }
 
@@ -437,9 +439,9 @@ KParts::ReadWritePart* CantorShell::findPart(QWidget* widget)
 
 void CantorShell::updatePanel()
 {
-    kDebug()<<"updating panels";
+    qDebug()<<"updating panels";
 
-    unplugActionList("view_show_panels");
+    unplugActionList(QLatin1String("view_show_panel_list"));
 
     //remove all of the previous panels (but do not delete the widgets)
     foreach(QDockWidget* dock, m_panels)
@@ -456,10 +458,10 @@ void CantorShell::updatePanel()
 
     QList<QAction*> panelActions;
 
-    Cantor::PanelPluginHandler* handler=m_part->findChild<Cantor::PanelPluginHandler*>("PanelPluginHandler");
+    Cantor::PanelPluginHandler* handler=m_part->findChild<Cantor::PanelPluginHandler*>(QLatin1String("PanelPluginHandler"));
     if(!handler)
     {
-        kDebug()<<"no PanelPluginHandle found for this part";
+        qDebug()<<"no PanelPluginHandle found for this part";
         return;
     }
 
@@ -470,11 +472,11 @@ void CantorShell::updatePanel()
     {
         if(plugin==0)
         {
-            kDebug()<<"somethings wrong";
+            qDebug()<<"somethings wrong";
             continue;
         }
 
-        kDebug()<<"adding panel for "<<plugin->name();
+        qDebug()<<"adding panel for "<<plugin->name();
         plugin->setParentWidget(this);
 
         QDockWidget* docker=new QDockWidget(plugin->name(), this);
@@ -495,18 +497,18 @@ void CantorShell::updatePanel()
 
     }
 
-    plugActionList("view_show_panel_list", panelActions);
+    plugActionList(QLatin1String("view_show_panel_list"), panelActions);
 
-    unplugActionList("new_worksheet_with_backend_list");
+    unplugActionList(QLatin1String("new_worksheet_with_backend_list"));
     QList<QAction*> newBackendActions;
     foreach (Cantor::Backend* backend, Cantor::Backend::availableBackends())
     {
         if (!backend->isEnabled())
             continue;
-        KAction* action = new KAction(KIcon(backend->icon()), backend->name(), 0);
+        QAction * action = new QAction(QIcon::fromTheme(backend->icon()), backend->name(), 0);
         action->setData(backend->name());
         connect(action, SIGNAL(triggered()), this, SLOT(fileNew()));
         newBackendActions << action;
     }
-    plugActionList("new_worksheet_with_backend_list", newBackendActions);
+    plugActionList(QLatin1String("new_worksheet_with_backend_list"), newBackendActions);
 }

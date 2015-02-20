@@ -28,7 +28,7 @@ class MaximaHistoryExtension : public Cantor::HistoryExtension
   public:
     MaximaHistoryExtension( QObject* parent );
     ~MaximaHistoryExtension();
-  public slots:
+  public Q_SLOTS:
     QString lastResult();
 };
 
@@ -37,7 +37,7 @@ class MaximaScriptExtension : public Cantor::ScriptExtension
   public:
     MaximaScriptExtension(QObject* parent);
     ~MaximaScriptExtension();
-  public slots:
+  public Q_SLOTS:
     virtual QString runExternalScript(const QString& file);
     virtual QString scriptFileFilter();
     virtual QString highlightingMode();
@@ -52,7 +52,7 @@ class MaximaCASExtension : public Cantor::CASExtension
     MaximaCASExtension( QObject* parent);
     ~MaximaCASExtension();
 
-  public slots:
+  public Q_SLOTS:
     virtual QString solve(const QStringList& equations, const QStringList& variables);
     virtual QString simplify(const QString& expression);
     virtual QString expand(const QString& expression);
@@ -65,7 +65,7 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
     MaximaCalculusExtension( QObject* parent);
     ~MaximaCalculusExtension();
 
-  public slots:
+  public Q_SLOTS:
     QString limit(const QString& expression, const QString& variable, const QString& limit);
     QString differentiate(const QString& function,const QString& variable, int times);
     QString integrate(const QString& function, const QString& variable);
@@ -80,7 +80,7 @@ class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
     MaximaLinearAlgebraExtension(QObject* parent);
     ~MaximaLinearAlgebraExtension();
 
-  public slots:
+  public Q_SLOTS:
     //Commands to create Vectors/Matrices
     virtual QString createVector(const QStringList& entries, VectorType type);
     virtual QString createMatrix(const Matrix& matrix);
@@ -100,7 +100,7 @@ class MaximaPlotExtension : public Cantor::PlotExtension
   public:
     MaximaPlotExtension(QObject* parent);
     ~MaximaPlotExtension();
-  public slots:
+  public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
     QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
 };
@@ -111,7 +111,7 @@ class MaximaVariableManagementExtension : public Cantor::VariableManagementExten
     MaximaVariableManagementExtension( QObject* parent );
     ~MaximaVariableManagementExtension();
 
-  public slots:
+  public Q_SLOTS:
     virtual QString addVariable(const QString& name, const QString& value);
     virtual QString setValue(const QString& name,const QString& value);
     virtual QString removeVariable(const QString& name);

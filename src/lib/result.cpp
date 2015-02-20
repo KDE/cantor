@@ -49,10 +49,10 @@ QString Result::toLatex()
 {
     QString html=toHtml();
     //replace linebreaks
-    html.replace(QRegExp("<br/>[\n]"), "\n");
+    html.replace(QRegExp(QLatin1String("<br/>[\n]")), QLatin1String("\n"));
     //remove all the unknown tags
-    html.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
-    return QString("\\begin{verbatim} %1 \\end{verbatim}").arg(html);
+    html.remove( QRegExp( QLatin1String("<[a-zA-Z\\/][^>]*>") ) );
+    return QString::fromLatin1("\\begin{verbatim} %1 \\end{verbatim}").arg(html);
 }
 
 void Result::saveAdditionalData(KZip* archive)

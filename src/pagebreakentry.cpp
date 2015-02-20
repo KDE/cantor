@@ -24,7 +24,7 @@
 #include <QTextCharFormat>
 #include <QPalette>
 #include <KColorScheme>
-#include <klocale.h>
+#include <KLocale>
 
 PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
   : WorksheetEntry(worksheet)
@@ -55,7 +55,7 @@ int PageBreakEntry::type() const
     return Type;
 }
 
-void PageBreakEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void PageBreakEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     WorksheetEntry::populateMenu(menu, pos);
 }
@@ -82,7 +82,7 @@ QDomElement PageBreakEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
 
-    QDomElement pgbrk = doc.createElement("PageBreak");
+    QDomElement pgbrk = doc.createElement(QLatin1String("PageBreak"));
     return pgbrk;
 }
 
@@ -90,7 +90,7 @@ QString PageBreakEntry::toPlain(const QString& commandSep, const QString& commen
 {
     Q_UNUSED(commandSep);
 
-    return commentStartingSeq + "page break" + commentEndingSeq;
+    return commentStartingSeq + QLatin1String("page break") + commentEndingSeq;
 }
 
 void PageBreakEntry::interruptEvaluation()
@@ -153,4 +153,4 @@ bool PageBreakEntry::wantFocus()
     return false;
 }
 
-#include "pagebreakentry.moc"
+

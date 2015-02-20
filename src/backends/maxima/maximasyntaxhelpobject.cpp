@@ -26,7 +26,7 @@
 
 #include "result.h"
 
-#include <kdebug.h>
+#include <QDebug>
 
 MaximaSyntaxHelpObject::MaximaSyntaxHelpObject(const QString& cmd, MaximaSession* session) : Cantor::SyntaxHelpObject(cmd, session)
 {
@@ -60,15 +60,15 @@ void MaximaSyntaxHelpObject::fetchInformation()
         //use the lisp command, instead of directly calling the
         //maxima function "describe" to avoid generating a new
         //output label that would mess up history
-        QString cmd=":lisp(cl-info::info-exact \"%1\")";
+        QString cmd=QLatin1String(":lisp(cl-info::info-exact \"%1\")");
 
         m_expression=session()->evaluateExpression(cmd.arg(command()));
 
-        connect(m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
 
     }else
     {
-        kDebug()<<"invalid syntax request";
+        qDebug()<<"invalid syntax request";
         emit done();
     }
 }
@@ -77,33 +77,33 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
 {
     if(status==Cantor::Expression::Done)
     {
-        kDebug()<<"expr done";
+        qDebug()<<"expr done";
         QString text=m_expression->result()->toHtml();
-        QStringList lines=text.split('\n');
+        QStringList lines=text.split(QLatin1Char('\n'));
 
         QString syntax;
         foreach(QString line, lines) // krazy:exclude=foreach
         {
             line=line.trimmed();
-            if(line.endsWith('\r'))
+            if(line.endsWith(QLatin1Char('\r')))
                 line.chop(1);
             if(line.startsWith(QLatin1String("-- Function:")))
             {
-                line.remove("-- Function:");
-                line.remove("<br/>");
-                syntax+=line.trimmed()+'\n';
+                line.remove(QLatin1String("-- Function:"));
+                line.remove(QLatin1String("<br/>"));
+                syntax+=line.trimmed()+QLatin1Char('\n');
             }else
                  break;
         }
 
-        setHtml("<p style='white-space:pre'>"+syntax+"</p>");
+        setHtml(QLatin1String("<p style='white-space:pre'>")+syntax+QLatin1String("</p>"));
         emit done();
 
         m_expression->deleteLater();
         m_expression=0;
     }else
     {
-        kDebug()<<"not done: "<<status;
+        qDebug()<<"not done: "<<status;
     }
 }
 

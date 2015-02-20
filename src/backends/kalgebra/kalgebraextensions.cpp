@@ -38,5 +38,5 @@ QString KAlgebraVariableManagementExtension::addVariable(const QString& name, co
 
 QString KAlgebraVariableManagementExtension::setValue(const QString& name,const QString& value)
 {
-    return QString("%1:=%2").arg(name, value);
+    return QString::fromLatin1("%1:=%2").arg(name, value);
 }

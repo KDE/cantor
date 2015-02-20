@@ -49,7 +49,7 @@ void RCompletionObject::receiveCompletions(const QString& token,const QStringLis
         /* Adding previous symbol to token, ugly but effective */
         QString lastchar(command()[command().length()-1]);
         setCommand(lastchar);
-        setCompletions(QStringList(options).replaceInStrings(QRegExp("^"),lastchar));
+        setCompletions(QStringList(options).replaceInStrings(QRegExp(QLatin1String("^")),lastchar));
     }
     else
     {

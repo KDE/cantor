@@ -23,7 +23,6 @@
 #include <luajit-2.0/lua.hpp> // need the luajit-2.0 prefix to avoid conflicts with Lua 5.2
 #include <QString>
 #include <QStringList>
-#include <kdebug.h>
 
 QString luahelper_tostring(lua_State* L, int idx)
 {
@@ -66,7 +65,7 @@ QString luahelper_getprinted(lua_State* L)
     return printed;
 }
 
-static void luahelper_getkeys(lua_State* L, QStringList& list, const QString& prefix = "")
+static void luahelper_getkeys(lua_State* L, QStringList& list, const QString& prefix = QLatin1String(""))
 {
     if(lua_type(L, -1) == LUA_TTABLE)
     {
@@ -90,13 +89,13 @@ QStringList luahelper_completion(lua_State* L, const QString& name)
 
     QStringList list;
 
-    QStringList sections = name.split(QRegExp("\\.|:"));
+    QStringList sections = name.split(QRegExp(QLatin1String("\\.|:")));
     QString table, prefix;
 
     if(sections.size() == 1)            // global table
     {
         list = luahelper_keywords();
-        table = "_G";
+        table = QLatin1String("_G");
     }
     else
     {
@@ -142,7 +141,7 @@ QStringList luahelper_keywords()
     QStringList list;
 
     for(int i = 0; keywords[i]; ++i)
-        list << QString(keywords[i]);
+        list << QString::fromLatin1(keywords[i]);
 
     return list;
 }
@@ -166,7 +165,7 @@ QStringList luahelper_functions()
     QStringList list;
 
     for(int i = 0; functions[i]; ++i)
-        list << QString(functions[i]);
+        list << QString::fromLatin1(functions[i]);
 
     return list;
 }
@@ -179,7 +178,7 @@ QStringList luahelper_variables()
     QStringList list;
 
     for(int i = 0; variables[i]; ++i)
-        list << QString(variables[i]);
+        list << QString::fromLatin1(variables[i]);
 
     return list;
 }

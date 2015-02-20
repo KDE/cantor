@@ -51,7 +51,7 @@ class RServer : public QObject
     QString requestInput(const QString& prompt);
     void showFiles(const QStringList& files);
 
-  signals:
+  Q_SIGNALS:
     void ready();
     void statusChanged(int status);
     void expressionFinished(int returnCode, const QString& text);
@@ -61,13 +61,13 @@ class RServer : public QObject
 
     void requestAnswered();
     void symbolList(const QStringList& variables, const QStringList& functions);
-    
-  public slots:
+
+  public Q_SLOTS:
     void runCommand(const QString& cmd, bool internal=false);
     void answerRequest(const QString& answer);
     void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
     void listSymbols();
-    
+
   private:
     void setStatus(Status status);
     void newPlotDevice();
@@ -77,7 +77,7 @@ class RServer : public QObject
     Status m_status;
     QString m_requestCache;
     QString m_tmpDir;
-    QString m_curPlotFile;   
+    QString m_curPlotFile;
 };
 
 #endif /* _RSERVER_H */

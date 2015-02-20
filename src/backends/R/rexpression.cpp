@@ -27,16 +27,17 @@
 #include "rsession.h"
 
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kmimetype.h>
+#include <QDebug>
+#include <KLocale>
+#include <QMimeType>
+#include <QMimeDatabase>
 #include <QFile>
 #include <QStringList>
 #include <QTextDocument>
 
 RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    kDebug();
+    qDebug();
 
 }
 
@@ -48,9 +49,9 @@ RExpression::~RExpression()
 
 void RExpression::evaluate()
 {
-    kDebug()<<"evaluating "<<command();
+    qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
-    if(command().startsWith('?'))
+    if(command().startsWith(QLatin1Char('?')))
         m_isHelpRequest=true;
     else
         m_isHelpRequest=false;
@@ -60,7 +61,7 @@ void RExpression::evaluate()
 
 void RExpression::interrupt()
 {
-    kDebug()<<"interrupting command";
+    qDebug()<<"interrupting command";
     if(status()==Cantor::Expression::Computing)
         session()->interrupt();
     setStatus(Cantor::Expression::Interrupted);
@@ -92,22 +93,25 @@ void RExpression::addInformation(const QString& information)
 
 void RExpression::showFilesAsResult(const QStringList& files)
 {
-    kDebug()<<"showing files: "<<files;
+    qDebug()<<"showing files: "<<files;
     foreach(const QString& file, files)
     {
-        KMimeType::Ptr type=KMimeType::findByUrl(file);
-        kDebug()<<"MimeType: "<<type->name();
-        if(type->is("application/postscript"))
+        QMimeType type;
+        QMimeDatabase db;
+
+        type=db.mimeTypeForUrl(QUrl(file));
+        qDebug()<<"MimeType: "<<type.name();
+        if(type.inherits(QLatin1String("application/postscript")))
         {
-            kDebug()<<"its PostScript";
+            qDebug()<<"its PostScript";
             setResult(new Cantor::EpsResult(file));
-        } else if(type->is("text/plain"))
+        } else if(type.inherits(QLatin1String("text/plain")))
         {
             //Htmls are also plain texts, combining this in one
-            if(type->is("text/html"))
-                kDebug()<<"its a HTML document";
+            if(type.inherits(QLatin1String("text/html")))
+                qDebug()<<"its a HTML document";
             else
-                kDebug()<<"its plain text";
+                qDebug()<<"its plain text";
 
             QFile f(file);
             if (!f.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -117,24 +121,24 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 setStatus(Cantor::Expression::Error);
             }
             QString content=QTextStream(&f).readAll();
-            if (!type->is("text/html"))
+            if (!type.inherits(QLatin1String("text/html")))
             {
                 //Escape whitespace
-                content.replace( ' ', "&nbsp;");
+                content.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
                 //replace appearing backspaces, as they mess the whole output up
-                content.remove(QRegExp(".\b"));
+                content.remove(QRegExp(QLatin1String(".\b")));
                 //Replace < and > with their html code, so they won't be confused as html tags
-                content.replace( '<' ,  "&lt;");
-                content.replace( '>' ,  "&gt;");
+                content.replace( QLatin1Char('<') ,  QLatin1String("&lt;"));
+                content.replace( QLatin1Char('>') ,  QLatin1String("&gt;"));
             }
 
-            kDebug()<<"content: "<<content;
+            qDebug()<<"content: "<<content;
             if(m_isHelpRequest)
                 setResult(new Cantor::HelpResult(content));
             else
                 setResult(new Cantor::TextResult(content));
 	    setStatus(Cantor::Expression::Done);
-        }else if (type->name().contains("image"))
+        }else if (type.name().contains(QLatin1String("image")))
         {
             setResult(new Cantor::ImageResult(file));
 	    setStatus(Cantor::Expression::Done);

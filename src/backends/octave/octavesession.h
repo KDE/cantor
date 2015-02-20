@@ -21,10 +21,10 @@
 #define OCTAVESESSION_H
 
 #include <session.h>
-#include <QtCore/QQueue>
-#include <QtCore/QTextStream>
-#include <QtCore/QRegExp>
-#include <QtCore/QPointer>
+#include <QQueue>
+#include <QTextStream>
+#include <QRegExp>
+#include <QPointer>
 
 namespace Cantor {
 class DefaultVariableModel;

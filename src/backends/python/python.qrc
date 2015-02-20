@@ -1,0 +1,13 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+ <qresource prefix="/xml">
+     <file>keywords.xml</file>
+ </qresource>
+ <qresource prefix="/py">
+     <file>import_default_modules.py</file>
+     <file>init.py</file>
+     <file>variables_cleaner.py</file>
+     <file>variables_loader.py</file>
+     <file>variables_saver.py</file>
+ </qresource>
+</RCC>

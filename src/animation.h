@@ -42,7 +42,7 @@ class Animation : public QObject
     void setPosition(const QTextCursor& cursor);
     QTextCursor position();
 
-  public slots:
+  public Q_SLOTS:
     void movieFrameChanged();
 
   private:

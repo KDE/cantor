@@ -26,6 +26,7 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QMimeData>
 #include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
 #include <QTextCursor>
@@ -34,12 +35,13 @@
 #include <QGraphicsSceneResizeEvent>
 #include <QtGlobal>
 
-#include <kdebug.h>
-#include <kglobalsettings.h>
+#include <QDebug>
+#include <KGlobalSettings>
 #include <KStandardAction>
-#include <KAction>
+#include <QAction>
 #include <KColorDialog>
 #include <KColorScheme>
+#include <QFontDatabase>
 
 WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
@@ -57,13 +59,12 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     m_size = document()->size();;
     m_maxWidth = -1;
     setAcceptDrops(true);
-    setFont(KGlobalSettings::fixedFont());
+    setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
-    connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
-            SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
+    connect(this, SIGNAL(menuCreated(QMenu*, const QPointF&)), parent,
+            SLOT(populateMenu(QMenu*, const QPointF&)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
-    connect(this, SIGNAL(cursorPositionChanged(QTextCursor)), this,
-            SLOT(updateRichTextActions(QTextCursor)));
+    connect(this, &WorksheetTextItem::cursorPositionChanged, this, &WorksheetTextItem::updateRichTextActions);
     connect(document(), SIGNAL(undoAvailable(bool)),
             this, SIGNAL(undoAvailable(bool)));
     connect(document(), SIGNAL(redoAvailable(bool)),
@@ -145,12 +146,12 @@ qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     return m_size.height();
 }
 
-void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
+void WorksheetTextItem::populateMenu(QMenu *menu, const QPointF& pos)
 {
-    kDebug() << "populate Menu";
-    KAction* cut = KStandardAction::cut(this, SLOT(cut()), menu);
-    KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
-    KAction* paste = KStandardAction::paste(this, SLOT(paste()), menu);
+    qDebug() << "populate Menu";
+    QAction * cut = KStandardAction::cut(this, SLOT(cut()), menu);
+    QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
+    QAction * paste = KStandardAction::paste(this, SLOT(paste()), menu);
     if (!textCursor().hasSelection()) {
         cut->setEnabled(false);
         copy->setEnabled(false);
@@ -180,8 +181,8 @@ void WorksheetTextItem::populateMenu(KMenu *menu, const QPointF& pos)
 QKeyEvent* WorksheetTextItem::eventForStandardAction(KStandardAction::StandardAction actionID)
 {
     // there must be a better way to get the shortcut...
-    KAction* action = KStandardAction::create(actionID, this, 0, this);
-    QKeySequence keySeq = action->shortcut().primary();
+    QAction * action = KStandardAction::create(actionID, this, 0, this);
+    QKeySequence keySeq = action->shortcut();
     // we do not support key sequences with multiple keys here
     int code = keySeq[0];
     const int ModMask = Qt::ShiftModifier | Qt::ControlModifier |
@@ -272,7 +273,7 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
         if (var.isValid())
             delim = qVariantValue<QString>(var);
         else
-            delim = "";
+            delim = QLatin1String("");
         result += delim + qVariantValue<QString>(cursor2.charFormat().property(EpsRenderer::Code)) + delim;
         cursor1.setPosition(cursor2.selectionEnd());
     }
@@ -402,8 +403,8 @@ void WorksheetTextItem::setFocusAt(int pos, qreal xCoord)
             line = document()->firstBlock().layout()->lineAt(0);
         } else {
             QTextLayout* layout = document()->lastBlock().layout();
-            kDebug() << document()->blockCount() << "blocks";
-            kDebug() << document()->lastBlock().lineCount() << "lines in last block";
+            qDebug() << document()->blockCount() << "blocks";
+            qDebug() << document()->lastBlock().lineCount() << "lines in last block";
             line = layout->lineAt(document()->lastBlock().lineCount()-1);
         }
         qreal x = mapFromScene(xCoord, 0).x();
@@ -434,14 +435,14 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Left:
         if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {
             emit moveToPrevious(BottomRight, 0);
-            kDebug()<<"Reached leftmost valid position";
+            qDebug()<<"Reached leftmost valid position";
             return;
         }
         break;
     case Qt::Key_Right:
         if (event->modifiers() == Qt::NoModifier && textCursor().atEnd()) {
             emit moveToNext(TopLeft, 0);
-            kDebug()<<"Reached rightmost valid position";
+            qDebug()<<"Reached rightmost valid position";
             return;
         }
         break;
@@ -449,7 +450,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         if (event->modifiers() == Qt::NoModifier && !textCursor().movePosition(QTextCursor::Up)) {
             qreal x = mapToScene(localCursorPosition()).x();
             emit moveToPrevious(BottomCoord, x);
-            kDebug()<<"Reached topmost valid position" << localCursorPosition().x();
+            qDebug()<<"Reached topmost valid position" << localCursorPosition().x();
             return;
         }
         break;
@@ -457,7 +458,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         if (event->modifiers() == Qt::NoModifier && !textCursor().movePosition(QTextCursor::Down)) {
             qreal x = mapToScene(localCursorPosition()).x();
             emit moveToNext(TopCoord, x);
-            kDebug()<<"Reached bottommost valid position" << localCursorPosition().x();
+            qDebug()<<"Reached bottommost valid position" << localCursorPosition().x();
             return;
         }
         break;
@@ -469,7 +470,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         }
         break;
     case Qt::Key_Tab:
-        kDebug() << "Tab";
+        qDebug() << "Tab";
         break;
     default:
         break;
@@ -503,7 +504,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
         QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
         QKeySequence seq(kev->key() + kev->modifiers());
         if (worksheet()->isShortcut(seq)) {
-            kDebug() << "ShortcutOverride" << kev->key() << kev->modifiers();
+            qDebug() << "ShortcutOverride" << kev->key() << kev->modifiers();
             kev->ignore();
             return false;
         }
@@ -614,7 +615,7 @@ void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 
 void WorksheetTextItem::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
-    if (isEditable() && event->mimeData()->hasFormat("text/plain")) {
+    if (isEditable() && event->mimeData()->hasFormat(QLatin1String("text/plain"))) {
         if (event->proposedAction() & (Qt::CopyAction | Qt::MoveAction)) {
             event->acceptProposedAction();
         } else if (event->possibleActions() & Qt::CopyAction) {
@@ -633,14 +634,14 @@ void WorksheetTextItem::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 
 void WorksheetTextItem::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 {
-    if (isEditable() && event->mimeData()->hasFormat("text/plain"))
+    if (isEditable() && event->mimeData()->hasFormat(QLatin1String("text/plain")))
         setLocalCursorPosition(mapFromScene(event->scenePos()));
 }
 
 void WorksheetTextItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 {
     if (isEditable()) {
-        if (richTextEnabled() && event->mimeData()->hasFormat("text/html"))
+        if (richTextEnabled() && event->mimeData()->hasFormat(QLatin1String("text/html")))
             textCursor().insertHtml(event->mimeData()->html());
         else
             textCursor().insertText(event->mimeData()->text());
@@ -650,7 +651,7 @@ void WorksheetTextItem::dropEvent(QGraphicsSceneDragDropEvent* event)
 
 void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    KMenu *menu = worksheet()->createContextMenu();
+    QMenu *menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
@@ -663,7 +664,7 @@ void WorksheetTextItem::insertTab()
     cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
     QString sel = cursor.selectedText();
     bool spacesOnly = true;
-    kDebug() << sel;
+    qDebug() << sel;
     for (QString::iterator it = sel.begin(); it != sel.end(); ++it) {
         if (! it->isSpace()) {
             spacesOnly = false;
@@ -673,19 +674,21 @@ void WorksheetTextItem::insertTab()
 
     cursor.setPosition(cursor.selectionEnd());
     if (spacesOnly) {
-        while (document()->characterAt(cursor.position()) == ' ')
+        while (document()->characterAt(cursor.position()) == QLatin1Char(' '))
             cursor.movePosition(QTextCursor::NextCharacter);
     }
 
     QTextLayout *layout = textCursor().block().layout();
     if (!layout) {
-        cursor.insertText("    ");
+        cursor.insertText(QLatin1String("    "));
     } else {
         cursor.movePosition(QTextCursor::StartOfLine, QTextCursor::KeepAnchor);
         int i = cursor.selectionEnd() - cursor.selectionStart();
         i = ((i+4) & (~3)) - i;
         cursor.setPosition(cursor.selectionEnd());
-        cursor.insertText(QString(' ').repeated(i));
+
+        QString insertBlankSpace = QLatin1String(" ");
+        cursor.insertText(insertBlankSpace.repeated(i));
     }
     setTextCursor(cursor);
     emit cursorPositionChanged(textCursor());
@@ -790,7 +793,7 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
 
 void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
-    kDebug() << format;
+    qDebug() << format;
     QTextCursor cursor = textCursor();
     QTextCursor wordStart(cursor);
     QTextCursor wordEnd(cursor);
@@ -895,4 +898,4 @@ void WorksheetTextItem::setFontSize(int size)
     mergeFormatOnWordOrSelection(fmt);
 }
 
-#include "worksheettextitem.moc"
+

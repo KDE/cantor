@@ -58,11 +58,11 @@ class LatexEntry : public WorksheetEntry
                            QTextDocument::FindFlags qt_flags,
                            const WorksheetCursor& pos = WorksheetCursor());
 
-  public slots:
+  public Q_SLOTS:
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void resolveImagesAtCursor();
     void updateEntry();
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();

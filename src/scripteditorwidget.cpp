@@ -20,24 +20,26 @@
 
 #include "scripteditorwidget.h"
 
-#include <ktemporaryfile.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kmessagebox.h>
-#include <kfiledialog.h>
-#include <kaction.h>
-#include <kstandardaction.h>
-#include <kactioncollection.h>
-#include <kxmlguifactory.h>
-#include <kglobal.h>
-#include <kconfiggroup.h>
+#include <KUrl>
+
+#include <KTemporaryFile>
+#include <KLocale>
+#include <QDebug>
+#include <KMessageBox>
+#include <KFileDialog>
+#include <QAction>
+#include <KStandardAction>
+#include <KActionCollection>
+#include <KXMLGUIFactory>
+#include <KGlobal>
+#include <KConfigGroup>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
-#include <KTextEditor/EditorChooser>
+// #include <KTextEditor/EditorChooser>
 
 ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent)
 {
-    setObjectName("ScriptEditor");
+    setObjectName(QLatin1String("ScriptEditor"));
 
     m_filter=filter;
     m_tmpFile=0;
@@ -45,11 +47,11 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
     KStandardAction::openNew(this, SLOT(newScript()), actionCollection());
     KStandardAction::open(this, SLOT(open()), actionCollection());
     KStandardAction::close(this, SLOT(close()), actionCollection());
-    KAction* runAction = actionCollection()->addAction("file_execute", this, SLOT(run()));
-    runAction->setIcon(KIcon("system-run"));
+    QAction * runAction = actionCollection()->addAction(QLatin1String("file_execute"), this, SLOT(run()));
+    runAction->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
     runAction->setText(i18n("Run Script"));
 
-    KTextEditor::Editor* editor = KTextEditor::EditorChooser::editor();
+    KTextEditor::Editor* editor = KTextEditor::Editor::instance();
     if (!editor)
     {
         KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
@@ -63,16 +65,16 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
 
         m_script->setHighlightingMode(highlightingMode);
 
-        KConfigGroup cg(KGlobal::config(), "ScriptEditor");
+        KConfigGroup cg(KSharedConfig::openConfig(), "ScriptEditor");
         setAutoSaveSettings(cg, true);
 
         setCentralWidget(m_editor);
-        setupGUI(QSize(500,600), Default, "cantor_scripteditor.rc");
+        setupGUI(QSize(500,600), Default, QLatin1String("cantor_scripteditor.rc"));
         guiFactory()->addClient(m_editor);
         restoreWindowSize(cg);
 
-        connect(m_script, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(updateCaption()));
-        connect(m_script, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(updateCaption()));
+        connect(m_script, &KTextEditor::Document::modifiedChanged, this, &ScriptEditorWidget::updateCaption);
+        connect(m_script, &KTextEditor::Document::documentUrlChanged, this, &ScriptEditorWidget::updateCaption);
         updateCaption();
     }
 }
@@ -120,7 +122,7 @@ void ScriptEditorWidget::run()
         filename=m_script->url().toLocalFile();
     }
 
-    kDebug()<<"running "<<filename;
+    qDebug()<<"running "<<filename;
     emit runScript(filename);
 }
 
@@ -145,4 +147,4 @@ void ScriptEditorWidget::updateCaption()
     }
 }
 
-#include "scripteditorwidget.moc"
+

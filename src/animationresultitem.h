@@ -37,7 +37,7 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
 
     using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w);
-    void populateMenu(KMenu* menu, const QPointF& pos);
+    void populateMenu(QMenu* menu, const QPointF& pos);
 
     ResultItem* updateFromResult(Cantor::Result* result);
 
@@ -49,10 +49,10 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     CommandEntry* parentEntry();
     Cantor::Result* result();
 
-  signals:
+  Q_SIGNALS:
     void removeResult();
 
-  protected slots:
+  protected Q_SLOTS:
     void saveResult();
     void stopMovie();
     void pauseMovie();
@@ -60,7 +60,7 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
   private:
     void setMovie(QMovie* movie);
 
-  private slots:
+  private Q_SLOTS:
     void updateFrame();
     void updateSize(const QSize& size);
 

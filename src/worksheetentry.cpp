@@ -28,15 +28,17 @@
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
 
+#include <QDrag>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
+#include <QMimeData>
 #include <QGraphicsProxyWidget>
 #include <QBitmap>
 
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
-#include <kdebug.h>
+#include <QDebug>
 
 struct AnimationData
 {
@@ -177,7 +179,7 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
 void WorksheetEntry::startDrag(const QPointF& grabPos)
 {
     QDrag* drag = new QDrag(worksheetView());
-    kDebug() << size();
+    qDebug() << size();
     const qreal scale = worksheet()->epsRenderer()->scale();
     QPixmap pixmap((size()*scale).toSize());
     pixmap.fill(QColor(255, 255, 255, 0));
@@ -294,18 +296,18 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
 
 void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    KMenu *menu = worksheet()->createContextMenu();
+    QMenu *menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
 }
 
-void WorksheetEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void WorksheetEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     if (!worksheet()->isRunning() && wantToEvaluate())
         menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
-    menu->addAction(KIcon("edit-delete"), i18n("Remove Entry"), this,
+    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"), this,
                     SLOT(startRemoving()), 0);
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
@@ -369,15 +371,14 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
         layOutForWidth(size().width(), true);
         newSize = size();
     }
-    kDebug() << oldSize << newSize;
+    qDebug() << oldSize << newSize;
 
     QPropertyAnimation* sizeAn = new QPropertyAnimation(this, "size", this);
     sizeAn->setDuration(200);
     sizeAn->setStartValue(oldSize);
     sizeAn->setEndValue(newSize);
     sizeAn->setEasingCurve(QEasingCurve::InOutQuad);
-    connect(sizeAn, SIGNAL(valueChanged(const QVariant&)),
-            this, SLOT(sizeAnimated()));
+    connect(sizeAn, &QPropertyAnimation::valueChanged, this, &WorksheetEntry::sizeAnimated);
     return sizeAn;
 }
 
@@ -406,8 +407,7 @@ void WorksheetEntry::animateSizeChange()
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::OutCubic);
     m_animation->animation = new QParallelAnimationGroup(this);
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
-    connect(m_animation->animation, SIGNAL(finished()),
-            this, SLOT(endAnimation()));
+    connect(m_animation->animation, &QAnimationGroup::finished, this, &WorksheetEntry::endAnimation);
     m_animation->animation->start();
 }
 
@@ -444,8 +444,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);
 
-    connect(m_animation->animation, SIGNAL(finished()),
-            this, SLOT(endAnimation()));
+    connect(m_animation->animation, &QAnimationGroup::finished, this, &WorksheetEntry::endAnimation);
 
     m_animation->animation->start();
 }
@@ -484,8 +483,7 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
     m_animation->animation->addAnimation(m_animation->opacAnimation);
 
-    connect(m_animation->animation, SIGNAL(finished()),
-            this, SLOT(endAnimation()));
+    connect(m_animation->animation, &QAnimationGroup::finished, this, &WorksheetEntry::endAnimation);
 
     m_animation->animation->start();
 }
@@ -555,9 +553,9 @@ void WorksheetEntry::invokeSlotOnObject(const char* slot, QObject* obj)
 {
     const QMetaObject* metaObj = obj->metaObject();
     const QByteArray normSlot = QMetaObject::normalizedSignature(slot);
-    const int slotIndex = metaObj->indexOfSlot(normSlot);
+    const int slotIndex = metaObj->indexOfSlot(normSlot.constData());
     if (slotIndex == -1)
-        kDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
+        qDebug() << "Warning: Tried to invoke an invalid slot:" << slot;
     const QMetaMethod method = metaObj->method(slotIndex);
     method.invoke(obj, Qt::DirectConnection);
 }
@@ -603,10 +601,8 @@ void WorksheetEntry::startRemoving()
     m_animation->sizeAnimation->setEndValue(QSizeF(size().width(), 0));
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::InOutQuad);
 
-    connect(m_animation->sizeAnimation, SIGNAL(valueChanged(const QVariant&)),
-            this, SLOT(sizeAnimated()));
-    connect(m_animation->sizeAnimation, SIGNAL(finished()),
-            this, SLOT(remove()));
+    connect(m_animation->sizeAnimation, &QPropertyAnimation::valueChanged, this, &WorksheetEntry::sizeAnimated);
+    connect(m_animation->sizeAnimation, &QPropertyAnimation::finished, this, &WorksheetEntry::remove);
 
     m_animation->opacAnimation = new QPropertyAnimation(this, "opacity", this);
     m_animation->opacAnimation->setDuration(300);
@@ -692,17 +688,17 @@ void WorksheetEntry::showActionBar()
     if (!m_actionBar) {
         m_actionBar = new ActionBar(this);
 
-        m_actionBar->addButton(KIcon("edit-delete"), i18n("Remove Entry"),
+        m_actionBar->addButton(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"),
                                this, SLOT(startRemoving()));
 
         WorksheetToolButton* dragButton;
-        dragButton = m_actionBar->addButton(KIcon("transform-move"),
+        dragButton = m_actionBar->addButton(QIcon::fromTheme(QLatin1String("transform-move")),
                                             i18n("Drag Entry"));
         connect(dragButton, SIGNAL(pressed()), this, SLOT(startDrag()));
 
         if (wantToEvaluate()) {
             QString toolTip = i18n("Evaluate Entry");
-            m_actionBar->addButton(KIcon("view-refresh"), toolTip,
+            m_actionBar->addButton(QIcon::fromTheme(QLatin1String("view-refresh")), toolTip,
                                    this, SLOT(evaluate()));
         }
 
@@ -718,8 +714,7 @@ void WorksheetEntry::showActionBar()
         m_actionBarAnimation->setKeyValueAt(0.666, 0);
         m_actionBarAnimation->setEndValue(1);
         m_actionBarAnimation->setDuration(600);
-        connect(m_actionBarAnimation, SIGNAL(finished()), this,
-                SLOT(deleteActionBarAnimation()));
+        connect(m_actionBarAnimation, &QPropertyAnimation::finished, this, &WorksheetEntry::deleteActionBarAnimation);
 
         m_actionBarAnimation->start();
     }
@@ -744,8 +739,7 @@ void WorksheetEntry::hideActionBar()
         m_actionBarAnimation->setEndValue(0);
         m_actionBarAnimation->setEasingCurve(QEasingCurve::Linear);
         m_actionBarAnimation->setDuration(200);
-        connect(m_actionBarAnimation, SIGNAL(finished()), this,
-                SLOT(deleteActionBar()));
+        connect(m_actionBarAnimation, &QPropertyAnimation::finished, this, &WorksheetEntry::deleteActionBar);
 
         m_actionBarAnimation->start();
     } else {
@@ -797,4 +791,4 @@ bool WorksheetEntry::wantFocus()
     return true;
 }
 
-#include "worksheetentry.moc"
+

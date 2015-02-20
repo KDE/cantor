@@ -29,26 +29,24 @@
 
 #include <QTextCursor>
 
-#include <kdebug.h>
-#include <kglobal.h>
+#include <QDebug>
+#include <KGlobal>
 #include <KStandardDirs>
 #include <KLocale>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
-    connect(m_textItem, SIGNAL(moveToPrevious(int, qreal)),
-            this, SLOT(moveToPreviousEntry(int, qreal)));
-    connect(m_textItem, SIGNAL(moveToNext(int, qreal)),
-            this, SLOT(moveToNextEntry(int, qreal)));
+    connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &LatexEntry::moveToPreviousEntry);
+    connect(m_textItem, &WorksheetTextItem::moveToNext, this, &LatexEntry::moveToNextEntry);
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_textItem, SIGNAL(doubleClick()), this, SLOT(resolveImagesAtCursor()));
+    connect(m_textItem, &WorksheetTextItem::doubleClick, this, &LatexEntry::resolveImagesAtCursor);
 }
 
 LatexEntry::~LatexEntry()
 {
 }
 
-void LatexEntry::populateMenu(KMenu *menu, const QPointF& pos)
+void LatexEntry::populateMenu(QMenu *menu, const QPointF& pos)
 {
     bool imageSelected = false;
     QTextCursor cursor = m_textItem->textCursor();
@@ -108,27 +106,27 @@ void LatexEntry::setContent(const QString& content)
 void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 {
     QString latexCode = content.text();
-    kDebug() << latexCode;
+    qDebug() << latexCode;
 
     m_textItem->document()->clear();
     QTextCursor cursor = m_textItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
 
-    if(content.hasAttribute("filename"))
+    if(content.hasAttribute(QLatin1String("filename")))
     {
-        const KArchiveEntry* imageEntry=file.directory()->entry(content.attribute("filename"));
+        const KArchiveEntry* imageEntry=file.directory()->entry(content.attribute(QLatin1String("filename")));
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+            QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
             imageFile->copyTo(dir);
             QString imagePath=QString(dir+QLatin1Char('/')+imageFile->name());
 
-            KUrl internal=KUrl(imagePath);
-            internal.setProtocol("internal");
+            QUrl internal=QUrl::fromLocalFile(imagePath);
+            internal.setScheme(QLatin1String("internal"));
 
-            QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), imagePath);
-            kDebug()<<"rendering successfull? " << !format.name().isEmpty();
+            QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
+            qDebug()<<"rendering successfull? " << !format.name().isEmpty();
 
 
             format.setProperty(EpsRenderer::CantorFormula,
@@ -150,7 +148,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
 
-    QDomElement el = doc.createElement("Latex");
+    QDomElement el = doc.createElement(QLatin1String("Latex"));
     el.appendChild( doc.createTextNode( latexCode() ));
     return el;
 }
@@ -164,8 +162,8 @@ QString LatexEntry::toPlain(const QString& commandSep, const QString& commentSta
 
     QString text = latexCode();
     if (!commentEndingSeq.isEmpty())
-        return commentStartingSeq + text + commentEndingSeq + "\n";
-    return commentStartingSeq + text.replace("\n", "\n" + commentStartingSeq) + "\n";
+        return commentStartingSeq + text + commentEndingSeq + QLatin1String("\n");
+    return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
 }
 
 void LatexEntry::interruptEvaluation()
@@ -208,7 +206,7 @@ bool LatexEntry::evaluate(EvaluationOption evalOp)
         delete renderer;
     }
 
-    kDebug()<<"rendering successfull? "<<success;
+    qDebug()<<"rendering successfull? "<<success;
 
     evaluateNext(evalOp);
     return success;
@@ -219,11 +217,11 @@ void LatexEntry::updateEntry()
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     while (!cursor.isNull())
     {
-        kDebug()<<"found a formula... rendering the eps...";
+        qDebug()<<"found a formula... rendering the eps...";
         QTextCharFormat format=cursor.charFormat();
         QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
         QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
-        kDebug()<<"rendering successfull? "<< !s.isValid();
+        qDebug()<<"rendering successfull? "<< !s.isValid();
 
         //HACK: reinsert this image, to make sure the layout is updated to the new size
         //cursor.removeSelectedText();
@@ -250,8 +248,8 @@ QString LatexEntry::latexCode()
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
 
     QString code = m_textItem->resolveImages(cursor);
-    code.replace(QChar::ParagraphSeparator, '\n'); //Replace the U+2029 paragraph break by a Normal Newline
-    code.replace(QChar::LineSeparator, '\n'); //Replace the line break by a Normal Newline
+    code.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
+    code.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
     return code;
 }
 

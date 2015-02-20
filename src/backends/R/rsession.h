@@ -49,13 +49,13 @@ class RSession : public Cantor::Session
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);
 
-  protected slots:
+  protected Q_SLOTS:
     void serverChangedStatus(int status);
     void runNextExpression();
     void receiveSymbols(const QStringList& v, const QStringList & f);
     void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
 
-  signals:
+  Q_SIGNALS:
     void symbolsChanged();
 
 

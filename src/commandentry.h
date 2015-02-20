@@ -85,7 +85,7 @@ class CommandEntry : public WorksheetEntry
                            QTextDocument::FindFlags qt_flags,
                            const WorksheetCursor& pos = WorksheetCursor());
 
-  public slots:
+  public Q_SLOTS:
     bool evaluateCurrentItem();
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void addInformation();
@@ -108,7 +108,7 @@ class CommandEntry : public WorksheetEntry
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
 
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos);
 
   protected:
     bool wantToEvaluate();
@@ -126,7 +126,7 @@ class CommandEntry : public WorksheetEntry
         PreliminaryCompletion,
         FinalCompletion
     };
-  private slots:
+  private Q_SLOTS:
     void invalidate();
     void resultDeleted();
     void updateCompletions();

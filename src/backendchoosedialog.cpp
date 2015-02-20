@@ -20,6 +20,10 @@
 
 #include "backendchoosedialog.h"
 
+#include <KLocale>
+#include <QIcon>
+#include <KIconLoader>
+
 #include "lib/backend.h"
 #include "settings.h"
 
@@ -32,8 +36,8 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
     QWidget* w=new QWidget(this);
     m_ui.setupUi(w);
     m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
-    connect(m_ui.backendList, SIGNAL(currentItemChanged ( QListWidgetItem *,  QListWidgetItem *)), this, SLOT(updateDescription()));
-    connect(m_ui.backendList, SIGNAL(itemDoubleClicked( QListWidgetItem *)), this, SLOT(accept()));
+    connect(m_ui.backendList, &KListWidget::currentItemChanged, this, &BackendChooseDialog::updateDescription);
+    connect(m_ui.backendList, &KListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
 
     foreach(Cantor::Backend* backend,  Cantor::Backend::availableBackends())
     {
@@ -42,7 +46,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
 
         QListWidgetItem* item=new QListWidgetItem(m_ui.backendList);
         item->setText(backend->name());
-        item->setIcon(KIcon(backend->icon()));
+        item->setIcon(QIcon::fromTheme(backend->icon()));
         m_ui.backendList->addItem(item);
         if(m_ui.backendList->currentItem() == 0)
             m_ui.backendList->setCurrentItem(item);
@@ -52,7 +56,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
     }
 
     setMainWidget(w);
-    connect(this, SIGNAL(accepted()), this, SLOT(onAccept()));
+    connect(this, &BackendChooseDialog::accepted, this, &BackendChooseDialog::onAccept);
 }
 
 BackendChooseDialog::~BackendChooseDialog()
@@ -65,7 +69,7 @@ void BackendChooseDialog::onAccept()
     if(m_ui.makeDefault->isChecked())
     {
         Settings::self()->setDefaultBackend(m_backend);
-        Settings::self()->writeConfig();
+        Settings::self()->save();
     }
 }
 
@@ -80,4 +84,4 @@ QString BackendChooseDialog::backendName()
     return m_backend;
 }
 
-#include "backendchoosedialog.moc"
+

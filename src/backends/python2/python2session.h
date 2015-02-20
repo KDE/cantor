@@ -15,75 +15,36 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2012 Filipe Saraiva <filipe@kde.org>
+    Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
 #ifndef _PYTHON2SESSION_H
 #define _PYTHON2SESSION_H
 
-#include "session.h"
-#include <QStringList>
-#include <QtCore/QPointer>
+#include "../python/pythonsession.h"
 
-#include <Python.h>
+struct _object;
+typedef _object PyObject;
 
-namespace Cantor {
-class DefaultVariableModel;
-}
-
-class Python2Expression;
-class KTemporaryFile;
-class KDirWatch;
-class KProcess;
-
-class Python2Session : public Cantor::Session
+class Python2Session : public PythonSession
 {
-  Q_OBJECT
   public:
-    Python2Session( Cantor::Backend* backend);
-    ~Python2Session();
+    Python2Session(Cantor::Backend* backend);
 
     void login();
-    void logout();
 
-    void interrupt();
-    void runExpression(Python2Expression* expr);
-
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
-    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
-    virtual QAbstractItemModel* variableModel();
-
-  public slots:
-    void readOutput(Python2Expression* expr, QString commandProcessing);
-    void plotFileChanged(QString filename);
+    bool integratePlots() const;
+    QStringList autorunScripts() const;
 
   private:
-    KDirWatch* m_watch;
-    QStringList m_listPlotName;
-    QString m_output;
-    QString m_error;
-    Cantor::DefaultVariableModel* m_variableModel;
+    void runPythonCommand(const QString& command) const;
+    QString getOutput() const;
+    QString getError() const;
 
+    QString pyObjectToQString(PyObject* obj) const;
+
+  private:
     PyObject *m_pModule;
-
-    QList<Python2Expression*> m_runningExpressions;
-    Python2Expression* m_currentExpression;
-
-    void listVariables();
-    void runClassOutputPython();
-
-    void getPythonCommandOutput(QString commandProcessing);
-
-    QString identifyPythonModule(QString command);
-    QString identifyVariableModule(QString command);
-    bool identifyKeywords(QString command);
-
-  private slots:
-    void expressionFinished();
-
-  signals:
-    void updateHighlighter();
 };
 
-#endif /* _PYTHON2SESSION_H */
+#endif

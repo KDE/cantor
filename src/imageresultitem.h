@@ -35,7 +35,7 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
 
     using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w);
-    void populateMenu(KMenu* menu, const QPointF& pos);
+    void populateMenu(QMenu* menu, const QPointF& pos);
 
     ResultItem* updateFromResult(Cantor::Result* result);
 
@@ -48,10 +48,10 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     CommandEntry* parentEntry();
     Cantor::Result* result();
 
-  signals:
+  Q_SIGNALS:
     void removeResult();
 
-  protected slots:
+  protected Q_SLOTS:
     void saveResult();
 };
 

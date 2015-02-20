@@ -1,8 +1,8 @@
-set( RunScriptAssistant_SRCS 
+set( RunScriptAssistant_SRCS
      runscriptassistant.cpp
 )
 
-kde4_add_plugin( cantor_runscriptassistant ${RunScriptAssistant_SRCS} )
+add_library( cantor_runscriptassistant MODULE ${RunScriptAssistant_SRCS} )
 target_link_libraries( cantor_runscriptassistant ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} cantorlibs)
 
 install( FILES runscriptassistant.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)

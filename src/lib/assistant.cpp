@@ -50,7 +50,7 @@ void Assistant::setPluginInfo(KPluginInfo info)
 {
     d->name=info.name();
     d->icon=info.icon();
-    d->requiredExtensions=info.property("RequiredExtensions").toStringList();
+    d->requiredExtensions=info.property(QLatin1String("RequiredExtensions")).toStringList();
 }
 
 

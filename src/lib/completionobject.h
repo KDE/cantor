@@ -21,7 +21,7 @@
 #ifndef _COMPLETIONOBJECT_H
 #define _COMPLETIONOBJECT_H
 
-#include <kcompletion.h>
+#include <KCompletion>
 
 #include "cantor_export.h"
 
@@ -35,7 +35,7 @@ class Session;
  * Each backend, supporting tab completion, needs to provide their own
  * CompletionObject, that reimplements the fetching of the completions
  * and emits done() as soon as the completions are available
- * 
+ *
  * @author Alexander Rieder
  */
 class CANTOR_EXPORT CompletionObject : public KCompletion
@@ -94,7 +94,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
     void updateLine(const QString& line, int index);
     /**
      * Takes a completion and a completion mode and triggers and calculates
-     * the new line with this completion. If the completion mode is 
+     * the new line with this completion. If the completion mode is
      * FinalCompletion some postprocessing is done asynchronously.
      * Emits lineDone when finished.
      * @param comp the completion that's to be processed
@@ -145,23 +145,23 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     virtual bool mayIdentifierBeginWith(QChar c) const;
     /**
-     * Completes line with function identifier and emits lineDone with the 
+     * Completes line with function identifier and emits lineDone with the
      * completed line. Helper function for completeLine.
      * @param type whether the function takes arguments, default: FunctionWithArguments
      */
     void completeFunctionLine(IdentifierType type = FunctionWithArguments);
     /**
-     * Completes line with keyword identifier and emits lineDone with the 
+     * Completes line with keyword identifier and emits lineDone with the
      * completed line. Helper function for completeLine.
      */
     void completeKeywordLine();
     /**
-     * Completes line with variable identifier and emits lineDone with the 
+     * Completes line with variable identifier and emits lineDone with the
      * completed line. Helper function for completeLine.
      */
     void completeVariableLine();
     /**
-     * Completes line with identifier of unknown type and emits lineDone with 
+     * Completes line with identifier of unknown type and emits lineDone with
      * the completed line. Helper function for completeLine.
      */
     void completeUnknownLine();
@@ -198,7 +198,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     void fetchingDone();
     /**
-     * indicates that the type of identifier() was found and passes the 
+     * indicates that the type of identifier() was found and passes the
      * type as an argument
      * @param type the identifier type
      */

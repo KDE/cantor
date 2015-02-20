@@ -21,8 +21,8 @@
 #include "panelplugin.h"
 using namespace Cantor;
 
-#include <kplugininfo.h>
-#include <kdebug.h>
+#include <KPluginInfo>
+#include <QDebug>
 
 class Cantor::PanelPluginPrivate
 {
@@ -58,7 +58,7 @@ QWidget* PanelPlugin::parentWidget()
 void PanelPlugin::setPluginInfo(KPluginInfo info)
 {
     d->name=info.name();
-    d->requiredExtensions=info.property("RequiredExtensions").toStringList();
+    d->requiredExtensions=info.property(QLatin1String("RequiredExtensions")).toStringList();
 }
 
 
@@ -84,7 +84,7 @@ Session* PanelPlugin::session()
 
 void PanelPlugin::setSession(Session* session)
 {
-    kDebug()<<"setting session to "<<session;
+    qDebug()<<"setting session to "<<session;
     d->session=session;
     onSessionChanged();
 }
@@ -94,4 +94,4 @@ void PanelPlugin::onSessionChanged()
 
 }
 
-#include "panelplugin.moc"
+

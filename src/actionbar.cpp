@@ -42,7 +42,7 @@ ActionBar::~ActionBar()
 {
 }
 
-WorksheetToolButton* ActionBar::addButton(const KIcon& icon, QString toolTip,
+WorksheetToolButton* ActionBar::addButton(const QIcon& icon, QString toolTip,
                                    QObject* receiver, const char* method )
 {
     WorksheetToolButton* button = new WorksheetToolButton(this);

@@ -18,7 +18,7 @@
     Copyright (C) 2011 Filipe Saraiva <filipe@kde.org>
  */
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "scilabcompletionobject.h"
 
@@ -70,10 +70,10 @@ void ScilabCompletionObject::fetchIdentifierType()
 
 bool ScilabCompletionObject::mayIdentifierContain(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_' || c == '%' || c == '$';
+    return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$');
 }
 
 bool ScilabCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
-    return c.isLetter() || c == '_' || c == '%' || c == '$';
+    return c.isLetter() || c == QLatin1Char('_') || c == QLatin1Char('%') || c == QLatin1Char('$');
 }

@@ -32,7 +32,7 @@
 QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
   : Cantor::Backend( parent, args )
 {
-    setObjectName("qalculatebackend");
+    setObjectName(QLatin1String("qalculatebackend"));
 
     new QalculateHistoryExtension(this);
     new QalculateVariableManagementExtension(this);
@@ -49,7 +49,7 @@ QalculateBackend::~QalculateBackend()
 
 QString QalculateBackend::id() const
 {
-    return "qalculate";
+    return QLatin1String("qalculate");
 }
 
 Cantor::Session* QalculateBackend::createSession()
@@ -88,3 +88,4 @@ QWidget* QalculateBackend::settingsWidget(QWidget* parent) const
 }
 
 K_EXPORT_CANTOR_PLUGIN(qalculatebackend, QalculateBackend)
+#include "qalculatebackend.moc"

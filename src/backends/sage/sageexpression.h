@@ -39,7 +39,7 @@ class SageExpression : public Cantor::Expression
     void addFileResult(const QString& path);
 
     void onProcessError(const QString& msg);
-  public slots:
+  public Q_SLOTS:
     void evalFinished();
 
   protected:
@@ -47,7 +47,7 @@ class SageExpression : public Cantor::Expression
   private:
     QString m_outputCache;
     QString m_imagePath;
-    bool m_isHelpRequest; 
+    bool m_isHelpRequest;
     int m_promptCount;
 };
 

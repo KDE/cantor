@@ -24,7 +24,7 @@
 #include "sagekeywords.h"
 #include "textresult.h"
 
-#include <kdebug.h>
+#include <QDebug>
 #include <QStack>
 
 SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(session)
@@ -52,9 +52,8 @@ void SageCompletionObject::fetchCompletions()
 
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
-    m_expression=session()->evaluateExpression("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\""+command()+"\");_=__hist_tmp__");
-    connect(m_expression, SIGNAL(gotResult()), this,
-	    SLOT(extractCompletions()));
+    m_expression=session()->evaluateExpression(QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__"));
+    connect(m_expression, &Cantor::Expression::gotResult, this, &SageCompletionObject::extractCompletions);
 
     if(t)
         session()->setTypesettingEnabled(true);
@@ -77,7 +76,7 @@ void SageCompletionObject::extractCompletionsNew()
 
     if(!res||!res->type()==Cantor::TextResult::Type)
     {
-        kDebug()<<"something went wrong fetching tab completion";
+        qDebug()<<"something went wrong fetching tab completion";
         return;
     }
 
@@ -87,14 +86,14 @@ void SageCompletionObject::extractCompletionsNew()
     //('s1', ['comp1','comp2']) where s1 is the string we called complete with
 
     QString txt=res->toHtml().trimmed();
-    txt.remove("<br/>");
+    txt.remove(QLatin1String("<br/>"));
     txt=txt.mid(txt.indexOf(command())+command().length()+2).trimmed();
     txt=txt.mid(1); //remove [
     txt.chop(2); //remove ]
 
-    kDebug()<<"completion string: "<<txt;
+    qDebug()<<"completion string: "<<txt;
 
-    QStringList tmp=txt.split(',');
+    QStringList tmp=txt.split(QLatin1Char(','));
     QStringList completions;
 
     foreach(QString c, tmp) // krazy:exclude=foreach
@@ -118,7 +117,7 @@ void SageCompletionObject::extractCompletionsLegacy()
 
     if(!res||!res->type()==Cantor::TextResult::Type)
     {
-        kDebug()<<"something went wrong fetching tab completion";
+        qDebug()<<"something went wrong fetching tab completion";
         return;
     }
 
@@ -127,7 +126,7 @@ void SageCompletionObject::extractCompletionsLegacy()
     txt=txt.mid(1); //remove [
     txt.chop(1); //remove ]
 
-    QStringList tmp=txt.split(',');
+    QStringList tmp=txt.split(QLatin1Char(','));
     QStringList completions;
 
     foreach(QString c, tmp) // krazy:exclude=foreach
@@ -152,9 +151,9 @@ void SageCompletionObject::fetchIdentifierType()
 	emit fetchingTypeDone(KeywordType);
 	return;
     }
-    QString expr = QString("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
+    QString expr = QString::fromLatin1("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
-    connect (m_expression, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(extractIdentifierType()));
+    connect(m_expression, &Cantor::Expression::statusChanged, this, &SageCompletionObject::extractIdentifierType);
 }
 
 void SageCompletionObject::extractIdentifierType()
@@ -172,7 +171,7 @@ void SageCompletionObject::extractIdentifierType()
 	return;
 
     QString res = result->toHtml();
-    if (res.contains("function") || res.contains("method"))
+    if (res.contains(QLatin1String("function")) || res.contains(QLatin1String("method")))
 	emit fetchingTypeDone(FunctionType);
     else
 	emit fetchingTypeDone(VariableType);
@@ -180,10 +179,10 @@ void SageCompletionObject::extractIdentifierType()
 
 bool SageCompletionObject::mayIdentifierContain(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_' || c == '.';
+    return c.isLetter() || c.isDigit() || c == QLatin1Char('_') || c == QLatin1Char('.');
 }
 
 bool SageCompletionObject::mayIdentifierBeginWith(QChar c) const
 {
-    return c.isLetter() || c.isDigit() || c == '_';
+    return c.isLetter() || c.isDigit() || c == QLatin1Char('_');
 }

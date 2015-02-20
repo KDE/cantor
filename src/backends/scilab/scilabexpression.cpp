@@ -26,21 +26,24 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
-#include <kdebug.h>
-#include <kiconloader.h>
+
+#include <QDebug>
+#include <QDir>
 #include <QFile>
+
+#include <KIconLoader>
+
 #include "scilabsession.h"
 #include "settings.h"
 #include "defaultvariablemodel.h"
 
 #include "imageresult.h"
-#include <qdir.h>
 
 typedef Cantor::ImageResult ScilabPlotResult;
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    kDebug() << "ScilabExpression construtor";
+    qDebug() << "ScilabExpression construtor";
 }
 
 ScilabExpression::~ScilabExpression()
@@ -50,40 +53,40 @@ ScilabExpression::~ScilabExpression()
 
 void ScilabExpression::evaluate()
 {
-    kDebug() << "evaluating " << command();
+    qDebug() << "evaluating " << command();
     setStatus(Cantor::Expression::Computing);
 
     ScilabSession* scilabSession = dynamic_cast<ScilabSession*>(session());
 
-    if((ScilabSettings::integratePlots()) && (command().contains("plot"))){
+    if((ScilabSettings::integratePlots()) && (command().contains(QLatin1String("plot")))){
 
-        kDebug() << "Preparing export figures property";
+        qDebug() << "Preparing export figures property";
 
         QString exportCommand;
 
-        QStringList commandList = command().split("\n");
+        QStringList commandList = command().split(QLatin1String("\n"));
 
         for(int count = 0; count < commandList.size(); count++){
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
 
-                exportCommand = QString("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(rand());
+                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(rand());
 
                 commandList[count].append(exportCommand);
 
                 exportCommand.clear();
             }
 
-            kDebug() << "Command " << count << ": " << commandList.at(count).toLocal8Bit().constData();
+            qDebug() << "Command " << count << ": " << commandList.at(count).toLocal8Bit().constData();
         }
 
-        QString newCommand = commandList.join("\n");
-        newCommand.prepend("clf();\n");
-        newCommand.append("\n");
+        QString newCommand = commandList.join(QLatin1String("\n"));
+        newCommand.prepend(QLatin1String("clf();\n"));
+        newCommand.append(QLatin1String("\n"));
 
         this->setCommand(newCommand);
 
-        kDebug() << "New Command " << command();
+        qDebug() << "New Command " << command();
 
     }
 
@@ -92,7 +95,7 @@ void ScilabExpression::evaluate()
 
 void ScilabExpression::parseOutput(QString output)
 {
-    kDebug() << "output: " << output;
+    qDebug() << "output: " << output;
 
     m_output = output;
     setResult(new Cantor::TextResult(output));
@@ -103,9 +106,10 @@ void ScilabExpression::parseOutput(QString output)
 
 void ScilabExpression::parseError(QString error)
 {
-    kDebug() << "error" << error;
+    qDebug() << "error" << error;
 
-    setErrorMessage(error.replace("\n", "<br>").remove(0, 2).replace(" ", "&nbsp;"));
+    setErrorMessage(error.replace(QLatin1String("\n"), QLatin1String("<br>")).remove(0, 2)
+        .replace(QLatin1String(" "), QLatin1String("&nbsp;")));
 
     evalFinished();
     setStatus(Cantor::Expression::Error);
@@ -113,36 +117,36 @@ void ScilabExpression::parseError(QString error)
 
 void ScilabExpression::parsePlotFile(QString filename)
 {
-    kDebug() << "parsePlotFile";
+    qDebug() << "parsePlotFile";
 
-    kDebug() << "ScilabExpression::parsePlotFile: " << filename;
+    qDebug() << "ScilabExpression::parsePlotFile: " << filename;
 
     setResult(new ScilabPlotResult(filename));
 
     setPlotPending(false);
 
     if (m_finished){
-        kDebug() << "ScilabExpression::parsePlotFile: done";
+        qDebug() << "ScilabExpression::parsePlotFile: done";
         setStatus(Done);
     }
 }
 
 void ScilabExpression::interrupt()
 {
-    kDebug()<<"interruptinging command";
+    qDebug()<<"interruptinging command";
     setStatus(Cantor::Expression::Interrupted);
 }
 
 void ScilabExpression::evalFinished()
 {
-    kDebug()<<"evaluation finished";
+    qDebug()<<"evaluation finished";
 
-    foreach (const QString& line, m_output.simplified().split('\n', QString::SkipEmptyParts)){
-        if (m_output.contains('=')){
+    foreach (const QString& line, m_output.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts)){
+        if (m_output.contains(QLatin1Char('='))){
 
-            kDebug() << line;
+            qDebug() << line;
 
-            QStringList parts = line.split('=');
+            QStringList parts = line.split(QLatin1Char('='));
 
             if (parts.size() >= 2){
                 Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());

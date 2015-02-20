@@ -20,7 +20,6 @@
 
 #include "luaextensions.h"
 #include <KLocale>
-#include <KDebug>
 
 #define LUA_EXT_CDTOR(name) Lua##name##Extension::Lua##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Lua##name##Extension::~Lua##name##Extension() {}
@@ -29,7 +28,7 @@ LUA_EXT_CDTOR(Script)
 
 QString LuaScriptExtension::runExternalScript(const QString& path)
 {
-    return QString("dofile(\"%1\")").arg(path);
+    return QString::fromLatin1("dofile(\"%1\")").arg(path);
 }
 
 QString LuaScriptExtension::scriptFileFilter()
@@ -39,10 +38,10 @@ QString LuaScriptExtension::scriptFileFilter()
 
 QString LuaScriptExtension::highlightingMode()
 {
-    return QString("lua");
+    return QLatin1String("lua");
 }
 
 QString LuaScriptExtension::commandSeparator()
 {
-    return QString("");
+    return QLatin1String("");
 }

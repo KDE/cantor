@@ -34,7 +34,7 @@ class Worksheet;
 class WorksheetEntry;
 class WorksheetTextItem;
 
-class KMenu;
+class QMenu;
 
 class SearchBar : public QWidget
 {
@@ -52,7 +52,7 @@ class SearchBar : public QWidget
     void searchForward(bool skipFirstChar = false);
     void searchBackward(bool skipFirstChar = false);
 
-  public slots:
+  public Q_SLOTS:
     void on_close_clicked();
     void on_openExtended_clicked();
     void on_openStandard_clicked();
@@ -69,13 +69,13 @@ class SearchBar : public QWidget
     void invalidateStartCursor();
     void invalidateCurrentCursor();
 
-  protected slots:
+  protected Q_SLOTS:
     void toggleFlag();
 
   private:
 
     void updateSearchLocations();
-    void fillLocationsMenu(KMenu* menu, int flags);
+    void fillLocationsMenu(QMenu* menu, int flags);
 
     void setupStdUi();
     void setupExtUi();

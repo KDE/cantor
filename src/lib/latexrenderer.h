@@ -57,7 +57,7 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     void done();
     void error();
 
-  public slots:
+  public Q_SLOTS:
     void render();
     
     void renderBlocking();

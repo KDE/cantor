@@ -28,9 +28,9 @@
 
 #include <KFileDialog>
 #include <KStandardAction>
-#include <KAction>
-#include <klocale.h>
-#include <kdebug.h>
+#include <QAction>
+#include <KLocale>
+#include <QDebug>
 
 TextResultItem::TextResultItem(QGraphicsObject* parent)
     : WorksheetTextItem(parent), ResultItem()
@@ -49,9 +49,9 @@ double TextResultItem::setGeometry(double x, double y, double w)
     return WorksheetTextItem::setGeometry(x, y, w);
 }
 
-void TextResultItem::populateMenu(KMenu* menu, const QPointF& pos)
+void TextResultItem::populateMenu(QMenu* menu, const QPointF& pos)
 {
-    KAction* copy = KStandardAction::copy(this, SLOT(copy()), menu);
+    QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
     if (!textCursor().hasSelection())
         copy->setEnabled(false);
     menu->addAction(copy);
@@ -66,12 +66,11 @@ void TextResultItem::populateMenu(KMenu* menu, const QPointF& pos)
         else
             showCodeAction = menu->addAction(i18n("Show Code"));
 
-        connect(showCodeAction, SIGNAL(triggered()), this,
-                SLOT(toggleLatexCode()));
+        connect(showCodeAction, &QAction::triggered, this, &TextResultItem::toggleLatexCode);
     }
 
     menu->addSeparator();
-    kDebug() << "populate Menu";
+    qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -105,8 +104,8 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
     QString latex = result->toLatex().trimmed();
-    if (latex.startsWith("\\begin{eqnarray*}") &&
-        latex.endsWith("\\end{eqnarray*}")) {
+    if (latex.startsWith(QLatin1String("\\begin{eqnarray*}")) &&
+        latex.endsWith(QLatin1String("\\end{eqnarray*}"))) {
         latex = latex.mid(17);
         latex = latex.left(latex.size() - 15);
     }
@@ -122,7 +121,7 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
         format.setProperty(EpsRenderer::CantorFormula,
                            EpsRenderer::LatexFormula);
         format.setProperty(EpsRenderer::Code, latex);
-        format.setProperty(EpsRenderer::Delimiter, "$$");
+        format.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
         if(format.isValid())
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
         else
@@ -155,7 +154,7 @@ void TextResultItem::saveResult()
 {
     Cantor::Result* res = result();
     const QString& filename = KFileDialog::getSaveFileName(KUrl(), res->mimeType(), worksheet()->worksheetView());
-    kDebug() << "saving result to " << filename;
+    qDebug() << "saving result to " << filename;
     res->save(filename);
 }
 
@@ -179,5 +178,5 @@ Cantor::Result* TextResultItem::result()
     return parentEntry()->expression()->result();
 }
 
-#include "textresultitem.moc"
+
 

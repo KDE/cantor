@@ -20,12 +20,12 @@
 
 #include "maximakeywords.h"
 
+#include <QDebug>
 #include <QFile>
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <KStandardDirs>
 
 MaximaKeywords::MaximaKeywords()
 {
@@ -57,11 +57,11 @@ MaximaKeywords* MaximaKeywords::instance()
 void MaximaKeywords::loadFromFile()
 {
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("data",  "cantor/maximabackend/keywords.xml"));
+    QFile file(KStandardDirs::locate("data",  QLatin1String("cantor/maximabackend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {
-        kDebug()<<"error opening keywords.xml file. highlighting and completion won't work";
+        qDebug()<<"error opening keywords.xml file. highlighting and completion won't work";
         return;
     }
 
@@ -72,19 +72,19 @@ void MaximaKeywords::loadFromFile()
     {
         const QStringRef name=xml.name();
 
-        if(name=="keywords"||name=="variables"||name=="functions")
+        if(name==QLatin1String("keywords")||name==QLatin1String("variables")||name==QLatin1String("functions"))
         {
             while(xml.readNextStartElement())
             {
-                Q_ASSERT(xml.isStartElement() && xml.name() == "word");
+                Q_ASSERT(xml.isStartElement() && xml.name() == QLatin1String("word"));
 
                 const QString text=xml.readElementText();
 
-                if(name=="keywords")
+                if(name==QLatin1String("keywords"))
                     m_keywords<<text;
-                else if(name=="variables")
+                else if(name==QLatin1String("variables"))
                     m_variables<<text;
-                else if(name=="functions")
+                else if(name==QLatin1String("functions"))
                     m_functions<<text;
             }
         }
@@ -96,8 +96,8 @@ void MaximaKeywords::loadFromFile()
 
     if (xml.hasError())
     {
-        kDebug()<<"error parsing element";
-        kDebug()<<"error: "<<xml.errorString();
+        qDebug()<<"error parsing element";
+        qDebug()<<"error: "<<xml.errorString();
     }
 
 }

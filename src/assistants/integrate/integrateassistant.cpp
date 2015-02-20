@@ -20,9 +20,10 @@
 
 #include "integrateassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
+#include <KIcon>
 #include "ui_integratedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -40,11 +41,11 @@ IntegrateAssistant::~IntegrateAssistant()
 
 void IntegrateAssistant::initActions()
 {
-    setXMLFile("cantor_integrate_assistant.rc");
+    setXMLFile(QLatin1String("cantor_integrate_assistant.rc"));
     KAction* integrate=new KAction(i18n("Integrate"), actionCollection());
     integrate->setIcon(KIcon(icon()));
-    actionCollection()->addAction("integrate_assistant", integrate);
-    connect(integrate, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("integrate_assistant"), integrate);
+    connect(integrate, &KAction::triggered, this, &IntegrateAssistant::requested);
 }
 
 QStringList IntegrateAssistant::run(QWidget* parent)
@@ -61,7 +62,8 @@ QStringList IntegrateAssistant::run(QWidget* parent)
         QString expression=base.expression->text();
         QString variable=base.variable->text();
 
-        Cantor::CalculusExtension* ext= dynamic_cast<Cantor::CalculusExtension*>(backend()->extension("CalculusExtension"));
+        Cantor::CalculusExtension* ext=
+            dynamic_cast<Cantor::CalculusExtension*>(backend()->extension(QLatin1String("CalculusExtension")));
         if (base.isDefinite->isChecked())
         {
             QString lower=base.lowerLimit->text();
@@ -79,3 +81,4 @@ QStringList IntegrateAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(integrateassistant, IntegrateAssistant)
+#include "integrateassistant.moc"

@@ -24,15 +24,15 @@
 #include <QMovie>
 #include <QImage>
 #include <QGraphicsSceneContextMenuEvent>
-#include <KUrl>
-#include <KMenu>
-#include <KDebug>
+#include <QUrl>
+#include <QMenu>
+#include <QDebug>
 
 WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
     : QGraphicsObject(parent)
 {
-    connect(this, SIGNAL(menuCreated(KMenu*, const QPointF&)), parent,
-            SLOT(populateMenu(KMenu*, const QPointF&)), Qt::DirectConnection);
+    connect(this, SIGNAL(menuCreated(QMenu*, const QPointF&)), parent,
+            SLOT(populateMenu(QMenu*, const QPointF&)), Qt::DirectConnection);
     m_maxWidth = 0;
 }
 
@@ -121,7 +121,7 @@ void WorksheetImageItem::paint(QPainter *painter,
                         m_pixmap.rect());
 }
 
-void WorksheetImageItem::setEps(const KUrl& url)
+void WorksheetImageItem::setEps(const QUrl &url)
 {
     const QImage img = worksheet()->epsRenderer()->renderToImage(url, &m_size);
     m_pixmap = QPixmap::fromImage(img.convertToFormat(QImage::Format_ARGB32));
@@ -138,14 +138,14 @@ void WorksheetImageItem::setPixmap(QPixmap pixmap)
     m_pixmap = pixmap;
 }
 
-void WorksheetImageItem::populateMenu(KMenu *menu, const QPointF& pos)
+void WorksheetImageItem::populateMenu(QMenu *menu, const QPointF& pos)
 {
     emit menuCreated(menu, mapToParent(pos));
 }
 
 void WorksheetImageItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-    KMenu *menu = worksheet()->createContextMenu();
+    QMenu *menu = worksheet()->createContextMenu();
     populateMenu(menu, event->pos());
 
     menu->popup(event->screenPos());
@@ -156,5 +156,5 @@ Worksheet* WorksheetImageItem::worksheet()
     return qobject_cast<Worksheet*>(scene());
 }
 
-#include "worksheetimageitem.moc"
+
 

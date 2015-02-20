@@ -25,12 +25,13 @@
 #include <QToolButton>
 #include <QAbstractItemModel>
 
-#include <kicon.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <kiconloader.h>
-#include <kfiledialog.h>
-#include <kmessagebox.h>
+#include <KDialog>
+#include <KIcon>
+#include <KLocale>
+#include <QDebug>
+#include <KIconLoader>
+#include <KFileDialog>
+#include <KMessageBox>
 
 #include "session.h"
 #include "extension.h"
@@ -53,32 +54,32 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     int size=KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
 
     m_newBtn=new QToolButton(this);
-    m_newBtn->setIcon(KIcon("document-new"));
+    m_newBtn->setIcon(KIcon(QLatin1String("document-new")));
     m_newBtn->setToolTip(i18n("Add new variable"));
     m_newBtn->setIconSize(QSize(size, size));
-    connect(m_newBtn, SIGNAL(clicked()), this, SLOT(newVariable()));
+    connect(m_newBtn, &QToolButton::clicked, this, &VariableManagerWidget::newVariable);
     btnLayout->addWidget(m_newBtn);
 
 
     m_loadBtn=new QToolButton(this);
-    m_loadBtn->setIcon(KIcon("document-open"));
+    m_loadBtn->setIcon(KIcon(QLatin1String("document-open")));
     m_loadBtn->setToolTip(i18n("Load Variables"));
     m_loadBtn->setIconSize(QSize(size, size));
-    connect(m_loadBtn, SIGNAL(clicked()), this, SLOT(load()));
+    connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
     btnLayout->addWidget(m_loadBtn);
 
     m_saveBtn=new QToolButton(this);
-    m_saveBtn->setIcon(KIcon("document-save"));
+    m_saveBtn->setIcon(KIcon(QLatin1String("document-save")));
     m_saveBtn->setToolTip(i18n("Store Variables"));
     m_saveBtn->setIconSize(QSize(size, size));
-    connect(m_saveBtn, SIGNAL(clicked()), this, SLOT(save()));
+    connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
     btnLayout->addWidget(m_saveBtn);
 
     m_clearBtn=new QToolButton(this);
-    m_clearBtn->setIcon(KIcon("edit-clear"));
+    m_clearBtn->setIcon(KIcon(QLatin1String("edit-clear")));
     m_clearBtn->setToolTip(i18n("Clear Variables"));
     m_clearBtn->setIconSize(QSize(size, size));
-    connect(m_clearBtn, SIGNAL(clicked()), this, SLOT(clearVariables()));
+    connect(m_clearBtn, &QToolButton::clicked, this, &VariableManagerWidget::clearVariables);
     btnLayout->addWidget(m_clearBtn);
 
     layout->addLayout(btnLayout);
@@ -88,7 +89,8 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     setSession(session);
 
     //check for the methods the backend actually supports, and disable the buttons accordingly
-    Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+    Cantor::VariableManagementExtension* ext=
+        dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
     if(ext->loadVariables(QString()).isNull())
         m_loadBtn->setDisabled(true);
     if(ext->saveVariables(QString()).isNull())
@@ -106,12 +108,12 @@ VariableManagerWidget::~VariableManagerWidget()
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
-    kDebug()<<"setting session to "<<session;
+    qDebug()<<"setting session to "<<session;
     m_session=session;
     if(session)
     {
         m_model=session->variableModel();
-        kDebug()<<"model: "<<m_model;
+        qDebug()<<"model: "<<m_model;
         if(m_table)
             m_table->setModel(m_model);
     }
@@ -122,11 +124,12 @@ void VariableManagerWidget::clearVariables()
     int btn=KMessageBox::questionYesNo(this,  i18n("Are you sure you want to remove all variables?"), i18n("Confirmation - Cantor"));
     if(btn==KMessageBox::Yes)
     {
-        kDebug()<<"removing it all";
+        qDebug()<<"removing it all";
         m_model->removeRows(0, m_model->rowCount());
 
         //evaluate the "clear" command
-        Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+        Cantor::VariableManagementExtension* ext=
+            dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
         const QString& cmd=ext->clearVariables();
         emit runCommand(cmd);
 
@@ -143,7 +146,8 @@ void VariableManagerWidget::save()
 {
     const QString file=KFileDialog::getSaveFileName(KUrl(),  QString(),  this);
 
-    Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+    Cantor::VariableManagementExtension* ext=
+        dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
 
     const QString& cmd=ext->saveVariables(file);
     emit runCommand(cmd);
@@ -153,7 +157,8 @@ void VariableManagerWidget::load()
 {
     const QString file=KFileDialog::getOpenFileName(KUrl(),  QString(),  this);
 
-    Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+    Cantor::VariableManagementExtension* ext=
+        dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
 
     const QString& cmd=ext->loadVariables(file);
     emit runCommand(cmd);
@@ -172,7 +177,8 @@ void VariableManagerWidget::newVariable()
         const QString& name=base.name->text();
         const QString& val=base.value->text();
 
-        Cantor::VariableManagementExtension* ext=dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension("VariableManagementExtension"));
+        Cantor::VariableManagementExtension* ext=
+            dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
 
         const QString& cmd=ext->addVariable(name, val);
 
@@ -182,6 +188,3 @@ void VariableManagerWidget::newVariable()
     delete dlg;
 
 }
-
-
-#include "variablemanagerwidget.moc"

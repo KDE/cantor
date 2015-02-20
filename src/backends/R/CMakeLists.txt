@@ -13,16 +13,17 @@ set( RBackend_SRCS
  rsettingswidget.cpp
 )
 
-kde4_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
+kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
 
 set(network_xml rserver/org.kde.Cantor.R.xml)
-QT4_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
+QT5_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
 
-kde4_add_ui_files(RBackend_SRCS settings.ui)
+ki18n_wrap_ui(RBackend_SRCS settings.ui)
 
-kde4_add_plugin( cantor_rbackend ${RBackend_SRCS} )
+add_library( cantor_rbackend MODULE ${RBackend_SRCS} )
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rbackend ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} cantorlibs ${R_USED_LIBS})
+target_link_libraries( cantor_rbackend cantorlibs ${R_USED_LIBS})
 
+install( FILES cantor_r.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES rbackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_rbackend DESTINATION ${PLUGIN_INSTALL_DIR})

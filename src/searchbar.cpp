@@ -24,9 +24,10 @@
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
 
-#include <KIcon>
-#include <KMenu>
-#include <KDebug>
+#include <KLocale>
+#include <QIcon>
+#include <QMenu>
+#include <QDebug>
 
 SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent)
 {
@@ -164,7 +165,7 @@ void SearchBar::searchForward(bool skipFirstChar)
         if (skipFirstChar) {
             QTextCursor c = m_currentCursor.textCursor();
             c.movePosition(QTextCursor::NextCharacter);
-            kDebug() << c.position();
+            qDebug() << c.position();
             setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
                                              m_currentCursor.textItem(), c));
         }
@@ -291,7 +292,7 @@ void SearchBar::on_replacement_textChanged(const QString& r)
 
 void SearchBar::on_removeFlag_clicked()
 {
-    KMenu* menu = new KMenu(this);
+    QMenu* menu = new QMenu(this);
     fillLocationsMenu(menu, m_searchFlags);
     connect(menu, SIGNAL("aboutToHide()"), menu, SLOT("deleteLater()"));
     menu->exec(mapToGlobal(m_extUi->removeFlag->geometry().topLeft()));
@@ -299,7 +300,7 @@ void SearchBar::on_removeFlag_clicked()
 
 void SearchBar::on_addFlag_clicked()
 {
-    KMenu* menu = new KMenu(this);
+    QMenu* menu = new QMenu(this);
     fillLocationsMenu(menu, WorksheetEntry::SearchAll ^ m_searchFlags);
     connect(menu, SIGNAL("aboutToHide()"), menu, SLOT("deleteLater()"));
     menu->exec(mapToGlobal(m_extUi->addFlag->geometry().topLeft()));
@@ -353,12 +354,12 @@ void SearchBar::updateSearchLocations()
         names << i18n("Commands") << i18n("Results") << i18n("Errors")
               << i18n("Text") << i18n("LaTeX Code");
 
-    QString text = "";
+    QString text = QLatin1String("");
     int flag = 1;
     for (int i = 0; flag < WorksheetEntry::SearchAll; flag = (1<<(++i))) {
         if (m_searchFlags & flag) {
             if (!text.isEmpty())
-                text += ", ";
+                text += QLatin1String(", ");
             text += names.at(i);
         }
     }
@@ -375,7 +376,7 @@ void SearchBar::updateSearchLocations()
     }
 }
 
-void SearchBar::fillLocationsMenu(KMenu* menu, int flags)
+void SearchBar::fillLocationsMenu(QMenu* menu, int flags)
 {
     static QList<QString> names;
     if (names.empty())
@@ -425,7 +426,7 @@ void SearchBar::setStatus(QString message)
 
 void SearchBar::clearStatus()
 {
-    setStatus("");
+    setStatus(QLatin1String(""));
 }
 
 void SearchBar::setupStdUi()
@@ -434,12 +435,12 @@ void SearchBar::setupStdUi()
         return;
 
     m_stdUi->setupUi(this);
-    m_stdUi->close->setIcon(KIcon("dialog-close"));
-    m_stdUi->openExtended->setIcon(KIcon("arrow-up-double"));
+    m_stdUi->close->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
+    m_stdUi->openExtended->setIcon(QIcon::fromTheme(QLatin1String("arrow-up-double")));
     m_stdUi->pattern->setText(m_pattern);
     m_stdUi->matchCase->setChecked(m_qtFlags & QTextDocument::FindCaseSensitively);
-    m_stdUi->next->setIcon(KIcon("go-down-search"));
-    m_stdUi->previous->setIcon(KIcon("go-up-search"));
+    m_stdUi->next->setIcon(QIcon::fromTheme(QLatin1String("go-down-search")));
+    m_stdUi->previous->setIcon(QIcon::fromTheme(QLatin1String("go-up-search")));
     if (m_pattern.isEmpty()) {
         m_stdUi->next->setEnabled(false);
         m_stdUi->previous->setEnabled(false);
@@ -455,13 +456,13 @@ void SearchBar::setupExtUi()
         return;
 
     m_extUi->setupUi(this);
-    m_extUi->close->setIcon(KIcon("dialog-close"));
-    m_extUi->openStandard->setIcon(KIcon("arrow-down-double"));
+    m_extUi->close->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
+    m_extUi->openStandard->setIcon(QIcon::fromTheme(QLatin1String("arrow-down-double")));
     m_extUi->pattern->setText(m_pattern);
     m_extUi->replacement->setText(m_replacement);
     m_extUi->matchCase->setChecked(m_qtFlags & QTextDocument::FindCaseSensitively);
-    m_extUi->next->setIcon(KIcon("go-down-search"));
-    m_extUi->previous->setIcon(KIcon("go-up-search"));
+    m_extUi->next->setIcon(QIcon::fromTheme(QLatin1String("go-down-search")));
+    m_extUi->previous->setIcon(QIcon::fromTheme(QLatin1String("go-up-search")));
     if (m_pattern.isEmpty()) {
         m_extUi->next->setEnabled(false);
         m_extUi->previous->setEnabled(false);
@@ -469,8 +470,8 @@ void SearchBar::setupExtUi()
         m_extUi->replaceAll->setEnabled(false);
     }
 
-    m_extUi->addFlag->setIcon(KIcon("list-add"));
-    m_extUi->removeFlag->setIcon(KIcon("list-remove"));
+    m_extUi->addFlag->setIcon(QIcon::fromTheme(QLatin1String("list-add")));
+    m_extUi->removeFlag->setIcon(QIcon::fromTheme(QLatin1String("list-remove")));
 
     m_extUi->close->setShortcut(Qt::Key_Escape);
     setFocusProxy(m_extUi->pattern);
@@ -498,4 +499,4 @@ Worksheet* SearchBar::worksheet()
     return m_worksheet;
 }
 
-#include "searchbar.moc"
+

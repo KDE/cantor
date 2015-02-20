@@ -26,15 +26,15 @@
 #include "animationresult.h"
 #include "helpresult.h"
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kurl.h>
-#include <kmimetype.h>
+#include <QDebug>
+#include <KLocale>
+#include <KUrl>
+#include <KMimeType>
 #include <QRegExp>
 
 SageExpression::SageExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    kDebug();
+    qDebug();
 }
 
 SageExpression::~SageExpression()
@@ -44,27 +44,27 @@ SageExpression::~SageExpression()
 
 void SageExpression::evaluate()
 {
-    kDebug()<<"evaluating "<<command();
+    qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
     m_imagePath.clear();
 
     m_isHelpRequest=false;
 
     //check if this is a ?command
-    if(command().startsWith('?')||command().endsWith('?'))
+    if(command().startsWith(QLatin1Char('?'))||command().endsWith(QLatin1Char('?')))
         m_isHelpRequest=true;
 
     //coun't how many newlines are in the command,
     //as sage will output one "sage: " or "....:" for
     //each.
-    m_promptCount=command().count('\n')+2;
+    m_promptCount=command().count(QLatin1Char('\n'))+2;
 
     dynamic_cast<SageSession*>(session())->appendExpressionToQueue(this);
 }
 
 void SageExpression::interrupt()
 {
-    kDebug()<<"interrupting";
+    qDebug()<<"interrupting";
     dynamic_cast<SageSession*>(session())->sendSignalToProcess(2);
     dynamic_cast<SageSession*>(session())->waitForNextPrompt();
 
@@ -75,18 +75,18 @@ void SageExpression::parseOutput(const QString& text)
 {
     QString output=text;
     //remove carriage returns, we only use \n internally
-    output.remove('\r');
+    output.remove(QLatin1Char('\r'));
     //replace appearing backspaces, as they mess the whole output up
-    output.remove(QRegExp(".\b"));
+    output.remove(QRegExp(QLatin1String(".\b")));
     //replace Escape sequences (only tested with `ls` command)
     const QChar ESC(0x1b);
-    output.remove(QRegExp(QString(ESC)+"\\][^\a]*\a"));
+    output.remove(QRegExp(QString(ESC)+QLatin1String("\\][^\a]*\a")));
 
-    const QString promptRegexpBase("(^|\\n)%1");
-    const QRegExp promptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SagePrompt)));
-    const QRegExp altPromptRegexp(promptRegexpBase.arg(QRegExp::escape(SageSession::SageAlternativePrompt)));
+    const QString promptRegexpBase(QLatin1String("(^|\\n)%1"));
+    const QRegExp promptRegexp(promptRegexpBase.arg(QRegExp::escape(QLatin1String(SageSession::SagePrompt))));
+    const QRegExp altPromptRegexp(promptRegexpBase.arg(QRegExp::escape(QLatin1String(SageSession::SageAlternativePrompt))));
 
-    bool endsWithAlternativePrompt=output.endsWith(SageSession::SageAlternativePrompt);
+    bool endsWithAlternativePrompt=output.endsWith(QLatin1String(SageSession::SageAlternativePrompt));
 
     //remove all prompts. we do this in a loop, because after we removed the first prompt,
     //there could be a second one, that isn't matched by promptRegexp in the first run, because
@@ -94,7 +94,7 @@ void SageExpression::parseOutput(const QString& text)
     int index=-1, index2=-1;
     while ( (index=output.indexOf(promptRegexp)) != -1 || (index2=output.indexOf(altPromptRegexp)) != -1 )
     {
-        kDebug()<<"got prompt"<<index<<"  "<<index2;
+        qDebug()<<"got prompt"<<index<<"  "<<index2;
         if(index!=-1)
         {
             m_promptCount--;
@@ -102,7 +102,7 @@ void SageExpression::parseOutput(const QString& text)
             //remove this prompt, the if is needed, because, if the prompt is on the
             //beginning of the string, index points to the "s", if it is within the string
             //index points to the newline
-            if(output[index]=='\n')
+            if(output[index]==QLatin1Char('\n'))
                 output.remove(index+1, SageSession::SagePrompt.length());
             else
                 output.remove(index, SageSession::SagePrompt.length());
@@ -113,7 +113,7 @@ void SageExpression::parseOutput(const QString& text)
             m_promptCount--;
 
             //see comment above, for the reason for this "if"
-            if(output[index2]=='\n')
+            if(output[index2]==QLatin1Char('\n'))
                 output.remove(index2+1, SageSession::SageAlternativePrompt.length());
             else
                 output.remove(index2, SageSession::SageAlternativePrompt.length());
@@ -122,13 +122,13 @@ void SageExpression::parseOutput(const QString& text)
         //reset the indices
         index=index2=-1;
     }
-    
+
     m_outputCache+=output;
 
     if(m_promptCount<=0)
     {
         if(m_promptCount<0)
-            kError()<<"got too many prompts";
+            qDebug()<<"got too many prompts";
 
         //if the output ends with an AlternativePrompt, this means that
         //Sage is expecting additional input, allthough m_promptCount==0
@@ -151,7 +151,7 @@ void SageExpression::parseOutput(const QString& text)
 
 void SageExpression::parseError(const QString& text)
 {
-    kDebug()<<"error";
+    qDebug()<<"error";
     setResult(new Cantor::TextResult(text));
     setStatus(Cantor::Expression::Error);
 }
@@ -160,7 +160,7 @@ void SageExpression::addFileResult( const QString& path )
 {
   KUrl url( path );
   KMimeType::Ptr type=KMimeType::findByUrl(url);
-  if(m_imagePath.isEmpty()||type->name().contains("image")||path.endsWith(".png")||path.endsWith(".gif"))
+  if(m_imagePath.isEmpty()||type->name().contains(QLatin1String("image"))||path.endsWith(QLatin1String(".png"))||path.endsWith(QLatin1String(".gif")))
   {
       m_imagePath=path;
   }
@@ -168,9 +168,9 @@ void SageExpression::addFileResult( const QString& path )
 
 void SageExpression::evalFinished()
 {
-    kDebug()<<"evaluation finished";
-    kDebug()<<m_outputCache;
-    
+    qDebug()<<"evaluation finished";
+    qDebug()<<m_outputCache;
+
     //check if our image path contains a valid image that we can try to show
     bool hasImage=!m_imagePath.isNull();
 
@@ -180,34 +180,34 @@ void SageExpression::evalFinished()
 
         QString stripped=m_outputCache;
         const bool isHtml=stripped.contains(QLatin1String("<html>"));
-        const bool isLatex=m_outputCache.contains("class=\"math\"")||m_outputCache.contains(QRegExp("type=\"math/tex[^\"]*\"")); //Check if it's latex stuff
+        const bool isLatex=m_outputCache.contains(QLatin1String("class=\"math\""))||m_outputCache.contains(QRegExp(QLatin1String("type=\"math/tex[^\"]*\""))); //Check if it's latex stuff
         if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
-            stripped.replace("<html>", "\\begin{eqnarray*}");
-            stripped.replace("</html>", "\\end{eqnarray*}");
+            stripped.replace(QLatin1String("<html>"), QLatin1String("\\begin{eqnarray*}"));
+            stripped.replace(QLatin1String("</html>"), QLatin1String("\\end{eqnarray*}"));
         }
 
         //strip html tags
         if(isHtml)
         {
-            stripped.remove( QRegExp( "<[a-zA-Z\\/][^>]*>" ) );
+            stripped.remove( QRegExp( QLatin1String("<[a-zA-Z\\/][^>]*>") ) );
         }
         else
         {
             //Replace < and > with their html code, so they won't be confused as html tags
-            stripped.replace( '<' , "&lt;");
-            stripped.replace( '>' , "&gt;");
+            stripped.replace( QLatin1Char('<') , QLatin1String("&lt;"));
+            stripped.replace( QLatin1Char('>') , QLatin1String("&gt;"));
         }
-        if (stripped.endsWith('\n'))
+        if (stripped.endsWith(QLatin1Char('\n')))
             stripped.chop(1);
 
         if (m_isHelpRequest)
         {
             //Escape whitespace
-            stripped.replace( ' ', "&nbsp;");
+            stripped.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
 
             //make things quoted in `` `` bold
-            stripped.replace(QRegExp("``([^`]*)``"), "<b>\\1</b>");
+            stripped.replace(QRegExp(QLatin1String("``([^`]*)``")), QLatin1String("<b>\\1</b>"));
 
             result=new Cantor::HelpResult(stripped);
         }
@@ -223,8 +223,8 @@ void SageExpression::evalFinished()
     }
     else
     {
-	KMimeType::Ptr type=KMimeType::findByUrl(m_imagePath);
-        if(type->is("image/gif"))
+	KMimeType::Ptr type=KMimeType::findByUrl(KUrl(m_imagePath));
+        if(type->is(QLatin1String("image/gif")))
             setResult( new Cantor::AnimationResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
         else
             setResult( new Cantor::ImageResult( KUrl(m_imagePath ),i18n("Result of %1" , command() ) ) );
@@ -242,7 +242,7 @@ void SageExpression::onProcessError(const QString& msg)
 QString SageExpression::additionalLatexHeaders()
 {
     //The LaTeX sage provides needs the amsmath package. So include it in the header
-    return "\\usepackage{amsmath}\n";
+    return QLatin1String("\\usepackage{amsmath}\n");
 }
 
 #include "sageexpression.moc"

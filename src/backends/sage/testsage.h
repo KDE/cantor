@@ -32,7 +32,7 @@ class TestSage : public BackendTest
 {
   Q_OBJECT
 
-private slots:
+private Q_SLOTS:
     //tests evaluating a simple command
     void testSimpleCommand();
 

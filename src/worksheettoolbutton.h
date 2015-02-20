@@ -24,7 +24,7 @@
 #include <QGraphicsObject>
 #include <QPixmap>
 
-#include <KIcon>
+#include <QIcon>
 
 class WorksheetToolButton : public QGraphicsObject
 {
@@ -33,7 +33,7 @@ class WorksheetToolButton : public QGraphicsObject
     WorksheetToolButton(QGraphicsItem* parent);
     ~WorksheetToolButton();
 
-    void setIcon(const KIcon& icon);
+    void setIcon(const QIcon& icon);
 
     qreal width();
     qreal height();
@@ -42,7 +42,7 @@ class WorksheetToolButton : public QGraphicsObject
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
                QWidget* widget = 0);
 
-  signals:
+  Q_SIGNALS:
     void clicked();
     void pressed();
 
@@ -53,7 +53,7 @@ class WorksheetToolButton : public QGraphicsObject
   private:
     QSize m_size;
     QPixmap m_pixmap;
-    KIcon m_icon;
+    QIcon m_icon;
     qreal m_scale;
 };
 

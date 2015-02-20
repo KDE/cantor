@@ -20,9 +20,9 @@
 
 #include "plot3dassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "ui_plot3ddlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -40,11 +40,11 @@ Plot3dAssistant::~Plot3dAssistant()
 
 void Plot3dAssistant::initActions()
 {
-    setXMLFile("cantor_plot3d_assistant.rc");
+    setXMLFile(QLatin1String("cantor_plot3d_assistant.rc"));
     KAction* plot3d=new KAction(i18n("Plot 3D"), actionCollection());
     //plot3d->setIcon(KIcon(icon()));
-    actionCollection()->addAction("plot3d_assistant", plot3d);
-    connect(plot3d, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("plot3d_assistant"), plot3d);
+    connect(plot3d, &KAction::triggered, this, &Plot3dAssistant::requested);
 }
 
 QStringList Plot3dAssistant::run(QWidget* parent)
@@ -73,7 +73,8 @@ QStringList Plot3dAssistant::run(QWidget* parent)
         i2.second=base.max2->text();
         v2.second=i2;
 
-        Cantor::PlotExtension* ext= dynamic_cast<Cantor::PlotExtension*>(backend()->extension("PlotExtension"));
+        Cantor::PlotExtension* ext=
+            dynamic_cast<Cantor::PlotExtension*>(backend()->extension(QLatin1String("PlotExtension")));
 
         result<<ext->plotFunction3d(expression, v1, v2);
     }
@@ -83,3 +84,4 @@ QStringList Plot3dAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(plot3dassistant, Plot3dAssistant)
+#include "plot3dassistant.moc"

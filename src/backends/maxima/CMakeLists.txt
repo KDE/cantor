@@ -1,5 +1,3 @@
-find_package(KDE4 REQUIRED KIO KDIRWATCH)
-
 set( MaximaBackend_SRCS
  maximabackend.cpp
  maximasession.cpp
@@ -12,26 +10,26 @@ set( MaximaBackend_SRCS
  maximavariablemodel.cpp
 )
 
-kde4_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)
 install(FILES maximabackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-kde4_add_ui_files(MaximaBackend_SRCS settings.ui)
+ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
-kde4_add_plugin( cantor_maximabackend ${MaximaBackend_SRCS} )
-target_link_libraries( cantor_maximabackend ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
+add_library( cantor_maximabackend MODULE ${MaximaBackend_SRCS} )
+target_link_libraries(cantor_maximabackend cantorlibs)
+
 if(NOT WIN32)
-  target_link_libraries(cantor_maximabackend kpty)
+  target_link_libraries(cantor_maximabackend KF5::Pty)
 endif(NOT WIN32)
 
-kde4_add_unit_test( testmaxima testmaxima.cpp)
+add_executable( testmaxima testmaxima.cpp)
 target_link_libraries( testmaxima
   cantorlibs
   cantortest
-  ${QT_QTCORE_LIBRARY}
-  ${QT_QTTEST_LIBRARY}
-  ${KDE4_KDECORE_LIBS}
+  ${QTTEST_LIBRARY}
 )
 
+install( FILES cantor_maxima.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES maximabackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_maximabackend DESTINATION ${PLUGIN_INSTALL_DIR})
 install( FILES keywords.xml cantor-initmaxima.lisp DESTINATION ${DATA_INSTALL_DIR}/cantor/maximabackend)

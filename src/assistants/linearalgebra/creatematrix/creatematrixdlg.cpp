@@ -27,8 +27,8 @@ CreateMatrixDlg::CreateMatrixDlg(QWidget* parent) : KDialog(parent)
     m_base->setupUi(mainW);
     setMainWidget(mainW);
 
-    connect(m_base->rows, SIGNAL(valueChanged(int)), this, SLOT(changeNumRows(int)));
-    connect(m_base->columns, SIGNAL(valueChanged(int)), this, SLOT(changeNumCols(int)));
+    connect(m_base->rows, static_cast<void (KIntSpinBox::*)(int)>(&KIntSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumRows);
+    connect(m_base->columns, static_cast<void (KIntSpinBox::*)(int)>(&KIntSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumCols);
 }
 
 CreateMatrixDlg::~CreateMatrixDlg()
@@ -62,7 +62,7 @@ QString CreateMatrixDlg::value(int i, int j)
     if(item)
         return item->text();
     else
-        return "0";
+        return QLatin1String("0");
 }
 
-#include "creatematrixdlg.moc"
+

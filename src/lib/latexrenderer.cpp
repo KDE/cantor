@@ -21,10 +21,10 @@
 #include "latexrenderer.h"
 using namespace Cantor;
 
-#include <kstandarddirs.h>
-#include <ktemporaryfile.h>
-#include <kprocess.h>
-#include <kdebug.h>
+#include <KStandardDirs>
+#include <KTemporaryFile>
+#include <KProcess>
+#include <QDebug>
 #include <QFileInfo>
 #include <QEventLoop>
 
@@ -44,7 +44,7 @@ class Cantor::LatexRendererPrivate
     QString latexFilename;
 };
 
-static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
+static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
                          "\\usepackage[utf8]{inputenc}                  \n "\
@@ -54,10 +54,10 @@ static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\pagestyle{empty}                            \n "\
                          "\\begin{document}                             \n "\
                          "%2                                            \n "\
-                         "\\end{document}\n";
+                         "\\end{document}\n");
 
-static const QString eqnHeader="\\begin{eqnarray*}%1\\end{eqnarray*}    \n ";
-static const QString inlineEqnHeader="$%1$ \n";
+static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}    \n ");
+static const QLatin1String inlineEqnHeader("$%1$ \n");
 
 LatexRenderer::LatexRenderer(QObject* parent) : QObject(parent),
                                                 d(new LatexRendererPrivate)
@@ -171,13 +171,13 @@ void LatexRenderer::renderBlocking()
 
 void LatexRenderer::renderWithLatex()
 {
-    kDebug()<<"rendering using latex method";
-    QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+    qDebug()<<"rendering using latex method";
+    QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
 
     //Check if the cantor subdir exists, if not, create it
     KTemporaryFile *texFile=new KTemporaryFile();
-    texFile->setPrefix( "cantor/" );
-    texFile->setSuffix( ".tex" );
+    texFile->setPrefix( QLatin1String("cantor/") );
+    texFile->setSuffix( QLatin1String(".tex") );
     texFile->open();
 
     QString expressionTex=tex;
@@ -192,19 +192,19 @@ void LatexRenderer::renderWithLatex()
     }
     expressionTex=expressionTex.arg(d->latexCode);
 
-    kDebug()<<"full tex: "<<expressionTex;
+    qDebug()<<"full tex: "<<expressionTex;
 
     texFile->write(expressionTex.toUtf8());
     texFile->flush();
 
     QString fileName = texFile->fileName();
-    kDebug()<<"fileName: "<<fileName;
+    qDebug()<<"fileName: "<<fileName;
     d->latexFilename=fileName;
-    d->latexFilename.replace(".tex", ".eps");
+    d->latexFilename.replace(QLatin1String(".tex"), QLatin1String(".eps"));
     KProcess *p=new KProcess( this );
     p->setWorkingDirectory(dir);
 
-    (*p)<<Settings::self()->latexCommand()<<"-interaction=batchmode"<<"-halt-on-error"<<fileName;
+    (*p)<<Settings::self()->latexCommand()<<QLatin1String("-interaction=batchmode")<<QLatin1String("-halt-on-error")<<fileName;
 
     connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertToPs() ) );
     p->start();
@@ -212,12 +212,12 @@ void LatexRenderer::renderWithLatex()
 
 void LatexRenderer::convertToPs()
 {
-    kDebug()<<"converting to ps";
+    qDebug()<<"converting to ps";
     QString dviFile=d->latexFilename;
-    dviFile.replace(".eps", ".dvi");
+    dviFile.replace(QLatin1String(".eps"), QLatin1String(".dvi"));
     KProcess *p=new KProcess( this );
-    kDebug()<<"running: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
-    (*p)<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
+    qDebug()<<"running: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
+    (*p)<<Settings::self()->dvipsCommand()<<QLatin1String("-E")<<QLatin1String("-o")<<d->latexFilename<<dviFile;
 
     connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertingDone() ) );
     p->start();
@@ -225,15 +225,15 @@ void LatexRenderer::convertToPs()
 
 void LatexRenderer::convertingDone()
 {
-    kDebug()<<"rendered file "<<d->latexFilename;
+    qDebug()<<"rendered file "<<d->latexFilename;
     //cleanup the temp directory a bit...
-    QString dir=KGlobal::dirs()->saveLocation("tmp", "cantor/");
+    QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
     QStringList unneededExtensions;
-    unneededExtensions<<".log"<<".aux"<<".tex"<<".dvi";
+    unneededExtensions<<QLatin1String(".log")<<QLatin1String(".aux")<<QLatin1String(".tex")<<QLatin1String(".dvi");
     foreach(const QString& ext, unneededExtensions)
     {
         QString s=d->latexFilename;
-        s.replace(".eps", ext);
+        s.replace(QLatin1String(".eps"), ext);
         QFile f(s);
         //f.remove();
     }
@@ -245,15 +245,15 @@ void LatexRenderer::convertingDone()
     }else
     {
         d->success=false;
-        setErrorMessage("something is wrong");
+        setErrorMessage(QLatin1String("something is wrong"));
         emit error();
     }
 }
 
 void LatexRenderer::renderWithMml()
 {
-    kDebug()<<"WARNING: MML rendering not implemented yet!";
+    qDebug()<<"WARNING: MML rendering not implemented yet!";
     emit done();
 }
 
-#include "latexrenderer.moc"
+

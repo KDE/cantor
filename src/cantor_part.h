@@ -21,7 +21,9 @@
 #ifndef CANTORPART_H
 #define CANTORPART_H
 
-#include <kparts/part.h>
+#include <QPointer>
+
+#include <KParts/ReadWritePart>
 #include <lib/session.h>
 
 class QWidget;
@@ -31,7 +33,7 @@ class SarchBar;
 class SearchBar;
 class ScriptEditorWidget;
 class KAboutData;
-class KAction;
+class QAction;
 class KToggleAction;
 class KProgressDialog;
 
@@ -72,11 +74,11 @@ public:
      */
     virtual void setModified(bool modified);
 
-    static KAboutData *createAboutData();
+    KAboutData& createAboutData();
 
     Worksheet* worksheet();
 
-signals:
+Q_SIGNALS:
     void setCaption(const QString& caption);
     void showHelp(const QString& help);
 
@@ -101,7 +103,7 @@ protected:
     void loadAssistants();
     void adjustGuiToSession();
 
-protected slots:
+protected Q_SLOTS:
     void fileSaveAs();
     void fileSavePlain();
     void exportToLatex();
@@ -156,16 +158,16 @@ private:
     Cantor::PanelPluginHandler* m_panelHandler;
 
     KProgressDialog* m_initProgressDlg;
-    KAction* m_evaluate;
-    KAction* m_save;
-    KAction* m_findNext;
-    KAction* m_findPrev;
+    QAction * m_evaluate;
+    QAction * m_save;
+    QAction * m_findNext;
+    QAction * m_findPrev;
     KToggleAction* m_typeset;
     KToggleAction* m_highlight;
     KToggleAction* m_completion;
     KToggleAction* m_exprNumbering;
     KToggleAction* m_animateWorksheet;
-    KAction* m_showBackendHelp;
+    QAction * m_showBackendHelp;
 
     QString m_cachedStatusMessage;
     bool m_statusBarBlocked;

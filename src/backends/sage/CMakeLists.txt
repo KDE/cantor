@@ -1,5 +1,3 @@
-find_package(KDE4 REQUIRED KIO KDIRWATCH)
-
 set( SageBackend_SRCS
  sagebackend.cpp
  sagesession.cpp
@@ -10,22 +8,22 @@ set( SageBackend_SRCS
  sagecompletionobject.cpp
 )
 
-kde4_add_kcfg_files(SageBackend_SRCS settings.kcfgc)
+kconfig_add_kcfg_files(SageBackend_SRCS settings.kcfgc)
 install(FILES sagebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-kde4_add_ui_files(SageBackend_SRCS settings.ui)
+ki18n_wrap_ui(SageBackend_SRCS settings.ui)
 
-kde4_add_plugin( cantor_sagebackend ${SageBackend_SRCS} )
-target_link_libraries( cantor_sagebackend ${KDE4_KDEUI_LIBS} cantorlibs kpty ${KDE4_KIO_LIBS})
+add_library( cantor_sagebackend MODULE ${SageBackend_SRCS} )
+target_link_libraries( cantor_sagebackend cantorlibs KF5::Pty)
 
-kde4_add_unit_test( testsage testsage.cpp)
+add_executable( testsage testsage.cpp)
 target_link_libraries( testsage
-  ${KDE4_KDECORE_LIBS}
   ${QT_QTTEST_LIBRARY}
   cantorlibs
   cantortest
 )
 
+install( FILES cantor_sage.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 install( FILES sagebackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 install(TARGETS cantor_sagebackend DESTINATION ${PLUGIN_INSTALL_DIR})
 install( FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/sagebackend)

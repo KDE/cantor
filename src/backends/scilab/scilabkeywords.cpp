@@ -23,13 +23,13 @@
 #include <QStringList>
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
+#include <QDebug>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <KStandardDirs>
 
 ScilabKeywords::ScilabKeywords()
 {
-    kDebug() << "ScilabKeywords construtor";
+    qDebug() << "ScilabKeywords construtor";
 }
 
 
@@ -54,44 +54,45 @@ ScilabKeywords* ScilabKeywords::instance()
 
 void ScilabKeywords::setupKeywords(QString keywords)
 {
-    kDebug();
+    qDebug();
 
     QStringList key;
-    key = keywords.replace(" !", "\n").replace("!", "").replace(" ", "").split("\n");
+    key = keywords.replace(QLatin1String(" !"), QLatin1String("\n")).replace(QLatin1String("!"), QLatin1String(""))
+              .replace(QLatin1String(" "), QLatin1String("")).split(QLatin1String("\n"));
 
-    for(int count = key.indexOf("(1)"); key.at(count) != "(2)"; count++){
-        if(key.at(count) == ""){
+    for(int count = key.indexOf(QLatin1String("(1)")); key.at(count) != QLatin1String("(2)"); count++){
+        if(key.at(count) == QLatin1String("")){
             continue;
         }
 
-        kDebug() << key.at(count);
+        qDebug() << key.at(count);
         m_functions << key.at(count);
     }
 
-    for(int count = key.indexOf("(2)"); key.at(count) != "(3)"; count++){
-        if(key.at(count) == ""){
+    for(int count = key.indexOf(QLatin1String("(2)")); key.at(count) != QLatin1String("(3)"); count++){
+        if(key.at(count) == QLatin1String("")){
             continue;
         }
 
-        kDebug() << key.at(count);
+        qDebug() << key.at(count);
         m_keywords << key.at(count);
     }
 
-    for(int count = key.indexOf("(3)"); key.at(count) != "(4)"; count++){
-        if(key.at(count) == ""){
+    for(int count = key.indexOf(QLatin1String("(3)")); key.at(count) != QLatin1String("(4)"); count++){
+        if(key.at(count) == QLatin1String("")){
             continue;
         }
 
-        kDebug() << key.at(count);
+        qDebug() << key.at(count);
         m_variables << key.at(count);
     }
 
-    for(int count = key.indexOf("(4)"); count < key.size(); count++){
-        if(key.at(count) == ""){
+    for(int count = key.indexOf(QLatin1String("(4)")); count < key.size(); count++){
+        if(key.at(count) == QLatin1String("")){
             continue;
         }
 
-        kDebug() << key.at(count);
+        qDebug() << key.at(count);
         m_functions << key.at(count);
     }
 }

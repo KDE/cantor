@@ -33,9 +33,9 @@
 
 #include <QObject>
 
-#include <KIcon>
+#include <QIcon>
 #include <KLocale>
-#include <KDebug>
+#include <QDebug>
 
 ResultItem::ResultItem()
 {
@@ -73,10 +73,10 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     }
 }
 
-void ResultItem::addCommonActions(QObject* self, KMenu* menu)
+void ResultItem::addCommonActions(QObject* self, QMenu* menu)
 {
     menu->addAction(i18n("Save result"), self, SLOT(saveResult()));
-    menu->addAction(KIcon("edit-delete"), i18n("Remove result"),
+    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove result"),
                     self, SIGNAL(removeResult()));
 }
 

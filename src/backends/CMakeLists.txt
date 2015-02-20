@@ -3,32 +3,72 @@ add_subdirectory(maxima)
 add_subdirectory(octave)
 add_subdirectory(scilab)
 
-if(Analitza_FOUND)
-	add_subdirectory(kalgebra)
-endif(Analitza_FOUND)
-
 if(NOT WIN32)
-	add_subdirectory(sage)
+    add_subdirectory(sage)
 endif(NOT WIN32)
 
+set_package_properties(Analitza5 PROPERTIES DESCRIPTION "A library provided by KAlgebra."
+    URL "http://edu.kde.org/kalgebra/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use KAlgebra with Cantor.")
+
+find_package(Analitza5)
+if(Analitza5_FOUND)
+    add_subdirectory(kalgebra)
+endif(Analitza5_FOUND)
+
+set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics."
+    URL "http://www.r-project.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use R with Cantor.")
+
+find_package(R)
 if(R_FOUND)
-	macro_optional_add_subdirectory(R)
+    add_subdirectory(R)
 endif(R_FOUND)
 
-macro_optional_find_package(Qalculate)
-macro_log_feature(QALCULATE_FOUND "Qalculate" "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision." "http://qalculate.sourceforge.net/" FALSE "" "Backend to use Qalculate with Cantor.")
+set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision."
+    URL "http://qalculate.sourceforge.net/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Qalculate with Cantor.")
+
+find_package(Qalculate)
 if(QALCULATE_FOUND)
-    macro_optional_add_subdirectory(qalculate)
+    add_subdirectory(qalculate)
 endif(QALCULATE_FOUND)
 
-macro_optional_find_package(PythonLibs 2.7)
-macro_log_feature(PYTHONLIBS_FOUND "Python2" "A powerful dynamic programming language" "http://python.org/" FALSE "" "Backend to use Python2 with Cantor.")
+set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic programming language."
+    URL "https://www.python.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Python 2 with Cantor.")
+
+find_package(PythonLibs 2.7)
+
+set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic programming language."
+    URL "https://www.python.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Python 3 with Cantor.")
+
+find_package(PythonLibs3)
+
+if(PYTHONLIBS_FOUND OR PYTHONLIBS3_FOUND)
+    add_subdirectory(python)
+endif(PYTHONLIBS_FOUND OR PYTHONLIBS3_FOUND)
+
 if(PYTHONLIBS_FOUND)
     add_subdirectory(python2)
 endif(PYTHONLIBS_FOUND)
 
-macro_optional_find_package(LuaJIT)
-macro_log_feature(LUAJIT_FOUND "Lua" "A lightweight, extensible programming language (luajit implementation)." "http://www.lua.org/" FALSE "" "Backend to use Lua (luajit2) with Cantor")
+if(PYTHONLIBS3_FOUND)
+    add_subdirectory(python3)
+endif(PYTHONLIBS3_FOUND)
+
+set_package_properties(LuaJIT PROPERTIES DESCRIPTION "A lightweight, extensible programming language (luajit implementation)."
+    URL "http://www.lua.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Lua (luajit2) with Cantor.")
+
+find_package(LuaJIT)
 if(LUAJIT_FOUND)
     add_subdirectory(lua)
 endif(LUAJIT_FOUND)

@@ -19,38 +19,83 @@
  */
 
 #include "cantor.h"
-#include <kapplication.h>
-#include <kaboutdata.h>
-#include <kcmdlineargs.h>
-#include <klocale.h>
-#include <kconfiggroup.h>
+#include <QApplication>
+#include <KAboutData>
+#include <Kdelibs4ConfigMigrator>
+#include <KLocale>
+#include <KConfigGroup>
+#include <QCommandLineParser>
 
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
 
 static const char version[] = "0.5";
 
+
 int main(int argc, char **argv)
 {
-    KAboutData about("cantor", 0,
-                     ki18n("Cantor"),
-                     version, ki18n(description),
-                     KAboutData::License_GPL,
-                     ki18n("(C) 2009-2013 Alexander Rieder"),
-                     KLocalizedString(), 0
-        );
-    about.addAuthor( ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com" );
-    about.addAuthor( ki18n("Aleix Pol Gonzalez"), ki18n("KAlgebra backend"), "aleixpol@kde.org" );
-    about.addAuthor( ki18n("Miha Čančula"), ki18n("Octave backend"), "miha.cancula@gmail.com" );
-    about.addAuthor( ki18n("Filipe Saraiva"), ki18n("Scilab and Python backends"), "filipe@kde.org", "http://filipesaraiva.info/" );
-    about.addAuthor( ki18n("Martin Küttler"), ki18n("Interface"), "martin.kuettler@gmail.com" );
-    KCmdLineArgs::init(argc, argv, &about);
+    // Migrating configuration from 4.x applications to KF5-based applications
+    QStringList configFiles;
+    QStringList rcFiles;
 
-    KCmdLineOptions options;
-    options.add("+[URL]", ki18n( "Document to open" ));
-    options.add("backend [backend]", ki18n( "Use this backend" ));
-    KCmdLineArgs::addCmdLineOptions( options );
-    KApplication app;
+    configFiles << QLatin1String("cantorrc");
+    rcFiles << QLatin1String("cantor_part.rc") << QLatin1String("cantor_scripteditor.rc")
+            << QLatin1String("cantor_shell.rc") << QLatin1String("cantor_advancedplot_assistant.rc")
+            << QLatin1String("cantor_differentiate_assistant.rc") << QLatin1String("cantor_import_package_assistant.rc")
+            << QLatin1String("cantor_integrate_assistant.rc") << QLatin1String("cantor_create_matrix_assistant.rc")
+            << QLatin1String("cantor_eigenvalues_assistant.rc") << QLatin1String("cantor_eigenvectors_assistant.rc")
+            << QLatin1String("cantor_invert_matrix_assistant.rc") << QLatin1String("cantor_plot2d_assistant.rc")
+            << QLatin1String("cantor_plot3d_assistant.rc") << QLatin1String("cantor_runscript_assistant.rc")
+            << QLatin1String("cantor_solve_assistant.rc") << QLatin1String("cantor_qalculateplotassistant.rc");
+
+    Kdelibs4ConfigMigrator migrator(QLatin1String("cantor"));
+
+    migrator.setConfigFiles(configFiles);
+    migrator.setUiFiles(rcFiles);
+    migrator.migrate();
+    //**********************************
+
+    QApplication app(argc, argv);
+
+    app.setApplicationName(QLatin1String("cantor"));
+    app.setOrganizationDomain(QLatin1String("kde.org"));
+    app.setApplicationDisplayName(i18n("Cantor"));
+    app.setWindowIcon(QIcon::fromTheme(QLatin1String("cantor")));
+
+    KAboutData about(QLatin1String("cantor"),
+                     QLatin1String("Cantor"),
+                     QLatin1String(version),
+                     i18n(description),
+                     KAboutLicense::GPL,
+                     i18n("(C) 2009-2013 Alexander Rieder"),
+                     QString(),
+                     QLatin1String("http://edu.kde.org/cantor"));
+
+    about.addAuthor( i18n("Alexander Rieder"), QString(), QLatin1String("alexanderrieder@gmail.com") );
+    about.addAuthor( i18n("Aleix Pol Gonzalez"), i18n("KAlgebra backend"), QLatin1String("aleixpol@kde.org") );
+    about.addAuthor( i18n("Miha Čančula"), i18n("Octave backend"), QLatin1String("miha.cancula@gmail.com") );
+    about.addAuthor( i18n("Filipe Saraiva"), i18n("Scilab and Python backends"), QLatin1String("filipe@kde.org"),
+                     QLatin1String("http://filipesaraiva.info/") );
+    about.addAuthor( i18n("Martin Küttler"), i18n("Interface"), QLatin1String("martin.kuettler@gmail.com") );
+
+    about.addCredit(QLatin1String("Andreas Kainz"), i18n("Cantor icon"), QLatin1String("kainz.a@gmail.com"));
+    about.addCredit(QLatin1String("Uri Herrera"), i18n("Cantor icon"), QLatin1String("kaisergreymon99@gmail.com"),
+                     QLatin1String("http://nitrux.in/"));
+
+    QCommandLineParser parser;
+    KAboutData::setApplicationData(about);
+    parser.addVersionOption();
+    parser.addHelpOption();
+
+    const QCommandLineOption backendOption(QStringList()<<QLatin1String("b")<<QLatin1String("backend"), i18n("Use  backend <backend>"), QLatin1String("backend"));
+    parser.addOption(backendOption);
+
+    parser.addPositionalArgument(QStringLiteral("files"),  i18n("Documents to open."),  QStringLiteral("[files...]"));
+
+
+    about.setupCommandLine(&parser);
+    parser.process(app);
+    about.processCommandLine(&parser);
 
     // see if we are starting with session management
     if (app.isSessionRestored())
@@ -58,15 +103,14 @@ int main(int argc, char **argv)
     else
     {
         // no session.. just start up normally
-        KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-        if ( args->count() == 0 )
+        if ( parser.positionalArguments().count() == 0 )
         {
             CantorShell *widget = new CantorShell;
             widget->show();
-            if(args->isSet("backend"))
+            if(parser.isSet(QLatin1String("backend")))
             {
-                widget->addWorksheet(args->getOption("backend"));
+                widget->addWorksheet(parser.value(QLatin1String("backend")));
             }
             else
             {
@@ -76,15 +120,17 @@ int main(int argc, char **argv)
         else
         {
             int i = 0;
-            for (; i < args->count(); i++ )
+            const QStringList& args=parser.positionalArguments();
+            for (; i < args.count(); i++ )
             {
                 CantorShell *widget = new CantorShell;
                 widget->show();
-                widget->load( args->url( i ) );
+                widget->load( QUrl::fromUserInput(args[i]) );
             }
         }
-        args->clear();
+
     }
 
     return app.exec();
 }
+

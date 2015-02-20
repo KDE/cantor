@@ -27,11 +27,11 @@
 class TestPython2 : public BackendTest
 {
   Q_OBJECT
-
-private slots:
+  private Q_SLOTS:
     void testImportNumpy();
+    void testCodeWithComments();
 
-private:
+  private:
     virtual QString backendName();
 };
 

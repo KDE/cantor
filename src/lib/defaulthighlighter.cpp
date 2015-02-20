@@ -21,13 +21,13 @@
 
 #include "defaulthighlighter.h"
 
-#include <QtCore/QLocale>
+#include <QLocale>
 #include <QTextDocument>
 #include <QTextCursor>
 #include <QGraphicsTextItem>
-#include <kcolorscheme.h>
-#include <kglobalsettings.h>
-#include <kdebug.h>
+#include <KColorScheme>
+#include <KGlobalSettings>
+#include <QDebug>
 #include <QStack>
 
 using namespace Cantor;
@@ -87,12 +87,12 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     d->lastBlockNumber=-1;
     d->lastPosition=-1;
 
-    addPair('(', ')');
-    addPair('[', ']');
-    addPair('{', '}');
+    addPair(QLatin1Char('('), QLatin1Char(')'));
+    addPair(QLatin1Char('['), QLatin1Char(']'));
+    addPair(QLatin1Char('{'), QLatin1Char('}'));
 
     updateFormats();
-    connect(KGlobalSettings::self(),  SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateFormats()));
+    connect(KGlobalSettings::self(), &KGlobalSettings::kdisplayPaletteChanged, this, &DefaultHighlighter::updateFormats);
 }
 
 DefaultHighlighter::~DefaultHighlighter()
@@ -122,7 +122,7 @@ bool DefaultHighlighter::skipHighlighting(const QString& text)
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    //kDebug() << text;
+    //qDebug() << text;
     const QTextCursor& cursor = d->cursor;
     d->lastBlockNumber = cursor.blockNumber();
 
@@ -143,7 +143,7 @@ void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymb
 
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    //kDebug() << text;
+    //qDebug() << text;
     const QTextCursor& cursor = d->cursor;
     int cursorPos = -1;
     if (cursor.blockNumber() == currentBlock().blockNumber() ) {
@@ -188,9 +188,9 @@ void DefaultHighlighter::highlightPairs(const QString& text)
 
 void DefaultHighlighter::highlightWords(const QString& text)
 {
-    //kDebug() << "DefaultHighlighter::highlightWords";
+    //qDebug() << "DefaultHighlighter::highlightWords";
 
-    const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
+    const QStringList& words = text.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
     int count;
     int pos = 0;
 
@@ -205,18 +205,18 @@ void DefaultHighlighter::highlightWords(const QString& text)
         //prepend them to the current word. This allows for example
         //to highlight words that start with a "Non-word"-character
         //e.g. %pi in the scilab backend.
-        //kDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
+        //qDebug() << "nonSeparatingCharacters().isNull(): " << nonSeparatingCharacters().isNull();
         if(!nonSeparatingCharacters().isNull())
         {
             for(int j = i - 1; j >= 0; j--)
             {
-                //kDebug() << "j: " << j << "w: " << words[j];
+                //qDebug() << "j: " << j << "w: " << words[j];
                 const QString& w = words[j];
-                const QString exp = QString("(%1)*$").arg(nonSeparatingCharacters());
-                //kDebug() << "exp: " << exp;
+                const QString exp = QString::fromLatin1("(%1)*$").arg(nonSeparatingCharacters());
+                //qDebug() << "exp: " << exp;
                 int idx = w.indexOf(QRegExp(exp));
                 const QString& s = w.mid(idx);
-                //kDebug() << "s: " << s;
+                //qDebug() << "s: " << s;
 
                 if(s.size() > 0)
                 {
@@ -231,7 +231,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
 
         word = word.trimmed();
 
-        //kDebug() << "highlighing: " << word;
+        //qDebug() << "highlighing: " << word;
 
         if (d->wordRules.contains(word))
         {
@@ -412,4 +412,4 @@ QString DefaultHighlighter::nonSeparatingCharacters() const
     return QString();
 }
 
-#include  "defaulthighlighter.moc"
+

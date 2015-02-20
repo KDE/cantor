@@ -24,14 +24,14 @@
 
 #include "cantor_macros.h"
 
-#include <QtCore/QFileInfo>
-#include <QtGui/QWidget>
+#include <QFileInfo>
+#include <QWidget>
 
 #include "ui_settings.h"
 
 OctaveBackend::OctaveBackend(QObject* parent, const QList< QVariant > args): Backend(parent, args)
 {
-    kDebug();
+    qDebug();
     new OctaveHistoryExtension(this);
     new OctaveScriptExtension(this);
     new OctavePlotExtension(this);
@@ -43,7 +43,7 @@ OctaveBackend::OctaveBackend(QObject* parent, const QList< QVariant > args): Bac
 
 QString OctaveBackend::id() const
 {
-    return "octave";
+    return QLatin1String("octave");
 }
 
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const
@@ -53,7 +53,7 @@ Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 
 Cantor::Session* OctaveBackend::createSession()
 {
-    kDebug();
+    qDebug();
     return new OctaveSession(this);
 }
 
@@ -94,4 +94,3 @@ KConfigSkeleton* OctaveBackend::config() const
 K_EXPORT_CANTOR_PLUGIN(octavebackend, OctaveBackend)
 
 #include "octavebackend.moc"
-

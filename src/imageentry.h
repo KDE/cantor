@@ -55,11 +55,11 @@ class ImageEntry : public WorksheetEntry
 
     void layOutForWidth(qreal w, bool force = false);
 
-  public slots:
+  public Q_SLOTS:
     bool evaluate(EvaluationOption evalOp = FocusNext);
     void updateEntry();
 
-    void populateMenu(KMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos);
     void startConfigDialog();
     void setImageData(const QString& path, const ImageSize& displaySize, 
                       const ImageSize& printSize, bool useDisplaySizeForPrinting);

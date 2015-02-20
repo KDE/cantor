@@ -25,20 +25,20 @@
 #include "maximahighlighter.h"
 #include "maximavariablemodel.h"
 
+#include <QDebug>
 #include <QTimer>
 #include <QTcpSocket>
 #include <QTcpServer>
-#include <kdebug.h>
-#include <kmessagebox.h>
-#include <klocale.h>
+#include <KMessageBox>
+#include <KLocale>
 #include <signal.h>
 #include "settings.h"
 
 #ifdef Q_OS_WIN
-  #include <kprocess.h>
+  #include <KProcess>
 #else
-  #include <kptyprocess.h>
-  #include <kptydevice.h>
+  #include <KPtyProcess>
+  #include <KPtyDevice>
 #endif
 
 #include "result.h"
@@ -46,14 +46,14 @@
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
 //the Expressions are encapsulated in () to allow capturing for the text
-const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))"); //Text, maxima outputs, before any output
+const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))")); //Text, maxima outputs, before any output
 
 
-static QString initCmd=":lisp($load \"%1\")\n";
+static QString initCmd=QLatin1String(":lisp($load \"%1\")\n");
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 {
-    kDebug();
+    qDebug();
     m_initState=MaximaSession::NotInitialized;
     //m_maxima=0;
     m_process=0;
@@ -64,12 +64,12 @@ MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 
 MaximaSession::~MaximaSession()
 {
-    kDebug();
+    qDebug();
 }
 
 void MaximaSession::login()
 {
-    kDebug()<<"login";
+    qDebug()<<"login";
     if (m_process)
         m_process->deleteLater();
 #ifndef Q_OS_WIN
@@ -95,10 +95,10 @@ void MaximaSession::login()
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
-    QString initFile=KStandardDirs::locate("data",   "cantor/maximabackend/cantor-initmaxima.lisp");
-    kDebug()<<"initFile: "<<initFile;
+    QString initFile=KStandardDirs::locate("data",   QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
+    qDebug()<<"initFile: "<<initFile;
     QString cmd=initCmd.arg(initFile);
-    kDebug()<<"sending cmd: "<<cmd<<endl;
+    qDebug()<<"sending cmd: "<<cmd<<endl;
 
 #ifndef Q_OS_WIN
     m_process->pty()->write(cmd.toUtf8());
@@ -106,7 +106,7 @@ void MaximaSession::login()
     m_process->write(cmd.toUtf8());
 #endif
 
-    Cantor::Expression* expr=evaluateExpression("print(____END_OF_INIT____);",
+    Cantor::Expression* expr=evaluateExpression(QLatin1String("print(____END_OF_INIT____);"),
                                                 Cantor::Expression::DeleteOnFinish);
 
     expr->setInternal(true);
@@ -125,7 +125,7 @@ void MaximaSession::login()
     m_initState=MaximaSession::Initializing;
 
     if(!MaximaSettings::self()->autorunScripts().isEmpty()){
-        QString autorunScripts = MaximaSettings::self()->autorunScripts().join("\n");
+        QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish);
     }
 
@@ -135,7 +135,7 @@ void MaximaSession::login()
 
 void MaximaSession::logout()
 {
-    kDebug()<<"logout";
+    qDebug()<<"logout";
 
     if(!m_process)
         return;
@@ -152,7 +152,7 @@ void MaximaSession::logout()
 
 #ifdef Q_OS_WIN
         //Give maxima time to clean up
-        kDebug()<<"waiting for maxima to finish";
+        qDebug()<<"waiting for maxima to finish";
 
         m_process->waitForFinished();
 #endif
@@ -168,19 +168,19 @@ void MaximaSession::logout()
         m_process->kill();
     }
 
-    kDebug()<<"done logging out";
+    qDebug()<<"done logging out";
 
     delete m_process;
     m_process=0;
 
-    kDebug()<<"destroyed maxima";
+    qDebug()<<"destroyed maxima";
 
     m_expressionQueue.clear();
 }
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    kDebug()<<"evaluating: "<<cmd;
+    qDebug()<<"evaluating: "<<cmd;
     MaximaExpression* expr=new MaximaExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
@@ -195,7 +195,7 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 {
     m_expressionQueue.append(expr);
 
-    kDebug()<<"queue: "<<m_expressionQueue.size();
+    qDebug()<<"queue: "<<m_expressionQueue.size();
     if(m_expressionQueue.size()==1)
     {
         changeStatus(Cantor::Session::Running);
@@ -205,10 +205,10 @@ void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 
 void MaximaSession::readStdErr()
 {
-   kDebug()<<"reading stdErr";
+   qDebug()<<"reading stdErr";
    if (!m_process)
        return;
-   QString out=m_process->readAllStandardError();
+   QString out=QLatin1String(m_process->readAllStandardError());
 
    if(m_expressionQueue.size()>0)
    {
@@ -219,18 +219,18 @@ void MaximaSession::readStdErr()
 
 void MaximaSession::readStdOut()
 {
-    kDebug()<<"reading stdOut";
+    qDebug()<<"reading stdOut";
     if (!m_process)
         return;
 #ifndef Q_OS_WIN
-    QString out=m_process->pty()->readAll();
+    QString out=QLatin1String(m_process->pty()->readAll());
 #else
     QString out=m_process->readAllStandardOutput();
 #endif
 
-    out.remove('\r');
+    out.remove(QLatin1Char('\r'));
 
-    kDebug()<<"out: "<<out;
+    qDebug()<<"out: "<<out;
 
     m_cache+=out;
 
@@ -238,7 +238,7 @@ void MaximaSession::readStdOut()
 
     if(m_expressionQueue.isEmpty())
     {
-        kDebug()<<"got output without active expression. dropping: "<<endl
+        qDebug()<<"got output without active expression. dropping: "<<endl
                 <<m_cache;
         m_cache.clear();
         return;
@@ -253,7 +253,7 @@ void MaximaSession::readStdOut()
 
     if(parsingSuccessful)
     {
-        kDebug()<<"parsing successful. dropping "<<m_cache;
+        qDebug()<<"parsing successful. dropping "<<m_cache;
         m_cache.clear();
     }
 
@@ -261,14 +261,14 @@ void MaximaSession::readStdOut()
 
 void MaximaSession::killLabels()
 {
-    Cantor::Expression* e=evaluateExpression("kill(labels);", Cantor::Expression::DeleteOnFinish);
+    Cantor::Expression* e=evaluateExpression(QLatin1String("kill(labels);"), Cantor::Expression::DeleteOnFinish);
     e->setInternal(true);
     connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
 }
 
 void MaximaSession::reportProcessError(QProcess::ProcessError e)
 {
-    kDebug()<<"process error"<<e;
+    qDebug()<<"process error"<<e;
     if(e==QProcess::FailedToStart)
     {
         changeStatus(Cantor::Session::Done);
@@ -279,12 +279,12 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
     MaximaExpression* expression=m_expressionQueue.first();
-    kDebug() << expression << status;
+    qDebug() << expression << status;
 
     if(m_initState==MaximaSession::Initializing
-       && expression->command().contains( "____END_OF_INIT____"))
+       && expression->command().contains( QLatin1String("____END_OF_INIT____")))
     {
-        kDebug()<<"initialized";
+        qDebug()<<"initialized";
         m_expressionQueue.removeFirst();
 
         m_initState=MaximaSession::Initialized;
@@ -303,19 +303,19 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
-        kDebug()<<"expression finished";
+        qDebug()<<"expression finished";
         disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
                    this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-        kDebug()<<"running next command";
+        qDebug()<<"running next command";
 
         m_expressionQueue.removeFirst();
         if(m_expressionQueue.isEmpty())
         {
             //if we are done with all the commands in the queue,
             //use the opportunity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
-            QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg("(values|functions)"));
-            QRegExp exp2=QRegExp(QRegExp::escape(MaximaVariableModel::variableInspectCommand).arg("(values|functions)"));
+            QRegExp exp=QRegExp(QRegExp::escape(MaximaVariableModel::inspectCommand).arg(QLatin1String("(values|functions)")));
+            QRegExp exp2=QRegExp(QRegExp::escape(MaximaVariableModel::variableInspectCommand).arg(QLatin1String("(values|functions)")));
 
             if(MaximaSettings::variableManagement()&&!exp.exactMatch(expression->command())&&!exp2.exactMatch(expression->command()))
             {
@@ -338,11 +338,11 @@ void MaximaSession::runFirstExpression()
 {
     if(m_initState==MaximaSession::NotInitialized)
     {
-        kDebug()<<"not ready to run expression";
+        qDebug()<<"not ready to run expression";
         return;
 
     }
-    kDebug()<<"running next expression";
+    qDebug()<<"running next expression";
     if (!m_process)
         return;
 
@@ -354,13 +354,13 @@ void MaximaSession::runFirstExpression()
 
         if(command.isEmpty())
         {
-            kDebug()<<"empty command";
+            qDebug()<<"empty command";
             expr->forceDone();
         }else
         {
-            kDebug()<<"writing "<<command+'\n'<<" to the process";
+            qDebug()<<"writing "<<command+QLatin1Char('\n')<<" to the process";
             m_cache.clear();
-            QString cmd=(command+'\n');
+            QString cmd=(command+QLatin1Char('\n'));
 #ifndef Q_OS_WIN
             m_process->pty()->write(cmd.toUtf8());
 #else
@@ -390,7 +390,7 @@ void MaximaSession::interrupt(MaximaExpression* expr)
         const int pid=m_process->pid();
         kill(pid, SIGINT);
 
-        kDebug()<<"done interrupting";
+        qDebug()<<"done interrupting";
     }else
     {
         m_expressionQueue.removeAll(expr);
@@ -399,8 +399,8 @@ void MaximaSession::interrupt(MaximaExpression* expr)
 
 void MaximaSession::sendInputToProcess(const QString& input)
 {
-    kDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
-    kDebug()<<"running "<<input;
+    qDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
+    qDebug()<<"running "<<input;
 
 #ifndef Q_OS_WIN
             m_process->pty()->write(input.toUtf8());
@@ -411,7 +411,7 @@ void MaximaSession::sendInputToProcess(const QString& input)
 
 void MaximaSession::restartMaxima()
 {
-    kDebug()<<"restarting maxima cooldown: "<<m_justRestarted;
+    qDebug()<<"restarting maxima cooldown: "<<m_justRestarted;
 
     if(!m_justRestarted)
     {
@@ -435,7 +435,7 @@ void MaximaSession::restartMaxima()
 
 void MaximaSession::restartsCooledDown()
 {
-    kDebug()<<"maxima restart cooldown";
+    qDebug()<<"maxima restart cooldown";
     m_justRestarted=false;
 }
 
@@ -444,8 +444,8 @@ void MaximaSession::setTypesettingEnabled(bool enable)
 {
     //we use the lisp command to set the variable, as those commands
     //don't mess with the labels and history
-    const QString& val=(enable==true ? "t":"nil");
-    Cantor::Expression* exp=evaluateExpression(QString(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish);
+    const QString& val=QLatin1String((enable==true ? "t":"nil"));
+    Cantor::Expression* exp=evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish);
     exp->setInternal(true);
 
     Cantor::Session::setTypesettingEnabled(enable);

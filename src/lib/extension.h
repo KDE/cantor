@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QPair>
 #include <QVector>
-#include <kdebug.h>
+#include <QDebug>
 #include <QWidget>
 #include "cantor_export.h"
 
@@ -59,7 +59,7 @@ class CANTOR_EXPORT HistoryExtension : public Extension
   public:
     HistoryExtension(QObject* parent);
     ~HistoryExtension();
-  public slots:
+  public Q_SLOTS:
     /**
      * Returns a command that retrieves the last result
      * @return command that retrieves the last result
@@ -76,7 +76,7 @@ class CANTOR_EXPORT ScriptExtension : public Extension
   public:
     ScriptExtension(QObject* parent);
     ~ScriptExtension();
-  public slots:
+  public Q_SLOTS:
     /**
      * returns the command for running a script
      * @param path path to the script file
@@ -123,7 +123,7 @@ class CANTOR_EXPORT CASExtension : public Extension
     CASExtension(QObject* parent);
     ~CASExtension();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * returns the command for solving a set of equations
      * @param equations a list of equations
@@ -155,7 +155,7 @@ class CANTOR_EXPORT CalculusExtension : public Extension
     CalculusExtension(QObject* parent);
     ~CalculusExtension();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * returns the command for calculating a limit if an expression
      * @param expression the expression
@@ -202,7 +202,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
     PlotExtension(QObject* parent);
     ~PlotExtension();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * returns the command for plotting a 2 dimensional function.
      * @param function the function to plot
@@ -226,7 +226,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
  { \
     const Cantor::AdvancedPlotExtension::DirectiveAcceptor<x>* adaptor= \
         dynamic_cast<const Cantor::AdvancedPlotExtension::DirectiveAcceptor<x>*>(&acc); \
-    if (adaptor==NULL) { kDebug()<<"Backend incapable of processing directives of type "#x;  return ""; } \
+    if (adaptor==NULL) { qDebug()<<"Backend incapable of processing directives of type "#x;  return QLatin1String(""); } \
     else \
         return adaptor->accept(*this); \
  }
@@ -329,7 +329,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             PlotDirective();
     };
 
-  public slots:
+  public Q_SLOTS:
     /**
      * returns the command for plotting a 2 dimensional data set.
      * @param expression the expression to plot
@@ -375,7 +375,7 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
     LinearAlgebraExtension(QObject* parent);
     ~LinearAlgebraExtension();
 
-  public slots:
+  public Q_SLOTS:
     //Commands to create Vectors/Matrices
     /**
      * creates a vector with the given entries
@@ -451,7 +451,7 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
     VariableManagementExtension( QObject* parent );
     ~VariableManagementExtension();
 
-  public slots:
+  public Q_SLOTS:
     virtual QString addVariable(const QString& name, const QString& value) = 0;
     virtual QString setValue(const QString& name,const QString& value) = 0;
     virtual QString removeVariable(const QString& name) = 0;
@@ -470,7 +470,7 @@ class CANTOR_EXPORT PackagingExtension : public Extension
     PackagingExtension(QObject* parent);
     ~PackagingExtension();
 
-  public slots:
+  public Q_SLOTS:
     /**
      * import library/module
      * @param package the library/module name

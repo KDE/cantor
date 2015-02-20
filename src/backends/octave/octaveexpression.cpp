@@ -23,29 +23,23 @@
 
 #include "textresult.h"
 
-#include <KDebug>
-#include <QtCore/QFile>
+#include <QDebug>
+#include <QFile>
 #include <helpresult.h>
 
 #include <config-cantorlib.h>
 
-#ifdef WITH_EPS
-#include "epsresult.h"
-typedef Cantor::EpsResult OctavePlotResult;
-#else
-#include "imageresult.h"
-typedef Cantor::ImageResult OctavePlotResult;
-#endif
 
 static const char* printCommand = "cantor_print();";
 
 OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session)
 {
-    kDebug() << "OctaveExpression construtor";
-    m_plotCommands << "plot" << "semilogx" << "semilogy" << "loglog" << "polar"
-                   << "mesh" << "contour" << "bar" << "stairs" << "errorbar"
-                   << "surf" << "sombrero"<< "hist"<< "fplot";
-    m_plotCommands << "cantor_plot2d" << "cantor_plot3d";
+    qDebug() << "OctaveExpression construtor";
+    m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
+                   << QLatin1String("polar") << QLatin1String("mesh") << QLatin1String("contour") << QLatin1String("bar")
+                   << QLatin1String("stairs") << QLatin1String("errorbar") << QLatin1String("surf") << QLatin1String("sombrero")
+                   << QLatin1String("hist") << QLatin1String("fplot");
+    m_plotCommands << QLatin1String("cantor_plot2d") << QLatin1String("cantor_plot3d");
 
     m_error = false;
     m_plotPending = false;
@@ -60,35 +54,35 @@ OctaveExpression::~OctaveExpression()
 
 void OctaveExpression::interrupt()
 {
-    kDebug() << "interrupt";
+    qDebug() << "interrupt";
     setStatus(Interrupted);
 }
 
 void OctaveExpression::evaluate()
 {
-    kDebug() << "evaluate";
+    qDebug() << "evaluate";
     QString cmd = command();
-    QStringList cmdWords = cmd.split(QRegExp("\\b"), QString::SkipEmptyParts);
-    if (!cmdWords.contains("help") && !cmdWords.contains("completion_matches"))
+    QStringList cmdWords = cmd.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
+    if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
     {
         foreach (const QString& plotCmd, m_plotCommands)
         {
             if (cmdWords.contains(plotCmd))
             {
                 setPlotPending(true);
-                kDebug() << "Executing a plot command";
+                qDebug() << "Executing a plot command";
                 break;
             }
         }
     }
-    if ( m_plotPending && !cmd.contains("cantor_plot"))
+    if ( m_plotPending && !cmd.contains(QLatin1String("cantor_plot")))
     {
         // This was a manual plot, we have to add a print command
-        if (!cmd.endsWith(';') && !cmd.endsWith(','))
+        if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
         {
-            cmd += ',';
+            cmd += QLatin1Char(',');
         }
-        cmd += printCommand;
+        cmd += QLatin1String(printCommand);
         setCommand(cmd);
     }
     m_finished = false;
@@ -103,14 +97,14 @@ void OctaveExpression::evaluate()
 
 void OctaveExpression::parseOutput ( QString output )
 {
-    kDebug() << "parseOutput: " << output;
+    qDebug() << "parseOutput: " << output;
     m_resultString += output;
     if (!m_resultString.trimmed().isEmpty())
     {
-        if (command().contains("help"))
+        if (command().contains(QLatin1String("help")))
         {
             //Escape whitespace
-            m_resultString.replace( ' ', "&nbsp;");
+            m_resultString.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
 
             setResult(new Cantor::HelpResult(m_resultString));
         }
@@ -123,8 +117,8 @@ void OctaveExpression::parseOutput ( QString output )
 
 void OctaveExpression::parseError(QString error)
 {
-    kDebug() << error;
-    if (false && error.contains("warning"))
+    qDebug() << error;
+    if (false && error.contains(QLatin1String("warning")))
     {
         parseOutput(error);
     }
@@ -138,10 +132,10 @@ void OctaveExpression::parseError(QString error)
 
 void OctaveExpression::parsePlotFile(QString file)
 {
-    kDebug() << "parsePlotFile";
+    qDebug() << "parsePlotFile";
     if (QFile::exists(file))
     {
-        kDebug() << "OctaveExpression::parsePlotFile: " << file;
+        qDebug() << "OctaveExpression::parsePlotFile: " << file;
 
         setResult(new OctavePlotResult(file));
         setPlotPending(false);
@@ -155,14 +149,14 @@ void OctaveExpression::parsePlotFile(QString file)
 
 void OctaveExpression::finalize()
 {
-    kDebug() << "finalize: " << m_resultString;
-    foreach ( const QString& line, m_resultString.split('\n', QString::SkipEmptyParts) )
+    qDebug() << "finalize: " << m_resultString;
+    foreach ( const QString& line, m_resultString.split(QLatin1Char('\n'), QString::SkipEmptyParts) )
     {
-        if (m_resultString.contains('='))
+        if (m_resultString.contains(QLatin1Char('=')))
         {
-            kDebug() << line;
+            qDebug() << line;
             // Probably a new variable
-            QStringList parts = line.split('=');
+            QStringList parts = line.split(QLatin1Char('='));
             if (parts.size() >= 2)
             {
                 Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
@@ -173,7 +167,7 @@ void OctaveExpression::finalize()
             }
         }
     }
-    kDebug() << m_plotPending << m_error;
+    qDebug() << m_plotPending << m_error;
     m_finished = true;
     if (!m_plotPending)
     {

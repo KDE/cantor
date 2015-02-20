@@ -29,7 +29,7 @@ class RScriptExtension : public Cantor::ScriptExtension
   public:
     RScriptExtension(QObject* parent);
     ~RScriptExtension();
-  public slots:
+  public Q_SLOTS:
     virtual QString runExternalScript(const QString& path);
     virtual QString scriptFileFilter();
     virtual QString highlightingMode();
@@ -47,7 +47,7 @@ class RPlotExtension :  public Cantor::AdvancedPlotExtension,
     QString accept(const Cantor::OrdinateScaleDirective& directive) const;
     QString accept(const Cantor::AbscissScaleDirective& directive) const;
   protected:
-    QString plotCommand() const { return "plot"; }
+    QString plotCommand() const { return QLatin1String("plot"); }
 };
 
 #endif /* _REXTENSIONS_H */

@@ -19,7 +19,7 @@
  */
 
 #include "defaultvariablemodel.h"
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 #include "extension.h"
 #include "backend.h"
@@ -43,9 +43,9 @@ d_ptr(new DefaultVariableModelPrivate)
     d->session = session;
     if (session)
     {
-        d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension("VariableManagementExtension"));
+        d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension(QLatin1String("VariableManagementExtension")));
     }
-    kDebug() << d->session << d->extension;
+    qDebug() << d->session << d->extension;
 }
 
 DefaultVariableModel::~DefaultVariableModel()
@@ -198,5 +198,5 @@ bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor:
 
 }
 
-#include  "defaultvariablemodel.moc"
+
 

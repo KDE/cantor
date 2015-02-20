@@ -18,10 +18,14 @@
     Copyright (C) 2011 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
+#include <KCompletion>
+#include <KLocale>
+#include <KUrl>
+#include <KUrlCompletion>
+
 #include "imagesettingsdialog.h"
 #include "qimagereader.h"
 #include "qfiledialog.h"
-#include "kurlcompletion.h"
 
 ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
 {
@@ -38,7 +42,7 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     m_ui.printHeightCombo->addItems(m_unitNames);
 
     KUrlCompletion* completer = new KUrlCompletion(KUrlCompletion::FileCompletion);
-    completer->setCompletionMode(KGlobalSettings::CompletionMan);
+    completer->setCompletionMode(KCompletion::CompletionMan);
     m_ui.pathEdit->setCompletionObject(completer);
     m_ui.pathEdit->setAutoDeleteCompletionObject( true );
 
@@ -51,21 +55,21 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     m_ui.printWidthInput->setSingleStep(1);
     m_ui.printHeightInput->setSingleStep(1);
 
-    connect(this, SIGNAL(okClicked()), this, SLOT(sendChangesAndClose()));
-    connect(this, SIGNAL(applyClicked()), this, SLOT(sendChanges()));
-    connect(this, SIGNAL(cancelClicked()), this, SLOT(close()));
+    connect(this, &ImageSettingsDialog::okClicked, this, &ImageSettingsDialog::sendChangesAndClose);
+    connect(this, &ImageSettingsDialog::applyClicked, this, &ImageSettingsDialog::sendChanges);
+    connect(this, &ImageSettingsDialog::cancelClicked, this, &ImageSettingsDialog::close);
 
-    connect(m_ui.openDialogButton, SIGNAL(clicked()), this, SLOT(openDialog()));
+    connect(m_ui.openDialogButton, &KPushButton::clicked, this, &ImageSettingsDialog::openDialog);
     //connect(m_fileDialog, SIGNAL(accepted()), this, SLOT(updatePath()));
 
-    connect(m_ui.pathEdit, SIGNAL(editingFinished()), this, SLOT(updatePreview()));
+    connect(m_ui.pathEdit, &KLineEdit::editingFinished, this, &ImageSettingsDialog::updatePreview);
 
-    connect(m_ui.displayWidthCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
-    connect(m_ui.displayHeightCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
-    connect(m_ui.printWidthCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
-    connect(m_ui.printHeightCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateInputWidgets()));
+    connect(m_ui.displayWidthCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.displayHeightCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.printWidthCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.printHeightCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
 
-    connect(m_ui.useDisplaySize, SIGNAL(stateChanged(int)), this, SLOT(updatePrintingGroup(int)));
+    connect(m_ui.useDisplaySize, &QCheckBox::stateChanged, this, &ImageSettingsDialog::updatePrintingGroup);
 }
 
 ImageSettingsDialog::~ImageSettingsDialog()
@@ -73,7 +77,7 @@ ImageSettingsDialog::~ImageSettingsDialog()
 
 }
 
-void ImageSettingsDialog::setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting) 
+void ImageSettingsDialog::setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting)
 {
     m_ui.pathEdit->setText(file);
     if (displaySize.width >= 0)
@@ -125,12 +129,12 @@ void ImageSettingsDialog::sendChanges()
 void ImageSettingsDialog::openDialog()
 {
     QList<QByteArray> formats = QImageReader::supportedImageFormats();
-    QString formatString = "Images(";
+    QString formatString = QLatin1String("Images(");
     foreach(QByteArray format, formats)
     {
-	formatString += "*." + QString(format).toLower() + " ";
+    formatString += QLatin1String("*.") + QString::fromLatin1(format).toLower() + QLatin1String(" ");
     }
-    formatString += ")";
+    formatString += QLatin1String(")");
     QString file = QFileDialog::getOpenFileName(this, i18n("Open image file"), m_ui.pathEdit->text(), formatString);
     if (!file.isEmpty())
     {
@@ -155,7 +159,7 @@ void ImageSettingsDialog::updateInputWidgets()
 	m_ui.displayHeightInput->setEnabled(false);
     else
 	m_ui.displayHeightInput->setEnabled(true);
-	
+
     if (m_ui.printWidthCombo->currentIndex() == 0 || !m_ui.printWidthCombo->isEnabled())
 	m_ui.printWidthInput->setEnabled(false);
     else
@@ -169,7 +173,7 @@ void ImageSettingsDialog::updateInputWidgets()
 
 void ImageSettingsDialog::updatePrintingGroup(int b)
 {
-    
+
     m_ui.printWidthCombo->setEnabled(!b);
     m_ui.printHeightCombo->setEnabled(!b);
 

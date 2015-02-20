@@ -21,7 +21,7 @@
 #ifndef IMAGESETTINGSDIALOG_H
 #define IMAGESETTINGSDIALOG_H
 
-#include <kdialog.h>
+#include <KDialog>
 
 #include <ui_imagesettings.h>
 
@@ -40,16 +40,16 @@ class ImageSettingsDialog : public KDialog
   public:
     ImageSettingsDialog(QWidget* parent);
     ~ImageSettingsDialog();
-    
+
     void setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
-  signals:
+  Q_SIGNALS:
     void dataChanged(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
-  private slots:
+  private Q_SLOTS:
     void sendChangesAndClose();
     void sendChanges();
-    
+
     void openDialog();
     void updatePreview();
     void updateInputWidgets();
@@ -58,7 +58,7 @@ class ImageSettingsDialog : public KDialog
   private:
     QList<QString> m_unitNames;
     Ui_ImageSettingsBase m_ui;
-    
+
 };
 
 #endif //IMAGESETTINGSDIALOG_H

@@ -23,7 +23,7 @@
 
 #include <QVariant>
 #include <QDomElement>
-#include <kurl.h>
+#include <KUrl>
 #include "cantor_export.h"
 
 class KZip;
@@ -95,12 +95,12 @@ class CANTOR_EXPORT Result
      */
     virtual QDomElement toXml(QDomDocument& doc) = 0;
     /**
-     * saves all the data, that can't be saved in xml 
+     * saves all the data, that can't be saved in xml
      * in an extra file in the archive.
      */
     virtual void saveAdditionalData(KZip* archive);
 
-    /** 
+    /**
      * saves this to a file
      * @param filename name of the file
      */

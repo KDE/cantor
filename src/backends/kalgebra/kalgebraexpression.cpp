@@ -56,7 +56,7 @@ void KAlgebraExpression::evaluate()
         setResult(new Cantor::TextResult(res.toString()));
         setStatus(Cantor::Expression::Done);
     } else {
-        setErrorMessage(i18n("Error: %1", a->errors().join("\n")));
+        setErrorMessage(i18n("Error: %1", a->errors().join(QLatin1String("\n"))));
         setStatus(Cantor::Expression::Error);
     }
 }

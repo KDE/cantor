@@ -20,10 +20,9 @@
 
 #include "eigenvectorsassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -41,11 +40,11 @@ EigenVectorsAssistant::~EigenVectorsAssistant()
 
 void EigenVectorsAssistant::initActions()
 {
-    setXMLFile("cantor_eigenvectors_assistant.rc");
+    setXMLFile(QLatin1String("cantor_eigenvectors_assistant.rc"));
     KAction* eigenvectors=new KAction(i18n("Compute Eigenvectors"), actionCollection());
     //eigenvectors->setIcon(KIcon(icon()));
-    actionCollection()->addAction("eigenvectors_assistant", eigenvectors);
-    connect(eigenvectors, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("eigenvectors_assistant"), eigenvectors);
+    connect(eigenvectors, &KAction::triggered, this, &EigenVectorsAssistant::requested);
 }
 
 QStringList EigenVectorsAssistant::run(QWidget* parent)
@@ -56,14 +55,16 @@ QStringList EigenVectorsAssistant::run(QWidget* parent)
     base.setupUi(widget);
     dlg->setMainWidget(widget);
 
-    Cantor::HistoryExtension* hist= dynamic_cast<Cantor::HistoryExtension*>(backend()->extension("HistoryExtension"));
+    Cantor::HistoryExtension* hist=
+        dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
     base.matrix->setText(hist->lastResult());
 
     QStringList result;
     if( dlg->exec())
     {
         const QString& m=base.matrix->text();
-        Cantor::LinearAlgebraExtension* ext= dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
+        Cantor::LinearAlgebraExtension* ext=
+            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
         result<<ext->eigenVectors(m);
     }
 
@@ -72,3 +73,4 @@ QStringList EigenVectorsAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(eigenvectorsassistant, EigenVectorsAssistant)
+#include "eigenvectorsassistant.moc"

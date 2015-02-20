@@ -24,7 +24,7 @@
 #include "lib/animationresult.h"
 
 #include <KFileDialog>
-#include <KDebug>
+#include <QDebug>
 #include <KLocale>
 
 AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
@@ -46,24 +46,24 @@ double AnimationResultItem::setGeometry(double x, double y, double w)
     return m_height;
 }
 
-void AnimationResultItem::populateMenu(KMenu* menu, const QPointF& pos)
+void AnimationResultItem::populateMenu(QMenu* menu, const QPointF& pos)
 {
     addCommonActions(this, menu);
 
     menu->addSeparator();
     if (m_movie) {
         if (m_movie->state() == QMovie::Running)
-            menu->addAction(KIcon("media-playback-pause"), i18n("Pause"),
+            menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-pause")), i18n("Pause"),
                             this, SLOT(pauseMovie()));
         else
-            menu->addAction(KIcon("media-playback-start"), i18n("Start"),
+            menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Start"),
                             m_movie, SLOT(start()));
         if (m_movie->state() == QMovie::Running ||
             m_movie->state() == QMovie::Paused)
-            menu->addAction(KIcon("media-playback-stop"), i18n("Stop"),
+            menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-stop")), i18n("Stop"),
                             this, SLOT(stopMovie()));
     }
-    kDebug() << "populate Menu";
+    qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -106,10 +106,8 @@ void AnimationResultItem::setMovie(QMovie* movie)
     m_movie = movie;
     m_height = 0;
     if (m_movie) {
-        connect(m_movie, SIGNAL(frameChanged(int)), this,
-                SLOT(updateFrame()));
-        connect(m_movie, SIGNAL(resized(const QSize&)),
-                this, SLOT(updateSize(const QSize&)));
+        connect(m_movie, &QMovie::frameChanged, this, &AnimationResultItem::updateFrame);
+        connect(m_movie, &QMovie::resized, this, &AnimationResultItem::updateSize);
         m_movie->start();
     }
 }
@@ -132,7 +130,7 @@ void AnimationResultItem::saveResult()
 {
     Cantor::Result* res = result();
     const QString& filename=KFileDialog::getSaveFileName(KUrl(), res->mimeType(), worksheet()->worksheetView());
-    kDebug()<<"saving result to "<<filename;
+    qDebug()<<"saving result to "<<filename;
     res->save(filename);
 }
 
@@ -166,4 +164,4 @@ Cantor::Result* AnimationResultItem::result()
     return parentEntry()->expression()->result();
 }
 
-#include "animationresultitem.moc"
+

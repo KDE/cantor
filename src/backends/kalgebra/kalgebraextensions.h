@@ -29,7 +29,7 @@ class KAlgebraVariableManagementExtension : public Cantor::VariableManagementExt
     KAlgebraVariableManagementExtension( QObject* parent );
     ~KAlgebraVariableManagementExtension();
 
-  public slots:
+  public Q_SLOTS:
     virtual QString addVariable(const QString& name, const QString& value);
     virtual QString setValue(const QString& name,const QString& value);
     virtual QString removeVariable(const QString& name) { return QString(); }

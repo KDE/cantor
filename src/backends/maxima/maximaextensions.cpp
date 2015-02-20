@@ -20,7 +20,7 @@
 
 #include "maximaextensions.h"
 #include <QStringList>
-#include <klocale.h>
+#include <KLocale>
 
 #define MAXIMA_EXTENSION_CONSTRUCTORS(name) Maxima##name##Extension::Maxima##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Maxima##name##Extension::~Maxima##name##Extension() {}
@@ -30,7 +30,7 @@ MAXIMA_EXTENSION_CONSTRUCTORS(History)
 
 QString MaximaHistoryExtension::lastResult()
 {
-    return "%";
+    return QLatin1String("%");
 }
 
 //Script
@@ -38,7 +38,7 @@ MAXIMA_EXTENSION_CONSTRUCTORS(Script)
 
 QString MaximaScriptExtension::runExternalScript(const QString& file)
 {
-    return QString("batch(\"%1\")$").arg(file);
+    return QString::fromLatin1("batch(\"%1\")$").arg(file);
 }
 
 QString MaximaScriptExtension::scriptFileFilter()
@@ -48,17 +48,17 @@ QString MaximaScriptExtension::scriptFileFilter()
 
 QString MaximaScriptExtension::highlightingMode()
 {
-    return QString("maxima");
+    return QLatin1String("maxima");
 }
 
 QString MaximaScriptExtension::commentStartingSequence()
 {
-    return "/* ";
+    return QLatin1String("/* ");
 }
 
 QString MaximaScriptExtension::commentEndingSequence()
 {
-    return " */";
+    return QLatin1String(" */");
 }
 
 //CAS Extension
@@ -66,21 +66,21 @@ MAXIMA_EXTENSION_CONSTRUCTORS(CAS)
 
 QString MaximaCASExtension::solve(const QStringList& equations, const QStringList& variables)
 {
-    QString eqstr=QString("[%1]").arg(equations.join(","));
+    QString eqstr=QString::fromLatin1("[%1]").arg(equations.join(QLatin1String(",")));
 
-    QString variablestr=QString("[%1]").arg(variables.join(","));
+    QString variablestr=QString::fromLatin1("[%1]").arg(variables.join(QLatin1String(",")));
 
-    return QString("solve(%1,%2);").arg(eqstr, variablestr);
+    return QString::fromLatin1("solve(%1,%2);").arg(eqstr, variablestr);
 }
 
 QString MaximaCASExtension::simplify(const QString& expression)
 {
-    return QString("simplify(%1);").arg(expression);
+    return QString::fromLatin1("simplify(%1);").arg(expression);
 }
 
 QString MaximaCASExtension::expand(const QString& expression)
 {
-    return QString("expand(%1);").arg(expression);
+    return QString::fromLatin1("expand(%1);").arg(expression);
 }
 
 //Calculus Extension
@@ -88,22 +88,22 @@ MAXIMA_EXTENSION_CONSTRUCTORS(Calculus)
 
 QString MaximaCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {
-    return QString("limit(%1, %2=%3);").arg(expression, variable, limit);
+    return QString::fromLatin1("limit(%1, %2=%3);").arg(expression, variable, limit);
 }
 
 QString MaximaCalculusExtension::differentiate(const QString& function,const QString& variable, int times)
 {
-    return QString("diff(%1, %2, %3);").arg(function, variable, QString::number(times));
+    return QString::fromLatin1("diff(%1, %2, %3);").arg(function, variable, QString::number(times));
 }
 
 QString MaximaCalculusExtension::integrate(const QString& function, const QString& variable)
 {
-    return QString("integrate(%1, %2);").arg(function, variable);
+    return QString::fromLatin1("integrate(%1, %2);").arg(function, variable);
 }
 
 QString MaximaCalculusExtension::integrate(const QString& function,const QString& variable, const QString& left, const QString& right)
 {
-    return QString("integrate(%1, %2, %3, %4);").arg(function, variable, left, right);
+    return QString::fromLatin1("integrate(%1, %2, %3, %4);").arg(function, variable, left, right);
 }
 
 //Linear Algebra Extension
@@ -112,60 +112,60 @@ MAXIMA_EXTENSION_CONSTRUCTORS(LinearAlgebra)
 //Commands to create Vectors/Matrices
 QString MaximaLinearAlgebraExtension::createVector(const QStringList& entries, VectorType type)
 {
-    QString list=entries.join(",");
+    QString list=entries.join(QLatin1String(","));
 
     if(type==Cantor::LinearAlgebraExtension::ColumnVector)
-        return QString("columnvector([%1]);").arg(list);
+        return QString::fromLatin1("columnvector([%1]);").arg(list);
     else
-        return QString("rowvector([%1]);").arg(list);
+        return QString::fromLatin1("rowvector([%1]);").arg(list);
 }
 
 QString MaximaLinearAlgebraExtension::createMatrix(const Matrix& matrix)
 {
-    QString cmd="matrix(";
+    QString cmd=QLatin1String("matrix(");
     foreach(const QStringList& row, matrix)
     {
-        cmd+='[';
+        cmd+=QLatin1Char('[');
         foreach(const QString& entry, row)
-            cmd+=entry+',';
+            cmd+=entry+QLatin1Char(',');
         cmd.chop(1);
-        cmd+="],";
+        cmd+=QLatin1String("],");
     }
     cmd.chop(1);
-    cmd+=");";
+    cmd+=QLatin1String(");");
 
     return cmd;
 }
 
 QString MaximaLinearAlgebraExtension::identityMatrix(int size)
 {
-    return QString("ident(%1);").arg(size);
+    return QString::fromLatin1("ident(%1);").arg(size);
 }
 
 //basic functions
 QString MaximaLinearAlgebraExtension::rank(const QString& matrix)
 {
-    return QString("rank(%1);").arg(matrix);
+    return QString::fromLatin1("rank(%1);").arg(matrix);
 }
 
 QString MaximaLinearAlgebraExtension::invertMatrix(const QString& matrix)
 {
-    return QString("invert(%1);").arg(matrix);
+    return QString::fromLatin1("invert(%1);").arg(matrix);
 }
 
 QString MaximaLinearAlgebraExtension::charPoly(const QString& matrix)
 {
-    return QString("charpoly(%1,x);").arg(matrix);
+    return QString::fromLatin1("charpoly(%1,x);").arg(matrix);
 }
 
 QString MaximaLinearAlgebraExtension::eigenVectors(const QString& matrix)
 {
-    return QString("eigenvectors(%1);").arg(matrix);
+    return QString::fromLatin1("eigenvectors(%1);").arg(matrix);
 }
 
 QString MaximaLinearAlgebraExtension::eigenValues(const QString& matrix)
 {
-    return QString("eigenvalues(%1);").arg(matrix);
+    return QString::fromLatin1("eigenvalues(%1);").arg(matrix);
 }
 
 //Plotting
@@ -173,14 +173,14 @@ MAXIMA_EXTENSION_CONSTRUCTORS(Plot)
 
 QString MaximaPlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
 {
-    return QString("plot2d(%1,[%2,%3,%4])").arg(function, variable, left, right);
+    return QString::fromLatin1("plot2d(%1,[%2,%3,%4])").arg(function, variable, left, right);
 }
 
 QString MaximaPlotExtension::plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2)
 {
     const Interval& int1=var1.second;
     const Interval& int2=var2.second;
-    return QString("plot3d(%1,[%2,%3,%4],[%6,%7,%8])").arg(function,
+    return QString::fromLatin1("plot3d(%1,[%2,%3,%4],[%6,%7,%8])").arg(function,
                                                            var1.first, int1.first, int1.second,
                                                            var2.first, int2.first, int2.second);
 }
@@ -190,30 +190,30 @@ MAXIMA_EXTENSION_CONSTRUCTORS(VariableManagement)
 
 QString MaximaVariableManagementExtension::addVariable(const QString& name, const QString& value)
 {
-    return QString("%1: %2").arg(name).arg(value);
+    return QString::fromLatin1("%1: %2").arg(name).arg(value);
 }
 
 QString MaximaVariableManagementExtension::setValue(const QString& name,const QString& value)
 {
-    return QString("%1: %2").arg(name).arg(value);
+    return QString::fromLatin1("%1: %2").arg(name).arg(value);
 }
 
 QString MaximaVariableManagementExtension::removeVariable(const QString& name)
 {
-    return QString("kill(%1)").arg(name);
+    return QString::fromLatin1("kill(%1)").arg(name);
 }
 
 QString MaximaVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return QString("save(\"%1\", values,functions)").arg(fileName);
+    return QString::fromLatin1("save(\"%1\", values,functions)").arg(fileName);
 }
 
 QString MaximaVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return QString("load(\"%1\")").arg(fileName);
+    return QString::fromLatin1("load(\"%1\")").arg(fileName);
 }
 
 QString MaximaVariableManagementExtension::clearVariables()
 {
-    return QString("kill(all)");
+    return QLatin1String("kill(all)");
 }

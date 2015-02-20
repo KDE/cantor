@@ -4,9 +4,10 @@
 add_subdirectory(lib)
 
 include_directories( lib ${CMAKE_CURRENT_BINARY_DIR}/lib)
-if(KDE4_BUILD_TESTS)
+if(BUILD_TESTING)
+  include(ECMMarkAsTest)
   include_directories( lib/test )
-endif(KDE4_BUILD_TESTS)
+endif(BUILD_TESTING)
 
 if(LIBSPECTRE_FOUND)
    include_directories(${LIBSPECTRE_INCLUDE_DIR})
@@ -18,9 +19,9 @@ add_subdirectory(panelplugins)
 
 
 #build the config object in a separate library, shared between shell and part
-kde4_add_kcfg_files(config_SRCS settings.kcfgc)
-kde4_add_library( cantor_config  SHARED ${config_SRCS} )
-target_link_libraries( cantor_config ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} )
+kconfig_add_kcfg_files(config_SRCS settings.kcfgc)
+add_library( cantor_config  SHARED ${config_SRCS} )
+target_link_libraries( cantor_config  KF5::Parts KF5::NewStuff )
 install( TARGETS cantor_config  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 set(cantor_SRCS
@@ -31,37 +32,25 @@ set(cantor_SRCS
 
 install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 
-kde4_add_ui_files(cantor_SRCS settings.ui)
-kde4_add_ui_files(cantor_SRCS backendchooser.ui)
+ki18n_wrap_ui(cantor_SRCS settings.ui)
+ki18n_wrap_ui(cantor_SRCS backendchooser.ui)
 
 kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
-kde4_add_executable(cantor ${cantor_SRCS})
+add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} cantorlibs cantor_config)
+target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( PROGRAMS cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES cantor_shell.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )
-
+install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
+install( FILES cantor_shell.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
 install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_maxima.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_sage.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_kalgebra.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_lua.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_octave.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_qalculate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_python2.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES cantor_scilab.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-if (R_FOUND)
-  install( FILES cantor_r.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-endif (R_FOUND)
 
 #########################################################################
 # KPART SECTION
 #########################################################################
-#kde_module_LTLIBRARIES = libcantorpart.la
+
 set(cantor_PART_SRCS
    cantor_part.cpp
    worksheet.cpp
@@ -90,27 +79,24 @@ set(cantor_PART_SRCS
    epsrenderer.cpp
  )
 
-kde4_add_ui_files(cantor_PART_SRCS imagesettings.ui)
-kde4_add_ui_files(cantor_PART_SRCS standardsearchbar.ui)
-kde4_add_ui_files(cantor_PART_SRCS extendedsearchbar.ui)
-
+ki18n_wrap_ui(cantor_PART_SRCS imagesettings.ui)
+ki18n_wrap_ui(cantor_PART_SRCS standardsearchbar.ui)
+ki18n_wrap_ui(cantor_PART_SRCS extendedsearchbar.ui)
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
-kde4_add_plugin(cantorpart WITH_PREFIX ${cantor_PART_SRCS})
+add_library(cantorpart MODULE ${cantor_PART_SRCS})
+set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFIX}")
 
-#add_library(blahtexcore STATIC IMPORTED)
-#set_property(TARGET blahtexcore PROPERTY IMPORTED_LOCATION Path_To_BlahtexCore_Library/libblahtexcore.a)
-
-target_link_libraries(cantorpart ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS}
-				     ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTXMLPATTERNS_LIBRARY}
-				     cantorlibs cantor_config )
+target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
+                     KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
+                     cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
 install( FILES cantor_part.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor )
-install( FILES cantor_part.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )
-install( FILES cantor_scripteditor.rc  DESTINATION ${DATA_INSTALL_DIR}/cantor )
+install( FILES cantor_part.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
+install( FILES cantor_scripteditor.rc  DESTINATION ${KXMLGUI_INSTALL_DIR}/cantor )
 
 install(TARGETS cantorpart  DESTINATION ${PLUGIN_INSTALL_DIR} )

@@ -31,7 +31,7 @@ class ScilabHighlighter : public Cantor::DefaultHighlighter
         ScilabHighlighter(QObject* parent);
         ~ScilabHighlighter();
 
-    public slots:
+    public Q_SLOTS:
         void updateHighlight();
         void addVariableHighlight();
 

@@ -32,13 +32,13 @@ using namespace Cantor;
 #include "latexrenderer.h"
 
 #include <QFileInfo>
+#include <QString>
 
-#include <kstandarddirs.h>
-#include <kprocess.h>
-#include <ktemporaryfile.h>
-#include <kdebug.h>
-#include <kzip.h>
-
+#include <KStandardDirs>
+#include <KProcess>
+#include <KTemporaryFile>
+#include <QDebug>
+#include <KZip>
 
 class Cantor::ExpressionPrivate
 {
@@ -60,7 +60,7 @@ public:
     bool isInternal;
 };
 
-static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
+static const QString tex=QLatin1String("\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
                          "\\setlength\\textwidth{5in}                   \n "\
@@ -69,7 +69,7 @@ static const QString tex="\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\pagestyle{empty}                            \n "\
                          "\\begin{document}                             \n "\
                          "%2                                            \n "\
-                         "\\end{document}\n";
+                         "\\end{document}\n");
 
 
 Expression::Expression( Session* session ) : QObject( session ),
@@ -115,7 +115,7 @@ void Expression::setResult(Result* result)
 
     if(result!=0)
     {
-        kDebug()<<"settting result to a type "<<result->type()<<" result";
+        qDebug()<<"settting result to a type "<<result->type()<<" result";
         #ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
         if ( session()->isTypesettingEnabled()&&
@@ -167,15 +167,15 @@ Session* Expression::session()
 }
 void Expression::renderResultAsLatex()
 {
-    kDebug()<<"rendering as latex";
-    kDebug()<<"checking if it really is a formula that can be typeset";
+    qDebug()<<"rendering as latex";
+    qDebug()<<"checking if it really is a formula that can be typeset";
 
     LatexRenderer* renderer=new LatexRenderer(this);
     renderer->setLatexCode(result()->data().toString().trimmed());
     renderer->addHeader(additionalLatexHeaders());
 
-    connect(renderer, SIGNAL(done()), this, SLOT(latexRendered()));
-    connect(renderer, SIGNAL(error()), this, SLOT(latexRendered()));
+    connect(renderer, &LatexRenderer::done, this, &Expression::latexRendered);
+    connect(renderer, &LatexRenderer::error, this, &Expression::latexRendered);
 
     renderer->render();
 }
@@ -184,7 +184,7 @@ void Expression::latexRendered()
 {
     LatexRenderer* renderer=qobject_cast<LatexRenderer*>(sender());
 
-    kDebug()<<"rendered a result to "<<renderer->imagePath();
+    qDebug()<<"rendered a result to "<<renderer->imagePath();
     //replace the textresult with the rendered latex image result
     //ImageResult* latex=new ImageResult( d->latexFilename );
     if(renderer->renderingSuccessful()&&result())
@@ -203,9 +203,11 @@ void Expression::latexRendered()
         }
     }else
     {
-        //if rendering with latex was not successfull, just
-        //do nothing and keep the old result.
-        kDebug()<<"error rendering latex: "<<renderer->errorMessage();
+        //if rendering with latex was not successfull, just use the plain text version
+        //if available
+        TextResult* r=dynamic_cast<TextResult*>(result());
+        setResult(new TextResult(r->plain()));
+        qDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 
     renderer->deleteLater();
@@ -214,14 +216,14 @@ void Expression::latexRendered()
 //saving code
 QDomElement Expression::toXml(QDomDocument& doc)
 {
-    QDomElement expr=doc.createElement( "Expression" );
-    QDomElement cmd=doc.createElement( "Command" );
+    QDomElement expr=doc.createElement( QLatin1String("Expression") );
+    QDomElement cmd=doc.createElement( QLatin1String("Command") );
     QDomText cmdText=doc.createTextNode( command() );
     cmd.appendChild( cmdText );
     expr.appendChild( cmd );
     if ( result() )
     {
-        kDebug()<<"result: "<<result();
+        qDebug()<<"result: "<<result();
         QDomElement resXml=result()->toXml( doc );
         expr.appendChild( resXml );
     }
@@ -277,5 +279,5 @@ bool Expression::isInternal()
     return d->isInternal;
 }
 
-#include "expression.moc"
+
 

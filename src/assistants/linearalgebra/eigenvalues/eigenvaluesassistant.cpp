@@ -20,10 +20,9 @@
 
 #include "eigenvaluesassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -41,11 +40,11 @@ EigenValuesAssistant::~EigenValuesAssistant()
 
 void EigenValuesAssistant::initActions()
 {
-    setXMLFile("cantor_eigenvalues_assistant.rc");
+    setXMLFile(QLatin1String("cantor_eigenvalues_assistant.rc"));
     KAction* eigenvalues=new KAction(i18n("Compute Eigenvalues"), actionCollection());
     //eigenvalues->setIcon(KIcon(icon()));
-    actionCollection()->addAction("eigenvalues_assistant", eigenvalues);
-    connect(eigenvalues, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("eigenvalues_assistant"), eigenvalues);
+    connect(eigenvalues, &KAction::triggered, this, &EigenValuesAssistant::requested);
 }
 
 QStringList EigenValuesAssistant::run(QWidget* parent)
@@ -56,14 +55,16 @@ QStringList EigenValuesAssistant::run(QWidget* parent)
     base.setupUi(widget);
     dlg->setMainWidget(widget);
 
-    Cantor::HistoryExtension* hist= dynamic_cast<Cantor::HistoryExtension*>(backend()->extension("HistoryExtension"));
+    Cantor::HistoryExtension* hist=
+        dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
     base.matrix->setText(hist->lastResult());
 
     QStringList result;
     if( dlg->exec())
     {
         const QString& m=base.matrix->text();
-        Cantor::LinearAlgebraExtension* ext= dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
+        Cantor::LinearAlgebraExtension* ext=
+            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
         result<<ext->eigenValues(m);
     }
 
@@ -72,3 +73,4 @@ QStringList EigenValuesAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(eigenvaluesassistant, EigenValuesAssistant)
+#include "eigenvaluesassistant.moc"

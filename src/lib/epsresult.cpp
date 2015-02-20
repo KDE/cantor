@@ -23,9 +23,9 @@ using namespace Cantor;
 
 #include <config-cantorlib.h>
 
-#include <kdebug.h>
-#include <kzip.h>
-#include <kio/job.h>
+#include <QDebug>
+#include <KZip>
+#include <KIO/Job>
 
 class Cantor::EpsResultPrivate{
     public:
@@ -37,7 +37,7 @@ EpsResult::EpsResult(const KUrl& url) : d(new EpsResultPrivate)
 {
     d->url=url;
 #ifndef WITH_EPS
-    kError()<<"Creating an EpsResult in an environment compiled without EPS support!";
+    qDebug()<<"Creating an EpsResult in an environment compiled without EPS support!";
 #endif
 }
 
@@ -48,12 +48,12 @@ EpsResult::~EpsResult()
 
 QString EpsResult::toHtml()
 {
-    return QString("<img src=\"%1\" />").arg(d->url.url());
+    return QString::fromLatin1("<img src=\"%1\" />").arg(d->url.url());
 }
 
 QString EpsResult::toLatex()
 {
-    return QString(" \\begin{center} \n \\includegraphics[width=12cm]{%1}\n \\end{center}").arg(d->url.fileName());
+    return QString::fromLatin1(" \\begin{center} \n \\includegraphics[width=12cm]{%1}\n \\end{center}").arg(d->url.fileName());
 }
 
 QVariant EpsResult::data()
@@ -73,16 +73,16 @@ int EpsResult::type()
 
 QString EpsResult::mimeType()
 {
-    return "image/x-eps";
+    return QLatin1String("image/x-eps");
 }
 
 QDomElement EpsResult::toXml(QDomDocument& doc)
 {
-    kDebug()<<"saving imageresult "<<toHtml();
-    QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "image");
-    e.setAttribute("filename", d->url.fileName());
-    kDebug()<<"done";
+    qDebug()<<"saving imageresult "<<toHtml();
+    QDomElement e=doc.createElement(QLatin1String("Result"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("image"));
+    e.setAttribute(QLatin1String("filename"), d->url.fileName());
+    qDebug()<<"done";
 
     return e;
 }

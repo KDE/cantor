@@ -31,7 +31,7 @@
 
 LuaBackend::LuaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName("LuaBackend");
+    setObjectName(QLatin1String("LuaBackend"));
     new LuaScriptExtension(this);
 }
 
@@ -41,7 +41,7 @@ LuaBackend::~LuaBackend()
 
 QString LuaBackend::id() const
 {
-    return "lua";
+    return QLatin1String("lua");
 }
 
 Cantor::Session* LuaBackend::createSession()

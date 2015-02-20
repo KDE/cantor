@@ -23,16 +23,16 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
-#include <kdebug.h>
-#include <kiconloader.h>
+#include <QDebug>
+#include <KIconLoader>
 #include <QTimer>
 
 NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    kDebug();
+    qDebug();
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(evalFinished()));
+    connect(m_timer, &QTimer::timeout, this, &NullExpression::evalFinished);
 }
 
 NullExpression::~NullExpression()
@@ -43,7 +43,7 @@ NullExpression::~NullExpression()
 
 void NullExpression::evaluate()
 {
-    kDebug()<<"evaluating "<<command();
+    qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
 
     m_timer->start(1000);
@@ -51,18 +51,18 @@ void NullExpression::evaluate()
 
 void NullExpression::interrupt()
 {
-    kDebug()<<"interruptinging command";
+    qDebug()<<"interruptinging command";
     m_timer->stop();
     setStatus(Cantor::Expression::Interrupted);
 }
 
 void NullExpression::evalFinished()
 {
-    kDebug()<<"evaluation finished";
-    if ( command()=="img" )
-        setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath("kde", KIconLoader::Desktop)), "alternative" ) );
+    qDebug()<<"evaluation finished";
+    if ( command()==QLatin1String("img") )
+        setResult( new Cantor::ImageResult( KUrl(KIconLoader::global()->iconPath(QLatin1String("kde"), KIconLoader::Desktop)), QLatin1String("alternative") ) );
     else
-        setResult(new Cantor::TextResult("result: "+command()));
+        setResult(new Cantor::TextResult(QLatin1String("result: ")+command()));
 
     setStatus(Cantor::Expression::Done);
 }

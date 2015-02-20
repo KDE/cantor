@@ -1,10 +1,10 @@
-set( HelpPanelPlugin_SRCS 
+set( HelpPanelPlugin_SRCS
      helppanelplugin.cpp
 )
 
 
-kde4_add_plugin( cantor_helppanelplugin ${HelpPanelPlugin_SRCS} )
-target_link_libraries( cantor_helppanelplugin ${KDE4_KDEUI_LIBS} cantorlibs)
+add_library(cantor_helppanelplugin MODULE ${HelpPanelPlugin_SRCS} )
+target_link_libraries( cantor_helppanelplugin cantorlibs)
 
 install( FILES helppanelplugin.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
 #install( FILES cantor_help_assistant.rc  DESTINATION  ${DATA_INSTALL_DIR}/cantor )

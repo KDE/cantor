@@ -22,28 +22,28 @@
 #include "rhighlighter.h"
 
 #include <QTextEdit>
-#include <kdebug.h>
+#include <QDebug>
 
 const QStringList RHighlighter::keywords_list=QStringList()
-    << "if" << "else" << "switch" << "while" << "for" << "repeat" << "function" << "in"
-    << "next" << "break" << "TRUE" << "FALSE" << "NULL" << "NA" << "NA_integer_" << "NA_real_"
-    << "NA_complex_" << "NA_character_" << "Inf" << "NaN";
+    << QLatin1String("if") << QLatin1String("else") << QLatin1String("switch") << QLatin1String("while") << QLatin1String("for") << QLatin1String("repeat") << QLatin1String("function") << QLatin1String("in")
+    << QLatin1String("next") << QLatin1String("break") << QLatin1String("TRUE") << QLatin1String("FALSE") << QLatin1String("NULL") << QLatin1String("NA") << QLatin1String("NA_integer_") << QLatin1String("NA_real_")
+    << QLatin1String("NA_complex_") << QLatin1String("NA_character_") << QLatin1String("Inf") << QLatin1String("NaN");
 
 const QStringList RHighlighter::operators_list=QStringList()
-   << "(\\+|\\-|\\*|/|<-|->|<=|>=|={1,2}|\\!=|\\|{1,2}|&{1,2}|:{1,3}|\\^|@|\\$|~)((?!(\\+|\\-|\\*|/|<-|->|<=|>=|=|\\!=|\\||&|:|\\^|@|\\$|~))|$)"
-   << "%[^%]*%"; // Taken in Kate highlighter
+   << QLatin1String("(\\+|\\-|\\*|/|<-|->|<=|>=|={1,2}|\\!=|\\|{1,2}|&{1,2}|:{1,3}|\\^|@|\\$|~)((?!(\\+|\\-|\\*|/|<-|->|<=|>=|=|\\!=|\\||&|:|\\^|@|\\$|~))|$)")
+   << QLatin1String("%[^%]*%"); // Taken in Kate highlighter
 
 const QStringList RHighlighter::specials_list=QStringList()
-    << "BUG" << "TODO" << "FIXME" << "NB" << "WARNING" << "ERROR";
+    << QLatin1String("BUG") << QLatin1String("TODO") << QLatin1String("FIXME") << QLatin1String("NB") << QLatin1String("WARNING") << QLatin1String("ERROR");
 
 RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
     foreach (const QString& s, keywords_list)
-        keywords.append(QRegExp("\\b"+s+"\\b"));
+        keywords.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
     foreach (const QString& s, operators_list)
         operators.append(QRegExp(s));
     foreach (const QString& s, specials_list)
-        specials.append(QRegExp("\\b"+s+"\\b"));
+        specials.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
 }
 
 RHighlighter::~RHighlighter()
@@ -84,7 +84,7 @@ void RHighlighter::highlightBlock(const QString& text)
 
     //Let's mark every functionlike call as an error, then paint right ones in their respective format
     // TODO: find more elegant solution not involving double formatting
-    formatRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"),errorFormat(),text);
+    formatRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")),errorFormat(),text);
 
     //formatRule(QRegExp("[^A-Za-z_]-?([0-9]+)?(((e|i)?-?)|\\.)[0-9]*L?"),numberFormat(),text,true); // TODO: errorneous number formats, refine
     massFormat(keywords,keywordFormat(),text);
@@ -92,5 +92,5 @@ void RHighlighter::highlightBlock(const QString& text)
     massFormat(specials,commentFormat(),text); // FIXME must be distinc
     massFormat(functions,functionFormat(),text);
     massFormat(variables,variableFormat(),text);
-    formatRule(QRegExp("\"[^\"]+\""),stringFormat(),text); // WARNING a bit redundant
+    formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
 }

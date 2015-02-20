@@ -21,28 +21,29 @@
 #include "result.h"
 #include "session.h"
 
-#include <KDebug>
+#include <QDebug>
 
 OctaveHighlighter::OctaveHighlighter(QObject* parent, Cantor::Session* session): DefaultHighlighter(parent), m_session(session)
 {
   updateFunctions();
   updateVariables();
 
-  m_operators << "+" << "-" << "*" << "/" << ".+" << ".-" << ".*" << "./" << "=";
-  m_operators << "or" << "and" << "xor" << "not";
-  m_operators << "||" << "&&" << "==";
+  m_operators << QLatin1String("+") << QLatin1String("-") << QLatin1String("*") << QLatin1String("/") << QLatin1String(".+")
+              << QLatin1String(".-") << QLatin1String(".*") << QLatin1String("./") << QLatin1String("=");
+  m_operators << QLatin1String("or") << QLatin1String("and") << QLatin1String("xor") << QLatin1String("not");
+  m_operators << QLatin1String("||") << QLatin1String("&&") << QLatin1String("==");
   addRules(m_operators, operatorFormat());
 
-  m_keywords << "function" << "endfunction";
-  m_keywords << "for" << "endfor";
-  m_keywords << "while" << "endwhile";
-  m_keywords << "if" << "endif" << "else" << "elseif";
-  m_keywords << "switch" << "case" << "otherwise" << "endswitch";
-  m_keywords << "end";
+  m_keywords << QLatin1String("function") << QLatin1String("endfunction");
+  m_keywords << QLatin1String("for") << QLatin1String("endfor");
+  m_keywords << QLatin1String("while") << QLatin1String("endwhile");
+  m_keywords << QLatin1String("if") << QLatin1String("endif") << QLatin1String("else") << QLatin1String("elseif");
+  m_keywords << QLatin1String("switch") << QLatin1String("case") << QLatin1String("otherwise") << QLatin1String("endswitch");
+  m_keywords << QLatin1String("end");
   addKeywords(m_keywords);
 
-  addRule(QRegExp("\".*\""), stringFormat());
-  addRule(QRegExp("'.*'"), stringFormat());
+  addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
+  addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
 
   rehighlight();
 }
@@ -54,26 +55,26 @@ OctaveHighlighter::~OctaveHighlighter()
 
 void OctaveHighlighter::updateFunctions()
 {
-  m_functionsExpr = m_session->evaluateExpression("completion_matches('')");
-  connect ( m_functionsExpr, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(receiveFunctions()) );
+  m_functionsExpr = m_session->evaluateExpression(QLatin1String("completion_matches('')"));
+  connect(m_functionsExpr, &Cantor::Expression::statusChanged, this, &OctaveHighlighter::receiveFunctions);
 }
 
 void OctaveHighlighter::updateVariables()
 {
-  m_varsExpr = m_session->evaluateExpression("who");
-  connect ( m_varsExpr, SIGNAL(statusChanged(Cantor::Expression::Status)), SLOT(receiveVariables()) );
+  m_varsExpr = m_session->evaluateExpression(QLatin1String("who"));
+  connect(m_varsExpr, &Cantor::Expression::statusChanged, this, &OctaveHighlighter::receiveVariables);
 }
 
 
 void OctaveHighlighter::receiveFunctions()
 {
-  kDebug();
+  qDebug();
   if (m_functionsExpr->status() != Cantor::Expression::Done || !m_functionsExpr->result())
   {
     return;
   }
 
-  QStringList names = m_functionsExpr->result()->toHtml().split("<br/>\n");
+  QStringList names = m_functionsExpr->result()->toHtml().split(QLatin1String("<br/>\n"));
 
   QLatin1String under("__");
   while (!names.first().contains(under))
@@ -84,15 +85,15 @@ void OctaveHighlighter::receiveFunctions()
   {
     names.removeFirst();
   }
-  int i = names.indexOf("zlim"); // Currently the last function alphabetically
+  int i = names.indexOf(QLatin1String("zlim")); // Currently the last function alphabetically
 
-  while (i > 0 && i < names.size() && names.at(i).startsWith('z'))
+  while (i > 0 && i < names.size() && names.at(i).startsWith(QLatin1Char('z')))
   {
     // Check if there are more functions after zlim
     i++;
   }
   names.erase(names.begin() + i, names.end());
-  kDebug() << "Received" << names.size() << "functions";
+  qDebug() << "Received" << names.size() << "functions";
   addFunctions(names);
 
   // The list of functions from completion_matches('') includes keywords and variables too, so we have to re-add them
@@ -108,17 +109,17 @@ void OctaveHighlighter::receiveVariables()
     return;
   }
   QString res = m_varsExpr->result()->toHtml();
-  res.replace("<br/>"," ");
-  res.remove(0, res.indexOf('\n'));
-  res.remove('\n');
+  res.replace(QLatin1String("<br/>"),QLatin1String(" "));
+  res.remove(0, res.indexOf(QLatin1Char('\n')));
+  res.remove(QLatin1Char('\n'));
   res = res.trimmed();
 
   m_variables.clear();
-  foreach ( const QString& var, res.split(' ', QString::SkipEmptyParts))
+  foreach ( const QString& var, res.split(QLatin1Char(' '), QString::SkipEmptyParts))
   {
       m_variables <<  var.trimmed();
   }
-  kDebug() << "Received" << m_variables.size() << "variables";
+  qDebug() << "Received" << m_variables.size() << "variables";
 
   addVariables(m_variables);
   rehighlight();

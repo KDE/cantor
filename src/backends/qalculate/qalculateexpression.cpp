@@ -45,7 +45,6 @@
 #include <KMessageBox>
 #include <KColorScheme>
 #include <KLocale>
-#include <KDebug>
 
 #include <QApplication>
 #include <QStack>
@@ -65,45 +64,45 @@ QalculateExpression::~QalculateExpression()
 void QalculateExpression::evaluate()
 {
     setStatus(Cantor::Expression::Computing);
-    m_message = "";
+    m_message = QLatin1String("");
 
     if (command().isEmpty()) {
         return;
     }
 
-    QStringList commands=command().split('\n');
+    QStringList commands=command().split(QLatin1Char('\n'));
     QString resultString;
 
     foreach(const QString& command, commands)
     {
-        if (command.contains("help")) {
+        if (command.contains(QLatin1String("help"))) {
             QalculateSyntaxHelpObject* helper = new QalculateSyntaxHelpObject(command, (QalculateSession*) session());
             setResult(new Cantor::HelpResult(helper->answer()));
             setStatus(Cantor::Expression::Done);
             return;
         }
-        else if (command.trimmed().startsWith("plot") &&
-                 (command.indexOf("plot")+4 == command.size() ||
-                  command[command.indexOf("plot")+4].isSpace())) {
+        else if (command.trimmed().startsWith(QLatin1String("plot")) &&
+                 (command.indexOf(QLatin1String("plot"))+4 == command.size() ||
+                  command[command.indexOf(QLatin1String("plot"))+4].isSpace())) {
             evaluatePlotCommand();
             return;
         }
-        else if (command.trimmed().startsWith("saveVariables") &&
-                 (command.indexOf("saveVariables")+13 == command.size() ||
-                  command[command.indexOf("saveVariables")+13].isSpace())) {
+        else if (command.trimmed().startsWith(QLatin1String("saveVariables")) &&
+                 (command.indexOf(QLatin1String("saveVariables"))+13 == command.size() ||
+                  command[command.indexOf(QLatin1String("saveVariables"))+13].isSpace())) {
             evaluateSaveVariablesCommand();
             return;
         }
-        else if (command.trimmed().startsWith("loadVariables") &&
-                 (command.indexOf("loadVariables")+13 == command.size() ||
-                  command[command.indexOf("loadVariables")+13].isSpace())) {
+        else if (command.trimmed().startsWith(QLatin1String("loadVariables")) &&
+                 (command.indexOf(QLatin1String("loadVariables"))+13 == command.size() ||
+                  command[command.indexOf(QLatin1String("loadVariables"))+13].isSpace())) {
             evaluateLoadVariablesCommand();
             return;
         }
 
         string expression = unlocalizeExpression(command);
 
-        kDebug() << "EXPR: " << QString(expression.c_str());
+        qDebug() << "EXPR: " << QLatin1String(expression.c_str());
 
         EvaluationOptions eo = evaluationOptions();
 
@@ -122,7 +121,7 @@ void QalculateExpression::evaluate()
 
         result.format(*po);
 
-        resultString+=QString(result.print(*po).c_str())+'\n';
+        resultString+=QLatin1String(result.print(*po).c_str()) + QLatin1Char('\n');
 
     }
 
@@ -132,7 +131,7 @@ void QalculateExpression::evaluate()
 
 void QalculateExpression::evaluateSaveVariablesCommand()
 {
-    QString argString = command().mid(command().indexOf("saveVariables")+13);
+    QString argString = command().mid(command().indexOf(QLatin1String("saveVariables"))+13);
     argString = argString.trimmed();
 
     QString usage = i18n("Usage: saveVariables file");
@@ -173,7 +172,7 @@ void QalculateExpression::evaluateSaveVariablesCommand()
 
 void QalculateExpression::evaluateLoadVariablesCommand()
 {
-    QString argString = command().mid(command().indexOf("loadVariables")+13);
+    QString argString = command().mid(command().indexOf(QLatin1String("loadVariables"))+13);
     argString = argString.trimmed();
 
     QString usage = i18n("Usage: loadVariables file");
@@ -212,22 +211,22 @@ QString QalculateExpression::parseForFilename(QString argument, QString usage)
 	return QString();
     }
 
-    QString fileName = "";
-    QChar sep = '\0';
+    QString fileName = QLatin1String("");
+    QChar sep = QLatin1Char('\0');
     int i = 0;
-    if (argument[0] == '\'' || argument[0] == '"') {
+    if (argument[0] == QLatin1Char('\'') || argument[0] == QLatin1Char('"')) {
 	sep = argument[0];
 	i = 1;
     }
     while (i < argument.size() && !argument[i].isSpace() &&
 	   argument[i] != sep) {
-	if (argument[i] == '\\' && i < argument.size()-1)
+	if (argument[i] == QLatin1Char('\\') && i < argument.size()-1)
 	    ++i;
 	fileName += argument[i];
 	++i;
     }
 
-    if (sep != '\0' && i == argument.size()) {
+    if (sep != QLatin1Char('\0') && i == argument.size()) {
 	showMessage(i18n("missing %1", sep), MESSAGE_ERROR);
 	return QString();
     }
@@ -242,8 +241,8 @@ QString QalculateExpression::parseForFilename(QString argument, QString usage)
 
 void QalculateExpression::evaluatePlotCommand()
 {
-    QString argString = command().mid(command().indexOf("plot")+4);
-    argString = unlocalizeExpression(argString).c_str();
+    QString argString = command().mid(command().indexOf(QLatin1String("plot"))+4);
+    argString = QLatin1String(unlocalizeExpression(argString).c_str());
     argString = argString.trimmed();
 
     QList<QStringList> argumentsList;
@@ -253,7 +252,7 @@ void QalculateExpression::evaluatePlotCommand()
     KColorScheme scheme(QApplication::palette().currentColorGroup());
     const QString errorColor = scheme.foreground(KColorScheme::NegativeText).color().name();
     const QString warningColor = scheme.foreground(KColorScheme::NeutralText).color().name();
-    const QString msgFormat("<font color=\"%1\">%2: %3</font><br>\n");
+    const QString msgFormat(QLatin1String("<font color=\"%1\">%2: %3</font><br>\n"));
 
     if (!CALCULATOR->canPlot()) {
 	showMessage(i18n("Qalculate reports it cannot print. Is gnuplot installed?"), MESSAGE_ERROR);
@@ -263,12 +262,12 @@ void QalculateExpression::evaluatePlotCommand()
     // Split argString into the arguments
     int i=0;
     int j=0;
-    QString arg = "";
+    QString arg = QLatin1String("");
     while (i < argString.size()) {
-        if (argString[i] == '"' || argString[i] == '\'') {
+        if (argString[i] == QLatin1Char('"') || argString[i] == QLatin1Char('\'')) {
 	    ++j;
 	    while(j < argString.size() && argString[j] != argString[i]) {
-	        if (argString[j] == '\\') {
+	        if (argString[j] == QLatin1Char('\\')) {
 		    ++j;
 		    if (j == argString.size())
 			continue; // just ignore trailing backslashes
@@ -281,14 +280,14 @@ void QalculateExpression::evaluatePlotCommand()
 		return;
 	    }
 	    ++j;
-        } else if (argString[i] == ',') {
+        } else if (argString[i] == QLatin1Char(',')) {
   	    argumentsList.append(arguments);
 	    arguments.clear();
 	    ++j;
 	} else {
 	    while(j < argString.size() && !argString[j].isSpace() &&
-		  argString[j] != '=' && argString[j] != ',') {
-	        if (argString[j] == '\\') {
+		  argString[j] != QLatin1Char('=') && argString[j] != QLatin1Char(',')) {
+	        if (argString[j] == QLatin1Char('\\')) {
 		    ++j;
 		    if (j == argString.size())
 			continue; // just ignore trailing backslashes
@@ -297,15 +296,15 @@ void QalculateExpression::evaluatePlotCommand()
 		++j;
 	    }
 	}
-	if (argString[j] == '=') {
+	if (argString[j] == QLatin1Char('=')) {
 	    // Parse things like title="..." as one argument
-	    arg += '=';
+	    arg += QLatin1Char('=');
 	    i = ++j;
 	    continue;
 	}
 	if (!arg.isEmpty()) {
 	    arguments << arg;
-	    arg = "";
+	    arg = QLatin1String("");
 	}
 	while (j < argString.size() && argString[j].isSpace())
 	    ++j;
@@ -428,67 +427,67 @@ void QalculateExpression::evaluatePlotCommand()
 	for (int j = 0; j < arguments.size(); ++j) {
 	    QString argument = arguments[j];
 	    // PlotParameters
-	    if (argument.startsWith("plottitle="))
+	    if (argument.startsWith(QLatin1String("plottitle=")))
 		plotParameters.title = argument.mid(10).toLatin1().data();
-	    else if (argument.startsWith("ylabel="))
+	    else if (argument.startsWith(QLatin1String("ylabel=")))
 		plotParameters.y_label = argument.mid(7).toLatin1().data();
-	    else if (argument.startsWith("xlabel="))
+	    else if (argument.startsWith(QLatin1String("xlabel=")))
 		plotParameters.x_label = argument.mid(7).toLatin1().data();
-	    else if (argument.startsWith("filename="))
+	    else if (argument.startsWith(QLatin1String("filename=")))
 		plotParameters.filename = argument.mid(9).toLatin1().data();
-	    else if (argument.startsWith("filetype=")) {
+	    else if (argument.startsWith(QLatin1String("filetype="))) {
 		QString option = argument.mid(9);
-		if (option == "auto")
+		if (option == QLatin1String("auto"))
 		    plotParameters.filetype = PLOT_FILETYPE_AUTO;
-		else if (option == "png")
+		else if (option == QLatin1String("png"))
 		    plotParameters.filetype = PLOT_FILETYPE_PNG;
-		else if (option == "ps")
+		else if (option == QLatin1String("ps"))
 		    plotParameters.filetype = PLOT_FILETYPE_PS;
-		else if (option == "eps")
+		else if (option == QLatin1String("eps"))
 		    plotParameters.filetype = PLOT_FILETYPE_EPS;
-		else if (option == "latex")
+		else if (option == QLatin1String("latex"))
 		    plotParameters.filetype = PLOT_FILETYPE_LATEX;
-		else if (option == "svg")
+		else if (option == QLatin1String("svg"))
 		    plotParameters.filetype = PLOT_FILETYPE_SVG;
-		else if (option == "fig")
+		else if (option == QLatin1String("fig"))
 		    plotParameters.filetype = PLOT_FILETYPE_FIG;
 		else {
-		    QString msg = invalidOption.arg("filetype", option);
+		    QString msg = invalidOption.arg(QLatin1String("filetype"), option);
 		    showMessage(msg, MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("font="))
+	    else if (argument.startsWith(QLatin1String("font=")))
 		plotParameters.font = argument.mid(5).toLatin1().data();
-	    else if (argument.startsWith("color=")) {
+	    else if (argument.startsWith(QLatin1String("color="))) {
 		bool ok;
 		plotParameters.color = stringToBool(argument.mid(6), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("color"),
+		    showMessage(mustBeBoolean.arg(QLatin1String("color")),
 				MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("ylog=")) {
+	    else if (argument.startsWith(QLatin1String("ylog="))) {
 		bool ok;
 		plotParameters.y_log = stringToBool(argument.mid(5), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("ylog"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("ylog")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("xlog=")) {
+	    else if (argument.startsWith(QLatin1String("xlog="))) {
 		bool ok;
 		plotParameters.x_log = stringToBool(argument.mid(5), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("xlog"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("xlog")), MESSAGE_ERROR);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("ylogbase=")) {
+	    else if (argument.startsWith(QLatin1String("ylogbase="))) {
 		MathStructure ylogStr = CALCULATOR->calculate(argument.mid(9).toLatin1().data(), eo);
 		if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 		    deletePlotDataParameters(plotDataParameterList);
@@ -498,12 +497,12 @@ void QalculateExpression::evaluatePlotCommand()
 		    Number ylogNum = ylogStr.number();
 		    plotParameters.y_log_base = ylogNum.floatValue();
 		} else {
-		    showMessage(mustBeNumber.arg("ylogbase"), MESSAGE_ERROR);
+		    showMessage(mustBeNumber.arg(QLatin1String("ylogbase")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("xlogbase=")) {
+	    else if (argument.startsWith(QLatin1String("xlogbase="))) {
 		MathStructure xlogStr = CALCULATOR->calculate(argument.mid(9).toLatin1().data(), eo);
 		if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 		    deletePlotDataParameters(plotDataParameterList);
@@ -513,153 +512,153 @@ void QalculateExpression::evaluatePlotCommand()
 		    Number xlogNum = xlogStr.number();
 		    plotParameters.x_log_base = xlogNum.floatValue();
 		} else {
-		    showMessage(mustBeNumber.arg("xlogbase"), MESSAGE_ERROR);
+		    showMessage(mustBeNumber.arg(QLatin1String("xlogbase")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("grid=")) {
+	    else if (argument.startsWith(QLatin1String("grid="))) {
 		bool ok;
 		plotParameters.grid = stringToBool(argument.mid(5), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("grid"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("grid")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("linewidth=")) {
+	    else if (argument.startsWith(QLatin1String("linewidth="))) {
 		MathStructure lineWidthStr = CALCULATOR->calculate(argument.mid(10).toLatin1().data(), eo);
 		Number lineWidthNum;
 		if (lineWidthStr.isNumber() && lineWidthStr.number().isInteger()) {
 		    lineWidthNum = lineWidthStr.number();
 		    plotParameters.linewidth = lineWidthNum.intValue();
 		} else {
-		    showMessage(mustBeInteger.arg("linewidth"), MESSAGE_ERROR);
+		    showMessage(mustBeInteger.arg(QLatin1String("linewidth")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("border=")) {
+	    else if (argument.startsWith(QLatin1String("border="))) {
 		bool ok;
 		plotParameters.show_all_borders = stringToBool(argument.mid(7), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("border"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("border")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("legend=")) {
+	    else if (argument.startsWith(QLatin1String("legend="))) {
 		QString option = argument.mid(7);
-		if (option == "none")
+		if (option == QLatin1String("none"))
 		    plotParameters.legend_placement = PLOT_LEGEND_NONE;
-		else if (option == "top_left")
+		else if (option == QLatin1String("top_left"))
 		    plotParameters.legend_placement = PLOT_LEGEND_TOP_LEFT;
-		else if (option == "top_right")
+		else if (option == QLatin1String("top_right"))
 		    plotParameters.legend_placement = PLOT_LEGEND_TOP_RIGHT;
-		else if (option == "bottom_left")
+		else if (option == QLatin1String("bottom_left"))
 		    plotParameters.legend_placement = PLOT_LEGEND_BOTTOM_LEFT;
-		else if (option == "bottom_right")
+		else if (option == QLatin1String("bottom_right"))
 		    plotParameters.legend_placement = PLOT_LEGEND_BOTTOM_RIGHT;
-		else if (option == "below")
+		else if (option == QLatin1String("below"))
 		    plotParameters.legend_placement = PLOT_LEGEND_BELOW;
-		else if (option == "outside")
+		else if (option == QLatin1String("outside"))
 		    plotParameters.legend_placement = PLOT_LEGEND_OUTSIDE;
 		else {
-		    QString msg = invalidOption.arg("legend", option);
+		    QString msg = invalidOption.arg(QLatin1String("legend"), option);
 		    showMessage(msg, MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
 	    // PlotDataParameters
-	    else if (argument.startsWith("title=")) {
+	    else if (argument.startsWith(QLatin1String("title="))) {
 		plotDataParams->title = argument.mid(6).toLatin1().data();
 	    }
-	    else if (argument.startsWith("smoothing=")) {
+	    else if (argument.startsWith(QLatin1String("smoothing="))) {
 		QString option = argument.mid(10);
-		if (option == "none")
+		if (option == QLatin1String("none"))
 		    plotDataParams->smoothing = PLOT_SMOOTHING_NONE;
-		else if (option == "monotonic")
+		else if (option == QLatin1String("monotonic"))
 		    plotDataParams->smoothing = PLOT_SMOOTHING_UNIQUE;
-		else if (option == "csplines")
+		else if (option == QLatin1String("csplines"))
 		    plotDataParams->smoothing = PLOT_SMOOTHING_CSPLINES;
-		else if (option == "bezier")
+		else if (option == QLatin1String("bezier"))
 		    plotDataParams->smoothing = PLOT_SMOOTHING_BEZIER;
-		else if (option == "sbezier")
+		else if (option == QLatin1String("sbezier"))
 		    plotDataParams->smoothing = PLOT_SMOOTHING_SBEZIER;
 		else {
-		    QString msg = invalidOption.arg("smoothing", option);
+		    QString msg = invalidOption.arg(QLatin1String("smoothing"), option);
 		    showMessage(msg, MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
-	    } else if (argument.startsWith("style=")) {
+	    } else if (argument.startsWith(QLatin1String("style="))) {
 		QString option = argument.mid(6);
-		if (option == "lines")
+		if (option == QLatin1String("lines"))
 		    plotDataParams->style = PLOT_STYLE_LINES;
-		else if (option == "points")
+		else if (option == QLatin1String("points"))
 		    plotDataParams->style = PLOT_STYLE_POINTS;
-		else if (option == "points_lines")
+		else if (option == QLatin1String("points_lines"))
 		    plotDataParams->style = PLOT_STYLE_POINTS_LINES;
-		else if (option == "boxes")
+		else if (option == QLatin1String("boxes"))
 		    plotDataParams->style = PLOT_STYLE_BOXES;
-		else if (option == "histogram")
+		else if (option == QLatin1String("histogram"))
 		    plotDataParams->style = PLOT_STYLE_HISTOGRAM;
-		else if (option == "steps")
+		else if (option == QLatin1String("steps"))
 		    plotDataParams->style = PLOT_STYLE_STEPS;
-		else if (option == "candlesticks")
+		else if (option == QLatin1String("candlesticks"))
 		    plotDataParams->style = PLOT_STYLE_CANDLESTICKS;
-		else if (option == "dots")
+		else if (option == QLatin1String("dots"))
 		    plotDataParams->style = PLOT_STYLE_DOTS;
 		else {
-		    QString msg = invalidOption.arg("style", option);
+		    QString msg = invalidOption.arg(QLatin1String("style"), option);
 		    showMessage(msg, MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
-	    } else if (argument.startsWith("xaxis2=")) {
+	    } else if (argument.startsWith(QLatin1String("xaxis2="))) {
 		bool ok;
 		plotDataParams->xaxis2 = stringToBool(argument.mid(7), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("xaxis2"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("xaxis2")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
-	    } else if (argument.startsWith("yaxis2=")) {
+	    } else if (argument.startsWith(QLatin1String("yaxis2="))) {
 		bool ok;
 		plotDataParams->yaxis2 = stringToBool(argument.mid(7), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("yaxis2"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("yaxis2")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
 	    // inline, xmin, xmax, step, steps, xvar
 	    // Custom options
-	    else if (argument.startsWith("inline=")) {
+	    else if (argument.startsWith(QLatin1String("inline="))) {
 		bool ok;
 		plotInline = stringToBool(argument.mid(7), &ok);
 		if (!ok) {
-		    showMessage(mustBeBoolean.arg("inline"), MESSAGE_ERROR);
+		    showMessage(mustBeBoolean.arg(QLatin1String("inline")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("xmin=")) {
+	    else if (argument.startsWith(QLatin1String("xmin="))) {
 		xMin = CALCULATOR->calculate(argument.mid(5).toLatin1().data(), eo);
 		if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("xmax=")) {
+	    else if (argument.startsWith(QLatin1String("xmax="))) {
 		xMax = CALCULATOR->calculate(argument.mid(5).toLatin1().data(), eo);
 		if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("step=")) {
+	    else if (argument.startsWith(QLatin1String("step="))) {
 		stepLength = CALCULATOR->calculate(argument.mid(5).toLatin1().data(), eo);
 		if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 		    deletePlotDataParameters(plotDataParameterList);
@@ -667,7 +666,7 @@ void QalculateExpression::evaluatePlotCommand()
 		}
 		steps = -1;
 	    }
-	    else if (argument.startsWith("steps=")) {
+	    else if (argument.startsWith(QLatin1String("steps="))) {
 		MathStructure stepsStr = CALCULATOR->calculate(argument.mid(6).toLatin1().data(), eo);
 		if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
 		    deletePlotDataParameters(plotDataParameterList);
@@ -679,12 +678,12 @@ void QalculateExpression::evaluatePlotCommand()
 		    steps = stepsNum.intValue();
 		    stepLength.setUndefined();
 		} else {
-		    showMessage(mustBeInteger.arg("steps"), MESSAGE_ERROR);
+		    showMessage(mustBeInteger.arg(QLatin1String("steps")), MESSAGE_ERROR);
 		    deletePlotDataParameters(plotDataParameterList);
 		    return;
 		}
 	    }
-	    else if (argument.startsWith("xvar=")) {
+	    else if (argument.startsWith(QLatin1String("xvar="))) {
 		xVariable = argument.mid(5).toLatin1().data();
 	    }
 	    else if (expression.empty()) {
@@ -697,7 +696,7 @@ void QalculateExpression::evaluatePlotCommand()
 		lastExpressionEntry = j;
 	    }
 	    else {
-		QString msg = i18n("found multiple expressions in one plot command (%1 and %2).", QString(expression.c_str()), argument);
+		QString msg = i18n("found multiple expressions in one plot command (%1 and %2).", QLatin1String(expression.c_str()), argument);
 		showMessage(msg, MESSAGE_ERROR);
 		deletePlotDataParameters(plotDataParameterList);
 		return;
@@ -747,9 +746,9 @@ void QalculateExpression::evaluatePlotCommand()
 	if (!m_tempFile) {
 	    m_tempFile = new KTemporaryFile();
 #ifdef WITH_EPS
-	    m_tempFile->setSuffix(".eps");
+	    m_tempFile->setSuffix(QLatin1String(".eps"));
 #else
-	    m_tempFile->setSuffix(".png");
+	    m_tempFile->setSuffix(QLatin1String(".png"));
 #endif
 	    m_tempFile->open();
 	}
@@ -772,9 +771,9 @@ void QalculateExpression::evaluatePlotCommand()
 	if (plotParameters.filetype == PLOT_FILETYPE_EPS ||
 	    plotParameters.filetype == PLOT_FILETYPE_PS  ||
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 4 &&
-	     plotParameters.filename.substr(p-4,4) == ".eps") ||
+	     plotParameters.filename.substr(p-4,4) == QLatin1String(".eps")) ||
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 3 &&
-	     plotParameters.filename.substr(p-3,3) == ".ps"))
+	     plotParameters.filename.substr(p-3,3) == QLatin1String(".ps")))
 	    setResult(new Cantor::EpsResult(KUrl(plotParameters.filename.c_str())));
 	else
 	    setResult(new Cantor::ImageResult(KUrl(plotParameters.filename.c_str())));
@@ -791,16 +790,16 @@ void QalculateExpression::showMessage(QString msg, MessageType mtype)
     KColorScheme scheme(QApplication::palette().currentColorGroup());
     const QString errorColor = scheme.foreground(KColorScheme::NegativeText).color().name();
     const QString warningColor = scheme.foreground(KColorScheme::NeutralText).color().name();
-    const QString msgFormat("<font color=\"%1\">%2: %3</font><br>\n");
+    const QString msgFormat(QLatin1String("<font color=\"%1\">%2: %3</font><br>\n"));
     if(mtype == MESSAGE_ERROR || mtype == MESSAGE_WARNING) {
-	msg.replace("&", "&amp;");
-	msg.replace(">", "&gt;");
-	msg.replace("<", "&lt;");
+	msg.replace(QLatin1String("&"), QLatin1String("&amp;"));
+	msg.replace(QLatin1String(">"), QLatin1String("&gt;"));
+	msg.replace(QLatin1String("<"), QLatin1String("&lt;"));
 
 	if (mtype == MESSAGE_ERROR) {
-	    msg = msgFormat.arg(errorColor, i18n("ERROR"), msg.toLatin1().data());
+	    msg = msgFormat.arg(errorColor, i18n("ERROR"), QLatin1String(msg.toLatin1().data()));
 	} else {
-	    msg = msgFormat.arg(errorColor, i18n("WARNING"), msg.toLatin1().data());
+	    msg = msgFormat.arg(errorColor, i18n("WARNING"), QLatin1String(msg.toLatin1().data()));
 	}
 	setErrorMessage(msg);
 	setStatus(Error);
@@ -865,10 +864,10 @@ void QalculateExpression::deletePlotDataParameters
 
 bool QalculateExpression::stringToBool(const QString &string, bool *ok)
 {
-    if (string == "true" || string == "1") {
+    if (string == QLatin1String("true") || string == QLatin1String("1")) {
 	*ok = true;
 	return true;
-    } else if (string == "false" || string == "0") {
+    } else if (string == QLatin1String("false") || string == QLatin1String("0")) {
 	*ok = true;
 	return false;
     } else {
@@ -886,7 +885,7 @@ int QalculateExpression::checkForCalculatorMessages()
         KColorScheme scheme(QApplication::palette().currentColorGroup());
         const QString errorColor = scheme.foreground(KColorScheme::NegativeText).color().name();
         const QString warningColor = scheme.foreground(KColorScheme::NeutralText).color().name();
-        const QString msgFormat("<font color=\"%1\">%2: %3</font><br>\n");
+        const QString msgFormat(QLatin1String("<font color=\"%1\">%2: %3</font><br>\n"));
         MessageType mtype;
         while(true) {
             mtype = CALCULATOR->message()->type();
@@ -899,10 +898,10 @@ int QalculateExpression::checkForCalculatorMessages()
 		msgType |= MSG_ERR;  break;
 	    }
             if(mtype == MESSAGE_ERROR || mtype == MESSAGE_WARNING) {
-                QString text = CALCULATOR->message()->message().c_str();
-                text.replace("&", "&amp;");
-                text.replace(">", "&gt;");
-                text.replace("<", "&lt;");
+                QString text = QLatin1String(CALCULATOR->message()->message().c_str());
+                text.replace(QLatin1String("&"), QLatin1String("&amp;"));
+                text.replace(QLatin1String(">"), QLatin1String("&gt;"));
+                text.replace(QLatin1String("<"), QLatin1String("&lt;"));
 
                 if (mtype == MESSAGE_ERROR) {
                     msg.append(msgFormat.arg(errorColor, i18n("ERROR"), text));
@@ -910,7 +909,7 @@ int QalculateExpression::checkForCalculatorMessages()
                     msg.append(msgFormat.arg(errorColor, i18n("WARNING"), text));
                 }
             } else {
-                KMessageBox::information(QApplication::activeWindow(), CALCULATOR->message()->message().c_str());
+                KMessageBox::information(QApplication::activeWindow(), QLatin1String(CALCULATOR->message()->message().c_str()));
             }
             if(!CALCULATOR->nextMessage()) break;
         }
@@ -928,10 +927,10 @@ std::string QalculateExpression::unlocalizeExpression(QString expr)
     // copy'n'pasted from qalculate plasma applet
 
     return CALCULATOR->unlocalizeExpression(
-             expr.replace(QChar(0xA3), "GBP")
-                 .replace(QChar(0xA5), "JPY")
-                 .replace("$", "USD")
-                 .replace(QChar(0x20AC), "EUR")
+             expr.replace(QChar(0xA3), QLatin1String("GBP"))
+                 .replace(QChar(0xA5), QLatin1String("JPY"))
+                 .replace(QLatin1String("$"), QLatin1String("USD"))
+                 .replace(QChar(0x20AC), QLatin1String("EUR"))
                  .toLatin1().data()
            );
 }
@@ -954,7 +953,7 @@ void QalculateExpression::updateVariables(MathStructure command)
 	    std::string name = current->getChild(2)->symbol();
 	    MathStructure m = CALCULATOR->calculate(name, evaluationOptions());
 	    m.format(*po);
-	    model->addVariable(name.c_str(), m.print(*po).c_str());
+	    model->addVariable(QLatin1String(name.c_str()), QLatin1String(m.print(*po).c_str()));
 	}
 	for (int i = 0; i < current->countChildren(); ++i) {
 	    stack.push(current->getChild(i+1));
@@ -986,7 +985,7 @@ QSharedPointer<PrintOptions> QalculateExpression::printOptions()
 
     po->lower_case_e = true;
     po->base = QalculateSettings::base();
-    po->decimalpoint_sign = KGlobal::locale()->decimalSymbol().toLocal8Bit().data();
+    po->decimalpoint_sign = KLocale::global()->decimalSymbol().toLocal8Bit().data();
 
     switch (QalculateSettings::minExp()) {
     case 0:

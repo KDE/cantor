@@ -20,32 +20,34 @@
 
 #include "cantor_part.h"
 
-#include "cantor_part.moc"
-
 #include <config-cantor.h>
 
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <kcomponentdata.h>
-#include <kfiledialog.h>
-#include <kpluginfactory.h>
-#include <kparts/event.h>
-#include <kstandardaction.h>
-#include <kzip.h>
-#include <ktoggleaction.h>
-#include <kservice.h>
-#include <kservicetypetrader.h>
-#include <krun.h>
-#include <kprogressdialog.h>
-#include <kmessagebox.h>
-#include <knewstuff3/uploaddialog.h>
+#include <KLocale>
+#include <QIcon>
+#include <KParts/Event>
+#include <KPluginFactory>
+#include <KComponentData>
 
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtGui/QTextEdit>
-#include <QtGui/QPrinter>
-#include <QtGui/QPrintDialog>
-#include <QtGui/QVBoxLayout>
+#include <QAction>
+#include <KActionCollection>
+#include <KFileDialog>
+#include <KStandardAction>
+#include <KZip>
+#include <KToggleAction>
+#include <KService>
+#include <KServiceTypeTrader>
+#include <KRun>
+#include <KProgressDialog>
+#include <KMessageBox>
+#include <KNS3/UploadDialog>
+
+#include <QFile>
+#include <QTextStream>
+#include <QTextEdit>
+#include <QTimer>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QVBoxLayout>
 
 #include "worksheet.h"
 #include "worksheetview.h"
@@ -62,11 +64,10 @@
 K_PLUGIN_FACTORY(CantorPartFactory, registerPlugin<CantorPart>();)
 K_EXPORT_PLUGIN(CantorPartFactory("cantor"))
 
+#include "cantor_part.moc"
+
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
 {
-    // we need an instance
-    setComponentData( CantorPartFactory::componentData() );
-
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_statusBarBlocked=false;
@@ -74,10 +75,10 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_panelHandler=new Cantor::PanelPluginHandler(this);
     connect(m_panelHandler, SIGNAL(pluginsChanged()), this, SLOT(pluginsChanged()));
 
-    kDebug()<<"Created a CantorPart";
+    qDebug()<<"Created a CantorPart";
     QString backendName;
     if(args.isEmpty())
-        backendName="null";
+        backendName=QLatin1String("null");
     else
         backendName=args.first().toString();
 
@@ -91,7 +92,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
         return;
     }
 
-    kDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
+    qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
     QWidget* widget = new QWidget(parentWidget);
     QVBoxLayout* layout = new QVBoxLayout(widget);
@@ -116,43 +117,43 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
     m_save->setPriority(QAction::LowPriority);
 
-    KAction* savePlain=new KAction(i18n("Save Plain Text"), actionCollection());
-    actionCollection()->addAction("file_save_plain", savePlain);
-    savePlain->setIcon(KIcon("document-save"));
+    QAction * savePlain=new QAction(i18n("Save Plain Text"), actionCollection());
+    actionCollection()->addAction(QLatin1String("file_save_plain"), savePlain);
+    savePlain->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
     connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
 
-    KAction* undo=KStandardAction::undo(m_worksheet, SIGNAL(undo()),
+    QAction * undo=KStandardAction::undo(m_worksheet, SIGNAL(undo()),
                                         actionCollection());
     undo->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(undoAvailable(bool)),
             undo, SLOT(setEnabled(bool)));
-    KAction* redo=KStandardAction::redo(m_worksheet, SIGNAL(redo()),
+    QAction * redo=KStandardAction::redo(m_worksheet, SIGNAL(redo()),
                                         actionCollection());
     redo->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(redoAvailable(bool)),
             redo, SLOT(setEnabled(bool)));
 
-    KAction* cut=KStandardAction::cut(m_worksheet, SIGNAL(cut()),
+    QAction * cut=KStandardAction::cut(m_worksheet, SIGNAL(cut()),
                                       actionCollection());
     cut->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(cutAvailable(bool)),
             cut, SLOT(setEnabled(bool)));
-    KAction* copy=KStandardAction::copy(m_worksheet, SIGNAL(copy()),
+    QAction * copy=KStandardAction::copy(m_worksheet, SIGNAL(copy()),
                                         actionCollection());
     copy->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(copyAvailable(bool)),
             copy, SLOT(setEnabled(bool)));
-    KAction* paste=KStandardAction::paste(m_worksheet, SIGNAL(paste()),
+    QAction * paste=KStandardAction::paste(m_worksheet, SIGNAL(paste()),
                                           actionCollection());
     paste->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(pasteAvailable(bool)),
             paste, SLOT(setEnabled(bool)));
 
-    KAction* find=KStandardAction::find(this, SLOT(showSearchBar()),
+    QAction * find=KStandardAction::find(this, SLOT(showSearchBar()),
                                         actionCollection());
     find->setPriority(QAction::LowPriority);
 
-    KAction* replace=KStandardAction::replace(this, SLOT(showExtendedSearchBar()),
+    QAction * replace=KStandardAction::replace(this, SLOT(showExtendedSearchBar()),
                                               actionCollection());
     replace->setPriority(QAction::LowPriority);
 
@@ -163,132 +164,132 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
                                            actionCollection());
     m_findPrev->setEnabled(false);
 
-    KAction* latexExport=new KAction(i18n("Export to LaTeX"), actionCollection());
-    actionCollection()->addAction("file_export_latex", latexExport);
-    latexExport->setIcon(KIcon("document-export"));
+    QAction * latexExport=new QAction(i18n("Export to LaTeX"), actionCollection());
+    actionCollection()->addAction(QLatin1String("file_export_latex"), latexExport);
+    latexExport->setIcon(QIcon::fromTheme(QLatin1String("document-export")));
     connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
 
-    KAction* print = KStandardAction::print(this, SLOT(print()), actionCollection());
+    QAction * print = KStandardAction::print(this, SLOT(print()), actionCollection());
     print->setPriority(QAction::LowPriority);
 
     KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
     KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());
 
-    m_evaluate=new KAction(i18n("Evaluate Worksheet"), actionCollection());
-    actionCollection()->addAction("evaluate_worksheet", m_evaluate);
-    m_evaluate->setIcon(KIcon("system-run"));
+    m_evaluate=new QAction(i18n("Evaluate Worksheet"), actionCollection());
+    actionCollection()->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
+    m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
     connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
 
     m_typeset=new KToggleAction(i18n("Typeset using LaTeX"), actionCollection());
     m_typeset->setChecked(Settings::self()->typesetDefault());
-    actionCollection()->addAction("enable_typesetting", m_typeset);
+    actionCollection()->addAction(QLatin1String("enable_typesetting"), m_typeset);
     connect(m_typeset, SIGNAL(toggled(bool)), this, SLOT(enableTypesetting(bool)));
 
     m_highlight=new KToggleAction(i18n("Syntax Highlighting"), actionCollection());
     m_highlight->setChecked(Settings::self()->highlightDefault());
-    actionCollection()->addAction("enable_highlighting", m_highlight);
+    actionCollection()->addAction(QLatin1String("enable_highlighting"), m_highlight);
     connect(m_highlight, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableHighlighting(bool)));
 
     m_completion=new KToggleAction(i18n("Completion"), actionCollection());
     m_completion->setChecked(Settings::self()->completionDefault());
-    actionCollection()->addAction("enable_completion", m_completion);
+    actionCollection()->addAction(QLatin1String("enable_completion"), m_completion);
     connect(m_completion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableCompletion(bool)));
 
     m_exprNumbering=new KToggleAction(i18n("Line Numbers"), actionCollection());
     m_exprNumbering->setChecked(Settings::self()->expressionNumberingDefault());
-    actionCollection()->addAction("enable_expression_numbers", m_exprNumbering);
+    actionCollection()->addAction(QLatin1String("enable_expression_numbers"), m_exprNumbering);
     connect(m_exprNumbering, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableExpressionNumbering(bool)));
 
     m_animateWorksheet=new KToggleAction(i18n("Animate Worksheet"), actionCollection());
     m_animateWorksheet->setChecked(Settings::self()->animationDefault());
-    actionCollection()->addAction("enable_animations", m_animateWorksheet);
+    actionCollection()->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
-    KAction* restart=new KAction(i18n("Restart Backend"), actionCollection());
-    actionCollection()->addAction("restart_backend", restart);
-    restart->setIcon(KIcon("system-reboot"));
+    QAction * restart=new QAction(i18n("Restart Backend"), actionCollection());
+    actionCollection()->addAction(QLatin1String("restart_backend"), restart);
+    restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
     connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
 
-    KAction* evaluateCurrent=new KAction(i18n("Evaluate Entry"), actionCollection());
+    QAction * evaluateCurrent=new QAction(i18n("Evaluate Entry"), actionCollection());
     evaluateCurrent->setShortcut(Qt::SHIFT + Qt::Key_Return);
-    actionCollection()->addAction("evaluate_current",  evaluateCurrent);
+    actionCollection()->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
     connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
 
-    KAction* insertCommandEntry=new KAction(i18n("Insert Command Entry"), actionCollection());
+    QAction * insertCommandEntry=new QAction(i18n("Insert Command Entry"), actionCollection());
     insertCommandEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_command_entry",  insertCommandEntry);
+    actionCollection()->addAction(QLatin1String("insert_command_entry"),  insertCommandEntry);
     connect(insertCommandEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntry()));
 
-    KAction* insertTextEntry=new KAction(i18n("Insert Text Entry"), actionCollection());
+    QAction * insertTextEntry=new QAction(i18n("Insert Text Entry"), actionCollection());
     //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_text_entry",  insertTextEntry);
+    actionCollection()->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
-    KAction* insertLatexEntry=new KAction(i18n("Insert Latex Entry"), actionCollection());
+    QAction * insertLatexEntry=new QAction(i18n("Insert Latex Entry"), actionCollection());
     //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_latex_entry",  insertLatexEntry);
+    actionCollection()->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
 
-    KAction* insertPageBreakEntry=new KAction(i18n("Insert Page Break"), actionCollection());
-    actionCollection()->addAction("insert_page_break_entry", insertPageBreakEntry);
+    QAction * insertPageBreakEntry=new QAction(i18n("Insert Page Break"), actionCollection());
+    actionCollection()->addAction(QLatin1String("insert_page_break_entry"), insertPageBreakEntry);
     connect(insertPageBreakEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntry()));
 
-    KAction* insertImageEntry=new KAction(i18n("Insert Image"), actionCollection());
-    actionCollection()->addAction("insert_image_entry", insertImageEntry);
+    QAction * insertImageEntry=new QAction(i18n("Insert Image"), actionCollection());
+    actionCollection()->addAction(QLatin1String("insert_image_entry"), insertImageEntry);
     connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
 
 
     /*
-    KAction* insertCommandEntryBefore=new KAction(i18n("Insert Command Entry Before"), actionCollection());
+    QAction * insertCommandEntryBefore=new QAction(i18n("Insert Command Entry Before"), actionCollection());
     //insertCommandEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction("insert_command_entry_before",  insertCommandEntryBefore);
     connect(insertCommandEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntryBefore()));
 
-    KAction* insertTextEntryBefore=new KAction(i18n("Insert Text Entry Before"), actionCollection());
+    QAction * insertTextEntryBefore=new QAction(i18n("Insert Text Entry Before"), actionCollection());
     //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction("insert_text_entry_before",  insertTextEntryBefore);
     connect(insertTextEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntryBefore()));
 
-    KAction* insertPageBreakEntryBefore=new KAction(i18n("Insert Page Break Before"), actionCollection());
+    QAction * insertPageBreakEntryBefore=new QAction(i18n("Insert Page Break Before"), actionCollection());
     actionCollection()->addAction("insert_page_break_entry_before", insertPageBreakEntryBefore);
     connect(insertPageBreakEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntryBefore()));
 
-    KAction* insertImageEntryBefore=new KAction(i18n("Insert Image Entry Before"), actionCollection());
+    QAction * insertImageEntryBefore=new QAction(i18n("Insert Image Entry Before"), actionCollection());
     //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction("insert_image_entry_before",  insertImageEntryBefore);
     connect(insertImageEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntryBefore()));
     */
 
-    KAction* removeCurrent=new KAction(i18n("Remove current Entry"), actionCollection());
+    QAction * removeCurrent=new QAction(i18n("Remove current Entry"), actionCollection());
     removeCurrent->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
-    actionCollection()->addAction("remove_current", removeCurrent);
+    actionCollection()->addAction(QLatin1String("remove_current"), removeCurrent);
     connect(removeCurrent, SIGNAL(triggered()), m_worksheet, SLOT(removeCurrentEntry()));
 
-    m_showBackendHelp=new KAction(i18n("Show %1 Help", b->name()) , actionCollection());
-    m_showBackendHelp->setIcon(KIcon("help-contents"));
-    actionCollection()->addAction("backend_help", m_showBackendHelp);
+    m_showBackendHelp=new QAction(i18n("Show %1 Help", b->name()) , actionCollection());
+    m_showBackendHelp->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
+    actionCollection()->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, SIGNAL(triggered()), this, SLOT(showBackendHelp()));
 
-    KAction* publishWorksheet=new KAction(i18n("Publish Worksheet"), actionCollection());
-    publishWorksheet->setIcon(KIcon("get-hot-new-stuff"));
-    actionCollection()->addAction("file_publish_worksheet", publishWorksheet);
+    QAction * publishWorksheet=new QAction(i18n("Publish Worksheet"), actionCollection());
+    publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
+    actionCollection()->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
     connect(publishWorksheet, SIGNAL(triggered()), this, SLOT(publishWorksheet()));
 
     KToggleAction* showEditor=new KToggleAction(i18n("Show Script Editor"), actionCollection());
     showEditor->setChecked(false);
-    actionCollection()->addAction("show_editor", showEditor);
+    actionCollection()->addAction(QLatin1String("show_editor"), showEditor);
     connect(showEditor, SIGNAL(toggled(bool)), this, SLOT(showScriptEditor(bool)));
-    showEditor->setEnabled(b->extensions().contains("ScriptExtension"));
+    showEditor->setEnabled(b->extensions().contains(QLatin1String("ScriptExtension")));
 
-    KAction* showCompletion=new KAction(i18n("Show Completion"), actionCollection());
-    actionCollection()->addAction("show_completion", showCompletion);
+    QAction * showCompletion=new QAction(i18n("Show Completion"), actionCollection());
+    actionCollection()->addAction(QLatin1String("show_completion"), showCompletion);
     QList<QKeySequence> showCompletionShortcuts;
     showCompletionShortcuts << Qt::Key_Tab << Qt::CTRL + Qt::Key_Space;
     showCompletion->setShortcuts(showCompletionShortcuts);
     connect(showCompletion, SIGNAL(triggered()), m_worksheet, SLOT(showCompletion()));
 
     // set our XML-UI resource file
-    setXMLFile("cantor_part.rc");
+    setXMLFile(QLatin1String("cantor_part.rc"));
 
     // we are read-write by default
     setReadWrite(true);
@@ -335,14 +336,23 @@ void CantorPart::setModified(bool modified)
     ReadWritePart::setModified(modified);
 }
 
-KAboutData *CantorPart::createAboutData()
+KAboutData& CantorPart::createAboutData()
 {
     // the non-i18n name here must be the same as the directory in
     // which the part's rc file is installed ('partrcdir' in the
     // Makefile)
-    KAboutData *aboutData = new KAboutData("cantorpart",  "cantor",  ki18n("CantorPart"), "0.5");
-    aboutData->addAuthor(ki18n("Alexander Rieder"), KLocalizedString(), "alexanderrieder@gmail.com");
-    return aboutData;
+
+    KAboutData about(QLatin1String("cantorpart"),
+                     QLatin1String("Cantor"),
+                     QLatin1String("0.5"),
+                     i18n("CantorPart"),
+                     KAboutLicense::GPL,
+                     i18n("(C) 2009-2013 Alexander Rieder"),
+                     QString(),
+                     QLatin1String("http://edu.kde.org/cantor"));
+
+    about.addAuthor( i18n("Alexander Rieder"), QString(), QLatin1String("alexanderrieder@gmail.com") );
+    return about;
 }
 
 bool CantorPart::openFile()
@@ -350,7 +360,7 @@ bool CantorPart::openFile()
     //don't crash if for some reason the worksheet is invalid
     if(m_worksheet==0)
     {
-        kWarning()<<"trying to open in an invalid cantor part";
+        qWarning()<<"trying to open in an invalid cantor part";
         return false;
     }
 
@@ -370,7 +380,7 @@ bool CantorPart::saveFile()
     if (isReadWrite() == false)
         return false;
 
-    kDebug()<<"saving to: "<<url();
+    qDebug()<<"saving to: "<<url();
     if (url().isEmpty())
         fileSaveAs();
     else
@@ -387,18 +397,18 @@ void CantorPart::fileSaveAs()
 
     //if the backend supports scripts, also append their scriptFile endings to the filter
     Cantor::Backend * const backend=m_worksheet->session()->backend();
-    if (backend->extensions().contains("ScriptExtension"))
+    if (backend->extensions().contains(QLatin1String("ScriptExtension")))
     {
-        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
-        filter+='\n'+e->scriptFileFilter();
+        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
+        filter+=QLatin1Char('\n')+e->scriptFileFilter();
     }
 
     QString file_name = KFileDialog::getSaveFileName(KUrl(), filter, widget());
     if (!file_name.isEmpty()) {
         if (!file_name.endsWith(QLatin1String(".cws")) &&
             !file_name.endsWith(QLatin1String(".mws")))
-            file_name += ".cws";
-        saveAs(file_name);
+            file_name += QLatin1String(".cws");
+        saveAs(QUrl::fromLocalFile(file_name));
     }
 
     updateCaption();
@@ -406,7 +416,7 @@ void CantorPart::fileSaveAs()
 
 void CantorPart::fileSavePlain()
 {
-    QString file_name = KFileDialog::getSaveFileName(KUrl(), "", widget());
+    QString file_name = KFileDialog::getSaveFileName(KUrl(), QLatin1String(""), widget());
     if (!file_name.isEmpty())
         m_worksheet->savePlain(file_name);
 }
@@ -438,7 +448,7 @@ void CantorPart::guiActivateEvent( KParts::GUIActivateEvent * event )
 
 void CantorPart::evaluateOrInterrupt()
 {
-    kDebug()<<"evalorinterrupt";
+    qDebug()<<"evalorinterrupt";
     if(m_worksheet->isRunning())
         m_worksheet->interrupt();
     else
@@ -452,17 +462,17 @@ void CantorPart::restartBackend()
 
 void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 {
-    kDebug()<<"wsStatusChange"<<status;
+    qDebug()<<"wsStatusChange"<<status;
     if(status==Cantor::Session::Running)
     {
         m_evaluate->setText(i18n("Interrupt"));
-        m_evaluate->setIcon(KIcon("dialog-close"));
+        m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
 
         setStatusMessage(i18n("Calculating..."));
     }else
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
-        m_evaluate->setIcon(KIcon("system-run"));
+        m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
 
         setStatusMessage(i18n("Ready"));
     }
@@ -470,7 +480,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 
 void CantorPart::showSessionError(const QString& message)
 {
-    kDebug()<<"Error: "<<message;
+    qDebug()<<"Error: "<<message;
     initialized();
     showImportantStatusMessage(i18n("Session Error: %1", message));
 }
@@ -516,10 +526,10 @@ void CantorPart::enableTypesetting(bool enable)
 
 void CantorPart::showBackendHelp()
 {
-    kDebug()<<"showing backends help";
+    qDebug()<<"showing backends help";
     Cantor::Backend* backend=m_worksheet->session()->backend();
     KUrl url=backend->helpUrl();
-    kDebug()<<"launching url "<<url;
+    qDebug()<<"launching url "<<url;
     new KRun(url, widget());
 }
 
@@ -532,7 +542,7 @@ void CantorPart::updateCaption()
 {
     QString filename=url().fileName();
     //strip away the extension
-    filename=filename.left(filename.lastIndexOf('.'));
+    filename=filename.left(filename.lastIndexOf(QLatin1Char('.')));
 
     if (filename.isEmpty())
         filename=i18n("Unnamed");
@@ -550,36 +560,36 @@ void CantorPart::pluginsChanged()
 
 void CantorPart::loadAssistants()
 {
-    kDebug()<<"loading assistants...";
+    qDebug()<<"loading assistants...";
 
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
-    services = trader->query("Cantor/Assistant");
+    services = trader->query(QLatin1String("Cantor/Assistant"));
 
     foreach (const KService::Ptr &service,   services)
     {
         QString error;
 
-        kDebug()<<"found service"<<service->name();
+        qDebug()<<"found service"<<service->name();
         Cantor::Assistant* assistant=service->createInstance<Cantor::Assistant>(this,  QVariantList(),   &error);
         if (assistant==0)
         {
-            kDebug()<<"error loading assistant"<<service->name()<<":  "<<error;
+            qDebug()<<"error loading assistant"<<service->name()<<":  "<<error;
             continue;
         }
 
-        kDebug()<<"created it";
+        qDebug()<<"created it";
         Cantor::Backend* backend=worksheet()->session()->backend();
         KPluginInfo info(service);
         assistant->setPluginInfo(info);
         assistant->setBackend(backend);
 
-        kDebug()<<"plugin "<<service->name()<<" requires "<<assistant->requiredExtensions();
+        qDebug()<<"plugin "<<service->name()<<" requires "<<assistant->requiredExtensions();
         bool supported=true;
         foreach(const QString& req, assistant->requiredExtensions())
             supported=supported && backend->extensions().contains(req);
-        kDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
+        qDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
 
         if(supported)
         {
@@ -600,9 +610,9 @@ void CantorPart::runAssistant()
 {
     Cantor::Assistant* a=qobject_cast<Cantor::Assistant*>(sender());
     QStringList cmds=a->run(widget());
-    kDebug()<<cmds;
+    qDebug()<<cmds;
     if(!cmds.isEmpty())
-        runCommand(cmds.join("\n"));
+        runCommand(cmds.join(QLatin1String("\n")));
 }
 
 void CantorPart::runCommand(const QString& cmd)
@@ -691,12 +701,12 @@ void CantorPart::publishWorksheet()
         if (!saveFile()) return;
     }
 
-    kDebug()<<"uploading file "<<url();
+    qDebug()<<"uploading file "<<url();
 
     // upload
     //HACK: use different .knsrc files for each category
     //remove this once KNS3 gains the ability to select category
-    KNS3::UploadDialog dialog(QString("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->id().toLower()), widget());
+    KNS3::UploadDialog dialog(QString::fromLatin1("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->id().toLower()), widget());
     dialog.setUploadFile(url());
     dialog.exec();
 }
@@ -724,7 +734,7 @@ void CantorPart::showScriptEditor(bool show)
         {
             return;
         }
-        Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(m_worksheet->session()->backend()->extension("ScriptExtension"));
+        Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(m_worksheet->session()->backend()->extension(QLatin1String("ScriptExtension")));
         if (!scriptE)
         {
             return;
@@ -735,13 +745,13 @@ void CantorPart::showScriptEditor(bool show)
         m_scriptEditor->show();
     }else
     {
-        delete m_scriptEditor;
+        m_scriptEditor->deleteLater();
     }
 }
 
 void CantorPart::scriptEditorClosed()
 {
-    QAction* showEditor = actionCollection()->action("show_editor");
+    QAction* showEditor = actionCollection()->action(QLatin1String("show_editor"));
     if (showEditor)
     {
         showEditor->setChecked(false);
@@ -751,13 +761,13 @@ void CantorPart::scriptEditorClosed()
 void CantorPart::runScript(const QString& file)
 {
     Cantor::Backend* backend=m_worksheet->session()->backend();
-    if(!backend->extensions().contains("ScriptExtension"))
+    if(!backend->extensions().contains(QLatin1String("ScriptExtension")))
     {
         KMessageBox::error(widget(), i18n("This backend does not support scripts."), i18n("Error - Cantor"));
         return;
     }
 
-    Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension("ScriptExtension"));
+    Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
     m_worksheet->appendCommandEntry(scriptE->runExternalScript(file));
 }
 

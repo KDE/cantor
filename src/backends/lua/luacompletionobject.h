@@ -33,7 +33,7 @@ public:
     LuaCompletionObject( const QString& command, int index, LuaSession* session);
     ~LuaCompletionObject();
 
-protected slots:
+protected Q_SLOTS:
     void fetchCompletions();
 
 protected:

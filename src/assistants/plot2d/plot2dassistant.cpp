@@ -20,9 +20,9 @@
 
 #include "plot2dassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "ui_plot2ddlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -40,11 +40,11 @@ Plot2dAssistant::~Plot2dAssistant()
 
 void Plot2dAssistant::initActions()
 {
-    setXMLFile("cantor_plot2d_assistant.rc");
+    setXMLFile(QLatin1String("cantor_plot2d_assistant.rc"));
     KAction* plot2d=new KAction(i18n("Plot 2D"), actionCollection());
     //plot2d->setIcon(KIcon(icon()));
-    actionCollection()->addAction("plot2d_assistant", plot2d);
-    connect(plot2d, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("plot2d_assistant"), plot2d);
+    connect(plot2d, &KAction::triggered, this, &Plot2dAssistant::requested);
 }
 
 QStringList Plot2dAssistant::run(QWidget* parent)
@@ -63,7 +63,8 @@ QStringList Plot2dAssistant::run(QWidget* parent)
         const QString min=base.min->text();
         const QString max=base.max->text();
 
-        Cantor::PlotExtension* ext= dynamic_cast<Cantor::PlotExtension*>(backend()->extension("PlotExtension"));
+        Cantor::PlotExtension* ext=
+            dynamic_cast<Cantor::PlotExtension*>(backend()->extension(QLatin1String("PlotExtension")));
 
         result<<ext->plotFunction2d(expression, variable, min, max);
     }
@@ -73,3 +74,4 @@ QStringList Plot2dAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(plot2dassistant, Plot2dAssistant)
+#include "plot2dassistant.moc"

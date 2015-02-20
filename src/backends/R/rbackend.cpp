@@ -25,16 +25,16 @@
 #include "settings.h"
 #include "rsettingswidget.h"
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <QDebug>
+#include <KStandardDirs>
 
 #include "cantor_macros.h"
 #include <QMessageBox>
 
 RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName("rbackend");
-    kDebug()<<"Creating RBackend";
+    setObjectName(QLatin1String("rbackend"));
+    qDebug()<<"Creating RBackend";
 
     new RScriptExtension(this);
     new RPlotExtension(this);
@@ -42,24 +42,24 @@ RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backe
 
 RBackend::~RBackend()
 {
-    kDebug()<<"Destroying RBackend";
+    qDebug()<<"Destroying RBackend";
 }
 
 QString RBackend::id() const
 {
-    return "r";
+    return QLatin1String("r");
 }
 
 Cantor::Session* RBackend::createSession()
 {
-    kDebug()<<"Spawning a new R session";
+    qDebug()<<"Spawning a new R session";
 
     return new RSession(this);
 }
 
 Cantor::Backend::Capabilities RBackend::capabilities() const
 {
-    kDebug()<<"Requesting capabilities of RSession";
+    qDebug()<<"Requesting capabilities of RSession";
     return  Cantor::Backend::InteractiveMode |
             Cantor::Backend::SyntaxHighlighting |
             Cantor::Backend::Completion;
@@ -67,7 +67,7 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
 
 bool RBackend::requirementsFullfilled() const
 {
-    QFileInfo info(KStandardDirs::findExe( "cantor_rserver" ) );
+    QFileInfo info(KStandardDirs::findExe( QLatin1String("cantor_rserver") ) );
     return info.isExecutable();
 }
 

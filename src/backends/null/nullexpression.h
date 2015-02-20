@@ -35,7 +35,7 @@ class NullExpression : public Cantor::Expression
     void evaluate();
     void interrupt();
 
-  public slots:
+  public Q_SLOTS:
     void evalFinished();
 
   private:

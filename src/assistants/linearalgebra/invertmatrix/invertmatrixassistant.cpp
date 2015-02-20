@@ -20,10 +20,9 @@
 
 #include "invertmatrixassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -41,11 +40,11 @@ InvertMatrixAssistant::~InvertMatrixAssistant()
 
 void InvertMatrixAssistant::initActions()
 {
-    setXMLFile("cantor_invert_matrix_assistant.rc");
+    setXMLFile(QLatin1String("cantor_invert_matrix_assistant.rc"));
     KAction* invertmatrix=new KAction(i18n("Invert Matrix"), actionCollection());
     //invertmatrix->setIcon(KIcon(icon()));
-    actionCollection()->addAction("invertmatrix_assistant", invertmatrix);
-    connect(invertmatrix, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("invertmatrix_assistant"), invertmatrix);
+    connect(invertmatrix, &KAction::triggered, this, &InvertMatrixAssistant::requested);
 }
 
 QStringList InvertMatrixAssistant::run(QWidget* parent)
@@ -56,14 +55,16 @@ QStringList InvertMatrixAssistant::run(QWidget* parent)
     base.setupUi(widget);
     dlg->setMainWidget(widget);
 
-    Cantor::HistoryExtension* hist= dynamic_cast<Cantor::HistoryExtension*>(backend()->extension("HistoryExtension"));
+    Cantor::HistoryExtension* hist=
+        dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));
     base.matrix->setText(hist->lastResult());
 
     QStringList result;
     if( dlg->exec())
     {
         const QString& m=base.matrix->text();
-        Cantor::LinearAlgebraExtension* ext= dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension("LinearAlgebraExtension"));
+        Cantor::LinearAlgebraExtension* ext=
+            dynamic_cast<Cantor::LinearAlgebraExtension*>(backend()->extension(QLatin1String("LinearAlgebraExtension")));
         result<<ext->invertMatrix(m);
     }
 
@@ -72,3 +73,4 @@ QStringList InvertMatrixAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(invertmatrixassistant, InvertMatrixAssistant)
+#include "invertmatrixassistant.moc"

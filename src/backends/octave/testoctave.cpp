@@ -27,41 +27,43 @@
 #include "imageresult.h"
 #include "epsresult.h"
 
-#include <kdebug.h>
+#include "octaveexpression.h"
+
+#include <QDebug>
 
 QString TestOctave::backendName()
 {
-    return "octave";
+    return QLatin1String("octave");
 }
 
 void TestOctave::testSimpleCommand()
 {
-    Cantor::Expression* e=evalExp( "2+2" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString("ans =  4") );
+    QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String("ans =  4") );
 }
 void TestOctave::testMultilineCommand()
 {
-    Cantor::Expression* e=evalExp( "a = 2+2, b = 3+3" );
+    Cantor::Expression* e=evalExp( QLatin1String("a = 2+2, b = 3+3") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
     QString result=e->result()->toHtml();
 
-    QCOMPARE( cleanOutput(result ), QString("a =  4\nb =  6") );
+    QCOMPARE( cleanOutput(result ), QLatin1String("a =  4\nb =  6") );
 }
 
 void TestOctave::testPlot()
 {
-    Cantor::Expression* e=evalExp( "cantor_plot2d('sin(x)', 'x', -10,10);" );
+    Cantor::Expression* e=evalExp( QLatin1String("cantor_plot2d('sin(x)', 'x', -10,10);") );
 
     int cnt=0;
     //give some time to create the image, but at most 5sec
-    while(e->result()==0)
+    while(e->result()==0||e->result()->type()!=OctavePlotResult::Type )
     {
         QTest::qWait(250);
         cnt+=250;
@@ -72,13 +74,13 @@ void TestOctave::testPlot()
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
+    QCOMPARE( e->result()->type(), (int) OctavePlotResult::Type );
     QVERIFY( !e->result()->data().isNull() );
 }
 
 void TestOctave::testInvalidSyntax()
 {
-    Cantor::Expression* e=evalExp( "2+2*+." );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2*+.") );
 
     QVERIFY( e!=0 );
     QCOMPARE( e->status(), Cantor::Expression::Error );

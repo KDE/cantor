@@ -42,22 +42,22 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     QStringList variableNames();
     QStringList functionNames(bool stripParameters=false);
 
-  public slots:
+  public Q_SLOTS:
       void checkForNewVariables();
       void checkForNewFunctions();
 
-  private slots:
+  private Q_SLOTS:
       void parseNewVariables();
       void parseNewFunctions();
 
-  signals:
+  Q_SIGNALS:
       void variablesAdded(const QStringList variables);
       void variablesRemoved(const QStringList variables);
 
       void functionsAdded(const QStringList variables);
       void functionsRemoved(const QStringList variables);
 
-  private:    
+  private:
     MaximaSession* maximaSession();
 
   private:

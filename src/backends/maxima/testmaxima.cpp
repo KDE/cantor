@@ -30,47 +30,47 @@
 
 #include <config-cantorlib.h>
 
-#include <kdebug.h>
-#include <kstandarddirs.h>
+#include <QDebug>
+#include <KStandardDirs>
 
 QString TestMaxima::backendName()
 {
-    return "maxima";
+    return QLatin1String("maxima");
 }
 
 
 void TestMaxima::testSimpleCommand()
 {
-    Cantor::Expression* e=evalExp( "2+2" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString("4") );
+    QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String("4") );
 }
 
 void TestMaxima::testMultilineCommand()
 {
-    Cantor::Expression* e=evalExp( "2+2;3+3" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2;3+3") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
 
     QString result=e->result()->toHtml();
 
-    QCOMPARE( cleanOutput(result ), QString("4\n6") );
+    QCOMPARE( cleanOutput(result ), QLatin1String("4\n6") );
 }
 
 //WARNING: for this test to work, Integration of Plots must be anabled
 //and CantorLib must be compiled with EPS-support
 void TestMaxima::testPlot()
 {
-    if(KStandardDirs::findExe("gnuplot").isNull())
+    if(KStandardDirs::findExe(QLatin1String("gnuplot")).isNull())
     {
         QSKIP("gnuplot not found maxima needs it for plotting", SkipSingle);
     }
 
-    Cantor::Expression* e=evalExp( "plot2d(sin(x), [x, -10,10])" );
+    Cantor::Expression* e=evalExp( QLatin1String("plot2d(sin(x), [x, -10,10])") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->result()!=0 );
@@ -91,7 +91,7 @@ void TestMaxima::testPlot()
 
 void TestMaxima::testInvalidSyntax()
 {
-    Cantor::Expression* e=evalExp( "2+2*(" );
+    Cantor::Expression* e=evalExp( QLatin1String("2+2*(") );
 
     QVERIFY( e!=0 );
     QVERIFY( e->status()==Cantor::Expression::Error );
@@ -99,17 +99,17 @@ void TestMaxima::testInvalidSyntax()
 
 void TestMaxima::testExprNumbering()
 {
-    Cantor::Expression* e=evalExp( "kill(labels)" ); //first reset the labels
+    Cantor::Expression* e=evalExp( QLatin1String("kill(labels)") ); //first reset the labels
 
-    e=evalExp( "2+2" );
+    e=evalExp( QLatin1String("2+2") );
     QVERIFY( e!=0 );
     int id=e->id();
     QCOMPARE( id, 1 );
 
-    e=evalExp( QString("%O%1+1" ).arg( id ) );
+    e=evalExp( QString::fromLatin1("%O%1+1" ).arg( id ) );
     QVERIFY( e != 0 );
     QVERIFY( e->result()!=0 );
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QString( "5" ) );
+    QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String( "5" ) );
 }
 
 void TestMaxima::testCommandQueue()
@@ -117,9 +117,9 @@ void TestMaxima::testCommandQueue()
     //only wait for the last Expression to return, so the queue gets
     //actually filled
 
-    Cantor::Expression* e1=session()->evaluateExpression("0+1");
-    Cantor::Expression* e2=session()->evaluateExpression("1+1");
-    Cantor::Expression* e3=evalExp("1+2");
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("0+1"));
+    Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
+    Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
 
     QVERIFY(e1!=0);
     QVERIFY(e2!=0);
@@ -129,39 +129,39 @@ void TestMaxima::testCommandQueue()
     QVERIFY(e2->result());
     QVERIFY(e3->result());
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QString("1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QString("3"));
+    QCOMPARE(cleanOutput(e1->result()->toHtml()), QLatin1String("1"));
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("2"));
+    QCOMPARE(cleanOutput(e3->result()->toHtml()), QLatin1String("3"));
 }
 
 void TestMaxima::testSimpleExpressionWithComment()
 {
-    Cantor::Expression* e=evalExp("/*this is a comment*/2+2");
+    Cantor::Expression* e=evalExp(QLatin1String("/*this is a comment*/2+2"));
     QVERIFY(e!=0);
     QVERIFY(e->result()!=0);
 
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("4"));
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("4"));
 }
 
 void TestMaxima::testCommentExpression()
 {
-    Cantor::Expression* e=evalExp("/*this is a comment*/");
+    Cantor::Expression* e=evalExp(QLatin1String("/*this is a comment*/"));
     QVERIFY(e!=0);
     QVERIFY(e->result()==0||e->result()->toHtml().isEmpty());
 }
 
 void TestMaxima::testNestedComment()
 {
-    Cantor::Expression* e=evalExp("/*/*this is still a comment*/*/2+2/*still/*a*/comment*//**/");
+    Cantor::Expression* e=evalExp(QLatin1String("/*/*this is still a comment*/*/2+2/*still/*a*/comment*//**/"));
     QVERIFY(e!=0);
     QVERIFY(e->result()!=0);
 
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("4"));
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("4"));
 }
 
 void TestMaxima::testUnmatchedComment()
 {
-    Cantor::Expression* e=evalExp("/*this comment doesn't end here!");
+    Cantor::Expression* e=evalExp(QLatin1String("/*this comment doesn't end here!"));
     QVERIFY(e!=0);
     QVERIFY(e->result()==0);
     QVERIFY(e->status()==Cantor::Expression::Error);
@@ -169,7 +169,7 @@ void TestMaxima::testUnmatchedComment()
 
 void TestMaxima::testInvalidAssignment()
 {
-    Cantor::Expression* e=evalExp("0:a");
+    Cantor::Expression* e=evalExp(QLatin1String("0:a"));
     QVERIFY(e!=0);
     //QVERIFY(e->result()==0);
     //QVERIFY(e->status()==Cantor::Expression::Error);
@@ -178,29 +178,29 @@ void TestMaxima::testInvalidAssignment()
         waitForSignal(session(), SIGNAL( statusChanged(Cantor::Session::Status)));
 
     //make sure we didn't screw up the session
-    Cantor::Expression* e2=evalExp("2+2");
+    Cantor::Expression* e2=evalExp(QLatin1String("2+2"));
     QVERIFY(e2!=0);
     QVERIFY(e2->result()!=0);
 
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QString("4"));
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("4"));
 }
 
 void TestMaxima::testInformationRequest()
 {
-    Cantor::Expression* e=session()->evaluateExpression("integrate(x^n,x)");
+    Cantor::Expression* e=session()->evaluateExpression(QLatin1String("integrate(x^n,x)"));
     QVERIFY(e!=0);
     waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
-    e->addInformation("nonzero;");
+    e->addInformation(QLatin1String("nonzero;"));
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QVERIFY(e->result()!=0);
 
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QString("x^(n+1)/(n+1)"));
+    QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("x^(n+1)/(n+1)"));
 }
 
 void TestMaxima::testSyntaxHelp()
 {
-    Cantor::SyntaxHelpObject* help = session()->syntaxHelpFor("simplify_sum");
+    Cantor::SyntaxHelpObject* help = session()->syntaxHelpFor(QLatin1String("simplify_sum"));
     help->fetchSyntaxHelp();
     waitForSignal(help, SIGNAL(done()));
 

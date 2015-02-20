@@ -32,7 +32,7 @@ class TestOctave : public BackendTest
 {
   Q_OBJECT
 
-private slots:
+private Q_SLOTS:
     //tests evaluating a simple command
     void testSimpleCommand();
     //tests a command, containing more than 1 line

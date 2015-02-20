@@ -36,7 +36,7 @@ WorksheetToolButton::~WorksheetToolButton()
 {
 }
 
-void WorksheetToolButton::setIcon(const KIcon& icon)
+void WorksheetToolButton::setIcon(const QIcon& icon)
 {
     m_icon = icon;
 }

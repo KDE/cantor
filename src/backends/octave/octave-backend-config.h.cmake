@@ -1,1 +1,1 @@
-const QString octaveScriptInstallDir = "${OCTAVE_SCRIPT_INSTALL_DIR}";
+const QString octaveScriptInstallDir = QLatin1String("${OCTAVE_SCRIPT_INSTALL_PATH}");

@@ -20,10 +20,12 @@
 
 #include "runscriptassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <kfiledialog.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
+#include <KFileDialog>
+#include <KIcon>
+#include <KLocale>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -40,16 +42,18 @@ RunScriptAssistant::~RunScriptAssistant()
 
 void RunScriptAssistant::initActions()
 {
-    setXMLFile("cantor_runscript_assistant.rc");
+    setXMLFile(QLatin1String("cantor_runscript_assistant.rc"));
     KAction* runscript=new KAction(i18n("Run Script"), actionCollection());
     runscript->setIcon(KIcon(icon()));
-    actionCollection()->addAction("runscript_assistant", runscript);
-    connect(runscript, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("runscript_assistant"), runscript);
+    connect(runscript, &KAction::triggered, this, &RunScriptAssistant::requested);
 }
 
 QStringList RunScriptAssistant::run(QWidget* parent)
 {
-    Cantor::ScriptExtension* ext= dynamic_cast<Cantor::ScriptExtension*>(backend()->extension("ScriptExtension"));
+    Cantor::ScriptExtension* ext=
+        dynamic_cast<Cantor::ScriptExtension*>(backend()->extension(QLatin1String("ScriptExtension")));
+
     QString file=KFileDialog::getOpenFileName(KUrl("kfiledialog://cantor_script"), ext->scriptFileFilter(), parent);
 
     if(file.isNull())
@@ -62,3 +66,4 @@ QStringList RunScriptAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(runscriptassistant, RunScriptAssistant)
+#include "runscriptassistant.moc"

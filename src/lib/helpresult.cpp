@@ -39,8 +39,8 @@ int HelpResult::type()
 
 QDomElement HelpResult::toXml(QDomDocument& doc)
 {
-    QDomElement e=doc.createElement("Result");
-    e.setAttribute("type", "help");
+    QDomElement e=doc.createElement(QLatin1String("Result"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("help"));
     //No need to save results of a help request
     QDomText txt=doc.createTextNode(QString());
     e.appendChild(txt);

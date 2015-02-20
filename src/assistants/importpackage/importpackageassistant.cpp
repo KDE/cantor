@@ -20,10 +20,9 @@
 
 #include "importpackageassistant.h"
 
-#include <kdialog.h>
-#include <kaction.h>
-#include <kdebug.h>
-#include <kactioncollection.h>
+#include <KDialog>
+#include <KAction>
+#include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -41,11 +40,11 @@ ImportPackageAssistant::~ImportPackageAssistant()
 
 void ImportPackageAssistant::initActions()
 {
-    setXMLFile("cantor_import_package_assistant.rc");
+    setXMLFile(QLatin1String("cantor_import_package_assistant.rc"));
 
     KAction* importpackage = new KAction(i18n("Import Package"), actionCollection());
-    actionCollection()->addAction("importpackage_assistant", importpackage);
-    connect(importpackage, SIGNAL(triggered()), this, SIGNAL(requested()));
+    actionCollection()->addAction(QLatin1String("importpackage_assistant"), importpackage);
+    connect(importpackage, &KAction::triggered, this, &ImportPackageAssistant::requested);
 }
 
 QStringList ImportPackageAssistant::run(QWidget* parent)
@@ -64,7 +63,8 @@ QStringList ImportPackageAssistant::run(QWidget* parent)
     {
         const QString& m = base.package->text();
 
-        Cantor::PackagingExtension* ext = dynamic_cast<Cantor::PackagingExtension*>(backend()->extension("PackagingExtension"));
+        Cantor::PackagingExtension* ext =
+            dynamic_cast<Cantor::PackagingExtension*>(backend()->extension(QLatin1String("PackagingExtension")));
         result << ext->importPackage(m);
     }
 
@@ -73,3 +73,4 @@ QStringList ImportPackageAssistant::run(QWidget* parent)
 }
 
 K_EXPORT_CANTOR_PLUGIN(importpackageassistant, ImportPackageAssistant)
+#include "importpackageassistant.moc"

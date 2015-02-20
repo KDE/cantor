@@ -36,7 +36,7 @@ QALCULATE_EXT_CDTOR(LinearAlgebra)
 
 QString QalculateHistoryExtension::lastResult()
 {
-    return "ans";
+    return QLatin1String("ans");
 }
 
 QString QalculateVariableManagementExtension::addVariable(const QString& name, const QString& value)
@@ -46,7 +46,7 @@ QString QalculateVariableManagementExtension::addVariable(const QString& name, c
 
 QString QalculateVariableManagementExtension::setValue(const QString& name, const QString& value)
 {
-    return QString("%1 := %2").arg(name).arg(value);
+    return QString::fromLatin1("%1 := %2").arg(name).arg(value);
 }
 
 QString QalculateVariableManagementExtension::removeVariable(const QString& name)
@@ -64,15 +64,15 @@ QString QalculateVariableManagementExtension::clearVariables()
 QString QalculateVariableManagementExtension::saveVariables(const QString& fileName)
 {
     QString escapedFileName = fileName;
-    escapedFileName.replace(' ', "\\ ");
-    return QString("saveVariables %1").arg(escapedFileName);
+    escapedFileName.replace(QLatin1Char(' '), QLatin1String("\\ "));
+    return QString::fromLatin1("saveVariables %1").arg(escapedFileName);
 }
 
 QString QalculateVariableManagementExtension::loadVariables(const QString& fileName)
 {
     QString escapedFileName = fileName;
-    escapedFileName.replace(' ', "\\ ");
-    return QString("loadVariables %1").arg(escapedFileName);
+    escapedFileName.replace(QLatin1Char(' '), QLatin1String("\\ "));
+    return QString::fromLatin1("loadVariables %1").arg(escapedFileName);
 }
 
 // Custom Plot Extension. This extension does not fit into the normal pattern,
@@ -80,7 +80,7 @@ QString QalculateVariableManagementExtension::loadVariables(const QString& fileN
 // Also it does not do anything at all, because all the work is done by the
 // QalculatePlotAssistant
 QalculatePlotExtension::QalculatePlotExtension(QObject* parent) :
-    Cantor::Extension("QalculatePlotExtension", parent)
+    Cantor::Extension(QLatin1String("QalculatePlotExtension"), parent)
 {
 }
 
@@ -90,46 +90,46 @@ QalculatePlotExtension::~QalculatePlotExtension()
 
 QString QalculateCASExtension::solve(const QStringList& equations, const QStringList& variables)
 {
-    QString eqstr=QString("[%1]").arg(equations.join(","));
+    QString eqstr=QString::fromLatin1("[%1]").arg(equations.join(QLatin1String(",")));
 
-    QString variablestr=QString("[%1]").arg(variables.join(","));
+    QString variablestr=QString::fromLatin1("[%1]").arg(variables.join(QLatin1String(",")));
 
-    return QString("multisolve(%1,%2)").arg(eqstr, variablestr);
+    return QString::fromLatin1("multisolve(%1,%2)").arg(eqstr, variablestr);
 }
 
 QString QalculateCASExtension::simplify(const QString& expression)
 {
     // There is (currently) no way to do this
-    return QString("").arg(expression);
+    return QString::fromLatin1("").arg(expression);
 }
 
 QString QalculateCASExtension::expand(const QString& expression)
 {
     // There is (currently) no way to do this
-    return QString("").arg(expression);
+    return QString::fromLatin1("").arg(expression);
 }
 
 QString QalculateCalculusExtension::limit(const QString& expression, const QString& variable, const QString& limit)
 {
     // There is no limit function in Qalculate (at least none I know of),
     // but fortunately this function seems not to be used anyway.
-    return "";
+    return QLatin1String("");
     //return QString("limit(%1, %2=%3);").arg(expression, variable, limit);
 }
 
 QString QalculateCalculusExtension::differentiate(const QString& function,const QString& variable, int times)
 {
-    return QString("diff(%1, %2, %3)").arg(function, variable, QString::number(times));
+    return QString::fromLatin1("diff(%1, %2, %3)").arg(function, variable, QString::number(times));
 }
 
 QString QalculateCalculusExtension::integrate(const QString& function, const QString& variable)
 {
-    return QString("integrate(%1, %2)").arg(function, variable);
+    return QString::fromLatin1("integrate(%1, %2)").arg(function, variable);
 }
 
 QString QalculateCalculusExtension::integrate(const QString& function,const QString& variable, const QString& left, const QString& right)
 {
-    return QString("integrate(%1, %2, %3, %4)").arg(function, variable, left, right);
+    return QString::fromLatin1("integrate(%1, %2, %3, %4)").arg(function, variable, left, right);
 }
 
 //Commands to create Vectors/Matrices
@@ -138,62 +138,62 @@ QString QalculateLinearAlgebraExtension::createVector(const QStringList& entries
     // Neither of these does create a normal vector, but a n-times-1 or
     // an 1-times-n matrix.
     if(type==Cantor::LinearAlgebraExtension::ColumnVector) {
-        QString list=entries.join("], [");
-        return QString("[[%1]]").arg(list);
+        QString list=entries.join(QLatin1String("], ["));
+        return QString::fromLatin1("[[%1]]").arg(list);
     }
     else {
-        QString list=entries.join(",");
-        return QString("[[%1]]").arg(list);
+        QString list=entries.join(QLatin1String(","));
+        return QString::fromLatin1("[[%1]]").arg(list);
     }
 }
 
 QString QalculateLinearAlgebraExtension::createMatrix(const Matrix& matrix)
 {
-  QString cmd="[";
+  QString cmd=QLatin1String("[");
     foreach(const QStringList& row, matrix)
     {
-        cmd+='[';
+        cmd+=QLatin1Char('[');
         foreach(const QString& entry, row)
-            cmd+=entry+',';
+            cmd+=entry+QLatin1Char(',');
         cmd.chop(1);
-        cmd+="],";
+        cmd+=QLatin1String("],");
     }
     cmd.chop(1);
-    cmd+="]";
+    cmd+=QLatin1String("]");
 
     return cmd;
 }
 
 QString QalculateLinearAlgebraExtension::identityMatrix(int size)
 {
-    return QString("identity(%1)").arg(size);
+    return QString::fromLatin1("identity(%1)").arg(size);
 }
 
 //basic functions
 QString QalculateLinearAlgebraExtension::rank(const QString& matrix)
 {
     // This feature seems to be missing in Qalculate
-    return QString("").arg(matrix);
+    return QString::fromLatin1("").arg(matrix);
 }
 
 QString QalculateLinearAlgebraExtension::invertMatrix(const QString& matrix)
 {
-    return QString("inverse(%1)").arg(matrix);
+    return QString::fromLatin1("inverse(%1)").arg(matrix);
 }
 
 QString QalculateLinearAlgebraExtension::charPoly(const QString& matrix)
 {
-  return QString("det(x*identity(%1)-%2)").arg(matrix, matrix);
+  return QString::fromLatin1("det(x*identity(%1)-%2)").arg(matrix, matrix);
 }
 
 QString QalculateLinearAlgebraExtension::eigenVectors(const QString& matrix)
 {
     // No such function
-    return QString("").arg(matrix);
+    return QString::fromLatin1("").arg(matrix);
 }
 
 QString QalculateLinearAlgebraExtension::eigenValues(const QString& matrix)
 {
     // No such function
-    return QString("").arg(matrix);
+    return QString::fromLatin1("").arg(matrix);
 }

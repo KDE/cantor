@@ -24,7 +24,6 @@
 #include <libqalculate/Unit.h>
 
 #include <KColorScheme>
-#include <KDebug>
 #include <KGlobal>
 #include <KLocale>
 
@@ -41,7 +40,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
 {
     if ( text.isEmpty() || text.trimmed().isEmpty() || text.startsWith(QLatin1String(">>> "))
             // filter error messages, they get highlighted via html
-            || text.startsWith(i18n("ERROR")+':') || text.startsWith(i18n("WARNING")+':') ) {
+            || text.startsWith(i18n("ERROR") + QLatin1Char(':')) || text.startsWith(i18n("WARNING") + QLatin1Char(':')) ) {
         return;
     }
 
@@ -50,13 +49,13 @@ void QalculateHighlighter::highlightBlock(const QString& text)
     ///TODO: Can't we use CALCULATOR->parse() or similar?
     ///      Question is how to get the connection between
     ///      MathStructur and position+length in @p text
-    const QStringList& words = text.split(QRegExp("\\b"), QString::SkipEmptyParts);
+    const QStringList& words = text.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
 
-    kDebug() << "highlight block:" << text;
+    qDebug() << "highlight block:" << text;
 
     CALCULATOR->beginTemporaryStopMessages();
 
-    const QString decimalSymbol = KGlobal::locale()->decimalSymbol();
+    const QString decimalSymbol = KLocale::global()->decimalSymbol();
 
     for ( int i = 0; i < words.size(); ++i, pos += count ) {
         count = words[i].size();
@@ -64,13 +63,13 @@ void QalculateHighlighter::highlightBlock(const QString& text)
             continue;
         }
 
-        kDebug() << "highlight word:" << words[i];
+        qDebug() << "highlight word:" << words[i];
 
         QTextCharFormat format = errorFormat();
 
-        if ( i < words.size() - 1 && words[i+1].trimmed() == "(" && CALCULATOR->getFunction(words[i].toUtf8().constData()) ) {
+        if ( i < words.size() - 1 && words[i+1].trimmed() == QLatin1String("(") && CALCULATOR->getFunction(words[i].toUtf8().constData()) ) {
             // should be a function
-            kDebug() << "function";
+            qDebug() << "function";
             format = functionFormat();
         } else if ( isOperatorAndWhitespace(words[i]) ) {
             // stuff like ") * (" is an invalid expression, but acutally OK
@@ -82,7 +81,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
                     // lookbehind
                     QString lastWord = words[i-1].trimmed();
                     if ( !lastWord.isEmpty() && lastWord.at(lastWord.size()-1).isNumber() ) {
-                        kDebug() << "actually float";
+                        qDebug() << "actually float";
                         isFloat = true;
                     }
                 }
@@ -90,13 +89,13 @@ void QalculateHighlighter::highlightBlock(const QString& text)
                     // lookahead
                     QString nextWord = words[i+1].trimmed();
                     if ( !nextWord.isEmpty() && nextWord.at(0).isNumber() ) {
-                        kDebug() << "float coming";
+                        qDebug() << "float coming";
                         isFloat = true;
                     }
                 }
             }
             if ( !isFloat ) {
-                kDebug() << "operator / whitespace";
+                qDebug() << "operator / whitespace";
                 format = operatorFormat();
             } else {
                 format = numberFormat();
@@ -104,15 +103,15 @@ void QalculateHighlighter::highlightBlock(const QString& text)
         } else {
             MathStructure expr = CALCULATOR->parse(words[i].toAscii().constData());
             if ( expr.isNumber() || expr.isNumber_exp() ) {
-                kDebug() << "number";
+                qDebug() << "number";
                 format = numberFormat();
             } else if ( expr.isVariable() ) {
-                kDebug() << "variable";
+                qDebug() << "variable";
                 format = variableFormat();
             } else if ( expr.isUndefined() ) {
-                kDebug() << "undefined";
+                qDebug() << "undefined";
             } else if ( expr.isUnit() || expr.isUnit_exp() ) {
-                kDebug() << "unit";
+                qDebug() << "unit";
                 format = keywordFormat();
             }
         }

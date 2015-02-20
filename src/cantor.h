@@ -21,9 +21,12 @@
 #ifndef CANTOR_H
 #define CANTOR_H
 
-#include <kparts/mainwindow.h>
+#include <KParts/MainWindow>
 
 #include <QList>
+
+#include <KParts/ReadWritePart>
+#include <KUrl>
 
 class KTabWidget;
 class KTextEdit;
@@ -69,11 +72,11 @@ protected:
      * with @ref saveProperties
      */
     void readProperties(const KConfigGroup &);
-public slots:
+public Q_SLOTS:
     void addWorksheet();
     void addWorksheet(const QString& backendName);
 
-private slots:
+private Q_SLOTS:
     void fileNew();
     void fileOpen();
     void optionsConfigureKeys();
