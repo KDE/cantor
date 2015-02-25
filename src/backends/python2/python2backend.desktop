@@ -11,6 +11,7 @@ Name[sk]=Python 2
 Name[sv]=Python 2
 Name[uk]=Python 2
 Name[x-test]=xxPython 2xx
+Name[zh_TW]=Python 2
 X-KDE-PluginInfo-Website=http://python.org/
 X-KDE-ServiceTypes=Cantor/Backend
 X-KDE-Library=cantor_python2backend
