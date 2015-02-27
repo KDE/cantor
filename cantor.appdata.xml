@@ -4,6 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Cantor</name>
+  <name xml:lang="ast">Cantor</name>
   <name xml:lang="ca">Cantor</name>
   <name xml:lang="cs">Cantor</name>
   <name xml:lang="da">Cantor</name>
@@ -28,6 +29,7 @@
   <name xml:lang="x-test">xxCantorxx</name>
   <name xml:lang="zh-TW">Cantor</name>
   <summary>KDE Frontend to Mathematical Software</summary>
+  <summary xml:lang="ast">Frontal KDE pa software matemáticu</summary>
   <summary xml:lang="ca">Frontal del KDE per a programari matemàtic</summary>
   <summary xml:lang="cs">Uživatelské rozhraní matematického softwaru pro KDE</summary>
   <summary xml:lang="de">Eine KDE-Oberfläche für mathematische Software</summary>
