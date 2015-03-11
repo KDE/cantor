@@ -3,6 +3,7 @@ Type=Service
 Icon=pythonbackend
 Name=Python 2
 Name[ca]=Python 2
+Name[cs]=Python 2
 Name[de]=Python 2
 Name[en_GB]=Python 2
 Name[es]=Python 2
