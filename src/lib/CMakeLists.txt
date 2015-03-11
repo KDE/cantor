@@ -1,5 +1,5 @@
-set(GENERIC_LIB_VERSION "0.0.4")
-set(GENERIC_LIB_SOVERSION "1")
+set(GENERIC_LIB_VERSION "0.6.0")
+set(GENERIC_LIB_SOVERSION "6")
 
 set( cantor_LIB_SRCS
   session.cpp

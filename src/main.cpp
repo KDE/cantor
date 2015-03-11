@@ -29,7 +29,7 @@
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
 
-static const char version[] = "0.5";
+static const char version[] = "0.6";
 
 
 int main(int argc, char **argv)
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
                      QLatin1String(version),
                      i18n(description),
                      KAboutLicense::GPL,
-                     i18n("(C) 2009-2013 Alexander Rieder"),
+                     i18n("(C) 2009-2015 Alexander Rieder"),
                      QString(),
                      QLatin1String("http://edu.kde.org/cantor"));
 
