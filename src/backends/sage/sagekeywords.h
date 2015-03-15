@@ -25,7 +25,7 @@
 
 /**
   Class to store all Sage keywords (i.e. Python keywords)
-  It is similiar to MaximaKeywords or ScilabKeywords, but for Sage we only
+  It is similar to MaximaKeywords or ScilabKeywords, but for Sage we only
   need to store actual keywords, as variables and functions can be fetched from
   the backend.
  */

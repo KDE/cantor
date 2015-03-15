@@ -29,7 +29,6 @@
 #include <KLocale>
 #include <KMessageBox>
 #include "settings.h"
-#include "sagehighlighter.h"
 
 const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after each command
 const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input

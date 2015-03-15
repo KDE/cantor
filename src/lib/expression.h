@@ -51,7 +51,7 @@ class CANTOR_EXPORT Expression : public QObject
   Q_OBJECT
   public:
     enum Status{ Computing,   ///< The Expression is still being computed
-		 Done,        ///< The Running of the Expression is finished sucessfully
+		 Done,        ///< The Running of the Expression is finished successfully
 		 Error,       ///< An Error occurred when running the Expression
 		 Interrupted  ///< The Expression was interrupted by the user while running
     };
@@ -127,7 +127,7 @@ class CANTOR_EXPORT Expression : public QObject
     /**
      * Adds some additional information/input to this expression.
      * this is needed, when the Expression has emitted the needsAdditionalInformation signal,
-     * and the user has answered the question. This is used for e.g. if maxima asks wether
+     * and the user has answered the question. This is used for e.g. if maxima asks whether
      * n+1 is zero or not when running the command "integrate(x^n,x)"
      * This method is part of the InteractiveMode feature
      */
@@ -226,7 +226,7 @@ class CANTOR_EXPORT Expression : public QObject
   protected:
     /**
      * Set the result of the Expression.
-     * this will cause gotResult() to be emited
+     * this will cause gotResult() to be emitted
      * The old result will be deleted, and the Expression
      * takes over ownership of the result object, taking
      * care of deleting it.

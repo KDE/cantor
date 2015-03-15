@@ -38,7 +38,7 @@ ScilabCompletionObject::~ScilabCompletionObject()
 void ScilabCompletionObject::fetchCompletions()
 {
     // A more elegant approach would be to use Scilab's completion() function,
-    // similiarly to how fetching is done in OctaveCompletionObject.
+    // similarly to how fetching is done in OctaveCompletionObject.
     // Unfortunately its interactive behavior is not handled well by cantor.
     QStringList allCompletions;
 

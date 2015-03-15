@@ -126,7 +126,7 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             internal.setScheme(QLatin1String("internal"));
 
             QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
-            qDebug()<<"rendering successfull? " << !format.name().isEmpty();
+            qDebug()<<"rendering successful? " << !format.name().isEmpty();
 
 
             format.setProperty(EpsRenderer::CantorFormula,
@@ -206,7 +206,7 @@ bool LatexEntry::evaluate(EvaluationOption evalOp)
         delete renderer;
     }
 
-    qDebug()<<"rendering successfull? "<<success;
+    qDebug()<<"rendering successful? "<<success;
 
     evaluateNext(evalOp);
     return success;
@@ -221,7 +221,7 @@ void LatexEntry::updateEntry()
         QTextCharFormat format=cursor.charFormat();
         QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
         QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
-        qDebug()<<"rendering successfull? "<< !s.isValid();
+        qDebug()<<"rendering successful? "<< !s.isValid();
 
         //HACK: reinsert this image, to make sure the layout is updated to the new size
         //cursor.removeSelectedText();

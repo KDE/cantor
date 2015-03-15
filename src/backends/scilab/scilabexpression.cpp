@@ -37,8 +37,6 @@
 #include "settings.h"
 #include "defaultvariablemodel.h"
 
-#include "imageresult.h"
-
 typedef Cantor::ImageResult ScilabPlotResult;
 
 ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)

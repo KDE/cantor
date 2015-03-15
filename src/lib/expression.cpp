@@ -203,7 +203,7 @@ void Expression::latexRendered()
         }
     }else
     {
-        //if rendering with latex was not successfull, just use the plain text version
+        //if rendering with latex was not successful, just use the plain text version
         //if available
         TextResult* r=dynamic_cast<TextResult*>(result());
         setResult(new TextResult(r->plain()));

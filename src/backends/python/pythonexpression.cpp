@@ -31,7 +31,6 @@
 #include "pythonsession.h"
 #include "settings.h"
 
-#include "imageresult.h"
 #include <QDir>
 typedef Cantor::ImageResult PythonPlotResult;
 

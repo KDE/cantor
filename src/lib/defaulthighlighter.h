@@ -52,7 +52,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     ~DefaultHighlighter();
 
     /**
-     * Change the item beeing highlighted.
+     * Change the item being highlighted.
      */
     void setTextItem(QGraphicsTextItem* item);
 

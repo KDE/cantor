@@ -64,7 +64,7 @@ class RSession : public Cantor::Session
     org::kde::Cantor::R* m_rServer;
     QList<RExpression*> m_expressionQueue;
 
-    /* Available variables and functions, TODO make full classes and type infos */
+    /* Available variables and functions, TODO make full classes and type info */
     QStringList m_variables;
     QStringList m_functions;
 };

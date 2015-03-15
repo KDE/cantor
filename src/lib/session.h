@@ -158,8 +158,8 @@ class CANTOR_EXPORT Session : public QObject
      */
     Cantor::Session::Status status();
     /**
-     * Returns wether typesetting is enabled or not
-     * @return wether typesetting is enabled or not
+     * Returns whether typesetting is enabled or not
+     * @return whether typesetting is enabled or not
      */
     bool isTypesettingEnabled();
 
@@ -174,7 +174,7 @@ class CANTOR_EXPORT Session : public QObject
   protected:
     /**
      * Change the status of the Session. This will cause the
-     * stausChanged signal to be emited
+     * stausChanged signal to be emitted
      * @param newStatus the new status of the session
      */
     void changeStatus(Cantor::Session::Status newStatus);
