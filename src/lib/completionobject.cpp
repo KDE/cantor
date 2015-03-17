@@ -49,7 +49,7 @@ CompletionObject::CompletionObject(Session* session) :
 
     connect(this, &CompletionObject::fetchingDone, this, &CompletionObject::findCompletion);
     connect(this, &CompletionObject::fetchingTypeDone, this, &CompletionObject::completeLineWithType);
-    // TODO commented to build by Filipe
+
     setCompletionMode(KCompletion::CompletionShell);
 }
 

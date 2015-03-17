@@ -34,7 +34,6 @@
 #include <QtCore/QFile>
 #include <QTextEdit>
 #include <QListIterator>
-#include <QDir>
 #include <QIODevice>
 #include <QByteArray>
 

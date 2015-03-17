@@ -39,7 +39,7 @@ kde4_add_app_icon(cantor_SRCS
    "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
 add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::ConfigGui cantorlibs cantor_config)
+target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
@@ -50,7 +50,7 @@ install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
 #########################################################################
 # KPART SECTION
 #########################################################################
-#kde_module_LTLIBRARIES = libcantorpart.la
+
 set(cantor_PART_SRCS
    cantor_part.cpp
    worksheet.cpp
@@ -85,12 +85,8 @@ ki18n_wrap_ui(cantor_PART_SRCS extendedsearchbar.ui)
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
-# add_library(cantorpart MODULE WITH_PREFIX ${cantor_PART_SRCS})
 add_library(cantorpart MODULE ${cantor_PART_SRCS})
 set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFIX}")
-
-#add_library(blahtexcore STATIC IMPORTED)
-#set_property(TARGET blahtexcore PROPERTY IMPORTED_LOCATION Path_To_BlahtexCore_Library/libblahtexcore.a)
 
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}

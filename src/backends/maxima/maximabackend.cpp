@@ -33,7 +33,6 @@
 
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    qDebug()<<"oi?";
     setObjectName(QLatin1String("maximabackend"));
     qDebug()<<"Creating MaximaBackend";
     //initialize the supported extensions

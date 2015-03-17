@@ -50,14 +50,14 @@ void EpsRenderer::useHighResolution(bool b)
     m_useHighRes = b;
 }
 
-QTextImageFormat EpsRenderer::render(QTextDocument *document, const KUrl& url)
+QTextImageFormat EpsRenderer::render(QTextDocument *document, const QUrl &url)
 {
     QTextImageFormat epsCharFormat;
 
     QSizeF s = renderToResource(document, url);
 
-    KUrl internal = url;
-    internal.setProtocol(QLatin1String("internal"));
+    QUrl internal = url;
+    internal.setScheme(QLatin1String("internal"));
     if(s.isValid())
     {
         epsCharFormat.setName(internal.url());
@@ -71,7 +71,7 @@ QTextImageFormat EpsRenderer::render(QTextDocument *document, const KUrl& url)
 QTextImageFormat EpsRenderer::render(QTextDocument *document,
                                      const Cantor::LatexRenderer* latex)
 {
-    QTextImageFormat format = render(document, latex->imagePath());
+    QTextImageFormat format = render(document, QUrl::fromLocalFile(latex->imagePath()));
 
     if (!format.name().isEmpty()) {
         format.setProperty(CantorFormula, latex->method());
@@ -82,27 +82,27 @@ QTextImageFormat EpsRenderer::render(QTextDocument *document,
     return format;
 }
 
-QSizeF EpsRenderer::renderToResource(QTextDocument *document, const KUrl& url)
+QSizeF EpsRenderer::renderToResource(QTextDocument *document, const QUrl &url)
 {
     QSizeF size;
     QImage img = renderToImage(url, &size);
 
-    KUrl internal = url;
-    internal.setProtocol(QLatin1String("internal"));
+    QUrl internal = url;
+    internal.setScheme(QLatin1String("internal"));
     qDebug() << internal;
     document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
     return size;
 }
 
-QImage EpsRenderer::renderToImage(const KUrl& url, QSizeF* size)
+QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
 {
 #ifdef LIBSPECTRE_FOUND
     SpectreDocument* doc = spectre_document_new();
     SpectreRenderContext* rc = spectre_render_context_new();
 
     qDebug() << "rendering eps file: " << url;
-// TODO commented to build by Filipe
-//     spectre_document_load(doc, url.toLocalFile().toUtf8());
+    QByteArray local_file = url.toLocalFile().toUtf8();
+    spectre_document_load(doc, local_file.data());
 
     int wdoc, hdoc;
     qreal w, h;

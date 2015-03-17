@@ -1,5 +1,5 @@
-set(GENERIC_LIB_VERSION "0.0.4")
-set(GENERIC_LIB_SOVERSION "1")
+set(GENERIC_LIB_VERSION "0.6.0")
+set(GENERIC_LIB_SOVERSION "6")
 
 set( cantor_LIB_SRCS
   session.cpp
@@ -83,6 +83,4 @@ install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 install( FILES cantor_panelplugin.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
 
-# if (KDE4_BUILD_TESTS)
-    add_subdirectory(test)
-# endif (KDE4_BUILD_TESTS)
+add_subdirectory(test)

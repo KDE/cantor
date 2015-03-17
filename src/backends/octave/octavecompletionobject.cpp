@@ -74,7 +74,7 @@ void OctaveCompletionObject::fetchIdentifierType()
     if (m_expression)
 	return;
     qDebug() << "Fetching type of " << identifier();
-    // The ouput should look like
+    // The output should look like
     // sin is a built-in function
     // __cantor_tmp2__ = 5
     QString expr = QString::fromLatin1("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__")

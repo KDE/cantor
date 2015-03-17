@@ -128,7 +128,7 @@ class WorksheetEntry : public QGraphicsObject
     void moveToNextEntry(int pos = WorksheetTextItem::TopLeft, qreal x = 0);
     void recalculateSize();
 
-    // similiar to recalculateSize, but the size change is animated
+    // similar to recalculateSize, but the size change is animated
     void animateSizeChange();
     // animate the size change and the opacity of item
     void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);

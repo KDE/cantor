@@ -154,7 +154,7 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
     if (commentStartingSeq.isEmpty())
         return QString();
     /*
-    // whould this be plain enought?
+    // whould this be plain enough?
     QTextCursor cursor = m_textItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
@@ -206,7 +206,7 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
             success = false;
         }
 
-        qDebug()<<"rendering successfull? "<<success;
+        qDebug()<<"rendering successful? "<<success;
         if (!success) {
             cursor = findLatexCode(cursor);
             continue;
@@ -237,7 +237,7 @@ void TextEntry::updateEntry()
             qDebug() << "found a formula... rendering the eps...";
             QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
             QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
-            qDebug() << "rendering successfull? " << s.isValid();
+            qDebug() << "rendering successful? " << s.isValid();
 
             //cursor.deletePreviousChar();
             //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);

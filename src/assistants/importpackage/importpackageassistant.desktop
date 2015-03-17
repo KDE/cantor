@@ -33,6 +33,7 @@ Name[te]=కట్ట దిగుమతి చేయి
 Name[tr]=Paketi İçe Aktar
 Name[uk]=Імпортування пакунка
 Name[x-test]=xxImport Packagexx
+Name[zh_CN]=导入包
 Name[zh_TW]=匯入套件
 X-KDE-ServiceTypes=Cantor/Assistant
 X-KDE-Library=cantor_importpackageassistant
