@@ -63,10 +63,10 @@ KConfigSkeleton* KAlgebraBackend::config() const
     return KAlgebraSettings::self();
 }
 
-KUrl KAlgebraBackend::helpUrl() const
+QUrl KAlgebraBackend::helpUrl() const
 {
-    return i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
-                 "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
+    return QUrl(i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
+                 "http://docs.kde.org/stable/en/kdeedu/kalgebra/"));
 }
 
 

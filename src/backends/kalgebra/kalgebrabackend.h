@@ -20,7 +20,6 @@
 #define KALGEBRA_BACKEND_H
 
 #include "backend.h"
-
 class KAlgebraBackend : public Cantor::Backend
 {
     Q_OBJECT
@@ -35,7 +34,7 @@ class KAlgebraBackend : public Cantor::Backend
         QWidget* settingsWidget(QWidget* parent) const;
         KConfigSkeleton* config() const;
 
-	KUrl helpUrl() const;
+	QUrl helpUrl() const;
 };
 
 
