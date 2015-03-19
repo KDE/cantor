@@ -35,8 +35,8 @@ install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 ki18n_wrap_ui(cantor_SRCS settings.ui)
 ki18n_wrap_ui(cantor_SRCS backendchooser.ui)
 
-kde4_add_app_icon(cantor_SRCS
-   "${CMAKE_CURRENT_SOURCE_DIR}/../icons/hi*-app-cantor.png")
+file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
+ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
 target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui cantorlibs cantor_config)
