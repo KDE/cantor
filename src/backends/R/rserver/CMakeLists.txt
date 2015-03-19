@@ -7,7 +7,7 @@ set( RServer_SRCS
 )
 
 kconfig_add_kcfg_files(RServer_SRCS settings.kcfgc)
-install(FILES rserver.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES rserver.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 QT5_ADD_DBUS_ADAPTOR(RServer_SRCS org.kde.Cantor.R.xml
                      rserver.h RServer)
@@ -21,4 +21,4 @@ set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH fal
 target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} )
 add_dependencies(cantor_rserver renvvars rautoloads)
 
-install(TARGETS cantor_rserver ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install(TARGETS cantor_rserver ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

@@ -58,6 +58,6 @@ add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(icons)
 
-install(FILES cantor.appdata.xml DESTINATION ${SHARE_INSTALL_PREFIX}/appdata/)
+install(FILES cantor.appdata.xml DESTINATION ${KDE_INSTALL_DATAROOTDIR}/appdata/)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)

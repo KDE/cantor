@@ -12,4 +12,4 @@ target_link_libraries(cantor_python3server
     ${PYTHONLIBS3_LIBRARIES}
     Qt5::DBus)
 
-install(TARGETS cantor_python3server ${INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS cantor_python3server ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

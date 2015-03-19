@@ -9,13 +9,13 @@ set( ScilabBackend_SRCS
 )
 
 kconfig_add_kcfg_files(ScilabBackend_SRCS settings.kcfgc)
-install(FILES scilabbackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES scilabbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(ScilabBackend_SRCS settings.ui)
 
 add_library(cantor_scilabbackend MODULE ${ScilabBackend_SRCS})
 target_link_libraries(cantor_scilabbackend cantorlibs KF5::KIOCore)
 
-install(FILES cantor_scilab.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
-install(FILES scilabbackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_scilabbackend DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES cantor_scilab.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES scilabbackend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_scilabbackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

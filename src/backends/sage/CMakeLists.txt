@@ -9,7 +9,7 @@ set( SageBackend_SRCS
 )
 
 kconfig_add_kcfg_files(SageBackend_SRCS settings.kcfgc)
-install(FILES sagebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES sagebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(SageBackend_SRCS settings.ui)
 
@@ -23,7 +23,7 @@ target_link_libraries( testsage
   cantortest
 )
 
-install( FILES cantor_sage.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES sagebackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_sagebackend DESTINATION ${PLUGIN_INSTALL_DIR})
-install( FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/sagebackend)
+install( FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install( FILES sagebackend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_sagebackend DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install( FILES keywords.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/sagebackend)

@@ -51,7 +51,7 @@ Set( cantor_LIB_HDRS
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
 
 kconfig_add_kcfg_files(cantor_LIB_SRCS settings.kcfgc)
-install(FILES cantor_libs.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES cantor_libs.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantorlib.h )
 
@@ -72,15 +72,15 @@ set_target_properties( cantorlibs
 )
 
 
-install( TARGETS cantorlibs  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS cantorlibs  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 install( FILES ${cantor_LIB_HDRS}
-  DESTINATION ${INCLUDE_INSTALL_DIR}/cantor
+  DESTINATION ${KDE_INSTALL_INCLUDEDIR}/cantor
   COMPONENT Devel
 )
 
-install( FILES cantor_backend.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install( FILES cantor_assistant.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
-install( FILES cantor_panelplugin.desktop  DESTINATION ${SERVICETYPES_INSTALL_DIR})
+install( FILES cantor_backend.desktop  DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
+install( FILES cantor_assistant.desktop  DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
+install( FILES cantor_panelplugin.desktop  DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
 
 add_subdirectory(test)

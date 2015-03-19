@@ -1,1 +1,1 @@
-install( FILES latex.xsl DESTINATION ${DATA_INSTALL_DIR}/cantor/xslt )
+install( FILES latex.xsl DESTINATION ${KDE_INSTALL_DATADIR}/cantor/xslt )

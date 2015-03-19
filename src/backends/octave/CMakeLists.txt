@@ -10,13 +10,13 @@ octavecompletionobject.cpp
 octavesyntaxhelpobject.cpp
 )
 
-set (OCTAVE_SCRIPT_INSTALL_DIR ${DATA_INSTALL_DIR}/cantor/octavebackend)
+set (OCTAVE_SCRIPT_INSTALL_DIR ${KDE_INSTALL_DATADIR}/cantor/octavebackend)
 set (OCTAVE_SCRIPT_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/${OCTAVE_SCRIPT_INSTALL_DIR}/)
 configure_file (octave-backend-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/octave-backend-config.h )
 add_subdirectory(scripts)
 
 kconfig_add_kcfg_files(OctaveBackend_SRCS settings.kcfgc)
-install(FILES octavebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES octavebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(OctaveBackend_SRCS settings.ui)
 
@@ -41,6 +41,6 @@ if(BUILD_TESTING)
  )
 endif(BUILD_TESTING)
 
-install(FILES cantor_octave.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install(FILES octavebackend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_octavebackend DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES cantor_octave.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install(FILES octavebackend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_octavebackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

@@ -17,7 +17,7 @@ settingswidget.cpp
 )
 
 kconfig_add_kcfg_files(QalculateBackend_SRCS settings.kcfgc)
-install(FILES qalculatebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES qalculatebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(QalculateBackend_SRCS settings.ui)
 
@@ -25,6 +25,6 @@ add_library( cantor_qalculatebackend MODULE ${QalculateBackend_SRCS} )
 message(STATUS ${CLN_LIBRARIES})
 target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
 
-install( FILES cantor_qalculate.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install( FILES qalculatebackend.desktop DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_qalculatebackend DESTINATION ${PLUGIN_INSTALL_DIR})
+install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install( FILES qalculatebackend.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_qalculatebackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

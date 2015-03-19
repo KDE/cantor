@@ -9,7 +9,7 @@ set(LuaBackend_SRCS
 )
 
 kconfig_add_kcfg_files(LuaBackend_SRCS settings.kcfgc)
-install(FILES luabackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES luabackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(LuaBackend_SRCS settings.ui)
 
@@ -19,6 +19,6 @@ include_directories(${LUAJIT_INCLUDE_DIR})
 
 target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY} cantorlibs)
 
-install(FILES cantor_lua.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
-install(FILES  luabackend.desktop DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_luabackend DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES cantor_lua.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install(FILES  luabackend.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_luabackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

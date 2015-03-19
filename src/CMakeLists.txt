@@ -22,7 +22,7 @@ add_subdirectory(panelplugins)
 kconfig_add_kcfg_files(config_SRCS settings.kcfgc)
 add_library( cantor_config  SHARED ${config_SRCS} )
 target_link_libraries( cantor_config  KF5::Parts KF5::NewStuff )
-install( TARGETS cantor_config  ${INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS cantor_config  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
 set(cantor_SRCS
    main.cpp
@@ -30,7 +30,7 @@ set(cantor_SRCS
    backendchoosedialog.cpp
  )
 
-install(FILES cantor.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES cantor.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(cantor_SRCS settings.ui)
 ki18n_wrap_ui(cantor_SRCS backendchooser.ui)
@@ -42,10 +42,10 @@ add_executable(cantor ${cantor_SRCS})
 target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui cantorlibs cantor_config)
 
 ########### install files ###############
-install(TARGETS cantor ${INSTALL_TARGETS_DEFAULT_ARGS} )
-install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${XDG_APPS_INSTALL_DIR} )
-install( FILES cantor_shell.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
-install( FILES cantor.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR} )
+install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
+install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
+install( FILES cantor_shell.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
+install( FILES cantor.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
 
 #########################################################################
 # KPART SECTION
@@ -95,8 +95,8 @@ if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
-install( FILES cantor_part.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor )
-install( FILES cantor_part.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
-install( FILES cantor_scripteditor.rc  DESTINATION ${KXMLGUI_INSTALL_DIR}/cantor )
+install( FILES cantor_part.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor )
+install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
+install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 
-install(TARGETS cantorpart  DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(TARGETS cantorpart  DESTINATION ${KDE_INSTALL_PLUGINDIR} )

@@ -19,6 +19,6 @@ target_link_libraries(cantor_pythonbackend
     KF5::ConfigCore
     KF5::ConfigGui)
 
-install(TARGETS cantor_pythonbackend DESTINATION ${INSTALL_TARGETS_DEFAULT_ARGS})
-#install(FILES keywords.xml DESTINATION ${DATA_INSTALL_DIR}/cantor/pythonbackend)
-#install(DIRECTORY . DESTINATION ${DATA_INSTALL_DIR}/cantor/pythonbackend FILES_MATCHING PATTERN "*.py")
+install(TARGETS cantor_pythonbackend DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+#install(FILES keywords.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/pythonbackend)
+#install(DIRECTORY . DESTINATION ${KDE_INSTALL_DATADIR}/cantor/pythonbackend FILES_MATCHING PATTERN "*.py")

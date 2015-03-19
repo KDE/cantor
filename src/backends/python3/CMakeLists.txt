@@ -11,10 +11,10 @@ target_link_libraries(cantor_python3backend
     cantor_pythonbackend
     Qt5::DBus)
 
-install(FILES cantor_python3.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
-install(FILES python3backend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_python3backend DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES python3backend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES cantor_python3.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES python3backend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_python3backend DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(FILES python3backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 add_subdirectory(python3server)
 add_subdirectory(tests)

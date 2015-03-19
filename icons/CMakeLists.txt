@@ -13,5 +13,5 @@ ecm_install_icons(ICONS
                   48-apps-rbackend.png
                   48-apps-sagebackend.png
                   48-apps-scilabbackend.png
-                  DESTINATION ${ICON_INSTALL_DIR}
+                  DESTINATION ${KDE_INSTALL_ICONDIR}
                   THEME hicolor)

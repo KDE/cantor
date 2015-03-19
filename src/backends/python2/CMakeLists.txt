@@ -25,7 +25,7 @@ target_link_libraries(testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest)
 
 add_test(NAME testpython2 COMMAND testpython2)
 
-install(FILES cantor_python2.knsrc  DESTINATION  ${CONFIG_INSTALL_DIR})
-install(FILES python2backend.desktop  DESTINATION ${SERVICES_INSTALL_DIR}/cantor)
-install(TARGETS cantor_python2backend DESTINATION ${PLUGIN_INSTALL_DIR})
-install(FILES python2backend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
+install(FILES cantor_python2.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES python2backend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
+install(TARGETS cantor_python2backend DESTINATION ${KDE_INSTALL_PLUGINDIR})
+install(FILES python2backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
