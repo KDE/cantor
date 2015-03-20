@@ -172,11 +172,10 @@ void PythonSession::runExpression(PythonExpression* expr)
         }
 
         if(command.contains(QLatin1String("import "))){
-
             if(identifyKeywords(command.simplified())){
                 continue;
             } else {
-                readOutput(expr, command.simplified());
+                readExpressionOutput(command.simplified());
                 return;
             }
         }
@@ -226,7 +225,13 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     }
 
-    readOutput(expr, commandProcessing);
+    readExpressionOutput(commandProcessing);
+}
+
+// Is called asynchronously in the Python3 plugin
+void PythonSession::readExpressionOutput(const QString& commandProcessing)
+{
+    readOutput(commandProcessing);
 }
 
 void PythonSession::runClassOutputPython() const
@@ -348,21 +353,14 @@ void PythonSession::expressionFinished()
     qDebug() << "size: " << m_runningExpressions.size();
 }
 
-void PythonSession::readOutput(PythonExpression* expr, const QString& commandProcessing)
+void PythonSession::updateOutput()
 {
-    qDebug() << "readOutput";
-
-    getPythonCommandOutput(commandProcessing);
-
     if(m_error.isEmpty()){
-
-        expr->parseOutput(m_output);
+        m_currentExpression->parseOutput(m_output);
 
         qDebug() << "output: " << m_output;
-
     } else {
-
-        expr->parseError(m_error);
+        m_currentExpression->parseError(m_error);
 
         qDebug() << "error: " << m_error;
     }
@@ -370,6 +368,15 @@ void PythonSession::readOutput(PythonExpression* expr, const QString& commandPro
     listVariables();
 
     changeStatus(Cantor::Session::Done);
+}
+
+void PythonSession::readOutput(const QString& commandProcessing)
+{
+    qDebug() << "readOutput";
+
+    getPythonCommandOutput(commandProcessing);
+
+    updateOutput();
 }
 
 void PythonSession::plotFileChanged(const QString& filename)

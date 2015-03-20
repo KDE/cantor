@@ -56,22 +56,20 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     virtual bool integratePlots() const = 0;
     virtual QStringList autorunScripts() const = 0;
 
-  public Q_SLOTS:
-    void readOutput(PythonExpression* expr, const QString& commandProcessing);
-    void plotFileChanged(const QString& filename);
-
   private:
     KDirWatch* m_watch;
     QStringList m_listPlotName;
-    QString m_output;
-    QString m_error;
     Cantor::DefaultVariableModel* m_variableModel;
 
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
 
+  protected:
+    QString m_output;
+    QString m_error;
+
+  private:
     void listVariables();
-    void runClassOutputPython() const;
 
     void getPythonCommandOutput(const QString& commandProcessing);
 
@@ -83,7 +81,15 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     virtual QString getOutput() const = 0;
     virtual QString getError() const = 0;
 
+    virtual void readExpressionOutput(const QString& commandProcessing);
+
+  protected:
+    void runClassOutputPython() const;
+    void updateOutput();
+
   private Q_SLOTS:
+    void readOutput(const QString& commandProcessing);
+    void plotFileChanged(const QString& filename);
     void expressionFinished();
 
   Q_SIGNALS:
