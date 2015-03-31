@@ -57,6 +57,7 @@ int main(int argc, char **argv)
 
     QApplication app(argc, argv);
 
+    KLocalizedString::setApplicationDomain("cantor");
     app.setApplicationName(QLatin1String("cantor"));
     app.setOrganizationDomain(QLatin1String("kde.org"));
     app.setApplicationDisplayName(i18n("Cantor"));
