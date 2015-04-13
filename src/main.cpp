@@ -34,6 +34,8 @@ static const char version[] = "0.6";
 
 int main(int argc, char **argv)
 {
+    QApplication app(argc, argv);
+
     // Migrating configuration from 4.x applications to KF5-based applications
     QStringList configFiles;
     QStringList rcFiles;
@@ -54,8 +56,6 @@ int main(int argc, char **argv)
     migrator.setUiFiles(rcFiles);
     migrator.migrate();
     //**********************************
-
-    QApplication app(argc, argv);
 
     app.setApplicationName(QLatin1String("cantor"));
     app.setOrganizationDomain(QLatin1String("kde.org"));
