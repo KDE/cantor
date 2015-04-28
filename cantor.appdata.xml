@@ -27,6 +27,7 @@
   <name xml:lang="tr">Cantor</name>
   <name xml:lang="uk">Cantor</name>
   <name xml:lang="x-test">xxCantorxx</name>
+  <name xml:lang="zh-CN">Cantor</name>
   <name xml:lang="zh-TW">Cantor</name>
   <summary>KDE Frontend to Mathematical Software</summary>
   <summary xml:lang="ast">Frontal KDE pa software matemáticu</summary>
@@ -51,6 +52,7 @@
   <summary xml:lang="tr">Matematiksel Yazılım için bir KDE Önyüzü.</summary>
   <summary xml:lang="uk">Графічна оболонка KDE до математичного програмного забезпечення</summary>
   <summary xml:lang="x-test">xxKDE Frontend to Mathematical Softwarexx</summary>
+  <summary xml:lang="zh-CN">数学软件的 KDE 前端</summary>
   <summary xml:lang="zh-TW">KDE 數學軟體的前端介面</summary>
   <description>
     <p>Cantor is a front-end to powerful mathematics and statistics packages. Cantor integrates them into the KDE Platform and provides a nice, worksheet-based, graphical user interface. It supports environments for KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, and Qalculate!</p>
