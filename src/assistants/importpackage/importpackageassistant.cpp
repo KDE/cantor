@@ -20,8 +20,9 @@
 
 #include "importpackageassistant.h"
 
+#include <QAction>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -42,9 +43,9 @@ void ImportPackageAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_import_package_assistant.rc"));
 
-    KAction* importpackage = new KAction(i18n("Import Package"), actionCollection());
+    QAction* importpackage = new QAction(i18n("Import Package"), actionCollection());
     actionCollection()->addAction(QLatin1String("importpackage_assistant"), importpackage);
-    connect(importpackage, &KAction::triggered, this, &ImportPackageAssistant::requested);
+    connect(importpackage, &QAction::triggered, this, &ImportPackageAssistant::requested);
 }
 
 QStringList ImportPackageAssistant::run(QWidget* parent)

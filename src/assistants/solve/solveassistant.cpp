@@ -20,10 +20,11 @@
 
 #include "solveassistant.h"
 
+#include <QAction>
+#include <QIcon>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
-#include <KIcon>
 #include "ui_solvedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -42,10 +43,10 @@ SolveAssistant::~SolveAssistant()
 void SolveAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_solve_assistant.rc"));
-    KAction* solve=new KAction(i18n("Solve equations"), actionCollection());
-    solve->setIcon(KIcon(icon()));
+    QAction* solve=new QAction(i18n("Solve equations"), actionCollection());
+    solve->setIcon(QIcon::fromTheme(icon()));
     actionCollection()->addAction(QLatin1String("solve_assistant"), solve);
-    connect(solve, &KAction::triggered, this, &SolveAssistant::requested);
+    connect(solve, &QAction::triggered, this, &SolveAssistant::requested);
 }
 
 QStringList SolveAssistant::run(QWidget* parent)

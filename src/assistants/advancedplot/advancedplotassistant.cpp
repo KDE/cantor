@@ -20,9 +20,10 @@
 
 #include "advancedplotassistant.h"
 
+#include <QAction>
+
 #include <QVBoxLayout>
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "ui_advancedplotdialog.h"
 #include "ui_directivecontainer.h"
@@ -43,9 +44,9 @@ AdvancedPlotAssistant::~AdvancedPlotAssistant()
 void AdvancedPlotAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_advancedplot_assistant.rc"));
-    KAction* advplot=new KAction(i18n("Advanced Plotting"), actionCollection());
+    QAction* advplot=new QAction(i18n("Advanced Plotting"), actionCollection());
     actionCollection()->addAction(QLatin1String("advancedplot_assistant"), advplot);
-    connect(advplot, &KAction::triggered, this, &AdvancedPlotAssistant::requested);
+    connect(advplot, &QAction::triggered, this, &AdvancedPlotAssistant::requested);
 }
 
 QStringList AdvancedPlotAssistant::run(QWidget* parent)

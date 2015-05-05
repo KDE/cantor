@@ -20,10 +20,11 @@
 
 #include "differentiateassistant.h"
 
+#include <QAction>
+#include <QIcon>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
-#include <KIcon>
 #include "ui_differentiatedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -42,10 +43,10 @@ DifferentiateAssistant::~DifferentiateAssistant()
 void DifferentiateAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_differentiate_assistant.rc"));
-    KAction* differentiate=new KAction(i18n("Differentiate"), actionCollection());
-    differentiate->setIcon(KIcon(icon()));
+    QAction* differentiate=new QAction(i18n("Differentiate"), actionCollection());
+    differentiate->setIcon(QIcon::fromTheme(icon()));
     actionCollection()->addAction(QLatin1String("differentiate_assistant"), differentiate);
-    connect(differentiate, &KAction::triggered, this, &DifferentiateAssistant::requested);
+    connect(differentiate, &QAction::triggered, this, &DifferentiateAssistant::requested);
 }
 
 QStringList DifferentiateAssistant::run(QWidget* parent)

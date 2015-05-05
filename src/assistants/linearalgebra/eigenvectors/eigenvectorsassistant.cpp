@@ -20,8 +20,8 @@
 
 #include "eigenvectorsassistant.h"
 
+#include <QAction>
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -41,10 +41,9 @@ EigenVectorsAssistant::~EigenVectorsAssistant()
 void EigenVectorsAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_eigenvectors_assistant.rc"));
-    KAction* eigenvectors=new KAction(i18n("Compute Eigenvectors"), actionCollection());
-    //eigenvectors->setIcon(KIcon(icon()));
+    QAction* eigenvectors=new QAction(i18n("Compute Eigenvectors"), actionCollection());
     actionCollection()->addAction(QLatin1String("eigenvectors_assistant"), eigenvectors);
-    connect(eigenvectors, &KAction::triggered, this, &EigenVectorsAssistant::requested);
+    connect(eigenvectors, &QAction::triggered, this, &EigenVectorsAssistant::requested);
 }
 
 QStringList EigenVectorsAssistant::run(QWidget* parent)

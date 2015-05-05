@@ -20,11 +20,12 @@
 
 #include "runscriptassistant.h"
 
+#include <QAction>
+#include <QIcon>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include <KFileDialog>
-#include <KIcon>
 #include <KLocale>
 #include <KUrl>
 #include "cantor_macros.h"
@@ -44,10 +45,10 @@ RunScriptAssistant::~RunScriptAssistant()
 void RunScriptAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_runscript_assistant.rc"));
-    KAction* runscript=new KAction(i18n("Run Script"), actionCollection());
-    runscript->setIcon(KIcon(icon()));
+    QAction* runscript=new QAction(i18n("Run Script"), actionCollection());
+    runscript->setIcon(QIcon::fromTheme(icon()));
     actionCollection()->addAction(QLatin1String("runscript_assistant"), runscript);
-    connect(runscript, &KAction::triggered, this, &RunScriptAssistant::requested);
+    connect(runscript, &QAction::triggered, this, &RunScriptAssistant::requested);
 }
 
 QStringList RunScriptAssistant::run(QWidget* parent)

@@ -20,10 +20,11 @@
 
 #include "integrateassistant.h"
 
+#include <QAction>
+#include <QIcon>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
-#include <KIcon>
 #include "ui_integratedlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -42,10 +43,10 @@ IntegrateAssistant::~IntegrateAssistant()
 void IntegrateAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_integrate_assistant.rc"));
-    KAction* integrate=new KAction(i18n("Integrate"), actionCollection());
-    integrate->setIcon(KIcon(icon()));
+    QAction* integrate=new QAction(i18n("Integrate"), actionCollection());
+    integrate->setIcon(QIcon::fromTheme(icon()));
     actionCollection()->addAction(QLatin1String("integrate_assistant"), integrate);
-    connect(integrate, &KAction::triggered, this, &IntegrateAssistant::requested);
+    connect(integrate, &QAction::triggered, this, &IntegrateAssistant::requested);
 }
 
 QStringList IntegrateAssistant::run(QWidget* parent)

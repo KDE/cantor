@@ -20,8 +20,9 @@
 
 #include "invertmatrixassistant.h"
 
+#include <QAction>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -41,10 +42,9 @@ InvertMatrixAssistant::~InvertMatrixAssistant()
 void InvertMatrixAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_invert_matrix_assistant.rc"));
-    KAction* invertmatrix=new KAction(i18n("Invert Matrix"), actionCollection());
-    //invertmatrix->setIcon(KIcon(icon()));
+    QAction* invertmatrix=new QAction(i18n("Invert Matrix"), actionCollection());
     actionCollection()->addAction(QLatin1String("invertmatrix_assistant"), invertmatrix);
-    connect(invertmatrix, &KAction::triggered, this, &InvertMatrixAssistant::requested);
+    connect(invertmatrix, &QAction::triggered, this, &InvertMatrixAssistant::requested);
 }
 
 QStringList InvertMatrixAssistant::run(QWidget* parent)

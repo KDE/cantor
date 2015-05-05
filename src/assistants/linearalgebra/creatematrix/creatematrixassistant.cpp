@@ -20,8 +20,9 @@
 
 #include "creatematrixassistant.h"
 
+#include <QAction>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -41,9 +42,9 @@ CreateMatrixAssistant::~CreateMatrixAssistant()
 void CreateMatrixAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_create_matrix_assistant.rc"));
-    KAction* creatematrix=new KAction(i18n("Create Matrix"), actionCollection());
+    QAction* creatematrix=new QAction(i18n("Create Matrix"), actionCollection());
     actionCollection()->addAction(QLatin1String("creatematrix_assistant"), creatematrix);
-    connect(creatematrix, &KAction::triggered, this, &CreateMatrixAssistant::requested);
+    connect(creatematrix, &QAction::triggered, this, &CreateMatrixAssistant::requested);
 }
 
 QStringList CreateMatrixAssistant::run(QWidget* parent)

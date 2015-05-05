@@ -20,8 +20,9 @@
 
 #include "plot2dassistant.h"
 
+#include <QAction>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "ui_plot2ddlg.h"
 #include "cantor_macros.h"
@@ -41,10 +42,9 @@ Plot2dAssistant::~Plot2dAssistant()
 void Plot2dAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_plot2d_assistant.rc"));
-    KAction* plot2d=new KAction(i18n("Plot 2D"), actionCollection());
-    //plot2d->setIcon(KIcon(icon()));
+    QAction* plot2d=new QAction(i18n("Plot 2D"), actionCollection());
     actionCollection()->addAction(QLatin1String("plot2d_assistant"), plot2d);
-    connect(plot2d, &KAction::triggered, this, &Plot2dAssistant::requested);
+    connect(plot2d, &QAction::triggered, this, &Plot2dAssistant::requested);
 }
 
 QStringList Plot2dAssistant::run(QWidget* parent)

@@ -20,7 +20,8 @@
 
 #include "qalculateplotassistant.h"
 
-#include <KAction>
+#include <QAction>
+
 #include <KActionCollection>
 #include "cantor_macros.h"
 
@@ -38,7 +39,7 @@ QalculatePlotAssistant::~QalculatePlotAssistant()
 void QalculatePlotAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_qalculateplotassistant.rc"));
-    KAction* plot  = new KAction(i18n("Plot"), actionCollection());
+    QAction* plot  = new QAction(i18n("Plot"), actionCollection());
     actionCollection()->addAction(QLatin1String("qalculateplotassistant"), plot);
     connect(plot, SIGNAL(triggered()), this, SIGNAL(requested()));
 }

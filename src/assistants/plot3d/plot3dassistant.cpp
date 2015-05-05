@@ -20,8 +20,9 @@
 
 #include "plot3dassistant.h"
 
+#include <QAction>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "ui_plot3ddlg.h"
 #include "cantor_macros.h"
@@ -41,10 +42,9 @@ Plot3dAssistant::~Plot3dAssistant()
 void Plot3dAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_plot3d_assistant.rc"));
-    KAction* plot3d=new KAction(i18n("Plot 3D"), actionCollection());
-    //plot3d->setIcon(KIcon(icon()));
+    QAction* plot3d=new QAction(i18n("Plot 3D"), actionCollection());
     actionCollection()->addAction(QLatin1String("plot3d_assistant"), plot3d);
-    connect(plot3d, &KAction::triggered, this, &Plot3dAssistant::requested);
+    connect(plot3d, &QAction::triggered, this, &Plot3dAssistant::requested);
 }
 
 QStringList Plot3dAssistant::run(QWidget* parent)

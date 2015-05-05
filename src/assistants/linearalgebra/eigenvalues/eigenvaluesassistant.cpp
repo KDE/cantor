@@ -20,8 +20,9 @@
 
 #include "eigenvaluesassistant.h"
 
+#include <QAction>
+
 #include <KDialog>
-#include <KAction>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -41,10 +42,9 @@ EigenValuesAssistant::~EigenValuesAssistant()
 void EigenValuesAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_eigenvalues_assistant.rc"));
-    KAction* eigenvalues=new KAction(i18n("Compute Eigenvalues"), actionCollection());
-    //eigenvalues->setIcon(KIcon(icon()));
+    QAction* eigenvalues=new QAction(i18n("Compute Eigenvalues"), actionCollection());
     actionCollection()->addAction(QLatin1String("eigenvalues_assistant"), eigenvalues);
-    connect(eigenvalues, &KAction::triggered, this, &EigenValuesAssistant::requested);
+    connect(eigenvalues, &QAction::triggered, this, &EigenValuesAssistant::requested);
 }
 
 QStringList EigenValuesAssistant::run(QWidget* parent)
