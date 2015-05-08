@@ -36,6 +36,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
     QWidget* w=new QWidget(this);
     m_ui.setupUi(w);
     m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
+    m_ui.backendList->setSortingEnabled(true);
     connect(m_ui.backendList, &KListWidget::currentItemChanged, this, &BackendChooseDialog::updateDescription);
     connect(m_ui.backendList, &KListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
 
