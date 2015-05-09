@@ -35,7 +35,7 @@
 #include <KTabWidget>
 #include <KConfigDialog>
 #include <KTextEdit>
-#include <KTextBrowser>
+#include <QTextBrowser>
 #include <KXMLGUIFactory>
 #include <KStandardDirs>
 #include <KToggleAction>
@@ -234,7 +234,7 @@ void CantorShell::addWorksheet()
 
     }else
     {
-        KTextBrowser *browser=new KTextBrowser(this);
+        QTextBrowser *browser=new QTextBrowser(this);
         QString backendList=QLatin1String("<ul>");
         int backendListSize = 0;
         foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
