@@ -34,7 +34,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntSpinBox" name="kcfg_base"/>
+          <widget class="QSpinBox" name="kcfg_base"/>
          </item>
         </layout>
        </item>
@@ -57,7 +57,7 @@
              <string>Decimal</string>
             </property>
            </item>
-           <item>
+	   <item>
             <property name="text">
              <string>Exact</string>
             </property>
@@ -616,11 +616,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

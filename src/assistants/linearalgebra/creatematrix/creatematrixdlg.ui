@@ -21,7 +21,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KIntSpinBox" name="rows">
+      <widget class="QSpinBox" name="rows">
        <property name="value">
         <number>3</number>
        </property>
@@ -39,7 +39,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KIntSpinBox" name="columns">
+      <widget class="QSpinBox" name="columns">
        <property name="value">
         <number>3</number>
        </property>
@@ -65,13 +65,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

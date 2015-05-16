@@ -49,7 +49,7 @@
       </widget>
      </item>
      <item>
-      <widget class="KIntSpinBox" name="times">
+      <widget class="QSpinBox" name="times">
        <property name="value">
         <number>1</number>
        </property>
@@ -60,11 +60,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

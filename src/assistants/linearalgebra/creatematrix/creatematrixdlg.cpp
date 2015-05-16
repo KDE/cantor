@@ -27,8 +27,8 @@ CreateMatrixDlg::CreateMatrixDlg(QWidget* parent) : KDialog(parent)
     m_base->setupUi(mainW);
     setMainWidget(mainW);
 
-    connect(m_base->rows, static_cast<void (KIntSpinBox::*)(int)>(&KIntSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumRows);
-    connect(m_base->columns, static_cast<void (KIntSpinBox::*)(int)>(&KIntSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumCols);
+    connect(m_base->rows, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumRows);
+    connect(m_base->columns, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumCols);
 }
 
 CreateMatrixDlg::~CreateMatrixDlg()
