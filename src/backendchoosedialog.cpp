@@ -37,8 +37,8 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
     m_ui.setupUi(w);
     m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
     m_ui.backendList->setSortingEnabled(true);
-    connect(m_ui.backendList, &KListWidget::currentItemChanged, this, &BackendChooseDialog::updateDescription);
-    connect(m_ui.backendList, &KListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
+    connect(m_ui.backendList, &QListWidget::currentItemChanged, this, &BackendChooseDialog::updateDescription);
+    connect(m_ui.backendList, &QListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
 
     foreach(Cantor::Backend* backend,  Cantor::Backend::availableBackends())
     {

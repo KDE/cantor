@@ -31,7 +31,7 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="KListWidget" name="backendList">
+    <widget class="QListWidget" name="backendList">
      <property name="flow">
       <enum>QListView::TopToBottom</enum>
      </property>
@@ -63,11 +63,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
   <customwidget>
    <class>QTextBrowser</class>
    <extends>QTextBrowser</extends>
