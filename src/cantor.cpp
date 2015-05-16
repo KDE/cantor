@@ -32,7 +32,7 @@
 #include <KStatusBar>
 #include <QIcon>
 #include <KLocale>
-#include <KTabWidget>
+#include <QTabWidget>
 #include <KConfigDialog>
 #include <KTextEdit>
 #include <QTextBrowser>
@@ -70,7 +70,7 @@ CantorShell::CantorShell()
 
     createGUI(0);
 
-    m_tabWidget=new KTabWidget(this);
+    m_tabWidget=new QTabWidget(this);
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);
     m_tabWidget->setDocumentMode(true);

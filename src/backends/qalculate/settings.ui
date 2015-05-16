@@ -12,7 +12,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTabWidget" name="ktabwidget">
+    <widget class="QTabWidget" name="qtabwidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -627,19 +627,12 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>KIntNumInput</class>
    <extends>QWidget</extends>
    <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>ktabwidget</tabstop>
   <tabstop>kcfg_base</tabstop>
   <tabstop>kcfg_fractionFormat</tabstop>
   <tabstop>kcfg_minExp</tabstop>

@@ -27,7 +27,7 @@
 
 #include <KParts/ReadWritePart>
 
-class KTabWidget;
+class QTabWidget;
 class KTextEdit;
 
 /**
@@ -98,7 +98,7 @@ private:
 private:
     QList<KParts::ReadWritePart *> m_parts;
     KParts::ReadWritePart* m_part;
-    KTabWidget* m_tabWidget;
+    QTabWidget* m_tabWidget;
     QList<QDockWidget*> m_panels;
     QDockWidget* m_helpDocker;
 };
