@@ -25,8 +25,6 @@
 #include <QtAlgorithms>
 #include <QDebug>
 
-#include <KStandardDirs>
-
 ScilabKeywords::ScilabKeywords()
 {
     qDebug() << "ScilabKeywords construtor";

@@ -95,7 +95,7 @@ void MaximaSession::login()
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
-    QString initFile=KStandardDirs::locate("data",   QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
+    QString initFile=QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
     qDebug()<<"initFile: "<<initFile;
     QString cmd=initCmd.arg(initFile);
     qDebug()<<"sending cmd: "<<cmd<<endl;

@@ -27,7 +27,6 @@
 #include "lib/animationresult.h"
 
 #include <KGlobal>
-#include <KStandardDirs>
 #include <QDir>
 
 LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session )
@@ -67,7 +66,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
+            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("cantor/");
             imageFile->copyTo(dir);
             QUrl imageUrl = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(imageFile->name()));
             if(type==QLatin1String("latex"))

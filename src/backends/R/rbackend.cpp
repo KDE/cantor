@@ -26,7 +26,6 @@
 #include "rsettingswidget.h"
 
 #include <QDebug>
-#include <KStandardDirs>
 
 #include "cantor_macros.h"
 #include <QMessageBox>
@@ -67,7 +66,7 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
 
 bool RBackend::requirementsFullfilled() const
 {
-    QFileInfo info(KStandardDirs::findExe( QLatin1String("cantor_rserver") ) );
+    QFileInfo info(QStandardPaths::findExecutable( QLatin1String("cantor_rserver") ) );
     return info.isExecutable();
 }
 

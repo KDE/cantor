@@ -37,7 +37,6 @@
 #include <KTextEdit>
 #include <QTextBrowser>
 #include <KXMLGUIFactory>
-#include <KStandardDirs>
 #include <KToggleAction>
 #include <QMenu>
 
@@ -396,7 +395,7 @@ void CantorShell::downloadExamples()
 
 void CantorShell::openExample()
 {
-    QString dir = KStandardDirs::locateLocal("appdata",  QLatin1String("examples"));
+    QString dir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/examples");
     if (dir.isEmpty()) return;
     QDir().mkpath(dir);
 

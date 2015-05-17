@@ -21,7 +21,6 @@
 #include "latexrenderer.h"
 using namespace Cantor;
 
-#include <KStandardDirs>
 #include <KTemporaryFile>
 #include <KProcess>
 #include <QDebug>

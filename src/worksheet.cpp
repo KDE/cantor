@@ -33,7 +33,6 @@
 #include <QIcon>
 
 #include <KMessageBox>
-#include <KStandardDirs>
 #include <KActionCollection>
 #include <KShortcut>
 #include <QAction>
@@ -901,7 +900,7 @@ void Worksheet::saveLatex(const QString& filename)
     QXmlQuery query(QXmlQuery::XSLT20);
     query.setFocus(xml);
 
-    QString stylesheet = KStandardDirs::locate("appdata", QLatin1String("xslt/latex.xsl"));
+    QString stylesheet = QStandardPaths::locate(QStandardPaths::DataLocation, QLatin1String("xslt/latex.xsl"));
     if (stylesheet.isEmpty())
     {
         KMessageBox::error(worksheetView(), i18n("Error loading latex.xsl stylesheet"), i18n("Error - Cantor"));

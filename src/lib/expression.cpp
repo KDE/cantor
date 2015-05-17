@@ -34,7 +34,6 @@ using namespace Cantor;
 #include <QFileInfo>
 #include <QString>
 
-#include <KStandardDirs>
 #include <KProcess>
 #include <KTemporaryFile>
 #include <QDebug>

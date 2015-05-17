@@ -31,7 +31,6 @@
 #include <config-cantorlib.h>
 
 #include <QDebug>
-#include <KStandardDirs>
 
 QString TestMaxima::backendName()
 {
@@ -65,7 +64,7 @@ void TestMaxima::testMultilineCommand()
 //and CantorLib must be compiled with EPS-support
 void TestMaxima::testPlot()
 {
-    if(KStandardDirs::findExe(QLatin1String("gnuplot")).isNull())
+    if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
     {
         QSKIP("gnuplot not found maxima needs it for plotting", SkipSingle);
     }

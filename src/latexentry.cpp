@@ -31,7 +31,6 @@
 
 #include <QDebug>
 #include <KGlobal>
-#include <KStandardDirs>
 #include <KLocale>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
@@ -118,7 +117,7 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
+            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("cantor/");
             imageFile->copyTo(dir);
             QString imagePath=QString(dir+QLatin1Char('/')+imageFile->name());
 

@@ -26,7 +26,6 @@
 #include <QTimer>
 #include <QDebug>
 #include <KProcess>
-#include <KStandardDirs>
 
 #include <signal.h>
 
@@ -50,7 +49,7 @@ void RSession::login()
     m_rProcess=new KProcess(this);
     m_rProcess->setOutputChannelMode(KProcess::ForwardedChannels);
 
-    (*m_rProcess)<<KStandardDirs::findExe( QLatin1String("cantor_rserver") );
+    (*m_rProcess)<<QStandardPaths::findExecutable( QLatin1String("cantor_rserver") );
 
     m_rProcess->start();
 

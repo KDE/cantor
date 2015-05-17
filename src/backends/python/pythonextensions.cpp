@@ -23,7 +23,6 @@
 #include <QDebug>
 
 #include <KLocale>
-#include <KStandardDirs>
 
 #include "pythonutils.h"
 

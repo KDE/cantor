@@ -25,7 +25,6 @@
 #include <QtAlgorithms>
 
 #include <QDebug>
-#include <KStandardDirs>
 
 PythonKeywords::PythonKeywords()
 {

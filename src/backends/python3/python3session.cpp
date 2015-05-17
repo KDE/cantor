@@ -28,7 +28,6 @@
 #include <QDBusReply>
 
 #include <KProcess>
-#include <KStandardDirs>
 
 Python3Session::Python3Session(Cantor::Backend* backend)
     : PythonSession(backend)
@@ -45,7 +44,7 @@ void Python3Session::login()
     m_pProcess = new KProcess(this);
     m_pProcess->setOutputChannelMode(KProcess::SeparateChannels);
 
-    (*m_pProcess) << KStandardDirs::findExe(QLatin1String("cantor_python3server"));
+    (*m_pProcess) << QStandardPaths::findExecutable(QLatin1String("cantor_python3server"));
 
     m_pProcess->start();
 

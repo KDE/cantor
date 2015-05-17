@@ -19,12 +19,12 @@
  */
 #include "sagekeywords.h"
 
+#include <QStandardPaths>
 #include <QFile>
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
 
 #include <QDebug>
-#include <KStandardDirs>
 
 SageKeywords::SageKeywords()
 {
@@ -52,7 +52,7 @@ SageKeywords* SageKeywords::instance()
 void SageKeywords::loadFromFile()
 {
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("appdata",  QLatin1String("sagebackend/keywords.xml")));
+    QFile file(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("sagebackend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {

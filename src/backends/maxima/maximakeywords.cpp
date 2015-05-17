@@ -20,12 +20,11 @@
 
 #include "maximakeywords.h"
 
+#include <QStandardPaths>
 #include <QDebug>
 #include <QFile>
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
-
-#include <KStandardDirs>
 
 MaximaKeywords::MaximaKeywords()
 {
@@ -57,7 +56,7 @@ MaximaKeywords* MaximaKeywords::instance()
 void MaximaKeywords::loadFromFile()
 {
     //load the known keywords from an xml file
-    QFile file(KStandardDirs::locate("data",  QLatin1String("cantor/maximabackend/keywords.xml")));
+    QFile file(QStandardPaths::locate(QStandardPaths::GenericDataLocation,  QLatin1String("cantor/maximabackend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {
