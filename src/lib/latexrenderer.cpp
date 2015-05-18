@@ -171,7 +171,7 @@ void LatexRenderer::renderBlocking()
 void LatexRenderer::renderWithLatex()
 {
     qDebug()<<"rendering using latex method";
-    QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
+    QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
 
     //Check if the cantor subdir exists, if not, create it
     KTemporaryFile *texFile=new KTemporaryFile();
@@ -226,7 +226,7 @@ void LatexRenderer::convertingDone()
 {
     qDebug()<<"rendered file "<<d->latexFilename;
     //cleanup the temp directory a bit...
-    QString dir=KGlobal::dirs()->saveLocation("tmp", QLatin1String("cantor/"));
+    QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
     QStringList unneededExtensions;
     unneededExtensions<<QLatin1String(".log")<<QLatin1String(".aux")<<QLatin1String(".tex")<<QLatin1String(".dvi");
     foreach(const QString& ext, unneededExtensions)

@@ -117,9 +117,9 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("cantor/");
+            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
             imageFile->copyTo(dir);
-            QString imagePath=QString(dir+QLatin1Char('/')+imageFile->name());
+            QString imagePath=QString(dir+QLatin1String("/")+imageFile->name());
 
             QUrl internal=QUrl::fromLocalFile(imagePath);
             internal.setScheme(QLatin1String("internal"));
