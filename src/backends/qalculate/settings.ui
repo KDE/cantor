@@ -413,7 +413,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntNumInput" name="kcfg_plotLineWidth">
+          <widget class="QSpinBox" name="kcfg_plotLineWidth">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -434,7 +434,7 @@
           </widget>
          </item>
          <item>
-          <widget class="KIntNumInput" name="kcfg_plotSteps">
+          <widget class="QSpinBox" name="kcfg_plotSteps">
            <property name="minimum">
             <number>1</number>
            </property>
@@ -620,11 +620,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KIntNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
