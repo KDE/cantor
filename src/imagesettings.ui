@@ -45,7 +45,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="KDoubleNumInput" name="displayWidthInput"/>
+       <widget class="QDoubleSpinBox" name="displayWidthInput"/>
       </item>
       <item row="0" column="2">
        <widget class="KComboBox" name="displayWidthCombo"/>
@@ -58,7 +58,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KDoubleNumInput" name="displayHeightInput"/>
+       <widget class="QDoubleSpinBox" name="displayHeightInput"/>
       </item>
       <item row="1" column="2">
        <widget class="KComboBox" name="displayHeightCombo"/>
@@ -90,7 +90,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KDoubleNumInput" name="printWidthInput"/>
+       <widget class="QDoubleSpinBox" name="printWidthInput"/>
       </item>
       <item row="1" column="2">
        <widget class="KComboBox" name="printWidthCombo"/>
@@ -103,7 +103,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="KDoubleNumInput" name="printHeightInput"/>
+       <widget class="QDoubleSpinBox" name="printHeightInput"/>
       </item>
       <item row="2" column="2">
        <widget class="KComboBox" name="printHeightCombo"/>
@@ -114,11 +114,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KDoubleNumInput</class>
-   <extends>QWidget</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KImageFilePreview</class>
    <extends>QWidget</extends>
