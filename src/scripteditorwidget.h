@@ -23,7 +23,7 @@
 
 #include <KXmlGuiWindow>
 
-class KTemporaryFile;
+class QTemporaryFile;
 class QGridLayout;
 namespace KTextEditor
 {
@@ -55,7 +55,7 @@ class ScriptEditorWidget : public KXmlGuiWindow
     QString m_filter;
     KTextEditor::View* m_editor;
     KTextEditor::Document* m_script;
-    KTemporaryFile* m_tmpFile;
+    QTemporaryFile* m_tmpFile;
 };
 
 #endif /* _SCRIPTEDITORWIDGET_H */

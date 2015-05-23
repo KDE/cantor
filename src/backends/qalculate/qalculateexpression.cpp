@@ -41,6 +41,9 @@
 // required for the plotting interface of Qalculator
 #include <vector>
 
+#include <QDir>
+#include <QTemporaryFile>
+
 #include <KGlobal>
 #include <KMessageBox>
 #include <KColorScheme>
@@ -743,12 +746,11 @@ void QalculateExpression::evaluatePlotCommand()
 
     if (plotInline && plotParameters.filename.empty()) {
 	// TODO: get a temporary file name here
-	if (!m_tempFile) {
-	    m_tempFile = new KTemporaryFile();
+    if (!m_tempFile) {
 #ifdef WITH_EPS
-	    m_tempFile->setSuffix(QLatin1String(".eps"));
+        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.eps" ));
 #else
-	    m_tempFile->setSuffix(QLatin1String(".png"));
+        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_qalculate-XXXXXX.png"));
 #endif
 	    m_tempFile->open();
 	}

@@ -26,9 +26,8 @@
 #include <QStringList>
 #include <QXmlStreamReader>
 
-class KTemporaryFile;
 class QTimer;
-
+class QTemporaryFile;
 
 class MaximaExpression : public Cantor::Expression
 {
@@ -63,7 +62,7 @@ class MaximaExpression : public Cantor::Expression
     virtual QString additionalLatexHeaders();
     Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
   private:
-    KTemporaryFile *m_tempFile;
+    QTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
     bool m_isHelpRequest;
     bool m_isPlot;

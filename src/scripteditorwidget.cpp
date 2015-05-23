@@ -20,9 +20,10 @@
 
 #include "scripteditorwidget.h"
 
+#include <QTemporaryFile>
+
 #include <KUrl>
 
-#include <KTemporaryFile>
 #include <KLocale>
 #include <QDebug>
 #include <KMessageBox>
@@ -104,7 +105,7 @@ void ScriptEditorWidget::run()
         // If the script is not in a local file, write it to a temporary file
         if(m_tmpFile==0)
         {
-            m_tmpFile=new KTemporaryFile();
+            m_tmpFile=new QTemporaryFile();
         }
         else
         {

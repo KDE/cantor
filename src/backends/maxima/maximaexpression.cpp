@@ -30,8 +30,10 @@
 #include "latexresult.h"
 #include "settings.h"
 
+#include <QDir>
+#include <QTemporaryFile>
+
 #include <KLocale>
-#include <KTemporaryFile>
 #include <QDebug>
 #include <QTimer>
 #include <QRegExp>
@@ -71,12 +73,10 @@ void MaximaExpression::evaluate()
     if(command().contains(QRegExp(QLatin1String("(?:plot2d|plot3d)\\s*\\([^\\)]"))) && MaximaSettings::self()->integratePlots() && !command().contains(QLatin1String("ps_file")))
     {
         m_isPlot=true;
-        m_tempFile=new KTemporaryFile();
-        m_tempFile->setPrefix( QLatin1String("cantor_maxima-" ));
 #ifdef WITH_EPS
-        m_tempFile->setSuffix( QLatin1String(".eps" ));
+        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.eps" ));
 #else
-        m_tempFile->setSuffix( QLatin1String(".png" ));
+        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.png"));
 #endif
         m_tempFile->open();
 

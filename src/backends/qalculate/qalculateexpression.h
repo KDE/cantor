@@ -25,16 +25,16 @@
 #include <libqalculate/Calculator.h>
 
 #include <QSharedPointer>
-#include <KTemporaryFile>
 
 class QalculateSession;
+class QTemporaryFile;
 
 class QalculateExpression : public Cantor::Expression
 {
     Q_OBJECT
 
 private:
-    KTemporaryFile *m_tempFile;
+    QTemporaryFile *m_tempFile;
 
     QString m_message;
     enum MsgType { MSG_NONE=0, MSG_INFO=1, MSG_WARN=2, MSG_ERR=4 }; 

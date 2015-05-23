@@ -21,11 +21,11 @@
 #include "latexrenderer.h"
 using namespace Cantor;
 
-#include <KTemporaryFile>
 #include <KProcess>
 #include <QDebug>
 #include <QFileInfo>
 #include <QEventLoop>
+#include <QTemporaryFile>
 
 #include <config-cantorlib.h>
 #include "settings.h"
@@ -171,12 +171,10 @@ void LatexRenderer::renderBlocking()
 void LatexRenderer::renderWithLatex()
 {
     qDebug()<<"rendering using latex method";
-    QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
+    QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
 
     //Check if the cantor subdir exists, if not, create it
-    KTemporaryFile *texFile=new KTemporaryFile();
-    texFile->setPrefix( QLatin1String("cantor/") );
-    texFile->setSuffix( QLatin1String(".tex") );
+    QTemporaryFile *texFile=new QTemporaryFile(dir + QLatin1String("/cantor_tex-XXXXXX.tex"));
     texFile->open();
 
     QString expressionTex=tex;
