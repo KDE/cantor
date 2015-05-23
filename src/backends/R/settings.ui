@@ -19,24 +19,19 @@
     </widget>
    </item>
    <item>
-    <widget class="KEditListBox" name="kcfg_autorunScripts">
+    <widget class="QGroupBox" name="kcfg_scriptGroup">
      <property name="title">
       <string>Scripts to autorun</string>
      </property>
-     <property name="checkable">
-      <bool>false</bool>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayoutScripts">
+      <item>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KEditListBox</class>
-   <extends>QGroupBox</extends>
-   <header>KEditListBox</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

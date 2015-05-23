@@ -26,10 +26,15 @@
     </layout>
    </item>
    <item>
-    <widget class="KEditListBox" name="kcfg_autorunScripts">
+    <widget class="QGroupBox" name="kcfg_scriptGroup">
      <property name="title">
       <string>Scripts to autorun</string>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayoutScripts">
+      <item>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
