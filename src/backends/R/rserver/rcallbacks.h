@@ -30,7 +30,6 @@ class Expression;
 #include <Rversion.h>
 #include <Rdefines.h>
 #define R_INTERFACE_PTRS
-#include <Rinterface.h>
 #include <R_ext/Parse.h>
 
 //This File implements the necessary callbacks for R

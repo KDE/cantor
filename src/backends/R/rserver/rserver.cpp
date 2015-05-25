@@ -42,7 +42,6 @@
 #include <Rversion.h>
 #include <Rdefines.h>
 #define R_INTERFACE_PTRS
-#include <Rinterface.h>
 #include <R_ext/Parse.h>
 
 // Not making a member to prevent pulling R headers into rserver.h

@@ -26,6 +26,7 @@
 #include <QStringList>
 
 #include <stdio.h>
+#include <Rinterface.h>
 
 RServer* server;
 Expression* currentExpression;
