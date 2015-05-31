@@ -339,6 +339,9 @@ void CantorShell::setTabCaption(const QString& caption)
 
 void CantorShell::closeTab(QWidget* widget)
 {
+    if(!reallyClose(false)) {
+        return;
+    }
     if(widget==0)
     {
         if(m_part!=0)
@@ -362,6 +365,57 @@ void CantorShell::closeTab(QWidget* widget)
             m_parts.removeAll(part);
             delete part;
         }
+    }
+}
+
+bool CantorShell::reallyClose(bool checkAllParts) {
+    if(checkAllParts && m_parts.count() > 1) {
+        bool modified = false;
+         foreach( KParts::ReadWritePart* const part, m_parts)
+        {
+            if(part->isModified()) {
+                modified = true;
+                break;
+            }
+        }
+        if(!modified) return true;
+        int want_save = KMessageBox::warningYesNo( this,
+            i18n("Multiple unsaved Worksheets are opened do want to close?"),
+            i18n("Close Cantor"));
+        switch (want_save) {
+            case KMessageBox::Yes:
+                return true;
+            case KMessageBox::No:
+                return false;
+        }
+    }
+    if (m_part && m_part->isModified() ) {
+        int want_save = KMessageBox::warningYesNoCancel( this,
+            i18n("The current project has been modified. Do you want to save it?"),
+            i18n("Save Project"));
+        switch (want_save) {
+            case KMessageBox::Yes:
+                m_part->save();
+                if(m_part->waitSaveComplete()) {
+                    return true;
+                } else {
+                    m_part->setModified(true);
+                    return false;
+                }
+            case KMessageBox::Cancel:
+                return false;
+            case KMessageBox::No:
+                return true;
+        }
+    }
+    return true;
+}
+
+void CantorShell::closeEvent(QCloseEvent* event) {
+    if(!reallyClose()) {
+        event->ignore();
+    } else {
+        KParts::MainWindow::closeEvent(event);
     }
 }
 

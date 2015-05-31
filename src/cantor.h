@@ -93,6 +93,8 @@ private Q_SLOTS:
     void updatePanel();
 private:
     void setupActions();
+    void closeEvent(QCloseEvent*);
+    bool reallyClose(bool checkAllParts = true);
     KParts::ReadWritePart* findPart(QWidget* widget);
 
 private:
