@@ -59,7 +59,7 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     connect(this, &ImageSettingsDialog::applyClicked, this, &ImageSettingsDialog::sendChanges);
     connect(this, &ImageSettingsDialog::cancelClicked, this, &ImageSettingsDialog::close);
 
-    connect(m_ui.openDialogButton, &KPushButton::clicked, this, &ImageSettingsDialog::openDialog);
+    connect(m_ui.openDialogButton, &QPushButton::clicked, this, &ImageSettingsDialog::openDialog);
     //connect(m_fileDialog, SIGNAL(accepted()), this, SLOT(updatePath()));
 
     connect(m_ui.pathEdit, &KLineEdit::editingFinished, this, &ImageSettingsDialog::updatePreview);

@@ -20,7 +20,7 @@
       <widget class="KLineEdit" name="pathEdit"/>
      </item>
      <item>
-      <widget class="KPushButton" name="openDialogButton">
+      <widget class="QPushButton" name="openDialogButton">
        <property name="text">
         <string>Open</string>
        </property>
@@ -118,11 +118,6 @@
    <class>KImageFilePreview</class>
    <extends>QWidget</extends>
    <header>kimagefilepreview.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KLineEdit</class>
