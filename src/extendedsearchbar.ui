@@ -151,12 +151,6 @@
        <property name="readOnly">
         <bool>true</bool>
        </property>
-       <property name="contextMenuEnabled">
-        <bool>false</bool>
-       </property>
-       <property name="urlDropsEnabled">
-        <bool>false</bool>
-       </property>
       </widget>
      </item>
      <item>
@@ -198,11 +192,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KSqueezedTextLabel</class>
    <extends>QLabel</extends>
