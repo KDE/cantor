@@ -22,8 +22,10 @@
 
 #include <QAction>
 
-#include <KDialog>
+#include <QDialog>
+#include <QPushButton>
 #include <KActionCollection>
+#include <KConfigGroup>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -50,14 +52,21 @@ void ImportPackageAssistant::initActions()
 
 QStringList ImportPackageAssistant::run(QWidget* parent)
 {
-    QPointer<KDialog> dlg=new KDialog(parent);
+    QPointer<QDialog> dlg=new QDialog(parent);
 
     QWidget* widget=new QWidget(dlg);
 
     Ui::ImportPackageAssistantBase base;
     base.setupUi(widget);
 
-    dlg->setMainWidget(widget);
+    base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
+    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dlg->setLayout(mainLayout);
+    mainLayout->addWidget(widget);
 
     QStringList result;
     if( dlg->exec())

@@ -22,8 +22,10 @@
 
 #include <QAction>
 
-#include <KDialog>
+#include <QDialog>
+#include <QPushButton>
 #include <KActionCollection>
+#include <KConfigGroup>
 #include "ui_plot2ddlg.h"
 #include "cantor_macros.h"
 #include "backend.h"
@@ -49,11 +51,18 @@ void Plot2dAssistant::initActions()
 
 QStringList Plot2dAssistant::run(QWidget* parent)
 {
-    QPointer<KDialog> dlg=new KDialog(parent);
+    QPointer<QDialog> dlg=new QDialog(parent);
     QWidget *widget=new QWidget(dlg);
     Ui::Plot2dAssistantBase base;
     base.setupUi(widget);
-    dlg->setMainWidget(widget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dlg->setLayout(mainLayout);
+    mainLayout->addWidget(widget);
+
+    base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
+    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
 
     QStringList result;
     if( dlg->exec())

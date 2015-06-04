@@ -23,8 +23,10 @@
 #include <QAction>
 
 #include <QVBoxLayout>
-#include <KDialog>
+#include <QPushButton>
+#include <QDialog>
 #include <KActionCollection>
+#include <KConfigGroup>
 #include "ui_advancedplotdialog.h"
 #include "ui_directivecontainer.h"
 #include "cantor_macros.h"
@@ -51,11 +53,18 @@ void AdvancedPlotAssistant::initActions()
 
 QStringList AdvancedPlotAssistant::run(QWidget* parent)
 {
-    QPointer<KDialog> dlg=new KDialog(parent);
+    QPointer<QDialog> dlg=new QDialog(parent);
     QWidget *widget=new QWidget(dlg);
     Ui::AdvancedPlotAssistantBase base;
     base.setupUi(widget);
-    dlg->setMainWidget(widget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dlg->setLayout(mainLayout);
+    mainLayout->addWidget(widget);
+
+    base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
+    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
 
     //Casting the extension to correct type and checking it
     Cantor::AdvancedPlotExtension * plotter=dynamic_cast<Cantor::AdvancedPlotExtension*>

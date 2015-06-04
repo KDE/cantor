@@ -21,8 +21,10 @@
 #include "eigenvectorsassistant.h"
 
 #include <QAction>
-#include <KDialog>
+#include <QPushButton>
+#include <QDialog>
 #include <KActionCollection>
+#include <KConfigGroup>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -48,11 +50,18 @@ void EigenVectorsAssistant::initActions()
 
 QStringList EigenVectorsAssistant::run(QWidget* parent)
 {
-    QPointer<KDialog> dlg=new KDialog(parent);
+    QPointer<QDialog> dlg=new QDialog(parent);
     QWidget* widget=new QWidget(dlg);
     Ui::EigenVectorsAssistantBase base;
     base.setupUi(widget);
-    dlg->setMainWidget(widget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dlg->setLayout(mainLayout);
+    mainLayout->addWidget(widget);
+
+    base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()));
+    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()));
 
     Cantor::HistoryExtension* hist=
         dynamic_cast<Cantor::HistoryExtension*>(backend()->extension(QLatin1String("HistoryExtension")));

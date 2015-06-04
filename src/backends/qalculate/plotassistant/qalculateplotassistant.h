@@ -24,14 +24,14 @@
 #include "assistant.h"
 #include "settings.h"
 #include "ui_qalculateplotdialog.h"
-#include <KDialog>
+#include <QDialog>
 #include <QList>
 
 class QalculatePlotAssistant : public Cantor::Assistant
 {
     Q_OBJECT
 private:
-    KDialog* m_dlg;
+    QDialog* m_dlg;
     Ui::QalculatePlotAssistantBase m_base;
     QStringList m_xVarList;
     QList<QalculateSettings::PlotStyle> m_styleList;

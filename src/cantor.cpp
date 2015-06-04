@@ -46,6 +46,8 @@
 #include <QDebug>
 #include <QDockWidget>
 #include <QDir>
+#include <QPushButton>
+#include <KConfigGroup>
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
@@ -454,7 +456,7 @@ void CantorShell::openExample()
     QDir().mkpath(dir);
 
     QStringList files=QDir(dir).entryList(QDir::Files);
-    QPointer<KDialog> dlg=new KDialog(this);
+    QPointer<QDialog> dlg=new QDialog(this);
     QListWidget* list=new QListWidget(dlg);
     foreach(const QString& file, files)
     {
@@ -463,7 +465,19 @@ void CantorShell::openExample()
         list->addItem(name);
     }
 
-    dlg->setMainWidget(list);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dlg->setLayout(mainLayout);
+    mainLayout->addWidget(list);
+
+    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+
+    mainLayout->addWidget(buttonBox);
+
+    buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+
+    connect(buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()) );
+    connect(buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()) );
 
     if (dlg->exec()==QDialog::Accepted&&list->currentRow()>=0)
     {

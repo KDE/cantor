@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>395</width>
-    <height>58</height>
+    <width>428</width>
+    <height>96</height>
    </rect>
   </property>
   <layout class="QFormLayout" name="formLayout">
@@ -30,6 +30,13 @@
    </item>
    <item row="1" column="1">
     <widget class="KLineEdit" name="value"/>
+   </item>
+   <item row="2" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

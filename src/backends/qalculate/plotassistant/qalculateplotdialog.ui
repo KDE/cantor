@@ -280,7 +280,7 @@
           <item row="1" column="0">
            <widget class="QRadioButton" name="stepsButton">
             <property name="text">
-             <string>Sampling rate</string>
+             <string>Sa&amp;mpling rate</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -290,7 +290,7 @@
           <item row="2" column="0">
            <widget class="QRadioButton" name="stepButton">
             <property name="text">
-             <string>Step size</string>
+             <string>Step si&amp;ze</string>
             </property>
            </widget>
           </item>
@@ -605,6 +605,16 @@
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
     </widget>
    </item>
   </layout>

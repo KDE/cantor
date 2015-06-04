@@ -6,26 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>256</width>
+    <height>96</height>
    </rect>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Matrix:</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="0" column="1">
     <widget class="KLineEdit" name="matrix"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>matrix</tabstop>
- </tabstops>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

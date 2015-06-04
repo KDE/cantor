@@ -26,12 +26,14 @@
 #include <QToolButton>
 #include <QAbstractItemModel>
 
-#include <KDialog>
+#include <QDialog>
+#include <QPushButton>
 #include <KLocale>
 #include <QDebug>
 #include <KIconLoader>
 #include <KFileDialog>
 #include <KMessageBox>
+#include <KConfigGroup>
 
 #include "session.h"
 #include "extension.h"
@@ -166,11 +168,20 @@ void VariableManagerWidget::load()
 
 void VariableManagerWidget::newVariable()
 {
-    QPointer<KDialog> dlg=new KDialog(this);
+    QPointer<QDialog> dlg=new QDialog(this);
     QWidget *widget=new QWidget(dlg);
     Ui::NewVariableDialogBase base;
     base.setupUi(widget);
-    dlg->setMainWidget(widget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    dlg->setLayout(mainLayout);
+
+    base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+
+    connect(base.buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()) );
+    connect(base.buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()) );
+
+    mainLayout->addWidget(widget);
 
     if( dlg->exec())
     {

@@ -23,6 +23,7 @@
 #include <QAction>
 
 #include <KActionCollection>
+#include <KConfigGroup>
 #include "cantor_macros.h"
 
 QalculatePlotAssistant::QalculatePlotAssistant(QObject* parent, QList<QVariant> args) : Assistant(parent)
@@ -46,10 +47,15 @@ void QalculatePlotAssistant::initActions()
 
 void QalculatePlotAssistant::initDialog(QWidget* parent)
 {
-    m_dlg = new KDialog(parent);
+    m_dlg = new QDialog(parent);
     QWidget *widget = new QWidget(m_dlg);
     m_base.setupUi(widget);
-    m_dlg->setMainWidget(widget);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    m_dlg->setLayout(mainLayout);
+    mainLayout->addWidget(widget);
+
+    m_base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    m_base.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
 
     connect(m_base.addButton, SIGNAL(clicked()), this, SLOT(addFunction()));
     connect(m_base.removeButton, SIGNAL(clicked()), this, SLOT(removeSelection()));
@@ -57,6 +63,8 @@ void QalculatePlotAssistant::initDialog(QWidget* parent)
     connect(m_base.functionTable, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(currentItemChanged(int, int, int, int)));
     connect(m_base.stepsButton, SIGNAL(toggled(bool)), this, SLOT(toggleStep()));
     connect(m_base.stepButton, SIGNAL(toggled(bool)), this, SLOT(toggleSteps()));
+    connect(m_base.buttonBox, SIGNAL(accepted()), m_dlg, SLOT(accept()));
+    connect(m_base.buttonBox, SIGNAL(rejected()), m_dlg, SLOT(reject()));
     m_base.inlineCheckBox->setChecked(QalculateSettings::inlinePlot());
     m_base.colorCheckBox->setChecked(QalculateSettings::coloredPlot());
     m_base.gridCheckBox->setChecked(QalculateSettings::plotGrid());
