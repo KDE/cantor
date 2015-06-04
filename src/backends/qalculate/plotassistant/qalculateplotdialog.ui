@@ -48,14 +48,11 @@
         </widget>
        </item>
        <item>
-        <widget class="KButtonGroup" name="kbuttongroup">
-         <property name="flat">
-          <bool>false</bool>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string/>
          </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
@@ -74,6 +71,9 @@
             <property name="text">
              <string>Add</string>
             </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
            </widget>
           </item>
           <item>
@@ -81,6 +81,9 @@
             <property name="text">
              <string>Remove</string>
             </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
            </widget>
           </item>
           <item>
@@ -88,6 +91,9 @@
             <property name="text">
              <string>Clear List</string>
             </property>
+            <attribute name="buttonGroup">
+             <string notr="true">buttonGroup</string>
+            </attribute>
            </widget>
           </item>
          </layout>
@@ -605,12 +611,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KButtonGroup</class>
-   <extends>QGroupBox</extends>
-   <header>kbuttongroup.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
@@ -623,9 +623,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>functionTable</tabstop>
-  <tabstop>addButton</tabstop>
-  <tabstop>removeButton</tabstop>
-  <tabstop>clearButton</tabstop>
   <tabstop>xVarEdit</tabstop>
   <tabstop>styleBox</tabstop>
   <tabstop>smoothingBox</tabstop>
@@ -766,4 +763,7 @@
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>
