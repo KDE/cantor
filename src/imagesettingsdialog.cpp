@@ -20,7 +20,7 @@
 
 #include <KCompletion>
 #include <KLocale>
-#include <KUrl>
+#include <QUrl>
 #include <KUrlCompletion>
 
 #include "imagesettingsdialog.h"
@@ -145,7 +145,7 @@ void ImageSettingsDialog::openDialog()
 
 void ImageSettingsDialog::updatePreview()
 {
-    m_ui.imagePreview->showPreview(KUrl(m_ui.pathEdit->text()));
+    m_ui.imagePreview->showPreview(QUrl(m_ui.pathEdit->text()));
 }
 
 void ImageSettingsDialog::updateInputWidgets()

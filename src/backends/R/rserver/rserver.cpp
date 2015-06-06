@@ -30,7 +30,7 @@
 
 #include <QDir>
 
-#include <KUrl>
+#include <QUrl>
 #include <QDebug>
 #include <KLocale>
 
@@ -102,7 +102,7 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 RServer::~RServer()
 {
     //delete the directory with old plots
-    KIO::NetAccess::del(KUrl(m_tmpDir), NULL);
+    KIO::NetAccess::del(QUrl(m_tmpDir), NULL);
 }
 
 void RServer::initR()
