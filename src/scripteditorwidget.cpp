@@ -22,7 +22,7 @@
 
 #include <QTemporaryFile>
 
-#include <KUrl>
+#include <QUrl>
 
 #include <KLocale>
 #include <QDebug>
@@ -37,6 +37,7 @@
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
 // #include <KTextEditor/EditorChooser>
+#include <QFileDialog>
 
 ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent)
 {
@@ -93,7 +94,8 @@ void ScriptEditorWidget::newScript()
 
 void ScriptEditorWidget::open()
 {
-    KUrl url=KFileDialog::getOpenFileName(KUrl("kfiledialog://cantor_script"), m_filter, this);
+    QUrl url = QFileDialog::getOpenFileUrl(this, QString(), QUrl(), m_filter);
+
     m_script->openUrl(url);
 }
 

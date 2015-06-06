@@ -44,7 +44,7 @@ QString OctaveScriptExtension::runExternalScript(const QString& path)
 
 QString OctaveScriptExtension::scriptFileFilter()
 {
-    return i18n("*.m|Octave script file");
+    return i18n("Octave script file (*.m)");
 }
 
 QString OctaveScriptExtension::highlightingMode()

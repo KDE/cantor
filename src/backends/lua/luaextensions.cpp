@@ -33,7 +33,7 @@ QString LuaScriptExtension::runExternalScript(const QString& path)
 
 QString LuaScriptExtension::scriptFileFilter()
 {
-    return i18n("*.lua|Lua script file");
+    return i18n("Lua script file (*.lua)");
 }
 
 QString LuaScriptExtension::highlightingMode()

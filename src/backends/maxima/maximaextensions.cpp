@@ -43,7 +43,7 @@ QString MaximaScriptExtension::runExternalScript(const QString& file)
 
 QString MaximaScriptExtension::scriptFileFilter()
 {
-    return i18n("*.mac|Maxima batch File");
+    return i18n("Maxima batch file (*.mac)");
 }
 
 QString MaximaScriptExtension::highlightingMode()

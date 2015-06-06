@@ -182,7 +182,7 @@ QString PythonScriptExtension::runExternalScript(const QString& path)
 
 QString PythonScriptExtension::scriptFileFilter()
 {
-    return i18n("*.py|Python script file");
+    return i18n("Python script file (*.py)");
 }
 
 QString PythonScriptExtension::highlightingMode()

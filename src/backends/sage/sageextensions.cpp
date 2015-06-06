@@ -44,8 +44,7 @@ QString SageScriptExtension::runExternalScript(const QString& path)
 
 QString SageScriptExtension::scriptFileFilter()
 {
-    return i18n("*.py|Python script file\n"\
-                "*.sage|Sage script file");
+    return i18n("Python script file (*.py);;Sage script file( *.sage)");
 }
 
 QString SageScriptExtension::highlightingMode()

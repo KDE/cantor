@@ -39,7 +39,7 @@ QString RScriptExtension::runExternalScript(const QString& path)
 
 QString RScriptExtension::scriptFileFilter()
 {
-    return i18n("*.R|R script file");
+    return i18n("R script file (*.R)");
 }
 
 QString RScriptExtension::highlightingMode()

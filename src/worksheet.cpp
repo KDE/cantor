@@ -844,7 +844,7 @@ void Worksheet::save( const QString& filename )
 
     QByteArray content = toXML(&zipFile).toByteArray();
     qDebug()<<"content: "<<content;
-    zipFile.writeFile( QLatin1String("content.xml"), QString(), QString(), content.data(), content.size() );
+    zipFile.writeFile( QLatin1String("content.xml"), content.data());
 
     /*zipFile.close();*/
 }

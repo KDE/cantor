@@ -25,9 +25,9 @@
 
 #include <KDialog>
 #include <KActionCollection>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KLocale>
-#include <KUrl>
+#include <QUrl>
 #include "cantor_macros.h"
 #include "backend.h"
 #include "extension.h"
@@ -56,7 +56,7 @@ QStringList RunScriptAssistant::run(QWidget* parent)
     Cantor::ScriptExtension* ext=
         dynamic_cast<Cantor::ScriptExtension*>(backend()->extension(QLatin1String("ScriptExtension")));
 
-    QString file=KFileDialog::getOpenFileName(KUrl("kfiledialog://cantor_script"), ext->scriptFileFilter(), parent);
+    QString file = QFileDialog::getOpenFileName(parent, QString(), QLatin1String("qfiledialog://cantor_script"), ext->scriptFileFilter());
 
     if(file.isNull())
     {
