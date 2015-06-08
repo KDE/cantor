@@ -35,7 +35,7 @@ class ScriptEditorWidget;
 class KAboutData;
 class QAction;
 class KToggleAction;
-class KProgressDialog;
+class QProgressDialog;
 
 namespace Cantor{
     class PanelPluginHandler;
@@ -157,7 +157,7 @@ private:
     QPointer<ScriptEditorWidget> m_scriptEditor;
     Cantor::PanelPluginHandler* m_panelHandler;
 
-    KProgressDialog* m_initProgressDlg;
+    QProgressDialog* m_initProgressDlg;
     QAction * m_evaluate;
     QAction * m_save;
     QAction * m_findNext;

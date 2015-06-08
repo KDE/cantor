@@ -37,7 +37,7 @@
 #include <KService>
 #include <KServiceTypeTrader>
 #include <KRun>
-#include <KProgressDialog>
+#include <QProgressDialog>
 #include <KMessageBox>
 #include <KNS3/UploadDialog>
 
@@ -497,9 +497,12 @@ void CantorPart::worksheetSessionChanged()
 
     if(!m_initProgressDlg)
     {
-        m_initProgressDlg=new KProgressDialog(widget(), i18n("Cantor"), i18n("Initializing Session"));
+        m_initProgressDlg = new QProgressDialog(widget());
+        m_initProgressDlg->setWindowTitle(i18n("Cantor"));
+        m_initProgressDlg->setLabelText(i18n("Initializing Session"));
         m_initProgressDlg->setMinimumDuration(500);
-        m_initProgressDlg->progressBar()->setRange(0, 0);
+        m_initProgressDlg->setRange(0, 0);
+        m_initProgressDlg->exec();
     }
 }
 
