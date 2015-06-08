@@ -83,7 +83,7 @@ private Q_SLOTS:
     void activateWorksheet(int index);
 
     void setTabCaption(const QString& tab);
-    void closeTab(QWidget* widget = 0);
+    void closeTab(int index = -1);
 
     void showSettings();
 

@@ -78,7 +78,7 @@ CantorShell::CantorShell()
     setCentralWidget(m_tabWidget);
 
     connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
-    connect(m_tabWidget, SIGNAL(closeRequest (QWidget *)), this, SLOT(closeTab(QWidget*)));
+    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -339,20 +339,29 @@ void CantorShell::setTabCaption(const QString& caption)
     m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
 }
 
-void CantorShell::closeTab(QWidget* widget)
+void CantorShell::closeTab(int index)
 {
-    if(!reallyClose(false)) {
+    if (!reallyClose(false))
+    {
         return;
     }
-    if(widget==0)
+
+    QWidget* widget = nullptr;
+    if (index >= 0)
     {
-        if(m_part!=0)
-            widget=m_part->widget();
-        else
-            return;
+        widget = m_tabWidget->widget(index);
+    }
+    else if (m_part)
+    {
+        widget = m_part->widget();
     }
 
-    int index=m_tabWidget->indexOf(widget);
+    if (!widget)
+    {
+        qWarning() << "Could not find widget by tab index" << index;
+        return;
+    }
+
 
     m_tabWidget->removeTab(index);
 
