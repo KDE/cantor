@@ -155,8 +155,12 @@ class Worksheet : public QGraphicsScene
     QDomDocument toXML(KZip* archive=0);
 
     void save(const QString& filename);
+    void save(QIODevice* device);
+    QByteArray saveToByteArray();
     void savePlain(const QString& filename);
     void saveLatex(const QString& filename);
+    void load(QIODevice* device);
+    void load(QByteArray* data);
     void load(const QString& filename);
 
     void gotResult(Cantor::Expression* expr=0);

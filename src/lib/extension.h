@@ -49,6 +49,8 @@ class CANTOR_EXPORT Extension : public QObject
 
 };
 
+
+
 //Some basic interfaces for extensions
 
 /**

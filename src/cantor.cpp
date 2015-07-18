@@ -52,7 +52,7 @@
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
 #include "lib/panelplugin.h"
-
+#include "lib/worksheetaccess.h"
 
 #include "settings.h"
 #include "ui_settings.h"
@@ -585,3 +585,23 @@ void CantorShell::updatePanel()
     }
     plugActionList(QLatin1String("new_worksheet_with_backend_list"), newBackendActions);
 }
+
+Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()
+{
+    Cantor::WorksheetAccessInterface* wa=m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
+
+    if (!wa)
+        qDebug()<<"failed to access worksheet access interface for current part";
+
+    return wa;
+}
+
+
+
+
+
+
+
+
+
+

@@ -173,4 +173,6 @@ private:
     bool m_statusBarBlocked;
 };
 
+
+
 #endif // CANTORPART_H

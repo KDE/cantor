@@ -30,6 +30,10 @@
 class QTabWidget;
 class KTextEdit;
 
+namespace Cantor{
+class WorksheetAccessInterface;
+};
+
 /**
  * This is the application "Shell".  It has a menubar, toolbar, and
  * statusbar but relies on the "Part" to do all the real work.
@@ -58,6 +62,7 @@ public:
      */
     bool hasAvailableBackend();
 
+    Cantor::WorksheetAccessInterface* currentWorksheetAccessInterface();
 protected:
     /**
      * This method is called when it is time for the app to save its

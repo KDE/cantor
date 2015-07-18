@@ -21,6 +21,7 @@ set( cantor_LIB_SRCS
   defaultvariablemodel.cpp
   panelplugin.cpp
   panelpluginhandler.cpp
+  worksheetaccess.cpp
   directives/plotdirectives.cpp
 )
 
@@ -44,8 +45,8 @@ Set( cantor_LIB_HDRS
   textresult.h
   #helper classes
   defaulthighlighter.h
-  defaultvariablemodel.h
-
+  defaultvariablemodel.h  
+  worksheetaccess.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)

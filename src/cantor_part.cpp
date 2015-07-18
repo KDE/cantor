@@ -58,6 +58,7 @@
 #include "lib/assistant.h"
 #include "lib/panelpluginhandler.h"
 #include "lib/panelplugin.h"
+#include "lib/worksheetaccess.h"
 
 #include "settings.h"
 
@@ -66,16 +67,64 @@ K_EXPORT_PLUGIN(CantorPartFactory("cantor"))
 
 #include "cantor_part.moc"
 
+
+//A concrete implementation of the WorksheetAccesssInterface
+class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
+{
+    //Q_OBJECT
+  public:
+    WorksheetAccessInterfaceImpl(QObject* parent, Worksheet* worksheet) :   WorksheetAccessInterface(parent),  m_worksheet(worksheet)
+    {
+        qDebug()<<"new worksheetaccess interface";
+        connect(worksheet, SIGNAL(sessionChanged()), this, SIGNAL(sessionChanged()));
+
+    }
+
+    ~WorksheetAccessInterfaceImpl()
+    {
+
+    }
+
+    virtual QByteArray saveWorksheetToByteArray()
+    {
+        return m_worksheet->saveToByteArray();
+    }
+
+    virtual void loadWorksheetFromByteArray(QByteArray* data)
+    {
+        m_worksheet->load(data);
+    }
+
+    virtual Cantor::Session* session()
+    {
+        return m_worksheet->session();
+    }
+//  public Q_SLOTS:
+  void evaluate()
+    {
+        m_worksheet->evaluate();
+    }
+
+    void interrupt()
+    {
+        m_worksheet->interrupt();
+    }
+
+  private:
+    Worksheet* m_worksheet;
+};
+
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
 {
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_statusBarBlocked=false;
 
+    qDebug()<<"Created a CantorPart";
+
     m_panelHandler=new Cantor::PanelPluginHandler(this);
     connect(m_panelHandler, SIGNAL(pluginsChanged()), this, SLOT(pluginsChanged()));
 
-    qDebug()<<"Created a CantorPart";
     QString backendName;
     if(args.isEmpty())
         backendName=QLatin1String("null");
@@ -109,6 +158,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     layout->addWidget(m_worksheetview);
     // notify the part that this is our internal widget
     setWidget(widget);
+
+    Cantor::WorksheetAccessInterface* iface=new WorksheetAccessInterfaceImpl(this, m_worksheet);
+
+    qDebug()<<"there really should be a worksheet interface by now";
+
 
     // create our actions
     m_worksheet->createActions(actionCollection());

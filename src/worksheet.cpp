@@ -830,14 +830,36 @@ QDomDocument Worksheet::toXML(KZip* archive)
 
 void Worksheet::save( const QString& filename )
 {
+    QFile file(filename);
+    if ( !file.open(QIODevice::WriteOnly) )
+    {
+        KMessageBox::error( worksheetView(),
+                            i18n( "Cannot write file %1." , filename ),
+                            i18n( "Error - Cantor" ));
+        return;
+    }
+
+    save(&file);
+}
+
+QByteArray Worksheet::saveToByteArray()
+{
+    QBuffer buffer;
+    save(&buffer);
+
+    return buffer.buffer();
+}
+
+void Worksheet::save( QIODevice* device)
+{
     qDebug()<<"saving to filename";
-    KZip zipFile( filename );
+    KZip zipFile( device );
 
 
     if ( !zipFile.open(QIODevice::WriteOnly) )
     {
         KMessageBox::error( worksheetView(),
-                            i18n( "Cannot write file %1." , filename ),
+                            i18n( "Cannot write file." ),
                             i18n( "Error - Cantor" ));
         return;
     }
@@ -916,8 +938,23 @@ void Worksheet::saveLatex(const QString& filename)
 
 void Worksheet::load(const QString& filename )
 {
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly))
+        return ;
+    load(&file);
+
+}
+
+void Worksheet::load(QByteArray* data)
+{
+    QBuffer buf(data);
+    load(&buf);
+}
+
+void Worksheet::load(QIODevice* device)
+{
     // m_file is always local so we can use QFile on it
-    KZip file(filename);
+    KZip file(device);
     if (!file.open(QIODevice::ReadOnly))
         return ;
 
