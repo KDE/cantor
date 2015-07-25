@@ -58,6 +58,7 @@ configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cant
 kde4_add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
 
 target_link_libraries( cantorlibs
+ PUBLIC
   ${KDE4_KDECORE_LIBS}
   ${KDE4_KIO_LIBS}
   ${QT_LIBRARIES}

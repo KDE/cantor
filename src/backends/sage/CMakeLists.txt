@@ -16,7 +16,7 @@ install(FILES sagebackend.kcfg DESTINATION ${KCFG_INSTALL_DIR})
 kde4_add_ui_files(SageBackend_SRCS settings.ui)
 
 kde4_add_plugin( cantor_sagebackend ${SageBackend_SRCS} )
-target_link_libraries( cantor_sagebackend ${KDE4_KDEUI_LIBS} cantorlibs kpty ${KDE4_KIO_LIBS})
+target_link_libraries( cantor_sagebackend ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KPTY_LIBS} ${KDE4_KIO_LIBS})
 
 kde4_add_unit_test( testsage testsage.cpp)
 target_link_libraries( testsage

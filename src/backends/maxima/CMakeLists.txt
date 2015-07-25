@@ -20,7 +20,7 @@ kde4_add_ui_files(MaximaBackend_SRCS settings.ui)
 kde4_add_plugin( cantor_maximabackend ${MaximaBackend_SRCS} )
 target_link_libraries( cantor_maximabackend ${KDE4_KDEUI_LIBS} cantorlibs ${KDE4_KIO_LIBS})
 if(NOT WIN32)
-  target_link_libraries(cantor_maximabackend kpty)
+   target_link_libraries(cantor_maximabackend ${KDE4_KPTY_LIBS})
 endif(NOT WIN32)
 
 kde4_add_unit_test( testmaxima testmaxima.cpp)
