@@ -20,7 +20,7 @@ add_subdirectory(panelplugins)
 #build the config object in a separate library, shared between shell and part
 kde4_add_kcfg_files(config_SRCS settings.kcfgc)
 kde4_add_library( cantor_config  SHARED ${config_SRCS} )
-target_link_libraries( cantor_config PUBLIC ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} )
+target_link_libraries( cantor_config LINK_PRIVATE ${KDE4_KDEUI_LIBS} ${KDE4_KPARTS_LIBS} ${KDE4_KNEWSTUFF3_LIBS} )
 install( TARGETS cantor_config  ${INSTALL_TARGETS_DEFAULT_ARGS} )
 
 set(cantor_SRCS

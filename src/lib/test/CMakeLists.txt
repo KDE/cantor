@@ -5,7 +5,7 @@ set(cantortest_SRCS
 )
 
 kde4_add_library( cantortest SHARED ${cantortest_SRCS} )
-target_link_libraries( cantortest PUBLIC
+target_link_libraries( cantortest LINK_PRIVATE
   cantorlibs
   ${KDE4_KDECORE_LIBS}
   ${QT_QTTEST_LIBRARY}
