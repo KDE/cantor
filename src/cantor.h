@@ -21,6 +21,7 @@
 #ifndef CANTOR_H
 #define CANTOR_H
 
+#include <QObject>
 #include <KParts/MainWindow>
 
 #include <QList>

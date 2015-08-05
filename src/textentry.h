@@ -25,8 +25,11 @@
 #include <QString>
 #include <QDomElement>
 #include <QDomDocument>
+#include <QIODevice>
 #include <KZip>
 #include <QTextCursor>
+#include <KArchive>
+
 
 #include "worksheetentry.h"
 #include "worksheettextitem.h"

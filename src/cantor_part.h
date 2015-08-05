@@ -158,6 +158,7 @@ private:
     Cantor::PanelPluginHandler* m_panelHandler;
 
     QProgressDialog* m_initProgressDlg;
+    bool m_showProgressDlg;
     QAction * m_evaluate;
     QAction * m_save;
     QAction * m_findNext;
@@ -171,6 +172,7 @@ private:
 
     QString m_cachedStatusMessage;
     bool m_statusBarBlocked;
+
 };
 
 

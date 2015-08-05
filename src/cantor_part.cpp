@@ -119,6 +119,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_showBackendHelp=0;
     m_initProgressDlg=0;
     m_statusBarBlocked=false;
+    m_showProgressDlg=true;
 
     qDebug()<<"Created a CantorPart";
 
@@ -130,6 +131,15 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
         backendName=QLatin1String("null");
     else
         backendName=args.first().toString();
+
+    foreach(const QVariant& arg, args)
+    {
+        if (arg.toString() == QLatin1String("--noprogress") )
+        {
+            qWarning()<<"not showing the progress bar by request";
+            m_showProgressDlg=false;
+        }
+    }
 
     Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if(!b)
@@ -160,9 +170,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     setWidget(widget);
 
     Cantor::WorksheetAccessInterface* iface=new WorksheetAccessInterfaceImpl(this, m_worksheet);
-
-    qDebug()<<"there really should be a worksheet interface by now";
-
 
     // create our actions
     m_worksheet->createActions(actionCollection());
@@ -549,7 +556,7 @@ void CantorPart::worksheetSessionChanged()
     m_panelHandler->setSession(m_worksheet->session());
     adjustGuiToSession();
 
-    if(!m_initProgressDlg)
+    if(m_showProgressDlg && !m_initProgressDlg)
     {
         m_initProgressDlg = new QProgressDialog(widget());
         m_initProgressDlg->setWindowTitle(i18n("Cantor"));

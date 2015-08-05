@@ -23,6 +23,7 @@
 
 #include "lib/expression.h"
 
+#include <QIODevice>
 #include <KZip>
 #include <QDomElement>
 
