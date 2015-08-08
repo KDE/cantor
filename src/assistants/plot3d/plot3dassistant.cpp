@@ -92,5 +92,5 @@ QStringList Plot3dAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(plot3dassistant, Plot3dAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(plot3dassistant, "plot3dassistant.json", registerPlugin<Plot3dAssistant>();)
 #include "plot3dassistant.moc"

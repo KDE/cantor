@@ -22,9 +22,10 @@
 using namespace Cantor;
 
 #include <QDebug>
+#include <QDir>
 #include <KService>
 #include <KServiceTypeTrader>
-#include <KPluginInfo>
+#include <KPluginMetaData>
 
 #include "session.h"
 #include "panelplugin.h"
@@ -55,43 +56,53 @@ void PanelPluginHandler::loadPlugins()
         return;
     qDebug()<<"loading panel plugins for session of type "<<d->session->backend()->name();
 
-    KService::List services;
-    KServiceTypeTrader* trader = KServiceTypeTrader::self();
+    QStringList panelDirs;
+    foreach(const QString &dir, QCoreApplication::libraryPaths()){
+        panelDirs << dir + QDir::separator() + QLatin1String("cantor/panels");
+    }
 
-    services = trader->query(QLatin1String("Cantor/PanelPlugin"));
+    QPluginLoader loader;
+    foreach(const QString &dir, panelDirs){
 
-    foreach (const KService::Ptr &service,   services)
-    {
-        QString error;
+        qDebug() << "dir: " << dir;
+        QStringList panels;
+        QDir panelDir = QDir(dir);
 
-        qDebug()<<"found service"<<service->name();
-        Cantor::PanelPlugin* plugin=service->createInstance<Cantor::PanelPlugin>(this,  QVariantList(),   &error);
-        if (plugin==0)
-        {
-            qDebug()<<"error loading panelplugin"<<service->name()<<":  "<<error;
-            continue;
-        }
+        panels = panelDir.entryList();
 
-        qDebug()<<"created it";
+        foreach (const QString &panel, panels){
+            loader.setFileName(dir + QDir::separator() + panel);
 
-        KPluginInfo info(service);
-        plugin->setPluginInfo(info);
+            if (!loader.load()){
+                qDebug() << "Error while loading panel: " << panel;
+                continue;
+            }
 
-        qDebug()<<"plugin "<<service->name()<<" requires "<<plugin->requiredExtensions();
-        bool supported=true;
-        foreach(const QString& req, plugin->requiredExtensions())
-            supported=supported && d->session->backend()->extensions().contains(req);
+            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
+            PanelPlugin* plugin = factory->create<PanelPlugin>(this);
 
-        supported=supported && ( (d->session->backend()->capabilities() & plugin->requiredCapabilities()) == plugin->requiredCapabilities());
-        qDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported";
+            KPluginMetaData info(loader);
+            plugin->setPluginInfo(info);
 
-        if(supported)
-        {
-            d->plugins.append(plugin);
-            plugin->setSession(d->session);
-        }else
-        {
-            plugin->deleteLater();
+            qDebug()<<"plugin "<<info.name()<<" requires "<<plugin->requiredExtensions();
+            bool supported=true;
+            foreach(const QString& req, plugin->requiredExtensions()){
+                // FIXME: That req.isEmpty() is there just because Help Panel has req
+                // empty, returning FALSE when the comparision must to return TRUE.
+                supported=supported && (d->session->backend()->extensions().contains(req) || req.isEmpty());
+            }
+
+            supported=supported && ( (d->session->backend()->capabilities() & plugin->requiredCapabilities()) == plugin->requiredCapabilities());
+            qDebug()<<"plugin "<<info.name()<<" is "<<(supported ? "":" not ")<<" supported";
+
+            if(supported)
+            {
+                d->plugins.append(plugin);
+                plugin->setSession(d->session);
+            }else
+            {
+                plugin->deleteLater();
+            }
         }
     }
 

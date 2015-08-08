@@ -91,6 +91,5 @@ KConfigSkeleton* OctaveBackend::config() const
     return OctaveSettings::self();
 }
 
-K_EXPORT_CANTOR_PLUGIN(octavebackend, OctaveBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(octavebackend, "octavebackend.json", registerPlugin<OctaveBackend>();)
 #include "octavebackend.moc"

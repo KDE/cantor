@@ -70,5 +70,5 @@ QUrl KAlgebraBackend::helpUrl() const
 }
 
 
-K_EXPORT_CANTOR_PLUGIN(kalgebrabackend, KAlgebraBackend)
+K_PLUGIN_FACTORY_WITH_JSON(kalgebrabackend, "kalgebrabackend.json", registerPlugin<KAlgebraBackend>();)
 #include "kalgebrabackend.moc"

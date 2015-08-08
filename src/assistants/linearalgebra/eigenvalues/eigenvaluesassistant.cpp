@@ -81,5 +81,5 @@ QStringList EigenValuesAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(eigenvaluesassistant, EigenValuesAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(eigenvaluesassistant, "eigenvaluesassistant.json", registerPlugin<EigenValuesAssistant>();)
 #include "eigenvaluesassistant.moc"

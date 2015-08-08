@@ -85,7 +85,11 @@ ki18n_wrap_ui(cantor_PART_SRCS extendedsearchbar.ui)
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
-add_library(cantorpart MODULE ${cantor_PART_SRCS})
+kcoreaddons_add_plugin(cantorpart
+    SOURCES ${cantor_PART_SRCS}
+    JSON "cantor_part.json"
+    INSTALL_NAMESPACE ${PLUGIN_INSTALL_DIR})
+
 set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFIX}")
 
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
@@ -95,7 +99,6 @@ if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
-install( FILES cantor_part.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor )
 install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 

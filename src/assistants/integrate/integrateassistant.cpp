@@ -90,5 +90,5 @@ QStringList IntegrateAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(integrateassistant, IntegrateAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(integrateassistant, "integrateassistant.json", registerPlugin<IntegrateAssistant>();)
 #include "integrateassistant.moc"

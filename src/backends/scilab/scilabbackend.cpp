@@ -98,6 +98,5 @@ QString ScilabBackend::description() const
         "Scilab is distributed under CeCILL license (GPL compatible)");
 }
 
-K_EXPORT_CANTOR_PLUGIN(scilabbackend, ScilabBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(scilabbackend, "scilabbackend.json", registerPlugin<ScilabBackend>();)
 #include "scilabbackend.moc"

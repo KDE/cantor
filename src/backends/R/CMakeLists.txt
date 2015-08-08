@@ -20,10 +20,9 @@ QT5_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
 
 ki18n_wrap_ui(RBackend_SRCS settings.ui)
 
-add_library( cantor_rbackend MODULE ${RBackend_SRCS} )
+add_backend(rbackend ${RBackend_SRCS})
+
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rbackend cantorlibs ${R_USED_LIBS})
+target_link_libraries( cantor_rbackend ${R_USED_LIBS})
 
 install( FILES cantor_r.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
-install( FILES rbackend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
-install(TARGETS cantor_rbackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

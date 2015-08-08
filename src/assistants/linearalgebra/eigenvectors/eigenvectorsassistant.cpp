@@ -80,5 +80,5 @@ QStringList EigenVectorsAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(eigenvectorsassistant, EigenVectorsAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(eigenvectorsassistant, "eigenvectorsassistant.json", registerPlugin<EigenVectorsAssistant>();)
 #include "eigenvectorsassistant.moc"

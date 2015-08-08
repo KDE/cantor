@@ -67,5 +67,5 @@ QStringList RunScriptAssistant::run(QWidget* parent)
     }
 }
 
-K_EXPORT_CANTOR_PLUGIN(runscriptassistant, RunScriptAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(runscriptassistant, "runscriptassistant.json", registerPlugin<RunScriptAssistant>();)
 #include "runscriptassistant.moc"

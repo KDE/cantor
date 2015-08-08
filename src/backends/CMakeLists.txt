@@ -1,3 +1,15 @@
+function(add_backend name)
+
+    kcoreaddons_add_plugin("cantor_${name}"
+        SOURCES ${ARGN}
+        JSON "${name}.json"
+        INSTALL_NAMESPACE "cantor/backends")
+
+    target_link_libraries("cantor_${name}"
+        cantorlibs)
+
+endfunction()
+
 add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)

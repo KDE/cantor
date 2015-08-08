@@ -89,6 +89,5 @@ KConfigSkeleton* LuaBackend::config() const
     return LuaSettings::self();
 }
 
-K_EXPORT_CANTOR_PLUGIN(LuaBackend, LuaBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(luabackend, "luabackend.json", registerPlugin<LuaBackend>();)
 #include "luabackend.moc"

@@ -57,6 +57,5 @@ Cantor::Backend::Capabilities NullBackend::capabilities() const
     return Cantor::Backend::Nothing;
 }
 
-K_EXPORT_CANTOR_PLUGIN(nullbackend, NullBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(nullbackend, "nullbackend.json", registerPlugin<NullBackend>();)
 #include "nullbackend.moc"

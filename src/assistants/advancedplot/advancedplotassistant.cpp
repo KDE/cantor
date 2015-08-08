@@ -115,5 +115,5 @@ QStringList AdvancedPlotAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(advancedplotassistant, AdvancedPlotAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(advancedplotassistant, "advancedplotassistant.json", registerPlugin<AdvancedPlotAssistant>();)
 #include "advancedplotassistant.moc"

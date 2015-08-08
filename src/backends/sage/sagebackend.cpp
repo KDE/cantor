@@ -100,6 +100,5 @@ QString SageBackend::description() const
                 "It combines the power of many existing open-source packages into a common Python-based interface.");
 }
 
-K_EXPORT_CANTOR_PLUGIN(sagebackend, SageBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(sagebackend, "sagebackend.json", registerPlugin<SageBackend>();)
 #include "sagebackend.moc"

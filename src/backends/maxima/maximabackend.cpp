@@ -112,6 +112,5 @@ QString MaximaBackend::description() const
                 "floating point numbers. Maxima can plot functions and data in two and three dimensions. ");
 }
 
-K_EXPORT_CANTOR_PLUGIN(maximabackend, MaximaBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(maximabackend, "maximabackend.json", registerPlugin<MaximaBackend>();)
 #include "maximabackend.moc"

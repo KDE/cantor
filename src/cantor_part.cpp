@@ -61,9 +61,7 @@
 
 #include "settings.h"
 
-K_PLUGIN_FACTORY(CantorPartFactory, registerPlugin<CantorPart>();)
-K_EXPORT_PLUGIN(CantorPartFactory("cantor"))
-
+K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
 #include "cantor_part.moc"
 
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
@@ -565,48 +563,55 @@ void CantorPart::loadAssistants()
 {
     qDebug()<<"loading assistants...";
 
-    KService::List services;
-    KServiceTypeTrader* trader = KServiceTypeTrader::self();
-
-    services = trader->query(QLatin1String("Cantor/Assistant"));
-
-    foreach (const KService::Ptr &service,   services)
-    {
-        QString error;
-
-        qDebug()<<"found service"<<service->name();
-        Cantor::Assistant* assistant=service->createInstance<Cantor::Assistant>(this,  QVariantList(),   &error);
-        if (assistant==0)
-        {
-            qDebug()<<"error loading assistant"<<service->name()<<":  "<<error;
-            continue;
-        }
-
-        qDebug()<<"created it";
-        Cantor::Backend* backend=worksheet()->session()->backend();
-        KPluginInfo info(service);
-        assistant->setPluginInfo(info);
-        assistant->setBackend(backend);
-
-        qDebug()<<"plugin "<<service->name()<<" requires "<<assistant->requiredExtensions();
-        bool supported=true;
-        foreach(const QString& req, assistant->requiredExtensions())
-            supported=supported && backend->extensions().contains(req);
-        qDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
-
-        if(supported)
-        {
-            assistant->initActions();
-            //createGui(assistant);
-            connect(assistant, SIGNAL(requested()), this, SLOT(runAssistant()));
-        }else
-        {
-            removeChildClient(assistant);
-            assistant->deleteLater();
-        }
+    QStringList assistantDirs;
+    foreach(const QString &dir, QCoreApplication::libraryPaths()){
+        assistantDirs << dir + QDir::separator() + QLatin1String("cantor/assistants");
     }
 
+    QPluginLoader loader;
+    foreach(const QString &dir, assistantDirs){
 
+        qDebug() << "dir: " << dir;
+        QStringList assistants;
+        QDir assistantDir = QDir(dir);
+
+        assistants = assistantDir.entryList();
+
+        foreach (const QString &assistant, assistants){
+            loader.setFileName(dir + QDir::separator() + assistant);
+
+            if (!loader.load()){
+                qDebug() << "Error while loading assistant: " << assistant;
+                continue;
+            }
+
+            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
+            Cantor::Assistant* plugin = factory->create<Cantor::Assistant>(this);
+
+            Cantor::Backend* backend=worksheet()->session()->backend();
+
+            KPluginMetaData info(loader);
+            plugin->setPluginInfo(info);
+            plugin->setBackend(backend);
+
+            qDebug()<<"plugin "<<info.name()<<" requires "<<plugin->requiredExtensions();
+            bool supported=true;
+            foreach(const QString& req, plugin->requiredExtensions())
+                supported=supported && backend->extensions().contains(req);
+
+            qDebug()<<"plugin "<<info.name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
+
+            if(supported)
+            {
+                plugin->initActions();
+                connect(plugin, SIGNAL(requested()), this, SLOT(runAssistant()));
+            }else
+            {
+                removeChildClient(plugin);
+                plugin->deleteLater();
+            }
+        }
+    }
 }
 
 void CantorPart::runAssistant()
