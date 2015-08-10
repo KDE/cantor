@@ -2,10 +2,24 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify solving of equations", 
+        "Description[es]": "Un diálogo de asistente para simplificar la resolución de ecuaciones", 
+        "Description[gl]": "Un diálogo auxiliar para simplificar a resolución de ecuacións", 
+        "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het oplossen van vergelijkingen", 
+        "Description[pt_BR]": "Um assistente para simplificar a resolução de equações", 
+        "Description[sv]": "En dialogruta med en guide för att förenkla lösning av ekvationer", 
+        "Description[uk]": "Діалогове вікно помічника у розв’язанні рівнянь", 
+        "Description[x-test]": "xxAn Assistant dialog to simplify solving of equationsxx", 
         "Icon": "dialog-ok", 
         "Id": "Solve", 
         "License": "GPL", 
         "Name": "Solve", 
+        "Name[es]": "Resolver", 
+        "Name[gl]": "Resolver", 
+        "Name[nl]": "Oplossen", 
+        "Name[pt_BR]": "Solucionar", 
+        "Name[sv]": "Lös", 
+        "Name[uk]": "Розв’язати", 
+        "Name[x-test]": "xxSolvexx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

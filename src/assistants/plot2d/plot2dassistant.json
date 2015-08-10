@@ -2,9 +2,23 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify plotting of 2D functions", 
+        "Description[es]": "Un diálogo de asistente para simplificar el dibujo de funciones gráficas en 2D", 
+        "Description[gl]": "Un diálogo auxiliar para simplificar a representación de funcións 2D", 
+        "Description[nl]": "Een assistentdialoog voor het vereenvoudigd tekenen van 2D-functies", 
+        "Description[pt_BR]": "Um assistente para simplificar o desenho de gráficos de funções em 2D", 
+        "Description[sv]": "En dialogruta med guide för att förenkla uppritning av tvådimensionella funktioner", 
+        "Description[uk]": "Діалогове вікно помічника спрощення побудови графіків на площині", 
+        "Description[x-test]": "xxAn Assistant dialog to simplify plotting of 2D functionsxx", 
         "Id": "Plot2d", 
         "License": "GPL", 
         "Name": "Plot2d", 
+        "Name[es]": "Plot2d", 
+        "Name[gl]": "Plot2d", 
+        "Name[nl]": "Plot2d", 
+        "Name[pt_BR]": "Gráfico em 2D", 
+        "Name[sv]": "Rita i två dimensioner", 
+        "Name[uk]": "Plot2d", 
+        "Name[x-test]": "xxPlot2dxx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

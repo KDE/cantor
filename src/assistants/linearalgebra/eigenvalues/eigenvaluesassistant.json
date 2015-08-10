@@ -2,9 +2,23 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify calculating of Eigenvalues", 
+        "Description[es]": "Un diálogo de asistente para simplificar el cálculo de eigenvalores", 
+        "Description[gl]": "Un diálogo auxiliar para simplificar o cálculo de valores de Eigen", 
+        "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het berekenen van eigenwaarden", 
+        "Description[pt_BR]": "Um assistente para simplificar o cálculo dos valores de Eigen", 
+        "Description[sv]": "En dialogruta med en guide för att förenkla beräkning av egenvärden", 
+        "Description[uk]": "Діалогове вікно помічника у обчисленні власних значень", 
+        "Description[x-test]": "xxAn Assistant dialog to simplify calculating of Eigenvaluesxx", 
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Eigenvalues", 
+        "Name[es]": "Eigenvalores", 
+        "Name[gl]": "Valores de Eigen", 
+        "Name[nl]": "Eigenwaarden", 
+        "Name[pt_BR]": "Valores de Eigen", 
+        "Name[sv]": "Egenvärden", 
+        "Name[uk]": "Власні значення", 
+        "Name[x-test]": "xxEigenvaluesxx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

@@ -2,9 +2,23 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant for plotting with the Qalculate backend.", 
+        "Description[es]": "Un asistente para mostrar gráficos con el motor de Qalculate.", 
+        "Description[gl]": "Un axudante para debuxar coa infraestrutura Qalculate.", 
+        "Description[nl]": "Een assistent voor het plotten met de Qalculate-backend.", 
+        "Description[pt_BR]": "Um assistente para geração de gráficos com a infraestrutura Qalculate.", 
+        "Description[sv]": "En guide för att rita med bakgrundsprogrammet Qalculate.", 
+        "Description[uk]": "Допоміжна програма для креслення за допомогою модуля Qalculate.", 
+        "Description[x-test]": "xxAn Assistant for plotting with the Qalculate backend.xx", 
         "Id": "Plot2d", 
         "License": "GPL", 
         "Name": "QalculatePlot", 
+        "Name[es]": "QalculatePlot", 
+        "Name[gl]": "QalculatePlot", 
+        "Name[nl]": "QalculatePlot", 
+        "Name[pt_BR]": "Gráfico do Qalculate", 
+        "Name[sv]": "Rita med Qalculate", 
+        "Name[uk]": "QalculatePlot", 
+        "Name[x-test]": "xxQalculatePlotxx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

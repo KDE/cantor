@@ -4,6 +4,13 @@
         "Id": "AdvancedPlot", 
         "License": "GPL", 
         "Name": "AdvancedPlot", 
+        "Name[es]": "Gráficos avanzados", 
+        "Name[gl]": "AdvancedPlot", 
+        "Name[nl]": "AdvancedPlot", 
+        "Name[pt_BR]": "Gráfico avançado", 
+        "Name[sv]": "Avancerat diagram", 
+        "Name[uk]": "Складне креслення", 
+        "Name[x-test]": "xxAdvancedPlotxx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

@@ -2,10 +2,24 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify calculating derivatives of expressions", 
+        "Description[es]": "Un diálogo de asistente para simplificar el cálculo de derivadas de expresiones", 
+        "Description[gl]": "Un diálogo auxiliar para simplificar o cálculo das derivadas de expresións", 
+        "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het berekenen van afgeleiden van expressies", 
+        "Description[pt_BR]": "Um assistente para simplificar o cálculo de derivadas das expressões", 
+        "Description[sv]": "En dialogruta med en guide för att förenkla beräkning av derivator för uttryck", 
+        "Description[uk]": "Діалогове вікно помічника у обчисленні похідних від виразів", 
+        "Description[x-test]": "xxAn Assistant dialog to simplify calculating derivatives of expressionsxx", 
         "Icon": "office-chart-area", 
         "Id": "Differentiate", 
         "License": "GPL", 
         "Name": "Differentiate", 
+        "Name[es]": "Diferenciar", 
+        "Name[gl]": "Diferenciar", 
+        "Name[nl]": "Differentiëren", 
+        "Name[pt_BR]": "Derivada", 
+        "Name[sv]": "Derivera", 
+        "Name[uk]": "Продиференціювати", 
+        "Name[x-test]": "xxDifferentiatexx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

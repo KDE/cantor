@@ -2,10 +2,24 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "A panel to manage the variables of a session", 
+        "Description[es]": "Un panel para la gestión de variables de una sesión", 
+        "Description[gl]": "Un panel para xestionar as variábeis dunha sesión", 
+        "Description[nl]": "Een paneel om de variabelen van een sessie te beheren", 
+        "Description[pt_BR]": "Um painel para gerenciar as variáveis de uma sessão", 
+        "Description[sv]": "En panel för att hantera variablerna i en session", 
+        "Description[uk]": "Панель керування змінними сеансу", 
+        "Description[x-test]": "xxA panel to manage the variables of a sessionxx", 
         "Icon": "", 
         "Id": "VariableManager", 
         "License": "GPL", 
         "Name": "Variable Manager", 
+        "Name[es]": "Gestor de variables", 
+        "Name[gl]": "Xestor de variábeis", 
+        "Name[nl]": "Beheerder van variabelen", 
+        "Name[pt_BR]": "Gerenciador de variáveis", 
+        "Name[sv]": "Variabelhantering", 
+        "Name[uk]": "Керування змінними", 
+        "Name[x-test]": "xxVariable Managerxx", 
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

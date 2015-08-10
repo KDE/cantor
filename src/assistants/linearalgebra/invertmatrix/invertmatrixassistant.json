@@ -2,9 +2,23 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify inverting of matrices", 
+        "Description[es]": "Un diálogo de asistente para simplificar la inversión de matrices", 
+        "Description[gl]": "Un diálogo auxiliar para simplificar a inversión de matrices", 
+        "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het inverteren van matrices", 
+        "Description[pt_BR]": "Um assistente para simplificar a inversão de matrizes", 
+        "Description[sv]": "En dialogruta med en guide för att förenkla invertering av matriser", 
+        "Description[uk]": "Діалогове вікно помічника обчислення оберненої матриці", 
+        "Description[x-test]": "xxAn Assistant dialog to simplify inverting of matricesxx", 
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Invert Matrix", 
+        "Name[es]": "Invertir matriz", 
+        "Name[gl]": "Inverter matriz", 
+        "Name[nl]": "Matrix inverteren", 
+        "Name[pt_BR]": "Inverter matriz", 
+        "Name[sv]": "Invertera matris", 
+        "Name[uk]": "Знайти обернену матрицю", 
+        "Name[x-test]": "xxInvert Matrixxx", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

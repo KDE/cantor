@@ -1,6 +1,13 @@
 {
     "KPlugin": {
         "Name": "CantorPart", 
+        "Name[es]": "CantorPart", 
+        "Name[gl]": "CantorPart", 
+        "Name[nl]": "CantorPart", 
+        "Name[pt_BR]": "Componente do Cantor", 
+        "Name[sv]": "Cantor-delprogram", 
+        "Name[uk]": "CantorPart", 
+        "Name[x-test]": "xxCantorPartxx", 
         "ServiceTypes": [
             "KParts/ReadOnlyPart", 
             "KParts/ReadWritePart"

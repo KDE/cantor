@@ -2,10 +2,24 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "A panel to display help", 
+        "Description[es]": "Un panel para mostrar ayuda", 
+        "Description[gl]": "Un panel que mostra axuda", 
+        "Description[nl]": "Een paneel om help te tonen", 
+        "Description[pt_BR]": "Um painel para apresentar ajuda", 
+        "Description[sv]": "En panel för att visa hjälp", 
+        "Description[uk]": "Панель для показу довідки", 
+        "Description[x-test]": "xxA panel to display helpxx", 
         "Icon": "", 
         "Id": "HelpPanel", 
         "License": "GPL", 
         "Name": "Help", 
+        "Name[es]": "Ayuda", 
+        "Name[gl]": "Axuda", 
+        "Name[nl]": "Help", 
+        "Name[pt_BR]": "Ajuda", 
+        "Name[sv]": "Hjälp", 
+        "Name[uk]": "Довідка", 
+        "Name[x-test]": "xxHelpxx", 
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]
