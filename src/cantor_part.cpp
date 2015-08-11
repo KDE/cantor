@@ -46,6 +46,7 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QPrinter>
+#include <QPrintPreviewDialog>
 #include <QPrintDialog>
 #include <QVBoxLayout>
 
@@ -169,6 +170,9 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     QAction * print = KStandardAction::print(this, SLOT(print()), actionCollection());
     print->setPriority(QAction::LowPriority);
+
+    QAction * printPreview = KStandardAction::printPreview(this, SLOT(printPreview()), actionCollection());
+    printPreview->setPriority(QAction::LowPriority);
 
     KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
     KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());
@@ -732,6 +736,13 @@ void CantorPart::print()
         m_worksheet->print(&printer);
 
     delete dialog;
+}
+
+void CantorPart::printPreview()
+{
+    QPrintPreviewDialog *dialog = new QPrintPreviewDialog(widget());
+    connect(dialog, SIGNAL(paintRequested(QPrinter*)), m_worksheet, SLOT(print(QPrinter*)));
+    dialog->exec();
 }
 
 void CantorPart::showScriptEditor(bool show)

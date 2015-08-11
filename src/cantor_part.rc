@@ -9,6 +9,7 @@
     <Action name="file_publish_worksheet"/>
     <Separator/>
     <Action name="file_print"/>
+    <Action name="file_print_preview"/>
   </Menu>
   <Menu name="edit"><text>&amp;Edit</text>
     <Action name="edit_undo"/>
@@ -55,6 +56,7 @@
   <Action name="file_open"/>
   <Action name="file_save"/>
   <Action name="file_print"/>
+  <Action name="file_print_preview"/>
   <Action name="edit_find"/>
   <Action name="evaluate_worksheet"/>
   <Action name="restart_backend"/>

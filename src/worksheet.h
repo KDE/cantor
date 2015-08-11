@@ -65,8 +65,6 @@ class Worksheet : public QGraphicsScene
     bool showExpressionIds();
     bool animationsEnabled();
 
-    void print(QPrinter* printer);
-
     bool isPrinting();
 
     void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);
@@ -133,6 +131,8 @@ class Worksheet : public QGraphicsScene
 
     void updateLayout();
     void updateEntrySize(WorksheetEntry* entry);
+
+    void print(QPrinter* printer);
 
     void focusEntry(WorksheetEntry * entry);
 
