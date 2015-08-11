@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify entering of matrices", 
+        "Description[ca]": "Un diàleg assistent per simplificar la introducció de matrius", 
+        "Description[cs]": "Pomocný dialog pro zjednodušení zadávání matic", 
         "Description[es]": "Un diálogo de asistente para simplificar la introducción de matrices", 
         "Description[gl]": "Un diálogo auxiliar para simplificar a introdución de matrices", 
         "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het invoeren van matrices", 
@@ -12,6 +14,8 @@
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Create Matrix", 
+        "Name[ca]": "Crea una matriu", 
+        "Name[cs]": "Vytvořit matici", 
         "Name[es]": "Crear matriz", 
         "Name[gl]": "Crear unha matriz", 
         "Name[nl]": "Matrix aanmaken", 

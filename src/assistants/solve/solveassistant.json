@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify solving of equations", 
+        "Description[ca]": "Un diàleg assistent per simplificar la resolució d'equacions", 
+        "Description[cs]": "Pomocný dialog pro zjednodušení řešení rovnic", 
         "Description[es]": "Un diálogo de asistente para simplificar la resolución de ecuaciones", 
         "Description[gl]": "Un diálogo auxiliar para simplificar a resolución de ecuacións", 
         "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het oplossen van vergelijkingen", 
@@ -13,6 +15,8 @@
         "Id": "Solve", 
         "License": "GPL", 
         "Name": "Solve", 
+        "Name[ca]": "Resol", 
+        "Name[cs]": "Vyřešit", 
         "Name[es]": "Resolver", 
         "Name[gl]": "Resolver", 
         "Name[nl]": "Oplossen", 

@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for the Sage Mathematics Software", 
+        "Description[ca]": "Dorsal per al programari matemàtic Sage", 
+        "Description[cs]": "Podpůrná vrstva pro matematický software Sage", 
         "Description[es]": "Motor para el software matemático Sage", 
         "Description[gl]": "Infraestrutura do Software de matemáticas Sage", 
         "Description[nl]": "Backend voor de Sage wiskundige software", 
@@ -13,6 +15,8 @@
         "Id": "Sage", 
         "License": "GPL", 
         "Name": "Sage", 
+        "Name[ca]": "Sage", 
+        "Name[cs]": "Sage", 
         "Name[es]": "Sage", 
         "Name[gl]": "Sage", 
         "Name[nl]": "Sage", 

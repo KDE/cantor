@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify plotting of 2D functions", 
+        "Description[ca]": "Un diàleg assistent per simplificar la representació gràfica de funcions 2D", 
+        "Description[cs]": "Pomocný dialog pro zjednodušení vytvoření grafu dvourozměrných funkcí", 
         "Description[es]": "Un diálogo de asistente para simplificar el dibujo de funciones gráficas en 2D", 
         "Description[gl]": "Un diálogo auxiliar para simplificar a representación de funcións 2D", 
         "Description[nl]": "Een assistentdialoog voor het vereenvoudigd tekenen van 2D-functies", 
@@ -12,6 +14,8 @@
         "Id": "Plot2d", 
         "License": "GPL", 
         "Name": "Plot2d", 
+        "Name[ca]": "Plot2d", 
+        "Name[cs]": "Graf2d", 
         "Name[es]": "Plot2d", 
         "Name[gl]": "Plot2d", 
         "Name[nl]": "Plot2d", 

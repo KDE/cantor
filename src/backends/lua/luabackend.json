@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for luajit", 
+        "Description[ca]": "Dorsal pel Luajit", 
+        "Description[cs]": "Podpůrná vrstva pro luajit", 
         "Description[es]": "Motor para luajit", 
         "Description[gl]": "Infraestrutura para luajit.", 
         "Description[nl]": "Een backend voor luajit", 
@@ -13,6 +15,8 @@
         "Id": "Lua", 
         "License": "GPL", 
         "Name": "Lua", 
+        "Name[ca]": "Lua", 
+        "Name[cs]": "Lua", 
         "Name[es]": "Lua", 
         "Name[gl]": "Lua", 
         "Name[nl]": "Lua", 

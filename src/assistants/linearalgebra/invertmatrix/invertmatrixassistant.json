@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify inverting of matrices", 
+        "Description[ca]": "Un diàleg assistent per simplificar la inversió de matrius", 
+        "Description[cs]": "Pomocný dialog pro zjednodušení invertování matice", 
         "Description[es]": "Un diálogo de asistente para simplificar la inversión de matrices", 
         "Description[gl]": "Un diálogo auxiliar para simplificar a inversión de matrices", 
         "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het inverteren van matrices", 
@@ -12,6 +14,8 @@
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Invert Matrix", 
+        "Name[ca]": "Inverteix una matriu", 
+        "Name[cs]": "Invertovat matici", 
         "Name[es]": "Invertir matriz", 
         "Name[gl]": "Inverter matriz", 
         "Name[nl]": "Matrix inverteren", 

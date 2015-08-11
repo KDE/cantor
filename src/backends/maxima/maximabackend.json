@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for the Maxima Computer Algebra System", 
+        "Description[ca]": "Dorsal per al Maxima: un sistema d'àlgebra per ordinador", 
+        "Description[cs]": "Podpůrná vrstva pro počítačový systém algebry Maxima", 
         "Description[es]": "Motor para el sistema algebraico computacional Maxima", 
         "Description[gl]": "Infraestrutura do Sistema de álxebra computerizada Maxima", 
         "Description[nl]": "Backend voor het Maxima Computer Algebra System", 
@@ -13,6 +15,8 @@
         "Id": "Maxima", 
         "License": "GPL", 
         "Name": "Maxima", 
+        "Name[ca]": "Maxima", 
+        "Name[cs]": "Maxima", 
         "Name[es]": "Maxima", 
         "Name[gl]": "Maxima", 
         "Name[nl]": "Maxima", 

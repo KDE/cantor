@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant for running an external Script file", 
+        "Description[ca]": "Un assistent per executar un fitxer de script extern", 
+        "Description[cs]": "Pomocník pro spouštění externího skriptu", 
         "Description[es]": "Un asistente para ejecutar un archivo de script externo", 
         "Description[gl]": "Un asistente para executar un ficheiro de script externo", 
         "Description[nl]": "Een assistent voor het draaien van een extern scriptbestand", 
@@ -13,6 +15,8 @@
         "Id": "RunScript", 
         "License": "GPL", 
         "Name": "RunScript", 
+        "Name[ca]": "ExecutaScript", 
+        "Name[cs]": "Spustit skript", 
         "Name[es]": "RunScript", 
         "Name[gl]": "RunScript", 
         "Name[nl]": "RunScript", 

@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify calculating of EigenVectors", 
+        "Description[ca]": "Un diàleg assistent per simplificar el càlcul d'autovectors", 
+        "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu vlastních vektorů", 
         "Description[es]": "Un diálogo de asistente para simplificar el cálculo de eigenvectores", 
         "Description[gl]": "Un diálogo auxiliar para simplificar o cálculo de vectores de Eigen", 
         "Description[nl]": "Een assistentdialoog voor het vereenvoudigen van het berekenen van eigenvectoren", 
@@ -12,6 +14,8 @@
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Eigenvectors", 
+        "Name[ca]": "Vectors propis (autovectors)", 
+        "Name[cs]": "Vlastní vektory", 
         "Name[es]": "Eigenvectores", 
         "Name[gl]": "Vectores de Eigen", 
         "Name[nl]": "Eigenvectoren", 

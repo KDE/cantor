@@ -2,6 +2,8 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for Cantor for testing purposes", 
+        "Description[ca]": "Dorsal per al Cantor, per a fer proves", 
+        "Description[cs]": "Podpůrná vrstva pro Cantor pro účely testování", 
         "Description[es]": "Motor para Cantor pensado para hacer pruebas", 
         "Description[gl]": "Infraestrutura de Cantor para probas", 
         "Description[nl]": "Backend voor Cantor voor testdoeleinden", 
@@ -12,6 +14,8 @@
         "Id": "nullbackend", 
         "License": "GPL", 
         "Name": "nullbackend", 
+        "Name[ca]": "DorsalNul", 
+        "Name[cs]": "žádná podpůrná vrstva", 
         "Name[es]": "nullbackend", 
         "Name[gl]": "nullbackend", 
         "Name[nl]": "nullbackend", 
