@@ -11,6 +11,7 @@
         "Description[sv]": "En guide för att köra en extern skriptfil", 
         "Description[uk]": "Помічник для запуску зовнішнього скриптового файла", 
         "Description[x-test]": "xxAn Assistant for running an external Script filexx", 
+        "Description[zh_CN]": "用于运行外部脚本文件的助手", 
         "Icon": "system-run", 
         "Id": "RunScript", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Kör skript", 
         "Name[uk]": "Виконати скрипт", 
         "Name[x-test]": "xxRunScriptxx", 
+        "Name[zh_CN]": "运行脚本", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

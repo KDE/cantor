@@ -10,6 +10,7 @@
         "Name[sv]": "Cantor-delprogram", 
         "Name[uk]": "CantorPart", 
         "Name[x-test]": "xxCantorPartxx", 
+        "Name[zh_CN]": "Cantor 组件", 
         "ServiceTypes": [
             "KParts/ReadOnlyPart", 
             "KParts/ReadWritePart"

@@ -11,6 +11,7 @@
         "Description[sv]": "Bakgrundsprogram för luajit", 
         "Description[uk]": "Модуль для luajit", 
         "Description[x-test]": "xxBackend for luajitxx", 
+        "Description[zh_CN]": "luajia 后端", 
         "Icon": "luabackend", 
         "Id": "Lua", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Lua", 
         "Name[uk]": "Lua", 
         "Name[x-test]": "xxLuaxx", 
+        "Name[zh_CN]": "Lua", 
         "ServiceTypes": [
             "Cantor/Backend"
         ], 

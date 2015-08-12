@@ -11,6 +11,7 @@
         "Description[sv]": "En dialogruta med guide för att förenkla uppritning av tvådimensionella funktioner", 
         "Description[uk]": "Діалогове вікно помічника спрощення побудови графіків на площині", 
         "Description[x-test]": "xxAn Assistant dialog to simplify plotting of 2D functionsxx", 
+        "Description[zh_CN]": "用于简化二维函数图绘制的助手对话框", 
         "Id": "Plot2d", 
         "License": "GPL", 
         "Name": "Plot2d", 
@@ -23,6 +24,7 @@
         "Name[sv]": "Rita i två dimensioner", 
         "Name[uk]": "Plot2d", 
         "Name[x-test]": "xxPlot2dxx", 
+        "Name[zh_CN]": "Plot2d", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

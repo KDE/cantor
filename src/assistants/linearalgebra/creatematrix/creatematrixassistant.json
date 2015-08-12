@@ -11,6 +11,7 @@
         "Description[sv]": "En dialogruta med en guide för att förenkla inmatning av matriser", 
         "Description[uk]": "Діалогове вікно помічника введення матриць", 
         "Description[x-test]": "xxAn Assistant dialog to simplify entering of matricesxx", 
+        "Description[zh_CN]": "用于简化矩阵输入的助手对话框", 
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Create Matrix", 
@@ -23,6 +24,7 @@
         "Name[sv]": "Skapa matris", 
         "Name[uk]": "Створити матрицю", 
         "Name[x-test]": "xxCreate Matrixxx", 
+        "Name[zh_CN]": "创建矩阵", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

@@ -13,6 +13,7 @@
         "Name[sv]": "Avancerat diagram", 
         "Name[uk]": "Складне креслення", 
         "Name[x-test]": "xxAdvancedPlotxx", 
+        "Name[zh_CN]": "高级绘图", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

@@ -11,6 +11,7 @@
         "Description[sv]": "Bakgrundsprogram för Scilab vetenskaplig programmeringsmiljö", 
         "Description[uk]": "Модуль наукового середовища програмування Scilab", 
         "Description[x-test]": "xxBackend for the Scilab Scientific Programming Environmentxx", 
+        "Description[zh_CN]": "Scilab 科学编程环境的后端", 
         "Icon": "scilabbackend", 
         "Id": "Scilab", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Scilab", 
         "Name[uk]": "Scilab", 
         "Name[x-test]": "xxScilabxx", 
+        "Name[zh_CN]": "Scilab", 
         "ServiceTypes": [
             "Cantor/Backend"
         ], 

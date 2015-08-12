@@ -11,6 +11,7 @@
         "Description[sv]": "Bakgrundsprogram för Python 3 vetenskaplig programmeringsmiljö", 
         "Description[uk]": "Модуль наукового програмування мовою Python 3", 
         "Description[x-test]": "xxBackend for Python 3 Scientific Programmingxx", 
+        "Description[zh_CN]": "Python 3 科学编程环境的后端", 
         "Icon": "pythonbackend", 
         "Id": "Python 3", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Python 3", 
         "Name[uk]": "Python 3", 
         "Name[x-test]": "xxPython 3xx", 
+        "Name[zh_CN]": "Python 3", 
         "ServiceTypes": [
             "Cantor/Backend"
         ], 

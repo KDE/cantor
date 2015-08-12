@@ -11,6 +11,7 @@
         "Description[sv]": "Bakgrundsprogram för matematikprogramvaran Sage", 
         "Description[uk]": "Модуль математичного програмного забезпечення Sage", 
         "Description[x-test]": "xxBackend for the Sage Mathematics Softwarexx", 
+        "Description[zh_CN]": "Sage 数学软件的后端", 
         "Icon": "sagebackend", 
         "Id": "Sage", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Sage", 
         "Name[uk]": "Sage", 
         "Name[x-test]": "xxSagexx", 
+        "Name[zh_CN]": "Sage", 
         "ServiceTypes": [
             "Cantor/Backend"
         ], 

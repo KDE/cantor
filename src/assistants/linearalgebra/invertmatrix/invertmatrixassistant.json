@@ -11,6 +11,7 @@
         "Description[sv]": "En dialogruta med en guide för att förenkla invertering av matriser", 
         "Description[uk]": "Діалогове вікно помічника обчислення оберненої матриці", 
         "Description[x-test]": "xxAn Assistant dialog to simplify inverting of matricesxx", 
+        "Description[zh_CN]": "用于简化逆矩阵计算的助手对话框", 
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Invert Matrix", 
@@ -23,6 +24,7 @@
         "Name[sv]": "Invertera matris", 
         "Name[uk]": "Знайти обернену матрицю", 
         "Name[x-test]": "xxInvert Matrixxx", 
+        "Name[zh_CN]": "逆矩阵", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

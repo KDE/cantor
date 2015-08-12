@@ -11,6 +11,7 @@
         "Description[sv]": "En panel för att visa hjälp", 
         "Description[uk]": "Панель для показу довідки", 
         "Description[x-test]": "xxA panel to display helpxx", 
+        "Description[zh_CN]": "显示帮助的面板", 
         "Icon": "", 
         "Id": "HelpPanel", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Hjälp", 
         "Name[uk]": "Довідка", 
         "Name[x-test]": "xxHelpxx", 
+        "Name[zh_CN]": "帮助", 
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

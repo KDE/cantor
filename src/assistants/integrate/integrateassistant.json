@@ -11,6 +11,7 @@
         "Description[sv]": "En dialogruta med en guide för att förenkla beräkning av integraler", 
         "Description[uk]": "Діалогове вікно помічника у обчисленні інтегралів", 
         "Description[x-test]": "xxAn Assistant dialog to simplify calculation of integralsxx", 
+        "Description[zh_CN]": "用于简化积分运算的助手对话框", 
         "Icon": "office-chart-area", 
         "Id": "Integrate", 
         "License": "GPL", 
@@ -24,6 +25,7 @@
         "Name[sv]": "Integrera", 
         "Name[uk]": "Проінтегрувати", 
         "Name[x-test]": "xxIntegratexx", 
+        "Name[zh_CN]": "积分", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]
