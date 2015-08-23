@@ -773,12 +773,12 @@ void QalculateExpression::evaluatePlotCommand()
 	if (plotParameters.filetype == PLOT_FILETYPE_EPS ||
 	    plotParameters.filetype == PLOT_FILETYPE_PS  ||
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 4 &&
-	     plotParameters.filename.substr(p-4,4) == QLatin1String(".eps")) ||
+	     plotParameters.filename.substr(p-4,4) == ".eps") ||
 	    (plotParameters.filetype == PLOT_FILETYPE_AUTO && p >= 3 &&
-	     plotParameters.filename.substr(p-3,3) == QLatin1String(".ps")))
+	     plotParameters.filename.substr(p-3,3) == ".ps"))
         setResult(new Cantor::EpsResult(QUrl(QString::fromStdString(plotParameters.filename))));
 	else
-        setResult(new Cantor::ImageResult(QUrl(QString::fromStdString(plotParameters.filename)));
+        setResult(new Cantor::ImageResult(QUrl(QString::fromStdString(plotParameters.filename))));
 #else
     setResult(new Cantor::ImageResult(QUrl::fromLocalFile(QString::fromStdString(plotParameters.filename))));
 #endif
