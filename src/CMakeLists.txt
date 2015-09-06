@@ -88,7 +88,7 @@ configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.
 kcoreaddons_add_plugin(cantorpart
     SOURCES ${cantor_PART_SRCS}
     JSON "cantor_part.json"
-    INSTALL_NAMESPACE ${PLUGIN_INSTALL_DIR})
+    INSTALL_NAMESPACE ".")
 
 set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFIX}")
 
@@ -102,4 +102,3 @@ endif(LIBSPECTRE_FOUND)
 install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 
-install(TARGETS cantorpart  DESTINATION ${KDE_INSTALL_PLUGINDIR} )
