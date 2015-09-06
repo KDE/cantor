@@ -15,7 +15,7 @@
 if(LIBSPECTRE_INCLUDE_DIR AND LIBSPECTRE_LIBRARY)
 
   # in cache already
-  set(LIBSPECTRE_INTERNAL_FOUND TRUE)
+  set(LIBSPECTRE_FOUND TRUE)
 
 else(LIBSPECTRE_INCLUDE_DIR AND LIBSPECTRE_LIBRARY)
 
@@ -46,11 +46,11 @@ if(_pc_LIBSPECTRE_FOUND)
     PATH_SUFFIXES libspectre
   )
 
-  set(LIBSPECTRE_INTERNAL_FOUND TRUE)
+  set(LIBSPECTRE_FOUND TRUE)
 endif(_pc_LIBSPECTRE_FOUND)
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(LibSpectre DEFAULT_MSG LIBSPECTRE_LIBRARY LIBSPECTRE_INTERNAL_FOUND)
+find_package_handle_standard_args(LibSpectre DEFAULT_MSG LIBSPECTRE_LIBRARY)
 
 # ensure that they are cached
 set(LIBSPECTRE_INCLUDE_DIR ${LIBSPECTRE_INCLUDE_DIR} CACHE INTERNAL "The libspectre include path")
