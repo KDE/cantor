@@ -21,31 +21,28 @@
 #ifndef _CANTOR_EXPORT_H
 #define _CANTOR_EXPORT_H
 
-// needed for KDE_EXPORT and KDE_IMPORT macros
-#include <kdemacros.h>
-
 #ifndef CANTOR_EXPORT
 # if defined(MAKE_CANTORLIBS_LIB)
 // We are building this library
-#  define CANTOR_EXPORT KDE_EXPORT
+#  define CANTOR_EXPORT Q_DECL_EXPORT
 # else
 // We are using this library
-#  define CANTOR_EXPORT KDE_IMPORT
+#  define CANTOR_EXPORT Q_DECL_IMPORT
 # endif
 #endif
 
 #ifndef CANTORTEST_EXPORT
 # if defined(MAKE_CANTORTEST_LIB)
 // We are building this library
-#  define CANTORTEST_EXPORT KDE_EXPORT
+#  define CANTORTEST_EXPORT Q_DECL_EXPORT
 # else
 // We are using this library
-#  define CANTORTEST_EXPORT KDE_IMPORT
+#  define CANTORTEST_EXPORT Q_DECL_IMPORT
 # endif
 #endif
 
 # ifndef CANTOR_EXPORT_DEPRECATED
-#  define CANTOR_EXPORT_DEPRECATED KDE_DEPRECATED CANTOR_EXPORT
+#  define CANTOR_EXPORT_DEPRECATED Q_DECL_DEPRECATED CANTOR_EXPORT
 # endif
 
 #endif /* _CANTOR_EXPORT_H */
