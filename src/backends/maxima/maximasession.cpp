@@ -30,7 +30,7 @@
 #include <QTcpSocket>
 #include <QTcpServer>
 #include <KMessageBox>
-#include <KLocale>
+#include <KLocalizedString>
 #include <signal.h>
 #include "settings.h"
 

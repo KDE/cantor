@@ -26,7 +26,7 @@
 #include <KDialog>
 #include <KActionCollection>
 #include <QFileDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QUrl>
 #include "cantor_macros.h"
 #include "backend.h"

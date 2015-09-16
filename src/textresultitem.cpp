@@ -29,7 +29,7 @@
 #include <KFileDialog>
 #include <KStandardAction>
 #include <QAction>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 TextResultItem::TextResultItem(QGraphicsObject* parent)

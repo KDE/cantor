@@ -26,7 +26,7 @@
 #include <QDebug>
 #include <KPtyProcess>
 #include <KPtyDevice>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMessageBox>
 #include "settings.h"
 

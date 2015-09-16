@@ -27,7 +27,7 @@
 #include "helpresult.h"
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KMimeType>
 #include <QRegExp>
 

@@ -22,7 +22,7 @@
 #include "worksheetimageitem.h"
 #include "actionbar.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QMenu>
 #include <QDebug>
 

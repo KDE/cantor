@@ -28,7 +28,7 @@
 
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QMimeType>
 #include <QMimeDatabase>
 #include <QFile>

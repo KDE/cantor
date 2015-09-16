@@ -31,7 +31,7 @@
 #include <KStandardAction>
 #include <KStatusBar>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QTabWidget>
 #include <KConfigDialog>
 #include <KTextEdit>

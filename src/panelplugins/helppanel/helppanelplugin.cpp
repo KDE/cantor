@@ -20,7 +20,7 @@
 
 #include "helppanelplugin.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <KTextEdit>
 #include "cantor_macros.h"

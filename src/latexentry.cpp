@@ -31,7 +31,7 @@
 
 #include <QDebug>
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {

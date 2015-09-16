@@ -20,7 +20,7 @@
 
 #include "backendchoosedialog.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QIcon>
 #include <KIconLoader>
 

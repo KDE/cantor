@@ -29,7 +29,7 @@
 #include <QtXmlPatterns/QXmlQuery>
 #include <QtXmlPatterns/QXmlNamePool>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QIcon>
 
 #include <KMessageBox>

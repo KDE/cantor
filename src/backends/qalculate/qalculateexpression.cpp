@@ -47,7 +47,8 @@
 #include <KGlobal>
 #include <KMessageBox>
 #include <KColorScheme>
-#include <KLocale>
+#include <KLocalizedString>
+#include <QLocale>
 
 #include <QApplication>
 #include <QStack>
@@ -987,7 +988,7 @@ QSharedPointer<PrintOptions> QalculateExpression::printOptions()
 
     po->lower_case_e = true;
     po->base = QalculateSettings::base();
-    po->decimalpoint_sign = KLocale::global()->decimalSymbol().toLocal8Bit().data();
+    po->decimalpoint_sign = QLocale().decimalPoint().toLatin1();
 
     switch (QalculateSettings::minExp()) {
     case 0:

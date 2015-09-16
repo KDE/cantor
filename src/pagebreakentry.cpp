@@ -24,7 +24,7 @@
 #include <QTextCharFormat>
 #include <QPalette>
 #include <KColorScheme>
-#include <KLocale>
+#include <KLocalizedString>
 
 PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
   : WorksheetEntry(worksheet)

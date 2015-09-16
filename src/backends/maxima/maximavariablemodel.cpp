@@ -26,7 +26,7 @@
 #include "latexresult.h"
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 //command used to inspect a maxima variable. %1 is the name of that variable
 const QString MaximaVariableModel::inspectCommand=QLatin1String(":lisp($disp $%1)");

@@ -32,7 +32,7 @@
 
 #include <QUrl>
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <unistd.h>
 

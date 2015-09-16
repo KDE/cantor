@@ -25,7 +25,7 @@
 
 #include <KFileDialog>
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
     : WorksheetImageItem(parent), ResultItem(), m_height(0), m_movie(0)

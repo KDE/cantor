@@ -34,7 +34,7 @@
 #include <QObject>
 
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 ResultItem::ResultItem()

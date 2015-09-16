@@ -22,7 +22,7 @@
 
 #include <QDebug>
 
-#include <KLocale>
+#include <KLocalizedString>
 
 #include "pythonutils.h"
 

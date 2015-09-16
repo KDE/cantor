@@ -23,7 +23,7 @@
 #include "backend.h"
 #include "session.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QSignalSpy>
 
 void BackendTest::createSession()

@@ -24,7 +24,7 @@
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QIcon>
 #include <QMenu>
 #include <QDebug>

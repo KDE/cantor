@@ -23,7 +23,7 @@
 #include <QApplication>
 #include <KAboutData>
 #include <QCommandLineParser>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
 
 static const char description[] =

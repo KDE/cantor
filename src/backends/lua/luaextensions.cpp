@@ -19,7 +19,7 @@
  */
 
 #include "luaextensions.h"
-#include <KLocale>
+#include <KLocalizedString>
 
 #define LUA_EXT_CDTOR(name) Lua##name##Extension::Lua##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Lua##name##Extension::~Lua##name##Extension() {}

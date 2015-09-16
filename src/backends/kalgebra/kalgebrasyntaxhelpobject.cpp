@@ -19,7 +19,7 @@
 #include "kalgebrasyntaxhelpobject.h"
 #include "kalgebrasession.h"
 #include <analitzagui/operatorsmodel.h>
-#include <KLocale>
+#include <KLocalizedString>
 
 KAlgebraSyntaxHelpObject::KAlgebraSyntaxHelpObject(const QString& command, KAlgebraSession* session)
     : SyntaxHelpObject(command, session)

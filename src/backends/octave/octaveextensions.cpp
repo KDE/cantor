@@ -18,7 +18,7 @@
 */
 
 #include "octaveextensions.h"
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 #define OCTAVE_EXT_CDTOR(name) Octave##name##Extension::Octave##name##Extension(QObject* parent) : name##Extension(parent) {} \

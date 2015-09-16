@@ -21,7 +21,7 @@
 #include "textresult.h"
 #include "helpresult.h"
 #include "kalgebrasession.h"
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <analitza/expression.h>
 #include <analitza/expressionstream.h>

@@ -20,7 +20,7 @@
 
 #include "maximaextensions.h"
 #include <QStringList>
-#include <KLocale>
+#include <KLocalizedString>
 
 #define MAXIMA_EXTENSION_CONSTRUCTORS(name) Maxima##name##Extension::Maxima##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Maxima##name##Extension::~Maxima##name##Extension() {}

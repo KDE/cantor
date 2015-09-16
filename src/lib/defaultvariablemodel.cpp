@@ -20,7 +20,7 @@
 
 #include "defaultvariablemodel.h"
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include "extension.h"
 #include "backend.h"
 

@@ -22,7 +22,7 @@
 
 #include <config-cantor.h>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QIcon>
 #include <KParts/Event>
 #include <KPluginFactory>

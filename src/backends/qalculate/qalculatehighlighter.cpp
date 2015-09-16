@@ -25,7 +25,8 @@
 
 #include <KColorScheme>
 #include <KGlobal>
-#include <KLocale>
+#include <KLocalizedString>
+#include <QLocale>
 
 QalculateHighlighter::QalculateHighlighter(QObject* parent)
     : Cantor::DefaultHighlighter(parent)
@@ -55,7 +56,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
 
     CALCULATOR->beginTemporaryStopMessages();
 
-    const QString decimalSymbol = KLocale::global()->decimalSymbol();
+    const QString decimalSymbol = QLocale().decimalPoint();
 
     for ( int i = 0; i < words.size(); ++i, pos += count ) {
         count = words[i].size();

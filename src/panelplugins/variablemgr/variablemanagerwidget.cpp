@@ -28,7 +28,7 @@
 
 #include <QDialog>
 #include <QPushButton>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KIconLoader>
 #include <KFileDialog>

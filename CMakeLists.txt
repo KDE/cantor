@@ -25,6 +25,7 @@ find_package(KF5 REQUIRED
     Pty
     KIO
     XmlGui
+    I18n
     KDELibs4Support)
 
 include(FeatureSummary)

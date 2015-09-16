@@ -24,7 +24,7 @@
 
 #include <QUrl>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KMessageBox>
 #include <KFileDialog>

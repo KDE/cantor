@@ -20,7 +20,7 @@
 
 #include "sageextensions.h"
 #include <QStringList>
-#include <KLocale>
+#include <KLocalizedString>
 
 #define SAGE_EXTENSION_CONSTRUCTORS(name) Sage##name##Extension::Sage##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Sage##name##Extension::~Sage##name##Extension() {}

@@ -19,7 +19,7 @@
  */
 
 #include <KCompletion>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QUrl>
 #include <KUrlCompletion>
 
