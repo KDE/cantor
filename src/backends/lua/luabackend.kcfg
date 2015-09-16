@@ -4,11 +4,11 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="cantorrc"/>
-  <include>KStandardDirs</include>
+  <include>QStandardPaths</include>
   <group name="LuaBackend">
     <entry name="Path" type="Url">
       <label>Path to luajit command</label>
-      <default code="true">QUrl::fromLocalFile(KStandardDirs::findExe(QLatin1String("luajit")))</default>
+      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("luajit")))</default>
     </entry>
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>

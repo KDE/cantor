@@ -4,15 +4,15 @@
       xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile/>
-  <include>KStandardDirs</include>
+  <include>QStandardPaths</include>
   <group name="Cantor">
-    <entry name="LatexCommand" type="String">
+    <entry name="latexCommand" type="String">
       <label>Path to the latex executable</label>
-      <default code="true">KStandardDirs::findExe( QLatin1String("latex") )</default>
+      <default code="true">QStandardPaths::findExecutable( QLatin1String("latex") )</default>
     </entry>
-    <entry name="DvipsCommand" type="String">
+    <entry name="dvipsCommand" type="String">
       <label>Path to the dvips executable</label>
-      <default code="true">KStandardDirs::findExe( QLatin1String("dvips") )</default>
+      <default code="true">QStandardPaths::findExecutable( QLatin1String("dvips") )</default>
     </entry>
   </group>
 </kcfg>
