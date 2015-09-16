@@ -23,6 +23,7 @@ find_package(KF5 REQUIRED
     Archive
     Parts
     Pty
+    KIO
     KDELibs4Support)
 
 include(FeatureSummary)

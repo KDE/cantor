@@ -23,7 +23,7 @@
 // on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
- #include <KIO/NetAccess>
+#include <KIOCore/KIO/DeleteJob>
 #include "radaptor.h"
 #include "rcallbacks.h"
 #include "settings.h"
@@ -102,7 +102,7 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 RServer::~RServer()
 {
     //delete the directory with old plots
-    KIO::NetAccess::del(QUrl(m_tmpDir), NULL);
+    KIO::del(QUrl(m_tmpDir));
 }
 
 void RServer::initR()
