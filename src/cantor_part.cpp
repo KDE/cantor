@@ -62,9 +62,6 @@
 
 #include "settings.h"
 
-K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
-#include "cantor_part.moc"
-
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
 {
     m_showBackendHelp=0;
@@ -817,3 +814,6 @@ void CantorPart::showImportantStatusMessage(const QString& message)
     blockStatusBar();
     QTimer::singleShot(3000, this, SLOT(unblockStatusBar()));
 }
+
+K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
+#include "cantor_part.moc"
