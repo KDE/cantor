@@ -23,7 +23,7 @@
 #include <QAction>
 #include <QIcon>
 
-#include <KDialog>
+#include <QDialog>
 #include <KActionCollection>
 #include <QFileDialog>
 #include <KLocalizedString>

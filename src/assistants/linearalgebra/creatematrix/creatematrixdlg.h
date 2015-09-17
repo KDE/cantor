@@ -21,10 +21,10 @@
 #ifndef _CREATEMATRIXDLG_H
 #define _CREATEMATRIXDLG_H
 
-#include <KDialog>
+#include <QDialog>
 #include "ui_creatematrixdlg.h"
 
-class CreateMatrixDlg : public KDialog
+class CreateMatrixDlg : public QDialog
 {
   Q_OBJECT
   public:

@@ -22,7 +22,8 @@
 
 #include <QAction>
 
-#include <KDialog>
+#include <QDialog>
+#include <QPushButton>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"

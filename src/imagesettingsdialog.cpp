@@ -27,12 +27,14 @@
 #include "qimagereader.h"
 #include "qfiledialog.h"
 
-ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
+ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
 {
     QWidget *w = new QWidget(this);
     m_ui.setupUi(w);
-    setMainWidget(w);
-    setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply );
+
+    m_ui.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    m_ui.buttonBox->button(QDialogButtonBox::Apply)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
+    m_ui.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
 
     m_unitNames << i18n("(auto)") << i18n("px") << i18n("%");
 
@@ -55,9 +57,9 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : KDialog(parent)
     m_ui.printWidthInput->setSingleStep(1);
     m_ui.printHeightInput->setSingleStep(1);
 
-    connect(this, &ImageSettingsDialog::okClicked, this, &ImageSettingsDialog::sendChangesAndClose);
-    connect(this, &ImageSettingsDialog::applyClicked, this, &ImageSettingsDialog::sendChanges);
-    connect(this, &ImageSettingsDialog::cancelClicked, this, &ImageSettingsDialog::close);
+    connect(m_ui.buttonBox, &QDialogButtonBox::accepted, this, &ImageSettingsDialog::sendChangesAndClose);
+    connect(m_ui.buttonBox->button(QDialogButtonBox::Apply), &QPushButton::clicked, this, &ImageSettingsDialog::sendChanges);
+    connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &ImageSettingsDialog::close);
 
     connect(m_ui.openDialogButton, &QPushButton::clicked, this, &ImageSettingsDialog::openDialog);
     //connect(m_fileDialog, SIGNAL(accepted()), this, SLOT(updatePath()));
