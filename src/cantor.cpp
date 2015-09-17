@@ -29,7 +29,7 @@
 #include <KPluginLoader>
 #include <KMessageBox>
 #include <KStandardAction>
-#include <KStatusBar>
+#include <QStatusBar>
 #include <QIcon>
 #include <KLocalizedString>
 #include <QTabWidget>
