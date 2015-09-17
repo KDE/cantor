@@ -26,7 +26,7 @@
 #include <KEditToolBar>
 #include <QFileDialog>
 #include <KShortcutsDialog>
-#include <KLibLoader>
+#include <KPluginLoader>
 #include <KMessageBox>
 #include <KStandardAction>
 #include <KStatusBar>
