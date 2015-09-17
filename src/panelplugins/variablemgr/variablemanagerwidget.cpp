@@ -31,7 +31,7 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <KIconLoader>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KMessageBox>
 #include <KConfigGroup>
 
@@ -146,7 +146,7 @@ void VariableManagerWidget::clearVariables()
 
 void VariableManagerWidget::save()
 {
-    const QString file=KFileDialog::getSaveFileName(QUrl(),  QString(),  this);
+    const QString file=QFileDialog::getSaveFileName(this, i18n("Save"), QString(),  QString());
 
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
@@ -157,7 +157,7 @@ void VariableManagerWidget::save()
 
 void VariableManagerWidget::load()
 {
-    const QString file=KFileDialog::getOpenFileName(QUrl(),  QString(),  this);
+    const QString file=QFileDialog::getOpenFileName(this, i18n("Load file"), QString(),  QString());
 
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));

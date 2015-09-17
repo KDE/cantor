@@ -27,7 +27,7 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <KMessageBox>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KWindowConfig>
 #include <QAction>
 #include <KStandardAction>

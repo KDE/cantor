@@ -23,7 +23,7 @@
 #include "lib/result.h"
 #include "lib/animationresult.h"
 
-#include <KFileDialog>
+#include <QFileDialog>
 #include <QDebug>
 #include <KLocalizedString>
 
@@ -129,7 +129,7 @@ void AnimationResultItem::updateSize(const QSize& size)
 void AnimationResultItem::saveResult()
 {
     Cantor::Result* res = result();
-    const QString& filename=KFileDialog::getSaveFileName(QUrl(), res->mimeType(), worksheet()->worksheetView());
+    const QString& filename=QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
     qDebug()<<"saving result to "<<filename;
     res->save(filename);
 }

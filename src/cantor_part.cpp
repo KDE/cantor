@@ -30,7 +30,7 @@
 
 #include <QAction>
 #include <KActionCollection>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KStandardAction>
 #include <KZip>
 #include <KToggleAction>
@@ -402,7 +402,7 @@ void CantorPart::fileSaveAs()
         filter+=QLatin1Char('\n')+e->scriptFileFilter();
     }
 
-    QString file_name = KFileDialog::getSaveFileName(QUrl(), filter, widget());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save as"), QString(), filter);
     if (!file_name.isEmpty()) {
         if (!file_name.endsWith(QLatin1String(".cws")) &&
             !file_name.endsWith(QLatin1String(".mws")))
@@ -415,7 +415,7 @@ void CantorPart::fileSaveAs()
 
 void CantorPart::fileSavePlain()
 {
-    QString file_name = KFileDialog::getSaveFileName(QUrl(), QLatin1String(""), widget());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save"), QString(), QString());
     if (!file_name.isEmpty())
         m_worksheet->savePlain(file_name);
 }
@@ -425,7 +425,7 @@ void CantorPart::exportToLatex()
     // this slot is called whenever the File->Save As menu is selected,
     QString filter=i18n("*.tex|LaTeX Document");
 
-    QString file_name = KFileDialog::getSaveFileName(QUrl(), filter, widget());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Export to LaTeX"), QString(), QString());
 
     if (file_name.isEmpty() == false)
         m_worksheet->saveLatex(file_name);
