@@ -147,7 +147,7 @@ void ImageSettingsDialog::openDialog()
 
 void ImageSettingsDialog::updatePreview()
 {
-    m_ui.imagePreview->showPreview(QUrl(m_ui.pathEdit->text()));
+    m_ui.imagePreview->showPreview(QUrl::fromLocalFile(m_ui.pathEdit->text()));
 }
 
 void ImageSettingsDialog::updateInputWidgets()
