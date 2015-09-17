@@ -26,7 +26,7 @@
 #include <QIcon>
 #include <KParts/Event>
 #include <KPluginFactory>
-#include <KComponentData>
+#include <KAboutData>
 
 #include <QAction>
 #include <KActionCollection>
