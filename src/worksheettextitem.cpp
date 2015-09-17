@@ -271,10 +271,10 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
         QVariant var = cursor2.charFormat().property(EpsRenderer::Delimiter);
         QString delim;
         if (var.isValid())
-            delim = qVariantValue<QString>(var);
+            delim = var.value<QString>();
         else
             delim = QLatin1String("");
-        result += delim + qVariantValue<QString>(cursor2.charFormat().property(EpsRenderer::Code)) + delim;
+        result += delim + cursor2.charFormat().property(EpsRenderer::Code).value<QString>() + delim;
         cursor1.setPosition(cursor2.selectionEnd());
     }
 
