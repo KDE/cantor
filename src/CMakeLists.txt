@@ -39,7 +39,8 @@ file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
 ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui KF5::XmlGui cantorlibs cantor_config)
+target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui
+    KF5::XmlGui cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
@@ -94,6 +95,7 @@ set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFI
 
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
+		     KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
                      cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
