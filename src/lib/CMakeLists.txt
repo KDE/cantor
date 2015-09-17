@@ -62,6 +62,7 @@ kcoreaddons_desktop_to_json(cantorlibs cantor_backend.desktop)
 kcoreaddons_desktop_to_json(cantorlibs cantor_panelplugin.desktop)
 
 target_link_libraries( cantorlibs
+  KF5::Completion
   KF5::KDELibs4Support
   KF5::KIOCore
   KF5::Archive
