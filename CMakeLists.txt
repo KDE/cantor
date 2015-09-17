@@ -19,6 +19,7 @@ find_package(KF5 REQUIRED
     Config
     Completion
     NewStuff
+    IconThemes
     TextEditor
     CoreAddons
     Archive
