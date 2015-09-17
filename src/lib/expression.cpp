@@ -35,7 +35,6 @@ using namespace Cantor;
 #include <QString>
 
 #include <KProcess>
-#include <KTemporaryFile>
 #include <QDebug>
 #include <KZip>
 
