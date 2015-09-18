@@ -31,7 +31,6 @@ if(BUILD_TESTING)
  add_test(testoctave testoctave)
  ecm_mark_as_test(testoctave)
  target_link_libraries( testoctave
-   KF5::KDELibs4Support
    Qt5::Test
    cantorlibs
    cantortest

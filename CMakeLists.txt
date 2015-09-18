@@ -30,8 +30,7 @@ find_package(KF5 REQUIRED
     TextWidgets
     KIO
     XmlGui
-    I18n
-    KDELibs4Support)
+    I18n)
 
 include(FeatureSummary)
 include(ECMInstallIcons)
@@ -59,7 +58,6 @@ else(NOT WIN32)
     set(WITH_EPS Off)
 endif(NOT WIN32)
 
-include_directories(${KDE4_INCLUDES})
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 kde_enable_exceptions()
 

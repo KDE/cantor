@@ -17,6 +17,6 @@ ki18n_wrap_ui(KAlgebraBackend_SRCS settings.ui)
 
 add_backend(kalgebrabackend ${KAlgebraBackend_SRCS})
 
-target_link_libraries( cantor_kalgebrabackend KF5::Analitza KF5::AnalitzaGui KF5::KDELibs4Support)
+target_link_libraries( cantor_kalgebrabackend KF5::Analitza KF5::AnalitzaGui )
 
 install( FILES cantor_kalgebra.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
