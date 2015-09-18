@@ -381,7 +381,7 @@ void Worksheet::invalidateLastEntry()
 
 WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
 {
-    QGraphicsItem* item = itemAt(x, y);
+    QGraphicsItem* item = itemAt(x, y, QTransform());
     while (item && (item->type() <= QGraphicsItem::UserType ||
                     item->type() >= QGraphicsItem::UserType + 100))
         item = item->parentItem();
@@ -1058,7 +1058,7 @@ void Worksheet::populateMenu(QMenu *menu, const QPointF& pos)
     WorksheetEntry* entry = entryAt(pos);
     if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
         WorksheetTextItem* item =
-            qgraphicsitem_cast<WorksheetTextItem*>(itemAt(pos));
+            qgraphicsitem_cast<WorksheetTextItem*>(itemAt(pos, QTransform()));
         if (item && item->isEditable())
             m_lastFocusedTextItem = item;
     }
