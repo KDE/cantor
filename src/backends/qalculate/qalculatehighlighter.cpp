@@ -27,6 +27,7 @@
 #include <KGlobal>
 #include <KLocalizedString>
 #include <QLocale>
+#include <QDebug>
 
 QalculateHighlighter::QalculateHighlighter(QObject* parent)
     : Cantor::DefaultHighlighter(parent)
