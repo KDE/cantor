@@ -28,7 +28,7 @@
 #include "lib/latexrenderer.h"
 
 #include <QTextCursor>
-
+#include <QStandardPaths>
 #include <QDebug>
 #include <KGlobal>
 #include <KLocalizedString>

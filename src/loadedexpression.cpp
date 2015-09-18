@@ -28,6 +28,7 @@
 
 #include <KGlobal>
 #include <QDir>
+#include <QStandardPaths>
 
 LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session )
 {
