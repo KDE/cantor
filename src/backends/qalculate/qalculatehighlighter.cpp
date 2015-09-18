@@ -102,7 +102,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
                 format = numberFormat();
             }
         } else {
-            MathStructure expr = CALCULATOR->parse(words[i].toAscii().constData());
+            MathStructure expr = CALCULATOR->parse(words[i].toLatin1().constData());
             if ( expr.isNumber() || expr.isNumber_exp() ) {
                 qDebug() << "number";
                 format = numberFormat();

@@ -27,7 +27,7 @@ inline QString fromSource(const QString& resourceName)
 {
     QFile text(resourceName);
     text.open(QIODevice::ReadOnly);
-    return QString::fromAscii(text.readAll());
+    return QString::fromLatin1(text.readAll());
 }
 
 #endif

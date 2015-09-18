@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     }
 
     Python3Server server;
-    QDBusConnection::sessionBus().registerObject(QString::fromAscii("/"), &server, QDBusConnection::ExportAllSlots);
+    QDBusConnection::sessionBus().registerObject(QString::fromLatin1("/"), &server, QDBusConnection::ExportAllSlots);
 
     QTextStream(stdout) << "ready" << endl;
 
