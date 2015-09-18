@@ -25,6 +25,7 @@
 #include <KLocalizedString>
 #include <QIcon>
 #include <KParts/Event>
+#include <KParts/GUIActivateEvent>
 #include <KPluginFactory>
 #include <KAboutData>
 
