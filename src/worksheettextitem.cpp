@@ -39,7 +39,7 @@
 #include <KGlobalSettings>
 #include <KStandardAction>
 #include <QAction>
-#include <KColorDialog>
+#include <QColorDialog>
 #include <KColorScheme>
 #include <QFontDatabase>
 
@@ -815,11 +815,9 @@ void WorksheetTextItem::setTextForegroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.foreground().color();
 
-    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color(), worksheetView());
+    color = QColorDialog::getColor(color, worksheetView());
     if (!color.isValid())
         color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color();
-    if (result != QDialog::Accepted)
-        return;
 
     QTextCharFormat newFmt;
     newFmt.setForeground(color);
@@ -831,11 +829,9 @@ void WorksheetTextItem::setTextBackgroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.background().color();
 
-    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).background().color(), worksheetView());
+    color = QColorDialog::getColor(color, worksheetView());
     if (!color.isValid())
-        color = KColorScheme(QPalette::Active, KColorScheme::View).background().color() ;
-    if (result != QDialog::Accepted)
-        return;
+        color = KColorScheme(QPalette::Active, KColorScheme::View).background().color();
 
     QTextCharFormat newFmt;
     newFmt.setBackground(color);

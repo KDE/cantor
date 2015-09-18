@@ -40,7 +40,6 @@
 #include <KFontSizeAction>
 #include <KSelectAction>
 #include <KToggleAction>
-#include <KColorDialog>
 #include <KColorScheme>
 
 #include "config-cantor.h"
