@@ -33,7 +33,6 @@
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KXMLGUIFactory>
-#include <KGlobal>
 #include <KConfigGroup>
 #include <KSharedConfig>
 #include <KTextEditor/View>

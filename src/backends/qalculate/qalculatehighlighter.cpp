@@ -24,7 +24,6 @@
 #include <libqalculate/Unit.h>
 
 #include <KColorScheme>
-#include <KGlobal>
 #include <KLocalizedString>
 #include <QLocale>
 #include <QDebug>

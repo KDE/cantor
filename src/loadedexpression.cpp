@@ -26,7 +26,6 @@
 #include "lib/latexresult.h"
 #include "lib/animationresult.h"
 
-#include <KGlobal>
 #include <QDir>
 #include <QStandardPaths>
 

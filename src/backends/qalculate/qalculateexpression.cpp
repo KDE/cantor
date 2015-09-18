@@ -44,7 +44,6 @@
 #include <QDir>
 #include <QTemporaryFile>
 
-#include <KGlobal>
 #include <KMessageBox>
 #include <KColorScheme>
 #include <KLocalizedString>

@@ -30,7 +30,6 @@
 #include <QTextCursor>
 #include <QStandardPaths>
 #include <QDebug>
-#include <KGlobal>
 #include <KLocalizedString>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
