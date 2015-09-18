@@ -27,6 +27,7 @@ find_package(KF5 REQUIRED
     Archive
     Parts
     Pty
+    TextWidgets
     KIO
     XmlGui
     I18n
