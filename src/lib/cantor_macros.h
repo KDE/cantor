@@ -21,7 +21,6 @@
 #ifndef _CANTOR_MACROS_H
 #define _CANTOR_MACROS_H
 
-#include <kdemacros.h>
 #include <KPluginFactory>
 #include <KPluginLoader>
 
