@@ -10,6 +10,7 @@ set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODU
 find_package(Qt5 CONFIG REQUIRED
     Core
     Widgets
+    PrintSupport
     Svg
     Xml
     XmlPatterns

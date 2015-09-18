@@ -96,7 +96,7 @@ set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFI
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
 		     KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
-                     cantorlibs cantor_config )
+                     Qt5::PrintSupport cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
