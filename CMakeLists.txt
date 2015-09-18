@@ -19,6 +19,7 @@ find_package(Qt5 CONFIG REQUIRED
 find_package(KF5 REQUIRED
     Config
     Completion
+    DocTools
     NewStuff
     IconThemes
     TextEditor
