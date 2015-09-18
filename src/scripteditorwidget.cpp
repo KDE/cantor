@@ -35,6 +35,7 @@
 #include <KXMLGUIFactory>
 #include <KGlobal>
 #include <KConfigGroup>
+#include <KSharedConfig>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
 // #include <KTextEditor/EditorChooser>
