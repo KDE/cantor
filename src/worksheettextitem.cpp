@@ -36,7 +36,6 @@
 #include <QtGlobal>
 
 #include <QDebug>
-#include <KGlobalSettings>
 #include <KStandardAction>
 #include <QAction>
 #include <QColorDialog>

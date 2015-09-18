@@ -169,6 +169,8 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      */
     virtual QString nonSeparatingCharacters() const;
 
+    bool eventFilter(QObject *, QEvent *);
+
   private Q_SLOTS:
     void updateFormats();
 

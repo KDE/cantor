@@ -26,7 +26,6 @@
 #include <QTextCursor>
 #include <QGraphicsTextItem>
 #include <KColorScheme>
-#include <KGlobalSettings>
 #include <QDebug>
 #include <QStack>
 
@@ -92,7 +91,7 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     addPair(QLatin1Char('{'), QLatin1Char('}'));
 
     updateFormats();
-    connect(KGlobalSettings::self(), &KGlobalSettings::kdisplayPaletteChanged, this, &DefaultHighlighter::updateFormats);
+    installEventFilter(this);
 }
 
 DefaultHighlighter::~DefaultHighlighter()
@@ -308,6 +307,17 @@ QTextCharFormat DefaultHighlighter::matchingPairFormat() const
 QTextCharFormat DefaultHighlighter::mismatchingPairFormat() const
 {
     return d->mismatchingPairFormat;
+}
+
+bool DefaultHighlighter::eventFilter(QObject *obj, QEvent *event)
+{
+  Q_UNUSED(obj);
+
+  if (event->type() == QEvent::ApplicationPaletteChange) {
+    updateFormats();
+  }
+
+  return false; // always continue processing
 }
 
 void DefaultHighlighter::updateFormats()
