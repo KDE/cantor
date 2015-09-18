@@ -61,6 +61,7 @@ endif(NOT WIN32)
 
 include_directories(${KDE4_INCLUDES})
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+kde_enable_exceptions()
 
 add_subdirectory(doc)
 add_subdirectory(src)
