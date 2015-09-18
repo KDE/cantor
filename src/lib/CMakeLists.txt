@@ -66,6 +66,8 @@ target_link_libraries( cantorlibs
   KF5::KDELibs4Support
   KF5::IconThemes
   KF5::KIOCore
+  KF5::KIOFileWidgets
+  KF5::KIOWidgets
   KF5::Archive
   KF5::ConfigCore
   KF5::ConfigGui
