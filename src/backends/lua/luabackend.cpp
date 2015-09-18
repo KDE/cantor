@@ -21,7 +21,6 @@
 #include "luabackend.h"
 #include "luasession.h"
 #include "luaextensions.h"
-#include "kdebug.h"
 #include "cantor_macros.h"
 
 #include "settings.h"
