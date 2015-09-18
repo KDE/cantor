@@ -34,7 +34,6 @@
 
 #include <KMessageBox>
 #include <KActionCollection>
-#include <KShortcut>
 #include <QAction>
 #include <KFontAction>
 #include <KFontSizeAction>
