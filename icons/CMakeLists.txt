@@ -5,6 +5,7 @@ ecm_install_icons(ICONS
                   48-apps-cantor.png
                   64-apps-cantor.png
                   128-apps-cantor.png
+                  48-apps-kalgebrabackend.png
                   48-apps-luabackend.png
                   48-apps-maximabackend.png
                   48-apps-octavebackend.png

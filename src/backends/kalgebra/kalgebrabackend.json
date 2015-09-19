@@ -20,7 +20,7 @@
         "Description[uk]": "Модуль KAlgebra для Cantor. Надає вам змогу використовувати мову команд програми KAlgebra на робочих аркушах Cantor.", 
         "Description[x-test]": "xxKAlgebra backend for Cantor. Lets you use the same language you use in the KAlgebra application in Cantor worksheets.xx", 
         "Description[zh_CN]": "KAlgebra 的 Cantor 后端。可供您在 Cantor 工作表里使用和 KAlgebra 一致的语言。", 
-        "Icon": "kalgebra", 
+        "Icon": "kalgebrabackend", 
         "Id": "kalgebrabackend", 
         "License": "GPL", 
         "Name": "KAlgebra", 
