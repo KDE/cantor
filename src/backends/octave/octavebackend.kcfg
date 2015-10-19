@@ -8,7 +8,7 @@
   <group name="OctaveBackend">
     <entry name="Path" type="Url">
       <label>Path to the Octave executable</label>
-      <default code="true">QUrl::fromLocalFile(KStandardDirs::findExe( QLatin1String("octave") ))</default>
+      <default code="true">QUrl::fromLocalFile(KStandardDirs::findExe( QLatin1String("octave-cli") ))</default>
     </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
