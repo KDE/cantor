@@ -82,5 +82,5 @@ QStringList ImportPackageAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(importpackageassistant, ImportPackageAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(importpackageassistant, "importpackageassistant.json", registerPlugin<ImportPackageAssistant>();)
 #include "importpackageassistant.moc"

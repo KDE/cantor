@@ -23,10 +23,10 @@
 #include <QAction>
 #include <QIcon>
 
-#include <KDialog>
+#include <QDialog>
 #include <KActionCollection>
 #include <QFileDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QUrl>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -67,5 +67,5 @@ QStringList RunScriptAssistant::run(QWidget* parent)
     }
 }
 
-K_EXPORT_CANTOR_PLUGIN(runscriptassistant, RunScriptAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(runscriptassistant, "runscriptassistant.json", registerPlugin<RunScriptAssistant>();)
 #include "runscriptassistant.moc"

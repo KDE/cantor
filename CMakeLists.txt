@@ -10,6 +10,7 @@ set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODU
 find_package(Qt5 CONFIG REQUIRED
     Core
     Widgets
+    PrintSupport
     Svg
     Xml
     XmlPatterns
@@ -17,13 +18,19 @@ find_package(Qt5 CONFIG REQUIRED
 
 find_package(KF5 REQUIRED
     Config
+    Completion
+    DocTools
     NewStuff
+    IconThemes
     TextEditor
     CoreAddons
     Archive
     Parts
     Pty
-    KDELibs4Support)
+    TextWidgets
+    KIO
+    XmlGui
+    I18n)
 
 include(FeatureSummary)
 include(ECMInstallIcons)
@@ -51,8 +58,8 @@ else(NOT WIN32)
     set(WITH_EPS Off)
 endif(NOT WIN32)
 
-include_directories(${KDE4_INCLUDES})
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+kde_enable_exceptions()
 
 add_subdirectory(doc)
 add_subdirectory(src)

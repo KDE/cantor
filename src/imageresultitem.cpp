@@ -23,7 +23,8 @@
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 
-#include <KFileDialog>
+#include <KLocalizedString>
+#include <QFileDialog>
 #include <QDebug>
 
 ImageResultItem::ImageResultItem(QGraphicsObject* parent)
@@ -86,7 +87,7 @@ double ImageResultItem::height() const
 void ImageResultItem::saveResult()
 {
     Cantor::Result* res = result();
-    const QString& filename=KFileDialog::getSaveFileName(QUrl(), res->mimeType(), worksheet()->worksheetView());
+    const QString& filename=QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
     qDebug()<<"saving result to "<<filename;
     res->save(filename);
 }

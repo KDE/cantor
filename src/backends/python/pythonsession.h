@@ -31,7 +31,6 @@ class DefaultVariableModel;
 }
 
 class PythonExpression;
-class KTemporaryFile;
 class KDirWatch;
 class KProcess;
 

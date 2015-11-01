@@ -21,7 +21,6 @@
 #include "luabackend.h"
 #include "luasession.h"
 #include "luaextensions.h"
-#include "kdebug.h"
 #include "cantor_macros.h"
 
 #include "settings.h"
@@ -89,6 +88,5 @@ KConfigSkeleton* LuaBackend::config() const
     return LuaSettings::self();
 }
 
-K_EXPORT_CANTOR_PLUGIN(LuaBackend, LuaBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(luabackend, "luabackend.json", registerPlugin<LuaBackend>();)
 #include "luabackend.moc"

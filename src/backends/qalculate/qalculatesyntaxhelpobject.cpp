@@ -20,7 +20,7 @@
 #include "qalculatesyntaxhelpobject.h"
 #include "qalculatesession.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <libqalculate/Calculator.h>
 #include <libqalculate/ExpressionItem.h>

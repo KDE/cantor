@@ -21,12 +21,12 @@
 
 #include "defaulthighlighter.h"
 
+#include <QApplication>
 #include <QLocale>
 #include <QTextDocument>
 #include <QTextCursor>
 #include <QGraphicsTextItem>
 #include <KColorScheme>
-#include <KGlobalSettings>
 #include <QDebug>
 #include <QStack>
 
@@ -92,7 +92,8 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     addPair(QLatin1Char('{'), QLatin1Char('}'));
 
     updateFormats();
-    connect(KGlobalSettings::self(), &KGlobalSettings::kdisplayPaletteChanged, this, &DefaultHighlighter::updateFormats);
+    connect(qApp, SIGNAL(paletteChanged(QPalette)),
+            this, SLOT(updateFormats()));
 }
 
 DefaultHighlighter::~DefaultHighlighter()

@@ -19,7 +19,7 @@
  */
 
 #include "scilabextensions.h"
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <QDebug>
 

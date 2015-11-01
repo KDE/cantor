@@ -58,6 +58,5 @@ KConfigSkeleton* Python3Backend::config() const
     return PythonSettings::self();
 }
 
-K_EXPORT_CANTOR_PLUGIN(python3backend, Python3Backend)
-
+K_PLUGIN_FACTORY_WITH_JSON(python3backend, "python3backend.json", registerPlugin<Python3Backend>();)
 #include "python3backend.moc"

@@ -37,7 +37,7 @@
 #include <QBitmap>
 
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 struct AnimationData

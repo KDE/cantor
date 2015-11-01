@@ -20,7 +20,7 @@
 
 #include "helppanelplugin.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 
 #include <KTextEdit>
 #include "cantor_macros.h"
@@ -70,6 +70,5 @@ void HelpPanelPlugin::showHelp(const QString& help)
 
 
 
-K_EXPORT_CANTOR_PLUGIN(helppanelplugin, HelpPanelPlugin)
-
+K_PLUGIN_FACTORY_WITH_JSON(helppanelplugin, "helppanelplugin.json", registerPlugin<HelpPanelPlugin>();)
 #include "helppanelplugin.moc"

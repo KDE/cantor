@@ -29,7 +29,6 @@ namespace Cantor {
 }
 
 class ScilabExpression;
-class KTemporaryFile;
 class KDirWatch;
 class KProcess;
 

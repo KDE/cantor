@@ -39,7 +39,8 @@ file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
 ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
-target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui cantorlibs cantor_config)
+target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui
+    KF5::XmlGui cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
@@ -85,18 +86,20 @@ ki18n_wrap_ui(cantor_PART_SRCS extendedsearchbar.ui)
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 
-add_library(cantorpart MODULE ${cantor_PART_SRCS})
+kcoreaddons_add_plugin(cantorpart
+    SOURCES ${cantor_PART_SRCS}
+    JSON "cantor_part.json"
+    INSTALL_NAMESPACE ".")
+
 set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFIX}")
 
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
-                     cantorlibs cantor_config )
+		     KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
+                     Qt5::PrintSupport cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
-install( FILES cantor_part.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor )
 install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
-
-install(TARGETS cantorpart  DESTINATION ${KDE_INSTALL_PLUGINDIR} )

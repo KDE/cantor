@@ -52,7 +52,7 @@ void Python3Session::login()
     m_pProcess->waitForReadyRead();
     QTextStream stream(m_pProcess->readAllStandardOutput());
 
-    const QString& readyStatus = QString::fromAscii("ready");
+    const QString& readyStatus = QString::fromLatin1("ready");
     while (m_pProcess->state() == QProcess::Running)
     {
         const QString& rl = stream.readLine();
@@ -70,14 +70,14 @@ void Python3Session::login()
     const QString& serviceName = QString::fromLatin1("org.kde.Cantor.Python3-%1").arg(m_pProcess->pid());
 
     m_pIface =  new QDBusInterface(serviceName,
-                                   QString::fromAscii("/"), QString(), QDBusConnection::sessionBus());
+                                   QString::fromLatin1("/"), QString(), QDBusConnection::sessionBus());
     if (!m_pIface->isValid())
     {
         qWarning() << QDBusConnection::sessionBus().lastError().message();
         return;
     }
 
-    m_pIface->call(QString::fromAscii("login"));
+    m_pIface->call(QString::fromLatin1("login"));
 
     PythonSession::login();
 }
@@ -98,12 +98,12 @@ void Python3Session::interrupt()
 
 void Python3Session::runPythonCommand(const QString& command) const
 {
-    m_pIface->call(QString::fromAscii("runPythonCommand"), command);
+    m_pIface->call(QString::fromLatin1("runPythonCommand"), command);
 }
 
 void Python3Session::runPythonCommandAsync(const QString& command)
 {
-    m_pIface->callWithCallback(QString::fromAscii("runPythonCommand"), {command},
+    m_pIface->callWithCallback(QString::fromLatin1("runPythonCommand"), {command},
                                (Python3Session*)this,
                                SLOT(onResultReady()));
 }
@@ -125,7 +125,7 @@ void Python3Session::onResultReady()
 
 QString Python3Session::getOutput() const
 {
-    const QDBusReply<QString>& reply = m_pIface->call(QString::fromAscii("getOutput"));
+    const QDBusReply<QString>& reply = m_pIface->call(QString::fromLatin1("getOutput"));
     if (reply.isValid())
         return reply.value();
 
@@ -134,7 +134,7 @@ QString Python3Session::getOutput() const
 
 QString Python3Session::getError() const
 {
-    const QDBusReply<QString>& reply = m_pIface->call(QString::fromAscii("getError"));
+    const QDBusReply<QString>& reply = m_pIface->call(QString::fromLatin1("getError"));
     if (reply.isValid())
         return reply.value();
 

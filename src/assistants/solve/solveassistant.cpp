@@ -83,5 +83,5 @@ QStringList SolveAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(solveassistant, SolveAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(solveassistant, "solveassistant.json", registerPlugin<SolveAssistant>();)
 #include "solveassistant.moc"

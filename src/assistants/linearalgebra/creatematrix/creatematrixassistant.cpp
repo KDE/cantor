@@ -22,7 +22,8 @@
 
 #include <QAction>
 
-#include <KDialog>
+#include <QDialog>
+#include <QPushButton>
 #include <KActionCollection>
 #include "cantor_macros.h"
 #include "backend.h"
@@ -73,5 +74,5 @@ QStringList CreateMatrixAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(creatematrixassistant, CreateMatrixAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(creatematrixassistant, "creatematrixassistant.json", registerPlugin<CreateMatrixAssistant>();)
 #include "creatematrixassistant.moc"

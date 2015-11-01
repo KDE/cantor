@@ -21,7 +21,7 @@
 #include "panelplugin.h"
 using namespace Cantor;
 
-#include <KPluginInfo>
+#include <KPluginMetaData>
 #include <QDebug>
 
 class Cantor::PanelPluginPrivate
@@ -55,10 +55,10 @@ QWidget* PanelPlugin::parentWidget()
     return d->parentWidget;
 }
 
-void PanelPlugin::setPluginInfo(KPluginInfo info)
+void PanelPlugin::setPluginInfo(KPluginMetaData info)
 {
     d->name=info.name();
-    d->requiredExtensions=info.property(QLatin1String("RequiredExtensions")).toStringList();
+    d->requiredExtensions=info.value(QLatin1String("RequiredExtensions")).split(QLatin1Char(','));
 }
 
 

@@ -96,6 +96,5 @@ QString RBackend::description() const
                 "and R provides an Open Source route to participation in that activity.");
 }
 
-K_EXPORT_CANTOR_PLUGIN(rbackend, RBackend)
-
+K_PLUGIN_FACTORY_WITH_JSON(rbackend, "rbackend.json", registerPlugin<RBackend>();)
 #include "rbackend.moc"

@@ -1,5 +1,3 @@
-# find_package(KDE4 REQUIRED KIO KDIRWATCH)
-
 set( OctaveBackend_SRCS
 octavebackend.cpp
 octavesession.cpp
@@ -20,13 +18,12 @@ install(FILES octavebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(OctaveBackend_SRCS settings.ui)
 
-add_library(cantor_octavebackend MODULE ${OctaveBackend_SRCS} )
+add_backend(octavebackend ${OctaveBackend_SRCS})
+
 target_link_libraries(cantor_octavebackend
-    cantorlibs
     KF5::KIOCore
     KF5::ConfigCore
-    KF5::ConfigGui
-    )
+    KF5::ConfigGui)
 
 
 if(BUILD_TESTING)
@@ -34,7 +31,6 @@ if(BUILD_TESTING)
  add_test(testoctave testoctave)
  ecm_mark_as_test(testoctave)
  target_link_libraries( testoctave
-   KF5::KDELibs4Support
    Qt5::Test
    cantorlibs
    cantortest
@@ -42,5 +38,3 @@ if(BUILD_TESTING)
 endif(BUILD_TESTING)
 
 install(FILES cantor_octave.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
-install(FILES octavebackend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
-install(TARGETS cantor_octavebackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

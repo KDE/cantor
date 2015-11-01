@@ -18,7 +18,7 @@ add_custom_target(rautoloads COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURR
 
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} )
+target_link_libraries( cantor_rserver cantorlibs ${R_LIBRARIES} KF5::KIOCore)
 add_dependencies(cantor_rserver renvvars rautoloads)
 
 install(TARGETS cantor_rserver ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

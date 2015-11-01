@@ -13,10 +13,10 @@ endif(MSVC)
 include_directories(${PYTHON_LIBRARIES_DIR})
 include_directories(${PYTHON_INCLUDE_DIR})
 
-add_library(cantor_python2backend MODULE ${Python2Backend_SRCS})
+add_backend(python2backend ${Python2Backend_SRCS})
+
 target_link_libraries(cantor_python2backend
     ${PYTHON_LIBRARIES}
-    cantorlibs
     cantor_pythonbackend
     )
 
@@ -26,6 +26,4 @@ target_link_libraries(testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest)
 add_test(NAME testpython2 COMMAND testpython2)
 
 install(FILES cantor_python2.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
-install(FILES python2backend.desktop  DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
-install(TARGETS cantor_python2backend DESTINATION ${KDE_INSTALL_PLUGINDIR})
 install(FILES python2backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})

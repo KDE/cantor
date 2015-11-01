@@ -65,6 +65,5 @@ KConfigSkeleton* Python2Backend::config() const
     return PythonSettings::self();
 }
 
-K_EXPORT_CANTOR_PLUGIN(python2backend, Python2Backend)
-
+K_PLUGIN_FACTORY_WITH_JSON(python2backend, "python2backend.json", registerPlugin<Python2Backend>();)
 #include "python2backend.moc"

@@ -22,15 +22,16 @@
 
 #include <config-cantor.h>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QIcon>
 #include <KParts/Event>
+#include <KParts/GUIActivateEvent>
 #include <KPluginFactory>
-#include <KComponentData>
+#include <KAboutData>
 
 #include <QAction>
 #include <KActionCollection>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KStandardAction>
 #include <KZip>
 #include <KToggleAction>
@@ -46,6 +47,7 @@
 #include <QTextEdit>
 #include <QTimer>
 #include <QPrinter>
+#include <QPrintPreviewDialog>
 #include <QPrintDialog>
 #include <QVBoxLayout>
 
@@ -61,11 +63,6 @@
 #include "lib/worksheetaccess.h"
 
 #include "settings.h"
-
-K_PLUGIN_FACTORY(CantorPartFactory, registerPlugin<CantorPart>();)
-K_EXPORT_PLUGIN(CantorPartFactory("cantor"))
-
-#include "cantor_part.moc"
 
 
 //A concrete implementation of the WorksheetAccesssInterface
@@ -232,6 +229,9 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     QAction * print = KStandardAction::print(this, SLOT(print()), actionCollection());
     print->setPriority(QAction::LowPriority);
+
+    QAction * printPreview = KStandardAction::printPreview(this, SLOT(printPreview()), actionCollection());
+    printPreview->setPriority(QAction::LowPriority);
 
     KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
     KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());
@@ -464,7 +464,7 @@ void CantorPart::fileSaveAs()
         filter+=QLatin1Char('\n')+e->scriptFileFilter();
     }
 
-    QString file_name = KFileDialog::getSaveFileName(QUrl(), filter, widget());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save as"), QString(), filter);
     if (!file_name.isEmpty()) {
         if (!file_name.endsWith(QLatin1String(".cws")) &&
             !file_name.endsWith(QLatin1String(".mws")))
@@ -477,7 +477,7 @@ void CantorPart::fileSaveAs()
 
 void CantorPart::fileSavePlain()
 {
-    QString file_name = KFileDialog::getSaveFileName(QUrl(), QLatin1String(""), widget());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save"), QString(), QString());
     if (!file_name.isEmpty())
         m_worksheet->savePlain(file_name);
 }
@@ -487,7 +487,7 @@ void CantorPart::exportToLatex()
     // this slot is called whenever the File->Save As menu is selected,
     QString filter=i18n("*.tex|LaTeX Document");
 
-    QString file_name = KFileDialog::getSaveFileName(QUrl(), filter, widget());
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Export to LaTeX"), QString(), QString());
 
     if (file_name.isEmpty() == false)
         m_worksheet->saveLatex(file_name);
@@ -626,48 +626,55 @@ void CantorPart::loadAssistants()
 {
     qDebug()<<"loading assistants...";
 
-    KService::List services;
-    KServiceTypeTrader* trader = KServiceTypeTrader::self();
-
-    services = trader->query(QLatin1String("Cantor/Assistant"));
-
-    foreach (const KService::Ptr &service,   services)
-    {
-        QString error;
-
-        qDebug()<<"found service"<<service->name();
-        Cantor::Assistant* assistant=service->createInstance<Cantor::Assistant>(this,  QVariantList(),   &error);
-        if (assistant==0)
-        {
-            qDebug()<<"error loading assistant"<<service->name()<<":  "<<error;
-            continue;
-        }
-
-        qDebug()<<"created it";
-        Cantor::Backend* backend=worksheet()->session()->backend();
-        KPluginInfo info(service);
-        assistant->setPluginInfo(info);
-        assistant->setBackend(backend);
-
-        qDebug()<<"plugin "<<service->name()<<" requires "<<assistant->requiredExtensions();
-        bool supported=true;
-        foreach(const QString& req, assistant->requiredExtensions())
-            supported=supported && backend->extensions().contains(req);
-        qDebug()<<"plugin "<<service->name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
-
-        if(supported)
-        {
-            assistant->initActions();
-            //createGui(assistant);
-            connect(assistant, SIGNAL(requested()), this, SLOT(runAssistant()));
-        }else
-        {
-            removeChildClient(assistant);
-            assistant->deleteLater();
-        }
+    QStringList assistantDirs;
+    foreach(const QString &dir, QCoreApplication::libraryPaths()){
+        assistantDirs << dir + QDir::separator() + QLatin1String("cantor/assistants");
     }
 
+    QPluginLoader loader;
+    foreach(const QString &dir, assistantDirs){
 
+        qDebug() << "dir: " << dir;
+        QStringList assistants;
+        QDir assistantDir = QDir(dir);
+
+        assistants = assistantDir.entryList();
+
+        foreach (const QString &assistant, assistants){
+            loader.setFileName(dir + QDir::separator() + assistant);
+
+            if (!loader.load()){
+                qDebug() << "Error while loading assistant: " << assistant;
+                continue;
+            }
+
+            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
+            Cantor::Assistant* plugin = factory->create<Cantor::Assistant>(this);
+
+            Cantor::Backend* backend=worksheet()->session()->backend();
+
+            KPluginMetaData info(loader);
+            plugin->setPluginInfo(info);
+            plugin->setBackend(backend);
+
+            qDebug()<<"plugin "<<info.name()<<" requires "<<plugin->requiredExtensions();
+            bool supported=true;
+            foreach(const QString& req, plugin->requiredExtensions())
+                supported=supported && backend->extensions().contains(req);
+
+            qDebug()<<"plugin "<<info.name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
+
+            if(supported)
+            {
+                plugin->initActions();
+                connect(plugin, SIGNAL(requested()), this, SLOT(runAssistant()));
+            }else
+            {
+                removeChildClient(plugin);
+                plugin->deleteLater();
+            }
+        }
+    }
 }
 
 void CantorPart::runAssistant()
@@ -790,6 +797,13 @@ void CantorPart::print()
     delete dialog;
 }
 
+void CantorPart::printPreview()
+{
+    QPrintPreviewDialog *dialog = new QPrintPreviewDialog(widget());
+    connect(dialog, SIGNAL(paintRequested(QPrinter*)), m_worksheet, SLOT(print(QPrinter*)));
+    dialog->exec();
+}
+
 void CantorPart::showScriptEditor(bool show)
 {
     if(show)
@@ -862,3 +876,6 @@ void CantorPart::showImportantStatusMessage(const QString& message)
     blockStatusBar();
     QTimer::singleShot(3000, this, SLOT(unblockStatusBar()));
 }
+
+K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
+#include "cantor_part.moc"

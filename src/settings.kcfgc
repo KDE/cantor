@@ -1,5 +1,5 @@
 File=cantor.kcfg
 ClassName=Settings
 Singleton=true
-Visibility=KDE_EXPORT
+Visibility=Q_DECL_EXPORT
 Mutators=true

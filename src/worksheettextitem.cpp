@@ -36,10 +36,9 @@
 #include <QtGlobal>
 
 #include <QDebug>
-#include <KGlobalSettings>
 #include <KStandardAction>
 #include <QAction>
-#include <KColorDialog>
+#include <QColorDialog>
 #include <KColorScheme>
 #include <QFontDatabase>
 
@@ -271,10 +270,10 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
         QVariant var = cursor2.charFormat().property(EpsRenderer::Delimiter);
         QString delim;
         if (var.isValid())
-            delim = qVariantValue<QString>(var);
+            delim = var.value<QString>();
         else
             delim = QLatin1String("");
-        result += delim + qVariantValue<QString>(cursor2.charFormat().property(EpsRenderer::Code)) + delim;
+        result += delim + cursor2.charFormat().property(EpsRenderer::Code).value<QString>() + delim;
         cursor1.setPosition(cursor2.selectionEnd());
     }
 
@@ -815,11 +814,9 @@ void WorksheetTextItem::setTextForegroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.foreground().color();
 
-    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).foreground().color(), worksheetView());
+    color = QColorDialog::getColor(color, worksheetView());
     if (!color.isValid())
         color = KColorScheme(QPalette::Active, KColorScheme::View).foreground().color();
-    if (result != QDialog::Accepted)
-        return;
 
     QTextCharFormat newFmt;
     newFmt.setForeground(color);
@@ -831,11 +828,9 @@ void WorksheetTextItem::setTextBackgroundColor()
     QTextCharFormat fmt = textCursor().charFormat();
     QColor color = fmt.background().color();
 
-    int result = KColorDialog::getColor(color, KColorScheme(QPalette::Active, KColorScheme::View).background().color(), worksheetView());
+    color = QColorDialog::getColor(color, worksheetView());
     if (!color.isValid())
-        color = KColorScheme(QPalette::Active, KColorScheme::View).background().color() ;
-    if (result != QDialog::Accepted)
-        return;
+        color = KColorScheme(QPalette::Active, KColorScheme::View).background().color();
 
     QTextCharFormat newFmt;
     newFmt.setBackground(color);

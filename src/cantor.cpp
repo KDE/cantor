@@ -24,14 +24,14 @@
 #include <KActionCollection>
 #include <KConfig>
 #include <KEditToolBar>
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KShortcutsDialog>
-#include <KLibLoader>
+#include <KPluginLoader>
 #include <KMessageBox>
 #include <KStandardAction>
-#include <KStatusBar>
+#include <QStatusBar>
 #include <QIcon>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QTabWidget>
 #include <KConfigDialog>
 #include <KTextEdit>
@@ -188,7 +188,7 @@ void CantorShell::fileOpen()
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-    QUrl url = KFileDialog::getOpenUrl( QUrl(), i18n("*.cws|Cantor Worksheet"), this );
+    QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open file"), QUrl(), i18n("*.cws|Cantor Worksheet"));
 
     if (url.isEmpty() == false)
     {

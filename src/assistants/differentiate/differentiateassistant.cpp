@@ -83,5 +83,5 @@ QStringList DifferentiateAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(differentiateassistant, DifferentiateAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(differentiateassistant, "differentiateassistant.json", registerPlugin<DifferentiateAssistant>();)
 #include "differentiateassistant.moc"

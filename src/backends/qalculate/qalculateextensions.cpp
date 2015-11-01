@@ -23,7 +23,6 @@
 #include <libqalculate/Variable.h>
 
 #include <QStringList>
-#include <KLocale>
 
 #define QALCULATE_EXT_CDTOR(name) Qalculate##name##Extension::Qalculate##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                   Qalculate##name##Extension::~Qalculate##name##Extension() {}

@@ -42,7 +42,7 @@
 #include <QDesktopWidget>
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KColorScheme>
 
 const QString CommandEntry::Prompt=QLatin1String(">>> ");

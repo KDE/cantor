@@ -1,3 +1,15 @@
+function(add_backend name)
+
+    kcoreaddons_add_plugin("cantor_${name}"
+        SOURCES ${ARGN}
+        JSON "${name}.json"
+        INSTALL_NAMESPACE "cantor/backends")
+
+    target_link_libraries("cantor_${name}"
+        cantorlibs)
+
+endfunction()
+
 add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)
@@ -42,6 +54,11 @@ set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic pro
     TYPE OPTIONAL
     PURPOSE "Backend to use Python 2 with Cantor.")
 
+# If PythonInterp has been found (which it is indirectly by KF5I18n),
+# find_package(PythonLibs) will prefer that version over whatever
+# version information you pass the find_package call. Set a special
+# variable to override that:
+set(Python_ADDITIONAL_VERSIONS 2.7)
 find_package(PythonLibs 2.7)
 
 set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic programming language."

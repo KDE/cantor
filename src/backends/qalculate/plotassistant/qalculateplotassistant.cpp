@@ -305,5 +305,5 @@ QString QalculatePlotAssistant::plotCommand()
     return command;
 }
 
-K_EXPORT_CANTOR_PLUGIN(qalculateplotassistant, QalculatePlotAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(qalculateplotassistant, "qalculateplotassistant.json", registerPlugin<QalculatePlotAssistant>();)
 #include "qalculateplotassistant.moc"

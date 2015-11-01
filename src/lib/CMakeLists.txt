@@ -58,12 +58,21 @@ configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cant
 
 add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
 
+kcoreaddons_desktop_to_json(cantorlibs cantor_assistant.desktop)
+kcoreaddons_desktop_to_json(cantorlibs cantor_backend.desktop)
+kcoreaddons_desktop_to_json(cantorlibs cantor_panelplugin.desktop)
+
 target_link_libraries( cantorlibs
-  KF5::KDELibs4Support
+  KF5::Completion
+  KF5::IconThemes
   KF5::KIOCore
+  KF5::KIOFileWidgets
+  KF5::KIOWidgets
   KF5::Archive
   KF5::ConfigCore
   KF5::ConfigGui
+  KF5::I18n
+  KF5::XmlGui
   ${QT5_LIBRARIES}
   Qt5::Xml
 )
@@ -79,9 +88,5 @@ install( FILES ${cantor_LIB_HDRS}
   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/cantor
   COMPONENT Devel
 )
-
-install( FILES cantor_backend.desktop  DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
-install( FILES cantor_assistant.desktop  DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
-install( FILES cantor_panelplugin.desktop  DESTINATION ${KDE_INSTALL_KSERVICETYPES5DIR})
 
 add_subdirectory(test)

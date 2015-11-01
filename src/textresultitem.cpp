@@ -26,10 +26,10 @@
 
 #include <QTextCursor>
 
-#include <KFileDialog>
+#include <QFileDialog>
 #include <KStandardAction>
 #include <QAction>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 
 TextResultItem::TextResultItem(QGraphicsObject* parent)
@@ -153,7 +153,7 @@ void TextResultItem::toggleLatexCode()
 void TextResultItem::saveResult()
 {
     Cantor::Result* res = result();
-    const QString& filename = KFileDialog::getSaveFileName(QUrl(), res->mimeType(), worksheet()->worksheetView());
+    const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
     qDebug() << "saving result to " << filename;
     res->save(filename);
 }

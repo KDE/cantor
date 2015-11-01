@@ -5,14 +5,14 @@ set(PYTHONLIBS3_DEFINITIONS ${PYTHONLIBS3_CFLAGS_OTHER})
 find_path(PYTHONLIBS3_INCLUDE_DIR Python.h
           HINTS ${PYTHONLIBS3_INCLUDEDIR} ${PYTHONLIBS3_INCLUDE_DIRS})
 
-find_library(PYTHONLIBS3_LIBRARY NAMES python3.2m python3.3m python3.4m
+find_library(PYTHONLIBS3_LIBRARY NAMES python3.2m python3.3m python3.4m python3.5m
              HINTS ${PYTHONLIBS3_LIBDIR} ${PYTHONLIBS3_LIBRARY_DIRS} )
 
 set(PYTHONLIBS3_LIBRARIES ${PYTHONLIBS3_LIBRARY} )
 set(PYTHONLIBS3_INCLUDE_DIRS ${PYTHONLIBS3_INCLUDE_DIR} )
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Python3  DEFAULT_MSG
+find_package_handle_standard_args(PythonLibs3  DEFAULT_MSG
                                   PYTHONLIBS3_LIBRARY PYTHONLIBS3_INCLUDE_DIR)
 
 mark_as_advanced(PYTHONLIBS3_INCLUDE_DIR PYTHONLIBS3_LIBRARY)

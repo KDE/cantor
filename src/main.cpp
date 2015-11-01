@@ -22,7 +22,7 @@
 #include <QApplication>
 #include <KAboutData>
 #include <Kdelibs4ConfigMigrator>
-#include <KLocale>
+#include <KLocalizedString>
 #include <KConfigGroup>
 #include <QCommandLineParser>
 

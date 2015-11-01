@@ -19,13 +19,22 @@
  */
 
 #include "creatematrixdlg.h"
+#include <QPushButton>
 
-CreateMatrixDlg::CreateMatrixDlg(QWidget* parent) : KDialog(parent)
+CreateMatrixDlg::CreateMatrixDlg(QWidget* parent) : QDialog(parent)
 {
     m_base=new Ui::CreateMatrixAssistantBase;
     QWidget* mainW=new QWidget(this);
     m_base->setupUi(mainW);
-    setMainWidget(mainW);
+
+    QVBoxLayout *layout = new QVBoxLayout;
+    setLayout(layout);
+    layout->addWidget(mainW);
+
+    m_base->buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    m_base->buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+    connect(m_base->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(m_base->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
 
     connect(m_base->rows, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumRows);
     connect(m_base->columns, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &CreateMatrixDlg::changeNumCols);

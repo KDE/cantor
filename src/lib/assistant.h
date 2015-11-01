@@ -23,7 +23,7 @@
 
 #include <KXMLGUIClient>
 #include <QObject>
-#include <KPluginInfo>
+#include <KPluginMetaData>
 
 #include "cantor_export.h"
 
@@ -59,10 +59,10 @@ class CANTOR_EXPORT Assistant : public QObject, public KXMLGUIClient
 
     /**
      * Sets the properties of this Assistant
-     * accodring to KPluginInfo
-     * @param info KPluginInfo
+     * accodring to KPluginMetaData
+     * @param info KPluginMetaData
      */
-    void setPluginInfo(KPluginInfo info);
+    void setPluginInfo(KPluginMetaData info);
 
     /**
      * Returns a list of all extensions, the current backend

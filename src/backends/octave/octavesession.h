@@ -30,7 +30,6 @@ namespace Cantor {
 class DefaultVariableModel;
 }
 
-class KTemporaryFile;
 class KDirWatch;
 class OctaveExpression;
 class KProcess;

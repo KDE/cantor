@@ -112,6 +112,7 @@ protected Q_SLOTS:
     void enableTypesetting(bool enable);
     void showBackendHelp();
     void print();
+    void printPreview();
 
     void worksheetStatusChanged(Cantor::Session::Status stauts);
     void showSessionError(const QString& error);

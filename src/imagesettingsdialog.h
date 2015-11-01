@@ -21,7 +21,7 @@
 #ifndef IMAGESETTINGSDIALOG_H
 #define IMAGESETTINGSDIALOG_H
 
-#include <KDialog>
+#include <QDialog>
 
 #include <ui_imagesettings.h>
 
@@ -34,7 +34,7 @@ struct ImageSize
     int heightUnit;
 };
 
-class ImageSettingsDialog : public KDialog
+class ImageSettingsDialog : public QDialog
 {
     Q_OBJECT
   public:

@@ -20,7 +20,7 @@
 
 #include "rextensions.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 
 RScriptExtension::RScriptExtension(QObject* parent) : Cantor::ScriptExtension(parent)
 {

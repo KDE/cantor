@@ -82,5 +82,5 @@ QStringList Plot2dAssistant::run(QWidget* parent)
     return result;
 }
 
-K_EXPORT_CANTOR_PLUGIN(plot2dassistant, Plot2dAssistant)
+K_PLUGIN_FACTORY_WITH_JSON(plot2dassistant, "plot2dassistant.json", registerPlugin<Plot2dAssistant>();)
 #include "plot2dassistant.moc"

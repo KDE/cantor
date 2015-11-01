@@ -20,8 +20,9 @@
 
 #include "backendchoosedialog.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QIcon>
+#include <QPushButton>
 #include <KIconLoader>
 
 #include "lib/backend.h"
@@ -31,14 +32,23 @@ const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
                                                                  "<div>%2</div><br/>" \
                                                                  "<div>See <a href=\"%3\">%3</a> for more information</div>");
 
-BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
+BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 {
     QWidget* w=new QWidget(this);
     m_ui.setupUi(w);
+
+    QGridLayout *layout = new QGridLayout;
+    setLayout(layout);
+    layout->addWidget(w);
+
     m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
     m_ui.backendList->setSortingEnabled(true);
     connect(m_ui.backendList, &QListWidget::currentItemChanged, this, &BackendChooseDialog::updateDescription);
     connect(m_ui.backendList, &QListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
+
+    m_ui.buttonBox->button(QDialogButtonBox::Ok);
+    m_ui.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
+    m_ui.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
 
     foreach(Cantor::Backend* backend,  Cantor::Backend::availableBackends())
     {
@@ -56,7 +66,9 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : KDialog(parent)
             m_ui.backendList->setCurrentItem(item);
     }
 
-    setMainWidget(w);
+    connect(m_ui.buttonBox, &QDialogButtonBox::accepted, this, &BackendChooseDialog::accept);
+    connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &BackendChooseDialog::close);
+
     connect(this, &BackendChooseDialog::accepted, this, &BackendChooseDialog::onAccept);
 }
 
@@ -84,5 +96,3 @@ QString BackendChooseDialog::backendName()
 {
     return m_backend;
 }
-
-

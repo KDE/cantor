@@ -24,7 +24,7 @@ using namespace Cantor;
 #include <QImage>
 #include <QImageWriter>
 #include <KZip>
-#include <KMimeType>
+#include <QMimeDatabase>
 #include <QDebug>
 #include <KIO/Job>
 #include <QMovie>
@@ -79,9 +79,10 @@ int AnimationResult::type()
 
 QString AnimationResult::mimeType()
 {
-    KMimeType::Ptr type=KMimeType::findByUrl(d->url);
+    QMimeDatabase db;
+    QMimeType type = db.mimeTypeForUrl(d->url);
 
-    return type->name();
+    return type.name();
 }
 
 QDomElement AnimationResult::toXml(QDomDocument& doc)

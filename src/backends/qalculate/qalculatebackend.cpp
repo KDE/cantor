@@ -87,5 +87,5 @@ QWidget* QalculateBackend::settingsWidget(QWidget* parent) const
     return new QalculateSettingsWidget(parent);
 }
 
-K_EXPORT_CANTOR_PLUGIN(qalculatebackend, QalculateBackend)
+K_PLUGIN_FACTORY_WITH_JSON(qalculatebackend, "qalculatebackend.json", registerPlugin<QalculateBackend>();)
 #include "qalculatebackend.moc"

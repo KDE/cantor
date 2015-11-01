@@ -22,7 +22,7 @@
 #include <QGroupBox>
 #include <KLineEdit>
 #include <QFileDialog>
-#include <KLocale>
+#include <KLocalizedString>
 #include <QMouseEvent>
 
 RSettingsWidget::RSettingsWidget(QWidget *parent) : QWidget(parent)

@@ -24,16 +24,17 @@
 
 #include <QUrl>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <KMessageBox>
-#include <KFileDialog>
+#include <QFileDialog>
+#include <KWindowConfig>
 #include <QAction>
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KXMLGUIFactory>
-#include <KGlobal>
 #include <KConfigGroup>
+#include <KSharedConfig>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
 // #include <KTextEditor/EditorChooser>
@@ -73,7 +74,8 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
         setCentralWidget(m_editor);
         setupGUI(QSize(500,600), Default, QLatin1String("cantor_scripteditor.rc"));
         guiFactory()->addClient(m_editor);
-        restoreWindowSize(cg);
+
+        KWindowConfig::restoreWindowSize(this->windowHandle(), cg);
 
         connect(m_script, &KTextEditor::Document::modifiedChanged, this, &ScriptEditorWidget::updateCaption);
         connect(m_script, &KTextEditor::Document::documentUrlChanged, this, &ScriptEditorWidget::updateCaption);

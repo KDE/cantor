@@ -25,7 +25,9 @@ using namespace Cantor;
 #include <KService>
 #include <QDebug>
 #include <KXMLGUIFactory>
-#include <KPluginInfo>
+#include <KPluginFactory>
+#include <KPluginMetaData>
+#include <QDir>
 #include <QUrl>
 
 #include "extension.h"
@@ -116,28 +118,40 @@ QList<Backend*> Backend::availableBackends()
         return backendCache;
     }
 
-    KService::List services;
-    KServiceTypeTrader* trader = KServiceTypeTrader::self();
-    QString error;
-
-    services = trader->query(QLatin1String("Cantor/Backend"));
-
-    foreach (const KService::Ptr &service,  services)
-    {
-        Backend* backend=service->createInstance<Backend>(0, QVariantList(),  &error);
-        if(backend==0)
-        {
-            qDebug()<<"error: "<<error;
-            continue;
-        }
-
-        KPluginInfo info(service);
-        backend->d->name=info.name();
-        backend->d->comment=info.comment();
-        backend->d->icon=info.icon();
-        backend->d->url=info.website();
-        backendCache<<backend;
+    QStringList pluginDirs;
+    foreach(const QString &dir, QCoreApplication::libraryPaths()){
+        pluginDirs << dir + QDir::separator() + QLatin1String("cantor/backends");
     }
+
+    QPluginLoader loader;
+    foreach(const QString &dir, pluginDirs){
+
+        qDebug() << "dir: " << dir;
+        QStringList plugins;
+        QDir pluginDir = QDir(dir);
+
+        plugins = pluginDir.entryList();
+
+        foreach (const QString &plugin, plugins){
+            loader.setFileName(dir + QDir::separator() + plugin);
+
+            if (!loader.load()){
+                qDebug() << "Error while loading plugin: " << plugin;
+                continue;
+            }
+
+            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
+            Backend* backend = factory->create<Backend>();
+
+            KPluginMetaData info(loader);
+            backend->d->name=info.name();
+            backend->d->comment=info.description();
+            backend->d->icon=info.iconName();
+            backend->d->url=info.website();
+            backendCache<<backend;
+        }
+    }
+
     return backendCache;
 }
 

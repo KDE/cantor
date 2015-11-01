@@ -21,10 +21,9 @@ install(FILES qalculatebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(QalculateBackend_SRCS settings.ui)
 
-add_library( cantor_qalculatebackend MODULE ${QalculateBackend_SRCS} )
+add_backend(qalculatebackend ${QalculateBackend_SRCS})
+
 message(STATUS ${CLN_LIBRARIES})
 target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
 
 install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
-install( FILES qalculatebackend.desktop DESTINATION ${KDE_INSTALL_KSERVICES5DIR}/cantor)
-install(TARGETS cantor_qalculatebackend DESTINATION ${KDE_INSTALL_PLUGINDIR})

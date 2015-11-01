@@ -33,7 +33,7 @@
 #include <QDir>
 #include <QTemporaryFile>
 
-#include <KLocale>
+#include <KLocalizedString>
 #include <QDebug>
 #include <QTimer>
 #include <QRegExp>

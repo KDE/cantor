@@ -27,7 +27,7 @@
 #include <QGraphicsLinearLayout>
 
 #include <QDebug>
-#include <KLocale>
+#include <KLocalizedString>
 
 TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
@@ -234,7 +234,7 @@ void TextEntry::updateEntry()
         if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             qDebug() << "found a formula... rendering the eps...";
-            QUrl url=qVariantValue<QUrl>(format.property(EpsRenderer::ImagePath));
+            QUrl url=format.property(EpsRenderer::ImagePath).value<QUrl>();
             QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
             qDebug() << "rendering successful? " << s.isValid();
 
@@ -274,7 +274,7 @@ QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
 
 QString TextEntry::showLatexCode(QTextCursor cursor)
 {
-    QString latexCode = qVariantValue<QString>(cursor.charFormat().property(EpsRenderer::Code));
+    QString latexCode = cursor.charFormat().property(EpsRenderer::Code).value<QString>();
     cursor.deletePreviousChar();
     latexCode = QLatin1String("$$") + latexCode + QLatin1String("$$");
     cursor.insertText(latexCode);
