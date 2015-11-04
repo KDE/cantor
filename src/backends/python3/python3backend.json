@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for Python 3 Scientific Programming", 
+        "Description[ca@valencia]": "Dorsal per a la programació científica Python 3", 
         "Description[ca]": "Dorsal per a la programació científica Python 3", 
         "Description[cs]": "Podpůrná vrstva pro vědecké programovací v Python 3", 
         "Description[de]": "Modul für die wissenschaftliche Programmierumgebung Python 3", 
@@ -24,6 +25,7 @@
         "Id": "Python 3", 
         "License": "GPL", 
         "Name": "Python 3", 
+        "Name[ca@valencia]": "Python 3", 
         "Name[ca]": "Python 3", 
         "Name[cs]": "Python 3", 
         "Name[de]": "Python 3", 

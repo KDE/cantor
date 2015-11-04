@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify calculating derivatives of expressions", 
+        "Description[ca@valencia]": "Un diàleg assistent per simplificar els càlculs de derivades d'expressions", 
         "Description[ca]": "Un diàleg assistent per simplificar els càlculs de derivades d'expressions", 
         "Description[cs]": "Pomocný dialog pro zjednodušení derivace výrazů", 
         "Description[de]": "Ein Assistent, um die Berechnung von Ableitungen von Ausdrücken zu vereinfachen", 
@@ -24,6 +25,7 @@
         "Id": "Differentiate", 
         "License": "GPL", 
         "Name": "Differentiate", 
+        "Name[ca@valencia]": "Deriva", 
         "Name[ca]": "Deriva", 
         "Name[cs]": "Derivovat", 
         "Name[de]": "Differenzieren", 

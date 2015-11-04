@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "KAlgebra backend for Cantor. Lets you use the same language you use in the KAlgebra application in Cantor worksheets.", 
+        "Description[ca@valencia]": "Dorsal de KAlgebra per al Cantor. Vos permet utilitzar als fulls de treball del Cantor el mateix llenguatge que feu servir a l'aplicació KAlgebra.", 
         "Description[ca]": "Dorsal de KAlgebra per al Cantor. Us permet utilitzar als fulls de treball del Cantor el mateix llenguatge que feu servir a l'aplicació KAlgebra.", 
         "Description[cs]": "Podpůrná vrstva KAlgebra pro Cantor. Umožňuje v listech Cantoru používat stejný jazyk jako v KAlgebra.", 
         "Description[de]": "KAlgebra-Modul für Cantor. Damit können Sie für die Arbeitsblätter in Cantor dieselbe Sprache wie in KAlgebra verwenden.", 
@@ -24,6 +25,7 @@
         "Id": "kalgebrabackend", 
         "License": "GPL", 
         "Name": "KAlgebra", 
+        "Name[ca@valencia]": "KAlgebra", 
         "Name[ca]": "KAlgebra", 
         "Name[cs]": "KAlgebra", 
         "Name[de]": "KAlgebra", 

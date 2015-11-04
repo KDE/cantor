@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to simplify calculation of integrals", 
+        "Description[ca@valencia]": "Un diàleg assistent per simplificar els càlculs d'integrals", 
         "Description[ca]": "Un diàleg assistent per simplificar els càlculs d'integrals", 
         "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu integrálů", 
         "Description[de]": "Ein Assistent, um die Berechnung von Integralen zu vereinfachen", 
@@ -24,6 +25,7 @@
         "Id": "Integrate", 
         "License": "GPL", 
         "Name": "Integrate", 
+        "Name[ca@valencia]": "Integra", 
         "Name[ca]": "Integra", 
         "Name[cs]": "Integrovat", 
         "Name[de]": "Integrieren", 

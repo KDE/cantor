@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "An Assistant dialog to import a specific package (or library or module) to Cantor workspace", 
+        "Description[ca@valencia]": "Un diàleg d'assistència per importar un paquet específic (o biblioteca o mòdul) a l'espai de treball del Cantor", 
         "Description[ca]": "Un diàleg d'assistència per importar un paquet específic (o biblioteca o mòdul) a l'espai de treball del Cantor", 
         "Description[de]": "Ein Assistent, um ein angegebenes Paket, Bibliothek oder Modul in den Arbeitsbereich von Cantor zu importieren", 
         "Description[en_GB]": "An Assistant dialog to import a specific package (or library or module) to Cantor workspace", 
@@ -22,6 +23,7 @@
         "Id": "Import package", 
         "License": "GPL", 
         "Name": "Import Package", 
+        "Name[ca@valencia]": "Importació de paquet", 
         "Name[ca]": "Importació de paquet", 
         "Name[cs]": "Importovat balíček", 
         "Name[de]": "Paket importieren", 

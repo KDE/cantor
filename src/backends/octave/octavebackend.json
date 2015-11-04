@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for GNU Octave", 
+        "Description[ca@valencia]": "Un dorsal per al GNU Octave", 
         "Description[ca]": "Un dorsal per al GNU Octave", 
         "Description[cs]": "Podpůrná vrstva pro GNU Octave", 
         "Description[de]": "Modul für GNU Octave", 
@@ -24,6 +25,7 @@
         "Id": "Octave", 
         "License": "GPL", 
         "Name": "Octave", 
+        "Name[ca@valencia]": "Octave", 
         "Name[ca]": "Octave", 
         "Name[cs]": "Octave", 
         "Name[de]": "Octave", 

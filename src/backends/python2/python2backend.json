@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for Python 2 Scientific Programming", 
+        "Description[ca@valencia]": "Dorsal per a la programació científica Python2", 
         "Description[ca]": "Dorsal per a la programació científica Python2", 
         "Description[cs]": "Podpůrná vrstva pro vědecké programovací v Python 2", 
         "Description[de]": "Modul für die wissenschaftliche Programmierumgebung Python 2", 
@@ -24,6 +25,7 @@
         "Id": "Python 2", 
         "License": "GPL", 
         "Name": "Python 2", 
+        "Name[ca@valencia]": "Python 2", 
         "Name[ca]": "Python 2", 
         "Name[cs]": "Python 2", 
         "Name[de]": "Python 2", 

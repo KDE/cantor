@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "Backend for the Scilab Scientific Programming Environment", 
+        "Description[ca@valencia]": "Dorsal per a l'entorn de programació científic Scilab", 
         "Description[ca]": "Dorsal per a l'entorn de programació científic Scilab", 
         "Description[cs]": "Podpůrná vrstva pro vědecké programovací prostředí Scilab", 
         "Description[de]": "Modul für die wissenschaftliche Programmierumgebung Scilab", 
@@ -24,6 +25,7 @@
         "Id": "Scilab", 
         "License": "GPL", 
         "Name": "Scilab", 
+        "Name[ca@valencia]": "Scilab", 
         "Name[ca]": "Scilab", 
         "Name[cs]": "Scilab", 
         "Name[de]": "Scilab", 

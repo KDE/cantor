@@ -4,6 +4,7 @@
         "Id": "AdvancedPlot", 
         "License": "GPL", 
         "Name": "AdvancedPlot", 
+        "Name[ca@valencia]": "GràficAvançat", 
         "Name[ca]": "GràficAvançat", 
         "Name[cs]": "Pokročilý graf", 
         "Name[de]": "Erweitertes Plotten", 

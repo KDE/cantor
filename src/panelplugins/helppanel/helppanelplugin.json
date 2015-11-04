@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "A panel to display help", 
+        "Description[ca@valencia]": "Un plafó per mostrar les pàgines d'ajuda", 
         "Description[ca]": "Un plafó per mostrar les pàgines d'ajuda", 
         "Description[cs]": "Panel pro zobrazení nápovědy", 
         "Description[de]": "Eine Kontrollleiste zur Anzeige der Hilfe", 
@@ -24,6 +25,7 @@
         "Id": "HelpPanel", 
         "License": "GPL", 
         "Name": "Help", 
+        "Name[ca@valencia]": "Ajuda", 
         "Name[ca]": "Ajuda", 
         "Name[cs]": "Nápověda", 
         "Name[de]": "Hilfe", 

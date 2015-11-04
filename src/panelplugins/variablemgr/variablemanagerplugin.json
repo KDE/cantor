@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [], 
         "Description": "A panel to manage the variables of a session", 
+        "Description[ca@valencia]": "Un plafó per gestionar les variables d'una sessió", 
         "Description[ca]": "Un plafó per gestionar les variables d'una sessió", 
         "Description[cs]": "Panel pro správu proměnných sezení", 
         "Description[de]": "Eine Leiste, um Sitzungsvariablen zu verwalten", 
@@ -24,6 +25,7 @@
         "Id": "VariableManager", 
         "License": "GPL", 
         "Name": "Variable Manager", 
+        "Name[ca@valencia]": "Gestor de variables", 
         "Name[ca]": "Gestor de variables", 
         "Name[cs]": "Správce proměnných", 
         "Name[de]": "Variablen-Verwaltung", 
