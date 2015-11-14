@@ -36,9 +36,7 @@ static const char version[] = "0.6";
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
-
-    // TODO: for >=KF5.15 use KCrash::initialize();
-    KCrash::setCrashHandler(KCrash::defaultCrashHandler);
+    KCrash::initialize();
 
     // Migrating configuration from 4.x applications to KF5-based applications
     QStringList configFiles;
