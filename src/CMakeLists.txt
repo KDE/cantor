@@ -40,7 +40,7 @@ ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
 target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui
-    KF5::XmlGui cantorlibs cantor_config)
+    KF5::Crash KF5::XmlGui cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )

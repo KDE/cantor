@@ -21,6 +21,7 @@
 #include "cantor.h"
 #include <QApplication>
 #include <KAboutData>
+#include <KCrash>
 #include <Kdelibs4ConfigMigrator>
 #include <KLocalizedString>
 #include <KConfigGroup>
@@ -35,6 +36,9 @@ static const char version[] = "0.6";
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
+
+    // TODO: for >=KF5.15 use KCrash::initialize();
+    KCrash::setCrashHandler(KCrash::defaultCrashHandler);
 
     // Migrating configuration from 4.x applications to KF5-based applications
     QStringList configFiles;

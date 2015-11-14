@@ -18,6 +18,7 @@ find_package(Qt5 CONFIG REQUIRED
 
 find_package(KF5 REQUIRED
     Config
+    Crash
     Completion
     DocTools
     NewStuff
