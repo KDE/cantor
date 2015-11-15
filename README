@@ -1,30 +1,43 @@
-About This Application
+Cantor
 -=-=-=-=-=-=-=-=-=-=-=-=-=
 Cantor is a KDE Application aimed to provide a nice Interface
 for doing Mathematics and Scientific Computing. It doesn't implement
-its own Computation Logic, but instead is built around different 
+its own Computation Logic, but instead is built around different
 Backends.
 
 Available Backends
 -=-=-=-=-=-=-=-=-=-=-=-=-=
-- Sage Mathematics Software: http://www.sagemath.org
-- Maxima Computer Algebra System: http://maxima.sourceforge.net
-- R Project for Statistical Computing: http://www.r-project.org
-- KAlgebra: http://edu.kde.org/kalgebra/
+- KAlgebra for Calculation and Plotting: http://edu.kde.org/kalgebra/
+- Lua Programming Language: http://lua.org/
+- Maxima Computer Algebra System: http://maxima.sourceforge.net/
+- Octave for Numerical Computation: https://gnu.org/software/octave/
+- Python 2 Programming Language: http://python.org/
+- Python 3 Programming Language: http://python.org/
+- Qalculate Desktop Calculator: http://qalculate.sourceforge.net/
+- R Project for Statistical Computing: http://r-project.org/
+- Sage Mathematics Software: http://sagemath.org/
+- Scilab for Numerical Computation: http://scilab.org/
 
-How To Build This Application
+How To Build and Install Cantor
 -=-=-=-=-=-=-=-=-=-=-=-=-=
+To build and install Cantor, follow the steps below:
 
-cd <project_name_path>
+```
+cd cantor
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$KDEDIRS -DCMAKE_BUILD_TYPE=debugfull ..      <- do not forget the ..
+cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/install -DCMAKE_BUILD_TYPE=debugfull
 make
 make install or su -c 'make install'
+```
 
-to uninstall the project:
-make uninstall or su -c 'make uninstall'
+If `-DCMAKE_INSTALL_PREFIX` is not used, Cantor will be installed in
+root directory.
 
-Note: you can use another build path. Then cd in your build dir and:
-export KDE_SRC=path_to_your_src
-cmake $KDE_SRC -DCMAKE_INSTALL_PREFIX=$KDEDIR -DCMAKE_BUILD_TYPE=debugfull
+If you provide some `/path/to/install`, you must to configure the
+[`QT_PLUGIN_PATH`](http://doc.qt.io/qt-5/deployment-plugins.html#the-plugin-directory)
+environment variable in order to Cantor loads the plugins correctly.
+
+To uninstall the project:
+
+```make uninstall or su -c 'make uninstall'```
