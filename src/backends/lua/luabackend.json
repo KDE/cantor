@@ -25,6 +25,7 @@
         "Id": "Lua", 
         "License": "GPL", 
         "Name": "Lua", 
+        "Name[ast]": "Lua", 
         "Name[ca@valencia]": "Lua", 
         "Name[ca]": "Lua", 
         "Name[cs]": "Lua", 
