@@ -25,6 +25,7 @@
         "Id": "Sage", 
         "License": "GPL", 
         "Name": "Sage", 
+        "Name[ast]": "Sage", 
         "Name[ca@valencia]": "Sage", 
         "Name[ca]": "Sage", 
         "Name[cs]": "Sage", 

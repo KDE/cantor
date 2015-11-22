@@ -24,6 +24,7 @@
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Eigenvalues", 
+        "Name[ast]": "Eigenvalues", 
         "Name[ca@valencia]": "Valors propis (autovalors)", 
         "Name[ca]": "Valors propis (autovalors)", 
         "Name[cs]": "Vlastní čísla", 

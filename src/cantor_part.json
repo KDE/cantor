@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Name": "CantorPart", 
+        "Name[ast]": "CantorPart", 
         "Name[ca@valencia]": "CantorPart", 
         "Name[ca]": "CantorPart", 
         "Name[cs]": "CantorPart", 

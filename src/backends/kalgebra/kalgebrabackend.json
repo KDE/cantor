@@ -25,6 +25,7 @@
         "Id": "kalgebrabackend", 
         "License": "GPL", 
         "Name": "KAlgebra", 
+        "Name[ast]": "KAlgebra", 
         "Name[ca@valencia]": "KAlgebra", 
         "Name[ca]": "KAlgebra", 
         "Name[cs]": "KAlgebra", 

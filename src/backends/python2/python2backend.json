@@ -25,6 +25,7 @@
         "Id": "Python 2", 
         "License": "GPL", 
         "Name": "Python 2", 
+        "Name[ast]": "Python 2", 
         "Name[ca@valencia]": "Python 2", 
         "Name[ca]": "Python 2", 
         "Name[cs]": "Python 2", 

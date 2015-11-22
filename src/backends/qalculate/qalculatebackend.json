@@ -25,6 +25,7 @@
         "Id": "qalculatebackend", 
         "License": "GPL", 
         "Name": "Qalculate", 
+        "Name[ast]": "Qalculate", 
         "Name[ca@valencia]": "Qalculate", 
         "Name[ca]": "Qalculate", 
         "Name[cs]": "Qalculate", 

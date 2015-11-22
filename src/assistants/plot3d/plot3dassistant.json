@@ -24,6 +24,7 @@
         "Id": "Plot3d", 
         "License": "GPL", 
         "Name": "Plot3d", 
+        "Name[ast]": "Plot3d", 
         "Name[ca@valencia]": "Plot3d", 
         "Name[ca]": "Plot3d", 
         "Name[cs]": "Graf3d", 

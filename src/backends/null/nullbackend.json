@@ -24,6 +24,7 @@
         "Id": "nullbackend", 
         "License": "GPL", 
         "Name": "nullbackend", 
+        "Name[ast]": "nullbackend", 
         "Name[ca@valencia]": "DorsalNul", 
         "Name[ca]": "DorsalNul", 
         "Name[cs]": "žádná podpůrná vrstva", 

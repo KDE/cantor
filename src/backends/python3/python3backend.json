@@ -25,6 +25,7 @@
         "Id": "Python 3", 
         "License": "GPL", 
         "Name": "Python 3", 
+        "Name[ast]": "Python 3", 
         "Name[ca@valencia]": "Python 3", 
         "Name[ca]": "Python 3", 
         "Name[cs]": "Python 3", 

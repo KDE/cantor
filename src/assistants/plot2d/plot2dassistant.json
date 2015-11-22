@@ -24,6 +24,7 @@
         "Id": "Plot2d", 
         "License": "GPL", 
         "Name": "Plot2d", 
+        "Name[ast]": "Plot2d", 
         "Name[ca@valencia]": "Plot2d", 
         "Name[ca]": "Plot2d", 
         "Name[cs]": "Graf2d", 

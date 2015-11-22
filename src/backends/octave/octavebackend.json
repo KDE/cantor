@@ -25,6 +25,7 @@
         "Id": "Octave", 
         "License": "GPL", 
         "Name": "Octave", 
+        "Name[ast]": "Octave", 
         "Name[ca@valencia]": "Octave", 
         "Name[ca]": "Octave", 
         "Name[cs]": "Octave", 

@@ -24,6 +24,7 @@
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Eigenvectors", 
+        "Name[ast]": "Eigenvectors", 
         "Name[ca@valencia]": "Vectors propis (autovectors)", 
         "Name[ca]": "Vectors propis (autovectors)", 
         "Name[cs]": "Vlastní vektory", 

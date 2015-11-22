@@ -25,6 +25,7 @@
         "Id": "RunScript", 
         "License": "GPL", 
         "Name": "RunScript", 
+        "Name[ast]": "RunScript", 
         "Name[ca@valencia]": "ExecutaScript", 
         "Name[ca]": "ExecutaScript", 
         "Name[cs]": "Spustit skript", 

@@ -24,6 +24,7 @@
         "Id": "Plot2d", 
         "License": "GPL", 
         "Name": "QalculatePlot", 
+        "Name[ast]": "QalculatePlot", 
         "Name[ca@valencia]": "Gràfic de Qalculate", 
         "Name[ca]": "Gràfic de Qalculate", 
         "Name[cs]": "QalculatePlot", 
