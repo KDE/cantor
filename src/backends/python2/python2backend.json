@@ -22,6 +22,7 @@
         "Description[uk]": "Модуль наукового програмування мовою Python 2", 
         "Description[x-test]": "xxBackend for Python 2 Scientific Programmingxx", 
         "Description[zh_CN]": "Python 2 科学编程环境的后端", 
+        "Description[zh_TW]": "Python 2 科學程式環境的後端介面", 
         "Icon": "pythonbackend", 
         "Id": "Python 2", 
         "License": "GPL", 
@@ -47,6 +48,7 @@
         "Name[uk]": "Python 2", 
         "Name[x-test]": "xxPython 2xx", 
         "Name[zh_CN]": "Python 2", 
+        "Name[zh_TW]": "Python 2", 
         "ServiceTypes": [
             "Cantor/Backend"
         ], 
