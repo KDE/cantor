@@ -11,6 +11,7 @@
         "Description[gl]": "Infraestrutura de KAlgebra para Cantor. Permite empregar a mesma linguaxe que na aplicación KAlgebra nas fichas de Cantor.", 
         "Description[it]": "Backend KAlgebra per Cantor. Permette di usare in Cantor lo stesso linguaggio usato in KAlgebra.", 
         "Description[nl]": "Kalgebra backend voor Cantor. Het laat u dezelfde taal als in Kalgebra gebruiken in Cantor-werkbladen.", 
+        "Description[nn]": "KAlgebra-motor for Cantor. Lèt deg bruka same språk som du brukar i KAlgebra-program i Cantor-arbeidsark.", 
         "Description[pl]": "Silnik programu KAlgebra dla Cantor. Pozwala na użycie w arkuszach Cantor tego samego języka co w programie KAlgebra.", 
         "Description[pt]": "Infra-estrutura do KAlgebra para o Cantor. Permite-lhe usar a mesma linguagem que usa na aplicação KAlgebra nas folhas de cálculo do Cantor.", 
         "Description[pt_BR]": "Infraestrutura do KAlgebra para o Cantor. Permite-lhe usar a mesma linguagem usada no aplicativo KAlgebra, nas planilhas do Cantor.", 
