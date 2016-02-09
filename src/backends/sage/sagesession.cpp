@@ -194,7 +194,7 @@ void SageSession::readStdOut()
     {
         //try to guess the version of sage to determine
         //if we have to use the legacy commands or not.
-        QRegExp versionExp(QLatin1String("Sage+(|Math)\\s+Version\\s+(\\d+)\\.(\\d+)"));
+        QRegExp versionExp(QLatin1String("Sage(?:Math)?\\s+Version\\s+(\\d+)\\.(\\d+)"));
         int index=versionExp.indexIn(m_outputCache);
         if(index!=-1)
         {
