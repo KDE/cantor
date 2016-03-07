@@ -2,6 +2,7 @@
 Type=ServiceType
 X-KDE-ServiceType=Cantor/Backend
 Comment=A Backend for Cantor
+Comment[ast]=Un backend pa Cantor
 Comment[bg]=Ядро за Cantor
 Comment[bs]=Vrši računanje za Cantora
 Comment[ca]=Un dorsal per al Cantor
