@@ -45,7 +45,7 @@ Set( cantor_LIB_HDRS
   textresult.h
   #helper classes
   defaulthighlighter.h
-  defaultvariablemodel.h  
+  defaultvariablemodel.h
   worksheetaccess.h
 )
 
@@ -89,4 +89,6 @@ install( FILES ${cantor_LIB_HDRS}
   COMPONENT Devel
 )
 
-add_subdirectory(test)
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif()
