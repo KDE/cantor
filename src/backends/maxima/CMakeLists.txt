@@ -28,6 +28,8 @@ if(BUILD_TESTING)
     cantortest
     ${QTTEST_LIBRARY}
   )
+
+  add_test(NAME testmaxima COMMAND testmaxima)
 endif()
 
 install( FILES cantor_maxima.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
