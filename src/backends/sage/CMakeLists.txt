@@ -24,6 +24,8 @@ if(BUILD_TESTING)
     cantorlibs
     cantortest
   )
+
+  add_test(NAME testsage COMMAND testsage)
 endif()
 
 install( FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
