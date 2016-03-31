@@ -17,12 +17,16 @@ add_backend(sagebackend ${SageBackend_SRCS})
 
 target_link_libraries( cantor_sagebackend KF5::Pty)
 
-add_executable( testsage testsage.cpp)
-target_link_libraries( testsage
-  ${QT_QTTEST_LIBRARY}
-  cantorlibs
-  cantortest
-)
+if(BUILD_TESTING)
+  add_executable( testsage testsage.cpp)
+  target_link_libraries( testsage
+    ${QT_QTTEST_LIBRARY}
+    cantorlibs
+    cantortest
+  )
+
+  add_test(NAME testsage COMMAND testsage)
+endif()
 
 install( FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
 install( FILES keywords.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/sagebackend)

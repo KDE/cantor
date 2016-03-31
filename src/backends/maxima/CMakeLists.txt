@@ -21,12 +21,16 @@ if(NOT WIN32)
   target_link_libraries(cantor_maximabackend KF5::Pty)
 endif(NOT WIN32)
 
-add_executable( testmaxima testmaxima.cpp)
-target_link_libraries( testmaxima
-  cantorlibs
-  cantortest
-  ${QTTEST_LIBRARY}
-)
+if(BUILD_TESTING)
+  add_executable( testmaxima testmaxima.cpp)
+  target_link_libraries( testmaxima
+    cantorlibs
+    cantortest
+    ${QTTEST_LIBRARY}
+  )
+
+  add_test(NAME testmaxima COMMAND testmaxima)
+endif()
 
 install( FILES cantor_maxima.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
 install( FILES keywords.xml cantor-initmaxima.lisp DESTINATION ${KDE_INSTALL_DATADIR}/cantor/maximabackend)

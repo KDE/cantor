@@ -15,4 +15,7 @@ install(FILES cantor_python3.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
 install(FILES python3backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 add_subdirectory(python3server)
-add_subdirectory(tests)
+
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif()

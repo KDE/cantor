@@ -20,10 +20,12 @@ target_link_libraries(cantor_python2backend
     cantor_pythonbackend
     )
 
-add_executable(testpython2 testpython2.cpp)
-target_link_libraries(testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest)
+if(BUILD_TESTING)
+  add_executable(testpython2 testpython2.cpp)
+  target_link_libraries(testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest)
 
-add_test(NAME testpython2 COMMAND testpython2)
+  add_test(NAME testpython2 COMMAND testpython2)
+endif()
 
 install(FILES cantor_python2.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
 install(FILES python2backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
