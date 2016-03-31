@@ -19,6 +19,7 @@
  */
 
 #include "cantor.h"
+#include "config-cantor.h"
 #include <QApplication>
 #include <KAboutData>
 #include <KCrash>
@@ -29,9 +30,6 @@
 
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
-
-static const char version[] = "0.6";
-
 
 int main(int argc, char **argv)
 {
@@ -67,7 +65,7 @@ int main(int argc, char **argv)
 
     KAboutData about(QLatin1String("cantor"),
                      QLatin1String("Cantor"),
-                     QLatin1String(version),
+                     QLatin1String(CANTOR_VERSION),
                      i18n(description),
                      KAboutLicense::GPL,
                      i18n("(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"),

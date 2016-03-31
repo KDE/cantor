@@ -405,7 +405,7 @@ KAboutData& CantorPart::createAboutData()
 
     static KAboutData about(QLatin1String("cantorpart"),
                      QLatin1String("Cantor"),
-                     QLatin1String("0.5"),
+                     QLatin1String(CANTOR_VERSION),
                      i18n("CantorPart"),
                      KAboutLicense::GPL,
                      i18n("(C) 2009-2015 Alexander Rieder"),
