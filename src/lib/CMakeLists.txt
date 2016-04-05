@@ -58,9 +58,9 @@ configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cant
 
 add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
 
-kcoreaddons_desktop_to_json(cantorlibs cantor_assistant.desktop)
-kcoreaddons_desktop_to_json(cantorlibs cantor_backend.desktop)
-kcoreaddons_desktop_to_json(cantorlibs cantor_panelplugin.desktop)
+kcoreaddons_desktop_to_json(cantorlibs cantor_assistant.desktop DEFAULT_SERVICE_TYPE)
+kcoreaddons_desktop_to_json(cantorlibs cantor_backend.desktop DEFAULT_SERVICE_TYPE)
+kcoreaddons_desktop_to_json(cantorlibs cantor_panelplugin.desktop DEFAULT_SERVICE_TYPE)
 
 target_link_libraries( cantorlibs
   KF5::Completion
