@@ -177,7 +177,7 @@ class WorksheetEntry : public QGraphicsObject
     QSizeF m_size;
     WorksheetEntry* m_prev;
     WorksheetEntry* m_next;
-    Q_PROPERTY(QSizeF size READ size WRITE setSize);
+    Q_PROPERTY(QSizeF size READ size WRITE setSize)
     AnimationData* m_animation;
     ActionBar* m_actionBar;
     QPropertyAnimation* m_actionBarAnimation;

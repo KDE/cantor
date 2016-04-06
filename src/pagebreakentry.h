@@ -27,7 +27,7 @@ class WorksheetTextItem;
 
 class PageBreakEntry : public WorksheetEntry
 {
-  Q_OBJECT;
+  Q_OBJECT
 
   public:
     PageBreakEntry(Worksheet* worksheet);

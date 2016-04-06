@@ -38,7 +38,7 @@ class QMenu;
 
 class SearchBar : public QWidget
 {
-  Q_OBJECT;
+  Q_OBJECT
   public:
     SearchBar(QWidget* parent, Worksheet* worksheet);
     ~SearchBar();

@@ -33,7 +33,7 @@ class WorksheetImageItem;
 
 class ImageEntry : public WorksheetEntry
 {
-  Q_OBJECT;
+  Q_OBJECT
 
   public:
     ImageEntry(Worksheet* worksheet);

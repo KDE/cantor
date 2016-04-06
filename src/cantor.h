@@ -33,7 +33,7 @@ class KTextEdit;
 
 namespace Cantor{
 class WorksheetAccessInterface;
-};
+}
 
 /**
  * This is the application "Shell".  It has a menubar, toolbar, and

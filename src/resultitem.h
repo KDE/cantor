@@ -32,7 +32,7 @@
 
 namespace Cantor {
     class Result;
-};
+}
 
 class WorksheetEntry;
 

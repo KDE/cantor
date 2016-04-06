@@ -53,7 +53,7 @@ class ActionBar : public QGraphicsObject
     Worksheet* worksheet();
 
   private:
-    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity);
+    Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
     QList<WorksheetToolButton*> m_buttons;
     qreal m_pos;
     qreal m_height;
