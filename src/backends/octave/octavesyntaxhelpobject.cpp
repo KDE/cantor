@@ -36,7 +36,7 @@ OctaveSyntaxHelpObject::~OctaveSyntaxHelpObject()
 void OctaveSyntaxHelpObject::fetchInformation()
 {
     qDebug() << "Fetching syntax help for" << command();
-    QString expr = QString::fromLatin1("help(\"%1\")").arg(command());
+    QString expr = QString::fromLatin1("help('%1')").arg(command());
     m_expression = session()->evaluateExpression(expr);
     connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveSyntaxHelpObject::fetchingDone);
 }
