@@ -41,7 +41,7 @@ void OctaveCompletionObject::fetchCompletions()
     if (m_expression)
 	return;
     qDebug() << "Fetching completions for" << command();
-    QString expr = QString::fromLatin1("completion_matches(\"%1\")").arg(command());
+    QString expr = QString::fromLatin1("completion_matches('%1')").arg(command());
     m_expression = session()->evaluateExpression(expr);
     connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractCompletions);
 }
@@ -77,8 +77,7 @@ void OctaveCompletionObject::fetchIdentifierType()
     // The output should look like
     // sin is a built-in function
     // __cantor_tmp2__ = 5
-    QString expr = QString::fromLatin1("__cantor_internal1__ = ans; type(\"%1\"); __cantor_internal2__ = ans; ans = __cantor_internal1__; __cantor_internal2__")
-                                      .arg(identifier());
+    QString expr = QString::fromLatin1("ans = type('%1');ans").arg(identifier());
     m_expression = session()->evaluateExpression(expr);
     connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractIdentifierType);
 }
