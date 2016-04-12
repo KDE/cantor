@@ -23,6 +23,7 @@
         "Description[uk]": "Модуль GNU Octave", 
         "Description[x-test]": "xxBackend for GNU Octavexx", 
         "Description[zh_CN]": "GNU Octave 后端", 
+        "Description[zh_TW]": "GNU Octave 後端介面", 
         "Icon": "octavebackend", 
         "Id": "Octave", 
         "License": "GPL", 
@@ -50,6 +51,7 @@
         "Name[uk]": "Octave", 
         "Name[x-test]": "xxOctavexx", 
         "Name[zh_CN]": "Octave", 
+        "Name[zh_TW]": "Octave", 
         "ServiceTypes": [
             "Cantor/Backend"
         ], 

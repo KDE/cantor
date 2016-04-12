@@ -23,6 +23,7 @@
         "Description[uk]": "Панель керування змінними сеансу", 
         "Description[x-test]": "xxA panel to manage the variables of a sessionxx", 
         "Description[zh_CN]": "管理会话中变量的面板", 
+        "Description[zh_TW]": "管理工作階段內的變數的面板", 
         "Icon": "", 
         "Id": "VariableManager", 
         "License": "GPL", 
@@ -49,6 +50,7 @@
         "Name[uk]": "Керування змінними", 
         "Name[x-test]": "xxVariable Managerxx", 
         "Name[zh_CN]": "变量管理器", 
+        "Name[zh_TW]": "變數管理員", 
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

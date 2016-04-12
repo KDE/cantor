@@ -23,6 +23,7 @@
         "Description[uk]": "Діалогове вікно помічника у розв’язанні рівнянь", 
         "Description[x-test]": "xxAn Assistant dialog to simplify solving of equationsxx", 
         "Description[zh_CN]": "用于简化解方程式运算的助手对话框", 
+        "Description[zh_TW]": "簡化解方程式的小助手對話框", 
         "Icon": "dialog-ok", 
         "Id": "Solve", 
         "License": "GPL", 
@@ -49,6 +50,7 @@
         "Name[uk]": "Розв’язати", 
         "Name[x-test]": "xxSolvexx", 
         "Name[zh_CN]": "解方程式", 
+        "Name[zh_TW]": "解方程式", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]
