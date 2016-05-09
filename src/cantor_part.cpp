@@ -454,7 +454,7 @@ bool CantorPart::saveFile()
 void CantorPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected,
-    QString filter=i18n("*.cws|Cantor Worksheet");
+    QString filter=i18n("Cantor Worksheet (*.cws)");
 
     //if the backend supports scripts, also append their scriptFile endings to the filter
     Cantor::Backend * const backend=m_worksheet->session()->backend();
