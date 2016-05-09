@@ -1,6 +1,3 @@
-set(GENERIC_LIB_VERSION "0.6.0")
-set(GENERIC_LIB_SOVERSION "6")
-
 set( cantor_LIB_SRCS
   session.cpp
   expression.cpp
@@ -78,7 +75,7 @@ target_link_libraries( cantorlibs
 )
 
 set_target_properties( cantorlibs
-  PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION}
+  PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION ${KDE_APPLICATIONS_VERSION_MAJOR}
 )
 
 
