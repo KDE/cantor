@@ -137,11 +137,11 @@ void SageSession::login()
 void SageSession::logout()
 {
     qDebug()<<"logout";
-    interrupt();
+
     disconnect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
     m_process->pty()->write("exit\n");
 
-    m_process->deleteLater();
+    m_process->kill();
     //Run sage-cleaner to kill all the orphans
     KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<QLatin1String("-cleaner"));
 
