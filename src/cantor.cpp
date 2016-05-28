@@ -595,13 +595,3 @@ Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()
 
     return wa;
 }
-
-
-
-
-
-
-
-
-
-
