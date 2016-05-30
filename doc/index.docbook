@@ -27,7 +27,7 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2016-04-26</date>
+<date>2016-05-30</date>
 <releaseinfo>Applications 16.04</releaseinfo>
 
 <abstract>
@@ -340,13 +340,190 @@ to scientific programming.
 </sect3>
 </sect2>
 </sect1>
-<!--
 <sect1 id="assistant-dlgs">
 <title>The assistant dialogs</title>
-TODO add screenshots and descriptions of each assistant
+<para>
+There are several assistant dialogs implemented in &cantor; to alleviate some basic operations.
+</para>
+<para>
+These dialogs can be accessed using the main menu items. Each backend has its own assistant dialogs.
+</para>
+<sect2 id="create-matrix-dlg">
+<title>The Create Matrix dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; matrix creation dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="create-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; matrix creation dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog can be used to input matrices. You can define matrix dimensions and its elements.
+</para>
+<para>
+It is possible to navigate between cells quickly during input using the &Tab; key.
+</para>
+</sect2>
+<sect2 id="compute-invert-dlg">
+<title>Matrix operation dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; matrix input dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="matrix-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; matrix input dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering name of the matrix to compute its eigenvectors, eigenvalues or invert matrix. The default value (<userinput>%</userinput>) is used to refer to the previous result of calculation or input.
+</para>
+</sect2>
+<sect2 id="calculate-derivative-dlg">
+<title>Differentiation dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; differentiation dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="differentiate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; differentiation dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering expression of the function to differentiate, the name of the variable and the order of derivative.
+</para>
+</sect2>
+<sect2 id="calculate-integral-dlg">
+<title>Integration dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; integration dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="integrate-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; integration dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering expression of the function to integrate, the name of the variable and the limits of integration (for the definite integral).
+</para>
+</sect2>
+<sect2 id="calculate-solve-dlg">
+<title>Solve equations dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; solve equation dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="solve-equations-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; solve equation dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering equations to solve (each equation in a separate line) and the variables to determine (separated by the comma).
+</para>
+</sect2>
+<sect2 id="package-import-dlg">
+<title>Package import dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; package import dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="import-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; package import dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering name of the package to import (&eg; <userinput>numpy</userinput> for Python).
+</para>
+</sect2>
+<sect2 id="plot-dlg">
+<title>Plot dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; plot dialog (Functions tab)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg1.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; plot dialog (Functions tab)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+The options of this dialog are separated into two groups using tabs. The <guilabel>Functions</guilabel> tab allows entering functions to plot.
+</para>
+<para>
+To enter new function click on the <guibutton>Add</guibutton>. Double-click on the <guilabel>Title</guilabel> cell and enter the title, then double-click on the <guilabel>Expression</guilabel> cell and enter the function expression.
+</para>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; plot dialog (Options tab)</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot-dlg2.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; plot dialog (Options tab)</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+The <guilabel>Options</guilabel> tab is used to define plot and legend options. You can fine-tune almost every plot option to obtain the pleasant look of your figure.
+</para>
+</sect2>
+<sect2 id="plot2d-dlg">
+<title>Plot 2D dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; plot 2D dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot2d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; plot 2D dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering expression of the function, its variable and the limits for this variable.
+</para>
+</sect2>
+<sect2 id="plot3d-dlg">
+<title>Plot 3D dialog</title>
+<screenshot>
+  <screeninfo>Screenshot of the &cantor; plot 3D dialog</screeninfo>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="plot3d-dlg.png" format="PNG"/>
+    </imageobject>
+    <textobject>
+      <phrase>Screenshot of the &cantor; plot 3D dialog</phrase>
+    </textobject>
+  </mediaobject>
+</screenshot>
+<para>
+This dialog allows entering expression of the function, its variables and the limits for each variable.
+</para>
+</sect2>
 </sect1>
--->
 </chapter>
+
 <chapter id="commands">
 <title>Command Reference</title>
 
@@ -358,7 +535,7 @@ TODO add screenshots and descriptions of each assistant
 >Menu</ulink> chapter of the &kde; Fundamentals.
 </para>
 
-<para>Additional or special menu items in &cantor;:
+<para>Below is the list of the additional or special menu items in &cantor;. Please note that some menus are only shown for backends that have corresponding implementation.
 </para>
 
 <sect2 id="file-menu">
@@ -550,13 +727,125 @@ TODO add screenshots and descriptions of each assistant
 </para>
 </sect2>
 
-<!--FIXME
-Additional menus depending on backend?
-Linear Algebra Create Matrix Compute Eigenvalues Compute Eigenvectors Invert Matrix
-Calculate Differentiate Integrate Solve equation
-Plot Plot 2D Plot 3D
-Settings ??
--->
+<sect2 id="linear-algebra-menu">
+<title>The Linear Algebra Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Create Matrix</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="create-matrix-dlg">matrix creation assistant dialog</link>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Compute Eigenvalues</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="compute-invert-dlg">matrix name input assistant dialog</link> to compute its eigenvalues and dimensions of the multiplicities of the eigenvalues in the corresponding order.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Compute Eigenvectors</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="compute-invert-dlg">matrix name input assistant dialog</link> to compute its eigenvalues, dimensions of the multiplicities of the eigenvalues and eigenvectors in the corresponding order.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Linear Algebra</guimenu>
+<guimenuitem>Invert Matrix</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="compute-invert-dlg">matrix name input assistant dialog</link> to find the inverse of the matrix.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="calculate-menu">
+<title>The Calculate Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Calculate</guimenu>
+<guimenuitem>Differentiate</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="calculate-derivative-dlg">differentiation parameters dialog</link>.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Calculate</guimenu>
+<guimenuitem>Integrate</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="calculate-integral-dlg">integration parameters dialog</link>.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Calculate</guimenu>
+<guimenuitem>Solve equations</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="calculate-solve-dlg">parameters input dialog</link> to solve linear and non-linear equations.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="package-menu">
+<title>The Package Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Package</guimenu>
+<guimenuitem>Import Package</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="package-import-dlg">package import dialog</link>.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
+<sect2 id="plot-menu">
+<title>The Plot Menu</title>
+<para>
+<variablelist>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Plot</guimenu>
+<guimenuitem>Plot</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="plot-dlg">package import dialog</link>.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Plot</guimenu>
+<guimenuitem>Plot 2D</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="plot2d-dlg">package import dialog</link>.
+</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Plot</guimenu>
+<guimenuitem>Plot 3D</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Opens</action> the <link linkend="plot3d-dlg">package import dialog</link>.
+</para></listitem>
+</varlistentry>
+</variablelist>
+</para>
+</sect2>
+
 <sect2 id="settings-help-menu">
 <title>The Settings and Help Menu</title>
 <para>
