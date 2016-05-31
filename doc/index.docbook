@@ -823,7 +823,7 @@ This dialog allows entering expression of the function, its variables and the li
 <guimenu>Plot</guimenu>
 <guimenuitem>Plot</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens</action> the <link linkend="plot-dlg">package import dialog</link>.
+<listitem><para><action>Opens</action> the <link linkend="plot-dlg">plot parameters dialog</link>.
 </para></listitem>
 </varlistentry>
 <varlistentry>
@@ -831,7 +831,7 @@ This dialog allows entering expression of the function, its variables and the li
 <guimenu>Plot</guimenu>
 <guimenuitem>Plot 2D</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens</action> the <link linkend="plot2d-dlg">package import dialog</link>.
+<listitem><para><action>Opens</action> the <link linkend="plot2d-dlg">plot parameters dialog</link>.
 </para></listitem>
 </varlistentry>
 <varlistentry>
@@ -839,7 +839,7 @@ This dialog allows entering expression of the function, its variables and the li
 <guimenu>Plot</guimenu>
 <guimenuitem>Plot 3D</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Opens</action> the <link linkend="plot3d-dlg">package import dialog</link>.
+<listitem><para><action>Opens</action> the <link linkend="plot3d-dlg">plot parameters dialog</link>.
 </para></listitem>
 </varlistentry>
 </variablelist>
