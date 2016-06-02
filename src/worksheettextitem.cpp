@@ -180,7 +180,7 @@ void WorksheetTextItem::populateMenu(QMenu *menu, const QPointF& pos)
 QKeyEvent* WorksheetTextItem::eventForStandardAction(KStandardAction::StandardAction actionID)
 {
     // there must be a better way to get the shortcut...
-    QAction * action = KStandardAction::create(actionID, this, 0, this);
+    QAction * action = KStandardAction::create(actionID, this, SLOT(copy()), this);
     QKeySequence keySeq = action->shortcut();
     // we do not support key sequences with multiple keys here
     int code = keySeq[0];
