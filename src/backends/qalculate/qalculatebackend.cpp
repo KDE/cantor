@@ -17,12 +17,12 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
+#include "ui_settings.h"
+
 #include "settings.h"
 #include "qalculatebackend.h"
 #include "qalculatesession.h"
 #include "qalculateextensions.h"
-
-#include "settingswidget.h"
 
 #include "cantor_macros.h"
 
@@ -84,7 +84,11 @@ KConfigSkeleton* QalculateBackend::config() const
 
 QWidget* QalculateBackend::settingsWidget(QWidget* parent) const
 {
-    return new QalculateSettingsWidget(parent);
+    QWidget* widget = new QWidget(parent);
+    Ui::QalculateSettingsBase s;
+    s.setupUi(widget);
+
+    return widget;
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(qalculatebackend, "qalculatebackend.json", registerPlugin<QalculateBackend>();)

@@ -13,7 +13,6 @@ qalculateexpression.cpp
 qalculateextensions.cpp
 qalculatecompletionobject.cpp
 qalculateextensions.cpp
-settingswidget.cpp
 )
 
 kconfig_add_kcfg_files(QalculateBackend_SRCS settings.kcfgc)
