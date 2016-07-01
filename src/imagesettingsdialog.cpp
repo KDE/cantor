@@ -29,12 +29,18 @@
 
 ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
 {
-    QWidget *w = new QWidget(this);
+    QWidget* w = new QWidget(this);
     m_ui.setupUi(w);
+
+    QVBoxLayout* vLayout = new QVBoxLayout(this);
+    vLayout->setSpacing(0);
+    vLayout->setContentsMargins(0,0,0,0);
+    vLayout->addWidget(w);
 
     m_ui.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     m_ui.buttonBox->button(QDialogButtonBox::Apply)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogApplyButton));
     m_ui.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
+    m_ui.openDialogButton->setIcon(QApplication::style()->standardIcon(QStyle::SP_DirOpenIcon));
 
     m_unitNames << i18n("(auto)") << i18n("px") << i18n("%");
 
@@ -74,11 +80,6 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
     connect(m_ui.useDisplaySize, &QCheckBox::stateChanged, this, &ImageSettingsDialog::updatePrintingGroup);
 }
 
-ImageSettingsDialog::~ImageSettingsDialog()
-{
-
-}
-
 void ImageSettingsDialog::setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting)
 {
     m_ui.pathEdit->setText(file);
@@ -102,7 +103,6 @@ void ImageSettingsDialog::setData(const QString& file, const ImageSize& displayS
     updatePreview();
     updatePrintingGroup(useDisplaySizeForPrinting);
     //updateInputWidgets();
-
 }
 
 void ImageSettingsDialog::sendChangesAndClose()
@@ -123,21 +123,19 @@ void ImageSettingsDialog::sendChanges()
     printSize.widthUnit = m_ui.printWidthCombo->currentIndex();
     printSize.heightUnit = m_ui.printHeightCombo->currentIndex();
 
-    emit dataChanged
-	(m_ui.pathEdit->text(), displaySize, printSize,
-	 (m_ui.useDisplaySize->checkState() == Qt::Checked));
+    emit dataChanged(m_ui.pathEdit->text(), displaySize, printSize, m_ui.useDisplaySize->isChecked());
 }
 
 void ImageSettingsDialog::openDialog()
 {
-    QList<QByteArray> formats = QImageReader::supportedImageFormats();
+    const QList<QByteArray> formats = QImageReader::supportedImageFormats();
     QString formatString = QLatin1String("Images(");
     foreach(QByteArray format, formats)
     {
     formatString += QLatin1String("*.") + QString::fromLatin1(format).toLower() + QLatin1String(" ");
     }
     formatString += QLatin1String(")");
-    QString file = QFileDialog::getOpenFileName(this, i18n("Open image file"), m_ui.pathEdit->text(), formatString);
+    const QString file = QFileDialog::getOpenFileName(this, i18n("Open image file"), m_ui.pathEdit->text(), formatString);
     if (!file.isEmpty())
     {
 	m_ui.pathEdit->setText(file);
@@ -175,7 +173,6 @@ void ImageSettingsDialog::updateInputWidgets()
 
 void ImageSettingsDialog::updatePrintingGroup(int b)
 {
-
     m_ui.printWidthCombo->setEnabled(!b);
     m_ui.printHeightCombo->setEnabled(!b);
 

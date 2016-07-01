@@ -36,10 +36,9 @@ struct ImageSize
 
 class ImageSettingsDialog : public QDialog
 {
-    Q_OBJECT
+  Q_OBJECT
   public:
     ImageSettingsDialog(QWidget* parent);
-    ~ImageSettingsDialog();
 
     void setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
