@@ -24,10 +24,8 @@
 
 #include <QPointer>
 #include <KCompletionBox>
-#include <QGraphicsLinearLayout>
 
 #include "worksheetentry.h"
-#include "worksheettextitem.h"
 #include "lib/expression.h"
 
 class Worksheet;

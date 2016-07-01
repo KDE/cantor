@@ -20,24 +20,15 @@
  */
 
 #include "commandentry.h"
-#include "worksheet.h"
-#include "worksheettextitem.h"
 #include "resultitem.h"
 #include "loadedexpression.h"
-#include "settings.h"
-#include "lib/expression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/completionobject.h"
 #include "lib/syntaxhelpobject.h"
-#include "lib/defaulthighlighter.h"
 #include "lib/session.h"
 
-#include <QTextDocument>
-#include <QTextCursor>
-#include <QTextLine>
 #include <QToolTip>
-#include <QtGlobal>
 #include <QApplication>
 #include <QDesktopWidget>
 
@@ -69,11 +60,9 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluate()));
     connect(m_commandItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
     connect(m_commandItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
-    connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)),
-            worksheet, SLOT(highlightItem(WorksheetTextItem*)));
+    connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)), worksheet, SLOT(highlightItem(WorksheetTextItem*)));
     connect(m_promptItem, &WorksheetTextItem::drag, this, &CommandEntry::startDrag);
-    connect(worksheet, SIGNAL(updatePrompt()),
-            this, SLOT(updatePrompt()));
+    connect(worksheet, SIGNAL(updatePrompt()), this, SLOT(updatePrompt()));
 }
 
 CommandEntry::~CommandEntry()
@@ -186,8 +175,6 @@ Cantor::Expression* CommandEntry::expression()
 {
     return m_expression;
 }
-
-
 
 bool CommandEntry::acceptRichText()
 {
@@ -436,9 +423,10 @@ void CommandEntry::showCompletions()
         completeCommandTo(completion);
 
         QToolTip::showText(QPoint(), QString(), worksheetView());
-        if (m_completionBox)
-            m_completionBox->deleteLater();
-        m_completionBox = new KCompletionBox(worksheetView());
+        if (!m_completionBox)
+               m_completionBox = new KCompletionBox(worksheetView());
+
+        m_completionBox->clear();
         m_completionBox->setItems(m_completionObject->allMatches());
         QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
         if (!items.empty())
@@ -446,8 +434,7 @@ void CommandEntry::showCompletions()
         m_completionBox->setTabHandling(false);
         m_completionBox->setActivateOnSelect(true);
         connect(m_completionBox.data(), &KCompletionBox::activated, this, &CommandEntry::applySelectedCompletion);
-        connect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
-                SLOT(completedLineChanged()));
+        connect(m_commandItem->document(), SIGNAL(contentsChanged()), this, SLOT(completedLineChanged()));
         connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::updateCompletions);
 
         m_commandItem->activateCompletion(true);
@@ -461,7 +448,6 @@ void CommandEntry::showCompletions()
 
 bool CommandEntry::isShowingCompletionPopup()
 {
-
     return m_completionBox && m_completionBox->isVisible();
 }
 
@@ -511,21 +497,19 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
 {
     qDebug() << "completion: " << completion;
 
+    Cantor::CompletionObject::LineCompletionMode cmode;
     if (mode == FinalCompletion) {
+        cmode = Cantor::CompletionObject::FinalCompletion;
         Cantor::SyntaxHelpObject* obj = worksheet()->session()->syntaxHelpFor(completion);
         if(obj)
             setSyntaxHelp(obj);
     } else {
+        cmode = Cantor::CompletionObject::PreliminaryCompletion;
         if(m_syntaxHelpObject)
             m_syntaxHelpObject->deleteLater();
         m_syntaxHelpObject=0;
     }
 
-    Cantor::CompletionObject::LineCompletionMode cmode;
-    if (mode == PreliminaryCompletion)
-        cmode = Cantor::CompletionObject::PreliminaryCompletion;
-    else
-        cmode = Cantor::CompletionObject::FinalCompletion;
     m_completionObject->completeLine(completion, cmode);
 }
 
