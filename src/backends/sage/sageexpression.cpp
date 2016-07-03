@@ -243,8 +243,27 @@ void SageExpression::onProcessError(const QString& msg)
 
 QString SageExpression::additionalLatexHeaders()
 {
-    //The LaTeX sage provides needs the amsmath package. So include it in the header
-    return QLatin1String("\\usepackage{amsmath}\n");
+    //The LaTeX sage needs the amsmath package and some specific macros.
+    //So include them in the header.
+    //More about the macros requirement in bug #312738
+    return QLatin1String("\\usepackage{amsmath}\n"                   \
+                         "\\newcommand{\\ZZ}{\\Bold{Z}}\n"           \
+                         "\\newcommand{\\NN}{\\Bold{N}}\n"           \
+                         "\\newcommand{\\RR}{\\Bold{R}}\n"           \
+                         "\\newcommand{\\CC}{\\Bold{C}}\n"           \
+                         "\\newcommand{\\QQ}{\\Bold{Q}}\n"           \
+                         "\\newcommand{\\QQbar}{\\overline{\\QQ}}\n" \
+                         "\\newcommand{\\GF}[1]{\\Bold{F}_{#1}}\n"   \
+                         "\\newcommand{\\Zp}[1]{\\ZZ_{#1}}\n"        \
+                         "\\newcommand{\\Qp}[1]{\\QQ_{#1}}\n"        \
+                         "\\newcommand{\\Zmod}[1]{\\ZZ/#1\\ZZ}\n"    \
+                         "\\newcommand{\\CDF}{\\Bold{C}}\n"          \
+                         "\\newcommand{\\CIF}{\\Bold{C}}\n"          \
+                         "\\newcommand{\\CLF}{\\Bold{C}}\n"          \
+                         "\\newcommand{\\RDF}{\\Bold{R}}\n"          \
+                         "\\newcommand{\\RIF}{\\Bold{I} \\Bold{R}}\n"\
+                         "\\newcommand{\\RLF}{\\Bold{R}}\n"          \
+                         "\\newcommand{\\CFF}{\\Bold{CFF}}\n");
 }
 
 #include "sageexpression.moc"
