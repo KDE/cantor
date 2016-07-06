@@ -40,19 +40,19 @@ const QString CommandEntry::Prompt=QLatin1String(">>> ");
 const double CommandEntry::HorizontalSpacing = 4;
 const double CommandEntry::VerticalSpacing = 4;
 
-CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
+CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
+    m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
+    m_commandItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
+    m_resultItem(0),
+    m_errorItem(0),
+    m_expression(0),
+    m_completionObject(0),
+    m_syntaxHelpObject(0)
 {
-    m_expression = 0;
-    m_completionObject = 0;
-    m_syntaxHelpObject = 0;
 
-    m_promptItem = new WorksheetTextItem(this, Qt::NoTextInteraction);
     m_promptItem->setPlainText(Prompt);
     m_promptItem->setItemDragable(true);
-    m_commandItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
     m_commandItem->enableCompletion(true);
-    m_errorItem = 0;
-    m_resultItem = 0;
 
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
@@ -404,7 +404,7 @@ bool CommandEntry::focusEntry(int pos, qreal xCoord)
 void CommandEntry::setCompletion(Cantor::CompletionObject* tc)
 {
     if (m_completionObject)
-        removeContextHelp();
+        delete m_completionObject;
 
     m_completionObject = tc;
     connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::showCompletions);
@@ -599,13 +599,9 @@ void CommandEntry::removeResult()
 
 void CommandEntry::removeContextHelp()
 {
-    disconnect(m_commandItem->document(), SIGNAL(contentsChanged()), this,
-               SLOT(completedLineChanged()));
-    if(m_completionObject)
-        m_completionObject->deleteLater();
+    disconnect(m_commandItem->document(), SIGNAL(contentsChanged()), this, SLOT(completedLineChanged()));
 
     m_commandItem->activateCompletion(false);
-    m_completionObject = 0;
     if (m_completionBox)
         m_completionBox->hide();
 }
