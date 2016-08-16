@@ -1,0 +1,12 @@
+{
+    "KPlugin": {
+        "Dependencies": [],
+        "Description": "Julia backend for Cantor",
+        "Id": "Julia",
+        "Name": "Julia",
+        "ServiceTypes": [
+            "Cantor/Backend"
+        ],
+        "Website": "http://julialang.org/"
+    }
+}

@@ -14,6 +14,7 @@ add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)
 add_subdirectory(scilab)
+add_subdirectory(julia)
 
 if(NOT WIN32)
     add_subdirectory(sage)
