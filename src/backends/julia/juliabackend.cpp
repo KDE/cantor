@@ -32,6 +32,10 @@ JuliaBackend::JuliaBackend(QObject *parent, const QList<QVariant> &args)
     setEnabled(true);
 
     new JuliaVariableManagementExtension(this);
+    new JuliaPackagingExtension(this);
+    new JuliaPlotExtension(this);
+    new JuliaScriptExtension(this);
+    new JuliaLinearAlgebraExtension(this);
 }
 
 QString JuliaBackend::id() const
