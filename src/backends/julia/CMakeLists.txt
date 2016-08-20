@@ -5,6 +5,8 @@ set(JuliaBackend_SRCS
     juliabackend.cpp
     juliasession.cpp
     juliaexpression.cpp
+    juliakeywords.cpp
+    juliahighlighter.cpp
 )
 
 kconfig_add_kcfg_files(JuliaBackend_SRCS settings.kcfgc)
@@ -15,3 +17,4 @@ add_backend(juliabackend ${JuliaBackend_SRCS})
 target_link_libraries(cantor_juliabackend Qt5::DBus)
 
 install(FILES juliabackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
+install(FILES keywords.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/juliabackend)

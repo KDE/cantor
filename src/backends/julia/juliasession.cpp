@@ -27,6 +27,7 @@
 
 #include "juliaexpression.h"
 #include "settings.h"
+#include "juliahighlighter.h"
 
 JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
@@ -133,6 +134,12 @@ Cantor::CompletionObject *JuliaSession::completionFor(
     Q_UNUSED(command);
     Q_UNUSED(index);
     return nullptr;
+}
+
+QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)
+{
+    JuliaHighlighter *highlighter = new JuliaHighlighter(parent);
+    return highlighter;
 }
 
 void JuliaSession::runJuliaCommand(const QString &command) const

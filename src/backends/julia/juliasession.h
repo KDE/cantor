@@ -45,6 +45,8 @@ public:
         const QString &cmd,
         int index = -1) override;
 
+    virtual QSyntaxHighlighter *syntaxHighlighter(QObject *parent);
+
 private Q_SLOTS:
     void onResultReady();
 

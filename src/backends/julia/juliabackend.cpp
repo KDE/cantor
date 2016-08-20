@@ -43,7 +43,7 @@ Cantor::Session *JuliaBackend::createSession()
 
 Cantor::Backend::Capabilities JuliaBackend::capabilities() const
 {
-    return Cantor::Backend::Nothing;
+    return Cantor::Backend::SyntaxHighlighting;
 }
 
 QString JuliaBackend::description() const
