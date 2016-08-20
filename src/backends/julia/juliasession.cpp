@@ -33,6 +33,7 @@
 #include "juliakeywords.h"
 #include "juliaextensions.h"
 #include "juliabackend.h"
+#include "juliacompletionobject.h"
 
 JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
@@ -143,9 +144,7 @@ Cantor::CompletionObject *JuliaSession::completionFor(
     const QString &command,
     int index)
 {
-    Q_UNUSED(command);
-    Q_UNUSED(index);
-    return nullptr;
+    return new JuliaCompletionObject(command, index, this);
 }
 
 QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)

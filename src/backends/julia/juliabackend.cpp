@@ -51,7 +51,8 @@ Cantor::Session *JuliaBackend::createSession()
 Cantor::Backend::Capabilities JuliaBackend::capabilities() const
 {
     return Cantor::Backend::SyntaxHighlighting |
-        Cantor::Backend::VariableManagement;
+        Cantor::Backend::VariableManagement |
+        Cantor::Backend::Completion;
 }
 
 QString JuliaBackend::description() const

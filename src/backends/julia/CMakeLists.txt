@@ -8,6 +8,7 @@ set(JuliaBackend_SRCS
     juliakeywords.cpp
     juliahighlighter.cpp
     juliaextensions.cpp
+    juliacompletionobject.cpp
 )
 
 kconfig_add_kcfg_files(JuliaBackend_SRCS settings.kcfgc)

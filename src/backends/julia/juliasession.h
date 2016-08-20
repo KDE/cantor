@@ -24,6 +24,7 @@
 #include "session.h"
 
 class JuliaExpression;
+class JuliaCompletionObject;
 class KProcess;
 class QDBusInterface;
 namespace Cantor {
@@ -71,6 +72,7 @@ private:
     QMap<QString, QString> m_whos_cache;
 
     friend JuliaExpression;
+    friend JuliaCompletionObject;
 
     void runExpression(JuliaExpression *expression);
 
