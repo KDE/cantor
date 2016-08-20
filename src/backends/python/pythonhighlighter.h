@@ -36,7 +36,6 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
 
   protected:
     void highlightBlock(const QString& text);
-    QString nonSeparatingCharacters() const;
 
   private:
      QRegExp commentStartExpression;

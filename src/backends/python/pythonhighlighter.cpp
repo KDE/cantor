@@ -27,63 +27,118 @@
 PythonHighlighter::PythonHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
     qDebug() << "PythonHighlighter construtor";
-    addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
+    addRule(QRegExp(QLatin1String("\\b\\w+(?=\\()")), functionFormat());
 
     //Code highlighting the different keywords
     addKeywords(PythonKeywords::instance()->keywords());
-
-    addRule(QLatin1String("FIXME"), commentFormat());
-    addRule(QLatin1String("TODO"), commentFormat());
-
     addFunctions(PythonKeywords::instance()->functions());
     addVariables(PythonKeywords::instance()->variables());
-
-    addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
-    addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
-    addRule(QRegExp(QLatin1String("#[^\n]*")), commentFormat());
-
-    commentStartExpression = QRegExp(QLatin1String("'''[^\n]*"));
-    commentEndExpression = QRegExp(QLatin1String("'''"));
 }
 
 PythonHighlighter::~PythonHighlighter()
 {
 }
 
-void PythonHighlighter::highlightBlock(const QString& text)
+void PythonHighlighter::highlightBlock(const QString &text)
 {
-    qDebug() << "PythonHighlighter::highlightBlock";
-    qDebug() << "text: " << text;
-
-    if (skipHighlighting(text)){
-        qDebug() << "skipHighlighting(" << text << " ) " << "== true";
+    if (skipHighlighting(text)) {
         return;
     }
 
-    //Do some backend independent highlighting (brackets etc.)
+    // Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
 
-    setCurrentBlockState(0);
+    const int IN_MULTILINE_COMMENT = 1;
+    const int IN_SMALL_QUOTE_STRING = 2;
+    const int IN_SINGLE_QUOTE_STRING = 4;
+    const int IN_TRIPLE_QUOTE_STRING = 8;
 
-    int startIndex = 0;
-    if (previousBlockState() != 1)
-        startIndex = commentStartExpression.indexIn(text);
+    QRegExp multiLineCommentStartEnd(QLatin1String("'''"));
+    QRegExp smallQuoteStartEnd(QLatin1String("'"));
+    QRegExp singleQuoteStringStartEnd(QLatin1String("\""));
+    QRegExp tripleQuoteStringStartEnd(QLatin1String("\"\"\""));
+    QRegExp singleLineCommentStart(QLatin1String("#"));
 
-    while (startIndex >= 0) {
-
-        int endIndex = commentEndExpression.indexIn(text, startIndex);
-        int commentLength;
-        if (endIndex == -1) {
-
-            setCurrentBlockState(1);
-            commentLength = text.length() - startIndex;
-        } else {
-            commentLength = endIndex - startIndex
-                + commentEndExpression.matchedLength();
-        }
-        setFormat(startIndex,  commentLength,  commentFormat());
-        startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
+    int state = previousBlockState();
+    if (state == -1) {
+        state = 0;
     }
+
+    QList<int> flags = {
+        IN_TRIPLE_QUOTE_STRING,
+        IN_SINGLE_QUOTE_STRING,
+        IN_SMALL_QUOTE_STRING,
+        IN_MULTILINE_COMMENT
+    };
+    QList<QRegExp> regexps = {
+        tripleQuoteStringStartEnd,
+        singleQuoteStringStartEnd,
+        smallQuoteStartEnd,
+        multiLineCommentStartEnd
+    };
+    QList<QTextCharFormat> formats = {
+        stringFormat(),
+        stringFormat(),
+        stringFormat(),
+        commentFormat()
+    };
+
+    int pos = 0;
+    while (pos < text.length()) {
+        // Trying to close current environments
+        bool triggered = false;
+        for (int i = 0; i < flags.size() and not triggered; i++) {
+            int flag = flags[i];
+            QRegExp &regexp = regexps[i];
+            QTextCharFormat &format = formats[i];
+            if (state & flag) {
+                int new_pos = regexp.indexIn(text, pos);
+                int length;
+                if (new_pos == -1) {
+                    length = text.length() - pos;
+                } else {
+                    length = new_pos - pos + regexp.matchedLength();
+                    state -= flag;
+                }
+                setFormat(pos, length, format);
+                pos = pos + length;
+                triggered = true;
+            }
+        }
+        if (triggered) {
+            continue;
+        }
+
+        QRegExp *minRegexp = nullptr;
+        int minPos = INT_MAX;
+        int minIdx = -1;
+        for (int i = 0; i < regexps.size(); i++) {
+            QRegExp &regexp = regexps[i];
+            int newPos = regexp.indexIn(text, pos);
+            if (newPos != -1) {
+                minPos = qMin(minPos, newPos);
+                minRegexp = &regexp;
+                minIdx = i;
+            }
+        }
+
+        int singleLineCommentStartPos =
+        singleLineCommentStart.indexIn(text, pos);
+
+        if (singleLineCommentStartPos != -1
+            and singleLineCommentStartPos < minPos) {
+            setFormat(pos, text.length() - pos, commentFormat());
+        break;
+            } else if (minRegexp) {
+                state += flags[minIdx];
+                pos = minPos +  minRegexp->matchedLength();
+                setFormat(minPos, minRegexp->matchedLength(), formats[minIdx]);
+            } else {
+                break;
+            }
+    }
+
+    setCurrentBlockState(state);
 }
 
 void PythonHighlighter::updateHighlight()
@@ -92,10 +147,4 @@ void PythonHighlighter::updateHighlight()
 
     addVariables(PythonKeywords::instance()->variables());
     rehighlight();
-}
-
-QString PythonHighlighter::nonSeparatingCharacters() const
-{
-    qDebug() << "PythonHighlighter::nonSeparatingCharacters() function";
-    return QLatin1String("[%]");
 }
