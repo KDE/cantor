@@ -1,4 +1,5 @@
 add_subdirectory(juliaserver)
+add_subdirectory(tests)
 
 set(JuliaBackend_SRCS
     juliabackend.cpp
