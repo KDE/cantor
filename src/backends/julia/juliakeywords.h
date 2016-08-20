@@ -27,11 +27,23 @@ public:
     static JuliaKeywords *instance();
 
     const QStringList &keywords() const { return m_keywords; }
+
     const QStringList &variables() const { return m_variables; }
+    const QStringList &removedVariables() const { return m_removedVariables; }
+    void clearVariables();
+    void addVariable(const QString &variable);
+
+    const QStringList &functions() const { return m_functions; }
+    const QStringList &removedFunctions() const { return m_removedFunctions; }
+    void clearFunctions();
+    void addFunction(const QString &function);
 
 private:
     QStringList m_keywords;
     QStringList m_variables;
+    QStringList m_removedVariables;
+    QStringList m_functions;
+    QStringList m_removedFunctions;
 
     JuliaKeywords() {}
     ~JuliaKeywords() {}

@@ -25,15 +25,21 @@
 #include <QDBusReply>
 #include <QStandardPaths>
 
+#include "defaultvariablemodel.h"
+
 #include "juliaexpression.h"
 #include "settings.h"
 #include "juliahighlighter.h"
+#include "juliakeywords.h"
+#include "juliaextensions.h"
+#include "juliabackend.h"
 
 JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
     , m_process(nullptr)
     , m_interface(nullptr)
     , m_currentExpression(nullptr)
+    , m_variableModel(new Cantor::DefaultVariableModel(this))
 {
 }
 
@@ -89,12 +95,18 @@ void JuliaSession::login()
         JuliaSettings::self()->replPath().path()
     );
 
+    listVariables();
+
     emit ready();
 }
 
 void JuliaSession::logout()
 {
     m_process->terminate();
+
+    JuliaKeywords::instance()->clearVariables();
+    JuliaKeywords::instance()->clearFunctions();
+
     changeStatus(Cantor::Session::Done);
 }
 
@@ -139,6 +151,9 @@ Cantor::CompletionObject *JuliaSession::completionFor(
 QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)
 {
     JuliaHighlighter *highlighter = new JuliaHighlighter(parent);
+    QObject::connect(
+        this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight())
+    );
     return highlighter;
 }
 
@@ -161,6 +176,8 @@ void JuliaSession::onResultReady()
 {
     m_currentExpression->finalize();
     m_runningExpressions.removeAll(m_currentExpression);
+
+    listVariables();
 
     changeStatus(Cantor::Session::Done);
 }
@@ -193,6 +210,117 @@ bool JuliaSession::getWasException()
     const QDBusReply<bool> &reply =
         m_interface->call(QLatin1String("getWasException"));
     return reply.isValid() and reply.value();
+}
+
+void JuliaSession::listVariables()
+{
+    QStringList ignoredVariables;
+    ignoredVariables // These are tech variables of juliaserver
+        << QLatin1String("__originalSTDOUT__")
+        << QLatin1String("__originalSTDERR__");
+
+    auto rem_marker = QString::fromLatin1("\"%1\"")
+        .arg(JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER);
+
+    JuliaKeywords::instance()->clearVariables();
+    JuliaKeywords::instance()->clearFunctions();
+
+    QStringList processed_modules;
+    QStringList modules_to_process;
+    modules_to_process << QLatin1String("__GLOBAL__");
+
+    while (modules_to_process.size() > 0) {
+        auto module = modules_to_process.front();
+        modules_to_process.pop_front();
+        if (processed_modules.contains(module)) {
+            continue;
+        }
+        processed_modules << module;
+
+        QString whos_output;
+        if (module == QLatin1String("__GLOBAL__")) {
+            runJuliaCommand(QLatin1String("whos()"));
+            whos_output = getOutput();
+        } else {
+            auto it = m_whos_cache.find(module);
+            if (it == m_whos_cache.end()) {
+                runJuliaCommand(QString::fromLatin1("whos(%1)").arg(module));
+                whos_output = getOutput();
+                m_whos_cache[module] = whos_output;
+            } else {
+                whos_output = it.value();
+            }
+        }
+
+        QStringList batchCommands;
+        QStringList batchTypes;
+        QStringList batchNames;
+        for (auto line : whos_output.split(QLatin1String("\n"))) {
+            QString name =
+                line.simplified().split(QLatin1String(" ")).first().simplified();
+
+            if (name.isEmpty()) {
+                continue;
+            }
+
+            QString type =
+                line.simplified().split(QLatin1String(" ")).last().simplified();
+
+            if (ignoredVariables.contains(name)) {
+                continue;
+            }
+
+            if (type == QLatin1String("Module")) {
+                modules_to_process.append(name);
+                continue;
+            }
+
+            if (type == QLatin1String("Function")) {
+                JuliaKeywords::instance()->addFunction(name);
+                continue;
+            }
+
+            if (module != QLatin1String("__GLOBAL__")) {
+                continue; // Don't add variables not included on global scope
+            }
+
+            batchCommands << QString::fromLatin1("show(%1);").arg(name);
+            batchTypes << type;
+            batchNames << name;
+        }
+
+        if (batchCommands.isEmpty()) {
+            continue;
+        }
+
+        runJuliaCommand(
+            batchCommands.join(QLatin1String("print(\"__CANTOR_DELIM__\");"))
+        );
+        auto values = getOutput().split(QLatin1String("__CANTOR_DELIM__"));
+
+        for (int i = 0; i < values.size(); i++) {
+            auto value = values[i].simplified();
+            auto type = batchTypes[i];
+            auto name = batchNames[i];
+
+            if (type == QLatin1String("ASCIIString")) {
+                if (value == rem_marker) {
+                    m_variableModel->removeVariable(name);
+                    continue;
+                }
+            }
+
+            m_variableModel->addVariable(name, value);
+            JuliaKeywords::instance()->addVariable(name);
+        }
+    }
+
+    emit updateHighlighter();
+}
+
+QAbstractItemModel *JuliaSession::variableModel()
+{
+    return m_variableModel;
 }
 
 #include "juliasession.moc"

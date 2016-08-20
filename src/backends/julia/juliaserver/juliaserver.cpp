@@ -50,8 +50,8 @@ void JuliaServer::runJuliaCommand(const QString &command)
         qFatal("Unable to create temprorary files for stdout/stderr");
         return;
     }
-    jl_eval_string("const originalSTDOUT = STDOUT");
-    jl_eval_string("const originalSTDERR = STDERR");
+    jl_eval_string("const __originalSTDOUT__ = STDOUT");
+    jl_eval_string("const __originalSTDERR__ = STDERR");
     jl_eval_string(
         QString::fromLatin1("redirect_stdout(open(\"%1\", \"w\"))")
             .arg(output.fileName()).toLatin1().constData()
@@ -92,8 +92,18 @@ void JuliaServer::runJuliaCommand(const QString &command)
     }
     jl_eval_string("flush(STDOUT)");
     jl_eval_string("flush(STDERR)");
-    jl_eval_string("redirect_stdout(originalSTDOUT)");
-    jl_eval_string("redirect_stderr(originalSTDERR)");
+    jl_eval_string("redirect_stdout(__originalSTDOUT__)");
+    jl_eval_string("redirect_stderr(__originalSTDERR__)");
+
+    auto vars_to_remove = {
+        "__originalSTDOUT__", "__originalSTDERR__"
+    };
+    for (const auto &var : vars_to_remove) {
+        jl_eval_string(
+            QString::fromLatin1("%1 = 0").arg(QLatin1String(var))
+                .toLatin1().constData()
+        );
+    }
 
     m_output = QString::fromUtf8(output.readAll());
     m_error = QString::fromUtf8(error.readAll());

@@ -27,11 +27,9 @@
 JuliaHighlighter::JuliaHighlighter(QObject *parent)
     : Cantor::DefaultHighlighter(parent)
 {
-    addRule(QRegExp(QLatin1String("\\b\\w+(?=\\()")), functionFormat());
-
-    // Code highlighting the different keywords
     addKeywords(JuliaKeywords::instance()->keywords());
     addVariables(JuliaKeywords::instance()->variables());
+    addFunctions(JuliaKeywords::instance()->functions());
 }
 
 void JuliaHighlighter::highlightBlock(const QString &text)
@@ -145,7 +143,16 @@ void JuliaHighlighter::highlightBlock(const QString &text)
 
 void JuliaHighlighter::updateHighlight()
 {
+    for (const auto &var : JuliaKeywords::instance()->removedVariables()) {
+        removeRule(var);
+    }
+
+    for (const auto &func : JuliaKeywords::instance()->removedFunctions()) {
+        removeRule(func);
+    }
+
     addVariables(JuliaKeywords::instance()->variables());
+    addFunctions(JuliaKeywords::instance()->functions());
     rehighlight();
 }
 

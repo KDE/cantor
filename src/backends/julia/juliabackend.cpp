@@ -24,11 +24,14 @@
 #include "juliasession.h"
 #include "ui_settings.h"
 #include "settings.h"
+#include "juliaextensions.h"
 
 JuliaBackend::JuliaBackend(QObject *parent, const QList<QVariant> &args)
     : Cantor::Backend(parent, args)
 {
     setEnabled(true);
+
+    new JuliaVariableManagementExtension(this);
 }
 
 QString JuliaBackend::id() const
@@ -43,7 +46,8 @@ Cantor::Session *JuliaBackend::createSession()
 
 Cantor::Backend::Capabilities JuliaBackend::capabilities() const
 {
-    return Cantor::Backend::SyntaxHighlighting;
+    return Cantor::Backend::SyntaxHighlighting |
+        Cantor::Backend::VariableManagement;
 }
 
 QString JuliaBackend::description() const

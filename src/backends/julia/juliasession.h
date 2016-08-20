@@ -19,11 +19,16 @@
  */
 #pragma once
 
+#include <QMap>
+
 #include "session.h"
 
 class JuliaExpression;
 class KProcess;
 class QDBusInterface;
+namespace Cantor {
+    class DefaultVariableModel;
+}
 
 class JuliaSession: public Cantor::Session
 {
@@ -46,6 +51,10 @@ public:
         int index = -1) override;
 
     virtual QSyntaxHighlighter *syntaxHighlighter(QObject *parent);
+    virtual QAbstractItemModel *variableModel() override;
+
+Q_SIGNALS:
+    void updateHighlighter();
 
 private Q_SLOTS:
     void onResultReady();
@@ -56,6 +65,10 @@ private:
 
     QList<JuliaExpression *> m_runningExpressions;
     JuliaExpression *m_currentExpression;
+
+    Cantor::DefaultVariableModel *m_variableModel;
+
+    QMap<QString, QString> m_whos_cache;
 
     friend JuliaExpression;
 
@@ -68,4 +81,6 @@ private:
     QString getOutput();
     QString getError();
     bool getWasException();
+
+    void listVariables();
 };

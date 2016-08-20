@@ -84,3 +84,29 @@ void JuliaKeywords::loadFromFile()
         qWarning() << "Error parsing keywords.xml:" << xml.errorString();
     }
 }
+
+void JuliaKeywords::addVariable(const QString &variable)
+{
+    if (not m_variables.contains(variable)) {
+        m_variables << variable;
+    }
+}
+
+void JuliaKeywords::clearVariables()
+{
+    m_removedVariables = m_variables;
+    m_variables.clear();
+}
+
+void JuliaKeywords::addFunction(const QString &function)
+{
+    if (not m_functions.contains(function)) {
+        m_functions << function;
+    }
+}
+
+void JuliaKeywords::clearFunctions()
+{
+    m_removedFunctions == m_functions;
+    m_functions.clear();
+}
