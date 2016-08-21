@@ -24,16 +24,39 @@
 
 class JuliaSession;
 
+/**
+ * Implements code completion for Julia language
+ *
+ * Uses Julia's Base.REPL.REPLCompletions.completions command to get
+ * context-aware completions like in native Julia REPL
+ */
 class JuliaCompletionObject : public Cantor::CompletionObject
 {
 public:
+    /**
+     * Constructs JuliaCompletionObject
+     *
+     * @param cmd command piece to generate completion
+     * @param index index of cursor in commmand
+     * @param session current session
+     */
     JuliaCompletionObject(const QString &cmd, int index, JuliaSession *session);
     ~JuliaCompletionObject();
 
 protected:
+    /**
+     * @see Cantor::CompletionObject::mayIdentifierContain
+     */
     virtual bool mayIdentifierContain(QChar c) const;
     virtual bool mayIdentifierBeginWith(QChar c) const;
 
+    /**
+     * @see Cantor::CompletionObject::mayIdentifierBeginWith
+     */
+
 protected Q_SLOTS:
+    /**
+     * @see Cantor::CompletionObject::fetchCompletions
+     */
     void fetchCompletions();
 };

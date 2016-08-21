@@ -225,17 +225,20 @@ void JuliaSession::listVariables()
         << QLatin1String("__originalSTDOUT__")
         << QLatin1String("__originalSTDERR__");
 
+    // Wrapping removed marker to quotes
     auto rem_marker = QString::fromLatin1("\"%1\"")
         .arg(JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER);
 
+    // Clear current symbols
     JuliaKeywords::instance()->clearVariables();
     JuliaKeywords::instance()->clearFunctions();
 
-    QStringList processed_modules;
-    QStringList modules_to_process;
-    modules_to_process << QLatin1String("__GLOBAL__");
+    QStringList processed_modules; // modules we have processed
+    QStringList modules_to_process; // modules in queue
+    modules_to_process << QLatin1String("__GLOBAL__"); // starting from global
 
     while (modules_to_process.size() > 0) {
+        // Get from queue
         auto module = modules_to_process.front();
         modules_to_process.pop_front();
         if (processed_modules.contains(module)) {
@@ -243,6 +246,7 @@ void JuliaSession::listVariables()
         }
         processed_modules << module;
 
+        // Get whos(<module here>) output, maybe from cache
         QString whos_output;
         if (module == QLatin1String("__GLOBAL__")) {
             runJuliaCommand(QLatin1String("whos()"));
@@ -258,6 +262,8 @@ void JuliaSession::listVariables()
             }
         }
 
+        // In this lists we will collect symbols to apply `show` to them
+        // in one DBus call
         QStringList batchCommands;
         QStringList batchTypes;
         QStringList batchNames;
@@ -265,7 +271,7 @@ void JuliaSession::listVariables()
             QString name =
                 line.simplified().split(QLatin1String(" ")).first().simplified();
 
-            if (name.isEmpty()) {
+            if (name.isEmpty()) { // some empty line
                 continue;
             }
 
@@ -273,15 +279,18 @@ void JuliaSession::listVariables()
                 line.simplified().split(QLatin1String(" ")).last().simplified();
 
             if (ignoredVariables.contains(name)) {
+                // Ignored variable
                 continue;
             }
 
             if (type == QLatin1String("Module")) {
+                // Found module, place in queue
                 modules_to_process.append(name);
                 continue;
             }
 
             if (type == QLatin1String("Function")) {
+                // Found function
                 JuliaKeywords::instance()->addFunction(name);
                 continue;
             }
@@ -290,15 +299,17 @@ void JuliaSession::listVariables()
                 continue; // Don't add variables not included on global scope
             }
 
+            // Add to batch
             batchCommands << QString::fromLatin1("show(%1);").arg(name);
             batchTypes << type;
             batchNames << name;
         }
 
         if (batchCommands.isEmpty()) {
-            continue;
+            continue; // nothing to do
         }
 
+        // Run batched command
         runJuliaCommand(
             batchCommands.join(QLatin1String("print(\"__CANTOR_DELIM__\");"))
         );
@@ -311,11 +322,13 @@ void JuliaSession::listVariables()
 
             if (type == QLatin1String("ASCIIString")) {
                 if (value == rem_marker) {
+                    // This is removed variable
                     m_variableModel->removeVariable(name);
                     continue;
                 }
             }
 
+            // Register variable
             m_variableModel->addVariable(name, value);
             JuliaKeywords::instance()->addVariable(name);
         }

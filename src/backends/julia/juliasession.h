@@ -31,60 +31,143 @@ namespace Cantor {
     class DefaultVariableModel;
 }
 
+/**
+ * Implements a Cantor session for the Julia backend
+ *
+ * It communicates through DBus interface with JuliaServer
+ */
 class JuliaSession: public Cantor::Session
 {
     Q_OBJECT
 public:
+    /**
+     * Constructs session
+     *
+     * @param backend owning backend
+     */
     JuliaSession(Cantor::Backend *backend);
     virtual ~JuliaSession() {}
 
+    /**
+     * @see Cantor::Session::login
+     */
     virtual void login() override;
+
+    /**
+     * @see Cantor::Session::logout
+     */
     virtual void logout() override;
 
+    /**
+     * @see Cantor::Session::interrupt
+     */
     virtual void interrupt() override;
 
+    /**
+     * @see Cantor::Session::evaluateExpression
+     */
     virtual Cantor::Expression *evaluateExpression(
         const QString &command,
         Cantor::Expression::FinishingBehavior behave) override;
 
+    /**
+     * @see Cantor::Session::completionFor
+     */
     virtual Cantor::CompletionObject *completionFor(
         const QString &cmd,
         int index = -1) override;
 
+    /**
+     * @see Cantor::Session::syntaxHighlighter
+     */
     virtual QSyntaxHighlighter *syntaxHighlighter(QObject *parent);
+
+    /**
+     * @see Cantor::Session::variableModel
+     */
     virtual QAbstractItemModel *variableModel() override;
 
+    /**
+     * @return indicator if config says to integrate plots into worksheet
+     */
     bool integratePlots();
 
 Q_SIGNALS:
+    /**
+     * Emit this to update syntax highlighter
+     */
     void updateHighlighter();
 
 private Q_SLOTS:
+    /**
+     * Called when async call to JuliaServer is finished
+     */
     void onResultReady();
 
 private:
-    KProcess *m_process;
-    QDBusInterface *m_interface;
+    KProcess *m_process; //< process to run JuliaServer inside
+    QDBusInterface *m_interface; //< interface to JuliaServer
 
+    /// Expressions running at the moment
     QList<JuliaExpression *> m_runningExpressions;
-    JuliaExpression *m_currentExpression;
+    JuliaExpression *m_currentExpression; //< current expression
 
+    /// Variable management model
     Cantor::DefaultVariableModel *m_variableModel;
 
+    /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
 
     friend JuliaExpression;
     friend JuliaCompletionObject;
 
+    /**
+     * Runs Julia expression
+     *
+     * @param expression expression to run
+     */
     void runExpression(JuliaExpression *expression);
 
+    /**
+     * Runs Julia piece of code in synchronous mode
+     *
+     * @param command command to execute
+     */
     void runJuliaCommand(const QString &command) const;
+
+    /**
+     * Runs Julia piece of code in asynchronous mode. When finished
+     * onResultReady is called
+     *
+     * @param command command to execute
+     */
     void runJuliaCommandAsync(const QString &command);
 
+    /**
+     * Helper method to get QString returning function result
+     *
+     * @param method DBus method to call
+     * @return result of the method
+     */
     QString getStringFromServer(const QString &method);
+
+    /**
+     * @return stdout of the last executed command
+     */
     QString getOutput();
+
+    /**
+     * @return stderr of the last executed command
+     */
     QString getError();
+
+    /**
+     * @return indicator of exception occured during the last command execution
+     */
     bool getWasException();
 
+    /**
+     * Updates variable model by querying all modules in scope with whos command
+     */
     void listVariables();
 };

@@ -38,8 +38,10 @@ void JuliaExpression::evaluate()
     setStatus(Cantor::Expression::Computing);
     auto juliaSession = dynamic_cast<JuliaSession *>(session());
 
+    // Plots integration
     m_plot_filename.clear();
     if (juliaSession->integratePlots() and checkPlotShowingCommands()) {
+        // Simply add plot saving command to the end of execution
         QStringList inlinePlotFormats;
         inlinePlotFormats << QLatin1String("svg");
         inlinePlotFormats << QLatin1String("eps");
@@ -73,6 +75,7 @@ void JuliaExpression::finalize()
     } else {
         if (not m_plot_filename.isEmpty()
                 and QFileInfo(m_plot_filename).exists()) {
+            // If we have plot in result, show it
             setResult(
                 new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
             QDir().remove(m_plot_filename);

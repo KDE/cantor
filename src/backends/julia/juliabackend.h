@@ -21,24 +21,66 @@
 
 #include "backend.h"
 
+/**
+ * Backend for Julia language
+ *
+ * @see http://julialang.org/
+ * @see JuliaServer
+ */
 class JuliaBackend: public Cantor::Backend
 {
   Q_OBJECT
 public:
+    /**
+     * Constructs julia backend
+     *
+     * @param parent QObject parent. Defaults to nullptr.
+     * @param args Additional arguments for the backend.
+     *             Defaults to QList<QVariant>().
+     */
     explicit JuliaBackend(
         QObject *parent = 0,
         const QList<QVariant> &args = QList<QVariant>());
 
     virtual ~JuliaBackend() {}
 
+    /**
+     * @see Cantor::Backend::id
+     */
     virtual QString id() const override;
+
+    /**
+     * @see Cantor::Backend::createSession
+     */
     virtual Cantor::Session *createSession() override;
 
+    /**
+     * @see Cantor::Backend::capabilities
+     */
     virtual Cantor::Backend::Capabilities capabilities() const override;
+
+    /**
+     * @see Cantor::Backend::description
+     */
     virtual QString description() const override;
+
+    /**
+     * @see Cantor::Backend::helpUrl
+     */
     virtual QUrl helpUrl() const override;
+
+    /**
+     * @see Cantor::Backend::requirementsFullfilled
+     */
     virtual bool requirementsFullfilled() const override;
 
+    /**
+     * @see Cantor::Backend::settingsWidget
+     */
     virtual QWidget *settingsWidget(QWidget *parent) const override;
+
+    /**
+     * @see Cantor::Backend::config
+     */
     virtual KConfigSkeleton *config() const override;
 };

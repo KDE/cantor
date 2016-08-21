@@ -21,19 +21,48 @@
 
 #include "expression.h"
 
+/**
+ * Expression of Julia language
+ */
 class JuliaExpression: public Cantor::Expression
 {
     Q_OBJECT
 public:
+    /**
+     * Creates new JuliaExpression
+     *
+     * @param session session to bound expression to
+     */
     JuliaExpression(Cantor::Session *session);
     virtual ~JuliaExpression() {};
 
+    /**
+     * @see Cantor::Expression::evaluate
+     */
     virtual void evaluate() override;
+
+    /**
+     * @see Cantor::Expression::interrupt
+     */
     virtual void interrupt() override;
+
+    /**
+     * Call this function from session when JuliaServer ends evaluation of
+     * this expression.
+     *
+     * This checks inline plots, exceptions and set appropriate result
+     */
     void finalize();
 
 private:
+    /// If not empty, it's a filename of plot image file expression is awaiting
+    /// to get
     QString m_plot_filename;
 
+
+    /**
+     * @return bool indicator if current expression contains command that
+     *              shows plot
+     */
     bool checkPlotShowingCommands();
 };

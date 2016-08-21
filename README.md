@@ -17,6 +17,7 @@ Backends.
 - R Project for Statistical Computing: http://r-project.org/
 - Sage Mathematics Software: http://sagemath.org/
 - Scilab for Numerical Computation: http://scilab.org/
+- Julia programming language: http://julialang.org/
 
 ## How To Build and Install Cantor
 

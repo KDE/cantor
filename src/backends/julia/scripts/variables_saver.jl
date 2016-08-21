@@ -1,4 +1,6 @@
 # Variable saving script
+#
+# Install JLD script with `Pkg.add(JLD)` to use it
 import JLD
 JLD.jldopen("%1", "w") do file
     for name in names(Main)[4:end]

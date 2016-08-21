@@ -21,18 +21,40 @@
 
 #include "defaulthighlighter.h"
 
+/**
+ * Implementation of JuliaHighlighter
+ *
+ * Takes into account loaded symbols from scope and predefined keywords.
+ * There is no common regexps that bound to fail with such syntax-overloaded
+ * languages as Julia
+ */
 class JuliaHighlighter: public Cantor::DefaultHighlighter
 {
     Q_OBJECT
 
 public:
+    /**
+     * Constructs JuliaHighlighter
+     *
+     * @param parent QObject parent
+     */
     JuliaHighlighter(QObject *parent);
     virtual ~JuliaHighlighter() {}
 
 public Q_SLOTS:
+    /**
+     * Call this to update highlighter to the current state of keywords storage
+     */
     void updateHighlight();
 
 protected:
+    /**
+     * @see Cantor::DefaultHighlighter::highlightBlock
+     */
     virtual void highlightBlock(const QString &text) override;
+
+    /**
+     * @see Cantor::DefaultHighlighter::nonSeparatingCharacters
+     */
     virtual QString nonSeparatingCharacters() const override;
 };
