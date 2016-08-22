@@ -98,6 +98,13 @@ void JuliaSession::login()
 
     listVariables();
 
+    // Plots integration
+    if (integratePlots()) {
+        runJuliaCommand(
+            QLatin1String("import GR; ENV[\"GKS_WSTYPE\"] = \"nul\"")
+        );
+    }
+
     emit ready();
 }
 
@@ -321,5 +328,12 @@ QAbstractItemModel *JuliaSession::variableModel()
 {
     return m_variableModel;
 }
+
+
+bool JuliaSession::integratePlots()
+{
+    return JuliaSettings::integratePlots();
+}
+
 
 #include "juliasession.moc"

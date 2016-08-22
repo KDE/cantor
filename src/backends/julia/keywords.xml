@@ -41,4 +41,23 @@
         <word>using</word>
         <word>while</word>
     </keywords>
+    <plot_showing_commands>
+        <word>contourf</word>
+        <word>contour</word>
+        <word>grid3d</word>
+        <word>grid</word>
+        <word>histogram</word>
+        <word>imshow</word>
+        <word>plot3</word>
+        <word>plot</word>
+        <word>polar</word>
+        <word>polyline3d</word>
+        <word>polyline</word>
+        <word>polymarker3d</word>
+        <word>polymarker</word>
+        <word>scatter3</word>
+        <word>scatter</word>
+        <word>show</word>
+        <word>surface</word>
+    </plot_showing_commands>
 </julia>

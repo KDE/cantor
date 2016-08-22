@@ -19,8 +19,14 @@
  */
 #include "juliaexpression.h"
 
+#include <QDir>
+#include <QUuid>
+
+#include "settings.h"
 #include "juliasession.h"
+#include "juliakeywords.h"
 #include "textresult.h"
+#include "imageresult.h"
 
 JuliaExpression::JuliaExpression(Cantor::Session *session)
     : Cantor::Expression(session)
@@ -30,7 +36,28 @@ JuliaExpression::JuliaExpression(Cantor::Session *session)
 void JuliaExpression::evaluate()
 {
     setStatus(Cantor::Expression::Computing);
-    dynamic_cast<JuliaSession *>(session())->runExpression(this);
+    auto juliaSession = dynamic_cast<JuliaSession *>(session());
+
+    m_plot_filename.clear();
+    if (juliaSession->integratePlots() and checkPlotShowingCommands()) {
+        QStringList inlinePlotFormats;
+        inlinePlotFormats << QLatin1String("svg");
+        inlinePlotFormats << QLatin1String("eps");
+        inlinePlotFormats << QLatin1String("png");
+
+        auto inlinePlotFormat =
+            inlinePlotFormats[JuliaSettings::inlinePlotFormat()];
+        m_plot_filename = QDir::tempPath() +
+            QString::fromLatin1("/cantor-julia-export-%1.%2")
+                .arg(QUuid::createUuid().toString()).arg(inlinePlotFormat);
+
+        QString saveFigCommand =
+            QString::fromLatin1("\nGR.savefig(\"%1\")\n").arg(m_plot_filename);
+
+        setCommand(command().append(saveFigCommand));
+    }
+
+    juliaSession->runExpression(this);
 }
 
 void JuliaExpression::finalize()
@@ -44,7 +71,14 @@ void JuliaExpression::finalize()
         setResult(new Cantor::TextResult(juliaSession->getOutput()));
         setStatus(Cantor::Expression::Error);
     } else {
-        setResult(new Cantor::TextResult(juliaSession->getOutput()));
+        if (not m_plot_filename.isEmpty()
+                and QFileInfo(m_plot_filename).exists()) {
+            setResult(
+                new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
+            QDir().remove(m_plot_filename);
+        } else {
+            setResult(new Cantor::TextResult(juliaSession->getOutput()));
+        }
         setStatus(Cantor::Expression::Done);
     }
 }
@@ -52,6 +86,17 @@ void JuliaExpression::finalize()
 void JuliaExpression::interrupt()
 {
     setStatus(Cantor::Expression::Interrupted);
+}
+
+bool JuliaExpression::checkPlotShowingCommands()
+{
+    for (auto showingCommand :
+            JuliaKeywords::instance()->plotShowingCommands()) {
+        if (command().contains(showingCommand + QLatin1String("("))) {
+            return true;
+        }
+    }
+    return false;
 }
 
 #include "juliaexpression.moc"

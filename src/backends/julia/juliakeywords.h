@@ -27,6 +27,10 @@ public:
     static JuliaKeywords *instance();
 
     const QStringList &keywords() const { return m_keywords; }
+    const QStringList &plotShowingCommands() const
+    {
+        return m_plotShowingCommands;
+    }
 
     const QStringList &variables() const { return m_variables; }
     const QStringList &removedVariables() const { return m_removedVariables; }
@@ -40,6 +44,7 @@ public:
 
 private:
     QStringList m_keywords;
+    QStringList m_plotShowingCommands;
     QStringList m_variables;
     QStringList m_removedVariables;
     QStringList m_functions;

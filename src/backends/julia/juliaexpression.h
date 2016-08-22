@@ -31,4 +31,9 @@ public:
     virtual void evaluate() override;
     virtual void interrupt() override;
     void finalize();
+
+private:
+    QString m_plot_filename;
+
+    bool checkPlotShowingCommands();
 };

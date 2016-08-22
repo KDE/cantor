@@ -12,5 +12,17 @@
                 QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("julia")))
             </default>
         </entry>
+        <entry name="integratePlots" type="Bool">
+            <label>Integrate Plots into the Worksheet</label>
+            <default>true</default>
+        </entry>
+        <entry name="inlinePlotFormat" type="Enum">
+            <choices>
+                <choice name="svg"/>
+                <choice name="eps"/>
+                <choice name="png"/>
+            </choices>
+            <default>svg</default>
+        </entry>
     </group>
 </kcfg>

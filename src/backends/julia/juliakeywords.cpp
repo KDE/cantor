@@ -33,6 +33,7 @@ JuliaKeywords *JuliaKeywords::instance()
         inst->loadFromFile();
         qSort(inst->m_keywords);
         qSort(inst->m_variables);
+        qSort(inst->m_plotShowingCommands);
     }
 
     return inst;
@@ -61,7 +62,8 @@ void JuliaKeywords::loadFromFile()
         const QStringRef name = xml.name();
 
         if (name == QLatin1String("keywords")
-                or name == QLatin1String("variables")) {
+                or name == QLatin1String("variables")
+                or name == QLatin1String("plot_showing_commands")) {
             while (xml.readNextStartElement()) {
                 Q_ASSERT(
                     xml.isStartElement() and xml.name() == QLatin1String("word")
@@ -73,6 +75,8 @@ void JuliaKeywords::loadFromFile()
                     m_keywords << text;
                 } else if (name == QLatin1String("variables")) {
                     m_variables << text;
+                } else if (name == QLatin1String("plot_showing_commands")) {
+                    m_plotShowingCommands << text;
                 }
             }
         } else {

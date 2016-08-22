@@ -54,6 +54,8 @@ public:
     virtual QSyntaxHighlighter *syntaxHighlighter(QObject *parent);
     virtual QAbstractItemModel *variableModel() override;
 
+    bool integratePlots();
+
 Q_SIGNALS:
     void updateHighlighter();
 
