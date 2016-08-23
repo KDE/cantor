@@ -24,6 +24,9 @@
 #include "expression.h"
 #include "result.h"
 #include "textresult.h"
+#include "imageresult.h"
+#include "defaultvariablemodel.h"
+#include "completionobject.h"
 
 QString TestJulia::backendName()
 {
@@ -115,6 +118,154 @@ void TestJulia::testPartialResultOnException()
             "complex argument. Try sqrt(complex(x))."
         ))
     );
+}
+
+void TestJulia::testInlinePlot()
+{
+    Cantor::Expression *e = evalExp(QLatin1String(
+        "import GR\n"
+        "GR.plot(linspace(-1, 1), sin(linspace(-1, 1)))\n"
+    ));
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result()->type() == Cantor::ImageResult::Type);
+}
+
+void TestJulia::testInlinePlotWithExceptionAndPartialResult()
+{
+    Cantor::Expression *e = evalExp(QLatin1String(
+        "import GR\n"
+        "print(\"gonna plot\")\n"
+        "sqrt(-1)\n"
+        "GR.plot(linspace(-1, 1), sin(linspace(-1, 1)))\n"
+    ));
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Error);
+    QVERIFY(e->result()->type() == Cantor::TextResult::Type);
+    QCOMPARE(e->result()->data().toString(), QLatin1String("gonna plot"));
+    QVERIFY(
+        not e->errorMessage().isEmpty()
+        and e->errorMessage().contains(QLatin1String(
+            "sqrt will only return a complex result if called with a "
+            "complex argument. Try sqrt(complex(x))."
+        ))
+    );
+}
+
+void TestJulia::testAddVariablesFromCode()
+{
+    evalExp(QLatin1String("a = 0; b = 1; c = 2; d = 3\n"));
+
+    auto variableModel = session()->variableModel();
+    QStringList variableNames =
+    QString::fromLatin1("a b c d").split(QLatin1String(" "));
+
+    for (int i = 0; i < variableNames.size(); i++) {
+        QModelIndexList matchedVariables = variableModel->match(
+            variableModel->index(0, 0),
+            Qt::DisplayRole,
+            QVariant::fromValue(variableNames[i]),
+            -1,
+            Qt::MatchExactly
+        );
+        QCOMPARE(matchedVariables.size(), 1);
+        auto match = matchedVariables[0];
+        auto valueIndex =
+            variableModel->index(match.row(), match.column() + 1);
+        QVERIFY(
+            valueIndex.data(Qt::DisplayRole) ==
+            QVariant::fromValue(QString::number(i))
+        );
+    }
+}
+
+void TestJulia::testAddVariablesFromManager()
+{
+    auto variableModel = dynamic_cast<Cantor::DefaultVariableModel *>(
+        session()->variableModel()
+    );
+    QStringList variableNames =
+    QString::fromLatin1("a b c d").split(QLatin1String(" "));
+
+    for (int i = 0; i < variableNames.size(); i++) {
+        variableModel->addVariable(variableNames[i], QString::number(i));
+
+        QModelIndexList matchedVariables = variableModel->match(
+            variableModel->index(0, 0),
+            Qt::DisplayRole,
+            QVariant::fromValue(variableNames[i]),
+            -1,
+            Qt::MatchExactly
+        );
+        QCOMPARE(matchedVariables.size(), 1);
+        auto match = matchedVariables[0];
+        auto valueIndex =
+            variableModel->index(match.row(), match.column() + 1);
+        QVERIFY(
+            valueIndex.data(Qt::DisplayRole) ==
+            QVariant::fromValue(QString::number(i))
+        );
+    }
+}
+
+void TestJulia::testRemoveVariables()
+{
+    auto variableModel = dynamic_cast<Cantor::DefaultVariableModel *>(
+        session()->variableModel()
+    );
+    QStringList variableNames =
+    QString::fromLatin1("a b c d").split(QLatin1String(" "));
+
+    for (int i = 0; i < variableNames.size(); i++) {
+        variableModel->addVariable(variableNames[i], QString::number(i));
+    }
+    for (int i = 0; i < variableNames.size(); i += 2) {
+        variableModel->removeVariable(variableNames[i]);
+    }
+
+    for (int i = 0; i < variableNames.size(); i++) {
+        QModelIndexList matchedVariables = variableModel->match(
+            variableModel->index(0, 0),
+            Qt::DisplayRole,
+            QVariant::fromValue(variableNames[i]),
+            -1,
+            Qt::MatchExactly
+        );
+        if (i % 2 == 0) {
+            QVERIFY(matchedVariables.isEmpty());
+        } else {
+            QCOMPARE(matchedVariables.size(), 1);
+            auto match = matchedVariables[0];
+            auto valueIndex =
+                variableModel->index(match.row(), match.column() + 1);
+            QVERIFY(
+                valueIndex.data(Qt::DisplayRole) ==
+                QVariant::fromValue(QString::number(i))
+            );
+        }
+    }
+}
+
+void TestJulia::testAutoCompletion()
+{
+    auto prefix = QLatin1String("Ba");
+    auto completionObject = session()->completionFor(prefix);
+    // Give sometime for Qt's singleShot in fetch completions to trigger
+    QTest::qWait(500);
+    auto completions = completionObject->completions();
+
+    QStringList completionsToCheck;
+    completionsToCheck << QLatin1String("Base");
+    completionsToCheck << QLatin1String("Base64DecodePipe");
+    completionsToCheck << QLatin1String("Base64EncodePipe");
+
+    for (auto completion : completionsToCheck) {
+        QVERIFY(completions.contains(completion));
+    }
+
+    for (auto completion : completionsToCheck) {
+        QVERIFY(completion.startsWith(prefix));
+    }
 }
 
 QTEST_MAIN(TestJulia)

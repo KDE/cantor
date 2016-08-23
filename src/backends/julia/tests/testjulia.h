@@ -25,12 +25,59 @@ class TestJulia: public BackendTest
 {
     Q_OBJECT
 private Q_SLOTS:
+    /**
+     * Test simple one-line command. Check that last result is printed
+     */
     void testOneLine();
+    /**
+     * Test one-line command returning `nothing`. No result is printed, except
+     * what `print` does
+     */
     void testOneLineWithPrint();
+    /**
+     * Test command, that emits exception
+     */
     void testException();
+    /**
+     * Test command consisting of multiple lines, including comments.
+     */
     void testMultilineCode();
+    /**
+     * Test command with malformed syntax
+     */
     void testSyntaxError();
+    /**
+     * Test that results gathered before exception occured are shown
+     */
     void testPartialResultOnException();
+
+    /**
+     * Tests that inline plot is shown
+     */
+    void testInlinePlot();
+    /**
+     * Tests that when exception occured and plotting is done, partial
+     * text results shown to user
+     */
+    void testInlinePlotWithExceptionAndPartialResult();
+
+    /**
+     * Test registering new variables, when added by command
+     */
+    void testAddVariablesFromCode();
+    /**
+     * Test registering new variables, when added from variable manager
+     */
+    void testAddVariablesFromManager();
+    /**
+     * Test that removing variable unregisters it
+     */
+    void testRemoveVariables();
+
+    /**
+     * Test that auto completion provides expected results
+     */
+    void testAutoCompletion();
 
 private:
     virtual QString backendName();
