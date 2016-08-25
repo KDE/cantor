@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2016-05-30</date>
-<releaseinfo>Applications 16.04</releaseinfo>
+<date>2016-08-25</date>
+<releaseinfo>Applications 16.12</releaseinfo>
 
 <abstract>
 <para>
@@ -43,12 +43,15 @@ nice worksheet view to other Free Software Math packages.
 <keyword>mathematics</keyword>
 <keyword>math</keyword>
 <keyword>Cantor</keyword>
-<keyword>Sage</keyword>
-<keyword>Python</keyword>
+<keyword>Julia</keyword>
 <keyword>Lua</keyword>
-<keyword>Scilab</keyword>
-<keyword>R</keyword>
 <keyword>Maxima</keyword>
+<keyword>Octave</keyword>
+<keyword>Python</keyword>
+<keyword>Qualculate</keyword>
+<keyword>R</keyword>
+<keyword>Sage</keyword>
+<keyword>Scilab</keyword>
 </keywordset>
 
 </bookinfo>
@@ -140,6 +143,19 @@ Screenshot:
 	  vehicle of choice for research in statistical methodology,
 	  and R provides an open-source route to this.
 	  See <ulink url="http://www.r-project.org">http://www.r-project.org</ulink> for more information.
+	</para>
+      </listitem>
+    </varlistentry>
+    <varlistentry>
+      <term>Julia:</term>
+      <listitem>
+	<para>
+    Julia is a high-level, high-performance dynamic programming
+    language for technical computing, with syntax that is familiar to users of
+    other technical computing environments. It provides a sophisticated
+    compiler, distributed parallel execution, numerical accuracy, and an
+    extensive mathematical function library.
+	  See <ulink url="http://docs.julialang.org/en/latest/">Julia documentation</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -870,11 +886,11 @@ of the &kde; Fundamentals.
   <answer><para>Not every backend supports every option. Current version supports &latex; output for Maxima, Qalculate! and Sage backends.</para></answer>
 </qandaentry>
 <qandaentry>
-  <question><para>I have installed Sage/Maxima, but the appropriate backend does not appear.</para></question>
+  <question><para>I have installed Sage/Maxima or other supported CAS, but the appropriate backend does not appear.</para></question>
   <answer>
     <para>
       One possible explanation is that &cantor; did not correctly detect the location. Go to the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem></menuchoice> dialog and change
-      the <guilabel>Path</guilabel> to the appropriate application.
+      the <guilabel>Path</guilabel> to the appropriate application on the backend's page.
     </para>
   </answer>
 </qandaentry>
