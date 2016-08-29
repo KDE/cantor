@@ -7,6 +7,7 @@ Backends.
 
 Available Backends
 -=-=-=-=-=-=-=-=-=-=-=-=-=
+- Julia Programming Language: http://julialang.org/
 - KAlgebra for Calculation and Plotting: http://edu.kde.org/kalgebra/
 - Lua Programming Language: http://lua.org/
 - Maxima Computer Algebra System: http://maxima.sourceforge.net/
@@ -17,7 +18,6 @@ Available Backends
 - R Project for Statistical Computing: http://r-project.org/
 - Sage Mathematics Software: http://sagemath.org/
 - Scilab for Numerical Computation: http://scilab.org/
-- Julia programming language: http://julialang.org/
 
 How To Build and Install Cantor
 -=-=-=-=-=-=-=-=-=-=-=-=-=
