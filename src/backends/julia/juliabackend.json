@@ -1,12 +1,27 @@
 {
     "KPlugin": {
-        "Dependencies": [],
-        "Description": "Julia backend for Cantor",
-        "Id": "Julia",
-        "Name": "Julia",
+        "Dependencies": [], 
+        "Description": "Julia backend for Cantor", 
+        "Description[ca@valencia]": "Dorsal del Julia per al Cantor", 
+        "Description[ca]": "Dorsal del Julia per al Cantor", 
+        "Description[de]": "Julia-Modul für Cantor", 
+        "Description[es]": "Motor de Julia para Cantor", 
+        "Description[et]": "Cantori Julia taustaprogramm", 
+        "Description[nl]": "Julia backend voor Cantor", 
+        "Description[pl]": "Silnik Julii dla Cantora", 
+        "Description[pt]": "Infra-estrutura do Julia para o Cantor", 
+        "Description[ru]": "Модуль поддержки языка Julia", 
+        "Description[sk]": "Julia backend pre Cantor", 
+        "Description[sl]": "Zaledje Julia za Cantor", 
+        "Description[sv]": "Julia bakgrundsprogram för Cantor", 
+        "Description[uk]": "Модуль Julia для Cantor", 
+        "Description[x-test]": "xxJulia backend for Cantorxx", 
+        "Id": "Julia", 
+        "Name": "Julia", 
+        "Name[x-test]": "xxJuliaxx", 
         "ServiceTypes": [
             "Cantor/Backend"
-        ],
+        ], 
         "Website": "http://julialang.org/"
     }
 }

@@ -7,6 +7,7 @@
         "Description[cs]": "Podpůrná vrstva pro Cantor pro účely testování", 
         "Description[de]": "Cantor-Modul für Testzwecke", 
         "Description[es]": "Motor para Cantor pensado para hacer pruebas", 
+        "Description[et]": "Cantori taustaprogramm testimiseks", 
         "Description[fi]": "Cantorin testaukseen tarkoitettu taustajärjestelmä", 
         "Description[gl]": "Infraestrutura de Cantor para probas", 
         "Description[it]": "Backend di test per Cantor", 
