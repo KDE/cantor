@@ -14,7 +14,6 @@ add_subdirectory(null)
 add_subdirectory(maxima)
 add_subdirectory(octave)
 add_subdirectory(scilab)
-add_subdirectory(julia)
 
 if(NOT WIN32)
     add_subdirectory(sage)
@@ -90,3 +89,15 @@ find_package(LuaJIT)
 if(LUAJIT_FOUND)
     add_subdirectory(lua)
 endif(LUAJIT_FOUND)
+
+set_package_properties(
+    Julia
+    PROPERTIES DESCRIPTION "Julia is a high-level, high-performance dynamic programming language for technical computing"
+    URL "http://julialang.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use Julia with Cantor.")
+
+find_package(Julia)
+if(Julia_FOUND)
+    add_subdirectory(julia)
+endif()
