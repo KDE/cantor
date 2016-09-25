@@ -29,6 +29,7 @@
 #include "settings.h"
 
 const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
+                                                                 "<div><b>Recommended version:</b> %4</div>" \
                                                                  "<div>%2</div><br/>" \
                                                                  "<div>See <a href=\"%3\">%3</a> for more information</div>");
 
