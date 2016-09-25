@@ -92,7 +92,7 @@ endif(LUAJIT_FOUND)
 
 set_package_properties(
     Julia
-    PROPERTIES DESCRIPTION "Julia is a high-level, high-performance dynamic programming language for technical computing"
+    PROPERTIES DESCRIPTION "A high-level, high-performance dynamic programming language for technical computing"
     URL "http://julialang.org/"
     TYPE OPTIONAL
     PURPOSE "Backend to use Julia with Cantor.")
