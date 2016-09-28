@@ -7,6 +7,7 @@
         "Description[cs]": "Podpůrná vrstva pro GNU Octave", 
         "Description[de]": "Modul für GNU Octave", 
         "Description[es]": "Motor para GNU Octave", 
+        "Description[et]": "GNU Octave'i taustaprogramm", 
         "Description[fi]": "GNU Octaven taustajärjestelmä", 
         "Description[gl]": "Infraestrutura para GNU Octave", 
         "Description[it]": "Backend per GNU Octave", 
