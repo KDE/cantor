@@ -26,13 +26,15 @@
 
 #include <QList>
 
-#include <KParts/ReadWritePart>
-
 class QTabWidget;
 class KTextEdit;
 
 namespace Cantor{
 class WorksheetAccessInterface;
+}
+
+namespace KParts{
+    class ReadWritePart;
 }
 
 /**

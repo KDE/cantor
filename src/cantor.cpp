@@ -19,35 +19,22 @@
  */
 #include "cantor.h"
 
-
-#include <QAction>
 #include <KActionCollection>
-#include <KConfig>
-#include <KEditToolBar>
-#include <QFileDialog>
-#include <KShortcutsDialog>
-#include <KPluginLoader>
-#include <KMessageBox>
-#include <KStandardAction>
-#include <QStatusBar>
-#include <QIcon>
-#include <KLocalizedString>
-#include <QTabWidget>
 #include <KConfigDialog>
-#include <KTextEdit>
-#include <QTextBrowser>
-#include <KXMLGUIFactory>
-#include <KToggleAction>
-#include <QMenu>
-
+#include <KConfigGroup>
+#include <KMessageBox>
+#include <KShortcutsDialog>
+#include <KStandardAction>
 #include <KNS3/DownloadDialog>
+#include <KParts/ReadWritePart>
 
 #include <QApplication>
+#include <QCloseEvent>
 #include <QDebug>
 #include <QDockWidget>
 #include <QDir>
+#include <QFileDialog>
 #include <QPushButton>
-#include <KConfigGroup>
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
@@ -391,7 +378,7 @@ bool CantorShell::reallyClose(bool checkAllParts) {
         }
         if(!modified) return true;
         int want_save = KMessageBox::warningYesNo( this,
-            i18n("Multiple unsaved Worksheets are opened do want to close?"),
+            i18n("Multiple unsaved Worksheets are opened. Do you want to close them?"),
             i18n("Close Cantor"));
         switch (want_save) {
             case KMessageBox::Yes:

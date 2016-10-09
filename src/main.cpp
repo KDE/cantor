@@ -27,6 +27,7 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <QCommandLineParser>
+#include <QUrl>
 
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
