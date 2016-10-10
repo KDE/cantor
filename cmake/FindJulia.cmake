@@ -46,6 +46,7 @@ endif()
 
 # Checking existance of main header. Some distos provide packages without actual includes
 find_path(Julia_MAIN_HEADER julia.h HINTS ${Julia_INCLUDE_DIRS})
+find_library(Julia_LIBRARY julia HINTS ${Julia_INCLUDE_DIRS}/../../lib)
 
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(Julia

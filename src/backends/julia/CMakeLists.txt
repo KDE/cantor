@@ -1,3 +1,5 @@
+include_directories(${Julia_INCLUDE_DIRS})
+
 add_subdirectory(juliaserver)
 add_subdirectory(tests)
 
@@ -16,7 +18,7 @@ ki18n_wrap_ui(JuliaBackend_SRCS settings.ui)
 
 add_backend(juliabackend ${JuliaBackend_SRCS})
 
-target_link_libraries(cantor_juliabackend Qt5::DBus)
+target_link_libraries(cantor_juliabackend Qt5::DBus ${Julia_LIBRARY})
 
 install(FILES juliabackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 install(FILES keywords.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/juliabackend)
