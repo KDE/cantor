@@ -19,6 +19,7 @@
   <name xml:lang="it">Cantor</name>
   <name xml:lang="nds">Cantor</name>
   <name xml:lang="nl">Cantor</name>
+  <name xml:lang="nn">Cantor</name>
   <name xml:lang="pl">Cantor</name>
   <name xml:lang="pt">Cantor</name>
   <name xml:lang="pt-BR">Cantor</name>
@@ -46,6 +47,7 @@
   <summary xml:lang="it">Interfaccia KDE per software matematico</summary>
   <summary xml:lang="nds">KDE-Böversiet för Rekenprogrammen</summary>
   <summary xml:lang="nl">KDE-frontend tot wiskundige software</summary>
+  <summary xml:lang="nn">KDE-grensesnitt til matematikkprogram</summary>
   <summary xml:lang="pl">Nakładka KDE dla oprogramowania matematycznego</summary>
   <summary xml:lang="pt">Interface para KDE de Aplicações Matemáticas</summary>
   <summary xml:lang="pt-BR">Interface do KDE para software matemático</summary>
