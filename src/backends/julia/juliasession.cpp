@@ -114,8 +114,6 @@ void JuliaSession::logout()
 
     JuliaKeywords::instance()->clearVariables();
     JuliaKeywords::instance()->clearFunctions();
-
-    changeStatus(Cantor::Session::Done);
 }
 
 void JuliaSession::interrupt()

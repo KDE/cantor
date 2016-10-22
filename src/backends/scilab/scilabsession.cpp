@@ -125,8 +125,6 @@ void ScilabSession::logout()
     while(i.hasNext()){
         removePlotFigures.remove(QLatin1String(i.next().toLocal8Bit().constData()));
     }
-
-    changeStatus(Cantor::Session::Done);
 }
 
 void ScilabSession::interrupt()
