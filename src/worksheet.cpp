@@ -20,28 +20,18 @@
  */
 
 #include <QGraphicsWidget>
-#include <QTextLayout>
-#include <QTextDocument>
+#include <QBuffer>
 #include <QTimer>
 #include <QDrag>
-#include <QPrinter>
-#include <QtXml>
 #include <QtXmlPatterns/QXmlQuery>
-#include <QtXmlPatterns/QXmlNamePool>
-
-#include <KLocalizedString>
-#include <QIcon>
+#include <QDebug>
 
 #include <KMessageBox>
 #include <KActionCollection>
-#include <QAction>
 #include <KFontAction>
 #include <KFontSizeAction>
-#include <KSelectAction>
 #include <KToggleAction>
-#include <KColorScheme>
 
-#include "config-cantor.h"
 #include "worksheet.h"
 #include "settings.h"
 #include "commandentry.h"
@@ -52,7 +42,6 @@
 #include "placeholderentry.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
-#include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
@@ -991,11 +980,16 @@ void Worksheet::load(QIODevice* device)
     //cleanup the worksheet and all it contains
     delete m_session;
     m_session=0;
-    for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
-        delete entry;
+
+    //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
+    //in this case on the default "first entry" is available -> delete it.
+    if (m_firstEntry) {
+        delete m_firstEntry;
+        m_firstEntry = 0;
+    }
+
+    //delete all items from the scene
     clear();
-    setFirstEntry(0);
-    setLastEntry(0);
 
     m_session=b->createSession();
     m_loginFlag=true;
@@ -1038,8 +1032,6 @@ void Worksheet::load(QIODevice* device)
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
     enableHighlighting( m_highlighter!=0 || (m_loginFlag && Settings::highlightDefault()) );
-
-
 
     emit sessionChanged();
 }
