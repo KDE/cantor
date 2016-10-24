@@ -453,8 +453,9 @@ bool CantorPart::saveFile()
 
 void CantorPart::fileSaveAs()
 {
-    // this slot is called whenever the File->Save As menu is selected,
-    QString filter=i18n("Cantor Worksheet (*.cws)");
+    // this slot is called whenever the File->Save As menu is selected
+    QString worksheetFilter = i18n("Cantor Worksheet (*.cws)");
+    QString filter = worksheetFilter;
 
     //if the backend supports scripts, also append their scriptFile endings to the filter
     Cantor::Backend * const backend=m_worksheet->session()->backend();
@@ -464,13 +465,16 @@ void CantorPart::fileSaveAs()
         filter+=QLatin1Char('\n')+e->scriptFileFilter();
     }
 
-    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save as"), QString(), filter);
-    if (!file_name.isEmpty()) {
-        if (!file_name.endsWith(QLatin1String(".cws")) &&
-            !file_name.endsWith(QLatin1String(".mws")))
-            file_name += QLatin1String(".cws");
+    QString selectedFilter;
+    QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save as"), QString(), filter, &selectedFilter);
+    if (file_name.isEmpty())
+        return;
+
+    //depending on user's selection, save as a worksheet or as a plain script file
+    if (selectedFilter == worksheetFilter)
         saveAs(QUrl::fromLocalFile(file_name));
-    }
+    else
+        m_worksheet->savePlain(file_name);
 
     updateCaption();
 }
