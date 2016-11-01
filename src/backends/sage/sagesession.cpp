@@ -192,46 +192,46 @@ void SageSession::readStdOut()
 
     if(!m_isInitialized)
     {
-        //try to guess the version of sage to determine
-        //if we have to use the legacy commands or not.
-        QRegExp versionExp(QLatin1String("([a-zA-Z\\W])+\\s+(\\d+)\\.(\\d+)"));
-        int index=versionExp.indexIn(m_outputCache);
-        if(index!=-1)
+        QProcess get_sage_version;
+        get_sage_version.setProgram(SageSettings::self()->path().toLocalFile());
+        get_sage_version.setArguments(QStringList()<<QLatin1String("-v"));
+        get_sage_version.start();
+        get_sage_version.waitForFinished(-1);
+        QRegExp versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
+        int index=versionExp.indexIn(QString::fromUtf8(get_sage_version.readAllStandardOutput()));
+        QStringList version=versionExp.capturedTexts();
+
+        qDebug()<<"found version: "<<version;
+        if(version.size()>2)
         {
-            QStringList version=versionExp.capturedTexts();
-            qDebug()<<"found version: "<<version;
-            if(version.size()>2)
+            int major=version[1].toInt();
+            int minor=version[2].toInt();
+
+
+            m_sageVersion=SageSession::VersionInfo(major, minor);
+
+            if(m_sageVersion<=SageSession::VersionInfo(5, 7))
             {
-                int major=version[1].toInt();
-                int minor=version[2].toInt();
-
-
-                m_sageVersion=SageSession::VersionInfo(major, minor);
-
-                if(m_sageVersion<=SageSession::VersionInfo(5, 7))
+                qDebug()<<"using an old version of sage: "<<major<<"."<<minor<<". Using the old init command";
+                if(!m_haveSentInitCmd)
                 {
-                    qDebug()<<"using an old version of sage: "<<major<<"."<<minor<<". Using the old init command";
-                    if(!m_haveSentInitCmd)
-                    {
-                        m_process->pty()->write(legacyInitCmd);
-                        defineCustomFunctions();
-                        m_process->pty()->write(endOfInitMarker);
-                        m_haveSentInitCmd=true;
-                    }
-
-                }else
-                {
-                    qDebug()<<"using the current set of commands";
-
-                    if(!m_haveSentInitCmd)
-                    {
-                        m_process->pty()->write(newInitCmd);
-                        defineCustomFunctions();
-                        m_process->pty()->write(endOfInitMarker);
-                        m_haveSentInitCmd=true;
-                    }
+                    m_process->pty()->write(legacyInitCmd);
+                    defineCustomFunctions();
+                    m_process->pty()->write(endOfInitMarker);
+                    m_haveSentInitCmd=true;
                 }
 
+            }else
+            {
+                qDebug()<<"using the current set of commands";
+
+                if(!m_haveSentInitCmd)
+                {
+                    m_process->pty()->write(newInitCmd);
+                    defineCustomFunctions();
+                    m_process->pty()->write(endOfInitMarker);
+                    m_haveSentInitCmd=true;
+                }
             }
         }
     }
