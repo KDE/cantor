@@ -52,7 +52,7 @@ SageKeywords* SageKeywords::instance()
 void SageKeywords::loadFromFile()
 {
     //load the known keywords from an xml file
-    QFile file(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("sagebackend/keywords.xml")));
+    QFile file(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/sagebackend/keywords.xml")));
 
     if(!file.open(QIODevice::ReadOnly))
     {
