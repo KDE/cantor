@@ -23,8 +23,9 @@
 #include "actionbar.h"
 
 #include <KLocalizedString>
-#include <QMenu>
 #include <QDebug>
+#include <QMenu>
+#include <QFileSystemWatcher>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -44,6 +45,7 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     setFlag(QGraphicsItem::ItemIsFocusable);
     updateEntry();
+    startConfigDialog();
 }
 
 ImageEntry::~ImageEntry()
@@ -336,5 +338,3 @@ bool ImageEntry::wantFocus()
 {
     return false;
 }
-
-

@@ -25,11 +25,11 @@
 #include "imagesettingsdialog.h"
 
 #include <QString>
-#include <QFileSystemWatcher>
 
 class Worksheet;
 class ActionBar;
 class WorksheetImageItem;
+class QFileSystemWatcher;
 
 class ImageEntry : public WorksheetEntry
 {
@@ -61,7 +61,7 @@ class ImageEntry : public WorksheetEntry
 
     void populateMenu(QMenu *menu, const QPointF& pos);
     void startConfigDialog();
-    void setImageData(const QString& path, const ImageSize& displaySize, 
+    void setImageData(const QString& path, const ImageSize& displaySize,
                       const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
   protected:
