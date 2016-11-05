@@ -28,7 +28,6 @@ class Session;
 }
 
 class QTreeView;
-class QToolButton;
 class QAbstractItemModel;
 
 class VariableManagerWidget : public QWidget
@@ -54,10 +53,6 @@ class VariableManagerWidget : public QWidget
     Cantor::Session* m_session;
     QAbstractItemModel* m_model;
     QTreeView* m_table;
-    QToolButton* m_newBtn;
-    QToolButton* m_loadBtn;
-    QToolButton* m_saveBtn;
-    QToolButton* m_clearBtn;
 };
 
 #endif /* _VARIABLEMANAGERWIDGET_H */

@@ -24,16 +24,13 @@
 #include <QIcon>
 #include <QTreeView>
 #include <QToolButton>
-#include <QAbstractItemModel>
 
 #include <QDialog>
 #include <QPushButton>
-#include <KLocalizedString>
 #include <QDebug>
 #include <KIconLoader>
 #include <QFileDialog>
 #include <KMessageBox>
-#include <KConfigGroup>
 
 #include "session.h"
 #include "extension.h"
@@ -41,10 +38,8 @@
 
 #include "ui_newvardlg.h"
 
-VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent)
+VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent), m_session(0)
 {
-    m_session=0;
-
     QVBoxLayout* layout=new QVBoxLayout(this);
 
     m_table=new QTreeView(this);
@@ -55,29 +50,28 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     QHBoxLayout* btnLayout=new QHBoxLayout(this);
     int size=KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
 
-    m_newBtn=new QToolButton(this);
+    QToolButton* m_newBtn=new QToolButton(this);
     m_newBtn->setIcon(QIcon::fromTheme(QLatin1String("document-new")));
     m_newBtn->setToolTip(i18n("Add new variable"));
     m_newBtn->setIconSize(QSize(size, size));
     connect(m_newBtn, &QToolButton::clicked, this, &VariableManagerWidget::newVariable);
     btnLayout->addWidget(m_newBtn);
 
-
-    m_loadBtn=new QToolButton(this);
+    QToolButton* m_loadBtn=new QToolButton(this);
     m_loadBtn->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
     m_loadBtn->setToolTip(i18n("Load Variables"));
     m_loadBtn->setIconSize(QSize(size, size));
     connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
     btnLayout->addWidget(m_loadBtn);
 
-    m_saveBtn=new QToolButton(this);
+    QToolButton* m_saveBtn=new QToolButton(this);
     m_saveBtn->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
     m_saveBtn->setToolTip(i18n("Store Variables"));
     m_saveBtn->setIconSize(QSize(size, size));
     connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
     btnLayout->addWidget(m_saveBtn);
 
-    m_clearBtn=new QToolButton(this);
+    QToolButton* m_clearBtn=new QToolButton(this);
     m_clearBtn->setIcon(QIcon::fromTheme(QLatin1String("edit-clear")));
     m_clearBtn->setToolTip(i18n("Clear Variables"));
     m_clearBtn->setIconSize(QSize(size, size));
@@ -147,6 +141,8 @@ void VariableManagerWidget::clearVariables()
 void VariableManagerWidget::save()
 {
     const QString file=QFileDialog::getSaveFileName(this, i18n("Save"), QString(),  QString());
+    if (file.trimmed().isEmpty())
+        return;
 
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
@@ -158,6 +154,8 @@ void VariableManagerWidget::save()
 void VariableManagerWidget::load()
 {
     const QString file=QFileDialog::getOpenFileName(this, i18n("Load file"), QString(),  QString());
+    if (file.trimmed().isEmpty())
+        return;
 
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
@@ -197,5 +195,4 @@ void VariableManagerWidget::newVariable()
     }
 
     delete dlg;
-
 }
