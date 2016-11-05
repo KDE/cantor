@@ -136,6 +136,8 @@ QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
         *size = QSizeF(w,h);
     return img;
 #else
+    Q_UNUSED(url);
+    Q_UNUSED(size);
     return QImage();
 #endif
 }
