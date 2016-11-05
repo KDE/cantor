@@ -23,21 +23,16 @@
 
 #include "session.h"
 #include "expression.h"
-
-#include <KDirWatch>
-#include <QRegExp>
 #include <QProcess>
-#include <QXmlStreamReader>
 
 class MaximaExpression;
 class MaximaVariableModel;
-#ifndef Q_OS_WIN
+
+#ifdef Q_OS_WIN
+  class KProcess;
+#else
   class KPtyProcess;
 #endif
-class KProcess;
-class QTcpServer;
-class QTimer;
-class QAbstractItemModel;
 
 class MaximaSession : public Cantor::Session
 {
@@ -79,6 +74,7 @@ class MaximaSession : public Cantor::Session
     void killLabels();
 
     void reportProcessError(QProcess::ProcessError error);
+
   private:
 //windows doesn't support Pty
 #ifdef Q_OS_WIN
@@ -92,9 +88,6 @@ class MaximaSession : public Cantor::Session
 
     enum InitState{NotInitialized, Initializing, Initialized};
     InitState m_initState;
-    QString m_tmpPath;
-
-    QTimer* m_restartCooldown;
     bool m_justRestarted;
 };
 

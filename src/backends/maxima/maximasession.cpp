@@ -24,15 +24,14 @@
 #include "maximasyntaxhelpobject.h"
 #include "maximahighlighter.h"
 #include "maximavariablemodel.h"
+#include "result.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <QTimer>
-#include <QTcpSocket>
-#include <QTcpServer>
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <signal.h>
-#include "settings.h"
 
 #ifdef Q_OS_WIN
   #include <KProcess>
@@ -41,19 +40,16 @@
   #include <KPtyDevice>
 #endif
 
-#include "result.h"
 
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
 //the Expressions are encapsulated in () to allow capturing for the text
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))")); //Text, maxima outputs, before any output
 
-
 static QString initCmd=QLatin1String(":lisp($load \"%1\")\n");
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 {
-    qDebug();
     m_initState=MaximaSession::NotInitialized;
     //m_maxima=0;
     m_process=0;
@@ -64,7 +60,6 @@ MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 
 MaximaSession::~MaximaSession()
 {
-    qDebug();
 }
 
 void MaximaSession::login()
@@ -189,7 +184,6 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
 
     return expr;
 }
-
 
 void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
 {
@@ -438,7 +432,6 @@ void MaximaSession::restartsCooledDown()
     qDebug()<<"maxima restart cooldown";
     m_justRestarted=false;
 }
-
 
 void MaximaSession::setTypesettingEnabled(bool enable)
 {
