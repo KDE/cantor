@@ -42,8 +42,6 @@ MaximaVariableModel::~MaximaVariableModel()
 
 }
 
-
-
 void MaximaVariableModel::checkForNewVariables()
 {
     qDebug()<<"checking for new variables";
@@ -81,7 +79,6 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 
-
     qDebug()<<"got "<<text;
 
     const int nameIndex=text.indexOf(QLatin1Char(']'));
@@ -114,11 +111,14 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         Cantor::DefaultVariableModel::Variable var;
         var.name=variableNames.at(i);;
         if(variableValues.size()>i)
+        {
             var.value=variableValues.at(i).trimmed();
+            var.value=var.value.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
+        }
         else
             var.value=QLatin1String("unknown");
-        variables<<var;
 
+        variables<<var;
     }
 
     return variables;
