@@ -92,12 +92,30 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
     if(namesString.isEmpty())
         return QList<Cantor::DefaultVariableModel::Variable>();
 
-    QStringList variableNames=namesString.split(QLatin1Char(','));
-
-    QString valuesString=text.mid(nameIndex+1).trimmed();
-
-    QStringList variableValues=valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
-    bool hasValues=variableValues.isEmpty();
+    QStringList variableNames;
+    QString valuesString;
+    bool hasValues = false;
+    QStringList variableValues;
+    if ( namesString.contains(QLatin1Char(')')) )
+    {
+        //function definition(s): e.g
+        //text = "[f1(x),f2(x,y),f3(x,y,z)]\n$DONE"
+        //nameString = f1(x),f2(x,y),f3(x,y,z)
+        //variableString = "\n$DONE"
+        variableNames = namesString.split(QLatin1String("),"));
+    }
+    else
+    {
+        //variable definition(s): e.g.
+        //text = "[a,b]\n1\n\"-cantor-value-separator-\"\n2\n\"-cantor-value-separator-\"\n($A $B)"
+        //nameString = "[a,b]"
+        //variableString = "\n1\n\"-cantor-value-separator-\"\n2\n\"-cantor-value-separator-\"\n($A $B)"
+        variableNames = namesString.split(QLatin1Char(','));
+        valuesString = text.mid(nameIndex+1).trimmed();
+        valuesString = valuesString.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
+        variableValues = valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
+        hasValues = variableValues.isEmpty();
+    }
 
     qDebug()<<variableNames;
     qDebug()<<"string: "<<valuesString;
