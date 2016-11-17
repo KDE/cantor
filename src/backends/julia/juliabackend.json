@@ -18,6 +18,7 @@
         "Description[sv]": "Julia bakgrundsprogram för Cantor", 
         "Description[uk]": "Модуль Julia для Cantor", 
         "Description[x-test]": "xxJulia backend for Cantorxx", 
+        "Description[zh_TW]": "Cantor 的 Julia 後端", 
         "Icon": "juliabackend", 
         "Id": "Julia", 
         "Name": "Julia", 

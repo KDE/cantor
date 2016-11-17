@@ -23,6 +23,7 @@
         "Description[uk]": "Тестовий модуль Cantor", 
         "Description[x-test]": "xxBackend for Cantor for testing purposesxx", 
         "Description[zh_CN]": "Cantor 测试后端", 
+        "Description[zh_TW]": "Cantor 測試用的後端介面", 
         "Id": "nullbackend", 
         "License": "GPL", 
         "Name": "nullbackend", 

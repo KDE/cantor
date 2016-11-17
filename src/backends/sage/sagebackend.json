@@ -23,6 +23,7 @@
         "Description[uk]": "Модуль математичного програмного забезпечення Sage", 
         "Description[x-test]": "xxBackend for the Sage Mathematics Softwarexx", 
         "Description[zh_CN]": "Sage 数学软件的后端", 
+        "Description[zh_TW]": "Sage 數學系統的後端介面", 
         "Icon": "sagebackend", 
         "Id": "Sage", 
         "License": "GPL", 
