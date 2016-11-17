@@ -23,6 +23,7 @@
         "Description[uk]": "Діалогове вікно помічника у обчисленні похідних від виразів", 
         "Description[x-test]": "xxAn Assistant dialog to simplify calculating derivatives of expressionsxx", 
         "Description[zh_CN]": "用于简化微分表达式计算的助手对话框", 
+        "Description[zh_TW]": "簡化多項式導數計算的小助手對話框", 
         "Icon": "office-chart-area", 
         "Id": "Differentiate", 
         "License": "GPL", 
@@ -49,6 +50,7 @@
         "Name[uk]": "Продиференціювати", 
         "Name[x-test]": "xxDifferentiatexx", 
         "Name[zh_CN]": "微分", 
+        "Name[zh_TW]": "微分", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]

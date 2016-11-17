@@ -23,6 +23,7 @@
         "Description[uk]": "Діалогове вікно помічника у обчисленні власних векторів", 
         "Description[x-test]": "xxAn Assistant dialog to simplify calculating of EigenVectorsxx", 
         "Description[zh_CN]": "用于简化特征向量计算的助手对话框", 
+        "Description[zh_TW]": "簡化特徵向量計算的小助手對話框", 
         "Id": "Create Matrix", 
         "License": "GPL", 
         "Name": "Eigenvectors", 
@@ -47,6 +48,7 @@
         "Name[uk]": "Власні вектори", 
         "Name[x-test]": "xxEigenvectorsxx", 
         "Name[zh_CN]": "特征向量", 
+        "Name[zh_TW]": "特徵向量", 
         "ServiceTypes": [
             "Cantor/Assistant"
         ]
