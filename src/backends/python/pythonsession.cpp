@@ -297,12 +297,7 @@ bool PythonSession::identifyKeywords(const QString& command)
         keywordsString.remove(QLatin1String("]"));
     }
 
-    qDebug() << "keywordsString" << keywordsString;
-
     QStringList keywordsList = keywordsString.split(QLatin1String(","));
-
-    qDebug() << "keywordsList" << keywordsList;
-
     PythonKeywords::instance()->loadFromModule(moduleVariable, keywordsList);
 
     qDebug() << "Module imported" << moduleImported;

@@ -109,7 +109,6 @@ void PythonKeywords::loadFromFile()
 void PythonKeywords::loadFromModule(const QString& module, const QStringList& keywords)
 {
     qDebug() << "Module imported" << module;
-    qDebug() << "keywords" << keywords;
 
     if (module.isEmpty()){
         for(int contKeyword = 0; contKeyword < keywords.size(); contKeyword++){
