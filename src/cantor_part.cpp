@@ -645,6 +645,9 @@ void CantorPart::loadAssistants()
         assistants = assistantDir.entryList();
 
         foreach (const QString &assistant, assistants){
+            if (assistant==QLatin1String(".") || assistant==QLatin1String(".."))
+                continue;
+
             loader.setFileName(dir + QDir::separator() + assistant);
 
             if (!loader.load()){

@@ -71,6 +71,9 @@ void PanelPluginHandler::loadPlugins()
         panels = panelDir.entryList();
 
         foreach (const QString &panel, panels){
+            if (panel==QLatin1String(".") || panel==QLatin1String(".."))
+                continue;
+
             loader.setFileName(dir + QDir::separator() + panel);
 
             if (!loader.load()){

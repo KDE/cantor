@@ -133,6 +133,9 @@ QList<Backend*> Backend::availableBackends()
         plugins = pluginDir.entryList();
 
         foreach (const QString &plugin, plugins){
+            if (plugin==QLatin1String(".") || plugin==QLatin1String(".."))
+                continue;
+
             loader.setFileName(dir + QDir::separator() + plugin);
 
             if (!loader.load()){
