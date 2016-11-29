@@ -1,7 +1,9 @@
 include_directories(${Julia_INCLUDE_DIRS})
 
 add_subdirectory(juliaserver)
-add_subdirectory(tests)
+if(BUILD_TESTING)
+    add_subdirectory(tests)
+endif(BUILD_TESTING)
 
 set(JuliaBackend_SRCS
     juliabackend.cpp
