@@ -2,6 +2,7 @@
     "KPlugin": {
         "Name": "CantorPart", 
         "Name[et]": "Cantori komponent", 
+        "Name[fr]": "Module Cantor", 
         "Name[nn]": "Cantor-del", 
         "Name[pl]": "ModułCantor", 
         "Name[pt_BR]": "Componente do Cantor", 
