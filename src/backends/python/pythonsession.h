@@ -24,7 +24,6 @@
 
 #include "session.h"
 #include <QStringList>
-#include <QPointer>
 
 namespace Cantor {
 class DefaultVariableModel;
@@ -32,7 +31,6 @@ class DefaultVariableModel;
 
 class PythonExpression;
 class KDirWatch;
-class KProcess;
 
 class CANTOR_EXPORT PythonSession : public Cantor::Session
 {

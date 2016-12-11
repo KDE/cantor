@@ -27,21 +27,12 @@
 #include "pythonutils.h"
 
 #include <QDebug>
-#include <QFile>
-#include <QTextEdit>
-#include <QListIterator>
 #include <QDir>
-#include <QIODevice>
-#include <QByteArray>
-#include <QStringList>
 
 #include <KDirWatch>
 
 #include <defaultvariablemodel.h>
 
-#include <string>
-
-using namespace std;
 
 PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
@@ -150,10 +141,7 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     m_currentExpression = expr;
 
-    QString command;
-
-    command += expr->command();
-
+    const QString& command = expr->command();
     QStringList commandLine = command.split(QLatin1String("\n"));
 
     QString commandProcessing;
