@@ -29,7 +29,6 @@
         "Id": "VariableManager", 
         "License": "GPL", 
         "Name": "Variable Manager", 
-        "Name[ast]": "Xestor de variables", 
         "Name[ca@valencia]": "Gestor de variables", 
         "Name[ca]": "Gestor de variables", 
         "Name[cs]": "Správce proměnných", 
