@@ -60,8 +60,8 @@ void TestJulia::testException()
     QCOMPARE(e->status(), Cantor::Expression::Error);
     QVERIFY(e->result()->type() == Cantor::TextResult::Type);
     QVERIFY(
-        not e->errorMessage().isEmpty()
-        and e->errorMessage().contains(QLatin1String(
+        !e->errorMessage().isEmpty()
+        && e->errorMessage().contains(QLatin1String(
             "sqrt will only return a complex result if called with a "
             "complex argument. Try sqrt(complex(x))."
         ))
@@ -75,8 +75,8 @@ void TestJulia::testSyntaxError()
     QCOMPARE(e->status(), Cantor::Expression::Error);
     QVERIFY(e->result()->type() == Cantor::TextResult::Type);
     QVERIFY(
-        not e->errorMessage().isEmpty()
-        and e->errorMessage().contains(QLatin1String(
+        !e->errorMessage().isEmpty()
+        && e->errorMessage().contains(QLatin1String(
             "syntax: incomplete: \"for\" at none:1 requires end"
         ))
     );
@@ -112,8 +112,8 @@ void TestJulia::testPartialResultOnException()
     QVERIFY(e->result()->type() == Cantor::TextResult::Type);
     QCOMPARE(e->result()->data().toString(), QLatin1String("12345"));
     QVERIFY(
-        not e->errorMessage().isEmpty()
-        and e->errorMessage().contains(QLatin1String(
+        !e->errorMessage().isEmpty()
+        && e->errorMessage().contains(QLatin1String(
             "sqrt will only return a complex result if called with a "
             "complex argument. Try sqrt(complex(x))."
         ))
@@ -144,8 +144,8 @@ void TestJulia::testInlinePlotWithExceptionAndPartialResult()
     QVERIFY(e->result()->type() == Cantor::TextResult::Type);
     QCOMPARE(e->result()->data().toString(), QLatin1String("gonna plot"));
     QVERIFY(
-        not e->errorMessage().isEmpty()
-        and e->errorMessage().contains(QLatin1String(
+         !e->errorMessage().isEmpty()
+        && e->errorMessage().contains(QLatin1String(
             "sqrt will only return a complex result if called with a "
             "complex argument. Try sqrt(complex(x))."
         ))
