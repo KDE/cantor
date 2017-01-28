@@ -19,11 +19,6 @@
  */
 #include "sagekeywords.h"
 
-#include <QStandardPaths>
-#include <QFile>
-#include <QXmlStreamReader>
-#include <QtAlgorithms>
-
 #include <QDebug>
 
 SageKeywords::SageKeywords()
@@ -41,55 +36,24 @@ SageKeywords* SageKeywords::instance()
     static SageKeywords* inst=0;
     if(inst==0)
     {
-        inst=new SageKeywords();
-        inst->loadFromFile();
-	qSort(inst->m_keywords);
+        inst = new SageKeywords();
+        inst->loadKeywords();
     }
 
     return inst;
 }
 
-void SageKeywords::loadFromFile()
+void SageKeywords::loadKeywords()
 {
-    //load the known keywords from an xml file
-    QFile file(QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/sagebackend/keywords.xml")));
-
-    if(!file.open(QIODevice::ReadOnly))
-    {
-        qDebug()<<"error opening keywords.xml file. highlighting and completion won't work";
-        return;
-    }
-
-    QXmlStreamReader xml(&file);
-
-    xml.readNextStartElement();
-    while(xml.readNextStartElement())
-    {
-        const QStringRef name=xml.name();
-
-        if(name==QLatin1String("keywords"))
-        {
-            while(xml.readNextStartElement())
-            {
-                Q_ASSERT(xml.isStartElement() && xml.name() == QLatin1String("word"));
-
-                const QString text=xml.readElementText();
-
-		m_keywords<<text;
-            }
-        }
-        else
-        {
-            xml.skipCurrentElement();
-        }
-    }
-
-    if (xml.hasError())
-    {
-        qDebug()<<"error parsing element";
-        qDebug()<<"error: "<<xml.errorString();
-    }
-
+    // Put the keywords list in alphabetical order
+    m_keywords << QLatin1String("and") << QLatin1String("as") << QLatin1String("assert") << QLatin1String("break")
+               << QLatin1String("class") << QLatin1String("continue") << QLatin1String("def") << QLatin1String("del")
+               << QLatin1String("elif") << QLatin1String("else") << QLatin1String("except") << QLatin1String("exec")
+               << QLatin1String("finally") << QLatin1String("for") << QLatin1String("from") << QLatin1String("global")
+               << QLatin1String("if") << QLatin1String("import") << QLatin1String("in") << QLatin1String("is")
+               << QLatin1String("lambda") << QLatin1String("not") << QLatin1String("or") << QLatin1String("pass")
+               << QLatin1String("print") << QLatin1String("raise") << QLatin1String("return") << QLatin1String("try")
+               << QLatin1String("while") << QLatin1String("with") << QLatin1String("yield");
 }
 
 const QStringList& SageKeywords::keywords() const

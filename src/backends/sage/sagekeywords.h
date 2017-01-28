@@ -35,6 +35,7 @@ class SageKeywords
 private:
     SageKeywords();
     ~SageKeywords();
+
 public:
     static SageKeywords* instance();
 
@@ -43,7 +44,7 @@ public:
     //const QStringList& variables() const;
 
   private:
-    void loadFromFile();
+    void loadKeywords();
 
     QStringList m_keywords;
 };
