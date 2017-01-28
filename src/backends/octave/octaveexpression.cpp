@@ -147,7 +147,7 @@ void OctaveExpression::parsePlotFile(QString file)
 void OctaveExpression::finalize()
 {
     qDebug() << "finalize: " << m_resultString;
-    foreach ( const QString& line, m_resultString.split(QLatin1Char('\n'), QString::SkipEmptyParts) )
+    foreach ( const QString& line, m_resultString.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts) )
     {
         if ((m_resultString.contains(QLatin1Char('='))) && !(command().startsWith(QLatin1String("help(")))
                 && !(command().contains(QLatin1String("help "))) && !(command().contains(QLatin1String("type("))))
