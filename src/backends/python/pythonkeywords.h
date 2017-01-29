@@ -39,7 +39,7 @@ class PythonKeywords
     void addVariable(const QString& variable);
 
   private:
-    void loadFromFile();
+    void loadKeywords();
 
   private:
     QStringList m_functions;
