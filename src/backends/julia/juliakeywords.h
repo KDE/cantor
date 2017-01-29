@@ -104,5 +104,5 @@ private:
     ~JuliaKeywords() {}
 
     /// Do first load of predefined stuff from keywords.xml
-    void loadFromFile();
+    void loadKeywords();
 };

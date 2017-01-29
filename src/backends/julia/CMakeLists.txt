@@ -23,7 +23,6 @@ add_backend(juliabackend ${JuliaBackend_SRCS})
 target_link_libraries(cantor_juliabackend Qt5::DBus ${Julia_LIBRARY})
 
 install(FILES juliabackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
-install(FILES keywords.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/juliabackend)
 file(GLOB scripts "${CMAKE_CURRENT_SOURCE_DIR}/scripts/*.jl")
 install(
     FILES ${scripts}

@@ -19,10 +19,6 @@
  */
 #include "juliakeywords.h"
 
-#include <QFile>
-#include <QXmlStreamReader>
-#include <QtAlgorithms>
-#include <QStandardPaths>
 #include <QDebug>
 
 JuliaKeywords *JuliaKeywords::instance()
@@ -30,63 +26,34 @@ JuliaKeywords *JuliaKeywords::instance()
     static JuliaKeywords *inst = 0;
     if (inst == 0) {
         inst = new JuliaKeywords();
-        inst->loadFromFile();
-        qSort(inst->m_keywords);
-        qSort(inst->m_variables);
-        qSort(inst->m_plotShowingCommands);
+        inst->loadKeywords();
     }
 
     return inst;
 }
 
-void JuliaKeywords::loadFromFile()
+void JuliaKeywords::loadKeywords()
 {
-    //load the known keywords from an xml file
-    QFile file(
-        QStandardPaths::locate(
-            QStandardPaths::GenericDataLocation,
-            QLatin1String("cantor/juliabackend/keywords.xml")
-        )
-    );
+    // Put the keywords list in alphabetical order
+    m_keywords << QLatin1String("abstract") << QLatin1String("baremodule") << QLatin1String("begin")
+               << QLatin1String("bitstype") << QLatin1String("break") << QLatin1String("catch") << QLatin1String("const")
+               << QLatin1String("continue") << QLatin1String("do") << QLatin1String("elseif") << QLatin1String("else")
+               << QLatin1String("end") << QLatin1String("export") << QLatin1String("finally") << QLatin1String("for")
+               << QLatin1String("function") << QLatin1String("global") << QLatin1String("if") << QLatin1String("immutable")
+               << QLatin1String("import") << QLatin1String("importall") << QLatin1String("let") << QLatin1String("local")
+               << QLatin1String("macro") << QLatin1String("module") << QLatin1String("quote") << QLatin1String("return")
+               << QLatin1String("try") << QLatin1String("type") << QLatin1String("typealias") << QLatin1String("using")
+               << QLatin1String("while");
 
-    if (!file.open(QIODevice::ReadOnly)) {
-        qWarning() << "error opening keywords.xml file. highlighting and"
-                   << "completion won't work";
-        return;
-    }
+    m_variables << QLatin1String("false") << QLatin1String("Inf") << QLatin1String("NaN") << QLatin1String("nothing")
+                << QLatin1String("true");
 
-    QXmlStreamReader xml(&file);
-
-    xml.readNextStartElement();
-    while (xml.readNextStartElement()) {
-        const QStringRef name = xml.name();
-
-        if (name == QLatin1String("keywords")
-                or name == QLatin1String("variables")
-                or name == QLatin1String("plot_showing_commands")) {
-            while (xml.readNextStartElement()) {
-                Q_ASSERT(
-                    xml.isStartElement() and xml.name() == QLatin1String("word")
-                );
-
-                const QString text = xml.readElementText();
-
-                if (name == QLatin1String("keywords")) {
-                    m_keywords << text;
-                } else if (name == QLatin1String("variables")) {
-                    m_variables << text;
-                } else if (name == QLatin1String("plot_showing_commands")) {
-                    m_plotShowingCommands << text;
-                }
-            }
-        } else {
-            xml.skipCurrentElement();
-        }
-    }
-
-    if (xml.hasError()) {
-        qWarning() << "Error parsing keywords.xml:" << xml.errorString();
-    }
+    m_plotShowingCommands << QLatin1String("contour") << QLatin1String("contourf") << QLatin1String("grid")
+                          << QLatin1String("grid3d") << QLatin1String("histogram") << QLatin1String("imshow")
+                          << QLatin1String("plot") << QLatin1String("plot3") << QLatin1String("polar")
+                          << QLatin1String("polyline") << QLatin1String("polyline3d") << QLatin1String("polymarker")
+                          << QLatin1String("polymarker3d") << QLatin1String("scatter") << QLatin1String("scatter3")
+                          << QLatin1String("show") << QLatin1String("surface");
 }
 
 void JuliaKeywords::addVariable(const QString &variable)
