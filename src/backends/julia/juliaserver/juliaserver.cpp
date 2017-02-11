@@ -47,7 +47,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
 {
     // Redirect stdout, stderr to temprorary files
     QTemporaryFile output, error;
-    if (not output.open() or not error.open()) {
+    if (!output.open() || !error.open()) {
         qFatal("Unable to create temprorary files for stdout/stderr");
         return;
     }
@@ -90,7 +90,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
         bool is_nothing = jl_unbox_bool(
             static_cast<jl_value_t *>(jl_call2(equality, nothing, val))
         );
-        if (not is_nothing) {
+        if (!is_nothing) {
             jl_static_show(JL_STDOUT, val);
         }
         m_was_exception = false;

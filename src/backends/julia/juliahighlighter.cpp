@@ -98,7 +98,7 @@ void JuliaHighlighter::highlightBlock(const QString &text)
     while (pos < text.length()) {
         // Trying to close current environments
         bool triggered = false;
-        for (int i = 0; i < flags.size() and not triggered; i++) {
+        for (int i = 0; i < flags.size() && !triggered; i++) {
             int flag = flags[i];
             QRegExp &regexp = regexps_ends[i];
             QTextCharFormat &format = formats[i];
@@ -144,7 +144,7 @@ void JuliaHighlighter::highlightBlock(const QString &text)
             singleLineCommentStart.indexIn(text, pos);
 
         if (singleLineCommentStartPos != -1
-                and singleLineCommentStartPos < minPos) {
+                && singleLineCommentStartPos < minPos) {
             // single line comment starts earlier
             setFormat(pos, text.length() - pos, commentFormat());
             break;

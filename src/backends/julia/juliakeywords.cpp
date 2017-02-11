@@ -58,7 +58,7 @@ void JuliaKeywords::loadKeywords()
 
 void JuliaKeywords::addVariable(const QString &variable)
 {
-    if (not m_variables.contains(variable)) {
+    if (!m_variables.contains(variable)) {
         m_variables << variable;
     }
 }
@@ -71,7 +71,7 @@ void JuliaKeywords::clearVariables()
 
 void JuliaKeywords::addFunction(const QString &function)
 {
-    if (not m_functions.contains(function)) {
+    if (!m_functions.contains(function)) {
         m_functions << function;
     }
 }
