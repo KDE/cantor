@@ -62,11 +62,11 @@ void JuliaKeywords::loadFromFile()
         const QStringRef name = xml.name();
 
         if (name == QLatin1String("keywords")
-                or name == QLatin1String("variables")
-                or name == QLatin1String("plot_showing_commands")) {
+                || name == QLatin1String("variables")
+                || name == QLatin1String("plot_showing_commands")) {
             while (xml.readNextStartElement()) {
                 Q_ASSERT(
-                    xml.isStartElement() and xml.name() == QLatin1String("word")
+                    xml.isStartElement() && xml.name() == QLatin1String("word")
                 );
 
                 const QString text = xml.readElementText();
@@ -91,7 +91,7 @@ void JuliaKeywords::loadFromFile()
 
 void JuliaKeywords::addVariable(const QString &variable)
 {
-    if (not m_variables.contains(variable)) {
+    if (!m_variables.contains(variable)) {
         m_variables << variable;
     }
 }
@@ -104,7 +104,7 @@ void JuliaKeywords::clearVariables()
 
 void JuliaKeywords::addFunction(const QString &function)
 {
-    if (not m_functions.contains(function)) {
+    if (!m_functions.contains(function)) {
         m_functions << function;
     }
 }

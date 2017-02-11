@@ -86,7 +86,7 @@ void JuliaSession::login()
         QDBusConnection::sessionBus()
     );
 
-    if (not m_interface->isValid()) {
+    if (!m_interface->isValid()) {
         qWarning() << QDBusConnection::sessionBus().lastError().message();
         return;
     }
@@ -213,7 +213,7 @@ bool JuliaSession::getWasException()
 {
     const QDBusReply<bool> &reply =
         m_interface->call(QLatin1String("getWasException"));
-    return reply.isValid() and reply.value();
+    return reply.isValid() && reply.value();
 }
 
 void JuliaSession::listVariables()

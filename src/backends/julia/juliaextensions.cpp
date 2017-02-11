@@ -138,7 +138,7 @@ QString JuliaPlotExtension::plotFunction2d(
 {
     auto new_left = left;
     auto new_right = right;
-    if (new_left.isEmpty() and new_right.isEmpty()) {
+    if (new_left.isEmpty() && new_right.isEmpty()) {
         new_left = QLatin1String("-1");
         new_right = QLatin1String("1");
     } else if (new_left.isEmpty()) {
@@ -165,7 +165,7 @@ QString JuliaPlotExtension::plotFunction3d(
 {
 
     auto update_interval = [](Interval &interval) {
-        if (interval.first.isEmpty() and interval.second.isEmpty()) {
+        if (interval.first.isEmpty() && interval.second.isEmpty()) {
             interval.first = QLatin1String("-1");
             interval.second = QLatin1String("1");
         } else if (interval.first.isEmpty()) {

@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    if (not QDBusConnection::sessionBus().isConnected()) {
+    if (!QDBusConnection::sessionBus().isConnected()) {
         qWarning() << "Can't connect to the D-Bus session bus.\n"
                       "To start it, run: eval `dbus-launch --auto-syntax`";
         return 1;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     const QString &serviceName =
         QString::fromLatin1("org.kde.Cantor.Julia-%1").arg(app.applicationPid());
 
-    if (not QDBusConnection::sessionBus().registerService(serviceName)) {
+    if (!QDBusConnection::sessionBus().registerService(serviceName)) {
         qWarning() << QDBusConnection::sessionBus().lastError().message();
         return 2;
     }
