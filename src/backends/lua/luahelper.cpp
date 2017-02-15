@@ -20,7 +20,7 @@
 
 #include "luahelper.h"
 
-#include <luajit-2.0/lua.hpp> // need the luajit-2.0 prefix to avoid conflicts with Lua 5.2
+#include <lua.hpp>
 #include <QString>
 #include <QStringList>
 
