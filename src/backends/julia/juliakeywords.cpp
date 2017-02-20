@@ -34,26 +34,69 @@ JuliaKeywords *JuliaKeywords::instance()
 
 void JuliaKeywords::loadKeywords()
 {
-    // Put the keywords list in alphabetical order
-    m_keywords << QLatin1String("abstract") << QLatin1String("baremodule") << QLatin1String("begin")
-               << QLatin1String("bitstype") << QLatin1String("break") << QLatin1String("catch") << QLatin1String("const")
-               << QLatin1String("continue") << QLatin1String("do") << QLatin1String("elseif") << QLatin1String("else")
-               << QLatin1String("end") << QLatin1String("export") << QLatin1String("finally") << QLatin1String("for")
-               << QLatin1String("function") << QLatin1String("global") << QLatin1String("if") << QLatin1String("immutable")
-               << QLatin1String("import") << QLatin1String("importall") << QLatin1String("let") << QLatin1String("local")
-               << QLatin1String("macro") << QLatin1String("module") << QLatin1String("quote") << QLatin1String("return")
-               << QLatin1String("try") << QLatin1String("type") << QLatin1String("typealias") << QLatin1String("using")
-               << QLatin1String("while");
+    // Put the lists in alphabetical order
+    // Begin m_keywords initialization
+    m_keywords << QLatin1String("abstract");
+    m_keywords << QLatin1String("baremodule");
+    m_keywords << QLatin1String("begin");
+    m_keywords << QLatin1String("bitstype");
+    m_keywords << QLatin1String("break");
+    m_keywords << QLatin1String("catch");
+    m_keywords << QLatin1String("const");
+    m_keywords << QLatin1String("continue");
+    m_keywords << QLatin1String("do");
+    m_keywords << QLatin1String("elseif");
+    m_keywords << QLatin1String("else");
+    m_keywords << QLatin1String("end");
+    m_keywords << QLatin1String("export");
+    m_keywords << QLatin1String("finally");
+    m_keywords << QLatin1String("for");
+    m_keywords << QLatin1String("function");
+    m_keywords << QLatin1String("global");
+    m_keywords << QLatin1String("if");
+    m_keywords << QLatin1String("immutable");
+    m_keywords << QLatin1String("import");
+    m_keywords << QLatin1String("importall");
+    m_keywords << QLatin1String("let");
+    m_keywords << QLatin1String("local");
+    m_keywords << QLatin1String("macro");
+    m_keywords << QLatin1String("module");
+    m_keywords << QLatin1String("quote");
+    m_keywords << QLatin1String("return");
+    m_keywords << QLatin1String("try");
+    m_keywords << QLatin1String("type");
+    m_keywords << QLatin1String("typealias");
+    m_keywords << QLatin1String("using");
+    m_keywords << QLatin1String("while");
+    //Finish m_keywords initialization
 
-    m_variables << QLatin1String("false") << QLatin1String("Inf") << QLatin1String("NaN") << QLatin1String("nothing")
-                << QLatin1String("true");
+    //Begin m_variables initialization
+    m_variables << QLatin1String("false");
+    m_variables << QLatin1String("Inf");
+    m_variables << QLatin1String("NaN");
+    m_variables << QLatin1String("nothing");
+    m_variables << QLatin1String("true");
+    //Finish m_variables initialization
 
-    m_plotShowingCommands << QLatin1String("contour") << QLatin1String("contourf") << QLatin1String("grid")
-                          << QLatin1String("grid3d") << QLatin1String("histogram") << QLatin1String("imshow")
-                          << QLatin1String("plot") << QLatin1String("plot3") << QLatin1String("polar")
-                          << QLatin1String("polyline") << QLatin1String("polyline3d") << QLatin1String("polymarker")
-                          << QLatin1String("polymarker3d") << QLatin1String("scatter") << QLatin1String("scatter3")
-                          << QLatin1String("show") << QLatin1String("surface");
+    //Begin m_plotShowingCommands initialization
+    m_plotShowingCommands << QLatin1String("contour");
+    m_plotShowingCommands << QLatin1String("contourf");
+    m_plotShowingCommands << QLatin1String("grid");
+    m_plotShowingCommands << QLatin1String("grid3d");
+    m_plotShowingCommands << QLatin1String("histogram");
+    m_plotShowingCommands << QLatin1String("imshow");
+    m_plotShowingCommands << QLatin1String("plot");
+    m_plotShowingCommands << QLatin1String("plot3");
+    m_plotShowingCommands << QLatin1String("polar");
+    m_plotShowingCommands << QLatin1String("polyline");
+    m_plotShowingCommands << QLatin1String("polyline3d");
+    m_plotShowingCommands << QLatin1String("polymarker");
+    m_plotShowingCommands << QLatin1String("polymarker3d");
+    m_plotShowingCommands << QLatin1String("scatter");
+    m_plotShowingCommands << QLatin1String("scatter3");
+    m_plotShowingCommands << QLatin1String("show");
+    m_plotShowingCommands << QLatin1String("surface");
+    //Finish m_plotShowingCommands initialization
 }
 
 void JuliaKeywords::addVariable(const QString &variable)
