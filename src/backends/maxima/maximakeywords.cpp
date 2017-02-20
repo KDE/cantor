@@ -47,603 +47,1812 @@ MaximaKeywords* MaximaKeywords::instance()
 
 void MaximaKeywords::loadKeywords()
 {
-    // Begin m_variables initialization - maximum 100 lines for each initialization insctruction
-    m_variables << QLatin1String("_") << QLatin1String("__") << QLatin1String("%") << QLatin1String("%%")
-                << QLatin1String("absboxchar") << QLatin1String("activecontexts") << QLatin1String("additive")
-                << QLatin1String("algebraic") << QLatin1String("algepsilon") << QLatin1String("algexact")
-                << QLatin1String("aliases") << QLatin1String("all_dotsimp_denoms") << QLatin1String("allbut")
-                << QLatin1String("allsym") << QLatin1String("arrays") << QLatin1String("askexp") << QLatin1String("assume_pos")
-                << QLatin1String("assume_pos_pred") << QLatin1String("assumescalar") << QLatin1String("atomgrad")
-                << QLatin1String("backsubst") << QLatin1String("berlefact") << QLatin1String("besselexpand")
-                << QLatin1String("bftorat") << QLatin1String("bftrunc") << QLatin1String("boxchar") << QLatin1String("breakup")
-                << QLatin1String("cauchysum") << QLatin1String("cflength") << QLatin1String("cframe_flag")
-                << QLatin1String("cnonmet_flag") << QLatin1String("context") << QLatin1String("contexts")
-                << QLatin1String("cosnpiflag") << QLatin1String("ctaypov") << QLatin1String("ctaypt")
-                << QLatin1String("ctayswitch") << QLatin1String("ctayvar") << QLatin1String("ct_coords")
-                << QLatin1String("ctorsion_flag") << QLatin1String("ctrgsimp") << QLatin1String("current_let_rule_package")
-                << QLatin1String("debugmode") << QLatin1String("default_let_rule_package") << QLatin1String("demoivre")
-                << QLatin1String("dependencies") << QLatin1String("derivabbrev") << QLatin1String("derivsubst")
-                << QLatin1String("detout") << QLatin1String("diagmetric") << QLatin1String("dim") << QLatin1String("dispflag")
-                << QLatin1String("display2d") << QLatin1String("display_format_internal") << QLatin1String("doallmxops")
-                << QLatin1String("domain") << QLatin1String("domxexpt") << QLatin1String("domxmxops")
-                << QLatin1String("domxnctimes") << QLatin1String("dontfactor") << QLatin1String("doscmxops")
-                << QLatin1String("doscmxplus") << QLatin1String("dot0nscsimp") << QLatin1String("dot0simp")
-                << QLatin1String("dot1simp") << QLatin1String("dotassoc") << QLatin1String("dotconstrules")
-                << QLatin1String("dotdistrib") << QLatin1String("dotexptsimp") << QLatin1String("dotident")
-                << QLatin1String("dotscrules") << QLatin1String("draw_graph_program") << QLatin1String("%edispflag")
-                << QLatin1String("%emode") << QLatin1String("%enumer") << QLatin1String("epsilon_lp")
-                << QLatin1String("erfflag") << QLatin1String("error") << QLatin1String("error_size")
-                << QLatin1String("error_syms") << QLatin1String("%e_to_numlog") << QLatin1String("evflag")
-                << QLatin1String("evfun") << QLatin1String("expandwrt_denom") << QLatin1String("expon")
-                << QLatin1String("exponentialize") << QLatin1String("expop") << QLatin1String("exptdispflag")
-                << QLatin1String("exptisolate") << QLatin1String("exptsubst") << QLatin1String("facexpand")
-                << QLatin1String("factlim") << QLatin1String("factorflag") << QLatin1String("file_output_append")
-                << QLatin1String("file_search_demo") << QLatin1String("file_search_lisp") << QLatin1String("file_search_maxima")
-                << QLatin1String("find_root_abs") << QLatin1String("find_root_error") << QLatin1String("find_root_rel")
-                << QLatin1String("flipflag") << QLatin1String("float2bf") << QLatin1String("fortindent")
-                << QLatin1String("fortspaces") << QLatin1String("fpprec") << QLatin1String("fpprintprec")
-                << QLatin1String("functions") << QLatin1String("gammalim") << QLatin1String("gdet") << QLatin1String("genindex")
-                << QLatin1String("gensumnum") << QLatin1String("GGFCFMAX") << QLatin1String("GGFINFINITY")
-                << QLatin1String("globalsolve") << QLatin1String("gradefs") << QLatin1String("grind")
-                << QLatin1String("halfangles") << QLatin1String("%iargs") << QLatin1String("ibase") << QLatin1String("icounter")
-                << QLatin1String("idummyx") << QLatin1String("ieqnprint") << QLatin1String("iframe_bracket_form")
-                << QLatin1String("igeowedge_flag") << QLatin1String("imetric") << QLatin1String("inchar")
-                << QLatin1String("infeval") << QLatin1String("inflag") << QLatin1String("infolists")
-                << QLatin1String("in_netmath") << QLatin1String("integrate_use_rootsof")
-                << QLatin1String("integration_constant") << QLatin1String("integration_constant_counter")
-                << QLatin1String("intfaclim") << QLatin1String("isolate_wrt_times") << QLatin1String("keepfloat")
-                << QLatin1String("labels") << QLatin1String("letrat") << QLatin1String("let_rule_packages")
-                << QLatin1String("lhospitallim") << QLatin1String("limsubst") << QLatin1String("linechar")
-                << QLatin1String("linel") << QLatin1String("linenum") << QLatin1String("linsolve_params")
-                << QLatin1String("linsolvewarn") << QLatin1String("lispdisp") << QLatin1String("listarith")
-                << QLatin1String("listconstvars") << QLatin1String("listdummyvars") << QLatin1String("lmxchar")
-                << QLatin1String("loadprint") << QLatin1String("logabs") << QLatin1String("logarc")
-                << QLatin1String("logconcoeffp") << QLatin1String("logexpand") << QLatin1String("lognegint")
-                << QLatin1String("lognumer") << QLatin1String("logsimp") << QLatin1String("m1pbranch")
-                << QLatin1String("macroexpansion") << QLatin1String("maperror") << QLatin1String("mapprint")
-                << QLatin1String("matrix_element_add") << QLatin1String("matrix_element_mult")
-                << QLatin1String("matrix_element_transpose") << QLatin1String("maxapplydepth")
-                << QLatin1String("maxapplyheight") << QLatin1String("maxima_tempdir") << QLatin1String("maxima_userdir")
-                << QLatin1String("maxnegex") << QLatin1String("maxposex") << QLatin1String("maxpsifracdenom")
-                << QLatin1String("maxpsifracnum") << QLatin1String("maxpsinegint") << QLatin1String("maxpsiposint")
-                << QLatin1String("maxtayorder") << QLatin1String("method") << QLatin1String("mode_check_errorp")
-                << QLatin1String("mode_checkp") << QLatin1String("mode_check_warnp") << QLatin1String("modulus")
-                << QLatin1String("multiplicities") << QLatin1String("myoptions") << QLatin1String("negdistrib")
-                << QLatin1String("negsumdispflag") << QLatin1String("newtonepsilon") << QLatin1String("newtonmaxiter")
-                << QLatin1String("niceindicespref") << QLatin1String("nolabels") << QLatin1String("nonegative_lp")
-                << QLatin1String("noundisp") << QLatin1String("obase") << QLatin1String("opproperties")
-                << QLatin1String("opsubst") << QLatin1String("optimprefix") << QLatin1String("optionset")
-                << QLatin1String("outchar") << QLatin1String("packagefile") << QLatin1String("partswitch")
-                << QLatin1String("pfeformat") << QLatin1String("%piargs") << QLatin1String("piece")
-                << QLatin1String("plot_options") << QLatin1String("poislim") << QLatin1String("poly_coefficient_ring")
-                << QLatin1String("poly_elimination_order") << QLatin1String("poly_grobner_algorithm")
-                << QLatin1String("poly_grobner_debug") << QLatin1String("poly_monomial_order")
-                << QLatin1String("poly_primary_elimination_order") << QLatin1String("poly_return_term_list")
-                << QLatin1String("poly_secondary_elimination_order") << QLatin1String("poly_top_reduction_only")
-                << QLatin1String("powerdisp") << QLatin1String("prederror") << QLatin1String("primep_number_of_tests")
-                << QLatin1String("product_use_gamma") << QLatin1String("programmode") << QLatin1String("prompt")
-                << QLatin1String("psexpand") << QLatin1String("radexpand") << QLatin1String("radsubstflag")
-                << QLatin1String("random_beta_algorithm") << QLatin1String("random_binomial_algorithm")
-                << QLatin1String("random_chi2_algorithm") << QLatin1String("random_exp_algorithm")
-                << QLatin1String("random_f_algorithm") << QLatin1String("random_gamma_algorithm")
-                << QLatin1String("random_geometric_algorithm") << QLatin1String("random_hypergeometric_algorithm")
-                << QLatin1String("random_negative_binomial_algorithm") << QLatin1String("random_normal_algorithm")
-                << QLatin1String("random_poisson_algorithm") << QLatin1String("random_student_t_algorithm")
-                << QLatin1String("ratalgdenom") << QLatin1String("ratchristof") << QLatin1String("ratdenomdivide")
-                << QLatin1String("rateinstein") << QLatin1String("ratepsilon") << QLatin1String("ratexpand")
-                << QLatin1String("ratfac") << QLatin1String("ratmx") << QLatin1String("ratprint") << QLatin1String("ratriemann")
-                << QLatin1String("ratsimpexpons") << QLatin1String("ratvars") << QLatin1String("ratweights")
-                << QLatin1String("ratweyl") << QLatin1String("ratwtlvl") << QLatin1String("realonly")
-                << QLatin1String("refcheck") << QLatin1String("rmxchar") << QLatin1String("%rnum_list")
-                << QLatin1String("rombergabs") << QLatin1String("rombergit") << QLatin1String("rombergmin")
-                << QLatin1String("rombergtol") << QLatin1String("rootsconmode") << QLatin1String("rootsepsilon")
-                << QLatin1String("savedef") << QLatin1String("savefactors") << QLatin1String("scalarmatrixp")
-                << QLatin1String("setcheck") << QLatin1String("setcheckbreak") << QLatin1String("setval")
-                << QLatin1String("showtime") << QLatin1String("simplify_products") << QLatin1String("simpsum")
-                << QLatin1String("sinnpiflag") << QLatin1String("solvedecomposes") << QLatin1String("solveexplicit")
-                << QLatin1String("solvefactors") << QLatin1String("solve_inconsistent_error") << QLatin1String("solvenullwarn")
-                << QLatin1String("solveradcan") << QLatin1String("solvetrigwarn") << QLatin1String("sparse")
-                << QLatin1String("sqrtdispflag") << QLatin1String("stardisp") << QLatin1String("stats_numer")
-                << QLatin1String("stringdisp") << QLatin1String("sublis_apply_lambda") << QLatin1String("sumexpand")
-                << QLatin1String("sumsplitfact") << QLatin1String("taylordepth") << QLatin1String("taylor_logexpand")
-                << QLatin1String("taylor_order_coefficients") << QLatin1String("taylor_truncate_polynomials")
-                << QLatin1String("tensorkill") << QLatin1String("testsuite_files") << QLatin1String("timer_devalue")
-                << QLatin1String("tlimswitch") << QLatin1String("transcompile") << QLatin1String("transrun");
-
-    m_variables << QLatin1String("tr_array_as_ref") << QLatin1String("tr_bound_function_applyp")
-                << QLatin1String("tr_file_tty_messagesp") << QLatin1String("tr_float_can_branch_complex")
-                << QLatin1String("tr_function_call_default") << QLatin1String("trigexpandplus")
-                << QLatin1String("trigexpandtimes") << QLatin1String("triginverses") << QLatin1String("trigsign")
-                << QLatin1String("tr_numer") << QLatin1String("tr_optimize_max_loop") << QLatin1String("tr_semicompile")
-                << QLatin1String("tr_state_vars") << QLatin1String("tr_warn_bad_function_calls")
-                << QLatin1String("tr_warn_fexpr") << QLatin1String("tr_warn_meval") << QLatin1String("tr_warn_mode")
-                << QLatin1String("tr_warn_undeclared") << QLatin1String("tr_warn_undefined_variable")
-                << QLatin1String("tr_windy") << QLatin1String("ttyoff") << QLatin1String("use_fast_arrays")
-                << QLatin1String("values") << QLatin1String("vect_cross") << QLatin1String("verbose")
-                << QLatin1String("zerobern") << QLatin1String("zeta%pi");
+    //Begin m_variables initialization
+    m_variables << QLatin1String("_");
+    m_variables << QLatin1String("__");
+    m_variables << QLatin1String("%");
+    m_variables << QLatin1String("%%");
+    m_variables << QLatin1String("absboxchar");
+    m_variables << QLatin1String("activecontexts");
+    m_variables << QLatin1String("additive");
+    m_variables << QLatin1String("algebraic");
+    m_variables << QLatin1String("algepsilon");
+    m_variables << QLatin1String("algexact");
+    m_variables << QLatin1String("aliases");
+    m_variables << QLatin1String("all_dotsimp_denoms");
+    m_variables << QLatin1String("allbut");
+    m_variables << QLatin1String("allsym");
+    m_variables << QLatin1String("arrays");
+    m_variables << QLatin1String("askexp");
+    m_variables << QLatin1String("assume_pos");
+    m_variables << QLatin1String("assume_pos_pred");
+    m_variables << QLatin1String("assumescalar");
+    m_variables << QLatin1String("atomgrad");
+    m_variables << QLatin1String("backsubst");
+    m_variables << QLatin1String("berlefact");
+    m_variables << QLatin1String("besselexpand");
+    m_variables << QLatin1String("bftorat");
+    m_variables << QLatin1String("bftrunc");
+    m_variables << QLatin1String("boxchar");
+    m_variables << QLatin1String("breakup");
+    m_variables << QLatin1String("cauchysum");
+    m_variables << QLatin1String("cflength");
+    m_variables << QLatin1String("cframe_flag");
+    m_variables << QLatin1String("cnonmet_flag");
+    m_variables << QLatin1String("context");
+    m_variables << QLatin1String("contexts");
+    m_variables << QLatin1String("cosnpiflag");
+    m_variables << QLatin1String("ctaypov");
+    m_variables << QLatin1String("ctaypt");
+    m_variables << QLatin1String("ctayswitch");
+    m_variables << QLatin1String("ctayvar");
+    m_variables << QLatin1String("ct_coords");
+    m_variables << QLatin1String("ctorsion_flag");
+    m_variables << QLatin1String("ctrgsimp");
+    m_variables << QLatin1String("current_let_rule_package");
+    m_variables << QLatin1String("debugmode");
+    m_variables << QLatin1String("default_let_rule_package");
+    m_variables << QLatin1String("demoivre");
+    m_variables << QLatin1String("dependencies");
+    m_variables << QLatin1String("derivabbrev");
+    m_variables << QLatin1String("derivsubst");
+    m_variables << QLatin1String("detout");
+    m_variables << QLatin1String("diagmetric");
+    m_variables << QLatin1String("dim");
+    m_variables << QLatin1String("dispflag");
+    m_variables << QLatin1String("display2d");
+    m_variables << QLatin1String("display_format_internal");
+    m_variables << QLatin1String("doallmxops");
+    m_variables << QLatin1String("domain");
+    m_variables << QLatin1String("domxexpt");
+    m_variables << QLatin1String("domxmxops");
+    m_variables << QLatin1String("domxnctimes");
+    m_variables << QLatin1String("dontfactor");
+    m_variables << QLatin1String("doscmxops");
+    m_variables << QLatin1String("doscmxplus");
+    m_variables << QLatin1String("dot0nscsimp");
+    m_variables << QLatin1String("dot0simp");
+    m_variables << QLatin1String("dot1simp");
+    m_variables << QLatin1String("dotassoc");
+    m_variables << QLatin1String("dotconstrules");
+    m_variables << QLatin1String("dotdistrib");
+    m_variables << QLatin1String("dotexptsimp");
+    m_variables << QLatin1String("dotident");
+    m_variables << QLatin1String("dotscrules");
+    m_variables << QLatin1String("draw_graph_program");
+    m_variables << QLatin1String("%edispflag");
+    m_variables << QLatin1String("%emode");
+    m_variables << QLatin1String("%enumer");
+    m_variables << QLatin1String("epsilon_lp");
+    m_variables << QLatin1String("erfflag");
+    m_variables << QLatin1String("error");
+    m_variables << QLatin1String("error_size");
+    m_variables << QLatin1String("error_syms");
+    m_variables << QLatin1String("%e_to_numlog");
+    m_variables << QLatin1String("evflag");
+    m_variables << QLatin1String("evfun");
+    m_variables << QLatin1String("expandwrt_denom");
+    m_variables << QLatin1String("expon");
+    m_variables << QLatin1String("exponentialize");
+    m_variables << QLatin1String("expop");
+    m_variables << QLatin1String("exptdispflag");
+    m_variables << QLatin1String("exptisolate");
+    m_variables << QLatin1String("exptsubst");
+    m_variables << QLatin1String("facexpand");
+    m_variables << QLatin1String("factlim");
+    m_variables << QLatin1String("factorflag");
+    m_variables << QLatin1String("file_output_append");
+    m_variables << QLatin1String("file_search_demo");
+    m_variables << QLatin1String("file_search_lisp");
+    m_variables << QLatin1String("file_search_maxima");
+    m_variables << QLatin1String("find_root_abs");
+    m_variables << QLatin1String("find_root_error");
+    m_variables << QLatin1String("find_root_rel");
+    m_variables << QLatin1String("flipflag");
+    m_variables << QLatin1String("float2bf");
+    m_variables << QLatin1String("fortindent");
+    m_variables << QLatin1String("fortspaces");
+    m_variables << QLatin1String("fpprec");
+    m_variables << QLatin1String("fpprintprec");
+    m_variables << QLatin1String("functions");
+    m_variables << QLatin1String("gammalim");
+    m_variables << QLatin1String("gdet");
+    m_variables << QLatin1String("genindex");
+    m_variables << QLatin1String("gensumnum");
+    m_variables << QLatin1String("GGFCFMAX");
+    m_variables << QLatin1String("GGFINFINITY");
+    m_variables << QLatin1String("globalsolve");
+    m_variables << QLatin1String("gradefs");
+    m_variables << QLatin1String("grind");
+    m_variables << QLatin1String("halfangles");
+    m_variables << QLatin1String("%iargs");
+    m_variables << QLatin1String("ibase");
+    m_variables << QLatin1String("icounter");
+    m_variables << QLatin1String("idummyx");
+    m_variables << QLatin1String("ieqnprint");
+    m_variables << QLatin1String("iframe_bracket_form");
+    m_variables << QLatin1String("igeowedge_flag");
+    m_variables << QLatin1String("imetric");
+    m_variables << QLatin1String("inchar");
+    m_variables << QLatin1String("infeval");
+    m_variables << QLatin1String("inflag");
+    m_variables << QLatin1String("infolists");
+    m_variables << QLatin1String("in_netmath");
+    m_variables << QLatin1String("integrate_use_rootsof");
+    m_variables << QLatin1String("integration_constant");
+    m_variables << QLatin1String("integration_constant_counter");
+    m_variables << QLatin1String("intfaclim");
+    m_variables << QLatin1String("isolate_wrt_times");
+    m_variables << QLatin1String("keepfloat");
+    m_variables << QLatin1String("labels");
+    m_variables << QLatin1String("letrat");
+    m_variables << QLatin1String("let_rule_packages");
+    m_variables << QLatin1String("lhospitallim");
+    m_variables << QLatin1String("limsubst");
+    m_variables << QLatin1String("linechar");
+    m_variables << QLatin1String("linel");
+    m_variables << QLatin1String("linenum");
+    m_variables << QLatin1String("linsolve_params");
+    m_variables << QLatin1String("linsolvewarn");
+    m_variables << QLatin1String("lispdisp");
+    m_variables << QLatin1String("listarith");
+    m_variables << QLatin1String("listconstvars");
+    m_variables << QLatin1String("listdummyvars");
+    m_variables << QLatin1String("lmxchar");
+    m_variables << QLatin1String("loadprint");
+    m_variables << QLatin1String("logabs");
+    m_variables << QLatin1String("logarc");
+    m_variables << QLatin1String("logconcoeffp");
+    m_variables << QLatin1String("logexpand");
+    m_variables << QLatin1String("lognegint");
+    m_variables << QLatin1String("lognumer");
+    m_variables << QLatin1String("logsimp");
+    m_variables << QLatin1String("m1pbranch");
+    m_variables << QLatin1String("macroexpansion");
+    m_variables << QLatin1String("maperror");
+    m_variables << QLatin1String("mapprint");
+    m_variables << QLatin1String("matrix_element_add");
+    m_variables << QLatin1String("matrix_element_mult");
+    m_variables << QLatin1String("matrix_element_transpose");
+    m_variables << QLatin1String("maxapplydepth");
+    m_variables << QLatin1String("maxapplyheight");
+    m_variables << QLatin1String("maxima_tempdir");
+    m_variables << QLatin1String("maxima_userdir");
+    m_variables << QLatin1String("maxnegex");
+    m_variables << QLatin1String("maxposex");
+    m_variables << QLatin1String("maxpsifracdenom");
+    m_variables << QLatin1String("maxpsifracnum");
+    m_variables << QLatin1String("maxpsinegint");
+    m_variables << QLatin1String("maxpsiposint");
+    m_variables << QLatin1String("maxtayorder");
+    m_variables << QLatin1String("method");
+    m_variables << QLatin1String("mode_check_errorp");
+    m_variables << QLatin1String("mode_checkp");
+    m_variables << QLatin1String("mode_check_warnp");
+    m_variables << QLatin1String("modulus");
+    m_variables << QLatin1String("multiplicities");
+    m_variables << QLatin1String("myoptions");
+    m_variables << QLatin1String("negdistrib");
+    m_variables << QLatin1String("negsumdispflag");
+    m_variables << QLatin1String("newtonepsilon");
+    m_variables << QLatin1String("newtonmaxiter");
+    m_variables << QLatin1String("niceindicespref");
+    m_variables << QLatin1String("nolabels");
+    m_variables << QLatin1String("nonegative_lp");
+    m_variables << QLatin1String("noundisp");
+    m_variables << QLatin1String("obase");
+    m_variables << QLatin1String("opproperties");
+    m_variables << QLatin1String("opsubst");
+    m_variables << QLatin1String("optimprefix");
+    m_variables << QLatin1String("optionset");
+    m_variables << QLatin1String("outchar");
+    m_variables << QLatin1String("packagefile");
+    m_variables << QLatin1String("partswitch");
+    m_variables << QLatin1String("pfeformat");
+    m_variables << QLatin1String("%piargs");
+    m_variables << QLatin1String("piece");
+    m_variables << QLatin1String("plot_options");
+    m_variables << QLatin1String("poislim");
+    m_variables << QLatin1String("poly_coefficient_ring");
+    m_variables << QLatin1String("poly_elimination_order");
+    m_variables << QLatin1String("poly_grobner_algorithm");
+    m_variables << QLatin1String("poly_grobner_debug");
+    m_variables << QLatin1String("poly_monomial_order");
+    m_variables << QLatin1String("poly_primary_elimination_order");
+    m_variables << QLatin1String("poly_return_term_list");
+    m_variables << QLatin1String("poly_secondary_elimination_order");
+    m_variables << QLatin1String("poly_top_reduction_only");
+    m_variables << QLatin1String("powerdisp");
+    m_variables << QLatin1String("prederror");
+    m_variables << QLatin1String("primep_number_of_tests");
+    m_variables << QLatin1String("product_use_gamma");
+    m_variables << QLatin1String("programmode");
+    m_variables << QLatin1String("prompt");
+    m_variables << QLatin1String("psexpand");
+    m_variables << QLatin1String("radexpand");
+    m_variables << QLatin1String("radsubstflag");
+    m_variables << QLatin1String("random_beta_algorithm");
+    m_variables << QLatin1String("random_binomial_algorithm");
+    m_variables << QLatin1String("random_chi2_algorithm");
+    m_variables << QLatin1String("random_exp_algorithm");
+    m_variables << QLatin1String("random_f_algorithm");
+    m_variables << QLatin1String("random_gamma_algorithm");
+    m_variables << QLatin1String("random_geometric_algorithm");
+    m_variables << QLatin1String("random_hypergeometric_algorithm");
+    m_variables << QLatin1String("random_negative_binomial_algorithm");
+    m_variables << QLatin1String("random_normal_algorithm");
+    m_variables << QLatin1String("random_poisson_algorithm");
+    m_variables << QLatin1String("random_student_t_algorithm");
+    m_variables << QLatin1String("ratalgdenom");
+    m_variables << QLatin1String("ratchristof");
+    m_variables << QLatin1String("ratdenomdivide");
+    m_variables << QLatin1String("rateinstein");
+    m_variables << QLatin1String("ratepsilon");
+    m_variables << QLatin1String("ratexpand");
+    m_variables << QLatin1String("ratfac");
+    m_variables << QLatin1String("ratmx");
+    m_variables << QLatin1String("ratprint");
+    m_variables << QLatin1String("ratriemann");
+    m_variables << QLatin1String("ratsimpexpons");
+    m_variables << QLatin1String("ratvars");
+    m_variables << QLatin1String("ratweights");
+    m_variables << QLatin1String("ratweyl");
+    m_variables << QLatin1String("ratwtlvl");
+    m_variables << QLatin1String("realonly");
+    m_variables << QLatin1String("refcheck");
+    m_variables << QLatin1String("rmxchar");
+    m_variables << QLatin1String("%rnum_list");
+    m_variables << QLatin1String("rombergabs");
+    m_variables << QLatin1String("rombergit");
+    m_variables << QLatin1String("rombergmin");
+    m_variables << QLatin1String("rombergtol");
+    m_variables << QLatin1String("rootsconmode");
+    m_variables << QLatin1String("rootsepsilon");
+    m_variables << QLatin1String("savedef");
+    m_variables << QLatin1String("savefactors");
+    m_variables << QLatin1String("scalarmatrixp");
+    m_variables << QLatin1String("setcheck");
+    m_variables << QLatin1String("setcheckbreak");
+    m_variables << QLatin1String("setval");
+    m_variables << QLatin1String("showtime");
+    m_variables << QLatin1String("simplify_products");
+    m_variables << QLatin1String("simpsum");
+    m_variables << QLatin1String("sinnpiflag");
+    m_variables << QLatin1String("solvedecomposes");
+    m_variables << QLatin1String("solveexplicit");
+    m_variables << QLatin1String("solvefactors");
+    m_variables << QLatin1String("solve_inconsistent_error");
+    m_variables << QLatin1String("solvenullwarn");
+    m_variables << QLatin1String("solveradcan");
+    m_variables << QLatin1String("solvetrigwarn");
+    m_variables << QLatin1String("sparse");
+    m_variables << QLatin1String("sqrtdispflag");
+    m_variables << QLatin1String("stardisp");
+    m_variables << QLatin1String("stats_numer");
+    m_variables << QLatin1String("stringdisp");
+    m_variables << QLatin1String("sublis_apply_lambda");
+    m_variables << QLatin1String("sumexpand");
+    m_variables << QLatin1String("sumsplitfact");
+    m_variables << QLatin1String("taylordepth");
+    m_variables << QLatin1String("taylor_logexpand");
+    m_variables << QLatin1String("taylor_order_coefficients");
+    m_variables << QLatin1String("taylor_truncate_polynomials");
+    m_variables << QLatin1String("tensorkill");
+    m_variables << QLatin1String("testsuite_files");
+    m_variables << QLatin1String("timer_devalue");
+    m_variables << QLatin1String("tlimswitch");
+    m_variables << QLatin1String("transcompile");
+    m_variables << QLatin1String("transrun");
+    m_variables << QLatin1String("tr_array_as_ref");
+    m_variables << QLatin1String("tr_bound_function_applyp");
+    m_variables << QLatin1String("tr_file_tty_messagesp");
+    m_variables << QLatin1String("tr_float_can_branch_complex");
+    m_variables << QLatin1String("tr_function_call_default");
+    m_variables << QLatin1String("trigexpandplus");
+    m_variables << QLatin1String("trigexpandtimes");
+    m_variables << QLatin1String("triginverses");
+    m_variables << QLatin1String("trigsign");
+    m_variables << QLatin1String("tr_numer");
+    m_variables << QLatin1String("tr_optimize_max_loop");
+    m_variables << QLatin1String("tr_semicompile");
+    m_variables << QLatin1String("tr_state_vars");
+    m_variables << QLatin1String("tr_warn_bad_function_calls");
+    m_variables << QLatin1String("tr_warn_fexpr");
+    m_variables << QLatin1String("tr_warn_meval");
+    m_variables << QLatin1String("tr_warn_mode");
+    m_variables << QLatin1String("tr_warn_undeclared");
+    m_variables << QLatin1String("tr_warn_undefined_variable");
+    m_variables << QLatin1String("tr_windy");
+    m_variables << QLatin1String("ttyoff");
+    m_variables << QLatin1String("use_fast_arrays");
+    m_variables << QLatin1String("values");
+    m_variables << QLatin1String("vect_cross");
+    m_variables << QLatin1String("verbose");
+    m_variables << QLatin1String("zerobern");
+    m_variables << QLatin1String("zeta%pi");
     //Finish m_variables initialization
 
-    // Begin m_functions initialization - maximum 100 lines for each initialization insctruction
-    m_functions << QLatin1String("abasep") << QLatin1String("abs") << QLatin1String("absint")
-                << QLatin1String("absolute_real_time") << QLatin1String("acos") << QLatin1String("acosh")
-                << QLatin1String("acot") << QLatin1String("acoth") << QLatin1String("acsc") << QLatin1String("acsch")
-                << QLatin1String("activate") << QLatin1String("addcol") << QLatin1String("add_edge")
-                << QLatin1String("add_edges") << QLatin1String("addmatrices") << QLatin1String("addrow")
-                << QLatin1String("add_vertex") << QLatin1String("add_vertices") << QLatin1String("adjacency_matrix")
-                << QLatin1String("adjoin") << QLatin1String("adjoint") << QLatin1String("af") << QLatin1String("agd")
-                << QLatin1String("airy_ai") << QLatin1String("airy_bi") << QLatin1String("airy_dai")
-                << QLatin1String("airy_dbi") << QLatin1String("algsys") << QLatin1String("alg_type") << QLatin1String("alias")
-                << QLatin1String("allroots") << QLatin1String("alphacharp") << QLatin1String("alphanumericp")
-                << QLatin1String("antid") << QLatin1String("antidiff") << QLatin1String("AntiDifference")
-                << QLatin1String("append") << QLatin1String("appendfile") << QLatin1String("apply") << QLatin1String("apply1")
-                << QLatin1String("apply2") << QLatin1String("applyb1") << QLatin1String("apropos") << QLatin1String("args")
-                << QLatin1String("arithmetic") << QLatin1String("arithsum") << QLatin1String("array")
-                << QLatin1String("arrayapply") << QLatin1String("arrayinfo") << QLatin1String("arraymake")
-                << QLatin1String("ascii") << QLatin1String("asec") << QLatin1String("asech") << QLatin1String("asin")
-                << QLatin1String("asinh") << QLatin1String("askinteger") << QLatin1String("asksign") << QLatin1String("assoc")
-                << QLatin1String("assoc_legendre_p") << QLatin1String("assoc_legendre_q") << QLatin1String("assume")
-                << QLatin1String("asympa") << QLatin1String("at") << QLatin1String("atan") << QLatin1String("atan2")
-                << QLatin1String("atanh") << QLatin1String("atensimp") << QLatin1String("atom") << QLatin1String("atvalue")
-                << QLatin1String("augcoefmatrix") << QLatin1String("augmented_lagrangian_method") << QLatin1String("av")
-                << QLatin1String("average_degree") << QLatin1String("backtrace") << QLatin1String("barsplot")
-                << QLatin1String("bashindices") << QLatin1String("batch") << QLatin1String("batchload") << QLatin1String("bc2")
-                << QLatin1String("bdvac") << QLatin1String("belln") << QLatin1String("bern") << QLatin1String("bernpoly")
-                << QLatin1String("bessel") << QLatin1String("bessel_i") << QLatin1String("bessel_j")
-                << QLatin1String("bessel_k") << QLatin1String("bessel_y") << QLatin1String("beta") << QLatin1String("bezout")
-                << QLatin1String("bffac") << QLatin1String("bfhzeta") << QLatin1String("bfloat") << QLatin1String("bfloatp")
-                << QLatin1String("bfpsi") << QLatin1String("bfpsi0") << QLatin1String("bfzeta")
-                << QLatin1String("biconected_components") << QLatin1String("bimetric") << QLatin1String("binomial")
-                << QLatin1String("bipartition") << QLatin1String("block") << QLatin1String("blockmatrixp")
-                << QLatin1String("bode_gain") << QLatin1String("bode_phase") << QLatin1String("bothcoef")
-                << QLatin1String("box") << QLatin1String("boxplot") << QLatin1String("break") << QLatin1String("bug_report")
-                << QLatin1String("build_info") << QLatin1String("buildq") << QLatin1String("burn") << QLatin1String("cabs")
-                << QLatin1String("canform") << QLatin1String("canten") << QLatin1String("cardinality") << QLatin1String("carg")
-                << QLatin1String("cartan") << QLatin1String("cartesian_product") << QLatin1String("catch")
-                << QLatin1String("cbffac") << QLatin1String("cdf_bernoulli") << QLatin1String("cdf_beta")
-                << QLatin1String("cdf_binomial") << QLatin1String("cdf_cauchy") << QLatin1String("cdf_chi2")
-                << QLatin1String("cdf_continuous_uniform") << QLatin1String("cdf_discrete_uniform") << QLatin1String("cdf_exp")
-                << QLatin1String("cdf_f") << QLatin1String("cdf_gamma") << QLatin1String("cdf_geometric")
-                << QLatin1String("cdf_gumbel") << QLatin1String("cdf_hypergeometric") << QLatin1String("cdf_laplace")
-                << QLatin1String("cdf_logistic") << QLatin1String("cdf_lognormal") << QLatin1String("cdf_negative_binomial")
-                << QLatin1String("cdf_normal") << QLatin1String("cdf_pareto") << QLatin1String("cdf_poisson")
-                << QLatin1String("cdf_rank_sum") << QLatin1String("cdf_rayleigh") << QLatin1String("cdf_signed_rank")
-                << QLatin1String("cdf_student_t") << QLatin1String("cdf_weibull") << QLatin1String("cdisplay")
-                << QLatin1String("ceiling") << QLatin1String("central_moment") << QLatin1String("cequal")
-                << QLatin1String("cequalignore") << QLatin1String("cf") << QLatin1String("cfdisrep")
-                << QLatin1String("cfexpand") << QLatin1String("cgeodesic") << QLatin1String("cgreaterp")
-                << QLatin1String("cgreaterpignore") << QLatin1String("changename") << QLatin1String("changevar")
-                << QLatin1String("chaosgame") << QLatin1String("charat") << QLatin1String("charfun")
-                << QLatin1String("charfun2") << QLatin1String("charlist") << QLatin1String("charp")
-                << QLatin1String("charpoly") << QLatin1String("chebyshev_t") << QLatin1String("chebyshev_u")
-                << QLatin1String("checkdiv") << QLatin1String("check_overlaps") << QLatin1String("cholesky")
-                << QLatin1String("christof") << QLatin1String("chromatic_index") << QLatin1String("chromatic_number")
-                << QLatin1String("cint") << QLatin1String("circulant_graph") << QLatin1String("clear_edge_weight")
-                << QLatin1String("clear_rules") << QLatin1String("clear_vertex_label") << QLatin1String("clebsch_graph")
-                << QLatin1String("clessp") << QLatin1String("clesspignore") << QLatin1String("close")
-                << QLatin1String("closefile") << QLatin1String("cmetric") << QLatin1String("coeff")
-                << QLatin1String("coefmatrix") << QLatin1String("cograd") << QLatin1String("col") << QLatin1String("collapse")
-                << QLatin1String("collectterms") << QLatin1String("columnop") << QLatin1String("columnspace")
-                << QLatin1String("columnswap") << QLatin1String("columnvector") << QLatin1String("combination")
-                << QLatin1String("combine") << QLatin1String("comp2pui") << QLatin1String("compare")
-                << QLatin1String("compfile") << QLatin1String("compile") << QLatin1String("compile_file")
-                << QLatin1String("complement_graph") << QLatin1String("complete_bipartite_graph")
-                << QLatin1String("complete_graph") << QLatin1String("components") << QLatin1String("concan")
-                << QLatin1String("concat") << QLatin1String("conjugate") << QLatin1String("conmetderiv")
-                << QLatin1String("connected_components") << QLatin1String("connect_vertices") << QLatin1String("cons")
-                << QLatin1String("constantp") << QLatin1String("constituent") << QLatin1String("cont2part")
-                << QLatin1String("content") << QLatin1String("continuous_freq") << QLatin1String("contortion")
-                << QLatin1String("contour_plot") << QLatin1String("contract") << QLatin1String("contract_edge")
-                << QLatin1String("contragrad") << QLatin1String("contrib_ode") << QLatin1String("convert")
-                << QLatin1String("coord") << QLatin1String("copy") << QLatin1String("copy_graph") << QLatin1String("copylist")
-                << QLatin1String("copymatrix") << QLatin1String("cor") << QLatin1String("cos") << QLatin1String("cosh")
-                << QLatin1String("cot") << QLatin1String("coth") << QLatin1String("cov") << QLatin1String("cov1")
-                << QLatin1String("covdiff") << QLatin1String("covect") << QLatin1String("covers")
-                << QLatin1String("create_graph") << QLatin1String("create_list") << QLatin1String("csc")
-                << QLatin1String("csch") << QLatin1String("csetup") << QLatin1String("cspline") << QLatin1String("ctaylor")
-                << QLatin1String("ct_coordsys") << QLatin1String("ctransform") << QLatin1String("ctranspose")
-                << QLatin1String("cube_graph") << QLatin1String("cunlisp") << QLatin1String("cv")
-                << QLatin1String("cycle_digraph") << QLatin1String("cycle_graph") << QLatin1String("dblint")
-                << QLatin1String("deactivate") << QLatin1String("declare") << QLatin1String("declare_translated")
-                << QLatin1String("declare_weight") << QLatin1String("decsym") << QLatin1String("defcon")
-                << QLatin1String("define") << QLatin1String("define_variable") << QLatin1String("defint")
-                << QLatin1String("defmatch") << QLatin1String("defrule") << QLatin1String("deftaylor")
-                << QLatin1String("degree_sequence") << QLatin1String("del") << QLatin1String("delete")
-                << QLatin1String("deleten") << QLatin1String("delta") << QLatin1String("demo") << QLatin1String("demoivre")
-                << QLatin1String("denom") << QLatin1String("depends") << QLatin1String("derivdegree")
-                << QLatin1String("derivlist") << QLatin1String("describe") << QLatin1String("desolve")
-                << QLatin1String("determinant") << QLatin1String("dgauss_a") << QLatin1String("dgauss_b")
-                << QLatin1String("dgeev") << QLatin1String("dgesvd") << QLatin1String("diag") << QLatin1String("diagmatrix")
-                << QLatin1String("diag_matrix") << QLatin1String("diagmatrixp") << QLatin1String("diameter")
-                << QLatin1String("diff") << QLatin1String("digitcharp") << QLatin1String("dimacs_export")
-                << QLatin1String("dimacs_import") << QLatin1String("dimension") << QLatin1String("direct")
-                << QLatin1String("discrete_freq") << QLatin1String("disjoin") << QLatin1String("disjointp")
-                << QLatin1String("disolate") << QLatin1String("disp") << QLatin1String("dispcon") << QLatin1String("dispform")
-                << QLatin1String("dispfun") << QLatin1String("dispJordan") << QLatin1String("display")
-                << QLatin1String("disprule") << QLatin1String("dispterms") << QLatin1String("distrib")
-                << QLatin1String("divide") << QLatin1String("divisors") << QLatin1String("divsum") << QLatin1String("dkummer_m")
-                << QLatin1String("dkummer_u") << QLatin1String("dlange") << QLatin1String("dodecahedron_graph")
-                << QLatin1String("dotproduct") << QLatin1String("dotsimp") << QLatin1String("dpart") << QLatin1String("draw")
-                << QLatin1String("draw2d") << QLatin1String("draw3d") << QLatin1String("draw_graph") << QLatin1String("dscalar")
-                << QLatin1String("echelon") << QLatin1String("edge_coloring") << QLatin1String("edges");
-
-    m_functions << QLatin1String("eigens_by_jacobi") << QLatin1String("eigenvalues") << QLatin1String("eigenvectors")
-                << QLatin1String("eighth") << QLatin1String("einstein") << QLatin1String("eivals") << QLatin1String("eivects")
-                << QLatin1String("elapsed_real_time") << QLatin1String("elapsed_run_time") << QLatin1String("ele2comp")
-                << QLatin1String("ele2polynome") << QLatin1String("ele2pui") << QLatin1String("elem")
-                << QLatin1String("elementp") << QLatin1String("eliminate") << QLatin1String("elliptic_e")
-                << QLatin1String("elliptic_ec") << QLatin1String("elliptic_eu") << QLatin1String("elliptic_f")
-                << QLatin1String("elliptic_kc") << QLatin1String("elliptic_pi") << QLatin1String("ematrix")
-                << QLatin1String("empty_graph") << QLatin1String("emptyp") << QLatin1String("endcons")
-                << QLatin1String("entermatrix") << QLatin1String("entertensor") << QLatin1String("entier")
-                << QLatin1String("equal") << QLatin1String("equalp") << QLatin1String("equiv_classes") << QLatin1String("erf")
-                << QLatin1String("errcatch") << QLatin1String("error") << QLatin1String("errormsg") << QLatin1String("euler")
-                << QLatin1String("ev") << QLatin1String("eval_string") << QLatin1String("evenp") << QLatin1String("every")
-                << QLatin1String("evolution") << QLatin1String("evolution2d") << QLatin1String("evundiff")
-                << QLatin1String("example") << QLatin1String("exp") << QLatin1String("expand") << QLatin1String("expandwrt")
-                << QLatin1String("expandwrt_factored") << QLatin1String("explose") << QLatin1String("exponentialize")
-                << QLatin1String("express") << QLatin1String("expt") << QLatin1String("exsec") << QLatin1String("extdiff")
-                << QLatin1String("extract_linear_equations") << QLatin1String("extremal_subset") << QLatin1String("ezgcd")
-                << QLatin1String("f90") << QLatin1String("facsum") << QLatin1String("factcomb") << QLatin1String("factor")
-                << QLatin1String("factorfacsum") << QLatin1String("factorial") << QLatin1String("factorout")
-                << QLatin1String("factorsum") << QLatin1String("facts") << QLatin1String("fast_central_elements")
-                << QLatin1String("fast_linsolve") << QLatin1String("fasttimes") << QLatin1String("featurep")
-                << QLatin1String("fft") << QLatin1String("fib") << QLatin1String("fibtophi") << QLatin1String("fifth")
-                << QLatin1String("filename_merge") << QLatin1String("file_search") << QLatin1String("file_type")
-                << QLatin1String("fillarray") << QLatin1String("findde") << QLatin1String("find_root") << QLatin1String("first")
-                << QLatin1String("fix") << QLatin1String("flatten") << QLatin1String("flength") << QLatin1String("float")
-                << QLatin1String("floatnump") << QLatin1String("floor") << QLatin1String("flower_snark")
-                << QLatin1String("flush") << QLatin1String("flush1deriv") << QLatin1String("flushd") << QLatin1String("flushnd")
-                << QLatin1String("forget") << QLatin1String("fortran") << QLatin1String("fourcos")
-                << QLatin1String("fourexpand") << QLatin1String("fourier") << QLatin1String("fourint")
-                << QLatin1String("fourintcos") << QLatin1String("fourintsin") << QLatin1String("foursimp")
-                << QLatin1String("foursin") << QLatin1String("fourth") << QLatin1String("fposition")
-                << QLatin1String("frame_bracket") << QLatin1String("freeof") << QLatin1String("freshline")
-                << QLatin1String("from_adjacency_matrix") << QLatin1String("frucht_graph") << QLatin1String("full_listify")
-                << QLatin1String("fullmap") << QLatin1String("fullmapl") << QLatin1String("fullratsimp")
-                << QLatin1String("fullratsubst") << QLatin1String("fullsetify") << QLatin1String("funcsolve")
-                << QLatin1String("fundef") << QLatin1String("funmake") << QLatin1String("funp") << QLatin1String("gamma")
-                << QLatin1String("gauss_a") << QLatin1String("gauss_b") << QLatin1String("gaussprob") << QLatin1String("gcd")
-                << QLatin1String("gcdex") << QLatin1String("gcdivide") << QLatin1String("gcfac") << QLatin1String("gcfactor")
-                << QLatin1String("gd") << QLatin1String("genfact") << QLatin1String("gen_laguerre")
-                << QLatin1String("genmatrix") << QLatin1String("geometric") << QLatin1String("geometric_mean")
-                << QLatin1String("geosum") << QLatin1String("get") << QLatin1String("get_edge_weight")
-                << QLatin1String("get_lu_factors") << QLatin1String("get_pixel") << QLatin1String("get_vertex_label")
-                << QLatin1String("gfactor") << QLatin1String("gfactorsum") << QLatin1String("ggf") << QLatin1String("girth")
-                << QLatin1String("global_variances") << QLatin1String("gnuplot_close") << QLatin1String("gnuplot_replot")
-                << QLatin1String("gnuplot_reset") << QLatin1String("gnuplot_restart") << QLatin1String("gnuplot_start")
-                << QLatin1String("go") << QLatin1String("Gosper") << QLatin1String("GosperSum") << QLatin1String("gradef")
-                << QLatin1String("gramschmidt") << QLatin1String("graph6_decode") << QLatin1String("graph6_encode")
-                << QLatin1String("graph6_export") << QLatin1String("graph6_import") << QLatin1String("graph_center")
-                << QLatin1String("graph_charpoly") << QLatin1String("graph_eigenvalues") << QLatin1String("graph_order")
-                << QLatin1String("graph_periphery") << QLatin1String("graph_product") << QLatin1String("graph_size")
-                << QLatin1String("graph_union") << QLatin1String("grid_graph") << QLatin1String("grind")
-                << QLatin1String("grobner_basis") << QLatin1String("grotzch_graph") << QLatin1String("hamilton_cycle")
-                << QLatin1String("hamilton_path") << QLatin1String("hankel") << QLatin1String("harmonic")
-                << QLatin1String("harmonic_mean") << QLatin1String("hav") << QLatin1String("heawood_graph")
-                << QLatin1String("hermite") << QLatin1String("hessian") << QLatin1String("hilbert_matrix")
-                << QLatin1String("hipow") << QLatin1String("histogram") << QLatin1String("hodge") << QLatin1String("horner")
-                << QLatin1String("ic1") << QLatin1String("ic2") << QLatin1String("ic_convert") << QLatin1String("ichr1")
-                << QLatin1String("ichr2") << QLatin1String("icosahedron_graph") << QLatin1String("icurvature")
-                << QLatin1String("ident") << QLatin1String("identfor") << QLatin1String("identity") << QLatin1String("idiff")
-                << QLatin1String("idim") << QLatin1String("idummy") << QLatin1String("ieqn") << QLatin1String("ifactors")
-                << QLatin1String("iframes") << QLatin1String("ifs") << QLatin1String("ift") << QLatin1String("igeodesic_coords")
-                << QLatin1String("ilt") << QLatin1String("imagpart") << QLatin1String("imetric")
-                << QLatin1String("implicit_derivative") << QLatin1String("implicit_plot") << QLatin1String("indexed_tensor")
-                << QLatin1String("indices") << QLatin1String("induced_subgraph") << QLatin1String("inferencep")
-                << QLatin1String("inference_result") << QLatin1String("infix") << QLatin1String("init_atensor")
-                << QLatin1String("init_ctensor") << QLatin1String("in_neighbors") << QLatin1String("innerproduct")
-                << QLatin1String("inpart") << QLatin1String("inprod") << QLatin1String("inrt") << QLatin1String("integerp")
-                << QLatin1String("integer_partitions") << QLatin1String("integrate") << QLatin1String("intersect")
-                << QLatin1String("intersection") << QLatin1String("intervalp") << QLatin1String("intopois")
-                << QLatin1String("intosum") << QLatin1String("invariant1") << QLatin1String("invariant2")
-                << QLatin1String("inverse_jacobi_cd") << QLatin1String("inverse_jacobi_cn")
-                << QLatin1String("inverse_jacobi_cs") << QLatin1String("inverse_jacobi_dc")
-                << QLatin1String("inverse_jacobi_dn") << QLatin1String("inverse_jacobi_ds")
-                << QLatin1String("inverse_jacobi_nc") << QLatin1String("inverse_jacobi_nd")
-                << QLatin1String("inverse_jacobi_ns") << QLatin1String("inverse_jacobi_sc")
-                << QLatin1String("inverse_jacobi_sd") << QLatin1String("inverse_jacobi_sn") << QLatin1String("invert")
-                << QLatin1String("invert_by_lu") << QLatin1String("inv_mod") << QLatin1String("is")
-                << QLatin1String("is_biconnected") << QLatin1String("is_bipartite") << QLatin1String("is_connected")
-                << QLatin1String("is_digraph") << QLatin1String("is_edge_in_graph") << QLatin1String("is_graph")
-                << QLatin1String("is_graph_or_digraph") << QLatin1String("ishow") << QLatin1String("is_isomorphic")
-                << QLatin1String("isolate") << QLatin1String("isomorphism") << QLatin1String("is_planar")
-                << QLatin1String("isqrt") << QLatin1String("is_sconnected") << QLatin1String("is_tree")
-                << QLatin1String("is_vertex_in_graph") << QLatin1String("items_inference") << QLatin1String("jacobi")
-                << QLatin1String("jacobian") << QLatin1String("jacobi_cd") << QLatin1String("jacobi_cn")
-                << QLatin1String("jacobi_cs") << QLatin1String("jacobi_dc") << QLatin1String("jacobi_dn")
-                << QLatin1String("jacobi_ds") << QLatin1String("jacobi_nc") << QLatin1String("jacobi_nd")
-                << QLatin1String("jacobi_ns") << QLatin1String("jacobi_p") << QLatin1String("jacobi_sc")
-                << QLatin1String("jacobi_sd") << QLatin1String("jacobi_sn") << QLatin1String("JF") << QLatin1String("join")
-                << QLatin1String("jordan") << QLatin1String("julia") << QLatin1String("kdels") << QLatin1String("kdelta")
-                << QLatin1String("kill") << QLatin1String("killcontext") << QLatin1String("kostka")
-                << QLatin1String("kron_delta") << QLatin1String("kronecker_product") << QLatin1String("kummer_m")
-                << QLatin1String("kummer_u") << QLatin1String("kurtosis") << QLatin1String("kurtosis_bernoulli")
-                << QLatin1String("kurtosis_beta") << QLatin1String("kurtosis_binomial") << QLatin1String("kurtosis_chi2")
-                << QLatin1String("kurtosis_continuous_uniform") << QLatin1String("kurtosis_discrete_uniform")
-                << QLatin1String("kurtosis_exp") << QLatin1String("kurtosis_f") << QLatin1String("kurtosis_gamma")
-                << QLatin1String("kurtosis_geometric") << QLatin1String("kurtosis_gumbel")
-                << QLatin1String("kurtosis_hypergeometric") << QLatin1String("kurtosis_laplace")
-                << QLatin1String("kurtosis_logistic") << QLatin1String("kurtosis_lognormal")
-                << QLatin1String("kurtosis_negative_binomial") << QLatin1String("kurtosis_normal")
-                << QLatin1String("kurtosis_pareto") << QLatin1String("kurtosis_poisson") << QLatin1String("kurtosis_rayleigh")
-                << QLatin1String("kurtosis_student_t") << QLatin1String("kurtosis_weibull") << QLatin1String("labels");
-
-    m_functions << QLatin1String("lagrange") << QLatin1String("laguerre") << QLatin1String("lambda") << QLatin1String("laplace")
-                << QLatin1String("laplacian_matrix") << QLatin1String("last") << QLatin1String("lbfgs")
-                << QLatin1String("lc2kdt") << QLatin1String("lcharp") << QLatin1String("lc_l") << QLatin1String("lcm")
-                << QLatin1String("lc_u") << QLatin1String("ldefint") << QLatin1String("ldisp") << QLatin1String("ldisplay")
-                << QLatin1String("legendre_p") << QLatin1String("legendre_q") << QLatin1String("leinstein")
-                << QLatin1String("length") << QLatin1String("let") << QLatin1String("letrules") << QLatin1String("letsimp")
-                << QLatin1String("levi_civita") << QLatin1String("lfreeof") << QLatin1String("lgtreillis")
-                << QLatin1String("lhs") << QLatin1String("li") << QLatin1String("liediff") << QLatin1String("limit")
-                << QLatin1String("Lindstedt") << QLatin1String("linear") << QLatin1String("linearinterpol")
-                << QLatin1String("linear_program") << QLatin1String("line_graph") << QLatin1String("linsolve")
-                << QLatin1String("listarray") << QLatin1String("list_correlations") << QLatin1String("listify")
-                << QLatin1String("list_nc_monomials") << QLatin1String("listoftens") << QLatin1String("listofvars")
-                << QLatin1String("listp") << QLatin1String("lmax") << QLatin1String("lmin") << QLatin1String("load")
-                << QLatin1String("loadfile") << QLatin1String("local") << QLatin1String("locate_matrix_entry")
-                << QLatin1String("log") << QLatin1String("logand") << QLatin1String("logarc") << QLatin1String("logcontract")
-                << QLatin1String("logor") << QLatin1String("logxor") << QLatin1String("lopow") << QLatin1String("lorentz_gauge")
-                << QLatin1String("lowercasep") << QLatin1String("lpart") << QLatin1String("lratsubst")
-                << QLatin1String("lreduce") << QLatin1String("lriemann") << QLatin1String("lsquares_estimates")
-                << QLatin1String("lsquares_estimates_approximate") << QLatin1String("lsquares_estimates_exact")
-                << QLatin1String("lsquares_mse") << QLatin1String("lsquares_residual_mse")
-                << QLatin1String("lsquares_residuals") << QLatin1String("lsum") << QLatin1String("ltreillis")
-                << QLatin1String("lu_backsub") << QLatin1String("lu_factor") << QLatin1String("macroexpand")
-                << QLatin1String("macroexpand1") << QLatin1String("make_array") << QLatin1String("makebox")
-                << QLatin1String("makefact") << QLatin1String("makegamma") << QLatin1String("make_level_picture")
-                << QLatin1String("makelist") << QLatin1String("makeOrders") << QLatin1String("make_poly_continent")
-                << QLatin1String("make_poly_country") << QLatin1String("make_polygon") << QLatin1String("make_random_state")
-                << QLatin1String("make_rgb_picture") << QLatin1String("makeset") << QLatin1String("make_transform")
-                << QLatin1String("mandelbrot") << QLatin1String("map") << QLatin1String("mapatom") << QLatin1String("maplist")
-                << QLatin1String("matchdeclare") << QLatin1String("matchfix") << QLatin1String("mat_cond")
-                << QLatin1String("mat_fullunblocker") << QLatin1String("mat_function") << QLatin1String("mat_norm")
-                << QLatin1String("matrix") << QLatin1String("matrixmap") << QLatin1String("matrixp")
-                << QLatin1String("matrix_size") << QLatin1String("mattrace") << QLatin1String("mat_trace")
-                << QLatin1String("mat_unblocker") << QLatin1String("max") << QLatin1String("max_clique")
-                << QLatin1String("max_degree") << QLatin1String("max_flow") << QLatin1String("maxi")
-                << QLatin1String("maximize_lp") << QLatin1String("max_independent_set") << QLatin1String("max_matching")
-                << QLatin1String("maybe") << QLatin1String("mean") << QLatin1String("mean_bernoulli")
-                << QLatin1String("mean_beta") << QLatin1String("mean_binomial") << QLatin1String("mean_chi2")
-                << QLatin1String("mean_continuous_uniform") << QLatin1String("mean_deviation")
-                << QLatin1String("mean_discrete_uniform") << QLatin1String("mean_exp") << QLatin1String("mean_f")
-                << QLatin1String("mean_gamma") << QLatin1String("mean_geometric") << QLatin1String("mean_gumbel")
-                << QLatin1String("mean_hypergeometric") << QLatin1String("mean_laplace") << QLatin1String("mean_logistic")
-                << QLatin1String("mean_lognormal") << QLatin1String("mean_negative_binomial") << QLatin1String("mean_normal")
-                << QLatin1String("mean_pareto") << QLatin1String("mean_poisson") << QLatin1String("mean_rayleigh")
-                << QLatin1String("mean_student_t") << QLatin1String("mean_weibull") << QLatin1String("median")
-                << QLatin1String("median_deviation") << QLatin1String("member") << QLatin1String("metricexpandall")
-                << QLatin1String("min") << QLatin1String("min_degree") << QLatin1String("minfactorial") << QLatin1String("mini")
-                << QLatin1String("minimalPoly") << QLatin1String("minimize_lp") << QLatin1String("minimum_spanning_tree")
-                << QLatin1String("minor") << QLatin1String("mnewton") << QLatin1String("mod") << QLatin1String("mode_declare")
-                << QLatin1String("mode_identity") << QLatin1String("ModeMatrix") << QLatin1String("moebius")
-                << QLatin1String("mon2schur") << QLatin1String("mono") << QLatin1String("monomial_dimensions")
-                << QLatin1String("multi_elem") << QLatin1String("multinomial") << QLatin1String("multinomial_coeff")
-                << QLatin1String("multi_orbit") << QLatin1String("multi_pui") << QLatin1String("multsym")
-                << QLatin1String("multthru") << QLatin1String("mycielski_graph") << QLatin1String("nary")
-                << QLatin1String("nc_degree") << QLatin1String("ncexpt") << QLatin1String("ncharpoly")
-                << QLatin1String("negative_picture") << QLatin1String("neighbors") << QLatin1String("newcontext")
-                << QLatin1String("newdet") << QLatin1String("new_graph") << QLatin1String("newline") << QLatin1String("newton")
-                << QLatin1String("next_prime") << QLatin1String("niceindices") << QLatin1String("ninth")
-                << QLatin1String("noncentral_moment") << QLatin1String("nonmetricity") << QLatin1String("nonnegintegerp")
-                << QLatin1String("nonscalarp") << QLatin1String("nonzeroandfreeof") << QLatin1String("notequal")
-                << QLatin1String("nounify") << QLatin1String("nptetrad") << QLatin1String("nroots") << QLatin1String("nterms")
-                << QLatin1String("ntermst") << QLatin1String("nthroot") << QLatin1String("nullity")
-                << QLatin1String("nullspace") << QLatin1String("num") << QLatin1String("numbered_boundaries")
-                << QLatin1String("numberp") << QLatin1String("num_distinct_partitions") << QLatin1String("numerval")
-                << QLatin1String("numfactor") << QLatin1String("num_partitions") << QLatin1String("nusum")
-                << QLatin1String("odd_girth") << QLatin1String("oddp") << QLatin1String("ode2") << QLatin1String("ode_check")
-                << QLatin1String("odelin") << QLatin1String("op") << QLatin1String("opena") << QLatin1String("openr")
-                << QLatin1String("openw") << QLatin1String("operatorp") << QLatin1String("opsubst") << QLatin1String("optimize")
-                << QLatin1String("orbit") << QLatin1String("orbits") << QLatin1String("ordergreat")
-                << QLatin1String("ordergreatp") << QLatin1String("orderless") << QLatin1String("orderlessp")
-                << QLatin1String("orthogonal_complement") << QLatin1String("orthopoly_recur")
-                << QLatin1String("orthopoly_weight") << QLatin1String("outermap") << QLatin1String("out_neighbors")
-                << QLatin1String("outofpois") << QLatin1String("pade") << QLatin1String("parGosper")
-                << QLatin1String("parse_string") << QLatin1String("part") << QLatin1String("part2cont")
-                << QLatin1String("partfrac") << QLatin1String("partition") << QLatin1String("partition_set")
-                << QLatin1String("partpol") << QLatin1String("path_digraph") << QLatin1String("path_graph")
-                << QLatin1String("pdf_bernoulli") << QLatin1String("pdf_beta") << QLatin1String("pdf_binomial")
-                << QLatin1String("pdf_cauchy") << QLatin1String("pdf_chi2") << QLatin1String("pdf_continuous_uniform")
-                << QLatin1String("pdf_discrete_uniform") << QLatin1String("pdf_exp") << QLatin1String("pdf_f")
-                << QLatin1String("pdf_gamma") << QLatin1String("pdf_geometric") << QLatin1String("pdf_gumbel")
-                << QLatin1String("pdf_hypergeometric") << QLatin1String("pdf_laplace") << QLatin1String("pdf_logistic")
-                << QLatin1String("pdf_lognormal") << QLatin1String("pdf_negative_binomial") << QLatin1String("pdf_normal")
-                << QLatin1String("pdf_pareto") << QLatin1String("pdf_poisson") << QLatin1String("pdf_rank_sum")
-                << QLatin1String("pdf_rayleigh") << QLatin1String("pdf_signed_rank") << QLatin1String("pdf_student_t")
-                << QLatin1String("pdf_weibull") << QLatin1String("pearson_skewness") << QLatin1String("permanent")
-                << QLatin1String("permut") << QLatin1String("permutation") << QLatin1String("permutations")
-                << QLatin1String("petersen_graph") << QLatin1String("petrov") << QLatin1String("pickapart")
-                << QLatin1String("picture_equalp") << QLatin1String("picturep") << QLatin1String("piechart")
-                << QLatin1String("planar_embedding") << QLatin1String("playback") << QLatin1String("plog")
-                << QLatin1String("plot2d") << QLatin1String("plot3d") << QLatin1String("plotdf") << QLatin1String("plsquares")
-                << QLatin1String("pochhammer") << QLatin1String("poisdiff") << QLatin1String("poisexpt")
-                << QLatin1String("poisint") << QLatin1String("poismap") << QLatin1String("poisplus")
-                << QLatin1String("poissimp") << QLatin1String("poissubst") << QLatin1String("poistimes")
-                << QLatin1String("poistrim") << QLatin1String("polarform") << QLatin1String("polartorect")
-                << QLatin1String("poly_add") << QLatin1String("poly_buchberger") << QLatin1String("poly_buchberger_criterion")
-                << QLatin1String("poly_colon_ideal") << QLatin1String("poly_content") << QLatin1String("polydecomp")
-                << QLatin1String("poly_depends_p") << QLatin1String("poly_elimination_ideal")
-                << QLatin1String("poly_exact_divide") << QLatin1String("poly_expand") << QLatin1String("poly_expt")
-                << QLatin1String("poly_gcd") << QLatin1String("poly_grobner") << QLatin1String("poly_grobner_equal")
-                << QLatin1String("poly_grobner_member") << QLatin1String("poly_grobner_subsetp")
-                << QLatin1String("poly_ideal_intersection") << QLatin1String("poly_ideal_polysaturation")
-                << QLatin1String("poly_ideal_polysaturation1") << QLatin1String("poly_ideal_saturation");
-
-    m_functions << QLatin1String("poly_ideal_saturation1") << QLatin1String("poly_lcm") << QLatin1String("poly_minimization")
-                << QLatin1String("polymod") << QLatin1String("poly_multiply") << QLatin1String("polynome2ele")
-                << QLatin1String("polynomialp") << QLatin1String("poly_normal_form") << QLatin1String("poly_normalize")
-                << QLatin1String("poly_normalize_list") << QLatin1String("poly_polysaturation_extension")
-                << QLatin1String("poly_primitive_part") << QLatin1String("poly_pseudo_divide")
-                << QLatin1String("poly_reduced_grobner") << QLatin1String("poly_reduction")
-                << QLatin1String("poly_saturation_extension") << QLatin1String("poly_s_polynomial")
-                << QLatin1String("poly_subtract") << QLatin1String("polytocompanion") << QLatin1String("potential")
-                << QLatin1String("power_mod") << QLatin1String("powers") << QLatin1String("powerseries")
-                << QLatin1String("powerset") << QLatin1String("prev_prime") << QLatin1String("primep")
-                << QLatin1String("print") << QLatin1String("printf") << QLatin1String("print_graph")
-                << QLatin1String("printpois") << QLatin1String("printprops") << QLatin1String("prodrac")
-                << QLatin1String("product") << QLatin1String("properties") << QLatin1String("propvars") << QLatin1String("psi")
-                << QLatin1String("ptriangularize") << QLatin1String("pui") << QLatin1String("pui2comp")
-                << QLatin1String("pui2ele") << QLatin1String("pui2polynome") << QLatin1String("pui_direct")
-                << QLatin1String("puireduc") << QLatin1String("put") << QLatin1String("qput") << QLatin1String("qrange")
-                << QLatin1String("quad_qag") << QLatin1String("quad_qagi") << QLatin1String("quad_qags")
-                << QLatin1String("quad_qawc") << QLatin1String("quad_qawf") << QLatin1String("quad_qawo")
-                << QLatin1String("quad_qaws") << QLatin1String("quantile") << QLatin1String("quantile_bernoulli")
-                << QLatin1String("quantile_beta") << QLatin1String("quantile_binomial") << QLatin1String("quantile_cauchy")
-                << QLatin1String("quantile_chi2") << QLatin1String("quantile_continuous_uniform")
-                << QLatin1String("quantile_discrete_uniform") << QLatin1String("quantile_exp") << QLatin1String("quantile_f")
-                << QLatin1String("quantile_gamma") << QLatin1String("quantile_geometric") << QLatin1String("quantile_gumbel")
-                << QLatin1String("quantile_hypergeometric") << QLatin1String("quantile_laplace")
-                << QLatin1String("quantile_logistic") << QLatin1String("quantile_lognormal")
-                << QLatin1String("quantile_negative_binomial") << QLatin1String("quantile_normal")
-                << QLatin1String("quantile_pareto") << QLatin1String("quantile_poisson") << QLatin1String("quantile_rayleigh")
-                << QLatin1String("quantile_student_t") << QLatin1String("quantile_weibull")
-                << QLatin1String("quartile_skewness") << QLatin1String("quit") << QLatin1String("qunit")
-                << QLatin1String("quotient") << QLatin1String("radcan") << QLatin1String("radius") << QLatin1String("random")
-                << QLatin1String("random_bernoulli") << QLatin1String("random_beta") << QLatin1String("random_binomial")
-                << QLatin1String("random_cauchy") << QLatin1String("random_chi2") << QLatin1String("random_continuous_uniform")
-                << QLatin1String("random_digraph") << QLatin1String("random_discrete_uniform") << QLatin1String("random_exp")
-                << QLatin1String("random_f") << QLatin1String("random_gamma") << QLatin1String("random_geometric")
-                << QLatin1String("random_graph") << QLatin1String("random_graph1") << QLatin1String("random_gumbel")
-                << QLatin1String("random_hypergeometric") << QLatin1String("random_laplace") << QLatin1String("random_logistic")
-                << QLatin1String("random_lognormal") << QLatin1String("random_negative_binomial")
-                << QLatin1String("random_network") << QLatin1String("random_normal") << QLatin1String("random_pareto")
-                << QLatin1String("random_permutation") << QLatin1String("random_poisson") << QLatin1String("random_rayleigh")
-                << QLatin1String("random_regular_graph") << QLatin1String("random_student_t")
-                << QLatin1String("random_tournament") << QLatin1String("random_tree") << QLatin1String("random_weibull")
-                << QLatin1String("range") << QLatin1String("rank") << QLatin1String("rat") << QLatin1String("ratcoef")
-                << QLatin1String("ratdenom") << QLatin1String("ratdiff") << QLatin1String("ratdisrep")
-                << QLatin1String("ratexpand") << QLatin1String("rational") << QLatin1String("rationalize")
-                << QLatin1String("ratnumer") << QLatin1String("ratnump") << QLatin1String("ratp") << QLatin1String("ratsimp")
-                << QLatin1String("ratsubst") << QLatin1String("ratvars") << QLatin1String("ratweight") << QLatin1String("read")
-                << QLatin1String("read_hashed_array") << QLatin1String("readline") << QLatin1String("read_lisp_array")
-                << QLatin1String("read_list") << QLatin1String("read_matrix") << QLatin1String("read_maxima_array")
-                << QLatin1String("read_nested_list") << QLatin1String("readonly") << QLatin1String("read_xpm")
-                << QLatin1String("realpart") << QLatin1String("realroots") << QLatin1String("rearray")
-                << QLatin1String("rectform") << QLatin1String("recttopolar") << QLatin1String("rediff")
-                << QLatin1String("reduce_consts") << QLatin1String("reduce_order") << QLatin1String("region_boundaries")
-                << QLatin1String("rem") << QLatin1String("remainder") << QLatin1String("remarray") << QLatin1String("rembox")
-                << QLatin1String("remcomps") << QLatin1String("remcon") << QLatin1String("remcoord") << QLatin1String("remfun")
-                << QLatin1String("remfunction") << QLatin1String("remlet") << QLatin1String("remove")
-                << QLatin1String("remove_edge") << QLatin1String("remove_vertex") << QLatin1String("rempart")
-                << QLatin1String("remrule") << QLatin1String("remsym") << QLatin1String("remvalue") << QLatin1String("rename")
-                << QLatin1String("reset") << QLatin1String("residue") << QLatin1String("resolvante")
-                << QLatin1String("resolvante_alternee1") << QLatin1String("resolvante_bipartite")
-                << QLatin1String("resolvante_diedrale") << QLatin1String("resolvante_klein")
-                << QLatin1String("resolvante_klein3") << QLatin1String("resolvante_produit_sym")
-                << QLatin1String("resolvante_unitaire") << QLatin1String("resolvante_vierer") << QLatin1String("rest")
-                << QLatin1String("resultant") << QLatin1String("return") << QLatin1String("reveal") << QLatin1String("reverse")
-                << QLatin1String("revert") << QLatin1String("revert2") << QLatin1String("rgb2level") << QLatin1String("rhs")
-                << QLatin1String("ricci") << QLatin1String("riemann") << QLatin1String("rinvariant") << QLatin1String("risch")
-                << QLatin1String("rk") << QLatin1String("rncombine") << QLatin1String("romberg") << QLatin1String("room")
-                << QLatin1String("rootscontract") << QLatin1String("row") << QLatin1String("rowop") << QLatin1String("rowswap")
-                << QLatin1String("rreduce") << QLatin1String("run_testsuite") << QLatin1String("save")
-                << QLatin1String("scalarp") << QLatin1String("scaled_bessel_i") << QLatin1String("scaled_bessel_i0")
-                << QLatin1String("scaled_bessel_i1") << QLatin1String("scalefactors") << QLatin1String("scanmap")
-                << QLatin1String("scatterplot") << QLatin1String("schur2comp") << QLatin1String("sconcat")
-                << QLatin1String("scopy") << QLatin1String("scsimp") << QLatin1String("scurvature")
-                << QLatin1String("sdowncase") << QLatin1String("sec") << QLatin1String("sech") << QLatin1String("second")
-                << QLatin1String("sequal") << QLatin1String("sequalignore") << QLatin1String("setdifference")
-                << QLatin1String("set_edge_weight") << QLatin1String("setelmx") << QLatin1String("setequalp")
-                << QLatin1String("setify") << QLatin1String("setp") << QLatin1String("set_partitions")
-                << QLatin1String("set_plot_option") << QLatin1String("set_random_state") << QLatin1String("setunits")
-                << QLatin1String("setup_autoload") << QLatin1String("set_up_dot_simplifications")
-                << QLatin1String("set_vertex_label") << QLatin1String("seventh") << QLatin1String("sexplode")
-                << QLatin1String("sf") << QLatin1String("shortest_path") << QLatin1String("show") << QLatin1String("showcomps")
-                << QLatin1String("showratvars") << QLatin1String("sign") << QLatin1String("signum")
-                << QLatin1String("similaritytransform") << QLatin1String("simple_linear_regression")
-                << QLatin1String("simplify_sum") << QLatin1String("simplode") << QLatin1String("simpmetderiv")
-                << QLatin1String("simtran") << QLatin1String("sin") << QLatin1String("sinh") << QLatin1String("sinsert")
-                << QLatin1String("sinvertcase") << QLatin1String("sixth") << QLatin1String("skewness")
-                << QLatin1String("skewness_bernoulli") << QLatin1String("skewness_beta") << QLatin1String("skewness_binomial")
-                << QLatin1String("skewness_chi2") << QLatin1String("skewness_continuous_uniform")
-                << QLatin1String("skewness_discrete_uniform") << QLatin1String("skewness_exp") << QLatin1String("skewness_f")
-                << QLatin1String("skewness_gamma") << QLatin1String("skewness_geometric") << QLatin1String("skewness_gumbel")
-                << QLatin1String("skewness_hypergeometric") << QLatin1String("skewness_laplace")
-                << QLatin1String("skewness_logistic") << QLatin1String("skewness_lognormal")
-                << QLatin1String("skewness_negative_binomial") << QLatin1String("skewness_normal")
-                << QLatin1String("skewness_pareto") << QLatin1String("skewness_poisson") << QLatin1String("skewness_rayleigh")
-                << QLatin1String("skewness_student_t") << QLatin1String("skewness_weibull") << QLatin1String("slength")
-                << QLatin1String("smake") << QLatin1String("smismatch") << QLatin1String("solve") << QLatin1String("solve_rec")
-                << QLatin1String("solve_rec_rat") << QLatin1String("some") << QLatin1String("somrac") << QLatin1String("sort")
-                << QLatin1String("sparse6_decode") << QLatin1String("sparse6_encode") << QLatin1String("sparse6_export")
-                << QLatin1String("sparse6_import") << QLatin1String("specint") << QLatin1String("spherical_bessel_j")
-                << QLatin1String("spherical_bessel_y") << QLatin1String("spherical_hankel1")
-                << QLatin1String("spherical_hankel2") << QLatin1String("spherical_harmonic") << QLatin1String("splice")
-                << QLatin1String("split") << QLatin1String("sposition") << QLatin1String("sprint") << QLatin1String("sqfr");
-
-    m_functions << QLatin1String("sqrt") << QLatin1String("sqrtdenest") << QLatin1String("sremove")
-                << QLatin1String("sremovefirst") << QLatin1String("sreverse") << QLatin1String("ssearch")
-                << QLatin1String("ssort") << QLatin1String("sstatus") << QLatin1String("ssubst") << QLatin1String("ssubstfirst")
-                << QLatin1String("staircase") << QLatin1String("status") << QLatin1String("std") << QLatin1String("std1")
-                << QLatin1String("std_bernoulli") << QLatin1String("std_beta") << QLatin1String("std_binomial")
-                << QLatin1String("std_chi2") << QLatin1String("std_continuous_uniform") << QLatin1String("std_discrete_uniform")
-                << QLatin1String("std_exp") << QLatin1String("std_f") << QLatin1String("std_gamma")
-                << QLatin1String("std_geometric") << QLatin1String("std_gumbel") << QLatin1String("std_hypergeometric")
-                << QLatin1String("std_laplace") << QLatin1String("std_logistic") << QLatin1String("std_lognormal")
-                << QLatin1String("std_negative_binomial") << QLatin1String("std_normal") << QLatin1String("std_pareto")
-                << QLatin1String("std_poisson") << QLatin1String("std_rayleigh") << QLatin1String("std_student_t")
-                << QLatin1String("std_weibull") << QLatin1String("stirling") << QLatin1String("stirling1")
-                << QLatin1String("stirling2") << QLatin1String("strim") << QLatin1String("striml") << QLatin1String("strimr")
-                << QLatin1String("string") << QLatin1String("stringout") << QLatin1String("stringp")
-                << QLatin1String("strong_components") << QLatin1String("sublis") << QLatin1String("sublist")
-                << QLatin1String("sublist_indices") << QLatin1String("submatrix") << QLatin1String("subsample")
-                << QLatin1String("subset") << QLatin1String("subsetp") << QLatin1String("subst") << QLatin1String("substinpart")
-                << QLatin1String("substpart") << QLatin1String("substring") << QLatin1String("subvar")
-                << QLatin1String("subvarp") << QLatin1String("sum") << QLatin1String("sumcontract")
-                << QLatin1String("summand_to_rec") << QLatin1String("supcase") << QLatin1String("supcontext")
-                << QLatin1String("symbolp") << QLatin1String("symmdifference") << QLatin1String("symmetric")
-                << QLatin1String("system") << QLatin1String("take_channel") << QLatin1String("take_inference")
-                << QLatin1String("tan") << QLatin1String("tanh") << QLatin1String("taylor") << QLatin1String("taylorinfo")
-                << QLatin1String("taylorp") << QLatin1String("taylor_simplifier") << QLatin1String("taytorat")
-                << QLatin1String("tcl_output") << QLatin1String("tcontract") << QLatin1String("tellrat")
-                << QLatin1String("tellsimp") << QLatin1String("tellsimpafter") << QLatin1String("tentex")
-                << QLatin1String("tenth") << QLatin1String("test_mean") << QLatin1String("test_means_difference")
-                << QLatin1String("test_normality") << QLatin1String("test_rank_sum") << QLatin1String("test_sign")
-                << QLatin1String("test_signed_rank") << QLatin1String("test_variance") << QLatin1String("test_variance_ratio")
-                << QLatin1String("tex") << QLatin1String("texput") << QLatin1String("%th") << QLatin1String("third")
-                << QLatin1String("throw") << QLatin1String("time") << QLatin1String("timedate") << QLatin1String("timer")
-                << QLatin1String("timer_info") << QLatin1String("tldefint") << QLatin1String("tlimit")
-                << QLatin1String("todd_coxeter") << QLatin1String("toeplitz") << QLatin1String("tokens")
-                << QLatin1String("to_lisp") << QLatin1String("topological_sort") << QLatin1String("totaldisrep")
-                << QLatin1String("totalfourier") << QLatin1String("totient") << QLatin1String("tpartpol")
-                << QLatin1String("trace") << QLatin1String("tracematrix") << QLatin1String("trace_options")
-                << QLatin1String("translate") << QLatin1String("translate_file") << QLatin1String("transpose")
-                << QLatin1String("tree_reduce") << QLatin1String("treillis") << QLatin1String("treinat")
-                << QLatin1String("triangularize") << QLatin1String("trigexpand") << QLatin1String("trigrat")
-                << QLatin1String("trigreduce") << QLatin1String("trigsimp") << QLatin1String("trunc")
-                << QLatin1String("tr_warnings_get") << QLatin1String("ueivects") << QLatin1String("uforget")
-                << QLatin1String("ultraspherical") << QLatin1String("underlying_graph") << QLatin1String("undiff")
-                << QLatin1String("union") << QLatin1String("unique") << QLatin1String("uniteigenvectors")
-                << QLatin1String("unit_step") << QLatin1String("unitvector") << QLatin1String("unknown")
-                << QLatin1String("unorder") << QLatin1String("unsum") << QLatin1String("untellrat")
-                << QLatin1String("untimer") << QLatin1String("untrace") << QLatin1String("uppercasep")
-                << QLatin1String("uricci") << QLatin1String("uriemann") << QLatin1String("uvect")
-                << QLatin1String("vandermonde_matrix") << QLatin1String("var") << QLatin1String("var1")
-                << QLatin1String("var_bernoulli") << QLatin1String("var_beta") << QLatin1String("var_binomial")
-                << QLatin1String("var_chi2") << QLatin1String("var_continuous_uniform") << QLatin1String("var_discrete_uniform")
-                << QLatin1String("var_exp") << QLatin1String("var_f") << QLatin1String("var_gamma")
-                << QLatin1String("var_geometric") << QLatin1String("var_gumbel") << QLatin1String("var_hypergeometric")
-                << QLatin1String("var_laplace") << QLatin1String("var_logistic") << QLatin1String("var_lognormal")
-                << QLatin1String("var_negative_binomial") << QLatin1String("var_normal") << QLatin1String("var_pareto")
-                << QLatin1String("var_poisson") << QLatin1String("var_rayleigh") << QLatin1String("var_student_t")
-                << QLatin1String("var_weibull") << QLatin1String("vectorpotential") << QLatin1String("vectorsimp")
-                << QLatin1String("verbify") << QLatin1String("vers") << QLatin1String("vertex_coloring")
-                << QLatin1String("vertex_degree") << QLatin1String("vertex_distance") << QLatin1String("vertex_eccentricity")
-                << QLatin1String("vertex_in_degree") << QLatin1String("vertex_out_degree") << QLatin1String("vertices")
-                << QLatin1String("vertices_to_cycle") << QLatin1String("vertices_to_path") << QLatin1String("weyl")
-                << QLatin1String("wheel_graph") << QLatin1String("with_stdout") << QLatin1String("write_data")
-                << QLatin1String("writefile") << QLatin1String("wronskian") << QLatin1String("xgraph_curves")
-                << QLatin1String("xreduce") << QLatin1String("xthru") << QLatin1String("Zeilberger")
-                << QLatin1String("zeroequiv") << QLatin1String("zerofor") << QLatin1String("zeromatrix")
-                << QLatin1String("zeromatrixp") << QLatin1String("zeta") << QLatin1String("zlange");
+    //Begin m_functions initialization
+    m_functions << QLatin1String("abasep");
+    m_functions << QLatin1String("abs");
+    m_functions << QLatin1String("absint");
+    m_functions << QLatin1String("absolute_real_time");
+    m_functions << QLatin1String("acos");
+    m_functions << QLatin1String("acosh");
+    m_functions << QLatin1String("acot");
+    m_functions << QLatin1String("acoth");
+    m_functions << QLatin1String("acsc");
+    m_functions << QLatin1String("acsch");
+    m_functions << QLatin1String("activate");
+    m_functions << QLatin1String("addcol");
+    m_functions << QLatin1String("add_edge");
+    m_functions << QLatin1String("add_edges");
+    m_functions << QLatin1String("addmatrices");
+    m_functions << QLatin1String("addrow");
+    m_functions << QLatin1String("add_vertex");
+    m_functions << QLatin1String("add_vertices");
+    m_functions << QLatin1String("adjacency_matrix");
+    m_functions << QLatin1String("adjoin");
+    m_functions << QLatin1String("adjoint");
+    m_functions << QLatin1String("af");
+    m_functions << QLatin1String("agd");
+    m_functions << QLatin1String("airy_ai");
+    m_functions << QLatin1String("airy_bi");
+    m_functions << QLatin1String("airy_dai");
+    m_functions << QLatin1String("airy_dbi");
+    m_functions << QLatin1String("algsys");
+    m_functions << QLatin1String("alg_type");
+    m_functions << QLatin1String("alias");
+    m_functions << QLatin1String("allroots");
+    m_functions << QLatin1String("alphacharp");
+    m_functions << QLatin1String("alphanumericp");
+    m_functions << QLatin1String("antid");
+    m_functions << QLatin1String("antidiff");
+    m_functions << QLatin1String("AntiDifference");
+    m_functions << QLatin1String("append");
+    m_functions << QLatin1String("appendfile");
+    m_functions << QLatin1String("apply");
+    m_functions << QLatin1String("apply1");
+    m_functions << QLatin1String("apply2");
+    m_functions << QLatin1String("applyb1");
+    m_functions << QLatin1String("apropos");
+    m_functions << QLatin1String("args");
+    m_functions << QLatin1String("arithmetic");
+    m_functions << QLatin1String("arithsum");
+    m_functions << QLatin1String("array");
+    m_functions << QLatin1String("arrayapply");
+    m_functions << QLatin1String("arrayinfo");
+    m_functions << QLatin1String("arraymake");
+    m_functions << QLatin1String("ascii");
+    m_functions << QLatin1String("asec");
+    m_functions << QLatin1String("asech");
+    m_functions << QLatin1String("asin");
+    m_functions << QLatin1String("asinh");
+    m_functions << QLatin1String("askinteger");
+    m_functions << QLatin1String("asksign");
+    m_functions << QLatin1String("assoc");
+    m_functions << QLatin1String("assoc_legendre_p");
+    m_functions << QLatin1String("assoc_legendre_q");
+    m_functions << QLatin1String("assume");
+    m_functions << QLatin1String("asympa");
+    m_functions << QLatin1String("at");
+    m_functions << QLatin1String("atan");
+    m_functions << QLatin1String("atan2");
+    m_functions << QLatin1String("atanh");
+    m_functions << QLatin1String("atensimp");
+    m_functions << QLatin1String("atom");
+    m_functions << QLatin1String("atvalue");
+    m_functions << QLatin1String("augcoefmatrix");
+    m_functions << QLatin1String("augmented_lagrangian_method");
+    m_functions << QLatin1String("av");
+    m_functions << QLatin1String("average_degree");
+    m_functions << QLatin1String("backtrace");
+    m_functions << QLatin1String("barsplot");
+    m_functions << QLatin1String("bashindices");
+    m_functions << QLatin1String("batch");
+    m_functions << QLatin1String("batchload");
+    m_functions << QLatin1String("bc2");
+    m_functions << QLatin1String("bdvac");
+    m_functions << QLatin1String("belln");
+    m_functions << QLatin1String("bern");
+    m_functions << QLatin1String("bernpoly");
+    m_functions << QLatin1String("bessel");
+    m_functions << QLatin1String("bessel_i");
+    m_functions << QLatin1String("bessel_j");
+    m_functions << QLatin1String("bessel_k");
+    m_functions << QLatin1String("bessel_y");
+    m_functions << QLatin1String("beta");
+    m_functions << QLatin1String("bezout");
+    m_functions << QLatin1String("bffac");
+    m_functions << QLatin1String("bfhzeta");
+    m_functions << QLatin1String("bfloat");
+    m_functions << QLatin1String("bfloatp");
+    m_functions << QLatin1String("bfpsi");
+    m_functions << QLatin1String("bfpsi0");
+    m_functions << QLatin1String("bfzeta");
+    m_functions << QLatin1String("biconected_components");
+    m_functions << QLatin1String("bimetric");
+    m_functions << QLatin1String("binomial");
+    m_functions << QLatin1String("bipartition");
+    m_functions << QLatin1String("block");
+    m_functions << QLatin1String("blockmatrixp");
+    m_functions << QLatin1String("bode_gain");
+    m_functions << QLatin1String("bode_phase");
+    m_functions << QLatin1String("bothcoef");
+    m_functions << QLatin1String("box");
+    m_functions << QLatin1String("boxplot");
+    m_functions << QLatin1String("break");
+    m_functions << QLatin1String("bug_report");
+    m_functions << QLatin1String("build_info");
+    m_functions << QLatin1String("buildq");
+    m_functions << QLatin1String("burn");
+    m_functions << QLatin1String("cabs");
+    m_functions << QLatin1String("canform");
+    m_functions << QLatin1String("canten");
+    m_functions << QLatin1String("cardinality");
+    m_functions << QLatin1String("carg");
+    m_functions << QLatin1String("cartan");
+    m_functions << QLatin1String("cartesian_product");
+    m_functions << QLatin1String("catch");
+    m_functions << QLatin1String("cbffac");
+    m_functions << QLatin1String("cdf_bernoulli");
+    m_functions << QLatin1String("cdf_beta");
+    m_functions << QLatin1String("cdf_binomial");
+    m_functions << QLatin1String("cdf_cauchy");
+    m_functions << QLatin1String("cdf_chi2");
+    m_functions << QLatin1String("cdf_continuous_uniform");
+    m_functions << QLatin1String("cdf_discrete_uniform");
+    m_functions << QLatin1String("cdf_exp");
+    m_functions << QLatin1String("cdf_f");
+    m_functions << QLatin1String("cdf_gamma");
+    m_functions << QLatin1String("cdf_geometric");
+    m_functions << QLatin1String("cdf_gumbel");
+    m_functions << QLatin1String("cdf_hypergeometric");
+    m_functions << QLatin1String("cdf_laplace");
+    m_functions << QLatin1String("cdf_logistic");
+    m_functions << QLatin1String("cdf_lognormal");
+    m_functions << QLatin1String("cdf_negative_binomial");
+    m_functions << QLatin1String("cdf_normal");
+    m_functions << QLatin1String("cdf_pareto");
+    m_functions << QLatin1String("cdf_poisson");
+    m_functions << QLatin1String("cdf_rank_sum");
+    m_functions << QLatin1String("cdf_rayleigh");
+    m_functions << QLatin1String("cdf_signed_rank");
+    m_functions << QLatin1String("cdf_student_t");
+    m_functions << QLatin1String("cdf_weibull");
+    m_functions << QLatin1String("cdisplay");
+    m_functions << QLatin1String("ceiling");
+    m_functions << QLatin1String("central_moment");
+    m_functions << QLatin1String("cequal");
+    m_functions << QLatin1String("cequalignore");
+    m_functions << QLatin1String("cf");
+    m_functions << QLatin1String("cfdisrep");
+    m_functions << QLatin1String("cfexpand");
+    m_functions << QLatin1String("cgeodesic");
+    m_functions << QLatin1String("cgreaterp");
+    m_functions << QLatin1String("cgreaterpignore");
+    m_functions << QLatin1String("changename");
+    m_functions << QLatin1String("changevar");
+    m_functions << QLatin1String("chaosgame");
+    m_functions << QLatin1String("charat");
+    m_functions << QLatin1String("charfun");
+    m_functions << QLatin1String("charfun2");
+    m_functions << QLatin1String("charlist");
+    m_functions << QLatin1String("charp");
+    m_functions << QLatin1String("charpoly");
+    m_functions << QLatin1String("chebyshev_t");
+    m_functions << QLatin1String("chebyshev_u");
+    m_functions << QLatin1String("checkdiv");
+    m_functions << QLatin1String("check_overlaps");
+    m_functions << QLatin1String("cholesky");
+    m_functions << QLatin1String("christof");
+    m_functions << QLatin1String("chromatic_index");
+    m_functions << QLatin1String("chromatic_number");
+    m_functions << QLatin1String("cint");
+    m_functions << QLatin1String("circulant_graph");
+    m_functions << QLatin1String("clear_edge_weight");
+    m_functions << QLatin1String("clear_rules");
+    m_functions << QLatin1String("clear_vertex_label");
+    m_functions << QLatin1String("clebsch_graph");
+    m_functions << QLatin1String("clessp");
+    m_functions << QLatin1String("clesspignore");
+    m_functions << QLatin1String("close");
+    m_functions << QLatin1String("closefile");
+    m_functions << QLatin1String("cmetric");
+    m_functions << QLatin1String("coeff");
+    m_functions << QLatin1String("coefmatrix");
+    m_functions << QLatin1String("cograd");
+    m_functions << QLatin1String("col");
+    m_functions << QLatin1String("collapse");
+    m_functions << QLatin1String("collectterms");
+    m_functions << QLatin1String("columnop");
+    m_functions << QLatin1String("columnspace");
+    m_functions << QLatin1String("columnswap");
+    m_functions << QLatin1String("columnvector");
+    m_functions << QLatin1String("combination");
+    m_functions << QLatin1String("combine");
+    m_functions << QLatin1String("comp2pui");
+    m_functions << QLatin1String("compare");
+    m_functions << QLatin1String("compfile");
+    m_functions << QLatin1String("compile");
+    m_functions << QLatin1String("compile_file");
+    m_functions << QLatin1String("complement_graph");
+    m_functions << QLatin1String("complete_bipartite_graph");
+    m_functions << QLatin1String("complete_graph");
+    m_functions << QLatin1String("components");
+    m_functions << QLatin1String("concan");
+    m_functions << QLatin1String("concat");
+    m_functions << QLatin1String("conjugate");
+    m_functions << QLatin1String("conmetderiv");
+    m_functions << QLatin1String("connected_components");
+    m_functions << QLatin1String("connect_vertices");
+    m_functions << QLatin1String("cons");
+    m_functions << QLatin1String("constantp");
+    m_functions << QLatin1String("constituent");
+    m_functions << QLatin1String("cont2part");
+    m_functions << QLatin1String("content");
+    m_functions << QLatin1String("continuous_freq");
+    m_functions << QLatin1String("contortion");
+    m_functions << QLatin1String("contour_plot");
+    m_functions << QLatin1String("contract");
+    m_functions << QLatin1String("contract_edge");
+    m_functions << QLatin1String("contragrad");
+    m_functions << QLatin1String("contrib_ode");
+    m_functions << QLatin1String("convert");
+    m_functions << QLatin1String("coord");
+    m_functions << QLatin1String("copy");
+    m_functions << QLatin1String("copy_graph");
+    m_functions << QLatin1String("copylist");
+    m_functions << QLatin1String("copymatrix");
+    m_functions << QLatin1String("cor");
+    m_functions << QLatin1String("cos");
+    m_functions << QLatin1String("cosh");
+    m_functions << QLatin1String("cot");
+    m_functions << QLatin1String("coth");
+    m_functions << QLatin1String("cov");
+    m_functions << QLatin1String("cov1");
+    m_functions << QLatin1String("covdiff");
+    m_functions << QLatin1String("covect");
+    m_functions << QLatin1String("covers");
+    m_functions << QLatin1String("create_graph");
+    m_functions << QLatin1String("create_list");
+    m_functions << QLatin1String("csc");
+    m_functions << QLatin1String("csch");
+    m_functions << QLatin1String("csetup");
+    m_functions << QLatin1String("cspline");
+    m_functions << QLatin1String("ctaylor");
+    m_functions << QLatin1String("ct_coordsys");
+    m_functions << QLatin1String("ctransform");
+    m_functions << QLatin1String("ctranspose");
+    m_functions << QLatin1String("cube_graph");
+    m_functions << QLatin1String("cunlisp");
+    m_functions << QLatin1String("cv");
+    m_functions << QLatin1String("cycle_digraph");
+    m_functions << QLatin1String("cycle_graph");
+    m_functions << QLatin1String("dblint");
+    m_functions << QLatin1String("deactivate");
+    m_functions << QLatin1String("declare");
+    m_functions << QLatin1String("declare_translated");
+    m_functions << QLatin1String("declare_weight");
+    m_functions << QLatin1String("decsym");
+    m_functions << QLatin1String("defcon");
+    m_functions << QLatin1String("define");
+    m_functions << QLatin1String("define_variable");
+    m_functions << QLatin1String("defint");
+    m_functions << QLatin1String("defmatch");
+    m_functions << QLatin1String("defrule");
+    m_functions << QLatin1String("deftaylor");
+    m_functions << QLatin1String("degree_sequence");
+    m_functions << QLatin1String("del");
+    m_functions << QLatin1String("delete");
+    m_functions << QLatin1String("deleten");
+    m_functions << QLatin1String("delta");
+    m_functions << QLatin1String("demo");
+    m_functions << QLatin1String("demoivre");
+    m_functions << QLatin1String("denom");
+    m_functions << QLatin1String("depends");
+    m_functions << QLatin1String("derivdegree");
+    m_functions << QLatin1String("derivlist");
+    m_functions << QLatin1String("describe");
+    m_functions << QLatin1String("desolve");
+    m_functions << QLatin1String("determinant");
+    m_functions << QLatin1String("dgauss_a");
+    m_functions << QLatin1String("dgauss_b");
+    m_functions << QLatin1String("dgeev");
+    m_functions << QLatin1String("dgesvd");
+    m_functions << QLatin1String("diag");
+    m_functions << QLatin1String("diagmatrix");
+    m_functions << QLatin1String("diag_matrix");
+    m_functions << QLatin1String("diagmatrixp");
+    m_functions << QLatin1String("diameter");
+    m_functions << QLatin1String("diff");
+    m_functions << QLatin1String("digitcharp");
+    m_functions << QLatin1String("dimacs_export");
+    m_functions << QLatin1String("dimacs_import");
+    m_functions << QLatin1String("dimension");
+    m_functions << QLatin1String("direct");
+    m_functions << QLatin1String("discrete_freq");
+    m_functions << QLatin1String("disjoin");
+    m_functions << QLatin1String("disjointp");
+    m_functions << QLatin1String("disolate");
+    m_functions << QLatin1String("disp");
+    m_functions << QLatin1String("dispcon");
+    m_functions << QLatin1String("dispform");
+    m_functions << QLatin1String("dispfun");
+    m_functions << QLatin1String("dispJordan");
+    m_functions << QLatin1String("display");
+    m_functions << QLatin1String("disprule");
+    m_functions << QLatin1String("dispterms");
+    m_functions << QLatin1String("distrib");
+    m_functions << QLatin1String("divide");
+    m_functions << QLatin1String("divisors");
+    m_functions << QLatin1String("divsum");
+    m_functions << QLatin1String("dkummer_m");
+    m_functions << QLatin1String("dkummer_u");
+    m_functions << QLatin1String("dlange");
+    m_functions << QLatin1String("dodecahedron_graph");
+    m_functions << QLatin1String("dotproduct");
+    m_functions << QLatin1String("dotsimp");
+    m_functions << QLatin1String("dpart");
+    m_functions << QLatin1String("draw");
+    m_functions << QLatin1String("draw2d");
+    m_functions << QLatin1String("draw3d");
+    m_functions << QLatin1String("draw_graph");
+    m_functions << QLatin1String("dscalar");
+    m_functions << QLatin1String("echelon");
+    m_functions << QLatin1String("edge_coloring");
+    m_functions << QLatin1String("edges");
+    m_functions << QLatin1String("eigens_by_jacobi");
+    m_functions << QLatin1String("eigenvalues");
+    m_functions << QLatin1String("eigenvectors");
+    m_functions << QLatin1String("eighth");
+    m_functions << QLatin1String("einstein");
+    m_functions << QLatin1String("eivals");
+    m_functions << QLatin1String("eivects");
+    m_functions << QLatin1String("elapsed_real_time");
+    m_functions << QLatin1String("elapsed_run_time");
+    m_functions << QLatin1String("ele2comp");
+    m_functions << QLatin1String("ele2polynome");
+    m_functions << QLatin1String("ele2pui");
+    m_functions << QLatin1String("elem");
+    m_functions << QLatin1String("elementp");
+    m_functions << QLatin1String("eliminate");
+    m_functions << QLatin1String("elliptic_e");
+    m_functions << QLatin1String("elliptic_ec");
+    m_functions << QLatin1String("elliptic_eu");
+    m_functions << QLatin1String("elliptic_f");
+    m_functions << QLatin1String("elliptic_kc");
+    m_functions << QLatin1String("elliptic_pi");
+    m_functions << QLatin1String("ematrix");
+    m_functions << QLatin1String("empty_graph");
+    m_functions << QLatin1String("emptyp");
+    m_functions << QLatin1String("endcons");
+    m_functions << QLatin1String("entermatrix");
+    m_functions << QLatin1String("entertensor");
+    m_functions << QLatin1String("entier");
+    m_functions << QLatin1String("equal");
+    m_functions << QLatin1String("equalp");
+    m_functions << QLatin1String("equiv_classes");
+    m_functions << QLatin1String("erf");
+    m_functions << QLatin1String("errcatch");
+    m_functions << QLatin1String("error");
+    m_functions << QLatin1String("errormsg");
+    m_functions << QLatin1String("euler");
+    m_functions << QLatin1String("ev");
+    m_functions << QLatin1String("eval_string");
+    m_functions << QLatin1String("evenp");
+    m_functions << QLatin1String("every");
+    m_functions << QLatin1String("evolution");
+    m_functions << QLatin1String("evolution2d");
+    m_functions << QLatin1String("evundiff");
+    m_functions << QLatin1String("example");
+    m_functions << QLatin1String("exp");
+    m_functions << QLatin1String("expand");
+    m_functions << QLatin1String("expandwrt");
+    m_functions << QLatin1String("expandwrt_factored");
+    m_functions << QLatin1String("explose");
+    m_functions << QLatin1String("exponentialize");
+    m_functions << QLatin1String("express");
+    m_functions << QLatin1String("expt");
+    m_functions << QLatin1String("exsec");
+    m_functions << QLatin1String("extdiff");
+    m_functions << QLatin1String("extract_linear_equations");
+    m_functions << QLatin1String("extremal_subset");
+    m_functions << QLatin1String("ezgcd");
+    m_functions << QLatin1String("f90");
+    m_functions << QLatin1String("facsum");
+    m_functions << QLatin1String("factcomb");
+    m_functions << QLatin1String("factor");
+    m_functions << QLatin1String("factorfacsum");
+    m_functions << QLatin1String("factorial");
+    m_functions << QLatin1String("factorout");
+    m_functions << QLatin1String("factorsum");
+    m_functions << QLatin1String("facts");
+    m_functions << QLatin1String("fast_central_elements");
+    m_functions << QLatin1String("fast_linsolve");
+    m_functions << QLatin1String("fasttimes");
+    m_functions << QLatin1String("featurep");
+    m_functions << QLatin1String("fft");
+    m_functions << QLatin1String("fib");
+    m_functions << QLatin1String("fibtophi");
+    m_functions << QLatin1String("fifth");
+    m_functions << QLatin1String("filename_merge");
+    m_functions << QLatin1String("file_search");
+    m_functions << QLatin1String("file_type");
+    m_functions << QLatin1String("fillarray");
+    m_functions << QLatin1String("findde");
+    m_functions << QLatin1String("find_root");
+    m_functions << QLatin1String("first");
+    m_functions << QLatin1String("fix");
+    m_functions << QLatin1String("flatten");
+    m_functions << QLatin1String("flength");
+    m_functions << QLatin1String("float");
+    m_functions << QLatin1String("floatnump");
+    m_functions << QLatin1String("floor");
+    m_functions << QLatin1String("flower_snark");
+    m_functions << QLatin1String("flush");
+    m_functions << QLatin1String("flush1deriv");
+    m_functions << QLatin1String("flushd");
+    m_functions << QLatin1String("flushnd");
+    m_functions << QLatin1String("forget");
+    m_functions << QLatin1String("fortran");
+    m_functions << QLatin1String("fourcos");
+    m_functions << QLatin1String("fourexpand");
+    m_functions << QLatin1String("fourier");
+    m_functions << QLatin1String("fourint");
+    m_functions << QLatin1String("fourintcos");
+    m_functions << QLatin1String("fourintsin");
+    m_functions << QLatin1String("foursimp");
+    m_functions << QLatin1String("foursin");
+    m_functions << QLatin1String("fourth");
+    m_functions << QLatin1String("fposition");
+    m_functions << QLatin1String("frame_bracket");
+    m_functions << QLatin1String("freeof");
+    m_functions << QLatin1String("freshline");
+    m_functions << QLatin1String("from_adjacency_matrix");
+    m_functions << QLatin1String("frucht_graph");
+    m_functions << QLatin1String("full_listify");
+    m_functions << QLatin1String("fullmap");
+    m_functions << QLatin1String("fullmapl");
+    m_functions << QLatin1String("fullratsimp");
+    m_functions << QLatin1String("fullratsubst");
+    m_functions << QLatin1String("fullsetify");
+    m_functions << QLatin1String("funcsolve");
+    m_functions << QLatin1String("fundef");
+    m_functions << QLatin1String("funmake");
+    m_functions << QLatin1String("funp");
+    m_functions << QLatin1String("gamma");
+    m_functions << QLatin1String("gauss_a");
+    m_functions << QLatin1String("gauss_b");
+    m_functions << QLatin1String("gaussprob");
+    m_functions << QLatin1String("gcd");
+    m_functions << QLatin1String("gcdex");
+    m_functions << QLatin1String("gcdivide");
+    m_functions << QLatin1String("gcfac");
+    m_functions << QLatin1String("gcfactor");
+    m_functions << QLatin1String("gd");
+    m_functions << QLatin1String("genfact");
+    m_functions << QLatin1String("gen_laguerre");
+    m_functions << QLatin1String("genmatrix");
+    m_functions << QLatin1String("geometric");
+    m_functions << QLatin1String("geometric_mean");
+    m_functions << QLatin1String("geosum");
+    m_functions << QLatin1String("get");
+    m_functions << QLatin1String("get_edge_weight");
+    m_functions << QLatin1String("get_lu_factors");
+    m_functions << QLatin1String("get_pixel");
+    m_functions << QLatin1String("get_vertex_label");
+    m_functions << QLatin1String("gfactor");
+    m_functions << QLatin1String("gfactorsum");
+    m_functions << QLatin1String("ggf");
+    m_functions << QLatin1String("girth");
+    m_functions << QLatin1String("global_variances");
+    m_functions << QLatin1String("gnuplot_close");
+    m_functions << QLatin1String("gnuplot_replot");
+    m_functions << QLatin1String("gnuplot_reset");
+    m_functions << QLatin1String("gnuplot_restart");
+    m_functions << QLatin1String("gnuplot_start");
+    m_functions << QLatin1String("go");
+    m_functions << QLatin1String("Gosper");
+    m_functions << QLatin1String("GosperSum");
+    m_functions << QLatin1String("gradef");
+    m_functions << QLatin1String("gramschmidt");
+    m_functions << QLatin1String("graph6_decode");
+    m_functions << QLatin1String("graph6_encode");
+    m_functions << QLatin1String("graph6_export");
+    m_functions << QLatin1String("graph6_import");
+    m_functions << QLatin1String("graph_center");
+    m_functions << QLatin1String("graph_charpoly");
+    m_functions << QLatin1String("graph_eigenvalues");
+    m_functions << QLatin1String("graph_order");
+    m_functions << QLatin1String("graph_periphery");
+    m_functions << QLatin1String("graph_product");
+    m_functions << QLatin1String("graph_size");
+    m_functions << QLatin1String("graph_union");
+    m_functions << QLatin1String("grid_graph");
+    m_functions << QLatin1String("grind");
+    m_functions << QLatin1String("grobner_basis");
+    m_functions << QLatin1String("grotzch_graph");
+    m_functions << QLatin1String("hamilton_cycle");
+    m_functions << QLatin1String("hamilton_path");
+    m_functions << QLatin1String("hankel");
+    m_functions << QLatin1String("harmonic");
+    m_functions << QLatin1String("harmonic_mean");
+    m_functions << QLatin1String("hav");
+    m_functions << QLatin1String("heawood_graph");
+    m_functions << QLatin1String("hermite");
+    m_functions << QLatin1String("hessian");
+    m_functions << QLatin1String("hilbert_matrix");
+    m_functions << QLatin1String("hipow");
+    m_functions << QLatin1String("histogram");
+    m_functions << QLatin1String("hodge");
+    m_functions << QLatin1String("horner");
+    m_functions << QLatin1String("ic1");
+    m_functions << QLatin1String("ic2");
+    m_functions << QLatin1String("ic_convert");
+    m_functions << QLatin1String("ichr1");
+    m_functions << QLatin1String("ichr2");
+    m_functions << QLatin1String("icosahedron_graph");
+    m_functions << QLatin1String("icurvature");
+    m_functions << QLatin1String("ident");
+    m_functions << QLatin1String("identfor");
+    m_functions << QLatin1String("identity");
+    m_functions << QLatin1String("idiff");
+    m_functions << QLatin1String("idim");
+    m_functions << QLatin1String("idummy");
+    m_functions << QLatin1String("ieqn");
+    m_functions << QLatin1String("ifactors");
+    m_functions << QLatin1String("iframes");
+    m_functions << QLatin1String("ifs");
+    m_functions << QLatin1String("ift");
+    m_functions << QLatin1String("igeodesic_coords");
+    m_functions << QLatin1String("ilt");
+    m_functions << QLatin1String("imagpart");
+    m_functions << QLatin1String("imetric");
+    m_functions << QLatin1String("implicit_derivative");
+    m_functions << QLatin1String("implicit_plot");
+    m_functions << QLatin1String("indexed_tensor");
+    m_functions << QLatin1String("indices");
+    m_functions << QLatin1String("induced_subgraph");
+    m_functions << QLatin1String("inferencep");
+    m_functions << QLatin1String("inference_result");
+    m_functions << QLatin1String("infix");
+    m_functions << QLatin1String("init_atensor");
+    m_functions << QLatin1String("init_ctensor");
+    m_functions << QLatin1String("in_neighbors");
+    m_functions << QLatin1String("innerproduct");
+    m_functions << QLatin1String("inpart");
+    m_functions << QLatin1String("inprod");
+    m_functions << QLatin1String("inrt");
+    m_functions << QLatin1String("integerp");
+    m_functions << QLatin1String("integer_partitions");
+    m_functions << QLatin1String("integrate");
+    m_functions << QLatin1String("intersect");
+    m_functions << QLatin1String("intersection");
+    m_functions << QLatin1String("intervalp");
+    m_functions << QLatin1String("intopois");
+    m_functions << QLatin1String("intosum");
+    m_functions << QLatin1String("invariant1");
+    m_functions << QLatin1String("invariant2");
+    m_functions << QLatin1String("inverse_jacobi_cd");
+    m_functions << QLatin1String("inverse_jacobi_cn");
+    m_functions << QLatin1String("inverse_jacobi_cs");
+    m_functions << QLatin1String("inverse_jacobi_dc");
+    m_functions << QLatin1String("inverse_jacobi_dn");
+    m_functions << QLatin1String("inverse_jacobi_ds");
+    m_functions << QLatin1String("inverse_jacobi_nc");
+    m_functions << QLatin1String("inverse_jacobi_nd");
+    m_functions << QLatin1String("inverse_jacobi_ns");
+    m_functions << QLatin1String("inverse_jacobi_sc");
+    m_functions << QLatin1String("inverse_jacobi_sd");
+    m_functions << QLatin1String("inverse_jacobi_sn");
+    m_functions << QLatin1String("invert");
+    m_functions << QLatin1String("invert_by_lu");
+    m_functions << QLatin1String("inv_mod");
+    m_functions << QLatin1String("is");
+    m_functions << QLatin1String("is_biconnected");
+    m_functions << QLatin1String("is_bipartite");
+    m_functions << QLatin1String("is_connected");
+    m_functions << QLatin1String("is_digraph");
+    m_functions << QLatin1String("is_edge_in_graph");
+    m_functions << QLatin1String("is_graph");
+    m_functions << QLatin1String("is_graph_or_digraph");
+    m_functions << QLatin1String("ishow");
+    m_functions << QLatin1String("is_isomorphic");
+    m_functions << QLatin1String("isolate");
+    m_functions << QLatin1String("isomorphism");
+    m_functions << QLatin1String("is_planar");
+    m_functions << QLatin1String("isqrt");
+    m_functions << QLatin1String("is_sconnected");
+    m_functions << QLatin1String("is_tree");
+    m_functions << QLatin1String("is_vertex_in_graph");
+    m_functions << QLatin1String("items_inference");
+    m_functions << QLatin1String("jacobi");
+    m_functions << QLatin1String("jacobian");
+    m_functions << QLatin1String("jacobi_cd");
+    m_functions << QLatin1String("jacobi_cn");
+    m_functions << QLatin1String("jacobi_cs");
+    m_functions << QLatin1String("jacobi_dc");
+    m_functions << QLatin1String("jacobi_dn");
+    m_functions << QLatin1String("jacobi_ds");
+    m_functions << QLatin1String("jacobi_nc");
+    m_functions << QLatin1String("jacobi_nd");
+    m_functions << QLatin1String("jacobi_ns");
+    m_functions << QLatin1String("jacobi_p");
+    m_functions << QLatin1String("jacobi_sc");
+    m_functions << QLatin1String("jacobi_sd");
+    m_functions << QLatin1String("jacobi_sn");
+    m_functions << QLatin1String("JF");
+    m_functions << QLatin1String("join");
+    m_functions << QLatin1String("jordan");
+    m_functions << QLatin1String("julia");
+    m_functions << QLatin1String("kdels");
+    m_functions << QLatin1String("kdelta");
+    m_functions << QLatin1String("kill");
+    m_functions << QLatin1String("killcontext");
+    m_functions << QLatin1String("kostka");
+    m_functions << QLatin1String("kron_delta");
+    m_functions << QLatin1String("kronecker_product");
+    m_functions << QLatin1String("kummer_m");
+    m_functions << QLatin1String("kummer_u");
+    m_functions << QLatin1String("kurtosis");
+    m_functions << QLatin1String("kurtosis_bernoulli");
+    m_functions << QLatin1String("kurtosis_beta");
+    m_functions << QLatin1String("kurtosis_binomial");
+    m_functions << QLatin1String("kurtosis_chi2");
+    m_functions << QLatin1String("kurtosis_continuous_uniform");
+    m_functions << QLatin1String("kurtosis_discrete_uniform");
+    m_functions << QLatin1String("kurtosis_exp");
+    m_functions << QLatin1String("kurtosis_f");
+    m_functions << QLatin1String("kurtosis_gamma");
+    m_functions << QLatin1String("kurtosis_geometric");
+    m_functions << QLatin1String("kurtosis_gumbel");
+    m_functions << QLatin1String("kurtosis_hypergeometric");
+    m_functions << QLatin1String("kurtosis_laplace");
+    m_functions << QLatin1String("kurtosis_logistic");
+    m_functions << QLatin1String("kurtosis_lognormal");
+    m_functions << QLatin1String("kurtosis_negative_binomial");
+    m_functions << QLatin1String("kurtosis_normal");
+    m_functions << QLatin1String("kurtosis_pareto");
+    m_functions << QLatin1String("kurtosis_poisson");
+    m_functions << QLatin1String("kurtosis_rayleigh");
+    m_functions << QLatin1String("kurtosis_student_t");
+    m_functions << QLatin1String("kurtosis_weibull");
+    m_functions << QLatin1String("labels");
+    m_functions << QLatin1String("lagrange");
+    m_functions << QLatin1String("laguerre");
+    m_functions << QLatin1String("lambda");
+    m_functions << QLatin1String("laplace");
+    m_functions << QLatin1String("laplacian_matrix");
+    m_functions << QLatin1String("last");
+    m_functions << QLatin1String("lbfgs");
+    m_functions << QLatin1String("lc2kdt");
+    m_functions << QLatin1String("lcharp");
+    m_functions << QLatin1String("lc_l");
+    m_functions << QLatin1String("lcm");
+    m_functions << QLatin1String("lc_u");
+    m_functions << QLatin1String("ldefint");
+    m_functions << QLatin1String("ldisp");
+    m_functions << QLatin1String("ldisplay");
+    m_functions << QLatin1String("legendre_p");
+    m_functions << QLatin1String("legendre_q");
+    m_functions << QLatin1String("leinstein");
+    m_functions << QLatin1String("length");
+    m_functions << QLatin1String("let");
+    m_functions << QLatin1String("letrules");
+    m_functions << QLatin1String("letsimp");
+    m_functions << QLatin1String("levi_civita");
+    m_functions << QLatin1String("lfreeof");
+    m_functions << QLatin1String("lgtreillis");
+    m_functions << QLatin1String("lhs");
+    m_functions << QLatin1String("li");
+    m_functions << QLatin1String("liediff");
+    m_functions << QLatin1String("limit");
+    m_functions << QLatin1String("Lindstedt");
+    m_functions << QLatin1String("linear");
+    m_functions << QLatin1String("linearinterpol");
+    m_functions << QLatin1String("linear_program");
+    m_functions << QLatin1String("line_graph");
+    m_functions << QLatin1String("linsolve");
+    m_functions << QLatin1String("listarray");
+    m_functions << QLatin1String("list_correlations");
+    m_functions << QLatin1String("listify");
+    m_functions << QLatin1String("list_nc_monomials");
+    m_functions << QLatin1String("listoftens");
+    m_functions << QLatin1String("listofvars");
+    m_functions << QLatin1String("listp");
+    m_functions << QLatin1String("lmax");
+    m_functions << QLatin1String("lmin");
+    m_functions << QLatin1String("load");
+    m_functions << QLatin1String("loadfile");
+    m_functions << QLatin1String("local");
+    m_functions << QLatin1String("locate_matrix_entry");
+    m_functions << QLatin1String("log");
+    m_functions << QLatin1String("logand");
+    m_functions << QLatin1String("logarc");
+    m_functions << QLatin1String("logcontract");
+    m_functions << QLatin1String("logor");
+    m_functions << QLatin1String("logxor");
+    m_functions << QLatin1String("lopow");
+    m_functions << QLatin1String("lorentz_gauge");
+    m_functions << QLatin1String("lowercasep");
+    m_functions << QLatin1String("lpart");
+    m_functions << QLatin1String("lratsubst");
+    m_functions << QLatin1String("lreduce");
+    m_functions << QLatin1String("lriemann");
+    m_functions << QLatin1String("lsquares_estimates");
+    m_functions << QLatin1String("lsquares_estimates_approximate");
+    m_functions << QLatin1String("lsquares_estimates_exact");
+    m_functions << QLatin1String("lsquares_mse");
+    m_functions << QLatin1String("lsquares_residual_mse");
+    m_functions << QLatin1String("lsquares_residuals");
+    m_functions << QLatin1String("lsum");
+    m_functions << QLatin1String("ltreillis");
+    m_functions << QLatin1String("lu_backsub");
+    m_functions << QLatin1String("lu_factor");
+    m_functions << QLatin1String("macroexpand");
+    m_functions << QLatin1String("macroexpand1");
+    m_functions << QLatin1String("make_array");
+    m_functions << QLatin1String("makebox");
+    m_functions << QLatin1String("makefact");
+    m_functions << QLatin1String("makegamma");
+    m_functions << QLatin1String("make_level_picture");
+    m_functions << QLatin1String("makelist");
+    m_functions << QLatin1String("makeOrders");
+    m_functions << QLatin1String("make_poly_continent");
+    m_functions << QLatin1String("make_poly_country");
+    m_functions << QLatin1String("make_polygon");
+    m_functions << QLatin1String("make_random_state");
+    m_functions << QLatin1String("make_rgb_picture");
+    m_functions << QLatin1String("makeset");
+    m_functions << QLatin1String("make_transform");
+    m_functions << QLatin1String("mandelbrot");
+    m_functions << QLatin1String("map");
+    m_functions << QLatin1String("mapatom");
+    m_functions << QLatin1String("maplist");
+    m_functions << QLatin1String("matchdeclare");
+    m_functions << QLatin1String("matchfix");
+    m_functions << QLatin1String("mat_cond");
+    m_functions << QLatin1String("mat_fullunblocker");
+    m_functions << QLatin1String("mat_function");
+    m_functions << QLatin1String("mat_norm");
+    m_functions << QLatin1String("matrix");
+    m_functions << QLatin1String("matrixmap");
+    m_functions << QLatin1String("matrixp");
+    m_functions << QLatin1String("matrix_size");
+    m_functions << QLatin1String("mattrace");
+    m_functions << QLatin1String("mat_trace");
+    m_functions << QLatin1String("mat_unblocker");
+    m_functions << QLatin1String("max");
+    m_functions << QLatin1String("max_clique");
+    m_functions << QLatin1String("max_degree");
+    m_functions << QLatin1String("max_flow");
+    m_functions << QLatin1String("maxi");
+    m_functions << QLatin1String("maximize_lp");
+    m_functions << QLatin1String("max_independent_set");
+    m_functions << QLatin1String("max_matching");
+    m_functions << QLatin1String("maybe");
+    m_functions << QLatin1String("mean");
+    m_functions << QLatin1String("mean_bernoulli");
+    m_functions << QLatin1String("mean_beta");
+    m_functions << QLatin1String("mean_binomial");
+    m_functions << QLatin1String("mean_chi2");
+    m_functions << QLatin1String("mean_continuous_uniform");
+    m_functions << QLatin1String("mean_deviation");
+    m_functions << QLatin1String("mean_discrete_uniform");
+    m_functions << QLatin1String("mean_exp");
+    m_functions << QLatin1String("mean_f");
+    m_functions << QLatin1String("mean_gamma");
+    m_functions << QLatin1String("mean_geometric");
+    m_functions << QLatin1String("mean_gumbel");
+    m_functions << QLatin1String("mean_hypergeometric");
+    m_functions << QLatin1String("mean_laplace");
+    m_functions << QLatin1String("mean_logistic");
+    m_functions << QLatin1String("mean_lognormal");
+    m_functions << QLatin1String("mean_negative_binomial");
+    m_functions << QLatin1String("mean_normal");
+    m_functions << QLatin1String("mean_pareto");
+    m_functions << QLatin1String("mean_poisson");
+    m_functions << QLatin1String("mean_rayleigh");
+    m_functions << QLatin1String("mean_student_t");
+    m_functions << QLatin1String("mean_weibull");
+    m_functions << QLatin1String("median");
+    m_functions << QLatin1String("median_deviation");
+    m_functions << QLatin1String("member");
+    m_functions << QLatin1String("metricexpandall");
+    m_functions << QLatin1String("min");
+    m_functions << QLatin1String("min_degree");
+    m_functions << QLatin1String("minfactorial");
+    m_functions << QLatin1String("mini");
+    m_functions << QLatin1String("minimalPoly");
+    m_functions << QLatin1String("minimize_lp");
+    m_functions << QLatin1String("minimum_spanning_tree");
+    m_functions << QLatin1String("minor");
+    m_functions << QLatin1String("mnewton");
+    m_functions << QLatin1String("mod");
+    m_functions << QLatin1String("mode_declare");
+    m_functions << QLatin1String("mode_identity");
+    m_functions << QLatin1String("ModeMatrix");
+    m_functions << QLatin1String("moebius");
+    m_functions << QLatin1String("mon2schur");
+    m_functions << QLatin1String("mono");
+    m_functions << QLatin1String("monomial_dimensions");
+    m_functions << QLatin1String("multi_elem");
+    m_functions << QLatin1String("multinomial");
+    m_functions << QLatin1String("multinomial_coeff");
+    m_functions << QLatin1String("multi_orbit");
+    m_functions << QLatin1String("multi_pui");
+    m_functions << QLatin1String("multsym");
+    m_functions << QLatin1String("multthru");
+    m_functions << QLatin1String("mycielski_graph");
+    m_functions << QLatin1String("nary");
+    m_functions << QLatin1String("nc_degree");
+    m_functions << QLatin1String("ncexpt");
+    m_functions << QLatin1String("ncharpoly");
+    m_functions << QLatin1String("negative_picture");
+    m_functions << QLatin1String("neighbors");
+    m_functions << QLatin1String("newcontext");
+    m_functions << QLatin1String("newdet");
+    m_functions << QLatin1String("new_graph");
+    m_functions << QLatin1String("newline");
+    m_functions << QLatin1String("newton");
+    m_functions << QLatin1String("next_prime");
+    m_functions << QLatin1String("niceindices");
+    m_functions << QLatin1String("ninth");
+    m_functions << QLatin1String("noncentral_moment");
+    m_functions << QLatin1String("nonmetricity");
+    m_functions << QLatin1String("nonnegintegerp");
+    m_functions << QLatin1String("nonscalarp");
+    m_functions << QLatin1String("nonzeroandfreeof");
+    m_functions << QLatin1String("notequal");
+    m_functions << QLatin1String("nounify");
+    m_functions << QLatin1String("nptetrad");
+    m_functions << QLatin1String("nroots");
+    m_functions << QLatin1String("nterms");
+    m_functions << QLatin1String("ntermst");
+    m_functions << QLatin1String("nthroot");
+    m_functions << QLatin1String("nullity");
+    m_functions << QLatin1String("nullspace");
+    m_functions << QLatin1String("num");
+    m_functions << QLatin1String("numbered_boundaries");
+    m_functions << QLatin1String("numberp");
+    m_functions << QLatin1String("num_distinct_partitions");
+    m_functions << QLatin1String("numerval");
+    m_functions << QLatin1String("numfactor");
+    m_functions << QLatin1String("num_partitions");
+    m_functions << QLatin1String("nusum");
+    m_functions << QLatin1String("odd_girth");
+    m_functions << QLatin1String("oddp");
+    m_functions << QLatin1String("ode2");
+    m_functions << QLatin1String("ode_check");
+    m_functions << QLatin1String("odelin");
+    m_functions << QLatin1String("op");
+    m_functions << QLatin1String("opena");
+    m_functions << QLatin1String("openr");
+    m_functions << QLatin1String("openw");
+    m_functions << QLatin1String("operatorp");
+    m_functions << QLatin1String("opsubst");
+    m_functions << QLatin1String("optimize");
+    m_functions << QLatin1String("orbit");
+    m_functions << QLatin1String("orbits");
+    m_functions << QLatin1String("ordergreat");
+    m_functions << QLatin1String("ordergreatp");
+    m_functions << QLatin1String("orderless");
+    m_functions << QLatin1String("orderlessp");
+    m_functions << QLatin1String("orthogonal_complement");
+    m_functions << QLatin1String("orthopoly_recur");
+    m_functions << QLatin1String("orthopoly_weight");
+    m_functions << QLatin1String("outermap");
+    m_functions << QLatin1String("out_neighbors");
+    m_functions << QLatin1String("outofpois");
+    m_functions << QLatin1String("pade");
+    m_functions << QLatin1String("parGosper");
+    m_functions << QLatin1String("parse_string");
+    m_functions << QLatin1String("part");
+    m_functions << QLatin1String("part2cont");
+    m_functions << QLatin1String("partfrac");
+    m_functions << QLatin1String("partition");
+    m_functions << QLatin1String("partition_set");
+    m_functions << QLatin1String("partpol");
+    m_functions << QLatin1String("path_digraph");
+    m_functions << QLatin1String("path_graph");
+    m_functions << QLatin1String("pdf_bernoulli");
+    m_functions << QLatin1String("pdf_beta");
+    m_functions << QLatin1String("pdf_binomial");
+    m_functions << QLatin1String("pdf_cauchy");
+    m_functions << QLatin1String("pdf_chi2");
+    m_functions << QLatin1String("pdf_continuous_uniform");
+    m_functions << QLatin1String("pdf_discrete_uniform");
+    m_functions << QLatin1String("pdf_exp");
+    m_functions << QLatin1String("pdf_f");
+    m_functions << QLatin1String("pdf_gamma");
+    m_functions << QLatin1String("pdf_geometric");
+    m_functions << QLatin1String("pdf_gumbel");
+    m_functions << QLatin1String("pdf_hypergeometric");
+    m_functions << QLatin1String("pdf_laplace");
+    m_functions << QLatin1String("pdf_logistic");
+    m_functions << QLatin1String("pdf_lognormal");
+    m_functions << QLatin1String("pdf_negative_binomial");
+    m_functions << QLatin1String("pdf_normal");
+    m_functions << QLatin1String("pdf_pareto");
+    m_functions << QLatin1String("pdf_poisson");
+    m_functions << QLatin1String("pdf_rank_sum");
+    m_functions << QLatin1String("pdf_rayleigh");
+    m_functions << QLatin1String("pdf_signed_rank");
+    m_functions << QLatin1String("pdf_student_t");
+    m_functions << QLatin1String("pdf_weibull");
+    m_functions << QLatin1String("pearson_skewness");
+    m_functions << QLatin1String("permanent");
+    m_functions << QLatin1String("permut");
+    m_functions << QLatin1String("permutation");
+    m_functions << QLatin1String("permutations");
+    m_functions << QLatin1String("petersen_graph");
+    m_functions << QLatin1String("petrov");
+    m_functions << QLatin1String("pickapart");
+    m_functions << QLatin1String("picture_equalp");
+    m_functions << QLatin1String("picturep");
+    m_functions << QLatin1String("piechart");
+    m_functions << QLatin1String("planar_embedding");
+    m_functions << QLatin1String("playback");
+    m_functions << QLatin1String("plog");
+    m_functions << QLatin1String("plot2d");
+    m_functions << QLatin1String("plot3d");
+    m_functions << QLatin1String("plotdf");
+    m_functions << QLatin1String("plsquares");
+    m_functions << QLatin1String("pochhammer");
+    m_functions << QLatin1String("poisdiff");
+    m_functions << QLatin1String("poisexpt");
+    m_functions << QLatin1String("poisint");
+    m_functions << QLatin1String("poismap");
+    m_functions << QLatin1String("poisplus");
+    m_functions << QLatin1String("poissimp");
+    m_functions << QLatin1String("poissubst");
+    m_functions << QLatin1String("poistimes");
+    m_functions << QLatin1String("poistrim");
+    m_functions << QLatin1String("polarform");
+    m_functions << QLatin1String("polartorect");
+    m_functions << QLatin1String("poly_add");
+    m_functions << QLatin1String("poly_buchberger");
+    m_functions << QLatin1String("poly_buchberger_criterion");
+    m_functions << QLatin1String("poly_colon_ideal");
+    m_functions << QLatin1String("poly_content");
+    m_functions << QLatin1String("polydecomp");
+    m_functions << QLatin1String("poly_depends_p");
+    m_functions << QLatin1String("poly_elimination_ideal");
+    m_functions << QLatin1String("poly_exact_divide");
+    m_functions << QLatin1String("poly_expand");
+    m_functions << QLatin1String("poly_expt");
+    m_functions << QLatin1String("poly_gcd");
+    m_functions << QLatin1String("poly_grobner");
+    m_functions << QLatin1String("poly_grobner_equal");
+    m_functions << QLatin1String("poly_grobner_member");
+    m_functions << QLatin1String("poly_grobner_subsetp");
+    m_functions << QLatin1String("poly_ideal_intersection");
+    m_functions << QLatin1String("poly_ideal_polysaturation");
+    m_functions << QLatin1String("poly_ideal_polysaturation1");
+    m_functions << QLatin1String("poly_ideal_saturation");
+    m_functions << QLatin1String("poly_ideal_saturation1");
+    m_functions << QLatin1String("poly_lcm");
+    m_functions << QLatin1String("poly_minimization");
+    m_functions << QLatin1String("polymod");
+    m_functions << QLatin1String("poly_multiply");
+    m_functions << QLatin1String("polynome2ele");
+    m_functions << QLatin1String("polynomialp");
+    m_functions << QLatin1String("poly_normal_form");
+    m_functions << QLatin1String("poly_normalize");
+    m_functions << QLatin1String("poly_normalize_list");
+    m_functions << QLatin1String("poly_polysaturation_extension");
+    m_functions << QLatin1String("poly_primitive_part");
+    m_functions << QLatin1String("poly_pseudo_divide");
+    m_functions << QLatin1String("poly_reduced_grobner");
+    m_functions << QLatin1String("poly_reduction");
+    m_functions << QLatin1String("poly_saturation_extension");
+    m_functions << QLatin1String("poly_s_polynomial");
+    m_functions << QLatin1String("poly_subtract");
+    m_functions << QLatin1String("polytocompanion");
+    m_functions << QLatin1String("potential");
+    m_functions << QLatin1String("power_mod");
+    m_functions << QLatin1String("powers");
+    m_functions << QLatin1String("powerseries");
+    m_functions << QLatin1String("powerset");
+    m_functions << QLatin1String("prev_prime");
+    m_functions << QLatin1String("primep");
+    m_functions << QLatin1String("print");
+    m_functions << QLatin1String("printf");
+    m_functions << QLatin1String("print_graph");
+    m_functions << QLatin1String("printpois");
+    m_functions << QLatin1String("printprops");
+    m_functions << QLatin1String("prodrac");
+    m_functions << QLatin1String("product");
+    m_functions << QLatin1String("properties");
+    m_functions << QLatin1String("propvars");
+    m_functions << QLatin1String("psi");
+    m_functions << QLatin1String("ptriangularize");
+    m_functions << QLatin1String("pui");
+    m_functions << QLatin1String("pui2comp");
+    m_functions << QLatin1String("pui2ele");
+    m_functions << QLatin1String("pui2polynome");
+    m_functions << QLatin1String("pui_direct");
+    m_functions << QLatin1String("puireduc");
+    m_functions << QLatin1String("put");
+    m_functions << QLatin1String("qput");
+    m_functions << QLatin1String("qrange");
+    m_functions << QLatin1String("quad_qag");
+    m_functions << QLatin1String("quad_qagi");
+    m_functions << QLatin1String("quad_qags");
+    m_functions << QLatin1String("quad_qawc");
+    m_functions << QLatin1String("quad_qawf");
+    m_functions << QLatin1String("quad_qawo");
+    m_functions << QLatin1String("quad_qaws");
+    m_functions << QLatin1String("quantile");
+    m_functions << QLatin1String("quantile_bernoulli");
+    m_functions << QLatin1String("quantile_beta");
+    m_functions << QLatin1String("quantile_binomial");
+    m_functions << QLatin1String("quantile_cauchy");
+    m_functions << QLatin1String("quantile_chi2");
+    m_functions << QLatin1String("quantile_continuous_uniform");
+    m_functions << QLatin1String("quantile_discrete_uniform");
+    m_functions << QLatin1String("quantile_exp");
+    m_functions << QLatin1String("quantile_f");
+    m_functions << QLatin1String("quantile_gamma");
+    m_functions << QLatin1String("quantile_geometric");
+    m_functions << QLatin1String("quantile_gumbel");
+    m_functions << QLatin1String("quantile_hypergeometric");
+    m_functions << QLatin1String("quantile_laplace");
+    m_functions << QLatin1String("quantile_logistic");
+    m_functions << QLatin1String("quantile_lognormal");
+    m_functions << QLatin1String("quantile_negative_binomial");
+    m_functions << QLatin1String("quantile_normal");
+    m_functions << QLatin1String("quantile_pareto");
+    m_functions << QLatin1String("quantile_poisson");
+    m_functions << QLatin1String("quantile_rayleigh");
+    m_functions << QLatin1String("quantile_student_t");
+    m_functions << QLatin1String("quantile_weibull");
+    m_functions << QLatin1String("quartile_skewness");
+    m_functions << QLatin1String("quit");
+    m_functions << QLatin1String("qunit");
+    m_functions << QLatin1String("quotient");
+    m_functions << QLatin1String("radcan");
+    m_functions << QLatin1String("radius");
+    m_functions << QLatin1String("random");
+    m_functions << QLatin1String("random_bernoulli");
+    m_functions << QLatin1String("random_beta");
+    m_functions << QLatin1String("random_binomial");
+    m_functions << QLatin1String("random_cauchy");
+    m_functions << QLatin1String("random_chi2");
+    m_functions << QLatin1String("random_continuous_uniform");
+    m_functions << QLatin1String("random_digraph");
+    m_functions << QLatin1String("random_discrete_uniform");
+    m_functions << QLatin1String("random_exp");
+    m_functions << QLatin1String("random_f");
+    m_functions << QLatin1String("random_gamma");
+    m_functions << QLatin1String("random_geometric");
+    m_functions << QLatin1String("random_graph");
+    m_functions << QLatin1String("random_graph1");
+    m_functions << QLatin1String("random_gumbel");
+    m_functions << QLatin1String("random_hypergeometric");
+    m_functions << QLatin1String("random_laplace");
+    m_functions << QLatin1String("random_logistic");
+    m_functions << QLatin1String("random_lognormal");
+    m_functions << QLatin1String("random_negative_binomial");
+    m_functions << QLatin1String("random_network");
+    m_functions << QLatin1String("random_normal");
+    m_functions << QLatin1String("random_pareto");
+    m_functions << QLatin1String("random_permutation");
+    m_functions << QLatin1String("random_poisson");
+    m_functions << QLatin1String("random_rayleigh");
+    m_functions << QLatin1String("random_regular_graph");
+    m_functions << QLatin1String("random_student_t");
+    m_functions << QLatin1String("random_tournament");
+    m_functions << QLatin1String("random_tree");
+    m_functions << QLatin1String("random_weibull");
+    m_functions << QLatin1String("range");
+    m_functions << QLatin1String("rank");
+    m_functions << QLatin1String("rat");
+    m_functions << QLatin1String("ratcoef");
+    m_functions << QLatin1String("ratdenom");
+    m_functions << QLatin1String("ratdiff");
+    m_functions << QLatin1String("ratdisrep");
+    m_functions << QLatin1String("ratexpand");
+    m_functions << QLatin1String("rational");
+    m_functions << QLatin1String("rationalize");
+    m_functions << QLatin1String("ratnumer");
+    m_functions << QLatin1String("ratnump");
+    m_functions << QLatin1String("ratp");
+    m_functions << QLatin1String("ratsimp");
+    m_functions << QLatin1String("ratsubst");
+    m_functions << QLatin1String("ratvars");
+    m_functions << QLatin1String("ratweight");
+    m_functions << QLatin1String("read");
+    m_functions << QLatin1String("read_hashed_array");
+    m_functions << QLatin1String("readline");
+    m_functions << QLatin1String("read_lisp_array");
+    m_functions << QLatin1String("read_list");
+    m_functions << QLatin1String("read_matrix");
+    m_functions << QLatin1String("read_maxima_array");
+    m_functions << QLatin1String("read_nested_list");
+    m_functions << QLatin1String("readonly");
+    m_functions << QLatin1String("read_xpm");
+    m_functions << QLatin1String("realpart");
+    m_functions << QLatin1String("realroots");
+    m_functions << QLatin1String("rearray");
+    m_functions << QLatin1String("rectform");
+    m_functions << QLatin1String("recttopolar");
+    m_functions << QLatin1String("rediff");
+    m_functions << QLatin1String("reduce_consts");
+    m_functions << QLatin1String("reduce_order");
+    m_functions << QLatin1String("region_boundaries");
+    m_functions << QLatin1String("rem");
+    m_functions << QLatin1String("remainder");
+    m_functions << QLatin1String("remarray");
+    m_functions << QLatin1String("rembox");
+    m_functions << QLatin1String("remcomps");
+    m_functions << QLatin1String("remcon");
+    m_functions << QLatin1String("remcoord");
+    m_functions << QLatin1String("remfun");
+    m_functions << QLatin1String("remfunction");
+    m_functions << QLatin1String("remlet");
+    m_functions << QLatin1String("remove");
+    m_functions << QLatin1String("remove_edge");
+    m_functions << QLatin1String("remove_vertex");
+    m_functions << QLatin1String("rempart");
+    m_functions << QLatin1String("remrule");
+    m_functions << QLatin1String("remsym");
+    m_functions << QLatin1String("remvalue");
+    m_functions << QLatin1String("rename");
+    m_functions << QLatin1String("reset");
+    m_functions << QLatin1String("residue");
+    m_functions << QLatin1String("resolvante");
+    m_functions << QLatin1String("resolvante_alternee1");
+    m_functions << QLatin1String("resolvante_bipartite");
+    m_functions << QLatin1String("resolvante_diedrale");
+    m_functions << QLatin1String("resolvante_klein");
+    m_functions << QLatin1String("resolvante_klein3");
+    m_functions << QLatin1String("resolvante_produit_sym");
+    m_functions << QLatin1String("resolvante_unitaire");
+    m_functions << QLatin1String("resolvante_vierer");
+    m_functions << QLatin1String("rest");
+    m_functions << QLatin1String("resultant");
+    m_functions << QLatin1String("return");
+    m_functions << QLatin1String("reveal");
+    m_functions << QLatin1String("reverse");
+    m_functions << QLatin1String("revert");
+    m_functions << QLatin1String("revert2");
+    m_functions << QLatin1String("rgb2level");
+    m_functions << QLatin1String("rhs");
+    m_functions << QLatin1String("ricci");
+    m_functions << QLatin1String("riemann");
+    m_functions << QLatin1String("rinvariant");
+    m_functions << QLatin1String("risch");
+    m_functions << QLatin1String("rk");
+    m_functions << QLatin1String("rncombine");
+    m_functions << QLatin1String("romberg");
+    m_functions << QLatin1String("room");
+    m_functions << QLatin1String("rootscontract");
+    m_functions << QLatin1String("row");
+    m_functions << QLatin1String("rowop");
+    m_functions << QLatin1String("rowswap");
+    m_functions << QLatin1String("rreduce");
+    m_functions << QLatin1String("run_testsuite");
+    m_functions << QLatin1String("save");
+    m_functions << QLatin1String("scalarp");
+    m_functions << QLatin1String("scaled_bessel_i");
+    m_functions << QLatin1String("scaled_bessel_i0");
+    m_functions << QLatin1String("scaled_bessel_i1");
+    m_functions << QLatin1String("scalefactors");
+    m_functions << QLatin1String("scanmap");
+    m_functions << QLatin1String("scatterplot");
+    m_functions << QLatin1String("schur2comp");
+    m_functions << QLatin1String("sconcat");
+    m_functions << QLatin1String("scopy");
+    m_functions << QLatin1String("scsimp");
+    m_functions << QLatin1String("scurvature");
+    m_functions << QLatin1String("sdowncase");
+    m_functions << QLatin1String("sec");
+    m_functions << QLatin1String("sech");
+    m_functions << QLatin1String("second");
+    m_functions << QLatin1String("sequal");
+    m_functions << QLatin1String("sequalignore");
+    m_functions << QLatin1String("setdifference");
+    m_functions << QLatin1String("set_edge_weight");
+    m_functions << QLatin1String("setelmx");
+    m_functions << QLatin1String("setequalp");
+    m_functions << QLatin1String("setify");
+    m_functions << QLatin1String("setp");
+    m_functions << QLatin1String("set_partitions");
+    m_functions << QLatin1String("set_plot_option");
+    m_functions << QLatin1String("set_random_state");
+    m_functions << QLatin1String("setunits");
+    m_functions << QLatin1String("setup_autoload");
+    m_functions << QLatin1String("set_up_dot_simplifications");
+    m_functions << QLatin1String("set_vertex_label");
+    m_functions << QLatin1String("seventh");
+    m_functions << QLatin1String("sexplode");
+    m_functions << QLatin1String("sf");
+    m_functions << QLatin1String("shortest_path");
+    m_functions << QLatin1String("show");
+    m_functions << QLatin1String("showcomps");
+    m_functions << QLatin1String("showratvars");
+    m_functions << QLatin1String("sign");
+    m_functions << QLatin1String("signum");
+    m_functions << QLatin1String("similaritytransform");
+    m_functions << QLatin1String("simple_linear_regression");
+    m_functions << QLatin1String("simplify_sum");
+    m_functions << QLatin1String("simplode");
+    m_functions << QLatin1String("simpmetderiv");
+    m_functions << QLatin1String("simtran");
+    m_functions << QLatin1String("sin");
+    m_functions << QLatin1String("sinh");
+    m_functions << QLatin1String("sinsert");
+    m_functions << QLatin1String("sinvertcase");
+    m_functions << QLatin1String("sixth");
+    m_functions << QLatin1String("skewness");
+    m_functions << QLatin1String("skewness_bernoulli");
+    m_functions << QLatin1String("skewness_beta");
+    m_functions << QLatin1String("skewness_binomial");
+    m_functions << QLatin1String("skewness_chi2");
+    m_functions << QLatin1String("skewness_continuous_uniform");
+    m_functions << QLatin1String("skewness_discrete_uniform");
+    m_functions << QLatin1String("skewness_exp");
+    m_functions << QLatin1String("skewness_f");
+    m_functions << QLatin1String("skewness_gamma");
+    m_functions << QLatin1String("skewness_geometric");
+    m_functions << QLatin1String("skewness_gumbel");
+    m_functions << QLatin1String("skewness_hypergeometric");
+    m_functions << QLatin1String("skewness_laplace");
+    m_functions << QLatin1String("skewness_logistic");
+    m_functions << QLatin1String("skewness_lognormal");
+    m_functions << QLatin1String("skewness_negative_binomial");
+    m_functions << QLatin1String("skewness_normal");
+    m_functions << QLatin1String("skewness_pareto");
+    m_functions << QLatin1String("skewness_poisson");
+    m_functions << QLatin1String("skewness_rayleigh");
+    m_functions << QLatin1String("skewness_student_t");
+    m_functions << QLatin1String("skewness_weibull");
+    m_functions << QLatin1String("slength");
+    m_functions << QLatin1String("smake");
+    m_functions << QLatin1String("smismatch");
+    m_functions << QLatin1String("solve");
+    m_functions << QLatin1String("solve_rec");
+    m_functions << QLatin1String("solve_rec_rat");
+    m_functions << QLatin1String("some");
+    m_functions << QLatin1String("somrac");
+    m_functions << QLatin1String("sort");
+    m_functions << QLatin1String("sparse6_decode");
+    m_functions << QLatin1String("sparse6_encode");
+    m_functions << QLatin1String("sparse6_export");
+    m_functions << QLatin1String("sparse6_import");
+    m_functions << QLatin1String("specint");
+    m_functions << QLatin1String("spherical_bessel_j");
+    m_functions << QLatin1String("spherical_bessel_y");
+    m_functions << QLatin1String("spherical_hankel1");
+    m_functions << QLatin1String("spherical_hankel2");
+    m_functions << QLatin1String("spherical_harmonic");
+    m_functions << QLatin1String("splice");
+    m_functions << QLatin1String("split");
+    m_functions << QLatin1String("sposition");
+    m_functions << QLatin1String("sprint");
+    m_functions << QLatin1String("sqfr");
+    m_functions << QLatin1String("sqrt");
+    m_functions << QLatin1String("sqrtdenest");
+    m_functions << QLatin1String("sremove");
+    m_functions << QLatin1String("sremovefirst");
+    m_functions << QLatin1String("sreverse");
+    m_functions << QLatin1String("ssearch");
+    m_functions << QLatin1String("ssort");
+    m_functions << QLatin1String("sstatus");
+    m_functions << QLatin1String("ssubst");
+    m_functions << QLatin1String("ssubstfirst");
+    m_functions << QLatin1String("staircase");
+    m_functions << QLatin1String("status");
+    m_functions << QLatin1String("std");
+    m_functions << QLatin1String("std1");
+    m_functions << QLatin1String("std_bernoulli");
+    m_functions << QLatin1String("std_beta");
+    m_functions << QLatin1String("std_binomial");
+    m_functions << QLatin1String("std_chi2");
+    m_functions << QLatin1String("std_continuous_uniform");
+    m_functions << QLatin1String("std_discrete_uniform");
+    m_functions << QLatin1String("std_exp");
+    m_functions << QLatin1String("std_f");
+    m_functions << QLatin1String("std_gamma");
+    m_functions << QLatin1String("std_geometric");
+    m_functions << QLatin1String("std_gumbel");
+    m_functions << QLatin1String("std_hypergeometric");
+    m_functions << QLatin1String("std_laplace");
+    m_functions << QLatin1String("std_logistic");
+    m_functions << QLatin1String("std_lognormal");
+    m_functions << QLatin1String("std_negative_binomial");
+    m_functions << QLatin1String("std_normal");
+    m_functions << QLatin1String("std_pareto");
+    m_functions << QLatin1String("std_poisson");
+    m_functions << QLatin1String("std_rayleigh");
+    m_functions << QLatin1String("std_student_t");
+    m_functions << QLatin1String("std_weibull");
+    m_functions << QLatin1String("stirling");
+    m_functions << QLatin1String("stirling1");
+    m_functions << QLatin1String("stirling2");
+    m_functions << QLatin1String("strim");
+    m_functions << QLatin1String("striml");
+    m_functions << QLatin1String("strimr");
+    m_functions << QLatin1String("string");
+    m_functions << QLatin1String("stringout");
+    m_functions << QLatin1String("stringp");
+    m_functions << QLatin1String("strong_components");
+    m_functions << QLatin1String("sublis");
+    m_functions << QLatin1String("sublist");
+    m_functions << QLatin1String("sublist_indices");
+    m_functions << QLatin1String("submatrix");
+    m_functions << QLatin1String("subsample");
+    m_functions << QLatin1String("subset");
+    m_functions << QLatin1String("subsetp");
+    m_functions << QLatin1String("subst");
+    m_functions << QLatin1String("substinpart");
+    m_functions << QLatin1String("substpart");
+    m_functions << QLatin1String("substring");
+    m_functions << QLatin1String("subvar");
+    m_functions << QLatin1String("subvarp");
+    m_functions << QLatin1String("sum");
+    m_functions << QLatin1String("sumcontract");
+    m_functions << QLatin1String("summand_to_rec");
+    m_functions << QLatin1String("supcase");
+    m_functions << QLatin1String("supcontext");
+    m_functions << QLatin1String("symbolp");
+    m_functions << QLatin1String("symmdifference");
+    m_functions << QLatin1String("symmetric");
+    m_functions << QLatin1String("system");
+    m_functions << QLatin1String("take_channel");
+    m_functions << QLatin1String("take_inference");
+    m_functions << QLatin1String("tan");
+    m_functions << QLatin1String("tanh");
+    m_functions << QLatin1String("taylor");
+    m_functions << QLatin1String("taylorinfo");
+    m_functions << QLatin1String("taylorp");
+    m_functions << QLatin1String("taylor_simplifier");
+    m_functions << QLatin1String("taytorat");
+    m_functions << QLatin1String("tcl_output");
+    m_functions << QLatin1String("tcontract");
+    m_functions << QLatin1String("tellrat");
+    m_functions << QLatin1String("tellsimp");
+    m_functions << QLatin1String("tellsimpafter");
+    m_functions << QLatin1String("tentex");
+    m_functions << QLatin1String("tenth");
+    m_functions << QLatin1String("test_mean");
+    m_functions << QLatin1String("test_means_difference");
+    m_functions << QLatin1String("test_normality");
+    m_functions << QLatin1String("test_rank_sum");
+    m_functions << QLatin1String("test_sign");
+    m_functions << QLatin1String("test_signed_rank");
+    m_functions << QLatin1String("test_variance");
+    m_functions << QLatin1String("test_variance_ratio");
+    m_functions << QLatin1String("tex");
+    m_functions << QLatin1String("texput");
+    m_functions << QLatin1String("%th");
+    m_functions << QLatin1String("third");
+    m_functions << QLatin1String("throw");
+    m_functions << QLatin1String("time");
+    m_functions << QLatin1String("timedate");
+    m_functions << QLatin1String("timer");
+    m_functions << QLatin1String("timer_info");
+    m_functions << QLatin1String("tldefint");
+    m_functions << QLatin1String("tlimit");
+    m_functions << QLatin1String("todd_coxeter");
+    m_functions << QLatin1String("toeplitz");
+    m_functions << QLatin1String("tokens");
+    m_functions << QLatin1String("to_lisp");
+    m_functions << QLatin1String("topological_sort");
+    m_functions << QLatin1String("totaldisrep");
+    m_functions << QLatin1String("totalfourier");
+    m_functions << QLatin1String("totient");
+    m_functions << QLatin1String("tpartpol");
+    m_functions << QLatin1String("trace");
+    m_functions << QLatin1String("tracematrix");
+    m_functions << QLatin1String("trace_options");
+    m_functions << QLatin1String("translate");
+    m_functions << QLatin1String("translate_file");
+    m_functions << QLatin1String("transpose");
+    m_functions << QLatin1String("tree_reduce");
+    m_functions << QLatin1String("treillis");
+    m_functions << QLatin1String("treinat");
+    m_functions << QLatin1String("triangularize");
+    m_functions << QLatin1String("trigexpand");
+    m_functions << QLatin1String("trigrat");
+    m_functions << QLatin1String("trigreduce");
+    m_functions << QLatin1String("trigsimp");
+    m_functions << QLatin1String("trunc");
+    m_functions << QLatin1String("tr_warnings_get");
+    m_functions << QLatin1String("ueivects");
+    m_functions << QLatin1String("uforget");
+    m_functions << QLatin1String("ultraspherical");
+    m_functions << QLatin1String("underlying_graph");
+    m_functions << QLatin1String("undiff");
+    m_functions << QLatin1String("union");
+    m_functions << QLatin1String("unique");
+    m_functions << QLatin1String("uniteigenvectors");
+    m_functions << QLatin1String("unit_step");
+    m_functions << QLatin1String("unitvector");
+    m_functions << QLatin1String("unknown");
+    m_functions << QLatin1String("unorder");
+    m_functions << QLatin1String("unsum");
+    m_functions << QLatin1String("untellrat");
+    m_functions << QLatin1String("untimer");
+    m_functions << QLatin1String("untrace");
+    m_functions << QLatin1String("uppercasep");
+    m_functions << QLatin1String("uricci");
+    m_functions << QLatin1String("uriemann");
+    m_functions << QLatin1String("uvect");
+    m_functions << QLatin1String("vandermonde_matrix");
+    m_functions << QLatin1String("var");
+    m_functions << QLatin1String("var1");
+    m_functions << QLatin1String("var_bernoulli");
+    m_functions << QLatin1String("var_beta");
+    m_functions << QLatin1String("var_binomial");
+    m_functions << QLatin1String("var_chi2");
+    m_functions << QLatin1String("var_continuous_uniform");
+    m_functions << QLatin1String("var_discrete_uniform");
+    m_functions << QLatin1String("var_exp");
+    m_functions << QLatin1String("var_f");
+    m_functions << QLatin1String("var_gamma");
+    m_functions << QLatin1String("var_geometric");
+    m_functions << QLatin1String("var_gumbel");
+    m_functions << QLatin1String("var_hypergeometric");
+    m_functions << QLatin1String("var_laplace");
+    m_functions << QLatin1String("var_logistic");
+    m_functions << QLatin1String("var_lognormal");
+    m_functions << QLatin1String("var_negative_binomial");
+    m_functions << QLatin1String("var_normal");
+    m_functions << QLatin1String("var_pareto");
+    m_functions << QLatin1String("var_poisson");
+    m_functions << QLatin1String("var_rayleigh");
+    m_functions << QLatin1String("var_student_t");
+    m_functions << QLatin1String("var_weibull");
+    m_functions << QLatin1String("vectorpotential");
+    m_functions << QLatin1String("vectorsimp");
+    m_functions << QLatin1String("verbify");
+    m_functions << QLatin1String("vers");
+    m_functions << QLatin1String("vertex_coloring");
+    m_functions << QLatin1String("vertex_degree");
+    m_functions << QLatin1String("vertex_distance");
+    m_functions << QLatin1String("vertex_eccentricity");
+    m_functions << QLatin1String("vertex_in_degree");
+    m_functions << QLatin1String("vertex_out_degree");
+    m_functions << QLatin1String("vertices");
+    m_functions << QLatin1String("vertices_to_cycle");
+    m_functions << QLatin1String("vertices_to_path");
+    m_functions << QLatin1String("weyl");
+    m_functions << QLatin1String("wheel_graph");
+    m_functions << QLatin1String("with_stdout");
+    m_functions << QLatin1String("write_data");
+    m_functions << QLatin1String("writefile");
+    m_functions << QLatin1String("wronskian");
+    m_functions << QLatin1String("xgraph_curves");
+    m_functions << QLatin1String("xreduce");
+    m_functions << QLatin1String("xthru");
+    m_functions << QLatin1String("Zeilberger");
+    m_functions << QLatin1String("zeroequiv");
+    m_functions << QLatin1String("zerofor");
+    m_functions << QLatin1String("zeromatrix");
+    m_functions << QLatin1String("zeromatrixp");
+    m_functions << QLatin1String("zeta");
+    m_functions << QLatin1String("zlange");
     //Finish m_functions initialization
 
-    // Begin m_keywords initialization
-    m_keywords << QLatin1String("and") << QLatin1String("do") << QLatin1String("else") << QLatin1String("elseif")
-               << QLatin1String("false") << QLatin1String("for") << QLatin1String("if") << QLatin1String("in")
-               << QLatin1String("not") << QLatin1String("or") << QLatin1String("step") << QLatin1String("then")
-               << QLatin1String("thru") << QLatin1String("true") << QLatin1String("while");
+    //Begin m_keywords initialization
+    m_keywords << QLatin1String("and");
+    m_keywords << QLatin1String("do");
+    m_keywords << QLatin1String("else");
+    m_keywords << QLatin1String("elseif");
+    m_keywords << QLatin1String("false");
+    m_keywords << QLatin1String("for");
+    m_keywords << QLatin1String("if");
+    m_keywords << QLatin1String("in");
+    m_keywords << QLatin1String("not");
+    m_keywords << QLatin1String("or");
+    m_keywords << QLatin1String("step");
+    m_keywords << QLatin1String("then");
+    m_keywords << QLatin1String("thru");
+    m_keywords << QLatin1String("true");
+    m_keywords << QLatin1String("while");
     //Finish m_keywords initialization
 }
 
