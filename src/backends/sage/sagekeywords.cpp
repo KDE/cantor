@@ -45,15 +45,39 @@ SageKeywords* SageKeywords::instance()
 
 void SageKeywords::loadKeywords()
 {
-    // Put the keywords list in alphabetical order
-    m_keywords << QLatin1String("and") << QLatin1String("as") << QLatin1String("assert") << QLatin1String("break")
-               << QLatin1String("class") << QLatin1String("continue") << QLatin1String("def") << QLatin1String("del")
-               << QLatin1String("elif") << QLatin1String("else") << QLatin1String("except") << QLatin1String("exec")
-               << QLatin1String("finally") << QLatin1String("for") << QLatin1String("from") << QLatin1String("global")
-               << QLatin1String("if") << QLatin1String("import") << QLatin1String("in") << QLatin1String("is")
-               << QLatin1String("lambda") << QLatin1String("not") << QLatin1String("or") << QLatin1String("pass")
-               << QLatin1String("print") << QLatin1String("raise") << QLatin1String("return") << QLatin1String("try")
-               << QLatin1String("while") << QLatin1String("with") << QLatin1String("yield");
+    //Begin m_keywords initialization
+    m_keywords << QLatin1String("and");
+    m_keywords << QLatin1String("as");
+    m_keywords << QLatin1String("assert");
+    m_keywords << QLatin1String("break");
+    m_keywords << QLatin1String("class");
+    m_keywords << QLatin1String("continue");
+    m_keywords << QLatin1String("def");
+    m_keywords << QLatin1String("del");
+    m_keywords << QLatin1String("elif");
+    m_keywords << QLatin1String("else");
+    m_keywords << QLatin1String("except");
+    m_keywords << QLatin1String("exec");
+    m_keywords << QLatin1String("finally");
+    m_keywords << QLatin1String("for");
+    m_keywords << QLatin1String("from");
+    m_keywords << QLatin1String("global");
+    m_keywords << QLatin1String("if");
+    m_keywords << QLatin1String("import");
+    m_keywords << QLatin1String("in");
+    m_keywords << QLatin1String("is");
+    m_keywords << QLatin1String("lambda");
+    m_keywords << QLatin1String("not");
+    m_keywords << QLatin1String("or");
+    m_keywords << QLatin1String("pass");
+    m_keywords << QLatin1String("print");
+    m_keywords << QLatin1String("raise");
+    m_keywords << QLatin1String("return");
+    m_keywords << QLatin1String("try");
+    m_keywords << QLatin1String("while");
+    m_keywords << QLatin1String("with");
+    m_keywords << QLatin1String("yield");
+    //Finish m_keywords initialization
 }
 
 const QStringList& SageKeywords::keywords() const
