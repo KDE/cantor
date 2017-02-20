@@ -49,39 +49,127 @@ PythonKeywords* PythonKeywords::instance()
 
 void PythonKeywords::loadKeywords()
 {
-    // Put the keywords list in alphabetical order
-    m_keywords << QLatin1String("and") << QLatin1String("as") << QLatin1String("assert") << QLatin1String("break")
-               << QLatin1String("class") << QLatin1String("continue") << QLatin1String("def") << QLatin1String("del")
-               << QLatin1String("elif") << QLatin1String("else") << QLatin1String("except") << QLatin1String("exec")
-               << QLatin1String("finally") << QLatin1String("for") << QLatin1String("from") << QLatin1String("global")
-               << QLatin1String("if") << QLatin1String("import") << QLatin1String("in") << QLatin1String("is")
-               << QLatin1String("lambda") << QLatin1String("not") << QLatin1String("or") << QLatin1String("pass")
-               << QLatin1String("print") << QLatin1String("raise") << QLatin1String("return") << QLatin1String("try")
-               << QLatin1String("while") << QLatin1String("with") << QLatin1String("yield");
+    //Begin m_keywords initialization
+    m_keywords << QLatin1String("and");
+    m_keywords << QLatin1String("as");
+    m_keywords << QLatin1String("assert");
+    m_keywords << QLatin1String("break");
+    m_keywords << QLatin1String("class");
+    m_keywords << QLatin1String("continue");
+    m_keywords << QLatin1String("def");
+    m_keywords << QLatin1String("del");
+    m_keywords << QLatin1String("elif");
+    m_keywords << QLatin1String("else");
+    m_keywords << QLatin1String("except");
+    m_keywords << QLatin1String("exec");
+    m_keywords << QLatin1String("finally");
+    m_keywords << QLatin1String("for");
+    m_keywords << QLatin1String("from");
+    m_keywords << QLatin1String("global");
+    m_keywords << QLatin1String("if");
+    m_keywords << QLatin1String("import");
+    m_keywords << QLatin1String("in");
+    m_keywords << QLatin1String("is");
+    m_keywords << QLatin1String("lambda");
+    m_keywords << QLatin1String("not");
+    m_keywords << QLatin1String("or");
+    m_keywords << QLatin1String("pass");
+    m_keywords << QLatin1String("print");
+    m_keywords << QLatin1String("raise");
+    m_keywords << QLatin1String("return");
+    m_keywords << QLatin1String("try");
+    m_keywords << QLatin1String("while");
+    m_keywords << QLatin1String("with");
+    m_keywords << QLatin1String("yield");
+    //Finish m_keywords initialization
 
-    m_functions << QLatin1String("__import__") << QLatin1String("abs") << QLatin1String("all") << QLatin1String("any")
-                << QLatin1String("apply") << QLatin1String("basestring") << QLatin1String("bin") << QLatin1String("bool")
-                << QLatin1String("buffer") << QLatin1String("bytearray") << QLatin1String("callable") << QLatin1String("chr")
-                << QLatin1String("classmethod") << QLatin1String("cmp") << QLatin1String("compile") << QLatin1String("complex")
-                << QLatin1String("coerce") << QLatin1String("delattr") << QLatin1String("dict") << QLatin1String("dir")
-                << QLatin1String("divmod") << QLatin1String("enumerate") << QLatin1String("eval") << QLatin1String("execfile")
-                << QLatin1String("file") << QLatin1String("filter") << QLatin1String("float") << QLatin1String("format")
-                << QLatin1String("frozenset") << QLatin1String("getattr") << QLatin1String("globals")
-                << QLatin1String("hasattr") << QLatin1String("hash") << QLatin1String("help") << QLatin1String("hex")
-                << QLatin1String("id") << QLatin1String("input") << QLatin1String("int") << QLatin1String("intern")
-                << QLatin1String("isinstance") << QLatin1String("issubclass") << QLatin1String("iter") << QLatin1String("len")
-                << QLatin1String("list") << QLatin1String("locals") << QLatin1String("long") << QLatin1String("map")
-                << QLatin1String("max") << QLatin1String("memoryview") << QLatin1String("min") << QLatin1String("next")
-                << QLatin1String("object") << QLatin1String("oct") << QLatin1String("open") << QLatin1String("ord")
-                << QLatin1String("pow") << QLatin1String("print") << QLatin1String("property") << QLatin1String("range")
-                << QLatin1String("raw_input") << QLatin1String("reduce") << QLatin1String("reload") << QLatin1String("repr")
-                << QLatin1String("reversed") << QLatin1String("round") << QLatin1String("set") << QLatin1String("setattr")
-                << QLatin1String("slice") << QLatin1String("sorted") << QLatin1String("staticmethod") << QLatin1String("str")
-                << QLatin1String("sum") << QLatin1String("super") << QLatin1String("tuple") << QLatin1String("type")
-                << QLatin1String("unichr") << QLatin1String("unicode") << QLatin1String("vars") << QLatin1String("xrange")
-                << QLatin1String("zip");
+    //Begin m_functions initialization
+    m_functions << QLatin1String("__import__");
+    m_functions << QLatin1String("abs");
+    m_functions << QLatin1String("all");
+    m_functions << QLatin1String("any");
+    m_functions << QLatin1String("apply");
+    m_functions << QLatin1String("basestring");
+    m_functions << QLatin1String("bin");
+    m_functions << QLatin1String("bool");
+    m_functions << QLatin1String("buffer");
+    m_functions << QLatin1String("bytearray");
+    m_functions << QLatin1String("callable");
+    m_functions << QLatin1String("chr");
+    m_functions << QLatin1String("classmethod");
+    m_functions << QLatin1String("cmp");
+    m_functions << QLatin1String("compile");
+    m_functions << QLatin1String("complex");
+    m_functions << QLatin1String("coerce");
+    m_functions << QLatin1String("delattr");
+    m_functions << QLatin1String("dict");
+    m_functions << QLatin1String("dir");
+    m_functions << QLatin1String("divmod");
+    m_functions << QLatin1String("enumerate");
+    m_functions << QLatin1String("eval");
+    m_functions << QLatin1String("execfile");
+    m_functions << QLatin1String("file");
+    m_functions << QLatin1String("filter");
+    m_functions << QLatin1String("float");
+    m_functions << QLatin1String("format");
+    m_functions << QLatin1String("frozenset");
+    m_functions << QLatin1String("getattr");
+    m_functions << QLatin1String("globals");
+    m_functions << QLatin1String("hasattr");
+    m_functions << QLatin1String("hash");
+    m_functions << QLatin1String("help");
+    m_functions << QLatin1String("hex");
+    m_functions << QLatin1String("id");
+    m_functions << QLatin1String("input");
+    m_functions << QLatin1String("int");
+    m_functions << QLatin1String("intern");
+    m_functions << QLatin1String("isinstance");
+    m_functions << QLatin1String("issubclass");
+    m_functions << QLatin1String("iter");
+    m_functions << QLatin1String("len");
+    m_functions << QLatin1String("list");
+    m_functions << QLatin1String("locals");
+    m_functions << QLatin1String("long");
+    m_functions << QLatin1String("map");
+    m_functions << QLatin1String("max");
+    m_functions << QLatin1String("memoryview");
+    m_functions << QLatin1String("min");
+    m_functions << QLatin1String("next");
+    m_functions << QLatin1String("object");
+    m_functions << QLatin1String("oct");
+    m_functions << QLatin1String("open");
+    m_functions << QLatin1String("ord");
+    m_functions << QLatin1String("pow");
+    m_functions << QLatin1String("print");
+    m_functions << QLatin1String("property");
+    m_functions << QLatin1String("range");
+    m_functions << QLatin1String("raw_input");
+    m_functions << QLatin1String("reduce");
+    m_functions << QLatin1String("reload");
+    m_functions << QLatin1String("repr");
+    m_functions << QLatin1String("reversed");
+    m_functions << QLatin1String("round");
+    m_functions << QLatin1String("set");
+    m_functions << QLatin1String("setattr");
+    m_functions << QLatin1String("slice");
+    m_functions << QLatin1String("sorted");
+    m_functions << QLatin1String("staticmethod");
+    m_functions << QLatin1String("str");
+    m_functions << QLatin1String("sum");
+    m_functions << QLatin1String("super");
+    m_functions << QLatin1String("tuple");
+    m_functions << QLatin1String("type");
+    m_functions << QLatin1String("unichr");
+    m_functions << QLatin1String("unicode");
+    m_functions << QLatin1String("vars");
+    m_functions << QLatin1String("xrange");
+    m_functions << QLatin1String("zip");
+    //Finish m_functions initialization
 
-    m_variables << QLatin1String("False") << QLatin1String("True");
+    //Begin m_variables initialization
+    m_variables << QLatin1String("False");
+    m_variables << QLatin1String("True");
+    //Finish m_variables initialization
 }
 
 void PythonKeywords::loadFromModule(const QString& module, const QStringList& keywords)
