@@ -33,4 +33,3 @@ if(BUILD_TESTING)
 endif()
 
 install( FILES cantor_maxima.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
-install( FILES keywords.xml cantor-initmaxima.lisp DESTINATION ${KDE_INSTALL_DATADIR}/cantor/maximabackend)

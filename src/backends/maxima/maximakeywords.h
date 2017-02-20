@@ -40,7 +40,7 @@ class MaximaKeywords
     const QStringList& variables() const;
 
   private:
-    void loadFromFile();
+    void loadKeywords();
 
   private:
     QStringList m_functions;
