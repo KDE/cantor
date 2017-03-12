@@ -101,22 +101,10 @@ void Python3Session::runPythonCommand(const QString& command) const
     m_pIface->call(QString::fromLatin1("runPythonCommand"), command);
 }
 
-void Python3Session::runPythonCommandAsync(const QString& command)
-{
-    m_pIface->callWithCallback(QString::fromLatin1("runPythonCommand"), {command},
-                               (Python3Session*)this,
-                               SLOT(onResultReady()));
-}
-
 void Python3Session::readExpressionOutput(const QString& commandProcessing)
 {
     runClassOutputPython();
-    runPythonCommandAsync(commandProcessing);
-    changeStatus(Cantor::Session::Running);
-}
-
-void Python3Session::onResultReady()
-{
+    runPythonCommand(commandProcessing);
     m_output = getOutput();
     m_error = getError();
 

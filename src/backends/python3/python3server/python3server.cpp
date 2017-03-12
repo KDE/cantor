@@ -27,6 +27,14 @@ Python3Server::Python3Server(QObject* parent)
 {
 }
 
+namespace
+{
+    QString pyObjectToQString(PyObject* obj)
+    {
+        return QString::fromUtf8(PyUnicode_AsUTF8(obj));
+    }
+}
+
 void Python3Server::login()
 {
     Py_Initialize();
@@ -54,9 +62,6 @@ QString Python3Server::getOutput() const
     return pyObjectToQString(output);
 }
 
-QString Python3Server::pyObjectToQString(PyObject* obj) const
-{
-    return QString::fromUtf8(PyUnicode_AsUTF8(obj));
-}
+
 
 #include "python3server.moc"

@@ -39,9 +39,6 @@ class Python3Server : public QObject
     Q_SCRIPTABLE QString getError() const;
 
   private:
-    QString pyObjectToQString(PyObject* obj) const;
-
-  private:
     PyObject* m_pModule;
 };
 

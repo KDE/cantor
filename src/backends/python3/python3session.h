@@ -40,14 +40,10 @@ class Python3Session : public PythonSession
 
   private:
     void runPythonCommand(const QString& command) const;
-    void runPythonCommandAsync(const QString& command);
     void readExpressionOutput(const QString& commandProcessing);
 
     QString getOutput() const;
     QString getError() const;
-
-  private Q_SLOTS:
-    void onResultReady();
 
   private:
     QDBusInterface* m_pIface;
