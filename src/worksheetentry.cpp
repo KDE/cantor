@@ -288,8 +288,8 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Delete:
         if (event->modifiers() == Qt::ShiftModifier)
             startRemoving();
-        break;
-        default:*/
+        break;*/
+    default:
         event->ignore();
     }
 }
@@ -790,5 +790,3 @@ bool WorksheetEntry::wantFocus()
 {
     return true;
 }
-
-

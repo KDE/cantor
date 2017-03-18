@@ -198,7 +198,6 @@ void SageSession::readStdOut()
         get_sage_version.start();
         get_sage_version.waitForFinished(-1);
         QRegExp versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
-        int index=versionExp.indexIn(QString::fromUtf8(get_sage_version.readAllStandardOutput()));
         QStringList version=versionExp.capturedTexts();
 
         qDebug()<<"found version: "<<version;

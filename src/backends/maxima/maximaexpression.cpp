@@ -424,7 +424,7 @@ bool MaximaExpression::parseOutput(QString& out)
             }else //got a regular prompt. Just read it all
             {
                 bool isComplete;
-                const QStringRef& content=readXmlTagContent(&idx, out, tag, &isComplete);
+                readXmlTagContent(&idx, out, tag, &isComplete);
 
                 if(!isComplete)
                     return false;

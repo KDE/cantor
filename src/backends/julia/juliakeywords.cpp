@@ -19,8 +19,6 @@
  */
 #include "juliakeywords.h"
 
-#include <QDebug>
-
 JuliaKeywords *JuliaKeywords::instance()
 {
     static JuliaKeywords *inst = 0;
@@ -121,6 +119,6 @@ void JuliaKeywords::addFunction(const QString &function)
 
 void JuliaKeywords::clearFunctions()
 {
-    m_removedFunctions == m_functions;
+    m_removedFunctions = m_functions;
     m_functions.clear();
 }
