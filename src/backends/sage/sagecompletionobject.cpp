@@ -74,7 +74,7 @@ void SageCompletionObject::extractCompletionsNew()
     m_expression->deleteLater();
     m_expression=0;
 
-    if(!res||!res->type()==Cantor::TextResult::Type)
+    if(!res || !(res->type()==Cantor::TextResult::Type))
     {
         qDebug()<<"something went wrong fetching tab completion";
         return;
@@ -115,7 +115,7 @@ void SageCompletionObject::extractCompletionsLegacy()
     m_expression->deleteLater();
     m_expression=0;
 
-    if(!res||!res->type()==Cantor::TextResult::Type)
+    if(!res || !(res->type()==Cantor::TextResult::Type))
     {
         qDebug()<<"something went wrong fetching tab completion";
         return;
