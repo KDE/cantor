@@ -117,6 +117,13 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * @return the backends name
      */
     QString name() const;
+
+    /**
+     * Returns the recommended version of the backend supported by Cantor
+     * @return the recommended version of the backend
+     */
+    virtual QString version() const;
+
     /**
      * Returns a short comment about the backend.
      * @return comment about the backend

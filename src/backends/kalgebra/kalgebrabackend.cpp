@@ -40,6 +40,11 @@ QString KAlgebraBackend::id() const
     return QLatin1String("kalgebra");
 }
 
+QString KAlgebraBackend::version() const
+{
+    return QLatin1String("Analitza version 5.0");
+}
+
 Cantor::Session* KAlgebraBackend::createSession()
 {
     return new KAlgebraSession(this);

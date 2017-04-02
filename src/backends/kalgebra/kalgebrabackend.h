@@ -35,6 +35,7 @@ class KAlgebraBackend : public Cantor::Backend
         KConfigSkeleton* config() const;
 
 	QUrl helpUrl() const;
+        QString version() const override;
 };
 
 

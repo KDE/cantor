@@ -29,7 +29,7 @@
 #include "settings.h"
 
 const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
-                                                                 "<div><b>Recommended version:</b> %4</div>" \
+                                                                 "<div><b>Recommended version:</b> %4</div><br/>" \
                                                                  "<div>%2</div><br/>" \
                                                                  "<div>See <a href=\"%3\">%3</a> for more information</div>");
 
@@ -90,7 +90,7 @@ void BackendChooseDialog::onAccept()
 void BackendChooseDialog::updateDescription()
 {
     Cantor::Backend* current=Cantor::Backend::createBackend( m_ui.backendList->currentItem()->text() );
-    m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate, current->name(), current->description(), current->url()));
+    m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate, current->name(), current->description(), current->url(), current->version()));
 }
 
 QString BackendChooseDialog::backendName()

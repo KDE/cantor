@@ -74,6 +74,11 @@ QString Backend::icon() const
     return d->icon;
 }
 
+QString Backend::version() const
+{
+    return QLatin1String();
+}
+
 QString Backend::url() const
 {
     return d->url;
