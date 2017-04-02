@@ -48,7 +48,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
     // Redirect stdout, stderr to temprorary files
     QTemporaryFile output, error;
     if (!output.open() || !error.open()) {
-        qFatal("Unable to create temprorary files for stdout/stderr");
+        qFatal("Unable to create temporary files for stdout/stderr");
         return;
     }
     jl_eval_string("const __originalSTDOUT__ = STDOUT");
@@ -67,7 +67,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
         jl_eval_string(command.toLatin1().constData())
     );
 
-    if (jl_exception_occurred()) { // If exception occured
+    if (jl_exception_occurred()) { // If exception occurred
         // Show it to user in stderr
         jl_value_t *ex = jl_exception_in_transit;
         jl_printf(JL_STDERR, "error during run:\n");
@@ -82,7 +82,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
         jl_call3(showerror, err_stream, ex, bt);
         jl_exception_clear();
         m_was_exception = true;
-    } else if (val) { // no exception occured
+    } else if (val) { // no exception occurred
         // If last result is not nothing, show it
         jl_function_t *equality = jl_get_function(jl_base_module, "==");
         jl_value_t *nothing =
