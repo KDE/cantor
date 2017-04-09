@@ -1,20 +1,20 @@
 {
     "KPlugin": {
-        "Name": "CantorPart", 
-        "Name[et]": "Cantori komponent", 
-        "Name[fr]": "Module Cantor", 
-        "Name[nn]": "Cantor-del", 
-        "Name[pl]": "ModułCantor", 
-        "Name[pt_BR]": "Componente do Cantor", 
-        "Name[ru]": "Компонент Cantor", 
-        "Name[sv]": "Cantor-delprogram", 
-        "Name[x-test]": "xxCantorPartxx", 
-        "Name[zh_CN]": "Cantor 组件", 
-        "Name[zh_TW]": "Cantor 部件", 
+        "Name": "CantorPart",
+        "Name[et]": "Cantori komponent",
+        "Name[fr]": "Module Cantor",
+        "Name[nn]": "Cantor-del",
+        "Name[pl]": "ModułCantor",
+        "Name[pt_BR]": "Componente do Cantor",
+        "Name[ru]": "Компонент Cantor",
+        "Name[sv]": "Cantor-delprogram",
+        "Name[x-test]": "xxCantorPartxx",
+        "Name[zh_CN]": "Cantor 组件",
+        "Name[zh_TW]": "Cantor 部件",
         "ServiceTypes": [
-            "KParts/ReadOnlyPart", 
+            "KParts/ReadOnlyPart",
             "KParts/ReadWritePart"
         ]
-    }, 
+    },
     "MimeType": "application/x-cantor;"
 }
