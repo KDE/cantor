@@ -31,6 +31,7 @@ class Python3Backend : public PythonBackend
     Cantor::Session* createSession();
 
     QString id() const;
+    QString version() const override;
     QUrl helpUrl() const;
     QString description() const;
    
