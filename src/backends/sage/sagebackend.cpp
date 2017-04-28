@@ -56,6 +56,11 @@ QString SageBackend::id() const
     return QLatin1String("sage");
 }
 
+QString SageBackend::version() const
+{
+    return QLatin1String("Undefined");
+}
+
 Cantor::Session* SageBackend::createSession()
 {
     qDebug()<<"Spawning a new Sage session";
