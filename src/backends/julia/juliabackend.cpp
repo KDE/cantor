@@ -43,6 +43,11 @@ QString JuliaBackend::id() const
     return QLatin1String("julia");
 }
 
+QString JuliaBackend::version() const
+{
+    return QLatin1String("0.4");
+}
+
 Cantor::Session *JuliaBackend::createSession()
 {
     return new JuliaSession(this);

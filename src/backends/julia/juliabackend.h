@@ -50,6 +50,11 @@ public:
     virtual QString id() const override;
 
     /**
+      * @see Cantor::Backend::version
+      */
+    virtual QString version() const override;
+
+    /**
      * @see Cantor::Backend::createSession
      */
     virtual Cantor::Session *createSession() override;
