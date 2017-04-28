@@ -43,6 +43,11 @@ QString LuaBackend::id() const
     return QLatin1String("lua");
 }
 
+QString LuaBackend::version() const
+{
+    return QLatin1String("LuaJIT 2.0");
+}
+
 Cantor::Session* LuaBackend::createSession()
 {
     return new LuaSession(this);

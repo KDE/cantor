@@ -31,6 +31,7 @@ public:
     ~LuaBackend();
 
     QString id() const;
+    QString version() const override;
 
     Cantor::Session* createSession();
     Cantor::Backend::Capabilities capabilities() const;
