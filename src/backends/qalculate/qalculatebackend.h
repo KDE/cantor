@@ -31,6 +31,7 @@ public:
     ~QalculateBackend();
 
     QString id() const;
+    QString version() const override;
 
     virtual Cantor::Session *createSession();
     virtual Cantor::Backend::Capabilities capabilities() const;

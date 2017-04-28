@@ -52,6 +52,11 @@ QString QalculateBackend::id() const
     return QLatin1String("qalculate");
 }
 
+QString QalculateBackend::version() const
+{
+    return QLatin1String("0.9");
+}
+
 Cantor::Session* QalculateBackend::createSession()
 {
     return new QalculateSession(this);
