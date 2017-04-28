@@ -26,6 +26,7 @@ using namespace Cantor;
 #include <QFileInfo>
 #include <QEventLoop>
 #include <QTemporaryFile>
+#include <KColorScheme>
 
 #include <config-cantorlib.h>
 #include "settings.h"
@@ -47,12 +48,15 @@ static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}          \n
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
                          "\\usepackage[utf8]{inputenc}                  \n "\
+                         "\\usepackage{xcolor}                          \n "\
                          "\\setlength\\textwidth{5in}                   \n "\
                          "\\setlength{\\parindent}{0pt}                 \n "\
                          "%1                                            \n "\
+                         "\\pagecolor[rgb]{%2,%3,%4}                    \n "\
                          "\\pagestyle{empty}                            \n "\
                          "\\begin{document}                             \n "\
-                         "%2                                            \n "\
+                         "\\color[rgb]{%5,%6,%7}                        \n "\
+                         "%8                                            \n "\
                          "\\end{document}\n");
 
 static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}    \n ");
@@ -177,8 +181,13 @@ void LatexRenderer::renderWithLatex()
     QTemporaryFile *texFile=new QTemporaryFile(dir + QLatin1String("/cantor_tex-XXXXXX.tex"));
     texFile->open();
 
+    KColorScheme scheme(QPalette::Active);
+    const QColor &backgroundColor=scheme.background().color();
+    const QColor &foregroundColor=scheme.foreground().color();
     QString expressionTex=tex;
-    expressionTex=expressionTex.arg(d->header);
+    expressionTex=expressionTex.arg(d->header)
+                               .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
+                               .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
     if(isEquationOnly())
     {
         switch(equationType())
