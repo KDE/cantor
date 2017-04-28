@@ -49,6 +49,11 @@ QString RBackend::id() const
     return QLatin1String("r");
 }
 
+QString RBackend::version() const
+{
+    return QLatin1String("Undefined");
+}
+
 Cantor::Session* RBackend::createSession()
 {
     qDebug()<<"Spawning a new R session";

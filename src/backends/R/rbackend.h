@@ -31,6 +31,7 @@ class RBackend : public Cantor::Backend
     ~RBackend();
 
     QString id() const;
+    QString version() const override;
     Cantor::Session *createSession();
     Cantor::Backend::Capabilities capabilities() const;
     bool requirementsFullfilled() const;
