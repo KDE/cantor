@@ -46,6 +46,11 @@ QString OctaveBackend::id() const
     return QLatin1String("octave");
 }
 
+QString OctaveBackend::version() const
+{
+    return QLatin1String("4.0 and 4.2");
+}
+
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 {
     return SyntaxHighlighting | Completion | SyntaxHelp | VariableManagement;
