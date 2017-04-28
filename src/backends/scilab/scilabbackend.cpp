@@ -50,6 +50,11 @@ QString ScilabBackend::id() const
     return QLatin1String("scilab");
 }
 
+QString ScilabBackend::version() const
+{
+    return QLatin1String("5.5");
+}
+
 Cantor::Session* ScilabBackend::createSession()
 {
     qDebug()<<"Spawning a new Scilab session";

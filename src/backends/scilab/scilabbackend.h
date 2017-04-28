@@ -32,6 +32,7 @@ class ScilabBackend : public Cantor::Backend
         ~ScilabBackend();
 
         QString id() const;
+        QString version() const override;
         Cantor::Session *createSession();
         Cantor::Backend::Capabilities capabilities() const;
         virtual bool requirementsFullfilled() const;
