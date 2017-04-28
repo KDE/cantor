@@ -31,6 +31,7 @@ class MaximaBackend : public Cantor::Backend
     ~MaximaBackend();
 
     QString id() const;
+    QString version() const override;
     Cantor::Session *createSession();
     Cantor::Backend::Capabilities capabilities() const;
     bool requirementsFullfilled() const;
