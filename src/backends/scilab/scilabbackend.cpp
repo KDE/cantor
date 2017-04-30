@@ -52,7 +52,7 @@ QString ScilabBackend::id() const
 
 QString ScilabBackend::version() const
 {
-    return QLatin1String("5.5");
+    return QLatin1String("5.5, 6.0");
 }
 
 Cantor::Session* ScilabBackend::createSession()
@@ -98,8 +98,7 @@ QUrl ScilabBackend::helpUrl() const
 
 QString ScilabBackend::description() const
 {
-    return i18n("<p><b>Warning:</b> this backend works only with Scilab version 5.5 or later</p>"\
-        "<p>Scilab is a free software, cross-platform numerical computational package and a high-level, numerically oriented programming language.</p>" \
+    return i18n("<p>Scilab is a free software, cross-platform numerical computational package and a high-level, numerically oriented programming language.</p>" \
         "Scilab is distributed under CeCILL license (GPL compatible)");
 }
 
