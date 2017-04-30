@@ -35,7 +35,7 @@ QString ScilabScriptExtension::runExternalScript(const QString& path)
 
 QString ScilabScriptExtension::scriptFileFilter()
 {
-    return i18n("Scilab script file (*.sce);;Scilab function file (*.sci)");
+    return i18n(";;Scilab script file (*.sce);;Scilab function file (*.sci)");
 }
 
 QString ScilabScriptExtension::highlightingMode()
