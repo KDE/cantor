@@ -26,7 +26,7 @@
 
 #include <defaultvariablemodel.h>
 
-#include <KProcess>
+#include <QProcess>
 #include <KDirWatch>
 
 #include <QDebug>
@@ -60,12 +60,13 @@ void ScilabSession::login()
 
     args << QLatin1String("-nb");
 
-    m_process = new KProcess(this);
-    m_process->setProgram(ScilabSettings::self()->path().toLocalFile(), args);
+    m_process = new QProcess(this);
+    m_process->setArguments(args);
+    m_process->setProgram(ScilabSettings::self()->path().toLocalFile());
 
     qDebug() << m_process->program();
 
-    m_process->setOutputChannelMode(KProcess::SeparateChannels);
+    m_process->setProcessChannelMode(QProcess::SeparateChannels);
     m_process->start();
 
     if(ScilabSettings::integratePlots()){
@@ -97,8 +98,8 @@ void ScilabSession::login()
         m_process->write(autorunScripts.toLocal8Bit());
     }
 
-    QObject::connect(m_process, &KProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
-    QObject::connect(m_process, &KProcess::readyReadStandardError, this, &ScilabSession::readError);
+    QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
+    QObject::connect(m_process, &QProcess::readyReadStandardError, this, &ScilabSession::readError);
 
     m_process->readAllStandardOutput().clear();
     m_process->readAllStandardError().clear();
@@ -265,8 +266,8 @@ void ScilabSession::listKeywords()
 
         ScilabKeywords::instance()->setupKeywords(m_output);
 
-        QObject::disconnect(m_process, &KProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
-        QObject::connect(m_process, &KProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
+        QObject::disconnect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
+        QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
 
         m_process->readAllStandardOutput().clear();
         m_process->readAllStandardError().clear();
