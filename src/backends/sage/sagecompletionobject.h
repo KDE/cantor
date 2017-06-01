@@ -37,14 +37,14 @@ class SageCompletionObject : public Cantor::CompletionObject
     ~SageCompletionObject();
 
   protected:
-    bool mayIdentifierContain(QChar c) const;
-    bool mayIdentifierBeginWith(QChar c) const;
+    bool mayIdentifierContain(QChar c) const Q_DECL_OVERRIDE;
+    bool mayIdentifierBeginWith(QChar c) const Q_DECL_OVERRIDE;
 
 
   protected Q_SLOTS:
-    void fetchCompletions();
+    void fetchCompletions() Q_DECL_OVERRIDE;
     void extractCompletions();
-    void fetchIdentifierType();
+    void fetchIdentifierType() Q_DECL_OVERRIDE;
     void extractIdentifierType();
 
  private:

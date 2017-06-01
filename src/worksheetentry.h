@@ -52,7 +52,7 @@ class WorksheetEntry : public QGraphicsObject
 
     enum {Type = UserType};
 
-    virtual int type() const;
+    int type() const Q_DECL_OVERRIDE;
 
     virtual bool isEmpty()=0;
 
@@ -64,8 +64,8 @@ class WorksheetEntry : public QGraphicsObject
     void setNext(WorksheetEntry*);
     void setPrevious(WorksheetEntry*);
 
-    QRectF boundingRect() const;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0);
+    QRectF boundingRect() const Q_DECL_OVERRIDE;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) Q_DECL_OVERRIDE;
 
     virtual bool acceptRichText() = 0;
 
@@ -146,12 +146,12 @@ class WorksheetEntry : public QGraphicsObject
   protected:
     Worksheet* worksheet();
     WorksheetView* worksheetView();
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void keyPressEvent(QKeyEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void evaluateNext(EvaluationOption opt);
 
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event);
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event);
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
 
     void setSize(QSizeF size);
 

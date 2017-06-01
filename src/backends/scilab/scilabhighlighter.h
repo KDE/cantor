@@ -36,8 +36,8 @@ class ScilabHighlighter : public Cantor::DefaultHighlighter
         void addVariableHighlight();
 
     protected:
-        void highlightBlock(const QString &text);
-        QString nonSeparatingCharacters() const;
+        void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
+        QString nonSeparatingCharacters() const Q_DECL_OVERRIDE;
 
     private:
         QRegExp commentStartExpression;

@@ -32,8 +32,8 @@ class ScilabExpression : public Cantor::Expression
         ScilabExpression(Cantor::Session* session);
         ~ScilabExpression();
 
-        void evaluate();
-        void interrupt();
+        void evaluate() Q_DECL_OVERRIDE;
+        void interrupt() Q_DECL_OVERRIDE;
         void parseOutput(QString output);
         void parseError(QString error);
         void parsePlotFile(QString filename);

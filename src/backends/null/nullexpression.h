@@ -32,8 +32,8 @@ class NullExpression : public Cantor::Expression
     NullExpression( Cantor::Session* session);
     ~NullExpression();
 
-    void evaluate();
-    void interrupt();
+    void evaluate() Q_DECL_OVERRIDE;
+    void interrupt() Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
     void evalFinished();

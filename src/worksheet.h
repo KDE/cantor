@@ -213,13 +213,13 @@ class Worksheet : public QGraphicsScene
     void paste();
 
   protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
 
-    void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
-    void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
-    void dropEvent(QGraphicsSceneDragDropEvent* event);
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    void dropEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
 
   private Q_SLOTS:
     void loginToSession();

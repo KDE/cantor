@@ -41,14 +41,14 @@ class OctaveSession : public Cantor::Session
     public:
     OctaveSession(Cantor::Backend* backend);
     ~OctaveSession();
-    virtual void interrupt();
-    virtual Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior);
-    virtual void logout();
-    virtual void login();
-    virtual Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
-    virtual Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
-    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
-    virtual QAbstractItemModel* variableModel();
+    void interrupt() Q_DECL_OVERRIDE;
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior) Q_DECL_OVERRIDE;
+    void logout() Q_DECL_OVERRIDE;
+    void login() Q_DECL_OVERRIDE;
+    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) Q_DECL_OVERRIDE;
+    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) Q_DECL_OVERRIDE;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
+    QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
 
     void runExpression(OctaveExpression* expression);
 

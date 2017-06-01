@@ -29,7 +29,7 @@ class MaximaHistoryExtension : public Cantor::HistoryExtension
     MaximaHistoryExtension( QObject* parent );
     ~MaximaHistoryExtension();
   public Q_SLOTS:
-    QString lastResult();
+    QString lastResult() Q_DECL_OVERRIDE;
 };
 
 class MaximaScriptExtension : public Cantor::ScriptExtension
@@ -38,11 +38,11 @@ class MaximaScriptExtension : public Cantor::ScriptExtension
     MaximaScriptExtension(QObject* parent);
     ~MaximaScriptExtension();
   public Q_SLOTS:
-    virtual QString runExternalScript(const QString& file);
-    virtual QString scriptFileFilter();
-    virtual QString highlightingMode();
-    QString commentStartingSequence();
-    QString commentEndingSequence();
+    QString runExternalScript(const QString& file) Q_DECL_OVERRIDE;
+    QString scriptFileFilter() Q_DECL_OVERRIDE;
+    QString highlightingMode() Q_DECL_OVERRIDE;
+    QString commentStartingSequence() Q_DECL_OVERRIDE;
+    QString commentEndingSequence() Q_DECL_OVERRIDE;
 };
 
 
@@ -53,9 +53,9 @@ class MaximaCASExtension : public Cantor::CASExtension
     ~MaximaCASExtension();
 
   public Q_SLOTS:
-    virtual QString solve(const QStringList& equations, const QStringList& variables);
-    virtual QString simplify(const QString& expression);
-    virtual QString expand(const QString& expression);
+    QString solve(const QStringList& equations, const QStringList& variables) Q_DECL_OVERRIDE;
+    QString simplify(const QString& expression) Q_DECL_OVERRIDE;
+    QString expand(const QString& expression) Q_DECL_OVERRIDE;
 
 };
 
@@ -66,10 +66,10 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
     ~MaximaCalculusExtension();
 
   public Q_SLOTS:
-    QString limit(const QString& expression, const QString& variable, const QString& limit);
-    QString differentiate(const QString& function,const QString& variable, int times);
-    QString integrate(const QString& function, const QString& variable);
-    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right);
+    QString limit(const QString& expression, const QString& variable, const QString& limit) Q_DECL_OVERRIDE;
+    QString differentiate(const QString& function,const QString& variable, int times) Q_DECL_OVERRIDE;
+    QString integrate(const QString& function, const QString& variable) Q_DECL_OVERRIDE;
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
 };
 
 /** An extension for basic Linear Algebra
@@ -82,16 +82,16 @@ class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
-    virtual QString createVector(const QStringList& entries, VectorType type);
-    virtual QString createMatrix(const Matrix& matrix);
-    virtual QString identityMatrix(int size);
+    QString createVector(const QStringList& entries, VectorType type) Q_DECL_OVERRIDE;
+    QString createMatrix(const Matrix& matrix) Q_DECL_OVERRIDE;
+    QString identityMatrix(int size) Q_DECL_OVERRIDE;
 
     //basic functions
-    virtual QString rank(const QString& matrix);
-    virtual QString invertMatrix(const QString& matrix);
-    virtual QString charPoly(const QString& matrix);
-    virtual QString eigenVectors(const QString& matrix);
-    virtual QString eigenValues(const QString& matrix);
+    QString rank(const QString& matrix) Q_DECL_OVERRIDE;
+    QString invertMatrix(const QString& matrix) Q_DECL_OVERRIDE;
+    QString charPoly(const QString& matrix) Q_DECL_OVERRIDE;
+    QString eigenVectors(const QString& matrix) Q_DECL_OVERRIDE;
+    QString eigenValues(const QString& matrix) Q_DECL_OVERRIDE;
 
 };
 
@@ -101,8 +101,8 @@ class MaximaPlotExtension : public Cantor::PlotExtension
     MaximaPlotExtension(QObject* parent);
     ~MaximaPlotExtension();
   public Q_SLOTS:
-    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
-    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
+    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
 };
 
 class MaximaVariableManagementExtension : public Cantor::VariableManagementExtension
@@ -112,13 +112,13 @@ class MaximaVariableManagementExtension : public Cantor::VariableManagementExten
     ~MaximaVariableManagementExtension();
 
   public Q_SLOTS:
-    virtual QString addVariable(const QString& name, const QString& value);
-    virtual QString setValue(const QString& name,const QString& value);
-    virtual QString removeVariable(const QString& name);
+    QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString setValue(const QString& name,const QString& value) Q_DECL_OVERRIDE;
+    QString removeVariable(const QString& name) Q_DECL_OVERRIDE;
 
-    virtual QString saveVariables(const QString& fileName);
-    virtual QString loadVariables(const QString& fileName);
-    virtual QString clearVariables();
+    QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString clearVariables() Q_DECL_OVERRIDE;
 };
 
 

@@ -33,13 +33,13 @@ class NullSession : public Cantor::Session
     NullSession( Cantor::Backend* backend);
     ~NullSession();
 
-    void login();
-    void logout();
+    void login() Q_DECL_OVERRIDE;
+    void logout() Q_DECL_OVERRIDE;
 
-    void interrupt();
+    void interrupt() Q_DECL_OVERRIDE;
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
+    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) Q_DECL_OVERRIDE;
 
   private Q_SLOTS:
     void expressionFinished();

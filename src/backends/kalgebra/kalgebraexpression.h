@@ -30,8 +30,8 @@ class KAlgebraExpression : public Cantor::Expression
         KAlgebraExpression( KAlgebraSession* session);
         ~KAlgebraExpression();
 
-        void evaluate();
-        void interrupt();
+        void evaluate() Q_DECL_OVERRIDE;
+        void interrupt() Q_DECL_OVERRIDE;
 };
 
 #endif

@@ -31,15 +31,15 @@ class Python2Session : public PythonSession
   public:
     Python2Session(Cantor::Backend* backend);
 
-    void login();
+    void login() Q_DECL_OVERRIDE;
 
-    bool integratePlots() const;
-    QStringList autorunScripts() const;
+    bool integratePlots() const Q_DECL_OVERRIDE;
+    QStringList autorunScripts() const Q_DECL_OVERRIDE;
 
   private:
-    void runPythonCommand(const QString& command) const;
-    QString getOutput() const;
-    QString getError() const;
+    void runPythonCommand(const QString& command) const Q_DECL_OVERRIDE;
+    QString getOutput() const Q_DECL_OVERRIDE;
+    QString getError() const Q_DECL_OVERRIDE;
 
     QString pyObjectToQString(PyObject* obj) const;
 

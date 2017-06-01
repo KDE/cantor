@@ -30,52 +30,52 @@ class PythonLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
     public:
     PYTHON_EXT_CDTOR_DECL(LinearAlgebra)
-    virtual QString createVector(const QStringList& entries, VectorType type);
-    virtual QString nullVector(int size, VectorType type);
-    virtual QString createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix);
-    virtual QString identityMatrix(int size);
-    virtual QString nullMatrix(int rows, int columns);
-    virtual QString rank(const QString& matrix);
-    virtual QString invertMatrix(const QString& matrix);
-    virtual QString charPoly(const QString& matrix);
-    virtual QString eigenVectors(const QString& matrix);
-    virtual QString eigenValues(const QString& matrix);
+    QString createVector(const QStringList& entries, VectorType type) Q_DECL_OVERRIDE;
+    QString nullVector(int size, VectorType type) Q_DECL_OVERRIDE;
+    QString createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix) Q_DECL_OVERRIDE;
+    QString identityMatrix(int size) Q_DECL_OVERRIDE;
+    QString nullMatrix(int rows, int columns) Q_DECL_OVERRIDE;
+    QString rank(const QString& matrix) Q_DECL_OVERRIDE;
+    QString invertMatrix(const QString& matrix) Q_DECL_OVERRIDE;
+    QString charPoly(const QString& matrix) Q_DECL_OVERRIDE;
+    QString eigenVectors(const QString& matrix) Q_DECL_OVERRIDE;
+    QString eigenValues(const QString& matrix) Q_DECL_OVERRIDE;
 };
 
 class PythonPackagingExtension : public Cantor::PackagingExtension
 {
     public:
     PYTHON_EXT_CDTOR_DECL(Packaging)
-    virtual QString importPackage(const QString& module);
+    QString importPackage(const QString& module) Q_DECL_OVERRIDE;
 };
 
 class PythonPlotExtension : public Cantor::PlotExtension
 {
     public:
     PYTHON_EXT_CDTOR_DECL(Plot)
-    virtual QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
-    virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
+    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
 };
 
 class PythonScriptExtension : public Cantor::ScriptExtension
 {
     public:
         PYTHON_EXT_CDTOR_DECL(Script)
-        virtual QString scriptFileFilter();
-        virtual QString highlightingMode();
-        virtual QString runExternalScript(const QString& path);
+        QString scriptFileFilter() Q_DECL_OVERRIDE;
+        QString highlightingMode() Q_DECL_OVERRIDE;
+        QString runExternalScript(const QString& path) Q_DECL_OVERRIDE;
 };
 
 class PythonVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
     PYTHON_EXT_CDTOR_DECL(VariableManagement)
-    virtual QString addVariable(const QString& name, const QString& value);
-    virtual QString setValue(const QString& name, const QString& value);
-    virtual QString removeVariable(const QString& name);
-    virtual QString saveVariables(const QString& fileName);
-    virtual QString loadVariables(const QString& fileName);
-    virtual QString clearVariables();
+    QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString setValue(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString removeVariable(const QString& name) Q_DECL_OVERRIDE;
+    QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString clearVariables() Q_DECL_OVERRIDE;
 };
 
 #endif // PYTHONEXTENSIONS_H

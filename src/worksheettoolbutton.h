@@ -37,18 +37,18 @@ class WorksheetToolButton : public QGraphicsObject
 
     qreal width();
     qreal height();
-    QRectF boundingRect() const;
+    QRectF boundingRect() const Q_DECL_OVERRIDE;
     void setIconScale(qreal scale);
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
-               QWidget* widget = 0);
+               QWidget* widget = 0) Q_DECL_OVERRIDE;
 
   Q_SIGNALS:
     void clicked();
     void pressed();
 
   protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent* event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
+    void mousePressEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
 
   private:
     QSize m_size;

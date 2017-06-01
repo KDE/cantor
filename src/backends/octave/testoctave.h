@@ -45,7 +45,7 @@ private Q_SLOTS:
     void testInvalidSyntax();
 
 private:
-    virtual QString backendName();
+    QString backendName() Q_DECL_OVERRIDE;
 };
 
 #endif /* _TESTOCTAVE_H */

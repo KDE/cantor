@@ -33,8 +33,8 @@ class PythonExpression : public Cantor::Expression
     PythonExpression(Cantor::Session* session);
     ~PythonExpression();
 
-    void evaluate();
-    void interrupt();
+    void evaluate() Q_DECL_OVERRIDE;
+    void interrupt() Q_DECL_OVERRIDE;
     void parseOutput(QString output);
     void parseError(QString error);
     void parsePlotFile(const QString& filename);

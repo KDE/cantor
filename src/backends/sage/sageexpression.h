@@ -30,8 +30,8 @@ class SageExpression : public Cantor::Expression
     SageExpression( Cantor::Session* session);
     ~SageExpression();
 
-    void evaluate();
-    void interrupt();
+    void evaluate() Q_DECL_OVERRIDE;
+    void interrupt() Q_DECL_OVERRIDE;
 
     void parseOutput(const QString& text);
     void parseError(const QString& text);
@@ -43,7 +43,7 @@ class SageExpression : public Cantor::Expression
     void evalFinished();
 
   protected:
-    QString additionalLatexHeaders();
+    QString additionalLatexHeaders() Q_DECL_OVERRIDE;
   private:
     QString m_outputCache;
     QString m_imagePath;

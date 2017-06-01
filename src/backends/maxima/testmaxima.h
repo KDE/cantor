@@ -59,7 +59,7 @@ private Q_SLOTS:
     void testSyntaxHelp();
 
 private:
-    virtual QString backendName();
+    QString backendName() Q_DECL_OVERRIDE;
 };
 
 #endif /* _TESTMAXIMA_H */

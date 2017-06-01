@@ -32,7 +32,7 @@ class NullCompletionObject : public Cantor::CompletionObject
     ~NullCompletionObject();
 
   protected Q_SLOTS:
-    void fetchCompletions();
+    void fetchCompletions() Q_DECL_OVERRIDE;
 
 };
 

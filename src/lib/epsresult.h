@@ -36,18 +36,18 @@ class CANTOR_EXPORT EpsResult : public Result
     EpsResult( const QUrl& url);
     ~EpsResult();
 
-    QString toHtml();
-    QString toLatex();
-    QVariant data();
-    QUrl url();
+    QString toHtml() Q_DECL_OVERRIDE;
+    QString toLatex() Q_DECL_OVERRIDE;
+    QVariant data() Q_DECL_OVERRIDE;
+    QUrl url() Q_DECL_OVERRIDE;
 
-    int type();
-    QString mimeType();
+    int type() Q_DECL_OVERRIDE;
+    QString mimeType() Q_DECL_OVERRIDE;
 
-    QDomElement toXml(QDomDocument& doc);
-    void saveAdditionalData(KZip* archive);
+    QDomElement toXml(QDomDocument& doc) Q_DECL_OVERRIDE;
+    void saveAdditionalData(KZip* archive) Q_DECL_OVERRIDE;
 
-    void save(const QString& filename);
+    void save(const QString& filename) Q_DECL_OVERRIDE;
 
   private:
     EpsResultPrivate* d;

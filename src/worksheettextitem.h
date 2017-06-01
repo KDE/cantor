@@ -56,7 +56,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
     enum {Type = UserType + 100};
 
-    int type() const;
+    int type() const Q_DECL_OVERRIDE;
 
     void setFocusAt(int pos = TopLeft, qreal xCoord = 0);
 
@@ -131,19 +131,19 @@ class WorksheetTextItem : public QGraphicsTextItem
     void selectionChanged();
 
   protected:
-    void keyPressEvent(QKeyEvent *event);
-    void focusInEvent(QFocusEvent *event);
-    void focusOutEvent(QFocusEvent *event);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event);
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
-    void dragEnterEvent(QGraphicsSceneDragDropEvent* event);
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
     //void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent* event);
-    void dropEvent(QGraphicsSceneDragDropEvent* event);
-    bool sceneEvent(QEvent *event);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    void dropEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
 
   private Q_SLOTS:
     //void setHeight();

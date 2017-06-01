@@ -35,7 +35,7 @@ class MaximaSyntaxHelpObject : public Cantor::SyntaxHelpObject
     ~MaximaSyntaxHelpObject();
 
   protected Q_SLOTS:
-    void fetchInformation();
+    void fetchInformation() Q_DECL_OVERRIDE;
   private Q_SLOTS:
     void expressionChangedStatus(Cantor::Expression::Status status);
 

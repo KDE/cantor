@@ -33,7 +33,7 @@ class PlotTitleControl : public AdvancedPlotExtension::DirectiveControl<Ui_PlotT
     public: // FIXME: move window title setting upward, or maybe not
         PlotTitleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(ki18n("Main title").toString()); }
 
-        AdvancedPlotExtension::PlotDirective* produceDirective() const
+        AdvancedPlotExtension::PlotDirective* produceDirective() const Q_DECL_OVERRIDE
         {
             return new PlotTitleDirective(titleEdit->text());
         }
@@ -44,7 +44,7 @@ class AbscissScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_Ax
     public:
         AbscissScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(ki18n("Abscissa scale").toString()); }
 
-        AdvancedPlotExtension::PlotDirective* produceDirective() const
+        AdvancedPlotExtension::PlotDirective* produceDirective() const Q_DECL_OVERRIDE
         {
             return new AbscissScaleDirective(minEdit->value(),maxEdit->value());
         }
@@ -55,7 +55,7 @@ class OrdinateScaleControl : public AdvancedPlotExtension::DirectiveControl<Ui_A
     public:
         OrdinateScaleControl(QWidget *parent) : AbstractParent(parent) { setWindowTitle(ki18n("Ordinate scale").toString()); }
 
-        AdvancedPlotExtension::PlotDirective* produceDirective() const
+        AdvancedPlotExtension::PlotDirective* produceDirective() const Q_DECL_OVERRIDE
         {
             return new OrdinateScaleDirective(minEdit->value(),maxEdit->value());
         }

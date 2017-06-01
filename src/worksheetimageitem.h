@@ -39,7 +39,7 @@ class WorksheetImageItem : public QGraphicsObject
 
     enum {Type = UserType + 101};
 
-    int type() const;
+    int type() const Q_DECL_OVERRIDE;
 
     bool imageIsValid();
 
@@ -51,10 +51,10 @@ class WorksheetImageItem : public QGraphicsObject
     void setSize(QSizeF size);
     QSize imageSize();
 
-    QRectF boundingRect() const;
+    QRectF boundingRect() const Q_DECL_OVERRIDE;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget = 0);
+               QWidget *widget = 0) Q_DECL_OVERRIDE;
 
     void setEps(const QUrl &url);
     void setImage(QImage img);
@@ -68,7 +68,7 @@ class WorksheetImageItem : public QGraphicsObject
     void menuCreated(QMenu*, const QPointF&);
 
   protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
 
   private:
     QPixmap m_pixmap;

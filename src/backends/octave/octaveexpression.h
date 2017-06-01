@@ -39,8 +39,8 @@ class OctaveExpression : public Cantor::Expression
     public:
 	OctaveExpression(Cantor::Session* session);
 	~OctaveExpression();
-	virtual void interrupt();
-	virtual void evaluate();
+	void interrupt() Q_DECL_OVERRIDE;
+	void evaluate() Q_DECL_OVERRIDE;
         void parseOutput ( QString output );
         void parseError(QString error);
 	void parsePlotFile(QString file);

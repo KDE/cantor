@@ -35,7 +35,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
     void updateHighlight();
 
   protected:
-    void highlightBlock(const QString& text);
+    void highlightBlock(const QString& text) Q_DECL_OVERRIDE;
 
   private:
      QRegExp commentStartExpression;

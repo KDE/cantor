@@ -34,30 +34,30 @@ class PageBreakEntry : public WorksheetEntry
     ~PageBreakEntry();
 
     enum {Type = UserType + 3};
-    int type() const;
+    int type() const Q_DECL_OVERRIDE;
 
-    bool isEmpty();
-    bool acceptRichText();
-    void setContent(const QString& content);
-    void setContent(const QDomElement& content, const KZip& file);
-    QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
+    bool isEmpty() Q_DECL_OVERRIDE;
+    bool acceptRichText() Q_DECL_OVERRIDE;
+    void setContent(const QString& content) Q_DECL_OVERRIDE;
+    void setContent(const QDomElement& content, const KZip& file) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc, KZip* archive) Q_DECL_OVERRIDE;
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) Q_DECL_OVERRIDE;
 
-    void interruptEvaluation();
+    void interruptEvaluation() Q_DECL_OVERRIDE;
 
-    void layOutForWidth(qreal w, bool force = false);
+    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
 
     //void paint(QPainter* painter, const QStyleOptionGraphicsItem * option,
     //         QWidget * widget = 0);
 
   public Q_SLOTS:
-    bool evaluate(EvaluationOption evalOp = FocusNext);
-    void updateEntry();
-    void populateMenu(QMenu *menu, const QPointF& pos);
+    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    void updateEntry() Q_DECL_OVERRIDE;
+    void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;
 
   protected:
-    bool wantToEvaluate();
-    bool wantFocus();
+    bool wantToEvaluate() Q_DECL_OVERRIDE;
+    bool wantFocus() Q_DECL_OVERRIDE;
 
   private:
     WorksheetTextItem* m_msgItem;

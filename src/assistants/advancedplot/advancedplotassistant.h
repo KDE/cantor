@@ -33,9 +33,9 @@ class AdvancedPlotAssistant : public Cantor::Assistant
     AdvancedPlotAssistant( QObject* parent, QList<QVariant> args );
     ~AdvancedPlotAssistant();
 
-    void initActions();
+    void initActions() Q_DECL_OVERRIDE;
 
-    QStringList run(QWidget* parentt);
+    QStringList run(QWidget* parentt) Q_DECL_OVERRIDE;
 
 };
 

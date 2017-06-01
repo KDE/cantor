@@ -40,8 +40,8 @@ class LoadedExpression : public Cantor::Expression
     LoadedExpression( Cantor::Session* session );
     ~LoadedExpression();
 
-    void evaluate();
-    void interrupt();
+    void evaluate() Q_DECL_OVERRIDE;
+    void interrupt() Q_DECL_OVERRIDE;
 
     void loadFromXml(const QDomElement& xml, const KZip& file);
 };

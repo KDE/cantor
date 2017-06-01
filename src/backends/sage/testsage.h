@@ -56,7 +56,7 @@ private Q_SLOTS:
     void testNoOutput();
 
 private:
-    virtual QString backendName();
+    QString backendName() Q_DECL_OVERRIDE;
 
 };
 

@@ -36,18 +36,18 @@ class KAlgebraSession : public Cantor::Session
         KAlgebraSession( Cantor::Backend* backend);
         ~KAlgebraSession();
 
-        void login();
-        void logout();
+        void login() Q_DECL_OVERRIDE;
+        void logout() Q_DECL_OVERRIDE;
 
-        void interrupt();
+        void interrupt() Q_DECL_OVERRIDE;
 
-        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1);
-        Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd);
+        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
+        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) Q_DECL_OVERRIDE;
+        Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) Q_DECL_OVERRIDE;
         Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
-        QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
-        QAbstractItemModel* variableModel();
+        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
+        QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
 
     private:
         Analitza::Analyzer* m_analyzer;

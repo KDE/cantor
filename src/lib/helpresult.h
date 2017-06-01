@@ -37,9 +37,9 @@ class CANTOR_EXPORT HelpResult : public TextResult
     HelpResult( const QString& text);
     ~HelpResult();
 
-    int type();
+    int type() Q_DECL_OVERRIDE;
 
-    QDomElement toXml(QDomDocument& doc);
+    QDomElement toXml(QDomDocument& doc) Q_DECL_OVERRIDE;
 };
 
 }

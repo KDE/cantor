@@ -40,37 +40,37 @@ class ImageEntry : public WorksheetEntry
     ~ImageEntry();
 
     enum {Type = UserType + 4};
-    int type() const;
+    int type() const Q_DECL_OVERRIDE;
 
-    bool isEmpty();
-    bool acceptRichText();
-    void setContent(const QString& content);
-    void setContent(const QDomElement& content, const KZip& file);
-    QDomElement toXml(QDomDocument& doc, KZip* archive);
-    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq);
+    bool isEmpty() Q_DECL_OVERRIDE;
+    bool acceptRichText() Q_DECL_OVERRIDE;
+    void setContent(const QString& content) Q_DECL_OVERRIDE;
+    void setContent(const QDomElement& content, const KZip& file) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc, KZip* archive) Q_DECL_OVERRIDE;
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) Q_DECL_OVERRIDE;
 
     QSizeF imageSize(const ImageSize& imgSize);
 
-    void interruptEvaluation();
+    void interruptEvaluation() Q_DECL_OVERRIDE;
 
-    void layOutForWidth(qreal w, bool force = false);
+    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
-    bool evaluate(EvaluationOption evalOp = FocusNext);
-    void updateEntry();
+    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    void updateEntry() Q_DECL_OVERRIDE;
 
-    void populateMenu(QMenu *menu, const QPointF& pos);
+    void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;
     void startConfigDialog();
     void setImageData(const QString& path, const ImageSize& displaySize,
                       const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
   protected:
-    bool wantToEvaluate();
-    bool wantFocus();
+    bool wantToEvaluate() Q_DECL_OVERRIDE;
+    bool wantFocus() Q_DECL_OVERRIDE;
     qreal height();
 
     QString latexSizeString(const ImageSize& imgSize);
-    void addActionsToBar(ActionBar* actionBar);
+    void addActionsToBar(ActionBar* actionBar) Q_DECL_OVERRIDE;
 
   private:
     QString m_imagePath;

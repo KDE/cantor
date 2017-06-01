@@ -30,17 +30,17 @@ class MaximaBackend : public Cantor::Backend
     explicit MaximaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~MaximaBackend();
 
-    QString id() const;
+    QString id() const Q_DECL_OVERRIDE;
     QString version() const override;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    bool requirementsFullfilled() const;
+    Cantor::Session *createSession() Q_DECL_OVERRIDE;
+    Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
+    bool requirementsFullfilled() const Q_DECL_OVERRIDE;
 
-    QUrl helpUrl() const;
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+    QUrl helpUrl() const Q_DECL_OVERRIDE;
+    QWidget* settingsWidget(QWidget* parent) const Q_DECL_OVERRIDE;
+    KConfigSkeleton* config() const Q_DECL_OVERRIDE;
 
-    QString description() const;
+    QString description() const Q_DECL_OVERRIDE;
 };
 
 

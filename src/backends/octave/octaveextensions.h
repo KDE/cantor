@@ -29,60 +29,60 @@ class OctaveHistoryExtension : public Cantor::HistoryExtension
 {
     public:
         OCTAVE_EXT_CDTOR_DECL(History)
-        virtual QString lastResult();
+        QString lastResult() Q_DECL_OVERRIDE;
 };
 
 class OctaveScriptExtension : public Cantor::ScriptExtension
 {
     public:
         OCTAVE_EXT_CDTOR_DECL(Script)
-    virtual QString scriptFileFilter();
-    virtual QString highlightingMode();
-    virtual QString runExternalScript(const QString& path);
-    virtual QString commandSeparator();
+    QString scriptFileFilter() Q_DECL_OVERRIDE;
+    QString highlightingMode() Q_DECL_OVERRIDE;
+    QString runExternalScript(const QString& path) Q_DECL_OVERRIDE;
+    QString commandSeparator() Q_DECL_OVERRIDE;
 };
 
 class OctavePlotExtension : public Cantor::PlotExtension
 {
     public:
     OCTAVE_EXT_CDTOR_DECL(Plot)
-    virtual QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right);
-    virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2);
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
+    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
 };
 
 class OctaveLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
     public:
     OCTAVE_EXT_CDTOR_DECL(LinearAlgebra)
-    virtual QString createVector(const QStringList& entries, VectorType type);
-    virtual QString nullVector(int size, VectorType type);
-    virtual QString createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix);
-    virtual QString identityMatrix(int size);
-    virtual QString nullMatrix(int rows, int columns);
-    virtual QString rank(const QString& matrix);
-    virtual QString invertMatrix(const QString& matrix);
-    virtual QString charPoly(const QString& matrix);
-    virtual QString eigenVectors(const QString& matrix);
-    virtual QString eigenValues(const QString& matrix);
+    QString createVector(const QStringList& entries, VectorType type) Q_DECL_OVERRIDE;
+    QString nullVector(int size, VectorType type) Q_DECL_OVERRIDE;
+    QString createMatrix(const Cantor::LinearAlgebraExtension::Matrix& matrix) Q_DECL_OVERRIDE;
+    QString identityMatrix(int size) Q_DECL_OVERRIDE;
+    QString nullMatrix(int rows, int columns) Q_DECL_OVERRIDE;
+    QString rank(const QString& matrix) Q_DECL_OVERRIDE;
+    QString invertMatrix(const QString& matrix) Q_DECL_OVERRIDE;
+    QString charPoly(const QString& matrix) Q_DECL_OVERRIDE;
+    QString eigenVectors(const QString& matrix) Q_DECL_OVERRIDE;
+    QString eigenValues(const QString& matrix) Q_DECL_OVERRIDE;
 };
 
 class OctaveVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
     OCTAVE_EXT_CDTOR_DECL(VariableManagement)
-    virtual QString addVariable(const QString& name, const QString& value);
-    virtual QString setValue(const QString& name, const QString& value);
-    virtual QString removeVariable(const QString& name);
-    virtual QString saveVariables(const QString& fileName);
-    virtual QString loadVariables(const QString& fileName);
-    virtual QString clearVariables();
+    QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString setValue(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString removeVariable(const QString& name) Q_DECL_OVERRIDE;
+    QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString clearVariables() Q_DECL_OVERRIDE;
 };
 
 class OctavePackagingExtension : public Cantor::PackagingExtension
 {
     public:
     OCTAVE_EXT_CDTOR_DECL(Packaging)
-    virtual QString importPackage(const QString& package);
+    QString importPackage(const QString& package) Q_DECL_OVERRIDE;
 };
 
 #endif // OCTAVEEXTENSIONS_H

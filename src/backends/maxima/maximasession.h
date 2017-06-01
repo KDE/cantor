@@ -43,23 +43,23 @@ class MaximaSession : public Cantor::Session
     MaximaSession( Cantor::Backend* backend);
     ~MaximaSession();
 
-    void login();
-    void logout();
+    void login() Q_DECL_OVERRIDE;
+    void logout() Q_DECL_OVERRIDE;
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
 
     void appendExpressionToQueue(MaximaExpression* expr);
 
-    void interrupt();
+    void interrupt() Q_DECL_OVERRIDE;
     void interrupt(MaximaExpression* expr);
     void sendInputToProcess(const QString& input);
 
-    void setTypesettingEnabled(bool enable);
+    void setTypesettingEnabled(bool enable) Q_DECL_OVERRIDE;
 
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
-    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command);
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
-    QAbstractItemModel* variableModel();
+    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) Q_DECL_OVERRIDE;
+    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command) Q_DECL_OVERRIDE;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
+    QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
     void readStdOut();

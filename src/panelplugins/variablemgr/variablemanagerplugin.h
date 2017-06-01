@@ -32,12 +32,12 @@ class VariableManagerPlugin : public Cantor::PanelPlugin
     VariableManagerPlugin( QObject* parent, QList<QVariant> args);
     ~VariableManagerPlugin();
 
-    QWidget* widget();
+    QWidget* widget() Q_DECL_OVERRIDE;
 
-    Cantor::Backend::Capabilities requiredCapabilities();
+    Cantor::Backend::Capabilities requiredCapabilities() Q_DECL_OVERRIDE;
 
   protected:
-    void onSessionChanged();
+    void onSessionChanged() Q_DECL_OVERRIDE;
 
 
   private:

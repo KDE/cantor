@@ -32,12 +32,12 @@ class ScilabCompletionObject : public Cantor::CompletionObject
         ~ScilabCompletionObject();
 
     protected:
-        virtual bool mayIdentifierContain(QChar c) const;
-        virtual bool mayIdentifierBeginWith(QChar c) const;
+        bool mayIdentifierContain(QChar c) const Q_DECL_OVERRIDE;
+        bool mayIdentifierBeginWith(QChar c) const Q_DECL_OVERRIDE;
 
     protected Q_SLOTS:
-        void fetchCompletions();
-        void fetchIdentifierType();
+        void fetchCompletions() Q_DECL_OVERRIDE;
+        void fetchIdentifierType() Q_DECL_OVERRIDE;
 };
 
 #endif /* _SCILABCOMPLETIONOBJECT_H */

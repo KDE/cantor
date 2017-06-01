@@ -30,26 +30,26 @@ class PlaceHolderEntry : public WorksheetEntry
     ~PlaceHolderEntry();
 
     enum {Type = UserType + 6};
-    int type() const;
+    int type() const Q_DECL_OVERRIDE;
 
-    bool isEmpty();
-    bool acceptRichText();
-    void setContent(const QString&);
-    void setContent(const QDomElement&, const KZip&);
-    QDomElement toXml(QDomDocument&, KZip*);
-    QString toPlain(const QString&, const QString&, const QString&);
-    void interruptEvaluation();
+    bool isEmpty() Q_DECL_OVERRIDE;
+    bool acceptRichText() Q_DECL_OVERRIDE;
+    void setContent(const QString&) Q_DECL_OVERRIDE;
+    void setContent(const QDomElement&, const KZip&) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument&, KZip*) Q_DECL_OVERRIDE;
+    QString toPlain(const QString&, const QString&, const QString&) Q_DECL_OVERRIDE;
+    void interruptEvaluation() Q_DECL_OVERRIDE;
 
-    void layOutForWidth(qreal w, bool force = false);
+    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
-    bool evaluate(EvaluationOption evalOp = FocusNext);
-    void updateEntry();
+    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    void updateEntry() Q_DECL_OVERRIDE;
 
     void changeSize(QSizeF s);
 
   protected:
-    bool wantToEvaluate();
+    bool wantToEvaluate() Q_DECL_OVERRIDE;
 };
 
 #endif //PLACEHOLDERENTRY_H

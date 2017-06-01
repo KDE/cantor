@@ -30,12 +30,12 @@ class KAlgebraVariableManagementExtension : public Cantor::VariableManagementExt
     ~KAlgebraVariableManagementExtension();
 
   public Q_SLOTS:
-    virtual QString addVariable(const QString& name, const QString& value);
-    virtual QString setValue(const QString& name,const QString& value);
-    virtual QString removeVariable(const QString& name) { return QString(); }
-    virtual QString saveVariables(const QString& fileName) { return QString(); }
-    virtual QString loadVariables(const QString& fileName) { return QString(); }
-    virtual QString clearVariables() { return QString(); }
+    QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString setValue(const QString& name,const QString& value) Q_DECL_OVERRIDE;
+    QString removeVariable(const QString& name) Q_DECL_OVERRIDE { return QString(); }
+    QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE { return QString(); }
+    QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE { return QString(); }
+    QString clearVariables() Q_DECL_OVERRIDE { return QString(); }
 };
 
 #endif /* _KALGEBRAEXTENSION_H */

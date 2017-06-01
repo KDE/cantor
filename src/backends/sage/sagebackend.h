@@ -30,17 +30,17 @@ class SageBackend : public Cantor::Backend
     explicit SageBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~SageBackend();
 
-    QString id() const;
+    QString id() const Q_DECL_OVERRIDE;
     QString version() const override;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    virtual bool requirementsFullfilled() const;
+    Cantor::Session *createSession() Q_DECL_OVERRIDE;
+    Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
+    bool requirementsFullfilled() const Q_DECL_OVERRIDE;
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+    QWidget* settingsWidget(QWidget* parent) const Q_DECL_OVERRIDE;
+    KConfigSkeleton* config() const Q_DECL_OVERRIDE;
 
-    QUrl helpUrl() const;
-    QString description() const;
+    QUrl helpUrl() const Q_DECL_OVERRIDE;
+    QString description() const Q_DECL_OVERRIDE;
 };
 
 

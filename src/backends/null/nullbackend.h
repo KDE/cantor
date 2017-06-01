@@ -30,10 +30,10 @@ class NullBackend : public Cantor::Backend
     explicit NullBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~NullBackend();
 
-    QString id() const;
+    QString id() const Q_DECL_OVERRIDE;
 
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
+    Cantor::Session *createSession() Q_DECL_OVERRIDE;
+    Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
 
 };
 

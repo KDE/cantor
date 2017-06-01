@@ -30,10 +30,10 @@ class KAlgebraCompletionObject : public Cantor::CompletionObject
         ~KAlgebraCompletionObject();
 
     protected:
-        bool mayIdentifierBeginWith(QChar c) const;
+        bool mayIdentifierBeginWith(QChar c) const Q_DECL_OVERRIDE;
 
     protected Q_SLOTS:
-        void fetchCompletions();
+        void fetchCompletions() Q_DECL_OVERRIDE;
 };
 
 #endif /* _NULLCOMPLETIONOBJECT_H */

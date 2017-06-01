@@ -29,7 +29,7 @@ class KAlgebraSyntaxHelpObject : public Cantor::SyntaxHelpObject
          KAlgebraSyntaxHelpObject( const QString& command, KAlgebraSession* session );
     
     protected:
-        virtual void fetchInformation();
+        void fetchInformation() Q_DECL_OVERRIDE;
 };
 
 #endif // KALGEBRASYNTAXHELPOBJECT_H

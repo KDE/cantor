@@ -36,20 +36,20 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     ~TextResultItem();
 
     using WorksheetTextItem::setGeometry;
-    double setGeometry(double x, double y, double w);
-    void populateMenu(QMenu* menu, const QPointF& pos);
+    double setGeometry(double x, double y, double w) Q_DECL_OVERRIDE;
+    void populateMenu(QMenu* menu, const QPointF& pos) Q_DECL_OVERRIDE;
 
-    ResultItem* updateFromResult(Cantor::Result* result);
+    ResultItem* updateFromResult(Cantor::Result* result) Q_DECL_OVERRIDE;
 
     void setLatex(Cantor::LatexResult* result);
 
-    double width() const;
-    double height() const;
+    double width() const Q_DECL_OVERRIDE;
+    double height() const Q_DECL_OVERRIDE;
 
-    void deleteLater();
+    void deleteLater() Q_DECL_OVERRIDE;
     EpsRenderer* epsRenderer();
     CommandEntry* parentEntry();
-    Cantor::Result* result();
+    Cantor::Result* result() Q_DECL_OVERRIDE;
 
   Q_SIGNALS:
     void removeResult();

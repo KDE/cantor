@@ -225,7 +225,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
 };
 
 #define PLOT_DIRECTIVE_DISPATCHING(x) QString dispatch(const Cantor::AdvancedPlotExtension::AcceptorBase& acc) const \
- { \
+  { \
     const Cantor::AdvancedPlotExtension::DirectiveAcceptor<x>* adaptor= \
         dynamic_cast<const Cantor::AdvancedPlotExtension::DirectiveAcceptor<x>*>(&acc); \
     if (adaptor==NULL) { qDebug()<<"Backend incapable of processing directives of type "#x;  return QLatin1String(""); } \

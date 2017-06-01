@@ -36,10 +36,10 @@ class MaximaExpression : public Cantor::Expression
     explicit MaximaExpression( Cantor::Session* session);
     ~MaximaExpression();
 
-    void evaluate();
-    void interrupt();
+    void evaluate() Q_DECL_OVERRIDE;
+    void interrupt() Q_DECL_OVERRIDE;
 
-    void addInformation(const QString& information);
+    void addInformation(const QString& information) Q_DECL_OVERRIDE;
 
     bool needsLatexResult();
 
@@ -59,7 +59,7 @@ class MaximaExpression : public Cantor::Expression
     void imageChanged();
 
   private:
-    virtual QString additionalLatexHeaders();
+    QString additionalLatexHeaders() Q_DECL_OVERRIDE;
     Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
   private:
     QTemporaryFile *m_tempFile;

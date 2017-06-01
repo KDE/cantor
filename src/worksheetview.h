@@ -46,7 +46,7 @@ class WorksheetView : public QGraphicsView
 
     QRectF viewRect();
 
-    void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
 
     qreal scaleFactor();
 
