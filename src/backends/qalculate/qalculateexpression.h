@@ -37,18 +37,15 @@ private:
     QTemporaryFile *m_tempFile;
 
     QString m_message;
-    enum MsgType { MSG_NONE=0, MSG_INFO=1, MSG_WARN=2, MSG_ERR=4 }; 
-    
-    void evaluatePlotCommand();
-    void evaluateLoadVariablesCommand();
-    void evaluateSaveVariablesCommand();
+    enum MsgType { MSG_NONE=0, MSG_INFO=1, MSG_WARN=2, MSG_ERR=4 };
 
-    QString parseForFilename(QString argument, QString usage);
+    void evaluatePlotCommand();
+
     bool stringToBool(const QString&, bool*);
     void deletePlotDataParameters(const std::vector<PlotDataParameters*>&);
     void showMessage(QString msg, MessageType mtype);
     int checkForCalculatorMessages();
-    void updateVariables(MathStructure);
+    void updateVariables();
     QSharedPointer<PrintOptions> printOptions();
     EvaluationOptions evaluationOptions();
     ParseOptions parseOptions();
@@ -59,7 +56,9 @@ public:
     ~QalculateExpression();
 
     void evaluate();
-    void interrupt() {}
+    void interrupt();
+    void parseOutput(QString& output);
+    void parseError(QString& error);
 };
 
 #endif
