@@ -21,6 +21,7 @@
         "Description[sk]": "Backend pre Cantor na testovacie účely",
         "Description[sl]": "Zaledje namenjeno preizkušanju",
         "Description[sv]": "Bakgrundsprogram för Cantor i testsyfte",
+        "Description[tr]": "Test amaçlı kullanılmak üzere Cantor arka ucu",
         "Description[uk]": "Тестовий модуль Cantor",
         "Description[x-test]": "xxBackend for Cantor for testing purposesxx",
         "Description[zh_CN]": "Cantor 测试后端",
@@ -41,6 +42,7 @@
         "Name[pt_BR]": "infraestrutura vazia",
         "Name[ru]": "Тестовый модуль компьютерной алгебры",
         "Name[sv]": "Nollbakgrundsprogram",
+        "Name[tr]": "belirsiz arka uç",
         "Name[x-test]": "xxnullbackendxx",
         "Name[zh_CN]": "空后端",
         "ServiceTypes": [
