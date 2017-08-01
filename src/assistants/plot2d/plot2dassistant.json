@@ -21,6 +21,7 @@
         "Description[sk]": "Asistenčný dialóg na uľahčenie kreslenia 2D funkcií",
         "Description[sl]": "Pomočnik, ki poenostavi risanje 2D funkcij",
         "Description[sv]": "En dialogruta med guide för att förenkla uppritning av tvådimensionella funktioner",
+        "Description[tr]": "2 boyutlu fonksiyonları çizdirmeyi kolaylaştıran yardımcı pencere",
         "Description[uk]": "Діалогове вікно помічника спрощення побудови графіків на площині",
         "Description[x-test]": "xxAn Assistant dialog to simplify plotting of 2D functionsxx",
         "Description[zh_CN]": "用于简化二维函数图绘制的助手对话框",
@@ -38,6 +39,7 @@
         "Name[ru]": "График функции",
         "Name[sl]": "Izriši v 2D",
         "Name[sv]": "Rita i två dimensioner",
+        "Name[tr]": "2B Çizim",
         "Name[x-test]": "xxPlot2dxx",
         "Name[zh_TW]": "繪製平面圖",
         "ServiceTypes": [
