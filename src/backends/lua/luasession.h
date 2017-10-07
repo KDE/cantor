@@ -25,6 +25,7 @@
 #include <lua.hpp>
 
 class LuaExpression;
+class QProcess;
 
 class LuaSession : public Cantor::Session
 {
@@ -38,16 +39,27 @@ public:
 
     void interrupt();
 
+    void runExpression(LuaExpression* currentExpression);
+
     Cantor::Expression*         evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
     Cantor::CompletionObject*   completionFor(const QString& cmd, int index=-1);
     virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
     lua_State*                  getState() const;
 
+public Q_SLOTS:
+    void readIntroMessage();
+    void readOutput();
+    void readError();
+    void processStarted();
+
 private Q_SLOTS:
-    void expressionFinished();
+    void expressionFinished(Cantor::Expression::Status status);
 
 private:
     lua_State* m_L;
+    QProcess* m_process;
+    LuaExpression* m_currentExpression;
+    QString m_output;
 };
 
 #endif /* _LUASESSION_H */

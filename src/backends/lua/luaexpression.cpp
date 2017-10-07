@@ -32,8 +32,8 @@
 #include <QString>
 #include <QStringList>
 
-LuaExpression::LuaExpression( Cantor::Session* session, lua_State* L)
-    : Cantor::Expression(session), m_L(L)
+LuaExpression::LuaExpression( Cantor::Session* session)
+    : Cantor::Expression(session)
 {
 }
 
@@ -43,25 +43,35 @@ LuaExpression::~LuaExpression()
 
 void LuaExpression::evaluate()
 {
-    QString ret;
-    Cantor::Expression::Status status;
-    execute(ret, status);
-
-    if(status == Cantor::Expression::Done)
-    {
-        QString cmd = command().simplified();
-
-        if( cmd.startsWith(QLatin1String("show(")) || cmd.startsWith(QLatin1String("show (")) )
-            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(ret), ret));
-        else
-            setResult(new Cantor::TextResult(ret));
-    }
-    else
-    {
-        setErrorMessage(ret);
+    /*
+     * start evaluating the current expression
+     * set the status to computing
+     * decide what needs to be done if the user is trying to define a function etc
+    */
+    setStatus(Cantor::Expression::Computing);
+    if (command().isEmpty()) {
+        setStatus(Cantor::Expression::Done);
+        return;
     }
 
-    setStatus(status);
+    LuaSession* currentSession = dynamic_cast<LuaSession*>(session());
+    currentSession->runExpression(this);
+
+}
+
+void LuaExpression::parseOutput(QString &output)
+{
+    output.replace(command(), QLatin1String(""));
+    output.replace(QLatin1String("return"), QLatin1String(""));
+    output.replace(QLatin1String(">"), QLatin1String(""));
+    output = output.trimmed();
+
+    qDebug() << "final output of the command " <<  command() << ": " << output << endl;
+
+    setResult(new Cantor::TextResult(output));
+
+    setStatus(Cantor::Expression::Done);
+
 }
 
 void LuaExpression::interrupt()
@@ -69,33 +79,5 @@ void LuaExpression::interrupt()
     setStatus(Cantor::Expression::Interrupted);
 }
 
-void LuaExpression::execute(QString& ret, Cantor::Expression::Status& status)
-{
-    int top = lua_gettop(m_L);
-
-    // execute the command
-    QString err = luahelper_dostring(m_L, QLatin1String("return ") + command() ); // try to return values...
-    if( !err.isNull() ) err = luahelper_dostring(m_L, command() ); // try the original expression
-
-    if( err.isNull() )
-    {
-        QStringList list;
-        int n_out = lua_gettop(m_L) - top;
-
-        for(int i = -n_out; i < 0; ++i)
-            list << luahelper_tostring(m_L, i);
-
-        ret    = list.join(QLatin1String("\n")) + luahelper_getprinted(m_L);
-        status = Cantor::Expression::Done;
-    }
-    else
-    {
-        qDebug() << "error when executing" << command() << ":" << err;
-        ret    = err;
-        status = Cantor::Expression::Error;
-    }
-
-    lua_settop(m_L, top);
-}
 
 #include "luaexpression.moc"

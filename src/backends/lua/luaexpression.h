@@ -30,17 +30,13 @@ class LuaExpression : public Cantor::Expression
     Q_OBJECT
 
 public:
-    LuaExpression( Cantor::Session* session, lua_State* L);
+    LuaExpression( Cantor::Session* session);
     ~LuaExpression();
 
     void evaluate();
     void interrupt();
+    void parseOutput(QString& output);
 
-private:
-    // evaluates an expression, executing it on the Lua state and building an adequate response
-    void execute(QString& ret, Cantor::Expression::Status& status);
-
-    lua_State* m_L;
 };
 
 #endif /* _LUAEXPRESSION_H */
