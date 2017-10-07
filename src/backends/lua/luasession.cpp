@@ -147,6 +147,9 @@ void LuaSession::runExpression(LuaExpression *currentExpression)
 
     command += QLatin1String("\n");
 
+    if(command.count(QLatin1String("\n")) == 1)
+            command.prepend(QLatin1String("return "));
+
     qDebug() << "final command to be executed " << command << endl;
 
     m_process->write(command.toLocal8Bit());
