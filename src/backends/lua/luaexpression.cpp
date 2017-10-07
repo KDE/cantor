@@ -61,9 +61,10 @@ void LuaExpression::evaluate()
 
 void LuaExpression::parseOutput(QString &output)
 {
-    output.replace(command(), QLatin1String(""));
     output.replace(QLatin1String("return"), QLatin1String(""));
+    output.replace(QLatin1String("> "), QLatin1String(""));
     output.replace(QLatin1String(">"), QLatin1String(""));
+    output.replace(command(), QLatin1String(""));
     output = output.trimmed();
 
     qDebug() << "final output of the command " <<  command() << ": " << output << endl;
