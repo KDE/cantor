@@ -25,15 +25,15 @@
 #include <QStringList>
 
 #include "session.h"
-#include "rserver_interface.h"
+
 
 class RExpression;
-class KProcess;
+class QProcess;
 
 class RSession : public Cantor::Session
 {
-  Q_OBJECT
-  public:
+    Q_OBJECT
+public:
     RSession( Cantor::Backend* backend);
     ~RSession();
 
@@ -46,24 +46,27 @@ class RSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
-    void queueExpression(RExpression* expr);
-    void sendInputToServer(const QString& input);
+    void runExpression(RExpression* expr);
 
-  protected Q_SLOTS:
-    void serverChangedStatus(int status);
-    void runNextExpression();
+protected Q_SLOTS:
     void receiveSymbols(const QStringList& v, const QStringList & f);
     void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
 
-  Q_SIGNALS:
+Q_SIGNALS:
     void symbolsChanged();
 
 
-  private:
-    KProcess* m_rProcess;
-    org::kde::Cantor::R* m_rServer;
-    QList<RExpression*> m_expressionQueue;
+public Q_SLOTS:
+    void readOutput();
+    void readError();
+    void processStarted();
+    void currentExpressionStatusChanged(Cantor::Expression::Status status);
 
+private:
+    QProcess* m_Process;
+    RExpression* m_CurrentExpression;
+    QString m_Output;
+    QString m_Error;
     /* Available variables and functions, TODO make full classes and type info */
     QStringList m_variables;
     QStringList m_functions;

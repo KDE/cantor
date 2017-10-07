@@ -69,12 +69,6 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
             Cantor::Backend::Completion;
 }
 
-bool RBackend::requirementsFullfilled() const
-{
-    QFileInfo info(QStandardPaths::findExecutable( QLatin1String("cantor_rserver") ) );
-    return info.isExecutable();
-}
-
 QWidget* RBackend::settingsWidget(QWidget* parent) const
 {
     return new RSettingsWidget(parent);
@@ -82,7 +76,7 @@ QWidget* RBackend::settingsWidget(QWidget* parent) const
 
 KConfigSkeleton* RBackend::config() const
 {
-    return RServerSettings::self();
+    return RBackendSettings::self();
 }
 
 QUrl RBackend::helpUrl() const
