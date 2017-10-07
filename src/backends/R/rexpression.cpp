@@ -34,6 +34,7 @@
 #include <QFile>
 #include <QStringList>
 #include <QTextDocument>
+#include <QRegExp>
 
 RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
@@ -51,12 +52,62 @@ void RExpression::evaluate()
 {
     qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
-    if(command().startsWith(QLatin1Char('?')))
+    if(command().trimmed().startsWith(QLatin1Char('?'))  || command().trimmed().startsWith(QLatin1String("help")))
         m_isHelpRequest=true;
     else
         m_isHelpRequest=false;
 
-    static_cast<RSession*>(session())->queueExpression(this);
+
+    RSession* session = dynamic_cast<RSession*>(this->session());
+
+    /* check if the command is a quit command. following are quit commands supported by R
+     * quit(save = "default", status = 0, runLast = TRUE)
+     * q(save = "default", status = 0, runLast = TRUE)
+    */
+    QRegExp regexp;
+    regexp.setCaseSensitivity(Qt::CaseSensitive);
+    regexp.setPattern(QLatin1String("\\s*q\\s*\\([\\w\\W]*\\)\\s*$|\\s*quit\\s*\\([\\w\\W]*\\)\\s*$"));
+    if(regexp.exactMatch(command().trimmed())) {
+        // since it's a quit command, logout from the session
+        setStatus(Cantor::Expression::Done);
+        session->logout();
+        return;
+    }
+
+    // done evaluation, finally running the command
+    session->runExpression(this);
+
+
+}
+
+void RExpression::parseOutput(QString output)
+{
+    // remove garabage from output
+
+    output.replace(command(), QLatin1String(""));
+    output.replace(QLatin1String(">"), QLatin1String(""));
+    output = output.trimmed();
+
+    qDebug() << " final output of the command " << command() << output << endl;
+
+    if(m_isHelpRequest)
+        setResult(new Cantor::HelpResult(output));
+    else
+        setResult(new Cantor::TextResult(output));
+
+    setStatus(Cantor::Expression::Done);
+}
+
+void RExpression::parseError(QString error)
+{
+    error.replace(command(), QLatin1String(""));
+    error.replace(QLatin1String(">"), QLatin1String(""));
+    error = error.trimmed();
+
+    setResult(new Cantor::TextResult(error));
+
+    setStatus(Cantor::Expression::Error);
+    setErrorMessage(error);
 }
 
 void RExpression::interrupt()
@@ -67,28 +118,12 @@ void RExpression::interrupt()
     setStatus(Cantor::Expression::Interrupted);
 }
 
-void RExpression::finished(int returnCode, const QString& text)
-{
-    if(returnCode==RExpression::SuccessCode)
-    {
-        setResult(new Cantor::TextResult(Qt::convertFromPlainText(text)));
-        setStatus(Cantor::Expression::Done);
-    }else if (returnCode==RExpression::ErrorCode)
-    {
-        setResult(new Cantor::TextResult(Qt::convertFromPlainText(text)));
-        setStatus(Cantor::Expression::Error);
-        setErrorMessage(Qt::convertFromPlainText(text));
-    }
-}
-
-void RExpression::evaluationStarted()
-{
-    setStatus(Cantor::Expression::Computing);
-}
-
 void RExpression::addInformation(const QString& information)
 {
-    static_cast<RSession*>(session())->sendInputToServer(information);
+    /* not using this anymore since it was making use of rserver
+     *
+    */
+//    static_cast<RSession*>(session())->sendInputToServer(information);
 }
 
 void RExpression::showFilesAsResult(const QStringList& files)

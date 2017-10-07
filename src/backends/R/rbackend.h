@@ -34,7 +34,6 @@ class RBackend : public Cantor::Backend
     QString version() const override;
     Cantor::Session *createSession();
     Cantor::Backend::Capabilities capabilities() const;
-    bool requirementsFullfilled() const;
 
     virtual QWidget* settingsWidget(QWidget* parent) const;
     virtual KConfigSkeleton* config() const;

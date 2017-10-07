@@ -25,79 +25,169 @@
 
 #include <QTimer>
 #include <QDebug>
-#include <KProcess>
+#include <QProcess>
+#include <QStandardPaths>
+
 
 #include <signal.h>
 
-RSession::RSession( Cantor::Backend* backend) : Session(backend)
+RSession::RSession( Cantor::Backend* backend) : Session(backend),
+  m_Process(0),
+  m_CurrentExpression(0)
 {
-    qDebug();
-    m_rProcess=0;
 }
 
 RSession::~RSession()
 {
     qDebug();
-    m_rProcess->terminate();
+    m_Process->terminate();
 }
 
 void RSession::login()
 {
     qDebug()<<"login";
-    if(m_rProcess)
-        m_rProcess->deleteLater();
-    m_rProcess=new KProcess(this);
-    m_rProcess->setOutputChannelMode(KProcess::ForwardedChannels);
 
-    (*m_rProcess)<<QStandardPaths::findExecutable( QLatin1String("cantor_rserver") );
 
-    m_rProcess->start();
+    m_Process=new QProcess(this);
+    m_Process->setProcessChannelMode(QProcess::SeparateChannels);
 
-    m_rServer=new org::kde::Cantor::R(QString::fromLatin1("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  QLatin1String("/R"), QDBusConnection::sessionBus(), this);
+    QString path = QStandardPaths::findExecutable(QLatin1String("R"));
+    qDebug() << path;
 
-    connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
-    connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),this,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
+    if(QStandardPaths::findExecutable(QLatin1String("R")).isEmpty())
+        qDebug() << "Could not find the R exe" << endl;
 
-    changeStatus(Cantor::Session::Done);
 
-    connect(m_rServer, SIGNAL(ready()), this, SIGNAL(ready()));
+
+    m_Process->setProgram(QStandardPaths::findExecutable(QLatin1String("R")));
+    QStringList args;
+    /*
+     * interactive - forcing an interactive session
+     * quiet - don't print the startup message
+     * no-save -  don't save the workspace after the end of session(when users quits). Should the user  be allowed to save the session?
+     */
+    args.append(QLatin1String("--interactive"));
+    args.append(QLatin1String("--quiet"));
+    args.append(QLatin1String("--no-save"));
+    m_Process->setArguments(args);
+
+    connect(m_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
+    connect(m_Process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
+    connect(m_Process, SIGNAL(started()), this, SLOT(processStarted()));
+
+
+    m_Process->start();
+
+}
+
+
+void RSession::readOutput()
+{
+    while(m_Process->bytesAvailable()) {
+        m_Output.append(QString::fromLocal8Bit(m_Process->readLine()));
+    }
+
+    if(m_CurrentExpression && !m_Output.isEmpty() && m_Output.trimmed().endsWith(QLatin1String(">"))) {
+       m_CurrentExpression->parseOutput(m_Output);
+       m_Output.clear();
+    }
+}
+
+void RSession::readError()
+{
+    m_Error = QString::fromLocal8Bit(m_Process->readAllStandardError());
+    m_CurrentExpression->parseError(m_Error);
+    m_Error.clear();
+}
+
+void RSession::processStarted()
+{
+    qDebug() << m_Process->program() << " with pid " <<  m_Process->processId() << " started successfully " << endl;
+    emit ready();
 }
 
 void RSession::logout()
 {
-    qDebug()<<"logout";
-    m_rProcess->terminate();
+    qDebug()<<"logout" << endl;
+
+    // this happens if the user gives quit command
+    if(status() ==  Cantor::Session::Running)
+        changeStatus(Cantor::Session::Done);
+
+    if(m_Process && m_Process->state() == QProcess::Running){
+        qDebug () << " Killing the process ";
+        m_Process->kill();
+    }
 }
 
 void RSession::interrupt()
 {
-    qDebug()<<"interrupt" << m_rProcess->pid();
-    if (m_rProcess->pid())
-	kill(m_rProcess->pid(), 2);
-    m_expressionQueue.removeFirst();
+    qDebug()<<"interrupt" << m_Process->pid();
     changeStatus(Cantor::Session::Done);
 }
 
 Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     qDebug()<<"evaluating: "<<cmd;
+    changeStatus(Cantor::Session::Running);    
     RExpression* expr=new RExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 
-    expr->evaluate();
+    /* start evaluating only if the process is in running state
+     * imo this is a late check, can this be done somewhere before ?
+    */
+    if(m_Process && m_Process->state() == QProcess::NotRunning){
+        changeStatus(Cantor::Session::Done);
+        return expr;
+    }
 
-    changeStatus(Cantor::Session::Running);
+    expr->evaluate();
 
     return expr;
 }
 
+void RSession::runExpression(RExpression* expr)
+{
+    m_CurrentExpression = expr;
+    connect(m_CurrentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
+
+    QString currentCmd = m_CurrentExpression->command();
+    currentCmd.trimmed();
+    currentCmd += QLatin1String("\n");
+
+    m_Process->write(currentCmd.toLocal8Bit());
+
+
+}
+
+void RSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
+{
+    switch (status) {
+
+        case Cantor::Expression::Computing:
+            break;
+        case Cantor::Expression::Interrupted:
+            changeStatus(Cantor::Session::Done);
+            break;
+        case Cantor::Expression::Done:
+        case Cantor::Expression::Error:
+            changeStatus(Cantor::Session::Done);
+
+    }
+}
 Cantor::CompletionObject* RSession::completionFor(const QString& command, int index)
 {
-    RCompletionObject *cmp=new RCompletionObject(command, index, this);
-    connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
-    connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
-    return cmp;
+    /*
+     * since we won't be using rserver anymore, we will have to find a different method to make completion work
+     * can we use R's command line interface for this ?
+    */
+
+//    RCompletionObject *cmp=new RCompletionObject(command, index, this);
+//    connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
+//    connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
+//    return cmp;
+    return 0;
 }
 
 QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
@@ -130,60 +220,5 @@ void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
     emit symbolsChanged();
 }
 
-void RSession::queueExpression(RExpression* expr)
-{
-    m_expressionQueue.append(expr);
-
-    if(status()==Cantor::Session::Done)
-        QTimer::singleShot(0, this, SLOT(runNextExpression()));
-}
-
-
-void RSession::serverChangedStatus(int status)
-{
-    qDebug()<<"changed status to "<<status;
-    if(status==0)
-    {
-        if(!m_expressionQueue.isEmpty())
-        {
-            RExpression* expr=m_expressionQueue.takeFirst();
-            qDebug()<<"done running "<<expr<<" "<<expr->command();
-        }
-
-        if(m_expressionQueue.isEmpty())
-            changeStatus(Cantor::Session::Done);
-        else
-            runNextExpression();
-    }
-    else
-        changeStatus(Cantor::Session::Running);
-}
-
-void RSession::runNextExpression()
-{
-    if (m_expressionQueue.isEmpty())
-	return;
-    disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
-    disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
-    disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
-    qDebug()<<"size: "<<m_expressionQueue.size();
-    RExpression* expr=m_expressionQueue.first();
-    qDebug()<<"running expression: "<<expr->command();
-
-    connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));
-    connect(m_rServer, SIGNAL(inputRequested(const QString&)), expr, SIGNAL(needsAdditionalInformation(const QString&)));
-    connect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), expr, SLOT(showFilesAsResult(const QStringList&)));
-
-    m_rServer->runCommand(expr->command());
-
-}
-
-void RSession::sendInputToServer(const QString& input)
-{
-    QString s=input;
-    if(!input.endsWith(QLatin1Char('\n')))
-        s+=QLatin1Char('\n');
-    m_rServer->answerRequest(s);
-}
 
 #include "rsession.moc"

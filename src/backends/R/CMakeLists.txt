@@ -1,7 +1,7 @@
 include_directories(${R_INCLUDEDIR})
 LINK_DIRECTORIES(${R_SHAREDLIBDIR})
 
-add_subdirectory(rserver)
+#add_subdirectory(rserver)
 
 set( RBackend_SRCS
  rbackend.cpp
@@ -13,10 +13,11 @@ set( RBackend_SRCS
  rsettingswidget.cpp
 )
 
-kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
+kconfig_add_kcfg_files(RBackend_SRCS settings.kcfgc)
+install(FILES rbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
-set(network_xml rserver/org.kde.Cantor.R.xml)
-QT5_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
+#set(network_xml rserver/org.kde.Cantor.R.xml)
+#QT5_ADD_DBUS_INTERFACE(RBackend_SRCS ${network_xml} rserver_interface )
 
 ki18n_wrap_ui(RBackend_SRCS settings.ui)
 
