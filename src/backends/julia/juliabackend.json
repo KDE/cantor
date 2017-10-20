@@ -23,6 +23,7 @@
         "Description[tr]": "Cantor için Julia arka ucu",
         "Description[uk]": "Модуль Julia для Cantor",
         "Description[x-test]": "xxJulia backend for Cantorxx",
+        "Description[zh_CN]": "Cantor 的 Julia 后端",
         "Description[zh_TW]": "Cantor 的 Julia 後端",
         "Icon": "juliabackend",
         "Id": "Julia",
