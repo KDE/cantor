@@ -455,7 +455,6 @@ void Worksheet::evaluate()
 
 void Worksheet::evaluateCurrentEntry()
 {
-    qDebug() << "evaluation requested...";
     WorksheetEntry* entry = currentEntry();
     if(!entry)
         return;
@@ -1539,7 +1538,6 @@ bool Worksheet::isShortcut(QKeySequence sequence)
 
 void Worksheet::registerShortcut(QAction* action)
 {
-    qDebug() << action->shortcuts();
     foreach(QKeySequence shortcut, action->shortcuts()) {
         m_shortcuts.insert(shortcut, action);
     }

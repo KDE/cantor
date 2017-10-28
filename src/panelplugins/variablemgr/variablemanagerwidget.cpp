@@ -20,8 +20,6 @@
 
 #include "variablemanagerwidget.h"
 
-#include <QLayout>
-#include <QIcon>
 #include <QTreeView>
 #include <QToolButton>
 
@@ -47,7 +45,7 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
 
     layout->addWidget(m_table, 1);
 
-    QHBoxLayout* btnLayout=new QHBoxLayout(this);
+    QHBoxLayout* btnLayout=new QHBoxLayout();
     int size=KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
 
     QToolButton* m_newBtn=new QToolButton(this);
@@ -79,8 +77,6 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
     btnLayout->addWidget(m_clearBtn);
 
     layout->addLayout(btnLayout);
-
-    setLayout(layout);
 
     setSession(session);
 
