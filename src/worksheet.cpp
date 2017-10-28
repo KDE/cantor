@@ -1198,9 +1198,8 @@ void Worksheet::createActions(KActionCollection* collection)
     m_boldAction->setFont(bold);
     m_richTextActionList.append(m_boldAction);
     collection->addAction(QLatin1String("format_text_bold"), m_boldAction);
-    m_boldAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_B));
-    connect(m_boldAction, SIGNAL(triggered(bool)), this,
-            SLOT(setTextBold(bool)));
+    collection->setDefaultShortcut(m_boldAction, Qt::CTRL + Qt::Key_B);
+    connect(m_boldAction, SIGNAL(triggered(bool)), this, SLOT(setTextBold(bool)));
 
     // Italic
     m_italicAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-italic")),
@@ -1213,9 +1212,8 @@ void Worksheet::createActions(KActionCollection* collection)
     m_italicAction->setFont(italic);
     m_richTextActionList.append(m_italicAction);
     collection->addAction(QLatin1String("format_text_italic"), m_italicAction);
-    m_italicAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_I));
-    connect(m_italicAction, SIGNAL(triggered(bool)), this,
-            SLOT(setTextItalic(bool)));
+    collection->setDefaultShortcut(m_italicAction, Qt::CTRL + Qt::Key_I);
+    connect(m_italicAction, SIGNAL(triggered(bool)), this, SLOT(setTextItalic(bool)));
 
     // Underline
     m_underlineAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-underline")),
@@ -1228,9 +1226,8 @@ void Worksheet::createActions(KActionCollection* collection)
     m_underlineAction->setFont(underline);
     m_richTextActionList.append(m_underlineAction);
     collection->addAction(QLatin1String("format_text_underline"), m_underlineAction);
-    m_underlineAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_U));
-    connect(m_underlineAction, SIGNAL(triggered(bool)), this,
-            SLOT(setTextUnderline(bool)));
+    collection->setDefaultShortcut(m_underlineAction, Qt::CTRL + Qt::Key_U);
+    connect(m_underlineAction, SIGNAL(triggered(bool)), this, SLOT(setTextUnderline(bool)));
 
     // Strike
     m_strikeOutAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-strikethrough")),
@@ -1239,9 +1236,8 @@ void Worksheet::createActions(KActionCollection* collection)
     m_strikeOutAction->setPriority(QAction::LowPriority);
     m_richTextActionList.append(m_strikeOutAction);
     collection->addAction(QLatin1String("format_text_strikeout"), m_strikeOutAction);
-    m_strikeOutAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_L));
-    connect(m_strikeOutAction, SIGNAL(triggered(bool)), this,
-            SLOT(setTextStrikeOut(bool)));
+    collection->setDefaultShortcut(m_strikeOutAction, Qt::CTRL + Qt::Key_L);
+    connect(m_strikeOutAction, SIGNAL(triggered(bool)), this, SLOT(setTextStrikeOut(bool)));
 
     // Alignment
     QActionGroup *alignmentGroup = new QActionGroup(this);
