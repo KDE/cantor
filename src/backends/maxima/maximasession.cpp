@@ -63,6 +63,8 @@ MaximaSession::~MaximaSession()
 void MaximaSession::login()
 {
     qDebug()<<"login";
+    emit loginStarted();
+
     if (m_process)
         m_process->deleteLater();
 
@@ -111,6 +113,8 @@ void MaximaSession::login()
     }
 
     runFirstExpression();
+
+    emit loginDone();
 }
 
 void MaximaSession::logout()
@@ -236,7 +240,7 @@ void MaximaSession::killLabels()
 {
     Cantor::Expression* e=evaluateExpression(QLatin1String("kill(labels);"), Cantor::Expression::DeleteOnFinish);
     e->setInternal(true);
-    connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
+    //TODO: what for? connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
 }
 
 void MaximaSession::reportProcessError(QProcess::ProcessError e)

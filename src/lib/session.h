@@ -68,8 +68,9 @@ class CANTOR_EXPORT Session : public QObject
 
     /**
      * Login to the Session. In this function you should do anything needed to set up
-     * the session, and make it ready for usage. The method should be implemented non
-     * blocking. If the loging in is completed, the ready() signal must be emitted
+     * the session, and make it ready for usage. The method should be implemented non-blocking.
+     * Emit loginStarted() prior to connection to the actual backend in order to notify cantor_part about it.
+     * If the loging in is completed, the loginDone() signal must be emitted
      */
     virtual void login() = 0;
     /**
@@ -181,7 +182,8 @@ class CANTOR_EXPORT Session : public QObject
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);
-    void ready();
+    void loginStarted();
+    void loginDone();
     void error(const QString& msg);
 
   private:

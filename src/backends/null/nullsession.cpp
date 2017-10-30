@@ -37,8 +37,9 @@ NullSession::~NullSession()
 void NullSession::login()
 {
     qDebug()<<"login";
+    emit loginStarted();
     changeStatus(Cantor::Session::Done);
-    emit ready();
+    emit loginDone();
 }
 
 void NullSession::logout()

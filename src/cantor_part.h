@@ -117,6 +117,8 @@ protected Q_SLOTS:
     void worksheetStatusChanged(Cantor::Session::Status stauts);
     void showSessionError(const QString& error);
     void worksheetSessionChanged();
+    void worksheetSessionLoginStarted();
+    void worksheetSessionLoginDone();
     void initialized();
     void updateCaption();
 

@@ -36,6 +36,8 @@ LuaSession::~LuaSession()
 
 void LuaSession::login()
 {
+    emit loginStarted();
+
     m_L = luaL_newstate();
     luaL_openlibs(m_L);
 
@@ -65,7 +67,7 @@ void LuaSession::login()
         evaluateExpression(QLatin1String("dofile('") + str + QLatin1String("')"), Cantor::Expression::DeleteOnFinish);
 
     changeStatus(Cantor::Session::Done);
-    emit ready();
+    emit loginDone();
 }
 
 void LuaSession::logout()

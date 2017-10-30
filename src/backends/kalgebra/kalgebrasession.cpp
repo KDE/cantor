@@ -46,6 +46,7 @@ KAlgebraSession::~KAlgebraSession()
 
 void KAlgebraSession::login()
 {
+    emit loginStarted();
     if(!KAlgebraSettings::autorunScripts().isEmpty()){
         QString autorunScripts = KAlgebraSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
@@ -53,7 +54,7 @@ void KAlgebraSession::login()
     }
 
     changeStatus(Cantor::Session::Done);
-    emit ready();
+    emit loginDone();
 }
 
 void KAlgebraSession::logout()

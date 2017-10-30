@@ -37,10 +37,10 @@ void BackendTest::createSession()
 
     m_session=b->createSession();
 
-    QSignalSpy spy(m_session, SIGNAL( ready() ) );
+    QSignalSpy spy(m_session, SIGNAL( loginDone() ) );
     m_session->login();
     if(spy.isEmpty())
-        waitForSignal(m_session, SIGNAL( ready() ) );
+        waitForSignal(m_session, SIGNAL( loginDone() ) );
 
     QVERIFY(!spy.isEmpty());
 }

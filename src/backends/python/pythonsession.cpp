@@ -48,6 +48,7 @@ PythonSession::~PythonSession()
 void PythonSession::login()
 {
     qDebug()<<"login";
+    emit loginStarted();
 
     if(integratePlots())
     {
@@ -85,7 +86,7 @@ void PythonSession::login()
 
     listVariables();
 
-    emit ready();
+    emit loginDone();
 }
 
 void PythonSession::logout()

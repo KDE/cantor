@@ -46,6 +46,8 @@ JuliaSession::JuliaSession(Cantor::Backend *backend)
 
 void JuliaSession::login()
 {
+    emit loginStarted();
+
     if (m_process) {
         m_process->deleteLater();
     }
@@ -105,7 +107,7 @@ void JuliaSession::login()
         );
     }
 
-    emit ready();
+    emit loginDone();
 }
 
 void JuliaSession::logout()

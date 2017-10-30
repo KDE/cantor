@@ -66,6 +66,8 @@ QalculateSession::~QalculateSession()
 
 void QalculateSession::login()
 {
+    emit loginStarted();
+
     if(!QalculateSettings::autorunScripts().isEmpty()){
         QString autorunScripts = QalculateSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
@@ -73,7 +75,7 @@ void QalculateSession::login()
     }
 
     changeStatus(Cantor::Session::Done);
-    emit ready();
+    emit loginDone();
 }
 
 void QalculateSession::logout()

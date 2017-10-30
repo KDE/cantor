@@ -271,7 +271,7 @@ class Worksheet : public QGraphicsScene
     bool m_completionEnabled;
     bool m_showExpressionIds;
     bool m_animationsEnabled;
-    bool m_loginFlag;
+    bool m_loginDone;
     bool m_isPrinting;
 };
 

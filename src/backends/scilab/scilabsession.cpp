@@ -55,6 +55,7 @@ ScilabSession::~ScilabSession()
 void ScilabSession::login()
 {
     qDebug()<<"login";
+    emit loginStarted();
 
     QStringList args;
 
@@ -107,7 +108,7 @@ void ScilabSession::login()
     listKeywords->setCommand(QLatin1String("disp(getscilabkeywords());"));
     runExpression(listKeywords);
 
-    emit ready();
+    emit loginDone();
 }
 
 void ScilabSession::logout()

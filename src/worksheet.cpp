@@ -66,8 +66,17 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_dragScrollTimer = 0;
 
     m_isPrinting = false;
-    m_loginFlag = true;
-    QTimer::singleShot(0, this, SLOT(loginToSession()));
+    m_loginDone = false;
+
+    enableHighlighting(Settings::self()->highlightDefault());
+    enableCompletion(Settings::self()->completionDefault());
+    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+    enableAnimations(Settings::self()->animationDefault());
+#ifdef WITH_EPS
+    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+#else
+    session()->setTypesettingEnabled(false);
+#endif
 }
 
 Worksheet::~Worksheet()
@@ -76,27 +85,14 @@ Worksheet::~Worksheet()
     // while the scene is deleted. Maybe there is a better solution to
     // this problem, but I can't seem to find it.
     m_firstEntry = 0;
-    m_session->logout();
+    if (m_loginDone)
+        m_session->logout();
 }
 
 void Worksheet::loginToSession()
 {
-    if(m_loginFlag==true)
-    {
-        m_session->login();
-
-        enableHighlighting(Settings::self()->highlightDefault());
-        enableCompletion(Settings::self()->completionDefault());
-        enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
-        enableAnimations(Settings::self()->animationDefault());
-#ifdef WITH_EPS
-        session()->setTypesettingEnabled(Settings::self()->typesetDefault());
-#else
-        session()->setTypesettingEnabled(false);
-#endif
-
-        m_loginFlag=false;
-    }
+    m_session->login();
+    m_loginDone = true;
 }
 
 void Worksheet::print(QPrinter* printer)
@@ -448,6 +444,9 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 void Worksheet::evaluate()
 {
     qDebug()<<"evaluate worksheet";
+    if (!m_loginDone)
+        loginToSession();
+
     firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
 
     emit modified();
@@ -455,6 +454,9 @@ void Worksheet::evaluate()
 
 void Worksheet::evaluateCurrentEntry()
 {
+    if (!m_loginDone)
+        loginToSession();
+
     WorksheetEntry* entry = currentEntry();
     if(!entry)
         return;
@@ -599,7 +601,6 @@ void Worksheet::insertCommandEntry(const QString& text)
         evaluateCurrentEntry();
     }
 }
-
 
 WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
 {
@@ -991,7 +992,6 @@ void Worksheet::load(QIODevice* device)
     clear();
 
     m_session=b->createSession();
-    m_loginFlag=true;
 
     qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
@@ -1030,7 +1030,7 @@ void Worksheet::load(QIODevice* device)
 
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
-    enableHighlighting( m_highlighter!=0 || (m_loginFlag && Settings::highlightDefault()) );
+    enableHighlighting( m_highlighter!=0 || Settings::highlightDefault() );
 
     emit sessionChanged();
 }

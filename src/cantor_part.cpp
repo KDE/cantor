@@ -551,38 +551,34 @@ void CantorPart::showSessionError(const QString& message)
 void CantorPart::worksheetSessionChanged()
 {
     connect(m_worksheet->session(), SIGNAL(statusChanged(Cantor::Session::Status)), this, SLOT(worksheetStatusChanged(Cantor::Session::Status)));
-    connect(m_worksheet->session(), SIGNAL(ready()),this, SLOT(initialized()));
+    connect(m_worksheet->session(), SIGNAL(loginStarted()),this, SLOT(worksheetSessionLoginStarted()));
+    connect(m_worksheet->session(), SIGNAL(loginDone()),this, SLOT(worksheetSessionLoginDone()));
     connect(m_worksheet->session(), SIGNAL(error(const QString&)), this, SLOT(showSessionError(const QString&)));
 
     loadAssistants();
     m_panelHandler->setSession(m_worksheet->session());
     adjustGuiToSession();
-
-    if(m_showProgressDlg && !m_initProgressDlg)
-    {
-        m_initProgressDlg = new QProgressDialog(widget());
-        m_initProgressDlg->setWindowTitle(i18n("Cantor"));
-        m_initProgressDlg->setLabelText(i18n("Initializing Session"));
-        m_initProgressDlg->setMinimumDuration(500);
-        m_initProgressDlg->setRange(0, 0);
-        m_initProgressDlg->exec();
-    }
+    initialized();
 }
 
 void CantorPart::initialized()
 {
     if (m_worksheet->isEmpty())
         m_worksheet->appendCommandEntry();
+
     m_worksheetview->setEnabled(true);
     m_worksheetview->setFocus();
     setStatusMessage(i18n("Initialization complete"));
-
-    if(m_initProgressDlg)
-    {
-        m_initProgressDlg->deleteLater();
-        m_initProgressDlg=0;
-    }
     updateCaption();
+}
+
+void CantorPart::worksheetSessionLoginStarted() {
+    setStatusMessage(i18n("Initializing..."));
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+}
+
+void CantorPart::worksheetSessionLoginDone() {
+    QApplication::restoreOverrideCursor();
 }
 
 void CantorPart::enableTypesetting(bool enable)

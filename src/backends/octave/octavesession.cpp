@@ -55,6 +55,7 @@ OctaveSession::~OctaveSession()
 void OctaveSession::login()
 {
     qDebug() << "login";
+    emit loginStarted();
 
     m_process = new KProcess ( this );
     QStringList args;
@@ -202,7 +203,7 @@ void OctaveSession::readOutput()
                 {
                     runExpression(m_expressionQueue.dequeue());
                 }
-                emit ready();
+                emit loginDone();
             }
             else if (line.contains(QLatin1String("____TMP_DIR____")))
             {

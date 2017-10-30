@@ -114,6 +114,8 @@ SageSession::~SageSession()
 void SageSession::login()
 {
     qDebug()<<"login";
+    emit loginStarted();
+
     m_process=new KPtyProcess(this);
     m_process->setProgram(SageSettings::self()->path().toLocalFile());
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
@@ -132,6 +134,8 @@ void SageSession::login()
         QString autorunScripts = SageSettings::self()->autorunScripts().join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish);
     }
+
+    emit loginDone();
 }
 
 void SageSession::logout()
@@ -246,7 +250,6 @@ void SageSession::readStdOut()
         m_waitingForPrompt=false;
         runFirstExpression();
         changeStatus(Cantor::Session::Done);
-        emit ready();
         m_outputCache.clear();
     }
 

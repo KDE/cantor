@@ -44,6 +44,8 @@ RSession::~RSession()
 void RSession::login()
 {
     qDebug()<<"login";
+    emit loginStarted();
+
     if(m_rProcess)
         m_rProcess->deleteLater();
     m_rProcess=new KProcess(this);
@@ -60,7 +62,7 @@ void RSession::login()
 
     changeStatus(Cantor::Session::Done);
 
-    connect(m_rServer, SIGNAL(ready()), this, SIGNAL(ready()));
+    connect(m_rServer, SIGNAL(ready()), this, SIGNAL(loginDone()));
 }
 
 void RSession::logout()
