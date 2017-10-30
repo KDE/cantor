@@ -272,22 +272,20 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
 
     QAction * evaluateCurrent=new QAction(i18n("Evaluate Entry"), actionCollection());
-    evaluateCurrent->setShortcut(Qt::SHIFT + Qt::Key_Return);
     actionCollection()->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
+    actionCollection()->setDefaultShortcut(evaluateCurrent, Qt::SHIFT + Qt::Key_Return);
     connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
 
     QAction * insertCommandEntry=new QAction(i18n("Insert Command Entry"), actionCollection());
-    insertCommandEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction(QLatin1String("insert_command_entry"),  insertCommandEntry);
+    actionCollection()->setDefaultShortcut(insertCommandEntry, Qt::CTRL + Qt::Key_Return);
     connect(insertCommandEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntry()));
 
     QAction * insertTextEntry=new QAction(i18n("Insert Text Entry"), actionCollection());
-    //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
     QAction * insertLatexEntry=new QAction(i18n("Insert Latex Entry"), actionCollection());
-    //insertEntry->setShortcut(Qt::CTRL + Qt::Key_Return);
     actionCollection()->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
 
@@ -322,8 +320,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     */
 
     QAction * removeCurrent=new QAction(i18n("Remove current Entry"), actionCollection());
-    removeCurrent->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
     actionCollection()->addAction(QLatin1String("remove_current"), removeCurrent);
+    actionCollection()->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);
     connect(removeCurrent, SIGNAL(triggered()), m_worksheet, SLOT(removeCurrentEntry()));
 
     m_showBackendHelp=new QAction(i18n("Show %1 Help", b->name()) , actionCollection());
@@ -346,7 +344,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction(QLatin1String("show_completion"), showCompletion);
     QList<QKeySequence> showCompletionShortcuts;
     showCompletionShortcuts << Qt::Key_Tab << Qt::CTRL + Qt::Key_Space;
-    showCompletion->setShortcuts(showCompletionShortcuts);
+    actionCollection()->setDefaultShortcuts(showCompletion, showCompletionShortcuts);
     connect(showCompletion, SIGNAL(triggered()), m_worksheet, SLOT(showCompletion()));
 
     // set our XML-UI resource file
