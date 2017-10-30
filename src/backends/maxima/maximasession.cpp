@@ -46,16 +46,14 @@
 //the Expressions are encapsulated in () to allow capturing for the text
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))")); //Text, maxima outputs, before any output
 
-static QString initCmd=QLatin1String(":lisp($load \"%1\")\n");
+static QString initCmd=QLatin1String(":lisp($load \"%1\")");
 
-MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
+MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
+    m_initState(MaximaSession::NotInitialized),
+    m_process(0),
+    m_justRestarted(false),
+    m_variableModel(new MaximaVariableModel(this))
 {
-    m_initState=MaximaSession::NotInitialized;
-    //m_maxima=0;
-    m_process=0;
-    m_justRestarted=false;
-
-    m_variableModel=new MaximaVariableModel(this);
 }
 
 MaximaSession::~MaximaSession()
@@ -67,39 +65,27 @@ void MaximaSession::login()
     qDebug()<<"login";
     if (m_process)
         m_process->deleteLater();
+
 #ifndef Q_OS_WIN
     m_process=new KPtyProcess(this);
     m_process->setPtyChannels(KPtyProcess::StdinChannel|KPtyProcess::StdoutChannel);
     m_process->pty()->setEcho(false);
+    connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
 #else
     m_process=new KProcess(this);
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
+    connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
 #endif
 
     m_process->setProgram(MaximaSettings::self()->path().toLocalFile());
-
     m_process->start();
 
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
-
-#ifndef Q_OS_WIN
-    connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
-#else
-    connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
-#endif
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
-    QString initFile=QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
-    qDebug()<<"initFile: "<<initFile;
-    QString cmd=initCmd.arg(initFile);
-    qDebug()<<"sending cmd: "<<cmd<<endl;
-
-#ifndef Q_OS_WIN
-    m_process->pty()->write(cmd.toUtf8());
-#else
-    m_process->write(cmd.toUtf8());
-#endif
+    const QString initFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
+    write(initCmd.arg(initFile));
 
     Cantor::Expression* expr=evaluateExpression(QLatin1String("print(____END_OF_INIT____);"),
                                                 Cantor::Expression::DeleteOnFinish);
@@ -125,7 +111,6 @@ void MaximaSession::login()
     }
 
     runFirstExpression();
-
 }
 
 void MaximaSession::logout()
@@ -139,11 +124,7 @@ void MaximaSession::logout()
 
     if(status()==Cantor::Session::Done)
     {
-#ifndef Q_OS_WIN
-        m_process->pty()->write("quit();\n");
-#else
-        m_process->write("quit();\n");
-#endif
+        write(QLatin1String("quit();\n"));
 
 #ifdef Q_OS_WIN
         //Give maxima time to clean up
@@ -175,11 +156,9 @@ void MaximaSession::logout()
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
-    qDebug()<<"evaluating: "<<cmd;
-    MaximaExpression* expr=new MaximaExpression(this);
+    MaximaExpression* expr = new MaximaExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
-
     expr->evaluate();
 
     return expr;
@@ -325,7 +304,6 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
             runFirstExpression();
         }
     }
-
 }
 
 void MaximaSession::runFirstExpression()
@@ -350,16 +328,11 @@ void MaximaSession::runFirstExpression()
         {
             qDebug()<<"empty command";
             expr->forceDone();
-        }else
+        }
+        else
         {
-            qDebug()<<"writing "<<command+QLatin1Char('\n')<<" to the process";
             m_cache.clear();
-            QString cmd=(command+QLatin1Char('\n'));
-#ifndef Q_OS_WIN
-            m_process->pty()->write(cmd.toUtf8());
-#else
-            m_process->write(cmd.toUtf8());
-#endif
+            write(command + QLatin1Char('\n'));
         }
     }
 }
@@ -395,12 +368,7 @@ void MaximaSession::sendInputToProcess(const QString& input)
 {
     qDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
     qDebug()<<"running "<<input;
-
-#ifndef Q_OS_WIN
-            m_process->pty()->write(input.toUtf8());
-#else
-            m_process->write(input.toUtf8());
-#endif
+    write(input);
 }
 
 void MaximaSession::restartMaxima()
@@ -462,6 +430,15 @@ QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 QAbstractItemModel* MaximaSession::variableModel()
 {
     return m_variableModel;
+}
+
+void MaximaSession::write(const QString& exp) {
+    qDebug()<<"sending expression to maxima process: " << exp << endl;
+#ifndef Q_OS_WIN
+    m_process->pty()->write(exp.toUtf8());
+#else
+    m_process->write(exp.toUtf8());
+#endif
 }
 
 #include "maximasession.moc"

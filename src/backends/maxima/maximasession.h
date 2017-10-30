@@ -76,6 +76,8 @@ class MaximaSession : public Cantor::Session
     void reportProcessError(QProcess::ProcessError error);
 
   private:
+      void write(const QString&);
+
 //windows doesn't support Pty
 #ifdef Q_OS_WIN
     KProcess* m_process;
