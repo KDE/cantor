@@ -10,6 +10,7 @@ set (KDE_APPLICATIONS_VERSION_MINOR "11")
 set (KDE_APPLICATIONS_VERSION_MICRO "70")
 set (KDE_APPLICATIONS_VERSION "${KDE_APPLICATIONS_VERSION_MAJOR}.${KDE_APPLICATIONS_VERSION_MINOR}.${KDE_APPLICATIONS_VERSION_MICRO}")
 
+set(KF5_MIN_VERSION "5.15.0")
 
 find_package(ECM 5.15.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
@@ -23,7 +24,7 @@ find_package(Qt5 CONFIG REQUIRED
     XmlPatterns
     Test)
 
-find_package(KF5 5.15 REQUIRED
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     Config
     Crash
     Completion
@@ -34,11 +35,14 @@ find_package(KF5 5.15 REQUIRED
     CoreAddons
     Archive
     Parts
-    Pty
     TextWidgets
     KIO
     XmlGui
     I18n)
+
+if(NOT WIN32)
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED Pty)
+endif()
 
 include(FeatureSummary)
 include(ECMInstallIcons)
