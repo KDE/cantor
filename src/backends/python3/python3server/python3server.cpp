@@ -64,4 +64,3 @@ QString Python3Server::getOutput() const
 
 
 
-#include "python3server.moc"

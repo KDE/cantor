@@ -438,4 +438,3 @@ void SageSession::defineCustomFunctions()
     sendInputToProcess(cmd);
 }
 
-#include "sagesession.moc"

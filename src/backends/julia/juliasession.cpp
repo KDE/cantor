@@ -349,4 +349,3 @@ bool JuliaSession::integratePlots()
 }
 
 
-#include "juliasession.moc"

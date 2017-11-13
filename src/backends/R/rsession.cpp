@@ -188,4 +188,3 @@ void RSession::sendInputToServer(const QString& input)
     m_rServer->answerRequest(s);
 }
 
-#include "rsession.moc"

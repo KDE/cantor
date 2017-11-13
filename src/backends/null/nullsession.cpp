@@ -90,4 +90,3 @@ void NullSession::expressionFinished()
        changeStatus(Cantor::Session::Done);
 }
 
-#include "nullsession.moc"

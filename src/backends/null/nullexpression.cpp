@@ -67,4 +67,3 @@ void NullExpression::evalFinished()
     setStatus(Cantor::Expression::Done);
 }
 
-#include "nullexpression.moc"

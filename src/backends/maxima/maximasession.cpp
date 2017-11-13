@@ -445,4 +445,3 @@ void MaximaSession::write(const QString& exp) {
 #endif
 }
 
-#include "maximasession.moc"

@@ -98,4 +98,3 @@ void LuaExpression::execute(QString& ret, Cantor::Expression::Status& status)
     lua_settop(m_L, top);
 }
 
-#include "luaexpression.moc"

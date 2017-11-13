@@ -270,4 +270,3 @@ void TestJulia::testAutoCompletion()
 
 QTEST_MAIN(TestJulia)
 
-#include "testjulia.moc"

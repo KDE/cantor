@@ -120,4 +120,3 @@ lua_State* LuaSession::getState() const
     return m_L;
 }
 
-#include "luasession.moc"

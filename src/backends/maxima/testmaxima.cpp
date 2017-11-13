@@ -209,4 +209,3 @@ void TestMaxima::testSyntaxHelp()
 
 QTEST_MAIN( TestMaxima )
 
-#include "testmaxima.moc"

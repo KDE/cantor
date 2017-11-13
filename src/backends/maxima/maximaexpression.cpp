@@ -641,4 +641,3 @@ QString MaximaExpression::additionalLatexHeaders()
     return QString();
 }
 
-#include "maximaexpression.moc"

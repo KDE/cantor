@@ -60,4 +60,3 @@ void RCompletionObject::receiveCompletions(const QString& token,const QStringLis
     emit fetchingDone();
 }
 
-#include "rcompletionobject.moc"

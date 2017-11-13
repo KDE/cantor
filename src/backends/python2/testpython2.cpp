@@ -57,4 +57,3 @@ void TestPython2::testCodeWithComments()
 
 QTEST_MAIN(TestPython2)
 
-#include "testpython2.moc"

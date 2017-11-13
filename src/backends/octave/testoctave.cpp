@@ -88,4 +88,3 @@ void TestOctave::testInvalidSyntax()
 
 QTEST_MAIN( TestOctave )
 
-#include "testoctave.moc"

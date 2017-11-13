@@ -559,4 +559,3 @@ void RServer::newPlotDevice()
     runCommand(command.arg(m_curPlotFile), true);
 }
 
-#include "rserver.moc"

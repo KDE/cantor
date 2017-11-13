@@ -266,4 +266,3 @@ QString SageExpression::additionalLatexHeaders()
                          "\\newcommand{\\CFF}{\\Bold{CFF}}\n");
 }
 
-#include "sageexpression.moc"

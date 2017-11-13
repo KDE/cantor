@@ -119,4 +119,3 @@ void TestSage::testNoOutput()
 
 QTEST_MAIN( TestSage )
 
-#include "testsage.moc"

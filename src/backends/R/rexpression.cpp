@@ -152,4 +152,3 @@ void RExpression::showFilesAsResult(const QStringList& files)
     }
 }
 
-#include "rexpression.moc"

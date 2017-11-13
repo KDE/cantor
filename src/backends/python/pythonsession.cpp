@@ -427,4 +427,3 @@ QAbstractItemModel* PythonSession::variableModel()
     return m_variableModel;
 }
 
-#include "pythonsession.moc"

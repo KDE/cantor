@@ -302,4 +302,3 @@ QAbstractItemModel* ScilabSession::variableModel()
     return m_variableModel;
 }
 
-#include "scilabsession.moc"

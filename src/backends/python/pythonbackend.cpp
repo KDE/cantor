@@ -60,4 +60,3 @@ QWidget* PythonBackend::settingsWidget(QWidget* parent) const
     return widget;
 }
 
-#include "pythonbackend.moc"

@@ -131,4 +131,3 @@ bool JuliaServer::getWasException() const
     return m_was_exception;
 }
 
-#include "juliaserver.moc"

@@ -102,4 +102,3 @@ bool JuliaExpression::checkPlotShowingCommands()
     return false;
 }
 
-#include "juliaexpression.moc"

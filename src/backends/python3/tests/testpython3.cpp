@@ -74,4 +74,3 @@ void TestPython3::testPython3Code()
 
 QTEST_MAIN(TestPython3)
 
-#include "testpython3.moc"
