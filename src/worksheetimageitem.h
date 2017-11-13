@@ -54,7 +54,7 @@ class WorksheetImageItem : public QGraphicsObject
     QRectF boundingRect() const Q_DECL_OVERRIDE;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-               QWidget *widget = 0) Q_DECL_OVERRIDE;
+               QWidget *widget = nullptr) Q_DECL_OVERRIDE;
 
     void setEps(const QUrl &url);
     void setImage(QImage img);

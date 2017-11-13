@@ -54,11 +54,11 @@ const qreal WorksheetEntry::VerticalMargin = 4;
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
 {
-    m_next = 0;
-    m_prev = 0;
-    m_animation = 0;
-    m_actionBar = 0;
-    m_actionBarAnimation = 0;
+    m_next = nullptr;
+    m_prev = nullptr;
+    m_animation = nullptr;
+    m_actionBar = nullptr;
+    m_actionBarAnimation = nullptr;
     m_aboutToBeRemoved = false;
     setAcceptHoverEvents(true);
     worksheet->addItem(this);
@@ -97,7 +97,7 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
     case LatexEntry::Type:
         return new LatexEntry(worksheet);
     default:
-        return 0;
+        return nullptr;
     }
 }
 
@@ -399,10 +399,10 @@ void WorksheetEntry::animateSizeChange()
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
     m_animation = new AnimationData;
-    m_animation->item = 0;
-    m_animation->slot = 0;
-    m_animation->opacAnimation = 0;
-    m_animation->posAnimation = 0;
+    m_animation->item = nullptr;
+    m_animation->slot = nullptr;
+    m_animation->opacAnimation = nullptr;
+    m_animation->posAnimation = nullptr;
     m_animation->sizeAnimation = sizeAn;
     m_animation->sizeAnimation->setEasingCurve(QEasingCurve::OutCubic);
     m_animation->animation = new QParallelAnimationGroup(this);
@@ -435,7 +435,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     m_animation->opacAnimation->setStartValue(0);
     m_animation->opacAnimation->setEndValue(1);
     m_animation->opacAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    m_animation->posAnimation = 0;
+    m_animation->posAnimation = nullptr;
 
     m_animation->animation = new QParallelAnimationGroup(this);
     m_animation->item = item;
@@ -474,7 +474,7 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
     m_animation->opacAnimation->setStartValue(1);
     m_animation->opacAnimation->setEndValue(0);
     m_animation->opacAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    m_animation->posAnimation = 0;
+    m_animation->posAnimation = nullptr;
 
     m_animation->animation = new QParallelAnimationGroup(this);
     m_animation->item = item;
@@ -512,7 +512,7 @@ void WorksheetEntry::endAnimation()
     }
     m_animation->animation->deleteLater();
     delete m_animation;
-    m_animation = 0;
+    m_animation = nullptr;
 }
 
 bool WorksheetEntry::animationActive()
@@ -608,7 +608,7 @@ void WorksheetEntry::startRemoving()
     m_animation->opacAnimation->setDuration(300);
     m_animation->opacAnimation->setEndValue(0);
     m_animation->opacAnimation->setEasingCurve(QEasingCurve::OutCubic);
-    m_animation->posAnimation = 0;
+    m_animation->posAnimation = nullptr;
 
     m_animation->animation = new QParallelAnimationGroup(this);
     m_animation->animation->addAnimation(m_animation->sizeAnimation);
@@ -630,7 +630,7 @@ bool WorksheetEntry::stopRemoving()
     m_animation->animation->stop();
     m_animation->animation->deleteLater();
     delete m_animation;
-    m_animation = 0;
+    m_animation = nullptr;
     return true;
 }
 
@@ -682,7 +682,7 @@ void WorksheetEntry::showActionBar()
             return;
         m_actionBarAnimation->stop();
         delete m_actionBarAnimation;
-        m_actionBarAnimation = 0;
+        m_actionBarAnimation = nullptr;
     }
 
     if (!m_actionBar) {
@@ -730,7 +730,7 @@ void WorksheetEntry::hideActionBar()
             return;
         m_actionBarAnimation->stop();
         delete m_actionBarAnimation;
-        m_actionBarAnimation = 0;
+        m_actionBarAnimation = nullptr;
     }
 
     if (worksheet()->animationsEnabled()) {
@@ -751,7 +751,7 @@ void WorksheetEntry::deleteActionBarAnimation()
 {
     if (m_actionBarAnimation) {
         delete m_actionBarAnimation;
-        m_actionBarAnimation = 0;
+        m_actionBarAnimation = nullptr;
     }
 }
 
@@ -759,7 +759,7 @@ void WorksheetEntry::deleteActionBar()
 {
     if (m_actionBar) {
         delete m_actionBar;
-        m_actionBar = 0;
+        m_actionBar = nullptr;
     }
 
     deleteActionBarAnimation();
@@ -783,7 +783,7 @@ void WorksheetEntry::hoverLeaveEvent(QGraphicsSceneHoverEvent* event)
 
 WorksheetTextItem* WorksheetEntry::highlightItem()
 {
-    return 0;
+    return nullptr;
 }
 
 bool WorksheetEntry::wantFocus()

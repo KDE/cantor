@@ -42,8 +42,8 @@ class Cantor::ExpressionPrivate
 {
 public:
     ExpressionPrivate() {
-        result=0;
-        session=0;
+        result=nullptr;
+        session=nullptr;
         isInternal=false;
     }
 
@@ -111,7 +111,7 @@ void Expression::setResult(Result* result)
 
     d->result=result;
 
-    if(result!=0)
+    if(result!=nullptr)
     {
         qDebug()<<"settting result to a type "<<result->type()<<" result";
         #ifdef WITH_EPS
@@ -142,7 +142,7 @@ void Expression::clearResult()
     if(d->result)
         delete d->result;
 
-    d->result=0;
+    d->result=nullptr;
 }
 
 void Expression::setStatus(Expression::Status status)

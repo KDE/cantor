@@ -38,9 +38,9 @@ ScilabKeywords::~ScilabKeywords()
 
 ScilabKeywords* ScilabKeywords::instance()
 {
-    static ScilabKeywords* inst = 0;
+    static ScilabKeywords* inst = nullptr;
 
-    if(inst == 0){
+    if(inst == nullptr){
         inst = new ScilabKeywords();
         qSort(inst->m_variables);
         qSort(inst->m_functions);

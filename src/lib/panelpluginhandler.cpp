@@ -42,7 +42,7 @@ PanelPluginHandler::PanelPluginHandler( QObject* parent ) : QObject(parent) ,
                                                             d(new PanelPluginHandlerPrivate)
 {
     setObjectName(QLatin1String("PanelPluginHandler"));
-    d->session=0;
+    d->session=nullptr;
 }
 
 PanelPluginHandler::~PanelPluginHandler()
@@ -52,7 +52,7 @@ PanelPluginHandler::~PanelPluginHandler()
 
 void PanelPluginHandler::loadPlugins()
 {
-    if(d->session==0)
+    if(d->session==nullptr)
         return;
     qDebug()<<"loading panel plugins for session of type "<<d->session->backend()->name();
 

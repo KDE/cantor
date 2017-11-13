@@ -36,7 +36,7 @@
 
 #include "ui_newvardlg.h"
 
-VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent), m_session(0)
+VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent), m_session(nullptr)
 {
     QVBoxLayout* layout=new QVBoxLayout(this);
 

@@ -42,8 +42,8 @@ void TestMaxima::testSimpleCommand()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
 
     QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String("4") );
 }
@@ -52,8 +52,8 @@ void TestMaxima::testMultilineCommand()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2;3+3") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
 
     QString result=e->result()->toHtml();
 
@@ -71,8 +71,8 @@ void TestMaxima::testPlot()
 
     Cantor::Expression* e=evalExp( QLatin1String("plot2d(sin(x), [x, -10,10])") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
 
     if(e->result()->type()!= Cantor::EpsResult::Type)
     {
@@ -92,7 +92,7 @@ void TestMaxima::testInvalidSyntax()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2*(") );
 
-    QVERIFY( e!=0 );
+    QVERIFY( e!=nullptr );
     QVERIFY( e->status()==Cantor::Expression::Error );
 }
 
@@ -101,13 +101,13 @@ void TestMaxima::testExprNumbering()
     Cantor::Expression* e=evalExp( QLatin1String("kill(labels)") ); //first reset the labels
 
     e=evalExp( QLatin1String("2+2") );
-    QVERIFY( e!=0 );
+    QVERIFY( e!=nullptr );
     int id=e->id();
     QCOMPARE( id, 1 );
 
     e=evalExp( QString::fromLatin1("%O%1+1" ).arg( id ) );
-    QVERIFY( e != 0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e != nullptr );
+    QVERIFY( e->result()!=nullptr );
     QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String( "5" ) );
 }
 
@@ -120,9 +120,9 @@ void TestMaxima::testCommandQueue()
     Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
     Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
 
-    QVERIFY(e1!=0);
-    QVERIFY(e2!=0);
-    QVERIFY(e3!=0);
+    QVERIFY(e1!=nullptr);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e3!=nullptr);
 
     QVERIFY(e1->result());
     QVERIFY(e2->result());
@@ -136,8 +136,8 @@ void TestMaxima::testCommandQueue()
 void TestMaxima::testSimpleExpressionWithComment()
 {
     Cantor::Expression* e=evalExp(QLatin1String("/*this is a comment*/2+2"));
-    QVERIFY(e!=0);
-    QVERIFY(e->result()!=0);
+    QVERIFY(e!=nullptr);
+    QVERIFY(e->result()!=nullptr);
 
     QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("4"));
 }
@@ -145,15 +145,15 @@ void TestMaxima::testSimpleExpressionWithComment()
 void TestMaxima::testCommentExpression()
 {
     Cantor::Expression* e=evalExp(QLatin1String("/*this is a comment*/"));
-    QVERIFY(e!=0);
-    QVERIFY(e->result()==0||e->result()->toHtml().isEmpty());
+    QVERIFY(e!=nullptr);
+    QVERIFY(e->result()==nullptr||e->result()->toHtml().isEmpty());
 }
 
 void TestMaxima::testNestedComment()
 {
     Cantor::Expression* e=evalExp(QLatin1String("/*/*this is still a comment*/*/2+2/*still/*a*/comment*//**/"));
-    QVERIFY(e!=0);
-    QVERIFY(e->result()!=0);
+    QVERIFY(e!=nullptr);
+    QVERIFY(e->result()!=nullptr);
 
     QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("4"));
 }
@@ -161,15 +161,15 @@ void TestMaxima::testNestedComment()
 void TestMaxima::testUnmatchedComment()
 {
     Cantor::Expression* e=evalExp(QLatin1String("/*this comment doesn't end here!"));
-    QVERIFY(e!=0);
-    QVERIFY(e->result()==0);
+    QVERIFY(e!=nullptr);
+    QVERIFY(e->result()==nullptr);
     QVERIFY(e->status()==Cantor::Expression::Error);
 }
 
 void TestMaxima::testInvalidAssignment()
 {
     Cantor::Expression* e=evalExp(QLatin1String("0:a"));
-    QVERIFY(e!=0);
+    QVERIFY(e!=nullptr);
     //QVERIFY(e->result()==0);
     //QVERIFY(e->status()==Cantor::Expression::Error);
 
@@ -178,8 +178,8 @@ void TestMaxima::testInvalidAssignment()
 
     //make sure we didn't screw up the session
     Cantor::Expression* e2=evalExp(QLatin1String("2+2"));
-    QVERIFY(e2!=0);
-    QVERIFY(e2->result()!=0);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e2->result()!=nullptr);
 
     QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("4"));
 }
@@ -187,12 +187,12 @@ void TestMaxima::testInvalidAssignment()
 void TestMaxima::testInformationRequest()
 {
     Cantor::Expression* e=session()->evaluateExpression(QLatin1String("integrate(x^n,x)"));
-    QVERIFY(e!=0);
+    QVERIFY(e!=nullptr);
     waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
     e->addInformation(QLatin1String("nonzero;"));
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
-    QVERIFY(e->result()!=0);
+    QVERIFY(e->result()!=nullptr);
 
     QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("x^(n+1)/(n+1)"));
 }

@@ -175,7 +175,7 @@ bool CompletionObject::mayIdentifierBeginWith(QChar c) const
 void CompletionObject::findCompletion()
 {
     if (d->parenCompletion) {
-	disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), 0, 0);
+	disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), nullptr, nullptr);
 	connect(this, &CompletionObject::fetchingTypeDone, this, &CompletionObject::handleParenCompletionWithType);
 	d->identifier = d->command;
 	fetchIdentifierType();
@@ -187,7 +187,7 @@ void CompletionObject::findCompletion()
 
 void CompletionObject::handleParenCompletionWithType(IdentifierType type)
 {
-    disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), 0, 0);
+    disconnect(this, SIGNAL(fetchingTypeDone(IdentifierType)), nullptr, nullptr);
     connect(this, &CompletionObject::fetchingTypeDone, this, &CompletionObject::completeLineWithType);
 
     if (type == FunctionWithArguments || type == FunctionWithoutArguments) {

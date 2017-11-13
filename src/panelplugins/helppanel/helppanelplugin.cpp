@@ -28,7 +28,7 @@
 HelpPanelPlugin::HelpPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
 {
     Q_UNUSED(args);
-    m_edit=0;
+    m_edit=nullptr;
 }
 
 HelpPanelPlugin::~HelpPanelPlugin()
@@ -38,7 +38,7 @@ HelpPanelPlugin::~HelpPanelPlugin()
 
 QWidget* HelpPanelPlugin::widget()
 {
-    if(m_edit==0)
+    if(m_edit==nullptr)
     {
         m_edit=new KTextEdit(parentWidget());
         setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));

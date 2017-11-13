@@ -45,7 +45,7 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
     setObjectName(QLatin1String("ScriptEditor"));
 
     m_filter=filter;
-    m_tmpFile=0;
+    m_tmpFile=nullptr;
 
     KStandardAction::openNew(this, SLOT(newScript()), actionCollection());
     KStandardAction::open(this, SLOT(open()), actionCollection());
@@ -59,11 +59,11 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
     {
         KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
                                        "please check your KDE installation."));
-        m_script=0;
+        m_script=nullptr;
     }
     else
     {
-        m_script=editor->createDocument(0);
+        m_script=editor->createDocument(nullptr);
         m_editor=qobject_cast<KTextEditor::View*>(m_script->createView(this));
 
         m_script->setHighlightingMode(highlightingMode);
@@ -107,7 +107,7 @@ void ScriptEditorWidget::run()
     if(!m_script->url().isLocalFile())
     {
         // If the script is not in a local file, write it to a temporary file
-        if(m_tmpFile==0)
+        if(m_tmpFile==nullptr)
         {
             m_tmpFile=new QTemporaryFile();
         }

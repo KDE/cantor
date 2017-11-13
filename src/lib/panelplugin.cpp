@@ -36,8 +36,8 @@ class Cantor::PanelPluginPrivate
 PanelPlugin::PanelPlugin( QObject* parent) : QObject(parent), /* KXMLGUIClient(dynamic_cast<KXMLGUIClient*>(parent)),*/
                                              d(new PanelPluginPrivate)
 {
-    d->parentWidget=0;
-    d->session=0;
+    d->parentWidget=nullptr;
+    d->session=nullptr;
 }
 
 PanelPlugin::~PanelPlugin()

@@ -28,7 +28,7 @@
 OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent): CompletionObject(parent)
 {
     setLine(command, index);
-    m_expression = 0;
+    m_expression = nullptr;
 }
 
 OctaveCompletionObject::~OctaveCompletionObject()
@@ -53,7 +53,7 @@ void OctaveCompletionObject::extractCompletions()
     if (m_expression->status() != Cantor::Expression::Done)
     {
 	m_expression->deleteLater();
-	m_expression = 0;
+	m_expression = nullptr;
         return;
     }
     Cantor::Result* result = m_expression->result();
@@ -65,7 +65,7 @@ void OctaveCompletionObject::extractCompletions()
         setCompletions( completions );
     }
     m_expression->deleteLater();
-    m_expression = 0;
+    m_expression = nullptr;
     emit fetchingDone();
 }
 
@@ -90,12 +90,12 @@ void OctaveCompletionObject::extractIdentifierType()
     if (m_expression->status() != Cantor::Expression::Done)
     {
 	m_expression->deleteLater();
-	m_expression = 0;
+	m_expression = nullptr;
         return;
     }
     Cantor::Result* result = m_expression->result();
     m_expression->deleteLater();
-    m_expression = 0;
+    m_expression = nullptr;
     if (!result)
 	return;
 

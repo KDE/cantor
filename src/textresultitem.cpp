@@ -59,7 +59,7 @@ void TextResultItem::populateMenu(QMenu* menu, const QPointF& pos)
 
     Cantor::Result* res = result();
     if (res->type() == Cantor::LatexResult::Type) {
-        QAction* showCodeAction = 0;
+        QAction* showCodeAction = nullptr;
         Cantor::LatexResult* lres = dynamic_cast<Cantor::LatexResult*>(res);
         if (lres->isCodeShown())
             showCodeAction = menu->addAction(i18n("Show Rendered"));

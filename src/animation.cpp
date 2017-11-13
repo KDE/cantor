@@ -36,7 +36,7 @@ Animation::~Animation()
 
 void Animation::setMovie(QMovie* movie)
 {
-    disconnect(0, 0, this, SLOT(movieFrameChanged()));
+    disconnect(nullptr, nullptr, this, SLOT(movieFrameChanged()));
     m_movie=movie;
     connect(movie, SIGNAL(frameChanged(int)), this, SLOT(movieFrameChanged()));
 }

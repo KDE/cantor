@@ -30,9 +30,9 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent)
     : QGraphicsView(scene, parent)
 {
     m_scale = 1;
-    m_animation = 0;
-    m_hAnimation = 0;
-    m_vAnimation = 0;
+    m_animation = nullptr;
+    m_hAnimation = nullptr;
+    m_vAnimation = nullptr;
     m_worksheet = scene;
     connect(scene, SIGNAL(sceneRectChanged(const QRectF&)),
             this, SLOT(sceneRectChanged(const QRectF&)));
@@ -118,7 +118,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
             m_hAnimation->setEndValue(nx);
         }
     } else {
-        m_hAnimation = 0;
+        m_hAnimation = nullptr;
     }
 
     if (verticalScrollBar()) {
@@ -142,7 +142,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
             //qDebug() << sy << value << ny;
         }
     } else {
-        m_vAnimation = 0;
+        m_vAnimation = nullptr;
     }
 
     connect(m_animation, &QParallelAnimationGroup::finished, this, &WorksheetView::endAnimation);
@@ -216,9 +216,9 @@ void WorksheetView::endAnimation()
         return;
 
     m_animation->deleteLater();
-    m_hAnimation = 0;
-    m_vAnimation = 0;
-    m_animation = 0;
+    m_hAnimation = nullptr;
+    m_vAnimation = nullptr;
+    m_animation = nullptr;
 }
 
 QPoint WorksheetView::viewCursorPos()

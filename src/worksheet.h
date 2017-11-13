@@ -117,17 +117,17 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendImageEntry();
     WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
-    WorksheetEntry* insertCommandEntry(WorksheetEntry* current = 0);
+    WorksheetEntry* insertCommandEntry(WorksheetEntry* current = nullptr);
     void insertCommandEntry(const QString& text);
-    WorksheetEntry* insertTextEntry(WorksheetEntry* current = 0);
-    WorksheetEntry* insertImageEntry(WorksheetEntry* current = 0);
-    WorksheetEntry* insertPageBreakEntry(WorksheetEntry* current = 0);
-    WorksheetEntry* insertLatexEntry(WorksheetEntry* current = 0);
-    WorksheetEntry* insertCommandEntryBefore(WorksheetEntry* current = 0);
-    WorksheetEntry* insertTextEntryBefore(WorksheetEntry* current = 0);
-    WorksheetEntry* insertImageEntryBefore(WorksheetEntry* current = 0);
-    WorksheetEntry* insertPageBreakEntryBefore(WorksheetEntry* current = 0);
-    WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = 0);
+    WorksheetEntry* insertTextEntry(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertImageEntry(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertPageBreakEntry(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertLatexEntry(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertCommandEntryBefore(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertTextEntryBefore(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertImageEntryBefore(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertPageBreakEntryBefore(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = nullptr);
 
     void updateLayout();
     void updateEntrySize(WorksheetEntry* entry);
@@ -152,7 +152,7 @@ class Worksheet : public QGraphicsScene
     void enableExpressionNumbering(bool enable);
     void enableAnimations(bool enable);
 
-    QDomDocument toXML(KZip* archive=0);
+    QDomDocument toXML(KZip* archive=nullptr);
 
     void save(const QString& filename);
     void save(QIODevice* device);
@@ -163,7 +163,7 @@ class Worksheet : public QGraphicsScene
     void load(QByteArray* data);
     void load(const QString& filename);
 
-    void gotResult(Cantor::Expression* expr=0);
+    void gotResult(Cantor::Expression* expr=nullptr);
 
     void removeCurrentEntry();
 
@@ -227,8 +227,8 @@ class Worksheet : public QGraphicsScene
     //void checkEntriesForSanity();
 
     WorksheetEntry* appendEntry(int type);
-    WorksheetEntry* insertEntry(int type, WorksheetEntry* current = 0);
-    WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = 0);
+    WorksheetEntry* insertEntry(int type, WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = nullptr);
 
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);

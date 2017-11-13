@@ -28,7 +28,7 @@
 #include <KLocalizedString>
 
 AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
-    : WorksheetImageItem(parent), ResultItem(), m_height(0), m_movie(0)
+    : WorksheetImageItem(parent), ResultItem(), m_height(0), m_movie(nullptr)
 {
     connect(this, SIGNAL(removeResult()), parentEntry(),
             SLOT(removeResult()));

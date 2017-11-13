@@ -30,7 +30,7 @@
 SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(session)
 {
     setLine(command, index);
-    m_expression=0;
+    m_expression=nullptr;
 }
 
 SageCompletionObject::~SageCompletionObject()
@@ -72,7 +72,7 @@ void SageCompletionObject::extractCompletionsNew()
 {
     Cantor::Result* res=m_expression->result();
     m_expression->deleteLater();
-    m_expression=0;
+    m_expression=nullptr;
 
     if(!res || !(res->type()==Cantor::TextResult::Type))
     {
@@ -113,7 +113,7 @@ void SageCompletionObject::extractCompletionsLegacy()
 {
     Cantor::Result* res=m_expression->result();
     m_expression->deleteLater();
-    m_expression=0;
+    m_expression=nullptr;
 
     if(!res || !(res->type()==Cantor::TextResult::Type))
     {
@@ -161,12 +161,12 @@ void SageCompletionObject::extractIdentifierType()
     if (m_expression->status() != Cantor::Expression::Done)
     {
 	m_expression->deleteLater();
-	m_expression = 0;
+	m_expression = nullptr;
         return;
     }
     Cantor::Result* result = m_expression->result();
     m_expression->deleteLater();
-    m_expression = 0;
+    m_expression = nullptr;
     if (!result)
 	return;
 

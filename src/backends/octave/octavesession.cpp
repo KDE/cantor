@@ -39,9 +39,9 @@
 #include <defaultvariablemodel.h>
 
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
-m_process(0),
-m_currentExpression(0),
-m_watch(0),
+m_process(nullptr),
+m_currentExpression(nullptr),
+m_watch(nullptr),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     qDebug() << octaveScriptInstallDir;

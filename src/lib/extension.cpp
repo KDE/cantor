@@ -122,7 +122,7 @@ QString AdvancedPlotExtension::plotFunction2d(const QString& expression, const Q
 QString AdvancedPlotExtension::dispatchDirective(const PlotDirective& directive) const
 {
     const AcceptorBase* acceptor=dynamic_cast<const AcceptorBase*>(this);
-    if (acceptor==NULL)
+    if (acceptor==nullptr)
     {
         qDebug()<<"Plotting extension does not support any directives, but was asked to process one";
         return QLatin1String("");

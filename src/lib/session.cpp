@@ -28,7 +28,7 @@ class Cantor::SessionPrivate
   public:
     SessionPrivate()
     {
-        backend=0;
+        backend=nullptr;
         expressionCount=0;
         typesettingEnabled=false;
     }
@@ -89,7 +89,7 @@ CompletionObject* Session::completionFor(const QString& cmd, int index)
     //to reimplement this. This method should only be called on backends with
     //the Completion Capability flag
 
-    return 0;
+    return nullptr;
 }
 
 SyntaxHelpObject* Session::syntaxHelpFor(const QString& cmd)
@@ -99,13 +99,13 @@ SyntaxHelpObject* Session::syntaxHelpFor(const QString& cmd)
     //Return 0 per default, so Backends not offering tab completions don't have
     //to reimplement this. This method should only be called on backends with
     //the SyntaxHelp Capability flag
-    return 0;
+    return nullptr;
 }
 
 QSyntaxHighlighter* Session::syntaxHighlighter(QObject* parent)
 {
     Q_UNUSED(parent);
-    return 0;
+    return nullptr;
 }
 
 QAbstractItemModel* Session::variableModel()
@@ -113,7 +113,7 @@ QAbstractItemModel* Session::variableModel()
     //Return 0 per default, so Backends not offering variable management don't
     //have to reimplement this. This method should only be called on backends with
     //VariableManagement Capability flag
-    return 0;
+    return nullptr;
 }
 
 int Session::nextExpressionId()

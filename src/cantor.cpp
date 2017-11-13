@@ -48,7 +48,7 @@
 CantorShell::CantorShell()
     : KParts::MainWindow( )
 {
-    m_part=0;
+    m_part=nullptr;
 
     // set the shell's ui resource file
     setXMLFile(QLatin1String("cantor_shell.rc"));
@@ -56,7 +56,7 @@ CantorShell::CantorShell()
     // then, setup our actions
     setupActions();
 
-    createGUI(0);
+    createGUI(nullptr);
 
     m_tabWidget=new QTabWidget(this);
     m_tabWidget->setTabsClosable(true);
@@ -494,7 +494,7 @@ KParts::ReadWritePart* CantorShell::findPart(QWidget* widget)
         if(part->widget()==widget)
             return part;
     }
-    return 0;
+    return nullptr;
 }
 
 void CantorShell::updatePanel()
@@ -507,7 +507,7 @@ void CantorShell::updatePanel()
     foreach(QDockWidget* dock, m_panels)
     {
         QWidget* widget=dock->widget();
-        if(widget!=0)
+        if(widget!=nullptr)
         {
             widget->setParent(this);
             widget->hide();
@@ -525,12 +525,12 @@ void CantorShell::updatePanel()
         return;
     }
 
-    QDockWidget* last=0;
+    QDockWidget* last=nullptr;
 
     QList<Cantor::PanelPlugin*> plugins=handler->plugins();
     foreach(Cantor::PanelPlugin* plugin, plugins)
     {
-        if(plugin==0)
+        if(plugin==nullptr)
         {
             qDebug()<<"somethings wrong";
             continue;
@@ -544,7 +544,7 @@ void CantorShell::updatePanel()
         docker->setWidget(plugin->widget());
         addDockWidget ( Qt::RightDockWidgetArea,  docker );
 
-        if(last!=0)
+        if(last!=nullptr)
             tabifyDockWidget(last, docker);
         last=docker;
 
@@ -565,7 +565,7 @@ void CantorShell::updatePanel()
     {
         if (!backend->isEnabled())
             continue;
-        QAction * action = new QAction(QIcon::fromTheme(backend->icon()), backend->name(), 0);
+        QAction * action = new QAction(QIcon::fromTheme(backend->icon()), backend->name(), nullptr);
         action->setData(backend->name());
         connect(action, SIGNAL(triggered()), this, SLOT(fileNew()));
         newBackendActions << action;

@@ -42,7 +42,7 @@
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
-    m_process = 0;
+    m_process = nullptr;
     qDebug();
 }
 

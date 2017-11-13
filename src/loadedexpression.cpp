@@ -54,7 +54,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
     setCommand(xml.firstChildElement(QLatin1String("Command")).text());
 
     QDomElement resultElement=xml.firstChildElement(QLatin1String("Result"));
-    Cantor::Result* result=0;
+    Cantor::Result* result=nullptr;
     const QString& type=resultElement.attribute(QLatin1String("type"));
     if ( type == QLatin1String("text"))
     {

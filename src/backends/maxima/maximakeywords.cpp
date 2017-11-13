@@ -35,8 +35,8 @@ MaximaKeywords::~MaximaKeywords()
 
 MaximaKeywords* MaximaKeywords::instance()
 {
-    static MaximaKeywords* inst=0;
-    if(inst==0)
+    static MaximaKeywords* inst=nullptr;
+    if(inst==nullptr)
     {
         inst=new MaximaKeywords();
         inst->loadKeywords();

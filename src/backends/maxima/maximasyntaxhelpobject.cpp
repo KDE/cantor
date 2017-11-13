@@ -30,7 +30,7 @@
 
 MaximaSyntaxHelpObject::MaximaSyntaxHelpObject(const QString& cmd, MaximaSession* session) : Cantor::SyntaxHelpObject(cmd, session)
 {
-    m_expression=0;
+    m_expression=nullptr;
 }
 
 MaximaSyntaxHelpObject::~MaximaSyntaxHelpObject()
@@ -100,7 +100,7 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         emit done();
 
         m_expression->deleteLater();
-        m_expression=0;
+        m_expression=nullptr;
     }else
     {
         qDebug()<<"not done: "<<status;

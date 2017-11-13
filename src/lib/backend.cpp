@@ -172,18 +172,18 @@ Backend* Backend::createBackend(const QString& name)
             return b;
     }
 
-    return 0;
+    return nullptr;
 }
 
 QWidget* Backend::settingsWidget(QWidget* parent) const
 {
     Q_UNUSED(parent)
-        return 0;
+        return nullptr;
 }
 
 KConfigSkeleton* Backend::config() const
 {
-    return 0;
+    return nullptr;
 }
 
 

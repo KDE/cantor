@@ -43,7 +43,7 @@
 MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
     qDebug();
-    m_tempFile=0;
+    m_tempFile=nullptr;
 }
 
 MaximaExpression::~MaximaExpression()
@@ -65,7 +65,7 @@ void MaximaExpression::evaluate()
     m_gotErrorContent=false;
     if(m_tempFile)
         m_tempFile->deleteLater();
-    m_tempFile=0;
+    m_tempFile=nullptr;
     //check if this is a ?command
     if(command().startsWith(QLatin1Char('?'))||command().startsWith(QLatin1String("describe("))||command().startsWith(QLatin1String("example(")))
         m_isHelpRequest=true;
@@ -192,7 +192,7 @@ QString MaximaExpression::internalCommand()
 void MaximaExpression::forceDone()
 {
     qDebug()<<"forcing Expression state to DONE";
-    setResult(0);
+    setResult(nullptr);
     setStatus(Cantor::Expression::Done);
 }
 
@@ -216,7 +216,7 @@ inline void skipWhitespaces(int* idx, const QString& txt)
     for(;*idx < txt.size() && (txt[*idx]).isSpace();++(*idx));
 }
 
-QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
+QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=nullptr)
 {
     qDebug()<<"trying to read an opening tag";
 
@@ -266,7 +266,7 @@ QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=0)
     return QStringRef(&txt, startIndex, length);
 }
 
-QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& name, bool* isComplete=0)
+QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& name, bool* isComplete=nullptr)
 {
     bool readingClosingTag=false;
     int contentStartIdx=*idx;
@@ -336,7 +336,7 @@ bool MaximaExpression::parseOutput(QString& out)
     QString latexBuffer;
     QString errorBuffer;
 
-    Cantor::Result* result=0;
+    Cantor::Result* result=nullptr;
     while(idx<out.size())
     {
         skipWhitespaces(&idx, out);
@@ -481,7 +481,7 @@ bool MaximaExpression::parseOutput(QString& out)
                 {
                     //if we got an error message, but also a result, lets just+
                     //assume that it was just a warning, as obviously something worked
-                    if(errorMessage().isEmpty()||result!=0)
+                    if(errorMessage().isEmpty()||result!=nullptr)
                     {
                         setResult(result);
                         setStatus(Cantor::Expression::Done);
@@ -560,7 +560,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
         QTimer::singleShot(500, this, SLOT(imageChanged()));
     }
 
-    Cantor::TextResult* result=0;
+    Cantor::TextResult* result=nullptr;
 
     //if this is not the first result, prepend the results
     //found in the earlier tags.
@@ -601,7 +601,7 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
             if(m_isPlot)
                 result=new Cantor::TextResult(i18n("Waiting for Image..."));
             else
-                result=0;
+                result=nullptr;
         }else
         {
             latex.prepend(QLatin1String("\\begin{eqnarray*}\n"));

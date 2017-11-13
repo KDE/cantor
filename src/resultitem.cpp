@@ -69,7 +69,7 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
             return item;
         }
     default:
-        return 0;
+        return nullptr;
     }
 }
 

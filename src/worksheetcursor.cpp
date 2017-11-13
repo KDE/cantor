@@ -22,8 +22,8 @@
 
 WorksheetCursor::WorksheetCursor()
 {
-    m_entry = 0;
-    m_textItem = 0;
+    m_entry = nullptr;
+    m_textItem = nullptr;
     m_textCursor = QTextCursor();
 }
 

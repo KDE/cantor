@@ -29,7 +29,7 @@
 VariableManagerPlugin::VariableManagerPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
 {
     Q_UNUSED(args);
-    m_widget=0;
+    m_widget=nullptr;
 
 }
 
@@ -46,7 +46,7 @@ void VariableManagerPlugin::onSessionChanged()
 
 QWidget* VariableManagerPlugin::widget()
 {
-    if(m_widget==0)
+    if(m_widget==nullptr)
     {
         qDebug()<<"creating new widget";
         m_widget=new VariableManagerWidget(session(), parentWidget());

@@ -54,16 +54,16 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
 {
     m_session = backend->createSession();
-    m_highlighter = 0;
+    m_highlighter = nullptr;
 
-    m_firstEntry = 0;
-    m_lastEntry = 0;
-    m_lastFocusedTextItem = 0;
-    m_dragEntry = 0;
-    m_placeholderEntry = 0;
+    m_firstEntry = nullptr;
+    m_lastEntry = nullptr;
+    m_lastFocusedTextItem = nullptr;
+    m_dragEntry = nullptr;
+    m_placeholderEntry = nullptr;
     m_viewWidth = 0;
     m_protrusion = 0;
-    m_dragScrollTimer = 0;
+    m_dragScrollTimer = nullptr;
 
     m_isPrinting = false;
     m_loginDone = false;
@@ -84,7 +84,7 @@ Worksheet::~Worksheet()
     // This is necessary, because a SeachBar might access firstEntry()
     // while the scene is deleted. Maybe there is a better solution to
     // this problem, but I can't seem to find it.
-    m_firstEntry = 0;
+    m_firstEntry = nullptr;
     if (m_loginDone)
         m_session->logout();
 }
@@ -311,12 +311,12 @@ WorksheetEntry* Worksheet::currentEntry()
         WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
         if (entry && entry->aboutToBeRemoved()) {
             if (entry->isAncestorOf(m_lastFocusedTextItem))
-                m_lastFocusedTextItem = 0;
-            return 0;
+                m_lastFocusedTextItem = nullptr;
+            return nullptr;
         }
         return entry;
     }
-    return 0;
+    return nullptr;
 }
 
 WorksheetEntry* Worksheet::firstEntry()
@@ -371,7 +371,7 @@ WorksheetEntry* Worksheet::entryAt(qreal x, qreal y)
         item = item->parentItem();
     if (item)
         return qobject_cast<WorksheetEntry*>(item->toGraphicsObject());
-    return 0;
+    return nullptr;
 }
 
 WorksheetEntry* Worksheet::entryAt(QPointF p)
@@ -432,13 +432,13 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
         m_dragEntry->hideActionBar();
     updateLayout();
     if (m_placeholderEntry) {
-        m_placeholderEntry->setPrevious(0);
-        m_placeholderEntry->setNext(0);
+        m_placeholderEntry->setPrevious(nullptr);
+        m_placeholderEntry->setNext(nullptr);
         m_placeholderEntry->hide();
         m_placeholderEntry->deleteLater();
-        m_placeholderEntry = 0;
+        m_placeholderEntry = nullptr;
     }
-    m_dragEntry = 0;
+    m_dragEntry = nullptr;
 }
 
 void Worksheet::evaluate()
@@ -545,7 +545,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
         return appendEntry(type);
 
     WorksheetEntry *next = current->next();
-    WorksheetEntry *entry = 0;
+    WorksheetEntry *entry = nullptr;
 
     if (!next || next->type() != type || !next->isEmpty())
     {
@@ -608,10 +608,10 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         current = currentEntry();
 
     if (!current)
-        return 0;
+        return nullptr;
 
     WorksheetEntry *prev = current->previous();
-    WorksheetEntry *entry = 0;
+    WorksheetEntry *entry = nullptr;
 
     if(!prev || prev->type() != type || !prev->isEmpty())
     {
@@ -721,7 +721,7 @@ void Worksheet::rehighlight()
             m_highlighter->rehighlight();
         }
         entry = currentEntry();
-        WorksheetTextItem* textitem = entry ? entry->highlightItem() : 0;
+        WorksheetTextItem* textitem = entry ? entry->highlightItem() : nullptr;
         if (textitem && textitem->hasFocus())
             highlightItem(textitem);
     } else
@@ -758,7 +758,7 @@ void Worksheet::enableHighlighting(bool highlight)
     {
         if(m_highlighter)
             m_highlighter->deleteLater();
-        m_highlighter=0;
+        m_highlighter=nullptr;
     }
 
     rehighlight();
@@ -979,13 +979,13 @@ void Worksheet::load(QIODevice* device)
 
     //cleanup the worksheet and all it contains
     delete m_session;
-    m_session=0;
+    m_session=nullptr;
 
     //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
     if (m_firstEntry) {
         delete m_firstEntry;
-        m_firstEntry = 0;
+        m_firstEntry = nullptr;
     }
 
     //delete all items from the scene
@@ -1030,17 +1030,17 @@ void Worksheet::load(QIODevice* device)
 
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
-    enableHighlighting( m_highlighter!=0 || Settings::highlightDefault() );
+    enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
     emit sessionChanged();
 }
 
 void Worksheet::gotResult(Cantor::Expression* expr)
 {
-    if(expr==0)
+    if(expr==nullptr)
         expr=qobject_cast<Cantor::Expression*>(sender());
 
-    if(expr==0)
+    if(expr==nullptr)
         return;
     //We're only interested in help results, others are handled by the WorksheetEntry
     if(expr->result()&&expr->result()->type()==Cantor::HelpResult::Type)
@@ -1063,7 +1063,7 @@ void Worksheet::removeCurrentEntry()
 
     // In case we just removed this
     if (entry->isAncestorOf(m_lastFocusedTextItem))
-        m_lastFocusedTextItem = 0;
+        m_lastFocusedTextItem = nullptr;
     entry->startRemoving();
 }
 
@@ -1577,7 +1577,7 @@ void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
     event->accept();
     if (m_placeholderEntry) {
         m_placeholderEntry->startRemoving();
-        m_placeholderEntry = 0;
+        m_placeholderEntry = nullptr;
     }
 }
 
@@ -1590,8 +1590,8 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
 
     QPointF pos = event->scenePos();
     WorksheetEntry* entry = entryAt(pos);
-    WorksheetEntry* prev = 0;
-    WorksheetEntry* next = 0;
+    WorksheetEntry* prev = nullptr;
+    WorksheetEntry* next = nullptr;
     if (entry) {
         if (pos.y() < entry->y() + entry->size().height()/2) {
             prev = entry->previous();
@@ -1604,7 +1604,7 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
         WorksheetEntry* last = lastEntry();
         if (last && pos.y() > last->y() + last->size().height()) {
             prev = last;
-            next = 0;
+            next = nullptr;
         }
     }
 
@@ -1670,7 +1670,7 @@ void Worksheet::updateDragScrollTimer()
     if (!m_dragEntry || !(viewport->rect().contains(viewPos)) ||
         (viewPos.y() >= 10 && viewPos.y() <= viewHeight - 10)) {
         delete m_dragScrollTimer;
-        m_dragScrollTimer = 0;
+        m_dragScrollTimer = nullptr;
         return;
     }
 

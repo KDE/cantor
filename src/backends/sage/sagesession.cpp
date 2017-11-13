@@ -290,7 +290,7 @@ void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status stat
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
         SageExpression* expr=m_expressionQueue.takeFirst();
-        disconnect(expr, 0, this, 0);
+        disconnect(expr, nullptr, this, nullptr);
         if(m_expressionQueue.isEmpty())
             changeStatus(Cantor::Session::Done);
         runFirstExpression();
@@ -309,7 +309,7 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
         }else
         {
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
-            KMessageBox::error(0, i18n("The Sage process crashed"), i18n("Cantor"));
+            KMessageBox::error(nullptr, i18n("The Sage process crashed"), i18n("Cantor"));
         }
     }else
     {
@@ -319,7 +319,7 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
         }else
         {
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
-            KMessageBox::error(0, i18n("The Sage process exited"), i18n("Cantor"));
+            KMessageBox::error(nullptr, i18n("The Sage process exited"), i18n("Cantor"));
         }
     }
 }

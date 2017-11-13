@@ -60,7 +60,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
         item->setText(backend->name());
         item->setIcon(QIcon::fromTheme(backend->icon()));
         m_ui.backendList->addItem(item);
-        if(m_ui.backendList->currentItem() == 0)
+        if(m_ui.backendList->currentItem() == nullptr)
             m_ui.backendList->setCurrentItem(item);
 
         if(backend->name()==Settings::self()->defaultBackend())

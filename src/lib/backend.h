@@ -78,7 +78,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * @param parent the Parent object
      * @param args optional arguments (not used)
      */
-    explicit Backend( QObject* parent = 0,const QList<QVariant> args=QList<QVariant>() );
+    explicit Backend( QObject* parent = nullptr,const QList<QVariant> args=QList<QVariant>() );
     /**
      * Destructor. Doesn't anything.
      */

@@ -33,9 +33,9 @@ SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent)
 {
     m_worksheet = worksheet;
     m_stdUi = new Ui::StandardSearchBar();
-    m_extUi = 0;
+    m_extUi = nullptr;
     setupStdUi();
-    m_qtFlags = 0;
+    m_qtFlags = nullptr;
     setStartCursor(worksheet->worksheetCursor());
     setCurrentCursor(m_startCursor);
     m_atBeginning = false;
@@ -65,7 +65,7 @@ void SearchBar::showStandard()
         return;
 
     delete m_extUi;
-    m_extUi = 0;
+    m_extUi = nullptr;
     foreach(QObject* child, children()) {
         delete child;
     }
@@ -80,7 +80,7 @@ void SearchBar::showExtended()
         return;
 
     delete m_stdUi;
-    m_stdUi = 0;
+    m_stdUi = nullptr;
     foreach(QObject* child, children()) {
         delete child;
     }
@@ -315,7 +315,7 @@ void SearchBar::invalidateStartCursor()
     if (!entry && worksheet()->firstEntry() != m_startCursor.entry())
         entry = worksheet()->firstEntry();
 
-    setStartCursor(WorksheetCursor(entry, 0, QTextCursor()));
+    setStartCursor(WorksheetCursor(entry, nullptr, QTextCursor()));
 }
 
 void SearchBar::invalidateCurrentCursor()
@@ -327,7 +327,7 @@ void SearchBar::invalidateCurrentCursor()
     if (!entry)
         entry = worksheet()->firstEntry();
 
-    setCurrentCursor(WorksheetCursor(entry, 0, QTextCursor()));
+    setCurrentCursor(WorksheetCursor(entry, nullptr, QTextCursor()));
 }
 
 void SearchBar::toggleFlag()

@@ -31,7 +31,7 @@ void BackendTest::createSession()
     Cantor::Backend* b=Cantor::Backend::createBackend( backendName() );
     if(!b || !b->requirementsFullfilled() )
     {
-        m_session = 0;
+        m_session = nullptr;
         return;
     }
 

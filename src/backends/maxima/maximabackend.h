@@ -27,7 +27,7 @@ class MaximaBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
-    explicit MaximaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit MaximaBackend( QObject* parent = nullptr,const QList<QVariant> args = QList<QVariant>());
     ~MaximaBackend() override;
 
     QString id() const Q_DECL_OVERRIDE;

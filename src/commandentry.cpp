@@ -43,11 +43,11 @@ const double CommandEntry::VerticalSpacing = 4;
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
     m_commandItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
-    m_resultItem(0),
-    m_errorItem(0),
-    m_expression(0),
-    m_completionObject(0),
-    m_syntaxHelpObject(0)
+    m_resultItem(nullptr),
+    m_errorItem(nullptr),
+    m_expression(nullptr),
+    m_completionObject(nullptr),
+    m_syntaxHelpObject(nullptr)
 {
 
     m_promptItem->setPlainText(Prompt);
@@ -107,7 +107,7 @@ void CommandEntry::moveToPreviousItem(int pos, qreal x)
     if (!item)
         return;
 
-    if (item == m_commandItem || item == 0) {
+    if (item == m_commandItem || item == nullptr) {
         moveToPreviousEntry(pos, x);
     } else if (item == currentInformationItem()) {
         m_commandItem->setFocusAt(pos, x);
@@ -137,7 +137,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     if(m_errorItem)
     {
         m_errorItem->deleteLater();
-        m_errorItem = 0;
+        m_errorItem = nullptr;
     }
 
     foreach(WorksheetTextItem* item, m_informationItems)
@@ -146,7 +146,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     }
     m_informationItems.clear();
 
-    m_expression = 0;
+    m_expression = nullptr;
     // Delete any previous result
     removeResult();
 
@@ -325,7 +325,7 @@ void CommandEntry::updateEntry()
 {
     qDebug() << "update Entry";
     Cantor::Expression *expr = expression();
-    if (expr == 0 || expr->result() == 0)
+    if (expr == nullptr || expr->result() == nullptr)
         return;
 
     if (expr->result()->type() == Cantor::HelpResult::Type)
@@ -507,7 +507,7 @@ void CommandEntry::completeCommandTo(const QString& completion, CompletionMode m
         cmode = Cantor::CompletionObject::PreliminaryCompletion;
         if(m_syntaxHelpObject)
             m_syntaxHelpObject->deleteLater();
-        m_syntaxHelpObject=0;
+        m_syntaxHelpObject=nullptr;
     }
 
     m_completionObject->completeLine(completion, cmode);
@@ -592,7 +592,7 @@ void CommandEntry::removeResult()
 
     if (m_resultItem) {
         QGraphicsObject* obj = m_resultItem->graphicsObject();
-        m_resultItem = 0;
+        m_resultItem = nullptr;
         fadeOutItem(obj);
     }
 }
@@ -644,7 +644,7 @@ void CommandEntry::updatePrompt()
 WorksheetTextItem* CommandEntry::currentInformationItem()
 {
     if (m_informationItems.isEmpty())
-        return 0;
+        return nullptr;
     return m_informationItems.last();
 }
 
@@ -657,7 +657,7 @@ bool CommandEntry::informationItemHasFocus()
 
 bool CommandEntry::focusWithinThisItem()
 {
-    return focusItem() != 0;
+    return focusItem() != nullptr;
 }
 
 QPoint CommandEntry::getPopupPosition()

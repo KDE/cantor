@@ -29,7 +29,7 @@
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
-    m_imageItem = 0;
+    m_imageItem = nullptr;
     m_textItem = new WorksheetTextItem(this);
     m_imageWatcher = new QFileSystemWatcher(this);
     m_displaySize.width = -1;

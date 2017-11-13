@@ -49,7 +49,7 @@ class EpsRenderer
     void useHighResolution(bool b);
 
     QSizeF renderToResource(QTextDocument *document, const QUrl& url);
-    QImage renderToImage(const QUrl& url, QSizeF* size = 0);
+    QImage renderToImage(const QUrl& url, QSizeF* size = nullptr);
 
   private:
     double m_scale;

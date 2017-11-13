@@ -65,7 +65,7 @@ class WorksheetEntry : public QGraphicsObject
     void setPrevious(WorksheetEntry*);
 
     QRectF boundingRect() const Q_DECL_OVERRIDE;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) Q_DECL_OVERRIDE;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) Q_DECL_OVERRIDE;
 
     virtual bool acceptRichText() = 0;
 
@@ -131,8 +131,8 @@ class WorksheetEntry : public QGraphicsObject
     // similar to recalculateSize, but the size change is animated
     void animateSizeChange();
     // animate the size change and the opacity of item
-    void fadeInItem(QGraphicsObject* item = 0, const char* slot = 0);
-    void fadeOutItem(QGraphicsObject* item = 0, const char* slot = "deleteLater()");
+    void fadeInItem(QGraphicsObject* item = nullptr, const char* slot = nullptr);
+    void fadeOutItem(QGraphicsObject* item = nullptr, const char* slot = "deleteLater()");
     void endAnimation();
 
     void showActionBar();

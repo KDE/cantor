@@ -177,7 +177,7 @@ void SageExpression::evalFinished()
 
     if ( !hasImage ) //If this result contains a file, drop the text information
     {
-        Cantor::TextResult* result=0;
+        Cantor::TextResult* result=nullptr;
 
         QString stripped=m_outputCache;
         const bool isHtml=stripped.contains(QLatin1String("<html>"));

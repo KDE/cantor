@@ -37,8 +37,8 @@ PythonKeywords::~PythonKeywords()
 
 PythonKeywords* PythonKeywords::instance()
 {
-    static PythonKeywords* inst = 0;
-    if(inst == 0)
+    static PythonKeywords* inst = nullptr;
+    if(inst == nullptr)
     {
         inst = new PythonKeywords();
         inst->loadKeywords();

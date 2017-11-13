@@ -113,8 +113,8 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
 
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
 {
-    m_showBackendHelp=0;
-    m_initProgressDlg=0;
+    m_showBackendHelp=nullptr;
+    m_initProgressDlg=nullptr;
     m_statusBarBlocked=false;
     m_showProgressDlg=true;
 
@@ -161,7 +161,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(actionCollection(), SIGNAL(inserted(QAction*)), m_worksheet,
             SLOT(registerShortcut(QAction*)));
 
-    m_searchBar = 0;
+    m_searchBar = nullptr;
     layout->addWidget(m_worksheetview);
     // notify the part that this is our internal widget
     setWidget(widget);
@@ -417,7 +417,7 @@ KAboutData& CantorPart::createAboutData()
 bool CantorPart::openFile()
 {
     //don't crash if for some reason the worksheet is invalid
-    if(m_worksheet==0)
+    if(m_worksheet==nullptr)
     {
         qWarning()<<"trying to open in an invalid cantor part";
         return false;
@@ -738,7 +738,7 @@ void CantorPart::findPrev()
 
 void CantorPart::searchBarDeleted()
 {
-    m_searchBar = 0;
+    m_searchBar = nullptr;
     m_findNext->setEnabled(false);
     m_findPrev->setEnabled(false);
 }

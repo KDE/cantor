@@ -28,7 +28,7 @@ class ScilabBackend : public Cantor::Backend
     Q_OBJECT
     
     public:
-        explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+        explicit ScilabBackend( QObject* parent = nullptr,const QList<QVariant> args = QList<QVariant>());
         ~ScilabBackend() override;
 
         QString id() const Q_DECL_OVERRIDE;

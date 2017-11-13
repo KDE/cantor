@@ -37,8 +37,8 @@ void TestSage::testSimpleCommand()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
     QCOMPARE( e->result()->toHtml(), QLatin1String(("4")) );
 }
 
@@ -51,9 +51,9 @@ void TestSage::testCommandQueue()
     Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
     Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
 
-    QVERIFY(e1!=0);
-    QVERIFY(e2!=0);
-    QVERIFY(e3!=0);
+    QVERIFY(e1!=nullptr);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e3!=nullptr);
 
     QVERIFY(e1->result());
     QVERIFY(e2->result());
@@ -68,8 +68,8 @@ void TestSage::testMultilineCommand()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2 \n simplify(1 - x + x)") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
     QCOMPARE( e->result()->toHtml(), QLatin1String("4<br/>\n1") );
 }
 
@@ -80,12 +80,12 @@ void TestSage::testDefineFunction()
 
     Cantor::Expression* e1=evalExp( QLatin1String(cmd) );
 
-    QVERIFY( e1!=0 );
-    QVERIFY( e1->result()!=0 );
+    QVERIFY( e1!=nullptr );
+    QVERIFY( e1->result()!=nullptr );
 
     Cantor::Expression* e2=evalExp( QLatin1String("func1(2)") );
-    QVERIFY( e2!=0 );
-    QVERIFY( e2->result()!=0 );
+    QVERIFY( e2!=nullptr );
+    QVERIFY( e2->result()!=nullptr );
     QCOMPARE( e2->result()->toHtml(), QLatin1String("4") );
 }
 
@@ -93,8 +93,8 @@ void TestSage::testPlot()
 {
     Cantor::Expression* e=evalExp( QLatin1String("plot(sin(x))") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result()!=0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
     QVERIFY( e->result()->type()==Cantor::ImageResult::Type );
     QVERIFY( !e->result()->data().isNull() );
 }
@@ -103,7 +103,7 @@ void TestSage::testInvalidSyntax()
 {
     Cantor::Expression* e=evalExp( QLatin1String("2+2*(") );
 
-    QVERIFY( e!=0 );
+    QVERIFY( e!=nullptr );
     QVERIFY( e->errorMessage()== QLatin1String("Syntax Error") );
 }
 
@@ -111,8 +111,8 @@ void TestSage::testNoOutput()
 {
     Cantor::Expression* e=evalExp(  QLatin1String("f(x)=x^2+3*x+2\nf(0)") );
 
-    QVERIFY( e!=0 );
-    QVERIFY( e->result() != 0 );
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result() != nullptr );
     QCOMPARE( e->result()->toHtml(), QLatin1String("2") );
 }
 

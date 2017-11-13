@@ -33,8 +33,8 @@ SageKeywords::~SageKeywords()
 
 SageKeywords* SageKeywords::instance()
 {
-    static SageKeywords* inst=0;
-    if(inst==0)
+    static SageKeywords* inst=nullptr;
+    if(inst==nullptr)
     {
         inst = new SageKeywords();
         inst->loadKeywords();

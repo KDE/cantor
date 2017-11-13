@@ -34,8 +34,8 @@ void TestPython3::testImportNumpy()
 {
     Cantor::Expression* e = evalExp(QLatin1String("import numpy"));
 
-    QVERIFY(e != 0);
-    QVERIFY(e->result() != 0);
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
 }
 
 void TestPython3::testCodeWithComments()
@@ -43,14 +43,14 @@ void TestPython3::testCodeWithComments()
     {
     Cantor::Expression* e = evalExp(QLatin1String("#comment\n1+2"));
 
-    QVERIFY(e != 0);
+    QVERIFY(e != nullptr);
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
 
     {
     Cantor::Expression* e = evalExp(QLatin1String("     #comment\n1+2"));
 
-    QVERIFY(e != 0);
+    QVERIFY(e != nullptr);
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
 }
@@ -60,14 +60,14 @@ void TestPython3::testPython3Code()
     {
     Cantor::Expression* e = evalExp(QLatin1String("print 1 + 2"));
 
-    QVERIFY(e != 0);
+    QVERIFY(e != nullptr);
     QVERIFY(!e->errorMessage().isEmpty());
     }
 
     {
     Cantor::Expression* e = evalExp(QLatin1String("print(1 + 2)"));
 
-    QVERIFY(e != 0);
+    QVERIFY(e != nullptr);
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
 }

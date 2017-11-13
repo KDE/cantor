@@ -50,7 +50,7 @@ static QString initCmd=QLatin1String(":lisp($load \"%1\")");
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
     m_initState(MaximaSession::NotInitialized),
-    m_process(0),
+    m_process(nullptr),
     m_justRestarted(false),
     m_variableModel(new MaximaVariableModel(this))
 {
@@ -151,7 +151,7 @@ void MaximaSession::logout()
     qDebug()<<"done logging out";
 
     delete m_process;
-    m_process=0;
+    m_process=nullptr;
 
     qDebug()<<"destroyed maxima";
 
@@ -356,7 +356,7 @@ void MaximaSession::interrupt(MaximaExpression* expr)
 
     if(expr==m_expressionQueue.first())
     {
-        disconnect(expr, 0, this, 0);
+        disconnect(expr, nullptr, this, nullptr);
         //TODO for non unix platforms sending signals probably won't work
         const int pid=m_process->pid();
         kill(pid, SIGINT);
@@ -395,7 +395,7 @@ void MaximaSession::restartMaxima()
     {
         if(!m_expressionQueue.isEmpty())
             m_expressionQueue.removeFirst();
-        KMessageBox::error(0, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
+        KMessageBox::error(nullptr, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
     }
 }
 

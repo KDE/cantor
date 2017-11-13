@@ -27,7 +27,7 @@ class SageBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
-    explicit SageBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit SageBackend( QObject* parent = nullptr,const QList<QVariant> args = QList<QVariant>());
     ~SageBackend() override;
 
     QString id() const Q_DECL_OVERRIDE;
