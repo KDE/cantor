@@ -29,7 +29,7 @@ class ScilabBackend : public Cantor::Backend
     
     public:
         explicit ScilabBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-        ~ScilabBackend();
+        ~ScilabBackend() override;
 
         QString id() const Q_DECL_OVERRIDE;
         QString version() const override;

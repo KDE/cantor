@@ -36,7 +36,7 @@ class CANTOR_EXPORT TextResult : public Result
     enum Format { PlainTextFormat, LatexFormat};
     TextResult(const QString& text);
     TextResult(const QString& text, const QString& plain);
-    ~TextResult();
+    ~TextResult() override;
 
     QString toHtml() Q_DECL_OVERRIDE;
     QVariant data() Q_DECL_OVERRIDE;

@@ -30,7 +30,7 @@ class VariableManagerPlugin : public Cantor::PanelPlugin
   Q_OBJECT
   public:
     VariableManagerPlugin( QObject* parent, QList<QVariant> args);
-    ~VariableManagerPlugin();
+    ~VariableManagerPlugin() override;
 
     QWidget* widget() Q_DECL_OVERRIDE;
 

@@ -38,7 +38,7 @@ class ScilabSession : public Cantor::Session
 
     public:
         ScilabSession(Cantor::Backend* backend);
-        ~ScilabSession();
+        ~ScilabSession() override;
 
         void login() Q_DECL_OVERRIDE;
         void logout() Q_DECL_OVERRIDE;

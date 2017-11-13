@@ -37,7 +37,7 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
   Q_OBJECT
   public:
     PythonSession(Cantor::Backend* backend);
-    ~PythonSession();
+    ~PythonSession() override;
 
     void login() Q_DECL_OVERRIDE;
     void logout() Q_DECL_OVERRIDE;

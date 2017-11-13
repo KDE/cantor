@@ -49,7 +49,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   Q_OBJECT
   public:
     DefaultHighlighter(QObject* parent);
-    ~DefaultHighlighter();
+    ~DefaultHighlighter() override;
 
     /**
      * Change the item being highlighted.

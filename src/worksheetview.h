@@ -33,7 +33,7 @@ class WorksheetView : public QGraphicsView
   Q_OBJECT
   public:
     WorksheetView(Worksheet* scene, QWidget* parent);
-    ~WorksheetView();
+    ~WorksheetView() override;
 
     void makeVisible(const QRectF& sceneRect);
     bool isVisible(const QRectF& sceneRect);

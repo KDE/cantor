@@ -40,7 +40,7 @@ class OctaveSession : public Cantor::Session
     Q_OBJECT
     public:
     OctaveSession(Cantor::Backend* backend);
-    ~OctaveSession();
+    ~OctaveSession() override;
     void interrupt() Q_DECL_OVERRIDE;
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior) Q_DECL_OVERRIDE;
     void logout() Q_DECL_OVERRIDE;

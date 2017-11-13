@@ -30,7 +30,7 @@ class ScilabExpression : public Cantor::Expression
 
     public:
         ScilabExpression(Cantor::Session* session);
-        ~ScilabExpression();
+        ~ScilabExpression() override;
 
         void evaluate() Q_DECL_OVERRIDE;
         void interrupt() Q_DECL_OVERRIDE;

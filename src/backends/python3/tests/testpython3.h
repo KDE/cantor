@@ -32,7 +32,7 @@ class TestPython3 : public BackendTest
     void testPython3Code();
 
   private:
-    virtual QString backendName();
+    QString backendName() override;
 };
 
 #endif /* _TESTPYTHON3_H */

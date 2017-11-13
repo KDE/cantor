@@ -48,7 +48,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      */
     CompletionObject(Session* parent);
     ///Destructor
-    ~CompletionObject();
+    ~CompletionObject() override;
 
     enum LineCompletionMode {
 	PreliminaryCompletion, ///< Only insert the completion

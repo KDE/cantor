@@ -27,7 +27,7 @@ class RunScriptAssistant : public Cantor::Assistant
 {
   public:
     RunScriptAssistant( QObject* parent, QList<QVariant> args );
-    ~RunScriptAssistant();
+    ~RunScriptAssistant() override;
 
     void initActions() Q_DECL_OVERRIDE;
     

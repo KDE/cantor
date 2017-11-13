@@ -37,7 +37,7 @@ class CANTOR_EXPORT LatexResult : public EpsResult
   public:
     enum {Type=7};
     LatexResult( const QString& code, const QUrl& url, const QString& plain = QString());
-    ~LatexResult();
+    ~LatexResult() override;
     
     int type() Q_DECL_OVERRIDE;
     QString mimeType() Q_DECL_OVERRIDE;

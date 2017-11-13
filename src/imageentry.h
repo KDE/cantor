@@ -37,7 +37,7 @@ class ImageEntry : public WorksheetEntry
 
   public:
     ImageEntry(Worksheet* worksheet);
-    ~ImageEntry();
+    ~ImageEntry() override;
 
     enum {Type = UserType + 4};
     int type() const Q_DECL_OVERRIDE;

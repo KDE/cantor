@@ -29,7 +29,7 @@ class ScilabCompletionObject : public Cantor::CompletionObject
 {
     public:
         ScilabCompletionObject(const QString& cmd, int index, ScilabSession* session) ;
-        ~ScilabCompletionObject();
+        ~ScilabCompletionObject() override;
 
     protected:
         bool mayIdentifierContain(QChar c) const Q_DECL_OVERRIDE;

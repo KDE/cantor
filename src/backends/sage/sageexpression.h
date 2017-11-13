@@ -28,7 +28,7 @@ class SageExpression : public Cantor::Expression
   Q_OBJECT
   public:
     SageExpression( Cantor::Session* session);
-    ~SageExpression();
+    ~SageExpression() override;
 
     void evaluate() Q_DECL_OVERRIDE;
     void interrupt() Q_DECL_OVERRIDE;

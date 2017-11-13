@@ -29,7 +29,7 @@ class CreateMatrixDlg : public QDialog
   Q_OBJECT
   public:
     CreateMatrixDlg( QWidget* parent);
-    ~CreateMatrixDlg();
+    ~CreateMatrixDlg() override;
 
     int numRows();
     int numCols();

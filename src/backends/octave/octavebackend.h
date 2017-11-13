@@ -27,9 +27,9 @@ class OctaveBackend : public Cantor::Backend
     Q_OBJECT
     public:
     explicit OctaveBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
-     ~OctaveBackend();
+     ~OctaveBackend() override;
     QString id() const Q_DECL_OVERRIDE;
-    virtual QString version() const override;
+    QString version() const override;
     Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
     Cantor::Session* createSession() Q_DECL_OVERRIDE;
 

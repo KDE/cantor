@@ -27,7 +27,7 @@ class ImportPackageAssistant : public Cantor::Assistant
 {
   public:
     ImportPackageAssistant( QObject* parent, QList<QVariant> args );
-    ~ImportPackageAssistant();
+    ~ImportPackageAssistant() override;
 
     void initActions() Q_DECL_OVERRIDE;
 

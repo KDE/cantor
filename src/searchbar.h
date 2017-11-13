@@ -41,7 +41,7 @@ class SearchBar : public QWidget
   Q_OBJECT
   public:
     SearchBar(QWidget* parent, Worksheet* worksheet);
-    ~SearchBar();
+    ~SearchBar() override;
 
     void showStandard();
     void showExtended();

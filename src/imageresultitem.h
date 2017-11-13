@@ -31,7 +31,7 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
   Q_OBJECT
   public:
     ImageResultItem(QGraphicsObject* parent);
-    ~ImageResultItem();
+    ~ImageResultItem() override;
 
     using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w) Q_DECL_OVERRIDE;

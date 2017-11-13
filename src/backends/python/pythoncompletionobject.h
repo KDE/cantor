@@ -29,7 +29,7 @@ class PythonCompletionObject : public Cantor::CompletionObject
 {
   public:
     PythonCompletionObject(const QString& cmd, int index, PythonSession* session);
-    ~PythonCompletionObject();
+    ~PythonCompletionObject() override;
 
   protected:
     bool mayIdentifierContain(QChar c) const Q_DECL_OVERRIDE;

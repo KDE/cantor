@@ -60,7 +60,7 @@ public:
     /**
      * Destructor
      */
-    virtual ~CantorPart();
+    ~CantorPart() override;
 
     /**
      * This is a virtual function inherited from KParts::ReadWritePart.

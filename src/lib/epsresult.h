@@ -34,7 +34,7 @@ class CANTOR_EXPORT EpsResult : public Result
   public:
     enum {Type=5};
     EpsResult( const QUrl& url);
-    ~EpsResult();
+    ~EpsResult() override;
 
     QString toHtml() Q_DECL_OVERRIDE;
     QString toLatex() Q_DECL_OVERRIDE;

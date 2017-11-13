@@ -64,7 +64,7 @@ class CANTOR_EXPORT Session : public QObject
     /**
      * Destructor
      */
-    ~Session();
+    ~Session() override;
 
     /**
      * Login to the Session. In this function you should do anything needed to set up

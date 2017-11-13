@@ -34,7 +34,7 @@ class SageCompletionObject : public Cantor::CompletionObject
   Q_OBJECT
   public:
     SageCompletionObject( const QString& command, int index, SageSession* session);
-    ~SageCompletionObject();
+    ~SageCompletionObject() override;
 
   protected:
     bool mayIdentifierContain(QChar c) const Q_DECL_OVERRIDE;

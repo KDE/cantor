@@ -49,7 +49,7 @@ class CANTOR_EXPORT SyntaxHelpObject : public QObject
     /**
      * Destructor
      */
-    ~SyntaxHelpObject();
+    ~SyntaxHelpObject() override;
 
     /**
      * Start fetching the syntax help, emitting done() when done.

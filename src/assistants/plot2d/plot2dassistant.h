@@ -27,7 +27,7 @@ class Plot2dAssistant : public Cantor::Assistant
 {
   public:
     Plot2dAssistant( QObject* parent, QList<QVariant> args );
-    ~Plot2dAssistant();
+    ~Plot2dAssistant() override;
 
     void initActions() Q_DECL_OVERRIDE;
     

@@ -30,7 +30,7 @@ class NullExpression : public Cantor::Expression
   Q_OBJECT
   public:
     NullExpression( Cantor::Session* session);
-    ~NullExpression();
+    ~NullExpression() override;
 
     void evaluate() Q_DECL_OVERRIDE;
     void interrupt() Q_DECL_OVERRIDE;

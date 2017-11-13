@@ -33,7 +33,7 @@ class CANTOR_EXPORT ImageResult : public Result
   public:
     enum{Type=2};
     explicit ImageResult( const QUrl& url, const QString& alt=QString());
-    ~ImageResult();
+    ~ImageResult() override;
 
     QString toHtml() Q_DECL_OVERRIDE;
     QString toLatex() Q_DECL_OVERRIDE;

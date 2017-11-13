@@ -49,7 +49,7 @@ class CANTOR_EXPORT Assistant : public QObject, public KXMLGUIClient
     /**
      * Destructor
      */
-    ~Assistant();
+    ~Assistant() override;
 
     /**
      * Sets the backend, this Assistant operates on

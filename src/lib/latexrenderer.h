@@ -34,7 +34,7 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     enum Method{ LatexMethod = 0, MmlMethod = 1};
     enum EquationType{ InlineEquation = 0, FullEquation = 1};
     LatexRenderer( QObject* parent = 0);
-    ~LatexRenderer();
+    ~LatexRenderer() override;
 
     QString latexCode() const;
     void setLatexCode(const QString& src);

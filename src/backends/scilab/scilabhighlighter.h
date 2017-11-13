@@ -29,7 +29,7 @@ class ScilabHighlighter : public Cantor::DefaultHighlighter
 
     public:
         ScilabHighlighter(QObject* parent);
-        ~ScilabHighlighter();
+        ~ScilabHighlighter() override;
 
     public Q_SLOTS:
         void updateHighlight();

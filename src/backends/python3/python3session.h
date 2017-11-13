@@ -31,19 +31,19 @@ class Python3Session : public PythonSession
   public:
     Python3Session(Cantor::Backend* backend);
 
-    void login();
-    void logout();
-    void interrupt();
+    void login() override;
+    void logout() override;
+    void interrupt() override;
 
-    bool integratePlots() const;
-    QStringList autorunScripts() const;
+    bool integratePlots() const override;
+    QStringList autorunScripts() const override;
 
   private:
-    void runPythonCommand(const QString& command) const;
-    void readExpressionOutput(const QString& commandProcessing);
+    void runPythonCommand(const QString& command) const override;
+    void readExpressionOutput(const QString& commandProcessing) override;
 
-    QString getOutput() const;
-    QString getError() const;
+    QString getOutput() const override;
+    QString getError() const override;
 
   private:
     QDBusInterface* m_pIface;

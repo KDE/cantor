@@ -38,7 +38,7 @@ class LoadedExpression : public Cantor::Expression
 {
   public:
     LoadedExpression( Cantor::Session* session );
-    ~LoadedExpression();
+    ~LoadedExpression() override;
 
     void evaluate() Q_DECL_OVERRIDE;
     void interrupt() Q_DECL_OVERRIDE;

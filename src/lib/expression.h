@@ -73,7 +73,7 @@ class CANTOR_EXPORT Expression : public QObject
     /**
      * destructor
      */
-    virtual ~Expression();
+    ~Expression() override;
 
     /**
      * Evaluate the Expression. before this is called, you should set the Command first

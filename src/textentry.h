@@ -39,7 +39,7 @@ class TextEntry : public WorksheetEntry
   Q_OBJECT
   public:
     TextEntry(Worksheet* worksheet);
-    ~TextEntry();
+    ~TextEntry() override;
 
     enum {Type = UserType + 1};
     int type() const Q_DECL_OVERRIDE;

@@ -38,7 +38,7 @@ class OctaveExpression : public Cantor::Expression
     Q_OBJECT
     public:
 	OctaveExpression(Cantor::Session* session);
-	~OctaveExpression();
+	~OctaveExpression() override;
 	void interrupt() Q_DECL_OVERRIDE;
 	void evaluate() Q_DECL_OVERRIDE;
         void parseOutput ( QString output );

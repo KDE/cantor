@@ -27,7 +27,7 @@ class MaximaHistoryExtension : public Cantor::HistoryExtension
 {
   public:
     MaximaHistoryExtension( QObject* parent );
-    ~MaximaHistoryExtension();
+    ~MaximaHistoryExtension() override;
   public Q_SLOTS:
     QString lastResult() Q_DECL_OVERRIDE;
 };
@@ -36,7 +36,7 @@ class MaximaScriptExtension : public Cantor::ScriptExtension
 {
   public:
     MaximaScriptExtension(QObject* parent);
-    ~MaximaScriptExtension();
+    ~MaximaScriptExtension() override;
   public Q_SLOTS:
     QString runExternalScript(const QString& file) Q_DECL_OVERRIDE;
     QString scriptFileFilter() Q_DECL_OVERRIDE;
@@ -50,7 +50,7 @@ class MaximaCASExtension : public Cantor::CASExtension
 {
   public:
     MaximaCASExtension( QObject* parent);
-    ~MaximaCASExtension();
+    ~MaximaCASExtension() override;
 
   public Q_SLOTS:
     QString solve(const QStringList& equations, const QStringList& variables) Q_DECL_OVERRIDE;
@@ -63,7 +63,7 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
 {
   public:
     MaximaCalculusExtension( QObject* parent);
-    ~MaximaCalculusExtension();
+    ~MaximaCalculusExtension() override;
 
   public Q_SLOTS:
     QString limit(const QString& expression, const QString& variable, const QString& limit) Q_DECL_OVERRIDE;
@@ -78,7 +78,7 @@ class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
   public:
     MaximaLinearAlgebraExtension(QObject* parent);
-    ~MaximaLinearAlgebraExtension();
+    ~MaximaLinearAlgebraExtension() override;
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
@@ -99,7 +99,7 @@ class MaximaPlotExtension : public Cantor::PlotExtension
 {
   public:
     MaximaPlotExtension(QObject* parent);
-    ~MaximaPlotExtension();
+    ~MaximaPlotExtension() override;
   public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
     QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
@@ -109,7 +109,7 @@ class MaximaVariableManagementExtension : public Cantor::VariableManagementExten
 {
   public:
     MaximaVariableManagementExtension( QObject* parent );
-    ~MaximaVariableManagementExtension();
+    ~MaximaVariableManagementExtension() override;
 
   public Q_SLOTS:
     QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;

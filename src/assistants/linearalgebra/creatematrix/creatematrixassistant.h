@@ -27,7 +27,7 @@ class CreateMatrixAssistant : public Cantor::Assistant
 {
   public:
     CreateMatrixAssistant( QObject* parent, QList<QVariant> args );
-    ~CreateMatrixAssistant();
+    ~CreateMatrixAssistant() override;
 
     void initActions() Q_DECL_OVERRIDE;
     

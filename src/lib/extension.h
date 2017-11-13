@@ -45,7 +45,7 @@ class CANTOR_EXPORT Extension : public QObject
   public:
     ///Default constructor
     Extension( const QString& name, QObject* parent );
-    ~Extension();
+    ~Extension() override;
 
 };
 
@@ -60,7 +60,7 @@ class CANTOR_EXPORT HistoryExtension : public Extension
 {
   public:
     HistoryExtension(QObject* parent);
-    ~HistoryExtension();
+    ~HistoryExtension() override;
   public Q_SLOTS:
     /**
      * Returns a command that retrieves the last result
@@ -77,7 +77,7 @@ class CANTOR_EXPORT ScriptExtension : public Extension
 {
   public:
     ScriptExtension(QObject* parent);
-    ~ScriptExtension();
+    ~ScriptExtension() override;
   public Q_SLOTS:
     /**
      * returns the command for running a script
@@ -123,7 +123,7 @@ class CANTOR_EXPORT CASExtension : public Extension
 {
   public:
     CASExtension(QObject* parent);
-    ~CASExtension();
+    ~CASExtension() override;
 
   public Q_SLOTS:
     /**
@@ -155,7 +155,7 @@ class CANTOR_EXPORT CalculusExtension : public Extension
 {
   public:
     CalculusExtension(QObject* parent);
-    ~CalculusExtension();
+    ~CalculusExtension() override;
 
   public Q_SLOTS:
     /**
@@ -202,7 +202,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
     typedef QPair<QString, Interval> VariableParameter;
 
     PlotExtension(QObject* parent);
-    ~PlotExtension();
+    ~PlotExtension() override;
 
   public Q_SLOTS:
     /**
@@ -240,7 +240,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
 {
   public:
     AdvancedPlotExtension(QObject* parent);
-    ~AdvancedPlotExtension();
+    ~AdvancedPlotExtension() override;
 
     // TODO comment
 
@@ -375,7 +375,7 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
     typedef QList<QStringList> Matrix;
 
     LinearAlgebraExtension(QObject* parent);
-    ~LinearAlgebraExtension();
+    ~LinearAlgebraExtension() override;
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
@@ -451,7 +451,7 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
 {
   public:
     VariableManagementExtension( QObject* parent );
-    ~VariableManagementExtension();
+    ~VariableManagementExtension() override;
 
   public Q_SLOTS:
     virtual QString addVariable(const QString& name, const QString& value) = 0;
@@ -470,7 +470,7 @@ class CANTOR_EXPORT PackagingExtension : public Extension
 {
   public:
     PackagingExtension(QObject* parent);
-    ~PackagingExtension();
+    ~PackagingExtension() override;
 
   public Q_SLOTS:
     /**

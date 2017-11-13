@@ -34,7 +34,7 @@ class OctaveHighlighter : public Cantor::DefaultHighlighter
 
   public:
     OctaveHighlighter(QObject* parent, Cantor::Session* session);
-    virtual ~OctaveHighlighter();
+    ~OctaveHighlighter() override;
 
   public Q_SLOTS:
     void receiveFunctions();

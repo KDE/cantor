@@ -27,7 +27,7 @@ class Plot3dAssistant : public Cantor::Assistant
 {
   public:
     Plot3dAssistant( QObject* parent, QList<QVariant> args );
-    ~Plot3dAssistant();
+    ~Plot3dAssistant() override;
 
     void initActions() Q_DECL_OVERRIDE;
     

@@ -35,7 +35,7 @@ class WorksheetImageItem : public QGraphicsObject
   Q_OBJECT
   public:
     WorksheetImageItem(QGraphicsObject* parent);
-    ~WorksheetImageItem();
+    ~WorksheetImageItem() override;
 
     enum {Type = UserType + 101};
 

@@ -27,7 +27,7 @@ class SageHistoryExtension : public Cantor::HistoryExtension
 {
   public:
     SageHistoryExtension( QObject* parent );
-    ~SageHistoryExtension();
+    ~SageHistoryExtension() override;
   public Q_SLOTS:
     QString lastResult() Q_DECL_OVERRIDE;
 };
@@ -36,7 +36,7 @@ class SageScriptExtension : public Cantor::ScriptExtension
 {
   public:
     SageScriptExtension(QObject* parent);
-    ~SageScriptExtension();
+    ~SageScriptExtension() override;
   public Q_SLOTS:
     QString runExternalScript(const QString& path) Q_DECL_OVERRIDE;
     QString scriptFileFilter() Q_DECL_OVERRIDE;
@@ -47,7 +47,7 @@ class SageCASExtension : public Cantor::CASExtension
 {
   public:
     SageCASExtension( QObject* parent);
-    ~SageCASExtension();
+    ~SageCASExtension() override;
 
   public Q_SLOTS:
     QString solve(const QStringList& equations, const QStringList& variables) Q_DECL_OVERRIDE;
@@ -60,7 +60,7 @@ class SageCalculusExtension : public Cantor::CalculusExtension
 {
   public:
     SageCalculusExtension( QObject* parent);
-    ~SageCalculusExtension();
+    ~SageCalculusExtension() override;
 
   public Q_SLOTS:
     QString limit(const QString& expression, const QString& variable, const QString& limit) Q_DECL_OVERRIDE;
@@ -73,7 +73,7 @@ class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
   public:
     SageLinearAlgebraExtension( QObject* parent);
-    ~SageLinearAlgebraExtension();
+    ~SageLinearAlgebraExtension() override;
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
@@ -95,7 +95,7 @@ class SagePlotExtension : public Cantor::PlotExtension
 {
   public:
     SagePlotExtension(QObject* parent);
-    ~SagePlotExtension();
+    ~SagePlotExtension() override;
   public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
     QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
@@ -105,7 +105,7 @@ class SagePackagingExtension : public Cantor::PackagingExtension
 {
   public:
     SagePackagingExtension(QObject* parent);
-    ~SagePackagingExtension();
+    ~SagePackagingExtension() override;
 
   public Q_SLOTS:
     QString importPackage(const QString& module) Q_DECL_OVERRIDE;

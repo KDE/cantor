@@ -77,7 +77,7 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
 
     }
 
-    ~WorksheetAccessInterfaceImpl()
+    ~WorksheetAccessInterfaceImpl() override
     {
 
     }

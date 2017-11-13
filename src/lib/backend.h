@@ -82,7 +82,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     /**
      * Destructor. Doesn't anything.
      */
-    virtual ~Backend();
+    ~Backend() override;
   public:
 
     /**

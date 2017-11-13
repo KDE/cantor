@@ -44,7 +44,7 @@ class CommandEntry : public WorksheetEntry
     static const QString Prompt;
 
     CommandEntry(Worksheet* worksheet);
-    ~CommandEntry();
+    ~CommandEntry() override;
 
     enum {Type = UserType + 2};
     int type() const Q_DECL_OVERRIDE;

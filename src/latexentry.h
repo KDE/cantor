@@ -31,7 +31,7 @@ class LatexEntry : public WorksheetEntry
 
   public:
     LatexEntry(Worksheet* worksheet);
-    ~LatexEntry();
+    ~LatexEntry() override;
 
     enum {Type = UserType + 5};
     int type() const Q_DECL_OVERRIDE;

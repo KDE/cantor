@@ -45,7 +45,7 @@ class WorksheetTextItem : public QGraphicsTextItem
   public:
     explicit WorksheetTextItem(QGraphicsObject* parent,
                       Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
-    ~WorksheetTextItem();
+    ~WorksheetTextItem() override;
 
     void setCursorPosition(const QPointF& pos);
     QPointF cursorPosition() const;

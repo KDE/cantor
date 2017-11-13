@@ -57,7 +57,7 @@ class Worksheet : public QGraphicsScene
   Q_OBJECT
   public:
     Worksheet(Cantor::Backend* backend, QWidget* parent);
-    ~Worksheet();
+    ~Worksheet() override;
 
     Cantor::Session* session();
 
