@@ -889,7 +889,7 @@ of the &kde; Fundamentals.
   <question><para>I have installed Sage/Maxima or other supported CAS, but the appropriate backend does not appear.</para></question>
   <answer>
     <para>
-      One possible explanation is that &cantor; did not correctly detect the location. Go to the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem></menuchoice> dialog and change
+      One possible explanation is that &cantor; did not correctly detect the location. Go to the <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> dialog and change
       the <guilabel>Path</guilabel> to the appropriate application on the backend's page.
     </para>
   </answer>
