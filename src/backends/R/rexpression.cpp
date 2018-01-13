@@ -37,7 +37,6 @@
 
 RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    qDebug();
 
 }
 
@@ -46,10 +45,8 @@ RExpression::~RExpression()
 
 }
 
-
 void RExpression::evaluate()
 {
-    qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
     if(command().startsWith(QLatin1Char('?')))
         m_isHelpRequest=true;

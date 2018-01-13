@@ -49,10 +49,10 @@ const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%
 static QString initCmd=QLatin1String(":lisp($load \"%1\")");
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
-    m_initState(MaximaSession::NotInitialized),
     m_process(nullptr),
-    m_justRestarted(false),
-    m_variableModel(new MaximaVariableModel(this))
+    m_variableModel(new MaximaVariableModel(this)),
+    m_initState(MaximaSession::NotInitialized),
+    m_justRestarted(false)
 {
 }
 
@@ -160,6 +160,7 @@ void MaximaSession::logout()
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
+    qDebug() << "evaluating: " << cmd;
     MaximaExpression* expr = new MaximaExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
@@ -196,7 +197,6 @@ void MaximaSession::readStdErr()
 
 void MaximaSession::readStdOut()
 {
-    qDebug()<<"reading stdOut";
     if (!m_process)
         return;
 #ifndef Q_OS_WIN
@@ -207,7 +207,7 @@ void MaximaSession::readStdOut()
 
     out.remove(QLatin1Char('\r'));
 
-    qDebug()<<"out: "<<out;
+    qDebug() << "std out: " << out;
 
     m_cache+=out;
 

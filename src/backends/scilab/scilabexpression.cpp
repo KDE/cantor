@@ -51,7 +51,6 @@ ScilabExpression::~ScilabExpression()
 
 void ScilabExpression::evaluate()
 {
-    qDebug() << "evaluating " << command();
     setStatus(Cantor::Expression::Computing);
 
     ScilabSession* scilabSession = dynamic_cast<ScilabSession*>(session());

@@ -142,7 +142,7 @@ void OctaveSession::processError()
 
 Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior )
 {
-    qDebug() << "evaluateExpression: " << command;
+    qDebug() << "evaluating: " << command;
     OctaveExpression* expression = new OctaveExpression ( this );
     expression->setCommand ( command );
     expression->setFinishingBehavior ( finishingBehavior );

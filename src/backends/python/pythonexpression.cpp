@@ -46,7 +46,6 @@ PythonExpression::~PythonExpression()
 
 void PythonExpression::evaluate()
 {
-    qDebug() << "evaluating " << command();
     setStatus(Cantor::Expression::Computing);
 
     PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());

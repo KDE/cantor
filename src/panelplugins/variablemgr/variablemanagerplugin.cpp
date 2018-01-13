@@ -20,17 +20,12 @@
 
 #include "variablemanagerplugin.h"
 
-#include <QDebug>
-
-#include "cantor_macros.h"
 #include "session.h"
 #include "variablemanagerwidget.h"
 
-VariableManagerPlugin::VariableManagerPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
+VariableManagerPlugin::VariableManagerPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
 {
     Q_UNUSED(args);
-    m_widget=nullptr;
-
 }
 
 VariableManagerPlugin::~VariableManagerPlugin()
@@ -48,7 +43,6 @@ QWidget* VariableManagerPlugin::widget()
 {
     if(m_widget==nullptr)
     {
-        qDebug()<<"creating new widget";
         m_widget=new VariableManagerWidget(session(), parentWidget());
         connect(m_widget.data(), &VariableManagerWidget::runCommand, this, &VariableManagerPlugin::requestRunCommand);
     }

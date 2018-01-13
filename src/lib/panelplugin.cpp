@@ -22,8 +22,6 @@
 using namespace Cantor;
 
 #include <KPluginMetaData>
-#include <QDebug>
-
 class Cantor::PanelPluginPrivate
 {
   public:
@@ -61,7 +59,6 @@ void PanelPlugin::setPluginInfo(KPluginMetaData info)
     d->requiredExtensions=info.value(QLatin1String("RequiredExtensions")).split(QLatin1Char(','));
 }
 
-
 QStringList PanelPlugin::requiredExtensions()
 {
     return d->requiredExtensions;
@@ -84,7 +81,6 @@ Session* PanelPlugin::session()
 
 void PanelPlugin::setSession(Session* session)
 {
-    qDebug()<<"setting session to "<<session;
     d->session=session;
     onSessionChanged();
 }
@@ -93,5 +89,3 @@ void PanelPlugin::onSessionChanged()
 {
 
 }
-
-

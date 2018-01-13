@@ -20,14 +20,13 @@
 
 #include "variablemanagerwidget.h"
 
-#include <QTreeView>
-#include <QToolButton>
-
 #include <QDialog>
-#include <QPushButton>
-#include <QDebug>
-#include <KIconLoader>
 #include <QFileDialog>
+#include <QPushButton>
+#include <QToolButton>
+#include <QTreeView>
+
+#include <KIconLoader>
 #include <KMessageBox>
 
 #include "session.h"
@@ -100,12 +99,10 @@ VariableManagerWidget::~VariableManagerWidget()
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
-    qDebug()<<"setting session to "<<session;
     m_session=session;
     if(session)
     {
         m_model=session->variableModel();
-        qDebug()<<"model: "<<m_model;
         if(m_table)
             m_table->setModel(m_model);
     }
@@ -116,7 +113,6 @@ void VariableManagerWidget::clearVariables()
     int btn=KMessageBox::questionYesNo(this,  i18n("Are you sure you want to remove all variables?"), i18n("Confirmation - Cantor"));
     if(btn==KMessageBox::Yes)
     {
-        qDebug()<<"removing it all";
         m_model->removeRows(0, m_model->rowCount());
 
         //evaluate the "clear" command

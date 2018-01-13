@@ -43,7 +43,6 @@ SageExpression::~SageExpression()
 
 void SageExpression::evaluate()
 {
-    qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
     m_imagePath.clear();
 

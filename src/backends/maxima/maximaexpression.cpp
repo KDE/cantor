@@ -54,7 +54,6 @@ MaximaExpression::~MaximaExpression()
 
 void MaximaExpression::evaluate()
 {
-    qDebug()<<"evaluating "<<command();
     setStatus(Cantor::Expression::Computing);
 
     //until we get the real output Id from maxima, set it to invalid
@@ -328,9 +327,6 @@ bool MaximaExpression::parseOutput(QString& out)
 {
     enum ParserStatus{ReadingOpeningTag, ReadingClosingTag, ReadingText};
     int idx=0;
-
-    qDebug()<<"attempting to parse "<<out;
-
     int numResults=0;
     QString textBuffer;
     QString latexBuffer;
