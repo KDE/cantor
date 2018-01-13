@@ -274,9 +274,25 @@ void CantorShell::addWorksheet(const QString& backendName)
         if (part)
         {
             connect(part, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
-
             m_parts.append(part);
-            int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
+
+            //determine the icon of the backend to be added
+            Cantor::Backend* backend = nullptr;
+            for (Cantor::Backend* b : Cantor::Backend::availableBackends())
+            {
+                if (b->name() == backendName)
+                {
+                    backend = b;
+                    break;
+                }
+            }
+
+            int tab = -1;
+            if (backend)
+                tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
+            else //should never happend but just in case we still have some bugs somewhere...
+                tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
+
             m_tabWidget->setCurrentIndex(tab);
         }
         else
