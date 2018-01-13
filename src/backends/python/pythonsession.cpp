@@ -388,25 +388,23 @@ void PythonSession::listVariables()
     m_output.remove(QLatin1String(">"));
     m_output.remove(QLatin1String("}"));
 
-    qDebug() << m_output;
-
     foreach(QString line, m_output.split(QLatin1String(", '"))){
 
         QStringList parts = line.simplified().split(QLatin1String(":"));
-
-        if(!parts.first().startsWith(QLatin1String("'__")) && !parts.first().startsWith(QLatin1String("__")) && !parts.first().startsWith(QLatin1String("CatchOutPythonBackend'")) &&
-           !parts.first().startsWith(QLatin1String("errorPythonBackend'")) && !parts.first().startsWith(QLatin1String("outputPythonBackend'")) &&
-           !parts.first().startsWith(QLatin1String("sys':")) && !parts.last().startsWith(QLatin1String(" class ")) && !parts.last().startsWith(QLatin1String(" function "))){
+        const QString& first = parts.first();
+        const QString& last = parts.last();
+        if(!first.startsWith(QLatin1String("'__")) && !first.startsWith(QLatin1String("__")) && !first.startsWith(QLatin1String("CatchOutPythonBackend'")) &&
+           !first.startsWith(QLatin1String("errorPythonBackend'")) && !first.startsWith(QLatin1String("outputPythonBackend'")) &&
+           !last.startsWith(QLatin1String(" class ")) && !last.startsWith(QLatin1String(" function ")) &&
+           !last.startsWith(QLatin1String(" module '") + first) /*skip imported modules*/ )
+        {
 
             m_variableModel->addVariable(parts.first().remove(QLatin1String("'")).simplified(), parts.last().simplified());
             PythonKeywords::instance()->addVariable(parts.first().remove(QLatin1String("'")).simplified());
-
         }
     }
 
-    qDebug() << "emitting updateHighlighter";
     emit updateHighlighter();
-
 }
 
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
@@ -426,4 +424,3 @@ QAbstractItemModel* PythonSession::variableModel()
 {
     return m_variableModel;
 }
-
