@@ -30,16 +30,16 @@ public:
     explicit QalculateBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~QalculateBackend();
 
-    QString id() const;
+    QString id() const override;
     QString version() const override;
 
-    virtual Cantor::Session *createSession();
-    virtual Cantor::Backend::Capabilities capabilities() const;
-    virtual QString description() const;
-    virtual QUrl helpUrl() const;
+    virtual Cantor::Session *createSession() override;
+    virtual Cantor::Backend::Capabilities capabilities() const override;
+    virtual QString description() const override;
+    virtual QUrl helpUrl() const override;
 
-    QWidget* settingsWidget(QWidget* parent) const;
-    KConfigSkeleton* config() const;
+    QWidget* settingsWidget(QWidget* parent) const override;
+    KConfigSkeleton* config() const override;
 };
 
 

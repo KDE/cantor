@@ -46,46 +46,45 @@ public:
      * @param backend owning backend
      */
     JuliaSession(Cantor::Backend *backend);
-    virtual ~JuliaSession() {}
 
     /**
      * @see Cantor::Session::login
      */
-    virtual void login() override;
+    void login() override;
 
     /**
      * @see Cantor::Session::logout
      */
-    virtual void logout() override;
+    void logout() override;
 
     /**
      * @see Cantor::Session::interrupt
      */
-    virtual void interrupt() override;
+    void interrupt() override;
 
     /**
      * @see Cantor::Session::evaluateExpression
      */
-    virtual Cantor::Expression *evaluateExpression(
+    Cantor::Expression *evaluateExpression(
         const QString &command,
         Cantor::Expression::FinishingBehavior behave) override;
 
     /**
      * @see Cantor::Session::completionFor
      */
-    virtual Cantor::CompletionObject *completionFor(
+    Cantor::CompletionObject *completionFor(
         const QString &cmd,
         int index = -1) override;
 
     /**
      * @see Cantor::Session::syntaxHighlighter
      */
-    virtual QSyntaxHighlighter *syntaxHighlighter(QObject *parent);
+    QSyntaxHighlighter *syntaxHighlighter(QObject *parent) override;
 
     /**
      * @see Cantor::Session::variableModel
      */
-    virtual QAbstractItemModel *variableModel() override;
+    QAbstractItemModel *variableModel() override;
 
     /**
      * @return indicator if config says to integrate plots into worksheet

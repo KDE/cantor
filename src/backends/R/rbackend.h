@@ -30,17 +30,17 @@ class RBackend : public Cantor::Backend
     explicit RBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~RBackend();
 
-    QString id() const;
+    QString id() const override;
     QString version() const override;
-    Cantor::Session *createSession();
-    Cantor::Backend::Capabilities capabilities() const;
-    bool requirementsFullfilled() const;
+    Cantor::Session *createSession() override;
+    Cantor::Backend::Capabilities capabilities() const override;
+    bool requirementsFullfilled() const override;
 
-    virtual QWidget* settingsWidget(QWidget* parent) const;
-    virtual KConfigSkeleton* config() const;
+    QWidget* settingsWidget(QWidget* parent) const override;
+    KConfigSkeleton* config() const override;
 
-    QUrl helpUrl() const;
-    QString description() const;
+    QUrl helpUrl() const override;
+    QString description() const override;
 };
 
 
