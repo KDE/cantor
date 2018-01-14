@@ -39,10 +39,6 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent) : QGraphicsView(
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 }
 
-WorksheetView::~WorksheetView()
-{
-}
-
 void WorksheetView::makeVisible(const QRectF& sceneRect)
 {
     const qreal w = viewport()->width();
@@ -142,7 +138,7 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
     m_animation->start();
 }
 
-bool WorksheetView::isVisible(const QRectF& sceneRect)
+bool WorksheetView::isVisible(const QRectF& sceneRect) const
 {
     const qreal w = viewport()->width();
     const qreal h = viewport()->height();
@@ -167,7 +163,7 @@ bool WorksheetView::isVisible(const QRectF& sceneRect)
     return QRectF(x,y,w,h).contains(rect);
 }
 
-bool WorksheetView::isAtEnd()
+bool WorksheetView::isAtEnd() const
 {
     bool atEnd = true;
     if (verticalScrollBar())
@@ -175,7 +171,7 @@ bool WorksheetView::isAtEnd()
     return atEnd;
 }
 
-void WorksheetView::scrollToEnd()
+void WorksheetView::scrollToEnd() const
 {
     if (verticalScrollBar())
         verticalScrollBar()->setValue(verticalScrollBar()->maximum());
@@ -214,17 +210,17 @@ void WorksheetView::endAnimation()
     m_animation = nullptr;
 }
 
-QPoint WorksheetView::viewCursorPos()
+QPoint WorksheetView::viewCursorPos() const
 {
     return viewport()->mapFromGlobal(QCursor::pos());
 }
 
-QPointF WorksheetView::sceneCursorPos()
+QPointF WorksheetView::sceneCursorPos() const
 {
     return mapToScene(viewCursorPos());
 }
 
-QRectF WorksheetView::viewRect()
+QRectF WorksheetView::viewRect() const
 {
     const qreal w = viewport()->width() / m_scale;
     const qreal h = viewport()->height() / m_scale;
@@ -233,13 +229,13 @@ QRectF WorksheetView::viewRect()
     return QRectF(x, y, w, h);
 }
 
-void WorksheetView::resizeEvent(QResizeEvent * event)
+void WorksheetView::resizeEvent(QResizeEvent* event)
 {
     QGraphicsView::resizeEvent(event);
     updateSceneSize();
 }
 
-qreal WorksheetView::scaleFactor()
+qreal WorksheetView::scaleFactor() const
 {
     return m_scale;
 }
@@ -251,7 +247,7 @@ void WorksheetView::updateSceneSize()
     sendViewRectChange();
 }
 
-void WorksheetView::sceneRectChanged(const QRectF& sceneRect)
+void WorksheetView::sceneRectChanged(const QRectF& sceneRect) const
 {
     Q_UNUSED(sceneRect);
     if (verticalScrollBar())
@@ -262,7 +258,7 @@ void WorksheetView::sceneRectChanged(const QRectF& sceneRect)
                 this, SLOT(sendViewRectChange()), Qt::UniqueConnection);
 }
 
-void WorksheetView::sendViewRectChange()
+void WorksheetView::sendViewRectChange() const
 {
     emit viewRectChanged(viewRect());
 }

@@ -31,38 +31,34 @@ class Worksheet;
 class WorksheetView : public QGraphicsView
 {
   Q_OBJECT
-  public:
+public:
     WorksheetView(Worksheet* scene, QWidget* parent);
-    ~WorksheetView() override;
 
     void makeVisible(const QRectF& sceneRect);
-    bool isVisible(const QRectF& sceneRect);
-    bool isAtEnd();
-    void scrollToEnd();
+    bool isVisible(const QRectF& sceneRect) const;
+    bool isAtEnd() const;
+    void scrollToEnd() const;
     void scrollBy(int dy);
 
-    QPoint viewCursorPos();
-    QPointF sceneCursorPos();
-
-    QRectF viewRect();
-
-    void resizeEvent(QResizeEvent* event) Q_DECL_OVERRIDE;
-
-    qreal scaleFactor();
-
+    QPoint viewCursorPos() const;
+    QPointF sceneCursorPos() const;
+    QRectF viewRect() const;
+    qreal scaleFactor() const;
     void updateSceneSize();
 
-  Q_SIGNALS:
-    void viewRectChanged(QRectF rect);
+Q_SIGNALS:
+    void viewRectChanged(QRectF rect) const;
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void zoomIn();
     void zoomOut();
     void endAnimation();
-    void sceneRectChanged(const QRectF& sceneRect);
-    void sendViewRectChange();
+    void sceneRectChanged(const QRectF& sceneRect) const;
+    void sendViewRectChange() const;
 
-  private:
+private:
+    void resizeEvent(QResizeEvent*) override;
+
     qreal m_scale;
     QParallelAnimationGroup* m_animation;
     QPropertyAnimation* m_hAnimation;
