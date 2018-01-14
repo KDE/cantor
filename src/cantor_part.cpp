@@ -166,6 +166,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     setWidget(widget);
 
     Cantor::WorksheetAccessInterface* iface=new WorksheetAccessInterfaceImpl(this, m_worksheet);
+    Q_UNUSED(iface);
 
     // create our actions
     m_worksheet->createActions(actionCollection());
@@ -238,6 +239,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_evaluate=new QAction(i18n("Evaluate Worksheet"), actionCollection());
     actionCollection()->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
     m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
+    m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);
     connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
 
     m_typeset=new KToggleAction(i18n("Typeset using LaTeX"), actionCollection());
@@ -528,12 +530,14 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
     if(status==Cantor::Session::Running)
     {
         m_evaluate->setText(i18n("Interrupt"));
+        m_evaluate->setShortcut(Qt::CTRL+Qt::Key_I);
         m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
 
         setStatusMessage(i18n("Calculating..."));
     }else
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
+        m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);
         m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
 
         setStatusMessage(i18n("Ready"));
