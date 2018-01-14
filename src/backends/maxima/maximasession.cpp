@@ -202,7 +202,7 @@ void MaximaSession::readStdOut()
 #ifndef Q_OS_WIN
     QString out=QLatin1String(m_process->pty()->readAll());
 #else
-    QString out=m_process->readAllStandardOutput();
+    QString out=QLatin1String(m_process->readAllStandardOutput());
 #endif
 
     out.remove(QLatin1Char('\r'));
@@ -357,10 +357,13 @@ void MaximaSession::interrupt(MaximaExpression* expr)
     if(expr==m_expressionQueue.first())
     {
         disconnect(expr, nullptr, this, nullptr);
-        //TODO for non unix platforms sending signals probably won't work
+        m_process->kill();
+#ifndef Q_OS_WIN
         const int pid=m_process->pid();
         kill(pid, SIGINT);
-
+#else
+      //TODO: interrupt the process on windows
+#endif
         qDebug()<<"done interrupting";
     }else
     {
