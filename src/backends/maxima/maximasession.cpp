@@ -356,8 +356,8 @@ void MaximaSession::interrupt(MaximaExpression* expr)
 
     if(expr==m_expressionQueue.first())
     {
+        qDebug()<<"interrupting " << expr->command();
         disconnect(expr, nullptr, this, nullptr);
-        m_process->kill();
 #ifndef Q_OS_WIN
         const int pid=m_process->pid();
         kill(pid, SIGINT);
