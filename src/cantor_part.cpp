@@ -111,13 +111,13 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
     Worksheet* m_worksheet;
 };
 
-CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent)
+CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent),
+    m_searchBar(nullptr),
+    m_initProgressDlg(nullptr),
+    m_showProgressDlg(true),
+    m_showBackendHelp(nullptr),
+    m_statusBarBlocked(false)
 {
-    m_showBackendHelp=nullptr;
-    m_initProgressDlg=nullptr;
-    m_statusBarBlocked=false;
-    m_showProgressDlg=true;
-
     qDebug()<<"Created a CantorPart";
 
     m_panelHandler=new Cantor::PanelPluginHandler(this);
@@ -161,7 +161,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(actionCollection(), SIGNAL(inserted(QAction*)), m_worksheet,
             SLOT(registerShortcut(QAction*)));
 
-    m_searchBar = nullptr;
     layout->addWidget(m_worksheetview);
     // notify the part that this is our internal widget
     setWidget(widget);

@@ -26,11 +26,8 @@ using namespace Cantor;
 class Cantor::SessionPrivate
 {
   public:
-    SessionPrivate()
+    SessionPrivate() : backend(nullptr), status(Session::Done), typesettingEnabled(false), expressionCount(0)
     {
-        backend=nullptr;
-        expressionCount=0;
-        typesettingEnabled=false;
     }
 
     Backend* backend;
@@ -39,8 +36,7 @@ class Cantor::SessionPrivate
     int expressionCount;
 };
 
-Session::Session( Backend* backend ) : QObject(backend),
-                                       d(new SessionPrivate)
+Session::Session( Backend* backend ) : QObject(backend), d(new SessionPrivate)
 {
     d->backend=backend;
 }

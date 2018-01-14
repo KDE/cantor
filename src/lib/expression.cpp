@@ -41,10 +41,9 @@ using namespace Cantor;
 class Cantor::ExpressionPrivate
 {
 public:
-    ExpressionPrivate() {
-        result=nullptr;
-        session=nullptr;
-        isInternal=false;
+    ExpressionPrivate() : result(nullptr), status(Expression::Done), session(nullptr),
+    finishingBehavior(Expression::DoNotDelete), isInternal(false)
+    {
     }
 
     int id;

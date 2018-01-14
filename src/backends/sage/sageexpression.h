@@ -27,23 +27,24 @@ class SageExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    SageExpression( Cantor::Session* session);
-    ~SageExpression() override;
+    SageExpression(Cantor::Session*);
 
     void evaluate() Q_DECL_OVERRIDE;
     void interrupt() Q_DECL_OVERRIDE;
 
-    void parseOutput(const QString& text);
-    void parseError(const QString& text);
+    void parseOutput(const QString&);
+    void parseError(const QString&);
 
-    void addFileResult(const QString& path);
+    void addFileResult(const QString&);
 
-    void onProcessError(const QString& msg);
+    void onProcessError(const QString&);
+
   public Q_SLOTS:
     void evalFinished();
 
   protected:
     QString additionalLatexHeaders() Q_DECL_OVERRIDE;
+
   private:
     QString m_outputCache;
     QString m_imagePath;

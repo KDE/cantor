@@ -24,22 +24,20 @@
 #include "expression.h"
 #include "KDirWatch"
 #include <QStringList>
-#include <QXmlStreamReader>
 
-class QTimer;
 class QTemporaryFile;
 
 class MaximaExpression : public Cantor::Expression
 {
   Q_OBJECT
-  public:
-    explicit MaximaExpression( Cantor::Session* session);
-    ~MaximaExpression() override;
+
+public:
+    explicit MaximaExpression(Cantor::Session*);
 
     void evaluate() Q_DECL_OVERRIDE;
     void interrupt() Q_DECL_OVERRIDE;
 
-    void addInformation(const QString& information) Q_DECL_OVERRIDE;
+    void addInformation(const QString&) Q_DECL_OVERRIDE;
 
     bool needsLatexResult();
 
@@ -52,21 +50,20 @@ class MaximaExpression : public Cantor::Expression
     void forceDone();
 
     //reads from @param out until a prompt indicates that a new expression has started
-    bool parseOutput(QString& out);
-    void parseError(const QString& out);
+    bool parseOutput(QString&);
+    void parseError(const QString&);
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void imageChanged();
 
-  private:
+private:
     QString additionalLatexHeaders() Q_DECL_OVERRIDE;
     Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
-  private:
+
     QTemporaryFile *m_tempFile;
     KDirWatch m_fileWatch;
     bool m_isHelpRequest;
     bool m_isPlot;
-    QTimer* m_askTimer;
     QString m_errorBuffer;
     bool m_gotErrorContent;
 };

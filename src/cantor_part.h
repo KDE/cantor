@@ -175,9 +175,6 @@ private:
 
     QString m_cachedStatusMessage;
     bool m_statusBarBlocked;
-
 };
-
-
 
 #endif // CANTORPART_H

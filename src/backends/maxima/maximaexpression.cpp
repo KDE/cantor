@@ -40,17 +40,13 @@
 #include <QChar>
 #include <QUrl>
 
-MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session)
+MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session),
+    m_tempFile(nullptr),
+    m_isHelpRequest(false),
+    m_isPlot(false),
+    m_gotErrorContent(false)
 {
-    qDebug();
-    m_tempFile=nullptr;
 }
-
-MaximaExpression::~MaximaExpression()
-{
-
-}
-
 
 void MaximaExpression::evaluate()
 {

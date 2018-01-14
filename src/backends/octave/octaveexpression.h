@@ -32,30 +32,28 @@ typedef Cantor::ImageResult OctavePlotResult;
 #endif
 
 
-
 class OctaveExpression : public Cantor::Expression
 {
     Q_OBJECT
-    public:
-	OctaveExpression(Cantor::Session* session);
-	~OctaveExpression() override;
-	void interrupt() Q_DECL_OVERRIDE;
-	void evaluate() Q_DECL_OVERRIDE;
-        void parseOutput ( QString output );
-        void parseError(QString error);
-	void parsePlotFile(QString file);
 
-        void finalize();
-	void setPlotPending(bool plot);
+public:
+    OctaveExpression(Cantor::Session*);
 
-    private:
-        QString m_resultString;
-        int m_numberOfLines;
-	bool m_plotPending;
-	bool m_finished;
-	bool m_error;
+    void interrupt() Q_DECL_OVERRIDE;
+    void evaluate() Q_DECL_OVERRIDE;
+    void parseOutput (QString);
+    void parseError(QString);
+    void parsePlotFile(QString file);
+
+    void finalize();
+    void setPlotPending(bool);
+
+private:
+    QString m_resultString;
+    bool m_plotPending;
+    bool m_finished;
+    bool m_error;
     QStringList m_plotCommands;
-
 };
 
 #endif // OCTAVEEXPRESSION_H

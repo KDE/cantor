@@ -32,25 +32,17 @@
 
 static const char* printCommand = "cantor_print();";
 
-OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session)
+OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session),
+    m_plotPending(false),
+    m_finished(false),
+    m_error(false)
 {
-    qDebug() << "OctaveExpression construtor";
     m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
                    << QLatin1String("polar") << QLatin1String("mesh") << QLatin1String("contour") << QLatin1String("bar")
                    << QLatin1String("stairs") << QLatin1String("errorbar") << QLatin1String("surf") << QLatin1String("sombrero")
                    << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow");
     m_plotCommands << QLatin1String("cantor_plot2d") << QLatin1String("cantor_plot3d");
-
-    m_error = false;
-    m_plotPending = false;
 }
-
-
-OctaveExpression::~OctaveExpression()
-{
-
-}
-
 
 void OctaveExpression::interrupt()
 {
