@@ -130,7 +130,11 @@ void OctaveSession::interrupt()
     }
     m_expressionQueue.clear();
     qDebug() << "Sending SIGINT to Octave";
+#ifndef Q_OS_WIN
     kill(m_process->pid(), SIGINT);
+#else
+      //TODO: interrupt the process on windows
+#endif
     changeStatus(Done);
 }
 
