@@ -34,6 +34,7 @@
 #include "juliaextensions.h"
 #include "juliabackend.h"
 #include "juliacompletionobject.h"
+#include <julia/julia_version.h>
 
 JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
@@ -108,6 +109,7 @@ void JuliaSession::login()
     }
 
     emit loginDone();
+    qDebug() << "login to julia " << JULIA_VERSION_STRING << "done";
 }
 
 void JuliaSession::logout()

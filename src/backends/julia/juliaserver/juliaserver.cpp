@@ -20,6 +20,7 @@
 #include "juliaserver.h"
 
 #include <julia/julia.h>
+#include <julia/julia_version.h>
 
 #include <iostream>
 #include <QFileInfo>
@@ -39,8 +40,12 @@ JuliaServer::~JuliaServer()
 
 void JuliaServer::login(const QString &path) const
 {
+#if JULIA_VERSION_MINOR > 5
+    jl_init();
+#else
     QString dir_path = QFileInfo(path).dir().absolutePath();
     jl_init(dir_path.toLatin1().constData());
+#endif
 }
 
 void JuliaServer::runJuliaCommand(const QString &command)
