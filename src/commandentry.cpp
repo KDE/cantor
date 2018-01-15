@@ -290,7 +290,6 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
     QToolTip::hideText();
 
     QString cmd = command();
-    qDebug()<<"evaluating: "<<cmd;
     m_evaluationOption = evalOp;
 
     if(cmd.isEmpty()) {

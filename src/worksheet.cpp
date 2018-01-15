@@ -72,11 +72,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     enableCompletion(Settings::self()->completionDefault());
     enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
     enableAnimations(Settings::self()->animationDefault());
-#ifdef WITH_EPS
-    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
-#else
-    session()->setTypesettingEnabled(false);
-#endif
 }
 
 Worksheet::~Worksheet()
@@ -92,6 +87,11 @@ Worksheet::~Worksheet()
 void Worksheet::loginToSession()
 {
     m_session->login();
+#ifdef WITH_EPS
+    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+#else
+    session()->setTypesettingEnabled(false);
+#endif
     m_loginDone = true;
 }
 
@@ -657,8 +657,11 @@ WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)
 
 void Worksheet::interrupt()
 {
-    m_session->interrupt();
-    emit updatePrompt();
+    if (m_session->status() == Cantor::Session::Running)
+    {
+        m_session->interrupt();
+        emit updatePrompt();
+    }
 }
 
 void Worksheet::interruptCurrentEntryEvaluation()

@@ -41,6 +41,7 @@ JuliaServer::~JuliaServer()
 void JuliaServer::login(const QString &path) const
 {
 #if JULIA_VERSION_MINOR > 5
+    Q_UNUSED(path)
     jl_init();
 #else
     QString dir_path = QFileInfo(path).dir().absolutePath();

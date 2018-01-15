@@ -101,10 +101,6 @@ void MaximaSession::login()
         m_expressionQueue.prepend(m_expressionQueue.takeLast());
     }
 
-    //reset the typesetting state
-    setTypesettingEnabled(isTypesettingEnabled());
-
-
     m_initState=MaximaSession::Initializing;
 
     if(!MaximaSettings::self()->autorunScripts().isEmpty()){
