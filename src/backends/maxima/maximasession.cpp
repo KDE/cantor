@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2017-2018 Alexander Semke (alexander.semke@web.de)
  */
 
 #include "maximasession.h"
@@ -28,89 +29,60 @@
 #include "settings.h"
 
 #include <QDebug>
+#include <QProcess>
 #include <QTimer>
+
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <signal.h>
-
-#ifdef Q_OS_WIN
-  #include <KProcess>
-#else
-  #include <KPtyProcess>
-  #include <KPtyDevice>
-#endif
-
 
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
 //the Expressions are encapsulated in () to allow capturing for the text
 const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))")); //Text, maxima outputs, before any output
 
-static QString initCmd=QLatin1String(":lisp($load \"%1\")");
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
     m_process(nullptr),
     m_variableModel(new MaximaVariableModel(this)),
-    m_initState(MaximaSession::NotInitialized),
     m_justRestarted(false)
-{
-}
-
-MaximaSession::~MaximaSession()
 {
 }
 
 void MaximaSession::login()
 {
     qDebug()<<"login";
-    emit loginStarted();
 
     if (m_process)
-        m_process->deleteLater();
+        return; //TODO: why do we call login() again?!?
 
-#ifndef Q_OS_WIN
-    m_process=new KPtyProcess(this);
-    m_process->setPtyChannels(KPtyProcess::StdinChannel|KPtyProcess::StdoutChannel);
-    m_process->pty()->setEcho(false);
-    connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
-#else
-    m_process=new KProcess(this);
-    m_process->setOutputChannelMode(KProcess::SeparateChannels);
-    connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
-#endif
+    emit loginStarted();
+    QStringList arguments;
+    arguments << QLatin1String("--quiet"); //Suppress Maxima start-up message
+    const QString initFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
+    arguments << QLatin1String("--init-lisp=") + initFile; //Set the name of the Lisp initialization file
 
-    m_process->setProgram(MaximaSettings::self()->path().toLocalFile());
-    m_process->start();
+    m_process = new QProcess(this);
+    m_process->start(MaximaSettings::self()->path().toLocalFile(), arguments);
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
+    qDebug()<<m_process->readAllStandardOutput();
 
     connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+    connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
-    const QString initFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
-    write(initCmd.arg(initFile));
+    //TODO
+//     if(!MaximaSettings::self()->autorunScripts().isEmpty()){
+//         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String("\n"));
+//         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish);
+// //         runFirstExpression();
+//     }
 
-    Cantor::Expression* expr=evaluateExpression(QLatin1String("print(____END_OF_INIT____);"),
-                                                Cantor::Expression::DeleteOnFinish);
-
-    expr->setInternal(true);
-    //check if we actually landed in the queue and there wasn't some
-    //error beforehand instead
-    if(m_expressionQueue.contains(dynamic_cast<MaximaExpression*>(expr)))
-    {
-        //move this expression to the front
-        m_expressionQueue.prepend(m_expressionQueue.takeLast());
-    }
-
-    m_initState=MaximaSession::Initializing;
-
-    if(!MaximaSettings::self()->autorunScripts().isEmpty()){
-        QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String("\n"));
-        evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish);
-    }
-
-    runFirstExpression();
-
+    changeStatus(Cantor::Session::Done);
     emit loginDone();
+    qDebug()<<"login done";
 }
 
 void MaximaSession::logout()
@@ -193,43 +165,32 @@ void MaximaSession::readStdErr()
 
 void MaximaSession::readStdOut()
 {
-    if (!m_process)
+    QString out = QLatin1String(m_process->readAllStandardOutput());
+    m_cache += out;
+
+    //collect the multi-line output until Maxima has finished the calculation and returns a new promt
+    if ( !out.contains(QLatin1String("</cantor-prompt>")) )
         return;
-#ifndef Q_OS_WIN
-    QString out=QLatin1String(m_process->pty()->readAll());
-#else
-    QString out=QLatin1String(m_process->readAllStandardOutput());
-#endif
-
-    out.remove(QLatin1Char('\r'));
-
-    qDebug() << "std out: " << out;
-
-    m_cache+=out;
-
-    bool parsingSuccessful=true;
 
     if(m_expressionQueue.isEmpty())
     {
-        qDebug()<<"got output without active expression. dropping: "<<endl
-                <<m_cache;
+        //queue is empty, interrupt was called, nothing to do here
+        qDebug()<<m_cache;
         m_cache.clear();
         return;
     }
 
-    MaximaExpression* expr=m_expressionQueue.first();
+    MaximaExpression* expr = m_expressionQueue.first();
+    if (!expr)
+        return; //should never happen
 
-    if(expr)
-        parsingSuccessful=expr->parseOutput(m_cache);
+    qDebug()<<"start parsing " << "  " << m_cache;
+    if(expr->parseOutput(m_cache))
+        qDebug()<<"parsing successful";
     else
-        parsingSuccessful=false;
+        qDebug() << "failed to parse";
 
-    if(parsingSuccessful)
-    {
-        qDebug()<<"parsing successful. dropping "<<m_cache;
-        m_cache.clear();
-    }
-
+    m_cache.clear();
 }
 
 void MaximaSession::killLabels()
@@ -253,26 +214,6 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 {
     MaximaExpression* expression=m_expressionQueue.first();
     qDebug() << expression << status;
-
-    if(m_initState==MaximaSession::Initializing
-       && expression->command().contains( QLatin1String("____END_OF_INIT____")))
-    {
-        qDebug()<<"initialized";
-        m_expressionQueue.removeFirst();
-
-        m_initState=MaximaSession::Initialized;
-        m_cache.clear();
-
-        runFirstExpression();
-
-        //QTimer::singleShot(0, this, SLOT(killLabels()));
-        killLabels();
-
-        changeStatus(Cantor::Session::Done);
-
-        return;
-    }
-
 
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
@@ -308,12 +249,6 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 
 void MaximaSession::runFirstExpression()
 {
-    if(m_initState==MaximaSession::NotInitialized)
-    {
-        qDebug()<<"not ready to run expression";
-        return;
-
-    }
     qDebug()<<"running next expression";
     if (!m_process)
         return;
@@ -348,8 +283,6 @@ void MaximaSession::interrupt()
 
 void MaximaSession::interrupt(MaximaExpression* expr)
 {
-    Q_ASSERT(!m_expressionQueue.isEmpty());
-
     if(expr==m_expressionQueue.first())
     {
         qDebug()<<"interrupting " << expr->command();
@@ -437,10 +370,5 @@ QAbstractItemModel* MaximaSession::variableModel()
 
 void MaximaSession::write(const QString& exp) {
     qDebug()<<"sending expression to maxima process: " << exp << endl;
-#ifndef Q_OS_WIN
-    m_process->pty()->write(exp.toUtf8());
-#else
     m_process->write(exp.toUtf8());
-#endif
 }
-

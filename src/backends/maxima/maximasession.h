@@ -41,7 +41,6 @@ class MaximaSession : public Cantor::Session
     static const QRegExp MaximaOutputPrompt;
 
     MaximaSession( Cantor::Backend* backend);
-    ~MaximaSession() override;
 
     void login() Q_DECL_OVERRIDE;
     void logout() Q_DECL_OVERRIDE;
@@ -76,20 +75,12 @@ class MaximaSession : public Cantor::Session
     void reportProcessError(QProcess::ProcessError error);
 
   private:
-      void write(const QString&);
+    void write(const QString&);
 
-//windows doesn't support Pty
-#ifdef Q_OS_WIN
-    KProcess* m_process;
-#else
-    KPtyProcess* m_process;
-#endif
+    QProcess* m_process;
     QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
     MaximaVariableModel* m_variableModel;
-
-    enum InitState{NotInitialized, Initializing, Initialized};
-    InitState m_initState;
     bool m_justRestarted;
 };
 
