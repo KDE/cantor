@@ -223,7 +223,7 @@ void ImageEntry::updateEntry()
         }
 
         if (!m_imageItem->imageIsValid()) {
-            const QString msg = i18n("Cannot load image %1").arg(m_imagePath);
+            const QString msg = i18n("Cannot load image %1", m_imagePath);
             m_textItem->setPlainText(msg);
             m_textItem->setVisible(true);
             m_imageItem->setVisible(false);
