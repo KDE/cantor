@@ -91,38 +91,27 @@ void MaximaSession::logout()
     if(!m_process)
         return;
 
-    disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+    disconnect(m_process, 0, this, 0);
 
-    if(status()==Cantor::Session::Done)
-    {
-        write(QLatin1String("quit();\n"));
+//     if(status()==Cantor::Session::Running)
+        //TODO: terminate the running expressions first
 
-#ifdef Q_OS_WIN
-        //Give maxima time to clean up
-        qDebug()<<"waiting for maxima to finish";
+    write(QLatin1String("quit();\n"));
+    qDebug()<<"waiting for maxima to finish";
+    m_process->waitForFinished();
+    qDebug()<<"maxima exit finished";
 
-        m_process->waitForFinished();
-#endif
-    }
-    else
-    {
-        m_expressionQueue.clear();
-    }
-
-    //if it is still running, kill just kill it
-    if(m_process->state()!=QProcess::NotRunning)
+    if(m_process->state() != QProcess::NotRunning)
     {
         m_process->kill();
+        qDebug()<<"maxima still running, process kill enforced";
     }
 
-    qDebug()<<"done logging out";
-
-    delete m_process;
-    m_process=nullptr;
-
-    qDebug()<<"destroyed maxima";
-
     m_expressionQueue.clear();
+    delete m_process;
+    m_process = nullptr;
+
+    qDebug()<<"login done";
 }
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)

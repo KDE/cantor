@@ -122,12 +122,32 @@ void OctaveSession::login()
 
 void OctaveSession::logout()
 {
-    qDebug() << "logout";
+    qDebug()<<"logout";
+
+    if(!m_process)
+        return;
+
+    disconnect(m_process, 0, this, 0);
+
+//     if(status()==Cantor::Session::Running)
+        //TODO: terminate the running expressions first
+
     m_process->write("exit\n");
-    if (!m_process->waitForFinished(1000))
+    qDebug()<<"waiting for octave to finish";
+    m_process->waitForFinished();
+    qDebug()<<"octave exit finished";
+
+    if(m_process->state() != QProcess::NotRunning)
     {
         m_process->kill();
+        qDebug()<<"octave still running, process kill enforced";
     }
+
+    m_expressionQueue.clear();
+    delete m_process;
+    m_process = nullptr;
+
+    qDebug()<<"login done";
 }
 
 void OctaveSession::interrupt()
@@ -144,7 +164,6 @@ void OctaveSession::interrupt()
 #else
       //TODO: interrupt the process on windows
 #endif
-    changeStatus(Done);
 }
 
 void OctaveSession::processError()
