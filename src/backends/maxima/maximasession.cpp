@@ -80,7 +80,6 @@ void MaximaSession::login()
 // //         runFirstExpression();
 //     }
 
-    changeStatus(Cantor::Session::Done);
     emit loginDone();
     qDebug()<<"login done";
 }

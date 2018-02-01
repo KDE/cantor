@@ -90,12 +90,18 @@ void OctaveSession::login()
     args << QLatin1String("____TMP_DIR____ = tempdir");
 
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
-    qDebug() << m_process->program();
+    qDebug() << "starting " << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
+
+
+    m_process->start();
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
+    qDebug()<<m_process->readAllStandardOutput();
+
     connect ( m_process, SIGNAL ( readyReadStandardOutput() ), SLOT ( readOutput() ) );
     connect ( m_process, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
     connect ( m_process, SIGNAL ( error ( QProcess::ProcessError ) ), SLOT ( processError() ) );
-    m_process->start();
 
     if (OctaveSettings::integratePlots())
     {
@@ -109,6 +115,9 @@ void OctaveSession::login()
 
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish);
     }
+
+    emit loginDone();
+    qDebug()<<"login done";
 }
 
 void OctaveSession::logout()
@@ -195,6 +204,7 @@ void OctaveSession::readOutput()
             return;
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
+        qDebug()<<"start parsing " << "  " << line;
         if (!m_currentExpression)
         {
             if (m_prompt.isEmpty() && line.contains(QLatin1String(":1>")))
