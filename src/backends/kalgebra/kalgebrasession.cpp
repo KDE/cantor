@@ -98,6 +98,7 @@ OperatorsModel* KAlgebraSession::operatorsModel()
 
 QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
 {
+    Q_UNUSED(parent);
     //return new AlgebraHighlighter(parent->document());
     // TODO: Think of something better here.
     return new AlgebraHighlighter(NULL);

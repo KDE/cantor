@@ -31,10 +31,10 @@ class KAlgebraVariableManagementExtension : public Cantor::VariableManagementExt
 
   public Q_SLOTS:
     QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
-    QString setValue(const QString& name,const QString& value) Q_DECL_OVERRIDE;
-    QString removeVariable(const QString& name) Q_DECL_OVERRIDE { return QString(); }
-    QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE { return QString(); }
-    QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE { return QString(); }
+    QString setValue(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString removeVariable(const QString&) Q_DECL_OVERRIDE { return QString(); }
+    QString saveVariables(const QString&) Q_DECL_OVERRIDE { return QString(); }
+    QString loadVariables(const QString&) Q_DECL_OVERRIDE { return QString(); }
     QString clearVariables() Q_DECL_OVERRIDE { return QString(); }
 };
 
