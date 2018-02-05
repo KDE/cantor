@@ -581,6 +581,7 @@ void CantorPart::worksheetSessionLoginStarted() {
 }
 
 void CantorPart::worksheetSessionLoginDone() {
+    setStatusMessage(i18n("Ready"));
     QApplication::restoreOverrideCursor();
 }
 
