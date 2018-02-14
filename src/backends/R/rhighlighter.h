@@ -31,27 +31,9 @@ class RHighlighter : public Cantor::DefaultHighlighter
     RHighlighter( QObject* parent);
     ~RHighlighter();
 
-  protected:
-    void highlightBlock(const QString &text);
-
   public Q_SLOTS:
-    void refreshSyntaxRegExps();
+    void updateHighlighter();
 
-  Q_SIGNALS:
-    void syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&);
-
-  private:
-    inline void formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);
-    inline void massFormat(const QVector<QRegExp>& rules, const QTextCharFormat &fmt, const QString& text,bool shift=false);
-
-    static const QStringList keywords_list;
-    static const QStringList operators_list;
-    static const QStringList specials_list;
-    QVector<QRegExp> keywords;
-    QVector<QRegExp> operators;
-    QVector<QRegExp> specials;
-    QVector<QRegExp> functions;
-    QVector<QRegExp> variables;
 };
 
 #endif /* _RHIGHLIGHTER_H */

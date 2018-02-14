@@ -48,12 +48,11 @@ public:
 
     void runExpression(RExpression* expr);
 
-protected Q_SLOTS:
-    void receiveSymbols(const QStringList& v, const QStringList & f);
-    void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
+private:
+    void loadBuiltIns();
 
 Q_SIGNALS:
-    void symbolsChanged();
+    void updateHighlighter();
 
 
 public Q_SLOTS:
@@ -61,15 +60,14 @@ public Q_SLOTS:
     void readError();
     void processStarted();
     void currentExpressionStatusChanged(Cantor::Expression::Status status);
+    void readBuiltInsOutput();
 
 private:
     QProcess* m_Process;
     RExpression* m_CurrentExpression;
     QString m_Output;
     QString m_Error;
-    /* Available variables and functions, TODO make full classes and type info */
-    QStringList m_variables;
-    QStringList m_functions;
+
 };
 
 #endif /* _RSESSION_H */

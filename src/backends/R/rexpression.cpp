@@ -100,14 +100,17 @@ void RExpression::parseOutput(QString output)
 
 void RExpression::parseError(QString error)
 {
-    error.replace(command(), QLatin1String(""));
-    error.replace(QLatin1String(">"), QLatin1String(""));
-    error = error.trimmed();
+    if(!error.isEmpty()) {
 
-    setResult(new Cantor::TextResult(error));
+        error.replace(command(), QLatin1String(""));
+        error.replace(QLatin1String(">"), QLatin1String(""));
+        error = error.trimmed();
 
-    setStatus(Cantor::Expression::Error);
-    setErrorMessage(error);
+        setResult(new Cantor::TextResult(error));
+
+        setStatus(Cantor::Expression::Error);
+        setErrorMessage(error);
+    }
 }
 
 void RExpression::interrupt()

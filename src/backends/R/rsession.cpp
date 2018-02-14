@@ -22,6 +22,7 @@
 #include "rexpression.h"
 #include "rcompletionobject.h"
 #include "rhighlighter.h"
+#include "rkeywords.h"
 
 #include <QTimer>
 #include <QDebug>
@@ -64,22 +65,55 @@ void RSession::login()
     /*
      * interactive - forcing an interactive session
      * quiet - don't print the startup message
-     * no-save -  don't save the workspace after the end of session(when users quits). Should the user  be allowed to save the session?
+     * no-save -  don't save the workspace after the end of session(when users quits). Should the user  be
+     * allowed to save the session ?
      */
     args.append(QLatin1String("--interactive"));
     args.append(QLatin1String("--quiet"));
     args.append(QLatin1String("--no-save"));
     m_Process->setArguments(args);
 
-    connect(m_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
-    connect(m_Process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     connect(m_Process, SIGNAL(started()), this, SLOT(processStarted()));
-
+    connect(m_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(readBuiltInsOutput()));
 
     m_Process->start();
 
 }
 
+void RSession::loadBuiltIns()
+{
+    /*
+     * ‘apropos()’ returns a character vector giving the names of objects
+     * in the search list matching (as a regular expression) ‘what’
+     * For apropos(''), a complete list of names of objects in the symbol table will be returned.
+     * The list contains functions, keywords, operators
+     */
+    QString query = QLatin1String("apropos('')");
+    query += QLatin1String("\n");
+
+    m_Output.clear();
+
+    m_Process->write(query.toLocal8Bit());
+
+}
+
+void RSession::readBuiltInsOutput()
+{
+    while(m_Process->bytesAvailable()) {
+        m_Output.append(QString::fromLocal8Bit(m_Process->readLine()));
+    }
+
+    if(!m_Output.isEmpty() && m_Output.trimmed().endsWith(QLatin1String(">"))){
+        RKeywords::getInstance()->setupBuiltIns(m_Output);
+        qDebug() << RKeywords::getInstance()->getFunctions().size();
+        m_Output.clear();
+        disconnect(m_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(readBuiltInsOutput()));
+        connect(m_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
+        connect(m_Process, SIGNAL(readyReadStandardOutput()), this, SLOT(readError()));
+
+        emit updateHighlighter();
+    }
+}
 
 void RSession::readOutput()
 {
@@ -103,7 +137,14 @@ void RSession::readError()
 void RSession::processStarted()
 {
     qDebug() << m_Process->program() << " with pid " <<  m_Process->processId() << " started successfully " << endl;
+
+    m_Process->readAllStandardOutput().clear();
+    m_Process->readAllStandardError().clear();
+
+    loadBuiltIns();
+
     emit ready();
+
 }
 
 void RSession::logout()
@@ -129,7 +170,7 @@ void RSession::interrupt()
 Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
 {
     qDebug()<<"evaluating: "<<cmd;
-    changeStatus(Cantor::Session::Running);    
+    changeStatus(Cantor::Session::Running);
     RExpression* expr=new RExpression(this);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
@@ -193,32 +234,12 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command, int in
 QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
 {
     RHighlighter *h=new RHighlighter(parent);
-    connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));
-    connect(this,SIGNAL(symbolsChanged()),h,SLOT(refreshSyntaxRegExps()));
+
+    connect(this, SIGNAL(updateHighlighter()), h, SLOT(updateHighlighter()));
+
     return h;
 }
 
-void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
-{
-    // WARNING: current implementation as-in-maxima is a performance hit
-    // think about grouping expressions together or only fetching needed ones
-    v.clear(); f.clear();
-
-    foreach (const QString s, m_variables)
-        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
-            v.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
-    foreach (const QString s, m_functions)
-        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
-            f.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
-}
-
-void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
-{
-    m_variables=v;
-    m_functions=f;
-
-    emit symbolsChanged();
-}
 
 
 #include "rsession.moc"

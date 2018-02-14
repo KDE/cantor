@@ -11,6 +11,7 @@ set( RBackend_SRCS
  rcompletionobject.cpp
  rhighlighter.cpp
  rsettingswidget.cpp
+ rkeywords.cpp
 )
 
 kconfig_add_kcfg_files(RBackend_SRCS settings.kcfgc)
