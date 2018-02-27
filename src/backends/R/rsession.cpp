@@ -27,7 +27,9 @@
 #include <QDebug>
 #include <KProcess>
 
+#ifndef Q_OS_WIN
 #include <signal.h>
+#endif
 
 RSession::RSession( Cantor::Backend* backend) : Session(backend)
 {
@@ -73,9 +75,16 @@ void RSession::logout()
 
 void RSession::interrupt()
 {
-    qDebug()<<"interrupt" << m_rProcess->pid();
-    if (m_rProcess->pid())
-	kill(m_rProcess->pid(), 2);
+    const int pid = m_rProcess->pid();
+    qDebug()<<"interrupt" << pid;
+    if (pid)
+    {
+#ifndef Q_OS_WIN
+        kill(pid, SIGINT);
+#else
+      //TODO: interrupt the process on windows
+#endif
+    }
     m_expressionQueue.removeFirst();
     changeStatus(Cantor::Session::Done);
 }

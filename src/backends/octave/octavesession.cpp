@@ -35,7 +35,10 @@
 #include "octavehighlighter.h"
 #include <settings.h>
 
+#ifndef Q_OS_WIN
 #include <signal.h>
+#endif
+
 #include <defaultvariablemodel.h>
 
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),

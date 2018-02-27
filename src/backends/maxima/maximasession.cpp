@@ -34,7 +34,11 @@
 
 #include <KMessageBox>
 #include <KLocalizedString>
+
+#ifndef Q_OS_WIN
 #include <signal.h>
+#endif
+
 
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
