@@ -22,7 +22,7 @@
 
 #include <QAction>
 #include <QIcon>
-
+#include <QStyle>
 #include <QDialog>
 #include <KActionCollection>
 #include <KConfigGroup>
