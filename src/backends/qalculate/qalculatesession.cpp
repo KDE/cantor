@@ -69,7 +69,6 @@ void QalculateSession::login()
 {
     emit loginStarted();
 
-
     /* we will , most probably, use autoscripts for setting the mode , evaulate options, print options etc */
 
     // if(!QalculateSettings::autorunScripts().isEmpty()){
@@ -92,6 +91,8 @@ void QalculateSession::login()
     connect(m_process, SIGNAL(started()), this, SLOT(processStarted()));
 
     m_process->start();
+
+    emit loginDone();
 }
 
 void QalculateSession::readOutput()
