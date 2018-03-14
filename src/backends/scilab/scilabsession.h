@@ -30,7 +30,7 @@ namespace Cantor {
 
 class ScilabExpression;
 class KDirWatch;
-class KProcess;
+class QProcess;
 
 class ScilabSession : public Cantor::Session
 {
@@ -62,7 +62,7 @@ class ScilabSession : public Cantor::Session
         void updateVariableHighlighter();
 
     private:
-        KProcess* m_process;
+        QProcess* m_process;
         KDirWatch* m_watch;
         QStringList m_listPlotName;
         QString m_output;

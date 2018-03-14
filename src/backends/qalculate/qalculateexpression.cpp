@@ -66,16 +66,20 @@ QalculateExpression::~QalculateExpression()
 
 void QalculateExpression::evaluate()
 {
+    /*
+        Use Api for:
+        * help
+        * plot
+        Use qalc for any other command
+    */
     setStatus(Cantor::Expression::Computing);
-    m_message = QLatin1String("");
-
     if (command().isEmpty()) {
+        setStatus(Cantor::Expression::Done);
         return;
     }
 
-    QStringList commands=command().split(QLatin1Char('\n'));
-    QString resultString;
 
+    QStringList commands = command().split(QLatin1Char('\n'));
     foreach(const QString& command, commands)
     {
         if (command.contains(QLatin1String("help"))) {
@@ -90,156 +94,50 @@ void QalculateExpression::evaluate()
             evaluatePlotCommand();
             return;
         }
-        else if (command.trimmed().startsWith(QLatin1String("saveVariables")) &&
-                 (command.indexOf(QLatin1String("saveVariables"))+13 == command.size() ||
-                  command[command.indexOf(QLatin1String("saveVariables"))+13].isSpace())) {
-            evaluateSaveVariablesCommand();
-            return;
-        }
-        else if (command.trimmed().startsWith(QLatin1String("loadVariables")) &&
-                 (command.indexOf(QLatin1String("loadVariables"))+13 == command.size() ||
-                  command[command.indexOf(QLatin1String("loadVariables"))+13].isSpace())) {
-            evaluateLoadVariablesCommand();
-            return;
-        }
-
-        string expression = unlocalizeExpression(command);
-
-        qDebug() << "EXPR: " << QLatin1String(expression.c_str());
-
-        EvaluationOptions eo = evaluationOptions();
-
-        MathStructure result = CALCULATOR->calculate(expression, eo);
-
-        // update the answer variables
-        static_cast<QalculateSession*>(session())->setLastResult(result);
-
-        // error handling
-        if (checkForCalculatorMessages() & (MSG_WARN | MSG_WARN))
-            return;
-
-        updateVariables(CALCULATOR->parse(expression, eo.parse_options));
-
-        QSharedPointer<PrintOptions> po = printOptions();
-
-        result.format(*po);
-
-        resultString+=QLatin1String(result.print(*po).c_str()) + QLatin1Char('\n');
-
     }
+    // we are here because the commands entered by user are regular commands. We would have returned by now otherwise
+    QalculateSession* currentSession = dynamic_cast<QalculateSession*>(session());
+    currentSession->runExpression();
 
-    setResult(new Cantor::TextResult(resultString));
-    setStatus(Done);
 }
 
-void QalculateExpression::evaluateSaveVariablesCommand()
+void QalculateExpression::parseOutput(QString& output)
 {
-    QString argString = command().mid(command().indexOf(QLatin1String("saveVariables"))+13);
-    argString = argString.trimmed();
+    output.remove(QLatin1String(">"));
+    output = output.trimmed();
 
-    QString usage = i18n("Usage: saveVariables file");
-
-    QString fileName = parseForFilename(argString, usage);
-    if (fileName.isNull())
-	return;
-
-    // We want to save Temporary variables, but Qalculate does not.
-    std::vector<Variable*> variables = CALCULATOR->variables;
-    // If somebody saves his variables in Cantor_Internal_Temporary
-    // he deserves unexpected behavior.
-    std::string tmpCategory = "Temporary";
-    std::string newCategory = "Cantor_Internal_Temporary";
-    for (size_t i = 0; i < variables.size(); ++i) {
-	if (variables[i]->category() == tmpCategory)
-	    variables[i]->setCategory(newCategory);
-    }
-
-    int res = CALCULATOR->saveVariables(fileName.toLatin1().data());
-
-    for (size_t i = 0; i < variables.size(); ++i) {
-        if (variables[i]->category() == newCategory)
-            variables[i]->setCategory(tmpCategory);
-    }
-
-
-    if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
-	return;
-    }
-    if (res < 0) {
-	showMessage(i18n("Saving failed."), MESSAGE_ERROR);
-	return;
-    }
-
-    setStatus(Done);
+    qDebug() << "output from qalc for command: " << command() << " " << output << endl;
+    setResult(new Cantor::TextResult(output));
+    // update the variable model
+    updateVariables();
+    setStatus(Cantor::Expression::Done);
 }
 
-void QalculateExpression::evaluateLoadVariablesCommand()
+
+void QalculateExpression::updateVariables()
 {
-    QString argString = command().mid(command().indexOf(QLatin1String("loadVariables"))+13);
-    argString = argString.trimmed();
-
-    QString usage = i18n("Usage: loadVariables file");
-
-    QString fileName = parseForFilename(argString, usage);
-    if (fileName.isNull())
-	return;
-
-    int res = CALCULATOR->loadDefinitions(fileName.toLatin1().data());
-    if (checkForCalculatorMessages() & (MSG_WARN|MSG_ERR)) {
-	return;
+    QalculateSession* currentSession = dynamic_cast<QalculateSession*>(session());
+    QMap<QString,QString>  &variables = currentSession->variables;
+    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(currentSession->variableModel());
+    QMap<QString, QString>::const_iterator it = variables.constBegin();
+    while (it != variables.constEnd()) {
+        model->addVariable(it.key(), it.value());
+        ++it;
     }
-    if (res < 0) {
-	showMessage(i18n("Loading failed."), MESSAGE_ERROR);
-	return;
-    }
-
-    // We have to store temporary variables in a different category
-    // (see parseSaveVariablesCommand())
-    std::vector<Variable*> variables = CALCULATOR->variables;
-    std::string tmpCategory = "Temporary";
-    std::string newCategory = "Cantor_Internal_Temporary";
-
-    for (size_t i = 0; i < variables.size(); ++i) {
-        if (variables[i]->category() == newCategory)
-            variables[i]->setCategory(tmpCategory);
-    }
-
-    setStatus(Done);
 }
 
-QString QalculateExpression::parseForFilename(QString argument, QString usage)
+void QalculateExpression::parseError(QString& error)
 {
-    if (argument.isEmpty()) {
-	showMessage(usage, MESSAGE_ERROR);
-	return QString();
-    }
+    error.remove(QLatin1String(">"));
+    error  = error.trimmed();
+    qDebug() << "Error from qalc for command: " << command() <<  " " << error << endl;
+    setErrorMessage(error);
+    setStatus(Cantor::Expression::Error);
+}
 
-    QString fileName = QLatin1String("");
-    QChar sep = QLatin1Char('\0');
-    int i = 0;
-    if (argument[0] == QLatin1Char('\'') || argument[0] == QLatin1Char('"')) {
-	sep = argument[0];
-	i = 1;
-    }
-    while (i < argument.size() && !argument[i].isSpace() &&
-	   argument[i] != sep) {
-	if (argument[i] == QLatin1Char('\\') && i < argument.size()-1)
-	    ++i;
-	fileName += argument[i];
-	++i;
-    }
-
-    if (sep != QLatin1Char('\0') && i == argument.size()) {
-	showMessage(i18n("missing %1", sep), MESSAGE_ERROR);
-	return QString();
-    }
-
-    if (i < argument.size() - 1) {
-	showMessage(usage, MESSAGE_ERROR);
-	return QString();
-    }
-
-    return fileName;
+void QalculateExpression::interrupt()
+{
+    setStatus(Cantor::Expression::Interrupted);
 }
 
 void QalculateExpression::evaluatePlotCommand()
@@ -937,31 +835,7 @@ std::string QalculateExpression::unlocalizeExpression(QString expr)
            );
 }
 
-void QalculateExpression::updateVariables(MathStructure command)
-{
-    Cantor::DefaultVariableModel* model =
-	static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-    QStack<MathStructure*> stack;
-    stack.push(&command);
-    QSharedPointer<PrintOptions> po = printOptions();
-    while (!stack.isEmpty()) {
-	MathStructure* current = stack.pop();
-	if (current->isFunction() && current->function()->name() == "save" &&
-	    current->countChildren() >= 2 && current->getChild(2)->isSymbolic())
-	{
-	    // I'd like to use CALCULATOR->getVariable and KnownVariable::get,
-	    // but that doesn't work for built in variables, as it keeps
-	    // returning the old value
-	    std::string name = current->getChild(2)->symbol();
-	    MathStructure m = CALCULATOR->calculate(name, evaluationOptions());
-	    m.format(*po);
-	    model->addVariable(QLatin1String(name.c_str()), QLatin1String(m.print(*po).c_str()));
-	}
-    for (size_t i = 0; i < current->countChildren(); ++i) {
-	    stack.push(current->getChild(i+1));
-	}
-    }
-}
+
 
 QSharedPointer<PrintOptions> QalculateExpression::printOptions()
 {
