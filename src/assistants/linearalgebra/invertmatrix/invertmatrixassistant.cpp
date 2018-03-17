@@ -21,9 +21,10 @@
 #include "invertmatrixassistant.h"
 
 #include <QAction>
-
 #include <QDialog>
 #include <QPushButton>
+#include <QStyle>
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include "cantor_macros.h"

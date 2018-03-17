@@ -22,9 +22,10 @@
 
 #include <QAction>
 #include <QIcon>
-
-#include <QPushButton>
 #include <QDialog>
+#include <QPushButton>
+#include <QStyle>
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include "ui_integratedlg.h"

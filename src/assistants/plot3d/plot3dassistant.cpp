@@ -21,9 +21,10 @@
 #include "plot3dassistant.h"
 
 #include <QAction>
-
 #include <QDialog>
 #include <QPushButton>
+#include <QStyle>
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include "ui_plot3ddlg.h"

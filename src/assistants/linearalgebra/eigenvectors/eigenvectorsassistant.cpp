@@ -21,8 +21,10 @@
 #include "eigenvectorsassistant.h"
 
 #include <QAction>
-#include <QPushButton>
 #include <QDialog>
+#include <QPushButton>
+#include <QStyle>
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include "cantor_macros.h"

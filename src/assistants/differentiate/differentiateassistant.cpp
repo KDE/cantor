@@ -22,9 +22,10 @@
 
 #include <QAction>
 #include <QIcon>
-
 #include <QDialog>
 #include <QPushButton>
+#include <QStyle>
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include "ui_differentiatedlg.h"

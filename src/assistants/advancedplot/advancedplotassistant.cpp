@@ -21,10 +21,11 @@
 #include "advancedplotassistant.h"
 
 #include <QAction>
-
-#include <QVBoxLayout>
-#include <QPushButton>
 #include <QDialog>
+#include <QPushButton>
+#include <QStyle>
+#include <QVBoxLayout>
+
 #include <KActionCollection>
 #include <KConfigGroup>
 #include "ui_advancedplotdialog.h"
