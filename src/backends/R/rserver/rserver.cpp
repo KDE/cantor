@@ -29,7 +29,6 @@
 #include "settings.h"
 
 #include <QDir>
-
 #include <QUrl>
 #include <QDebug>
 #include <KLocalizedString>
@@ -84,11 +83,8 @@ bool htmlVector(SEXP expr, QTextStream& fp)
 RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
     new RAdaptor(this);
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerObject(QLatin1String("/R"),  this);
 
     QDir dir;
-
     dir.mkdir(QDir::tempPath() + QString::fromLatin1("/cantor/rserver-%1").arg(getpid()));
     m_tmpDir=QDir::tempPath() + QString::fromLatin1("/cantor/rserver-%1").arg(getpid());
     qDebug()<<"storing plots at "<<m_tmpDir;

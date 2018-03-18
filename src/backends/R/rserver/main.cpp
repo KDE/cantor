@@ -16,49 +16,40 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2018 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "rserver.h"
 
 #include <QApplication>
-#include <KAboutData>
-#include <QCommandLineParser>
-#include <KLocalizedString>
-#include <KConfigGroup>
-
-static const char description[] =
-    I18N_NOOP("Server for the Cantor R Backend");
-
-static const char version[] = "0.1";
+#include <QDBusConnection>
+#include <QDBusError>
+#include <QDebug>
+#include <QTextStream>
 
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-    app.setApplicationName(QLatin1String("R Server"));
-    app.setOrganizationDomain(QLatin1String("kde.org"));
-    app.setApplicationDisplayName(i18n("R Server"));
+    if (!QDBusConnection::sessionBus().isConnected()) {
+        qWarning() << "Can't connect to the D-Bus session bus.\n"
+                      "To start it, run: eval `dbus-launch --auto-syntax`";
+        return 1;
+    }
 
-    KAboutData about(QLatin1String("cantor_rserver"),
-                     QLatin1String("cantor_rserver"),
-                     QLatin1String(version),
-                     i18n(description),
-                     KAboutLicense::GPL,
-                     i18n("(C) 2009 Alexander Rieder"),
-                     QString(),
-                     QLatin1String("alexanderrieder@gmail.com"));
+    const QString &serviceName =
+        QString::fromLatin1("org.kde.Cantor.R-%1").arg(app.applicationPid());
 
-    about.addAuthor( i18n("Alexander Rieder"), QString(), QLatin1String("alexanderrieder@gmail.com") );
-    KAboutData::setApplicationData(about);
+    if (!QDBusConnection::sessionBus().registerService(serviceName)) {
+        qWarning() << QDBusConnection::sessionBus().lastError().message();
+        return 2;
+    }
 
-    QCommandLineParser parser;
-
-    about.setupCommandLine(&parser);
-    parser.process(app);
-    about.processCommandLine(&parser);
-
-    new RServer();
+    RServer server;
+    QDBusConnection::sessionBus().registerObject(
+        QLatin1String("/"),
+        &server
+    );
 
     return app.exec();
 }
-

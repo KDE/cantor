@@ -28,7 +28,7 @@
 #include "rserver_interface.h"
 
 class RExpression;
-class KProcess;
+class QProcess;
 
 class RSession : public Cantor::Session
 {
@@ -58,9 +58,8 @@ class RSession : public Cantor::Session
   Q_SIGNALS:
     void symbolsChanged();
 
-
   private:
-    KProcess* m_rProcess;
+    QProcess* m_process;
     org::kde::Cantor::R* m_rServer;
     QList<RExpression*> m_expressionQueue;
 

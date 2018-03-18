@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2018 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "rsession.h"
@@ -31,16 +32,14 @@
 #include <signal.h>
 #endif
 
-RSession::RSession( Cantor::Backend* backend) : Session(backend)
+RSession::RSession(Cantor::Backend* backend) : Session(backend), m_process(nullptr), m_rServer(nullptr)
 {
-    qDebug();
-    m_rProcess=0;
 }
 
 RSession::~RSession()
 {
     qDebug();
-    m_rProcess->terminate();
+    m_process->terminate();
 }
 
 void RSession::login()
@@ -48,34 +47,33 @@ void RSession::login()
     qDebug()<<"login";
     emit loginStarted();
 
-    if(m_rProcess)
-        m_rProcess->deleteLater();
-    m_rProcess=new KProcess(this);
-    m_rProcess->setOutputChannelMode(KProcess::ForwardedChannels);
+    if(m_process)
+        m_process->deleteLater();
 
-    (*m_rProcess)<<QStandardPaths::findExecutable( QLatin1String("cantor_rserver") );
+    m_process = new QProcess(this);
+    m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
+    qDebug()<<m_process->readAllStandardOutput();
 
-    m_rProcess->start();
-
-    m_rServer=new org::kde::Cantor::R(QString::fromLatin1("org.kde.cantor_rserver-%1").arg(m_rProcess->pid()),  QLatin1String("/R"), QDBusConnection::sessionBus(), this);
+    m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
     connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),this,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
 
-    changeStatus(Cantor::Session::Done);
-
-    connect(m_rServer, SIGNAL(ready()), this, SIGNAL(loginDone()));
+    emit loginDone();
+    qDebug()<<"login done";
 }
 
 void RSession::logout()
 {
     qDebug()<<"logout";
-    m_rProcess->terminate();
+    m_process->terminate();
 }
 
 void RSession::interrupt()
 {
-    const int pid = m_rProcess->pid();
+    const int pid = m_process->pid();
     qDebug()<<"interrupt" << pid;
     if (pid)
     {
@@ -186,7 +184,6 @@ void RSession::runNextExpression()
     connect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), expr, SLOT(showFilesAsResult(const QStringList&)));
 
     m_rServer->runCommand(expr->command());
-
 }
 
 void RSession::sendInputToServer(const QString& input)
@@ -196,4 +193,3 @@ void RSession::sendInputToServer(const QString& input)
         s+=QLatin1Char('\n');
     m_rServer->answerRequest(s);
 }
-
