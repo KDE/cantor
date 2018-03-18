@@ -15,7 +15,7 @@ set(KF5_MIN_VERSION "5.15.0")
 find_package(ECM 5.15.0 REQUIRED CONFIG)
 set(CMAKE_MODULE_PATH ${cantor_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 
-find_package(Qt5 CONFIG REQUIRED
+find_package(Qt5 5.6.0 CONFIG REQUIRED
     Core
     Widgets
     PrintSupport
