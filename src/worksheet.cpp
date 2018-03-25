@@ -762,6 +762,11 @@ void Worksheet::enableHighlighting(bool highlight)
     {
         if(m_highlighter)
             m_highlighter->deleteLater();
+
+        //octave highligther fetches the funcitons names from ocate -> we need to login here
+        if (!m_loginDone && m_session->backend()->name() == QLatin1String("Octave"))
+            loginToSession();
+
         m_highlighter=session()->syntaxHighlighter(this);
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);
