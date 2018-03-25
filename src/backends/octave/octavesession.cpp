@@ -92,26 +92,25 @@ void OctaveSession::login()
     args << QLatin1String("--eval");
     args << QLatin1String("____TMP_DIR____ = tempdir");
 
-    m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
-    qDebug() << "starting " << m_process->program();
-    m_process->setOutputChannelMode ( KProcess::SeparateChannels );
-
-
-    m_process->start();
-    m_process->waitForStarted();
-    m_process->waitForReadyRead();
-    qDebug()<<m_process->readAllStandardOutput();
-
-    connect ( m_process, SIGNAL ( readyReadStandardOutput() ), SLOT ( readOutput() ) );
-    connect ( m_process, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
-    connect ( m_process, SIGNAL ( error ( QProcess::ProcessError ) ), SLOT ( processError() ) );
-
     if (OctaveSettings::integratePlots())
     {
         m_watch = new KDirWatch(this);
         m_watch->setObjectName(QLatin1String("OctaveDirWatch"));
         connect (m_watch, SIGNAL(dirty(QString)), SLOT(plotFileChanged(QString)) );
     }
+
+    // connect the signal and slots prior to staring octave to make sure we handle the very first output
+    // in parserOutput() to determine the temp folder and the format of the promt
+    connect ( m_process, SIGNAL ( readyReadStandardOutput() ), SLOT ( readOutput() ) );
+    connect ( m_process, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
+    connect ( m_process, SIGNAL ( error ( QProcess::ProcessError ) ), SLOT ( processError() ) );
+
+    m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
+    qDebug() << "starting " << m_process->program();
+    m_process->setOutputChannelMode ( KProcess::SeparateChannels );
+    m_process->start();
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
 
     if(!OctaveSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
@@ -227,19 +226,15 @@ void OctaveSession::readOutput()
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         qDebug()<<"start parsing " << "  " << line;
-        if (!m_currentExpression)
+        if (!m_currentExpression || m_prompt.isEmpty())
         {
+            // no expression is available, we're parsing the first output of octave after the start
+            // -> determine the location of the temporary folder and the format of octave's promt
             if (m_prompt.isEmpty() && line.contains(QLatin1String(":1>")))
             {
                 qDebug() << "Found Octave prompt:" << line;
                 line.replace(QLatin1String(":1"), QLatin1String(":[0-9]+"));
                 m_prompt.setPattern(line);
-                changeStatus(Done);
-                if (!m_expressionQueue.isEmpty())
-                {
-                    runExpression(m_expressionQueue.dequeue());
-                }
-                emit loginDone();
             }
             else if (line.contains(QLatin1String("____TMP_DIR____")))
             {
