@@ -22,6 +22,10 @@ ki18n_wrap_ui(QalculateBackend_SRCS settings.ui)
 
 add_backend(qalculatebackend ${QalculateBackend_SRCS})
 
-target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} )
+if (QALCULATE_VERSION VERSION_LESS 2.0.0)
+    target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
+else()
+    target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES})
+endif()
 
 install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
