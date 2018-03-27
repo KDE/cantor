@@ -471,7 +471,11 @@ void CantorPart::fileSaveAs()
 
     //depending on user's selection, save as a worksheet or as a plain script file
     if (selectedFilter == worksheetFilter)
+    {
+        if (!file_name.endsWith(QLatin1String(".cws")))
+            file_name += QLatin1String(".cws");
         saveAs(QUrl::fromLocalFile(file_name));
+    }
     else
         m_worksheet->savePlain(file_name);
 
