@@ -57,6 +57,8 @@ void LuaSession::login()
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readIntroMessage()));
     connect(m_process, SIGNAL(started()), this, SLOT(processStarted()));
     m_process->start();
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
 
     // we need this for tab completion
     m_L = luaL_newstate();
