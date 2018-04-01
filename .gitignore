@@ -10,8 +10,7 @@
 *~
 
 # Folder to compile source code
-build/
-build/*
+build*
 
 # cmake stuff
 *.cmake
