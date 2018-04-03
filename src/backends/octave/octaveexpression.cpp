@@ -67,7 +67,7 @@ void OctaveExpression::evaluate()
             }
         }
     }
-    if ( m_plotPending && !cmd.contains(QLatin1String("cantor_plot")))
+    if ( m_plotPending && !cmd.contains(QLatin1String("cantor_plot")) && !cmd.contains(QLatin1String(printCommand)))
     {
         // This was a manual plot, we have to add a print command
         if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
