@@ -1044,10 +1044,6 @@ void Worksheet::load(QIODevice* device)
         expressionChild = expressionChild.nextSiblingElement();
     }
 
-    //login to the session, but let Qt process all the events in its pipeline
-    //first.
-    QTimer::singleShot(0, this, SLOT(loginToSession()));
-
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
