@@ -1000,6 +1000,7 @@ void Worksheet::load(QIODevice* device)
     //cleanup the worksheet and all it contains
     delete m_session;
     m_session=nullptr;
+    m_loginDone = false;
 
     //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
