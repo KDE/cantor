@@ -66,7 +66,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
+            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
             imageFile->copyTo(dir);
             QUrl imageUrl = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(imageFile->name()));
             if(type==QLatin1String("latex"))
