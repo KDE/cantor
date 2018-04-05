@@ -67,6 +67,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_isPrinting = false;
     m_loginDone = false;
+    m_isLoadingFromFile = false;
 
     enableHighlighting(Settings::self()->highlightDefault());
     enableCompletion(Settings::self()->completionDefault());
@@ -238,6 +239,11 @@ void Worksheet::removeProtrusion(qreal width)
 bool Worksheet::isEmpty()
 {
     return !m_firstEntry;
+}
+
+bool Worksheet::isLoadingFromFile()
+{
+    return m_isLoadingFromFile;
 }
 
 void Worksheet::makeVisible(WorksheetEntry* entry)
@@ -996,6 +1002,7 @@ void Worksheet::load(QIODevice* device)
 
     }
 
+    m_isLoadingFromFile = true;
 
     //cleanup the worksheet and all it contains
     delete m_session;
@@ -1016,7 +1023,7 @@ void Worksheet::load(QIODevice* device)
 
     qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
-    WorksheetEntry* entry;
+    WorksheetEntry* entry = nullptr;
     while (!expressionChild.isNull()) {
         QString tag = expressionChild.tagName();
         if (tag == QLatin1String("Expression"))
@@ -1038,12 +1045,14 @@ void Worksheet::load(QIODevice* device)
         }
         else if (tag == QLatin1String("Image"))
         {
-          entry = appendImageEntry();
-          entry->setContent(expressionChild, file);
+            entry = appendImageEntry();
+            entry->setContent(expressionChild, file);
         }
 
         expressionChild = expressionChild.nextSiblingElement();
     }
+
+    m_isLoadingFromFile = false;
 
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default

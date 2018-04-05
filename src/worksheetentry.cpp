@@ -336,7 +336,7 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
             worksheet()->setModified();
         }
     } else if (opt != DoNothing) {
-        if (!isEmpty() || type() != CommandEntry::Type)
+        if (!isEmpty() && !worksheet()->isLoadingFromFile() || type() != CommandEntry::Type)
             worksheet()->appendCommandEntry();
         else
             focusEntry();
