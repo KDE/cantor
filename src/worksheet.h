@@ -83,6 +83,7 @@ class Worksheet : public QGraphicsScene
     void populateMenu(QMenu* menu, const QPointF& pos);
     EpsRenderer* epsRenderer();
     bool isEmpty();
+    bool isLoadingFromFile();
 
     WorksheetEntry* currentEntry();
     WorksheetEntry* firstEntry();
@@ -273,6 +274,7 @@ class Worksheet : public QGraphicsScene
     bool m_animationsEnabled;
     bool m_loginDone;
     bool m_isPrinting;
+    bool m_isLoadingFromFile;
 };
 
 #endif // WORKSHEET_H
