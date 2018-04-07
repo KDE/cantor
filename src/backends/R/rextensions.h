@@ -30,9 +30,9 @@ class RScriptExtension : public Cantor::ScriptExtension
     RScriptExtension(QObject* parent);
     ~RScriptExtension();
   public Q_SLOTS:
-    virtual QString runExternalScript(const QString& path);
-    virtual QString scriptFileFilter();
-    virtual QString highlightingMode();
+    QString runExternalScript(const QString& path)  override;
+    QString scriptFileFilter() override;
+    QString highlightingMode() override;
 };
 
 class RPlotExtension :  public Cantor::AdvancedPlotExtension,
@@ -43,11 +43,12 @@ class RPlotExtension :  public Cantor::AdvancedPlotExtension,
   public:
     RPlotExtension(QObject* parent);
     ~RPlotExtension() {}
-    QString accept(const Cantor::PlotTitleDirective& directive) const;
-    QString accept(const Cantor::OrdinateScaleDirective& directive) const;
-    QString accept(const Cantor::AbscissScaleDirective& directive) const;
+    QString accept(const Cantor::PlotTitleDirective&) const  override;
+    QString accept(const Cantor::OrdinateScaleDirective&) const override;
+    QString accept(const Cantor::AbscissScaleDirective&) const override;
+
   protected:
-    QString plotCommand() const { return QLatin1String("plot"); }
+    QString plotCommand() const  override { return QLatin1String("plot"); }
 };
 
 #endif /* _REXTENSIONS_H */

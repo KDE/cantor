@@ -47,8 +47,8 @@ protected:
     /**
      * @see Cantor::CompletionObject::mayIdentifierContain
      */
-    virtual bool mayIdentifierContain(QChar c) const;
-    virtual bool mayIdentifierBeginWith(QChar c) const;
+    bool mayIdentifierContain(QChar c) const override;
+    bool mayIdentifierBeginWith(QChar c) const override;
 
     /**
      * @see Cantor::CompletionObject::mayIdentifierBeginWith
@@ -58,5 +58,5 @@ protected Q_SLOTS:
     /**
      * @see Cantor::CompletionObject::fetchCompletions
      */
-    void fetchCompletions();
+    void fetchCompletions() override;
 };

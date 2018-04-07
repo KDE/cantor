@@ -32,7 +32,7 @@ class RHighlighter : public Cantor::DefaultHighlighter
     ~RHighlighter();
 
   protected:
-    void highlightBlock(const QString &text);
+    void highlightBlock(const QString &text) override;
 
   public Q_SLOTS:
     void refreshSyntaxRegExps();
