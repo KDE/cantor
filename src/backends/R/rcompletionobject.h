@@ -33,7 +33,7 @@ class RCompletionObject : public Cantor::CompletionObject
     ~RCompletionObject();
 
   protected Q_SLOTS:
-    void fetchCompletions();
+    void fetchCompletions() override;
     void receiveCompletions(const QString& token,const QStringList& options);
 
   Q_SIGNALS:

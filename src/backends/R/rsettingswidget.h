@@ -29,7 +29,7 @@ class RSettingsWidget : public QWidget,public Ui::RSettingsBase
 
   public:
     RSettingsWidget(QWidget *parent = 0);
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject*, QEvent*) override;
 
   public Q_SLOTS:
     void displayFileSelectionDialog();

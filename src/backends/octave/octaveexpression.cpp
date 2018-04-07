@@ -27,8 +27,6 @@
 #include <QFile>
 #include <helpresult.h>
 
-#include <config-cantorlib.h>
-
 
 static const char* printCommand = "cantor_print();";
 
@@ -38,9 +36,19 @@ OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session
     m_error(false)
 {
     m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
-                   << QLatin1String("polar") << QLatin1String("mesh") << QLatin1String("contour") << QLatin1String("bar")
-                   << QLatin1String("stairs") << QLatin1String("errorbar") << QLatin1String("surf") << QLatin1String("sombrero")
-                   << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow");
+                   << QLatin1String("polar") << QLatin1String("contour") << QLatin1String("bar")
+                   << QLatin1String("stairs") << QLatin1String("errorbar")  << QLatin1String("sombrero")
+                   << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow")
+                   << QLatin1String("stem") << QLatin1String("stem3") << QLatin1String("scatter") << QLatin1String("pareto") << QLatin1String("rose")
+                   << QLatin1String("pie") << QLatin1String("quiver") << QLatin1String("compass") << QLatin1String("feather")
+                   << QLatin1String("pcolor") << QLatin1String("area") << QLatin1String("fill") << QLatin1String("comet")
+                   /* 3d-plots */
+                   << QLatin1String("plot3")
+                   << QLatin1String("mesh") << QLatin1String("meshc") << QLatin1String("meshz")
+                   << QLatin1String("surf") << QLatin1String("surfc") << QLatin1String("surfl") << QLatin1String("surfnorm")
+                   << QLatin1String("isosurface")<< QLatin1String("isonormals") << QLatin1String("isocaps")
+                   /* 3d-plots defined by a function */
+                   << QLatin1String("ezplot3") << QLatin1String("ezmesh") << QLatin1String("ezmeshc") << QLatin1String("ezsurf") << QLatin1String("ezsurfc");
     m_plotCommands << QLatin1String("cantor_plot2d") << QLatin1String("cantor_plot3d");
 }
 
@@ -107,16 +115,9 @@ void OctaveExpression::parseOutput ( QString output )
 void OctaveExpression::parseError(QString error)
 {
     qDebug() << error;
-    if (false && error.contains(QLatin1String("warning")))
-    {
-        parseOutput(error);
-    }
-    else
-    {
-        m_error = true;
-        setErrorMessage(error);
-        setStatus(Error);
-    }
+    m_error = true;
+    setErrorMessage(error);
+    setStatus(Error);
 }
 
 void OctaveExpression::parsePlotFile(QString file)

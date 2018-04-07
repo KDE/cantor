@@ -28,17 +28,19 @@ class RExpression : public Cantor::Expression
   Q_OBJECT
   public:
     enum ServerReturnCode{SuccessCode=0, ErrorCode, InterruptedCode};
-    RExpression( Cantor::Session* session);
+    RExpression( Cantor::Session*);
     ~RExpression();
 
-    void evaluate();
-    void interrupt();
+    void evaluate() override;
+    void interrupt() override;
 
-    void addInformation(const QString& information);
+    void addInformation(const QString&) override;
+
   public Q_SLOTS:
     void finished(int returnCode, const QString& text);
     void evaluationStarted();
     void showFilesAsResult(const QStringList& files);
+
   private:
     bool m_isHelpRequest;
 };

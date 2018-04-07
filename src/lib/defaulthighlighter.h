@@ -119,19 +119,19 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * @endcode
      * @param conditions any Qt container of QRegExp or QString.
      */
-    template <class Container> void addRules(const Container& conditions, const QTextCharFormat& format);
+    void addRules(const QStringList& conditions, const QTextCharFormat& format);
     /**
      * Convenience method, equivalent to @code addRules(functions, functionFormat()) @endcode
      */
-    template <class Container> void addFunctions(const Container& functions);
+    void addFunctions(const QStringList& functions);
     /**
      * Convenience method, equivalent to @code addRules(variables, variableFormat()) @endcode
      */
-    template <class Container> void addVariables(const Container& variables);
+    void addVariables(const QStringList& variables);
     /**
      * Convenience method, equivalent to @code addRules(keywords, keywordFormat()) @endcode
      */
-    template <class Container> void addKeywords(const Container& keywords);
+    void addKeywords(const QStringList& keywords);
 
     /**
      * Removes any rules previously added for the word @p word
@@ -145,7 +145,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * Convenience method, removes all rules with conditions from @p conditions
      * @sa removeRule, addRules
      */
-    template <class Container> void removeRules(const Container& conditions);
+    void removeRules(const QStringList& conditions);
 
     /**
      * Highlight pairs added with addPair()
@@ -178,48 +178,6 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   private:
     DefaultHighlighterPrivate* d;
 };
-
-
-template <class Container>
-void DefaultHighlighter::addRules(const Container& conditions, const QTextCharFormat& format)
-{
-    typename Container::const_iterator i = conditions.constBegin();
-    typename Container::const_iterator end = conditions.constEnd();
-    for (;i != end; ++i)
-    {
-        addRule(*i, format);
-    }
-}
-
-template <class Container>
-void DefaultHighlighter::addFunctions(const Container& functions)
-{
-    addRules(functions, functionFormat());
-}
-
-template <class Container>
-void DefaultHighlighter::addKeywords(const Container& keywords)
-{
-    addRules(keywords, keywordFormat());
-}
-
-template <class Container>
-void DefaultHighlighter::addVariables(const Container& variables)
-{
-    addRules(variables, variableFormat());
-}
-
-template <class Container>
-void DefaultHighlighter::removeRules(const Container& conditions)
-{
-    typename Container::const_iterator i = conditions.constBegin();
-    typename Container::const_iterator end = conditions.constEnd();
-    for (;i != end; ++i)
-    {
-        removeRule(*i);
-    }
-}
-
 }
 
 #endif

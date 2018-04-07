@@ -37,14 +37,14 @@ class RSession : public Cantor::Session
     RSession( Cantor::Backend* backend);
     ~RSession();
 
-    void login();
-    void logout();
+    void login() override;
+    void logout() override;
 
-    void interrupt();
+    void interrupt() override;
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1);
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);

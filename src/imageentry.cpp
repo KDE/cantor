@@ -251,7 +251,8 @@ void ImageEntry::updateEntry()
 QSizeF ImageEntry::imageSize(const ImageSize& imgSize)
 {
     const QSize& srcSize = m_imageItem->imageSize();
-    qreal w, h;
+    qreal w = 0.0;
+    qreal h = 0.0;
     if (imgSize.heightUnit == ImageSize::Percent)
         h = srcSize.height() * imgSize.height / 100;
     else if (imgSize.heightUnit == ImageSize::Pixel)

@@ -72,6 +72,7 @@ class Cantor::DefaultHighlighterPrivate
 
     int lastBlockNumber;
     int lastPosition;
+    bool suppressRuleChangedSignal;
     // each two consecutive items build a pair
     QList<QChar> pairs;
 
@@ -86,6 +87,7 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     d->cursor = QTextCursor();
     d->lastBlockNumber=-1;
     d->lastPosition=-1;
+    d->suppressRuleChangedSignal = false;
 
     addPair(QLatin1Char('('), QLatin1Char(')'));
     addPair(QLatin1Char('['), QLatin1Char(']'));
@@ -381,7 +383,8 @@ void DefaultHighlighter::positionChanged(QTextCursor cursor)
 void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& format)
 {
     d->wordRules[word] = format;
-    emit rulesChanged();
+    if (!d->suppressRuleChangedSignal)
+        emit rulesChanged();
 }
 
 void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& format)
@@ -389,22 +392,63 @@ void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& f
     HighlightingRule rule = { regexp, format };
     d->regExpRules.removeAll(rule);
     d->regExpRules.append(rule);
-
-    emit rulesChanged();
+    if (!d->suppressRuleChangedSignal)
+        emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QString& word)
 {
     d->wordRules.remove(word);
-
-    emit rulesChanged();
+    if (!d->suppressRuleChangedSignal)
+        emit rulesChanged();
 }
 
 void DefaultHighlighter::removeRule(const QRegExp& regexp)
 {
     HighlightingRule rule = { regexp, QTextCharFormat() };
     d->regExpRules.removeAll(rule);
+    if (!d->suppressRuleChangedSignal)
+        emit rulesChanged();
+}
 
+void DefaultHighlighter::addRules(const QStringList& conditions, const QTextCharFormat& format)
+{
+    typename QStringList::const_iterator i = conditions.constBegin();
+    typename QStringList::const_iterator end = conditions.constEnd();
+    d->suppressRuleChangedSignal = true;
+    for (;i != end; ++i)
+    {
+        addRule(*i, format);
+    }
+    d->suppressRuleChangedSignal = true;
+    emit rulesChanged();
+}
+
+void DefaultHighlighter::addFunctions(const QStringList& functions)
+{
+    addRules(functions, functionFormat());
+}
+
+void DefaultHighlighter::addKeywords(const QStringList& keywords)
+{
+    addRules(keywords, keywordFormat());
+}
+
+void DefaultHighlighter::addVariables(const QStringList& variables)
+{
+    addRules(variables, variableFormat());
+}
+
+void DefaultHighlighter::removeRules(const QStringList& conditions)
+{
+    typename QStringList::const_iterator i = conditions.constBegin();
+    typename QStringList::const_iterator end = conditions.constEnd();
+    d->suppressRuleChangedSignal = true;
+    for (;i != end; ++i)
+    {
+        removeRule(*i);
+    }
+    d->suppressRuleChangedSignal = false;
     emit rulesChanged();
 }
 

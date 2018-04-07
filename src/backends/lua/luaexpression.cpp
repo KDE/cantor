@@ -58,6 +58,13 @@ void LuaExpression::evaluate()
         currentSession->runExpression(this);
 }
 
+void LuaExpression::parseError(QString &error)
+{
+    qDebug() << error;
+    setErrorMessage(error);
+    setStatus(Error);
+}
+
 void LuaExpression::parseOutput(QString &output)
 {
     output.replace(command(), QLatin1String(""));

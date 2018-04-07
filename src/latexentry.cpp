@@ -287,7 +287,7 @@ WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
         return WorksheetCursor();
 
     QTextCursor textCursor = m_textItem->search(pattern, qt_flags, pos);
-    int position;
+    int position = 0;
     QString latex;
     const QString repl = QString(QChar::ObjectReplacementCharacter);
     QTextCursor latexCursor = m_textItem->search(repl, qt_flags, pos);

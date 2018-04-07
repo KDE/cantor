@@ -46,6 +46,7 @@ class Cantor::LatexRendererPrivate
 
 static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}          \n "\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
+                         "\\usepackage{amsmath}                         \n "\
                          "\\usepackage[dvips]{graphicx}                 \n "\
                          "\\usepackage[utf8]{inputenc}                  \n "\
                          "\\usepackage{xcolor}                          \n "\

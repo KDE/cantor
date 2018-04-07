@@ -20,6 +20,8 @@
 #ifndef OCTAVEEXPRESSION_H
 #define OCTAVEEXPRESSION_H
 
+#include <config-cantorlib.h>
+
 #include <expression.h>
 #include <QStringList>
 
