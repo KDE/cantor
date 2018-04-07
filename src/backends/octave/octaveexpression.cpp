@@ -36,9 +36,16 @@ OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session
     m_error(false)
 {
     m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
-                   << QLatin1String("polar") << QLatin1String("mesh") << QLatin1String("contour") << QLatin1String("bar")
-                   << QLatin1String("stairs") << QLatin1String("errorbar") << QLatin1String("surf") << QLatin1String("sombrero")
-                   << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow") << QLatin1String("plot3");
+                   << QLatin1String("polar") << QLatin1String("contour") << QLatin1String("bar")
+                   << QLatin1String("stairs") << QLatin1String("errorbar")  << QLatin1String("sombrero")
+                   << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow")
+                   /* 3d-plots */
+                   << QLatin1String("plot3")
+                   << QLatin1String("mesh") << QLatin1String("meshc") << QLatin1String("meshz")
+                   << QLatin1String("surf") << QLatin1String("surfc") << QLatin1String("surfl") << QLatin1String("surfnorm")
+                   << QLatin1String("isosurface")<< QLatin1String("isonormals") << QLatin1String("isocaps")
+                   /* 3d-plots defined by a function */
+                   << QLatin1String("ezplot3") << QLatin1String("ezmesh") << QLatin1String("ezmeshc") << QLatin1String("ezsurf") << QLatin1String("ezsurfc");
     m_plotCommands << QLatin1String("cantor_plot2d") << QLatin1String("cantor_plot3d");
 }
 
