@@ -27,8 +27,6 @@
 #include <QFile>
 #include <helpresult.h>
 
-#include <config-cantorlib.h>
-
 
 static const char* printCommand = "cantor_print();";
 
