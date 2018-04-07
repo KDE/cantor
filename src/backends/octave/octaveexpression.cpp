@@ -39,6 +39,9 @@ OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session
                    << QLatin1String("polar") << QLatin1String("contour") << QLatin1String("bar")
                    << QLatin1String("stairs") << QLatin1String("errorbar")  << QLatin1String("sombrero")
                    << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow")
+                   << QLatin1String("stem") << QLatin1String("stem3") << QLatin1String("scatter") << QLatin1String("pareto") << QLatin1String("rose")
+                   << QLatin1String("pie") << QLatin1String("quiver") << QLatin1String("compass") << QLatin1String("feather")
+                   << QLatin1String("pcolor") << QLatin1String("area") << QLatin1String("fill") << QLatin1String("comet")
                    /* 3d-plots */
                    << QLatin1String("plot3")
                    << QLatin1String("mesh") << QLatin1String("meshc") << QLatin1String("meshz")
