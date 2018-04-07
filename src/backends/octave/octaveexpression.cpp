@@ -105,16 +105,9 @@ void OctaveExpression::parseOutput ( QString output )
 void OctaveExpression::parseError(QString error)
 {
     qDebug() << error;
-    if (false && error.contains(QLatin1String("warning")))
-    {
-        parseOutput(error);
-    }
-    else
-    {
-        m_error = true;
-        setErrorMessage(error);
-        setStatus(Error);
-    }
+    m_error = true;
+    setErrorMessage(error);
+    setStatus(Error);
 }
 
 void OctaveExpression::parsePlotFile(QString file)
