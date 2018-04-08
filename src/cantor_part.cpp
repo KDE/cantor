@@ -424,7 +424,9 @@ bool CantorPart::openFile()
         return false;
     }
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
     m_worksheet->load(localFilePath());
+    QApplication::restoreOverrideCursor();
 
     // just for fun, set the status bar
     //setStatusMessage( m_url.prettyUrl() );
