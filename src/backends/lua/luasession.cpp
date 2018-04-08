@@ -108,7 +108,13 @@ void LuaSession::readOutput()
 
 void LuaSession::readError()
 {
-    qDebug() << m_process->readAllStandardError() << endl;
+    qDebug() << "readError";
+    QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
+    if (!m_currentExpression || error.isEmpty())
+    {
+        return;
+    }
+    m_currentExpression->parseError(error);
 }
 
 void LuaSession::processStarted()
