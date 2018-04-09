@@ -42,6 +42,7 @@
 #include <KMessageBox>
 #include <KNS3/UploadDialog>
 
+#include <QElapsedTimer>
 #include <QFile>
 #include <QTextStream>
 #include <QTextEdit>
@@ -425,7 +426,10 @@ bool CantorPart::openFile()
     }
 
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    QElapsedTimer timer;
+	timer.start();
     m_worksheet->load(localFilePath());
+    qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds).";
     QApplication::restoreOverrideCursor();
 
     // just for fun, set the status bar
