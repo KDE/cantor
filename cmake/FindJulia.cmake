@@ -1,56 +1,83 @@
-if(Julia_FOUND)
+if(JULIA_FOUND)
+    return()
+endif()
+    
+# Find julia executable
+find_program(JULIA_EXECUTABLE julia DOC "Julia executable")
+
+if(NOT JULIA_EXECUTABLE)
     return()
 endif()
 
-# Looking for Julia executable
-find_program(Julia_EXECUTABLE julia DOC "Julia executable")
-if(NOT Julia_EXECUTABLE)
-    return()
-endif()
 
-# Getting Julia version
+
+
+#
+# Julia version
+#
 execute_process(
-    COMMAND ${Julia_EXECUTABLE} --version
-    OUTPUT_VARIABLE Julia_VERSION_STRING
-    RESULT_VARIABLE RETURN_CODE
+    COMMAND ${JULIA_EXECUTABLE} --version
+    OUTPUT_VARIABLE JULIA_VERSION_STRING
+    RESULT_VARIABLE RESULT
 )
-if(RETURN_CODE EQUAL 0)
-    string(
-        REGEX REPLACE ".*([0-9]+\\.[0-9]+\\.[0-9]+).*" "\\1"
-        Julia_VERSION_STRING ${Julia_VERSION_STRING}
-    )
-else()
-    return()
+if(RESULT EQUAL 0)
+  string(REGEX REPLACE ".*([0-9]+\\.[0-9]+\\.[0-9]+).*" "\\1"
+      JULIA_VERSION_STRING ${JULIA_VERSION_STRING})
 endif()
 
+
+
+
+#
 # Julia includes
+#
 execute_process(
-    COMMAND ${Julia_EXECUTABLE} -E "JULIA_HOME"
-    OUTPUT_VARIABLE Julia_INCLUDE_DIRS
-    RESULT_VARIABLE RETURN_CODE
+    COMMAND ${JULIA_EXECUTABLE} -E "joinpath(match(r\"(.*)(bin)\",JULIA_HOME).captures[1],\"include\",\"julia\")"
+    OUTPUT_VARIABLE JULIA_INCLUDE_DIRS
+    # COMMAND ${JULIA_EXECUTABLE} -E "abspath(joinpath(JULIA_HOME, \"../..\", \"src\"))"
+    # OUTPUT_VARIABLE JULIA_INCLUDE_DIRS
+    RESULT_VARIABLE RESULT
 )
-if(RETURN_CODE EQUAL 0)
-    set(
-        Julia_INCLUDE_DIRS
-        "${Julia_INCLUDE_DIRS}/../include/julia"
-    )
-    string(REGEX REPLACE "(\"|\n)" "" Julia_INCLUDE_DIRS ${Julia_INCLUDE_DIRS})
-    string(STRIP Julia_INCLUDE_DIRS ${Julia_INCLUDE_DIRS})
-    set(
-        Julia_INCLUDE_DIRS ${Julia_INCLUDE_DIRS}
-        CACHE PATH "Location of Julia include files"
-    )
-else()
+if(RESULT EQUAL 0)
+    string(REGEX REPLACE "\"" "" JULIA_INCLUDE_DIRS ${JULIA_INCLUDE_DIRS})
+    set(JULIA_INCLUDE_DIRS ${JULIA_INCLUDE_DIRS}
+        CACHE PATH "Location of Julia include files")
+endif()
+
+string(CONCAT JULIA_INCLUDE_TEST_FILE ${JULIA_INCLUDE_DIRS} "/julia_version.h")
+string(REGEX REPLACE "\n" "" JULIA_INCLUDE_TEST_FILE ${JULIA_INCLUDE_TEST_FILE})
+IF (NOT EXISTS ${JULIA_INCLUDE_TEST_FILE})
+    message(STATUS "Julia found, but include files are missing")
     return()
 endif()
 
-# Checking existance of main header. Some distos provide packages without actual includes
-find_path(Julia_MAIN_HEADER julia.h HINTS ${Julia_INCLUDE_DIRS})
-find_library(Julia_LIBRARY julia HINTS ${Julia_INCLUDE_DIRS}/../../lib)
+
+#
+# Julia library location
+#
+execute_process(
+    COMMAND ${JULIA_EXECUTABLE} -E "abspath(dirname(Libdl.dlpath(\"libjulia\")))"
+    OUTPUT_VARIABLE JULIA_LIBRARY_DIR
+    RESULT_VARIABLE RESULT
+)
+
+if(RESULT EQUAL 0)
+    string(REGEX REPLACE "\"" "" JULIA_LIBRARY_DIR ${JULIA_LIBRARY_DIR})
+    string(STRIP ${JULIA_LIBRARY_DIR} JULIA_LIBRARY_DIR)
+    set(JULIA_LIBRARY_DIR ${JULIA_LIBRARY_DIR}
+        CACHE PATH "Julia library directory")
+endif()
+
+find_library( JULIA_LIBRARY
+    NAMES julia
+    PATHS ${JULIA_LIBRARY_DIR}
+)
+
 
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(Julia
-    REQUIRED_VARS Julia_EXECUTABLE Julia_MAIN_HEADER Julia_INCLUDE_DIRS
-    VERSION_VAR Julia_VERSION_STRING
-    FAIL_MESSAGE "Julia not found"
+find_package_handle_standard_args(
+    Julia
+    REQUIRED_VARS   JULIA_LIBRARY JULIA_LIBRARY_DIR JULIA_INCLUDE_DIRS
+    VERSION_VAR     JULIA_VERSION_STRING
+    FAIL_MESSAGE    "Julia not found"
 )
