@@ -28,8 +28,8 @@ LuaHighlighter::LuaHighlighter(QObject* parent): DefaultHighlighter(parent)
     addVariables( luahelper_variables() );
 
     addRule(QRegExp(QLatin1String("[A-Za-z0-9_]+(?=\\()"))    , functionFormat());
-    addRule(QRegExp(QLatin1String("\".*\""))                  , stringFormat());
-    addRule(QRegExp(QLatin1String("'.*'"))                    , stringFormat());
+    addRule(QRegExp(QLatin1String("\"[^\"]*\""))              , stringFormat());
+    addRule(QRegExp(QLatin1String("'[^\'].*'"))               , stringFormat());
     addRule(QRegExp(QLatin1String("--[^\n]*"))                , commentFormat());
     // did not add support for the multiline comment or multiline string
 }

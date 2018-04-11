@@ -38,8 +38,8 @@ ScilabHighlighter::ScilabHighlighter(QObject* parent) : Cantor::DefaultHighlight
     addFunctions(ScilabKeywords::instance()->functions());
     addVariables(ScilabKeywords::instance()->variables());
 
-    addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
-    addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
+    addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
+    addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
     addRule(QRegExp(QLatin1String("//[^\n]*")), commentFormat());
 
     commentStartExpression = QRegExp(QLatin1String("/\\*"));

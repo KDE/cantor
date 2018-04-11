@@ -73,8 +73,8 @@ SageHighlighter::SageHighlighter(QObject* parent) : Cantor::DefaultHighlighter(p
                      << QLatin1String("Warning") << QLatin1String("WindowsError") << QLatin1String("ZeroDivisionError");
     addRules(exceptionPatterns, objectFormat());
 
-    addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
-    addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
+    addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
+    addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
     addRule(QRegExp(QLatin1String("#[^\n]*")), commentFormat());
 }
 

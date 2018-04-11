@@ -42,8 +42,8 @@ OctaveHighlighter::OctaveHighlighter(QObject* parent, Cantor::Session* session):
   m_keywords << QLatin1String("end");
   addKeywords(m_keywords);
 
-  addRule(QRegExp(QLatin1String("\".*\"")), stringFormat());
-  addRule(QRegExp(QLatin1String("'.*'")), stringFormat());
+  addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
+  addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
 
   rehighlight();
 }
