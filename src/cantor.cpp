@@ -166,7 +166,8 @@ void CantorShell::optionsConfigureKeys()
 {
     KShortcutsDialog dlg( KShortcutsEditor::AllActions, KShortcutsEditor::LetterShortcutsDisallowed, this );
     dlg.addCollection( actionCollection(), i18n("Cantor") );
-    dlg.addCollection( m_part->actionCollection(), i18n("Cantor") );
+    if (m_part)
+        dlg.addCollection( m_part->actionCollection(), i18n("Cantor") );
     dlg.configure( true );
 }
 
