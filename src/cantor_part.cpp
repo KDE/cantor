@@ -428,16 +428,15 @@ bool CantorPart::openFile()
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
     QElapsedTimer timer;
 	timer.start();
-    m_worksheet->load(localFilePath());
-    qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds).";
+    const bool rc = m_worksheet->load(localFilePath());
     QApplication::restoreOverrideCursor();
 
-    // just for fun, set the status bar
-    //setStatusMessage( m_url.prettyUrl() );
+    if (rc) {
+        qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds).";
+        updateCaption();
+    }
 
-    updateCaption();
-
-    return true;
+    return rc;
 }
 
 bool CantorPart::saveFile()

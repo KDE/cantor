@@ -160,9 +160,9 @@ class Worksheet : public QGraphicsScene
     QByteArray saveToByteArray();
     void savePlain(const QString& filename);
     void saveLatex(const QString& filename);
-    void load(QIODevice* device);
+    bool load(QIODevice* device);
     void load(QByteArray* data);
-    void load(const QString& filename);
+    bool load(const QString& filename);
 
     void gotResult(Cantor::Expression* expr=nullptr);
 
