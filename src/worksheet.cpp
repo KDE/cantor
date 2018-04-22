@@ -951,13 +951,15 @@ void Worksheet::saveLatex(const QString& filename)
     file.close();
 }
 
-void Worksheet::load(const QString& filename )
+bool Worksheet::load(const QString& filename )
 {
     QFile file(filename);
-    if (!file.open(QIODevice::ReadOnly))
-        return ;
-    load(&file);
+    if (!file.open(QIODevice::ReadOnly)) {
+        KMessageBox::error(worksheetView(), i18n("Couldn't open the file %1", filename), i18n("Cantor"));
+        return false;
+    }
 
+    return load(&file);
 }
 
 void Worksheet::load(QByteArray* data)
@@ -966,38 +968,47 @@ void Worksheet::load(QByteArray* data)
     load(&buf);
 }
 
-void Worksheet::load(QIODevice* device)
+bool Worksheet::load(QIODevice* device)
 {
-    // m_file is always local so we can use QFile on it
     KZip file(device);
-    if (!file.open(QIODevice::ReadOnly))
-        return ;
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug()<<"not a zip file";
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor project file."), i18n("Cantor"));
+        return false;
+    }
 
     const KArchiveEntry* contentEntry=file.directory()->entry(QLatin1String("content.xml"));
     if (!contentEntry->isFile())
     {
-        qDebug()<<"error";
+        qDebug()<<"content.xml file not found in the zip archive";
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor project file."), i18n("Cantor"));
+        return false;
     }
-    const KArchiveFile* content=static_cast<const KArchiveFile*>(contentEntry);
-    QByteArray data=content->data();
 
-    qDebug()<<"read: "<<data;
+    const KArchiveFile* content = static_cast<const KArchiveFile*>(contentEntry);
+    QByteArray data = content->data();
+
+//     qDebug()<<"read: "<<data;
 
     QDomDocument doc;
     doc.setContent(data);
     QDomElement root=doc.documentElement();
-    qDebug()<<root.tagName();
+//     qDebug()<<root.tagName();
 
     const QString backendName=root.attribute(QLatin1String("backend"));
     Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
     if (!b)
     {
+        QApplication::restoreOverrideCursor();
         KMessageBox::error(worksheetView(), i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("Cantor"));
-        return;
+        return false;
     }
 
     if(!b->isEnabled())
     {
+        QApplication::restoreOverrideCursor();
         KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
                                             "please check your configuration or install the needed packages.\n"
                                             "You will only be able to view this worksheet.", backendName), i18n("Cantor"));
@@ -1061,6 +1072,7 @@ void Worksheet::load(QIODevice* device)
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
     emit sessionChanged();
+    return true;
 }
 
 void Worksheet::gotResult(Cantor::Expression* expr)
