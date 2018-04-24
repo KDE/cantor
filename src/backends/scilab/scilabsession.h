@@ -22,7 +22,9 @@
 #define _SCILABSESSION_H
 
 #include "session.h"
+#include "scilabexpression.h"
 #include <QStringList>
+#include <QQueue>
 
 namespace Cantor {
     class DefaultVariableModel;
@@ -44,11 +46,11 @@ class ScilabSession : public Cantor::Session
         void logout() Q_DECL_OVERRIDE;
 
         void interrupt() Q_DECL_OVERRIDE;
-        void runExpression(ScilabExpression* expr);
 
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
 
         Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
+        void runFirstExpression() Q_DECL_OVERRIDE;
         Cantor::CompletionObject* completionFor(const QString& command, int index=-1) Q_DECL_OVERRIDE;
         QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
 
@@ -67,14 +69,8 @@ class ScilabSession : public Cantor::Session
         QStringList m_listPlotName;
         QString m_output;
         Cantor::DefaultVariableModel* m_variableModel;
-
-        QList<ScilabExpression*> m_runningExpressions;
-        ScilabExpression* m_currentExpression;
-
     private Q_SLOTS:
-        void expressionFinished();
         void currentExpressionStatusChanged(Cantor::Expression::Status status);
-        void listKeywords();
 
 };
 

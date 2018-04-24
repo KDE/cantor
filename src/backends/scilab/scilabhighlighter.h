@@ -22,26 +22,33 @@
 #define _SCILABHIGHLIGHTER_H
 
 #include "defaulthighlighter.h"
+#include "scilabexpression.h"
 
 class ScilabHighlighter : public Cantor::DefaultHighlighter
 {
     Q_OBJECT
 
     public:
-        ScilabHighlighter(QObject* parent);
+        ScilabHighlighter(QObject* parent, Cantor::Session* session);
         ~ScilabHighlighter() override;
 
     public Q_SLOTS:
         void updateHighlight();
         void addVariableHighlight();
 
+        void updateKeywords();
+        void receiveKeywords();
+
     protected:
         void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
         QString nonSeparatingCharacters() const Q_DECL_OVERRIDE;
 
     private:
+        Cantor::Session* m_session;
         QRegExp commentStartExpression;
         QRegExp commentEndExpression;
+        Cantor::Expression* m_keywordsExpr;
+
 };
 
 #endif /* _SCILABHIGHLIGHTER_H */

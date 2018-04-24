@@ -20,11 +20,14 @@
 
 #include "scilabhighlighter.h"
 #include "scilabkeywords.h"
+#include "result.h"
+#include "textresult.h"
+#include "session.h"
 
 #include <QTextEdit>
 #include <QDebug>
 
-ScilabHighlighter::ScilabHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
+ScilabHighlighter::ScilabHighlighter(QObject* parent, Cantor::Session* session) : Cantor::DefaultHighlighter(parent), m_session(session)
 {
     qDebug() << "ScilabHighlighter construtor";
     addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
@@ -100,6 +103,30 @@ void ScilabHighlighter::updateHighlight()
     addFunctions(ScilabKeywords::instance()->functions());
 
     rehighlight();
+}
+
+void ScilabHighlighter::updateKeywords()
+{
+    m_keywordsExpr = m_session->evaluateExpression(QLatin1String("disp(getscilabkeywords());"));
+    connect(m_keywordsExpr, &Cantor::Expression::statusChanged, this, &ScilabHighlighter::receiveKeywords);
+}
+
+void ScilabHighlighter::receiveKeywords()
+{
+    qDebug() << "receiveKeywords()";
+    if (m_keywordsExpr->status() == Cantor::Expression::Computing 
+        || m_keywordsExpr->status() == Cantor::Expression::Queued)
+        return;
+
+    if (m_keywordsExpr->status() == Cantor::Expression::Done && m_keywordsExpr->result())
+    {
+        const QString keywords = static_cast<Cantor::TextResult*>(m_keywordsExpr->result())->plain();
+
+        ScilabKeywords::instance()->setupKeywords(keywords);
+
+        updateHighlight();
+    }
+    m_keywordsExpr->deleteLater();
 }
 
 QString ScilabHighlighter::nonSeparatingCharacters() const

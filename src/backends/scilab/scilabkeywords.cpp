@@ -52,7 +52,7 @@ ScilabKeywords* ScilabKeywords::instance()
 
 void ScilabKeywords::setupKeywords(QString keywords)
 {
-
+    qDebug() << "start parse Scilab keywords";
     QStringList key;
     key = keywords.replace(QLatin1String(" !"), QLatin1String("\n")).replace(QLatin1String("!"), QLatin1String(""))
               .replace(QLatin1String(" "), QLatin1String("")).split(QLatin1String("\n"));
@@ -92,6 +92,8 @@ void ScilabKeywords::setupKeywords(QString keywords)
         qDebug() << key.at(count);
         m_functions << key.at(count);
     }
+
+    qDebug() << "finish parse scilab keywords";
 }
 
 void ScilabKeywords::addVariable(QString variable)

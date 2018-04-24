@@ -33,7 +33,6 @@
 
 #include <KIconLoader>
 
-#include "scilabsession.h"
 #include "settings.h"
 #include "defaultvariablemodel.h"
 
@@ -51,10 +50,6 @@ ScilabExpression::~ScilabExpression()
 
 void ScilabExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
-
-    ScilabSession* scilabSession = dynamic_cast<ScilabSession*>(session());
-
     if((ScilabSettings::integratePlots()) && (command().contains(QLatin1String("plot")))){
 
         qDebug() << "Preparing export figures property";
@@ -87,7 +82,7 @@ void ScilabExpression::evaluate()
 
     }
 
-    scilabSession->runExpression(this);
+    session()->enqueueExpression(this);
 }
 
 void ScilabExpression::parseOutput(QString output)

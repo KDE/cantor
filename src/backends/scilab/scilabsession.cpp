@@ -68,6 +68,8 @@ void ScilabSession::login()
 
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
     m_process->start();
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
 
     if(ScilabSettings::integratePlots()){
 
@@ -98,15 +100,13 @@ void ScilabSession::login()
         m_process->write(autorunScripts.toLocal8Bit());
     }
 
-    QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
+    QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
     QObject::connect(m_process, &QProcess::readyReadStandardError, this, &ScilabSession::readError);
 
     m_process->readAllStandardOutput().clear();
     m_process->readAllStandardError().clear();
 
-    ScilabExpression *listKeywords = new ScilabExpression(this);
-    listKeywords->setCommand(QLatin1String("disp(getscilabkeywords());"));
-    runExpression(listKeywords);
+    changeStatus(Cantor::Session::Done);
 
     emit loginDone();
 }
@@ -116,9 +116,8 @@ void ScilabSession::logout()
     qDebug()<<"logout";
 
     m_process->write("exit\n");
-
-    m_runningExpressions.clear();
-    qDebug() << "m_runningExpressions: " << m_runningExpressions.isEmpty();
+    
+    expressionQueue().clear();
 
     QDir removePlotFigures;
     QListIterator<QString> i(m_listPlotName);
@@ -132,10 +131,9 @@ void ScilabSession::interrupt()
 {
     qDebug()<<"interrupt";
 
-    foreach(Cantor::Expression* e, m_runningExpressions)
-        e->interrupt();
+    if (status() == Cantor::Session::Running)
+        expressionQueue().first()->interrupt();
 
-    m_runningExpressions.clear();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -144,8 +142,6 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
     qDebug() << "evaluating: " << cmd;
     ScilabExpression* expr = new ScilabExpression(this);
 
-    changeStatus(Cantor::Session::Running);
-
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
@@ -153,30 +149,33 @@ Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-void ScilabSession::runExpression(ScilabExpression* expr)
+void ScilabSession::runFirstExpression()
 {
-    QString command;
+    qDebug() <<"call runFirstExpression";
+    qDebug() << "m_process: " << m_process;
+    qDebug() << "status: " << (status() == Cantor::Session::Running ? "Running" : "Done");
 
-    command.prepend(QLatin1String("\nprintf('begin-cantor-scilab-command-processing')\n"));
-    command += expr->command();
+    if (!m_process)
+        return;
 
-    m_currentExpression = expr;
+    qDebug()<<"running next expression";
 
-    connect(m_currentExpression, &ScilabExpression::statusChanged, this, &ScilabSession::currentExpressionStatusChanged);
+    if(!expressionQueue().isEmpty())
+    {
+        ScilabExpression* expr = static_cast<ScilabExpression*>(expressionQueue().first());
 
-    command += QLatin1String("\nprintf('terminated-cantor-scilab-command-processing')\n");
-    qDebug() << "Writing command to process" << command;
+        QString command;
+        command.prepend(QLatin1String("\nprintf('begin-cantor-scilab-command-processing')\n"));
+        command += expr->command();
+        command += QLatin1String("\nprintf('terminated-cantor-scilab-command-processing')\n");
 
-    m_process->write(command.toLocal8Bit());
-}
+        connect(expr, &ScilabExpression::statusChanged, this, &ScilabSession::currentExpressionStatusChanged);
+        expr->setStatus(Cantor::Expression::Computing);
 
-void ScilabSession::expressionFinished()
-{
-    qDebug()<<"finished";
-    ScilabExpression* expression = qobject_cast<ScilabExpression*>(sender());
+        qDebug() << "Writing command to process" << command;
 
-    m_runningExpressions.removeAll(expression);
-    qDebug() << "size: " << m_runningExpressions.size();
+        m_process->write(command.toLocal8Bit());
+    }
 }
 
 void ScilabSession::readError()
@@ -186,7 +185,7 @@ void ScilabSession::readError()
     QString error = QLatin1String(m_process->readAllStandardError());
 
     qDebug() << "error: " << error;
-    m_currentExpression->parseError(error);
+    static_cast<ScilabExpression*>(expressionQueue().first())->parseError(error);
 }
 
 void ScilabSession::readOutput()
@@ -210,7 +209,7 @@ void ScilabSession::readOutput()
         m_output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
         m_output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
 
-        m_currentExpression->parseOutput(m_output);
+        static_cast<ScilabExpression*>(expressionQueue().first())->parseOutput(m_output);
 
         m_output.clear();
     }
@@ -220,9 +219,9 @@ void ScilabSession::plotFileChanged(const QString& filename)
 {
     qDebug() << "plotFileChanged filename:" << filename;
 
-    if ((m_currentExpression) && (filename.contains(QLatin1String("cantor-export-scilab-figure")))){
+    if (expressionQueue().first() && (filename.contains(QLatin1String("cantor-export-scilab-figure")))){
          qDebug() << "Calling parsePlotFile";
-         m_currentExpression->parsePlotFile(filename);
+         static_cast<ScilabExpression*>(expressionQueue().first())->parsePlotFile(filename);
 
          m_listPlotName.append(filename);
     }
@@ -234,58 +233,33 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
     switch (status){
         case Cantor::Expression::Computing:
-            break;
-
         case Cantor::Expression::Interrupted:
+        case Cantor::Expression::Queued:
             break;
 
         case Cantor::Expression::Done:
         case Cantor::Expression::Error:
-            changeStatus(Done);
+            expressionQueue().removeFirst();
 
             emit updateVariableHighlighter();
 
+            if (expressionQueue().isEmpty())
+                changeStatus(Done);
+            else
+                runFirstExpression();
+
             break;
     }
-}
-
-void ScilabSession::listKeywords()
-{
-
-    while(m_process->bytesAvailable() > 0){
-        m_output.append(QString::fromLocal8Bit(m_process->readLine()));
-    }
-
-    if(m_output.contains(QLatin1String("begin-cantor-scilab-command-processing")) &&
-        m_output.contains(QLatin1String("terminated-cantor-scilab-command-processing"))){
-
-        m_output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
-        m_output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
-
-        ScilabKeywords::instance()->setupKeywords(m_output);
-
-        QObject::disconnect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::listKeywords);
-        QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
-
-        m_process->readAllStandardOutput().clear();
-        m_process->readAllStandardError().clear();
-
-        m_output.clear();
-    }
-
-    changeStatus(Done);
-    m_currentExpression->evalFinished();
-
-    emit updateHighlighter();
 }
 
 QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 {
 
-    ScilabHighlighter *highlighter = new ScilabHighlighter(parent);
+    ScilabHighlighter *highlighter = new ScilabHighlighter(parent, this);
 
     QObject::connect(this, &ScilabSession::updateHighlighter, highlighter, &ScilabHighlighter::updateHighlight);
     QObject::connect(this, &ScilabSession::updateVariableHighlighter, highlighter, &ScilabHighlighter::addVariableHighlight);
+    QObject::connect(this, &ScilabSession::loginDone, highlighter, &ScilabHighlighter::updateKeywords);
     return highlighter;
 }
 
