@@ -19,4 +19,15 @@ include_directories(${LUAJIT_INCLUDE_DIR})
 
 target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY})
 
+if(BUILD_TESTING)
+ add_executable( testlua testlua.cpp)
+ add_test(testlua testlua)
+ ecm_mark_as_test(testlua)
+ target_link_libraries( testlua
+   Qt5::Test
+   cantorlibs
+   cantortest
+ )
+endif(BUILD_TESTING)
+
 install(FILES cantor_lua.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
