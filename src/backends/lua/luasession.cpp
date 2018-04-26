@@ -94,9 +94,11 @@ void LuaSession::readOutput()
     // keep reading till the output ends with '>'.
     // '>' marks the end of output for a particular command;
     while(m_process->bytesAvailable()) {
-            m_output.append(QString::fromLocal8Bit(m_process->readLine()));
+        m_output.append(QString::fromLocal8Bit(m_process->readLine()));
     }
-    if(m_currentExpression && !m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
+
+    //merge outputs until lua's promt "> " appears, take care of the comment characters "-->"
+    if(m_currentExpression && !m_output.isEmpty() && m_output.endsWith(QLatin1String("> ")) && !m_output.endsWith(QLatin1String("-> "))) {
         // we have our complete output
         // clean the output and parse it and clear m_output;
         m_currentExpression->parseOutput(m_output);

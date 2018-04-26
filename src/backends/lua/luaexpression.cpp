@@ -67,15 +67,41 @@ void LuaExpression::parseError(QString &error)
 
 void LuaExpression::parseOutput(QString &output)
 {
-    output.replace(command(), QLatin1String(""));
-    output.replace(QLatin1String("return"), QLatin1String(""));
-    output.replace(QLatin1String(">"), QLatin1String(""));
-    output = output.trimmed();
+    qDebug()<<"parsing the output " << output;
 
-    qDebug() << "final output of the command " <<  command() << ": " << output << endl;
+    const QStringList& inputs = command().split(QLatin1Char('\n'));
+    const QStringList& outputs = output.split(QLatin1Char('\n'));
+    QString parsedOutput;
 
-    setResult(new Cantor::TextResult(output));
+    for (auto out : outputs) {
+        //remove lua's promt characters if available
+        if (out.startsWith(QLatin1String("> ")))
+            out.remove(0, 2);
+        else if (out.startsWith(QLatin1String(">> ")))
+            out.remove(0, 3);
 
+        //for multi-line inputs lua returs the inputs as part of the output
+        //-> remove the input lines from the output.
+        //since lua doesn't always seem to preserve the spaces, compare trimmed strings
+        out = out.trimmed();
+        bool found = false;
+        for (auto in : inputs) {
+            if (out == in.trimmed()) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            if (!parsedOutput.isEmpty())
+                parsedOutput += QLatin1Char('\n');
+            parsedOutput += out;
+        }
+    }
+
+    qDebug() << "final output of the command " <<  command() << ": " << parsedOutput << endl;
+
+    setResult(new Cantor::TextResult(parsedOutput));
     setStatus(Cantor::Expression::Done);
 }
 
