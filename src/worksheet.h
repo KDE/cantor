@@ -26,7 +26,6 @@
 #include <QDomElement>
 #include <QGraphicsLinearLayout>
 #include <QSyntaxHighlighter>
-#include <QPrinter>
 
 #include <KZip>
 #include <QMenu>
@@ -45,8 +44,9 @@ class WorksheetEntry;
 class PlaceHolderEntry;
 class WorksheetTextItem;
 
-class QDrag;
 class QAction;
+class QDrag;
+class QPrinter;
 class KActionCollection;
 class KToggleAction;
 class KFontAction;
@@ -133,7 +133,7 @@ class Worksheet : public QGraphicsScene
     void updateLayout();
     void updateEntrySize(WorksheetEntry* entry);
 
-    void print(QPrinter* printer);
+    void print(QPrinter*);
 
     void focusEntry(WorksheetEntry * entry);
 
