@@ -19,12 +19,13 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#include <QGraphicsWidget>
 #include <QBuffer>
-#include <QTimer>
-#include <QDrag>
-#include <QtXmlPatterns/QXmlQuery>
 #include <QDebug>
+#include <QDrag>
+#include <QGraphicsWidget>
+#include <QPrinter>
+#include <QTimer>
+#include <QtXmlPatterns/QXmlQuery>
 
 #include <KMessageBox>
 #include <KActionCollection>
@@ -485,6 +486,7 @@ void Worksheet::showCompletion()
     //But as long as we have some additional logic in Worksheet::loginToSession(),
     //we need to handle this here.
     if (!m_loginDone && (m_session->backend()->name() == QLatin1String("Julia")
+                    || m_session->backend()->name() == QLatin1String("Lua")
                     || m_session->backend()->name() == QLatin1String("R")
                     || m_session->backend()->name() == QLatin1String("Octave")) )
         loginToSession();
