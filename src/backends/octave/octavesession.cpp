@@ -161,10 +161,13 @@ void OctaveSession::interrupt()
     }
     m_expressionQueue.clear();
     qDebug() << "Sending SIGINT to Octave";
+    // Some commands, like `quit()`, potentially could finish octave process
+    // So, avoiding crash, have make check before call kill, that the process still exist
+    if(m_process->state() != QProcess::NotRunning)
 #ifndef Q_OS_WIN
-    kill(m_process->pid(), SIGINT);
+        kill(m_process->pid(), SIGINT);
 #else
-      //TODO: interrupt the process on windows
+        ; //TODO: interrupt the process on windows
 #endif
 }
 
