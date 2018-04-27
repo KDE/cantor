@@ -149,7 +149,11 @@ void OctaveSession::logout()
     delete m_process;
     m_process = nullptr;
 
-    qDebug()<<"login done";
+    m_currentExpression = nullptr;
+    m_prompt = QRegExp();
+    m_tempDir.clear();
+
+    qDebug()<<"logout done";
 }
 
 void OctaveSession::interrupt()
