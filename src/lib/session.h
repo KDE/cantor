@@ -148,6 +148,16 @@ class CANTOR_EXPORT Session : public QObject
     virtual void setTypesettingEnabled(bool enable);
 
     /**
+    * Updates the worksheet path in the session.
+    * This can be useful to set the path of the currently opened
+    * Cantor project file in the backend interpreter.
+    * Default implementation does nothing. Derived classes have
+    * to implement the proper logic if this feature is supported.
+    * @param path the new absolute path to the worksheet.
+    */
+    virtual void setWorksheetPath(const QString& path);
+
+    /**
      * Returns the Backend, this Session is for
      * @return the Backend, this Session is for
      */

@@ -78,6 +78,7 @@ class SageSession : public Cantor::Session
     void waitForNextPrompt();
 
     void setTypesettingEnabled(bool enable) Q_DECL_OVERRIDE;
+    void setWorksheetPath(const QString& path) override;
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) Q_DECL_OVERRIDE;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;

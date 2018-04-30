@@ -961,7 +961,11 @@ bool Worksheet::load(const QString& filename )
         return false;
     }
 
-    return load(&file);
+    bool rc = load(&file);
+    if (rc)
+        m_session->setWorksheetPath(filename);
+
+    return rc;
 }
 
 void Worksheet::load(QByteArray* data)

@@ -399,6 +399,15 @@ void SageSession::setTypesettingEnabled(bool enable)
     evaluateExpression(cmd.arg(enable ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
 }
 
+void SageSession::setWorksheetPath(const QString& path)
+{
+    //save the path to the worksheet as variable "__file__"
+    //this variable is usually set by the "os" package when running a script
+    //but when it is run in an interpreter (like sage server) it is not set
+    const QString cmd = QLatin1String("__file__ = '%1'");
+    evaluateExpression(cmd.arg(path), Cantor::Expression::DeleteOnFinish);
+}
+
 Cantor::CompletionObject* SageSession::completionFor(const QString& command, int index)
 {
     return new SageCompletionObject(command, index, this);

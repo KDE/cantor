@@ -77,6 +77,12 @@ bool Session::isTypesettingEnabled()
     return d->typesettingEnabled;
 }
 
+void Session::setWorksheetPath(const QString& path)
+{
+    Q_UNUSED(path);
+    return;
+}
+
 CompletionObject* Session::completionFor(const QString& cmd, int index)
 {
     Q_UNUSED(cmd);
