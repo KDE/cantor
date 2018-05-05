@@ -76,6 +76,13 @@
 	)
 )
 
+;;Fix bug with old matrix tex output in maxima, until it is fixed
+(defun tex-matrix(x l r)
+  (append l `("\\begin{pmatrix}")
+	  (mapcan #'(lambda(y)
+		      (tex-list (cdr y) nil (list "\\\\ ") "&"))
+		  (cdr x))
+	  '("\\end{pmatrix}") r))
 
 #+clisp (setf custom:*suppress-check-redefinition*
 	      *old-suppress-check-redefinition*)
