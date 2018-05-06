@@ -24,6 +24,7 @@
 #include "sagehighlighter.h"
 
 #include <QDebug>
+#include <QRegularExpression>
 #include <KPtyProcess>
 #include <KPtyDevice>
 #include <KLocalizedString>
@@ -127,6 +128,7 @@ void SageSession::login()
     connect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
     m_process->start();
+    m_process->waitForStarted();
 
     m_process->pty()->write(initCmd);
 
@@ -176,7 +178,7 @@ void SageSession::appendExpressionToQueue(SageExpression* expr)
 
 void SageSession::readStdOut()
 {
-    m_outputCache.append(QLatin1String(m_process->pty()->readAll()));
+    m_outputCache.append(QString::fromUtf8(m_process->pty()->readAll()));
     qDebug()<<"out: "<<m_outputCache;
 
     if ( m_outputCache.contains( QLatin1String("___TMP_DIR___") ) )
@@ -201,14 +203,14 @@ void SageSession::readStdOut()
         get_sage_version.setArguments(QStringList()<<QLatin1String("-v"));
         get_sage_version.start();
         get_sage_version.waitForFinished(-1);
-        QRegExp versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
-        QStringList version=versionExp.capturedTexts();
-
-        qDebug()<<"found version: "<<version;
-        if(version.size()>2)
+        QString versionString = QString::fromLocal8Bit(get_sage_version.readLine());
+        QRegularExpression versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
+        QRegularExpressionMatch version = versionExp.match(versionString);
+        qDebug()<<"found version: " << version.capturedTexts();
+        if(version.isValid())
         {
-            int major=version[1].toInt();
-            int minor=version[2].toInt();
+            int major=version.capturedTexts()[1].toInt();
+            int minor=version.capturedTexts()[2].toInt();
 
 
             m_sageVersion=SageSession::VersionInfo(major, minor);
