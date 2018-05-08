@@ -97,7 +97,11 @@ void ScriptEditorWidget::newScript()
 void ScriptEditorWidget::open()
 {
     QUrl url = QFileDialog::getOpenFileUrl(this, QString(), QUrl(), m_filter);
+    m_script->openUrl(url);
+}
 
+void ScriptEditorWidget::open(QUrl url)
+{
     m_script->openUrl(url);
 }
 

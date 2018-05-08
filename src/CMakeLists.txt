@@ -2,6 +2,7 @@
 # Subdirectories
 #########################################################################
 add_subdirectory(lib)
+add_subdirectory(scripteditor)
 
 include_directories( lib ${CMAKE_CURRENT_BINARY_DIR}/lib)
 if(BUILD_TESTING)
@@ -70,7 +71,7 @@ set(cantor_PART_SRCS
    actionbar.cpp
    worksheettoolbutton.cpp
    imagesettingsdialog.cpp
-   scripteditorwidget.cpp
+   scripteditor/scripteditorwidget.cpp
    resultitem.cpp
    textresultitem.cpp
    imageresultitem.cpp

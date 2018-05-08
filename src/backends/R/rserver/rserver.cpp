@@ -127,6 +127,9 @@ void RServer::initR()
 
     autoload();
 
+    // Set gui editor for R
+    runCommand(QLatin1String("options(editor = 'cantor_scripteditor') \n"),true);
+
     //Setting up some settings dependent stuff
     if(RServerSettings::self()->integratePlots())
     {
