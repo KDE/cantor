@@ -949,7 +949,10 @@ void Worksheet::saveLatex(const QString& filename)
     query.setQuery(QUrl(stylesheet));
     QString out;
     if (query.evaluateTo(&out))
-        stream << out;
+        // Transform HTML escaped special characters to valid LaTeX characters (&, <, >)
+        stream << out.replace(QLatin1String("&amp;"), QLatin1String("&"))
+                     .replace(QLatin1String("&gt;"), QLatin1String(">"))
+                     .replace(QLatin1String("&lt;"), QLatin1String("<"));
     file.close();
 }
 
