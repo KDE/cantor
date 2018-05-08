@@ -55,7 +55,7 @@
 #include "worksheet.h"
 #include "worksheetview.h"
 #include "searchbar.h"
-#include "scripteditorwidget.h"
+#include "scripteditor/scripteditorwidget.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/assistant.h"
