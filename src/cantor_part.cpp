@@ -496,13 +496,14 @@ void CantorPart::fileSavePlain()
 
 void CantorPart::exportToLatex()
 {
-    // this slot is called whenever the File->Save As menu is selected,
-    QString filter=i18n("*.tex|LaTeX Document");
-
     QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Export to LaTeX"), QString(), QString());
 
     if (file_name.isEmpty() == false)
+        {
+        if (!file_name.endsWith(QLatin1String(".tex")))
+            file_name += QLatin1String(".tex");
         m_worksheet->saveLatex(file_name);
+        }
 }
 
 void CantorPart::guiActivateEvent( KParts::GUIActivateEvent * event )

@@ -119,7 +119,7 @@ QDomElement LatexResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving textresult "<<toHtml();
     QDomElement e=doc.createElement(QLatin1String("Result"));
-    e.setAttribute(QLatin1String("type"), QLatin1String("latex"));
+    e.setAttribute(QLatin1String("type"), QLatin1String("application/x-latex"));
     QUrl url= EpsResult::data().toUrl();
     e.setAttribute(QLatin1String("filename"), url.fileName());
     QDomText txt=doc.createTextNode(code());
