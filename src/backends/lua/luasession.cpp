@@ -79,8 +79,8 @@ void LuaSession::readIntroMessage()
         m_output.clear();
 
         disconnect(m_process, SIGNAL(readyReadStandardOutput()), this , SLOT(readIntroMessage()));
-                connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
-                connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
+        connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
+        connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readError()));
     }
 }
 
