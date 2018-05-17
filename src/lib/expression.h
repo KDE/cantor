@@ -35,6 +35,7 @@ namespace Cantor
 {
 class Session;
 class Result;
+class LatexRenderer;
 class ExpressionPrivate;
 
 /**
@@ -245,9 +246,8 @@ class CANTOR_EXPORT Expression : public QObject
     //used for example if special packages are needed
     virtual QString additionalLatexHeaders();
   private:
-    void renderResultAsLatex();
-  private Q_SLOTS:
-    void latexRendered();
+    void renderResultAsLatex(Result* result);
+    void latexRendered(LatexRenderer* renderer, Result* result);
 
   private:
     ExpressionPrivate* d;
