@@ -19,6 +19,7 @@
  */
 
 #include "expression.h"
+#include "latexrenderer.h"
 using namespace Cantor;
 
 #include <config-cantorlib.h>
@@ -29,7 +30,6 @@ using namespace Cantor;
 #include "imageresult.h"
 #include "latexresult.h"
 #include "settings.h"
-#include "latexrenderer.h"
 
 #include <QFileInfo>
 #include <QString>
@@ -104,12 +104,6 @@ QString Expression::errorMessage()
 
 void Expression::setResult(Result* result)
 {
-
-    if(d->result)
-        delete d->result;
-
-    d->result=result;
-
     if(result!=nullptr)
     {
         qDebug()<<"settting result to a type "<<result->type()<<" result";
@@ -123,10 +117,16 @@ void Expression::setResult(Result* result)
              !isInternal()
             )
         {
-            renderResultAsLatex();
+            renderResultAsLatex(result);
+            return;
         }
         #endif
     }
+
+    if(d->result)
+        delete d->result;
+
+    d->result=result;
 
     emit gotResult();
 }
@@ -162,39 +162,37 @@ Session* Expression::session()
 {
     return d->session;
 }
-void Expression::renderResultAsLatex()
+void Expression::renderResultAsLatex(Result* result)
 {
     qDebug()<<"rendering as latex";
     qDebug()<<"checking if it really is a formula that can be typeset";
 
     LatexRenderer* renderer=new LatexRenderer(this);
-    renderer->setLatexCode(result()->data().toString().trimmed());
+    renderer->setLatexCode(result->data().toString().trimmed());
     renderer->addHeader(additionalLatexHeaders());
 
-    connect(renderer, &LatexRenderer::done, this, &Expression::latexRendered);
-    connect(renderer, &LatexRenderer::error, this, &Expression::latexRendered);
+    connect(renderer, &LatexRenderer::done, [=] { latexRendered(renderer, result); });
+    connect(renderer, &LatexRenderer::error, [=] { latexRendered(renderer, result); });
 
     renderer->render();
 }
 
-void Expression::latexRendered()
+void Expression::latexRendered(LatexRenderer* renderer, Result* result)
 {
-    LatexRenderer* renderer=qobject_cast<LatexRenderer*>(sender());
-
     qDebug()<<"rendered a result to "<<renderer->imagePath();
     //replace the textresult with the rendered latex image result
     //ImageResult* latex=new ImageResult( d->latexFilename );
-    if(renderer->renderingSuccessful()&&result())
+    if(renderer->renderingSuccessful())
     {
-        if (result()->type() == TextResult::Type)
+        if (result->type() == TextResult::Type)
         {
-            TextResult* r=dynamic_cast<TextResult*>(result());
+            TextResult* r=dynamic_cast<TextResult*>(result);
             LatexResult* latex=new LatexResult(r->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), r->plain());
             setResult( latex );
         }
-        else if (result()->type() == LatexResult::Type)
+        else if (result->type() == LatexResult::Type)
         {
-            LatexResult* previousLatexResult=dynamic_cast<LatexResult*>(result());
+            LatexResult* previousLatexResult=dynamic_cast<LatexResult*>(result);
             LatexResult* latex=new LatexResult(previousLatexResult->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), previousLatexResult->plain());
             setResult( latex );
         }
@@ -202,10 +200,12 @@ void Expression::latexRendered()
     {
         //if rendering with latex was not successful, just use the plain text version
         //if available
-        TextResult* r=dynamic_cast<TextResult*>(result());
+        TextResult* r=dynamic_cast<TextResult*>(result);
         setResult(new TextResult(r->plain()));
         qDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
+
+    delete result;
 
     renderer->deleteLater();
 }
