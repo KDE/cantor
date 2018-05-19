@@ -115,7 +115,7 @@ void MaximaSession::logout()
     delete m_process;
     m_process = nullptr;
 
-    qDebug()<<"login done";
+    qDebug()<<"logout done";
 }
 
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
