@@ -84,9 +84,9 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
     new RAdaptor(this);
 
+    m_tmpDir = QDir::tempPath() + QString::fromLatin1("/cantor_rserver-%1").arg(getpid());
     QDir dir;
-    dir.mkdir(QDir::tempPath() + QString::fromLatin1("/cantor/rserver-%1").arg(getpid()));
-    m_tmpDir=QDir::tempPath() + QString::fromLatin1("/cantor/rserver-%1").arg(getpid());
+    dir.mkdir(m_tmpDir);
     qDebug()<<"storing plots at "<<m_tmpDir;
 
     initR();
