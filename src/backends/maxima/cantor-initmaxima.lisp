@@ -76,7 +76,8 @@
 	)
 )
 
-;;Fix bug with old matrix tex output in maxima, until it is fixed
+;; Fix bug with maxima tex output, LaTeX and amsmath, until Maxima team don't solve it
+;; More info: https://sourceforge.net/p/maxima/bugs/3432/
 (defun tex-matrix(x l r)
   (append l `("\\begin{pmatrix}")
 	  (mapcan #'(lambda(y)
