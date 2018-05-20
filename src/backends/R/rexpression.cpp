@@ -102,10 +102,14 @@ void RExpression::showFilesAsResult(const QStringList& files)
         {
             qDebug()<<"its PostScript";
             setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
-        } else if(type.inherits(QLatin1String("text/plain")))
+        }
+        else if(type.inherits(QLatin1String("text/plain")) 
+            || type.inherits(QLatin1String("application/x-extension-html")))
         {
             //Htmls are also plain texts, combining this in one
-            if(type.inherits(QLatin1String("text/html")))
+            const bool isHtml = type.inherits(QLatin1String("text/html"))
+                || type.inherits(QLatin1String("application/x-extension-html"));
+            if(isHtml)
                 qDebug()<<"its a HTML document";
             else
                 qDebug()<<"its plain text";
@@ -118,7 +122,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 setStatus(Cantor::Expression::Error);
             }
             QString content=QTextStream(&f).readAll();
-            if (!type.inherits(QLatin1String("text/html")))
+            if (!isHtml)
             {
                 //Escape whitespace
                 content.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
