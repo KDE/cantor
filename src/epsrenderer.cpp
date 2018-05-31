@@ -104,6 +104,10 @@ QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
     QByteArray local_file = url.toLocalFile().toUtf8();
     spectre_document_load(doc, local_file.data());
 
+    bool isEps = spectre_document_is_eps(doc);
+    if (!isEps)
+        qDebug() << "Error: spectre document is not eps! It means, that url is invalid";
+
     int wdoc, hdoc;
     qreal w, h;
     double scale;

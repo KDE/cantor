@@ -216,7 +216,7 @@ void LatexEntry::updateEntry()
     {
         qDebug()<<"found a formula... rendering the eps...";
         QTextCharFormat format=cursor.charFormat();
-        QUrl url=format.property(EpsRenderer::ImagePath).value<QUrl>();
+        const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).value<QString>());
         QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
         qDebug()<<"rendering successful? "<< !s.isValid();
 
