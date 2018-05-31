@@ -97,7 +97,9 @@ void JuliaServer::runJuliaCommand(const QString &command)
             static_cast<jl_value_t *>(jl_call2(equality, nothing, val))
         );
         if (!is_nothing) {
-            jl_static_show(JL_STDOUT, val);
+            jl_value_t *out_display = static_cast<jl_value_t *>(jl_eval_string("TextDisplay(STDOUT)"));
+            jl_function_t *display = jl_get_function(jl_base_module, "display");
+            jl_call2(display, out_display, val);
         }
         m_was_exception = false;
     }
