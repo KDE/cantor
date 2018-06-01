@@ -22,6 +22,7 @@
 using namespace Cantor;
 
 #include <KPluginMetaData>
+
 class Cantor::PanelPluginPrivate
 {
   public:
@@ -53,7 +54,7 @@ QWidget* PanelPlugin::parentWidget()
     return d->parentWidget;
 }
 
-void PanelPlugin::setPluginInfo(KPluginMetaData info)
+void PanelPlugin::setPluginInfo(const KPluginMetaData& info)
 {
     d->name=info.name();
     d->requiredExtensions=info.value(QLatin1String("RequiredExtensions")).split(QLatin1Char(','));

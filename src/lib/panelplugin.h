@@ -21,9 +21,8 @@
 #ifndef _PANEL_PLUGIN_H
 #define _PANEL_PLUGIN_H
 
-#include <KXMLGUIClient>
 #include <QObject>
-#include <KPluginMetaData>
+class KPluginMetaData;
 
 #include "backend.h"
 
@@ -37,7 +36,7 @@ class PanelPluginPrivate;
 /**
  * A plugin provides some additional features for the worksheet
  */
-class CANTOR_EXPORT PanelPlugin : public QObject /*, public KXMLGUIClient*/
+class CANTOR_EXPORT PanelPlugin : public QObject
 {
   Q_OBJECT
   public:
@@ -56,7 +55,7 @@ class CANTOR_EXPORT PanelPlugin : public QObject /*, public KXMLGUIClient*/
      * accodring to KPluginMetaData
      * @param info KPluginMetaData
      */
-    void setPluginInfo(KPluginMetaData info);
+    void setPluginInfo(const KPluginMetaData&);
 
     /**
      * Returns a list of all extensions, the current backend
