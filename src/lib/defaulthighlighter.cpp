@@ -137,7 +137,7 @@ void DefaultHighlighter::highlightBlock(const QString& text)
     highlightRegExps(text);
 }
 
-void DefaultHighlighter::addPair(const QChar& openSymbol, const QChar& closeSymbol)
+void DefaultHighlighter::addPair(QChar openSymbol, QChar closeSymbol)
 {
     Q_ASSERT(!d->pairs.contains(openSymbol));
     Q_ASSERT(!d->pairs.contains(closeSymbol));
@@ -350,7 +350,7 @@ void DefaultHighlighter::updateFormats()
 }
 
 
-void DefaultHighlighter::positionChanged(QTextCursor cursor)
+void DefaultHighlighter::positionChanged(const QTextCursor& cursor)
 {
     if (!cursor.isNull() && cursor.document() != document())
 	// A new item notified us, but we did not yet change our document.

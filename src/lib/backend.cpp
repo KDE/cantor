@@ -42,7 +42,7 @@ class Cantor::BackendPrivate
     bool enabled;
 };
 
-Backend::Backend(QObject* parent, const QList<QVariant> args) : QObject(parent),
+Backend::Backend(QObject* parent, const QList<QVariant>& args) : QObject(parent),
                                                                 d(new BackendPrivate)
 {
     Q_UNUSED(args)

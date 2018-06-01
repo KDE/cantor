@@ -60,7 +60,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     /**
      * Called when the cursor moved. Rehighlights accordingly.
      */
-    void positionChanged(QTextCursor);
+    void positionChanged(const QTextCursor&);
 
   protected:
     /**
@@ -95,7 +95,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * @param closeSymbol the closing symbol of the pair
      * @sa highlightPairs
      */
-    void addPair(const QChar& openSymbol, const QChar& closeSymbol);
+    void addPair(QChar openSymbol, QChar closeSymbol);
     /**
      * Highlights all instances of the @p word in the text with the specified @p format
      * @param word the word to highlight

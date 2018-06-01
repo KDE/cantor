@@ -42,13 +42,12 @@ namespace Cantor
  */
 class CANTOR_EXPORT Extension : public QObject
 {
+  Q_OBJECT
   public:
     ///Default constructor
     Extension( const QString& name, QObject* parent );
     ~Extension() override;
-
 };
-
 
 
 //Some basic interfaces for extensions
@@ -58,6 +57,7 @@ class CANTOR_EXPORT Extension : public QObject
  */
 class CANTOR_EXPORT HistoryExtension : public Extension
 {
+  Q_OBJECT
   public:
     HistoryExtension(QObject* parent);
     ~HistoryExtension() override;
@@ -75,6 +75,7 @@ class CANTOR_EXPORT HistoryExtension : public Extension
  */
 class CANTOR_EXPORT ScriptExtension : public Extension
 {
+  Q_OBJECT
   public:
     ScriptExtension(QObject* parent);
     ~ScriptExtension() override;
@@ -121,6 +122,7 @@ class CANTOR_EXPORT ScriptExtension : public Extension
 **/
 class CANTOR_EXPORT CASExtension : public Extension
 {
+  Q_OBJECT
   public:
     CASExtension(QObject* parent);
     ~CASExtension() override;
@@ -153,6 +155,7 @@ class CANTOR_EXPORT CASExtension : public Extension
  */
 class CANTOR_EXPORT CalculusExtension : public Extension
 {
+  Q_OBJECT
   public:
     CalculusExtension(QObject* parent);
     ~CalculusExtension() override;
@@ -197,6 +200,7 @@ class CANTOR_EXPORT CalculusExtension : public Extension
  */
 class CANTOR_EXPORT PlotExtension : public Extension
 {
+  Q_OBJECT
   public:
     typedef QPair<QString,QString> Interval;
     typedef QPair<QString, Interval> VariableParameter;
@@ -238,6 +242,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
  */
 class CANTOR_EXPORT AdvancedPlotExtension : public Extension
 {
+  Q_OBJECT
   public:
     AdvancedPlotExtension(QObject* parent);
     ~AdvancedPlotExtension() override;
@@ -370,6 +375,7 @@ template <class Directive> AdvancedPlotExtension::DirectiveAcceptor<Directive>::
  */
 class CANTOR_EXPORT LinearAlgebraExtension : public Extension
 {
+  Q_OBJECT
   public:
     enum VectorType { ColumnVector, RowVector };
     typedef QList<QStringList> Matrix;
@@ -449,6 +455,7 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
 
 class CANTOR_EXPORT VariableManagementExtension : public Extension
 {
+  Q_OBJECT
   public:
     VariableManagementExtension( QObject* parent );
     ~VariableManagementExtension() override;
@@ -468,6 +475,7 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
  */
 class CANTOR_EXPORT PackagingExtension : public Extension
 {
+  Q_OBJECT
   public:
     PackagingExtension(QObject* parent);
     ~PackagingExtension() override;
