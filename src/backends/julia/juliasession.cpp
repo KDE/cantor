@@ -36,6 +36,8 @@
 #include "juliacompletionobject.h"
 #include <julia/julia_version.h>
 
+const QRegularExpression JuliaSession::typeVariableInfo = QRegularExpression(QLatin1String("\\w+\\["));
+
 JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
     , m_process(nullptr)
@@ -335,7 +337,10 @@ void JuliaSession::listVariables()
             }
 
             // Register variable
-            m_variableModel->addVariable(name, value);
+            // We use replace here, because julia return data type for some variables, and we need 
+            // remove it to make variable view more consistent with the other backends
+            // More info: https://bugs.kde.org/show_bug.cgi?id=377771
+            m_variableModel->addVariable(name, value.replace(typeVariableInfo,QLatin1String("[")));
             JuliaKeywords::instance()->addVariable(name);
         }
     }
