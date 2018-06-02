@@ -279,6 +279,10 @@ void JuliaSession::listVariables()
 
             QString type =
                 line.simplified().split(QLatin1String(" ")).last().simplified();
+#if JULIA_VERSION_MINOR > 5
+            if (line.contains(QLatin1String("#")))
+                type = QLatin1String("Function");
+#endif
 
             if (ignoredVariables.contains(name)) {
                 // Ignored variable
