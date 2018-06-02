@@ -70,7 +70,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
 
     // Run command
     jl_value_t *val = static_cast<jl_value_t *>(
-        jl_eval_string(command.toLatin1().constData())
+        jl_eval_string(command.toUtf8().constData())
     );
 
     if (jl_exception_occurred()) { // If exception occurred
