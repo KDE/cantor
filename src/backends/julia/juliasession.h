@@ -20,6 +20,7 @@
 #pragma once
 
 #include <QMap>
+#include <QRegularExpression>
 
 #include "session.h"
 
@@ -113,6 +114,7 @@ private:
 
     /// Variable management model
     Cantor::DefaultVariableModel *m_variableModel;
+    static const QRegularExpression typeVariableInfo;
 
     /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
