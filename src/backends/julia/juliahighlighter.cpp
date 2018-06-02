@@ -179,5 +179,5 @@ void JuliaHighlighter::updateHighlight()
 
 QString JuliaHighlighter::nonSeparatingCharacters() const
 {
-    return QLatin1String("[\\w\\u00A1-\\uFFFF!]");
+    return QLatin1String("[\\w¡-ﻼ!]");
 }
