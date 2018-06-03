@@ -107,7 +107,7 @@ QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
     return createMatrix(m);
 }
 
-QString AdvancedPlotExtension::plotFunction2d(const QString& expression, const QVector<PlotDirective*> directives) const
+QString AdvancedPlotExtension::plotFunction2d(const QString& expression, const QVector<PlotDirective*>& directives) const
 {
     QString params = QLatin1String("");
     foreach (PlotDirective* dir, directives)

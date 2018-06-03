@@ -56,7 +56,7 @@ class ImageEntry : public WorksheetEntry
     void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
-    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
     void updateEntry() Q_DECL_OVERRIDE;
 
     void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;

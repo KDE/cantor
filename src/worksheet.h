@@ -78,9 +78,9 @@ class Worksheet : public QGraphicsScene
 
     void startDrag(WorksheetEntry* entry, QDrag* drag);
 
-    void createActions(KActionCollection* collection);
+    void createActions(KActionCollection*);
     QMenu* createContextMenu();
-    void populateMenu(QMenu* menu, const QPointF& pos);
+    void populateMenu(QMenu* menu, QPointF pos);
     EpsRenderer* epsRenderer();
     bool isEmpty();
     bool isLoadingFromFile();
@@ -98,7 +98,7 @@ class Worksheet : public QGraphicsScene
     void updateProtrusion(qreal oldWidth, qreal newWidth);
     void removeProtrusion(qreal width);
 
-    bool isShortcut(QKeySequence sequence);
+    bool isShortcut(const QKeySequence&);
 
     // richtext
     struct RichTextInfo {
@@ -168,12 +168,12 @@ class Worksheet : public QGraphicsScene
 
     void removeCurrentEntry();
 
-    void setFirstEntry(WorksheetEntry* entry);
-    void setLastEntry(WorksheetEntry* entry);
+    void setFirstEntry(WorksheetEntry*);
+    void setLastEntry(WorksheetEntry*);
     void invalidateFirstEntry();
     void invalidateLastEntry();
 
-    void updateFocusedTextItem(WorksheetTextItem* item);
+    void updateFocusedTextItem(WorksheetTextItem*);
 
     void updateDragScrollTimer();
 
@@ -181,7 +181,7 @@ class Worksheet : public QGraphicsScene
     void updateShortcut();
 
     // richtext
-    void setRichTextInformation(const RichTextInfo&);
+    void setRichTextInformation(const Worksheet::RichTextInfo&);
     void setAcceptRichText(bool b);
 
     void setTextForegroundColor();
@@ -194,13 +194,13 @@ class Worksheet : public QGraphicsScene
     void setAlignRight();
     void setAlignCenter();
     void setAlignJustify();
-    void setFontFamily(QString font);
+    void setFontFamily(const QString&);
     void setFontSize(int size);
 
   Q_SIGNALS:
     void modified();
     void sessionChanged();
-    void showHelp(const QString& help);
+    void showHelp(const QString&);
     void updatePrompt();
     void undoAvailable(bool);
     void redoAvailable(bool);
@@ -214,13 +214,13 @@ class Worksheet : public QGraphicsScene
     void paste();
 
   protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*) Q_DECL_OVERRIDE;
+    void mousePressEvent(QGraphicsSceneMouseEvent*) Q_DECL_OVERRIDE;
 
-    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
-    void dragLeaveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
-    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
-    void dropEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    void dragEnterEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
+    void dragLeaveEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
+    void dropEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
 
   private Q_SLOTS:
     void loginToSession();

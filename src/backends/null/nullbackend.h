@@ -27,7 +27,7 @@ class NullBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
-    explicit NullBackend( QObject* parent = nullptr,const QList<QVariant> args = QList<QVariant>());
+    explicit NullBackend( QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
     ~NullBackend() override;
 
     QString id() const Q_DECL_OVERRIDE;

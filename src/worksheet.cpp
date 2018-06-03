@@ -1129,7 +1129,7 @@ QMenu* Worksheet::createContextMenu()
     return menu;
 }
 
-void Worksheet::populateMenu(QMenu *menu, const QPointF& pos)
+void Worksheet::populateMenu(QMenu *menu, QPointF pos)
 {
     WorksheetEntry* entry = entryAt(pos);
     if (entry && !entry->isAncestorOf(m_lastFocusedTextItem)) {
@@ -1562,7 +1562,7 @@ void Worksheet::setAlignJustify()
         item->setAlignment(Qt::AlignJustify);
 }
 
-void Worksheet::setFontFamily(QString font)
+void Worksheet::setFontFamily(const QString& font)
 {
     WorksheetTextItem* item = currentTextItem();
     if (item)
@@ -1576,7 +1576,7 @@ void Worksheet::setFontSize(int size)
         item->setFontSize(size);
 }
 
-bool Worksheet::isShortcut(QKeySequence sequence)
+bool Worksheet::isShortcut(const QKeySequence& sequence)
 {
     return m_shortcuts.contains(sequence);
 }
