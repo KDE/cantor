@@ -343,14 +343,14 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
      * @param directives the array of directives toward the generator
      * @return the command for plotting
      */
-    QString plotFunction2d(const QString& expression, const QVector<PlotDirective*> directives) const;
+    QString plotFunction2d(const QString& expression, const QVector<Cantor::AdvancedPlotExtension::PlotDirective*>& directives) const;
 
     /**
      * returns the parameter expression according to a directive.
      * @param directive the directive toward the generator
      * @return the parameter for plotting
      */
-    QString dispatchDirective(const PlotDirective& directive) const;
+    QString dispatchDirective(const Cantor::AdvancedPlotExtension::PlotDirective& directive) const;
 
   protected:
     /**
@@ -391,14 +391,14 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
      * @param type the type of the vector (row/column)
      * @return the command for creating the vector
      */
-    virtual QString createVector(const QStringList& entries, VectorType type) = 0;
+    virtual QString createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type) = 0;
     /**
      * creates a null vector, of the given size/type
      * @param size size of the vector
      * @param type type of the vector
      * @return the command used for creating a nullvector
      **/
-    virtual QString nullVector(int size, VectorType type);
+    virtual QString nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type);
     /**
      * creates a maxtrix with the given entries
      * @param matrix the entries of the matrix

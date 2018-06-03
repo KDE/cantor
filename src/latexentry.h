@@ -59,7 +59,7 @@ class LatexEntry : public WorksheetEntry
                            const WorksheetCursor& pos = WorksheetCursor()) Q_DECL_OVERRIDE;
 
   public Q_SLOTS:
-    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
     void resolveImagesAtCursor();
     void updateEntry() Q_DECL_OVERRIDE;
     void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;

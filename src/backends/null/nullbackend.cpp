@@ -27,7 +27,7 @@
 #include "cantor_macros.h"
 
 
-NullBackend::NullBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
+NullBackend::NullBackend( QObject* parent, const QList<QVariant>& args ) : Cantor::Backend( parent,args )
 {
     setObjectName(QLatin1String("nullbackend"));
     qDebug()<<"Creating NullBackend";

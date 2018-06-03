@@ -51,7 +51,7 @@ class PageBreakEntry : public WorksheetEntry
     //         QWidget * widget = 0);
 
   public Q_SLOTS:
-    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
     void updateEntry() Q_DECL_OVERRIDE;
     void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;
 

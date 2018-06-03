@@ -106,7 +106,7 @@ class WorksheetEntry : public QGraphicsObject
                                    const WorksheetCursor& pos = WorksheetCursor());
 
   public Q_SLOTS:
-    virtual bool evaluate(EvaluationOption evalOp = FocusNext) = 0;
+    virtual bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) = 0;
     virtual bool evaluateCurrentItem();
     virtual void updateEntry() = 0;
 

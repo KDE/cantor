@@ -85,7 +85,7 @@ class CommandEntry : public WorksheetEntry
 
   public Q_SLOTS:
     bool evaluateCurrentItem() Q_DECL_OVERRIDE;
-    bool evaluate(EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
     void addInformation();
     void removeResult();
 
@@ -128,7 +128,7 @@ class CommandEntry : public WorksheetEntry
     void invalidate();
     void resultDeleted();
     void updateCompletions();
-    void completeCommandTo(const QString& completion, CompletionMode mode = PreliminaryCompletion);
+    void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
 
   private:
     static const double HorizontalSpacing;
