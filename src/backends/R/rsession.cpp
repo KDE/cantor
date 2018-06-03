@@ -39,7 +39,8 @@ RSession::RSession(Cantor::Backend* backend) : Session(backend), m_process(nullp
 RSession::~RSession()
 {
     qDebug();
-    m_process->terminate();
+    if (m_process)
+        m_process->terminate();
 }
 
 void RSession::login()

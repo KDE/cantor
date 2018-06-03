@@ -48,7 +48,8 @@ m_variableModel(new Cantor::DefaultVariableModel(this))
 
 ScilabSession::~ScilabSession()
 {
-    m_process->terminate();
+    if (m_process)
+        m_process->terminate();
     qDebug();
 }
 
