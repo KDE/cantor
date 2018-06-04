@@ -147,9 +147,16 @@ void RExpression::showFilesAsResult(const QStringList& files)
         }
         else
         {
-            setResult(new Cantor::TextResult(i18n("cannot open file %1: Unknown MimeType", file)));
-            setErrorMessage(i18n("cannot open file %1: Unknown MimeType", file));
-            setStatus(Cantor::Expression::Error);
+            // File has unsupported mime type, but we suspect, that it is text, so will open the file in Cantor script editor
+            // Even if it don't text, the script editor can deals with it.
+            setResult(new Cantor::TextResult(QLatin1String("")));
+            setStatus(Cantor::Expression::Done);
+            const QString& editor = QStandardPaths::findExecutable(QLatin1String("cantor_scripteditor"));
+            int code = QProcess::execute(editor, QStringList(file));
+            if (code == -2)
+                qDebug() << "failed to open the file " << file << " with the script editor '" << editor << "'";
+            else if (code == -1)
+                qDebug() << "Cantor script editor crashed";
         }
     }
 }
