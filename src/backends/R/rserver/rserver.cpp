@@ -358,7 +358,9 @@ void RServer::runCommand(const QString& cmd, bool internal)
         {
             qDebug()<<"printing result...";
             SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),NULL,&errorOccurred)); // TODO: error checks
-            if (*INTEGER(count)==1)
+            if (*INTEGER(count)==0)
+                qDebug() << "no result, so show nothing";
+            else if (*INTEGER(count)==1)
                 Rf_PrintValue(result);
             else
             {
