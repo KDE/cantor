@@ -328,7 +328,7 @@ void JuliaSession::listVariables()
             auto type = batchTypes[i];
             auto name = batchNames[i];
 
-            if (type == QLatin1String("ASCIIString")) {
+            if (type == QLatin1String("ASCIIString") || type == QLatin1String("String")) {
                 if (value == rem_marker) {
                     // This is removed variable
                     m_variableModel->removeVariable(name);
