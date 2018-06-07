@@ -240,7 +240,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_evaluate=new QAction(i18n("Evaluate Worksheet"), actionCollection());
     actionCollection()->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
     m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
-    m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);
+    actionCollection()->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
     connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
 
     m_typeset=new KToggleAction(i18n("Typeset using LaTeX"), actionCollection());
