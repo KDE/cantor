@@ -71,6 +71,9 @@ else(NOT WIN32)
 endif(NOT WIN32)
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+    add_definitions(-DQT_NO_DEBUG_OUTPUT)
+endif (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 kde_enable_exceptions()
 
 add_subdirectory(doc)
