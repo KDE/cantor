@@ -35,6 +35,16 @@ static const char description[] =
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
+
+#ifdef PATH_TO_CANTOR_PLUGINS
+    // Add our custom plugins path, where we install our plugins, if it isn't default path
+    const QString& path = QString::fromLocal8Bit(PATH_TO_CANTOR_PLUGINS);
+    if (!QCoreApplication::libraryPaths().contains(path))
+        QCoreApplication::addLibraryPath(path);
+#else
+    qDebug() << "PATH_TO_CANTOR_PLUGINS variable is not set (probably a bug), so use the default library paths";
+#endif
+
     KCrash::initialize();
 
     // Migrating configuration from 4.x applications to KF5-based applications
