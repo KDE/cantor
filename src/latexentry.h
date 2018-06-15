@@ -69,6 +69,7 @@ class LatexEntry : public WorksheetEntry
 
   private:
     QString latexCode();
+    bool renderLatexCode();
     bool isOneImageOnly();
 
   private:

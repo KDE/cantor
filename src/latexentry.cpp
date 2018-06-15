@@ -29,6 +29,7 @@
 
 #include <QTextCursor>
 #include <QStandardPaths>
+#include <QDir>
 #include <QDebug>
 #include <KLocalizedString>
 
@@ -116,9 +117,9 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
         if (imageEntry&&imageEntry->isFile())
         {
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
+            const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
             imageFile->copyTo(dir);
-            QString imagePath=QString(dir+QLatin1String("/")+imageFile->name());
+            const QString& imagePath = dir + QDir::separator() + imageFile->name();
 
             QUrl internal=QUrl::fromLocalFile(imagePath);
             internal.setScheme(QLatin1String("internal"));
@@ -147,6 +148,30 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
 
     QDomElement el = doc.createElement(QLatin1String("Latex"));
     el.appendChild( doc.createTextNode( latexCode() ));
+
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    if (!cursor.isNull())
+    {
+        QTextCharFormat format=cursor.charFormat();
+        QString fileName = format.property(EpsRenderer::ImagePath).value<QString>();
+        // Check, if eps file exists, and if not true, rerender latex code
+        bool isEpsFileExists = QFile::exists(fileName);
+        if (!isEpsFileExists && renderLatexCode())
+            {
+            cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+            format=cursor.charFormat();
+            fileName = format.property(EpsRenderer::ImagePath).value<QString>();
+            isEpsFileExists = QFile::exists(fileName);
+            }
+
+        if (isEpsFileExists)
+            {
+            const QUrl& url=QUrl::fromLocalFile(fileName);
+            archive->addLocalFile(url.toLocalFile(), url.fileName());
+            el.setAttribute(QLatin1String("filename"), url.fileName());
+            }
+    }
+
     return el;
 }
 
@@ -178,29 +203,7 @@ bool LatexEntry::evaluate(EvaluationOption evalOp)
     }
     else
     {
-        QString latex = latexCode();
-        Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
-        renderer->setLatexCode(latex);
-        renderer->setEquationOnly(false);
-        renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
-        renderer->renderBlocking();
-
-        QTextImageFormat formulaFormat;
-        if (renderer->renderingSuccessful())
-        {
-            EpsRenderer* epsRend = worksheet()->epsRenderer();
-            formulaFormat = epsRend->render(m_textItem->document(), renderer);
-            success = !formulaFormat.name().isEmpty();
-        }
-
-        if(success)
-        {
-            QTextCursor cursor = m_textItem->textCursor();
-            cursor.movePosition(QTextCursor::Start);
-            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
-        }
-        delete renderer;
+        success = renderLatexCode();
     }
 
     qDebug()<<"rendering successful? "<<success;
@@ -334,4 +337,33 @@ void LatexEntry::layOutForWidth(qreal w, bool force)
 bool LatexEntry::wantToEvaluate()
 {
     return !isOneImageOnly();
+}
+
+bool LatexEntry::renderLatexCode()
+{
+    bool success = false;
+    QString latex = latexCode();
+    Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
+    renderer->setLatexCode(latex);
+    renderer->setEquationOnly(false);
+    renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
+    renderer->renderBlocking();
+
+    QTextImageFormat formulaFormat;
+    if (renderer->renderingSuccessful())
+    {
+        EpsRenderer* epsRend = worksheet()->epsRenderer();
+        formulaFormat = epsRend->render(m_textItem->document(), renderer);
+        success = !formulaFormat.name().isEmpty();
+    }
+
+    if(success)
+    {
+        QTextCursor cursor = m_textItem->textCursor();
+        cursor.movePosition(QTextCursor::Start);
+        cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+    }
+    delete renderer;   
+    return success;
 }
