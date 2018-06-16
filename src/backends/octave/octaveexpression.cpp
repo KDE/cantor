@@ -33,7 +33,9 @@ static const char* printCommand = "cantor_print();";
 OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session),
     m_plotPending(false),
     m_finished(false),
-    m_error(false)
+    m_error(false),
+    m_appendPlotCommand(false),
+    m_appendDot(false)
 {
     m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
                    << QLatin1String("polar") << QLatin1String("contour") << QLatin1String("bar")
@@ -81,9 +83,11 @@ void OctaveExpression::evaluate()
         if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
         {
             cmd += QLatin1Char(',');
+            m_appendDot = true;
         }
         cmd += QLatin1String(printCommand);
         setCommand(cmd);
+        m_appendPlotCommand = true;
     }
     m_finished = false;
     setStatus(Computing);
@@ -140,6 +144,20 @@ void OctaveExpression::parsePlotFile(QString file)
 void OctaveExpression::finalize()
 {
     qDebug() << "finalize: " << m_resultString;
+
+    if (m_appendPlotCommand)
+    {
+        QString cmd = command();
+        cmd.remove(cmd.length()-strlen(printCommand),strlen(printCommand));
+        m_appendPlotCommand = false;
+        if (m_appendDot)
+            {
+            cmd.remove(cmd.length()-1,1);
+            m_appendDot = false;
+            }
+        setCommand(cmd);
+    }
+
     foreach ( const QString& line, m_resultString.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts) )
     {
         if ((m_resultString.contains(QLatin1Char('='))) && !(command().startsWith(QLatin1String("help(")))

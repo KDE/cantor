@@ -55,6 +55,8 @@ private:
     bool m_plotPending;
     bool m_finished;
     bool m_error;
+    bool m_appendPlotCommand;
+    bool m_appendDot;
     QStringList m_plotCommands;
 };
 
