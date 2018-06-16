@@ -6,4 +6,4 @@ ki18n_wrap_ui(IntegrateAssistant_SRCS integratedlg.ui)
 
 add_assistant(integrateassistant ${IntegrateAssistant_SRCS})
 
-install( FILES cantor_integrate_assistant.rc  DESTINATION  ${KDE_INSTALL_DATADIR}/cantor )
+install( FILES cantor_integrate_assistant.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
