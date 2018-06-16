@@ -6,4 +6,4 @@ ki18n_wrap_ui(AdvancedPlotAssistant_SRCS advancedplotdialog.ui directivecontaine
 
 add_assistant(advancedplotassistant ${AdvancedPlotAssistant_SRCS})
 
-install(FILES cantor_advancedplot_assistant.rc  DESTINATION  ${KDE_INSTALL_DATADIR}/cantor)
+install(FILES cantor_advancedplot_assistant.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor)
