@@ -94,7 +94,6 @@ void ScilabHighlighter::addVariableHighlight()
 
 void ScilabHighlighter::updateHighlight()
 {
-    qDebug();
 
     addVariables(ScilabKeywords::instance()->variables());
     addKeywords(ScilabKeywords::instance()->keywords());

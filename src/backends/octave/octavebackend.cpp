@@ -31,7 +31,6 @@
 
 OctaveBackend::OctaveBackend(QObject* parent, const QList< QVariant > args): Backend(parent, args)
 {
-    qDebug();
     new OctaveHistoryExtension(this);
     new OctaveScriptExtension(this);
     new OctavePlotExtension(this);
@@ -58,7 +57,6 @@ Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 
 Cantor::Session* OctaveBackend::createSession()
 {
-    qDebug();
     return new OctaveSession(this);
 }
 

@@ -43,7 +43,6 @@ void OctaveSyntaxHelpObject::fetchInformation()
 
 void OctaveSyntaxHelpObject::fetchingDone()
 {
-    qDebug();
     if (!m_expression || m_expression->status() != Cantor::Expression::Done)
     {
         return;

@@ -29,7 +29,6 @@
 
 NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(session)
 {
-    qDebug();
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);
     connect(m_timer, &QTimer::timeout, this, &NullExpression::evalFinished);

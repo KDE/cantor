@@ -101,7 +101,6 @@ bool SageSession::VersionInfo::operator>=(const SageSession::VersionInfo& other)
 
 SageSession::SageSession( Cantor::Backend* backend) : Session(backend)
 {
-    qDebug();
     m_isInitialized=false;
     m_haveSentInitCmd=false;
     connect( &m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( fileCreated( const QString& ) ) );
@@ -109,7 +108,6 @@ SageSession::SageSession( Cantor::Backend* backend) : Session(backend)
 
 SageSession::~SageSession()
 {
-    qDebug();
 }
 
 void SageSession::login()
