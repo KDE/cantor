@@ -65,7 +65,7 @@ void MaximaExpression::evaluate()
     if(command().startsWith(QLatin1Char('?'))||command().startsWith(QLatin1String("describe("))||command().startsWith(QLatin1String("example(")))
         m_isHelpRequest=true;
 
-    if(command().contains(QRegExp(QLatin1String("(?:plot2d|plot3d)\\s*\\([^\\)]"))) && MaximaSettings::self()->integratePlots() && !command().contains(QLatin1String("ps_file")))
+    if(command().contains(QRegExp(QLatin1String("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))) && MaximaSettings::self()->integratePlots() && !command().contains(QLatin1String("ps_file")))
     {
         m_isPlot=true;
 #ifdef WITH_EPS
@@ -159,7 +159,7 @@ QString MaximaExpression::internalCommand()
         const QString plotParameters = QLatin1String("[gnuplot_term, \"png size 500,340\"], [gnuplot_out_file, \"")+fileName+QLatin1String("\"]");
 
 #endif
-        cmd.replace(QRegExp(QLatin1String("((plot2d|plot3d)\\s*\\(.*)\\)([;\n]|$)")), QLatin1String("\\1, ")+plotParameters+QLatin1String(");"));
+        cmd.replace(QRegExp(QLatin1String("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n]|$)")), QLatin1String("\\1, ")+plotParameters+QLatin1String(");"));
 
     }
 
