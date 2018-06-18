@@ -143,7 +143,6 @@ void PythonHighlighter::highlightBlock(const QString &text)
 
 void PythonHighlighter::updateHighlight()
 {
-    qDebug();
 
     addVariables(PythonKeywords::instance()->variables());
     rehighlight();

@@ -37,12 +37,10 @@
 PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
-    qDebug();
 }
 
 PythonSession::~PythonSession()
 {
-    qDebug();
 }
 
 void PythonSession::login()

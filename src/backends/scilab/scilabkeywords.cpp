@@ -52,7 +52,6 @@ ScilabKeywords* ScilabKeywords::instance()
 
 void ScilabKeywords::setupKeywords(QString keywords)
 {
-    qDebug();
 
     QStringList key;
     key = keywords.replace(QLatin1String(" !"), QLatin1String("\n")).replace(QLatin1String("!"), QLatin1String(""))

@@ -43,14 +43,12 @@ ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     m_process = nullptr;
-    qDebug();
 }
 
 ScilabSession::~ScilabSession()
 {
     if (m_process)
         m_process->terminate();
-    qDebug();
 }
 
 void ScilabSession::login()
@@ -254,7 +252,6 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
 void ScilabSession::listKeywords()
 {
-    qDebug();
 
     while(m_process->bytesAvailable() > 0){
         m_output.append(QString::fromLocal8Bit(m_process->readLine()));
@@ -285,7 +282,6 @@ void ScilabSession::listKeywords()
 
 QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 {
-    qDebug();
 
     ScilabHighlighter *highlighter = new ScilabHighlighter(parent);
 

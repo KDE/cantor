@@ -68,7 +68,6 @@ void OctaveHighlighter::updateVariables()
 
 void OctaveHighlighter::receiveFunctions()
 {
-  qDebug();
   if (m_functionsExpr->status() != Cantor::Expression::Done || !m_functionsExpr->result())
   {
     return;
