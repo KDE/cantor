@@ -12,4 +12,4 @@ kcoreaddons_add_plugin(cantor_qalculateplotassistant
 
 target_link_libraries(cantor_qalculateplotassistant cantorlibs)
 
-install( FILES cantor_qalculateplotassistant.rc  DESTINATION  ${KDE_INSTALL_DATADIR}/cantor )
+install( FILES cantor_qalculateplotassistant.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
