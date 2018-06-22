@@ -116,7 +116,11 @@ void SageSession::login()
     emit loginStarted();
 
     m_process=new KPtyProcess(this);
-    m_process->setProgram(SageSettings::self()->path().toLocalFile());
+
+    const QString& sageExecFile = SageSettings::self()->path().toLocalFile();
+    const QString& sageStartScript = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/sagebackend/cantor-execsage"));
+    m_process->setProgram(sageStartScript, QStringList(sageExecFile));
+
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
     m_process->setPtyChannels(KPtyProcess::AllChannels);
     m_process->pty()->setEcho(false);
@@ -213,7 +217,20 @@ void SageSession::readStdOut()
 
             m_sageVersion=SageSession::VersionInfo(major, minor);
 
-            if(m_sageVersion<=SageSession::VersionInfo(5, 7))
+            // After the update ipython5 somewhere around Sage 7.6, Cantor stopped working with Sage.
+            // To fix this, we start Sage via a help wrapper that makes ipythong using simple prompt.
+            // This method works starting with Sage 8.1"
+            // Versions lower than 8.1 are not supported because of https://github.com/ipython/ipython/issues/9816
+            if(m_sageVersion <= SageSession::VersionInfo(8, 0) && m_sageVersion >= SageSession::VersionInfo(7,4))
+            {
+                const QString message = i18n(
+                    "Sage version %1.%2 is unsupported. Please update your installation "\
+                    "to the supported versions to make it work with Cantor.", major, minor);
+                KMessageBox::error(nullptr, message, i18n("Cantor"));
+                interrupt();
+                logout();
+            }
+            else if(m_sageVersion<=SageSession::VersionInfo(5, 7))
             {
                 qDebug()<<"using an old version of sage: "<<major<<"."<<minor<<". Using the old init command";
                 if(!m_haveSentInitCmd)
