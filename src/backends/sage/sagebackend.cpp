@@ -58,7 +58,7 @@ QString SageBackend::id() const
 
 QString SageBackend::version() const
 {
-    return QLatin1String("Undefined");
+    return QLatin1String("8.1 and 8.2");
 }
 
 Cantor::Session* SageBackend::createSession()

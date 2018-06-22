@@ -29,3 +29,8 @@ if(BUILD_TESTING)
 endif()
 
 install(FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+
+install(
+  PROGRAMS cantor-execsage
+  DESTINATION ${KDE_INSTALL_DATADIR}/cantor/sagebackend
+)

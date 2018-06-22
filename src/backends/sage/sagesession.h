@@ -97,6 +97,7 @@ class SageSession : public Cantor::Session
   private:
     void runFirstExpression();
     void defineCustomFunctions();
+    bool updateSageVersion();
   private:
     KPtyProcess* m_process;
     QList<SageExpression*> m_expressionQueue;

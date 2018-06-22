@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+ROOT="$($1 --root)"
+
+if [[ -f $ROOT"/bin/sage-env" ]]; then
+    . "$ROOT/bin/sage-env" >&2
+elif [[ -f $ROOT"/src/bin/sage-env" ]]; then
+    . "$ROOT/src/bin/sage-env" >&2
+else
+    exit 1 # We have a problem
+fi
+
+exec sage-ipython -i --simple-prompt
