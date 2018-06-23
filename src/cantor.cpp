@@ -318,7 +318,20 @@ void CantorShell::addWorksheet(const QString& backendName)
 void CantorShell::activateWorksheet(int index)
 {
     QObject* pluginHandler=m_part->findChild<QObject*>(QLatin1String("PanelPluginHandler"));
-    disconnect(pluginHandler,SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
+    if (pluginHandler)
+        disconnect(pluginHandler,SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
+
+    // Save part state before change worksheet
+    if (m_part)
+    {
+        QStringList visiblePanelNames;
+        foreach (QDockWidget* doc, m_panels)
+        {
+            if (doc->widget() && doc->widget()->isVisible())
+                visiblePanelNames << doc->objectName();
+        }
+        m_pluginsVisibility[m_part] = visiblePanelNames;
+    }
 
     m_part=findPart(m_tabWidget->widget(index));
     if(m_part)
@@ -378,6 +391,7 @@ void CantorShell::closeTab(int index)
         if(part)
         {
             m_parts.removeAll(part);
+            m_pluginsVisibility.remove(part);
             delete part;
         }
     }
@@ -386,7 +400,7 @@ void CantorShell::closeTab(int index)
 bool CantorShell::reallyClose(bool checkAllParts) {
     if(checkAllParts && m_parts.count() > 1) {
         bool modified = false;
-         foreach( KParts::ReadWritePart* const part, m_parts)
+        foreach( KParts::ReadWritePart* const part, m_parts)
         {
             if(part->isModified()) {
                 modified = true;
@@ -543,6 +557,7 @@ void CantorShell::updatePanel()
     QDockWidget* last=nullptr;
 
     QList<Cantor::PanelPlugin*> plugins=handler->plugins();
+    const bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
     foreach(Cantor::PanelPlugin* plugin, plugins)
     {
         if(plugin==nullptr)
@@ -558,6 +573,15 @@ void CantorShell::updatePanel()
         docker->setObjectName(plugin->name());
         docker->setWidget(plugin->widget());
         addDockWidget ( Qt::RightDockWidgetArea,  docker );
+
+        // Set visibility for dock from saved info
+        if (!isNewWorksheet)
+            if (m_pluginsVisibility[m_part].contains(plugin->name()))
+                docker->show();
+            else
+                docker->hide();
+        else
+            docker->show();
 
         if(last!=nullptr)
             tabifyDockWidget(last, docker);

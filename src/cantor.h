@@ -106,6 +106,7 @@ private:
     KParts::ReadWritePart* findPart(QWidget* widget);
 
 private:
+    QMap<KParts::ReadWritePart*, QStringList> m_pluginsVisibility;
     QList<KParts::ReadWritePart *> m_parts;
     KParts::ReadWritePart* m_part;
     QTabWidget* m_tabWidget;
