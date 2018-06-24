@@ -26,6 +26,7 @@
 #include <QDomElement>
 #include <QGraphicsLinearLayout>
 #include <QSyntaxHighlighter>
+#include <QGraphicsRectItem>
 
 #include <KZip>
 #include <QMenu>
@@ -222,6 +223,8 @@ class Worksheet : public QGraphicsScene
     void dragMoveEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
     void dropEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
 
+    void keyPressEvent(QKeyEvent *keyEvent) Q_DECL_OVERRIDE;
+
   private Q_SLOTS:
     void loginToSession();
     void showCompletion();
@@ -235,6 +238,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF p);
     WorksheetEntry* entryAt(int row);
+    void updateEntryCursor(QGraphicsSceneMouseEvent* event);
+    void addEntryFromEntryCursor();
     int entryCount();
 
   private:
@@ -247,6 +252,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
+    WorksheetEntry* m_choosenCursorEntry;
+    QGraphicsLineItem* m_entryCursorItem;
     PlaceHolderEntry* m_placeholderEntry;
     WorksheetTextItem* m_lastFocusedTextItem;
     QTimer* m_dragScrollTimer;

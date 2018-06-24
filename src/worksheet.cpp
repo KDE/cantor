@@ -51,7 +51,7 @@
 
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
-const double Worksheet::TopMargin = 4;
+const double Worksheet::TopMargin = 10;
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
@@ -67,6 +67,10 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_viewWidth = 0;
     m_protrusion = 0;
     m_dragScrollTimer = nullptr;
+
+    m_choosenCursorEntry = nullptr;
+    m_entryCursorItem = addLine(0,0,0,0);
+    m_entryCursorItem->hide();
 
     m_isPrinting = false;
     m_loginDone = false;
@@ -1040,6 +1044,9 @@ bool Worksheet::load(QIODevice* device)
 
     //delete all items from the scene
     clear();
+    // Our cursor deleted too, so rectreated them
+    m_entryCursorItem = addLine(0,0,0,0);
+    m_entryCursorItem->hide();
 
     m_session=b->createSession();
 
@@ -1196,6 +1203,17 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
     if (event->button() == Qt::LeftButton && !focusItem() && lastEntry() &&
         event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
         lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
+
+    updateEntryCursor(event);
+}
+
+void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
+{
+    // If we choose entry by entry cursor and press text button (not modifires, for example, like Control)
+    if (m_choosenCursorEntry && !keyEvent->text().isEmpty())
+        addEntryFromEntryCursor();
+
+    QGraphicsScene::keyPressEvent(keyEvent);
 }
 
 void Worksheet::createActions(KActionCollection* collection)
@@ -1731,4 +1749,42 @@ void Worksheet::updateDragScrollTimer()
     m_dragScrollTimer->start();
 }
 
+void Worksheet::updateEntryCursor(QGraphicsSceneMouseEvent* event)
+{
+    m_choosenCursorEntry = nullptr;
+    if (event->button() == Qt::LeftButton && !focusItem())
+        for (WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+        {
+            qreal y = event->scenePos().y();
+            if (entry == firstEntry() && y < entry->y() )
+            {
+                m_choosenCursorEntry = firstEntry();
+                break;
+            }
+            else if (entry->y() < y && (entry->next() && y < entry->next()->y()))
+            {
+                m_choosenCursorEntry = entry->next();
+                break;
+            }
+        }
 
+    if (m_choosenCursorEntry)
+    {
+        qreal x = LeftMargin;
+        qreal y = m_choosenCursorEntry->y();
+
+        m_entryCursorItem->hide();
+        m_entryCursorItem->setLine(x,y,x+30,y);
+        m_entryCursorItem->show();
+    }
+    else
+        m_entryCursorItem->hide();
+}
+
+void Worksheet::addEntryFromEntryCursor()
+{
+    qDebug() << "Add new entry from entry cursor";
+    insertCommandEntryBefore(m_choosenCursorEntry);
+    m_choosenCursorEntry = nullptr;
+    m_entryCursorItem->hide();
+}
