@@ -402,9 +402,13 @@ void SageSession::setTypesettingEnabled(bool enable)
 {
     Cantor::Session::setTypesettingEnabled(enable);
 
+    // We have problems with Sage latex output (generates invalid code sometimes), so disable sage 
+    // latex output until this not be solved. Users can enable sage latex by hands using %display 
+    // sage magic.
+
     //tell the sage server to enable/disable pretty_print
-    const QString cmd=QLatin1String("__cantor_enable_typesetting(%1)");
-    evaluateExpression(cmd.arg(enable ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
+    //const QString cmd=QLatin1String("__cantor_enable_typesetting(%1)");
+    //evaluateExpression(cmd.arg(enable ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
 }
 
 void SageSession::setWorksheetPath(const QString& path)
