@@ -100,7 +100,7 @@ void SageCompletionObject::extractCompletionsNew()
     {
         c=c.trimmed();
         c.chop(1);
-        completions<<c.mid(1);
+        completions<<c.mid(2);
     }
 
     completions << SageKeywords::instance()->keywords();
