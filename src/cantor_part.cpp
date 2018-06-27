@@ -466,7 +466,7 @@ void CantorPart::fileSaveAs()
     if (backend->extensions().contains(QLatin1String("ScriptExtension")))
     {
         Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
-        filter+=QLatin1Char('\n')+e->scriptFileFilter();
+        filter+=QLatin1String(";;")+e->scriptFileFilter();
     }
 
     QString selectedFilter;
