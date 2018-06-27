@@ -34,11 +34,11 @@ public:
     ~LuaCompletionObject();
 
 protected Q_SLOTS:
-    void fetchCompletions();
+    void fetchCompletions() override;
 
 protected:
-    virtual bool mayIdentifierContain(QChar c)   const;
-    virtual bool mayIdentifierBeginWith(QChar c) const;
+    virtual bool mayIdentifierContain(QChar c)   const override;
+    virtual bool mayIdentifierBeginWith(QChar c) const override;
 
 private:
     lua_State* m_L;

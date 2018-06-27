@@ -28,19 +28,19 @@ class QalculateHistoryExtension : public Cantor::HistoryExtension
 {
 public:
     QALCULATE_EXT_CDTOR_DECL(History)
-    virtual QString lastResult();
+    virtual QString lastResult() override;
 };
 
 class QalculateVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
     QALCULATE_EXT_CDTOR_DECL(VariableManagement)
-    virtual QString addVariable(const QString& name, const QString& value);
-    virtual QString setValue(const QString& name, const QString& value);
-    virtual QString removeVariable(const QString& name);
-    virtual QString saveVariables(const QString& fileName);
-    virtual QString loadVariables(const QString& fileName);
-    virtual QString clearVariables();
+    virtual QString addVariable(const QString& name, const QString& value) override;
+    virtual QString setValue(const QString& name, const QString& value) override;
+    virtual QString removeVariable(const QString& name) override;
+    virtual QString saveVariables(const QString& fileName) override;
+    virtual QString loadVariables(const QString& fileName) override;
+    virtual QString clearVariables() override;
 };
 
 class QalculatePlotExtension : public Cantor::Extension
@@ -55,9 +55,9 @@ class QalculateCASExtension : public Cantor::CASExtension
     QALCULATE_EXT_CDTOR_DECL(CAS)
 
   public Q_SLOTS:
-    virtual QString solve(const QStringList& equations, const QStringList& variables);
-    virtual QString simplify(const QString& expression);
-    virtual QString expand(const QString& expression);
+    virtual QString solve(const QStringList& equations, const QStringList& variables) override;
+    virtual QString simplify(const QString& expression) override;
+    virtual QString expand(const QString& expression) override;
 
 };
 
@@ -67,10 +67,10 @@ class QalculateCalculusExtension : public Cantor::CalculusExtension
     QALCULATE_EXT_CDTOR_DECL(Calculus)
 
   public Q_SLOTS:
-    QString limit(const QString& expression, const QString& variable, const QString& limit);
-    QString differentiate(const QString& function,const QString& variable, int times);
-    QString integrate(const QString& function, const QString& variable);
-    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right);
+    QString limit(const QString& expression, const QString& variable, const QString& limit) override;
+    QString differentiate(const QString& function,const QString& variable, int times) override;
+    QString integrate(const QString& function, const QString& variable) override;
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right) override;
 };
 
 class QalculateLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
@@ -80,16 +80,16 @@ class QalculateLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
-    virtual QString createVector(const QStringList& entries, VectorType type);
-    virtual QString createMatrix(const Matrix& matrix);
-    virtual QString identityMatrix(int size);
+    virtual QString createVector(const QStringList& entries, VectorType type) override;
+    virtual QString createMatrix(const Matrix& matrix) override;
+    virtual QString identityMatrix(int size) override;
 
     //basic functions
-    virtual QString rank(const QString& matrix);
-    virtual QString invertMatrix(const QString& matrix);
-    virtual QString charPoly(const QString& matrix);
-    virtual QString eigenVectors(const QString& matrix);
-    virtual QString eigenValues(const QString& matrix);
+    virtual QString rank(const QString& matrix) override;
+    virtual QString invertMatrix(const QString& matrix) override;
+    virtual QString charPoly(const QString& matrix) override;
+    virtual QString eigenVectors(const QString& matrix) override;
+    virtual QString eigenValues(const QString& matrix) override;
 
 };
 

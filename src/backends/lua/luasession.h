@@ -34,16 +34,16 @@ public:
     LuaSession( Cantor::Backend* backend);
     ~LuaSession();
 
-    void login();
-    void logout();
+    void login() override;
+    void logout() override;
 
-    void interrupt();
+    void interrupt() override;
 
     void runExpression(LuaExpression* currentExpression);
 
-    Cantor::Expression*         evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave);
-    Cantor::CompletionObject*   completionFor(const QString& cmd, int index=-1);
-    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
+    Cantor::Expression*         evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+    Cantor::CompletionObject*   completionFor(const QString& cmd, int index=-1) override;
+    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     lua_State*                  getState() const;
 
 public Q_SLOTS:

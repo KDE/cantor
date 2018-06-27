@@ -53,9 +53,9 @@ public:
     QalculatePlotAssistant(QObject* parent, QList<QVariant> args);
     ~QalculatePlotAssistant();
 
-    void initActions();
+    void initActions() override;
 
-    QStringList run(QWidget* parent);
+    QStringList run(QWidget* parent) override;
 };
 
 #endif //QALCULATE_PLOT_ASSISTANT_H

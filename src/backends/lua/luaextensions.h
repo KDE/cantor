@@ -30,10 +30,10 @@ class LuaScriptExtension : public Cantor::ScriptExtension
 {
 public:
     LUA_EXT_CDTOR_DECL(Script)
-    virtual QString scriptFileFilter();
-    virtual QString highlightingMode();
-    virtual QString runExternalScript(const QString& path);
-    virtual QString commandSeparator();
+    virtual QString scriptFileFilter() override;
+    virtual QString highlightingMode() override;
+    virtual QString runExternalScript(const QString& path) override;
+    virtual QString commandSeparator() override;
 };
 
 #endif // LUAEXTENSIONS_H
