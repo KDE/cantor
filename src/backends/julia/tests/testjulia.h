@@ -80,5 +80,5 @@ private Q_SLOTS:
     void testAutoCompletion();
 
 private:
-    virtual QString backendName();
+    virtual QString backendName() override;
 };

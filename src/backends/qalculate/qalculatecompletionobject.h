@@ -30,11 +30,11 @@ class QalculateCompletionObject : public Cantor::CompletionObject
         ~QalculateCompletionObject();
 
     protected:
-        virtual int locateIdentifier(const QString& cmd, int index) const;
+        virtual int locateIdentifier(const QString& cmd, int index) const override;
 
     protected Q_SLOTS:
-        void fetchCompletions();
-        void fetchIdentifierType();
+        void fetchCompletions() override;
+        void fetchIdentifierType() override;
 };
 
 #endif /* _NULLCOMPLETIONOBJECT_H */

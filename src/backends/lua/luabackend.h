@@ -30,18 +30,18 @@ public:
     explicit LuaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
     ~LuaBackend();
 
-    QString id() const;
+    QString id() const override;
     QString version() const override;
 
-    Cantor::Session* createSession();
-    Cantor::Backend::Capabilities capabilities() const;
+    Cantor::Session* createSession() override;
+    Cantor::Backend::Capabilities capabilities() const override;
 
-    bool requirementsFullfilled() const;
-    QUrl helpUrl() const;
-    QString description() const;
+    bool requirementsFullfilled() const override;
+    QUrl helpUrl() const override;
+    QString description() const override;
 
-    QWidget *settingsWidget(QWidget *parent) const;
-    KConfigSkeleton *config() const;
+    QWidget *settingsWidget(QWidget *parent) const override;
+    KConfigSkeleton *config() const override;
 };
 
 

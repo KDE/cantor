@@ -28,7 +28,7 @@ public:
     ~QalculateHighlighter();
 
 protected:
-    virtual void highlightBlock(const QString& text);
+    virtual void highlightBlock(const QString& text) override;
 
 private:
     bool isOperatorAndWhitespace(const QString &word) const;
