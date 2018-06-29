@@ -43,7 +43,7 @@
 //NOTE: the \\s in the expressions is needed, because Maxima seems to sometimes insert newlines/spaces between the letters
 //maybe this is caused by some behaviour if the Prompt is split into multiple "readStdout" calls
 //the Expressions are encapsulated in () to allow capturing for the text
-const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%\\s*O\\s*[0-9\\s]*\\))")); //Text, maxima outputs, before any output
+const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%\\s*o\\s*[0-9\\s]*\\))")); //Text, maxima outputs, before any output
 
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
