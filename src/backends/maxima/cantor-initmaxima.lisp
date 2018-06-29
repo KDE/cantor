@@ -16,8 +16,6 @@
 (setf *maxima-prolog* "Hello World")
 (setf *maxima-epilog* "Bye!")
 
-(setf $inchar "%I")
-(setf $outchar "%O")
 (setf $display2d nil)
 
 ;#-gcl(setf *debug-io* (make-two-way-stream *standard-input* *standard-output*))
