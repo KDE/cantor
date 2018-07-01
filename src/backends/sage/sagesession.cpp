@@ -116,10 +116,15 @@ void SageSession::login()
     emit loginStarted();
 
     m_process=new KPtyProcess(this);
-
+    updateSageVersion();
     const QString& sageExecFile = SageSettings::self()->path().toLocalFile();
-    const QString& sageStartScript = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/sagebackend/cantor-execsage"));
-    m_process->setProgram(sageStartScript, QStringList(sageExecFile));
+    if (m_sageVersion >= SageSession::VersionInfo(8, 3))
+        m_process->setProgram(sageExecFile, QStringList() << QLatin1String("--simple-prompt"));
+    else
+        {
+        const QString& sageStartScript = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/sagebackend/cantor-execsage"));
+        m_process->setProgram(sageStartScript, QStringList(sageExecFile));
+        }
 
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
     m_process->setPtyChannels(KPtyProcess::AllChannels);
@@ -200,23 +205,8 @@ void SageSession::readStdOut()
 
     if(!m_isInitialized)
     {
-        QProcess get_sage_version;
-        get_sage_version.setProgram(SageSettings::self()->path().toLocalFile());
-        get_sage_version.setArguments(QStringList()<<QLatin1String("-v"));
-        get_sage_version.start();
-        get_sage_version.waitForFinished(-1);
-        QString versionString = QString::fromLocal8Bit(get_sage_version.readLine());
-        QRegularExpression versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
-        QRegularExpressionMatch version = versionExp.match(versionString);
-        qDebug()<<"found version: " << version.capturedTexts();
-        if(version.isValid())
+        if(updateSageVersion())
         {
-            int major=version.capturedTexts()[1].toInt();
-            int minor=version.capturedTexts()[2].toInt();
-
-
-            m_sageVersion=SageSession::VersionInfo(major, minor);
-
             // After the update ipython5 somewhere around Sage 7.6, Cantor stopped working with Sage.
             // To fix this, we start Sage via a help wrapper that makes ipythong using simple prompt.
             // This method works starting with Sage 8.1"
@@ -225,14 +215,14 @@ void SageSession::readStdOut()
             {
                 const QString message = i18n(
                     "Sage version %1.%2 is unsupported. Please update your installation "\
-                    "to the supported versions to make it work with Cantor.", major, minor);
+                    "to the supported versions to make it work with Cantor.", m_sageVersion.majorVersion(), m_sageVersion.minorVersion());
                 KMessageBox::error(nullptr, message, i18n("Cantor"));
                 interrupt();
                 logout();
             }
             else if(m_sageVersion<=SageSession::VersionInfo(5, 7))
             {
-                qDebug()<<"using an old version of sage: "<<major<<"."<<minor<<". Using the old init command";
+                qDebug()<<"using an old version of sage: "<<m_sageVersion.majorVersion()<<"."<<m_sageVersion.minorVersion()<<". Using the old init command";
                 if(!m_haveSentInitCmd)
                 {
                     m_process->pty()->write(legacyInitCmd);
@@ -241,7 +231,8 @@ void SageSession::readStdOut()
                     m_haveSentInitCmd=true;
                 }
 
-            }else
+            }
+            else
             {
                 qDebug()<<"using the current set of commands";
 
@@ -468,3 +459,24 @@ void SageSession::defineCustomFunctions()
     sendInputToProcess(cmd);
 }
 
+bool SageSession::updateSageVersion()
+{
+    QProcess get_sage_version;
+    get_sage_version.setProgram(SageSettings::self()->path().toLocalFile());
+    get_sage_version.setArguments(QStringList()<<QLatin1String("-v"));
+    get_sage_version.start();
+    get_sage_version.waitForFinished(-1);
+    QString versionString = QString::fromLocal8Bit(get_sage_version.readLine());
+    QRegularExpression versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
+    QRegularExpressionMatch version = versionExp.match(versionString);
+    qDebug()<<"found version: " << version.capturedTexts();
+    if(version.isValid())
+    {
+        int major=version.capturedTexts()[1].toInt();
+        int minor=version.capturedTexts()[2].toInt();
+        m_sageVersion=SageSession::VersionInfo(major, minor);
+        return true;
+    }
+    else
+        return false;
+}
