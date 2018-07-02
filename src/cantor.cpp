@@ -395,6 +395,7 @@ void CantorShell::closeTab(int index)
             delete part;
         }
     }
+    updatePanel();
 }
 
 bool CantorShell::reallyClose(bool checkAllParts) {
