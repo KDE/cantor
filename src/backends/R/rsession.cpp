@@ -23,6 +23,7 @@
 #include "rexpression.h"
 #include "rcompletionobject.h"
 #include "rhighlighter.h"
+#include <defaultvariablemodel.h>
 
 #include <QTimer>
 #include <QDebug>
@@ -32,7 +33,7 @@
 #include <signal.h>
 #endif
 
-RSession::RSession(Cantor::Backend* backend) : Session(backend), m_process(nullptr), m_rServer(nullptr)
+RSession::RSession(Cantor::Backend* backend) : Session(backend), m_process(nullptr), m_rServer(nullptr), m_variableModel(new Cantor::DefaultVariableModel(this))
 {
 }
 
@@ -59,7 +60,7 @@ void RSession::login()
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
-    connect(m_rServer,SIGNAL(symbolList(const QStringList&,const QStringList&)),this,SLOT(receiveSymbols(const QStringList&,const QStringList&)));
+    connect(m_rServer, SIGNAL(symbolList(const QStringList&, const QStringList&, const QStringList&)),this,SLOT(receiveSymbols(const QStringList&, const QStringList&, const QStringList&)));
 
     emit loginDone();
     qDebug()<<"login done";
@@ -131,10 +132,14 @@ void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
             f.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
 }
 
-void RSession::receiveSymbols(const QStringList& v, const QStringList & f)
+void RSession::receiveSymbols(const QStringList& vars, const QStringList& values, const QStringList & funcs)
 {
-    m_variables=v;
-    m_functions=f;
+    m_variables = vars;
+    for (int i = 0; i < vars.count(); i++)
+        {
+        m_variableModel->addVariable(vars[i], values[i]);
+        }
+    m_functions = funcs;
 
     emit symbolsChanged();
 }
@@ -192,4 +197,9 @@ void RSession::sendInputToServer(const QString& input)
     if(!input.endsWith(QLatin1Char('\n')))
         s+=QLatin1Char('\n');
     m_rServer->answerRequest(s);
+}
+
+QAbstractItemModel* RSession::variableModel()
+{
+    return m_variableModel;
 }

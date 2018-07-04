@@ -37,6 +37,7 @@ RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backe
 
     new RScriptExtension(this);
     new RPlotExtension(this);
+    new RVariableManagementExtension(this);
 }
 
 RBackend::~RBackend()
@@ -66,7 +67,8 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
     qDebug()<<"Requesting capabilities of RSession";
     return  Cantor::Backend::InteractiveMode |
             Cantor::Backend::SyntaxHighlighting |
-            Cantor::Backend::Completion;
+            Cantor::Backend::Completion |
+            Cantor::Backend::VariableManagement;
 }
 
 bool RBackend::requirementsFullfilled() const

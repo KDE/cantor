@@ -51,4 +51,17 @@ class RPlotExtension :  public Cantor::AdvancedPlotExtension,
     QString plotCommand() const  override { return QLatin1String("plot"); }
 };
 
+class RVariableManagementExtension : public Cantor::VariableManagementExtension
+{
+    public:
+    RVariableManagementExtension(QObject* parent);
+    ~RVariableManagementExtension();
+    QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString setValue(const QString& name, const QString& value) Q_DECL_OVERRIDE;
+    QString removeVariable(const QString& name) Q_DECL_OVERRIDE;
+    QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE;
+    QString clearVariables() Q_DECL_OVERRIDE;
+};
+
 #endif /* _REXTENSIONS_H */

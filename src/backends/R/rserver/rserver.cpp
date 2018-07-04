@@ -426,13 +426,19 @@ void RServer::listSymbols()
 {
 //     setStatus(RServer::Busy);
 
-    QStringList vars,funcs, namespaces;
+    QStringList vars, values, funcs;
     int errorOccurred; // TODO: error checks
 
     /* Obtaining a list of user namespace objects */
     SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),NULL,&errorOccurred));
     for (int i=0;i<length(usr);i++)
-        vars<<QLatin1String(translateCharUTF8(STRING_ELT(usr,i)));
+        {
+        SEXP variable = STRING_ELT(usr,i);
+        vars << QString::fromUtf8(translateCharUTF8(variable));
+        SEXP value = findVar(installChar(variable), R_GlobalEnv);
+        SEXP valueAsString = PROTECT(R_tryEval(lang2(install("toString"),value),NULL,&errorOccurred));
+        values << QString::fromUtf8(translateCharUTF8(asChar(valueAsString)));
+        }
     UNPROTECT(1);
 
     /* Obtaining a list of active packages */
@@ -444,12 +450,12 @@ void RServer::listSymbols()
         sprintf(pos,"%d",i+1);
         SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),NULL,&errorOccurred));
         for (int i=0;i<length(f);i++)
-            funcs<<QLatin1String(translateCharUTF8(STRING_ELT(f,i)));
+            funcs<<QString::fromUtf8(translateCharUTF8(STRING_ELT(f,i)));
         UNPROTECT(1);
     }
     UNPROTECT(1);
 
-    emit symbolList(vars,funcs);
+    emit symbolList(vars, values, funcs);
 
 //     setStatus(RServer::Idle);
 }
