@@ -60,7 +60,7 @@ class RServer : public QObject
     void inputRequested(const QString& prompt);
 
     void requestAnswered();
-    void symbolList(const QStringList& variables, const QStringList& functions);
+    void symbolList(const QStringList& variables, const QStringList& values, const QStringList& functions);
 
   public Q_SLOTS:
     void runCommand(const QString& cmd, bool internal=false);

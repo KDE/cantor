@@ -65,3 +65,46 @@ QString RPlotExtension::accept(const Cantor::AbscissScaleDirective& directive) c
 {
     return QLatin1String("xlim=range(")+QString::number(directive.min())+QLatin1String(",")+QString::number(directive.max())+QLatin1String(")");
 }
+
+RVariableManagementExtension::RVariableManagementExtension(QObject* parent) : Cantor::VariableManagementExtension(parent)
+{
+
+}
+
+
+RVariableManagementExtension::~RVariableManagementExtension()
+{
+
+}
+
+QString RVariableManagementExtension::addVariable(const QString& name, const QString& value)
+    {
+        return setValue(name, value);
+    }
+
+QString RVariableManagementExtension::setValue(const QString& name, const QString& value)
+    {
+        return QString::fromLatin1("%1 = %2").arg(name).arg(value);
+    }
+
+QString RVariableManagementExtension::removeVariable(const QString& name)
+    {
+        return QString::fromLatin1("remove(%1)").arg(name);
+    }
+
+QString RVariableManagementExtension::saveVariables(const QString& fileName)
+    {
+        Q_UNUSED(fileName);
+        return QString();
+    }
+
+QString RVariableManagementExtension::loadVariables(const QString& fileName)
+    {
+        Q_UNUSED(fileName);
+        return QString();
+    }
+
+QString RVariableManagementExtension::clearVariables()
+    {
+        return QLatin1String("rm(list=ls())");
+    }

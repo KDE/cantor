@@ -16,6 +16,7 @@
     </signal>
     <signal name="symbolList">
       <arg name="variables" type="as" direction="out"/>
+      <arg name="values" type="as" direction="out"/>
       <arg name="functions" type="as" direction="out"/>
     </signal>
     <signal name="showFilesNeeded">

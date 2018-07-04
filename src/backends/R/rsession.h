@@ -30,6 +30,10 @@
 class RExpression;
 class QProcess;
 
+namespace Cantor {
+class DefaultVariableModel;
+}
+
 class RSession : public Cantor::Session
 {
   Q_OBJECT
@@ -45,6 +49,7 @@ class RSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+    QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
 
     void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);
@@ -52,7 +57,7 @@ class RSession : public Cantor::Session
   protected Q_SLOTS:
     void serverChangedStatus(int status);
     void runNextExpression();
-    void receiveSymbols(const QStringList& v, const QStringList & f);
+    void receiveSymbols(const QStringList& vars, const QStringList& values, const QStringList & funcs);
     void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
 
   Q_SIGNALS:
@@ -64,6 +69,7 @@ class RSession : public Cantor::Session
     QList<RExpression*> m_expressionQueue;
 
     /* Available variables and functions, TODO make full classes and type info */
+    Cantor::DefaultVariableModel* m_variableModel;
     QStringList m_variables;
     QStringList m_functions;
 };
