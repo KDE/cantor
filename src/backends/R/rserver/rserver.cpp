@@ -43,42 +43,6 @@
 #define R_INTERFACE_PTRS
 #include <R_ext/Parse.h>
 
-// Not making a member to prevent pulling R headers into rserver.h
-bool htmlVector(SEXP expr, QTextStream& fp)
-{
-    // TODO TextResult clamps the newlines, beware
-//     fp << "<html>\n"; // TODO move this to some other place and make configurable
-    fp << QLatin1String("<table border=\"1\" align=\"center\" valign=\"center\">");
-    fp << QLatin1String("<tr><td bgcolor=\"#AAAAAA\">[1]</td>");
-    int leftOnThisRow=25;
-    for (int i=0; i<length(expr); i++)
-    {
-        if (leftOnThisRow==0)
-        {
-            fp << QLatin1String("</tr>");
-            fp << QLatin1String("<tr><td bgcolor=\"#AAAAAA\">[")+QString::number(i+1)+QLatin1String("]</td>");
-            leftOnThisRow=25;
-        }
-        QString cellData;
-        switch (TYPEOF(expr))
-        {
-            case REALSXP:
-                cellData=QString::number(REAL(expr)[i]); break;
-            case INTSXP:
-                cellData=QString::number(INTEGER(expr)[i]); break;
-            case STRSXP:
-                cellData=QLatin1String(CHAR(STRING_ELT(expr,i))); break;
-            default:
-                return false;
-        }
-        fp << QLatin1String("<td>")+cellData+QLatin1String("</td>"); // TODO HTML-safening
-        leftOnThisRow--;
-    }
-    fp << QLatin1String("</tr>");
-    fp << QLatin1String("<table>");
-//     fp << "</html>";
-    return true;
-}
 
 RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
@@ -360,27 +324,8 @@ void RServer::runCommand(const QString& cmd, bool internal)
             SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),NULL,&errorOccurred)); // TODO: error checks
             if (*INTEGER(count)==0)
                 qDebug() << "no result, so show nothing";
-            else if (*INTEGER(count)==1)
-                Rf_PrintValue(result);
             else
-            {
-                static int htmlresult_id=0;
-                QString fname=QString::fromLatin1("%1/Rtable%2.html").arg(m_tmpDir,QString::number(htmlresult_id++));
-                QFile fp(fname);
-                if (fp.open(QIODevice::WriteOnly))
-                {
-                    QTextStream s(&fp);
-                    bool canProcess=htmlVector(result,s);
-                    fp.close();
-                    if (canProcess)
-                    {
-                        neededFiles<<fname;
-                        expr->hasOtherResults=true;
-                    }
-                    else
-                        Rf_PrintValue(result); //In case we do not know yet how to display it
-                }
-            }
+                Rf_PrintValue(result);
             UNPROTECT(1);
         }
 
