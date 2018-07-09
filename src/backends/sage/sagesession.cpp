@@ -348,7 +348,7 @@ void SageSession::runFirstExpression()
         SageExpression* expr=m_expressionQueue.first();
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
         QString command=expr->command();
-        if(command.endsWith(QLatin1Char('?')))
+        if(command.endsWith(QLatin1Char('?')) && !command.endsWith(QLatin1String("??")))
             command=QLatin1String("help(")+command.left(command.size()-1)+QLatin1Char(')');
         if(command.startsWith(QLatin1Char('?')))
             command=QLatin1String("help(")+command.mid(1)+QLatin1Char(')');
