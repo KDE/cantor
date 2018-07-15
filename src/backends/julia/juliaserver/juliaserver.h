@@ -21,6 +21,10 @@
 
 #include <QObject>
 #include <QString>
+#include <QMap>
+#include <QStringList>
+
+#include <julia.h>
 
 /**
  * Implementation of command execution server with DBus interface for Julia
@@ -69,8 +73,37 @@ public Q_SLOTS:
      */
     Q_SCRIPTABLE bool getWasException() const;
 
+    /**
+     * Reparse internal julia module and update list of variables and functions
+     */
+    Q_SCRIPTABLE void parseModules();
+
+    /**
+     * @return list of variables in internal Julia's module
+     */
+    Q_SCRIPTABLE QStringList variablesList();
+
+    /**
+     * @return corresponding list of values for variables from variablesList. 
+     */
+    Q_SCRIPTABLE QStringList variableValuesList();
+
+    /**
+     * @return list of function in internal Julia's module
+     */
+    Q_SCRIPTABLE QStringList functionsList();
+
+private:
+    void parseJlModule(jl_module_t* module);
+
+    QString fromJuliaString(const jl_value_t* value);
 private:
     QString m_error; //< Stores last stderr output
     QString m_output; //< Stores last stdout output
     bool m_was_exception; //< Stores indicator of exception
+    QStringList parsedModules;
+    QStringList m_variables;
+    QStringList m_variableValues;
+    QStringList m_functions;
+    static QStringList INTERNAL_VARIABLES;
 };

@@ -28,6 +28,9 @@
 #include <QTemporaryFile>
 #include <QDebug>
 
+QStringList JuliaServer::INTERNAL_VARIABLES = 
+    QStringList() << QLatin1String("__originalSTDOUT__") << QLatin1String("__originalSTDERR__");
+
 JuliaServer::JuliaServer(QObject *parent)
     : QObject(parent)
 {
@@ -139,3 +142,91 @@ bool JuliaServer::getWasException() const
     return m_was_exception;
 }
 
+void JuliaServer::parseModules()
+{
+    parseJlModule(jl_internal_main_module);
+}
+
+void JuliaServer::parseJlModule(jl_module_t* module)
+{
+    jl_function_t* jl_string_function = jl_get_function(jl_base_module, "string");
+
+    if (module != jl_internal_main_module)
+        {
+        const QString& moduleName = fromJuliaString(jl_call1(jl_string_function, (jl_value_t*)(module->name)));
+        if (parsedModules.contains(moduleName))
+            return;
+        else
+            parsedModules.append(moduleName);
+        }
+
+    jl_function_t* jl_names_function = jl_get_function(jl_base_module, "names");
+    jl_value_t* names = jl_call1(jl_names_function, (jl_value_t*)module);
+    jl_value_t **data = (jl_value_t**)jl_array_data(names);
+    for (size_t i = 0; i < jl_array_len(names); i++)
+    {
+        bool isBindingResolved = (bool)jl_binding_resolved_p(module, (jl_sym_t*)(data[i]));
+        if (isBindingResolved)
+        {
+
+            const QString& name = fromJuliaString(jl_call1(jl_string_function, data[i]));
+            jl_value_t* value = jl_get_binding_or_error(module, (jl_sym_t*)(data[i]))->value;
+            jl_datatype_t* datetype = (jl_datatype_t*)jl_typeof(value);
+            QString type = QString::fromUtf8(jl_typeof_str(value));
+            // Module
+            if (jl_is_module(value))
+            {
+                if (module == jl_internal_main_module && (jl_module_t*)value != jl_internal_main_module)
+                    parseJlModule((jl_module_t*)value);
+            }
+            // Function
+            else if (type.startsWith(QLatin1String("#")) || type == QLatin1String("Function"))
+            {
+                if (!m_functions.contains(name))
+                    m_functions.append(name);
+            }
+            // Variable
+            else if (datetype != jl_datatype_type) // Not type
+            {
+                if (module == jl_internal_main_module && !INTERNAL_VARIABLES.contains(name))
+                {
+                    const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
+                    if (m_variables.contains(name))
+                    {
+                        int i = m_variables.indexOf(name);
+                        m_variableValues[i] = valueString;
+                    }
+                    else
+                    {
+                        m_variables.append(name);
+                        m_variableValues.append(valueString);
+                    }
+                }
+            }
+        }
+    }
+}
+
+QString JuliaServer::fromJuliaString(const jl_value_t* value)
+{
+#if JULIA_VERSION_MINOR > 5
+        return QString::fromUtf8(jl_string_ptr(value));
+#else
+        return QString::fromUtf8(jl_string_data(value));
+#endif 
+}
+
+QStringList JuliaServer::variablesList()
+{
+    return m_variables;
+}
+
+QStringList JuliaServer::variableValuesList()
+{
+    return m_variableValues;
+}
+
+QStringList JuliaServer::functionsList()
+{
+    return m_functions;
+}
