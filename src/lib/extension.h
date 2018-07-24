@@ -225,7 +225,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
      * @param var2 the parameters for Variable2 (name, interval)
      * @return the command for plotting
      */
-    virtual QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) = 0;
+    virtual QString plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2) = 0;
 };
 
 #define PLOT_DIRECTIVE_DISPATCHING(x) QString dispatch(const Cantor::AdvancedPlotExtension::AcceptorBase& acc) const \

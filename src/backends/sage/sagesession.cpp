@@ -73,33 +73,33 @@ int SageSession::VersionInfo::minorVersion() const
     return m_minor;
 }
 
-bool SageSession::VersionInfo::operator==(const SageSession::VersionInfo &other) const
+bool SageSession::VersionInfo::operator==(VersionInfo other) const
 {
     return m_major==other.m_major&&m_minor==other.m_minor;
 }
 
-bool SageSession::VersionInfo::operator<(const SageSession::VersionInfo &other) const
+bool SageSession::VersionInfo::operator<(VersionInfo other) const
 {
     return (m_major!= -1 && other.m_major==-1) ||
         ( ((m_major!=-1 && other.m_major!=-1) || (m_major==other.m_major && m_major==-1) ) && ( m_major<other.m_major||(m_major==other.m_major&&m_minor<other.m_minor) ) );
 }
 
-bool SageSession::VersionInfo::operator<=(const SageSession::VersionInfo &other) const
+bool SageSession::VersionInfo::operator<=(VersionInfo other) const
 {
     return (*this < other)||(*this == other);
 }
 
-bool SageSession::VersionInfo::operator>(const SageSession::VersionInfo& other) const
+bool SageSession::VersionInfo::operator>(SageSession::VersionInfo other) const
 {
     return !( (*this <= other ));
 }
 
-bool SageSession::VersionInfo::operator>=(const SageSession::VersionInfo& other) const
+bool SageSession::VersionInfo::operator>=(SageSession::VersionInfo other) const
 {
     return !( *this < other);
 }
 
-SageSession::SageSession( Cantor::Backend* backend) : Session(backend)
+SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
 {
     m_isInitialized=false;
     m_haveSentInitCmd=false;
@@ -402,8 +402,8 @@ void SageSession::setTypesettingEnabled(bool enable)
 {
     Cantor::Session::setTypesettingEnabled(enable);
 
-    // We have problems with Sage latex output (generates invalid code sometimes), so disable sage 
-    // latex output until this not be solved. Users can enable sage latex by hands using %display 
+    // We have problems with Sage latex output (generates invalid code sometimes), so disable sage
+    // latex output until this not be solved. Users can enable sage latex by hands using %display
     // sage magic.
 
     //tell the sage server to enable/disable pretty_print

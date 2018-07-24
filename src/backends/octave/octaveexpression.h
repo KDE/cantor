@@ -43,9 +43,9 @@ public:
 
     void interrupt() Q_DECL_OVERRIDE;
     void evaluate() Q_DECL_OVERRIDE;
-    void parseOutput (QString);
-    void parseError(QString);
-    void parsePlotFile(QString file);
+    void parseOutput(const QString&);
+    void parseError(const QString&);
+    void parsePlotFile(const QString&);
 
     void finalize();
     void setPlotPending(bool);

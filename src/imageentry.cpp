@@ -52,7 +52,7 @@ ImageEntry::~ImageEntry()
 {
 }
 
-void ImageEntry::populateMenu(QMenu *menu, const QPointF& pos)
+void ImageEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     menu->addAction(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"),
                     this, SLOT(startConfigDialog()));

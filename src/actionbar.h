@@ -36,7 +36,7 @@ class ActionBar : public QGraphicsObject
     ActionBar(WorksheetEntry* parent);
     ~ActionBar() override;
 
-    WorksheetToolButton* addButton(const QIcon& icon, QString toolTip,
+    WorksheetToolButton* addButton(const QIcon& icon, const QString& toolTip,
                                    QObject* receiver = nullptr,
                                    const char* method = nullptr);
     void addSpace();

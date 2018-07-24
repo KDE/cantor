@@ -79,7 +79,7 @@ class CommandEntry : public WorksheetEntry
 
     WorksheetTextItem* highlightItem() Q_DECL_OVERRIDE;
 
-    WorksheetCursor search(QString pattern, unsigned flags,
+    WorksheetCursor search(const QString& pattern, unsigned flags,
                            QTextDocument::FindFlags qt_flags,
                            const WorksheetCursor& pos = WorksheetCursor()) Q_DECL_OVERRIDE;
 
@@ -106,7 +106,7 @@ class CommandEntry : public WorksheetEntry
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
 
-    void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;
+    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
 
   protected:
     bool wantToEvaluate() Q_DECL_OVERRIDE;
@@ -117,7 +117,7 @@ class CommandEntry : public WorksheetEntry
     bool focusWithinThisItem();
     QPoint getPopupPosition();
 
-    QPoint toGlobalPosition(const QPointF& localPos);
+    QPoint toGlobalPosition(QPointF localPos);
 
   private:
     enum CompletionMode {

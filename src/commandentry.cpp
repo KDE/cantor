@@ -76,9 +76,8 @@ int CommandEntry::type() const
     return Type;
 }
 
-void CommandEntry::populateMenu(QMenu *menu, const QPointF& pos)
+void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    qDebug() << "populate Menu";
     WorksheetEntry::populateMenu(menu, pos);
 }
 
@@ -687,14 +686,14 @@ bool CommandEntry::wantToEvaluate()
     return !isEmpty();
 }
 
-QPoint CommandEntry::toGlobalPosition(const QPointF& localPos)
+QPoint CommandEntry::toGlobalPosition(QPointF localPos)
 {
     const QPointF scenePos = mapToScene(localPos);
     const QPoint viewportPos = worksheetView()->mapFromScene(scenePos);
     return worksheetView()->viewport()->mapToGlobal(viewportPos);
 }
 
-WorksheetCursor CommandEntry::search(QString pattern, unsigned flags,
+WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
                                      QTextDocument::FindFlags qt_flags,
                                      const WorksheetCursor& pos)
 {

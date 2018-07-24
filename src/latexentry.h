@@ -52,9 +52,9 @@ class LatexEntry : public WorksheetEntry
 
     void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
 
-    int searchText(QString text, QString pattern,
+    int searchText(const QString& text, const QString& pattern,
                    QTextDocument::FindFlags qt_flags);
-    WorksheetCursor search(QString pattern, unsigned flags,
+    WorksheetCursor search(const QString& pattern, unsigned flags,
                            QTextDocument::FindFlags qt_flags,
                            const WorksheetCursor& pos = WorksheetCursor()) Q_DECL_OVERRIDE;
 
@@ -62,7 +62,7 @@ class LatexEntry : public WorksheetEntry
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
     void resolveImagesAtCursor();
     void updateEntry() Q_DECL_OVERRIDE;
-    void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;
+    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
 
   protected:
     bool wantToEvaluate() Q_DECL_OVERRIDE;

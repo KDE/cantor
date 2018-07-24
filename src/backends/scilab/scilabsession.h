@@ -55,7 +55,7 @@ class ScilabSession : public Cantor::Session
     public Q_SLOTS:
         void readOutput();
         void readError();
-        void plotFileChanged(QString filename);
+        void plotFileChanged(const QString& filename);
 
     Q_SIGNALS:
         void updateHighlighter();

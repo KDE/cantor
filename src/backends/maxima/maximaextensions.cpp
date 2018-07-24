@@ -176,7 +176,7 @@ QString MaximaPlotExtension::plotFunction2d(const QString& function, const QStri
     return QString::fromLatin1("plot2d(%1,[%2,%3,%4])").arg(function, variable, left, right);
 }
 
-QString MaximaPlotExtension::plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2)
+QString MaximaPlotExtension::plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2)
 {
     const Interval& int1=var1.second;
     const Interval& int2=var2.second;

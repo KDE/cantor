@@ -30,7 +30,7 @@
 #include "cantor_macros.h"
 #include <QMessageBox>
 
-RBackend::RBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
+RBackend::RBackend(QObject* parent,const QList<QVariant>& args) : Cantor::Backend(parent, args)
 {
     setObjectName(QLatin1String("rbackend"));
     qDebug()<<"Creating RBackend";

@@ -145,7 +145,7 @@ qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     return m_size.height();
 }
 
-void WorksheetTextItem::populateMenu(QMenu *menu, const QPointF& pos)
+void WorksheetTextItem::populateMenu(QMenu* menu, QPointF pos)
 {
     qDebug() << "populate Menu";
     QAction * cut = KStandardAction::cut(this, SLOT(cut()), menu);

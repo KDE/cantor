@@ -25,7 +25,7 @@
 
 #include <klocalizedstring.h>
 
-Python3Backend::Python3Backend(QObject* parent, const QList<QVariant> args)
+Python3Backend::Python3Backend(QObject* parent, const QList<QVariant>& args)
     : PythonBackend(parent, args)
 {
     setObjectName(QLatin1String("python3backend"));

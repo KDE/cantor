@@ -45,7 +45,7 @@ double ImageResultItem::setGeometry(double x, double y, double w)
     return height();
 }
 
-void ImageResultItem::populateMenu(QMenu* menu, const QPointF& pos)
+void ImageResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
     addCommonActions(this, menu);
 

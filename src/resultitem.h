@@ -47,12 +47,12 @@ class ResultItem
     ResultItem();
     virtual ~ResultItem();
 
-    static ResultItem* create(WorksheetEntry* parent, Cantor::Result* result);
+    static ResultItem* create(WorksheetEntry* parent, Cantor::Result*);
 
     virtual double setGeometry(double x, double y, double w) = 0;
-    virtual void populateMenu(QMenu* menu, const QPointF& pos) = 0;
+    virtual void populateMenu(QMenu* menu, QPointF pos) = 0;
 
-    virtual ResultItem* updateFromResult(Cantor::Result* result) = 0;
+    virtual ResultItem* updateFromResult(Cantor::Result*) = 0;
 
     virtual void deleteLater() = 0;
 

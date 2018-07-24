@@ -32,7 +32,7 @@
 #include "cantor_macros.h"
 
 
-SageBackend::SageBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
+SageBackend::SageBackend( QObject* parent,const QList<QVariant>& args ) : Cantor::Backend( parent,args )
 {
     setObjectName(QLatin1String("sagebackend"));
     qDebug()<<"Creating SageBackend";

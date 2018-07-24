@@ -25,7 +25,6 @@
 #include <QGraphicsObject>
 
 class Worksheet;
-class QMovie;
 class QImage;
 class QGraphicsSceneContextMenuEvent;
 class QMenu;
@@ -60,15 +59,15 @@ class WorksheetImageItem : public QGraphicsObject
     void setImage(QImage img);
     void setPixmap(QPixmap pixmap);
 
-    virtual void populateMenu(QMenu *menu, const QPointF& pos);
+    virtual void populateMenu(QMenu* menu, QPointF pos);
     Worksheet* worksheet();
 
   Q_SIGNALS:
     void sizeChanged();
-    void menuCreated(QMenu*, const QPointF&);
+    void menuCreated(QMenu*, QPointF);
 
   protected:
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*) Q_DECL_OVERRIDE;
 
   private:
     QPixmap m_pixmap;

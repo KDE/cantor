@@ -213,11 +213,10 @@ void ScilabSession::readOutput()
         m_currentExpression->parseOutput(m_output);
 
         m_output.clear();
-
     }
 }
 
-void ScilabSession::plotFileChanged(QString filename)
+void ScilabSession::plotFileChanged(const QString& filename)
 {
     qDebug() << "plotFileChanged filename:" << filename;
 
