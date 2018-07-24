@@ -53,7 +53,7 @@ class PageBreakEntry : public WorksheetEntry
   public Q_SLOTS:
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
     void updateEntry() Q_DECL_OVERRIDE;
-    void populateMenu(QMenu *menu, const QPointF& pos) Q_DECL_OVERRIDE;
+    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
 
   protected:
     bool wantToEvaluate() Q_DECL_OVERRIDE;

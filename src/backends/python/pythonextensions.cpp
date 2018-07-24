@@ -139,16 +139,16 @@ QString PythonPlotExtension::plotFunction2d(const QString& function, const QStri
     }
 
     if(!left.isEmpty() && !right.isEmpty()){
-        xlimits = QString::fromLatin1("pylab.xlim(%1, %2)\n").arg(left).arg(right);
+        xlimits = QString::fromLatin1("pylab.xlim(%1, %2)\n").arg(left, right);
     }
 
     return QString::fromLatin1("pylab.clf()\n"                     \
                                "pylab.plot(%1)\n"                  \
                                "%2"                                \
-                               "pylab.show()").arg(argumentToPlot).arg(xlimits);
+                               "pylab.show()").arg(argumentToPlot, xlimits);
 }
 
-QString PythonPlotExtension::plotFunction3d(const QString& function, Cantor::PlotExtension::VariableParameter var1, Cantor::PlotExtension::VariableParameter var2)
+QString PythonPlotExtension::plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2)
 {
     const Interval& interval1 = var1.second;
     const Interval& interval2 = var2.second;
@@ -157,11 +157,11 @@ QString PythonPlotExtension::plotFunction3d(const QString& function, Cantor::Plo
     QString interval2Limits;
 
     if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
-        interval1Limits = QString::fromLatin1("ax3D.set_xlim3d(%1, %2)\n").arg(interval1.first).arg(interval1.second);
+        interval1Limits = QString::fromLatin1("ax3D.set_xlim3d(%1, %2)\n").arg(interval1.first, interval1.second);
     }
 
     if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
-        interval2Limits = QString::fromLatin1("ax3D.set_ylim3d(%1, %2)\n").arg(interval2.first).arg(interval2.second);
+        interval2Limits = QString::fromLatin1("ax3D.set_ylim3d(%1, %2)\n").arg(interval2.first, interval2.second);
     }
 
     return QString::fromLatin1("from mpl_toolkits.mplot3d import Axes3D\n\n"                      \
@@ -169,8 +169,7 @@ QString PythonPlotExtension::plotFunction3d(const QString& function, Cantor::Plo
                                "ax3D = fig3D.gca(projection='3d')\n"                              \
                                "ax3D.plot_surface(%1, %2, %3(%1, %2), rstride=4, cstride=4)\n"    \
                                "%4%5"                                                             \
-                               "pylab.show()").arg(var1.first).arg(var2.first).arg(function)
-                                   .arg(interval1Limits).arg(interval2Limits);
+                               "pylab.show()").arg(var1.first).arg(var2.first, function, interval1Limits, interval2Limits);
 }
 
 PYTHON_EXT_CDTOR(Script)
@@ -199,7 +198,7 @@ QString PythonVariableManagementExtension::addVariable(const QString& name, cons
 
 QString PythonVariableManagementExtension::setValue(const QString& name, const QString& value)
 {
-    return QString::fromLatin1("%1 = %2").arg(name).arg(value);
+    return QString::fromLatin1("%1 = %2").arg(name, value);
 }
 
 QString PythonVariableManagementExtension::removeVariable(const QString& name)

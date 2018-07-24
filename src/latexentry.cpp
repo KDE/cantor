@@ -45,7 +45,7 @@ LatexEntry::~LatexEntry()
 {
 }
 
-void LatexEntry::populateMenu(QMenu *menu, const QPointF& pos)
+void LatexEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     bool imageSelected = false;
     QTextCursor cursor = m_textItem->textCursor();
@@ -153,14 +153,14 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     if (!cursor.isNull())
     {
         QTextCharFormat format=cursor.charFormat();
-        QString fileName = format.property(EpsRenderer::ImagePath).value<QString>();
+        QString fileName = format.property(EpsRenderer::ImagePath).toString();
         // Check, if eps file exists, and if not true, rerender latex code
         bool isEpsFileExists = QFile::exists(fileName);
         if (!isEpsFileExists && renderLatexCode())
             {
             cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
             format=cursor.charFormat();
-            fileName = format.property(EpsRenderer::ImagePath).value<QString>();
+            fileName = format.property(EpsRenderer::ImagePath).toString();
             isEpsFileExists = QFile::exists(fileName);
             }
 
@@ -219,7 +219,7 @@ void LatexEntry::updateEntry()
     {
         qDebug()<<"found a formula... rendering the eps...";
         QTextCharFormat format=cursor.charFormat();
-        const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).value<QString>());
+        const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
         QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
         qDebug()<<"rendering successful? "<< !s.isValid();
 
@@ -262,7 +262,7 @@ bool LatexEntry::isOneImageOnly()
     return (cursor.selectionEnd() == 1 && cursor.selectedText() == QString(QChar::ObjectReplacementCharacter));
 }
 
-int LatexEntry::searchText(QString text, QString pattern,
+int LatexEntry::searchText(const QString& text, const QString& pattern,
                           QTextDocument::FindFlags qt_flags)
 {
     Qt::CaseSensitivity caseSensitivity;
@@ -280,7 +280,7 @@ int LatexEntry::searchText(QString text, QString pattern,
     return position;
 }
 
-WorksheetCursor LatexEntry::search(QString pattern, unsigned flags,
+WorksheetCursor LatexEntry::search(const QString& pattern, unsigned flags,
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos)
 {
@@ -364,6 +364,6 @@ bool LatexEntry::renderLatexCode()
         cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
     }
-    delete renderer;   
+    delete renderer;
     return success;
 }

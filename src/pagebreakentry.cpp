@@ -55,7 +55,7 @@ int PageBreakEntry::type() const
     return Type;
 }
 
-void PageBreakEntry::populateMenu(QMenu *menu, const QPointF& pos)
+void PageBreakEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     WorksheetEntry::populateMenu(menu, pos);
 }

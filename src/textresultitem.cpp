@@ -49,7 +49,7 @@ double TextResultItem::setGeometry(double x, double y, double w)
     return WorksheetTextItem::setGeometry(x, y, w);
 }
 
-void TextResultItem::populateMenu(QMenu* menu, const QPointF& pos)
+void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
     QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
     if (!textCursor().hasSelection())

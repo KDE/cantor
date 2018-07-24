@@ -100,7 +100,7 @@ void OctaveExpression::evaluate()
 }
 
 
-void OctaveExpression::parseOutput ( QString output )
+void OctaveExpression::parseOutput(const QString& output)
 {
     qDebug() << "parseOutput: " << output;
     m_resultString += output;
@@ -117,7 +117,7 @@ void OctaveExpression::parseOutput ( QString output )
     }
 }
 
-void OctaveExpression::parseError(QString error)
+void OctaveExpression::parseError(const QString& error)
 {
     qDebug() << error;
     m_error = true;
@@ -125,7 +125,7 @@ void OctaveExpression::parseError(QString error)
     setStatus(Error);
 }
 
-void OctaveExpression::parsePlotFile(QString file)
+void OctaveExpression::parsePlotFile(const QString& file)
 {
     qDebug() << "parsePlotFile";
     if (QFile::exists(file))

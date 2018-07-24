@@ -65,7 +65,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setItemDragable(bool b);
     void enableRichText(bool b);
 
-    virtual void populateMenu(QMenu *menu, const QPointF& pos);
+    virtual void populateMenu(QMenu* menu, QPointF pos);
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();

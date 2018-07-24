@@ -176,7 +176,7 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
     m_prev = p;
 }
 
-void WorksheetEntry::startDrag(const QPointF& grabPos)
+void WorksheetEntry::startDrag(QPointF grabPos)
 {
     QDrag* drag = new QDrag(worksheetView());
     qDebug() << size();
@@ -252,7 +252,7 @@ WorksheetView* WorksheetEntry::worksheetView()
     return worksheet()->worksheetView();
 }
 
-WorksheetCursor WorksheetEntry::search(QString pattern, unsigned flags,
+WorksheetCursor WorksheetEntry::search(const QString& pattern, unsigned flags,
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos)
 {
@@ -302,7 +302,7 @@ void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     menu->popup(event->screenPos());
 }
 
-void WorksheetEntry::populateMenu(QMenu *menu, const QPointF& pos)
+void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     if (!worksheet()->isRunning() && wantToEvaluate())
         menu->addAction(i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
@@ -496,13 +496,13 @@ void WorksheetEntry::endAnimation()
     if (anim->state() == QAbstractAnimation::Running) {
         anim->stop();
         if (m_animation->sizeAnimation)
-            setSize(m_animation->sizeAnimation->endValue().value<QSizeF>());
+            setSize(m_animation->sizeAnimation->endValue().toSizeF());
         if (m_animation->opacAnimation) {
             qreal opac = m_animation->opacAnimation->endValue().value<qreal>();
             m_animation->item->setOpacity(opac);
         }
         if (m_animation->posAnimation) {
-            const QPointF& pos = m_animation->posAnimation->endValue().value<QPointF>();
+            const QPointF& pos = m_animation->posAnimation->endValue().toPointF();
             m_animation->item->setPos(pos);
         }
 
@@ -520,7 +520,7 @@ bool WorksheetEntry::animationActive()
     return m_animation;
 }
 
-void WorksheetEntry::updateSizeAnimation(const QSizeF& size)
+void WorksheetEntry::updateSizeAnimation(QSizeF size)
 {
     // Update the current animation, so that the new ending will be size
 
@@ -537,8 +537,7 @@ void WorksheetEntry::updateSizeAnimation(const QSizeF& size)
         QEasingCurve curve = sizeAn->easingCurve();
         qreal value = curve.valueForProgress(progress);
         sizeAn->setEndValue(size);
-        QSizeF newStart = 1/(1-value)*(sizeAn->currentValue().value<QSizeF>() -
-                                       value * size);
+        QSizeF newStart = 1/(1-value)*(sizeAn->currentValue().toSizeF() - value*size);
         sizeAn->setStartValue(newStart);
     } else {
         m_animation->sizeAnimation = sizeChangeAnimation(size);

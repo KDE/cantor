@@ -42,7 +42,7 @@ TextEntry::~TextEntry()
 {
 }
 
-void TextEntry::populateMenu(QMenu *menu, const QPointF& pos)
+void TextEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     bool imageSelected = false;
     QTextCursor cursor = m_textItem->textCursor();
@@ -234,7 +234,7 @@ void TextEntry::updateEntry()
         if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             qDebug() << "found a formula... rendering the eps...";
-            QUrl url=format.property(EpsRenderer::ImagePath).value<QUrl>();
+            QUrl url = format.property(EpsRenderer::ImagePath).toUrl();
             QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
             qDebug() << "rendering successful? " << s.isValid();
 
@@ -254,7 +254,7 @@ void TextEntry::resolveImagesAtCursor()
     cursor.insertText(m_textItem->resolveImages(cursor));
 }
 
-QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
+QTextCursor TextEntry::findLatexCode(const QTextCursor& cursor) const
 {
     QTextDocument *doc = m_textItem->document();
     QTextCursor startCursor;
@@ -272,16 +272,16 @@ QTextCursor TextEntry::findLatexCode(QTextCursor cursor) const
     return startCursor;
 }
 
-QString TextEntry::showLatexCode(QTextCursor cursor)
+QString TextEntry::showLatexCode(QTextCursor& cursor)
 {
-    QString latexCode = cursor.charFormat().property(EpsRenderer::Code).value<QString>();
+    QString latexCode = cursor.charFormat().property(EpsRenderer::Code).toString();
     cursor.deletePreviousChar();
     latexCode = QLatin1String("$$") + latexCode + QLatin1String("$$");
     cursor.insertText(latexCode);
     return latexCode;
 }
 
-int TextEntry::searchText(QString text, QString pattern,
+int TextEntry::searchText(const QString& text, const QString& pattern,
                           QTextDocument::FindFlags qt_flags)
 {
     Qt::CaseSensitivity caseSensitivity;
@@ -299,7 +299,7 @@ int TextEntry::searchText(QString text, QString pattern,
     return position;
 }
 
-WorksheetCursor TextEntry::search(QString pattern, unsigned flags,
+WorksheetCursor TextEntry::search(const QString& pattern, unsigned flags,
                                   QTextDocument::FindFlags qt_flags,
                                   const WorksheetCursor& pos)
 {

@@ -77,8 +77,8 @@ class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
-    QString createVector(const QStringList& entries, VectorType type) Q_DECL_OVERRIDE;
-    QString nullVector(int size, VectorType type) Q_DECL_OVERRIDE;
+    QString createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type) Q_DECL_OVERRIDE;
+    QString nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type) Q_DECL_OVERRIDE;
     QString createMatrix(const Matrix& matrix) Q_DECL_OVERRIDE;
     QString identityMatrix(int size) Q_DECL_OVERRIDE;
     QString nullMatrix(int rows,int columns) Q_DECL_OVERRIDE;
@@ -98,7 +98,7 @@ class SagePlotExtension : public Cantor::PlotExtension
     ~SagePlotExtension() override;
   public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
-    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
+    QString plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2) Q_DECL_OVERRIDE;
 };
 
 class SagePackagingExtension : public Cantor::PackagingExtension

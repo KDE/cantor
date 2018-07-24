@@ -68,7 +68,7 @@ QString OctavePlotExtension::plotFunction2d(const QString& function, const QStri
 		    .arg(right);
 }
 
-QString OctavePlotExtension::plotFunction3d(const QString& function, Cantor::PlotExtension::VariableParameter var1, Cantor::PlotExtension::VariableParameter var2)
+QString OctavePlotExtension::plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2)
 {
   return QString::fromLatin1("cantor_plot3d('%1','%2',%3,%4,'%5',%6,%7);")
 		  .arg(function)

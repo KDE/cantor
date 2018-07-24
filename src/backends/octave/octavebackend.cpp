@@ -29,7 +29,7 @@
 
 #include "ui_settings.h"
 
-OctaveBackend::OctaveBackend(QObject* parent, const QList< QVariant > args): Backend(parent, args)
+OctaveBackend::OctaveBackend(QObject* parent, const QList<QVariant>& args): Backend(parent, args)
 {
     new OctaveHistoryExtension(this);
     new OctaveScriptExtension(this);

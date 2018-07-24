@@ -160,8 +160,8 @@ QString JuliaPlotExtension::plotFunction2d(
 
 QString JuliaPlotExtension::plotFunction3d(
     const QString &function,
-    Cantor::PlotExtension::VariableParameter var1,
-    Cantor::PlotExtension::VariableParameter var2)
+    const VariableParameter& var1,
+    const VariableParameter& var2)
 {
 
     auto update_interval = [](Interval &interval) {

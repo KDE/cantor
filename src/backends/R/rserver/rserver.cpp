@@ -56,7 +56,6 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
     initR();
     m_status=RServer::Idle;
     m_isInitialized=true;
-    emit ready();
 }
 
 RServer::~RServer()
@@ -485,8 +484,7 @@ QString RServer::requestInput(const QString& prompt)
 void RServer::answerRequest(const QString& answer)
 {
     m_requestCache=answer;
-
-    emit(requestAnswered());
+    emit requestAnswered();
 }
 
 void RServer::showFiles(const QStringList& files)
@@ -510,4 +508,3 @@ void RServer::newPlotDevice()
         runCommand(QLatin1String("dev.off()"), true);
     runCommand(command.arg(m_curPlotFile), true);
 }
-

@@ -242,7 +242,6 @@ QStringRef readXmlOpeningTag(int* idx, const QString& txt, bool* isComplete=null
 
     int startIndex=*idx;
     int length=0;
-    QString name;
     while(*idx<txt.size())
     {
         const QChar c=txt[*idx];

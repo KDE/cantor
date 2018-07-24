@@ -85,7 +85,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual void layOutForWidth(qreal w, bool force = false) = 0;
     QPropertyAnimation* sizeChangeAnimation(QSizeF s = QSizeF());
 
-    virtual void populateMenu(QMenu *menu, const QPointF& pos);
+    virtual void populateMenu(QMenu* menu, QPointF pos);
 
     bool aboutToBeRemoved();
     QSizeF size();
@@ -101,7 +101,7 @@ class WorksheetEntry : public QGraphicsObject
     enum SearchFlag {SearchCommand=1, SearchResult=2, SearchError=4,
                      SearchText=8, SearchLaTeX=16, SearchAll=31};
 
-    virtual WorksheetCursor search(QString pattern, unsigned flags,
+    virtual WorksheetCursor search(const QString& pattern, unsigned flags,
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos = WorksheetCursor());
 
@@ -138,7 +138,7 @@ class WorksheetEntry : public QGraphicsObject
     void showActionBar();
     void hideActionBar();
 
-    void startDrag(const QPointF& grabPos = QPointF());
+    void startDrag(QPointF grabPos = QPointF());
 
   Q_SIGNALS:
     void aboutToBeDeleted();
@@ -156,7 +156,7 @@ class WorksheetEntry : public QGraphicsObject
     void setSize(QSizeF size);
 
     bool animationActive();
-    void updateSizeAnimation(const QSizeF& size);
+    void updateSizeAnimation(QSizeF size);
 
     void invokeSlotOnObject(const char* slot, QObject* obj);
 

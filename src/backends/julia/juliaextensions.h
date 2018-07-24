@@ -125,8 +125,8 @@ public:
      */
     virtual QString plotFunction3d(
         const QString &function,
-        VariableParameter var1,
-        VariableParameter var2) override;
+        const VariableParameter& var1,
+        const VariableParameter& var2) override;
 };
 
 /**

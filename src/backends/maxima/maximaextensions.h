@@ -102,7 +102,7 @@ class MaximaPlotExtension : public Cantor::PlotExtension
     ~MaximaPlotExtension() override;
   public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
-    QString plotFunction3d(const QString& function, VariableParameter var1, VariableParameter var2) Q_DECL_OVERRIDE;
+    QString plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2) Q_DECL_OVERRIDE;
 };
 
 class MaximaVariableManagementExtension : public Cantor::VariableManagementExtension

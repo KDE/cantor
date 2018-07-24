@@ -26,7 +26,7 @@
 class Python3Backend : public PythonBackend
 {
   public:
-    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
+    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
 
     Cantor::Session* createSession() override;
 
@@ -34,7 +34,7 @@ class Python3Backend : public PythonBackend
     QString version() const override;
     QUrl helpUrl() const override;
     QString description() const override;
-   
+
     KConfigSkeleton* config() const override;
 };
 

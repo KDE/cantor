@@ -96,7 +96,7 @@ public Q_SLOTS:
      * Convenience method, equivalent to addVariable(variable.name, variable.value)
      * @param variable the variable to add
      */
-    void addVariable(const Variable& variable);
+    void addVariable(const Cantor::DefaultVariableModel::Variable& variable);
     /**
      * Remove the variable @p name from the model.
      * If a variable with the specified @p name doesn't exists, this method does nothing.
@@ -107,7 +107,7 @@ public Q_SLOTS:
      * Convenience method, equivalent to removeVariable(variable.name)
      * @param variable the variable to remove
      */
-    void removeVariable(const Variable& variable);
+    void removeVariable(const Cantor::DefaultVariableModel::Variable& variable);
     /**
      * Clears all variables from the model
      */

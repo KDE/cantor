@@ -46,7 +46,7 @@ double AnimationResultItem::setGeometry(double x, double y, double w)
     return m_height;
 }
 
-void AnimationResultItem::populateMenu(QMenu* menu, const QPointF& pos)
+void AnimationResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
     addCommonActions(this, menu);
 
