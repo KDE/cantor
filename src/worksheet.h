@@ -234,6 +234,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertEntry(int type, WorksheetEntry* current = nullptr);
     WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = nullptr);
 
+    void updateEntryCursor();
+
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF p);
@@ -241,6 +243,7 @@ class Worksheet : public QGraphicsScene
     void updateEntryCursor(QGraphicsSceneMouseEvent* event);
     void addEntryFromEntryCursor();
     int entryCount();
+    void initEntryCursor();
 
   private:
     static const double LeftMargin;
@@ -253,6 +256,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
     WorksheetEntry* m_choosenCursorEntry;
+    QTimer* m_cursorItemTimer;
     QGraphicsLineItem* m_entryCursorItem;
     PlaceHolderEntry* m_placeholderEntry;
     WorksheetTextItem* m_lastFocusedTextItem;
@@ -282,6 +286,7 @@ class Worksheet : public QGraphicsScene
     bool m_loginDone;
     bool m_isPrinting;
     bool m_isLoadingFromFile;
+
 };
 
 #endif // WORKSHEET_H

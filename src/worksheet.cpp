@@ -69,8 +69,13 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_dragScrollTimer = nullptr;
 
     m_choosenCursorEntry = nullptr;
-    m_entryCursorItem = addLine(0,0,0,0);
-    m_entryCursorItem->hide();
+    initEntryCursor();
+
+    qDebug() << "connect start";
+    m_cursorItemTimer = new QTimer(this);
+    connect(m_cursorItemTimer, SIGNAL(timeout()), this, SLOT(updateEntryCursor()));
+    m_cursorItemTimer->start(500);
+    qDebug() << "connect_end";
 
     m_isPrinting = false;
     m_loginDone = false;
@@ -1045,8 +1050,7 @@ bool Worksheet::load(QIODevice* device)
     //delete all items from the scene
     clear();
     // Our cursor deleted too, so rectreated them
-    m_entryCursorItem = addLine(0,0,0,0);
-    m_entryCursorItem->hide();
+    initEntryCursor();
 
     m_session=b->createSession();
 
@@ -1786,5 +1790,23 @@ void Worksheet::addEntryFromEntryCursor()
     qDebug() << "Add new entry from entry cursor";
     insertCommandEntryBefore(m_choosenCursorEntry);
     m_choosenCursorEntry = nullptr;
+    m_entryCursorItem->hide();
+}
+
+void Worksheet::updateEntryCursor()
+{
+    if (m_choosenCursorEntry && m_entryCursorItem)
+        if (m_entryCursorItem->isVisible())
+            m_entryCursorItem->hide();
+        else
+            m_entryCursorItem->show();
+}
+
+void Worksheet::initEntryCursor()
+{
+    m_entryCursorItem = addLine(0,0,0,0);
+    QPen pen;
+    pen.setWidth(2);
+    m_entryCursorItem->setPen(pen);
     m_entryCursorItem->hide();
 }
