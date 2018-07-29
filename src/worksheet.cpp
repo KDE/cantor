@@ -71,11 +71,9 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_choosenCursorEntry = nullptr;
     initEntryCursor();
 
-    qDebug() << "connect start";
     m_cursorItemTimer = new QTimer(this);
     connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
     m_cursorItemTimer->start(500);
-    qDebug() << "connect_end";
 
     m_isPrinting = false;
     m_loginDone = false;
@@ -410,6 +408,7 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 
 void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 {
+    resetEntryCursor();
     m_dragEntry = entry;
     WorksheetEntry* prev = entry->previous();
     WorksheetEntry* next = entry->next();
@@ -1049,7 +1048,7 @@ bool Worksheet::load(QIODevice* device)
 
     //delete all items from the scene
     clear();
-    // Our cursor deleted too, so rectreated them
+    // Our cursor deleted too, so recreated it
     initEntryCursor();
 
     m_session=b->createSession();
@@ -1755,7 +1754,8 @@ void Worksheet::updateDragScrollTimer()
 
 void Worksheet::updateEntryCursor(QGraphicsSceneMouseEvent* event)
 {
-    m_choosenCursorEntry = nullptr;
+    // determine the worksheet entry near which the entry cursor will be shown
+    resetEntryCursor();
     if (event->button() == Qt::LeftButton && !focusItem())
         for (WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
         {
@@ -1777,20 +1777,16 @@ void Worksheet::updateEntryCursor(QGraphicsSceneMouseEvent* event)
         qreal x = LeftMargin;
         qreal y = m_choosenCursorEntry->y();
 
-        m_entryCursorItem->hide();
         m_entryCursorItem->setLine(x,y,x+30,y);
         m_entryCursorItem->show();
     }
-    else
-        m_entryCursorItem->hide();
 }
 
 void Worksheet::addEntryFromEntryCursor()
 {
     qDebug() << "Add new entry from entry cursor";
     insertCommandEntryBefore(m_choosenCursorEntry);
-    m_choosenCursorEntry = nullptr;
-    m_entryCursorItem->hide();
+    resetEntryCursor();
 }
 
 void Worksheet::animateEntryCursor()
@@ -1806,5 +1802,11 @@ void Worksheet::initEntryCursor()
     QPen pen(color);
     pen.setWidth(2);
     m_entryCursorItem->setPen(pen);
+    m_entryCursorItem->hide();
+}
+
+void Worksheet::resetEntryCursor()
+{
+    m_choosenCursorEntry = nullptr;
     m_entryCursorItem->hide();
 }

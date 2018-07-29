@@ -241,6 +241,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(QPointF p);
     WorksheetEntry* entryAt(int row);
     void updateEntryCursor(QGraphicsSceneMouseEvent* event);
+    void resetEntryCursor();
     void addEntryFromEntryCursor();
     int entryCount();
     void initEntryCursor();
