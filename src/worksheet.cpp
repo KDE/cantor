@@ -73,7 +73,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     qDebug() << "connect start";
     m_cursorItemTimer = new QTimer(this);
-    connect(m_cursorItemTimer, SIGNAL(timeout()), this, SLOT(updateEntryCursor()));
+    connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
     m_cursorItemTimer->start(500);
     qDebug() << "connect_end";
 
@@ -1793,19 +1793,17 @@ void Worksheet::addEntryFromEntryCursor()
     m_entryCursorItem->hide();
 }
 
-void Worksheet::updateEntryCursor()
+void Worksheet::animateEntryCursor()
 {
     if (m_choosenCursorEntry && m_entryCursorItem)
-        if (m_entryCursorItem->isVisible())
-            m_entryCursorItem->hide();
-        else
-            m_entryCursorItem->show();
+        m_entryCursorItem->setVisible(!m_entryCursorItem->isVisible());
 }
 
 void Worksheet::initEntryCursor()
 {
     m_entryCursorItem = addLine(0,0,0,0);
-    QPen pen;
+    const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
+    QPen pen(color);
     pen.setWidth(2);
     m_entryCursorItem->setPen(pen);
     m_entryCursorItem->hide();

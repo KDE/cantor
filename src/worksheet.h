@@ -234,7 +234,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertEntry(int type, WorksheetEntry* current = nullptr);
     WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = nullptr);
 
-    void updateEntryCursor();
+    void animateEntryCursor();
 
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);
