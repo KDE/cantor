@@ -156,15 +156,6 @@ void PythonSession::runExpression(PythonExpression* expr)
             continue;
         }
 
-        if(command.contains(QLatin1String("import "))){
-            if(identifyKeywords(command.simplified())){
-                continue;
-            } else {
-                readExpressionOutput(command.simplified());
-                return;
-            }
-        }
-
         if(firstLineWord.contains(QLatin1String("execfile"))){
 
             commandProcessing += command;
@@ -179,37 +170,9 @@ void PythonSession::runExpression(PythonExpression* expr)
             continue;
         }
 
-        if(command.startsWith(QLatin1String(" "))){
-
-            if(PythonKeywords::instance()->keywords().contains(firstLineWord) || command.contains(QLatin1String("=")) ||
-               command.endsWith(QLatin1String(":"))){
-
-                commandProcessing += command + QLatin1String("\n");
-
-                continue;
-            }
-
-            const int contIdentationSpace = indentSize(command);
-
-            qDebug() << "contIdentationSpace: " << contIdentationSpace;
-
-            QString commandIdentation = command;
-
-            qDebug() << "Insert print in " << contIdentationSpace << "space";
-            qDebug() << "commandIdentation before insert " << commandIdentation;
-
-            commandIdentation.insert(contIdentationSpace, QLatin1String("print("));
-
-            qDebug() << "commandIdentation after insert" << commandIdentation;
-            commandProcessing += commandIdentation + QLatin1String(")\n");
-
-            continue;
-        }
-
         commandProcessing += command + QLatin1String("\n");
 
     }
-
     readExpressionOutput(commandProcessing);
 }
 
