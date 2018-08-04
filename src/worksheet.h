@@ -244,12 +244,13 @@ class Worksheet : public QGraphicsScene
     void resetEntryCursor();
     void addEntryFromEntryCursor();
     int entryCount();
-    void initEntryCursor();
 
   private:
     static const double LeftMargin;
     static const double RightMargin;
     static const double TopMargin;
+    static const double DownMargin;
+    static const double EntryCursorLength;
     Cantor::Session *m_session;
     QSyntaxHighlighter* m_highlighter;
     EpsRenderer m_epsRenderer;
@@ -257,6 +258,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
     WorksheetEntry* m_choosenCursorEntry;
+    bool m_isCursorEntryAfterLastEntry;
     QTimer* m_cursorItemTimer;
     QGraphicsLineItem* m_entryCursorItem;
     PlaceHolderEntry* m_placeholderEntry;
