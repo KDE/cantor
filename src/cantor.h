@@ -90,7 +90,7 @@ private Q_SLOTS:
 
     void activateWorksheet(int index);
 
-    void setTabCaption(const QString& tab);
+    void setTabCaption(const QString& tab, const QIcon& icon);
     void closeTab(int index = -1);
 
     void showSettings();

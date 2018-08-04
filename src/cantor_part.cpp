@@ -623,7 +623,7 @@ void CantorPart::updateCaption()
     if (filename.isEmpty())
         filename=i18n("Unnamed");
 
-    emit setCaption(i18n("%1: %2", m_worksheet->session()->backend()->name(), filename));
+    emit setCaption(filename, QIcon::fromTheme(m_worksheet->session()->backend()->icon()));
 }
 
 void CantorPart::pluginsChanged()

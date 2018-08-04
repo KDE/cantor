@@ -79,7 +79,7 @@ public:
     Worksheet* worksheet();
 
 Q_SIGNALS:
-    void setCaption(const QString& caption);
+    void setCaption(const QString& caption, const QIcon& icon);
     void showHelp(const QString& help);
 
 protected:

@@ -274,7 +274,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            connect(part, SIGNAL(setWindowCaption(const QString&)), this, SLOT(setTabCaption(const QString&)));
+            connect(part, SIGNAL(setCaption(const QString&, const QIcon&)), this, SLOT(setTabCaption(const QString&, const QIcon&)));
             m_parts.append(part);
 
             //determine the icon of the backend to be added
@@ -348,12 +348,13 @@ void CantorShell::activateWorksheet(int index)
     m_tabWidget->setCurrentIndex(index);
 }
 
-void CantorShell::setTabCaption(const QString& caption)
+void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
 {
     if (caption.isEmpty()) return;
 
     KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
     m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
+    m_tabWidget->setTabIcon(m_tabWidget->indexOf(part->widget()), icon);
 }
 
 void CantorShell::closeTab(int index)
