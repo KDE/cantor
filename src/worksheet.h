@@ -243,6 +243,7 @@ class Worksheet : public QGraphicsScene
     void updateEntryCursor(QGraphicsSceneMouseEvent* event);
     void resetEntryCursor();
     void addEntryFromEntryCursor();
+    void drawEntryCursor();
     int entryCount();
 
   private:

@@ -197,6 +197,7 @@ void Worksheet::updateLayout()
         makeVisible(worksheetCursor());
     else if (atEnd)
         worksheetView()->scrollToEnd();
+    drawEntryCursor();
 }
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
@@ -219,6 +220,7 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         makeVisible(worksheetCursor());
     else if (atEnd)
         worksheetView()->scrollToEnd();
+    drawEntryCursor();
 }
 
 void Worksheet::addProtrusion(qreal width)
@@ -1789,22 +1791,7 @@ void Worksheet::updateEntryCursor(QGraphicsSceneMouseEvent* event)
     }
 
     if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
-    {
-        qreal x;
-        qreal y;
-        if (m_isCursorEntryAfterLastEntry)
-        {
-            x = lastEntry()->x();
-            y = lastEntry()->y() + lastEntry()->size().height();
-        }
-        else
-        {
-            x = m_choosenCursorEntry->x();
-            y = m_choosenCursorEntry->y();
-        }
-        m_entryCursorItem->setLine(x,y,x+EntryCursorLength,y);
-        m_entryCursorItem->show();
-    }
+        drawEntryCursor();
 }
 
 void Worksheet::addEntryFromEntryCursor()
@@ -1828,4 +1815,25 @@ void Worksheet::resetEntryCursor()
     m_choosenCursorEntry = nullptr;
     m_isCursorEntryAfterLastEntry = false;
     m_entryCursorItem->hide();
+}
+
+void Worksheet::drawEntryCursor()
+{
+    if (m_entryCursorItem && (m_choosenCursorEntry || (m_isCursorEntryAfterLastEntry && lastEntry())))
+    {
+        qreal x;
+        qreal y;
+        if (m_isCursorEntryAfterLastEntry)
+        {
+            x = lastEntry()->x();
+            y = lastEntry()->y() + lastEntry()->size().height();
+        }
+        else
+        {
+            x = m_choosenCursorEntry->x();
+            y = m_choosenCursorEntry->y();
+        }
+        m_entryCursorItem->setLine(x,y,x+EntryCursorLength,y);
+        m_entryCursorItem->show();
+    }
 }
