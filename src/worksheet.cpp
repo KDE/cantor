@@ -51,9 +51,9 @@
 
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
-const double Worksheet::TopMargin = 15;
-const double Worksheet::DownMargin = 15;
+const double Worksheet::TopMargin = 12;
 const double Worksheet::EntryCursorLength = 30;
+const double Worksheet::EntryCursorWidth = 2;
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
@@ -76,7 +76,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
     QPen pen(color);
-    pen.setWidth(2);
+    pen.setWidth(EntryCursorWidth);
     m_entryCursorItem->setPen(pen);
     m_entryCursorItem->hide();
 
@@ -191,7 +191,6 @@ void Worksheet::updateLayout()
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
         y += entry->setGeometry(x, y, w);
-    y += DownMargin;
     setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
@@ -214,7 +213,6 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         entry->setY(y);
         y += entry->size().height();
     }
-    y += DownMargin;
     setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
@@ -231,7 +229,7 @@ void Worksheet::addProtrusion(qreal width)
         m_itemProtrusions.insert(width, 1);
     if (width > m_protrusion) {
         m_protrusion = width;
-        qreal y = lastEntry()->size().height() + lastEntry()->y() + DownMargin;
+        qreal y = lastEntry()->size().height() + lastEntry()->y();
         setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     }
 }
@@ -253,7 +251,7 @@ void Worksheet::removeProtrusion(qreal width)
                     max = p;
             }
             m_protrusion = max;
-            qreal y = lastEntry()->size().height() + lastEntry()->y() + DownMargin;
+            qreal y = lastEntry()->size().height() + lastEntry()->y();
             setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
         }
     }
@@ -1826,7 +1824,7 @@ void Worksheet::drawEntryCursor()
         if (m_isCursorEntryAfterLastEntry)
         {
             x = lastEntry()->x();
-            y = lastEntry()->y() + lastEntry()->size().height();
+            y = lastEntry()->y() + lastEntry()->size().height() - (EntryCursorWidth - 1);
         }
         else
         {
