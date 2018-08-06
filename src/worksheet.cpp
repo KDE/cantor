@@ -51,7 +51,9 @@
 
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
-const double Worksheet::TopMargin = 4;
+const double Worksheet::TopMargin = 12;
+const double Worksheet::EntryCursorLength = 30;
+const double Worksheet::EntryCursorWidth = 2;
 
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
@@ -67,6 +69,20 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_viewWidth = 0;
     m_protrusion = 0;
     m_dragScrollTimer = nullptr;
+
+    m_choosenCursorEntry = nullptr;
+    m_isCursorEntryAfterLastEntry = false;
+
+    m_entryCursorItem = addLine(0,0,0,0);
+    const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
+    QPen pen(color);
+    pen.setWidth(EntryCursorWidth);
+    m_entryCursorItem->setPen(pen);
+    m_entryCursorItem->hide();
+
+    m_cursorItemTimer = new QTimer(this);
+    connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
+    m_cursorItemTimer->start(500);
 
     m_isPrinting = false;
     m_loginDone = false;
@@ -180,6 +196,7 @@ void Worksheet::updateLayout()
         makeVisible(worksheetCursor());
     else if (atEnd)
         worksheetView()->scrollToEnd();
+    drawEntryCursor();
 }
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
@@ -201,6 +218,7 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         makeVisible(worksheetCursor());
     else if (atEnd)
         worksheetView()->scrollToEnd();
+    drawEntryCursor();
 }
 
 void Worksheet::addProtrusion(qreal width)
@@ -401,6 +419,7 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 
 void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 {
+    resetEntryCursor();
     m_dragEntry = entry;
     WorksheetEntry* prev = entry->previous();
     WorksheetEntry* next = entry->next();
@@ -1038,8 +1057,6 @@ bool Worksheet::load(QIODevice* device)
         m_firstEntry = nullptr;
     }
 
-    //delete all items from the scene
-    clear();
 
     m_session=b->createSession();
 
@@ -1193,9 +1210,22 @@ void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene::mousePressEvent(event);
+    /*
     if (event->button() == Qt::LeftButton && !focusItem() && lastEntry() &&
         event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
         lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
+    */
+
+    updateEntryCursor(event);
+}
+
+void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
+{
+    // If we choose entry by entry cursor and press text button (not modifires, for example, like Control)
+    if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && !keyEvent->text().isEmpty())
+        addEntryFromEntryCursor();
+
+    QGraphicsScene::keyPressEvent(keyEvent);
 }
 
 void Worksheet::createActions(KActionCollection* collection)
@@ -1731,4 +1761,77 @@ void Worksheet::updateDragScrollTimer()
     m_dragScrollTimer->start();
 }
 
+void Worksheet::updateEntryCursor(QGraphicsSceneMouseEvent* event)
+{
+    // determine the worksheet entry near which the entry cursor will be shown
+    resetEntryCursor();
+    if (event->button() == Qt::LeftButton && !focusItem())
+    {
+        const qreal y = event->scenePos().y();
+        for (WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+        {
+            if (entry == firstEntry() && y < entry->y() )
+            {
+                m_choosenCursorEntry = firstEntry();
+                break;
+            }
+            else if (entry->y() < y && (entry->next() && y < entry->next()->y()))
+            {
+                m_choosenCursorEntry = entry->next();
+                break;
+            }
+            else if (entry->y() < y && entry == lastEntry())
+            {
+                m_isCursorEntryAfterLastEntry = true;
+                break;
+            }
+        }
+    }
 
+    if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
+        drawEntryCursor();
+}
+
+void Worksheet::addEntryFromEntryCursor()
+{
+    qDebug() << "Add new entry from entry cursor";
+    if (m_isCursorEntryAfterLastEntry)
+        insertCommandEntry(lastEntry());
+    else
+        insertCommandEntryBefore(m_choosenCursorEntry);
+    resetEntryCursor();
+}
+
+void Worksheet::animateEntryCursor()
+{
+    if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && m_entryCursorItem)
+        m_entryCursorItem->setVisible(!m_entryCursorItem->isVisible());
+}
+
+void Worksheet::resetEntryCursor()
+{
+    m_choosenCursorEntry = nullptr;
+    m_isCursorEntryAfterLastEntry = false;
+    m_entryCursorItem->hide();
+}
+
+void Worksheet::drawEntryCursor()
+{
+    if (m_entryCursorItem && (m_choosenCursorEntry || (m_isCursorEntryAfterLastEntry && lastEntry())))
+    {
+        qreal x;
+        qreal y;
+        if (m_isCursorEntryAfterLastEntry)
+        {
+            x = lastEntry()->x();
+            y = lastEntry()->y() + lastEntry()->size().height() - (EntryCursorWidth - 1);
+        }
+        else
+        {
+            x = m_choosenCursorEntry->x();
+            y = m_choosenCursorEntry->y();
+        }
+        m_entryCursorItem->setLine(x,y,x+EntryCursorLength,y);
+        m_entryCursorItem->show();
+    }
+}

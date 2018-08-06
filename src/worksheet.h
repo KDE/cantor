@@ -26,6 +26,7 @@
 #include <QDomElement>
 #include <QGraphicsLinearLayout>
 #include <QSyntaxHighlighter>
+#include <QGraphicsRectItem>
 
 #include <KZip>
 #include <QMenu>
@@ -222,6 +223,8 @@ class Worksheet : public QGraphicsScene
     void dragMoveEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
     void dropEvent(QGraphicsSceneDragDropEvent*) Q_DECL_OVERRIDE;
 
+    void keyPressEvent(QKeyEvent *keyEvent) Q_DECL_OVERRIDE;
+
   private Q_SLOTS:
     void loginToSession();
     void showCompletion();
@@ -231,22 +234,34 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertEntry(int type, WorksheetEntry* current = nullptr);
     WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = nullptr);
 
+    void animateEntryCursor();
+
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF p);
     WorksheetEntry* entryAt(int row);
+    void updateEntryCursor(QGraphicsSceneMouseEvent* event);
+    void resetEntryCursor();
+    void addEntryFromEntryCursor();
+    void drawEntryCursor();
     int entryCount();
 
   private:
     static const double LeftMargin;
     static const double RightMargin;
     static const double TopMargin;
+    static const double EntryCursorLength;
+    static const double EntryCursorWidth;
     Cantor::Session *m_session;
     QSyntaxHighlighter* m_highlighter;
     EpsRenderer m_epsRenderer;
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
+    WorksheetEntry* m_choosenCursorEntry;
+    bool m_isCursorEntryAfterLastEntry;
+    QTimer* m_cursorItemTimer;
+    QGraphicsLineItem* m_entryCursorItem;
     PlaceHolderEntry* m_placeholderEntry;
     WorksheetTextItem* m_lastFocusedTextItem;
     QTimer* m_dragScrollTimer;
@@ -275,6 +290,7 @@ class Worksheet : public QGraphicsScene
     bool m_loginDone;
     bool m_isPrinting;
     bool m_isLoadingFromFile;
+
 };
 
 #endif // WORKSHEET_H
