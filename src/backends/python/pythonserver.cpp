@@ -18,11 +18,11 @@
     Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
-#include "python3server.h"
+#include "pythonserver.h"
 
 #include <Python.h>
 
-Python3Server::Python3Server(QObject* parent)
+PythonServer::PythonServer(QObject* parent)
     : QObject(parent)
 {
 }
@@ -31,22 +31,28 @@ namespace
 {
     QString pyObjectToQString(PyObject* obj)
     {
+#if PY_MAJOR_VERSION == 3
         return QString::fromUtf8(PyUnicode_AsUTF8(obj));
+#elif PY_MAJOR_VERSION == 2
+        return QString::fromLocal8Bit(PyString_AsString(obj));
+#else
+    #warning Unknown Python version
+#endif
     }
 }
 
-void Python3Server::login()
+void PythonServer::login()
 {
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
 }
 
-void Python3Server::runPythonCommand(const QString& command) const
+void PythonServer::runPythonCommand(const QString& command) const
 {
     PyRun_SimpleString(command.toStdString().c_str());
 }
 
-QString Python3Server::getError() const
+QString PythonServer::getError() const
 {
     PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
@@ -54,7 +60,7 @@ QString Python3Server::getError() const
     return pyObjectToQString(error);
 }
 
-QString Python3Server::getOutput() const
+QString PythonServer::getOutput() const
 {
     PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
     PyObject *output = PyObject_GetAttrString(outputPython, "value");

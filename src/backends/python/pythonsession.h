@@ -31,12 +31,14 @@ class DefaultVariableModel;
 
 class PythonExpression;
 class KDirWatch;
+class QDBusInterface;
+class KProcess;
 
 class CANTOR_EXPORT PythonSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    PythonSession(Cantor::Backend* backend);
+    PythonSession(Cantor::Backend* backend, const QString serverName, const QString DbusChannelName);
     ~PythonSession() override;
 
     void login() Q_DECL_OVERRIDE;
@@ -61,6 +63,11 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
 
+    QDBusInterface* m_pIface;
+    KProcess* m_pProcess;
+    QString serverName;
+    QString DbusChannelName;
+
   protected:
     QString m_output;
     QString m_error;
@@ -74,9 +81,9 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     QString identifyVariableModule(const QString& command) const;
     bool identifyKeywords(const QString& command);
 
-    virtual void runPythonCommand(const QString& command) const = 0;
-    virtual QString getOutput() const = 0;
-    virtual QString getError() const = 0;
+    void runPythonCommand(const QString& command) const;
+    QString getOutput() const;
+    QString getError() const;
 
     virtual void readExpressionOutput(const QString& commandProcessing);
 

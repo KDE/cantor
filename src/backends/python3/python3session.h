@@ -23,34 +23,13 @@
 
 #include "../python/pythonsession.h"
 
-class QDBusInterface;
-class KProcess;
 class Python3Session : public PythonSession
 {
-    Q_OBJECT
   public:
     Python3Session(Cantor::Backend* backend);
 
-    void login() override;
-    void logout() override;
-    void interrupt() override;
-
     bool integratePlots() const override;
     QStringList autorunScripts() const override;
-
-  private:
-    void runPythonCommand(const QString& command) const override;
-    void readExpressionOutput(const QString& commandProcessing) override;
-
-    QString getOutput() const override;
-    QString getError() const override;
-
-  private:
-    QDBusInterface* m_pIface;
-    KProcess* m_pProcess;
-
-  Q_SIGNALS:
-    void updateHighlighter();
 };
 
 #endif

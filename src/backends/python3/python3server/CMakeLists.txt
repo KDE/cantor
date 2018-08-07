@@ -1,8 +1,8 @@
 include_directories(${PYTHONLIBS3_INCLUDE_DIRS})
 
 set(Python3Server_SRCS
-    python3server.cpp
     main.cpp
+    ../../python/pythonserver.cpp
 )
 
 add_executable(cantor_python3server ${Python3Server_SRCS})

@@ -29,3 +29,5 @@ endif()
 
 install(FILES cantor_python2.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
 install(FILES python2backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
+
+add_subdirectory(python2server)

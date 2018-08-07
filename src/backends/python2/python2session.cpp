@@ -20,47 +20,18 @@
 
 #include "python2session.h"
 #include "settings.h"
+#include "../python/pythonexpression.h"
 
-#include <Python.h>
+#include <QDebug>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
+
+#include <KProcess>
 
 Python2Session::Python2Session(Cantor::Backend* backend)
-    : PythonSession(backend)
-    , m_pModule(nullptr)
+    : PythonSession(backend, QLatin1String("cantor_python2server"), QLatin1String("org.kde.Cantor.Python2"))
 {
-}
-
-void Python2Session::runPythonCommand(const QString& command) const
-{
-    PyRun_SimpleString(command.toStdString().c_str());
-}
-
-void Python2Session::login()
-{
-    Py_Initialize();
-    m_pModule = PyImport_AddModule("__main__");
-
-    PythonSession::login();
-}
-
-QString Python2Session::getOutput() const
-{
-    PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
-    PyObject *output = PyObject_GetAttrString(outputPython, "value");
-
-    return pyObjectToQString(output);
-}
-
-QString Python2Session::getError() const
-{
-    PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
-    PyObject *error = PyObject_GetAttrString(errorPython, "value");
-
-    return pyObjectToQString(error);
-}
-
-QString Python2Session::pyObjectToQString(PyObject* obj) const
-{
-    return QString::fromLocal8Bit(PyString_AsString(obj));
 }
 
 bool Python2Session::integratePlots() const

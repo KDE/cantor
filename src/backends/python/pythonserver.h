@@ -18,19 +18,19 @@
     Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
-#ifndef _PYTHON3SERVER_H
-#define _PYTHON3SERVER_H
+#ifndef _PYTHONSERVER_H
+#define _PYTHONSERVER_H
 #include <QObject>
 #include <QString>
 
 struct _object;
 typedef _object PyObject;
 
-class Python3Server : public QObject
+class PythonServer : public QObject
 {
   Q_OBJECT
   public:
-    Python3Server(QObject* parent = nullptr);
+    PythonServer(QObject* parent = nullptr);
 
   public Q_SLOTS:
     Q_SCRIPTABLE void login();

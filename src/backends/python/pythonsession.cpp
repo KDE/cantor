@@ -29,13 +29,25 @@
 #include <QDebug>
 #include <QDir>
 
+#include <QStandardPaths>
+#include <QDBusConnection>
+#include <QDBusInterface>
+#include <QDBusReply>
+
+#include <KProcess>
+
 #include <KDirWatch>
 
 #include <defaultvariablemodel.h>
 
 
-PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend),
-m_variableModel(new Cantor::DefaultVariableModel(this))
+PythonSession::PythonSession(Cantor::Backend* backend, const QString serverName, const QString DbusChannelName)
+    : Session(backend)
+    , m_variableModel(new Cantor::DefaultVariableModel(this))
+    , m_pIface(nullptr)
+    , m_pProcess(nullptr)
+    , serverName(serverName)
+    , DbusChannelName(DbusChannelName)
 {
 }
 
@@ -47,6 +59,49 @@ void PythonSession::login()
 {
     qDebug()<<"login";
     emit loginStarted();
+
+    // TODO: T6113, T6114
+    if (m_pProcess)
+        m_pProcess->deleteLater();
+
+    m_pProcess = new KProcess(this);
+    m_pProcess->setOutputChannelMode(KProcess::SeparateChannels);
+
+    (*m_pProcess) << QStandardPaths::findExecutable(serverName);
+
+    m_pProcess->start();
+
+    m_pProcess->waitForStarted();
+    m_pProcess->waitForReadyRead();
+    QTextStream stream(m_pProcess->readAllStandardOutput());
+
+    const QString& readyStatus = QString::fromLatin1("ready");
+    while (m_pProcess->state() == QProcess::Running)
+    {
+        const QString& rl = stream.readLine();
+        if (rl == readyStatus)
+            break;
+    }
+
+    if (!QDBusConnection::sessionBus().isConnected())
+    {
+        qWarning() << "Can't connect to the D-Bus session bus.\n"
+                      "To start it, run: eval `dbus-launch --auto-syntax`";
+        return;
+    }
+
+    const QString& serviceName = DbusChannelName + QString::fromLatin1("-%1").arg(m_pProcess->pid());
+
+    m_pIface =  new QDBusInterface(serviceName,
+                                   QString::fromLatin1("/"), QString(), QDBusConnection::sessionBus());
+    if (!m_pIface->isValid())
+    {
+        qWarning() << QDBusConnection::sessionBus().lastError().message();
+        return;
+    }
+
+    m_pIface->call(QString::fromLatin1("login"));
+
 
     if(integratePlots())
     {
@@ -89,6 +144,9 @@ void PythonSession::login()
 
 void PythonSession::logout()
 {
+    // TODO: T6113, T6114
+    m_pProcess->terminate();
+
     qDebug()<<"logout";
 
     QDir removePlotFigures;
@@ -101,6 +159,10 @@ void PythonSession::logout()
 
 void PythonSession::interrupt()
 {
+    // TODO: T6113, T6114
+    if (m_pProcess->pid())
+        m_pProcess->kill();
+
     qDebug()<<"interrupt";
 
     foreach(Cantor::Expression* e, m_runningExpressions)
@@ -384,4 +446,30 @@ Cantor::CompletionObject* PythonSession::completionFor(const QString& command, i
 QAbstractItemModel* PythonSession::variableModel()
 {
     return m_variableModel;
+}
+
+void PythonSession::runPythonCommand(const QString& command) const
+{
+    // TODO: T6113, T6114
+    m_pIface->call(QString::fromLatin1("runPythonCommand"), command);
+}
+
+QString PythonSession::getOutput() const
+{
+    // TODO: T6113, T6114
+    const QDBusReply<QString>& reply = m_pIface->call(QString::fromLatin1("getOutput"));
+    if (reply.isValid())
+        return reply.value();
+
+    return reply.error().message();
+}
+
+QString PythonSession::getError() const
+{
+    // TODO: T6113, T6114
+    const QDBusReply<QString>& reply = m_pIface->call(QString::fromLatin1("getError"));
+    if (reply.isValid())
+        return reply.value();
+
+    return reply.error().message();
 }

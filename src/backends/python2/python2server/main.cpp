@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    const QString& serviceName = QString::fromLatin1("org.kde.Cantor.Python3-%1").arg(app.applicationPid());
+    const QString& serviceName = QString::fromLatin1("org.kde.Cantor.Python2-%1").arg(app.applicationPid());
 
     if (!QDBusConnection::sessionBus().registerService(serviceName))
     {
