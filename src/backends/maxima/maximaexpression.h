@@ -51,6 +51,7 @@ public:
 
     //reads from @param out until a prompt indicates that a new expression has started
     bool parseOutput(QString&);
+    bool parseOutputOld(QString&);
     void parseError(const QString&);
 
 private Q_SLOTS:

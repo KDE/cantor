@@ -317,7 +317,7 @@ QStringRef readXmlTagContent(int* idx, const QString& txt, const QStringRef& nam
     return QStringRef(&txt,contentStartIdx, contentLength);
 }
 
-bool MaximaExpression::parseOutput(QString& out)
+bool MaximaExpression::parseOutputOld(QString& out)
 {
     enum ParserStatus{ReadingOpeningTag, ReadingClosingTag, ReadingText};
     int idx=0;
@@ -606,6 +606,100 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
     return result;
 }
 
+
+/*!
+    example output for the simple expression '5+5':
+    latex mode - "<cantor-result><cantor-text>\n(%o1) 10\n</cantor-text><cantor-latex>\\mbox{\\tt\\red(\\mathrm{\\%o1}) \\black}10</cantor-latex></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
+    text mode  - "<cantor-result><cantor-text>\n(%o1) 10\n</cantor-text></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
+ */
+bool MaximaExpression::parseOutput(QString& out)
+{
+    const int promptStart = out.indexOf(QLatin1String("<cantor-prompt>"));
+    const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
+    const QString prompt = out.mid(promptStart + 15, promptEnd - promptStart - 15).simplified();
+    qDebug()<<"new input label: " << prompt;
+
+    const int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
+    if (resultStart == -1)
+    {
+        //no result available yet, we onle got the initial promt -> nothing to do
+        setStatus(Cantor::Expression::Done);
+        return true;
+
+    }
+    const int resultEnd = out.indexOf(QLatin1String("</cantor-result>"));
+    const QString resultContent = out.mid(resultStart + 15, resultEnd - resultStart - 15);
+    qDebug()<<"result content: " << resultContent;
+
+    //text part of the output
+    const int textContentStart = resultContent.indexOf(QLatin1String("<cantor-text>"));
+    const int textContentEnd = resultContent.indexOf(QLatin1String("</cantor-text>"));
+    QString textContent = resultContent.mid(textContentStart + 13, textContentEnd - textContentStart - 13).simplified();
+    qDebug()<<"text content: " << textContent;
+
+    //output label is part of the text content -> determine it
+    const QRegExp regex = QRegExp(MaximaSession::MaximaOutputPrompt.pattern());
+    const int index = regex.indexIn(textContent);
+    QString outputLabel = textContent.mid(index, regex.matchedLength()).simplified();
+    qDebug()<<"output label: " << outputLabel;
+
+    //remove the output label from the text content
+    textContent = textContent.remove(outputLabel).simplified();
+
+    //determine the actual result
+    Cantor::TextResult* result = nullptr;
+
+    const int latexContentStart = resultContent.indexOf(QLatin1String("<cantor-latex>"));
+    if (latexContentStart != -1)
+    {
+        //latex output is available
+        const int latexContentEnd = resultContent.indexOf(QLatin1String("</cantor-latex>"));
+        QString latexContent = resultContent.mid(latexContentStart + 14, latexContentEnd - latexContentStart - 14).simplified();
+        qDebug()<<"latex content: " << latexContent;
+
+        //strip away the \mbox{} environment for the output label
+        int i;
+        int pcount=0;
+        for(i = latexContent.indexOf(QLatin1String("\\mbox{"))+5; i < latexContent.size(); ++i)
+        {
+            if(latexContent[i]==QLatin1Char('{'))
+                pcount++;
+            else if(latexContent[i]==QLatin1Char('}'))
+                pcount--;
+
+            if(pcount==0)
+                break;
+        }
+
+        latexContent = latexContent.mid(i+1);
+
+        if(latexContent.trimmed().isEmpty())
+        {
+            //empty latex, check whether it's an image
+            if(m_isPlot)
+                result = new Cantor::TextResult(i18n("Waiting for Image..."));
+        }
+        else
+        {
+            latexContent.prepend(QLatin1String("\\begin{eqnarray*}"));
+            latexContent.append(QLatin1String("\\end{eqnarray*}"));
+            qDebug()<<"modified latex content: " << latexContent;
+
+            result = new Cantor::TextResult(latexContent, textContent);
+            result->setFormat(Cantor::TextResult::LatexFormat);
+        }
+    }
+    else
+    {
+        //no latex output is availabe, the actual result is part of the textContent string
+        result = new Cantor::TextResult(textContent);
+    }
+
+    setResult(result);
+    setStatus(Cantor::Expression::Done);
+    return true;
+}
+
 void MaximaExpression::parseError(const QString& out)
 {
     m_errorBuffer.append(out);
@@ -624,7 +718,6 @@ void MaximaExpression::imageChanged()
         setStatus(Cantor::Expression::Done);
     }
 }
-
 
 QString MaximaExpression::additionalLatexHeaders()
 {

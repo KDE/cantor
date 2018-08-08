@@ -176,11 +176,10 @@ void MaximaSession::readStdOut()
     if (!expr)
         return; //should never happen
 
-    qDebug()<<"start parsing " << "  " << m_cache;
-    if(expr->parseOutput(m_cache))
-        qDebug()<<"parsing successful";
-    else
-        qDebug() << "failed to parse";
+    qDebug()<<"################################## PARSING START ###############################################";
+    qDebug()<<"output: " << m_cache;
+    expr->parseOutput(m_cache);
+    qDebug()<<"##################################  PARSING END  ###############################################";
 
     m_cache.clear();
 }
