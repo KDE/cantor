@@ -422,10 +422,6 @@ bool MaximaExpression::parseOutputOld(QString& out)
                 m_errorBuffer+=errorBuffer;
                 if(!m_errorBuffer.trimmed().isEmpty())
                 {
-                    //Replace < and > with their html code, so they won't be confused as html tags
-                    m_errorBuffer.replace( QLatin1Char('<') , QLatin1String("&lt;"));
-                    m_errorBuffer.replace( QLatin1Char('>') , QLatin1String("&gt;"));
-
                     if(command().startsWith(QLatin1String(":lisp"))||command().startsWith(QLatin1String(":lisp-quiet")))
                     {
                         if(result)
@@ -525,10 +521,6 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
             latex=content.toString().trimmed();
         }
     }
-
-    //Replace < and > with their html code, so they won't be confused as html tags
-    text.replace( QLatin1Char('<') , QLatin1String("&lt;"));
-    text.replace( QLatin1Char('>') , QLatin1String("&gt;"));
 
     QRegExp outputPromptRegexp=QRegExp(QLatin1Char('^')+MaximaSession::MaximaOutputPrompt.pattern());
     int idxOfPrompt=outputPromptRegexp.indexIn(text);

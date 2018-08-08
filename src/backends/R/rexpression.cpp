@@ -132,10 +132,6 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 content.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
                 //replace appearing backspaces, as they mess the whole output up
                 content.remove(QRegExp(QLatin1String(".\b")));
-                //Replace <, > and & with their html code, so they won't be confused as html tags
-                content.replace( QLatin1Char('<') ,  QLatin1String("&lt;"));
-                content.replace( QLatin1Char('>') ,  QLatin1String("&gt;"));
-                content.replace( QLatin1Char('&') ,  QLatin1String("&amp;"));
             }
 
             qDebug()<<"content: "<<content;

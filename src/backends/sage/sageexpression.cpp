@@ -188,12 +188,6 @@ void SageExpression::evalFinished()
         {
             stripped.remove( QRegExp( QLatin1String("<[a-zA-Z\\/][^>]*>") ) );
         }
-        else
-        {
-            //Replace < and > with their html code, so they won't be confused as html tags
-            stripped.replace( QLatin1Char('<') , QLatin1String("&lt;"));
-            stripped.replace( QLatin1Char('>') , QLatin1String("&gt;"));
-        }
         if (stripped.endsWith(QLatin1Char('\n')))
             stripped.chop(1);
 
