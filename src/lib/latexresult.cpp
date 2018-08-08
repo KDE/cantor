@@ -101,8 +101,7 @@ QString LatexResult::toHtml()
     if (isCodeShown())
     {
             QString s=code();
-//             s.replace('\n', QLatin1String("<br/>\n"));
-            return s;
+            return s.toHtmlEscaped();
     }
     else
     {
