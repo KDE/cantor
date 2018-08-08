@@ -44,24 +44,24 @@ class Cantor::LatexRendererPrivate
     QString latexFilename;
 };
 
-static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}          \n "\
-                         "\\usepackage{latexsym,amsfonts,amssymb,ulem}  \n "\
-                         "\\usepackage{amsmath}                         \n "\
-                         "\\usepackage[dvips]{graphicx}                 \n "\
-                         "\\usepackage[utf8]{inputenc}                  \n "\
-                         "\\usepackage{xcolor}                          \n "\
-                         "\\setlength\\textwidth{5in}                   \n "\
-                         "\\setlength{\\parindent}{0pt}                 \n "\
-                         "%1                                            \n "\
-                         "\\pagecolor[rgb]{%2,%3,%4}                    \n "\
-                         "\\pagestyle{empty}                            \n "\
-                         "\\begin{document}                             \n "\
-                         "\\color[rgb]{%5,%6,%7}                        \n "\
-                         "%8                                            \n "\
-                         "\\end{document}\n");
+static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}"\
+                         "\\usepackage{latexsym,amsfonts,amssymb,ulem}"\
+                         "\\usepackage{amsmath}"\
+                         "\\usepackage[dvips]{graphicx}"\
+                         "\\usepackage[utf8]{inputenc}"\
+                         "\\usepackage{xcolor}"\
+                         "\\setlength\\textwidth{5in}"\
+                         "\\setlength{\\parindent}{0pt}"\
+                         "%1"\
+                         "\\pagecolor[rgb]{%2,%3,%4}"\
+                         "\\pagestyle{empty}"\
+                         "\\begin{document}"\
+                         "\\color[rgb]{%5,%6,%7}"\
+                         "%8"\
+                         "\\end{document}");
 
-static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}    \n ");
-static const QLatin1String inlineEqnHeader("$%1$ \n");
+static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}");
+static const QLatin1String inlineEqnHeader("$%1$");
 
 LatexRenderer::LatexRenderer(QObject* parent) : QObject(parent),
                                                 d(new LatexRendererPrivate)
@@ -199,7 +199,7 @@ void LatexRenderer::renderWithLatex()
     }
     expressionTex=expressionTex.arg(d->latexCode);
 
-    qDebug()<<"full tex: "<<expressionTex;
+    qDebug()<<"full tex:\n"<<expressionTex;
 
     texFile->write(expressionTex.toUtf8());
     texFile->flush();
