@@ -62,6 +62,8 @@ void PanelPluginHandler::loadPlugins()
     }
 
     QPluginLoader loader;
+    const Cantor::Backend::Capabilities capabilities = d->session->backend()->capabilities();
+    const QStringList& extensions = d->session->backend()->extensions();
     foreach(const QString &dir, panelDirs){
 
         qDebug() << "dir: " << dir;
@@ -87,23 +89,23 @@ void PanelPluginHandler::loadPlugins()
             KPluginMetaData info(loader);
             plugin->setPluginInfo(info);
 
-            qDebug()<<"plugin "<<info.name()<<" requires "<<plugin->requiredExtensions();
             bool supported=true;
             foreach(const QString& req, plugin->requiredExtensions()){
                 // FIXME: That req.isEmpty() is there just because Help Panel has req
                 // empty, returning FALSE when the comparision must to return TRUE.
-                supported=supported && (d->session->backend()->extensions().contains(req) || req.isEmpty());
+                supported = supported && (extensions.contains(req) || req.isEmpty());
             }
 
-            supported=supported && ( (d->session->backend()->capabilities() & plugin->requiredCapabilities()) == plugin->requiredCapabilities());
-            qDebug()<<"plugin "<<info.name()<<" is "<<(supported ? "":" not ")<<" supported";
+            supported = supported && ( (capabilities & plugin->requiredCapabilities()) == plugin->requiredCapabilities());
 
             if(supported)
             {
+                qDebug() << "plugin " << info.name()<<" is supported, requires extensions " << plugin->requiredExtensions();
                 d->plugins.append(plugin);
                 plugin->setSession(d->session);
             }else
             {
+                qDebug() << "plugin " << info.name() <<" is not supported";
                 plugin->deleteLater();
             }
         }

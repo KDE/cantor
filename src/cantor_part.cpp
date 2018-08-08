@@ -672,19 +672,18 @@ void CantorPart::loadAssistants()
             plugin->setPluginInfo(info);
             plugin->setBackend(backend);
 
-            qDebug()<<"plugin "<<info.name()<<" requires "<<plugin->requiredExtensions();
             bool supported=true;
             foreach(const QString& req, plugin->requiredExtensions())
                 supported=supported && backend->extensions().contains(req);
 
-            qDebug()<<"plugin "<<info.name()<<" is "<<(supported ? "":" not ")<<" supported by "<<backend->name();
-
             if(supported)
             {
+                qDebug() << "plugin " << info.name() << " is supported by " << backend->name() << ", requires extensions " << plugin->requiredExtensions();
                 plugin->initActions();
                 connect(plugin, SIGNAL(requested()), this, SLOT(runAssistant()));
             }else
             {
+                qDebug() << "plugin " << info.name() << " is not supported by "<<backend->name();
                 removeChildClient(plugin);
                 plugin->deleteLater();
             }
@@ -759,12 +758,13 @@ void CantorPart::searchBarDeleted()
 
 void CantorPart::adjustGuiToSession()
 {
+    Cantor::Backend::Capabilities capabilities = m_worksheet->session()->backend()->capabilities();
 #ifdef WITH_EPS
-    m_typeset->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::LaTexOutput));
+    m_typeset->setVisible(capabilities.testFlag(Cantor::Backend::LaTexOutput));
 #else
     m_typeset->setVisible(false);
 #endif
-    m_completion->setVisible(m_worksheet->session()->backend()->capabilities().testFlag(Cantor::Backend::Completion));
+    m_completion->setVisible(capabilities.testFlag(Cantor::Backend::Completion));
 
     //this is 0 on the first call
     if(m_showBackendHelp)
