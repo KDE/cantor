@@ -116,8 +116,8 @@ class CommandEntry : public WorksheetEntry
     bool informationItemHasFocus();
     bool focusWithinThisItem();
     QPoint getPopupPosition();
-
     QPoint toGlobalPosition(QPointF localPos);
+    void initMenus();
 
   private:
     enum CompletionMode {
@@ -129,6 +129,8 @@ class CommandEntry : public WorksheetEntry
     void resultDeleted();
     void updateCompletions();
     void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
+
+    void backgroundColorChanged(QAction*);
 
   private:
     static const double HorizontalSpacing;
@@ -146,6 +148,12 @@ class CommandEntry : public WorksheetEntry
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 
     EvaluationOption m_evaluationOption;
+
+    bool m_menusInitialized;
+
+    //formatting
+    QActionGroup* m_backgroundColorActionGroup;
+    QMenu* m_backgroundColorMenu;
 };
 
 #endif // COMMANDENTRY_H
