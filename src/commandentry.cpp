@@ -63,7 +63,9 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_syntaxHelpObject(nullptr),
     m_menusInitialized(false),
     m_backgroundColorActionGroup(nullptr),
-    m_backgroundColorMenu(nullptr)
+    m_backgroundColorMenu(nullptr),
+    m_textColorActionGroup(nullptr),
+    m_textColorMenu(nullptr)
 {
 
     m_promptItem->setPlainText(Prompt);
@@ -108,6 +110,7 @@ void CommandEntry::initMenus() {
 							i18n("Dark Grey"), i18n("Grey"), i18n("Light Grey")
 							};
 
+    //background color
     m_backgroundColorActionGroup = new QActionGroup(this);
 	m_backgroundColorActionGroup->setExclusive(true);
 	connect(m_backgroundColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::backgroundColorChanged);
@@ -122,6 +125,19 @@ void CommandEntry::initMenus() {
 		m_backgroundColorMenu->addAction(action);
 	}
 
+	//text color
+    m_textColorActionGroup = new QActionGroup(this);
+	m_textColorActionGroup->setExclusive(true);
+	connect(m_textColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::textColorChanged);
+    m_textColorMenu = new QMenu(i18n("Text Color"));
+
+	for (int i=0; i<colorsCount; ++i) {
+		p.fillRect(pix.rect(), colors[i]);
+		QAction* action = new QAction(QIcon(pix), colorNames[i], m_textColorActionGroup);
+		action->setCheckable(true);
+		m_textColorMenu->addAction(action);
+	}
+
     m_menusInitialized = true;
 }
 
@@ -133,12 +149,21 @@ void CommandEntry::backgroundColorChanged(QAction* action) {
     m_commandItem->setBackgroundColor(colors[index]);
 }
 
+void CommandEntry::textColorChanged(QAction* action) {
+	int index = m_textColorActionGroup->actions().indexOf(action);
+	if (index == -1 || index>=colorsCount)
+		index = 0;
+
+    m_commandItem->setDefaultTextColor(colors[index]);
+}
+
 void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     if (!m_menusInitialized)
         initMenus();
 
     menu->addMenu(m_backgroundColorMenu);
+    menu->addMenu(m_textColorMenu);
     menu->addSeparator();
     WorksheetEntry::populateMenu(menu, pos);
 }

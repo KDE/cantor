@@ -131,6 +131,7 @@ class CommandEntry : public WorksheetEntry
     void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
 
     void backgroundColorChanged(QAction*);
+    void textColorChanged(QAction*);
 
   private:
     static const double HorizontalSpacing;
@@ -154,6 +155,8 @@ class CommandEntry : public WorksheetEntry
     //formatting
     QActionGroup* m_backgroundColorActionGroup;
     QMenu* m_backgroundColorMenu;
+    QActionGroup* m_textColorActionGroup;
+    QMenu* m_textColorMenu;
 };
 
 #endif // COMMANDENTRY_H
