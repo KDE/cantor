@@ -58,7 +58,6 @@ private Q_SLOTS:
     void imageChanged();
 
 private:
-    QString additionalLatexHeaders() Q_DECL_OVERRIDE;
     Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
 
     QTemporaryFile *m_tempFile;

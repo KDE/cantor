@@ -718,9 +718,3 @@ void MaximaExpression::imageChanged()
         setStatus(Cantor::Expression::Done);
     }
 }
-
-QString MaximaExpression::additionalLatexHeaders()
-{
-    return QString();
-}
-
