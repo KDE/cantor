@@ -364,6 +364,11 @@ bool WorksheetTextItem::isEditable()
     return textInteractionFlags() & Qt::TextEditable;
 }
 
+void WorksheetTextItem::setBackgroundColor(const QColor& color)
+{
+    m_backgroundColor = color;
+}
+
 bool WorksheetTextItem::richTextEnabled()
 {
     return m_richTextEnabled;
@@ -691,6 +696,15 @@ void WorksheetTextItem::insertTab()
     }
     setTextCursor(cursor);
     emit cursorPositionChanged(textCursor());
+}
+
+void WorksheetTextItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) {
+    if (m_backgroundColor.isValid()) {
+        painter->setPen(QPen(Qt::NoPen));
+        painter->setBrush(m_backgroundColor);
+        painter->drawRect(boundingRect());
+    }
+    QGraphicsTextItem::paint(painter, o, w);
 }
 
 double WorksheetTextItem::width() const

@@ -54,6 +54,9 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem->setItemDragable(true);
     m_commandItem->enableCompletion(true);
 
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
     connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);

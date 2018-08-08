@@ -69,6 +69,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();
+    void setBackgroundColor(const QColor&);
     bool richTextEnabled();
     double width() const;
     double height() const;
@@ -144,6 +145,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void dragMoveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
     void dropEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
     bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) override;
 
   private Q_SLOTS:
     //void setHeight();
@@ -167,6 +169,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool m_completionActive;
     bool m_itemDragable;
     bool m_richTextEnabled;
+    QColor m_backgroundColor;
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H
