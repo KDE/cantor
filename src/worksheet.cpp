@@ -1097,7 +1097,7 @@ bool Worksheet::load(QIODevice* device)
     //If the session isn't logged in, use the default
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
-    emit sessionChanged();
+    emit loaded();
     return true;
 }
 

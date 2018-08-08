@@ -74,8 +74,7 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
     WorksheetAccessInterfaceImpl(QObject* parent, Worksheet* worksheet) :   WorksheetAccessInterface(parent),  m_worksheet(worksheet)
     {
         qDebug()<<"new worksheetaccess interface";
-        connect(worksheet, SIGNAL(sessionChanged()), this, SIGNAL(sessionChanged()));
-
+        connect(worksheet, SIGNAL(modified()), this, SIGNAL(modified()));
     }
 
     ~WorksheetAccessInterfaceImpl() override
@@ -158,7 +157,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
-    connect(m_worksheet, SIGNAL(sessionChanged()), this, SLOT(worksheetSessionChanged()));
+    connect(m_worksheet, SIGNAL(loaded()), this, SLOT(initialized()));
     connect(actionCollection(), SIGNAL(inserted(QAction*)), m_worksheet,
             SLOT(registerShortcut(QAction*)));
 
@@ -358,7 +357,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     // we are not modified since we haven't done anything yet
     setModified(false);
 
-    worksheetSessionChanged();
+    initialized();
 }
 
 CantorPart::~CantorPart()
@@ -561,7 +560,7 @@ void CantorPart::showSessionError(const QString& message)
     showImportantStatusMessage(i18n("Session Error: %1", message));
 }
 
-void CantorPart::worksheetSessionChanged()
+void CantorPart::initialized()
 {
     connect(m_worksheet->session(), SIGNAL(statusChanged(Cantor::Session::Status)), this, SLOT(worksheetStatusChanged(Cantor::Session::Status)));
     connect(m_worksheet->session(), SIGNAL(loginStarted()),this, SLOT(worksheetSessionLoginStarted()));
@@ -571,16 +570,13 @@ void CantorPart::worksheetSessionChanged()
     loadAssistants();
     m_panelHandler->setSession(m_worksheet->session());
     adjustGuiToSession();
-    initialized();
-}
 
-void CantorPart::initialized()
-{
     if (m_worksheet->isEmpty())
         m_worksheet->appendCommandEntry();
 
     m_worksheetview->setEnabled(true);
     m_worksheetview->setFocus();
+
     setStatusMessage(i18n("Initialization complete"));
     updateCaption();
 }

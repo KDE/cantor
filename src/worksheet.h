@@ -200,7 +200,7 @@ class Worksheet : public QGraphicsScene
 
   Q_SIGNALS:
     void modified();
-    void sessionChanged();
+    void loaded();
     void showHelp(const QString&);
     void updatePrompt();
     void undoAvailable(bool);

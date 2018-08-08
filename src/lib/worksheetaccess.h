@@ -29,11 +29,11 @@
 namespace Cantor
 {
     class Session;
-    
+
 class CANTOR_EXPORT WorksheetAccessInterface : public QObject
 {
   Q_OBJECT
-  public:  
+  public:
     static QLatin1String Name;
     WorksheetAccessInterface(QObject* parent);
     ~WorksheetAccessInterface() override;
@@ -47,7 +47,7 @@ class CANTOR_EXPORT WorksheetAccessInterface : public QObject
       virtual void interrupt() = 0;
 
   Q_SIGNALS:
-      void sessionChanged();
+      void modified();
 };
 
 }

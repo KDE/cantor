@@ -45,10 +45,8 @@
 #include "ui_settings.h"
 #include "backendchoosedialog.h"
 
-CantorShell::CantorShell()
-    : KParts::MainWindow( )
+CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
 {
-    m_part=nullptr;
 
     // set the shell's ui resource file
     setXMLFile(QLatin1String("cantor_shell.rc"));
