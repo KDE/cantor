@@ -17,6 +17,7 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    Copyright (C) 2018 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "commandentry.h"
@@ -28,9 +29,10 @@
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
 
-#include <QToolTip>
 #include <QApplication>
 #include <QDesktopWidget>
+#include <QFontDialog>
+#include <QToolTip>
 
 #include <QDebug>
 #include <KLocalizedString>
@@ -65,7 +67,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_backgroundColorActionGroup(nullptr),
     m_backgroundColorMenu(nullptr),
     m_textColorActionGroup(nullptr),
-    m_textColorMenu(nullptr)
+    m_textColorMenu(nullptr),
+    m_fontMenu(nullptr)
 {
 
     m_promptItem->setPlainText(Prompt);
@@ -116,6 +119,8 @@ void CommandEntry::initMenus() {
 	connect(m_backgroundColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::backgroundColorChanged);
 
     m_backgroundColorMenu = new QMenu(i18n("Background Color"));
+    m_backgroundColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-fill-color")));
+
 	QPixmap pix(16,16);
 	QPainter p(&pix);
 	for (int i=0; i<colorsCount; ++i) {
@@ -129,7 +134,9 @@ void CommandEntry::initMenus() {
     m_textColorActionGroup = new QActionGroup(this);
 	m_textColorActionGroup->setExclusive(true);
 	connect(m_textColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::textColorChanged);
+
     m_textColorMenu = new QMenu(i18n("Text Color"));
+    m_textColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-text-color")));
 
 	for (int i=0; i<colorsCount; ++i) {
 		p.fillRect(pix.rect(), colors[i]);
@@ -137,6 +144,34 @@ void CommandEntry::initMenus() {
 		action->setCheckable(true);
 		m_textColorMenu->addAction(action);
 	}
+
+	//font
+	m_fontMenu = new QMenu(i18n("Font"));
+    m_fontMenu->setIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-font")));
+
+    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
+    action->setCheckable(true);
+    connect(action, &QAction::triggered, this, &CommandEntry::fontBoldTriggered);
+    m_fontMenu->addAction(action);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-text-italic")), i18n("Italic"));
+    action->setCheckable(true);
+    connect(action, &QAction::triggered, this, &CommandEntry::fontItalicTriggered);
+    m_fontMenu->addAction(action);
+    m_fontMenu->addSeparator();
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-less")), i18n("Increase Size"));
+    connect(action, &QAction::triggered, this, &CommandEntry::fontIncreaseTriggered);
+    m_fontMenu->addAction(action);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-more")), i18n("Decrease Size"));
+    connect(action, &QAction::triggered, this, &CommandEntry::fontDecreaseTriggered);
+    m_fontMenu->addAction(action);
+    m_fontMenu->addSeparator();
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Select"));
+    connect(action, &QAction::triggered, this, &CommandEntry::fontSelectTriggered);
+    m_fontMenu->addAction(action);
 
     m_menusInitialized = true;
 }
@@ -157,6 +192,77 @@ void CommandEntry::textColorChanged(QAction* action) {
     m_commandItem->setDefaultTextColor(colors[index]);
 }
 
+void CommandEntry::fontBoldTriggered()
+{
+    QAction* action = static_cast<QAction*>(QObject::sender());
+    QFont font = m_commandItem->font();
+    font.setBold(action->isChecked());
+    m_commandItem->setFont(font);
+}
+
+void CommandEntry::fontItalicTriggered()
+{
+    QAction* action = static_cast<QAction*>(QObject::sender());
+    QFont font = m_commandItem->font();
+    font.setItalic(action->isChecked());
+    m_commandItem->setFont(font);
+}
+
+void CommandEntry::fontIncreaseTriggered()
+{
+    QFont font = m_commandItem->font();
+    const int currentSize = font.pointSize();
+    QFontDatabase fdb;
+    QList<int> sizes = fdb.pointSizes(font.family(), font.styleName());
+
+    for (int i = 0; i < sizes.size(); ++i)
+    {
+        const int size = sizes.at(i);
+        if (currentSize == size)
+        {
+            if (i + 1 < sizes.size())
+            {
+                font.setPointSize(sizes.at(i+1));
+                m_commandItem->setFont(font);
+            }
+
+            break;
+        }
+    }
+}
+
+void CommandEntry::fontDecreaseTriggered()
+{
+    QFont font = m_commandItem->font();
+    const int currentSize = font.pointSize();
+    QFontDatabase fdb;
+    QList<int> sizes = fdb.pointSizes(font.family(), font.styleName());
+
+    for (int i = 0; i < sizes.size(); ++i)
+    {
+        const int size = sizes.at(i);
+        if (currentSize == size)
+        {
+            if (i - 1 >= 0)
+            {
+                font.setPointSize(sizes.at(i-1));
+                m_commandItem->setFont(font);
+            }
+
+            break;
+        }
+    }
+}
+
+void CommandEntry::fontSelectTriggered()
+{
+    bool ok;
+    QFont font = QFontDialog::getFont(&ok, m_commandItem->font(), nullptr);
+
+    if (ok)
+        m_commandItem->setFont(font);
+}
+
 void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     if (!m_menusInitialized)
@@ -164,6 +270,7 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
 
     menu->addMenu(m_backgroundColorMenu);
     menu->addMenu(m_textColorMenu);
+    menu->addMenu(m_fontMenu);
     menu->addSeparator();
     WorksheetEntry::populateMenu(menu, pos);
 }
@@ -690,7 +797,6 @@ void CommandEntry::removeContextHelp()
     if (m_completionBox)
         m_completionBox->hide();
 }
-
 
 void CommandEntry::updatePrompt()
 {

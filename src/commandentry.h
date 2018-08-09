@@ -17,6 +17,7 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    Copyright (C) 2018 Alexander Semke <alexander.semke@web.de>
  */
 
 #ifndef COMMANDENTRY_H
@@ -132,6 +133,11 @@ class CommandEntry : public WorksheetEntry
 
     void backgroundColorChanged(QAction*);
     void textColorChanged(QAction*);
+    void fontBoldTriggered();
+    void fontItalicTriggered();
+    void fontIncreaseTriggered();
+    void fontDecreaseTriggered();
+    void fontSelectTriggered();
 
   private:
     static const double HorizontalSpacing;
@@ -157,6 +163,7 @@ class CommandEntry : public WorksheetEntry
     QMenu* m_backgroundColorMenu;
     QActionGroup* m_textColorActionGroup;
     QMenu* m_textColorMenu;
+    QMenu* m_fontMenu;
 };
 
 #endif // COMMANDENTRY_H
