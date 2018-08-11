@@ -386,6 +386,40 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromXml(content, file);
 
+    //background color
+    QDomElement backgroundElem = content.firstChildElement(QLatin1String("Background"));
+    if (!backgroundElem.isNull())
+    {
+        QColor color;
+        color.setRed(backgroundElem.attribute(QLatin1String("red")).toInt());
+        color.setGreen(backgroundElem.attribute(QLatin1String("green")).toInt());
+        color.setBlue(backgroundElem.attribute(QLatin1String("blue")).toInt());
+        m_commandItem->setBackgroundColor(color);
+    }
+
+    //text properties
+    QDomElement textElem = content.firstChildElement(QLatin1String("Text"));
+    if (!textElem.isNull())
+    {
+        //text color
+        QDomElement colorElem = textElem.firstChildElement(QLatin1String("Color"));
+        QColor color;
+        color.setRed(colorElem.attribute(QLatin1String("red")).toInt());
+        color.setGreen(colorElem.attribute(QLatin1String("green")).toInt());
+        color.setBlue(colorElem.attribute(QLatin1String("blue")).toInt());
+        m_commandItem->setDefaultTextColor(color);
+
+        //font properties
+        QDomElement fontElem = textElem.firstChildElement(QLatin1String("Font"));
+        QFont font;
+        font.setFamily(fontElem.attribute(QLatin1String("family")));
+        font.setPointSize(fontElem.attribute(QLatin1String("pointSize")).toInt());
+        font.setWeight(fontElem.attribute(QLatin1String("weight")).toInt());
+        font.setItalic(fontElem.attribute(QLatin1String("italic")).toInt());
+        m_commandItem->setFont(font);
+
+    }
+
     setExpression(expr);
 }
 
@@ -439,18 +473,62 @@ QString CommandEntry::toPlain(const QString& commandSep, const QString& commentS
 
 QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 {
+    QDomElement exprElem = doc.createElement( QLatin1String("Expression") );
+    QDomElement cmdElem = doc.createElement( QLatin1String("Command") );
+    cmdElem.appendChild(doc.createTextNode( command() ));
+    exprElem.appendChild(cmdElem);
+
+    //save the result if available
     if (expression())
     {
-        if ( archive )
-            expression()->saveAdditionalData( archive );
-        return expression()->toXml(doc);
+        if (expression()->result())
+        {
+            QDomElement resultElem = expression()->result()->toXml(doc);
+            exprElem.appendChild(resultElem);
+
+            if (archive)
+                expression()->result()->saveAdditionalData(archive);
+        }
     }
-    QDomElement expr=doc.createElement( QLatin1String("Expression") );
-    QDomElement cmd=doc.createElement( QLatin1String("Command") );
-    QDomText cmdText=doc.createTextNode( command() );
-    cmd.appendChild( cmdText );
-    expr.appendChild( cmd );
-    return expr;
+
+    //save the background color if it differs from the default one
+    const QColor& backgroundColor = m_commandItem->backgroundColor();
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    if (backgroundColor != scheme.background(KColorScheme::AlternateBackground).color())
+    {
+        QDomElement colorElem = doc.createElement( QLatin1String("Background") );
+        colorElem.setAttribute(QLatin1String("red"), QString::number(backgroundColor.red()));
+        colorElem.setAttribute(QLatin1String("green"), QString::number(backgroundColor.green()));
+        colorElem.setAttribute(QLatin1String("blue"), QString::number(backgroundColor.blue()));
+        exprElem.appendChild(colorElem);
+    }
+
+    //save the text properties if they differ from default values
+    const QFont& font = m_commandItem->font();
+    if (font != QFontDatabase::systemFont(QFontDatabase::FixedFont))
+    {
+        QDomElement textElem = doc.createElement(QLatin1String("Text"));
+
+        //font properties
+        QDomElement fontElem = doc.createElement(QLatin1String("Font"));
+        fontElem.setAttribute(QLatin1String("family"), font.family());
+        fontElem.setAttribute(QLatin1String("pointSize"), QString::number(font.pointSize()));
+        fontElem.setAttribute(QLatin1String("weight"), QString::number(font.weight()));
+        fontElem.setAttribute(QLatin1String("italic"), QString::number(font.italic()));
+        textElem.appendChild(fontElem);
+
+        //text color
+        const QColor& textColor = m_commandItem->defaultTextColor();
+        QDomElement colorElem = doc.createElement( QLatin1String("Color") );
+        colorElem.setAttribute(QLatin1String("red"), QString::number(textColor.red()));
+        colorElem.setAttribute(QLatin1String("green"), QString::number(textColor.green()));
+        colorElem.setAttribute(QLatin1String("blue"), QString::number(textColor.blue()));
+        textElem.appendChild(colorElem);
+
+        exprElem.appendChild(textElem);
+    }
+
+    return exprElem;
 }
 
 QString CommandEntry::currentLine()

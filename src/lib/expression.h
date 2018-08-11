@@ -60,7 +60,7 @@ class CANTOR_EXPORT Expression : public QObject
     /**
      * Enum indicating how this Expression behaves on finishing
      */
-    enum FinishingBehavior { 
+    enum FinishingBehavior {
 	DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
 	DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
 			       All output/results will be dropped
@@ -84,11 +84,11 @@ class CANTOR_EXPORT Expression : public QObject
      */
     virtual void evaluate() = 0;
     /**
-     * Interrupt the running of the Expression. 
+     * Interrupt the running of the Expression.
      * This should set the state to Interrupted.
      */
     virtual void interrupt() = 0;
-    
+
     /**
      * Returns the unique id of the Expression
      * @return the unique id of the Expression
@@ -164,7 +164,7 @@ class CANTOR_EXPORT Expression : public QObject
      *
      */
     void clearResult();
-    
+
     /**
      * Returns the status of this Expression
      * @return the status of this Expression
@@ -175,21 +175,6 @@ class CANTOR_EXPORT Expression : public QObject
      * Returns the Session, this Expression belongs to
      */
     Session* session();
-
-    /**
-     * returns an xml representation of this expression
-     * used for saving the worksheet
-     * @param doc DomDocument used for storing the information
-     * @return QDomElemt containing the representation of this Expression
-     */
-    QDomElement toXml(QDomDocument& doc);
-    /**
-     * saves all the data, that can't be saved in xml 
-     * in an extra file in the archive. for Example 
-     * images of plots
-     * @param archive a Zip archive, the data should be stored in
-     */
-    void saveAdditionalData(KZip* archive);
 
     /**
      * returns whether or not this expression is internal, or
@@ -242,7 +227,7 @@ class CANTOR_EXPORT Expression : public QObject
     void setStatus(Status status);
 
   protected:
-    //returns a string of latex commands, that is inserted into the header. 
+    //returns a string of latex commands, that is inserted into the header.
     //used for example if special packages are needed
     virtual QString additionalLatexHeaders();
   private:

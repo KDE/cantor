@@ -369,6 +369,11 @@ void WorksheetTextItem::setBackgroundColor(const QColor& color)
     m_backgroundColor = color;
 }
 
+const QColor& WorksheetTextItem::backgroundColor() const
+{
+    return m_backgroundColor;
+}
+
 bool WorksheetTextItem::richTextEnabled()
 {
     return m_richTextEnabled;

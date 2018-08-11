@@ -70,6 +70,7 @@ class WorksheetTextItem : public QGraphicsTextItem
 
     bool isEditable();
     void setBackgroundColor(const QColor&);
+    const QColor& backgroundColor() const;
     bool richTextEnabled();
     double width() const;
     double height() const;

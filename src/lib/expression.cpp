@@ -210,31 +210,6 @@ void Expression::latexRendered(LatexRenderer* renderer, Result* result)
     renderer->deleteLater();
 }
 
-//saving code
-QDomElement Expression::toXml(QDomDocument& doc)
-{
-    QDomElement expr=doc.createElement( QLatin1String("Expression") );
-    QDomElement cmd=doc.createElement( QLatin1String("Command") );
-    QDomText cmdText=doc.createTextNode( command() );
-    cmd.appendChild( cmdText );
-    expr.appendChild( cmd );
-    if ( result() )
-    {
-        qDebug()<<"result: "<<result();
-        QDomElement resXml=result()->toXml( doc );
-        expr.appendChild( resXml );
-    }
-
-    return expr;
-}
-
-void Expression::saveAdditionalData(KZip* archive)
-{
-    //just pass this call to the result
-    if(result())
-        result()->saveAdditionalData(archive);
-}
-
 void Expression::addInformation(const QString& information)
 {
     d->information.append(information);
@@ -275,6 +250,3 @@ bool Expression::isInternal()
 {
     return d->isInternal;
 }
-
-
-
