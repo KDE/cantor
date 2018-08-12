@@ -28,7 +28,7 @@ class RSettingsWidget : public QWidget,public Ui::RSettingsBase
   Q_OBJECT
 
   public:
-    RSettingsWidget(QWidget *parent = 0);
+    RSettingsWidget(QWidget *parent = nullptr);
     bool eventFilter(QObject*, QEvent*) override;
 
   public Q_SLOTS:

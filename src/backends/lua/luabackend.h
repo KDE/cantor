@@ -27,7 +27,7 @@ class LuaBackend : public Cantor::Backend
 {
 Q_OBJECT
 public:
-    explicit LuaBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+    explicit LuaBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
     ~LuaBackend();
 
     QString id() const override;

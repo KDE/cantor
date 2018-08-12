@@ -53,9 +53,8 @@
 #include <QStack>
 
 QalculateExpression::QalculateExpression( QalculateSession* session )
-    : Cantor::Expression(session)
+    : Cantor::Expression(session), m_tempFile(nullptr)
 {
-    m_tempFile = 0;
 }
 
 QalculateExpression::~QalculateExpression()

@@ -39,7 +39,7 @@ public:
      *             Defaults to QList<QVariant>().
      */
     explicit JuliaBackend(
-        QObject *parent = 0,
+        QObject *parent = nullptr,
         const QList<QVariant> &args = QList<QVariant>());
 
     virtual ~JuliaBackend() {}

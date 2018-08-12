@@ -186,16 +186,6 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-namespace
-{
-    int indentSize(const QString& command)
-    {
-        int contIdentationSpace = 0;
-        for(; command.at(contIdentationSpace).isSpace(); ++contIdentationSpace);
-        return contIdentationSpace;
-    }
-}
-
 void PythonSession::runExpression(PythonExpression* expr)
 {
     qDebug() << "run expression";

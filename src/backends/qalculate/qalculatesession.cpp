@@ -41,8 +41,8 @@
 QalculateSession::QalculateSession( Cantor::Backend* backend)
     : Session(backend),
       m_variableModel(new Cantor::DefaultVariableModel(this)),
-      m_process(0),
-      m_currentExpression(0),
+      m_process(nullptr),
+      m_currentExpression(nullptr),
       m_isSaveCommand(false)
 {
     /*
@@ -232,7 +232,7 @@ void QalculateSession::interrupt()
     m_output.clear();
     m_finalOutput.clear();
     m_currentCommand.clear();
-    m_currentExpression = 0;
+    m_currentExpression = nullptr;
 
 }
 

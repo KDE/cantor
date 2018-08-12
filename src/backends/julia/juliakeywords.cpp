@@ -21,8 +21,8 @@
 
 JuliaKeywords *JuliaKeywords::instance()
 {
-    static JuliaKeywords *inst = 0;
-    if (inst == 0) {
+    static JuliaKeywords *inst = nullptr;
+    if (inst == nullptr) {
         inst = new JuliaKeywords();
         inst->loadKeywords();
     }
