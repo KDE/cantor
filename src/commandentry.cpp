@@ -629,6 +629,12 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         m_promtItemTimer->start(100);
         break;
     }
+    case Cantor::Expression::Queued:
+    {
+        KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+        m_promptItem->setBackgroundColor(scheme.decoration(KColorScheme::HoverColor).color());
+        break;
+    }
     case Cantor::Expression::Error:
         text = m_expression->errorMessage();
         m_promtItemTimer->stop();

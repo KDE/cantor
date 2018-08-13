@@ -54,7 +54,8 @@ class CANTOR_EXPORT Expression : public QObject
     enum Status{ Computing,   ///< The Expression is still being computed
 		 Done,        ///< The Running of the Expression is finished successfully
 		 Error,       ///< An Error occurred when running the Expression
-		 Interrupted  ///< The Expression was interrupted by the user while running
+		 Interrupted,  ///< The Expression was interrupted by the user while running
+         Queued
     };
 
     /**
@@ -172,6 +173,13 @@ class CANTOR_EXPORT Expression : public QObject
     Status status();
 
     /**
+     * Set the status
+     * statusChanged will be emitted
+     * @param status the new status
+     */
+    void setStatus(Status status);
+
+    /**
      * Returns the Session, this Expression belongs to
      */
     Session* session();
@@ -219,12 +227,6 @@ class CANTOR_EXPORT Expression : public QObject
      * @param result the new result
      */
     void setResult(Result* result);
-    /**
-     * Set the status
-     * statusChanged will be emitted
-     * @param status the new status
-     */
-    void setStatus(Status status);
 
   protected:
     //returns a string of latex commands, that is inserted into the header.
