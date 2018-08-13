@@ -209,11 +209,7 @@ void JuliaServer::parseJlModule(jl_module_t* module)
 
 QString JuliaServer::fromJuliaString(const jl_value_t* value)
 {
-#if JULIA_VERSION_MINOR > 5
-        return QString::fromUtf8(jl_string_ptr(value));
-#else
-        return QString::fromUtf8(jl_string_data(value));
-#endif 
+    return QString::fromUtf8(jl_string_data(value));
 }
 
 QStringList JuliaServer::variablesList()
