@@ -1,0 +1,7 @@
+-----18.12-----
+
+New Features:
+	* Animated highlighting of the currently calculated command entry
+
+Bug fixes:
+	* BUG 363606 - Different python sessions shouldn't share the same variables

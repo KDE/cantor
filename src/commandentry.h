@@ -31,6 +31,7 @@
 
 class Worksheet;
 class ResultItem;
+class QTimer;
 
 namespace Cantor{
     class Result;
@@ -139,6 +140,8 @@ class CommandEntry : public WorksheetEntry
     void fontDecreaseTriggered();
     void fontSelectTriggered();
 
+    void animatePromptItem();
+
   private:
     static const double HorizontalSpacing;
     static const double VerticalSpacing;
@@ -155,7 +158,7 @@ class CommandEntry : public WorksheetEntry
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 
     EvaluationOption m_evaluationOption;
-
+    QTimer* m_promtItemTimer;
     bool m_menusInitialized;
 
     //formatting

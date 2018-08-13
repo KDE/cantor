@@ -30,11 +30,12 @@
 #include "lib/session.h"
 
 #include <QApplication>
+#include <QDebug>
 #include <QDesktopWidget>
 #include <QFontDialog>
+#include <QTimer>
 #include <QToolTip>
 
-#include <QDebug>
 #include <KLocalizedString>
 #include <KColorScheme>
 
@@ -77,6 +78,9 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 
     KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
     m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+
+    m_promtItemTimer = new QTimer(this);
+    connect(m_promtItemTimer, &QTimer::timeout, this, &CommandEntry::animatePromptItem);
 
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
@@ -358,10 +362,8 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         worksheet()->gotResult(expr);
         updateEntry();
     }
-    if(expr->status()!=Cantor::Expression::Computing)
-    {
-        expressionChangedStatus(expr->status());
-    }
+
+    expressionChangedStatus(expr->status());
 }
 
 Cantor::Expression* CommandEntry::expression()
@@ -620,15 +622,27 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
     QString text;
     switch (status)
     {
+    case Cantor::Expression::Computing:
+    {
+        KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+        m_promptItem->setBackgroundColor(scheme.decoration(KColorScheme::HoverColor).color());
+        m_promtItemTimer->start(100);
+        break;
+    }
     case Cantor::Expression::Error:
         text = m_expression->errorMessage();
+        m_promtItemTimer->stop();
         break;
     case Cantor::Expression::Interrupted:
         text = i18n("Interrupted");
+        m_promtItemTimer->stop();
         break;
     case Cantor::Expression::Done:
+        m_promptItem->setBackgroundColor(QColor());
+        m_promptItem->setOpacity(1.);
         evaluateNext(m_evaluationOption);
         m_evaluationOption = DoNothing;
+        m_promtItemTimer->stop();
         return;
     default:
         return;
@@ -643,6 +657,31 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 
     m_errorItem->setHtml(text);
     recalculateSize();
+}
+
+void CommandEntry::animatePromptItem() {
+    static bool fadeOut = true;
+    qreal newOpacity = m_promptItem->opacity();
+    if (fadeOut)
+    {
+        newOpacity -= 0.1;
+        if (newOpacity < 0.0)
+        {
+            fadeOut = false;
+            return;
+        }
+    }
+    else
+    {
+        newOpacity += 0.1;
+        if (newOpacity > 1.0)
+        {
+            fadeOut = true;
+            return;
+        }
+    }
+
+    m_promptItem->setOpacity(newOpacity);
 }
 
 bool CommandEntry::isEmpty()

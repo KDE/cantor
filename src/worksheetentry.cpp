@@ -371,7 +371,6 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
         layOutForWidth(size().width(), true);
         newSize = size();
     }
-    qDebug() << oldSize << newSize;
 
     QPropertyAnimation* sizeAn = new QPropertyAnimation(this, "size", this);
     sizeAn->setDuration(200);
