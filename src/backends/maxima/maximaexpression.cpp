@@ -129,8 +129,7 @@ void MaximaExpression::evaluate()
         return;
     }
 
-    dynamic_cast<MaximaSession*>(session())->appendExpressionToQueue(this);
-
+    session()->enqueueExpression(this);
 }
 
 void MaximaExpression::interrupt()

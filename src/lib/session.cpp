@@ -23,6 +23,9 @@ using namespace Cantor;
 
 #include "backend.h"
 
+#include <QTimer>
+#include <QQueue>
+
 class Cantor::SessionPrivate
 {
   public:
@@ -34,6 +37,7 @@ class Cantor::SessionPrivate
     Session::Status status;
     bool typesettingEnabled;
     int expressionCount;
+    QList<Cantor::Expression*> expressionQueue;
 };
 
 Session::Session( Backend* backend ) : QObject(backend), d(new SessionPrivate)
@@ -49,6 +53,30 @@ Session::~Session()
 Expression* Session::evaluateExpression(const QString& command)
 {
     return evaluateExpression(command, Expression::DoNotDelete);
+}
+
+QList<Expression*>& Cantor::Session::expressionQueue() const
+{
+    return d->expressionQueue;
+}
+
+void Session::enqueueExpression(Expression* expr)
+{
+    d->expressionQueue.append(expr);
+    expr->setStatus(Cantor::Expression::Queued);
+
+    //run the newly added expression immediately if it's the only one in the queue
+    if (d->expressionQueue.size() == 1)
+    {
+     changeStatus(Cantor::Session::Running);
+     d->expressionQueue.first()->setStatus(Cantor::Expression::Computing);
+     runFirstExpression();
+    }
+}
+
+void Session::runFirstExpression()
+{
+
 }
 
 Backend* Session::backend()

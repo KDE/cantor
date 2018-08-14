@@ -84,7 +84,8 @@ void RSession::interrupt()
       //TODO: interrupt the process on windows
 #endif
     }
-    m_expressionQueue.removeFirst();
+
+    expressionQueue().removeFirst();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -144,44 +145,36 @@ void RSession::receiveSymbols(const QStringList& vars, const QStringList& values
     emit symbolsChanged();
 }
 
-void RSession::queueExpression(RExpression* expr)
-{
-    m_expressionQueue.append(expr);
-
-    if(status()==Cantor::Session::Done)
-        QTimer::singleShot(0, this, SLOT(runNextExpression()));
-}
-
-
 void RSession::serverChangedStatus(int status)
 {
     qDebug()<<"changed status to "<<status;
     if(status==0)
     {
-        if(!m_expressionQueue.isEmpty())
+        if(!expressionQueue().isEmpty())
         {
-            RExpression* expr=m_expressionQueue.takeFirst();
+            RExpression* expr = static_cast<RExpression*>(expressionQueue().takeFirst());
             qDebug()<<"done running "<<expr<<" "<<expr->command();
         }
 
-        if(m_expressionQueue.isEmpty())
+        if(expressionQueue().isEmpty())
             changeStatus(Cantor::Session::Done);
         else
-            runNextExpression();
+            runFirstExpression();
     }
     else
         changeStatus(Cantor::Session::Running);
 }
 
-void RSession::runNextExpression()
+void RSession::runFirstExpression()
 {
-    if (m_expressionQueue.isEmpty())
-	return;
+    if (expressionQueue().isEmpty())
+        return;
+
     disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
     disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
     disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
-    qDebug()<<"size: "<<m_expressionQueue.size();
-    RExpression* expr=m_expressionQueue.first();
+    qDebug()<<"size: "<<expressionQueue().size();
+    RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
     qDebug()<<"running expression: "<<expr->command();
 
     connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));

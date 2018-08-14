@@ -97,6 +97,10 @@ class CANTOR_EXPORT Session : public QObject
      */
     Expression* evaluateExpression(const QString& command);
 
+    QList<Expression*>& expressionQueue() const;
+    void enqueueExpression(Expression*);
+    virtual void runFirstExpression();
+
     /**
      * Interrupts all the running calculations in this session
      */

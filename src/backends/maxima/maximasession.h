@@ -47,8 +47,6 @@ class MaximaSession : public Cantor::Session
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
 
-    void appendExpressionToQueue(MaximaExpression* expr);
-
     void interrupt() Q_DECL_OVERRIDE;
     void interrupt(MaximaExpression* expr);
     void sendInputToProcess(const QString& input);
@@ -59,6 +57,7 @@ class MaximaSession : public Cantor::Session
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command) Q_DECL_OVERRIDE;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
     QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
+    void runFirstExpression() override;
 
   public Q_SLOTS:
     void readStdOut();
@@ -69,7 +68,6 @@ class MaximaSession : public Cantor::Session
     void restartMaxima();
     void restartsCooledDown();
 
-    void runFirstExpression();
     void killLabels();
 
     void reportProcessError(QProcess::ProcessError error);
@@ -78,7 +76,6 @@ class MaximaSession : public Cantor::Session
     void write(const QString&);
 
     QProcess* m_process;
-    QList<MaximaExpression*> m_expressionQueue;
     QString m_cache;
     MaximaVariableModel* m_variableModel;
     bool m_justRestarted;

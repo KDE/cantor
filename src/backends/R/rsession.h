@@ -50,13 +50,11 @@ class RSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
-
-    void queueExpression(RExpression* expr);
     void sendInputToServer(const QString& input);
+    void runFirstExpression() override;
 
   protected Q_SLOTS:
     void serverChangedStatus(int status);
-    void runNextExpression();
     void receiveSymbols(const QStringList& vars, const QStringList& values, const QStringList & funcs);
     void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
 
@@ -66,7 +64,6 @@ class RSession : public Cantor::Session
   private:
     QProcess* m_process;
     org::kde::Cantor::R* m_rServer;
-    QList<RExpression*> m_expressionQueue;
 
     /* Available variables and functions, TODO make full classes and type info */
     Cantor::DefaultVariableModel* m_variableModel;

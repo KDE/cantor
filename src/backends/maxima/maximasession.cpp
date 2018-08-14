@@ -111,7 +111,7 @@ void MaximaSession::logout()
         qDebug()<<"maxima still running, process kill enforced";
     }
 
-    m_expressionQueue.clear();
+    expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
 
@@ -129,18 +129,6 @@ Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-void MaximaSession::appendExpressionToQueue(MaximaExpression* expr)
-{
-    m_expressionQueue.append(expr);
-
-    qDebug()<<"queue: "<<m_expressionQueue.size();
-    if(m_expressionQueue.size()==1)
-    {
-        changeStatus(Cantor::Session::Running);
-        runFirstExpression();
-    }
-}
-
 void MaximaSession::readStdErr()
 {
    qDebug()<<"reading stdErr";
@@ -148,9 +136,9 @@ void MaximaSession::readStdErr()
        return;
    QString out=QLatin1String(m_process->readAllStandardError());
 
-   if(m_expressionQueue.size()>0)
+   if(expressionQueue().size()>0)
    {
-       MaximaExpression* expr=m_expressionQueue.first();
+       MaximaExpression* expr = static_cast<MaximaExpression*>(expressionQueue().first());
        expr->parseError(out);
    }
 }
@@ -164,7 +152,7 @@ void MaximaSession::readStdOut()
     if ( !out.contains(QLatin1String("</cantor-prompt>")) )
         return;
 
-    if(m_expressionQueue.isEmpty())
+    if(expressionQueue().isEmpty())
     {
         //queue is empty, interrupt was called, nothing to do here
         qDebug()<<m_cache;
@@ -172,7 +160,7 @@ void MaximaSession::readStdOut()
         return;
     }
 
-    MaximaExpression* expr = m_expressionQueue.first();
+    MaximaExpression* expr = static_cast<MaximaExpression*>(expressionQueue().first());
     if (!expr)
         return; //should never happen
 
@@ -203,7 +191,7 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
-    MaximaExpression* expression=m_expressionQueue.first();
+    Cantor::Expression* expression =expressionQueue().first();
     qDebug() << expression << status;
 
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
@@ -214,8 +202,8 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 
         qDebug()<<"running next command";
 
-        m_expressionQueue.removeFirst();
-        if(m_expressionQueue.isEmpty())
+        expressionQueue().removeFirst();
+        if(expressionQueue().isEmpty())
         {
             //if we are done with all the commands in the queue,
             //use the opportunity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
@@ -244,9 +232,9 @@ void MaximaSession::runFirstExpression()
     if (!m_process)
         return;
 
-    if(!m_expressionQueue.isEmpty())
+    if(!expressionQueue().isEmpty())
     {
-        MaximaExpression* expr=m_expressionQueue.first();
+        MaximaExpression* expr = static_cast<MaximaExpression*>(expressionQueue().first());
         QString command=expr->internalCommand();
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
@@ -265,16 +253,16 @@ void MaximaSession::runFirstExpression()
 
 void MaximaSession::interrupt()
 {
-    if(!m_expressionQueue.isEmpty())
-        m_expressionQueue.first()->interrupt();
+    if(!expressionQueue().isEmpty())
+        expressionQueue().first()->interrupt();
 
-    m_expressionQueue.clear();
+    expressionQueue().clear();
     changeStatus(Cantor::Session::Done);
 }
 
 void MaximaSession::interrupt(MaximaExpression* expr)
 {
-    if(expr==m_expressionQueue.first())
+    if(expr==expressionQueue().first())
     {
         qDebug()<<"interrupting " << expr->command();
         disconnect(expr, nullptr, this, nullptr);
@@ -287,7 +275,7 @@ void MaximaSession::interrupt(MaximaExpression* expr)
         qDebug()<<"done interrupting";
     }else
     {
-        m_expressionQueue.removeAll(expr);
+        expressionQueue().removeAll(expr);
     }
 }
 
@@ -306,8 +294,8 @@ void MaximaSession::restartMaxima()
     {
         emit error(i18n("Maxima crashed. restarting..."));
         //remove the command that caused maxima to crash (to avoid infinite loops)
-        if(!m_expressionQueue.isEmpty())
-            m_expressionQueue.removeFirst();
+        if(!expressionQueue().isEmpty())
+            expressionQueue().removeFirst();
 
         m_justRestarted=true;
         QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
@@ -316,8 +304,8 @@ void MaximaSession::restartMaxima()
         login();
     }else
     {
-        if(!m_expressionQueue.isEmpty())
-            m_expressionQueue.removeFirst();
+        if(!expressionQueue().isEmpty())
+            expressionQueue().removeFirst();
         KMessageBox::error(nullptr, i18n("Maxima crashed twice within a short time. Stopping to try starting"), i18n("Error - Cantor"));
     }
 }

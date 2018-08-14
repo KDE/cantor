@@ -47,13 +47,12 @@ RExpression::~RExpression()
 
 void RExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
     if(command().startsWith(QLatin1Char('?')))
         m_isHelpRequest=true;
     else
         m_isHelpRequest=false;
 
-    static_cast<RSession*>(session())->queueExpression(this);
+    session()->enqueueExpression(this);
 }
 
 void RExpression::interrupt()
@@ -107,7 +106,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
             qDebug()<<"its PostScript";
             setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
         }
-        else if(type.inherits(QLatin1String("text/plain")) 
+        else if(type.inherits(QLatin1String("text/plain"))
             || type.inherits(QLatin1String("application/x-extension-html")))
         {
             //Htmls are also plain texts, combining this in one
