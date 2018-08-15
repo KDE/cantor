@@ -628,10 +628,12 @@ bool MaximaExpression::parseOutput(QString& out)
     QString textContent = resultContent.mid(textContentStart + 13, textContentEnd - textContentStart - 13).simplified();
     qDebug()<<"text content: " << textContent;
 
-    //output label is part of the text content -> determine it
+    //output label can be a part of the text content -> determine it
     const QRegExp regex = QRegExp(MaximaSession::MaximaOutputPrompt.pattern());
     const int index = regex.indexIn(textContent);
-    QString outputLabel = textContent.mid(index, regex.matchedLength()).simplified();
+    QString outputLabel;
+    if (index != -1) // No match, so output don't contain output label
+        outputLabel = textContent.mid(index, regex.matchedLength()).simplified();
     qDebug()<<"output label: " << outputLabel;
 
     //remove the output label from the text content
