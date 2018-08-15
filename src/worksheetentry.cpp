@@ -21,7 +21,6 @@
 #include "worksheetentry.h"
 #include "commandentry.h"
 #include "textentry.h"
-#include "markdownentry.h"
 #include "latexentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
@@ -89,8 +88,6 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
     {
     case TextEntry::Type:
         return new TextEntry(worksheet);
-    case MarkdownEntry::Type:
-        return new MarkdownEntry(worksheet);
     case CommandEntry::Type:
         return new CommandEntry(worksheet);
     case ImageEntry::Type:
@@ -112,11 +109,6 @@ void WorksheetEntry::insertCommandEntry()
 void WorksheetEntry::insertTextEntry()
 {
     worksheet()->insertTextEntry(this);
-}
-
-void WorksheetEntry::insertMarkdownEntry()
-{
-    worksheet()->insertMarkdownEntry(this);
 }
 
 void WorksheetEntry::insertLatexEntry()
@@ -142,11 +134,6 @@ void WorksheetEntry::insertCommandEntryBefore()
 void WorksheetEntry::insertTextEntryBefore()
 {
     worksheet()->insertTextEntryBefore(this);
-}
-
-void WorksheetEntry::insertMarkdownEntryBefore()
-{
-    worksheet()->insertMarkdownEntryBefore(this);
 }
 
 void WorksheetEntry::insertLatexEntryBefore()
