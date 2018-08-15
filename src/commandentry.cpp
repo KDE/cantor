@@ -619,7 +619,6 @@ void CommandEntry::updateEntry()
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 {
-    QString text;
     switch (status)
     {
     case Cantor::Expression::Computing:
@@ -646,16 +645,24 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         break;
     }
     case Cantor::Expression::Error:
-        m_promtItemTimer->stop();
-        text = m_expression->errorMessage();
-        m_promptItem->setBackgroundColor(QColor());
-        m_promptItem->setOpacity(1.);
-        break;
     case Cantor::Expression::Interrupted:
         m_promtItemTimer->stop();
-        text = i18n("Interrupted");
         m_promptItem->setBackgroundColor(QColor());
         m_promptItem->setOpacity(1.);
+
+        m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
+
+        if(!m_errorItem)
+        {
+            m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+        }
+
+        if (status == Cantor::Expression::Error)
+            m_errorItem->setHtml(m_expression->errorMessage());
+        else
+            m_errorItem->setHtml(i18n("Interrupted"));
+
+        recalculateSize();
         break;
     case Cantor::Expression::Done:
         m_promtItemTimer->stop();
@@ -663,20 +670,10 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         m_promptItem->setOpacity(1.);
         evaluateNext(m_evaluationOption);
         m_evaluationOption = DoNothing;
-        return;
+        break;
     default:
-        return;
+        break;
     }
-
-    m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
-
-    if(!m_errorItem)
-    {
-        m_errorItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
-    }
-
-    m_errorItem->setHtml(text);
-    recalculateSize();
 }
 
 void CommandEntry::animatePromptItem() {
