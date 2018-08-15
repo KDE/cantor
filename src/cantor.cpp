@@ -279,7 +279,8 @@ void CantorShell::addWorksheet(const QString& backendName)
             Cantor::Backend* backend = nullptr;
             for (Cantor::Backend* b : Cantor::Backend::availableBackends())
             {
-                if (b->name() == backendName)
+                // KPluginFactory don't case insensitive, so normalize names, for succeed backend searching
+                if (b->name().toLower() == backendName.toLower())
                 {
                     backend = b;
                     break;
