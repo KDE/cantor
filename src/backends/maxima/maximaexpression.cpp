@@ -613,11 +613,35 @@ bool MaximaExpression::parseOutput(QString& out)
     const int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
     if (resultStart == -1)
     {
-        //no result available yet, we onle got the initial promt -> nothing to do
-        setStatus(Cantor::Expression::Done);
-        return true;
-
+        //no result available, check the error message places outside of the <cantor*> tags.
+        QString errorContent = out.left(promptStart).trimmed();
+        qDebug() << "error content: " << errorContent;
+        if (errorContent.isEmpty())
+        {
+            //no error message, we only got the initial promt or an error message, nothing to do here
+            setStatus(Cantor::Expression::Done);
+            return true;
+        }
+        else
+        {
+            if(m_isHelpRequest) //help messages are also part of the error output
+            {
+                Cantor::HelpResult* result=new Cantor::HelpResult(errorContent);
+                setResult(result);
+                setStatus(Cantor::Expression::Done);
+                return true;
+            }
+            else
+            {
+                errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("<br>"));
+                errorContent = errorContent.replace(QLatin1String("\n"), QLatin1String("<br>"));
+                setErrorMessage(errorContent);
+                setStatus(Cantor::Expression::Error);
+                return true;
+            }
+        }
     }
+
     const int resultEnd = out.indexOf(QLatin1String("</cantor-result>"));
     const QString resultContent = out.mid(resultStart + 15, resultEnd - resultStart - 15);
     qDebug()<<"result content: " << resultContent;
@@ -625,7 +649,7 @@ bool MaximaExpression::parseOutput(QString& out)
     //text part of the output
     const int textContentStart = resultContent.indexOf(QLatin1String("<cantor-text>"));
     const int textContentEnd = resultContent.indexOf(QLatin1String("</cantor-text>"));
-    QString textContent = resultContent.mid(textContentStart + 13, textContentEnd - textContentStart - 13).simplified();
+    QString textContent = resultContent.mid(textContentStart + 13, textContentEnd - textContentStart - 13).trimmed();
     qDebug()<<"text content: " << textContent;
 
     //output label can be a part of the text content -> determine it
@@ -633,11 +657,11 @@ bool MaximaExpression::parseOutput(QString& out)
     const int index = regex.indexIn(textContent);
     QString outputLabel;
     if (index != -1) // No match, so output don't contain output label
-        outputLabel = textContent.mid(index, regex.matchedLength()).simplified();
+        outputLabel = textContent.mid(index, regex.matchedLength()).trimmed();
     qDebug()<<"output label: " << outputLabel;
 
     //remove the output label from the text content
-    textContent = textContent.remove(outputLabel).simplified();
+    textContent = textContent.remove(outputLabel).trimmed();
 
     //determine the actual result
     Cantor::TextResult* result = nullptr;
@@ -647,7 +671,7 @@ bool MaximaExpression::parseOutput(QString& out)
     {
         //latex output is available
         const int latexContentEnd = resultContent.indexOf(QLatin1String("</cantor-latex>"));
-        QString latexContent = resultContent.mid(latexContentStart + 14, latexContentEnd - latexContentStart - 14).simplified();
+        QString latexContent = resultContent.mid(latexContentStart + 14, latexContentEnd - latexContentStart - 14).trimmed();
         qDebug()<<"latex content: " << latexContent;
 
         //strip away the \mbox{} environment for the output label
