@@ -695,6 +695,8 @@ bool MaximaExpression::parseOutput(QString& out)
             //empty latex, check whether it's an image
             if(m_isPlot)
                 result = new Cantor::TextResult(i18n("Waiting for Image..."));
+            else
+                result = new Cantor::TextResult(textContent);
         }
         else
         {
