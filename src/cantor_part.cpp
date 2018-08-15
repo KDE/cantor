@@ -286,6 +286,10 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     actionCollection()->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
+    QAction * insertMarkdownEntry=new QAction(i18n("Insert Markdown Entry"), actionCollection());
+    actionCollection()->addAction(QLatin1String("insert_markdown_entry"),  insertMarkdownEntry);
+    connect(insertMarkdownEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertMarkdownEntry()));
+
     QAction * insertLatexEntry=new QAction(i18n("Insert Latex Entry"), actionCollection());
     actionCollection()->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));

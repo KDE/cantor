@@ -70,6 +70,8 @@ else(NOT WIN32)
     set(WITH_EPS Off)
 endif(NOT WIN32)
 
+find_package(Discount)
+
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 if (CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)

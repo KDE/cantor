@@ -34,6 +34,7 @@
     <Action name="evaluate_current"/>
     <Action name="insert_command_entry"/>
     <Action name="insert_text_entry"/>
+    <Action name="insert_markdown_entry"/>
     <Action name="insert_latex_entry"/>
     <Action name="insert_image"/>
     <Action name="insert_page_break_entry"/>
