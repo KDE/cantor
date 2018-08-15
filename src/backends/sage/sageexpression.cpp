@@ -53,7 +53,7 @@ void SageExpression::evaluate()
     //each.
     m_promptCount=command().count(QLatin1Char('\n'))+2;
 
-    dynamic_cast<SageSession*>(session())->appendExpressionToQueue(this);
+    session()->enqueueExpression(this);
 }
 
 void SageExpression::interrupt()

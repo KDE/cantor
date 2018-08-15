@@ -158,7 +158,7 @@ void SageSession::logout()
     //Run sage-cleaner to kill all the orphans
     KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<QLatin1String("-cleaner"));
 
-    m_expressionQueue.clear();
+    expressionQueue().clear();
 }
 
 Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
@@ -170,17 +170,6 @@ Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::
     expr->evaluate();
 
     return expr;
-}
-
-void SageSession::appendExpressionToQueue(SageExpression* expr)
-{
-    m_expressionQueue.append(expr);
-
-    if(m_expressionQueue.size()==1)
-    {
-        changeStatus(Cantor::Session::Running);
-        runFirstExpression();
-    }
 }
 
 void SageSession::readStdOut()
@@ -273,9 +262,9 @@ void SageSession::readStdOut()
         return;
     }
 
-    if(m_isInitialized&&!m_expressionQueue.isEmpty())
+    if(m_isInitialized&&!expressionQueue().isEmpty())
     {
-        SageExpression* expr=m_expressionQueue.first();
+        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
         expr->parseOutput(m_outputCache);
         m_outputCache.clear();
     }
@@ -286,9 +275,9 @@ void SageSession::readStdErr()
     qDebug()<<"reading stdErr";
     QString out=QLatin1String(m_process->readAllStandardError());
     qDebug()<<"err: "<<out;
-    if (!m_expressionQueue.isEmpty())
+    if (!expressionQueue().isEmpty())
     {
-        SageExpression* expr=m_expressionQueue.first();
+        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
         expr->parseError(out);
     }
 }
@@ -297,9 +286,9 @@ void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status stat
 {
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
-        SageExpression* expr=m_expressionQueue.takeFirst();
+        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().takeFirst());
         disconnect(expr, nullptr, this, nullptr);
-        if(m_expressionQueue.isEmpty())
+        if(expressionQueue().isEmpty())
             changeStatus(Cantor::Session::Done);
         runFirstExpression();
     }
@@ -311,9 +300,10 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
     Q_UNUSED(exitCode);
     if(exitStatus==QProcess::CrashExit)
     {
-        if(!m_expressionQueue.isEmpty())
+        if(!expressionQueue().isEmpty())
         {
-            m_expressionQueue.last()->onProcessError(i18n("The Sage process crashed while evaluating this expression"));
+            static_cast<SageExpression*>(expressionQueue().last())
+                ->onProcessError(i18n("The Sage process crashed while evaluating this expression"));
         }else
         {
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
@@ -321,9 +311,10 @@ void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
         }
     }else
     {
-        if(!m_expressionQueue.isEmpty())
+        if(!expressionQueue().isEmpty())
         {
-            m_expressionQueue.last()->onProcessError(i18n("The Sage process exited while evaluating this expression"));
+            static_cast<SageExpression*>(expressionQueue().last())
+                ->onProcessError(i18n("The Sage process exited while evaluating this expression"));
         }else
         {
             //We don't have an actual command. it crashed for some other reason, just show a plain error message box
@@ -343,9 +334,9 @@ void SageSession::reportProcessError(QProcess::ProcessError e)
 
 void SageSession::runFirstExpression()
 {
-    if(!m_expressionQueue.isEmpty()&&m_isInitialized)
+    if(!expressionQueue().isEmpty()&&m_isInitialized)
     {
-        SageExpression* expr=m_expressionQueue.first();
+        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
         QString command=expr->command();
         if(command.endsWith(QLatin1Char('?')) && !command.endsWith(QLatin1String("??")))
@@ -360,9 +351,9 @@ void SageSession::runFirstExpression()
 
 void SageSession::interrupt()
 {
-    if(!m_expressionQueue.isEmpty())
-        m_expressionQueue.first()->interrupt();
-    m_expressionQueue.clear();
+    if(!expressionQueue().isEmpty())
+        expressionQueue().first()->interrupt();
+    expressionQueue().clear();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -393,7 +384,7 @@ void SageSession::waitForNextPrompt()
 void SageSession::fileCreated( const QString& path )
 {
     qDebug()<<"got a file "<<path;
-    SageExpression* expr=m_expressionQueue.first();
+    SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
     if ( expr )
         expr->addFileResult( path );
 }

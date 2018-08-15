@@ -69,7 +69,7 @@ class SageSession : public Cantor::Session
 
     Cantor::Expression* evaluateExpression(const QString& command,Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
 
-    void appendExpressionToQueue(SageExpression* expr);
+    void runFirstExpression() Q_DECL_OVERRIDE;
 
     void interrupt() Q_DECL_OVERRIDE;
 
@@ -95,12 +95,10 @@ class SageSession : public Cantor::Session
     void fileCreated(const QString& path);
 
   private:
-    void runFirstExpression();
     void defineCustomFunctions();
     bool updateSageVersion();
   private:
     KPtyProcess* m_process;
-    QList<SageExpression*> m_expressionQueue;
     int m_isInitialized;
     QString m_tmpPath;
     KDirWatch m_dirWatch;
