@@ -67,17 +67,15 @@ void RExpression::finished(int returnCode, const QString& text)
 {
     if(returnCode==RExpression::SuccessCode)
     {
-        QString resultString = Qt::convertFromPlainText(text);
-        resultString.chop(5); // Remove <br>\n from end
-        setResult(new Cantor::TextResult(resultString));
+        qDebug() << "text: " << text;
+        setResult(new Cantor::TextResult(text));
         setStatus(Cantor::Expression::Done);
     }else if (returnCode==RExpression::ErrorCode)
     {
-        QString resultString = Qt::convertFromPlainText(text);
-        resultString.chop(5); // Remove <br>\n from end
-        setResult(new Cantor::TextResult(resultString));
+        qDebug() << "text: " << text;
+        //setResult(new Cantor::TextResult(text));
+        setErrorMessage(text);
         setStatus(Cantor::Expression::Error);
-        setErrorMessage(resultString);
     }
 }
 
