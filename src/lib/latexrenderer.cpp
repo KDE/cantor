@@ -199,7 +199,7 @@ void LatexRenderer::renderWithLatex()
     }
     expressionTex=expressionTex.arg(d->latexCode);
 
-    qDebug()<<"full tex:\n"<<expressionTex;
+//     qDebug()<<"full tex:\n"<<expressionTex;
 
     texFile->write(expressionTex.toUtf8());
     texFile->flush();

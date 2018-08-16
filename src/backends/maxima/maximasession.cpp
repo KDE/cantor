@@ -164,11 +164,8 @@ void MaximaSession::readStdOut()
     if (!expr)
         return; //should never happen
 
-    qDebug()<<"################################## PARSING START ###############################################";
     qDebug()<<"output: " << m_cache;
     expr->parseOutput(m_cache);
-    qDebug()<<"##################################  PARSING END  ###############################################";
-
     m_cache.clear();
 }
 
@@ -191,16 +188,14 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
-    Cantor::Expression* expression =expressionQueue().first();
-    qDebug() << expression << status;
+    Cantor::Expression* expression = expressionQueue().first();
+    qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
     {
-        qDebug()<<"expression finished";
+        qDebug()<<"################################## EXPRESSION END ###############################################";
         disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
                    this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
-
-        qDebug()<<"running next command";
 
         expressionQueue().removeFirst();
         if(expressionQueue().isEmpty())
@@ -348,6 +343,7 @@ QAbstractItemModel* MaximaSession::variableModel()
 }
 
 void MaximaSession::write(const QString& exp) {
-    qDebug()<<"sending expression to maxima process: " << exp << endl;
+    qDebug()<<"################################## EXPRESSION START ###############################################";
+    qDebug()<<"sending expression to maxima process: " << exp;
     m_process->write(exp.toUtf8());
 }

@@ -63,7 +63,6 @@ void MaximaVariableModel::checkForNewFunctions()
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
-    qDebug()<<"parsing it!";
     if(!expr||expr->status()!=Cantor::Expression::Done||
        !expr->result())
         return QList<Cantor::DefaultVariableModel::Variable>();
@@ -79,16 +78,13 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 
-    qDebug()<<"got "<<text;
-
     const int nameIndex=text.indexOf(QLatin1Char(']'));
-    qDebug()<<"idx: "<<nameIndex;
     QString namesString=text.left(nameIndex);
     //namesString.chop(1);
     namesString=namesString.mid(1);
     namesString=namesString.trimmed();
 
-    qDebug()<<"names: "<<namesString;
+    qDebug()<<"variable names: "<<namesString;
     if(namesString.isEmpty())
         return QList<Cantor::DefaultVariableModel::Variable>();
 

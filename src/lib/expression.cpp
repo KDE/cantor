@@ -164,9 +164,6 @@ Session* Expression::session()
 }
 void Expression::renderResultAsLatex(Result* result)
 {
-    qDebug()<<"rendering as latex";
-    qDebug()<<"checking if it really is a formula that can be typeset";
-
     LatexRenderer* renderer=new LatexRenderer(this);
     renderer->setLatexCode(result->data().toString().trimmed());
     renderer->addHeader(additionalLatexHeaders());
