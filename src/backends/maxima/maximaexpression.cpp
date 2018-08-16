@@ -674,39 +674,41 @@ bool MaximaExpression::parseOutput(QString& out)
         QString latexContent = resultContent.mid(latexContentStart + 14, latexContentEnd - latexContentStart - 14).trimmed();
         qDebug()<<"latex content: " << latexContent;
 
-        //strip away the \mbox{} environment for the output label
-        int i;
-        int pcount=0;
-        for(i = latexContent.indexOf(QLatin1String("\\mbox{"))+5; i < latexContent.size(); ++i)
+        //replace the \mbox{} environment, if available, by the eqnarray environment
+        if (latexContent.indexOf(QLatin1String("\\mbox{")) != -1)
         {
-            if(latexContent[i]==QLatin1Char('{'))
-                pcount++;
-            else if(latexContent[i]==QLatin1Char('}'))
-                pcount--;
+            int i;
+            int pcount=0;
+            for(i = latexContent.indexOf(QLatin1String("\\mbox{"))+5; i < latexContent.size(); ++i)
+            {
+                if(latexContent[i]==QLatin1Char('{'))
+                    pcount++;
+                else if(latexContent[i]==QLatin1Char('}'))
+                    pcount--;
 
-            if(pcount==0)
-                break;
-        }
+                if(pcount==0)
+                    break;
+            }
 
-        latexContent = latexContent.mid(i+1);
+            QString modifiedLatexContent = latexContent.mid(i+1);
+            if(modifiedLatexContent.trimmed().isEmpty())
+            {
+                //empty content in the \mbox{} environment (e.g. for print() outputs), use the latex string outside of the \mbox{} environment
+                modifiedLatexContent = latexContent.left(latexContent.indexOf(QLatin1String("\\mbox{")));
+            }
 
-        if(latexContent.trimmed().isEmpty())
-        {
-            //empty latex, check whether it's an image
-            if(m_isPlot)
-                result = new Cantor::TextResult(i18n("Waiting for Image..."));
-            else
-                result = new Cantor::TextResult(textContent);
+            modifiedLatexContent.prepend(QLatin1String("\\begin{eqnarray*}"));
+            modifiedLatexContent.append(QLatin1String("\\end{eqnarray*}"));
+            result = new Cantor::TextResult(modifiedLatexContent, textContent);
+            qDebug()<<"modified latex content: " << modifiedLatexContent;
         }
         else
         {
-            latexContent.prepend(QLatin1String("\\begin{eqnarray*}"));
-            latexContent.append(QLatin1String("\\end{eqnarray*}"));
-            qDebug()<<"modified latex content: " << latexContent;
-
+            //no \mbox{} available, use what we've got.
             result = new Cantor::TextResult(latexContent, textContent);
-            result->setFormat(Cantor::TextResult::LatexFormat);
         }
+
+        result->setFormat(Cantor::TextResult::LatexFormat);
     }
     else
     {
