@@ -104,17 +104,6 @@ void OctaveExpression::parseOutput(const QString& output)
 {
     qDebug() << "parseOutput: " << output;
     m_resultString += output;
-    if (!m_resultString.trimmed().isEmpty())
-    {
-        if (command().contains(QLatin1String("help")))
-        {
-            setResult(new Cantor::HelpResult(m_resultString));
-        }
-        else
-        {
-            setResult(new Cantor::TextResult(m_resultString));
-        }
-    }
 }
 
 void OctaveExpression::parseError(const QString& error)
@@ -157,6 +146,18 @@ void OctaveExpression::finalize()
             m_appendDot = false;
             }
         setCommand(cmd);
+    }
+
+    if (!m_resultString.trimmed().isEmpty())
+    {
+        if (command().contains(QLatin1String("help")))
+        {
+            setResult(new Cantor::HelpResult(m_resultString));
+        }
+        else
+        {
+            setResult(new Cantor::TextResult(m_resultString));
+        }
     }
 
     foreach ( const QString& line, m_resultString.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts) )
