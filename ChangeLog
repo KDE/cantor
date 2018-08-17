@@ -2,6 +2,10 @@
 
 New Features:
 	* Animated highlighting of the currently calculated command entry
+	* Visualization of pending command entries (queued, but not being calculated yet)
+	* Allow to format command entries (background color, foreground color, font properties)
+	* Allow to insert new command entries at arbitrary places in the worksheet by placing the cursor at the desired position and starting typing.
+	* For expressions having multiple commands, show the results as independet result objects in the worksheet
 
 Bug fixes:
 	* BUG 363606 - Different python sessions shouldn't share the same variables
