@@ -1,11 +1,11 @@
 set( OctaveBackend_SRCS
-octavebackend.cpp
-octavesession.cpp
-octaveexpression.cpp
-octaveextensions.cpp
-octavehighlighter.cpp
-octavecompletionobject.cpp
-octavesyntaxhelpobject.cpp
+  octavebackend.cpp
+  octavesession.cpp
+  octaveexpression.cpp
+  octaveextensions.cpp
+  octavehighlighter.cpp
+  octavecompletionobject.cpp
+  octavesyntaxhelpobject.cpp
 )
 
 set (OCTAVE_SCRIPT_INSTALL_DIR ${KDE_INSTALL_DATADIR}/cantor/octavebackend)
@@ -21,20 +21,21 @@ ki18n_wrap_ui(OctaveBackend_SRCS settings.ui)
 add_backend(octavebackend ${OctaveBackend_SRCS})
 
 target_link_libraries(cantor_octavebackend
-    KF5::KIOCore
-    KF5::ConfigCore
-    KF5::ConfigGui)
+  KF5::KIOCore
+  KF5::ConfigCore
+  KF5::ConfigGui
+)
 
 
 if(BUILD_TESTING)
- add_executable( testoctave testoctave.cpp)
- add_test(testoctave testoctave)
- ecm_mark_as_test(testoctave)
- target_link_libraries( testoctave
-   Qt5::Test
-   cantorlibs
-   cantortest
- )
+  add_executable( testoctave testoctave.cpp)
+  add_test(testoctave testoctave)
+  ecm_mark_as_test(testoctave)
+  target_link_libraries( testoctave
+    Qt5::Test
+    cantorlibs
+    cantortest
+  )
 endif(BUILD_TESTING)
 
 install(FILES cantor_octave.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )

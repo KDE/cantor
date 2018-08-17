@@ -1,13 +1,13 @@
 set( MaximaBackend_SRCS
- maximabackend.cpp
- maximasession.cpp
- maximaexpression.cpp
- maximaextensions.cpp
- maximahighlighter.cpp
- maximakeywords.cpp
- maximacompletionobject.cpp
- maximasyntaxhelpobject.cpp
- maximavariablemodel.cpp
+  maximabackend.cpp
+  maximasession.cpp
+  maximaexpression.cpp
+  maximaextensions.cpp
+  maximahighlighter.cpp
+  maximakeywords.cpp
+  maximacompletionobject.cpp
+  maximasyntaxhelpobject.cpp
+  maximavariablemodel.cpp
 )
 
 kconfig_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)
@@ -23,13 +23,12 @@ endif(NOT WIN32)
 
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)
+  add_test(NAME testmaxima COMMAND testmaxima)
   target_link_libraries( testmaxima
+    Qt5::Test
     cantorlibs
     cantortest
-    ${QTTEST_LIBRARY}
   )
-
-  add_test(NAME testmaxima COMMAND testmaxima)
 endif()
 
 install( FILES cantor_maxima.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )

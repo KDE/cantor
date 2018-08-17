@@ -5,14 +5,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS} -Wno-deprecate
 add_definitions(${QALCULATE_CFLAGS})
 
 set( QalculateBackend_SRCS
-qalculatesyntaxhelpobject.cpp
-qalculatebackend.cpp
-qalculatesession.cpp
-qalculatehighlighter.cpp
-qalculateexpression.cpp
-qalculateextensions.cpp
-qalculatecompletionobject.cpp
-qalculateextensions.cpp
+  qalculatesyntaxhelpobject.cpp
+  qalculatebackend.cpp
+  qalculatesession.cpp
+  qalculatehighlighter.cpp
+  qalculateexpression.cpp
+  qalculateextensions.cpp
+  qalculatecompletionobject.cpp
+  qalculateextensions.cpp
 )
 
 kconfig_add_kcfg_files(QalculateBackend_SRCS settings.kcfgc)
@@ -23,9 +23,9 @@ ki18n_wrap_ui(QalculateBackend_SRCS settings.ui)
 add_backend(qalculatebackend ${QalculateBackend_SRCS})
 
 if (QALCULATE_VERSION VERSION_LESS 2.0.0)
-    target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
+  target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
 else()
-    target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES})
+  target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES})
 endif()
 
 install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )

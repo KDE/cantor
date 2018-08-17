@@ -4,13 +4,13 @@ LINK_DIRECTORIES(${R_SHAREDLIBDIR})
 add_subdirectory(rserver)
 
 set( RBackend_SRCS
- rbackend.cpp
- rsession.cpp
- rexpression.cpp
- rextensions.cpp
- rcompletionobject.cpp
- rhighlighter.cpp
- rsettingswidget.cpp
+  rbackend.cpp
+  rsession.cpp
+  rexpression.cpp
+  rextensions.cpp
+  rcompletionobject.cpp
+  rhighlighter.cpp
+  rsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)

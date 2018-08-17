@@ -1,10 +1,10 @@
 set( KAlgebraBackend_SRCS
- kalgebrasyntaxhelpobject.cpp
- kalgebrabackend.cpp
- kalgebrasession.cpp
- kalgebraexpression.cpp
- kalgebracompletionobject.cpp
- kalgebraextensions.cpp
+  kalgebrasyntaxhelpobject.cpp
+  kalgebrabackend.cpp
+  kalgebrasession.cpp
+  kalgebraexpression.cpp
+  kalgebracompletionobject.cpp
+  kalgebraextensions.cpp
 )
 
 remove_definitions(-DQT_NO_CAST_TO_ASCII)

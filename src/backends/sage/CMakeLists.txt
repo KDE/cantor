@@ -1,11 +1,11 @@
 set( SageBackend_SRCS
- sagebackend.cpp
- sagesession.cpp
- sageexpression.cpp
- sageextensions.cpp
- sagekeywords.cpp
- sagehighlighter.cpp
- sagecompletionobject.cpp
+  sagebackend.cpp
+  sagesession.cpp
+  sageexpression.cpp
+  sageextensions.cpp
+  sagekeywords.cpp
+  sagehighlighter.cpp
+  sagecompletionobject.cpp
 )
 
 kconfig_add_kcfg_files(SageBackend_SRCS settings.kcfgc)
@@ -19,13 +19,12 @@ target_link_libraries( cantor_sagebackend KF5::Pty)
 
 if(BUILD_TESTING)
   add_executable( testsage testsage.cpp)
+  add_test(testsage testsage)
   target_link_libraries( testsage
-    ${QT_QTTEST_LIBRARY}
+    Qt5::Test
     cantorlibs
     cantortest
   )
-
-  add_test(NAME testsage COMMAND testsage)
 endif()
 
 install(FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})

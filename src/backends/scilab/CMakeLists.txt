@@ -1,11 +1,11 @@
 set( ScilabBackend_SRCS
-     scilabbackend.cpp
-     scilabsession.cpp
-     scilabexpression.cpp
-     scilabextensions.cpp
-     scilabkeywords.cpp
-     scilabhighlighter.cpp
-     scilabcompletionobject.cpp
+  scilabbackend.cpp
+  scilabsession.cpp
+  scilabexpression.cpp
+  scilabextensions.cpp
+  scilabkeywords.cpp
+  scilabhighlighter.cpp
+  scilabcompletionobject.cpp
 )
 
 kconfig_add_kcfg_files(ScilabBackend_SRCS settings.kcfgc)
