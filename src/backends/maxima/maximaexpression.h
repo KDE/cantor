@@ -58,6 +58,7 @@ private Q_SLOTS:
     void imageChanged();
 
 private:
+    void parseResult(const QString&);
     Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
 
     QTemporaryFile *m_tempFile;

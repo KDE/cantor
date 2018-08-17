@@ -59,7 +59,6 @@ static QColor colors[colorsCount] = {QColor(255,255,255), QColor(0,0,0),
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
     m_commandItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
-    m_resultItem(nullptr),
     m_errorItem(nullptr),
     m_expression(nullptr),
     m_completionObject(nullptr),
@@ -330,7 +329,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         m_expression->deleteLater();
         }*/
 
-    // Delete any previus error
+    // Delete any previous error
     if(m_errorItem)
     {
         m_errorItem->deleteLater();
@@ -419,7 +418,6 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
         font.setWeight(fontElem.attribute(QLatin1String("weight")).toInt());
         font.setItalic(fontElem.attribute(QLatin1String("italic")).toInt());
         m_commandItem->setFont(font);
-
     }
 
     setExpression(expr);
@@ -596,25 +594,36 @@ void CommandEntry::interruptEvaluation()
 void CommandEntry::updateEntry()
 {
     qDebug() << "update Entry";
-    Cantor::Expression *expr = expression();
-    if (expr == nullptr || expr->result() == nullptr)
+    Cantor::Expression* expr = expression();
+    if (expr == nullptr || expr->results().isEmpty())
         return;
 
     if (expr->result()->type() == Cantor::HelpResult::Type)
         return; // Help is handled elsewhere
 
-    if (expr->result()->type() == Cantor::TextResult::Type &&
-        expr->result()->toHtml().trimmed().isEmpty()) {
-        return;
-    } else if (!m_resultItem) {
-        m_resultItem = ResultItem::create(this, expr->result());
-        qDebug() << "new result";
-        animateSizeChange();
-    } else {
-        m_resultItem = m_resultItem->updateFromResult(expr->result());
-        qDebug() << "update result";
+    //CommandEntry::updateEntry() is only called if the worksheet view is resized
+    //or when we got a new result.
+    //In the second case the number of results and the number of result graphic objects is different
+    //and we add a new graphic object for the new result.
+    if (expr->results().size() != m_resultItems.size())
+    {
+        m_resultItems << ResultItem::create(this, expr->results().last());
         animateSizeChange();
     }
+
+    //TODO:old logic, keep it here until the new logic with multipe result objects turns out to be complete.
+//     if (expr->result()->type() == Cantor::TextResult::Type &&
+//         expr->result()->toHtml().trimmed().isEmpty()) {
+//         return;
+//     } else if (!m_resultItem) {
+//         m_resultItem = ResultItem::create(this, expr->result());
+//         qDebug() << "new result";
+//         animateSizeChange();
+//     } else {
+//         m_resultItem = m_resultItem->updateFromResult(expr->result());
+//         qDebug() << "update result";
+//         animateSizeChange();
+//      }
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
@@ -713,7 +722,7 @@ void CommandEntry::animatePromptItem() {
 bool CommandEntry::isEmpty()
 {
     if (m_commandItem->toPlainText().trimmed().isEmpty()) {
-        if (m_resultItem)
+        if (!m_resultItems.isEmpty())
             return false;
         return true;
     }
@@ -920,16 +929,19 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 
 void CommandEntry::removeResult()
 {
+    //clear the Result objects
     if(m_expression)
     {
         m_expression->clearResult();
     }
 
-    if (m_resultItem) {
-        QGraphicsObject* obj = m_resultItem->graphicsObject();
-        m_resultItem = nullptr;
-        fadeOutItem(obj);
-    }
+    //fade out all result graphic objects
+    for(auto* item : m_resultItems)
+        fadeOutItem(item->graphicsObject());
+
+    //delete all result graphic objects
+    qDeleteAll(m_resultItems);
+    m_resultItems.clear();
 }
 
 void CommandEntry::removeContextHelp()
@@ -1056,12 +1068,15 @@ WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
     if (p.textItem() == m_errorItem)
         p = WorksheetCursor();
 
-    WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
-        (m_resultItem);
-    if (textResult && flags & WorksheetEntry::SearchResult) {
-        cursor = textResult->search(pattern, qt_flags, p);
-        if (!cursor.isNull())
-            return WorksheetCursor(this, textResult, cursor);
+    for (auto* resultItem : m_resultItems)
+    {
+        WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
+            (resultItem);
+        if (textResult && flags & WorksheetEntry::SearchResult) {
+            cursor = textResult->search(pattern, qt_flags, p);
+            if (!cursor.isNull())
+                return WorksheetCursor(this, textResult, cursor);
+        }
     }
 
     return WorksheetCursor();
@@ -1093,10 +1108,13 @@ void CommandEntry::layOutForWidth(qreal w, bool force)
         width = qMax(width, m_errorItem->width());
     }
 
-    if (m_resultItem) {
+    for (auto* resultItem : m_resultItems)
+    {
+        if (!resultItem)
+            continue;
         y += VerticalSpacing;
-        y += m_resultItem->setGeometry(x, y, w-x);
-        width = qMax(width, m_resultItem->width());
+        y += resultItem->setGeometry(x, y, w-x);
+        width = qMax(width, resultItem->width());
     }
     y += VerticalMargin;
 

@@ -160,6 +160,13 @@ class CANTOR_EXPORT Expression : public QObject
      */
     Result* result();
 
+    /*!
+     * in case the expression has multiple outputs/results, those can be obtained with this functions.
+     * Everything else said for \sa result() applies here too.
+     * @return the vector with results, or an empty vector if nor results are available yet.
+     */
+    const QVector<Result*>& results() const;
+
     /**
      * Deletes the result of this expression.
      *
@@ -227,6 +234,8 @@ class CANTOR_EXPORT Expression : public QObject
      * @param result the new result
      */
     void setResult(Result* result);
+
+    void addResult(Result*);
 
   protected:
     //returns a string of latex commands, that is inserted into the header.

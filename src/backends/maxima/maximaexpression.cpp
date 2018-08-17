@@ -605,45 +605,60 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
  */
 bool MaximaExpression::parseOutput(QString& out)
 {
+    clearResult();
+
     const int promptStart = out.indexOf(QLatin1String("<cantor-prompt>"));
     const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
     const QString prompt = out.mid(promptStart + 15, promptEnd - promptStart - 15).simplified();
     qDebug()<<"new input label: " << prompt;
 
-    const int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
-    if (resultStart == -1)
+    //parse the results
+    int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
+    while (resultStart != -1)
     {
-        //no result available, check the error message places outside of the <cantor*> tags.
-        QString errorContent = out.left(promptStart).trimmed();
+        int resultEnd = out.indexOf(QLatin1String("</cantor-result>"), resultStart + 15);
+        const QString resultContent = out.mid(resultStart + 15, resultEnd - resultStart - 15);
+        parseResult(resultContent);
+
+        //search for the next openning <cantor-result> tag after the current closing </cantor-result> tag
+        resultStart = out.indexOf(QLatin1String("<cantor-result>"), resultEnd + 16);
+    }
+
+    //parse the error message, the part outside of the <cantor*> tags
+    int lastResultEnd = out.lastIndexOf(QLatin1String("</cantor-result>"));
+    if (lastResultEnd != -1)
+        lastResultEnd += 16;
+    else
+        lastResultEnd = 0;
+
+    QString errorContent = out.mid(lastResultEnd, promptStart - lastResultEnd).trimmed();
+    if (errorContent.isEmpty())
+    {
+        setStatus(Cantor::Expression::Done);
+    }
+    else
+    {
         qDebug() << "error content: " << errorContent;
-        if (errorContent.isEmpty())
+        if(m_isHelpRequest) //help messages are also part of the error output
         {
-            //no error message, we only got the initial promt or an error message, nothing to do here
+            Cantor::HelpResult* result = new Cantor::HelpResult(errorContent);
+            addResult(result);
             setStatus(Cantor::Expression::Done);
-            return true;
         }
         else
         {
-            if(m_isHelpRequest) //help messages are also part of the error output
-            {
-                Cantor::HelpResult* result=new Cantor::HelpResult(errorContent);
-                setResult(result);
-                setStatus(Cantor::Expression::Done);
-                return true;
-            }
-            else
-            {
-                errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("<br>"));
-                errorContent = errorContent.replace(QLatin1String("\n"), QLatin1String("<br>"));
-                setErrorMessage(errorContent);
-                setStatus(Cantor::Expression::Error);
-                return true;
-            }
+            errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("<br>"));
+            errorContent = errorContent.replace(QLatin1String("\n"), QLatin1String("<br>"));
+            setErrorMessage(errorContent);
+            setStatus(Cantor::Expression::Error);
         }
     }
 
-    const int resultEnd = out.indexOf(QLatin1String("</cantor-result>"));
-    const QString resultContent = out.mid(resultStart + 15, resultEnd - resultStart - 15);
+    return true;
+}
+
+void MaximaExpression::parseResult(const QString& resultContent)
+{
     qDebug()<<"result content: " << resultContent;
 
     //text part of the output
@@ -716,9 +731,7 @@ bool MaximaExpression::parseOutput(QString& out)
         result = new Cantor::TextResult(textContent);
     }
 
-    setResult(result);
-    setStatus(Cantor::Expression::Done);
-    return true;
+    addResult(result);
 }
 
 void MaximaExpression::parseError(const QString& out)

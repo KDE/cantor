@@ -1108,15 +1108,22 @@ void Worksheet::gotResult(Cantor::Expression* expr)
 
     if(expr==nullptr)
         return;
-    //We're only interested in help results, others are handled by the WorksheetEntry
-    if(expr->result()&&expr->result()->type()==Cantor::HelpResult::Type)
-    {
-        QString help=expr->result()->toHtml();
-        //Do some basic LaTeX replacing
-        help.replace(QRegExp(QLatin1String("\\\\code\\{([^\\}]*)\\}")), QLatin1String("<b>\\1</b>"));
-        help.replace(QRegExp(QLatin1String("\\$([^\\$])\\$")), QLatin1String("<i>\\1</i>"));
 
-        emit showHelp(help);
+    //We're only interested in help results, others are handled by the WorksheetEntry
+    for (auto* result : expr->results())
+    {
+        if(result && result->type()==Cantor::HelpResult::Type)
+        {
+            QString help = result->toHtml();
+            //Do some basic LaTeX replacing
+            help.replace(QRegExp(QLatin1String("\\\\code\\{([^\\}]*)\\}")), QLatin1String("<b>\\1</b>"));
+            help.replace(QRegExp(QLatin1String("\\$([^\\$])\\$")), QLatin1String("<i>\\1</i>"));
+
+            emit showHelp(help);
+
+            //TODO: break after the first help result found, not clear yet how to handle multiple requests for help within one single command (e.g. ??ev;??int).
+            break;
+        }
     }
 }
 

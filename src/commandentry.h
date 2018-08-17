@@ -148,7 +148,7 @@ class CommandEntry : public WorksheetEntry
 
     WorksheetTextItem* m_promptItem;
     WorksheetTextItem* m_commandItem;
-    ResultItem* m_resultItem;
+    QVector<ResultItem*> m_resultItems;
     WorksheetTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;

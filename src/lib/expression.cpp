@@ -41,7 +41,7 @@ using namespace Cantor;
 class Cantor::ExpressionPrivate
 {
 public:
-    ExpressionPrivate() : result(nullptr), status(Expression::Done), session(nullptr),
+    ExpressionPrivate() : status(Expression::Done), session(nullptr),
     finishingBehavior(Expression::DoNotDelete), isInternal(false)
     {
     }
@@ -50,7 +50,7 @@ public:
     QString command;
     QString error;
     QList<QString> information;
-    Result* result;
+    QVector<Result*> results;
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
@@ -78,7 +78,7 @@ Expression::Expression( Session* session ) : QObject( session ),
 
 Expression::~Expression()
 {
-    delete d->result;
+    qDeleteAll(d->results);
     delete d;
 }
 
@@ -104,6 +104,13 @@ QString Expression::errorMessage()
 
 void Expression::setResult(Result* result)
 {
+    qDeleteAll(d->results);
+    d->results.clear();
+    addResult(result);
+}
+
+void Expression::addResult(Result* result)
+{
     if(result!=nullptr)
     {
         qDebug()<<"settting result to a type "<<result->type()<<" result";
@@ -123,25 +130,27 @@ void Expression::setResult(Result* result)
         #endif
     }
 
-    if(d->result)
-        delete d->result;
-
-    d->result=result;
-
+    d->results << result;
     emit gotResult();
 }
 
 Result* Expression::result()
 {
-    return d->result;
+    if (!d->results.isEmpty())
+        return d->results.first();
+    else
+        return nullptr;
+}
+
+const QVector<Result*>& Expression::results() const
+{
+    return d->results;
 }
 
 void Expression::clearResult()
 {
-    if(d->result)
-        delete d->result;
-
-    d->result=nullptr;
+    qDeleteAll(d->results);
+    d->results.clear();
 }
 
 void Expression::setStatus(Expression::Status status)
@@ -185,20 +194,20 @@ void Expression::latexRendered(LatexRenderer* renderer, Result* result)
         {
             TextResult* r=dynamic_cast<TextResult*>(result);
             LatexResult* latex=new LatexResult(r->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), r->plain());
-            setResult( latex );
+            addResult( latex );
         }
         else if (result->type() == LatexResult::Type)
         {
             LatexResult* previousLatexResult=dynamic_cast<LatexResult*>(result);
             LatexResult* latex=new LatexResult(previousLatexResult->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), previousLatexResult->plain());
-            setResult( latex );
+            addResult( latex );
         }
     }else
     {
         //if rendering with latex was not successful, just use the plain text version
         //if available
         TextResult* r=dynamic_cast<TextResult*>(result);
-        setResult(new TextResult(r->plain()));
+        addResult(new TextResult(r->plain()));
         qDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 
