@@ -92,11 +92,7 @@ void OctaveExpression::evaluate()
     }
     m_finished = false;
     setStatus(Computing);
-    OctaveSession* octaveSession = dynamic_cast<OctaveSession*>(session());
-    if (octaveSession)
-    {
-        octaveSession->runExpression(this);
-    }
+    session()->enqueueExpression(this);
 }
 
 

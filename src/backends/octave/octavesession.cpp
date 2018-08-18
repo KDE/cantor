@@ -43,7 +43,6 @@
 
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
 m_process(nullptr),
-m_currentExpression(nullptr),
 m_watch(nullptr),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
@@ -145,11 +144,10 @@ void OctaveSession::logout()
         qDebug()<<"octave still running, process kill enforced";
     }
 
-    m_expressionQueue.clear();
+    expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
 
-    m_currentExpression = nullptr;
     m_prompt = QRegExp();
     m_tempDir.clear();
 
@@ -159,11 +157,11 @@ void OctaveSession::logout()
 void OctaveSession::interrupt()
 {
     qDebug() << "interrupt";
-    if (m_currentExpression)
+    if (expressionQueue().first())
     {
-        m_currentExpression->interrupt();
+        expressionQueue().first()->interrupt();
     }
-    m_expressionQueue.clear();
+    expressionQueue().clear();
     qDebug() << "Sending SIGINT to Octave";
     // Some commands, like `quit()`, potentially could finish octave process
     // So, avoiding crash, have make check before call kill, that the process still exist
@@ -192,32 +190,24 @@ Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, 
     return expression;
 }
 
-void OctaveSession::runExpression ( OctaveExpression* expression )
+void OctaveSession::runFirstExpression()
 {
-    qDebug() << "runExpression";
-    if ( status() != Done ) {
-        m_expressionQueue.enqueue ( expression );
-        qDebug() << m_expressionQueue.size();
-    } else {
-        m_currentExpression = expression;
-        changeStatus(Running);
-        connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
-        QString command = expression->command();
-        command.replace(QLatin1Char('\n'), QLatin1Char(','));
-        command += QLatin1Char('\n');
-        m_process->write ( command.toLocal8Bit() );
-    }
+    OctaveExpression* expression = static_cast<OctaveExpression*>(expressionQueue().first());
+    connect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
+    QString command = expression->command();
+    command.replace(QLatin1Char('\n'), QLatin1Char(','));
+    command += QLatin1Char('\n');
+    m_process->write ( command.toLocal8Bit() );
 }
 
 void OctaveSession::readError()
 {
     qDebug() << "readError";
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
-    if (!m_currentExpression || error.isEmpty())
+    if (expressionQueue().first() && !error.isEmpty())
     {
-        return;
+        static_cast<OctaveExpression*>(expressionQueue().first())->parseError(error);
     }
-    m_currentExpression->parseError(error);
 }
 
 void OctaveSession::readOutput()
@@ -233,7 +223,7 @@ void OctaveSession::readOutput()
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         qDebug()<<"start parsing " << "  " << line;
-        if (!m_currentExpression || m_prompt.isEmpty())
+        if (!expressionQueue().first() || m_prompt.isEmpty())
         {
             // no expression is available, we're parsing the first output of octave after the start
             // -> determine the location of the temporary folder and the format of octave's promt
@@ -260,12 +250,14 @@ void OctaveSession::readOutput()
             // Check for errors before finalizing the expression
             // this makes sure that all errors are caught
             readError();
-            m_currentExpression->finalize();
-            if (m_currentExpression->command().contains(QLatin1String(" = ")))
+            // Get command before finalize, because after finalizing the expression will be dequeued
+            const QString& command = expressionQueue().first()->command();
+            static_cast<OctaveExpression*>(expressionQueue().first())->finalize();
+            if (command.contains(QLatin1String(" = ")))
             {
                 emit variablesChanged();
             }
-            if (m_currentExpression->command().contains(QLatin1String("function ")))
+            if (command.contains(QLatin1String("function ")))
             {
                 emit functionsChanged();
             }
@@ -277,7 +269,7 @@ void OctaveSession::readOutput()
             {
                 line += QString::fromLocal8Bit(m_process->readLine());
             }
-            m_currentExpression->parseOutput(line);
+            static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(line);
 
         }
     }
@@ -286,23 +278,18 @@ void OctaveSession::readOutput()
 void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
     qDebug() << "currentExpressionStatusChanged";
-    if (!m_currentExpression)
-    {
-        return;
-    }
     switch (status)
     {
-    case Cantor::Expression::Computing:
-        break;
-    case Cantor::Expression::Interrupted:
-        break;
     case Cantor::Expression::Done:
     case Cantor::Expression::Error:
         changeStatus(Done);
-        if (!m_expressionQueue.isEmpty())
+        expressionQueue().removeFirst();
+        if (!expressionQueue().isEmpty())
         {
-            runExpression(m_expressionQueue.dequeue());
+            runFirstExpression();
         }
+        break;
+    default:
         break;
     }
 }
@@ -313,9 +300,9 @@ void OctaveSession::plotFileChanged(const QString& filename)
     {
         return;
     }
-    if (m_currentExpression)
+    if (expressionQueue().first())
     {
-        m_currentExpression->parsePlotFile(filename);
+        static_cast<OctaveExpression*>(expressionQueue().first())->parsePlotFile(filename);
     }
 }
 

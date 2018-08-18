@@ -49,14 +49,11 @@ class OctaveSession : public Cantor::Session
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) Q_DECL_OVERRIDE;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
     QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
-
-    void runExpression(OctaveExpression* expression);
+    void runFirstExpression() Q_DECL_OVERRIDE;
 
     private:
         KProcess* m_process;
         QTextStream m_stream;
-        QQueue <OctaveExpression*> m_expressionQueue;
-        QPointer <OctaveExpression> m_currentExpression;
         QRegExp m_prompt;
 
         KDirWatch* m_watch;
