@@ -97,8 +97,10 @@ void LuaSession::readOutput()
         m_output.append(QString::fromLocal8Bit(m_process->readLine()));
     }
 
-    //merge outputs until lua's promt "> " appears, take care of the comment characters "-->"
-    if(m_currentExpression && !m_output.isEmpty() && m_output.endsWith(QLatin1String("> ")) && !m_output.endsWith(QLatin1String("-> "))) {
+    //merge outputs until lua's promt "> " appears, take care of the comment characters "-->" and subprompt ">> "
+    if(m_currentExpression && !m_output.isEmpty() && m_output.endsWith(QLatin1String("> "))
+        && !m_output.endsWith(QLatin1String("-> ")) && !m_output.endsWith(QLatin1String(">> ")))
+    {
         // we have our complete output
         // clean the output and parse it and clear m_output;
         m_currentExpression->parseOutput(m_output);

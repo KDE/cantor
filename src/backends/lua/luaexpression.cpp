@@ -101,7 +101,8 @@ void LuaExpression::parseOutput(QString &output)
 
     qDebug() << "final output of the command " <<  command() << ": " << parsedOutput << endl;
 
-    setResult(new Cantor::TextResult(parsedOutput));
+    if (!parsedOutput.isEmpty())
+        setResult(new Cantor::TextResult(parsedOutput));
     setStatus(Cantor::Expression::Done);
 }
 
