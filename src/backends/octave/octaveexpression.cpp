@@ -107,7 +107,6 @@ void OctaveExpression::parseError(const QString& error)
     qDebug() << error;
     m_error = true;
     setErrorMessage(error);
-    setStatus(Error);
 }
 
 void OctaveExpression::parsePlotFile(const QString& file)
@@ -144,7 +143,7 @@ void OctaveExpression::finalize()
         setCommand(cmd);
     }
 
-    if (!m_resultString.trimmed().isEmpty())
+    if (!m_error && !m_resultString.trimmed().isEmpty())
     {
         if (command().contains(QLatin1String("help")))
         {
