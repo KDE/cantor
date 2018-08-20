@@ -1,7 +1,7 @@
 if(JULIA_FOUND)
     return()
 endif()
-    
+
 # Find julia executable
 find_program(JULIA_EXECUTABLE julia DOC "Julia executable")
 
@@ -31,8 +31,14 @@ endif()
 #
 # Julia includes
 #
+if(${JULIA_VERSION_STRING} VERSION_LESS 0.7.0)
+    set(JULIA_BINDIR "JULIA_HOME")
+else()
+    set(JULIA_BINDIR "Sys.BINDIR")
+endif()
+
 execute_process(
-    COMMAND ${JULIA_EXECUTABLE} -E "joinpath(match(r\"(.*)(bin)\",JULIA_HOME).captures[1],\"include\",\"julia\")"
+    COMMAND ${JULIA_EXECUTABLE} -E "joinpath(match(r\"(.*)(bin)\",${JULIA_BINDIR}).captures[1],\"include\",\"julia\")"
     OUTPUT_VARIABLE JULIA_INCLUDE_DIRS
     # COMMAND ${JULIA_EXECUTABLE} -E "abspath(joinpath(JULIA_HOME, \"../..\", \"src\"))"
     # OUTPUT_VARIABLE JULIA_INCLUDE_DIRS
