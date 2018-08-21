@@ -43,7 +43,7 @@ JuliaServer::~JuliaServer()
 
 void JuliaServer::login(const QString &path) const
 {
-#if JULIA_VERSION_MINOR > 5
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 6, 0)
     Q_UNUSED(path)
     jl_init();
 #else
