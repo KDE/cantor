@@ -49,7 +49,12 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
 {
    Cantor::Expression* e=m_session->evaluateExpression(exp);
 
-   if(e->status()==Cantor::Expression::Computing)
+   if(e->status()==Cantor::Expression::Queued)
+   {
+       waitForSignal( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ) );
+   }
+
+   if (e->status()==Cantor::Expression::Computing)
    {
        waitForSignal( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ) );
    }
@@ -99,7 +104,7 @@ void BackendTest::waitForSignal(QObject* sender, const char* signal)
     QEventLoop loop;
     connect( sender, signal, &loop, SLOT( quit() ) );
     connect(&timeout, &QTimer::timeout, &loop, &QEventLoop::quit);
-    timeout.start( 5000 );
+    timeout.start( 25000 );
     loop.exec();
 }
 
