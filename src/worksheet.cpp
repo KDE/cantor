@@ -25,7 +25,7 @@
 #include <QGraphicsWidget>
 #include <QPrinter>
 #include <QTimer>
-#include <QtXmlPatterns/QXmlQuery>
+#include <QXmlQuery>
 
 #include <KMessageBox>
 #include <KActionCollection>

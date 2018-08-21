@@ -31,7 +31,7 @@
 
 #include <QDebug>
 #include <QDir>
-#include <QtCore/QFile>
+#include <QFile>
 #include <QTextEdit>
 #include <QListIterator>
 #include <QIODevice>

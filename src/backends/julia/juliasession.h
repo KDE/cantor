@@ -163,7 +163,7 @@ private:
     QString getError();
 
     /**
-     * @return indicator of exception occured during the last command execution
+     * @return indicator of exception occurred during the last command execution
      */
     bool getWasException();
 

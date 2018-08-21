@@ -37,7 +37,7 @@ public:
      * Constructs JuliaCompletionObject
      *
      * @param cmd command piece to generate completion
-     * @param index index of cursor in commmand
+     * @param index index of cursor in command
      * @param session current session
      */
     JuliaCompletionObject(const QString &cmd, int index, JuliaSession *session);

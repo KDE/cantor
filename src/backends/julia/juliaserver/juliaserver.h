@@ -63,7 +63,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE QString getOutput() const;
 
     /**
-     * @return stderr output of the last command exection
+     * @return stderr output of the last command execution
      */
     Q_SCRIPTABLE QString getError() const;
 

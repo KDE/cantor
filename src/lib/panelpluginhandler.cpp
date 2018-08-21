@@ -92,7 +92,7 @@ void PanelPluginHandler::loadPlugins()
             bool supported=true;
             foreach(const QString& req, plugin->requiredExtensions()){
                 // FIXME: That req.isEmpty() is there just because Help Panel has req
-                // empty, returning FALSE when the comparision must to return TRUE.
+                // empty, returning FALSE when the comparison must to return TRUE.
                 supported = supported && (extensions.contains(req) || req.isEmpty());
             }
 

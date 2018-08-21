@@ -38,7 +38,6 @@
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
 // #include <KTextEditor/EditorChooser>
-#include <QFileDialog>
 
 ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent)
 {

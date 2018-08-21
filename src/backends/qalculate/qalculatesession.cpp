@@ -154,7 +154,7 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
     /**
         if we have reached here, we expect our variable model to be updated with new variables.
         In case the variable model is not updated, it most probably because we were not able to successfully parse the
-        current command and ouput to extract variable and value
+        current command and output to extract variable and value
 
         This is probably not the best way to get the variable and value.
         But since qalc does not  provide a way to get the list of variables, we will have to stick to parsing

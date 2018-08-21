@@ -41,7 +41,7 @@ void JuliaHighlighter::highlightBlock(const QString &text)
     // Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
 
-    // Now we are about to make corrent strings and comments highlighting
+    // Now we are about to make correct strings and comments highlighting
     //
     // Main idea: as soon as string starts comment or anything else cant start
     // until current string ends. The same with comment, except '#' comment

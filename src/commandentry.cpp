@@ -611,7 +611,7 @@ void CommandEntry::updateEntry()
         animateSizeChange();
     }
 
-    //TODO:old logic, keep it here until the new logic with multipe result objects turns out to be complete.
+    //TODO:old logic, keep it here until the new logic with multiple result objects turns out to be complete.
 //     if (expr->result()->type() == Cantor::TextResult::Type &&
 //         expr->result()->toHtml().trimmed().isEmpty()) {
 //         return;

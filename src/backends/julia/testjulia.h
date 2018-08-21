@@ -47,7 +47,7 @@ private Q_SLOTS:
      */
     void testSyntaxError();
     /**
-     * Test that results gathered before exception occured are shown
+     * Test that results gathered before exception occurred are shown
      */
     void testPartialResultOnException();
 
@@ -56,7 +56,7 @@ private Q_SLOTS:
      */
     void testInlinePlot();
     /**
-     * Tests that when exception occured and plotting is done, partial
+     * Tests that when exception occurred and plotting is done, partial
      * text results shown to user
      */
     void testInlinePlotWithExceptionAndPartialResult();
