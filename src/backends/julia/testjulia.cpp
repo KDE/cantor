@@ -63,7 +63,7 @@ void TestJulia::testException()
         !e->errorMessage().isEmpty()
         && e->errorMessage().contains(QLatin1String(
             "sqrt will only return a complex result if called with a "
-            "complex argument. Try sqrt(complex(x))."
+            "complex argument."
         ))
     );
 }
@@ -88,6 +88,7 @@ void TestJulia::testMultilineCode()
         "q = 0; # comment\n"
         "# sdfsdf\n"
         "for i = 1:10\n"
+        "    global q\n"
         "    q += i\n"
         "end\n"
         "print(q)"
@@ -115,7 +116,7 @@ void TestJulia::testPartialResultOnException()
         !e->errorMessage().isEmpty()
         && e->errorMessage().contains(QLatin1String(
             "sqrt will only return a complex result if called with a "
-            "complex argument. Try sqrt(complex(x))."
+            "complex argument."
         ))
     );
 }
@@ -124,7 +125,7 @@ void TestJulia::testInlinePlot()
 {
     Cantor::Expression *e = evalExp(QLatin1String(
         "import GR\n"
-        "GR.plot(linspace(-1, 1), sin(linspace(-1, 1)))\n"
+        "GR.plot([-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1], sin)"
     ));
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);
@@ -137,7 +138,7 @@ void TestJulia::testInlinePlotWithExceptionAndPartialResult()
         "import GR\n"
         "print(\"gonna plot\")\n"
         "sqrt(-1)\n"
-        "GR.plot(linspace(-1, 1), sin(linspace(-1, 1)))\n"
+        "GR.plot([-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1], sin)\n"
     ));
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Error);
@@ -147,7 +148,7 @@ void TestJulia::testInlinePlotWithExceptionAndPartialResult()
          !e->errorMessage().isEmpty()
         && e->errorMessage().contains(QLatin1String(
             "sqrt will only return a complex result if called with a "
-            "complex argument. Try sqrt(complex(x))."
+            "complex argument."
         ))
     );
 }
