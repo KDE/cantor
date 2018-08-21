@@ -61,8 +61,14 @@ endif()
 #
 # Julia library location
 #
+if(${JULIA_VERSION_STRING} VERSION_LESS 0.7.0)
+    set(JULIA_LIBDL_COMMAND "abspath(dirname(Libdl.dlpath(\"libjulia\")))")
+else()
+    set(JULIA_LIBDL_COMMAND "using Libdl\; abspath(dirname(Libdl.dlpath(\"libjulia\")))")
+endif()
+
 execute_process(
-    COMMAND ${JULIA_EXECUTABLE} -E "abspath(dirname(Libdl.dlpath(\"libjulia\")))"
+    COMMAND ${JULIA_EXECUTABLE} -E ${JULIA_LIBDL_COMMAND}
     OUTPUT_VARIABLE JULIA_LIBRARY_DIR
     RESULT_VARIABLE RESULT
 )
