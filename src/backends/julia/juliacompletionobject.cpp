@@ -22,6 +22,7 @@
 
 #include "juliasession.h"
 #include "juliakeywords.h"
+#include <julia/julia_version.h>
 
 JuliaCompletionObject::JuliaCompletionObject(
     const QString &command, int index, JuliaSession *session)
@@ -37,14 +38,25 @@ JuliaCompletionObject::~JuliaCompletionObject()
 void JuliaCompletionObject::fetchCompletions()
 {
     auto julia_session = dynamic_cast<JuliaSession *>(session());
-    julia_session->runJuliaCommand(
+    QString completionCommand;
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 7, 0)
+    completionCommand =
+        QString::fromLatin1(
+            "using REPL; "
+            "join("
+            "map(REPL.REPLCompletions.completion_text, REPL.REPLCompletions.completions(\"%1\", %2)[1]),"
+            "\"__CANTOR_DELIM__\")"
+        );
+#else
+    completionCommand =
         QString::fromLatin1(
             "join("
             "Base.REPL.REPLCompletions.completions(\"%1\", %2)[1],"
             "\"__CANTOR_DELIM__\")"
-        ).arg(command()).arg(command().size())
-    );
+        );
+#endif
 
+    julia_session->runJuliaCommand(completionCommand.arg(command()).arg(command().size()));
     auto result = julia_session->getOutput();
     result.chop(1);
     result.remove(0, 1);
