@@ -58,6 +58,7 @@ void TestJulia::testException()
     Cantor::Expression *e = evalExp(QLatin1String("sqrt(-1)"));
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Error);
+    QVERIFY(e->result());
     QVERIFY(e->result()->type() == Cantor::TextResult::Type);
     QVERIFY(
         !e->errorMessage().isEmpty()
@@ -249,22 +250,22 @@ void TestJulia::testRemoveVariables()
 
 void TestJulia::testAutoCompletion()
 {
-    auto prefix = QLatin1String("Ba");
+    auto prefix = QLatin1String("ex");
     auto completionObject = session()->completionFor(prefix);
     // Give sometime for Qt's singleShot in fetch completions to trigger
-    QTest::qWait(500);
+    QTest::qWait(1000);
     auto completions = completionObject->completions();
 
     QStringList completionsToCheck;
-    completionsToCheck << QLatin1String("Base");
-    completionsToCheck << QLatin1String("Base64DecodePipe");
-    completionsToCheck << QLatin1String("Base64EncodePipe");
+    completionsToCheck << QLatin1String("exit");
+    completionsToCheck << QLatin1String("exponent");
+    completionsToCheck << QLatin1String("exp");
 
     for (auto completion : completionsToCheck) {
         QVERIFY(completions.contains(completion));
     }
 
-    for (auto completion : completionsToCheck) {
+    for (auto completion : completions) {
         QVERIFY(completion.startsWith(prefix));
     }
 }
