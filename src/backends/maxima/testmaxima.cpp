@@ -191,7 +191,7 @@ void TestMaxima::testInformationRequest()
     Cantor::Expression* e=session()->evaluateExpression(QLatin1String("integrate(x^n,x)"));
     QVERIFY(e!=nullptr);
     waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
-    e->addInformation(QLatin1String("nonzero;"));
+    e->addInformation(QLatin1String("N"));
 
     waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QVERIFY(e->result()!=nullptr);

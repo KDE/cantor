@@ -276,8 +276,6 @@ void MaximaSession::interrupt(MaximaExpression* expr)
 
 void MaximaSession::sendInputToProcess(const QString& input)
 {
-    qDebug()<<"WARNING: use this method only if you know what you're doing. Use evaluateExpression to run commands";
-    qDebug()<<"running "<<input;
     write(input);
 }
 

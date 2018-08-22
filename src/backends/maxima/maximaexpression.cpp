@@ -610,6 +610,20 @@ bool MaximaExpression::parseOutput(QString& out)
     const int promptStart = out.indexOf(QLatin1String("<cantor-prompt>"));
     const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
     const QString prompt = out.mid(promptStart + 15, promptEnd - promptStart - 15).simplified();
+
+    //check whether the result is part of the promt - this is the case when additional input is required from the user
+    if (prompt.contains(QLatin1String("<cantor-result>")))
+    {
+        //text part of the output
+        const int textContentStart = prompt.indexOf(QLatin1String("<cantor-text>"));
+        const int textContentEnd = prompt.indexOf(QLatin1String("</cantor-text>"));
+        QString textContent = prompt.mid(textContentStart + 13, textContentEnd - textContentStart - 13).trimmed();
+
+        qDebug()<<"asking for additional input for " << textContent;
+        emit needsAdditionalInformation(textContent);
+        return true;
+    }
+
     qDebug()<<"new input label: " << prompt;
 
     //parse the results
