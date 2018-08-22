@@ -45,7 +45,7 @@ QString JuliaBackend::id() const
 
 QString JuliaBackend::version() const
 {
-    return QLatin1String("0.4");
+    return QLatin1String("1.0.0");
 }
 
 Cantor::Session *JuliaBackend::createSession()
