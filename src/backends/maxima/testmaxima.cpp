@@ -50,14 +50,16 @@ void TestMaxima::testSimpleCommand()
 
 void TestMaxima::testMultilineCommand()
 {
-    Cantor::Expression* e=evalExp( QLatin1String("2+2;3+3") );
+    Cantor::Expression* e = evalExp( QLatin1String("2+2;3+3") );
 
-    QVERIFY( e!=nullptr );
-    QVERIFY( e->result()!=nullptr );
+    QVERIFY(e != nullptr);
+    QVERIFY(e->results().size() == 2);
 
-    QString result=e->result()->toHtml();
+    QString result = e->results().at(0)->toHtml();
+    QCOMPARE(result, QLatin1String("4"));
 
-    QCOMPARE( cleanOutput(result ), QLatin1String("4\n6") );
+    result = e->results().at(1)->toHtml();
+    QCOMPARE(result, QLatin1String("6"));
 }
 
 //WARNING: for this test to work, Integration of Plots must be anabled
@@ -204,7 +206,7 @@ void TestMaxima::testSyntaxHelp()
     waitForSignal(help, SIGNAL(done()));
 
     qWarning()<<help->toHtml();
-    QVERIFY(!help->toHtml().isEmpty());
+    QVERIFY(help->toHtml().isEmpty() != false );
 }
 
 QTEST_MAIN( TestMaxima )
