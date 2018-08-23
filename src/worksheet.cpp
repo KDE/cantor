@@ -37,6 +37,7 @@
 #include "settings.h"
 #include "commandentry.h"
 #include "textentry.h"
+#include "markdownentry.h"
 #include "latexentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
@@ -544,6 +545,10 @@ WorksheetEntry* Worksheet::appendTextEntry()
    return appendEntry(TextEntry::Type);
 }
 
+WorksheetEntry* Worksheet::appendMarkdownEntry()
+{
+   return appendEntry(MarkdownEntry::Type);
+}
 
 WorksheetEntry* Worksheet::appendPageBreakEntry()
 {
@@ -612,6 +617,11 @@ WorksheetEntry* Worksheet::insertTextEntry(WorksheetEntry* current)
     return insertEntry(TextEntry::Type, current);
 }
 
+WorksheetEntry* Worksheet::insertMarkdownEntry(WorksheetEntry* current)
+{
+    return insertEntry(MarkdownEntry::Type, current);
+}
+
 WorksheetEntry* Worksheet::insertCommandEntry(WorksheetEntry* current)
 {
     return insertEntry(CommandEntry::Type, current);
@@ -673,6 +683,11 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
 WorksheetEntry* Worksheet::insertTextEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(TextEntry::Type, current);
+}
+
+WorksheetEntry* Worksheet::insertMarkdownEntryBefore(WorksheetEntry* current)
+{
+    return insertEntryBefore(MarkdownEntry::Type, current);
 }
 
 WorksheetEntry* Worksheet::insertCommandEntryBefore(WorksheetEntry* current)
@@ -1073,6 +1088,10 @@ bool Worksheet::load(QIODevice* device)
         {
             entry = appendTextEntry();
             entry->setContent(expressionChild, file);
+        } else if (tag == QLatin1String("Markdown"))
+        {
+            entry = appendMarkdownEntry();
+            entry->setContent(expressionChild, file);
         } else if (tag == QLatin1String("Latex"))
         {
             entry = appendLatexEntry();
@@ -1170,12 +1189,14 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
 
         insert->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
         insert->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntry()));
+        insert->addAction(i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntry()));
         insert->addAction(i18n("LaTeX Entry"), entry, SLOT(insertLatexEntry()));
         insert->addAction(i18n("Image"), entry, SLOT(insertImageEntry()));
         insert->addAction(i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
 
         insertBefore->addAction(i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
         insertBefore->addAction(i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
+        insertBefore->addAction(i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntryBefore()));
         insertBefore->addAction(i18n("LaTeX Entry"), entry, SLOT(insertLatexEntryBefore()));
         insertBefore->addAction(i18n("Image"), entry, SLOT(insertImageEntryBefore()));
         insertBefore->addAction(i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
@@ -1187,6 +1208,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     } else {
         menu->addAction(i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
         menu->addAction(i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
+        menu->addAction(i18n("Insert Markdown Entry"), this, SLOT(appendMarkdownEntry()));
         menu->addAction(i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
         menu->addAction(i18n("Insert Image"), this, SLOT(appendImageEntry()));
         menu->addAction(i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
