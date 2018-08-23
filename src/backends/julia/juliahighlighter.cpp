@@ -23,6 +23,7 @@
 
 #include <climits>
 #include <QTextEdit>
+#include <QDebug>
 
 JuliaHighlighter::JuliaHighlighter(QObject *parent)
     : Cantor::DefaultHighlighter(parent)
@@ -140,13 +141,13 @@ void JuliaHighlighter::highlightBlock(const QString &text)
         }
 
         // Check where single line comment starts
-        int singleLineCommentStartPos =
-            singleLineCommentStart.indexIn(text, pos);
+        singleLineCommentStart.indexIn(text, pos);
+        int singleLineCommentStartPos = singleLineCommentStart.pos();
 
         if (singleLineCommentStartPos != -1
                 && singleLineCommentStartPos < minPos) {
             // single line comment starts earlier
-            setFormat(pos, text.length() - pos, commentFormat());
+            setFormat(singleLineCommentStartPos, text.length() - singleLineCommentStartPos, commentFormat());
             break;
         } else if (minRegexp) {
             // We are going to another scope
