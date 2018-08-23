@@ -62,6 +62,7 @@ set(cantor_PART_SRCS
    worksheetimageitem.cpp
    commandentry.cpp
    textentry.cpp
+   markdownentry.cpp
    pagebreakentry.cpp
    imageentry.cpp
    latexentry.cpp
@@ -98,11 +99,14 @@ set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFI
 
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
-		     KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
+                     KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
                      Qt5::PrintSupport cantorlibs cantor_config )
 if(LIBSPECTRE_FOUND)
-   target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
+    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
+if(Discount_FOUND)
+    target_link_libraries(cantorpart Discount::Lib)
+endif(Discount_FOUND)
 
 install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
