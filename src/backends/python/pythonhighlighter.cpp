@@ -144,6 +144,11 @@ void PythonHighlighter::highlightBlock(const QString &text)
 void PythonHighlighter::updateHighlight()
 {
 
-    addVariables(PythonKeywords::instance()->variables());
+    addVariables(m_variables);
     rehighlight();
+}
+
+void PythonHighlighter::addVariable(const QString variable)
+{
+    m_variables << variable;
 }

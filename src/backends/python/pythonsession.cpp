@@ -413,7 +413,7 @@ void PythonSession::listVariables()
         {
 
             m_variableModel->addVariable(parts.first().remove(QLatin1String("'")).simplified(), parts.last().simplified());
-            PythonKeywords::instance()->addVariable(parts.first().remove(QLatin1String("'")).simplified());
+            emit newVariable(parts.first().remove(QLatin1String("'")).simplified());
         }
     }
 
@@ -424,6 +424,7 @@ QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
     PythonHighlighter* highlighter = new PythonHighlighter(parent);
     QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
+    QObject::connect(this, SIGNAL(newVariable(const QString)), highlighter, SLOT(addVariable(const QString)));
 
     return highlighter;
 }
