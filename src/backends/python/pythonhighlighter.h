@@ -33,6 +33,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
 
   public Q_SLOTS:
     void updateHighlight();
+    void addVariable(const QString variable);
 
   protected:
     void highlightBlock(const QString& text) Q_DECL_OVERRIDE;
@@ -40,6 +41,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
   private:
      QRegExp commentStartExpression;
      QRegExp commentEndExpression;
+     QStringList m_variables;
 
 };
 
