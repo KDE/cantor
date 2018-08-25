@@ -285,11 +285,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     QAction * insertTextEntry=new QAction(i18n("Insert Text Entry"), actionCollection());
     actionCollection()->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
-
+#ifdef Discount_FOUND
     QAction * insertMarkdownEntry=new QAction(i18n("Insert Markdown Entry"), actionCollection());
     actionCollection()->addAction(QLatin1String("insert_markdown_entry"),  insertMarkdownEntry);
     connect(insertMarkdownEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertMarkdownEntry()));
-
+#endif
     QAction * insertLatexEntry=new QAction(i18n("Insert Latex Entry"), actionCollection());
     actionCollection()->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
