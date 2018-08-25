@@ -48,7 +48,6 @@ class MaximaSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
 
     void interrupt() Q_DECL_OVERRIDE;
-    void interrupt(MaximaExpression* expr);
     void sendInputToProcess(const QString& input);
 
     void setTypesettingEnabled(bool enable) Q_DECL_OVERRIDE;

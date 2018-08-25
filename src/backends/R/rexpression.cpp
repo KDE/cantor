@@ -58,13 +58,14 @@ void RExpression::evaluate()
 void RExpression::interrupt()
 {
     qDebug()<<"interrupting command";
-    if(status()==Cantor::Expression::Computing)
-        session()->interrupt();
     setStatus(Cantor::Expression::Interrupted);
 }
 
 void RExpression::finished(int returnCode, const QString& text)
 {
+    if (status() == Expression::Interrupted)
+        return;
+
     if(returnCode==RExpression::SuccessCode)
     {
         qDebug() << "text: " << text;

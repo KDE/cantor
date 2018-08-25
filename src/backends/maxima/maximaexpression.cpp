@@ -134,7 +134,7 @@ void MaximaExpression::evaluate()
 
 void MaximaExpression::interrupt()
 {
-    dynamic_cast<MaximaSession*>(session())->interrupt(this);
+    qDebug()<<"interrupting";
     setStatus(Cantor::Expression::Interrupted);
 }
 

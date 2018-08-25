@@ -31,6 +31,10 @@
 #include <KMessageBox>
 #include "settings.h"
 
+#ifndef Q_OS_WIN
+#include <signal.h>
+#endif
+
 const QByteArray SageSession::SagePrompt="sage: "; //Text, sage outputs after each command
 const QByteArray SageSession::SageAlternativePrompt="....: "; //Text, sage outputs when it expects further input
 
@@ -351,10 +355,24 @@ void SageSession::runFirstExpression()
 
 void SageSession::interrupt()
 {
-    if(!expressionQueue().isEmpty())
+    if(expressionQueue().first())
+    {
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process->state() != QProcess::NotRunning)
+        {
+#ifndef Q_OS_WIN
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
+#else
+            ; //TODO: interrupt the process on windows
+#endif
+        }
+        qDebug()<<"done interrupting";
         expressionQueue().first()->interrupt();
-    expressionQueue().clear();
+    }
+
     changeStatus(Cantor::Session::Done);
+    m_outputCache.clear();
 }
 
 void SageSession::sendSignalToProcess(int signal)

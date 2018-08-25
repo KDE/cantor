@@ -248,30 +248,24 @@ void MaximaSession::runFirstExpression()
 
 void MaximaSession::interrupt()
 {
-    if(!expressionQueue().isEmpty())
-        expressionQueue().first()->interrupt();
-
-    expressionQueue().clear();
-    changeStatus(Cantor::Session::Done);
-}
-
-void MaximaSession::interrupt(MaximaExpression* expr)
-{
-    if(expr==expressionQueue().first())
+    if(expressionQueue().first())
     {
-        qDebug()<<"interrupting " << expr->command();
-        disconnect(expr, nullptr, this, nullptr);
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process->state() != QProcess::NotRunning)
+        {
 #ifndef Q_OS_WIN
-        const int pid=m_process->pid();
-        kill(pid, SIGINT);
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
 #else
-      //TODO: interrupt the process on windows
+            ; //TODO: interrupt the process on windows
 #endif
+        }
         qDebug()<<"done interrupting";
-    }else
-    {
-        expressionQueue().removeAll(expr);
+        expressionQueue().first()->interrupt();
     }
+
+    changeStatus(Cantor::Session::Done);
+    m_cache.clear();
 }
 
 void MaximaSession::sendInputToProcess(const QString& input)

@@ -156,21 +156,23 @@ void OctaveSession::logout()
 
 void OctaveSession::interrupt()
 {
-    qDebug() << "interrupt";
-    if (expressionQueue().first())
+    if(expressionQueue().first())
     {
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process->state() != QProcess::NotRunning)
+        {
+#ifndef Q_OS_WIN
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
+#else
+            ; //TODO: interrupt the process on windows
+#endif
+        }
+        qDebug()<<"done interrupting";
         expressionQueue().first()->interrupt();
     }
-    expressionQueue().clear();
-    qDebug() << "Sending SIGINT to Octave";
-    // Some commands, like `quit()`, potentially could finish octave process
-    // So, avoiding crash, have make check before call kill, that the process still exist
-    if(m_process->state() != QProcess::NotRunning)
-#ifndef Q_OS_WIN
-        kill(m_process->pid(), SIGINT);
-#else
-        ; //TODO: interrupt the process on windows
-#endif
+
+    changeStatus(Cantor::Session::Done);
 }
 
 void OctaveSession::processError()

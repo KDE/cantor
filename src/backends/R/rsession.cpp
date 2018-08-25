@@ -74,18 +74,22 @@ void RSession::logout()
 
 void RSession::interrupt()
 {
-    const int pid = m_process->pid();
-    qDebug()<<"interrupt" << pid;
-    if (pid)
+    if(expressionQueue().first())
     {
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process->state() != QProcess::NotRunning)
+        {
 #ifndef Q_OS_WIN
-        kill(pid, SIGINT);
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
 #else
-      //TODO: interrupt the process on windows
+            ; //TODO: interrupt the process on windows
 #endif
+        }
+        qDebug()<<"done interrupting";
+        expressionQueue().first()->interrupt();
     }
 
-    expressionQueue().removeFirst();
     changeStatus(Cantor::Session::Done);
 }
 
