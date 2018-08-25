@@ -1,6 +1,7 @@
 -----18.12-----
 
 New Features:
+	* Add Markdown entry type
 	* Animated highlighting of the currently calculated command entry
 	* Visualization of pending command entries (queued, but not being calculated yet)
 	* Allow to format command entries (background color, foreground color, font properties)
