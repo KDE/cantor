@@ -1196,12 +1196,14 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
 
         insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
         insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntry()));
+        insert->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntry()));
         insert->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, SLOT(insertLatexEntry()));
         insert->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntry()));
         insert->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
 
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
+        insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntryBefore()));
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, SLOT(insertLatexEntryBefore()));
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
@@ -1215,6 +1217,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     } else {
         menu->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
         menu->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
+        menu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Insert Markdown Entry"), this, SLOT(appendMarkdownEntry()));
         menu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
         menu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Insert Image"), this, SLOT(appendImageEntry()));
         menu->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
