@@ -24,6 +24,7 @@ target_link_libraries(cantor_octavebackend
   KF5::KIOCore
   KF5::ConfigCore
   KF5::ConfigGui
+  KF5::SyntaxHighlighting
 )
 
 
