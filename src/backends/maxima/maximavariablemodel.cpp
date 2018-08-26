@@ -63,19 +63,18 @@ void MaximaVariableModel::checkForNewFunctions()
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
-    if(!expr||expr->status()!=Cantor::Expression::Done||
-       !expr->result())
+    if(!expr || expr->status()!=Cantor::Expression::Done || expr->results().isEmpty()) {
         return QList<Cantor::DefaultVariableModel::Variable>();
+    }
 
+    //for parsing of names and values below (old code) we need to combine multiple results back to one string
     QString text;
-    if(expr->result()->type()==Cantor::TextResult::Type)
-        text=dynamic_cast<Cantor::TextResult*>(expr->result())->plain();
-    else if(expr->result()->type()==Cantor::LatexResult::Type)
-        text=dynamic_cast<Cantor::LatexResult*>(expr->result())->plain();
-    else
+    for (auto* result : expr->results())
     {
-        qDebug()<<"unsupported type: "<<expr->result()->type()<<endl;
-        return QList<Cantor::DefaultVariableModel::Variable>();
+        if(result->type()==Cantor::TextResult::Type)
+            text += dynamic_cast<Cantor::TextResult*>(result)->plain();
+        else if(expr->result()->type()==Cantor::LatexResult::Type)
+            text += dynamic_cast<Cantor::LatexResult*>(result)->plain();
     }
 
     const int nameIndex=text.indexOf(QLatin1Char(']'));
@@ -144,7 +143,6 @@ void MaximaVariableModel::parseNewVariables()
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
     QList<Variable> newVars=parse(expr);
-
     QStringList addedVars;
     QStringList removedVars;
     //remove the old variables

@@ -653,7 +653,14 @@ bool MaximaExpression::parseOutput(QString& out)
     else
     {
         qDebug() << "error content: " << errorContent;
-        if(m_isHelpRequest) //help messages are also part of the error output
+        if (out.contains(QLatin1String("cantor-value-separator")))
+        {
+            //when fetching variables, in addition to the actual result with variable names and values,
+            //Maxima also write out the names of the variables to the error buffer.
+            //we don't interpret this as an error.
+            setStatus(Cantor::Expression::Done);
+        }
+        else if(m_isHelpRequest) //help messages are also part of the error output
         {
             Cantor::HelpResult* result = new Cantor::HelpResult(errorContent);
             addResult(result);
