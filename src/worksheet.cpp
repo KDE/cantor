@@ -807,11 +807,6 @@ void Worksheet::enableHighlighting(bool highlight)
         if(m_highlighter)
             m_highlighter->deleteLater();
 
-        //octave highligther fetches the function names from octave -> we need to login here
-        //TODO: re-design this later - highlighting should also be possible in the absence of the actual backend
-        if (!m_loginDone && m_session->backend()->name() == QLatin1String("Octave"))
-            loginToSession();
-
         m_highlighter=session()->syntaxHighlighter(this);
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);

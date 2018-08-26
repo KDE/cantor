@@ -150,6 +150,3 @@ int Session::nextExpressionId()
 {
     return d->expressionCount++;
 }
-
-
-
