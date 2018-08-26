@@ -46,7 +46,7 @@ void MaximaSyntaxHelpObject::fetchInformation()
     }
 
     bool isValid=false;
-    foreach(const QString& func, MaximaKeywords::instance()->functions())
+    for (const QString& func : MaximaKeywords::instance()->functions())
     {
         if(command()==func)
         {
@@ -82,7 +82,7 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         QStringList lines=text.split(QLatin1Char('\n'));
 
         QString syntax;
-        foreach(QString line, lines) // krazy:exclude=foreach
+        for (QString line : lines)
         {
             line=line.trimmed();
             if(line.endsWith(QLatin1Char('\r')))
@@ -101,9 +101,5 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
 
         m_expression->deleteLater();
         m_expression=nullptr;
-    }else
-    {
-        qDebug()<<"not done: "<<status;
     }
 }
-

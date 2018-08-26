@@ -148,11 +148,11 @@ void MaximaVariableModel::parseNewVariables()
     QStringList addedVars;
     QStringList removedVars;
     //remove the old variables
-    foreach(const Variable& var,m_variables)
+    for (const Variable& var : m_variables)
     {
         //check if this var is present in the new variables
         bool found=false;
-        foreach(const Variable& var2, newVars)
+        for (const Variable& var2 : newVars)
         {
             if(var.name==var2.name)
             {
@@ -168,7 +168,7 @@ void MaximaVariableModel::parseNewVariables()
         }
     }
 
-    foreach(const Variable& var, newVars)
+    for (const Variable& var : newVars)
     {
         addVariable(var);
 
@@ -194,11 +194,11 @@ void MaximaVariableModel::parseNewFunctions()
     QStringList removedVars;
 
     //remove the old variables
-    foreach(const Variable& var,m_functions)
+    for (const Variable& var : m_functions)
     {
         //check if this var is present in the new variables
         bool found=false;
-        foreach(const Variable& var2, newVars)
+        for (const Variable& var2 : newVars)
         {
             if(var.name==var2.name)
             {
@@ -214,7 +214,7 @@ void MaximaVariableModel::parseNewFunctions()
         }
     }
 
-    foreach(Variable var, newVars)
+    for (Variable var : newVars)
     {
         var.value=i18n("function");
         addVariable(var);
@@ -249,7 +249,7 @@ QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::functions()
 QStringList MaximaVariableModel::variableNames()
 {
     QStringList names;
-    foreach(const Cantor::DefaultVariableModel::Variable& var, m_variables)
+    for (const Cantor::DefaultVariableModel::Variable& var : m_variables)
         names<<var.name;
 
     return names;
@@ -258,7 +258,7 @@ QStringList MaximaVariableModel::variableNames()
 QStringList MaximaVariableModel::functionNames(bool stripParameters)
 {
     QStringList names;
-    foreach(const Cantor::DefaultVariableModel::Variable& var, m_functions)
+    for (const Cantor::DefaultVariableModel::Variable& var : m_functions)
     {
         QString name=var.name;
         if(stripParameters)

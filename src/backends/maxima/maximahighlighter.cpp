@@ -23,9 +23,6 @@
 #include "maximasession.h"
 #include "maximavariablemodel.h"
 
-#include <QDebug>
-#include <QTextEdit>
-
 MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : Cantor::DefaultHighlighter(parent)
 {
     //addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
@@ -124,14 +121,14 @@ void MaximaHighlighter::addUserVariables(const QStringList variables)
 
 void MaximaHighlighter::removeUserVariables(const QStringList variables)
 {
-    foreach(const QString& var, variables)
+    for (const QString& var : variables)
         removeRule(var);
 }
 
 void MaximaHighlighter::addUserFunctions(const QStringList functions)
 {
     //remove the trailing (x)
-    foreach(const QString& func, functions)
+    for (const QString& func : functions)
     {
         int idx=func.lastIndexOf(QLatin1Char('('));
         addRule(func.left(idx), functionFormat());
@@ -141,11 +138,9 @@ void MaximaHighlighter::addUserFunctions(const QStringList functions)
 void MaximaHighlighter::removeUserFunctions(const QStringList functions)
 {
     //remove the trailing (x)
-    foreach(const QString& func, functions)
+    for (const QString& func : functions)
     {
         int idx=func.lastIndexOf(QLatin1Char('('));
         removeRule(func.left(idx));
     }
-
 }
-

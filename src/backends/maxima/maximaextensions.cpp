@@ -123,10 +123,10 @@ QString MaximaLinearAlgebraExtension::createVector(const QStringList& entries, V
 QString MaximaLinearAlgebraExtension::createMatrix(const Matrix& matrix)
 {
     QString cmd=QLatin1String("matrix(");
-    foreach(const QStringList& row, matrix)
+    for (const QStringList& row : matrix)
     {
         cmd+=QLatin1Char('[');
-        foreach(const QString& entry, row)
+        for (const QString& entry : row)
             cmd+=entry+QLatin1Char(',');
         cmd.chop(1);
         cmd+=QLatin1String("],");
