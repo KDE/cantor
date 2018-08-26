@@ -689,6 +689,13 @@ void MaximaExpression::parseResult(const QString& resultContent)
         outputLabel = textContent.mid(index, regex.matchedLength()).trimmed();
     qDebug()<<"output label: " << outputLabel;
 
+    //extract the expression id
+    bool ok;
+    QString idString = outputLabel.mid(3, outputLabel.length()-4);
+    int id = idString.toInt(&ok);
+    ok ? setId(id) : setId(-1);
+    qDebug()<<"expression id: " << this->id();
+
     //remove the output label from the text content
     textContent = textContent.remove(outputLabel).trimmed();
 

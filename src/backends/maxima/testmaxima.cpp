@@ -107,7 +107,7 @@ void TestMaxima::testExprNumbering()
     int id=e->id();
     QCOMPARE( id, 1 );
 
-    e=evalExp( QString::fromLatin1("%O%1+1" ).arg( id ) );
+    e=evalExp( QString::fromLatin1("%o%1+1" ).arg( id ) );
     QVERIFY( e != nullptr );
     QVERIFY( e->result()!=nullptr );
     QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String( "5" ) );
@@ -208,6 +208,7 @@ void TestMaxima::testSyntaxHelp()
     qWarning()<<help->toHtml();
     QVERIFY(help->toHtml().isEmpty() != false );
 }
+
 
 QTEST_MAIN( TestMaxima )
 
