@@ -709,7 +709,7 @@ void WorksheetEntry::showActionBar()
 
         if (wantToEvaluate()) {
             QString toolTip = i18n("Evaluate Entry");
-            m_actionBar->addButton(QIcon::fromTheme(QLatin1String("view-refresh")), toolTip,
+            m_actionBar->addButton(QIcon::fromTheme(QLatin1String("media-playback-start")), toolTip,
                                    this, SLOT(evaluate()));
         }
 
