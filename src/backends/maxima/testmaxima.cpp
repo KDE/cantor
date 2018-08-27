@@ -209,6 +209,41 @@ void TestMaxima::testSyntaxHelp()
     QVERIFY(help->toHtml().isEmpty() != false );
 }
 
+void TestMaxima::testVariableModel()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    Cantor::Expression* e1=evalExp(QLatin1String("a: 15"));
+    Cantor::Expression* e2=evalExp(QLatin1String("a: 15; b: \"Hello, world!\""));
+    Cantor::Expression* e3=evalExp(QLatin1String("l: [1,2,3]"));
+    QVERIFY(e1!=nullptr);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e3!=nullptr);
+
+    if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL( statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(3, model->rowCount());
+
+    QVariant name = model->index(0,0).data();
+    QCOMPARE(name.toString(),QLatin1String("a"));
+
+    QVariant value = model->index(0,1).data();
+    QCOMPARE(value.toString(),QLatin1String("15"));
+
+    QVariant name1 = model->index(1,0).data();
+    QCOMPARE(name1.toString(),QLatin1String("b"));
+
+    QVariant value1 = model->index(1,1).data();
+    QCOMPARE(value1.toString(),QLatin1String("\"Hello, world!\""));
+
+    QVariant name2 = model->index(2,0).data();
+    QCOMPARE(name2.toString(),QLatin1String("l"));
+
+    QVariant value2 = model->index(2,1).data();
+    QCOMPARE(value2.toString(),QLatin1String("[1,2,3]"));
+}
 
 QTEST_MAIN( TestMaxima )
 

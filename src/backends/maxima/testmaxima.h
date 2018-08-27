@@ -58,6 +58,7 @@ private Q_SLOTS:
 
     void testSyntaxHelp();
 
+    void testVariableModel();
 private:
     QString backendName() Q_DECL_OVERRIDE;
 };
