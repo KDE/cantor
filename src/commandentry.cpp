@@ -598,7 +598,7 @@ void CommandEntry::updateEntry()
     if (expr == nullptr || expr->results().isEmpty())
         return;
 
-    if (expr->result()->type() == Cantor::HelpResult::Type)
+    if (expr->results().last()->type() == Cantor::HelpResult::Type)
         return; // Help is handled elsewhere
 
     //CommandEntry::updateEntry() is only called if the worksheet view is resized
