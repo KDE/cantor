@@ -50,11 +50,6 @@ Session::~Session()
     delete d;
 }
 
-Expression* Session::evaluateExpression(const QString& command)
-{
-    return evaluateExpression(command, Expression::DoNotDelete);
-}
-
 QList<Expression*>& Cantor::Session::expressionQueue() const
 {
     return d->expressionQueue;

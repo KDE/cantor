@@ -89,13 +89,7 @@ class CANTOR_EXPORT Session : public QObject
      * @param finishingBehavior the FinishingBehaviour that should be used for this command. @see Expression::FinishingBehaviour
      * @return an Expression object, representing this command
      */
-    virtual Expression* evaluateExpression(const QString& command, Expression::FinishingBehavior finishingBehavior) = 0;
-
-    /**
-     * Reimplements evaluateExpression, setting the finishingBehaviour to DoNotDelete
-     * @see evaluateExpressionconst(QString& command, Expression::FinishingBehavior finishingBehavior)
-     */
-    Expression* evaluateExpression(const QString& command);
+    virtual Expression* evaluateExpression(const QString& command, Expression::FinishingBehavior finishingBehavior = Expression::FinishingBehavior::DoNotDelete) = 0;
 
     /**
      * Append the expression to queue .
