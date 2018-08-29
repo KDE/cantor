@@ -68,7 +68,8 @@ public:
      */
     Cantor::Expression *evaluateExpression(
         const QString &command,
-        Cantor::Expression::FinishingBehavior behave) override;
+        Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete,
+        bool internal = false) override;
 
     /**
      * @see Cantor::Session::completionFor

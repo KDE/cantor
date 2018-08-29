@@ -40,7 +40,7 @@
 #include <QChar>
 #include <QUrl>
 
-MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Expression(session),
+MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
     m_tempFile(nullptr),
     m_isHelpRequest(false),
     m_isPlot(false),

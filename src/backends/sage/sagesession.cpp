@@ -161,10 +161,10 @@ void SageSession::logout()
     expressionQueue().clear();
 }
 
-Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug()<<"evaluating: "<<cmd;
-    SageExpression* expr=new SageExpression(this);
+    SageExpression* expr=new SageExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();

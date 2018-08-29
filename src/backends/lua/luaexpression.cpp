@@ -32,8 +32,8 @@
 #include <QString>
 #include <QStringList>
 
-LuaExpression::LuaExpression( Cantor::Session* session)
-    : Cantor::Expression(session)
+LuaExpression::LuaExpression( Cantor::Session* session, bool internal)
+    : Cantor::Expression(session, internal)
 {
 }
 

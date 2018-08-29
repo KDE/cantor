@@ -361,7 +361,7 @@ void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status
     }
 }
 
-Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
 
     qDebug() << " ** evaluating expression: " << cmd << endl;
@@ -369,7 +369,7 @@ Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Can
 
     changeStatus(Cantor::Session::Running);
 
-    QalculateExpression* expr = new QalculateExpression(this);
+    QalculateExpression* expr = new QalculateExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 

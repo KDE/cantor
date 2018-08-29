@@ -35,7 +35,7 @@
 #include <QStringList>
 #include <QTextDocument>
 
-RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(session)
+RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {
 
 }

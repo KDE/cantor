@@ -50,10 +50,10 @@ void NullSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* NullSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug()<<"evaluating: "<<cmd;
-    NullExpression* expr=new NullExpression(this);
+    NullExpression* expr=new NullExpression(this, internal);
     expr->setFinishingBehavior(behave);
     connect(expr, &NullExpression::statusChanged, this, &NullSession::expressionFinished);
     expr->setCommand(cmd);

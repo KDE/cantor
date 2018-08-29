@@ -27,7 +27,7 @@
 #include <KIconLoader>
 #include <QTimer>
 
-NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(session)
+NullExpression::NullExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {
     m_timer=new QTimer(this);
     m_timer->setSingleShot(true);

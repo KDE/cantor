@@ -168,10 +168,10 @@ void PythonSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug() << "evaluating: " << cmd;
-    PythonExpression* expr = new PythonExpression(this);
+    PythonExpression* expr = new PythonExpression(this, internal);
 
     changeStatus(Cantor::Session::Running);
 

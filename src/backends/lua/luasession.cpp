@@ -134,11 +134,11 @@ void LuaSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression* LuaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* LuaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     changeStatus(Cantor::Session::Running);
 
-    m_currentExpression = new LuaExpression(this);
+    m_currentExpression = new LuaExpression(this, internal);
     connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished(Cantor::Expression::Status)));
     m_currentExpression->setFinishingBehavior(behave);
     m_currentExpression->setCommand(cmd);

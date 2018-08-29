@@ -34,7 +34,7 @@
 #include <QDir>
 using PythonPlotResult = Cantor::ImageResult;
 
-PythonExpression::PythonExpression(Cantor::Session* session) : Cantor::Expression(session)
+PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Cantor::Expression(session, internal)
 {
     qDebug() << "PythonExpression construtor";
 }

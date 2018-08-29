@@ -27,8 +27,8 @@
 #include <analitza/expressionstream.h>
 #include <analitza/analyzer.h>
 
-KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session )
-    : Cantor::Expression(session)
+KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session, bool internal)
+    : Cantor::Expression(session, internal)
 {}
 
 void KAlgebraExpression::evaluate()

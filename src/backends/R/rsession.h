@@ -46,7 +46,7 @@ class RSession : public Cantor::Session
 
     void interrupt() override;
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     QAbstractItemModel* variableModel() override;

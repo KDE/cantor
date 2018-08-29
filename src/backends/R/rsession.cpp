@@ -98,10 +98,10 @@ void RSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug()<<"evaluating: "<<cmd;
-    RExpression* expr=new RExpression(this);
+    RExpression* expr=new RExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 

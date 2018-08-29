@@ -30,7 +30,7 @@
 
 static const char* printCommand = "cantor_print();";
 
-OctaveExpression::OctaveExpression(Cantor::Session* session): Expression(session),
+OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal),
     m_plotPending(false),
     m_finished(false),
     m_error(false),

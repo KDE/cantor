@@ -32,8 +32,9 @@ public:
      * Creates new JuliaExpression
      *
      * @param session session to bound expression to
+     * @param internal @see Cantor::Expression::Expression(Session*, bool)
      */
-    JuliaExpression(Cantor::Session *session);
+    JuliaExpression(Cantor::Session *session, bool internal = false);
     ~JuliaExpression() override = default;
 
     /**

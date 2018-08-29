@@ -28,8 +28,8 @@
 #include "textresult.h"
 #include "imageresult.h"
 
-JuliaExpression::JuliaExpression(Cantor::Session *session)
-    : Cantor::Expression(session)
+JuliaExpression::JuliaExpression(Cantor::Session *session, bool internal)
+    : Cantor::Expression(session, internal)
 {
 }
 

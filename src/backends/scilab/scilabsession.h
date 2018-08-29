@@ -50,7 +50,7 @@ class ScilabSession : public Cantor::Session
 
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
-        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
         Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
         void runFirstExpression() override;
         QAbstractItemModel* variableModel() override;

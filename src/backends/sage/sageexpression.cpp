@@ -31,7 +31,7 @@
 #include <QMimeDatabase>
 #include <QRegExp>
 
-SageExpression::SageExpression( Cantor::Session* session ) : Cantor::Expression(session),
+SageExpression::SageExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
     m_isHelpRequest(false),
     m_promptCount(0)
 {

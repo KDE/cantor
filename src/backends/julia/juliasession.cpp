@@ -138,9 +138,10 @@ void JuliaSession::interrupt()
 
 Cantor::Expression *JuliaSession::evaluateExpression(
     const QString &cmd,
-    Cantor::Expression::FinishingBehavior behave)
+    Cantor::Expression::FinishingBehavior behave,
+    bool internal)
 {
-    JuliaExpression *expr = new JuliaExpression(this);
+    JuliaExpression *expr = new JuliaExpression(this, internal);
 
     changeStatus(Cantor::Session::Running);
 

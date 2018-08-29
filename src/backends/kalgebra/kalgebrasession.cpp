@@ -66,9 +66,10 @@ void KAlgebraSession::interrupt()
 }
 
 Cantor::Expression* KAlgebraSession::evaluateExpression(const QString& cmd,
-                                                        Cantor::Expression::FinishingBehavior behave)
+                                                        Cantor::Expression::FinishingBehavior behave,
+                                                        bool internal)
 {
-    KAlgebraExpression* expr=new KAlgebraExpression(this);
+    KAlgebraExpression* expr=new KAlgebraExpression(this, internal);
     expr->setFinishingBehavior(behave);
 
     changeStatus(Cantor::Session::Running);

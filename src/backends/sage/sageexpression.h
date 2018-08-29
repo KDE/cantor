@@ -27,7 +27,7 @@ class SageExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    SageExpression(Cantor::Session*);
+    SageExpression(Cantor::Session*, bool internal = false);
 
     void evaluate() override;
     void interrupt() override;

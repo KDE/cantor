@@ -37,7 +37,7 @@
 
 using ScilabPlotResult = Cantor::ImageResult;
 
-ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Expression(session)
+ScilabExpression::ScilabExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {
     qDebug() << "ScilabExpression construtor";
 }

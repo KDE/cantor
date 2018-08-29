@@ -118,10 +118,10 @@ void MaximaSession::logout()
     qDebug()<<"logout done";
 }
 
-Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug() << "evaluating: " << cmd;
-    MaximaExpression* expr = new MaximaExpression(this);
+    MaximaExpression* expr = new MaximaExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
@@ -171,8 +171,7 @@ void MaximaSession::readStdOut()
 
 void MaximaSession::killLabels()
 {
-    Cantor::Expression* e=evaluateExpression(QLatin1String("kill(labels);"), Cantor::Expression::DeleteOnFinish);
-    e->setInternal(true);
+    Cantor::Expression* e=evaluateExpression(QLatin1String("kill(labels);"), Cantor::Expression::DeleteOnFinish, true);
     //TODO: what for? connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
 }
 
@@ -314,8 +313,7 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     //we use the lisp command to set the variable, as those commands
     //don't mess with the labels and history
     const QString& val=QLatin1String((enable==true ? "t":"nil"));
-    Cantor::Expression* exp=evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish);
-    exp->setInternal(true);
+    Cantor::Expression* exp=evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
 
     Cantor::Session::setTypesettingEnabled(enable);
 }

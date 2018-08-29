@@ -55,23 +55,24 @@ class CANTOR_EXPORT Expression : public QObject
 		 Done,        ///< The Running of the Expression is finished successfully
 		 Error,       ///< An Error occurred when running the Expression
 		 Interrupted,  ///< The Expression was interrupted by the user while running
-         Queued
+     Queued ///< The Expression is in expression queue, waited for Computing
     };
 
     /**
      * Enum indicating how this Expression behaves on finishing
      */
     enum FinishingBehavior {
-	DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
-	DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
-			       All output/results will be dropped
-			 */
+	   DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
+	   DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
+			                 * All output/results will be dropped
+			                 */
     };
     /**
      * Expression constructor. Should only be called from Session::evaulateExpression
      * @param session the session, this Expression belongs to
+     * @param internal \c true if this expression is internal expression
      */
-    Expression( Session* session );
+    Expression( Session* session, bool internal = false);
     /**
      * destructor
      */
@@ -92,6 +93,7 @@ class CANTOR_EXPORT Expression : public QObject
 
     /**
      * Returns the unique id of the Expression
+     * or -1 for internal expressions
      * @return the unique id of the Expression
      */
     int id();
@@ -196,12 +198,7 @@ class CANTOR_EXPORT Expression : public QObject
      * comes from the user
      */
     bool isInternal();
-    /**
-     * mark this expression as an internal expression,
-     * so for example latex will not be run on it
-     */
-    void setInternal(bool internal);
-
+    
   Q_SIGNALS:
     /**
      * the Id of this Expression changed

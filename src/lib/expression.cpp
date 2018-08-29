@@ -42,7 +42,7 @@ class Cantor::ExpressionPrivate
 {
 public:
     ExpressionPrivate() : status(Expression::Done), session(nullptr),
-    finishingBehavior(Expression::DoNotDelete), isInternal(false)
+    finishingBehavior(Expression::DoNotDelete), internal(false)
     {
     }
 
@@ -54,7 +54,7 @@ public:
     Expression::Status status;
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
-    bool isInternal;
+    bool internal;
 };
 
 static const QString tex=QLatin1String("\\documentclass[12pt,fleqn]{article}          \n "\
@@ -69,11 +69,15 @@ static const QString tex=QLatin1String("\\documentclass[12pt,fleqn]{article}    
                          "\\end{document}\n");
 
 
-Expression::Expression( Session* session ) : QObject( session ),
+Expression::Expression( Session* session, bool internal ) : QObject( session ),
                                              d(new ExpressionPrivate)
 {
     d->session=session;
-    d->id=session->nextExpressionId();
+    d->internal = internal;
+    if (!internal)
+        d->id=session->nextExpressionId();
+    else
+        d->id = -1;
 }
 
 Expression::~Expression()
@@ -247,12 +251,7 @@ Expression::FinishingBehavior Expression::finishingBehavior()
     return d->finishingBehavior;
 }
 
-void Expression::setInternal(bool internal)
-{
-    d->isInternal=internal;
-}
-
 bool Expression::isInternal()
 {
-    return d->isInternal;
+    return d->internal;
 }

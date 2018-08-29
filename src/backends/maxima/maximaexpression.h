@@ -32,7 +32,7 @@ class MaximaExpression : public Cantor::Expression
   Q_OBJECT
 
 public:
-    explicit MaximaExpression(Cantor::Session*);
+    explicit MaximaExpression(Cantor::Session*, bool internal = false);
 
     void evaluate() override;
     void interrupt() override;

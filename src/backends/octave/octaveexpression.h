@@ -39,7 +39,7 @@ class OctaveExpression : public Cantor::Expression
     Q_OBJECT
 
 public:
-    OctaveExpression(Cantor::Session*);
+    OctaveExpression(Cantor::Session*, bool internal = false);
 
     void interrupt() override;
     void evaluate() override;

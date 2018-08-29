@@ -67,7 +67,7 @@ class SageSession : public Cantor::Session
     void login() override;
     void logout() override;
 
-    Cantor::Expression* evaluateExpression(const QString& command,Cantor::Expression::FinishingBehavior behave) override;
+    Cantor::Expression* evaluateExpression(const QString& command,Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
 
     void runFirstExpression() override;
 

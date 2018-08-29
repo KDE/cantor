@@ -136,10 +136,10 @@ void ScilabSession::interrupt()
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave)
+Cantor::Expression* ScilabSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug() << "evaluating: " << cmd;
-    ScilabExpression* expr = new ScilabExpression(this);
+    ScilabExpression* expr = new ScilabExpression(this, internal);
 
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
