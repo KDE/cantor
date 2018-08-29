@@ -62,7 +62,10 @@ void MaximaExpression::evaluate()
         m_tempFile->deleteLater();
     m_tempFile=nullptr;
     //check if this is a ?command
-    if(command().startsWith(QLatin1Char('?'))||command().startsWith(QLatin1String("describe("))||command().startsWith(QLatin1String("example(")))
+    if(command().startsWith(QLatin1String("??"))
+        || command().startsWith(QLatin1String("describe("))
+        || command().startsWith(QLatin1String("example("))
+        || command().startsWith(QLatin1String(":lisp(cl-info::info-exact")))
         m_isHelpRequest=true;
 
     if(command().contains(QRegExp(QLatin1String("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))) && MaximaSettings::self()->integratePlots() && !command().contains(QLatin1String("ps_file")))
@@ -626,8 +629,12 @@ bool MaximaExpression::parseOutput(QString& out)
 
     qDebug()<<"new input label: " << prompt;
 
+    QString errorContent;
+
     //parse the results
     int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
+    if (resultStart != -1)
+        errorContent += out.mid(0, resultStart);
     while (resultStart != -1)
     {
         int resultEnd = out.indexOf(QLatin1String("</cantor-result>"), resultStart + 15);
@@ -645,7 +652,7 @@ bool MaximaExpression::parseOutput(QString& out)
     else
         lastResultEnd = 0;
 
-    QString errorContent = out.mid(lastResultEnd, promptStart - lastResultEnd).trimmed();
+    errorContent += out.mid(lastResultEnd, promptStart - lastResultEnd).trimmed();
     if (errorContent.isEmpty())
     {
         setStatus(Cantor::Expression::Done);

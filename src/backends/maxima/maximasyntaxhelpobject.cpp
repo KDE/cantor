@@ -84,16 +84,15 @@ void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status 
         QString syntax;
         for (QString line : lines)
         {
-            line=line.trimmed();
             if(line.endsWith(QLatin1Char('\r')))
                 line.chop(1);
             if(line.startsWith(QLatin1String("-- Function:")))
             {
                 line.remove(QLatin1String("-- Function:"));
                 line.remove(QLatin1String("<br/>"));
-                syntax+=line.trimmed()+QLatin1Char('\n');
-            }else
-                 break;
+            }
+            syntax+=line;
+            qDebug() << "line: " << line;
         }
 
         setHtml(QLatin1String("<p style='white-space:pre'>")+syntax+QLatin1String("</p>"));
