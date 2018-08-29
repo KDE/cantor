@@ -97,6 +97,11 @@ class CANTOR_EXPORT Session : public QObject
      */
     Expression* evaluateExpression(const QString& command);
 
+    /**
+     * Append the expression to queue .
+     * @see expressionQueue() const
+     */
+    void enqueueExpression(Expression*);
 
     /**
      * Interrupts all the running calculations in this session
@@ -198,12 +203,6 @@ class CANTOR_EXPORT Session : public QObject
      * The queud expression have the status \c Expression::Queued.
      */
     QList<Expression*>& expressionQueue() const;
-
-    /**
-     * Append the expression to queue .
-     * @see expressionQueue() const
-     */
-    void enqueueExpression(Expression*);
 
     /**
      * Execute first expression in expression queue.
