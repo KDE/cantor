@@ -82,7 +82,7 @@ class CANTOR_EXPORT Session : public QObject
 
     /**
      * Passes the given command to the backend and returns a Pointer
-     * to a new Expression object, which will emit the resultArrived()
+     * to a new Expression object, which will emit the gotResult()
      * signal as soon as the computation is done. The result will
      * then be acessible by Expression::result()
      * @param command the command that should be run by the backend.
@@ -97,9 +97,6 @@ class CANTOR_EXPORT Session : public QObject
      */
     Expression* evaluateExpression(const QString& command);
 
-    QList<Expression*>& expressionQueue() const;
-    void enqueueExpression(Expression*);
-    virtual void runFirstExpression();
 
     /**
      * Interrupts all the running calculations in this session
@@ -193,6 +190,27 @@ class CANTOR_EXPORT Session : public QObject
      * @param newStatus the new status of the session
      */
     void changeStatus(Cantor::Session::Status newStatus);
+
+    /**
+     * Session can process one single expression at one time.
+     * Any other expressions submitted by the user are queued first until they get processed.
+     * The expression queue implements the FIFO mechanism.
+     * The queud expression have the status \c Expression::Queued.
+     */
+    QList<Expression*>& expressionQueue() const;
+
+    /**
+     * Append the expression to queue .
+     * @see expressionQueue() const
+     */
+    void enqueueExpression(Expression*);
+
+    /**
+     * Execute first expression in expression queue.
+     * Also, this function changes the status from Queued to Computing.
+     * @see expressionQueue() const
+     */
+    virtual void runFirstExpression();
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);
