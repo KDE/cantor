@@ -355,7 +355,7 @@ void SageSession::runFirstExpression()
 
 void SageSession::interrupt()
 {
-    if(expressionQueue().first())
+    if(!expressionQueue().isEmpty())
     {
         qDebug()<<"interrupting " << expressionQueue().first()->command();
         if(m_process->state() != QProcess::NotRunning)

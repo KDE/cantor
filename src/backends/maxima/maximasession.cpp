@@ -248,7 +248,7 @@ void MaximaSession::runFirstExpression()
 
 void MaximaSession::interrupt()
 {
-    if(expressionQueue().first())
+    if(!expressionQueue().isEmpty())
     {
         qDebug()<<"interrupting " << expressionQueue().first()->command();
         if(m_process->state() != QProcess::NotRunning)

@@ -156,7 +156,7 @@ void OctaveSession::logout()
 
 void OctaveSession::interrupt()
 {
-    if(expressionQueue().first())
+    if(!expressionQueue().isEmpty())
     {
         qDebug()<<"interrupting " << expressionQueue().first()->command();
         if(m_process->state() != QProcess::NotRunning)
@@ -206,7 +206,7 @@ void OctaveSession::readError()
 {
     qDebug() << "readError";
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
-    if (expressionQueue().first() && !error.isEmpty())
+    if (!expressionQueue().isEmpty() && !error.isEmpty())
     {
         static_cast<OctaveExpression*>(expressionQueue().first())->parseError(error);
     }
@@ -225,7 +225,7 @@ void OctaveSession::readOutput()
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         qDebug()<<"start parsing " << "  " << line;
-        if (!expressionQueue().first() || m_prompt.isEmpty())
+        if (expressionQueue().isEmpty() || m_prompt.isEmpty())
         {
             // no expression is available, we're parsing the first output of octave after the start
             // -> determine the location of the temporary folder and the format of octave's promt
@@ -302,7 +302,7 @@ void OctaveSession::plotFileChanged(const QString& filename)
     {
         return;
     }
-    if (expressionQueue().first())
+    if (!expressionQueue().isEmpty())
     {
         static_cast<OctaveExpression*>(expressionQueue().first())->parsePlotFile(filename);
     }
