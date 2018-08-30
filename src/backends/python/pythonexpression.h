@@ -31,7 +31,7 @@ class PythonExpression : public Cantor::Expression
   Q_OBJECT
   public:
     PythonExpression(Cantor::Session* session);
-    ~PythonExpression() override;
+    ~PythonExpression() override = default;
 
     void evaluate() override;
     void interrupt() override;

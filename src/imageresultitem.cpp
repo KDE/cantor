@@ -34,10 +34,6 @@ ImageResultItem::ImageResultItem(QGraphicsObject* parent)
             SLOT(removeResult()));
 }
 
-ImageResultItem::~ImageResultItem()
-{
-}
-
 double ImageResultItem::setGeometry(double x, double y, double w)
 {
     Q_UNUSED(w);

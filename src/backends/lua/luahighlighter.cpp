@@ -33,7 +33,3 @@ LuaHighlighter::LuaHighlighter(QObject* parent): DefaultHighlighter(parent)
     addRule(QRegExp(QLatin1String("--[^\n]*"))                , commentFormat());
     // did not add support for the multiline comment or multiline string
 }
-
-LuaHighlighter::~LuaHighlighter()
-{
-}

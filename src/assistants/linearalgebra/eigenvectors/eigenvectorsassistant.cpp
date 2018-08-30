@@ -37,11 +37,6 @@ EigenVectorsAssistant::EigenVectorsAssistant(QObject* parent, QList<QVariant> ar
     Q_UNUSED(args)
 }
 
-EigenVectorsAssistant::~EigenVectorsAssistant()
-{
-
-}
-
 void EigenVectorsAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_eigenvectors_assistant.rc"));

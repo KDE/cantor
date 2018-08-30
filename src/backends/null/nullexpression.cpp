@@ -34,12 +34,6 @@ NullExpression::NullExpression( Cantor::Session* session ) : Cantor::Expression(
     connect(m_timer, &QTimer::timeout, this, &NullExpression::evalFinished);
 }
 
-NullExpression::~NullExpression()
-{
-
-}
-
-
 void NullExpression::evaluate()
 {
     qDebug()<<"evaluating "<<command();

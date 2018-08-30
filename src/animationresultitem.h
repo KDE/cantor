@@ -33,7 +33,7 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
 
   public:
     AnimationResultItem(QGraphicsObject* parent);
-    ~AnimationResultItem() override;
+    ~AnimationResultItem() override = default;
 
     using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w) override;

@@ -77,7 +77,3 @@ SageHighlighter::SageHighlighter(QObject* parent) : Cantor::DefaultHighlighter(p
     addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
     addRule(QRegExp(QLatin1String("#[^\n]*")), commentFormat());
 }
-
-SageHighlighter::~SageHighlighter()
-{
-}

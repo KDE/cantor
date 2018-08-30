@@ -41,10 +41,6 @@ LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_text
     connect(m_textItem, &WorksheetTextItem::doubleClick, this, &LatexEntry::resolveImagesAtCursor);
 }
 
-LatexEntry::~LatexEntry()
-{
-}
-
 void LatexEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     bool imageSelected = false;

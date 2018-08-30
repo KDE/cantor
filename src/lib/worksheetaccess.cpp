@@ -30,10 +30,5 @@ WorksheetAccessInterface::WorksheetAccessInterface(QObject* parent) : QObject(pa
     setObjectName(Name);
 }
 
-WorksheetAccessInterface::~WorksheetAccessInterface()
-{
-
-}
-
 
 

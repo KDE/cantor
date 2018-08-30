@@ -57,7 +57,7 @@ class AnimationHelperItem
   public:
     AnimationHelperItem( );
     AnimationHelperItem( const AnimationHelperItem& other);
-    ~AnimationHelperItem();
+    ~AnimationHelperItem() = default;
 
     QTextCursor position() const;
     void setPosition(const QTextCursor& cursor);

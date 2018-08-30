@@ -25,7 +25,7 @@ class QalculateHighlighter : public Cantor::DefaultHighlighter
 {
 public:
     QalculateHighlighter(QObject* parent);
-    ~QalculateHighlighter() override;
+    ~QalculateHighlighter() override = default;
 
 protected:
     void highlightBlock(const QString& text) override;

@@ -46,7 +46,7 @@ class CANTOR_EXPORT Extension : public QObject
   public:
     ///Default constructor
     Extension( const QString& name, QObject* parent );
-    ~Extension() override;
+    ~Extension() override = default;
 };
 
 
@@ -287,7 +287,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
              * constructor only allowed for derived classes
              **/
             AcceptorBase();
-            virtual ~AcceptorBase();
+            virtual ~AcceptorBase() = default;
 
             QVector<widgetProc> m_widgets;
     };
@@ -313,7 +313,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     class CANTOR_EXPORT PlotDirective
     {
         public:
-            virtual ~PlotDirective();
+            virtual ~PlotDirective() = default;
 
             /**
              * creates a new widget for editing the value and returns the pointer to it
@@ -333,7 +333,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             /**
              * only derived classes may construct
              **/
-            PlotDirective();
+            PlotDirective() = default;
     };
 
   public Q_SLOTS:

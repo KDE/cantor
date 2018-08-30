@@ -29,7 +29,7 @@ class MaximaCompletionObject : public Cantor::CompletionObject
 {
   public:
     MaximaCompletionObject( const QString& cmd, int index, MaximaSession* session );
-    ~MaximaCompletionObject() override;
+    ~MaximaCompletionObject() override = default;
 
   protected:
     bool mayIdentifierContain(QChar c) const override;

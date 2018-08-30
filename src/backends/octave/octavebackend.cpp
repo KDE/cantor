@@ -60,10 +60,6 @@ Cantor::Session* OctaveBackend::createSession()
     return new OctaveSession(this);
 }
 
-OctaveBackend::~OctaveBackend()
-{
-}
-
 bool OctaveBackend::requirementsFullfilled() const
 {
     return QFileInfo(OctaveSettings::path().toLocalFile()).isExecutable();

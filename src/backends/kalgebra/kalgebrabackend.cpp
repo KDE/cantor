@@ -32,9 +32,6 @@ KAlgebraBackend::KAlgebraBackend( QObject* parent,const QList<QVariant> args )
     new KAlgebraVariableManagementExtension(this);
 }
 
-KAlgebraBackend::~KAlgebraBackend()
-{}
-
 QString KAlgebraBackend::id() const
 {
     return QLatin1String("kalgebra");

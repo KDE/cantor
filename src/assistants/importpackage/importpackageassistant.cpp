@@ -37,11 +37,6 @@ ImportPackageAssistant::ImportPackageAssistant(QObject* parent, QList<QVariant> 
     Q_UNUSED(args)
 }
 
-ImportPackageAssistant::~ImportPackageAssistant()
-{
-
-}
-
 void ImportPackageAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_import_package_assistant.rc"));

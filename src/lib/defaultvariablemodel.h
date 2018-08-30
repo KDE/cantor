@@ -76,7 +76,7 @@ public:
      * @param session the session this Model belongs to, also becomes the Model's parent.
      */
     explicit DefaultVariableModel(Session* session);
-    ~DefaultVariableModel() override;
+    ~DefaultVariableModel() override = default;
 
     /**
      * Get the session which created this Model and whose variables it contains

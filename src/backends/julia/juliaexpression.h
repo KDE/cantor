@@ -34,7 +34,7 @@ public:
      * @param session session to bound expression to
      */
     JuliaExpression(Cantor::Session *session);
-    ~JuliaExpression() override {};
+    ~JuliaExpression() override = default;
 
     /**
      * @see Cantor::Expression::evaluate

@@ -32,7 +32,7 @@ class OctaveSyntaxHelpObject : public Cantor::SyntaxHelpObject
   Q_OBJECT
   public: 
     OctaveSyntaxHelpObject(const QString& command, Cantor::Session* session);
-    ~OctaveSyntaxHelpObject() override;
+    ~OctaveSyntaxHelpObject() override = default;
 
 protected:
     void fetchInformation() override;

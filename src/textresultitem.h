@@ -33,7 +33,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
   Q_OBJECT
   public:
     TextResultItem(QGraphicsObject* parent);
-    ~TextResultItem() override;
+    ~TextResultItem() override = default;
 
     using WorksheetTextItem::setGeometry;
     double setGeometry(double x, double y, double w) override;

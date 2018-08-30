@@ -30,11 +30,6 @@ NullCompletionObject::NullCompletionObject(const QString& command, int index, Nu
     setLine(command, index);
 }
 
-NullCompletionObject::~NullCompletionObject()
-{
-
-}
-
 void NullCompletionObject::fetchCompletions()
 {
     qDebug()<<"fetching...";

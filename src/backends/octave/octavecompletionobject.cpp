@@ -31,11 +31,6 @@ OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index
     m_expression = nullptr;
 }
 
-OctaveCompletionObject::~OctaveCompletionObject()
-{
-
-}
-
 void OctaveCompletionObject::fetchCompletions()
 {
     if (m_expression)

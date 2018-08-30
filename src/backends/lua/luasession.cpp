@@ -35,10 +35,6 @@ LuaSession::LuaSession( Cantor::Backend* backend) :
 {
 }
 
-LuaSession::~LuaSession()
-{
-}
-
 void LuaSession::login()
 {
     emit loginStarted();

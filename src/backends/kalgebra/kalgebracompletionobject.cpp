@@ -29,9 +29,6 @@ KAlgebraCompletionObject::KAlgebraCompletionObject(const QString& command, int i
     setLine(command, index);
 }
 
-KAlgebraCompletionObject::~KAlgebraCompletionObject()
-{}
-
 void KAlgebraCompletionObject::fetchCompletions()
 {
     OperatorsModel* opm=static_cast<KAlgebraSession*>(session())->operatorsModel();

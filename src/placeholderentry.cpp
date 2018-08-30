@@ -28,10 +28,6 @@ PlaceHolderEntry::PlaceHolderEntry(Worksheet* worksheet, QSizeF s)
     setSize(s);
 }
 
-PlaceHolderEntry::~PlaceHolderEntry()
-{
-}
-
 int PlaceHolderEntry::type() const
 {
     return Type;

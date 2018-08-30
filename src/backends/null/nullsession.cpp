@@ -28,10 +28,6 @@ NullSession::NullSession( Cantor::Backend* backend) : Session(backend)
 {
 }
 
-NullSession::~NullSession()
-{
-}
-
 void NullSession::login()
 {
     qDebug()<<"login";

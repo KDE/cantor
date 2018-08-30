@@ -80,11 +80,6 @@ OctaveHighlighter::OctaveHighlighter(QObject* parent, Cantor::Session* session):
   rehighlight();
 }
 
-OctaveHighlighter::~OctaveHighlighter()
-{
-
-}
-
 //TODO: old code to recieve the variables. This needs to be fixed as this has to be executed every time a new variable was defined
 //and not only once in the constructor of OctaveHighlighter where the list of variables is empty at the beginning.
 

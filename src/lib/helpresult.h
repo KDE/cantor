@@ -35,7 +35,7 @@ class CANTOR_EXPORT HelpResult : public TextResult
   public:
     enum {Type=3};
     HelpResult( const QString& text);
-    ~HelpResult() override;
+    ~HelpResult() override = default;
 
     int type() override;
 

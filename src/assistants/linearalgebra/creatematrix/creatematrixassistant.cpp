@@ -35,11 +35,6 @@ CreateMatrixAssistant::CreateMatrixAssistant(QObject* parent, QList<QVariant> ar
     Q_UNUSED(args)
 }
 
-CreateMatrixAssistant::~CreateMatrixAssistant()
-{
-
-}
-
 void CreateMatrixAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_create_matrix_assistant.rc"));

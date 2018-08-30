@@ -82,10 +82,6 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
     }
 }
 
-ScriptEditorWidget::~ScriptEditorWidget()
-{
-}
-
 void ScriptEditorWidget::newScript()
 {
     QString highlightingMode = m_script->highlightingMode();

@@ -37,14 +37,6 @@
 #include <KLocalizedString>
 #include <QDebug>
 
-ResultItem::ResultItem()
-{
-}
-
-ResultItem::~ResultItem()
-{
-}
-
 ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
 {
     switch(result->type()) {

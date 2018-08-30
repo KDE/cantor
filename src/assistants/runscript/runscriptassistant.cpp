@@ -37,11 +37,6 @@ RunScriptAssistant::RunScriptAssistant(QObject* parent, QList<QVariant> args) : 
     Q_UNUSED(args)
 }
 
-RunScriptAssistant::~RunScriptAssistant()
-{
-
-}
-
 void RunScriptAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_runscript_assistant.rc"));

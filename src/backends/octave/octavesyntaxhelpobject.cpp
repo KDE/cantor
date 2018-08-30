@@ -28,11 +28,6 @@ OctaveSyntaxHelpObject::OctaveSyntaxHelpObject(const QString& command, Cantor::S
 
 }
 
-OctaveSyntaxHelpObject::~OctaveSyntaxHelpObject()
-{
-
-}
-
 void OctaveSyntaxHelpObject::fetchInformation()
 {
     qDebug() << "Fetching syntax help for" << command();

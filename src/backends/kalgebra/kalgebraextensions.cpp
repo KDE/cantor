@@ -25,11 +25,6 @@ KAlgebraVariableManagementExtension::KAlgebraVariableManagementExtension(QObject
 
 }
 
-KAlgebraVariableManagementExtension::~KAlgebraVariableManagementExtension()
-{
-
-}
-
 QString KAlgebraVariableManagementExtension::addVariable(const QString& name, const QString& value)
 {
     //Kalgebra uses the same command for adding and setting a variable

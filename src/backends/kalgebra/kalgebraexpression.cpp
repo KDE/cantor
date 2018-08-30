@@ -31,9 +31,6 @@ KAlgebraExpression::KAlgebraExpression( KAlgebraSession* session )
     : Cantor::Expression(session)
 {}
 
-KAlgebraExpression::~KAlgebraExpression()
-{}
-
 void KAlgebraExpression::evaluate()
 {
     setStatus(Cantor::Expression::Computing);

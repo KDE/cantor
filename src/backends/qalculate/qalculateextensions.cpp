@@ -84,9 +84,7 @@ QalculatePlotExtension::QalculatePlotExtension(QObject* parent) :
 {
 }
 
-QalculatePlotExtension::~QalculatePlotExtension()
-{
-}
+QalculatePlotExtension::~QalculatePlotExtension() = default;
 
 QString QalculateCASExtension::solve(const QStringList& equations, const QStringList& variables)
 {

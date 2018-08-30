@@ -34,7 +34,7 @@ class OctaveHighlighter : public Cantor::DefaultHighlighter
 
   public:
     OctaveHighlighter(QObject* parent, Cantor::Session* session);
-    ~OctaveHighlighter() override;
+    ~OctaveHighlighter() override = default;
 
   private:
     Cantor::Session* m_session;

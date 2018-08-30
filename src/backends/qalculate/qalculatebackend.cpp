@@ -42,11 +42,6 @@ QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
     new QalculatePlotExtension(this);
 }
 
-QalculateBackend::~QalculateBackend()
-{
-
-}
-
 QString QalculateBackend::id() const
 {
     return QLatin1String("qalculate");

@@ -25,17 +25,6 @@
 #include <repository.h>
 #include <KF5/KSyntaxHighlighting/Definition>
 
-MaximaKeywords::MaximaKeywords()
-{
-
-}
-
-
-MaximaKeywords::~MaximaKeywords()
-{
-
-}
-
 MaximaKeywords* MaximaKeywords::instance()
 {
     static MaximaKeywords* inst=nullptr;

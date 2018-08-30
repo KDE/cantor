@@ -31,7 +31,7 @@ class LuaCompletionObject : public Cantor::CompletionObject
 {
 public:
     LuaCompletionObject( const QString& command, int index, LuaSession* session);
-    ~LuaCompletionObject() override;
+    ~LuaCompletionObject() override = default;
 
 protected Q_SLOTS:
     void fetchCompletions() override;

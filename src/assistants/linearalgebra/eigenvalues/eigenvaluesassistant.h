@@ -27,7 +27,7 @@ class EigenValuesAssistant : public Cantor::Assistant
 {
   public:
     EigenValuesAssistant( QObject* parent, QList<QVariant> args );
-    ~EigenValuesAssistant() override;
+    ~EigenValuesAssistant() override = default;
 
     void initActions() override;
     

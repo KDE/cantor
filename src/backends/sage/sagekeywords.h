@@ -33,8 +33,8 @@
 class SageKeywords
 {
 private:
-    SageKeywords();
-    ~SageKeywords();
+    SageKeywords() = default;
+    ~SageKeywords() = default;
 
 public:
     static SageKeywords* instance();

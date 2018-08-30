@@ -29,7 +29,7 @@ class NullCompletionObject : public Cantor::CompletionObject
 {
   public:
     NullCompletionObject( const QString& command, int index, NullSession* session);
-    ~NullCompletionObject() override;
+    ~NullCompletionObject() override = default;
 
   protected Q_SLOTS:
     void fetchCompletions() override;

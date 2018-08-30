@@ -28,7 +28,7 @@ class QalculateBackend : public Cantor::Backend
 
 public:
     explicit QalculateBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
-    ~QalculateBackend() override;
+    ~QalculateBackend() override = default;
 
     QString id() const override;
     QString version() const override;

@@ -32,10 +32,7 @@ using namespace Cantor;
 class Cantor::AnimationResultPrivate
 {
   public:
-    AnimationResultPrivate()
-    {
-
-    }
+    AnimationResultPrivate() = default;
 
     QUrl url;
     QMovie* movie;

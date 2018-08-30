@@ -29,12 +29,6 @@ PythonKeywords::PythonKeywords()
 
 }
 
-
-PythonKeywords::~PythonKeywords()
-{
-
-}
-
 PythonKeywords* PythonKeywords::instance()
 {
     static PythonKeywords* inst = nullptr;

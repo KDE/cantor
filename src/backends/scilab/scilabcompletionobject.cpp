@@ -30,11 +30,6 @@ ScilabCompletionObject::ScilabCompletionObject(const QString& command, int index
     setLine(command, index);
 }
 
-ScilabCompletionObject::~ScilabCompletionObject()
-{
-
-}
-
 void ScilabCompletionObject::fetchCompletions()
 {
     // A more elegant approach would be to use Scilab's completion() function,

@@ -37,11 +37,6 @@ MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::Defa
 
 }
 
-MaximaVariableModel::~MaximaVariableModel()
-{
-
-}
-
 void MaximaVariableModel::checkForNewVariables()
 {
     qDebug()<<"checking for new variables";

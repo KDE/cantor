@@ -49,11 +49,6 @@ m_variableModel(new Cantor::DefaultVariableModel(this))
     qDebug() << octaveScriptInstallDir;
 }
 
-OctaveSession::~OctaveSession()
-{
-
-}
-
 void OctaveSession::login()
 {
     qDebug() << "login";

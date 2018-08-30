@@ -27,7 +27,7 @@ class PythonKeywords
 {
   private:
     PythonKeywords();
-    ~PythonKeywords();
+    ~PythonKeywords() = default;
   public:
     static PythonKeywords* instance();
 

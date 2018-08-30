@@ -30,11 +30,6 @@ PythonCompletionObject::PythonCompletionObject(const QString& command, int index
     setLine(command, index);
 }
 
-PythonCompletionObject::~PythonCompletionObject()
-{
-
-}
-
 void PythonCompletionObject::fetchCompletions()
 {
     QStringList allCompletions;

@@ -39,11 +39,6 @@ PythonExpression::PythonExpression(Cantor::Session* session) : Cantor::Expressio
     qDebug() << "PythonExpression construtor";
 }
 
-PythonExpression::~PythonExpression()
-{
-
-}
-
 void PythonExpression::evaluate()
 {
     setStatus(Cantor::Expression::Computing);

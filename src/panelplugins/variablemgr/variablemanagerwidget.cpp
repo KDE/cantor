@@ -92,11 +92,6 @@ VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* 
         m_clearBtn->setDisabled(true);
 }
 
-VariableManagerWidget::~VariableManagerWidget()
-{
-
-}
-
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
     m_session=session;

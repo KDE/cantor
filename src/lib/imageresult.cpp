@@ -29,10 +29,7 @@ using namespace Cantor;
 class Cantor::ImageResultPrivate
 {
   public:
-    ImageResultPrivate()
-    {
-
-    }
+    ImageResultPrivate() = default;
 
     QUrl url;
     QImage img;

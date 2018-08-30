@@ -35,10 +35,6 @@ PythonHighlighter::PythonHighlighter(QObject* parent) : Cantor::DefaultHighlight
     addVariables(PythonKeywords::instance()->variables());
 }
 
-PythonHighlighter::~PythonHighlighter()
-{
-}
-
 void PythonHighlighter::highlightBlock(const QString &text)
 {
     if (skipHighlighting(text)) {

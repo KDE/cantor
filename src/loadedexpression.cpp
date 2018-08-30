@@ -34,11 +34,6 @@ LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Express
 
 }
 
-LoadedExpression::~LoadedExpression()
-{
-
-}
-
 void LoadedExpression::interrupt()
 {
     //Do nothing

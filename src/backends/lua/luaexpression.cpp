@@ -37,10 +37,6 @@ LuaExpression::LuaExpression( Cantor::Session* session)
 {
 }
 
-LuaExpression::~LuaExpression()
-{
-}
-
 void LuaExpression::evaluate()
 {
     /*

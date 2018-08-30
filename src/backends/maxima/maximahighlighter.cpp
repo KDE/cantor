@@ -52,10 +52,6 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : 
     addUserFunctions(model->functionNames());
 }
 
-MaximaHighlighter::~MaximaHighlighter()
-{
-}
-
 void MaximaHighlighter::highlightBlock(const QString& text)
 {
     if (skipHighlighting(text))

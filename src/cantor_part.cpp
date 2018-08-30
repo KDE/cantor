@@ -77,10 +77,7 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
         connect(worksheet, SIGNAL(modified()), this, SIGNAL(modified()));
     }
 
-    ~WorksheetAccessInterfaceImpl() override
-    {
-
-    }
+    ~WorksheetAccessInterfaceImpl() override = default;
 
     QByteArray saveWorksheetToByteArray() override
     {

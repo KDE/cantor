@@ -28,7 +28,7 @@ class RScriptExtension : public Cantor::ScriptExtension
 {
   public:
     RScriptExtension(QObject* parent);
-    ~RScriptExtension() override;
+    ~RScriptExtension() override = default;
   public Q_SLOTS:
     QString runExternalScript(const QString& path)  override;
     QString scriptFileFilter() override;
@@ -42,7 +42,7 @@ class RPlotExtension :  public Cantor::AdvancedPlotExtension,
 {
   public:
     RPlotExtension(QObject* parent);
-    ~RPlotExtension() override {}
+    ~RPlotExtension() override = default;
     QString accept(const Cantor::PlotTitleDirective&) const  override;
     QString accept(const Cantor::OrdinateScaleDirective&) const override;
     QString accept(const Cantor::AbscissScaleDirective&) const override;
@@ -55,7 +55,7 @@ class RVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
     RVariableManagementExtension(QObject* parent);
-    ~RVariableManagementExtension() override;
+    ~RVariableManagementExtension() override = default;
     QString addVariable(const QString& name, const QString& value) override;
     QString setValue(const QString& name, const QString& value) override;
     QString removeVariable(const QString& name) override;

@@ -40,10 +40,6 @@ TextResultItem::TextResultItem(QGraphicsObject* parent)
             SLOT(removeResult()));
 }
 
-TextResultItem::~TextResultItem()
-{
-}
-
 double TextResultItem::setGeometry(double x, double y, double w)
 {
     return WorksheetTextItem::setGeometry(x, y, w);

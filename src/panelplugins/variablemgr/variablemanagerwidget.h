@@ -35,7 +35,7 @@ class VariableManagerWidget : public QWidget
   Q_OBJECT
   public:
     VariableManagerWidget( Cantor::Session* session,QWidget* parent );
-    ~VariableManagerWidget() override;
+    ~VariableManagerWidget() override = default;
 
     void setSession(Cantor::Session* session);
 

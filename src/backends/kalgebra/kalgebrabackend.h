@@ -25,7 +25,7 @@ class KAlgebraBackend : public Cantor::Backend
     Q_OBJECT
     public:
         explicit KAlgebraBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
-        ~KAlgebraBackend() override;
+        ~KAlgebraBackend() override = default;
 
 	QString id() const override;
         Cantor::Session *createSession() override;

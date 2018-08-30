@@ -32,11 +32,6 @@ MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index
     setLine(command, index);
 }
 
-MaximaCompletionObject::~MaximaCompletionObject()
-{
-
-}
-
 void MaximaCompletionObject::fetchIdentifierType()
 {
     MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session()->variableModel());

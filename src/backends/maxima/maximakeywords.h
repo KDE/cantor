@@ -30,8 +30,8 @@
 class MaximaKeywords
 {
   private:
-    MaximaKeywords();
-    ~MaximaKeywords();
+    MaximaKeywords() = default;
+    ~MaximaKeywords() = default;
   public:
     static MaximaKeywords* instance();
 

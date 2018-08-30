@@ -39,11 +39,6 @@ AdvancedPlotAssistant::AdvancedPlotAssistant(QObject* parent, QList<QVariant> ar
     Q_UNUSED(args)
 }
 
-AdvancedPlotAssistant::~AdvancedPlotAssistant()
-{
-
-}
-
 void AdvancedPlotAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_advancedplot_assistant.rc"));

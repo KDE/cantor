@@ -73,11 +73,6 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
     setDockOptions(QMainWindow::AnimatedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::VerticalTabs);
 }
 
-CantorShell::~CantorShell()
-{
-
-}
-
 void CantorShell::load(const QUrl &url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )

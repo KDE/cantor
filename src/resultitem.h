@@ -44,8 +44,8 @@ class QGraphicsObject;
 class ResultItem
 {
   public:
-    ResultItem();
-    virtual ~ResultItem();
+    ResultItem() = default;
+    virtual ~ResultItem() = default;
 
     static ResultItem* create(WorksheetEntry* parent, Cantor::Result*);
 

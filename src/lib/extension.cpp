@@ -32,11 +32,6 @@ Extension::Extension(const QString& name, QObject* parent) : QObject(parent)
     setObjectName(name);
 }
 
-Extension::~Extension()
-{
-
-}
-
 EXTENSION_CONSTRUCTORS(HistoryExtension)
 EXTENSION_CONSTRUCTORS(ScriptExtension)
 EXTENSION_CONSTRUCTORS(CASExtension)
@@ -140,19 +135,7 @@ QWidget* AdvancedPlotExtension::PlotDirective::widget(QWidget* parent)
     return new QWidget(parent);
 }
 
-AdvancedPlotExtension::PlotDirective::PlotDirective()
-{
-}
-
-AdvancedPlotExtension::PlotDirective::~PlotDirective()
-{
-}
-
 AdvancedPlotExtension::AcceptorBase::AcceptorBase() : m_widgets()
-{
-}
-
-AdvancedPlotExtension::AcceptorBase::~AcceptorBase()
 {
 }
 

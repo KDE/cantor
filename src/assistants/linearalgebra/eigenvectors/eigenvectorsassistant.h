@@ -27,7 +27,7 @@ class EigenVectorsAssistant : public Cantor::Assistant
 {
   public:
     EigenVectorsAssistant( QObject* parent, QList<QVariant> args );
-    ~EigenVectorsAssistant() override;
+    ~EigenVectorsAssistant() override = default;
 
     void initActions() override;
     

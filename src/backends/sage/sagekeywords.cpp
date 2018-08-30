@@ -21,16 +21,6 @@
 
 #include <QDebug>
 
-SageKeywords::SageKeywords()
-{
-
-}
-
-SageKeywords::~SageKeywords()
-{
-
-}
-
 SageKeywords* SageKeywords::instance()
 {
     static SageKeywords* inst=nullptr;

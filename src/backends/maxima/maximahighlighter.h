@@ -29,7 +29,7 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
   Q_OBJECT
   public:
     MaximaHighlighter( QObject* parent, MaximaSession* session);
-    ~MaximaHighlighter() override;
+    ~MaximaHighlighter() override = default;
 
   protected:
     void highlightBlock(const QString &text) override;

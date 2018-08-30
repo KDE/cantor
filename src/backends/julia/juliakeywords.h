@@ -100,8 +100,8 @@ private:
     QStringList m_removedFunctions; //< list of functions removed during cleaning
 
     // We are hidding constructor and destructor for singleton
-    JuliaKeywords() {}
-    ~JuliaKeywords() {}
+    JuliaKeywords() = default;
+    ~JuliaKeywords() = default;
 
     /// Do first load of predefined stuff from keywords.xml
     void loadKeywords();

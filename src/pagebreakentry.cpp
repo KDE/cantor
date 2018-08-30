@@ -41,10 +41,6 @@ PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
-PageBreakEntry::~PageBreakEntry()
-{
-}
-
 bool PageBreakEntry::isEmpty()
 {
     return false;

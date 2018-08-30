@@ -40,11 +40,6 @@ RExpression::RExpression( Cantor::Session* session ) : Cantor::Expression(sessio
 
 }
 
-RExpression::~RExpression()
-{
-
-}
-
 void RExpression::evaluate()
 {
     if(command().startsWith(QLatin1Char('?')))

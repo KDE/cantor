@@ -39,10 +39,6 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
 }
 
-MarkdownEntry::~MarkdownEntry()
-{
-}
-
 bool MarkdownEntry::isEmpty()
 {
     return m_textItem->document()->isEmpty();

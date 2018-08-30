@@ -46,10 +46,6 @@ RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
         specials.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
 }
 
-RHighlighter::~RHighlighter()
-{
-}
-
 void RHighlighter::refreshSyntaxRegExps()
 {
     emit syntaxRegExps(variables,functions);

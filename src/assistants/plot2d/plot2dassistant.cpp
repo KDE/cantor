@@ -37,11 +37,6 @@ Plot2dAssistant::Plot2dAssistant(QObject* parent, QList<QVariant> args) : Assist
     Q_UNUSED(args)
 }
 
-Plot2dAssistant::~Plot2dAssistant()
-{
-
-}
-
 void Plot2dAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_plot2d_assistant.rc"));

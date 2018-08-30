@@ -27,7 +27,7 @@ class KAlgebraCompletionObject : public Cantor::CompletionObject
 {
     public:
          KAlgebraCompletionObject( const QString& command, int index, KAlgebraSession* session);
-        ~KAlgebraCompletionObject() override;
+        ~KAlgebraCompletionObject() override = default;
 
     protected:
         bool mayIdentifierBeginWith(QChar c) const override;

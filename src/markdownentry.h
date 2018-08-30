@@ -29,7 +29,7 @@ class MarkdownEntry : public WorksheetEntry
   Q_OBJECT
   public:
     MarkdownEntry(Worksheet* worksheet);
-    ~MarkdownEntry() override;
+    ~MarkdownEntry() override = default;
 
     enum {Type = UserType + 7};
     int type() const override;

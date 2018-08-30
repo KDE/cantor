@@ -38,11 +38,6 @@ IntegrateAssistant::IntegrateAssistant(QObject* parent, QList<QVariant> args) : 
     Q_UNUSED(args)
 }
 
-IntegrateAssistant::~IntegrateAssistant()
-{
-
-}
-
 void IntegrateAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_integrate_assistant.rc"));

@@ -31,11 +31,6 @@ LuaCompletionObject::LuaCompletionObject(const QString& command, int index, LuaS
     setLine(command, index);
 }
 
-LuaCompletionObject::~LuaCompletionObject()
-{
-
-}
-
 void LuaCompletionObject::fetchCompletions()
 {
     QString name = command();

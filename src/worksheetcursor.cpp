@@ -35,10 +35,6 @@ WorksheetCursor::WorksheetCursor(WorksheetEntry* entry, WorksheetTextItem* item,
     m_textCursor = cursor;
 }
 
-WorksheetCursor::~WorksheetCursor()
-{
-}
-
 WorksheetEntry* WorksheetCursor::entry() const
 {
     return m_entry;

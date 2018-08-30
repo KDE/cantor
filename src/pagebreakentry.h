@@ -31,7 +31,7 @@ class PageBreakEntry : public WorksheetEntry
 
   public:
     PageBreakEntry(Worksheet* worksheet);
-    ~PageBreakEntry() override;
+    ~PageBreakEntry() override = default;
 
     enum {Type = UserType + 3};
     int type() const override;

@@ -37,11 +37,6 @@ InvertMatrixAssistant::InvertMatrixAssistant(QObject* parent, QList<QVariant> ar
     Q_UNUSED(args)
 }
 
-InvertMatrixAssistant::~InvertMatrixAssistant()
-{
-
-}
-
 void InvertMatrixAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_invert_matrix_assistant.rc"));

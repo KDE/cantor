@@ -42,7 +42,7 @@ public:
         QObject *parent = nullptr,
         const QList<QVariant> &args = QList<QVariant>());
 
-    ~JuliaBackend() override {}
+    ~JuliaBackend() override = default;
 
     /**
      * @see Cantor::Backend::id

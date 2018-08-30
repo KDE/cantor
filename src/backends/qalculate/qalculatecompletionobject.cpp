@@ -33,10 +33,6 @@ QalculateCompletionObject::QalculateCompletionObject(const QString& command, int
     setLine(command, index);
 }
 
-QalculateCompletionObject::~QalculateCompletionObject()
-{
-}
-
 void QalculateCompletionObject::fetchIdentifierType()
 {
     Variable* var = CALCULATOR->getVariable(identifier().toLatin1().data());

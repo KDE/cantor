@@ -32,7 +32,7 @@ class MaximaSyntaxHelpObject : public Cantor::SyntaxHelpObject
   Q_OBJECT
   public:
     MaximaSyntaxHelpObject( const QString& command, MaximaSession* session );
-    ~MaximaSyntaxHelpObject() override;
+    ~MaximaSyntaxHelpObject() override = default;
 
   protected Q_SLOTS:
     void fetchInformation() override;

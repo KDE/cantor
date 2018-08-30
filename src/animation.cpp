@@ -86,10 +86,6 @@ AnimationHelperItem::AnimationHelperItem(const AnimationHelperItem& other)
     m_animation=other.m_animation;
 }
 
-AnimationHelperItem::~AnimationHelperItem()
-{
-}
-
 void AnimationHelperItem::setPosition(const QTextCursor& cursor)
 {
     m_animation->setPosition(cursor);

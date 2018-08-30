@@ -51,10 +51,6 @@ PythonSession::PythonSession(Cantor::Backend* backend, const QString serverName,
 {
 }
 
-PythonSession::~PythonSession()
-{
-}
-
 void PythonSession::login()
 {
     qDebug()<<"login";

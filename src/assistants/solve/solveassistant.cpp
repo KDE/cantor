@@ -37,11 +37,6 @@ SolveAssistant::SolveAssistant(QObject* parent, QList<QVariant> args) : Assistan
     Q_UNUSED(args)
 }
 
-SolveAssistant::~SolveAssistant()
-{
-
-}
-
 void SolveAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_solve_assistant.rc"));

@@ -31,10 +31,6 @@ JuliaCompletionObject::JuliaCompletionObject(
     setLine(command, index);
 }
 
-JuliaCompletionObject::~JuliaCompletionObject()
-{
-}
-
 void JuliaCompletionObject::fetchCompletions()
 {
     auto julia_session = dynamic_cast<JuliaSession *>(session());

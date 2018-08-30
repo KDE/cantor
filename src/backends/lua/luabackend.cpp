@@ -34,10 +34,6 @@ LuaBackend::LuaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::B
     new LuaScriptExtension(this);
 }
 
-LuaBackend::~LuaBackend()
-{
-}
-
 QString LuaBackend::id() const
 {
     return QLatin1String("lua");

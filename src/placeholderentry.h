@@ -27,7 +27,7 @@ class PlaceHolderEntry : public WorksheetEntry
 {
   public:
     PlaceHolderEntry(Worksheet* worksheet, QSizeF s);
-    ~PlaceHolderEntry() override;
+    ~PlaceHolderEntry() override = default;
 
     enum {Type = UserType + 6};
     int type() const override;

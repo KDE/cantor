@@ -31,7 +31,7 @@ class WorksheetCursor
   public:
     WorksheetCursor();
     WorksheetCursor(WorksheetEntry*, WorksheetTextItem*, const QTextCursor&);
-    ~WorksheetCursor();
+    ~WorksheetCursor() = default;
 
     WorksheetEntry* entry() const;
     WorksheetTextItem* textItem() const;

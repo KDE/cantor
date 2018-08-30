@@ -38,11 +38,6 @@ DifferentiateAssistant::DifferentiateAssistant(QObject* parent, QList<QVariant> 
     Q_UNUSED(args)
 }
 
-DifferentiateAssistant::~DifferentiateAssistant()
-{
-
-}
-
 void DifferentiateAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_differentiate_assistant.rc"));

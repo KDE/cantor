@@ -32,9 +32,6 @@ EpsRenderer::EpsRenderer() : m_scale(1), m_useHighRes(false)
 {
 }
 
-EpsRenderer::~EpsRenderer()
-{}
-
 void EpsRenderer::setScale(qreal scale)
 {
     m_scale = scale;

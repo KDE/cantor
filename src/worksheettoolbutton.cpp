@@ -32,10 +32,6 @@ WorksheetToolButton::WorksheetToolButton(QGraphicsItem* parent)
     m_scale = 0;
 }
 
-WorksheetToolButton::~WorksheetToolButton()
-{
-}
-
 void WorksheetToolButton::setIcon(const QIcon& icon)
 {
     m_icon = icon;

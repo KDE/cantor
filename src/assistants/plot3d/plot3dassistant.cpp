@@ -37,11 +37,6 @@ Plot3dAssistant::Plot3dAssistant(QObject* parent, QList<QVariant> args) : Assist
     Q_UNUSED(args)
 }
 
-Plot3dAssistant::~Plot3dAssistant()
-{
-
-}
-
 void Plot3dAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_plot3d_assistant.rc"));

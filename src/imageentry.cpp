@@ -48,10 +48,6 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     startConfigDialog();
 }
 
-ImageEntry::~ImageEntry()
-{
-}
-
 void ImageEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     menu->addAction(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"),

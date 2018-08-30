@@ -34,10 +34,6 @@ AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
             SLOT(removeResult()));
 }
 
-AnimationResultItem::~AnimationResultItem()
-{
-}
-
 double AnimationResultItem::setGeometry(double x, double y, double w)
 {
     Q_UNUSED(w);

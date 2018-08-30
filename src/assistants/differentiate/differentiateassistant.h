@@ -27,7 +27,7 @@ class DifferentiateAssistant : public Cantor::Assistant
 {
   public:
     DifferentiateAssistant( QObject* parent, QList<QVariant> args );
-    ~DifferentiateAssistant() override;
+    ~DifferentiateAssistant() override = default;
 
     void initActions() override;
     

@@ -110,10 +110,6 @@ SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
     connect( &m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( fileCreated( const QString& ) ) );
 }
 
-SageSession::~SageSession()
-{
-}
-
 void SageSession::login()
 {
     qDebug()<<"login";

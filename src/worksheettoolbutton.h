@@ -31,7 +31,7 @@ class WorksheetToolButton : public QGraphicsObject
   Q_OBJECT
   public:
     WorksheetToolButton(QGraphicsItem* parent);
-    ~WorksheetToolButton() override;
+    ~WorksheetToolButton() override = default;
 
     void setIcon(const QIcon& icon);
 

@@ -38,10 +38,6 @@ ActionBar::ActionBar(WorksheetEntry* parent)
             this, SLOT(updatePosition()));
 }
 
-ActionBar::~ActionBar()
-{
-}
-
 WorksheetToolButton* ActionBar::addButton(const QIcon& icon, const QString& toolTip,
                                    QObject* receiver, const char* method )
 {

@@ -39,7 +39,7 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
   Q_OBJECT
   public:
     PythonSession(Cantor::Backend* backend, const QString serverName, const QString DbusChannelName);
-    ~PythonSession() override;
+    ~PythonSession() override = default;
 
     void login() override;
     void logout() override;

@@ -32,7 +32,7 @@ class LuaSession : public Cantor::Session
   Q_OBJECT
 public:
     LuaSession( Cantor::Backend* backend);
-    ~LuaSession() override;
+    ~LuaSession() override = default;
 
     void login() override;
     void logout() override;

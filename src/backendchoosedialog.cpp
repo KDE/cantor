@@ -73,10 +73,6 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
     connect(this, &BackendChooseDialog::accepted, this, &BackendChooseDialog::onAccept);
 }
 
-BackendChooseDialog::~BackendChooseDialog()
-{
-}
-
 void BackendChooseDialog::onAccept()
 {
     m_backend=m_ui.backendList->currentItem()->text();

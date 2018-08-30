@@ -27,7 +27,7 @@ class KAlgebraVariableManagementExtension : public Cantor::VariableManagementExt
 {
   public:
     KAlgebraVariableManagementExtension( QObject* parent );
-    ~KAlgebraVariableManagementExtension() override;
+    ~KAlgebraVariableManagementExtension() override = default;
 
   public Q_SLOTS:
     QString addVariable(const QString& name, const QString& value) override;

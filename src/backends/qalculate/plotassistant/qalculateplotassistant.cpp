@@ -33,10 +33,6 @@ QalculatePlotAssistant::QalculatePlotAssistant(QObject* parent, QList<QVariant> 
     m_dlg = nullptr;
 }
 
-QalculatePlotAssistant::~QalculatePlotAssistant()
-{
-}
-
 void QalculatePlotAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_qalculateplotassistant.rc"));

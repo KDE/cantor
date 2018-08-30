@@ -38,10 +38,6 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textIt
     connect(m_textItem, &WorksheetTextItem::doubleClick, this, &TextEntry::resolveImagesAtCursor);
 }
 
-TextEntry::~TextEntry()
-{
-}
-
 void TextEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     bool imageSelected = false;

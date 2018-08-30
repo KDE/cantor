@@ -37,11 +37,6 @@ EigenValuesAssistant::EigenValuesAssistant(QObject* parent, QList<QVariant> args
     Q_UNUSED(args)
 }
 
-EigenValuesAssistant::~EigenValuesAssistant()
-{
-
-}
-
 void EigenValuesAssistant::initActions()
 {
     setXMLFile(QLatin1String("cantor_eigenvalues_assistant.rc"));

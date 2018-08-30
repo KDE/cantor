@@ -27,11 +27,6 @@ RScriptExtension::RScriptExtension(QObject* parent) : Cantor::ScriptExtension(pa
 
 }
 
-RScriptExtension::~RScriptExtension()
-{
-
-}
-
 QString RScriptExtension::runExternalScript(const QString& path)
 {
     return QString::fromLatin1("source(\"%1\")").arg(path);
@@ -67,12 +62,6 @@ QString RPlotExtension::accept(const Cantor::AbscissScaleDirective& directive) c
 }
 
 RVariableManagementExtension::RVariableManagementExtension(QObject* parent) : Cantor::VariableManagementExtension(parent)
-{
-
-}
-
-
-RVariableManagementExtension::~RVariableManagementExtension()
 {
 
 }

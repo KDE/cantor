@@ -33,10 +33,6 @@ QalculateHighlighter::QalculateHighlighter(QObject* parent)
 {
 }
 
-QalculateHighlighter::~QalculateHighlighter()
-{
-}
-
 void QalculateHighlighter::highlightBlock(const QString& text)
 {
     if ( text.isEmpty() || text.trimmed().isEmpty() || text.startsWith(QLatin1String(">>> "))

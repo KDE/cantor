@@ -27,11 +27,6 @@ HelpResult::HelpResult(const QString& text) : TextResult(text)
 
 }
 
-HelpResult::~HelpResult()
-{
-
-}
-
 int HelpResult::type()
 {
     return HelpResult::Type;

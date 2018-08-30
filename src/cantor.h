@@ -53,7 +53,7 @@ public:
     /**
      * Default Destructor
      */
-    ~CantorShell() override;
+    ~CantorShell() override = default;
 
     /**
      * Use this method to load whatever file/URL you have

@@ -33,11 +33,6 @@ MaximaSyntaxHelpObject::MaximaSyntaxHelpObject(const QString& cmd, MaximaSession
     m_expression=nullptr;
 }
 
-MaximaSyntaxHelpObject::~MaximaSyntaxHelpObject()
-{
-
-}
-
 void MaximaSyntaxHelpObject::fetchInformation()
 {
     if(m_expression)

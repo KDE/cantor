@@ -42,11 +42,6 @@ ScilabExpression::ScilabExpression( Cantor::Session* session ) : Cantor::Express
     qDebug() << "ScilabExpression construtor";
 }
 
-ScilabExpression::~ScilabExpression()
-{
-
-}
-
 void ScilabExpression::evaluate()
 {
     if((ScilabSettings::integratePlots()) && (command().contains(QLatin1String("plot")))){

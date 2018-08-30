@@ -27,7 +27,7 @@ class InvertMatrixAssistant : public Cantor::Assistant
 {
   public:
     InvertMatrixAssistant( QObject* parent, QList<QVariant> args );
-    ~InvertMatrixAssistant() override;
+    ~InvertMatrixAssistant() override = default;
 
     void initActions() override;
     

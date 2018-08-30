@@ -31,7 +31,7 @@ class LuaExpression : public Cantor::Expression
 
 public:
     LuaExpression( Cantor::Session* session);
-    ~LuaExpression() override;
+    ~LuaExpression() override = default;
 
     void evaluate() override;
     void interrupt() override;
