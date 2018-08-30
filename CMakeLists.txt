@@ -1,6 +1,9 @@
 project(cantor)
 
-cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required (VERSION 3.1.0 FATAL_ERROR)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_definitions(-DMAKE_CANTORLIBS_LIB)
 
