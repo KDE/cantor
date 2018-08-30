@@ -177,9 +177,9 @@ void RSession::runFirstExpression()
     if (expressionQueue().isEmpty())
         return;
 
-    disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  0,  0);
-    disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), 0, 0);
-    disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), 0, 0);
+    disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  nullptr,  nullptr);
+    disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), nullptr, nullptr);
+    disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), nullptr, nullptr);
     qDebug()<<"size: "<<expressionQueue().size();
     RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
     qDebug()<<"running expression: "<<expr->command();

@@ -101,7 +101,7 @@ QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
     Q_UNUSED(parent);
     //return new AlgebraHighlighter(parent->document());
     // TODO: Think of something better here.
-    return new AlgebraHighlighter(NULL);
+    return new AlgebraHighlighter(nullptr);
 }
 
 QAbstractItemModel* KAlgebraSession::variableModel()

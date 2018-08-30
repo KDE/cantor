@@ -37,7 +37,7 @@ QString luahelper_tostring(lua_State* L, int idx)
 QString luahelper_dostring(lua_State* L, const QString& str)
 {
     const QByteArray arr = str.toUtf8();
-    bool err = ( luaL_loadbuffer(L, arr.data(), arr.size(), 0) || lua_pcall (L, 0, LUA_MULTRET, 0) );
+    bool err = ( luaL_loadbuffer(L, arr.data(), arr.size(), nullptr) || lua_pcall (L, 0, LUA_MULTRET, 0) );
     QString ret;
 
     if(err)
@@ -135,7 +135,7 @@ QStringList luahelper_keywords()
     static const char* keywords[] = {
         "and", "break", "do", "else", "elseif", "end", "false", "for",
         "function", "if", "in", "local", "nil", "not", "or", "repeat",
-        "return", "then", "true", "until", "while", 0
+        "return", "then", "true", "until", "while", nullptr
     };
 
     QStringList list;
@@ -159,7 +159,7 @@ QStringList luahelper_functions()
         "log","log10","max","min","modf", "pow","rad","random","randomseed","sin","sinh","sqrt","tan","tanh",
         "clock","date","difftime", "execute","exit","getenv","remove","rename","setlocale","time","tmpname",
         "loadlib","byte","char", "dump","find","format","gmatch","gsub","len","lower","match","rep","reverse","sub","upper","concat",
-        "insert","maxn","remove","sort",0
+        "insert","maxn","remove","sort",nullptr
     };
 
     QStringList list;
@@ -173,7 +173,7 @@ QStringList luahelper_functions()
 
 QStringList luahelper_variables()
 {
-    static const char* variables[] = {"_G", "_VERSION", "pi", "huge", "stdin", "stdout", "stderr", 0};
+    static const char* variables[] = {"_G", "_VERSION", "pi", "huge", "stdin", "stdout", "stderr", nullptr};
 
     QStringList list;
 

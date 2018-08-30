@@ -24,7 +24,7 @@ class KAlgebraBackend : public Cantor::Backend
 {
     Q_OBJECT
     public:
-        explicit KAlgebraBackend( QObject* parent = 0,const QList<QVariant> args = QList<QVariant>());
+        explicit KAlgebraBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
         ~KAlgebraBackend() override;
 
 	QString id() const override;

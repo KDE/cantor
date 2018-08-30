@@ -30,7 +30,7 @@ QalculatePlotAssistant::QalculatePlotAssistant(QObject* parent, QList<QVariant> 
 {
     Q_UNUSED(args);
 
-    m_dlg = 0;
+    m_dlg = nullptr;
 }
 
 QalculatePlotAssistant::~QalculatePlotAssistant()

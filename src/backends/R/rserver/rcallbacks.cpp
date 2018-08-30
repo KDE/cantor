@@ -36,12 +36,12 @@ void setupCallbacks(RServer* r)
     qDebug()<<"setting up callbacks";
 
     server=r;
-    currentExpression=0;
+    currentExpression=nullptr;
 
-    R_Outputfile=NULL;
-    R_Consolefile=NULL;
+    R_Outputfile=nullptr;
+    R_Consolefile=nullptr;
 
-    ptr_R_WriteConsole=0;
+    ptr_R_WriteConsole=nullptr;
     ptr_R_WriteConsoleEx=onWriteConsoleEx;
     ptr_R_ShowMessage=onShowMessage;
     ptr_R_Busy=onBusy;

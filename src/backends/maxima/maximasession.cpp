@@ -95,7 +95,7 @@ void MaximaSession::logout()
     if(!m_process)
         return;
 
-    disconnect(m_process, 0, this, 0);
+    disconnect(m_process, nullptr, this, nullptr);
 
 //     if(status()==Cantor::Session::Running)
         //TODO: terminate the running expressions first

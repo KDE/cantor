@@ -70,7 +70,7 @@ void RServer::initR()
     // generated as littler.h via from svn/littler/littler.R
     #include "renvvars.h"
 
-    for (int i = 0; R_VARS[i] != NULL; i+= 2)
+    for (int i = 0; R_VARS[i] != nullptr; i+= 2)
     {
         if (setenv(R_VARS[i], R_VARS[i+1], 1) != 0)
             qDebug()<<"ERROR: couldn't set/replace an R environment variable";
@@ -105,7 +105,7 @@ void RServer::initR()
     {
         int errorOccurred=0;
         if (QFile::exists(path))
-            R_tryEval(lang2(install("source"),mkString(path.toUtf8().data())),NULL,&errorOccurred);
+            R_tryEval(lang2(install("source"),mkString(path.toUtf8().data())),nullptr,&errorOccurred);
         // TODO: error handling
         else
         {
@@ -278,7 +278,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
             /* Loop is needed here as EXPSEXP might be of length > 1 */
             for (i = 0; i < length(cmdexpr); ++i) {
 
-                result = R_tryEval(VECTOR_ELT(cmdexpr,  i), NULL, &errorOccurred);
+                result = R_tryEval(VECTOR_ELT(cmdexpr,  i), nullptr, &errorOccurred);
                 if (errorOccurred)
                 {
                     qDebug()<<"Error occurred.";
@@ -320,7 +320,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
         if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
         {
             qDebug()<<"printing result...";
-            SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),NULL,&errorOccurred)); // TODO: error checks
+            SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),nullptr,&errorOccurred)); // TODO: error checks
             if (*INTEGER(count)==0)
                 qDebug() << "no result, so show nothing";
             else
@@ -329,7 +329,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
         }
 
 
-        setCurrentExpression(0); //is this save?
+        setCurrentExpression(nullptr); //is this save?
 
         if(!expr->err_buffer.isEmpty())
         {
@@ -429,25 +429,25 @@ void RServer::listSymbols()
     int errorOccurred; // TODO: error checks
 
     /* Obtaining a list of user namespace objects */
-    SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),NULL,&errorOccurred));
+    SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),nullptr,&errorOccurred));
     for (int i=0;i<length(usr);i++)
         {
         SEXP variable = STRING_ELT(usr,i);
         vars << QString::fromUtf8(translateCharUTF8(variable));
         SEXP value = findVar(installChar(variable), R_GlobalEnv);
-        SEXP valueAsString = PROTECT(R_tryEval(lang2(install("toString"),value),NULL,&errorOccurred));
+        SEXP valueAsString = PROTECT(R_tryEval(lang2(install("toString"),value),nullptr,&errorOccurred));
         values << QString::fromUtf8(translateCharUTF8(asChar(valueAsString)));
         }
     UNPROTECT(1);
 
     /* Obtaining a list of active packages */
-    SEXP packages=PROTECT(R_tryEval(lang1(install("search")),NULL,&errorOccurred));
+    SEXP packages=PROTECT(R_tryEval(lang1(install("search")),nullptr,&errorOccurred));
     //int i=1; // HACK to prevent scalability issues
     for (int i=1;i<length(packages);i++) // Package #0 is user environment, so starting with 1
     {
         char pos[32];
         sprintf(pos,"%d",i+1);
-        SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),NULL,&errorOccurred));
+        SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),nullptr,&errorOccurred));
         for (int i=0;i<length(f);i++)
             funcs<<QString::fromUtf8(translateCharUTF8(STRING_ELT(f,i)));
         UNPROTECT(1);
