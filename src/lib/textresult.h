@@ -38,20 +38,20 @@ class CANTOR_EXPORT TextResult : public Result
     TextResult(const QString& text, const QString& plain);
     ~TextResult() override;
 
-    QString toHtml() Q_DECL_OVERRIDE;
-    QVariant data() Q_DECL_OVERRIDE;
+    QString toHtml() override;
+    QVariant data() override;
 
     QString plain();
 
-    int type() Q_DECL_OVERRIDE;
-    QString mimeType() Q_DECL_OVERRIDE;
+    int type() override;
+    QString mimeType() override;
 
     Format format();
     void setFormat(Format f);
 
-    QDomElement toXml(QDomDocument& doc) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc) override;
 
-    void save(const QString& filename) Q_DECL_OVERRIDE;
+    void save(const QString& filename) override;
 
   private:
     TextResultPrivate* d;

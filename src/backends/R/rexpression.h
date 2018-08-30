@@ -29,7 +29,7 @@ class RExpression : public Cantor::Expression
   public:
     enum ServerReturnCode{SuccessCode=0, ErrorCode, InterruptedCode};
     RExpression( Cantor::Session*);
-    ~RExpression();
+    ~RExpression() override;
 
     void evaluate() override;
     void interrupt() override;

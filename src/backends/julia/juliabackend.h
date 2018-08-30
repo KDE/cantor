@@ -42,50 +42,50 @@ public:
         QObject *parent = nullptr,
         const QList<QVariant> &args = QList<QVariant>());
 
-    virtual ~JuliaBackend() {}
+    ~JuliaBackend() override {}
 
     /**
      * @see Cantor::Backend::id
      */
-    virtual QString id() const override;
+    QString id() const override;
 
     /**
       * @see Cantor::Backend::version
       */
-    virtual QString version() const override;
+    QString version() const override;
 
     /**
      * @see Cantor::Backend::createSession
      */
-    virtual Cantor::Session *createSession() override;
+    Cantor::Session *createSession() override;
 
     /**
      * @see Cantor::Backend::capabilities
      */
-    virtual Cantor::Backend::Capabilities capabilities() const override;
+    Cantor::Backend::Capabilities capabilities() const override;
 
     /**
      * @see Cantor::Backend::description
      */
-    virtual QString description() const override;
+    QString description() const override;
 
     /**
      * @see Cantor::Backend::helpUrl
      */
-    virtual QUrl helpUrl() const override;
+    QUrl helpUrl() const override;
 
     /**
      * @see Cantor::Backend::requirementsFullfilled
      */
-    virtual bool requirementsFullfilled() const override;
+    bool requirementsFullfilled() const override;
 
     /**
      * @see Cantor::Backend::settingsWidget
      */
-    virtual QWidget *settingsWidget(QWidget *parent) const override;
+    QWidget *settingsWidget(QWidget *parent) const override;
 
     /**
      * @see Cantor::Backend::config
      */
-    virtual KConfigSkeleton *config() const override;
+    KConfigSkeleton *config() const override;
 };

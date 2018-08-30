@@ -30,22 +30,22 @@ class ScilabScriptExtension : public Cantor::ScriptExtension
 {
     public:
         SCILAB_EXT_CDTOR_DECL(Script)
-        QString scriptFileFilter() Q_DECL_OVERRIDE;
-        QString highlightingMode() Q_DECL_OVERRIDE;
-        QString runExternalScript(const QString& path) Q_DECL_OVERRIDE;
-        QString commandSeparator() Q_DECL_OVERRIDE;
+        QString scriptFileFilter() override;
+        QString highlightingMode() override;
+        QString runExternalScript(const QString& path) override;
+        QString commandSeparator() override;
 };
 
 class ScilabVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
         SCILAB_EXT_CDTOR_DECL(VariableManagement)
-        QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
-        QString setValue(const QString& name, const QString& value) Q_DECL_OVERRIDE;
-        QString removeVariable(const QString& name) Q_DECL_OVERRIDE;
-        QString saveVariables(const QString& fileName) Q_DECL_OVERRIDE;
-        QString loadVariables(const QString& fileName) Q_DECL_OVERRIDE;
-        QString clearVariables() Q_DECL_OVERRIDE;
+        QString addVariable(const QString& name, const QString& value) override;
+        QString setValue(const QString& name, const QString& value) override;
+        QString removeVariable(const QString& name) override;
+        QString saveVariables(const QString& fileName) override;
+        QString loadVariables(const QString& fileName) override;
+        QString clearVariables() override;
 };
 
 #endif // SCILABEXTENSIONS_H

@@ -36,55 +36,55 @@ public:
     /**
      * @see Cantor::LinearAlgebraExtension::createVector
      */
-    virtual QString createVector(
+    QString createVector(
         const QStringList &entries,
         VectorType type) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::nullVector
      */
-    virtual QString nullVector(int size, VectorType type) override;
+    QString nullVector(int size, VectorType type) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::createMatrix
      */
-    virtual QString createMatrix(
+    QString createMatrix(
         const Cantor::LinearAlgebraExtension::Matrix &matrix) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::identityMatrix
      */
-    virtual QString identityMatrix(int size) override;
+    QString identityMatrix(int size) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::nullMatrix
      */
-    virtual QString nullMatrix(int rows, int columns) override;
+    QString nullMatrix(int rows, int columns) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::rank
      */
-    virtual QString rank(const QString &matrix) override;
+    QString rank(const QString &matrix) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::invertMatrix
      */
-    virtual QString invertMatrix(const QString &matrix) override;
+    QString invertMatrix(const QString &matrix) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::charPoly
      */
-    virtual QString charPoly(const QString &matrix) override;
+    QString charPoly(const QString &matrix) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::eigenVectors
      */
-    virtual QString eigenVectors(const QString &matrix) override;
+    QString eigenVectors(const QString &matrix) override;
 
     /**
      * @see Cantor::LinearAlgebraExtension::eigenValues
      */
-    virtual QString eigenValues(const QString &matrix) override;
+    QString eigenValues(const QString &matrix) override;
 };
 
 /**
@@ -98,7 +98,7 @@ public:
     /**
      * @see Cantor::PackagingExtension::importPackage
      */
-    virtual QString importPackage(const QString &module) override;
+    QString importPackage(const QString &module) override;
 };
 
 /**
@@ -114,7 +114,7 @@ public:
     /**
      * @see Cantor::PlotExtension::plotFunction2d
      */
-    virtual QString plotFunction2d(
+    QString plotFunction2d(
         const QString &function,
         const QString &variable,
         const QString &left,
@@ -123,7 +123,7 @@ public:
     /**
      * @see Cantor::PlotExtension::plotFunction3d
      */
-    virtual QString plotFunction3d(
+    QString plotFunction3d(
         const QString &function,
         const VariableParameter& var1,
         const VariableParameter& var2) override;
@@ -140,17 +140,17 @@ public:
     /**
      * @see Cantor::ScriptExtension::scriptFileFilter
      */
-    virtual QString scriptFileFilter() override;
+    QString scriptFileFilter() override;
 
     /**
      * @see Cantor::ScriptExtension::highlightingMode
      */
-    virtual QString highlightingMode() override;
+    QString highlightingMode() override;
 
     /**
      * @see Cantor::ScriptExtension::runExternalScript
      */
-    virtual QString runExternalScript(const QString &path) override;
+    QString runExternalScript(const QString &path) override;
 };
 
 /**
@@ -171,34 +171,34 @@ public:
     /**
      * @see Cantor::VariableManagementExtension::addVariable
      */
-    virtual QString addVariable(
+    QString addVariable(
         const QString &name,
         const QString &value) override;
 
     /**
      * @see Cantor::VariableManagementExtension::setValue
      */
-    virtual QString setValue(
+    QString setValue(
         const QString &name,
         const QString &value) override;
 
     /**
      * @see Cantor::VariableManagementExtension::removeVariable
      */
-    virtual QString removeVariable(const QString &name) override;
+    QString removeVariable(const QString &name) override;
 
     /**
      * @see Cantor::VariableManagementExtension::saveVariables
      */
-    virtual QString saveVariables(const QString &fileName) override;
+    QString saveVariables(const QString &fileName) override;
 
     /**
      * @see Cantor::VariableManagementExtension::loadVariables
      */
-    virtual QString loadVariables(const QString &fileName) override;
+    QString loadVariables(const QString &fileName) override;
 
     /**
      * @see Cantor::VariableManagementExtension::clearVariables
      */
-    virtual QString clearVariables() override;
+    QString clearVariables() override;
 };

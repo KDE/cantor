@@ -34,10 +34,10 @@ class MaximaExpression : public Cantor::Expression
 public:
     explicit MaximaExpression(Cantor::Session*);
 
-    void evaluate() Q_DECL_OVERRIDE;
-    void interrupt() Q_DECL_OVERRIDE;
+    void evaluate() override;
+    void interrupt() override;
 
-    void addInformation(const QString&) Q_DECL_OVERRIDE;
+    void addInformation(const QString&) override;
 
     bool needsLatexResult();
 

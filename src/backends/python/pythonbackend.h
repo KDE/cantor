@@ -30,10 +30,10 @@ class CANTOR_EXPORT PythonBackend : public Cantor::Backend
     explicit PythonBackend(QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
     ~PythonBackend() override;
 
-    Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
+    Cantor::Backend::Capabilities capabilities() const override;
 
-    QWidget* settingsWidget(QWidget* parent) const Q_DECL_OVERRIDE;
-    KConfigSkeleton* config() const Q_DECL_OVERRIDE = 0;
+    QWidget* settingsWidget(QWidget* parent) const override;
+    KConfigSkeleton* config() const override = 0;
 };
 
 

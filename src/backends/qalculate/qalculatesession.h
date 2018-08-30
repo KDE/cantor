@@ -62,17 +62,17 @@ private:
 
 public:
     QalculateSession( Cantor::Backend* backend);
-    ~QalculateSession();
+    ~QalculateSession() override;
 
-    virtual void login() override;
-    virtual void logout() override;
+    void login() override;
+    void logout() override;
 
-    virtual void interrupt() override;
+    void interrupt() override;
 
-    virtual Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
-    virtual Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
-    virtual Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
-    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
+    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     void runExpression();
     QAbstractItemModel* variableModel() override;

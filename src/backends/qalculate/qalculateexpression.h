@@ -53,7 +53,7 @@ private:
 
 public:
     QalculateExpression( QalculateSession* session);
-    ~QalculateExpression();
+    ~QalculateExpression() override;
 
     void evaluate() override;
     void interrupt() override;

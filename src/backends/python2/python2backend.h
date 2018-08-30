@@ -29,14 +29,14 @@ class Python2Backend : public PythonBackend
   public:
     explicit Python2Backend(QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
 
-    Cantor::Session* createSession() Q_DECL_OVERRIDE;
+    Cantor::Session* createSession() override;
 
-    QString id() const Q_DECL_OVERRIDE;
+    QString id() const override;
     QString version() const override;
-    QUrl helpUrl() const Q_DECL_OVERRIDE;
-    QString description() const Q_DECL_OVERRIDE;
+    QUrl helpUrl() const override;
+    QString description() const override;
 
-    KConfigSkeleton* config() const Q_DECL_OVERRIDE;
+    KConfigSkeleton* config() const override;
 };
 
 #endif

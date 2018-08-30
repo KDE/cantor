@@ -34,17 +34,17 @@ public:
      * @param session session to bound expression to
      */
     JuliaExpression(Cantor::Session *session);
-    virtual ~JuliaExpression() {};
+    ~JuliaExpression() override {};
 
     /**
      * @see Cantor::Expression::evaluate
      */
-    virtual void evaluate() override;
+    void evaluate() override;
 
     /**
      * @see Cantor::Expression::interrupt
      */
-    virtual void interrupt() override;
+    void interrupt() override;
 
     /**
      * Call this function from session when JuliaServer ends evaluation of

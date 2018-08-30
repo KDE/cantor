@@ -64,24 +64,24 @@ class SageSession : public Cantor::Session
     SageSession( Cantor::Backend* backend);
     ~SageSession() override;
 
-    void login() Q_DECL_OVERRIDE;
-    void logout() Q_DECL_OVERRIDE;
+    void login() override;
+    void logout() override;
 
-    Cantor::Expression* evaluateExpression(const QString& command,Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
+    Cantor::Expression* evaluateExpression(const QString& command,Cantor::Expression::FinishingBehavior behave) override;
 
-    void runFirstExpression() Q_DECL_OVERRIDE;
+    void runFirstExpression() override;
 
-    void interrupt() Q_DECL_OVERRIDE;
+    void interrupt() override;
 
     void sendSignalToProcess(int signal);
     void sendInputToProcess(const QString& input);
     void waitForNextPrompt();
 
-    void setTypesettingEnabled(bool enable) Q_DECL_OVERRIDE;
+    void setTypesettingEnabled(bool enable) override;
     void setWorksheetPath(const QString& path) override;
 
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) Q_DECL_OVERRIDE;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
+    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     VersionInfo sageVersion();
   public Q_SLOTS:

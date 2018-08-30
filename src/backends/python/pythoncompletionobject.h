@@ -32,12 +32,12 @@ class PythonCompletionObject : public Cantor::CompletionObject
     ~PythonCompletionObject() override;
 
   protected:
-    bool mayIdentifierContain(QChar c) const Q_DECL_OVERRIDE;
-    bool mayIdentifierBeginWith(QChar c) const Q_DECL_OVERRIDE;
+    bool mayIdentifierContain(QChar c) const override;
+    bool mayIdentifierBeginWith(QChar c) const override;
 
   protected Q_SLOTS:
-    void fetchCompletions() Q_DECL_OVERRIDE;
-    void fetchIdentifierType() Q_DECL_OVERRIDE;
+    void fetchCompletions() override;
+    void fetchIdentifierType() override;
 };
 
 #endif /* _PYTHONCOMPLETIONOBJECT_H */

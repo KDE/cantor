@@ -32,7 +32,7 @@ class LuaSession : public Cantor::Session
   Q_OBJECT
 public:
     LuaSession( Cantor::Backend* backend);
-    ~LuaSession();
+    ~LuaSession() override;
 
     void login() override;
     void logout() override;
@@ -43,7 +43,7 @@ public:
 
     Cantor::Expression*         evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
     Cantor::CompletionObject*   completionFor(const QString& cmd, int index=-1) override;
-    virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     lua_State*                  getState() const;
 
 public Q_SLOTS:

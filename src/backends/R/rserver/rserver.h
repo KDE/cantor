@@ -42,7 +42,7 @@ class RServer : public QObject
     enum Status { Idle=0, Busy };
     enum ReturnCode { SuccessCode=0, ErrorCode, InterruptedCode};
     RServer( );
-    ~RServer();
+    ~RServer() override;
 
     void initR();
     void autoload();

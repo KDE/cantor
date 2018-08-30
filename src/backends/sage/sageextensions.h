@@ -29,7 +29,7 @@ class SageHistoryExtension : public Cantor::HistoryExtension
     SageHistoryExtension( QObject* parent );
     ~SageHistoryExtension() override;
   public Q_SLOTS:
-    QString lastResult() Q_DECL_OVERRIDE;
+    QString lastResult() override;
 };
 
 class SageScriptExtension : public Cantor::ScriptExtension
@@ -38,9 +38,9 @@ class SageScriptExtension : public Cantor::ScriptExtension
     SageScriptExtension(QObject* parent);
     ~SageScriptExtension() override;
   public Q_SLOTS:
-    QString runExternalScript(const QString& path) Q_DECL_OVERRIDE;
-    QString scriptFileFilter() Q_DECL_OVERRIDE;
-    QString highlightingMode() Q_DECL_OVERRIDE;
+    QString runExternalScript(const QString& path) override;
+    QString scriptFileFilter() override;
+    QString highlightingMode() override;
 };
 
 class SageCASExtension : public Cantor::CASExtension
@@ -50,9 +50,9 @@ class SageCASExtension : public Cantor::CASExtension
     ~SageCASExtension() override;
 
   public Q_SLOTS:
-    QString solve(const QStringList& equations, const QStringList& variables) Q_DECL_OVERRIDE;
-    QString simplify(const QString& expression) Q_DECL_OVERRIDE;
-    QString expand(const QString& expression) Q_DECL_OVERRIDE;
+    QString solve(const QStringList& equations, const QStringList& variables) override;
+    QString simplify(const QString& expression) override;
+    QString expand(const QString& expression) override;
 
 };
 
@@ -63,10 +63,10 @@ class SageCalculusExtension : public Cantor::CalculusExtension
     ~SageCalculusExtension() override;
 
   public Q_SLOTS:
-    QString limit(const QString& expression, const QString& variable, const QString& limit) Q_DECL_OVERRIDE;
-    QString differentiate(const QString& function,const QString& variable, int times) Q_DECL_OVERRIDE;
-    QString integrate(const QString& function, const QString& variable) Q_DECL_OVERRIDE;
-    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
+    QString limit(const QString& expression, const QString& variable, const QString& limit) override;
+    QString differentiate(const QString& function,const QString& variable, int times) override;
+    QString integrate(const QString& function, const QString& variable) override;
+    QString integrate(const QString& function,const QString& variable, const QString& left, const QString& right) override;
 };
 
 class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
@@ -77,18 +77,18 @@ class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
-    QString createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type) Q_DECL_OVERRIDE;
-    QString nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type) Q_DECL_OVERRIDE;
-    QString createMatrix(const Matrix& matrix) Q_DECL_OVERRIDE;
-    QString identityMatrix(int size) Q_DECL_OVERRIDE;
-    QString nullMatrix(int rows,int columns) Q_DECL_OVERRIDE;
+    QString createVector(const QStringList& entries, Cantor::LinearAlgebraExtension::VectorType type) override;
+    QString nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type) override;
+    QString createMatrix(const Matrix& matrix) override;
+    QString identityMatrix(int size) override;
+    QString nullMatrix(int rows,int columns) override;
 
     //basic functions
-    QString rank(const QString& matrix) Q_DECL_OVERRIDE;
-    QString invertMatrix(const QString& matrix) Q_DECL_OVERRIDE;
-    QString charPoly(const QString& matrix) Q_DECL_OVERRIDE;
-    QString eigenVectors(const QString& matrix) Q_DECL_OVERRIDE;
-    QString eigenValues(const QString& matrix) Q_DECL_OVERRIDE;
+    QString rank(const QString& matrix) override;
+    QString invertMatrix(const QString& matrix) override;
+    QString charPoly(const QString& matrix) override;
+    QString eigenVectors(const QString& matrix) override;
+    QString eigenValues(const QString& matrix) override;
 };
 
 class SagePlotExtension : public Cantor::PlotExtension
@@ -97,8 +97,8 @@ class SagePlotExtension : public Cantor::PlotExtension
     SagePlotExtension(QObject* parent);
     ~SagePlotExtension() override;
   public Q_SLOTS:
-    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) Q_DECL_OVERRIDE;
-    QString plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2) Q_DECL_OVERRIDE;
+    QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) override;
+    QString plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2) override;
 };
 
 class SagePackagingExtension : public Cantor::PackagingExtension
@@ -108,7 +108,7 @@ class SagePackagingExtension : public Cantor::PackagingExtension
     ~SagePackagingExtension() override;
 
   public Q_SLOTS:
-    QString importPackage(const QString& module) Q_DECL_OVERRIDE;
+    QString importPackage(const QString& module) override;
 };
 
 #endif /* _SAGEEXTENSIONS_H */

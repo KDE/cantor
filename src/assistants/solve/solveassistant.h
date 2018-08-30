@@ -29,9 +29,9 @@ class SolveAssistant : public Cantor::Assistant
     SolveAssistant( QObject* parent, QList<QVariant> args );
     ~SolveAssistant() override;
 
-    void initActions() Q_DECL_OVERRIDE;
+    void initActions() override;
     
-    QStringList run(QWidget* parentt) Q_DECL_OVERRIDE;
+    QStringList run(QWidget* parentt) override;
     
 };
 

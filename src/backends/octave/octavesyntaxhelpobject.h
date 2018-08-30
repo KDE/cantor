@@ -35,7 +35,7 @@ class OctaveSyntaxHelpObject : public Cantor::SyntaxHelpObject
     ~OctaveSyntaxHelpObject() override;
 
 protected:
-    void fetchInformation() Q_DECL_OVERRIDE;
+    void fetchInformation() override;
     
   private Q_SLOTS:
     void fetchingDone();

@@ -39,7 +39,7 @@ class JuliaServer: public QObject
 public:
     JuliaServer(QObject *parent = nullptr);
 
-    virtual ~JuliaServer();
+    ~JuliaServer() override;
 
 public Q_SLOTS:
     /**

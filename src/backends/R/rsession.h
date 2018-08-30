@@ -39,7 +39,7 @@ class RSession : public Cantor::Session
   Q_OBJECT
   public:
     RSession( Cantor::Backend* backend);
-    ~RSession();
+    ~RSession() override;
 
     void login() override;
     void logout() override;
@@ -49,7 +49,7 @@ class RSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
+    QAbstractItemModel* variableModel() override;
     void sendInputToServer(const QString& input);
     void runFirstExpression() override;
 

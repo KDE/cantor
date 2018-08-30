@@ -30,7 +30,7 @@ class RCompletionObject : public Cantor::CompletionObject
   Q_OBJECT
   public:
     RCompletionObject( const QString& cmd, int index, RSession* session );
-    ~RCompletionObject();
+    ~RCompletionObject() override;
 
   protected Q_SLOTS:
     void fetchCompletions() override;

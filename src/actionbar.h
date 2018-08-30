@@ -43,8 +43,8 @@ class ActionBar : public QGraphicsObject
 
     WorksheetEntry* parentEntry();
 
-    QRectF boundingRect() const Q_DECL_OVERRIDE;
-    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) Q_DECL_OVERRIDE;
+    QRectF boundingRect() const override;
+    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) override;
 
   public Q_SLOTS:
     void updatePosition();

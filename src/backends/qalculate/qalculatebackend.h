@@ -28,15 +28,15 @@ class QalculateBackend : public Cantor::Backend
 
 public:
     explicit QalculateBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
-    ~QalculateBackend();
+    ~QalculateBackend() override;
 
     QString id() const override;
     QString version() const override;
 
-    virtual Cantor::Session *createSession() override;
-    virtual Cantor::Backend::Capabilities capabilities() const override;
-    virtual QString description() const override;
-    virtual QUrl helpUrl() const override;
+    Cantor::Session *createSession() override;
+    Cantor::Backend::Capabilities capabilities() const override;
+    QString description() const override;
+    QUrl helpUrl() const override;
 
     QWidget* settingsWidget(QWidget* parent) const override;
     KConfigSkeleton* config() const override;

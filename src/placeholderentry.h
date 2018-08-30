@@ -30,26 +30,26 @@ class PlaceHolderEntry : public WorksheetEntry
     ~PlaceHolderEntry() override;
 
     enum {Type = UserType + 6};
-    int type() const Q_DECL_OVERRIDE;
+    int type() const override;
 
-    bool isEmpty() Q_DECL_OVERRIDE;
-    bool acceptRichText() Q_DECL_OVERRIDE;
-    void setContent(const QString&) Q_DECL_OVERRIDE;
-    void setContent(const QDomElement&, const KZip&) Q_DECL_OVERRIDE;
-    QDomElement toXml(QDomDocument&, KZip*) Q_DECL_OVERRIDE;
-    QString toPlain(const QString&, const QString&, const QString&) Q_DECL_OVERRIDE;
-    void interruptEvaluation() Q_DECL_OVERRIDE;
+    bool isEmpty() override;
+    bool acceptRichText() override;
+    void setContent(const QString&) override;
+    void setContent(const QDomElement&, const KZip&) override;
+    QDomElement toXml(QDomDocument&, KZip*) override;
+    QString toPlain(const QString&, const QString&, const QString&) override;
+    void interruptEvaluation() override;
 
-    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
+    void layOutForWidth(qreal w, bool force = false) override;
 
   public Q_SLOTS:
-    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
-    void updateEntry() Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
+    void updateEntry() override;
 
     void changeSize(QSizeF s);
 
   protected:
-    bool wantToEvaluate() Q_DECL_OVERRIDE;
+    bool wantToEvaluate() override;
 };
 
 #endif //PLACEHOLDERENTRY_H

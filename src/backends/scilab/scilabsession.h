@@ -42,17 +42,18 @@ class ScilabSession : public Cantor::Session
         ScilabSession(Cantor::Backend* backend);
         ~ScilabSession() override;
 
-        void login() Q_DECL_OVERRIDE;
-        void logout() Q_DECL_OVERRIDE;
+        void login() override;
+        void logout() override;
 
-        void interrupt() Q_DECL_OVERRIDE;
+        void interrupt() override;
+        void runExpression(ScilabExpression* expr);
 
-        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
+        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
-        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
-        void runFirstExpression() Q_DECL_OVERRIDE;
-        Cantor::CompletionObject* completionFor(const QString& command, int index=-1) Q_DECL_OVERRIDE;
-        QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
+        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+        Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
+        void runFirstExpression() override;
+        QAbstractItemModel* variableModel() override;
 
     public Q_SLOTS:
         void readOutput();

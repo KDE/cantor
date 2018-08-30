@@ -29,9 +29,9 @@ class IntegrateAssistant : public Cantor::Assistant
     IntegrateAssistant( QObject* parent, QList<QVariant> args );
     ~IntegrateAssistant() override;
 
-    void initActions() Q_DECL_OVERRIDE;
+    void initActions() override;
     
-    QStringList run(QWidget* parentt) Q_DECL_OVERRIDE;
+    QStringList run(QWidget* parentt) override;
     
 };
 

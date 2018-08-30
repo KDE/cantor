@@ -31,14 +31,14 @@ class LuaCompletionObject : public Cantor::CompletionObject
 {
 public:
     LuaCompletionObject( const QString& command, int index, LuaSession* session);
-    ~LuaCompletionObject();
+    ~LuaCompletionObject() override;
 
 protected Q_SLOTS:
     void fetchCompletions() override;
 
 protected:
-    virtual bool mayIdentifierContain(QChar c)   const override;
-    virtual bool mayIdentifierBeginWith(QChar c) const override;
+    bool mayIdentifierContain(QChar c)   const override;
+    bool mayIdentifierBeginWith(QChar c) const override;
 
 private:
     lua_State* m_L;

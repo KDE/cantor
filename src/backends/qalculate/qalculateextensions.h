@@ -28,19 +28,19 @@ class QalculateHistoryExtension : public Cantor::HistoryExtension
 {
 public:
     QALCULATE_EXT_CDTOR_DECL(History)
-    virtual QString lastResult() override;
+    QString lastResult() override;
 };
 
 class QalculateVariableManagementExtension : public Cantor::VariableManagementExtension
 {
     public:
     QALCULATE_EXT_CDTOR_DECL(VariableManagement)
-    virtual QString addVariable(const QString& name, const QString& value) override;
-    virtual QString setValue(const QString& name, const QString& value) override;
-    virtual QString removeVariable(const QString& name) override;
-    virtual QString saveVariables(const QString& fileName) override;
-    virtual QString loadVariables(const QString& fileName) override;
-    virtual QString clearVariables() override;
+    QString addVariable(const QString& name, const QString& value) override;
+    QString setValue(const QString& name, const QString& value) override;
+    QString removeVariable(const QString& name) override;
+    QString saveVariables(const QString& fileName) override;
+    QString loadVariables(const QString& fileName) override;
+    QString clearVariables() override;
 };
 
 class QalculatePlotExtension : public Cantor::Extension
@@ -55,9 +55,9 @@ class QalculateCASExtension : public Cantor::CASExtension
     QALCULATE_EXT_CDTOR_DECL(CAS)
 
   public Q_SLOTS:
-    virtual QString solve(const QStringList& equations, const QStringList& variables) override;
-    virtual QString simplify(const QString& expression) override;
-    virtual QString expand(const QString& expression) override;
+    QString solve(const QStringList& equations, const QStringList& variables) override;
+    QString simplify(const QString& expression) override;
+    QString expand(const QString& expression) override;
 
 };
 
@@ -80,16 +80,16 @@ class QalculateLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 
   public Q_SLOTS:
     //Commands to create Vectors/Matrices
-    virtual QString createVector(const QStringList& entries, VectorType type) override;
-    virtual QString createMatrix(const Matrix& matrix) override;
-    virtual QString identityMatrix(int size) override;
+    QString createVector(const QStringList& entries, VectorType type) override;
+    QString createMatrix(const Matrix& matrix) override;
+    QString identityMatrix(int size) override;
 
     //basic functions
-    virtual QString rank(const QString& matrix) override;
-    virtual QString invertMatrix(const QString& matrix) override;
-    virtual QString charPoly(const QString& matrix) override;
-    virtual QString eigenVectors(const QString& matrix) override;
-    virtual QString eigenValues(const QString& matrix) override;
+    QString rank(const QString& matrix) override;
+    QString invertMatrix(const QString& matrix) override;
+    QString charPoly(const QString& matrix) override;
+    QString eigenVectors(const QString& matrix) override;
+    QString eigenValues(const QString& matrix) override;
 
 };
 

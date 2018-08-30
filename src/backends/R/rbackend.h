@@ -28,7 +28,7 @@ class RBackend : public Cantor::Backend
   Q_OBJECT
   public:
     explicit RBackend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
-    ~RBackend();
+    ~RBackend() override;
 
     QString id() const override;
     QString version() const override;

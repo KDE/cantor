@@ -28,8 +28,8 @@ class Python2Session : public PythonSession
   public:
     Python2Session(Cantor::Backend* backend);
 
-    bool integratePlots() const Q_DECL_OVERRIDE;
-    QStringList autorunScripts() const Q_DECL_OVERRIDE;
+    bool integratePlots() const override;
+    QStringList autorunScripts() const override;
 };
 
 #endif

@@ -51,7 +51,7 @@ public Q_SLOTS:
 
 public:
     QalculatePlotAssistant(QObject* parent, QList<QVariant> args);
-    ~QalculatePlotAssistant();
+    ~QalculatePlotAssistant() override;
 
     void initActions() override;
 

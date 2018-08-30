@@ -53,7 +53,7 @@ class WorksheetEntry : public QGraphicsObject
 
     enum {Type = UserType};
 
-    int type() const Q_DECL_OVERRIDE;
+    int type() const override;
 
     virtual bool isEmpty()=0;
 
@@ -65,8 +65,8 @@ class WorksheetEntry : public QGraphicsObject
     void setNext(WorksheetEntry*);
     void setPrevious(WorksheetEntry*);
 
-    QRectF boundingRect() const Q_DECL_OVERRIDE;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) Q_DECL_OVERRIDE;
+    QRectF boundingRect() const override;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
 
     virtual bool acceptRichText() = 0;
 
@@ -149,12 +149,12 @@ class WorksheetEntry : public QGraphicsObject
   protected:
     Worksheet* worksheet();
     WorksheetView* worksheetView();
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
     void evaluateNext(EvaluationOption opt);
 
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) Q_DECL_OVERRIDE;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
 
     void setSize(QSizeF size);
 

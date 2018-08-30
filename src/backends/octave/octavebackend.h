@@ -28,16 +28,16 @@ class OctaveBackend : public Cantor::Backend
     public:
     explicit OctaveBackend( QObject* parent = nullptr,const QList<QVariant>& args = QList<QVariant>());
      ~OctaveBackend() override;
-    QString id() const Q_DECL_OVERRIDE;
+    QString id() const override;
     QString version() const override;
-    Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
-    Cantor::Session* createSession() Q_DECL_OVERRIDE;
+    Cantor::Backend::Capabilities capabilities() const override;
+    Cantor::Session* createSession() override;
 
-    bool requirementsFullfilled() const Q_DECL_OVERRIDE;
-    QUrl helpUrl() const Q_DECL_OVERRIDE;
-    QString description() const Q_DECL_OVERRIDE;
-    QWidget* settingsWidget(QWidget* parent) const Q_DECL_OVERRIDE;
-    KConfigSkeleton* config() const Q_DECL_OVERRIDE;
+    bool requirementsFullfilled() const override;
+    QUrl helpUrl() const override;
+    QString description() const override;
+    QWidget* settingsWidget(QWidget* parent) const override;
+    KConfigSkeleton* config() const override;
 };
 
 #endif

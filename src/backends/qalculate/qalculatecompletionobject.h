@@ -27,10 +27,10 @@ class QalculateCompletionObject : public Cantor::CompletionObject
 {
     public:
         QalculateCompletionObject( const QString& command, int index, QalculateSession* session);
-        ~QalculateCompletionObject();
+        ~QalculateCompletionObject() override;
 
     protected:
-        virtual int locateIdentifier(const QString& cmd, int index) const override;
+        int locateIdentifier(const QString& cmd, int index) const override;
 
     protected Q_SLOTS:
         void fetchCompletions() override;

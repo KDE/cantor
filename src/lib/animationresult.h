@@ -34,17 +34,17 @@ class CANTOR_EXPORT AnimationResult : public Result
     explicit AnimationResult( const QUrl& url, const QString& alt=QString() );
     ~AnimationResult() override;
 
-    QString toHtml() Q_DECL_OVERRIDE;
-    QVariant data() Q_DECL_OVERRIDE;
-    QUrl url() Q_DECL_OVERRIDE;
+    QString toHtml() override;
+    QVariant data() override;
+    QUrl url() override;
 
-    int type() Q_DECL_OVERRIDE;
-    QString mimeType() Q_DECL_OVERRIDE;
+    int type() override;
+    QString mimeType() override;
 
-    QDomElement toXml(QDomDocument& doc) Q_DECL_OVERRIDE;
-    void saveAdditionalData(KZip* archive) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc) override;
+    void saveAdditionalData(KZip* archive) override;
 
-    void save(const QString& filename) Q_DECL_OVERRIDE;
+    void save(const QString& filename) override;
   private:
     AnimationResultPrivate* d;
 

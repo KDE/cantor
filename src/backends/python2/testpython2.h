@@ -32,7 +32,7 @@ class TestPython2 : public BackendTest
     void testCodeWithComments();
 
   private:
-    QString backendName() Q_DECL_OVERRIDE;
+    QString backendName() override;
 };
 
 #endif /* _TESTPYTHON2_H */

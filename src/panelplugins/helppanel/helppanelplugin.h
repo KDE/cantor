@@ -33,7 +33,7 @@ class HelpPanelPlugin : public Cantor::PanelPlugin
     HelpPanelPlugin( QObject* parent, QList<QVariant> args);
     ~HelpPanelPlugin() override;
 
-    QWidget* widget() Q_DECL_OVERRIDE;
+    QWidget* widget() override;
 
   public Q_SLOTS:
     void setHelpHtml(const QString& help);

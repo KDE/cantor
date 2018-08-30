@@ -27,13 +27,13 @@ class KAlgebraCompletionObject : public Cantor::CompletionObject
 {
     public:
          KAlgebraCompletionObject( const QString& command, int index, KAlgebraSession* session);
-        ~KAlgebraCompletionObject();
+        ~KAlgebraCompletionObject() override;
 
     protected:
-        bool mayIdentifierBeginWith(QChar c) const Q_DECL_OVERRIDE;
+        bool mayIdentifierBeginWith(QChar c) const override;
 
     protected Q_SLOTS:
-        void fetchCompletions() Q_DECL_OVERRIDE;
+        void fetchCompletions() override;
 };
 
 #endif /* _NULLCOMPLETIONOBJECT_H */

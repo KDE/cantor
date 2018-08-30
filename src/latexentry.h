@@ -34,38 +34,38 @@ class LatexEntry : public WorksheetEntry
     ~LatexEntry() override;
 
     enum {Type = UserType + 5};
-    int type() const Q_DECL_OVERRIDE;
+    int type() const override;
 
-    bool isEmpty() Q_DECL_OVERRIDE;
+    bool isEmpty() override;
 
-    bool acceptRichText() Q_DECL_OVERRIDE;
+    bool acceptRichText() override;
 
-    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) Q_DECL_OVERRIDE;
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) override;
 
-    void setContent(const QString& content) Q_DECL_OVERRIDE;
-    void setContent(const QDomElement& content, const KZip& file) Q_DECL_OVERRIDE;
+    void setContent(const QString& content) override;
+    void setContent(const QDomElement& content, const KZip& file) override;
 
-    QDomElement toXml(QDomDocument& doc, KZip* archive) Q_DECL_OVERRIDE;
-    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
-    void interruptEvaluation() Q_DECL_OVERRIDE;
+    void interruptEvaluation() override;
 
-    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
+    void layOutForWidth(qreal w, bool force = false) override;
 
     int searchText(const QString& text, const QString& pattern,
                    QTextDocument::FindFlags qt_flags);
     WorksheetCursor search(const QString& pattern, unsigned flags,
                            QTextDocument::FindFlags qt_flags,
-                           const WorksheetCursor& pos = WorksheetCursor()) Q_DECL_OVERRIDE;
+                           const WorksheetCursor& pos = WorksheetCursor()) override;
 
   public Q_SLOTS:
-    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
     void resolveImagesAtCursor();
-    void updateEntry() Q_DECL_OVERRIDE;
-    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
+    void updateEntry() override;
+    void populateMenu(QMenu* menu, QPointF pos) override;
 
   protected:
-    bool wantToEvaluate() Q_DECL_OVERRIDE;
+    bool wantToEvaluate() override;
 
   private:
     QString latexCode();

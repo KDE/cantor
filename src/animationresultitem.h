@@ -36,18 +36,18 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     ~AnimationResultItem() override;
 
     using WorksheetImageItem::setGeometry;
-    double setGeometry(double x, double y, double w) Q_DECL_OVERRIDE;
-    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
+    double setGeometry(double x, double y, double w) override;
+    void populateMenu(QMenu* menu, QPointF pos) override;
 
-    ResultItem* updateFromResult(Cantor::Result*) Q_DECL_OVERRIDE;
+    ResultItem* updateFromResult(Cantor::Result*) override;
 
-    void deleteLater() Q_DECL_OVERRIDE;
+    void deleteLater() override;
 
-    QRectF boundingRect() const Q_DECL_OVERRIDE;
-    double width() const Q_DECL_OVERRIDE;
-    double height() const Q_DECL_OVERRIDE;
+    QRectF boundingRect() const override;
+    double width() const override;
+    double height() const override;
     CommandEntry* parentEntry();
-    Cantor::Result* result() Q_DECL_OVERRIDE;
+    Cantor::Result* result() override;
 
   Q_SIGNALS:
     void removeResult();

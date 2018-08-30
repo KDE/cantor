@@ -56,7 +56,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     enum {TopLeft, BottomRight, TopCoord, BottomCoord};
     enum {Type = UserType + 100};
 
-    int type() const Q_DECL_OVERRIDE;
+    int type() const override;
 
     void setFocusAt(int pos = TopLeft, qreal xCoord = 0);
 
@@ -133,19 +133,19 @@ class WorksheetTextItem : public QGraphicsTextItem
     void selectionChanged();
 
   protected:
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void focusInEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
-    void focusOutEvent(QFocusEvent *event) Q_DECL_OVERRIDE;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) Q_DECL_OVERRIDE;
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) Q_DECL_OVERRIDE;
-    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
+    void keyPressEvent(QKeyEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
+    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
     //void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
-    void dropEvent(QGraphicsSceneDragDropEvent* event) Q_DECL_OVERRIDE;
-    bool sceneEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
+    void dropEvent(QGraphicsSceneDragDropEvent* event) override;
+    bool sceneEvent(QEvent *event) override;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) override;
 
   private Q_SLOTS:

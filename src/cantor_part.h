@@ -67,12 +67,12 @@ public:
      * A shell will use this to inform this Part if it should act
      * read-only
      */
-    void setReadWrite(bool rw) Q_DECL_OVERRIDE;
+    void setReadWrite(bool rw) override;
 
     /**
      * Reimplemented to disable and enable Save action
      */
-    void setModified(bool modified) Q_DECL_OVERRIDE;
+    void setModified(bool modified) override;
 
     KAboutData& createAboutData();
 
@@ -86,18 +86,18 @@ protected:
     /**
      * This must be implemented by each part
      */
-    bool openFile() Q_DECL_OVERRIDE;
+    bool openFile() override;
 
     /**
      * This must be implemented by each read-write part
      */
-    bool saveFile() Q_DECL_OVERRIDE;
+    bool saveFile() override;
 
     /**
      * Called when this part becomes the active one,
      * or if it looses activity
      **/
-    void guiActivateEvent( KParts::GUIActivateEvent * event ) Q_DECL_OVERRIDE;
+    void guiActivateEvent( KParts::GUIActivateEvent * event ) override;
 
 
     void loadAssistants();

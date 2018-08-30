@@ -39,7 +39,7 @@ public:
      * @param parent QObject parent
      */
     JuliaHighlighter(QObject *parent);
-    virtual ~JuliaHighlighter() {}
+    ~JuliaHighlighter() override {}
 
 public Q_SLOTS:
     /**
@@ -51,10 +51,10 @@ protected:
     /**
      * @see Cantor::DefaultHighlighter::highlightBlock
      */
-    virtual void highlightBlock(const QString &text) override;
+    void highlightBlock(const QString &text) override;
 
     /**
      * @see Cantor::DefaultHighlighter::nonSeparatingCharacters
      */
-    virtual QString nonSeparatingCharacters() const override;
+    QString nonSeparatingCharacters() const override;
 };

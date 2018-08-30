@@ -28,10 +28,10 @@ class KAlgebraExpression : public Cantor::Expression
     Q_OBJECT
     public:
         KAlgebraExpression( KAlgebraSession* session);
-        ~KAlgebraExpression();
+        ~KAlgebraExpression() override;
 
-        void evaluate() Q_DECL_OVERRIDE;
-        void interrupt() Q_DECL_OVERRIDE;
+        void evaluate() override;
+        void interrupt() override;
 };
 
 #endif

@@ -30,7 +30,7 @@ public:
     QString answer();
 
 protected:
-    virtual void fetchInformation() override;
+    void fetchInformation() override;
 
     void setPlotInformation();
     void setSaveVariablesInformation();

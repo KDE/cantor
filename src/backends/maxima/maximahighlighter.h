@@ -32,7 +32,7 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
     ~MaximaHighlighter() override;
 
   protected:
-    void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
+    void highlightBlock(const QString &text) override;
 
   private Q_SLOTS:
       void addUserVariables(const QStringList variables);

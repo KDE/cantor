@@ -40,37 +40,37 @@ class ImageEntry : public WorksheetEntry
     ~ImageEntry() override;
 
     enum {Type = UserType + 4};
-    int type() const Q_DECL_OVERRIDE;
+    int type() const override;
 
-    bool isEmpty() Q_DECL_OVERRIDE;
-    bool acceptRichText() Q_DECL_OVERRIDE;
-    void setContent(const QString& content) Q_DECL_OVERRIDE;
-    void setContent(const QDomElement& content, const KZip& file) Q_DECL_OVERRIDE;
-    QDomElement toXml(QDomDocument& doc, KZip* archive) Q_DECL_OVERRIDE;
-    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) Q_DECL_OVERRIDE;
+    bool isEmpty() override;
+    bool acceptRichText() override;
+    void setContent(const QString& content) override;
+    void setContent(const QDomElement& content, const KZip& file) override;
+    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     QSizeF imageSize(const ImageSize& imgSize);
 
-    void interruptEvaluation() Q_DECL_OVERRIDE;
+    void interruptEvaluation() override;
 
-    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
+    void layOutForWidth(qreal w, bool force = false) override;
 
   public Q_SLOTS:
-    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
-    void updateEntry() Q_DECL_OVERRIDE;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
+    void updateEntry() override;
 
-    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
+    void populateMenu(QMenu* menu, QPointF pos) override;
     void startConfigDialog();
     void setImageData(const QString& path, const ImageSize& displaySize,
                       const ImageSize& printSize, bool useDisplaySizeForPrinting);
 
   protected:
-    bool wantToEvaluate() Q_DECL_OVERRIDE;
-    bool wantFocus() Q_DECL_OVERRIDE;
+    bool wantToEvaluate() override;
+    bool wantFocus() override;
     qreal height();
 
     QString latexSizeString(const ImageSize& imgSize);
-    void addActionsToBar(ActionBar* actionBar) Q_DECL_OVERRIDE;
+    void addActionsToBar(ActionBar* actionBar) override;
 
   private:
     QString m_imagePath;

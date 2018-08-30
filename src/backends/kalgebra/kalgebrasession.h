@@ -34,20 +34,20 @@ class KAlgebraSession : public Cantor::Session
     Q_OBJECT
     public:
         KAlgebraSession( Cantor::Backend* backend);
-        ~KAlgebraSession();
+        ~KAlgebraSession() override;
 
-        void login() Q_DECL_OVERRIDE;
-        void logout() Q_DECL_OVERRIDE;
+        void login() override;
+        void logout() override;
 
-        void interrupt() Q_DECL_OVERRIDE;
+        void interrupt() override;
 
-        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
-        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) Q_DECL_OVERRIDE;
-        Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) Q_DECL_OVERRIDE;
+        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
+        Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
         Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
-        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
-        QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
+        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+        QAbstractItemModel* variableModel() override;
 
     private:
         Analitza::Analyzer* m_analyzer;

@@ -41,16 +41,16 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     PythonSession(Cantor::Backend* backend, const QString serverName, const QString DbusChannelName);
     ~PythonSession() override;
 
-    void login() Q_DECL_OVERRIDE;
-    void logout() Q_DECL_OVERRIDE;
+    void login() override;
+    void logout() override;
 
-    void interrupt() Q_DECL_OVERRIDE;
+    void interrupt() override;
     void runExpression(PythonExpression* expr);
 
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) Q_DECL_OVERRIDE;
-    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) Q_DECL_OVERRIDE;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) Q_DECL_OVERRIDE;
-    QAbstractItemModel* variableModel() Q_DECL_OVERRIDE;
+    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave) override;
+    Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
+    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+    QAbstractItemModel* variableModel() override;
 
     virtual bool integratePlots() const = 0;
     virtual QStringList autorunScripts() const = 0;

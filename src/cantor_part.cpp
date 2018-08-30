@@ -82,27 +82,27 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
 
     }
 
-    QByteArray saveWorksheetToByteArray() Q_DECL_OVERRIDE
+    QByteArray saveWorksheetToByteArray() override
     {
         return m_worksheet->saveToByteArray();
     }
 
-    void loadWorksheetFromByteArray(QByteArray* data) Q_DECL_OVERRIDE
+    void loadWorksheetFromByteArray(QByteArray* data) override
     {
         m_worksheet->load(data);
     }
 
-    Cantor::Session* session() Q_DECL_OVERRIDE
+    Cantor::Session* session() override
     {
         return m_worksheet->session();
     }
 //  public Q_SLOTS:
-  void evaluate() Q_DECL_OVERRIDE
+  void evaluate() override
     {
         m_worksheet->evaluate();
     }
 
-    void interrupt() Q_DECL_OVERRIDE
+    void interrupt() override
     {
         m_worksheet->interrupt();
     }

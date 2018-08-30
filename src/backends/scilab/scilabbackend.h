@@ -31,17 +31,17 @@ class ScilabBackend : public Cantor::Backend
         explicit ScilabBackend( QObject* parent = nullptr,const QList<QVariant> args = QList<QVariant>());
         ~ScilabBackend() override;
 
-        QString id() const Q_DECL_OVERRIDE;
+        QString id() const override;
         QString version() const override;
-        Cantor::Session *createSession() Q_DECL_OVERRIDE;
-        Cantor::Backend::Capabilities capabilities() const Q_DECL_OVERRIDE;
-        bool requirementsFullfilled() const Q_DECL_OVERRIDE;
+        Cantor::Session *createSession() override;
+        Cantor::Backend::Capabilities capabilities() const override;
+        bool requirementsFullfilled() const override;
 
-        QWidget* settingsWidget(QWidget* parent) const Q_DECL_OVERRIDE;
-        KConfigSkeleton* config() const Q_DECL_OVERRIDE;
+        QWidget* settingsWidget(QWidget* parent) const override;
+        KConfigSkeleton* config() const override;
 
-        QUrl helpUrl() const Q_DECL_OVERRIDE;
-        QString description() const Q_DECL_OVERRIDE;
+        QUrl helpUrl() const override;
+        QString description() const override;
 };
 
 #endif /* _SCILABBACKEND_H */

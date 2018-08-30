@@ -41,8 +41,8 @@ class OctaveExpression : public Cantor::Expression
 public:
     OctaveExpression(Cantor::Session*);
 
-    void interrupt() Q_DECL_OVERRIDE;
-    void evaluate() Q_DECL_OVERRIDE;
+    void interrupt() override;
+    void evaluate() override;
     void parseOutput(const QString&);
     void parseError(const QString&);
     void parsePlotFile(const QString&);

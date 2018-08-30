@@ -29,8 +29,8 @@ class SageExpression : public Cantor::Expression
   public:
     SageExpression(Cantor::Session*);
 
-    void evaluate() Q_DECL_OVERRIDE;
-    void interrupt() Q_DECL_OVERRIDE;
+    void evaluate() override;
+    void interrupt() override;
 
     void parseOutput(const QString&);
     void parseError(const QString&);
@@ -43,7 +43,7 @@ class SageExpression : public Cantor::Expression
     void evalFinished();
 
   protected:
-    QString additionalLatexHeaders() Q_DECL_OVERRIDE;
+    QString additionalLatexHeaders() override;
 
   private:
     QString m_outputCache;

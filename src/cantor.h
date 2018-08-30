@@ -71,14 +71,14 @@ protected:
      * This method is called when it is time for the app to save its
      * properties for session management purposes.
      */
-    void saveProperties(KConfigGroup &) Q_DECL_OVERRIDE;
+    void saveProperties(KConfigGroup &) override;
 
     /**
      * This method is called when this app is restored.  The KConfig
      * object points to the session management config file that was saved
      * with @ref saveProperties
      */
-    void readProperties(const KConfigGroup &) Q_DECL_OVERRIDE;
+    void readProperties(const KConfigGroup &) override;
 public Q_SLOTS:
     void addWorksheet();
     void addWorksheet(const QString& backendName);
@@ -101,7 +101,7 @@ private Q_SLOTS:
     void updatePanel();
 private:
     void setupActions();
-    void closeEvent(QCloseEvent*) Q_DECL_OVERRIDE;
+    void closeEvent(QCloseEvent*) override;
     bool reallyClose(bool checkAllParts = true);
     KParts::ReadWritePart* findPart(QWidget* widget);
 

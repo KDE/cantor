@@ -45,7 +45,7 @@ private Q_SLOTS:
     void testForLoop();
 
 private:
-    QString backendName() Q_DECL_OVERRIDE;
+    QString backendName() override;
 };
 
 #endif /* _TESTLUA_H */

@@ -35,8 +35,8 @@ class OctaveCompletionObject : public Cantor::CompletionObject
 	~OctaveCompletionObject() override;
 
     protected:
-	void fetchCompletions() Q_DECL_OVERRIDE;
-        void fetchIdentifierType() Q_DECL_OVERRIDE;
+	void fetchCompletions() override;
+        void fetchIdentifierType() override;
     private Q_SLOTS:
 	void extractCompletions();
         void extractIdentifierType();

@@ -27,15 +27,15 @@ class KAlgebraVariableManagementExtension : public Cantor::VariableManagementExt
 {
   public:
     KAlgebraVariableManagementExtension( QObject* parent );
-    ~KAlgebraVariableManagementExtension();
+    ~KAlgebraVariableManagementExtension() override;
 
   public Q_SLOTS:
-    QString addVariable(const QString& name, const QString& value) Q_DECL_OVERRIDE;
-    QString setValue(const QString& name, const QString& value) Q_DECL_OVERRIDE;
-    QString removeVariable(const QString&) Q_DECL_OVERRIDE { return QString(); }
-    QString saveVariables(const QString&) Q_DECL_OVERRIDE { return QString(); }
-    QString loadVariables(const QString&) Q_DECL_OVERRIDE { return QString(); }
-    QString clearVariables() Q_DECL_OVERRIDE { return QString(); }
+    QString addVariable(const QString& name, const QString& value) override;
+    QString setValue(const QString& name, const QString& value) override;
+    QString removeVariable(const QString&) override { return QString(); }
+    QString saveVariables(const QString&) override { return QString(); }
+    QString loadVariables(const QString&) override { return QString(); }
+    QString clearVariables() override { return QString(); }
 };
 
 #endif /* _KALGEBRAEXTENSION_H */

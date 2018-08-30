@@ -39,8 +39,8 @@ class CANTOR_EXPORT LatexResult : public EpsResult
     LatexResult( const QString& code, const QUrl& url, const QString& plain = QString());
     ~LatexResult() override;
     
-    int type() Q_DECL_OVERRIDE;
-    QString mimeType() Q_DECL_OVERRIDE;
+    int type() override;
+    QString mimeType() override;
 
     bool isCodeShown();
     void showCode();
@@ -49,13 +49,13 @@ class CANTOR_EXPORT LatexResult : public EpsResult
     QString code();
     QString plain();
 
-    QString toHtml() Q_DECL_OVERRIDE;
-    QString toLatex() Q_DECL_OVERRIDE;
-    QVariant data() Q_DECL_OVERRIDE;
+    QString toHtml() override;
+    QString toLatex() override;
+    QVariant data() override;
 
-    QDomElement toXml(QDomDocument& doc) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc) override;
     
-    void save(const QString& filename) Q_DECL_OVERRIDE;
+    void save(const QString& filename) override;
 
   private:
     LatexResultPrivate* d;

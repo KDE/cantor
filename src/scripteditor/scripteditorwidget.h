@@ -50,7 +50,7 @@ class ScriptEditorWidget : public KXmlGuiWindow
     void updateCaption();
 
   protected:
-    bool queryClose() Q_DECL_OVERRIDE;
+    bool queryClose() override;
 
   private:
     QString m_filter;

@@ -29,7 +29,7 @@ class RHighlighter : public Cantor::DefaultHighlighter
 
   public:
     RHighlighter( QObject* parent);
-    ~RHighlighter();
+    ~RHighlighter() override;
 
   protected:
     void highlightBlock(const QString &text) override;

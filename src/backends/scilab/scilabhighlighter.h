@@ -33,8 +33,8 @@ class ScilabHighlighter : public Cantor::DefaultHighlighter
         ~ScilabHighlighter() override = default;
 
     protected:
-        void highlightBlock(const QString &text) Q_DECL_OVERRIDE;
-        QString nonSeparatingCharacters() const Q_DECL_OVERRIDE;
+        void highlightBlock(const QString &text) override;
+        QString nonSeparatingCharacters() const override;
 
     private:
         Cantor::Session* m_session;

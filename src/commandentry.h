@@ -49,7 +49,7 @@ class CommandEntry : public WorksheetEntry
     ~CommandEntry() override;
 
     enum {Type = UserType + 2};
-    int type() const Q_DECL_OVERRIDE;
+    int type() const override;
 
     QString command();
     void setExpression(Cantor::Expression* expr);
@@ -57,43 +57,43 @@ class CommandEntry : public WorksheetEntry
 
     QString currentLine();
 
-    bool isEmpty() Q_DECL_OVERRIDE;
+    bool isEmpty() override;
 
-    void setContent(const QString& content) Q_DECL_OVERRIDE;
-    void setContent(const QDomElement& content, const KZip& file) Q_DECL_OVERRIDE;
+    void setContent(const QString& content) override;
+    void setContent(const QDomElement& content, const KZip& file) override;
 
-    QDomElement toXml(QDomDocument& doc, KZip* archive) Q_DECL_OVERRIDE;
-    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) Q_DECL_OVERRIDE;
+    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     void setCompletion(Cantor::CompletionObject* tc);
     void setSyntaxHelp(Cantor::SyntaxHelpObject* sh);
 
-    bool acceptRichText() Q_DECL_OVERRIDE;
+    bool acceptRichText() override;
 
     void removeContextHelp();
 
-    void interruptEvaluation() Q_DECL_OVERRIDE;
+    void interruptEvaluation() override;
     bool isShowingCompletionPopup();
 
-    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) Q_DECL_OVERRIDE;
+    bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) override;
 
-    void layOutForWidth(qreal w, bool force = false) Q_DECL_OVERRIDE;
+    void layOutForWidth(qreal w, bool force = false) override;
 
-    WorksheetTextItem* highlightItem() Q_DECL_OVERRIDE;
+    WorksheetTextItem* highlightItem() override;
 
     WorksheetCursor search(const QString& pattern, unsigned flags,
                            QTextDocument::FindFlags qt_flags,
-                           const WorksheetCursor& pos = WorksheetCursor()) Q_DECL_OVERRIDE;
+                           const WorksheetCursor& pos = WorksheetCursor()) override;
 
   public Q_SLOTS:
-    bool evaluateCurrentItem() Q_DECL_OVERRIDE;
-    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) Q_DECL_OVERRIDE;
+    bool evaluateCurrentItem() override;
+    bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
     void addInformation();
     void removeResult();
 
-    void showCompletion() Q_DECL_OVERRIDE;
+    void showCompletion() override;
     void selectPreviousCompletion();
-    void updateEntry() Q_DECL_OVERRIDE;
+    void updateEntry() override;
     void updatePrompt();
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
@@ -103,15 +103,15 @@ class CommandEntry : public WorksheetEntry
     void showSyntaxHelp();
     void completeLineTo(const QString& line, int index);
 
-    void startRemoving() Q_DECL_OVERRIDE;
+    void startRemoving() override;
 
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
 
-    void populateMenu(QMenu* menu, QPointF pos) Q_DECL_OVERRIDE;
+    void populateMenu(QMenu* menu, QPointF pos) override;
 
   protected:
-    bool wantToEvaluate() Q_DECL_OVERRIDE;
+    bool wantToEvaluate() override;
 
   private:
     WorksheetTextItem* currentInformationItem();

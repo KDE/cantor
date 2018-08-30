@@ -25,10 +25,10 @@ class QalculateHighlighter : public Cantor::DefaultHighlighter
 {
 public:
     QalculateHighlighter(QObject* parent);
-    ~QalculateHighlighter();
+    ~QalculateHighlighter() override;
 
 protected:
-    virtual void highlightBlock(const QString& text) override;
+    void highlightBlock(const QString& text) override;
 
 private:
     bool isOperatorAndWhitespace(const QString &word) const;

@@ -68,7 +68,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * The default implementation calls highlightPairs(), highlightWords() and highlightRegExps().
      *
      */
-    void highlightBlock(const QString& text) Q_DECL_OVERRIDE;
+    void highlightBlock(const QString& text) override;
 
     bool skipHighlighting(const QString& text);
 
