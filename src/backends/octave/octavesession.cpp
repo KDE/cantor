@@ -204,6 +204,7 @@ void OctaveSession::runFirstExpression()
     QString command = expression->command();
     command.replace(QLatin1Char('\n'), QLatin1Char(','));
     command += QLatin1Char('\n');
+    expression->setStatus(Cantor::Expression::Computing);
     m_process->write ( command.toLocal8Bit() );
 }
 

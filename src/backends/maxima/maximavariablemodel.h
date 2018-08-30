@@ -47,8 +47,8 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
       void checkForNewFunctions();
 
   private Q_SLOTS:
-      void parseNewVariables();
-      void parseNewFunctions();
+      void parseNewVariables(Cantor::Expression::Status status);
+      void parseNewFunctions(Cantor::Expression::Status status);
 
   Q_SIGNALS:
       void variablesAdded(const QStringList variables);

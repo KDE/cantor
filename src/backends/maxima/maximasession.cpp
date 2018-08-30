@@ -233,6 +233,7 @@ void MaximaSession::runFirstExpression()
         QString command=expr->internalCommand();
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
+        expr->setStatus(Cantor::Expression::Computing);
         if(command.isEmpty())
         {
             qDebug()<<"empty command";

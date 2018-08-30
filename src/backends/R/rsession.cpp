@@ -190,6 +190,7 @@ void RSession::runFirstExpression()
     connect(m_rServer, SIGNAL(inputRequested(const QString&)), expr, SIGNAL(needsAdditionalInformation(const QString&)));
     connect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), expr, SLOT(showFilesAsResult(const QStringList&)));
 
+    expr->setStatus(Cantor::Expression::Computing);
     m_rServer->runCommand(expr->command());
 }
 

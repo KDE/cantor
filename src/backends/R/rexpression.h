@@ -38,7 +38,6 @@ class RExpression : public Cantor::Expression
 
   public Q_SLOTS:
     void finished(int returnCode, const QString& text);
-    void evaluationStarted();
     void showFilesAsResult(const QStringList& files);
 
   private:

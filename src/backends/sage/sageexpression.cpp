@@ -39,7 +39,6 @@ SageExpression::SageExpression( Cantor::Session* session ) : Cantor::Expression(
 
 void SageExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
     m_imagePath.clear();
 
     m_isHelpRequest=false;

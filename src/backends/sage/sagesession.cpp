@@ -354,6 +354,7 @@ void SageSession::runFirstExpression()
             command=QLatin1String("help(")+command.mid(1)+QLatin1Char(')');
 
         qDebug()<<"writing "<<command<<" to the process";
+        expr->setStatus(Cantor::Expression::Computing);
         m_process->pty()->write(QString(command+QLatin1String("\n\n")).toUtf8());
     }
 }

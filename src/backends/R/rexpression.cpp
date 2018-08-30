@@ -80,11 +80,6 @@ void RExpression::finished(int returnCode, const QString& text)
     }
 }
 
-void RExpression::evaluationStarted()
-{
-    setStatus(Cantor::Expression::Computing);
-}
-
 void RExpression::addInformation(const QString& information)
 {
     static_cast<RSession*>(session())->sendInputToServer(information);

@@ -137,8 +137,11 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
     return variables;
 }
 
-void MaximaVariableModel::parseNewVariables()
+void MaximaVariableModel::parseNewVariables(Cantor::Expression::Status status)
 {
+    if (status != Cantor::Expression::Done && status != Cantor::Expression::Error)
+        return;
+
     qDebug()<<"parsing variables";
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 
@@ -182,8 +185,11 @@ void MaximaVariableModel::parseNewVariables()
     emit variablesRemoved(removedVars);
 }
 
-void MaximaVariableModel::parseNewFunctions()
+void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
 {
+    if (status != Cantor::Expression::Done && status != Cantor::Expression::Error)
+        return;
+
     qDebug()<<"parsing functions";
     MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
 

@@ -50,8 +50,6 @@ MaximaExpression::MaximaExpression( Cantor::Session* session ) : Cantor::Express
 
 void MaximaExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
-
     //until we get the real output Id from maxima, set it to invalid
     setId(-1);
 
@@ -608,8 +606,6 @@ Cantor::Result* MaximaExpression::parseResult(int* idx, QString& out,
  */
 bool MaximaExpression::parseOutput(QString& out)
 {
-    clearResult();
-
     const int promptStart = out.indexOf(QLatin1String("<cantor-prompt>"));
     const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
     const QString prompt = out.mid(promptStart + 15, promptEnd - promptStart - 15).simplified();

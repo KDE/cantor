@@ -91,7 +91,6 @@ void OctaveExpression::evaluate()
         m_appendPlotCommand = true;
     }
     m_finished = false;
-    setStatus(Computing);
     session()->enqueueExpression(this);
 }
 
