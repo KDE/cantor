@@ -107,8 +107,6 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 
     expr->evaluate();
 
-    changeStatus(Cantor::Session::Running);
-
     return expr;
 }
 

@@ -292,12 +292,11 @@ void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status stat
     {
         case Cantor::Expression::Done:
         case Cantor::Expression::Error:
-            changeStatus(Done);
             expressionQueue().removeFirst();
-            if (!expressionQueue().isEmpty())
-            {
+            if (expressionQueue().isEmpty())
+                changeStatus(Done);
+            else
                 runFirstExpression();
-            }
             break;
         default:
             break;

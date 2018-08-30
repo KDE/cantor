@@ -294,12 +294,11 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     {
     case Cantor::Expression::Done:
     case Cantor::Expression::Error:
-        changeStatus(Done);
         expressionQueue().removeFirst();
-        if (!expressionQueue().isEmpty())
-        {
+        if (expressionQueue().isEmpty())
+            changeStatus(Done);
+        else
             runFirstExpression();
-        }
         break;
     default:
         break;
