@@ -264,7 +264,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
         public:
             DirectiveControl(QWidget* parent) : DirectiveProducer(parent) { UI::setupUi(this); }
         protected:
-            typedef DirectiveControl<UI> AbstractParent;
+            using AbstractParent = DirectiveControl<UI>;
     };
 
     class CANTOR_EXPORT AcceptorBase
@@ -273,7 +273,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
             /**
              * utilitary typename for easying the code
              */
-            typedef DirectiveProducer * (*widgetProc)(QWidget*);
+            using widgetProc = DirectiveProducer *(*)(QWidget *);
 
             /**
              * returns a constant reference to the list of widget generating procedures
@@ -378,7 +378,7 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
   Q_OBJECT
   public:
     enum VectorType { ColumnVector, RowVector };
-    typedef QList<QStringList> Matrix;
+    using Matrix = QList<QStringList>;
 
     LinearAlgebraExtension(QObject* parent);
     ~LinearAlgebraExtension() override;

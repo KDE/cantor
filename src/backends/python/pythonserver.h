@@ -24,7 +24,7 @@
 #include <QString>
 
 struct _object;
-typedef _object PyObject;
+using PyObject = _object;
 
 class PythonServer : public QObject
 {

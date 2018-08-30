@@ -32,7 +32,7 @@
 #include "settings.h"
 
 #include <QDir>
-typedef Cantor::ImageResult PythonPlotResult;
+using PythonPlotResult = Cantor::ImageResult;
 
 PythonExpression::PythonExpression(Cantor::Session* session) : Cantor::Expression(session)
 {

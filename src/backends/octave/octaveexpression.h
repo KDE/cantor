@@ -27,7 +27,7 @@
 
 #ifdef WITH_EPS
 #include "epsresult.h"
-typedef Cantor::EpsResult OctavePlotResult;
+using OctavePlotResult = Cantor::EpsResult;
 #else
 #include "imageresult.h"
 typedef Cantor::ImageResult OctavePlotResult;
