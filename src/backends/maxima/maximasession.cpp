@@ -260,8 +260,13 @@ void MaximaSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-        qDebug()<<"done interrupting";
         expressionQueue().first()->interrupt();
+        expressionQueue().removeFirst();
+        foreach (Cantor::Expression* expression, expressionQueue())
+            expression->setStatus(Cantor::Expression::Done);
+        expressionQueue().clear();
+
+        qDebug()<<"done interrupting";
     }
 
     changeStatus(Cantor::Session::Done);

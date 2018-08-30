@@ -168,8 +168,13 @@ void OctaveSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-        qDebug()<<"done interrupting";
         expressionQueue().first()->interrupt();
+        expressionQueue().removeFirst();
+        foreach (Cantor::Expression* expression, expressionQueue())
+            expression->setStatus(Cantor::Expression::Done);
+        expressionQueue().clear();
+
+        qDebug()<<"done interrupting";
     }
 
     changeStatus(Cantor::Session::Done);
@@ -252,16 +257,19 @@ void OctaveSession::readOutput()
             // Check for errors before finalizing the expression
             // this makes sure that all errors are caught
             readError();
-            // Get command before finalize, because after finalizing the expression will be dequeued
-            const QString& command = expressionQueue().first()->command();
-            static_cast<OctaveExpression*>(expressionQueue().first())->finalize();
-            if (command.contains(QLatin1String(" = ")))
+            if (!expressionQueue().isEmpty())
             {
-                emit variablesChanged();
-            }
-            if (command.contains(QLatin1String("function ")))
-            {
-                emit functionsChanged();
+                // Get command before finalize, because after finalizing the expression will be dequeued
+                const QString& command = expressionQueue().first()->command();
+                static_cast<OctaveExpression*>(expressionQueue().first())->finalize();
+                if (command.contains(QLatin1String(" = ")))
+                {
+                    emit variablesChanged();
+                }
+                if (command.contains(QLatin1String("function ")))
+                {
+                    emit functionsChanged();
+                }
             }
         }
         else
@@ -271,7 +279,8 @@ void OctaveSession::readOutput()
             {
                 line += QString::fromLocal8Bit(m_process->readLine());
             }
-            static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(line);
+            if (!expressionQueue().isEmpty())
+                static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(line);
 
         }
     }

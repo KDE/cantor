@@ -288,15 +288,20 @@ void SageSession::readStdErr()
 
 void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
-    if(status!=Cantor::Expression::Computing) //The session is ready for the next command
+    switch (status)
     {
-        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().takeFirst());
-        disconnect(expr, nullptr, this, nullptr);
-        if(expressionQueue().isEmpty())
-            changeStatus(Cantor::Session::Done);
-        runFirstExpression();
+        case Cantor::Expression::Done:
+        case Cantor::Expression::Error:
+            changeStatus(Done);
+            expressionQueue().removeFirst();
+            if (!expressionQueue().isEmpty())
+            {
+                runFirstExpression();
+            }
+            break;
+        default:
+            break;
     }
-
 }
 
 void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
@@ -367,8 +372,13 @@ void SageSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-        qDebug()<<"done interrupting";
         expressionQueue().first()->interrupt();
+        expressionQueue().removeFirst();
+        foreach (Cantor::Expression* expression, expressionQueue())
+            expression->setStatus(Cantor::Expression::Done);
+        expressionQueue().clear();
+
+        qDebug()<<"done interrupting";
     }
 
     changeStatus(Cantor::Session::Done);
@@ -402,9 +412,12 @@ void SageSession::waitForNextPrompt()
 void SageSession::fileCreated( const QString& path )
 {
     qDebug()<<"got a file "<<path;
-    SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
-    if ( expr )
-        expr->addFileResult( path );
+    if (!expressionQueue().isEmpty())
+    {
+        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
+        if ( expr )
+           expr->addFileResult( path );
+    }
 }
 
 void SageSession::setTypesettingEnabled(bool enable)
