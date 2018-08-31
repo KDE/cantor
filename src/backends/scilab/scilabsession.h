@@ -59,10 +59,6 @@ class ScilabSession : public Cantor::Session
         void readError();
         void plotFileChanged(const QString& filename);
 
-    Q_SIGNALS:
-        void updateHighlighter();
-        void updateVariableHighlighter();
-
     private:
         QProcess* m_process;
         KDirWatch* m_watch;

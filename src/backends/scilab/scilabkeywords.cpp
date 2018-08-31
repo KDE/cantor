@@ -25,15 +25,28 @@
 #include <QtAlgorithms>
 #include <QDebug>
 
+#include <repository.h>
+#include <KF5/KSyntaxHighlighting/Definition>
+
 ScilabKeywords::ScilabKeywords()
 {
-    qDebug() << "ScilabKeywords construtor";
-}
+    KSyntaxHighlighting::Repository m_repository;
+    KSyntaxHighlighting::Definition definition = m_repository.definitionForName(QLatin1String("scilab"));
 
+    m_keywords << definition.keywordList(QLatin1String("Structure-keywords"));
+    m_keywords << definition.keywordList(QLatin1String("Control-keywords"));
+    m_keywords << definition.keywordList(QLatin1String("Function-keywords"));
+    m_keywords << definition.keywordList(QLatin1String("Warning-keywords"));
+    m_keywords << definition.keywordList(QLatin1String("Function-keywords"));
 
-ScilabKeywords::~ScilabKeywords()
-{
+    //TODO: This keywords missing in scilab syntax file
+    m_keywords << QLatin1String("case") << QLatin1String("catch") << QLatin1String("continue");
+    m_keywords << QLatin1String("try");
 
+    m_functions << definition.keywordList(QLatin1String("functions"));
+
+    //TODO: Should we use this keywordList as variables?
+    m_variables << definition.keywordList(QLatin1String("Constants-keyword"));
 }
 
 ScilabKeywords* ScilabKeywords::instance()
@@ -48,57 +61,6 @@ ScilabKeywords* ScilabKeywords::instance()
     }
 
     return inst;
-}
-
-void ScilabKeywords::setupKeywords(QString keywords)
-{
-    qDebug() << "start parse Scilab keywords";
-    QStringList key;
-    key = keywords.replace(QLatin1String(" !"), QLatin1String("\n")).replace(QLatin1String("!"), QLatin1String(""))
-              .replace(QLatin1String(" "), QLatin1String("")).split(QLatin1String("\n"));
-
-    for(int count = key.indexOf(QLatin1String("(1)")); key.at(count) != QLatin1String("(2)"); count++){
-        if(key.at(count) == QLatin1String("")){
-            continue;
-        }
-
-        qDebug() << key.at(count);
-        m_functions << key.at(count);
-    }
-
-    for(int count = key.indexOf(QLatin1String("(2)")); key.at(count) != QLatin1String("(3)"); count++){
-        if(key.at(count) == QLatin1String("")){
-            continue;
-        }
-
-        qDebug() << key.at(count);
-        m_keywords << key.at(count);
-    }
-
-    for(int count = key.indexOf(QLatin1String("(3)")); key.at(count) != QLatin1String("(4)"); count++){
-        if(key.at(count) == QLatin1String("")){
-            continue;
-        }
-
-        qDebug() << key.at(count);
-        m_variables << key.at(count);
-    }
-
-    for(int count = key.indexOf(QLatin1String("(4)")); count < key.size(); count++){
-        if(key.at(count) == QLatin1String("")){
-            continue;
-        }
-
-        qDebug() << key.at(count);
-        m_functions << key.at(count);
-    }
-
-    qDebug() << "finish parse scilab keywords";
-}
-
-void ScilabKeywords::addVariable(QString variable)
-{
-    m_variables << variable;
 }
 
 const QStringList& ScilabKeywords::variables() const

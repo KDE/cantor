@@ -30,14 +30,7 @@ class ScilabHighlighter : public Cantor::DefaultHighlighter
 
     public:
         ScilabHighlighter(QObject* parent, Cantor::Session* session);
-        ~ScilabHighlighter() override;
-
-    public Q_SLOTS:
-        void updateHighlight();
-        void addVariableHighlight();
-
-        void updateKeywords();
-        void receiveKeywords();
+        ~ScilabHighlighter() override = default;
 
     protected:
         void highlightBlock(const QString &text) Q_DECL_OVERRIDE;

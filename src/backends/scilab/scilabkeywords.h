@@ -25,21 +25,16 @@
 
 class ScilabKeywords
 {
-
     public:
-        ScilabKeywords();
-        ~ScilabKeywords();
-
         static ScilabKeywords* instance();
-
-        void setupKeywords(QString keywords);
-        void addVariable(QString variable);
 
         const QStringList& functions() const;
         const QStringList& keywords() const;
         const QStringList& variables() const;
 
     private:
+        ScilabKeywords();
+        ~ScilabKeywords() = default;
         QStringList m_functions;
         QStringList m_keywords;
         QStringList m_variables;

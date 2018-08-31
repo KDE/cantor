@@ -19,7 +19,6 @@
  */
 
 #include "scilabexpression.h"
-#include "scilabkeywords.h"
 
 #include <config-cantorlib.h>
 
@@ -145,7 +144,6 @@ void ScilabExpression::evalFinished()
 
                 if (model){
                     model->addVariable(parts.first().trimmed(), parts.last().trimmed());
-                    ScilabKeywords::instance()->addVariable(parts.first().trimmed());
                 }
             }
         }

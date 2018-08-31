@@ -29,17 +29,14 @@
 
 ScilabHighlighter::ScilabHighlighter(QObject* parent, Cantor::Session* session) : Cantor::DefaultHighlighter(parent), m_session(session)
 {
-    qDebug() << "ScilabHighlighter construtor";
-    addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
-
-    //Code highlighting the different keywords
     addKeywords(ScilabKeywords::instance()->keywords());
+    addFunctions(ScilabKeywords::instance()->functions());
+    addVariables(ScilabKeywords::instance()->variables());
+
+    addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
 
     addRule(QLatin1String("FIXME"), commentFormat());
     addRule(QLatin1String("TODO"), commentFormat());
-
-    addFunctions(ScilabKeywords::instance()->functions());
-    addVariables(ScilabKeywords::instance()->variables());
 
     addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
     addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
@@ -49,17 +46,9 @@ ScilabHighlighter::ScilabHighlighter(QObject* parent, Cantor::Session* session) 
     commentEndExpression = QRegExp(QLatin1String("\\*/"));
 }
 
-ScilabHighlighter::~ScilabHighlighter()
-{
-}
-
 void ScilabHighlighter::highlightBlock(const QString& text)
 {
-    qDebug() << "ScilabHighlighter::highlightBlock";
-    qDebug() << "text: " << text;
-
     if (skipHighlighting(text)){
-        qDebug() << "skipHighlighting(" << text << " ) " << "== true";
         return;
     }
 
@@ -89,48 +78,7 @@ void ScilabHighlighter::highlightBlock(const QString& text)
     }
 }
 
-void ScilabHighlighter::addVariableHighlight()
-{
-    addVariables(ScilabKeywords::instance()->variables());
-    rehighlight();
-}
-
-void ScilabHighlighter::updateHighlight()
-{
-
-    addVariables(ScilabKeywords::instance()->variables());
-    addKeywords(ScilabKeywords::instance()->keywords());
-    addFunctions(ScilabKeywords::instance()->functions());
-
-    rehighlight();
-}
-
-void ScilabHighlighter::updateKeywords()
-{
-    m_keywordsExpr = m_session->evaluateExpression(QLatin1String("disp(getscilabkeywords());"));
-    connect(m_keywordsExpr, &Cantor::Expression::statusChanged, this, &ScilabHighlighter::receiveKeywords);
-}
-
-void ScilabHighlighter::receiveKeywords()
-{
-    qDebug() << "receiveKeywords()";
-    if (m_keywordsExpr->status() == Cantor::Expression::Computing 
-        || m_keywordsExpr->status() == Cantor::Expression::Queued)
-        return;
-
-    if (m_keywordsExpr->status() == Cantor::Expression::Done && m_keywordsExpr->result())
-    {
-        const QString keywords = static_cast<Cantor::TextResult*>(m_keywordsExpr->result())->plain();
-
-        ScilabKeywords::instance()->setupKeywords(keywords);
-
-        updateHighlight();
-    }
-    m_keywordsExpr->deleteLater();
-}
-
 QString ScilabHighlighter::nonSeparatingCharacters() const
 {
-    qDebug() << "ScilabHighlighter::nonSeparatingCharacters() function";
     return QLatin1String("[%]");
 }

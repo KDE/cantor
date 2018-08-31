@@ -21,7 +21,6 @@
 #include "scilabsession.h"
 #include "scilabexpression.h"
 #include "scilabhighlighter.h"
-#include "scilabkeywords.h"
 #include "scilabcompletionobject.h"
 
 #include <defaultvariablemodel.h>
@@ -241,8 +240,6 @@ void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status st
         case Cantor::Expression::Error:
             expressionQueue().removeFirst();
 
-            emit updateVariableHighlighter();
-
             if (expressionQueue().isEmpty())
                 changeStatus(Done);
             else
@@ -257,9 +254,6 @@ QSyntaxHighlighter* ScilabSession::syntaxHighlighter(QObject* parent)
 
     ScilabHighlighter *highlighter = new ScilabHighlighter(parent, this);
 
-    QObject::connect(this, &ScilabSession::updateHighlighter, highlighter, &ScilabHighlighter::updateHighlight);
-    QObject::connect(this, &ScilabSession::updateVariableHighlighter, highlighter, &ScilabHighlighter::addVariableHighlight);
-    QObject::connect(this, &ScilabSession::loginDone, highlighter, &ScilabHighlighter::updateKeywords);
     return highlighter;
 }
 
