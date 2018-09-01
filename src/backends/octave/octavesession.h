@@ -72,7 +72,6 @@ class OctaveSession : public Cantor::Session
     void runSpecificCommands();
 
   Q_SIGNALS:
-    void functionsChanged();
     void variablesChanged();
 };
 

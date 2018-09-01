@@ -4,6 +4,7 @@ set( OctaveBackend_SRCS
   octaveexpression.cpp
   octaveextensions.cpp
   octavehighlighter.cpp
+  octavekeywords.cpp
   octavecompletionobject.cpp
   octavesyntaxhelpobject.cpp
 )

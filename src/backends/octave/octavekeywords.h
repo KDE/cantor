@@ -1,6 +1,4 @@
 /*
-    Copyright (C) 2010 Miha Čančula <miha.cancula@gmail.com>
-
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
     as published by the Free Software Foundation; either version 2
@@ -15,33 +13,28 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA  02110-1301, USA.
+
+    ---
+    Copyright (C) 2018 Sirgienko Nikita <warquark@gmail.com>
 */
 
-#ifndef OCTAVEHIGHLIGHTER_H
-#define OCTAVEHIGHLIGHTER_H
+#ifndef _OCTAVEKEYWORDS_H
+#define _OCTAVEKEYWORDS_H
 
-#include "defaulthighlighter.h"
+#include <QStringList>
 
-namespace Cantor
+class OctaveKeywords
 {
-    class Session;
-    class Expression;
-}
+    public:
+        static OctaveKeywords* instance();
 
-class OctaveHighlighter : public Cantor::DefaultHighlighter
-{
-  Q_OBJECT
+        const QStringList& functions() const;
+        const QStringList& keywords() const;
 
-  public:
-    OctaveHighlighter(QObject* parent, Cantor::Session* session);
-    ~OctaveHighlighter() override = default;
-
-  public Q_SLOTS:
-    void updateVariables();
-
-  private:
-    Cantor::Session* m_session;
-    QStringList m_variables;
+    private:
+        OctaveKeywords();
+        ~OctaveKeywords() = default;
+        QStringList m_functions;
+        QStringList m_keywords;
 };
-
-#endif // OCTAVEHIGHLIGHTER_H
+#endif /* _OCTAVEKEYWORDS_H */
