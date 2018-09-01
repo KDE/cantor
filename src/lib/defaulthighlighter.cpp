@@ -420,7 +420,7 @@ void DefaultHighlighter::addRules(const QStringList& conditions, const QTextChar
     {
         addRule(*i, format);
     }
-    d->suppressRuleChangedSignal = true;
+    d->suppressRuleChangedSignal = false;
     emit rulesChanged();
 }
 
