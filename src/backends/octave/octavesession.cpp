@@ -262,10 +262,6 @@ void OctaveSession::readOutput()
                 {
                     emit variablesChanged();
                 }
-                if (command.contains(QLatin1String("function ")))
-                {
-                    emit functionsChanged();
-                }
             }
         }
         else
