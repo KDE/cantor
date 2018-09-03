@@ -10,6 +10,7 @@ set( RBackend_SRCS
   rextensions.cpp
   rcompletionobject.cpp
   rhighlighter.cpp
+  rkeywords.cpp
   rsettingswidget.cpp
 )
 
@@ -23,6 +24,6 @@ ki18n_wrap_ui(RBackend_SRCS settings.ui)
 add_backend(rbackend ${RBackend_SRCS})
 
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rbackend ${R_USED_LIBS})
+target_link_libraries( cantor_rbackend ${R_USED_LIBS} KF5::SyntaxHighlighting)
 
 install( FILES cantor_r.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
