@@ -135,6 +135,7 @@ void PythonSession::login()
 
     listVariables();
 
+    changeStatus(Session::Done);
     emit loginDone();
 }
 
@@ -151,6 +152,8 @@ void PythonSession::logout()
     while(i.hasNext()){
         removePlotFigures.remove(QLatin1String(i.next().toLocal8Bit().constData()));
     }
+
+    changeStatus(Status::Disable);
 }
 
 void PythonSession::interrupt()

@@ -29,7 +29,7 @@ using namespace Cantor;
 class Cantor::SessionPrivate
 {
   public:
-    SessionPrivate() : backend(nullptr), status(Session::Done), typesettingEnabled(false), expressionCount(0)
+    SessionPrivate() : backend(nullptr), status(Session::Disable), typesettingEnabled(false), expressionCount(0)
     {
     }
 

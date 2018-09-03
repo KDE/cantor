@@ -544,7 +544,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
         m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
 
         setStatusMessage(i18n("Calculating..."));
-    }else
+    }else if (status==Cantor::Session::Done)
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
         m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);

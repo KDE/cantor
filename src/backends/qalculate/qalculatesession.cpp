@@ -92,6 +92,7 @@ void QalculateSession::login()
 
     m_process->start();
 
+    changeStatus(Session::Done);
     emit loginDone();
 }
 
@@ -219,6 +220,8 @@ void QalculateSession::logout()
         if(!m_process->waitForFinished(1000))
             m_process->kill();
     }
+
+    changeStatus(Status::Disable);
 }
 
 void QalculateSession::interrupt()

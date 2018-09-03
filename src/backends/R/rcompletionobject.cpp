@@ -19,6 +19,7 @@
  */
 
 #include "rcompletionobject.h"
+#include "rkeywords.h"
 #include "rsession.h"
 
 RCompletionObject::RCompletionObject(const QString& command, int index, RSession* session) : Cantor::CompletionObject(session)
@@ -33,7 +34,17 @@ RCompletionObject::~RCompletionObject()
 
 void RCompletionObject::fetchCompletions()
 {
-    emit requestCompletion(command());
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        QStringList allCompletions;
+
+        allCompletions << RKeywords::instance()->keywords();
+
+        setCompletions(allCompletions);
+        emit fetchingDone();
+    }
+    else
+        emit requestCompletion(command());
 }
 
 void RCompletionObject::receiveCompletions(const QString& token,const QStringList& options)

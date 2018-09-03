@@ -26,22 +26,40 @@
 #include "luahelper.h"
 
 LuaCompletionObject::LuaCompletionObject(const QString& command, int index, LuaSession* session)
-    : Cantor::CompletionObject(session), m_L(session->getState())
+    : Cantor::CompletionObject(session)
 {
+    if (session->status() != Cantor::Session::Disable)
+        m_L = session->getState();
+    else
+        m_L = nullptr;
     setLine(command, index);
 }
 
 void LuaCompletionObject::fetchCompletions()
 {
-    QString name = command();
-    int idx = name.lastIndexOf(QLatin1String("="));
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        QStringList allCompletions;
+        
+        allCompletions << luahelper_keywords();
+        allCompletions << luahelper_functions();
+        allCompletions << luahelper_variables();
 
-    // gets "table.next" from the expression "varname =   table.next"
-    if(idx >= 0)
-        name = name.mid(idx+1).trimmed();
+        setCompletions(allCompletions);
+        emit fetchingDone();
+    }
+    else
+    {
+        QString name = command();
+        int idx = name.lastIndexOf(QLatin1String("="));
 
-    setCompletions( luahelper_completion(m_L, name) );
-    emit fetchingDone();
+        // gets "table.next" from the expression "varname =   table.next"
+        if(idx >= 0)
+            name = name.mid(idx+1).trimmed();
+
+        setCompletions( luahelper_completion(m_L, name) );
+        emit fetchingDone();
+    }
 }
 
 bool LuaCompletionObject::mayIdentifierContain(QChar c) const

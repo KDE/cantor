@@ -51,8 +51,10 @@ class CANTOR_EXPORT Session : public QObject
 {
   Q_OBJECT
   public:
-    enum Status { Running, ///< the session is busy, running some expression
-		  Done     ///< the session has done all the jobs, and is now waiting for more
+    enum Status { 
+      Running, ///< the session is busy, running some expression
+		  Done,    ///< the session has done all the jobs, and is now waiting for more
+      Disable ///< the session don't login yet, or already logout
     };
 
     /**
@@ -75,7 +77,7 @@ class CANTOR_EXPORT Session : public QObject
     virtual void login() = 0;
     /**
      * Log out of the Session. Destroy everything specific to a single session, e.g.
-     * stop all the running processes etc.
+     * stop all the running processes etc. Also logout session status must be Status::Disable
      * NOTE: restaring the session consists of first logout() and then login()
      */
     virtual void logout() = 0;

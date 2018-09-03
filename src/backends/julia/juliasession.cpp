@@ -110,6 +110,7 @@ void JuliaSession::login()
         );
     }
 
+    changeStatus(Session::Done);
     emit loginDone();
     qDebug() << "login to julia " << JULIA_VERSION_STRING << "done";
 }
@@ -120,6 +121,8 @@ void JuliaSession::logout()
 
     JuliaKeywords::instance()->clearVariables();
     JuliaKeywords::instance()->clearFunctions();
+
+    changeStatus(Status::Disable);
 }
 
 void JuliaSession::interrupt()

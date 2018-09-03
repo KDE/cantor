@@ -126,6 +126,8 @@ void LuaSession::logout()
 {
     if(m_process)
         m_process->kill();
+
+    changeStatus(Status::Disable);
 }
 
 void LuaSession::interrupt()

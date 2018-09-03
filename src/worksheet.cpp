@@ -499,18 +499,6 @@ bool Worksheet::completionEnabled()
 
 void Worksheet::showCompletion()
 {
-    //for backends which fetch the completion from the corresponding interpreter
-    //we need to do the login first.
-    //TODO: ideally, this logic is implemented in the actual session classes
-    //and the worksheet doesn't need to know anything about this.
-    //But as long as we have some additional logic in Worksheet::loginToSession(),
-    //we need to handle this here.
-    if (!m_loginDone && (m_session->backend()->name() == QLatin1String("Julia")
-                    || m_session->backend()->name() == QLatin1String("Lua")
-                    || m_session->backend()->name() == QLatin1String("R")
-                    || m_session->backend()->name() == QLatin1String("Octave")) )
-        loginToSession();
-
     WorksheetEntry* current = currentEntry();
     current->showCompletion();
 }

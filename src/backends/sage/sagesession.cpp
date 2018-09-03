@@ -144,6 +144,7 @@ void SageSession::login()
         evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish);
     }
 
+    changeStatus(Session::Done);
     emit loginDone();
 }
 
@@ -159,6 +160,8 @@ void SageSession::logout()
     KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<QLatin1String("-cleaner"));
 
     expressionQueue().clear();
+
+    changeStatus(Status::Disable);
 }
 
 Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)

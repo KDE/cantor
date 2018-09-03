@@ -22,6 +22,10 @@
 
 #include "juliasession.h"
 #include "juliakeywords.h"
+
+#include "result.h"
+
+#include <QDebug>
 #include <julia/julia_version.h>
 
 JuliaCompletionObject::JuliaCompletionObject(
@@ -33,32 +37,44 @@ JuliaCompletionObject::JuliaCompletionObject(
 
 void JuliaCompletionObject::fetchCompletions()
 {
-    auto julia_session = dynamic_cast<JuliaSession *>(session());
-    QString completionCommand;
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        //TODO: improve JuliaKeywords in T9565 for better fetching
+        QStringList allCompletions;
+
+        allCompletions << JuliaKeywords::instance()->keywords();
+        allCompletions << JuliaKeywords::instance()->variables();
+            
+        setCompletions(allCompletions);
+        emit fetchingDone();
+    }
+    else
+    {
+        QString completionCommand;
 #if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 7, 0)
-    completionCommand =
-        QString::fromLatin1(
-            "using REPL; "
-            "join("
-            "map(REPL.REPLCompletions.completion_text, REPL.REPLCompletions.completions(\"%1\", %2)[1]),"
-            "\"__CANTOR_DELIM__\")"
-        );
+        completionCommand =
+            QString::fromLatin1(
+                "using REPL; "
+                "join("
+                "map(REPL.REPLCompletions.completion_text, REPL.REPLCompletions.completions(\"%1\", %2)[1]),"
+                "\"__CANTOR_DELIM__\")"
+            );
 #else
-    completionCommand =
-        QString::fromLatin1(
-            "join("
-            "Base.REPL.REPLCompletions.completions(\"%1\", %2)[1],"
-            "\"__CANTOR_DELIM__\")"
-        );
+        completionCommand =
+            QString::fromLatin1(
+                "join("
+                "Base.REPL.REPLCompletions.completions(\"%1\", %2)[1],"
+                "\"__CANTOR_DELIM__\")"
+            );
 #endif
-
-    julia_session->runJuliaCommand(completionCommand.arg(command()).arg(command().size()));
-    auto result = julia_session->getOutput();
-    result.chop(1);
-    result.remove(0, 1);
-    setCompletions(result.split(QLatin1String("__CANTOR_DELIM__")));
-
-    emit fetchingDone();
+        auto julia_session = static_cast<JuliaSession*>(session());
+        julia_session->runJuliaCommand(completionCommand.arg(command()).arg(command().size()));
+        auto result = julia_session->getOutput();
+        result.chop(1);
+        result.remove(0, 1);
+        setCompletions(result.split(QLatin1String("__CANTOR_DELIM__")));
+        emit fetchingDone();
+    }
 }
 
 bool JuliaCompletionObject::mayIdentifierContain(QChar c) const

@@ -112,6 +112,7 @@ void OctaveSession::login()
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish);
     }
 
+    changeStatus(Cantor::Session::Done);
     emit loginDone();
     qDebug()<<"login done";
 }
@@ -145,6 +146,8 @@ void OctaveSession::logout()
 
     m_prompt = QRegExp();
     m_tempDir.clear();
+
+    changeStatus(Status::Disable);
 
     qDebug()<<"logout done";
 }

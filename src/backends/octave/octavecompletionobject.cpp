@@ -18,6 +18,7 @@
 */
 
 #include "octavecompletionobject.h"
+#include "octavekeywords.h"
 
 #include "session.h"
 #include "expression.h"
@@ -33,12 +34,26 @@ OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index
 
 void OctaveCompletionObject::fetchCompletions()
 {
-    if (m_expression)
-	return;
-    qDebug() << "Fetching completions for" << command();
-    QString expr = QString::fromLatin1("completion_matches('%1')").arg(command());
-    m_expression = session()->evaluateExpression(expr);
-    connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractCompletions);
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        QStringList allCompletions;
+
+        allCompletions << OctaveKeywords::instance()->functions();
+        allCompletions << OctaveKeywords::instance()->keywords();
+
+        setCompletions(allCompletions);
+
+        emit fetchingDone();
+    }
+    else
+    {
+        if (m_expression)
+            return;
+        qDebug() << "Fetching completions for" << command();
+        QString expr = QString::fromLatin1("completion_matches('%1')").arg(command());
+        m_expression = session()->evaluateExpression(expr,Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractCompletions);
+    }
 }
 
 void OctaveCompletionObject::extractCompletions()
@@ -66,15 +81,28 @@ void OctaveCompletionObject::extractCompletions()
 
 void OctaveCompletionObject::fetchIdentifierType()
 {
-    if (m_expression)
-	return;
-    qDebug() << "Fetching type of " << identifier();
-    // The output should look like
-    // sin is a built-in function
-    // __cantor_tmp2__ = 5
-    QString expr = QString::fromLatin1("ans = type('%1');ans").arg(identifier());
-    m_expression = session()->evaluateExpression(expr);
-    connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractIdentifierType);
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        qDebug() << "Fetching type of " << identifier();
+        if (OctaveKeywords::instance()->keywords().contains(identifier()))
+            emit fetchingTypeDone(KeywordType);
+        else if (OctaveKeywords::instance()->functions().contains(identifier()))
+            emit fetchingTypeDone(FunctionType);
+        else
+            emit fetchingTypeDone(UnknownType);
+    }
+    else
+    {
+        if (m_expression)
+            return;
+        qDebug() << "Fetching type of " << identifier();
+        // The output should look like
+        // sin is a built-in function
+        // __cantor_tmp2__ = 5
+        QString expr = QString::fromLatin1("ans = type('%1');ans").arg(identifier());
+        m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractIdentifierType);
+    }
 }
 
 void OctaveCompletionObject::extractIdentifierType()
@@ -103,11 +131,11 @@ void OctaveCompletionObject::extractIdentifierType()
     // but sets ans to 103
     if (line1.endsWith(QLatin1String("function")) || line1.contains(QLatin1String("user-defined function"))
 	|| line2.endsWith(QLatin1String("103")))
-	emit fetchingTypeDone(FunctionType);
+    emit fetchingTypeDone(FunctionType);
     else if (res.endsWith(QLatin1String("variable")))
-	emit fetchingTypeDone(VariableType);
+    emit fetchingTypeDone(VariableType);
     else if (res.endsWith(QLatin1String("keyword")))
-	emit fetchingTypeDone(KeywordType);
+    emit fetchingTypeDone(KeywordType);
     else
-	emit fetchingTypeDone(UnknownType);
+    emit fetchingTypeDone(UnknownType);
 }

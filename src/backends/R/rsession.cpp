@@ -62,6 +62,7 @@ void RSession::login()
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
     connect(m_rServer, SIGNAL(symbolList(const QStringList&, const QStringList&, const QStringList&)),this,SLOT(receiveSymbols(const QStringList&, const QStringList&, const QStringList&)));
 
+    changeStatus(Session::Done);
     emit loginDone();
     qDebug()<<"login done";
 }
@@ -70,6 +71,8 @@ void RSession::logout()
 {
     qDebug()<<"logout";
     m_process->terminate();
+
+    changeStatus(Status::Disable);
 }
 
 void RSession::interrupt()

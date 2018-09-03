@@ -84,6 +84,7 @@ void MaximaSession::login()
 // //         runFirstExpression();
 //     }
 
+    changeStatus(Session::Done);
     emit loginDone();
     qDebug()<<"login done";
 }
@@ -114,6 +115,8 @@ void MaximaSession::logout()
     expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
+
+    changeStatus(Status::Disable);
 
     qDebug()<<"logout done";
 }

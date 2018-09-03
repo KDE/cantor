@@ -32,13 +32,15 @@ void NullSession::login()
 {
     qDebug()<<"login";
     emit loginStarted();
-    changeStatus(Cantor::Session::Done);
+    changeStatus(Session::Done);
     emit loginDone();
 }
 
 void NullSession::logout()
 {
     qDebug()<<"logout";
+
+    changeStatus(Status::Disable);
 }
 
 void NullSession::interrupt()
