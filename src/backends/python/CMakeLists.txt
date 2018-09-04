@@ -18,6 +18,7 @@ target_link_libraries(cantor_pythonbackend
   KF5::KIOCore
   KF5::ConfigCore
   KF5::ConfigGui
+  KF5::SyntaxHighlighting
   Qt5::DBus
 )
 
