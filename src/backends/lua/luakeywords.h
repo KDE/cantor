@@ -15,20 +15,28 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014 Lucas Hermann Negri <lucashnegri@gmail.com>
- */
+    Copyright (C) 2018 Sirgienko Nikita <warquark@gmail.com>
+*/
 
-#ifndef _LUAHELPER_H
-#define _LUAHELPER_H
+#ifndef _LUAKEYWORDS_H
+#define _LUAKEYWORDS_H
 
-struct lua_State;
-class  QString;
-class  QStringList;
+#include <QStringList>
 
-/* follows lua_funcname convention */
-QString     luahelper_tostring   (lua_State* L, int idx);
-QString     luahelper_dostring   (lua_State* L, const QString& str);
-QString     luahelper_getprinted (lua_State* L);
-QStringList luahelper_completion (lua_State* L, const QString& name);
+class LuaKeywords
+{
+    public:
+        static LuaKeywords* instance();
 
-#endif /* _LUAHELPER_H */
+        const QStringList& functions() const;
+        const QStringList& keywords() const;
+        const QStringList& variables() const;
+
+    private:
+        LuaKeywords();
+        ~LuaKeywords() = default;
+        QStringList m_functions;
+        QStringList m_keywords;
+        QStringList m_variables;
+};
+#endif /* _LUAKEYWORDS_H */

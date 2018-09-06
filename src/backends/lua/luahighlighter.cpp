@@ -19,13 +19,14 @@
  */
 
 #include "luahighlighter.h"
+#include "luakeywords.h"
 #include "luahelper.h"
 
 LuaHighlighter::LuaHighlighter(QObject* parent): DefaultHighlighter(parent)
 {
-    addFunctions( luahelper_functions() );
-    addKeywords ( luahelper_keywords()  );
-    addVariables( luahelper_variables() );
+    addKeywords (LuaKeywords::instance()->keywords());
+    addFunctions(LuaKeywords::instance()->functions());
+    addVariables(LuaKeywords::instance()->variables());
 
     addRule(QRegExp(QLatin1String("[A-Za-z0-9_]+(?=\\()"))    , functionFormat());
     addRule(QRegExp(QLatin1String("\"[^\"]*\""))              , stringFormat());

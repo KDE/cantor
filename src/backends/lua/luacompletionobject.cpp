@@ -24,6 +24,7 @@
 
 #include "luasession.h"
 #include "luahelper.h"
+#include "luakeywords.h"
 
 LuaCompletionObject::LuaCompletionObject(const QString& command, int index, LuaSession* session)
     : Cantor::CompletionObject(session)
@@ -41,9 +42,9 @@ void LuaCompletionObject::fetchCompletions()
     {
         QStringList allCompletions;
         
-        allCompletions << luahelper_keywords();
-        allCompletions << luahelper_functions();
-        allCompletions << luahelper_variables();
+        allCompletions << LuaKeywords::instance()->keywords();
+        allCompletions << LuaKeywords::instance()->functions();
+        allCompletions << LuaKeywords::instance()->variables();
 
         setCompletions(allCompletions);
         emit fetchingDone();

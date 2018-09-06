@@ -19,6 +19,7 @@
  */
 
 #include "luahelper.h"
+#include "luakeywords.h"
 
 #include <lua.hpp>
 #include <QString>
@@ -94,7 +95,7 @@ QStringList luahelper_completion(lua_State* L, const QString& name)
 
     if(sections.size() == 1)            // global table
     {
-        list = luahelper_keywords();
+        list = LuaKeywords::instance()->keywords();
         table = QLatin1String("_G");
     }
     else
@@ -126,59 +127,6 @@ QStringList luahelper_completion(lua_State* L, const QString& name)
     }
 
     lua_settop(L, top);
-
-    return list;
-}
-
-QStringList luahelper_keywords()
-{
-    static const char* keywords[] = {
-        "and", "break", "do", "else", "elseif", "end", "false", "for",
-        "function", "if", "in", "local", "nil", "not", "or", "repeat",
-        "return", "then", "true", "until", "while", nullptr
-    };
-
-    QStringList list;
-
-    for(int i = 0; keywords[i]; ++i)
-        list << QString::fromLatin1(keywords[i]);
-
-    return list;
-}
-
-
-QStringList luahelper_functions()
-{
-    static const char* functions[] = {
-        "assert","collectgarbage","dofile","error","getfenv","getmetatable","ipairs","load","loadfile",
-        "loadstring","module","next","pairs","pcall","print","rawequal","rawget","rawset","require","select",
-        "setfenv","setmetatable","tonumber","tostring","type","unpack","xpcall","close","flush",
-        "lines","read","seek","setvbuf","write","close","flush","input","lines","open","output","popen",
-        "read","tmpfile","type","write",
-        "math.abs","acos","asin","atan","atan2","ceil", "cos","cosh","deg","exp","floor","fmod","frexp","ldexp",
-        "log","log10","max","min","modf", "pow","rad","random","randomseed","sin","sinh","sqrt","tan","tanh",
-        "clock","date","difftime", "execute","exit","getenv","remove","rename","setlocale","time","tmpname",
-        "loadlib","byte","char", "dump","find","format","gmatch","gsub","len","lower","match","rep","reverse","sub","upper","concat",
-        "insert","maxn","remove","sort",nullptr
-    };
-
-    QStringList list;
-
-    for(int i = 0; functions[i]; ++i)
-        list << QString::fromLatin1(functions[i]);
-
-    return list;
-}
-
-
-QStringList luahelper_variables()
-{
-    static const char* variables[] = {"_G", "_VERSION", "pi", "huge", "stdin", "stdout", "stderr", nullptr};
-
-    QStringList list;
-
-    for(int i = 0; variables[i]; ++i)
-        list << QString::fromLatin1(variables[i]);
 
     return list;
 }

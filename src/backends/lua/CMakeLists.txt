@@ -4,6 +4,7 @@ set(LuaBackend_SRCS
   luaexpression.cpp
   luacompletionobject.cpp
   luahelper.cpp
+  luakeywords.cpp
   luahighlighter.cpp
   luaextensions.cpp
 )
@@ -17,7 +18,7 @@ add_backend(luabackend ${LuaBackend_SRCS})
 
 include_directories(${LUAJIT_INCLUDE_DIR})
 
-target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY})
+target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY} KF5::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testlua testlua.cpp)
