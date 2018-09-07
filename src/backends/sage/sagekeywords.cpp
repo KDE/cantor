@@ -19,6 +19,9 @@
  */
 #include "sagekeywords.h"
 
+#include <repository.h>
+#include <KF5/KSyntaxHighlighting/Definition>
+
 #include <QDebug>
 
 SageKeywords* SageKeywords::instance()
@@ -35,42 +38,31 @@ SageKeywords* SageKeywords::instance()
 
 void SageKeywords::loadKeywords()
 {
-    //Begin m_keywords initialization
-    m_keywords << QLatin1String("and");
-    m_keywords << QLatin1String("as");
-    m_keywords << QLatin1String("assert");
-    m_keywords << QLatin1String("break");
-    m_keywords << QLatin1String("class");
-    m_keywords << QLatin1String("continue");
-    m_keywords << QLatin1String("def");
-    m_keywords << QLatin1String("del");
-    m_keywords << QLatin1String("elif");
-    m_keywords << QLatin1String("else");
-    m_keywords << QLatin1String("except");
-    m_keywords << QLatin1String("exec");
-    m_keywords << QLatin1String("finally");
-    m_keywords << QLatin1String("for");
-    m_keywords << QLatin1String("from");
-    m_keywords << QLatin1String("global");
-    m_keywords << QLatin1String("if");
-    m_keywords << QLatin1String("import");
-    m_keywords << QLatin1String("in");
-    m_keywords << QLatin1String("is");
-    m_keywords << QLatin1String("lambda");
-    m_keywords << QLatin1String("not");
-    m_keywords << QLatin1String("or");
-    m_keywords << QLatin1String("pass");
-    m_keywords << QLatin1String("print");
-    m_keywords << QLatin1String("raise");
-    m_keywords << QLatin1String("return");
-    m_keywords << QLatin1String("try");
-    m_keywords << QLatin1String("while");
-    m_keywords << QLatin1String("with");
-    m_keywords << QLatin1String("yield");
-    //Finish m_keywords initialization
+    KSyntaxHighlighting::Repository m_repository;
+    KSyntaxHighlighting::Definition definition = m_repository.definitionForName(QLatin1String("Python"));
+
+    m_keywords << definition.keywordList(QLatin1String("import"));
+    m_keywords << definition.keywordList(QLatin1String("defs"));
+    m_keywords << definition.keywordList(QLatin1String("operators"));
+    m_keywords << definition.keywordList(QLatin1String("flow"));
+
+    m_functions << definition.keywordList(QLatin1String("builtinfuncs"));
+    m_functions << definition.keywordList(QLatin1String("overloaders"));
+
+    m_variables << definition.keywordList(QLatin1String("specialvars"));
 }
 
 const QStringList& SageKeywords::keywords() const
 {
     return m_keywords;
+}
+
+const QStringList& SageKeywords::functions() const
+{
+    return m_functions;
+}
+
+const QStringList& SageKeywords::variables() const
+{
+    return m_variables;
 }

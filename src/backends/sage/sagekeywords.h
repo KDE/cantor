@@ -40,13 +40,15 @@ public:
     static SageKeywords* instance();
 
     const QStringList& keywords() const;
-    //const QStringList& functions() const;
-    //const QStringList& variables() const;
+    const QStringList& functions() const;
+    const QStringList& variables() const;
 
   private:
     void loadKeywords();
 
     QStringList m_keywords;
+    QStringList m_functions;
+    QStringList m_variables;
 };
 
 #endif /* _SAGEKEYWORDS_H */
