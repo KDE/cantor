@@ -17,7 +17,11 @@ ki18n_wrap_ui(JuliaBackend_SRCS settings.ui)
 
 add_backend(juliabackend ${JuliaBackend_SRCS})
 
-target_link_libraries(cantor_juliabackend Qt5::DBus ${JULIA_LIBRARY})
+target_link_libraries(cantor_juliabackend
+  ${JULIA_LIBRARY}
+  Qt5::DBus
+  KF5::SyntaxHighlighting
+)
 
 if(BUILD_TESTING)
   add_executable(testjulia testjulia.cpp)

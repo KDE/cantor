@@ -39,11 +39,12 @@ void JuliaCompletionObject::fetchCompletions()
 {
     if (session()->status() == Cantor::Session::Disable)
     {
-        //TODO: improve JuliaKeywords in T9565 for better fetching
         QStringList allCompletions;
 
         allCompletions << JuliaKeywords::instance()->keywords();
         allCompletions << JuliaKeywords::instance()->variables();
+        allCompletions << JuliaKeywords::instance()->functions();
+        allCompletions << JuliaKeywords::instance()->plotShowingCommands();
             
         setCompletions(allCompletions);
         emit fetchingDone();

@@ -19,64 +19,26 @@
  */
 #include "juliakeywords.h"
 
-JuliaKeywords *JuliaKeywords::instance()
+#include <repository.h>
+#include <KF5/KSyntaxHighlighting/Definition>
+
+JuliaKeywords::JuliaKeywords()
 {
-    static JuliaKeywords *inst = nullptr;
-    if (inst == nullptr) {
-        inst = new JuliaKeywords();
-        inst->loadKeywords();
-    }
+    KSyntaxHighlighting::Repository m_repository;
+    KSyntaxHighlighting::Definition definition = m_repository.definitionForName(QLatin1String("Julia"));
 
-    return inst;
-}
+    m_keywords = definition.keywordList(QLatin1String("block_begin"));
+    m_keywords << definition.keywordList(QLatin1String("block_eb"));
+    m_keywords << definition.keywordList(QLatin1String("block_end"));
+    m_keywords << definition.keywordList(QLatin1String("keywords"));
 
-void JuliaKeywords::loadKeywords()
-{
-    // Put the lists in alphabetical order
-    // Begin m_keywords initialization
-    m_keywords << QLatin1String("abstract");
-    m_keywords << QLatin1String("baremodule");
-    m_keywords << QLatin1String("begin");
-    m_keywords << QLatin1String("bitstype");
-    m_keywords << QLatin1String("break");
-    m_keywords << QLatin1String("catch");
-    m_keywords << QLatin1String("const");
-    m_keywords << QLatin1String("continue");
-    m_keywords << QLatin1String("do");
-    m_keywords << QLatin1String("elseif");
-    m_keywords << QLatin1String("else");
-    m_keywords << QLatin1String("end");
-    m_keywords << QLatin1String("export");
-    m_keywords << QLatin1String("finally");
-    m_keywords << QLatin1String("for");
-    m_keywords << QLatin1String("function");
-    m_keywords << QLatin1String("global");
-    m_keywords << QLatin1String("if");
-    m_keywords << QLatin1String("immutable");
-    m_keywords << QLatin1String("import");
-    m_keywords << QLatin1String("importall");
-    m_keywords << QLatin1String("let");
-    m_keywords << QLatin1String("local");
-    m_keywords << QLatin1String("macro");
-    m_keywords << QLatin1String("module");
-    m_keywords << QLatin1String("quote");
-    m_keywords << QLatin1String("return");
-    m_keywords << QLatin1String("try");
-    m_keywords << QLatin1String("type");
-    m_keywords << QLatin1String("typealias");
-    m_keywords << QLatin1String("using");
-    m_keywords << QLatin1String("while");
-    //Finish m_keywords initialization
-
-    //Begin m_variables initialization
+    //TODO: Upstream pull request to julia.xml from KSyntaxHighlighting?
     m_variables << QLatin1String("false");
     m_variables << QLatin1String("Inf");
     m_variables << QLatin1String("NaN");
     m_variables << QLatin1String("nothing");
     m_variables << QLatin1String("true");
-    //Finish m_variables initialization
 
-    //Begin m_plotShowingCommands initialization
     m_plotShowingCommands << QLatin1String("contour");
     m_plotShowingCommands << QLatin1String("contourf");
     m_plotShowingCommands << QLatin1String("grid");
@@ -94,7 +56,16 @@ void JuliaKeywords::loadKeywords()
     m_plotShowingCommands << QLatin1String("scatter3");
     m_plotShowingCommands << QLatin1String("show");
     m_plotShowingCommands << QLatin1String("surface");
-    //Finish m_plotShowingCommands initialization
+}
+
+JuliaKeywords *JuliaKeywords::instance()
+{
+    static JuliaKeywords *inst = nullptr;
+    if (inst == nullptr) {
+        inst = new JuliaKeywords();
+    }
+
+    return inst;
 }
 
 void JuliaKeywords::addVariable(const QString &variable)
