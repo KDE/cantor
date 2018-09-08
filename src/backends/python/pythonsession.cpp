@@ -131,7 +131,7 @@ void PythonSession::login()
 
     const QString& importerFile = QLatin1String(":py/import_default_modules.py");
 
-    evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish);
+    evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish, true);
 
     listVariables();
 

@@ -109,7 +109,7 @@ void OctaveSession::login()
     if(!OctaveSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
-        evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish);
+        evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish, true);
     }
 
     changeStatus(Cantor::Session::Done);

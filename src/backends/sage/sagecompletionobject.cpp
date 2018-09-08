@@ -45,18 +45,13 @@ SageCompletionObject::~SageCompletionObject()
 void SageCompletionObject::fetchCompletions()
 {
     if (m_expression)
-	return;
-    bool t=session()->isTypesettingEnabled();
-    if(t)
-        session()->setTypesettingEnabled(false);
+        return;
 
     //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
     //after complete() was evaluated
-    m_expression=session()->evaluateExpression(QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__"));
+    const QString& cmd = QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__");
+    m_expression=session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
     connect(m_expression, &Cantor::Expression::gotResult, this, &SageCompletionObject::extractCompletions);
-
-    if(t)
-        session()->setTypesettingEnabled(true);
 }
 
 void SageCompletionObject::extractCompletions()
@@ -146,13 +141,13 @@ void SageCompletionObject::extractCompletionsLegacy()
 void SageCompletionObject::fetchIdentifierType()
 {
     if (m_expression)
-	return;
+       return;
     if (SageKeywords::instance()->keywords().contains(identifier())) {
 	emit fetchingTypeDone(KeywordType);
 	return;
     }
     QString expr = QString::fromLatin1("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
-    m_expression = session()->evaluateExpression(expr);
+    m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
     connect(m_expression, &Cantor::Expression::statusChanged, this, &SageCompletionObject::extractIdentifierType);
 }
 

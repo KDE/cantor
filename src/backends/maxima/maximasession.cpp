@@ -77,12 +77,11 @@ void MaximaSession::login()
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
-    //TODO
-//     if(!MaximaSettings::self()->autorunScripts().isEmpty()){
-//         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String("\n"));
-//         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish);
-// //         runFirstExpression();
-//     }
+    if(!MaximaSettings::self()->autorunScripts().isEmpty()){
+        QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String(";"));
+        autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
+        evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish, true);
+    }
 
     changeStatus(Session::Done);
     emit loginDone();

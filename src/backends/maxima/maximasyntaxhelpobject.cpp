@@ -57,7 +57,7 @@ void MaximaSyntaxHelpObject::fetchInformation()
         //output label that would mess up history
         QString cmd=QLatin1String(":lisp(cl-info::info-exact \"%1\")");
 
-        m_expression=session()->evaluateExpression(cmd.arg(command()));
+        m_expression=session()->evaluateExpression(cmd.arg(command()), Cantor::Expression::FinishingBehavior::DoNotDelete, true);
 
         connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
 

@@ -50,7 +50,7 @@ void KAlgebraSession::login()
     if(!KAlgebraSettings::autorunScripts().isEmpty()){
         QString autorunScripts = KAlgebraSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
-        evaluateExpression(autorunScripts, KAlgebraExpression::DeleteOnFinish);
+        evaluateExpression(autorunScripts, KAlgebraExpression::DeleteOnFinish, true);
     }
 
     changeStatus(Cantor::Session::Done);

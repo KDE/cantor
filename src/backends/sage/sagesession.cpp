@@ -141,7 +141,7 @@ void SageSession::login()
 
     if(!SageSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = SageSettings::self()->autorunScripts().join(QLatin1String("\n"));
-        evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish);
+        evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish, true);
     }
 
     changeStatus(Session::Done);
@@ -438,7 +438,7 @@ void SageSession::setWorksheetPath(const QString& path)
     //this variable is usually set by the "os" package when running a script
     //but when it is run in an interpreter (like sage server) it is not set
     const QString cmd = QLatin1String("__file__ = '%1'");
-    evaluateExpression(cmd.arg(path), Cantor::Expression::DeleteOnFinish);
+    evaluateExpression(cmd.arg(path), Cantor::Expression::DeleteOnFinish, true);
 }
 
 Cantor::CompletionObject* SageSession::completionFor(const QString& command, int index)
