@@ -62,6 +62,8 @@ class MarkdownEntry : public WorksheetEntry
     bool renderMarkdown(QString& plain);
     bool eventFilter(QObject* object, QEvent* event) override;
     bool wantToEvaluate() override;
+    void setRenderedHtml(const QString& html);
+    void setPlainText(const QString& plain);
 
   protected:
     WorksheetTextItem* m_textItem;

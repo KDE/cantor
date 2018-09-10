@@ -437,9 +437,6 @@ Cantor::Session* WorksheetTextItem::session()
 
 void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
 {
-    if (!isEditable())
-        return;
-
     switch (event->key()) {
     case Qt::Key_Left:
         if (event->modifiers() == Qt::NoModifier && textCursor().atStart()) {
@@ -912,4 +909,12 @@ void WorksheetTextItem::setFontSize(int size)
     mergeFormatOnWordOrSelection(fmt);
 }
 
+void WorksheetTextItem::allowEditing()
+{
+    setTextInteractionFlags(Qt::TextEditorInteraction);
+}
 
+void WorksheetTextItem::denyEditing()
+{
+    setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+}

@@ -128,6 +128,7 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             format.setProperty(EpsRenderer::ImagePath, imagePath);
             format.setProperty(EpsRenderer::Code, latexCode);
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            m_textItem->denyEditing();
         } else
         {
             cursor.insertText(latexCode);
@@ -235,6 +236,7 @@ void LatexEntry::resolveImagesAtCursor()
         cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
 
     cursor.insertText(m_textItem->resolveImages(cursor));
+    m_textItem->allowEditing();
 }
 
 QString LatexEntry::latexCode()
@@ -359,6 +361,7 @@ bool LatexEntry::renderLatexCode()
         cursor.movePosition(QTextCursor::Start);
         cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+        m_textItem->denyEditing();
     }
     delete renderer;
     return success;

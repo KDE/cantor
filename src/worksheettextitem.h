@@ -69,6 +69,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     QString resolveImages(const QTextCursor& cursor);
 
     bool isEditable();
+    void allowEditing();
+    void denyEditing();
     void setBackgroundColor(const QColor&);
     const QColor& backgroundColor() const;
     bool richTextEnabled();

@@ -66,9 +66,7 @@ void MarkdownEntry::setContent(const QString& content)
 {
     rendered = false;
     plain = content;
-    QTextDocument* doc = m_textItem->document();
-    doc->setPlainText(plain);
-    m_textItem->setDocument(doc);
+    setPlainText(plain);
 }
 
 void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
@@ -93,9 +91,9 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
         html = QLatin1String(""); // No plain text provided. The entry shouldn't render anything, or the user can't re-edit it.
     }
     if(rendered)
-        m_textItem->setHtml(html);
+        setRenderedHtml(html);
     else
-        m_textItem->setPlainText(plain);
+        setPlainText(plain);
 }
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -169,7 +167,7 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
     html = QString::fromUtf8(htmlDocument, htmlSize);
     mkd_cleanup(mdHandle);
 
-    m_textItem->setHtml(html);
+    setRenderedHtml(html);
     return true;
 #else
     Q_UNUSED(plain);
@@ -216,9 +214,7 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
             if(!mouseEvent) return false;
             if(mouseEvent->button() == Qt::LeftButton && rendered)
             {
-                QTextDocument* doc = m_textItem->document();
-                doc->setPlainText(plain);
-                m_textItem->setDocument(doc);
+                setPlainText(plain);
                 m_textItem->setCursorPosition(mouseEvent->pos());
                 m_textItem->textCursor().clearSelection();
                 rendered = false;
@@ -232,4 +228,18 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
 bool MarkdownEntry::wantToEvaluate()
 {
     return !rendered;
+}
+
+void MarkdownEntry::setRenderedHtml(const QString& html)
+{
+    m_textItem->setHtml(html);
+    m_textItem->denyEditing();
+}
+
+void MarkdownEntry::setPlainText(const QString& plain)
+{
+    QTextDocument* doc = m_textItem->document();
+    doc->setPlainText(plain);
+    m_textItem->setDocument(doc);
+    m_textItem->allowEditing();
 }
