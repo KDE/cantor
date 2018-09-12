@@ -478,18 +478,16 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     cmdElem.appendChild(doc.createTextNode( command() ));
     exprElem.appendChild(cmdElem);
 
-    //save the result if available
+    // save results of the expression if they exist
     if (expression())
-    {
-        if (expression()->result())
+        for (Cantor::Result * const result: expression()->results())
         {
-            QDomElement resultElem = expression()->result()->toXml(doc);
+            const QDomElement& resultElem = result->toXml(doc);
             exprElem.appendChild(resultElem);
 
             if (archive)
-                expression()->result()->saveAdditionalData(archive);
+                result->saveAdditionalData(archive);
         }
-    }
 
     //save the background color if it differs from the default one
     const QColor& backgroundColor = m_commandItem->backgroundColor();
@@ -602,28 +600,15 @@ void CommandEntry::updateEntry()
         return; // Help is handled elsewhere
 
     //CommandEntry::updateEntry() is only called if the worksheet view is resized
-    //or when we got a new result.
+    //or when we got a new result(s).
     //In the second case the number of results and the number of result graphic objects is different
-    //and we add a new graphic object for the new result.
-    if (expr->results().size() != m_resultItems.size())
+    //and we add a new graphic objects for the new result(s) (new result(s) are located in the end).
+    if (m_resultItems.size() < expr->results().size())
     {
-        m_resultItems << ResultItem::create(this, expr->results().last());
+        for (int i = m_resultItems.size(); i < expr->results().size(); i++)
+            m_resultItems << ResultItem::create(this, expr->results()[i]);
         animateSizeChange();
     }
-
-    //TODO:old logic, keep it here until the new logic with multiple result objects turns out to be complete.
-//     if (expr->result()->type() == Cantor::TextResult::Type &&
-//         expr->result()->toHtml().trimmed().isEmpty()) {
-//         return;
-//     } else if (!m_resultItem) {
-//         m_resultItem = ResultItem::create(this, expr->result());
-//         qDebug() << "new result";
-//         animateSizeChange();
-//     } else {
-//         m_resultItem = m_resultItem->updateFromResult(expr->result());
-//         qDebug() << "update result";
-//         animateSizeChange();
-//      }
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)

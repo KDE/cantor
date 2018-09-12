@@ -48,37 +48,38 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 {
     setCommand(xml.firstChildElement(QLatin1String("Command")).text());
 
-    QDomElement resultElement=xml.firstChildElement(QLatin1String("Result"));
-    Cantor::Result* result=nullptr;
-    const QString& type=resultElement.attribute(QLatin1String("type"));
-    if ( type == QLatin1String("text"))
+    const QDomNodeList& results = xml.elementsByTagName(QLatin1String("Result"));
+    for (int i = 0; i < results.size(); i++)
     {
-        result=new Cantor::TextResult(resultElement.text());
-    }
-    else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
-    {
-        const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute(QLatin1String("filename")));
-        if (imageEntry&&imageEntry->isFile())
+        const QDomElement& resultElement = results.at(i).toElement();
+        const QString& type = resultElement.attribute(QLatin1String("type"));
+        if ( type == QLatin1String("text"))
         {
-            const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-            QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-            imageFile->copyTo(dir);
-            QUrl imageUrl = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(imageFile->name()));
-            if(type==QLatin1String("latex"))
+            addResult(new Cantor::TextResult(resultElement.text()));
+        }
+        else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
+        {
+            const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute(QLatin1String("filename")));
+            if (imageEntry&&imageEntry->isFile())
             {
-                result=new Cantor::LatexResult(resultElement.text(), imageUrl);
-            }else if(type==QLatin1String("animation"))
-            {
-                result=new Cantor::AnimationResult(imageUrl);
-            }else if(imageFile->name().endsWith(QLatin1String(".eps")))
-            {
-                result=new Cantor::EpsResult(imageUrl);
-            }else
-            {
-                result=new Cantor::ImageResult(imageUrl);
+                const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+                QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+                imageFile->copyTo(dir);
+                QUrl imageUrl = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(imageFile->name()));
+                if(type==QLatin1String("latex"))
+                {
+                    addResult(new Cantor::LatexResult(resultElement.text(), imageUrl));
+                }else if(type==QLatin1String("animation"))
+                {
+                    addResult(new Cantor::AnimationResult(imageUrl));
+                }else if(imageFile->name().endsWith(QLatin1String(".eps")))
+                {
+                    addResult(new Cantor::EpsResult(imageUrl));
+                }else
+                {
+                    addResult(new Cantor::ImageResult(imageUrl));
+                }
             }
         }
     }
-
-    setResult(result);
 }
