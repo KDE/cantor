@@ -131,7 +131,7 @@ void Worksheet::print(QPrinter* printer)
     painter.scale(scale, scale);
     painter.setRenderHint(QPainter::Antialiasing);
     WorksheetEntry* entry = firstEntry();
-    qreal y = 0;
+    qreal y = TopMargin;
 
     while (entry) {
         qreal h = 0;
