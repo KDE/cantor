@@ -64,7 +64,6 @@ void Session::enqueueExpression(Expression* expr)
     if (d->expressionQueue.size() == 1)
     {
      changeStatus(Cantor::Session::Running);
-     d->expressionQueue.first()->setStatus(Cantor::Expression::Computing);
      runFirstExpression();
     }
 }
