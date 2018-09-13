@@ -158,7 +158,7 @@ class CommandEntry : public WorksheetEntry
     Cantor::SyntaxHelpObject* m_syntaxHelpObject;
 
     EvaluationOption m_evaluationOption;
-    QTimer* m_promtItemTimer;
+    QPropertyAnimation* m_promptItemAnimation;
     bool m_menusInitialized;
 
     //formatting

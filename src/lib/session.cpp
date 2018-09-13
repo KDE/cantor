@@ -58,7 +58,6 @@ QList<Expression*>& Cantor::Session::expressionQueue() const
 void Session::enqueueExpression(Expression* expr)
 {
     d->expressionQueue.append(expr);
-    expr->setStatus(Cantor::Expression::Queued);
 
     //run the newly added expression immediately if it's the only one in the queue
     if (d->expressionQueue.size() == 1)
@@ -66,6 +65,8 @@ void Session::enqueueExpression(Expression* expr)
      changeStatus(Cantor::Session::Running);
      runFirstExpression();
     }
+    else
+        expr->setStatus(Cantor::Expression::Queued);
 }
 
 void Session::runFirstExpression()

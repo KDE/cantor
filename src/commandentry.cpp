@@ -35,6 +35,7 @@
 #include <QFontDialog>
 #include <QTimer>
 #include <QToolTip>
+#include <QPropertyAnimation>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -78,8 +79,12 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
     m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
 
-    m_promtItemTimer = new QTimer(this);
-    connect(m_promtItemTimer, &QTimer::timeout, this, &CommandEntry::animatePromptItem);
+    m_promptItemAnimation = new QPropertyAnimation(m_promptItem, "opacity");
+    m_promptItemAnimation->setDuration(600);
+    m_promptItemAnimation->setStartValue(1);
+    m_promptItemAnimation->setKeyValueAt(0.5, 0);
+    m_promptItemAnimation->setEndValue(1);
+    connect(m_promptItemAnimation, &QPropertyAnimation::finished, this, &CommandEntry::animatePromptItem);
 
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
@@ -620,28 +625,19 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         //change the background of the promt item and start animating it (fade in/out).
         //don't start the animation immediately in order to avoid unwanted flickering for "short" commands,
         //start the animation after 1 second passed.
-        QTimer::singleShot(1000, this, [=] () {
-            KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-            m_promptItem->setBackgroundColor(scheme.decoration(KColorScheme::HoverColor).color());
-            m_promtItemTimer->start(100);
-        });
-        break;
-    }
-    case Cantor::Expression::Queued:
-    {
-        QTimer::singleShot(1000, this, [=] () {
-            if (m_expression->status() == Cantor::Expression::Queued)
-            {
-                KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-                m_promptItem->setBackgroundColor(scheme.decoration(KColorScheme::HoverColor).color());
-            }
-        });
+        if (worksheet()->animationsEnabled())
+        {
+            const int id = m_expression->id();
+            QTimer::singleShot(1000, this, [this, id] () {
+                if(m_expression->status() == Cantor::Expression::Computing && m_expression->id() == id)
+                    m_promptItemAnimation->start();
+            });
+        }
         break;
     }
     case Cantor::Expression::Error:
     case Cantor::Expression::Interrupted:
-        m_promtItemTimer->stop();
-        m_promptItem->setBackgroundColor(QColor());
+        m_promptItemAnimation->stop();
         m_promptItem->setOpacity(1.);
 
         m_commandItem->setFocusAt(WorksheetTextItem::BottomRight, 0);
@@ -659,8 +655,7 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         recalculateSize();
         break;
     case Cantor::Expression::Done:
-        m_promtItemTimer->stop();
-        m_promptItem->setBackgroundColor(QColor());
+        m_promptItemAnimation->stop();
         m_promptItem->setOpacity(1.);
         evaluateNext(m_evaluationOption);
         m_evaluationOption = DoNothing;
@@ -671,37 +666,8 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
 }
 
 void CommandEntry::animatePromptItem() {
-    if (m_expression->status() != Cantor::Expression::Computing)
-    {
-        //the expression is not being computed anymore, reset the promt item and leave
-        m_promptItem->setBackgroundColor(QColor());
-        m_promptItem->setOpacity(1.);
-        m_promtItemTimer->stop();
-        return;
-    }
-
-    static bool fadeOut = true;
-    qreal newOpacity = m_promptItem->opacity();
-    if (fadeOut)
-    {
-        newOpacity -= 0.1;
-        if (newOpacity < 0.0)
-        {
-            fadeOut = false;
-            return;
-        }
-    }
-    else
-    {
-        newOpacity += 0.1;
-        if (newOpacity > 1.0)
-        {
-            fadeOut = true;
-            return;
-        }
-    }
-
-    m_promptItem->setOpacity(newOpacity);
+    if(m_expression->status() == Cantor::Expression::Computing)
+        m_promptItemAnimation->start();
 }
 
 bool CommandEntry::isEmpty()
@@ -924,8 +890,6 @@ void CommandEntry::removeResult()
     for(auto* item : m_resultItems)
         fadeOutItem(item->graphicsObject());
 
-    //delete all result graphic objects
-    qDeleteAll(m_resultItems);
     m_resultItems.clear();
 }
 
@@ -960,6 +924,8 @@ void CommandEntry::updatePrompt()
     {
         if(m_expression ->status() == Cantor::Expression::Computing&&worksheet()->isRunning())
             cformat.setForeground(color.foreground(KColorScheme::PositiveText));
+        else if(m_expression ->status() == Cantor::Expression::Queued)
+            cformat.setForeground(color.foreground(KColorScheme::InactiveText));
         else if(m_expression ->status() == Cantor::Expression::Error)
             cformat.setForeground(color.foreground(KColorScheme::NegativeText));
         else if(m_expression ->status() == Cantor::Expression::Interrupted)
