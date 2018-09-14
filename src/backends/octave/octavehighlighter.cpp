@@ -43,6 +43,9 @@ OctaveHighlighter::OctaveHighlighter(QObject* parent, Session* session): Default
   addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
   addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
 
+  addRule(QRegExp(QLatin1String("#[^\n]*")), commentFormat());
+  addRule(QRegExp(QLatin1String("%[^\n]*")), commentFormat());
+
   rehighlight();
 }
 
