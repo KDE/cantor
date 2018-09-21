@@ -69,7 +69,8 @@ void PythonExpression::parseOutput(QString output)
     if(command().simplified().startsWith(QLatin1String("help("))){
         setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf(QLatin1String("None")), 4)));
     } else {
-        setResult(new Cantor::TextResult(output));
+        if (!output.isEmpty())
+            setResult(new Cantor::TextResult(output));
     }
 
     setStatus(Cantor::Expression::Done);
