@@ -34,12 +34,14 @@ class PythonServer : public QObject
 
   public Q_SLOTS:
     Q_SCRIPTABLE void login();
+    Q_SCRIPTABLE void setFilePath(const QString& path);
     Q_SCRIPTABLE void runPythonCommand(const QString& command) const;
     Q_SCRIPTABLE QString getOutput() const;
     Q_SCRIPTABLE QString getError() const;
 
   private:
     PyObject* m_pModule;
+    QString filePath;
 };
 
 #endif

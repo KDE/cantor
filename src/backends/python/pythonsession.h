@@ -51,6 +51,7 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     QAbstractItemModel* variableModel() override;
+    void setWorksheetPath(const QString& path) override;
 
     virtual bool integratePlots() const = 0;
     virtual QStringList autorunScripts() const = 0;
@@ -67,6 +68,8 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     KProcess* m_pProcess;
     QString serverName;
     QString DbusChannelName;
+
+    QString worksheetPath;
 
   protected:
     QString m_output;
@@ -88,7 +91,6 @@ class CANTOR_EXPORT PythonSession : public Cantor::Session
     virtual void readExpressionOutput(const QString& commandProcessing);
 
   protected:
-    void runClassOutputPython() const;
     void updateOutput();
 
   private Q_SLOTS:

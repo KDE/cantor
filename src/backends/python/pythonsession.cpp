@@ -97,7 +97,7 @@ void PythonSession::login()
     }
 
     m_pIface->call(QString::fromLatin1("login"));
-
+    m_pIface->call(QString::fromLatin1("setFilePath"), worksheetPath);
 
     if(integratePlots())
     {
@@ -213,14 +213,6 @@ void PythonSession::runExpression(PythonExpression* expr)
             continue;
         }
 
-        if(!PythonKeywords::instance()->keywords().contains(firstLineWord) && !command.contains(QLatin1String("=")) &&
-           !command.endsWith(QLatin1String(":")) && !command.startsWith(QLatin1String(" "))){
-
-            commandProcessing += QLatin1String("print(") + command + QLatin1String(")\n");
-
-            continue;
-        }
-
         commandProcessing += command + QLatin1String("\n");
 
     }
@@ -233,16 +225,10 @@ void PythonSession::readExpressionOutput(const QString& commandProcessing)
     readOutput(commandProcessing);
 }
 
-void PythonSession::runClassOutputPython() const
-{
-    runPythonCommand(fromSource(QLatin1String(":py/init.py")));
-}
-
 void PythonSession::getPythonCommandOutput(const QString& commandProcessing)
 {
     qDebug() << "Running python command" << commandProcessing;
 
-    runClassOutputPython();
     runPythonCommand(commandProcessing);
 
     m_output = getOutput();
@@ -462,4 +448,9 @@ QString PythonSession::getError() const
         return reply.value();
 
     return reply.error().message();
+}
+
+void PythonSession::setWorksheetPath(const QString& path)
+{
+    worksheetPath = path;
 }

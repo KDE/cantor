@@ -45,11 +45,51 @@ void PythonServer::login()
 {
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
+    filePath = QLatin1String("python_cantor_worksheet");
 }
 
 void PythonServer::runPythonCommand(const QString& command) const
 {
-    PyRun_SimpleString(command.toStdString().c_str());
+    PyObject* py_dict = PyModule_GetDict(m_pModule);
+
+    const char* prepareCommand =
+        "import sys;\n"\
+        "class CatchOutPythonBackend:\n"\
+        "  def __init__(self):\n"\
+        "    self.value = ''\n"\
+        "  def write(self, txt):\n"\
+        "    self.value += txt\n"\
+        "outputPythonBackend = CatchOutPythonBackend()\n"\
+        "errorPythonBackend  = CatchOutPythonBackend()\n"\
+        "sys.stdout = outputPythonBackend\n"\
+        "sys.stderr = errorPythonBackend\n";
+    PyRun_SimpleString(prepareCommand);
+
+    PyObject* compile = Py_CompileString(command.toStdString().c_str(), filePath.toStdString().c_str(), Py_single_input);
+    // There are two reasons for the error:
+    // 1) This code is not single expression, so we can't compile this with flag Py_single_input
+    // 2) There are errors in the code
+    if (PyErr_Occurred())
+    {
+        PyErr_Clear();
+        // Try to recompile code as sequence of expressions
+        compile = Py_CompileString(command.toStdString().c_str(), filePath.toStdString().c_str(), Py_file_input);
+        if (PyErr_Occurred())
+        {
+            // We now know, that we have a syntax error, so print the traceback and exit
+            PyErr_PrintEx(0);
+            return;
+        }
+    }
+#if PY_MAJOR_VERSION == 3
+    PyEval_EvalCode(compile, py_dict, py_dict);
+#elif PY_MAJOR_VERSION == 2
+    PyEval_EvalCode((PyCodeObject*)compile, py_dict, py_dict);
+#else
+    #warning Unknown Python version
+#endif
+    if (PyErr_Occurred())
+        PyErr_PrintEx(0);
 }
 
 QString PythonServer::getError() const
@@ -68,5 +108,10 @@ QString PythonServer::getOutput() const
     return pyObjectToQString(output);
 }
 
+void PythonServer::setFilePath(const QString& path)
+{
+    this->filePath = path;
+    PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
+}
 
 
