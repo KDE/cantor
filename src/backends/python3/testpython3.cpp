@@ -35,7 +35,7 @@ void TestPython3::testImportNumpy()
     Cantor::Expression* e = evalExp(QLatin1String("import numpy"));
 
     QVERIFY(e != nullptr);
-    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Done);
 }
 
 void TestPython3::testCodeWithComments()
