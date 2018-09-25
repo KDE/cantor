@@ -74,7 +74,7 @@ else(NOT WIN32)
     set(WITH_EPS Off)
 endif(NOT WIN32)
 
-find_package(Discount)
+find_package(Discount 2.2.0 REQUIRED)
 set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of the Markdown markup language"
     URL "https://www.pell.portland.or.us/~orc/Code/discount/"
     TYPE OPTIONAL
