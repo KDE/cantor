@@ -778,11 +778,14 @@ void Worksheet::rehighlight()
             WorksheetTextItem* item = entry->highlightItem();
             if (!item)
                 continue;
+            QTextCursor cursor(item->document());
+            cursor.beginEditBlock();
             for (QTextBlock b = item->document()->firstBlock();
                  b.isValid(); b = b.next())
             {
                 b.layout()->clearAdditionalFormats();
             }
+            cursor.endEditBlock();
         }
         update();
     }
