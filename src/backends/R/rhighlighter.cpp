@@ -85,3 +85,8 @@ void RHighlighter::highlightBlock(const QString& text)
     massFormat(variables,variableFormat(),text);
     formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
 }
+
+void RHighlighter::updateHighlighting()
+{
+    emit rulesChanged();
+}

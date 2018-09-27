@@ -60,6 +60,7 @@ class RSession : public Cantor::Session
 
   Q_SIGNALS:
     void symbolsChanged();
+    void syntaxRegExpsFilled();
 
   private:
     QProcess* m_process;

@@ -36,6 +36,7 @@ class RHighlighter : public Cantor::DefaultHighlighter
 
   public Q_SLOTS:
     void refreshSyntaxRegExps();
+    void updateHighlighting();
 
   Q_SIGNALS:
     void syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&);

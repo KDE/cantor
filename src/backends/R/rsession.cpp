@@ -126,6 +126,7 @@ QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
     RHighlighter *h=new RHighlighter(parent);
     connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));
     connect(this,SIGNAL(symbolsChanged()),h,SLOT(refreshSyntaxRegExps()));
+    connect(this,SIGNAL(syntaxRegExpsFilled()), h, SLOT(updateHighlighting()));
     return h;
 }
 
@@ -141,6 +142,8 @@ void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
     foreach (const QString s, m_functions)
         if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
             f.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
+
+    emit syntaxRegExpsFilled();
 }
 
 void RSession::receiveSymbols(const QStringList& vars, const QStringList& values, const QStringList & funcs)
