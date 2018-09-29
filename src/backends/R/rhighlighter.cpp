@@ -47,8 +47,8 @@ void RHighlighter::refreshSyntaxRegExps()
     emit syntaxRegExps(variables,functions);
 }
 
-// FIXME: due to lack of lookbehinds in QRegExp here we use a flag showing if we need to shift the boundary of formating
-// to make up for the accidently matched character
+// FIXME: due to lack of lookbehinds in QRegExp here we use a flag showing if we need to shift the boundary of formatting
+// to make up for the accidentally matched character
 void RHighlighter::formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift)
 {
     int index = p.indexIn(text);
@@ -78,9 +78,9 @@ void RHighlighter::highlightBlock(const QString& text)
     // TODO: find more elegant solution not involving double formatting
     formatRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")),errorFormat(),text);
 
-    //formatRule(QRegExp("[^A-Za-z_]-?([0-9]+)?(((e|i)?-?)|\\.)[0-9]*L?"),numberFormat(),text,true); // TODO: errorneous number formats, refine
+    //formatRule(QRegExp("[^A-Za-z_]-?([0-9]+)?(((e|i)?-?)|\\.)[0-9]*L?"),numberFormat(),text,true); // TODO: erroneous number formats, refine
     massFormat(operators,operatorFormat(),text);
-    massFormat(specials,commentFormat(),text); // FIXME must be distinc
+    massFormat(specials,commentFormat(),text); // FIXME must be distinct
     massFormat(functions,functionFormat(),text);
     massFormat(variables,variableFormat(),text);
     formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant

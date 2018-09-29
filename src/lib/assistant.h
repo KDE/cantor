@@ -59,7 +59,7 @@ class CANTOR_EXPORT Assistant : public QObject, public KXMLGUIClient
 
     /**
      * Sets the properties of this Assistant
-     * accodring to KPluginMetaData
+     * according to KPluginMetaData
      * @param info KPluginMetaData
      */
     void setPluginInfo(KPluginMetaData info);

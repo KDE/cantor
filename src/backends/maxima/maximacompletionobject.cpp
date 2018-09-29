@@ -28,7 +28,7 @@
 
 MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index,MaximaSession* session) : Cantor::CompletionObject(session)
 {
-    qDebug() << "MaximaCompletionObject construtor";
+    qDebug() << "MaximaCompletionObject constructor";
     setLine(command, index);
 }
 

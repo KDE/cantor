@@ -70,7 +70,7 @@ void QalculateSession::login()
 {
     emit loginStarted();
 
-    /* we will , most probably, use autoscripts for setting the mode , evaulate options, print options etc */
+    /* we will , most probably, use autoscripts for setting the mode , evaluate options, print options etc */
 
     // if(!QalculateSettings::autorunScripts().isEmpty()){
     //     QString autorunScripts = QalculateSettings::self()->autorunScripts().join(QLatin1String("\n"));
@@ -149,7 +149,7 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
 {
 
     // internally we pass save(value,variable) command to qlac to save the variables. see parseSaveCommand()
-    // TODO: if the user if trying to override a default variable(constansts etc) or an existing variable, ask the user if he/she wants to override it or not.
+    // TODO: if the user if trying to override a default variable(constants etc) or an existing variable, ask the user if he/she wants to override it or not.
 
     qDebug() << "save command " << currentCmd << endl;
 
@@ -276,7 +276,7 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
 {
     /*
         make sure the command is:
-        * fomatted correctly. e.g if the command is save(value,variable), we have to make sure that there is no space between save and '(', otherwise qalc
+        * formatted correctly. e.g if the command is save(value,variable), we have to make sure that there is no space between save and '(', otherwise qalc
           waits for user input which is not supported by us as of now
         * supported save commands: save(value,variable,[category],[title]), save definitions, save mode, save var, store var,
         saveVariables filename

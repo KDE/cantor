@@ -57,7 +57,7 @@ class Cantor::DefaultHighlighterPrivate
   public:
     QTextCursor cursor;
 
-    //Character formats to use for the highlighing
+    //Character formats to use for the highlighting
     QTextCharFormat functionFormat;
     QTextCharFormat variableFormat;
     QTextCharFormat objectFormat;

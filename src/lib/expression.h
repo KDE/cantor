@@ -40,7 +40,7 @@ class ExpressionPrivate;
 
 /**
  * An Expression object is used, to store the information needed when running a command of a Session
- * Evaluation of Expression is an asynchroneous process in most cases, so most of the members
+ * Evaluation of Expression is an asynchronous process in most cases, so most of the members
  * of this class are not useful directly after its construction. Therefore there are signals
  * indicating, when the Expression goes through the different stages of the Running process.
  * An Expression is never constructed directly, but by using Session::evaluateExpression()
@@ -68,7 +68,7 @@ class CANTOR_EXPORT Expression : public QObject
 			                 */
     };
     /**
-     * Expression constructor. Should only be called from Session::evaulateExpression
+     * Expression constructor. Should only be called from Session::evaluateExpression
      * @param session the session, this Expression belongs to
      * @param internal \c true if this expression is internal expression
      */
@@ -80,7 +80,7 @@ class CANTOR_EXPORT Expression : public QObject
 
     /**
      * Evaluate the Expression. before this is called, you should set the Command first
-     * This method can be implemented asynchroneous, thus the Evaluation doesn't need to happen in the method,
+     * This method can be implemented asynchronous, thus the Evaluation doesn't need to happen in the method,
      * It can also only be scheduled for evaluating.
      * @see setCommand()
      */
@@ -198,7 +198,7 @@ class CANTOR_EXPORT Expression : public QObject
      * comes from the user
      */
     bool isInternal();
-    
+
   Q_SIGNALS:
     /**
      * the Id of this Expression changed

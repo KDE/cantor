@@ -233,24 +233,24 @@ void JuliaSession::listVariables()
 
     m_interface->call(QLatin1String("parseModules"));
 
-    const QStringList& variables = 
+    const QStringList& variables =
         static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variablesList"))).value();
-    const QStringList& values = 
+    const QStringList& values =
         static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableValuesList"))).value();
     for (int i = 0; i < variables.size(); i++)
     {
-        if (i >= values.size()) 
+        if (i >= values.size())
         {
-            qWarning() << "Don't have value for variable from julia server response, somethinkg wrong!";
+            qWarning() << "Don't have value for variable from julia server response, something wrong!";
             continue;
         }
 
         const QString& name = variables[i];
         QString value = values[i];
-        if (value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER) 
+        if (value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER)
         {
             // Register variable
-            // We use replace here, because julia return data type for some variables, and we need 
+            // We use replace here, because julia return data type for some variables, and we need
             // remove it to make variable view more consistent with the other backends
             // More info: https://bugs.kde.org/show_bug.cgi?id=377771
             m_variableModel->addVariable(name, value.replace(typeVariableInfo,QLatin1String("[")));
@@ -260,7 +260,7 @@ void JuliaSession::listVariables()
             m_variableModel->removeVariable(name);
     }
 
-    const QStringList& functions = 
+    const QStringList& functions =
         static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("functionsList"))).value();
     foreach (const QString& name, functions)
     {

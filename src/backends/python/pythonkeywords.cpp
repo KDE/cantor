@@ -28,7 +28,7 @@
 
 PythonKeywords::PythonKeywords()
 {
-    qDebug() << "PythonKeywords construtor";
+    qDebug() << "PythonKeywords constructor";
 
 }
 

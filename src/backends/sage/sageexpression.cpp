@@ -124,7 +124,7 @@ void SageExpression::parseOutput(const QString& text)
             qDebug()<<"got too many prompts";
 
         //if the output ends with an AlternativePrompt, this means that
-        //Sage is expecting additional input, allthough m_promptCount==0
+        //Sage is expecting additional input, although m_promptCount==0
         //indicates that all information has been passed to sage.
         //This means that the user has entered an invalid command.
         //interrupt it and show an error message

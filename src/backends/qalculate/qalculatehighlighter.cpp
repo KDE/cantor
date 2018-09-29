@@ -69,7 +69,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
             qDebug() << "function";
             format = functionFormat();
         } else if ( isOperatorAndWhitespace(words[i]) ) {
-            // stuff like ") * (" is an invalid expression, but acutally OK
+            // stuff like ") * (" is an invalid expression, but actually OK
 
             // check if last number is actually a float
             bool isFloat = false;

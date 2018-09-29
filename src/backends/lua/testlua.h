@@ -35,8 +35,8 @@ private Q_SLOTS:
     void testSimpleCommand();
     //tests a command, containing more than 1 line
     void testMultilineCommand();
-    //tests simple variable difinition
-    void testVariableDifinition();
+    //tests simple variable definition
+    void testVariableDefinition();
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
     //tests if-else condition

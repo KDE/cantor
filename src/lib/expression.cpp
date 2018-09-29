@@ -117,7 +117,7 @@ void Expression::addResult(Result* result)
 {
     if(result!=nullptr)
     {
-        qDebug()<<"settting result to a type "<<result->type()<<" result";
+        qDebug()<<"setting result to a type "<<result->type()<<" result";
         #ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
         if ( session()->isTypesettingEnabled()&&

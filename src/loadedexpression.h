@@ -28,7 +28,7 @@
 #include <QDomElement>
 
 /** This class is used to hold expressions
-    loaded from a file. they can't be evauluated
+    loaded from a file. they can't be evaluated
     and only show the result, they loaded from xml.
     this is used to avoid most exceptions when
     dealing with loaded Worksheets instead of newly

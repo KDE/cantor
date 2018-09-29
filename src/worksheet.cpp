@@ -1238,7 +1238,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
 
 void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
 {
-    // If we choose entry by entry cursor and press text button (not modifires, for example, like Control)
+    // If we choose entry by entry cursor and press text button (not modifiers, for example, like Control)
     if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && !keyEvent->text().isEmpty())
         addEntryFromEntryCursor();
 

@@ -99,7 +99,7 @@ private:
     QStringList m_functions; //< list of known function at the moment
     QStringList m_removedFunctions; //< list of functions removed during cleaning
 
-    // We are hidding constructor and destructor for singleton
+    // We are hiding constructor and destructor for singleton
     JuliaKeywords();
     ~JuliaKeywords() = default;
 };

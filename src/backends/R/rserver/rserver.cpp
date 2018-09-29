@@ -315,7 +315,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
         //if the command didn't print anything on its own, print the result
 
 
-        //TODO: handle some known result types like lists, matrices spearately
+        //TODO: handle some known result types like lists, matrices separately
         //      to make the output look better, by using html (tables etc.)
         if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
         {

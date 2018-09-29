@@ -204,7 +204,7 @@ void MaximaExpression::addInformation(const QString& information)
 
 //The maxima backend is modified, so that it outputs
 //xml-style tags around outputs, input prompts etc.
-//the following are some simple helper functions to faciliate parsing
+//the following are some simple helper functions to facilitate parsing
 inline void skipWhitespaces(int* idx, const QString& txt)
 {
     for(;*idx < txt.size() && (txt[*idx]).isSpace();++(*idx));

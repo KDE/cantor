@@ -93,14 +93,14 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     virtual Session* createSession() = 0;
     /**
      * Returns list of the supported optional features
-     * @return a list of features, containing items of the Capabiltiy enum, ORed together
+     * @return a list of features, containing items of the Capability enum, ORed together
      */
     virtual Capabilities capabilities() const = 0;
     /**
-     * Returns whether all of this backends requirements are fulfiled, or if some are missing.
+     * Returns whether all of this backends requirements are fulfilled, or if some are missing.
      * @return @c true if all the requirements needed to use this Backend are fulfilled
      * @return @c false some requirements are missing. e.g. the maxima executable can not be found
-     * @see Capablility
+     * @see Capability
     */
     virtual bool requirementsFullfilled() const;
 
@@ -150,8 +150,8 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     virtual QUrl helpUrl() const;
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
-     * @return @c true, if the enabled flag is set to true, and the requirements are fulfiled
-     * @return @c false, if the backend was purposedly disabled, or requirements are missing
+     * @return @c true, if the enabled flag is set to true, and the requirements are fulfilled
+     * @return @c false, if the backend was purposly disabled, or requirements are missing
      * @see requirementsFullfilled()
      */
     bool isEnabled() const;

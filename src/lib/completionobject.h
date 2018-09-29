@@ -31,7 +31,7 @@ class CompletionObjectPrivate;
 class Session;
 
 /**
- * This Object is used to provide a Tab Completion, in an asynchroneous way.
+ * This Object is used to provide a Tab Completion, in an asynchronous way.
  * Each backend, supporting tab completion, needs to provide their own
  * CompletionObject, that reimplements the fetching of the completions
  * and emits done() as soon as the completions are available
@@ -168,7 +168,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
   protected Q_SLOTS:
     /**
      * This function should be reimplemented to start the actual fetching
-     * of the completions. It can be asynchroneous.
+     * of the completions. It can be asynchronous.
      * Remember to emit fetchingDone, if the fetching is complete
      */
     virtual void fetchCompletions() = 0;

@@ -11,7 +11,7 @@ that contains several parts, and sorts them into Tabs.
 
 - Cantor library:
 The library provides all the interfaces for using the different Backends. It should be completely
-independend of the final graphical representation of the results. (e.g. always keep the possibility
+independent of the final graphical representation of the results. (e.g. always keep the possibility
 of a Cantor KRunner or plasmoid in mind). It resides in src/lib/
 
 - Backends
@@ -30,7 +30,7 @@ Coding style:
 
 Generally Cantor follows the KDELibs coding style (see http://techbase.kde.org/Policies/Kdelibs_Coding_Style ).
 Some notes:
-- use 4 spaces for intendation
+- use 4 spaces for indentation
 - use m_ prefix for member variables. no other prefixes
 - for the library use d-pointers (see http://techbase.kde.org/Policies/Library_Code_Policy#D-Pointers) to allow binary compatibility later
 - if you add things to the library, remember to add apidocs
@@ -51,15 +51,15 @@ The worksheet also stores one instance of the EpsRenderer, which is used wheneve
 e.g. in LaTeX results.
 
 Note: The HelpResult is not handled by the Entry, but by the Worksheet, and it forwards
-it's content outside of the part using a signal. So the CantorShell can show it in the 
+it's content outside of the part using a signal. So the CantorShell can show it in the
 side-panel.
 
 
 The library:
 The library consists of a bunch of interfaces, for the different backends, and some
-stuff that is useful for math applications, independend of the Design of the ui(not limited to Worksheet-interfaces).
+stuff that is useful for math applications, independent of the Design of the ui(not limited to Worksheet-interfaces).
 Things should not be depending on a specific backend, but it's acceptable to have interfaces only implemented by
-one backend. (allthough that might change once a better plugin infrastructure is in place)
+one backend. (although that might change once a better plugin infrastructure is in place)
 
 - Basic design of a backend:
 This is just a brief introduction of the concepts relevant to the Backends.
@@ -69,7 +69,7 @@ the entered command, or shows an image if you type "img", so it akts as a good
 example on how to do things.
 
 Backends are implemented as plugins that are found on runtime, to allow easy installation of
-additional backends. 
+additional backends.
 
 A backend consists of the following parts:
 - Backend:
@@ -88,13 +88,13 @@ A backend consists of the following parts:
   the worksheet that it is no longer busy.
   Once the result arrives, it emits the resultChanged() signal, so that the Worksheet can display it.
   Remember, the state and the result are independent, e.g. if you have typesetting enabled, the state will
-  be set to done when the computation is finished, and the result will be set to a text-result. Once the 
+  be set to done when the computation is finished, and the result will be set to a text-result. Once the
   typesetting is done the result changes again.
 
   To be as flexible as possible regarding different kinds of results (a computation can deliver some text,
   a plot, a formula, an animation etc.), Cantor uses the concept of Results.
-  For each kind of result there is a subclass, that stores the informations relevant for the kind of result
-  (e.g. the text, the image, an url etc.). Your backend is in charge of creating the right Result Type, and 
+  For each kind of result there is a subclass, that stores the information relevant for the kind of result
+  (e.g. the text, the image, an url etc.). Your backend is in charge of creating the right Result Type, and
   feeding it the information. The ResultProxy is then used to render the result in the Worksheet(@see The Worksheet)
 
 
@@ -118,7 +118,7 @@ A backend consists of the following parts:
   Syntax Help is the little tooltip, you get when pressing Tab, on an already complete
   command, that shows syntax information (see Maxima or KAlgebra for an implementation).
   The concept works similar to Completion. Cantor asks the session for a SyntaxHelpObject
-  which then fetches the information asynchroneously, and emits done().
+  which then fetches the information asynchronously, and emits done().
 
 - Extensions:
   To allow backend-independend functionalities like Assistant dialogs, Cantor uses so called
@@ -139,5 +139,5 @@ A backend consists of the following parts:
   learn how things are done.
   NOTE: currently assistants can only work through extensions, but in the future,
   also backend-specific assistants will be possible.
- 
+
 

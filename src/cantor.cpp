@@ -285,7 +285,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             int tab = -1;
             if (backend)
                 tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
-            else //should never happend but just in case we still have some bugs somewhere...
+            else //should never happened but just in case we still have some bugs somewhere...
                 tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
 
             m_tabWidget->setCurrentIndex(tab);

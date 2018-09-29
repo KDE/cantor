@@ -26,7 +26,7 @@
 
 PythonHighlighter::PythonHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
-    qDebug() << "PythonHighlighter construtor";
+    qDebug() << "PythonHighlighter constructor";
     addRule(QRegExp(QLatin1String("\\b\\w+(?=\\()")), functionFormat());
 
     //Code highlighting the different keywords

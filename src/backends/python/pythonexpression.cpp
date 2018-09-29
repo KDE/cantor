@@ -36,7 +36,7 @@ using PythonPlotResult = Cantor::ImageResult;
 
 PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Cantor::Expression(session, internal)
 {
-    qDebug() << "PythonExpression construtor";
+    qDebug() << "PythonExpression constructor";
 }
 
 void PythonExpression::evaluate()

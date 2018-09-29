@@ -28,7 +28,7 @@
 #include <QTemporaryFile>
 #include <QDebug>
 
-QStringList JuliaServer::INTERNAL_VARIABLES = 
+QStringList JuliaServer::INTERNAL_VARIABLES =
     QStringList() << QLatin1String("__originalSTDOUT__") << QLatin1String("__originalSTDERR__");
 
 JuliaServer::JuliaServer(QObject *parent)
@@ -61,7 +61,7 @@ void JuliaServer::login(const QString &path) const
 #endif
 void JuliaServer::runJuliaCommand(const QString &command)
 {
-    // Redirect stdout, stderr to temprorary files
+    // Redirect stdout, stderr to temporary files
     QTemporaryFile output, error;
     if (!output.open() || !error.open()) {
         qFatal("Unable to create temporary files for stdout/stderr");

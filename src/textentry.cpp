@@ -149,7 +149,7 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
     if (commentStartingSeq.isEmpty())
         return QString();
     /*
-    // whould this be plain enough?
+    // would this be plain enough?
     QTextCursor cursor = m_textItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
     cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);

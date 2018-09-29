@@ -30,8 +30,8 @@ class SyntaxHelpObjectPrivate;
 class Session;
 
 /**
- * Object, used to display Syntax informtion to a given command
- * It is designed for asynchroneous use. The Object emits done
+ * Object, used to display Syntax information to a given command
+ * It is designed for asynchronous use. The Object emits done
  * as soon as fetching of the Help is finished
  *
  * @author Alexander Rieder

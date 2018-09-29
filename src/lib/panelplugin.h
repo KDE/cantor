@@ -52,7 +52,7 @@ class CANTOR_EXPORT PanelPlugin : public QObject
 
     /**
      * Sets the properties of this PanelPlugin
-     * accodring to KPluginMetaData
+     * according to KPluginMetaData
      * @param info KPluginMetaData
      */
     void setPluginInfo(const KPluginMetaData&);

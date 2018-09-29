@@ -51,7 +51,7 @@ class CANTOR_EXPORT Session : public QObject
 {
   Q_OBJECT
   public:
-    enum Status { 
+    enum Status {
       Running, ///< the session is busy, running some expression
 		  Done,    ///< the session has done all the jobs, and is now waiting for more
       Disable ///< the session don't login yet, or already logout
@@ -72,13 +72,13 @@ class CANTOR_EXPORT Session : public QObject
      * Login to the Session. In this function you should do anything needed to set up
      * the session, and make it ready for usage. The method should be implemented non-blocking.
      * Emit loginStarted() prior to connection to the actual backend in order to notify cantor_part about it.
-     * If the loging in is completed, the loginDone() signal must be emitted
+     * If the logging in is completed, the loginDone() signal must be emitted
      */
     virtual void login() = 0;
     /**
      * Log out of the Session. Destroy everything specific to a single session, e.g.
      * stop all the running processes etc. Also logout session status must be Status::Disable
-     * NOTE: restaring the session consists of first logout() and then login()
+     * NOTE: restarting the session consists of first logout() and then login()
      */
     virtual void logout() = 0;
 
@@ -86,7 +86,7 @@ class CANTOR_EXPORT Session : public QObject
      * Passes the given command to the backend and returns a Pointer
      * to a new Expression object, which will emit the gotResult()
      * signal as soon as the computation is done. The result will
-     * then be acessible by Expression::result()
+     * then be accessible by Expression::result()
      * @param command the command that should be run by the backend.
      * @param finishingBehavior the FinishingBehaviour that should be used for this command. @see Expression::FinishingBehaviour
      * @param isInternal true, if is it internal command @see Expression::Expression(Session*, bool)
@@ -121,7 +121,7 @@ class CANTOR_EXPORT Session : public QObject
     /**
      * Returns Syntax help, for this command.
      * It returns a SyntaxHelpObject, that will fetch the
-     * needed information asynchroneousely. You need to listen
+     * needed information asynchronously. You need to listen
      * to the done() Signal of the Object
      * @param cmd the command, syntax help is requested for
      * @return SyntaxHelpObject, representing the help request

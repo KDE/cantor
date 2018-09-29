@@ -151,7 +151,7 @@ class CANTOR_EXPORT CASExtension : public Extension
 
 /**
  * An extension providing the basic calculus
- * stuff like limits, diffrentiate, integrate etc.
+ * stuff like limits, differentiate, integrate etc.
  */
 class CANTOR_EXPORT CalculusExtension : public Extension
 {
@@ -172,7 +172,7 @@ class CANTOR_EXPORT CalculusExtension : public Extension
     /**
      * returns the command for calculating a differential
      * @param function the function
-     * @param variable the variable, after which shoudl be differentiated
+     * @param variable the variable, after which should be differentiated
      * @param times how often should be differentiated
      * @return the command to compute the differential
      */
@@ -180,14 +180,14 @@ class CANTOR_EXPORT CalculusExtension : public Extension
     /**
      * returns the command for calculating an integral
      * @param function the function
-     * @param variable the variable, after which shoudl be integrated
+     * @param variable the variable, after which should be integrated
      * @return the command to compute the integrate
      */
     virtual QString integrate(const QString& function, const QString& variable) = 0;
     /**
      * returns the command for calculating a definite integral
      * @param function the function
-     * @param variable the variable, after which shoudl be integrated
+     * @param variable the variable, after which should be integrated
      * @param left the left border of the integral
      * @param right the right border of the integral
      * @return the command to compute the integrate
@@ -271,7 +271,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     {
         public:
             /**
-             * utilitary typename for easying the code
+             * utilitary typename for easing the code
              */
             using widgetProc = DirectiveProducer *(*)(QWidget *);
 
@@ -400,7 +400,7 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
      **/
     virtual QString nullVector(int size, Cantor::LinearAlgebraExtension::VectorType type);
     /**
-     * creates a maxtrix with the given entries
+     * creates a matrix with the given entries
      * @param matrix the entries of the matrix
      * @return the command to create this matrix
      */

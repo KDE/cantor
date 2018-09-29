@@ -72,7 +72,7 @@ void QalculateCompletionObject::fetchCompletions()
     // does distinguish cases, and b) KCompletion::makeCompletion matches
     // case sensitive.
     foreach ( Unit* item, CALCULATOR->units ) {
-        //TODO: this is fugly...
+        //TODO: this is fugily...
         QString str(QLatin1String(item->name(true).c_str()));
         if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;

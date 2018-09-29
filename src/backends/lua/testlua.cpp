@@ -56,7 +56,7 @@ void TestLua::testMultilineCommand()
     QCOMPARE( cleanOutput(e->result()->toHtml()), QLatin1String("8\n1") );
 }
 
-void TestLua::testVariableDifinition()
+void TestLua::testVariableDefinition()
 {
     Cantor::Expression* e=evalExp( QLatin1String("num = 42; print(num)") );
 
