@@ -47,14 +47,12 @@ public:
     void parseError(const QString&);
     void parsePlotFile(const QString&);
 
-    void finalize();
     void setPlotPending(bool);
 
 private:
     QString m_resultString;
     bool m_plotPending;
     bool m_finished;
-    bool m_error;
     bool m_appendPlotCommand;
     bool m_appendDot;
     QStringList m_plotCommands;

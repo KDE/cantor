@@ -39,40 +39,52 @@ class OctaveSession : public Cantor::Session
 {
     Q_OBJECT
     public:
-    explicit OctaveSession(Cantor::Backend* backend);
-    ~OctaveSession() override = default;
-    void interrupt() override;
-    Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
-    void logout() override;
-    void login() override;
-    Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
-    Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    QAbstractItemModel* variableModel() override;
-    void runFirstExpression() override;
+        explicit OctaveSession(Cantor::Backend* backend);
+        ~OctaveSession() override = default;
+        void interrupt() override;
+        Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
+        void logout() override;
+        void login() override;
+        Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
+        Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
+        QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+        QAbstractItemModel* variableModel() override;
+        void runFirstExpression() override;
+
+    Q_SIGNALS:
+        void variablesChanged();
+
+    private:
+        const static QRegExp PROMPT_UNCHANGEABLE_COMMAND;
 
     private:
         KProcess* m_process;
         QTextStream m_stream;
         QRegExp m_prompt;
+        QRegExp m_subprompt;
+        int m_previousPromptNumber;
 
         KDirWatch* m_watch;
         QString m_tempDir;
+        bool m_loginFinish;
+        bool m_syntaxError;
+
+        QString m_output;
 
         Cantor::DefaultVariableModel* m_variableModel;
 
+    private:
         void readFromOctave(QByteArray data);
+        bool isDoNothingCommand(const QString& command);
+        bool isSpecialOctaveCommand(const QString& command);
 
     private Q_SLOTS:
         void readOutput();
         void readError();
         void currentExpressionStatusChanged(Cantor::Expression::Status status);
         void processError();
-    void plotFileChanged(const QString& filename);
-    void runSpecificCommands();
-
-  Q_SIGNALS:
-    void variablesChanged();
+        void plotFileChanged(const QString& filename);
+        void runSpecificCommands();
 };
 
 #endif // OCTAVESESSION_H

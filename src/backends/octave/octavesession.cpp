@@ -21,18 +21,20 @@
 #include "octaveexpression.h"
 #include "octavecompletionobject.h"
 #include "octavesyntaxhelpobject.h"
+#include "octavehighlighter.h"
 #include "result.h"
 #include "textresult.h"
 
 #include "settings.h"
 #include "octave-backend-config.h"
+#include "octavehighlighter.h"
 
 #include <KProcess>
 #include <KDirWatch>
+#include <KLocalizedString>
 
 #include <QTimer>
 #include <QFile>
-#include "octavehighlighter.h"
 
 #ifndef Q_OS_WIN
 #include <signal.h>
@@ -40,9 +42,16 @@
 
 #include <defaultvariablemodel.h>
 
+const QRegExp OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegExp(QLatin1String("(,|;)+"));
+
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
 m_process(nullptr),
+m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
+m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
+m_previousPromptNumber(1),
 m_watch(nullptr),
+m_loginFinish(false),
+m_syntaxError(false),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
     qDebug() << octaveScriptInstallDir;
@@ -58,6 +67,12 @@ void OctaveSession::login()
     args << QLatin1String("--silent");
     args << QLatin1String("--interactive");
     args << QLatin1String("--persist");
+
+    // Setting prompt and subprompt
+    args << QLatin1String("--eval");
+    args << QLatin1String("PS1('CANTOR_OCTAVE_BACKEND_PROMPT:\\#> ');");
+    args << QLatin1String("--eval");
+    args << QLatin1String("PS2('CANTOR_OCTAVE_BACKEND_SUBPROMPT:\\#> ');");
 
     // Add the cantor script directory to search path
     args << QLatin1String("--eval");
@@ -125,8 +140,8 @@ void OctaveSession::logout()
 
     disconnect(m_process, nullptr, this, nullptr);
 
-//     if(status()==Cantor::Session::Running)
-        //TODO: terminate the running expressions first
+    // if(status()==Cantor::Session::Running)
+    // TODO: terminate the running expressions first
 
     m_process->write("exit\n");
     qDebug()<<"waiting for octave to finish";
@@ -143,8 +158,11 @@ void OctaveSession::logout()
     delete m_process;
     m_process = nullptr;
 
-    m_prompt = QRegExp();
+
     m_tempDir.clear();
+    m_output.clear();
+    m_previousPromptNumber = 1;
+    m_loginFinish = false;
 
     m_variableModel->clearVariables();
 
@@ -169,9 +187,16 @@ void OctaveSession::interrupt()
         }
         expressionQueue().first()->interrupt();
         expressionQueue().removeFirst();
+
         foreach (Cantor::Expression* expression, expressionQueue())
             expression->setStatus(Cantor::Expression::Done);
         expressionQueue().clear();
+
+        // Cleanup inner state and call octave prompt printing
+        // If we move this code for interruption to Session, we need add function for
+        // cleaning before setting Done status
+        m_output.clear();
+        m_process->write("\n");
 
         qDebug()<<"done interrupting";
     }
@@ -201,10 +226,16 @@ void OctaveSession::runFirstExpression()
     OctaveExpression* expression = static_cast<OctaveExpression*>(expressionQueue().first());
     connect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
     QString command = expression->command();
+    command.replace(QLatin1String(";\n"), QLatin1String(";"));
     command.replace(QLatin1Char('\n'), QLatin1Char(','));
     command += QLatin1Char('\n');
     expression->setStatus(Cantor::Expression::Computing);
-    m_process->write ( command.toLocal8Bit() );
+    if (isDoNothingCommand(command))
+        expression->setStatus(Cantor::Expression::Done);
+    else
+    {
+        m_process->write ( command.toLocal8Bit() );
+    }
 }
 
 void OctaveSession::readError()
@@ -213,7 +244,16 @@ void OctaveSession::readError()
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
     if (!expressionQueue().isEmpty() && !error.isEmpty())
     {
-        static_cast<OctaveExpression*>(expressionQueue().first())->parseError(error);
+        OctaveExpression* const exp = static_cast<OctaveExpression*>(expressionQueue().first());
+        if (m_syntaxError)
+        {
+            m_syntaxError = false;
+            exp->parseError(i18n("Syntax Error"));
+        }
+        else
+            exp->parseError(error);
+
+        m_output.clear();
     }
 }
 
@@ -230,17 +270,11 @@ void OctaveSession::readOutput()
         }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         qDebug()<<"start parsing " << "  " << line;
-        if (expressionQueue().isEmpty() || m_prompt.isEmpty())
+        if (!m_loginFinish)
         {
-            // no expression is available, we're parsing the first output of octave after the start
-            // -> determine the location of the temporary folder and the format of octave's promt
-            if (m_prompt.isEmpty() && line.contains(QLatin1String(":1>")))
-            {
-                qDebug() << "Found Octave prompt:" << line;
-                line.replace(QLatin1String(":1"), QLatin1String(":[0-9]+"));
-                m_prompt.setPattern(line);
-            }
-            else if (line.contains(QLatin1String("____TMP_DIR____")))
+            // we're parsing the first output of octave after the start
+            // -> determine the location of the temporary folder
+            if (line.contains(QLatin1String("____TMP_DIR____")))
             {
                 m_tempDir = line;
                 m_tempDir.remove(0,18);
@@ -250,35 +284,46 @@ void OctaveSession::readOutput()
                 {
                     m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
                 }
+                m_loginFinish = true;
             }
         }
         else if (line.contains(m_prompt))
         {
-            // Check for errors before finalizing the expression
-            // this makes sure that all errors are caught
-            readError();
+            const int promptNumber = m_prompt.cap(1).toInt();
             if (!expressionQueue().isEmpty())
             {
-                // Get command before finalize, because after finalizing the expression will be dequeued
                 const QString& command = expressionQueue().first()->command();
-                static_cast<OctaveExpression*>(expressionQueue().first())->finalize();
-                if (command.contains(QLatin1String(" = ")) || command.contains(QLatin1String("clear")))
+                if (m_previousPromptNumber + 1 == promptNumber || isSpecialOctaveCommand(command))
                 {
-                    emit variablesChanged();
+                    if (!expressionQueue().isEmpty())
+                    {
+                        if (command.contains(QLatin1String(" = ")) || command.contains(QLatin1String("clear")))
+                        {
+                            emit variablesChanged();
+                        }
+                        static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(m_output);
+                    }
+                }
+                else
+                {
+                    // Error command don't increase octave prompt number (usually, but not always)
+                    readError();
                 }
             }
+            m_previousPromptNumber = promptNumber;
+            m_output.clear();
+        }
+        else if (line.contains(m_subprompt) && m_subprompt.cap(1).toInt() == m_previousPromptNumber)
+        {
+            // User don't write finished octave statement (for example, write 'a = [1,2, ' only), so
+            // octave print subprompt and waits input finish.
+            m_syntaxError = true;
+            qDebug() << "subprompt catch";
+            m_process->write(")]'\"\n"); // forse exit from subprompt
+            m_output.clear();
         }
         else
-        {
-            // Avoid many calls to setResult if a lot of output came at the same time
-            while (m_process->canReadLine())
-            {
-                line += QString::fromLocal8Bit(m_process->readLine());
-            }
-            if (!expressionQueue().isEmpty())
-                static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(line);
-
-        }
+            m_output += line;
     }
 }
 
@@ -306,6 +351,7 @@ void OctaveSession::plotFileChanged(const QString& filename)
     {
         return;
     }
+
     if (!expressionQueue().isEmpty())
     {
         static_cast<OctaveExpression*>(expressionQueue().first())->parsePlotFile(filename);
@@ -341,4 +387,14 @@ QAbstractItemModel* OctaveSession::variableModel()
 void OctaveSession::runSpecificCommands()
 {
     m_process->write("figure(1,'visible','off')");
+}
+
+bool OctaveSession::isDoNothingCommand(const QString& command)
+{
+    return PROMPT_UNCHANGEABLE_COMMAND.exactMatch(command) || command.isEmpty();
+}
+
+bool OctaveSession::isSpecialOctaveCommand(const QString& command)
+{
+    return command.contains(QLatin1String("completion_matches"));
 }

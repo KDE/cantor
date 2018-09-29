@@ -33,7 +33,6 @@ static const char* printCommand = "cantor_print();";
 OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal),
     m_plotPending(false),
     m_finished(false),
-    m_error(false),
     m_appendPlotCommand(false),
     m_appendDot(false)
 {
@@ -98,14 +97,64 @@ void OctaveExpression::evaluate()
 void OctaveExpression::parseOutput(const QString& output)
 {
     qDebug() << "parseOutput: " << output;
-    m_resultString += output;
+
+    if (m_appendPlotCommand)
+    {
+        QString cmd = command();
+        cmd.remove(cmd.length()-strlen(printCommand),strlen(printCommand));
+        m_appendPlotCommand = false;
+        if (m_appendDot)
+            {
+            cmd.remove(cmd.length()-1,1);
+            m_appendDot = false;
+            }
+        setCommand(cmd);
+    }
+
+
+    if (!output.trimmed().isEmpty())
+    {
+        // TODO: what about help in comment? printf with '... help ...'?
+        // This must be corrected.
+        if (command().contains(QLatin1String("help")))
+        {
+            setResult(new Cantor::HelpResult(output));
+        }
+        else
+        {
+            setResult(new Cantor::TextResult(output));
+        }
+    }
+
+    // TODO: remove this, then there is method for notify both Highlighter and variable model about new variable
+    foreach ( const QString& line, output.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts) )
+    {
+        if ((output.contains(QLatin1Char('='))) && !(command().startsWith(QLatin1String("help(")))
+                && !(command().contains(QLatin1String("help "))) && !(command().contains(QLatin1String("type("))))
+        {
+            qDebug() << line;
+            // Probably a new variable
+            QStringList parts = line.split(QLatin1Char('='));
+            if (parts.size() >= 2)
+            {
+                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+                if (model)
+                {
+                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
+                }
+            }
+        }
+    }
+
+    m_finished = true;
+    if (!m_plotPending)
+        setStatus(Done);
 }
 
 void OctaveExpression::parseError(const QString& error)
 {
-    qDebug() << error;
-    m_error = true;
     setErrorMessage(error);
+    setStatus(Error);
 }
 
 void OctaveExpression::parsePlotFile(const QString& file)
@@ -125,60 +174,6 @@ void OctaveExpression::parsePlotFile(const QString& file)
     }
 }
 
-void OctaveExpression::finalize()
-{
-    qDebug() << "finalize: " << m_resultString;
-
-    if (m_appendPlotCommand)
-    {
-        QString cmd = command();
-        cmd.remove(cmd.length()-strlen(printCommand),strlen(printCommand));
-        m_appendPlotCommand = false;
-        if (m_appendDot)
-            {
-            cmd.remove(cmd.length()-1,1);
-            m_appendDot = false;
-            }
-        setCommand(cmd);
-    }
-
-    if (!m_error && !m_resultString.trimmed().isEmpty())
-    {
-        if (command().contains(QLatin1String("help")))
-        {
-            setResult(new Cantor::HelpResult(m_resultString));
-        }
-        else
-        {
-            setResult(new Cantor::TextResult(m_resultString));
-        }
-    }
-
-    foreach ( const QString& line, m_resultString.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts) )
-    {
-        if ((m_resultString.contains(QLatin1Char('='))) && !(command().startsWith(QLatin1String("help(")))
-                && !(command().contains(QLatin1String("help "))) && !(command().contains(QLatin1String("type("))))
-        {
-            qDebug() << line;
-            // Probably a new variable
-            QStringList parts = line.split(QLatin1Char('='));
-            if (parts.size() >= 2)
-            {
-                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-                if (model)
-                {
-                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
-                }
-            }
-        }
-    }
-    qDebug() << m_plotPending << m_error;
-    m_finished = true;
-    if (!m_plotPending)
-    {
-        setStatus(m_error ? Error : Done);
-    }
-}
 void OctaveExpression::setPlotPending(bool plot)
 {
     m_plotPending = plot;
