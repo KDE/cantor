@@ -1,4 +1,4 @@
-#include "lib/config-cantorlib.h"
+#include <config-cantorlib.h>
 
 #define CANTOR_VERSION "${KDE_APPLICATIONS_VERSION}"
 

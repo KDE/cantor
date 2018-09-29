@@ -60,7 +60,7 @@ void RSession::login()
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
-    connect(m_rServer, SIGNAL(symbolList(const QStringList&, const QStringList&, const QStringList&)),this,SLOT(receiveSymbols(const QStringList&, const QStringList&, const QStringList&)));
+    connect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)),this,SLOT(receiveSymbols(QStringList,QStringList,QStringList)));
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -116,8 +116,8 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 Cantor::CompletionObject* RSession::completionFor(const QString& command, int index)
 {
     RCompletionObject *cmp=new RCompletionObject(command, index, this);
-    connect(m_rServer,SIGNAL(completionFinished(const QString&,const QStringList&)),cmp,SLOT(receiveCompletions(const QString&,const QStringList&)));
-    connect(cmp,SIGNAL(requestCompletion(const QString&)),m_rServer,SLOT(completeCommand(const QString&)));
+    connect(m_rServer,SIGNAL(completionFinished(QString,QStringList)),cmp,SLOT(receiveCompletions(QString,QStringList)));
+    connect(cmp,SIGNAL(requestCompletion(QString)),m_rServer,SLOT(completeCommand(QString)));
     return cmp;
 }
 
@@ -183,16 +183,16 @@ void RSession::runFirstExpression()
     if (expressionQueue().isEmpty())
         return;
 
-    disconnect(m_rServer,  SIGNAL(expressionFinished(int, const QString&)),  nullptr,  nullptr);
-    disconnect(m_rServer, SIGNAL(inputRequested(const QString&)), nullptr, nullptr);
-    disconnect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), nullptr, nullptr);
+    disconnect(m_rServer,  SIGNAL(expressionFinished(int,QString)),  nullptr,  nullptr);
+    disconnect(m_rServer, SIGNAL(inputRequested(QString)), nullptr, nullptr);
+    disconnect(m_rServer, SIGNAL(showFilesNeeded(QStringList)), nullptr, nullptr);
     qDebug()<<"size: "<<expressionQueue().size();
     RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
     qDebug()<<"running expression: "<<expr->command();
 
-    connect(m_rServer, SIGNAL(expressionFinished(int,  const QString &)), expr, SLOT(finished(int, const QString&)));
-    connect(m_rServer, SIGNAL(inputRequested(const QString&)), expr, SIGNAL(needsAdditionalInformation(const QString&)));
-    connect(m_rServer, SIGNAL(showFilesNeeded(const QStringList&)), expr, SLOT(showFilesAsResult(const QStringList&)));
+    connect(m_rServer, SIGNAL(expressionFinished(int,QString)), expr, SLOT(finished(int,QString)));
+    connect(m_rServer, SIGNAL(inputRequested(QString)), expr, SIGNAL(needsAdditionalInformation(QString)));
+    connect(m_rServer, SIGNAL(showFilesNeeded(QStringList)), expr, SLOT(showFilesAsResult(QStringList)));
 
     expr->setStatus(Cantor::Expression::Computing);
     m_rServer->runCommand(expr->command());

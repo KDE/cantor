@@ -18,14 +18,14 @@
     Copyright (C) 2011 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
+#include "imagesettingsdialog.h"
 #include <KCompletion>
 #include <KLocalizedString>
 #include <QUrl>
 #include <KUrlCompletion>
 
-#include "imagesettingsdialog.h"
-#include "qimagereader.h"
-#include "qfiledialog.h"
+#include <QImageReader>
+#include <QFileDialog>
 
 ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
 {

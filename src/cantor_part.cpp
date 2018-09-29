@@ -153,7 +153,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_worksheetview=new WorksheetView(m_worksheet, widget);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
-    connect(m_worksheet, SIGNAL(showHelp(const QString&)), this, SIGNAL(showHelp(const QString&)));
+    connect(m_worksheet, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
     connect(m_worksheet, SIGNAL(loaded()), this, SLOT(initialized()));
     connect(actionCollection(), SIGNAL(inserted(QAction*)), m_worksheet,
             SLOT(registerShortcut(QAction*)));
@@ -566,7 +566,7 @@ void CantorPart::initialized()
     connect(m_worksheet->session(), SIGNAL(statusChanged(Cantor::Session::Status)), this, SLOT(worksheetStatusChanged(Cantor::Session::Status)));
     connect(m_worksheet->session(), SIGNAL(loginStarted()),this, SLOT(worksheetSessionLoginStarted()));
     connect(m_worksheet->session(), SIGNAL(loginDone()),this, SLOT(worksheetSessionLoginDone()));
-    connect(m_worksheet->session(), SIGNAL(error(const QString&)), this, SLOT(showSessionError(const QString&)));
+    connect(m_worksheet->session(), SIGNAL(error(QString)), this, SLOT(showSessionError(QString)));
 
     loadAssistants();
     m_panelHandler->setSession(m_worksheet->session());
@@ -830,7 +830,7 @@ void CantorPart::showScriptEditor(bool show)
             return;
         }
         m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter(), scriptE->highlightingMode(), widget()->window());
-        connect(m_scriptEditor, SIGNAL(runScript(const QString&)), this, SLOT(runScript(const QString&)));
+        connect(m_scriptEditor, SIGNAL(runScript(QString)), this, SLOT(runScript(QString)));
         connect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
         m_scriptEditor->show();
     }else

@@ -107,7 +107,7 @@ SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
 {
     m_isInitialized=false;
     m_haveSentInitCmd=false;
-    connect( &m_dirWatch, SIGNAL( created( const QString& ) ), this, SLOT( fileCreated( const QString& ) ) );
+    connect( &m_dirWatch, SIGNAL(created(QString)), this, SLOT(fileCreated(QString)) );
 }
 
 void SageSession::login()
@@ -132,7 +132,7 @@ void SageSession::login()
 
     connect(m_process->pty(), SIGNAL(readyRead()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
-    connect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+    connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
     m_process->start();
     m_process->waitForStarted();
@@ -152,7 +152,7 @@ void SageSession::logout()
 {
     qDebug()<<"logout";
 
-    disconnect(m_process, SIGNAL(finished ( int,  QProcess::ExitStatus )), this, SLOT(processFinished(int, QProcess::ExitStatus)));
+    disconnect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
     m_process->pty()->write("exit\n");
 
     m_process->kill();

@@ -56,7 +56,7 @@ void ScilabExpression::evaluate()
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
 
-                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(rand());
+                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(qrand());
 
                 commandList[count].append(exportCommand);
 

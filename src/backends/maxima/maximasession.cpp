@@ -72,7 +72,7 @@ void MaximaSession::login()
     m_process->waitForReadyRead();
     qDebug()<<m_process->readAllStandardOutput();
 
-    connect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+    connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
@@ -294,7 +294,7 @@ void MaximaSession::restartMaxima()
         m_justRestarted=true;
         QTimer::singleShot(1000, this, SLOT(restartsCooledDown()));
 
-        disconnect(m_process, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(restartMaxima()));
+        disconnect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(restartMaxima()));
         login();
     }else
     {

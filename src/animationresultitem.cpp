@@ -18,8 +18,8 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#include "commandentry.h"
 #include "animationresultitem.h"
+#include "commandentry.h"
 #include "lib/result.h"
 #include "lib/animationresult.h"
 

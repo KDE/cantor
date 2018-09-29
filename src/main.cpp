@@ -19,7 +19,7 @@
  */
 
 #include "cantor.h"
-#include "config-cantor.h"
+#include <config-cantor.h>
 #include <QApplication>
 #include <KAboutData>
 #include <KCrash>

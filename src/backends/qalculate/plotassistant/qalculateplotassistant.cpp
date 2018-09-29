@@ -56,7 +56,7 @@ void QalculatePlotAssistant::initDialog(QWidget* parent)
     connect(m_base.addButton, SIGNAL(clicked()), this, SLOT(addFunction()));
     connect(m_base.removeButton, SIGNAL(clicked()), this, SLOT(removeSelection()));
     connect(m_base.clearButton, SIGNAL(clicked()), this, SLOT(clearFunctions()));
-    connect(m_base.functionTable, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(currentItemChanged(int, int, int, int)));
+    connect(m_base.functionTable, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(currentItemChanged(int,int,int,int)));
     connect(m_base.stepsButton, SIGNAL(toggled(bool)), this, SLOT(toggleStep()));
     connect(m_base.stepButton, SIGNAL(toggled(bool)), this, SLOT(toggleSteps()));
     connect(m_base.buttonBox, SIGNAL(accepted()), m_dlg, SLOT(accept()));

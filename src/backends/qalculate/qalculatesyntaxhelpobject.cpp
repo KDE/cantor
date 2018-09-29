@@ -16,8 +16,8 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
  *************************************************************************************/
 
-#include "settings.h"
 #include "qalculatesyntaxhelpobject.h"
+#include "settings.h"
 #include "qalculatesession.h"
 
 #include <KLocalizedString>

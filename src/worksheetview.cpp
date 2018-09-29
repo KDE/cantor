@@ -18,8 +18,8 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#include "worksheetview.h"
 #include "worksheet.h"
+#include "worksheetview.h"
 
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
@@ -32,8 +32,8 @@ WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent) : QGraphicsView(
     m_vAnimation(nullptr),
     m_worksheet(scene)
 {
-    connect(scene, SIGNAL(sceneRectChanged(const QRectF&)),
-            this, SLOT(sceneRectChanged(const QRectF&)));
+    connect(scene, SIGNAL(sceneRectChanged(QRectF)),
+            this, SLOT(sceneRectChanged(QRectF)));
     setAlignment(Qt::AlignLeft | Qt::AlignTop);
     //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);

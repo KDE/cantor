@@ -18,9 +18,9 @@
     Copyright (C) 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
-#include <QDebug>
-
 #include "maximacompletionobject.h"
+
+#include <QDebug>
 
 #include "maximasession.h"
 #include "maximakeywords.h"

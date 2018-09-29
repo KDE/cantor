@@ -33,7 +33,6 @@
 #include <QTimer>
 #include <QFile>
 #include "octavehighlighter.h"
-#include <settings.h>
 
 #ifndef Q_OS_WIN
 #include <signal.h>
@@ -95,9 +94,9 @@ void OctaveSession::login()
 
     // connect the signal and slots prior to staring octave to make sure we handle the very first output
     // in parserOutput() to determine the temp folder and the format of the promt
-    connect ( m_process, SIGNAL ( readyReadStandardOutput() ), SLOT ( readOutput() ) );
-    connect ( m_process, SIGNAL ( readyReadStandardError() ), SLOT ( readError() ) );
-    connect ( m_process, SIGNAL ( error ( QProcess::ProcessError ) ), SLOT ( processError() ) );
+    connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
+    connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );
+    connect ( m_process, SIGNAL (error(QProcess::ProcessError)), SLOT (processError()) );
 
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
     qDebug() << "starting " << m_process->program();

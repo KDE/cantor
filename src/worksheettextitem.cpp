@@ -60,8 +60,8 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     setAcceptDrops(true);
     setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
-    connect(this, SIGNAL(menuCreated(QMenu*, const QPointF&)), parent,
-            SLOT(populateMenu(QMenu*, const QPointF&)), Qt::DirectConnection);
+    connect(this, SIGNAL(menuCreated(QMenu*,QPointF)), parent,
+            SLOT(populateMenu(QMenu*,QPointF)), Qt::DirectConnection);
     connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
     connect(this, &WorksheetTextItem::cursorPositionChanged, this, &WorksheetTextItem::updateRichTextActions);
     connect(document(), SIGNAL(undoAvailable(bool)),

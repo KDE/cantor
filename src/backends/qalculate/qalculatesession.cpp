@@ -17,9 +17,10 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
+#include "qalculatesession.h"
+
 #include "settings.h"
 
-#include "qalculatesession.h"
 #include "qalculatecompletionobject.h"
 #include "qalculatehighlighter.h"
 #include "defaultvariablemodel.h"

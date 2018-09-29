@@ -20,7 +20,7 @@
 
 #include "markdownentry.h"
 
-#include "config-cantor.h"
+#include <config-cantor.h>
 
 #ifdef Discount_FOUND
 extern "C" {

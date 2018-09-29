@@ -409,7 +409,7 @@ QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
     PythonHighlighter* highlighter = new PythonHighlighter(parent);
     QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
-    QObject::connect(this, SIGNAL(newVariable(const QString)), highlighter, SLOT(addVariable(const QString)));
+    QObject::connect(this, SIGNAL(newVariable(QString)), highlighter, SLOT(addVariable(QString)));
 
     return highlighter;
 }

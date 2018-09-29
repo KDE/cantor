@@ -356,7 +356,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateEntry()));
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
-    connect(expr, SIGNAL(needsAdditionalInformation(const QString&)), this, SLOT(showAdditionalInformationPrompt(const QString&)));
+    connect(expr, SIGNAL(needsAdditionalInformation(QString)), this, SLOT(showAdditionalInformationPrompt(QString)));
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(updatePrompt()));
 
     updatePrompt();

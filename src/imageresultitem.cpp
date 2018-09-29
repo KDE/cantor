@@ -18,8 +18,8 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#include "commandentry.h"
 #include "imageresultitem.h"
+#include "commandentry.h"
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 

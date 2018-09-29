@@ -267,7 +267,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            connect(part, SIGNAL(setCaption(const QString&, const QIcon&)), this, SLOT(setTabCaption(const QString&, const QIcon&)));
+            connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             m_parts.append(part);
 
             //determine the icon of the backend to be added

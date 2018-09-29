@@ -31,8 +31,8 @@
 WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
     : QGraphicsObject(parent)
 {
-    connect(this, SIGNAL(menuCreated(QMenu*, const QPointF&)), parent,
-            SLOT(populateMenu(QMenu*, const QPointF&)), Qt::DirectConnection);
+    connect(this, SIGNAL(menuCreated(QMenu*,QPointF)), parent,
+            SLOT(populateMenu(QMenu*,QPointF)), Qt::DirectConnection);
     m_maxWidth = 0;
 }
 

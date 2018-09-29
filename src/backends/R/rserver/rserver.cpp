@@ -225,7 +225,7 @@ void RServer::autoload()
             cmdexpr=PROTECT(R_ParseVector(cmdSexp,-1,&status,R_NilValue));
             if(status==PARSE_OK)
             {
-                for(i=0;i<length(cmdexpr);i++)
+                for(i=0;i<length(cmdexpr);++i)
                     eval(VECTOR_ELT(cmdexpr,i),R_GlobalEnv);
             }
             UNPROTECT(2);

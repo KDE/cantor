@@ -213,7 +213,7 @@ void LatexRenderer::renderWithLatex()
 
     (*p)<<Settings::self()->latexCommand()<<QLatin1String("-interaction=batchmode")<<QLatin1String("-halt-on-error")<<fileName;
 
-    connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertToPs() ) );
+    connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
     p->start();
 }
 
@@ -226,7 +226,7 @@ void LatexRenderer::convertToPs()
     qDebug()<<"running: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
     (*p)<<Settings::self()->dvipsCommand()<<QLatin1String("-E")<<QLatin1String("-o")<<d->latexFilename<<dviFile;
 
-    connect(p, SIGNAL( finished(int,  QProcess::ExitStatus) ), this, SLOT( convertingDone() ) );
+    connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
     p->start();
 }
 

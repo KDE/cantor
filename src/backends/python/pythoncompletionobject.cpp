@@ -18,9 +18,9 @@
     Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
  */
 
-#include <QDebug>
-
 #include "pythoncompletionobject.h"
+
+#include <QDebug>
 
 #include "pythonsession.h"
 #include "pythonkeywords.h"

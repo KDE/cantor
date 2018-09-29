@@ -176,7 +176,7 @@ void TestMaxima::testInvalidAssignment()
     //QVERIFY(e->status()==Cantor::Expression::Error);
 
     if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL( statusChanged(Cantor::Session::Status)));
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     //make sure we didn't screw up the session
     Cantor::Expression* e2=evalExp(QLatin1String("2+2"));
@@ -222,7 +222,7 @@ void TestMaxima::testVariableModel()
     QVERIFY(e3!=nullptr);
 
     if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL( statusChanged(Cantor::Session::Status)));
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
     QCOMPARE(3, model->rowCount());
 

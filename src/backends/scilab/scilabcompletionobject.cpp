@@ -18,9 +18,9 @@
     Copyright (C) 2011 Filipe Saraiva <filipe@kde.org>
  */
 
-#include <QDebug>
-
 #include "scilabcompletionobject.h"
+
+#include <QDebug>
 
 #include "scilabsession.h"
 #include "scilabkeywords.h"

@@ -37,10 +37,10 @@ void BackendTest::createSession()
 
     m_session=b->createSession();
 
-    QSignalSpy spy(m_session, SIGNAL( loginDone() ) );
+    QSignalSpy spy(m_session, SIGNAL(loginDone()) );
     m_session->login();
     if(spy.isEmpty())
-        waitForSignal(m_session, SIGNAL( loginDone() ) );
+        waitForSignal(m_session, SIGNAL(loginDone()) );
 
     QVERIFY(!spy.isEmpty());
 }
@@ -51,12 +51,12 @@ Cantor::Expression* BackendTest::evalExp(const QString& exp )
 
    if(e->status()==Cantor::Expression::Queued)
    {
-       waitForSignal( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ) );
+       waitForSignal( e, SIGNAL(statusChanged(Cantor::Expression::Status)) );
    }
 
    if (e->status()==Cantor::Expression::Computing)
    {
-       waitForSignal( e, SIGNAL( statusChanged( Cantor::Expression::Status ) ) );
+       waitForSignal( e, SIGNAL(statusChanged(Cantor::Expression::Status)) );
    }
    return e;
 }
@@ -102,7 +102,7 @@ void BackendTest::waitForSignal(QObject* sender, const char* signal)
     timeout.setSingleShot( true );
 
     QEventLoop loop;
-    connect( sender, signal, &loop, SLOT( quit() ) );
+    connect( sender, signal, &loop, SLOT(quit()) );
     connect(&timeout, &QTimer::timeout, &loop, &QEventLoop::quit);
     timeout.start( 25000 );
     loop.exec();

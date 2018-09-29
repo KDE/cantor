@@ -20,7 +20,7 @@
 
 #include "epsrenderer.h"
 
-#include "config-cantor.h"
+#include <config-cantor.h>
 
 #ifdef LIBSPECTRE_FOUND
   #include "libspectre/spectre.h"
