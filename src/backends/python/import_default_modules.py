@@ -1,3 +1,4 @@
-import numpy
-import scipy
-import matplotlib
+try:
+    import numpy
+except ModuleNotFoundError:
+    pass

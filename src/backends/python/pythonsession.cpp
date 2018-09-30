@@ -374,8 +374,23 @@ void PythonSession::plotFileChanged(const QString& filename)
 
 void PythonSession::listVariables()
 {
-    QString listVariableCommand;
-    listVariableCommand += QLatin1String("print(globals())\n");
+    const QString& listVariableCommand = QLatin1String(
+        "try: \n"
+        "   import numpy \n"
+        "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
+        "   numpy.set_printoptions(threshold=100000000) \n"
+        "except ModuleNotFoundError: \n"
+        "   pass \n"
+
+        "print(globals()) \n"
+
+        "try: \n"
+        "   import numpy \n"
+        "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
+        "   del __cantor_numpy_internal__ \n"
+        "except ModuleNotFoundError: \n"
+        "   pass \n"
+    );
 
     getPythonCommandOutput(listVariableCommand);
 
