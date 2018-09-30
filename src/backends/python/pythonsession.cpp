@@ -394,7 +394,7 @@ void PythonSession::listVariables()
         if(!first.startsWith(QLatin1String("'__")) && !first.startsWith(QLatin1String("__")) && !first.startsWith(QLatin1String("CatchOutPythonBackend'")) &&
            !first.startsWith(QLatin1String("errorPythonBackend'")) && !first.startsWith(QLatin1String("outputPythonBackend'")) &&
            !last.startsWith(QLatin1String(" class ")) && !last.startsWith(QLatin1String(" function ")) &&
-           !last.startsWith(QLatin1String(" module '") + first) /*skip imported modules*/ )
+           !last.startsWith(QLatin1String(" module '")) /*skip imported modules*/ )
         {
 
             m_variableModel->addVariable(parts.first().remove(QLatin1String("'")).simplified(), parts.last().simplified());
