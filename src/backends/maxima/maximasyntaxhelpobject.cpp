@@ -52,14 +52,20 @@ void MaximaSyntaxHelpObject::fetchInformation()
 
     if(isValid)
     {
-        //use the lisp command, instead of directly calling the
-        //maxima function "describe" to avoid generating a new
-        //output label that would mess up history
-        QString cmd=QLatin1String(":lisp(cl-info::info-exact \"%1\")");
+        if (session()->status() != Cantor::Session::Disable)
+        {
+            //use the lisp command, instead of directly calling the
+            //maxima function "describe" to avoid generating a new
+            //output label that would mess up history
+            QString cmd=QLatin1String(":lisp(cl-info::info-exact \"%1\")");
 
-        m_expression=session()->evaluateExpression(cmd.arg(command()), Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+            m_expression=session()->evaluateExpression(cmd.arg(command()), Cantor::Expression::FinishingBehavior::DoNotDelete, true);
 
-        connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
+            connect(m_expression, &Cantor::Expression::statusChanged, this, &MaximaSyntaxHelpObject::expressionChangedStatus);
+        }
+        else
+            // We can't get function's detailed description, because session not login yet, so do nothing
+            emit done();
 
     }else
     {
@@ -70,30 +76,45 @@ void MaximaSyntaxHelpObject::fetchInformation()
 
 void MaximaSyntaxHelpObject::expressionChangedStatus(Cantor::Expression::Status status)
 {
-    if(status==Cantor::Expression::Done)
+    switch(status)
     {
-        qDebug()<<"expr done";
-        QString text=m_expression->result()->toHtml();
-        QStringList lines=text.split(QLatin1Char('\n'));
-
-        QString syntax;
-        for (QString line : lines)
+        case Cantor::Expression::Done:
         {
-            if(line.endsWith(QLatin1Char('\r')))
-                line.chop(1);
-            if(line.startsWith(QLatin1String("-- Function:")))
+            qDebug()<<"expr done";
+            QString text=m_expression->result()->toHtml();
+            QStringList lines=text.split(QLatin1Char('\n'));
+
+            QString syntax;
+            for (QString line : lines)
             {
-                line.remove(QLatin1String("-- Function:"));
-                line.remove(QLatin1String("<br/>"));
+                if(line.endsWith(QLatin1Char('\r')))
+                    line.chop(1);
+                if(line.startsWith(QLatin1String("-- Function:")))
+                {
+                    line.remove(QLatin1String("-- Function:"));
+                    line.remove(QLatin1String("<br/>"));
+                }
+                syntax+=line;
+                qDebug() << "line: " << line;
             }
-            syntax+=line;
-            qDebug() << "line: " << line;
+
+            setHtml(QLatin1String("<p style='white-space:pre'>")+syntax+QLatin1String("</p>"));
+            emit done();
+
+            m_expression->deleteLater();
+            m_expression=nullptr;
+            break;
         }
+        case Cantor::Expression::Error:
+        {
+            qWarning() << "syntax object error" << m_expression->result()->toHtml();
+            emit done();
 
-        setHtml(QLatin1String("<p style='white-space:pre'>")+syntax+QLatin1String("</p>"));
-        emit done();
-
-        m_expression->deleteLater();
-        m_expression=nullptr;
+            m_expression->deleteLater();
+            m_expression=nullptr;
+            break;
+        }
+        default:
+            break;
     }
 }
