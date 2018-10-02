@@ -347,13 +347,14 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     }
     m_informationItems.clear();
 
-    m_expression = nullptr;
     // Delete any previous result
-    removeResult();
+    clearResultItems();
 
-    m_expression=expr;
+    m_expression = expr;
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateEntry()));
+    connect(expr, SIGNAL(resultCleared()), this, SLOT(clearResultItems()));
+    connect(expr, SIGNAL(resultReplaced(int)), this, SLOT(replaceResultItem(int)));
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
     connect(expr, SIGNAL(needsAdditionalInformation(QString)), this, SLOT(showAdditionalInformationPrompt(QString)));
@@ -885,12 +886,23 @@ void CommandEntry::removeResult()
     {
         m_expression->clearResult();
     }
+}
 
+void CommandEntry::clearResultItems()
+{
     //fade out all result graphic objects
     for(auto* item : m_resultItems)
         fadeOutItem(item->graphicsObject());
 
     m_resultItems.clear();
+}
+
+void CommandEntry::replaceResultItem(int index)
+{
+    ResultItem* previousItem = m_resultItems[index];
+    m_resultItems[index] = ResultItem::create(this, m_expression->results()[index]);
+    previousItem->deleteLater();
+    recalculateSize();
 }
 
 void CommandEntry::removeContextHelp()

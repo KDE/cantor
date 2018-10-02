@@ -68,7 +68,7 @@ void TestMaxima::testPlot()
 {
     if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
     {
-        QSKIP("gnuplot not found maxima needs it for plotting", SkipSingle);
+        QSKIP("gnuplot not found, maxima needs it for plotting", SkipSingle);
     }
 
     Cantor::Expression* e=evalExp( QLatin1String("plot2d(sin(x), [x, -10,10])") );
@@ -88,6 +88,35 @@ void TestMaxima::testPlot()
 #endif
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
+}
+
+void TestMaxima::testPlotWithAnotherTextResults()
+{
+    if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
+    {
+        QSKIP("gnuplot not found, maxima needs it for plotting", SkipSingle);
+    }
+
+    Cantor::Expression* e=evalExp( QLatin1String(
+        "2*2; \n"
+        "plot2d(sin(x), [x, -10,10]); \n"
+        "4*4;"
+    ));
+
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->errorMessage().isNull() );
+    QCOMPARE(e->results().size(), 3);
+
+    QCOMPARE(e->results()[0]->toHtml(), QLatin1String("4"));
+
+#ifdef WITH_EPS
+    QCOMPARE( e->results()[1]->type(), (int)Cantor::EpsResult::Type );
+#else
+    QCOMPARE( e->results()[1]->type(), (int)Cantor::ImageResult::Type );
+#endif
+    QVERIFY( !e->results()[1]->data().isNull() );
+
+    QCOMPARE(e->results()[2]->toHtml(), QLatin1String("16"));
 }
 
 void TestMaxima::testInvalidSyntax()

@@ -22,8 +22,8 @@
 #define _MAXIMAEXPRESSION_H
 
 #include "expression.h"
-#include "KDirWatch"
 #include <QStringList>
+#include <QFileSystemWatcher>
 
 class QTemporaryFile;
 
@@ -62,9 +62,11 @@ private:
     Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
 
     QTemporaryFile *m_tempFile;
-    KDirWatch m_fileWatch;
+    QFileSystemWatcher m_fileWatch;
     bool m_isHelpRequest;
     bool m_isPlot;
+    Cantor::Result* m_plotResult;
+    int m_plotResultIndex;
     QString m_errorBuffer;
     bool m_gotErrorContent;
 };

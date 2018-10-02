@@ -41,6 +41,8 @@ private Q_SLOTS:
     void testCommandQueue();
     //tests doing a plot
     void testPlot();
+    void testPlotWithAnotherTextResults();
+
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
     //tests if the expression numbering works

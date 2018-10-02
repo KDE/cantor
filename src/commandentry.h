@@ -129,6 +129,8 @@ class CommandEntry : public WorksheetEntry
   private Q_SLOTS:
     void invalidate();
     void resultDeleted();
+    void clearResultItems();
+    void replaceResultItem(int index);
     void updateCompletions();
     void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
 

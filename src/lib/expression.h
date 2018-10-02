@@ -209,6 +209,15 @@ class CANTOR_EXPORT Expression : public QObject
      */
     void gotResult();
     /**
+     * emitted when the results of the expression were deleted.
+     * @see clearResult()
+     */
+    void resultCleared();
+    /**
+     * emitted when the result at the position @c index was replaced by a new result.
+     */
+    void resultReplaced(int index);
+    /**
      * the status of the Expression has changed.
      * @param status the new status
      */
@@ -233,6 +242,8 @@ class CANTOR_EXPORT Expression : public QObject
     void setResult(Result* result);
 
     void addResult(Result*);
+
+    void replaceResult(int index, Result* result);
 
   protected:
     //returns a string of latex commands, that is inserted into the header.

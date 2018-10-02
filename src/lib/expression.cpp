@@ -108,8 +108,7 @@ QString Expression::errorMessage()
 
 void Expression::setResult(Result* result)
 {
-    qDeleteAll(d->results);
-    d->results.clear();
+    clearResult();
     addResult(result);
 }
 
@@ -138,6 +137,22 @@ void Expression::addResult(Result* result)
     emit gotResult();
 }
 
+void Expression::clearResult()
+{
+    qDeleteAll(d->results);
+    d->results.clear();
+    emit resultCleared();
+}
+
+void Expression::replaceResult(int index, Result* result)
+{
+    if (result)
+    {
+        d->results.insert(index, result);
+        emit resultReplaced(index);
+    }
+}
+
 Result* Expression::result()
 {
     if (!d->results.isEmpty())
@@ -149,12 +164,6 @@ Result* Expression::result()
 const QVector<Result*>& Expression::results() const
 {
     return d->results;
-}
-
-void Expression::clearResult()
-{
-    qDeleteAll(d->results);
-    d->results.clear();
 }
 
 void Expression::setStatus(Expression::Status status)

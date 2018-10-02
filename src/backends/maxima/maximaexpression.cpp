@@ -44,6 +44,8 @@ MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : 
     m_tempFile(nullptr),
     m_isHelpRequest(false),
     m_isPlot(false),
+    m_plotResult(nullptr),
+    m_plotResultIndex(-1),
     m_gotErrorContent(false)
 {
 }
@@ -59,6 +61,8 @@ void MaximaExpression::evaluate()
     if(m_tempFile)
         m_tempFile->deleteLater();
     m_tempFile=nullptr;
+    m_plotResult = nullptr;
+    m_plotResultIndex = -1;
     //check if this is a ?command
     if(command().startsWith(QLatin1String("??"))
         || command().startsWith(QLatin1String("describe("))
@@ -76,9 +80,9 @@ void MaximaExpression::evaluate()
 #endif
         m_tempFile->open();
 
-        disconnect(&m_fileWatch, &KDirWatch::dirty, this, &MaximaExpression::imageChanged);
-        m_fileWatch.addFile(m_tempFile->fileName());
-        connect(&m_fileWatch, &KDirWatch::dirty, this, &MaximaExpression::imageChanged);
+        m_fileWatch.removePaths(m_fileWatch.files());
+        m_fileWatch.addPath(m_tempFile->fileName());
+        connect(&m_fileWatch, &QFileSystemWatcher::fileChanged, this, &MaximaExpression::imageChanged,  Qt::UniqueConnection);
     }
 
     const QString& cmd=command();
@@ -651,7 +655,9 @@ bool MaximaExpression::parseOutput(QString& out)
     errorContent += out.mid(lastResultEnd, promptStart - lastResultEnd).trimmed();
     if (errorContent.isEmpty())
     {
-        setStatus(Cantor::Expression::Done);
+        // For plots we set Done status in imageChanged
+        if (!m_isPlot || m_plotResult)
+            setStatus(Cantor::Expression::Done);
     }
     else
     {
@@ -710,16 +716,29 @@ void MaximaExpression::parseResult(const QString& resultContent)
     textContent = textContent.remove(outputLabel).trimmed();
 
     //determine the actual result
-    Cantor::TextResult* result = nullptr;
+    Cantor::Result* result = nullptr;
 
     const int latexContentStart = resultContent.indexOf(QLatin1String("<cantor-latex>"));
-    if (latexContentStart != -1)
+    //Handle system maxima output for plotting commands
+    if (m_isPlot && textContent.endsWith(QString::fromLatin1("\"%1\"]").arg(m_tempFile->fileName())))
+    {
+        m_plotResultIndex = results().size();
+        // Gnuplot could generate plot before we parse text output from maxima and after
+        // If we already have plot result, just add it
+        // Else set info message, and replace it by real result in imageChanged function later
+        if (m_plotResult)
+            result = m_plotResult;
+        else
+            result = new Cantor::TextResult(i18n("Waiting for the plot result"));
+    }
+    else if (latexContentStart != -1)
     {
         //latex output is available
         const int latexContentEnd = resultContent.indexOf(QLatin1String("</cantor-latex>"));
         QString latexContent = resultContent.mid(latexContentStart + 14, latexContentEnd - latexContentStart - 14).trimmed();
         qDebug()<<"latex content: " << latexContent;
 
+        Cantor::TextResult* textResult;
         //replace the \mbox{} environment, if available, by the eqnarray environment
         if (latexContent.indexOf(QLatin1String("\\mbox{")) != -1)
         {
@@ -745,16 +764,17 @@ void MaximaExpression::parseResult(const QString& resultContent)
 
             modifiedLatexContent.prepend(QLatin1String("\\begin{eqnarray*}"));
             modifiedLatexContent.append(QLatin1String("\\end{eqnarray*}"));
-            result = new Cantor::TextResult(modifiedLatexContent, textContent);
+            textResult = new Cantor::TextResult(modifiedLatexContent, textContent);
             qDebug()<<"modified latex content: " << modifiedLatexContent;
         }
         else
         {
             //no \mbox{} available, use what we've got.
-            result = new Cantor::TextResult(latexContent, textContent);
+            textResult = new Cantor::TextResult(latexContent, textContent);
         }
 
-        result->setFormat(Cantor::TextResult::LatexFormat);
+        textResult->setFormat(Cantor::TextResult::LatexFormat);
+        result = textResult;
     }
     else
     {
@@ -772,14 +792,19 @@ void MaximaExpression::parseError(const QString& out)
 
 void MaximaExpression::imageChanged()
 {
-    qDebug()<<"the temp image has changed";
     if(m_tempFile->size()>0)
     {
 #ifdef WITH_EPS
-        setResult( new Cantor::EpsResult( QUrl::fromLocalFile(m_tempFile->fileName()) ) );
+        m_plotResult = new Cantor::EpsResult( QUrl::fromLocalFile(m_tempFile->fileName()) );
 #else
-        setResult( new Cantor::ImageResult( QUrl::fromLocalFile(m_tempFile->fileName()) ) );
+        m_plotResult = new Cantor::ImageResult( QUrl::fromLocalFile(m_tempFile->fileName()) );
 #endif
-        setStatus(Cantor::Expression::Done);
+        // Check, that we already parse maxima output for this plot, and if not, keep it up to this moment
+        // If it's true, replace text info result by real plot and set status as Done
+        if (m_plotResultIndex != -1)
+        {
+            replaceResult(m_plotResultIndex, m_plotResult);
+            setStatus(Cantor::Expression::Done);
+        }
     }
 }
