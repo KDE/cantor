@@ -140,8 +140,12 @@ void PythonHighlighter::highlightBlock(const QString &text)
 void PythonHighlighter::updateHighlight()
 {
 
-    addVariables(m_variables);
-    rehighlight();
+    if (!m_variables.isEmpty())
+    {
+        addVariables(m_variables);
+        m_variables.clear();
+        rehighlight();
+    }
 }
 
 void PythonHighlighter::addVariable(const QString variable)

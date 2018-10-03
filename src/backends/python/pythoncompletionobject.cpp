@@ -22,42 +22,138 @@
 
 #include <QDebug>
 
+#include "result.h"
+
 #include "pythonsession.h"
 #include "pythonkeywords.h"
 
-PythonCompletionObject::PythonCompletionObject(const QString& command, int index, PythonSession* session) : Cantor::CompletionObject(session)
+PythonCompletionObject::PythonCompletionObject(const QString& command, int index, PythonSession* session) : Cantor::CompletionObject(session),
+m_expression(nullptr)
 {
     setLine(command, index);
 }
 
 void PythonCompletionObject::fetchCompletions()
 {
-    QStringList allCompletions;
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        QStringList allCompletions;
 
-    allCompletions << PythonKeywords::instance()->variables();
-    allCompletions << PythonKeywords::instance()->functions();
-    allCompletions << PythonKeywords::instance()->keywords();
+        allCompletions << PythonKeywords::instance()->variables();
+        allCompletions << PythonKeywords::instance()->functions();
+        allCompletions << PythonKeywords::instance()->keywords();
 
-    setCompletions(allCompletions);
+        setCompletions(allCompletions);
 
-    emit fetchingDone();
+        emit fetchingDone();
+    }
+    else
+    {
+        if (m_expression)
+            return;
+
+        qDebug() << "run fetchCompletions";
+        const QString& expr = QString::fromLatin1(
+            "from __main__ import __dict__;"
+            "from rlcompleter import Completer;"
+            "print('|'.join(Completer(__dict__).global_matches('%1')+Completer(__dict__).attr_matches('%1')))"
+        ).arg(command());
+        m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonCompletionObject::extractCompletions);
+        // Python could exec the expression before connect, so manualy run handler
+        extractCompletions(m_expression->status());
+    }
 }
+
+
 
 void PythonCompletionObject::fetchIdentifierType()
 {
-    // Scilab's typeof function could be used here, but as long as these lists
-    // are used just looking up the name is easier.
-
-    if (qBinaryFind(PythonKeywords::instance()->functions().begin(),
-		    PythonKeywords::instance()->functions().end(), identifier())
-	!= PythonKeywords::instance()->functions().end())
-	emit fetchingTypeDone(FunctionType);
-    else if (qBinaryFind(PythonKeywords::instance()->keywords().begin(),
-			 PythonKeywords::instance()->keywords().end(), identifier())
-	!= PythonKeywords::instance()->keywords().end())
-	emit fetchingTypeDone(KeywordType);
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        if (qBinaryFind(PythonKeywords::instance()->functions().begin(),
+                PythonKeywords::instance()->functions().end(), identifier())
+        != PythonKeywords::instance()->functions().end())
+        emit fetchingTypeDone(FunctionType);
+        else if (qBinaryFind(PythonKeywords::instance()->keywords().begin(),
+                PythonKeywords::instance()->keywords().end(), identifier())
+        != PythonKeywords::instance()->keywords().end())
+        emit fetchingTypeDone(KeywordType);
+        else
+        emit fetchingTypeDone(VariableType);
+    }
     else
-	emit fetchingTypeDone(VariableType);
+    {
+        if (m_expression)
+            return;
+
+        const QString& expr = QString::fromLatin1("callable(%1)").arg(identifier());
+        m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonCompletionObject::extractIdentifierType);
+        // Python could exec the expression before connect, so manualy run handler
+        extractIdentifierType(m_expression->status());
+    }
+}
+
+void PythonCompletionObject::extractCompletions(Cantor::Expression::Status status)
+{
+    if (!m_expression)
+        return;
+    switch(status)
+    {
+        case Cantor::Expression::Error:
+            qDebug() << "Error with PythonCompletionObject" << (m_expression->result() ? m_expression->result()->toHtml() : QLatin1String("extractCompletions"));
+            break;
+
+        case Cantor::Expression::Interrupted:
+            qDebug() << "PythonCompletionObject was interrupted";
+            break;
+
+        case Cantor::Expression::Done:
+            if (m_expression->result())
+                setCompletions(m_expression->result()->toHtml().remove(QLatin1Char('(')).split(QLatin1Char('|')));
+            break;
+        default:
+            return;
+    }
+    m_expression->deleteLater();
+    m_expression = nullptr;
+    emit fetchingDone();
+}
+
+void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
+{
+    if (!m_expression)
+            return;
+    switch(status)
+    {
+        case Cantor::Expression::Error:
+
+            if (m_expression->errorMessage().contains(QLatin1String("SyntaxError: invalid syntax")))
+                emit fetchingTypeDone(KeywordType);
+            else
+                qDebug() << "Error with PythonCompletionObject" << (m_expression->result() ? m_expression->result()->toHtml() : QLatin1String("extractIdentifierType"));
+            break;
+
+        case Cantor::Expression::Interrupted:
+            qDebug() << "PythonCompletionObject was interrupted";
+            break;
+
+        case Cantor::Expression::Done:
+            if (m_expression->result())
+            {
+                if (m_expression->result())
+                    if (m_expression->result()->toHtml() == QLatin1String("True"))
+                        emit fetchingTypeDone(FunctionType);
+                    else
+                        emit fetchingTypeDone(VariableType);
+            }
+            break;
+        default:
+            return;
+    }
+    m_expression->deleteLater();
+    m_expression = nullptr;
 }
 
 bool PythonCompletionObject::mayIdentifierContain(QChar c) const

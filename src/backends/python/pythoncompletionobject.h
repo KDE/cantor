@@ -22,6 +22,7 @@
 #define _PYTHONCOMPLETIONOBJECT_H
 
 #include "completionobject.h"
+#include "expression.h"
 
 class PythonSession;
 
@@ -38,6 +39,11 @@ class PythonCompletionObject : public Cantor::CompletionObject
   protected Q_SLOTS:
     void fetchCompletions() override;
     void fetchIdentifierType() override;
+    void extractCompletions(Cantor::Expression::Status status);
+    void extractIdentifierType(Cantor::Expression::Status status);
+
+  private:
+    Cantor::Expression* m_expression;
 };
 
 #endif /* _PYTHONCOMPLETIONOBJECT_H */
