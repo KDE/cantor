@@ -36,7 +36,8 @@ class PythonKeywords
     const QStringList& variables() const;
 
     void loadFromModule(const QString& module, const QStringList& keywords);
-    void addVariable(const QString& variable);
+
+    void python2Mode();
 
   private:
     void loadKeywords();

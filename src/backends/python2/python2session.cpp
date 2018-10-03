@@ -21,6 +21,7 @@
 #include "python2session.h"
 #include "settings.h"
 #include "../python/pythonexpression.h"
+#include "../python/pythonkeywords.h"
 
 #include <QDebug>
 #include <QDBusConnection>
@@ -30,7 +31,7 @@
 #include <KProcess>
 
 Python2Session::Python2Session(Cantor::Backend* backend)
-    : PythonSession(backend, QLatin1String("cantor_python2server"), QLatin1String("org.kde.Cantor.Python2"))
+    : PythonSession(backend, 2, QLatin1String("cantor_python2server"), QLatin1String("org.kde.Cantor.Python2"))
 {
 }
 

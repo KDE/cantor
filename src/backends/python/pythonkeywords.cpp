@@ -58,6 +58,11 @@ void PythonKeywords::loadKeywords()
     m_functions << definition.keywordList(QLatin1String("overloaders"));
 
     m_variables << definition.keywordList(QLatin1String("specialvars"));
+
+    // We use qBinarySearch in PythonCompletetionObject for type fetching
+    qSort(m_keywords);
+    qSort(m_functions);
+    qSort(m_variables);
 }
 
 void PythonKeywords::loadFromModule(const QString& module, const QStringList& keywords)
@@ -77,14 +82,14 @@ void PythonKeywords::loadFromModule(const QString& module, const QStringList& ke
     }
 }
 
-void PythonKeywords::addVariable(const QString& variable)
+void PythonKeywords::python2Mode()
 {
-    qDebug() << "Variable added" << variable;
+    // In Python 2 print is keyword, not function
+    m_functions.removeOne(QLatin1String("print"));
+    m_keywords << QLatin1String("print");
 
-    if (!m_variables.contains(variable)){
-        m_variables << variable;
-    }
-
+    qSort(m_keywords);
+    qSort(m_functions);
 }
 
 const QStringList& PythonKeywords::variables() const

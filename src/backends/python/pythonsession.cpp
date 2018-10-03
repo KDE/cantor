@@ -41,7 +41,7 @@
 #include <defaultvariablemodel.h>
 
 
-PythonSession::PythonSession(Cantor::Backend* backend, const QString serverName, const QString DbusChannelName)
+PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName, const QString DbusChannelName)
     : Session(backend)
     , m_variableModel(new Cantor::DefaultVariableModel(this))
     , m_pIface(nullptr)
@@ -49,6 +49,8 @@ PythonSession::PythonSession(Cantor::Backend* backend, const QString serverName,
     , serverName(serverName)
     , DbusChannelName(DbusChannelName)
 {
+    if (pythonVersion == 2)
+        PythonKeywords::instance()->python2Mode();
 }
 
 void PythonSession::login()
