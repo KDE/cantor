@@ -45,7 +45,7 @@ void JuliaCompletionObject::fetchCompletions()
         allCompletions << JuliaKeywords::instance()->variables();
         allCompletions << JuliaKeywords::instance()->functions();
         allCompletions << JuliaKeywords::instance()->plotShowingCommands();
-            
+
         setCompletions(allCompletions);
         emit fetchingDone();
     }
@@ -73,7 +73,13 @@ void JuliaCompletionObject::fetchCompletions()
         auto result = julia_session->getOutput();
         result.chop(1);
         result.remove(0, 1);
-        setCompletions(result.split(QLatin1String("__CANTOR_DELIM__")));
+        QStringList completions = result.split(QLatin1String("__CANTOR_DELIM__"));
+        if (command().contains(QLatin1Char('.')))
+            for(QString& word : completions)
+                if (!word.startsWith(command()))
+                    word.prepend(command());
+
+        setCompletions(completions);
         emit fetchingDone();
     }
 }
