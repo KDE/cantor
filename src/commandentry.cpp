@@ -895,6 +895,7 @@ void CommandEntry::clearResultItems()
         fadeOutItem(item->graphicsObject());
 
     m_resultItems.clear();
+    recalculateSize();
 }
 
 void CommandEntry::replaceResultItem(int index)
