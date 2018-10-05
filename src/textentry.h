@@ -38,7 +38,7 @@ class TextEntry : public WorksheetEntry
 {
   Q_OBJECT
   public:
-    TextEntry(Worksheet* worksheet);
+    explicit TextEntry(Worksheet* worksheet);
     ~TextEntry() override = default;
 
     enum {Type = UserType + 1};

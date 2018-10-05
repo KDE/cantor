@@ -18,8 +18,8 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#include "worksheet.h"
 #include "worksheetview.h"
+#include "worksheet.h"
 
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>

@@ -40,7 +40,7 @@ class MaximaSession : public Cantor::Session
   public:
     static const QRegExp MaximaOutputPrompt;
 
-    MaximaSession( Cantor::Backend* backend);
+    explicit MaximaSession( Cantor::Backend* backend);
 
     void login() override;
     void logout() override;

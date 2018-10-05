@@ -45,7 +45,7 @@ class CANTOR_EXPORT Assistant : public QObject, public KXMLGUIClient
      * Create a new assistant
      * @param parent the parent Object @see QObject
      **/
-    Assistant( QObject* parent );
+    explicit Assistant( QObject* parent );
     /**
      * Destructor
      */

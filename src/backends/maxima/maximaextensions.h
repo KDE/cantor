@@ -26,7 +26,7 @@
 class MaximaHistoryExtension : public Cantor::HistoryExtension
 {
   public:
-    MaximaHistoryExtension( QObject* parent );
+    explicit MaximaHistoryExtension( QObject* parent );
     ~MaximaHistoryExtension() override;
   public Q_SLOTS:
     QString lastResult() override;
@@ -35,7 +35,7 @@ class MaximaHistoryExtension : public Cantor::HistoryExtension
 class MaximaScriptExtension : public Cantor::ScriptExtension
 {
   public:
-    MaximaScriptExtension(QObject* parent);
+    explicit MaximaScriptExtension(QObject* parent);
     ~MaximaScriptExtension() override;
   public Q_SLOTS:
     QString runExternalScript(const QString& file) override;
@@ -49,7 +49,7 @@ class MaximaScriptExtension : public Cantor::ScriptExtension
 class MaximaCASExtension : public Cantor::CASExtension
 {
   public:
-    MaximaCASExtension( QObject* parent);
+    explicit MaximaCASExtension( QObject* parent);
     ~MaximaCASExtension() override;
 
   public Q_SLOTS:
@@ -62,7 +62,7 @@ class MaximaCASExtension : public Cantor::CASExtension
 class MaximaCalculusExtension : public Cantor::CalculusExtension
 {
   public:
-    MaximaCalculusExtension( QObject* parent);
+    explicit MaximaCalculusExtension( QObject* parent);
     ~MaximaCalculusExtension() override;
 
   public Q_SLOTS:
@@ -77,7 +77,7 @@ class MaximaCalculusExtension : public Cantor::CalculusExtension
 class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
   public:
-    MaximaLinearAlgebraExtension(QObject* parent);
+    explicit MaximaLinearAlgebraExtension(QObject* parent);
     ~MaximaLinearAlgebraExtension() override;
 
   public Q_SLOTS:
@@ -98,7 +98,7 @@ class MaximaLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 class MaximaPlotExtension : public Cantor::PlotExtension
 {
   public:
-    MaximaPlotExtension(QObject* parent);
+    explicit MaximaPlotExtension(QObject* parent);
     ~MaximaPlotExtension() override;
   public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) override;
@@ -108,7 +108,7 @@ class MaximaPlotExtension : public Cantor::PlotExtension
 class MaximaVariableManagementExtension : public Cantor::VariableManagementExtension
 {
   public:
-    MaximaVariableManagementExtension( QObject* parent );
+    explicit MaximaVariableManagementExtension( QObject* parent );
     ~MaximaVariableManagementExtension() override;
 
   public Q_SLOTS:

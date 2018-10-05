@@ -34,7 +34,7 @@ public:
      * @param session session to bound expression to
      * @param internal @see Cantor::Expression::Expression(Session*, bool)
      */
-    JuliaExpression(Cantor::Session *session, bool internal = false);
+    explicit JuliaExpression(Cantor::Session *session, bool internal = false);
     ~JuliaExpression() override = default;
 
     /**

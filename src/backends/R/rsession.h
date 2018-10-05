@@ -38,7 +38,7 @@ class RSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    RSession( Cantor::Backend* backend);
+    explicit RSession( Cantor::Backend* backend);
     ~RSession() override;
 
     void login() override;

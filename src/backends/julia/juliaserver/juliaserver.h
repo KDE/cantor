@@ -37,7 +37,7 @@ class JuliaServer: public QObject
 {
     Q_OBJECT
 public:
-    JuliaServer(QObject *parent = nullptr);
+    explicit JuliaServer(QObject *parent = nullptr);
 
     ~JuliaServer() override;
 
@@ -84,7 +84,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE QStringList variablesList();
 
     /**
-     * @return corresponding list of values for variables from variablesList. 
+     * @return corresponding list of values for variables from variablesList.
      */
     Q_SCRIPTABLE QStringList variableValuesList();
 

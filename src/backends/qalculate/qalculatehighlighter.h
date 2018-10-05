@@ -24,7 +24,7 @@
 class QalculateHighlighter : public Cantor::DefaultHighlighter
 {
 public:
-    QalculateHighlighter(QObject* parent);
+    explicit QalculateHighlighter(QObject* parent);
     ~QalculateHighlighter() override = default;
 
 protected:

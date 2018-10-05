@@ -30,7 +30,7 @@ class LatexEntry : public WorksheetEntry
   Q_OBJECT
 
   public:
-    LatexEntry(Worksheet* worksheet);
+    explicit LatexEntry(Worksheet* worksheet);
     ~LatexEntry() override = default;
 
     enum {Type = UserType + 5};

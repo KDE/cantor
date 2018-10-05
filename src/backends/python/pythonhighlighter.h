@@ -28,7 +28,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
     Q_OBJECT
 
   public:
-    PythonHighlighter(QObject* parent);
+    explicit PythonHighlighter(QObject* parent);
     ~PythonHighlighter() override = default;
 
   public Q_SLOTS:

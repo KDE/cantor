@@ -37,7 +37,7 @@
 class LoadedExpression : public Cantor::Expression
 {
   public:
-    LoadedExpression( Cantor::Session* session );
+    explicit LoadedExpression( Cantor::Session* session );
     ~LoadedExpression() override = default;
 
     void evaluate() override;

@@ -26,7 +26,7 @@
 class Python3Session : public PythonSession
 {
   public:
-    Python3Session(Cantor::Backend* backend);
+    explicit Python3Session(Cantor::Backend* backend);
 
     bool integratePlots() const override;
     QStringList autorunScripts() const override;

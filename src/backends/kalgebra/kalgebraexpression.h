@@ -27,7 +27,7 @@ class KAlgebraExpression : public Cantor::Expression
 {
     Q_OBJECT
     public:
-        KAlgebraExpression( KAlgebraSession* session, bool internal = false);
+        explicit KAlgebraExpression( KAlgebraSession* session, bool internal = false);
         ~KAlgebraExpression() override = default;
 
         void evaluate() override;

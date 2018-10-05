@@ -61,7 +61,7 @@ private:
     void storeVariables(QString& currentCmd, QString output);
 
 public:
-    QalculateSession( Cantor::Backend* backend);
+    explicit QalculateSession( Cantor::Backend* backend);
     ~QalculateSession() override;
 
     void login() override;

@@ -28,7 +28,7 @@ class RExpression : public Cantor::Expression
   Q_OBJECT
   public:
     enum ServerReturnCode{SuccessCode=0, ErrorCode, InterruptedCode};
-    RExpression( Cantor::Session*, bool internal = false);
+    explicit RExpression( Cantor::Session*, bool internal = false);
     ~RExpression() override = default;
 
     void evaluate() override;

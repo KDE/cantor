@@ -35,7 +35,7 @@ class CANTOR_EXPORT WorksheetAccessInterface : public QObject
   Q_OBJECT
   public:
     static QLatin1String Name;
-    WorksheetAccessInterface(QObject* parent);
+    explicit WorksheetAccessInterface(QObject* parent);
     ~WorksheetAccessInterface() override = default;
   public:
     virtual QByteArray saveWorksheetToByteArray() = 0;

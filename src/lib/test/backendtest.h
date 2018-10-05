@@ -23,7 +23,7 @@
 
 #include <QObject>
 #include <QtTest>
-#include <QtCore>
+#include <QString>
 
 #include "cantor_export.h"
 

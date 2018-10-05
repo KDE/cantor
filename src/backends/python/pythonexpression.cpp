@@ -53,7 +53,7 @@ void PythonExpression::evaluate()
 
         QString saveFigCommand = QLatin1String("savefig('cantor-export-python-figure-%1.png')");
 
-        setCommand(command().replace(QLatin1String("show()"), saveFigCommand.arg(rand())));
+        setCommand(command().replace(QLatin1String("show()"), saveFigCommand.arg(qrand())));
 
         qDebug() << "New Command " << command();
 

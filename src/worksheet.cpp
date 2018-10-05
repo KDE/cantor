@@ -19,6 +19,8 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
+#include "worksheet.h"
+
 #include <QBuffer>
 #include <QDebug>
 #include <QDrag>
@@ -33,7 +35,6 @@
 #include <KFontSizeAction>
 #include <KToggleAction>
 
-#include "worksheet.h"
 #include "settings.h"
 #include "commandentry.h"
 #include "textentry.h"

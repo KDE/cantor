@@ -33,7 +33,7 @@ class Animation : public QObject
 {
   Q_OBJECT
   public:
-    Animation( QObject* parent=nullptr);
+    explicit Animation( QObject* parent=nullptr);
     ~Animation() override;
 
     void setMovie(QMovie* movie);

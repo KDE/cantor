@@ -72,7 +72,7 @@ class CANTOR_EXPORT Expression : public QObject
      * @param session the session, this Expression belongs to
      * @param internal \c true if this expression is internal expression
      */
-    Expression( Session* session, bool internal = false);
+    explicit Expression( Session* session, bool internal = false);
     /**
      * destructor
      */

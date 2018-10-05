@@ -30,7 +30,7 @@ class NullSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    NullSession( Cantor::Backend* backend);
+    explicit NullSession( Cantor::Backend* backend);
     ~NullSession() override = default;
 
     void login() override;

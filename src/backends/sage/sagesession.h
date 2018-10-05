@@ -42,7 +42,7 @@ class SageSession : public Cantor::Session
     //Note: major version -1 is treated as most current
     class VersionInfo{
       public:
-        VersionInfo(int major = -1, int minor = -1);
+        explicit VersionInfo(int major = -1, int minor = -1);
 
         //bool operator <=(VersionInfo v2);
         bool operator <(VersionInfo other) const;
@@ -61,7 +61,7 @@ class SageSession : public Cantor::Session
     };
 
 
-    SageSession( Cantor::Backend* backend);
+    explicit SageSession( Cantor::Backend* backend);
     ~SageSession() override = default;
 
     void login() override;

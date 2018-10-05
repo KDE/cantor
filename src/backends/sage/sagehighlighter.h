@@ -33,7 +33,7 @@
 class SageHighlighter : public Cantor::DefaultHighlighter
 {
   public:
-    SageHighlighter( QObject* parent);
+    explicit SageHighlighter( QObject* parent);
     ~SageHighlighter() override = default;
 };
 

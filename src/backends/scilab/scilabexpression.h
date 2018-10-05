@@ -29,7 +29,7 @@ class ScilabExpression : public Cantor::Expression
     Q_OBJECT
 
     public:
-        ScilabExpression(Cantor::Session* session, bool internal = false);
+        explicit ScilabExpression(Cantor::Session* session, bool internal = false);
         ~ScilabExpression() override = default;
 
         void evaluate() override;

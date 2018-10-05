@@ -33,7 +33,7 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     static const QString inspectCommand;
     static const QString variableInspectCommand;
 
-    MaximaVariableModel( MaximaSession* session);
+    explicit MaximaVariableModel( MaximaSession* session);
     ~MaximaVariableModel() override = default;
 
     QList<Variable> variables();

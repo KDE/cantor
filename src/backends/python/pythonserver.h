@@ -30,7 +30,7 @@ class PythonServer : public QObject
 {
   Q_OBJECT
   public:
-    PythonServer(QObject* parent = nullptr);
+    explicit PythonServer(QObject* parent = nullptr);
 
   public Q_SLOTS:
     Q_SCRIPTABLE void login();

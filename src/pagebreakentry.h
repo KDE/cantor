@@ -30,7 +30,7 @@ class PageBreakEntry : public WorksheetEntry
   Q_OBJECT
 
   public:
-    PageBreakEntry(Worksheet* worksheet);
+    explicit PageBreakEntry(Worksheet* worksheet);
     ~PageBreakEntry() override = default;
 
     enum {Type = UserType + 3};

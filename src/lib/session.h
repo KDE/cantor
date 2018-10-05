@@ -62,7 +62,7 @@ class CANTOR_EXPORT Session : public QObject
      * thats job of the login() function
      * @see login()
      */
-    Session( Backend* backend);
+    explicit Session( Backend* backend);
     /**
      * Destructor
      */

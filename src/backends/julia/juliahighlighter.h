@@ -38,7 +38,7 @@ public:
      *
      * @param parent QObject parent
      */
-    JuliaHighlighter(QObject *parent);
+    explicit JuliaHighlighter(QObject *parent);
     ~JuliaHighlighter() override = default;
 
 public Q_SLOTS:

@@ -30,7 +30,7 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
 {
   Q_OBJECT
   public:
-    ImageResultItem(QGraphicsObject* parent);
+    explicit ImageResultItem(QGraphicsObject* parent);
     ~ImageResultItem() override = default;
 
     using WorksheetImageItem::setGeometry;

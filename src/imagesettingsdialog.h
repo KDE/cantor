@@ -38,7 +38,7 @@ class ImageSettingsDialog : public QDialog
 {
   Q_OBJECT
   public:
-    ImageSettingsDialog(QWidget* parent);
+    explicit ImageSettingsDialog(QWidget* parent);
 
     void setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting);
 

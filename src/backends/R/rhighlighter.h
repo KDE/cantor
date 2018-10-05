@@ -28,7 +28,7 @@ class RHighlighter : public Cantor::DefaultHighlighter
   Q_OBJECT
 
   public:
-    RHighlighter( QObject* parent);
+    explicit RHighlighter( QObject* parent);
     ~RHighlighter() override = default;
 
   protected:

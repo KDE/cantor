@@ -33,7 +33,7 @@ class KAlgebraSession : public Cantor::Session
 {
     Q_OBJECT
     public:
-        KAlgebraSession( Cantor::Backend* backend);
+        explicit KAlgebraSession( Cantor::Backend* backend);
         ~KAlgebraSession() override;
 
         void login() override;

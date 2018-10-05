@@ -32,7 +32,7 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
   Q_OBJECT
 
   public:
-    AnimationResultItem(QGraphicsObject* parent);
+    explicit AnimationResultItem(QGraphicsObject* parent);
     ~AnimationResultItem() override = default;
 
     using WorksheetImageItem::setGeometry;

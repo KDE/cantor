@@ -26,7 +26,7 @@
 class SageHistoryExtension : public Cantor::HistoryExtension
 {
   public:
-    SageHistoryExtension( QObject* parent );
+    explicit SageHistoryExtension( QObject* parent );
     ~SageHistoryExtension() override;
   public Q_SLOTS:
     QString lastResult() override;
@@ -35,7 +35,7 @@ class SageHistoryExtension : public Cantor::HistoryExtension
 class SageScriptExtension : public Cantor::ScriptExtension
 {
   public:
-    SageScriptExtension(QObject* parent);
+    explicit SageScriptExtension(QObject* parent);
     ~SageScriptExtension() override;
   public Q_SLOTS:
     QString runExternalScript(const QString& path) override;
@@ -46,7 +46,7 @@ class SageScriptExtension : public Cantor::ScriptExtension
 class SageCASExtension : public Cantor::CASExtension
 {
   public:
-    SageCASExtension( QObject* parent);
+    explicit SageCASExtension( QObject* parent);
     ~SageCASExtension() override;
 
   public Q_SLOTS:
@@ -59,7 +59,7 @@ class SageCASExtension : public Cantor::CASExtension
 class SageCalculusExtension : public Cantor::CalculusExtension
 {
   public:
-    SageCalculusExtension( QObject* parent);
+    explicit SageCalculusExtension( QObject* parent);
     ~SageCalculusExtension() override;
 
   public Q_SLOTS:
@@ -72,7 +72,7 @@ class SageCalculusExtension : public Cantor::CalculusExtension
 class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 {
   public:
-    SageLinearAlgebraExtension( QObject* parent);
+    explicit SageLinearAlgebraExtension( QObject* parent);
     ~SageLinearAlgebraExtension() override;
 
   public Q_SLOTS:
@@ -94,7 +94,7 @@ class SageLinearAlgebraExtension : public Cantor::LinearAlgebraExtension
 class SagePlotExtension : public Cantor::PlotExtension
 {
   public:
-    SagePlotExtension(QObject* parent);
+    explicit SagePlotExtension(QObject* parent);
     ~SagePlotExtension() override;
   public Q_SLOTS:
     QString plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right) override;
@@ -104,7 +104,7 @@ class SagePlotExtension : public Cantor::PlotExtension
 class SagePackagingExtension : public Cantor::PackagingExtension
 {
   public:
-    SagePackagingExtension(QObject* parent);
+    explicit SagePackagingExtension(QObject* parent);
     ~SagePackagingExtension() override;
 
   public Q_SLOTS:

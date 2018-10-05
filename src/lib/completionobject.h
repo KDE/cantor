@@ -46,7 +46,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * Constructor
      * @param parent the session, this object belongs to
      */
-    CompletionObject(Session* parent);
+    explicit CompletionObject(Session* parent);
     ///Destructor
     ~CompletionObject() override;
 

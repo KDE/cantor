@@ -32,7 +32,7 @@ namespace Cantor
         public:
             PLOT_DIRECTIVE_DISPATCHING(PlotTitleDirective);
             const QString& title() const;
-            PlotTitleDirective(const QString& str);
+            explicit PlotTitleDirective(const QString& str);
             static AdvancedPlotExtension::DirectiveProducer* widget(QWidget* parent);
 
         private:

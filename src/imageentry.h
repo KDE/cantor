@@ -36,7 +36,7 @@ class ImageEntry : public WorksheetEntry
   Q_OBJECT
 
   public:
-    ImageEntry(Worksheet* worksheet);
+    explicit ImageEntry(Worksheet* worksheet);
     ~ImageEntry() override = default;
 
     enum {Type = UserType + 4};

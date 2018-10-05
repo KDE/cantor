@@ -48,7 +48,7 @@ class WorksheetEntry : public QGraphicsObject
 {
   Q_OBJECT
   public:
-    WorksheetEntry(Worksheet* worksheet);
+    explicit WorksheetEntry(Worksheet* worksheet);
     ~WorksheetEntry() override;
 
     enum {Type = UserType};

@@ -26,7 +26,7 @@
 class LuaHighlighter : public Cantor::DefaultHighlighter
 {
 public:
-    LuaHighlighter(QObject* parent);
+    explicit LuaHighlighter(QObject* parent);
     ~LuaHighlighter() override = default;
 };
 

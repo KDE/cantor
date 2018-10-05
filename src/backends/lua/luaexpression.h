@@ -30,7 +30,7 @@ class LuaExpression : public Cantor::Expression
     Q_OBJECT
 
 public:
-    LuaExpression( Cantor::Session* session, bool internal = false);
+    explicit LuaExpression( Cantor::Session* session, bool internal = false);
     ~LuaExpression() override = default;
 
     void evaluate() override;

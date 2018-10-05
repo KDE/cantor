@@ -52,7 +52,7 @@ private:
     std::string unlocalizeExpression(QString expr);
 
 public:
-    QalculateExpression( QalculateSession* session, bool internal = false);
+    explicit QalculateExpression( QalculateSession* session, bool internal = false);
     ~QalculateExpression() override;
 
     void evaluate() override;

@@ -59,7 +59,7 @@ class CANTOR_EXPORT HistoryExtension : public Extension
 {
   Q_OBJECT
   public:
-    HistoryExtension(QObject* parent);
+    explicit HistoryExtension(QObject* parent);
     ~HistoryExtension() override;
   public Q_SLOTS:
     /**
@@ -77,7 +77,7 @@ class CANTOR_EXPORT ScriptExtension : public Extension
 {
   Q_OBJECT
   public:
-    ScriptExtension(QObject* parent);
+    explicit ScriptExtension(QObject* parent);
     ~ScriptExtension() override;
   public Q_SLOTS:
     /**
@@ -124,7 +124,7 @@ class CANTOR_EXPORT CASExtension : public Extension
 {
   Q_OBJECT
   public:
-    CASExtension(QObject* parent);
+    explicit CASExtension(QObject* parent);
     ~CASExtension() override;
 
   public Q_SLOTS:
@@ -157,7 +157,7 @@ class CANTOR_EXPORT CalculusExtension : public Extension
 {
   Q_OBJECT
   public:
-    CalculusExtension(QObject* parent);
+    explicit CalculusExtension(QObject* parent);
     ~CalculusExtension() override;
 
   public Q_SLOTS:
@@ -205,7 +205,7 @@ class CANTOR_EXPORT PlotExtension : public Extension
     typedef QPair<QString,QString> Interval;
     typedef QPair<QString, Interval> VariableParameter;
 
-    PlotExtension(QObject* parent);
+    explicit PlotExtension(QObject* parent);
     ~PlotExtension() override;
 
   public Q_SLOTS:
@@ -244,7 +244,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
 {
   Q_OBJECT
   public:
-    AdvancedPlotExtension(QObject* parent);
+    explicit AdvancedPlotExtension(QObject* parent);
     ~AdvancedPlotExtension() override;
 
     // TODO comment
@@ -255,7 +255,7 @@ class CANTOR_EXPORT AdvancedPlotExtension : public Extension
     class CANTOR_EXPORT DirectiveProducer : public QWidget
     {
         public:
-            DirectiveProducer(QWidget* parent);
+            explicit DirectiveProducer(QWidget* parent);
             virtual PlotDirective* produceDirective() const=0;
     };
 
@@ -380,7 +380,7 @@ class CANTOR_EXPORT LinearAlgebraExtension : public Extension
     enum VectorType { ColumnVector, RowVector };
     using Matrix = QList<QStringList>;
 
-    LinearAlgebraExtension(QObject* parent);
+    explicit LinearAlgebraExtension(QObject* parent);
     ~LinearAlgebraExtension() override;
 
   public Q_SLOTS:
@@ -457,7 +457,7 @@ class CANTOR_EXPORT VariableManagementExtension : public Extension
 {
   Q_OBJECT
   public:
-    VariableManagementExtension( QObject* parent );
+    explicit VariableManagementExtension( QObject* parent );
     ~VariableManagementExtension() override;
 
   public Q_SLOTS:
@@ -477,7 +477,7 @@ class CANTOR_EXPORT PackagingExtension : public Extension
 {
   Q_OBJECT
   public:
-    PackagingExtension(QObject* parent);
+    explicit PackagingExtension(QObject* parent);
     ~PackagingExtension() override;
 
   public Q_SLOTS:
