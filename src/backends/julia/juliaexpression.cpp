@@ -80,7 +80,9 @@ void JuliaExpression::finalize()
                 new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
             QDir().remove(m_plot_filename);
         } else {
-            setResult(new Cantor::TextResult(juliaSession->getOutput()));
+            const QString& output = juliaSession->getOutput();
+            if (!output.isEmpty())
+                setResult(new Cantor::TextResult(output));
         }
         setStatus(Cantor::Expression::Done);
     }
