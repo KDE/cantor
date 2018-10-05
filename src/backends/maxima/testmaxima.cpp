@@ -62,7 +62,7 @@ void TestMaxima::testMultilineCommand()
     QCOMPARE(result, QLatin1String("6"));
 }
 
-//WARNING: for this test to work, Integration of Plots must be anabled
+//WARNING: for this test to work, Integration of Plots must be enabled
 //and CantorLib must be compiled with EPS-support
 void TestMaxima::testPlot()
 {

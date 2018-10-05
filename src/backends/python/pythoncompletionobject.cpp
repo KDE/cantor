@@ -143,10 +143,12 @@ void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status st
             if (m_expression->result())
             {
                 if (m_expression->result())
+                {
                     if (m_expression->result()->toHtml() == QLatin1String("True"))
                         emit fetchingTypeDone(FunctionType);
                     else
                         emit fetchingTypeDone(VariableType);
+                }
             }
             break;
         default:
