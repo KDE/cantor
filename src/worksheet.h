@@ -63,6 +63,7 @@ class Worksheet : public QGraphicsScene
     Cantor::Session* session();
 
     bool isRunning();
+    bool isReadOnly();
     bool showExpressionIds();
     bool animationsEnabled();
 
@@ -292,6 +293,9 @@ class Worksheet : public QGraphicsScene
     bool m_loginDone;
     bool m_isPrinting;
     bool m_isLoadingFromFile;
+    bool m_readOnly;
+
+    QString m_backendName;
 };
 
 #endif // WORKSHEET_H

@@ -88,6 +88,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_isPrinting = false;
     m_loginDone = false;
+    m_readOnly = false;
     m_isLoadingFromFile = false;
 
     enableHighlighting(Settings::self()->highlightDefault());
@@ -425,6 +426,9 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
 
 void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 {
+    if (m_readOnly)
+        return;
+
     resetEntryCursor();
     m_dragEntry = entry;
     WorksheetEntry* prev = entry->previous();
@@ -478,7 +482,7 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 void Worksheet::evaluate()
 {
     qDebug()<<"evaluate worksheet";
-    if (!m_loginDone)
+    if (!m_loginDone && !m_readOnly)
         loginToSession();
 
     firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
@@ -488,7 +492,7 @@ void Worksheet::evaluate()
 
 void Worksheet::evaluateCurrentEntry()
 {
-    if (!m_loginDone)
+    if (!m_loginDone && !m_readOnly)
         loginToSession();
 
     WorksheetEntry* entry = currentEntry();
@@ -523,7 +527,10 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
         setLastEntry(entry);
         updateLayout();
         makeVisible(entry);
-        focusEntry(entry);
+        if (m_readOnly)
+            entry->setAcceptHoverEvents(false);
+        else
+            focusEntry(entry);
     }
     return entry;
 }
@@ -803,7 +810,11 @@ void Worksheet::enableHighlighting(bool highlight)
         if(m_highlighter)
             m_highlighter->deleteLater();
 
-        m_highlighter=session()->syntaxHighlighter(this);
+        if (!m_readOnly)
+            m_highlighter=session()->syntaxHighlighter(this);
+        else
+            m_highlighter=nullptr;
+
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);
 
@@ -831,7 +842,12 @@ Cantor::Session* Worksheet::session()
 
 bool Worksheet::isRunning()
 {
-    return m_session->status()==Cantor::Session::Running;
+    return m_session && m_session->status()==Cantor::Session::Running;
+}
+
+bool Worksheet::isReadOnly()
+{
+    return m_readOnly;
 }
 
 bool Worksheet::showExpressionIds()
@@ -859,7 +875,7 @@ QDomDocument Worksheet::toXML(KZip* archive)
 {
     QDomDocument doc( QLatin1String("CantorWorksheet") );
     QDomElement root=doc.createElement( QLatin1String("Worksheet") );
-    root.setAttribute(QLatin1String("backend"), m_session->backend()->name());
+    root.setAttribute(QLatin1String("backend"), (m_session ? m_session->backend()->name(): m_backendName));
     doc.appendChild(root);
 
     for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
@@ -927,14 +943,19 @@ void Worksheet::savePlain(const QString& filename)
     QString commentStartingSeq = QLatin1String("");
     QString commentEndingSeq = QLatin1String("");
 
-    Cantor::Backend * const backend=session()->backend();
-    if (backend->extensions().contains(QLatin1String("ScriptExtension")))
+    if (!m_readOnly)
     {
-        Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String(("ScriptExtension"))));
-        cmdSep=e->commandSeparator();
-        commentStartingSeq = e->commentStartingSequence();
-        commentEndingSeq = e->commentEndingSequence();
+        Cantor::Backend * const backend=session()->backend();
+        if (backend->extensions().contains(QLatin1String("ScriptExtension")))
+        {
+            Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String(("ScriptExtension"))));
+            cmdSep=e->commandSeparator();
+            commentStartingSeq = e->commentStartingSequence();
+            commentEndingSeq = e->commentEndingSequence();
+        }
     }
+    else
+        KMessageBox::information(worksheetView(), i18n("In read-only mode Cantor couldn't guarantee, that the export will be valid for %1", m_backendName), i18n("Cantor"));
 
     QTextStream stream(&file);
 
@@ -990,7 +1011,7 @@ bool Worksheet::load(const QString& filename )
     }
 
     bool rc = load(&file);
-    if (rc)
+    if (rc && !m_readOnly)
         m_session->setWorksheetPath(filename);
 
     return rc;
@@ -1031,22 +1052,31 @@ bool Worksheet::load(QIODevice* device)
     QDomElement root=doc.documentElement();
 //     qDebug()<<root.tagName();
 
-    const QString backendName=root.attribute(QLatin1String("backend"));
-    Cantor::Backend* b=Cantor::Backend::getBackend(backendName);
+    m_backendName=root.attribute(QLatin1String("backend"));
+    Cantor::Backend* b=Cantor::Backend::getBackend(m_backendName);
     if (!b)
     {
         QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("The backend with which this file was generated is not installed. It needs %1", backendName), i18n("Cantor"));
-        return false;
+        KMessageBox::information(worksheetView(), i18n("%1 backend was not found. Editing and executing entries is not possible", m_backendName), i18n("Cantor"));
+        m_readOnly = true;
     }
+    else
+        m_readOnly = false;
 
-    if(!b->isEnabled())
+    if(!m_readOnly && !b->isEnabled())
     {
         QApplication::restoreOverrideCursor();
         KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
                                             "please check your configuration or install the needed packages.\n"
-                                            "You will only be able to view this worksheet.", backendName), i18n("Cantor"));
+                                            "You will only be able to view this worksheet.", m_backendName), i18n("Cantor"));
+        m_readOnly = true;
+    }
 
+    if (m_readOnly)
+    {
+        // TODO: Handle this here?
+        for (QAction* action : m_richTextActionList)
+            action->setEnabled(false);
     }
 
     m_isLoadingFromFile = true;
@@ -1065,7 +1095,8 @@ bool Worksheet::load(QIODevice* device)
 
     resetEntryCursor();
 
-    m_session=b->createSession();
+    if (!m_readOnly)
+        m_session=b->createSession();
 
     qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
@@ -1230,6 +1261,9 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
 
 void Worksheet::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
+    if (m_readOnly)
+        return;
+
     // forward the event to the items
     QGraphicsScene::contextMenuEvent(event);
 
@@ -1250,12 +1284,15 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
         event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
         lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
     */
-
-    updateEntryCursor(event);
+    if (!m_readOnly)
+        updateEntryCursor(event);
 }
 
 void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
 {
+    if (m_readOnly)
+        return;
+
     // If we choose entry by entry cursor and press text button (not modifiers, for example, like Control)
     if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && !keyEvent->text().isEmpty())
         addEntryFromEntryCursor();
@@ -1457,6 +1494,27 @@ WorksheetTextItem* Worksheet::lastFocusedTextItem()
 
 void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
 {
+    // No need update and emit signals about editing actions in readonly
+    // So support only copy action and reset selection
+    if (m_readOnly)
+    {
+        if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem)
+        {
+            disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
+            emit copyAvailable(newItem->isCopyAvailable());
+            m_lastFocusedTextItem->clearSelection();
+        }
+            
+        if (newItem && m_lastFocusedTextItem != newItem)
+        {
+            connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
+            emit copyAvailable(newItem->isCopyAvailable());
+        }
+
+        m_lastFocusedTextItem = newItem;
+        return;
+    }
+
     if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem) {
         disconnect(m_lastFocusedTextItem, SIGNAL(undoAvailable(bool)),
                    this, SIGNAL(undoAvailable(bool)));
@@ -1542,8 +1600,9 @@ void Worksheet::setRichTextInformation(const RichTextInfo& info)
 
 void Worksheet::setAcceptRichText(bool b)
 {
-    for (auto* action : m_richTextActionList)
-        action->setEnabled(b);
+    if (!m_readOnly)
+        for(QAction * action : m_richTextActionList)
+            action->setEnabled(b);
 }
 
 WorksheetTextItem* Worksheet::currentTextItem()

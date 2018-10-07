@@ -22,6 +22,7 @@
 #define CANTORPART_H
 
 #include <QPointer>
+#include <QVector>
 
 #include <KParts/ReadWritePart>
 #include <lib/session.h>
@@ -103,6 +104,8 @@ protected:
     void loadAssistants();
     void adjustGuiToSession();
 
+    void setReadOnly();
+
 protected Q_SLOTS:
     void fileSaveAs();
     void fileSavePlain();
@@ -171,6 +174,7 @@ private:
     KToggleAction* m_exprNumbering;
     KToggleAction* m_animateWorksheet;
     QAction * m_showBackendHelp;
+    QVector<QAction*> m_editActions;
 
     QString m_cachedStatusMessage;
     bool m_statusBarBlocked;

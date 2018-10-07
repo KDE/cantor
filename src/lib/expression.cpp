@@ -76,7 +76,7 @@ Expression::Expression( Session* session, bool internal ) : QObject( session ),
 {
     d->session=session;
     d->internal = internal;
-    if (!internal)
+    if (!internal && session)
         d->id=session->nextExpressionId();
     else
         d->id = -1;
@@ -131,7 +131,8 @@ void Expression::addResult(Result* result)
         qDebug()<<"setting result to a type "<<result->type()<<" result";
         #ifdef WITH_EPS
         //If it's text, and latex typesetting is enabled, render it
-        if ( session()->isTypesettingEnabled()&&
+        if ( session() &&
+             session()->isTypesettingEnabled()&&
              result->type()==TextResult::Type &&
              dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
              !result->toHtml().trimmed().isEmpty() &&
