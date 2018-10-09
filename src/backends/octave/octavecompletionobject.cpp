@@ -21,7 +21,6 @@
 #include "octavekeywords.h"
 
 #include "session.h"
-#include "expression.h"
 #include "result.h"
 
 #include <QDebug>
@@ -96,46 +95,55 @@ void OctaveCompletionObject::fetchIdentifierType()
         if (m_expression)
             return;
         qDebug() << "Fetching type of " << identifier();
-        // The output should look like
-        // sin is a built-in function
-        // __cantor_tmp2__ = 5
-        QString expr = QString::fromLatin1("ans = type('%1');ans").arg(identifier());
+        QString expr = QString::fromLatin1("__cantor_tmp__ = [exist('%1'), iskeyword('%1')], clear __cantor_tmp__").arg(identifier());
         m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
         connect(m_expression, &Cantor::Expression::statusChanged, this, &OctaveCompletionObject::extractIdentifierType);
     }
 }
 
-void OctaveCompletionObject::extractIdentifierType()
+void OctaveCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
 {
-    qDebug() << "type fetching done";
     if (!m_expression)
-	return;
-    if (m_expression->status() != Cantor::Expression::Done)
-    {
-	m_expression->deleteLater();
-	m_expression = nullptr;
         return;
+    switch(status)
+    {
+        case Cantor::Expression::Error:
+            qDebug() << "Error with OctaveCompletionObject" << m_expression->errorMessage();
+            emit fetchingTypeDone(UnknownType);
+            break;
+
+        case Cantor::Expression::Interrupted:
+            qDebug() << "OctaveCompletionObject was interrupted";
+            emit fetchingTypeDone(UnknownType);
+            break;
+
+        case Cantor::Expression::Done:
+            if (m_expression->result())
+            {
+                QString res = m_expression->result()->data().toString();
+                // Remove '__cantor_tmp__ = \n' from result string
+                // size("__cantor_tmp__ = \n") == 18
+                res.remove(0,18);
+
+                const QStringList& ints = res.split(QLatin1String(" "), QString::SkipEmptyParts);
+                if (ints.size() != 2)
+                    emit fetchingTypeDone(UnknownType);
+                else if (ints[1].toInt() == 1)
+                    emit fetchingTypeDone(KeywordType);
+                else if (ints[0].toInt() == 1)
+                    emit fetchingTypeDone(VariableType);
+                else if (ints[0].toInt() == 5 || ints[0].toInt() == 103)
+                    emit fetchingTypeDone(FunctionType);
+                else
+                    emit fetchingTypeDone(UnknownType);
+            }
+            break;
+
+        default:
+            return;
     }
-    Cantor::Result* result = m_expression->result();
+
     m_expression->deleteLater();
     m_expression = nullptr;
-    if (!result)
-	return;
-
-    QString res = result->toHtml();
-    int endOfLine1 = res.indexOf(QLatin1String("<br/>"));
-    int endOfLine2 = res.indexOf(QLatin1String("<br/>"), endOfLine1+1);
-    QString line1 = res.left(endOfLine1);
-    QString line2 = res.mid(endOfLine1, endOfLine2-endOfLine1);
-    // for functions defined on the command line type says "undefined",
-    // but sets ans to 103
-    if (line1.endsWith(QLatin1String("function")) || line1.contains(QLatin1String("user-defined function"))
-	|| line2.endsWith(QLatin1String("103")))
-    emit fetchingTypeDone(FunctionType);
-    else if (res.endsWith(QLatin1String("variable")))
-    emit fetchingTypeDone(VariableType);
-    else if (res.endsWith(QLatin1String("keyword")))
-    emit fetchingTypeDone(KeywordType);
-    else
-    emit fetchingTypeDone(UnknownType);
+    return;
 }

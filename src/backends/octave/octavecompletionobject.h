@@ -21,28 +21,24 @@
 #define OCTAVECOMPLETIONOBJECT_H
 
 #include "completionobject.h"
-
-namespace Cantor
-{
-    class Expression;
-}
+#include "expression.h"
 
 class OctaveCompletionObject : public Cantor::CompletionObject
 {
     Q_OBJECT
-    public:
-        OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent);
-	~OctaveCompletionObject() override = default;
+public:
+    OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent);
+    ~OctaveCompletionObject() override = default;
 
-    protected:
-	void fetchCompletions() override;
-        void fetchIdentifierType() override;
-    private Q_SLOTS:
-	void extractCompletions();
-        void extractIdentifierType();
+protected:
+    void fetchCompletions() override;
+    void fetchIdentifierType() override;
+private Q_SLOTS:
+    void extractCompletions();
+    void extractIdentifierType(Cantor::Expression::Status status);
 
     private:
-	Cantor::Expression* m_expression;
+    Cantor::Expression* m_expression;
 
 };
 
