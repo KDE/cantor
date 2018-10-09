@@ -118,7 +118,9 @@ void SageSession::login()
     m_process=new KPtyProcess(this);
     updateSageVersion();
     const QString& sageExecFile = SageSettings::self()->path().toLocalFile();
-    if (m_sageVersion >= SageSession::VersionInfo(8, 4))
+    if (false)
+//  Reenable when https://trac.sagemath.org/ticket/25363 is merged
+//  if (m_sageVersion >= SageSession::VersionInfo(8, 4))
         m_process->setProgram(sageExecFile, QStringList() << QLatin1String("--simple-prompt"));
     else
         {
