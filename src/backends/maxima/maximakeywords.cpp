@@ -44,6 +44,11 @@ void MaximaKeywords::loadKeywords()
     m_keywords = definition.keywordList(QLatin1String("MaximaKeyword"));
     m_functions = definition.keywordList(QLatin1String("MaximaFunction"));
     m_variables = definition.keywordList(QLatin1String("MaximaVariable"));
+
+    // We use qBinarySearch with this lists
+    qSort(m_keywords);
+    qSort(m_functions);
+    qSort(m_variables);
 }
 
 const QStringList& MaximaKeywords::variables() const
