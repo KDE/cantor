@@ -23,6 +23,7 @@
 #define _PYTHONSESSION_H
 
 #include "session.h"
+#include <cantor_pythonbackend_export.h>
 #include <QStringList>
 
 namespace Cantor {
@@ -34,7 +35,7 @@ class KDirWatch;
 class QDBusInterface;
 class KProcess;
 
-class CANTOR_EXPORT PythonSession : public Cantor::Session
+class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 {
   Q_OBJECT
   public:

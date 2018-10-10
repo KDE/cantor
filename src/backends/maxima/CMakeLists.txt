@@ -17,9 +17,7 @@ ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
-if(NOT WIN32)
-  target_link_libraries(cantor_maximabackend KF5::Pty KF5::SyntaxHighlighting)
-endif(NOT WIN32)
+target_link_libraries(cantor_maximabackend KF5::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)

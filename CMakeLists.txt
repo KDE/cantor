@@ -5,8 +5,6 @@ cmake_minimum_required (VERSION 3.1.0 FATAL_ERROR)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_definitions(-DMAKE_CANTORLIBS_LIB)
-
 # KDE Application Version, managed by release script
 set (KDE_APPLICATIONS_VERSION_MAJOR "18")
 set (KDE_APPLICATIONS_VERSION_MINOR "11")
@@ -56,6 +54,7 @@ include(KDECompilerSettings NO_POLICY_SCOPE)
 include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 include(ECMAddAppIcon)
+include(GenerateExportHeader)
 
 if(NOT WIN32)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"

@@ -26,7 +26,7 @@
 #include <KXMLGUIClient>
 #include <KPluginInfo>
 
-#include "cantor_export.h"
+#include <cantor_export.h>
 
 class KConfigSkeleton;
 class QWidget;

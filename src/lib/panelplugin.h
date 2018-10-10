@@ -26,7 +26,7 @@ class KPluginMetaData;
 
 #include "backend.h"
 
-#include "cantor_export.h"
+#include <cantor_export.h>
 
 namespace Cantor
 {

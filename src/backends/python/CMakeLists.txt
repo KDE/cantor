@@ -13,6 +13,8 @@ qt5_add_resources(PythonBackend_RSCS python.qrc)
 ki18n_wrap_ui(PythonBackend_SRCS settings.ui)
 
 add_library(cantor_pythonbackend SHARED ${PythonBackend_SRCS} ${PythonBackend_RSCS})
+generate_export_header(cantor_pythonbackend)
+
 target_link_libraries(cantor_pythonbackend
   cantorlibs
   KF5::KIOCore

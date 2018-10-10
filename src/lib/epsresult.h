@@ -22,7 +22,7 @@
 #define _EPSRESULT_H
 
 #include "result.h"
-#include "cantor_export.h"
+#include <cantor_export.h>
 #include <QUrl>
 
 namespace Cantor

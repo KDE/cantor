@@ -24,7 +24,6 @@ set( cantor_LIB_SRCS
 
 Set( cantor_LIB_HDRS
   cantor_macros.h
-  cantor_export.h
   #base classes
   backend.h
   session.h
@@ -54,6 +53,7 @@ install(FILES cantor_libs.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 configure_file (config-cantorlib.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantorlib.h )
 
 add_library( cantorlibs  SHARED ${cantor_LIB_SRCS} )
+generate_export_header(cantorlibs BASE_NAME cantor)
 
 kcoreaddons_desktop_to_json(cantorlibs cantor_assistant.desktop DEFAULT_SERVICE_TYPE)
 kcoreaddons_desktop_to_json(cantorlibs cantor_backend.desktop DEFAULT_SERVICE_TYPE)

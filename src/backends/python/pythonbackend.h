@@ -22,8 +22,9 @@
 #define _PYTHONBACKEND_H
 
 #include "backend.h"
+#include <cantor_pythonbackend_export.h>
 
-class CANTOR_EXPORT PythonBackend : public Cantor::Backend
+class CANTOR_PYTHONBACKEND_EXPORT PythonBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:

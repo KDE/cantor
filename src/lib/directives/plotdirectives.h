@@ -22,7 +22,7 @@
 #define _PLOT_DIRECTIVES_H
 
 #include "extension.h"
-#include "cantor_export.h"
+#include <cantor_export.h>
 
 //TODO: comments
 namespace Cantor

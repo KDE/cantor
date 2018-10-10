@@ -21,7 +21,7 @@
 #ifndef DEFAULTHIGHLIGHTER_H
 #define DEFAULTHIGHLIGHTER_H
 
-#include "cantor_export.h"
+#include <cantor_export.h>
 
 #include <QSyntaxHighlighter>
 

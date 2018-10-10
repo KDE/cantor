@@ -25,7 +25,7 @@
 #include <QtTest>
 #include <QString>
 
-#include "cantor_export.h"
+#include <cantortest_export.h>
 
 namespace Cantor
 {

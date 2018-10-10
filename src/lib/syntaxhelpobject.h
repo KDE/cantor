@@ -22,7 +22,7 @@
 #define _SYNTAXHELPOBJECT_H
 
 #include <QObject>
-#include "cantor_export.h"
+#include <cantor_export.h>
 
 namespace Cantor{
 
