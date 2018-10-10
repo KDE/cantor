@@ -28,12 +28,6 @@
 class MaximaExpression;
 class MaximaVariableModel;
 
-#ifdef Q_OS_WIN
-  class KProcess;
-#else
-  class KPtyProcess;
-#endif
-
 class MaximaSession : public Cantor::Session
 {
   Q_OBJECT
