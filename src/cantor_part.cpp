@@ -113,7 +113,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_initProgressDlg(nullptr),
     m_showProgressDlg(true),
     m_showBackendHelp(nullptr),
-    m_statusBarBlocked(false)
+    m_statusBarBlocked(false),
+    m_sessionStatusCounter(0)
 {
     qDebug()<<"Created a CantorPart";
 
@@ -537,13 +538,19 @@ void CantorPart::restartBackend()
 void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 {
     qDebug()<<"wsStatusChange"<<status;
+    unsigned int count = ++m_sessionStatusCounter;
     if(status==Cantor::Session::Running)
     {
-        m_evaluate->setText(i18n("Interrupt"));
-        m_evaluate->setShortcut(Qt::CTRL+Qt::Key_I);
-        m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
-
-        setStatusMessage(i18n("Calculating..."));
+        // Useless add a interrupt action without delay, because user physically can't interrupt fast commands
+        QTimer::singleShot(100, this, [this, count] () {
+            if(m_worksheet->session()->status() == Cantor::Session::Running && m_sessionStatusCounter == count)
+            {
+                m_evaluate->setText(i18n("Interrupt"));
+                m_evaluate->setShortcut(Qt::CTRL+Qt::Key_I);
+                m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
+                setStatusMessage(i18n("Calculating..."));
+            }
+        });
     }else if (status==Cantor::Session::Done)
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
