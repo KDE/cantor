@@ -122,6 +122,3 @@ void TextResult::save(const QString& filename)
 
     file.close();
 }
-
-
-

@@ -23,8 +23,10 @@
 #include "lib/result.h"
 #include "lib/animationresult.h"
 
-#include <QFileDialog>
 #include <QDebug>
+#include <QFileDialog>
+#include <QMovie>
+
 #include <KLocalizedString>
 
 AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
@@ -149,15 +151,3 @@ void AnimationResultItem::deleteLater()
 {
     WorksheetImageItem::deleteLater();
 }
-
-CommandEntry* AnimationResultItem::parentEntry()
-{
-    return qobject_cast<CommandEntry*>(parentObject());
-}
-
-Cantor::Result* AnimationResultItem::result()
-{
-    return parentEntry()->expression()->result();
-}
-
-

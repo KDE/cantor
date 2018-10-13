@@ -24,13 +24,12 @@
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
 
+#include <QDebug>
+#include <QFileDialog>
 #include <QTextCursor>
 
-#include <QFileDialog>
 #include <KStandardAction>
-#include <QAction>
 #include <KLocalizedString>
-#include <QDebug>
 
 TextResultItem::TextResultItem(QGraphicsObject* parent)
     : WorksheetTextItem(parent), ResultItem()
@@ -159,20 +158,7 @@ void TextResultItem::deleteLater()
     WorksheetTextItem::deleteLater();
 }
 
-EpsRenderer* TextResultItem::epsRenderer()
+EpsRenderer* TextResultItem::epsRenderer() const
 {
     return qobject_cast<Worksheet*>(scene())->epsRenderer();
 }
-
-CommandEntry* TextResultItem::parentEntry()
-{
-    return qobject_cast<CommandEntry*>(parentObject());
-}
-
-Cantor::Result* TextResultItem::result()
-{
-    return parentEntry()->expression()->result();
-}
-
-
-

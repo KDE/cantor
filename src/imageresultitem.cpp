@@ -97,16 +97,3 @@ EpsRenderer* ImageResultItem::epsRenderer()
 {
     return qobject_cast<Worksheet*>(scene())->epsRenderer();
 }
-
-CommandEntry* ImageResultItem::parentEntry()
-{
-    return qobject_cast<CommandEntry*>(parentObject());
-}
-
-Cantor::Result* ImageResultItem::result()
-{
-    return parentEntry()->expression()->result();
-}
-
-
-

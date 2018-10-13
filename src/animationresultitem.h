@@ -21,10 +21,12 @@
 #ifndef ANIMATIONRESULTITEM_H
 #define ANIMATIONRESULTITEM_H
 
-#include "imageresultitem.h"
+#include "resultitem.h"
+#include "worksheetimageitem.h"
 
-#include <QMovie>
+class QMovie;
 
+class CommandEntry;
 class WorksheetEntry;
 
 class AnimationResultItem : public WorksheetImageItem, public ResultItem
@@ -46,8 +48,6 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     QRectF boundingRect() const override;
     double width() const override;
     double height() const override;
-    CommandEntry* parentEntry();
-    Cantor::Result* result() override;
 
   Q_SIGNALS:
     void removeResult();

@@ -23,8 +23,9 @@
 
 #include "resultitem.h"
 #include "worksheetimageitem.h"
-#include "worksheetentry.h"
-#include "epsrenderer.h"
+
+class CommandEntry;
+class EpsRenderer;
 
 class ImageResultItem : public WorksheetImageItem, public ResultItem
 {
@@ -45,8 +46,6 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
 
     void deleteLater() override;
     EpsRenderer* epsRenderer();
-    CommandEntry* parentEntry();
-    Cantor::Result* result() override;
 
   Q_SIGNALS:
     void removeResult();

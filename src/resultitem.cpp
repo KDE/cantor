@@ -22,6 +22,7 @@
 #include "textresultitem.h"
 #include "imageresultitem.h"
 #include "animationresultitem.h"
+#include "commandentry.h"
 #include "worksheetentry.h"
 
 #include "lib/result.h"
@@ -75,4 +76,14 @@ void ResultItem::addCommonActions(QObject* self, QMenu* menu)
 QGraphicsObject* ResultItem::graphicsObject()
 {
     return dynamic_cast<QGraphicsObject*>(this);
+}
+
+CommandEntry* ResultItem::parentEntry()
+{
+    return qobject_cast<CommandEntry*>(graphicsObject()->parentObject());
+}
+
+Cantor::Result* ResultItem::result()
+{
+    return parentEntry()->expression()->result();
 }

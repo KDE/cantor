@@ -47,9 +47,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     double height() const override;
 
     void deleteLater() override;
-    EpsRenderer* epsRenderer();
-    CommandEntry* parentEntry();
-    Cantor::Result* result() override;
+    EpsRenderer* epsRenderer() const;
 
   Q_SIGNALS:
     void removeResult();

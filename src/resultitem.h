@@ -34,6 +34,7 @@ namespace Cantor {
     class Result;
 }
 
+class CommandEntry;
 class WorksheetEntry;
 
 class QMenu;
@@ -56,12 +57,12 @@ class ResultItem
 
     virtual void deleteLater() = 0;
 
-    virtual Cantor::Result* result() = 0;
-
     virtual double width() const = 0;
     virtual double height() const = 0;
 
     QGraphicsObject* graphicsObject();
+    Cantor::Result* result();
+    CommandEntry* parentEntry();
 
   protected:
     static void addCommonActions(QObject* self, QMenu* menu);
