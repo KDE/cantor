@@ -1455,7 +1455,6 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
                    this, SIGNAL(pasteAvailable(bool)));
         disconnect(this, SIGNAL(cut()), m_lastFocusedTextItem, SLOT(cut()));
         disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
-        disconnect(this, SIGNAL(paste()), m_lastFocusedTextItem, SLOT(paste()));
 
         m_lastFocusedTextItem->clearSelection();
     }
@@ -1481,7 +1480,6 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
                 this, SIGNAL(pasteAvailable(bool)));
         connect(this, SIGNAL(cut()), newItem, SLOT(cut()));
         connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
-        connect(this, SIGNAL(paste()), newItem, SLOT(paste()));
     } else if (!newItem) {
         emit undoAvailable(false);
         emit redoAvailable(false);
@@ -1490,6 +1488,19 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         emit pasteAvailable(false);
     }
     m_lastFocusedTextItem = newItem;
+}
+
+/*!
+ * handles the paste action triggered in cantor_part.
+ * Pastes into the last focused text item.
+ * In case the "new entry"-cursor is currently shown,
+ * a new entry is created first which the content will be pasted into.
+ */
+void Worksheet::paste() {
+    if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
+        addEntryFromEntryCursor();
+
+    m_lastFocusedTextItem->paste();
 }
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)

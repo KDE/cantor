@@ -72,8 +72,8 @@ class Worksheet : public QGraphicsScene
 
     WorksheetView* worksheetView();
 
-    void makeVisible(WorksheetEntry* entry);
-    void makeVisible(const WorksheetCursor& cursor);
+    void makeVisible(WorksheetEntry*);
+    void makeVisible(const WorksheetCursor&);
 
     void setModified();
 
@@ -135,11 +135,11 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = nullptr);
 
     void updateLayout();
-    void updateEntrySize(WorksheetEntry* entry);
+    void updateEntrySize(WorksheetEntry*);
 
     void print(QPrinter*);
-
-    void focusEntry(WorksheetEntry * entry);
+    void paste();
+    void focusEntry(WorksheetEntry*);
 
     void evaluate();
     void evaluateCurrentEntry();
@@ -152,23 +152,23 @@ class Worksheet : public QGraphicsScene
     void highlightItem(WorksheetTextItem*);
     void rehighlight();
 
-    void enableHighlighting(bool highlight);
-    void enableCompletion(bool enable);
-    void enableExpressionNumbering(bool enable);
-    void enableAnimations(bool enable);
+    void enableHighlighting(bool);
+    void enableCompletion(bool);
+    void enableExpressionNumbering(bool);
+    void enableAnimations(bool);
 
-    QDomDocument toXML(KZip* archive=nullptr);
+    QDomDocument toXML(KZip* archive = nullptr);
 
     void save(const QString& filename);
-    void save(QIODevice* device);
+    void save(QIODevice*);
     QByteArray saveToByteArray();
     void savePlain(const QString& filename);
     void saveLatex(const QString& filename);
-    bool load(QIODevice* device);
+    bool load(QIODevice*);
     void load(QByteArray* data);
     bool load(const QString& filename);
 
-    void gotResult(Cantor::Expression* expr=nullptr);
+    void gotResult(Cantor::Expression* expr = nullptr);
 
     void removeCurrentEntry();
 
@@ -215,7 +215,6 @@ class Worksheet : public QGraphicsScene
     void pasteAvailable(bool);
     void cut();
     void copy();
-    void paste();
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
@@ -226,7 +225,7 @@ class Worksheet : public QGraphicsScene
     void dragMoveEvent(QGraphicsSceneDragDropEvent*) override;
     void dropEvent(QGraphicsSceneDragDropEvent*) override;
 
-    void keyPressEvent(QKeyEvent *keyEvent) override;
+    void keyPressEvent(QKeyEvent*) override;
 
   private Q_SLOTS:
     void loginToSession();
@@ -243,7 +242,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(qreal x, qreal y);
     WorksheetEntry* entryAt(QPointF p);
     WorksheetEntry* entryAt(int row);
-    void updateEntryCursor(QGraphicsSceneMouseEvent* event);
+    void updateEntryCursor(QGraphicsSceneMouseEvent*);
     void resetEntryCursor();
     void addEntryFromEntryCursor();
     void drawEntryCursor();
@@ -293,7 +292,6 @@ class Worksheet : public QGraphicsScene
     bool m_loginDone;
     bool m_isPrinting;
     bool m_isLoadingFromFile;
-
 };
 
 #endif // WORKSHEET_H
