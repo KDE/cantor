@@ -50,19 +50,28 @@ MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : 
 {
 }
 
+MaximaExpression::~MaximaExpression() {
+    if(m_tempFile)
+        delete m_tempFile;
+}
+
 void MaximaExpression::evaluate()
 {
     //until we get the real output Id from maxima, set it to invalid
     setId(-1);
 
     m_isHelpRequest=false;
-    m_isPlot=false;
     m_gotErrorContent=false;
+
     if(m_tempFile)
-        m_tempFile->deleteLater();
-    m_tempFile=nullptr;
-    m_plotResult = nullptr;
-    m_plotResultIndex = -1;
+    {
+        delete m_tempFile;
+        m_tempFile = nullptr;
+        m_isPlot = false;
+        m_plotResult = nullptr;
+        m_plotResultIndex = -1;
+    }
+
     //check if this is a ?command
     if(command().startsWith(QLatin1String("??"))
         || command().startsWith(QLatin1String("describe("))

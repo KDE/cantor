@@ -315,7 +315,7 @@ void MaximaSession::setTypesettingEnabled(bool enable)
     //we use the lisp command to set the variable, as those commands
     //don't mess with the labels and history
     const QString& val=QLatin1String((enable==true ? "t":"nil"));
-    Cantor::Expression* exp=evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
+    evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
 
     Cantor::Session::setTypesettingEnabled(enable);
 }
