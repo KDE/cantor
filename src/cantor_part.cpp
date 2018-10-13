@@ -69,7 +69,7 @@
 //A concrete implementation of the WorksheetAccesssInterface
 class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
 {
-    //Q_OBJECT
+
   public:
     WorksheetAccessInterfaceImpl(QObject* parent, Worksheet* worksheet) :   WorksheetAccessInterface(parent),  m_worksheet(worksheet)
     {
@@ -93,7 +93,7 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
     {
         return m_worksheet->session();
     }
-//  public Q_SLOTS:
+
   void evaluate() override
     {
         m_worksheet->evaluate();
@@ -116,8 +116,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_statusBarBlocked(false),
     m_sessionStatusCounter(0)
 {
-    qDebug()<<"Created a CantorPart";
-
     m_panelHandler=new Cantor::PanelPluginHandler(this);
     connect(m_panelHandler, SIGNAL(pluginsChanged()), this, SLOT(pluginsChanged()));
 
@@ -127,7 +125,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     else
         backendName=args.first().toString();
 
-    foreach(const QVariant& arg, args)
+    for (const QVariant& arg : args)
     {
         if (arg.toString() == QLatin1String("--noprogress") )
         {
@@ -148,6 +146,10 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
+
+    auto* collection = actionCollection();
+
+    //central widget
     QWidget* widget = new QWidget(parentWidget);
     QVBoxLayout* layout = new QVBoxLayout(widget);
     m_worksheet=new Worksheet(b, widget);
@@ -156,198 +158,187 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
     connect(m_worksheet, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
     connect(m_worksheet, SIGNAL(loaded()), this, SLOT(initialized()));
-    connect(actionCollection(), SIGNAL(inserted(QAction*)), m_worksheet,
-            SLOT(registerShortcut(QAction*)));
-
+    connect(collection, SIGNAL(inserted(QAction*)), m_worksheet, SLOT(registerShortcut(QAction*)));
     layout->addWidget(m_worksheetview);
-    // notify the part that this is our internal widget
     setWidget(widget);
 
-    Cantor::WorksheetAccessInterface* iface=new WorksheetAccessInterfaceImpl(this, m_worksheet);
+    //create WorksheetAccessInterface, used at the moment by LabPlot only to access Worksheet's API
+    Cantor::WorksheetAccessInterface* iface = new WorksheetAccessInterfaceImpl(this, m_worksheet);
     Q_UNUSED(iface);
 
-    // create our actions
-    m_worksheet->createActions(actionCollection());
+    //initialize actions
+    m_worksheet->createActions(collection);
 
-    KStandardAction::saveAs(this, SLOT(fileSaveAs()), actionCollection());
-    m_save = KStandardAction::save(this, SLOT(save()), actionCollection());
+    KStandardAction::saveAs(this, SLOT(fileSaveAs()), collection);
+    m_save = KStandardAction::save(this, SLOT(save()), collection);
     m_save->setPriority(QAction::LowPriority);
 
-    QAction * savePlain=new QAction(i18n("Save Plain Text"), actionCollection());
-    actionCollection()->addAction(QLatin1String("file_save_plain"), savePlain);
+    QAction* savePlain = new QAction(i18n("Save Plain Text"), collection);
+    collection->addAction(QLatin1String("file_save_plain"), savePlain);
     savePlain->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
     connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
 
-    QAction * undo=KStandardAction::undo(m_worksheet, SIGNAL(undo()),
-                                        actionCollection());
+    QAction* undo = KStandardAction::undo(m_worksheet, SIGNAL(undo()), collection);
     undo->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(undoAvailable(bool)),
-            undo, SLOT(setEnabled(bool)));
-    QAction * redo=KStandardAction::redo(m_worksheet, SIGNAL(redo()),
-                                        actionCollection());
+    connect(m_worksheet, SIGNAL(undoAvailable(bool)), undo, SLOT(setEnabled(bool)));
+
+    QAction* redo = KStandardAction::redo(m_worksheet, SIGNAL(redo()), collection);
     redo->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(redoAvailable(bool)),
-            redo, SLOT(setEnabled(bool)));
+    connect(m_worksheet, SIGNAL(redoAvailable(bool)), redo, SLOT(setEnabled(bool)));
 
-    QAction * cut=KStandardAction::cut(m_worksheet, SIGNAL(cut()),
-                                      actionCollection());
+    QAction* cut = KStandardAction::cut(m_worksheet, SIGNAL(cut()), collection);
     cut->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(cutAvailable(bool)),
-            cut, SLOT(setEnabled(bool)));
-    QAction * copy=KStandardAction::copy(m_worksheet, SIGNAL(copy()),
-                                        actionCollection());
-    copy->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(copyAvailable(bool)),
-            copy, SLOT(setEnabled(bool)));
-    QAction* paste = KStandardAction::paste(m_worksheet, SLOT(paste()),
-                                          actionCollection());
-    paste->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(pasteAvailable(bool)),
-            paste, SLOT(setEnabled(bool)));
+    connect(m_worksheet, SIGNAL(cutAvailable(bool)), cut, SLOT(setEnabled(bool)));
 
-    QAction * find=KStandardAction::find(this, SLOT(showSearchBar()),
-                                        actionCollection());
+    QAction* copy = KStandardAction::copy(m_worksheet, SIGNAL(copy()), collection);
+    copy->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(copyAvailable(bool)), copy, SLOT(setEnabled(bool)));
+
+    QAction* paste = KStandardAction::paste(m_worksheet, SLOT(paste()), collection);
+    paste->setPriority(QAction::LowPriority);
+    connect(m_worksheet, SIGNAL(pasteAvailable(bool)), paste, SLOT(setEnabled(bool)));
+
+    QAction* find = KStandardAction::find(this, SLOT(showSearchBar()), collection);
     find->setPriority(QAction::LowPriority);
 
-    QAction * replace=KStandardAction::replace(this, SLOT(showExtendedSearchBar()),
-                                              actionCollection());
+    QAction* replace = KStandardAction::replace(this, SLOT(showExtendedSearchBar()), collection);
     replace->setPriority(QAction::LowPriority);
 
-    m_findNext = KStandardAction::findNext(this, SLOT(findNext()),
-                                           actionCollection());
+    m_findNext = KStandardAction::findNext(this, SLOT(findNext()), collection);
     m_findNext->setEnabled(false);
-    m_findPrev = KStandardAction::findPrev(this, SLOT(findPrev()),
-                                           actionCollection());
+
+    m_findPrev = KStandardAction::findPrev(this, SLOT(findPrev()), collection);
     m_findPrev->setEnabled(false);
 
-    QAction * latexExport=new QAction(i18n("Export to LaTeX"), actionCollection());
-    actionCollection()->addAction(QLatin1String("file_export_latex"), latexExport);
+    QAction* latexExport = new QAction(i18n("Export to LaTeX"), collection);
+    collection->addAction(QLatin1String("file_export_latex"), latexExport);
     latexExport->setIcon(QIcon::fromTheme(QLatin1String("document-export")));
     connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
 
-    QAction * print = KStandardAction::print(this, SLOT(print()), actionCollection());
+    QAction* print = KStandardAction::print(this, SLOT(print()), collection);
     print->setPriority(QAction::LowPriority);
 
-    QAction * printPreview = KStandardAction::printPreview(this, SLOT(printPreview()), actionCollection());
+    QAction* printPreview = KStandardAction::printPreview(this, SLOT(printPreview()), collection);
     printPreview->setPriority(QAction::LowPriority);
 
-    KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), actionCollection());
-    KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), actionCollection());
+    KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), collection);
+    KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), collection);
 
-    m_evaluate=new QAction(i18n("Evaluate Worksheet"), actionCollection());
-    actionCollection()->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
+    m_evaluate = new QAction(i18n("Evaluate Worksheet"), collection);
+    collection->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
     m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
-    actionCollection()->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
+    collection->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
     connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
 
-    m_typeset=new KToggleAction(i18n("Typeset using LaTeX"), actionCollection());
+    m_typeset = new KToggleAction(i18n("Typeset using LaTeX"), collection);
     m_typeset->setChecked(Settings::self()->typesetDefault());
-    actionCollection()->addAction(QLatin1String("enable_typesetting"), m_typeset);
+    collection->addAction(QLatin1String("enable_typesetting"), m_typeset);
     connect(m_typeset, SIGNAL(toggled(bool)), this, SLOT(enableTypesetting(bool)));
 
-    m_highlight=new KToggleAction(i18n("Syntax Highlighting"), actionCollection());
+    m_highlight = new KToggleAction(i18n("Syntax Highlighting"), collection);
     m_highlight->setChecked(Settings::self()->highlightDefault());
-    actionCollection()->addAction(QLatin1String("enable_highlighting"), m_highlight);
+    collection->addAction(QLatin1String("enable_highlighting"), m_highlight);
     connect(m_highlight, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableHighlighting(bool)));
 
-    m_completion=new KToggleAction(i18n("Completion"), actionCollection());
+    m_completion = new KToggleAction(i18n("Completion"), collection);
     m_completion->setChecked(Settings::self()->completionDefault());
-    actionCollection()->addAction(QLatin1String("enable_completion"), m_completion);
+    collection->addAction(QLatin1String("enable_completion"), m_completion);
     connect(m_completion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableCompletion(bool)));
 
-    m_exprNumbering=new KToggleAction(i18n("Line Numbers"), actionCollection());
+    m_exprNumbering = new KToggleAction(i18n("Line Numbers"), collection);
     m_exprNumbering->setChecked(Settings::self()->expressionNumberingDefault());
-    actionCollection()->addAction(QLatin1String("enable_expression_numbers"), m_exprNumbering);
+    collection->addAction(QLatin1String("enable_expression_numbers"), m_exprNumbering);
     connect(m_exprNumbering, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableExpressionNumbering(bool)));
 
-    m_animateWorksheet=new KToggleAction(i18n("Animate Worksheet"), actionCollection());
+    m_animateWorksheet = new KToggleAction(i18n("Animate Worksheet"), collection);
     m_animateWorksheet->setChecked(Settings::self()->animationDefault());
-    actionCollection()->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
+    collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
-    QAction * restart=new QAction(i18n("Restart Backend"), actionCollection());
-    actionCollection()->addAction(QLatin1String("restart_backend"), restart);
+    QAction* restart = new QAction(i18n("Restart Backend"), collection);
+    collection->addAction(QLatin1String("restart_backend"), restart);
     restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
     connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
 
-    QAction * evaluateCurrent=new QAction(i18n("Evaluate Entry"), actionCollection());
-    actionCollection()->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
-    actionCollection()->setDefaultShortcut(evaluateCurrent, Qt::SHIFT + Qt::Key_Return);
+    QAction* evaluateCurrent = new QAction(i18n("Evaluate Entry"), collection);
+    collection->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
+    collection->setDefaultShortcut(evaluateCurrent, Qt::SHIFT + Qt::Key_Return);
     connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
 
-    QAction * insertCommandEntry=new QAction(i18n("Insert Command Entry"), actionCollection());
-    actionCollection()->addAction(QLatin1String("insert_command_entry"),  insertCommandEntry);
-    actionCollection()->setDefaultShortcut(insertCommandEntry, Qt::CTRL + Qt::Key_Return);
+    QAction* insertCommandEntry = new QAction(i18n("Insert Command Entry"), collection);
+    collection->addAction(QLatin1String("insert_command_entry"),  insertCommandEntry);
+    collection->setDefaultShortcut(insertCommandEntry, Qt::CTRL + Qt::Key_Return);
     connect(insertCommandEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntry()));
 
-    QAction * insertTextEntry=new QAction(i18n("Insert Text Entry"), actionCollection());
-    actionCollection()->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
+    QAction* insertTextEntry = new QAction(i18n("Insert Text Entry"), collection);
+    collection->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
+
 #ifdef Discount_FOUND
-    QAction * insertMarkdownEntry=new QAction(i18n("Insert Markdown Entry"), actionCollection());
-    actionCollection()->addAction(QLatin1String("insert_markdown_entry"),  insertMarkdownEntry);
+    QAction* insertMarkdownEntry = new QAction(i18n("Insert Markdown Entry"), collection);
+    collection->addAction(QLatin1String("insert_markdown_entry"),  insertMarkdownEntry);
     connect(insertMarkdownEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertMarkdownEntry()));
 #endif
-    QAction * insertLatexEntry=new QAction(i18n("Insert Latex Entry"), actionCollection());
-    actionCollection()->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
+
+    QAction* insertLatexEntry = new QAction(i18n("Insert Latex Entry"), collection);
+    collection->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
 
-    QAction * insertPageBreakEntry=new QAction(i18n("Insert Page Break"), actionCollection());
-    actionCollection()->addAction(QLatin1String("insert_page_break_entry"), insertPageBreakEntry);
+    QAction* insertPageBreakEntry = new QAction(i18n("Insert Page Break"), collection);
+    collection->addAction(QLatin1String("insert_page_break_entry"), insertPageBreakEntry);
     connect(insertPageBreakEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntry()));
 
-    QAction * insertImageEntry=new QAction(i18n("Insert Image"), actionCollection());
-    actionCollection()->addAction(QLatin1String("insert_image_entry"), insertImageEntry);
+    QAction* insertImageEntry = new QAction(i18n("Insert Image"), collection);
+    collection->addAction(QLatin1String("insert_image_entry"), insertImageEntry);
     connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
 
-
     /*
-    QAction * insertCommandEntryBefore=new QAction(i18n("Insert Command Entry Before"), actionCollection());
+    QAction * insertCommandEntryBefore=new QAction(i18n("Insert Command Entry Before"), collection);
     //insertCommandEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_command_entry_before",  insertCommandEntryBefore);
+    collection->addAction("insert_command_entry_before",  insertCommandEntryBefore);
     connect(insertCommandEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntryBefore()));
 
-    QAction * insertTextEntryBefore=new QAction(i18n("Insert Text Entry Before"), actionCollection());
+    QAction * insertTextEntryBefore=new QAction(i18n("Insert Text Entry Before"), collection);
     //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_text_entry_before",  insertTextEntryBefore);
+    collection->addAction("insert_text_entry_before",  insertTextEntryBefore);
     connect(insertTextEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntryBefore()));
 
-    QAction * insertPageBreakEntryBefore=new QAction(i18n("Insert Page Break Before"), actionCollection());
-    actionCollection()->addAction("insert_page_break_entry_before", insertPageBreakEntryBefore);
+    QAction * insertPageBreakEntryBefore=new QAction(i18n("Insert Page Break Before"), collection);
+    collection->addAction("insert_page_break_entry_before", insertPageBreakEntryBefore);
     connect(insertPageBreakEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntryBefore()));
 
-    QAction * insertImageEntryBefore=new QAction(i18n("Insert Image Entry Before"), actionCollection());
+    QAction * insertImageEntryBefore=new QAction(i18n("Insert Image Entry Before"), collection);
     //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
-    actionCollection()->addAction("insert_image_entry_before",  insertImageEntryBefore);
+    collection->addAction("insert_image_entry_before",  insertImageEntryBefore);
     connect(insertImageEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntryBefore()));
     */
 
-    QAction * removeCurrent=new QAction(i18n("Remove current Entry"), actionCollection());
-    actionCollection()->addAction(QLatin1String("remove_current"), removeCurrent);
-    actionCollection()->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);
+    QAction* removeCurrent = new QAction(i18n("Remove current Entry"), collection);
+    collection->addAction(QLatin1String("remove_current"), removeCurrent);
+    collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);
     connect(removeCurrent, SIGNAL(triggered()), m_worksheet, SLOT(removeCurrentEntry()));
 
-    m_showBackendHelp=new QAction(i18n("Show %1 Help", b->name()) , actionCollection());
+    m_showBackendHelp = new QAction(i18n("Show %1 Help", b->name()) , collection);
     m_showBackendHelp->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
-    actionCollection()->addAction(QLatin1String("backend_help"), m_showBackendHelp);
+    collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, SIGNAL(triggered()), this, SLOT(showBackendHelp()));
 
-    QAction * publishWorksheet=new QAction(i18n("Publish Worksheet"), actionCollection());
+    QAction* publishWorksheet = new QAction(i18n("Publish Worksheet"), collection);
     publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
-    actionCollection()->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
+    collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
     connect(publishWorksheet, SIGNAL(triggered()), this, SLOT(publishWorksheet()));
 
-    KToggleAction* showEditor=new KToggleAction(i18n("Show Script Editor"), actionCollection());
+    KToggleAction* showEditor = new KToggleAction(i18n("Show Script Editor"), collection);
     showEditor->setChecked(false);
-    actionCollection()->addAction(QLatin1String("show_editor"), showEditor);
+    collection->addAction(QLatin1String("show_editor"), showEditor);
     connect(showEditor, SIGNAL(toggled(bool)), this, SLOT(showScriptEditor(bool)));
     showEditor->setEnabled(b->extensions().contains(QLatin1String("ScriptExtension")));
 
-    QAction * showCompletion=new QAction(i18n("Show Completion"), actionCollection());
-    actionCollection()->addAction(QLatin1String("show_completion"), showCompletion);
+    QAction* showCompletion = new QAction(i18n("Show Completion"), collection);
+    collection->addAction(QLatin1String("show_completion"), showCompletion);
     QList<QKeySequence> showCompletionShortcuts;
     showCompletionShortcuts << Qt::Key_Tab << Qt::CTRL + Qt::Key_Space;
-    actionCollection()->setDefaultShortcuts(showCompletion, showCompletionShortcuts);
+    collection->setDefaultShortcuts(showCompletion, showCompletionShortcuts);
     connect(showCompletion, SIGNAL(triggered()), m_worksheet, SLOT(showCompletion()));
 
     // set our XML-UI resource file
@@ -387,12 +378,8 @@ void CantorPart::setModified(bool modified)
     if (!m_save)
         return;
 
-    // if so, we either enable or disable it based on the current
-    // state
-    if (modified)
-        m_save->setEnabled(true);
-    else
-        m_save->setEnabled(false);
+    // if so, we either enable or disable it based on the current state
+    m_save->setEnabled(modified);
 
     // in any event, we want our parent to do it's thing
     ReadWritePart::setModified(modified);
@@ -401,9 +388,7 @@ void CantorPart::setModified(bool modified)
 KAboutData& CantorPart::createAboutData()
 {
     // the non-i18n name here must be the same as the directory in
-    // which the part's rc file is installed ('partrcdir' in the
-    // Makefile)
-
+    // which the part's rc file is installed ('partrcdir' in the Makefile)
     static KAboutData about(QLatin1String("cantorpart"),
                      QLatin1String("Cantor"),
                      QLatin1String(CANTOR_VERSION),
@@ -632,10 +617,8 @@ void CantorPart::updateCaption()
 
 void CantorPart::pluginsChanged()
 {
-    foreach(Cantor::PanelPlugin* plugin, m_panelHandler->plugins())
-    {
+    for (auto* plugin : m_panelHandler->plugins())
         connect(plugin, SIGNAL(requestRunCommand(QString)), this, SLOT(runCommand(QString)));
-    }
 }
 
 void CantorPart::loadAssistants()
@@ -643,12 +626,11 @@ void CantorPart::loadAssistants()
     qDebug()<<"loading assistants...";
 
     QStringList assistantDirs;
-    foreach(const QString &dir, QCoreApplication::libraryPaths()){
+    for (const QString& dir : QCoreApplication::libraryPaths())
         assistantDirs << dir + QDir::separator() + QLatin1String("cantor/assistants");
-    }
 
     QPluginLoader loader;
-    foreach(const QString &dir, assistantDirs){
+    for (const QString& dir : assistantDirs) {
 
         qDebug() << "dir: " << dir;
         QStringList assistants;
@@ -656,7 +638,7 @@ void CantorPart::loadAssistants()
 
         assistants = assistantDir.entryList();
 
-        foreach (const QString &assistant, assistants){
+        for (const QString& assistant : assistants) {
             if (assistant==QLatin1String(".") || assistant==QLatin1String(".."))
                 continue;
 
@@ -677,7 +659,7 @@ void CantorPart::loadAssistants()
             plugin->setBackend(backend);
 
             bool supported=true;
-            foreach(const QString& req, plugin->requiredExtensions())
+            for (const QString& req : plugin->requiredExtensions())
                 supported=supported && backend->extensions().contains(req);
 
             if(supported)

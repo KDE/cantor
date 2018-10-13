@@ -248,7 +248,7 @@ void Worksheet::removeProtrusion(qreal width)
         m_itemProtrusions.remove(width);
         if (width == m_protrusion) {
             qreal max = -1;
-            foreach (qreal p, m_itemProtrusions.keys()) {
+            for (qreal p : m_itemProtrusions.keys()) {
                 if (p > max)
                     max = p;
             }
@@ -1525,19 +1525,8 @@ void Worksheet::setRichTextInformation(const RichTextInfo& info)
 
 void Worksheet::setAcceptRichText(bool b)
 {
-    foreach(QAction * action, m_richTextActionList) {
+    for (auto* action : m_richTextActionList)
         action->setEnabled(b);
-    }
-
-    /*
-    foreach(QWidget* widget, m_fontAction->createdWidgets()) {
-        widget->setEnabled(b);
-    }
-
-    foreach(QWidget* widget, m_fontSizeAction->createdWidgets()) {
-        widget->setEnabled(b);
-    }
-    */
 }
 
 WorksheetTextItem* Worksheet::currentTextItem()
@@ -1642,9 +1631,9 @@ bool Worksheet::isShortcut(const QKeySequence& sequence)
 
 void Worksheet::registerShortcut(QAction* action)
 {
-    foreach(QKeySequence shortcut, action->shortcuts()) {
+    for (auto& shortcut : action->shortcuts())
         m_shortcuts.insert(shortcut, action);
-    }
+
     connect(action, SIGNAL(changed()), this, SLOT(updateShortcut()));
 }
 
@@ -1656,13 +1645,12 @@ void Worksheet::updateShortcut()
 
     // delete the old shortcuts of this action
     QList<QKeySequence> shortcuts = m_shortcuts.keys(action);
-    foreach(QKeySequence shortcut, shortcuts) {
+    for (auto& shortcut : shortcuts)
         m_shortcuts.remove(shortcut);
-    }
+
     // add the new shortcuts
-    foreach(QKeySequence shortcut, action->shortcuts()) {
+    for (auto& shortcut : action->shortcuts())
         m_shortcuts.insert(shortcut, action);
-    }
 }
 
 void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
