@@ -260,60 +260,39 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
     connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
 
-    QAction* evaluateCurrent = new QAction(i18n("Evaluate Entry"), collection);
+    QAction* evaluateCurrent = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), collection);
     collection->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
     collection->setDefaultShortcut(evaluateCurrent, Qt::SHIFT + Qt::Key_Return);
     connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
 
-    QAction* insertCommandEntry = new QAction(i18n("Insert Command Entry"), collection);
+    QAction* insertCommandEntry = new QAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Insert Command Entry"), collection);
     collection->addAction(QLatin1String("insert_command_entry"),  insertCommandEntry);
     collection->setDefaultShortcut(insertCommandEntry, Qt::CTRL + Qt::Key_Return);
     connect(insertCommandEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntry()));
 
-    QAction* insertTextEntry = new QAction(i18n("Insert Text Entry"), collection);
+    QAction* insertTextEntry = new QAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Insert Text Entry"), collection);
     collection->addAction(QLatin1String("insert_text_entry"),  insertTextEntry);
     connect(insertTextEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntry()));
 
 #ifdef Discount_FOUND
-    QAction* insertMarkdownEntry = new QAction(i18n("Insert Markdown Entry"), collection);
+    QAction* insertMarkdownEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Insert Markdown Entry"), collection);
     collection->addAction(QLatin1String("insert_markdown_entry"),  insertMarkdownEntry);
     connect(insertMarkdownEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertMarkdownEntry()));
 #endif
 
-    QAction* insertLatexEntry = new QAction(i18n("Insert Latex Entry"), collection);
+    QAction* insertLatexEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert Latex Entry"), collection);
     collection->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
 
-    QAction* insertPageBreakEntry = new QAction(i18n("Insert Page Break"), collection);
+    QAction* insertPageBreakEntry = new QAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), collection);
     collection->addAction(QLatin1String("insert_page_break_entry"), insertPageBreakEntry);
     connect(insertPageBreakEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntry()));
 
-    QAction* insertImageEntry = new QAction(i18n("Insert Image"), collection);
+    QAction* insertImageEntry = new QAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Insert Image"), collection);
     collection->addAction(QLatin1String("insert_image_entry"), insertImageEntry);
     connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
 
-    /*
-    QAction * insertCommandEntryBefore=new QAction(i18n("Insert Command Entry Before"), collection);
-    //insertCommandEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
-    collection->addAction("insert_command_entry_before",  insertCommandEntryBefore);
-    connect(insertCommandEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertCommandEntryBefore()));
-
-    QAction * insertTextEntryBefore=new QAction(i18n("Insert Text Entry Before"), collection);
-    //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
-    collection->addAction("insert_text_entry_before",  insertTextEntryBefore);
-    connect(insertTextEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertTextEntryBefore()));
-
-    QAction * insertPageBreakEntryBefore=new QAction(i18n("Insert Page Break Before"), collection);
-    collection->addAction("insert_page_break_entry_before", insertPageBreakEntryBefore);
-    connect(insertPageBreakEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertPageBreakEntryBefore()));
-
-    QAction * insertImageEntryBefore=new QAction(i18n("Insert Image Entry Before"), collection);
-    //insertTextEntryBefore->setShortcut(Qt::CTRL + Qt::Key_Return);
-    collection->addAction("insert_image_entry_before",  insertImageEntryBefore);
-    connect(insertImageEntryBefore, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntryBefore()));
-    */
-
-    QAction* removeCurrent = new QAction(i18n("Remove current Entry"), collection);
+    QAction* removeCurrent = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove current Entry"), collection);
     collection->addAction(QLatin1String("remove_current"), removeCurrent);
     collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);
     connect(removeCurrent, SIGNAL(triggered()), m_worksheet, SLOT(removeCurrentEntry()));
