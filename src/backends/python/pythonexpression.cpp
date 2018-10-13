@@ -32,30 +32,37 @@
 #include "settings.h"
 
 #include <QDir>
-using PythonPlotResult = Cantor::ImageResult;
+#include <QFileSystemWatcher>
+#include <QTemporaryFile>
 
-PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Cantor::Expression(session, internal)
+PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Cantor::Expression(session, internal),
+    m_tempFile(nullptr)
 {
-    qDebug() << "PythonExpression constructor";
+}
+
+PythonExpression::~PythonExpression() {
+    if(m_tempFile)
+        delete m_tempFile;
 }
 
 void PythonExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
+    if(m_tempFile) {
+        delete m_tempFile;
+        m_tempFile = nullptr;
+    }
 
-    PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
-
-    qDebug() << pythonSession->integratePlots() << command().contains(QLatin1String("show()"));
-
+     PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
     if((pythonSession->integratePlots()) && (command().contains(QLatin1String("show()")))){
+        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.png"));
+        m_tempFile->open();
+        QString saveFigCommand = QLatin1String("savefig('%1')");
+        setCommand(command().replace(QLatin1String("show()"), saveFigCommand.arg(m_tempFile->fileName())));
 
-        qDebug() << "Preparing export figures property";
-
-        QString saveFigCommand = QLatin1String("savefig('cantor-export-python-figure-%1.png')");
-
-        setCommand(command().replace(QLatin1String("show()"), saveFigCommand.arg(qrand())));
-
-        qDebug() << "New Command " << command();
+        QFileSystemWatcher* watcher = fileWatcher();
+        watcher->removePaths(watcher->files());
+        watcher->addPath(m_tempFile->fileName());
+        connect(watcher, &QFileSystemWatcher::fileChanged, this, &PythonExpression::imageChanged,  Qt::UniqueConnection);
 
     }
 
@@ -84,30 +91,14 @@ void PythonExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-void PythonExpression::parsePlotFile(const QString& filename)
+void PythonExpression::imageChanged()
 {
-    qDebug() << "parsePlotFile";
-
-    qDebug() << "PythonExpression::parsePlotFile: " << filename;
-
-    setResult(new PythonPlotResult(QUrl::fromLocalFile(filename)));
-
-    setPlotPending(false);
-
-    if (m_finished)
-    {
-        qDebug() << "PythonExpression::parsePlotFile: done";
-        setStatus(Done);
-    }
+    addResult(new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName())));
+    setStatus(Done);
 }
 
 void PythonExpression::interrupt()
 {
     qDebug()<<"interruptinging command";
     setStatus(Cantor::Expression::Interrupted);
-}
-
-void PythonExpression::setPlotPending(bool plot)
-{
-    m_plotPending = plot;
 }

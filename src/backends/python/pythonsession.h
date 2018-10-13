@@ -58,8 +58,6 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
     virtual QStringList autorunScripts() const = 0;
 
   private:
-    KDirWatch* m_watch;
-    QStringList m_listPlotName;
     Cantor::DefaultVariableModel* m_variableModel;
 
     QList<PythonExpression*> m_runningExpressions;
@@ -96,7 +94,6 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 
   private Q_SLOTS:
     void readOutput(const QString& commandProcessing);
-    void plotFileChanged(const QString& filename);
     void expressionFinished();
 
   Q_SIGNALS:

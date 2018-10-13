@@ -26,6 +26,7 @@
 
 #include <cantor_export.h>
 
+class QFileSystemWatcher;
 class KZip;
 
 /**
@@ -245,10 +246,12 @@ class CANTOR_EXPORT Expression : public QObject
 
     void replaceResult(int index, Result* result);
 
-  protected:
     //returns a string of latex commands, that is inserted into the header.
     //used for example if special packages are needed
     virtual QString additionalLatexHeaders();
+
+    QFileSystemWatcher* fileWatcher();
+
   private:
     void renderResultAsLatex(Result* result);
     void latexRendered(LatexRenderer* renderer, Result* result);

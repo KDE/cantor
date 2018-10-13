@@ -22,27 +22,24 @@
 #define _PYTHONEXPRESSION_H
 
 #include "expression.h"
-#include <QStringList>
 
-class QTimer;
+class QTemporaryFile;
 
 class PythonExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
     PythonExpression(Cantor::Session* session, bool internal);
-    ~PythonExpression() override = default;
+    ~PythonExpression() override;
 
     void evaluate() override;
     void interrupt() override;
     void parseOutput(QString output);
     void parseError(QString error);
-    void parsePlotFile(const QString& filename);
-    void setPlotPending(bool plot);
 
   private:
-    bool m_finished;
-    bool m_plotPending;
+    void imageChanged();
+    QTemporaryFile* m_tempFile;
 };
 
 #endif /* _PYTHONEXPRESSION_H */

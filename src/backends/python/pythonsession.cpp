@@ -101,30 +101,6 @@ void PythonSession::login()
     m_pIface->call(QString::fromLatin1("login"));
     m_pIface->call(QString::fromLatin1("setFilePath"), worksheetPath);
 
-    if(integratePlots())
-    {
-        qDebug() << "integratePlots";
-
-        QString tempPath = QDir::tempPath();
-
-        QString pathOperations = tempPath;
-        pathOperations.prepend(QLatin1String("import os\nos.chdir('"));
-        pathOperations.append(QLatin1String("')\n"));
-
-        qDebug() << "Processing command to change chdir in Python. Command " << pathOperations.toLocal8Bit();
-
-        getPythonCommandOutput(pathOperations);
-
-        m_watch = new KDirWatch(this);
-        m_watch->setObjectName(QLatin1String("PythonDirWatch"));
-
-        m_watch->addDir(tempPath, KDirWatch::WatchFiles);
-
-        qDebug() << "addDir " <<  tempPath << "? " << m_watch->contains(QLatin1String(tempPath.toLocal8Bit()));
-
-        QObject::connect(m_watch, SIGNAL(created(QString)), SLOT(plotFileChanged(QString)));
-    }
-
     const QStringList& scripts = autorunScripts();
     if(!scripts.isEmpty()){
         QString autorunScripts = scripts.join(QLatin1String("\n"));
@@ -147,14 +123,6 @@ void PythonSession::logout()
     m_pProcess->terminate();
 
     qDebug()<<"logout";
-
-    QDir removePlotFigures;
-    QListIterator<QString> i(m_listPlotName);
-
-    while(i.hasNext()){
-        removePlotFigures.remove(QLatin1String(i.next().toLocal8Bit().constData()));
-    }
-
     changeStatus(Status::Disable);
 }
 
@@ -229,8 +197,6 @@ void PythonSession::readExpressionOutput(const QString& commandProcessing)
 
 void PythonSession::getPythonCommandOutput(const QString& commandProcessing)
 {
-    qDebug() << "Running python command" << commandProcessing;
-
     runPythonCommand(commandProcessing);
 
     m_output = getOutput();
@@ -359,19 +325,6 @@ void PythonSession::readOutput(const QString& commandProcessing)
     getPythonCommandOutput(commandProcessing);
 
     updateOutput();
-}
-
-void PythonSession::plotFileChanged(const QString& filename)
-{
-    qDebug() << "plotFileChanged filename:" << filename;
-
-    if ((m_currentExpression) && (filename.contains(QLatin1String("cantor-export-python-figure"))))
-    {
-         qDebug() << "Calling parsePlotFile";
-         m_currentExpression->parsePlotFile(filename);
-
-         m_listPlotName.append(filename);
-    }
 }
 
 void PythonSession::listVariables()

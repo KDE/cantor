@@ -31,18 +31,19 @@ using namespace Cantor;
 #include "latexresult.h"
 #include "settings.h"
 
+#include <QDebug>
 #include <QFileInfo>
 #include <QString>
+#include <QFileSystemWatcher>
 
 #include <KProcess>
-#include <QDebug>
 #include <KZip>
 
 class Cantor::ExpressionPrivate
 {
 public:
     ExpressionPrivate() : status(Expression::Done), session(nullptr),
-    finishingBehavior(Expression::DoNotDelete), internal(false)
+    finishingBehavior(Expression::DoNotDelete), internal(false), fileWatcher(nullptr)
     {
     }
 
@@ -55,6 +56,7 @@ public:
     Session* session;
     Expression::FinishingBehavior finishingBehavior;
     bool internal;
+    QFileSystemWatcher* fileWatcher;
 };
 
 static const QString tex=QLatin1String("\\documentclass[12pt,fleqn]{article}          \n "\
@@ -83,6 +85,9 @@ Expression::Expression( Session* session, bool internal ) : QObject( session ),
 Expression::~Expression()
 {
     qDeleteAll(d->results);
+    if (d->fileWatcher)
+        delete d->fileWatcher;
+
     delete d;
 }
 
@@ -237,6 +242,13 @@ void Expression::addInformation(const QString& information)
 QString Expression::additionalLatexHeaders()
 {
     return QString();
+}
+
+QFileSystemWatcher* Expression::fileWatcher() {
+    if (!d->fileWatcher)
+        d->fileWatcher = new QFileSystemWatcher();
+
+    return d->fileWatcher;
 }
 
 int Expression::id()
