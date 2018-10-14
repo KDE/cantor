@@ -353,7 +353,8 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     m_expression = expr;
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateEntry()));
-    connect(expr, SIGNAL(resultCleared()), this, SLOT(clearResultItems()));
+    connect(expr, SIGNAL(resultsCleared()), this, SLOT(clearResultItems()));
+    connect(expr, SIGNAL(resultRemoved(int)), this, SLOT(removeResultItem(int)));
     connect(expr, SIGNAL(resultReplaced(int)), this, SLOT(replaceResultItem(int)));
     connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
     connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
@@ -568,7 +569,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
     m_evaluationOption = evalOp;
 
     if(cmd.isEmpty()) {
-        removeResult();
+        removeResults();
         foreach(WorksheetTextItem* item, m_informationItems) {
             item->deleteLater();
         }
@@ -879,13 +880,26 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     recalculateSize();
 }
 
-void CommandEntry::removeResult()
+void CommandEntry::removeResults()
 {
     //clear the Result objects
     if(m_expression)
-    {
-        m_expression->clearResult();
-    }
+        m_expression->clearResults();
+}
+
+void CommandEntry::removeResult(Cantor::Result* result)
+{
+    if (m_expression)
+        m_expression->removeResult(result);
+}
+
+void CommandEntry::removeResultItem(int index)
+{
+    ResultItem* previousItem = m_resultItems[index];
+    fadeOutItem(m_resultItems[index]->graphicsObject());
+    m_resultItems.remove(index);
+
+    recalculateSize();
 }
 
 void CommandEntry::clearResultItems()

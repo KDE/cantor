@@ -31,14 +31,14 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
 {
   Q_OBJECT
   public:
-    explicit ImageResultItem(QGraphicsObject* parent);
+    explicit ImageResultItem(QGraphicsObject* parent, Cantor::Result* result);
     ~ImageResultItem() override = default;
 
     using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w) override;
     void populateMenu(QMenu* menu, QPointF pos) override;
 
-    ResultItem* updateFromResult(Cantor::Result*) override;
+    void update() override;
 
     QRectF boundingRect() const override;
     double width() const override;
@@ -46,9 +46,6 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
 
     void deleteLater() override;
     EpsRenderer* epsRenderer();
-
-  Q_SIGNALS:
-    void removeResult();
 
   protected Q_SLOTS:
     void saveResult();

@@ -27,11 +27,10 @@
 #include <QFileDialog>
 #include <QDebug>
 
-ImageResultItem::ImageResultItem(QGraphicsObject* parent)
-    : WorksheetImageItem(parent), ResultItem()
+ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result)
+    : WorksheetImageItem(parent), ResultItem(result)
 {
-    connect(this, SIGNAL(removeResult()), parentEntry(),
-            SLOT(removeResult()));
+    update();
 }
 
 double ImageResultItem::setGeometry(double x, double y, double w)
@@ -43,25 +42,25 @@ double ImageResultItem::setGeometry(double x, double y, double w)
 
 void ImageResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
-    addCommonActions(this, menu);
+    ResultItem::addCommonActions(this, menu);
 
     menu->addSeparator();
     qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
-ResultItem* ImageResultItem::updateFromResult(Cantor::Result* result)
+void ImageResultItem::update()
 {
-    switch(result->type()) {
+    Q_ASSERT(m_result->type() == Cantor::ImageResult::Type || m_result->type() == Cantor::EpsResult::Type);
+    switch(m_result->type()) {
     case Cantor::ImageResult::Type:
-        setImage(result->data().value<QImage>());
-        return this;
+        setImage(m_result->data().value<QImage>());
+        break;
     case Cantor::EpsResult::Type:
-        setEps(result->data().toUrl());
-        return this;
+        setEps(m_result->data().toUrl());
+        break;
     default:
-        deleteLater();
-        return create(parentEntry(), result);
+        break;
     }
 }
 

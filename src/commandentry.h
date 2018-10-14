@@ -89,7 +89,8 @@ class CommandEntry : public WorksheetEntry
     bool evaluateCurrentItem() override;
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
     void addInformation();
-    void removeResult();
+    void removeResults();
+    void removeResult(Cantor::Result* result);
 
     void showCompletion() override;
     void selectPreviousCompletion();
@@ -130,6 +131,7 @@ class CommandEntry : public WorksheetEntry
     void invalidate();
     void resultDeleted();
     void clearResultItems();
+    void removeResultItem(int index);
     void replaceResultItem(int index);
     void updateCompletions();
     void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);

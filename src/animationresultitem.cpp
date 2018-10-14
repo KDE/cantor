@@ -29,11 +29,10 @@
 
 #include <KLocalizedString>
 
-AnimationResultItem::AnimationResultItem(QGraphicsObject* parent)
-    : WorksheetImageItem(parent), ResultItem(), m_height(0), m_movie(nullptr)
+AnimationResultItem::AnimationResultItem(QGraphicsObject* parent, Cantor::Result* result)
+    : WorksheetImageItem(parent), ResultItem(result), m_height(0), m_movie(nullptr)
 {
-    connect(this, SIGNAL(removeResult()), parentEntry(),
-            SLOT(removeResult()));
+    update();
 }
 
 double AnimationResultItem::setGeometry(double x, double y, double w)
@@ -46,7 +45,7 @@ double AnimationResultItem::setGeometry(double x, double y, double w)
 
 void AnimationResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
-    addCommonActions(this, menu);
+    ResultItem::addCommonActions(this, menu);
 
     menu->addSeparator();
     if (m_movie) {
@@ -65,17 +64,17 @@ void AnimationResultItem::populateMenu(QMenu* menu, QPointF pos)
     emit menuCreated(menu, mapToParent(pos));
 }
 
-ResultItem* AnimationResultItem::updateFromResult(Cantor::Result* result)
+void AnimationResultItem::update()
 {
+    Q_ASSERT(m_result->type() == Cantor::AnimationResult::Type);
     QMovie* mov;
-    switch(result->type()) {
+    switch(m_result->type()) {
     case Cantor::AnimationResult::Type:
-        mov = static_cast<QMovie*>(result->data().value<QObject*>());
+        mov = static_cast<QMovie*>(m_result->data().value<QObject*>());
         setMovie(mov);
-        return this;
+        break;
     default:
-        deleteLater();
-        return create(parentEntry(), result);
+        break;
     }
 }
 

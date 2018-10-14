@@ -31,12 +31,11 @@
 #include <KStandardAction>
 #include <KLocalizedString>
 
-TextResultItem::TextResultItem(QGraphicsObject* parent)
-    : WorksheetTextItem(parent), ResultItem()
+TextResultItem::TextResultItem(QGraphicsObject* parent, Cantor::Result* result)
+    : WorksheetTextItem(parent), ResultItem(result)
 {
     setTextInteractionFlags(Qt::TextSelectableByMouse);
-    connect(this, SIGNAL(removeResult()), parentEntry(),
-            SLOT(removeResult()));
+    update();
 }
 
 double TextResultItem::setGeometry(double x, double y, double w)
@@ -54,7 +53,7 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
         setTextCursor(cursor);
     }
     menu->addAction(copy);
-    addCommonActions(this, menu);
+    ResultItem::addCommonActions(this, menu);
 
     Cantor::Result* res = result();
     if (res->type() == Cantor::LatexResult::Type) {
@@ -73,27 +72,27 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
     emit menuCreated(menu, mapToParent(pos));
 }
 
-ResultItem* TextResultItem::updateFromResult(Cantor::Result* result)
+void TextResultItem::update()
 {
-    switch(result->type()) {
+    Q_ASSERT(m_result->type() == Cantor::TextResult::Type || m_result->type() == Cantor::LatexResult::Type);
+    switch(m_result->type()) {
     case Cantor::TextResult::Type:
         {
             QTextCursor cursor = textCursor();
             cursor.movePosition(QTextCursor::Start);
             cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-            QString html = result->toHtml();
+            QString html = m_result->toHtml();
             if (html.isEmpty())
                 cursor.removeSelectedText();
             else
                 cursor.insertHtml(html);
-            return this;
         }
+        break;
     case Cantor::LatexResult::Type:
-        setLatex(dynamic_cast<Cantor::LatexResult*>(result));
-        return this;
+        setLatex(dynamic_cast<Cantor::LatexResult*>(m_result));
+        break;
     default:
-        deleteLater();
-        return create(parentEntry(), result);
+        break;
     }
 }
 

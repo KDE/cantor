@@ -120,7 +120,7 @@ QString Expression::errorMessage()
 
 void Expression::setResult(Result* result)
 {
-    clearResult();
+    clearResults();
     addResult(result);
 }
 
@@ -149,11 +149,19 @@ void Expression::addResult(Result* result)
     emit gotResult();
 }
 
-void Expression::clearResult()
+void Expression::clearResults()
 {
     qDeleteAll(d->results);
     d->results.clear();
-    emit resultCleared();
+    emit resultsCleared();
+}
+
+void Expression::removeResult(Result* result)
+{
+    int index = d->results.indexOf(result);
+    d->results.remove(index);
+    delete result;
+    emit resultRemoved(index);
 }
 
 void Expression::replaceResult(int index, Result* result)

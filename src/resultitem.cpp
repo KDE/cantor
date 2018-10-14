@@ -38,28 +38,27 @@
 #include <KLocalizedString>
 #include <QDebug>
 
+ResultItem::ResultItem(Cantor::Result* result):
+    m_result(result)
+{
+}
+
 ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
 {
     switch(result->type()) {
     case Cantor::TextResult::Type:
     case Cantor::LatexResult::Type:
         {
-            TextResultItem* item = new TextResultItem(parent);
-            item->updateFromResult(result);
-            return item;
+            return new TextResultItem(parent, result);
         }
     case Cantor::ImageResult::Type:
     case Cantor::EpsResult::Type:
         {
-            ImageResultItem* item = new ImageResultItem(parent);
-            item->updateFromResult(result);
-            return item;
+            return new ImageResultItem(parent, result);
         }
     case Cantor::AnimationResult::Type:
         {
-            AnimationResultItem* item = new AnimationResultItem(parent);
-            item->updateFromResult(result);
-            return item;
+            return new AnimationResultItem(parent, result);
         }
     default:
         return nullptr;
@@ -69,8 +68,9 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
 void ResultItem::addCommonActions(QObject* self, QMenu* menu)
 {
     menu->addAction(i18n("Save result"), self, SLOT(saveResult()));
-    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove result"),
-                    self, SIGNAL(removeResult()));
+    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove result"), self, [this](){
+        this->needRemove();
+    });
 }
 
 QGraphicsObject* ResultItem::graphicsObject()
@@ -85,5 +85,10 @@ CommandEntry* ResultItem::parentEntry()
 
 Cantor::Result* ResultItem::result()
 {
-    return parentEntry()->expression()->result();
+    return m_result;
+}
+
+void ResultItem::needRemove()
+{
+    parentEntry()->removeResult(m_result);
 }

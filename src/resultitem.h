@@ -45,15 +45,15 @@ class QGraphicsObject;
 class ResultItem
 {
   public:
-    ResultItem() = default;
+    ResultItem(Cantor::Result* result);
     virtual ~ResultItem() = default;
 
-    static ResultItem* create(WorksheetEntry* parent, Cantor::Result*);
+    static ResultItem* create(WorksheetEntry* parent, Cantor::Result* result);
 
     virtual double setGeometry(double x, double y, double w) = 0;
     virtual void populateMenu(QMenu* menu, QPointF pos) = 0;
 
-    virtual ResultItem* updateFromResult(Cantor::Result*) = 0;
+    virtual void update() = 0;
 
     virtual void deleteLater() = 0;
 
@@ -65,7 +65,11 @@ class ResultItem
     CommandEntry* parentEntry();
 
   protected:
-    static void addCommonActions(QObject* self, QMenu* menu);
+    void addCommonActions(QObject* self, QMenu* menu);
+    void needRemove();
+
+  protected:
+    Cantor::Result* m_result;
 };
 
 #endif // RESULTITEM_H

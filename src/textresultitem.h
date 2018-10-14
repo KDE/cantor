@@ -32,14 +32,14 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
 {
   Q_OBJECT
   public:
-    explicit TextResultItem(QGraphicsObject* parent);
+    explicit TextResultItem(QGraphicsObject* parent, Cantor::Result* result);
     ~TextResultItem() override = default;
 
     using WorksheetTextItem::setGeometry;
     double setGeometry(double x, double y, double w) override;
     void populateMenu(QMenu* menu, QPointF pos) override;
 
-    ResultItem* updateFromResult(Cantor::Result* result) override;
+    void update() override;
 
     void setLatex(Cantor::LatexResult* result);
 
@@ -48,9 +48,6 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
 
     void deleteLater() override;
     EpsRenderer* epsRenderer() const;
-
-  Q_SIGNALS:
-    void removeResult();
 
   protected Q_SLOTS:
     void toggleLatexCode();

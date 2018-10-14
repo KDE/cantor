@@ -174,7 +174,13 @@ class CANTOR_EXPORT Expression : public QObject
      * Deletes the result of this expression.
      *
      */
-    void clearResult();
+    void removeResult(Result* result);
+
+    /**
+     * Deletes the all results of this expression.
+     *
+     */
+    void clearResults();
 
     /**
      * Returns the status of this Expression
@@ -211,9 +217,14 @@ class CANTOR_EXPORT Expression : public QObject
     void gotResult();
     /**
      * emitted when the results of the expression were deleted.
-     * @see clearResult()
+     * @see clearResults()
      */
-    void resultCleared();
+    void resultsCleared();
+    /**
+     * emitted when the results of the expression were deleted.
+     * @see clearResult(Result* result)
+     */
+    void resultRemoved(int index);
     /**
      * emitted when the result at the position @c index was replaced by a new result.
      */
