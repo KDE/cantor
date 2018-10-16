@@ -29,7 +29,7 @@
 #include <QDir>
 #include <QStandardPaths>
 
-LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session )
+LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session, false, -1)
 {
 
 }

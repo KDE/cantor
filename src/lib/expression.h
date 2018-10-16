@@ -232,6 +232,9 @@ class CANTOR_EXPORT Expression : public QObject
 
   //These are protected, because only subclasses will handle results/status changes
   protected:
+    // Protected constructor, useful for derived classes with own id setting strategy
+    Expression(Session* session, bool internal, int id);
+
     /**
      * Set the result of the Expression.
      * this will cause gotResult() to be emitted

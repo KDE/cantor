@@ -82,6 +82,13 @@ Expression::Expression( Session* session, bool internal ) : QObject( session ),
         d->id = -1;
 }
 
+Expression::Expression( Session* session, bool internal, int id ) : QObject( session ), d(new ExpressionPrivate)
+{
+    d->session = session;
+    d->internal = internal;
+    d->id = id;
+}
+
 Expression::~Expression()
 {
     qDeleteAll(d->results);
