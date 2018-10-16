@@ -47,8 +47,12 @@ double TextResultItem::setGeometry(double x, double y, double w)
 void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
     QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
-    if (!textCursor().hasSelection())
-        copy->setEnabled(false);
+    if (!textCursor().hasSelection()) {
+        // Select all, if no selection
+        QTextCursor cursor = textCursor();
+        cursor.select(QTextCursor::Document);
+        setTextCursor(cursor);
+    }
     menu->addAction(copy);
     addCommonActions(this, menu);
 
