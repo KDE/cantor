@@ -40,7 +40,8 @@
 #include <QChar>
 #include <QUrl>
 
-MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
+// MaximaExpression use real id from Maxima as expression id, so we don't know id before executing
+MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal, -1),
     m_tempFile(nullptr),
     m_isHelpRequest(false),
     m_isPlot(false),
@@ -57,9 +58,6 @@ MaximaExpression::~MaximaExpression() {
 
 void MaximaExpression::evaluate()
 {
-    //until we get the real output Id from maxima, set it to invalid
-    setId(-1);
-
     m_isHelpRequest=false;
     m_gotErrorContent=false;
 
@@ -718,7 +716,9 @@ void MaximaExpression::parseResult(const QString& resultContent)
     bool ok;
     QString idString = outputLabel.mid(3, outputLabel.length()-4);
     int id = idString.toInt(&ok);
-    ok ? setId(id) : setId(-1);
+    if (ok)
+        setId(id);
+
     qDebug()<<"expression id: " << this->id();
 
     //remove the output label from the text content
