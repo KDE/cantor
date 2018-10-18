@@ -33,7 +33,8 @@
 
 SageExpression::SageExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
     m_isHelpRequest(false),
-    m_promptCount(0)
+    m_promptCount(0),
+    m_syntaxError(false)
 {
 }
 
@@ -58,14 +59,19 @@ void SageExpression::evaluate()
 void SageExpression::interrupt()
 {
     qDebug()<<"interrupting";
-    dynamic_cast<SageSession*>(session())->sendSignalToProcess(2);
-    dynamic_cast<SageSession*>(session())->waitForNextPrompt();
 
     setStatus(Cantor::Expression::Interrupted);
 }
 
 void SageExpression::parseOutput(const QString& text)
 {
+    if (m_syntaxError)
+    {
+        setErrorMessage(i18n("Syntax Error"));
+        setStatus(Cantor::Expression::Error);
+        return;
+    }
+
     QString output=text;
     //remove carriage returns, we only use \n internally
     output.remove(QLatin1Char('\r'));
@@ -130,14 +136,15 @@ void SageExpression::parseOutput(const QString& text)
         //interrupt it and show an error message
         if(endsWithAlternativePrompt)
         {
-            interrupt();
-            setErrorMessage(i18n("Syntax Error"));
-            setStatus(Cantor::Expression::Error);
-            return;
+            // Exit from sage additional input mode by closing the bracket
+            static_cast<SageSession*>(session())->sendInputToProcess(QLatin1String(")\n"));
+            m_syntaxError = true;
         }
-
-        m_outputCache=m_outputCache.trimmed();
-        evalFinished();
+        else
+        {
+            m_outputCache=m_outputCache.trimmed();
+            evalFinished();
+        }
     }
 
 }
@@ -145,7 +152,7 @@ void SageExpression::parseOutput(const QString& text)
 void SageExpression::parseError(const QString& text)
 {
     qDebug()<<"error";
-    setResult(new Cantor::TextResult(text));
+    setErrorMessage(text);
     setStatus(Cantor::Expression::Error);
 }
 

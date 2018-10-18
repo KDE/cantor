@@ -50,6 +50,7 @@ class SageExpression : public Cantor::Expression
     QString m_imagePath;
     bool m_isHelpRequest;
     int m_promptCount;
+    bool m_syntaxError;
 };
 
 #endif /* _SAGEEXPRESSION_H */

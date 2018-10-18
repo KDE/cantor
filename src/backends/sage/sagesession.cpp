@@ -267,10 +267,13 @@ void SageSession::readStdOut()
         return;
     }
 
-    if(m_isInitialized&&!expressionQueue().isEmpty())
+    if(m_isInitialized)
     {
-        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
-        expr->parseOutput(m_outputCache);
+        if (!expressionQueue().isEmpty())
+        {
+            SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
+            expr->parseOutput(m_outputCache);
+        }
         m_outputCache.clear();
     }
 }
@@ -343,19 +346,28 @@ void SageSession::reportProcessError(QProcess::ProcessError e)
 
 void SageSession::runFirstExpression()
 {
-    if(!expressionQueue().isEmpty()&&m_isInitialized)
+    if(!expressionQueue().isEmpty())
     {
         SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
-        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
-        QString command=expr->command();
-        if(command.endsWith(QLatin1Char('?')) && !command.endsWith(QLatin1String("??")))
-            command=QLatin1String("help(")+command.left(command.size()-1)+QLatin1Char(')');
-        if(command.startsWith(QLatin1Char('?')))
-            command=QLatin1String("help(")+command.mid(1)+QLatin1Char(')');
+        if (m_isInitialized)
+        {
+            connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-        qDebug()<<"writing "<<command<<" to the process";
-        expr->setStatus(Cantor::Expression::Computing);
-        m_process->pty()->write(QString(command+QLatin1String("\n\n")).toUtf8());
+            QString command=expr->command();
+            if(command.endsWith(QLatin1Char('?')) && !command.endsWith(QLatin1String("??")))
+                command=QLatin1String("help(")+command.left(command.size()-1)+QLatin1Char(')');
+            if(command.startsWith(QLatin1Char('?')))
+                command=QLatin1String("help(")+command.mid(1)+QLatin1Char(')');
+            command.append(QLatin1String("\n\n"));
+
+            qDebug()<<"writing "<<command<<" to the process";
+            expr->setStatus(Cantor::Expression::Computing);
+            m_process->pty()->write(command.toUtf8());
+        }
+        else if (expressionQueue().size() == 1)
+            // If queue contains one expression, it means, what we run this expression immediately (drop setting queued status)
+            // But we can't run expression before initializing, so mark expression, as queue
+            expr->setStatus(Cantor::Expression::Queued);
     }
 }
 
@@ -386,28 +398,9 @@ void SageSession::interrupt()
     m_outputCache.clear();
 }
 
-void SageSession::sendSignalToProcess(int signal)
-{
-    qDebug()<<"sending signal....."<<signal;
-    //Sage spawns several child-processes. the one we are interested in is called sage-ipython.
-    //But to determine which ipython process is the one belonging to this session, we search
-    //for a bash process which is child of this sessions sage process, and only kill the
-    //ipython process which is child of the bash process
-    // the tree looks like: m_sageprocess->bash->sage-ipython
-    QString cmd=QString::fromLatin1("pkill -%1 -f -P `pgrep  -P %2 bash` .*sage-ipython.*").arg(signal).arg(m_process->pid());
-    KProcess proc(this);
-    proc.setShellCommand(cmd);
-    proc.execute();
-}
-
 void SageSession::sendInputToProcess(const QString& input)
 {
     m_process->pty()->write(input.toUtf8());
-}
-
-void SageSession::waitForNextPrompt()
-{
-    m_waitingForPrompt=true;
 }
 
 void SageSession::fileCreated( const QString& path )

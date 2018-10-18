@@ -73,9 +73,7 @@ class SageSession : public Cantor::Session
 
     void interrupt() override;
 
-    void sendSignalToProcess(int signal);
     void sendInputToProcess(const QString& input);
-    void waitForNextPrompt();
 
     void setTypesettingEnabled(bool enable) override;
     void setWorksheetPath(const QString& path) override;
