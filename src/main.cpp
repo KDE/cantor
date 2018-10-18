@@ -26,8 +26,11 @@
 #include <Kdelibs4ConfigMigrator>
 #include <KLocalizedString>
 #include <KConfigGroup>
+#include <KMessageBox>
 #include <QCommandLineParser>
 #include <QUrl>
+#include <QFileInfo>
+#include <QDir>
 
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
@@ -117,10 +120,9 @@ int main(int argc, char **argv)
     {
         // no session.. just start up normally
 
+        CantorShell *widget = new CantorShell();
         if ( parser.positionalArguments().count() == 0 )
         {
-            CantorShell *widget = new CantorShell;
-            widget->show();
             if(parser.isSet(QLatin1String("backend")))
             {
                 widget->addWorksheet(parser.value(QLatin1String("backend")));
@@ -132,16 +134,23 @@ int main(int argc, char **argv)
         }
         else
         {
-            int i = 0;
             const QStringList& args=parser.positionalArguments();
-            for (; i < args.count(); i++ )
+            for (const QString& filename : args)
             {
-                CantorShell *widget = new CantorShell;
-                widget->show();
-                widget->load( QUrl::fromUserInput(args[i]) );
+                const QUrl url = QUrl::fromUserInput(filename, QDir::currentPath(), QUrl::AssumeLocalFile);
+                if (url.isValid())
+                {
+                    if (url.isLocalFile() && !QFileInfo(url.toLocalFile()).exists())
+                        KMessageBox::error(widget, i18n("Couldn't open the file %1", filename), i18n("Cantor"));
+                    else
+                    {
+                        widget->addWorksheet(QLatin1String("null"));
+                        widget->load(url);
+                    }
+                }
             }
         }
-
+        widget->show();
     }
 
     return app.exec();

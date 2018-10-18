@@ -7,6 +7,8 @@ New Features:
 	* Allow to format command entries (background color, foreground color, font properties)
 	* Allow to insert new command entries at arbitrary places in the worksheet by placing the cursor at the desired position and starting typing.
 	* For expressions having multiple commands, show the results as independet result objects in the worksheet
+	* Add support for opening worksheets by relative paths from console
+	* Add support for opening multiple files in one Cantor shell
 
 Bug fixes:
 	* BUG 363606 - Different python sessions shouldn't share the same variables
