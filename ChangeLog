@@ -9,6 +9,7 @@ New Features:
 	* For expressions having multiple commands, show the results as independet result objects in the worksheet
 	* Add support for opening worksheets by relative paths from console
 	* Add support for opening multiple files in one Cantor shell
+	* Change the color and the font for when asking for additional information in order to better discriminate from the usual input in the command entry
 
 Bug fixes:
 	* BUG 363606 - Different python sessions shouldn't share the same variables

@@ -869,7 +869,22 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
     WorksheetTextItem* questionItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
     WorksheetTextItem* answerItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
+
+    //change the color and the font for when asking for additional information in order to
+    //better discriminate from the usual input in the command entry
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    QColor color = scheme.foreground(KColorScheme::PositiveText).color();
+
+    QFont font;
+    font.setItalic(true);
+
+    questionItem->setFont(font);
+    questionItem->setDefaultTextColor(color);
+    answerItem->setFont(font);
+    answerItem->setDefaultTextColor(color);
+
     questionItem->setPlainText(question);
+
     m_informationItems.append(questionItem);
     m_informationItems.append(answerItem);
     connect(answerItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
@@ -877,6 +892,7 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 
     connect(answerItem, &WorksheetTextItem::execute, this, &CommandEntry::addInformation);
     answerItem->setFocus();
+
     recalculateSize();
 }
 
