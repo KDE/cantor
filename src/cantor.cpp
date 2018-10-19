@@ -270,25 +270,15 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             m_parts.append(part);
 
-            //determine the icon of the backend to be added
-            Cantor::Backend* backend = nullptr;
-            for (Cantor::Backend* b : Cantor::Backend::availableBackends())
-            {
-                // KPluginFactory don't case insensitive, so normalize names, for succeed backend searching
-                if (b->name().toLower() == backendName.toLower())
-                {
-                    backend = b;
-                    break;
-                }
-            }
+            //determine backend
+            Cantor::Backend* backend = Cantor::Backend::createBackend(backendName);
 
-            int tab = -1;
+            // if backend not found, part is invalid, and don't create worksheet, so don't need add new tab for it
             if (backend)
-                tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
-            else //should never happened but just in case we still have some bugs somewhere...
-                tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
-
-            m_tabWidget->setCurrentIndex(tab);
+            {
+                int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
+                m_tabWidget->setCurrentIndex(tab);
+            }
         }
         else
         {
