@@ -1028,7 +1028,7 @@ bool Worksheet::load(QIODevice* device)
 //     qDebug()<<root.tagName();
 
     const QString backendName=root.attribute(QLatin1String("backend"));
-    Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
+    Cantor::Backend* b=Cantor::Backend::getBackend(backendName);
     if (!b)
     {
         QApplication::restoreOverrideCursor();

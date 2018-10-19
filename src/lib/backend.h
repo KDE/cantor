@@ -206,7 +206,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Returns the backend with the given name, or null if it isn't found
      * @return the backend with the given name, or null if it isn't found
      */
-    static Backend* createBackend(const QString& name);
+    static Backend* getBackend(const QString& name);
   private:
     BackendPrivate* d;
 };

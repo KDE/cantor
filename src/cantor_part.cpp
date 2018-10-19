@@ -134,7 +134,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
         }
     }
 
-    Cantor::Backend* b=Cantor::Backend::createBackend(backendName);
+    Cantor::Backend* b=Cantor::Backend::getBackend(backendName);
     if(!b)
     {
         KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - Cantor"));

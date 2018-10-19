@@ -85,7 +85,7 @@ void BackendChooseDialog::onAccept()
 
 void BackendChooseDialog::updateDescription()
 {
-    Cantor::Backend* current=Cantor::Backend::createBackend( m_ui.backendList->currentItem()->text() );
+    Cantor::Backend* current=Cantor::Backend::getBackend( m_ui.backendList->currentItem()->text() );
     m_ui.descriptionView->setHtml(i18n(BackendChooseDialog::descriptionTemplate, current->name(), current->description(), current->url(), current->version()));
 }
 

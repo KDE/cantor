@@ -271,7 +271,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             m_parts.append(part);
 
             //determine backend
-            Cantor::Backend* backend = Cantor::Backend::createBackend(backendName);
+            Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
 
             // if backend not found, part is invalid, and don't create worksheet, so don't need add new tab for it
             if (backend)

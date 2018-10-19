@@ -163,7 +163,7 @@ QList<Backend*> Backend::availableBackends()
     return backendCache;
 }
 
-Backend* Backend::createBackend(const QString& name)
+Backend* Backend::getBackend(const QString& name)
 {
     QList<Backend*> backends=availableBackends();
     foreach(Backend* b, backends)
