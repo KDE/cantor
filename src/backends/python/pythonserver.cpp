@@ -43,6 +43,7 @@ namespace
 
 void PythonServer::login()
 {
+    Py_InspectFlag = 1;
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
     filePath = QLatin1String("python_cantor_worksheet");
