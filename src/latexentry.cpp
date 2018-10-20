@@ -141,8 +141,6 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
 {
-    Q_UNUSED(archive);
-
     QDomElement el = doc.createElement(QLatin1String("Latex"));
     el.appendChild( doc.createTextNode( latexCode() ));
 
@@ -161,7 +159,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
             isEpsFileExists = QFile::exists(fileName);
             }
 
-        if (isEpsFileExists)
+        if (isEpsFileExists && archive)
             {
             const QUrl& url=QUrl::fromLocalFile(fileName);
             archive->addLocalFile(url.toLocalFile(), url.fileName());
