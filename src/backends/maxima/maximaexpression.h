@@ -38,10 +38,6 @@ public:
     void evaluate() override;
     void interrupt() override;
 
-    void addInformation(const QString&) override;
-
-    bool needsLatexResult();
-
     //returns the command that should be send to
     //the Maxima process, it's different from the
     //command() for example to allow plot embedding
@@ -52,7 +48,6 @@ public:
 
     //reads from @param out until a prompt indicates that a new expression has started
     bool parseOutput(QString&);
-    bool parseOutputOld(QString&);
     void parseError(const QString&);
 
 private Q_SLOTS:
@@ -60,7 +55,6 @@ private Q_SLOTS:
 
 private:
     void parseResult(const QString&);
-    Cantor::Result* parseResult(int* idx,QString& out,QString& textBuffer,QString& latexBuffer);
 
     QTemporaryFile *m_tempFile;
     QFileSystemWatcher m_fileWatch;
