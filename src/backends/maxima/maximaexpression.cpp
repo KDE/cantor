@@ -44,6 +44,7 @@
 MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal, -1),
     m_tempFile(nullptr),
     m_isHelpRequest(false),
+    m_isHelpRequestAdditional(false),
     m_isPlot(false),
     m_plotResult(nullptr),
     m_plotResultIndex(-1),
@@ -233,6 +234,7 @@ bool MaximaExpression::parseOutput(QString& out)
     int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
     if (resultStart != -1)
         errorContent += out.mid(0, resultStart);
+
     while (resultStart != -1)
     {
         int resultEnd = out.indexOf(QLatin1String("</cantor-result>"), resultStart + 15);
@@ -260,18 +262,34 @@ bool MaximaExpression::parseOutput(QString& out)
     else
     {
         qDebug() << "error content: " << errorContent;
+
         if (out.contains(QLatin1String("cantor-value-separator")))
         {
             //when fetching variables, in addition to the actual result with variable names and values,
-            //Maxima also write out the names of the variables to the error buffer.
+            //Maxima also writes out the names of the variables to the error buffer.
             //we don't interpret this as an error.
             setStatus(Cantor::Expression::Done);
         }
-        else if(m_isHelpRequest) //help messages are also part of the error output
+        else if(m_isHelpRequest || m_isHelpRequestAdditional) //help messages are also part of the error output
         {
+            //we've got help result, but maybe additional input is required -> check this
+            const int index = MaximaSession::MaximaInputPrompt.indexIn(prompt.trimmed());
+            if (index == -1) {
+                // No input label found in the prompt -> additional info is required
+                qDebug()<<"asking for additional input for the help request" << prompt;
+                m_isHelpRequestAdditional = true;
+                emit needsAdditionalInformation(prompt);
+            }
+
+            //set the help result
             Cantor::HelpResult* result = new Cantor::HelpResult(errorContent);
-            addResult(result);
-            setStatus(Cantor::Expression::Done);
+            setResult(result);
+
+            //if a new input prompt was found, no further input is expected and we're done
+            if (index != -1) {
+                m_isHelpRequestAdditional = false;
+                setStatus(Cantor::Expression::Done);
+            }
         }
         else
         {
@@ -287,6 +305,11 @@ bool MaximaExpression::parseOutput(QString& out)
 
 void MaximaExpression::parseResult(const QString& resultContent)
 {
+    //in case we asked for additional input for the help request,
+    //no need to process the result - we're not done yet and maxima is waiting for further input
+    if (m_isHelpRequestAdditional)
+        return;
+
     qDebug()<<"result content: " << resultContent;
 
     //text part of the output
@@ -388,6 +411,17 @@ void MaximaExpression::parseResult(const QString& resultContent)
 void MaximaExpression::parseError(const QString& out)
 {
     m_errorBuffer.append(out);
+}
+
+void MaximaExpression::addInformation(const QString& information)
+{
+    qDebug()<<"adding information";
+    QString inf=information;
+    if(!inf.endsWith(QLatin1Char(';')))
+        inf+=QLatin1Char(';');
+    Cantor::Expression::addInformation(inf);
+
+    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+QLatin1Char('\n'));
 }
 
 void MaximaExpression::imageChanged()

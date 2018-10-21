@@ -50,6 +50,8 @@ public:
     bool parseOutput(QString&);
     void parseError(const QString&);
 
+    void addInformation(const QString&) override;
+
 private Q_SLOTS:
     void imageChanged();
 
@@ -59,6 +61,7 @@ private:
     QTemporaryFile *m_tempFile;
     QFileSystemWatcher m_fileWatch;
     bool m_isHelpRequest;
+    bool m_isHelpRequestAdditional;
     bool m_isPlot;
     Cantor::Result* m_plotResult;
     int m_plotResultIndex;

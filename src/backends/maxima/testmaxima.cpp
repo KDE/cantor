@@ -238,6 +238,24 @@ void TestMaxima::testSyntaxHelp()
     QVERIFY(help->toHtml().contains(QLatin1String("simplify_sum")));
 }
 
+void TestMaxima::testHelpRequest()
+{
+    //execute "??print"
+    Cantor::Expression* e = session()->evaluateExpression(QLatin1String("??print"));
+    QVERIFY(e != nullptr);
+
+    //help result will be shown, but maxima still expects further input
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    QVERIFY(e->status() != Cantor::Expression::Done);
+
+    //ask for help for the first flag of the print command
+    e->addInformation(QLatin1String("0"));
+
+    //no further input is required, we're done
+    waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+    QVERIFY(e->status() == Cantor::Expression::Done);
+}
+
 void TestMaxima::testVariableModel()
 {
     QAbstractItemModel* model = session()->variableModel();

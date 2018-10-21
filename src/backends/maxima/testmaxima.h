@@ -57,7 +57,7 @@ private Q_SLOTS:
     void testInvalidAssignment();
 
     void testInformationRequest();
-
+    void testHelpRequest();
     void testSyntaxHelp();
 
     void testVariableModel();
