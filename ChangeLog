@@ -10,6 +10,9 @@ New Features:
 	* Add support for opening worksheets by relative paths from console
 	* Add support for opening multiple files in one Cantor shell
 	* Change the color and the font for when asking for additional information in order to better discriminate from the usual input in the command entry
+	* [Maxima] Deal with additional required inputs when fetching help for commands via the '??' operator
 
 Bug fixes:
-	* BUG 363606 - Different python sessions shouldn't share the same variables
+	* BUG 363606 - [Python] Different python sessions shouldn't share the same variables
+	* BUG 372075 - [Python] Don't exit Cantor on calling exit() in python sessions
+	* BUG 395213 - [R] Add rehighlighting for entries after execution in R backend
