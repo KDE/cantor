@@ -267,18 +267,19 @@ void CantorShell::addWorksheet(const QString& backendName)
 
         if (part)
         {
-            connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
-            m_parts.append(part);
-
             //determine backend
             Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
-
-            // if backend not found, part is invalid, and don't create worksheet, so don't need add new tab for it
+            // if backend not found, part is invalid, so delete it
             if (backend)
             {
+                connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
+                m_parts.append(part);
+
                 int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
                 m_tabWidget->setCurrentIndex(tab);
             }
+            else
+                delete part;
         }
         else
         {

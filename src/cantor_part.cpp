@@ -139,8 +139,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     {
         KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - Cantor"));
         setWidget(new QWidget(parentWidget));
-        //fake being modified so the shell won't try to reuse this part
-        ReadWritePart::setModified(true);
         return;
     }
 
