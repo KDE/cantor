@@ -1059,6 +1059,7 @@ bool Worksheet::load(QIODevice* device)
         m_firstEntry = nullptr;
     }
 
+    resetEntryCursor();
 
     m_session=b->createSession();
 
