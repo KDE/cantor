@@ -45,6 +45,10 @@ void MaximaKeywords::loadKeywords()
     m_functions = definition.keywordList(QLatin1String("MaximaFunction"));
     m_variables = definition.keywordList(QLatin1String("MaximaVariable"));
 
+    // This is missing in KSyntaxHighlighting.
+    // TODO: send upstream pull request with this
+    m_variables << QLatin1String("%pi");
+
     // We use qBinarySearch with this lists
     qSort(m_keywords);
     qSort(m_functions);

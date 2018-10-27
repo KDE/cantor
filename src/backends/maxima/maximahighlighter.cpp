@@ -140,3 +140,8 @@ void MaximaHighlighter::removeUserFunctions(const QStringList functions)
         removeRule(func.left(idx));
     }
 }
+
+QString MaximaHighlighter::nonSeparatingCharacters() const
+{
+    return QLatin1String("%");
+}
