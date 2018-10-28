@@ -34,6 +34,10 @@
       <label>Automatically reevaluate the entries below the current</label>
       <default>false</default>
     </entry>
+    <entry name="WarnAboutSessionRestart" type="Bool">
+      <label>Ask for confirmation when restarting the backend</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>
 

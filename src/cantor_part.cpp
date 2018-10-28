@@ -497,11 +497,38 @@ void CantorPart::evaluateOrInterrupt()
 }
 void CantorPart::restartBackend()
 {
-    const QString& name = m_worksheet->session()->backend()->name();
-    int rc = KMessageBox::questionYesNo(widget(),
-                                         i18n("All the available calculation results will be lost. Do you really want to restart %1?", name),
-                                         i18n("Restart %1?", name));
-    if (rc)
+    bool restart = false;
+    if (Settings::self()->warnAboutSessionRestart())
+    {
+        KMessageBox::ButtonCode tmp;
+
+        // If we want the question box, but it is disable, then enable it
+        if (!KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp))
+            KMessageBox::enableMessage(QLatin1String("WarnAboutSessionRestart"));
+
+        const QString& name = m_worksheet->session()->backend()->name();
+        KMessageBox::ButtonCode rc = KMessageBox::questionYesNo(widget(),
+            i18n("All the available calculation results will be lost. Do you really want to restart %1?", name),
+            i18n("Restart %1?", name),
+            KStandardGuiItem::yes(),
+            KStandardGuiItem::no(),
+            QLatin1String("WarnAboutSessionRestart")
+        );
+
+        // Update setting's value
+        Settings::self()->setWarnAboutSessionRestart(
+            KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp));
+
+        restart = rc == KMessageBox::ButtonCode::Yes;
+    }
+    else
+    {
+        KMessageBox::ButtonCode rc;
+        KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), rc);
+        restart = rc == KMessageBox::ButtonCode::Yes;
+    }
+
+    if (restart)
     {
         m_worksheet->session()->logout();
         m_worksheet->session()->login();
