@@ -21,10 +21,10 @@
 #define OCTAVEHIGHLIGHTER_H
 
 #include "defaulthighlighter.h"
+#include <session.h>
 
 namespace Cantor
 {
-    class Session;
     class Expression;
 }
 
@@ -38,6 +38,7 @@ class OctaveHighlighter : public Cantor::DefaultHighlighter
 
   public Q_SLOTS:
     void updateVariables();
+    void sessionStatusChanged(Cantor::Session::Status status);
 
   private:
     Cantor::Session* m_session;

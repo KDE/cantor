@@ -20,7 +20,6 @@
 #include "octavehighlighter.h"
 #include "octavekeywords.h"
 #include "result.h"
-#include "session.h"
 
 #include <QDebug>
 #include <QStringList>
@@ -85,4 +84,12 @@ void OctaveHighlighter::updateVariables()
     }
     expr->deleteLater();
   });
+}
+
+void OctaveHighlighter::sessionStatusChanged(Cantor::Session::Status status)
+{
+    if (status == Cantor::Session::Status::Disable)
+        for (const QString& variable: m_variables)
+            removeRule(variable);
+    rehighlight();
 }

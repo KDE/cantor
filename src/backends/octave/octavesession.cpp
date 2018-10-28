@@ -146,6 +146,8 @@ void OctaveSession::logout()
     m_prompt = QRegExp();
     m_tempDir.clear();
 
+    m_variableModel->clearVariables();
+
     changeStatus(Status::Disable);
 
     qDebug()<<"logout done";
@@ -325,6 +327,7 @@ QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QObject* parent )
     OctaveHighlighter* highlighter = new OctaveHighlighter ( parent, this );
 
     connect ( this, SIGNAL(variablesChanged()), highlighter, SLOT(updateVariables()) );
+    connect ( this, SIGNAL(statusChanged(Cantor::Session::Status)), highlighter, SLOT(sessionStatusChanged(Cantor::Session::Status)) );
 
     return highlighter;
 }
