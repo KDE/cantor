@@ -260,7 +260,7 @@ void OctaveSession::readOutput()
                 // Get command before finalize, because after finalizing the expression will be dequeued
                 const QString& command = expressionQueue().first()->command();
                 static_cast<OctaveExpression*>(expressionQueue().first())->finalize();
-                if (command.contains(QLatin1String(" = ")))
+                if (command.contains(QLatin1String(" = ")) || command.contains(QLatin1String("clear")))
                 {
                     emit variablesChanged();
                 }
