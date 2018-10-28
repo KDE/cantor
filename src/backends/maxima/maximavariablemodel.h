@@ -36,6 +36,8 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     explicit MaximaVariableModel( MaximaSession* session);
     ~MaximaVariableModel() override = default;
 
+    void clear();
+
     QList<Variable> variables();
     QList<Variable> functions();
 

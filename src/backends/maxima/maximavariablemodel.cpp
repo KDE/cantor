@@ -37,6 +37,15 @@ MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::Defa
 
 }
 
+void MaximaVariableModel::clear()
+{
+    emit functionsRemoved(functionNames());
+    emit variablesRemoved(variableNames());
+    m_functions.clear();
+    m_variables.clear();
+    DefaultVariableModel::clearVariables();
+}
+
 void MaximaVariableModel::checkForNewVariables()
 {
     qDebug()<<"checking for new variables";

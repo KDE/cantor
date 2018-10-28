@@ -66,6 +66,7 @@ int DefaultVariableModel::rowCount(const QModelIndex& parent) const
         return d->variables.size();
     }
 }
+
 QVariant DefaultVariableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if(role==Qt::DisplayRole && orientation==Qt::Horizontal) {
@@ -85,7 +86,6 @@ Qt::ItemFlags DefaultVariableModel::flags(const QModelIndex& index) const
 {
     return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
-
 
 QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
 {
@@ -132,7 +132,6 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
     }
     return false;
 }
-
 
 void DefaultVariableModel::addVariable(const QString& name, const QString& value)
 {
@@ -192,6 +191,3 @@ bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor:
 }
 
 }
-
-
-

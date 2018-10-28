@@ -115,6 +115,7 @@ void MaximaSession::logout()
     expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
+    m_variableModel->clear();
 
     changeStatus(Status::Disable);
 
