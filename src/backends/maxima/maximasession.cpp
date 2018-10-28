@@ -172,12 +172,6 @@ void MaximaSession::readStdOut()
     m_cache.clear();
 }
 
-void MaximaSession::killLabels()
-{
-    Cantor::Expression* e=evaluateExpression(QLatin1String("kill(labels);"), Cantor::Expression::DeleteOnFinish, true);
-    //TODO: what for? connect(e, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SIGNAL(ready()));
-}
-
 void MaximaSession::reportProcessError(QProcess::ProcessError e)
 {
     qDebug()<<"process error"<<e;

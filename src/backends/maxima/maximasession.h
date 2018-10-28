@@ -43,13 +43,13 @@ class MaximaSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
 
     void interrupt() override;
-    void sendInputToProcess(const QString& input);
+    void sendInputToProcess(const QString&);
 
-    void setTypesettingEnabled(bool enable) override;
+    void setTypesettingEnabled(bool) override;
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command) override;
-    QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
+    QSyntaxHighlighter* syntaxHighlighter(QObject*) override;
     QAbstractItemModel* variableModel() override;
     void runFirstExpression() override;
 
@@ -58,13 +58,10 @@ class MaximaSession : public Cantor::Session
     void readStdErr();
 
   private Q_SLOTS:
-    void currentExpressionChangedStatus(Cantor::Expression::Status status);
+    void currentExpressionChangedStatus(Cantor::Expression::Status);
     void restartMaxima();
     void restartsCooledDown();
-
-    void killLabels();
-
-    void reportProcessError(QProcess::ProcessError error);
+    void reportProcessError(QProcess::ProcessError);
 
   private:
     void write(const QString&);
