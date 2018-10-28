@@ -32,12 +32,14 @@
   <Menu name="worksheet"><text>&amp;Worksheet</text>
     <Action name="evaluate_worksheet"/>
     <Action name="evaluate_current"/>
+    <Separator/>
     <Action name="insert_command_entry"/>
     <Action name="insert_text_entry"/>
     <Action name="insert_markdown_entry"/>
     <Action name="insert_latex_entry"/>
     <Action name="insert_image"/>
     <Action name="insert_page_break_entry"/>
+    <Separator/>
     <Action name="remove_current"/>
   </Menu>
   <Menu name="settings">
