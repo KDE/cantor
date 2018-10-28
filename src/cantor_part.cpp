@@ -280,9 +280,11 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(insertMarkdownEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertMarkdownEntry()));
 #endif
 
+#ifdef WITH_EPS
     QAction* insertLatexEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert Latex Entry"), collection);
     collection->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
+#endif
 
     QAction* insertPageBreakEntry = new QAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), collection);
     collection->addAction(QLatin1String("insert_page_break_entry"), insertPageBreakEntry);
