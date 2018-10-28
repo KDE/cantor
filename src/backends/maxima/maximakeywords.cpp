@@ -47,7 +47,10 @@ void MaximaKeywords::loadKeywords()
 
     // This is missing in KSyntaxHighlighting.
     // TODO: send upstream pull request with this
-    m_variables << QLatin1String("%pi");
+    m_variables << QLatin1String("%pi") << QLatin1String("%e") << QLatin1String(" %i")
+                << QLatin1String("%gamma") << QLatin1String("ind") << QLatin1String("inf")
+                << QLatin1String("infinity") << QLatin1String("minf") << QLatin1String("%phi")
+                << QLatin1String("und") << QLatin1String("zeroa") << QLatin1String("zerob");
 
     // We use qBinarySearch with this lists
     qSort(m_keywords);
