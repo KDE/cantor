@@ -497,8 +497,15 @@ void CantorPart::evaluateOrInterrupt()
 }
 void CantorPart::restartBackend()
 {
-    m_worksheet->session()->logout();
-    m_worksheet->session()->login();
+    const QString& name = m_worksheet->session()->backend()->name();
+    int rc = KMessageBox::questionYesNo(widget(),
+                                         i18n("All the available calculation results will be lost. Do you really want to restart %1?", name),
+                                         i18n("Restart %1?", name));
+    if (rc)
+    {
+        m_worksheet->session()->logout();
+        m_worksheet->session()->login();
+    }
 }
 
 void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
