@@ -123,6 +123,30 @@ void CantorShell::setupActions()
     openExample->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
     actionCollection()->addAction(QLatin1String("file_example_open"), openExample);
     connect(openExample, SIGNAL(triggered()), this, SLOT(openExample()));
+
+    QAction* toPreviousTab = new QAction(i18n("Go to previous worksheet"), actionCollection());
+    actionCollection()->addAction(QLatin1String("go_to_previous_tab"), toPreviousTab);
+    actionCollection()->setDefaultShortcut(toPreviousTab, Qt::CTRL+Qt::Key_PageDown);
+    connect(toPreviousTab, &QAction::triggered, toPreviousTab, [this](){
+        const int index = m_tabWidget->currentIndex()-1;
+        if (index >= 0)
+            m_tabWidget->setCurrentIndex(index);
+        else
+            m_tabWidget->setCurrentIndex(m_tabWidget->count()-1);
+    });
+    addAction(toPreviousTab);
+
+    QAction* toNextTab = new QAction(i18n("Go to next worksheet"), actionCollection());
+    actionCollection()->addAction(QLatin1String("go_to_next_tab"), toNextTab);
+    actionCollection()->setDefaultShortcut(toNextTab, Qt::CTRL+Qt::Key_PageUp);
+    connect(toNextTab, &QAction::triggered, toNextTab, [this](){
+        const int index = m_tabWidget->currentIndex()+1;
+        if (index < m_tabWidget->count())
+            m_tabWidget->setCurrentIndex(index);
+        else
+            m_tabWidget->setCurrentIndex(0);
+    });
+    addAction(toNextTab);
 }
 
 void CantorShell::saveProperties(KConfigGroup & /*config*/)
