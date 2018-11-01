@@ -42,7 +42,7 @@ using namespace Cantor;
 class Cantor::ExpressionPrivate
 {
 public:
-    ExpressionPrivate() : status(Expression::Done), session(nullptr),
+    ExpressionPrivate() : id(-1), status(Expression::Done), session(nullptr),
     finishingBehavior(Expression::DoNotDelete), internal(false), fileWatcher(nullptr)
     {
     }

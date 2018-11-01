@@ -87,9 +87,9 @@ class SageSession : public Cantor::Session
     void readStdErr();
 
   private Q_SLOTS:
-    void currentExpressionChangedStatus(Cantor::Expression::Status status);
-    void processFinished(int exitCode, QProcess::ExitStatus exitStatus);
-    void reportProcessError(QProcess::ProcessError error);
+    void currentExpressionChangedStatus(Cantor::Expression::Status);
+    void processFinished(int exitCode, QProcess::ExitStatus);
+    void reportProcessError(QProcess::ProcessError);
     void fileCreated(const QString& path);
 
   private:
@@ -97,7 +97,7 @@ class SageSession : public Cantor::Session
     bool updateSageVersion();
   private:
     KPtyProcess* m_process;
-    int m_isInitialized;
+    bool m_isInitialized;
     QString m_tmpPath;
     KDirWatch m_dirWatch;
     bool m_waitingForPrompt;

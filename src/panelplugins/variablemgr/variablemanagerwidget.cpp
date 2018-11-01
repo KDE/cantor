@@ -35,14 +35,15 @@
 
 #include "ui_newvardlg.h"
 
-VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent), m_session(nullptr)
+VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent),
+m_session(nullptr),
+m_model(nullptr),
+m_table(new QTreeView(this))
 {
     QVBoxLayout* layout=new QVBoxLayout(this);
-
-    m_table=new QTreeView(this);
-    m_table->setRootIsDecorated(false);
-
     layout->addWidget(m_table, 1);
+
+    m_table->setRootIsDecorated(false);
 
     QHBoxLayout* btnLayout=new QHBoxLayout();
     int size=KIconLoader::global()->currentSize(KIconLoader::MainToolbar);

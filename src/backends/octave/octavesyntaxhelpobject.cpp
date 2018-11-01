@@ -23,7 +23,8 @@
 
 #include <QDebug>
 
-OctaveSyntaxHelpObject::OctaveSyntaxHelpObject(const QString& command, Cantor::Session* session): SyntaxHelpObject(command, session)
+OctaveSyntaxHelpObject::OctaveSyntaxHelpObject(const QString& command, Cantor::Session* session): SyntaxHelpObject(command, session),
+m_expression(nullptr)
 {
 
 }

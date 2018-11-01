@@ -37,14 +37,14 @@
 #include <KSharedConfig>
 #include <KTextEditor/View>
 #include <KTextEditor/Editor>
-// #include <KTextEditor/EditorChooser>
 
-ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent)
+ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& highlightingMode, QWidget* parent) : KXmlGuiWindow(parent),
+m_filter(filter),
+m_editor(nullptr),
+m_script(nullptr),
+m_tmpFile(nullptr)
 {
     setObjectName(QLatin1String("ScriptEditor"));
-
-    m_filter=filter;
-    m_tmpFile=nullptr;
 
     KStandardAction::openNew(this, SLOT(newScript()), actionCollection());
     KStandardAction::open(this, SLOT(open()), actionCollection());
@@ -58,7 +58,6 @@ ScriptEditorWidget::ScriptEditorWidget(const QString& filter, const QString& hig
     {
         KMessageBox::error(this,  i18n("A KDE text-editor component could not be found;\n"
                                        "please check your KDE installation."));
-        m_script=nullptr;
     }
     else
     {

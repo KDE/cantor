@@ -750,6 +750,7 @@ ParseOptions QalculateExpression::parseOptions()
     }
 
     po.base = QalculateSettings::base();
+    po.comma_as_separator = false;
 
     return po;
 }

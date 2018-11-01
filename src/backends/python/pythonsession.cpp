@@ -44,6 +44,7 @@
 PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName, const QString DbusChannelName)
     : Session(backend)
     , m_variableModel(new Cantor::DefaultVariableModel(this))
+    , m_currentExpression(nullptr)
     , m_pIface(nullptr)
     , m_pProcess(nullptr)
     , serverName(serverName)

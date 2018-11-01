@@ -35,7 +35,8 @@
 #include <QStringList>
 #include <QTextDocument>
 
-RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
+RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
+m_isHelpRequest(false)
 {
 
 }
@@ -148,4 +149,3 @@ void RExpression::showFilesAsResult(const QStringList& files)
         }
     }
 }
-

@@ -103,10 +103,12 @@ bool SageSession::VersionInfo::operator>=(SageSession::VersionInfo other) const
     return !( *this < other);
 }
 
-SageSession::SageSession(Cantor::Backend* backend) : Session(backend)
+SageSession::SageSession(Cantor::Backend* backend) : Session(backend),
+m_process(nullptr),
+m_isInitialized(false),
+m_waitingForPrompt(false),
+m_haveSentInitCmd(false)
 {
-    m_isInitialized=false;
-    m_haveSentInitCmd=false;
     connect( &m_dirWatch, SIGNAL(created(QString)), this, SLOT(fileCreated(QString)) );
 }
 

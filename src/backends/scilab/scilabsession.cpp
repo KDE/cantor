@@ -39,9 +39,10 @@
 #include <settings.h>
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
-m_variableModel(new Cantor::DefaultVariableModel(this))
+m_variableModel(new Cantor::DefaultVariableModel(this)),
+m_process(nullptr),
+m_watch(nullptr)
 {
-    m_process = nullptr;
 }
 
 ScilabSession::~ScilabSession()
@@ -115,7 +116,7 @@ void ScilabSession::logout()
     qDebug()<<"logout";
 
     m_process->write("exit\n");
-    
+
     expressionQueue().clear();
 
     QDir removePlotFigures;

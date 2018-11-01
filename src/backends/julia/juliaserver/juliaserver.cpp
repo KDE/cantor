@@ -31,8 +31,7 @@
 QStringList JuliaServer::INTERNAL_VARIABLES =
     QStringList() << QLatin1String("__originalSTDOUT__") << QLatin1String("__originalSTDERR__");
 
-JuliaServer::JuliaServer(QObject *parent)
-    : QObject(parent)
+JuliaServer::JuliaServer(QObject *parent) : QObject(parent), m_was_exception(false)
 {
 }
 

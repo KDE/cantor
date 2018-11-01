@@ -22,8 +22,7 @@
 
 #include <Python.h>
 
-PythonServer::PythonServer(QObject* parent)
-    : QObject(parent)
+PythonServer::PythonServer(QObject* parent) : QObject(parent), m_pModule(nullptr)
 {
 }
 

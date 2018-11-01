@@ -28,8 +28,8 @@
 
 #include <QProcess>
 
-LuaSession::LuaSession( Cantor::Backend* backend) :
-    Session(backend),
+LuaSession::LuaSession( Cantor::Backend* backend) : Session(backend),
+    m_L(nullptr),
     m_process(nullptr),
     m_currentExpression(nullptr)
 {
