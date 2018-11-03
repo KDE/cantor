@@ -11,6 +11,9 @@ New Features:
 	* Add support for opening multiple files in one Cantor shell
 	* Change the color and the font for when asking for additional information in order to better discriminate from the usual input in the command entry
 	* [Maxima] Deal with additional required inputs when fetching help for commands via the '??' operator
+	* Added shortcuts for the navigation across the worksheets (Ctrl+PageUp, Ctrl+PageDown)
+	* [Julia] Add support for class member autocompletion
+	* [Python] Add runtime autocompletion
 
 Bug fixes:
 	* BUG 363606 - [Python] Different python sessions shouldn't share the same variables
