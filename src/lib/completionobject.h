@@ -81,7 +81,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * This triggers an asynchronous fetching of completions,
      * which emits done() when done.
      * @param line the line that is to be completed
-     * @param index the cursor postition in line
+     * @param index the cursor position in line
      */
     void setLine(const QString& line, int index);
     /**
@@ -98,7 +98,8 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * FinalCompletion some postprocessing is done asynchronously.
      * Emits lineDone when finished.
      * @param comp the completion that's to be processed
-     * @param type whether the completion is final
+     * @param mode the mode of completion. Can be PreliminaryCompletion
+     * (insert only) or FinalCompletion (also add () for functions, etc.)
      */
     void completeLine(const QString& comp, LineCompletionMode mode);
 

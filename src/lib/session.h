@@ -89,7 +89,7 @@ class CANTOR_EXPORT Session : public QObject
      * then be accessible by Expression::result()
      * @param command the command that should be run by the backend.
      * @param finishingBehavior the FinishingBehaviour that should be used for this command. @see Expression::FinishingBehaviour
-     * @param isInternal true, if is it internal command @see Expression::Expression(Session*, bool)
+     * @param internal true, if it is an internal command @see Expression::Expression(Session*, bool)
      * @return an Expression object, representing this command
      */
     virtual Expression* evaluateExpression(const QString& command, Expression::FinishingBehavior finishingBehavior = Expression::FinishingBehavior::DoNotDelete, bool internal = false) = 0;

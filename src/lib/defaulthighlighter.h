@@ -118,6 +118,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * addRules(greenWords, greenWordFormat);
      * @endcode
      * @param conditions any Qt container of QRegExp or QString.
+     * @param format the format used to display the matching parts of the text
      */
     void addRules(const QStringList& conditions, const QTextCharFormat& format);
     /**
