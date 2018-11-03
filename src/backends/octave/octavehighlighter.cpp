@@ -56,7 +56,7 @@ void OctaveHighlighter::updateVariables()
     if (status != Expression::Done && status != Expression::Error)
       return;
 
-    if (status == Expression::Done)
+    if (status == Expression::Done && expr->result())
     {
       QString res = expr->result()->toHtml();
       res.replace(QLatin1String("<br/>"),QLatin1String(" "));
