@@ -57,6 +57,10 @@ OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Exp
 void OctaveExpression::interrupt()
 {
     qDebug() << "interrupt";
+
+    if (m_appendPlotCommand)
+        removeAppendedPlotCommand();
+
     setStatus(Interrupted);
 }
 
@@ -99,18 +103,7 @@ void OctaveExpression::parseOutput(const QString& output)
     qDebug() << "parseOutput: " << output;
 
     if (m_appendPlotCommand)
-    {
-        QString cmd = command();
-        cmd.remove(cmd.length()-strlen(printCommand),strlen(printCommand));
-        m_appendPlotCommand = false;
-        if (m_appendDot)
-            {
-            cmd.remove(cmd.length()-1,1);
-            m_appendDot = false;
-            }
-        setCommand(cmd);
-    }
-
+        removeAppendedPlotCommand();
 
     if (!output.trimmed().isEmpty())
     {
@@ -177,4 +170,17 @@ void OctaveExpression::parsePlotFile(const QString& file)
 void OctaveExpression::setPlotPending(bool plot)
 {
     m_plotPending = plot;
+}
+
+void OctaveExpression::removeAppendedPlotCommand()
+{
+    QString cmd = command();
+    cmd.remove(cmd.length()-strlen(printCommand),strlen(printCommand));
+    m_appendPlotCommand = false;
+    if (m_appendDot)
+        {
+        cmd.remove(cmd.length()-1,1);
+        m_appendDot = false;
+        }
+    setCommand(cmd);
 }

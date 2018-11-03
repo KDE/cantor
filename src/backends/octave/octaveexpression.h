@@ -50,6 +50,9 @@ public:
     void setPlotPending(bool);
 
 private:
+    void removeAppendedPlotCommand();
+
+private:
     QString m_resultString;
     bool m_plotPending;
     bool m_finished;
