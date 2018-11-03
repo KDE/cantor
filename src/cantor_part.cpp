@@ -221,6 +221,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), collection);
     KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), collection);
+    KStandardAction::actualSize(m_worksheetview, SLOT(actualSize()), collection);
 
     m_evaluate = new QAction(i18n("Evaluate Worksheet"), collection);
     collection->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);

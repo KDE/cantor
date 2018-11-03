@@ -276,3 +276,10 @@ void WorksheetView::zoomOut()
     scale(1/1.1, 1/1.1);
     updateSceneSize();
 }
+
+void WorksheetView::actualSize()
+{
+    scale (1/m_scale, 1/m_scale);
+    m_scale = 1.0;
+    updateSceneSize();
+}

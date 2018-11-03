@@ -52,6 +52,7 @@ Q_SIGNALS:
 public Q_SLOTS:
     void zoomIn();
     void zoomOut();
+    void actualSize();
     void endAnimation();
     void sceneRectChanged(const QRectF& sceneRect) const;
     void sendViewRectChange() const;

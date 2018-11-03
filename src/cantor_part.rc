@@ -27,6 +27,7 @@
   <Menu name="view"><text>&amp;View</text>
     <Action name="view_zoom_in"/>
     <Action name="view_zoom_out"/>
+    <Action name="view_actual_size"/>
     <Action name="show_editor"/>
   </Menu>
   <Menu name="worksheet"><text>&amp;Worksheet</text>
