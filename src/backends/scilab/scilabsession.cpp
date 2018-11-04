@@ -39,9 +39,9 @@
 #include <settings.h>
 
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
-m_variableModel(new Cantor::DefaultVariableModel(this)),
 m_process(nullptr),
-m_watch(nullptr)
+m_watch(nullptr),
+m_variableModel(new Cantor::DefaultVariableModel(this))
 {
 }
 

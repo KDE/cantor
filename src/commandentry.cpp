@@ -912,10 +912,8 @@ void CommandEntry::removeResult(Cantor::Result* result)
 
 void CommandEntry::removeResultItem(int index)
 {
-    ResultItem* previousItem = m_resultItems[index];
     fadeOutItem(m_resultItems[index]->graphicsObject());
     m_resultItems.remove(index);
-
     recalculateSize();
 }
 
