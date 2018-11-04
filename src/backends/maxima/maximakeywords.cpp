@@ -52,6 +52,8 @@ void MaximaKeywords::loadKeywords()
                 << QLatin1String("infinity") << QLatin1String("minf") << QLatin1String("%phi")
                 << QLatin1String("und") << QLatin1String("zeroa") << QLatin1String("zerob");
 
+    m_functions << QLatin1String("celine");
+
     // We use qBinarySearch with this lists
     qSort(m_keywords);
     qSort(m_functions);
