@@ -30,6 +30,7 @@ class TestPython3 : public BackendTest
     void testImportNumpy();
     void testCodeWithComments();
     void testPython3Code();
+    void testSimplePlot();
 
   private:
     QString backendName() override;

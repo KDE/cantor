@@ -23,7 +23,7 @@
 #include "session.h"
 #include "backend.h"
 #include "expression.h"
-#include "result.h"
+#include "imageresult.h"
 
 QString TestPython3::backendName()
 {
@@ -70,6 +70,48 @@ void TestPython3::testPython3Code()
     QVERIFY(e != nullptr);
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
+}
+
+void TestPython3::testSimplePlot()
+{
+    Cantor::Expression* e = evalExp(QLatin1String(
+        "import matplotlib\n"
+        "import matplotlib.pyplot as plt\n"
+        "import numpy as np"
+    ));
+    QVERIFY(e != nullptr);
+    QVERIFY(e->errorMessage().isEmpty() == true);
+
+    //the variable model shouldn't have any entries after the module imports
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+    QVERIFY(model->rowCount() == 0);
+
+    //create data for plotting
+    e = evalExp(QLatin1String(
+        "t = np.arange(0.0, 2.0, 0.01)\n"
+        "s = 1 + np.sin(2 * np.pi * t)"
+    ));
+    QVERIFY(e != nullptr);
+    QVERIFY(e->errorMessage().isEmpty() == true);
+
+    //the variable model should have two entries now
+    QVERIFY(model->rowCount() == 2);
+
+    //plot the data and check the results
+    e = evalExp(QLatin1String(
+        "plt.plot(t,s)\n"
+        "plt.show()"
+    ));
+    waitForSignal(e, SIGNAL(gotResult()));
+    QVERIFY(e != nullptr);
+    QVERIFY(e->errorMessage().isEmpty() == true);
+    QVERIFY(model->rowCount() == 2); //still only two variables
+
+    //there must be one single image result
+    QVERIFY(e->results().size() == 1);
+    const Cantor::ImageResult* result = dynamic_cast<const Cantor::ImageResult*>(e->result());
+    QVERIFY(result != nullptr);
 }
 
 QTEST_MAIN(TestPython3)
