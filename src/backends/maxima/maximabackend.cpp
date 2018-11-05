@@ -57,7 +57,7 @@ QString MaximaBackend::id() const
 
 QString MaximaBackend::version() const
 {
-    return QLatin1String("5.38 and 5.39");
+    return QLatin1String("5.41 and 5.42");
 }
 
 Cantor::Session* MaximaBackend::createSession()
