@@ -90,6 +90,7 @@
   <url type="help">http://docs.kde.org/stable/en/kdeedu/cantor/index.html</url>
   <screenshots>
     <screenshot type="default">
+      <caption>Using Maxima backend of Cantor</caption>
       <image>http://kde.org/images/screenshots/cantor.png</image>
     </screenshot>
   </screenshots>
