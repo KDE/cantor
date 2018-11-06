@@ -55,27 +55,42 @@ void OctaveCompletionObject::fetchCompletions()
     }
 }
 
-void OctaveCompletionObject::extractCompletions()
+void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status status)
 {
     if (!m_expression)
-	return;
-    if (m_expression->status() != Cantor::Expression::Done)
-    {
-	m_expression->deleteLater();
-	m_expression = nullptr;
         return;
-    }
-    Cantor::Result* result = m_expression->result();
-    if (result)
+
+    switch(status)
     {
-        QString res = result->toHtml();
-        QStringList completions = res.split(QLatin1String("<br/>\n"), QString::SkipEmptyParts);
-        qDebug() << "Adding" << completions.size() << "completions";
-        setCompletions( completions );
+        case Cantor::Expression::Done:
+        {
+            Cantor::Result* result = m_expression->result();
+            if (result)
+            {
+                QString res = result->toHtml();
+                QStringList completions = res.split(QLatin1String("<br/>\n"), QString::SkipEmptyParts);
+                qDebug() << "Adding" << completions.size() << "completions";
+                setCompletions( completions );
+            }
+
+            m_expression->deleteLater();
+            m_expression = nullptr;
+            emit fetchingDone();
+            break;
+        }
+        case Cantor::Expression::Interrupted:
+        case Cantor::Expression::Error:
+        {
+            qDebug() << "fetching expression finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
+
+            m_expression->deleteLater();
+            m_expression=nullptr;
+            emit fetchingDone();
+            break;
+        }
+        default:
+            break;
     }
-    m_expression->deleteLater();
-    m_expression = nullptr;
-    emit fetchingDone();
 }
 
 void OctaveCompletionObject::fetchIdentifierType()

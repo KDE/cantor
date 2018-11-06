@@ -34,7 +34,7 @@ protected:
     void fetchCompletions() override;
     void fetchIdentifierType() override;
 private Q_SLOTS:
-    void extractCompletions();
+    void extractCompletions(Cantor::Expression::Status status);
     void extractIdentifierType(Cantor::Expression::Status status);
 
     private:
