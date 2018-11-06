@@ -15,6 +15,7 @@ New Features:
 	* [Julia] Add support for class member autocompletion
 	* [Python] Add runtime autocompletion
 	* Add action in 'View' submenu for zoom reset.
+	* Enable downloading of Cantor projects from store.kde.org (at the moment upload works only from website)
 
 Bug fixes:
 	* BUG 363606 - [Python] Different python sessions shouldn't share the same variables

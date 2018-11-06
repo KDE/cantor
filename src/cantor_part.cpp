@@ -305,10 +305,15 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, SIGNAL(triggered()), this, SLOT(showBackendHelp()));
 
+    // Disabled, because uploading to kde store from program don't work
+    // See https://phabricator.kde.org/T9980 for details
+    // If this situation will changed, then uncomment this action
+    /*
     QAction* publishWorksheet = new QAction(i18n("Publish Worksheet"), collection);
     publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
     collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
     connect(publishWorksheet, SIGNAL(triggered()), this, SLOT(publishWorksheet()));
+    */
 
     KToggleAction* showEditor = new KToggleAction(i18n("Show Script Editor"), collection);
     showEditor->setChecked(false);
