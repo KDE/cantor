@@ -38,7 +38,7 @@
     <Action name="insert_text_entry"/>
     <Action name="insert_markdown_entry"/>
     <Action name="insert_latex_entry"/>
-    <Action name="insert_image"/>
+    <Action name="insert_image_entry"/>
     <Action name="insert_page_break_entry"/>
     <Separator/>
     <Action name="remove_current"/>
