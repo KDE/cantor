@@ -329,6 +329,10 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 WorksheetEntry* Worksheet::currentEntry()
 {
     QGraphicsItem* item = focusItem();
+    // Entry cursor activate
+    if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
+        return nullptr;
+
     if (!item /*&& !hasFocus()*/)
         item = m_lastFocusedTextItem;
     /*else
@@ -1197,7 +1201,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
 #ifdef Discount_FOUND
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntryBefore()));
-#endif 
+#endif
 #ifdef WITH_EPS
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, SLOT(insertLatexEntryBefore()));
 #endif
