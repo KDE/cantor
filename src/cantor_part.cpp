@@ -205,7 +205,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     copy->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(copyAvailable(bool)), copy, SLOT(setEnabled(bool)));
 
-    QAction* paste = KStandardAction::paste(m_worksheet, SIGNAL(paste()), collection);
+    QAction* paste = KStandardAction::paste(m_worksheet, SLOT(paste()), collection);
     paste->setPriority(QAction::LowPriority);
     connect(m_worksheet, SIGNAL(pasteAvailable(bool)), paste, SLOT(setEnabled(bool)));
     m_editActions.push_back(paste);
