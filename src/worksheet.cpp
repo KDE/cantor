@@ -1501,14 +1501,17 @@ void Worksheet::updateFocusedTextItem(WorksheetTextItem* newItem)
         if (m_lastFocusedTextItem && m_lastFocusedTextItem != newItem)
         {
             disconnect(this, SIGNAL(copy()), m_lastFocusedTextItem, SLOT(copy()));
-            emit copyAvailable(newItem->isCopyAvailable());
             m_lastFocusedTextItem->clearSelection();
         }
-            
+
         if (newItem && m_lastFocusedTextItem != newItem)
         {
             connect(this, SIGNAL(copy()), newItem, SLOT(copy()));
             emit copyAvailable(newItem->isCopyAvailable());
+        }
+        else if (!newItem)
+        {
+            emit copyAvailable(false);
         }
 
         m_lastFocusedTextItem = newItem;
