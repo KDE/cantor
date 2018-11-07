@@ -630,8 +630,11 @@ void CantorPart::initialized()
         m_panelHandler->setSession(m_worksheet->session());
         adjustGuiToSession();
 
+        // Don't set modification flag, if we add command entry in empty worksheet
+        const bool modified = this->isModified();
         if (m_worksheet->isEmpty())
             m_worksheet->appendCommandEntry();
+        setModified(modified);
     }
     else
     {

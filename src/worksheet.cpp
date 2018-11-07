@@ -527,10 +527,8 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
         setLastEntry(entry);
         updateLayout();
         makeVisible(entry);
-        if (m_readOnly)
-            entry->setAcceptHoverEvents(false);
-        else
-            focusEntry(entry);
+        focusEntry(entry);
+        emit modified();
     }
     return entry;
 }
@@ -603,6 +601,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
         else
             setLastEntry(entry);
         updateLayout();
+        emit modified();
     } else {
         entry = next;
     }
@@ -674,6 +673,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         else
             setFirstEntry(entry);
         updateLayout();
+        emit modified();
     }
 
     focusEntry(entry);
@@ -1089,7 +1089,7 @@ bool Worksheet::load(QIODevice* device)
     //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
     if (m_firstEntry) {
-        delete m_firstEntry;
+        m_firstEntry->deleteLater();
         m_firstEntry = nullptr;
     }
 
@@ -1130,8 +1130,17 @@ bool Worksheet::load(QIODevice* device)
             entry->setContent(expressionChild, file);
         }
 
+        if (m_readOnly && entry)
+        {
+            entry->setAcceptHoverEvents(false);
+            entry = nullptr;
+        }
+
         expressionChild = expressionChild.nextSiblingElement();
     }
+
+    if (m_readOnly)
+        clearFocus();
 
     m_isLoadingFromFile = false;
 
