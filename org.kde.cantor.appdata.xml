@@ -92,6 +92,14 @@
   <screenshots>
     <screenshot type="default">
       <caption>Using Maxima backend of Cantor</caption>
+      <caption xml:lang="ca">Usant el dorsal Maxima del Cantor</caption>
+      <caption xml:lang="ca-valencia">Usant el dorsal Maxima del Cantor</caption>
+      <caption xml:lang="gl">Usando a infraestrutura de Maxima de Cantor</caption>
+      <caption xml:lang="nl">De Maxima-backend van Cantor gebruiken</caption>
+      <caption xml:lang="pt">Uso da infra-estrutura de Maxima do Cantor</caption>
+      <caption xml:lang="sv">Användning av bakgrundsprogrammet Maxima i Cantor</caption>
+      <caption xml:lang="uk">Використання модуля Maxima Cantor</caption>
+      <caption xml:lang="x-test">xxUsing Maxima backend of Cantorxx</caption>
       <image>http://kde.org/images/screenshots/cantor.png</image>
     </screenshot>
   </screenshots>
