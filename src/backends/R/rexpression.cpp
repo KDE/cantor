@@ -128,17 +128,16 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 setResult(new Cantor::HelpResult(content));
             else
                 setResult(new Cantor::TextResult(content));
-	    setStatus(Cantor::Expression::Done);
+            setStatus(Cantor::Expression::Done);
         }else if (type.name().contains(QLatin1String("image")))
         {
             setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
-	    setStatus(Cantor::Expression::Done);
+            setStatus(Cantor::Expression::Done);
         }
         else
         {
             // File has unsupported mime type, but we suspect, that it is text, so will open the file in Cantor script editor
             // Even if it don't text, the script editor can deals with it.
-            setResult(new Cantor::TextResult(QLatin1String("")));
             setStatus(Cantor::Expression::Done);
             const QString& editor = QStandardPaths::findExecutable(QLatin1String("cantor_scripteditor"));
             int code = QProcess::execute(editor, QStringList(file));
