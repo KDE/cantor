@@ -44,8 +44,11 @@ void SageExpression::evaluate()
 
     m_isHelpRequest=false;
 
-    //check if this is a ?command
-    if(command().startsWith(QLatin1Char('?'))||command().endsWith(QLatin1Char('?')))
+    //check if this is a ?command or help command
+    if( command().startsWith(QLatin1Char('?'))
+        || command().endsWith(QLatin1Char('?'))
+        || command().contains(QLatin1String("help("))
+    )
         m_isHelpRequest=true;
 
     //coun't how many newlines are in the command,
@@ -174,9 +177,9 @@ void SageExpression::evalFinished()
     qDebug()<<m_outputCache;
 
     //check if our image path contains a valid image that we can try to show
-    bool hasImage=!m_imagePath.isNull();
+    const bool hasImage=!m_imagePath.isNull();
 
-    if ( !hasImage ) //If this result contains a file, drop the text information
+    if (!m_outputCache.isEmpty())
     {
         Cantor::TextResult* result=nullptr;
 
@@ -215,16 +218,17 @@ void SageExpression::evalFinished()
         if(isLatex)
             result->setFormat(Cantor::TextResult::LatexFormat);
 
-        setResult(result);
+        addResult(result);
     }
-    else
+
+    if (hasImage)
     {
     QMimeDatabase db;
     QMimeType type = db.mimeTypeForUrl(QUrl::fromLocalFile(m_imagePath));
         if(type.inherits(QLatin1String("image/gif")))
-            setResult( new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
+            addResult( new Cantor::AnimationResult(QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
         else
-            setResult( new Cantor::ImageResult( QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
+            addResult( new Cantor::ImageResult( QUrl::fromLocalFile(m_imagePath ),i18n("Result of %1" , command() ) ) );
     }
     setStatus(Cantor::Expression::Done);
 }
