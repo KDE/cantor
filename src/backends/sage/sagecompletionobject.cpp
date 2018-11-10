@@ -44,14 +44,28 @@ SageCompletionObject::~SageCompletionObject()
 
 void SageCompletionObject::fetchCompletions()
 {
-    if (m_expression)
-        return;
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        QStringList allCompletions;
 
-    //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
-    //after complete() was evaluated
-    const QString& cmd = QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__");
-    m_expression=session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(m_expression, &Cantor::Expression::gotResult, this, &SageCompletionObject::extractCompletions);
+        allCompletions << SageKeywords::instance()->keywords();
+        allCompletions << SageKeywords::instance()->functions();
+        allCompletions << SageKeywords::instance()->variables();
+
+        setCompletions(allCompletions);
+        emit fetchingDone();
+    }
+    else
+    {
+        if (m_expression)
+            return;
+
+        //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
+        //after complete() was evaluated
+        const QString& cmd = QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__");
+        m_expression=session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::gotResult, this, &SageCompletionObject::extractCompletions);
+    }
 }
 
 void SageCompletionObject::extractCompletions()
@@ -72,6 +86,7 @@ void SageCompletionObject::extractCompletionsNew()
     if(!res || !(res->type()==Cantor::TextResult::Type))
     {
         qDebug()<<"something went wrong fetching tab completion";
+        fetchingDone();
         return;
     }
 
@@ -113,6 +128,7 @@ void SageCompletionObject::extractCompletionsLegacy()
     if(!res || !(res->type()==Cantor::TextResult::Type))
     {
         qDebug()<<"something went wrong fetching tab completion";
+        fetchingDone();
         return;
     }
 
@@ -140,36 +156,72 @@ void SageCompletionObject::extractCompletionsLegacy()
 
 void SageCompletionObject::fetchIdentifierType()
 {
-    if (m_expression)
-       return;
-    if (SageKeywords::instance()->keywords().contains(identifier())) {
-	emit fetchingTypeDone(KeywordType);
-	return;
-    }
-    QString expr = QString::fromLatin1("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
-    m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(m_expression, &Cantor::Expression::statusChanged, this, &SageCompletionObject::extractIdentifierType);
-}
-
-void SageCompletionObject::extractIdentifierType()
-{
-    if (m_expression->status() != Cantor::Expression::Done)
+    if (SageKeywords::instance()->keywords().contains(identifier()))
     {
-	m_expression->deleteLater();
-	m_expression = nullptr;
+        emit fetchingTypeDone(KeywordType);
         return;
     }
-    Cantor::Result* result = m_expression->result();
+
+    if (session()->status() == Cantor::Session::Disable)
+    {
+        if (SageKeywords::instance()->functions().contains(identifier()))
+            emit fetchingTypeDone(FunctionType);
+        else if (SageKeywords::instance()->variables().contains(identifier()))
+            emit fetchingTypeDone(VariableType);
+        else
+            emit fetchingTypeDone(UnknownType);
+    }
+    else
+    {
+        if (m_expression)
+            return;
+
+        QString expr = QString::fromLatin1("__cantor_internal__ = _; type(%1); _ = __cantor_internal__").arg(identifier());
+        m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &SageCompletionObject::extractIdentifierType);
+    }
+}
+
+void SageCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
+{
+    if (!m_expression)
+        return;
+
+    switch(status)
+    {
+        case Cantor::Expression::Error:
+            qDebug() << "Error with SageCompletionObject" << m_expression->errorMessage();
+            emit fetchingTypeDone(UnknownType);
+            break;
+
+        case Cantor::Expression::Interrupted:
+            qDebug() << "SageCompletionObject was interrupted";
+            emit fetchingTypeDone(UnknownType);
+            break;
+
+        case Cantor::Expression::Done:
+        {
+            Cantor::Result* result = m_expression->result();
+            if (result)
+            {
+                QString res = result->toHtml();
+                if (res.contains(QLatin1String("function")) || res.contains(QLatin1String("method")))
+                    emit fetchingTypeDone(FunctionType);
+                else
+                    emit fetchingTypeDone(VariableType);
+            }
+            else
+                emit fetchingTypeDone(UnknownType);
+            break;
+        }
+
+        default:
+            return;
+    }
+
     m_expression->deleteLater();
     m_expression = nullptr;
-    if (!result)
-	return;
-
-    QString res = result->toHtml();
-    if (res.contains(QLatin1String("function")) || res.contains(QLatin1String("method")))
-	emit fetchingTypeDone(FunctionType);
-    else
-	emit fetchingTypeDone(VariableType);
+    return;
 }
 
 bool SageCompletionObject::mayIdentifierContain(QChar c) const

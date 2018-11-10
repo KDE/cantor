@@ -22,12 +22,9 @@
 #define _SAGECOMPLETIONOBJECT_H
 
 #include "completionobject.h"
+#include "expression.h"
 
 class SageSession;
-
-namespace Cantor{
-    class Expression;
-}
 
 class SageCompletionObject : public Cantor::CompletionObject
 {
@@ -45,7 +42,7 @@ class SageCompletionObject : public Cantor::CompletionObject
     void fetchCompletions() override;
     void extractCompletions();
     void fetchIdentifierType() override;
-    void extractIdentifierType();
+    void extractIdentifierType(Cantor::Expression::Status status);
 
  private:
     void extractCompletionsNew();
