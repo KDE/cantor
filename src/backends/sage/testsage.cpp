@@ -25,6 +25,7 @@
 #include "expression.h"
 #include "result.h"
 #include "imageresult.h"
+#include "textresult.h"
 
 #include <QDebug>
 
@@ -94,9 +95,12 @@ void TestSage::testPlot()
     Cantor::Expression* e=evalExp( QLatin1String("plot(sin(x))") );
 
     QVERIFY( e!=nullptr );
-    QVERIFY( e->result()!=nullptr );
-    QVERIFY( e->result()->type()==Cantor::ImageResult::Type );
-    QVERIFY( !e->result()->data().isNull() );
+    QCOMPARE( e->results().size(), 2);
+    QVERIFY( e->results()[0]->type() == Cantor::TextResult::Type);
+    QCOMPARE( e->results()[0]->data().toString(), QLatin1String("Launched png viewer for Graphics object consisting of 1 graphics primitive"));
+
+    QVERIFY( e->results()[1]->type() == Cantor::ImageResult::Type);
+    QVERIFY( !e->results()[1]->data().isNull() );
 }
 
 void TestSage::testInvalidSyntax()
