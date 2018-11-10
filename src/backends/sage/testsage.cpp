@@ -82,7 +82,6 @@ void TestSage::testDefineFunction()
     Cantor::Expression* e1=evalExp( QLatin1String(cmd) );
 
     QVERIFY( e1!=nullptr );
-    QVERIFY( e1->result()!=nullptr );
 
     Cantor::Expression* e2=evalExp( QLatin1String("func1(2)") );
     QVERIFY( e2!=nullptr );
