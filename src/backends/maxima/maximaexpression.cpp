@@ -171,7 +171,7 @@ QString MaximaExpression::internalCommand()
         const QString plotParameters = QLatin1String("[gnuplot_term, \"png size 500,340\"], [gnuplot_out_file, \"")+fileName+QLatin1String("\"]");
 
 #endif
-        cmd.replace(QRegExp(QLatin1String("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n]|$)")), QLatin1String("\\1, ")+plotParameters+QLatin1String(");"));
+        cmd.replace(QRegExp(QLatin1String("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")), QLatin1String("\\1, ")+plotParameters+QLatin1String(");"));
 
     }
 
