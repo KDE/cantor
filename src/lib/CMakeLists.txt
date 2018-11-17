@@ -79,7 +79,7 @@ set_target_properties( cantorlibs PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION}
 
 install( TARGETS cantorlibs  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
-install( FILES ${cantor_LIB_HDRS}
+install( FILES ${cantor_LIB_HDRS} ${CMAKE_CURRENT_BINARY_DIR}/cantor_export.h
   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/cantor
   COMPONENT Devel
 )
