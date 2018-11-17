@@ -282,6 +282,7 @@ bool MaximaExpression::parseOutput(QString& out)
             }
 
             //set the help result
+            errorContent.prepend(QLatin1Char(' '));
             Cantor::HelpResult* result = new Cantor::HelpResult(errorContent);
             setResult(result);
 
