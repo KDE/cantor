@@ -21,10 +21,27 @@
 #include "helpresult.h"
 using namespace Cantor;
 
-
-HelpResult::HelpResult(const QString& text) : TextResult(text)
+class Cantor::HelpResultPrivate
 {
+public:
+    HelpResultPrivate() = default;
+    ~HelpResultPrivate() = default;
 
+    QString html;
+};
+
+HelpResult::HelpResult(const QString& text, bool isHtml) : d(new HelpResultPrivate)
+{
+    QString html;
+    if (!isHtml)
+    {
+        html = text.toHtmlEscaped();
+        html.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
+    }
+    else
+        html = text;
+
+    d->html = html;
 }
 
 int HelpResult::type()
@@ -34,11 +51,29 @@ int HelpResult::type()
 
 QDomElement HelpResult::toXml(QDomDocument& doc)
 {
+    //No need to save results of a help request
     QDomElement e=doc.createElement(QLatin1String("Result"));
     e.setAttribute(QLatin1String("type"), QLatin1String("help"));
-    //No need to save results of a help request
-    QDomText txt=doc.createTextNode(QString());
-    e.appendChild(txt);
-
     return e;
+}
+
+QString HelpResult::toHtml()
+{
+    return d->html;
+}
+
+QVariant HelpResult::data()
+{
+    return QVariant(d->html);
+}
+
+QString HelpResult::mimeType()
+{
+    return QLatin1String("text/html");
+}
+
+void HelpResult::save(const QString& filename)
+{
+    //No need to save results of a help request
+    Q_UNUSED(filename);
 }

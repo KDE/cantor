@@ -30,16 +30,25 @@ namespace Cantor
     so that the application can show it in another way than the
     normal results
 **/
-class CANTOR_EXPORT HelpResult : public TextResult
+class HelpResultPrivate;
+class CANTOR_EXPORT HelpResult: public Result
 {
   public:
     enum {Type=3};
-    explicit HelpResult( const QString& text);
+    explicit HelpResult( const QString& text, bool isHtml=false);
     ~HelpResult() override = default;
 
+    QVariant data() override;
+    QString toHtml() override;
+
     int type() override;
+    QString mimeType() override;
 
     QDomElement toXml(QDomDocument& doc) override;
+    void save(const QString& filename) override;
+
+  private:
+    HelpResultPrivate* d;
 };
 
 }
