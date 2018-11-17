@@ -36,6 +36,7 @@ HelpResult::HelpResult(const QString& text, bool isHtml) : d(new HelpResultPriva
     if (!isHtml)
     {
         html = text.toHtmlEscaped();
+        html.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
         html.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
     }
     else

@@ -202,6 +202,7 @@ void SageExpression::evalFinished()
         if (m_isHelpRequest)
         {
             stripped = stripped.toHtmlEscaped();
+            stripped.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
             stripped.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
 
             //make things quoted in `` `` bold
