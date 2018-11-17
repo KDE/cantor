@@ -181,8 +181,6 @@ void SageExpression::evalFinished()
 
     if (!m_outputCache.isEmpty())
     {
-        Cantor::TextResult* result=nullptr;
-
         QString stripped=m_outputCache;
         const bool isHtml=stripped.contains(QLatin1String("<html>"));
         const bool isLatex=m_outputCache.contains(QLatin1String("\\newcommand{\\Bold}")); //Check if it's latex stuff
@@ -197,28 +195,27 @@ void SageExpression::evalFinished()
         {
             stripped.remove( QRegExp( QLatin1String("<[a-zA-Z\\/][^>]*>") ) );
         }
+
         if (stripped.endsWith(QLatin1Char('\n')))
             stripped.chop(1);
 
         if (m_isHelpRequest)
         {
-            //Escape whitespace
-            stripped.replace( QLatin1Char(' '), QLatin1String("&nbsp;"));
+            stripped = stripped.toHtmlEscaped();
+            stripped.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
 
             //make things quoted in `` `` bold
             stripped.replace(QRegExp(QLatin1String("``([^`]*)``")), QLatin1String("<b>\\1</b>"));
 
-            result=new Cantor::HelpResult(stripped);
+            addResult(new Cantor::HelpResult(stripped, true));
         }
         else
         {
-            result=new Cantor::TextResult(stripped);
+            Cantor::TextResult* result=new Cantor::TextResult(stripped);
+            if(isLatex)
+                result->setFormat(Cantor::TextResult::LatexFormat);
+            addResult(result);
         }
-
-        if(isLatex)
-            result->setFormat(Cantor::TextResult::LatexFormat);
-
-        addResult(result);
     }
 
     if (hasImage)

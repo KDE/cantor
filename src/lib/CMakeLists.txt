@@ -74,9 +74,7 @@ target_link_libraries( cantorlibs
   Qt5::Xml
 )
 
-set_target_properties( cantorlibs
-  PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION 19
-)
+set_target_properties( cantorlibs PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION 20)
 
 
 install( TARGETS cantorlibs  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
