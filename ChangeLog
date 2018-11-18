@@ -22,3 +22,4 @@ Bug fixes:
 	* BUG 363606 - [Python] Different python sessions shouldn't share the same variables
 	* BUG 372075 - [Python] Don't exit Cantor on calling exit() in python sessions
 	* BUG 395213 - [R] Add rehighlighting for entries after execution in R backend
+	* BUG 394003 - [Maxima] Loosing LaTeX output after backend restarting

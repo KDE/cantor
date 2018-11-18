@@ -62,6 +62,8 @@ class Worksheet : public QGraphicsScene
 
     Cantor::Session* session();
 
+    void loginToSession();
+
     bool isRunning();
     bool isReadOnly();
     bool showExpressionIds();
@@ -229,7 +231,6 @@ class Worksheet : public QGraphicsScene
     void keyPressEvent(QKeyEvent*) override;
 
   private Q_SLOTS:
-    void loginToSession();
     void showCompletion();
     //void checkEntriesForSanity();
 

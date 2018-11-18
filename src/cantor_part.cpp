@@ -580,7 +580,7 @@ void CantorPart::restartBackend()
     if (restart)
     {
         m_worksheet->session()->logout();
-        m_worksheet->session()->login();
+        m_worksheet->loginToSession();
     }
 }
 
