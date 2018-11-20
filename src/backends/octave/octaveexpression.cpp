@@ -133,7 +133,9 @@ void OctaveExpression::parseOutput(const QString& output)
                 Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
                 if (model)
                 {
-                    model->addVariable(parts.first().trimmed(), parts.last().trimmed());
+                    const QString varname = parts.first().trimmed();
+                    if (varname != QLatin1String("__cantor_tmp__"))
+                        model->addVariable(varname, parts.last().trimmed());
                 }
             }
         }
