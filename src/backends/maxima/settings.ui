@@ -43,7 +43,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="kcfg_scriptGroup">
+    <widget class="QGroupBox">
      <property name="title">
       <string>Scripts to autorun</string>
      </property>
