@@ -35,11 +35,6 @@ MaximaSyntaxHelpObject::MaximaSyntaxHelpObject(const QString& cmd, MaximaSession
 
 void MaximaSyntaxHelpObject::fetchInformation()
 {
-    if(m_expression)
-    {
-        m_expression->setFinishingBehavior(Cantor::Expression::DeleteOnFinish);
-    }
-
     bool isValid=false;
     for (const QString& func : MaximaKeywords::instance()->functions())
     {
@@ -54,6 +49,9 @@ void MaximaSyntaxHelpObject::fetchInformation()
     {
         if (session()->status() != Cantor::Session::Disable)
         {
+            if (m_expression)
+                return;
+
             //use the lisp command, instead of directly calling the
             //maxima function "describe" to avoid generating a new
             //output label that would mess up history
