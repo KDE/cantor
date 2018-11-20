@@ -70,8 +70,15 @@ void MaximaSession::login()
     m_process = new QProcess(this);
     m_process->start(MaximaSettings::self()->path().toLocalFile(), arguments);
     m_process->waitForStarted();
-    m_process->waitForReadyRead();
-    qDebug()<<m_process->readAllStandardOutput();
+
+    QString input;
+    // Wait until first maxima prompt
+    while (!input.contains(QLatin1String("</cantor-prompt>")))
+    {
+        m_process->waitForReadyRead();
+        input += QString::fromLatin1(m_process->readAllStandardOutput());
+        qDebug() << input;
+    }
 
     connect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(restartMaxima()));
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readStdOut()));
