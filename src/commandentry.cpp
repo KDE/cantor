@@ -841,8 +841,11 @@ void CommandEntry::setSyntaxHelp(Cantor::SyntaxHelpObject* sh)
 
 void CommandEntry::showSyntaxHelp()
 {
-    const QString& msg = m_syntaxHelpObject->toHtml();
+    QString msg = m_syntaxHelpObject->toHtml();
     const QPointF cursorPos = m_commandItem->cursorPosition();
+
+    // QToolTip don't support &nbsp;, but support multiple spaces
+    msg.replace(QLatin1String("&nbsp;"), QLatin1String(" "));
 
     QToolTip::showText(toGlobalPosition(cursorPos), msg, worksheetView());
 }
