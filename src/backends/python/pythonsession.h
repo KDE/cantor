@@ -99,6 +99,7 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
   Q_SIGNALS:
     void updateHighlighter();
     void newVariable(const QString variable);
+    void clearVariables();
 };
 
 #endif /* _PYTHONSESSION_H */

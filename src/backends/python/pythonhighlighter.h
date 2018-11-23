@@ -34,6 +34,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
   public Q_SLOTS:
     void updateHighlight();
     void addVariable(const QString variable);
+    void clearVariables();
 
   protected:
     void highlightBlock(const QString& text) override;

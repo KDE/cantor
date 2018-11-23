@@ -121,6 +121,8 @@ void JuliaSession::logout()
 
     JuliaKeywords::instance()->clearVariables();
     JuliaKeywords::instance()->clearFunctions();
+    m_variableModel->clearVariables();
+    emit updateHighlighter();
 
     changeStatus(Status::Disable);
 }

@@ -123,6 +123,9 @@ void PythonSession::logout()
     // TODO: T6113, T6114
     m_pProcess->terminate();
 
+    m_variableModel->clearVariables();
+    emit clearVariables();
+
     qDebug()<<"logout";
     changeStatus(Status::Disable);
 }
@@ -381,6 +384,7 @@ QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
     PythonHighlighter* highlighter = new PythonHighlighter(parent);
     QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
     QObject::connect(this, SIGNAL(newVariable(QString)), highlighter, SLOT(addVariable(QString)));
+    connect(this, &PythonSession::clearVariables, highlighter, &PythonHighlighter::clearVariables);
 
     return highlighter;
 }
