@@ -1089,7 +1089,7 @@ bool Worksheet::load(QIODevice* device)
     //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
     if (m_firstEntry) {
-        m_firstEntry->deleteLater();
+        delete m_firstEntry;
         m_firstEntry = nullptr;
     }
 
