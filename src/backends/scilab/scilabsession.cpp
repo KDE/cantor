@@ -118,6 +118,7 @@ void ScilabSession::logout()
     m_process->write("exit\n");
 
     expressionQueue().clear();
+    m_variableModel->clearVariables();
 
     QDir removePlotFigures;
     QListIterator<QString> i(m_listPlotName);

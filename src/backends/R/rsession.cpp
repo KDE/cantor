@@ -72,6 +72,11 @@ void RSession::logout()
     qDebug()<<"logout";
     m_process->terminate();
 
+    m_variableModel->clearVariables();
+    m_variables.clear();
+    m_functions.clear();
+    emit symbolsChanged();
+
     changeStatus(Status::Disable);
 }
 
