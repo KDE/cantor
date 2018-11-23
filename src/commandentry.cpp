@@ -846,6 +846,8 @@ void CommandEntry::showSyntaxHelp()
 
     // QToolTip don't support &nbsp;, but support multiple spaces
     msg.replace(QLatin1String("&nbsp;"), QLatin1String(" "));
+    // Don't support &quot too;
+    msg.replace(QLatin1String("&quot;"), QLatin1String("\""));
 
     QToolTip::showText(toGlobalPosition(cursorPos), msg, worksheetView());
 }
