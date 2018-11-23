@@ -165,6 +165,7 @@ private:
     QProgressDialog* m_initProgressDlg;
     bool m_showProgressDlg;
     QAction * m_evaluate;
+    QAction * m_restart;
     QAction * m_save;
     QAction * m_findNext;
     QAction * m_findPrev;

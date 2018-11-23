@@ -272,11 +272,12 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
-    QAction* restart = new QAction(i18n("Restart Backend"), collection);
-    collection->addAction(QLatin1String("restart_backend"), restart);
-    restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
-    connect(restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
-    m_editActions.push_back(restart);
+    m_restart = new QAction(i18n("Restart Backend"), collection);
+    collection->addAction(QLatin1String("restart_backend"), m_restart);
+    m_restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
+    connect(m_restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
+    m_restart->setEnabled(false); // No need show restart button before login
+    m_editActions.push_back(m_restart);
 
     QAction* evaluateCurrent = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), collection);
     collection->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
@@ -668,6 +669,7 @@ void CantorPart::worksheetSessionLoginDone() {
     setStatusMessage(i18n("Ready"));
 
     m_typeset->setEnabled(true);
+    m_restart->setEnabled(true);
 
     QApplication::restoreOverrideCursor();
 }
