@@ -568,6 +568,7 @@ void CantorPart::restartBackend()
         // Update setting's value
         Settings::self()->setWarnAboutSessionRestart(
             KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp));
+        Settings::self()->save();
 
         restart = rc == KMessageBox::ButtonCode::Yes;
     }
