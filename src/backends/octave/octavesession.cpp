@@ -50,7 +50,6 @@ m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
 m_watch(nullptr),
-m_loginFinish(false),
 m_syntaxError(false),
 m_variableModel(new Cantor::DefaultVariableModel(this))
 {
@@ -107,18 +106,37 @@ void OctaveSession::login()
         connect (m_watch, SIGNAL(dirty(QString)), SLOT(plotFileChanged(QString)) );
     }
 
-    // connect the signal and slots prior to staring octave to make sure we handle the very first output
-    // in parserOutput() to determine the temp folder and the format of the promt
-    connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
-    connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );
-    connect ( m_process, SIGNAL (error(QProcess::ProcessError)), SLOT (processError()) );
-
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
     qDebug() << "starting " << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
     m_process->start();
     m_process->waitForStarted();
-    m_process->waitForReadyRead();
+
+    // Got tmp dir
+    bool loginFinished = false;
+    QString input;
+    while (!loginFinished)
+    {
+        m_process->waitForReadyRead();
+        input += QString::fromLatin1(m_process->readAllStandardOutput());
+        qDebug() << "login input: " << input;
+        if (input.contains(QLatin1String("____TMP_DIR____")))
+            {
+                m_tempDir = input;
+                m_tempDir.remove(0,18);
+                m_tempDir.chop(1); // isolate the tempDir's location
+                qDebug() << "Got temporary file dir:" << m_tempDir;
+                if (m_watch)
+                {
+                    m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
+                }
+                loginFinished = true;
+            }
+    }
+
+    connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
+    connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );
+    connect ( m_process, SIGNAL (error(QProcess::ProcessError)), SLOT (processError()) );
 
     if(!OctaveSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
@@ -162,7 +180,6 @@ void OctaveSession::logout()
     m_tempDir.clear();
     m_output.clear();
     m_previousPromptNumber = 1;
-    m_loginFinish = false;
 
     m_variableModel->clearVariables();
 
@@ -262,32 +279,9 @@ void OctaveSession::readOutput()
     qDebug() << "readOutput";
     while (m_process->bytesAvailable() > 0)
     {
-        if (m_tempDir.isEmpty() && !m_process->canReadLine())
-        {
-            qDebug() << "Waiting";
-            // Wait for the full line containing octave's tempDir
-            return;
-        }
         QString line = QString::fromLocal8Bit(m_process->readLine());
         qDebug()<<"start parsing " << "  " << line;
-        if (!m_loginFinish)
-        {
-            // we're parsing the first output of octave after the start
-            // -> determine the location of the temporary folder
-            if (line.contains(QLatin1String("____TMP_DIR____")))
-            {
-                m_tempDir = line;
-                m_tempDir.remove(0,18);
-                m_tempDir.chop(1); // isolate the tempDir's location
-                qDebug() << "Got temporary file dir:" << m_tempDir;
-                if (m_watch)
-                {
-                    m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
-                }
-                m_loginFinish = true;
-            }
-        }
-        else if (line.contains(m_prompt))
+        if (line.contains(m_prompt))
         {
             const int promptNumber = m_prompt.cap(1).toInt();
             if (!expressionQueue().isEmpty())

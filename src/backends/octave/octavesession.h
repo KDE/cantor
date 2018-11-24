@@ -66,7 +66,6 @@ class OctaveSession : public Cantor::Session
 
         KDirWatch* m_watch;
         QString m_tempDir;
-        bool m_loginFinish;
         bool m_syntaxError;
 
         QString m_output;
