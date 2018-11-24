@@ -49,7 +49,7 @@
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
 
-#include <config-cantorlib.h>
+#include <config-cantor.h>
 
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
