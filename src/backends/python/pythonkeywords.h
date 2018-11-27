@@ -37,8 +37,6 @@ class PythonKeywords
 
     void loadFromModule(const QString& module, const QStringList& keywords);
 
-    void python2Mode();
-
   private:
     void loadKeywords();
 

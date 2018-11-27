@@ -69,6 +69,7 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
     QString DbusChannelName;
 
     QString worksheetPath;
+    int m_pythonVersion;
 
   protected:
     QString m_output;

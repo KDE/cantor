@@ -82,16 +82,6 @@ void PythonKeywords::loadFromModule(const QString& module, const QStringList& ke
     }
 }
 
-void PythonKeywords::python2Mode()
-{
-    // In Python 2 print is keyword, not function
-    m_functions.removeOne(QLatin1String("print"));
-    m_keywords << QLatin1String("print");
-
-    qSort(m_keywords);
-    qSort(m_functions);
-}
-
 const QStringList& PythonKeywords::variables() const
 {
     return m_variables;
