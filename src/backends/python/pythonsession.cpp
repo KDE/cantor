@@ -49,9 +49,8 @@ PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const 
     , m_pProcess(nullptr)
     , serverName(serverName)
     , DbusChannelName(DbusChannelName)
+    , m_pythonVersion(pythonVersion)
 {
-    if (pythonVersion == 2)
-        PythonKeywords::instance()->python2Mode();
 }
 
 void PythonSession::login()
@@ -381,7 +380,7 @@ void PythonSession::listVariables()
 
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
-    PythonHighlighter* highlighter = new PythonHighlighter(parent);
+    PythonHighlighter* highlighter = new PythonHighlighter(parent, m_pythonVersion);
     QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
     QObject::connect(this, SIGNAL(newVariable(QString)), highlighter, SLOT(addVariable(QString)));
     connect(this, &PythonSession::clearVariables, highlighter, &PythonHighlighter::clearVariables);
