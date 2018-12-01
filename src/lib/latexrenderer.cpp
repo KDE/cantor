@@ -23,6 +23,7 @@ using namespace Cantor;
 
 #include <KProcess>
 #include <QDebug>
+#include <QDir>
 #include <QFileInfo>
 #include <QEventLoop>
 #include <QTemporaryFile>
@@ -177,9 +178,7 @@ void LatexRenderer::renderWithLatex()
 {
     qDebug()<<"rendering using latex method";
     QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-
-    //Check if the cantor subdir exists, if not, create it
-    QTemporaryFile *texFile=new QTemporaryFile(dir + QLatin1String("/cantor_tex-XXXXXX.tex"));
+    QTemporaryFile *texFile=new QTemporaryFile(dir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
     texFile->open();
 
     KColorScheme scheme(QPalette::Active);
@@ -219,11 +218,10 @@ void LatexRenderer::renderWithLatex()
 
 void LatexRenderer::convertToPs()
 {
-    qDebug()<<"converting to ps";
     QString dviFile=d->latexFilename;
     dviFile.replace(QLatin1String(".eps"), QLatin1String(".dvi"));
     KProcess *p=new KProcess( this );
-    qDebug()<<"running: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
+    qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
     (*p)<<Settings::self()->dvipsCommand()<<QLatin1String("-E")<<QLatin1String("-o")<<d->latexFilename<<dviFile;
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
@@ -232,18 +230,11 @@ void LatexRenderer::convertToPs()
 
 void LatexRenderer::convertingDone()
 {
-    qDebug()<<"rendered file "<<d->latexFilename;
-    //cleanup the temp directory a bit...
-    QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QLatin1String("/") + QLatin1String("cantor");
-    QStringList unneededExtensions;
-    unneededExtensions<<QLatin1String(".log")<<QLatin1String(".aux")<<QLatin1String(".tex")<<QLatin1String(".dvi");
-    foreach(const QString& ext, unneededExtensions)
-    {
-        QString s=d->latexFilename;
-        s.replace(QLatin1String(".eps"), ext);
-        QFile f(s);
-        //f.remove();
-    }
+    qDebug()<<"remove temporary files for " << d->latexFilename;
+    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".log")));
+    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".aux")));
+    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".tex")));
+    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".dvi")));
 
     if(QFileInfo(d->latexFilename).exists())
     {
@@ -252,7 +243,7 @@ void LatexRenderer::convertingDone()
     }else
     {
         d->success=false;
-        setErrorMessage(QLatin1String("something is wrong"));
+        setErrorMessage(QLatin1String("failed to create the latex preview image"));
         emit error();
     }
 }
@@ -262,5 +253,3 @@ void LatexRenderer::renderWithMml()
     qDebug()<<"WARNING: MML rendering not implemented yet!";
     emit done();
 }
-
-
