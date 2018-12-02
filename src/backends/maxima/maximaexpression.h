@@ -38,10 +38,7 @@ public:
     void evaluate() override;
     void interrupt() override;
 
-    //returns the command that should be send to
-    //the Maxima process, it's different from the
-    //command() for example to allow plot embedding
-    QString internalCommand();
+    QString internalCommand() override;
 
     //Forces the status of this Expression to done
     void forceDone();

@@ -130,6 +130,13 @@ class CANTOR_EXPORT Expression : public QObject
     QString command();
 
     /**
+     * Returns the command, adapted for using by appropriate Backend
+     * The return value can be equal or not to @command()
+     * Backend should use this function, instead of @command()
+     */
+    virtual QString internalCommand();
+
+    /**
      * Adds some additional information/input to this expression.
      * this is needed, when the Expression has emitted the needsAdditionalInformation signal,
      * and the user has answered the question. This is used for e.g. if maxima asks whether

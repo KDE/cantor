@@ -108,6 +108,11 @@ QString Expression::command()
     return d->command;
 }
 
+QString Expression::internalCommand()
+{
+    return d->command;
+}
+
 void Expression::setErrorMessage(const QString& error)
 {
     d->error=error;
