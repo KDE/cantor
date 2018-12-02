@@ -230,13 +230,15 @@ void LatexRenderer::convertToPs()
 
 void LatexRenderer::convertingDone()
 {
-    qDebug()<<"remove temporary files for " << d->latexFilename;
-    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".log")));
-    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".aux")));
-    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".tex")));
-    QFile::remove(d->latexFilename.replace(QLatin1String(".eps"), QLatin1String(".dvi")));
+    QFileInfo info(d->latexFilename);
+    qDebug() <<"remove temporary files for " << d->latexFilename;
+    QString pathWithoutExtention = info.path() + QDir::separator() + info.completeBaseName();
+    QFile::remove(pathWithoutExtention + QLatin1String(".log"));
+    QFile::remove(pathWithoutExtention + QLatin1String(".aux"));
+    QFile::remove(pathWithoutExtention + QLatin1String(".tex"));
+    QFile::remove(pathWithoutExtention + QLatin1String(".dvi"));
 
-    if(QFileInfo(d->latexFilename).exists())
+    if(info.exists())
     {
         d->success=true;
         emit done();
