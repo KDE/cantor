@@ -43,6 +43,8 @@ public:
 
     void interrupt() override;
     void evaluate() override;
+    QString internalCommand() override;
+
     void parseOutput(const QString&);
     void parseError(const QString&);
     void parsePlotFile(const QString&);
@@ -50,14 +52,9 @@ public:
     void setPlotPending(bool);
 
 private:
-    void removeAppendedPlotCommand();
-
-private:
     QString m_resultString;
     bool m_plotPending;
     bool m_finished;
-    bool m_appendPlotCommand;
-    bool m_appendDot;
     QStringList m_plotCommands;
 };
 

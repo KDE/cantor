@@ -28,13 +28,11 @@
 #include <helpresult.h>
 
 
-static const char* printCommand = "cantor_print();";
+static const QLatin1String printCommand("cantor_print();");
 
 OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal),
     m_plotPending(false),
-    m_finished(false),
-    m_appendPlotCommand(false),
-    m_appendDot(false)
+    m_finished(false)
 {
     m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
                    << QLatin1String("polar") << QLatin1String("contour") << QLatin1String("bar")
@@ -58,9 +56,6 @@ void OctaveExpression::interrupt()
 {
     qDebug() << "interrupt";
 
-    if (m_appendPlotCommand)
-        removeAppendedPlotCommand();
-
     setStatus(Interrupted);
 }
 
@@ -81,29 +76,32 @@ void OctaveExpression::evaluate()
             }
         }
     }
-    if ( m_plotPending && !cmd.contains(QLatin1String("cantor_plot")) && !cmd.contains(QLatin1String(printCommand)))
-    {
-        // This was a manual plot, we have to add a print command
-        if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
-        {
-            cmd += QLatin1Char(',');
-            m_appendDot = true;
-        }
-        cmd += QLatin1String(printCommand);
-        setCommand(cmd);
-        m_appendPlotCommand = true;
-    }
+
     m_finished = false;
     session()->enqueueExpression(this);
 }
 
+QString OctaveExpression::internalCommand()
+{
+    QString cmd = command();
+
+    if (m_plotPending && !cmd.contains(QLatin1String("cantor_plot")) && !cmd.contains(printCommand))
+    {
+        if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
+            cmd += QLatin1Char(',');
+        cmd += printCommand;
+    }
+
+    cmd.replace(QLatin1String(";\n"), QLatin1String(";"));
+    cmd.replace(QLatin1Char('\n'), QLatin1Char(','));
+    cmd += QLatin1Char('\n');
+
+    return cmd;
+}
 
 void OctaveExpression::parseOutput(const QString& output)
 {
     qDebug() << "parseOutput: " << output;
-
-    if (m_appendPlotCommand)
-        removeAppendedPlotCommand();
 
     if (!output.trimmed().isEmpty())
     {
@@ -172,17 +170,4 @@ void OctaveExpression::parsePlotFile(const QString& file)
 void OctaveExpression::setPlotPending(bool plot)
 {
     m_plotPending = plot;
-}
-
-void OctaveExpression::removeAppendedPlotCommand()
-{
-    QString cmd = command();
-    cmd.remove(cmd.length()-strlen(printCommand),strlen(printCommand));
-    m_appendPlotCommand = false;
-    if (m_appendDot)
-        {
-        cmd.remove(cmd.length()-1,1);
-        m_appendDot = false;
-        }
-    setCommand(cmd);
 }

@@ -242,10 +242,7 @@ void OctaveSession::runFirstExpression()
 {
     OctaveExpression* expression = static_cast<OctaveExpression*>(expressionQueue().first());
     connect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
-    QString command = expression->command();
-    command.replace(QLatin1String(";\n"), QLatin1String(";"));
-    command.replace(QLatin1Char('\n'), QLatin1Char(','));
-    command += QLatin1Char('\n');
+    QString command = expression->internalCommand();
     expression->setStatus(Cantor::Expression::Computing);
     if (isDoNothingCommand(command))
         expression->setStatus(Cantor::Expression::Done);
