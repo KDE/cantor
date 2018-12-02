@@ -25,7 +25,7 @@
 #include <QObject>
 #include <KPluginMetaData>
 
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 namespace Cantor
 {

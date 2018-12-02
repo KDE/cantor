@@ -22,7 +22,7 @@
 #define _LATEXRESULT_H
 
 #include "epsresult.h"
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 namespace Cantor{
 class LatexResultPrivate;

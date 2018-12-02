@@ -23,7 +23,7 @@
 
 #include <QVariant>
 #include <QDomElement>
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 class KZip;
 
