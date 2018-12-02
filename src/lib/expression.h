@@ -24,7 +24,7 @@
 #include <QObject>
 #include <QDomElement>
 
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 class QFileSystemWatcher;
 class KZip;

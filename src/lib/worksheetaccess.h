@@ -21,7 +21,7 @@
 #ifndef _WORKSHEET_ACCESS_INTERFACE_H
 #define _WORKSHEET_ACCESS_INTERFACE_H
 
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 #include<QObject>
 

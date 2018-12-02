@@ -22,7 +22,7 @@
 #define _LATEXRENDERER_H
 
 #include <QObject>
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 namespace Cantor{
 class LatexRendererPrivate;

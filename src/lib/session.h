@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 #include "expression.h"
 

@@ -26,7 +26,7 @@
 #include <QVector>
 #include <QDebug>
 #include <QWidget>
-#include <cantor_export.h>
+#include "cantor_export.h"
 
 namespace Cantor
 {
