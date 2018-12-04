@@ -131,8 +131,8 @@ class CANTOR_EXPORT Expression : public QObject
 
     /**
      * Returns the command, adapted for using by appropriate Backend
-     * The return value can be equal or not to @command()
-     * Backend should use this function, instead of @command()
+     * The return value can be equal or not to @ref command()
+     * Backend should use this function, instead of @ref command()
      */
     virtual QString internalCommand();
 
