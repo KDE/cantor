@@ -44,9 +44,9 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     QStringList variableNames();
     QStringList functionNames(bool stripParameters=false);
 
+    bool isUpdateCommand(const QString &cmd) const;
   public Q_SLOTS:
-      void checkForNewVariables();
-      void checkForNewFunctions();
+      void update();
 
   private Q_SLOTS:
       void parseNewVariables(Cantor::Expression::Status status);
@@ -65,7 +65,8 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
   private:
     QList<Variable> m_variables;
     QList<Variable> m_functions;
-
+    Cantor::Expression* m_variableExpression;
+    Cantor::Expression* m_functionExpression;
 };
 
 #endif /* _MAXIMAVARIABLEMODEL_H */

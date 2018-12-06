@@ -34,7 +34,6 @@ const QString MaximaVariableModel::variableInspectCommand=QLatin1String(":lisp(c
 
 MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session)
 {
-
 }
 
 void MaximaVariableModel::clear()
@@ -46,21 +45,17 @@ void MaximaVariableModel::clear()
     DefaultVariableModel::clearVariables();
 }
 
-void MaximaVariableModel::checkForNewVariables()
+void MaximaVariableModel::update()
 {
     qDebug()<<"checking for new variables";
-    const QString& cmd=variableInspectCommand.arg(QLatin1String("values"));
-    Cantor::Expression* expr=session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(expr, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
-}
+    const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
+    Cantor::Expression* expr1=session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+    connect(expr1, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
 
-void MaximaVariableModel::checkForNewFunctions()
-{
     qDebug()<<"checking for new functions";
-    const QString& cmd=inspectCommand.arg(QLatin1String("functions"));
-    Cantor::Expression* expr=session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-
-    connect(expr, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
+    const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
+    Cantor::Expression* expr2=session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+    connect(expr2, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
 }
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
@@ -145,7 +140,7 @@ void MaximaVariableModel::parseNewVariables(Cantor::Expression::Status status)
         return;
 
     qDebug()<<"parsing variables";
-    MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
+    MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
     QList<Variable> newVars=parse(expr);
     QStringList addedVars;
@@ -193,7 +188,7 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
         return;
 
     qDebug()<<"parsing functions";
-    MaximaExpression* expr=dynamic_cast<MaximaExpression*>(sender());
+    MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
     QList<Variable> newVars=parse(expr);
     QStringList addedVars;
@@ -235,6 +230,12 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
 
     emit functionsAdded(addedVars);
     emit functionsRemoved(removedVars);
+}
+
+bool MaximaVariableModel::isUpdateCommand(const QString& cmd) const
+{
+    return cmd == variableInspectCommand.arg(QLatin1String("values"))
+        || cmd == inspectCommand.arg(QLatin1String("functions"));
 }
 
 MaximaSession* MaximaVariableModel::maximaSession()
