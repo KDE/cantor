@@ -36,7 +36,7 @@ JuliaExpression::JuliaExpression(Cantor::Session *session, bool internal)
 void JuliaExpression::evaluate()
 {
     setStatus(Cantor::Expression::Computing);
-    auto juliaSession = dynamic_cast<JuliaSession *>(session());
+    auto juliaSession = static_cast<JuliaSession *>(session());
 
     juliaSession->runExpression(this);
 }
@@ -44,7 +44,7 @@ void JuliaExpression::evaluate()
 QString JuliaExpression::internalCommand()
 {
     QString cmd = command();
-    auto juliaSession = dynamic_cast<JuliaSession *>(session());
+    auto juliaSession = static_cast<JuliaSession *>(session());
 
     // Plots integration
     m_plot_filename.clear();
@@ -72,7 +72,7 @@ QString JuliaExpression::internalCommand()
 
 void JuliaExpression::finalize()
 {
-    auto juliaSession = dynamic_cast<JuliaSession *>(session());
+    auto juliaSession = static_cast<JuliaSession *>(session());
     setErrorMessage(
         juliaSession->getError()
             .replace(QLatin1String("\n"), QLatin1String("<br>"))
