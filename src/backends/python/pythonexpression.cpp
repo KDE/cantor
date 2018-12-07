@@ -52,7 +52,7 @@ void PythonExpression::evaluate()
         m_tempFile = nullptr;
     }
 
-    PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
+    PythonSession* pythonSession = static_cast<PythonSession*>(session());
 
     pythonSession->runExpression(this);
 }
