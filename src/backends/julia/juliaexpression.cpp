@@ -38,6 +38,14 @@ void JuliaExpression::evaluate()
     setStatus(Cantor::Expression::Computing);
     auto juliaSession = dynamic_cast<JuliaSession *>(session());
 
+    juliaSession->runExpression(this);
+}
+
+QString JuliaExpression::internalCommand()
+{
+    QString cmd = command();
+    auto juliaSession = dynamic_cast<JuliaSession *>(session());
+
     // Plots integration
     m_plot_filename.clear();
     if (juliaSession->integratePlots() && checkPlotShowingCommands()) {
@@ -56,10 +64,10 @@ void JuliaExpression::evaluate()
         QString saveFigCommand =
             QString::fromLatin1("\nGR.savefig(\"%1\")\n").arg(m_plot_filename);
 
-        setCommand(command().append(saveFigCommand));
+        cmd = cmd.append(saveFigCommand);
     }
 
-    juliaSession->runExpression(this);
+    return cmd;
 }
 
 void JuliaExpression::finalize()

@@ -47,6 +47,8 @@ public:
      */
     void interrupt() override;
 
+    QString internalCommand() override;
+
     /**
      * Call this function from session when JuliaServer ends evaluation of
      * this expression.

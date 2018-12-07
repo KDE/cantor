@@ -202,7 +202,7 @@ void JuliaSession::runExpression(JuliaExpression *expr)
 {
     m_runningExpressions.append(expr);
     m_currentExpression = expr;
-    runJuliaCommandAsync(expr->command());
+    runJuliaCommandAsync(expr->internalCommand());
 }
 
 QString JuliaSession::getStringFromServer(const QString &method)
