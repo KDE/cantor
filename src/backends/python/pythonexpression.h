@@ -34,6 +34,8 @@ class PythonExpression : public Cantor::Expression
 
     void evaluate() override;
     void interrupt() override;
+    QString internalCommand() override;
+
     void parseOutput(QString output);
     void parseError(QString error);
 

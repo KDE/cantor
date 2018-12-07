@@ -52,21 +52,54 @@ void PythonExpression::evaluate()
         m_tempFile = nullptr;
     }
 
-     PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
+    PythonSession* pythonSession = dynamic_cast<PythonSession*>(session());
+
+    pythonSession->runExpression(this);
+}
+
+QString PythonExpression::internalCommand()
+{
+    QString cmd = command();
+
+    PythonSession* pythonSession = static_cast<PythonSession*>(session());
     if((pythonSession->integratePlots()) && (command().contains(QLatin1String("show()")))){
         m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.png"));
         m_tempFile->open();
         QString saveFigCommand = QLatin1String("savefig('%1')");
-        setCommand(command().replace(QLatin1String("show()"), saveFigCommand.arg(m_tempFile->fileName())));
+        cmd.replace(QLatin1String("show()"), saveFigCommand.arg(m_tempFile->fileName()));
 
         QFileSystemWatcher* watcher = fileWatcher();
         watcher->removePaths(watcher->files());
         watcher->addPath(m_tempFile->fileName());
         connect(watcher, &QFileSystemWatcher::fileChanged, this, &PythonExpression::imageChanged,  Qt::UniqueConnection);
+    }
+
+    QStringList commandLine = cmd.split(QLatin1String("\n"));
+
+    QString commandProcessing;
+
+    for(const QString& command : commandLine){
+        const QString firstLineWord = command.trimmed().replace(QLatin1String("("), QLatin1String(" "))
+            .split(QLatin1String(" ")).at(0);
+
+        // Ignore comments
+        if (firstLineWord.length() != 0 && firstLineWord[0] == QLatin1Char('#')){
+
+            commandProcessing += command + QLatin1String("\n");
+            continue;
+        }
+
+        if(firstLineWord.contains(QLatin1String("execfile"))){
+
+            commandProcessing += command;
+            continue;
+        }
+
+        commandProcessing += command + QLatin1String("\n");
 
     }
 
-    pythonSession->runExpression(this);
+    return commandProcessing;
 }
 
 void PythonExpression::parseOutput(QString output)

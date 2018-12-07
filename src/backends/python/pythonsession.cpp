@@ -164,32 +164,9 @@ void PythonSession::runExpression(PythonExpression* expr)
 
     m_currentExpression = expr;
 
-    const QString& command = expr->command();
-    QStringList commandLine = command.split(QLatin1String("\n"));
+    const QString& command = expr->internalCommand();
 
-    QString commandProcessing;
-
-    for(const QString& command : commandLine){
-        const QString firstLineWord = command.trimmed().replace(QLatin1String("("), QLatin1String(" "))
-            .split(QLatin1String(" ")).at(0);
-
-        // Ignore comments
-        if (firstLineWord.length() != 0 && firstLineWord[0] == QLatin1Char('#')){
-
-            commandProcessing += command + QLatin1String("\n");
-            continue;
-        }
-
-        if(firstLineWord.contains(QLatin1String("execfile"))){
-
-            commandProcessing += command;
-            continue;
-        }
-
-        commandProcessing += command + QLatin1String("\n");
-
-    }
-    readExpressionOutput(commandProcessing);
+    readExpressionOutput(command);
 }
 
 // Is called asynchronously in the Python3 plugin
