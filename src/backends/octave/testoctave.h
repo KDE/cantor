@@ -37,12 +37,25 @@ private Q_SLOTS:
     void testSimpleCommand();
     //tests a command, containing more than 1 line
     void testMultilineCommand();
-    //tests doing a plot
-    void testPlot();
-    //test a simple function
-  //  void testFunction();
+    //tests if the command queue works correcly
+    void testCommandQueue();
+
+    void testVariableDefinition();
+    void testMatrixDefinition();
+
+    //some tests to see if comments are working correctly
+    void testSimpleExpressionWithComment();
+    void testCommentExpression();
+
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
+
+    void testCompletion();
+
+    //tests doing a plot
+    void testPlot();
+
+
 
 private:
     QString backendName() override;
