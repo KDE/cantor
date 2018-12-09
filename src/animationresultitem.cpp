@@ -115,7 +115,7 @@ void AnimationResultItem::updateFrame()
     worksheet()->update(mapRectToScene(boundingRect()));
 }
 
-void AnimationResultItem::updateSize(const QSize& size)
+void AnimationResultItem::updateSize(QSize size)
 {
     if (m_height != size.height()) {
         m_height = size.height();

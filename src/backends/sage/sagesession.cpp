@@ -490,8 +490,8 @@ bool SageSession::updateSageVersion()
     qDebug()<<"found version: " << version.capturedTexts();
     if(version.isValid())
     {
-        int major=version.capturedTexts()[1].toInt();
-        int minor=version.capturedTexts()[2].toInt();
+        int major=version.capturedTexts().at(1).toInt();
+        int minor=version.capturedTexts().at(2).toInt();
         m_sageVersion=SageSession::VersionInfo(major, minor);
         return true;
     }

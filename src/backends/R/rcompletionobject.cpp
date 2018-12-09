@@ -58,9 +58,9 @@ void RCompletionObject::receiveCompletions(const QString& token,const QStringLis
     if (token.length()==0 && command().length()!=0)
     {
         /* Adding previous symbol to token, ugly but effective */
-        QString lastchar(command()[command().length()-1]);
+        QString lastchar(command().at(command().length()-1));
         setCommand(lastchar);
-        setCompletions(QStringList(options).replaceInStrings(QRegExp(QLatin1String("^")),lastchar));
+        setCompletions(QStringList(options).replaceInStrings(QRegExp(QLatin1String("^")), lastchar));
     }
     else
     {
@@ -70,4 +70,3 @@ void RCompletionObject::receiveCompletions(const QString& token,const QStringLis
 
     emit fetchingDone();
 }
-

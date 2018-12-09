@@ -211,7 +211,7 @@ void ImageEntry::updateEntry()
         if (!m_imageItem)
             m_imageItem = new WorksheetImageItem(this);
 
-        if (m_imagePath.toLower().endsWith(QLatin1String(".eps"))) {
+        if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
             m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
         } else {
             QImage img(m_imagePath);
@@ -230,7 +230,7 @@ void ImageEntry::updateEntry()
             else
                 size = imageSize(m_displaySize);
             // Hack: Eps images need to be scaled
-            if (m_imagePath.toLower().endsWith(QLatin1String(".eps")))
+            if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
                 size /= worksheet()->epsRenderer()->scale();
             m_imageItem->setSize(size);
             qDebug() << size;

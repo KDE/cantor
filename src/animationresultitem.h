@@ -34,12 +34,12 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
   Q_OBJECT
 
   public:
-    explicit AnimationResultItem(QGraphicsObject* parent, Cantor::Result* result);
+    explicit AnimationResultItem(QGraphicsObject*, Cantor::Result*);
     ~AnimationResultItem() override = default;
 
     using WorksheetImageItem::setGeometry;
     double setGeometry(double x, double y, double w) override;
-    void populateMenu(QMenu* menu, QPointF pos) override;
+    void populateMenu(QMenu*, QPointF) override;
 
     void update() override;
 
@@ -55,11 +55,11 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     void pauseMovie();
 
   private:
-    void setMovie(QMovie* movie);
+    void setMovie(QMovie*);
 
   private Q_SLOTS:
     void updateFrame();
-    void updateSize(const QSize& size);
+    void updateSize(QSize);
 
   private:
     double m_height;

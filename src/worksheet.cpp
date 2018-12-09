@@ -296,7 +296,7 @@ void Worksheet::makeVisible(const WorksheetCursor& cursor)
 
 WorksheetView* Worksheet::worksheetView()
 {
-    return qobject_cast<WorksheetView*>(views()[0]);
+    return qobject_cast<WorksheetView*>(views().first());
 }
 
 void Worksheet::setModified()

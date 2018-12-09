@@ -26,7 +26,7 @@
 #include <QDebug>
 #include <QWidget>
 
-PythonBackend::PythonBackend(QObject* parent, const QList<QVariant> args) : Cantor::Backend(parent, args)
+PythonBackend::PythonBackend(QObject* parent, const QList<QVariant>& args) : Cantor::Backend(parent, args)
 {
     qDebug()<<"Creating PythonBackend";
 
