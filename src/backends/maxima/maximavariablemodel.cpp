@@ -39,9 +39,7 @@ MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::Defa
 void MaximaVariableModel::clear()
 {
     emit functionsRemoved(functionNames());
-    emit variablesRemoved(variableNames());
     m_functions.clear();
-    m_variables.clear();
     DefaultVariableModel::clearVariables();
 }
 
@@ -143,43 +141,10 @@ void MaximaVariableModel::parseNewVariables(Cantor::Expression::Status status)
     MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
     QList<Variable> newVars=parse(expr);
-    QStringList addedVars;
-    QStringList removedVars;
-    //remove the old variables
-    for (const Variable& var : m_variables)
-    {
-        //check if this var is present in the new variables
-        bool found=false;
-        for (const Variable& var2 : newVars)
-        {
-            if(var.name==var2.name)
-            {
-                found=true;
-                break;
-            }
-        }
-
-        if(!found)
-        {
-            removeVariable(var);
-            removedVars<<var.name;
-        }
-    }
-
-    for (const Variable& var : newVars)
-    {
-        addVariable(var);
-
-        addedVars<<var.name;
-    }
-
-    m_variables=newVars;
+    setVariables(newVars);
 
     //the expression is not needed anymore
     expr->deleteLater();
-
-    emit variablesAdded(addedVars);
-    emit variablesRemoved(removedVars);
 }
 
 void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
@@ -243,23 +208,9 @@ MaximaSession* MaximaVariableModel::maximaSession()
     return static_cast<MaximaSession*> (session());
 }
 
-QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::variables()
-{
-    return m_variables;
-}
-
 QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::functions()
 {
     return m_functions;
-}
-
-QStringList MaximaVariableModel::variableNames()
-{
-    QStringList names;
-    for (const Cantor::DefaultVariableModel::Variable& var : m_variables)
-        names<<var.name;
-
-    return names;
 }
 
 QStringList MaximaVariableModel::functionNames(bool stripParameters)

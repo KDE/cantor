@@ -84,6 +84,16 @@ public:
      */
     Session* session() const;
 
+    /**
+     * Returns variables, stored in this model, as @see Variable.
+     */
+    QList<Variable> variables() const;
+
+    /**
+     * Returns names of stored variables
+     */
+    QStringList variableNames() const;
+
 public Q_SLOTS:
     /**
      * Adds a variable to the model.
@@ -113,6 +123,18 @@ public Q_SLOTS:
      */
     void clearVariables();
 
+Q_SIGNALS:
+    /**
+     * Emitted after adding new variables
+     * @param variables list of new variables
+     */
+    void variablesAdded(const QStringList& variables);
+
+    /**
+     * Emitted after variables removing
+     * @param variables list of removed variables
+     */
+    void variablesRemoved(const QStringList& variables);
 
 protected:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
@@ -122,6 +144,8 @@ protected:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
+
+    void setVariables(const QList<DefaultVariableModel::Variable>& newVars);
 
     enum Column
     {

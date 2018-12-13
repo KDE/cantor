@@ -146,10 +146,12 @@ void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Varia
     Q_D(DefaultVariableModel);
     if ( d->variables.contains(variable) )
     {
+        // TODO: Why we remove variable here?
         removeVariable(variable);
     }
     beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
     d->variables.append(variable);
+    emit variablesAdded(QStringList(variable.name));
     endInsertRows();
 }
 
@@ -166,23 +168,102 @@ void DefaultVariableModel::removeVariable(const Cantor::DefaultVariableModel::Va
     int row = d->variables.indexOf(variable);
     if(row==-1)
         return;
+    const QString& name = variable.name;
     beginRemoveRows(QModelIndex(), row, row);
     d->variables.removeAt(row);
     endRemoveRows();
+    emit variablesRemoved(QStringList(name));
 }
 
 void DefaultVariableModel::clearVariables()
 {
     Q_D(DefaultVariableModel);
     beginResetModel();
+
+    QStringList names;
+    for (const Variable var: d->variables)
+        names.append(var.name);
+
     d->variables.clear();
     endResetModel();
+
+    emit variablesRemoved(names);
+}
+
+void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variable>& newVars)
+{
+    Q_D(DefaultVariableModel);
+
+    QStringList addedVars;
+    QStringList removedVars;
+
+    // Handle deleted vars
+    for (const Variable var : variables())
+    {
+        bool found = false;
+        for (const Variable& newvar : newVars)
+            if(var.name == newvar.name)
+            {
+                found=true;
+                break;
+            }
+
+        if (!found)
+            removedVars << var.name;
+    }
+
+    // Handle added vars
+    const int size = d->variables.size();
+    for (const Variable newvar : newVars)
+    {
+        bool found = false;
+        for (int i = 0; i < size; i++)
+            if(d->variables[i].name == newvar.name)
+            {
+                found=true;
+                break;
+            }
+
+        if (!found)
+        {
+            addedVars << newvar.name;
+            beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
+            d->variables.append(newvar);
+            endInsertRows();
+        }
+    }
+
+    for (const QString& var: removedVars)
+    {
+        int row = d->variables.indexOf(Variable{var,QString()});
+        beginRemoveRows(QModelIndex(), row, row);
+        d->variables.removeAt(row);
+        endRemoveRows();
+    }
+
+    emit variablesAdded(addedVars);
+    emit variablesRemoved(removedVars);
 }
 
 Session* DefaultVariableModel::session() const
 {
     Q_D(const DefaultVariableModel);
     return d->session;
+}
+
+QList<DefaultVariableModel::Variable> DefaultVariableModel::variables() const
+{
+    Q_D(const DefaultVariableModel);
+    return d->variables;
+}
+
+QStringList DefaultVariableModel::variableNames() const
+{
+    Q_D(const DefaultVariableModel);
+    QStringList names;
+    for (const Variable var: d->variables)
+        names << var.name;
+    return names;
 }
 
 bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor::DefaultVariableModel::Variable& other)
