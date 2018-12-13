@@ -194,6 +194,7 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 {
     Cantor::Expression* expression = expressionQueue().first();
     const QString& cmd = expression->command();
+    bool isInternal = expression->isInternal();
     qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
@@ -208,7 +209,7 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
             //if we are done with all the commands in the queue,
             //use the opportunity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
 
-            if(!m_variableModel->isUpdateCommand(cmd))
+            if(!isInternal || !m_variableModel->isUpdateCommand(cmd))
                 m_variableModel->update();
             else
                 changeStatus(Cantor::Session::Done);
