@@ -32,6 +32,7 @@ class DefaultVariableModel;
 
 class KDirWatch;
 class OctaveExpression;
+class OctaveVariableModel;
 class KProcess;
 
 
@@ -51,9 +52,6 @@ class OctaveSession : public Cantor::Session
         QAbstractItemModel* variableModel() override;
         void runFirstExpression() override;
 
-    Q_SIGNALS:
-        void variablesChanged();
-
     private:
         const static QRegExp PROMPT_UNCHANGEABLE_COMMAND;
 
@@ -67,10 +65,11 @@ class OctaveSession : public Cantor::Session
         KDirWatch* m_watch;
         QString m_tempDir;
         bool m_syntaxError;
+        bool m_needUpdate;
 
         QString m_output;
 
-        Cantor::DefaultVariableModel* m_variableModel;
+        OctaveVariableModel* m_variableModel;
 
     private:
         void readFromOctave(QByteArray data);
