@@ -94,6 +94,12 @@ public:
      */
     QStringList variableNames() const;
 
+    //TODO: improve the description?
+    /**
+     * Starts updating variable model (variable lists, etc.). Usually executed after finished all user's commands
+     */
+    virtual void update() {};
+
 public Q_SLOTS:
     /**
      * Adds a variable to the model.

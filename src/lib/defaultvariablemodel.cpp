@@ -146,7 +146,7 @@ void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Varia
     Q_D(DefaultVariableModel);
     if ( d->variables.contains(variable) )
     {
-        // TODO: Why we remove variable here?
+        // TODO: Why we remove variable here? Set value properly
         removeVariable(variable);
     }
     beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
@@ -221,6 +221,14 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
             if(d->variables[i].name == newvar.name)
             {
                 found=true;
+                if (d->variables[i].value != newvar.value)
+                {
+                    qDebug() << "--- update value for variable" << newvar.name << "to" << newvar.value;
+                    QModelIndex index = createIndex(i, ValueColumn);
+                    QAbstractItemModel::setData(index, newvar.value);
+                    d->variables[i].value = newvar.value;
+                    emit dataChanged(index, index);
+                }
                 break;
             }
 

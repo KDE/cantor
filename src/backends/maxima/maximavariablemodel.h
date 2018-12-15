@@ -43,16 +43,17 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     QStringList functionNames(bool stripParameters=false);
 
     bool isUpdateCommand(const QString &cmd) const;
+
   public Q_SLOTS:
-      void update();
+    void update() override;
 
   private Q_SLOTS:
-      void parseNewVariables(Cantor::Expression::Status status);
-      void parseNewFunctions(Cantor::Expression::Status status);
+    void parseNewVariables(Cantor::Expression::Status status);
+    void parseNewFunctions(Cantor::Expression::Status status);
 
   Q_SIGNALS:
-      void functionsAdded(const QStringList variables);
-      void functionsRemoved(const QStringList variables);
+    void functionsAdded(const QStringList variables);
+    void functionsRemoved(const QStringList variables);
 
   private:
     MaximaSession* maximaSession();
