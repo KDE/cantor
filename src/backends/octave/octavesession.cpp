@@ -78,27 +78,27 @@ void OctaveSession::login()
     args << QLatin1String("--eval");
     args << QString::fromLatin1("addpath %1;").arg(octaveScriptInstallDir);
 
+    // Print the temp dir, used for plot files
+    args << QLatin1String("--eval");
+    args << QLatin1String("printf('%s\\n', ['____TMP_DIR____ = ' tempdir]);");
+
+    // Do not show extra text in help commands
+    args << QLatin1String("--eval");
+    args << QLatin1String("suppress_verbose_help_message(1);");
+
     if (OctaveSettings::integratePlots())
     {
         // Do not show the popup when plotting, rather only print to a file
         args << QLatin1String("--eval");
-        args << QLatin1String("graphics_toolkit gnuplot;");
-        args << QLatin1String("--eval");
         args << QLatin1String("set (0, \"defaultfigurevisible\",\"off\");");
+        args << QLatin1String("--eval");
+        args << QLatin1String("graphics_toolkit gnuplot;");
     }
     else
     {
         args << QLatin1String("--eval");
         args << QLatin1String("set (0, \"defaultfigurevisible\",\"on\");");
     }
-
-    // Do not show extra text in help commands
-    args << QLatin1String("--eval");
-    args << QLatin1String("suppress_verbose_help_message(1);");
-
-    // Print the temp dir, used for plot files
-    args << QLatin1String("--eval");
-    args << QLatin1String("____TMP_DIR____ = tempdir");
 
     if (OctaveSettings::integratePlots())
     {
