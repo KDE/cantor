@@ -252,14 +252,34 @@ void TestJulia::testAutoCompletion()
 {
     auto prefix = QLatin1String("ex");
     auto completionObject = session()->completionFor(prefix);
-    // Give sometime for Qt's singleShot in fetch completions to trigger
-    QTest::qWait(1000);
+    waitForSignal(completionObject, SIGNAL(fetchingDone()));
     auto completions = completionObject->completions();
 
     QStringList completionsToCheck;
     completionsToCheck << QLatin1String("exit");
     completionsToCheck << QLatin1String("exponent");
     completionsToCheck << QLatin1String("exp");
+
+    for (auto completion : completionsToCheck) {
+        QVERIFY(completions.contains(completion));
+    }
+
+    for (auto completion : completions) {
+        QVERIFY(completion.startsWith(prefix));
+    }
+}
+
+void TestJulia::testComplexAutocompletion()
+{
+    auto prefix = QLatin1String("Base.Ma");
+    auto completionObject = session()->completionFor(prefix);
+    waitForSignal(completionObject, SIGNAL(fetchingDone()));
+    auto completions = completionObject->completions();
+
+    QStringList completionsToCheck;
+    completionsToCheck << QLatin1String("Base.MainInclude");
+    completionsToCheck << QLatin1String("Base.Math");
+    completionsToCheck << QLatin1String("Base.Matrix");
 
     for (auto completion : completionsToCheck) {
         QVERIFY(completions.contains(completion));

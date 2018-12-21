@@ -76,8 +76,12 @@ void JuliaCompletionObject::fetchCompletions()
         QStringList completions = result.split(QLatin1String("__CANTOR_DELIM__"));
         if (command().contains(QLatin1Char('.')))
             for(QString& word : completions)
-                if (!word.startsWith(command()))
-                    word.prepend(command());
+            {
+                const int i = command().lastIndexOf(QLatin1Char('.'));
+                const QString& prefix = command().remove(i, command().size()-i) + QLatin1Char('.');
+                if (!word.startsWith(prefix))
+                    word.prepend(prefix);
+            }
 
         setCompletions(completions);
         emit fetchingDone();
