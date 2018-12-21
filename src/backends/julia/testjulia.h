@@ -78,6 +78,7 @@ private Q_SLOTS:
      * Test that auto completion provides expected results
      */
     void testAutoCompletion();
+    void testComplexAutocompletion();
 
 private:
     QString backendName() override;
