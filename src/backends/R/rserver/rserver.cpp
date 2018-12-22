@@ -431,13 +431,24 @@ void RServer::listSymbols()
     /* Obtaining a list of user namespace objects */
     SEXP usr=PROTECT(R_tryEval(lang1(install("ls")),nullptr,&errorOccurred));
     for (int i=0;i<length(usr);i++)
+    {
+        SEXP object = STRING_ELT(usr,i);
+        const QString& name = QString::fromUtf8(translateCharUTF8(object));
+        SEXP value = findVar(installChar(object), R_GlobalEnv);
+
+        if (Rf_isFunction(value))
+            funcs << name;
+        else
         {
-        SEXP variable = STRING_ELT(usr,i);
-        vars << QString::fromUtf8(translateCharUTF8(variable));
-        SEXP value = findVar(installChar(variable), R_GlobalEnv);
-        SEXP valueAsString = PROTECT(R_tryEval(lang2(install("toString"),value),nullptr,&errorOccurred));
-        values << QString::fromUtf8(translateCharUTF8(asChar(valueAsString)));
+            int convertStatus;
+            SEXP valueAsString = PROTECT(R_tryEval(lang2(install("toString"),value),nullptr,&convertStatus));
+            if (convertStatus == 0)
+            {
+                vars << name;
+                values << QString::fromUtf8(translateCharUTF8(asChar(valueAsString)));
+            }
         }
+    }
     UNPROTECT(1);
 
     /* Obtaining a list of active packages */
