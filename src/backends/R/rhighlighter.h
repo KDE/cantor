@@ -35,15 +35,17 @@ class RHighlighter : public Cantor::DefaultHighlighter
     void highlightBlock(const QString &text) override;
 
   public Q_SLOTS:
-    void refreshSyntaxRegExps();
-    void updateHighlighting();
-
-  Q_SIGNALS:
-    void syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&);
+    void addUserVariable(const QStringList& vars);
+    void removeUserVariable(const QStringList& vars);
+    void addUserFunction(const QStringList& funcs);
+    void removeUserFunction(const QStringList& funcs);
 
   private:
     inline void formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);
     inline void massFormat(const QVector<QRegExp>& rules, const QTextCharFormat &fmt, const QString& text,bool shift=false);
+
+    void addUserStuff(const QStringList& names, QVector<QRegExp>& vector);
+    void removeUserStuff(const QStringList& names, QVector<QRegExp>& vector);
 
     static const QStringList operators_list;
     static const QStringList specials_list;

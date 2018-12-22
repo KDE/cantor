@@ -12,6 +12,7 @@ set( RBackend_SRCS
   rhighlighter.cpp
   rkeywords.cpp
   rsettingswidget.cpp
+  rvariablemodel.cpp
 )
 
 kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)

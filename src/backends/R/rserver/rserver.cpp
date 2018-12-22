@@ -114,9 +114,6 @@ void RServer::initR()
     }
 
     qDebug()<<"done initializing";
-
-    // FIXME: other way to search symbols, see listSymbols for details
-    listSymbols();
 }
 
 //Code from the RInside library
@@ -370,9 +367,6 @@ void RServer::runCommand(const QString& cmd, bool internal)
         showFiles(neededFiles);
 
     setStatus(Idle);
-
-    // FIXME: Calling this every evaluation is probably ugly
-    listSymbols();
 }
 
 void RServer::completeCommand(const QString& cmd)
@@ -423,7 +417,7 @@ void RServer::completeCommand(const QString& cmd)
 
 void RServer::listSymbols()
 {
-//     setStatus(RServer::Busy);
+    setStatus(RServer::Busy);
 
     QStringList vars, values, funcs;
     int errorOccurred; // TODO: error checks
@@ -466,8 +460,7 @@ void RServer::listSymbols()
     UNPROTECT(1);
 
     emit symbolList(vars, values, funcs);
-
-//     setStatus(RServer::Idle);
+    setStatus(Idle);
 }
 
 void RServer::setStatus(Status status)

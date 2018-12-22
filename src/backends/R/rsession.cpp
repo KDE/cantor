@@ -23,6 +23,7 @@
 #include "rexpression.h"
 #include "rcompletionobject.h"
 #include "rhighlighter.h"
+#include "rvariablemodel.h"
 #include <defaultvariablemodel.h>
 
 #include <QTimer>
@@ -33,7 +34,11 @@
 #include <signal.h>
 #endif
 
-RSession::RSession(Cantor::Backend* backend) : Session(backend), m_process(nullptr), m_rServer(nullptr), m_variableModel(new Cantor::DefaultVariableModel(this))
+RSession::RSession(Cantor::Backend* backend) : Session(backend),
+m_process(nullptr),
+m_rServer(nullptr),
+m_variableModel(new RVariableModel(this)),
+m_needUpdate(false)
 {
 }
 
@@ -53,6 +58,7 @@ void RSession::login()
 
     m_process = new QProcess(this);
     m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
+
     m_process->waitForStarted();
     m_process->waitForReadyRead();
     qDebug()<<m_process->readAllStandardOutput();
@@ -60,7 +66,6 @@ void RSession::login()
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
-    connect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)),this,SLOT(receiveSymbols(QStringList,QStringList,QStringList)));
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -73,8 +78,7 @@ void RSession::logout()
     m_process->terminate();
 
     m_variableModel->clearVariables();
-    m_variables.clear();
-    m_functions.clear();
+    m_variableModel->clearFunctions();
     emit symbolsChanged();
 
     changeStatus(Status::Disable);
@@ -129,38 +133,11 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command, int in
 QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
 {
     RHighlighter *h=new RHighlighter(parent);
-    connect(h,SIGNAL(syntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)),this,SLOT(fillSyntaxRegExps(QVector<QRegExp>&,QVector<QRegExp>&)));
-    connect(this,SIGNAL(symbolsChanged()),h,SLOT(refreshSyntaxRegExps()));
-    connect(this,SIGNAL(syntaxRegExpsFilled()), h, SLOT(updateHighlighting()));
+    connect(m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, h, &RHighlighter::addUserVariable);
+    connect(m_variableModel, &Cantor::DefaultVariableModel::variablesRemoved, h, &RHighlighter::removeUserVariable);
+    connect(m_variableModel, &RVariableModel::functionsAdded, h, &RHighlighter::addUserFunction);
+    connect(m_variableModel, &RVariableModel::functionsRemoved, h, &RHighlighter::removeUserFunction);
     return h;
-}
-
-void RSession::fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f)
-{
-    // WARNING: current implementation as-in-maxima is a performance hit
-    // think about grouping expressions together or only fetching needed ones
-    v.clear(); f.clear();
-
-    foreach (const QString s, m_variables)
-        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
-            v.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
-    foreach (const QString s, m_functions)
-        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
-            f.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
-
-    emit syntaxRegExpsFilled();
-}
-
-void RSession::receiveSymbols(const QStringList& vars, const QStringList& values, const QStringList & funcs)
-{
-    m_variables = vars;
-    for (int i = 0; i < vars.count(); i++)
-        {
-        m_variableModel->addVariable(vars[i], values[i]);
-        }
-    m_functions = funcs;
-
-    emit symbolsChanged();
 }
 
 void RSession::serverChangedStatus(int status)
@@ -171,11 +148,18 @@ void RSession::serverChangedStatus(int status)
         if(!expressionQueue().isEmpty())
         {
             RExpression* expr = static_cast<RExpression*>(expressionQueue().takeFirst());
+            m_needUpdate |= !expr->isInternal();
             qDebug()<<"done running "<<expr<<" "<<expr->command();
         }
 
         if(expressionQueue().isEmpty())
-            changeStatus(Cantor::Session::Done);
+            if (m_needUpdate)
+            {
+                m_needUpdate = false;
+                m_variableModel->update();
+            }
+            else
+                changeStatus(Cantor::Session::Done);
         else
             runFirstExpression();
     }
@@ -214,4 +198,11 @@ void RSession::sendInputToServer(const QString& input)
 QAbstractItemModel* RSession::variableModel()
 {
     return m_variableModel;
+}
+
+void RSession::updateSymbols(const RVariableModel* model)
+{
+    disconnect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)));
+    connect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)), model, SLOT(parseResult(QStringList,QStringList,QStringList)));
+    m_rServer->listSymbols();
 }

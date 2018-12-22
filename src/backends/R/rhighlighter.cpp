@@ -42,11 +42,6 @@ RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
         specials.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
 }
 
-void RHighlighter::refreshSyntaxRegExps()
-{
-    emit syntaxRegExps(variables,functions);
-}
-
 // FIXME: due to lack of lookbehinds in QRegExp here we use a flag showing if we need to shift the boundary of formatting
 // to make up for the accidentally matched character
 void RHighlighter::formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift)
@@ -86,7 +81,44 @@ void RHighlighter::highlightBlock(const QString& text)
     formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
 }
 
-void RHighlighter::updateHighlighting()
+void RHighlighter::addUserStuff(const QStringList& names, QVector<QRegExp>& vector)
 {
+    for (const QString s : names)
+        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
+            vector.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
+
     emit rulesChanged();
+}
+
+void RHighlighter::removeUserStuff(const QStringList& names, QVector<QRegExp>& vector)
+{
+    for (const QString var : names)
+        for (int i = 0; i < vector.size(); i++)
+            if (vector[i].pattern() == QLatin1String("\\b")+var+QLatin1String("\\b"))
+            {
+                vector.remove(i);
+                break;
+            }
+
+    emit rulesChanged();
+}
+
+void RHighlighter::addUserVariable(const QStringList& vars)
+{
+    addUserStuff(vars, variables);
+}
+
+void RHighlighter::removeUserVariable(const QStringList& vars)
+{
+    removeUserStuff(vars, variables);
+}
+
+void RHighlighter::removeUserFunction(const QStringList& funcs)
+{
+    removeUserStuff(funcs, functions);
+}
+
+void RHighlighter::addUserFunction(const QStringList& funcs)
+{
+    addUserStuff(funcs, functions);
 }

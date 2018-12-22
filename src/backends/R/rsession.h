@@ -29,6 +29,7 @@
 
 class RExpression;
 class QProcess;
+class RVariableModel;
 
 namespace Cantor {
 class DefaultVariableModel;
@@ -50,26 +51,22 @@ class RSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     QAbstractItemModel* variableModel() override;
-    void sendInputToServer(const QString& input);
     void runFirstExpression() override;
 
+    void sendInputToServer(const QString& input);
+    void updateSymbols(const RVariableModel* model);
   protected Q_SLOTS:
     void serverChangedStatus(int status);
-    void receiveSymbols(const QStringList& vars, const QStringList& values, const QStringList & funcs);
-    void fillSyntaxRegExps(QVector<QRegExp>& v, QVector<QRegExp>& f);
 
   Q_SIGNALS:
     void symbolsChanged();
-    void syntaxRegExpsFilled();
 
   private:
     QProcess* m_process;
     org::kde::Cantor::R* m_rServer;
 
-    /* Available variables and functions, TODO make full classes and type info */
-    Cantor::DefaultVariableModel* m_variableModel;
-    QStringList m_variables;
-    QStringList m_functions;
+    RVariableModel* m_variableModel;
+    bool m_needUpdate;
 };
 
 #endif /* _RSESSION_H */
