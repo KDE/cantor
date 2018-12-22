@@ -32,33 +32,43 @@
 const QString MaximaVariableModel::inspectCommand=QLatin1String(":lisp($disp $%1)");
 const QString MaximaVariableModel::variableInspectCommand=QLatin1String(":lisp(cantor-inspect $%1)");
 
-MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session)
+MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session),
+m_variableExpression(nullptr),
+m_functionExpression(nullptr)
 {
 }
 
-void MaximaVariableModel::clear()
+void MaximaVariableModel::clearFunctions()
 {
     emit functionsRemoved(functionNames());
     m_functions.clear();
-    DefaultVariableModel::clearVariables();
 }
 
 void MaximaVariableModel::update()
 {
-    qDebug()<<"checking for new variables";
-    const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
-    Cantor::Expression* expr1=session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(expr1, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
+    if (!m_variableExpression)
+    {
+        qDebug()<<"checking for new variables";
+        const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
+        m_variableExpression = session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_variableExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
+    }
 
-    qDebug()<<"checking for new functions";
-    const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
-    Cantor::Expression* expr2=session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(expr2, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
+    if (!m_functionExpression)
+    {
+        qDebug()<<"checking for new functions";
+        const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
+        m_functionExpression = session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_functionExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
+    }
 }
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
-    if(!expr || expr->status()!=Cantor::Expression::Done || expr->results().isEmpty()) {
+    if(!expr
+        || (expr->status()!=Cantor::Expression::Done && expr->errorMessage() != QLatin1String("$DONE"))
+        || expr->results().isEmpty())
+    {
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 
@@ -138,13 +148,13 @@ void MaximaVariableModel::parseNewVariables(Cantor::Expression::Status status)
         return;
 
     qDebug()<<"parsing variables";
-    MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
-    QList<Variable> newVars=parse(expr);
+    QList<Variable> newVars=parse(static_cast<MaximaExpression*>(m_variableExpression));
     setVariables(newVars);
 
     //the expression is not needed anymore
-    expr->deleteLater();
+    m_variableExpression->deleteLater();
+    m_variableExpression = nullptr;
 }
 
 void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
@@ -153,54 +163,49 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
         return;
 
     qDebug()<<"parsing functions";
-    MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
-    QList<Variable> newVars=parse(expr);
-    QStringList addedVars;
-    QStringList removedVars;
+    // List of variables?
+    QList<Variable> newFuncs=parse(static_cast<MaximaExpression*>(m_functionExpression));
+    QStringList addedFuncs;
+    QStringList removedFuncs;
 
     //remove the old variables
-    for (const Variable& var : m_functions)
+    int i = 0;
+    while (i < m_functions.size())
     {
         //check if this var is present in the new variables
         bool found=false;
-        for (const Variable& var2 : newVars)
-        {
-            if(var.name==var2.name)
+        for (const Variable& func : newFuncs)
+            if(m_functions[i] == func.name)
             {
                 found=true;
                 break;
             }
-        }
 
         if(!found)
         {
-            removeVariable(var);
-            removedVars<<var.name;
+            removedFuncs<<m_functions[i];
+            m_functions.removeAt(i);
+        }
+        else
+            i++;
+    }
+
+    for (Variable func : newFuncs)
+    {
+        if (!m_functions.contains(func.name))
+        {
+            addedFuncs<<func.name;
+            m_functions.append(func.name);
         }
     }
 
-    for (Variable var : newVars)
-    {
-        var.value=i18n("function");
-        addVariable(var);
-        //todo: check if the variable is actually new?
-        addedVars<<var.name;
-    }
-
-    m_functions=newVars;
-
     //the expression is not needed anymore
-    expr->deleteLater();
+    m_functionExpression->deleteLater();
+    m_functionExpression = nullptr;
 
-    emit functionsAdded(addedVars);
-    emit functionsRemoved(removedVars);
-}
-
-bool MaximaVariableModel::isUpdateCommand(const QString& cmd) const
-{
-    return cmd == variableInspectCommand.arg(QLatin1String("values"))
-        || cmd == inspectCommand.arg(QLatin1String("functions"));
+    emit functionsAdded(addedFuncs);
+    emit functionsRemoved(removedFuncs);
 }
 
 MaximaSession* MaximaVariableModel::maximaSession()
@@ -208,17 +213,12 @@ MaximaSession* MaximaVariableModel::maximaSession()
     return static_cast<MaximaSession*> (session());
 }
 
-QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::functions()
-{
-    return m_functions;
-}
-
 QStringList MaximaVariableModel::functionNames(bool stripParameters)
 {
     QStringList names;
-    for (const Cantor::DefaultVariableModel::Variable& var : m_functions)
+    for (const QString func: m_functions)
     {
-        QString name=var.name;
+        QString name=func;
         if(stripParameters)
         {
             name=name.left(name.lastIndexOf(QLatin1Char('(')));

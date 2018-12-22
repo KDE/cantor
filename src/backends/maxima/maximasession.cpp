@@ -50,7 +50,8 @@ const QRegExp MaximaSession::MaximaInputPrompt = QRegExp(QLatin1String("(\\(\\s*
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
     m_process(nullptr),
     m_variableModel(new MaximaVariableModel(this)),
-    m_justRestarted(false)
+    m_justRestarted(false),
+    m_needUpdate(false)
 {
 }
 
@@ -89,6 +90,7 @@ void MaximaSession::login()
         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String(";"));
         autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish, true);
+        m_needUpdate = true;
     }
 
     changeStatus(Session::Done);
@@ -122,7 +124,8 @@ void MaximaSession::logout()
     expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
-    m_variableModel->clear();
+    m_variableModel->clearVariables();
+    m_variableModel->clearFunctions();
 
     changeStatus(Status::Disable);
 
@@ -194,7 +197,7 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 {
     Cantor::Expression* expression = expressionQueue().first();
     const QString& cmd = expression->command();
-    bool isInternal = expression->isInternal();
+    m_needUpdate |= !expression->isInternal();
     qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
     if(status!=Cantor::Expression::Computing) //The session is ready for the next command
@@ -206,11 +209,11 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
         expressionQueue().removeFirst();
         if(expressionQueue().isEmpty())
         {
-            //if we are done with all the commands in the queue,
-            //use the opportunity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
-
-            if(!isInternal || !m_variableModel->isUpdateCommand(cmd))
+            if(m_needUpdate)
+            {
                 m_variableModel->update();
+                m_needUpdate = false;
+            }
             else
                 changeStatus(Cantor::Session::Done);
         }else

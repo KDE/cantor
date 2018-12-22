@@ -70,6 +70,7 @@ class MaximaSession : public Cantor::Session
     QString m_cache;
     MaximaVariableModel* m_variableModel;
     bool m_justRestarted;
+    bool m_needUpdate;
 };
 
 #endif /* _MAXIMASESSION_H */
