@@ -65,10 +65,7 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
 
             // Result always must be, if we done, so don't check it
             QString text = static_cast<Cantor::TextResult*>(m_expr->result())->plain();
-
-            qDebug() << "---- text" << text;
             const QStringList& lines = text.split(delimiter, QString::SkipEmptyParts);
-            qDebug() << "---- lines" << lines;
 
             QList<Variable> vars;
             for (QString line : lines)
@@ -76,12 +73,9 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
                 line = line.trimmed();
                 const QString& name = line.section(QLatin1String("\n"), 0, 0);
                 const QString& value = line.section(QLatin1String("\n"), 1);
-                qDebug() << "--- name" << name;
-                qDebug() << "--- value" << value;
                 vars << Variable{name, value};
             }
 
-            qDebug() << "--- vars size" << vars.size();
             setVariables(vars);
             break;
         }

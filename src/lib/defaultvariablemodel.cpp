@@ -198,8 +198,10 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
     QStringList removedVars;
 
     // Handle deleted vars
-    for (const Variable var : variables())
+    int i = 0;
+    while (i < d->variables.size())
     {
+        Variable var = d->variables[i];
         bool found = false;
         for (const Variable& newvar : newVars)
             if(var.name == newvar.name)
@@ -209,7 +211,14 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
             }
 
         if (!found)
+        {
             removedVars << var.name;
+            beginRemoveRows(QModelIndex(), i, i);
+            d->variables.removeAt(i);
+            endRemoveRows();
+        }
+        else
+            i++;
     }
 
     // Handle added vars
@@ -223,7 +232,6 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
                 found=true;
                 if (d->variables[i].value != newvar.value)
                 {
-                    qDebug() << "--- update value for variable" << newvar.name << "to" << newvar.value;
                     QModelIndex index = createIndex(i, ValueColumn);
                     QAbstractItemModel::setData(index, newvar.value);
                     d->variables[i].value = newvar.value;
@@ -239,14 +247,6 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
             d->variables.append(newvar);
             endInsertRows();
         }
-    }
-
-    for (const QString& var: removedVars)
-    {
-        int row = d->variables.indexOf(Variable{var,QString()});
-        beginRemoveRows(QModelIndex(), row, row);
-        d->variables.removeAt(row);
-        endRemoveRows();
     }
 
     emit variablesAdded(addedVars);

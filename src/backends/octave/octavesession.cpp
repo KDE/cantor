@@ -283,8 +283,6 @@ void OctaveSession::readOutput()
         if (line.contains(m_prompt))
         {
             const int promptNumber = m_prompt.cap(1).toInt();
-            qDebug() << "--- promptNumber" << promptNumber;
-            qDebug() << "--- m_previousPromptNumber" << m_previousPromptNumber;
             if (!expressionQueue().isEmpty())
             {
                 const QString& command = expressionQueue().first()->command();
@@ -328,7 +326,6 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
         if (expressionQueue().isEmpty())
             if (m_needUpdate)
             {
-                qDebug() << "--- update";
                 m_variableModel->update();
                 m_needUpdate = false;
             }
