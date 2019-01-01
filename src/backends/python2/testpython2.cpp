@@ -55,5 +55,33 @@ void TestPython2::testCodeWithComments()
     }
 }
 
+void TestPython2::testSimpleCode()
+{
+    Cantor::Expression* e=evalExp( QLatin1String("2+2"));
+
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
+
+    QString result=e->result()->toHtml();
+
+    QCOMPARE( cleanOutput(result ), QLatin1String("4") );
+}
+
+void TestPython2::testMultilineCode()
+{
+    Cantor::Expression* e=evalExp(QLatin1String(
+        "a = 2+2\n"
+        "b = 3+3\n"
+        "print a,b"
+    ));
+
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
+
+    QString result=e->result()->toHtml();
+
+    QCOMPARE( cleanOutput(result ), QLatin1String("4 6") );
+}
+
 QTEST_MAIN(TestPython2)
 
