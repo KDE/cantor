@@ -675,6 +675,8 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         updateLayout();
         emit modified();
     }
+    else
+        entry = prev;
 
     focusEntry(entry);
     return entry;
