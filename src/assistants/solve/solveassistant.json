@@ -57,7 +57,7 @@
         "Name[tr]": "Çözümle",
         "Name[uk]": "Розв’язати",
         "Name[x-test]": "xxSolvexx",
-        "Name[zh_CN]": "解方程式",
+        "Name[zh_CN]": "解答",
         "Name[zh_TW]": "解決",
         "ServiceTypes": [
             "Cantor/Assistant"
