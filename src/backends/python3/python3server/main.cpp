@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    const QString& serviceName = QString::fromLatin1("org.kde.Cantor.Python3-%1").arg(app.applicationPid());
+    const QString& serviceName = QStringLiteral("org.kde.Cantor.Python3-%1").arg(app.applicationPid());
 
     if (!QDBusConnection::sessionBus().registerService(serviceName))
     {
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
     }
 
     PythonServer server;
-    QDBusConnection::sessionBus().registerObject(QString::fromLatin1("/"), &server, QDBusConnection::ExportAllSlots);
+    QDBusConnection::sessionBus().registerObject(QStringLiteral("/"), &server, QDBusConnection::ExportAllSlots);
 
     QTextStream(stdout) << "ready" << endl;
 

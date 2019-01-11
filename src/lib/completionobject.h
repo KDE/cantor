@@ -215,7 +215,7 @@ class CANTOR_EXPORT CompletionObject : public KCompletion
      * @param line the new line
      * @param index the new cursor index
      */
-    void lineDone(QString line, int index);
+    void lineDone(const QString &line, int index);
   private:
     CompletionObjectPrivate* d;
 };

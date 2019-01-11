@@ -49,12 +49,12 @@ ImageResult::~ImageResult()
 
 QString ImageResult::toHtml()
 {
-    return QString::fromLatin1("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
+    return QStringLiteral("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
 }
 
 QString ImageResult::toLatex()
 {
-    return QString::fromLatin1(" \\begin{center} \n \\includegraphics[width=12cm]{%1} \n \\end{center}").arg(d->url.fileName());
+    return QStringLiteral(" \\begin{center} \n \\includegraphics[width=12cm]{%1} \n \\end{center}").arg(d->url.fileName());
 }
 
 QVariant ImageResult::data()
@@ -91,9 +91,9 @@ QString ImageResult::mimeType()
 QDomElement ImageResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving imageresult "<<toHtml();
-    QDomElement e=doc.createElement(QLatin1String("Result"));
-    e.setAttribute(QLatin1String("type"), QLatin1String("image"));
-    e.setAttribute(QLatin1String("filename"), d->url.fileName());
+    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    e.setAttribute(QStringLiteral("type"), QStringLiteral("image"));
+    e.setAttribute(QStringLiteral("filename"), d->url.fileName());
     qDebug()<<"done";
 
     return e;

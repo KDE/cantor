@@ -53,8 +53,8 @@ int HelpResult::type()
 QDomElement HelpResult::toXml(QDomDocument& doc)
 {
     //No need to save results of a help request
-    QDomElement e=doc.createElement(QLatin1String("Result"));
-    e.setAttribute(QLatin1String("type"), QLatin1String("help"));
+    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    e.setAttribute(QStringLiteral("type"), QStringLiteral("help"));
     return e;
 }
 
@@ -70,7 +70,7 @@ QVariant HelpResult::data()
 
 QString HelpResult::mimeType()
 {
-    return QLatin1String("text/html");
+    return QStringLiteral("text/html");
 }
 
 void HelpResult::save(const QString& filename)

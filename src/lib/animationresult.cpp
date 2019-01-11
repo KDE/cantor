@@ -56,7 +56,7 @@ AnimationResult::~AnimationResult()
 
 QString AnimationResult::toHtml()
 {
-    return QString::fromLatin1("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
+    return QStringLiteral("<img src=\"%1\" alt=\"%2\"/>").arg(d->url.toLocalFile(), d->alt);
 }
 
 QVariant AnimationResult::data()
@@ -85,9 +85,9 @@ QString AnimationResult::mimeType()
 QDomElement AnimationResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving imageresult "<<toHtml();
-    QDomElement e=doc.createElement(QLatin1String("Result"));
-    e.setAttribute(QLatin1String("type"), QLatin1String("animation"));
-    e.setAttribute(QLatin1String("filename"), d->url.fileName());
+    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    e.setAttribute(QStringLiteral("type"), QStringLiteral("animation"));
+    e.setAttribute(QStringLiteral("filename"), d->url.fileName());
     qDebug()<<"done";
 
     return e;

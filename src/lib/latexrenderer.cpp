@@ -167,8 +167,8 @@ void LatexRenderer::render()
 void LatexRenderer::renderBlocking()
 {
     QEventLoop event;
-    connect(this, SIGNAL(done()), &event, SLOT(quit()));
-    connect(this, SIGNAL(error()), &event, SLOT(quit()));
+    connect(this, &LatexRenderer::done, &event, &QEventLoop::quit);
+    connect(this, &LatexRenderer::error, &event, &QEventLoop::quit);
 
     render();
     event.exec();
@@ -210,7 +210,7 @@ void LatexRenderer::renderWithLatex()
     KProcess *p=new KProcess( this );
     p->setWorkingDirectory(dir);
 
-    (*p)<<Settings::self()->latexCommand()<<QLatin1String("-interaction=batchmode")<<QLatin1String("-halt-on-error")<<fileName;
+    (*p)<<Settings::self()->latexCommand()<<QStringLiteral("-interaction=batchmode")<<QStringLiteral("-halt-on-error")<<fileName;
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
     p->start();
@@ -222,7 +222,7 @@ void LatexRenderer::convertToPs()
     dviFile.replace(QLatin1String(".eps"), QLatin1String(".dvi"));
     KProcess *p=new KProcess( this );
     qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
-    (*p)<<Settings::self()->dvipsCommand()<<QLatin1String("-E")<<QLatin1String("-o")<<d->latexFilename<<dviFile;
+    (*p)<<Settings::self()->dvipsCommand()<<QStringLiteral("-E")<<QStringLiteral("-o")<<d->latexFilename<<dviFile;
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
     p->start();
@@ -245,7 +245,7 @@ void LatexRenderer::convertingDone()
     }else
     {
         d->success=false;
-        setErrorMessage(QLatin1String("failed to create the latex preview image"));
+        setErrorMessage(QStringLiteral("failed to create the latex preview image"));
         emit error();
     }
 }

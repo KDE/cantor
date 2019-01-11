@@ -43,7 +43,7 @@ d_ptr(new DefaultVariableModelPrivate)
     d->session = session;
     if (session)
     {
-        d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension(QLatin1String("VariableManagementExtension")));
+        d->extension = dynamic_cast<Cantor::VariableManagementExtension*>(session->backend()->extension(QStringLiteral("VariableManagementExtension")));
     }
     qDebug() << d->session << d->extension;
 }

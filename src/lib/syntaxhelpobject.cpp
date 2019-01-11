@@ -47,7 +47,7 @@ SyntaxHelpObject::~SyntaxHelpObject()
 void SyntaxHelpObject::fetchSyntaxHelp()
 {
     //Start a delayed fetch
-    QTimer::singleShot(0, this, SLOT(fetchInformation()));
+    QTimer::singleShot(0, this, &SyntaxHelpObject::fetchInformation);
 }
 
 

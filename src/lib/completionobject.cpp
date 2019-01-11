@@ -100,7 +100,7 @@ void CompletionObject::setLine(const QString& line, int index)
     d->command=line.mid(cmd_index, index-cmd_index);
 
     //start a delayed fetch
-    QTimer::singleShot(0, this, SLOT(fetchCompletions()));
+    QTimer::singleShot(0, this, &CompletionObject::fetchCompletions);
 }
 
 void CompletionObject::updateLine(const QString& line, int index)
@@ -115,7 +115,7 @@ void CompletionObject::updateLine(const QString& line, int index)
 
     // start a delayed fetch
     // For some backends this is a lot of unnecessary work...
-    QTimer::singleShot(0, this, SLOT(fetchCompletions()));
+    QTimer::singleShot(0, this, &CompletionObject::fetchCompletions);
 }
 
 void CompletionObject::completeLine(const QString& comp, CompletionObject::LineCompletionMode mode)
@@ -127,7 +127,7 @@ void CompletionObject::completeLine(const QString& comp, CompletionObject::LineC
     } else if (mode == PreliminaryCompletion) {
 	completeUnknownLine();
     } else /* mode == FinalCompletion */ {
-	QTimer::singleShot(0, this, SLOT(fetchIdentifierType()));
+	QTimer::singleShot(0, this, &CompletionObject::fetchIdentifierType);
     }
 }
 

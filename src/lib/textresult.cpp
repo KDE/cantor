@@ -83,9 +83,9 @@ QString TextResult::mimeType()
 {
     qDebug()<<"format: "<<format();
     if(format()==TextResult::PlainTextFormat)
-        return QLatin1String("text/plain");
+        return QStringLiteral("text/plain");
     else
-        return QLatin1String("text/x-tex");
+        return QStringLiteral("text/x-tex");
 }
 
 TextResult::Format TextResult::format()
@@ -101,8 +101,8 @@ void TextResult::setFormat(TextResult::Format f)
 QDomElement TextResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving textresult "<<toHtml();
-    QDomElement e=doc.createElement(QLatin1String("Result"));
-    e.setAttribute(QLatin1String("type"), QLatin1String("text"));
+    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
     QDomText txt=doc.createTextNode(data().toString());
     e.appendChild(txt);
 

@@ -45,7 +45,7 @@ void PythonServer::login()
     Py_InspectFlag = 1;
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
-    filePath = QLatin1String("python_cantor_worksheet");
+    filePath = QStringLiteral("python_cantor_worksheet");
 }
 
 void PythonServer::runPythonCommand(const QString& command) const
