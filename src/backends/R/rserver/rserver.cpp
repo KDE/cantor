@@ -71,10 +71,7 @@ void RServer::initR()
     #include "renvvars.h"
 
     for (int i = 0; R_VARS[i] != nullptr; i+= 2)
-    {
-        if (setenv(R_VARS[i], R_VARS[i+1], 1) != 0)
-            qDebug()<<"ERROR: couldn't set/replace an R environment variable";
-    }
+	    qputenv(R_VARS[i], R_VARS[i+1]);
 
     //R_SignalHandlers = 0;               // Don't let R set up its own signal handlers
 
