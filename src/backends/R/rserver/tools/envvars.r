@@ -11,6 +11,7 @@ cat("    const char *R_VARS[] = {\n")
 for (i in 1:length(IncludeVars)){
 	if (names(IncludeVars)[i] %in% ExcludeVars)
 		next
+	IncludeVars[i] <- gsub("\\\\",'/',IncludeVars[i])
 	cat('        "',names(IncludeVars)[i],'","',IncludeVars[i],'",\n',sep='')
 }
-cat("        NULL\n    };\n")
+cat("        nullptr\n    };\n")
