@@ -418,6 +418,7 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
     if (!entry)
         return;
     entry->focusEntry();
+    resetEntryCursor();
     //bool rt = entry->acceptRichText();
     //setActionsEnabled(rt);
     //setAcceptRichText(rt);
