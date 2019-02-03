@@ -35,6 +35,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QPushButton>
+#include <QGraphicsView>
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
@@ -301,6 +302,9 @@ void CantorShell::addWorksheet(const QString& backendName)
 
                 int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
                 m_tabWidget->setCurrentIndex(tab);
+                // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
+                // This fix https://bugs.kde.org/show_bug.cgi?id=395976
+                part->widget()->findChild<QGraphicsView*>()->setFocus();
             }
             else
                 delete part;
