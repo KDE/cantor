@@ -89,6 +89,10 @@ KConfigSkeleton* RBackend::config() const
 
 QUrl RBackend::helpUrl() const
 {
+    const QUrl& localDoc = RServerSettings::self()->localDoc();
+    if (!localDoc.isEmpty())
+        return localDoc;
+    else
     return QUrl(i18nc("the url to the documentation of R, please check if there is a translated version and use the correct url",
                  "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"));
 }

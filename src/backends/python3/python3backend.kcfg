@@ -5,6 +5,9 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="cantorrc"/>
   <group name="Python3Backend">
+    <entry name="localDoc" type="Url">
+        <label>Url to the local Python documentation</label>
+    </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
       <default>false</default>
