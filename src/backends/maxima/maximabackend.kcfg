@@ -10,6 +10,9 @@
       <label>Path to the Maxima executable</label>
       <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("maxima") ))</default>
     </entry>
+    <entry name="localDoc" type="Url">
+        <label>Url to the local Maxima documentation</label>
+    </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
       <default>true</default>

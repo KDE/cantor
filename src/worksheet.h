@@ -98,6 +98,9 @@ class Worksheet : public QGraphicsScene
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
 
+    // For WorksheetEntry::startDrag
+    void resetEntryCursor();
+
     void addProtrusion(qreal width);
     void updateProtrusion(qreal oldWidth, qreal newWidth);
     void removeProtrusion(qreal width);
@@ -245,7 +248,6 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* entryAt(QPointF p);
     WorksheetEntry* entryAt(int row);
     void updateEntryCursor(QGraphicsSceneMouseEvent*);
-    void resetEntryCursor();
     void addEntryFromEntryCursor();
     void drawEntryCursor();
     int entryCount();

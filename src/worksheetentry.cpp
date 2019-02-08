@@ -191,6 +191,9 @@ void WorksheetEntry::setPrevious(WorksheetEntry* p)
 
 void WorksheetEntry::startDrag(QPointF grabPos)
 {
+    // We need reset entry cursor manually, because otherwise the entry cursor will be visible on dragable item
+    worksheet()->resetEntryCursor();
+
     QDrag* drag = new QDrag(worksheetView());
     qDebug() << size();
     const qreal scale = worksheet()->epsRenderer()->scale();

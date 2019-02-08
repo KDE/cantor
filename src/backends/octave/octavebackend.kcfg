@@ -10,6 +10,9 @@
       <label>Path to the Octave executable</label>
       <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave-cli") ))</default>
     </entry>
+    <entry name="localDoc" type="Url">
+        <label>Url to the local Octave documentation</label>
+    </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
       <default>true</default>

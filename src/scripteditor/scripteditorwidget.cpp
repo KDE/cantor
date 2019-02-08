@@ -44,13 +44,13 @@ m_editor(nullptr),
 m_script(nullptr),
 m_tmpFile(nullptr)
 {
-    setObjectName(QLatin1String("ScriptEditor"));
+    setObjectName(QStringLiteral("ScriptEditor"));
 
     KStandardAction::openNew(this, SLOT(newScript()), actionCollection());
     KStandardAction::open(this, SLOT(open()), actionCollection());
     KStandardAction::close(this, SLOT(close()), actionCollection());
-    QAction * runAction = actionCollection()->addAction(QLatin1String("file_execute"), this, SLOT(run()));
-    runAction->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
+    QAction * runAction = actionCollection()->addAction(QStringLiteral("file_execute"), this, SLOT(run()));
+    runAction->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
     runAction->setText(i18n("Run Script"));
 
     KTextEditor::Editor* editor = KTextEditor::Editor::instance();
@@ -70,7 +70,7 @@ m_tmpFile(nullptr)
         setAutoSaveSettings(cg, true);
 
         setCentralWidget(m_editor);
-        setupGUI(QSize(500,600), Default, QLatin1String("cantor_scripteditor.rc"));
+        setupGUI(QSize(500,600), Default, QStringLiteral("cantor_scripteditor.rc"));
         guiFactory()->addClient(m_editor);
 
         KWindowConfig::restoreWindowSize(this->windowHandle(), cg);
@@ -94,7 +94,7 @@ void ScriptEditorWidget::open()
     m_script->openUrl(url);
 }
 
-void ScriptEditorWidget::open(QUrl url)
+void ScriptEditorWidget::open(const QUrl &url)
 {
     m_script->openUrl(url);
 }

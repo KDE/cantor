@@ -58,7 +58,7 @@ int LatexResult::type()
 QString LatexResult::mimeType()
 {
     if(isCodeShown())
-        return QLatin1String("text/plain");
+        return QStringLiteral("text/plain");
     else
         return EpsResult::mimeType();
 }
@@ -117,10 +117,10 @@ QString LatexResult::toLatex()
 QDomElement LatexResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving textresult "<<toHtml();
-    QDomElement e=doc.createElement(QLatin1String("Result"));
-    e.setAttribute(QLatin1String("type"), QLatin1String("application/x-latex"));
+    QDomElement e=doc.createElement(QStringLiteral("Result"));
+    e.setAttribute(QStringLiteral("type"), QStringLiteral("application/x-latex"));
     QUrl url= EpsResult::data().toUrl();
-    e.setAttribute(QLatin1String("filename"), url.fileName());
+    e.setAttribute(QStringLiteral("filename"), url.fileName());
     QDomText txt=doc.createTextNode(code());
     e.appendChild(txt);
 

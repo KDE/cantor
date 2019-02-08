@@ -46,11 +46,11 @@ void Assistant::setBackend(Cantor::Backend* backend)
     d->backend=backend;
 }
 
-void Assistant::setPluginInfo(KPluginMetaData info)
+void Assistant::setPluginInfo(const KPluginMetaData &info)
 {
     d->name=info.name();
     d->icon=info.iconName();
-    d->requiredExtensions=info.value(QLatin1String("RequiredExtensions")).split(QLatin1Char(','));
+    d->requiredExtensions=info.value(QStringLiteral("RequiredExtensions")).split(QLatin1Char(','));
 }
 
 

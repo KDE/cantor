@@ -41,7 +41,7 @@ class Cantor::PanelPluginHandlerPrivate
 PanelPluginHandler::PanelPluginHandler( QObject* parent ) : QObject(parent) ,
                                                             d(new PanelPluginHandlerPrivate)
 {
-    setObjectName(QLatin1String("PanelPluginHandler"));
+    setObjectName(QStringLiteral("PanelPluginHandler"));
     d->session=nullptr;
 }
 

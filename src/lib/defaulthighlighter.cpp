@@ -94,8 +94,8 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     addPair(QLatin1Char('{'), QLatin1Char('}'));
 
     updateFormats();
-    connect(qApp, SIGNAL(paletteChanged(QPalette)),
-            this, SLOT(updateFormats()));
+    connect(qApp, &QGuiApplication::paletteChanged,
+            this, &DefaultHighlighter::updateFormats);
 }
 
 DefaultHighlighter::~DefaultHighlighter()
@@ -215,7 +215,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
             {
                 //qDebug() << "j: " << j << "w: " << words[j];
                 const QString& w = words[j];
-                const QString exp = QString::fromLatin1("(%1)*$").arg(nonSeparatingCharacters());
+                const QString exp = QStringLiteral("(%1)*$").arg(nonSeparatingCharacters());
                 //qDebug() << "exp: " << exp;
                 int idx = w.indexOf(QRegExp(exp));
                 const QString& s = w.mid(idx);

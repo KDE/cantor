@@ -45,13 +45,13 @@ EXTENSION_CONSTRUCTORS(PackagingExtension)
 //implement this here, as it's ";" most of the time
 QString ScriptExtension::commandSeparator()
 {
-    return QLatin1String(";\n");
+    return QStringLiteral(";\n");
 }
 
 //implement this here, as it's "#" most of the time
 QString ScriptExtension::commentStartingSequence()
 {
-    return QLatin1String("#");
+    return QStringLiteral("#");
 }
 
 //implement this here, as it's "" most of the time
@@ -68,7 +68,7 @@ QString LinearAlgebraExtension::nullVector(int size, VectorType type)
 {
     QStringList values;
     for (int i=0;i<size;i++)
-        values<<QLatin1String("0");
+        values<<QStringLiteral("0");
     return createVector(values, type);
 }
 
@@ -79,7 +79,7 @@ QString LinearAlgebraExtension::identityMatrix(int size)
     {
         QStringList column;
         for(int j=0;j<size;j++)
-            column<<((i==j) ? QLatin1String("1"): QLatin1String("0"));
+            column<<((i==j) ? QStringLiteral("1"): QStringLiteral("0"));
 
         m<<column;
     }
@@ -94,7 +94,7 @@ QString LinearAlgebraExtension::nullMatrix(int rows, int columns)
     {
         QStringList column;
         for(int j=0;j<columns;j++)
-            column<<QLatin1String("0");
+            column<<QStringLiteral("0");
 
         m<<column;
     }
@@ -127,7 +127,7 @@ QString AdvancedPlotExtension::dispatchDirective(const PlotDirective& directive)
 
 QString AdvancedPlotExtension::separatorSymbol() const
 {
-    return QLatin1String(",");
+    return QStringLiteral(",");
 }
 
 QWidget* AdvancedPlotExtension::PlotDirective::widget(QWidget* parent)

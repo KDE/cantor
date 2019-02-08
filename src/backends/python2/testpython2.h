@@ -30,6 +30,8 @@ class TestPython2 : public BackendTest
   private Q_SLOTS:
     void testImportNumpy();
     void testCodeWithComments();
+    void testSimpleCode();
+    void testMultilineCode();
 
   private:
     QString backendName() override;

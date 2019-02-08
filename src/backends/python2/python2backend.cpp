@@ -55,7 +55,11 @@ QString Python2Backend::version() const
 
 QUrl Python2Backend::helpUrl() const
 {
-    return QUrl(i18nc("the url to the documentation Python 2", "http://docs.python.org/2/"));
+    const QUrl& localDoc = PythonSettings::self()->localDoc();
+    if (!localDoc.isEmpty())
+        return localDoc;
+    else
+        return QUrl(i18nc("the url to the documentation Python 2", "http://docs.python.org/2/"));
 }
 
 QString Python2Backend::description() const

@@ -418,6 +418,7 @@ void Worksheet::focusEntry(WorksheetEntry *entry)
     if (!entry)
         return;
     entry->focusEntry();
+    resetEntryCursor();
     //bool rt = entry->acceptRichText();
     //setActionsEnabled(rt);
     //setAcceptRichText(rt);
@@ -675,6 +676,8 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         updateLayout();
         emit modified();
     }
+    else
+        entry = prev;
 
     focusEntry(entry);
     return entry;
