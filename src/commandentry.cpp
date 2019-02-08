@@ -765,7 +765,9 @@ void CommandEntry::completedLineChanged()
         return;
     }
     const QString line = currentLine();
-    m_completionObject->updateLine(line, m_commandItem->textCursor().positionInBlock());
+    //FIXME: For some reason, this slot constantly triggeres, so I have added checking, is this update really needed
+    if (line != m_completionObject->command())
+        m_completionObject->updateLine(line, m_commandItem->textCursor().positionInBlock());
 }
 
 void CommandEntry::updateCompletions()
@@ -783,6 +785,10 @@ void CommandEntry::updateCompletions()
         QList<QListWidgetItem*> items = m_completionBox->findItems(m_completionObject->command(), Qt::MatchFixedString|Qt::MatchCaseSensitive);
         if (!items.empty())
             m_completionBox->setCurrentItem(items.first());
+        else if (m_completionBox->items().count() == 1)
+            m_completionBox->setCurrentRow(0);
+        else
+            m_completionBox->clearSelection();
 
         m_completionBox->move(getPopupPosition());
     } else
