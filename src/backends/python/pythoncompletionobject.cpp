@@ -59,8 +59,8 @@ void PythonCompletionObject::fetchCompletions()
             "print('|'.join(Completer(__dict__).global_matches('%1')+Completer(__dict__).attr_matches('%1')))"
         ).arg(command());
         m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-        connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonCompletionObject::extractCompletions);
-        // Python could exec the expression before connect, so manualy run handler
+        // TODO: Python exec the expression before connect, so manualy run handler. Uncomment the connection after removing DBus
+        // connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonCompletionObject::extractCompletions);
         extractCompletions(m_expression->status());
     }
 }
@@ -89,8 +89,8 @@ void PythonCompletionObject::fetchIdentifierType()
 
         const QString& expr = QString::fromLatin1("callable(%1)").arg(identifier());
         m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-        connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonCompletionObject::extractIdentifierType);
-        // Python could exec the expression before connect, so manualy run handler
+        // TODO: Python exec the expression before connect, so manualy run handler. Uncomment the connection after removing DBus
+        // connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonCompletionObject::extractIdentifierType);
         extractIdentifierType(m_expression->status());
     }
 }
