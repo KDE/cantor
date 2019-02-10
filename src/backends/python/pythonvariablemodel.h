@@ -15,32 +15,29 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2013 Filipe Saraiva <filipe@kde.org>
- */
+    Copyright (C) 2019 Nikita Sirgienko <warquark@gmail.com>
+*/
 
-#ifndef _PYTHONHIGHLIGHTER_H
-#define _PYTHONHIGHLIGHTER_H
+#ifndef _PYTHONVARIABLEMODEL_H
+#define _PYTHONVARIABLEMODEL_H
 
-#include "defaulthighlighter.h"
+#include "defaultvariablemodel.h"
 
-class PythonHighlighter : public Cantor::DefaultHighlighter
+class PythonSession;
+class QDBusInterface;
+
+class PythonVariableModel : public Cantor::DefaultVariableModel
 {
-    Q_OBJECT
-
   public:
-    explicit PythonHighlighter(QObject* parent, const int pythonVersion);
-    ~PythonHighlighter() override = default;
+    PythonVariableModel( PythonSession* session);
+    ~PythonVariableModel() override = default;
 
-  public Q_SLOTS:
-    void addUserVariable(const QStringList& variables);
-    void removeUserVariable(const QStringList& variables);
+    void update() override;
 
-  protected:
-    void highlightBlock(const QString& text) override;
+    void setPythonServer(QDBusInterface* pIface);
 
   private:
-     QRegExp commentStartExpression;
-     QRegExp commentEndExpression;
+    QDBusInterface* m_pIface;
 };
 
-#endif /* _PYTHONHIGHLIGHTER_H */
+#endif /* _PYTHONVARIABLEMODEL_H */

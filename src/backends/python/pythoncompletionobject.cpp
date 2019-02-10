@@ -99,6 +99,7 @@ void PythonCompletionObject::extractCompletions(Cantor::Expression::Status statu
 {
     if (!m_expression)
         return;
+
     switch(status)
     {
         case Cantor::Expression::Error:

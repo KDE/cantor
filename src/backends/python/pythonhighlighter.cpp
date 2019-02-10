@@ -143,20 +143,12 @@ void PythonHighlighter::highlightBlock(const QString &text)
     setCurrentBlockState(state);
 }
 
-void PythonHighlighter::updateHighlight()
+void PythonHighlighter::addUserVariable(const QStringList& variables)
 {
-    addVariables(m_variables);
-    rehighlight();
+    addVariables(variables);
 }
 
-void PythonHighlighter::addVariable(const QString variable)
+void PythonHighlighter::removeUserVariable(const QStringList& variables)
 {
-    m_variables << variable;
-}
-
-void PythonHighlighter::clearVariables()
-{
-    removeRules(m_variables);
-    m_variables.clear();
-    rehighlight();
+    removeRules(variables);
 }

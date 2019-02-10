@@ -144,4 +144,59 @@ void PythonServer::setFilePath(const QString& path)
     PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
 }
 
+QString PythonServer::variables() const
+{
+    // FIXME: This code allows get full form of numpy array, but for big arrays it's could cause performonce problems
+    // especially for displaying in variables panel
+    // So, uncomment this, when fix this problem
+    /*
+        "try: \n"
+        "   import numpy \n"
+        "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
+        "   numpy.set_printoptions(threshold=100000000) \n"
+        "except ModuleNotFoundError: \n"
+        "   pass \n"
+
+        "try: \n"
+        "   import numpy \n"
+        "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
+        "   del __cantor_numpy_internal__ \n"
+        "except ModuleNotFoundError: \n"
+        "   pass \n"
+    */
+
+    PyRun_SimpleString("__tmp_globals__ = globals()");
+    PyObject* globals = PyObject_GetAttrString(m_pModule,"__tmp_globals__");
+    PyObject *key, *value;
+    Py_ssize_t pos = 0;
+
+    QStringList vars;
+    const QChar sep(30); // INFORMATION SEPARATOR TWO
+    while (PyDict_Next(globals, &pos, &key, &value)) {
+        const QString& keyString = pyObjectToQString(key);
+        if (keyString.startsWith(QLatin1String("__")))
+            continue;
+
+        if (keyString == QLatin1String("CatchOutPythonBackend")
+            || keyString == QLatin1String("errorPythonBackend")
+            || keyString == QLatin1String("outputPythonBackend"))
+            continue;
+
+        if (PyModule_Check(value))
+            continue;
+
+        if (PyFunction_Check(value))
+            continue;
+
+        if (PyType_Check(value))
+            continue;
+
+        const QString& valueString = pyObjectToQString(PyObject_Repr(value));
+
+        vars.append(keyString + QChar(31) + valueString);
+    }
+
+    return vars.join(sep);
+}
+
 

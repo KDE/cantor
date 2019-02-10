@@ -21,6 +21,7 @@
 
 #include "pythonsession.h"
 #include "pythonexpression.h"
+#include "pythonvariablemodel.h"
 #include "pythonhighlighter.h"
 #include "pythoncompletionobject.h"
 #include "pythonkeywords.h"
@@ -43,13 +44,14 @@
 
 PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName, const QString DbusChannelName)
     : Session(backend)
-    , m_variableModel(new Cantor::DefaultVariableModel(this))
+    , m_variableModel(new PythonVariableModel(this))
     , m_currentExpression(nullptr)
     , m_pIface(nullptr)
     , m_pProcess(nullptr)
     , serverName(serverName)
     , DbusChannelName(DbusChannelName)
     , m_pythonVersion(pythonVersion)
+    , m_needUpdate(false)
 {
 }
 
@@ -98,6 +100,8 @@ void PythonSession::login()
         return;
     }
 
+    m_variableModel->setPythonServer(m_pIface);
+
     m_pIface->call(QString::fromLatin1("login"));
     m_pIface->call(QString::fromLatin1("setFilePath"), worksheetPath);
 
@@ -105,13 +109,12 @@ void PythonSession::login()
     if(!scripts.isEmpty()){
         QString autorunScripts = scripts.join(QLatin1String("\n"));
         getPythonCommandOutput(autorunScripts);
+        m_variableModel->update();
     }
 
     const QString& importerFile = QLatin1String(":py/import_default_modules.py");
 
     evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish, true);
-
-    listVariables();
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -123,7 +126,6 @@ void PythonSession::logout()
     m_pProcess->terminate();
 
     m_variableModel->clearVariables();
-    emit clearVariables();
 
     qDebug()<<"logout";
     changeStatus(Status::Disable);
@@ -283,6 +285,7 @@ void PythonSession::expressionFinished()
 
 void PythonSession::updateOutput()
 {
+    m_needUpdate |= !m_currentExpression->isInternal();
     if(m_error.isEmpty()){
         m_currentExpression->parseOutput(m_output);
 
@@ -293,7 +296,11 @@ void PythonSession::updateOutput()
         qDebug() << "error: " << m_error;
     }
 
-    listVariables();
+    if (m_needUpdate)
+    {
+        m_variableModel->update();
+        m_needUpdate = false;
+    }
 
     changeStatus(Cantor::Session::Done);
 }
@@ -307,60 +314,11 @@ void PythonSession::readOutput(const QString& commandProcessing)
     updateOutput();
 }
 
-void PythonSession::listVariables()
-{
-    const QString& listVariableCommand = QLatin1String(
-        "try: \n"
-        "   import numpy \n"
-        "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
-        "   numpy.set_printoptions(threshold=100000000) \n"
-        "except ModuleNotFoundError: \n"
-        "   pass \n"
-
-        "print(globals()) \n"
-
-        "try: \n"
-        "   import numpy \n"
-        "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
-        "   del __cantor_numpy_internal__ \n"
-        "except ModuleNotFoundError: \n"
-        "   pass \n"
-    );
-
-    getPythonCommandOutput(listVariableCommand);
-
-    qDebug() << m_output;
-
-    m_output.remove(QLatin1String("{"));
-    m_output.remove(QLatin1String("<"));
-    m_output.remove(QLatin1String(">"));
-    m_output.remove(QLatin1String("}"));
-
-    foreach(QString line, m_output.split(QLatin1String(", '"))){
-
-        QStringList parts = line.simplified().split(QLatin1String(":"));
-        const QString& first = parts.first();
-        const QString& last = parts.last();
-        if(!first.startsWith(QLatin1String("'__")) && !first.startsWith(QLatin1String("__")) && !first.startsWith(QLatin1String("CatchOutPythonBackend'")) &&
-           !first.startsWith(QLatin1String("errorPythonBackend'")) && !first.startsWith(QLatin1String("outputPythonBackend'")) &&
-           !last.startsWith(QLatin1String(" class ")) && !last.startsWith(QLatin1String(" function ")) &&
-           !last.startsWith(QLatin1String(" module '")) /*skip imported modules*/ )
-        {
-
-            m_variableModel->addVariable(parts.first().remove(QLatin1String("'")).simplified(), parts.last().simplified());
-            emit newVariable(parts.first().remove(QLatin1String("'")).simplified());
-        }
-    }
-
-    emit updateHighlighter();
-}
-
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
     PythonHighlighter* highlighter = new PythonHighlighter(parent, m_pythonVersion);
-    QObject::connect(this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight()));
-    QObject::connect(this, SIGNAL(newVariable(QString)), highlighter, SLOT(addVariable(QString)));
-    connect(this, &PythonSession::clearVariables, highlighter, &PythonHighlighter::clearVariables);
+    connect ( m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, highlighter, &PythonHighlighter::addUserVariable);
+    connect ( m_variableModel, &Cantor::DefaultVariableModel::variablesRemoved, highlighter, &PythonHighlighter::removeUserVariable);
 
     return highlighter;
 }
