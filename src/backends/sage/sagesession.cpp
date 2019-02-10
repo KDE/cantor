@@ -387,10 +387,8 @@ void SageSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-        expressionQueue().first()->interrupt();
-        expressionQueue().removeFirst();
         foreach (Cantor::Expression* expression, expressionQueue())
-            expression->setStatus(Cantor::Expression::Done);
+            expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
         qDebug()<<"done interrupting";
