@@ -28,6 +28,8 @@
 #include <QDebug>
 #include <KLocalizedString>
 
+#include "settings.h"
+
 //command used to inspect a maxima variable. %1 is the name of that variable
 const QString MaximaVariableModel::inspectCommand=QLatin1String(":lisp($disp $%1)");
 const QString MaximaVariableModel::variableInspectCommand=QLatin1String(":lisp(cantor-inspect $%1)");
@@ -111,10 +113,13 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         //nameString = "[a,b]"
         //variableString = "\n1\n\"-cantor-value-separator-\"\n2\n\"-cantor-value-separator-\"\n($A $B)"
         variableNames = namesString.split(QLatin1Char(','));
-        valuesString = text.mid(nameIndex+1).trimmed();
-        valuesString = valuesString.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
-        variableValues = valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
-        hasValues = variableValues.isEmpty();
+        if (MaximaSettings::self()->variableManagement())
+        {
+            valuesString = text.mid(nameIndex+1).trimmed();
+            valuesString = valuesString.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
+            variableValues = valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
+            hasValues = variableValues.isEmpty();
+        }
     }
 
     qDebug()<<variableNames;

@@ -52,7 +52,13 @@ QString OctaveBackend::version() const
 
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 {
-    return SyntaxHighlighting | Completion | SyntaxHelp | VariableManagement;
+    Cantor::Backend::Capabilities cap=
+        SyntaxHighlighting|
+        Completion |
+        SyntaxHelp;
+    if (OctaveSettings::self()->variableManagement())
+        cap |= VariableManagement;
+    return cap;
 }
 
 Cantor::Session* OctaveBackend::createSession()

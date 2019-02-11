@@ -36,8 +36,13 @@ void RVariableModel::update()
 void RVariableModel::parseResult(const QStringList& names, const QStringList& values, const QStringList& funcs)
 {
     QList<Variable> vars;
-    for (int i = 0; i < names.size(); i++)
-        vars.append(Variable{names[i], values[i]});
+    if (!values.isEmpty()) // Variables management disabled
+        for (int i = 0; i < names.size(); i++)
+            vars.append(Variable{names[i], values[i]});
+    else
+        for (int i = 0; i < names.size(); i++)
+            vars.append(Variable{names[i], QString()});
+
     setVariables(vars);
 
     // Handle functions

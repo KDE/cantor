@@ -53,6 +53,7 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 
     virtual bool integratePlots() const = 0;
     virtual QStringList autorunScripts() const = 0;
+    virtual bool variableManagement() const = 0;
 
   private:
     PythonVariableModel* m_variableModel;

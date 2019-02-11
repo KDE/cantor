@@ -24,6 +24,8 @@
 
 #include <QDebug>
 
+#include "settings.h"
+
 using namespace Cantor;
 
 OctaveVariableModel::OctaveVariableModel(OctaveSession* session):
@@ -72,7 +74,9 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
             {
                 line = line.trimmed();
                 const QString& name = line.section(QLatin1String("\n"), 0, 0);
-                const QString& value = line.section(QLatin1String("\n"), 1);
+                QString value;
+                if (OctaveSettings::self()->variableManagement())
+                    value = line.section(QLatin1String("\n"), 1);
                 vars << Variable{name, value};
             }
 

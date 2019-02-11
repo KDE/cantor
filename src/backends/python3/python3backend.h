@@ -32,6 +32,7 @@ class Python3Backend : public PythonBackend
 
     QString id() const override;
     QString version() const override;
+    Cantor::Backend::Capabilities capabilities() const override;
     QUrl helpUrl() const override;
     QString description() const override;
 

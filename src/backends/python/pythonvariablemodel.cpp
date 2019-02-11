@@ -45,7 +45,8 @@ void PythonVariableModel::update()
     if (!m_pIface)
         return;
 
-    const QString& data = QDBusReply<QString>(m_pIface->call(QString::fromLatin1("variables"))).value();
+    bool variableManagement = static_cast<PythonSession*>(session())->variableManagement();
+    const QString& data = QDBusReply<QString>(m_pIface->call(QString::fromLatin1("variables"), variableManagement)).value();
     const QStringList& records = data.split(QChar(30), QString::SkipEmptyParts);
 
     QList<Variable> variables;

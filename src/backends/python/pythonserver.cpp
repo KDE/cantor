@@ -144,7 +144,7 @@ void PythonServer::setFilePath(const QString& path)
     PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
 }
 
-QString PythonServer::variables() const
+QString PythonServer::variables(bool parseValue) const
 {
     // FIXME: This code allows get full form of numpy array, but for big arrays it's could cause performonce problems
     // especially for displaying in variables panel
@@ -191,7 +191,10 @@ QString PythonServer::variables() const
         if (PyType_Check(value))
             continue;
 
-        const QString& valueString = pyObjectToQString(PyObject_Repr(value));
+        QString valueString;
+        if (parseValue)
+            valueString = pyObjectToQString(PyObject_Repr(value));
+
 
         vars.append(keyString + QChar(31) + valueString);
     }

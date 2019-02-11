@@ -30,6 +30,7 @@ class Python2Session : public PythonSession
 
     bool integratePlots() const override;
     QStringList autorunScripts() const override;
+    bool variableManagement() const override;
 };
 
 #endif

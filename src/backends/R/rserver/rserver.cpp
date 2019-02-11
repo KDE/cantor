@@ -429,7 +429,7 @@ void RServer::listSymbols()
 
         if (Rf_isFunction(value))
             funcs << name;
-        else
+        else if (RServerSettings::variableManagement())
         {
             int convertStatus;
             SEXP valueAsString = PROTECT(R_tryEval(lang2(install("toString"),value),nullptr,&convertStatus));
@@ -439,6 +439,8 @@ void RServer::listSymbols()
                 values << QString::fromUtf8(translateCharUTF8(asChar(valueAsString)));
             }
         }
+        else
+            vars << name;
     }
     UNPROTECT(1);
 
