@@ -75,8 +75,10 @@ public Q_SLOTS:
 
     /**
      * Reparse internal julia module and update list of variables and functions
+     *
+     * @param variableManagement true, if Variable Management enabled for this session
      */
-    Q_SCRIPTABLE void parseModules();
+    Q_SCRIPTABLE void parseModules(bool variableManagement);
 
     /**
      * @return list of variables in internal Julia's module
@@ -94,7 +96,7 @@ public Q_SLOTS:
     Q_SCRIPTABLE QStringList functionsList();
 
 private:
-    void parseJlModule(jl_module_t* module);
+    void parseJlModule(jl_module_t* module, bool parseValue);
 
     QString fromJuliaString(const jl_value_t* value);
 private:

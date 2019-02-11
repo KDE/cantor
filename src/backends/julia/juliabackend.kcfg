@@ -12,6 +12,10 @@
                 QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("julia")))
             </default>
         </entry>
+        <entry name="variableManagement" type="Bool">
+            <label>Enable Variable Management</label>
+            <default>true</default>
+        </entry>
         <entry name="integratePlots" type="Bool">
             <label>Integrate Plots into the Worksheet</label>
             <default>true</default>

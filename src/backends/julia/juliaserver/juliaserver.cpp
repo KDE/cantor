@@ -148,12 +148,12 @@ bool JuliaServer::getWasException() const
     return m_was_exception;
 }
 
-void JuliaServer::parseModules()
+void JuliaServer::parseModules(bool variableManagement)
 {
-    parseJlModule(jl_internal_main_module);
+    parseJlModule(jl_internal_main_module, variableManagement);
 }
 
-void JuliaServer::parseJlModule(jl_module_t* module)
+void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
 {
     jl_function_t* jl_string_function = jl_get_function(jl_base_module, "string");
 
@@ -183,7 +183,7 @@ void JuliaServer::parseJlModule(jl_module_t* module)
             if (jl_is_module(value))
             {
                 if (module == jl_internal_main_module && (jl_module_t*)value != jl_internal_main_module)
-                    parseJlModule((jl_module_t*)value);
+                    parseJlModule((jl_module_t*)value, parseValue);
             }
             // Function
             else if (type.startsWith(QLatin1String("#")) || type == QLatin1String("Function"))
@@ -196,16 +196,24 @@ void JuliaServer::parseJlModule(jl_module_t* module)
             {
                 if (module == jl_internal_main_module && !INTERNAL_VARIABLES.contains(name))
                 {
-                    const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
-                    if (m_variables.contains(name))
+                    if (parseValue)
                     {
-                        int i = m_variables.indexOf(name);
-                        m_variableValues[i] = valueString;
+                        const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
+                        if (m_variables.contains(name))
+                        {
+                            int i = m_variables.indexOf(name);
+                            m_variableValues[i] = valueString;
+                        }
+                        else
+                        {
+                            m_variables.append(name);
+                            m_variableValues.append(valueString);
+                        }
                     }
                     else
                     {
-                        m_variables.append(name);
-                        m_variableValues.append(valueString);
+                        if (!m_variables.contains(name))
+                            m_variables.append(name);
                     }
                 }
             }

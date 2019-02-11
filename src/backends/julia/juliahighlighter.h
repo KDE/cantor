@@ -42,10 +42,11 @@ public:
     ~JuliaHighlighter() override = default;
 
 public Q_SLOTS:
-    /**
-     * Call this to update highlighter to the current state of keywords storage
-     */
-    void updateHighlight();
+    void addUserVariable(const QStringList& variables);
+    void removeUserVariable(const QStringList& variables);
+
+    void addUserFunctions(const QStringList functions);
+    void removeUserFunctions(const QStringList functions);
 
 protected:
     /**

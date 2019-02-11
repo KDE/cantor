@@ -17,6 +17,16 @@
      </item>
     </layout>
    </item>
+    <item>
+    <widget class="QCheckBox" name="kcfg_variableManagement">
+     <property name="toolTip">
+      <string>Let Cantor follow the creation/destruction of variables</string>
+     </property>
+     <property name="text">
+      <string>Enable Variable Management</string>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QCheckBox" name="kcfg_integratePlots">
      <property name="text">

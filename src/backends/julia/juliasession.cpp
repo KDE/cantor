@@ -31,19 +31,21 @@
 #include "settings.h"
 #include "juliahighlighter.h"
 #include "juliakeywords.h"
+#include "juliavariablemodel.h"
 #include "juliaextensions.h"
 #include "juliabackend.h"
 #include "juliacompletionobject.h"
 #include <julia/julia_version.h>
 
-const QRegularExpression JuliaSession::typeVariableInfo = QRegularExpression(QLatin1String("\\w+\\["));
+using namespace Cantor;
 
 JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
     , m_process(nullptr)
     , m_interface(nullptr)
     , m_currentExpression(nullptr)
-    , m_variableModel(new Cantor::DefaultVariableModel(this))
+    , m_variableModel(new JuliaVariableModel(this))
+    , m_needUpdate(false)
 {
 }
 
@@ -101,7 +103,8 @@ void JuliaSession::login()
         JuliaSettings::self()->replPath().path()
     );
 
-    listVariables();
+    m_variableModel->setJuliaServer(m_interface);
+    m_variableModel->update();
 
     // Plots integration
     if (integratePlots()) {
@@ -119,10 +122,7 @@ void JuliaSession::logout()
 {
     m_process->terminate();
 
-    JuliaKeywords::instance()->clearVariables();
-    JuliaKeywords::instance()->clearFunctions();
     m_variableModel->clearVariables();
-    emit updateHighlighter();
 
     changeStatus(Status::Disable);
 }
@@ -167,9 +167,12 @@ Cantor::CompletionObject *JuliaSession::completionFor(
 QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)
 {
     JuliaHighlighter *highlighter = new JuliaHighlighter(parent);
-    QObject::connect(
-        this, SIGNAL(updateHighlighter()), highlighter, SLOT(updateHighlight())
-    );
+
+    connect( m_variableModel, &DefaultVariableModel::variablesAdded, highlighter, &JuliaHighlighter::addUserVariable);
+    connect( m_variableModel, &DefaultVariableModel::variablesRemoved, highlighter, &JuliaHighlighter::removeUserVariable);
+    connect( m_variableModel, &JuliaVariableModel::functionsAdded, highlighter, &JuliaHighlighter::addUserFunctions);
+    connect( m_variableModel, &JuliaVariableModel::functionsRemoved, highlighter, &JuliaHighlighter::removeUserFunctions);
+
     return highlighter;
 }
 
@@ -191,9 +194,14 @@ void JuliaSession::runJuliaCommandAsync(const QString &command)
 void JuliaSession::onResultReady()
 {
     m_currentExpression->finalize();
+    m_needUpdate |= !m_currentExpression->isInternal();
     m_runningExpressions.removeAll(m_currentExpression);
 
-    listVariables();
+    if(m_needUpdate)
+    {
+        m_variableModel->update();
+        m_needUpdate = false;
+    }
 
     changeStatus(Cantor::Session::Done);
 }
@@ -226,50 +234,6 @@ bool JuliaSession::getWasException()
     const QDBusReply<bool> &reply =
         m_interface->call(QLatin1String("getWasException"));
     return reply.isValid() && reply.value();
-}
-
-void JuliaSession::listVariables()
-{
-    JuliaKeywords::instance()->clearVariables();
-    JuliaKeywords::instance()->clearFunctions();
-
-    m_interface->call(QLatin1String("parseModules"));
-
-    const QStringList& variables =
-        static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variablesList"))).value();
-    const QStringList& values =
-        static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableValuesList"))).value();
-    for (int i = 0; i < variables.size(); i++)
-    {
-        if (i >= values.size())
-        {
-            qWarning() << "Don't have value for variable from julia server response, something wrong!";
-            continue;
-        }
-
-        const QString& name = variables[i];
-        QString value = values[i];
-        if (value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER)
-        {
-            // Register variable
-            // We use replace here, because julia return data type for some variables, and we need
-            // remove it to make variable view more consistent with the other backends
-            // More info: https://bugs.kde.org/show_bug.cgi?id=377771
-            m_variableModel->addVariable(name, value.replace(typeVariableInfo,QLatin1String("[")));
-            JuliaKeywords::instance()->addVariable(name);
-        }
-        else
-            m_variableModel->removeVariable(name);
-    }
-
-    const QStringList& functions =
-        static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("functionsList"))).value();
-    foreach (const QString& name, functions)
-    {
-        JuliaKeywords::instance()->addFunction(name);
-    }
-
-    emit updateHighlighter();
 }
 
 QAbstractItemModel *JuliaSession::variableModel()

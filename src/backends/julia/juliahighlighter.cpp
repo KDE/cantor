@@ -163,20 +163,24 @@ void JuliaHighlighter::highlightBlock(const QString &text)
     setCurrentBlockState(state);
 }
 
-void JuliaHighlighter::updateHighlight()
+void JuliaHighlighter::addUserVariable(const QStringList& variables)
 {
-    // Remove rules for outdated variables and functions
-    for (const auto &var : JuliaKeywords::instance()->removedVariables()) {
-        removeRule(var);
-    }
-    for (const auto &func : JuliaKeywords::instance()->removedFunctions()) {
-        removeRule(func);
-    }
+    addVariables(variables);
+}
 
-    // Add actual variables and function
-    addVariables(JuliaKeywords::instance()->variables());
-    addFunctions(JuliaKeywords::instance()->functions());
-    rehighlight();
+void JuliaHighlighter::removeUserVariable(const QStringList& variables)
+{
+    removeRules(variables);
+}
+
+void JuliaHighlighter::addUserFunctions(const QStringList functions)
+{
+    addFunctions(functions);
+}
+
+void JuliaHighlighter::removeUserFunctions(const QStringList functions)
+{
+    removeRules(functions);
 }
 
 QString JuliaHighlighter::nonSeparatingCharacters() const

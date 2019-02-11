@@ -7,6 +7,7 @@ set(JuliaBackend_SRCS
   juliasession.cpp
   juliaexpression.cpp
   juliakeywords.cpp
+  juliavariablemodel.cpp
   juliahighlighter.cpp
   juliaextensions.cpp
   juliacompletionobject.cpp
@@ -26,9 +27,9 @@ target_link_libraries(cantor_juliabackend
 if(BUILD_TESTING)
   add_executable(testjulia testjulia.cpp)
   add_test(NAME testjulia COMMAND testjulia)
-  target_link_libraries(testjulia 
+  target_link_libraries(testjulia
     Qt5::Test
-    cantorlibs 
+    cantorlibs
     cantortest
   )
 endif(BUILD_TESTING)
