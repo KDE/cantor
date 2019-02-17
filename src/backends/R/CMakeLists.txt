@@ -27,4 +27,15 @@ add_backend(rbackend ${RBackend_SRCS})
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
 target_link_libraries( cantor_rbackend ${R_USED_LIBS} KF5::SyntaxHighlighting)
 
+if(BUILD_TESTING)
+  add_executable( testr testr.cpp)
+  add_test(testr testr)
+  ecm_mark_as_test(testr)
+  target_link_libraries( testr
+    Qt5::Test
+    cantorlibs
+    cantortest
+  )
+endif(BUILD_TESTING)
+
 install( FILES cantor_r.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
