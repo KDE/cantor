@@ -33,8 +33,6 @@ class TestPython3 : public BackendTest
     void testSimplePlot();
 
     void testVariablesCreatingFromCode();
-    void testVariablesCreatingFromManager();
-    void testVariableRemoving();
     void testVariableCleanupAfterRestart();
     void testDictVariable();
 

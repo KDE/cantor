@@ -168,46 +168,6 @@ void TestOctave::testVariablesCreatingFromCode()
     QCOMPARE(model->index(1,1).data().toString(), QLatin1String("S"));
 }
 
-void TestOctave::testVariablesCreatingFromManager()
-{
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-    QVERIFY(model != nullptr);
-
-    evalExp(QLatin1String("clear();"));
-
-    model->addVariable(QLatin1String("a"), QLatin1String("15"));
-    model->addVariable(QLatin1String("b"), QLatin1String("Q"));
-
-    QCOMPARE(2, static_cast<QAbstractItemModel*>(model)->rowCount());
-
-    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("a"));
-    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("15"));
-
-    QCOMPARE(model->index(1,0).data().toString(), QLatin1String("b"));
-    QCOMPARE(model->index(1,1).data().toString(), QLatin1String("Q"));
-}
-
-void TestOctave::testVariableRemoving()
-{
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-    QVERIFY(model != nullptr);
-
-    evalExp(QLatin1String("clear();"));
-    Cantor::Expression* e=evalExp(QLatin1String("a = 15; b = 'S';"));
-    QVERIFY(e!=nullptr);
-
-    if(session()->status()==Cantor::Session::Running)
-        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
-
-    QCOMPARE(2, static_cast<QAbstractItemModel*>(model)->rowCount());
-
-    model->removeVariable(QLatin1String("a"));
-
-    QCOMPARE(1, static_cast<QAbstractItemModel*>(model)->rowCount());
-    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("b"));
-    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("S"));
-}
-
 void TestOctave::testVariableCleanupAfterRestart()
 {
     Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());

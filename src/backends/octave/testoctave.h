@@ -54,8 +54,6 @@ private Q_SLOTS:
 
     //tests variable model
     void testVariablesCreatingFromCode();
-    void testVariablesCreatingFromManager();
-    void testVariableRemoving();
     void testVariableCleanupAfterRestart();
 
     //tests doing a plot

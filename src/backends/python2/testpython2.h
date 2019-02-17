@@ -34,11 +34,8 @@ class TestPython2 : public BackendTest
     void testMultilineCode();
 
     void testVariablesCreatingFromCode();
-    void testVariablesCreatingFromManager();
-    void testVariableRemoving();
     void testVariableCleanupAfterRestart();
     void testDictVariable();
-
 
   private:
     QString backendName() override;
