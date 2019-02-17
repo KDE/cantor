@@ -26,11 +26,14 @@
 #include "epsrenderer.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/latexrenderer.h"
+#include "config-cantor.h"
 
 #include <QTextCursor>
 #include <QStandardPaths>
 #include <QDir>
 #include <QDebug>
+#include <QBuffer>
+#include <QUuid>
 #include <KLocalizedString>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
@@ -107,6 +110,9 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
     QTextCursor cursor = m_textItem->textCursor();
     cursor.movePosition(QTextCursor::Start);
 
+    QString imagePath;
+    bool useLatexCode = true;
+
     if(content.hasAttribute(QLatin1String("filename")))
     {
         const KArchiveEntry* imageEntry=file.directory()->entry(content.attribute(QLatin1String("filename")));
@@ -115,28 +121,54 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
             const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
             imageFile->copyTo(dir);
-            const QString& imagePath = dir + QDir::separator() + imageFile->name();
+            imagePath = dir + QDir::separator() + imageFile->name();
 
-            QUrl internal=QUrl::fromLocalFile(imagePath);
-            internal.setScheme(QLatin1String("internal"));
-
+#ifdef LIBSPECTRE_FOUND
             QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
             qDebug()<<"rendering successful? " << !format.name().isEmpty();
 
-            format.setProperty(EpsRenderer::CantorFormula,
-                               EpsRenderer::LatexFormula);
+            format.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
             format.setProperty(EpsRenderer::ImagePath, imagePath);
             format.setProperty(EpsRenderer::Code, latexCode);
+
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            useLatexCode = false;
             m_textItem->denyEditing();
-        } else
-        {
-            cursor.insertText(latexCode);
+#endif
         }
-    } else
-    {
-        cursor.insertText(latexCode);
     }
+
+    if (useLatexCode && content.hasAttribute(QLatin1String("image")))
+    {
+        const QByteArray& ba = QByteArray::fromBase64(content.attribute(QLatin1String("image")).toLatin1());
+        QImage image;
+        if (image.loadFromData(ba))
+        {
+            // Create unique internal url for this loaded image
+            QUrl internal;
+            internal.setScheme(QLatin1String("internal"));
+            internal.setPath(QUuid::createUuid().toString());
+
+            m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
+
+            QTextImageFormat format;
+            format.setName(internal.url());
+            format.setWidth(image.width());
+            format.setHeight(image.height());
+
+            format.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
+            if (!imagePath.isEmpty())
+                format.setProperty(EpsRenderer::ImagePath, imagePath);
+            format.setProperty(EpsRenderer::Code, latexCode);
+
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            useLatexCode = false;
+            m_textItem->denyEditing();
+        }
+    }
+
+    if (useLatexCode)
+        cursor.insertText(latexCode);
 }
 
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -147,24 +179,41 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     if (!cursor.isNull())
     {
-        QTextCharFormat format=cursor.charFormat();
+        QTextImageFormat format=cursor.charFormat().toImageFormat();
         QString fileName = format.property(EpsRenderer::ImagePath).toString();
         // Check, if eps file exists, and if not true, rerender latex code
         bool isEpsFileExists = QFile::exists(fileName);
+
+#ifdef LIBSPECTRE_FOUND
         if (!isEpsFileExists && renderLatexCode())
-            {
+        {
             cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
-            format=cursor.charFormat();
+            format=cursor.charFormat().toImageFormat();
             fileName = format.property(EpsRenderer::ImagePath).toString();
             isEpsFileExists = QFile::exists(fileName);
-            }
+        }
+#endif
 
         if (isEpsFileExists && archive)
-            {
+        {
             const QUrl& url=QUrl::fromLocalFile(fileName);
             archive->addLocalFile(url.toLocalFile(), url.fileName());
             el.setAttribute(QLatin1String("filename"), url.fileName());
-            }
+        }
+
+        // Save also rendered QImage, if exist.
+        QUrl internal;
+        internal.setUrl(format.name());
+
+        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, internal).value<QImage>();
+        if (!image.isNull())
+        {
+            QByteArray ba;
+            QBuffer buffer(&ba);
+            buffer.open(QIODevice::WriteOnly);
+            image.save(&buffer, "PNG");
+            el.setAttribute(QLatin1String("image"), QString::fromLatin1(ba.toBase64()));
+        }
     }
 
     return el;
@@ -216,11 +265,8 @@ void LatexEntry::updateEntry()
         QTextCharFormat format=cursor.charFormat();
         const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
         QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
-        qDebug()<<"rendering successful? "<< !s.isValid();
+        qDebug()<<"rendering successful? "<< s.isValid();
 
-        //HACK: reinsert this image, to make sure the layout is updated to the new size
-        //cursor.removeSelectedText();
-        //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
         cursor.movePosition(QTextCursor::NextCharacter);
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
