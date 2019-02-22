@@ -49,6 +49,7 @@ void JuliaServer::login(const QString &path) const
     QString dir_path = QFileInfo(path).dir().absolutePath();
     jl_init(dir_path.toLatin1().constData());
 #endif
+    jl_eval_string("import REPL;");
 }
 
 #if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 7, 0)
@@ -77,6 +78,10 @@ void JuliaServer::runJuliaCommand(const QString &command)
             .arg(error.fileName()).toLatin1().constData()
     );
 
+    jl_module_t* jl_repl_module = (jl_module_t*)(jl_eval_string("REPL"));
+    jl_function_t* jl_ends_func = jl_get_function(jl_repl_module, "ends_with_semicolon");
+    bool isEndsWithSemicolon = jl_unbox_bool(jl_call1(jl_ends_func, jl_cstr_to_string(command.toStdString().c_str())));
+
     // Run command
     jl_value_t *val = static_cast<jl_value_t *>(
         jl_eval_string(command.toUtf8().constData())
@@ -97,7 +102,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
         jl_call3(showerror, err_stream, ex, bt);
         jl_exception_clear();
         m_was_exception = true;
-    } else if (val) { // no exception occurred
+    } else if (val && !isEndsWithSemicolon) { // no exception occurred
         // If last result is not nothing, show it
         jl_function_t *equality = jl_get_function(jl_base_module, "==");
         jl_value_t *nothing =
