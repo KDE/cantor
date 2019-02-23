@@ -48,7 +48,6 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     MaximaSession* maximaSession();
 
   private:
-    QStringList m_functions;
     Cantor::Expression* m_variableExpression;
     Cantor::Expression* m_functionExpression;
 };
