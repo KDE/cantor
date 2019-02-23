@@ -33,11 +33,6 @@ class RVariableModel : public Cantor::DefaultVariableModel
     ~RVariableModel() override = default;
 
     void update() override;
-    void clearFunctions();
-
-  Q_SIGNALS:
-    void functionsAdded(const QStringList& names);
-    void functionsRemoved(const QStringList& names);
 
   public Q_SLOTS:
     void parseResult(const QStringList& names, const QStringList& values, const QStringList& funcs);

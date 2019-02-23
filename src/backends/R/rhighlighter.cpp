@@ -81,7 +81,7 @@ void RHighlighter::highlightBlock(const QString& text)
     formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
 }
 
-void RHighlighter::addUserStuff(const QStringList& names, QVector<QRegExp>& vector)
+void RHighlighter::addUserDefinition(const QStringList& names, QVector<QRegExp>& vector)
 {
     for (const QString s : names)
         if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
@@ -90,7 +90,7 @@ void RHighlighter::addUserStuff(const QStringList& names, QVector<QRegExp>& vect
     emit rulesChanged();
 }
 
-void RHighlighter::removeUserStuff(const QStringList& names, QVector<QRegExp>& vector)
+void RHighlighter::removeUserDefinition(const QStringList& names, QVector<QRegExp>& vector)
 {
     for (const QString var : names)
         for (int i = 0; i < vector.size(); i++)
@@ -105,20 +105,20 @@ void RHighlighter::removeUserStuff(const QStringList& names, QVector<QRegExp>& v
 
 void RHighlighter::addUserVariable(const QStringList& vars)
 {
-    addUserStuff(vars, variables);
+    addUserDefinition(vars, variables);
 }
 
 void RHighlighter::removeUserVariable(const QStringList& vars)
 {
-    removeUserStuff(vars, variables);
+    removeUserDefinition(vars, variables);
 }
 
 void RHighlighter::removeUserFunction(const QStringList& funcs)
 {
-    removeUserStuff(funcs, functions);
+    removeUserDefinition(funcs, functions);
 }
 
 void RHighlighter::addUserFunction(const QStringList& funcs)
 {
-    addUserStuff(funcs, functions);
+    addUserDefinition(funcs, functions);
 }

@@ -129,6 +129,12 @@ public Q_SLOTS:
      */
     void clearVariables();
 
+    /**
+     * Clears all functions
+     */
+    void clearFunctions();
+
+
 Q_SIGNALS:
     /**
      * Emitted after adding new variables
@@ -142,6 +148,16 @@ Q_SIGNALS:
      */
     void variablesRemoved(const QStringList& variables);
 
+    /**
+     * Similar to @c variablesAdded
+     */
+    void functionsAdded(const QStringList& names);
+
+    /**
+     * Similar to @c variablesRemoved
+     */
+    void functionsRemoved(const QStringList funcs);
+
 protected:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
     bool setData(const QModelIndex& index, const QVariant& value, int role = Qt::EditRole) override;
@@ -152,6 +168,7 @@ protected:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
     void setVariables(const QList<DefaultVariableModel::Variable>& newVars);
+    void setFunctions(const QStringList& newFuns);
 
     enum Column
     {

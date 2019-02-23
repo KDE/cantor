@@ -39,10 +39,6 @@ class JuliaVariableModel : public Cantor::DefaultVariableModel
 
     void setJuliaServer(QDBusInterface* interface);
 
-  Q_SIGNALS:
-    void functionsAdded(const QStringList funcs);
-    void functionsRemoved(const QStringList funcs);
-
   private:
     static const QRegularExpression typeVariableInfo;
 

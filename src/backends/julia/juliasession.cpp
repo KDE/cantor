@@ -170,8 +170,8 @@ QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)
 
     connect( m_variableModel, &DefaultVariableModel::variablesAdded, highlighter, &JuliaHighlighter::addUserVariable);
     connect( m_variableModel, &DefaultVariableModel::variablesRemoved, highlighter, &JuliaHighlighter::removeUserVariable);
-    connect( m_variableModel, &JuliaVariableModel::functionsAdded, highlighter, &JuliaHighlighter::addUserFunctions);
-    connect( m_variableModel, &JuliaVariableModel::functionsRemoved, highlighter, &JuliaHighlighter::removeUserFunctions);
+    connect( m_variableModel, &DefaultVariableModel::functionsAdded, highlighter, &JuliaHighlighter::addUserFunctions);
+    connect( m_variableModel, &DefaultVariableModel::functionsRemoved, highlighter, &JuliaHighlighter::removeUserFunctions);
 
     return highlighter;
 }

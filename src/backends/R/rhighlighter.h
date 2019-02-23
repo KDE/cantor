@@ -44,8 +44,8 @@ class RHighlighter : public Cantor::DefaultHighlighter
     inline void formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);
     inline void massFormat(const QVector<QRegExp>& rules, const QTextCharFormat &fmt, const QString& text,bool shift=false);
 
-    void addUserStuff(const QStringList& names, QVector<QRegExp>& vector);
-    void removeUserStuff(const QStringList& names, QVector<QRegExp>& vector);
+    void addUserDefinition(const QStringList& names, QVector<QRegExp>& vector);
+    void removeUserDefinition(const QStringList& names, QVector<QRegExp>& vector);
 
     static const QStringList operators_list;
     static const QStringList specials_list;

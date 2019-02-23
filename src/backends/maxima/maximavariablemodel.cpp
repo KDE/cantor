@@ -40,12 +40,6 @@ m_functionExpression(nullptr)
 {
 }
 
-void MaximaVariableModel::clearFunctions()
-{
-    emit functionsRemoved(functionNames());
-    m_functions.clear();
-}
-
 void MaximaVariableModel::update()
 {
     if (!m_variableExpression)
@@ -171,46 +165,14 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
 
     // List of variables?
     QList<Variable> newFuncs=parse(static_cast<MaximaExpression*>(m_functionExpression));
-    QStringList addedFuncs;
-    QStringList removedFuncs;
-
-    //remove the old variables
-    int i = 0;
-    while (i < m_functions.size())
-    {
-        //check if this var is present in the new variables
-        bool found=false;
-        for (const Variable& func : newFuncs)
-            if(m_functions[i] == func.name)
-            {
-                found=true;
-                break;
-            }
-
-        if(!found)
-        {
-            removedFuncs<<m_functions[i];
-            m_functions.removeAt(i);
-        }
-        else
-            i++;
-    }
-
-    for (Variable func : newFuncs)
-    {
-        if (!m_functions.contains(func.name))
-        {
-            addedFuncs<<func.name;
-            m_functions.append(func.name);
-        }
-    }
+    QStringList functions;
+    for (Variable var : newFuncs)
+        functions << var.name;
+    setFunctions(functions);
 
     //the expression is not needed anymore
     m_functionExpression->deleteLater();
     m_functionExpression = nullptr;
-
-    emit functionsAdded(addedFuncs);
-    emit functionsRemoved(removedFuncs);
 }
 
 MaximaSession* MaximaVariableModel::maximaSession()

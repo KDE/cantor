@@ -31,6 +31,7 @@ class DefaultVariableModelPrivate
 {
 public:
     QList<DefaultVariableModel::Variable> variables;
+    QStringList functions;
 
     Session* session;
     VariableManagementExtension* extension;
@@ -190,6 +191,14 @@ void DefaultVariableModel::clearVariables()
     emit variablesRemoved(names);
 }
 
+void DefaultVariableModel::clearFunctions()
+{
+    Q_D(DefaultVariableModel);
+    QStringList names = d->functions;
+    d->functions.clear();
+    emit functionsRemoved(names);
+}
+
 void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variable>& newVars)
 {
     Q_D(DefaultVariableModel);
@@ -251,6 +260,47 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
 
     emit variablesAdded(addedVars);
     emit variablesRemoved(removedVars);
+}
+
+void DefaultVariableModel::setFunctions(const QStringList& newFuncs)
+{
+    Q_D(DefaultVariableModel);
+    QStringList addedFuncs;
+    QStringList removedFuncs;
+
+    //remove the old variables
+    int i = 0;
+    while (i < d->functions.size())
+    {
+        //check if this var is present in the new variables
+        bool found=false;
+        for (const QString& func : newFuncs)
+            if(d->functions[i] == func)
+            {
+                found=true;
+                break;
+            }
+
+        if(!found)
+        {
+            removedFuncs<<d->functions[i];
+            d->functions.removeAt(i);
+        }
+        else
+            i++;
+    }
+
+    for (const QString& func : newFuncs)
+    {
+        if (!d->functions.contains(func))
+        {
+            addedFuncs<<func;
+            d->functions.append(func);
+        }
+    }
+
+    emit functionsAdded(addedFuncs);
+    emit functionsRemoved(removedFuncs);
 }
 
 Session* DefaultVariableModel::session() const

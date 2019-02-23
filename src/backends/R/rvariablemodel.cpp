@@ -45,36 +45,5 @@ void RVariableModel::parseResult(const QStringList& names, const QStringList& va
 
     setVariables(vars);
 
-    // Handle functions
-    QStringList addedFuncs;
-    QStringList removedFuncs;
-
-    int i = 0;
-    while (i < m_functions.size())
-        if (!funcs.contains(m_functions[i]))
-        {
-            removedFuncs << m_functions[i];
-            m_functions.removeAt(i);
-        }
-        else
-            i++;
-
-    for (const QString newFunc : funcs)
-        if(!m_functions.contains(newFunc))
-        {
-            addedFuncs << newFunc;
-            m_functions << newFunc;
-        }
-
-    if (!addedFuncs.isEmpty())
-        emit functionsAdded(addedFuncs);
-
-    if (!removedFuncs.isEmpty())
-        emit functionsRemoved(removedFuncs);
-}
-
-void RVariableModel::clearFunctions()
-{
-    emit functionsRemoved(m_functions);
-    m_functions.clear();
+    setFunctions(funcs);
 }

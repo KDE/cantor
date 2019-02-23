@@ -133,8 +133,8 @@ QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
     RHighlighter *h=new RHighlighter(parent);
     connect(m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, h, &RHighlighter::addUserVariable);
     connect(m_variableModel, &Cantor::DefaultVariableModel::variablesRemoved, h, &RHighlighter::removeUserVariable);
-    connect(m_variableModel, &RVariableModel::functionsAdded, h, &RHighlighter::addUserFunction);
-    connect(m_variableModel, &RVariableModel::functionsRemoved, h, &RHighlighter::removeUserFunction);
+    connect(m_variableModel, &Cantor::DefaultVariableModel::functionsAdded, h, &RHighlighter::addUserFunction);
+    connect(m_variableModel, &Cantor::DefaultVariableModel::functionsRemoved, h, &RHighlighter::removeUserFunction);
     return h;
 }
 

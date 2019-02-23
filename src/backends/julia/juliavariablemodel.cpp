@@ -89,40 +89,5 @@ void JuliaVariableModel::update()
 
     const QStringList& newFuncs =
         static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("functionsList"))).value();
-    QStringList addedFuncs;
-    QStringList removedFuncs;
-
-    //remove the old variables
-    int i = 0;
-    while (i < m_functions.size())
-    {
-        //check if this var is present in the new variables
-        bool found=false;
-        for (const QString& func : newFuncs)
-            if(m_functions[i] == func)
-            {
-                found=true;
-                break;
-            }
-
-        if(!found)
-        {
-            removedFuncs<<m_functions[i];
-            m_functions.removeAt(i);
-        }
-        else
-            i++;
-    }
-
-    for (const QString& func : newFuncs)
-    {
-        if (!m_functions.contains(func))
-        {
-            addedFuncs<<func;
-            m_functions.append(func);
-        }
-    }
-
-    emit functionsAdded(addedFuncs);
-    emit functionsRemoved(removedFuncs);
+    setFunctions(newFuncs);
 }
