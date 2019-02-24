@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-ROOT="$($1 --root)"
+SAGE_ROOT="$($1 --root)"
 
-if [[ -f $ROOT"/bin/sage-env" ]]; then
-    . "$ROOT/bin/sage-env" >&2
-elif [[ -f $ROOT"/src/bin/sage-env" ]]; then
-    . "$ROOT/src/bin/sage-env" >&2
+if [[ -f $SAGE_ROOT"/bin/sage-env" ]]; then
+    . "$SAGE_ROOT/bin/sage-env" >&2
+elif [[ -f $SAGE_ROOT"/src/bin/sage-env" ]]; then
+    . "$SAGE_ROOT/src/bin/sage-env" >&2
 else
     exit 1 # We have a problem
 fi
