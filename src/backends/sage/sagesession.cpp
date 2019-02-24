@@ -241,6 +241,14 @@ void SageSession::readStdOut()
                 }
             }
         }
+        else
+        {
+            const QString message = i18n(
+                "Failed to determine the version of Sage. Please check your installation and the output of 'sage -v'.");
+            KMessageBox::error(nullptr, message, i18n("Cantor"));
+            interrupt();
+            logout();
+        }
     }
 
 
@@ -486,7 +494,7 @@ bool SageSession::updateSageVersion()
     QRegularExpression versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
     QRegularExpressionMatch version = versionExp.match(versionString);
     qDebug()<<"found version: " << version.capturedTexts();
-    if(version.isValid())
+    if(version.capturedTexts().length() == 2)
     {
         int major=version.capturedTexts().at(1).toInt();
         int minor=version.capturedTexts().at(2).toInt();
