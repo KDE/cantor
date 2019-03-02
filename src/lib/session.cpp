@@ -22,6 +22,7 @@
 using namespace Cantor;
 
 #include "backend.h"
+#include "defaultvariablemodel.h"
 
 #include <QTimer>
 #include <QQueue>
@@ -29,7 +30,7 @@ using namespace Cantor;
 class Cantor::SessionPrivate
 {
   public:
-    SessionPrivate() : backend(nullptr), status(Session::Disable), typesettingEnabled(false), expressionCount(0)
+    SessionPrivate() : backend(nullptr), status(Session::Disable), typesettingEnabled(false), expressionCount(0), variableModel(nullptr), needUpdate(false)
     {
     }
 
@@ -38,11 +39,19 @@ class Cantor::SessionPrivate
     bool typesettingEnabled;
     int expressionCount;
     QList<Cantor::Expression*> expressionQueue;
+    DefaultVariableModel* variableModel;
+    bool needUpdate;
 };
 
 Session::Session( Backend* backend ) : QObject(backend), d(new SessionPrivate)
 {
     d->backend=backend;
+}
+
+Session::Session( Backend* backend, DefaultVariableModel* model) : QObject(backend), d(new SessionPrivate)
+{
+    d->backend=backend;
+    d->variableModel=model;
 }
 
 Session::~Session()
@@ -62,8 +71,8 @@ void Session::enqueueExpression(Expression* expr)
     //run the newly added expression immediately if it's the only one in the queue
     if (d->expressionQueue.size() == 1)
     {
-     changeStatus(Cantor::Session::Running);
-     runFirstExpression();
+        changeStatus(Cantor::Session::Running);
+        runFirstExpression();
     }
     else
         expr->setStatus(Cantor::Expression::Queued);
@@ -72,6 +81,21 @@ void Session::enqueueExpression(Expression* expr)
 void Session::runFirstExpression()
 {
 
+}
+
+void Session::finishFirstExpression()
+{
+    d->needUpdate |= !d->expressionQueue.takeFirst()->isInternal();
+    if (d->expressionQueue.isEmpty())
+        if (d->variableModel && d->needUpdate)
+        {
+            d->variableModel->update();
+            d->needUpdate = false;
+        }
+        else
+            changeStatus(Done);
+    else
+        runFirstExpression();
 }
 
 Backend* Session::backend()
@@ -135,10 +159,20 @@ QSyntaxHighlighter* Session::syntaxHighlighter(QObject* parent)
 
 QAbstractItemModel* Session::variableModel()
 {
-    //Return 0 per default, so Backends not offering variable management don't
+    //Return deafult session model per default
+    //By default, variableModel is nullptr, so Backends not offering variable management don't
     //have to reimplement this. This method should only be called on backends with
     //VariableManagement Capability flag
-    return nullptr;
+    return d->variableModel;
+}
+
+void Session::forceVariableUpdate()
+{
+    if (d->variableModel)
+    {
+        d->variableModel->update();
+        d->needUpdate = false;
+    }
 }
 
 int Session::nextExpressionId()

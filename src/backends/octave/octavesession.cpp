@@ -44,15 +44,13 @@
 
 const QRegExp OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegExp(QLatin1String("(,|;)+"));
 
-OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
+OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend, new OctaveVariableModel(this) ),
 m_process(nullptr),
 m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
 m_watch(nullptr),
-m_syntaxError(false),
-m_needUpdate(false),
-m_variableModel(new OctaveVariableModel(this))
+m_syntaxError(false)
 {
     qDebug() << octaveScriptInstallDir;
 }
@@ -143,7 +141,7 @@ void OctaveSession::login()
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish, true);
-        m_needUpdate = true;
+        forceVariableUpdate();
     }
 
     changeStatus(Cantor::Session::Done);
@@ -183,7 +181,7 @@ void OctaveSession::logout()
     m_output.clear();
     m_previousPromptNumber = 1;
 
-    m_variableModel->clearVariables();
+    static_cast<OctaveVariableModel*>(variableModel())->clearVariables();
 
     changeStatus(Status::Disable);
 
@@ -318,19 +316,9 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     {
     case Cantor::Expression::Done:
     case Cantor::Expression::Error:
-        m_needUpdate |= !expressionQueue().first()->isInternal();
-        expressionQueue().removeFirst();
-        if (expressionQueue().isEmpty())
-            if (m_needUpdate)
-            {
-                m_variableModel->update();
-                m_needUpdate = false;
-            }
-            else
-                changeStatus(Done);
-        else
-            runFirstExpression();
+        finishFirstExpression();
         break;
+
     default:
         break;
     }
@@ -363,17 +351,12 @@ QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QObject* parent )
 {
     OctaveHighlighter* highlighter = new OctaveHighlighter ( parent, this );
 
-    connect ( m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, highlighter, &OctaveHighlighter::addUserVariable);
-    connect ( m_variableModel, &Cantor::DefaultVariableModel::variablesRemoved, highlighter, &OctaveHighlighter::removeUserVariable);
+    OctaveVariableModel* model = static_cast<OctaveVariableModel*>(variableModel());
+    connect (model, &Cantor::DefaultVariableModel::variablesAdded, highlighter, &OctaveHighlighter::addUserVariable);
+    connect (model, &Cantor::DefaultVariableModel::variablesRemoved, highlighter, &OctaveHighlighter::removeUserVariable);
 
     return highlighter;
 }
-
-QAbstractItemModel* OctaveSession::variableModel()
-{
-    return m_variableModel;
-}
-
 
 void OctaveSession::runSpecificCommands()
 {

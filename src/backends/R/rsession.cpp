@@ -34,11 +34,9 @@
 #include <signal.h>
 #endif
 
-RSession::RSession(Cantor::Backend* backend) : Session(backend),
+RSession::RSession(Cantor::Backend* backend) : Session(backend, new RVariableModel(this)),
 m_process(nullptr),
-m_rServer(nullptr),
-m_variableModel(new RVariableModel(this)),
-m_needUpdate(false)
+m_rServer(nullptr)
 {
 }
 
@@ -77,8 +75,9 @@ void RSession::logout()
     qDebug()<<"logout";
     m_process->terminate();
 
-    m_variableModel->clearVariables();
-    m_variableModel->clearFunctions();
+    RVariableModel* model = static_cast<RVariableModel*>(variableModel());
+    model->clearVariables();
+    model->clearFunctions();
     emit symbolsChanged();
 
     changeStatus(Status::Disable);
@@ -131,10 +130,11 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command, int in
 QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
 {
     RHighlighter *h=new RHighlighter(parent);
-    connect(m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, h, &RHighlighter::addUserVariable);
-    connect(m_variableModel, &Cantor::DefaultVariableModel::variablesRemoved, h, &RHighlighter::removeUserVariable);
-    connect(m_variableModel, &Cantor::DefaultVariableModel::functionsAdded, h, &RHighlighter::addUserFunction);
-    connect(m_variableModel, &Cantor::DefaultVariableModel::functionsRemoved, h, &RHighlighter::removeUserFunction);
+    RVariableModel* model = static_cast<RVariableModel*>(variableModel());
+    connect(model, &Cantor::DefaultVariableModel::variablesAdded, h, &RHighlighter::addUserVariable);
+    connect(model, &Cantor::DefaultVariableModel::variablesRemoved, h, &RHighlighter::removeUserVariable);
+    connect(model, &Cantor::DefaultVariableModel::functionsAdded, h, &RHighlighter::addUserFunction);
+    connect(model, &Cantor::DefaultVariableModel::functionsRemoved, h, &RHighlighter::removeUserFunction);
     return h;
 }
 
@@ -145,21 +145,11 @@ void RSession::serverChangedStatus(int status)
     {
         if(!expressionQueue().isEmpty())
         {
-            RExpression* expr = static_cast<RExpression*>(expressionQueue().takeFirst());
-            m_needUpdate |= !expr->isInternal();
+            RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
             qDebug()<<"done running "<<expr<<" "<<expr->command();
         }
 
-        if(expressionQueue().isEmpty())
-            if (m_needUpdate)
-            {
-                m_needUpdate = false;
-                m_variableModel->update();
-            }
-            else
-                changeStatus(Cantor::Session::Done);
-        else
-            runFirstExpression();
+       finishFirstExpression();
     }
     else
         changeStatus(Cantor::Session::Running);
@@ -191,11 +181,6 @@ void RSession::sendInputToServer(const QString& input)
     if(!input.endsWith(QLatin1Char('\n')))
         s+=QLatin1Char('\n');
     m_rServer->answerRequest(s);
-}
-
-QAbstractItemModel* RSession::variableModel()
-{
-    return m_variableModel;
 }
 
 void RSession::updateSymbols(const RVariableModel* model)

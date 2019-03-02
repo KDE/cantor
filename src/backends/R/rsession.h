@@ -28,8 +28,8 @@
 #include "rserver_interface.h"
 
 class RExpression;
-class QProcess;
 class RVariableModel;
+class QProcess;
 
 namespace Cantor {
 class DefaultVariableModel;
@@ -50,7 +50,6 @@ class RSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    QAbstractItemModel* variableModel() override;
     void runFirstExpression() override;
 
     void sendInputToServer(const QString& input);
@@ -64,9 +63,6 @@ class RSession : public Cantor::Session
   private:
     QProcess* m_process;
     org::kde::Cantor::R* m_rServer;
-
-    RVariableModel* m_variableModel;
-    bool m_needUpdate;
 };
 
 #endif /* _RSESSION_H */

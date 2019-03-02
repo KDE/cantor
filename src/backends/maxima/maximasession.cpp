@@ -47,11 +47,9 @@ const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%
 const QRegExp MaximaSession::MaximaInputPrompt = QRegExp(QLatin1String("(\\(\\s*%\\s*i\\s*[0-9\\s]*\\))"));
 
 
-MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
+MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend, new MaximaVariableModel(this)),
     m_process(nullptr),
-    m_variableModel(new MaximaVariableModel(this)),
-    m_justRestarted(false),
-    m_needUpdate(false)
+    m_justRestarted(false)
 {
 }
 
@@ -90,7 +88,7 @@ void MaximaSession::login()
         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String(";"));
         autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish, true);
-        m_needUpdate = true;
+        forceVariableUpdate();
     }
 
     changeStatus(Session::Done);
@@ -124,8 +122,9 @@ void MaximaSession::logout()
     expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
-    m_variableModel->clearVariables();
-    m_variableModel->clearFunctions();
+    MaximaVariableModel* model = static_cast<MaximaVariableModel*>(variableModel());
+    model->clearVariables();
+    model->clearFunctions();
 
     changeStatus(Status::Disable);
 
@@ -197,29 +196,21 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 {
     Cantor::Expression* expression = expressionQueue().first();
     const QString& cmd = expression->command();
-    m_needUpdate |= !expression->isInternal();
     qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
-    if(status!=Cantor::Expression::Computing) //The session is ready for the next command
+    switch (status)
     {
+    case Cantor::Expression::Done:
+    case Cantor::Expression::Error:
         qDebug()<<"################################## EXPRESSION END ###############################################";
         disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
-                   this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
+            this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-        expressionQueue().removeFirst();
-        if(expressionQueue().isEmpty())
-        {
-            if(m_needUpdate)
-            {
-                m_variableModel->update();
-                m_needUpdate = false;
-            }
-            else
-                changeStatus(Cantor::Session::Done);
-        }else
-        {
-            runFirstExpression();
-        }
+        finishFirstExpression();
+        break;
+
+    default:
+        break;
     }
 }
 
@@ -332,11 +323,6 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
 QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 {
     return new MaximaHighlighter(parent, this);
-}
-
-QAbstractItemModel* MaximaSession::variableModel()
-{
-    return m_variableModel;
 }
 
 void MaximaSession::write(const QString& exp) {
