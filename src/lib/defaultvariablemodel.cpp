@@ -324,6 +324,12 @@ QStringList DefaultVariableModel::variableNames() const
     return names;
 }
 
+QStringList DefaultVariableModel::functions() const
+{
+    Q_D(const DefaultVariableModel);
+    return d->functions;
+}
+
 bool operator==(const Cantor::DefaultVariableModel::Variable& one, const Cantor::DefaultVariableModel::Variable& other)
 {
     return one.name == other.name;

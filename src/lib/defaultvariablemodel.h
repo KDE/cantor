@@ -94,6 +94,11 @@ public:
      */
     QStringList variableNames() const;
 
+    /**
+     * Return functions, stored in this model
+     */
+    QStringList functions() const;
+
     //TODO: improve the description?
     /**
      * Starts updating variable model (variable lists, etc.). Usually executed after finished all user's commands

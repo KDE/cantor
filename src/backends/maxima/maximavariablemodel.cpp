@@ -183,7 +183,7 @@ MaximaSession* MaximaVariableModel::maximaSession()
 QStringList MaximaVariableModel::functionNames(bool stripParameters)
 {
     QStringList names;
-    for (const QString func: m_functions)
+    for (const QString func: functions())
     {
         QString name=func;
         if(stripParameters)
