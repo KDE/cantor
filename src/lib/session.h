@@ -229,6 +229,11 @@ class CANTOR_EXPORT Session : public QObject
      */
     virtual void forceVariableUpdate();
 
+    /**
+     * Setting variable model, usefull, if model constructor requires functional session
+     */
+    void setVariableModel(DefaultVariableModel* model);
+
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);
     void loginStarted();

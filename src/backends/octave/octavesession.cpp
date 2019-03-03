@@ -44,7 +44,7 @@
 
 const QRegExp OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegExp(QLatin1String("(,|;)+"));
 
-OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend, new OctaveVariableModel(this) ),
+OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend),
 m_process(nullptr),
 m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
@@ -52,6 +52,7 @@ m_previousPromptNumber(1),
 m_watch(nullptr),
 m_syntaxError(false)
 {
+    setVariableModel(new OctaveVariableModel(this));
     qDebug() << octaveScriptInstallDir;
 }
 
@@ -181,7 +182,8 @@ void OctaveSession::logout()
     m_output.clear();
     m_previousPromptNumber = 1;
 
-    static_cast<OctaveVariableModel*>(variableModel())->clearVariables();
+    OctaveVariableModel* model = static_cast<OctaveVariableModel*>(variableModel());
+    model->clearVariables();
 
     changeStatus(Status::Disable);
 

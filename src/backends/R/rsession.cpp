@@ -34,10 +34,11 @@
 #include <signal.h>
 #endif
 
-RSession::RSession(Cantor::Backend* backend) : Session(backend, new RVariableModel(this)),
+RSession::RSession(Cantor::Backend* backend) : Session(backend),
 m_process(nullptr),
 m_rServer(nullptr)
 {
+    setVariableModel(new RVariableModel(this));
 }
 
 RSession::~RSession()
@@ -148,8 +149,7 @@ void RSession::serverChangedStatus(int status)
             RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
             qDebug()<<"done running "<<expr<<" "<<expr->command();
         }
-
-       finishFirstExpression();
+        finishFirstExpression();
     }
     else
         changeStatus(Cantor::Session::Running);

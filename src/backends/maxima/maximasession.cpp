@@ -47,10 +47,11 @@ const QRegExp MaximaSession::MaximaOutputPrompt=QRegExp(QLatin1String("(\\(\\s*%
 const QRegExp MaximaSession::MaximaInputPrompt = QRegExp(QLatin1String("(\\(\\s*%\\s*i\\s*[0-9\\s]*\\))"));
 
 
-MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend, new MaximaVariableModel(this)),
+MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
     m_process(nullptr),
     m_justRestarted(false)
 {
+    setVariableModel(new MaximaVariableModel(this));
 }
 
 void MaximaSession::login()

@@ -85,7 +85,9 @@ void Session::runFirstExpression()
 
 void Session::finishFirstExpression()
 {
-    d->needUpdate |= !d->expressionQueue.takeFirst()->isInternal();
+    if (!d->expressionQueue.isEmpty())
+        d->needUpdate |= !d->expressionQueue.takeFirst()->isInternal();
+
     if (d->expressionQueue.isEmpty())
         if (d->variableModel && d->needUpdate)
         {
@@ -173,6 +175,11 @@ void Session::forceVariableUpdate()
         d->variableModel->update();
         d->needUpdate = false;
     }
+}
+
+void Cantor::Session::setVariableModel(Cantor::DefaultVariableModel* model)
+{
+    d->variableModel = model;
 }
 
 int Session::nextExpressionId()
