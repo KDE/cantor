@@ -19,8 +19,8 @@
  */
 #include "juliaserver.h"
 
-#include <julia/julia.h>
-#include <julia/julia_version.h>
+#include <julia.h>
+#include <julia_version.h>
 
 #include <iostream>
 #include <QFileInfo>

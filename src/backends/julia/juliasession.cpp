@@ -34,7 +34,7 @@
 #include "juliaextensions.h"
 #include "juliabackend.h"
 #include "juliacompletionobject.h"
-#include <julia/julia_version.h>
+#include <julia_version.h>
 
 const QRegularExpression JuliaSession::typeVariableInfo = QRegularExpression(QLatin1String("\\w+\\["));
 

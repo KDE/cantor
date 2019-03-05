@@ -26,7 +26,7 @@
 #include "result.h"
 
 #include <QDebug>
-#include <julia/julia_version.h>
+#include <julia_version.h>
 
 JuliaCompletionObject::JuliaCompletionObject(
     const QString &command, int index, JuliaSession *session)
