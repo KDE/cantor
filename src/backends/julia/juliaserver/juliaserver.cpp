@@ -89,7 +89,11 @@ void JuliaServer::runJuliaCommand(const QString &command)
 
     if (jl_exception_occurred()) { // If exception occurred
         // Show it to user in stderr
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(1, 1, 0)
+        jl_value_t *ex = jl_get_ptls_states()->previous_exception;
+#else
         jl_value_t *ex = jl_exception_in_transit;
+#endif
         jl_printf(JL_STDERR, "error during run:\n");
         jl_function_t *showerror =
             jl_get_function(jl_base_module, "showerror");
@@ -153,16 +157,22 @@ bool JuliaServer::getWasException() const
     return m_was_exception;
 }
 
+#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(1, 1, 0)
+#define JL_MAIN_MODULE jl_main_module
+#else
+#define JL_MAIN_MODULE jl_internal_main_module
+#endif
+
 void JuliaServer::parseModules()
 {
-    parseJlModule(jl_internal_main_module);
+    parseJlModule(JL_MAIN_MODULE);
 }
 
 void JuliaServer::parseJlModule(jl_module_t* module)
 {
     jl_function_t* jl_string_function = jl_get_function(jl_base_module, "string");
 
-    if (module != jl_internal_main_module)
+    if (module != JL_MAIN_MODULE)
         {
         const QString& moduleName = fromJuliaString(jl_call1(jl_string_function, (jl_value_t*)(module->name)));
         if (parsedModules.contains(moduleName))
@@ -187,7 +197,7 @@ void JuliaServer::parseJlModule(jl_module_t* module)
             // Module
             if (jl_is_module(value))
             {
-                if (module == jl_internal_main_module && (jl_module_t*)value != jl_internal_main_module)
+                if (module == JL_MAIN_MODULE && (jl_module_t*)value != JL_MAIN_MODULE)
                     parseJlModule((jl_module_t*)value);
             }
             // Function
@@ -199,7 +209,7 @@ void JuliaServer::parseJlModule(jl_module_t* module)
             // Variable
             else if (datetype != jl_datatype_type) // Not type
             {
-                if (module == jl_internal_main_module && !INTERNAL_VARIABLES.contains(name))
+                if (module == JL_MAIN_MODULE && !INTERNAL_VARIABLES.contains(name))
                 {
                     const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
                     if (m_variables.contains(name))
