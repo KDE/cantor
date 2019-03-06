@@ -62,7 +62,7 @@ void TestR::testVariablesCreatingFromCode()
 
 void TestR::testVariableCleanupAfterRestart()
 {
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+    Cantor::DefaultVariableModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     while(session()->status() != Cantor::Session::Done)

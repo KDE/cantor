@@ -182,8 +182,7 @@ void OctaveSession::logout()
     m_output.clear();
     m_previousPromptNumber = 1;
 
-    OctaveVariableModel* model = static_cast<OctaveVariableModel*>(variableModel());
-    model->clearVariables();
+    variableModel()->clearVariables();
 
     changeStatus(Status::Disable);
 

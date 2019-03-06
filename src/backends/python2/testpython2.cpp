@@ -110,7 +110,7 @@ void TestPython2::testVariablesCreatingFromCode()
 
 void TestPython2::testVariableCleanupAfterRestart()
 {
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+    Cantor::DefaultVariableModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     Cantor::Expression* e=evalExp(QLatin1String("a = 15; b = 'S';"));
@@ -129,7 +129,7 @@ void TestPython2::testVariableCleanupAfterRestart()
 
 void TestPython2::testDictVariable()
 {
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+    Cantor::DefaultVariableModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     Cantor::Expression* e=evalExp(QLatin1String("d = {'value': 33}"));

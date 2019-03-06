@@ -117,10 +117,9 @@ void QalculateExpression::updateVariables()
 {
     QalculateSession* currentSession = dynamic_cast<QalculateSession*>(session());
     QMap<QString,QString>  &variables = currentSession->variables;
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(currentSession->variableModel());
     QMap<QString, QString>::const_iterator it = variables.constBegin();
     while (it != variables.constEnd()) {
-        model->addVariable(it.key(), it.value());
+        currentSession->variableModel()->addVariable(it.key(), it.value());
         ++it;
     }
 }

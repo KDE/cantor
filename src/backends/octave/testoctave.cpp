@@ -170,7 +170,7 @@ void TestOctave::testVariablesCreatingFromCode()
 
 void TestOctave::testVariableCleanupAfterRestart()
 {
-    Cantor::DefaultVariableModel* model = static_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
+    Cantor::DefaultVariableModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     evalExp(QLatin1String("clear();"));
