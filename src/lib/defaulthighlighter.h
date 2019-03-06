@@ -30,6 +30,7 @@ class QGraphicsTextItem;
 namespace Cantor
 {
 class DefaultHighlighterPrivate;
+class Session;
 
 /**
  * The DefaultHighlighter is an implementation QSyntaxHighlighter.
@@ -49,6 +50,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   Q_OBJECT
   public:
     explicit DefaultHighlighter(QObject* parent);
+    explicit DefaultHighlighter(QObject* parent, Session* session);
     ~DefaultHighlighter() override;
 
     /**
@@ -61,6 +63,25 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * Called when the cursor moved. Rehighlights accordingly.
      */
     void positionChanged(const QTextCursor&);
+
+  protected Q_SLOTS:
+    /**
+     * Convenience method, equivalent to @code addRules(functions, functionFormat()) @endcode
+     */
+    void addFunctions(const QStringList& functions);
+    /**
+     * Convenience method, equivalent to @code addRules(variables, variableFormat()) @endcode
+     */
+    void addVariables(const QStringList& variables);
+    /**
+     * Removes any rules previously added for the word @p word
+     */
+    void removeRule(const QString& word);
+    /**
+     * Convenience method, removes all rules with conditions from @p conditions
+     * @sa removeRule, addRules
+     */
+    void removeRules(const QStringList& conditions);
 
   protected:
     /**
@@ -122,31 +143,13 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      */
     void addRules(const QStringList& conditions, const QTextCharFormat& format);
     /**
-     * Convenience method, equivalent to @code addRules(functions, functionFormat()) @endcode
-     */
-    void addFunctions(const QStringList& functions);
-    /**
-     * Convenience method, equivalent to @code addRules(variables, variableFormat()) @endcode
-     */
-    void addVariables(const QStringList& variables);
-    /**
      * Convenience method, equivalent to @code addRules(keywords, keywordFormat()) @endcode
      */
     void addKeywords(const QStringList& keywords);
-
-    /**
-     * Removes any rules previously added for the word @p word
-     */
-    void removeRule(const QString& word);
     /**
      * Removes any rules previously added for the regular expression @p regexp
      */
     void removeRule(const QRegExp& regexp);
-    /**
-     * Convenience method, removes all rules with conditions from @p conditions
-     * @sa removeRule, addRules
-     */
-    void removeRules(const QStringList& conditions);
 
     /**
      * Highlight pairs added with addPair()

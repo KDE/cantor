@@ -21,6 +21,7 @@
 
 #include "rhighlighter.h"
 #include "rkeywords.h"
+#include "rsession.h"
 
 #include <QTextEdit>
 #include <QDebug>
@@ -32,7 +33,7 @@ const QStringList RHighlighter::operators_list=QStringList()
 const QStringList RHighlighter::specials_list=QStringList()
     << QLatin1String("BUG") << QLatin1String("TODO") << QLatin1String("FIXME") << QLatin1String("NB") << QLatin1String("WARNING") << QLatin1String("ERROR");
 
-RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
+RHighlighter::RHighlighter(QObject* parent, RSession* session) : Cantor::DefaultHighlighter(parent, session)
 {
     addKeywords(RKeywords::instance()->keywords());
 
@@ -101,24 +102,4 @@ void RHighlighter::removeUserDefinition(const QStringList& names, QVector<QRegEx
             }
 
     emit rulesChanged();
-}
-
-void RHighlighter::addUserVariable(const QStringList& vars)
-{
-    addUserDefinition(vars, variables);
-}
-
-void RHighlighter::removeUserVariable(const QStringList& vars)
-{
-    removeUserDefinition(vars, variables);
-}
-
-void RHighlighter::removeUserFunction(const QStringList& funcs)
-{
-    removeUserDefinition(funcs, functions);
-}
-
-void RHighlighter::addUserFunction(const QStringList& funcs)
-{
-    addUserDefinition(funcs, functions);
 }

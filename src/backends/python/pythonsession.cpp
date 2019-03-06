@@ -316,11 +316,7 @@ void PythonSession::readOutput(const QString& commandProcessing)
 
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
-    PythonHighlighter* highlighter = new PythonHighlighter(parent, m_pythonVersion);
-    connect ( m_variableModel, &Cantor::DefaultVariableModel::variablesAdded, highlighter, &PythonHighlighter::addUserVariable);
-    connect ( m_variableModel, &Cantor::DefaultVariableModel::variablesRemoved, highlighter, &PythonHighlighter::removeUserVariable);
-
-    return highlighter;
+    return new PythonHighlighter(parent, this, m_pythonVersion);
 }
 
 Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)

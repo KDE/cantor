@@ -351,13 +351,7 @@ Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor ( const QString& cmd )
 
 QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QObject* parent )
 {
-    OctaveHighlighter* highlighter = new OctaveHighlighter ( parent, this );
-
-    OctaveVariableModel* model = static_cast<OctaveVariableModel*>(variableModel());
-    connect (model, &Cantor::DefaultVariableModel::variablesAdded, highlighter, &OctaveHighlighter::addUserVariable);
-    connect (model, &Cantor::DefaultVariableModel::variablesRemoved, highlighter, &OctaveHighlighter::removeUserVariable);
-
-    return highlighter;
+    return new OctaveHighlighter ( parent, this );
 }
 
 void OctaveSession::runSpecificCommands()

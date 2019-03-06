@@ -23,22 +23,18 @@
 
 #include "defaulthighlighter.h"
 
+class RSession;
+
 class RHighlighter : public Cantor::DefaultHighlighter
 {
   Q_OBJECT
 
   public:
-    explicit RHighlighter( QObject* parent);
+    explicit RHighlighter( QObject* parent, RSession* session);
     ~RHighlighter() override = default;
 
   protected:
     void highlightBlock(const QString &text) override;
-
-  public Q_SLOTS:
-    void addUserVariable(const QStringList& vars);
-    void removeUserVariable(const QStringList& vars);
-    void addUserFunction(const QStringList& funcs);
-    void removeUserFunction(const QStringList& funcs);
 
   private:
     inline void formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);

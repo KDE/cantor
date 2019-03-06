@@ -76,9 +76,8 @@ void RSession::logout()
     qDebug()<<"logout";
     m_process->terminate();
 
-    RVariableModel* model = static_cast<RVariableModel*>(variableModel());
-    model->clearVariables();
-    model->clearFunctions();
+    variableModel()->clearVariables();
+    variableModel()->clearFunctions();
     emit symbolsChanged();
 
     changeStatus(Status::Disable);
@@ -130,13 +129,7 @@ Cantor::CompletionObject* RSession::completionFor(const QString& command, int in
 
 QSyntaxHighlighter* RSession::syntaxHighlighter(QObject* parent)
 {
-    RHighlighter *h=new RHighlighter(parent);
-    RVariableModel* model = static_cast<RVariableModel*>(variableModel());
-    connect(model, &Cantor::DefaultVariableModel::variablesAdded, h, &RHighlighter::addUserVariable);
-    connect(model, &Cantor::DefaultVariableModel::variablesRemoved, h, &RHighlighter::removeUserVariable);
-    connect(model, &Cantor::DefaultVariableModel::functionsAdded, h, &RHighlighter::addUserFunction);
-    connect(model, &Cantor::DefaultVariableModel::functionsRemoved, h, &RHighlighter::removeUserFunction);
-    return h;
+    return new RHighlighter(parent, this);
 }
 
 void RSession::serverChangedStatus(int status)

@@ -167,7 +167,8 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
     QList<Variable> newFuncs=parse(static_cast<MaximaExpression*>(m_functionExpression));
     QStringList functions;
     for (Variable var : newFuncs)
-        functions << var.name;
+        functions << var.name.left(var.name.indexOf(QLatin1Char('(')));
+    qDebug() << functions;
     setFunctions(functions);
 
     //the expression is not needed anymore

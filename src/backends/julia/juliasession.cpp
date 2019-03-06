@@ -166,14 +166,7 @@ Cantor::CompletionObject *JuliaSession::completionFor(
 
 QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)
 {
-    JuliaHighlighter *highlighter = new JuliaHighlighter(parent);
-
-    connect( m_variableModel, &DefaultVariableModel::variablesAdded, highlighter, &JuliaHighlighter::addUserVariable);
-    connect( m_variableModel, &DefaultVariableModel::variablesRemoved, highlighter, &JuliaHighlighter::removeUserVariable);
-    connect( m_variableModel, &DefaultVariableModel::functionsAdded, highlighter, &JuliaHighlighter::addUserFunctions);
-    connect( m_variableModel, &DefaultVariableModel::functionsRemoved, highlighter, &JuliaHighlighter::removeUserFunctions);
-
-    return highlighter;
+    return new JuliaHighlighter(parent, this);
 }
 
 void JuliaSession::runJuliaCommand(const QString &command) const

@@ -35,10 +35,6 @@ class OctaveHighlighter : public Cantor::DefaultHighlighter
   public:
     OctaveHighlighter(QObject* parent, Cantor::Session* session);
     ~OctaveHighlighter() override = default;
-
-  public Q_SLOTS:
-    void addUserVariable(const QStringList& variables);
-    void removeUserVariable(const QStringList& variables);
 };
 
 #endif // OCTAVEHIGHLIGHTER_H

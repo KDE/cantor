@@ -27,7 +27,7 @@
 
 using namespace Cantor;
 
-OctaveHighlighter::OctaveHighlighter(QObject* parent, Session* session): DefaultHighlighter(parent)
+OctaveHighlighter::OctaveHighlighter(QObject* parent, Session* session): DefaultHighlighter(parent, session)
 {
   addKeywords(OctaveKeywords::instance()->keywords());
   addFunctions(OctaveKeywords::instance()->functions());
@@ -47,14 +47,4 @@ OctaveHighlighter::OctaveHighlighter(QObject* parent, Session* session): Default
   addRule(QRegExp(QLatin1String("%[^\n]*")), commentFormat());
 
   rehighlight();
-}
-
-void OctaveHighlighter::addUserVariable(const QStringList& variables)
-{
-    addVariables(variables);
-}
-
-void OctaveHighlighter::removeUserVariable(const QStringList& variables)
-{
-    removeRules(variables);
 }
