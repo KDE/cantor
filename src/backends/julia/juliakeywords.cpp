@@ -33,6 +33,8 @@ JuliaKeywords::JuliaKeywords()
     m_keywords << definition.keywordList(QLatin1String("keywords"));
 
     //TODO: Upstream pull request to julia.xml from KSyntaxHighlighting?
+    // https://bugs.kde.org/show_bug.cgi?id=403901
+    // Add new list to julia.syntax with constans?
     m_variables << QLatin1String("false");
     m_variables << QLatin1String("Inf");
     m_variables << QLatin1String("NaN");

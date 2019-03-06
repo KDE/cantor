@@ -46,7 +46,8 @@ void MaximaKeywords::loadKeywords()
     m_variables = definition.keywordList(QLatin1String("MaximaVariable"));
 
     // This is missing in KSyntaxHighlighting.
-    // TODO: send upstream pull request with this
+    // https://phabricator.kde.org/D18714
+    // OUTOFDATE: Remove after 5.55 KSyntaxHighlighting version
     m_variables << QLatin1String("%pi") << QLatin1String("%e") << QLatin1String(" %i")
                 << QLatin1String("%gamma") << QLatin1String("ind") << QLatin1String("inf")
                 << QLatin1String("infinity") << QLatin1String("minf") << QLatin1String("%phi")

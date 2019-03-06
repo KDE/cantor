@@ -32,8 +32,7 @@ OctaveKeywords::OctaveKeywords()
     //we use "keywords" and "functions" at the moment. decide what to do with "forge", "builtin" and "commands".
     m_keywords = definition.keywordList(QLatin1String("keywords"));
 
-    //TODO: the list of keywords in KSyntaxHighlighting doesn't have all the keywords added here.
-    //add the missing keywords to KSyntaxHighlighting and remove the custom handling for them here later.
+    //KSyntaxHighlighting store this keywords separatly of keywords list, so we add them manually
     m_keywords
         << QLatin1String("function") << QLatin1String("endfunction")
         << QLatin1String("for") << QLatin1String("endfor")
@@ -44,8 +43,8 @@ OctaveKeywords::OctaveKeywords()
         << QLatin1String("end") << QLatin1String("otherwise");
 
     m_functions = definition.keywordList(QLatin1String("functions"));
-    //TODO: the list of keywords in KSyntaxHighlighting doesn't have all the functions for plotting that we take care of in the constructor of OctaveExpression.
-    //add the missing functions to KSyntaxHighlighting and remove the custom handling for them here later.
+    // https://phabricator.kde.org/D18734
+    // OUTOFDATE: Remove after 5.56 KSyntaxHighlighting version
     m_functions
         << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy")
         << QLatin1String("loglog") << QLatin1String("polar") << QLatin1String("contour")
