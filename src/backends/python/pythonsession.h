@@ -26,6 +26,10 @@
 #include <cantor_pythonbackend_export.h>
 #include <QStringList>
 
+namespace Cantor {
+    class DefaultVariableModel;
+}
+
 class PythonExpression;
 class PythonVariableModel;
 class KDirWatch;
@@ -48,7 +52,7 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    QAbstractItemModel* variableModel() override;
+    Cantor::DefaultVariableModel* variableModel() const override;
     void setWorksheetPath(const QString& path) override;
 
     virtual bool integratePlots() const = 0;

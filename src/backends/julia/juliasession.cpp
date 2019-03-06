@@ -236,7 +236,7 @@ bool JuliaSession::getWasException()
     return reply.isValid() && reply.value();
 }
 
-QAbstractItemModel *JuliaSession::variableModel()
+Cantor::DefaultVariableModel* JuliaSession::variableModel() const
 {
     return m_variableModel;
 }

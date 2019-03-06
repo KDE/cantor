@@ -144,10 +144,17 @@ class CANTOR_EXPORT Session : public QObject
     virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     /**
-     * returns a Model to interact with the variables
-     * @return QAbstractItemModel to interact with the variables
+     * returns a Model to interact with the variables or nullptr, if
+     * this backend have a variable model, which not inherit from
+     * default variable model class (in this case @see variableDataModel())
+     * @return DefaultVariableModel to interact with the variables
      */
-    virtual QAbstractItemModel* variableModel();
+    virtual DefaultVariableModel* variableModel() const;
+
+    /**
+     * returns QAbstractItemModel to interact with the variables
+     */
+    virtual QAbstractItemModel* variableDataModel() const;
 
     /**
      * Enables/disables Typesetting for this session.

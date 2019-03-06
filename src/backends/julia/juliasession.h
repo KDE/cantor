@@ -87,7 +87,7 @@ public:
     /**
      * @see Cantor::Session::variableModel
      */
-    QAbstractItemModel *variableModel() override;
+    Cantor::DefaultVariableModel *variableModel() const override;
 
     /**
      * @return indicator if config says to integrate plots into worksheet

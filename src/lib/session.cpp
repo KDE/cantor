@@ -159,13 +159,18 @@ QSyntaxHighlighter* Session::syntaxHighlighter(QObject* parent)
     return nullptr;
 }
 
-QAbstractItemModel* Session::variableModel()
+DefaultVariableModel* Session::variableModel() const
 {
     //Return deafult session model per default
     //By default, variableModel is nullptr, so Backends not offering variable management don't
     //have to reimplement this. This method should only be called on backends with
     //VariableManagement Capability flag
     return d->variableModel;
+}
+
+QAbstractItemModel* Session::variableDataModel() const
+{
+    return variableModel();
 }
 
 void Session::forceVariableUpdate()

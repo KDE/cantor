@@ -47,7 +47,7 @@ class KAlgebraSession : public Cantor::Session
         Analitza::Analyzer* analyzer() const { return m_analyzer; }
         OperatorsModel* operatorsModel();
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-        QAbstractItemModel* variableModel() override;
+        QAbstractItemModel* variableDataModel() const override;
 
     private:
         Analitza::Analyzer* m_analyzer;

@@ -27,6 +27,7 @@
 #include "imageresult.h"
 #include "epsresult.h"
 #include "syntaxhelpobject.h"
+#include "defaultvariablemodel.h"
 
 #include <config-cantorlib.h>
 

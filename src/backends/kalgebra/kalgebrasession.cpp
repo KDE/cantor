@@ -108,7 +108,7 @@ QSyntaxHighlighter* KAlgebraSession::syntaxHighlighter(QObject* parent)
     return new AlgebraHighlighter(nullptr);
 }
 
-QAbstractItemModel* KAlgebraSession::variableModel()
+QAbstractItemModel* KAlgebraSession::variableDataModel() const
 {
     return m_variablesModel;
 }

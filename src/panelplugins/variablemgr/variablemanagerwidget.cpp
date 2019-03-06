@@ -98,7 +98,7 @@ void VariableManagerWidget::setSession(Cantor::Session* session)
     m_session=session;
     if(session)
     {
-        m_model=session->variableModel();
+        m_model=session->variableDataModel();
         if(m_table)
             m_table->setModel(m_model);
     }

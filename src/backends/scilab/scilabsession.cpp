@@ -266,7 +266,7 @@ Cantor::CompletionObject* ScilabSession::completionFor(const QString& command, i
     return new ScilabCompletionObject(command, index, this);
 }
 
-QAbstractItemModel* ScilabSession::variableModel()
+Cantor::DefaultVariableModel* ScilabSession::variableModel() const
 {
     return m_variableModel;
 }

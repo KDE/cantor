@@ -328,7 +328,7 @@ Cantor::CompletionObject* PythonSession::completionFor(const QString& command, i
     return new PythonCompletionObject(command, index, this);
 }
 
-QAbstractItemModel* PythonSession::variableModel()
+Cantor::DefaultVariableModel* PythonSession::variableModel() const
 {
     return m_variableModel;
 }
