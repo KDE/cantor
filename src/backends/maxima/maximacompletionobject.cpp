@@ -34,9 +34,8 @@ MaximaCompletionObject::MaximaCompletionObject(const QString& command, int index
 
 void MaximaCompletionObject::fetchIdentifierType()
 {
-    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session()->variableModel());
-    QStringList userVariableNames=model->variableNames();
-    QStringList userFunctionNames=model->functionNames(true);
+    QStringList userVariableNames=session()->variableModel()->variableNames();
+    QStringList userFunctionNames=session()->variableModel()->functions();
     if (qBinaryFind(userVariableNames.begin(), userVariableNames.end(), identifier())
 	!= userVariableNames.end())
 	emit fetchingTypeDone(VariableType);
@@ -57,14 +56,12 @@ void MaximaCompletionObject::fetchIdentifierType()
 
 void MaximaCompletionObject::fetchCompletions()
 {
-    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session()->variableModel());
-
     QStringList allCompletions;
     allCompletions<<MaximaKeywords::instance()->variables();
     allCompletions<<MaximaKeywords::instance()->functions();
     allCompletions<<MaximaKeywords::instance()->keywords();
-    allCompletions<<model->variableNames();
-    allCompletions<<model->functionNames(true);
+    allCompletions<<session()->variableModel()->variableNames();
+    allCompletions<<session()->variableModel()->functions();
 
     setCompletions(allCompletions);
 

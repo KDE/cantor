@@ -123,9 +123,8 @@ void MaximaSession::logout()
     expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
-    MaximaVariableModel* model = static_cast<MaximaVariableModel*>(variableModel());
-    model->clearVariables();
-    model->clearFunctions();
+    variableModel()->clearVariables();
+    variableModel()->clearFunctions();
 
     changeStatus(Status::Disable);
 

@@ -180,19 +180,3 @@ MaximaSession* MaximaVariableModel::maximaSession()
 {
     return static_cast<MaximaSession*> (session());
 }
-
-QStringList MaximaVariableModel::functionNames(bool stripParameters)
-{
-    QStringList names;
-    for (const QString func: functions())
-    {
-        QString name=func;
-        if(stripParameters)
-        {
-            name=name.left(name.lastIndexOf(QLatin1Char('(')));
-        }
-        names<<name;
-    }
-
-    return names;
-}
