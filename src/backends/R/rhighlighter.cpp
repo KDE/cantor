@@ -81,25 +81,3 @@ void RHighlighter::highlightBlock(const QString& text)
     massFormat(variables,variableFormat(),text);
     formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
 }
-
-void RHighlighter::addUserDefinition(const QStringList& names, QVector<QRegExp>& vector)
-{
-    for (const QString s : names)
-        if (!s.contains(QRegExp(QLatin1String("[^A-Za-z0-9_.]"))))
-            vector.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
-
-    emit rulesChanged();
-}
-
-void RHighlighter::removeUserDefinition(const QStringList& names, QVector<QRegExp>& vector)
-{
-    for (const QString var : names)
-        for (int i = 0; i < vector.size(); i++)
-            if (vector[i].pattern() == QLatin1String("\\b")+var+QLatin1String("\\b"))
-            {
-                vector.remove(i);
-                break;
-            }
-
-    emit rulesChanged();
-}
