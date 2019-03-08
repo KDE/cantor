@@ -36,11 +36,14 @@
 #include <QTimer>
 #include <QToolTip>
 #include <QPropertyAnimation>
+#include <QGraphicsWidget>
 
 #include <KLocalizedString>
 #include <KColorScheme>
 
-const QString CommandEntry::Prompt=QLatin1String(">>> ");
+const QString CommandEntry::Prompt     = QLatin1String(">>> ");
+const QString CommandEntry::MidPrompt  = QLatin1String(">>  ");
+const QString CommandEntry::HidePrompt = QLatin1String(">   ");
 const double CommandEntry::HorizontalSpacing = 4;
 const double CommandEntry::VerticalSpacing = 4;
 
@@ -60,6 +63,7 @@ static QColor colors[colorsCount] = {QColor(255,255,255), QColor(0,0,0),
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
     m_commandItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
+    m_resultsCollapsed(false),
     m_errorItem(nullptr),
     m_expression(nullptr),
     m_completionObject(nullptr),
@@ -277,6 +281,13 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
     if (!m_menusInitialized)
         initMenus();
 
+    if (!m_resultItems.isEmpty()) {
+        if (m_resultsCollapsed)
+            menu->addAction(i18n("Show Results"), this, &CommandEntry::expandResults);
+        else
+            menu->addAction(i18n("Hide Results"), this, &CommandEntry::collapseResults);
+    }
+
     menu->addMenu(m_backgroundColorMenu);
     menu->addMenu(m_textColorMenu);
     menu->addMenu(m_fontMenu);
@@ -352,6 +363,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     clearResultItems();
 
     m_expression = expr;
+    m_resultsCollapsed = false;
 
     connect(expr, SIGNAL(gotResult()), this, SLOT(updateEntry()));
     connect(expr, SIGNAL(resultsCleared()), this, SLOT(clearResultItems()));
@@ -613,6 +625,9 @@ void CommandEntry::updateEntry()
     //and we add a new graphic objects for the new result(s) (new result(s) are located in the end).
     if (m_resultItems.size() < expr->results().size())
     {
+        if (m_resultsCollapsed)
+            expandResults();
+
         for (int i = m_resultItems.size(); i < expr->results().size(); i++)
             m_resultItems << ResultItem::create(this, expr->results()[i]);
         animateSizeChange();
@@ -955,7 +970,7 @@ void CommandEntry::removeContextHelp()
         m_completionBox->hide();
 }
 
-void CommandEntry::updatePrompt()
+void CommandEntry::updatePrompt(const QString& postfix)
 {
     KColorScheme color = KColorScheme( QPalette::Normal, KColorScheme::View);
 
@@ -987,7 +1002,7 @@ void CommandEntry::updatePrompt()
             cformat.setFontWeight(QFont::Normal);
     }
 
-    c.insertText(CommandEntry::Prompt,cformat);
+    c.insertText(postfix, cformat);
     recalculateSize();
 }
 
@@ -1114,7 +1129,7 @@ void CommandEntry::layOutForWidth(qreal w, bool force)
 
     for (auto* resultItem : m_resultItems)
     {
-        if (!resultItem)
+        if (!resultItem || !resultItem->graphicsObject()->isVisible())
             continue;
         y += VerticalSpacing;
         y += resultItem->setGeometry(x, y, w-x);
@@ -1140,3 +1155,55 @@ WorksheetTextItem* CommandEntry::highlightItem()
 {
     return m_commandItem;
 }
+
+void CommandEntry::collapseResults()
+{
+    for(auto* item : m_resultItems) {
+        fadeOutItem(item->graphicsObject(), nullptr);
+        item->graphicsObject()->hide();
+    }
+
+    m_resultsCollapsed = true;
+
+    if (worksheet()->animationsEnabled())
+    {
+        QTimer::singleShot(100, this, &CommandEntry::setMidPrompt);
+        QTimer::singleShot(200, this, &CommandEntry::setHidePrompt);
+    }
+    else
+        setHidePrompt();
+
+    animateSizeChange();
+}
+
+void CommandEntry::expandResults()
+{
+    for(auto* item : m_resultItems) {
+        fadeInItem(item->graphicsObject(), nullptr);
+        item->graphicsObject()->show();
+    }
+
+    m_resultsCollapsed = false;
+
+    if (worksheet()->animationsEnabled())
+    {
+        QTimer::singleShot(100, this, &CommandEntry::setMidPrompt);
+        QTimer::singleShot(200, this, SLOT(updatePrompt()));
+    }
+    else
+        this->updatePrompt();
+
+    animateSizeChange();
+}
+
+void CommandEntry::setHidePrompt()
+{
+    updatePrompt(HidePrompt);
+}
+
+void CommandEntry::setMidPrompt()
+{
+    updatePrompt(MidPrompt);
+}
+
+

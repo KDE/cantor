@@ -44,6 +44,8 @@ class CommandEntry : public WorksheetEntry
   Q_OBJECT
   public:
     static const QString Prompt;
+    static const QString MidPrompt;
+    static const QString HidePrompt;
 
     explicit CommandEntry(Worksheet* worksheet);
     ~CommandEntry() override;
@@ -95,7 +97,7 @@ class CommandEntry : public WorksheetEntry
     void showCompletion() override;
     void selectPreviousCompletion();
     void updateEntry() override;
-    void updatePrompt();
+    void updatePrompt(const QString& postfix = CommandEntry::Prompt);
     void expressionChangedStatus(Cantor::Expression::Status status);
     void showAdditionalInformationPrompt(const QString& question);
     void showCompletions();
@@ -131,6 +133,8 @@ class CommandEntry : public WorksheetEntry
     void invalidate();
     void resultDeleted();
     void clearResultItems();
+    void collapseResults();
+    void expandResults();
     void removeResultItem(int index);
     void replaceResultItem(int index);
     void updateCompletions();
@@ -145,6 +149,8 @@ class CommandEntry : public WorksheetEntry
     void fontSelectTriggered();
 
     void animatePromptItem();
+    void setMidPrompt();
+    void setHidePrompt();
 
   private:
     static const double HorizontalSpacing;
@@ -153,6 +159,7 @@ class CommandEntry : public WorksheetEntry
     WorksheetTextItem* m_promptItem;
     WorksheetTextItem* m_commandItem;
     QVector<ResultItem*> m_resultItems;
+    bool m_resultsCollapsed;
     WorksheetTextItem* m_errorItem;
     QList<WorksheetTextItem*> m_informationItems;
     Cantor::Expression* m_expression;
