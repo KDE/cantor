@@ -234,7 +234,7 @@ class CANTOR_EXPORT Session : public QObject
      * Starts variable update immideatly, usefull for subclasses, which run internal command
      * which could change variables listen
      */
-    virtual void forceVariableUpdate();
+    virtual void updateVariables();
 
     /**
      * Setting variable model, usefull, if model constructor requires functional session

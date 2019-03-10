@@ -25,6 +25,7 @@
 #include <QStringList>
 
 class MaximaSession;
+class MaximaExpression;
 
 class MaximaVariableModel : public Cantor::DefaultVariableModel
 {
@@ -46,8 +47,8 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     MaximaSession* maximaSession();
 
   private:
-    Cantor::Expression* m_variableExpression;
-    Cantor::Expression* m_functionExpression;
+    MaximaExpression* m_variableExpression;
+    MaximaExpression* m_functionExpression;
 };
 
 #endif /* _MAXIMAVARIABLEMODEL_H */

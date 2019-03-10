@@ -173,7 +173,7 @@ QAbstractItemModel* Session::variableDataModel() const
     return variableModel();
 }
 
-void Session::forceVariableUpdate()
+void Session::updateVariables()
 {
     if (d->variableModel)
     {

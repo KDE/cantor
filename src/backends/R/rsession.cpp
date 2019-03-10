@@ -139,7 +139,7 @@ void RSession::serverChangedStatus(int status)
     {
         if(!expressionQueue().isEmpty())
         {
-            RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
+            Cantor::Expression* expr = expressionQueue().first();
             qDebug()<<"done running "<<expr<<" "<<expr->command();
         }
         finishFirstExpression();

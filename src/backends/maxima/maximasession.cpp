@@ -89,7 +89,7 @@ void MaximaSession::login()
         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String(";"));
         autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish, true);
-        forceVariableUpdate();
+        updateVariables();
     }
 
     changeStatus(Session::Done);

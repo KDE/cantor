@@ -46,7 +46,7 @@ void MaximaVariableModel::update()
     {
         qDebug()<<"checking for new variables";
         const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
-        m_variableExpression = session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        m_variableExpression = static_cast<MaximaExpression*>(session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true));
         connect(m_variableExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
     }
 
@@ -54,7 +54,7 @@ void MaximaVariableModel::update()
     {
         qDebug()<<"checking for new functions";
         const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
-        m_functionExpression = session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        m_functionExpression = static_cast<MaximaExpression*>(session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true));
         connect(m_functionExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
     }
 }
@@ -148,7 +148,7 @@ void MaximaVariableModel::parseNewVariables(Cantor::Expression::Status status)
 
     qDebug()<<"parsing variables";
 
-    QList<Variable> newVars=parse(static_cast<MaximaExpression*>(m_variableExpression));
+    QList<Variable> newVars=parse(m_variableExpression);
     setVariables(newVars);
 
     //the expression is not needed anymore
@@ -164,7 +164,7 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
     qDebug()<<"parsing functions";
 
     // List of variables?
-    QList<Variable> newFuncs=parse(static_cast<MaximaExpression*>(m_functionExpression));
+    QList<Variable> newFuncs=parse(m_functionExpression);
     QStringList functions;
     for (Variable var : newFuncs)
         functions << var.name.left(var.name.indexOf(QLatin1Char('(')));
