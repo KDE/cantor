@@ -490,7 +490,7 @@ bool SageSession::updateSageVersion()
     QRegularExpression versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
     QRegularExpressionMatch version = versionExp.match(versionString);
     qDebug()<<"found version: " << version.capturedTexts();
-    if(version.capturedTexts().length() == 2)
+    if(version.capturedTexts().length() == 3)
     {
         int major=version.capturedTexts().at(1).toInt();
         int minor=version.capturedTexts().at(2).toInt();
