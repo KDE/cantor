@@ -136,22 +136,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     }
 
     Cantor::Backend* b=Cantor::Backend::getBackend(backendName);
-    if(!b)
-    {
-        KMessageBox::error(parentWidget, i18n("Backend %1 is not installed", backendName), i18n("Error - Cantor"));
-        setWidget(new QWidget(parentWidget));
-        return;
-    }
-
-    if (b && !b->isEnabled() && backendName != QLatin1String("null"))
-    {
-        KMessageBox::information(parentWidget, i18n("There are some problems with the %1 backend,\n"\
-                                     "please check your configuration or install the needed packages.\n"
-                                     "You will only be able to view this worksheet.", backendName), i18n("Cantor"));
-        setWidget(new QWidget(parentWidget));
-        return;
-    }
-
     qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
 
 

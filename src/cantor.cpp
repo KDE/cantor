@@ -286,34 +286,37 @@ void CantorShell::addWorksheet(const QString& backendName)
     KPluginFactory* factory = KPluginLoader(QLatin1String("libcantorpart")).factory();
     if (factory)
     {
-        // now that the Part is loaded, we cast it to a Part to get
-        // our hands on it
-        KParts::ReadWritePart* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
+        Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
 
-        if (part)
+        if (backend)
         {
-            //determine backend
-            Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
-            // if backend not found, part is invalid, so delete it
-            if (backend)
+            if (backend->isEnabled() || backendName == QLatin1String("null"))
             {
-                connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
-                m_parts.append(part);
+                // now that the Part is loaded, we cast it to a Part to get our hands on it
+                KParts::ReadWritePart* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
+                if (part)
+                {
+                    connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
+                    m_parts.append(part);
 
-                int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
-                m_tabWidget->setCurrentIndex(tab);
-                // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
-                // This fix https://bugs.kde.org/show_bug.cgi?id=395976
-                part->widget()->findChild<QGraphicsView*>()->setFocus();
+                    int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
+                    m_tabWidget->setCurrentIndex(tab);
+                    // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
+                    // This fix https://bugs.kde.org/show_bug.cgi?id=395976
+                    part->widget()->findChild<QGraphicsView*>()->setFocus();
+                }
+                else
+                {
+                    qDebug()<<"error creating part ";
+                }
             }
             else
-                delete part;
+            {
+                KMessageBox::error(this, i18n("%1 backend installed, but innactive. Please check installation and Cantor settings", backendName), i18n("Cantor"));
+            }
         }
         else
-        {
-            qDebug()<<"error creating part ";
-        }
-
+            KMessageBox::error(this, i18n("Backend %1 is not installed", backendName), i18n("Cantor"));
     }
     else
     {
