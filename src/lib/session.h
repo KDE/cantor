@@ -223,10 +223,9 @@ class CANTOR_EXPORT Session : public QObject
     virtual void runFirstExpression();
 
     /**
-     * Opposite action to Session::runFirstExpression()
-     * This method dequeue the expression and go to next expression, if queue not empty
-     * Also, this method updates variableModel, if needed
-     * If queue empty, session change status to Done
+     * This method dequeues the expression and goes to the next expression, if the queue is not empty.
+     * Also, this method updates the variable model, if needed.
+     * If the queue is empty, the session status is set to Done.
      */
     virtual void finishFirstExpression();
 
