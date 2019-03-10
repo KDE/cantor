@@ -3,6 +3,7 @@ set( PythonBackend_SRCS
   pythonsession.cpp
   pythonexpression.cpp
   pythonkeywords.cpp
+  pythonvariablemodel.cpp
   pythonhighlighter.cpp
   pythoncompletionobject.cpp
   pythonextensions.cpp

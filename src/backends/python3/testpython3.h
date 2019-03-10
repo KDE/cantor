@@ -32,6 +32,10 @@ class TestPython3 : public BackendTest
     void testPython3Code();
     void testSimplePlot();
 
+    void testVariablesCreatingFromCode();
+    void testVariableCleanupAfterRestart();
+    void testDictVariable();
+
   private:
     QString backendName() override;
 };

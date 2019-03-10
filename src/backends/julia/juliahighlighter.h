@@ -21,6 +21,8 @@
 
 #include "defaulthighlighter.h"
 
+class JuliaSession;
+
 /**
  * Implementation of JuliaHighlighter
  *
@@ -38,14 +40,8 @@ public:
      *
      * @param parent QObject parent
      */
-    explicit JuliaHighlighter(QObject *parent);
+    explicit JuliaHighlighter(QObject *parent, JuliaSession* session);
     ~JuliaHighlighter() override = default;
-
-public Q_SLOTS:
-    /**
-     * Call this to update highlighter to the current state of keywords storage
-     */
-    void updateHighlight();
 
 protected:
     /**

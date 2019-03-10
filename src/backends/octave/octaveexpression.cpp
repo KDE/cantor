@@ -117,28 +117,6 @@ void OctaveExpression::parseOutput(const QString& output)
         }
     }
 
-    // TODO: remove this, then there is method for notify both Highlighter and variable model about new variable
-    foreach ( const QString& line, output.simplified().split(QLatin1Char('\n'), QString::SkipEmptyParts) )
-    {
-        if ((output.contains(QLatin1Char('='))) && !(command().startsWith(QLatin1String("help(")))
-                && !(command().contains(QLatin1String("help "))) && !(command().contains(QLatin1String("type("))))
-        {
-            qDebug() << line;
-            // Probably a new variable
-            QStringList parts = line.split(QLatin1Char('='));
-            if (parts.size() >= 2)
-            {
-                Cantor::DefaultVariableModel* model = dynamic_cast<Cantor::DefaultVariableModel*>(session()->variableModel());
-                if (model)
-                {
-                    const QString varname = parts.first().trimmed();
-                    if (varname != QLatin1String("__cantor_tmp__"))
-                        model->addVariable(varname, parts.last().trimmed());
-                }
-            }
-        }
-    }
-
     m_finished = true;
     if (!m_plotPending)
         setStatus(Done);

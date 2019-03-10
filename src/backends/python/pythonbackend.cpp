@@ -42,16 +42,6 @@ PythonBackend::~PythonBackend()
     qDebug()<<"Destroying PythonBackend";
 }
 
-Cantor::Backend::Capabilities PythonBackend::capabilities() const
-{
-    qDebug()<<"Requesting capabilities of PythonSession";
-
-    return Cantor::Backend::SyntaxHighlighting |
-           Cantor::Backend::Completion         |
-           Cantor::Backend::SyntaxHelp         |
-           Cantor::Backend::VariableManagement;
-}
-
 QWidget* PythonBackend::settingsWidget(QWidget* parent) const
 {
     QWidget* widget=new QWidget(parent);

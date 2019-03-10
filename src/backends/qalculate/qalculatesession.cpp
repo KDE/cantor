@@ -424,7 +424,7 @@ QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QObject* parent)
 }
 
 
-QAbstractItemModel* QalculateSession::variableModel()
+Cantor::DefaultVariableModel* QalculateSession::variableModel() const
 {
     return m_variableModel;
 }

@@ -65,10 +65,15 @@ Cantor::Session* RBackend::createSession()
 Cantor::Backend::Capabilities RBackend::capabilities() const
 {
     qDebug()<<"Requesting capabilities of RSession";
-    return  Cantor::Backend::InteractiveMode |
-            Cantor::Backend::SyntaxHighlighting |
-            Cantor::Backend::Completion |
-            Cantor::Backend::VariableManagement;
+    Cantor::Backend::Capabilities cap=
+        SyntaxHighlighting|
+        Completion |
+        InteractiveMode;
+
+    if (RServerSettings::variableManagement())
+        cap |= VariableManagement;
+
+    return cap;
 }
 
 bool RBackend::requirementsFullfilled() const

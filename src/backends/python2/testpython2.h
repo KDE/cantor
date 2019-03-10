@@ -33,6 +33,10 @@ class TestPython2 : public BackendTest
     void testSimpleCode();
     void testMultilineCode();
 
+    void testVariablesCreatingFromCode();
+    void testVariableCleanupAfterRestart();
+    void testDictVariable();
+
   private:
     QString backendName() override;
 };

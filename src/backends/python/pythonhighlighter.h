@@ -22,19 +22,15 @@
 #define _PYTHONHIGHLIGHTER_H
 
 #include "defaulthighlighter.h"
+class PythonSession;
 
 class PythonHighlighter : public Cantor::DefaultHighlighter
 {
     Q_OBJECT
 
   public:
-    explicit PythonHighlighter(QObject* parent, const int pythonVersion);
+    explicit PythonHighlighter(QObject* parent, PythonSession* session, const int pythonVersion);
     ~PythonHighlighter() override = default;
-
-  public Q_SLOTS:
-    void updateHighlight();
-    void addVariable(const QString variable);
-    void clearVariables();
 
   protected:
     void highlightBlock(const QString& text) override;
@@ -42,8 +38,6 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
   private:
      QRegExp commentStartExpression;
      QRegExp commentEndExpression;
-     QStringList m_variables;
-
 };
 
 #endif /* _PYTHONHIGHLIGHTER_H */

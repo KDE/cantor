@@ -28,39 +28,43 @@
 #include <QDebug>
 #include <KLocalizedString>
 
+#include "settings.h"
+
 //command used to inspect a maxima variable. %1 is the name of that variable
 const QString MaximaVariableModel::inspectCommand=QLatin1String(":lisp($disp $%1)");
 const QString MaximaVariableModel::variableInspectCommand=QLatin1String(":lisp(cantor-inspect $%1)");
 
-MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session)
+MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session),
+m_variableExpression(nullptr),
+m_functionExpression(nullptr)
 {
-}
-
-void MaximaVariableModel::clear()
-{
-    emit functionsRemoved(functionNames());
-    emit variablesRemoved(variableNames());
-    m_functions.clear();
-    m_variables.clear();
-    DefaultVariableModel::clearVariables();
 }
 
 void MaximaVariableModel::update()
 {
-    qDebug()<<"checking for new variables";
-    const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
-    Cantor::Expression* expr1=session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(expr1, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
+    if (!m_variableExpression)
+    {
+        qDebug()<<"checking for new variables";
+        const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
+        m_variableExpression = static_cast<MaximaExpression*>(session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true));
+        connect(m_variableExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
+    }
 
-    qDebug()<<"checking for new functions";
-    const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
-    Cantor::Expression* expr2=session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
-    connect(expr2, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
+    if (!m_functionExpression)
+    {
+        qDebug()<<"checking for new functions";
+        const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
+        m_functionExpression = static_cast<MaximaExpression*>(session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true));
+        connect(m_functionExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
+    }
 }
 
 QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
 {
-    if(!expr || expr->status()!=Cantor::Expression::Done || expr->results().isEmpty()) {
+    if(!expr
+        || (expr->status()!=Cantor::Expression::Done && expr->errorMessage() != QLatin1String("$DONE"))
+        || expr->results().isEmpty())
+    {
         return QList<Cantor::DefaultVariableModel::Variable>();
     }
 
@@ -103,10 +107,13 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         //nameString = "[a,b]"
         //variableString = "\n1\n\"-cantor-value-separator-\"\n2\n\"-cantor-value-separator-\"\n($A $B)"
         variableNames = namesString.split(QLatin1Char(','));
-        valuesString = text.mid(nameIndex+1).trimmed();
-        valuesString = valuesString.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
-        variableValues = valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
-        hasValues = variableValues.isEmpty();
+        if (MaximaSettings::self()->variableManagement())
+        {
+            valuesString = text.mid(nameIndex+1).trimmed();
+            valuesString = valuesString.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
+            variableValues = valuesString.split(QLatin1String("\"-cantor-value-separator-\""));
+            hasValues = variableValues.isEmpty();
+        }
     }
 
     qDebug()<<variableNames;
@@ -140,46 +147,13 @@ void MaximaVariableModel::parseNewVariables(Cantor::Expression::Status status)
         return;
 
     qDebug()<<"parsing variables";
-    MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
-    QList<Variable> newVars=parse(expr);
-    QStringList addedVars;
-    QStringList removedVars;
-    //remove the old variables
-    for (const Variable& var : m_variables)
-    {
-        //check if this var is present in the new variables
-        bool found=false;
-        for (const Variable& var2 : newVars)
-        {
-            if(var.name==var2.name)
-            {
-                found=true;
-                break;
-            }
-        }
-
-        if(!found)
-        {
-            removeVariable(var);
-            removedVars<<var.name;
-        }
-    }
-
-    for (const Variable& var : newVars)
-    {
-        addVariable(var);
-
-        addedVars<<var.name;
-    }
-
-    m_variables=newVars;
+    QList<Variable> newVars=parse(m_variableExpression);
+    setVariables(newVars);
 
     //the expression is not needed anymore
-    expr->deleteLater();
-
-    emit variablesAdded(addedVars);
-    emit variablesRemoved(removedVars);
+    m_variableExpression->deleteLater();
+    m_variableExpression = nullptr;
 }
 
 void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
@@ -188,92 +162,21 @@ void MaximaVariableModel::parseNewFunctions(Cantor::Expression::Status status)
         return;
 
     qDebug()<<"parsing functions";
-    MaximaExpression* expr=static_cast<MaximaExpression*>(sender());
 
-    QList<Variable> newVars=parse(expr);
-    QStringList addedVars;
-    QStringList removedVars;
-
-    //remove the old variables
-    for (const Variable& var : m_functions)
-    {
-        //check if this var is present in the new variables
-        bool found=false;
-        for (const Variable& var2 : newVars)
-        {
-            if(var.name==var2.name)
-            {
-                found=true;
-                break;
-            }
-        }
-
-        if(!found)
-        {
-            removeVariable(var);
-            removedVars<<var.name;
-        }
-    }
-
-    for (Variable var : newVars)
-    {
-        var.value=i18n("function");
-        addVariable(var);
-        //todo: check if the variable is actually new?
-        addedVars<<var.name;
-    }
-
-    m_functions=newVars;
+    // List of variables?
+    QList<Variable> newFuncs=parse(m_functionExpression);
+    QStringList functions;
+    for (Variable var : newFuncs)
+        functions << var.name.left(var.name.indexOf(QLatin1Char('(')));
+    qDebug() << functions;
+    setFunctions(functions);
 
     //the expression is not needed anymore
-    expr->deleteLater();
-
-    emit functionsAdded(addedVars);
-    emit functionsRemoved(removedVars);
-}
-
-bool MaximaVariableModel::isUpdateCommand(const QString& cmd) const
-{
-    return cmd == variableInspectCommand.arg(QLatin1String("values"))
-        || cmd == inspectCommand.arg(QLatin1String("functions"));
+    m_functionExpression->deleteLater();
+    m_functionExpression = nullptr;
 }
 
 MaximaSession* MaximaVariableModel::maximaSession()
 {
     return static_cast<MaximaSession*> (session());
-}
-
-QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::variables()
-{
-    return m_variables;
-}
-
-QList<Cantor::DefaultVariableModel::Variable> MaximaVariableModel::functions()
-{
-    return m_functions;
-}
-
-QStringList MaximaVariableModel::variableNames()
-{
-    QStringList names;
-    for (const Cantor::DefaultVariableModel::Variable& var : m_variables)
-        names<<var.name;
-
-    return names;
-}
-
-QStringList MaximaVariableModel::functionNames(bool stripParameters)
-{
-    QStringList names;
-    for (const Cantor::DefaultVariableModel::Variable& var : m_functions)
-    {
-        QString name=var.name;
-        if(stripParameters)
-        {
-            name=name.left(name.lastIndexOf(QLatin1Char('(')));
-        }
-        names<<name;
-    }
-
-    return names;
 }

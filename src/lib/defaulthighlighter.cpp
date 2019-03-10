@@ -21,6 +21,9 @@
 
 #include "defaulthighlighter.h"
 
+#include "defaultvariablemodel.h"
+#include "session.h"
+
 #include <QApplication>
 #include <QLocale>
 #include <QTextDocument>
@@ -81,8 +84,8 @@ class Cantor::DefaultHighlighterPrivate
 };
 
 DefaultHighlighter::DefaultHighlighter(QObject* parent)
-	: QSyntaxHighlighter(parent),
-	d(new DefaultHighlighterPrivate)
+    : QSyntaxHighlighter(parent),
+    d(new DefaultHighlighterPrivate)
 {
     d->cursor = QTextCursor();
     d->lastBlockNumber=-1;
@@ -96,6 +99,25 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent)
     updateFormats();
     connect(qApp, &QGuiApplication::paletteChanged,
             this, &DefaultHighlighter::updateFormats);
+}
+
+DefaultHighlighter::DefaultHighlighter(QObject* parent, Session* session)
+    :DefaultHighlighter(parent)
+{
+    if (session)
+    {
+        DefaultVariableModel* model = session->variableModel();
+        if (model)
+        {
+            connect(model, &DefaultVariableModel::variablesAdded, this, &DefaultHighlighter::addVariables);
+            connect(model, &DefaultVariableModel::variablesRemoved, this, &DefaultHighlighter::removeRules);
+            connect(model, &DefaultVariableModel::functionsAdded, this, &DefaultHighlighter::addFunctions);
+            connect(model, &DefaultVariableModel::functionsRemoved, this, &DefaultHighlighter::removeRules);
+
+            addVariables(model->variableNames());
+            addFunctions(model->functions());
+        }
+    }
 }
 
 DefaultHighlighter::~DefaultHighlighter()

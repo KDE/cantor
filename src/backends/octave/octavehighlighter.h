@@ -35,14 +35,6 @@ class OctaveHighlighter : public Cantor::DefaultHighlighter
   public:
     OctaveHighlighter(QObject* parent, Cantor::Session* session);
     ~OctaveHighlighter() override = default;
-
-  public Q_SLOTS:
-    void updateVariables();
-    void sessionStatusChanged(Cantor::Session::Status status);
-
-  private:
-    Cantor::Session* m_session;
-    QStringList m_variables;
 };
 
 #endif // OCTAVEHIGHLIGHTER_H

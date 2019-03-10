@@ -15,28 +15,36 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
- */
+    Copyright (C) 2019 Nikita Sirgienko <warquark@gmail.com>
+*/
 
-#ifndef _PYTHON3BACKEND_H
-#define _PYTHON3BACKEND_H
+#ifndef _PYTHONVARIABLEMODEL_H
+#define _PYTHONVARIABLEMODEL_H
 
-#include "../python/pythonbackend.h"
+#include <QStringList>
 
-class Python3Backend : public PythonBackend
+#include "defaultvariablemodel.h"
+
+class JuliaSession;
+class QDBusInterface;
+
+class JuliaVariableModel : public Cantor::DefaultVariableModel
 {
+  Q_OBJECT
   public:
-    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
+    JuliaVariableModel( JuliaSession* session);
+    ~JuliaVariableModel() override = default;
 
-    Cantor::Session* createSession() override;
+    void update() override;
 
-    QString id() const override;
-    QString version() const override;
-    Cantor::Backend::Capabilities capabilities() const override;
-    QUrl helpUrl() const override;
-    QString description() const override;
+    void setJuliaServer(QDBusInterface* interface);
 
-    KConfigSkeleton* config() const override;
+  private:
+    static const QRegularExpression typeVariableInfo;
+
+  private:
+    QDBusInterface* m_interface;
+    QStringList m_functions;
 };
 
-#endif
+#endif /* _PYTHONVARIABLEMODEL_H */

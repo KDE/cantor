@@ -183,9 +183,7 @@ void TestJulia::testAddVariablesFromCode()
 
 void TestJulia::testAddVariablesFromManager()
 {
-    auto variableModel = static_cast<Cantor::DefaultVariableModel *>(
-        session()->variableModel()
-    );
+    Cantor::DefaultVariableModel* variableModel = session()->variableModel();
     QStringList variableNames =
     QString::fromLatin1("a b c d").split(QLatin1String(" "));
 
@@ -212,9 +210,7 @@ void TestJulia::testAddVariablesFromManager()
 
 void TestJulia::testRemoveVariables()
 {
-    auto variableModel = static_cast<Cantor::DefaultVariableModel *>(
-        session()->variableModel()
-    );
+    Cantor::DefaultVariableModel* variableModel = session()->variableModel();
     QStringList variableNames =
     QString::fromLatin1("a b c d").split(QLatin1String(" "));
 

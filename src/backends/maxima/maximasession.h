@@ -50,7 +50,6 @@ class MaximaSession : public Cantor::Session
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& command) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject*) override;
-    QAbstractItemModel* variableModel() override;
     void runFirstExpression() override;
 
   public Q_SLOTS:
@@ -68,7 +67,6 @@ class MaximaSession : public Cantor::Session
 
     QProcess* m_process;
     QString m_cache;
-    MaximaVariableModel* m_variableModel;
     bool m_justRestarted;
 };
 

@@ -25,6 +25,7 @@
 #include <QStringList>
 
 class MaximaSession;
+class MaximaExpression;
 
 class MaximaVariableModel : public Cantor::DefaultVariableModel
 {
@@ -36,37 +37,18 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     explicit MaximaVariableModel( MaximaSession* session);
     ~MaximaVariableModel() override = default;
 
-    void clear();
-
-    QList<Variable> variables();
-    QList<Variable> functions();
-
-    QStringList variableNames();
-    QStringList functionNames(bool stripParameters=false);
-
-    bool isUpdateCommand(const QString &cmd) const;
-  public Q_SLOTS:
-      void update();
+    void update() override;
 
   private Q_SLOTS:
-      void parseNewVariables(Cantor::Expression::Status status);
-      void parseNewFunctions(Cantor::Expression::Status status);
-
-  Q_SIGNALS:
-      void variablesAdded(const QStringList variables);
-      void variablesRemoved(const QStringList variables);
-
-      void functionsAdded(const QStringList variables);
-      void functionsRemoved(const QStringList variables);
+    void parseNewVariables(Cantor::Expression::Status status);
+    void parseNewFunctions(Cantor::Expression::Status status);
 
   private:
     MaximaSession* maximaSession();
 
   private:
-    QList<Variable> m_variables;
-    QList<Variable> m_functions;
-    Cantor::Expression* m_variableExpression;
-    Cantor::Expression* m_functionExpression;
+    MaximaExpression* m_variableExpression;
+    MaximaExpression* m_functionExpression;
 };
 
 #endif /* _MAXIMAVARIABLEMODEL_H */

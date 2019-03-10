@@ -15,28 +15,29 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
- */
+    Copyright (C) 2018 Nikita Sirgienko <warquark@gmail.com>
+*/
 
-#ifndef _PYTHON3BACKEND_H
-#define _PYTHON3BACKEND_H
+#ifndef _OCTAVEVARIABLEMODEL_H
+#define _OCTAVEVARIABLEMODEL_H
 
-#include "../python/pythonbackend.h"
+#include "defaultvariablemodel.h"
 
-class Python3Backend : public PythonBackend
+class OctaveSession;
+
+class OctaveVariableModel : public Cantor::DefaultVariableModel
 {
   public:
-    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
+    OctaveVariableModel( OctaveSession* session);
+    ~OctaveVariableModel() override = default;
 
-    Cantor::Session* createSession() override;
+    void update() override;
 
-    QString id() const override;
-    QString version() const override;
-    Cantor::Backend::Capabilities capabilities() const override;
-    QUrl helpUrl() const override;
-    QString description() const override;
+  private Q_SLOTS:
+    void parseNewVariables(Cantor::Expression::Status status);
 
-    KConfigSkeleton* config() const override;
+  private:
+    Cantor::Expression* m_expr;
 };
 
-#endif
+#endif /* _OCTAVEVARIABLEMODEL_H */

@@ -44,3 +44,8 @@ QStringList Python2Session::autorunScripts() const
 {
     return PythonSettings::autorunScripts();
 }
+
+bool Python2Session::variableManagement() const
+{
+    return PythonSettings::variableManagement();
+}

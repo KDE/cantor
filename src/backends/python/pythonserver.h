@@ -38,6 +38,7 @@ class PythonServer : public QObject
     Q_SCRIPTABLE void runPythonCommand(const QString& command) const;
     Q_SCRIPTABLE QString getOutput() const;
     Q_SCRIPTABLE QString getError() const;
+    Q_SCRIPTABLE QString variables(bool parseValue) const;
 
   private:
     PyObject* m_pModule;

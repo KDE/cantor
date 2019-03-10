@@ -27,10 +27,11 @@
 #include <QStringList>
 
 namespace Cantor {
-class DefaultVariableModel;
+    class DefaultVariableModel;
 }
 
 class PythonExpression;
+class PythonVariableModel;
 class KDirWatch;
 class QDBusInterface;
 class KProcess;
@@ -51,14 +52,15 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    QAbstractItemModel* variableModel() override;
+    Cantor::DefaultVariableModel* variableModel() const override;
     void setWorksheetPath(const QString& path) override;
 
     virtual bool integratePlots() const = 0;
     virtual QStringList autorunScripts() const = 0;
+    virtual bool variableManagement() const = 0;
 
   private:
-    Cantor::DefaultVariableModel* m_variableModel;
+    PythonVariableModel* m_variableModel;
 
     QList<PythonExpression*> m_runningExpressions;
     PythonExpression* m_currentExpression;
@@ -71,13 +73,13 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
     QString worksheetPath;
     int m_pythonVersion;
 
+    bool m_needUpdate;
+
   protected:
     QString m_output;
     QString m_error;
 
   private:
-    void listVariables();
-
     void getPythonCommandOutput(const QString& commandProcessing);
 
     QString identifyPythonModule(const QString& command) const;
@@ -96,11 +98,6 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
   private Q_SLOTS:
     void readOutput(const QString& commandProcessing);
     void expressionFinished();
-
-  Q_SIGNALS:
-    void updateHighlighter();
-    void newVariable(const QString variable);
-    void clearVariables();
 };
 
 #endif /* _PYTHONSESSION_H */

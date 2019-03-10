@@ -7,6 +7,7 @@ set( OctaveBackend_SRCS
   octavekeywords.cpp
   octavecompletionobject.cpp
   octavesyntaxhelpobject.cpp
+  octavevariablemodel.cpp
 )
 
 set (OCTAVE_SCRIPT_INSTALL_DIR ${KDE_INSTALL_DATADIR}/cantor/octavebackend)

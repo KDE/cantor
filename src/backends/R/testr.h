@@ -15,28 +15,25 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
+    Copyright (C) 2019 Sirgienko Nikita <warquark@gmail.com>
  */
 
-#ifndef _PYTHON3BACKEND_H
-#define _PYTHON3BACKEND_H
+#ifndef _TESTR_H
+#define _TESTR_H
 
-#include "../python/pythonbackend.h"
+#include "backendtest.h"
 
-class Python3Backend : public PythonBackend
+class TestR : public BackendTest
 {
-  public:
-    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
+  Q_OBJECT
 
-    Cantor::Session* createSession() override;
+private Q_SLOTS:
+    //tests variable model
+    void testVariablesCreatingFromCode();
+    void testVariableCleanupAfterRestart();
 
-    QString id() const override;
-    QString version() const override;
-    Cantor::Backend::Capabilities capabilities() const override;
-    QUrl helpUrl() const override;
-    QString description() const override;
-
-    KConfigSkeleton* config() const override;
+private:
+    QString backendName() override;
 };
 
-#endif
+#endif /* _TESTR_H */

@@ -40,6 +40,7 @@ class Backend;
 class SessionPrivate;
 class CompletionObject;
 class SyntaxHelpObject;
+class DefaultVariableModel;
 
 /**
  * The Session object is the main class used to interact with a Backend.
@@ -53,8 +54,8 @@ class CANTOR_EXPORT Session : public QObject
   public:
     enum Status {
       Running, ///< the session is busy, running some expression
-		  Done,    ///< the session has done all the jobs, and is now waiting for more
-      Disable ///< the session don't login yet, or already logout
+      Done,    ///< the session has done all the jobs, and is now waiting for more
+      Disable  ///< the session don't login yet, or already logout
     };
 
     /**
@@ -63,6 +64,12 @@ class CANTOR_EXPORT Session : public QObject
      * @see login()
      */
     explicit Session( Backend* backend);
+
+    /**
+     * Similar to Session::Session, but also specify variable model for automatically handles model's updates
+     */
+    explicit Session( Backend* backend, DefaultVariableModel* model);
+
     /**
      * Destructor
      */
@@ -137,10 +144,17 @@ class CANTOR_EXPORT Session : public QObject
     virtual QSyntaxHighlighter* syntaxHighlighter(QObject* parent);
 
     /**
-     * returns a Model to interact with the variables
-     * @return QAbstractItemModel to interact with the variables
+     * returns a Model to interact with the variables or nullptr, if
+     * this backend have a variable model, which not inherit from
+     * default variable model class (in this case @see variableDataModel())
+     * @return DefaultVariableModel to interact with the variables
      */
-    virtual QAbstractItemModel* variableModel();
+    virtual DefaultVariableModel* variableModel() const;
+
+    /**
+     * returns QAbstractItemModel to interact with the variables
+     */
+    virtual QAbstractItemModel* variableDataModel() const;
 
     /**
      * Enables/disables Typesetting for this session.
@@ -207,6 +221,25 @@ class CANTOR_EXPORT Session : public QObject
      * @see expressionQueue() const
      */
     virtual void runFirstExpression();
+
+    /**
+     * Opposite action to Session::runFirstExpression()
+     * This method dequeue the expression and go to next expression, if queue not empty
+     * Also, this method updates variableModel, if needed
+     * If queue empty, session change status to Done
+     */
+    virtual void finishFirstExpression();
+
+    /**
+     * Starts variable update immideatly, usefull for subclasses, which run internal command
+     * which could change variables listen
+     */
+    virtual void updateVariables();
+
+    /**
+     * Setting variable model, usefull, if model constructor requires functional session
+     */
+    void setVariableModel(DefaultVariableModel* model);
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);

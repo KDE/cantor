@@ -35,12 +35,6 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
     void highlightBlock(const QString &text) override;
 
     QString nonSeparatingCharacters() const override;
-  private Q_SLOTS:
-      void addUserVariables(const QStringList variables);
-      void removeUserVariables(const QStringList variables);
-
-      void addUserFunctions(const QStringList functions);
-      void removeUserFunctions(const QStringList functions);
 
   private:
      QRegExp commentStartExpression;

@@ -49,9 +49,9 @@ const QRegExp MaximaSession::MaximaInputPrompt = QRegExp(QLatin1String("(\\(\\s*
 
 MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
     m_process(nullptr),
-    m_variableModel(new MaximaVariableModel(this)),
     m_justRestarted(false)
 {
+    setVariableModel(new MaximaVariableModel(this));
 }
 
 void MaximaSession::login()
@@ -89,6 +89,7 @@ void MaximaSession::login()
         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String(";"));
         autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
         evaluateExpression(autorunScripts, MaximaExpression::DeleteOnFinish, true);
+        updateVariables();
     }
 
     changeStatus(Session::Done);
@@ -122,7 +123,8 @@ void MaximaSession::logout()
     expressionQueue().clear();
     delete m_process;
     m_process = nullptr;
-    m_variableModel->clear();
+    variableModel()->clearVariables();
+    variableModel()->clearFunctions();
 
     changeStatus(Status::Disable);
 
@@ -194,29 +196,21 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
 {
     Cantor::Expression* expression = expressionQueue().first();
     const QString& cmd = expression->command();
-    bool isInternal = expression->isInternal();
     qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
-    if(status!=Cantor::Expression::Computing) //The session is ready for the next command
+    switch (status)
     {
+    case Cantor::Expression::Done:
+    case Cantor::Expression::Error:
         qDebug()<<"################################## EXPRESSION END ###############################################";
         disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
-                   this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
+            this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-        expressionQueue().removeFirst();
-        if(expressionQueue().isEmpty())
-        {
-            //if we are done with all the commands in the queue,
-            //use the opportunity to update the variablemodel (if the last command wasn't already an update, as infinite loops aren't fun)
+        finishFirstExpression();
+        break;
 
-            if(!isInternal || !m_variableModel->isUpdateCommand(cmd))
-                m_variableModel->update();
-            else
-                changeStatus(Cantor::Session::Done);
-        }else
-        {
-            runFirstExpression();
-        }
+    default:
+        break;
     }
 }
 
@@ -329,11 +323,6 @@ Cantor::SyntaxHelpObject* MaximaSession::syntaxHelpFor(const QString& command)
 QSyntaxHighlighter* MaximaSession::syntaxHighlighter(QObject* parent)
 {
     return new MaximaHighlighter(parent, this);
-}
-
-QAbstractItemModel* MaximaSession::variableModel()
-{
-    return m_variableModel;
 }
 
 void MaximaSession::write(const QString& exp) {

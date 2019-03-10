@@ -84,6 +84,27 @@ public:
      */
     Session* session() const;
 
+    /**
+     * Returns variables, stored in this model, as @see Variable.
+     */
+    QList<Variable> variables() const;
+
+    /**
+     * Returns names of stored variables
+     */
+    QStringList variableNames() const;
+
+    /**
+     * Return functions, stored in this model
+     */
+    QStringList functions() const;
+
+    //TODO: improve the description?
+    /**
+     * Starts updating variable model (variable lists, etc.). Usually executed after finished all user's commands
+     */
+    virtual void update() {};
+
 public Q_SLOTS:
     /**
      * Adds a variable to the model.
@@ -113,6 +134,34 @@ public Q_SLOTS:
      */
     void clearVariables();
 
+    /**
+     * Clears all functions
+     */
+    void clearFunctions();
+
+
+Q_SIGNALS:
+    /**
+     * Emitted after adding new variables
+     * @param variables list of new variables
+     */
+    void variablesAdded(const QStringList& variables);
+
+    /**
+     * Emitted after variables removing
+     * @param variables list of removed variables
+     */
+    void variablesRemoved(const QStringList& variables);
+
+    /**
+     * Similar to @c variablesAdded
+     */
+    void functionsAdded(const QStringList& names);
+
+    /**
+     * Similar to @c variablesRemoved
+     */
+    void functionsRemoved(const QStringList funcs);
 
 protected:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
@@ -122,6 +171,9 @@ protected:
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
+
+    void setVariables(const QList<DefaultVariableModel::Variable>& newVars);
+    void setFunctions(const QStringList& newFuns);
 
     enum Column
     {

@@ -26,6 +26,7 @@
 
 class JuliaExpression;
 class JuliaCompletionObject;
+class JuliaVariableModel;
 class KProcess;
 class QDBusInterface;
 namespace Cantor {
@@ -86,18 +87,12 @@ public:
     /**
      * @see Cantor::Session::variableModel
      */
-    QAbstractItemModel *variableModel() override;
+    Cantor::DefaultVariableModel *variableModel() const override;
 
     /**
      * @return indicator if config says to integrate plots into worksheet
      */
     bool integratePlots();
-
-Q_SIGNALS:
-    /**
-     * Emit this to update syntax highlighter
-     */
-    void updateHighlighter();
 
 private Q_SLOTS:
     /**
@@ -114,8 +109,8 @@ private:
     JuliaExpression *m_currentExpression; //< current expression
 
     /// Variable management model
-    Cantor::DefaultVariableModel *m_variableModel;
-    static const QRegularExpression typeVariableInfo;
+    JuliaVariableModel *m_variableModel;
+    bool m_needUpdate;
 
     /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
@@ -167,9 +162,4 @@ private:
      * @return indicator of exception occurred during the last command execution
      */
     bool getWasException();
-
-    /**
-     * Updates variable model by querying all modules in scope with whos command
-     */
-    void listVariables();
 };

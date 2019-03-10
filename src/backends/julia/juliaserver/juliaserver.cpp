@@ -163,12 +163,12 @@ bool JuliaServer::getWasException() const
 #define JL_MAIN_MODULE jl_internal_main_module
 #endif
 
-void JuliaServer::parseModules()
+void JuliaServer::parseModules(bool variableManagement)
 {
-    parseJlModule(JL_MAIN_MODULE);
+    parseJlModule(JL_MAIN_MODULE, variableManagement);
 }
 
-void JuliaServer::parseJlModule(jl_module_t* module)
+void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
 {
     jl_function_t* jl_string_function = jl_get_function(jl_base_module, "string");
 
@@ -198,7 +198,7 @@ void JuliaServer::parseJlModule(jl_module_t* module)
             if (jl_is_module(value))
             {
                 if (module == JL_MAIN_MODULE && (jl_module_t*)value != JL_MAIN_MODULE)
-                    parseJlModule((jl_module_t*)value);
+                    parseJlModule((jl_module_t*)value, parseValue);
             }
             // Function
             else if (type.startsWith(QLatin1String("#")) || type == QLatin1String("Function"))
@@ -211,16 +211,24 @@ void JuliaServer::parseJlModule(jl_module_t* module)
             {
                 if (module == JL_MAIN_MODULE && !INTERNAL_VARIABLES.contains(name))
                 {
-                    const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
-                    if (m_variables.contains(name))
+                    if (parseValue)
                     {
-                        int i = m_variables.indexOf(name);
-                        m_variableValues[i] = valueString;
+                        const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
+                        if (m_variables.contains(name))
+                        {
+                            int i = m_variables.indexOf(name);
+                            m_variableValues[i] = valueString;
+                        }
+                        else
+                        {
+                            m_variables.append(name);
+                            m_variableValues.append(valueString);
+                        }
                     }
                     else
                     {
-                        m_variables.append(name);
-                        m_variableValues.append(valueString);
+                        if (!m_variables.contains(name))
+                            m_variables.append(name);
                     }
                 }
             }

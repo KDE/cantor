@@ -48,11 +48,7 @@ class OctaveSession : public Cantor::Session
         Cantor::CompletionObject* completionFor(const QString& cmd, int index=-1) override;
         Cantor::SyntaxHelpObject* syntaxHelpFor(const QString& cmd) override;
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-        QAbstractItemModel* variableModel() override;
         void runFirstExpression() override;
-
-    Q_SIGNALS:
-        void variablesChanged();
 
     private:
         const static QRegExp PROMPT_UNCHANGEABLE_COMMAND;
@@ -69,8 +65,6 @@ class OctaveSession : public Cantor::Session
         bool m_syntaxError;
 
         QString m_output;
-
-        Cantor::DefaultVariableModel* m_variableModel;
 
     private:
         void readFromOctave(QByteArray data);

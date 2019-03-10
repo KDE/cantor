@@ -21,6 +21,7 @@
 
 #include "rhighlighter.h"
 #include "rkeywords.h"
+#include "rsession.h"
 
 #include <QTextEdit>
 #include <QDebug>
@@ -32,7 +33,7 @@ const QStringList RHighlighter::operators_list=QStringList()
 const QStringList RHighlighter::specials_list=QStringList()
     << QLatin1String("BUG") << QLatin1String("TODO") << QLatin1String("FIXME") << QLatin1String("NB") << QLatin1String("WARNING") << QLatin1String("ERROR");
 
-RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
+RHighlighter::RHighlighter(QObject* parent, RSession* session) : Cantor::DefaultHighlighter(parent, session)
 {
     addKeywords(RKeywords::instance()->keywords());
 
@@ -40,11 +41,6 @@ RHighlighter::RHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
         operators.append(QRegExp(s));
     foreach (const QString& s, specials_list)
         specials.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
-}
-
-void RHighlighter::refreshSyntaxRegExps()
-{
-    emit syntaxRegExps(variables,functions);
 }
 
 // FIXME: due to lack of lookbehinds in QRegExp here we use a flag showing if we need to shift the boundary of formatting
@@ -84,9 +80,4 @@ void RHighlighter::highlightBlock(const QString& text)
     massFormat(functions,functionFormat(),text);
     massFormat(variables,variableFormat(),text);
     formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
-}
-
-void RHighlighter::updateHighlighting()
-{
-    emit rulesChanged();
 }

@@ -53,6 +53,21 @@ QString Python2Backend::version() const
     return QLatin1String("2.7");
 }
 
+Cantor::Backend::Capabilities Python2Backend::capabilities() const
+{
+    qDebug()<<"Requesting capabilities of Python3Session";
+
+    Backend::Capabilities cap =
+        Cantor::Backend::SyntaxHighlighting |
+        Cantor::Backend::Completion         |
+        Cantor::Backend::SyntaxHelp;
+
+    if(PythonSettings::variableManagement())
+        cap |= Cantor::Backend::VariableManagement;
+
+    return cap;
+}
+
 QUrl Python2Backend::helpUrl() const
 {
     const QUrl& localDoc = PythonSettings::self()->localDoc();

@@ -46,6 +46,21 @@ QString Python3Backend::version() const
     return QLatin1String("3.6");
 }
 
+Cantor::Backend::Capabilities Python3Backend::capabilities() const
+{
+    qDebug()<<"Requesting capabilities of Python3Session";
+
+    Backend::Capabilities cap =
+        Cantor::Backend::SyntaxHighlighting |
+        Cantor::Backend::Completion         |
+        Cantor::Backend::SyntaxHelp;
+
+    if(PythonSettings::variableManagement())
+        cap |= Cantor::Backend::VariableManagement;
+
+    return cap;
+}
+
 QUrl Python3Backend::helpUrl() const
 {
     const QUrl& localDoc = PythonSettings::self()->localDoc();

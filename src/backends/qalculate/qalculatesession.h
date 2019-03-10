@@ -75,7 +75,7 @@ public:
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     void runExpression();
-    QAbstractItemModel* variableModel() override;
+    Cantor::DefaultVariableModel* variableModel() const override;
 
 public:
     QMap<QString,QString> variables;

@@ -15,28 +15,30 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
- */
+    Copyright (C) 2018 Nikita Sirgienko <warquark@gmail.com>
+*/
 
-#ifndef _PYTHON3BACKEND_H
-#define _PYTHON3BACKEND_H
+#ifndef _RVARIABLEMODEL_H
+#define _RVARIABLEMODEL_H
 
-#include "../python/pythonbackend.h"
+#include "defaultvariablemodel.h"
 
-class Python3Backend : public PythonBackend
+class RSession;
+
+class RVariableModel : public Cantor::DefaultVariableModel
 {
+  Q_OBJECT
   public:
-    explicit Python3Backend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
+    RVariableModel( RSession* session);
+    ~RVariableModel() override = default;
 
-    Cantor::Session* createSession() override;
+    void update() override;
 
-    QString id() const override;
-    QString version() const override;
-    Cantor::Backend::Capabilities capabilities() const override;
-    QUrl helpUrl() const override;
-    QString description() const override;
+  public Q_SLOTS:
+    void parseResult(const QStringList& names, const QStringList& values, const QStringList& funcs);
 
-    KConfigSkeleton* config() const override;
+  private:
+    QStringList m_functions;
 };
 
-#endif
+#endif /* _RVARIABLEMODEL_H */

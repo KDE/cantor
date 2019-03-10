@@ -20,13 +20,14 @@
 
 #include "juliahighlighter.h"
 #include "juliakeywords.h"
+#include "juliasession.h"
 
 #include <climits>
 #include <QTextEdit>
 #include <QDebug>
 
-JuliaHighlighter::JuliaHighlighter(QObject *parent)
-    : Cantor::DefaultHighlighter(parent)
+JuliaHighlighter::JuliaHighlighter(QObject *parent, JuliaSession* session)
+    : Cantor::DefaultHighlighter(parent, session)
 {
     addKeywords(JuliaKeywords::instance()->keywords());
     addVariables(JuliaKeywords::instance()->variables());
@@ -161,22 +162,6 @@ void JuliaHighlighter::highlightBlock(const QString &text)
     }
 
     setCurrentBlockState(state);
-}
-
-void JuliaHighlighter::updateHighlight()
-{
-    // Remove rules for outdated variables and functions
-    for (const auto &var : JuliaKeywords::instance()->removedVariables()) {
-        removeRule(var);
-    }
-    for (const auto &func : JuliaKeywords::instance()->removedFunctions()) {
-        removeRule(func);
-    }
-
-    // Add actual variables and function
-    addVariables(JuliaKeywords::instance()->variables());
-    addFunctions(JuliaKeywords::instance()->functions());
-    rehighlight();
 }
 
 QString JuliaHighlighter::nonSeparatingCharacters() const

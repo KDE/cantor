@@ -35,3 +35,9 @@ QStringList Python3Session::autorunScripts() const
 {
     return PythonSettings::autorunScripts();
 }
+
+bool Python3Session::variableManagement() const
+{
+    return PythonSettings::variableManagement();
+}
+

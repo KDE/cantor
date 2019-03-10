@@ -40,19 +40,19 @@
 #include <signal.h>
 #endif
 
-#include <defaultvariablemodel.h>
+#include "octavevariablemodel.h"
 
 const QRegExp OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegExp(QLatin1String("(,|;)+"));
 
-OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend ),
+OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend),
 m_process(nullptr),
 m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
 m_watch(nullptr),
-m_syntaxError(false),
-m_variableModel(new Cantor::DefaultVariableModel(this))
+m_syntaxError(false)
 {
+    setVariableModel(new OctaveVariableModel(this));
     qDebug() << octaveScriptInstallDir;
 }
 
@@ -142,6 +142,7 @@ void OctaveSession::login()
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
 
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish, true);
+        updateVariables();
     }
 
     changeStatus(Cantor::Session::Done);
@@ -181,7 +182,7 @@ void OctaveSession::logout()
     m_output.clear();
     m_previousPromptNumber = 1;
 
-    m_variableModel->clearVariables();
+    variableModel()->clearVariables();
 
     changeStatus(Status::Disable);
 
@@ -284,13 +285,7 @@ void OctaveSession::readOutput()
                 if (m_previousPromptNumber + 1 == promptNumber || isSpecialOctaveCommand(command))
                 {
                     if (!expressionQueue().isEmpty())
-                    {
-                        if (command.contains(QLatin1String(" = ")) || command.contains(QLatin1String("clear")))
-                        {
-                            emit variablesChanged();
-                        }
                         static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(m_output);
-                    }
                 }
                 else
                 {
@@ -322,12 +317,9 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     {
     case Cantor::Expression::Done:
     case Cantor::Expression::Error:
-        expressionQueue().removeFirst();
-        if (expressionQueue().isEmpty())
-            changeStatus(Done);
-        else
-            runFirstExpression();
+        finishFirstExpression();
         break;
+
     default:
         break;
     }
@@ -358,19 +350,8 @@ Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor ( const QString& cmd )
 
 QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QObject* parent )
 {
-    OctaveHighlighter* highlighter = new OctaveHighlighter ( parent, this );
-
-    connect ( this, SIGNAL(variablesChanged()), highlighter, SLOT(updateVariables()) );
-    connect ( this, SIGNAL(statusChanged(Cantor::Session::Status)), highlighter, SLOT(sessionStatusChanged(Cantor::Session::Status)) );
-
-    return highlighter;
+    return new OctaveHighlighter ( parent, this );
 }
-
-QAbstractItemModel* OctaveSession::variableModel()
-{
-    return m_variableModel;
-}
-
 
 void OctaveSession::runSpecificCommands()
 {

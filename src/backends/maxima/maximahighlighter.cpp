@@ -23,7 +23,8 @@
 #include "maximasession.h"
 #include "maximavariablemodel.h"
 
-MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : Cantor::DefaultHighlighter(parent)
+MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session)
+    : Cantor::DefaultHighlighter(parent, session)
 {
     //addRule(QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), functionFormat());
 
@@ -41,15 +42,6 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session) : 
 
     commentStartExpression = QRegExp(QLatin1String("/\\*"));
     commentEndExpression = QRegExp(QLatin1String("\\*/"));
-
-    connect(session->variableModel(), SIGNAL(variablesAdded(QStringList)), this, SLOT(addUserVariables(QStringList)));
-    connect(session->variableModel(), SIGNAL(variablesRemoved(QStringList)), this, SLOT(removeUserVariables(QStringList)));
-    connect(session->variableModel(), SIGNAL(functionsAdded(QStringList)), this, SLOT(addUserFunctions(QStringList)));
-    connect(session->variableModel(), SIGNAL(functionsRemoved(QStringList)), this, SLOT(removeUserFunctions(QStringList)));
-
-    MaximaVariableModel* model=static_cast<MaximaVariableModel*>(session->variableModel());
-    addUserVariables(model->variableNames());
-    addUserFunctions(model->functionNames());
 }
 
 void MaximaHighlighter::highlightBlock(const QString& text)
@@ -107,37 +99,6 @@ void MaximaHighlighter::highlightBlock(const QString& text)
     } else if (commentLevel > 0) {
         setCurrentBlockState(commentLevel);
         setFormat(startIndex, text.size() - startIndex, commentFormat());
-    }
-}
-
-void MaximaHighlighter::addUserVariables(const QStringList variables)
-{
-    addVariables(variables);
-}
-
-void MaximaHighlighter::removeUserVariables(const QStringList variables)
-{
-    for (const QString& var : variables)
-        removeRule(var);
-}
-
-void MaximaHighlighter::addUserFunctions(const QStringList functions)
-{
-    //remove the trailing (x)
-    for (const QString& func : functions)
-    {
-        int idx=func.lastIndexOf(QLatin1Char('('));
-        addRule(func.left(idx), functionFormat());
-    }
-}
-
-void MaximaHighlighter::removeUserFunctions(const QStringList functions)
-{
-    //remove the trailing (x)
-    for (const QString& func : functions)
-    {
-        int idx=func.lastIndexOf(QLatin1Char('('));
-        removeRule(func.left(idx));
     }
 }
 
