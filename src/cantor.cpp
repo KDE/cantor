@@ -312,7 +312,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             }
             else
             {
-                KMessageBox::error(this, i18n("%1 backend installed, but innactive. Please check installation and Cantor settings", backendName), i18n("Cantor"));
+                KMessageBox::error(this, i18n("%1 backend installed, but inactive. Please check installation and Cantor settings", backendName), i18n("Cantor"));
             }
         }
         else
