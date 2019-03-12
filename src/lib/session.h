@@ -226,8 +226,9 @@ class CANTOR_EXPORT Session : public QObject
      * This method dequeues the expression and goes to the next expression, if the queue is not empty.
      * Also, this method updates the variable model, if needed.
      * If the queue is empty, the session status is set to Done.
+     * @param setDoneAfterUpdate enable setting status to Done after variable update, if queue is empty
      */
-    virtual void finishFirstExpression();
+    virtual void finishFirstExpression(bool setDoneAfterUpdate = false);
 
     /**
      * Starts variable update immideatly, usefull for subclasses, which run internal command

@@ -83,7 +83,7 @@ void Session::runFirstExpression()
 
 }
 
-void Session::finishFirstExpression()
+void Session::finishFirstExpression(bool setDoneAfterUpdate)
 {
     if (!d->expressionQueue.isEmpty())
         d->needUpdate |= !d->expressionQueue.takeFirst()->isInternal();
@@ -93,6 +93,12 @@ void Session::finishFirstExpression()
         {
             d->variableModel->update();
             d->needUpdate = false;
+
+            // Some variable models could update internal lists without running expressions
+            // So, if after update queue still empty, set status to Done
+            // setDoneAfterUpdate used for compatibility with some backends, like R
+            if (setDoneAfterUpdate && d->expressionQueue.isEmpty())
+                changeStatus(Done);
         }
         else
             changeStatus(Done);
