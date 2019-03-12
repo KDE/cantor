@@ -55,7 +55,7 @@ public:
      *
      * This checks inline plots, exceptions and set appropriate result
      */
-    void finalize();
+    void finalize(const QString& output, const QString& error, bool wasException);
 
 private:
     /// If not empty, it's a filename of plot image file expression is awaiting

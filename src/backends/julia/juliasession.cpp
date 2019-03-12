@@ -185,7 +185,7 @@ void JuliaSession::runJuliaCommandAsync(const QString &command)
 
 void JuliaSession::onResultReady()
 {
-    static_cast<JuliaExpression*>(expressionQueue().first())->finalize();
+    static_cast<JuliaExpression*>(expressionQueue().first())->finalize(getOutput(), getError(), getWasException());
     finishFirstExpression(true);
 }
 

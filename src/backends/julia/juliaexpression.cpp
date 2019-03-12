@@ -70,15 +70,17 @@ QString JuliaExpression::internalCommand()
     return cmd;
 }
 
-void JuliaExpression::finalize()
+void JuliaExpression::finalize(const QString& output, const QString& error, bool wasException)
 {
-    auto juliaSession = static_cast<JuliaSession *>(session());
+    /*
     setErrorMessage(
-        juliaSession->getError()
+        error
             .replace(QLatin1String("\n"), QLatin1String("<br>"))
     );
-    if (juliaSession->getWasException()) {
-        setResult(new Cantor::TextResult(juliaSession->getOutput()));
+    */
+    if (wasException) {
+        setErrorMessage(QString(error).replace(QLatin1String("\n"), QLatin1String("<br>")));
+        setResult(new Cantor::TextResult(output));
         setStatus(Cantor::Expression::Error);
     } else {
         if (!m_plot_filename.isEmpty()
@@ -88,7 +90,6 @@ void JuliaExpression::finalize()
                 new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
             QDir().remove(m_plot_filename);
         } else {
-            const QString& output = juliaSession->getOutput();
             if (!output.isEmpty())
                 setResult(new Cantor::TextResult(output));
         }
