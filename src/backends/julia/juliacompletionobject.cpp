@@ -30,7 +30,8 @@
 
 JuliaCompletionObject::JuliaCompletionObject(
     const QString &command, int index, JuliaSession *session)
-    : Cantor::CompletionObject(session)
+    : Cantor::CompletionObject(session),
+    m_expression(nullptr)
 {
     setLine(command, index);
 }
@@ -51,6 +52,9 @@ void JuliaCompletionObject::fetchCompletions()
     }
     else
     {
+        if (m_expression)
+            return;
+
         QString completionCommand;
 #if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 7, 0)
         completionCommand =
@@ -68,24 +72,51 @@ void JuliaCompletionObject::fetchCompletions()
                 "\"__CANTOR_DELIM__\")"
             );
 #endif
-        auto julia_session = static_cast<JuliaSession*>(session());
-        julia_session->runJuliaCommand(completionCommand.arg(command()).arg(command().size()));
-        auto result = julia_session->getOutput();
-        result.chop(1);
-        result.remove(0, 1);
-        QStringList completions = result.split(QLatin1String("__CANTOR_DELIM__"));
-        if (command().contains(QLatin1Char('.')))
-            for(QString& word : completions)
-            {
-                const int i = command().lastIndexOf(QLatin1Char('.'));
-                const QString& prefix = command().remove(i, command().size()-i) + QLatin1Char('.');
-                if (!word.startsWith(prefix))
-                    word.prepend(prefix);
-            }
-
-        setCompletions(completions);
-        emit fetchingDone();
+        const QString cmd = completionCommand.arg(command()).arg(command().size());
+        m_expression = session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+        connect(m_expression, &Cantor::Expression::statusChanged, this, &JuliaCompletionObject::extractCompletions);
     }
+}
+
+void JuliaCompletionObject::extractCompletions(Cantor::Expression::Status status)
+{
+    if (!m_expression)
+        return;
+
+    switch(status)
+    {
+        case Cantor::Expression::Done:
+        {
+            auto result = m_expression->result()->data().toString();
+            result.chop(1);
+            result.remove(0, 1);
+            QStringList completions = result.split(QLatin1String("__CANTOR_DELIM__"));
+            if (command().contains(QLatin1Char('.')))
+                for(QString& word : completions)
+                {
+                    const int i = command().lastIndexOf(QLatin1Char('.'));
+                    const QString& prefix = command().remove(i, command().size()-i) + QLatin1Char('.');
+                    if (!word.startsWith(prefix))
+                        word.prepend(prefix);
+                }
+
+            setCompletions(completions);
+            break;
+        }
+        case Cantor::Expression::Interrupted:
+        case Cantor::Expression::Error:
+        {
+            qDebug() << "fetching expression finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
+
+            break;
+        }
+        default:
+            return;
+    }
+
+    m_expression->deleteLater();
+    m_expression = nullptr;
+    emit fetchingDone();
 }
 
 bool JuliaCompletionObject::mayIdentifierContain(QChar c) const

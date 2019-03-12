@@ -102,8 +102,6 @@ private:
     /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
 
-    friend JuliaCompletionObject;
-
     void runFirstExpression() override;
 
     /**

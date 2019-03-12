@@ -21,6 +21,7 @@
 #pragma once
 
 #include "completionobject.h"
+#include "expression.h"
 
 class JuliaSession;
 
@@ -59,4 +60,8 @@ protected Q_SLOTS:
      * @see Cantor::CompletionObject::fetchCompletions
      */
     void fetchCompletions() override;
+    void extractCompletions(Cantor::Expression::Status status);
+
+private:
+    Cantor::Expression* m_expression;
 };
