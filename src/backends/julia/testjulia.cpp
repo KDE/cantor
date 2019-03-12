@@ -286,5 +286,25 @@ void TestJulia::testComplexAutocompletion()
     }
 }
 
+void TestJulia::testExpressionQueue()
+{
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("0+1"));
+    Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
+    QVERIFY(session()->status() == Cantor::Session::Running);
+    Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
+
+    QVERIFY(e1!=nullptr);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e3!=nullptr);
+
+    QVERIFY(e1->result());
+    QVERIFY(e2->result());
+    QVERIFY(e3->result());
+
+    QCOMPARE(cleanOutput(e1->result()->toHtml()), QLatin1String("1"));
+    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("2"));
+    QCOMPARE(cleanOutput(e3->result()->toHtml()), QLatin1String("3"));
+}
+
 QTEST_MAIN(TestJulia)
 

@@ -43,7 +43,6 @@ JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
     , m_process(nullptr)
     , m_interface(nullptr)
-    , m_currentExpression(nullptr)
     , m_variableModel(new JuliaVariableModel(this))
     , m_needUpdate(false)
 {
@@ -129,15 +128,18 @@ void JuliaSession::logout()
 
 void JuliaSession::interrupt()
 {
+    if (expressionQueue().isEmpty())
+        return;
+
     if (m_process->pid()) {
         m_process->kill();
     }
 
-    for (Cantor::Expression *e : m_runningExpressions) {
-        e->interrupt();
-    }
+    qDebug()<<"interrupting " << expressionQueue().first()->command();
+    foreach (Cantor::Expression* expression, expressionQueue())
+        expression->setStatus(Cantor::Expression::Interrupted);
+    expressionQueue().clear();
 
-    m_runningExpressions.clear();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -147,8 +149,6 @@ Cantor::Expression *JuliaSession::evaluateExpression(
     bool internal)
 {
     JuliaExpression *expr = new JuliaExpression(this, internal);
-
-    changeStatus(Cantor::Session::Running);
 
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
@@ -186,23 +186,28 @@ void JuliaSession::runJuliaCommandAsync(const QString &command)
 
 void JuliaSession::onResultReady()
 {
-    m_currentExpression->finalize();
-    m_needUpdate |= !m_currentExpression->isInternal();
-    m_runningExpressions.removeAll(m_currentExpression);
+    JuliaExpression* expr = static_cast<JuliaExpression*>(expressionQueue().takeFirst());
+    expr->finalize();
+    m_needUpdate |= !expr->isInternal();
 
-    if(m_needUpdate)
+    if (expressionQueue().isEmpty())
     {
-        m_variableModel->update();
-        m_needUpdate = false;
+        if(m_needUpdate)
+        {
+            m_variableModel->update();
+            m_needUpdate = false;
+        }
+        changeStatus(Cantor::Session::Done);
     }
-
-    changeStatus(Cantor::Session::Done);
+    else
+        runFirstExpression();
 }
 
-void JuliaSession::runExpression(JuliaExpression *expr)
+void JuliaSession::runFirstExpression()
 {
-    m_runningExpressions.append(expr);
-    m_currentExpression = expr;
+    Cantor::Expression* expr = expressionQueue().first();
+    expr->setStatus(Cantor::Expression::Computing);
+
     runJuliaCommandAsync(expr->internalCommand());
 }
 

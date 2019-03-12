@@ -80,6 +80,8 @@ private Q_SLOTS:
     void testAutoCompletion();
     void testComplexAutocompletion();
 
+    void testExpressionQueue();
+
 private:
     QString backendName() override;
 };

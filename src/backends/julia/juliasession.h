@@ -104,10 +104,6 @@ private:
     KProcess *m_process; //< process to run JuliaServer inside
     QDBusInterface *m_interface; //< interface to JuliaServer
 
-    /// Expressions running at the moment
-    QList<JuliaExpression *> m_runningExpressions;
-    JuliaExpression *m_currentExpression; //< current expression
-
     /// Variable management model
     JuliaVariableModel *m_variableModel;
     bool m_needUpdate;
@@ -118,12 +114,7 @@ private:
     friend JuliaExpression;
     friend JuliaCompletionObject;
 
-    /**
-     * Runs Julia expression
-     *
-     * @param expression expression to run
-     */
-    void runExpression(JuliaExpression *expression);
+    void runFirstExpression() override;
 
     /**
      * Runs Julia piece of code in synchronous mode

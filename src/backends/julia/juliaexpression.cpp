@@ -38,7 +38,7 @@ void JuliaExpression::evaluate()
     setStatus(Cantor::Expression::Computing);
     auto juliaSession = static_cast<JuliaSession *>(session());
 
-    juliaSession->runExpression(this);
+    juliaSession->enqueueExpression(this);
 }
 
 QString JuliaExpression::internalCommand()
