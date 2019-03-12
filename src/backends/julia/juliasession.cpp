@@ -43,9 +43,8 @@ JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
     , m_process(nullptr)
     , m_interface(nullptr)
-    , m_variableModel(new JuliaVariableModel(this))
-    , m_needUpdate(false)
 {
+    setVariableModel(new JuliaVariableModel(this));
 }
 
 void JuliaSession::login()
@@ -102,14 +101,14 @@ void JuliaSession::login()
         JuliaSettings::self()->replPath().path()
     );
 
-    m_variableModel->setJuliaServer(m_interface);
-    m_variableModel->update();
+    static_cast<JuliaVariableModel*>(variableModel())->setJuliaServer(m_interface);
 
     // Plots integration
     if (integratePlots()) {
         runJuliaCommand(
             QLatin1String("import GR; ENV[\"GKS_WSTYPE\"] = \"nul\"")
         );
+        updateVariables();
     }
 
     changeStatus(Session::Done);
@@ -121,7 +120,7 @@ void JuliaSession::logout()
 {
     m_process->terminate();
 
-    m_variableModel->clearVariables();
+    variableModel()->clearVariables();
 
     changeStatus(Status::Disable);
 }
@@ -186,21 +185,8 @@ void JuliaSession::runJuliaCommandAsync(const QString &command)
 
 void JuliaSession::onResultReady()
 {
-    JuliaExpression* expr = static_cast<JuliaExpression*>(expressionQueue().takeFirst());
-    expr->finalize();
-    m_needUpdate |= !expr->isInternal();
-
-    if (expressionQueue().isEmpty())
-    {
-        if(m_needUpdate)
-        {
-            m_variableModel->update();
-            m_needUpdate = false;
-        }
-        changeStatus(Cantor::Session::Done);
-    }
-    else
-        runFirstExpression();
+    static_cast<JuliaExpression*>(expressionQueue().first())->finalize();
+    finishFirstExpression(true);
 }
 
 void JuliaSession::runFirstExpression()
@@ -232,11 +218,6 @@ bool JuliaSession::getWasException()
     const QDBusReply<bool> &reply =
         m_interface->call(QLatin1String("getWasException"));
     return reply.isValid() && reply.value();
-}
-
-Cantor::DefaultVariableModel* JuliaSession::variableModel() const
-{
-    return m_variableModel;
 }
 
 

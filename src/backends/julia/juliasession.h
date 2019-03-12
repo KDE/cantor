@@ -85,11 +85,6 @@ public:
     QSyntaxHighlighter *syntaxHighlighter(QObject *parent) override;
 
     /**
-     * @see Cantor::Session::variableModel
-     */
-    Cantor::DefaultVariableModel *variableModel() const override;
-
-    /**
      * @return indicator if config says to integrate plots into worksheet
      */
     bool integratePlots();
@@ -103,10 +98,6 @@ private Q_SLOTS:
 private:
     KProcess *m_process; //< process to run JuliaServer inside
     QDBusInterface *m_interface; //< interface to JuliaServer
-
-    /// Variable management model
-    JuliaVariableModel *m_variableModel;
-    bool m_needUpdate;
 
     /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
