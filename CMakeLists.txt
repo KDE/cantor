@@ -89,6 +89,33 @@ add_subdirectory(doc)
 add_subdirectory(src)
 add_subdirectory(icons)
 
+set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Cantor")
+configure_package_config_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/CantorConfig.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/CantorConfig.cmake
+    INSTALL_DESTINATION ${CMAKECONFIG_INSTALL_DIR}/
+    #PATH_VARS INCLUDE_INSTALL_DIR SYSCONFIG_INSTALL_DIR
+)
+
+ecm_setup_version(${KDE_APPLICATIONS_VERSION}
+    VARIABLE_PREFIX CANTOR
+    VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/cantor_version.h"
+    PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/CantorConfigVersion.cmake"
+)
+install(
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/CantorConfig.cmake
+          ${CMAKE_CURRENT_BINARY_DIR}/CantorConfigVersion.cmake
+    DESTINATION ${CMAKECONFIG_INSTALL_DIR}
+    COMPONENT Devel
+)
+
+install(EXPORT CantorTargets
+    DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
+    FILE CantorTargets.cmake
+    NAMESPACE Cantor::
+)
+
+
 install(FILES org.kde.cantor.appdata.xml DESTINATION ${KDE_INSTALL_METAINFODIR})
 
 

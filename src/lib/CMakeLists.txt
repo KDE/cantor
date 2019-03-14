@@ -74,12 +74,22 @@ target_link_libraries( cantorlibs
   Qt5::Xml
 )
 
-set_target_properties( cantorlibs PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION 20)
+set (CANTORLIBS_SOVERSION 20)
+set_target_properties( cantorlibs PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})
 
+ecm_setup_version(${KDE_APPLICATIONS_VERSION}
+    VARIABLE_PREFIX CANTOR
+    SOVERSION ${CANTORLIBS_SOVERSION}
+    VERSION_HEADER ${CMAKE_CURRENT_BINARY_DIR}/cantorlibs_version.h
+)
 
-install( TARGETS cantorlibs  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
+install( TARGETS cantorlibs EXPORT CantorTargets  ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 
-install( FILES ${cantor_LIB_HDRS} ${CMAKE_CURRENT_BINARY_DIR}/cantor_export.h
+install(
+  FILES
+    ${cantor_LIB_HDRS}
+    ${CMAKE_CURRENT_BINARY_DIR}/cantor_export.h
+    ${CMAKE_CURRENT_BINARY_DIR}/cantorlibs_version.h
   DESTINATION ${KDE_INSTALL_INCLUDEDIR}/cantor
   COMPONENT Devel
 )
