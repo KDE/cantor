@@ -92,6 +92,33 @@ QString OctaveExpression::internalCommand()
         cmd += printCommand;
     }
 
+    // We need remove all comments here, because below we merge all strings to one long string
+    // Otherwise, all code after line with comment will be commented out after merging
+    // So, this small state machine remove all comments
+    // FIXME better implementation
+    QString tmp;
+    // 0 - command mode, 1 - string mode for ', 2 - string mode for ", 3 - comment mode
+    int status = 0;
+    for (int i = 0; i < cmd.size(); i++)
+    {
+        const char ch = cmd[i].toLatin1();
+        if (status == 0 && (ch == '#' || ch == '%'))
+            status = 3;
+        else if (status == 0 && ch == '\'')
+            status = 1;
+        else if (status == 0 && ch == '"')
+            status = 2;
+        else if (status == 1 && ch == '\'')
+            status = 0;
+        else if (status == 2 && ch == '"')
+            status = 0;
+        else if (status == 3 && ch == '\n')
+            status = 0;
+
+        if (status != 3)
+            tmp += cmd[i];
+    }
+    cmd = tmp;
     cmd.replace(QLatin1String(";\n"), QLatin1String(";"));
     cmd.replace(QLatin1Char('\n'), QLatin1Char(','));
     cmd += QLatin1Char('\n');

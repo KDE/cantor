@@ -46,6 +46,7 @@ private Q_SLOTS:
     //some tests to see if comments are working correctly
     void testSimpleExpressionWithComment();
     void testCommentExpression();
+    void testMultilineCommandWithComment();
 
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();

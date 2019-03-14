@@ -360,7 +360,7 @@ void OctaveSession::runSpecificCommands()
 
 bool OctaveSession::isDoNothingCommand(const QString& command)
 {
-    return PROMPT_UNCHANGEABLE_COMMAND.exactMatch(command) || command.isEmpty();
+    return PROMPT_UNCHANGEABLE_COMMAND.exactMatch(command) || command.isEmpty() || command == QLatin1String("\n");
 }
 
 bool OctaveSession::isSpecialOctaveCommand(const QString& command)

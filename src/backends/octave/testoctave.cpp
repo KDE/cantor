@@ -121,8 +121,6 @@ void TestOctave::testSimpleExpressionWithComment()
 
 void TestOctave::testCommentExpression()
 {
-    // https://bugs.kde.org/show_bug.cgi?id=401893
-    QSKIP("Skip, until we fix the bug #401893");
     Cantor::Expression* e = evalExp(QLatin1String("#Only comment"));
 
     QVERIFY(e != nullptr);
@@ -130,9 +128,31 @@ void TestOctave::testCommentExpression()
     QCOMPARE(e->results().size(), 0);
 }
 
+void TestOctave::testMultilineCommandWithComment()
+{
+    Cantor::Expression* e = evalExp(QLatin1String(
+        "a = 2+4 \n"
+        "6/2 % comment\n"
+        "q = 'Str' # comment\n"
+        "b = 4"
+    ));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+
+    Cantor::TextResult* result = static_cast<Cantor::TextResult*>(e->result());
+    QVERIFY(result != nullptr);
+    QCOMPARE(cleanOutput(result->plain()), QLatin1String(
+        "a =  6\n"
+        "ans =  3\n"
+        "q = Str\n"
+        "b =  4"
+    ));
+}
+
 void TestOctave::testCompletion()
 {
-    QSKIP("Skip, until solve strange fail of this test with anomaly output (double prompt with missing command)");
     Cantor::CompletionObject* help = session()->completionFor(QLatin1String("as"), 2);
     waitForSignal(help, SIGNAL(fetchingDone()));
 
