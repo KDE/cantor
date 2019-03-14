@@ -26,6 +26,7 @@
 #include "cantor_export.h"
 
 #include "expression.h"
+#include "defaultvariablemodel.h"
 
 class QTextEdit;
 class QSyntaxHighlighter;
