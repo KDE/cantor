@@ -60,7 +60,7 @@ QalculateExpression::QalculateExpression( QalculateSession* session, bool intern
 QalculateExpression::~QalculateExpression()
 {
     if (m_tempFile)
-	delete m_tempFile;
+        delete m_tempFile;
 }
 
 void QalculateExpression::evaluate()

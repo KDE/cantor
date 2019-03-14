@@ -81,6 +81,14 @@ m_tmpFile(nullptr)
     }
 }
 
+ScriptEditorWidget::~ScriptEditorWidget()
+{
+    if (m_script)
+        delete m_script;
+    if (m_tmpFile)
+        delete m_tmpFile;
+}
+
 void ScriptEditorWidget::newScript()
 {
     QString highlightingMode = m_script->highlightingMode();

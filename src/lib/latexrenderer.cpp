@@ -43,6 +43,7 @@ class Cantor::LatexRendererPrivate
     QString errorMessage;
     bool success;
     QString latexFilename;
+    QTemporaryFile* texFile;
 };
 
 static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}"\
@@ -71,6 +72,7 @@ LatexRenderer::LatexRenderer(QObject* parent) : QObject(parent),
     d->isEquationOnly=false;
     d->equationType=InlineEquation;
     d->success=false;
+    d->texFile=nullptr;
 }
 
 LatexRenderer::~LatexRenderer()
@@ -178,8 +180,12 @@ void LatexRenderer::renderWithLatex()
 {
     qDebug()<<"rendering using latex method";
     QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-    QTemporaryFile *texFile=new QTemporaryFile(dir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
-    texFile->open();
+
+    if (d->texFile)
+        delete d->texFile;
+
+    d->texFile=new QTemporaryFile(dir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
+    d->texFile->open();
 
     KColorScheme scheme(QPalette::Active);
     const QColor &backgroundColor=scheme.background().color();
@@ -200,10 +206,10 @@ void LatexRenderer::renderWithLatex()
 
 //     qDebug()<<"full tex:\n"<<expressionTex;
 
-    texFile->write(expressionTex.toUtf8());
-    texFile->flush();
+    d->texFile->write(expressionTex.toUtf8());
+    d->texFile->flush();
 
-    QString fileName = texFile->fileName();
+    QString fileName = d->texFile->fileName();
     qDebug()<<"fileName: "<<fileName;
     d->latexFilename=fileName;
     d->latexFilename.replace(QLatin1String(".tex"), QLatin1String(".eps"));
@@ -232,6 +238,10 @@ void LatexRenderer::convertingDone()
 {
     QFileInfo info(d->latexFilename);
     qDebug() <<"remove temporary files for " << d->latexFilename;
+
+    delete d->texFile;
+    d->texFile = nullptr;
+
     QString pathWithoutExtention = info.path() + QDir::separator() + info.completeBaseName();
     QFile::remove(pathWithoutExtention + QLatin1String(".log"));
     QFile::remove(pathWithoutExtention + QLatin1String(".aux"));

@@ -37,7 +37,7 @@ class ScriptEditorWidget : public KXmlGuiWindow
   Q_OBJECT
   public:
     explicit ScriptEditorWidget( const QString& filter, const QString& highlightingMode, QWidget* parent = nullptr );
-    ~ScriptEditorWidget() override = default;
+    ~ScriptEditorWidget() override;
     void open(const QUrl &url);
 
   Q_SIGNALS:

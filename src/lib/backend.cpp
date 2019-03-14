@@ -99,8 +99,6 @@ void Backend::setEnabled(bool enabled)
     d->enabled=enabled;
 }
 
-static QList<Backend*> backendCache;
-
 QStringList Backend::listAvailableBackends()
 {
     QList<Backend* > backends=availableBackends();
@@ -116,6 +114,7 @@ QStringList Backend::listAvailableBackends()
 
 QList<Backend*> Backend::availableBackends()
 {
+    static QList<Backend*> backendCache;
     //if we already have all backends Cached, just return the cache.
     //otherwise create the available backends
     if(!backendCache.isEmpty())
