@@ -36,19 +36,31 @@ OctaveVariableModel::OctaveVariableModel(OctaveSession* session):
 
 void OctaveVariableModel::update()
 {
-    static const QString& cmd = QLatin1String(
+    static const QString code = QString::fromLatin1(
         "printf('__cantor_delimiter_line__\\n');"
         "__cantor_list__ = who();"
+        "__cantor_parse_values__ = %1;"
         "for __cantor_index__ = 1:length(__cantor_list__)"
         "  __cantor_varname__ = char(__cantor_list__{__cantor_index__});"
         "  printf([__cantor_varname__ '\\n']);"
-        "  eval(['disp(' __cantor_varname__ ')']);"
+        "  if (__cantor_parse_values__)"
+        "    try"
+        "      eval(['__cantor_string__ = disp(' __cantor_varname__ ');']);"
+        "      printf(__cantor_string__);"
+        "    catch"
+        "      printf(['<unprintable value>' '\\n']);"
+        "    end_try_catch;"
+        "  endif;"
         "  printf('__cantor_delimiter_line__\\n')"
         "endfor;"
         "clear __cantor_list__;"
         "clear __cantor_index__;"
         "clear __cantor_varname__;"
+        "clear __cantor_parse_values__;"
+        "clear __cantor_string__;"
     );
+
+    const QString& cmd = code.arg(OctaveSettings::self()->variableManagement() ? QLatin1String("true") : QLatin1String("false"));
 
     if (m_expr)
         return;
@@ -83,6 +95,9 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
             setVariables(vars);
             break;
         }
+        case Expression::Status::Error:
+            qWarning() << "Octave code for parsing variables finish with error message: " << m_expr->errorMessage();
+
         default:
             return;
     }
