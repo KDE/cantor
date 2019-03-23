@@ -51,6 +51,8 @@ class CANTOR_EXPORT DefaultVariableModel : public QAbstractTableModel
 
 public:
 
+    enum {DataRole = Qt::UserRole + 1};
+
     /**
      * A structure representing a variable.
      */

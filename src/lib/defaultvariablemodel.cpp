@@ -90,7 +90,7 @@ Qt::ItemFlags DefaultVariableModel::flags(const QModelIndex& index) const
 
 QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
 {
-    if (role != Qt::DisplayRole || !index.isValid())
+    if ((role != Qt::DisplayRole && role != DataRole) || !index.isValid())
     {
         return QVariant();
     }
@@ -101,7 +101,13 @@ QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
         case NameColumn:
             return QVariant(d->variables[index.row()].name);
         case ValueColumn:
-            return QVariant(d->variables[index.row()].value);
+        {
+            const QString& value = d->variables[index.row()].value;
+            if (value.size() < 1000 || role == DefaultVariableModel::DataRole)
+                return QVariant(value);
+            else
+                return QVariant(QString::fromLatin1("<too big variable>"));
+        }
         default:
             return QVariant();
     }
@@ -120,6 +126,7 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
         // Changing values
         QString name = data(index.sibling(index.row(), NameColumn)).toString();
         d->session->evaluateExpression(d->extension->setValue(name, value.toString()), Expression::DeleteOnFinish);
+        emit dataChanged(index, index);
         return true;
     }
     else if(index.column() == NameColumn)
@@ -129,6 +136,7 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
         QString variableValue = data(index.sibling(index.row(), ValueColumn)).toString();
         d->session->evaluateExpression(d->extension->addVariable(value.toString(), variableValue), Expression::DeleteOnFinish);
         d->session->evaluateExpression(d->extension->removeVariable(oldName), Expression::DeleteOnFinish);
+        emit dataChanged(index, index);
         return true;
     }
     return false;
@@ -145,15 +153,20 @@ void DefaultVariableModel::addVariable(const QString& name, const QString& value
 void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Variable& variable)
 {
     Q_D(DefaultVariableModel);
-    if ( d->variables.contains(variable) )
+    int index = d->variables.indexOf(variable);
+    if (index != -1)
     {
-        // TODO: Why we remove variable here? Set value properly
-        removeVariable(variable);
+        d->variables[index].value = variable.value;
+        QModelIndex modelIdx = createIndex(index, ValueColumn);
+        emit dataChanged(modelIdx, modelIdx);
     }
-    beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
-    d->variables.append(variable);
-    emit variablesAdded(QStringList(variable.name));
-    endInsertRows();
+    else
+    {
+        beginInsertRows(QModelIndex(), d->variables.size(), d->variables.size());
+        d->variables.append(variable);
+        emit variablesAdded(QStringList(variable.name));
+        endInsertRows();
+    }
 }
 
 void DefaultVariableModel::removeVariable(const QString& name)
@@ -242,7 +255,6 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
                 if (d->variables[i].value != newvar.value)
                 {
                     QModelIndex index = createIndex(i, ValueColumn);
-                    QAbstractItemModel::setData(index, newvar.value);
                     d->variables[i].value = newvar.value;
                     emit dataChanged(index, index);
                 }
