@@ -75,7 +75,7 @@ void OctaveSession::login()
 
     // Add the cantor script directory to search path
     args << QLatin1String("--eval");
-    args << QString::fromLatin1("addpath %1;").arg(octaveScriptInstallDir);
+    args << QString::fromLatin1("addpath \"%1\";").arg(octaveScriptInstallDir);
 
     // Print the temp dir, used for plot files
     args << QLatin1String("--eval");

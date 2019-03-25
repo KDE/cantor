@@ -48,7 +48,6 @@
 
 CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
 {
-
     // set the shell's ui resource file
     setXMLFile(QLatin1String("cantor_shell.rc"));
 
@@ -283,7 +282,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KPluginFactory* factory = KPluginLoader(QLatin1String("libcantorpart")).factory();
+    KPluginFactory* factory = KPluginLoader(QLatin1String("cantorpart")).factory();
     if (factory)
     {
         Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
