@@ -26,9 +26,9 @@ inline QString loadScript(const QString &scriptName)
 {
     QFile text(
         QStandardPaths::locate(
-            QStandardPaths::GenericDataLocation,
+            QStandardPaths::AppDataLocation,
             QString::fromLatin1(
-                "cantor/juliabackend/scripts/%1.jl"
+                "juliabackend/scripts/%1.jl"
             ).arg(scriptName)
         )
     );

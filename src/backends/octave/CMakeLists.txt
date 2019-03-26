@@ -10,9 +10,6 @@ set( OctaveBackend_SRCS
   octavevariablemodel.cpp
 )
 
-set (OCTAVE_SCRIPT_INSTALL_DIR ${KDE_INSTALL_DATADIR}/cantor/octavebackend)
-set (OCTAVE_SCRIPT_INSTALL_PATH ${CMAKE_INSTALL_PREFIX}/${OCTAVE_SCRIPT_INSTALL_DIR}/)
-configure_file (octave-backend-config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/octave-backend-config.h )
 add_subdirectory(scripts)
 
 kconfig_add_kcfg_files(OctaveBackend_SRCS settings.kcfgc)

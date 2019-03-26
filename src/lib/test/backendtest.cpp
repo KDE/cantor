@@ -75,6 +75,7 @@ QString BackendTest::cleanOutput(const QString& out)
 
 void BackendTest::initTestCase()
 {
+    QCoreApplication::setApplicationName(QLatin1String("cantor"));
     createSession();
     if (!m_session)
     {
