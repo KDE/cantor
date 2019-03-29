@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-SAGE_ROOT="$($1 --root)"
+export SAGE_ROOT="$($1 --root)"
 
 if [[ -f $SAGE_ROOT"/bin/sage-env" ]]; then
     . "$SAGE_ROOT/bin/sage-env" >&2
+elif [[ -f $SAGE_ROOT"/local/bin/sage-env" ]]; then
+    . "$SAGE_ROOT/local/bin/sage-env" >&2
 elif [[ -f $SAGE_ROOT"/src/bin/sage-env" ]]; then
     . "$SAGE_ROOT/src/bin/sage-env" >&2
 else
