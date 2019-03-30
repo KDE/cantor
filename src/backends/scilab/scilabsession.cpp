@@ -69,7 +69,6 @@ void ScilabSession::login()
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
     m_process->start();
     m_process->waitForStarted();
-    m_process->waitForReadyRead();
 
     if(ScilabSettings::integratePlots()){
 
@@ -188,7 +187,8 @@ void ScilabSession::readError()
     QString error = QLatin1String(m_process->readAllStandardError());
 
     qDebug() << "error: " << error;
-    static_cast<ScilabExpression*>(expressionQueue().first())->parseError(error);
+    if (!expressionQueue().isEmpty())
+        static_cast<ScilabExpression*>(expressionQueue().first())->parseError(error);
 }
 
 void ScilabSession::readOutput()
@@ -222,7 +222,7 @@ void ScilabSession::plotFileChanged(const QString& filename)
 {
     qDebug() << "plotFileChanged filename:" << filename;
 
-    if (expressionQueue().first() && (filename.contains(QLatin1String("cantor-export-scilab-figure")))){
+    if (!expressionQueue().isEmpty() && (filename.contains(QLatin1String("cantor-export-scilab-figure")))){
          qDebug() << "Calling parsePlotFile";
          static_cast<ScilabExpression*>(expressionQueue().first())->parsePlotFile(filename);
 

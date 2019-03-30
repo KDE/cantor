@@ -86,7 +86,8 @@ void ScilabExpression::parseOutput(QString output)
     qDebug() << "output: " << output;
 
     m_output = output;
-    setResult(new Cantor::TextResult(output));
+    if (!output.simplified().isEmpty())
+        setResult(new Cantor::TextResult(output));
 
     evalFinished();
     setStatus(Cantor::Expression::Done);
