@@ -1,35 +1,11 @@
------18.12-----
+-----19.04-----
 
 New Features:
-	* Add Markdown entry type
-	* Animated highlighting of the currently calculated command entry
-	* Visualization of pending command entries (queued, but not being calculated yet)
-	* Allow to format command entries (background color, foreground color, font properties)
-	* Allow to insert new command entries at arbitrary places in the worksheet by placing the cursor at the desired position and by start typing
-	* For expressions having multiple commands, show the results as independet result objects in the worksheet
-	* Add support for opening worksheets by relative paths from console
-	* Add support for opening multiple files in one Cantor shell
-	* Change the color and the font for when asking for additional information in order to better discriminate from the usual input in the command entry
-	* [Maxima] Deal with additional required inputs when fetching help for commands via the '??' operator
-	* Added shortcuts for the navigation across the worksheets (Ctrl+PageUp, Ctrl+PageDown)
-	* [Julia] Add support for class member autocompletion
-	* [Python] Add runtime autocompletion
-	* Add action in 'View' submenu for zoom reset.
-	* Enable downloading of Cantor projects from store.kde.org (at the moment upload works only from the website)
-	* Open the worksheet in read-only mode if the backend is not available on the system
+    * Possibility to hide and show results of command entry via context menu
+    * [Maxima, Octave, Python, R] Add a way to specify the path to the local documentation in the settings. By default, this path didn't specified and Cantor uses online documentation.
+    * Huge improvment of variables managment: better parsing, option to turn on and turn off variable managment, better GUI performance by limitation of value size (too big for showing values replaced by "<too big variable>" text
 
 Important bug fixes:
-	* [Maxima] BUG 394003 -  Loosing LaTeX output after backend restarting
-	* [Maxima] Fix problems with entry, ended '$'
-	* [Maxima] Fix a bug with rare appearance of 'T' and 'NIL' in first entry's output
-	* [Maxima] Fix crash after double autocompletion
-	* [Octave] Fix a bug with missing error message in plot commands
-	* [Octave] Fix a bug with missing output sometimes
-	* [Octave] Fix a bug with interrupting plot commands
-	* [Python] BUG 363606 - Different python sessions shouldn't share the same variables
-	* [Python] BUG 372075 - Don't exit Cantor on calling exit() in python sessions
-	* [R] BUG 395213 - Add rehighlighting for entries after execution in R backend
-	* [Sage] Fix unreadable result of help request
-	* [Sage] Fix unfinished computing after login
-	* Fix crash after activation 'Export to LaTex'
-	* Remove some unnecessary emtpty results in backends for commands without outputs
+	* [Sage] Fix execuation for unsystem Sage installation
+	* [Julia] Fix bug, that suppressing output don't work
+
