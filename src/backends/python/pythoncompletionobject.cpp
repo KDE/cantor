@@ -55,8 +55,8 @@ void PythonCompletionObject::fetchCompletions()
         qDebug() << "run fetchCompletions";
         const QString& expr = QString::fromLatin1(
             "from __main__ import __dict__;"
-            "from rlcompleter import Completer;"
-            "print('|'.join(Completer(__dict__).global_matches('%1')+Completer(__dict__).attr_matches('%1')))"
+            "import rlcompleter;"
+            "print('|'.join(rlcompleter.Completer(__dict__).global_matches('%1')+rlcompleter.Completer(__dict__).attr_matches('%1')))"
         ).arg(command());
         m_expression = session()->evaluateExpression(expr, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
         // TODO: Python exec the expression before connect, so manualy run handler. Uncomment the connection after removing DBus
