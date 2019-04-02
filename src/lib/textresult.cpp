@@ -61,6 +61,7 @@ QString TextResult::toHtml()
 {
     QString s=d->data.toHtmlEscaped();
     s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
+    s.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
     return s;
 }
 
