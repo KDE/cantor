@@ -40,7 +40,7 @@ void TestSage::testSimpleCommand()
 
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
-    QCOMPARE( e->result()->toHtml(), QLatin1String(("4")) );
+    QCOMPARE( e->result()->data().toString(), QLatin1String(("4")) );
 }
 
 void TestSage::testCommandQueue()
@@ -60,9 +60,9 @@ void TestSage::testCommandQueue()
     QVERIFY(e2->result());
     QVERIFY(e3->result());
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QLatin1String("1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QLatin1String("3"));
+    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("1"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("2"));
+    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("3"));
 }
 
 void TestSage::testMultilineCommand()
@@ -71,7 +71,7 @@ void TestSage::testMultilineCommand()
 
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
-    QCOMPARE( e->result()->toHtml(), QLatin1String("4<br/>\n1") );
+    QCOMPARE( e->result()->data().toString(), QLatin1String("4\n1") );
 }
 
 void TestSage::testDefineFunction()
@@ -86,7 +86,7 @@ void TestSage::testDefineFunction()
     Cantor::Expression* e2=evalExp( QLatin1String("func1(2)") );
     QVERIFY( e2!=nullptr );
     QVERIFY( e2->result()!=nullptr );
-    QCOMPARE( e2->result()->toHtml(), QLatin1String("4") );
+    QCOMPARE( e2->result()->data().toString(), QLatin1String("4") );
 }
 
 void TestSage::testPlot()
@@ -116,7 +116,7 @@ void TestSage::testNoOutput()
 
     QVERIFY( e!=nullptr );
     QVERIFY( e->result() != nullptr );
-    QCOMPARE( e->result()->toHtml(), QLatin1String("2") );
+    QCOMPARE( e->result()->data().toString(), QLatin1String("2") );
 }
 
 

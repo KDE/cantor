@@ -43,7 +43,7 @@ void TestLua::testSimpleCommand()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String("4") );
+    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("4") );
 }
 
 void TestLua::testMultilineCommand()
@@ -53,7 +53,7 @@ void TestLua::testMultilineCommand()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput(e->result()->toHtml()), QLatin1String("8\n1") );
+    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("8\n1") );
 }
 
 void TestLua::testVariableDefinition()
@@ -63,7 +63,7 @@ void TestLua::testVariableDefinition()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput(e->result()->toHtml()), QLatin1String("42") );
+    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("42") );
 }
 
 void TestLua::testInvalidSyntax()
@@ -89,7 +89,7 @@ void TestLua::testIfElseCondition()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput(e->result()->toHtml()), QLatin1String("false") );
+    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("false") );
 }
 
 void TestLua::testForLoop()
@@ -107,7 +107,7 @@ void TestLua::testForLoop()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput(e->result()->toHtml()), QLatin1String("5050") );
+    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("5050") );
 }
 
 QTEST_MAIN( TestLua )

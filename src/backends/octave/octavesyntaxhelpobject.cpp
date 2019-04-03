@@ -51,10 +51,10 @@ void OctaveSyntaxHelpObject::fetchingDone()
     Cantor::Result* result = m_expression->result();
     if (result)
     {
-      QString res = result->toHtml();
-      res.remove(QLatin1String("<br/>"));
-      res.remove(0, res.indexOf(QLatin1String("--")));
-      setHtml(QLatin1Char(' ') + res.trimmed());
+        QString res = result->toHtml();
+        res.remove(QLatin1String("<br/>"));
+        res.remove(0, res.indexOf(QLatin1String("--")));
+        setHtml(QLatin1Char(' ') + res.trimmed());
     }
     m_expression->deleteLater();
     emit done();

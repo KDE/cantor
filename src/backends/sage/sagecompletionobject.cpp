@@ -95,8 +95,7 @@ void SageCompletionObject::extractCompletionsNew()
     //for sage version 5.7 this looks like
     //('s1', ['comp1','comp2']) where s1 is the string we called complete with
 
-    QString txt=res->toHtml().trimmed();
-    txt.remove(QLatin1String("<br/>"));
+    QString txt=res->data().toString().trimmed();
     txt=txt.mid(txt.indexOf(command())+command().length()+2).trimmed();
     txt=txt.mid(1); //remove [
     txt.chop(2); //remove ]
@@ -133,7 +132,7 @@ void SageCompletionObject::extractCompletionsLegacy()
     }
 
     //the result looks like "['comp1', 'comp2']" parse it
-    QString txt=res->toHtml().trimmed();
+    QString txt=res->data().toString().trimmed();
     txt=txt.mid(1); //remove [
     txt.chop(1); //remove ]
 
@@ -204,7 +203,7 @@ void SageCompletionObject::extractIdentifierType(Cantor::Expression::Status stat
             Cantor::Result* result = m_expression->result();
             if (result)
             {
-                QString res = result->toHtml();
+                QString res = result->data().toString();
                 if (res.contains(QLatin1String("function")) || res.contains(QLatin1String("method")))
                     emit fetchingTypeDone(FunctionType);
                 else
