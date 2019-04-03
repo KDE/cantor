@@ -301,9 +301,9 @@ void TestJulia::testExpressionQueue()
     QVERIFY(e2->result());
     QVERIFY(e3->result());
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QLatin1String("1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QLatin1String("3"));
+    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("1"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("2"));
+    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("3"));
 }
 
 QTEST_MAIN(TestJulia)

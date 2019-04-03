@@ -112,7 +112,7 @@ void PythonCompletionObject::extractCompletions(Cantor::Expression::Status statu
 
         case Cantor::Expression::Done:
             if (m_expression->result())
-                setCompletions(m_expression->result()->toHtml().remove(QLatin1Char('(')).split(QLatin1Char('|')));
+                setCompletions(m_expression->result()->data().toString().remove(QLatin1Char('(')).split(QLatin1Char('|')));
             break;
         default:
             return;
@@ -143,14 +143,13 @@ void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status st
         case Cantor::Expression::Done:
             if (m_expression->result())
             {
-                if (m_expression->result())
-                {
-                    if (m_expression->result()->toHtml() == QLatin1String("True"))
-                        emit fetchingTypeDone(FunctionType);
-                    else
-                        emit fetchingTypeDone(VariableType);
-                }
+                if (m_expression->result()->data().toString() == QLatin1String("True"))
+                    emit fetchingTypeDone(FunctionType);
+                else
+                    emit fetchingTypeDone(VariableType);
             }
+            else
+                emit fetchingTypeDone(UnknownType);
             break;
         default:
             return;

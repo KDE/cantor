@@ -67,8 +67,8 @@ void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status statu
             Cantor::Result* result = m_expression->result();
             if (result)
             {
-                QString res = result->toHtml();
-                QStringList completions = res.split(QLatin1String("<br/>\n"), QString::SkipEmptyParts);
+                QString res = result->data().toString();
+                QStringList completions = res.split(QLatin1String("\n"), QString::SkipEmptyParts);
                 qDebug() << "Adding" << completions.size() << "completions";
                 setCompletions( completions );
             }

@@ -63,9 +63,7 @@ void TestPython2::testSimpleCode()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QString result=e->result()->toHtml();
-
-    QCOMPARE( cleanOutput(result ), QLatin1String("4") );
+    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("4") );
 }
 
 void TestPython2::testMultilineCode()
@@ -79,9 +77,7 @@ void TestPython2::testMultilineCode()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QString result=e->result()->toHtml();
-
-    QCOMPARE( cleanOutput(result ), QLatin1String("4 6") );
+    QCOMPARE( cleanOutput(e->result()->data().toString()), QLatin1String("4 6") );
 
     evalExp(QLatin1String("del a; del b"));
 }

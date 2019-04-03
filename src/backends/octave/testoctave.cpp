@@ -46,7 +46,7 @@ void TestOctave::testSimpleCommand()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput( e->result()->toHtml() ), QLatin1String("ans =  4") );
+    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("ans =  4") );
 }
 void TestOctave::testMultilineCommand()
 {
@@ -55,7 +55,7 @@ void TestOctave::testMultilineCommand()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QString result=e->result()->toHtml();
+    QString result=e->result()->data().toString();
 
     QCOMPARE( cleanOutput(result ), QLatin1String("a =  4\nb =  6") );
 }
@@ -74,9 +74,9 @@ void TestOctave::testCommandQueue()
     QVERIFY(e2->result());
     QVERIFY(e3->result());
 
-    QCOMPARE(cleanOutput(e1->result()->toHtml()), QLatin1String("ans =  1"));
-    QCOMPARE(cleanOutput(e2->result()->toHtml()), QLatin1String("ans =  2"));
-    QCOMPARE(cleanOutput(e3->result()->toHtml()), QLatin1String("ans =  3"));
+    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("ans =  1"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("ans =  2"));
+    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("ans =  3"));
 }
 
 void TestOctave::testVariableDefinition()
@@ -85,7 +85,7 @@ void TestOctave::testVariableDefinition()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("testvar =  1"));
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("testvar =  1"));
 }
 
 void TestOctave::testMatrixDefinition()
@@ -116,7 +116,7 @@ void TestOctave::testSimpleExpressionWithComment()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(cleanOutput(e->result()->toHtml()), QLatin1String("s =  1234"));
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("s =  1234"));
 }
 
 void TestOctave::testCommentExpression()
