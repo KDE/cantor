@@ -25,11 +25,100 @@
 #include "expression.h"
 #include "imageresult.h"
 #include "defaultvariablemodel.h"
+#include "completionobject.h"
 
 QString TestPython3::backendName()
 {
     return QLatin1String("python3");
 }
+
+void TestPython3::testSimpleCommand()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("2+2"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result()->data().toString() == QLatin1String("4"));
+}
+
+void TestPython3::testMultilineCommand()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("print(2+2)\nprint(7*5)"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result()->data().toString() == QLatin1String("4\n35"));
+}
+
+void TestPython3::testCommandQueue()
+{
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("0+1"));
+    Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
+    Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
+
+    QVERIFY(e1!=nullptr);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e3!=nullptr);
+
+    QVERIFY(e1->result());
+    QVERIFY(e2->result());
+    QVERIFY(e3->result());
+
+    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("1"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("2"));
+    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("3"));
+}
+
+void TestPython3::testCommentExpression()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("#only comment"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QCOMPARE(e->results().size(), 0);
+}
+
+void TestPython3::testSimpleExpressionWithComment()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("2+2 # comment"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result()->data().toString() == QLatin1String("4"));
+}
+
+void TestPython3::testMultilineCommandWithComment()
+{
+    Cantor::Expression* e = evalExp(QLatin1String(
+        "print(2+2) \n"
+        "#comment in middle \n"
+        "print(7*5)"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result()->data().toString() == QLatin1String("4\n35"));
+}
+
+void TestPython3::testInvalidSyntax()
+{
+    Cantor::Expression* e=evalExp( QLatin1String("2+2*+.") );
+
+    QVERIFY( e!=nullptr );
+    QCOMPARE( e->status(), Cantor::Expression::Error );
+}
+
+void TestPython3::testCompletion()
+{
+    Cantor::CompletionObject* help = session()->completionFor(QLatin1String("p"), 1);
+    waitForSignal(help, SIGNAL(fetchingDone()));
+
+    // Checks all completions for this request
+    // This correct for Python 3.6.7
+    const QStringList& completions = help->completions();
+    qDebug() << completions;
+    QCOMPARE(completions.size(), 4);
+    QVERIFY(completions.contains(QLatin1String("pass")));
+    QVERIFY(completions.contains(QLatin1String("pow")));
+    QVERIFY(completions.contains(QLatin1String("print")));
+    QVERIFY(completions.contains(QLatin1String("property")));
+}
+
 
 void TestPython3::testImportNumpy()
 {

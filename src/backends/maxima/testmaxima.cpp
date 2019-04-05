@@ -236,7 +236,6 @@ void TestMaxima::testSyntaxHelp()
     help->fetchSyntaxHelp();
     waitForSignal(help, SIGNAL(done()));
 
-    qWarning()<<help->toHtml();
     QVERIFY(help->toHtml().contains(QLatin1String("simplify_sum")));
 }
 

@@ -28,15 +28,25 @@ class TestPython2 : public BackendTest
 {
   Q_OBJECT
   private Q_SLOTS:
-    void testImportNumpy();
     void testCodeWithComments();
     void testSimpleCode();
     void testMultilineCode();
+    void testCommandQueue();
+
+    void testSimplePlot();
+
+    void testImportNumpy();
+    void testInvalidSyntax();
+
+    void testSimpleExpressionWithComment();
+    void testCommentExpression();
+    void testMultilineCommandWithComment();
 
     void testVariablesCreatingFromCode();
     void testVariableCleanupAfterRestart();
     void testDictVariable();
 
+    void testCompletion();
   private:
     QString backendName() override;
 };
