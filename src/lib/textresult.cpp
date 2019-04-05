@@ -26,6 +26,16 @@ using namespace Cantor;
 #include <QFile>
 #include <QTextStream>
 
+QString rtrim(const QString& s)
+{
+    QString result = s;
+    while (result.count() > 0 && result[result.count()-1].isSpace() )
+    {
+        result = result.left(result.count() -1 );
+    }
+    return result;
+}
+
 class Cantor::TextResultPrivate
 {
 public:
@@ -41,14 +51,14 @@ public:
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
 {
-    d->data=data.trimmed();
-    d->plain=data.trimmed();
+    d->data=rtrim(data);
+    d->plain=d->data;
 }
 
 TextResult::TextResult(const QString& data, const QString& plain) : d(new TextResultPrivate)
 {
-    d->data=data.trimmed();
-    d->plain=plain.trimmed();
+    d->data=rtrim(data);
+    d->plain=rtrim(plain);
 }
 
 
