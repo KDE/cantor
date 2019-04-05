@@ -100,6 +100,8 @@ void TestR::testVariablesCreatingFromCode()
     while (session()->status() != Cantor::Session::Done)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
+    QTest::qWait(100);
+
     QCOMPARE(model->rowCount(), 3);
 
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("a1"));
@@ -121,6 +123,8 @@ void TestR::testVariableCleanupAfterRestart()
 
     while(session()->status() != Cantor::Session::Done)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QTest::qWait(100);
 
     QCOMPARE(model->rowCount(), 0);
 
