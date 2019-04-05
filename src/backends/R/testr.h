@@ -26,8 +26,26 @@
 class TestR : public BackendTest
 {
   Q_OBJECT
-
 private Q_SLOTS:
+    void testSimpleCommand();
+    void testMultilineCommand();
+    void testCommandQueue();
+
+    void testVariableDefinition();
+    void testMatrixDefinition();
+
+    void testCodeWithComments();
+    void testCommentExpression();
+    void testMultilineCommandWithComment();
+
+    void testInvalidSyntax();
+
+    void testCompletion();
+    //void testHelpRequest();
+    //void testSyntaxHelp();
+
+    //void testPlot();
+
     //tests variable model
     void testVariablesCreatingFromCode();
     void testVariableCleanupAfterRestart();

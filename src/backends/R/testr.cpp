@@ -35,18 +35,72 @@ QString TestR::backendName()
     return QLatin1String("R");
 }
 
+void TestR::testSimpleCommand()
+{
+    Cantor::Expression* e=evalExp( QLatin1String("2+2") );
+
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
+
+    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("[1] 4") );
+}
+
+void TestR::testMultilineCommand()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("print(2+2)\nprint(7*5)"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(cleanOutput( e->result()->data().toString() ), QLatin1String("[1] 4\n[1] 35"));
+}
+
+void TestR::testCodeWithComments()
+{
+    Cantor::Expression* e=evalExp( QLatin1String("2+2 #comment") );
+
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->result()!=nullptr );
+
+    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("[1] 4") );
+}
+
+void TestR::testCommandQueue()
+{
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("0+1"));
+    Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("1+1"));
+    Cantor::Expression* e3=evalExp(QLatin1String("1+2"));
+
+    qDebug() << e1 << e1->command() << e1->status();
+    qDebug() << e2 << e2->command() << e2->status();
+    qDebug() << e3 << e3->command() << e3->status();
+
+    QVERIFY(e1!=nullptr);
+    QVERIFY(e2!=nullptr);
+    QVERIFY(e3!=nullptr);
+
+    QVERIFY(e1->result());
+    QVERIFY(e2->result());
+    QVERIFY(e3->result());
+
+    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("[1] 1"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("[1] 2"));
+    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("[1] 3"));
+}
+
 void TestR::testVariablesCreatingFromCode()
 {
     QAbstractItemModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     Cantor::Expression* e=evalExp(QLatin1String("a1 = 15; b1 = 'S'; d1 = c(1,2,3)"));
-    QVERIFY(e!=nullptr);
 
-    while(session()->status() != Cantor::Session::Done)
+    QVERIFY(e!=nullptr);
+    QVERIFY(e->result() != nullptr);
+
+    while (session()->status() != Cantor::Session::Done)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
-    QCOMPARE(3, model->rowCount());
+    QCOMPARE(model->rowCount(), 3);
 
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("a1"));
     QCOMPARE(model->index(0,1).data().toString(), QLatin1String("15"));
@@ -62,26 +116,98 @@ void TestR::testVariablesCreatingFromCode()
 
 void TestR::testVariableCleanupAfterRestart()
 {
-    Cantor::DefaultVariableModel* model = session()->variableModel();
+    QAbstractItemModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
     while(session()->status() != Cantor::Session::Done)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
-    QCOMPARE(static_cast<QAbstractItemModel*>(model)->rowCount(), 0);
+    QCOMPARE(model->rowCount(), 0);
 
     Cantor::Expression* e=evalExp(QLatin1String("h1 = 15; h2 = 'S';"));
     QVERIFY(e!=nullptr);
 
-    while(session()->status() != Cantor::Session::Done)
+    while (session()->status() != Cantor::Session::Done)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
-    QCOMPARE(static_cast<QAbstractItemModel*>(model)->rowCount(), 2);
+    QCOMPARE(model->rowCount(), 2);
 
     session()->logout();
     session()->login();
 
-    QCOMPARE(static_cast<QAbstractItemModel*>(model)->rowCount(), 0);
+    QCOMPARE(model->rowCount(), 0);
+}
+
+void TestR::testVariableDefinition()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("testvar <- \"value\"; testvar"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("[1] \"value\""));
+
+    evalExp(QLatin1String("rm(testvar)"));
+}
+
+void TestR::testMatrixDefinition()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("matrix(1:9, nrow = 3, ncol = 3)"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->data().toString(), QLatin1String(
+         "     [,1] [,2] [,3]\n"
+         "[1,]    1    4    7\n"
+         "[2,]    2    5    8\n"
+         "[3,]    3    6    9"
+    ));
+}
+
+void TestR::testCommentExpression()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("#only comment"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QCOMPARE(e->results().size(), 0);
+}
+
+void TestR::testMultilineCommandWithComment()
+{
+    Cantor::Expression* e = evalExp(QLatin1String(
+        "print(2+2) \n"
+        "#comment in middle \n"
+        "print(7*5)"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result()->data().toString() == QLatin1String("[1] 4\n[1] 35"));
+}
+
+void TestR::testInvalidSyntax()
+{
+    Cantor::Expression* e=evalExp( QLatin1String("2+2*+?!<") );
+
+    QVERIFY( e!=nullptr );
+    QCOMPARE( e->status(), Cantor::Expression::Error );
+}
+
+void TestR::testCompletion()
+{
+    Cantor::CompletionObject* help = session()->completionFor(QLatin1String("pi"), 2);
+    waitForSignal(help, SIGNAL(fetchingDone()));
+
+    // Checks all completions for this request
+    // This correct for R 3.4.4
+    const QStringList& completions = help->completions();
+    qDebug() << completions;
+    QCOMPARE(completions.size(), 5);
+    QVERIFY(completions.contains(QLatin1String("pi")));
+    QVERIFY(completions.contains(QLatin1String("pico")));
+    QVERIFY(completions.contains(QLatin1String("pictex")));
+    QVERIFY(completions.contains(QLatin1String("pie")));
+    QVERIFY(completions.contains(QLatin1String("pipe")));
 }
 
 QTEST_MAIN( TestR )
