@@ -30,7 +30,7 @@ RVariableModel::RVariableModel(RSession* session):
 
 void RVariableModel::update()
 {
-    static_cast<RSession*>(session())->updateSymbols(this);
+    static_cast<RSession*>(session())->updateSymbols();
 }
 
 void RVariableModel::parseResult(const QStringList& names, const QStringList& values, const QStringList& funcs)
