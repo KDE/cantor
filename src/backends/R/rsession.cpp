@@ -64,7 +64,8 @@ void RSession::login()
 
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
-    connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)));
+    connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)), Qt::QueuedConnection);
+    connect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)), variableModel(), SLOT(parseResult(QStringList,QStringList,QStringList)));
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -176,9 +177,7 @@ void RSession::sendInputToServer(const QString& input)
     m_rServer->answerRequest(s);
 }
 
-void RSession::updateSymbols(const RVariableModel* model)
+void RSession::updateSymbols()
 {
-    disconnect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)));
-    connect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)), model, SLOT(parseResult(QStringList,QStringList,QStringList)));
     m_rServer->listSymbols();
 }

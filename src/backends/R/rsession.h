@@ -53,7 +53,7 @@ class RSession : public Cantor::Session
     void runFirstExpression() override;
 
     void sendInputToServer(const QString& input);
-    void updateSymbols(const RVariableModel* model);
+    void updateSymbols();
   protected Q_SLOTS:
     void serverChangedStatus(int status);
 
