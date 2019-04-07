@@ -126,7 +126,7 @@ void SageSession::login()
         m_process->setProgram(sageExecFile, QStringList() << QLatin1String("--simple-prompt"));
     else
         {
-        const QString& sageStartScript = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("sagebackend/cantor-execsage"));
+        const QString& sageStartScript = locateCantorFile(QLatin1String("sagebackend/cantor-execsage"));
         m_process->setProgram(sageStartScript, QStringList(sageExecFile));
         }
 
