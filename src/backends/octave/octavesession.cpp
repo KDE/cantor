@@ -72,7 +72,7 @@ void OctaveSession::login()
     args << QLatin1String("PS2('CANTOR_OCTAVE_BACKEND_SUBPROMPT:\\#> ');");
 
     // Add the cantor script directory to search path
-    const QString& octaveScriptInstallDir = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("octavebackend"), QStandardPaths::LocateDirectory);
+    const QString& octaveScriptInstallDir = locateCantorFile(QLatin1String("octavebackend"), QStandardPaths::LocateDirectory);
     qDebug() << "using octaveScriptInstallDir: " << octaveScriptInstallDir;
     args << QLatin1String("--eval");
     args << QString::fromLatin1("addpath \"%1\";").arg(octaveScriptInstallDir);
