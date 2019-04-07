@@ -197,3 +197,13 @@ int Session::nextExpressionId()
 {
     return d->expressionCount++;
 }
+
+QString Session::locateCantorFile(const QString& partialPath, QStandardPaths::LocateOptions options)
+{
+    QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, partialPath, options);
+
+    if (file.isEmpty())
+        file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/") + partialPath, options);
+
+    return file;
+}

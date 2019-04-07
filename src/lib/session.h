@@ -22,6 +22,7 @@
 #define _SESSION_H
 
 #include <QObject>
+#include <QStandardPaths>
 
 #include "cantor_export.h"
 
@@ -241,6 +242,11 @@ class CANTOR_EXPORT Session : public QObject
      * Setting variable model, usefull, if model constructor requires functional session
      */
     void setVariableModel(DefaultVariableModel* model);
+
+    /**
+     * Search file for session in AppDataLocation and in GenericDataLocation
+     */
+    QString locateCantorFile(const QString& partialPath, QStandardPaths::LocateOptions options = QStandardPaths::LocateFile);
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);

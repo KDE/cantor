@@ -24,14 +24,18 @@
 
 inline QString loadScript(const QString &scriptName)
 {
-    QFile text(
-        QStandardPaths::locate(
-            QStandardPaths::GenericDataLocation,
-            QString::fromLatin1(
-                "cantor/juliabackend/scripts/%1.jl"
-            ).arg(scriptName)
-        )
+    QString file = QStandardPaths::locate(
+        QStandardPaths::AppDataLocation,
+        QString::fromLatin1("juliabackend/scripts/%1.jl").arg(scriptName)
     );
+
+    if (file.isEmpty())
+        file = QStandardPaths::locate(
+            QStandardPaths::GenericDataLocation,
+            QString::fromLatin1("cantor/juliabackend/scripts/%1.jl").arg(scriptName)
+        );
+
+    QFile text(file);
     text.open(QIODevice::ReadOnly);
     return QString::fromLatin1(text.readAll());
 }

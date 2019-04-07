@@ -64,7 +64,7 @@ void MaximaSession::login()
     emit loginStarted();
     QStringList arguments;
     arguments << QLatin1String("--quiet"); //Suppress Maxima start-up message
-    const QString initFile = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/maximabackend/cantor-initmaxima.lisp"));
+    const QString initFile = locateCantorFile(QLatin1String("maximabackend/cantor-initmaxima.lisp"));
     arguments << QLatin1String("--init-lisp=") + initFile; //Set the name of the Lisp initialization file
 
     m_process = new QProcess(this);
