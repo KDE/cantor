@@ -174,7 +174,15 @@ void Expression::replaceResult(int index, Result* result)
 {
     if (result)
     {
+        //insert the new result
         d->results.insert(index, result);
+
+        //delete the previous result
+        Result* oldResult = d->results.at(index+1);
+        d->results.remove(index+1);
+        delete oldResult;
+
+        //notify about the replacement
         emit resultReplaced(index);
     }
 }
