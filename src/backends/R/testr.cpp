@@ -186,6 +186,8 @@ void TestR::testMultilineCommandWithComment()
         "print(7*5)"));
 
     QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
     QVERIFY(e->result()->data().toString() == QLatin1String("[1] 4\n[1] 35"));
 }
 
