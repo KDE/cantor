@@ -24,11 +24,15 @@
 #include "backend.h"
 #include "expression.h"
 #include "result.h"
+#include "imageresult.h"
+#include "helpresult.h"
+#include "syntaxhelpobject.h"
 #include "completionobject.h"
 #include "defaultvariablemodel.h"
 
 #include <QDebug>
-
+#include <QTextDocument>
+#include <QSyntaxHighlighter>
 
 QString TestR::backendName()
 {
@@ -214,6 +218,81 @@ void TestR::testCompletion()
     QVERIFY(completions.contains(QLatin1String("pictex")));
     QVERIFY(completions.contains(QLatin1String("pie")));
     QVERIFY(completions.contains(QLatin1String("pipe")));
+}
+
+void TestR::testSimplePlot()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("plot(c(1, 4, 9, 16))"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+}
+
+void TestR::testComplexPlot()
+{
+    const QLatin1String cmd(
+        "# Define 2 vectors\n"
+        "cars <- c(1, 3, 6, 4, 9)\n"
+        "trucks <- c(2, 5, 4, 5, 12)\n"
+        "\n"
+        "# Calculate range from 0 to max value of cars and trucks\n"
+        "g_range <- range(0, cars, trucks)\n"
+        "\n"
+        "# Graph autos using y axis that ranges from 0 to max \n"
+        "# value in cars or trucks vector.  Turn off axes and \n"
+        "# annotations (axis labels) so we can specify them ourself\n"
+        "plot(cars, type=\"o\", col=\"blue\", ylim=g_range, \n"
+        "   axes=FALSE, ann=FALSE)\n"
+        "\n"
+        "# Make x axis using Mon-Fri labels\n"
+        "axis(1, at=1:5, lab=c(\"Mon\",\"Tue\",\"Wed\",\"Thu\",\"Fri\"))\n"
+        "\n"
+        "# Make y axis with horizontal labels that display ticks at \n"
+        "# every 4 marks. 4*0:g_range[2] is equivalent to c(0,4,8,12).\n"
+        "axis(2, las=1, at=4*0:g_range[2])\n"
+        "\n"
+        "# Create box around plot\n"
+        "box()\n"
+        "\n"
+        "# Graph trucks with red dashed line and square points\n"
+        "lines(trucks, type=\"o\", pch=22, lty=2, col=\"red\")\n"
+        "\n"
+        "# Create a title with a red, bold/italic font\n"
+        "title(main=\"Autos\", col.main=\"red\", font.main=4)\n"
+        "\n"
+        "# Label the x and y axes with dark green text\n"
+        "title(xlab=\"Days\", col.lab=rgb(0,0.5,0))\n"
+        "title(ylab=\"Total\", col.lab=rgb(0,0.5,0))\n"
+        "\n"
+        "# Create a legend at (1, g_range[2]) that is slightly smaller \n"
+        "# (cex) and uses the same line colors and points used by \n"
+        "# the actual plots \n"
+        "legend(1, g_range[2], c(\"cars\",\"trucks\"), cex=0.8, \n"
+        "   col=c(\"blue\",\"red\"), pch=21:22, lty=1:2);\n"
+    );
+}
+
+void TestR::testHelpRequest()
+{
+    QSKIP("Skip, until moving R help to help panel insteadof scripteditor");
+    Cantor::Expression* e = evalExp(QLatin1String("?print"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::HelpResult::Type);
+}
+
+void TestR::testSyntaxHelp()
+{
+    QSKIP("Skip, until adding this feature to R backend");
+    Cantor::SyntaxHelpObject* help = session()->syntaxHelpFor(QLatin1String("filter"));
+    help->fetchSyntaxHelp();
+    waitForSignal(help, SIGNAL(done()));
+
+    QVERIFY(help->toHtml().contains(QLatin1String("filter")));
 }
 
 QTEST_MAIN( TestR )

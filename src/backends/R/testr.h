@@ -41,10 +41,11 @@ private Q_SLOTS:
     void testInvalidSyntax();
 
     void testCompletion();
-    //void testHelpRequest();
-    //void testSyntaxHelp();
+    void testHelpRequest();
+    void testSyntaxHelp();
 
-    //void testPlot();
+    void testSimplePlot();
+    void testComplexPlot();
 
     //tests variable model
     void testVariablesCreatingFromCode();
