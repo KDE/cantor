@@ -272,6 +272,14 @@ void TestR::testComplexPlot()
         "legend(1, g_range[2], c(\"cars\",\"trucks\"), cex=0.8, \n"
         "   col=c(\"blue\",\"red\"), pch=21:22, lty=1:2);\n"
     );
+
+    Cantor::Expression* e = evalExp(cmd);
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    evalExp(QLatin1String("rm(cars, trucks, g_range)"));
 }
 
 void TestR::testHelpRequest()
