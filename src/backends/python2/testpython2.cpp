@@ -201,7 +201,7 @@ void TestPython2::testSimplePlot()
         "s = 1 + np.sin(2 * np.pi * t)"
     ));
     QVERIFY(e != nullptr);
-    QVERIFY(e->errorMessage().isEmpty() == true || e->errorMessage().contains(QLatin1String("UserWarning")));
+    QVERIFY(e->errorMessage().isEmpty() == true);
 
     //the variable model should have two entries now
     QVERIFY(model->rowCount() == 2);
@@ -213,7 +213,7 @@ void TestPython2::testSimplePlot()
     ));
     waitForSignal(e, SIGNAL(gotResult()));
     QVERIFY(e != nullptr);
-    QVERIFY(e->errorMessage().isEmpty() == true);
+    QVERIFY(e->errorMessage().isEmpty() == true || e->errorMessage().contains(QLatin1String("UserWarning")));
     QVERIFY(model->rowCount() == 2); //still only two variables
 
     //there must be one single image result
