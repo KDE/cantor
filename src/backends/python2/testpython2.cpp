@@ -201,7 +201,7 @@ void TestPython2::testSimplePlot()
         "s = 1 + np.sin(2 * np.pi * t)"
     ));
     QVERIFY(e != nullptr);
-    QVERIFY(e->errorMessage().isEmpty() == true);
+    QVERIFY(e->errorMessage().isEmpty() == true || e->errorMessage().contains(QLatin1String("UserWarning")));
 
     //the variable model should have two entries now
     QVERIFY(model->rowCount() == 2);
