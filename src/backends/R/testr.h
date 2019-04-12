@@ -43,6 +43,7 @@ private Q_SLOTS:
     void testCompletion();
     void testHelpRequest();
     void testSyntaxHelp();
+    void testInformationRequest();
 
     void testSimplePlot();
     void testComplexPlot();

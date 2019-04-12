@@ -138,6 +138,8 @@ void TestR::testVariableCleanupAfterRestart()
     while (session()->status() != Cantor::Session::Done)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
+    QTest::qWait(100);
+
     QCOMPARE(model->rowCount(), 2);
 
     session()->logout();
@@ -301,6 +303,19 @@ void TestR::testSyntaxHelp()
     waitForSignal(help, SIGNAL(done()));
 
     QVERIFY(help->toHtml().contains(QLatin1String("filter")));
+}
+
+void TestR::testInformationRequest()
+{
+    Cantor::Expression* e=session()->evaluateExpression(QLatin1String("readline(prompt=\"Enter number: \")"));
+    QVERIFY(e!=nullptr);
+    waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    e->addInformation(QLatin1String("12"));
+
+    waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
+    QVERIFY(e->result()!=nullptr);
+
+    QCOMPARE(e->result()->data().toString(), QLatin1String("[1] \"12\""));
 }
 
 QTEST_MAIN( TestR )
