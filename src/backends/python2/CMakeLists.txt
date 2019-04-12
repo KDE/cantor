@@ -21,7 +21,7 @@ target_link_libraries(cantor_python2backend
 )
 
 if(BUILD_TESTING)
-  add_executable(testpython2 testpython2.cpp)
+  add_executable(testpython2 testpython2.cpp settings.cpp)
   target_link_libraries(testpython2 ${QT_QTTEST_LIBRARY} cantorlibs cantortest)
   add_test(NAME testpython2 COMMAND testpython2)
 endif()

@@ -27,6 +27,8 @@
 #include "defaultvariablemodel.h"
 #include "completionobject.h"
 
+#include "settings.h"
+
 QString TestPython3::backendName()
 {
     return QLatin1String("python3");
@@ -164,6 +166,9 @@ void TestPython3::testPython3Code()
 
 void TestPython3::testSimplePlot()
 {
+    if (!PythonSettings::integratePlots())
+        QSKIP("This test needs enabled plots integration in Python3 settings", SkipSingle);
+
     Cantor::Expression* e = evalExp(QLatin1String(
         "import matplotlib\n"
         "import matplotlib.pyplot as plt\n"
@@ -195,7 +200,7 @@ void TestPython3::testSimplePlot()
     ));
     waitForSignal(e, SIGNAL(gotResult()));
     QVERIFY(e != nullptr);
-    QVERIFY(e->errorMessage().isEmpty() == true || e->errorMessage().contains(QLatin1String("UserWarning")));
+    QVERIFY(e->errorMessage().isEmpty() == true);
     QVERIFY(model->rowCount() == 2); //still only two variables
 
     //there must be one single image result

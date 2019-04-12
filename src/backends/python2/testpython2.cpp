@@ -28,6 +28,8 @@
 #include "imageresult.h"
 #include "completionobject.h"
 
+#include "settings.h"
+
 QString TestPython2::backendName()
 {
     return QLatin1String("python2");
@@ -182,6 +184,9 @@ void TestPython2::testInvalidSyntax()
 
 void TestPython2::testSimplePlot()
 {
+    if (!PythonSettings::integratePlots())
+        QSKIP("This test needs enabled plots integration in Python2 settings", SkipSingle);
+
     Cantor::Expression* e = evalExp(QLatin1String(
         "import matplotlib\n"
         "import matplotlib.pyplot as plt\n"
@@ -213,7 +218,7 @@ void TestPython2::testSimplePlot()
     ));
     waitForSignal(e, SIGNAL(gotResult()));
     QVERIFY(e != nullptr);
-    QVERIFY(e->errorMessage().isEmpty() == true || e->errorMessage().contains(QLatin1String("UserWarning")));
+    QVERIFY(e->errorMessage().isEmpty() == true);
     QVERIFY(model->rowCount() == 2); //still only two variables
 
     //there must be one single image result

@@ -14,10 +14,12 @@ target_link_libraries(cantor_python3backend
 add_subdirectory(python3server)
 
 if(BUILD_TESTING)
-  add_executable(testpython3 testpython3.cpp)
+  add_executable(testpython3 testpython3.cpp settings.cpp)
   add_test(NAME testpython3 COMMAND testpython3)
   target_link_libraries(testpython3
     Qt5::Test
+    KF5::ConfigCore
+    KF5::ConfigGui
     cantorlibs
     cantortest
   )
