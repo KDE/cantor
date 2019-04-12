@@ -56,6 +56,8 @@ class RSession : public Cantor::Session
     void updateSymbols();
   protected Q_SLOTS:
     void serverChangedStatus(int status);
+    void expressionFinished(int returnCode, const QString& text, const QStringList& files);
+    void inputRequested(QString info);
 
   Q_SIGNALS:
     void symbolsChanged();

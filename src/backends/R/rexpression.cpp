@@ -57,23 +57,19 @@ void RExpression::interrupt()
     setStatus(Cantor::Expression::Interrupted);
 }
 
-void RExpression::finished(int returnCode, const QString& text)
+void RExpression::parseOutput(const QString& text)
 {
-    if (status() == Expression::Interrupted)
-        return;
+    qDebug() << "output text: " << text;
+    if (!text.trimmed().isEmpty())
+        addResult(new Cantor::TextResult(text));
+    setStatus(Cantor::Expression::Done);
+}
 
-    if(returnCode==RExpression::SuccessCode)
-    {
-        qDebug() << "text: " << text;
-        if (!text.trimmed().isEmpty())
-            addResult(new Cantor::TextResult(text));
-        setStatus(Cantor::Expression::Done);
-    }else if (returnCode==RExpression::ErrorCode)
-    {
-        qDebug() << "text: " << text;
-        setErrorMessage(text);
-        setStatus(Cantor::Expression::Error);
-    }
+void RExpression::parseError(const QString& text)
+{
+    qDebug() << "error text: " << text;
+    setErrorMessage(text);
+    setStatus(Cantor::Expression::Error);
 }
 
 void RExpression::addInformation(const QString& information)

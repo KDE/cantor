@@ -33,7 +33,7 @@ Expression* currentExpression;
 
 void setupCallbacks(RServer* r)
 {
-    qDebug()<<"setting up callbacks";
+    qDebug()<<"RServer: "<<"setting up callbacks";
 
     server=r;
     currentExpression=nullptr;
@@ -77,13 +77,13 @@ void onShowMessage(const char* text)
 
 void onBusy(int which)
 {
-    qDebug()<<"onBusy: "<<which;
+    qDebug()<<"RServer: "<<"onBusy: "<<which;
 }
 
 int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
 {
     Q_UNUSED(hist);
-    qDebug()<<"readConsole: "<<prompt;
+    qDebug()<<"RServer: "<<"readConsole: "<<prompt;
 
     QString input=server->requestInput(QLatin1String(prompt));
 
@@ -98,21 +98,20 @@ int onReadConsole(const char* prompt, unsigned char* buf, int buflen, int hist)
 int  onShowFiles(int nfile, const char** file, const char** headers, const char* wtitle, Rboolean del, const char* pager)
 {
     int i;
-    qDebug()<<"show files: ";
+    qDebug()<<"RServer: "<<"show files: ";
     for (i=0;i<nfile; i++)
     {
-        qDebug()<<"show file "<<file[i]<<" header: "<<headers[i];
+        qDebug()<<"RServer: "<<"show file "<<file[i]<<" header: "<<headers[i];
     }
 
-    qDebug()<<" title: "<<wtitle[i];
-    qDebug()<<"del: "<<del;
-    qDebug()<<"pager: "<<pager;
+    qDebug()<<"RServer: "<<" title: "<<wtitle[i];
+    qDebug()<<"RServer: "<<"del: "<<del;
+    qDebug()<<"RServer: "<<"pager: "<<pager;
 
     QStringList files;
     for(int i=0;i<nfile; i++)
-        files<<QLatin1String(file[i]);
+        server->addFileToOutput(QString::fromLocal8Bit(file[i]));
 
-    server->showFiles(files);
     currentExpression->hasOtherResults=true;
 
     return 0;

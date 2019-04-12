@@ -49,14 +49,13 @@ class RServer : public QObject
     void endR();
 
     QString requestInput(const QString& prompt);
-    void showFiles(const QStringList& files);
+    void addFileToOutput(const QString& file);
 
   Q_SIGNALS:
     void ready();
     void statusChanged(int status);
-    void expressionFinished(int returnCode, const QString& text);
+    void expressionFinished(int returnCode, const QString& text, const QStringList& files);
     void completionFinished(const QString& token,const QStringList& options);
-    void showFilesNeeded(const QStringList& files);
     void inputRequested(const QString& prompt);
 
     void requestAnswered();
@@ -78,6 +77,7 @@ class RServer : public QObject
     QString m_requestCache;
     QString m_tmpDir;
     QString m_curPlotFile;
+    QStringList m_expressionFiles;
 };
 
 #endif /* _RSERVER_H */

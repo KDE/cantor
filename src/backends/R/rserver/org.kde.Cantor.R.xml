@@ -9,6 +9,7 @@
     <signal name="expressionFinished">
       <arg name="returnCode" type="i" direction="out"/>
       <arg name="text" type="s" direction="out"/>
+      <arg name="files" type="as" direction="out"/>
     </signal>
     <signal name="completionFinished">
       <arg name="token" type="s" direction="out"/>
@@ -18,9 +19,6 @@
       <arg name="variables" type="as" direction="out"/>
       <arg name="values" type="as" direction="out"/>
       <arg name="functions" type="as" direction="out"/>
-    </signal>
-    <signal name="showFilesNeeded">
-      <arg name="files" type="as" direction="out"/>
     </signal>
     <signal name="inputRequested">
       <arg name="prompt" type="s" direction="out"/>

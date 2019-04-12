@@ -33,13 +33,11 @@ class RExpression : public Cantor::Expression
 
     void evaluate() override;
     void interrupt() override;
-
-    void addInformation(const QString&) override;
-
-  public Q_SLOTS:
-    void finished(int returnCode, const QString& text);
+    void parseOutput(const QString& text);
+    void parseError(const QString& text);
     void showFilesAsResult(const QStringList& files);
 
+    void addInformation(const QString&) override;
   private:
     bool m_isHelpRequest;
 };

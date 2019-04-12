@@ -56,6 +56,7 @@ void RSession::login()
         m_process->deleteLater();
 
     m_process = new QProcess(this);
+    m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
     m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
 
     m_process->waitForStarted();
@@ -64,8 +65,10 @@ void RSession::login()
 
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
-    connect(m_rServer, SIGNAL(statusChanged(int)), this, SLOT(serverChangedStatus(int)), Qt::QueuedConnection);
-    connect(m_rServer, SIGNAL(symbolList(QStringList,QStringList,QStringList)), variableModel(), SLOT(parseResult(QStringList,QStringList,QStringList)));
+    connect(m_rServer, &org::kde::Cantor::R::statusChanged, this, &RSession::serverChangedStatus);
+    connect(m_rServer, &org::kde::Cantor::R::symbolList, static_cast<RVariableModel*>(variableModel()), &RVariableModel::parseResult);
+    connect(m_rServer,  &org::kde::Cantor::R::expressionFinished, this, &RSession::expressionFinished);
+    connect(m_rServer, &org::kde::Cantor::R::inputRequested, this, &RSession::inputRequested);
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -98,7 +101,7 @@ void RSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-       foreach (Cantor::Expression* expression, expressionQueue())
+        foreach (Cantor::Expression* expression, expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
@@ -138,15 +141,32 @@ void RSession::serverChangedStatus(int status)
     qDebug()<<"changed status to "<<status;
     if(status==0)
     {
-        if(!expressionQueue().isEmpty())
-        {
-            Cantor::Expression* expr = expressionQueue().first();
-            qDebug()<<"done running "<<expr<<" "<<expr->command();
-        }
-        finishFirstExpression();
+        if(expressionQueue().isEmpty())
+            changeStatus(Cantor::Session::Done);
     }
     else
         changeStatus(Cantor::Session::Running);
+}
+
+void RSession::expressionFinished(int returnCode, const QString& text, const QStringList& files)
+{
+    if (!expressionQueue().isEmpty())
+    {
+        RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
+        if (expr->status() == Cantor::Expression::Interrupted)
+            return;
+
+        if (!files.isEmpty())
+            expr->showFilesAsResult(files);
+
+        if(returnCode==RExpression::SuccessCode)
+            expr->parseOutput(text);
+        else if (returnCode==RExpression::ErrorCode)
+            expr->parseError(text);
+
+        qDebug()<<"done running "<<expr<<" "<<expr->command();
+        finishFirstExpression();
+    }
 }
 
 void RSession::runFirstExpression()
@@ -154,19 +174,12 @@ void RSession::runFirstExpression()
     if (expressionQueue().isEmpty())
         return;
 
-    disconnect(m_rServer,  SIGNAL(expressionFinished(int,QString)),  nullptr,  nullptr);
-    disconnect(m_rServer, SIGNAL(inputRequested(QString)), nullptr, nullptr);
-    disconnect(m_rServer, SIGNAL(showFilesNeeded(QStringList)), nullptr, nullptr);
-    qDebug()<<"size: "<<expressionQueue().size();
     RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
     qDebug()<<"running expression: "<<expr->command();
 
-    connect(m_rServer, SIGNAL(expressionFinished(int,QString)), expr, SLOT(finished(int,QString)));
-    connect(m_rServer, SIGNAL(inputRequested(QString)), expr, SIGNAL(needsAdditionalInformation(QString)));
-    connect(m_rServer, SIGNAL(showFilesNeeded(QStringList)), expr, SLOT(showFilesAsResult(QStringList)));
-
     expr->setStatus(Cantor::Expression::Computing);
-    m_rServer->runCommand(expr->command());
+    m_rServer->runCommand(expr->internalCommand());
+    changeStatus(Cantor::Session::Running);
 }
 
 void RSession::sendInputToServer(const QString& input)
@@ -175,6 +188,14 @@ void RSession::sendInputToServer(const QString& input)
     if(!input.endsWith(QLatin1Char('\n')))
         s+=QLatin1Char('\n');
     m_rServer->answerRequest(s);
+}
+
+void RSession::inputRequested(QString info)
+{
+    if (expressionQueue().isEmpty())
+        return;
+
+    emit expressionQueue().first()->needsAdditionalInformation(info);
 }
 
 void RSession::updateSymbols()

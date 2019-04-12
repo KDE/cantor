@@ -51,7 +51,7 @@ RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
     m_tmpDir = QDir::tempPath() + QString::fromLatin1("/cantor_rserver-%1").arg(getpid());
     QDir dir;
     dir.mkdir(m_tmpDir);
-    qDebug()<<"storing plots at "<<m_tmpDir;
+    qDebug()<<"RServer: "<<"storing plots at "<<m_tmpDir;
 
     initR();
     m_status=RServer::Idle;
@@ -93,7 +93,7 @@ void RServer::initR()
     //Setting up some settings dependent stuff
     if(RServerSettings::self()->integratePlots())
     {
-        qDebug()<<"integrating plots";
+        qDebug()<<"RServer: "<<"integrating plots";
         newPlotDevice();
     }
 
@@ -106,11 +106,11 @@ void RServer::initR()
         // TODO: error handling
         else
         {
-            qDebug()<<(QLatin1String("Script ")+path+QLatin1String(" not found")); // FIXME: or should we throw a messagebox
+            qDebug()<<"RServer: "<<(QLatin1String("Script ")+path+QLatin1String(" not found")); // FIXME: or should we throw a messagebox
         }
     }
 
-    qDebug()<<"done initializing";
+    qDebug()<<"RServer: "<<"done initializing";
 }
 
 //Code from the RInside library
@@ -152,7 +152,7 @@ void RServer::autoload()
     PROTECT(da = Rf_findFun(Rf_install("delayedAssign"), R_GlobalEnv));
     PROTECT(AutoloadEnv = Rf_findVar(Rf_install(".AutoloadEnv"), R_GlobalEnv));
     if (AutoloadEnv == R_NilValue){
-        qDebug()<<"Cannot find .AutoloadEnv";
+        qDebug()<<"RServer: "<<"Cannot find .AutoloadEnv";
         //exit(1);
     }
     PROTECT(dacall = allocVector(LANGSXP,5));
@@ -194,7 +194,7 @@ void RServer::autoload()
 
             R_tryEval(dacall,R_GlobalEnv,&errorOccurred);
             if (errorOccurred){
-                qDebug()<<"Error calling delayedAssign!";
+                qDebug()<<"RServer: "<<"Error calling delayedAssign!";
                 //exit(1);
             }
 
@@ -234,9 +234,15 @@ void RServer::endR()
    Rf_endEmbeddedR(0);
 }
 
+void RServer::addFileToOutput(const QString& file)
+{
+    m_expressionFiles.append(file);
+}
+
 void RServer::runCommand(const QString& cmd, bool internal)
 {
-    qDebug()<<"running command "<<cmd;
+    m_expressionFiles.clear();
+    qDebug()<<"RServer: "<<"running command "<<cmd;
     Expression* expr=new Expression;
     expr->cmd=cmd;
     expr->hasOtherResults=false;
@@ -255,7 +261,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
     //Code to evaluate an R function (taken from RInside library)
     ParseStatus status;
     SEXP cmdSexp,  cmdexpr = R_NilValue;
-    SEXP result;
+    SEXP result = nullptr;
     int i,  errorOccurred;
     QByteArray memBuf;
 
@@ -268,14 +274,14 @@ void RServer::runCommand(const QString& cmd, bool internal)
     switch (status)
     {
         case PARSE_OK:
-            qDebug()<<"PARSING "<<cmd<<" went OK";
+            qDebug()<<"RServer: "<<"PARSING "<<cmd<<" went OK";
             /* Loop is needed here as EXPSEXP might be of length > 1 */
             for (i = 0; i < length(cmdexpr); ++i) {
 
                 result = R_tryEval(VECTOR_ELT(cmdexpr,  i), nullptr, &errorOccurred);
                 if (errorOccurred)
                 {
-                    qDebug()<<"Error occurred.";
+                    qDebug()<<"RServer: "<<"Error occurred.";
                     break;
                 }
                 // TODO: multiple results
@@ -284,39 +290,40 @@ void RServer::runCommand(const QString& cmd, bool internal)
             break;
         case PARSE_INCOMPLETE:
             /* need to read another line */
-            qDebug()<<"parse incomplete..";
+            qDebug()<<"RServer: "<<"parse incomplete..";
             break;
         case PARSE_NULL:
-            qDebug()<<"ParseStatus is null: "<<status;
+            qDebug()<<"RServer: "<<"ParseStatus is null: "<<status;
             break;
         case PARSE_ERROR:
-            qDebug()<<"Parse Error: "<<cmd;
+            qDebug()<<"RServer: "<<"Parse Error: "<<cmd;
             break;
         case PARSE_EOF:
-            qDebug()<<"ParseStatus is eof: "<<status;
+            qDebug()<<"RServer: "<<"ParseStatus is eof: "<<status;
             break;
         default:
-            qDebug()<<"Parse status is not documented: "<<status;
+            qDebug()<<"RServer: "<<"Parse status is not documented: "<<status;
             break;
     }
     UNPROTECT(2);
 
     if(status==PARSE_OK)
     {
-        qDebug()<<"done running";
+        qDebug()<<"RServer: "<<"done running";
 
-        qDebug()<<"std: "<<expr->std_buffer<<" err: "<<expr->err_buffer;
+        qDebug()<<"RServer: "<<"result: " << result << " std: "<<expr->std_buffer<<" err: "<<expr->err_buffer;
         //if the command didn't print anything on its own, print the result
+        //but only, if result exists, because comment expression don't create result
 
 
         //TODO: handle some known result types like lists, matrices separately
         //      to make the output look better, by using html (tables etc.)
-        if(expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
+        if(result && expr->std_buffer.isEmpty()&&expr->err_buffer.isEmpty())
         {
-            qDebug()<<"printing result...";
+            qDebug()<<"RServer: "<<"printing result...";
             SEXP count=PROTECT(R_tryEval(lang2(install("length"),result),nullptr,&errorOccurred)); // TODO: error checks
             if (*INTEGER(count)==0)
-                qDebug() << "no result, so show nothing";
+                qDebug()<<"RServer: " << "no result, so show nothing";
             else
                 Rf_PrintValue(result);
             UNPROTECT(1);
@@ -344,12 +351,12 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
     if(internal)
     {
-        qDebug()<<"internal result: "<<returnCode<<" :: "<<returnText;
+        qDebug()<<"RServer: "<<"internal result: "<<returnCode<<" :: "<<returnText;
         return;
     }
 
     QFileInfo f(m_curPlotFile);
-    qDebug()<<"file: "<<m_curPlotFile<<" exists: "<<f.exists()<<" size: "<<f.size();
+    qDebug()<<"RServer: "<<"file: "<<m_curPlotFile<<" exists: "<<f.exists()<<" size: "<<f.size();
     if(f.exists())
     {
         expr->hasOtherResults=true;
@@ -357,11 +364,8 @@ void RServer::runCommand(const QString& cmd, bool internal)
         neededFiles<<f.filePath();
     }
 
-    //Check if the expression got results other than plain text (like files,etc)
-    if(!expr->hasOtherResults)
-        emit expressionFinished(returnCode, returnText);
-    else
-        showFiles(neededFiles);
+    qDebug()<<"RServer: " << "files: " << neededFiles+m_expressionFiles;
+    emit expressionFinished(returnCode, returnText, neededFiles+m_expressionFiles);
 
     setStatus(Idle);
 }
@@ -488,12 +492,6 @@ void RServer::answerRequest(const QString& answer)
 {
     m_requestCache=answer;
     emit requestAnswered();
-}
-
-void RServer::showFiles(const QStringList& files)
-{
-    if(m_isInitialized)
-        emit showFilesNeeded(files);
 }
 
 void RServer::newPlotDevice()
