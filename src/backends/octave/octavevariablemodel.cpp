@@ -39,6 +39,7 @@ void OctaveVariableModel::update()
     static const QString code = QString::fromLatin1(
         "printf('__cantor_delimiter_line__\\n');"
         "__cantor_list__ = who();"
+        "__cantor_split_var__ = split_long_rows(0);"
         "__cantor_parse_values__ = %1;"
         "for __cantor_index__ = 1:length(__cantor_list__)"
         "  __cantor_varname__ = char(__cantor_list__{__cantor_index__});"
@@ -53,11 +54,13 @@ void OctaveVariableModel::update()
         "  endif;"
         "  printf('__cantor_delimiter_line__\\n')"
         "endfor;"
+        "split_long_rows(__cantor_split_var__);"
         "clear __cantor_list__;"
         "clear __cantor_index__;"
         "clear __cantor_varname__;"
         "clear __cantor_parse_values__;"
         "clear __cantor_string__;"
+        "clear __cantor_split_var__;"
     );
 
     const QString& cmd = code.arg(OctaveSettings::self()->variableManagement() ? QLatin1String("true") : QLatin1String("false"));
