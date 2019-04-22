@@ -100,6 +100,7 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
         }
         case Expression::Status::Error:
             qWarning() << "Octave code for parsing variables finish with error message: " << m_expr->errorMessage();
+            break;
 
         default:
             return;
