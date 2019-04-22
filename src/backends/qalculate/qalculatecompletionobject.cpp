@@ -37,16 +37,16 @@ void QalculateCompletionObject::fetchIdentifierType()
 {
     Variable* var = CALCULATOR->getVariable(identifier().toLatin1().data());
     if (var) {
-	emit fetchingTypeDone(VariableType);
-	return;
+        emit fetchingTypeDone(VariableType);
+        return;
     }
     MathFunction* func = CALCULATOR->getFunction(identifier().toLatin1().data());
     if (!func) // can this happen?
-	emit fetchingTypeDone(UnknownType);
+        emit fetchingTypeDone(UnknownType);
     else if (func->args() == 0)
-	emit fetchingTypeDone(FunctionWithoutArguments);
+        emit fetchingTypeDone(FunctionWithoutArguments);
     else
-	emit fetchingTypeDone(FunctionWithArguments);
+        emit fetchingTypeDone(FunctionWithArguments);
 }
 
 int QalculateCompletionObject::locateIdentifier(const QString& cmd, int index) const
@@ -77,15 +77,15 @@ void QalculateCompletionObject::fetchCompletions()
         if ( str.startsWith(command(), Qt::CaseSensitive) ) {
             comp << str;
         }
-	QString str2(QLatin1String(item->singular().c_str()));
-	if (str2.startsWith(command(), Qt::CaseSensitive) ) {
-	    comp << str2;
-	}
-	// Also include the plural form for completion?
-	//QString str3(item->plural().c_str());
-	//if (str3.startsWith(command(), Qt::CaseSensitive) ) {
-	//    comp << str3;
-	//}
+    QString str2(QLatin1String(item->singular().c_str()));
+    if (str2.startsWith(command(), Qt::CaseSensitive) ) {
+        comp << str2;
+    }
+    // Also include the plural form for completion?
+    //QString str3(item->plural().c_str());
+    //if (str3.startsWith(command(), Qt::CaseSensitive) ) {
+    //    comp << str3;
+    //}
     }
     foreach ( ExpressionItem* item, CALCULATOR->variables ) {
         //TODO: this is fugly...

@@ -28,7 +28,7 @@ class OctaveCompletionObject : public Cantor::CompletionObject
     Q_OBJECT
 public:
     OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent);
-    ~OctaveCompletionObject() override = default;
+    ~OctaveCompletionObject() override;
 
 protected:
     void fetchCompletions() override;

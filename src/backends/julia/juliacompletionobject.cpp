@@ -28,17 +28,22 @@
 #include <QDebug>
 #include <julia_version.h>
 
-JuliaCompletionObject::JuliaCompletionObject(
-    const QString &command, int index, JuliaSession *session)
-    : Cantor::CompletionObject(session),
+JuliaCompletionObject::JuliaCompletionObject(const QString &command, int index, JuliaSession *session):
+    Cantor::CompletionObject(session),
     m_expression(nullptr)
 {
     setLine(command, index);
 }
 
+JuliaCompletionObject::~JuliaCompletionObject()
+{
+    if (m_expression)
+        m_expression->setFinishingBehavior(Cantor::Expression::FinishingBehavior::DeleteOnFinish);
+}
+
 void JuliaCompletionObject::fetchCompletions()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         QStringList allCompletions;
 
@@ -80,9 +85,6 @@ void JuliaCompletionObject::fetchCompletions()
 
 void JuliaCompletionObject::extractCompletions(Cantor::Expression::Status status)
 {
-    if (!m_expression)
-        return;
-
     switch(status)
     {
         case Cantor::Expression::Done:

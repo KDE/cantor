@@ -27,15 +27,23 @@
 #include "pythonsession.h"
 #include "pythonkeywords.h"
 
+using namespace Cantor;
+
 PythonCompletionObject::PythonCompletionObject(const QString& command, int index, PythonSession* session) : Cantor::CompletionObject(session),
 m_expression(nullptr)
 {
     setLine(command, index);
 }
 
+PythonCompletionObject::~PythonCompletionObject()
+{
+    if (m_expression)
+        m_expression->setFinishingBehavior(Expression::DeleteOnFinish);
+}
+
 void PythonCompletionObject::fetchCompletions()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Session::Done)
     {
         QStringList allCompletions;
 
@@ -69,7 +77,7 @@ void PythonCompletionObject::fetchCompletions()
 
 void PythonCompletionObject::fetchIdentifierType()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         if (qBinaryFind(PythonKeywords::instance()->functions().begin(),
                 PythonKeywords::instance()->functions().end(), identifier())
@@ -97,9 +105,6 @@ void PythonCompletionObject::fetchIdentifierType()
 
 void PythonCompletionObject::extractCompletions(Cantor::Expression::Status status)
 {
-    if (!m_expression)
-        return;
-
     switch(status)
     {
         case Cantor::Expression::Error:
@@ -124,8 +129,6 @@ void PythonCompletionObject::extractCompletions(Cantor::Expression::Status statu
 
 void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
 {
-    if (!m_expression)
-            return;
     switch(status)
     {
         case Cantor::Expression::Error:
@@ -133,11 +136,15 @@ void PythonCompletionObject::extractIdentifierType(Cantor::Expression::Status st
             if (m_expression->errorMessage().contains(QLatin1String("SyntaxError: invalid syntax")))
                 emit fetchingTypeDone(KeywordType);
             else
+            {
                 qDebug() << "Error with PythonCompletionObject" << (m_expression->result() ? m_expression->result()->toHtml() : QLatin1String("extractIdentifierType"));
+                emit fetchingTypeDone(UnknownType);
+            }
             break;
 
         case Cantor::Expression::Interrupted:
             qDebug() << "PythonCompletionObject was interrupted";
+            emit fetchingTypeDone(UnknownType);
             break;
 
         case Cantor::Expression::Done:

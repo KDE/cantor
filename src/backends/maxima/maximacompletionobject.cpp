@@ -36,22 +36,18 @@ void MaximaCompletionObject::fetchIdentifierType()
 {
     QStringList userVariableNames=session()->variableModel()->variableNames();
     QStringList userFunctionNames=session()->variableModel()->functions();
-    if (qBinaryFind(userVariableNames.begin(), userVariableNames.end(), identifier())
-	!= userVariableNames.end())
-	emit fetchingTypeDone(VariableType);
-    else if (qBinaryFind(userFunctionNames.begin(), userFunctionNames.end(), identifier())
-             != userFunctionNames.end())
+    if (qBinaryFind(userVariableNames.begin(), userVariableNames.end(), identifier()) != userVariableNames.end())
+        emit fetchingTypeDone(VariableType);
+    else if (qBinaryFind(userFunctionNames.begin(), userFunctionNames.end(), identifier()) != userFunctionNames.end())
         emit fetchingTypeDone(FunctionType);
     else if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
-		    MaximaKeywords::instance()->functions().end(), identifier())
-             != MaximaKeywords::instance()->functions().end())
-	emit fetchingTypeDone(FunctionType);
+            MaximaKeywords::instance()->functions().end(), identifier()) != MaximaKeywords::instance()->functions().end())
+        emit fetchingTypeDone(FunctionType);
     else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
-			 MaximaKeywords::instance()->keywords().end(), identifier())
-             != MaximaKeywords::instance()->keywords().end())
-	emit fetchingTypeDone(KeywordType);
+            MaximaKeywords::instance()->keywords().end(), identifier()) != MaximaKeywords::instance()->keywords().end())
+        emit fetchingTypeDone(KeywordType);
     else
-	emit fetchingTypeDone(VariableType);
+        emit fetchingTypeDone(VariableType);
 }
 
 void MaximaCompletionObject::fetchCompletions()

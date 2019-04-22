@@ -27,6 +27,8 @@
 #include <QDebug>
 #include <QStack>
 
+using namespace Cantor;
+
 SageCompletionObject::SageCompletionObject(const QString& command, int index, SageSession* session) : Cantor::CompletionObject(session)
 {
     setLine(command, index);
@@ -36,15 +38,12 @@ SageCompletionObject::SageCompletionObject(const QString& command, int index, Sa
 SageCompletionObject::~SageCompletionObject()
 {
     if(m_expression)
-    {
-        m_expression->interrupt();
-        m_expression->deleteLater();
-    }
+        m_expression->setFinishingBehavior(Expression::DeleteOnFinish);
 }
 
 void SageCompletionObject::fetchCompletions()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         QStringList allCompletions;
 
@@ -161,7 +160,7 @@ void SageCompletionObject::fetchIdentifierType()
         return;
     }
 
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         if (SageKeywords::instance()->functions().contains(identifier()))
             emit fetchingTypeDone(FunctionType);
@@ -183,9 +182,6 @@ void SageCompletionObject::fetchIdentifierType()
 
 void SageCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
 {
-    if (!m_expression)
-        return;
-
     switch(status)
     {
         case Cantor::Expression::Error:
@@ -220,7 +216,6 @@ void SageCompletionObject::extractIdentifierType(Cantor::Expression::Status stat
 
     m_expression->deleteLater();
     m_expression = nullptr;
-    return;
 }
 
 bool SageCompletionObject::mayIdentifierContain(QChar c) const

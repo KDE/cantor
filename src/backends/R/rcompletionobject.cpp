@@ -40,7 +40,7 @@ RCompletionObject::~RCompletionObject()
 
 void RCompletionObject::fetchCompletions()
 {
-    if (session()->status() == Session::Disable)
+    if (session()->status() != Session::Done)
     {
         QStringList allCompletions;
 
@@ -91,8 +91,6 @@ void RCompletionObject::receiveCompletions(Cantor::Expression::Status status)
                 setCommand(token);
                 setCompletions(options);
             }
-
-            emit fetchingDone();
         }
         case Expression::Status::Error:
             qWarning() << "R code for completion command finishs with error message: " << m_expression->errorMessage();
@@ -107,4 +105,5 @@ void RCompletionObject::receiveCompletions(Cantor::Expression::Status status)
 
     m_expression->deleteLater();
     m_expression = nullptr;
+    emit fetchingDone();
 }

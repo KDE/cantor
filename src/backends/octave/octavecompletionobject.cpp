@@ -25,15 +25,22 @@
 
 #include <QDebug>
 
-OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent): CompletionObject(parent)
+OctaveCompletionObject::OctaveCompletionObject(const QString& command, int index, Cantor::Session* parent):
+    CompletionObject(parent),
+    m_expression(nullptr)
 {
     setLine(command, index);
-    m_expression = nullptr;
+}
+
+OctaveCompletionObject::~OctaveCompletionObject()
+{
+    if (m_expression)
+        m_expression->setFinishingBehavior(Cantor::Expression::FinishingBehavior::DeleteOnFinish);
 }
 
 void OctaveCompletionObject::fetchCompletions()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         QStringList allCompletions;
 
@@ -57,9 +64,6 @@ void OctaveCompletionObject::fetchCompletions()
 
 void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status status)
 {
-    if (!m_expression)
-        return;
-
     switch(status)
     {
         case Cantor::Expression::Done:
@@ -72,30 +76,26 @@ void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status statu
                 qDebug() << "Adding" << completions.size() << "completions";
                 setCompletions( completions );
             }
-
-            m_expression->deleteLater();
-            m_expression = nullptr;
-            emit fetchingDone();
             break;
         }
         case Cantor::Expression::Interrupted:
         case Cantor::Expression::Error:
         {
             qDebug() << "fetching expression finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
-
-            m_expression->deleteLater();
-            m_expression=nullptr;
-            emit fetchingDone();
             break;
         }
         default:
             break;
     }
+
+    m_expression->deleteLater();
+    m_expression=nullptr;
+    emit fetchingDone();
 }
 
 void OctaveCompletionObject::fetchIdentifierType()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         qDebug() << "Fetching type of " << identifier();
         if (OctaveKeywords::instance()->keywords().contains(identifier()))
@@ -118,8 +118,6 @@ void OctaveCompletionObject::fetchIdentifierType()
 
 void OctaveCompletionObject::extractIdentifierType(Cantor::Expression::Status status)
 {
-    if (!m_expression)
-        return;
     switch(status)
     {
         case Cantor::Expression::Error:
@@ -160,5 +158,4 @@ void OctaveCompletionObject::extractIdentifierType(Cantor::Expression::Status st
 
     m_expression->deleteLater();
     m_expression = nullptr;
-    return;
 }

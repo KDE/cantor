@@ -38,10 +38,10 @@ LuaCompletionObject::LuaCompletionObject(const QString& command, int index, LuaS
 
 void LuaCompletionObject::fetchCompletions()
 {
-    if (session()->status() == Cantor::Session::Disable)
+    if (session()->status() != Cantor::Session::Done)
     {
         QStringList allCompletions;
-        
+
         allCompletions << LuaKeywords::instance()->keywords();
         allCompletions << LuaKeywords::instance()->functions();
         allCompletions << LuaKeywords::instance()->variables();

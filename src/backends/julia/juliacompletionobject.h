@@ -42,7 +42,7 @@ public:
      * @param session current session
      */
     JuliaCompletionObject(const QString &cmd, int index, JuliaSession *session);
-    ~JuliaCompletionObject() override = default;
+    ~JuliaCompletionObject() override;
 
 protected:
     /**

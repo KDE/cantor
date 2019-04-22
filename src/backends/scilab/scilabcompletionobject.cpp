@@ -51,16 +51,14 @@ void ScilabCompletionObject::fetchIdentifierType()
     // Scilab's typeof function could be used here, but as long as these lists
     // are used just looking up the name is easier.
 
-    if (qBinaryFind(ScilabKeywords::instance()->functions().begin(),
-		    ScilabKeywords::instance()->functions().end(), identifier())
-	!= ScilabKeywords::instance()->functions().end())
-	emit fetchingTypeDone(FunctionType);
-    else if (qBinaryFind(ScilabKeywords::instance()->keywords().begin(),
-			 ScilabKeywords::instance()->keywords().end(), identifier())
-	!= ScilabKeywords::instance()->keywords().end())
-	emit fetchingTypeDone(KeywordType);
+    if (qBinaryFind(ScilabKeywords::instance()->functions().begin(), ScilabKeywords::instance()->functions().end(),
+            identifier()) != ScilabKeywords::instance()->functions().end())
+        emit fetchingTypeDone(FunctionType);
+    else if (qBinaryFind(ScilabKeywords::instance()->keywords().begin(),ScilabKeywords::instance()->keywords().end(),
+            identifier()) != ScilabKeywords::instance()->keywords().end())
+        emit fetchingTypeDone(KeywordType);
     else
-	emit fetchingTypeDone(VariableType);
+        emit fetchingTypeDone(VariableType);
 }
 
 bool ScilabCompletionObject::mayIdentifierContain(QChar c) const

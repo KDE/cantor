@@ -59,7 +59,7 @@ void RExpression::interrupt()
 
 void RExpression::parseOutput(const QString& text)
 {
-    qDebug() << "output text: " << text;
+    //qDebug() << "output text: " << text;
     if (!text.trimmed().isEmpty())
         addResult(new Cantor::TextResult(text));
     setStatus(Cantor::Expression::Done);
