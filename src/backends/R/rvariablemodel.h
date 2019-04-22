@@ -30,15 +30,16 @@ class RVariableModel : public Cantor::DefaultVariableModel
   Q_OBJECT
   public:
     RVariableModel( RSession* session);
-    ~RVariableModel() override = default;
+    ~RVariableModel() override;
 
     void update() override;
 
   public Q_SLOTS:
-    void parseResult(const QStringList& names, const QStringList& values, const QStringList& funcs);
+    void parseResult(Cantor::Expression::Status status);
 
   private:
     QStringList m_functions;
+    Cantor::Expression* m_expression;
 };
 
 #endif /* _RVARIABLEMODEL_H */

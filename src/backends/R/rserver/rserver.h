@@ -22,6 +22,7 @@
 #define _RSERVER_H
 
 #include <QObject>
+#include <QChar>
 
 class Expression
 {
@@ -55,21 +56,23 @@ class RServer : public QObject
     void ready();
     void statusChanged(int status);
     void expressionFinished(int returnCode, const QString& text, const QStringList& files);
-    void completionFinished(const QString& token,const QStringList& options);
     void inputRequested(const QString& prompt);
 
     void requestAnswered();
-    void symbolList(const QStringList& variables, const QStringList& values, const QStringList& functions);
 
   public Q_SLOTS:
     void runCommand(const QString& cmd, bool internal=false);
     void answerRequest(const QString& answer);
-    void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
-    void listSymbols();
 
   private:
     void setStatus(Status status);
     void newPlotDevice();
+    void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
+    void listSymbols();
+
+  private:
+    const static QChar recordSep;
+    const static QChar unitSep;
   private:
     bool m_isInitialized;
     bool m_isCompletionAvailable;

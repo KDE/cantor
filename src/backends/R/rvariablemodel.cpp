@@ -21,29 +21,73 @@
 #include "rvariablemodel.h"
 #include "rsession.h"
 
+#include <result.h>
+
 using namespace Cantor;
 
 RVariableModel::RVariableModel(RSession* session):
-    DefaultVariableModel(session)
+    DefaultVariableModel(session),
+    m_expression(nullptr)
 {
+}
+
+RVariableModel::~RVariableModel()
+{
+    if (m_expression)
+        m_expression->setFinishingBehavior(Expression::FinishingBehavior::DeleteOnFinish);
 }
 
 void RVariableModel::update()
 {
-    static_cast<RSession*>(session())->updateSymbols();
+    if (m_expression)
+        return;
+
+    m_expression = session()->evaluateExpression(QLatin1String("%model update"), Expression::FinishingBehavior::DoNotDelete, true);
+    connect(m_expression, &Expression::statusChanged, this, &RVariableModel::parseResult);
 }
 
-void RVariableModel::parseResult(const QStringList& names, const QStringList& values, const QStringList& funcs)
+void RVariableModel::parseResult(Cantor::Expression::Status status)
 {
-    QList<Variable> vars;
-    if (!values.isEmpty()) // Variables management disabled
-        for (int i = 0; i < names.size(); i++)
-            vars.append(Variable{names[i], values[i]});
-    else
-        for (int i = 0; i < names.size(); i++)
-            vars.append(Variable{names[i], QString()});
+    switch(status)
+    {
+        case Expression::Status::Done:
+        {
+            if (!m_expression->result())
+                break;
 
-    setVariables(vars);
+            const QChar recordSep(30);
+            const QChar unitSep(31);
 
-    setFunctions(funcs);
+            const QString output = m_expression->result()->data().toString();
+
+            const QStringList names = output.section(unitSep, 0, 0).split(recordSep, QString::SkipEmptyParts);
+            const QStringList values = output.section(unitSep, 1, 1).split(recordSep, QString::SkipEmptyParts);
+            const QStringList funcs = output.section(unitSep, 2, 2).split(recordSep, QString::SkipEmptyParts);
+
+            QList<Variable> vars;
+            if (!values.isEmpty()) // Variables management disabled
+                for (int i = 0; i < names.size(); i++)
+                    vars.append(Variable{names[i], values[i]});
+            else
+                for (int i = 0; i < names.size(); i++)
+                    vars.append(Variable{names[i], QString()});
+
+            setVariables(vars);
+
+            setFunctions(funcs);
+            break;
+        }
+        case Expression::Status::Error:
+            qWarning() << "R code for update variable model finishs with error message: " << m_expression->errorMessage();
+            break;
+
+        case Expression::Status::Interrupted:
+            break;
+
+        default:
+            return;
+    }
+
+    m_expression->deleteLater();
+    m_expression = nullptr;
 }

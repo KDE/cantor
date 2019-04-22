@@ -66,7 +66,6 @@ void RSession::login()
     m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, &org::kde::Cantor::R::statusChanged, this, &RSession::serverChangedStatus);
-    connect(m_rServer, &org::kde::Cantor::R::symbolList, static_cast<RVariableModel*>(variableModel()), &RVariableModel::parseResult);
     connect(m_rServer,  &org::kde::Cantor::R::expressionFinished, this, &RSession::expressionFinished);
     connect(m_rServer, &org::kde::Cantor::R::inputRequested, this, &RSession::inputRequested);
 
@@ -126,8 +125,6 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 Cantor::CompletionObject* RSession::completionFor(const QString& command, int index)
 {
     RCompletionObject *cmp=new RCompletionObject(command, index, this);
-    connect(m_rServer,SIGNAL(completionFinished(QString,QStringList)),cmp,SLOT(receiveCompletions(QString,QStringList)));
-    connect(cmp,SIGNAL(requestCompletion(QString)),m_rServer,SLOT(completeCommand(QString)));
     return cmp;
 }
 
@@ -178,7 +175,7 @@ void RSession::runFirstExpression()
     qDebug()<<"running expression: "<<expr->command();
 
     expr->setStatus(Cantor::Expression::Computing);
-    m_rServer->runCommand(expr->internalCommand());
+    m_rServer->runCommand(expr->internalCommand(), expr->isInternal());
     changeStatus(Cantor::Session::Running);
 }
 
@@ -196,9 +193,4 @@ void RSession::inputRequested(QString info)
         return;
 
     emit expressionQueue().first()->needsAdditionalInformation(info);
-}
-
-void RSession::updateSymbols()
-{
-    m_rServer->listSymbols();
 }

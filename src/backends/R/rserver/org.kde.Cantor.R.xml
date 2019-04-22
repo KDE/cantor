@@ -11,15 +11,6 @@
       <arg name="text" type="s" direction="out"/>
       <arg name="files" type="as" direction="out"/>
     </signal>
-    <signal name="completionFinished">
-      <arg name="token" type="s" direction="out"/>
-      <arg name="options" type="as" direction="out"/>
-    </signal>
-    <signal name="symbolList">
-      <arg name="variables" type="as" direction="out"/>
-      <arg name="values" type="as" direction="out"/>
-      <arg name="functions" type="as" direction="out"/>
-    </signal>
     <signal name="inputRequested">
       <arg name="prompt" type="s" direction="out"/>
     </signal>
@@ -27,14 +18,10 @@
     </signal>
     <method name="runCommand">
       <arg name="cmd" type="s" direction="in"/>
-    </method>
-    <method name="completeCommand">
-      <arg name="cmd" type="s" direction="in"/>
+      <arg name="internal" type="b" direction="in"/>
     </method>
     <method name="answerRequest">
       <arg name="answer" type="s" direction="in"/>
-    </method>
-    <method name="listSymbols">
     </method>
   </interface>
 </node>

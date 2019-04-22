@@ -43,6 +43,9 @@
 #define R_INTERFACE_PTRS
 #include <R_ext/Parse.h>
 
+const QChar RServer::recordSep(30);
+const QChar RServer::unitSep(31);
+
 
 RServer::RServer() : m_isInitialized(false),m_isCompletionAvailable(false)
 {
@@ -242,7 +245,28 @@ void RServer::addFileToOutput(const QString& file)
 void RServer::runCommand(const QString& cmd, bool internal)
 {
     m_expressionFiles.clear();
-    qDebug()<<"RServer: "<<"running command "<<cmd;
+    qDebug()<<"RServer: "<<"running " << (internal ? "internal " : "") << "command "<<cmd;
+
+    // Handle some internal command, like variable model update, etc.
+    if (internal)
+    {
+        const QLatin1String completionCommandPrefix("%completion ");
+        if (cmd == QLatin1String("%model update"))
+        {
+            listSymbols();
+            return;
+        }
+        else if (cmd.startsWith(completionCommandPrefix))
+        {
+
+            QString arg = cmd;
+            arg.remove(0, completionCommandPrefix.size());
+            qDebug() << "arg" << arg;
+            completeCommand(arg);
+            return;
+        }
+    }
+
     Expression* expr=new Expression;
     expr->cmd=cmd;
     expr->hasOtherResults=false;
@@ -372,7 +396,7 @@ void RServer::runCommand(const QString& cmd, bool internal)
 
 void RServer::completeCommand(const QString& cmd)
 {
-//     setStatus(RServer::Busy);
+    setStatus(RServer::Busy);
 
     // TODO: is static okay? guess RServer is a singletone, but ...
     // TODO: error handling?
@@ -406,9 +430,9 @@ void RServer::completeCommand(const QString& cmd)
     QString qToken=QLatin1String(translateCharUTF8(STRING_ELT(token,0)));
     UNPROTECT(2);
 
-    emit completionFinished(qToken,completionOptions);
-
-//     setStatus(RServer::Idle);
+    const QString output = qToken + unitSep + completionOptions.join(recordSep);
+    emit expressionFinished(RServer::SuccessCode, output, QStringList());
+    setStatus(RServer::Idle);
 }
 
 // FIXME: This scheme is somewhat placeholder, I honestly don't like it too much
@@ -462,7 +486,8 @@ void RServer::listSymbols()
     }
     UNPROTECT(1);
 
-    emit symbolList(vars, values, funcs);
+    const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep);
+    emit expressionFinished(RServer::SuccessCode, output, QStringList());
     setStatus(Idle);
 }
 

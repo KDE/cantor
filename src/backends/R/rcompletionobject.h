@@ -22,6 +22,7 @@
 #define _RCOMPLETIONOBJECT_H
 
 #include "completionobject.h"
+#include <expression.h>
 
 class RSession;
 
@@ -34,10 +35,10 @@ class RCompletionObject : public Cantor::CompletionObject
 
   protected Q_SLOTS:
     void fetchCompletions() override;
-    void receiveCompletions(const QString& token,const QStringList& options);
+    void receiveCompletions(Cantor::Expression::Status status);
 
-  Q_SIGNALS:
-    void requestCompletion(const QString&);
+  private:
+    Cantor::Expression* m_expression;
 };
 
 #endif /* _RCOMPLETIONOBJECT_H */
