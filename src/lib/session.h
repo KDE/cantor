@@ -247,6 +247,7 @@ class CANTOR_EXPORT Session : public QObject
      * Search file for session in AppDataLocation and in GenericDataLocation
      */
     QString locateCantorFile(const QString& partialPath, QStandardPaths::LocateOptions options = QStandardPaths::LocateFile);
+    QStringList locateAllCantorFiles(const QString& partialPath, QStandardPaths::LocateOptions options = QStandardPaths::LocateFile);
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);
