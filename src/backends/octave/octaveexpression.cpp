@@ -136,11 +136,11 @@ void OctaveExpression::parseOutput(const QString& output)
         // This must be corrected.
         if (command().contains(QLatin1String("help")))
         {
-            setResult(new Cantor::HelpResult(output));
+            addResult(new Cantor::HelpResult(output));
         }
         else
         {
-            setResult(new Cantor::TextResult(output));
+            addResult(new Cantor::TextResult(output));
         }
     }
 
@@ -151,8 +151,16 @@ void OctaveExpression::parseOutput(const QString& output)
 
 void OctaveExpression::parseError(const QString& error)
 {
-    setErrorMessage(error);
-    setStatus(Error);
+    if (error.startsWith(QLatin1String("warning: ")))
+    {
+        // It's warning, so add as result
+        addResult(new Cantor::TextResult(error));
+    }
+    else
+    {
+        setErrorMessage(error);
+        setStatus(Error);
+    }
 }
 
 void OctaveExpression::parsePlotFile(const QString& file)
@@ -162,7 +170,7 @@ void OctaveExpression::parsePlotFile(const QString& file)
     {
         qDebug() << "OctaveExpression::parsePlotFile: " << file;
 
-        setResult(new OctavePlotResult(QUrl::fromLocalFile(file)));
+        addResult(new OctavePlotResult(QUrl::fromLocalFile(file)));
         setPlotPending(false);
 
         if (m_finished)
