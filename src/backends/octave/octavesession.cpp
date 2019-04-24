@@ -34,6 +34,8 @@
 
 #include <QTimer>
 #include <QFile>
+#include <QDir>
+#include <QStringRef>
 
 #ifndef Q_OS_WIN
 #include <signal.h>
@@ -71,11 +73,15 @@ void OctaveSession::login()
     args << QLatin1String("--eval");
     args << QLatin1String("PS2('CANTOR_OCTAVE_BACKEND_SUBPROMPT:\\#> ');");
 
-    // Add the cantor script directory to search path
-    const QString& octaveScriptInstallDir = locateCantorFile(QLatin1String("octavebackend"), QStandardPaths::LocateDirectory);
-    qDebug() << "using octaveScriptInstallDir: " << octaveScriptInstallDir;
-    args << QLatin1String("--eval");
-    args << QString::fromLatin1("addpath \"%1\";").arg(octaveScriptInstallDir);
+    // Add the cantor script directory to octave script search path
+    const QStringList& scriptDirs = locateAllCantorFiles(QLatin1String("octavebackend"), QStandardPaths::LocateDirectory);
+    if (scriptDirs.isEmpty())
+        qCritical() << "Octave script directory not found, needed for integrated plots";
+    else
+    {
+        for (const QString& dir : scriptDirs)
+            args << QLatin1String("--eval") << QString::fromLatin1("addpath \"%1\";").arg(dir);
+    }
 
     // Print the temp dir, used for plot files
     args << QLatin1String("--eval");
@@ -279,13 +285,18 @@ void OctaveSession::readOutput()
         if (line.contains(m_prompt))
         {
             const int promptNumber = m_prompt.cap(1).toInt();
+            // Add all text before prompt, if exists
+            m_output += QStringRef(&line, 0, line.indexOf(m_prompt)).toString();
             if (!expressionQueue().isEmpty())
             {
                 const QString& command = expressionQueue().first()->command();
                 if (m_previousPromptNumber + 1 == promptNumber || isSpecialOctaveCommand(command))
                 {
                     if (!expressionQueue().isEmpty())
+                    {
+                        readError();
                         static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(m_output);
+                    }
                 }
                 else
                 {

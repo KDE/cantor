@@ -207,3 +207,13 @@ QString Session::locateCantorFile(const QString& partialPath, QStandardPaths::Lo
 
     return file;
 }
+
+QStringList Session::locateAllCantorFiles(const QString& partialPath, QStandardPaths::LocateOptions options)
+{
+    QStringList files = QStandardPaths::locateAll(QStandardPaths::AppDataLocation, partialPath, options);
+
+    if (files.isEmpty())
+        files = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("cantor/") + partialPath, options);
+
+    return files;
+}
