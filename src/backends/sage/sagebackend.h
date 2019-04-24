@@ -34,7 +34,7 @@ class SageBackend : public Cantor::Backend
     QString version() const override;
     Cantor::Session *createSession() override;
     Cantor::Backend::Capabilities capabilities() const override;
-    bool requirementsFullfilled() const override;
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
 
     QWidget* settingsWidget(QWidget* parent) const override;
     KConfigSkeleton* config() const override;

@@ -200,7 +200,8 @@ Extension* Backend::extension(const QString& name) const
     return findChild<Extension*>(name);
 }
 
-bool Backend::requirementsFullfilled() const
+bool Backend::requirementsFullfilled(QString* const reason) const
 {
+    Q_UNUSED(reason);
     return true;
 }

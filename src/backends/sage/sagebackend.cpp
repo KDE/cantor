@@ -72,13 +72,28 @@ Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
     qDebug()<<"Requesting capabilities of SageSession";
     //Disable Cantor::Backend::LaTexOutput, see sagesession.cpp:421
-    return Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion; 
+    return Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
 }
 
-bool SageBackend::requirementsFullfilled() const
+bool SageBackend::requirementsFullfilled(QString* const reason) const
 {
-    QFileInfo info(SageSettings::self()->path().toLocalFile());
-    return info.isExecutable();
+    const QString& replPath = SageSettings::self()->path().toLocalFile();
+    if (replPath.isEmpty())
+    {
+        if (reason)
+            *reason = i18n("Sage backend needs installed Sage programming language. The backend often automatically founds needed Sage binary file, but not in this case. Please, go to Cantor settings and set path to Sage executable");
+        return false;
+    }
+
+    QFileInfo info(replPath);
+    if (info.isExecutable())
+        return true;
+    else
+    {
+        if (reason)
+            *reason = i18n("In Sage backend settings a path to Sage binary file set as %1, but this file not executable. Do you sure, that this is correct path to Sage? Change this path in Cantor settings, if no.").arg(replPath);
+        return false;
+    }
 }
 
 QWidget* SageBackend::settingsWidget(QWidget* parent) const

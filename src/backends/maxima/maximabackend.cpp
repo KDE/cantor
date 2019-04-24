@@ -82,10 +82,25 @@ Cantor::Backend::Capabilities MaximaBackend::capabilities() const
     return cap;
 }
 
-bool MaximaBackend::requirementsFullfilled() const
+bool MaximaBackend::requirementsFullfilled(QString* const reason) const
 {
-    QFileInfo info(MaximaSettings::self()->path().toLocalFile());
-    return info.isExecutable();
+    const QString& replPath = MaximaSettings::self()->path().toLocalFile();
+    if (replPath.isEmpty())
+    {
+        if (reason)
+            *reason = i18n("Maxima backend needs installed Maxima - a computer algebra system. The backend often automatically founds needed binary file, but not in this case. Please, go to Cantor settings and set path to Maxima executable");
+        return false;
+    }
+
+    QFileInfo info(replPath);
+    if (info.isExecutable())
+        return true;
+    else
+    {
+        if (reason)
+            *reason = i18n("In Maxima backend settings a path to maxima binary file set as %1, but this file not executable. Do you sure, that this is correct path to Maxima? Change this path in Cantor settings, if no.").arg(replPath);
+        return false;
+    }
 }
 
 QUrl MaximaBackend::helpUrl() const

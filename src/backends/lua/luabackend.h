@@ -36,7 +36,7 @@ public:
     Cantor::Session* createSession() override;
     Cantor::Backend::Capabilities capabilities() const override;
 
-    bool requirementsFullfilled() const override;
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
     QUrl helpUrl() const override;
     QString description() const override;
 

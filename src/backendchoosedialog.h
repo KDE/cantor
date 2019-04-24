@@ -36,9 +36,10 @@ class BackendChooseDialog : public QDialog
 
   protected Q_SLOTS:
     void onAccept();
-    void updateDescription();
+    void updateContent();
   private:
     static const char* descriptionTemplate;
+    static const char* requirementsTemplate;
     Ui::BackendChooserBase m_ui;
     QString m_backend;
 };

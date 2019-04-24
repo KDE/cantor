@@ -32,6 +32,9 @@ const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
                                                                  "<div><b>Recommended version:</b> %4</div><br/>" \
                                                                  "<div>%2</div><br/>" \
                                                                  "<div>See <a href=\"%3\">%3</a> for more information</div>");
+const char* BackendChooseDialog::requirementsTemplate= I18N_NOOP("<h1>%1</h1>"
+                                                                 "<div><b>Recommended version:</b> %3</div><br/>"
+                                                                 "<div>Some reqquirements for the backend don't fullfilled:<br/>%2</div><br/>");
 
 BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 {
@@ -44,7 +47,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 
     m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
     m_ui.backendList->setSortingEnabled(true);
-    connect(m_ui.backendList, &QListWidget::currentItemChanged, this, &BackendChooseDialog::updateDescription);
+    connect(m_ui.backendList, &QListWidget::currentItemChanged, this, &BackendChooseDialog::updateContent);
     connect(m_ui.backendList, &QListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
 
     m_ui.buttonBox->button(QDialogButtonBox::Ok);
@@ -53,8 +56,10 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 
     foreach(Cantor::Backend* backend,  Cantor::Backend::availableBackends())
     {
-        if(!backend->isEnabled()) //don't show disabled backends
-            continue;
+        qDebug() << backend->name() << backend->isEnabled() << backend->requirementsFullfilled();
+        if(!backend->isEnabled())
+            if (backend->requirementsFullfilled())
+                continue;
 
         QListWidgetItem* item=new QListWidgetItem(m_ui.backendList);
         item->setText(backend->name());
@@ -83,13 +88,27 @@ void BackendChooseDialog::onAccept()
     }
 }
 
-void BackendChooseDialog::updateDescription()
+void BackendChooseDialog::updateContent()
 {
     Cantor::Backend* current=Cantor::Backend::getBackend( m_ui.backendList->currentItem()->text() );
     if (current)
     {
-        const QString& desc = i18n(BackendChooseDialog::descriptionTemplate,
-                                   current->name(), current->description(), current->url(), current->version());
+        QString desc;
+        QString reason;
+        if (current->requirementsFullfilled(&reason))
+        {
+            desc = i18n(BackendChooseDialog::descriptionTemplate,
+                                    current->name(), current->description(), current->url(), current->version());
+            m_ui.buttonBox->setEnabled(true);
+            m_ui.makeDefault->setEnabled(true);
+        }
+        else
+        {
+            desc = i18n(BackendChooseDialog::requirementsTemplate,
+                                    current->name(), reason, current->version());
+            m_ui.buttonBox->setEnabled(false);
+            m_ui.makeDefault->setEnabled(false);
+        }
         m_ui.descriptionView->setHtml(desc);
     }
 }

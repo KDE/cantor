@@ -71,10 +71,25 @@ Cantor::Backend::Capabilities ScilabBackend::capabilities() const
            Cantor::Backend::VariableManagement;
 }
 
-bool ScilabBackend::requirementsFullfilled() const
+bool ScilabBackend::requirementsFullfilled(QString* const reason) const
 {
-    QFileInfo info(ScilabSettings::self()->path().toLocalFile());
-    return info.isExecutable();
+    const QString& replPath = ScilabSettings::self()->path().toLocalFile();
+    if (replPath.isEmpty())
+    {
+        if (reason)
+            *reason = i18n("Scilab backend needs installed Scilab programming language. The backend often automatically founds needed Scilab binary file, but not in this case. Please, go to Cantor settings and set path to Scilab executable");
+        return false;
+    }
+
+    QFileInfo info(replPath);
+    if (info.isExecutable())
+        return true;
+    else
+    {
+        if (reason)
+            *reason = i18n("In Scilab backend settings a path to Scilab binary file set as %1, but this file not executable. Do you sure, that this is correct path to Scilab? Change this path in Cantor settings, if no.").arg(replPath);
+        return false;
+    }
 }
 
 QWidget* ScilabBackend::settingsWidget(QWidget* parent) const

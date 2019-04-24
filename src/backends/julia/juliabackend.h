@@ -77,7 +77,7 @@ public:
     /**
      * @see Cantor::Backend::requirementsFullfilled
      */
-    bool requirementsFullfilled() const override;
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
 
     /**
      * @see Cantor::Backend::settingsWidget

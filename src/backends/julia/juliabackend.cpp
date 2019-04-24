@@ -85,11 +85,18 @@ QUrl JuliaBackend::helpUrl() const
     ));
 }
 
-bool JuliaBackend::requirementsFullfilled() const
+bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 {
-    return QFileInfo(
-        JuliaSettings::self()->replPath().toLocalFile()
-    ).isExecutable();
+    const QString& replPath = JuliaSettings::self()->replPath().toLocalFile();
+    QFileInfo info(replPath);
+    if (info.isExecutable())
+        return true;
+    else
+    {
+        if (reason)
+            *reason = i18n("Julia backend uses special binary file - %1 (installed with Julia backend), which must be executable").arg(replPath);
+        return false;
+    }
 }
 
 QWidget *JuliaBackend::settingsWidget(QWidget *parent) const

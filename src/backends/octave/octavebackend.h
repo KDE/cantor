@@ -33,7 +33,7 @@ class OctaveBackend : public Cantor::Backend
     Cantor::Backend::Capabilities capabilities() const override;
     Cantor::Session* createSession() override;
 
-    bool requirementsFullfilled() const override;
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
     QUrl helpUrl() const override;
     QString description() const override;
     QWidget* settingsWidget(QWidget* parent) const override;

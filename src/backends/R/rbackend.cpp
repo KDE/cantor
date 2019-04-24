@@ -76,10 +76,19 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
     return cap;
 }
 
-bool RBackend::requirementsFullfilled() const
+bool RBackend::requirementsFullfilled(QString* const reason) const
 {
     QFileInfo info(QStandardPaths::findExecutable( QLatin1String("cantor_rserver") ) );
-    return info.isExecutable();
+    if (info.isExecutable())
+    {
+        return true;
+    }
+    else
+    {
+        if (reason)
+            *reason = i18n("R backend uses special binary file - cantor_rserver (installed with R backend), which must be executable.");
+        return false;
+    }
 }
 
 QWidget* RBackend::settingsWidget(QWidget* parent) const

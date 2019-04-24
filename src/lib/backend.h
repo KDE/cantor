@@ -98,11 +98,12 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     virtual Capabilities capabilities() const = 0;
     /**
      * Returns whether all of this backends requirements are fulfilled, or if some are missing.
+     * @param reason if set, backend write information about missing requirements, if they exists
      * @return @c true if all the requirements needed to use this Backend are fulfilled
      * @return @c false some requirements are missing. e.g. the maxima executable can not be found
      * @see Capability
     */
-    virtual bool requirementsFullfilled() const;
+    virtual bool requirementsFullfilled(QString* const reason = nullptr) const;
 
     /**
      * Returns a unique string to identify this backend.
