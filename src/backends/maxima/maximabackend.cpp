@@ -88,7 +88,7 @@ bool MaximaBackend::requirementsFullfilled(QString* const reason) const
     if (replPath.isEmpty())
     {
         if (reason)
-            *reason = i18n("Maxima backend needs installed Maxima - a computer algebra system. The backend often automatically founds needed binary file, but not in this case. Please, go to Cantor settings and set path to Maxima executable");
+            *reason = i18n("Maxima backend needs installed Maxima - a computer algebra system. The backend often automatically finds needed binary file, but not in this case. Please, go to Cantor settings and set path to Maxima executable");
         return false;
     }
 
@@ -98,7 +98,7 @@ bool MaximaBackend::requirementsFullfilled(QString* const reason) const
     else
     {
         if (reason)
-            *reason = i18n("In Maxima backend settings a path to maxima binary file set as %1, but this file not executable. Do you sure, that this is correct path to Maxima? Change this path in Cantor settings, if no.").arg(replPath);
+            *reason = i18n("In Maxima backend settings a path to maxima binary file set as %1, but this file not executable. Are you sure, that this is correct path to Maxima? Change this path in Cantor settings, if no.").arg(replPath);
         return false;
     }
 }

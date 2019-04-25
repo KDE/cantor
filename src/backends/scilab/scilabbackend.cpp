@@ -77,7 +77,7 @@ bool ScilabBackend::requirementsFullfilled(QString* const reason) const
     if (replPath.isEmpty())
     {
         if (reason)
-            *reason = i18n("Scilab backend needs installed Scilab programming language. The backend often automatically founds needed Scilab binary file, but not in this case. Please, go to Cantor settings and set path to Scilab executable");
+            *reason = i18n("Scilab backend needs installed Scilab programming language. The backend often automatically finds needed Scilab binary file, but not in this case. Please, go to Cantor settings and set path to Scilab executable");
         return false;
     }
 
@@ -87,7 +87,7 @@ bool ScilabBackend::requirementsFullfilled(QString* const reason) const
     else
     {
         if (reason)
-            *reason = i18n("In Scilab backend settings a path to Scilab binary file set as %1, but this file not executable. Do you sure, that this is correct path to Scilab? Change this path in Cantor settings, if no.").arg(replPath);
+            *reason = i18n("In Scilab backend settings a path to Scilab binary file set as %1, but this file not executable. Are you sure, that this is correct path to Scilab? Change this path in Cantor settings, if no.").arg(replPath);
         return false;
     }
 }

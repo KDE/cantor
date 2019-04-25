@@ -64,7 +64,7 @@ bool LuaBackend::requirementsFullfilled(QString* const reason) const
     if (replPath.isEmpty())
     {
         if (reason)
-            *reason = i18n("Lua backend needs installed Lua programming language. The backend often automatically founds needed Lua binary file, but not in this case. Please, go to Cantor settings and set path to Lua executable");
+            *reason = i18n("Lua backend needs installed Lua programming language. The backend often automatically finds needed Lua binary file, but not in this case. Please, go to Cantor settings and set path to Lua executable.");
         return false;
     }
 
@@ -74,7 +74,7 @@ bool LuaBackend::requirementsFullfilled(QString* const reason) const
     else
     {
         if (reason)
-            *reason = i18n("In Lua backend settings a path to Lua binary file set as %1, but this file not executable. Do you sure, that this is correct path to Lua? Change this path in Cantor settings, if no.").arg(replPath);
+            *reason = i18n("In Lua backend settings a path to Lua binary file set as %1, but this file not executable. Are you sure, that this is correct path to Lua? Change this path in Cantor settings, if no.").arg(replPath);
         return false;
     }
 }
