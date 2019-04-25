@@ -80,7 +80,7 @@ set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of th
     PURPOSE "Used for Markdown entries in Cantor")
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-string(TOLOWER ${CMAKE_BUILD_TYPE} BUILD_NAME)
+string(TOLOWER "${CMAKE_BUILD_TYPE}" BUILD_NAME)
 if (BUILD_NAME STREQUAL "release")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)
 endif (BUILD_NAME STREQUAL "release")
