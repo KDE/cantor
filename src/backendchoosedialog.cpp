@@ -34,7 +34,7 @@ const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
                                                                  "<div>See <a href=\"%3\">%3</a> for more information</div>");
 const char* BackendChooseDialog::requirementsTemplate= I18N_NOOP("<h1>%1</h1>"
                                                                  "<div><b>Recommended version:</b> %3</div><br/>"
-                                                                 "<div>Some requirements for the backend don't fulfilled:<br/>%2</div><br/>");
+                                                                 "<div>Some requirements for the backend are not fulfilled:<br/>%2</div><br/>");
 
 BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 {
