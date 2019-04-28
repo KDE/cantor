@@ -59,7 +59,13 @@ void MaximaCompletionObject::fetchCompletions()
     allCompletions<<session()->variableModel()->variableNames();
     allCompletions<<session()->variableModel()->functions();
 
-    setCompletions(allCompletions);
+    const QString prefix = command();
+    QStringList prefixCompletion;
+    for (const QString str : allCompletions)
+        if (str.startsWith(prefix))
+            prefixCompletion << str;
+
+    setCompletions(prefixCompletion);
 
     emit fetchingDone();
 }
