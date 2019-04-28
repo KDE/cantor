@@ -52,6 +52,8 @@ private Q_SLOTS:
     void testInvalidSyntax();
 
     void testCompletion();
+    void testHelpRequest();
+    void testSyntaxHelp();
 
     //tests variable model
     void testVariablesCreatingFromCode();
@@ -59,8 +61,6 @@ private Q_SLOTS:
 
     //tests doing a plot
     void testPlot();
-
-
 
 private:
     QString backendName() override;

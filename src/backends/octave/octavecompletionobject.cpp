@@ -85,7 +85,7 @@ void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status statu
             break;
         }
         default:
-            break;
+            return;
     }
 
     m_expression->deleteLater();

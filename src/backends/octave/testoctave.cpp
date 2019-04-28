@@ -26,8 +26,10 @@
 #include "result.h"
 #include "imageresult.h"
 #include "textresult.h"
+#include "helpresult.h"
 #include "epsresult.h"
 #include "completionobject.h"
+#include "syntaxhelpobject.h"
 #include "defaultvariablemodel.h"
 
 #include "octaveexpression.h"
@@ -235,6 +237,30 @@ void TestOctave::testInvalidSyntax()
 
     QVERIFY( e!=nullptr );
     QCOMPARE( e->status(), Cantor::Expression::Error );
+}
+
+void TestOctave::testHelpRequest()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("help printf"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::HelpResult::Type);
+    QString text = QString::fromLatin1("Print optional arguments under the control of the template").toHtmlEscaped();
+    text.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
+    QVERIFY(e->result()->toHtml().contains(text));
+}
+
+void TestOctave::testSyntaxHelp()
+{
+    Cantor::SyntaxHelpObject* help = session()->syntaxHelpFor(QLatin1String("abs"));
+    help->fetchSyntaxHelp();
+    waitForSignal(help, SIGNAL(done()));
+
+    QString text = QString::fromLatin1("Compute the magnitude").toHtmlEscaped();
+    text.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
+    QVERIFY(help->toHtml().contains(text));
 }
 
 QTEST_MAIN( TestOctave )

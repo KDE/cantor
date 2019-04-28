@@ -42,20 +42,32 @@ void OctaveSyntaxHelpObject::fetchInformation()
         emit done();
 }
 
-void OctaveSyntaxHelpObject::fetchingDone()
+void OctaveSyntaxHelpObject::fetchingDone(Cantor::Expression::Status status)
 {
-    if (!m_expression || m_expression->status() != Cantor::Expression::Done)
+    switch(status)
     {
-        return;
-    }
-    Cantor::Result* result = m_expression->result();
-    if (result)
-    {
-        QString res = result->toHtml();
-        res.remove(QLatin1String("<br/>"));
-        res.remove(0, res.indexOf(QLatin1String("--")));
-        setHtml(QLatin1Char(' ') + res.trimmed());
+        case Cantor::Expression::Done:
+        {
+        Cantor::Result* result = m_expression->result();
+        if (result)
+        {
+            QString res = result->toHtml();
+            res.remove(QLatin1String("<br/>"));
+            res.remove(0, res.indexOf(QLatin1String("--")));
+            setHtml(QLatin1Char(' ') + res.trimmed());
+        }
+        }
+
+        case Cantor::Expression::Interrupted:
+        case Cantor::Expression::Error:
+        {
+            qDebug() << "fetching expression finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
+            break;
+        }
+        default:
+            return;
     }
     m_expression->deleteLater();
+    m_expression = nullptr;
     emit done();
 }

@@ -21,25 +21,21 @@
 #define OCTAVESYNTAXHELPOBJECT_H
 
 #include <syntaxhelpobject.h>
-
-namespace Cantor
-{
-    class Expression;
-}
+#include <expression.h>
 
 class OctaveSyntaxHelpObject : public Cantor::SyntaxHelpObject
 {
   Q_OBJECT
-  public: 
+  public:
     OctaveSyntaxHelpObject(const QString& command, Cantor::Session* session);
     ~OctaveSyntaxHelpObject() override = default;
 
 protected:
     void fetchInformation() override;
-    
+
   private Q_SLOTS:
-    void fetchingDone();
-    
+    void fetchingDone(Cantor::Expression::Status status);
+
   private:
     Cantor::Expression* m_expression;
 };
