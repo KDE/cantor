@@ -28,6 +28,7 @@
 #include "imageresult.h"
 #include "epsresult.h"
 #include "syntaxhelpobject.h"
+#include "completionobject.h"
 #include "defaultvariablemodel.h"
 
 #include <config-cantorlib.h>
@@ -237,6 +238,19 @@ void TestMaxima::testSyntaxHelp()
     waitForSignal(help, SIGNAL(done()));
 
     QVERIFY(help->toHtml().contains(QLatin1String("simplify_sum")));
+}
+
+void TestMaxima::testCompletion()
+{
+    Cantor::CompletionObject* help = session()->completionFor(QLatin1String("ask"), 3);
+    waitForSignal(help, SIGNAL(fetchingDone()));
+
+    // Checks all completions for this request
+    // This correct for Maxima 5.41.0
+    const QStringList& completions = help->completions();
+    QVERIFY(completions.contains(QLatin1String("asksign")));
+    QVERIFY(completions.contains(QLatin1String("askinteger")));
+    QVERIFY(completions.contains(QLatin1String("askexp")));
 }
 
 void TestMaxima::testHelpRequest()
