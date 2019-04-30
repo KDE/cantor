@@ -22,7 +22,7 @@ target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY} KF5::SyntaxHighlightin
 
 if(BUILD_TESTING)
   add_executable( testlua testlua.cpp)
-  add_test(testlua testlua)
+  add_test(NAME testlua COMMAND testlua)
   ecm_mark_as_test(testlua)
   target_link_libraries( testlua
     Qt5::Test

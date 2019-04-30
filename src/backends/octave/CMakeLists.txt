@@ -29,7 +29,7 @@ target_link_libraries(cantor_octavebackend
 
 if(BUILD_TESTING)
   add_executable( testoctave testoctave.cpp)
-  add_test(testoctave testoctave)
+  add_test(NAME testoctave COMMAND testoctave)
   ecm_mark_as_test(testoctave)
   target_link_libraries( testoctave
     Qt5::Test

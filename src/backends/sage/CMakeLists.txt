@@ -21,7 +21,7 @@ target_link_libraries( cantor_sagebackend
 
 if(BUILD_TESTING)
   add_executable( testsage testsage.cpp)
-  add_test(testsage testsage)
+  add_test(NAME testsage COMMAND testsage)
   target_link_libraries( testsage
     Qt5::Test
     cantorlibs

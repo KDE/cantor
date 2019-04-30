@@ -29,7 +29,7 @@ target_link_libraries( cantor_rbackend ${R_USED_LIBS} KF5::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testr testr.cpp)
-  add_test(testr testr)
+  add_test(NAME testr COMMAND testr)
   ecm_mark_as_test(testr)
   target_link_libraries( testr
     Qt5::Test
