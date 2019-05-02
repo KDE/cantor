@@ -86,7 +86,7 @@ class CANTOR_EXPORT Session : public QObject
     virtual void login() = 0;
     /**
      * Log out of the Session. Destroy everything specific to a single session, e.g.
-     * stop all the running processes etc. Also logout session status must be Status::Disable
+     * stop all the running processes etc. Also after logout session status must be Status::Disable
      * NOTE: restarting the session consists of first logout() and then login()
      */
     virtual void logout() = 0;
