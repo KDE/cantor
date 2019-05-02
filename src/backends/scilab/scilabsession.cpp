@@ -38,6 +38,10 @@
 
 #include <settings.h>
 
+#ifndef Q_OS_WIN
+#include <signal.h>
+#endif
+
 ScilabSession::ScilabSession( Cantor::Backend* backend) : Session(backend),
 m_process(nullptr),
 m_watch(nullptr),
@@ -131,10 +135,30 @@ void ScilabSession::logout()
 
 void ScilabSession::interrupt()
 {
-    qDebug()<<"interrupt";
+    if(!expressionQueue().isEmpty())
+    {
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process->state() != QProcess::NotRunning)
+        {
+#ifndef Q_OS_WIN
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
+#else
+            ; //TODO: interrupt the process on windows
+#endif
+        }
+        foreach (Cantor::Expression* expression, expressionQueue())
+            expression->setStatus(Cantor::Expression::Interrupted);
+        expressionQueue().clear();
 
-    if (status() == Cantor::Session::Running)
-        expressionQueue().first()->interrupt();
+        // Cleanup inner state and call octave prompt printing
+        // If we move this code for interruption to Session, we need add function for
+        // cleaning before setting Done status
+        m_output.clear();
+        m_process->write("\n");
+
+        qDebug()<<"done interrupting";
+    }
 
     changeStatus(Cantor::Session::Done);
 }
