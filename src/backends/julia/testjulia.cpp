@@ -24,9 +24,12 @@
 #include "expression.h"
 #include "result.h"
 #include "textresult.h"
+#include "helpresult.h"
 #include "imageresult.h"
 #include "defaultvariablemodel.h"
 #include "completionobject.h"
+
+#include "settings.h"
 
 QString TestJulia::backendName()
 {
@@ -124,6 +127,9 @@ void TestJulia::testPartialResultOnException()
 
 void TestJulia::testInlinePlot()
 {
+    if (!JuliaSettings::integratePlots())
+        QSKIP("This test needs enabled plots integration in Julia settings", SkipSingle);
+
     Cantor::Expression *e = evalExp(QLatin1String(
         "import GR\n"
         "GR.plot([-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1], sin)"
@@ -135,6 +141,9 @@ void TestJulia::testInlinePlot()
 
 void TestJulia::testInlinePlotWithExceptionAndPartialResult()
 {
+    if (!JuliaSettings::integratePlots())
+        QSKIP("This test needs enabled plots integration in Julia settings", SkipSingle);
+
     Cantor::Expression *e = evalExp(QLatin1String(
         "import GR\n"
         "print(\"gonna plot\")\n"
@@ -304,6 +313,20 @@ void TestJulia::testExpressionQueue()
     QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("1"));
     QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("2"));
     QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("3"));
+}
+
+void TestJulia::testHelpRequest()
+{
+    QSKIP("Skip, until we add this functionality to Julia backend", SkipSingle);
+    Cantor::Expression* e = evalExp(QLatin1String("?print"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+    QCOMPARE(e->result()->type(), (int)Cantor::HelpResult::Type);
+    QString text = QString::fromLatin1("Write to io (or to the default output stream stdout").toHtmlEscaped();
+    text.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
+    QVERIFY(e->result()->toHtml().contains(text));
 }
 
 QTEST_MAIN(TestJulia)

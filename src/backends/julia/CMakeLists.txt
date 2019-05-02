@@ -25,7 +25,7 @@ target_link_libraries(cantor_juliabackend
 )
 
 if(BUILD_TESTING)
-  add_executable(testjulia testjulia.cpp)
+  add_executable(testjulia testjulia.cpp settings.cpp)
   add_test(NAME testjulia COMMAND testjulia)
   target_link_libraries(testjulia
     Qt5::Test
