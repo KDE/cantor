@@ -39,6 +39,7 @@ void TestPython3::testSimpleCommand()
     Cantor::Expression* e = evalExp(QLatin1String("2+2"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("4"));
 }
 
@@ -47,6 +48,7 @@ void TestPython3::testMultilineCommand()
     Cantor::Expression* e = evalExp(QLatin1String("print(2+2)\nprint(7*5)"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("4\n35"));
 }
 
@@ -83,6 +85,7 @@ void TestPython3::testSimpleExpressionWithComment()
     Cantor::Expression* e = evalExp(QLatin1String("2+2 # comment"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("4"));
 }
 
@@ -94,6 +97,7 @@ void TestPython3::testMultilineCommandWithComment()
         "print(7*5)"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("4\n35"));
 }
 
@@ -136,6 +140,7 @@ void TestPython3::testCodeWithComments()
     Cantor::Expression* e = evalExp(QLatin1String("#comment\n1+2"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
 
@@ -143,6 +148,7 @@ void TestPython3::testCodeWithComments()
     Cantor::Expression* e = evalExp(QLatin1String("     #comment\n1+2"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
 }
@@ -160,6 +166,7 @@ void TestPython3::testPython3Code()
     Cantor::Expression* e = evalExp(QLatin1String("print(1 + 2)"));
 
     QVERIFY(e != nullptr);
+    QVERIFY(e->result());
     QVERIFY(e->result()->data().toString() == QLatin1String("3"));
     }
 }
