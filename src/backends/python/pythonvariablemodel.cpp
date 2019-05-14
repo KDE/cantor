@@ -30,33 +30,64 @@
 using namespace Cantor;
 
 PythonVariableModel::PythonVariableModel(PythonSession* session):
-    DefaultVariableModel(session),
-    m_pIface(nullptr)
+    DefaultVariableModel(session)
 {
 }
 
-void PythonVariableModel::setPythonServer(QDBusInterface* pIface)
+PythonVariableModel::~PythonVariableModel()
 {
-    m_pIface = pIface;
+    if (m_expression)
+        m_expression->setFinishingBehavior(Cantor::Expression::FinishingBehavior::DeleteOnFinish);
 }
 
 void PythonVariableModel::update()
 {
-    if (!m_pIface)
+    if (m_expression)
         return;
 
-    bool variableManagement = static_cast<PythonSession*>(session())->variableManagement();
-    const QString& data = QDBusReply<QString>(m_pIface->call(QString::fromLatin1("variables"), variableManagement)).value();
-    const QStringList& records = data.split(QChar(30), QString::SkipEmptyParts);
+    int variableManagement = static_cast<PythonSession*>(session())->variableManagement();
+    const QString command = QString::fromLatin1("%variables %1").arg(variableManagement);
+    m_expression = session()->evaluateExpression(command, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
+    connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonVariableModel::extractVariables);
+}
 
-    QList<Variable> variables;
-    for (const QString& record : records)
+void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
+{
+    switch(status)
     {
-        const QString& name = record.section(QChar(31), 0, 0);
-        const QString& value = record.section(QChar(31), 1, 1);
+        case Cantor::Expression::Done:
+        {
+            Cantor::Result* result = m_expression->result();
+            if (result)
+            {
+                const QString data = result->data().toString();
+                // In Cantor server response DC2(18) is delimiter between variables
+                const QStringList& records = data.split(QChar(18), QString::SkipEmptyParts);
 
-        variables << Variable{name, value};
+                QList<Variable> variables;
+                for (const QString& record : records)
+                {
+                    // DC1(17) is delimiter between variable name and its value.
+                    const QString& name = record.section(QChar(17), 0, 0);
+                    const QString& value = record.section(QChar(17), 1, 1);
+
+                    variables << Variable{name, value};
+                }
+
+                setVariables(variables);
+            }
+            break;
+        }
+        case Cantor::Expression::Interrupted:
+        case Cantor::Expression::Error:
+        {
+            qDebug() << "python variable model update finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
+            break;
+        }
+        default:
+            return;
     }
 
-    setVariables(variables);
+    m_expression->deleteLater();
+    m_expression=nullptr;
 }

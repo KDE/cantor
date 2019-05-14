@@ -52,9 +52,7 @@ void PythonExpression::evaluate()
         m_tempFile = nullptr;
     }
 
-    PythonSession* pythonSession = static_cast<PythonSession*>(session());
-
-    pythonSession->runExpression(this);
+    session()->enqueueExpression(this);
 }
 
 QString PythonExpression::internalCommand()
@@ -104,21 +102,22 @@ QString PythonExpression::internalCommand()
 
 void PythonExpression::parseOutput(QString output)
 {
-    qDebug() << "output: " << output;
+    qDebug() << "expression output: " << output;
 
     if(command().simplified().startsWith(QLatin1String("help("))){
         setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf(QLatin1String("None")), 4)));
     } else {
         if (!output.isEmpty())
-            setResult(new Cantor::TextResult(output));
+            addResult(new Cantor::TextResult(output));
     }
 
-    setStatus(Cantor::Expression::Done);
+    if (m_tempFile == nullptr || result() != nullptr) // not plot expression
+        setStatus(Cantor::Expression::Done);
 }
 
 void PythonExpression::parseError(QString error)
 {
-    qDebug() << "error: " << error;
+    qDebug() << "expression error: " << error;
     setErrorMessage(error.replace(QLatin1String("\n"), QLatin1String("<br>")));
 
     setStatus(Cantor::Expression::Error);
@@ -126,7 +125,24 @@ void PythonExpression::parseError(QString error)
 
 void PythonExpression::imageChanged()
 {
-    addResult(new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName())));
+    if(m_tempFile->size() <= 0)
+        return;
+
+    Cantor::ImageResult* newResult = new Cantor::ImageResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    if (result() == nullptr)
+        setResult(newResult);
+    else
+    {
+        bool found = false;
+        for (int i = 0; i < results().size(); i++)
+            if (results()[i]->type() == newResult->type())
+            {
+                replaceResult(i, newResult);
+                found = true;
+            }
+        if (!found)
+            addResult(newResult);
+    }
     setStatus(Done);
 }
 

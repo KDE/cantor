@@ -22,7 +22,6 @@ target_link_libraries(cantor_pythonbackend
   KF5::ConfigCore
   KF5::ConfigGui
   KF5::SyntaxHighlighting
-  Qt5::DBus
 )
 
 install(TARGETS cantor_pythonbackend DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

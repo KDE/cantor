@@ -3,6 +3,11 @@ set( Python2Backend_SRCS
   python2session.cpp
 )
 
+set(Python2Server_SRCS
+  ../python/pythonservermain.cpp
+  ../python/pythonserver.cpp
+)
+
 kconfig_add_kcfg_files(Python2Backend_SRCS settings.kcfgc)
 
 if(MSVC)
@@ -12,13 +17,12 @@ endif(MSVC)
 
 include_directories(${PYTHON_LIBRARIES_DIR})
 include_directories(${PYTHON_INCLUDE_DIR})
-
 add_backend(python2backend ${Python2Backend_SRCS})
+target_link_libraries(cantor_python2backend ${PYTHON_LIBRARIES} cantor_pythonbackend)
 
-target_link_libraries(cantor_python2backend
-  ${PYTHON_LIBRARIES}
-  cantor_pythonbackend
-)
+add_executable(cantor_python2server ${Python2Server_SRCS})
+set_target_properties(cantor_python2server PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
+target_link_libraries(cantor_python2server ${PYTHON_LIBRARIES} Qt5::Widgets)
 
 if(BUILD_TESTING)
   add_executable(testpython2 testpython2.cpp settings.cpp)
@@ -29,4 +33,4 @@ endif()
 install(FILES cantor_python2.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
 install(FILES python2backend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
-add_subdirectory(python2server)
+install(TARGETS cantor_python2server ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

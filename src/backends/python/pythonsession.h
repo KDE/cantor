@@ -26,33 +26,23 @@
 #include <cantor_pythonbackend_export.h>
 #include <QStringList>
 
-namespace Cantor {
-    class DefaultVariableModel;
-}
-
-class PythonExpression;
-class PythonVariableModel;
-class KDirWatch;
-class QDBusInterface;
-class KProcess;
+class QProcess;
 
 class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName, const QString DbusChannelName);
-    ~PythonSession() override = default;
+    PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName);
+    ~PythonSession() override;
 
     void login() override;
     void logout() override;
 
     void interrupt() override;
-    void runExpression(PythonExpression* expr);
 
     Cantor::Expression* evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
-    Cantor::DefaultVariableModel* variableModel() const override;
     void setWorksheetPath(const QString& path) override;
 
     virtual bool integratePlots() const = 0;
@@ -60,44 +50,19 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
     virtual bool variableManagement() const = 0;
 
   private:
-    PythonVariableModel* m_variableModel;
-
-    QList<PythonExpression*> m_runningExpressions;
-    PythonExpression* m_currentExpression;
-
-    QDBusInterface* m_pIface;
-    KProcess* m_pProcess;
+    QProcess* m_process;
     QString serverName;
-    QString DbusChannelName;
 
     QString worksheetPath;
     int m_pythonVersion;
 
-    bool m_needUpdate;
-
-  protected:
     QString m_output;
-    QString m_error;
 
   private:
-    void getPythonCommandOutput(const QString& commandProcessing);
+    void runFirstExpression() override;
+    void readOutput();
 
-    QString identifyPythonModule(const QString& command) const;
-    QString identifyVariableModule(const QString& command) const;
-    bool identifyKeywords(const QString& command);
-
-    void runPythonCommand(const QString& command) const;
-    QString getOutput() const;
-    QString getError() const;
-
-    virtual void readExpressionOutput(const QString& commandProcessing);
-
-  protected:
-    void updateOutput();
-
-  private Q_SLOTS:
-    void readOutput(const QString& commandProcessing);
-    void expressionFinished();
+    void sendCommand(const QString& command, const QStringList arguments = QStringList()) const;
 };
 
 #endif /* _PYTHONSESSION_H */

@@ -22,7 +22,7 @@
 #include "settings.h"
 
 Python3Session::Python3Session(Cantor::Backend* backend)
-    : PythonSession(backend, 3, QLatin1String("cantor_python3server"), QLatin1String("org.kde.Cantor.Python3"))
+    : PythonSession(backend, 3, QLatin1String("cantor_python3server"))
 {
 }
 

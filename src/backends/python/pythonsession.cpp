@@ -19,6 +19,7 @@
     Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
+#include <defaultvariablemodel.h>
 #include "pythonsession.h"
 #include "pythonexpression.h"
 #include "pythonvariablemodel.h"
@@ -29,30 +30,36 @@
 
 #include <QDebug>
 #include <QDir>
-
 #include <QStandardPaths>
-#include <QDBusConnection>
-#include <QDBusInterface>
-#include <QDBusReply>
-
-#include <KProcess>
+#include <QProcess>
 
 #include <KDirWatch>
 
-#include <defaultvariablemodel.h>
+
+#ifndef Q_OS_WIN
+#include <signal.h>
+#endif
 
 
-PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName, const QString DbusChannelName)
+const QChar recordSep(30);
+const QChar unitSep(31);
+const QChar messageEnd = 29;
+
+PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName)
     : Session(backend)
-    , m_variableModel(new PythonVariableModel(this))
-    , m_currentExpression(nullptr)
-    , m_pIface(nullptr)
-    , m_pProcess(nullptr)
+    , m_process(nullptr)
     , serverName(serverName)
-    , DbusChannelName(DbusChannelName)
     , m_pythonVersion(pythonVersion)
-    , m_needUpdate(false)
 {
+    setVariableModel(new PythonVariableModel(this));
+}
+
+PythonSession::~PythonSession()
+{
+    if (m_process) {
+        m_process->kill();
+        m_process->deleteLater();
+    }
 }
 
 void PythonSession::login()
@@ -60,61 +67,42 @@ void PythonSession::login()
     qDebug()<<"login";
     emit loginStarted();
 
-    // TODO: T6113, T6114
-    if (m_pProcess)
-        m_pProcess->deleteLater();
+    if (m_process)
+        m_process->deleteLater();
 
-    m_pProcess = new KProcess(this);
-    m_pProcess->setOutputChannelMode(KProcess::SeparateChannels);
+    m_process = new QProcess(this);
+    m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
 
-    (*m_pProcess) << QStandardPaths::findExecutable(serverName);
+    m_process->start(QStandardPaths::findExecutable(serverName));
 
-    m_pProcess->start();
-
-    m_pProcess->waitForStarted();
-    m_pProcess->waitForReadyRead();
-    QTextStream stream(m_pProcess->readAllStandardOutput());
+    m_process->waitForStarted();
+    m_process->waitForReadyRead();
+    QTextStream stream(m_process->readAllStandardOutput());
 
     const QString& readyStatus = QString::fromLatin1("ready");
-    while (m_pProcess->state() == QProcess::Running)
+    while (m_process->state() == QProcess::Running)
     {
         const QString& rl = stream.readLine();
         if (rl == readyStatus)
             break;
     }
 
-    if (!QDBusConnection::sessionBus().isConnected())
-    {
-        qWarning() << "Can't connect to the D-Bus session bus.\n"
-                      "To start it, run: eval `dbus-launch --auto-syntax`";
-        return;
-    }
+    connect(m_process, &QProcess::readyReadStandardOutput, this, &PythonSession::readOutput);
 
-    const QString& serviceName = DbusChannelName + QString::fromLatin1("-%1").arg(m_pProcess->pid());
-
-    m_pIface =  new QDBusInterface(serviceName,
-                                   QString::fromLatin1("/"), QString(), QDBusConnection::sessionBus());
-    if (!m_pIface->isValid())
-    {
-        qWarning() << QDBusConnection::sessionBus().lastError().message();
-        return;
-    }
-
-    m_variableModel->setPythonServer(m_pIface);
-
-    m_pIface->call(QString::fromLatin1("login"));
-    m_pIface->call(QString::fromLatin1("setFilePath"), worksheetPath);
+    sendCommand(QLatin1String("login"));
+    sendCommand(QLatin1String("setFilePath"), QStringList(worksheetPath));
 
     const QStringList& scripts = autorunScripts();
     if(!scripts.isEmpty()){
         QString autorunScripts = scripts.join(QLatin1String("\n"));
-        getPythonCommandOutput(autorunScripts);
-        m_variableModel->update();
+        evaluateExpression(autorunScripts, Cantor::Expression::DeleteOnFinish, true);
+        variableModel()->update();
     }
 
     const QString& importerFile = QLatin1String(":py/import_default_modules.py");
 
     evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish, true);
+
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -122,10 +110,13 @@ void PythonSession::login()
 
 void PythonSession::logout()
 {
-    // TODO: T6113, T6114
-    m_pProcess->terminate();
+    if (!m_process)
+        return;
 
-    m_variableModel->clearVariables();
+    sendCommand(QLatin1String("exit"));
+    m_process = nullptr;
+
+    variableModel()->clearVariables();
 
     qDebug()<<"logout";
     changeStatus(Status::Disable);
@@ -133,16 +124,31 @@ void PythonSession::logout()
 
 void PythonSession::interrupt()
 {
-    // TODO: T6113, T6114
-    if (m_pProcess->pid())
-        m_pProcess->kill();
+    if(!expressionQueue().isEmpty())
+    {
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process->state() != QProcess::NotRunning)
+        {
+#ifndef Q_OS_WIN
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
+#else
+            ; //TODO: interrupt the process on windows
+#endif
+        }
+        for (Cantor::Expression* expression : expressionQueue())
+            expression->setStatus(Cantor::Expression::Interrupted);
+        expressionQueue().clear();
 
-    qDebug()<<"interrupt";
+        // Cleanup inner state and call octave prompt printing
+        // If we move this code for interruption to Session, we need add function for
+        // cleaning before setting Done status
+        m_output.clear();
+        m_process->write("\n");
 
-    foreach(Cantor::Expression* e, m_runningExpressions)
-        e->interrupt();
+        qDebug()<<"done interrupting";
+    }
 
-    m_runningExpressions.clear();
     changeStatus(Cantor::Session::Done);
 }
 
@@ -160,160 +166,6 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
     return expr;
 }
 
-void PythonSession::runExpression(PythonExpression* expr)
-{
-    qDebug() << "run expression";
-
-    m_currentExpression = expr;
-
-    const QString& command = expr->internalCommand();
-
-    readExpressionOutput(command);
-}
-
-// Is called asynchronously in the Python3 plugin
-void PythonSession::readExpressionOutput(const QString& commandProcessing)
-{
-    readOutput(commandProcessing);
-}
-
-void PythonSession::getPythonCommandOutput(const QString& commandProcessing)
-{
-    runPythonCommand(commandProcessing);
-
-    m_output = getOutput();
-    m_error = getError();
-}
-
-bool PythonSession::identifyKeywords(const QString& command)
-{
-    QString verifyErrorImport;
-
-    QString listKeywords;
-    QString keywordsString;
-
-    QString moduleImported;
-    QString moduleVariable;
-
-    getPythonCommandOutput(command);
-
-    qDebug() << "verifyErrorImport: ";
-
-    if(!m_error.isEmpty()){
-
-        qDebug() << "returned false";
-
-        return false;
-    }
-
-    moduleImported += identifyPythonModule(command);
-    moduleVariable += identifyVariableModule(command);
-
-    if((moduleVariable.isEmpty()) && (!command.endsWith(QLatin1String("*")))){
-        keywordsString = command.section(QLatin1String(" "), 3).remove(QLatin1String(" "));
-    }
-
-    if(moduleVariable.isEmpty() && (command.endsWith(QLatin1String("*")))){
-        listKeywords += QString::fromLatin1("import %1\n"     \
-                                            "print(dir(%1))\n" \
-                                            "del %1\n").arg(moduleImported);
-    }
-
-    if(!moduleVariable.isEmpty()){
-        listKeywords += QLatin1String("print(dir(") + moduleVariable + QLatin1String("))\n");
-    }
-
-    if(!listKeywords.isEmpty()){
-        getPythonCommandOutput(listKeywords);
-
-        keywordsString = m_output;
-
-        keywordsString.remove(QLatin1String("'"));
-        keywordsString.remove(QLatin1String(" "));
-        keywordsString.remove(QLatin1String("["));
-        keywordsString.remove(QLatin1String("]"));
-    }
-
-    QStringList keywordsList = keywordsString.split(QLatin1String(","));
-    PythonKeywords::instance()->loadFromModule(moduleVariable, keywordsList);
-
-    qDebug() << "Module imported" << moduleImported;
-
-    return true;
-}
-
-QString PythonSession::identifyPythonModule(const QString& command) const
-{
-    QString module;
-
-    if(command.contains(QLatin1String("import "))){
-        module = command.section(QLatin1String(" "), 1, 1);
-    }
-
-    qDebug() << "module identified" << module;
-    return module;
-}
-
-QString PythonSession::identifyVariableModule(const QString& command) const
-{
-    QString variable;
-
-    if(command.contains(QLatin1String("import "))){
-        variable = command.section(QLatin1String(" "), 1, 1);
-    }
-
-    if((command.contains(QLatin1String("import "))) && (command.contains(QLatin1String(" as ")))){
-        variable = command.section(QLatin1String(" "), 3, 3);
-    }
-
-    if(command.contains(QLatin1String("from "))){
-        variable = QLatin1String("");
-    }
-
-    qDebug() << "variable identified" << variable;
-    return variable;
-}
-
-void PythonSession::expressionFinished()
-{
-    qDebug()<< "finished";
-    PythonExpression* expression = qobject_cast<PythonExpression*>(sender());
-
-    m_runningExpressions.removeAll(expression);
-    qDebug() << "size: " << m_runningExpressions.size();
-}
-
-void PythonSession::updateOutput()
-{
-    m_needUpdate |= !m_currentExpression->isInternal();
-    if(m_error.isEmpty()){
-        m_currentExpression->parseOutput(m_output);
-
-        qDebug() << "output: " << m_output;
-    } else {
-        m_currentExpression->parseError(m_error);
-
-        qDebug() << "error: " << m_error;
-    }
-
-    if (m_needUpdate)
-    {
-        m_variableModel->update();
-        m_needUpdate = false;
-    }
-
-    changeStatus(Cantor::Session::Done);
-}
-
-void PythonSession::readOutput(const QString& commandProcessing)
-{
-    qDebug() << "readOutput";
-
-    getPythonCommandOutput(commandProcessing);
-
-    updateOutput();
-}
-
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
     return new PythonHighlighter(parent, this, m_pythonVersion);
@@ -324,35 +176,61 @@ Cantor::CompletionObject* PythonSession::completionFor(const QString& command, i
     return new PythonCompletionObject(command, index, this);
 }
 
-Cantor::DefaultVariableModel* PythonSession::variableModel() const
+void PythonSession::runFirstExpression()
 {
-    return m_variableModel;
+    if (expressionQueue().isEmpty())
+        return;
+
+    Cantor::Expression* expr = expressionQueue().first();
+    const QString command = expr->internalCommand();
+    qDebug() << "run first expression" << command;
+    expr->setStatus(Cantor::Expression::Computing);
+
+    if (expr->isInternal() && command.startsWith(QLatin1String("%variables ")))
+    {
+        const QString arg = command.section(QLatin1String(" "), 1);
+        sendCommand(QLatin1String("model"), QStringList(arg));
+    }
+    else
+        sendCommand(QLatin1String("code"), QStringList(expr->internalCommand()));
 }
 
-void PythonSession::runPythonCommand(const QString& command) const
+void PythonSession::sendCommand(const QString& command, const QStringList arguments) const
 {
-    // TODO: T6113, T6114
-    m_pIface->call(QString::fromLatin1("runPythonCommand"), command);
+    qDebug() << "send command: " << command << arguments;
+    const QString& message = command + recordSep + arguments.join(unitSep) + messageEnd;
+    m_process->write(message.toLocal8Bit());
 }
 
-QString PythonSession::getOutput() const
+void PythonSession::readOutput()
 {
-    // TODO: T6113, T6114
-    const QDBusReply<QString>& reply = m_pIface->call(QString::fromLatin1("getOutput"));
-    if (reply.isValid())
-        return reply.value();
+    while (m_process->bytesAvailable() > 0)
+        m_output.append(QString::fromLocal8Bit(m_process->readAll()));
 
-    return reply.error().message();
-}
+    qDebug() << "m_output: " << m_output;
 
-QString PythonSession::getError() const
-{
-    // TODO: T6113, T6114
-    const QDBusReply<QString>& reply = m_pIface->call(QString::fromLatin1("getError"));
-    if (reply.isValid())
-        return reply.value();
+    if (!m_output.contains(messageEnd))
+        return;
+    const QStringList packages = m_output.split(messageEnd, QString::SkipEmptyParts);
+    if (m_output.endsWith(messageEnd))
+        m_output.clear();
+    else
+        m_output = m_output.section(messageEnd, -1);
 
-    return reply.error().message();
+    for (const QString& message: packages)
+    {
+        if (expressionQueue().isEmpty())
+            break;
+
+        const QString& output = message.section(unitSep, 0, 0);
+        const QString& error = message.section(unitSep, 1, 1);
+        if(error.isEmpty()){
+            static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
+        } else {
+            static_cast<PythonExpression*>(expressionQueue().first())->parseError(error);
+        }
+        finishFirstExpression(true);
+    }
 }
 
 void PythonSession::setWorksheetPath(const QString& path)

@@ -146,24 +146,14 @@ void PythonServer::setFilePath(const QString& path)
 
 QString PythonServer::variables(bool parseValue) const
 {
-    // FIXME: This code allows get full form of numpy array, but for big arrays it's could cause performonce problems
-    // especially for displaying in variables panel
-    // So, uncomment this, when fix this problem
-    /*
+    PyRun_SimpleString(
         "try: \n"
         "   import numpy \n"
         "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
         "   numpy.set_printoptions(threshold=100000000) \n"
         "except ModuleNotFoundError: \n"
         "   pass \n"
-
-        "try: \n"
-        "   import numpy \n"
-        "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
-        "   del __cantor_numpy_internal__ \n"
-        "except ModuleNotFoundError: \n"
-        "   pass \n"
-    */
+    );
 
     PyRun_SimpleString("__tmp_globals__ = globals()");
     PyObject* globals = PyObject_GetAttrString(m_pModule,"__tmp_globals__");
@@ -171,7 +161,6 @@ QString PythonServer::variables(bool parseValue) const
     Py_ssize_t pos = 0;
 
     QStringList vars;
-    const QChar sep(30); // INFORMATION SEPARATOR TWO
     while (PyDict_Next(globals, &pos, &key, &value)) {
         const QString& keyString = pyObjectToQString(key);
         if (keyString.startsWith(QLatin1String("__")))
@@ -196,10 +185,19 @@ QString PythonServer::variables(bool parseValue) const
             valueString = pyObjectToQString(PyObject_Repr(value));
 
 
-        vars.append(keyString + QChar(31) + valueString);
+        vars.append(keyString + QChar(17) + valueString);
     }
 
-    return vars.join(sep);
+    PyRun_SimpleString(
+        "try: \n"
+        "   import numpy \n"
+        "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
+        "   del __cantor_numpy_internal__ \n"
+        "except ModuleNotFoundError: \n"
+        "   pass \n"
+    );
+
+    return vars.join(QChar(18))+QChar(18);
 }
 
 

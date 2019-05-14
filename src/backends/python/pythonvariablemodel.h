@@ -30,14 +30,15 @@ class PythonVariableModel : public Cantor::DefaultVariableModel
 {
   public:
     PythonVariableModel( PythonSession* session);
-    ~PythonVariableModel() override = default;
+    ~PythonVariableModel() override;
 
     void update() override;
 
-    void setPythonServer(QDBusInterface* pIface);
-
   private:
-    QDBusInterface* m_pIface;
+    Cantor::Expression* m_expression{nullptr};
+
+  private Q_SLOTS:
+    void extractVariables(Cantor::Expression::Status status);
 };
 
 #endif /* _PYTHONVARIABLEMODEL_H */

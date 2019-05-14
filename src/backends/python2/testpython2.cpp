@@ -200,6 +200,8 @@ void TestPython2::testSimplePlot()
     //the variable model shouldn't have any entries after the module imports
     QAbstractItemModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
+    if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
     QVERIFY(model->rowCount() == 0);
 
     //create data for plotting
@@ -210,6 +212,8 @@ void TestPython2::testSimplePlot()
     QVERIFY(e != nullptr);
     QVERIFY(e->errorMessage().isEmpty() == true);
 
+    if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
     //the variable model should have two entries now
     QVERIFY(model->rowCount() == 2);
 
@@ -218,8 +222,10 @@ void TestPython2::testSimplePlot()
         "plt.plot(t,s)\n"
         "plt.show()"
     ));
-    waitForSignal(e, SIGNAL(gotResult()));
+
     QVERIFY(e != nullptr);
+    if (e->result() == nullptr)
+        waitForSignal(e, SIGNAL(gotResult()));
     QVERIFY(e->errorMessage().isEmpty() == true);
     QVERIFY(model->rowCount() == 2); //still only two variables
 
@@ -254,6 +260,9 @@ void TestPython2::testMultilineCommandWithComment()
 
 void TestPython2::testCompletion()
 {
+    if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
     Cantor::CompletionObject* help = session()->completionFor(QLatin1String("ma"), 2);
     waitForSignal(help, SIGNAL(fetchingDone()));
 
