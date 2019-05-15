@@ -316,5 +316,32 @@ void TestR::testInformationRequest()
     QCOMPARE(e->result()->data().toString(), QLatin1String("[1] \"12\""));
 }
 
+void TestR::testLoginLogout()
+{
+    // Logout from session twice and all must works fine
+    session()->logout();
+    session()->logout();
+
+    // Login in session twice and all must works fine
+    session()->login();
+    session()->login();
+}
+
+void TestR::testRestartWhileRunning()
+{
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("Sys.sleep(5)"));
+
+    session()->logout();
+    QCOMPARE(e1->status(), Cantor::Expression::Interrupted);
+    session()->login();
+
+    Cantor::Expression* e2=evalExp( QLatin1String("2+2") );
+
+    QVERIFY(e2 != nullptr);
+    QVERIFY(e2->result() != nullptr);
+
+    QCOMPARE(cleanOutput(e2->result()->data().toString() ), QLatin1String("[1] 4"));
+}
+
 QTEST_MAIN( TestR )
 

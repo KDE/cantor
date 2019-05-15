@@ -62,11 +62,18 @@ QalculateSession::~QalculateSession()
 {
     CALCULATOR->abort();
     if(m_process)
+    {
         m_process->kill();
+        m_process->deleteLater();
+        m_process = nullptr;
+    }
 }
 
 void QalculateSession::login()
 {
+    if (!m_process)
+        return;
+
     emit loginStarted();
 
     /* we will , most probably, use autoscripts for setting the mode , evaluate options, print options etc */
@@ -215,11 +222,17 @@ void QalculateSession::processStarted()
 void QalculateSession::logout()
 {
     qDebug () << "logging out " << endl;
-    if(m_process) {
-        m_process->write("quit\n");
-        if(!m_process->waitForFinished(1000))
-            m_process->kill();
-    }
+    if (!m_process)
+        return;
+
+    if(status() == Cantor::Session::Running)
+        interrupt();
+
+    m_process->write("quit\n");
+    if(!m_process->waitForFinished(1000))
+        m_process->kill();
+    m_process->deleteLater();
+    m_process = nullptr;
 
     changeStatus(Status::Disable);
 }

@@ -107,23 +107,21 @@ void MaximaSession::logout()
 
     disconnect(m_process, nullptr, this, nullptr);
 
-//     if(status()==Cantor::Session::Running)
-        //TODO: terminate the running expressions first
+    if (status() == Cantor::Session::Running)
+        interrupt();
 
     write(QLatin1String("quit();\n"));
     qDebug()<<"waiting for maxima to finish";
-    m_process->waitForFinished();
-    qDebug()<<"maxima exit finished";
 
-    if(m_process->state() != QProcess::NotRunning)
+    if(!m_process->waitForFinished(1000))
     {
         m_process->kill();
         qDebug()<<"maxima still running, process kill enforced";
     }
+    m_process->deleteLater();
+    m_process = nullptr;
 
     expressionQueue().clear();
-    delete m_process;
-    m_process = nullptr;
     variableModel()->clearVariables();
     variableModel()->clearFunctions();
 

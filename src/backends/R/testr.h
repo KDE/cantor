@@ -52,6 +52,8 @@ private Q_SLOTS:
     void testVariablesCreatingFromCode();
     void testVariableCleanupAfterRestart();
 
+    void testLoginLogout();
+    void testRestartWhileRunning();
 private:
     QString backendName() override;
 };

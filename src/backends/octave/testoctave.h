@@ -62,6 +62,8 @@ private Q_SLOTS:
     //tests doing a plot
     void testPlot();
 
+    void testLoginLogout();
+    void testRestartWhileRunning();
 private:
     QString backendName() override;
 };

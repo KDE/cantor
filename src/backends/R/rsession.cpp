@@ -50,10 +50,9 @@ RSession::~RSession()
 void RSession::login()
 {
     qDebug()<<"login";
+    if (m_process)
+        return;
     emit loginStarted();
-
-    if(m_process)
-        m_process->deleteLater();
 
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
@@ -77,7 +76,15 @@ void RSession::login()
 void RSession::logout()
 {
     qDebug()<<"logout";
-    m_process->terminate();
+    if (!m_process)
+        return;
+
+    if(status() == Cantor::Session::Running)
+        interrupt();
+
+    m_process->kill();
+    m_process->deleteLater();
+    m_process = nullptr;
 
     variableModel()->clearVariables();
     variableModel()->clearFunctions();

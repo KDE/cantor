@@ -56,9 +56,22 @@ m_syntaxError(false)
     setVariableModel(new OctaveVariableModel(this));
 }
 
+OctaveSession::~OctaveSession()
+{
+    if (m_process)
+    {
+        m_process->kill();
+        m_process->deleteLater();
+        m_process = nullptr;
+    }
+}
+
 void OctaveSession::login()
 {
     qDebug() << "login";
+    if (m_process)
+        return;
+
     emit loginStarted();
 
     m_process = new KProcess ( this );
@@ -165,24 +178,21 @@ void OctaveSession::logout()
 
     disconnect(m_process, nullptr, this, nullptr);
 
-    // if(status()==Cantor::Session::Running)
-    // TODO: terminate the running expressions first
+    if(status() == Cantor::Session::Running)
+        interrupt();
 
     m_process->write("exit\n");
     qDebug()<<"waiting for octave to finish";
-    m_process->waitForFinished();
-    qDebug()<<"octave exit finished";
 
-    if(m_process->state() != QProcess::NotRunning)
+    if(!m_process->waitForFinished(1000))
     {
         m_process->kill();
         qDebug()<<"octave still running, process kill enforced";
     }
-
-    expressionQueue().clear();
-    delete m_process;
+    m_process->deleteLater();
     m_process = nullptr;
 
+    expressionQueue().clear();
 
     m_tempDir.clear();
     m_output.clear();

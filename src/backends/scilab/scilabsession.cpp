@@ -48,12 +48,19 @@ m_variableModel(new Cantor::DefaultVariableModel(this))
 ScilabSession::~ScilabSession()
 {
     if (m_process)
-        m_process->terminate();
+    {
+        m_process->kill();
+        m_process->deleteLater();
+        m_process = nullptr;
+    }
 }
 
 void ScilabSession::login()
 {
     qDebug()<<"login";
+    if (m_process)
+        return;
+
     emit loginStarted();
 
     QStringList args;
@@ -114,7 +121,20 @@ void ScilabSession::logout()
 {
     qDebug()<<"logout";
 
+    if(!m_process)
+        return;
+
+    disconnect(m_process, nullptr, this, nullptr);
+
+    if(status() == Cantor::Session::Running)
+        interrupt();
+
     m_process->write("exit\n");
+
+    if(!m_process->waitForFinished(1000))
+        m_process->kill();
+    m_process->deleteLater();
+    m_process = nullptr;
 
     expressionQueue().clear();
     m_variableModel->clearVariables();

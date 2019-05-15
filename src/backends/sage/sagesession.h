@@ -62,7 +62,7 @@ class SageSession : public Cantor::Session
 
 
     explicit SageSession( Cantor::Backend* backend);
-    ~SageSession() override = default;
+    ~SageSession() override;
 
     void login() override;
     void logout() override;

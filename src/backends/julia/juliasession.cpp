@@ -47,13 +47,21 @@ JuliaSession::JuliaSession(Cantor::Backend *backend)
     setVariableModel(new JuliaVariableModel(this));
 }
 
+JuliaSession::~JuliaSession()
+{
+    if (m_process)
+    {
+        m_process->kill();
+        m_process->deleteLater();
+        m_process = nullptr;
+    }
+}
+
 void JuliaSession::login()
 {
+    if (m_process)
+        return;
     emit loginStarted();
-
-    if (m_process) {
-        m_process->deleteLater();
-    }
 
     m_process = new KProcess(this);
     m_process->setOutputChannelMode(KProcess::SeparateChannels);
@@ -118,7 +126,15 @@ void JuliaSession::login()
 
 void JuliaSession::logout()
 {
-    m_process->terminate();
+    if(!m_process)
+        return;
+
+    if(status() == Cantor::Session::Running)
+        interrupt();
+
+    m_process->kill();
+    m_process->deleteLater();
+    m_process = nullptr;
 
     variableModel()->clearVariables();
 

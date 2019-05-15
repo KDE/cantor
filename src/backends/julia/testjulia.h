@@ -57,6 +57,9 @@ private Q_SLOTS:
     void testComplexAutocompletion();
 
     void testHelpRequest();
+
+    void testLoginLogout();
+    void testRestartWhileRunning();
 private:
     QString backendName() override;
 };

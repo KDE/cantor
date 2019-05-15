@@ -35,6 +35,16 @@ LuaSession::LuaSession( Cantor::Backend* backend) : Session(backend),
 {
 }
 
+LuaSession::~LuaSession()
+{
+    if (m_process)
+    {
+        m_process->kill();
+        m_process->deleteLater();
+        m_process = nullptr;
+    }
+}
+
 void LuaSession::login()
 {
     emit loginStarted();
@@ -124,14 +134,23 @@ void LuaSession::processStarted()
 
 void LuaSession::logout()
 {
-    if(m_process)
-        m_process->kill();
+    if (!m_process)
+        return;
+
+    if(status() == Cantor::Session::Running)
+        interrupt();
+
+    m_process->kill();
+    m_process->deleteLater();
+    m_process = nullptr;
 
     changeStatus(Status::Disable);
 }
 
 void LuaSession::interrupt()
 {
+    if (status() == Cantor::Session::Running && m_currentExpression)
+        m_currentExpression->interrupt();
     // Lua backend is synchronous, there is no way to currently interrupt an expression (in a clean way)
     changeStatus(Cantor::Session::Done);
 }

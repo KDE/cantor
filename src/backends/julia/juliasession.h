@@ -48,6 +48,7 @@ public:
      * @param backend owning backend
      */
     explicit JuliaSession(Cantor::Backend *backend);
+    ~JuliaSession() override;
 
     /**
      * @see Cantor::Session::login

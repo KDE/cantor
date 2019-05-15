@@ -55,6 +55,8 @@ private Q_SLOTS:
     //(source of problem in earlier versions)
     void testNoOutput();
 
+    void testLoginLogout();
+    void testRestartWhileRunning();
 private:
     QString backendName() override;
 

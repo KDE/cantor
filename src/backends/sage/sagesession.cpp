@@ -112,9 +112,21 @@ m_haveSentInitCmd(false)
     connect( &m_dirWatch, SIGNAL(created(QString)), this, SLOT(fileCreated(QString)) );
 }
 
+SageSession::~SageSession()
+{
+    if (m_process)
+    {
+        m_process->kill();
+        m_process->deleteLater();
+        m_process = nullptr;
+    }
+}
+
 void SageSession::login()
 {
     qDebug()<<"login";
+    if (m_process)
+        return;
     emit loginStarted();
 
     m_process=new KPtyProcess(this);
@@ -156,14 +168,29 @@ void SageSession::logout()
 {
     qDebug()<<"logout";
 
+    if (!m_process)
+        return;
+
+    if(status() == Cantor::Session::Running)
+        interrupt();
+
     disconnect(m_process, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(processFinished(int,QProcess::ExitStatus)));
+
     m_process->pty()->write("exit\n");
 
-    m_process->kill();
+    if(!m_process->waitForFinished(1000))
+        m_process->kill();
+    m_process->deleteLater();
+    m_process = nullptr;
+
     //Run sage-cleaner to kill all the orphans
     KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<QLatin1String("-cleaner"));
 
     expressionQueue().clear();
+
+    m_isInitialized = false;
+    m_waitingForPrompt = false;
+    m_haveSentInitCmd = false;
 
     changeStatus(Status::Disable);
 }
@@ -261,7 +288,6 @@ void SageSession::readStdOut()
         m_isInitialized=true;
         m_waitingForPrompt=false;
         runFirstExpression();
-        changeStatus(Cantor::Session::Done);
         m_outputCache.clear();
     }
 
@@ -371,8 +397,9 @@ void SageSession::runFirstExpression()
             m_process->pty()->write(command.toUtf8());
         }
         else if (expressionQueue().size() == 1)
+
             // If queue contains one expression, it means, what we run this expression immediately (drop setting queued status)
-            // But we can't run expression before initializing, so mark expression, as queue
+            // TODO: Sage login is slow, so, maybe better mark this expression as queued for a login time
             expr->setStatus(Cantor::Expression::Queued);
     }
 }
@@ -395,11 +422,12 @@ void SageSession::interrupt()
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
+        m_outputCache.clear();
+
         qDebug()<<"done interrupting";
     }
 
     changeStatus(Cantor::Session::Done);
-    m_outputCache.clear();
 }
 
 void SageSession::sendInputToProcess(const QString& input)
