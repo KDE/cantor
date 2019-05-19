@@ -81,9 +81,9 @@ set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of th
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 string(TOLOWER "${CMAKE_BUILD_TYPE}" BUILD_NAME)
-if (BUILD_NAME STREQUAL "release")
+if (BUILD_NAME STREQUAL "release" OR BUILD_NAME STREQUAL "")
     add_definitions(-DQT_NO_DEBUG_OUTPUT)
-endif (BUILD_NAME STREQUAL "release")
+endif()
 kde_enable_exceptions()
 
 add_subdirectory(doc)
