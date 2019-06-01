@@ -3,6 +3,7 @@
  <class>JuliaSettingsBase</class>
  <widget class="QWidget" name="JuliaSettingsBase">
   <layout class="QVBoxLayout" name="verticalLayout">
+   <!--
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
@@ -17,7 +18,8 @@
      </item>
     </layout>
    </item>
-    <item>
+   -->
+   <item>
     <widget class="QCheckBox" name="kcfg_variableManagement">
      <property name="toolTip">
       <string>Let Cantor follow the creation/destruction of variables</string>
