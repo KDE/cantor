@@ -84,10 +84,19 @@ void ScilabExpression::evaluate()
 void ScilabExpression::parseOutput(QString output)
 {
     qDebug() << "output: " << output;
+    const QStringList lines = output.split(QLatin1String("\n"));
+    bool isPrefixLines = true;
+    for (const QString line : lines)
+    {
+        if (isPrefixLines && line.isEmpty())
+            continue;
 
-    m_output = output;
-    if (!output.simplified().isEmpty())
-        setResult(new Cantor::TextResult(output));
+        m_output += line + QLatin1String("\n");
+        isPrefixLines = false;
+    }
+
+    if (!m_output.simplified().isEmpty())
+        setResult(new Cantor::TextResult(m_output));
 
     evalFinished();
     setStatus(Cantor::Expression::Done);
