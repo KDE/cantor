@@ -3,13 +3,12 @@
  <class>JuliaSettingsBase</class>
  <widget class="QWidget" name="JuliaSettingsBase">
   <layout class="QVBoxLayout" name="verticalLayout">
-   <!--
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Path to Julia REPL:</string>
+        <string>Path to Julia:</string>
        </property>
       </widget>
      </item>
@@ -18,7 +17,6 @@
      </item>
     </layout>
    </item>
-   -->
    <item>
     <widget class="QCheckBox" name="kcfg_variableManagement">
      <property name="toolTip">

@@ -42,23 +42,13 @@ JuliaServer::~JuliaServer()
 
 void JuliaServer::login(const QString &path) const
 {
-#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 6, 0)
-    Q_UNUSED(path)
-    jl_init();
-#else
     QString dir_path = QFileInfo(path).dir().absolutePath();
-    jl_init(dir_path.toLatin1().constData());
-#endif
+    qDebug() << "julia bindir" << dir_path;
+    jl_init_with_image(dir_path.toLatin1().constData(), jl_get_default_sysimg_path());
+
     jl_eval_string("import REPL;");
 }
 
-#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 7, 0)
-#define JULIA_STDOUT "stdout"
-#define JULIA_STDERR "stderr"
-#else
-#define JULIA_STDOUT "STDOUT"
-#define JULIA_STDERR "STDOUT"
-#endif
 void JuliaServer::runJuliaCommand(const QString &command)
 {
     // Redirect stdout, stderr to temporary files
@@ -67,8 +57,8 @@ void JuliaServer::runJuliaCommand(const QString &command)
         qFatal("Unable to create temporary files for stdout/stderr");
         return;
     }
-    jl_eval_string("const __originalSTDOUT__ = " JULIA_STDOUT);
-    jl_eval_string("const __originalSTDERR__ = " JULIA_STDERR);
+    jl_eval_string("const __originalSTDOUT__ = stdout");
+    jl_eval_string("const __originalSTDERR__ = stderr");
     jl_eval_string(
         QString::fromLatin1("redirect_stdout(open(\"%1\", \"w\"))")
             .arg(output.fileName()).toLatin1().constData()
@@ -101,7 +91,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
             jl_eval_string("catch_backtrace()")
         );
         jl_value_t *err_stream = static_cast<jl_value_t *>(
-            jl_eval_string(JULIA_STDERR)
+            jl_eval_string("stderr")
         );
         jl_call3(showerror, err_stream, ex, bt);
         jl_exception_clear();
@@ -115,15 +105,15 @@ void JuliaServer::runJuliaCommand(const QString &command)
             static_cast<jl_value_t *>(jl_call2(equality, nothing, val))
         );
         if (!is_nothing) {
-            jl_value_t *out_display = static_cast<jl_value_t *>(jl_eval_string("TextDisplay(" JULIA_STDOUT ")"));
+            jl_value_t *out_display = static_cast<jl_value_t *>(jl_eval_string("TextDisplay(stdout)"));
             jl_function_t *display = jl_get_function(jl_base_module, "display");
             jl_call2(display, out_display, val);
         }
         m_was_exception = false;
     }
     // Clean up streams and files
-    jl_eval_string("flush(" JULIA_STDOUT ")");
-    jl_eval_string("flush(" JULIA_STDERR ")");
+    jl_eval_string("flush(stdout)");
+    jl_eval_string("flush(stderr)");
     jl_eval_string("redirect_stdout(__originalSTDOUT__)");
     jl_eval_string("redirect_stderr(__originalSTDERR__)");
 
@@ -137,6 +127,7 @@ void JuliaServer::runJuliaCommand(const QString &command)
                 .toLatin1().constData()
         );
     }
+
 
     m_output = QString::fromUtf8(output.readAll());
     m_error = QString::fromUtf8(error.readAll());

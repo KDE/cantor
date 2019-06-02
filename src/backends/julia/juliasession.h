@@ -20,6 +20,7 @@
 #pragma once
 
 #include <QMap>
+#include <QProcess>
 #include <QRegularExpression>
 
 #include "session.h"
@@ -95,6 +96,9 @@ private Q_SLOTS:
      * Called when async call to JuliaServer is finished
      */
     void onResultReady();
+
+    // Handler for cantor_juliaserver crashes
+    void reportServerProcessError(QProcess::ProcessError serverError);
 
 private:
     KProcess *m_process; //< process to run JuliaServer inside

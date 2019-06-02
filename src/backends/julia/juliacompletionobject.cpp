@@ -26,7 +26,6 @@
 #include "result.h"
 
 #include <QDebug>
-#include <julia_version.h>
 
 JuliaCompletionObject::JuliaCompletionObject(const QString &command, int index, JuliaSession *session):
     Cantor::CompletionObject(session),
@@ -60,24 +59,13 @@ void JuliaCompletionObject::fetchCompletions()
         if (m_expression)
             return;
 
-        QString completionCommand;
-#if QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, 0) >= QT_VERSION_CHECK(0, 7, 0)
-        completionCommand =
+        const QString cmd =
             QString::fromLatin1(
                 "using REPL; "
                 "join("
                 "map(REPL.REPLCompletions.completion_text, REPL.REPLCompletions.completions(\"%1\", %2)[1]),"
                 "\"__CANTOR_DELIM__\")"
-            );
-#else
-        completionCommand =
-            QString::fromLatin1(
-                "join("
-                "Base.REPL.REPLCompletions.completions(\"%1\", %2)[1],"
-                "\"__CANTOR_DELIM__\")"
-            );
-#endif
-        const QString cmd = completionCommand.arg(command()).arg(command().size());
+            ).arg(command()).arg(command().size());
         m_expression = session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
         connect(m_expression, &Cantor::Expression::statusChanged, this, &JuliaCompletionObject::extractCompletions);
     }

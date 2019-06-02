@@ -20,6 +20,7 @@
 #include "juliasession.h"
 
 #include <KProcess>
+#include <KLocalizedString>
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusReply>
@@ -35,7 +36,6 @@
 #include "juliaextensions.h"
 #include "juliabackend.h"
 #include "juliacompletionobject.h"
-#include <julia_version.h>
 
 using namespace Cantor;
 
@@ -64,10 +64,12 @@ void JuliaSession::login()
     emit loginStarted();
 
     m_process = new KProcess(this);
-    m_process->setOutputChannelMode(KProcess::SeparateChannels);
+    m_process->setOutputChannelMode(KProcess::OnlyStdoutChannel);
 
     (*m_process)
         << QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver"));
+
+    connect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
 
     m_process->start();
 
@@ -121,7 +123,7 @@ void JuliaSession::login()
 
     changeStatus(Session::Done);
     emit loginDone();
-    qDebug() << "login to julia " << JULIA_VERSION_STRING << "done";
+    qDebug() << "login to julia done";
 }
 
 void JuliaSession::logout()
@@ -132,7 +134,8 @@ void JuliaSession::logout()
     if(status() == Cantor::Session::Running)
         interrupt();
 
-    m_process->kill();
+    if (m_process->pid())
+        m_process->terminate();
     m_process->deleteLater();
     m_process = nullptr;
 
@@ -146,7 +149,9 @@ void JuliaSession::interrupt()
     if (expressionQueue().isEmpty())
         return;
 
-    if (m_process->pid()) {
+    if (m_process->pid())
+    {
+        disconnect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
         m_process->kill();
     }
 
@@ -204,6 +209,25 @@ void JuliaSession::onResultReady()
     static_cast<JuliaExpression*>(expressionQueue().first())->finalize(getOutput(), getError(), getWasException());
     finishFirstExpression(true);
 }
+
+void JuliaSession::reportServerProcessError(QProcess::ProcessError serverError)
+{
+    switch(serverError)
+    {
+        case QProcess::Crashed:
+            emit error(i18n("Julia process stopped working."));
+            break;
+
+        case QProcess::FailedToStart:
+            emit error(i18n("Failed to start Julia process."));
+            break;
+
+        default:
+            emit error(i18n("Communication with Julia process failed for unknown reasons."));
+            return;
+    }
+}
+
 
 void JuliaSession::runFirstExpression()
 {

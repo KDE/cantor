@@ -19,7 +19,10 @@
  */
 #include "juliabackend.h"
 
+#include <QProcess>
 #include <klocalizedstring.h>
+
+#include <julia_version.h>
 
 #include "juliasession.h"
 #include "ui_settings.h"
@@ -89,14 +92,50 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 {
     const QString& replPath = JuliaSettings::self()->replPath().toLocalFile();
     QFileInfo info(replPath);
-    if (info.isExecutable())
-        return true;
-    else
+    if (!info.isExecutable())
     {
         if (reason)
-            *reason = i18n("Julia backend uses special binary file - %1 (installed with Julia backend), which must be executable").arg(replPath);
+            *reason = i18n("You should set path to Julia executable");
         return false;
     }
+
+    if (info.isSymLink())
+    {
+        if (reason)
+            *reason = i18n("Path to Julia should points direct to binary julia executable, symlink not allowed");
+        return false;
+    }
+
+    // Julia because of C API can handle only MAJOR.MINOR.* versions corresponding to
+    // version, which used to build cantor_juliaserver
+    // So check it and print info about it to user, if versions don't match
+    QProcess getJuliaVersionProcess;
+    getJuliaVersionProcess.setProgram(replPath);
+    getJuliaVersionProcess.setArguments(QStringList()<<QLatin1String("-v"));
+    getJuliaVersionProcess.start();
+    getJuliaVersionProcess.waitForFinished(1000);
+
+    QRegularExpression versionExp(QLatin1String("julia version (\\d+)\\.(\\d+).(\\d+)"));
+    QString versionString = QString::fromLocal8Bit(getJuliaVersionProcess.readLine());
+    QRegularExpressionMatch match = versionExp.match(versionString);
+    if (getJuliaVersionProcess.state() != QProcess::NotRunning || !match.hasMatch())
+    {
+        if (reason)
+            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. Please specify the correct path to Julia executable (no symlinks allowed) and try again.", replPath);
+        return false;
+    }
+
+    int juliaMajor = match.captured(1).toInt();
+    int juliaMinor = match.captured(2).toInt();
+    int juliaPatch = match.captured(3).toInt();
+
+    if (juliaMajor != JULIA_VERSION_MAJOR || juliaMinor != JULIA_VERSION_MINOR)
+    {
+        if (reason)
+            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor was compiled with the support of Julia v%4.%5.*. Please points to this version of Julia or recompile Cantor using the version %1.%2.*.", juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR);
+        return false;
+    }
+    return true;
 }
 
 QWidget *JuliaBackend::settingsWidget(QWidget *parent) const

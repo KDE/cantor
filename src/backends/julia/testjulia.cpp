@@ -345,6 +345,7 @@ void TestJulia::testRestartWhileRunning()
     Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("sleep(5)"));
 
     session()->logout();
+    QCOMPARE(session()->status(), Cantor::Session::Disable);
     QCOMPARE(e1->status(), Cantor::Expression::Interrupted);
     session()->login();
 
