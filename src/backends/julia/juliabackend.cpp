@@ -102,7 +102,7 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     if (info.isSymLink())
     {
         if (reason)
-            *reason = i18n("Path to Julia should points direct to binary julia executable, symlink not allowed");
+            *reason = i18n("Path to Julia should point direct to binary julia executable, symlink not allowed");
         return false;
     }
 
@@ -132,7 +132,7 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     if (juliaMajor != JULIA_VERSION_MAJOR || juliaMinor != JULIA_VERSION_MINOR)
     {
         if (reason)
-            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor was compiled with the support of Julia v%4.%5.*. Please points to this version of Julia or recompile Cantor using the version %1.%2.*.", juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR);
+            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor was compiled with the support of Julia v%4.%5.*. Please point to this version of Julia or recompile Cantor using the version %1.%2.*.", juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR);
         return false;
     }
     return true;
