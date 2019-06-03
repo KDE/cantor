@@ -151,7 +151,11 @@ QString PythonServer::variables(bool parseValue) const
         "   import numpy \n"
         "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
         "   numpy.set_printoptions(threshold=100000000) \n"
+#if PY_MAJOR_VERSION == 3
         "except ModuleNotFoundError: \n"
+#elif PY_MAJOR_VERSION == 2
+        "except ImportError: \n"
+#endif
         "   pass \n"
     );
 
@@ -193,7 +197,11 @@ QString PythonServer::variables(bool parseValue) const
         "   import numpy \n"
         "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
         "   del __cantor_numpy_internal__ \n"
+#if PY_MAJOR_VERSION == 3
         "except ModuleNotFoundError: \n"
+#elif PY_MAJOR_VERSION == 2
+        "except ImportError: \n"
+#endif
         "   pass \n"
     );
 

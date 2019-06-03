@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/py">
-        <file>import_default_modules.py</file>
         <file>variables_cleaner.py</file>
         <file>variables_loader.py</file>
         <file>variables_saver.py</file>

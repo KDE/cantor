@@ -35,7 +35,7 @@ class TestPython2 : public BackendTest
 
     void testSimplePlot();
 
-    void testImportNumpy();
+    void testImportStatement();
     void testInvalidSyntax();
 
     void testSimpleExpressionWithComment();

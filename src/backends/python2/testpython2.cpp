@@ -54,9 +54,9 @@ void TestPython2::testCommandQueue()
     QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("3"));
 }
 
-void TestPython2::testImportNumpy()
+void TestPython2::testImportStatement()
 {
-    Cantor::Expression* e = evalExp(QLatin1String("import numpy"));
+    Cantor::Expression* e = evalExp(QLatin1String("import sys"));
 
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);

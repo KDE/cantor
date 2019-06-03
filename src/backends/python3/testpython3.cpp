@@ -129,9 +129,9 @@ void TestPython3::testCompletion()
 }
 
 
-void TestPython3::testImportNumpy()
+void TestPython3::testImportStatement()
 {
-    Cantor::Expression* e = evalExp(QLatin1String("import numpy"));
+    Cantor::Expression* e = evalExp(QLatin1String("import sys"));
 
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);

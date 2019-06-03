@@ -99,11 +99,6 @@ void PythonSession::login()
         variableModel()->update();
     }
 
-    const QString& importerFile = QLatin1String(":py/import_default_modules.py");
-
-    evaluateExpression(fromSource(importerFile), Cantor::Expression::DeleteOnFinish, true);
-
-
     changeStatus(Session::Done);
     emit loginDone();
 }
