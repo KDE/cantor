@@ -102,7 +102,7 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     if (info.isSymLink())
     {
         if (reason)
-            *reason = i18n("Path to Julia should point direct to binary julia executable, symlink not allowed");
+            *reason = i18n("Path to Julia should point directly to julia executable, symlink not allowed");
         return false;
     }
 
