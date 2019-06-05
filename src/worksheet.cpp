@@ -105,6 +105,14 @@ Worksheet::~Worksheet()
     m_firstEntry = nullptr;
     if (m_loginDone)
         m_session->logout();
+    if (m_session)
+    {
+        disconnect(m_session, 0, 0, 0);
+        if (m_session->status() != Cantor::Session::Disable)
+            m_session->logout();
+        m_session->deleteLater();
+        m_session = nullptr;
+    }
 }
 
 void Worksheet::loginToSession()

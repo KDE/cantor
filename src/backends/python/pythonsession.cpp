@@ -59,6 +59,7 @@ PythonSession::~PythonSession()
     if (m_process) {
         m_process->kill();
         m_process->deleteLater();
+        m_process = nullptr;
     }
 }
 
@@ -109,9 +110,17 @@ void PythonSession::logout()
         return;
 
     sendCommand(QLatin1String("exit"));
+    if(!m_process->waitForFinished(1000))
+    {
+        m_process->kill();
+        qDebug()<<"cantor_python server still running, process kill enforced";
+    }
+    m_process->deleteLater();
     m_process = nullptr;
 
+    expressionQueue().clear();
     variableModel()->clearVariables();
+    variableModel()->clearFunctions();
 
     qDebug()<<"logout";
     changeStatus(Status::Disable);
