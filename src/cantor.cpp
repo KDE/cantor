@@ -193,7 +193,7 @@ void CantorShell::fileOpen()
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-    QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open file"), QUrl(), i18n("Cantor Worksheet (*.cws)"));
+    QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open file"), QUrl(), i18n("Cantor Worksheet (*.cws);;Jupyter notebook (*.ipynb)"));
 
     if (url.isEmpty() == false)
     {

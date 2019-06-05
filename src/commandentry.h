@@ -24,6 +24,7 @@
 #define COMMANDENTRY_H
 
 #include <QPointer>
+#include <QJsonObject>
 #include <KCompletionBox>
 
 #include "worksheetentry.h"
@@ -63,6 +64,7 @@ class CommandEntry : public WorksheetEntry
 
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
+    void setContentFromJupyter(const QJsonObject& cell);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;

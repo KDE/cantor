@@ -251,6 +251,9 @@ class Worksheet : public QGraphicsScene
     void addEntryFromEntryCursor();
     void drawEntryCursor();
     int entryCount();
+    bool loadCantorWorksheet(const KZip& archive);
+    bool loadJupyterNotebook(const QJsonDocument& doc);
+    void showInvalidNotebookSchemeError();
 
   private:
     static const double LeftMargin;

@@ -428,7 +428,7 @@ bool CantorPart::openFile()
     QApplication::restoreOverrideCursor();
 
     if (rc) {
-        qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds).";
+        qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds";
         updateCaption();
         // We modified, but it we load file now, so no need in save option
         setModified(false);

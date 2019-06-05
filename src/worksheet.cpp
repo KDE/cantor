@@ -21,6 +21,8 @@
 
 #include "worksheet.h"
 
+#include <QtGlobal>
+#include <QApplication>
 #include <QBuffer>
 #include <QDebug>
 #include <QDrag>
@@ -28,12 +30,15 @@
 #include <QPrinter>
 #include <QTimer>
 #include <QXmlQuery>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 #include <KMessageBox>
 #include <KActionCollection>
 #include <KFontAction>
 #include <KFontSizeAction>
 #include <KToggleAction>
+#include <KLocalizedString>
 
 #include "settings.h"
 #include "commandentry.h"
@@ -48,6 +53,7 @@
 #include "lib/helpresult.h"
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
+#include "lib/backend.h"
 
 #include <config-cantor.h>
 
@@ -1036,15 +1042,39 @@ void Worksheet::load(QByteArray* data)
 
 bool Worksheet::load(QIODevice* device)
 {
-    KZip file(device);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug()<<"not a zip file";
-        QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor project file."), i18n("Cantor"));
+    if (!device->isReadable())
+    {
+        KMessageBox::error(worksheetView(), i18n("Couldn't open the selected file for reading"), i18n("Cantor"));
         return false;
     }
 
-    const KArchiveEntry* contentEntry=file.directory()->entry(QLatin1String("content.xml"));
+    KZip archive(device);
+
+    if (archive.open(QIODevice::ReadOnly))
+        return loadCantorWorksheet(archive);
+    else
+    {
+        qDebug() <<"not a zip file";
+        // Go to begin of data, we need read all data in second time
+        device->seek(0);
+
+        QJsonParseError error;
+        const QJsonDocument& doc = QJsonDocument::fromJson(device->readAll(), &error);
+        if (error.error != QJsonParseError::NoError)
+        {
+            qDebug()<<"not a json file, parsing failed with error: " << error.errorString();
+            QApplication::restoreOverrideCursor();
+            KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor or Jupyter project file."), i18n("Cantor"));
+            return false;
+        }
+        else
+            return loadJupyterNotebook(doc);
+    }
+}
+
+bool Worksheet::loadCantorWorksheet(const KZip& archive)
+{
+    const KArchiveEntry* contentEntry=archive.directory()->entry(QLatin1String("content.xml"));
     if (!contentEntry->isFile())
     {
         qDebug()<<"content.xml file not found in the zip archive";
@@ -1117,28 +1147,28 @@ bool Worksheet::load(QIODevice* device)
         if (tag == QLatin1String("Expression"))
         {
             entry = appendCommandEntry();
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Text"))
         {
             entry = appendTextEntry();
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Markdown"))
         {
             entry = appendMarkdownEntry();
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Latex"))
         {
             entry = appendLatexEntry();
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("PageBreak"))
         {
             entry = appendPageBreakEntry();
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         }
         else if (tag == QLatin1String("Image"))
         {
             entry = appendImageEntry();
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         }
 
         if (m_readOnly && entry)
@@ -1162,6 +1192,133 @@ bool Worksheet::load(QIODevice* device)
     emit loaded();
     return true;
 }
+
+bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
+{
+    static const QLatin1String cellsKey("cells");
+    static const QLatin1String metadataKey("metadata");
+    static const QLatin1String nbformatKey("nbformat");
+    static const QLatin1String nbformatMinorKey("nbformat_minor");
+
+    static const QSet<QString> notebookScheme
+        = QSet<QString>::fromList({cellsKey, metadataKey, nbformatKey, nbformatMinorKey});
+
+    bool isNotebook =
+            doc.isObject()
+        && QSet<QString>::fromList(doc.object().keys()) == notebookScheme
+        && doc.object().value(cellsKey).isArray()
+        && doc.object().value(metadataKey).isObject()
+        && doc.object().value(nbformatKey).isDouble()
+        && doc.object().value(nbformatMinorKey).isDouble();
+
+    if (!isNotebook)
+    {
+        QApplication::restoreOverrideCursor();
+        showInvalidNotebookSchemeError();
+        return false;
+    }
+
+    QJsonObject notebookObject = doc.object();
+    int nbformatMajor = notebookObject.value(nbformatKey).toInt();
+    int nbformatMinor = notebookObject.value(nbformatMinorKey).toInt();
+
+    if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,1,0))
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support import Jupyter notebooks with version lower that 4.1 (detected %1.%2)",nbformatMajor, nbformatMinor), i18n("Cantor"));
+        return false;
+    }
+
+    const QJsonArray& cells = notebookObject.value(cellsKey).toArray();
+    const QJsonObject& metadata = notebookObject.value(metadataKey).toObject();
+
+    const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
+    const QJsonValue& name = kernalspec.value(QLatin1String("name"));
+    qDebug() << kernalspec << name;
+    if (kernalspec.isEmpty() || name.type() == QJsonValue::Undefined)
+    {
+        QApplication::restoreOverrideCursor();
+        showInvalidNotebookSchemeError();
+        return false;
+    }
+
+    const QString& backendName = name.toString();
+    Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
+    // Jupyter TODO: what about corresponding jupyter and our names
+    // Is them always matches each over?
+    // Investigate.
+    if (!backend)
+    {
+        // Jupyter TODO: what about readonly mode?
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support Jupyter %1 backend, so can't open the project", backendName), i18n("Cantor"));
+        return false;
+    }
+
+    m_isLoadingFromFile = true;
+
+    if (m_session)
+        delete m_session;
+    m_session = backend->createSession();
+    m_loginDone = false;
+
+    if (m_firstEntry) {
+        delete m_firstEntry;
+        m_firstEntry = nullptr;
+    }
+
+    resetEntryCursor();
+
+    qDebug()<<"loading jupyter entries";
+
+    static const QLatin1String cellTypeKey("cell_type");
+    static const QLatin1String sourceKey("source");
+
+    // Jupyter TODO: handle error, like no object, no 'cell_type', etc
+    // Maybe forward back to cantor shell and UI message about failed
+    for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
+        bool isCellObject = iter->isObject();
+        if (!isCellObject)
+            continue;
+
+        const QJsonObject& cell = iter->toObject();
+
+        bool isJupyterCell =
+               cell.contains(cellTypeKey)
+            && cell.contains(metadataKey)
+            && cell.contains(sourceKey);
+
+        if (!isJupyterCell)
+            continue;
+
+        QString cellType = cell.value(cellTypeKey).toString();
+
+        if (cellType == QLatin1String("code"))
+        {
+            // Jupyter TODO output of runned cells
+            CommandEntry* entry = static_cast<CommandEntry*>(appendCommandEntry());
+            entry->importJupyterCell(cell);
+        }
+    }
+
+    if (m_readOnly)
+        clearFocus();
+
+    m_isLoadingFromFile = false;
+
+    //Set the Highlighting, depending on the current state
+    //If the session isn't logged in, use the default
+    enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
+
+    emit loaded();
+    return true;
+}
+
+void Worksheet::showInvalidNotebookSchemeError()
+{
+    KMessageBox::error(worksheetView(), i18n("The file is not a valid Jupyter notebook file."), i18n("Cantor"));
+}
+
 
 void Worksheet::gotResult(Cantor::Expression* expr)
 {
