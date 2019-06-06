@@ -99,6 +99,7 @@ private Q_SLOTS:
     void openExample();
 
     void updatePanel();
+    void updateNewSubmenu();
 private:
     void setupActions();
     void closeEvent(QCloseEvent*) override;

@@ -190,6 +190,33 @@ void TestOctave::testVariablesCreatingFromCode()
     QCOMPARE(model->index(1,1).data().toString(), QLatin1String("S"));
 }
 
+void TestOctave::testVariableCreatingFromCodeWithPlot()
+{
+    QAbstractItemModel* model = session()->variableModel();
+    QVERIFY(model != nullptr);
+
+    evalExp(QLatin1String("clear();"));
+
+    Cantor::Expression* e = evalExp(QLatin1String(
+        "x = -10:0.1:10;\n"
+        "plot (x, sin (x));\n"
+        "xlabel (\"x\");\n"
+        "ylabel (\"sin (x)\");\n"
+        "title (\"Simple 2-D Plot\");\n"
+    ));
+    QVERIFY(e!=nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result());
+    QVERIFY(e->result()->type() != Cantor::TextResult::Type);
+
+    if(session()->status()==Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(1, model->rowCount());
+
+    QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));
+}
+
 void TestOctave::testVariableCleanupAfterRestart()
 {
     Cantor::DefaultVariableModel* model = session()->variableModel();

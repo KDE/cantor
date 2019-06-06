@@ -30,5 +30,4 @@ function cantor_plot3d(f_string,var1,min1,max1,var2,min2,max2)
   xlabel(var1);
   ylabel(var2);
   zlabel(f_string);
-  cantor_print();
 endfunction

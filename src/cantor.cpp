@@ -71,6 +71,8 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
     setAutoSaveSettings();
 
     setDockOptions(QMainWindow::AnimatedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::VerticalTabs);
+
+    updateNewSubmenu();
 }
 
 void CantorShell::load(const QUrl &url)
@@ -615,6 +617,11 @@ void CantorShell::updatePanel()
 
     plugActionList(QLatin1String("view_show_panel_list"), panelActions);
 
+    updateNewSubmenu();
+}
+
+void CantorShell::updateNewSubmenu()
+{
     unplugActionList(QLatin1String("new_worksheet_with_backend_list"));
     QList<QAction*> newBackendActions;
     foreach (Cantor::Backend* backend, Cantor::Backend::availableBackends())

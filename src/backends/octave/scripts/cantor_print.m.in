@@ -17,10 +17,10 @@
     Boston, MA  02110-1301, USA.
 %}
 
-function cantor_print()
+function cantor_print(filename)
   try
-    print('-d${PLOT_FILE_FORMAT}',strcat(tempname(tempdir,'c-ob-'),'.${PLOT_FILE_SUFFIX}'),'-S480,336','-tight');
+    print('-d${PLOT_FILE_FORMAT}',filename,'-S480,336','-tight');
   catch
-    print('-d${PLOT_FILE_FORMAT}',strcat(tempname(tempdir,'c-ob-'),'.${PLOT_FILE_SUFFIX}'),'-S480,336');
+    print('-d${PLOT_FILE_FORMAT}',filename,'-S480,336');
   end_try_catch
 endfunction
