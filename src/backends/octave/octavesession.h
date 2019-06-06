@@ -60,8 +60,6 @@ class OctaveSession : public Cantor::Session
         QRegExp m_subprompt;
         int m_previousPromptNumber;
 
-        KDirWatch* m_watch;
-        QString m_tempDir;
         bool m_syntaxError;
 
         QString m_output;
@@ -76,7 +74,6 @@ class OctaveSession : public Cantor::Session
         void readError();
         void currentExpressionStatusChanged(Cantor::Expression::Status status);
         void processError();
-        void plotFileChanged(const QString& filename);
         void runSpecificCommands();
 };
 

@@ -33,6 +33,7 @@ using OctavePlotResult = Cantor::EpsResult;
 typedef Cantor::ImageResult OctavePlotResult;
 #endif
 
+class QTemporaryFile;
 
 class OctaveExpression : public Cantor::Expression
 {
@@ -40,6 +41,7 @@ class OctaveExpression : public Cantor::Expression
 
 public:
     explicit OctaveExpression(Cantor::Session*, bool internal = false);
+    ~OctaveExpression();
 
     void interrupt() override;
     void evaluate() override;
@@ -47,15 +49,13 @@ public:
 
     void parseOutput(const QString&);
     void parseError(const QString&);
-    void parsePlotFile(const QString&);
-
-    void setPlotPending(bool);
+    void imageChanged();
 
 private:
     QString m_resultString;
-    bool m_plotPending;
-    bool m_finished;
-    QStringList m_plotCommands;
+    bool m_finished = false;
+    bool m_plotPending = false;
+    QTemporaryFile* m_tempFile = nullptr;
 };
 
 #endif // OCTAVEEXPRESSION_H
