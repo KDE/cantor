@@ -1297,7 +1297,14 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         {
             // Jupyter TODO output of runned cells
             CommandEntry* entry = static_cast<CommandEntry*>(appendCommandEntry());
-            entry->importJupyterCell(cell);
+            entry->setContentFromJupyter(cell);
+        }
+        else if (cellType == QLatin1String("markdown"))
+        {
+            qDebug() << "markdown";
+            MarkdownEntry* markdown = static_cast<MarkdownEntry*>(appendMarkdownEntry());
+            markdown->setContentFromJupyter(cell);
+            markdown->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
         }
     }
 

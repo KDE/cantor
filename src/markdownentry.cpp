@@ -20,6 +20,9 @@
 
 #include "markdownentry.h"
 
+#include <QJsonArray>
+#include <QJsonObject>
+
 #include <config-cantor.h>
 
 #ifdef Discount_FOUND
@@ -33,6 +36,7 @@ extern "C" {
 MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)), rendered(false)
 {
     m_textItem->enableRichText(false);
+    m_textItem->setOpenExternalLinks(true);
     m_textItem->installEventFilter(this);
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &MarkdownEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &MarkdownEntry::moveToNextEntry);
@@ -96,6 +100,23 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
         setPlainText(plain);
 }
 
+void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    //Jupyter TODO: handle missing key, like 'source', check that array, and string data inside
+    const QJsonArray& sources = cell.value(QLatin1String("source")).toArray();
+    QString code;
+    for (const QJsonValue& line : sources)
+        code += line.toString();
+
+    //Jupyter TODO: support escaped $
+    //User could dot with `$`, '$', \\$
+    //Also handle real $$ (latex in separate line) from Markdown cell
+    //Myabe via simple state machine, which will match only $...$
+    code.replace(QLatin1String("$"), QLatin1String("$$"));
+
+    setPlainText(code);
+}
+
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
@@ -147,6 +168,54 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
         rendered = renderMarkdown(plain);
     }
 
+    if (rendered)
+    {
+        // Render math in $$...$$ via Latex
+        QTextCursor cursor = findLatexCode();
+        while (!cursor.isNull())
+        {
+            QString latexCode = cursor.selectedText();
+            qDebug()<<"found latex: " << latexCode;
+
+            latexCode.remove(0, 2);
+            latexCode.remove(latexCode.length() - 2, 2);
+            latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+            latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
+
+
+            Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
+            renderer->setLatexCode(latexCode);
+            renderer->setEquationOnly(true);
+            renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
+            renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
+
+            renderer->renderBlocking();
+
+            bool success;
+            QTextImageFormat formulaFormat;
+            if (renderer->renderingSuccessful()) {
+                EpsRenderer* epsRend = worksheet()->epsRenderer();
+                formulaFormat = epsRend->render(m_textItem->document(), renderer);
+                success = !formulaFormat.name().isEmpty();
+            } else {
+                success = false;
+            }
+
+            qDebug()<<"rendering successful? "<<success;
+            if (!success) {
+                cursor = findLatexCode(cursor);
+                continue;
+            }
+
+            formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+            delete renderer;
+
+            cursor = findLatexCode(cursor);
+        }
+    }
+
     evaluateNext(evalOp);
     return true;
 }
@@ -156,7 +225,7 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
 #ifdef Discount_FOUND
     QByteArray mdCharArray = plain.toUtf8();
     MMIOT* mdHandle = mkd_string(mdCharArray.data(), mdCharArray.size()+1, 0);
-    if(!mkd_compile(mdHandle, MKD_FENCEDCODE | MKD_GITHUBTAGS))
+    if(!mkd_compile(mdHandle, MKD_LATEX | MKD_FENCEDCODE | MKD_GITHUBTAGS))
     {
         qDebug()<<"Failed to compile the markdown document";
         mkd_cleanup(mdHandle);
@@ -242,4 +311,22 @@ void MarkdownEntry::setPlainText(const QString& plain)
     doc->setPlainText(plain);
     m_textItem->setDocument(doc);
     m_textItem->allowEditing();
+}
+
+QTextCursor MarkdownEntry::findLatexCode(const QTextCursor& cursor) const
+{
+    QTextDocument *doc = m_textItem->document();
+    QTextCursor startCursor;
+    if (cursor.isNull())
+        startCursor = doc->find(QLatin1String("$$"));
+    else
+        startCursor = doc->find(QLatin1String("$$"), cursor);
+    if (startCursor.isNull())
+        return startCursor;
+    const QTextCursor endCursor = doc->find(QLatin1String("$$"), startCursor);
+    if (endCursor.isNull())
+        return endCursor;
+    startCursor.setPosition(startCursor.selectionStart());
+    startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
+    return startCursor;
 }

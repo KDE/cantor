@@ -24,6 +24,8 @@
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
 
+class QJsonObject;
+
 class MarkdownEntry : public WorksheetEntry
 {
   Q_OBJECT
@@ -42,6 +44,7 @@ class MarkdownEntry : public WorksheetEntry
 
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
+    void setContentFromJupyter(const QJsonObject& cell);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
@@ -64,6 +67,7 @@ class MarkdownEntry : public WorksheetEntry
     bool wantToEvaluate() override;
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
+    QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;
 
   protected:
     WorksheetTextItem* m_textItem;

@@ -38,6 +38,7 @@
 #include <QPropertyAnimation>
 #include <QGraphicsWidget>
 #include <QJsonArray>
+#include <QJsonObject>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -454,6 +455,7 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
     m_commandItem->setPlainText(code);
 
     //Jupyter TODO: what about 'execution_count', ignore it?
+    //Jupyter TODO: also load outputs here
 }
 
 

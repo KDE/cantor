@@ -24,7 +24,6 @@
 #define COMMANDENTRY_H
 
 #include <QPointer>
-#include <QJsonObject>
 #include <KCompletionBox>
 
 #include "worksheetentry.h"
@@ -33,6 +32,7 @@
 class Worksheet;
 class ResultItem;
 class QTimer;
+class QJsonObject;
 
 namespace Cantor{
     class Result;

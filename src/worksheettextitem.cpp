@@ -916,5 +916,5 @@ void WorksheetTextItem::allowEditing()
 
 void WorksheetTextItem::denyEditing()
 {
-    setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
+    setTextInteractionFlags(Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard);
 }
