@@ -59,6 +59,20 @@ Session::~Session()
     delete d;
 }
 
+void Session::logout()
+{
+    if (d->status == Session::Running)
+        interrupt();
+
+    if (d->variableModel)
+    {
+        d->variableModel->clearVariables();
+        d->variableModel->clearFunctions();
+    }
+    d->expressionCount = 0;
+    changeStatus(Status::Disable);
+}
+
 QList<Expression*>& Cantor::Session::expressionQueue() const
 {
     return d->expressionQueue;

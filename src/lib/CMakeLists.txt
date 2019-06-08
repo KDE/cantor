@@ -74,7 +74,7 @@ target_link_libraries( cantorlibs
   Qt5::Xml
 )
 
-set (CANTORLIBS_SOVERSION 21)
+set (CANTORLIBS_SOVERSION 22)
 set_target_properties( cantorlibs PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})
 
 ecm_setup_version(${KDE_APPLICATIONS_VERSION}

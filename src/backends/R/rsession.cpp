@@ -86,11 +86,7 @@ void RSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    variableModel()->clearVariables();
-    variableModel()->clearFunctions();
-    emit symbolsChanged();
-
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 void RSession::interrupt()

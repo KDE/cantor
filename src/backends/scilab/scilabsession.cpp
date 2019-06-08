@@ -140,9 +140,6 @@ void ScilabSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    expressionQueue().clear();
-    m_variableModel->clearVariables();
-
     QDir removePlotFigures;
     QListIterator<QString> i(m_listPlotName);
 
@@ -150,7 +147,7 @@ void ScilabSession::logout()
         removePlotFigures.remove(QLatin1String(i.next().toLocal8Bit().constData()));
     }
 
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 void ScilabSession::interrupt()

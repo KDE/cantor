@@ -163,9 +163,7 @@ void OctaveSession::logout()
     m_output.clear();
     m_previousPromptNumber = 1;
 
-    variableModel()->clearVariables();
-
-    changeStatus(Status::Disable);
+    Session::logout();
 
     qDebug()<<"logout done";
 }

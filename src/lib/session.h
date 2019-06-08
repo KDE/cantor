@@ -87,9 +87,10 @@ class CANTOR_EXPORT Session : public QObject
     /**
      * Log out of the Session. Destroy everything specific to a single session, e.g.
      * stop all the running processes etc. Also after logout session status must be Status::Disable
+     * Default implementation does basic operations for all sessions (for example, variable model cleanup)
      * NOTE: restarting the session consists of first logout() and then login()
      */
-    virtual void logout() = 0;
+    virtual void logout();
 
     /**
      * Passes the given command to the backend and returns a Pointer
@@ -111,6 +112,7 @@ class CANTOR_EXPORT Session : public QObject
 
     /**
      * Interrupts all the running calculations in this session
+     * After this function expression queue must be clean
      */
     virtual void interrupt() = 0;
 

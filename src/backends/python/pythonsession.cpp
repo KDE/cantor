@@ -118,12 +118,8 @@ void PythonSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    expressionQueue().clear();
-    variableModel()->clearVariables();
-    variableModel()->clearFunctions();
-
     qDebug()<<"logout";
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 void PythonSession::interrupt()

@@ -121,11 +121,7 @@ void MaximaSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    expressionQueue().clear();
-    variableModel()->clearVariables();
-    variableModel()->clearFunctions();
-
-    changeStatus(Status::Disable);
+    Session::logout();
 
     qDebug()<<"logout done";
 }
