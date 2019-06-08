@@ -130,6 +130,10 @@ void TestJulia::testInlinePlot()
     if (!JuliaSettings::integratePlots())
         QSKIP("This test needs enabled plots integration in Julia settings", SkipSingle);
 
+    Cantor::Expression* testGR = evalExp(QLatin1String("import GR"));
+    if (testGR->status() == Cantor::Expression::Error)
+        QSKIP("GR module not found, so skip tests for graphic", SkipSingle);
+
     Cantor::Expression *e = evalExp(QLatin1String(
         "import GR\n"
         "GR.plot([-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1], sin)"
@@ -143,6 +147,10 @@ void TestJulia::testInlinePlotWithExceptionAndPartialResult()
 {
     if (!JuliaSettings::integratePlots())
         QSKIP("This test needs enabled plots integration in Julia settings", SkipSingle);
+
+    Cantor::Expression* testGR = evalExp(QLatin1String("import GR"));
+    if (testGR->status() == Cantor::Expression::Error)
+        QSKIP("GR module not found, so skip tests for graphic", SkipSingle);
 
     Cantor::Expression *e = evalExp(QLatin1String(
         "import GR\n"
