@@ -139,9 +139,7 @@ void JuliaSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    variableModel()->clearVariables();
-
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 void JuliaSession::interrupt()

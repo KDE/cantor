@@ -186,13 +186,11 @@ void SageSession::logout()
     //Run sage-cleaner to kill all the orphans
     KProcess::startDetached(SageSettings::self()->path().toLocalFile(),QStringList()<<QLatin1String("-cleaner"));
 
-    expressionQueue().clear();
-
     m_isInitialized = false;
     m_waitingForPrompt = false;
     m_haveSentInitCmd = false;
 
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 Cantor::Expression* SageSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)

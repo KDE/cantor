@@ -25,31 +25,44 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QDir>
+#include <QFileSystemWatcher>
+#include <QTemporaryFile>
 #include <helpresult.h>
 
 
-static const QLatin1String printCommand("cantor_print();");
+static const QLatin1String printCommandBegin("cantor_print('");
+static const QLatin1String printCommandEnd("');");
+static const QStringList plotCommands({
+    QLatin1String("plot"), QLatin1String("semilogx"), QLatin1String("semilogy"),
+    QLatin1String("loglog"), QLatin1String("polar"), QLatin1String("contour"),
+    QLatin1String("bar"), QLatin1String("stairs"), QLatin1String("errorbar"),
+    QLatin1String("sombrero"), QLatin1String("hist"), QLatin1String("fplot"),
+    QLatin1String("imshow"), QLatin1String("stem"), QLatin1String("stem3"),
+    QLatin1String("scatter"), QLatin1String("pareto"), QLatin1String("rose"),
+    QLatin1String("pie"), QLatin1String("quiver"), QLatin1String("compass"),
+    QLatin1String("feather"), QLatin1String("pcolor"), QLatin1String("area"),
+    QLatin1String("fill"), QLatin1String("comet"), QLatin1String("plotmatrix"),
+    /* 3d-plots */
+    QLatin1String("plot3"), QLatin1String("mesh"), QLatin1String("meshc"),
+    QLatin1String("meshz"), QLatin1String("surf"), QLatin1String("surfc"),
+    QLatin1String("surfl"), QLatin1String("surfnorm"), QLatin1String("isosurface"),
+    QLatin1String("isonormals"), QLatin1String("isocaps"),
+    /* 3d-plots defined by a function */
+    QLatin1String("ezplot3"), QLatin1String("ezmesh"), QLatin1String("ezmeshc"),
+    QLatin1String("ezsurf"), QLatin1String("ezsurfc"), QLatin1String("cantor_plot2d"),
+    QLatin1String("cantor_plot3d")});
 
-OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal),
-    m_plotPending(false),
-    m_finished(false)
+OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal)
 {
-    m_plotCommands << QLatin1String("plot") << QLatin1String("semilogx") << QLatin1String("semilogy") << QLatin1String("loglog")
-                   << QLatin1String("polar") << QLatin1String("contour") << QLatin1String("bar")
-                   << QLatin1String("stairs") << QLatin1String("errorbar")  << QLatin1String("sombrero")
-                   << QLatin1String("hist") << QLatin1String("fplot") << QLatin1String("imshow")
-                   << QLatin1String("stem") << QLatin1String("stem3") << QLatin1String("scatter") << QLatin1String("pareto") << QLatin1String("rose")
-                   << QLatin1String("pie") << QLatin1String("quiver") << QLatin1String("compass") << QLatin1String("feather")
-                   << QLatin1String("pcolor") << QLatin1String("area") << QLatin1String("fill") << QLatin1String("comet")
-                   << QLatin1String("plotmatrix")
-                   /* 3d-plots */
-                   << QLatin1String("plot3")
-                   << QLatin1String("mesh") << QLatin1String("meshc") << QLatin1String("meshz")
-                   << QLatin1String("surf") << QLatin1String("surfc") << QLatin1String("surfl") << QLatin1String("surfnorm")
-                   << QLatin1String("isosurface")<< QLatin1String("isonormals") << QLatin1String("isocaps")
-                   /* 3d-plots defined by a function */
-                   << QLatin1String("ezplot3") << QLatin1String("ezmesh") << QLatin1String("ezmeshc") << QLatin1String("ezsurf") << QLatin1String("ezsurfc");
-    m_plotCommands << QLatin1String("cantor_plot2d") << QLatin1String("cantor_plot3d");
+}
+
+OctaveExpression::~OctaveExpression()
+{
+    if(m_tempFile) {
+        delete m_tempFile;
+        m_tempFile = nullptr;
+    }
 }
 
 void OctaveExpression::interrupt()
@@ -61,17 +74,39 @@ void OctaveExpression::interrupt()
 
 void OctaveExpression::evaluate()
 {
+    if(m_tempFile) {
+        delete m_tempFile;
+        m_tempFile = nullptr;
+    }
+
     qDebug() << "evaluate";
     QString cmd = command();
     QStringList cmdWords = cmd.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
     if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
     {
-        foreach (const QString& plotCmd, m_plotCommands)
+        for (const QString& plotCmd : plotCommands)
         {
             if (cmdWords.contains(plotCmd))
             {
-                setPlotPending(true);
                 qDebug() << "Executing a plot command";
+#ifdef WITH_EPS
+                QLatin1String ext(".eps");
+#else
+                QLatin1String ext(".png");
+#endif
+                m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_octave-XXXXXX")+ext);
+                m_tempFile->open();
+
+                qDebug() << "plot temp file" << m_tempFile->fileName();
+
+                QFileSystemWatcher* watcher = fileWatcher();
+                if (!watcher->files().isEmpty())
+                    watcher->removePaths(watcher->files());
+                watcher->addPath(m_tempFile->fileName());
+
+                connect(watcher, &QFileSystemWatcher::fileChanged, this, &OctaveExpression::imageChanged,  Qt::UniqueConnection);
+
+                m_plotPending = true;
                 break;
             }
         }
@@ -85,11 +120,11 @@ QString OctaveExpression::internalCommand()
 {
     QString cmd = command();
 
-    if (m_plotPending && !cmd.contains(QLatin1String("cantor_plot")) && !cmd.contains(printCommand))
+    if (m_plotPending)
     {
         if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
             cmd += QLatin1Char(',');
-        cmd += printCommand;
+        cmd += printCommandBegin + m_tempFile->fileName() + printCommandEnd;
     }
 
     // We need remove all comments here, because below we merge all strings to one long string
@@ -163,24 +198,26 @@ void OctaveExpression::parseError(const QString& error)
     }
 }
 
-void OctaveExpression::parsePlotFile(const QString& file)
+void OctaveExpression::imageChanged()
 {
-    qDebug() << "parsePlotFile";
-    if (QFile::exists(file))
-    {
-        qDebug() << "OctaveExpression::parsePlotFile: " << file;
+    if(m_tempFile->size() <= 0)
+        return;
 
-        addResult(new OctavePlotResult(QUrl::fromLocalFile(file)));
-        setPlotPending(false);
-
-        if (m_finished)
+    OctavePlotResult* newResult = new OctavePlotResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    bool found = false;
+    for (int i = 0; i < results().size(); i++)
+        if (results()[i]->type() == newResult->type())
         {
-            setStatus(Done);
+            replaceResult(i, newResult);
+            found = true;
         }
-    }
-}
+    if (!found)
+        addResult(newResult);
 
-void OctaveExpression::setPlotPending(bool plot)
-{
-    m_plotPending = plot;
+    m_plotPending = false;
+
+    if (m_finished && status() != Expression::Done)
+    {
+        setStatus(Done);
+    }
 }

@@ -60,7 +60,7 @@ void KAlgebraSession::login()
 
 void KAlgebraSession::logout()
 {
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 void KAlgebraSession::interrupt()

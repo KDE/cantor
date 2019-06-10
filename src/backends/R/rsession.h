@@ -58,9 +58,6 @@ class RSession : public Cantor::Session
     void expressionFinished(int returnCode, const QString& text, const QStringList& files);
     void inputRequested(QString info);
 
-  Q_SIGNALS:
-    void symbolsChanged();
-
   private:
     QProcess* m_process;
     org::kde::Cantor::R* m_rServer;

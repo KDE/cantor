@@ -50,7 +50,6 @@ m_process(nullptr),
 m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
-m_watch(nullptr),
 m_syntaxError(false)
 {
     setVariableModel(new OctaveVariableModel(this));
@@ -96,10 +95,6 @@ void OctaveSession::login()
             args << QLatin1String("--eval") << QString::fromLatin1("addpath \"%1\";").arg(dir);
     }
 
-    // Print the temp dir, used for plot files
-    args << QLatin1String("--eval");
-    args << QLatin1String("printf('%s\\n', ['____TMP_DIR____ = ' tempdir]);");
-
     // Do not show extra text in help commands
     args << QLatin1String("--eval");
     args << QLatin1String("suppress_verbose_help_message(1);");
@@ -118,40 +113,11 @@ void OctaveSession::login()
         args << QLatin1String("set (0, \"defaultfigurevisible\",\"on\");");
     }
 
-    if (OctaveSettings::integratePlots())
-    {
-        m_watch = new KDirWatch(this);
-        m_watch->setObjectName(QLatin1String("OctaveDirWatch"));
-        connect (m_watch, SIGNAL(dirty(QString)), SLOT(plotFileChanged(QString)) );
-    }
-
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
     qDebug() << "starting " << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
     m_process->start();
     m_process->waitForStarted();
-
-    // Got tmp dir
-    bool loginFinished = false;
-    QString input;
-    while (!loginFinished)
-    {
-        m_process->waitForReadyRead();
-        input += QString::fromLatin1(m_process->readAllStandardOutput());
-        qDebug() << "login input: " << input;
-        if (input.contains(QLatin1String("____TMP_DIR____")))
-            {
-                m_tempDir = input;
-                m_tempDir.remove(0,18);
-                m_tempDir.chop(1); // isolate the tempDir's location
-                qDebug() << "Got temporary file dir:" << m_tempDir;
-                if (m_watch)
-                {
-                    m_watch->addDir(m_tempDir, KDirWatch::WatchFiles);
-                }
-                loginFinished = true;
-            }
-    }
 
     connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
     connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );
@@ -182,7 +148,7 @@ void OctaveSession::logout()
         interrupt();
 
     m_process->write("exit\n");
-    qDebug()<<"waiting for octave to finish";
+    qDebug()<<"send exit command to octave";
 
     if(!m_process->waitForFinished(1000))
     {
@@ -194,19 +160,17 @@ void OctaveSession::logout()
 
     expressionQueue().clear();
 
-    m_tempDir.clear();
     m_output.clear();
     m_previousPromptNumber = 1;
 
-    variableModel()->clearVariables();
-
-    changeStatus(Status::Disable);
+    Session::logout();
 
     qDebug()<<"logout done";
 }
 
 void OctaveSession::interrupt()
 {
+    qDebug() << expressionQueue().size();
     if(!expressionQueue().isEmpty())
     {
         qDebug()<<"interrupting " << expressionQueue().first()->command();
@@ -333,7 +297,7 @@ void OctaveSession::readOutput()
 
 void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
-    qDebug() << "currentExpressionStatusChanged";
+    qDebug() << "currentExpressionStatusChanged" << status << expressionQueue().first()->command();
     switch (status)
     {
     case Cantor::Expression::Done:
@@ -343,19 +307,6 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
 
     default:
         break;
-    }
-}
-
-void OctaveSession::plotFileChanged(const QString& filename)
-{
-    if (!QFile::exists(filename) || !filename.split(QLatin1Char('/')).last().contains(QLatin1String("c-ob-")))
-    {
-        return;
-    }
-
-    if (!expressionQueue().isEmpty())
-    {
-        static_cast<OctaveExpression*>(expressionQueue().first())->parsePlotFile(filename);
     }
 }
 

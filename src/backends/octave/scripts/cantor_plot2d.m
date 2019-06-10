@@ -29,5 +29,4 @@ function cantor_plot2d(f_string,var,min,max)
 
   xlabel(var);
   ylabel(f_string);
-  cantor_print();
 endfunction

@@ -129,10 +129,10 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     int juliaMinor = match.captured(2).toInt();
     int juliaPatch = match.captured(3).toInt();
 
-    if (juliaMajor != JULIA_VERSION_MAJOR || juliaMinor != JULIA_VERSION_MINOR)
+    if (QT_VERSION_CHECK(juliaMajor, juliaMinor, juliaPatch) != QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH))
     {
         if (reason)
-            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor was compiled with the support of Julia v%4.%5.*. Please point to this version of Julia or recompile Cantor using the version %1.%2.*.", juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR);
+            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor was compiled with the support of Julia v%4.%5.%6. Please point to this version of Julia or recompile Cantor using the version %1.%2.%3.", juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH);
         return false;
     }
     return true;

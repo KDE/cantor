@@ -234,7 +234,7 @@ void QalculateSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
-    changeStatus(Status::Disable);
+    Session::logout();
 }
 
 void QalculateSession::interrupt()
