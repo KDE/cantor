@@ -402,7 +402,7 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
                         {
                             // Main purpose of this code
                             // $...$ -> $$...$$
-                            // because Cantor don't support only $$...$$
+                            // because Cantor supports only $$...$$
                             out += DOLLAR + DOLLAR + buf + DOLLAR + DOLLAR;
                             buf.clear();
                             state = ParserState::Text;
@@ -415,7 +415,10 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
 
             case ParserState::DoubleDollar:
                 out += sym;
-                if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER)
+                // The code checks that not three $ in a row, because we could match part of begin $$ as part of end $$
+                // For example $$$2+2$3+5$$, without this checking will be convert as $$$2+2$$3+5$$
+                //                                                                           ^
+                if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER && prev[1] != DOLLAR)
                     state = ParserState::Text;
                 break;
         }
@@ -424,6 +427,12 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
         prev[1] = prev[0];
         prev[0] = sym;
     }
+
+    // Handle unfinished math expression, like $...(eof)
+    if (state == ParserState::SingleDollar)
+        out += DOLLAR + buf;
+    buf.clear();
+
     out.replace(QLatin1String("\\\\$"), QLatin1String("$"));
     return out;
 }
