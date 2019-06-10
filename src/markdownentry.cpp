@@ -325,11 +325,24 @@ QTextCursor MarkdownEntry::findLatexCode(const QTextCursor& cursor) const
     return startCursor;
 }
 
-enum class ParserState {Text, DoubleQuotes, SingleQuotes, CodeQuotes, SingleDollar, DoubleDollar};
+enum class ParserState {Text, CodeQuote, SingleDollar, DoubleDollar};
 QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
 {
-    static const QLatin1Char DOUBLE_QUOTE('"');
-    static const QLatin1Char SINGLE_QUOTE('\'');
+    QString input = markdown;
+    QString tail, out;
+    do
+    {
+        out += convert(input, tail);
+        input = tail;
+    }
+    while (!tail.isEmpty());
+
+    out.replace(QLatin1String("\\\\$"), QLatin1String("$"));
+    return out;
+}
+
+QString MarkdownEntry::convert(const QString& markdown, QString& tail)
+{
     static const QLatin1Char CODE_QUOTE('`');
     static const QLatin1Char DOLLAR('$');
     static const QLatin1Char ESCAPER('\\');
@@ -338,6 +351,7 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
     QChar prev[2];
     ParserState state = ParserState::Text;
     QString out;
+
     for (const QChar& sym : markdown)
     {
         const bool isEscaping = prev[0] == ESCAPER;
@@ -346,11 +360,7 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
             case ParserState::Text:
             {
                 if (sym == CODE_QUOTE && !isEscaping)
-                    state = ParserState::CodeQuotes;
-                else if (sym == DOUBLE_QUOTE && !isEscaping)
-                    state = ParserState::DoubleQuotes;
-                else if (sym == SINGLE_QUOTE && !isEscaping)
-                    state = ParserState::SingleQuotes;
+                    state = ParserState::CodeQuote;
 
                 const bool isDoubleEscaping = isEscaping && prev[1] == ESCAPER;
                 if (sym == DOLLAR && !isDoubleEscaping)
@@ -364,25 +374,15 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
             }
                 break;
 
-            case ParserState::SingleQuotes:
-                out += sym;
-
-                if (sym == SINGLE_QUOTE && !isEscaping)
-                    state = ParserState::Text;
-                break;
-
-            case ParserState::DoubleQuotes:
-                out += sym;
-
-                if (sym == DOUBLE_QUOTE && !isEscaping)
-                    state = ParserState::Text;
-                break;
-
-            case ParserState::CodeQuotes:
-                out += sym;
+            case ParserState::CodeQuote:
+                buf += sym;
 
                 if (sym == CODE_QUOTE && !isEscaping)
+                {
                     state = ParserState::Text;
+                    out += buf;
+                    buf.clear();
+                }
                 break;
 
             case ParserState::SingleDollar:
@@ -413,13 +413,21 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
                     buf += sym;
                 break;
 
+            // Jupyter TODO: Strange logic
+            // if we have $$ $...$ (eof)
+            // After converting we will ahve $$ $$...$$ (eof)
+            // And it will be evaluate in wrong way ($$ $$)
             case ParserState::DoubleDollar:
-                out += sym;
+                buf += sym;
                 // The code checks that not three $ in a row, because we could match part of begin $$ as part of end $$
                 // For example $$$2+2$3+5$$, without this checking will be convert as $$$2+2$$3+5$$
                 //                                                                           ^
                 if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER && prev[1] != DOLLAR)
+                {
                     state = ParserState::Text;
+                    out += buf;
+                    buf.clear();
+                }
                 break;
         }
 
@@ -428,11 +436,6 @@ QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
         prev[0] = sym;
     }
 
-    // Handle unfinished math expression, like $...(eof)
-    if (state == ParserState::SingleDollar)
-        out += DOLLAR + buf;
-    buf.clear();
-
-    out.replace(QLatin1String("\\\\$"), QLatin1String("$"));
+    tail = buf;
     return out;
 }
