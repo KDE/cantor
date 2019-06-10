@@ -1301,7 +1301,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else if (cellType == QLatin1String("markdown"))
         {
-            qDebug() << "markdown";
+            // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
             MarkdownEntry* markdown = static_cast<MarkdownEntry*>(appendMarkdownEntry());
             markdown->setContentFromJupyter(cell);
             markdown->evaluate(WorksheetEntry::EvaluationOption::DoNothing);

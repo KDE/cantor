@@ -108,13 +108,7 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
     for (const QJsonValue& line : sources)
         code += line.toString();
 
-    //Jupyter TODO: support escaped $
-    //User could dot with `$`, '$', \\$
-    //Also handle real $$ (latex in separate line) from Markdown cell
-    //Myabe via simple state machine, which will match only $...$
-    code.replace(QLatin1String("$"), QLatin1String("$$"));
-
-    setPlainText(code);
+    setPlainText(adaptJupyterMarkdown(code));
 }
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -329,4 +323,107 @@ QTextCursor MarkdownEntry::findLatexCode(const QTextCursor& cursor) const
     startCursor.setPosition(startCursor.selectionStart());
     startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
     return startCursor;
+}
+
+enum class ParserState {Text, DoubleQuotes, SingleQuotes, CodeQuotes, SingleDollar, DoubleDollar};
+QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
+{
+    static const QLatin1Char DOUBLE_QUOTE('"');
+    static const QLatin1Char SINGLE_QUOTE('\'');
+    static const QLatin1Char CODE_QUOTE('`');
+    static const QLatin1Char DOLLAR('$');
+    static const QLatin1Char ESCAPER('\\');
+
+    QString buf;
+    QChar prev[2];
+    ParserState state = ParserState::Text;
+    QString out;
+    for (const QChar& sym : markdown)
+    {
+        const bool isEscaping = prev[0] == ESCAPER;
+        switch (state)
+        {
+            case ParserState::Text:
+            {
+                if (sym == CODE_QUOTE && !isEscaping)
+                    state = ParserState::CodeQuotes;
+                else if (sym == DOUBLE_QUOTE && !isEscaping)
+                    state = ParserState::DoubleQuotes;
+                else if (sym == SINGLE_QUOTE && !isEscaping)
+                    state = ParserState::SingleQuotes;
+
+                const bool isDoubleEscaping = isEscaping && prev[1] == ESCAPER;
+                if (sym == DOLLAR && !isDoubleEscaping)
+                {
+                    state = ParserState::SingleDollar;
+                    // no write to out variable
+                    break;
+                }
+
+                out += sym;
+            }
+                break;
+
+            case ParserState::SingleQuotes:
+                out += sym;
+
+                if (sym == SINGLE_QUOTE && !isEscaping)
+                    state = ParserState::Text;
+                break;
+
+            case ParserState::DoubleQuotes:
+                out += sym;
+
+                if (sym == DOUBLE_QUOTE && !isEscaping)
+                    state = ParserState::Text;
+                break;
+
+            case ParserState::CodeQuotes:
+                out += sym;
+
+                if (sym == CODE_QUOTE && !isEscaping)
+                    state = ParserState::Text;
+                break;
+
+            case ParserState::SingleDollar:
+                if (sym == DOLLAR)
+                {
+                    if (isEscaping)
+                        buf += sym;
+                    else
+                    {
+                        // So we have double dollars ($$) and we need go to double dollar state
+                        if (buf.isEmpty())
+                        {
+                            out += DOLLAR + DOLLAR;
+                            state = ParserState::DoubleDollar;
+                        }
+                        else
+                        {
+                            // Main purpose of this code
+                            // $...$ -> $$...$$
+                            // because Cantor don't support only $$...$$
+                            out += DOLLAR + DOLLAR + buf + DOLLAR + DOLLAR;
+                            buf.clear();
+                            state = ParserState::Text;
+                        }
+                    }
+                }
+                else
+                    buf += sym;
+                break;
+
+            case ParserState::DoubleDollar:
+                out += sym;
+                if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER)
+                    state = ParserState::Text;
+                break;
+        }
+
+        // Shift previous symbols
+        prev[1] = prev[0];
+        prev[0] = sym;
+    }
+    out.replace(QLatin1String("\\\\$"), QLatin1String("$"));
+    return out;
 }
