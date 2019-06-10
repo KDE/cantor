@@ -27,6 +27,8 @@
 #include <KZip>
 #include <QDomElement>
 
+class QJsonObject;
+
 /** This class is used to hold expressions
     loaded from a file. they can't be evaluated
     and only show the result, they loaded from xml.
@@ -44,6 +46,7 @@ class LoadedExpression : public Cantor::Expression
     void interrupt() override;
 
     void loadFromXml(const QDomElement& xml, const KZip& file);
+    void loadFromJupyter(const QJsonObject& cell);
 };
 
 #endif /* _LOADEDEXPRESSION_H */

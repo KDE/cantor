@@ -454,8 +454,9 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
         code += line.toString();
     m_commandItem->setPlainText(code);
 
-    //Jupyter TODO: what about 'execution_count', ignore it?
-    //Jupyter TODO: also load outputs here
+    LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
+    expr->loadFromJupyter(cell);
+    setExpression(expr);
 }
 
 
