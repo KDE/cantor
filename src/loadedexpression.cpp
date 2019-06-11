@@ -82,4 +82,13 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             }
         }
     }
+
+    const QDomElement& errElem = xml.firstChildElement(QLatin1String("Error"));
+    if (!errElem.isNull())
+    {
+        setErrorMessage(errElem.text());
+        setStatus(Error);
+    }
+    else
+        setStatus(Done);
 }

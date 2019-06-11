@@ -500,6 +500,14 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 
     // save results of the expression if they exist
     if (expression())
+    {
+        const QString& errorMessage = expression()->errorMessage();
+        if (!errorMessage.isEmpty())
+        {
+            QDomElement errorElem = doc.createElement( QLatin1String("Error") );
+            errorElem.appendChild(doc.createTextNode(errorMessage));
+            exprElem.appendChild(errorElem);
+        }
         for (Cantor::Result * const result: expression()->results())
         {
             const QDomElement& resultElem = result->toXml(doc);
@@ -508,6 +516,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
             if (archive)
                 result->saveAdditionalData(archive);
         }
+    }
 
     //save the background color if it differs from the default one
     const QColor& backgroundColor = m_commandItem->backgroundColor();
