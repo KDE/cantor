@@ -80,7 +80,8 @@ void JuliaExpression::finalize(const QString& output, const QString& error, bool
     */
     if (wasException) {
         setErrorMessage(QString(error).replace(QLatin1String("\n"), QLatin1String("<br>")));
-        setResult(new Cantor::TextResult(output));
+        if (!output.isEmpty())
+            setResult(new Cantor::TextResult(output));
         setStatus(Cantor::Expression::Error);
     } else {
         if (!m_plot_filename.isEmpty()
