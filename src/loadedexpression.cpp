@@ -125,10 +125,16 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             //Jupyter TODO: there are colors in tracback, add support for them
             const QJsonArray& tracebackLineArray = output.value(QLatin1String("traceback")).toArray();
             QString traceback;
+            // Jupyter TODO: is this \n necessary?
             for (const QJsonValue& line : tracebackLineArray)
-                traceback += line.toString();
+                traceback += line.toString() + QLatin1Char('\n');
+            traceback.chop(1);
 
-            setErrorMessage(traceback);
+            // IPython return error with terminal colors, should Cantor handle it?
+            //static const QChar ESC(0x1b);
+            //traceback.remove(QRegExp(QString(ESC)+QLatin1String("[\\[0-9,;]*m")));
+
+            setErrorMessage(traceback.replace(QLatin1String("\n"), QLatin1String("<br>")));
         }
     }
     if (errorMessage().isEmpty())

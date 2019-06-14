@@ -103,10 +103,15 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 {
     //Jupyter TODO: handle missing key, like 'source', check that array, and string data inside
-    const QJsonArray& sources = cell.value(QLatin1String("source")).toArray();
+    const QJsonValue& source = cell.value(QLatin1String("source"));
     QString code;
-    for (const QJsonValue& line : sources)
-        code += line.toString();
+    if (source.isString())
+        code = source.toString();
+    else if (source.isArray())
+        for (const QJsonValue& line : source.toArray())
+            code += line.toString();
+    else
+        ;//Jupyter TODO: handle this (error scheme)
 
     setPlainText(adaptJupyterMarkdown(code));
 }

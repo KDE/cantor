@@ -253,6 +253,7 @@ class Worksheet : public QGraphicsScene
     int entryCount();
     bool loadCantorWorksheet(const KZip& archive);
     bool loadJupyterNotebook(const QJsonDocument& doc);
+    QString adaptBackendName(const QString& jupyterBackendName);
     void showInvalidNotebookSchemeError();
 
   private:

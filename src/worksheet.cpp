@@ -1242,7 +1242,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         return false;
     }
 
-    const QString& backendName = name.toString();
+    const QString& backendName = adaptBackendName(name.toString());
     Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
     // Jupyter TODO: what about corresponding jupyter and our names
     // Is them always matches each over?
@@ -1319,6 +1319,18 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     emit loaded();
     return true;
+}
+
+QString Worksheet::adaptBackendName(const QString& jupyterBackendName)
+{
+    QString backendName = jupyterBackendName;
+
+    if (jupyterBackendName == QLatin1String("sagemath"))
+        backendName = QLatin1String("sage");
+    else if (jupyterBackendName.startsWith(QLatin1String("julia")))
+        backendName = QLatin1String("julia");
+
+    return backendName;
 }
 
 void Worksheet::showInvalidNotebookSchemeError()
