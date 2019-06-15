@@ -92,19 +92,21 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 
 void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 {
-    //Jupyter TODO: handle missing key, like 'source', check that array, and string data inside
-    const QJsonArray& sources = cell.value(QLatin1String("source")).toArray();
+    const QJsonValue& source = cell.value(QLatin1String("source"));
     QString code;
-    for (const QJsonValue& line : sources)
-        code += line.toString();
+    if (source.isString())
+        code = source.toString();
+    else if (source.isArray())
+        for (const QJsonValue& line : source.toArray())
+            code += line.toString();
     setCommand(code);
+
     const QJsonValue idObject = cell.value(QLatin1String("execution_count"));
     if (!idObject.isUndefined() && !idObject.isNull())
         setId(idObject.toInt());
 
-
     const QJsonArray& outputs = cell.value(QLatin1String("outputs")).toArray();
-    //Jupyter TODO: load all outputs here
+    //Jupyter TODO: load all outputs type here
     for (QJsonArray::const_iterator iter = outputs.begin(); iter != outputs.end(); iter++)
     {
         bool isCellObject = iter->isObject();
@@ -133,10 +135,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             traceback.chop(1);
 
             // Jupyter TODO: IPython return error with terminal colors, should Cantor handle it?
-            //static const QChar ESC(0x1b);
-            //traceback.remove(QRegExp(QString(ESC)+QLatin1String("[\\[0-9,;]*m")));
+            static const QChar ESC(0x1b);
+            traceback.remove(QRegExp(QString(ESC)+QLatin1String("\\[[0-9;]*m")));
 
-            setErrorMessage(traceback.replace(QLatin1String("\n"), QLatin1String("<br>")));
+            setErrorMessage(traceback.toHtmlEscaped().replace(QLatin1String("\n"), QLatin1String("<br>")));
         }
         else if (outputType == QLatin1String("display_data"))
         {
@@ -169,12 +171,12 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                         for (const QJsonValue& line : text.toArray())
                             alt += line.toString();
                 }
-                qDebug() << "alt: " << alt;
 
                 addResult(new Cantor::ImageResult(QUrl::fromLocalFile(imageFile.fileName()), alt));
             }
         }
     }
+
     if (errorMessage().isEmpty())
         setStatus(Done);
     else

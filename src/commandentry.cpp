@@ -447,7 +447,6 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 
 void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    //Jupyter TODO: handle missing key, like 'source', check that array, and string data inside
     const QJsonValue& source = cell.value(QLatin1String("source"));
     QString code;
     if (source.isString())
@@ -455,8 +454,7 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
     else if (source.isArray())
         for (const QJsonValue& line : source.toArray())
             code += line.toString();
-    else
-        ;//Jupyter TODO: handle this (error scheme)
+
     m_commandItem->setPlainText(code);
 
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );

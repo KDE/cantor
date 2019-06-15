@@ -57,6 +57,11 @@ class Worksheet : public QGraphicsScene
 {
   Q_OBJECT
   public:
+    enum Type {
+      CantorWorksheet,
+      JupyterNotebook
+    };
+
     Worksheet(Cantor::Backend* backend, QWidget* parent);
     ~Worksheet() override;
 
@@ -301,6 +306,8 @@ class Worksheet : public QGraphicsScene
     bool m_isPrinting;
     bool m_isLoadingFromFile;
     bool m_readOnly;
+
+    Type m_type;
 
     QString m_backendName;
 };

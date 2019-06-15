@@ -1074,6 +1074,8 @@ bool Worksheet::load(QIODevice* device)
 
 bool Worksheet::loadCantorWorksheet(const KZip& archive)
 {
+    m_type = Type::CantorWorksheet;
+
     const KArchiveEntry* contentEntry=archive.directory()->entry(QLatin1String("content.xml"));
     if (!contentEntry->isFile())
     {
@@ -1195,6 +1197,8 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 
 bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 {
+    m_type = Type::JupyterNotebook;
+
     static const QLatin1String cellsKey("cells");
     static const QLatin1String metadataKey("metadata");
     static const QLatin1String nbformatKey("nbformat");
@@ -1269,7 +1273,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     resetEntryCursor();
 
-    qDebug()<<"loading jupyter entries";
+    qDebug() << "loading jupyter entries";
 
     static const QLatin1String cellTypeKey("cell_type");
     static const QLatin1String sourceKey("source");

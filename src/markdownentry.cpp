@@ -102,7 +102,6 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 
 void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    //Jupyter TODO: handle missing key, like 'source', check that array, and string data inside
     const QJsonValue& source = cell.value(QLatin1String("source"));
     QString code;
     if (source.isString())
@@ -110,8 +109,6 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
     else if (source.isArray())
         for (const QJsonValue& line : source.toArray())
             code += line.toString();
-    else
-        ;//Jupyter TODO: handle this (error scheme)
 
     setPlainText(adaptJupyterMarkdown(code));
 }
@@ -356,6 +353,12 @@ QString MarkdownEntry::convert(const QString& markdown, QString& tail)
     QChar prev[2];
     ParserState state = ParserState::Text;
     QString out;
+    // Double dollar state
+    int length = 0;
+    // Quote state
+    int quoteLevel = 0;
+    int quoteSequence = 0;
+    bool beginQuote = true;
 
     for (const QChar& sym : markdown)
     {
@@ -365,7 +368,9 @@ QString MarkdownEntry::convert(const QString& markdown, QString& tail)
             case ParserState::Text:
             {
                 if (sym == CODE_QUOTE && !isEscaping)
+                {
                     state = ParserState::CodeQuote;
+                }
 
                 const bool isDoubleEscaping = isEscaping && prev[1] == ESCAPER;
                 if (sym == DOLLAR && !isDoubleEscaping)
@@ -384,10 +389,32 @@ QString MarkdownEntry::convert(const QString& markdown, QString& tail)
 
                 if (sym == CODE_QUOTE && !isEscaping)
                 {
-                    state = ParserState::Text;
-                    out += buf;
-                    buf.clear();
+                    if (beginQuote)
+                    {
+                        quoteLevel++;
+                    }
+                    else
+                    {
+                        quoteSequence++;
+                        if (quoteSequence == quoteLevel)
+                        {
+                            state = ParserState::Text;
+                            out += buf;
+
+                            // clean up state
+                            buf.clear();
+                            beginQuote = true;
+                            quoteLevel = 0;
+                            quoteSequence = 0;
+                        }
+                    }
                 }
+                else if (beginQuote)
+                {
+                    beginQuote = false;
+                    quoteSequence = 0;
+                }
+
                 break;
 
             case ParserState::SingleDollar:
@@ -424,14 +451,13 @@ QString MarkdownEntry::convert(const QString& markdown, QString& tail)
             // And it will be evaluate in wrong way ($$ $$)
             case ParserState::DoubleDollar:
                 buf += sym;
-                // The code checks that not three $ in a row, because we could match part of begin $$ as part of end $$
-                // For example $$$2+2$3+5$$, without this checking will be convert as $$$2+2$$3+5$$
-                //                                                                           ^
-                if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER && prev[1] != DOLLAR)
+                length++;
+                if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER && length >= 3)
                 {
                     state = ParserState::Text;
                     out += buf;
                     buf.clear();
+                    length = 0;
                 }
                 break;
         }
