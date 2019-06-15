@@ -32,6 +32,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QDebug>
+#include <QPixmap>
+#include <QTemporaryFile>
 
 LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session, false, -1)
 {
@@ -130,11 +132,47 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 traceback += line.toString() + QLatin1Char('\n');
             traceback.chop(1);
 
-            // IPython return error with terminal colors, should Cantor handle it?
+            // Jupyter TODO: IPython return error with terminal colors, should Cantor handle it?
             //static const QChar ESC(0x1b);
             //traceback.remove(QRegExp(QString(ESC)+QLatin1String("[\\[0-9,;]*m")));
 
             setErrorMessage(traceback.replace(QLatin1String("\n"), QLatin1String("<br>")));
+        }
+        else if (outputType == QLatin1String("display_data"))
+        {
+            const QJsonObject& data = output.value(QLatin1String("data")).toObject();
+
+            const QLatin1String imageKey("image/png");
+            if (data.contains(imageKey))
+            {
+                // Load image data from base64, save into file, and create image result from this file
+                // Jupyter TODO: maybe add way to create ImageResult directly from QImage?
+                QString base64 = data.value(imageKey).toString();
+                base64.append(QLatin1String("data:image/png;base64,"));
+
+                QImage image;
+                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), imageKey.data());
+
+                QTemporaryFile imageFile;
+                imageFile.setAutoRemove(false);
+                imageFile.open();
+                image.save(imageFile.fileName(), "PNG");
+
+                QString alt;
+                const QLatin1String textKey("text/plain");
+                if (data.contains(textKey))
+                {
+                    const QJsonValue& text = data.value(textKey);
+                    if (text.isString())
+                        alt = text.toString();
+                    else if (text.isArray())
+                        for (const QJsonValue& line : text.toArray())
+                            alt += line.toString();
+                }
+                qDebug() << "alt: " << alt;
+
+                addResult(new Cantor::ImageResult(QUrl::fromLocalFile(imageFile.fileName()), alt));
+            }
         }
     }
     if (errorMessage().isEmpty())
