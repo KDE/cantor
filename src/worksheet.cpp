@@ -1246,24 +1246,40 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         return false;
     }
 
-    const QString& backendName = adaptBackendName(name.toString());
-    Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
-    // Jupyter TODO: what about corresponding jupyter and our names
-    // Is them always matches each over?
-    // Investigate.
+    // Jupyter TODO: Check, that adaptBackendName will correct
+    m_backendName = adaptBackendName(name.toString());
+    Cantor::Backend* backend = Cantor::Backend::getBackend(m_backendName);
     if (!backend)
     {
-        // Jupyter TODO: what about readonly mode?
         QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support Jupyter %1 backend, so can't open the project", backendName), i18n("Cantor"));
-        return false;
+        KMessageBox::information(worksheetView(), i18n("%1 backend was not found. Editing and executing entries is not possible", m_backendName), i18n("Cantor"));
+        m_readOnly = true;
     }
+    else
+        m_readOnly = false;
+
+    if(!m_readOnly && !backend->isEnabled())
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
+                                            "please check your configuration or install the needed packages.\n"
+                                            "You will only be able to view this worksheet.", m_backendName), i18n("Cantor"));
+        m_readOnly = true;
+    }
+
+    if (m_readOnly)
+    {
+        // Jupyter TODO: Handle this here? Again?
+        for (QAction* action : m_richTextActionList)
+            action->setEnabled(false);
+    }
+
 
     m_isLoadingFromFile = true;
 
     if (m_session)
         delete m_session;
-    m_session = backend->createSession();
+    m_session = nullptr;
     m_loginDone = false;
 
     if (m_firstEntry) {
@@ -1273,6 +1289,9 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     resetEntryCursor();
 
+    if (!m_readOnly)
+        m_session=backend->createSession();
+
     qDebug() << "loading jupyter entries";
 
     static const QLatin1String cellTypeKey("cell_type");
@@ -1280,6 +1299,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     // Jupyter TODO: handle error, like no object, no 'cell_type', etc
     // Maybe forward back to cantor shell and UI message about failed
+    WorksheetEntry* worksheetEntry = nullptr;
     for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
         bool isCellObject = iter->isObject();
         if (!isCellObject)
@@ -1302,13 +1322,27 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
             // Jupyter TODO output of runned cells
             CommandEntry* entry = static_cast<CommandEntry*>(appendCommandEntry());
             entry->setContentFromJupyter(cell);
+            worksheetEntry = entry;
         }
         else if (cellType == QLatin1String("markdown"))
         {
             // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
-            MarkdownEntry* markdown = static_cast<MarkdownEntry*>(appendMarkdownEntry());
-            markdown->setContentFromJupyter(cell);
-            markdown->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+            MarkdownEntry* entry = static_cast<MarkdownEntry*>(appendMarkdownEntry());
+            entry->setContentFromJupyter(cell);
+            entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+            worksheetEntry = entry;
+        }
+        else if (cellType == QLatin1String("raw"))
+        {
+            // Jupyter TODO: handle this type, but how?
+            // Text entries will be fine, but will be problems with saving user .cws as .ipynb
+            // Invatigate
+        }
+
+        if (m_readOnly && worksheetEntry)
+        {
+            worksheetEntry->setAcceptHoverEvents(false);
+            worksheetEntry = nullptr;
         }
     }
 
@@ -1317,8 +1351,6 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     m_isLoadingFromFile = false;
 
-    //Set the Highlighting, depending on the current state
-    //If the session isn't logged in, use the default
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
     emit loaded();

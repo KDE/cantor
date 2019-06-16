@@ -140,7 +140,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
             setErrorMessage(traceback.toHtmlEscaped().replace(QLatin1String("\n"), QLatin1String("<br>")));
         }
-        else if (outputType == QLatin1String("display_data"))
+        else if (outputType == QLatin1String("display_data") || outputType == QLatin1String("execute_result"))
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
