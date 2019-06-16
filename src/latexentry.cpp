@@ -38,10 +38,10 @@
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
+    m_textItem->installEventFilter(this);
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &LatexEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &LatexEntry::moveToNextEntry);
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
-    connect(m_textItem, &WorksheetTextItem::doubleClick, this, &LatexEntry::resolveImagesAtCursor);
 }
 
 void LatexEntry::populateMenu(QMenu* menu, QPointF pos)
@@ -98,13 +98,14 @@ bool LatexEntry::focusEntry(int pos, qreal xCoord)
 
 void LatexEntry::setContent(const QString& content)
 {
-    m_textItem->setPlainText(content);
+    m_latex = content;
+    m_textItem->setPlainText(m_latex);
 }
 
 void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    QString latexCode = content.text();
-    qDebug() << latexCode;
+    m_latex = content.text();
+    qDebug() << m_latex;
 
     m_textItem->document()->clear();
     QTextCursor cursor = m_textItem->textCursor();
@@ -124,14 +125,14 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             imagePath = dir + QDir::separator() + imageFile->name();
 
 #ifdef LIBSPECTRE_FOUND
-            QTextImageFormat format = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
-            qDebug()<<"rendering successful? " << !format.name().isEmpty();
+            m_renderedFormat = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
+            qDebug()<<"rendering successful? " << !m_renderedFormat.name().isEmpty();
 
-            format.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
-            format.setProperty(EpsRenderer::ImagePath, imagePath);
-            format.setProperty(EpsRenderer::Code, latexCode);
+            m_renderedFormat.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(EpsRenderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(EpsRenderer::Code, m_latex);
 
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
             m_textItem->denyEditing();
 #endif
@@ -151,24 +152,23 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 
             m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
 
-            QTextImageFormat format;
-            format.setName(internal.url());
-            format.setWidth(image.width());
-            format.setHeight(image.height());
+            m_renderedFormat.setName(internal.url());
+            m_renderedFormat.setWidth(image.width());
+            m_renderedFormat.setHeight(image.height());
 
-            format.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
             if (!imagePath.isEmpty())
-                format.setProperty(EpsRenderer::ImagePath, imagePath);
-            format.setProperty(EpsRenderer::Code, latexCode);
+                m_renderedFormat.setProperty(EpsRenderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(EpsRenderer::Code, m_latex);
 
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
             m_textItem->denyEditing();
         }
     }
 
     if (useLatexCode)
-        cursor.insertText(latexCode);
+        cursor.insertText(m_latex);
 }
 
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -247,6 +247,7 @@ bool LatexEntry::evaluate(EvaluationOption evalOp)
     }
     else
     {
+        m_latex = latexCode();
         success = renderLatexCode();
     }
 
@@ -273,14 +274,32 @@ void LatexEntry::updateEntry()
     }
 }
 
-void LatexEntry::resolveImagesAtCursor()
+bool LatexEntry::eventFilter(QObject* object, QEvent* event)
 {
-    QTextCursor cursor = m_textItem->textCursor();
-    if (!cursor.hasSelection())
-        cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+    if(object == m_textItem && event->type() == QEvent::GraphicsSceneMouseDoubleClick)
+    {
+        // One image if we have rendered entry
+        if (isOneImageOnly())
+        {
+            QTextCursor cursor = m_textItem->textCursor();
+            if (!cursor.hasSelection())
+                cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
 
-    cursor.insertText(m_textItem->resolveImages(cursor));
-    m_textItem->allowEditing();
+            cursor.insertText(m_textItem->resolveImages(cursor));
+            m_textItem->allowEditing();
+            return true;
+        }
+        else if (m_latex == latexCode())
+        {
+            QTextCursor cursor = m_textItem->textCursor();
+            cursor.movePosition(QTextCursor::Start);
+            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+            m_textItem->denyEditing();
+            return true;
+        }
+    }
+    return false;
 }
 
 QString LatexEntry::latexCode()
@@ -391,12 +410,11 @@ bool LatexEntry::renderLatexCode()
     renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
     renderer->renderBlocking();
 
-    QTextImageFormat formulaFormat;
     if (renderer->renderingSuccessful())
     {
         EpsRenderer* epsRend = worksheet()->epsRenderer();
-        formulaFormat = epsRend->render(m_textItem->document(), renderer);
-        success = !formulaFormat.name().isEmpty();
+        m_renderedFormat = epsRend->render(m_textItem->document(), renderer);
+        success = !m_renderedFormat.name().isEmpty();
     }
 
     if(success)
@@ -404,7 +422,7 @@ bool LatexEntry::renderLatexCode()
         QTextCursor cursor = m_textItem->textCursor();
         cursor.movePosition(QTextCursor::Start);
         cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
         m_textItem->denyEditing();
     }
     delete renderer;

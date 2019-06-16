@@ -60,12 +60,12 @@ class LatexEntry : public WorksheetEntry
 
   public Q_SLOTS:
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
-    void resolveImagesAtCursor();
     void updateEntry() override;
     void populateMenu(QMenu* menu, QPointF pos) override;
 
   protected:
     bool wantToEvaluate() override;
+    bool eventFilter(QObject* object, QEvent* event) override;
 
   private:
     QString latexCode();
@@ -74,6 +74,8 @@ class LatexEntry : public WorksheetEntry
 
   private:
     WorksheetTextItem* m_textItem;
+    QTextImageFormat m_renderedFormat;
+    QString m_latex;
 };
 
 #endif // LATEXENTRY_H

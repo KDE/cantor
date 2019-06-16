@@ -212,13 +212,24 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
         {
             QGraphicsSceneMouseEvent* mouseEvent = dynamic_cast<QGraphicsSceneMouseEvent*>(event);
             if(!mouseEvent) return false;
-            if(mouseEvent->button() == Qt::LeftButton && rendered)
+            if(mouseEvent->button() == Qt::LeftButton)
             {
-                setPlainText(plain);
-                m_textItem->setCursorPosition(mouseEvent->pos());
-                m_textItem->textCursor().clearSelection();
-                rendered = false;
-                return true;
+                if (rendered)
+                {
+                    setPlainText(plain);
+                    m_textItem->setCursorPosition(mouseEvent->pos());
+                    m_textItem->textCursor().clearSelection();
+                    rendered = false;
+                    return true;
+                }
+                else if (m_textItem->toPlainText() == plain)
+                {
+                    setRenderedHtml(html);
+                    m_textItem->setCursorPosition(mouseEvent->pos());
+                    m_textItem->textCursor().clearSelection();
+                    rendered = true;
+                    return true;
+                }
             }
         }
     }
