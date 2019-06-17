@@ -82,7 +82,8 @@ void CantorShell::load(const QUrl &url)
         addWorksheet(QLatin1String("null"));
         m_tabWidget->setCurrentIndex(m_parts.size()-1);
     }
-    m_part->openUrl( url );
+    if (!m_part->openUrl( url ))
+        closeTab(m_tabWidget->currentIndex());
 }
 
 bool CantorShell::hasAvailableBackend()
