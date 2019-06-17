@@ -48,6 +48,11 @@ void PythonServer::login()
     filePath = QStringLiteral("python_cantor_worksheet");
 }
 
+void PythonServer::interrupt()
+{
+    PyErr_SetInterrupt();
+}
+
 void PythonServer::runPythonCommand(const QString& command) const
 {
     PyObject* py_dict = PyModule_GetDict(m_pModule);

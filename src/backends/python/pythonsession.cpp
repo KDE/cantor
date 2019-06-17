@@ -127,7 +127,7 @@ void PythonSession::interrupt()
     if(!expressionQueue().isEmpty())
     {
         qDebug()<<"interrupting " << expressionQueue().first()->command();
-        if(m_process->state() != QProcess::NotRunning)
+        if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
             const int pid=m_process->pid();
@@ -140,11 +140,7 @@ void PythonSession::interrupt()
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
-        // Cleanup inner state and call octave prompt printing
-        // If we move this code for interruption to Session, we need add function for
-        // cleaning before setting Done status
         m_output.clear();
-        m_process->write("\n");
 
         qDebug()<<"done interrupting";
     }

@@ -275,5 +275,34 @@ void TestPython2::testCompletion()
     QVERIFY(completions.contains(QLatin1String("max")));
 }
 
+void TestPython2::testInterrupt()
+{
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("import time; time.sleep(45)"));
+    Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("2"));
+
+    // Wait, because server need time to read input
+    QTest::qWait(100);
+
+    QCOMPARE(e1->status(), Cantor::Expression::Computing);
+    QCOMPARE(e2->status(), Cantor::Expression::Queued);
+
+    while(session()->status() != Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    session()->interrupt();
+
+    while(session()->status() != Cantor::Session::Done)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
+    QCOMPARE(e1->status(), Cantor::Expression::Interrupted);
+    QCOMPARE(e2->status(), Cantor::Expression::Interrupted);
+
+    Cantor::Expression* e = evalExp(QLatin1String("2+2"));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result());
+    QCOMPARE(e->result()->data().toString(), QLatin1String("4"));
+}
+
 QTEST_MAIN(TestPython2)
 

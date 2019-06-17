@@ -19,6 +19,7 @@
  */
 
 #include <iostream>
+#include <csignal>
 
 #include <QApplication>
 #include <QTimer>
@@ -32,6 +33,7 @@ const QChar unitSep(31);
 const char messageEnd = 29;
 
 PythonServer server;
+bool isInterrupted = false;
 QTimer inputTimer;
 QMetaObject::Connection connection;
 
@@ -42,7 +44,6 @@ QLatin1String EXIT("exit");
 QLatin1String CODE("code");
 QLatin1String FILEPATH("setFilePath");
 QLatin1String MODEL("model");
-
 
 void routeInput() {
     QByteArray bytes;
@@ -71,21 +72,27 @@ void routeInput() {
         else if (records[0] == LOGIN)
         {
             server.login();
-            const QByteArray bytes = QString::fromLatin1("login done").toLocal8Bit();
-            //std::cout << bytes.data();
         }
         else if (records[0] == CODE)
         {
             server.runPythonCommand(records[1]);
 
-            const QString& result =
-                server.getOutput()
-                + unitSep
-                + server.getError()
-                + QLatin1Char(messageEnd);
+            if (!isInterrupted)
+            {
+                const QString& result =
+                    server.getOutput()
+                    + unitSep
+                    + server.getError()
+                    + QLatin1Char(messageEnd);
 
-            const QByteArray bytes = result.toLocal8Bit();
-            std::cout << bytes.data();
+                const QByteArray bytes = result.toLocal8Bit();
+                std::cout << bytes.data();
+            }
+            else
+            {
+                // No replay when interrupted
+                isInterrupted = false;
+            }
         }
         else if (records[0] == FILEPATH)
         {
@@ -110,8 +117,19 @@ void routeInput() {
     }
 }
 
+void signal_handler(int signal)
+{
+    if (signal == SIGINT)
+    {
+        isInterrupted = true;
+        server.interrupt();
+    }
+}
+
+
 int main(int argc, char *argv[])
 {
+    std::signal(SIGINT, signal_handler);
     QCoreApplication app(argc, argv);
 
     connection = QObject::connect(&inputTimer, &QTimer::timeout, routeInput);
