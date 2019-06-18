@@ -26,6 +26,7 @@
 #include <QDebug>
 #include <QMenu>
 #include <QFileSystemWatcher>
+#include <QJsonValue>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -99,6 +100,17 @@ void ImageEntry::setContent(const QDomElement& content, const KZip& file)
     m_printSize.widthUnit = unitNames.indexOf(printElement.attribute(QLatin1String("widthUnit")));
     m_printSize.heightUnit = unitNames.indexOf(printElement.attribute(QLatin1String("heightUnit")));
     updateEntry();
+}
+
+void ImageEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    // Jupyter TODO: Add realization
+}
+
+QJsonValue ImageEntry::toJupyterJson()
+{
+    // Jupyter TODO: Add realization
+    return QJsonValue();
 }
 
 QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)

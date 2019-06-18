@@ -50,6 +50,7 @@ class CANTOR_EXPORT TextResult : public Result
     void setFormat(Format f);
 
     QDomElement toXml(QDomDocument& doc) override;
+    QJsonValue toJupyterJson() override;
 
     void save(const QString& filename) override;
 

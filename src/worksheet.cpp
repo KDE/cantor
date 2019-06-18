@@ -903,6 +903,37 @@ QDomDocument Worksheet::toXML(KZip* archive)
     return doc;
 }
 
+QJsonDocument Worksheet::toJupyterJson()
+{
+    QJsonDocument doc;
+    QJsonObject root;
+
+    QJsonObject metadata;
+
+    QJsonObject kernalInfo;
+    kernalInfo.insert(QLatin1String("name"), m_backendName.toLower());
+    kernalInfo.insert(QLatin1String("display_name"),m_backendName);
+    metadata.insert(QLatin1String("kernelspec"), kernalInfo);
+
+    root.insert(QLatin1String("metadata"), metadata);
+
+    root.insert(QLatin1String("nbformat"), 4);
+    root.insert(QLatin1String("nbformat_minor"), 1);
+
+    QJsonArray cells;
+    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    {
+        const QJsonValue entryJson = entry->toJupyterJson();
+
+        if (!entryJson.isNull())
+            cells.append(entryJson);
+    }
+    root.insert(QLatin1String("cells"), cells);
+
+    doc.setObject(root);
+    return doc;
+}
+
 void Worksheet::save( const QString& filename )
 {
     QFile file(filename);
@@ -928,22 +959,41 @@ QByteArray Worksheet::saveToByteArray()
 void Worksheet::save( QIODevice* device)
 {
     qDebug()<<"saving to filename";
-    KZip zipFile( device );
-
-
-    if ( !zipFile.open(QIODevice::WriteOnly) )
+    switch (m_type)
     {
-        KMessageBox::error( worksheetView(),
-                            i18n( "Cannot write file." ),
-                            i18n( "Error - Cantor" ));
-        return;
+        case CantorWorksheet:
+        {
+            KZip zipFile( device );
+
+            if ( !zipFile.open(QIODevice::WriteOnly) )
+            {
+                KMessageBox::error( worksheetView(),
+                                    i18n( "Cannot write file." ),
+                                    i18n( "Error - Cantor" ));
+                return;
+            }
+
+            QByteArray content = toXML(&zipFile).toByteArray();
+            qDebug()<<"content: "<<content;
+            zipFile.writeFile( QLatin1String("content.xml"), content.data());
+            break;
+        }
+
+        case JupyterNotebook:
+        {
+            if (!device->isWritable())
+            {
+                KMessageBox::error( worksheetView(),
+                                    i18n( "Cannot write file." ),
+                                    i18n( "Error - Cantor" ));
+                return;
+            }
+
+            const QJsonDocument& doc = toJupyterJson();
+            device->write(doc.toJson(QJsonDocument::Indented));
+            break;
+        }
     }
-
-    QByteArray content = toXML(&zipFile).toByteArray();
-    qDebug()<<"content: "<<content;
-    zipFile.writeFile( QLatin1String("content.xml"), content.data());
-
-    /*zipFile.close();*/
 }
 
 
@@ -1299,7 +1349,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     // Jupyter TODO: handle error, like no object, no 'cell_type', etc
     // Maybe forward back to cantor shell and UI message about failed
-    WorksheetEntry* worksheetEntry = nullptr;
+    WorksheetEntry* entry = nullptr;
     for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
         bool isCellObject = iter->isObject();
         if (!isCellObject)
@@ -1320,17 +1370,15 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         if (cellType == QLatin1String("code"))
         {
             // Jupyter TODO output of runned cells
-            CommandEntry* entry = static_cast<CommandEntry*>(appendCommandEntry());
+            entry = appendCommandEntry();
             entry->setContentFromJupyter(cell);
-            worksheetEntry = entry;
         }
         else if (cellType == QLatin1String("markdown"))
         {
             // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
-            MarkdownEntry* entry = static_cast<MarkdownEntry*>(appendMarkdownEntry());
+            entry = appendMarkdownEntry();
             entry->setContentFromJupyter(cell);
             entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
-            worksheetEntry = entry;
         }
         else if (cellType == QLatin1String("raw"))
         {
@@ -1339,10 +1387,10 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
             // Invatigate
         }
 
-        if (m_readOnly && worksheetEntry)
+        if (m_readOnly && entry)
         {
-            worksheetEntry->setAcceptHoverEvents(false);
-            worksheetEntry = nullptr;
+            entry->setAcceptHoverEvents(false);
+            entry = nullptr;
         }
     }
 
@@ -2162,4 +2210,14 @@ void Worksheet::drawEntryCursor()
         m_entryCursorItem->setLine(x,y,x+EntryCursorLength,y);
         m_entryCursorItem->show();
     }
+}
+
+void Worksheet::setType(Worksheet::Type type)
+{
+    m_type = type;
+}
+
+Worksheet::Type Worksheet::type() const
+{
+    return m_type;
 }

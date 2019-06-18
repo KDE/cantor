@@ -25,6 +25,8 @@ using namespace Cantor;
 
 #include <QFile>
 #include <QTextStream>
+#include <QJsonArray>
+#include <QJsonObject>
 
 QString rtrim(const QString& s)
 {
@@ -118,6 +120,30 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     e.appendChild(txt);
 
     return e;
+}
+
+QJsonValue Cantor::TextResult::toJupyterJson()
+{
+    QJsonObject root;
+
+    root.insert(QLatin1String("output_type"), QLatin1String("stream"));
+    // Jupyter TODO: what about stderr?
+    root.insert(QLatin1String("name"), QLatin1String("stdout"));
+
+    QJsonArray text;
+    // Jupyter TODO: use data? Or toHtml?
+    const QStringList& lines = d->data.split(QLatin1Char('\n'));
+    for (int i = 0; i < lines.size(); i++)
+    {
+        QString line = lines[i];
+        // Don't add \n to last line
+        if (i != lines.size() - 1)
+            line.append(QLatin1Char('\n'));
+        text.append(line);
+    }
+    root.insert(QLatin1String("text"), text);
+
+    return root;
 }
 
 void TextResult::save(const QString& filename)

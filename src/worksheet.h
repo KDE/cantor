@@ -112,6 +112,9 @@ class Worksheet : public QGraphicsScene
 
     bool isShortcut(const QKeySequence&);
 
+    void setType(Worksheet::Type type);
+    Worksheet::Type type() const;
+
     // richtext
     struct RichTextInfo {
         bool bold;
@@ -238,6 +241,8 @@ class Worksheet : public QGraphicsScene
 
     void keyPressEvent(QKeyEvent*) override;
 
+    QJsonDocument toJupyterJson();
+
   private Q_SLOTS:
     void showCompletion();
     //void checkEntriesForSanity();
@@ -307,7 +312,7 @@ class Worksheet : public QGraphicsScene
     bool m_isLoadingFromFile;
     bool m_readOnly;
 
-    Type m_type;
+    Type m_type = CantorWorksheet;
 
     QString m_backendName;
 };

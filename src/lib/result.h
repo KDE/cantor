@@ -100,6 +100,10 @@ class CANTOR_EXPORT Result
     virtual void saveAdditionalData(KZip* archive);
 
     /**
+     * return a Jupyter json object, containing the information of the result
+     */
+    virtual QJsonValue toJupyterJson() = 0;
+    /**
      * saves this to a file
      * @param filename name of the file
      */

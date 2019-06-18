@@ -24,6 +24,8 @@ using namespace Cantor;
 #include <config-cantorlib.h>
 
 #include <QDebug>
+#include <QJsonValue>
+
 #include <KZip>
 #include <KIO/Job>
 
@@ -85,6 +87,15 @@ QDomElement EpsResult::toXml(QDomDocument& doc)
     qDebug()<<"done";
 
     return e;
+}
+
+QJsonValue Cantor::EpsResult::toJupyterJson()
+{
+    // Juputer TODO: Technically, I could convert .eps file to Image via EpsRenderer
+    // But EpsRender don't available from Cantor core library
+    // I will handle this result type in worksheet, but it's not look nice...
+
+    return QJsonValue();
 }
 
 void EpsResult::saveAdditionalData(KZip* archive)

@@ -46,7 +46,9 @@ class ImageEntry : public WorksheetEntry
     bool acceptRichText() override;
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
+    void setContentFromJupyter(const QJsonObject & cell) override;
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     QSizeF imageSize(const ImageSize& imgSize);

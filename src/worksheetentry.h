@@ -72,8 +72,10 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual void setContent(const QString& content)=0;
     virtual void setContent(const QDomElement& content, const KZip& file)=0;
+    virtual void setContentFromJupyter(const QJsonObject& cell)=0;
 
     virtual QDomElement toXml(QDomDocument& doc, KZip* archive)=0;
+    virtual QJsonValue toJupyterJson()=0;
     virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
     virtual void interruptEvaluation()=0;

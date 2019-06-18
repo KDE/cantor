@@ -34,6 +34,7 @@
 #include <QDebug>
 #include <QBuffer>
 #include <QUuid>
+#include <QJsonValue>
 #include <KLocalizedString>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
@@ -169,6 +170,17 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 
     if (useLatexCode)
         cursor.insertText(latexCode);
+}
+
+void LatexEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    // Jupyter TODO: Add realization
+}
+
+QJsonValue LatexEntry::toJupyterJson()
+{
+    // Jupyter TODO: Add realization
+    return QJsonValue();
 }
 
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)

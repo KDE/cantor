@@ -23,6 +23,7 @@
 #include <QTextCursor>
 #include <QTextCharFormat>
 #include <QPalette>
+#include <QJsonValue>
 #include <KColorScheme>
 #include <KLocalizedString>
 
@@ -72,6 +73,18 @@ void PageBreakEntry::setContent(const QDomElement& content, const KZip& file)
     Q_UNUSED(content);
     Q_UNUSED(file);
     return;
+}
+
+void PageBreakEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    Q_UNUSED(cell);
+    return;
+}
+
+QJsonValue PageBreakEntry::toJupyterJson()
+{
+    // There isn't something like our page break in Jupyter
+    return QJsonValue();
 }
 
 QDomElement PageBreakEntry::toXml(QDomDocument& doc, KZip* archive)

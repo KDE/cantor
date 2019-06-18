@@ -93,6 +93,12 @@ QDomElement AnimationResult::toXml(QDomDocument& doc)
     return e;
 }
 
+QJsonValue Cantor::AnimationResult::toJupyterJson()
+{
+    // Jupyter TODO: add support for this result type
+    return QJsonValue();
+}
+
 void AnimationResult::saveAdditionalData(KZip* archive)
 {
     archive->addLocalFile(d->url.toLocalFile(), d->url.fileName());

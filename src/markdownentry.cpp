@@ -22,6 +22,7 @@
 
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QJsonValue>
 
 #include <config-cantor.h>
 
@@ -135,6 +136,26 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
     return el;
 }
 
+QJsonValue MarkdownEntry::toJupyterJson()
+{
+    QJsonObject entry;
+
+    entry.insert(QLatin1String("cell_type"), QLatin1String("markdown"));
+
+    // Jupyter TODO: Handle metadata
+    entry.insert(QLatin1String("metadata"), QJsonObject());
+
+    QJsonArray text;
+    for (QString line : plain.split(QLatin1Char('\n')))
+    {
+        line.append(QLatin1Char('\n'));
+        text.append(line);
+    }
+    entry.insert(QLatin1String("source"), text);
+
+    return entry;
+}
+
 QString MarkdownEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)
 {
     Q_UNUSED(commandSep);
@@ -142,10 +163,7 @@ QString MarkdownEntry::toPlain(const QString& commandSep, const QString& comment
     if (commentStartingSeq.isEmpty())
         return QString();
 
-    if(!rendered)
-        plain = m_textItem->toPlainText();
-
-    QString text = QString(plain);
+    QString text(plain);
 
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + QLatin1String("\n");

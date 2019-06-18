@@ -38,7 +38,7 @@ class CANTOR_EXPORT LatexResult : public EpsResult
     enum {Type=7};
     LatexResult( const QString& code, const QUrl& url, const QString& plain = QString());
     ~LatexResult() override;
-    
+
     int type() override;
     QString mimeType() override;
 
@@ -54,7 +54,8 @@ class CANTOR_EXPORT LatexResult : public EpsResult
     QVariant data() override;
 
     QDomElement toXml(QDomDocument& doc) override;
-    
+    QJsonValue toJupyterJson() override;
+
     void save(const QString& filename) override;
 
   private:

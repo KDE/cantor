@@ -456,8 +456,9 @@ bool CantorPart::saveFile()
 void CantorPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected
-    QString worksheetFilter = i18n("Cantor Worksheet (*.cws)");
-    QString filter = worksheetFilter;
+    static const QString& worksheetFilter = i18n("Cantor Worksheet (*.cws)");
+    static const QString& notebookFilter = i18n("Jupyter Notebook (*.ipynb)");
+    QString filter = worksheetFilter + QLatin1String(";;") + notebookFilter;
 
     if (!m_worksheet->isReadOnly())
     {
@@ -480,6 +481,14 @@ void CantorPart::fileSaveAs()
     {
         if (!file_name.endsWith(QLatin1String(".cws")))
             file_name += QLatin1String(".cws");
+        m_worksheet->setType(Worksheet::CantorWorksheet);
+        saveAs(QUrl::fromLocalFile(file_name));
+    }
+    else if (selectedFilter == notebookFilter)
+    {
+        if (!file_name.endsWith(QLatin1String(".ipynb")))
+            file_name += QLatin1String(".ipynb");
+        m_worksheet->setType(Worksheet::JupyterNotebook);
         saveAs(QUrl::fromLocalFile(file_name));
     }
     else

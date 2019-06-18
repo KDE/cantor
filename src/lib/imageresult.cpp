@@ -25,6 +25,7 @@ using namespace Cantor;
 #include <QImageWriter>
 #include <KZip>
 #include <QDebug>
+#include <QBuffer>
 
 class Cantor::ImageResultPrivate
 {
@@ -97,6 +98,35 @@ QDomElement ImageResult::toXml(QDomDocument& doc)
     qDebug()<<"done";
 
     return e;
+}
+
+QJsonValue Cantor::ImageResult::toJupyterJson()
+{
+    QJsonObject root;
+
+    root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+    QJsonObject data;
+    data.insert(QLatin1String("text/plain"), d->alt);
+
+    QImage image;
+    if (d->img.isNull())
+        image.load(d->url.toLocalFile());
+    else
+        image = d->img;
+
+    QByteArray ba;
+    QBuffer buffer(&ba);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, "PNG");
+    data.insert(QLatin1String("image/png"), QString::fromLatin1(ba.toBase64()));
+
+    root.insert(QLatin1String("data"), data);
+
+    // Jupyter TODO: handle metadata?
+    root.insert(QLatin1String("metadata"), QJsonObject());
+
+    return root;
 }
 
 void ImageResult::saveAdditionalData(KZip* archive)

@@ -25,6 +25,8 @@
 #include "loadedexpression.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
+#include "lib/epsresult.h"
+#include "lib/latexresult.h"
 #include "lib/completionobject.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
@@ -39,6 +41,7 @@
 #include <QGraphicsWidget>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QBuffer>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -462,6 +465,71 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
     setExpression(expr);
 }
 
+QJsonValue CommandEntry::toJupyterJson()
+{
+    QJsonObject entry;
+
+    entry.insert(QLatin1String("cell_type"), QLatin1String("code"));
+
+    QJsonValue executionCountValue;
+    if (expression() && expression()->id() != -1)
+        executionCountValue = QJsonValue(expression()->id());
+    entry.insert(QLatin1String("execution_count"), executionCountValue);
+
+    // Jupyter TODO: support metadata info, collapsed for example
+    QJsonObject metadata;
+    entry.insert(QLatin1String("metadata"), metadata);
+
+    QJsonArray text;
+    const QStringList& lines = command().split(QLatin1Char('\n'));
+    for (int i = 0; i < lines.size(); i++)
+    {
+        QString line = lines[i];
+        // Don't add \n to last line
+        if (i != lines.size() - 1)
+            line.append(QLatin1Char('\n'));
+        text.append(line);
+    }
+    entry.insert(QLatin1String("source"), text);
+
+    QJsonArray outputs;
+    if (expression())
+        for (Cantor::Result * const result: expression()->results())
+        {
+            const QJsonValue& resultJson = result->toJupyterJson();
+
+            // Jupyter TODO: Convert EpsResult here?
+            if (result->type() == Cantor::EpsResult::Type || result->type() == Cantor::LatexResult::Type)
+            {
+                QJsonObject root;
+
+                root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+                QJsonObject data;
+                data.insert(QLatin1String("text/plain"), QString());
+
+                const QImage& image = worksheet()->epsRenderer()->renderToImage(result->data().toUrl());
+
+                QByteArray ba;
+                QBuffer buffer(&ba);
+                buffer.open(QIODevice::WriteOnly);
+                image.save(&buffer, "PNG");
+                data.insert(QLatin1String("image/png"), QString::fromLatin1(ba.toBase64()));
+
+                root.insert(QLatin1String("data"), data);
+
+                // Jupyter TODO: handle metadata?
+                root.insert(QLatin1String("metadata"), QJsonObject());
+
+                outputs.append(root);
+            }
+            else if (!resultJson.isNull())
+                outputs.append(resultJson);
+            }
+    entry.insert(QLatin1String("outputs"), outputs);
+
+    return entry;
+}
 
 void CommandEntry::showCompletion()
 {

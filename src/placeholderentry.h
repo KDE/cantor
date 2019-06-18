@@ -36,7 +36,9 @@ class PlaceHolderEntry : public WorksheetEntry
     bool acceptRichText() override;
     void setContent(const QString&) override;
     void setContent(const QDomElement&, const KZip&) override;
+    void setContentFromJupyter(const QJsonObject & cell) override;
     QDomElement toXml(QDomDocument&, KZip*) override;
+    QJsonValue toJupyterJson() override;
     QString toPlain(const QString&, const QString&, const QString&) override;
     void interruptEvaluation() override;
 

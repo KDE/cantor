@@ -64,9 +64,10 @@ class CommandEntry : public WorksheetEntry
 
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
-    void setContentFromJupyter(const QJsonObject& cell);
+    void setContentFromJupyter(const QJsonObject& cell) override;
 
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     void setCompletion(Cantor::CompletionObject* tc);

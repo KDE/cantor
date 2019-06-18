@@ -25,8 +25,9 @@
 #include "latexrenderer.h"
 
 #include <QGraphicsLinearLayout>
-
+#include <QJsonValue>
 #include <QDebug>
+
 #include <KLocalizedString>
 
 TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
@@ -109,6 +110,17 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
     QString html = doc.toString();
     qDebug() << html;
     m_textItem->setHtml(html);
+}
+
+void TextEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    // Jupyter TODO: Add realization
+}
+
+QJsonValue TextEntry::toJupyterJson()
+{
+    // Jupyter TODO: Add realization
+    return QJsonValue();
 }
 
 QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
