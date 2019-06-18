@@ -911,8 +911,10 @@ QJsonDocument Worksheet::toJupyterJson()
     QJsonObject metadata;
 
     QJsonObject kernalInfo;
-    kernalInfo.insert(QLatin1String("name"), m_backendName.toLower());
-    kernalInfo.insert(QLatin1String("display_name"),m_backendName);
+    const QString name = (m_session ? m_session->backend()->name(): m_backendName);
+    // Jupyter TODO: adaptBackendName inverted function here?
+    kernalInfo.insert(QLatin1String("name"), name.toLower());
+    kernalInfo.insert(QLatin1String("display_name"), name);
     metadata.insert(QLatin1String("kernelspec"), kernalInfo);
 
     root.insert(QLatin1String("metadata"), metadata);

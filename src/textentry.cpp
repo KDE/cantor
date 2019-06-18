@@ -24,8 +24,12 @@
 #include "epsrenderer.h"
 #include "latexrenderer.h"
 
+#include "settings.h"
+
 #include <QGraphicsLinearLayout>
 #include <QJsonValue>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <QDebug>
 
 #include <KLocalizedString>
@@ -115,12 +119,52 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
 void TextEntry::setContentFromJupyter(const QJsonObject& cell)
 {
     // Jupyter TODO: Add realization
+    Q_UNUSED(cell);
 }
 
 QJsonValue TextEntry::toJupyterJson()
 {
-    // Jupyter TODO: Add realization
-    return QJsonValue();
+    QTextDocument* doc = m_textItem->document()->clone();
+    QTextCursor cursor = doc->find(QString(QChar::ObjectReplacementCharacter));
+    while(!cursor.isNull())
+    {
+        QTextCharFormat format = cursor.charFormat();
+        if (format.hasProperty(EpsRenderer::CantorFormula))
+        {
+            showLatexCode(cursor);
+        }
+
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+
+    QString entryData;
+    if (Settings::storeTextEntryFormatting())
+        entryData = doc->toHtml();
+    else
+        entryData = doc->toPlainText();
+    // Replace our $$ formulas to $
+    entryData.replace(QLatin1String("$$"), QLatin1String("$"));
+
+    QJsonObject entry;
+
+    entry.insert(QLatin1String("cell_type"), QLatin1String("markdown"));
+
+    // Jupyter TODO: Handle metadata
+    entry.insert(QLatin1String("metadata"), QJsonObject());
+
+    QJsonArray text;
+    const QStringList& lines = entryData.split(QLatin1Char('\n'));
+    for (int i = 0; i < lines.size(); i++)
+    {
+        QString line = lines[i];
+        // Don't add \n to last line
+        if (i != lines.size() - 1)
+            line.append(QLatin1Char('\n'));
+        text.append(line);
+    }
+    entry.insert(QLatin1String("source"), text);
+
+    return entry;
 }
 
 QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)

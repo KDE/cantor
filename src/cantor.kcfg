@@ -38,6 +38,10 @@
       <label>Ask for confirmation when restarting the backend</label>
       <default>true</default>
     </entry>
+    <entry name="StoreTextEntryFormatting" type="Bool">
+      <label>Save rich text formatting of TextEntry, when save Worksheet in Jupyter notebook format</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>
 
