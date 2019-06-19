@@ -20,6 +20,7 @@
 
 #include "loadedexpression.h"
 
+#include "jupyterutils.h"
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 #include "lib/textresult.h"
@@ -92,35 +93,23 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 
 void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 {
-    const QJsonValue& source = cell.value(QLatin1String("source"));
-    QString code;
-    if (source.isString())
-        code = source.toString();
-    else if (source.isArray())
-        for (const QJsonValue& line : source.toArray())
-            code += line.toString();
-    setCommand(code);
+    setCommand(JupyterUtils::getSource(cell));
 
     const QJsonValue idObject = cell.value(QLatin1String("execution_count"));
     if (!idObject.isUndefined() && !idObject.isNull())
         setId(idObject.toInt());
 
     const QJsonArray& outputs = cell.value(QLatin1String("outputs")).toArray();
-    //Jupyter TODO: load all outputs type here
     for (QJsonArray::const_iterator iter = outputs.begin(); iter != outputs.end(); iter++)
     {
-        bool isCellObject = iter->isObject();
-        if (!isCellObject)
+        if (!JupyterUtils::isJupyterOutput(*iter))
             continue;
 
         const QJsonObject& output = iter->toObject();
-        const QString& outputType = output.value(QLatin1String("output_type")).toString();
+        const QString& outputType = JupyterUtils::getOutputType(output);
         if (outputType == QLatin1String("stream"))
         {
-            const QJsonArray& textLineArray = output.value(QLatin1String("text")).toArray();
-            QString text;
-            for (const QJsonValue& line : textLineArray)
-                text += line.toString();
+            const QString& text = JupyterUtils::fromJupyterMultiline(output.value(QLatin1String("text")));
 
             addResult(new Cantor::TextResult(text));
         }

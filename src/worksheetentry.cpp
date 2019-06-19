@@ -36,6 +36,7 @@
 #include <QMimeData>
 #include <QGraphicsProxyWidget>
 #include <QBitmap>
+#include <QJsonArray>
 
 #include <QIcon>
 #include <KLocalizedString>

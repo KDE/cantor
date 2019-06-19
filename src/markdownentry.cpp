@@ -24,6 +24,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 
+#include "jupyterutils.h"
 #include <config-cantor.h>
 
 #ifdef Discount_FOUND
@@ -103,15 +104,12 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 
 void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    const QJsonValue& source = cell.value(QLatin1String("source"));
-    QString code;
-    if (source.isString())
-        code = source.toString();
-    else if (source.isArray())
-        for (const QJsonValue& line : source.toArray())
-            code += line.toString();
+    if (!JupyterUtils::isMarkdownCell(cell))
+        return;
 
-    setPlainText(adaptJupyterMarkdown(code));
+    // Jupyter TODO: handle metadata and attachments
+
+    setPlainText(adaptJupyterMarkdown(JupyterUtils::getSource(cell)));
 }
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -145,13 +143,7 @@ QJsonValue MarkdownEntry::toJupyterJson()
     // Jupyter TODO: Handle metadata
     entry.insert(QLatin1String("metadata"), QJsonObject());
 
-    QJsonArray text;
-    for (QString line : plain.split(QLatin1Char('\n')))
-    {
-        line.append(QLatin1Char('\n'));
-        text.append(line);
-    }
-    entry.insert(QLatin1String("source"), text);
+    JupyterUtils::setSource(entry, plain);
 
     return entry;
 }

@@ -80,6 +80,7 @@ set(cantor_PART_SRCS
    loadedexpression.cpp
    animation.cpp
    epsrenderer.cpp
+   jupyterutils.cpp
  )
 
 ki18n_wrap_ui(cantor_PART_SRCS imagesettings.ui)

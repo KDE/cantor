@@ -23,6 +23,7 @@
 #include "worksheettextitem.h"
 #include "epsrenderer.h"
 #include "latexrenderer.h"
+#include "jupyterutils.h"
 
 #include "settings.h"
 
@@ -34,7 +35,10 @@
 
 #include <KLocalizedString>
 
-TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
+TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
+    , m_convertCell(false)
+    , m_convertTarget()
+    , m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->enableRichText(true);
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &TextEntry::moveToPreviousEntry);
@@ -108,6 +112,14 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
     if(content.firstChildElement(QLatin1String("body")).isNull())
         return;
 
+    if (content.hasAttribute(QLatin1String("convertTarget")))
+    {
+        m_convertCell = true;
+        m_convertTarget = content.attribute(QLatin1String("convertTarget"));
+    }
+    else
+        m_convertCell = false;
+
     QDomDocument doc = QDomDocument();
     QDomNode n = doc.importNode(content.firstChildElement(QLatin1String("body")), true);
     doc.appendChild(n);
@@ -118,12 +130,23 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
 
 void TextEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    // Jupyter TODO: Add realization
-    Q_UNUSED(cell);
+    if (!JupyterUtils::isRawCell(cell))
+        return;
+
+    m_convertCell = true;
+
+    const QJsonObject& metadata = cell.value(QLatin1String("metadata")).toObject(QJsonObject());
+    m_convertTarget = metadata.value(QLatin1String("format")).toString(QString());
+
+    m_textItem->setPlainText(JupyterUtils::getSource(cell));
 }
 
 QJsonValue TextEntry::toJupyterJson()
 {
+    // Simple logic:
+    // If convertTarget is empty, it's user maded cell and we convert it to a markdown
+    // If convertTarget setted, it's raw cell from Jupyter and we convert it to Jupyter cell
+
     QTextDocument* doc = m_textItem->document()->clone();
     QTextCursor cursor = doc->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
@@ -137,32 +160,37 @@ QJsonValue TextEntry::toJupyterJson()
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 
+    QJsonObject metadata;
+
     QString entryData;
-    if (Settings::storeTextEntryFormatting())
-        entryData = doc->toHtml();
+    QString entryType;
+
+    if (!m_convertCell)
+    {
+        entryType = QLatin1String("markdown");
+
+        // Jupyter TODO: Handle metadata
+        metadata = QJsonObject();
+
+        if (Settings::storeTextEntryFormatting())
+            entryData = doc->toHtml();
+        else
+            entryData = doc->toPlainText();
+        // Replace our $$ formulas to $
+        entryData.replace(QLatin1String("$$"), QLatin1String("$"));
+
+    }
     else
+    {
+        entryType = QLatin1String("raw");
+        metadata.insert(QLatin1String("format"), m_convertTarget);
         entryData = doc->toPlainText();
-    // Replace our $$ formulas to $
-    entryData.replace(QLatin1String("$$"), QLatin1String("$"));
+    }
 
     QJsonObject entry;
-
-    entry.insert(QLatin1String("cell_type"), QLatin1String("markdown"));
-
-    // Jupyter TODO: Handle metadata
-    entry.insert(QLatin1String("metadata"), QJsonObject());
-
-    QJsonArray text;
-    const QStringList& lines = entryData.split(QLatin1Char('\n'));
-    for (int i = 0; i < lines.size(); i++)
-    {
-        QString line = lines[i];
-        // Don't add \n to last line
-        if (i != lines.size() - 1)
-            line.append(QLatin1Char('\n'));
-        text.append(line);
-    }
-    entry.insert(QLatin1String("source"), text);
+    entry.insert(QLatin1String("cell_type"), entryType);
+    entry.insert(QLatin1String("metadata"), metadata);
+    JupyterUtils::setSource(entry, entryData);
 
     return entry;
 }
@@ -192,6 +220,9 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
     el.appendChild(myDoc.documentElement().firstChildElement(QLatin1String("body")));
+
+    if (m_convertCell)
+        el.setAttribute(QLatin1String("convertTarget"), m_convertTarget);
 
     if (needsEval)
         evaluate();

@@ -86,6 +86,8 @@ class TextEntry : public WorksheetEntry
     QString showLatexCode(QTextCursor& cursor);
 
   private:
+    bool m_convertCell;
+    QString m_convertTarget;
     WorksheetTextItem* m_textItem;
 };
 

@@ -170,6 +170,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
 
+
   protected Q_SLOTS:
     virtual void remove();
     void deleteActionBar();

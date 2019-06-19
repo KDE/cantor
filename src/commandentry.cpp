@@ -23,6 +23,7 @@
 #include "commandentry.h"
 #include "resultitem.h"
 #include "loadedexpression.h"
+#include "jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/epsresult.h"
@@ -450,15 +451,9 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 
 void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    const QJsonValue& source = cell.value(QLatin1String("source"));
-    QString code;
-    if (source.isString())
-        code = source.toString();
-    else if (source.isArray())
-        for (const QJsonValue& line : source.toArray())
-            code += line.toString();
+    m_commandItem->setPlainText(JupyterUtils::getSource(cell));
 
-    m_commandItem->setPlainText(code);
+    // Jupyter TODO: support metadata info, collapsed for example
 
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromJupyter(cell);
@@ -480,17 +475,7 @@ QJsonValue CommandEntry::toJupyterJson()
     QJsonObject metadata;
     entry.insert(QLatin1String("metadata"), metadata);
 
-    QJsonArray text;
-    const QStringList& lines = command().split(QLatin1Char('\n'));
-    for (int i = 0; i < lines.size(); i++)
-    {
-        QString line = lines[i];
-        // Don't add \n to last line
-        if (i != lines.size() - 1)
-            line.append(QLatin1Char('\n'));
-        text.append(line);
-    }
-    entry.insert(QLatin1String("source"), text);
+    JupyterUtils::setSource(entry, command());
 
     QJsonArray outputs;
     if (expression())

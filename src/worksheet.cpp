@@ -48,6 +48,7 @@
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
+#include "jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/helpresult.h"
@@ -1251,23 +1252,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 {
     m_type = Type::JupyterNotebook;
 
-    static const QLatin1String cellsKey("cells");
-    static const QLatin1String metadataKey("metadata");
-    static const QLatin1String nbformatKey("nbformat");
-    static const QLatin1String nbformatMinorKey("nbformat_minor");
 
-    static const QSet<QString> notebookScheme
-        = QSet<QString>::fromList({cellsKey, metadataKey, nbformatKey, nbformatMinorKey});
-
-    bool isNotebook =
-            doc.isObject()
-        && QSet<QString>::fromList(doc.object().keys()) == notebookScheme
-        && doc.object().value(cellsKey).isArray()
-        && doc.object().value(metadataKey).isObject()
-        && doc.object().value(nbformatKey).isDouble()
-        && doc.object().value(nbformatMinorKey).isDouble();
-
-    if (!isNotebook)
+    if (!JupyterUtils::isJupyterNotebook(doc))
     {
         QApplication::restoreOverrideCursor();
         showInvalidNotebookSchemeError();
@@ -1275,8 +1261,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     }
 
     QJsonObject notebookObject = doc.object();
-    int nbformatMajor = notebookObject.value(nbformatKey).toInt();
-    int nbformatMinor = notebookObject.value(nbformatMinorKey).toInt();
+    int nbformatMajor, nbformatMinor;
+    std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(notebookObject);
 
     if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,1,0))
     {
@@ -1285,8 +1271,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         return false;
     }
 
-    const QJsonArray& cells = notebookObject.value(cellsKey).toArray();
-    const QJsonObject& metadata = notebookObject.value(metadataKey).toObject();
+    const QJsonArray& cells = JupyterUtils::getCells(notebookObject);
+    const QJsonObject& metadata = JupyterUtils::getMetadata(notebookObject);
 
     const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
     const QJsonValue& name = kernalspec.value(QLatin1String("name"));
@@ -1346,32 +1332,18 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     qDebug() << "loading jupyter entries";
 
-    static const QLatin1String cellTypeKey("cell_type");
-    static const QLatin1String sourceKey("source");
-
     // Jupyter TODO: handle error, like no object, no 'cell_type', etc
     // Maybe forward back to cantor shell and UI message about failed
     WorksheetEntry* entry = nullptr;
     for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
-        bool isCellObject = iter->isObject();
-        if (!isCellObject)
+        if (!JupyterUtils::isJupyterCell(*iter))
             continue;
 
         const QJsonObject& cell = iter->toObject();
-
-        bool isJupyterCell =
-               cell.contains(cellTypeKey)
-            && cell.contains(metadataKey)
-            && cell.contains(sourceKey);
-
-        if (!isJupyterCell)
-            continue;
-
-        QString cellType = cell.value(cellTypeKey).toString();
+        QString cellType = JupyterUtils::getCellType(cell);
 
         if (cellType == QLatin1String("code"))
         {
-            // Jupyter TODO output of runned cells
             entry = appendCommandEntry();
             entry->setContentFromJupyter(cell);
         }
@@ -1384,9 +1356,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else if (cellType == QLatin1String("raw"))
         {
-            // Jupyter TODO: handle this type, but how?
-            // Text entries will be fine, but will be problems with saving user .cws as .ipynb
-            // Invatigate
+            entry = appendTextEntry();
+            entry->setContentFromJupyter(cell);
         }
 
         if (m_readOnly && entry)
