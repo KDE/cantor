@@ -33,12 +33,13 @@ class PythonServer : public QObject
     explicit PythonServer(QObject* parent = nullptr);
 
   public Q_SLOTS:
-    Q_SCRIPTABLE void login();
-    Q_SCRIPTABLE void setFilePath(const QString& path);
-    Q_SCRIPTABLE void runPythonCommand(const QString& command) const;
-    Q_SCRIPTABLE QString getOutput() const;
-    Q_SCRIPTABLE QString getError() const;
-    Q_SCRIPTABLE QString variables(bool parseValue) const;
+    void login();
+    void interrupt();
+    void setFilePath(const QString& path);
+    void runPythonCommand(const QString& command) const;
+    QString getOutput() const;
+    QString getError() const;
+    QString variables(bool parseValue) const;
 
   private:
     PyObject* m_pModule;

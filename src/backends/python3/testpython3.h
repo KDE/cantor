@@ -47,6 +47,7 @@ class TestPython3 : public BackendTest
     void testDictVariable();
 
     void testCompletion();
+    void testInterrupt();
   private:
     QString backendName() override;
 };

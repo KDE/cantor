@@ -27,6 +27,7 @@
 
 #include "settings.h"
 
+#include <QScopedPointer>
 #include <QGraphicsLinearLayout>
 #include <QJsonValue>
 #include <QJsonObject>
@@ -212,22 +213,20 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
 
-    bool needsEval=false;
+    QScopedPointer<QTextDocument> document(m_textItem->document()->clone());
+
     //make sure that the latex code is shown instead of the rendered formulas
-    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    QTextCursor cursor = document->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
         if (format.hasProperty(EpsRenderer::CantorFormula))
-        {
             showLatexCode(cursor);
-            needsEval=true;
-        }
 
-        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+        cursor = document->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 
-    const QString& html = m_textItem->toHtml();
+    const QString& html = document->toHtml();
     qDebug() << html;
     QDomElement el = doc.createElement(QLatin1String("Text"));
     QDomDocument myDoc = QDomDocument();
@@ -237,8 +236,6 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     if (m_convertCell)
         el.setAttribute(QLatin1String("convertTarget"), m_convertTarget);
 
-    if (needsEval)
-        evaluate();
     return el;
 }
 
