@@ -130,15 +130,23 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
 
 void TextEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    if (!JupyterUtils::isRawCell(cell))
-        return;
+    if (JupyterUtils::isRawCell(cell))
+    {
+        m_convertCell = true;
 
-    m_convertCell = true;
+        const QJsonObject& metadata = cell.value(QLatin1String("metadata")).toObject(QJsonObject());
+        m_convertTarget = metadata.value(QLatin1String("format")).toString(QString());
 
-    const QJsonObject& metadata = cell.value(QLatin1String("metadata")).toObject(QJsonObject());
-    m_convertTarget = metadata.value(QLatin1String("format")).toString(QString());
+        m_textItem->setPlainText(JupyterUtils::getSource(cell));
+    }
+    else if (JupyterUtils::isMarkdownCell(cell))
+    {
+        m_convertCell = false;
+        m_convertTarget.clear();
 
-    m_textItem->setPlainText(JupyterUtils::getSource(cell));
+        QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+        m_textItem->setHtml(cantorMetadata.value(QLatin1String("text_entry_content")).toString());
+    }
 }
 
 QJsonValue TextEntry::toJupyterJson()
@@ -170,7 +178,12 @@ QJsonValue TextEntry::toJupyterJson()
         entryType = QLatin1String("markdown");
 
         // Jupyter TODO: Handle metadata
-        metadata = QJsonObject();
+
+        // Add raw text of entry to metadata, for situation when
+        // Cantor opens .ipynb converted from our .cws format
+        QJsonObject cantorMetadata;
+        cantorMetadata.insert(QLatin1String("text_entry_content"), doc->toHtml());
+        metadata.insert(JupyterUtils::cantorMetadataKey, cantorMetadata);
 
         if (Settings::storeTextEntryFormatting())
             entryData = doc->toHtml();

@@ -31,6 +31,7 @@
 
 const QString JupyterUtils::cellsKey = QLatin1String("cells");
 const QString JupyterUtils::metadataKey = QLatin1String("metadata");
+const QString JupyterUtils::cantorMetadataKey = QLatin1String("cantor");
 const QString JupyterUtils::nbformatKey = QLatin1String("nbformat");
 const QString JupyterUtils::nbformatMinorKey = QLatin1String("nbformat_minor");
 const QString JupyterUtils::cellTypeKey = QLatin1String("cell_type");
@@ -86,12 +87,8 @@ bool JupyterUtils::isJupyterNotebook(const QJsonDocument& doc)
 
 bool JupyterUtils::isJupyterCell(const QJsonValue& cell)
 {
-    static const QSet<QString> cellScheme
-        = QSet<QString>::fromList({cellTypeKey, metadataKey, sourceKey});
-
     bool isCell =
-            cell.isObject()
-        && QSet<QString>::fromList(cell.toObject().keys()) == cellScheme
+           cell.isObject()
         && cell.toObject().value(cellTypeKey).isString()
         &&
         (    cell.toObject().value(cellTypeKey).toString() == QLatin1String("markdown")
@@ -173,4 +170,9 @@ void JupyterUtils::setSource(QJsonObject& cell, const QString& source)
 QString JupyterUtils::getOutputType(const QJsonObject& output)
 {
     return output.value(outputTypeKey).toString();
+}
+
+QJsonObject JupyterUtils::getCantorMetadata(const QJsonObject object)
+{
+    return getMetadata(object).value(cantorMetadataKey).toObject();
 }

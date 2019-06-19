@@ -1349,10 +1349,22 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else if (cellType == QLatin1String("markdown"))
         {
-            // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
-            entry = appendMarkdownEntry();
-            entry->setContentFromJupyter(cell);
-            entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+            QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+            if (cantorMetadata.contains(QLatin1String("text_entry_content")))
+            {
+                // If we have 'text' key in cantor metadata in Markdown cell,
+                // then we know, that this is markdown cell converted from Cantor TextEntry
+                // So we could explicitly add text entry
+                entry = appendTextEntry();
+                entry->setContentFromJupyter(cell);
+            }
+            else
+            {
+                // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
+                entry = appendMarkdownEntry();
+                entry->setContentFromJupyter(cell);
+                entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+            }
         }
         else if (cellType == QLatin1String("raw"))
         {

@@ -38,6 +38,7 @@ class JupyterUtils
 {
   public:
     static QJsonObject getMetadata(const QJsonObject& object);
+    static QJsonObject getCantorMetadata(const QJsonObject object);
 
     static QJsonArray getCells(const QJsonObject notebook);
     static std::tuple<int, int> getNbformatVersion(const QJsonObject& notebook);
@@ -61,6 +62,7 @@ class JupyterUtils
   public:
     static const QString cellsKey;
     static const QString metadataKey;
+    static const QString cantorMetadataKey;
     static const QString nbformatKey;
     static const QString nbformatMinorKey;
     static const QString cellTypeKey;
