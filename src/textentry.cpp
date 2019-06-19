@@ -25,6 +25,7 @@
 #include "latexrenderer.h"
 
 #include <QGraphicsLinearLayout>
+#include <QScopedPointer>
 
 #include <QDebug>
 #include <KLocalizedString>
@@ -115,30 +116,26 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
 {
     Q_UNUSED(archive);
 
-    bool needsEval=false;
+    QScopedPointer<QTextDocument> document(m_textItem->document()->clone());
+
     //make sure that the latex code is shown instead of the rendered formulas
-    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    QTextCursor cursor = document->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
         if (format.hasProperty(EpsRenderer::CantorFormula))
-        {
             showLatexCode(cursor);
-            needsEval=true;
-        }
 
-        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+        cursor = document->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 
-    const QString& html = m_textItem->toHtml();
+    const QString& html = document->toHtml();
     qDebug() << html;
     QDomElement el = doc.createElement(QLatin1String("Text"));
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
     el.appendChild(myDoc.documentElement().firstChildElement(QLatin1String("body")));
 
-    if (needsEval)
-        evaluate();
     return el;
 }
 
