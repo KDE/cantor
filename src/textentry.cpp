@@ -461,7 +461,7 @@ bool TextEntry::wantToEvaluate()
     return !findLatexCode().isNull();
 }
 
-bool TextEntry::isConvertedCantorTextEntry(const QJsonObject& cell)
+bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
 {
     if (!JupyterUtils::isMarkdownCell(cell))
         return false;

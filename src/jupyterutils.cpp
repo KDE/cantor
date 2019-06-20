@@ -139,7 +139,14 @@ bool JupyterUtils::isMarkdownCell(const QJsonValue& cell)
 
 bool JupyterUtils::isCodeCell(const QJsonValue& cell)
 {
-    return isJupyterCell(cell) && getCellType(cell.toObject()) == QLatin1String("code");
+    return
+           isJupyterCell(cell)
+        && getCellType(cell.toObject()) == QLatin1String("code")
+        &&
+        (      cell.toObject().value(executionCountKey).isDouble()
+            || cell.toObject().value(executionCountKey).isNull()
+        )
+        && cell.toObject().value(outputsKey).isArray();
 }
 
 bool JupyterUtils::isRawCell(const QJsonValue& cell)

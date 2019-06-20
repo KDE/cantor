@@ -1344,7 +1344,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
         if (cellType == QLatin1String("code"))
         {
-            if (LatexEntry::isConvertedCantorLatexEntry(cell))
+            if (LatexEntry::isConvertableToLatexEntry(cell))
             {
                 entry = appendLatexEntry();
                 entry->setContentFromJupyter(cell);
@@ -1358,7 +1358,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else if (cellType == QLatin1String("markdown"))
         {
-            if (TextEntry::isConvertedCantorTextEntry(cell))
+            if (TextEntry::isConvertableToTextEntry(cell))
             {
                 entry = appendTextEntry();
                 entry->setContentFromJupyter(cell);

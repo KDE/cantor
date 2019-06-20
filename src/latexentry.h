@@ -45,7 +45,7 @@ class LatexEntry : public WorksheetEntry
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
     void setContentFromJupyter(const QJsonObject & cell) override;
-    static bool isConvertedCantorLatexEntry(const QJsonObject& cell);
+    static bool isConvertableToLatexEntry(const QJsonObject& cell);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
     QJsonValue toJupyterJson() override;

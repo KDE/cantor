@@ -536,7 +536,7 @@ bool LatexEntry::renderLatexCode()
     return success;
 }
 
-bool LatexEntry::isConvertedCantorLatexEntry(const QJsonObject& cell)
+bool LatexEntry::isConvertableToLatexEntry(const QJsonObject& cell)
 {
     if (!JupyterUtils::isCodeCell(cell))
         return false;
