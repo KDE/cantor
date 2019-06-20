@@ -37,6 +37,10 @@ const QString JupyterUtils::nbformatMinorKey = QLatin1String("nbformat_minor");
 const QString JupyterUtils::cellTypeKey = QLatin1String("cell_type");
 const QString JupyterUtils::sourceKey = QLatin1String("source");
 const QString JupyterUtils::outputTypeKey = QLatin1String("output_type");
+const QString JupyterUtils::executionCountKey = QLatin1String("execution_count");
+const QString JupyterUtils::outputsKey = QLatin1String("outputs");
+const QString JupyterUtils::dataKey = QLatin1String("data");
+
 
 QJsonValue JupyterUtils::toJupyterMultiline(const QString& source)
 {
@@ -104,19 +108,28 @@ bool JupyterUtils::isJupyterCell(const QJsonValue& cell)
     return isCell;
 }
 
-bool JupyterUtils::isJupyterOutput(const QJsonValue& cell)
+bool JupyterUtils::isJupyterOutput(const QJsonValue& output)
 {
     bool isOutput =
-           cell.isObject()
-        && cell.toObject().value(outputTypeKey).isString()
+           output.isObject()
+        && output.toObject().value(outputTypeKey).isString()
         &&
-        (    cell.toObject().value(outputTypeKey).toString() == QLatin1String("stream")
-          || cell.toObject().value(outputTypeKey).toString() == QLatin1String("display_data")
-          || cell.toObject().value(outputTypeKey).toString() == QLatin1String("execute_result")
-          || cell.toObject().value(outputTypeKey).toString() == QLatin1String("error")
+        (    output.toObject().value(outputTypeKey).toString() == QLatin1String("stream")
+          || output.toObject().value(outputTypeKey).toString() == QLatin1String("display_data")
+          || output.toObject().value(outputTypeKey).toString() == QLatin1String("execute_result")
+          || output.toObject().value(outputTypeKey).toString() == QLatin1String("error")
         );
 
     return isOutput;
+}
+
+bool JupyterUtils::isJupyterDisplayOutput(const QJsonValue& output)
+{
+    return
+           isJupyterOutput(output)
+        && output.toObject().value(outputTypeKey).toString() == QLatin1String("display_data")
+        && output.toObject().value(metadataKey).isObject()
+        && output.toObject().value(QLatin1String("data")).isObject();
 }
 
 bool JupyterUtils::isMarkdownCell(const QJsonValue& cell)

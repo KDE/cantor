@@ -1344,15 +1344,22 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
         if (cellType == QLatin1String("code"))
         {
-            entry = appendCommandEntry();
-            entry->setContentFromJupyter(cell);
+            if (LatexEntry::isConvertedCantorLatexEntry(cell))
+            {
+                entry = appendLatexEntry();
+                entry->setContentFromJupyter(cell);
+                entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+            }
+            else
+            {
+                entry = appendCommandEntry();
+                entry->setContentFromJupyter(cell);
+            }
         }
         else if (cellType == QLatin1String("markdown"))
         {
             if (TextEntry::isConvertedCantorTextEntry(cell))
             {
-                // Now we know, that this is markdown cell converted from Cantor TextEntry (and unmodified after that)
-                // So we could explicitly add text entry
                 entry = appendTextEntry();
                 entry->setContentFromJupyter(cell);
             }

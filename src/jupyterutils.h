@@ -50,11 +50,14 @@ class JupyterUtils
     static QString getOutputType(const QJsonObject& output);
 
     static bool isJupyterNotebook(const QJsonDocument& doc);
+
     static bool isJupyterCell(const QJsonValue& cell);
-    static bool isJupyterOutput(const QJsonValue& cell);
     static bool isMarkdownCell(const QJsonValue& cell);
     static bool isCodeCell(const QJsonValue& cell);
     static bool isRawCell(const QJsonValue& cell);
+
+    static bool isJupyterOutput(const QJsonValue& output);
+    static bool isJupyterDisplayOutput(const QJsonValue& output);
 
     static QJsonValue toJupyterMultiline(const QString& source);
     static QString fromJupyterMultiline(const QJsonValue& source);
@@ -68,6 +71,9 @@ class JupyterUtils
     static const QString cellTypeKey;
     static const QString sourceKey;
     static const QString outputTypeKey;
+    static const QString executionCountKey;
+    static const QString outputsKey;
+    static const QString dataKey;
 };
 
 #endif // JUPYTERUTILS_H
