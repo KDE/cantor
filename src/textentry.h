@@ -58,6 +58,8 @@ class TextEntry : public WorksheetEntry
     void setContent(const QDomElement& content, const KZip& file) override;
     void setContentFromJupyter(const QJsonObject& cell) override;
 
+    static bool isConvertedCantorTextEntry(const QJsonObject& cell);
+
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;

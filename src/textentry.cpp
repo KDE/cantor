@@ -183,13 +183,21 @@ QJsonValue TextEntry::toJupyterJson()
         // Add raw text of entry to metadata, for situation when
         // Cantor opens .ipynb converted from our .cws format
         QJsonObject cantorMetadata;
-        cantorMetadata.insert(QLatin1String("text_entry_content"), doc->toHtml());
-        metadata.insert(JupyterUtils::cantorMetadataKey, cantorMetadata);
 
         if (Settings::storeTextEntryFormatting())
+        {
             entryData = doc->toHtml();
+
+            // Remove DOCTYPE from html
+            entryData.remove(QRegExp(QLatin1String("<!DOCTYPE[^>]*>\\n")));
+
+            cantorMetadata.insert(QLatin1String("text_entry_content"), entryData);
+        }
         else
             entryData = doc->toPlainText();
+
+        metadata.insert(JupyterUtils::cantorMetadataKey, cantorMetadata);
+
         // Replace our $$ formulas to $
         entryData.replace(QLatin1String("$$"), QLatin1String("$"));
 
@@ -451,4 +459,21 @@ void TextEntry::layOutForWidth(qreal w, bool force)
 bool TextEntry::wantToEvaluate()
 {
     return !findLatexCode().isNull();
+}
+
+bool TextEntry::isConvertedCantorTextEntry(const QJsonObject& cell)
+{
+    if (!JupyterUtils::isMarkdownCell(cell))
+        return false;
+
+    QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+    const QJsonValue& textContentValue = cantorMetadata.value(QLatin1String("text_entry_content"));
+
+    if (!textContentValue.isString())
+        return false;
+
+    const QString& textContent = textContentValue.toString();
+    const QString& source = JupyterUtils::getSource(cell);
+
+    return textContent == source;
 }

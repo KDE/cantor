@@ -1349,11 +1349,9 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else if (cellType == QLatin1String("markdown"))
         {
-            QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
-            if (cantorMetadata.contains(QLatin1String("text_entry_content")))
+            if (TextEntry::isConvertedCantorTextEntry(cell))
             {
-                // If we have 'text' key in cantor metadata in Markdown cell,
-                // then we know, that this is markdown cell converted from Cantor TextEntry
+                // Now we know, that this is markdown cell converted from Cantor TextEntry (and unmodified after that)
                 // So we could explicitly add text entry
                 entry = appendTextEntry();
                 entry->setContentFromJupyter(cell);
