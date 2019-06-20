@@ -912,10 +912,10 @@ QJsonDocument Worksheet::toJupyterJson()
     QJsonObject metadata;
 
     QJsonObject kernalInfo;
-    const QString name = (m_session ? m_session->backend()->name(): m_backendName);
-    // Jupyter TODO: adaptBackendName inverted function here?
-    kernalInfo.insert(QLatin1String("name"), name.toLower());
-    kernalInfo.insert(QLatin1String("display_name"), name);
+    if (m_session && m_session->backend())
+        kernalInfo = JupyterUtils::getKernelspec(m_session->backend());
+    else
+        kernalInfo.insert(QLatin1String("name"), m_backendName);
     metadata.insert(QLatin1String("kernelspec"), kernalInfo);
 
     root.insert(QLatin1String("metadata"), metadata);
@@ -1275,17 +1275,14 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     const QJsonObject& metadata = JupyterUtils::getMetadata(notebookObject);
 
     const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
-    const QJsonValue& name = kernalspec.value(QLatin1String("name"));
-    qDebug() << kernalspec << name;
-    if (kernalspec.isEmpty() || name.type() == QJsonValue::Undefined)
+    m_backendName = JupyterUtils::getKernelName(kernalspec);
+    if (kernalspec.isEmpty() || m_backendName.isEmpty())
     {
         QApplication::restoreOverrideCursor();
         showInvalidNotebookSchemeError();
         return false;
     }
 
-    // Jupyter TODO: Check, that adaptBackendName will correct
-    m_backendName = adaptBackendName(name.toString());
     Cantor::Backend* backend = Cantor::Backend::getBackend(m_backendName);
     if (!backend)
     {
@@ -1393,18 +1390,6 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     emit loaded();
     return true;
-}
-
-QString Worksheet::adaptBackendName(const QString& jupyterBackendName)
-{
-    QString backendName = jupyterBackendName;
-
-    if (jupyterBackendName == QLatin1String("sagemath"))
-        backendName = QLatin1String("sage");
-    else if (jupyterBackendName.startsWith(QLatin1String("julia")))
-        backendName = QLatin1String("julia");
-
-    return backendName;
 }
 
 void Worksheet::showInvalidNotebookSchemeError()

@@ -21,12 +21,18 @@
 #ifndef JUPYTERUTILS_H
 #define JUPYTERUTILS_H
 
+#include <vector>
+
 #include <QString>
 
 class QJsonValue;
 class QJsonObject;
 class QJsonArray;
 class QJsonDocument;
+
+namespace Cantor {
+    class Backend;
+}
 
 /**
  * Static class for storing some common code for working with jupyter json scheme
@@ -61,6 +67,9 @@ class JupyterUtils
 
     static QJsonValue toJupyterMultiline(const QString& source);
     static QString fromJupyterMultiline(const QJsonValue& source);
+
+    static QString getKernelName(const QJsonValue& kernelspecValue);
+    static QJsonObject getKernelspec(const Cantor::Backend* backend);
 
   public:
     static const QString cellsKey;

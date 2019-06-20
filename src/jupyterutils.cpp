@@ -19,6 +19,7 @@
 */
 
 #include "jupyterutils.h"
+#include "lib/backend.h"
 
 #include <tuple>
 
@@ -40,7 +41,6 @@ const QString JupyterUtils::outputTypeKey = QLatin1String("output_type");
 const QString JupyterUtils::executionCountKey = QLatin1String("execution_count");
 const QString JupyterUtils::outputsKey = QLatin1String("outputs");
 const QString JupyterUtils::dataKey = QLatin1String("data");
-
 
 QJsonValue JupyterUtils::toJupyterMultiline(const QString& source)
 {
@@ -195,4 +195,59 @@ QString JupyterUtils::getOutputType(const QJsonObject& output)
 QJsonObject JupyterUtils::getCantorMetadata(const QJsonObject object)
 {
     return getMetadata(object).value(cantorMetadataKey).toObject();
+}
+
+QString JupyterUtils::getKernelName(const QJsonValue& kernelspecValue)
+{
+    QString name;
+
+    if (kernelspecValue.isObject())
+    {
+        const QJsonObject& kernelspec = kernelspecValue.toObject();
+        QString kernelName = kernelspec.value(QLatin1String("name")).toString();
+        if (!kernelName.isEmpty())
+        {
+            if (kernelName.startsWith(QLatin1String("julia")))
+                kernelName = QLatin1String("julia");
+            else if (kernelName == QLatin1String("sagemath"))
+                kernelName = QLatin1String("sage");
+            else if (kernelName == QLatin1String("ir"))
+                kernelName = QLatin1String("r");
+            name = kernelName;
+        }
+        else
+        {
+            name = kernelspec.value(QLatin1String("language")).toString();
+        }
+    }
+
+    return name;
+}
+
+QJsonObject JupyterUtils::getKernelspec(const Cantor::Backend* backend)
+{
+    QJsonObject kernelspec;
+
+    if (backend)
+    {
+        QString id = backend->id();
+
+        if (id == QLatin1String("sage"))
+            id = QLatin1String("sagemath");
+        else if (id == QLatin1String("r"))
+            id = QLatin1String("ir");
+
+        kernelspec.insert(QLatin1String("name"), id);
+
+        QString lang = backend->id();
+        if (lang.startsWith(QLatin1String("python")))
+            lang = QLatin1String("python");
+        lang[0] = lang[0].toUpper();
+
+        kernelspec.insert(QLatin1String("language"), lang);
+
+        kernelspec.insert(QLatin1String("display_name"), backend->name());
+    }
+
+    return kernelspec;
 }

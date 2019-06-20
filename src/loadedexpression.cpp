@@ -143,6 +143,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
             const QLatin1String imageKey("image/png");
+            const QLatin1String textKey("text/plain");
             if (data.contains(imageKey))
             {
                 // Load image data from base64, save into file, and create image result from this file
@@ -181,6 +182,12 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 }
 
                 addResult(new Cantor::ImageResult(QUrl::fromLocalFile(imageFile.fileName()), alt));
+            }
+            else if (data.contains(textKey))
+            {
+                const QString& text = JupyterUtils::fromJupyterMultiline(data.value(textKey));
+                if (!text.isEmpty())
+                    addResult(new Cantor::TextResult(text));
             }
         }
     }
