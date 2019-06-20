@@ -123,8 +123,12 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
 
     root.insert(QLatin1String("data"), data);
 
-    // Jupyter TODO: handle metadata?
-    root.insert(QLatin1String("metadata"), QJsonObject());
+    QJsonObject metadata;
+    QJsonObject size;
+    size.insert(QLatin1String("width"), image.size().width());
+    size.insert(QLatin1String("height"), image.size().height());
+    metadata.insert(QLatin1String("image/png"), size);
+    root.insert(QLatin1String("metadata"), metadata);
 
     return root;
 }
