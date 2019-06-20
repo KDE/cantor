@@ -247,8 +247,19 @@ bool LatexEntry::evaluate(EvaluationOption evalOp)
     }
     else
     {
-        m_latex = latexCode();
-        success = renderLatexCode();
+        if (m_latex == latexCode())
+        {
+            QTextCursor cursor = m_textItem->textCursor();
+            cursor.movePosition(QTextCursor::Start);
+            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+            m_textItem->denyEditing();
+        }
+        else
+        {
+            m_latex = latexCode();
+            success = renderLatexCode();
+        }
     }
 
     qDebug()<<"rendering successful? "<<success;
@@ -287,15 +298,6 @@ bool LatexEntry::eventFilter(QObject* object, QEvent* event)
 
             cursor.insertText(m_textItem->resolveImages(cursor));
             m_textItem->allowEditing();
-            return true;
-        }
-        else if (m_latex == latexCode())
-        {
-            QTextCursor cursor = m_textItem->textCursor();
-            cursor.movePosition(QTextCursor::Start);
-            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
-            m_textItem->denyEditing();
             return true;
         }
     }
