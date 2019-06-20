@@ -170,8 +170,16 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
 {
     if(!rendered)
     {
-        plain = m_textItem->toPlainText();
-        rendered = renderMarkdown(plain);
+        if (m_textItem->toPlainText() == plain)
+        {
+            setRenderedHtml(html);
+            rendered = true;
+        }
+        else
+        {
+            plain = m_textItem->toPlainText();
+            rendered = renderMarkdown(plain);
+        }
     }
 
     if (rendered)
@@ -295,14 +303,6 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
                     m_textItem->setCursorPosition(mouseEvent->pos());
                     m_textItem->textCursor().clearSelection();
                     rendered = false;
-                    return true;
-                }
-                else if (m_textItem->toPlainText() == plain)
-                {
-                    setRenderedHtml(html);
-                    m_textItem->setCursorPosition(mouseEvent->pos());
-                    m_textItem->textCursor().clearSelection();
-                    rendered = true;
                     return true;
                 }
             }
