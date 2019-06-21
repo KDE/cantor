@@ -142,19 +142,18 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
-            const QLatin1String imageKey("image/png");
             const QLatin1String textKey("text/plain");
-            if (data.contains(imageKey))
+            if (data.contains(JupyterUtils::pngMime))
             {
                 // Load image data from base64, save into file, and create image result from this file
                 // Jupyter TODO: maybe add way to create ImageResult directly from QImage?
-                QString base64 = data.value(imageKey).toString();
+                QString base64 = data.value(JupyterUtils::pngMime).toString();
 
                 QImage image;
-                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), imageKey.data());
+                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()),"PNG");
 
                 const QJsonObject& metadata = JupyterUtils::getMetadata(output);
-                const QJsonValue size = metadata.value(imageKey);
+                const QJsonValue size = metadata.value(JupyterUtils::pngMime);
                 if (size.isObject())
                 {
                     int w = size.toObject().value(QLatin1String("width")).toInt();

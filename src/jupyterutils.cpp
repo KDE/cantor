@@ -29,6 +29,10 @@
 #include <QJsonDocument>
 #include <QStringList>
 #include <QSet>
+#include <QImageReader>
+#include <QImageWriter>
+#include <QBuffer>
+#include <QString>
 
 const QString JupyterUtils::cellsKey = QLatin1String("cells");
 const QString JupyterUtils::metadataKey = QLatin1String("metadata");
@@ -41,6 +45,9 @@ const QString JupyterUtils::outputTypeKey = QLatin1String("output_type");
 const QString JupyterUtils::executionCountKey = QLatin1String("execution_count");
 const QString JupyterUtils::outputsKey = QLatin1String("outputs");
 const QString JupyterUtils::dataKey = QLatin1String("data");
+const QString JupyterUtils::pngMime = QLatin1String("image/png");
+
+const QMimeDatabase JupyterUtils::mimeDatabase;
 
 QJsonValue JupyterUtils::toJupyterMultiline(const QString& source)
 {
@@ -250,4 +257,66 @@ QJsonObject JupyterUtils::getKernelspec(const Cantor::Backend* backend)
     }
 
     return kernelspec;
+}
+
+QImage JupyterUtils::loadImage(const QJsonValue& mimeBundle, const QString& key)
+{
+    QImage image;
+
+    if (mimeBundle.isObject())
+    {
+        const QJsonObject& bundleObject = mimeBundle.toObject();
+        const QJsonValue& data = bundleObject.value(key);
+        if (data.isString())
+        {
+            // In jupyter mime-bundle key for data is mime type of this data
+            // So we need convert mimetype to format, for example "image/png" to "png"
+            // for loading from data
+            if (QImageReader::supportedMimeTypes().contains(key.toLatin1()))
+            {
+                // https://doc.qt.io/qt-5/qimagereader.html#supportedImageFormats
+                // Maybe there is a better way to convert image key to image format
+                // but this is all that I could to do
+                const QByteArray& format = mimeDatabase.mimeTypeForName(key).preferredSuffix().toLatin1();
+                const QString& base64 = data.toString();
+                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), format.data());
+            }
+        }
+    }
+
+    return image;
+}
+
+QJsonObject JupyterUtils::packMimeBundle(const QImage& image, const QString& mime)
+{
+    QJsonObject mimeBundle;
+
+    if (QImageWriter::supportedMimeTypes().contains(mime.toLatin1()))
+    {
+        const QByteArray& format = mimeDatabase.mimeTypeForName(mime).preferredSuffix().toLatin1();
+
+        QByteArray ba;
+        QBuffer buffer(&ba);
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, format.data());
+        mimeBundle.insert(mime, QString::fromLatin1(ba.toBase64()));
+    }
+
+    return mimeBundle;
+}
+
+QStringList JupyterUtils::imageKeys(const QJsonValue& mimeBundle)
+{
+    QStringList imageKeys;
+
+    if (mimeBundle.isObject())
+    {
+        const QStringList& keys = mimeBundle.toObject().keys();
+        const QList<QByteArray>& mimes = QImageReader::supportedMimeTypes();
+        for (const QString& key : keys)
+            if (mimes.contains(key.toLatin1()))
+                imageKeys.append(key);
+    }
+
+    return imageKeys;
 }

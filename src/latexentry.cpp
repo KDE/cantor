@@ -193,37 +193,32 @@ void LatexEntry::setContentFromJupyter(const QJsonObject& cell)
     if (outputs.size() == 1 && JupyterUtils::isJupyterDisplayOutput(outputs[0]))
     {
         const QJsonObject data = outputs[0].toObject().value(JupyterUtils::dataKey).toObject();
-        const QJsonValue imageData = data.value(QLatin1String("image/png"));
-        if (imageData.isString())
+        const QImage& image = JupyterUtils::loadImage(data, JupyterUtils::pngMime);
+        if (!image.isNull())
         {
-            const QByteArray& ba = QByteArray::fromBase64(imageData.toString().toLatin1());
-            QImage image;
-            if (image.loadFromData(ba))
-            {
-                QUrl internal;
-                internal.setScheme(QLatin1String("internal"));
-                internal.setPath(QUuid::createUuid().toString());
+            QUrl internal;
+            internal.setScheme(QLatin1String("internal"));
+            internal.setPath(QUuid::createUuid().toString());
 
-                m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
+            m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
 
-                m_renderedFormat.setName(internal.url());
-                m_renderedFormat.setWidth(image.width());
-                m_renderedFormat.setHeight(image.height());
+            m_renderedFormat.setName(internal.url());
+            m_renderedFormat.setWidth(image.width());
+            m_renderedFormat.setHeight(image.height());
 
-                m_renderedFormat.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
-                m_renderedFormat.setProperty(EpsRenderer::Code, m_latex);
+            m_renderedFormat.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(EpsRenderer::Code, m_latex);
 
-                cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
-                useLatexCode = false;
-                m_textItem->denyEditing();
-            }
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+            useLatexCode = false;
+            m_textItem->denyEditing();
         }
     }
 
     if (useLatexCode)
     {
         cursor.insertText(m_latex);
-        m_latex.clear(); // We no rendered image, so clear
+        m_latex.clear(); // We don't render image, so clear latex code cache
     }
 }
 
@@ -260,7 +255,7 @@ QJsonValue LatexEntry::toJupyterJson()
             imageResult.insert(JupyterUtils::outputTypeKey, QLatin1String("display_data"));
 
             QJsonObject data;
-            data.insert(QLatin1String("image/png"), JupyterUtils::toJupyterMultiline(QString::fromLatin1(ba.toBase64())));
+            data.insert(JupyterUtils::pngMime, JupyterUtils::toJupyterMultiline(QString::fromLatin1(ba.toBase64())));
             imageResult.insert(QLatin1String("data"), data);
 
             imageResult.insert(JupyterUtils::metadataKey, QJsonObject());

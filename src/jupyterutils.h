@@ -24,11 +24,14 @@
 #include <vector>
 
 #include <QString>
+#include <QMimeDatabase>
 
 class QJsonValue;
 class QJsonObject;
 class QJsonArray;
 class QJsonDocument;
+class QImage;
+class QStringList;
 
 namespace Cantor {
     class Backend;
@@ -71,6 +74,10 @@ class JupyterUtils
     static QString getKernelName(const QJsonValue& kernelspecValue);
     static QJsonObject getKernelspec(const Cantor::Backend* backend);
 
+    static QImage loadImage(const QJsonValue& mimeBundle, const QString& key);
+    static QJsonObject packMimeBundle(const QImage& image, const QString& mime);
+    static QStringList imageKeys(const QJsonValue& mimeBundle);
+
   public:
     static const QString cellsKey;
     static const QString metadataKey;
@@ -83,6 +90,9 @@ class JupyterUtils
     static const QString executionCountKey;
     static const QString outputsKey;
     static const QString dataKey;
+    static const QString pngMime;
+
+    static const QMimeDatabase mimeDatabase;
 };
 
 #endif // JUPYTERUTILS_H

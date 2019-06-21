@@ -23,6 +23,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonValue>
+#include <QImage>
+#include <QImageReader>
 
 #include "jupyterutils.h"
 #include <config-cantor.h>
@@ -107,7 +109,25 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
     if (!JupyterUtils::isMarkdownCell(cell))
         return;
 
-    // Jupyter TODO: handle metadata and attachments
+    // Jupyter TODO: handle metadata
+    const QJsonObject attachments = cell.value(QLatin1String("attachments")).toObject();
+    for (const QString& key : attachments.keys())
+    {
+        const QJsonValue& attachment = attachments.value(key);
+        const QStringList& keys = JupyterUtils::imageKeys(attachment);
+        // Jupyter TODO: what if keys will be 2?
+        // Is it valid scheme at all?
+        if (keys.size() == 1)
+        {
+            const QString& mimeKey = keys[0];
+            const QImage& image = JupyterUtils::loadImage(attachment, mimeKey);
+
+            QUrl resourceUrl;
+            resourceUrl.setUrl(QLatin1String("attachment:")+key);
+            attachedImages.push_back(std::make_pair(resourceUrl, mimeKey));
+            m_textItem->document()->addResource(QTextDocument::ImageResource, resourceUrl, QVariant(image));
+        }
+    }
 
     setPlainText(adaptJupyterMarkdown(JupyterUtils::getSource(cell)));
 }
@@ -142,6 +162,20 @@ QJsonValue MarkdownEntry::toJupyterJson()
 
     // Jupyter TODO: Handle metadata
     entry.insert(QLatin1String("metadata"), QJsonObject());
+
+    QJsonObject attachments;
+    QUrl url;
+    QString key;
+    for (const auto& data : attachedImages)
+    {
+        std::tie(url, key) = std::move(data);
+
+        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, url).value<QImage>();
+        QString attachmentKey = url.toString().remove(QLatin1String("attachment:"));
+        attachments.insert(attachmentKey, JupyterUtils::packMimeBundle(image, key));
+    }
+    if (!attachments.isEmpty())
+        entry.insert(QLatin1String("attachments"), attachments);
 
     JupyterUtils::setSource(entry, plain);
 

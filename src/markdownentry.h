@@ -21,6 +21,8 @@
 #ifndef MARKDOWNENTRY_H
 #define MARKDOWNENTRY_H
 
+#include <vector>
+
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
 
@@ -77,6 +79,7 @@ class MarkdownEntry : public WorksheetEntry
     QString plain;
     QString html;
     bool rendered;
+    std::vector<std::pair<QUrl,QString>> attachedImages;
 };
 
 #endif //MARKDOWNENTRY_H
