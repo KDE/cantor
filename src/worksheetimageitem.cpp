@@ -138,6 +138,11 @@ void WorksheetImageItem::setPixmap(QPixmap pixmap)
     m_pixmap = pixmap;
 }
 
+QPixmap WorksheetImageItem::pixmap() const
+{
+    return m_pixmap;
+}
+
 void WorksheetImageItem::populateMenu(QMenu* menu, QPointF pos)
 {
     emit menuCreated(menu, mapToParent(pos));

@@ -21,12 +21,14 @@
 #include "imageentry.h"
 #include "worksheetimageitem.h"
 #include "actionbar.h"
+#include "jupyterutils.h"
 
 #include <KLocalizedString>
 #include <QDebug>
 #include <QMenu>
 #include <QFileSystemWatcher>
 #include <QJsonValue>
+#include <QJsonObject>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -104,13 +106,43 @@ void ImageEntry::setContent(const QDomElement& content, const KZip& file)
 
 void ImageEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    // Jupyter TODO: Add realization
+    // No need use ImageEntry because without file this entry type are useless
+    Q_UNUSED(cell);
+    return;
 }
 
 QJsonValue ImageEntry::toJupyterJson()
 {
-    // Jupyter TODO: Add realization
-    return QJsonValue();
+    QJsonValue value;
+
+    if (!m_imagePath.isEmpty() && m_imageItem)
+    {
+        const QImage& image = m_imageItem->pixmap().toImage();
+        if (!image.isNull())
+        {
+            QJsonObject entry;
+            entry.insert(QLatin1String("cell_type"), QLatin1String("markdown"));
+
+            QJsonObject metadata;
+            QJsonObject size;
+            size.insert(QLatin1String("width"), image.size().width());
+            size.insert(QLatin1String("height"), image.size().height());
+            metadata.insert(JupyterUtils::pngMime, size);
+            entry.insert(JupyterUtils::metadataKey, metadata);
+
+            QString text(QLatin1String("<img src='attachment:image.png'>"));
+
+            QJsonObject attachments;
+            attachments.insert(QLatin1String("image.png"), JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));
+            entry.insert(QLatin1String("attachments"), attachments);
+
+            JupyterUtils::setSource(entry, text);
+
+            value = entry;
+        }
+    }
+
+    return value;
 }
 
 QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
