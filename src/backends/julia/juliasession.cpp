@@ -147,7 +147,7 @@ void JuliaSession::interrupt()
     if (expressionQueue().isEmpty())
         return;
 
-    if (m_process->pid())
+    if (m_process && m_process->pid())
     {
         disconnect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
         m_process->kill();
