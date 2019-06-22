@@ -1345,7 +1345,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
             {
                 entry = appendLatexEntry();
                 entry->setContentFromJupyter(cell);
-                entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+                entry->evaluate(WorksheetEntry::InternalEvaluation);
             }
             else
             {
@@ -1365,7 +1365,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
                 // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
                 entry = appendMarkdownEntry();
                 entry->setContentFromJupyter(cell);
-                entry->evaluate(WorksheetEntry::EvaluationOption::DoNothing);
+                entry->evaluate(WorksheetEntry::InternalEvaluation);
             }
         }
         else if (cellType == QLatin1String("raw"))
