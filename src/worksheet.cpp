@@ -525,10 +525,11 @@ bool Worksheet::completionEnabled()
 void Worksheet::showCompletion()
 {
     WorksheetEntry* current = currentEntry();
-    current->showCompletion();
+    if (current)
+        current->showCompletion();
 }
 
-WorksheetEntry* Worksheet::appendEntry(const int type)
+WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
 {
     WorksheetEntry* entry = WorksheetEntry::create(type, this);
 
@@ -542,8 +543,11 @@ WorksheetEntry* Worksheet::appendEntry(const int type)
             setFirstEntry(entry);
         setLastEntry(entry);
         updateLayout();
-        makeVisible(entry);
-        focusEntry(entry);
+        if (focus)
+        {
+            makeVisible(entry);
+            focusEntry(entry);
+        }
         emit modified();
     }
     return entry;
@@ -1199,30 +1203,31 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     WorksheetEntry* entry = nullptr;
     while (!expressionChild.isNull()) {
         QString tag = expressionChild.tagName();
+        // Don't add focus on load
         if (tag == QLatin1String("Expression"))
         {
-            entry = appendCommandEntry();
+            entry = appendEntry(CommandEntry::Type, false);
             entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Text"))
         {
-            entry = appendTextEntry();
+            entry = appendEntry(TextEntry::Type, false);
             entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Markdown"))
         {
-            entry = appendMarkdownEntry();
+            entry = appendEntry(MarkdownEntry::Type, false);
             entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Latex"))
         {
-            entry = appendLatexEntry();
+            entry = appendEntry(LatexEntry::Type, false);
             entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("PageBreak"))
         {
-            entry = appendPageBreakEntry();
+            entry = appendEntry(PageBreakEntry::Type, false);
             entry->setContent(expressionChild, archive);
         }
         else if (tag == QLatin1String("Image"))
         {
-            entry = appendImageEntry();
+            entry = appendEntry(ImageEntry::Type, false);
             entry->setContent(expressionChild, archive);
         }
 
