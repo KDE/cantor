@@ -524,7 +524,10 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
     //parentItem()->ensureVisible(QRectF(), 0, 0);
     WorksheetEntry* entry = qobject_cast<WorksheetEntry*>(parentObject());
     WorksheetCursor c(entry, this, textCursor());
-    worksheet()->makeVisible(c);
+    // No need make the text item visible
+    // if we just hide/show window, it it not necessary
+    if (event->reason() != Qt::ActiveWindowFocusReason)
+        worksheet()->makeVisible(c);
     worksheet()->updateFocusedTextItem(this);
     connect(QApplication::clipboard(), SIGNAL(dataChanged()), this,
             SLOT(clipboardChanged()));

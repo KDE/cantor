@@ -24,8 +24,6 @@
 #include <KPluginFactory>
 #include <KPluginLoader>
 
-#define CANTOR_VERSION 1
-
 /**
   Exports Backend plugin.
 */

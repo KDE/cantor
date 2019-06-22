@@ -174,7 +174,7 @@ void OctaveSession::interrupt()
     if(!expressionQueue().isEmpty())
     {
         qDebug()<<"interrupting " << expressionQueue().first()->command();
-        if(m_process->state() != QProcess::NotRunning)
+        if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
             const int pid=m_process->pid();

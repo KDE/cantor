@@ -94,7 +94,7 @@ class WorksheetEntry : public QGraphicsObject
     QSizeF size();
 
     enum EvaluationOption {
-        DoNothing, FocusNext, EvaluateNext
+        InternalEvaluation, DoNothing, FocusNext, EvaluateNext
     };
 
     virtual WorksheetTextItem* highlightItem();
