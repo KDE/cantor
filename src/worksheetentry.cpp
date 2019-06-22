@@ -337,6 +337,13 @@ bool WorksheetEntry::evaluateCurrentItem()
 
 void WorksheetEntry::evaluateNext(EvaluationOption opt)
 {
+    // For cases, when code want *just* evaluate
+    // the entry, for example, on load stage.
+    // This internal evaluation shouldn't marked as
+    // modifying change.
+    if (opt == InternalEvaluation)
+        return;
+
     WorksheetEntry* entry = next();
 
     while (entry && !entry->wantFocus())
