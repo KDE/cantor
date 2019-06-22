@@ -237,7 +237,7 @@ class Worksheet : public QGraphicsScene
     void showCompletion();
     //void checkEntriesForSanity();
 
-    WorksheetEntry* appendEntry(int type);
+    WorksheetEntry* appendEntry(int type, bool focus = true);
     WorksheetEntry* insertEntry(int type, WorksheetEntry* current = nullptr);
     WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = nullptr);
 
