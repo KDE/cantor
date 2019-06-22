@@ -518,7 +518,8 @@ bool Worksheet::completionEnabled()
 void Worksheet::showCompletion()
 {
     WorksheetEntry* current = currentEntry();
-    current->showCompletion();
+    if (current)
+        current->showCompletion();
 }
 
 WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
