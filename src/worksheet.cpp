@@ -1348,13 +1348,13 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         {
             if (LatexEntry::isConvertableToLatexEntry(cell))
             {
-                entry = appendLatexEntry();
+                entry = appendEntry(LatexEntry::Type, false);
                 entry->setContentFromJupyter(cell);
                 entry->evaluate(WorksheetEntry::InternalEvaluation);
             }
             else
             {
-                entry = appendCommandEntry();
+                entry = appendEntry(CommandEntry::Type, false);
                 entry->setContentFromJupyter(cell);
             }
         }
@@ -1362,20 +1362,20 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         {
             if (TextEntry::isConvertableToTextEntry(cell))
             {
-                entry = appendTextEntry();
+                entry = appendEntry(TextEntry::Type, false);
                 entry->setContentFromJupyter(cell);
             }
             else
             {
                 // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
-                entry = appendMarkdownEntry();
+                entry = appendEntry(MarkdownEntry::Type, false);
                 entry->setContentFromJupyter(cell);
                 entry->evaluate(WorksheetEntry::InternalEvaluation);
             }
         }
         else if (cellType == QLatin1String("raw"))
         {
-            entry = appendTextEntry();
+            entry = appendEntry(TextEntry::Type, false);
             entry->setContentFromJupyter(cell);
         }
 
