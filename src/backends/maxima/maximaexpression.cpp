@@ -439,7 +439,8 @@ void MaximaExpression::imageChanged()
         if (m_plotResultIndex != -1)
         {
             replaceResult(m_plotResultIndex, m_plotResult);
-            setStatus(Cantor::Expression::Done);
+            if (status() != Cantor::Expression::Error)
+                setStatus(Cantor::Expression::Done);
         }
     }
 }
