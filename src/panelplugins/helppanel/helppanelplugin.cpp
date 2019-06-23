@@ -68,6 +68,11 @@ void HelpPanelPlugin::showHelp(const QString& help)
         m_edit->setHtml(help);
 }
 
+bool HelpPanelPlugin::showOnStartup()
+{
+    return false;
+}
+
 
 
 K_PLUGIN_FACTORY_WITH_JSON(helppanelplugin, "helppanelplugin.json", registerPlugin<HelpPanelPlugin>();)

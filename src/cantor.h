@@ -100,6 +100,8 @@ private Q_SLOTS:
 
     void updatePanel();
     void updateNewSubmenu();
+
+    void pluginVisibilityRequested();
 private:
     void setupActions();
     void closeEvent(QCloseEvent*) override;
