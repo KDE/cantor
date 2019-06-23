@@ -28,6 +28,7 @@ using namespace Cantor;
 #include <QEventLoop>
 #include <QTemporaryFile>
 #include <KColorScheme>
+#include <QUuid>
 
 #include <config-cantorlib.h>
 #include "settings.h"
@@ -43,6 +44,7 @@ class Cantor::LatexRendererPrivate
     QString errorMessage;
     bool success;
     QString latexFilename;
+    QString epsFilename;
     QTemporaryFile* texFile;
 };
 
@@ -154,7 +156,7 @@ bool LatexRenderer::isEquationOnly() const
 
 QString LatexRenderer::imagePath() const
 {
-    return d->latexFilename;
+    return d->epsFilename;
 }
 
 void LatexRenderer::render()
@@ -204,7 +206,7 @@ void LatexRenderer::renderWithLatex()
     }
     expressionTex=expressionTex.arg(d->latexCode);
 
-//     qDebug()<<"full tex:\n"<<expressionTex;
+    // qDebug()<<"full tex:\n"<<expressionTex;
 
     d->texFile->write(expressionTex.toUtf8());
     d->texFile->flush();
@@ -212,7 +214,6 @@ void LatexRenderer::renderWithLatex()
     QString fileName = d->texFile->fileName();
     qDebug()<<"fileName: "<<fileName;
     d->latexFilename=fileName;
-    d->latexFilename.replace(QLatin1String(".tex"), QLatin1String(".eps"));
     KProcess *p=new KProcess( this );
     p->setWorkingDirectory(dir);
 
@@ -225,10 +226,19 @@ void LatexRenderer::renderWithLatex()
 void LatexRenderer::convertToPs()
 {
     QString dviFile=d->latexFilename;
-    dviFile.replace(QLatin1String(".eps"), QLatin1String(".dvi"));
+    dviFile.replace(QLatin1String(".tex"), QLatin1String(".dvi"));
+
+    // Create unique filename for eps file, for preventing names collisions
+    QString uuid = QUuid::createUuid().toString();
+    uuid.remove(0, 1);
+    uuid.chop(1);
+    uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
+    const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    d->epsFilename = dir + QDir::separator() + QLatin1String("cantor_")+uuid+QLatin1String(".eps");
+
     KProcess *p=new KProcess( this );
-    qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->latexFilename<<dviFile;
-    (*p)<<Settings::self()->dvipsCommand()<<QStringLiteral("-E")<<QStringLiteral("-o")<<d->latexFilename<<dviFile;
+    qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
+    (*p)<<Settings::self()->dvipsCommand()<<QStringLiteral("-E")<<QStringLiteral("-o")<<d->epsFilename<<dviFile;
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
     p->start();
@@ -248,7 +258,7 @@ void LatexRenderer::convertingDone()
     QFile::remove(pathWithoutExtention + QLatin1String(".tex"));
     QFile::remove(pathWithoutExtention + QLatin1String(".dvi"));
 
-    if(info.exists())
+    if(QFileInfo(d->epsFilename).exists())
     {
         d->success=true;
         emit done();
