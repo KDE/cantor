@@ -24,6 +24,8 @@
 #include "result.h"
 #include <QUrl>
 
+class QImage;
+
 namespace Cantor
 {
 class ImageResultPrivate;
@@ -33,6 +35,7 @@ class CANTOR_EXPORT ImageResult : public Result
   public:
     enum{Type=2};
     explicit ImageResult( const QUrl& url, const QString& alt=QString());
+    explicit ImageResult( const QImage& image, const QString& alt=QString());
     ~ImageResult() override;
 
     QString toHtml() override;

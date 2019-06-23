@@ -25,6 +25,7 @@ using namespace Cantor;
 #include <QImageWriter>
 #include <KZip>
 #include <QDebug>
+#include <QTemporaryFile>
 
 class Cantor::ImageResultPrivate
 {
@@ -40,6 +41,20 @@ ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResu
 {
     d->url=url;
     d->alt=alt;
+}
+
+Cantor::ImageResult::ImageResult(const QImage& image, const QString& alt) :  d(new ImageResultPrivate)
+{
+    d->img=image;
+    d->alt=alt;
+
+    QTemporaryFile imageFile;
+    imageFile.setAutoRemove(false);
+    if (imageFile.open())
+    {
+        d->img.save(imageFile.fileName(), "PNG");
+        d->url = QUrl::fromLocalFile(imageFile.fileName());
+    }
 }
 
 ImageResult::~ImageResult()
