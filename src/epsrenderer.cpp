@@ -26,6 +26,7 @@
   #include "libspectre/spectre.h"
 #endif
 
+#include <QUuid>
 #include <QDebug>
 
 EpsRenderer::EpsRenderer() : m_scale(1), m_useHighRes(false)
@@ -51,10 +52,16 @@ QTextImageFormat EpsRenderer::render(QTextDocument *document, const QUrl &url)
 {
     QTextImageFormat epsCharFormat;
 
-    QSizeF s = renderToResource(document, url);
-
-    QUrl internal = url;
+    QUrl internal;
     internal.setScheme(QLatin1String("internal"));
+    QString path = QUuid::createUuid().toString();
+    // Remove { and }
+    path.remove(0, 1);
+    path.chop(1);
+    internal.setPath(path);
+
+    QSizeF s = renderToResource(document, url, internal);
+
     if(s.isValid())
     {
         epsCharFormat.setName(internal.url());
@@ -79,13 +86,11 @@ QTextImageFormat EpsRenderer::render(QTextDocument *document,
     return format;
 }
 
-QSizeF EpsRenderer::renderToResource(QTextDocument *document, const QUrl &url)
+QSizeF EpsRenderer::renderToResource(QTextDocument *document, const QUrl &url, const QUrl& internal)
 {
     QSizeF size;
     QImage img = renderToImage(url, &size);
 
-    QUrl internal = url;
-    internal.setScheme(QLatin1String("internal"));
     qDebug() << internal;
     document->addResource(QTextDocument::ImageResource, internal, QVariant(img) );
     return size;
