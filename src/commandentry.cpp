@@ -453,11 +453,27 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
 {
     m_commandItem->setPlainText(JupyterUtils::getSource(cell));
 
-    // Jupyter TODO: support metadata info, collapsed for example
-
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromJupyter(cell);
     setExpression(expr);
+
+    // https://nbformat.readthedocs.io/en/latest/format_description.html#cell-metadata
+    // 'collapsed': +
+    // 'scrolled', 'deletable', 'name', 'tags' don't supported Cantor, so ignore them
+    // 'source_hidden' don't supported
+    // 'format' for raw entry, so ignore
+    // I haven't found 'outputs_hidden' inside Jupyter notebooks, and difference from 'collapsed'
+    // not clear, so also ignore
+    const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
+    const QJsonValue& collapsed = metadata.value(QLatin1String("collapsed"));
+    if (collapsed.isBool() && collapsed.toBool() == true)
+    {
+        // Disable animation for hiding results, we don't need animation on document load stage
+        bool animationValue = worksheet()->animationsEnabled();
+        worksheet()->enableAnimations(false);
+        collapseResults();
+        worksheet()->enableAnimations(animationValue);
+    }
 }
 
 QJsonValue CommandEntry::toJupyterJson()
@@ -471,8 +487,10 @@ QJsonValue CommandEntry::toJupyterJson()
         executionCountValue = QJsonValue(expression()->id());
     entry.insert(QLatin1String("execution_count"), executionCountValue);
 
-    // Jupyter TODO: support metadata info, collapsed for example
     QJsonObject metadata;
+    if (m_resultsCollapsed)
+        metadata.insert(QLatin1String("collapsed"), true);
+
     entry.insert(QLatin1String("metadata"), metadata);
 
     JupyterUtils::setSource(entry, command());
@@ -503,8 +521,12 @@ QJsonValue CommandEntry::toJupyterJson()
 
                 root.insert(QLatin1String("data"), data);
 
-                // Jupyter TODO: handle metadata?
-                root.insert(QLatin1String("metadata"), QJsonObject());
+                QJsonObject metadata;
+                QJsonObject size;
+                size.insert(QLatin1String("width"), image.size().width());
+                size.insert(QLatin1String("height"), image.size().height());
+                metadata.insert(QLatin1String("image/png"), size);
+                root.insert(QLatin1String("metadata"), metadata);
 
                 outputs.append(root);
             }

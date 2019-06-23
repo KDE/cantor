@@ -178,8 +178,6 @@ QJsonValue TextEntry::toJupyterJson()
     {
         entryType = QLatin1String("markdown");
 
-        // Jupyter TODO: Handle metadata
-
         // Add raw text of entry to metadata, for situation when
         // Cantor opens .ipynb converted from our .cws format
         QJsonObject cantorMetadata;
