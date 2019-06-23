@@ -295,6 +295,18 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
 
 void MarkdownEntry::updateEntry()
 {
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    while(!cursor.isNull())
+    {
+        QTextImageFormat format=cursor.charFormat().toImageFormat();
+        if (format.hasProperty(EpsRenderer::CantorFormula))
+        {
+            const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
+            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
+        }
+
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
 }
 
 WorksheetCursor MarkdownEntry::search(const QString& pattern, unsigned flags,
