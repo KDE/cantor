@@ -178,7 +178,11 @@ QJsonValue MarkdownEntry::toJupyterJson()
     if (!attachments.isEmpty())
         entry.insert(QLatin1String("attachments"), attachments);
 
-    JupyterUtils::setSource(entry, plain);
+    QString source = plain;
+    // Replace our $$ formulas to $
+    // Better, that if $$ will become $ than $ will become $$
+    source.replace(QLatin1String("$$"), QLatin1String("$"));
+    JupyterUtils::setSource(entry, source);
 
     return entry;
 }
