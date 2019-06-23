@@ -227,7 +227,7 @@ void TextEntry::updateEntry()
         if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             qDebug() << "found a formula... rendering the eps...";
-            QUrl url = format.property(EpsRenderer::ImagePath).toUrl();
+            const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
             QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
             qDebug() << "rendering successful? " << s.isValid();
 
