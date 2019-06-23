@@ -142,7 +142,6 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
-            const QLatin1String textKey("text/plain");
             if (data.contains(JupyterUtils::pngMime))
             {
                 // Load image data from base64, save into file, and create image result from this file
@@ -150,7 +149,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 QString base64 = data.value(JupyterUtils::pngMime).toString();
 
                 QImage image;
-                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()),"PNG");
+                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), "PNG");
 
                 const QJsonObject& metadata = JupyterUtils::getMetadata(output);
                 const QJsonValue size = metadata.value(JupyterUtils::pngMime);
@@ -163,28 +162,13 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                         image = image.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 }
 
-                QTemporaryFile imageFile;
-                imageFile.setAutoRemove(false);
-                imageFile.open();
-                image.save(imageFile.fileName(), "PNG");
+                const QString& alt = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
 
-                QString alt;
-                const QLatin1String textKey("text/plain");
-                if (data.contains(textKey))
-                {
-                    const QJsonValue& text = data.value(textKey);
-                    if (text.isString())
-                        alt = text.toString();
-                    else if (text.isArray())
-                        for (const QJsonValue& line : text.toArray())
-                            alt += line.toString();
-                }
-
-                addResult(new Cantor::ImageResult(QUrl::fromLocalFile(imageFile.fileName()), alt));
+                addResult(new Cantor::ImageResult(image, alt));
             }
-            else if (data.contains(textKey))
+            else if (data.contains(JupyterUtils::textMime))
             {
-                const QString& text = JupyterUtils::fromJupyterMultiline(data.value(textKey));
+                const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
                 if (!text.isEmpty())
                     addResult(new Cantor::TextResult(text));
             }

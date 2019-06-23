@@ -90,7 +90,9 @@ class JupyterUtils
     static const QString executionCountKey;
     static const QString outputsKey;
     static const QString dataKey;
+
     static const QString pngMime;
+    static const QString textMime;
 
     static const QMimeDatabase mimeDatabase;
 };

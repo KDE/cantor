@@ -45,7 +45,9 @@ const QString JupyterUtils::outputTypeKey = QLatin1String("output_type");
 const QString JupyterUtils::executionCountKey = QLatin1String("execution_count");
 const QString JupyterUtils::outputsKey = QLatin1String("outputs");
 const QString JupyterUtils::dataKey = QLatin1String("data");
+
 const QString JupyterUtils::pngMime = QLatin1String("image/png");
+const QString JupyterUtils::textMime = QLatin1String("text/plain");
 
 const QMimeDatabase JupyterUtils::mimeDatabase;
 
