@@ -142,14 +142,12 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
-            if (data.contains(JupyterUtils::pngMime))
+            const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
+            const QStringList& imageKeys = JupyterUtils::imageKeys(data);
+            // Jupyter TODO: what if keys will be more that 2?
+            if (imageKeys.size() >= 1)
             {
-                // Load image data from base64, save into file, and create image result from this file
-                // Jupyter TODO: maybe add way to create ImageResult directly from QImage?
-                QString base64 = data.value(JupyterUtils::pngMime).toString();
-
-                QImage image;
-                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), "PNG");
+                QImage image = JupyterUtils::loadImage(data, imageKeys[0]);
 
                 const QJsonObject& metadata = JupyterUtils::getMetadata(output);
                 const QJsonValue size = metadata.value(JupyterUtils::pngMime);
@@ -162,15 +160,11 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                         image = image.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
                 }
 
-                const QString& alt = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
-
-                addResult(new Cantor::ImageResult(image, alt));
+                addResult(new Cantor::ImageResult(image, text));
             }
-            else if (data.contains(JupyterUtils::textMime))
+            else if (!text.isEmpty())
             {
-                const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
-                if (!text.isEmpty())
-                    addResult(new Cantor::TextResult(text));
+                addResult(new Cantor::TextResult(text));
             }
         }
     }

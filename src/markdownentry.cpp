@@ -307,7 +307,7 @@ void MarkdownEntry::updateEntry()
         if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
-            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
+            worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
         }
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
