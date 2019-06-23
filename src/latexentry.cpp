@@ -274,9 +274,9 @@ void LatexEntry::updateEntry()
     while (!cursor.isNull())
     {
         qDebug()<<"found a formula... rendering the eps...";
-        QTextCharFormat format=cursor.charFormat();
+        QTextImageFormat format=cursor.charFormat().toImageFormat();
         const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
-        QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
+        QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
         qDebug()<<"rendering successful? "<< s.isValid();
 
         cursor.movePosition(QTextCursor::NextCharacter);

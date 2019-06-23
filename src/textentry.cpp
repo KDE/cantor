@@ -223,12 +223,12 @@ void TextEntry::updateEntry()
     QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     while(!cursor.isNull())
     {
-        QTextCharFormat format = cursor.charFormat();
+        QTextImageFormat format=cursor.charFormat().toImageFormat();
         if (format.hasProperty(EpsRenderer::CantorFormula))
         {
             qDebug() << "found a formula... rendering the eps...";
-            QUrl url = format.property(EpsRenderer::ImagePath).toUrl();
-            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url);
+            const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
+            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
             qDebug() << "rendering successful? " << s.isValid();
 
             //cursor.deletePreviousChar();
