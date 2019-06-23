@@ -90,3 +90,8 @@ void PanelPlugin::onSessionChanged()
 {
 
 }
+
+bool Cantor::PanelPlugin::showOnStartup()
+{
+    return true;
+}

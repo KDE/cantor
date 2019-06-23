@@ -595,19 +595,26 @@ void CantorShell::updatePanel()
         addDockWidget ( Qt::RightDockWidgetArea,  docker );
 
         // Set visibility for dock from saved info
-        if (!isNewWorksheet)
+        if (isNewWorksheet)
+        {
+            if (plugin->showOnStartup())
+                docker->show();
+            else
+                docker->hide();
+        }
+        else
+        {
             if (m_pluginsVisibility[m_part].contains(plugin->name()))
                 docker->show();
             else
                 docker->hide();
-        else
-            docker->show();
+        }
 
         if(last!=nullptr)
             tabifyDockWidget(last, docker);
         last=docker;
 
-        connect(plugin, SIGNAL(visibilityRequested()), docker, SLOT(raise()));
+        connect(plugin, &Cantor::PanelPlugin::visibilityRequested, this, &CantorShell::pluginVisibilityRequested);
 
         m_panels.append(docker);
 
@@ -645,4 +652,18 @@ Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()
         qDebug()<<"failed to access worksheet access interface for current part";
 
     return wa;
+}
+
+void CantorShell::pluginVisibilityRequested()
+{
+    Cantor::PanelPlugin* plugin = static_cast<Cantor::PanelPlugin*>(sender());
+    for (QDockWidget* docker: m_panels)
+    {
+        if (plugin->name() == docker->windowTitle())
+        {
+            if (docker->isHidden())
+                docker->show();
+            docker->raise();
+        }
+    }
 }

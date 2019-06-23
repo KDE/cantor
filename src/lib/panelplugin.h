@@ -100,6 +100,12 @@ class CANTOR_EXPORT PanelPlugin : public QObject
      */
     Session* session();
 
+    /**
+     * Show on worksheet startup or not
+     * Default returns true
+     */
+    virtual bool showOnStartup();
+
   Q_SIGNALS:
     void requestRunCommand(const QString& cmd);
     void visibilityRequested();

@@ -35,6 +35,8 @@ class HelpPanelPlugin : public Cantor::PanelPlugin
 
     QWidget* widget() override;
 
+    bool showOnStartup() override;
+
   public Q_SLOTS:
     void setHelpHtml(const QString& help);
     void showHelp(const QString& help);
