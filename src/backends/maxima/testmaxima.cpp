@@ -76,7 +76,7 @@ void TestMaxima::testPlot()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    if(e->result()->type()!= Cantor::EpsResult::Type)
+    if(!e->result())
     {
         waitForSignal(e, SIGNAL(gotResult()));
     }

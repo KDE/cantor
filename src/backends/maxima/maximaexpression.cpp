@@ -294,8 +294,7 @@ bool MaximaExpression::parseOutput(QString& out)
         }
         else
         {
-            errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("<br>"));
-            errorContent = errorContent.replace(QLatin1String("\n"), QLatin1String("<br>"));
+            errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
             setErrorMessage(errorContent);
             setStatus(Cantor::Expression::Error);
         }
@@ -439,7 +438,8 @@ void MaximaExpression::imageChanged()
         if (m_plotResultIndex != -1)
         {
             replaceResult(m_plotResultIndex, m_plotResult);
-            setStatus(Cantor::Expression::Done);
+            if (status() != Cantor::Expression::Error)
+                setStatus(Cantor::Expression::Done);
         }
     }
 }

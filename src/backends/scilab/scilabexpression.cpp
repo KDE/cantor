@@ -106,8 +106,7 @@ void ScilabExpression::parseError(QString error)
 {
     qDebug() << "error" << error;
 
-    setErrorMessage(error.replace(QLatin1String("\n"), QLatin1String("<br>")).remove(0, 2)
-        .replace(QLatin1String(" "), QLatin1String("&nbsp;")));
+    setErrorMessage(error);
 
     evalFinished();
     setStatus(Cantor::Expression::Error);
