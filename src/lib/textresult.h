@@ -33,7 +33,7 @@ class CANTOR_EXPORT TextResult : public Result
 {
   public:
     enum { Type=1 };
-    enum Format { PlainTextFormat, LatexFormat};
+    enum Format { PlainTextFormat, LatexFormat, HTMLFormat};
     TextResult(const QString& text);
     TextResult(const QString& text, const QString& plain);
     ~TextResult() override;
@@ -53,6 +53,9 @@ class CANTOR_EXPORT TextResult : public Result
     QJsonValue toJupyterJson() override;
 
     void save(const QString& filename) override;
+
+  private:
+    QJsonArray jupyterText(const QString& text);
 
   private:
     TextResultPrivate* d;

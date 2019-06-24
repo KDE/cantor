@@ -71,10 +71,15 @@ TextResult::~TextResult()
 
 QString TextResult::toHtml()
 {
-    QString s=d->data.toHtmlEscaped();
-    s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
-    s.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
-    return s;
+    if (d->format == HTMLFormat)
+        return d->data;
+    else
+    {
+        QString s=d->data.toHtmlEscaped();
+        s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
+        s.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
+        return s;
+    }
 }
 
 QVariant TextResult::data()
@@ -95,10 +100,20 @@ int TextResult::type()
 QString TextResult::mimeType()
 {
     qDebug()<<"format: "<<format();
-    if(format()==TextResult::PlainTextFormat)
-        return QStringLiteral("text/plain");
-    else
-        return QStringLiteral("text/x-tex");
+    switch(format())
+    {
+        case TextResult::PlainTextFormat:
+            return QStringLiteral("text/plain");
+
+        case TextResult::LatexFormat:
+            return QStringLiteral("text/x-tex");
+
+        case TextResult::HTMLFormat:
+            return QStringLiteral("text/html");
+
+        default:
+            return QString();
+    }
 }
 
 TextResult::Format TextResult::format()
@@ -116,6 +131,10 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     qDebug()<<"saving textresult "<<toHtml();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
+    if (d->format == HTMLFormat)
+        e.setAttribute(QStringLiteral("format"), QStringLiteral("html"));
+    else if (d->format == LatexFormat)
+        e.setAttribute(QStringLiteral("format"), QStringLiteral("latex"));
     QDomText txt=doc.createTextNode(data().toString());
     e.appendChild(txt);
 
@@ -126,27 +145,44 @@ QJsonValue Cantor::TextResult::toJupyterJson()
 {
     QJsonObject root;
 
-    root.insert(QLatin1String("output_type"), QLatin1String("stream"));
-    root.insert(QLatin1String("name"), QLatin1String("stdout"));
-
-    QJsonValue text;
-    const QStringList& lines = d->data.split(QLatin1Char('\n'));
-    if (lines.size() == 1)
-        text = lines[0];
-    else
+    switch (d->format)
     {
-        QJsonArray array;
-        for (int i = 0; i < lines.size(); i++)
+        case HTMLFormat:
         {
-            QString line = lines[i];
-            // Don't add \n to last line
-            if (i != lines.size() - 1)
-                line.append(QLatin1Char('\n'));
-            array.append(line);
+            root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+            QJsonObject data;
+            qDebug() << d->data;
+            data.insert(QLatin1String("text/html"), jupyterText(d->data));
+            data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
+            root.insert(QLatin1String("data"), data);
+
+            root.insert(QLatin1String("metadata"), QJsonObject());
+            break;
         }
-        text = array;
+
+        case PlainTextFormat:
+        {
+            root.insert(QLatin1String("output_type"), QLatin1String("stream"));
+            root.insert(QLatin1String("name"), QLatin1String("stdout"));
+
+            root.insert(QLatin1String("text"), jupyterText(d->data));
+            break;
+        }
+
+        case LatexFormat:
+        {
+            root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+            QJsonObject data;
+            data.insert(QLatin1String("text/latex"), jupyterText(d->data));
+            data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
+            root.insert(QLatin1String("data"), data);
+
+            root.insert(QLatin1String("metadata"), QJsonObject());
+            break;
+        }
     }
-    root.insert(QLatin1String("text"), text);
 
     return root;
 }
@@ -163,4 +199,16 @@ void TextResult::save(const QString& filename)
     stream<<d->data;
 
     file.close();
+}
+
+QJsonArray TextResult::jupyterText(const QString& text)
+{
+    QJsonArray array;
+    const QStringList& lines = text.split(QLatin1Char('\n'));
+    for (QString line : lines)
+    {
+        line.append(QLatin1Char('\n'));
+        array.append(line);
+    }
+    return array;
 }

@@ -64,7 +64,13 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         qDebug() << "type" << type;
         if ( type == QLatin1String("text"))
         {
-            addResult(new Cantor::TextResult(resultElement.text()));
+            const QString& format = resultElement.attribute(QLatin1String("format"));
+            Cantor::TextResult* result = new Cantor::TextResult(resultElement.text());
+            if (format == QLatin1String("html"))
+                result->setFormat(Cantor::TextResult::HTMLFormat);
+            else if (format == QLatin1String("latex"))
+                result->setFormat(Cantor::TextResult::LatexFormat);
+            addResult(result);
         }
         else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
         {
@@ -165,7 +171,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             }
             else if (mainKey == JupyterUtils::htmlMime)
             {
-                // Jupyter TODO: handle plain/html?
+                const QString& html = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::htmlMime));
+                Cantor::TextResult* result = new Cantor::TextResult(html, text);
+                result->setFormat(Cantor::TextResult::HTMLFormat);
+                addResult(result);
             }
             else if (mainKey == JupyterUtils::latexMime)
             {
