@@ -118,13 +118,13 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
         const QJsonObject& output = iter->toObject();
         const QString& outputType = JupyterUtils::getOutputType(output);
-        if (outputType == QLatin1String("stream"))
+        if (JupyterUtils::isJupyterTextOutput(output))
         {
             const QString& text = JupyterUtils::fromJupyterMultiline(output.value(QLatin1String("text")));
 
             addResult(new Cantor::TextResult(text));
         }
-        else if (outputType == QLatin1String("error"))
+        else if (JupyterUtils::isJupyterErrorOutput(output))
         {
             const QJsonArray& tracebackLineArray = output.value(QLatin1String("traceback")).toArray();
             QString traceback;
@@ -141,7 +141,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
             setErrorMessage(traceback);
         }
-        else if (outputType == QLatin1String("display_data") || outputType == QLatin1String("execute_result"))
+        else if (JupyterUtils::isJupyterDisplayOutput(output) || JupyterUtils::isJupyterExecutionResult(output))
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 

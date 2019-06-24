@@ -67,6 +67,9 @@ class JupyterUtils
 
     static bool isJupyterOutput(const QJsonValue& output);
     static bool isJupyterDisplayOutput(const QJsonValue& output);
+    static bool isJupyterTextOutput(const QJsonValue& output);
+    static bool isJupyterErrorOutput(const QJsonValue& output);
+    static bool isJupyterExecutionResult(const QJsonValue& output);
 
     static QJsonValue toJupyterMultiline(const QString& source);
     static QString fromJupyterMultiline(const QJsonValue& source);

@@ -135,6 +135,35 @@ bool JupyterUtils::isJupyterOutput(const QJsonValue& output)
     return isOutput;
 }
 
+bool JupyterUtils::isJupyterTextOutput(const QJsonValue& output)
+{
+    return
+           isJupyterOutput(output)
+        && output.toObject().value(outputTypeKey).toString() == QLatin1String("stream")
+        && output.toObject().value(QLatin1String("name")).isString()
+        && output.toObject().value(QLatin1String("text")).isArray();
+}
+
+bool JupyterUtils::isJupyterErrorOutput(const QJsonValue& output)
+{
+    return
+           isJupyterOutput(output)
+        && output.toObject().value(outputTypeKey).toString() == QLatin1String("error")
+        && output.toObject().value(QLatin1String("ename")).isString()
+        && output.toObject().value(QLatin1String("evalue")).isString()
+        && output.toObject().value(QLatin1String("traceback")).isArray();
+}
+
+bool JupyterUtils::isJupyterExecutionResult(const QJsonValue& output)
+{
+    return
+           isJupyterOutput(output)
+        && output.toObject().value(outputTypeKey).toString() == QLatin1String("execute_result")
+        && output.toObject().value(QLatin1String("execution_count")).isDouble()
+        && output.toObject().value(metadataKey).isObject()
+        && output.toObject().value(QLatin1String("data")).isObject();
+}
+
 bool JupyterUtils::isJupyterDisplayOutput(const QJsonValue& output)
 {
     return
