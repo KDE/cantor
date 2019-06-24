@@ -675,7 +675,14 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
         }
 
         if (status == Cantor::Expression::Error)
-            m_errorItem->setHtml(m_expression->errorMessage());
+        {
+            QString error = m_expression->errorMessage().toHtmlEscaped();
+            while (error.endsWith(QLatin1Char('\n')))
+                error.chop(1);
+            error.replace(QLatin1String("\n"), QLatin1String("<br>"));
+            error.replace(QLatin1String(" "), QLatin1String("&nbsp;"));
+            m_errorItem->setHtml(error);
+        }
         else
             m_errorItem->setHtml(i18n("Interrupted"));
 

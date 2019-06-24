@@ -118,7 +118,7 @@ void PythonExpression::parseOutput(QString output)
 void PythonExpression::parseError(QString error)
 {
     qDebug() << "expression error: " << error;
-    setErrorMessage(error.replace(QLatin1String("\n"), QLatin1String("<br>")));
+    setErrorMessage(error);
 
     setStatus(Cantor::Expression::Error);
 }

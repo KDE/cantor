@@ -72,14 +72,8 @@ QString JuliaExpression::internalCommand()
 
 void JuliaExpression::finalize(const QString& output, const QString& error, bool wasException)
 {
-    /*
-    setErrorMessage(
-        error
-            .replace(QLatin1String("\n"), QLatin1String("<br>"))
-    );
-    */
     if (wasException) {
-        setErrorMessage(QString(error).replace(QLatin1String("\n"), QLatin1String("<br>")));
+        setErrorMessage(error);
         if (!output.isEmpty())
             setResult(new Cantor::TextResult(output));
         setStatus(Cantor::Expression::Error);

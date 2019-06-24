@@ -294,8 +294,7 @@ bool MaximaExpression::parseOutput(QString& out)
         }
         else
         {
-            errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("<br>"));
-            errorContent = errorContent.replace(QLatin1String("\n"), QLatin1String("<br>"));
+            errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
             setErrorMessage(errorContent);
             setStatus(Cantor::Expression::Error);
         }
