@@ -71,10 +71,11 @@ QalculateSession::~QalculateSession()
 
 void QalculateSession::login()
 {
-    if (!m_process)
+    if (m_process)
         return;
 
     emit loginStarted();
+    qDebug() << "login started";
 
     /* we will , most probably, use autoscripts for setting the mode , evaluate options, print options etc */
 
