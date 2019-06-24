@@ -137,7 +137,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             static const QChar ESC(0x1b);
             traceback.remove(QRegExp(QString(ESC)+QLatin1String("\\[[0-9;]*m")));
 
-            setErrorMessage(traceback.toHtmlEscaped().replace(QLatin1String("\n"), QLatin1String("<br>")));
+            setErrorMessage(traceback);
         }
         else if (outputType == QLatin1String("display_data") || outputType == QLatin1String("execute_result"))
         {

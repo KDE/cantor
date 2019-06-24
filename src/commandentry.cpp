@@ -497,6 +497,31 @@ QJsonValue CommandEntry::toJupyterJson()
 
     QJsonArray outputs;
     if (expression())
+    {
+        Cantor::Expression::Status status = expression()->status();
+        if (status == Cantor::Expression::Error || status == Cantor::Expression::Interrupted)
+        {
+            QJsonObject errorOutput;
+            errorOutput.insert(JupyterUtils::outputsKey, QLatin1String("error"));
+            errorOutput.insert(QLatin1String("ename"), QLatin1String("Unknown"));
+            errorOutput.insert(QLatin1String("evalue"), QLatin1String("Unknown"));
+
+            QJsonArray traceback;
+            if (status == Cantor::Expression::Error)
+            {
+                const QStringList& error = expression()->errorMessage().split(QLatin1Char('\n'));
+                for (const QString& line: error)
+                    traceback.append(line);
+            }
+            else
+            {
+                traceback.append(i18n("Interrupted"));
+            }
+            errorOutput.insert(QLatin1String("traceback"), traceback);
+
+            outputs.append(errorOutput);
+        }
+
         for (Cantor::Result * const result: expression()->results())
         {
             const QJsonValue& resultJson = result->toJupyterJson();
@@ -532,7 +557,8 @@ QJsonValue CommandEntry::toJupyterJson()
             }
             else if (!resultJson.isNull())
                 outputs.append(resultJson);
-            }
+        }
+    }
     entry.insert(QLatin1String("outputs"), outputs);
 
     return entry;
