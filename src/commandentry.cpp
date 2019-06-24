@@ -527,7 +527,7 @@ QJsonValue CommandEntry::toJupyterJson()
             const QJsonValue& resultJson = result->toJupyterJson();
 
             // Jupyter TODO: Convert EpsResult here?
-            if (result->type() == Cantor::EpsResult::Type || result->type() == Cantor::LatexResult::Type)
+            if (result->type() == Cantor::EpsResult::Type)
             {
                 QJsonObject root;
 

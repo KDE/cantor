@@ -26,6 +26,7 @@
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
 #include "lib/animationresult.h"
+#include "lib/latexrenderer.h"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -60,6 +61,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
     {
         const QDomElement& resultElement = results.at(i).toElement();
         const QString& type = resultElement.attribute(QLatin1String("type"));
+        qDebug() << "type" << type;
         if ( type == QLatin1String("text"))
         {
             addResult(new Cantor::TextResult(resultElement.text()));
@@ -167,7 +169,15 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             }
             else if (mainKey == JupyterUtils::latexMime)
             {
-                // Jupyter TODO: handle latex
+                QString latex = JupyterUtils::fromJupyterMultiline(data.value(mainKey));
+                QScopedPointer<Cantor::LatexRenderer> renderer(new Cantor::LatexRenderer(this));
+                renderer->setLatexCode(latex);
+                renderer->setEquationOnly(false);
+                renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
+                renderer->renderBlocking();
+
+                if (renderer->renderingSuccessful())
+                    addResult(new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text));
             }
             // So this is image
             else if (JupyterUtils::imageKeys(data).contains(mainKey))
