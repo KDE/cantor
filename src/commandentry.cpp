@@ -632,6 +632,8 @@ void CommandEntry::updateEntry()
     //or when we got a new result(s).
     //In the second case the number of results and the number of result graphic objects is different
     //and we add a new graphic objects for the new result(s) (new result(s) are located in the end).
+    // NOTE: LatexResult could request update (change from rendered to code, for example)
+    // So, just update results, if we haven't new results or something similar
     if (m_resultItems.size() < expr->results().size())
     {
         if (m_resultsCollapsed)
@@ -639,8 +641,13 @@ void CommandEntry::updateEntry()
 
         for (int i = m_resultItems.size(); i < expr->results().size(); i++)
             m_resultItems << ResultItem::create(this, expr->results()[i]);
-        animateSizeChange();
     }
+    else
+    {
+        for (ResultItem* item: m_resultItems)
+            item->update();
+    }
+    animateSizeChange();
 }
 
 void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
