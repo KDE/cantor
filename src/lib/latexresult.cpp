@@ -130,6 +130,7 @@ QDomElement LatexResult::toXml(QDomDocument& doc)
 
 QJsonValue Cantor::LatexResult::toJupyterJson()
 {
+    //Jupyter TODO: add realization for this
     return QJsonValue();
 }
 

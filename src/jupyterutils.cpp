@@ -47,6 +47,7 @@ const QString JupyterUtils::outputsKey = QLatin1String("outputs");
 const QString JupyterUtils::dataKey = QLatin1String("data");
 
 const QString JupyterUtils::pngMime = QLatin1String("image/png");
+const QString JupyterUtils::gifMime = QLatin1String("image/gif");
 const QString JupyterUtils::textMime = QLatin1String("text/plain");
 
 const QMimeDatabase JupyterUtils::mimeDatabase;

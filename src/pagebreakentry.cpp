@@ -83,7 +83,7 @@ void PageBreakEntry::setContentFromJupyter(const QJsonObject& cell)
 
 QJsonValue PageBreakEntry::toJupyterJson()
 {
-    // There isn't something like our page break in Jupyter
+    // Jupyter TODO: add realization
     return QJsonValue();
 }
 

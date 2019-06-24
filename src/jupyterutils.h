@@ -92,6 +92,7 @@ class JupyterUtils
     static const QString dataKey;
 
     static const QString pngMime;
+    static const QString gifMime;
     static const QString textMime;
 
     static const QMimeDatabase mimeDatabase;

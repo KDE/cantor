@@ -95,8 +95,24 @@ QDomElement AnimationResult::toXml(QDomDocument& doc)
 
 QJsonValue Cantor::AnimationResult::toJupyterJson()
 {
-    // Jupyter TODO: add support for this result type
-    return QJsonValue();
+    QJsonObject root;
+
+    root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+    QJsonObject data;
+    data.insert(QLatin1String("text/plain"), d->alt);
+
+    QFile file(d->url.toLocalFile());
+    QByteArray bytes;
+    if (file.open(QIODevice::ReadOnly))
+        bytes = file.readAll();
+    data.insert(QLatin1String("image/gif"), QString::fromLatin1(bytes.toBase64()));
+
+    root.insert(QLatin1String("data"), data);
+    // Not sure, but in Jupyter size of gif doesn't controlled by metadata unlike ImageResult
+    root.insert(QLatin1String("metadata"), QJsonObject());
+
+    return root;
 }
 
 void AnimationResult::saveAdditionalData(KZip* archive)
