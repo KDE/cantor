@@ -116,12 +116,9 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
     for (const QString& key : attachments.keys())
     {
         const QJsonValue& attachment = attachments.value(key);
-        const QStringList& keys = JupyterUtils::imageKeys(attachment);
-        // Jupyter TODO: what if keys will be 2?
-        // Is it valid scheme at all?
-        if (keys.size() == 1)
+        const QString& mimeKey = JupyterUtils::firstImageKey(attachment);
+        if (!mimeKey.isEmpty())
         {
-            const QString& mimeKey = keys[0];
             const QImage& image = JupyterUtils::loadImage(attachment, mimeKey);
 
             QUrl resourceUrl;
@@ -131,6 +128,8 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
         }
     }
 
+    // https://github.com/Orc/discount/issues/211
+    // Jupyter TODO: replace this ugly code by Discount '$' support, if the issue will be merged into master
     setPlainText(adaptJupyterMarkdown(JupyterUtils::getSource(cell)));
 }
 
@@ -517,7 +516,6 @@ QString MarkdownEntry::convert(const QString& markdown, QString& tail)
                     buf += sym;
                 break;
 
-            // Jupyter TODO: Strange logic
             // if we have $$ $...$ (eof)
             // After converting we will ahve $$ $$...$$ (eof)
             // And it will be evaluate in wrong way ($$ $$)

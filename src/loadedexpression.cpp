@@ -124,15 +124,16 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         }
         else if (outputType == QLatin1String("error"))
         {
-            //Jupyter TODO: there are colors in tracback, add support for them
             const QJsonArray& tracebackLineArray = output.value(QLatin1String("traceback")).toArray();
             QString traceback;
-            // Jupyter TODO: is this \n necessary?
+
+            // Looks like the traceback in Jupyter joined with '\n', no ''
+            // So, manually add it
             for (const QJsonValue& line : tracebackLineArray)
                 traceback += line.toString() + QLatin1Char('\n');
             traceback.chop(1);
 
-            // Jupyter TODO: IPython return error with terminal colors, should Cantor handle it?
+            // IPython returns error with terminal colors, we handle it here, but should we?
             static const QChar ESC(0x1b);
             traceback.remove(QRegExp(QString(ESC)+QLatin1String("\\[[0-9;]*m")));
 
@@ -143,11 +144,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
             const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
-            const QStringList& imageKeys = JupyterUtils::imageKeys(data);
-            // Jupyter TODO: what if keys will be more that 2?
-            if (imageKeys.size() >= 1)
+            const QString& imageKey = JupyterUtils::firstImageKey(data);
+            if (!imageKey.isEmpty())
             {
-                QImage image = JupyterUtils::loadImage(data, imageKeys[0]);
+                QImage image = JupyterUtils::loadImage(data, imageKey);
 
                 const QJsonObject& metadata = JupyterUtils::getMetadata(output);
                 const QJsonValue size = metadata.value(JupyterUtils::pngMime);

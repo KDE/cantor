@@ -322,3 +322,9 @@ QStringList JupyterUtils::imageKeys(const QJsonValue& mimeBundle)
 
     return imageKeys;
 }
+
+QString JupyterUtils::firstImageKey(const QJsonValue& mimeBundle)
+{
+    const QStringList& keys = imageKeys(mimeBundle);
+    return keys.size() >= 1 ? keys[0] : QString();
+}
