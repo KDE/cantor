@@ -502,7 +502,7 @@ QJsonValue CommandEntry::toJupyterJson()
         if (status == Cantor::Expression::Error || status == Cantor::Expression::Interrupted)
         {
             QJsonObject errorOutput;
-            errorOutput.insert(JupyterUtils::outputsKey, QLatin1String("error"));
+            errorOutput.insert(JupyterUtils::outputTypeKey, QLatin1String("error"));
             errorOutput.insert(QLatin1String("ename"), QLatin1String("Unknown"));
             errorOutput.insert(QLatin1String("evalue"), QLatin1String("Unknown"));
 

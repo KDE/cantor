@@ -141,46 +141,51 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         }
         else if (outputType == QLatin1String("display_data") || outputType == QLatin1String("execute_result"))
         {
-            // Jupyter TODO: handle plain/html?
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
             const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
-            const QString& imageKey = JupyterUtils::firstImageKey(data);
-            if (!imageKey.isEmpty())
+            const QString& mainKey = JupyterUtils::mainBundleKey(data);
+            if (mainKey == JupyterUtils::gifMime)
             {
-                if (imageKey == QLatin1String("image/gif"))
-                {
-                    const QByteArray& bytes = QByteArray::fromBase64(data.value(imageKey).toString().toLatin1());
+                const QByteArray& bytes = QByteArray::fromBase64(data.value(mainKey).toString().toLatin1());
 
-                    QTemporaryFile file;
-                    file.setAutoRemove(false);
-                    file.open();
-                    file.write(bytes);
-                    file.close();
+                QTemporaryFile file;
+                file.setAutoRemove(false);
+                file.open();
+                file.write(bytes);
+                file.close();
 
-                    addResult(new Cantor::AnimationResult(QUrl::fromLocalFile(file.fileName()), text));
-                }
-                else
-                {
-                    QImage image = JupyterUtils::loadImage(data, imageKey);
-
-                    const QJsonObject& metadata = JupyterUtils::getMetadata(output);
-                    const QJsonValue size = metadata.value(JupyterUtils::pngMime);
-                    if (size.isObject())
-                    {
-                        int w = size.toObject().value(QLatin1String("width")).toInt();
-                        int h = size.toObject().value(QLatin1String("height")).toInt();
-
-                        if (w != 0 && h != 0)
-                            image = image.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-                    }
-
-                    addResult(new Cantor::ImageResult(image, text));
-                }
+                addResult(new Cantor::AnimationResult(QUrl::fromLocalFile(file.fileName()), text));
             }
-            else if (!text.isEmpty())
+            else if (mainKey == JupyterUtils::textMime)
             {
                 addResult(new Cantor::TextResult(text));
+            }
+            else if (mainKey == JupyterUtils::htmlMime)
+            {
+                // Jupyter TODO: handle plain/html?
+            }
+            else if (mainKey == JupyterUtils::latexMime)
+            {
+                // Jupyter TODO: handle latex
+            }
+            // So this is image
+            else if (JupyterUtils::imageKeys(data).contains(mainKey))
+            {
+                QImage image = JupyterUtils::loadImage(data, mainKey);
+
+                const QJsonObject& metadata = JupyterUtils::getMetadata(output);
+                const QJsonValue size = metadata.value(JupyterUtils::pngMime);
+                if (size.isObject())
+                {
+                    int w = size.toObject().value(QLatin1String("width")).toInt();
+                    int h = size.toObject().value(QLatin1String("height")).toInt();
+
+                    if (w != 0 && h != 0)
+                        image = image.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+                }
+
+                addResult(new Cantor::ImageResult(image, text));
             }
         }
     }

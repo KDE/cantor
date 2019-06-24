@@ -49,6 +49,8 @@ const QString JupyterUtils::dataKey = QLatin1String("data");
 const QString JupyterUtils::pngMime = QLatin1String("image/png");
 const QString JupyterUtils::gifMime = QLatin1String("image/gif");
 const QString JupyterUtils::textMime = QLatin1String("text/plain");
+const QString JupyterUtils::htmlMime = QLatin1String("text/html");
+const QString JupyterUtils::latexMime = QLatin1String("text/latex");
 
 const QMimeDatabase JupyterUtils::mimeDatabase;
 
@@ -328,4 +330,34 @@ QString JupyterUtils::firstImageKey(const QJsonValue& mimeBundle)
 {
     const QStringList& keys = imageKeys(mimeBundle);
     return keys.size() >= 1 ? keys[0] : QString();
+}
+
+QString JupyterUtils::mainBundleKey(const QJsonValue& mimeBundle)
+{
+    QString mainKey;
+
+    if (mimeBundle.isObject())
+    {
+        const QStringList& keys = mimeBundle.toObject().keys();
+        if (keys.size() == 1)
+            mainKey = keys[0];
+        else if (keys.size() == 2)
+        {
+            int idx = keys.indexOf(textMime);
+            if (idx != -1)
+                // Getting not 'text/plain' key, because often it's just a caption
+                mainKey = keys[1 - idx];
+            else
+                // Not sure, that this is valid, but return first keys
+                mainKey = keys[0];
+        }
+        else if (keys.size() > 2)
+            // Also not sure about it
+            // Specification is not very clean on cases, such that
+            // Just in case, if we will have duplication of image information
+            // Something like keys == {'image/png', 'image/bmp', 'text/plain'}
+            mainKey = firstImageKey(mimeBundle);
+    }
+
+    return mainKey;
 }

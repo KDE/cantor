@@ -78,6 +78,7 @@ class JupyterUtils
     static QJsonObject packMimeBundle(const QImage& image, const QString& mime);
     static QStringList imageKeys(const QJsonValue& mimeBundle);
     static QString firstImageKey(const QJsonValue& mimeBundle);
+    static QString mainBundleKey(const QJsonValue& mimeBundle);
   public:
     static const QString cellsKey;
     static const QString metadataKey;
@@ -94,6 +95,8 @@ class JupyterUtils
     static const QString pngMime;
     static const QString gifMime;
     static const QString textMime;
+    static const QString htmlMime;
+    static const QString latexMime;
 
     static const QMimeDatabase mimeDatabase;
 };
