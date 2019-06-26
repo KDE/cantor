@@ -28,6 +28,7 @@
 
 class QTabWidget;
 class KTextEdit;
+class KRecentFilesAction;
 
 namespace Cantor{
 class WorksheetAccessInterface;
@@ -53,12 +54,7 @@ public:
     /**
      * Default Destructor
      */
-    ~CantorShell() override = default;
-
-    /**
-     * Use this method to load whatever file/URL you have
-     */
-    void load(const QUrl& url);
+    ~CantorShell() override;
 
     /**
      * checks if at least one usable Backend is installed
@@ -82,10 +78,13 @@ protected:
 public Q_SLOTS:
     void addWorksheet();
     void addWorksheet(const QString& backendName);
+    /// Use this method/slot to load whatever file/URL you have
+    void load(const QUrl& url);
 
 private Q_SLOTS:
     void fileNew();
     void fileOpen();
+    void onWorksheetSave(const QUrl& url);
     void optionsConfigureKeys();
 
     void activateWorksheet(int index);
@@ -115,6 +114,7 @@ private:
     QTabWidget* m_tabWidget;
     QList<QDockWidget*> m_panels;
     QDockWidget* m_helpDocker;
+    KRecentFilesAction* m_recentProjectsAction;
 };
 
 #endif // CANTOR_H

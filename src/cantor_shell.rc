@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="cantor_shell" version="1">
+<kpartgui name="cantor_shell" version="2">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_new"/>
@@ -7,6 +7,7 @@
         <ActionList name="new_worksheet_with_backend_list" />
     </Menu>
     <Action name="file_open"/>
+    <Action name="file_open_recent"/>
     <Action name="file_example_download"/>
     <Action name="file_example_open"/>
     <Separator/>

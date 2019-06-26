@@ -450,6 +450,7 @@ bool CantorPart::saveFile()
         m_worksheet->save( localFilePath() );
     setModified(false);
 
+    emit worksheetSave(QUrl::fromLocalFile(localFilePath()));
     return true;
 }
 
@@ -480,7 +481,9 @@ void CantorPart::fileSaveAs()
     {
         if (!file_name.endsWith(QLatin1String(".cws")))
             file_name += QLatin1String(".cws");
-        saveAs(QUrl::fromLocalFile(file_name));
+        const QUrl& url = QUrl::fromLocalFile(file_name);
+        saveAs(url);
+        emit worksheetSave(url);
     }
     else
         m_worksheet->savePlain(file_name);

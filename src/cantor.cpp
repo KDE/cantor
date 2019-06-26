@@ -27,6 +27,7 @@
 #include <KStandardAction>
 #include <KNS3/DownloadDialog>
 #include <KParts/ReadWritePart>
+#include <KRecentFilesAction>
 
 #include <QApplication>
 #include <QCloseEvent>
@@ -75,6 +76,12 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
     updateNewSubmenu();
 }
 
+CantorShell::~CantorShell()
+{
+    if (m_recentProjectsAction)
+        m_recentProjectsAction->saveEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
+}
+
 void CantorShell::load(const QUrl &url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
@@ -84,6 +91,8 @@ void CantorShell::load(const QUrl &url)
     }
     if (!m_part->openUrl( url ))
         closeTab(m_tabWidget->currentIndex());
+    if (m_recentProjectsAction)
+        m_recentProjectsAction->addUrl(url);
 }
 
 bool CantorShell::hasAvailableBackend()
@@ -104,6 +113,9 @@ void CantorShell::setupActions()
     openNew->setPriority(QAction::LowPriority);
     QAction* open = KStandardAction::open(this, SLOT(fileOpen()), actionCollection());
     open->setPriority(QAction::LowPriority);
+    m_recentProjectsAction = KStandardAction::openRecent(this, &CantorShell::load, actionCollection());
+    m_recentProjectsAction->setPriority(QAction::LowPriority);
+    m_recentProjectsAction->loadEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
 
     KStandardAction::close (this,  SLOT(closeTab()),  actionCollection());
 
@@ -299,6 +311,7 @@ void CantorShell::addWorksheet(const QString& backendName)
                 if (part)
                 {
                     connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
+                    connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
                     m_parts.append(part);
 
                     int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
@@ -666,4 +679,10 @@ void CantorShell::pluginVisibilityRequested()
             docker->raise();
         }
     }
+}
+
+void CantorShell::onWorksheetSave(const QUrl& url)
+{
+    if (m_recentProjectsAction)
+        m_recentProjectsAction->addUrl(url);
 }
