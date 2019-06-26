@@ -1,0 +1,53 @@
+set(worksheettest_SRCS
+    ../worksheet.cpp
+    ../worksheetview.cpp
+    ../worksheetentry.cpp
+    ../worksheettextitem.cpp
+    ../worksheetimageitem.cpp
+    ../commandentry.cpp
+    ../textentry.cpp
+    ../markdownentry.cpp
+    ../pagebreakentry.cpp
+    ../imageentry.cpp
+    ../latexentry.cpp
+    ../placeholderentry.cpp
+    ../worksheetcursor.cpp
+    ../searchbar.cpp
+    ../actionbar.cpp
+    ../worksheettoolbutton.cpp
+    ../imagesettingsdialog.cpp
+    ../scripteditor/scripteditorwidget.cpp
+    ../resultitem.cpp
+    ../textresultitem.cpp
+    ../imageresultitem.cpp
+    ../animationresultitem.cpp
+    ../loadedexpression.cpp
+    ../animation.cpp
+    ../epsrenderer.cpp
+    ../jupyterutils.cpp
+    worksheet_test.cpp)
+
+ki18n_wrap_ui(worksheettest_SRCS ../imagesettings.ui)
+kconfig_add_kcfg_files(worksheettest_SRCS ../settings.kcfgc)
+file(COPY data/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
+set(PATH_TO_TEST_NOTEBOOKS ${CMAKE_CURRENT_BINARY_DIR}/data)
+configure_file (config-cantor-test.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor-test.h )
+
+add_executable( testworksheet ${worksheettest_SRCS})
+add_test(NAME testworksheet COMMAND testworksheet)
+target_link_libraries( testworksheet
+    cantorlibs
+    cantor_config
+    Qt5::Test
+    Qt5::PrintSupport
+    Qt5::Xml
+    ${Qt5XmlPatterns_LIBRARIES}
+    KF5::TextEditor
+)
+
+if(LIBSPECTRE_FOUND)
+    target_link_libraries(testworksheet ${LIBSPECTRE_LIBRARY})
+endif(LIBSPECTRE_FOUND)
+if(Discount_FOUND)
+    target_link_libraries(testworksheet Discount::Lib)
+endif(Discount_FOUND)

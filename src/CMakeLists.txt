@@ -109,5 +109,9 @@ if(Discount_FOUND)
     target_link_libraries(cantorpart Discount::Lib)
 endif(Discount_FOUND)
 
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif(BUILD_TESTING)
+
 install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
