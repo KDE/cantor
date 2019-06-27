@@ -33,6 +33,7 @@ class WorksheetTest: public QObject
   private Q_SLOTS:
     void initTestCase();
     void testJupyter1();
+    void testJupyter2();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);
@@ -40,4 +41,11 @@ class WorksheetTest: public QObject
     static Cantor::Expression* expression(WorksheetEntry* entry);
     static QString plainMarkdown(WorksheetEntry* markdownEntry);
     static QString plainCommand(WorksheetEntry* commandEntry);
+    static void testMarkdown(WorksheetEntry* &entry, const QString& content);
+    static void testCommandEntry(WorksheetEntry* &entry, int id, const QString& content);
+    static void testCommandEntry(WorksheetEntry* entry, int id, int resultsCount, const QString& content);
+    static void testImageResult(WorksheetEntry* entry, int index);
+    static void testTextResult(WorksheetEntry* entry, int index, const QString& content);
+    static void testHTMLTextResult(WorksheetEntry* entry, int index, const QString& content);
+    static void testHTMLTextResult(WorksheetEntry* entry, int index, const QString& plain, const QString& html);
 };
