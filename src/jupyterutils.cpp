@@ -381,11 +381,28 @@ QString JupyterUtils::mainBundleKey(const QJsonValue& mimeBundle)
                 mainKey = keys[0];
         }
         else if (keys.size() > 2)
+        {
             // Also not sure about it
             // Specification is not very clean on cases, such that
-            // Just in case, if we will have duplication of image information
+            // Just in case, if we will have duplications of information
             // Something like keys == {'image/png', 'image/bmp', 'text/plain'}
-            mainKey = firstImageKey(mimeBundle);
+            // Or something like keys == {'text/html', 'text/latex', 'text/plain'}
+            // Set priority for html->latex->plain (in this order)
+            if (keys.contains(htmlMime))
+                mainKey = htmlMime;
+            else if (keys.contains(latexMime))
+                mainKey = latexMime;
+            else if (keys.contains(textMime))
+                mainKey = textMime;
+            else
+            {
+                // Search for image keys, if no
+                // then just use first key
+                mainKey = firstImageKey(mimeBundle);
+                if (mainKey.isEmpty())
+                    mainKey = keys[0];
+            }
+        }
     }
 
     return mainKey;
