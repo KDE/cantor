@@ -20,6 +20,8 @@
 
 #include "pythonserver.h"
 
+#include <QFileInfo>
+#include <QDir>
 #include <Python.h>
 
 PythonServer::PythonServer(QObject* parent) : QObject(parent), m_pModule(nullptr)
@@ -146,6 +148,9 @@ QString PythonServer::getOutput() const
 void PythonServer::setFilePath(const QString& path)
 {
     this->filePath = path;
+    PyRun_SimpleString(("import sys; sys.argv = ['" + path.toStdString() + "']").c_str());
+    QString dir = QFileInfo(path).absoluteDir().absolutePath();
+    PyRun_SimpleString(("import sys; sys.path.insert(0, '" + dir.toStdString() + "')").c_str());
     PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
 }
 
