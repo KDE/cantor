@@ -450,6 +450,7 @@ bool CantorPart::saveFile()
         m_worksheet->save( localFilePath() );
     setModified(false);
 
+    emit worksheetSave(QUrl::fromLocalFile(localFilePath()));
     return true;
 }
 
@@ -482,14 +483,18 @@ void CantorPart::fileSaveAs()
         if (!file_name.endsWith(QLatin1String(".cws")))
             file_name += QLatin1String(".cws");
         m_worksheet->setType(Worksheet::CantorWorksheet);
-        saveAs(QUrl::fromLocalFile(file_name));
+        const QUrl& url = QUrl::fromLocalFile(file_name);
+        saveAs(url);
+        emit worksheetSave(url);
     }
     else if (selectedFilter == notebookFilter)
     {
         if (!file_name.endsWith(QLatin1String(".ipynb")))
             file_name += QLatin1String(".ipynb");
         m_worksheet->setType(Worksheet::JupyterNotebook);
-        saveAs(QUrl::fromLocalFile(file_name));
+        const QUrl& url = QUrl::fromLocalFile(file_name);
+        saveAs(url);
+        emit worksheetSave(url);
     }
     else
         m_worksheet->savePlain(file_name);
@@ -559,17 +564,19 @@ void CantorPart::restartBackend()
         );
 
         // Update setting's value
+        // I don't know, that should I do with "No" with "Don't ask me again"
+        // So hide warning only on "Yes"
         Settings::self()->setWarnAboutSessionRestart(
-            KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp));
+               KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp)
+            || rc == KMessageBox::ButtonCode::No
+        );
         Settings::self()->save();
 
         restart = rc == KMessageBox::ButtonCode::Yes;
     }
     else
     {
-        KMessageBox::ButtonCode rc;
-        KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), rc);
-        restart = rc == KMessageBox::ButtonCode::Yes;
+        restart = true;
     }
 
     if (restart)

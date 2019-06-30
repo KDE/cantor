@@ -130,7 +130,7 @@ void PythonHighlighter::highlightBlock(const QString &text)
 
         if (singleLineCommentStartPos != -1
             && singleLineCommentStartPos < minPos) {
-            setFormat(pos, text.length() - pos, commentFormat());
+            setFormat(singleLineCommentStartPos, text.length() - singleLineCommentStartPos, commentFormat());
         break;
             } else if (minRegexp) {
                 state += flags[minIdx];
