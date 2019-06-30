@@ -550,17 +550,19 @@ void CantorPart::restartBackend()
         );
 
         // Update setting's value
+        // I don't know, that should I do with "No" with "Don't ask me again"
+        // So hide warning only on "Yes"
         Settings::self()->setWarnAboutSessionRestart(
-            KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp));
+               KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), tmp)
+            || rc == KMessageBox::ButtonCode::No
+        );
         Settings::self()->save();
 
         restart = rc == KMessageBox::ButtonCode::Yes;
     }
     else
     {
-        KMessageBox::ButtonCode rc;
-        KMessageBox::shouldBeShownYesNo(QLatin1String("WarnAboutSessionRestart"), rc);
-        restart = rc == KMessageBox::ButtonCode::Yes;
+        restart = true;
     }
 
     if (restart)
