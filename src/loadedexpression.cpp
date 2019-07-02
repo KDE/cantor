@@ -206,6 +206,12 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
                 addResult(new Cantor::ImageResult(image, text));
             }
+            // Cantor don't know, how handle this, so just use plain data, if available
+            // Jupyter TODO: garantee, that this data won't be loose on next save/export
+            else if (data.keys().contains(JupyterUtils::textMime))
+                addResult(new Cantor::TextResult(text));
+            else
+                qWarning() << "Warning: Can't handle " << outputType << "result with mimes" << data.keys();
         }
     }
 
