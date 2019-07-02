@@ -3574,4 +3574,564 @@ void WorksheetTest::testJupyter3()
     QCOMPARE(entry, nullptr);
 }
 
+void WorksheetTest::testJupyter4()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("A Reaction-Diffusion Equation Solver in Python with Numpy.ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python2"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "This notebook demonstrates how IPython notebooks can be used to discuss the theory and implementation of numerical algorithms on one page.\n"
+        "\n"
+        "With `ipython nbconvert --to markdown name.ipynb` a notebook like this one can be made into a \n"
+        "[blog post](http://georg.io/2013/12/Crank_Nicolson) in one easy step. To display the graphics in your resultant blog post use,\n"
+        "for instance, your [Dropbox Public folder](https://www.dropbox.com/help/16/en) that you can \n"
+        "[activate here](https://www.dropbox.com/enable_public_folder)."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "# The Crank-Nicolson Method"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "The [Crank-Nicolson method](http://en.wikipedia.org/wiki/Crank%E2%80%93Nicolson_method) is a well-known finite difference method for the\n"
+        "numerical integration of the heat equation and closely related partial differential equations.\n"
+        "\n"
+        "We often resort to a Crank-Nicolson (CN) scheme when we integrate numerically reaction-diffusion systems in one space dimension\n"
+        "\n"
+        "$$\\frac{\\partial u}{\\partial t} = D \\frac{\\partial^2 u}{\\partial x^2} + f(u),$$\n"
+        "\n"
+        "$$\\frac{\\partial u}{\\partial x}\\Bigg|_{x = 0, L} = 0,$$\n"
+        "\n"
+        "where $$u$$ is our concentration variable, $$x$$ is the space variable, $$D$$ is the diffusion coefficient of $$u$$, $$f$$ is the reaction term,\n"
+        "and $$L$$ is the length of our one-dimensional space domain.\n"
+        "\n"
+        "Note that we use [Neumann boundary conditions](http://en.wikipedia.org/wiki/Neumann_boundary_condition) and specify that the solution\n"
+        "$$u$$ has zero space slope at the boundaries, effectively prohibiting entrance or exit of material at the boundaries (no-flux boundary conditions)."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Finite Difference Methods"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Many fantastic textbooks and tutorials have been written about finite difference methods, for instance a free textbook by\n"
+        "[Lloyd Trefethen](http://people.maths.ox.ac.uk/trefethen/pdetext.html).\n"
+        "\n"
+        "Here we describe a few basic aspects of finite difference methods.\n"
+        "\n"
+        "The above reaction-diffusion equation describes the time evolution of variable $$u(x,t)$$ in one space dimension ($$u$$ is a line concentration).\n"
+        "If we knew an analytic expression for $$u(x,t)$$ then we could plot $$u$$ in a two-dimensional coordinate system with axes $$t$$ and $$x$$.\n"
+        "\n"
+        "To approximate $$u(x,t)$$ numerically we discretize this two-dimensional coordinate system resulting, in the simplest case, in a\n"
+        "two-dimensional [regular grid](http://en.wikipedia.org/wiki/Regular_grid).\n"
+        "This picture is employed commonly when constructing finite differences methods, see for instance \n"
+        "[Figure 3.2.1 of Trefethen](http://people.maths.ox.ac.uk/trefethen/3all.pdf).\n"
+        "\n"
+        "Let us discretize both time and space as follows:\n"
+        "\n"
+        "$$t_n = n \\Delta t,~ n = 0, \\ldots, N-1,$$\n"
+        "\n"
+        "$$x_j = j \\Delta x,~ j = 0, \\ldots, J-1,$$\n"
+        "\n"
+        "where $$N$$ and $$J$$ are the number of discrete time and space points in our grid respectively.\n"
+        "$$\\Delta t$$ and $$\\Delta x$$ are the time step and space step respectively and defined as follows:\n"
+        "\n"
+        "$$\\Delta t = T / N,$$\n"
+        "\n"
+        "$$\\Delta x = L / J,$$\n"
+        "\n"
+        "where $$T$$ is the point in time up to which we will integrate $$u$$ numerically.\n"
+        "\n"
+        "Our ultimate goal is to construct a numerical method that allows us to approximate the unknonwn analytic solution $$u(x,t)$$\n"
+        "reasonably well in these discrete grid points.\n"
+        "\n"
+        "That is we want construct a method that computes values $$U(j \\Delta x, n \\Delta t)$$ (note: capital $$U$$) so that\n"
+        "\n"
+        "$$U(j \\Delta x, n \\Delta t) \\approx u(j \\Delta x, n \\Delta t)$$\n"
+        "\n"
+        "As a shorthand we will write $$U_j^n = U(j \\Delta x, n \\Delta t)$$ and $$(j,n)$$ to refer to grid point $$(j \\Delta x, n \\Delta t)$$."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## The Crank-Nicolson Stencil"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Based on the two-dimensional grid we construct we then approximate the operators of our reaction-diffusion system.\n"
+        "\n"
+        "For instance, to approximate the time derivative on the left-hand side in grid point $$(j,n)$$ we use the values of $$U$$ in two specific grid points:\n"
+        "\n"
+        "$$\\frac{\\partial u}{\\partial t}\\Bigg|_{x = j \\Delta x, t = n \\Delta t} \\approx \\frac{U_j^{n+1} - U_j^n}{\\Delta t}.$$\n"
+        "\n"
+        "We can think of this scheme as a stencil that we superimpose on our $$(x,t)$$-grid and this particular stencil is\n"
+        "commonly referred to as [forward difference](http://en.wikipedia.org/wiki/Finite_difference#Forward.2C_backward.2C_and_central_differences).\n"
+        "\n"
+        "The spatial part of the [Crank-Nicolson stencil](http://journals.cambridge.org/abstract_S0305004100023197)\n"
+        "(or see [Table 3.2.2 of Trefethen](http://people.maths.ox.ac.uk/trefethen/3all.pdf))\n"
+        "for the heat equation ($$u_t = u_{xx}$$) approximates the \n"
+        "[Laplace operator](http://en.wikipedia.org/wiki/Laplace_operator) of our equation and takes the following form\n"
+        "\n"
+        "$$\\frac{\\partial^2 u}{\\partial x^2}\\Bigg|_{x = j \\Delta x, t = n \\Delta t} \\approx \\frac{1}{2 \\Delta x^2} \\left( U_{j+1}^n - 2 U_j^n + U_{j-1}^n + U_{j+1}^{n+1} - 2 U_j^{n+1} + U_{j-1}^{n+1}\\right).$$\n"
+        "\n"
+        "To approximate $$f(u(j \\Delta x, n \\Delta t))$$ we write simply $$f(U_j^n)$$.\n"
+        "\n"
+        "These approximations define the stencil for our numerical method as pictured on [Wikipedia](http://en.wikipedia.org/wiki/Crank%E2%80%93Nicolson_method).\n"
+        "\n"
+        "![SVG](https://dl.dropboxusercontent.com/u/129945779/georgio/CN-stencil.svg)\n"
+        "\n"
+        "Applying this stencil to grid point $$(j,n)$$ gives us the following approximation of our reaction-diffusion equation:\n"
+        "\n"
+        "$$\\frac{U_j^{n+1} - U_j^n}{\\Delta t} = \\frac{D}{2 \\Delta x^2} \\left( U_{j+1}^n - 2 U_j^n + U_{j-1}^n + U_{j+1}^{n+1} - 2 U_j^{n+1} + U_{j-1}^{n+1}\\right) + f(U_j^n).$$"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Reordering Stencil into Linear System"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Let us define $$\\sigma = \\frac{D \\Delta t}{2 \\Delta x^2}$$ and reorder the above approximation of our reaction-diffusion equation:\n"
+        "\n"
+        "$$-\\sigma U_{j-1}^{n+1} + (1+2\\sigma) U_j^{n+1} -\\sigma U_{j+1}^{n+1} = \\sigma U_{j-1}^n + (1-2\\sigma) U_j^n + \\sigma U_{j+1}^n + \\Delta t f(U_j^n).$$\n"
+        "\n"
+        "This equation makes sense for space indices $$j = 1,\\ldots,J-2$$ but it does not make sense for indices $$j=0$$ and $$j=J-1$$ (on the boundaries):\n"
+        "\n"
+        "$$j=0:~-\\sigma U_{-1}^{n+1} + (1+2\\sigma) U_0^{n+1} -\\sigma U_{1}^{n+1} = \\sigma U_{-1}^n + (1-2\\sigma) U_0^n + \\sigma U_{1}^n + \\Delta t f(U_0^n),$$\n"
+        "\n"
+        "$$j=J-1:~-\\sigma U_{J-2}^{n+1} + (1+2\\sigma) U_{J-1}^{n+1} -\\sigma U_{J}^{n+1} = \\sigma U_{J-2}^n + (1-2\\sigma) U_{J-1}^n + \\sigma U_{J}^n + \\Delta t f(U_{J-1}^n).$$\n"
+        "\n"
+        "The problem here is that the values $$U_{-1}^n$$ and $$U_J^n$$ lie outside our grid.\n"
+        "\n"
+        "However, we can work out what these values should equal by considering our Neumann boundary condition.\n"
+        "Let us discretize our boundary condition at $$j=0$$ with the \n"
+        "[backward difference](http://en.wikipedia.org/wiki/Finite_difference#Forward.2C_backward.2C_and_central_differences) and\n"
+        "at $$j=J-1$$ with the\n"
+        "[forward difference](http://en.wikipedia.org/wiki/Finite_difference#Forward.2C_backward.2C_and_central_differences):\n"
+        "\n"
+        "$$\\frac{U_1^n - U_0^n}{\\Delta x} = 0,$$\n"
+        "\n"
+        "$$\\frac{U_J^n - U_{J-1}^n}{\\Delta x} = 0.$$\n"
+        "\n"
+        "These two equations make it clear that we need to amend our above numerical approximation for\n"
+        "$$j=0$$ with the identities $$U_0^n = U_1^n$$ and $$U_0^{n+1} = U_1^{n+1}$$, and\n"
+        "for $$j=J-1$$ with the identities $$U_{J-1}^n = U_J^n$$ and $$U_{J-1}^{n+1} = U_J^{n+1}$$.\n"
+        "\n"
+        "Let us reinterpret our numerical approximation of the line concentration of $$u$$ in a fixed point in time as a vector $$\\mathbf{U}^n$$:\n"
+        "\n"
+        "$$\\mathbf{U}^n = \n"
+        "\\begin{bmatrix} U_0^n \\\\ \\vdots \\\\ U_{J-1}^n \\end{bmatrix}.$$\n"
+        "\n"
+        "Using this notation we can now write our above approximation for a fixed point in time, $$t = n \\Delta t$$, compactly as a linear system:\n"
+        "\n"
+        "$$\n"
+        "\\begin{bmatrix}\n"
+        "1+\\sigma & -\\sigma & 0 & 0 & 0 & \\cdots & 0 & 0 & 0 & 0\\\\\n"
+        "-\\sigma & 1+2\\sigma & -\\sigma & 0 & 0 & \\cdots & 0 & 0 & 0 & 0 \\\\\n"
+        "0 & -\\sigma & 1+2\\sigma & -\\sigma & \\cdots & 0 & 0 & 0 & 0 & 0 \\\\\n"
+        "0 & 0 & \\ddots & \\ddots & \\ddots & \\ddots & 0 & 0 & 0 & 0 \\\\\n"
+        "0 & 0 & 0 & 0 & 0 & 0 & 0 & -\\sigma & 1+2\\sigma & -\\sigma \\\\\n"
+        "0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -\\sigma & 1+\\sigma\n"
+        "\\end{bmatrix}\n"
+        "\\begin{bmatrix}\n"
+        "U_0^{n+1} \\\\\n"
+        "U_1^{n+1} \\\\\n"
+        "U_2^{n+1} \\\\\n"
+        "\\vdots \\\\\n"
+        "U_{J-2}^{n+1} \\\\\n"
+        "U_{J-1}^{n+1}\n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "1-\\sigma & \\sigma & 0 & 0 & 0 & \\cdots & 0 & 0 & 0 & 0\\\\\n"
+        "\\sigma & 1-2\\sigma & \\sigma & 0 & 0 & \\cdots & 0 & 0 & 0 & 0 \\\\\n"
+        "0 & \\sigma & 1-2\\sigma & \\sigma & \\cdots & 0 & 0 & 0 & 0 & 0 \\\\\n"
+        "0 & 0 & \\ddots & \\ddots & \\ddots & \\ddots & 0 & 0 & 0 & 0 \\\\\n"
+        "0 & 0 & 0 & 0 & 0 & 0 & 0 & \\sigma & 1-2\\sigma & \\sigma \\\\\n"
+        "0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\sigma & 1-\\sigma\n"
+        "\\end{bmatrix}\n"
+        "\\begin{bmatrix}\n"
+        "U_0^{n} \\\\\n"
+        "U_1^{n} \\\\\n"
+        "U_2^{n} \\\\\n"
+        "\\vdots \\\\\n"
+        "U_{J-2}^{n} \\\\\n"
+        "U_{J-1}^{n}\n"
+        "\\end{bmatrix} +\n"
+        "\\begin{bmatrix}\n"
+        "\\Delta t f(U_0^n) \\\\\n"
+        "\\Delta t f(U_1^n) \\\\\n"
+        "\\Delta t f(U_2^n) \\\\\n"
+        "\\vdots \\\\\n"
+        "\\Delta t f(U_{J-2}^n) \\\\\n"
+        "\\Delta t f(U_{J-1}^n)\n"
+        "\\end{bmatrix}.\n"
+        "$$\n"
+        "\n"
+        "Note that since our numerical integration starts with a well-defined initial condition at $$n=0$$, $$\\mathbf{U}^0$$, the\n"
+        "vector $$\\mathbf{U}^{n+1}$$ on the left-hand side is the only unknown in this system of linear equations.\n"
+        "\n"
+        "Thus, to integrate numerically our reaction-diffusion system from time point $$n$$ to $$n+1$$ we need to solve numerically for vector $$\\mathbf{U}^{n+1}$$.\n"
+        "\n"
+        "Let us call the matrix on the left-hand side $$A$$, the one on the right-hand side $$B$$,\n"
+        "and the vector on the right-hand side $$\\mathbf{f}^n$$.\n"
+        "Using this notation we can write the above system as\n"
+        "\n"
+        "$$A \\mathbf{U}^{n+1} = B \\mathbf{U}^n + f^n.$$\n"
+        "\n"
+        "In this linear equation, matrices $$A$$ and $$B$$ are defined by our problem: we need to specify these matrices once for our\n"
+        "problem and incorporate our boundary conditions in them.\n"
+        "Vector $$\\mathbf{f}^n$$ is a function of $$\\mathbf{U}^n$$ and so needs to be reevaluated in every time point $$n$$.\n"
+        "We also need to carry out one matrix-vector multiplication every time point, $$B \\mathbf{U}^n$$, and\n"
+        "one vector-vector addition, $$B \\mathbf{U}^n + f^n$$.\n"
+        "\n"
+        "The most expensive numerical operation is inversion of matrix $$A$$ to solve for $$\\mathbf{U}^{n+1}$$, however we may\n"
+        "get away with doing this only once and store the inverse of $$A$$ as $$A^{-1}$$:\n"
+        "\n"
+        "$$\\mathbf{U}^{n+1} = A^{-1} \\left( B \\mathbf{U}^n + f^n \\right).$$"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## A Crank-Nicolson Example in Python"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Let us apply the CN method to a two-variable reaction-diffusion system that was introduced by \n"
+        "[Mori *et al.*](http://www.sciencedirect.com/science/article/pii/S0006349508704442):\n"
+        "\n"
+        "$$\\frac{\\partial u}{\\partial t} = D_u \\frac{\\partial^2 u}{\\partial x^2} + f(u,v),$$\n"
+        "\n"
+        "$$\\frac{\\partial v}{\\partial t} = D_v \\frac{\\partial^2 v}{\\partial x^2} - f(u,v),$$\n"
+        "\n"
+        "with Neumann boundary conditions\n"
+        "\n"
+        "$$\\frac{\\partial u}{\\partial x}\\Bigg|_{x=0,L} = 0,$$\n"
+        "\n"
+        "$$\\frac{\\partial v}{\\partial x}\\Bigg|_{x=0,L} = 0.$$\n"
+        "\n"
+        "The variables of this system, $$u$$ and $$v$$, represent the concetrations of the active form and its inactive form respectively.\n"
+        "The reaction term $$f(u,v)$$ describes the interchange (activation and inactivation) between these two states of the protein.\n"
+        "A particular property of this system is that the inactive has much greater diffusivity that the active form, $$D_v \\gg D_u$$.\n"
+        "\n"
+        "Using the CN method to integrate this system numerically, we need to set up two separate approximations\n"
+        "\n"
+        "$$A_u \\mathbf{U}^{n+1} = B_u \\mathbf{U}^n + \\mathbf{f}^n,$$\n"
+        "\n"
+        "$$A_v \\mathbf{V}^{n+1} = B_v \\mathbf{V}^n - \\mathbf{f}^n,$$\n"
+        "\n"
+        "with two different $$\\sigma$$ terms, $$\\sigma_u = \\frac{D_u \\Delta t}{2 \\Delta x^2}$$ and $$\\sigma_v = \\frac{D_v \\Delta t}{2 \\Delta x^2}$$."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Import Packages"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "For the matrix-vector multiplication, vector-vector addition, and matrix inversion that we will need to carry\n"
+        "out we will use the Python library [NumPy](http://www.numpy.org/).\n"
+        "To visualize our numerical solutions, we will use [pyplot](http://matplotlib.org/api/pyplot_api.html)."
+    ));
+
+    qDebug() << "command entry 1";
+    testCommandEntry(entry, 1, QString::fromUtf8(
+        "import numpy\n"
+        "from matplotlib import pyplot"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Numpy allows us to truncate the numerical values of matrices and vectors to improve their display with \n"
+        "[`set_printoptions`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.set_printoptions.html)."
+    ));
+
+    qDebug() << "command entry 2";
+    testCommandEntry(entry, 2, QString::fromUtf8(
+        "numpy.set_printoptions(precision=3)"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Specify Grid"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Our one-dimensional domain has unit length and we define `J = 100` equally spaced\n"
+        "grid points in this domain.\n"
+        "This divides our domain into `J-1` subintervals, each of length `dx`."
+    ));
+
+    qDebug() << "command entry 3";
+    testCommandEntry(entry, 3, QString::fromUtf8(
+        "L = 1.\n"
+        "J = 100\n"
+        "dx = float(L)/float(J-1)\n"
+        "x_grid = numpy.array([j*dx for j in range(J)])"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Equally, we define `N = 1000` equally spaced grid points on our time domain of length `T = 200` thus dividing our time domain into `N-1` intervals of length `dt`."
+    ));
+
+    qDebug() << "command entry 4";
+    testCommandEntry(entry, 4, QString::fromUtf8(
+        "T = 200\n"
+        "N = 1000\n"
+        "dt = float(T)/float(N-1)\n"
+        "t_grid = numpy.array([n*dt for n in range(N)])"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Specify System Parameters and the Reaction Term"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "We choose our parameter values based on the work by\n"
+        "[Mori *et al.*](http://www.sciencedirect.com/science/article/pii/S0006349508704442)."
+    ));
+
+    qDebug() << "command entry 5";
+    testCommandEntry(entry, 5, QString::fromUtf8(
+        "D_v = float(10.)/float(100.)\n"
+        "D_u = 0.01 * D_v\n"
+        "\n"
+        "k0 = 0.067\n"
+        "f = lambda u, v: dt*(v*(k0 + float(u*u)/float(1. + u*u)) - u)\n"
+        "g = lambda u, v: -f(u,v)\n"
+        " \n"
+        "sigma_u = float(D_u*dt)/float((2.*dx*dx))\n"
+        "sigma_v = float(D_v*dt)/float((2.*dx*dx))\n"
+        "\n"
+        "total_protein = 2.26"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Specify the Initial Condition"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "As discussed by\n"
+        "[Mori *et al.*](http://www.sciencedirect.com/science/article/pii/S0006349508704442),\n"
+        "we can expect to observe interesting behaviour in the steady state of this system\n"
+        "if we choose a heterogeneous initial condition for $$u$$.\n"
+        "\n"
+        "Here, we initialize $$u$$ with a step-like heterogeneity:"
+    ));
+
+    qDebug() << "command entry 7";
+    testCommandEntry(entry, 7, QString::fromUtf8(
+        "no_high = 10\n"
+        "U =  numpy.array([0.1 for i in range(no_high,J)] + [2. for i in range(0,no_high)])\n"
+        "V = numpy.array([float(total_protein-dx*sum(U))/float(J*dx) for i in range(0,J)])"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Note that we make certain that total protein amounts equal a certain value,\n"
+        "`total_protein`.\n"
+        "The importance of this was discussed by \n"
+        "[Walther *et al.*](http://link.springer.com/article/10.1007%2Fs11538-012-9766-5).\n"
+        "\n"
+        "Let us plot our initial condition for confirmation:"
+    ));
+
+    qDebug() << "command entry 9";
+    testCommandEntry(entry, 9, 1, QString::fromUtf8(
+        "pyplot.ylim((0., 2.1))\n"
+        "pyplot.xlabel('x'); pyplot.ylabel('concentration')\n"
+        "pyplot.plot(x_grid, U)\n"
+        "pyplot.plot(x_grid, V)\n"
+        "pyplot.show()"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "The blue curve is the initial condition for $$U$$, stored in Python variable `U`,\n"
+        "and the green curve is the initial condition for $$V$$ stored in `V`."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Create Matrices"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "The matrices that we need to construct are all tridiagonal so they are easy to\n"
+        "construct with \n"
+        "[`numpy.diagflat`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.diagflat.html)."
+    ));
+
+    qDebug() << "command entry 10";
+    testCommandEntry(entry, 10, QString::fromUtf8(
+        "A_u = numpy.diagflat([-sigma_u for i in range(J-1)], -1) +\\\n"
+        "      numpy.diagflat([1.+sigma_u]+[1.+2.*sigma_u for i in range(J-2)]+[1.+sigma_u]) +\\\n"
+        "      numpy.diagflat([-sigma_u for i in range(J-1)], 1)\n"
+        "        \n"
+        "B_u = numpy.diagflat([sigma_u for i in range(J-1)], -1) +\\\n"
+        "      numpy.diagflat([1.-sigma_u]+[1.-2.*sigma_u for i in range(J-2)]+[1.-sigma_u]) +\\\n"
+        "      numpy.diagflat([sigma_u for i in range(J-1)], 1)\n"
+        "        \n"
+        "A_v = numpy.diagflat([-sigma_v for i in range(J-1)], -1) +\\\n"
+        "      numpy.diagflat([1.+sigma_v]+[1.+2.*sigma_v for i in range(J-2)]+[1.+sigma_v]) +\\\n"
+        "      numpy.diagflat([-sigma_v for i in range(J-1)], 1)\n"
+        "        \n"
+        "B_v = numpy.diagflat([sigma_v for i in range(J-1)], -1) +\\\n"
+        "      numpy.diagflat([1.-sigma_v]+[1.-2.*sigma_v for i in range(J-2)]+[1.-sigma_v]) +\\\n"
+        "      numpy.diagflat([sigma_v for i in range(J-1)], 1)"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "To confirm, this is what `A_u` looks like:"
+    ));
+
+    qDebug() << "command entry 11";
+    testCommandEntry(entry, 11, 1, QString::fromUtf8(
+        "print A_u"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "[[ 1.981 -0.981  0.    ...  0.     0.     0.   ]\n"
+        " [-0.981  2.962 -0.981 ...  0.     0.     0.   ]\n"
+        " [ 0.    -0.981  2.962 ...  0.     0.     0.   ]\n"
+        " ...\n"
+        " [ 0.     0.     0.    ...  2.962 -0.981  0.   ]\n"
+        " [ 0.     0.     0.    ... -0.981  2.962 -0.981]\n"
+        " [ 0.     0.     0.    ...  0.    -0.981  1.981]]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Solve the System Iteratively"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "To advance our system by one time step, we need to do one matrix-vector multiplication followed by one vector-vector addition on the right hand side.\n"
+        "\n"
+        "To facilitate this, we rewrite our reaction term so that it accepts concentration vectors $$\\mathbf{U}^n$$ and $$\\mathbf{V}^n$$ as arguments\n"
+        "and returns vector $$\\mathbf{f}^n$$.\n"
+        "\n"
+        "As a reminder, this is our non-vectorial definition of $$f$$\n"
+        "\n"
+        "    f = lambda u, v: v*(k0 + float(u*u)/float(1. + u*u)) - u"
+    ));
+
+    qDebug() << "command entry 12";
+    testCommandEntry(entry, 12, QString::fromUtf8(
+        "f_vec = lambda U, V: numpy.multiply(dt, numpy.subtract(numpy.multiply(V, \n"
+        "                     numpy.add(k0, numpy.divide(numpy.multiply(U,U), numpy.add(1., numpy.multiply(U,U))))), U))"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Let us make certain that this produces the same values as our non-vectorial `f`:"
+    ));
+
+    qDebug() << "command entry 13";
+    testCommandEntry(entry, 13, 1, QString::fromUtf8(
+        "print f(U[0], V[0])"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "0.009961358982745121"
+    ));
+    entry = entry->next();
+
+    qDebug() << "command entry 14";
+    testCommandEntry(entry, 14, 1, QString::fromUtf8(
+        "print f(U[-1], V[-1])"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "-0.06238322322322325"
+    ));
+    entry = entry->next();
+
+    qDebug() << "command entry 15";
+    testCommandEntry(entry, 15, 1, QString::fromUtf8(
+        "print f_vec(U, V)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "[ 0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        "  0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01   0.01\n"
+        " -0.062 -0.062 -0.062 -0.062 -0.062 -0.062 -0.062 -0.062 -0.062 -0.062]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Accounting for rounding of the displayed values due to the `set_printoptions` we set above, we\n"
+        "can see that `f` and `f_vec` generate the same values for our initial condition at both ends of our domain."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "We will use [`numpy.linalg.solve`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.solve.html) to solve\n"
+        "our linear system each time step."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "While we integrate our system over time we will record both `U` and `V` at each\n"
+        "time step in `U_record` and `V_record` respectively so that we can plot\n"
+        "our numerical solutions over time."
+    ));
+
+    qDebug() << "command entry 16";
+    testCommandEntry(entry, 16, QString::fromUtf8(
+        "U_record = []\n"
+        "V_record = []\n"
+        "\n"
+        "U_record.append(U)\n"
+        "V_record.append(V)\n"
+        "\n"
+        "for ti in range(1,N):\n"
+        "    U_new = numpy.linalg.solve(A_u, B_u.dot(U) + f_vec(U,V))\n"
+        "    V_new = numpy.linalg.solve(A_v, B_v.dot(V) - f_vec(U,V))\n"
+        "    \n"
+        "    U = U_new\n"
+        "    V = V_new\n"
+        "    \n"
+        "    U_record.append(U)\n"
+        "    V_record.append(V)"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Plot the Numerical Solution"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Let us take a look at the numerical solution we attain after `N` time steps."
+    ));
+
+    qDebug() << "command entry 18";
+    testCommandEntry(entry, 18, 1, QString::fromUtf8(
+        "pyplot.ylim((0., 2.1))\n"
+        "pyplot.xlabel('x'); pyplot.ylabel('concentration')\n"
+        "pyplot.plot(x_grid, U)\n"
+        "pyplot.plot(x_grid, V)\n"
+        "pyplot.show()"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "And here is a [kymograph](http://en.wikipedia.org/wiki/Kymograph) of the values of `U`.\n"
+        "This plot shows concisely the behaviour of `U` over time and we can clear observe the wave-pinning\n"
+        "behaviour described by [Mori *et al.*](http://www.sciencedirect.com/science/article/pii/S0006349508704442).\n"
+        "Furthermore, we observe that this wave pattern is stable for about 50 units of time and we therefore\n"
+        "conclude that this wave pattern is a stable steady state of our system."
+    ));
+
+    qDebug() << "command entry 21";
+    testCommandEntry(entry, 21, 1, QString::fromUtf8(
+        "U_record = numpy.array(U_record)\n"
+        "V_record = numpy.array(V_record)\n"
+        "\n"
+        "fig, ax = pyplot.subplots()\n"
+        "pyplot.xlabel('x'); pyplot.ylabel('t')\n"
+        "heatmap = ax.pcolor(x_grid, t_grid, U_record, vmin=0., vmax=1.2)"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    QCOMPARE(entry, nullptr);
+}
+
 QTEST_MAIN( WorksheetTest )
