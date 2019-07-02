@@ -301,19 +301,28 @@ QImage JupyterUtils::loadImage(const QJsonValue& mimeBundle, const QString& key)
     {
         const QJsonObject& bundleObject = mimeBundle.toObject();
         const QJsonValue& data = bundleObject.value(key);
-        if (data.isString())
+        if (data.isString() || data.isArray())
         {
             // In jupyter mime-bundle key for data is mime type of this data
             // So we need convert mimetype to format, for example "image/png" to "png"
             // for loading from data
             if (QImageReader::supportedMimeTypes().contains(key.toLatin1()))
             {
-                // https://doc.qt.io/qt-5/qimagereader.html#supportedImageFormats
-                // Maybe there is a better way to convert image key to image format
-                // but this is all that I could to do
                 const QByteArray& format = mimeDatabase.mimeTypeForName(key).preferredSuffix().toLatin1();
-                const QString& base64 = data.toString();
-                image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), format.data());
+                // Handle svg separately, because Jupyter don't encode svg in base64
+                // and store as jupyter multiline text
+                if (key == QLatin1String("image/svg+xml") && data.isArray())
+                {
+                    image.loadFromData(fromJupyterMultiline(data).toLatin1(), format.data());
+                }
+                else if (data.isString())
+                {
+                    // https://doc.qt.io/qt-5/qimagereader.html#supportedImageFormats
+                    // Maybe there is a better way to convert image key to image format
+                    // but this is all that I could to do
+                    const QString& base64 = data.toString();
+                    image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), format.data());
+                }
             }
         }
     }
