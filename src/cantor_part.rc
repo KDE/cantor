@@ -49,6 +49,7 @@
     <Action name="enable_completion"/>
     <Action name="enable_expression_numbers"/>
     <Action name="enable_animations"/>
+    <Action name="enable_embedded_math"/>
   </Menu>
   <Menu name="help">
     <Action name="backend_help"/>

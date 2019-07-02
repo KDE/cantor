@@ -83,6 +83,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="kcfg_EmbeddedMathDefault">
+          <property name="text">
+           <string>Enable Embedded Math</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="kcfg_WarnAboutSessionRestart">
           <property name="text">
            <string>Ask for confirmation when restarting the backend</string>

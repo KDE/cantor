@@ -102,6 +102,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     enableCompletion(Settings::self()->completionDefault());
     enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
     enableAnimations(Settings::self()->animationDefault());
+    enableEmbeddedMath(Settings::self()->embeddedMathDefault());
 }
 
 Worksheet::~Worksheet()
@@ -885,6 +886,16 @@ bool Worksheet::animationsEnabled()
 void Worksheet::enableAnimations(bool enable)
 {
     m_animationsEnabled = enable;
+}
+
+bool Worksheet::embeddedMathEnabled()
+{
+    return m_embeddedMathEnabled;
+}
+
+void Worksheet::enableEmbeddedMath(bool enable)
+{
+    m_embeddedMathEnabled = enable;
 }
 
 void Worksheet::enableExpressionNumbering(bool enable)

@@ -220,7 +220,7 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
         }
     }
 
-    if (rendered)
+    if (rendered && worksheet()->embeddedMathEnabled())
     {
         // Render math in $$...$$ via Latex
         QTextCursor cursor = findLatexCode();

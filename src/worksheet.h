@@ -73,6 +73,7 @@ class Worksheet : public QGraphicsScene
     bool isReadOnly();
     bool showExpressionIds();
     bool animationsEnabled();
+    bool embeddedMathEnabled();
 
     bool isPrinting();
 
@@ -170,6 +171,7 @@ class Worksheet : public QGraphicsScene
     void enableCompletion(bool);
     void enableExpressionNumbering(bool);
     void enableAnimations(bool);
+    void enableEmbeddedMath(bool);
 
     QDomDocument toXML(KZip* archive = nullptr);
 
@@ -304,6 +306,7 @@ class Worksheet : public QGraphicsScene
     KToggleAction* m_alignJustifyAction;
 
     bool m_completionEnabled;
+    bool m_embeddedMathEnabled;
     bool m_showExpressionIds;
     bool m_animationsEnabled;
     bool m_loginDone;

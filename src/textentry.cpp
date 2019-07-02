@@ -274,48 +274,51 @@ void TextEntry::interruptEvaluation()
 
 bool TextEntry::evaluate(EvaluationOption evalOp)
 {
-    QTextCursor cursor = findLatexCode();
-    while (!cursor.isNull())
+    if (worksheet()->embeddedMathEnabled())
     {
-        QString latexCode = cursor.selectedText();
-        qDebug()<<"found latex: "<<latexCode;
+        QTextCursor cursor = findLatexCode();
+        while (!cursor.isNull())
+        {
+            QString latexCode = cursor.selectedText();
+            qDebug()<<"found latex: "<<latexCode;
 
-        latexCode.remove(0, 2);
-        latexCode.remove(latexCode.length() - 2, 2);
-        latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
-        latexCode.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
+            latexCode.remove(0, 2);
+            latexCode.remove(latexCode.length() - 2, 2);
+            latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
+            latexCode.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
 
 
-        Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
-        renderer->setLatexCode(latexCode);
-        renderer->setEquationOnly(true);
-        renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
-        renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
+            Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
+            renderer->setLatexCode(latexCode);
+            renderer->setEquationOnly(true);
+            renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
+            renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
 
-        renderer->renderBlocking();
+            renderer->renderBlocking();
 
-        bool success;
-        QTextImageFormat formulaFormat;
-        if (renderer->renderingSuccessful()) {
-            EpsRenderer* epsRend = worksheet()->epsRenderer();
-            formulaFormat = epsRend->render(m_textItem->document(), renderer);
-            success = !formulaFormat.name().isEmpty();
-        } else {
-            success = false;
-        }
+            bool success;
+            QTextImageFormat formulaFormat;
+            if (renderer->renderingSuccessful()) {
+                EpsRenderer* epsRend = worksheet()->epsRenderer();
+                formulaFormat = epsRend->render(m_textItem->document(), renderer);
+                success = !formulaFormat.name().isEmpty();
+            } else {
+                success = false;
+            }
 
-        qDebug()<<"rendering successful? "<<success;
-        if (!success) {
+            qDebug()<<"rendering successful? "<<success;
+            if (!success) {
+                cursor = findLatexCode(cursor);
+                continue;
+            }
+
+            formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
+            delete renderer;
+
             cursor = findLatexCode(cursor);
-            continue;
         }
-
-        formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
-
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
-        delete renderer;
-
-        cursor = findLatexCode(cursor);
     }
 
     evaluateNext(evalOp);
