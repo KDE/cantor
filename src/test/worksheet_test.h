@@ -34,6 +34,7 @@ class WorksheetTest: public QObject
     void initTestCase();
     void testJupyter1();
     void testJupyter2();
+    void testJupyter3();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);

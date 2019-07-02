@@ -33,6 +33,7 @@ kconfig_add_kcfg_files(worksheettest_SRCS ../settings.kcfgc)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/data)
 configure_file("data/Lecture-2B-Single-Atom-Lasing.ipynb" data COPYONLY)
 configure_file("data/AEC.04 - Evolutionary Strategies and Covariance Matrix Adaptation.ipynb" data COPYONLY)
+configure_file("data/Population_Genetics.ipynb" data COPYONLY)
 
 set(PATH_TO_TEST_NOTEBOOKS ${CMAKE_CURRENT_BINARY_DIR}/data)
 configure_file (config-cantor-test.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor-test.h )
