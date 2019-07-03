@@ -5009,4 +5009,1429 @@ void WorksheetTest::testJupyter5()
     QCOMPARE(entry, nullptr);
 }
 
+void WorksheetTest::testJupyter6()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Cue Combination with Neural Populations .ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "# Humans and animals integrate multisensory cues near-optimally\n"
+        "## An intuition for how populations of neurons can perform Bayesian inference"
+    ));
+
+    qDebug() << "command entry 30";
+    testCommandEntry(entry, 30, QString::fromUtf8(
+        "from __future__ import division\n"
+        "import numpy as np\n"
+        "from scipy.special import factorial\n"
+        "import scipy.stats as stats\n"
+        "import pylab\n"
+        "import matplotlib.pyplot as plt\n"
+        "%matplotlib inline\n"
+        "import seaborn as sns\n"
+        "sns.set_style(\"darkgrid\")\n"
+        "import ipywidgets\n"
+        "from IPython.display import display\n"
+        "from matplotlib.font_manager import FontProperties\n"
+        "fontP = FontProperties()\n"
+        "fontP.set_size('medium')\n"
+        "%config InlineBackend.figure_format = 'svg'\n"
+        "\n"
+        "\n"
+        "def mean_firing_rate(gain, stimulus, preferred_stimulus, std_tc, baseline):\n"
+        "    # Gaussian tuning curve that determines the mean firing rate (Poisson rate parameter) for a given stimulus\n"
+        "    return baseline + gain*stats.norm.pdf(preferred_stimulus, loc = stimulus, scale = std_tc)\n"
+        "\n"
+        "def get_spikes(gain, stimulus, preferred_stimuli, std_tc, baseline):\n"
+        "    # produce a vector of spikes for some population given some stimulus\n"
+        "    lambdas = mean_firing_rate(gain, stimulus, preferred_stimuli, std_tc, baseline)\n"
+        "    return np.random.poisson(lambdas)\n"
+        "                \n"
+        "def likelihood(stimulus, r, gain, preferred_stimuli, std_tc, baseline):\n"
+        "    # returns p(r|s)\n"
+        "    lambdas = mean_firing_rate(gain, stimulus, preferred_stimuli, std_tc, baseline)\n"
+        "    return np.prod(lambdas**r)\n"
+        "\n"
+        "def spikes_and_inference(r_V = True,\n"
+        "                         r_A = True,\n"
+        "                         show_tuning_curves = False,\n"
+        "                         show_spike_count = False,\n"
+        "                         show_likelihoods = True,\n"
+        "                         true_stimulus = 10,\n"
+        "                         number_of_neurons = 40,\n"
+        "                         r_V_gain = 15,\n"
+        "                         r_A_gain = 75,\n"
+        "                         r_V_tuning_curve_sigma = 10,\n"
+        "                         r_A_tuning_curve_sigma = 10,\n"
+        "                         tuning_curve_baseline = 0,\n"
+        "                         joint_likelihood = True,\n"
+        "                         r_V_plus_r_A = True,\n"
+        "                         cue = False):\n"
+        "    np.random.seed(7)\n"
+        "    max_s = 40\n"
+        "    preferred_stimuli = np.linspace(-max_s*2, max_s*2, number_of_neurons)\n"
+        "    n_hypothesized_s = 250\n"
+        "    hypothesized_s = np.linspace(-max_s, max_s, n_hypothesized_s)\n"
+        "    gains     = {'r1':    r_V_gain,\n"
+        "                 'r2':    r_A_gain,\n"
+        "                 'r1+r2': r_V_gain + r_A_gain}\n"
+        "    sigma_TCs = {'r1':    r_V_tuning_curve_sigma,\n"
+        "                 'r2':    r_A_tuning_curve_sigma,\n"
+        "                 'r1+r2': (r_V_tuning_curve_sigma + r_A_tuning_curve_sigma)/2}\n"
+        "    spikes    = {'r1':    get_spikes(gains['r1'], true_stimulus, preferred_stimuli, sigma_TCs['r1'], tuning_curve_baseline),\n"
+        "                 'r2':    get_spikes(gains['r2'], true_stimulus, preferred_stimuli, sigma_TCs['r2'], tuning_curve_baseline)}\n"
+        "    spikes['r1+r2'] = spikes['r1'] + spikes['r2']\n"
+        "    active_pops = []\n"
+        "    if r_V: active_pops.append('r1')\n"
+        "    if r_A: active_pops.append('r2')\n"
+        "    if r_V_plus_r_A: active_pops.append('r1+r2')\n"
+        "\n"
+        "    colors = {'r1':    sns.xkcd_rgb['light purple'],\n"
+        "              'r2':    sns.xkcd_rgb['dark pink'],\n"
+        "              'r1+r2': sns.xkcd_rgb['royal blue'],\n"
+        "              'joint': sns.xkcd_rgb['gold']}\n"
+        "    nSubplots = show_spike_count + show_tuning_curves + show_likelihoods\n"
+        "    fig, axes = plt.subplots(nSubplots, figsize = (7, 1.5*nSubplots)) # number of subplots according to what's been requested\n"
+        "    if not isinstance(axes, np.ndarray): axes = [axes] # makes axes into a list even if it's just one subplot\n"
+        "    subplot_idx = 0\n"
+        "    \n"
+        "    def plot_true_stimulus_and_legend(subplot_idx):\n"
+        "        axes[subplot_idx].plot(true_stimulus, 0, 'k^', markersize = 12, clip_on = False, label = 'true rattlesnake location')\n"
+        "        axes[subplot_idx].legend(loc = 'center left', bbox_to_anchor = (1, 0.5), prop = fontP)\n"
+        "    \n"
+        "    if show_tuning_curves:\n"
+        "        for neuron in range(number_of_neurons):\n"
+        "            if r_V:\n"
+        "                axes[subplot_idx].plot(hypothesized_s,\n"
+        "                                       mean_firing_rate(gains['r1'],\n"
+        "                                                        hypothesized_s,\n"
+        "                                                        preferred_stimuli[neuron],\n"
+        "                                                        sigma_TCs['r1'],\n"
+        "                                                        tuning_curve_baseline),\n"
+        "                                       color = colors['r1'])\n"
+        "            if r_A:\n"
+        "                axes[subplot_idx].plot(hypothesized_s,\n"
+        "                                       mean_firing_rate(gains['r2'],\n"
+        "                                                        hypothesized_s,\n"
+        "                                                        preferred_stimuli[neuron],\n"
+        "                                                        sigma_TCs['r2'],\n"
+        "                                                        tuning_curve_baseline),\n"
+        "                                       color = colors['r2'])\n"
+        "        axes[subplot_idx].set_xlabel('location $s$')\n"
+        "        axes[subplot_idx].set_ylabel('mean firing rate\\n(spikes/s)')\n"
+        "        axes[subplot_idx].set_ylim((0, 4))\n"
+        "        axes[subplot_idx].set_xlim((-40, 40))\n"
+        "        axes[subplot_idx].set_yticks(np.linspace(0, 4, 5))\n"
+        "        subplot_idx += 1\n"
+        "\n"
+        "    if show_spike_count:\n"
+        "        idx = abs(preferred_stimuli) < max_s\n"
+        "        if r_V:\n"
+        "            axes[subplot_idx].plot(preferred_stimuli[idx], spikes['r1'][idx], 'o', color = colors['r1'],\n"
+        "                                   clip_on = False,  label = '$\\mathbf{r}_\\mathrm{V}$',\n"
+        "                                   markersize=4)\n"
+        "        if r_A:\n"
+        "            axes[subplot_idx].plot(preferred_stimuli[idx], spikes['r2'][idx], 'o', color = colors['r2'],\n"
+        "                                   clip_on = False, label = '$\\mathbf{r}_\\mathrm{A}$',\n"
+        "                                   markersize=4)\n"
+        "        if r_V_plus_r_A:\n"
+        "            axes[subplot_idx].plot(preferred_stimuli[idx], spikes['r1+r2'][idx], 'o', color = colors['r1+r2'],\n"
+        "                                   clip_on = False, label = '$\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A}$',\n"
+        "                                   markersize=8, zorder=1)\n"
+        "        axes[subplot_idx].set_xlabel('preferred location')\n"
+        "        axes[subplot_idx].set_ylabel('spike count')\n"
+        "        axes[subplot_idx].set_ylim((0, 10))\n"
+        "        axes[subplot_idx].set_xlim((-40, 40))\n"
+        "        plot_true_stimulus_and_legend(subplot_idx)\n"
+        "        subplot_idx += 1\n"
+        "\n"
+        "    if show_likelihoods:\n"
+        "        if cue:\n"
+        "            var = 'c'\n"
+        "        else:\n"
+        "            var = '\\mathbf{r}'\n"
+        "        likelihoods = {}\n"
+        "            \n"
+        "        for population in active_pops:\n"
+        "            likelihoods[population] = np.zeros_like(hypothesized_s)\n"
+        "            for idx, ort in enumerate(hypothesized_s):\n"
+        "                likelihoods[population][idx] = likelihood(ort, spikes[population], gains[population],\n"
+        "                                                          preferred_stimuli, sigma_TCs[population], tuning_curve_baseline)\n"
+        "            likelihoods[population] /= np.sum(likelihoods[population]) # normalize\n"
+        "\n"
+        "        if r_V:\n"
+        "            axes[subplot_idx].plot(hypothesized_s, likelihoods['r1'], color = colors['r1'],\n"
+        "                                   linewidth = 2, label = '$p({}_\\mathrm{{V}}|s)$'.format(var))\n"
+        "        if r_A:\n"
+        "            axes[subplot_idx].plot(hypothesized_s, likelihoods['r2'], color = colors['r2'],\n"
+        "                                   linewidth = 2, label = '$p({}_\\mathrm{{A}}|s)$'.format(var))\n"
+        "        if r_V_plus_r_A:\n"
+        "            axes[subplot_idx].plot(hypothesized_s, likelihoods['r1+r2'], color = colors['r1+r2'],\n"
+        "                                   linewidth = 2, label = '$p({}_\\mathrm{{V}}+{}_\\mathrm{{A}}|s)$'.format(var, var))\n"
+        "        if joint_likelihood:\n"
+        "            product = likelihoods['r1']*likelihoods['r2']\n"
+        "            product /= np.sum(product)\n"
+        "            axes[subplot_idx].plot(hypothesized_s, product, color = colors['joint'],linewidth = 7,\n"
+        "                                   label = '$p({}_\\mathrm{{V}}|s)\\ p({}_\\mathrm{{A}}|s)$'.format(var, var), zorder = 1)\n"
+        "\n"
+        "        axes[subplot_idx].set_xlabel('location $s$')\n"
+        "        axes[subplot_idx].set_ylabel('probability')\n"
+        "        axes[subplot_idx].set_xlim((-40, 40))\n"
+        "        axes[subplot_idx].legend()\n"
+        "        axes[subplot_idx].set_yticks([])\n"
+        "        \n"
+        "        plot_true_stimulus_and_legend(subplot_idx)\n"
+        "        subplot_idx += 1"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "<p>We live in a complex environment and must constantly integrate sensory information to interact with the world around us. Inputs from different modalities might not always be congruent with each other, but dissociating the true nature of the stimulus may be a matter of life or death for an organism.</p>\n"
+        "<img src=\"http://www.wtadler.com/picdrop/rattlesnake.jpg\" width=25% height=25% align=\"left\" style=\"margin: 10px 10px 10px 0px;\" >\n"
+        "<p>You hear and see evidence of a rattlesnake in tall grass near you. You get an auditory and a visual cue of the snake's location $$s$$. Both cues are associated with a likelihood function indicating the probability of that cue for all possible locations of the snake. The likelihood function associated with the visual cue, $$p(c_\\mathrm{V}|s)$$, has high uncertainty, because of the tall grass. The auditory cue is easier to localize, so its associated likelihood function, $$p(c_\\mathrm{A}|s)$$, is sharper. In accordance with Bayes' Rule, and assuming a flat prior over the snake's location, an optimal estimate of the location of the snake can be computed by multiplying the two likelihoods. This joint likelihood will be between the two cues but closer to the less uncertain cue, and will have less uncertainty than both unimodal likelihood functions.</p>"
+    ));
+
+    qDebug() << "command entry 31";
+    testCommandEntry(entry, 31, 1, QString::fromUtf8(
+        "spikes_and_inference(show_likelihoods = True, r_V_plus_r_A = False, cue = True)"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Behavioral experiments have demonstrated that humans perform near-optimal Bayesian inference on ambiguous sensory information (van Beers *et al.*, 1999; Ernst & Banks, 2002; Kording & Wolpert, 2004; Stocker & Simoncelli, 2006). This has been demonstrated in cue combination experiments in which subjects report a near-optimal estimate of the stimulus given two noisy measurements of that stimulus. However, the neural basis for how humans might perform these computations is unclear. \n"
+        "\n"
+        "Ma *et. al.* (2006) propose that variance in cortical activity, rather than impairing sensory systems, is an adaptive mechanism to encode uncertainty in sensory measurements. They provide theory showing how the brain might use probabilistic population codes to perform near-optimal cue combination. We will re-derive the theory in here, and demonstrate it by simulating and decoding neural populations.\n"
+        "\n"
+        "## Cues can be represented by neural populations\n"
+        "\n"
+        "To return to our deadly rattlesnake, let's now assume that $$c_\\mathrm{V}$$ and $$c_\\mathrm{A}$$ are represented by populations of neurons $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$, respectively. For our math and simulations, we assume that $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$ are each composed of $$N$$ neurons that:\n"
+        "\n"
+        "* have independent Poisson variability\n"
+        "* have regularly spaced Gaussian tuning curves that are identical in mean and variance for neurons with the same index in both populations\n"
+        "\n"
+        "The populations may have different gains, $$g_\\mathrm{V}$$ and $$g_\\mathrm{A}$$.\n"
+        "\n"
+        "These are the tuning curves for the neurons in $$\\mathbf{r}_\\mathrm{V}$$ (purple) and $$\\mathbf{r}_\\mathrm{A}$$ (red). Each curve represents the mean firing rate of a single neuron given a location $$s$$. Each neuron thus has a preferred location, which is where its tuning curve peaks."
+    ));
+
+    qDebug() << "command entry 32";
+    testCommandEntry(entry, 32, 1, QString::fromUtf8(
+        "spikes_and_inference(show_tuning_curves = True, show_likelihoods = False)"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "The tuning curves are dense enough that we can also assume that $$\\sum_{i=0}^N f_i(s) = k$$ (*i.e.*, the sum of the tuning curves in a population is constant.)"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "First, we will show how the brain can decode a likelihood over stimulus from neural activity. Then we will ask how the brain can compute joint likelihoods.\n"
+        "### How can the brain decode $$p(\\mathbf{r_\\mathrm{V}}|s)$$?\n"
+        "\n"
+        "\\begin{align}\n"
+        "L(s) &= p(\\mathbf{r_\\mathrm{V}}\\ |\\ s) \\tag{1} \\\\ \n"
+        "&= \\prod_{i=0}^N \\frac{e^{-g_\\mathrm{V}\\ f_i(s)}\\ g_\\mathrm{V}\\ f_i(s)^{r_{\\mathrm{V}i}}}{r_{\\mathrm{V}i}!} \\tag{2} \\\\\n"
+        "&\\propto \\prod_{i=0}^N e^{-g_\\mathrm{V}\\ f_i(s)}\\ f_i(s)^{r_{\\mathrm{V}i}} \\tag{3} \\\\\n"
+        "&= e^{-g_\\mathrm{V}\\sum_{i=0}^N f_i(s)} \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}}\\tag{4} \\\\ \n"
+        "&= e^{-g_\\mathrm{V}k} \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}} \\tag{5} \\\\\n"
+        "&\\propto \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}} \\tag{6} \\\\\n"
+        "\\end{align}\n"
+        "\n"
+        "### Then what is the joint likelihood $$p(\\mathbf{r_\\mathrm{V}}|s)\\ p(\\mathbf{r_\\mathrm{A}}|s)$$?\n"
+        "\n"
+        "\\begin{align}\n"
+        "L(s) &= p(\\mathbf{r_\\mathrm{V}}\\ |\\ s)\\ p(\\mathbf{r_\\mathrm{A}}|s) \\tag{7} \\\\\n"
+        "&\\propto \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}}\\ \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{A}i}} \\tag{8} \\\\\n"
+        "&= \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{9} \\\\\n"
+        "\\end{align}\n"
+        "\n"
+        "## How can the brain compute the joint likelihood $$p(\\mathbf{r}_\\mathrm{V}|s)\\ p(\\mathbf{r}_\\mathrm{A}|s)$$?\n"
+        "The fact that we see neurons from $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$ being added on a neuron-by-neuron basis in the exponent above suggests that we could construct a third population vector, $$\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A}$$, and decode that.\n"
+        "\n"
+        "### First, we must prove that the sum of two Poisson-distributed random variables $$X+Y$$ is again Poisson-distributed.\n"
+        "\\begin{align}\n"
+        "X &\\sim \\textrm{Poisson}(\\lambda_x) \\textrm{, so } p(X=k)=\\frac{\\lambda_x^k\\ e^{-\\lambda_x}}{k!} \\tag{10} \\\\\n"
+        "Y &\\sim \\textrm{Poisson}(\\lambda_y) \\textrm{, so } p(X=k)=\\frac{\\lambda_y^k\\ e^{-\\lambda_y}}{k!} \\tag{11} \\\\\n"
+        "X+Y &\\overset{?}{\\sim} \\textrm{Poisson}(\\lambda_{x+y}) \\textrm{ and, if so, } \\lambda_{x+y}=? \\tag{12} \\\\\n"
+        "\\end{align}\n"
+        "\n"
+        "\\begin{align}\n"
+        "p(X+Y=n) &= p(X=0)\\ p(Y=n) + p(X=1)\\ p(Y=n-1)\\ +...+\\ p(X=n-1)\\ p(Y = 1) + p(X=n)\\ p(Y=0) \\tag{13} \\\\\n"
+        "&= \\sum_{k=0}^n p(X=k)\\ p(Y=n-k) \\tag{14} \\\\\n"
+        "&= \\sum_{k=0}^n \\frac{\\lambda_x^k\\ e^{-\\lambda_x}\\ \\lambda_y^{n-k}\\ e^{-\\lambda_y}}{k!(n-k)!} \\tag{15} \\\\\n"
+        "&= e^{-(\\lambda_x+\\lambda_y)} \\sum_{k=0}^n \\frac{1}{k!(n-k)!}\\ \\lambda_x^k\\ \\lambda_y^{n-k} \\tag{16} \\\\\n"
+        "&= e^{-(\\lambda_x+\\lambda_y)} \\frac{1}{n!} \\sum_{k=0}^n \\frac{n!}{k!(n-k)!}\\ \\lambda_x^k\\ \\lambda_y^{n-k} \\tag{17} \\\\\n"
+        "&= e^{-(\\lambda_x+\\lambda_y)} \\frac{1}{n!} \\sum_{k=0}^n \\binom{n}{k}\\ \\lambda_x^k\\ \\lambda_y^{n-k}\\ [ \\textrm{because} \\frac{n!}{k!(n-k)!}=\\binom{n}{k} ]\\tag{18} \\\\\n"
+        "&=\\frac{e^{-(\\lambda_x + \\lambda_y)}(\\lambda_x+\\lambda_y)^n}{n!} [ \\textrm{because} \\sum_{k=0}^n \\binom{n}{k}\\ x^ky^{n-k} = (x+y)^n ]\\tag{19} \\\\\n"
+        "\\end{align}\n"
+        "\n"
+        "Therefore, $$X + Y \\sim \\mathrm{Poisson}(\\lambda_x + \\lambda_y)$$.\n"
+        "\n"
+        "## What is $$p(\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A} | s)$$?\n"
+        "\n"
+        "In our case:\n"
+        "\n"
+        "\\begin{align}\n"
+        "r_{\\mathrm{V}i} &\\sim \\textrm{Poisson}(g_\\mathrm{V}\\ f_i(s)) \\tag{20} \\\\\n"
+        "r_{\\mathrm{A}i} &\\sim \\textrm{Poisson}(g_\\mathrm{A}\\ f_i(s)) \\tag{21} \\\\\n"
+        "r_{\\mathrm{V}i}+r_{\\mathrm{A}i} &\\sim \\textrm{Poisson}((g_\\mathrm{V}+g_\\mathrm{A})\\ f_i(s)) \\tag{22} \\\\\n"
+        "\\end{align}\n"
+        "\n"
+        "\\begin{align}\n"
+        "L(s)&=p(\\mathbf{r}_\\mathrm{V} + \\mathbf{r}_\\mathrm{A}\\ |\\ s)\n"
+        "= \\prod_{i=0}^N \\frac{e^{-f_i(s)(g_\\mathrm{V}+g_\\mathrm{A})}\\ (g_\\mathrm{V}+g_\\mathrm{A})\\ f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}}}{(r_{\\mathrm{V}i}+r_{\\mathrm{A}i})!} \\tag{23} \\\\\n"
+        "&\\propto \\prod_{i=0}^N e^{-f_i(s)(g_\\mathrm{V}+g_\\mathrm{A})}\\ f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{24} \\\\\n"
+        "&= e^{-(g_\\mathrm{V}+g_\\mathrm{A})\\sum_{i=0}^Nf_i(s)} \\prod_{i=0}^N \\ f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{25} \\\\\n"
+        "&= e^{-(g_\\mathrm{V}+g_\\mathrm{A})k} \\prod_{i=0}^N \\ f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{26} \\\\\n"
+        "&\\propto \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{27} \\\\\n"
+        "\\end{align}\n"
+        "\n"
+        "Since equations $$(9)$$ and $$(27)$$ are proportional, we have shown that optimal cue combination can be executed by decoding linear sums of populations."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "$$x = 2$$"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Simulation\n"
+        "Here are the spike counts (during 1 s) from the two populations on one trial. Depicted in blue is a third population vector that is the sum of $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$."
+    ));
+
+    qDebug() << "command entry 33";
+    testCommandEntry(entry, 33, 1, QString::fromUtf8(
+        "spikes_and_inference(show_spike_count = True, show_likelihoods = False)"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Here are the decoded likelihoods for each population alone $$(6)$$, the joint likelihood $$(9)$$, and the likelihood for the summed population $$(27)$$. Note that the joint likelihood (gold) is less uncertain than either unimodal likelihood. Also note that it is identical to the likelihood for the summed population (blue)."
+    ));
+
+    qDebug() << "command entry 34";
+    testCommandEntry(entry, 34, 1, QString::fromUtf8(
+        "spikes_and_inference()"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Here, we break the assumption that the two populations have the same tuning curve width. Note that the joint likelihood (gold) is no longer identical to the likelihood for the summed population (blue)."
+    ));
+
+    qDebug() << "command entry 35";
+    testCommandEntry(entry, 35, 1, QString::fromUtf8(
+        "spikes_and_inference(r_V_tuning_curve_sigma = 7, r_A_tuning_curve_sigma = 10)"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Now you can play interactively with the parameters of the simulation using these sliders, and watch the decoded likelihoods shift around. Every time you change a parameter, new sets of spikes are generated and used to infer $$s$$.\n"
+        "\n"
+        "For the simulation to be interactive, you'll have to download this notebook."
+    ));
+
+    qDebug() << "command entry 36";
+    testCommandEntry(entry, 36, 1, QString::fromUtf8(
+        "i = ipywidgets.interactive(spikes_and_inference,\n"
+        "              true_stimulus = (-40, 40, .1),\n"
+        "              number_of_neurons = (2, 200, 1),\n"
+        "              r_V_gain = (0, 100, 1),\n"
+        "              r_A_gain = (0, 100, 1),\n"
+        "              r_V_tuning_curve_sigma = (0.1, 50, .1),\n"
+        "              r_A_tuning_curve_sigma = (0.1, 50, .1),\n"
+        "              tuning_curve_baseline = (0, 20, .1));\n"
+        "display(ipywidgets.VBox(i.children[2:-1]))"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "\n"
+        "\n"
+        ""
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Conclusion\n"
+        "\n"
+        "It has been shown behaviorally that humans perform near-optimal Bayesian inference on ambiguous sensory information. As suggested by Ma *et. al.* (2006) and shown here, it is possible that the brain does this operation by simply performing linear combinations of populations of Poisson neurons receiving various sensory input. Cortical neurons may be particularly well suited for this task because they have Poisson-like firing rates, displaying reliable variability from trial to trial (Tolhurst, Movshon & Dean, 1982; Softky & Koch, 1993).\n"
+        "\n"
+        "High levels of noise in these populations might at first be difficult to reconcile considering highly precise behavioral data. However, variability in neural populations might be direcly representative of uncertainty in environmental stimuli. Variability in cortical populations would then be critical for precise neural coding.\n"
+        "\n"
+        "## References\n"
+        "\n"
+        "* Ernst MO, Banks MS. (2002). Humans integrate visual and haptic information in a statistically optimal fashion. *Nature.*\n"
+        "* Körding KP, Wolpert DM. (2004). Bayesian integration in sensorimotor learning. *Nature.*\n"
+        "* Ma WJ, Beck JM, Latham PE, Pouget A. (2006). Bayesian inference with probabilistic population codes. *Nature Neuroscience.*\n"
+        "* Softky WR, Koch C. (1993). The highly irregular firing of cortical cells is inconsistent with temporal integration of random EPSPs. *Journal of Neuroscience.*\n"
+        "* Stocker AA, Simoncelli EP. (2006). Noise characteristics and prior expectations in human visual speed perception. *Nature Neuroscience.*\n"
+        "* Tolhurst, DJ, Movshon JA, Dean AF. (1983). The statistical reliability of signals in single neurons in cat and monkey visual cortex. *Vision Research.*\n"
+        "* van Beers RJ, Sittig AC, Gon JJ. (1999). Integration of proprioceptive and visual position-information: An experimentally supported model. *Journal of Neurophysiology.*"
+    ));
+
+    QCOMPARE(entry, nullptr);
+}
+
+void WorksheetTest::testJupyter7()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Transformation2D.ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "# Rigid-body transformations in a plane (2D)\n"
+        "\n"
+        "> Marcos Duarte  \n"
+        "> Laboratory of Biomechanics and Motor Control ([http://demotu.org/](http://demotu.org/))  \n"
+        "> Federal University of ABC, Brazil"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "The kinematics of a rigid body is completely described by its pose, i.e., its position and orientation in space (and the corresponding changes are translation and rotation). The translation and rotation of a rigid body are also known as rigid-body transformations (or simply, rigid transformations).\n"
+        "\n"
+        "Remember that in physics, a [rigid body](https://en.wikipedia.org/wiki/Rigid_body) is a model (an idealization) for a body in which deformation is neglected, i.e., the distance between every pair of points in the body is considered constant. Consequently, the position and orientation of a rigid body can be completely described by a corresponding coordinate system attached to it. For instance, two (or more) coordinate systems can be used to represent the same rigid body at two (or more) instants or two (or more) rigid bodies in space.\n"
+        "\n"
+        "Rigid-body transformations are used in motion analysis (e.g., of the human body) to describe the position and orientation of each segment (using a local (anatomical) coordinate system defined for each segment) in relation to a global coordinate system fixed at the laboratory. Furthermore, one can define an additional coordinate system called technical coordinate system also fixed at the rigid body but not based on anatomical landmarks. In this case, the position of the technical markers is first described in the laboratory coordinate system, and then the technical coordinate system is calculated to recreate the anatomical landmarks position in order to finally calculate the original anatomical coordinate system (and obtain its unknown position and orientation through time).\n"
+        "\n"
+        "In what follows, we will study rigid-body transformations by looking at the transformations between two coordinate systems. For simplicity, let's first analyze planar (two-dimensional) rigid-body transformations and later we will extend these concepts to three dimensions (where the study of rotations are more complicated)."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Affine transformations\n"
+        "\n"
+        "Translation and rotation are two examples of [affine transformations](https://en.wikipedia.org/wiki/Affine_transformation). Affine transformations preserve straight lines, but not necessarily the distance between points. Other examples of affine transformations are scaling, shear, and reflection. The figure below illustrates different affine transformations in a plane. Note that a 3x3 matrix is shown on top of each transformation; these matrices are known as the transformation matrices and are the mathematical representation of the physical transformations. Next, we will study how to use this approach to describe the translation and rotation of a rigid-body.  \n"
+        "<br>\n"
+        "<figure><img src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/2D_affine_transformation_matrix.svg/360px-2D_affine_transformation_matrix.svg.png' alt='Affine transformations'/> <figcaption><center><i>Figure. Examples of affine transformations in a plane applied to a square (with the letter <b>F</b> in it) and the corresponding transformation matrices (<a href=\"https://en.wikipedia.org/wiki/Affine_transformation\">image from Wikipedia</a>).</i></center></figcaption> </figure>"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Translation\n"
+        "\n"
+        "In a two-dimensional space, two coordinates and one angle are sufficient to describe the pose of the rigid body, totalizing three degrees of freedom for a rigid body. Let's see first the transformation for translation, then for rotation, and combine them at last.\n"
+        "\n"
+        "A pure two-dimensional translation of a coordinate system in relation to other coordinate system and the representation of a point in these two coordinate systems are illustrated in the figure below (remember that this is equivalent to describing a translation between two rigid bodies).  \n"
+        "<br>\n"
+        "<figure><img src='./../images/translation2D.png' alt='translation 2D'/> <figcaption><center><i>Figure. A point in two-dimensional space represented in two coordinate systems (Global and local), with one system translated.</i></center></figcaption> </figure>\n"
+        "\n"
+        "The position of point $$\\mathbf{P}$$ originally described in the local coordinate system but now described in the Global coordinate system in vector form is:\n"
+        "\n"
+        "$$ \\mathbf{P_G} = \\mathbf{L_G} + \\mathbf{P_l} $$\n"
+        "\n"
+        "Or for each component:\n"
+        "\n"
+        "$$ \\mathbf{P_X} = \\mathbf{L_X} + \\mathbf{P}_x $$\n"
+        "\n"
+        "$$ \\mathbf{P_Y} = \\mathbf{L_Y} + \\mathbf{P}_y $$\n"
+        "\n"
+        "And in matrix form is:\n"
+        "\n"
+        "$$\n"
+        "\\begin{bmatrix}\n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "\\mathbf{L_X} \\\\\n"
+        "\\mathbf{L_Y} \n"
+        "\\end{bmatrix} +\n"
+        "\\begin{bmatrix}\n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \n"
+        "\\end{bmatrix}\n"
+        "$$\n"
+        "\n"
+        "Because position and translation can be treated as vectors, the inverse operation, to describe the position at the local coordinate system in terms of the Global coordinate system, is simply:\n"
+        "\n"
+        "$$ \\mathbf{P_l} = \\mathbf{P_G} -\\mathbf{L_G} $$\n"
+        "<br>\n"
+        "$$ \\begin{bmatrix}\n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \n"
+        "\\end{bmatrix} - \n"
+        "\\begin{bmatrix}\n"
+        "\\mathbf{L_X} \\\\\n"
+        "\\mathbf{L_Y} \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "From classical mechanics, this transformation is an example of [Galilean transformation](http://en.wikipedia.org/wiki/Galilean_transformation).   \n"
+        "\n"
+        "For example, if the local coordinate system is translated by $$\\mathbf{L_G}=[2, 3]$$ in relation to the Global coordinate system, a point with coordinates $$\\mathbf{P_l}=[4, 5]$$ at the local coordinate system will have the position $$\\mathbf{P_G}=[6, 8]$$ at the Global coordinate system:"
+    ));
+
+    qDebug() << "command entry 1";
+    testCommandEntry(entry, 1, QString::fromUtf8(
+        "# Import the necessary libraries\n"
+        "import numpy as np"
+    ));
+
+    qDebug() << "command entry 2";
+    testCommandEntry(entry, 2, 1, QString::fromUtf8(
+        "LG = np.array([2, 3])  # (Numpy 1D array with 2 elements)\n"
+        "Pl = np.array([4, 5])\n"
+        "PG = LG + Pl\n"
+        "PG"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "array([6, 8])"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "This operation also works if we have more than one data point (NumPy knows how to handle vectors with different dimensions):"
+    ));
+
+    qDebug() << "command entry 3";
+    testCommandEntry(entry, 3, 1, QString::fromUtf8(
+        "Pl = np.array([[4, 5], [6, 7], [8, 9]])  # 2D array with 3 rows and two columns\n"
+        "PG = LG + Pl\n"
+        "PG"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "array([[ 6,  8],\n"
+        "       [ 8, 10],\n"
+        "       [10, 12]])"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Rotation\n"
+        "\n"
+        "A pure two-dimensional rotation of a coordinate system in relation to other coordinate system and the representation of a point in these two coordinate systems are illustrated in the figure below (remember that this is equivalent to describing a rotation between two rigid bodies). The rotation is around an axis orthogonal to this page, not shown in the figure (for a three-dimensional coordinate system the rotation would be around the $$\\mathbf{Z}$$ axis).  \n"
+        "<br>\n"
+        "<figure><img src='./../images/rotation2D.png' alt='rotation 2D'/> <figcaption><center><i>Figure. A point in the two-dimensional space represented in two coordinate systems (Global and local), with one system rotated in relation to the other around an axis orthogonal to both coordinate systems.</i></center></figcaption> </figure>\n"
+        "\n"
+        "Consider we want to express the position of point $$\\mathbf{P}$$ in the Global coordinate system in terms of the local coordinate system knowing only the coordinates at the local coordinate system and the angle of rotation between the two coordinate systems.   \n"
+        "\n"
+        "There are different ways of deducing that, we will see three of these methods next.     "
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### 1. Using trigonometry\n"
+        "\n"
+        "From figure below, the coordinates of point $$\\mathbf{P}$$ in the Global coordinate system can be determined finding the sides of the triangles marked in red.   \n"
+        "<br>\n"
+        "<figure><img src='./../images/rotation2Db.png' alt='rotation 2D'/> <figcaption><center><i>Figure. The coordinates of a point at the Global coordinate system in terms of the coordinates of this point at the local coordinate system.</i></center></figcaption> </figure>\n"
+        "\n"
+        "Then:   \n"
+        "\n"
+        "$$ \\mathbf{P_X} = \\mathbf{P}_x \\cos \\alpha - \\mathbf{P}_y \\sin \\alpha $$\n"
+        "\n"
+        "$$ \\mathbf{P_Y} = \\mathbf{P}_x \\sin \\alpha + \\mathbf{P}_y \\cos \\alpha  $$  \n"
+        "\n"
+        "The equations above can be expressed in matrix form:\n"
+        "\n"
+        "$$\n"
+        "\\begin{bmatrix} \n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} \\begin{bmatrix}\n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "Or simply:\n"
+        "\n"
+        "$$ \\mathbf{P_G} = \\mathbf{R_{Gl}}\\mathbf{P_l} $$\n"
+        "\n"
+        "Where $$\\mathbf{R_{Gl}}$$ is the rotation matrix that rotates the coordinates from the local to the Global coordinate system:\n"
+        "\n"
+        "$$ \\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "So, given any position at the local coordinate system, with the rotation matrix above we are able to determine the position at the Global coordinate system. Let's check that before looking at other methods to obtain this matrix.  \n"
+        "\n"
+        "For instance, consider a local coordinate system rotated by $$45^o$$ in relation to the Global coordinate system, a point in the local coordinate system with position $$\\mathbf{P_l}=[1, 1]$$ will have the following position at the Global coordinate system:"
+    ));
+
+    qDebug() << "command entry 4";
+    testCommandEntry(entry, 4, 1, QString::fromUtf8(
+        "RGl = np.array([[np.cos(np.pi/4), -np.sin(np.pi/4)], [np.sin(np.pi/4), np.cos(np.pi/4)]])\n"
+        "Pl  = np.array([[1, 1]]).T  # transpose the array for correct matrix multiplication\n"
+        "PG  = np.dot(RGl, Pl)       # the function dot() is used for matrix multiplication of arrays\n"
+        "np.around(PG, 4)            # round the number due to floating-point arithmetic errors"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "array([[0.    ],\n"
+        "       [1.4142]])"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "We have rounded the number to 4 decimal places due to [floating-point arithmetic errors in the computation](http://floating-point-gui.de).   \n"
+        "\n"
+        "And if we have the points [1,1], [0,1], [1,0] at the local coordinate system, their positions at the Global coordinate system are:"
+    ));
+
+    qDebug() << "command entry 5";
+    testCommandEntry(entry, 5, 1, QString::fromUtf8(
+        "Pl = np.array([[1, 1], [0, 1], [1, 0]]).T  # transpose array for matrix multiplication\n"
+        "PG = np.dot(RGl, Pl)  # the function dot() is used for matrix multiplication with arrays\n"
+        "np.around(PG, 4)      # round the number due to floating point arithmetic errors"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "array([[ 0.    , -0.7071,  0.7071],\n"
+        "       [ 1.4142,  0.7071,  0.7071]])"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "We have done all the calculations using the array function in NumPy. A [NumPy array is different than a matrix](http://www.scipy.org/NumPy_for_Matlab_Users), if we want to use explicit matrices in NumPy, the calculation above will be:"
+    ));
+
+    qDebug() << "command entry 6";
+    testCommandEntry(entry, 6, 1, QString::fromUtf8(
+        "RGl = np.mat([[np.cos(np.pi/4), -np.sin(np.pi/4)], [np.sin(np.pi/4), np.cos(np.pi/4)]])\n"
+        "Pl  = np.mat([[1, 1], [0,1], [1, 0]]).T  # 2x3 matrix\n"
+        "PG  = RGl*Pl       # matrix multiplication in NumPy\n"
+        "np.around(PG, 4)   # round the number due to floating point arithmetic errors"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "array([[ 0.    , -0.7071,  0.7071],\n"
+        "       [ 1.4142,  0.7071,  0.7071]])"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Both array and matrix types work in NumPy, but you should choose only one type and not mix them; the array is preferred because it is [the standard vector/matrix/tensor type of NumPy](http://www.scipy.org/NumPy_for_Matlab_Users)."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### 2. Using direction cosines\n"
+        "\n"
+        "Another way to determine the rotation matrix is to use the concept of direction cosine.   \n"
+        "\n"
+        "> Direction cosines are the cosines of the angles between any two vectors.   \n"
+        "\n"
+        "For the present case with two coordinate systems, they are  the cosines of the angles between each axis of one coordinate system and each axis of the other coordinate system. The figure below illustrates the directions angles between the two coordinate systems, expressing the local coordinate system in terms of the Global coordinate system.  \n"
+        "<br>\n"
+        "<figure><img src='./../images/directioncosine2D.png' alt='direction angles 2D'/> <figcaption><center><i>Figure. Definition of direction angles at the two-dimensional space.</i></center></figcaption> </figure>  \n"
+        "<br>\n"
+        "$$ \\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
+        "\\cos\\mathbf{X}x & \\cos\\mathbf{X}y \\\\\n"
+        "\\cos\\mathbf{Y}x & \\cos\\mathbf{Y}y \n"
+        "\\end{bmatrix} = \n"
+        "\\begin{bmatrix}\n"
+        "\\cos(\\alpha) & \\cos(90^o+\\alpha) \\\\\n"
+        "\\cos(90^o-\\alpha) & \\cos(\\alpha)\n"
+        "\\end{bmatrix} = \n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} $$  \n"
+        "\n"
+        "The same rotation matrix as obtained before.\n"
+        "\n"
+        "Note that the order of the direction cosines is because in our convention, the first row is for the $$\\mathbf{X}$$ coordinate and the second row for the $$\\mathbf{Y}$$ coordinate (the outputs). For the inputs, we followed the same order, first column for the $$\\mathbf{x}$$ coordinate, second column for the $$\\mathbf{y}$$ coordinate."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### 3. Using a basis\n"
+        "\n"
+        "Another way to deduce the rotation matrix is to view the axes of the rotated coordinate system as unit vectors, versors, of a <a href=\"http://en.wikipedia.org/wiki/Basis_(linear_algebra)\">basis</a> as illustrated in the figure below.\n"
+        "\n"
+        "> A basis is a set of linearly independent vectors that can represent every vector in a given vector space, i.e., a basis defines a coordinate system.\n"
+        "\n"
+        "<figure><img src='./../images/basis2D2.png' alt='basis 2D'/> <figcaption><center><i>Figure. Definition of the rotation matrix using a basis at the two-dimensional space.</i></center></figcaption> </figure>\n"
+        "\n"
+        "The coordinates of these two versors at the local coordinate system in terms of the Global coordinate system are:\n"
+        "\n"
+        "$$ \\begin{array}{l l}\n"
+        "\\mathbf{e}_x = \\cos\\alpha\\:\\mathbf{e_X} + \\sin\\alpha\\:\\mathbf{e_Y} \\\\\n"
+        "\\mathbf{e}_y = -\\sin\\alpha\\:\\mathbf{e_X} + \\cos\\alpha\\:\\mathbf{e_Y}\n"
+        "\\end{array}$$\n"
+        "\n"
+        "Note that as unit vectors, each of the versors above should have norm (length) equals to one, which indeed is the case.\n"
+        "\n"
+        "If we express each versor above as different columns of a matrix, we obtain the rotation matrix again:  \n"
+        "\n"
+        "$$ \\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "This means that the rotation matrix can be viewed as the basis of the rotated coordinate system defined by its versors.   \n"
+        "\n"
+        "This third way to derive the rotation matrix is in fact the method most commonly used in motion analysis because the coordinates of markers (in the Global/laboratory coordinate system) are what we measure with cameras.   "
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### 4. Using the inner (dot or scalar) product between versors\n"
+        "\n"
+        "Yet another way to deduce the rotation matrix is to define it as the dot product between the versors of the bases related to the two coordinate systems:\n"
+        "\n"
+        "$$\n"
+        "\\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
+        "\\mathbf{\\hat{e}_X}\\! \\cdot \\mathbf{\\hat{e}_x} & \\mathbf{\\hat{e}_X}\\! \\cdot \\mathbf{\\hat{e}_y} \\\\\n"
+        "\\mathbf{\\hat{e}_Y}\\! \\cdot \\mathbf{\\hat{e}_x} & \\mathbf{\\hat{e}_Y}\\! \\cdot \\mathbf{\\hat{e}_y} \n"
+        "\\end{bmatrix}\n"
+        "$$  \n"
+        "\n"
+        "By definition:\n"
+        "\n"
+        "$$ \\hat{\\mathbf{e}}_1\\! \\cdot \\hat{\\mathbf{e}}_2 = ||\\hat{\\mathbf{e}}_1|| \\times ||\\hat{\\mathbf{e}}_2||\\cos(e_1,e_2)=\\cos(e_1,e_2)$$\n"
+        "\n"
+        "And the rotation matrix will be equal to the matrix deduced based on the direction cosines."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Local-to-Global and Global-to-local coordinate systems' rotations"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "If we want the inverse operation, to express the position of point $$\\mathbf{P}$$ in the local coordinate system in terms of the Global coordinate system, the figure below illustrates that using trigonometry.  \n"
+        "<br>\n"
+        "<figure><img src='./../images/rotation2Dc.png' alt='rotation 2D'/> <figcaption><center><i>Figure. The coordinates of a point at the local coordinate system in terms of the coordinates at the Global coordinate system.</i></center></figcaption> </figure>\n"
+        "\n"
+        "Then:\n"
+        "\n"
+        "$$ \\mathbf{P}_x = \\;\\;\\mathbf{P_X} \\cos \\alpha + \\mathbf{P_Y} \\sin \\alpha $$\n"
+        "\n"
+        "$$ \\mathbf{P}_y = -\\mathbf{P_X} \\sin \\alpha + \\mathbf{P_Y} \\cos \\alpha  $$\n"
+        "\n"
+        "And in matrix form:\n"
+        "\n"
+        "$$\n"
+        "\\begin{bmatrix} \n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & \\sin\\alpha \\\\\n"
+        "-\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} \\begin{bmatrix}\n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "$$ \\mathbf{P_l} = \\mathbf{R_{lG}}\\mathbf{P_G} $$\n"
+        "\n"
+        "Where $$\\mathbf{R_{lG}}$$ is the rotation matrix that rotates the coordinates from the Global to the local coordinate system (note the inverse order of the subscripts):\n"
+        "\n"
+        "$$ \\mathbf{R_{lG}} = \\begin{bmatrix}\n"
+        "\\cos\\alpha & \\sin\\alpha \\\\\n"
+        "-\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "If we use the direction cosines to calculate the rotation matrix, because the axes didn't change, the cosines are the same, only the order changes, now $$\\mathbf{x, y}$$ are the rows (outputs) and $$\\mathbf{X, Y}$$ are the columns (inputs):\n"
+        "\n"
+        "$$ \\mathbf{R_{lG}} = \\begin{bmatrix}\n"
+        "\\cos\\mathbf{X}x & \\cos\\mathbf{Y}x \\\\\n"
+        "\\cos\\mathbf{X}y & \\cos\\mathbf{Y}y \n"
+        "\\end{bmatrix} = \n"
+        "\\begin{bmatrix}\n"
+        "\\cos(\\alpha) & \\cos(90^o-\\alpha) \\\\\n"
+        "\\cos(90^o+\\alpha) & \\cos(\\alpha)\n"
+        "\\end{bmatrix} = \n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & \\sin\\alpha \\\\\n"
+        "-\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "And defining the versors of the axes in the Global coordinate system for a basis in terms of the local coordinate system would also produce this latter rotation matrix.\n"
+        "\n"
+        "The two sets of equations and matrices for the rotations from Global-to-local and local-to-Global coordinate systems are very similar, this is no coincidence. Each of the rotation matrices we deduced, $$\\mathbf{R_{Gl}}$$ and $$\\mathbf{R_{lG}}$$, perform the inverse operation in relation to the other. Each matrix is the inverse of the other.   \n"
+        "\n"
+        "In other words, the relation between the two rotation matrices means it is equivalent to instead of rotating the local coordinate system by $$\\alpha$$ in relation to the Global coordinate system, to rotate the Global coordinate system by $$-\\alpha$$ in relation to the local coordinate system; remember that $$\\cos(-\\alpha)=\\cos(\\alpha)$$ and $$\\sin(-\\alpha)=-\\sin(\\alpha)$$."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Rotation of a Vector\n"
+        "\n"
+        "We can also use the rotation matrix to rotate a vector by a given angle around an axis of the coordinate system as shown in the figure below.   \n"
+        "<br>\n"
+        "<figure><img src='./../images/rotation2Dvector.png' alt='rotation 2D of a vector'/> <figcaption><center><i>Figure. Rotation of a position vector $$\\mathbf{P}$$ by an angle $$\\alpha$$ in the two-dimensional space.</i></center></figcaption> </figure>\n"
+        "\n"
+        "We will not prove that we use the same rotation matrix, but think that in this case the vector position rotates by the same angle instead of the coordinate system. The new coordinates of the vector position $$\\mathbf{P'}$$ rotated by an angle $$\\alpha$$ is simply the rotation matrix (for the angle $$\\alpha$$) multiplied by the coordinates of the vector position $$\\mathbf{P}$$:\n"
+        "\n"
+        "$$ \\mathbf{P'} = \\mathbf{R}_\\alpha\\mathbf{P} $$\n"
+        "\n"
+        "Consider for example that $$\\mathbf{P}=[2,1]$$ and $$\\alpha=30^o$$; the coordinates of $$\\mathbf{P'}$$ are:"
+    ));
+
+    qDebug() << "command entry 7";
+    testCommandEntry(entry, 7, 1, QString::fromUtf8(
+        "a  = np.pi/6\n"
+        "R  = np.array([[np.cos(a), -np.sin(a)], [np.sin(a), np.cos(a)]])\n"
+        "P  = np.array([[2, 1]]).T\n"
+        "Pl = np.dot(R, P)\n"
+        "print(\"P':\\n\", Pl)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "P':\n"
+        " [[1.23205081]\n"
+        " [1.8660254 ]]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### The rotation matrix\n"
+        "\n"
+        "**[See here for a review about matrix and its main properties](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/Matrix.ipynb)**.\n"
+        "\n"
+        "A nice property of the rotation matrix is that its inverse is the transpose of the matrix (because the columns/rows are mutually orthogonal and have norm equal to one).   \n"
+        "This property can be shown with the rotation matrices we deduced:\n"
+        "\n"
+        "$$ \\begin{array}{l l}\n"
+        "\\mathbf{R}\\:\\mathbf{R^T} & = \n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} \n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & \\sin\\alpha \\\\\n"
+        "-\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} \\\\\n"
+        "& = \\begin{bmatrix}\n"
+        "\\cos^2\\alpha+\\sin^2\\alpha & \\cos\\alpha \\sin\\alpha-\\sin\\alpha \\cos\\alpha\\;\\; \\\\\n"
+        "\\sin\\alpha \\cos\\alpha-\\cos\\alpha \\sin\\alpha & \\sin^2\\alpha+\\cos^2\\alpha\\;\\;\n"
+        "\\end{bmatrix} \\\\\n"
+        "& = \\begin{bmatrix}\n"
+        "1 & 0 \\\\\n"
+        "0 & 1 \n"
+        "\\end{bmatrix} \\\\\n"
+        "& = \\mathbf{I} \\\\\n"
+        "\\mathbf{R^{-1}} = \\mathbf{R^T}\n"
+        "\\end{array} $$\n"
+        "\n"
+        "This means that if we have a rotation matrix, we know its inverse.   \n"
+        "\n"
+        "The transpose and inverse operators in NumPy are methods of the array:"
+    ));
+
+    qDebug() << "command entry 8";
+    testCommandEntry(entry, 8, 1, QString::fromUtf8(
+        "RGl = np.mat([[np.cos(np.pi/4), -np.sin(np.pi/4)], [np.sin(np.pi/4), np.cos(np.pi/4)]])\n"
+        "\n"
+        "print('Orthogonal matrix (RGl):\\n', np.around(RGl, 4))\n"
+        "print('Transpose (RGl.T):\\n', np.around(RGl.T, 4))\n"
+        "print('Inverse (RGl.I):\\n', np.around(RGl.I, 4))"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "Orthogonal matrix (RGl):\n"
+        " [[ 0.7071 -0.7071]\n"
+        " [ 0.7071  0.7071]]\n"
+        "Transpose (RGl.T):\n"
+        " [[ 0.7071  0.7071]\n"
+        " [-0.7071  0.7071]]\n"
+        "Inverse (RGl.I):\n"
+        " [[ 0.7071  0.7071]\n"
+        " [-0.7071  0.7071]]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Using the inverse and the transpose mathematical operations, the coordinates at the local coordinate system given the coordinates at the Global coordinate system and the rotation matrix can be obtained by:   \n"
+        "\n"
+        "$$ \\begin{array}{l l}\n"
+        "\\mathbf{P_G} = \\mathbf{R_{Gl}}\\mathbf{P_l} \\implies \\\\\n"
+        "\\\\\n"
+        "\\mathbf{R_{Gl}^{-1}}\\mathbf{P_G} = \\mathbf{R_{Gl}^{-1}}\\mathbf{R_{Gl}}\\mathbf{P_l} \\implies \\\\\n"
+        "\\\\\n"
+        "\\mathbf{R_{Gl}^{-1}}\\mathbf{P_G} = \\mathbf{I}\\:\\mathbf{P_l} \\implies \\\\\n"
+        "\\\\\n"
+        "\\mathbf{P_l} = \\mathbf{R_{Gl}^{-1}}\\mathbf{P_G} = \\mathbf{R_{Gl}^T}\\mathbf{P_G} \\quad \\text{or}\n"
+        "\\quad \\mathbf{P_l} = \\mathbf{R_{lG}}\\mathbf{P_G}\n"
+        "\\end{array} $$\n"
+        "\n"
+        "Where we referred the inverse of $$\\mathbf{R_{Gl}}\\;(\\:\\mathbf{R_{Gl}^{-1}})$$ as $$\\mathbf{R_{lG}}$$ (note the different order of the subscripts).  \n"
+        "\n"
+        "Let's show this calculation in NumPy:"
+    ));
+
+    qDebug() << "command entry 9";
+    testCommandEntry(entry, 9, 1, QString::fromUtf8(
+        "RGl = np.array([[np.cos(np.pi/4), -np.sin(np.pi/4)], [np.sin(np.pi/4), np.cos(np.pi/4)]])\n"
+        "print('Rotation matrix (RGl):\\n', np.around(RGl, 4))\n"
+        "\n"
+        "Pl  = np.array([[1, 1]]).T # transpose the array for correct matrix multiplication\n"
+        "print('Position at the local coordinate system (Pl):\\n', Pl)\n"
+        "\n"
+        "PG = np.dot(RGl, Pl) # the function dot() is used for matrix multiplication with arrays\n"
+        "print('Position at the Global coordinate system (PG=RGl*Pl):\\n', np.around(PG,2))\n"
+        "\n"
+        "Pl = np.dot(RGl.T, PG)\n"
+        "print('Position at the local coordinate system using the inverse of RGl (Pl=RlG*PG):\\n', Pl)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "Rotation matrix (RGl):\n"
+        " [[ 0.7071 -0.7071]\n"
+        " [ 0.7071  0.7071]]\n"
+        "Position at the local coordinate system (Pl):\n"
+        " [[1]\n"
+        " [1]]\n"
+        "Position at the Global coordinate system (PG=RGl*Pl):\n"
+        " [[0.  ]\n"
+        " [1.41]]\n"
+        "Position at the local coordinate system using the inverse of RGl (Pl=RlG*PG):\n"
+        " [[1.]\n"
+        " [1.]]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "**In summary, some of the properties of the rotation matrix are:**  \n"
+        "1. The columns of the rotation matrix form a basis of (independent) unit vectors (versors) and the rows are also independent versors since the transpose of the rotation matrix is another rotation matrix. \n"
+        "2. The rotation matrix is orthogonal. There is no linear combination of one of the lines or columns of the matrix that would lead to the other row or column, i.e., the lines and columns of the rotation matrix are independent, orthogonal, to each other (this is property 1 rewritten). Because each row and column have norm equal to one, this matrix is also sometimes said to be orthonormal. \n"
+        "3. The determinant of the rotation matrix is equal to one (or equal to -1 if a left-hand coordinate system was used, but you should rarely use that). For instance, the determinant of the rotation matrix we deduced is $$cos\\alpha cos\\alpha - sin\\alpha(-sin\\alpha)=1$$.\n"
+        "4. The inverse of the rotation matrix is equals to its transpose.\n"
+        "\n"
+        "**On the different meanings of the rotation matrix:**  \n"
+        "- It represents the coordinate transformation between the coordinates of a point expressed in two different coordinate systems.  \n"
+        "- It describes the rotation between two coordinate systems. The columns are the direction cosines (versors) of the axes of the rotated coordinate system in relation to the other coordinate system and the rows are also direction cosines (versors) for the inverse rotation.  \n"
+        "- It is an operator for the calculation of the rotation of a vector in a coordinate system.\n"
+        "- Rotation matrices provide a means of numerically representing rotations without appealing to angular specification.\n"
+        "\n"
+        "**Which matrix to use, from local to Global or Global to local?**  \n"
+        "- A typical use of the transformation is in movement analysis, where there are the fixed Global (laboratory) coordinate system and the local (moving, e.g. anatomical) coordinate system attached to each body segment. Because the movement of the body segment is measured in the Global coordinate system, using cameras for example, and we want to reconstruct the coordinates of the markers at the anatomical coordinate system, we want the transformation leading from the Global coordinate system to the local coordinate system.\n"
+        "- Of course, if you have one matrix, it is simple to get the other; you just have to pay attention to use the right one."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Translation and rotation\n"
+        "\n"
+        "Consider now the case where the local coordinate system is translated and rotated in relation to the Global coordinate system and a point is described in both coordinate systems as illustrated in the figure below (once again, remember that this is equivalent to describing a translation and a rotation between two rigid bodies).  \n"
+        "<br>\n"
+        "<figure><img src='./../images/transrot2D.png' alt='translation and rotation 2D'/> <figcaption><center><i>Figure. A point in two-dimensional space represented in two coordinate systems, with one system translated and rotated.</i></center></figcaption> </figure>\n"
+        "\n"
+        "The position of point $$\\mathbf{P}$$ originally described in the local coordinate system, but now described in the Global coordinate system in vector form is:\n"
+        "\n"
+        "$$ \\mathbf{P_G} = \\mathbf{L_G} + \\mathbf{R_{Gl}}\\mathbf{P_l} $$\n"
+        "\n"
+        "And in matrix form:\n"
+        "\n"
+        "$$ \\begin{bmatrix}\n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix} \\mathbf{L_{X}} \\\\\\ \\mathbf{L_{Y}} \\end{bmatrix} + \n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} \\begin{bmatrix}\n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "This means that we first *disrotate* the local coordinate system and then correct for the translation between the two coordinate systems. Note that we can't invert this order: the point position is expressed in the local coordinate system and we can't add this vector to another vector expressed in the Global coordinate system, first we have to convert the vectors to the same coordinate system.\n"
+        "\n"
+        "If now we want to find the position of a point at the local coordinate system given its position in the Global coordinate system, the rotation matrix and the translation vector, we have to invert the expression above:\n"
+        "\n"
+        "$$ \\begin{array}{l l}\n"
+        "\\mathbf{P_G} = \\mathbf{L_G} + \\mathbf{R_{Gl}}\\mathbf{P_l} \\implies \\\\\n"
+        "\\\\\n"
+        "\\mathbf{R_{Gl}^{-1}}(\\mathbf{P_G} - \\mathbf{L_G}) = \\mathbf{R_{Gl}^{-1}}\\mathbf{R_{Gl}}\\mathbf{P_l} \\implies \\\\\n"
+        "\\\\\n"
+        "\\mathbf{P_l} = \\mathbf{R_{Gl}^{-1}}\\left(\\mathbf{P_G}-\\mathbf{L_G}\\right) = \\mathbf{R_{Gl}^T}\\left(\\mathbf{P_G}-\\mathbf{L_G}\\right) \\quad \\text{or} \\quad \\mathbf{P_l} = \\mathbf{R_{lG}}\\left(\\mathbf{P_G}-\\mathbf{L_G}\\right) \n"
+        "\\end{array} $$\n"
+        "\n"
+        "The expression above indicates that to perform the inverse operation, to go from the Global to the local coordinate system, we first translate and then rotate the coordinate system."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Transformation matrix\n"
+        "\n"
+        "It is possible to combine the translation and rotation operations in only one matrix, called the transformation matrix (also referred as homogeneous transformation matrix):\n"
+        "\n"
+        "$$ \\begin{bmatrix}\n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \\\\\n"
+        "1\n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha & \\mathbf{L_{X}} \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha  & \\mathbf{L_{Y}} \\\\\n"
+        "0 & 0 & 1\n"
+        "\\end{bmatrix} \\begin{bmatrix}\n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \\\\\n"
+        "1\n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "Or simply:\n"
+        "\n"
+        "$$ \\mathbf{P_G} = \\mathbf{T_{Gl}}\\mathbf{P_l} $$\n"
+        "\n"
+        "The inverse operation, to express the position at the local coordinate system in terms of the Global coordinate system, is:\n"
+        "\n"
+        "$$ \\mathbf{P_l} = \\mathbf{T_{Gl}^{-1}}\\mathbf{P_G} $$\n"
+        "\n"
+        "However, because $$\\mathbf{T_{Gl}}$$ is not orthonormal when there is a translation, its inverse is not its transpose. Its inverse in matrix form is given by:\n"
+        "\n"
+        "$$ \\begin{bmatrix}\n"
+        "\\mathbf{P}_x \\\\\n"
+        "\\mathbf{P}_y \\\\\n"
+        "1\n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "\\mathbf{R^{-1}_{Gl}} & \\cdot & - \\mathbf{R^{-1}_{Gl}}\\mathbf{L_{G}} \\\\\n"
+        "\\cdot & \\cdot  & \\cdot \\\\\n"
+        "0 & 0 & 1\n"
+        "\\end{bmatrix} \\begin{bmatrix}\n"
+        "\\mathbf{P_X} \\\\\n"
+        "\\mathbf{P_Y} \\\\\n"
+        "1\n"
+        "\\end{bmatrix} $$"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Calculation of a basis\n"
+        "\n"
+        "A typical scenario in motion analysis is to calculate the rotation matrix using the position of markers placed on the moving rigid body. With the markers' positions, we create a local basis, which by definition is the rotation matrix for the rigid body with respect to the Global (laboratory) coordinate system. To define a coordinate system using a basís, we also will need to define an origin. \n"
+        "\n"
+        "Let's see how to calculate a basis given the markers' positions.   \n"
+        "Consider the markers at m1=[1,1]`, m2=[1,2] and m3=[-1,1] measured in the Global coordinate system as illustrated in the figure below:  \n"
+        "<br>\n"
+        "<figure><img src='./../images/transrot2Db.png' alt='translation and rotation 2D'/> <figcaption><center><i>Figure. Three points in the two-dimensional space, two possible vectors given these points, and the corresponding basis.</i></center></figcaption> </figure>\n"
+        "\n"
+        "A possible local coordinate system with origin at the position of m1 is also illustrated in the figure above. Intentionally, the three markers were chosen to form orthogonal vectors.   \n"
+        "The translation vector between the two coordinate system is:\n"
+        "\n"
+        "$$\\mathbf{L_{Gl}} = m_1 - [0,0] = [1,1]$$\n"
+        "\n"
+        "The vectors expressing the axes of the local coordinate system are:\n"
+        "\n"
+        "$$ x = m_2 - m_1 = [1,2] - [1,1] = [0,1] $$\n"
+        "\n"
+        "$$ y = m_3 - m_1 = [-1,1] - [1,1] = [-2,0] $$\n"
+        "\n"
+        "Note that these two vectors do not form a basis yet because they are not unit vectors (in fact, only *y* is not a unit vector). Let's normalize these vectors:\n"
+        "\n"
+        "$$ \\begin{array}{}\n"
+        "e_x = \\frac{x}{||x||} = \\frac{[0,1]}{\\sqrt{0^2+1^2}} = [0,1] \\\\\n"
+        "\\\\\n"
+        "e_y = \\frac{y}{||y||} = \\frac{[-2,0]}{\\sqrt{2^2+0^2}} = [-1,0] \n"
+        "\\end{array} $$\n"
+        "\n"
+        "Beware that the versors above are not exactly the same as the ones shown in the right plot of the last figure, the versors above if plotted will start at the origin of the coordinate system, not at [1,1] as shown in the figure.\n"
+        "\n"
+        "We could have done this calculation in NumPy (we will need to do that when dealing with real data later):"
+    ));
+
+    qDebug() << "command entry 10";
+    testCommandEntry(entry, 10, 1, QString::fromUtf8(
+        "m1 = np.array([1.,1.])    # marker 1\n"
+        "m2 = np.array([1.,2.])    # marker 2\n"
+        "m3 = np.array([-1.,1.])   # marker 3\n"
+        "\n"
+        "x = m2 - m1               # vector x\n"
+        "y = m3 - m1               # vector y\n"
+        "\n"
+        "vx = x/np.linalg.norm(x)  # versor x\n"
+        "vy = y/np.linalg.norm(y)  # verson y\n"
+        "\n"
+        "print(\"x =\", x, \", y =\", y, \"\\nex=\", vx, \", ey=\", vy)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "x = [0. 1.] , y = [-2.  0.] \n"
+        "ex= [0. 1.] , ey= [-1.  0.]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Now, both $$\\mathbf{e}_x$$ and $$\\mathbf{e}_y$$ are unit vectors (versors) and they are orthogonal, a basis can be formed with these two versors, and we can represent the rotation matrix using this basis (just place the versors of this basis as columns of the rotation matrix):\n"
+        "\n"
+        "$$ \\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
+        "0 & -1 \\\\\n"
+        "1 & 0 \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "This rotation matrix makes sense because from the figure above we see that the local coordinate system we defined is rotated by 90$$^o$$ in relation to the Global coordinate system and if we use the general form for the rotation matrix:\n"
+        "\n"
+        "$$ \\mathbf{R} = \\begin{bmatrix}\n"
+        "\\cos\\alpha & -\\sin\\alpha \\\\\n"
+        "\\sin\\alpha & \\cos\\alpha \n"
+        "\\end{bmatrix} = \n"
+        "\\begin{bmatrix}\n"
+        "\\cos90^o & -\\sin90^o \\\\\n"
+        "\\sin90^o & \\cos90^o \n"
+        "\\end{bmatrix} =\n"
+        "\\begin{bmatrix}\n"
+        "0 & -1 \\\\\n"
+        "1 & 0 \n"
+        "\\end{bmatrix} $$\n"
+        "\n"
+        "So, the position of any point in the local coordinate system can be represented in the Global coordinate system by:\n"
+        "\n"
+        "$$ \\begin{array}{l l}\n"
+        "\\mathbf{P_G} =& \\mathbf{L_{Gl}} + \\mathbf{R_{Gl}}\\mathbf{P_l} \\\\\n"
+        "\\\\\n"
+        "\\mathbf{P_G} =& \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} + \\begin{bmatrix} 0 & -1 \\\\ 1 & 0 \\end{bmatrix} \\mathbf{P_l} \n"
+        "\\end{array} $$\n"
+        "\n"
+        "For example, the point $$\\mathbf{P_l}=[1,1]$$ has the following position at the Global coordinate system:"
+    ));
+
+    qDebug() << "command entry 11";
+    testCommandEntry(entry, 11, 1, QString::fromUtf8(
+        "LGl = np.array([[1, 1]]).T\n"
+        "print('Translation vector:\\n', LGl)\n"
+        "\n"
+        "RGl = np.array([[0, -1], [1, 0]])\n"
+        "print('Rotation matrix:\\n', RGl)\n"
+        "\n"
+        "Pl  = np.array([[1, 1]]).T\n"
+        "print('Position at the local coordinate system:\\n', Pl)\n"
+        "\n"
+        "PG = LGl + np.dot(RGl, Pl)\n"
+        "print('Position at the Global coordinate system, PG = LGl + RGl*Pl:\\n', PG)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "Translation vector:\n"
+        " [[1]\n"
+        " [1]]\n"
+        "Rotation matrix:\n"
+        " [[ 0 -1]\n"
+        " [ 1  0]]\n"
+        "Position at the local coordinate system:\n"
+        " [[1]\n"
+        " [1]]\n"
+        "Position at the Global coordinate system, PG = LGl + RGl*Pl:\n"
+        " [[0]\n"
+        " [2]]"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Determination of the unknown angle of rotation\n"
+        "\n"
+        "If we didn't know the angle of rotation between the two coordinate systems, which is the typical situation in motion analysis, we simply would equate one of the terms of the two-dimensional rotation matrix in its algebraic form to its correspondent value in the numerical rotation matrix we calculated.\n"
+        "\n"
+        "For instance, taking the first term of the rotation matrices above: $$\\cos\\alpha = 0$$ implies that $$\\theta$$ is 90$$^o$$ or 270$$^o$$, but combining with another matrix term, $$\\sin\\alpha = 1$$, implies that $$\\alpha=90^o$$. We can solve this problem in one step using the tangent $$(\\sin\\alpha/\\cos\\alpha)$$ function with two terms of the rotation matrix and calculating the angle with the `arctan2(y, x)` function:"
+    ));
+
+    qDebug() << "command entry 12";
+    testCommandEntry(entry, 12, 1, QString::fromUtf8(
+        "ang = np.arctan2(RGl[1, 0], RGl[0, 0])*180/np.pi\n"
+        "print('The angle is:', ang)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "The angle is: 90.0"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "And this procedure would be repeated for each segment and for each instant of the analyzed movement to find the rotation of each segment."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "#### Joint angle as a sequence of rotations of adjacent segments\n"
+        "\n"
+        "In the notebook about [two-dimensional angular kinematics](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb), we calculated segment and joint angles using simple trigonometric relations. We can also calculate these two-dimensional angles using what we learned here about the rotation matrix.\n"
+        "\n"
+        "The segment angle will be given by the matrix representing the rotation from the laboratory coordinate system (G) to a coordinate system attached to the segment and the joint angle will be given by the matrix representing the rotation from one segment coordinate system (l1) to the other segment coordinate system (l2). So, we have to calculate two basis now, one for each segment and the joint angle will be given by the product between the two rotation matrices.  \n"
+        "\n"
+        "To define a two-dimensional basis, we need to calculate vectors perpendicular to each of these lines. Here is a way of doing that. First, let's find three non-collinear points for each basis:"
+    ));
+
+    qDebug() << "command entry 13";
+    testCommandEntry(entry, 13, QString::fromUtf8(
+        "x1, y1, x2, y2 = 0, 0, 1, 1      # points at segment 1\n"
+        "x3, y3, x4, y4 = 1.1, 1, 2.1, 0  # points at segment 2\n"
+        "\n"
+        "#The slope of the perpendicular line is minus the inverse of the slope of the line\n"
+        "xl1 = x1 - (y2-y1); yl1 = y1 + (x2-x1)  # point at the perpendicular line 1\n"
+        "xl2 = x4 - (y3-y4); yl2 = y4 + (x3-x4)  # point at the perpendicular line 2"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "With these three points, we can create a basis and the corresponding rotation matrix:"
+    ));
+
+    qDebug() << "command entry 14";
+    testCommandEntry(entry, 14, QString::fromUtf8(
+        "b1x = np.array([x2-x1, y2-y1])\n"
+        "b1x = b1x/np.linalg.norm(b1x)    # versor x of basis 1\n"
+        "b1y = np.array([xl1-x1, yl1-y1])\n"
+        "b1y = b1y/np.linalg.norm(b1y)    # versor y of basis 1\n"
+        "b2x = np.array([x3-x4, y3-y4])\n"
+        "b2x = b2x/np.linalg.norm(b2x)    # versor x of basis 2\n"
+        "b2y = np.array([xl2-x4, yl2-y4])\n"
+        "b2y = b2y/np.linalg.norm(b2y)    # versor y of basis 2\n"
+        "\n"
+        "RGl1 = np.array([b1x, b1y]).T    # rotation matrix from segment 1 to the laboratory\n"
+        "RGl2 = np.array([b2x, b2y]).T    # rotation matrix from segment 2 to the laboratory"
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Now, the segment and joint angles are simply matrix operations:"
+    ));
+
+    qDebug() << "command entry 15";
+    testCommandEntry(entry, 15, 1, QString::fromUtf8(
+        "print('Rotation matrix for segment 1:\\n', np.around(RGl1, 4))\n"
+        "print('\\nRotation angle of segment 1:', np.arctan2(RGl1[1,0], RGl1[0,0])*180/np.pi)\n"
+        "print('\\nRotation matrix for segment 2:\\n', np.around(RGl2, 4))\n"
+        "print('\\nRotation angle of segment 2:', np.arctan2(RGl1[1,0], RGl2[0,0])*180/np.pi)\n"
+        "\n"
+        "Rl1l2 = np.dot(RGl1.T, RGl2)  # Rl1l2 = Rl1G*RGl2\n"
+        "\n"
+        "print('\\nJoint rotation matrix (Rl1l2 = Rl1G*RGl2):\\n', np.around(Rl1l2, 4))\n"
+        "print('\\nJoint angle:', np.arctan2(Rl1l2[1,0], Rl1l2[0,0])*180/np.pi)"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "Rotation matrix for segment 1:\n"
+        " [[ 0.7071 -0.7071]\n"
+        " [ 0.7071  0.7071]]\n"
+        "\n"
+        "Rotation angle of segment 1: 45.0\n"
+        "\n"
+        "Rotation matrix for segment 2:\n"
+        " [[-0.7071 -0.7071]\n"
+        " [ 0.7071 -0.7071]]\n"
+        "\n"
+        "Rotation angle of segment 2: 135.0\n"
+        "\n"
+        "Joint rotation matrix (Rl1l2 = Rl1G*RGl2):\n"
+        " [[ 0. -1.]\n"
+        " [ 1. -0.]]\n"
+        "\n"
+        "Joint angle: 90.0"
+    ));
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Same result as obtained in [Angular kinematics in a plane (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb). "
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "### Kinematic chain in a plain (2D)\n"
+        "\n"
+        "The fact that we simply multiplied the rotation matrices to calculate the rotation matrix of one segment in relation to the other is powerful and can be generalized for any number of segments: given a serial kinematic chain with links 1, 2, ..., n and 0 is the base/laboratory, the rotation matrix between the base and last link is: $$\\mathbf{R_{n,n-1}R_{n-1,n-2} \\dots R_{2,1}R_{1,0}}$$, where each matrix in this product (calculated from right to left) is the rotation of one link with respect to the next one.  \n"
+        "\n"
+        "For instance, consider a kinematic chain with two links, the link 1 is rotated by $$\\alpha_1$$ with respect to the base (0) and the link 2 is rotated by $$\\alpha_2$$ with respect to the link 1.  \n"
+        "Using Sympy, the rotation matrices for link 2 w.r.t. link 1 $$(R_{12})$$ and for link 1 w.r.t. base 0 $$(R_{01})$$ are: "
+    ));
+
+    qDebug() << "command entry 16";
+    testCommandEntry(entry, 16, QString::fromUtf8(
+        "from IPython.display import display, Math\n"
+        "from sympy import sin, cos, Matrix, simplify, latex, symbols\n"
+        "from sympy.interactive import printing\n"
+        "printing.init_printing()"
+    ));
+
+    qDebug() << "command entry 17";
+    testCommandEntry(entry, 17, 2, QString::fromUtf8(
+        "a1, a2 = symbols('alpha1 alpha2')\n"
+        "\n"
+        "R12 = Matrix([[cos(a2), -sin(a2)], [sin(a2), cos(a2)]])\n"
+        "display(Math(latex(r'\\mathbf{R_{12}}=') + latex(R12)))\n"
+        "R01 = Matrix([[cos(a1), -sin(a1)], [sin(a1), cos(a1)]])\n"
+        "display(Math(latex(r'\\mathbf{R_{01}}=') + latex(R01)))"
+    ));
+    {
+    QCOMPARE(expression(entry)->results()[0]->type(), (int)Cantor::LatexResult::Type);
+    Cantor::LatexResult* result = static_cast<Cantor::LatexResult*>(expression(entry)->results()[0]);
+    QCOMPARE(result->code(), QLatin1String(
+        "$$\\mathbf{R_{12}}=\\left[\\begin{matrix}\\cos{\\left(\\alpha_{2} \\right)} & - \\sin{\\left(\\alpha_{2} \\right)}\\\\\\sin{\\left(\\alpha_{2} \\right)} & \\cos{\\left(\\alpha_{2} \\right)}\\end{matrix}\\right]$$"
+    ));
+    QCOMPARE(result->plain(), QLatin1String(
+        "<IPython.core.display.Math object>"
+    ));
+    QCOMPARE(result->mimeType(), QStringLiteral("image/x-eps"));
+    }
+    {
+    QCOMPARE(expression(entry)->results()[1]->type(), (int)Cantor::LatexResult::Type);
+    Cantor::LatexResult* result = static_cast<Cantor::LatexResult*>(expression(entry)->results()[1]);
+    QCOMPARE(result->code(), QLatin1String(
+        "$$\\mathbf{R_{01}}=\\left[\\begin{matrix}\\cos{\\left(\\alpha_{1} \\right)} & - \\sin{\\left(\\alpha_{1} \\right)}\\\\\\sin{\\left(\\alpha_{1} \\right)} & \\cos{\\left(\\alpha_{1} \\right)}\\end{matrix}\\right]$$"
+    ));
+    QCOMPARE(result->plain(), QLatin1String(
+        "<IPython.core.display.Math object>"
+    ));
+    QCOMPARE(result->mimeType(), QStringLiteral("image/x-eps"));
+    }
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "The rotation matrix of link 2 w.r.t. the base $$(R_{02})$$ is given simply by $$R_{01}*R_{12}$$:"
+    ));
+
+    qDebug() << "command entry 18";
+    testCommandEntry(entry, 18, 1, QString::fromUtf8(
+        "R02 = R01*R12\n"
+        "display(Math(latex(r'\\mathbf{R_{02}}=') + latex(R02)))"
+    ));
+    {
+    QCOMPARE(expression(entry)->results()[0]->type(), (int)Cantor::LatexResult::Type);
+    Cantor::LatexResult* result = static_cast<Cantor::LatexResult*>(expression(entry)->results()[0]);
+    QCOMPARE(result->code(), QLatin1String(
+        "$$\\mathbf{R_{02}}=\\left[\\begin{matrix}- \\sin{\\left(\\alpha_{1} \\right)} \\sin{\\left(\\alpha_{2} \\right)} + \\cos{\\left(\\alpha_{1} \\right)} \\cos{\\left(\\alpha_{2} \\right)} & - \\sin{\\left(\\alpha_{1} \\right)} \\cos{\\left(\\alpha_{2} \\right)} - \\sin{\\left(\\alpha_{2} \\right)} \\cos{\\left(\\alpha_{1} \\right)}\\\\\\sin{\\left(\\alpha_{1} \\right)} \\cos{\\left(\\alpha_{2} \\right)} + \\sin{\\left(\\alpha_{2} \\right)} \\cos{\\left(\\alpha_{1} \\right)} & - \\sin{\\left(\\alpha_{1} \\right)} \\sin{\\left(\\alpha_{2} \\right)} + \\cos{\\left(\\alpha_{1} \\right)} \\cos{\\left(\\alpha_{2} \\right)}\\end{matrix}\\right]$$"
+    ));
+    QCOMPARE(result->plain(), QLatin1String(
+        "<IPython.core.display.Math object>"
+    ));
+    QCOMPARE(result->mimeType(), QStringLiteral("image/x-eps"));
+    }
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "Which simplifies to:"
+    ));
+
+    qDebug() << "command entry 19";
+    testCommandEntry(entry, 19, 1, QString::fromUtf8(
+        "display(Math(latex(r'\\mathbf{R_{02}}=') + latex(simplify(R02))))"
+    ));
+    {
+    QCOMPARE(expression(entry)->results()[0]->type(), (int)Cantor::LatexResult::Type);
+    Cantor::LatexResult* result = static_cast<Cantor::LatexResult*>(expression(entry)->results()[0]);
+    QCOMPARE(result->code(), QLatin1String(
+        "$$\\mathbf{R_{02}}=\\left[\\begin{matrix}\\cos{\\left(\\alpha_{1} + \\alpha_{2} \\right)} & - \\sin{\\left(\\alpha_{1} + \\alpha_{2} \\right)}\\\\\\sin{\\left(\\alpha_{1} + \\alpha_{2} \\right)} & \\cos{\\left(\\alpha_{1} + \\alpha_{2} \\right)}\\end{matrix}\\right]$$"
+    ));
+    QCOMPARE(result->plain(), QLatin1String(
+        "<IPython.core.display.Math object>"
+    ));
+    QCOMPARE(result->mimeType(), QStringLiteral("image/x-eps"));
+    }
+    entry = entry->next();
+
+    testMarkdown(entry, QString::fromUtf8(
+        "As expected.\n"
+        "\n"
+        "The typical use of all these concepts is in the three-dimensional motion analysis where we will have to deal with angles in different planes, which needs a special manipulation as we will see next."
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## Problems\n"
+        "\n"
+        "1. A local coordinate system is rotated 30$$^o$$ clockwise in relation to the Global reference system.   \n"
+        "  A. Determine the matrices for rotating one coordinate system to another (two-dimensional).   \n"
+        "  B. What are the coordinates of the point [1, 1] (local coordinate system) at the global coordinate system?   \n"
+        "  C. And if this point is at the Global coordinate system and we want the coordinates at the local coordinate system?   \n"
+        "  D. Consider that the local coordinate system, besides the rotation is also translated by [2, 2]. What are the matrices for rotation, translation, and transformation from one coordinate system to another (two-dimensional)?   \n"
+        "  E. Repeat B and C considering this translation.\n"
+        "  \n"
+        "2. Consider a local coordinate system U rotated 45$$^o$$ clockwise in relation to the Global reference system and another local coordinate system V rotated 45$$^o$$ clockwise in relation to the local reference system U.  \n"
+        "  A. Determine the rotation matrices of all possible transformations between the coordinate systems.   \n"
+        "  B. For the point [1, 1] in the coordinate system U, what are its coordinates in coordinate system V and in the Global coordinate system?   \n"
+        "  \n"
+        "3. Using the rotation matrix, deduce the new coordinates of a square figure with coordinates [0, 0], [1, 0], [1, 1], and [0, 1] when rotated by 0$$^o$$, 45$$^o$$, 90$$^o$$, 135$$^o$$, and 180$$^o$$ (always clockwise).\n"
+        "  \n"
+        "4. Solve the problem 2 of [Angular kinematics in a plane (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb) but now using the concept of two-dimensional transformations.  "
+    ));
+
+    testMarkdown(entry, QString::fromUtf8(
+        "## References\n"
+        "\n"
+        "- Robertson G, Caldwell G, Hamill J, Kamen G (2013) [Research Methods in Biomechanics](http://books.google.com.br/books?id=gRn8AAAAQBAJ). 2nd Edition. Human Kinetics.      \n"
+        "- Ruina A, Rudra P (2013) [Introduction to Statics and Dynamics](http://ruina.tam.cornell.edu/Book/index.html). Oxford University Press.  \n"
+        "- Winter DA (2009) [Biomechanics and motor control of human movement](http://books.google.com.br/books?id=_bFHL08IWfwC). 4 ed. Hoboken, EUA: Wiley.  \n"
+        "- Zatsiorsky VM (1997) [Kinematics of Human Motion](http://books.google.com.br/books/about/Kinematics_of_Human_Motion.html?id=Pql_xXdbrMcC&redir_esc=y). Champaign, Human Kinetics."
+    ));
+
+    QCOMPARE(entry, nullptr);
+}
+
 QTEST_MAIN( WorksheetTest )
