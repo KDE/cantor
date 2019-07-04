@@ -228,6 +228,9 @@ void TestPython3::testSimplePlot()
 
 void TestPython3::testVariablesCreatingFromCode()
 {
+    if (!PythonSettings::variableManagement())
+        QSKIP("This test needs enabled variable management in Python3 settings", SkipSingle);
+
     QAbstractItemModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
@@ -269,6 +272,9 @@ void TestPython3::testVariableCleanupAfterRestart()
 
 void TestPython3::testDictVariable()
 {
+    if (!PythonSettings::variableManagement())
+        QSKIP("This test needs enabled variable management in Python3 settings", SkipSingle);
+
     Cantor::DefaultVariableModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
