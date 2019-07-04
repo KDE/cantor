@@ -32,6 +32,7 @@
 #include <QDir>
 #include <QStandardPaths>
 #include <QProcess>
+#include <QFileInfo>
 
 #include <KDirWatch>
 #include <KLocalizedString>
@@ -94,7 +95,10 @@ void PythonSession::login()
     connect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
 
     sendCommand(QLatin1String("login"));
-    sendCommand(QLatin1String("setFilePath"), QStringList(worksheetPath));
+    QString dir;
+    if (!worksheetPath.isEmpty())
+        dir = QFileInfo(worksheetPath).absoluteDir().absolutePath();
+    sendCommand(QLatin1String("setFilePath"), QStringList() << worksheetPath << dir);
 
     const QStringList& scripts = autorunScripts();
     if(!scripts.isEmpty()){
@@ -205,7 +209,15 @@ void PythonSession::sendCommand(const QString& command, const QStringList argume
 void PythonSession::readOutput()
 {
     while (m_process->bytesAvailable() > 0)
-        m_output.append(QString::fromLocal8Bit(m_process->readAll()));
+    {
+        const QByteArray& bytes = m_process->readAll();
+        if (m_pythonVersion == 3)
+            m_output.append(QString::fromUtf8(bytes));
+        else if (m_pythonVersion == 2)
+            m_output.append(QString::fromLocal8Bit(bytes));
+        else
+            qCritical() << "Unsupported Python version" << m_pythonVersion;
+    }
 
     qDebug() << "m_output: " << m_output;
 
