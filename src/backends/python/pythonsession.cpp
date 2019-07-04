@@ -34,6 +34,7 @@
 #include <QProcess>
 
 #include <KDirWatch>
+#include <KLocalizedString>
 
 
 #ifndef Q_OS_WIN
@@ -57,6 +58,7 @@ PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const 
 PythonSession::~PythonSession()
 {
     if (m_process) {
+        disconnect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
         m_process->kill();
         m_process->deleteLater();
         m_process = nullptr;
@@ -89,6 +91,7 @@ void PythonSession::login()
     }
 
     connect(m_process, &QProcess::readyReadStandardOutput, this, &PythonSession::readOutput);
+    connect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
 
     sendCommand(QLatin1String("login"));
     sendCommand(QLatin1String("setFilePath"), QStringList(worksheetPath));
@@ -112,6 +115,7 @@ void PythonSession::logout()
     sendCommand(QLatin1String("exit"));
     if(!m_process->waitForFinished(1000))
     {
+        disconnect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
         m_process->kill();
         qDebug()<<"cantor_python server still running, process kill enforced";
     }
@@ -232,4 +236,23 @@ void PythonSession::readOutput()
 void PythonSession::setWorksheetPath(const QString& path)
 {
     worksheetPath = path;
+}
+
+void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)
+{
+    switch(serverError)
+    {
+        case QProcess::Crashed:
+            emit error(i18n("Cantor Python server stopped working."));
+            break;
+
+        case QProcess::FailedToStart:
+            emit error(i18n("Failed to start Cantor python server."));
+            break;
+
+        default:
+            emit error(i18n("Communication with Cantor python server failed for unknown reasons."));
+            break;
+    }
+    logout();
 }

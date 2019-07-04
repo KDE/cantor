@@ -147,11 +147,18 @@ QString PythonServer::getOutput() const
 
 void PythonServer::setFilePath(const QString& path)
 {
-    this->filePath = path;
     PyRun_SimpleString(("import sys; sys.argv = ['" + path.toStdString() + "']").c_str());
-    QString dir = QFileInfo(path).absoluteDir().absolutePath();
-    PyRun_SimpleString(("import sys; sys.path.insert(0, '" + dir.toStdString() + "')").c_str());
-    PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
+    if (path.isEmpty()) // New session, not from file
+    {
+        PyRun_SimpleString("import sys; sys.path.insert(0, '')");
+    }
+    else
+    {
+        this->filePath = path;
+        QString dir = QFileInfo(path).absoluteDir().absolutePath();
+        PyRun_SimpleString(("import sys; sys.path.insert(0, '" + dir.toStdString() + "')").c_str());
+        PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
+    }
 }
 
 QString PythonServer::variables(bool parseValue) const
