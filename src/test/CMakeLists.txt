@@ -39,6 +39,8 @@ configure_file("data/Automata and Computability using Jupyter.ipynb" data COPYON
 configure_file("data/Cue Combination with Neural Populations .ipynb" data COPYONLY)
 configure_file("data/Transformation2D.ipynb" data COPYONLY)
 configure_file("data/TestMarkdownAttachment.ipynb" data COPYONLY)
+configure_file("data/TestEntryLoad1.ipynb" data COPYONLY)
+configure_file("data/TestEntryLoad2.ipynb" data COPYONLY)
 
 set(PATH_TO_TEST_NOTEBOOKS ${CMAKE_CURRENT_BINARY_DIR}/data)
 configure_file (config-cantor-test.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor-test.h )

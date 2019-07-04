@@ -29,6 +29,7 @@
 #include "../textentry.h"
 #include "../markdownentry.h"
 #include "../commandentry.h"
+#include "../latexentry.h"
 #include "../lib/backend.h"
 #include "../lib/expression.h"
 #include "../lib/result.h"
@@ -66,6 +67,36 @@ QString WorksheetTest::plainMarkdown(WorksheetEntry* markdownEntry)
     if (markdownEntry->type() == MarkdownEntry::Type)
     {
         QString text = markdownEntry->toPlain(QString(), QLatin1String("\n"), QLatin1String("\n"));
+        text.remove(0,1);
+        text.chop(2);
+        plain = text;
+    }
+
+    return plain;
+}
+
+QString WorksheetTest::plainText(WorksheetEntry* textEntry)
+{
+    QString plain;
+
+    if (textEntry->type() == TextEntry::Type)
+    {
+        QString text = textEntry->toPlain(QString(), QLatin1String("\n"), QLatin1String("\n"));
+        text.remove(0,1);
+        text.chop(2);
+        plain = text;
+    }
+
+    return plain;
+}
+
+QString WorksheetTest::plainLatex(WorksheetEntry* latexEntry)
+{
+    QString plain;
+
+    if (latexEntry->type() == LatexEntry::Type)
+    {
+        QString text = latexEntry->toPlain(QString(), QLatin1String("\n"), QLatin1String("\n"));
         text.remove(0,1);
         text.chop(2);
         plain = text;
@@ -116,6 +147,15 @@ void WorksheetTest::testMarkdown(WorksheetEntry* &entry, const QString& content)
     QCOMPARE(plainMarkdown(current), content);
 }
 
+void WorksheetTest::testTextEntry(WorksheetEntry *& entry, const QString& content)
+{
+    WorksheetEntry* current = entry;
+    QVERIFY(current);
+    entry = entry->next();
+    QCOMPARE(current->type(), (int)TextEntry::Type);
+    QCOMPARE(plainText(current), content);
+}
+
 void WorksheetTest::testCommandEntry(WorksheetEntry *& entry, int id, const QString& content)
 {
     WorksheetEntry* current = entry;
@@ -136,6 +176,15 @@ void WorksheetTest::testCommandEntry(WorksheetEntry* entry, int id, int resultsC
     QVERIFY(expression(entry));
     QCOMPARE(expression(entry)->id(), id);
     QCOMPARE(expression(entry)->results().size(), resultsCount);
+}
+
+void WorksheetTest::testLatexEntry(WorksheetEntry *& entry, const QString& content)
+{
+    WorksheetEntry* current = entry;
+    QVERIFY(current);
+    entry = entry->next();
+    QCOMPARE(current->type(), (int)LatexEntry::Type);
+    QCOMPARE(plainLatex(current), content);
 }
 
 void WorksheetTest::testImageResult(WorksheetEntry* entry, int index)
@@ -6475,6 +6524,70 @@ void WorksheetTest::testMarkdownAttachment()
 
     testCommandEntry(entry, -1, QString::fromUtf8(
         ""
+    ));
+
+    QCOMPARE(entry, nullptr);
+}
+
+void WorksheetTest::testEntryLoad1()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestEntryLoad1.ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testCommandEntry(entry, 2, 1, QString::fromUtf8(
+        "2+2"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "4"
+    ));
+    entry = entry->next();
+
+    testLatexEntry(entry, QString::fromLatin1(
+       "$$\\Gamma$$"
+    ));
+
+    testMarkdown(entry, QString::fromLatin1(
+        "### Test Entry"
+    ));
+
+    testMarkdown(entry, QString::fromLatin1(
+        "Text"
+    ));
+
+    QCOMPARE(entry, nullptr);
+}
+
+void WorksheetTest::testEntryLoad2()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestEntryLoad2.ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("octave"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testCommandEntry(entry, 0, 1, QString::fromUtf8(
+        "2+2"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "ans =  4"
+    ));
+    entry = entry->next();
+
+    testTextEntry(entry, QString::fromLatin1(
+        "Text entry"
+    ));
+
+    testMarkdown(entry, QString::fromLatin1(
+        "#### Markdown entry"
+    ));
+
+    testLatexEntry(entry, QString::fromLatin1(
+       "\\LaTeX\\ entry"
     ));
 
     QCOMPARE(entry, nullptr);

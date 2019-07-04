@@ -39,17 +39,24 @@ class WorksheetTest: public QObject
     void testJupyter5();
     void testJupyter6();
     void testJupyter7();
+
     void testMarkdownAttachment();
+    void testEntryLoad1();
+    void testEntryLoad2();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);
     static int entriesCount(Worksheet* worksheet);
     static Cantor::Expression* expression(WorksheetEntry* entry);
     static QString plainMarkdown(WorksheetEntry* markdownEntry);
+    static QString plainText(WorksheetEntry* textEntry);
     static QString plainCommand(WorksheetEntry* commandEntry);
+    static QString plainLatex(WorksheetEntry* latexEntry);
     static void testMarkdown(WorksheetEntry* &entry, const QString& content);
     static void testCommandEntry(WorksheetEntry* &entry, int id, const QString& content);
     static void testCommandEntry(WorksheetEntry* entry, int id, int resultsCount, const QString& content);
+    static void testLatexEntry(WorksheetEntry* &entry, const QString& content);
+    static void testTextEntry(WorksheetEntry* &entry, const QString& content);
     static void testImageResult(WorksheetEntry* entry, int index);
     static void testTextResult(WorksheetEntry* entry, int index, const QString& content);
     static void testHTMLTextResult(WorksheetEntry* entry, int index, const QString& content);
