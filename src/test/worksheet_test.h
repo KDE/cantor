@@ -39,6 +39,7 @@ class WorksheetTest: public QObject
     void testJupyter5();
     void testJupyter6();
     void testJupyter7();
+    void testMarkdownAttachment();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);

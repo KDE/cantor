@@ -6434,4 +6434,50 @@ void WorksheetTest::testJupyter7()
     QCOMPARE(entry, nullptr);
 }
 
+void WorksheetTest::testMarkdownAttachment()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestMarkdownAttachment.ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testCommandEntry(entry, 1, 1, QString::fromUtf8(
+        "2+2"
+    ));
+    testTextResult(entry, 0, QString::fromLatin1(
+        "4"
+    ));
+    entry = entry->next();
+
+    // Tests attachments via toJupyterJson: ugly, but works
+    QVERIFY(entry);
+    QCOMPARE(entry->type(), (int)MarkdownEntry::Type);
+    QCOMPARE(plainMarkdown(entry), QString::fromLatin1(
+        "![CantorLogo.png](attachment:CantorLogo.png)\n"
+        "![CantorLogo.png](attachment:CantorLogo.png)"
+    ));
+    QJsonValue value = entry->toJupyterJson();
+    QVERIFY(value.isObject());
+    QVERIFY(value.toObject().contains(QLatin1String("attachments")));
+    entry = entry->next();
+
+    QVERIFY(entry);
+    QCOMPARE(entry->type(), (int)MarkdownEntry::Type);
+    QCOMPARE(plainMarkdown(entry), QString::fromLatin1(
+        "![CantorLogo.png](attachment:CantorLogo.png)"
+    ));
+    value = entry->toJupyterJson();
+    QVERIFY(value.isObject());
+    QVERIFY(value.toObject().contains(QLatin1String("attachments")));
+    entry = entry->next();
+
+    testCommandEntry(entry, -1, QString::fromUtf8(
+        ""
+    ));
+
+    QCOMPARE(entry, nullptr);
+}
+
 QTEST_MAIN( WorksheetTest )
