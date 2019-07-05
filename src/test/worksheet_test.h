@@ -31,6 +31,7 @@ class WorksheetTest: public QObject
     Q_OBJECT
 
   private Q_SLOTS:
+    /* Jupyter load tests */
     void initTestCase();
     void testJupyter1();
     void testJupyter2();
@@ -43,6 +44,7 @@ class WorksheetTest: public QObject
     void testMarkdownAttachment();
     void testEntryLoad1();
     void testEntryLoad2();
+    void testResultsLoad();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);

@@ -21,6 +21,7 @@
 #include <QtTest>
 #include <QDebug>
 #include <KLocalizedString>
+#include <QMovie>
 
 #include "worksheet_test.h"
 #include "../worksheet.h"
@@ -36,6 +37,7 @@
 #include "../lib/textresult.h"
 #include "../lib/imageresult.h"
 #include "../lib/latexresult.h"
+#include "../lib/animationresult.h"
 
 #include "config-cantor-test.h"
 
@@ -6589,6 +6591,62 @@ void WorksheetTest::testEntryLoad2()
     testLatexEntry(entry, QString::fromLatin1(
        "\\LaTeX\\ entry"
     ));
+
+    QCOMPARE(entry, nullptr);
+}
+
+void WorksheetTest::testResultsLoad()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestResultsLoad.ipynb")));
+
+    QCOMPARE(w->isReadOnly(), false);
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("sage"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testCommandEntry(entry, 9, QString::fromUtf8(
+        "from IPython.display import Latex"
+    ));
+
+    testCommandEntry(entry, 16, 1, QString::fromUtf8(
+        "print(\"Hello world\")"
+    ));
+    testTextResult(entry, 0, QString::fromUtf8(
+        "Hello world"
+    ));
+    entry = entry->next();
+
+    testCommandEntry(entry, 17, 1, QString::fromUtf8(
+        "plot(x^2, (x,0,5))"
+    ));
+    testImageResult(entry, 0);
+    entry = entry->next();
+
+    testCommandEntry(entry, 6, 1, QString::fromUtf8(
+        "sines = [plot(c*sin(x), (-2*pi,2*pi), color=Color(c,0,0), ymin=-1, ymax=1) for c in sxrange(0,1,.05)]\n"
+        "a = animate(sines)\n"
+        "a.show()"
+    ));
+    QVERIFY(expression(entry));
+    QCOMPARE(expression(entry)->results().at(0)->type(), (int)Cantor::AnimationResult::Type);
+    QVERIFY(static_cast<Cantor::AnimationResult*>(expression(entry)->results().at(0))->url().isValid());
+    entry = entry->next();
+
+    testCommandEntry(entry, 15, 1, QString::fromUtf8(
+        "Latex(\"$$\\Gamma$$\")"
+    ));
+    QCOMPARE(expression(entry)->result()->type(), (int)Cantor::LatexResult::Type);
+    {
+    Cantor::LatexResult* result = static_cast<Cantor::LatexResult*>(expression(entry)->result());
+    QCOMPARE(result->code(), QLatin1String(
+        "$$\\Gamma$$"
+    ));
+    QCOMPARE(result->plain(), QLatin1String(
+        "<IPython.core.display.Latex object>"
+    ));
+    QCOMPARE(result->mimeType(), QStringLiteral("image/x-eps"));
+    }
+    entry = entry->next();
 
     QCOMPARE(entry, nullptr);
 }
