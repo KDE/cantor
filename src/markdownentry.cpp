@@ -25,6 +25,7 @@
 #include <QJsonValue>
 #include <QImage>
 #include <QImageReader>
+#include <QBuffer>
 
 #include "jupyterutils.h"
 #include <config-cantor.h>
@@ -98,6 +99,22 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
         plain = QLatin1String("");
         html = QLatin1String(""); // No plain text provided. The entry shouldn't render anything, or the user can't re-edit it.
     }
+
+    const QDomNodeList& attachments = content.elementsByTagName(QLatin1String("Attachment"));
+    for (int x = 0; x < attachments.count(); x++)
+    {
+        const QDomElement& attachment = attachments.at(x).toElement();
+        QUrl url(attachment.attribute(QLatin1String("url")));
+
+        const QString& base64 = attachment.text();
+        QImage image;
+        image.loadFromData(QByteArray::fromBase64(base64.toLatin1()), "PNG");
+
+        attachedImages.push_back(std::make_pair(url, QLatin1String("image/png")));
+
+        m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant(image));
+    }
+
     if(rendered)
         setRenderedHtml(html);
     else
@@ -135,7 +152,7 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
 {
-    Q_UNUSED(archive);
+    Q_UNUSED(archive)
 
     if(!rendered)
         plain = m_textItem->toPlainText();
@@ -152,6 +169,33 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
         htmlEl.appendChild(doc.createTextNode(html));
         el.appendChild(htmlEl);
     }
+
+    QUrl url;
+    QString key;
+    for (const auto& data : attachedImages)
+    {
+        std::tie(url, key) = std::move(data);
+
+        QDomElement attachmentEl = doc.createElement(QLatin1String("Attachment"));
+        attachmentEl.setAttribute(QStringLiteral("url"), url.toString());
+
+        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, url).value<QImage>();
+
+        QByteArray ba;
+        QBuffer buffer(&ba);
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, "PNG");
+
+        attachmentEl.appendChild(doc.createTextNode(QString::fromLatin1(ba.toBase64())));
+
+        el.appendChild(attachmentEl);
+
+        /*
+        QString attachmentKey = url.toString().remove(QLatin1String("attachment:"));
+        attachments.insert(attachmentKey, JupyterUtils::packMimeBundle(image, key));
+        */
+    }
+
     return el;
 }
 
