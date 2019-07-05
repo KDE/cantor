@@ -172,9 +172,17 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             else if (mainKey == JupyterUtils::htmlMime)
             {
                 const QString& html = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::htmlMime));
-                Cantor::TextResult* result = new Cantor::TextResult(html, text);
-                result->setFormat(Cantor::TextResult::HTMLFormat);
-                addResult(result);
+                // Some backends places gif animation in hmlt (img tag), for example, Sage
+                if (JupyterUtils::isGifHtml(html))
+                {
+                    addResult(new Cantor::AnimationResult(JupyterUtils::loadGifHtml(html), text));
+                }
+                else
+                {
+                    Cantor::TextResult* result = new Cantor::TextResult(html, text);
+                    result->setFormat(Cantor::TextResult::HTMLFormat);
+                    addResult(result);
+                }
             }
             else if (mainKey == JupyterUtils::latexMime)
             {

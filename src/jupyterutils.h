@@ -31,6 +31,7 @@ class QJsonObject;
 class QJsonArray;
 class QJsonDocument;
 class QImage;
+class QUrl;
 class QStringList;
 
 namespace Cantor {
@@ -82,6 +83,9 @@ class JupyterUtils
     static QStringList imageKeys(const QJsonValue& mimeBundle);
     static QString firstImageKey(const QJsonValue& mimeBundle);
     static QString mainBundleKey(const QJsonValue& mimeBundle);
+
+    static bool isGifHtml(const QJsonValue& html);
+    static QUrl loadGifHtml(const QJsonValue& html);
   public:
     static const QString cellsKey;
     static const QString metadataKey;

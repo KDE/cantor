@@ -33,6 +33,8 @@
 #include <QImageWriter>
 #include <QBuffer>
 #include <QString>
+#include <QUrl>
+#include <QTemporaryFile>
 
 const QString JupyterUtils::cellsKey = QLatin1String("cells");
 const QString JupyterUtils::metadataKey = QLatin1String("metadata");
@@ -415,4 +417,34 @@ QString JupyterUtils::mainBundleKey(const QJsonValue& mimeBundle)
     }
 
     return mainKey;
+}
+
+bool JupyterUtils::isGifHtml(const QJsonValue& html)
+{
+    return html.isString()
+        && html.toString().startsWith(QLatin1String("<img src=\"data:image/gif;base64,"))
+        && html.toString().endsWith(QLatin1String("/>"));
+}
+
+QUrl JupyterUtils::loadGifHtml(const QJsonValue& html)
+{
+    QUrl gif;
+
+    if (html.isString())
+    {
+        QString data = html.toString();
+        data.remove(0, QString::fromLatin1("<img src=\"data:image/gif;base64,").size());
+        data.chop(QString::fromLatin1("/>").size());
+        const QByteArray& bytes = QByteArray::fromBase64(data.toLatin1());
+
+        QTemporaryFile file;
+        file.setAutoRemove(false);
+        file.open();
+        file.write(bytes);
+        file.close();
+
+        gif = QUrl::fromLocalFile(file.fileName());
+    }
+
+    return gif;
 }
