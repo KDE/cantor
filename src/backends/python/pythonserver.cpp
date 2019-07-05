@@ -52,9 +52,10 @@ void PythonServer::interrupt()
     PyErr_SetInterrupt();
 }
 
-void PythonServer::runPythonCommand(const string& command) const
+void PythonServer::runPythonCommand(const string& command)
 {
     PyObject* py_dict = PyModule_GetDict(m_pModule);
+    m_error = false;
 
     const char* prepareCommand =
         "import sys;\n"\
@@ -82,6 +83,7 @@ void PythonServer::runPythonCommand(const string& command) const
         if (PyErr_Occurred())
         {
             // We now know, that we have a syntax error, so print the traceback and exit
+            m_error = true;
             PyErr_PrintEx(0);
             return;
         }
@@ -94,6 +96,7 @@ void PythonServer::runPythonCommand(const string& command) const
     PyObject* codeFile = Py_CompileString(command.c_str(), filePath.c_str(), Py_file_input);
     if (PyErr_Occurred())
     {
+        m_error = true;
         PyErr_PrintEx(0);
         return;
     }
@@ -123,7 +126,10 @@ void PythonServer::runPythonCommand(const string& command) const
     #warning Unknown Python version
 #endif
     if (PyErr_Occurred())
+    {
+        m_error = true;
         PyErr_PrintEx(0);
+    }
 }
 
 string PythonServer::getError() const
@@ -223,6 +229,11 @@ string PythonServer::variables(bool parseValue) const
         result += s + char(18);
     result += char(18);
     return result;
+}
+
+bool PythonServer::isError() const
+{
+    return m_error;
 }
 
 

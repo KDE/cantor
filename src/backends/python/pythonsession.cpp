@@ -236,10 +236,19 @@ void PythonSession::readOutput()
 
         const QString& output = message.section(unitSep, 0, 0);
         const QString& error = message.section(unitSep, 1, 1);
-        if(error.isEmpty()){
+        bool isError = message.section(unitSep, 2, 2).toInt();
+        if (isError)
+        {
+            if(error.isEmpty()){
+                static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
+            } else {
+                static_cast<PythonExpression*>(expressionQueue().first())->parseError(error);
+            }
+        }
+        else
+        {
+            static_cast<PythonExpression*>(expressionQueue().first())->parseWarning(error);
             static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
-        } else {
-            static_cast<PythonExpression*>(expressionQueue().first())->parseError(error);
         }
         finishFirstExpression(true);
     }
