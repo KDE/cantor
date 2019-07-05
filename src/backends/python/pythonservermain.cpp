@@ -91,7 +91,7 @@ int main()
             {
                 vector<string> args = split(records[1], unitSep);
                 if (args.size() == 2)
-                    server.setFilePath(args[1], args[2]);
+                    server.setFilePath(args[0], args[1]);
             }
             else if (records[0] == CODE)
             {
