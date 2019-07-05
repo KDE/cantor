@@ -15,7 +15,7 @@ target_link_libraries(cantor_python3backend cantor_pythonbackend)
 
 add_executable(cantor_python3server ${Python3Server_SRCS})
 set_target_properties(cantor_python3server PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries(cantor_python3server ${PYTHONLIBS3_LIBRARIES} Qt5::Widgets)
+target_link_libraries(cantor_python3server ${PYTHONLIBS3_LIBRARIES})
 
 if(BUILD_TESTING)
   add_executable(testpython3 testpython3.cpp settings.cpp)

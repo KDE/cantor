@@ -19,23 +19,20 @@
  */
 
 #include "pythonserver.h"
+#include <vector>
 
-#include <QFileInfo>
-#include <QDir>
 #include <Python.h>
 
-PythonServer::PythonServer(QObject* parent) : QObject(parent), m_pModule(nullptr)
-{
-}
+using namespace std;
 
 namespace
 {
-    QString pyObjectToQString(PyObject* obj)
+    string pyObjectToQString(PyObject* obj)
     {
 #if PY_MAJOR_VERSION == 3
-        return QString::fromUtf8(PyUnicode_AsUTF8(obj));
+        return string(PyUnicode_AsUTF8(obj));
 #elif PY_MAJOR_VERSION == 2
-        return QString::fromLocal8Bit(PyString_AsString(obj));
+        return string(PyString_AsString(obj));
 #else
     #warning Unknown Python version
 #endif
@@ -47,7 +44,7 @@ void PythonServer::login()
     Py_InspectFlag = 1;
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
-    filePath = QStringLiteral("python_cantor_worksheet");
+    filePath = "python_cantor_worksheet";
 }
 
 void PythonServer::interrupt()
@@ -55,7 +52,7 @@ void PythonServer::interrupt()
     PyErr_SetInterrupt();
 }
 
-void PythonServer::runPythonCommand(const QString& command) const
+void PythonServer::runPythonCommand(const string& command) const
 {
     PyObject* py_dict = PyModule_GetDict(m_pModule);
 
@@ -73,7 +70,7 @@ void PythonServer::runPythonCommand(const QString& command) const
     PyRun_SimpleString(prepareCommand);
 
 #if PY_MAJOR_VERSION == 3
-    PyObject* compile = Py_CompileString(command.toStdString().c_str(), filePath.toStdString().c_str(), Py_single_input);
+    PyObject* compile = Py_CompileString(command.c_str(), filePath.c_str(), Py_single_input);
     // There are two reasons for the error:
     // 1) This code is not single expression, so we can't compile this with flag Py_single_input
     // 2) There are errors in the code
@@ -81,7 +78,7 @@ void PythonServer::runPythonCommand(const QString& command) const
     {
         PyErr_Clear();
         // Try to recompile code as sequence of expressions
-        compile = Py_CompileString(command.toStdString().c_str(), filePath.toStdString().c_str(), Py_file_input);
+        compile = Py_CompileString(command.c_str(), filePath.c_str(), Py_file_input);
         if (PyErr_Occurred())
         {
             // We now know, that we have a syntax error, so print the traceback and exit
@@ -94,13 +91,13 @@ void PythonServer::runPythonCommand(const QString& command) const
     // Python 2.X don't check, that input string contains only one expression.
     // So for checking this, we compile string as file and as single expression and compare bytecode
     // FIXME?
-    PyObject* codeFile = Py_CompileString(command.toStdString().c_str(), filePath.toStdString().c_str(), Py_file_input);
+    PyObject* codeFile = Py_CompileString(command.c_str(), filePath.c_str(), Py_file_input);
     if (PyErr_Occurred())
     {
         PyErr_PrintEx(0);
         return;
     }
-    PyObject* codeSingle = Py_CompileString(command.toStdString().c_str(), filePath.toStdString().c_str(), Py_single_input);
+    PyObject* codeSingle = Py_CompileString(command.c_str(), filePath.c_str(), Py_single_input);
     if (PyErr_Occurred())
     {
         // We have error with Py_single_input, but haven't error with Py_file_input
@@ -129,7 +126,7 @@ void PythonServer::runPythonCommand(const QString& command) const
         PyErr_PrintEx(0);
 }
 
-QString PythonServer::getError() const
+string PythonServer::getError() const
 {
     PyObject *errorPython = PyObject_GetAttrString(m_pModule, "errorPythonBackend");
     PyObject *error = PyObject_GetAttrString(errorPython, "value");
@@ -137,7 +134,7 @@ QString PythonServer::getError() const
     return pyObjectToQString(error);
 }
 
-QString PythonServer::getOutput() const
+string PythonServer::getOutput() const
 {
     PyObject *outputPython = PyObject_GetAttrString(m_pModule, "outputPythonBackend");
     PyObject *output = PyObject_GetAttrString(outputPython, "value");
@@ -145,16 +142,22 @@ QString PythonServer::getOutput() const
     return pyObjectToQString(output);
 }
 
-void PythonServer::setFilePath(const QString& path)
+void PythonServer::setFilePath(const string& path, const string& dir)
 {
-    this->filePath = path;
-    PyRun_SimpleString(("import sys; sys.argv = ['" + path.toStdString() + "']").c_str());
-    QString dir = QFileInfo(path).absoluteDir().absolutePath();
-    PyRun_SimpleString(("import sys; sys.path.insert(0, '" + dir.toStdString() + "')").c_str());
-    PyRun_SimpleString(("__file__ = '"+path.toStdString()+"'").c_str());
+    PyRun_SimpleString(("import sys; sys.argv = ['" + path + "']").c_str());
+    if (path.length() == 0) // New session, not from file
+    {
+        PyRun_SimpleString("import sys; sys.path.insert(0, '')");
+    }
+    else
+    {
+        this->filePath = path;
+        PyRun_SimpleString(("import sys; sys.path.insert(0, '" + dir + "')").c_str());
+        PyRun_SimpleString(("__file__ = '"+path+"'").c_str());
+    }
 }
 
-QString PythonServer::variables(bool parseValue) const
+string PythonServer::variables(bool parseValue) const
 {
     PyRun_SimpleString(
         "try: \n"
@@ -174,15 +177,15 @@ QString PythonServer::variables(bool parseValue) const
     PyObject *key, *value;
     Py_ssize_t pos = 0;
 
-    QStringList vars;
+    vector<string> vars;
     while (PyDict_Next(globals, &pos, &key, &value)) {
-        const QString& keyString = pyObjectToQString(key);
-        if (keyString.startsWith(QLatin1String("__")))
+        const string& keyString = pyObjectToQString(key);
+        if (keyString.substr(0, 2) == string("__"))
             continue;
 
-        if (keyString == QLatin1String("CatchOutPythonBackend")
-            || keyString == QLatin1String("errorPythonBackend")
-            || keyString == QLatin1String("outputPythonBackend"))
+        if (keyString == string("CatchOutPythonBackend")
+            || keyString == string("errorPythonBackend")
+            || keyString == string("outputPythonBackend"))
             continue;
 
         if (PyModule_Check(value))
@@ -194,12 +197,11 @@ QString PythonServer::variables(bool parseValue) const
         if (PyType_Check(value))
             continue;
 
-        QString valueString;
+        string valueString;
         if (parseValue)
             valueString = pyObjectToQString(PyObject_Repr(value));
 
-
-        vars.append(keyString + QChar(17) + valueString);
+        vars.push_back(keyString + char(17) + valueString);
     }
 
     PyRun_SimpleString(
@@ -215,7 +217,12 @@ QString PythonServer::variables(bool parseValue) const
         "   pass \n"
     );
 
-    return vars.join(QChar(18))+QChar(18);
+
+    string result;
+    for (const string& s : vars)
+        result += s + char(18);
+    result += char(18);
+    return result;
 }
 
 

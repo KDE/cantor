@@ -22,7 +22,7 @@ target_link_libraries(cantor_python2backend ${PYTHON_LIBRARIES} cantor_pythonbac
 
 add_executable(cantor_python2server ${Python2Server_SRCS})
 set_target_properties(cantor_python2server PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries(cantor_python2server ${PYTHON_LIBRARIES} Qt5::Widgets)
+target_link_libraries(cantor_python2server ${PYTHON_LIBRARIES})
 
 if(BUILD_TESTING)
   add_executable(testpython2 testpython2.cpp settings.cpp)

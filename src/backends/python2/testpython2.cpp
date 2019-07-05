@@ -109,6 +109,9 @@ void TestPython2::testMultilineCode()
 
 void TestPython2::testVariablesCreatingFromCode()
 {
+    if (!PythonSettings::variableManagement())
+        QSKIP("This test needs enabled variable management in Python2 settings", SkipSingle);
+
     QAbstractItemModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 
@@ -150,6 +153,9 @@ void TestPython2::testVariableCleanupAfterRestart()
 
 void TestPython2::testDictVariable()
 {
+    if (!PythonSettings::variableManagement())
+        QSKIP("This test needs enabled variable management in Python2 settings", SkipSingle);
+
     Cantor::DefaultVariableModel* model = session()->variableModel();
     QVERIFY(model != nullptr);
 

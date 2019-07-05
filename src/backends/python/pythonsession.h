@@ -25,8 +25,7 @@
 #include "session.h"
 #include <cantor_pythonbackend_export.h>
 #include <QStringList>
-
-class QProcess;
+#include <QProcess>
 
 class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 {
@@ -58,9 +57,12 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 
     QString m_output;
 
+  private Q_SLOT:
+    void readOutput();
+    void reportServerProcessError(QProcess::ProcessError serverError);
+
   private:
     void runFirstExpression() override;
-    void readOutput();
 
     void sendCommand(const QString& command, const QStringList arguments = QStringList()) const;
 };

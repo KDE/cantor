@@ -20,30 +20,28 @@
 
 #ifndef _PYTHONSERVER_H
 #define _PYTHONSERVER_H
-#include <QObject>
-#include <QString>
+#include <string>
 
 struct _object;
 using PyObject = _object;
 
-class PythonServer : public QObject
+class PythonServer
 {
-  Q_OBJECT
   public:
-    explicit PythonServer(QObject* parent = nullptr);
+    explicit PythonServer() = default;
 
-  public Q_SLOTS:
+  public:
     void login();
     void interrupt();
-    void setFilePath(const QString& path);
-    void runPythonCommand(const QString& command) const;
-    QString getOutput() const;
-    QString getError() const;
-    QString variables(bool parseValue) const;
+    void setFilePath(const std::string& path, const std::string& dir);
+    void runPythonCommand(const std::string& command) const;
+    std::string getOutput() const;
+    std::string getError() const;
+    std::string variables(bool parseValue) const;
 
   private:
-    PyObject* m_pModule;
-    QString filePath;
+    PyObject* m_pModule{nullptr};
+    std::string filePath;
 };
 
 #endif

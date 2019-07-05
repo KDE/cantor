@@ -20,102 +20,25 @@
 
 #include <iostream>
 #include <csignal>
-
-#include <QApplication>
-#include <QTimer>
-#include <QChar>
-#include <QByteArray>
+#include <vector>
+#include <cstring>
 
 #include "pythonserver.h"
 
-const QChar recordSep(30);
-const QChar unitSep(31);
+using namespace std;
+
 const char messageEnd = 29;
+const char recordSep = 30;
+const char unitSep = 31;
 
 PythonServer server;
 bool isInterrupted = false;
-QTimer inputTimer;
-QMetaObject::Connection connection;
 
-QString inputBuffer;
-
-QLatin1String LOGIN("login");
-QLatin1String EXIT("exit");
-QLatin1String CODE("code");
-QLatin1String FILEPATH("setFilePath");
-QLatin1String MODEL("model");
-
-void routeInput() {
-    QByteArray bytes;
-    char c;
-    while (std::cin.get(c))
-    {
-        if (messageEnd == c)
-            break;
-        else
-            bytes.append(c);
-    }
-    inputBuffer.append(QString::fromLocal8Bit(bytes));
-    if (inputBuffer.isEmpty())
-        return;
-
-    const QStringList& records = inputBuffer.split(recordSep);
-    inputBuffer.clear();
-
-    if (records.size() == 2)
-    {
-        if (records[0] == EXIT)
-        {
-            QObject::disconnect(connection);
-            QObject::connect(&inputTimer, &QTimer::timeout, QCoreApplication::instance(), &QCoreApplication::quit);
-        }
-        else if (records[0] == LOGIN)
-        {
-            server.login();
-        }
-        else if (records[0] == CODE)
-        {
-            server.runPythonCommand(records[1]);
-
-            if (!isInterrupted)
-            {
-                const QString& result =
-                    server.getOutput()
-                    + unitSep
-                    + server.getError()
-                    + QLatin1Char(messageEnd);
-
-                const QByteArray bytes = result.toLocal8Bit();
-                std::cout << bytes.data();
-            }
-            else
-            {
-                // No replay when interrupted
-                isInterrupted = false;
-            }
-        }
-        else if (records[0] == FILEPATH)
-        {
-            server.setFilePath(records[1]);
-        }
-        else if (records[0] == MODEL)
-        {
-            bool ok;
-            bool val = records[1].toInt(&ok);
-
-            QString result;
-            if (ok)
-                result = server.variables(val) + unitSep;
-            else
-                result = unitSep + QLatin1String("Invalid argument %1 for 'model' command", val);
-            result += QLatin1Char(messageEnd);
-
-            const QByteArray bytes = result.toLocal8Bit();
-            std::cout << bytes.data();
-        }
-        std::cout.flush();
-    }
-}
+string LOGIN("login");
+string EXIT("exit");
+string CODE("code");
+string FILEPATH("setFilePath");
+string MODEL("model");
 
 void signal_handler(int signal)
 {
@@ -126,17 +49,92 @@ void signal_handler(int signal)
     }
 }
 
+vector<string> split(string s, char delimiter)
+{
+    vector<string> results;
 
-int main(int argc, char *argv[])
+    size_t pos = 0;
+    std::string token;
+    while ((pos = s.find(delimiter)) != std::string::npos) {
+        token = s.substr(0, pos);
+        results.push_back(token);
+        s.erase(0, pos + 1);
+    }
+    results.push_back(s);
+
+    return results;
+}
+
+int main()
 {
     std::signal(SIGINT, signal_handler);
-    QCoreApplication app(argc, argv);
-
-    connection = QObject::connect(&inputTimer, &QTimer::timeout, routeInput);
-    inputTimer.setInterval(100);
-    inputTimer.start();
 
     std::cout << "ready" << std::endl;
 
-    return app.exec();
+    std::string input;
+    while (getline(std::cin, input, messageEnd))
+    {
+        const vector<string>& records = split(input, recordSep);
+
+        if (records.size() == 2)
+        {
+            if (records[0] == EXIT)
+            {
+                //Exit from cycle and finish program
+                break;
+            }
+            else if (records[0] == LOGIN)
+            {
+                server.login();
+            }
+            if (records[0] == FILEPATH)
+            {
+                vector<string> args = split(records[1], unitSep);
+                if (args.size() == 2)
+                    server.setFilePath(args[1], args[2]);
+            }
+            else if (records[0] == CODE)
+            {
+                server.runPythonCommand(records[1]);
+
+                if (!isInterrupted)
+                {
+                    const string& result =
+                        server.getOutput()
+                        + unitSep
+                        + server.getError()
+                        + messageEnd;
+
+                    std::cout << result.c_str();
+                }
+                else
+                {
+                    // No replay when interrupted
+                    isInterrupted = false;
+                }
+            }
+            else if (records[0] == MODEL)
+            {
+                bool ok, val;
+                try {
+                    val = (bool)stoi(records[1]);
+                    ok = true;
+                } catch (std::invalid_argument e) {
+                    ok = false;
+                };
+
+                string result;
+                if (ok)
+                    result = server.variables(val) + unitSep;
+                else
+                    result = unitSep + string("Invalid argument for 'model' command");
+                result += messageEnd;
+
+                std::cout << result.c_str();
+            }
+            std::cout.flush();
+        }
+    }
+
+    return 0;
 }
