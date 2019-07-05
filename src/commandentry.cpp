@@ -584,6 +584,9 @@ bool CommandEntry::evaluateCurrentItem()
 
 bool CommandEntry::evaluate(EvaluationOption evalOp)
 {
+    if (worksheet()->session()->status() == Cantor::Session::Disable)
+        worksheet()->loginToSession();
+
     removeContextHelp();
     QToolTip::hideText();
 
