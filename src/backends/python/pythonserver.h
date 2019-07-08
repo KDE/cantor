@@ -34,13 +34,15 @@ class PythonServer
     void login();
     void interrupt();
     void setFilePath(const std::string& path, const std::string& dir);
-    void runPythonCommand(const std::string& command) const;
+    void runPythonCommand(const std::string& command);
     std::string getOutput() const;
     std::string getError() const;
+    bool isError() const;
     std::string variables(bool parseValue) const;
 
   private:
     PyObject* m_pModule{nullptr};
+    bool m_error{false};
     std::string filePath;
 };
 

@@ -103,6 +103,8 @@ int main()
                         server.getOutput()
                         + unitSep
                         + server.getError()
+                        + unitSep
+                        + to_string((int)server.isError())
                         + messageEnd;
 
                     std::cout << result.c_str();

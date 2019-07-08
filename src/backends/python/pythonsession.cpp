@@ -116,8 +116,9 @@ void PythonSession::logout()
     if (!m_process)
         return;
 
-    sendCommand(QLatin1String("exit"));
-    if(!m_process->waitForFinished(1000))
+    if (m_process->exitStatus() != QProcess::CrashExit && m_process->error() != QProcess::WriteError)
+        sendCommand(QLatin1String("exit"));
+    if(m_process->state() == QProcess::Running && !m_process->waitForFinished(1000))
     {
         disconnect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
         m_process->kill();
@@ -236,10 +237,19 @@ void PythonSession::readOutput()
 
         const QString& output = message.section(unitSep, 0, 0);
         const QString& error = message.section(unitSep, 1, 1);
-        if(error.isEmpty()){
+        bool isError = message.section(unitSep, 2, 2).toInt();
+        if (isError)
+        {
+            if(error.isEmpty()){
+                static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
+            } else {
+                static_cast<PythonExpression*>(expressionQueue().first())->parseError(error);
+            }
+        }
+        else
+        {
+            static_cast<PythonExpression*>(expressionQueue().first())->parseWarning(error);
             static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
-        } else {
-            static_cast<PythonExpression*>(expressionQueue().first())->parseError(error);
         }
         finishFirstExpression(true);
     }
@@ -266,5 +276,5 @@ void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)
             emit error(i18n("Communication with Cantor python server failed for unknown reasons."));
             break;
     }
-    logout();
+    reportSessionCrash();
 }

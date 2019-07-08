@@ -310,5 +310,14 @@ void TestPython2::testInterrupt()
     QCOMPARE(e->result()->data().toString(), QLatin1String("4"));
 }
 
+void TestPython2::testWarning()
+{
+    Cantor::Expression* e = evalExp(QLatin1String("import warnings; warnings.warn('Test')"));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QCOMPARE(e->results().size(), 1);
+}
+
 QTEST_MAIN(TestPython2)
 

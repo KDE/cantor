@@ -26,6 +26,8 @@ using namespace Cantor;
 
 #include <QTimer>
 #include <QQueue>
+#include <KMessageBox>
+#include <KLocalizedString>
 
 class Cantor::SessionPrivate
 {
@@ -181,10 +183,9 @@ QSyntaxHighlighter* Session::syntaxHighlighter(QObject* parent)
 
 DefaultVariableModel* Session::variableModel() const
 {
-    //Return deafult session model per default
-    //By default, variableModel is nullptr, so Backends not offering variable management don't
-    //have to reimplement this. This method should only be called on backends with
-    //VariableManagement Capability flag
+    //By default, there is variableModel in session, used by syntax higlighter for variable analyzing
+    //The model store only variable names by default.
+    //In backends with VariableManagement Capability flag, this model also used for Cantor variable doc panel
     return d->variableModel;
 }
 
@@ -230,4 +231,17 @@ QStringList Session::locateAllCantorFiles(const QString& partialPath, QStandardP
         files = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("cantor/") + partialPath, options);
 
     return files;
+}
+
+void Cantor::Session::reportSessionCrash(const QString& additionalInfo)
+{
+    // Reporting about crashing backend in session without backend has not sense
+    if (d->backend == nullptr)
+        return;
+
+    if (additionalInfo.isEmpty())
+        KMessageBox::error(nullptr, i18n("%1 process has died unexpectedly. All calculation results are lost.", d->backend->name()), i18n("Error - Cantor"));
+    else
+        KMessageBox::error(nullptr, i18n("%1 process has died unexpectedly with message \"%2\". All calculation results are lost.", d->backend->name()), i18n("Error - Cantor"));
+    logout();
 }

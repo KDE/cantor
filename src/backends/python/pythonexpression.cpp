@@ -123,6 +123,12 @@ void PythonExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
+void PythonExpression::parseWarning(QString warning)
+{
+    if (!warning.isEmpty())
+        addResult(new Cantor::TextResult(warning));
+}
+
 void PythonExpression::imageChanged()
 {
     if(m_tempFile->size() <= 0)

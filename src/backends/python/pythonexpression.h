@@ -37,6 +37,7 @@ class PythonExpression : public Cantor::Expression
     QString internalCommand() override;
 
     void parseOutput(QString output);
+    void parseWarning(QString warning);
     void parseError(QString error);
 
   private:

@@ -48,6 +48,8 @@ class TestPython2 : public BackendTest
 
     void testCompletion();
     void testInterrupt();
+
+    void testWarning();
   private:
     QString backendName() override;
 };
