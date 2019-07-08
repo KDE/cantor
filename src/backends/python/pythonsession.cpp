@@ -117,7 +117,7 @@ void PythonSession::logout()
         return;
 
     sendCommand(QLatin1String("exit"));
-    if(!m_process->waitForFinished(1000))
+    if(m_process->state() == QProcess::Running && !m_process->waitForFinished(1000))
     {
         disconnect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
         m_process->kill();
@@ -275,5 +275,8 @@ void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)
             emit error(i18n("Communication with Cantor python server failed for unknown reasons."));
             break;
     }
-    logout();
+    // Server crash, and now m_process is invalid, so remove m_process object
+    m_process->deleteLater();
+    m_process = nullptr;
+    Session::logout();
 }
