@@ -251,6 +251,15 @@ class CANTOR_EXPORT Session : public QObject
     QString locateCantorFile(const QString& partialPath, QStandardPaths::LocateOptions options = QStandardPaths::LocateFile);
     QStringList locateAllCantorFiles(const QString& partialPath, QStandardPaths::LocateOptions options = QStandardPaths::LocateFile);
 
+    /**
+     * Sometimes backend process/server could crash, stop responding, in other words, session can't
+     * continue to work without restart.
+     * This method will notify about session crashing with automatically logout
+     * and another actions, which needed to do in situations like that
+     */
+    void reportSessionCrash(const QString& additionalInfo = QString());
+
+
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);
     void loginStarted();
