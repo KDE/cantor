@@ -56,6 +56,8 @@ include(KDEFrameworkCompilerSettings)
 include(ECMAddAppIcon)
 include(GenerateExportHeader)
 
+add_subdirectory(thirdparty)
+
 if(NOT WIN32)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
         URL "http://libspectre.freedesktop.org/wiki/"
