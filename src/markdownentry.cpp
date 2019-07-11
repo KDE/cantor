@@ -36,6 +36,7 @@ extern "C" {
 }
 #endif
 
+#include <KLocalizedString>
 #include <QDebug>
 
 MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)), rendered(false)
@@ -46,6 +47,36 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &MarkdownEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &MarkdownEntry::moveToNextEntry);
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
+}
+
+void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
+{
+    bool imageSelected = false;
+    QTextCursor cursor = m_textItem->textCursor();
+    const QChar repl = QChar::ObjectReplacementCharacter;
+    if (cursor.hasSelection()) {
+        QString selection = m_textItem->textCursor().selectedText();
+        imageSelected = selection.contains(repl);
+    } else {
+        // we need to try both the current cursor and the one after the that
+        cursor = m_textItem->cursorForPosition(pos);
+        qDebug() << cursor.position();
+        for (int i = 2; i; --i) {
+            int p = cursor.position();
+            if (m_textItem->document()->characterAt(p-1) == repl &&
+                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
+                m_textItem->setTextCursor(cursor);
+                imageSelected = true;
+                break;
+            }
+            cursor.movePosition(QTextCursor::NextCharacter);
+        }
+    }
+    if (imageSelected) {
+        menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
+        menu->addSeparator();
+    }
+    WorksheetEntry::populateMenu(menu, pos);
 }
 
 bool MarkdownEntry::isEmpty()
