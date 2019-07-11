@@ -154,7 +154,9 @@ QJsonValue Cantor::TextResult::toJupyterJson()
             QJsonObject data;
             qDebug() << d->data;
             data.insert(QLatin1String("text/html"), jupyterText(d->data));
-            data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
+
+            if (!d->plain.isEmpty())
+                data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
             root.insert(QLatin1String("data"), data);
 
             root.insert(QLatin1String("metadata"), QJsonObject());
@@ -204,11 +206,15 @@ void TextResult::save(const QString& filename)
 QJsonArray TextResult::jupyterText(const QString& text)
 {
     QJsonArray array;
+
     const QStringList& lines = text.split(QLatin1Char('\n'));
-    for (QString line : lines)
+    for (int i = 0; i < lines.size(); i++)
     {
-        line.append(QLatin1Char('\n'));
+        QString line = lines[i];
+        if (i != lines.size() - 1) // not last
+            line.append(QLatin1Char('\n'));
         array.append(line);
     }
+
     return array;
 }
