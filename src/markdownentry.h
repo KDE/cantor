@@ -57,6 +57,7 @@ class MarkdownEntry : public WorksheetEntry
   public Q_SLOTS:
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
     void updateEntry() override;
+    void populateMenu(QMenu* menu, QPointF pos) override;
 
   protected:
     bool renderMarkdown(QString& plain);
