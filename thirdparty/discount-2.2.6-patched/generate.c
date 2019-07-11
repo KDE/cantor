@@ -1462,8 +1462,14 @@ text(MMIOT *f)
 		    case '(':   if ( is_flag_set(f->flags, MKD_LATEX)
 				   && mathhandler(f, '\\', (c =='(')?')':']') )
 				    break;
-				/* else fall through to default */
+				Qchar(c, f);
+				break;
 			
+		    case '$':	if ( is_flag_set(f->flags, MKD_LATEX) ) {
+				    Qchar(c, f);
+				    break;
+				}
+				
 		    default:    if ( escaped(f,c) ||
 				     strchr(">#.-+{}]![*_\\()`", c) )
 				    Qchar(c, f);
@@ -1489,11 +1495,27 @@ text(MMIOT *f)
 			Qchar(c, f);
 		    break;
 
-	case '$':   if ( is_flag_set(f->flags, MKD_LATEX) && (peek(f, 1) == '$') ) {
-			pull(f);
-			if ( mathhandler(f, '$', '$') )
-			    break;
-			Qchar('$', f);
+	case '$':   if ( is_flag_set(f->flags, MKD_LATEX) ) {
+			if (peek(f, 1) == '$' ) {
+			    pull(f);
+			    if ( mathhandler(f, '$', '$') )
+				break;
+			    Qchar('$', f);
+			}
+			else {
+			    int c2;
+			    int i = 1;
+
+			    while ( ((c2=peek(f,i)) != '$') && (c2 != EOF) )
+				i++;
+
+			    if ( c2 != EOF ) {
+				Qchar('$', f);
+				while (i-- > 0 )
+				    Qchar(pull(f), f);
+				break;
+			    }
+			}
 		    }
 		    /* fall through to default */
 	

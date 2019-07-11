@@ -279,7 +279,7 @@ void WorksheetTest::testJupyter1()
     QCOMPARE(plainMarkdown(entry), QLatin1String(
         "# Introduction and model\n"
         "\n"
-        "Consider a single atom coupled to a single cavity mode, as illustrated in the figure below. If there atom excitation rate $$\\Gamma$$ exceeds the relaxation rate, a population inversion can occur in the atom, and if coupled to the cavity the atom can then act as a photon pump on the cavity."
+        "Consider a single atom coupled to a single cavity mode, as illustrated in the figure below. If there atom excitation rate $\\Gamma$ exceeds the relaxation rate, a population inversion can occur in the atom, and if coupled to the cavity the atom can then act as a photon pump on the cavity."
     ));
 
     entry = entry->next();
@@ -298,22 +298,22 @@ void WorksheetTest::testJupyter1()
     QCOMPARE(plainMarkdown(entry), QLatin1String(
         "The coherent dynamics in this model is described by the Hamiltonian\n"
         "\n"
-        "$$H = \\hbar \\omega_0 a^\\dagger a + \\frac{1}{2}\\hbar\\omega_a\\sigma_z + \\hbar g\\sigma_x(a^\\dagger + a)$$\n"
+        "$H = \\hbar \\omega_0 a^\\dagger a + \\frac{1}{2}\\hbar\\omega_a\\sigma_z + \\hbar g\\sigma_x(a^\\dagger + a)$\n"
         "\n"
-        "where $$\\omega_0$$ is the cavity energy splitting, $$\\omega_a$$ is the atom energy splitting and $$g$$ is the atom-cavity interaction strength.\n"
+        "where $\\omega_0$ is the cavity energy splitting, $\\omega_a$ is the atom energy splitting and $g$ is the atom-cavity interaction strength.\n"
         "\n"
         "In addition to the coherent dynamics the following incoherent processes are also present: \n"
         "\n"
-        "1. $$\\kappa$$ relaxation and thermal excitations of the cavity, \n"
-        "2. $$\\Gamma$$ atomic excitation rate (pumping process).\n"
+        "1. $\\kappa$ relaxation and thermal excitations of the cavity, \n"
+        "2. $\\Gamma$ atomic excitation rate (pumping process).\n"
         "\n"
         "The Lindblad master equation for the model is:\n"
         "\n"
-        "$$\\frac{d}{dt}\\rho = -i[H, \\rho] + \\Gamma\\left(\\sigma_+\\rho\\sigma_- - \\frac{1}{2}\\sigma_-\\sigma_+\\rho - \\frac{1}{2}\\rho\\sigma_-\\sigma_+\\right)\n"
+        "$\\frac{d}{dt}\\rho = -i[H, \\rho] + \\Gamma\\left(\\sigma_+\\rho\\sigma_- - \\frac{1}{2}\\sigma_-\\sigma_+\\rho - \\frac{1}{2}\\rho\\sigma_-\\sigma_+\\right)\n"
         "+ \\kappa (1 + n_{\\rm th}) \\left(a\\rho a^\\dagger - \\frac{1}{2}a^\\dagger a\\rho - \\frac{1}{2}\\rho a^\\dagger a\\right)\n"
-        "+ \\kappa n_{\\rm th} \\left(a^\\dagger\\rho a - \\frac{1}{2}a a^\\dagger \\rho - \\frac{1}{2}\\rho a a^\\dagger\\right)$$\n"
+        "+ \\kappa n_{\\rm th} \\left(a^\\dagger\\rho a - \\frac{1}{2}a a^\\dagger \\rho - \\frac{1}{2}\\rho a a^\\dagger\\right)$\n"
         "\n"
-        "in units where $$\\hbar = 1$$.\n"
+        "in units where $\\hbar = 1$.\n"
         "\n"
         "References:\n"
         "\n"
@@ -434,7 +434,7 @@ void WorksheetTest::testJupyter1()
     QCOMPARE(plainMarkdown(entry), QLatin1String(
         "### Evolve the system\n"
         "\n"
-        "Here we evolve the system with the Lindblad master equation solver, and we request that the expectation values of the operators $$a^\\dagger a$$ and $$\\sigma_+\\sigma_-$$ are returned by the solver by passing the list `[a.dag()*a, sm.dag()*sm]` as the fifth argument to the solver."
+        "Here we evolve the system with the Lindblad master equation solver, and we request that the expectation values of the operators $a^\\dagger a$ and $\\sigma_+\\sigma_-$ are returned by the solver by passing the list `[a.dag()*a, sm.dag()*sm]` as the fifth argument to the solver."
     ));
 
     entry = entry->next();
@@ -667,16 +667,16 @@ void WorksheetTest::testJupyter1()
     entry = entry->next();
     QCOMPARE(entry->type(), (int)MarkdownEntry::Type);
     QCOMPARE(plainMarkdown(entry), QLatin1String(
-        "Here we see that lasing is suppressed for $$\\Gamma\\kappa/(4g^2) > 1$$. \n"
+        "Here we see that lasing is suppressed for $\\Gamma\\kappa/(4g^2) > 1$. \n"
         "\n"
         "\n"
-        "Let's look at the fock-state distribution at $$\\Gamma\\kappa/(4g^2) = 0.5$$  (lasing regime) and $$\\Gamma\\kappa/(4g^2) = 1.5$$ (suppressed regime):"
+        "Let's look at the fock-state distribution at $\\Gamma\\kappa/(4g^2) = 0.5$  (lasing regime) and $\\Gamma\\kappa/(4g^2) = 1.5$ (suppressed regime):"
     ));
 
     entry = entry->next();
     QCOMPARE(entry->type(), (int)MarkdownEntry::Type);
     QCOMPARE(plainMarkdown(entry), QLatin1String(
-        "### Case 1: $$\\Gamma\\kappa/(4g^2) = 0.5$$"
+        "### Case 1: $\\Gamma\\kappa/(4g^2) = 0.5$"
     ));
 
     entry = entry->next();
@@ -728,7 +728,7 @@ void WorksheetTest::testJupyter1()
     entry = entry->next();
     QCOMPARE(entry->type(), (int)MarkdownEntry::Type);
     QCOMPARE(plainMarkdown(entry), QLatin1String(
-        "### Case 2: $$\\Gamma\\kappa/(4g^2) = 1.5$$"
+        "### Case 2: $\\Gamma\\kappa/(4g^2) = 1.5$"
     ));
 
     entry = entry->next();
@@ -780,7 +780,7 @@ void WorksheetTest::testJupyter1()
     entry = entry->next();
     QCOMPARE(entry->type(), (int)MarkdownEntry::Type);
     QCOMPARE(plainMarkdown(entry), QLatin1String(
-        "Too large pumping rate $$\\Gamma$$ kills the lasing process: reversed threshold."
+        "Too large pumping rate $\\Gamma$ kills the lasing process: reversed threshold."
     ));
 
     entry = entry->next();
@@ -897,8 +897,8 @@ void WorksheetTest::testJupyter2()
         "The probability distribution of a random variable is often characterised by a small number of parameters, which also have a practical interpretation.\n"
         "\n"
         "* [Mean](http://en.wikipedia.org/wiki/Mean) (a.k.a expected value) refers to one measure of the central tendency either of a probability distribution or of the random variable characterized by that distribution.\n"
-        "    * population mean: $$\\mu = \\operatorname{E}[X]$$.\n"
-        "    * estimation of sample mean: $$\\bar{x}$$.\n"
+        "    * population mean: $\\mu = \\operatorname{E}[X]$.\n"
+        "    * estimation of sample mean: $\\bar{x}$.\n"
         "* [Standard deviation](http://en.wikipedia.org/wiki/Standard_deviation) measures the amount of variation or dispersion from the mean.\n"
         "    * population deviation:\n"
         "    $$\n"
@@ -1240,7 +1240,7 @@ void WorksheetTest::testJupyter2()
         "\n"
         "$$\\text{minimize } f(\\mathbf{x}) = \\sum_{i=1}^{N-1}(x_i^2 + 2x_{i+1}^2 - 0.3\\cos(3\\pi x_i) - 0.4\\cos(4\\pi x_{i+1}) + 0.7), \\mathbf{x}\\in \\left[-100,100\\right]^n,$$\n"
         "\n"
-        "> Optimum in $$\\mathbf{x}=\\mathbf{0}$$, $$f(\\mathbf{x})=0$$."
+        "> Optimum in $\\mathbf{x}=\\mathbf{0}$, $f(\\mathbf{x})=0$."
     ));
 
     testCommandEntry(entry, 23, QLatin1String(
@@ -1276,7 +1276,7 @@ void WorksheetTest::testJupyter2()
     entry = entry->next();
 
     testMarkdown(entry, QLatin1String(
-        "## ($$\\mu$$,$$\\lambda$$) evolutionary strategy\n"
+        "## ($\\mu$,$\\lambda$) evolutionary strategy\n"
         "\n"
         "Some basic initialization parameters."
     ));
@@ -1395,9 +1395,9 @@ void WorksheetTest::testJupyter2()
         "\\frac{c}{\\sqrt{2n}}\\text{ and }\\tau = \\frac{c}{\\sqrt{2\\sqrt{n}}},\n"
         "$$\n"
         "\n"
-        "the individual is mutated by a normal distribution of mean 0 and standard deviation of $$\\boldsymbol{\\sigma}_{t}$$ (its current strategy). \n"
+        "the individual is mutated by a normal distribution of mean 0 and standard deviation of $\\boldsymbol{\\sigma}_{t}$ (its current strategy). \n"
         "\n"
-        "A recommended choice is $$c=1$$ when using a $$(10,100)$$ evolution strategy."
+        "A recommended choice is $c=1$ when using a $(10,100)$ evolution strategy."
     ));
 
     qDebug() << "command entry 35";
@@ -1611,7 +1611,7 @@ void WorksheetTest::testJupyter2()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "What happens if we increase $$\\mu$$ and $$\\lambda$$?"
+        "What happens if we increase $\\mu$ and $\\lambda$?"
     ));
 
     qDebug() << "command entry 45";
@@ -1634,14 +1634,14 @@ void WorksheetTest::testJupyter2()
     ));
 
     testMarkdown(entry, QString::fromUtf8(
-        "* In an evolution strategy, new candidate solutions are sampled according to a multivariate normal distribution in the $$\\mathbb{R}^n$$. \n"
+        "* In an evolution strategy, new candidate solutions are sampled according to a multivariate normal distribution in the $\\mathbb{R}^n$. \n"
         "* Recombination amounts to selecting a new mean value for the distribution. \n"
         "* Mutation amounts to adding a random vector, a perturbation with zero mean. \n"
         "* Pairwise dependencies between the variables in the distribution are represented by a covariance matrix. \n"
         "\n"
         "### The covariance matrix adaptation (CMA) is a method to update the covariance matrix of this distribution. \n"
         "\n"
-        "> This is particularly useful, if the objective function $$f()$$ is ill-conditioned."
+        "> This is particularly useful, if the objective function $f()$ is ill-conditioned."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -1675,7 +1675,7 @@ void WorksheetTest::testJupyter2()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "We will place our start point by hand at $$(5,5)$$."
+        "We will place our start point by hand at $(5,5)$."
     ));
 
     qDebug() << "command entry 48";
@@ -2016,7 +2016,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "#### RNA sequence-structure\n"
         "\n"
-        "We can think of the genotype as a sequence $$s$$ consisting of letters/nucleotides from the alphabet $$\\{U,A,C,G\\}$$. The corresponding phenotype $$\\omega$$ is the secondary structure of $$s$$ which can be thought of as a pairing between nucleotides in the primary sequence that give rise to a 2D architecture. Because it has been shown that the function of many biomolecules, including RNA, is driven by structure this gives us a good proxy for phenotype. \n"
+        "We can think of the genotype as a sequence $s$ consisting of letters/nucleotides from the alphabet $\\{U,A,C,G\\}$. The corresponding phenotype $\\omega$ is the secondary structure of $s$ which can be thought of as a pairing between nucleotides in the primary sequence that give rise to a 2D architecture. Because it has been shown that the function of many biomolecules, including RNA, is driven by structure this gives us a good proxy for phenotype. \n"
         "\n"
         "Below is an example of what an RNA secondary structure, or pairing, looks like."
     ));
@@ -2037,7 +2037,7 @@ void WorksheetTest::testJupyter3()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "As you can see, unparied positions are forming loop-like structures, and paired positions are forming stem-like structures. It is this spatial arrangement of nucleotides that drives RNA's function. Therefore, another sequence that adopts a similar shape, is likely to behave in a similar manner. Another thing to notice is that, although in reality this is often not the case, in general we only allow pairs between $$\\{C,G\\}$$ and $$\\{A, U\\}$$ nucleotides, most modern approaches allow for non-canonical pairings and you will find some examples of this in the above structure.\n"
+        "As you can see, unparied positions are forming loop-like structures, and paired positions are forming stem-like structures. It is this spatial arrangement of nucleotides that drives RNA's function. Therefore, another sequence that adopts a similar shape, is likely to behave in a similar manner. Another thing to notice is that, although in reality this is often not the case, in general we only allow pairs between $\\{C,G\\}$ and $\\{A, U\\}$ nucleotides, most modern approaches allow for non-canonical pairings and you will find some examples of this in the above structure.\n"
         "\n"
         "*How do we go from a sequence to a structure?*\n"
         "\n"
@@ -2073,7 +2073,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "Now that we have a good way of getting a phenotype (secondary structure), we need a way to evaluate the fitness of that phenotype. If we think in real life terms, fitness is the ability of a genotype to replicate into the next generation. If you have a gene carrying a mutation that causes some kind of disease, your fitness is decreased and you have a lower chance of contributing offspring to the next generation. On a molecular level the same concept applies. A molecule needs to accomplish a certain function, i.e. bind to some other molecule or send some kind of signal. And as we've seen before, the most important factor that determines how well it can carry out this function is its structure. So we can imagine that a certain structure, we can call this a 'target' structure, is required in order to accomplish a certain function. So a sequence that folds correctly to a target structure is seen as having a greater fitness than one that does not. Since we've encoded structures as simple dot-bracket strings, we can easily compare structures and thus evaluate the fitness between a given structure and the target, or 'correct' structure. \n"
         "\n"
-        "There are many ways to compare structures $$w_{1}$$ and $$w_{2}$$, but we're going to use one of the simplest ways, which is base-pair distance. This is just the number of pairs in $$w_{1}$$ that are not in $$w_{2}$$. Again, this is beyond the scope of this workshop so I'll just give you the code for it and if you would like to know more you can ask me."
+        "There are many ways to compare structures $w_{1}$ and $w_{2}$, but we're going to use one of the simplest ways, which is base-pair distance. This is just the number of pairs in $w_{1}$ that are not in $w_{2}$. Again, this is beyond the scope of this workshop so I'll just give you the code for it and if you would like to know more you can ask me."
     ));
 
     qDebug() << "command entry 3";
@@ -2207,17 +2207,17 @@ void WorksheetTest::testJupyter3()
         "1. We want fitness to represent a *probability* that a cell will reproduce, and base pair distance is an integer.\n"
         "2. We want this probability to be a *relative* measure. That is, we want to be the fitness to be proportional to how good a cell is with respect to all others in the population. This touches on an important principle in evolution where we only need to be 'better' than the competition and not good in some absolute measure. For example, if you and I are being chased by a bear. In order to survive, I only need to be faster than you, and not necessarily some absolute level of fitness.\n"
         "\n"
-        "In order to get a probability (number between 0 and 1) we use the following equation to define the fitness of a structure $$\\omega$$ on a target structure $$T$$:\n"
+        "In order to get a probability (number between 0 and 1) we use the following equation to define the fitness of a structure $\\omega$ on a target structure $T$:\n"
         "\n"
         "$$P(\\omega, T) = N^{-1} exp(\\frac{-\\beta \\texttt{dist}(\\omega, T)}{\\texttt{len}(\\omega)})$$\n"
         "\n"
         "$$N = \\sum_{i \\in Pop}{P(\\omega_i, T})$$\n"
         "\n"
-        "Here, the $$N$$ is what gives us the 'relative' measure because we divide the fitness of the Cell by the sum of the fitness of every other Cell. \n"
+        "Here, the $N$ is what gives us the 'relative' measure because we divide the fitness of the Cell by the sum of the fitness of every other Cell. \n"
         "\n"
         "Let's take a quick look at how this function behaves if we plot different base pair distance values.\n"
         "\n"
-        "What is the effect of the parameter $$\\beta$$? Try plotting the same function but with different values of $$\\beta$$."
+        "What is the effect of the parameter $\\beta$? Try plotting the same function but with different values of $\\beta$."
     ));
 
     qDebug() << "command entry 8";
@@ -2239,7 +2239,7 @@ void WorksheetTest::testJupyter3()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "As you can see, it's a very simple function that evaluates to 1 (highest fitness) if the base pair distance is 0, and decreases as the structures get further and further away from the target. I didn't include the $$N$$ in the plotting as it will be a bit more annoying to compute, but it is simply a scaling factor so the shape and main idea won't be different.\n"
+        "As you can see, it's a very simple function that evaluates to 1 (highest fitness) if the base pair distance is 0, and decreases as the structures get further and further away from the target. I didn't include the $N$ in the plotting as it will be a bit more annoying to compute, but it is simply a scaling factor so the shape and main idea won't be different.\n"
         "\n"
         "Now we can use this function to get a fitness value for each Cell in our population."
     ));
@@ -2553,7 +2553,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "This is basically a clustering method based on the distance (or number of differences) between every pair of sequences. It assumes that sequences that are more similar are more likely to be related than the other way around. \n"
         "\n"
-        "For $$N$$ sequences, the algorithm builds an $$NxN$$ matrix that stores the distance between each sequence to every other sequence. The algorithm goes through this matrix and finds the pair of sequences that is most similar and merges it into a 'cluster' or in tree terms, connects them to a common node. This process is repeated until all the sequences have been assigned to a group. Refer to the wikipedia article on [UPGMA](https://en.wikipedia.org/wiki/UPGMA) for a more detailed explanation. \n"
+        "For $N$ sequences, the algorithm builds an $NxN$ matrix that stores the distance between each sequence to every other sequence. The algorithm goes through this matrix and finds the pair of sequences that is most similar and merges it into a 'cluster' or in tree terms, connects them to a common node. This process is repeated until all the sequences have been assigned to a group. Refer to the wikipedia article on [UPGMA](https://en.wikipedia.org/wiki/UPGMA) for a more detailed explanation. \n"
         ""
     ));
 
@@ -2767,7 +2767,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "In order to do this we need to define an 'allele'. An allele (for our purproses) will be a locus (position in a sequence) that can take one of two states, a *reference* state or an *alternate* state. For example, we can look at locus number **5** (position 5 in our RNA sequences) and call reference **C**, and alternate **G**. If we are in HW we can predict the frequency of each allele in our population.\n"
         "\n"
-        "To simplify our notation we will call the alternate allele *A* and the reference allele *a*. We can write the probability of each allele as $$p_{A} + p_{a} = 1$$. Since we are dealing with diploid populations, each individual will have two copies of each locus so it can be $$p_{AA}, p{Aa}, p{aA}, p{aa}$$. By simple probability laws we can get an expression for the probability of each genotype based on the probabilities of the single loci $$p_{a}$$ and $$p_{A}$$.\n"
+        "To simplify our notation we will call the alternate allele *A* and the reference allele *a*. We can write the probability of each allele as $p_{A} + p_{a} = 1$. Since we are dealing with diploid populations, each individual will have two copies of each locus so it can be $p_{AA}, p{Aa}, p{aA}, p{aa}$. By simple probability laws we can get an expression for the probability of each genotype based on the probabilities of the single loci $p_{a}$ and $p_{A}$.\n"
         "\n"
         "$$p_{aa}\\simeq p_{a}^2$$\n"
         "\n"
@@ -2775,25 +2775,25 @@ void WorksheetTest::testJupyter3()
         "\n"
         "$$p_{Aa,~aA} \\simeq 2 p_{a} p_{A}.$$\n"
         "\n"
-        "Since it is hard to know what the true probability of observing either $$p_{a}$$ and $$p_{A}$$ we can estimate this probability from our data as follows:\n"
+        "Since it is hard to know what the true probability of observing either $p_{a}$ and $p_{A}$ we can estimate this probability from our data as follows:\n"
         "\n"
         "$$\\hat p_a=\\frac{2N_{aa}+N_{aA}}{2N}=1-\\hat p_A.$$\n"
         "\n"
-        "Where $$N$$ denotes the number of each genotype that we observe in our sequences. \n"
+        "Where $N$ denotes the number of each genotype that we observe in our sequences. \n"
         "\n"
         "Based on these estimates we can expect the following frequencies for each genotype: \n"
         "\n"
-        "$$N_{aa}\\simeq e_{aa}=N \\hat p_a^2$$\n"
+        "$N_{aa}\\simeq e_{aa}=N \\hat p_a^2$\n"
         "\n"
-        "$$N_{AA}\\simeq e_{AA}= N \\hat p_{A}^2$$\n"
+        "$N_{AA}\\simeq e_{AA}= N \\hat p_{A}^2$\n"
         "\n"
-        "$$N_{Aa,~aA} \\simeq e_{Aa} = 2 N \\hat p_{a} \\hat p_{A}.$$\n"
+        "$N_{Aa,~aA} \\simeq e_{Aa} = 2 N \\hat p_{a} \\hat p_{A}.$\n"
         "\n"
-        "Now we have expected values, and observed values. We need a test to determine whether we have a significant departure from the hypothesis of Hardy Weinberg equilibrium. The statistical test that is commonly used is known as the $$\\chi^{2}$$ test. If you take a look at the equation you'll see that the statistic simply takes the squared difference between our observed value and the expected value (divided by expected) and sums this for each possible genotype. The reason we take the squared difference is because we want to deal only with positive values, hence the name $$\\chi^{2}$$.\n"
+        "Now we have expected values, and observed values. We need a test to determine whether we have a significant departure from the hypothesis of Hardy Weinberg equilibrium. The statistical test that is commonly used is known as the $\\chi^{2}$ test. If you take a look at the equation you'll see that the statistic simply takes the squared difference between our observed value and the expected value (divided by expected) and sums this for each possible genotype. The reason we take the squared difference is because we want to deal only with positive values, hence the name $\\chi^{2}$.\n"
         "\n"
         "$$X^2= \\frac{(N_{aa}-e_{aa})^2}{e_{aa}}+ \\frac{(N_{Aa}-e_{Aa})^2}{e_{Aa}}+ \\frac{(N_{AA}-e_{AA})^2}{e_{AA}}.$$\n"
         "\n"
-        "The first thing we need to do is get alleles from our sequence data. This boils down to going through each sequence at the position of interest and counting the number of $$AA$$, $$Aa$$, $$aa$$ we get.\n"
+        "The first thing we need to do is get alleles from our sequence data. This boils down to going through each sequence at the position of interest and counting the number of $AA$, $Aa$, $aa$ we get.\n"
         "\n"
         "\n"
         "\\** the sections on Hardy Weinberg and F-statistics are adapted from Simon Gravel's HGEN 661 Notes"
@@ -2833,7 +2833,7 @@ void WorksheetTest::testJupyter3()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "Now that we have alleles represented in the right form, we can see if our population is at Hardy Weinberg equilibrium using the $$\\chi_{2}$$ test and the equations above."
+        "Now that we have alleles represented in the right form, we can see if our population is at Hardy Weinberg equilibrium using the $\\chi_{2}$ test and the equations above."
     ));
 
     qDebug() << "command entry 31";
@@ -2914,11 +2914,11 @@ void WorksheetTest::testJupyter3()
     testMarkdown(entry, QString::fromUtf8(
         "## A brief interlude on the p-value\n"
         "\n"
-        "Let's take a minute to understand what the p-value means. The p-value is a probability. Specifically, it is the probability of observing a value equal to or more extreme than that our statistic given the test distribution. So in our case, it is the probability of observing a $$X^2$$ greater than or equal to the one the test gives us under a $$\\chi^2$$ distribution. When this value is very small, it suggests that it is unlikely that we are sampling from our assumed 'null' distribution and that some other alternate distribution is the true distribution. So a low p-value here would be evidence against the neutral Hardy Weinberg model and would suggest that our population is experiencing some influences such as mating preference, selection, mutation etc.\n"
+        "Let's take a minute to understand what the p-value means. The p-value is a probability. Specifically, it is the probability of observing a value equal to or more extreme than that our statistic given the test distribution. So in our case, it is the probability of observing a $X^2$ greater than or equal to the one the test gives us under a $\\chi^2$ distribution. When this value is very small, it suggests that it is unlikely that we are sampling from our assumed 'null' distribution and that some other alternate distribution is the true distribution. So a low p-value here would be evidence against the neutral Hardy Weinberg model and would suggest that our population is experiencing some influences such as mating preference, selection, mutation etc.\n"
         "\n"
         "A lot of research bases its conclusions solely on p-value and it is important to be very wary of this bad practice. It has become a bad convention that people say a p-value lower than some arbitrary threshold means one's findings are significant. However, very often the p-value does not give us the whole story and we need to know about things like sample size, size of impact, reproducibility, power of the test, etc. (check this out [American Statistical Association statement on p-values](http://www.nature.com/news/statisticians-issue-warning-over-misuse-of-p-values-1.19503), [p-hacking](http://fivethirtyeight.com/features/science-isnt-broken/#part1), and [this](http://allendowney.blogspot.ca/2016/06/there-is-still-only-one-test.html))\n"
         "\n"
-        "Let's just visualize this very quickly using the $$\\chi^{2}_{1}$$ distribution. You will see that the p-value corresponds to the shaded red area under the curve. That area is the probability of observing a value as extreme or more than the one we found. When that is a very small area, we can be more confident that our assumption of HW is false."
+        "Let's just visualize this very quickly using the $\\chi^{2}_{1}$ distribution. You will see that the p-value corresponds to the shaded red area under the curve. That area is the probability of observing a value as extreme or more than the one we found. When that is a very small area, we can be more confident that our assumption of HW is false."
     ));
 
     qDebug() << "command entry 32";
@@ -2969,24 +2969,24 @@ void WorksheetTest::testJupyter3()
         "\n"
         "Let's express this in quantities we can measure.\n"
         "\n"
-        "From before we calculated the observed and expected number of heterozygotes in a population. Let's call these $$\\hat H$$ and $$H_{IT}$$ respectively. $$\\hat H$$ is just the count of heterozygotes, and $$H_{IT}$$ is the same as the expected number of heterozygotes we calculated earlier.\n"
+        "From before we calculated the observed and expected number of heterozygotes in a population. Let's call these $\\hat H$ and $H_{IT}$ respectively. $\\hat H$ is just the count of heterozygotes, and $H_{IT}$ is the same as the expected number of heterozygotes we calculated earlier.\n"
         "\n"
-        "We define a quantity $$e_{IT}$$ as a measure of the 'excess heterozygosity' in the population when we consider all individuals $$I$$ in the total population $$T$$. $$e_{IT} > 1$$ when we have more heterozygotes than we expect under HW. And $$0 < e_{IT} < 1$$ if we have less heterozygotes than we would expect under HW.\n"
+        "We define a quantity $e_{IT}$ as a measure of the 'excess heterozygosity' in the population when we consider all individuals $I$ in the total population $T$. $e_{IT} > 1$ when we have more heterozygotes than we expect under HW. And $0 < e_{IT} < 1$ if we have less heterozygotes than we would expect under HW.\n"
         "\n"
         "\n"
         "$$e_{IT}=\\frac{\\mbox{observed proportion of hets}}{\\mbox{expected proportion of hets}}=\\frac{ H_{obs}}{H_{IT}}$$\n"
         "\n"
-        "We use $$e_{IT}$$ to define the statistic $$F_{IT}$$\n"
+        "We use $e_{IT}$ to define the statistic $F_{IT}$\n"
         "\n"
         "$$F_{IT}=1-e_{IT}$$\n"
         "\n"
-        "So $$F_{IT} > 0$$ when we have a lack of heterozygotes and $$F_{IT} < 0$$ when we have an excess of heterozygotes. $$F_{IT} = 0$$ under random mating.\n"
+        "So $F_{IT} > 0$ when we have a lack of heterozygotes and $F_{IT} < 0$ when we have an excess of heterozygotes. $F_{IT} = 0$ under random mating.\n"
         "\n"
-        "When we have a subpropulation $$S$$ we can calculate the equivalent quantity but instead of considering heterozygosity in the whole population we only take a sub-population into account.\n"
+        "When we have a subpropulation $S$ we can calculate the equivalent quantity but instead of considering heterozygosity in the whole population we only take a sub-population into account.\n"
         "\n"
         "$$e_{IS} = \\frac{H_{obs}}{H_{IS}}$$\n"
         "\n"
-        "And lastly, we have $$F_{ST}$$. This one is not as intuitive to derive so I'm not including the derivation here. But basically it measure the excess heterozygosity in the total population due to the presence of two subpopulations with allele frequencies $$p_{1}$$ and $$p_{2}$$.\n"
+        "And lastly, we have $F_{ST}$. This one is not as intuitive to derive so I'm not including the derivation here. But basically it measure the excess heterozygosity in the total population due to the presence of two subpopulations with allele frequencies $p_{1}$ and $p_{2}$.\n"
         "\n"
         "$$F_{ST}= \\frac{(p_1-p_2)^2}{4 p (1-p)}$$"
     ));
@@ -3077,7 +3077,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "i. *Heatmap of mutation rates vs. population sizes.* (short) \n"
         "\n"
-        "Make a heatmap that plots the base pair distance of the average base pair distance of the population at generation `-1` for mutation rates $$\\mu = \\{0, 0.001, 0.01, 0.1, 0.5\\}$$ and population sizes $$N=\\{10, 100, 1000, 10000\\}$$. The resulting heatmap will be `5x4` dimensions. You may choose how many generations to evolve your populations, just plot the last one in the heatmap."
+        "Make a heatmap that plots the base pair distance of the average base pair distance of the population at generation `-1` for mutation rates $\\mu = \\{0, 0.001, 0.01, 0.1, 0.5\\}$ and population sizes $N=\\{10, 100, 1000, 10000\\}$. The resulting heatmap will be `5x4` dimensions. You may choose how many generations to evolve your populations, just plot the last one in the heatmap."
     ));
 
     qDebug() << "command entry 36";
@@ -3131,7 +3131,7 @@ void WorksheetTest::testJupyter3()
     testMarkdown(entry, QString::fromUtf8(
         "ii. *Introduce mating preferences within a population.* (medium length) \n"
         "\n"
-        "Modify the `selection_with_mating()` function to allow for mating preferences within a population. In our example above we were just running two independent simulations to study barriers to gene flow. But now you will implement mating preferences within a single simulation. Your function will assign each Cell a new attribute called `self.preference` which will take a string value denoting the mating type the current cell prefers to mate with. For example we can have a population with three mating types: $$\\{A, B, C\\}$$. Your function will randomly assign preferences to each cell in the initial population. We will define a preference between types $$A$$ and $$B$$ as the probability that two cells of those given types will mate if selected. \n"
+        "Modify the `selection_with_mating()` function to allow for mating preferences within a population. In our example above we were just running two independent simulations to study barriers to gene flow. But now you will implement mating preferences within a single simulation. Your function will assign each Cell a new attribute called `self.preference` which will take a string value denoting the mating type the current cell prefers to mate with. For example we can have a population with three mating types: $\\{A, B, C\\}$. Your function will randomly assign preferences to each cell in the initial population. We will define a preference between types $A$ and $B$ as the probability that two cells of those given types will mate if selected. \n"
         "\n"
         "$$\n"
         "preferences(A,B,C) = \n"
@@ -3320,7 +3320,7 @@ void WorksheetTest::testJupyter3()
         "\n"
         "We just saw two methods of growing phylogenetic trees given an alignment. However, as we saw with the maximum parsimony approach, there can be many different trees for a single data set. How do we know our tree is a good representation of the data? By 'good' here we will instead use the word 'robust'. Is the tree we use too sensitive to the particularities of the data we gave it? If we make a small change in the sequence will we get a very different tree? Normally these problems would be addressed by re-sampling and seeing if we obtain similar results. But we can't really re-sample evolution. It happened once and we can't make it happen again. So we use something called *bootstrapping* which is a technique often used in statistics where instead of generating new data, you re-sample from your present data.\n"
         "\n"
-        "So we have a multiple sequence alignment with $$M$$ sequences (rows) each with sequences of length $$N$$ nucleotides (columns). For each row, we can randomly sample $$N$$ nucleotides with replacement to make a new 'bootstrapped' sequence also of length $$N$$. Think of it as a kind of shuffling of the data. This gives us a whole new alignment that we can again use to make a new tree.\n"
+        "So we have a multiple sequence alignment with $M$ sequences (rows) each with sequences of length $N$ nucleotides (columns). For each row, we can randomly sample $N$ nucleotides with replacement to make a new 'bootstrapped' sequence also of length $N$. Think of it as a kind of shuffling of the data. This gives us a whole new alignment that we can again use to make a new tree.\n"
         "\n"
         "This process is repeated many times to obtain many trees. The differences in topology (shape/structure) of the trees we obtained are assessed. If after this shuffling/perturbations we still get similar enough looking trees we can say that our final tree is robust to small changes in the data. ([some more reading on this](http://projecteuclid.org/download/pdf_1/euclid.ss/1063994979))\n"
         "\n"
@@ -3461,7 +3461,7 @@ void WorksheetTest::testJupyter3()
     testMarkdown(entry, QString::fromUtf8(
         "*Exercise 3. T-tests*\n"
         "\n"
-        "Similarly to the $$\\chi^{2}$$ test we saw for testing deviations from HW equilibrium, we can use a T-test to compare differences in means between two independent samples. We can use this to revisit a the first programming question in the exercsies section. Does mutation rate and population size have an effect on the fitness of populations? We can translate this question to, is there a difference in the mean base pair distance between populations under different mutation and population size regimes?\n"
+        "Similarly to the $\\chi^{2}$ test we saw for testing deviations from HW equilibrium, we can use a T-test to compare differences in means between two independent samples. We can use this to revisit a the first programming question in the exercsies section. Does mutation rate and population size have an effect on the fitness of populations? We can translate this question to, is there a difference in the mean base pair distance between populations under different mutation and population size regimes?\n"
         "\n"
         "Scipy has a very useful function that implements the T-test called `scipy.stats.ttest_ind`. Run two independent simulations (with different mutation rates) and compute the difference in mean bp distance between the two at their final generation. Store the populations in two different variables. Give a list of `bp_distance_1` values for each memeber of the population to `ttest_ind()`. \n"
         "\n"
@@ -3496,20 +3496,20 @@ void WorksheetTest::testJupyter3()
         "\n"
         "There are several approaches for solving this problem, we will look at the simplest one here which is known as the Nussinov Algorithm. This algorithm is a popular example of a class of algorithms know as dynamic programming algorithms. The main idea behind these algorithms is that we can break down the problem into many subproblems which are easier to compute than the full problem. Once we have obtained the solution for the subproblems, we can retrieve the solution to the full problem by doing something called a backtrace (more on the backtrace later). \n"
         "\n"
-        "Here, the problem is obtaining the optimal pairing on a string of nucleotides. In order to know how good our structure is, we assign a score to it. One possible scoring scheme could be adding 1 to the score per paired set of nucleotides, and 0 otherwise. So in other words, we want a pairing that will give us the highest possible score. We can write this quantity as $$OPT(i, j)$$ where $$i$$ and $$j$$ are the indices of the sequence between which we obtain the pairing score. Our algorithm is therefore going to compute a folding score for all substrings bound by $$i$$ and $$j$$ and store the value in what is known as a dynamic programming table. Our dynamic programming table will be a $$N$$ x $$N$$ array where $$N$$ is the length of our sequence. So now that we have a way of measuring how good a structure is, we need a way to evaluate scores given a subsequence. To do this, we set some rules on the structure of an RNA sequence:\n"
+        "Here, the problem is obtaining the optimal pairing on a string of nucleotides. In order to know how good our structure is, we assign a score to it. One possible scoring scheme could be adding 1 to the score per paired set of nucleotides, and 0 otherwise. So in other words, we want a pairing that will give us the highest possible score. We can write this quantity as $OPT(i, j)$ where $i$ and $j$ are the indices of the sequence between which we obtain the pairing score. Our algorithm is therefore going to compute a folding score for all substrings bound by $i$ and $j$ and store the value in what is known as a dynamic programming table. Our dynamic programming table will be a $N$ x $N$ array where $N$ is the length of our sequence. So now that we have a way of measuring how good a structure is, we need a way to evaluate scores given a subsequence. To do this, we set some rules on the structure of an RNA sequence:\n"
         "\n"
         "\n"
-        "If $$i$$ and $$j$$ form a pair:\n"
-        "1. The pair $$i$$ and $$j$$ must form a valid watson-crick pair.\n"
-        "2. $$i < j-4$$. This ensures that bonding is not happening between positions that are too close to each other, which would produce steric clashes.\n"
-        "3. If pair $$(i,j)$$ and $$(k, l)$$ are in the structure, then $$i < k < j < l$$. This ensures that there is no crossing over of pairs which would result in pseudoknots.\n"
+        "If $i$ and $j$ form a pair:\n"
+        "1. The pair $i$ and $j$ must form a valid watson-crick pair.\n"
+        "2. $i < j-4$. This ensures that bonding is not happening between positions that are too close to each other, which would produce steric clashes.\n"
+        "3. If pair $(i,j)$ and $(k, l)$ are in the structure, then $i < k < j < l$. This ensures that there is no crossing over of pairs which would result in pseudoknots.\n"
         "4. No base appears in more than one pair.\n"
         "\n"
-        "Using these rules we can begin to build our algorithm. The first part of our algorithm needs to take as input indices $$i$$ and $$j$$ and return the value $$OPT(i,j)$$ which is the optimal score of a structure between $$i$$ and $$j$$. We start by thinking about values of $$i$$ and $$j$$ for which we can immediately know the solution, this is known as a 'base case'.  This is a case where the solution is known and no further recursion is required. Once the algorithm reaches the base case, it can return a solution and propagate it upward to the first recursive call. So once we have reached $$i$$ and $$j$$ that are too close to form a structure (rule number 2), we know that the score is 0. \n"
+        "Using these rules we can begin to build our algorithm. The first part of our algorithm needs to take as input indices $i$ and $j$ and return the value $OPT(i,j)$ which is the optimal score of a structure between $i$ and $j$. We start by thinking about values of $i$ and $j$ for which we can immediately know the solution, this is known as a 'base case'.  This is a case where the solution is known and no further recursion is required. Once the algorithm reaches the base case, it can return a solution and propagate it upward to the first recursive call. So once we have reached $i$ and $j$ that are too close to form a structure (rule number 2), we know that the score is 0. \n"
         "\n"
-        "Otherwise, we must weigh the possibility of forming a pair or not forming a pair. If $$i$$ and $$j$$ are unpaired, then $$OPT(i,j)$$ is just $$OPT(i, j-1)$$ since the score will not increase for unpaired indices. \n"
+        "Otherwise, we must weigh the possibility of forming a pair or not forming a pair. If $i$ and $j$ are unpaired, then $OPT(i,j)$ is just $OPT(i, j-1)$ since the score will not increase for unpaired indices. \n"
         "\n"
-        "The other case is that $$i$$ is paired to some index $$t$$ on the interval $$[i,j]$$. We then add 1 to the score and consider the structure formed before and after the pairing between $$i$$ and $$t$$. We can write these two cases as $$OPT(i, t-1)$$ and $$OPT(t+1, j)$$. But how do we know which $$t$$ to pair $$i$$ with? Well we simply try all possible values of $$t$$ within the allowed range and choose the best one. \n"
+        "The other case is that $i$ is paired to some index $t$ on the interval $[i,j]$. We then add 1 to the score and consider the structure formed before and after the pairing between $i$ and $t$. We can write these two cases as $OPT(i, t-1)$ and $OPT(t+1, j)$. But how do we know which $t$ to pair $i$ with? Well we simply try all possible values of $t$ within the allowed range and choose the best one. \n"
         "\n"
         "All of this can be summed up as follows:\n"
         "\n"
@@ -3519,7 +3519,7 @@ void WorksheetTest::testJupyter3()
         "                \\end{cases}$$\n"
         "\n"
         "\n"
-        "We can now use this recursion to fill our dynamic programming table. Once we have filled the table with scores, we can retrieve the optimal folding by a process called backtracking. We won't go into detail on how this works, but the main idea is that we can start by looking at the entry containing the score for the full sequence $$OPT[0][N]$$. We can then look at adjacent entries and deduce which case (pairing or not pairing) resulted in the current value. We can continue like this for the full table until we have retrieved the full structure."
+        "We can now use this recursion to fill our dynamic programming table. Once we have filled the table with scores, we can retrieve the optimal folding by a process called backtracking. We won't go into detail on how this works, but the main idea is that we can start by looking at the entry containing the score for the full sequence $OPT[0][N]$. We can then look at adjacent entries and deduce which case (pairing or not pairing) resulted in the current value. We can continue like this for the full table until we have retrieved the full structure."
     ));
 
     qDebug() << "command entry 43";
@@ -3658,11 +3658,11 @@ void WorksheetTest::testJupyter4()
         "\n"
         "$$\\frac{\\partial u}{\\partial x}\\Bigg|_{x = 0, L} = 0,$$\n"
         "\n"
-        "where $$u$$ is our concentration variable, $$x$$ is the space variable, $$D$$ is the diffusion coefficient of $$u$$, $$f$$ is the reaction term,\n"
-        "and $$L$$ is the length of our one-dimensional space domain.\n"
+        "where $u$ is our concentration variable, $x$ is the space variable, $D$ is the diffusion coefficient of $u$, $f$ is the reaction term,\n"
+        "and $L$ is the length of our one-dimensional space domain.\n"
         "\n"
         "Note that we use [Neumann boundary conditions](http://en.wikipedia.org/wiki/Neumann_boundary_condition) and specify that the solution\n"
-        "$$u$$ has zero space slope at the boundaries, effectively prohibiting entrance or exit of material at the boundaries (no-flux boundary conditions)."
+        "$u$ has zero space slope at the boundaries, effectively prohibiting entrance or exit of material at the boundaries (no-flux boundary conditions)."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -3675,10 +3675,10 @@ void WorksheetTest::testJupyter4()
         "\n"
         "Here we describe a few basic aspects of finite difference methods.\n"
         "\n"
-        "The above reaction-diffusion equation describes the time evolution of variable $$u(x,t)$$ in one space dimension ($$u$$ is a line concentration).\n"
-        "If we knew an analytic expression for $$u(x,t)$$ then we could plot $$u$$ in a two-dimensional coordinate system with axes $$t$$ and $$x$$.\n"
+        "The above reaction-diffusion equation describes the time evolution of variable $u(x,t)$ in one space dimension ($u$ is a line concentration).\n"
+        "If we knew an analytic expression for $u(x,t)$ then we could plot $u$ in a two-dimensional coordinate system with axes $t$ and $x$.\n"
         "\n"
-        "To approximate $$u(x,t)$$ numerically we discretize this two-dimensional coordinate system resulting, in the simplest case, in a\n"
+        "To approximate $u(x,t)$ numerically we discretize this two-dimensional coordinate system resulting, in the simplest case, in a\n"
         "two-dimensional [regular grid](http://en.wikipedia.org/wiki/Regular_grid).\n"
         "This picture is employed commonly when constructing finite differences methods, see for instance \n"
         "[Figure 3.2.1 of Trefethen](http://people.maths.ox.ac.uk/trefethen/3all.pdf).\n"
@@ -3689,23 +3689,23 @@ void WorksheetTest::testJupyter4()
         "\n"
         "$$x_j = j \\Delta x,~ j = 0, \\ldots, J-1,$$\n"
         "\n"
-        "where $$N$$ and $$J$$ are the number of discrete time and space points in our grid respectively.\n"
-        "$$\\Delta t$$ and $$\\Delta x$$ are the time step and space step respectively and defined as follows:\n"
+        "where $N$ and $J$ are the number of discrete time and space points in our grid respectively.\n"
+        "$\\Delta t$ and $\\Delta x$ are the time step and space step respectively and defined as follows:\n"
         "\n"
         "$$\\Delta t = T / N,$$\n"
         "\n"
         "$$\\Delta x = L / J,$$\n"
         "\n"
-        "where $$T$$ is the point in time up to which we will integrate $$u$$ numerically.\n"
+        "where $T$ is the point in time up to which we will integrate $u$ numerically.\n"
         "\n"
-        "Our ultimate goal is to construct a numerical method that allows us to approximate the unknonwn analytic solution $$u(x,t)$$\n"
+        "Our ultimate goal is to construct a numerical method that allows us to approximate the unknonwn analytic solution $u(x,t)$\n"
         "reasonably well in these discrete grid points.\n"
         "\n"
-        "That is we want construct a method that computes values $$U(j \\Delta x, n \\Delta t)$$ (note: capital $$U$$) so that\n"
+        "That is we want construct a method that computes values $U(j \\Delta x, n \\Delta t)$ (note: capital $U$) so that\n"
         "\n"
         "$$U(j \\Delta x, n \\Delta t) \\approx u(j \\Delta x, n \\Delta t)$$\n"
         "\n"
-        "As a shorthand we will write $$U_j^n = U(j \\Delta x, n \\Delta t)$$ and $$(j,n)$$ to refer to grid point $$(j \\Delta x, n \\Delta t)$$."
+        "As a shorthand we will write $U_j^n = U(j \\Delta x, n \\Delta t)$ and $(j,n)$ to refer to grid point $(j \\Delta x, n \\Delta t)$."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -3715,27 +3715,27 @@ void WorksheetTest::testJupyter4()
     testMarkdown(entry, QString::fromUtf8(
         "Based on the two-dimensional grid we construct we then approximate the operators of our reaction-diffusion system.\n"
         "\n"
-        "For instance, to approximate the time derivative on the left-hand side in grid point $$(j,n)$$ we use the values of $$U$$ in two specific grid points:\n"
+        "For instance, to approximate the time derivative on the left-hand side in grid point $(j,n)$ we use the values of $U$ in two specific grid points:\n"
         "\n"
         "$$\\frac{\\partial u}{\\partial t}\\Bigg|_{x = j \\Delta x, t = n \\Delta t} \\approx \\frac{U_j^{n+1} - U_j^n}{\\Delta t}.$$\n"
         "\n"
-        "We can think of this scheme as a stencil that we superimpose on our $$(x,t)$$-grid and this particular stencil is\n"
+        "We can think of this scheme as a stencil that we superimpose on our $(x,t)$-grid and this particular stencil is\n"
         "commonly referred to as [forward difference](http://en.wikipedia.org/wiki/Finite_difference#Forward.2C_backward.2C_and_central_differences).\n"
         "\n"
         "The spatial part of the [Crank-Nicolson stencil](http://journals.cambridge.org/abstract_S0305004100023197)\n"
         "(or see [Table 3.2.2 of Trefethen](http://people.maths.ox.ac.uk/trefethen/3all.pdf))\n"
-        "for the heat equation ($$u_t = u_{xx}$$) approximates the \n"
+        "for the heat equation ($u_t = u_{xx}$) approximates the \n"
         "[Laplace operator](http://en.wikipedia.org/wiki/Laplace_operator) of our equation and takes the following form\n"
         "\n"
         "$$\\frac{\\partial^2 u}{\\partial x^2}\\Bigg|_{x = j \\Delta x, t = n \\Delta t} \\approx \\frac{1}{2 \\Delta x^2} \\left( U_{j+1}^n - 2 U_j^n + U_{j-1}^n + U_{j+1}^{n+1} - 2 U_j^{n+1} + U_{j-1}^{n+1}\\right).$$\n"
         "\n"
-        "To approximate $$f(u(j \\Delta x, n \\Delta t))$$ we write simply $$f(U_j^n)$$.\n"
+        "To approximate $f(u(j \\Delta x, n \\Delta t))$ we write simply $f(U_j^n)$.\n"
         "\n"
         "These approximations define the stencil for our numerical method as pictured on [Wikipedia](http://en.wikipedia.org/wiki/Crank%E2%80%93Nicolson_method).\n"
         "\n"
         "![SVG](https://dl.dropboxusercontent.com/u/129945779/georgio/CN-stencil.svg)\n"
         "\n"
-        "Applying this stencil to grid point $$(j,n)$$ gives us the following approximation of our reaction-diffusion equation:\n"
+        "Applying this stencil to grid point $(j,n)$ gives us the following approximation of our reaction-diffusion equation:\n"
         "\n"
         "$$\\frac{U_j^{n+1} - U_j^n}{\\Delta t} = \\frac{D}{2 \\Delta x^2} \\left( U_{j+1}^n - 2 U_j^n + U_{j-1}^n + U_{j+1}^{n+1} - 2 U_j^{n+1} + U_{j-1}^{n+1}\\right) + f(U_j^n).$$"
     ));
@@ -3745,22 +3745,22 @@ void WorksheetTest::testJupyter4()
     ));
 
     testMarkdown(entry, QString::fromUtf8(
-        "Let us define $$\\sigma = \\frac{D \\Delta t}{2 \\Delta x^2}$$ and reorder the above approximation of our reaction-diffusion equation:\n"
+        "Let us define $\\sigma = \\frac{D \\Delta t}{2 \\Delta x^2}$ and reorder the above approximation of our reaction-diffusion equation:\n"
         "\n"
         "$$-\\sigma U_{j-1}^{n+1} + (1+2\\sigma) U_j^{n+1} -\\sigma U_{j+1}^{n+1} = \\sigma U_{j-1}^n + (1-2\\sigma) U_j^n + \\sigma U_{j+1}^n + \\Delta t f(U_j^n).$$\n"
         "\n"
-        "This equation makes sense for space indices $$j = 1,\\ldots,J-2$$ but it does not make sense for indices $$j=0$$ and $$j=J-1$$ (on the boundaries):\n"
+        "This equation makes sense for space indices $j = 1,\\ldots,J-2$ but it does not make sense for indices $j=0$ and $j=J-1$ (on the boundaries):\n"
         "\n"
         "$$j=0:~-\\sigma U_{-1}^{n+1} + (1+2\\sigma) U_0^{n+1} -\\sigma U_{1}^{n+1} = \\sigma U_{-1}^n + (1-2\\sigma) U_0^n + \\sigma U_{1}^n + \\Delta t f(U_0^n),$$\n"
         "\n"
         "$$j=J-1:~-\\sigma U_{J-2}^{n+1} + (1+2\\sigma) U_{J-1}^{n+1} -\\sigma U_{J}^{n+1} = \\sigma U_{J-2}^n + (1-2\\sigma) U_{J-1}^n + \\sigma U_{J}^n + \\Delta t f(U_{J-1}^n).$$\n"
         "\n"
-        "The problem here is that the values $$U_{-1}^n$$ and $$U_J^n$$ lie outside our grid.\n"
+        "The problem here is that the values $U_{-1}^n$ and $U_J^n$ lie outside our grid.\n"
         "\n"
         "However, we can work out what these values should equal by considering our Neumann boundary condition.\n"
-        "Let us discretize our boundary condition at $$j=0$$ with the \n"
+        "Let us discretize our boundary condition at $j=0$ with the \n"
         "[backward difference](http://en.wikipedia.org/wiki/Finite_difference#Forward.2C_backward.2C_and_central_differences) and\n"
-        "at $$j=J-1$$ with the\n"
+        "at $j=J-1$ with the\n"
         "[forward difference](http://en.wikipedia.org/wiki/Finite_difference#Forward.2C_backward.2C_and_central_differences):\n"
         "\n"
         "$$\\frac{U_1^n - U_0^n}{\\Delta x} = 0,$$\n"
@@ -3768,15 +3768,15 @@ void WorksheetTest::testJupyter4()
         "$$\\frac{U_J^n - U_{J-1}^n}{\\Delta x} = 0.$$\n"
         "\n"
         "These two equations make it clear that we need to amend our above numerical approximation for\n"
-        "$$j=0$$ with the identities $$U_0^n = U_1^n$$ and $$U_0^{n+1} = U_1^{n+1}$$, and\n"
-        "for $$j=J-1$$ with the identities $$U_{J-1}^n = U_J^n$$ and $$U_{J-1}^{n+1} = U_J^{n+1}$$.\n"
+        "$j=0$ with the identities $U_0^n = U_1^n$ and $U_0^{n+1} = U_1^{n+1}$, and\n"
+        "for $j=J-1$ with the identities $U_{J-1}^n = U_J^n$ and $U_{J-1}^{n+1} = U_J^{n+1}$.\n"
         "\n"
-        "Let us reinterpret our numerical approximation of the line concentration of $$u$$ in a fixed point in time as a vector $$\\mathbf{U}^n$$:\n"
+        "Let us reinterpret our numerical approximation of the line concentration of $u$ in a fixed point in time as a vector $\\mathbf{U}^n$:\n"
         "\n"
         "$$\\mathbf{U}^n = \n"
         "\\begin{bmatrix} U_0^n \\\\ \\vdots \\\\ U_{J-1}^n \\end{bmatrix}.$$\n"
         "\n"
-        "Using this notation we can now write our above approximation for a fixed point in time, $$t = n \\Delta t$$, compactly as a linear system:\n"
+        "Using this notation we can now write our above approximation for a fixed point in time, $t = n \\Delta t$, compactly as a linear system:\n"
         "\n"
         "$$\n"
         "\\begin{bmatrix}\n"
@@ -3821,25 +3821,25 @@ void WorksheetTest::testJupyter4()
         "\\end{bmatrix}.\n"
         "$$\n"
         "\n"
-        "Note that since our numerical integration starts with a well-defined initial condition at $$n=0$$, $$\\mathbf{U}^0$$, the\n"
-        "vector $$\\mathbf{U}^{n+1}$$ on the left-hand side is the only unknown in this system of linear equations.\n"
+        "Note that since our numerical integration starts with a well-defined initial condition at $n=0$, $\\mathbf{U}^0$, the\n"
+        "vector $\\mathbf{U}^{n+1}$ on the left-hand side is the only unknown in this system of linear equations.\n"
         "\n"
-        "Thus, to integrate numerically our reaction-diffusion system from time point $$n$$ to $$n+1$$ we need to solve numerically for vector $$\\mathbf{U}^{n+1}$$.\n"
+        "Thus, to integrate numerically our reaction-diffusion system from time point $n$ to $n+1$ we need to solve numerically for vector $\\mathbf{U}^{n+1}$.\n"
         "\n"
-        "Let us call the matrix on the left-hand side $$A$$, the one on the right-hand side $$B$$,\n"
-        "and the vector on the right-hand side $$\\mathbf{f}^n$$.\n"
+        "Let us call the matrix on the left-hand side $A$, the one on the right-hand side $B$,\n"
+        "and the vector on the right-hand side $\\mathbf{f}^n$.\n"
         "Using this notation we can write the above system as\n"
         "\n"
         "$$A \\mathbf{U}^{n+1} = B \\mathbf{U}^n + f^n.$$\n"
         "\n"
-        "In this linear equation, matrices $$A$$ and $$B$$ are defined by our problem: we need to specify these matrices once for our\n"
+        "In this linear equation, matrices $A$ and $B$ are defined by our problem: we need to specify these matrices once for our\n"
         "problem and incorporate our boundary conditions in them.\n"
-        "Vector $$\\mathbf{f}^n$$ is a function of $$\\mathbf{U}^n$$ and so needs to be reevaluated in every time point $$n$$.\n"
-        "We also need to carry out one matrix-vector multiplication every time point, $$B \\mathbf{U}^n$$, and\n"
-        "one vector-vector addition, $$B \\mathbf{U}^n + f^n$$.\n"
+        "Vector $\\mathbf{f}^n$ is a function of $\\mathbf{U}^n$ and so needs to be reevaluated in every time point $n$.\n"
+        "We also need to carry out one matrix-vector multiplication every time point, $B \\mathbf{U}^n$, and\n"
+        "one vector-vector addition, $B \\mathbf{U}^n + f^n$.\n"
         "\n"
-        "The most expensive numerical operation is inversion of matrix $$A$$ to solve for $$\\mathbf{U}^{n+1}$$, however we may\n"
-        "get away with doing this only once and store the inverse of $$A$$ as $$A^{-1}$$:\n"
+        "The most expensive numerical operation is inversion of matrix $A$ to solve for $\\mathbf{U}^{n+1}$, however we may\n"
+        "get away with doing this only once and store the inverse of $A$ as $A^{-1}$:\n"
         "\n"
         "$$\\mathbf{U}^{n+1} = A^{-1} \\left( B \\mathbf{U}^n + f^n \\right).$$"
     ));
@@ -3862,9 +3862,9 @@ void WorksheetTest::testJupyter4()
         "\n"
         "$$\\frac{\\partial v}{\\partial x}\\Bigg|_{x=0,L} = 0.$$\n"
         "\n"
-        "The variables of this system, $$u$$ and $$v$$, represent the concetrations of the active form and its inactive form respectively.\n"
-        "The reaction term $$f(u,v)$$ describes the interchange (activation and inactivation) between these two states of the protein.\n"
-        "A particular property of this system is that the inactive has much greater diffusivity that the active form, $$D_v \\gg D_u$$.\n"
+        "The variables of this system, $u$ and $v$, represent the concetrations of the active form and its inactive form respectively.\n"
+        "The reaction term $f(u,v)$ describes the interchange (activation and inactivation) between these two states of the protein.\n"
+        "A particular property of this system is that the inactive has much greater diffusivity that the active form, $D_v \\gg D_u$.\n"
         "\n"
         "Using the CN method to integrate this system numerically, we need to set up two separate approximations\n"
         "\n"
@@ -3872,7 +3872,7 @@ void WorksheetTest::testJupyter4()
         "\n"
         "$$A_v \\mathbf{V}^{n+1} = B_v \\mathbf{V}^n - \\mathbf{f}^n,$$\n"
         "\n"
-        "with two different $$\\sigma$$ terms, $$\\sigma_u = \\frac{D_u \\Delta t}{2 \\Delta x^2}$$ and $$\\sigma_v = \\frac{D_v \\Delta t}{2 \\Delta x^2}$$."
+        "with two different $\\sigma$ terms, $\\sigma_u = \\frac{D_u \\Delta t}{2 \\Delta x^2}$ and $\\sigma_v = \\frac{D_v \\Delta t}{2 \\Delta x^2}$."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -3963,9 +3963,9 @@ void WorksheetTest::testJupyter4()
         "As discussed by\n"
         "[Mori *et al.*](http://www.sciencedirect.com/science/article/pii/S0006349508704442),\n"
         "we can expect to observe interesting behaviour in the steady state of this system\n"
-        "if we choose a heterogeneous initial condition for $$u$$.\n"
+        "if we choose a heterogeneous initial condition for $u$.\n"
         "\n"
-        "Here, we initialize $$u$$ with a step-like heterogeneity:"
+        "Here, we initialize $u$ with a step-like heterogeneity:"
     ));
 
     qDebug() << "command entry 7";
@@ -3996,8 +3996,8 @@ void WorksheetTest::testJupyter4()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "The blue curve is the initial condition for $$U$$, stored in Python variable `U`,\n"
-        "and the green curve is the initial condition for $$V$$ stored in `V`."
+        "The blue curve is the initial condition for $U$, stored in Python variable `U`,\n"
+        "and the green curve is the initial condition for $V$ stored in `V`."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -4055,10 +4055,10 @@ void WorksheetTest::testJupyter4()
     testMarkdown(entry, QString::fromUtf8(
         "To advance our system by one time step, we need to do one matrix-vector multiplication followed by one vector-vector addition on the right hand side.\n"
         "\n"
-        "To facilitate this, we rewrite our reaction term so that it accepts concentration vectors $$\\mathbf{U}^n$$ and $$\\mathbf{V}^n$$ as arguments\n"
-        "and returns vector $$\\mathbf{f}^n$$.\n"
+        "To facilitate this, we rewrite our reaction term so that it accepts concentration vectors $\\mathbf{U}^n$ and $\\mathbf{V}^n$ as arguments\n"
+        "and returns vector $\\mathbf{f}^n$.\n"
         "\n"
-        "As a reminder, this is our non-vectorial definition of $$f$$\n"
+        "As a reminder, this is our non-vectorial definition of $f$\n"
         "\n"
         "    f = lambda u, v: v*(k0 + float(u*u)/float(1. + u*u)) - u"
     ));
@@ -5254,7 +5254,7 @@ void WorksheetTest::testJupyter6()
     testMarkdown(entry, QString::fromUtf8(
         "<p>We live in a complex environment and must constantly integrate sensory information to interact with the world around us. Inputs from different modalities might not always be congruent with each other, but dissociating the true nature of the stimulus may be a matter of life or death for an organism.</p>\n"
         "<img src=\"http://www.wtadler.com/picdrop/rattlesnake.jpg\" width=25% height=25% align=\"left\" style=\"margin: 10px 10px 10px 0px;\" >\n"
-        "<p>You hear and see evidence of a rattlesnake in tall grass near you. You get an auditory and a visual cue of the snake's location $$s$$. Both cues are associated with a likelihood function indicating the probability of that cue for all possible locations of the snake. The likelihood function associated with the visual cue, $$p(c_\\mathrm{V}|s)$$, has high uncertainty, because of the tall grass. The auditory cue is easier to localize, so its associated likelihood function, $$p(c_\\mathrm{A}|s)$$, is sharper. In accordance with Bayes' Rule, and assuming a flat prior over the snake's location, an optimal estimate of the location of the snake can be computed by multiplying the two likelihoods. This joint likelihood will be between the two cues but closer to the less uncertain cue, and will have less uncertainty than both unimodal likelihood functions.</p>"
+        "<p>You hear and see evidence of a rattlesnake in tall grass near you. You get an auditory and a visual cue of the snake's location $s$. Both cues are associated with a likelihood function indicating the probability of that cue for all possible locations of the snake. The likelihood function associated with the visual cue, $p(c_\\mathrm{V}|s)$, has high uncertainty, because of the tall grass. The auditory cue is easier to localize, so its associated likelihood function, $p(c_\\mathrm{A}|s)$, is sharper. In accordance with Bayes' Rule, and assuming a flat prior over the snake's location, an optimal estimate of the location of the snake can be computed by multiplying the two likelihoods. This joint likelihood will be between the two cues but closer to the less uncertain cue, and will have less uncertainty than both unimodal likelihood functions.</p>"
     ));
 
     qDebug() << "command entry 31";
@@ -5283,14 +5283,14 @@ void WorksheetTest::testJupyter6()
         "\n"
         "## Cues can be represented by neural populations\n"
         "\n"
-        "To return to our deadly rattlesnake, let's now assume that $$c_\\mathrm{V}$$ and $$c_\\mathrm{A}$$ are represented by populations of neurons $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$, respectively. For our math and simulations, we assume that $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$ are each composed of $$N$$ neurons that:\n"
+        "To return to our deadly rattlesnake, let's now assume that $c_\\mathrm{V}$ and $c_\\mathrm{A}$ are represented by populations of neurons $\\mathbf{r}_\\mathrm{V}$ and $\\mathbf{r}_\\mathrm{A}$, respectively. For our math and simulations, we assume that $\\mathbf{r}_\\mathrm{V}$ and $\\mathbf{r}_\\mathrm{A}$ are each composed of $N$ neurons that:\n"
         "\n"
         "* have independent Poisson variability\n"
         "* have regularly spaced Gaussian tuning curves that are identical in mean and variance for neurons with the same index in both populations\n"
         "\n"
-        "The populations may have different gains, $$g_\\mathrm{V}$$ and $$g_\\mathrm{A}$$.\n"
+        "The populations may have different gains, $g_\\mathrm{V}$ and $g_\\mathrm{A}$.\n"
         "\n"
-        "These are the tuning curves for the neurons in $$\\mathbf{r}_\\mathrm{V}$$ (purple) and $$\\mathbf{r}_\\mathrm{A}$$ (red). Each curve represents the mean firing rate of a single neuron given a location $$s$$. Each neuron thus has a preferred location, which is where its tuning curve peaks."
+        "These are the tuning curves for the neurons in $\\mathbf{r}_\\mathrm{V}$ (purple) and $\\mathbf{r}_\\mathrm{A}$ (red). Each curve represents the mean firing rate of a single neuron given a location $s$. Each neuron thus has a preferred location, which is where its tuning curve peaks."
     ));
 
     qDebug() << "command entry 32";
@@ -5301,7 +5301,7 @@ void WorksheetTest::testJupyter6()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "The tuning curves are dense enough that we can also assume that $$\\sum_{i=0}^N f_i(s) = k$$ (*i.e.*, the sum of the tuning curves in a population is constant.)"
+        "The tuning curves are dense enough that we can also assume that $\\sum_{i=0}^N f_i(s) = k$ (*i.e.*, the sum of the tuning curves in a population is constant.)"
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -5318,7 +5318,7 @@ void WorksheetTest::testJupyter6()
 
     testMarkdown(entry, QString::fromUtf8(
         "First, we will show how the brain can decode a likelihood over stimulus from neural activity. Then we will ask how the brain can compute joint likelihoods.\n"
-        "### How can the brain decode $$p(\\mathbf{r_\\mathrm{V}}|s)$$?\n"
+        "### How can the brain decode $p(\\mathbf{r_\\mathrm{V}}|s)$?\n"
         "\n"
         "\\begin{align}\n"
         "L(s) &= p(\\mathbf{r_\\mathrm{V}}\\ |\\ s) \\tag{1} \\\\ \n"
@@ -5329,7 +5329,7 @@ void WorksheetTest::testJupyter6()
         "&\\propto \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}} \\tag{6} \\\\\n"
         "\\end{align}\n"
         "\n"
-        "### Then what is the joint likelihood $$p(\\mathbf{r_\\mathrm{V}}|s)\\ p(\\mathbf{r_\\mathrm{A}}|s)$$?\n"
+        "### Then what is the joint likelihood $p(\\mathbf{r_\\mathrm{V}}|s)\\ p(\\mathbf{r_\\mathrm{A}}|s)$?\n"
         "\n"
         "\\begin{align}\n"
         "L(s) &= p(\\mathbf{r_\\mathrm{V}}\\ |\\ s)\\ p(\\mathbf{r_\\mathrm{A}}|s) \\tag{7} \\\\\n"
@@ -5337,10 +5337,10 @@ void WorksheetTest::testJupyter6()
         "&= \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{9} \\\\\n"
         "\\end{align}\n"
         "\n"
-        "## How can the brain compute the joint likelihood $$p(\\mathbf{r}_\\mathrm{V}|s)\\ p(\\mathbf{r}_\\mathrm{A}|s)$$?\n"
-        "The fact that we see neurons from $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$ being added on a neuron-by-neuron basis in the exponent above suggests that we could construct a third population vector, $$\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A}$$, and decode that.\n"
+        "## How can the brain compute the joint likelihood $p(\\mathbf{r}_\\mathrm{V}|s)\\ p(\\mathbf{r}_\\mathrm{A}|s)$?\n"
+        "The fact that we see neurons from $\\mathbf{r}_\\mathrm{V}$ and $\\mathbf{r}_\\mathrm{A}$ being added on a neuron-by-neuron basis in the exponent above suggests that we could construct a third population vector, $\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A}$, and decode that.\n"
         "\n"
-        "### First, we must prove that the sum of two Poisson-distributed random variables $$X+Y$$ is again Poisson-distributed.\n"
+        "### First, we must prove that the sum of two Poisson-distributed random variables $X+Y$ is again Poisson-distributed.\n"
         "\\begin{align}\n"
         "X &\\sim \\textrm{Poisson}(\\lambda_x) \\textrm{, so } p(X=k)=\\frac{\\lambda_x^k\\ e^{-\\lambda_x}}{k!} \\tag{10} \\\\\n"
         "Y &\\sim \\textrm{Poisson}(\\lambda_y) \\textrm{, so } p(X=k)=\\frac{\\lambda_y^k\\ e^{-\\lambda_y}}{k!} \\tag{11} \\\\\n"
@@ -5357,9 +5357,9 @@ void WorksheetTest::testJupyter6()
         "&=\\frac{e^{-(\\lambda_x + \\lambda_y)}(\\lambda_x+\\lambda_y)^n}{n!} [ \\textrm{because} \\sum_{k=0}^n \\binom{n}{k}\\ x^ky^{n-k} = (x+y)^n ]\\tag{19} \\\\\n"
         "\\end{align}\n"
         "\n"
-        "Therefore, $$X + Y \\sim \\mathrm{Poisson}(\\lambda_x + \\lambda_y)$$.\n"
+        "Therefore, $X + Y \\sim \\mathrm{Poisson}(\\lambda_x + \\lambda_y)$.\n"
         "\n"
-        "## What is $$p(\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A} | s)$$?\n"
+        "## What is $p(\\mathbf{r}_\\mathrm{V}+\\mathbf{r}_\\mathrm{A} | s)$?\n"
         "\n"
         "In our case:\n"
         "\n"
@@ -5378,7 +5378,7 @@ void WorksheetTest::testJupyter6()
         "&\\propto \\prod_{i=0}^N f_i(s)^{r_{\\mathrm{V}i}+r_{\\mathrm{A}i}} \\tag{27} \\\\\n"
         "\\end{align}\n"
         "\n"
-        "Since equations $$(9)$$ and $$(27)$$ are proportional, we have shown that optimal cue combination can be executed by decoding linear sums of populations."
+        "Since equations $(9)$ and $(27)$ are proportional, we have shown that optimal cue combination can be executed by decoding linear sums of populations."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -5399,7 +5399,7 @@ void WorksheetTest::testJupyter6()
 
     testMarkdown(entry, QString::fromUtf8(
         "## Simulation\n"
-        "Here are the spike counts (during 1 s) from the two populations on one trial. Depicted in blue is a third population vector that is the sum of $$\\mathbf{r}_\\mathrm{V}$$ and $$\\mathbf{r}_\\mathrm{A}$$."
+        "Here are the spike counts (during 1 s) from the two populations on one trial. Depicted in blue is a third population vector that is the sum of $\\mathbf{r}_\\mathrm{V}$ and $\\mathbf{r}_\\mathrm{A}$."
     ));
 
     qDebug() << "command entry 33";
@@ -5422,7 +5422,7 @@ void WorksheetTest::testJupyter6()
     ));
 
     testMarkdown(entry, QString::fromUtf8(
-        "Here are the decoded likelihoods for each population alone $$(6)$$, the joint likelihood $$(9)$$, and the likelihood for the summed population $$(27)$$. Note that the joint likelihood (gold) is less uncertain than either unimodal likelihood. Also note that it is identical to the likelihood for the summed population (blue)."
+        "Here are the decoded likelihoods for each population alone $(6)$, the joint likelihood $(9)$, and the likelihood for the summed population $(27)$. Note that the joint likelihood (gold) is less uncertain than either unimodal likelihood. Also note that it is identical to the likelihood for the summed population (blue)."
     ));
 
     qDebug() << "command entry 34";
@@ -5468,7 +5468,7 @@ void WorksheetTest::testJupyter6()
     ));
 
     testMarkdown(entry, QString::fromUtf8(
-        "Now you can play interactively with the parameters of the simulation using these sliders, and watch the decoded likelihoods shift around. Every time you change a parameter, new sets of spikes are generated and used to infer $$s$$.\n"
+        "Now you can play interactively with the parameters of the simulation using these sliders, and watch the decoded likelihoods shift around. Every time you change a parameter, new sets of spikes are generated and used to infer $s$.\n"
         "\n"
         "For the simulation to be interactive, you'll have to download this notebook."
     ));
@@ -5565,7 +5565,7 @@ void WorksheetTest::testJupyter7()
         "<br>\n"
         "<figure><img src='./../images/translation2D.png' alt='translation 2D'/> <figcaption><center><i>Figure. A point in two-dimensional space represented in two coordinate systems (Global and local), with one system translated.</i></center></figcaption> </figure>\n"
         "\n"
-        "The position of point $$\\mathbf{P}$$ originally described in the local coordinate system but now described in the Global coordinate system in vector form is:\n"
+        "The position of point $\\mathbf{P}$ originally described in the local coordinate system but now described in the Global coordinate system in vector form is:\n"
         "\n"
         "$$ \\mathbf{P_G} = \\mathbf{L_G} + \\mathbf{P_l} $$\n"
         "\n"
@@ -5611,7 +5611,7 @@ void WorksheetTest::testJupyter7()
         "\n"
         "From classical mechanics, this transformation is an example of [Galilean transformation](http://en.wikipedia.org/wiki/Galilean_transformation).   \n"
         "\n"
-        "For example, if the local coordinate system is translated by $$\\mathbf{L_G}=[2, 3]$$ in relation to the Global coordinate system, a point with coordinates $$\\mathbf{P_l}=[4, 5]$$ at the local coordinate system will have the position $$\\mathbf{P_G}=[6, 8]$$ at the Global coordinate system:"
+        "For example, if the local coordinate system is translated by $\\mathbf{L_G}=[2, 3]$ in relation to the Global coordinate system, a point with coordinates $\\mathbf{P_l}=[4, 5]$ at the local coordinate system will have the position $\\mathbf{P_G}=[6, 8]$ at the Global coordinate system:"
     ));
 
     qDebug() << "command entry 1";
@@ -5652,11 +5652,11 @@ void WorksheetTest::testJupyter7()
     testMarkdown(entry, QString::fromUtf8(
         "## Rotation\n"
         "\n"
-        "A pure two-dimensional rotation of a coordinate system in relation to other coordinate system and the representation of a point in these two coordinate systems are illustrated in the figure below (remember that this is equivalent to describing a rotation between two rigid bodies). The rotation is around an axis orthogonal to this page, not shown in the figure (for a three-dimensional coordinate system the rotation would be around the $$\\mathbf{Z}$$ axis).  \n"
+        "A pure two-dimensional rotation of a coordinate system in relation to other coordinate system and the representation of a point in these two coordinate systems are illustrated in the figure below (remember that this is equivalent to describing a rotation between two rigid bodies). The rotation is around an axis orthogonal to this page, not shown in the figure (for a three-dimensional coordinate system the rotation would be around the $\\mathbf{Z}$ axis).  \n"
         "<br>\n"
         "<figure><img src='./../images/rotation2D.png' alt='rotation 2D'/> <figcaption><center><i>Figure. A point in the two-dimensional space represented in two coordinate systems (Global and local), with one system rotated in relation to the other around an axis orthogonal to both coordinate systems.</i></center></figcaption> </figure>\n"
         "\n"
-        "Consider we want to express the position of point $$\\mathbf{P}$$ in the Global coordinate system in terms of the local coordinate system knowing only the coordinates at the local coordinate system and the angle of rotation between the two coordinate systems.   \n"
+        "Consider we want to express the position of point $\\mathbf{P}$ in the Global coordinate system in terms of the local coordinate system knowing only the coordinates at the local coordinate system and the angle of rotation between the two coordinate systems.   \n"
         "\n"
         "There are different ways of deducing that, we will see three of these methods next.     "
     ));
@@ -5664,7 +5664,7 @@ void WorksheetTest::testJupyter7()
     testMarkdown(entry, QString::fromUtf8(
         "### 1. Using trigonometry\n"
         "\n"
-        "From figure below, the coordinates of point $$\\mathbf{P}$$ in the Global coordinate system can be determined finding the sides of the triangles marked in red.   \n"
+        "From figure below, the coordinates of point $\\mathbf{P}$ in the Global coordinate system can be determined finding the sides of the triangles marked in red.   \n"
         "<br>\n"
         "<figure><img src='./../images/rotation2Db.png' alt='rotation 2D'/> <figcaption><center><i>Figure. The coordinates of a point at the Global coordinate system in terms of the coordinates of this point at the local coordinate system.</i></center></figcaption> </figure>\n"
         "\n"
@@ -5693,7 +5693,7 @@ void WorksheetTest::testJupyter7()
         "\n"
         "$$ \\mathbf{P_G} = \\mathbf{R_{Gl}}\\mathbf{P_l} $$\n"
         "\n"
-        "Where $$\\mathbf{R_{Gl}}$$ is the rotation matrix that rotates the coordinates from the local to the Global coordinate system:\n"
+        "Where $\\mathbf{R_{Gl}}$ is the rotation matrix that rotates the coordinates from the local to the Global coordinate system:\n"
         "\n"
         "$$ \\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
         "\\cos\\alpha & -\\sin\\alpha \\\\\n"
@@ -5702,7 +5702,7 @@ void WorksheetTest::testJupyter7()
         "\n"
         "So, given any position at the local coordinate system, with the rotation matrix above we are able to determine the position at the Global coordinate system. Let's check that before looking at other methods to obtain this matrix.  \n"
         "\n"
-        "For instance, consider a local coordinate system rotated by $$45^o$$ in relation to the Global coordinate system, a point in the local coordinate system with position $$\\mathbf{P_l}=[1, 1]$$ will have the following position at the Global coordinate system:"
+        "For instance, consider a local coordinate system rotated by $45^o$ in relation to the Global coordinate system, a point in the local coordinate system with position $\\mathbf{P_l}=[1, 1]$ will have the following position at the Global coordinate system:"
     ));
 
     qDebug() << "command entry 4";
@@ -5783,7 +5783,7 @@ void WorksheetTest::testJupyter7()
         "\n"
         "The same rotation matrix as obtained before.\n"
         "\n"
-        "Note that the order of the direction cosines is because in our convention, the first row is for the $$\\mathbf{X}$$ coordinate and the second row for the $$\\mathbf{Y}$$ coordinate (the outputs). For the inputs, we followed the same order, first column for the $$\\mathbf{x}$$ coordinate, second column for the $$\\mathbf{y}$$ coordinate."
+        "Note that the order of the direction cosines is because in our convention, the first row is for the $\\mathbf{X}$ coordinate and the second row for the $\\mathbf{Y}$ coordinate (the outputs). For the inputs, we followed the same order, first column for the $\\mathbf{x}$ coordinate, second column for the $\\mathbf{y}$ coordinate."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -5840,7 +5840,7 @@ void WorksheetTest::testJupyter7()
     ));
 
     testMarkdown(entry, QString::fromUtf8(
-        "If we want the inverse operation, to express the position of point $$\\mathbf{P}$$ in the local coordinate system in terms of the Global coordinate system, the figure below illustrates that using trigonometry.  \n"
+        "If we want the inverse operation, to express the position of point $\\mathbf{P}$ in the local coordinate system in terms of the Global coordinate system, the figure below illustrates that using trigonometry.  \n"
         "<br>\n"
         "<figure><img src='./../images/rotation2Dc.png' alt='rotation 2D'/> <figcaption><center><i>Figure. The coordinates of a point at the local coordinate system in terms of the coordinates at the Global coordinate system.</i></center></figcaption> </figure>\n"
         "\n"
@@ -5867,14 +5867,14 @@ void WorksheetTest::testJupyter7()
         "\n"
         "$$ \\mathbf{P_l} = \\mathbf{R_{lG}}\\mathbf{P_G} $$\n"
         "\n"
-        "Where $$\\mathbf{R_{lG}}$$ is the rotation matrix that rotates the coordinates from the Global to the local coordinate system (note the inverse order of the subscripts):\n"
+        "Where $\\mathbf{R_{lG}}$ is the rotation matrix that rotates the coordinates from the Global to the local coordinate system (note the inverse order of the subscripts):\n"
         "\n"
         "$$ \\mathbf{R_{lG}} = \\begin{bmatrix}\n"
         "\\cos\\alpha & \\sin\\alpha \\\\\n"
         "-\\sin\\alpha & \\cos\\alpha \n"
         "\\end{bmatrix} $$\n"
         "\n"
-        "If we use the direction cosines to calculate the rotation matrix, because the axes didn't change, the cosines are the same, only the order changes, now $$\\mathbf{x, y}$$ are the rows (outputs) and $$\\mathbf{X, Y}$$ are the columns (inputs):\n"
+        "If we use the direction cosines to calculate the rotation matrix, because the axes didn't change, the cosines are the same, only the order changes, now $\\mathbf{x, y}$ are the rows (outputs) and $\\mathbf{X, Y}$ are the columns (inputs):\n"
         "\n"
         "$$ \\mathbf{R_{lG}} = \\begin{bmatrix}\n"
         "\\cos\\mathbf{X}x & \\cos\\mathbf{Y}x \\\\\n"
@@ -5891,9 +5891,9 @@ void WorksheetTest::testJupyter7()
         "\n"
         "And defining the versors of the axes in the Global coordinate system for a basis in terms of the local coordinate system would also produce this latter rotation matrix.\n"
         "\n"
-        "The two sets of equations and matrices for the rotations from Global-to-local and local-to-Global coordinate systems are very similar, this is no coincidence. Each of the rotation matrices we deduced, $$\\mathbf{R_{Gl}}$$ and $$\\mathbf{R_{lG}}$$, perform the inverse operation in relation to the other. Each matrix is the inverse of the other.   \n"
+        "The two sets of equations and matrices for the rotations from Global-to-local and local-to-Global coordinate systems are very similar, this is no coincidence. Each of the rotation matrices we deduced, $\\mathbf{R_{Gl}}$ and $\\mathbf{R_{lG}}$, perform the inverse operation in relation to the other. Each matrix is the inverse of the other.   \n"
         "\n"
-        "In other words, the relation between the two rotation matrices means it is equivalent to instead of rotating the local coordinate system by $$\\alpha$$ in relation to the Global coordinate system, to rotate the Global coordinate system by $$-\\alpha$$ in relation to the local coordinate system; remember that $$\\cos(-\\alpha)=\\cos(\\alpha)$$ and $$\\sin(-\\alpha)=-\\sin(\\alpha)$$."
+        "In other words, the relation between the two rotation matrices means it is equivalent to instead of rotating the local coordinate system by $\\alpha$ in relation to the Global coordinate system, to rotate the Global coordinate system by $-\\alpha$ in relation to the local coordinate system; remember that $\\cos(-\\alpha)=\\cos(\\alpha)$ and $\\sin(-\\alpha)=-\\sin(\\alpha)$."
     ));
 
     testMarkdown(entry, QString::fromUtf8(
@@ -5901,13 +5901,13 @@ void WorksheetTest::testJupyter7()
         "\n"
         "We can also use the rotation matrix to rotate a vector by a given angle around an axis of the coordinate system as shown in the figure below.   \n"
         "<br>\n"
-        "<figure><img src='./../images/rotation2Dvector.png' alt='rotation 2D of a vector'/> <figcaption><center><i>Figure. Rotation of a position vector $$\\mathbf{P}$$ by an angle $$\\alpha$$ in the two-dimensional space.</i></center></figcaption> </figure>\n"
+        "<figure><img src='./../images/rotation2Dvector.png' alt='rotation 2D of a vector'/> <figcaption><center><i>Figure. Rotation of a position vector $\\mathbf{P}$ by an angle $\\alpha$ in the two-dimensional space.</i></center></figcaption> </figure>\n"
         "\n"
-        "We will not prove that we use the same rotation matrix, but think that in this case the vector position rotates by the same angle instead of the coordinate system. The new coordinates of the vector position $$\\mathbf{P'}$$ rotated by an angle $$\\alpha$$ is simply the rotation matrix (for the angle $$\\alpha$$) multiplied by the coordinates of the vector position $$\\mathbf{P}$$:\n"
+        "We will not prove that we use the same rotation matrix, but think that in this case the vector position rotates by the same angle instead of the coordinate system. The new coordinates of the vector position $\\mathbf{P'}$ rotated by an angle $\\alpha$ is simply the rotation matrix (for the angle $\\alpha$) multiplied by the coordinates of the vector position $\\mathbf{P}$:\n"
         "\n"
         "$$ \\mathbf{P'} = \\mathbf{R}_\\alpha\\mathbf{P} $$\n"
         "\n"
-        "Consider for example that $$\\mathbf{P}=[2,1]$$ and $$\\alpha=30^o$$; the coordinates of $$\\mathbf{P'}$$ are:"
+        "Consider for example that $\\mathbf{P}=[2,1]$ and $\\alpha=30^o$; the coordinates of $\\mathbf{P'}$ are:"
     ));
 
     qDebug() << "command entry 7";
@@ -5995,7 +5995,7 @@ void WorksheetTest::testJupyter7()
         "\\quad \\mathbf{P_l} = \\mathbf{R_{lG}}\\mathbf{P_G}\n"
         "\\end{array} $$\n"
         "\n"
-        "Where we referred the inverse of $$\\mathbf{R_{Gl}}\\;(\\:\\mathbf{R_{Gl}^{-1}})$$ as $$\\mathbf{R_{lG}}$$ (note the different order of the subscripts).  \n"
+        "Where we referred the inverse of $\\mathbf{R_{Gl}}\\;(\\:\\mathbf{R_{Gl}^{-1}})$ as $\\mathbf{R_{lG}}$ (note the different order of the subscripts).  \n"
         "\n"
         "Let's show this calculation in NumPy:"
     ));
@@ -6034,7 +6034,7 @@ void WorksheetTest::testJupyter7()
         "**In summary, some of the properties of the rotation matrix are:**  \n"
         "1. The columns of the rotation matrix form a basis of (independent) unit vectors (versors) and the rows are also independent versors since the transpose of the rotation matrix is another rotation matrix. \n"
         "2. The rotation matrix is orthogonal. There is no linear combination of one of the lines or columns of the matrix that would lead to the other row or column, i.e., the lines and columns of the rotation matrix are independent, orthogonal, to each other (this is property 1 rewritten). Because each row and column have norm equal to one, this matrix is also sometimes said to be orthonormal. \n"
-        "3. The determinant of the rotation matrix is equal to one (or equal to -1 if a left-hand coordinate system was used, but you should rarely use that). For instance, the determinant of the rotation matrix we deduced is $$cos\\alpha cos\\alpha - sin\\alpha(-sin\\alpha)=1$$.\n"
+        "3. The determinant of the rotation matrix is equal to one (or equal to -1 if a left-hand coordinate system was used, but you should rarely use that). For instance, the determinant of the rotation matrix we deduced is $cos\\alpha cos\\alpha - sin\\alpha(-sin\\alpha)=1$.\n"
         "4. The inverse of the rotation matrix is equals to its transpose.\n"
         "\n"
         "**On the different meanings of the rotation matrix:**  \n"
@@ -6055,7 +6055,7 @@ void WorksheetTest::testJupyter7()
         "<br>\n"
         "<figure><img src='./../images/transrot2D.png' alt='translation and rotation 2D'/> <figcaption><center><i>Figure. A point in two-dimensional space represented in two coordinate systems, with one system translated and rotated.</i></center></figcaption> </figure>\n"
         "\n"
-        "The position of point $$\\mathbf{P}$$ originally described in the local coordinate system, but now described in the Global coordinate system in vector form is:\n"
+        "The position of point $\\mathbf{P}$ originally described in the local coordinate system, but now described in the Global coordinate system in vector form is:\n"
         "\n"
         "$$ \\mathbf{P_G} = \\mathbf{L_G} + \\mathbf{R_{Gl}}\\mathbf{P_l} $$\n"
         "\n"
@@ -6117,7 +6117,7 @@ void WorksheetTest::testJupyter7()
         "\n"
         "$$ \\mathbf{P_l} = \\mathbf{T_{Gl}^{-1}}\\mathbf{P_G} $$\n"
         "\n"
-        "However, because $$\\mathbf{T_{Gl}}$$ is not orthonormal when there is a translation, its inverse is not its transpose. Its inverse in matrix form is given by:\n"
+        "However, because $\\mathbf{T_{Gl}}$ is not orthonormal when there is a translation, its inverse is not its transpose. Its inverse in matrix form is given by:\n"
         "\n"
         "$$ \\begin{bmatrix}\n"
         "\\mathbf{P}_x \\\\\n"
@@ -6190,14 +6190,14 @@ void WorksheetTest::testJupyter7()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "Now, both $$\\mathbf{e}_x$$ and $$\\mathbf{e}_y$$ are unit vectors (versors) and they are orthogonal, a basis can be formed with these two versors, and we can represent the rotation matrix using this basis (just place the versors of this basis as columns of the rotation matrix):\n"
+        "Now, both $\\mathbf{e}_x$ and $\\mathbf{e}_y$ are unit vectors (versors) and they are orthogonal, a basis can be formed with these two versors, and we can represent the rotation matrix using this basis (just place the versors of this basis as columns of the rotation matrix):\n"
         "\n"
         "$$ \\mathbf{R_{Gl}} = \\begin{bmatrix}\n"
         "0 & -1 \\\\\n"
         "1 & 0 \n"
         "\\end{bmatrix} $$\n"
         "\n"
-        "This rotation matrix makes sense because from the figure above we see that the local coordinate system we defined is rotated by 90$$^o$$ in relation to the Global coordinate system and if we use the general form for the rotation matrix:\n"
+        "This rotation matrix makes sense because from the figure above we see that the local coordinate system we defined is rotated by 90$^o$ in relation to the Global coordinate system and if we use the general form for the rotation matrix:\n"
         "\n"
         "$$ \\mathbf{R} = \\begin{bmatrix}\n"
         "\\cos\\alpha & -\\sin\\alpha \\\\\n"
@@ -6220,7 +6220,7 @@ void WorksheetTest::testJupyter7()
         "\\mathbf{P_G} =& \\begin{bmatrix} 1 \\\\ 1 \\end{bmatrix} + \\begin{bmatrix} 0 & -1 \\\\ 1 & 0 \\end{bmatrix} \\mathbf{P_l} \n"
         "\\end{array} $$\n"
         "\n"
-        "For example, the point $$\\mathbf{P_l}=[1,1]$$ has the following position at the Global coordinate system:"
+        "For example, the point $\\mathbf{P_l}=[1,1]$ has the following position at the Global coordinate system:"
     ));
 
     qDebug() << "command entry 11";
@@ -6258,7 +6258,7 @@ void WorksheetTest::testJupyter7()
         "\n"
         "If we didn't know the angle of rotation between the two coordinate systems, which is the typical situation in motion analysis, we simply would equate one of the terms of the two-dimensional rotation matrix in its algebraic form to its correspondent value in the numerical rotation matrix we calculated.\n"
         "\n"
-        "For instance, taking the first term of the rotation matrices above: $$\\cos\\alpha = 0$$ implies that $$\\theta$$ is 90$$^o$$ or 270$$^o$$, but combining with another matrix term, $$\\sin\\alpha = 1$$, implies that $$\\alpha=90^o$$. We can solve this problem in one step using the tangent $$(\\sin\\alpha/\\cos\\alpha)$$ function with two terms of the rotation matrix and calculating the angle with the `arctan2(y, x)` function:"
+        "For instance, taking the first term of the rotation matrices above: $\\cos\\alpha = 0$ implies that $\\theta$ is 90$^o$ or 270$^o$, but combining with another matrix term, $\\sin\\alpha = 1$, implies that $\\alpha=90^o$. We can solve this problem in one step using the tangent $(\\sin\\alpha/\\cos\\alpha)$ function with two terms of the rotation matrix and calculating the angle with the `arctan2(y, x)` function:"
     ));
 
     qDebug() << "command entry 12";
@@ -6358,10 +6358,10 @@ void WorksheetTest::testJupyter7()
     testMarkdown(entry, QString::fromUtf8(
         "### Kinematic chain in a plain (2D)\n"
         "\n"
-        "The fact that we simply multiplied the rotation matrices to calculate the rotation matrix of one segment in relation to the other is powerful and can be generalized for any number of segments: given a serial kinematic chain with links 1, 2, ..., n and 0 is the base/laboratory, the rotation matrix between the base and last link is: $$\\mathbf{R_{n,n-1}R_{n-1,n-2} \\dots R_{2,1}R_{1,0}}$$, where each matrix in this product (calculated from right to left) is the rotation of one link with respect to the next one.  \n"
+        "The fact that we simply multiplied the rotation matrices to calculate the rotation matrix of one segment in relation to the other is powerful and can be generalized for any number of segments: given a serial kinematic chain with links 1, 2, ..., n and 0 is the base/laboratory, the rotation matrix between the base and last link is: $\\mathbf{R_{n,n-1}R_{n-1,n-2} \\dots R_{2,1}R_{1,0}}$, where each matrix in this product (calculated from right to left) is the rotation of one link with respect to the next one.  \n"
         "\n"
-        "For instance, consider a kinematic chain with two links, the link 1 is rotated by $$\\alpha_1$$ with respect to the base (0) and the link 2 is rotated by $$\\alpha_2$$ with respect to the link 1.  \n"
-        "Using Sympy, the rotation matrices for link 2 w.r.t. link 1 $$(R_{12})$$ and for link 1 w.r.t. base 0 $$(R_{01})$$ are: "
+        "For instance, consider a kinematic chain with two links, the link 1 is rotated by $\\alpha_1$ with respect to the base (0) and the link 2 is rotated by $\\alpha_2$ with respect to the link 1.  \n"
+        "Using Sympy, the rotation matrices for link 2 w.r.t. link 1 $(R_{12})$ and for link 1 w.r.t. base 0 $(R_{01})$ are: "
     ));
 
     qDebug() << "command entry 16";
@@ -6406,7 +6406,7 @@ void WorksheetTest::testJupyter7()
     entry = entry->next();
 
     testMarkdown(entry, QString::fromUtf8(
-        "The rotation matrix of link 2 w.r.t. the base $$(R_{02})$$ is given simply by $$R_{01}*R_{12}$$:"
+        "The rotation matrix of link 2 w.r.t. the base $(R_{02})$ is given simply by $R_{01}*R_{12}$:"
     ));
 
     qDebug() << "command entry 18";
@@ -6457,18 +6457,18 @@ void WorksheetTest::testJupyter7()
     testMarkdown(entry, QString::fromUtf8(
         "## Problems\n"
         "\n"
-        "1. A local coordinate system is rotated 30$$^o$$ clockwise in relation to the Global reference system.   \n"
+        "1. A local coordinate system is rotated 30$^o$ clockwise in relation to the Global reference system.   \n"
         "  A. Determine the matrices for rotating one coordinate system to another (two-dimensional).   \n"
         "  B. What are the coordinates of the point [1, 1] (local coordinate system) at the global coordinate system?   \n"
         "  C. And if this point is at the Global coordinate system and we want the coordinates at the local coordinate system?   \n"
         "  D. Consider that the local coordinate system, besides the rotation is also translated by [2, 2]. What are the matrices for rotation, translation, and transformation from one coordinate system to another (two-dimensional)?   \n"
         "  E. Repeat B and C considering this translation.\n"
         "  \n"
-        "2. Consider a local coordinate system U rotated 45$$^o$$ clockwise in relation to the Global reference system and another local coordinate system V rotated 45$$^o$$ clockwise in relation to the local reference system U.  \n"
+        "2. Consider a local coordinate system U rotated 45$^o$ clockwise in relation to the Global reference system and another local coordinate system V rotated 45$^o$ clockwise in relation to the local reference system U.  \n"
         "  A. Determine the rotation matrices of all possible transformations between the coordinate systems.   \n"
         "  B. For the point [1, 1] in the coordinate system U, what are its coordinates in coordinate system V and in the Global coordinate system?   \n"
         "  \n"
-        "3. Using the rotation matrix, deduce the new coordinates of a square figure with coordinates [0, 0], [1, 0], [1, 1], and [0, 1] when rotated by 0$$^o$$, 45$$^o$$, 90$$^o$$, 135$$^o$$, and 180$$^o$$ (always clockwise).\n"
+        "3. Using the rotation matrix, deduce the new coordinates of a square figure with coordinates [0, 0], [1, 0], [1, 1], and [0, 1] when rotated by 0$^o$, 45$^o$, 90$^o$, 135$^o$, and 180$^o$ (always clockwise).\n"
         "  \n"
         "4. Solve the problem 2 of [Angular kinematics in a plane (2D)](http://nbviewer.ipython.org/github/demotu/BMC/blob/master/notebooks/AngularKinematics2D.ipynb) but now using the concept of two-dimensional transformations.  "
     ));

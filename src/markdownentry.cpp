@@ -145,9 +145,7 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
         }
     }
 
-    // https://github.com/Orc/discount/issues/211
-    // Jupyter TODO: replace this ugly code by Discount '$' support, if the issue will be merged into master
-    setPlainText(adaptJupyterMarkdown(JupyterUtils::getSource(cell)));
+    setPlainText(JupyterUtils::getSource(cell));
 }
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -221,11 +219,7 @@ QJsonValue MarkdownEntry::toJupyterJson()
     if (!attachments.isEmpty())
         entry.insert(QLatin1String("attachments"), attachments);
 
-    QString source = plain;
-    // Replace our $$ formulas to $
-    // Better, that if $$ will become $ than $ will become $$
-    source.replace(QLatin1String("$$"), QLatin1String("$"));
-    JupyterUtils::setSource(entry, source);
+    JupyterUtils::setSource(entry, plain);
 
     return entry;
 }
@@ -440,147 +434,4 @@ QTextCursor MarkdownEntry::findLatexCode(const QTextCursor& cursor) const
     startCursor.setPosition(startCursor.selectionStart());
     startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
     return startCursor;
-}
-
-enum class ParserState {Text, CodeQuote, SingleDollar, DoubleDollar};
-QString MarkdownEntry::adaptJupyterMarkdown(const QString& markdown)
-{
-    QString input = markdown;
-    QString tail, out;
-    do
-    {
-        out += convert(input, tail);
-        input = tail;
-    }
-    while (!tail.isEmpty());
-
-    out.replace(QLatin1String("\\\\$"), QLatin1String("$"));
-    return out;
-}
-
-QString MarkdownEntry::convert(const QString& markdown, QString& tail)
-{
-    static const QLatin1Char CODE_QUOTE('`');
-    static const QLatin1Char DOLLAR('$');
-    static const QLatin1Char ESCAPER('\\');
-
-    QString buf;
-    QChar prev[2];
-    ParserState state = ParserState::Text;
-    QString out;
-    // Double dollar state
-    int length = 0;
-    // Quote state
-    int quoteLevel = 0;
-    int quoteSequence = 0;
-    bool beginQuote = true;
-
-    for (const QChar& sym : markdown)
-    {
-        const bool isEscaping = prev[0] == ESCAPER;
-        switch (state)
-        {
-            case ParserState::Text:
-            {
-                if (sym == CODE_QUOTE && !isEscaping)
-                {
-                    state = ParserState::CodeQuote;
-                }
-
-                const bool isDoubleEscaping = isEscaping && prev[1] == ESCAPER;
-                if (sym == DOLLAR && !isDoubleEscaping)
-                {
-                    state = ParserState::SingleDollar;
-                    // no write to out variable
-                    break;
-                }
-
-                out += sym;
-            }
-                break;
-
-            case ParserState::CodeQuote:
-                buf += sym;
-
-                if (sym == CODE_QUOTE && !isEscaping)
-                {
-                    if (beginQuote)
-                    {
-                        quoteLevel++;
-                    }
-                    else
-                    {
-                        quoteSequence++;
-                        if (quoteSequence == quoteLevel)
-                        {
-                            state = ParserState::Text;
-                            out += buf;
-
-                            // clean up state
-                            buf.clear();
-                            beginQuote = true;
-                            quoteLevel = 0;
-                            quoteSequence = 0;
-                        }
-                    }
-                }
-                else if (beginQuote)
-                {
-                    beginQuote = false;
-                    quoteSequence = 0;
-                }
-
-                break;
-
-            case ParserState::SingleDollar:
-                if (sym == DOLLAR)
-                {
-                    if (isEscaping)
-                        buf += sym;
-                    else
-                    {
-                        // So we have double dollars ($$) and we need go to double dollar state
-                        if (buf.isEmpty())
-                        {
-                            out += DOLLAR + DOLLAR;
-                            state = ParserState::DoubleDollar;
-                        }
-                        else
-                        {
-                            // Main purpose of this code
-                            // $...$ -> $$...$$
-                            // because Cantor supports only $$...$$
-                            out += DOLLAR + DOLLAR + buf + DOLLAR + DOLLAR;
-                            buf.clear();
-                            state = ParserState::Text;
-                        }
-                    }
-                }
-                else
-                    buf += sym;
-                break;
-
-            // if we have $$ $...$ (eof)
-            // After converting we will ahve $$ $$...$$ (eof)
-            // And it will be evaluate in wrong way ($$ $$)
-            case ParserState::DoubleDollar:
-                buf += sym;
-                length++;
-                if (sym == DOLLAR && prev[0] == DOLLAR && prev[1] != ESCAPER && length >= 3)
-                {
-                    state = ParserState::Text;
-                    out += buf;
-                    buf.clear();
-                    length = 0;
-                }
-                break;
-        }
-
-        // Shift previous symbols
-        prev[1] = prev[0];
-        prev[0] = sym;
-    }
-
-    tail = buf;
-    return out;
 }

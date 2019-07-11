@@ -71,8 +71,6 @@ class MarkdownEntry : public WorksheetEntry
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
     QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;
-    QString adaptJupyterMarkdown(const QString& markdown);
-    QString convert(const QString& markdown, QString& tail);
 
   protected:
     WorksheetTextItem* m_textItem;
