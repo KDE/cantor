@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="5.0">
  <class>MaximaSettingsBase</class>
  <widget class="QWidget" name="MaximaSettingsBase">
   <property name="geometry">
@@ -26,7 +26,7 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout1">
      <item>
       <widget class="QLabel" name="label2">
        <property name="text">
