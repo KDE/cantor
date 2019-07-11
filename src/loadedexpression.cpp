@@ -27,6 +27,7 @@
 #include "lib/latexresult.h"
 #include "lib/animationresult.h"
 #include "lib/latexrenderer.h"
+#include "lib/mimeresult.h"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -71,6 +72,22 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             else if (format == QLatin1String("latex"))
                 result->setFormat(Cantor::TextResult::LatexFormat);
             addResult(result);
+        }
+        else if (type == QLatin1String("mime"))
+        {
+            const QDomElement& resultElement = results.at(i).toElement();
+            const QString& mimeType = resultElement.attribute(QLatin1String("mimeType"));
+            bool withPlain = resultElement.attribute(QLatin1String("withPlain")).toInt();
+
+            QString plain;
+            if (withPlain)
+                plain = resultElement.firstChildElement(QLatin1String("Plain")).text();
+
+            const QString& content = resultElement.firstChildElement(QLatin1String("Content")).text();
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(content.toUtf8());;
+            const QJsonValue& value = jsonDoc.object().value(QLatin1String("content"));
+
+            addResult(new Cantor::MimeResult(plain, value, mimeType));
         }
         else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
         {
@@ -214,12 +231,22 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
                 addResult(new Cantor::ImageResult(image, text));
             }
-            // Cantor don't know, how handle this, so just use plain data, if available
-            // Jupyter TODO: garantee, that this data won't be loose on next save/export
-            else if (data.keys().contains(JupyterUtils::textMime))
+            else if (data.keys().size() == 1 && data.keys()[0] == JupyterUtils::textMime)
                 addResult(new Cantor::TextResult(text));
-            else
-                qWarning() << "Warning: Can't handle " << outputType << "result with mimes" << data.keys();
+            // Cantor don't know, how handle this, so pack into mime container result
+            else if (data.keys().count() > 0)
+            {
+                qDebug() << "Found unsupported " << outputType << "result with mimes" << data.keys() << ", so add them to mime container result";
+                QString key;
+                if (data.keys().contains(JupyterUtils::textMime) && data.keys().count() > 1)
+                    if (data.keys()[0] == JupyterUtils::textMime)
+                        key = data.keys()[1];
+                    else
+                        key = data.keys()[0];
+                else
+                    key = data.keys()[0];
+                addResult(new Cantor::MimeResult(text, data.value(key), key));
+            }
         }
     }
 

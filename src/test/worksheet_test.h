@@ -45,6 +45,8 @@ class WorksheetTest: public QObject
     void testEntryLoad1();
     void testEntryLoad2();
     void testResultsLoad();
+    void testMimeResult();
+    void testMimeResultWithPlain();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);

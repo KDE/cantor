@@ -38,6 +38,7 @@
 #include "../lib/imageresult.h"
 #include "../lib/latexresult.h"
 #include "../lib/animationresult.h"
+#include "../lib/mimeresult.h"
 
 #include "config-cantor-test.h"
 
@@ -6647,6 +6648,153 @@ void WorksheetTest::testResultsLoad()
     QCOMPARE(result->mimeType(), QStringLiteral("image/x-eps"));
     }
     entry = entry->next();
+
+    QCOMPARE(entry, nullptr);
+}
+
+void WorksheetTest::testMimeResult()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestNotebookWithJson.ipynb")));
+
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testCommandEntry(entry, 6, QString::fromUtf8(
+        "import json\n"
+        "import uuid\n"
+        "from IPython.display import display_javascript, display_html, display\n"
+        "\n"
+        "class RenderJSON(object):\n"
+        "    def __init__(self, json_data):\n"
+        "        if isinstance(json_data, dict) or isinstance(json_data, list):\n"
+        "            self.json_str = json.dumps(json_data)\n"
+        "        else:\n"
+        "            self.json_str = json_data\n"
+        "        self.uuid = str(uuid.uuid4())\n"
+        "\n"
+        "    def _ipython_display_(self):\n"
+        "        display_html('<div id=\"{}\" style=\"height: 600px; width:100%;font: 12px/18px monospace !important;\"></div>'.format(self.uuid), raw=True)\n"
+        "        display_javascript(\"\"\"\n"
+        "        require([\"https://rawgit.com/caldwell/renderjson/master/renderjson.js\"], function() {\n"
+        "            renderjson.set_show_to_level(2);\n"
+        "            document.getElementById('%s').appendChild(renderjson(%s))\n"
+        "        });\n"
+        "      \"\"\" % (self.uuid, self.json_str), raw=True)"
+    ));
+
+    testCommandEntry(entry, 7, 2, QString::fromUtf8(
+        "RenderJSON([\n"
+        "    {\n"
+        "        \"a\": 1\n"
+        "    }, \n"
+        "    {\n"
+        "        \"b\": 2,\n"
+        "        \"in1\": {\n"
+        "            \"key\": \"value\"\n"
+        "        }\n"
+        "    }\n"
+        "])"
+    ));
+    testHTMLTextResult(entry, 0, QString::fromLatin1(
+        ""
+    ), QString::fromLatin1(
+        "<div id=\"bb6d9031-c990-4aee-849e-6d697430777c\" style=\"height: 600px; width:100%;font: 12px/18px monospace !important;\"></div>"
+    ));
+    {
+    QVERIFY(expression(entry)->results().size() > 1);
+    QCOMPARE(expression(entry)->results().at(1)->type(), (int)Cantor::MimeResult::Type);
+    Cantor::MimeResult* result = static_cast<Cantor::MimeResult*>(expression(entry)->results().at(1));
+    QCOMPARE(result->mimeKey(), QLatin1String("application/javascript"));
+    QJsonArray value = QJsonArray::fromStringList(QStringList{
+        QLatin1String("\n"),
+        QLatin1String("        require([\"https://rawgit.com/caldwell/renderjson/master/renderjson.js\"], function() {\n"),
+        QLatin1String("            renderjson.set_show_to_level(2);\n"),
+        QLatin1String("            document.getElementById('bb6d9031-c990-4aee-849e-6d697430777c').appendChild(renderjson([{\"a\": 1}, {\"b\": 2, \"in1\": {\"key\": \"value\"}}]))\n"),
+        QLatin1String("        });\n"),
+        QLatin1String("      ")
+    });
+    QCOMPARE(result->data().value<QJsonValue>(), QJsonValue(value));
+    }
+    entry = entry->next();
+
+    testCommandEntry(entry, -1, QString::fromUtf8(
+        ""
+    ));
+
+    QCOMPARE(entry, nullptr);
+}
+
+void WorksheetTest::testMimeResultWithPlain()
+{
+    QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestNotebookWithModJson.ipynb")));
+
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
+
+    WorksheetEntry* entry = w->firstEntry();
+
+    testCommandEntry(entry, 6, QString::fromUtf8(
+        "import json\n"
+        "import uuid\n"
+        "from IPython.display import display_javascript, display_html, display\n"
+        "\n"
+        "class RenderJSON(object):\n"
+        "    def __init__(self, json_data):\n"
+        "        if isinstance(json_data, dict) or isinstance(json_data, list):\n"
+        "            self.json_str = json.dumps(json_data)\n"
+        "        else:\n"
+        "            self.json_str = json_data\n"
+        "        self.uuid = str(uuid.uuid4())\n"
+        "\n"
+        "    def _ipython_display_(self):\n"
+        "        display_html('<div id=\"{}\" style=\"height: 600px; width:100%;font: 12px/18px monospace !important;\"></div>'.format(self.uuid), raw=True)\n"
+        "        display_javascript(\"\"\"\n"
+        "        require([\"https://rawgit.com/caldwell/renderjson/master/renderjson.js\"], function() {\n"
+        "            renderjson.set_show_to_level(2);\n"
+        "            document.getElementById('%s').appendChild(renderjson(%s))\n"
+        "        });\n"
+        "      \"\"\" % (self.uuid, self.json_str), raw=True)"
+    ));
+
+    testCommandEntry(entry, 7, 2, QString::fromUtf8(
+        "RenderJSON([\n"
+        "    {\n"
+        "        \"a\": 1\n"
+        "    }, \n"
+        "    {\n"
+        "        \"b\": 2,\n"
+        "        \"in1\": {\n"
+        "            \"key\": \"value\"\n"
+        "        }\n"
+        "    }\n"
+        "])"
+    ));
+    testHTMLTextResult(entry, 0, QString::fromLatin1(
+        ""
+    ), QString::fromLatin1(
+        "<div id=\"bb6d9031-c990-4aee-849e-6d697430777c\" style=\"height: 600px; width:100%;font: 12px/18px monospace !important;\"></div>"
+    ));
+    {
+    QVERIFY(expression(entry)->results().size() > 1);
+    QCOMPARE(expression(entry)->results().at(1)->type(), (int)Cantor::MimeResult::Type);
+    Cantor::MimeResult* result = static_cast<Cantor::MimeResult*>(expression(entry)->results().at(1));
+    QCOMPARE(result->mimeKey(), QLatin1String("application/javascript"));
+    QCOMPARE(result->plain(), QLatin1String("<__main__.RenderJSON at 0x7fa1599c6828>"));
+    QJsonArray value = QJsonArray::fromStringList(QStringList{
+        QLatin1String("\n"),
+        QLatin1String("        require([\"https://rawgit.com/caldwell/renderjson/master/renderjson.js\"], function() {\n"),
+        QLatin1String("            renderjson.set_show_to_level(2);\n"),
+        QLatin1String("            document.getElementById('bb6d9031-c990-4aee-849e-6d697430777c').appendChild(renderjson([{\"a\": 1}, {\"b\": 2, \"in1\": {\"key\": \"value\"}}]))\n"),
+        QLatin1String("        });\n"),
+        QLatin1String("      ")
+    });
+    QCOMPARE(result->data().value<QJsonValue>(), QJsonValue(value));
+    }
+    entry = entry->next();
+
+    testCommandEntry(entry, -1, QString::fromUtf8(
+        ""
+    ));
 
     QCOMPARE(entry, nullptr);
 }

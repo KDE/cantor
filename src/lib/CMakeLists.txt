@@ -5,6 +5,7 @@ set( cantor_LIB_SRCS
   result.cpp
   textresult.cpp
   imageresult.cpp
+  mimeresult.cpp
   epsresult.cpp
   latexresult.cpp
   latexrenderer.cpp
@@ -39,6 +40,7 @@ Set( cantor_LIB_HDRS
   latexresult.h
   result.h
   textresult.h
+  mimeresult.h
   #helper classes
   defaulthighlighter.h
   defaultvariablemodel.h

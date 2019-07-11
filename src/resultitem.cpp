@@ -31,6 +31,7 @@
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 #include "lib/animationresult.h"
+#include "lib/mimeresult.h"
 
 #include <QObject>
 
@@ -48,6 +49,7 @@ ResultItem* ResultItem::create(WorksheetEntry* parent, Cantor::Result* result)
     switch(result->type()) {
     case Cantor::TextResult::Type:
     case Cantor::LatexResult::Type:
+    case Cantor::MimeResult::Type:
         {
             return new TextResultItem(parent, result);
         }

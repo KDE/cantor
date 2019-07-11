@@ -23,6 +23,7 @@
 #include "lib/result.h"
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
+#include "lib/mimeresult.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -70,9 +71,14 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
 
 void TextResultItem::update()
 {
-    Q_ASSERT(m_result->type() == Cantor::TextResult::Type || m_result->type() == Cantor::LatexResult::Type);
+    Q_ASSERT(
+        m_result->type() == Cantor::TextResult::Type
+        || m_result->type() == Cantor::LatexResult::Type
+        || m_result->type() == Cantor::MimeResult::Type
+    );
     switch(m_result->type()) {
     case Cantor::TextResult::Type:
+    case Cantor::MimeResult::Type:
         {
             QTextCursor cursor = textCursor();
             cursor.movePosition(QTextCursor::Start);
