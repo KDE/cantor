@@ -110,6 +110,8 @@ QDomElement ImageResult::toXml(QDomDocument& doc)
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("image"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
+    if (!d->alt.isEmpty())
+        e.appendChild(doc.createTextNode(d->alt));
     qDebug()<<"done";
 
     return e;

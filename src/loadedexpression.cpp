@@ -109,7 +109,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                     addResult(new Cantor::EpsResult(imageUrl));
                 }else
                 {
-                    addResult(new Cantor::ImageResult(imageUrl));
+                    addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }
             }
         }

@@ -61,6 +61,7 @@ void TestJulia::testException()
     Cantor::Expression *e = evalExp(QLatin1String("sqrt(-1)"));
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Error);
+    QCOMPARE(e->results().size(), 0);
     QVERIFY(
         !e->errorMessage().isEmpty()
         && e->errorMessage().contains(QLatin1String(
@@ -75,6 +76,7 @@ void TestJulia::testSyntaxError()
     Cantor::Expression *e = evalExp(QLatin1String("for i = 1:10\nprint(i)"));
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Error);
+    QCOMPARE(e->results().size(), 0);
     QVERIFY(
         !e->errorMessage().isEmpty()
         && e->errorMessage().contains(QLatin1String(
@@ -157,6 +159,7 @@ void TestJulia::testInlinePlotWithExceptionAndPartialResult()
     ));
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Error);
+    QVERIFY(e->result());
     QVERIFY(e->result()->type() == Cantor::TextResult::Type);
     QCOMPARE(e->result()->data().toString(), QLatin1String("gonna plot"));
     QVERIFY(
