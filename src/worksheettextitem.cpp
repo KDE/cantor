@@ -225,7 +225,10 @@ void WorksheetTextItem::copy()
     } else {
         if (!textCursor().hasSelection())
             return;
-        QApplication::clipboard()->setText(resolveImages(textCursor()));
+        QString text = resolveImages(textCursor());
+        text.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+        text.replace(QChar::LineSeparator, QLatin1Char('\n'));
+        QApplication::clipboard()->setText(text);
     }
 }
 
