@@ -24,6 +24,7 @@
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
 #include "lib/mimeresult.h"
+#include "lib/htmlresult.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -62,6 +63,28 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
             showCodeAction = menu->addAction(i18n("Show Code"));
 
         connect(showCodeAction, &QAction::triggered, this, &TextResultItem::toggleLatexCode);
+    } else if (res->type() == Cantor::HtmlResult::Type) {
+        Cantor::HtmlResult* hres = static_cast<Cantor::HtmlResult*>(res);
+        switch (hres->format())
+        {
+            case Cantor::HtmlResult::Html:
+                connect(menu->addAction(i18n("Show Html Code")), &QAction::triggered, this, &TextResultItem::showHtmlSource);
+                if (!hres->plain().isEmpty())
+                    connect(menu->addAction(i18n("Show Plain Alternative")), &QAction::triggered, this, &TextResultItem::showPlain);
+                break;
+
+            case Cantor::HtmlResult::HtmlSource:
+                connect(menu->addAction(i18n("Show Html")), &QAction::triggered, this, &TextResultItem::showHtml);
+                if (!hres->plain().isEmpty())
+                    connect(menu->addAction(i18n("Show Plain Alternative")), &QAction::triggered, this, &TextResultItem::showPlain);
+                break;
+
+            case Cantor::HtmlResult::PlainAlternative:
+                connect(menu->addAction(i18n("Show Html")), &QAction::triggered, this, &TextResultItem::showHtml);
+                connect(menu->addAction(i18n("Show Html Code")), &QAction::triggered, this, &TextResultItem::showHtmlSource);
+                break;
+
+        }
     }
 
     menu->addSeparator();
@@ -75,20 +98,13 @@ void TextResultItem::update()
         m_result->type() == Cantor::TextResult::Type
         || m_result->type() == Cantor::LatexResult::Type
         || m_result->type() == Cantor::MimeResult::Type
+        || m_result->type() == Cantor::HtmlResult::Type
     );
     switch(m_result->type()) {
     case Cantor::TextResult::Type:
     case Cantor::MimeResult::Type:
-        {
-            QTextCursor cursor = textCursor();
-            cursor.movePosition(QTextCursor::Start);
-            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-            QString html = m_result->toHtml();
-            if (html.isEmpty())
-                cursor.removeSelectedText();
-            else
-                cursor.insertHtml(html);
-        }
+    case Cantor::HtmlResult::Type:
+        setHtml(m_result->toHtml());
         break;
     case Cantor::LatexResult::Type:
         setLatex(dynamic_cast<Cantor::LatexResult*>(m_result));
@@ -147,6 +163,27 @@ void TextResultItem::toggleLatexCode()
      else
          lr->showCode();
 
+     parentEntry()->updateEntry();
+}
+
+void TextResultItem::showHtml()
+{
+     Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(result());
+     hr->setFormat(Cantor::HtmlResult::Html);
+     parentEntry()->updateEntry();
+}
+
+void TextResultItem::showHtmlSource()
+{
+     Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(result());
+     hr->setFormat(Cantor::HtmlResult::HtmlSource);
+     parentEntry()->updateEntry();
+}
+
+void TextResultItem::showPlain()
+{
+     Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(result());
+     hr->setFormat(Cantor::HtmlResult::PlainAlternative);
      parentEntry()->updateEntry();
 }
 

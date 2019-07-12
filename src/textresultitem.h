@@ -51,6 +51,9 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
 
   protected Q_SLOTS:
     void toggleLatexCode();
+    void showHtml();
+    void showHtmlSource();
+    void showPlain();
     void saveResult();
 };
 

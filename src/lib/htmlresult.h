@@ -15,11 +15,11 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2019 Sirgienko Nikita <warquark@gmail.com>
  */
 
-#ifndef _TEXTRESULT_H
-#define _TEXTRESULT_H
+#ifndef _HTMLRESULT_H
+#define _HTMLRESULT_H
 
 #include "result.h"
 
@@ -28,26 +28,29 @@
 namespace Cantor
 {
 
-class TextResultPrivate;
-class CANTOR_EXPORT TextResult : public Result
+class HtmlResultPrivate;
+/**
+ * Class for html results
+ * Instead of TextResult supports show/hide source html code like LatexResult
+ * Also the result allows see plain alternative of the html, if available
+ */
+class CANTOR_EXPORT HtmlResult : public Result
 {
   public:
-    enum { Type=1 };
-    enum Format { PlainTextFormat, LatexFormat};
-    TextResult(const QString& text);
-    TextResult(const QString& text, const QString& plain);
-    ~TextResult() override;
+    enum { Type=8 };
+    enum Format { Html, HtmlSource, PlainAlternative};
+    HtmlResult(const QString& html, const QString& plain = QString());
+    ~HtmlResult() override;
 
     QString toHtml() override;
     QVariant data() override;
-
     QString plain();
+
+    void setFormat(Format format);
+    Format format();
 
     int type() override;
     QString mimeType() override;
-
-    Format format();
-    void setFormat(Format f);
 
     QDomElement toXml(QDomDocument& doc) override;
     QJsonValue toJupyterJson() override;
@@ -58,8 +61,8 @@ class CANTOR_EXPORT TextResult : public Result
     QJsonArray jupyterText(const QString& text);
 
   private:
-    TextResultPrivate* d;
+    HtmlResultPrivate* d;
 };
 
 }
-#endif /* _TEXTRESULT_H */
+#endif /* _HTMLRESULT_H */

@@ -71,15 +71,10 @@ TextResult::~TextResult()
 
 QString TextResult::toHtml()
 {
-    if (d->format == HTMLFormat)
-        return d->data;
-    else
-    {
-        QString s=d->data.toHtmlEscaped();
-        s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
-        s.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
-        return s;
-    }
+    QString s=d->data.toHtmlEscaped();
+    s.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
+    s.replace(QLatin1Char(' '), QLatin1String("&nbsp;"));
+    return s;
 }
 
 QVariant TextResult::data()
@@ -108,9 +103,6 @@ QString TextResult::mimeType()
         case TextResult::LatexFormat:
             return QStringLiteral("text/x-tex");
 
-        case TextResult::HTMLFormat:
-            return QStringLiteral("text/html");
-
         default:
             return QString();
     }
@@ -131,9 +123,7 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     qDebug()<<"saving textresult "<<toHtml();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
-    if (d->format == HTMLFormat)
-        e.setAttribute(QStringLiteral("format"), QStringLiteral("html"));
-    else if (d->format == LatexFormat)
+    if (d->format == LatexFormat)
         e.setAttribute(QStringLiteral("format"), QStringLiteral("latex"));
     QDomText txt=doc.createTextNode(data().toString());
     e.appendChild(txt);
@@ -147,22 +137,6 @@ QJsonValue Cantor::TextResult::toJupyterJson()
 
     switch (d->format)
     {
-        case HTMLFormat:
-        {
-            root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
-
-            QJsonObject data;
-            qDebug() << d->data;
-            data.insert(QLatin1String("text/html"), jupyterText(d->data));
-
-            if (!d->plain.isEmpty())
-                data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
-            root.insert(QLatin1String("data"), data);
-
-            root.insert(QLatin1String("metadata"), QJsonObject());
-            break;
-        }
-
         case PlainTextFormat:
         {
             root.insert(QLatin1String("output_type"), QLatin1String("stream"));

@@ -39,6 +39,7 @@
 #include "../lib/latexresult.h"
 #include "../lib/animationresult.h"
 #include "../lib/mimeresult.h"
+#include "../lib/htmlresult.h"
 
 #include "config-cantor-test.h"
 
@@ -208,25 +209,23 @@ void WorksheetTest::testTextResult(WorksheetEntry* entry, int index, const QStri
     QCOMPARE(result->plain(), content);
 }
 
-void WorksheetTest::testHTMLTextResult(WorksheetEntry* entry, int index, const QString& content)
+void WorksheetTest::testHtmlResult(WorksheetEntry* entry, int index, const QString& content)
 {
     QVERIFY(expression(entry));
     QVERIFY(expression(entry)->results().size() > index);
-    QCOMPARE(expression(entry)->results().at(index)->type(), (int)Cantor::TextResult::Type);
-    Cantor::TextResult* result = static_cast<Cantor::TextResult*>(expression(entry)->results().at(index));
-    QVERIFY(result->format() == Cantor::TextResult::HTMLFormat);
+    QCOMPARE(expression(entry)->results().at(index)->type(), (int)Cantor::HtmlResult::Type);
+    Cantor::HtmlResult* result = static_cast<Cantor::HtmlResult*>(expression(entry)->results().at(index));
     QCOMPARE(result->plain(), content);
 }
 
-void WorksheetTest::testHTMLTextResult(WorksheetEntry* entry, int index, const QString& plain, const QString& html)
+void WorksheetTest::testHtmlResult(WorksheetEntry* entry, int index, const QString& plain, const QString& html)
 {
     QVERIFY(expression(entry));
     QVERIFY(expression(entry)->results().size() > index);
-    QCOMPARE(expression(entry)->results().at(index)->type(), (int)Cantor::TextResult::Type);
-    Cantor::TextResult* result = static_cast<Cantor::TextResult*>(expression(entry)->results().at(index));
-    QVERIFY(result->format() == Cantor::TextResult::HTMLFormat);
+    QCOMPARE(expression(entry)->results().at(index)->type(), (int)Cantor::HtmlResult::Type);
+    Cantor::HtmlResult* result = static_cast<Cantor::HtmlResult*>(expression(entry)->results().at(index));
+    QCOMPARE(result->data().toString(), html);
     QCOMPARE(result->plain(), plain);
-    QCOMPARE(result->toHtml(), html);
 }
 
 void WorksheetTest::testJupyter1()
@@ -800,16 +799,12 @@ void WorksheetTest::testJupyter1()
     QVERIFY(expression(entry));
     QCOMPARE(expression(entry)->id(), 27);
     QCOMPARE(expression(entry)->results().size(), 1);
-    QCOMPARE(expression(entry)->result()->type(), (int)Cantor::TextResult::Type);
-    {
-    Cantor::TextResult* result = static_cast<Cantor::TextResult*>(expression(entry)->result());
-    QVERIFY(result->format() == Cantor::TextResult::HTMLFormat);
-    QCOMPARE(result->plain(), QLatin1String("<IPython.core.display.HTML at 0x7f2f2d5a0048>"));
-    QCOMPARE(result->data().toString(), QLatin1String(
+    testHtmlResult(entry, 0, QString::fromUtf8(
+        "<IPython.core.display.HTML at 0x7f2f2d5a0048>"
+    ), QString::fromUtf8(
         "<table><tr><th>Software</th><th>Version</th></tr><tr><td>IPython</td><td>2.0.0</td></tr><tr><td>OS</td><td>posix [linux]</td></tr><tr><td>Python</td><td>3.4.1 (default, Jun  9 2014, 17:34:49) \n"
         "[GCC 4.8.3]</td></tr><tr><td>QuTiP</td><td>3.0.0.dev-5a88aa8</td></tr><tr><td>Numpy</td><td>1.8.1</td></tr><tr><td>matplotlib</td><td>1.3.1</td></tr><tr><td>Cython</td><td>0.20.1post0</td></tr><tr><td>SciPy</td><td>0.13.3</td></tr><tr><td colspan='2'>Thu Jun 26 14:28:35 2014 JST</td></tr></table>"
     ));
-    }
 
     QCOMPARE(entry->next(), nullptr);
 }
@@ -1573,7 +1568,7 @@ void WorksheetTest::testJupyter2()
         "/usr/local/lib/python3.6/dist-packages/matplotlib/contour.py:960: UserWarning: The following kwargs were not used by contour: 'rstride', 'cstride', 'linewidth'\n"
         "  s)"
     ));
-    testHTMLTextResult(entry, 1, QString::fromUtf8(
+    testHtmlResult(entry, 1, QString::fromUtf8(
         "<IPython.core.display.HTML object>"
     ));
     entry = entry->next();
@@ -1909,7 +1904,7 @@ void WorksheetTest::testJupyter2()
         "/usr/local/lib/python3.6/dist-packages/matplotlib/contour.py:960: UserWarning: The following kwargs were not used by contour: 'rstride', 'cstride', 'linewidth'\n"
         "  s)"
     ));
-    testHTMLTextResult(entry, 1, QString::fromUtf8(
+    testHtmlResult(entry, 1, QString::fromUtf8(
         "<IPython.core.display.HTML object>"
     ));
     entry = entry->next();
@@ -1952,7 +1947,7 @@ void WorksheetTest::testJupyter2()
         "%load_ext version_information\n"
         "%version_information scipy, numpy, matplotlib, seaborn, deap"
     ));
-    testHTMLTextResult(entry, 0, QString::fromLatin1(
+    testHtmlResult(entry, 0, QString::fromLatin1(
         "Software versions\n"
         "Python 3.6.7 64bit [GCC 8.2.0]\n"
         "IPython 6.3.1\n"
@@ -1975,7 +1970,7 @@ void WorksheetTest::testJupyter2()
         "from urllib.request import urlopen\n"
         "HTML(urlopen('https://raw.githubusercontent.com/lmarti/jupyter_custom/master/custom.include').read().decode('utf-8'))"
     ));
-    testHTMLTextResult(entry, 0, QString::fromUtf8(
+    testHtmlResult(entry, 0, QString::fromUtf8(
         "<IPython.core.display.HTML object>"
     ));
     entry = entry->next();
@@ -2030,7 +2025,7 @@ void WorksheetTest::testJupyter3()
         "#This will load an image of an RNA secondary structure\n"
         "Image(url='http://www.tbi.univie.ac.at/~pkerp/forgi/_images/1y26_ss.png')"
     ));
-    testHTMLTextResult(entry, 0, QString::fromLatin1(
+    testHtmlResult(entry, 0, QString::fromLatin1(
         "<IPython.core.display.Image object>"
     ), QString::fromLatin1(
         "<img src=\"http://www.tbi.univie.ac.at/~pkerp/forgi/_images/1y26_ss.png\"/>"
@@ -4232,7 +4227,7 @@ void WorksheetTest::testJupyter5()
         "from IPython.display import YouTubeVideo\n"
         "YouTubeVideo('dGcLHtYLgDU')"
     ));
-    testHTMLTextResult(entry, 0, QString::fromLatin1(
+    testHtmlResult(entry, 0, QString::fromLatin1(
         "<IPython.lib.display.YouTubeVideo at 0x7fa7a1ee4c50>"
     ));
     entry = entry->next();
@@ -6696,7 +6691,7 @@ void WorksheetTest::testMimeResult()
         "    }\n"
         "])"
     ));
-    testHTMLTextResult(entry, 0, QString::fromLatin1(
+    testHtmlResult(entry, 0, QString::fromLatin1(
         ""
     ), QString::fromLatin1(
         "<div id=\"bb6d9031-c990-4aee-849e-6d697430777c\" style=\"height: 600px; width:100%;font: 12px/18px monospace !important;\"></div>"
@@ -6769,7 +6764,7 @@ void WorksheetTest::testMimeResultWithPlain()
         "    }\n"
         "])"
     ));
-    testHTMLTextResult(entry, 0, QString::fromLatin1(
+    testHtmlResult(entry, 0, QString::fromLatin1(
         ""
     ), QString::fromLatin1(
         "<div id=\"bb6d9031-c990-4aee-849e-6d697430777c\" style=\"height: 600px; width:100%;font: 12px/18px monospace !important;\"></div>"

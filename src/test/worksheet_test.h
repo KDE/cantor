@@ -63,6 +63,6 @@ class WorksheetTest: public QObject
     static void testTextEntry(WorksheetEntry* &entry, const QString& content);
     static void testImageResult(WorksheetEntry* entry, int index);
     static void testTextResult(WorksheetEntry* entry, int index, const QString& content);
-    static void testHTMLTextResult(WorksheetEntry* entry, int index, const QString& content);
-    static void testHTMLTextResult(WorksheetEntry* entry, int index, const QString& plain, const QString& html);
+    static void testHtmlResult(WorksheetEntry* entry, int index, const QString& content);
+    static void testHtmlResult(WorksheetEntry* entry, int index, const QString& plain, const QString& html);
 };

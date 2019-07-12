@@ -11,6 +11,7 @@ set( cantor_LIB_SRCS
   latexrenderer.cpp
   helpresult.cpp
   animationresult.cpp
+  htmlresult.cpp
   extension.cpp
   assistant.cpp
   completionobject.cpp
@@ -41,6 +42,7 @@ Set( cantor_LIB_HDRS
   result.h
   textresult.h
   mimeresult.h
+  htmlresult.h
   #helper classes
   defaulthighlighter.h
   defaultvariablemodel.h

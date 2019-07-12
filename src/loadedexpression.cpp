@@ -28,6 +28,7 @@
 #include "lib/animationresult.h"
 #include "lib/latexrenderer.h"
 #include "lib/mimeresult.h"
+#include "lib/htmlresult.h"
 
 #include <QDir>
 #include <QStandardPaths>
@@ -67,9 +68,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         {
             const QString& format = resultElement.attribute(QLatin1String("format"));
             Cantor::TextResult* result = new Cantor::TextResult(resultElement.text());
-            if (format == QLatin1String("html"))
-                result->setFormat(Cantor::TextResult::HTMLFormat);
-            else if (format == QLatin1String("latex"))
+            if (format == QLatin1String("latex"))
                 result->setFormat(Cantor::TextResult::LatexFormat);
             addResult(result);
         }
@@ -88,6 +87,23 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             const QJsonValue& value = jsonDoc.object().value(QLatin1String("content"));
 
             addResult(new Cantor::MimeResult(plain, value, mimeType));
+        }
+        else if (type == QLatin1String("html"))
+        {
+            const QString& formatString = resultElement.attribute(QLatin1String("showCode"));
+            Cantor::HtmlResult::Format format = Cantor::HtmlResult::Html;
+            if (formatString == QLatin1String("htmlSource"))
+                format = Cantor::HtmlResult::HtmlSource;
+            else if (formatString == QLatin1String("plain"))
+                format = Cantor::HtmlResult::PlainAlternative;
+
+            const QString& plain = resultElement.firstChildElement(QLatin1String("Plain")).text();
+            const QString& html = resultElement.firstChildElement(QLatin1String("Html")).text();
+
+            Cantor::HtmlResult* result = new Cantor::HtmlResult(html, plain);
+            result->setFormat(format);
+
+            addResult(result);
         }
         else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
         {
@@ -196,9 +212,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 }
                 else
                 {
-                    Cantor::TextResult* result = new Cantor::TextResult(html, text);
-                    result->setFormat(Cantor::TextResult::HTMLFormat);
-                    addResult(result);
+                    addResult(new Cantor::HtmlResult(html, text));
                 }
             }
             else if (mainKey == JupyterUtils::latexMime)
