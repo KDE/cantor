@@ -73,7 +73,7 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
         }
     }
     if (imageSelected) {
-        menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
+        menu->addAction(i18n("Show LaTeX code"), this, &MarkdownEntry::resolveImagesAtCursor);
         menu->addSeparator();
     }
     WorksheetEntry::populateMenu(menu, pos);
@@ -465,4 +465,12 @@ QTextCursor MarkdownEntry::findLatexCode(const QTextCursor& cursor) const
     startCursor.setPosition(startCursor.selectionStart());
     startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
     return startCursor;
+}
+
+void MarkdownEntry::resolveImagesAtCursor()
+{
+    QTextCursor cursor = m_textItem->textCursor();
+    if (!cursor.hasSelection())
+        cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+    cursor.insertText(m_textItem->resolveImages(cursor));
 }
