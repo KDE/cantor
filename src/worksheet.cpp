@@ -1413,7 +1413,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
 void Worksheet::showInvalidNotebookSchemeError()
 {
-    KMessageBox::error(worksheetView(), i18n("The file is not a valid Jupyter notebook file."), i18n("Cantor"));
+    KMessageBox::error(worksheetView(), i18n("The file is not valid or too old Jupyter notebook file."), i18n("Cantor"));
 }
 
 
