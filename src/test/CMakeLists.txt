@@ -25,6 +25,8 @@ set(worksheettest_SRCS
     ../animation.cpp
     ../epsrenderer.cpp
     ../jupyterutils.cpp
+    ../mathrender.cpp
+    ../mathrendertask.cpp
     worksheet_test.cpp)
 
 ki18n_wrap_ui(worksheettest_SRCS ../imagesettings.ui)
@@ -58,6 +60,7 @@ target_link_libraries( testworksheet
     Qt5::Xml
     ${Qt5XmlPatterns_LIBRARIES}
     KF5::TextEditor
+    Poppler::Qt5
 )
 
 if(LIBSPECTRE_FOUND)

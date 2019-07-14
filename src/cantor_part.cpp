@@ -256,10 +256,13 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
-    m_embeddedMath= new KToggleAction(i18n("Embedded Math"), collection);
-    m_embeddedMath->setChecked(Settings::self()->embeddedMathDefault());
-    collection->addAction(QLatin1String("enable_embedded_math"), m_embeddedMath);
-    connect(m_embeddedMath, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableEmbeddedMath(bool)));
+    if (m_worksheet->mathRenderer()->mathRenderAvailable())
+    {
+        m_embeddedMath= new KToggleAction(i18n("Embedded Math"), collection);
+        m_embeddedMath->setChecked(Settings::self()->embeddedMathDefault());
+        collection->addAction(QLatin1String("enable_embedded_math"), m_embeddedMath);
+        connect(m_embeddedMath, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableEmbeddedMath(bool)));
+    }
 
     m_restart = new QAction(i18n("Restart Backend"), collection);
     collection->addAction(QLatin1String("restart_backend"), m_restart);

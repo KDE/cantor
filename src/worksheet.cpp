@@ -137,6 +137,7 @@ void Worksheet::loginToSession()
 void Worksheet::print(QPrinter* printer)
 {
     m_epsRenderer.useHighResolution(true);
+    m_mathRenderer.useHighResolution(true);
     m_isPrinting = true;
     QRect pageRect = printer->pageRect();
     qreal scale = 1; // todo: find good scale for page size
@@ -174,6 +175,7 @@ void Worksheet::print(QPrinter* printer)
     painter.end();
     m_isPrinting = false;
     m_epsRenderer.useHighResolution(false);
+    m_mathRenderer.useHighResolution(false);
     m_epsRenderer.setScale(-1);  // force update in next call to setViewSize,
     worksheetView()->updateSceneSize(); // ... which happens in here
 }
@@ -190,6 +192,7 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
     m_viewWidth = w;
     if (s != m_epsRenderer.scale() || forceUpdate) {
         m_epsRenderer.setScale(s);
+        m_mathRenderer.setScale(s);
         for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
             entry->updateEntry();
     }
@@ -890,7 +893,7 @@ void Worksheet::enableAnimations(bool enable)
 
 bool Worksheet::embeddedMathEnabled()
 {
-    return m_embeddedMathEnabled;
+    return m_embeddedMathEnabled && m_mathRenderer.mathRenderAvailable();
 }
 
 void Worksheet::enableEmbeddedMath(bool enable)
@@ -1456,6 +1459,11 @@ void Worksheet::removeCurrentEntry()
 EpsRenderer* Worksheet::epsRenderer()
 {
     return &m_epsRenderer;
+}
+
+MathRenderer* Worksheet::mathRenderer()
+{
+    return &m_mathRenderer;
 }
 
 QMenu* Worksheet::createContextMenu()

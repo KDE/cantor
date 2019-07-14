@@ -31,7 +31,7 @@
       <default>true</default>
     </entry>
     <entry name="EmbeddedMathDefault" type="Bool">
-      <label>Enable rendering math expressions inside $$..$$ in Text and Markdown entries by default</label>
+      <label>Enable rendering math expressions inside $$..$$ in Text and Markdown entries by default (needs pdflatex installed)</label>
       <default>true</default>
     </entry>
     <entry name="AutoEval" type="Bool">

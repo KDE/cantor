@@ -23,8 +23,12 @@
 
 #include <vector>
 
+#include <QSharedPointer>
+
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
+
+#include "mathrendertask.h"
 
 class QJsonObject;
 
@@ -73,6 +77,10 @@ class MarkdownEntry : public WorksheetEntry
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
     QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;
+    void renderMath();
+
+  protected Q_SLOTS:
+    void handleMathRender(QSharedPointer<MathRenderResult> result);
 
   protected:
     WorksheetTextItem* m_textItem;

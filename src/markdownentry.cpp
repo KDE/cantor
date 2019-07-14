@@ -26,8 +26,11 @@
 #include <QImage>
 #include <QImageReader>
 #include <QBuffer>
+#include <KLocalizedString>
+#include <QDebug>
 
 #include "jupyterutils.h"
+#include "mathrender.h"
 #include <config-cantor.h>
 
 #ifdef Discount_FOUND
@@ -36,8 +39,6 @@ extern "C" {
 }
 #endif
 
-#include <KLocalizedString>
-#include <QDebug>
 
 MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)), rendered(false)
 {
@@ -289,53 +290,8 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
         }
     }
 
-    if (rendered && worksheet()->embeddedMathEnabled())
-    {
-        // Render math in $$...$$ via Latex
-        QTextCursor cursor = findLatexCode();
-        while (!cursor.isNull())
-        {
-            QString latexCode = cursor.selectedText();
-            qDebug()<<"found latex: " << latexCode;
-
-            latexCode.remove(0, 2);
-            latexCode.remove(latexCode.length() - 2, 2);
-            latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
-            latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
-
-
-            Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
-            renderer->setLatexCode(latexCode);
-            renderer->setEquationOnly(true);
-            renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
-            renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
-
-            renderer->renderBlocking();
-
-            bool success;
-            QTextImageFormat formulaFormat;
-            if (renderer->renderingSuccessful()) {
-                EpsRenderer* epsRend = worksheet()->epsRenderer();
-                formulaFormat = epsRend->render(m_textItem->document(), renderer);
-                success = !formulaFormat.name().isEmpty();
-            } else {
-                success = false;
-            }
-
-            qDebug()<<"rendering successful? "<<success;
-            if (!success) {
-                cursor = findLatexCode(cursor);
-                continue;
-            }
-
-            formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
-
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
-            delete renderer;
-
-            cursor = findLatexCode(cursor);
-        }
-    }
+    if (worksheet()->embeddedMathEnabled())
+        renderMath();
 
     evaluateNext(evalOp);
     return true;
@@ -373,10 +329,7 @@ void MarkdownEntry::updateEntry()
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
         if (format.hasProperty(EpsRenderer::CantorFormula))
-        {
-            const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
-            worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
-        }
+            worksheet()->mathRenderer()->rerender(m_textItem->document(), format);
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
@@ -473,4 +426,45 @@ void MarkdownEntry::resolveImagesAtCursor()
     if (!cursor.hasSelection())
         cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
     cursor.insertText(m_textItem->resolveImages(cursor));
+}
+
+void MarkdownEntry::renderMath()
+{
+    // Render math in $$...$$ via Latex
+    QTextCursor cursor = findLatexCode();
+    while (!cursor.isNull())
+    {
+        QString latexCode = cursor.selectedText();
+        qDebug()<<"found latex: " << latexCode;
+
+        latexCode.remove(0, 2);
+        latexCode.remove(latexCode.length() - 2, 2);
+        latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+        latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
+
+        MathRenderer* renderer = worksheet()->mathRenderer();
+        renderer->renderExpression(latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+
+        cursor = findLatexCode(cursor);
+    }
+}
+
+void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
+{
+    if (!result->successfull)
+    {
+        qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
+        return;
+    }
+
+    const QString& code = result->renderedMath.property(EpsRenderer::Code).toString();
+    // Jupyter TODO: add support for $...$ math and starts use
+    // result->renderedMath.property(EpsRenderer::Delimiter).toString();
+    const QString& delimiter = QLatin1String("$$");
+    QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
+    if (!cursor.isNull())
+    {
+        m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
+    }
 }
