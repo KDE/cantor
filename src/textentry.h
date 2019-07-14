@@ -30,9 +30,9 @@
 #include <QTextCursor>
 #include <KArchive>
 
-
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
+#include "mathrendertask.h"
 
 class TextEntry : public WorksheetEntry
 {
@@ -81,6 +81,9 @@ class TextEntry : public WorksheetEntry
 
   protected:
     bool wantToEvaluate() override;
+
+  protected Q_SLOTS:
+    void handleMathRender(QSharedPointer<MathRenderResult> result);
 
   private:
     QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;

@@ -24,6 +24,7 @@
 #include "epsrenderer.h"
 #include "latexrenderer.h"
 #include "jupyterutils.h"
+#include "mathrender.h"
 
 #include "settings.h"
 
@@ -276,46 +277,20 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
 {
     if (worksheet()->embeddedMathEnabled())
     {
+        // Render math in $$...$$ via Latex
         QTextCursor cursor = findLatexCode();
         while (!cursor.isNull())
         {
             QString latexCode = cursor.selectedText();
-            qDebug()<<"found latex: "<<latexCode;
+            qDebug()<<"found latex: " << latexCode;
 
             latexCode.remove(0, 2);
             latexCode.remove(latexCode.length() - 2, 2);
-            latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
-            latexCode.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
+            latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+            latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
-
-            Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
-            renderer->setLatexCode(latexCode);
-            renderer->setEquationOnly(true);
-            renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
-            renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
-
-            renderer->renderBlocking();
-
-            bool success;
-            QTextImageFormat formulaFormat;
-            if (renderer->renderingSuccessful()) {
-                EpsRenderer* epsRend = worksheet()->epsRenderer();
-                formulaFormat = epsRend->render(m_textItem->document(), renderer);
-                success = !formulaFormat.name().isEmpty();
-            } else {
-                success = false;
-            }
-
-            qDebug()<<"rendering successful? "<<success;
-            if (!success) {
-                cursor = findLatexCode(cursor);
-                continue;
-            }
-
-            formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
-
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
-            delete renderer;
+            MathRenderer* renderer = worksheet()->mathRenderer();
+            renderer->renderExpression(latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
 
             cursor = findLatexCode(cursor);
         }
@@ -477,4 +452,27 @@ bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
     const QString& source = JupyterUtils::getSource(cell);
 
     return textContent == source;
+}
+
+
+void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
+{
+    if (!result->successfull)
+    {
+        qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
+        return;
+    }
+
+    const QString& code = result->renderedMath.property(EpsRenderer::Code).toString();
+    // Jupyter TODO: add support for $...$ math and starts use
+    // result->renderedMath.property(EpsRenderer::Delimiter).toString();
+    const QString& delimiter = QLatin1String("$$");
+    QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
+    if (!cursor.isNull())
+    {
+        m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
+        // Jupyter TODO: add support for $...$ math and don't change delimiter here (needed for image resolving)
+        result->renderedMath.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
+    }
 }

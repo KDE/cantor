@@ -458,9 +458,9 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
     }
 
     const QString& code = result->renderedMath.property(EpsRenderer::Code).toString();
-    // Jupyter TODO: add support for $...$ math and starts use
-    // result->renderedMath.property(EpsRenderer::Delimiter).toString();
-    const QString& delimiter = QLatin1String("$$");
+    // Jupyter TODO: add support for $...$ math and remove delimiter changing (neede for image resolving)
+    result->renderedMath.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+    const QString& delimiter = result->renderedMath.property(EpsRenderer::Delimiter).toString();
     QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
     if (!cursor.isNull())
     {
