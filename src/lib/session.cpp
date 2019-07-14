@@ -242,6 +242,6 @@ void Cantor::Session::reportSessionCrash(const QString& additionalInfo)
     if (additionalInfo.isEmpty())
         KMessageBox::error(nullptr, i18n("%1 process has died unexpectedly. All calculation results are lost.", d->backend->name()), i18n("Error - Cantor"));
     else
-        KMessageBox::error(nullptr, i18n("%1 process has died unexpectedly with message \"%2\". All calculation results are lost.", d->backend->name()), i18n("Error - Cantor"));
+        KMessageBox::error(nullptr, i18n("%1 process has died unexpectedly with message \"%2\". All calculation results are lost.", d->backend->name(), additionalInfo), i18n("Error - Cantor"));
     logout();
 }

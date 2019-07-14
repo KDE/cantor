@@ -235,13 +235,13 @@ class CANTOR_EXPORT Session : public QObject
     virtual void finishFirstExpression(bool setDoneAfterUpdate = false);
 
     /**
-     * Starts variable update immideatly, usefull for subclasses, which run internal command
+     * Starts variable update immideatly, useful for subclasses, which run internal command
      * which could change variables listen
      */
     virtual void updateVariables();
 
     /**
-     * Setting variable model, usefull, if model constructor requires functional session
+     * Setting variable model, useful if model constructor requires functional session
      */
     void setVariableModel(DefaultVariableModel* model);
 
