@@ -197,19 +197,19 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
 
     QSize pageSize = pdfPage->pageSize();
 
-    double pscale;
+    double realSclae;
     qreal w, h;
     if(highResolution) {
-        pscale=1.2 * 4.8 * 1.8;
+        realSclae = 1.2 * 4.8 * 1.8;
         w = 1.2 * pageSize.width();
         h = 1.2 * pageSize.height();
     } else {
-        pscale = 2.3 * scale * 1.8;
+        realSclae = 2.3 * scale * 1.8;
         w = 2.3 * pageSize.width();
         h = 2.3 * pageSize.height();
     }
 
-    QImage image = pdfPage->renderToImage(72.0*pscale, 72.0*pscale, 0, 0, pageSize.width()*pscale, pageSize.height()*pscale);
+    QImage image = pdfPage->renderToImage(72.0*realSclae, 72.0*realSclae);
 
     if (image.isNull())
     {
