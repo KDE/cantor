@@ -121,6 +121,7 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
         plain = QLatin1String("");
         html = QLatin1String(""); // No plain text provided. The entry shouldn't render anything, or the user can't re-edit it.
     }
+
     if(rendered)
         setRenderedHtml(html);
     else
@@ -140,12 +141,11 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
     QDomElement plainEl = doc.createElement(QLatin1String("Plain"));
     plainEl.appendChild(doc.createTextNode(plain));
     el.appendChild(plainEl);
-    if(rendered)
-    {
-        QDomElement htmlEl = doc.createElement(QLatin1String("HTML"));
-        htmlEl.appendChild(doc.createTextNode(html));
-        el.appendChild(htmlEl);
-    }
+
+    QDomElement htmlEl = doc.createElement(QLatin1String("HTML"));
+    htmlEl.appendChild(doc.createTextNode(html));
+    el.appendChild(htmlEl);
+
     return el;
 }
 
@@ -174,7 +174,7 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
 {
     if(!rendered)
     {
-        if (m_textItem->toPlainText() == plain)
+        if (m_textItem->toPlainText() == plain && !html.isEmpty())
         {
             setRenderedHtml(html);
             rendered = true;
