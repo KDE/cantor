@@ -61,7 +61,6 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
     } else {
         // we need to try both the current cursor and the one after the that
         cursor = m_textItem->cursorForPosition(pos);
-        qDebug() << cursor.position();
         for (int i = 2; i; --i) {
             int p = cursor.position();
             if (m_textItem->document()->characterAt(p-1) == repl &&
@@ -311,6 +310,18 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
     char *htmlDocument;
     int htmlSize = mkd_document(mdHandle, &htmlDocument);
     html = QString::fromUtf8(htmlDocument, htmlSize);
+
+    char *latexData;
+    int latexDataSize = mkd_latextext(mdHandle, &latexData);
+    QStringList latexUnits = QString::fromUtf8(latexData, latexDataSize).split(QLatin1Char(31), QString::SkipEmptyParts);
+    foundMath.clear();
+    for (const QString& latex : latexUnits)
+    {
+        foundMath.push_back(std::make_pair(latex, false));
+        html.replace(latex, latex.toHtmlEscaped());
+    }
+    qDebug() << foundMath;
+
     mkd_cleanup(mdHandle);
 
     setRenderedHtml(html);
@@ -402,24 +413,6 @@ void MarkdownEntry::setPlainText(const QString& plain)
     m_textItem->allowEditing();
 }
 
-QTextCursor MarkdownEntry::findLatexCode(const QTextCursor& cursor) const
-{
-    QTextDocument *doc = m_textItem->document();
-    QTextCursor startCursor;
-    if (cursor.isNull())
-        startCursor = doc->find(QLatin1String("$$"));
-    else
-        startCursor = doc->find(QLatin1String("$$"), cursor);
-    if (startCursor.isNull())
-        return startCursor;
-    const QTextCursor endCursor = doc->find(QLatin1String("$$"), startCursor);
-    if (endCursor.isNull())
-        return endCursor;
-    startCursor.setPosition(startCursor.selectionStart());
-    startCursor.setPosition(endCursor.position(), QTextCursor::KeepAnchor);
-    return startCursor;
-}
-
 void MarkdownEntry::resolveImagesAtCursor()
 {
     QTextCursor cursor = m_textItem->textCursor();
@@ -430,22 +423,42 @@ void MarkdownEntry::resolveImagesAtCursor()
 
 void MarkdownEntry::renderMath()
 {
-    // Render math in $$...$$ via Latex
-    QTextCursor cursor = findLatexCode();
-    while (!cursor.isNull())
+    QTextCursor cursor(m_textItem->document());
+    cursor.movePosition(QTextCursor::Start);
+    for (std::pair<QString, bool> pair : foundMath)
     {
-        QString latexCode = cursor.selectedText();
-        qDebug()<<"found latex: " << latexCode;
+        static const QLatin1String inlineDelimiter("$");
+        static const QLatin1String displayedDelimiter("$$");
+        // Jupyter TODO: what about \( \) and \[ \]? Supports or not?
 
-        latexCode.remove(0, 2);
-        latexCode.remove(latexCode.length() - 2, 2);
+        QString searchText = pair.first;
+        searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
+
+        QTextCursor found = m_textItem->document()->find(searchText, cursor);
+        if (found.isNull())
+            continue;
+        cursor = found;
+
+        QString latexCode = cursor.selectedText();
         latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
         latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
+        qDebug()<<"found latex: " << latexCode;
 
         MathRenderer* renderer = worksheet()->mathRenderer();
-        renderer->renderExpression(latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+        if (latexCode.startsWith(displayedDelimiter) && latexCode.endsWith(displayedDelimiter))
+        {
+            latexCode.remove(0, 2);
+            latexCode.chop(2);
 
-        cursor = findLatexCode(cursor);
+            renderer->renderExpression(latexCode, Cantor::LatexRenderer::FullEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+        }
+        else if (latexCode.startsWith(inlineDelimiter) && latexCode.endsWith(inlineDelimiter))
+        {
+            latexCode.remove(0, 1);
+            latexCode.chop(1);
+
+            renderer->renderExpression(latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+        }
     }
 }
 
@@ -458,10 +471,11 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
     }
 
     const QString& code = result->renderedMath.property(EpsRenderer::Code).toString();
-    // Jupyter TODO: add support for $...$ math and remove delimiter changing (neede for image resolving)
-    result->renderedMath.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
     const QString& delimiter = result->renderedMath.property(EpsRenderer::Delimiter).toString();
-    QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
+    QString searchText = delimiter + code + delimiter;
+    searchText.replace(QRegExp(QLatin1String("\\s")), QLatin1String(" "));
+
+    QTextCursor cursor = m_textItem->document()->find(searchText);
     if (!cursor.isNull())
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));

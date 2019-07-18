@@ -76,7 +76,6 @@ class MarkdownEntry : public WorksheetEntry
     bool wantToEvaluate() override;
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
-    QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;
     void renderMath();
 
   protected Q_SLOTS:
@@ -88,6 +87,7 @@ class MarkdownEntry : public WorksheetEntry
     QString html;
     bool rendered;
     std::vector<std::pair<QUrl,QString>> attachedImages;
+    std::vector<std::pair<QString, bool>> foundMath;
 };
 
 #endif //MARKDOWNENTRY_H
