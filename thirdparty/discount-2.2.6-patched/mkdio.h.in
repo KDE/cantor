@@ -49,6 +49,7 @@ int mkd_document(MMIOT*, char**);
 int mkd_toc(MMIOT*, char**);
 int mkd_css(MMIOT*, char **);
 int mkd_xml(char *, int, char **);
+int mkd_latextext(MMIOT*, char **);
 
 /* write-to-file functions
  */

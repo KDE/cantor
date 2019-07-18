@@ -19,7 +19,7 @@ typedef DWORD mkd_flag_t;
 #define clear_flag(flags, item)		((flags) &= ~(item))
 
 /* each input line is read into a Line, which contains the line,
- * the offset of the first non-space character [this assumes 
+ * the offset of the first non-space character [this assumes
  * that all tabs will be expanded to spaces!], and a pointer to
  * the next line.
  */
@@ -72,7 +72,7 @@ typedef struct footnote {
     Cstring link;		/* what this footnote points to */
     Cstring title;		/* what it's called (TITLE= attribute) */
     Paragraph *text;		/* EXTRA_FOOTNOTE content */
-    
+
     int height, width;		/* dimensions (for image link) */
     int dealloc;		/* deallocation needed? */
     int refnumber;
@@ -106,7 +106,7 @@ typedef struct callback_data {
 } Callback_data;
 
 
-struct escaped { 
+struct escaped {
     char *text;
     struct escaped *up;
 } ;
@@ -130,6 +130,7 @@ typedef struct mmiot {
     struct escaped *esc;
     char *ref_prefix;
     struct footnote_list *footnotes;
+    Cstring latex;
     mkd_flag_t flags;
 #define MKD_NOLINKS	0x00000001
 #define MKD_NOIMAGE	0x00000002
@@ -236,6 +237,9 @@ extern void mkd_initialize();
 extern void mkd_shlib_destructor();
 
 extern void mkd_ref_prefix(Document*, char*);
+
+// Cantor latex extention
+extern int mkd_latextext(Document*, char**);
 
 /* internal resource handling functions.
  */
