@@ -297,7 +297,8 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KPluginFactory* factory = KPluginLoader(QLatin1String("cantorpart")).factory();
+    KPluginLoader loader(QLatin1String("cantorpart"));
+    KPluginFactory* factory = loader.factory();
     if (factory)
     {
         Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
@@ -337,7 +338,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     {
         // if we couldn't find our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Could not find the Cantor Part."));
+        KMessageBox::error(this, i18n("Failed to found the Cantor Part with error %1", loader.errorString()));
         qApp->quit();
         // we return here, cause qApp->quit() only means "exit the
         // next time we enter the event loop...
