@@ -30,6 +30,8 @@
 
 #include "lib/latexrenderer.h"
 
+class QMutex;
+
 struct MathRenderResult
 {
     bool successfull;
@@ -49,14 +51,15 @@ class MathRenderTask : public QObject, public QRunnable
         const QString& code,
         Cantor::LatexRenderer::EquationType type,
         double scale,
-        bool highResolution
+        bool highResolution,
+        QMutex* mutex
     );
 
     void setHandler(const QObject *receiver, const char *resultHandler);
 
     void run() override;
 
-    static QImage renderPdf(const QString& filename, double scale, bool highResulution, bool* success = nullptr, QSizeF* size = nullptr, QString* errorReason = nullptr);
+    static QImage renderPdf(const QString& filename, double scale, bool highResulution, bool* success = nullptr, QSizeF* size = nullptr, QString* errorReason = nullptr, QMutex* mutex = nullptr);
 
   Q_SIGNALS:
     void finish(QSharedPointer<MathRenderResult> result);
@@ -69,6 +72,7 @@ class MathRenderTask : public QObject, public QRunnable
     Cantor::LatexRenderer::EquationType m_type;
     double m_scale;
     bool m_highResolution;
+    QMutex* m_mutex;
 };
 
 #endif /* MATHRENDERTASK_H */

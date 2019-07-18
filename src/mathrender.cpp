@@ -59,7 +59,7 @@ void MathRenderer::useHighResolution(bool b)
 
 void MathRenderer::renderExpression(const QString& mathExpression, Cantor::LatexRenderer::EquationType type, const QObject* receiver, const char* resultHandler)
 {
-    MathRenderTask* task = new MathRenderTask(mathExpression, type, m_scale, m_useHighRes);
+    MathRenderTask* task = new MathRenderTask(mathExpression, type, m_scale, m_useHighRes, &popplerMutex);
     task->setHandler(receiver, resultHandler);
     task->setAutoDelete(false);
 
@@ -73,7 +73,7 @@ void MathRenderer::rerender(QTextDocument* document, const QTextImageFormat& mat
         return;
 
     bool success; QString errorMessage;
-    QImage img = MathRenderTask::renderPdf(filename, m_scale, m_useHighRes, &success, nullptr, &errorMessage);
+    QImage img = MathRenderTask::renderPdf(filename, m_scale, m_useHighRes, &success, nullptr, &errorMessage, &popplerMutex);
 
     if (success)
     {

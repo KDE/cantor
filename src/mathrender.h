@@ -22,6 +22,7 @@
 
 #include <QObject>
 #include <QTextImageFormat>
+#include <QMutex>
 
 #include "lib/latexrenderer.h"
 
@@ -67,6 +68,9 @@ class MathRenderer : public QObject {
   private:
     double m_scale;
     bool m_useHighRes;
+    // We need this, because poppler-qt5 not threadsafe before 0.73.0 and 0.73.0 is too new
+    // and not common widespread in repositories
+    QMutex popplerMutex;
 };
 
 #endif /* MATHRENDER_H */

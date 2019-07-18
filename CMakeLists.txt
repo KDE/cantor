@@ -42,7 +42,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     XmlGui
     I18n)
 
-find_package(Poppler "0.73.0" REQUIRED COMPONENTS Qt5)
+find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
 
 
 if(NOT WIN32)

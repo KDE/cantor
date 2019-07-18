@@ -27,6 +27,7 @@
 #include <KColorScheme>
 #include <KProcess>
 #include <QScopedPointer>
+#include <QMutex>
 
 #include <poppler-qt5.h>
 
@@ -57,8 +58,9 @@ MathRenderTask::MathRenderTask(
         const QString& code,
         Cantor::LatexRenderer::EquationType type,
         double scale,
-        bool highResolution
-    ): m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution)
+        bool highResolution,
+        QMutex* mutex
+    ): m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution), m_mutex(mutex)
     {}
 
 void MathRenderTask::setHandler(const QObject* receiver, const char* resultHandler)
@@ -127,7 +129,7 @@ void MathRenderTask::run()
     const QString& pdfFileName = pathWithoutExtention + QLatin1String(".pdf");
 
     bool success; QString errorMessage; QSizeF size;
-    result->image = renderPdf(pdfFileName, m_scale, m_highResolution, &success, &size, &errorMessage);
+    result->image = renderPdf(pdfFileName, m_scale, m_highResolution, &success, &size, &errorMessage, m_mutex);
     result->successfull = success;
     result->errorMessage = errorMessage;
 
@@ -173,9 +175,13 @@ void MathRenderTask::finalize(QSharedPointer<MathRenderResult> result)
     deleteLater();
 }
 
-QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool highResolution, bool* success, QSizeF* size, QString* errorReason)
+QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool highResolution, bool* success, QSizeF* size, QString* errorReason, QMutex* mutex)
 {
-    QScopedPointer<Poppler::Document> document(Poppler::Document::load(filename));
+    if (mutex)
+        mutex->lock();
+    Poppler::Document* document = Poppler::Document::load(filename);
+    if (mutex)
+        mutex->unlock();
     if (document == nullptr)
     {
         if (success)
@@ -185,13 +191,14 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
         return QImage();
     }
 
-    QScopedPointer<Poppler::Page> pdfPage(document->page(0));
+    Poppler::Page* pdfPage = document->page(0);
     if (pdfPage == nullptr) {
         if (success)
             *success = false;
         if (errorReason)
             *errorReason = QString::fromLatin1("Poppler library failed to access first page of %1 document").arg(filename);
 
+        delete document;
         return QImage();
     }
 
@@ -210,6 +217,13 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
     }
 
     QImage image = pdfPage->renderToImage(72.0*realSclae, 72.0*realSclae);
+
+    delete pdfPage;
+    if (mutex)
+        mutex->lock();
+    delete document;
+    if (mutex)
+        mutex->unlock();
 
     if (image.isNull())
     {
