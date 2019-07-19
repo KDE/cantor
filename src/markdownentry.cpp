@@ -150,6 +150,20 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
         setRenderedHtml(html);
     else
         setPlainText(plain);
+
+    // Handle math after setting html
+    const QDomNodeList& maths = content.elementsByTagName(QLatin1String("EmbeddedMath"));
+    for (int i = 0; i < maths.count(); i++)
+    {
+        const QDomElement& math = maths.at(i).toElement();
+        bool mathRendered = math.attribute(QLatin1String("rendered")).toInt();
+        const QString mathCode = math.text();
+
+        foundMath.push_back(std::make_pair(mathCode, mathRendered));
+
+        if (rendered && mathRendered)
+            renderMathExpression(mathCode);
+    }
 }
 
 void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -221,6 +235,15 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
         QString attachmentKey = url.toString().remove(QLatin1String("attachment:"));
         attachments.insert(attachmentKey, JupyterUtils::packMimeBundle(image, key));
         */
+    }
+
+    for (const auto& data : foundMath)
+    {
+        QDomElement mathEl = doc.createElement(QLatin1String("EmbeddedMath"));
+        mathEl.setAttribute(QStringLiteral("rendered"), data.second);
+        mathEl.appendChild(doc.createTextNode(data.first));
+
+        el.appendChild(mathEl);
     }
 
     return el;
@@ -318,7 +341,7 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
         foundMath.push_back(std::make_pair(latex, false));
         html.replace(latex, latex.toHtmlEscaped());
     }
-    qDebug() << foundMath;
+    qDebug() << "founded math:" << foundMath;
 
     mkd_cleanup(mdHandle);
 
@@ -416,7 +439,16 @@ void MarkdownEntry::resolveImagesAtCursor()
     QTextCursor cursor = m_textItem->textCursor();
     if (!cursor.hasSelection())
         cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
-    cursor.insertText(m_textItem->resolveImages(cursor));
+    const QString& mathCode = m_textItem->resolveImages(cursor);
+
+    for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
+        if (iter->first == mathCode)
+        {
+            iter->second = false;
+            break;
+        }
+
+    cursor.insertText(mathCode);
 }
 
 void MarkdownEntry::renderMath()
@@ -425,10 +457,7 @@ void MarkdownEntry::renderMath()
     cursor.movePosition(QTextCursor::Start);
     for (std::pair<QString, bool> pair : foundMath)
     {
-        static const QLatin1String inlineDelimiter("$");
-        static const QLatin1String displayedDelimiter("$$");
         // Jupyter TODO: what about \( \) and \[ \]? Supports or not?
-
         QString searchText = pair.first;
         searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
 
@@ -442,21 +471,7 @@ void MarkdownEntry::renderMath()
         latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
         qDebug()<<"found latex: " << latexCode;
 
-        MathRenderer* renderer = worksheet()->mathRenderer();
-        if (latexCode.startsWith(displayedDelimiter) && latexCode.endsWith(displayedDelimiter))
-        {
-            latexCode.remove(0, 2);
-            latexCode.chop(2);
-
-            renderer->renderExpression(latexCode, Cantor::LatexRenderer::FullEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
-        }
-        else if (latexCode.startsWith(inlineDelimiter) && latexCode.endsWith(inlineDelimiter))
-        {
-            latexCode.remove(0, 1);
-            latexCode.chop(1);
-
-            renderer->renderExpression(latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
-        }
+        renderMathExpression(latexCode);
     }
 }
 
@@ -478,5 +493,38 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
+
+        // Set that the formulas is rendered
+        for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
+        {
+            const QString& formulas = delimiter + code + delimiter;
+            if (iter->first == formulas)
+            {
+                iter->second = true;
+                break;
+            }
+        }
+    }
+}
+
+void MarkdownEntry::renderMathExpression(QString mathCode)
+{
+    static const QLatin1String inlineDelimiter("$");
+    static const QLatin1String displayedDelimiter("$$");
+
+    MathRenderer* renderer = worksheet()->mathRenderer();
+    if (mathCode.startsWith(displayedDelimiter) && mathCode.endsWith(displayedDelimiter))
+    {
+        mathCode.remove(0, 2);
+        mathCode.chop(2);
+
+        renderer->renderExpression(mathCode, Cantor::LatexRenderer::FullEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+    }
+    else if (mathCode.startsWith(inlineDelimiter) && mathCode.endsWith(inlineDelimiter))
+    {
+        mathCode.remove(0, 1);
+        mathCode.chop(1);
+
+        renderer->renderExpression(mathCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
     }
 }

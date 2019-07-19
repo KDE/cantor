@@ -77,6 +77,7 @@ class MarkdownEntry : public WorksheetEntry
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
     void renderMath();
+    void renderMathExpression(QString mathCode);
 
   protected Q_SLOTS:
     void handleMathRender(QSharedPointer<MathRenderResult> result);
