@@ -56,9 +56,9 @@ void MaximaKeywords::loadKeywords()
     m_functions << QLatin1String("celine");
 
     // We use qBinarySearch with this lists
-    qSort(m_keywords);
-    qSort(m_functions);
-    qSort(m_variables);
+    std::sort(m_keywords.begin(), m_keywords.end());
+    std::sort(m_functions.begin(), m_functions.end());
+    std::sort(m_variables.begin(), m_variables.end());
 }
 
 const QStringList& MaximaKeywords::variables() const

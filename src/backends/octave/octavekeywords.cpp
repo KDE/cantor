@@ -71,8 +71,8 @@ OctaveKeywords* OctaveKeywords::instance()
 
     if(inst == nullptr){
         inst = new OctaveKeywords();
-        qSort(inst->m_functions);
-        qSort(inst->m_keywords);
+        std::sort(inst->m_functions.begin(), inst->m_functions.end());
+        std::sort(inst->m_keywords.begin(), inst->m_keywords.end());
     }
 
     return inst;

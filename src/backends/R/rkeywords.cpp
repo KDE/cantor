@@ -38,7 +38,7 @@ RKeywords* RKeywords::instance()
 
     if(inst == nullptr){
         inst = new RKeywords();
-        qSort(inst->m_keywords);
+        std::sort(inst->m_keywords.begin(), inst->m_keywords.end());
     }
 
     return inst;

@@ -36,6 +36,7 @@
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QFontDialog>
+#include <QScreen>
 #include <QTimer>
 #include <QToolTip>
 #include <QPropertyAnimation>
@@ -1156,8 +1157,8 @@ QPoint CommandEntry::getPopupPosition()
 {
     const QPointF cursorPos = m_commandItem->cursorPosition();
     const QPoint globalPos = toGlobalPosition(cursorPos);
-    const QDesktopWidget* desktop = QApplication::desktop();
-    const QRect screenRect = desktop->screenGeometry(globalPos);
+    const QScreen* desktop = QGuiApplication::primaryScreen();
+    const QRect screenRect = desktop->geometry();
     if (globalPos.y() + m_completionBox->height() < screenRect.bottom()) {
         return (globalPos);
     } else {

@@ -28,6 +28,7 @@ using namespace Cantor;
 #include <KPluginFactory>
 #include <KPluginMetaData>
 #include <QDir>
+#include <QRegularExpression>
 #include <QUrl>
 
 #include "extension.h"
@@ -188,7 +189,7 @@ KConfigSkeleton* Backend::config() const
 
 QStringList Backend::extensions() const
 {
-    QList<Extension*> extensions=findChildren<Extension*>(QRegExp(QLatin1String(".*Extension")));
+    QList<Extension*> extensions=findChildren<Extension*>(QRegularExpression(QLatin1String(".*Extension")));
     QStringList names;
     foreach(Extension* e, extensions)
         names<<e->objectName();

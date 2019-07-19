@@ -77,13 +77,11 @@ void PythonCompletionObject::fetchIdentifierType()
 {
     if (session()->status() != Cantor::Session::Done)
     {
-        if (qBinaryFind(PythonKeywords::instance()->functions().begin(),
-                PythonKeywords::instance()->functions().end(), identifier())
-        != PythonKeywords::instance()->functions().end())
+        if (std::binary_search(PythonKeywords::instance()->functions().begin(),
+                PythonKeywords::instance()->functions().end(), identifier()))
         emit fetchingTypeDone(FunctionType);
-        else if (qBinaryFind(PythonKeywords::instance()->keywords().begin(),
-                PythonKeywords::instance()->keywords().end(), identifier())
-        != PythonKeywords::instance()->keywords().end())
+        else if (std::binary_search(PythonKeywords::instance()->keywords().begin(),
+                PythonKeywords::instance()->keywords().end(), identifier()))
         emit fetchingTypeDone(KeywordType);
         else
         emit fetchingTypeDone(VariableType);

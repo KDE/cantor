@@ -756,14 +756,14 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
         return;
 
     QTextDocument *oldDocument = m_highlighter->document();
-    QList<QList<QTextLayout::FormatRange> > formats;
+    QList<QVector<QTextLayout::FormatRange> > formats;
 
     if (oldDocument)
     {
         for (QTextBlock b = oldDocument->firstBlock();
              b.isValid(); b = b.next())
         {
-            formats.append(b.layout()->additionalFormats());
+            formats.append(b.layout()->formats());
         }
     }
 
@@ -783,7 +783,7 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
         for (QTextBlock b = oldDocument->firstBlock();
              b.isValid(); b = b.next())
         {
-            b.layout()->setAdditionalFormats(formats.first());
+            b.layout()->setFormats(formats.first());
             formats.pop_front();
         }
         cursor.endEditBlock();
@@ -821,7 +821,7 @@ void Worksheet::rehighlight()
             for (QTextBlock b = item->document()->firstBlock();
                  b.isValid(); b = b.next())
             {
-                b.layout()->clearAdditionalFormats();
+                b.layout()->clearFormats();
             }
             cursor.endEditBlock();
         }

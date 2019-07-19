@@ -60,9 +60,9 @@ void PythonKeywords::loadKeywords()
     m_variables << definition.keywordList(QLatin1String("specialvars"));
 
     // We use qBinarySearch in PythonCompletetionObject for type fetching
-    qSort(m_keywords);
-    qSort(m_functions);
-    qSort(m_variables);
+    std::sort(m_keywords.begin(), m_keywords.end());
+    std::sort(m_functions.begin(), m_functions.end());
+    std::sort(m_variables.begin(), m_variables.end());
 }
 
 void PythonKeywords::loadFromModule(const QString& module, const QStringList& keywords)

@@ -36,15 +36,15 @@ void MaximaCompletionObject::fetchIdentifierType()
 {
     QStringList userVariableNames=session()->variableModel()->variableNames();
     QStringList userFunctionNames=session()->variableModel()->functions();
-    if (qBinaryFind(userVariableNames.begin(), userVariableNames.end(), identifier()) != userVariableNames.end())
+    if (std::binary_search(userVariableNames.begin(), userVariableNames.end(), identifier()))
         emit fetchingTypeDone(VariableType);
-    else if (qBinaryFind(userFunctionNames.begin(), userFunctionNames.end(), identifier()) != userFunctionNames.end())
+    else if (std::binary_search(userFunctionNames.begin(), userFunctionNames.end(), identifier()))
         emit fetchingTypeDone(FunctionType);
-    else if (qBinaryFind(MaximaKeywords::instance()->functions().begin(),
-            MaximaKeywords::instance()->functions().end(), identifier()) != MaximaKeywords::instance()->functions().end())
+    else if (std::binary_search(MaximaKeywords::instance()->functions().begin(),
+            MaximaKeywords::instance()->functions().end(), identifier()))
         emit fetchingTypeDone(FunctionType);
-    else if (qBinaryFind(MaximaKeywords::instance()->keywords().begin(),
-            MaximaKeywords::instance()->keywords().end(), identifier()) != MaximaKeywords::instance()->keywords().end())
+    else if (std::binary_search(MaximaKeywords::instance()->keywords().begin(),
+            MaximaKeywords::instance()->keywords().end(), identifier()))
         emit fetchingTypeDone(KeywordType);
     else
         emit fetchingTypeDone(VariableType);

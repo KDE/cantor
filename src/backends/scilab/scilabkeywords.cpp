@@ -55,9 +55,9 @@ ScilabKeywords* ScilabKeywords::instance()
 
     if(inst == nullptr){
         inst = new ScilabKeywords();
-        qSort(inst->m_variables);
-        qSort(inst->m_functions);
-        qSort(inst->m_keywords);
+        std::sort(inst->m_variables.begin(), inst->m_variables.end());
+        std::sort(inst->m_functions.begin(), inst->m_functions.end());
+        std::sort(inst->m_keywords.begin(), inst->m_keywords.end());
     }
 
     return inst;
