@@ -34,18 +34,19 @@
 #include "epsrenderer.h"
 
 static const QLatin1String mathTex("\\documentclass{minimal}"\
-                         "\\usepackage{latexsym,amsfonts,amssymb,ulem}"\
+                         "\\usepackage{amsfonts,amssymb}"\
                          "\\usepackage{amsmath}"\
-                         "\\usepackage[dvips]{graphicx}"\
                          "\\usepackage[utf8]{inputenc}"\
-                         "\\usepackage{xcolor}"\
+                         "\\usepackage{color}"\
                          "\\usepackage[active,displaymath,textmath,tightpage]{preview}"\
+                         /*
                          "\\setlength\\textwidth{5in}"\
                          "\\setlength{\\parindent}{0pt}"\
-                         "\\pagecolor[rgb]{%1,%2,%3}"\
                          "\\pagestyle{empty}"\
+                         */
                          "\\begin{document}"\
                          "\\begin{preview}"\
+                         "\\pagecolor[rgb]{%1,%2,%3}"\
                          "\\color[rgb]{%4,%5,%6}"\
                          "%7"\
                          "\\end{preview}"\
@@ -118,6 +119,7 @@ void MathRenderTask::run()
         result->successfull = false;
         result->errorMessage = QString::fromLatin1("pdflatex failed to render pdf and exit with code %1").arg(p.exitCode());
         finalize(result);
+        texFile.setAutoRemove(false); //Usefull for debug
         return;
     }
 
