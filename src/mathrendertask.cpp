@@ -38,7 +38,7 @@ static const QLatin1String mathTex("\\documentclass{minimal}"\
                          "\\usepackage{amsmath}"\
                          "\\usepackage[utf8]{inputenc}"\
                          "\\usepackage{color}"\
-                         "\\usepackage[active,displaymath,textmath,tightpage]{preview}"\
+                         "\\usepackage[active,textmath,tightpage]{preview}"\
                          /*
                          "\\setlength\\textwidth{5in}"\
                          "\\setlength{\\parindent}{0pt}"\
@@ -52,7 +52,7 @@ static const QLatin1String mathTex("\\documentclass{minimal}"\
                          "\\end{preview}"\
                          "\\end{document}");
 
-static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}");
+static const QLatin1String eqnHeader("$\\displaystyle %1$");
 static const QLatin1String inlineEqnHeader("$%1$");
 
 MathRenderTask::MathRenderTask(
@@ -153,6 +153,7 @@ void MathRenderTask::run()
     format.setProperty(EpsRenderer::CantorFormula, m_type);
     format.setProperty(EpsRenderer::ImagePath, pdfFileName);
     format.setProperty(EpsRenderer::Code, m_code);
+    format.setVerticalAlignment(QTextCharFormat::AlignBaseline);
 
     switch(m_type)
     {
@@ -209,13 +210,13 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
     double realSclae;
     qreal w, h;
     if(highResolution) {
-        realSclae = 1.2 * 4.8 * 1.8;
+        realSclae = 1.2 * 5 * 1.8;
         w = 1.2 * pageSize.width();
         h = 1.2 * pageSize.height();
     } else {
-        realSclae = 2.3 * scale * 1.8;
-        w = 2.3 * pageSize.width();
-        h = 2.3 * pageSize.height();
+        realSclae = 2.4 * scale * 1.8;
+        w = 2.4 * pageSize.width();
+        h = 2.4 * pageSize.height();
     }
 
     QImage image = pdfPage->renderToImage(72.0*realSclae, 72.0*realSclae);
