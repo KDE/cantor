@@ -25,6 +25,8 @@
 #include <KParts/MainWindow>
 
 #include <QList>
+#include <QStringList>
+#include <QMap>
 
 class QTabWidget;
 class KTextEdit;
