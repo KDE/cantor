@@ -338,7 +338,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     {
         // if we couldn't find our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Failed to found the Cantor Part with error %1", loader.errorString()));
+        KMessageBox::error(this, i18n("Failed to find the Cantor Part with error %1", loader.errorString()));
         qApp->quit();
         // we return here, cause qApp->quit() only means "exit the
         // next time we enter the event loop...
