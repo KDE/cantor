@@ -41,7 +41,7 @@ static const QLatin1String mathTex("\\documentclass{minimal}"\
                          "\\usepackage{amsmath}"\
                          "\\usepackage[utf8]{inputenc}"\
                          "\\usepackage{color}"\
-                         "\\usepackage[active,textmath,tightpage]{preview}"\
+                         "\\usepackage[active,textmath,tightpage]{%1}"\
                          /*
                          "\\setlength\\textwidth{5in}"\
                          "\\setlength{\\parindent}{0pt}"\
@@ -49,9 +49,9 @@ static const QLatin1String mathTex("\\documentclass{minimal}"\
                          */
                          "\\begin{document}"\
                          "\\begin{preview}"\
-                         "\\pagecolor[rgb]{%1,%2,%3}"\
-                         "\\color[rgb]{%4,%5,%6}"\
-                         "%7"\
+                         "\\pagecolor[rgb]{%2,%3,%4}"\
+                         "\\color[rgb]{%5,%6,%7}"\
+                         "%8"\
                          "\\end{preview}"\
                          "\\end{document}");
 
@@ -85,7 +85,23 @@ void MathRenderTask::run()
     const QColor &backgroundColor=scheme.background().color();
     const QColor &foregroundColor=scheme.foreground().color();
 
+    // Search preview.sty
+    QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/preview.sty"));
+
+    if (file.isEmpty())
+        file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/latex/preview.sty"));
+
+    if (file.isEmpty())
+    {
+        result->successfull = false;
+        result->errorMessage = QString::fromLatin1("needed for math render preview.sty file not found");
+        finalize(result);
+        return;
+    }
+
     QString expressionTex=mathTex;
+    file.chop(4); //remove '.sty' extention
+    expressionTex=expressionTex.arg(file);
     expressionTex=expressionTex
                             .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
                             .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
