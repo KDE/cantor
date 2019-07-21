@@ -1381,7 +1381,6 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
             }
             else
             {
-                // Jupyter TODO: improve finding $$...$$, current realization don't support escaping
                 entry = appendEntry(MarkdownEntry::Type, false);
                 entry->setContentFromJupyter(cell);
                 entry->evaluate(WorksheetEntry::InternalEvaluation);
@@ -1389,7 +1388,10 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else if (cellType == QLatin1String("raw"))
         {
-            entry = appendEntry(TextEntry::Type, false);
+            if (PageBreakEntry::isConvertableToPageBreakEntry(cell))
+                entry = appendEntry(PageBreakEntry::Type, false);
+            else
+                entry = appendEntry(TextEntry::Type, false);
             entry->setContentFromJupyter(cell);
         }
 
