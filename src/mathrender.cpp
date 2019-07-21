@@ -28,6 +28,8 @@
 #include "mathrendertask.h"
 #include "epsrenderer.h"
 
+QMutex MathRenderer::popplerMutex;
+
 MathRenderer::MathRenderer(): m_scale(1.0), m_useHighRes(false)
 {
     qRegisterMetaType<QSharedPointer<MathRenderResult>>();
