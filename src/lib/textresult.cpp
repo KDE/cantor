@@ -185,8 +185,12 @@ QJsonArray TextResult::jupyterText(const QString& text)
     for (int i = 0; i < lines.size(); i++)
     {
         QString line = lines[i];
-        if (i != lines.size() - 1) // not last
-            line.append(QLatin1Char('\n'));
+        // Jupyter don't support a few text result (it merges them into one text), so
+        // add additinoal \n to end
+        // See https://github.com/jupyter/notebook/issues/4699
+        // If it will fixed, use code below
+        //     if (i != lines.size() - 1) // not last
+        line.append(QLatin1Char('\n'));
         array.append(line);
     }
 
