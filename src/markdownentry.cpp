@@ -284,6 +284,7 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
                     {
                         const QUrl& url = QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
                         qDebug() << QFile::exists(url.toLocalFile());
+                        archive->addLocalFile(url.toLocalFile(), url.fileName());
                         mathEl.setAttribute(QStringLiteral("path"), url.fileName());
                         foundNeededImage = true;
                     }
