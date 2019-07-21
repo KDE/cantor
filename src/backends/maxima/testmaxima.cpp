@@ -268,6 +268,8 @@ void TestMaxima::testHelpRequest()
 
     //no further input is required, we're done
     waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+    if (e->status() == Cantor::Expression::Computing)
+        waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QVERIFY(e->status() == Cantor::Expression::Done);
 }
 
