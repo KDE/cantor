@@ -121,10 +121,7 @@ void MathRenderTask::run()
     // Create unique uuid for this job
     // It will be used as pdf filename, for preventing names collisions
     // And as internal url path too
-    QString uuid = QUuid::createUuid().toString();
-    uuid.remove(0, 1);
-    uuid.chop(1);
-    uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
+    const QString& uuid = genUuid();
 
     const QString& pdflatex = QStandardPaths::findExecutable(QLatin1String("pdflatex"));
     p << pdflatex << QStringLiteral("-interaction=batchmode") << QStringLiteral("-jobname=cantor_") + uuid << QStringLiteral("-halt-on-error") << texFile.fileName();
@@ -160,32 +157,21 @@ void MathRenderTask::run()
         return;
     }
 
-    QTextImageFormat format;
+    const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage, m_mutex);
+    result->successfull = success;
+    result->errorMessage = errorMessage;
+    if (success == false)
+    {
+        finalize(result);
+        return;
+    }
+
+    result->renderedMath = data.first;
+    result->image = data.second;
 
     QUrl internal;
     internal.setScheme(QLatin1String("internal"));
     internal.setPath(uuid);
-
-    format.setName(internal.url());
-    format.setWidth(size.width());
-    format.setHeight(size.height());
-    format.setProperty(EpsRenderer::CantorFormula, m_type);
-    format.setProperty(EpsRenderer::ImagePath, pdfFileName);
-    format.setProperty(EpsRenderer::Code, m_code);
-    format.setVerticalAlignment(QTextCharFormat::AlignBaseline);
-
-    switch(m_type)
-    {
-        case Cantor::LatexRenderer::FullEquation:
-            format.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
-            break;
-
-        case Cantor::LatexRenderer::InlineEquation:
-            format.setProperty(EpsRenderer::Delimiter, QLatin1String("$"));
-            break;
-    }
-
-    result->renderedMath = format;
     result->uniqueUrl = internal;
 
     finalize(result);
@@ -266,4 +252,49 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
     if (size)
         *size = QSizeF(w, h);
     return image;
+}
+
+std::pair<QTextImageFormat, QImage> MathRenderTask::renderPdfToFormat(const QString& filename, const QString& code, const QString uuid, Cantor::LatexRenderer::EquationType type, double scale, bool highResulution, bool* success, QString* errorReason, QMutex* mutex)
+{
+    QSizeF size;
+    const QImage& image = renderPdf(filename, scale, highResulution, success, &size, errorReason, mutex);
+
+    if (success && *success == false)
+        return std::make_pair(QTextImageFormat(), QImage());
+
+    QTextImageFormat format;
+
+    QUrl internal;
+    internal.setScheme(QLatin1String("internal"));
+    internal.setPath(uuid);
+
+    format.setName(internal.url());
+    format.setWidth(size.width());
+    format.setHeight(size.height());
+    format.setProperty(EpsRenderer::CantorFormula, type);
+    format.setProperty(EpsRenderer::ImagePath, filename);
+    format.setProperty(EpsRenderer::Code, code);
+    format.setVerticalAlignment(QTextCharFormat::AlignBaseline);
+
+    switch(type)
+    {
+        case Cantor::LatexRenderer::FullEquation:
+            format.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+            break;
+
+        case Cantor::LatexRenderer::InlineEquation:
+            format.setProperty(EpsRenderer::Delimiter, QLatin1String("$"));
+            break;
+    }
+
+    return std::make_pair(std::move(format), std::move(image));
+}
+
+QString MathRenderTask::genUuid()
+{
+    QString uuid = QUuid::createUuid().toString();
+    uuid.remove(0, 1);
+    uuid.chop(1);
+    uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
+    return uuid;
 }

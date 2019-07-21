@@ -59,7 +59,22 @@ class MathRenderTask : public QObject, public QRunnable
 
     void run() override;
 
-    static QImage renderPdf(const QString& filename, double scale, bool highResulution, bool* success = nullptr, QSizeF* size = nullptr, QString* errorReason = nullptr, QMutex* mutex = nullptr);
+    static QImage renderPdf(
+        const QString& filename, double scale, bool highResulution, bool* success = nullptr, QSizeF* size = nullptr, QString* errorReason = nullptr, QMutex* mutex = nullptr
+    );
+    static std::pair<QTextImageFormat, QImage> renderPdfToFormat(
+        const QString& filename,
+        const QString& code,
+        const QString uuid,
+        Cantor::LatexRenderer::EquationType type,
+        double scale,
+        bool highResulution,
+        bool* success = nullptr,
+        QString* errorReason = nullptr,
+        QMutex* mutex = nullptr
+    );
+
+    static QString genUuid();
 
   Q_SIGNALS:
     void finish(QSharedPointer<MathRenderResult> result);

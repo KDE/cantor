@@ -64,6 +64,13 @@ class MathRenderer : public QObject {
      */
     void rerender(QTextDocument* document, const QTextImageFormat& math);
 
+    /**
+     * Render math expression from existing .pdf
+     * Like MathRenderer::rerender is blocking
+     */
+    std::pair<QTextImageFormat, QImage> renderExpressionFromPdf(
+        const QString& filename, const QString& uuid, const QString& code, Cantor::LatexRenderer::EquationType type, bool* success
+    );
 
   private:
     double m_scale;

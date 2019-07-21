@@ -28,6 +28,8 @@
 #include <QBuffer>
 #include <KLocalizedString>
 #include <QDebug>
+#include <QStandardPaths>
+#include <QDir>
 
 #include "jupyterutils.h"
 #include "mathrender.h"
@@ -111,8 +113,6 @@ void MarkdownEntry::setContent(const QString& content)
 
 void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 {
-    Q_UNUSED(file);
-
     rendered = content.attribute(QLatin1String("rendered"), QLatin1String("1")) == QLatin1String("1");
     QDomElement htmlEl = content.firstChildElement(QLatin1String("HTML"));
     if(!htmlEl.isNull())
@@ -162,7 +162,38 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
         foundMath.push_back(std::make_pair(mathCode, mathRendered));
 
         if (rendered && mathRendered)
-            renderMathExpression(mathCode);
+        {
+            const KArchiveEntry* imageEntry=file.directory()->entry(math.attribute(QLatin1String("path")));
+            if (imageEntry && imageEntry->isFile())
+            {
+                const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+                const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+                imageFile->copyTo(dir);
+                const QString& pdfPath = dir + QDir::separator() + imageFile->name();
+
+                QString latex;
+                Cantor::LatexRenderer::EquationType type;
+                std::tie(latex, type) = parseMathCode(mathCode);
+
+                // Get uuid by removing 'cantor_' and '.pdf' extention
+                // len('cantor_') == 7, len('.pdf') == 4
+                QString uuid = pdfPath;
+                uuid.remove(0, 7);
+                uuid.chop(4);
+
+                bool success;
+                const auto& data = worksheet()->mathRenderer()->renderExpressionFromPdf(pdfPath, uuid, latex, type, &success);
+                if (success)
+                {
+                    QUrl internal;
+                    internal.setScheme(QLatin1String("internal"));
+                    internal.setPath(uuid);
+                    setRenderedMath(data.first, internal, data.second);
+                }
+            }
+            else
+                renderMathExpression(mathCode);
+        }
     }
 }
 
@@ -195,8 +226,6 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
 {
-    Q_UNUSED(archive)
-
     if(!rendered)
         plain = m_textItem->toPlainText();
 
@@ -230,18 +259,38 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
         attachmentEl.appendChild(doc.createTextNode(QString::fromLatin1(ba.toBase64())));
 
         el.appendChild(attachmentEl);
-
-        /*
-        QString attachmentKey = url.toString().remove(QLatin1String("attachment:"));
-        attachments.insert(attachmentKey, JupyterUtils::packMimeBundle(image, key));
-        */
     }
 
+    // If math rendered, then append result .pdf to archive
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
     for (const auto& data : foundMath)
     {
         QDomElement mathEl = doc.createElement(QLatin1String("EmbeddedMath"));
         mathEl.setAttribute(QStringLiteral("rendered"), data.second);
         mathEl.appendChild(doc.createTextNode(data.first));
+
+        if (data.second)
+        {
+            bool foundNeededImage = false;
+            while(!cursor.isNull() && !foundNeededImage)
+            {
+                QTextImageFormat format=cursor.charFormat().toImageFormat();
+                if (format.hasProperty(EpsRenderer::CantorFormula))
+                {
+                    const QString& latex = format.property(EpsRenderer::Code).toString();
+                    const QString& delimiter = format.property(EpsRenderer::Delimiter).toString();
+                    const QString& code = delimiter + latex + delimiter;
+                    if (code == data.first)
+                    {
+                        const QUrl& url = QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
+                        qDebug() << QFile::exists(url.toLocalFile());
+                        mathEl.setAttribute(QStringLiteral("path"), url.fileName());
+                        foundNeededImage = true;
+                    }
+                }
+                cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+            }
+        }
 
         el.appendChild(mathEl);
     }
@@ -483,16 +532,53 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
         return;
     }
 
-    const QString& code = result->renderedMath.property(EpsRenderer::Code).toString();
-    const QString& delimiter = result->renderedMath.property(EpsRenderer::Delimiter).toString();
+    setRenderedMath(result->renderedMath, result->uniqueUrl, result->image);
+}
+
+void MarkdownEntry::renderMathExpression(QString mathCode)
+{
+    QString latex;
+    Cantor::LatexRenderer::EquationType type;
+    std::tie(latex, type) = parseMathCode(mathCode);
+    if (!latex.isNull())
+        worksheet()->mathRenderer()->renderExpression(latex, type, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+}
+
+std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMathCode(QString mathCode)
+{
+    static const QLatin1String inlineDelimiter("$");
+    static const QLatin1String displayedDelimiter("$$");
+
+     if (mathCode.startsWith(displayedDelimiter) && mathCode.endsWith(displayedDelimiter))
+    {
+        mathCode.remove(0, 2);
+        mathCode.chop(2);
+
+        return std::make_pair(mathCode, Cantor::LatexRenderer::FullEquation);
+    }
+    else if (mathCode.startsWith(inlineDelimiter) && mathCode.endsWith(inlineDelimiter))
+    {
+        mathCode.remove(0, 1);
+        mathCode.chop(1);
+
+        return std::make_pair(mathCode, Cantor::LatexRenderer::InlineEquation);
+    }
+    else
+        return std::make_pair(QString(), Cantor::LatexRenderer::InlineEquation);
+}
+
+void MarkdownEntry::setRenderedMath(const QTextImageFormat& format, const QUrl& internal, const QImage& image)
+{
+    const QString& code = format.property(EpsRenderer::Code).toString();
+    const QString& delimiter = format.property(EpsRenderer::Delimiter).toString();
     QString searchText = delimiter + code + delimiter;
     searchText.replace(QRegExp(QLatin1String("\\s")), QLatin1String(" "));
 
     QTextCursor cursor = m_textItem->document()->find(searchText);
     if (!cursor.isNull())
     {
-        m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
+        m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
 
         // Set that the formulas is rendered
         for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
@@ -504,27 +590,5 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
                 break;
             }
         }
-    }
-}
-
-void MarkdownEntry::renderMathExpression(QString mathCode)
-{
-    static const QLatin1String inlineDelimiter("$");
-    static const QLatin1String displayedDelimiter("$$");
-
-    MathRenderer* renderer = worksheet()->mathRenderer();
-    if (mathCode.startsWith(displayedDelimiter) && mathCode.endsWith(displayedDelimiter))
-    {
-        mathCode.remove(0, 2);
-        mathCode.chop(2);
-
-        renderer->renderExpression(mathCode, Cantor::LatexRenderer::FullEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
-    }
-    else if (mathCode.startsWith(inlineDelimiter) && mathCode.endsWith(inlineDelimiter))
-    {
-        mathCode.remove(0, 1);
-        mathCode.chop(1);
-
-        renderer->renderExpression(mathCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
     }
 }

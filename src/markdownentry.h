@@ -29,6 +29,7 @@
 #include "worksheettextitem.h"
 
 #include "mathrendertask.h"
+#include "lib/latexrenderer.h"
 
 class QJsonObject;
 
@@ -78,6 +79,9 @@ class MarkdownEntry : public WorksheetEntry
     void setPlainText(const QString& plain);
     void renderMath();
     void renderMathExpression(QString mathCode);
+    void setRenderedMath(const QTextImageFormat& format, const QUrl& internal, const QImage& image);
+
+    static std::pair<QString, Cantor::LatexRenderer::EquationType> parseMathCode(QString mathCode);
 
   protected Q_SLOTS:
     void handleMathRender(QSharedPointer<MathRenderResult> result);

@@ -85,3 +85,21 @@ void MathRenderer::rerender(QTextDocument* document, const QTextImageFormat& mat
         qDebug() << "Rerender embedded math failed with message: " << errorMessage;
     }
 }
+
+std::pair<QTextImageFormat, QImage> MathRenderer::renderExpressionFromPdf(const QString& filename, const QString& uuid, const QString& code, Cantor::LatexRenderer::EquationType type, bool* outSuccess)
+{
+    if (!QFile::exists(filename))
+    {
+        if (outSuccess)
+            *outSuccess = false;
+        return std::make_pair(QTextImageFormat(), QImage());
+    }
+
+    bool success; QString errorMessage;
+    const auto& data = MathRenderTask::renderPdfToFormat(filename, code, uuid, type, m_scale, m_useHighRes, &success, &errorMessage, &popplerMutex);
+    if (success == false)
+        qDebug() << "Render embedded math from pdf failed with message: " << errorMessage;
+    if (outSuccess)
+        *outSuccess = success;
+    return data;
+}
