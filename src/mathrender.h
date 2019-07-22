@@ -51,6 +51,7 @@ class MathRenderer : public QObject {
      * receiver will be managed about pointer, task only create it
      */
     void renderExpression(
+        int jobId,
         const QString& mathExpression,
         Cantor::LatexRenderer::EquationType type,
         const QObject *receiver,

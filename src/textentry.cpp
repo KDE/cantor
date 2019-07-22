@@ -280,6 +280,7 @@ void TextEntry::interruptEvaluation()
 
 bool TextEntry::evaluate(EvaluationOption evalOp)
 {
+    int i = 0;
     if (worksheet()->embeddedMathEnabled())
     {
         // Render math in $$...$$ via Latex
@@ -295,7 +296,8 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
             latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
             MathRenderer* renderer = worksheet()->mathRenderer();
-            renderer->renderExpression(latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+            renderer->renderExpression(++i, latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+            qDebug() << i;
 
             cursor = findLatexCode(cursor);
         }
@@ -313,16 +315,9 @@ void TextEntry::updateEntry()
     while(!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        if (format.hasProperty(EpsRenderer::CantorFormula))
-        {
-            qDebug() << "found a formula... rendering the eps...";
-            const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
-            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
-            qDebug() << "rendering successful? " << s.isValid();
 
-            //cursor.deletePreviousChar();
-            //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
-        }
+        if (format.hasProperty(EpsRenderer::CantorFormula))
+            worksheet()->mathRenderer()->rerender(m_textItem->document(), format);
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
@@ -469,14 +464,11 @@ void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
     }
 
     const QString& code = result->renderedMath.property(EpsRenderer::Code).toString();
-    // Jupyter TODO: add support for $...$ math and starts use
-    // result->renderedMath.property(EpsRenderer::Delimiter).toString();
     const QString& delimiter = QLatin1String("$$");
     QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
     if (!cursor.isNull())
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
-        // Jupyter TODO: add support for $...$ math and don't change delimiter here (needed for image resolving)
         result->renderedMath.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
     }

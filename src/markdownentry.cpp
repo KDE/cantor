@@ -153,46 +153,58 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 
     // Handle math after setting html
     const QDomNodeList& maths = content.elementsByTagName(QLatin1String("EmbeddedMath"));
+    foundMath.clear();
     for (int i = 0; i < maths.count(); i++)
     {
         const QDomElement& math = maths.at(i).toElement();
-        bool mathRendered = math.attribute(QLatin1String("rendered")).toInt();
         const QString mathCode = math.text();
 
-        foundMath.push_back(std::make_pair(mathCode, mathRendered));
+        foundMath.push_back(std::make_pair(mathCode, false));
+    }
 
-        if (rendered && mathRendered)
+    if (rendered)
+    {
+        markUpMath();
+
+        for (int i = 0; i < maths.count(); i++)
         {
-            const KArchiveEntry* imageEntry=file.directory()->entry(math.attribute(QLatin1String("path")));
-            if (imageEntry && imageEntry->isFile())
+            const QDomElement& math = maths.at(i).toElement();
+            bool mathRendered = math.attribute(QLatin1String("rendered")).toInt();
+            const QString mathCode = math.text();
+
+            if (mathRendered)
             {
-                const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
-                const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-                imageFile->copyTo(dir);
-                const QString& pdfPath = dir + QDir::separator() + imageFile->name();
-
-                QString latex;
-                Cantor::LatexRenderer::EquationType type;
-                std::tie(latex, type) = parseMathCode(mathCode);
-
-                // Get uuid by removing 'cantor_' and '.pdf' extention
-                // len('cantor_') == 7, len('.pdf') == 4
-                QString uuid = pdfPath;
-                uuid.remove(0, 7);
-                uuid.chop(4);
-
-                bool success;
-                const auto& data = worksheet()->mathRenderer()->renderExpressionFromPdf(pdfPath, uuid, latex, type, &success);
-                if (success)
+                const KArchiveEntry* imageEntry=file.directory()->entry(math.attribute(QLatin1String("path")));
+                if (imageEntry && imageEntry->isFile())
                 {
-                    QUrl internal;
-                    internal.setScheme(QLatin1String("internal"));
-                    internal.setPath(uuid);
-                    setRenderedMath(data.first, internal, data.second);
+                    const KArchiveFile* imageFile=static_cast<const KArchiveFile*>(imageEntry);
+                    const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+                    imageFile->copyTo(dir);
+                    const QString& pdfPath = dir + QDir::separator() + imageFile->name();
+
+                    QString latex;
+                    Cantor::LatexRenderer::EquationType type;
+                    std::tie(latex, type) = parseMathCode(mathCode);
+
+                    // Get uuid by removing 'cantor_' and '.pdf' extention
+                    // len('cantor_') == 7, len('.pdf') == 4
+                    QString uuid = pdfPath;
+                    uuid.remove(0, 7);
+                    uuid.chop(4);
+
+                    bool success;
+                    const auto& data = worksheet()->mathRenderer()->renderExpressionFromPdf(pdfPath, uuid, latex, type, &success);
+                    if (success)
+                    {
+                        QUrl internal;
+                        internal.setScheme(QLatin1String("internal"));
+                        internal.setPath(uuid);
+                        setRenderedMath(i+1, data.first, internal, data.second);
+                    }
                 }
+                else
+                    renderMathExpression(i+1, mathCode);
             }
-            else
-                renderMathExpression(mathCode);
         }
     }
 }
@@ -283,7 +295,6 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
                     if (code == data.first)
                     {
                         const QUrl& url = QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
-                        qDebug() << QFile::exists(url.toLocalFile());
                         archive->addLocalFile(url.toLocalFile(), url.fileName());
                         mathEl.setAttribute(QStringLiteral("path"), url.fileName());
                         foundNeededImage = true;
@@ -352,6 +363,9 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
         {
             setRenderedHtml(html);
             rendered = true;
+            for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
+                iter->second = false;
+            markUpMath();
         }
         else
         {
@@ -386,16 +400,17 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
     int latexDataSize = mkd_latextext(mdHandle, &latexData);
     QStringList latexUnits = QString::fromUtf8(latexData, latexDataSize).split(QLatin1Char(31), QString::SkipEmptyParts);
     foundMath.clear();
-    for (const QString& latex : latexUnits)
-    {
-        foundMath.push_back(std::make_pair(latex, false));
-        html.replace(latex, latex.toHtmlEscaped());
-    }
-    qDebug() << "founded math:" << foundMath;
 
     mkd_cleanup(mdHandle);
 
     setRenderedHtml(html);
+
+    QTextCursor cursor(m_textItem->document());
+    for (const QString& latex : latexUnits)
+        foundMath.push_back(std::make_pair(latex, false));
+
+    markUpMath();
+
     return true;
 #else
     Q_UNUSED(plain);
@@ -503,26 +518,10 @@ void MarkdownEntry::resolveImagesAtCursor()
 
 void MarkdownEntry::renderMath()
 {
+    // Jupyter TODO: what about \( \) and \[ \]? Supports or not?
     QTextCursor cursor(m_textItem->document());
-    cursor.movePosition(QTextCursor::Start);
-    for (std::pair<QString, bool> pair : foundMath)
-    {
-        // Jupyter TODO: what about \( \) and \[ \]? Supports or not?
-        QString searchText = pair.first;
-        searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
-
-        QTextCursor found = m_textItem->document()->find(searchText, cursor);
-        if (found.isNull())
-            continue;
-        cursor = found;
-
-        QString latexCode = cursor.selectedText();
-        latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
-        latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
-        qDebug()<<"found latex: " << latexCode;
-
-        renderMathExpression(latexCode);
-    }
+    for (int i = 0; i < (int)foundMath.size(); i++)
+        renderMathExpression(i+1, foundMath[i].first);
 }
 
 void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
@@ -533,16 +532,16 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
         return;
     }
 
-    setRenderedMath(result->renderedMath, result->uniqueUrl, result->image);
+    setRenderedMath(result->jobId, result->renderedMath, result->uniqueUrl, result->image);
 }
 
-void MarkdownEntry::renderMathExpression(QString mathCode)
+void MarkdownEntry::renderMathExpression(int jobId, QString mathCode)
 {
     QString latex;
     Cantor::LatexRenderer::EquationType type;
     std::tie(latex, type) = parseMathCode(mathCode);
     if (!latex.isNull())
-        worksheet()->mathRenderer()->renderExpression(latex, type, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
+        worksheet()->mathRenderer()->renderExpression(jobId, latex, type, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
 }
 
 std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMathCode(QString mathCode)
@@ -568,28 +567,62 @@ std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMath
         return std::make_pair(QString(), Cantor::LatexRenderer::InlineEquation);
 }
 
-void MarkdownEntry::setRenderedMath(const QTextImageFormat& format, const QUrl& internal, const QImage& image)
+void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, const QUrl& internal, const QImage& image)
 {
-    const QString& code = format.property(EpsRenderer::Code).toString();
-    const QString& delimiter = format.property(EpsRenderer::Delimiter).toString();
-    QString searchText = delimiter + code + delimiter;
-    searchText.replace(QRegExp(QLatin1String("\\s")), QLatin1String(" "));
+    if ((int)foundMath.size() < jobId)
+        return;
 
-    QTextCursor cursor = m_textItem->document()->find(searchText);
+    const auto& iter = foundMath.begin() + jobId-1;
+
+    QTextCursor cursor = findMath(jobId);
+    QString searchText = iter->first;
+    searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
+    cursor = m_textItem->document()->find(searchText, cursor);
+
     if (!cursor.isNull())
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
 
         // Set that the formulas is rendered
-        for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
-        {
-            const QString& formulas = delimiter + code + delimiter;
-            if (iter->first == formulas)
-            {
-                iter->second = true;
-                break;
-            }
-        }
+        iter->second = true;
+    }
+}
+
+QTextCursor MarkdownEntry::findMath(int id)
+{
+    QTextCursor cursor(m_textItem->document());
+    do
+    {
+        QTextCharFormat format = cursor.charFormat();
+        if (format.intProperty(10000) == id)
+            break;
+    }
+    while (cursor.movePosition(QTextCursor::NextCharacter));
+
+    // Jupyter TODO: fix it
+    if (cursor.position() != 0)
+        cursor.movePosition(QTextCursor::PreviousCharacter);
+
+    return cursor;
+}
+
+void MarkdownEntry::markUpMath()
+{
+    QTextCursor cursor(m_textItem->document());
+    for (int i = 0; i < (int)foundMath.size(); i++)
+    {
+        if (foundMath[i].second)
+            continue;
+
+        QString searchText = foundMath[i].first;
+        searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
+
+        cursor = m_textItem->document()->find(searchText, cursor);
+        QTextCharFormat format = cursor.charFormat();
+
+        // Use index+1 in math array as property tag
+        format.setProperty(10000, i+1);
+        cursor.setCharFormat(format);
     }
 }

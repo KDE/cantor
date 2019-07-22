@@ -59,12 +59,13 @@ static const QLatin1String eqnHeader("$\\displaystyle %1$");
 static const QLatin1String inlineEqnHeader("$%1$");
 
 MathRenderTask::MathRenderTask(
+        int jobId,
         const QString& code,
         Cantor::LatexRenderer::EquationType type,
         double scale,
         bool highResolution,
         QMutex* mutex
-    ): m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution), m_mutex(mutex)
+    ): m_jobId(jobId), m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution), m_mutex(mutex)
     {}
 
 void MathRenderTask::setHandler(const QObject* receiver, const char* resultHandler)
@@ -168,6 +169,7 @@ void MathRenderTask::run()
 
     result->renderedMath = data.first;
     result->image = data.second;
+    result->jobId = m_jobId;
 
     QUrl internal;
     internal.setScheme(QLatin1String("internal"));

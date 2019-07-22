@@ -34,6 +34,7 @@ class QMutex;
 
 struct MathRenderResult
 {
+    int jobId;
     bool successfull;
     QString errorMessage;
     QTextImageFormat renderedMath;
@@ -48,6 +49,7 @@ class MathRenderTask : public QObject, public QRunnable
   Q_OBJECT
   public:
     MathRenderTask(
+        int jobId,
         const QString& code,
         Cantor::LatexRenderer::EquationType type,
         double scale,
@@ -83,6 +85,7 @@ class MathRenderTask : public QObject, public QRunnable
     void finalize(QSharedPointer<MathRenderResult> result);
 
   private:
+    int m_jobId;
     QString m_code;
     Cantor::LatexRenderer::EquationType m_type;
     double m_scale;

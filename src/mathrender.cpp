@@ -59,9 +59,9 @@ void MathRenderer::useHighResolution(bool b)
     m_useHighRes = b;
 }
 
-void MathRenderer::renderExpression(const QString& mathExpression, Cantor::LatexRenderer::EquationType type, const QObject* receiver, const char* resultHandler)
+void MathRenderer::renderExpression(int jobId, const QString& mathExpression, Cantor::LatexRenderer::EquationType type, const QObject* receiver, const char* resultHandler)
 {
-    MathRenderTask* task = new MathRenderTask(mathExpression, type, m_scale, m_useHighRes, &popplerMutex);
+    MathRenderTask* task = new MathRenderTask(jobId, mathExpression, type, m_scale, m_useHighRes, &popplerMutex);
     task->setHandler(receiver, resultHandler);
     task->setAutoDelete(false);
 

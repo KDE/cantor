@@ -78,8 +78,10 @@ class MarkdownEntry : public WorksheetEntry
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
     void renderMath();
-    void renderMathExpression(QString mathCode);
-    void setRenderedMath(const QTextImageFormat& format, const QUrl& internal, const QImage& image);
+    void renderMathExpression(int jobId, QString mathCode);
+    void setRenderedMath(int jobId, const QTextImageFormat& format, const QUrl& internal, const QImage& image);
+    QTextCursor findMath(int id);
+    void markUpMath();
 
     static std::pair<QString, Cantor::LatexRenderer::EquationType> parseMathCode(QString mathCode);
 
