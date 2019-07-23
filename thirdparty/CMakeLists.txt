@@ -7,7 +7,7 @@ set (DISCOUNT_ONLY_LIBRARY ON)
 set (DISCOUNT_MAKE_INSTALL OFF)
 ExternalProject_Add(
     discount_project
-    URL ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/discount-2.2.6-patched
+    URL ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/discount-2.2.6-patched.tar
     SOURCE_SUBDIR cmake
     CMAKE_ARGS DISCOUNT_ONLY_LIBRARY DISCOUNT_MAKE_INSTALL
     CMAKE_CACHE_ARGS "-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true"
