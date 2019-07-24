@@ -48,6 +48,9 @@ class WorksheetTest: public QObject
     void testMimeResult();
     void testMimeResultWithPlain();
 
+    /* common features tests */
+    void testMathRender();
+
   private:
     static Worksheet* loadWorksheet(const QString& name);
     static int entriesCount(Worksheet* worksheet);

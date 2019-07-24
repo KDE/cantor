@@ -251,7 +251,7 @@ void Worksheet::addProtrusion(qreal width)
         m_itemProtrusions.insert(width, 1);
     if (width > m_protrusion) {
         m_protrusion = width;
-        qreal y = lastEntry()->size().height() + lastEntry()->y();
+        qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
         setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     }
 }
