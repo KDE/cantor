@@ -87,6 +87,8 @@ class MarkdownEntry : public WorksheetEntry
 
   protected Q_SLOTS:
     void handleMathRender(QSharedPointer<MathRenderResult> result);
+    void insertImage();
+    void clearAttachments();
 
   protected:
     WorksheetTextItem* m_textItem;

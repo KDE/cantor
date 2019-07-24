@@ -30,6 +30,8 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <QDir>
+#include <QFileDialog>
+#include <KMessageBox>
 
 #include "jupyterutils.h"
 #include "mathrender.h"
@@ -78,6 +80,10 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
         menu->addAction(i18n("Show LaTeX code"), this, &MarkdownEntry::resolveImagesAtCursor);
         menu->addSeparator();
     }
+    if (!rendered)
+        menu->addAction(i18n("Insert Image Attachment"), this, &MarkdownEntry::insertImage);
+    if (attachedImages.size() != 0)
+        menu->addAction(i18n("Clear Attachments"), this, &MarkdownEntry::clearAttachments);
     WorksheetEntry::populateMenu(menu, pos);
 }
 
@@ -625,4 +631,44 @@ void MarkdownEntry::markUpMath()
         format.setProperty(10000, i+1);
         cursor.setCharFormat(format);
     }
+}
+
+void MarkdownEntry::insertImage()
+{
+    const QString& filename = QFileDialog::getOpenFileName(worksheet()->worksheetView(), i18n("Choose Image"), QString(), i18n("Images (*.png *.bmp *.jpg *.svg)"));
+
+    if (!filename.isEmpty())
+    {
+        QImageReader reader(filename);
+        const QImage img = reader.read();
+        if (!img.isNull())
+        {
+            const QString& name = QFileInfo(filename).fileName();
+
+            QUrl url;
+            url.setScheme(QLatin1String("attachment"));
+            url.setPath(name);
+
+            attachedImages.push_back(std::make_pair(url, QLatin1String("image/png")));
+            m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant(img));
+
+            QTextCursor cursor = m_textItem->textCursor();
+            cursor.insertText(QString::fromLatin1("![%1](attachment:%1)").arg(name));
+
+            animateSizeChange();
+        }
+        else
+            KMessageBox::error(worksheetView(), i18n("Cantor failed to read image with error \"%1\"", reader.errorString()), i18n("Cantor"));
+    }
+}
+
+void MarkdownEntry::clearAttachments()
+{
+    for (auto& attachment: attachedImages)
+    {
+        const QUrl& url = attachment.first;
+        m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant());
+    }
+    attachedImages.clear();
+    animateSizeChange();
 }
