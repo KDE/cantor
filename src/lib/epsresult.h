@@ -24,6 +24,7 @@
 #include "result.h"
 #include "cantor_export.h"
 #include <QUrl>
+#include <QImage>
 
 namespace Cantor
 {
@@ -33,13 +34,14 @@ class CANTOR_EXPORT EpsResult : public Result
 {
   public:
     enum {Type=5};
-    explicit EpsResult( const QUrl& url);
+    explicit EpsResult( const QUrl& url, const QImage& image = QImage());
     ~EpsResult() override;
 
     QString toHtml() override;
     QString toLatex() override;
     QVariant data() override;
     QUrl url() override;
+    QImage image();
 
     int type() override;
     QString mimeType() override;

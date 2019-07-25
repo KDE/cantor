@@ -55,7 +55,7 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
         for (int i = 2; i; --i) {
             int p = cursor.position();
             if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
+                cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula)) {
                 m_textItem->setTextCursor(cursor);
                 imageSelected = true;
                 break;

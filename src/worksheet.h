@@ -32,7 +32,7 @@
 #include <QMenu>
 
 #include "worksheetview.h"
-#include "epsrenderer.h"
+#include "lib/epsrenderer.h"
 #include "worksheetcursor.h"
 
 namespace Cantor {
@@ -85,7 +85,7 @@ class Worksheet : public QGraphicsScene
     void createActions(KActionCollection*);
     QMenu* createContextMenu();
     void populateMenu(QMenu* menu, QPointF pos);
-    EpsRenderer* epsRenderer();
+    Cantor::EpsRenderer* epsRenderer();
     bool isEmpty();
     bool isLoadingFromFile();
 
@@ -260,7 +260,7 @@ class Worksheet : public QGraphicsScene
     static const double EntryCursorWidth;
     Cantor::Session *m_session;
     QSyntaxHighlighter* m_highlighter;
-    EpsRenderer m_epsRenderer;
+    Cantor::EpsRenderer m_epsRenderer;
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;

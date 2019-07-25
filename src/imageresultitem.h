@@ -45,7 +45,6 @@ class ImageResultItem : public WorksheetImageItem, public ResultItem
     double height() const override;
 
     void deleteLater() override;
-    EpsRenderer* epsRenderer();
 
   protected Q_SLOTS:
     void saveResult();

@@ -23,7 +23,7 @@
 
 #include "worksheetentry.h"
 #include "worksheet.h"
-#include "epsrenderer.h"
+#include "lib/epsrenderer.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/latexrenderer.h"
 #include "config-cantor.h"
@@ -58,7 +58,7 @@ void LatexEntry::populateMenu(QMenu* menu, QPointF pos)
         for (int i = 2; i; --i) {
             int p = cursor.position();
             if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
+                cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula)) {
                 m_textItem->setTextCursor(cursor);
                 imageSelected = true;
                 break;
@@ -128,9 +128,9 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             m_renderedFormat = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
             qDebug()<<"rendering successful? " << !m_renderedFormat.name().isEmpty();
 
-            m_renderedFormat.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
-            m_renderedFormat.setProperty(EpsRenderer::ImagePath, imagePath);
-            m_renderedFormat.setProperty(EpsRenderer::Code, m_latex);
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::Code, m_latex);
 
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
@@ -156,10 +156,10 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             m_renderedFormat.setWidth(image.width());
             m_renderedFormat.setHeight(image.height());
 
-            m_renderedFormat.setProperty(EpsRenderer::CantorFormula, EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
             if (!imagePath.isEmpty())
-                m_renderedFormat.setProperty(EpsRenderer::ImagePath, imagePath);
-            m_renderedFormat.setProperty(EpsRenderer::Code, m_latex);
+                m_renderedFormat.setProperty(Cantor::EpsRenderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::Code, m_latex);
 
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
@@ -180,7 +180,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     if (!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        QString fileName = format.property(EpsRenderer::ImagePath).toString();
+        QString fileName = format.property(Cantor::EpsRenderer::ImagePath).toString();
         // Check, if eps file exists, and if not true, rerender latex code
         bool isEpsFileExists = QFile::exists(fileName);
 
@@ -189,7 +189,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
         {
             cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
             format=cursor.charFormat().toImageFormat();
-            fileName = format.property(EpsRenderer::ImagePath).toString();
+            fileName = format.property(Cantor::EpsRenderer::ImagePath).toString();
             isEpsFileExists = QFile::exists(fileName);
         }
 #endif
@@ -275,7 +275,7 @@ void LatexEntry::updateEntry()
     {
         qDebug()<<"found a formula... rendering the eps...";
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
+        const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::EpsRenderer::ImagePath).toString());
         QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
         qDebug()<<"rendering successful? "<< s.isValid();
 
@@ -414,7 +414,7 @@ bool LatexEntry::renderLatexCode()
 
     if (renderer->renderingSuccessful())
     {
-        EpsRenderer* epsRend = worksheet()->epsRenderer();
+        Cantor::EpsRenderer* epsRend = worksheet()->epsRenderer();
         m_renderedFormat = epsRend->render(m_textItem->document(), renderer);
         success = !m_renderedFormat.name().isEmpty();
     }

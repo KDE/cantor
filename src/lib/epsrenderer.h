@@ -26,9 +26,13 @@
 #include <QPixmap>
 #include <QSizeF>
 #include <QUrl>
-#include "lib/latexrenderer.h"
+#include "latexrenderer.h"
 
-class EpsRenderer
+namespace Cantor
+{
+class EpsRendererPrivate;
+
+class CANTOR_EXPORT EpsRenderer
 {
   public:
     EpsRenderer();
@@ -49,11 +53,14 @@ class EpsRenderer
     void useHighResolution(bool b);
 
     QSizeF renderToResource(QTextDocument *document, const QUrl& url, const QUrl& internal);
+
     QImage renderToImage(const QUrl& url, QSizeF* size = nullptr);
+    static QImage renderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size = nullptr);
 
   private:
-    double m_scale;
-    bool m_useHighRes;
+    EpsRendererPrivate* d;
 };
+
+}
 
 #endif //EPSRENDERER_H

@@ -1,3 +1,7 @@
+if(LIBSPECTRE_FOUND)
+   include_directories(${LIBSPECTRE_INCLUDE_DIR})
+endif(LIBSPECTRE_FOUND)
+
 set( cantor_LIB_SRCS
   session.cpp
   expression.cpp
@@ -8,6 +12,7 @@ set( cantor_LIB_SRCS
   epsresult.cpp
   latexresult.cpp
   latexrenderer.cpp
+  epsrenderer.cpp
   helpresult.cpp
   animationresult.cpp
   extension.cpp
@@ -37,6 +42,7 @@ Set( cantor_LIB_HDRS
   helpresult.h
   imageresult.h
   latexresult.h
+  epsrenderer.h
   result.h
   textresult.h
   #helper classes
@@ -74,6 +80,13 @@ target_link_libraries( cantorlibs
   Qt5::Xml
 )
 
+<<<<<<< HEAD
+=======
+if(LIBSPECTRE_FOUND)
+    target_link_libraries(cantorlibs ${LIBSPECTRE_LIBRARY})
+endif(LIBSPECTRE_FOUND)
+
+>>>>>>> 66757510... Move EpsRenderer from CantorPart to CantorLibs and add support EpsRender result on Cantor without Libspectre (via prerendered QImage)
 set (CANTORLIBS_SOVERSION 24)
 set_target_properties( cantorlibs PROPERTIES VERSION ${KDE_APPLICATIONS_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})
 

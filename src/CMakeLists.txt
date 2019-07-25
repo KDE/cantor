@@ -10,9 +10,6 @@ if(BUILD_TESTING)
   include_directories( lib/test )
 endif(BUILD_TESTING)
 
-if(LIBSPECTRE_FOUND)
-   include_directories(${LIBSPECTRE_INCLUDE_DIR})
-endif(LIBSPECTRE_FOUND)
 add_subdirectory(backends)
 add_subdirectory(assistants)
 add_subdirectory(xslt)
@@ -79,7 +76,6 @@ set(cantor_PART_SRCS
    animationresultitem.cpp
    loadedexpression.cpp
    animation.cpp
-   epsrenderer.cpp
  )
 
 ki18n_wrap_ui(cantor_PART_SRCS imagesettings.ui)
@@ -101,9 +97,6 @@ target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
                      KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
                      Qt5::PrintSupport cantorlibs cantor_config )
-if(LIBSPECTRE_FOUND)
-    target_link_libraries(cantorpart ${LIBSPECTRE_LIBRARY})
-endif(LIBSPECTRE_FOUND)
 if(Discount_FOUND)
     target_link_libraries(cantorpart Discount::Lib)
 endif(Discount_FOUND)

@@ -24,7 +24,6 @@
 #include "resultitem.h"
 #include "worksheettextitem.h"
 #include "worksheetentry.h"
-#include "epsrenderer.h"
 
 #include "lib/latexresult.h"
 
@@ -47,7 +46,6 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     double height() const override;
 
     void deleteLater() override;
-    EpsRenderer* epsRenderer() const;
 
   protected Q_SLOTS:
     void toggleLatexCode();

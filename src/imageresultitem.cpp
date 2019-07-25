@@ -23,6 +23,8 @@
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 
+#include <config-cantor.h>
+
 #include <KLocalizedString>
 #include <QFileDialog>
 #include <QDebug>
@@ -57,7 +59,17 @@ void ImageResultItem::update()
         setImage(m_result->data().value<QImage>());
         break;
     case Cantor::EpsResult::Type:
-        setEps(m_result->data().toUrl());
+    {
+        Cantor::EpsResult* epsResult = static_cast<Cantor::EpsResult*>(m_result);
+#ifdef WITH_EPS
+        if (!epsResult->image().isNull() && worksheet()->epsRenderer()->scale() == 1.0)
+            setImage(epsResult->image());
+        else
+            setEps(m_result->data().toUrl());
+#else
+        setImage(epsResult->image());
+#endif
+    }
         break;
     default:
         break;
@@ -90,9 +102,4 @@ void ImageResultItem::saveResult()
 void ImageResultItem::deleteLater()
 {
     WorksheetImageItem::deleteLater();
-}
-
-EpsRenderer* ImageResultItem::epsRenderer()
-{
-    return qobject_cast<Worksheet*>(scene())->epsRenderer();
 }

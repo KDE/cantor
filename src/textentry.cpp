@@ -21,7 +21,7 @@
 
 #include "textentry.h"
 #include "worksheettextitem.h"
-#include "epsrenderer.h"
+#include "lib/epsrenderer.h"
 #include "latexrenderer.h"
 
 #include <QGraphicsLinearLayout>
@@ -54,7 +54,7 @@ void TextEntry::populateMenu(QMenu* menu, QPointF pos)
         for (int i = 2; i; --i) {
             int p = cursor.position();
             if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
+                cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula)) {
                 m_textItem->setTextCursor(cursor);
                 imageSelected = true;
                 break;
@@ -123,7 +123,7 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
-        if (format.hasProperty(EpsRenderer::CantorFormula))
+        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
             showLatexCode(cursor);
 
         cursor = document->find(QString(QChar::ObjectReplacementCharacter), cursor);
@@ -191,7 +191,7 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
         bool success;
         QTextImageFormat formulaFormat;
         if (renderer->renderingSuccessful()) {
-            EpsRenderer* epsRend = worksheet()->epsRenderer();
+            Cantor::EpsRenderer* epsRend = worksheet()->epsRenderer();
             formulaFormat = epsRend->render(m_textItem->document(), renderer);
             success = !formulaFormat.name().isEmpty();
         } else {
@@ -204,7 +204,7 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
             continue;
         }
 
-        formulaFormat.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+        formulaFormat.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
 
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
         delete renderer;
@@ -224,10 +224,10 @@ void TextEntry::updateEntry()
     while(!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        if (format.hasProperty(EpsRenderer::CantorFormula))
+        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
         {
             qDebug() << "found a formula... rendering the eps...";
-            const QUrl& url=QUrl::fromLocalFile(format.property(EpsRenderer::ImagePath).toString());
+            const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::EpsRenderer::ImagePath).toString());
             QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
             qDebug() << "rendering successful? " << s.isValid();
 
@@ -267,7 +267,7 @@ QTextCursor TextEntry::findLatexCode(const QTextCursor& cursor) const
 
 QString TextEntry::showLatexCode(QTextCursor& cursor)
 {
-    QString latexCode = cursor.charFormat().property(EpsRenderer::Code).toString();
+    QString latexCode = cursor.charFormat().property(Cantor::EpsRenderer::Code).toString();
     cursor.deletePreviousChar();
     latexCode = QLatin1String("$$") + latexCode + QLatin1String("$$");
     cursor.insertText(latexCode);

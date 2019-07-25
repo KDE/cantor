@@ -74,7 +74,10 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                     addResult(new Cantor::AnimationResult(imageUrl));
                 }else if(imageFile->name().endsWith(QLatin1String(".eps")))
                 {
-                    addResult(new Cantor::EpsResult(imageUrl));
+                    const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
+                    QImage image;
+                    image.loadFromData(ba);
+                    addResult(new Cantor::EpsResult(imageUrl, image));
                 }else
                 {
                     addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));

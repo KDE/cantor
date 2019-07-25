@@ -26,19 +26,21 @@ using namespace Cantor;
 #include <QDebug>
 #include <KZip>
 #include <KIO/Job>
+#include <QBuffer>
+
+#include "epsrenderer.h"
 
 class Cantor::EpsResultPrivate{
     public:
         QUrl url;
+        QImage image;
 };
 
 
-EpsResult::EpsResult(const QUrl& url) : d(new EpsResultPrivate)
+EpsResult::EpsResult(const QUrl& url, const QImage& image) : d(new EpsResultPrivate)
 {
     d->url=url;
-#ifndef WITH_EPS
-    qDebug()<<"Creating an EpsResult in an environment compiled without EPS support!";
-#endif
+    d->image = image;
 }
 
 EpsResult::~EpsResult()
@@ -66,6 +68,11 @@ QUrl EpsResult::url()
     return d->url;
 }
 
+QImage Cantor::EpsResult::image()
+{
+    return d->image;
+}
+
 int EpsResult::type()
 {
     return EpsResult::Type;
@@ -82,8 +89,30 @@ QDomElement EpsResult::toXml(QDomDocument& doc)
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("image"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
-    qDebug()<<"done";
 
+#ifdef WITH_EPS
+    const QImage& image = EpsRenderer::renderToImage(d->url, 1.0, false);
+    qDebug() << image.size() << image.isNull();
+    if (!image.isNull())
+    {
+        QByteArray ba;
+        QBuffer buffer(&ba);
+        buffer.open(QIODevice::WriteOnly);
+        image.save(&buffer, "PNG");
+        e.setAttribute(QLatin1String("image"), QString::fromLatin1(ba.toBase64()));
+    }
+#else
+    if (!d->image.isNull())
+    {
+        QByteArray ba;
+        QBuffer buffer(&ba);
+        buffer.open(QIODevice::WriteOnly);
+        d->image.save(&buffer, "PNG");
+        e.setAttribute(QLatin1String("image"), QString::fromLatin1(ba.toBase64()));
+    }
+#endif
+
+    qDebug()<<"done";
     return e;
 }
 

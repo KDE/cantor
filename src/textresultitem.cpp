@@ -23,6 +23,7 @@
 #include "lib/result.h"
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
+#include "lib/epsrenderer.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -110,12 +111,13 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
             cursor.insertText(latex);
     } else {
         QTextImageFormat format;
-        format = epsRenderer()->render(cursor.document(),
+        Cantor::EpsRenderer* renderer = qobject_cast<Worksheet*>(scene())->epsRenderer();;
+        format = renderer->render(cursor.document(),
                                        result->data().toUrl());
-        format.setProperty(EpsRenderer::CantorFormula,
-                           EpsRenderer::LatexFormula);
-        format.setProperty(EpsRenderer::Code, latex);
-        format.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
+        format.setProperty(Cantor::EpsRenderer::CantorFormula,
+                           Cantor::EpsRenderer::LatexFormula);
+        format.setProperty(Cantor::EpsRenderer::Code, latex);
+        format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
         if(format.isValid())
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
         else
@@ -155,9 +157,4 @@ void TextResultItem::saveResult()
 void TextResultItem::deleteLater()
 {
     WorksheetTextItem::deleteLater();
-}
-
-EpsRenderer* TextResultItem::epsRenderer() const
-{
-    return qobject_cast<Worksheet*>(scene())->epsRenderer();
 }

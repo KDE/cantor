@@ -20,7 +20,7 @@
 
 #include "epsrenderer.h"
 
-#include <config-cantor.h>
+#include <config-cantorlib.h>
 
 #ifdef LIBSPECTRE_FOUND
   #include "libspectre/spectre.h"
@@ -29,23 +29,31 @@
 #include <QUuid>
 #include <QDebug>
 
-EpsRenderer::EpsRenderer() : m_scale(1), m_useHighRes(false)
+using namespace Cantor;
+
+class Cantor::EpsRendererPrivate{
+    public:
+        double scale{1};
+        bool useHighRes{false};
+};
+
+EpsRenderer::EpsRenderer() : d(new EpsRendererPrivate())
 {
 }
 
 void EpsRenderer::setScale(qreal scale)
 {
-    m_scale = scale;
+    d->scale = scale;
 }
 
 qreal EpsRenderer::scale()
 {
-    return m_scale;
+    return d->scale;
 }
 
 void EpsRenderer::useHighResolution(bool b)
 {
-    m_useHighRes = b;
+    d->useHighRes = b;
 }
 
 QTextImageFormat EpsRenderer::render(QTextDocument *document, const QUrl &url)
@@ -96,7 +104,7 @@ QSizeF EpsRenderer::renderToResource(QTextDocument *document, const QUrl &url, c
     return size;
 }
 
-QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
+QImage EpsRenderer::renderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size)
 {
 #ifdef LIBSPECTRE_FOUND
     SpectreDocument* doc = spectre_document_new();
@@ -112,28 +120,28 @@ QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
 
     int wdoc, hdoc;
     qreal w, h;
-    double scale;
+    double realScale;
     spectre_document_get_page_size(doc, &wdoc, &hdoc);
-    if(m_useHighRes) {
-        scale=1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
+    if(useHighRes) {
+        realScale = 1.2*4.0; //1.2 scaling factor, to make it look nice, 4x for high resolution
         w = 1.2 * wdoc;
         h = 1.2 * hdoc;
     } else {
-        scale=1.8*m_scale;
+        realScale=1.8*scale;
         w = 1.8 * wdoc;
         h = 1.8 * hdoc;
     }
 
-    qDebug()<<"scale: "<<scale;
+    qDebug()<<"scale: "<<realScale;
 
     qDebug()<<"dimension: "<<w<<"x"<<h;
     unsigned char* data;
     int rowLength;
 
-    spectre_render_context_set_scale(rc, scale, scale);
+    spectre_render_context_set_scale(rc, realScale, realScale);
     spectre_document_render_full( doc, rc, &data, &rowLength);
 
-    QImage img(data, wdoc*scale, hdoc*scale, rowLength, QImage::Format_RGB32);
+    QImage img(data, wdoc*realScale, hdoc*realScale, rowLength, QImage::Format_RGB32);
     spectre_document_free(doc);
     spectre_render_context_free(rc);
     img = img.convertToFormat(QImage::Format_ARGB32);
@@ -146,4 +154,9 @@ QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
     Q_UNUSED(size);
     return QImage();
 #endif
+}
+
+QImage EpsRenderer::renderToImage(const QUrl& url, QSizeF* size)
+{
+    return renderToImage(url, d->scale, d->useHighRes, size);
 }
