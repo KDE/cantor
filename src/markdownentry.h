@@ -97,6 +97,7 @@ class MarkdownEntry : public WorksheetEntry
     bool rendered;
     std::vector<std::pair<QUrl,QString>> attachedImages;
     std::vector<std::pair<QString, bool>> foundMath;
+    static const int JobProperty = 10000;
 };
 
 #endif //MARKDOWNENTRY_H

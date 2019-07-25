@@ -56,12 +56,13 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
 
 void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    bool imageSelected = false;
+    // Check, if User select one cantor formulas, or have cursor near it
+    // We can resolve only a formula, without text around
+    bool canBeResolved = false;
     QTextCursor cursor = m_textItem->textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
     if (cursor.hasSelection()) {
-        QString selection = m_textItem->textCursor().selectedText();
-        imageSelected = selection.contains(repl);
+        canBeResolved = cursor.selectedText() == repl;
     } else {
         // we need to try both the current cursor and the one after the that
         cursor = m_textItem->cursorForPosition(pos);
@@ -70,13 +71,13 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
             if (m_textItem->document()->characterAt(p-1) == repl &&
                 cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
                 m_textItem->setTextCursor(cursor);
-                imageSelected = true;
+                canBeResolved = true;
                 break;
             }
             cursor.movePosition(QTextCursor::NextCharacter);
         }
     }
-    if (imageSelected) {
+    if (canBeResolved) {
         menu->addAction(i18n("Show LaTeX code"), this, &MarkdownEntry::resolveImagesAtCursor);
         menu->addSeparator();
     }
@@ -510,16 +511,15 @@ void MarkdownEntry::resolveImagesAtCursor()
     QTextCursor cursor = m_textItem->textCursor();
     if (!cursor.hasSelection())
         cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+
     const QString& mathCode = m_textItem->resolveImages(cursor);
+    int jobId = cursor.charFormat().intProperty(JobProperty);
 
-    for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
-        if (iter->first == mathCode)
-        {
-            iter->second = false;
-            break;
-        }
+    foundMath.at(jobId-1).second = false;
 
-    cursor.insertText(mathCode);
+    QTextCharFormat format;
+    format.setProperty(JobProperty, jobId);
+    cursor.insertText(mathCode, format);
 }
 
 void MarkdownEntry::renderMath()
@@ -560,12 +560,18 @@ std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMath
         mathCode.remove(0, 2);
         mathCode.chop(2);
 
+        if (mathCode[0] == QChar(6))
+            mathCode.remove(0, 1);
+
         return std::make_pair(mathCode, Cantor::LatexRenderer::FullEquation);
     }
     else if (mathCode.startsWith(inlineDelimiter) && mathCode.endsWith(inlineDelimiter))
     {
         mathCode.remove(0, 1);
         mathCode.chop(1);
+
+        if (mathCode[0] == QChar(6))
+            mathCode.remove(0, 1);
 
         return std::make_pair(mathCode, Cantor::LatexRenderer::InlineEquation);
     }
@@ -581,14 +587,18 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     const auto& iter = foundMath.begin() + jobId-1;
 
     QTextCursor cursor = findMath(jobId);
-    QString searchText = iter->first;
+    const QString delimiter = format.property(EpsRenderer::Delimiter).toString();
+    QString searchText = delimiter + format.property(EpsRenderer::Code).toString() + delimiter;
     searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
+
     cursor = m_textItem->document()->find(searchText, cursor);
 
     if (!cursor.isNull())
     {
+        QTextImageFormat placed = format;
+        placed.setProperty(JobProperty, jobId);
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), placed);
 
         // Set that the formulas is rendered
         iter->second = true;
@@ -601,7 +611,7 @@ QTextCursor MarkdownEntry::findMath(int id)
     do
     {
         QTextCharFormat format = cursor.charFormat();
-        if (format.intProperty(10000) == id)
+        if (format.intProperty(JobProperty) == id)
             break;
     }
     while (cursor.movePosition(QTextCursor::NextCharacter));
@@ -625,11 +635,27 @@ void MarkdownEntry::markUpMath()
         searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
 
         cursor = m_textItem->document()->find(searchText, cursor);
-        QTextCharFormat format = cursor.charFormat();
 
+        // Mark up founded math code
+        QTextCharFormat format = cursor.charFormat();
         // Use index+1 in math array as property tag
-        format.setProperty(10000, i+1);
-        cursor.setCharFormat(format);
+        format.setProperty(JobProperty, i+1);
+
+        // We found the math expression, so remove 'marker' (ACII symbol 'Acknowledgement')
+        // The marker have been placed after "$" or "$$"
+        // We remove the marker, only if it presents
+        QString codeWithoutMarker = foundMath[i].first;
+        if (searchText.startsWith(QLatin1String("$$")))
+        {
+            if (codeWithoutMarker[2] == QChar(6))
+                codeWithoutMarker.remove(2, 1);
+        }
+        else if (searchText.startsWith(QLatin1String("$")))
+        {
+            if (codeWithoutMarker[1] == QChar(6))
+                codeWithoutMarker.remove(1, 1);
+        }
+        cursor.insertText(codeWithoutMarker, format);
     }
 }
 
