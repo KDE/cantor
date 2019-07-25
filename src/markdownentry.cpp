@@ -586,11 +586,15 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     const auto& iter = foundMath.begin() + jobId-1;
 
     QTextCursor cursor = findMath(jobId);
+
     const QString delimiter = format.property(EpsRenderer::Delimiter).toString();
     QString searchText = delimiter + format.property(EpsRenderer::Code).toString() + delimiter;
     searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
 
-    cursor = m_textItem->document()->find(searchText, cursor);
+    // From findMath we will be first symbol of math expression
+    // So in order to select all symbols of the expression, we need to go to previous symbol first
+    cursor.movePosition(QTextCursor::PreviousCharacter);
+    cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, searchText.size());
 
     if (!cursor.isNull())
     {
@@ -614,10 +618,6 @@ QTextCursor MarkdownEntry::findMath(int id)
             break;
     }
     while (cursor.movePosition(QTextCursor::NextCharacter));
-
-    // Jupyter TODO: fix it
-    if (cursor.position() != 0)
-        cursor.movePosition(QTextCursor::PreviousCharacter);
 
     return cursor;
 }
