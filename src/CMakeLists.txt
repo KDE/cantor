@@ -83,6 +83,7 @@ set(cantor_PART_SRCS
    jupyterutils.cpp
    mathrender.cpp
    mathrendertask.cpp
+   extended_document.cpp
  )
 
 ki18n_wrap_ui(cantor_PART_SRCS imagesettings.ui)
