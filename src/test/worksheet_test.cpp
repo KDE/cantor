@@ -6824,4 +6824,34 @@ void WorksheetTest::testMathRender()
     QCOMPARE(rendered, true);
 }
 
+void WorksheetTest::testMathRender2()
+{
+    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("octave")), nullptr);
+    WorksheetView v(w, nullptr);
+    v.setEnabled(false);
+    w->enableEmbeddedMath(true);
+
+    if (!w->mathRenderer()->mathRenderAvailable())
+        QSKIP("This test needs workable embedded math (pdflatex)", SkipSingle);
+
+    MarkdownEntry* entry = static_cast<MarkdownEntry*>(WorksheetEntry::create(MarkdownEntry::Type, w));
+    entry->setContent(QLatin1String("2 $12$ 4"));
+    entry->evaluate(WorksheetEntry::InternalEvaluation);
+
+    // Give 1 second to math renderer
+    QTest::qWait(1000);
+
+    QDomDocument doc;
+    QBuffer buffer;
+    KZip archive(&buffer);
+    QDomElement elem = entry->toXml(doc, &archive);
+
+    QDomNodeList list = elem.elementsByTagName(QLatin1String("EmbeddedMath"));
+    QCOMPARE(list.count(), 1);
+    QDomElement mathNode = list.at(0).toElement();
+    bool rendered = mathNode.attribute(QStringLiteral("rendered")).toInt();
+    QCOMPARE(rendered, true);
+    QCOMPARE(mathNode.text(), QLatin1String("$12$"));
+}
+
 QTEST_MAIN( WorksheetTest )

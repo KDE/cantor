@@ -50,6 +50,7 @@ class WorksheetTest: public QObject
 
     /* common features tests */
     void testMathRender();
+    void testMathRender2();
 
   private:
     static Worksheet* loadWorksheet(const QString& name);
