@@ -62,7 +62,7 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
     QTextCursor cursor = m_textItem->textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
     if (cursor.hasSelection()) {
-        canBeResolved = cursor.selectedText() == repl;
+        canBeResolved = cursor.selectedText() == repl && cursor.charFormat().hasProperty(EpsRenderer::CantorFormula);
     } else {
         // we need to try both the current cursor and the one after the that
         cursor = m_textItem->cursorForPosition(pos);
