@@ -524,7 +524,6 @@ void MarkdownEntry::resolveImagesAtCursor()
 
 void MarkdownEntry::renderMath()
 {
-    // Jupyter TODO: what about \( \) and \[ \]? Supports or not?
     QTextCursor cursor(m_textItem->document());
     for (int i = 0; i < (int)foundMath.size(); i++)
         renderMathExpression(i+1, foundMath[i].first);
