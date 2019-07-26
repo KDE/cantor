@@ -140,7 +140,7 @@ QJsonValue Cantor::LatexResult::toJupyterJson()
     data.insert(QLatin1String("text/latex"), d->code);
     root.insert(QLatin1String("data"), data);
 
-    root.insert(QLatin1String("metadata"), QJsonObject());
+    root.insert(QLatin1String("metadata"), jupyterMetadata());
 
     return root;
 }

@@ -474,6 +474,8 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
         collapseResults();
         worksheet()->enableAnimations(animationValue);
     }
+
+    setJupyterMetadata(metadata);
 }
 
 QJsonValue CommandEntry::toJupyterJson()
@@ -487,7 +489,7 @@ QJsonValue CommandEntry::toJupyterJson()
         executionCountValue = QJsonValue(expression()->id());
     entry.insert(QLatin1String("execution_count"), executionCountValue);
 
-    QJsonObject metadata;
+    QJsonObject metadata(jupyterMetadata());
     if (m_resultsCollapsed)
         metadata.insert(QLatin1String("collapsed"), true);
 

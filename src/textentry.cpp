@@ -136,7 +136,7 @@ void TextEntry::setContentFromJupyter(const QJsonObject& cell)
     {
         m_convertCell = true;
 
-        const QJsonObject& metadata = cell.value(QLatin1String("metadata")).toObject(QJsonObject());
+        const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
         QJsonValue format = metadata.value(QLatin1String("format"));
         // Also checks "raw_mimetype", because raw cell don't corresponds Jupyter Notebook specification
         // See https://github.com/jupyter/notebook/issues/4730
@@ -145,6 +145,8 @@ void TextEntry::setContentFromJupyter(const QJsonObject& cell)
         m_convertTarget = format.toString(QString());
 
         m_textItem->setPlainText(JupyterUtils::getSource(cell));
+
+        setJupyterMetadata(metadata);
     }
     else if (JupyterUtils::isMarkdownCell(cell))
     {
@@ -175,7 +177,7 @@ QJsonValue TextEntry::toJupyterJson()
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
 
-    QJsonObject metadata;
+    QJsonObject metadata(jupyterMetadata());
 
     QString entryData;
     QString entryType;

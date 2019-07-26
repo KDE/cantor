@@ -98,6 +98,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_readOnly = false;
     m_isLoadingFromFile = false;
 
+    m_jupyterMetadata = nullptr;
+
     enableHighlighting(Settings::self()->highlightDefault());
     enableCompletion(Settings::self()->completionDefault());
     enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
@@ -927,7 +929,7 @@ QJsonDocument Worksheet::toJupyterJson()
     QJsonDocument doc;
     QJsonObject root;
 
-    QJsonObject metadata;
+    QJsonObject metadata(m_jupyterMetadata ? *m_jupyterMetadata : QJsonObject());
 
     QJsonObject kernalInfo;
     if (m_session && m_session->backend())
@@ -1292,6 +1294,9 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     const QJsonArray& cells = JupyterUtils::getCells(notebookObject);
     const QJsonObject& metadata = JupyterUtils::getMetadata(notebookObject);
+    if (m_jupyterMetadata)
+        delete m_jupyterMetadata;
+    m_jupyterMetadata = new QJsonObject(metadata);
 
     const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
     m_backendName = JupyterUtils::getKernelName(kernalspec);

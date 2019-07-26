@@ -23,11 +23,12 @@ using namespace Cantor;
 
 #include <QRegExp>
 #include <QUrl>
+#include <QJsonObject>
 
 class Cantor::ResultPrivate
 {
   public:
-
+    QJsonObject* jupyterMetadata{nullptr};
 };
 
 
@@ -62,4 +63,34 @@ void Result::saveAdditionalData(KZip* archive)
     //Do nothing
 }
 
+QJsonObject Cantor::Result::jupyterMetadata() const
+{
+    return d->jupyterMetadata ? *d->jupyterMetadata : QJsonObject();
+}
 
+void Cantor::Result::setJupyterMetadata(QJsonObject metadata)
+{
+    if (!d->jupyterMetadata)
+        d->jupyterMetadata = new QJsonObject();
+    *d->jupyterMetadata = metadata;
+}
+
+QJsonArray Cantor::Result::toJupyterMultiline(const QString& source)
+{
+    if (source.contains(QLatin1Char('\n')))
+    {
+        QJsonArray text;
+        const QStringList& lines = source.split(QLatin1Char('\n'));
+        for (int i = 0; i < lines.size(); i++)
+        {
+            QString line = lines[i];
+            // Don't add \n to last line
+            if (i != lines.size() - 1)
+                line.append(QLatin1Char('\n'));
+            text.append(line);
+        }
+        return text;
+    }
+    else
+        return QJsonArray::fromStringList(QStringList(source));
+}

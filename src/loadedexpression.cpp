@@ -184,8 +184,11 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
+            QJsonObject metadata = JupyterUtils::getMetadata(output);
             const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
             const QString& mainKey = JupyterUtils::mainBundleKey(data);
+
+            Cantor::Result* result = nullptr;
             if (mainKey == JupyterUtils::gifMime)
             {
                 const QByteArray& bytes = QByteArray::fromBase64(data.value(mainKey).toString().toLatin1());
@@ -196,11 +199,11 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 file.write(bytes);
                 file.close();
 
-                addResult(new Cantor::AnimationResult(QUrl::fromLocalFile(file.fileName()), text));
+                result = new Cantor::AnimationResult(QUrl::fromLocalFile(file.fileName()), text);
             }
             else if (mainKey == JupyterUtils::textMime)
             {
-                addResult(new Cantor::TextResult(text));
+                result = new Cantor::TextResult(text);
             }
             else if (mainKey == JupyterUtils::htmlMime)
             {
@@ -208,11 +211,11 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 // Some backends places gif animation in hmlt (img tag), for example, Sage
                 if (JupyterUtils::isGifHtml(html))
                 {
-                    addResult(new Cantor::AnimationResult(JupyterUtils::loadGifHtml(html), text));
+                    result = new Cantor::AnimationResult(JupyterUtils::loadGifHtml(html), text);
                 }
                 else
                 {
-                    addResult(new Cantor::HtmlResult(html, text));
+                    result = new Cantor::HtmlResult(html, text);
                 }
             }
             else if (mainKey == JupyterUtils::latexMime)
@@ -224,29 +227,34 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
                 renderer->renderBlocking();
 
-                if (renderer->renderingSuccessful())
-                    addResult(new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text));
+                result = new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text);
+
+                // If we have failed to render LaTeX i think Cantor should show the latex code at least
+                if (!renderer->renderingSuccessful())
+                    static_cast<Cantor::LatexResult*>(result)->showCode();
             }
             // So this is image
             else if (JupyterUtils::imageKeys(data).contains(mainKey))
             {
                 QImage image = JupyterUtils::loadImage(data, mainKey);
 
-                const QJsonObject& metadata = JupyterUtils::getMetadata(output);
-                const QJsonValue size = metadata.value(JupyterUtils::pngMime);
+                const QJsonValue size = metadata.value(mainKey);
                 if (size.isObject())
                 {
-                    int w = size.toObject().value(QLatin1String("width")).toInt();
-                    int h = size.toObject().value(QLatin1String("height")).toInt();
+                    int w = size.toObject().value(QLatin1String("width")).toInt(-1);
+                    int h = size.toObject().value(QLatin1String("height")).toInt(-1);
 
-                    if (w != 0 && h != 0)
+                    if (w != -1 && h != -1)
                         image = image.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+
+                    // Remove size information, because we don't need it
+                    metadata.remove(mainKey);
                 }
 
-                addResult(new Cantor::ImageResult(image, text));
+                result = new Cantor::ImageResult(image, text);
             }
             else if (data.keys().size() == 1 && data.keys()[0] == JupyterUtils::textMime)
-                addResult(new Cantor::TextResult(text));
+                result = new Cantor::TextResult(text);
             // Cantor don't know, how handle this, so pack into mime container result
             else if (data.keys().count() > 0)
             {
@@ -259,7 +267,13 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                         key = data.keys()[0];
                 else
                     key = data.keys()[0];
-                addResult(new Cantor::MimeResult(text, data.value(key), key));
+                result = new Cantor::MimeResult(text, data.value(key), key);
+            }
+
+            if (result)
+            {
+                result->setJupyterMetadata(metadata);
+                addResult(result);
             }
         }
     }

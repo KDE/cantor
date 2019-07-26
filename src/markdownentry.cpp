@@ -223,6 +223,8 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 
     // https://nbformat.readthedocs.io/en/latest/format_description.html#cell-metadata
     // There isn't Jupyter metadata for markdown cells, which could be handled by Cantor
+    // So we just store it
+    setJupyterMetadata(JupyterUtils::getMetadata(cell));
 
     const QJsonObject attachments = cell.value(QLatin1String("attachments")).toObject();
     for (const QString& key : attachments.keys())
@@ -323,7 +325,7 @@ QJsonValue MarkdownEntry::toJupyterJson()
 
     entry.insert(QLatin1String("cell_type"), QLatin1String("markdown"));
 
-    entry.insert(QLatin1String("metadata"), QJsonObject());
+    entry.insert(QLatin1String("metadata"), jupyterMetadata());
 
     QJsonObject attachments;
     QUrl url;

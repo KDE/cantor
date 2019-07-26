@@ -110,7 +110,7 @@ QJsonValue Cantor::AnimationResult::toJupyterJson()
 
     root.insert(QLatin1String("data"), data);
     // Not sure, but in Jupyter size of gif doesn't controlled by metadata unlike ImageResult
-    root.insert(QLatin1String("metadata"), QJsonObject());
+    root.insert(QLatin1String("metadata"), jupyterMetadata());
 
     return root;
 }

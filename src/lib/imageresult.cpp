@@ -124,7 +124,7 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
     root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
     QJsonObject data;
-    data.insert(QLatin1String("text/plain"), d->alt);
+    data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->alt));
 
     QImage image;
     if (d->img.isNull())
@@ -140,7 +140,7 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
 
     root.insert(QLatin1String("data"), data);
 
-    QJsonObject metadata;
+    QJsonObject metadata(jupyterMetadata());
     QJsonObject size;
     size.insert(QLatin1String("width"), image.size().width());
     size.insert(QLatin1String("height"), image.size().height());

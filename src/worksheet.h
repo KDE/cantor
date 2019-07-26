@@ -320,6 +320,7 @@ class Worksheet : public QGraphicsScene
     Type m_type = CantorWorksheet;
 
     QString m_backendName;
+    QJsonObject* m_jupyterMetadata;
 };
 
 #endif // WORKSHEET_H

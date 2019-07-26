@@ -23,6 +23,7 @@
 
 #include <QVariant>
 #include <QDomElement>
+#include <QJsonArray>
 #include "cantor_export.h"
 
 class KZip;
@@ -108,6 +109,19 @@ class CANTOR_EXPORT Result
      * @param filename name of the file
      */
     virtual void save(const QString& filename) = 0;
+
+    /**
+     * This functions handle Jupyter metadata of
+     */
+    QJsonObject jupyterMetadata() const;
+    void setJupyterMetadata(QJsonObject metadata);
+
+    /**
+     * This function is duplicate of JupyterUtils::toJupyterMultiline
+     * TODO: If we move JupyterUtils in library, remove this function
+     */
+    static QJsonArray toJupyterMultiline(const QString& source);
+
   private:
     ResultPrivate* d;
 };

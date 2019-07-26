@@ -105,6 +105,10 @@ QDomElement Cantor::HtmlResult::toXml(QDomDocument& doc)
 
         case HtmlResult::PlainAlternative:
             e.setAttribute(QStringLiteral("format"), QStringLiteral("plain"));
+
+        // Html format used by default, so don't set it
+        default:
+            break;
     }
 
     QDomElement plainE = doc.createElement(QStringLiteral("Plain"));
@@ -129,7 +133,7 @@ QJsonValue Cantor::HtmlResult::toJupyterJson()
         data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
     root.insert(QLatin1String("data"), data);
 
-    root.insert(QLatin1String("metadata"), QJsonObject());
+    root.insert(QLatin1String("metadata"), jupyterMetadata());
 
     return root;
 }

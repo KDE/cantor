@@ -37,6 +37,7 @@
 #include <QGraphicsProxyWidget>
 #include <QBitmap>
 #include <QJsonArray>
+#include <QJsonObject>
 
 #include <QIcon>
 #include <KLocalizedString>
@@ -62,6 +63,7 @@ WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
     m_actionBar = nullptr;
     m_actionBarAnimation = nullptr;
     m_aboutToBeRemoved = false;
+    m_jupyterMetadata = nullptr;
     setAcceptHoverEvents(true);
     worksheet->addItem(this);
 }
@@ -811,4 +813,16 @@ WorksheetTextItem* WorksheetEntry::highlightItem()
 bool WorksheetEntry::wantFocus()
 {
     return true;
+}
+
+QJsonObject WorksheetEntry::jupyterMetadata() const
+{
+    return m_jupyterMetadata ? *m_jupyterMetadata : QJsonObject();
+}
+
+void WorksheetEntry::setJupyterMetadata(QJsonObject metadata)
+{
+    if (m_jupyterMetadata == nullptr)
+        m_jupyterMetadata = new QJsonObject();
+    *m_jupyterMetadata = metadata;
 }
