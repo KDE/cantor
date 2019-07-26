@@ -430,3 +430,11 @@ bool LatexEntry::renderLatexCode()
     delete renderer;
     return success;
 }
+
+void LatexEntry::resolveImagesAtCursor()
+{
+    QTextCursor cursor = m_textItem->textCursor();
+    if (!cursor.hasSelection())
+        cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+    cursor.insertText(m_textItem->resolveImages(cursor));
+}
