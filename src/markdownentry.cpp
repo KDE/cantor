@@ -56,31 +56,6 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
 
 void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    // Check, if User select one cantor formulas, or have cursor near it
-    // We can resolve only a formula, without text around
-    bool canBeResolved = false;
-    QTextCursor cursor = m_textItem->textCursor();
-    const QChar repl = QChar::ObjectReplacementCharacter;
-    if (cursor.hasSelection()) {
-        canBeResolved = cursor.selectedText() == repl && cursor.charFormat().hasProperty(EpsRenderer::CantorFormula);
-    } else {
-        // we need to try both the current cursor and the one after the that
-        cursor = m_textItem->cursorForPosition(pos);
-        for (int i = 2; i; --i) {
-            int p = cursor.position();
-            if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
-                m_textItem->setTextCursor(cursor);
-                canBeResolved = true;
-                break;
-            }
-            cursor.movePosition(QTextCursor::NextCharacter);
-        }
-    }
-    if (canBeResolved) {
-        menu->addAction(i18n("Show LaTeX code"), this, &MarkdownEntry::resolveImagesAtCursor);
-        menu->addSeparator();
-    }
     if (!rendered)
         menu->addAction(i18n("Insert Image Attachment"), this, &MarkdownEntry::insertImage);
     if (attachedImages.size() != 0)
@@ -508,22 +483,6 @@ void MarkdownEntry::setPlainText(const QString& plain)
     m_textItem->allowEditing();
 }
 
-void MarkdownEntry::resolveImagesAtCursor()
-{
-    QTextCursor cursor = m_textItem->textCursor();
-    if (!cursor.hasSelection())
-        cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
-
-    const QString& mathCode = m_textItem->resolveImages(cursor);
-    int jobId = cursor.charFormat().intProperty(JobProperty);
-
-    foundMath.at(jobId-1).second = false;
-
-    QTextCharFormat format;
-    format.setProperty(JobProperty, jobId);
-    cursor.insertText(mathCode, format);
-}
-
 void MarkdownEntry::renderMath()
 {
     QTextCursor cursor(m_textItem->document());
@@ -600,10 +559,8 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
     if (!cursor.isNull())
     {
-        QTextImageFormat placed = format;
-        placed.setProperty(JobProperty, jobId);
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), placed);
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
 
         // Set that the formulas is rendered
         iter->second = true;
