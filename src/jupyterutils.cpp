@@ -68,6 +68,10 @@ QJsonValue JupyterUtils::toJupyterMultiline(const QString& source)
             // Don't add \n to last line
             if (i != lines.size() - 1)
                 line.append(QLatin1Char('\n'));
+            // Ignore last line, if it is an empty line
+            else if (line.isEmpty())
+                break;
+
             text.append(line);
         }
         return text;
