@@ -55,7 +55,7 @@ class CANTOR_EXPORT TextResult : public Result
     void save(const QString& filename) override;
 
   private:
-    QJsonArray jupyterText(const QString& text);
+    QJsonArray jupyterText(const QString& text, bool addEndNewLine = false);
 
   private:
     TextResultPrivate* d;

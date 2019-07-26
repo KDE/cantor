@@ -155,7 +155,10 @@ QJsonValue Cantor::TextResult::toJupyterJson()
                 root.insert(QLatin1String("output_type"), QLatin1String("stream"));
                 root.insert(QLatin1String("name"), QLatin1String("stdout"));
 
-                root.insert(QLatin1String("text"), jupyterText(d->data));
+                // Jupyter don't support a few text result (it merges them into one text),
+                // so add additinoal \n to end
+                // See https://github.com/jupyter/notebook/issues/4699
+                root.insert(QLatin1String("text"), jupyterText(d->data, true));
             }
             break;
         }
@@ -197,7 +200,7 @@ void TextResult::save(const QString& filename)
     file.close();
 }
 
-QJsonArray TextResult::jupyterText(const QString& text)
+QJsonArray TextResult::jupyterText(const QString& text, bool addEndNewLine)
 {
     QJsonArray array;
 
@@ -205,12 +208,8 @@ QJsonArray TextResult::jupyterText(const QString& text)
     for (int i = 0; i < lines.size(); i++)
     {
         QString line = lines[i];
-        // Jupyter don't support a few text result (it merges them into one text), so
-        // add additinoal \n to end
-        // See https://github.com/jupyter/notebook/issues/4699
-        // If it will fixed, use code below
-        //     if (i != lines.size() - 1) // not last
-        line.append(QLatin1Char('\n'));
+        if (i != lines.size() - 1 || addEndNewLine)
+            line.append(QLatin1Char('\n'));
         array.append(line);
     }
 
