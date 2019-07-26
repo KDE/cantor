@@ -554,13 +554,29 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
     // From findMath we will be first symbol of math expression
     // So in order to select all symbols of the expression, we need to go to previous symbol first
+    // But it working strange sometimes: some times we need to go to previous character, sometimes not
+    // So the code tests that we on '$' symbol and if it isn't true, then we revert back
     cursor.movePosition(QTextCursor::PreviousCharacter);
+    if (m_textItem->document()->characterAt(cursor.position()) != QLatin1Char('$'))
+        cursor.movePosition(QTextCursor::NextCharacter);
+
+    int startPosition = cursor.position();
     cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, searchText.size());
 
     if (!cursor.isNull())
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
+
+        Cantor::LatexRenderer::EquationType type = (Cantor::LatexRenderer::EquationType)format.intProperty(EpsRenderer::CantorFormula);
+        // Dont add new line for $$...$$ on document's begin and end
+        if (type == Cantor::LatexRenderer::FullEquation && startPosition != 0)
+            cursor.insertText(QLatin1String("\n"));
+
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+
+        bool atDocEnd = cursor.position() == m_textItem->document()->characterCount()-1;
+        if (type == Cantor::LatexRenderer::FullEquation && !atDocEnd)
+            cursor.insertText(QLatin1String("\n"));
 
         // Set that the formulas is rendered
         iter->second = true;
