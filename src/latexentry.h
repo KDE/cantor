@@ -63,6 +63,7 @@ class LatexEntry : public WorksheetEntry
 
   public Q_SLOTS:
     bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) override;
+    void resolveImagesAtCursor();
     void updateEntry() override;
     void populateMenu(QMenu* menu, QPointF pos) override;
 
