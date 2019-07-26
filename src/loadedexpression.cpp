@@ -67,9 +67,11 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         if ( type == QLatin1String("text"))
         {
             const QString& format = resultElement.attribute(QLatin1String("format"));
+            bool isStderr = resultElement.attribute(QLatin1String("stderr")).toInt();
             Cantor::TextResult* result = new Cantor::TextResult(resultElement.text());
             if (format == QLatin1String("latex"))
                 result->setFormat(Cantor::TextResult::LatexFormat);
+            result->setStdErr(isStderr);
             addResult(result);
         }
         else if (type == QLatin1String("mime"))
@@ -160,8 +162,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         if (JupyterUtils::isJupyterTextOutput(output))
         {
             const QString& text = JupyterUtils::fromJupyterMultiline(output.value(QLatin1String("text")));
-
-            addResult(new Cantor::TextResult(text));
+            bool isStderr = output.value(QLatin1String("name")).toString() == QLatin1String("stderr");
+            Cantor::TextResult* result = new Cantor::TextResult(text);
+            result->setStdErr(isStderr);
+            addResult(result);
         }
         else if (JupyterUtils::isJupyterErrorOutput(output))
         {

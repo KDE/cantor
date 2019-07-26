@@ -49,6 +49,9 @@ class CANTOR_EXPORT TextResult : public Result
     Format format();
     void setFormat(Format f);
 
+    bool isStderr() const;
+    void setStdErr(bool value);
+
     QDomElement toXml(QDomDocument& doc) override;
     QJsonValue toJupyterJson() override;
 

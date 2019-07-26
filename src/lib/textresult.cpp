@@ -49,6 +49,7 @@ public:
     QString data;
     QString plain;
     TextResult::Format format;
+    bool isStderr;
 };
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
@@ -123,6 +124,7 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     qDebug()<<"saving textresult "<<toHtml();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
+    e.setAttribute(QStringLiteral("stderr"), d->isStderr);
     if (d->format == LatexFormat)
         e.setAttribute(QStringLiteral("format"), QStringLiteral("latex"));
     QDomText txt=doc.createTextNode(data().toString());
@@ -153,7 +155,10 @@ QJsonValue Cantor::TextResult::toJupyterJson()
             else
             {
                 root.insert(QLatin1String("output_type"), QLatin1String("stream"));
-                root.insert(QLatin1String("name"), QLatin1String("stdout"));
+                if (d->isStderr)
+                    root.insert(QLatin1String("name"), QLatin1String("stderr"));
+                else
+                    root.insert(QLatin1String("name"), QLatin1String("stdout"));
 
                 // Jupyter don't support a few text result (it merges them into one text),
                 // so add additinoal \n to end
@@ -214,4 +219,14 @@ QJsonArray TextResult::jupyterText(const QString& text, bool addEndNewLine)
     }
 
     return array;
+}
+
+bool Cantor::TextResult::isStderr() const
+{
+    return d->isStderr;
+}
+
+void Cantor::TextResult::setStdErr(bool value)
+{
+    d->isStderr = value;
 }
