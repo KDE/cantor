@@ -236,7 +236,8 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             // So this is image
             else if (JupyterUtils::imageKeys(data).contains(mainKey))
             {
-                QImage image = JupyterUtils::loadImage(data, mainKey);
+                const QImage& image = JupyterUtils::loadImage(data, mainKey);
+                result = new Cantor::ImageResult(image, text);
 
                 const QJsonValue size = metadata.value(mainKey);
                 if (size.isObject())
@@ -245,13 +246,17 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                     int h = size.toObject().value(QLatin1String("height")).toInt(-1);
 
                     if (w != -1 && h != -1)
-                        image = image.scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-                    // Remove size information, because we don't need it
-                    metadata.remove(mainKey);
+                    {
+                        static_cast<Cantor::ImageResult*>(result)->setDisplaySize(QSize(w, h));
+                        // Remove size information, because we don't need it after setting display size
+                        // Also, we encode image to 'image/png' on saving as .ipynb, even original image don't png
+                        // So, without removing the size info here, after loading for example 'image/tiff' to Cantor from .ipynb and saving the worksheet
+                        // (which means, that the image will be saved as png and not as tiff).
+                        // We will have outdated key 'image/tiff' in metadata.
+                        metadata.remove(mainKey);
+                    }
                 }
 
-                result = new Cantor::ImageResult(image, text);
             }
             else if (data.keys().size() == 1 && data.keys()[0] == JupyterUtils::textMime)
                 result = new Cantor::TextResult(text);

@@ -36,6 +36,7 @@ class Cantor::ImageResultPrivate
     QUrl url;
     QImage img;
     QString alt;
+    QSize displaySize;
 };
 
 ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResultPrivate)
@@ -147,10 +148,13 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
     root.insert(QLatin1String("data"), data);
 
     QJsonObject metadata(jupyterMetadata());
-    QJsonObject size;
-    size.insert(QLatin1String("width"), image.size().width());
-    size.insert(QLatin1String("height"), image.size().height());
-    metadata.insert(QLatin1String("image/png"), size);
+    if (d->displaySize.isValid())
+    {
+        QJsonObject size;
+        size.insert(QLatin1String("width"), displaySize().width());
+        size.insert(QLatin1String("height"), displaySize().height());
+        metadata.insert(QLatin1String("image/png"), size);
+    }
     root.insert(QLatin1String("metadata"), metadata);
 
     return root;
@@ -170,3 +174,12 @@ void ImageResult::save(const QString& filename)
     img.save(filename);
 }
 
+QSize Cantor::ImageResult::displaySize()
+{
+    return d->displaySize;
+}
+
+void Cantor::ImageResult::setDisplaySize(QSize size)
+{
+    d->displaySize = size;
+}
