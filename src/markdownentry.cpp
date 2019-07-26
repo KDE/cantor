@@ -560,7 +560,6 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     if (m_textItem->document()->characterAt(cursor.position()) != QLatin1Char('$'))
         cursor.movePosition(QTextCursor::NextCharacter);
 
-    int startPosition = cursor.position();
     cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, searchText.size());
 
     if (!cursor.isNull())
@@ -569,14 +568,30 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
         Cantor::LatexRenderer::EquationType type = (Cantor::LatexRenderer::EquationType)format.intProperty(EpsRenderer::CantorFormula);
         // Dont add new line for $$...$$ on document's begin and end
-        if (type == Cantor::LatexRenderer::FullEquation && startPosition != 0)
-            cursor.insertText(QLatin1String("\n"));
+        // And if we in block, which haven't non-space characters except out math expression
+        // In another sitation, Cantor will move rendered image into another QTextBlock
+        QTextCursor prevSymCursor = m_textItem->document()->find(QRegExp(QLatin1String("[^\\s]")), cursor, QTextDocument::FindBackward);
+        if (type == Cantor::LatexRenderer::FullEquation
+            && cursor.selectionStart() != 0
+            && prevSymCursor.block() == cursor.block()
+        )
+        {
+            cursor.insertBlock();
+
+            cursor.setPosition(prevSymCursor.position()+2, QTextCursor::KeepAnchor);
+            cursor.removeSelectedText();
+        }
 
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
 
         bool atDocEnd = cursor.position() == m_textItem->document()->characterCount()-1;
-        if (type == Cantor::LatexRenderer::FullEquation && !atDocEnd)
-            cursor.insertText(QLatin1String("\n"));
+        QTextCursor nextSymCursor = m_textItem->document()->find(QRegExp(QLatin1String("[^\\s]")), cursor);
+        if (type == Cantor::LatexRenderer::FullEquation && !atDocEnd && nextSymCursor.block() == cursor.block())
+        {
+            cursor.setPosition(nextSymCursor.position()-1, QTextCursor::KeepAnchor);
+            cursor.removeSelectedText();
+            cursor.insertBlock();
+        }
 
         // Set that the formulas is rendered
         iter->second = true;
