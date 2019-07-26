@@ -73,7 +73,7 @@ QJsonValue JupyterUtils::toJupyterMultiline(const QString& source)
         return text;
     }
     else
-        return QJsonValue(source);
+        return QJsonArray::fromStringList(QStringList(source));
 }
 
 QString JupyterUtils::fromJupyterMultiline(const QJsonValue& source)
