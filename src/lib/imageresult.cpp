@@ -121,7 +121,13 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
 {
     QJsonObject root;
 
-    root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+    if (executionIndex() != -1)
+    {
+        root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+        root.insert(QLatin1String("execution_count"), executionIndex());
+    }
+    else
+        root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
     QJsonObject data;
     data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->alt));

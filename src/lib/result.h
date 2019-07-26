@@ -122,6 +122,13 @@ class CANTOR_EXPORT Result
      */
     static QJsonArray toJupyterMultiline(const QString& source);
 
+    /**
+     * Allow to set execution result index, on this moment useful only for Jupyter
+     * But maybe Cantor can use it too
+     */
+    int executionIndex() const;
+    void setExecutionIndex(int index);
+
   private:
     ResultPrivate* d;
 };

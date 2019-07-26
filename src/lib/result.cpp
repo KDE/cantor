@@ -29,6 +29,7 @@ class Cantor::ResultPrivate
 {
   public:
     QJsonObject* jupyterMetadata{nullptr};
+    int executionIndex{-1};
 };
 
 
@@ -93,4 +94,14 @@ QJsonArray Cantor::Result::toJupyterMultiline(const QString& source)
     }
     else
         return QJsonArray::fromStringList(QStringList(source));
+}
+
+int Cantor::Result::executionIndex() const
+{
+    return d->executionIndex;
+}
+
+void Cantor::Result::setExecutionIndex(int index)
+{
+    d->executionIndex = index;
 }

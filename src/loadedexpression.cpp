@@ -273,6 +273,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             if (result)
             {
                 result->setJupyterMetadata(metadata);
+                int resultIndex = output.value(QLatin1String("execution_count")).toInt(-1);
+                if (resultIndex != -1)
+                    result->setExecutionIndex(resultIndex);
+
                 addResult(result);
             }
         }

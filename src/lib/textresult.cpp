@@ -139,23 +139,43 @@ QJsonValue Cantor::TextResult::toJupyterJson()
     {
         case PlainTextFormat:
         {
-            root.insert(QLatin1String("output_type"), QLatin1String("stream"));
-            root.insert(QLatin1String("name"), QLatin1String("stdout"));
+            if (executionIndex() != -1)
+            {
+                root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+                root.insert(QLatin1String("execution_count"), executionIndex());
 
-            root.insert(QLatin1String("text"), jupyterText(d->data));
+                QJsonObject data;
+                data.insert(QLatin1String("text/plain"), jupyterText(d->data));
+                root.insert(QLatin1String("data"), data);
+
+                root.insert(QLatin1String("metadata"), jupyterMetadata());
+            }
+            else
+            {
+                root.insert(QLatin1String("output_type"), QLatin1String("stream"));
+                root.insert(QLatin1String("name"), QLatin1String("stdout"));
+
+                root.insert(QLatin1String("text"), jupyterText(d->data));
+            }
             break;
         }
 
         case LatexFormat:
         {
-            root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+            if (executionIndex() != -1)
+            {
+                root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+                root.insert(QLatin1String("execution_count"), executionIndex());
+            }
+            else
+                root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
             QJsonObject data;
             data.insert(QLatin1String("text/latex"), jupyterText(d->data));
             data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
             root.insert(QLatin1String("data"), data);
 
-            root.insert(QLatin1String("metadata"), QJsonObject());
+            root.insert(QLatin1String("metadata"), jupyterMetadata());
             break;
         }
     }
