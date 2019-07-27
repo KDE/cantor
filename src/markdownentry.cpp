@@ -358,7 +358,7 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
         }
     }
 
-    if (worksheet()->embeddedMathEnabled())
+    if (rendered && worksheet()->embeddedMathEnabled())
         renderMath();
 
     evaluateNext(evalOp);
@@ -487,7 +487,8 @@ void MarkdownEntry::renderMath()
 {
     QTextCursor cursor(m_textItem->document());
     for (int i = 0; i < (int)foundMath.size(); i++)
-        renderMathExpression(i+1, foundMath[i].first);
+        if (foundMath[i].second == false)
+            renderMathExpression(i+1, foundMath[i].first);
 }
 
 void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
