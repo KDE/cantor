@@ -466,7 +466,7 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
     // not clear, so also ignore
     const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
     const QJsonValue& collapsed = metadata.value(QLatin1String("collapsed"));
-    if (collapsed.isBool() && collapsed.toBool() == true)
+    if (collapsed.isBool() && collapsed.toBool() == true && !m_resultItems.isEmpty())
     {
         // Disable animation for hiding results, we don't need animation on document load stage
         bool animationValue = worksheet()->animationsEnabled();
