@@ -1285,10 +1285,10 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     int nbformatMajor, nbformatMinor;
     std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(notebookObject);
 
-    if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,1,0))
+    if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,0,0))
     {
         QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support import Jupyter notebooks with version lower that 4.1 (detected %1.%2)",nbformatMajor, nbformatMinor), i18n("Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support import Jupyter notebooks with version lower that 4.0 (detected %1.%2)",nbformatMajor, nbformatMinor), i18n("Cantor"));
         return false;
     }
 
