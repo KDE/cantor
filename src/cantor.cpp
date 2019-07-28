@@ -428,6 +428,9 @@ void CantorShell::closeTab(int index)
             delete part;
         }
     }
+
+    if (m_tabWidget->count() == 0)
+        setCaption(QString());
     updatePanel();
 }
 
