@@ -106,6 +106,13 @@ CommandEntry::~CommandEntry()
 {
     if (m_completionBox)
         m_completionBox->deleteLater();
+
+    if (m_menusInitialized)
+    {
+        m_backgroundColorMenu->deleteLater();
+        m_textColorMenu->deleteLater();
+        m_fontMenu->deleteLater();
+    }
 }
 
 int CommandEntry::type() const
