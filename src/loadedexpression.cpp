@@ -77,18 +77,20 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
         else if (type == QLatin1String("mime"))
         {
             const QDomElement& resultElement = results.at(i).toElement();
-            const QString& mimeType = resultElement.attribute(QLatin1String("mimeType"));
-            bool withPlain = resultElement.attribute(QLatin1String("withPlain")).toInt();
 
-            QString plain;
-            if (withPlain)
-                plain = resultElement.firstChildElement(QLatin1String("Plain")).text();
+            QJsonObject mimeBundle;
+            const QDomNodeList& contents = resultElement.elementsByTagName(QLatin1String("Content"));
+            for (int x = 0; x < contents.count(); x++)
+            {
+                const QDomElement& content = contents.at(x).toElement();
 
-            const QString& content = resultElement.firstChildElement(QLatin1String("Content")).text();
-            QJsonDocument jsonDoc = QJsonDocument::fromJson(content.toUtf8());;
-            const QJsonValue& value = jsonDoc.object().value(QLatin1String("content"));
+                const QString& mimeType = content.attribute(QLatin1String("key"));
+                QJsonDocument jsonDoc = QJsonDocument::fromJson(content.text().toUtf8());;
+                const QJsonValue& value = jsonDoc.object().value(QLatin1String("content"));
+                mimeBundle.insert(mimeType, value);
+            }
 
-            addResult(new Cantor::MimeResult(plain, value, mimeType));
+            addResult(new Cantor::MimeResult(mimeBundle));
         }
         else if (type == QLatin1String("html"))
         {
@@ -265,18 +267,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             else if (data.keys().size() == 1 && data.keys()[0] == JupyterUtils::textMime)
                 result = new Cantor::TextResult(text);
             // Cantor don't know, how handle this, so pack into mime container result
-            else if (data.keys().count() > 0)
+            else
             {
                 qDebug() << "Found unsupported " << outputType << "result with mimes" << data.keys() << ", so add them to mime container result";
-                QString key;
-                if (data.keys().contains(JupyterUtils::textMime) && data.keys().count() > 1)
-                    if (data.keys()[0] == JupyterUtils::textMime)
-                        key = data.keys()[1];
-                    else
-                        key = data.keys()[0];
-                else
-                    key = data.keys()[0];
-                result = new Cantor::MimeResult(text, data.value(key), key);
+                result = new Cantor::MimeResult(data);
             }
 
             if (result)

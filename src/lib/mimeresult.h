@@ -21,7 +21,7 @@
 #ifndef _MIMERESULT_H
 #define _MIMERESULT_H
 
-#include <QJsonValue>
+#include <QJsonObject>
 
 #include "result.h"
 #include "cantor_export.h"
@@ -41,14 +41,13 @@ class CANTOR_EXPORT MimeResult : public Result
 {
   public:
     enum { Type = 4 };
-    MimeResult(const QString& plain, const QJsonValue& object, const QString mimeType);
+    MimeResult(const QJsonObject& mimeBundle);
     ~MimeResult() override;
 
     QString toHtml() override;
 
     QVariant data() override;
     QString plain();
-    QString mimeKey();
 
     int type() override;
     QString mimeType() override;

@@ -6701,7 +6701,10 @@ void WorksheetTest::testMimeResult()
     QVERIFY(expression(entry)->results().size() > 1);
     QCOMPARE(expression(entry)->results().at(1)->type(), (int)Cantor::MimeResult::Type);
     Cantor::MimeResult* result = static_cast<Cantor::MimeResult*>(expression(entry)->results().at(1));
-    QCOMPARE(result->mimeKey(), QLatin1String("application/javascript"));
+    QJsonObject mimeData = result->data().value<QJsonObject>();
+    QStringList mimeKeys = mimeData.keys();
+    QCOMPARE(mimeKeys.size(), 1);
+    QVERIFY(mimeKeys.contains(QLatin1String("application/javascript")));
     QJsonArray value = QJsonArray::fromStringList(QStringList{
         QLatin1String("\n"),
         QLatin1String("        require([\"https://rawgit.com/caldwell/renderjson/master/renderjson.js\"], function() {\n"),
@@ -6710,7 +6713,7 @@ void WorksheetTest::testMimeResult()
         QLatin1String("        });\n"),
         QLatin1String("      ")
     });
-    QCOMPARE(result->data().value<QJsonValue>(), QJsonValue(value));
+    QCOMPARE(mimeData[QLatin1String("application/javascript")].toArray(), value);
     }
     entry = entry->next();
 
@@ -6774,8 +6777,12 @@ void WorksheetTest::testMimeResultWithPlain()
     QVERIFY(expression(entry)->results().size() > 1);
     QCOMPARE(expression(entry)->results().at(1)->type(), (int)Cantor::MimeResult::Type);
     Cantor::MimeResult* result = static_cast<Cantor::MimeResult*>(expression(entry)->results().at(1));
-    QCOMPARE(result->mimeKey(), QLatin1String("application/javascript"));
-    QCOMPARE(result->plain(), QLatin1String("<__main__.RenderJSON at 0x7fa1599c6828>"));
+    QJsonObject mimeData = result->data().value<QJsonObject>();
+    QStringList mimeKeys = mimeData.keys();
+    QCOMPARE(mimeKeys.size(), 2);
+    QVERIFY(mimeKeys.contains(QLatin1String("application/javascript")));
+    QVERIFY(mimeKeys.contains(QLatin1String("text/plain")));
+    QCOMPARE(mimeData[QLatin1String("text/plain")].toString(), QLatin1String(""));
     QJsonArray value = QJsonArray::fromStringList(QStringList{
         QLatin1String("\n"),
         QLatin1String("        require([\"https://rawgit.com/caldwell/renderjson/master/renderjson.js\"], function() {\n"),
@@ -6784,7 +6791,7 @@ void WorksheetTest::testMimeResultWithPlain()
         QLatin1String("        });\n"),
         QLatin1String("      ")
     });
-    QCOMPARE(result->data().value<QJsonValue>(), QJsonValue(value));
+    QCOMPARE(mimeData[QLatin1String("application/javascript")].toArray(), value);
     }
     entry = entry->next();
 

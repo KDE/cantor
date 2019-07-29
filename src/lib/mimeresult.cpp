@@ -35,20 +35,17 @@ public:
     MimeResultPrivate() = default;
 
     QString plain;
-    QJsonValue content;
-    QString mimeType;
-    bool isOriginalPlain;
+    QJsonObject mimeBundle;
 };
 
-MimeResult::MimeResult(const QString& plain, const QJsonValue& content, const QString mimeType) : d(new MimeResultPrivate)
+MimeResult::MimeResult(const QJsonObject& mimeBundle) : d(new MimeResultPrivate)
 {
-    d->isOriginalPlain = !plain.isEmpty();
-    if (d->isOriginalPlain)
-        d->plain = plain;
+    bool isOriginalPlain = mimeBundle.contains(QLatin1String("text/plain"));
+    if (isOriginalPlain)
+        d->plain = mimeBundle.value(QLatin1String("text/plain")).toString();
     else
-        d->plain = i18n("This is unsupported Jupyter content of type '%1'", mimeType);
-    d->content = content;
-    d->mimeType = mimeType;
+        d->plain = i18n("This is unsupported Jupyter content of types ('%1')", mimeBundle.keys().join(QLatin1String(", ")));
+    d->mimeBundle = mimeBundle;
 }
 
 MimeResult::~MimeResult()
@@ -73,7 +70,7 @@ QString MimeResult::mimeType()
 
 QVariant MimeResult::data()
 {
-    return d->content;
+    return d->mimeBundle;
 }
 
 QString MimeResult::plain()
@@ -81,33 +78,24 @@ QString MimeResult::plain()
     return d->plain;
 }
 
-QString MimeResult::mimeKey()
-{
-    return d->mimeType;
-}
-
 QDomElement MimeResult::toXml(QDomDocument& doc)
 {
-    qDebug()<<"saving mime result with type" << d->mimeType;
+    qDebug()<<"saving mime result with types" << d->mimeBundle.keys();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("mime"));
-    e.setAttribute(QStringLiteral("mimeType"), d->mimeType);
-    e.setAttribute(QStringLiteral("withPlain"), d->isOriginalPlain);
-    if (d->isOriginalPlain)
+
+    for (const QString& key : d->mimeBundle.keys())
     {
-        QDomElement plain = doc.createElement(QStringLiteral("Plain"));
-        plain.appendChild(doc.createTextNode(d->plain));
-        e.appendChild(plain);
+        QJsonDocument jsonDoc;
+        QJsonObject obj;
+        obj.insert(QLatin1String("content"), d->mimeBundle[key]);
+        jsonDoc.setObject(obj);
+
+        QDomElement content = doc.createElement(QStringLiteral("Content"));
+        content.setAttribute(QStringLiteral("key"), key);
+        content.appendChild(doc.createTextNode(QString::fromUtf8(jsonDoc.toJson())));
+        e.appendChild(content);
     }
-
-    QJsonDocument jsonDoc;
-    QJsonObject obj;
-    obj.insert(QLatin1String("content"), d->content);
-    jsonDoc.setObject(obj);
-
-    QDomElement content = doc.createElement(QStringLiteral("Content"));
-    content.appendChild(doc.createTextNode(QString::fromUtf8(jsonDoc.toJson())));
-    e.appendChild(content);
 
     return e;
 }
@@ -123,20 +111,7 @@ QJsonValue Cantor::MimeResult::toJupyterJson()
     else
         root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
-    QJsonObject data;
-    data.insert(d->mimeType, d->content);
-
-    QJsonArray array;
-    const QStringList& lines = d->plain.split(QLatin1Char('\n'));
-    for (QString line : lines)
-    {
-        line.append(QLatin1Char('\n'));
-        array.append(line);
-    }
-    if (d->isOriginalPlain)
-        data.insert(QLatin1String("text/plain"), array);
-
-    root.insert(QLatin1String("data"), data);
+    root.insert(QLatin1String("data"), d->mimeBundle);
     root.insert(QLatin1String("metadata"), jupyterMetadata());
 
     return root;
@@ -151,21 +126,8 @@ void Cantor::MimeResult::save(const QString& filename)
 
     QTextStream stream(&file);
 
-    QJsonObject root;
-    root.insert(d->mimeType, d->content);
-
-    QJsonArray array;
-    const QStringList& lines = d->plain.split(QLatin1Char('\n'));
-    for (QString line : lines)
-    {
-        line.append(QLatin1Char('\n'));
-        array.append(line);
-    }
-    if (d->isOriginalPlain)
-        root.insert(QLatin1String("text/plain"), array);
-
     QJsonDocument jsonDoc;
-    jsonDoc.setObject(root);
+    jsonDoc.setObject(d->mimeBundle);
 
     stream << jsonDoc.toJson();
 
