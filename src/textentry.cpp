@@ -28,54 +28,104 @@
 
 #include "settings.h"
 
+
 #include <QScopedPointer>
 #include <QGraphicsLinearLayout>
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDebug>
-
 #include <KLocalizedString>
+#include <KColorScheme>
+#include <QStringList>
+#include <QInputDialog>
+
+QStringList standartRawCellTargetNames = {QLatin1String("None"), QLatin1String("LaTeX"), QLatin1String("reST"), QLatin1String("HTML"), QLatin1String("Markdown")};
+QStringList standartRawCellTargetMimes = {QString(), QLatin1String("text/latex"), QLatin1String("text/restructuredtext"), QLatin1String("text/html"), QLatin1String("text/markdown")};
 
 TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
-    , m_convertCell(false)
+    , m_rawCell(false)
     , m_convertTarget()
+    , m_targetActionGroup(nullptr)
+    , m_ownTarget{nullptr}
+    , m_targetMenu(nullptr)
     , m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->enableRichText(true);
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &TextEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &TextEntry::moveToNextEntry);
+    // Modern syntax of signal/stots don't work on this connection (arguments don't match)
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
     connect(m_textItem, &WorksheetTextItem::doubleClick, this, &TextEntry::resolveImagesAtCursor);
+
+    // Init raw cell target menus
+    // This used only for raw cells, but removing and creating this on convertation more complex
+    // that just create them always
+    m_targetActionGroup= new QActionGroup(this);
+	m_targetActionGroup->setExclusive(true);
+	connect(m_targetActionGroup, &QActionGroup::triggered, this, &TextEntry::convertTargetChanged);
+
+    m_targetMenu = new QMenu(i18n("Raw Cell Targets"));
+	for (const QString& key : standartRawCellTargetNames)
+    {
+		QAction* action = new QAction(key, m_targetActionGroup);
+		action->setCheckable(true);
+		m_targetMenu->addAction(action);
+	}
+	m_ownTarget = new QAction(i18n("Add custom target"), m_targetActionGroup);
+    m_ownTarget->setCheckable(true);
+	m_targetMenu->addAction(m_ownTarget);
+}
+
+TextEntry::~TextEntry()
+{
+    m_targetMenu->deleteLater();
 }
 
 void TextEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    bool imageSelected = false;
-    QTextCursor cursor = m_textItem->textCursor();
-    const QChar repl = QChar::ObjectReplacementCharacter;
-    if (cursor.hasSelection()) {
-        QString selection = m_textItem->textCursor().selectedText();
-        imageSelected = selection.contains(repl);
-    } else {
-        // we need to try both the current cursor and the one after the that
-        cursor = m_textItem->cursorForPosition(pos);
-        qDebug() << cursor.position();
-        for (int i = 2; i; --i) {
-            int p = cursor.position();
-            if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(EpsRenderer::CantorFormula)) {
-                m_textItem->setTextCursor(cursor);
-                imageSelected = true;
-                break;
+    if (m_rawCell)
+    {
+        menu->addAction(i18n("Convert to Text Entry"), this, &TextEntry::convertToTextEntry);
+        menu->addMenu(m_targetMenu);
+    }
+    else
+    {
+        menu->addAction(i18n("Convert to Raw Cell"), this, &TextEntry::convertToRawCell);
+
+        bool imageSelected = false;
+        QTextCursor cursor = m_textItem->textCursor();
+        const QChar repl = QChar::ObjectReplacementCharacter;
+        if (cursor.hasSelection())
+        {
+            QString selection = m_textItem->textCursor().selectedText();
+            imageSelected = selection.contains(repl);
+        }
+        else
+        {
+            // we need to try both the current cursor and the one after the that
+            cursor = m_textItem->cursorForPosition(pos);
+            qDebug() << cursor.position();
+            for (int i = 2; i; --i)
+            {
+                int p = cursor.position();
+                if (m_textItem->document()->characterAt(p-1) == repl &&
+                    cursor.charFormat().hasProperty(EpsRenderer::CantorFormula))
+                {
+                    m_textItem->setTextCursor(cursor);
+                    imageSelected = true;
+                    break;
+                }
+                cursor.movePosition(QTextCursor::NextCharacter);
             }
-            cursor.movePosition(QTextCursor::NextCharacter);
+        }
+
+        if (imageSelected)
+        {
+            menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
         }
     }
-    if (imageSelected) {
-        menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
-        menu->addSeparator();
-    }
+    menu->addSeparator();
     WorksheetEntry::populateMenu(menu, pos);
 }
 
@@ -116,11 +166,18 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
 
     if (content.hasAttribute(QLatin1String("convertTarget")))
     {
-        m_convertCell = true;
+        convertToRawCell();
         m_convertTarget = content.attribute(QLatin1String("convertTarget"));
+
+        // Set current action status
+        int idx = standartRawCellTargetMimes.indexOf(m_convertTarget);
+        if (idx != -1)
+            m_targetMenu->actions()[idx]->setChecked(true);
+        else
+            addNewTarget(m_convertTarget);
     }
     else
-        m_convertCell = false;
+        convertToTextEntry();
 
     QDomDocument doc = QDomDocument();
     QDomNode n = doc.importNode(content.firstChildElement(QLatin1String("body")), true);
@@ -134,7 +191,7 @@ void TextEntry::setContentFromJupyter(const QJsonObject& cell)
 {
     if (JupyterUtils::isRawCell(cell))
     {
-        m_convertCell = true;
+        convertToRawCell();
 
         const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
         QJsonValue format = metadata.value(QLatin1String("format"));
@@ -144,14 +201,20 @@ void TextEntry::setContentFromJupyter(const QJsonObject& cell)
             format = metadata.value(QLatin1String("raw_mimetype"));
         m_convertTarget = format.toString(QString());
 
+        // Set current action status
+        int idx = standartRawCellTargetMimes.indexOf(m_convertTarget);
+        if (idx != -1)
+            m_targetMenu->actions()[idx]->setChecked(true);
+        else
+            addNewTarget(m_convertTarget);
+
         m_textItem->setPlainText(JupyterUtils::getSource(cell));
 
         setJupyterMetadata(metadata);
     }
     else if (JupyterUtils::isMarkdownCell(cell))
     {
-        m_convertCell = false;
-        m_convertTarget.clear();
+        convertToTextEntry();
 
         QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
         m_textItem->setHtml(cantorMetadata.value(QLatin1String("text_entry_content")).toString());
@@ -182,7 +245,7 @@ QJsonValue TextEntry::toJupyterJson()
     QString entryData;
     QString entryType;
 
-    if (!m_convertCell)
+    if (!m_rawCell)
     {
         entryType = QLatin1String("markdown");
 
@@ -247,7 +310,7 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     myDoc.setContent(html);
     el.appendChild(myDoc.documentElement().firstChildElement(QLatin1String("body")));
 
-    if (m_convertCell)
+    if (m_rawCell)
         el.setAttribute(QLatin1String("convertTarget"), m_convertTarget);
 
     return el;
@@ -283,7 +346,7 @@ void TextEntry::interruptEvaluation()
 bool TextEntry::evaluate(EvaluationOption evalOp)
 {
     int i = 0;
-    if (worksheet()->embeddedMathEnabled())
+    if (worksheet()->embeddedMathEnabled() && !m_rawCell)
     {
         // Render math in $$...$$ via Latex
         QTextCursor cursor = findLatexCode();
@@ -299,7 +362,6 @@ bool TextEntry::evaluate(EvaluationOption evalOp)
 
             MathRenderer* renderer = worksheet()->mathRenderer();
             renderer->renderExpression(++i, latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
-            qDebug() << i;
 
             cursor = findLatexCode(cursor);
         }
@@ -474,4 +536,58 @@ void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
         result->renderedMath.setProperty(EpsRenderer::Delimiter, QLatin1String("$$"));
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
     }
+}
+
+void TextEntry::convertToRawCell()
+{
+    m_rawCell = true;
+    m_targetMenu->actions().at(0)->setChecked(true);
+
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    m_textItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+
+    // Resolve all latex inserts
+    QTextCursor cursor(m_textItem->document());
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+    cursor.insertText(m_textItem->resolveImages(cursor));
+}
+
+void TextEntry::convertToTextEntry()
+{
+    m_rawCell = false;
+    m_convertTarget.clear();
+
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    m_textItem->setBackgroundColor(scheme.background(KColorScheme::NormalBackground).color());
+}
+
+void TextEntry::convertTargetChanged(QAction* action)
+{
+    int index = standartRawCellTargetNames.indexOf(action->text());
+    if (index != -1)
+    {
+        m_convertTarget = standartRawCellTargetMimes[index];
+    }
+    else if (action == m_ownTarget)
+    {
+        bool ok;
+        const QString& target = QInputDialog::getText(worksheet()->worksheetView(), i18n("Cantor"), i18n("Target mimetype:"), QLineEdit::Normal, QString(), &ok);
+        if (ok && !target.isEmpty())
+        {
+            addNewTarget(target);
+            m_convertTarget = target;
+        }
+    }
+    else
+    {
+        m_convertTarget = action->text();
+    }
+}
+
+void TextEntry::addNewTarget(const QString& target)
+{
+    QAction* action = new QAction(target, m_targetActionGroup);
+    action->setCheckable(true);
+    action->setChecked(true);
+    m_targetMenu->insertAction(m_targetMenu->actions().last(), action);
 }
