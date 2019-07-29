@@ -940,8 +940,9 @@ QJsonDocument Worksheet::toJupyterJson()
 
     root.insert(QLatin1String("metadata"), metadata);
 
+    // Not sure, but it looks like we support nbformat version 4.5
     root.insert(QLatin1String("nbformat"), 4);
-    root.insert(QLatin1String("nbformat_minor"), 1);
+    root.insert(QLatin1String("nbformat_minor"), 5);
 
     QJsonArray cells;
     for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
