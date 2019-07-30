@@ -485,11 +485,29 @@ void CantorPart::fileSaveAs()
     if (file_name.isEmpty())
         return;
 
-    //depending on user's selection, save as a worksheet or as a plain script file
+
+    static const QString jupyterExtension = QLatin1String(".ipynb");
+    static const QString cantorExtension = QLatin1String(".cws");
+    // Append file extension, if it isn't specified
+    // And change filter, if it specified to supported extension
+    if (file_name.contains(QLatin1String(".")))
+    {
+        if (file_name.endsWith(cantorExtension))
+            selectedFilter = worksheetFilter;
+        else if (file_name.endsWith(jupyterExtension))
+            selectedFilter = notebookFilter;
+    }
+    else
+    {
+        if (selectedFilter == worksheetFilter)
+            file_name += cantorExtension;
+        else if (selectedFilter == notebookFilter)
+            file_name += jupyterExtension;
+    }
+
+    //depending on user's selection, save as a worksheet, as a Jupyter notebook or as a plain script file
     if (selectedFilter == worksheetFilter)
     {
-        if (!file_name.endsWith(QLatin1String(".cws")))
-            file_name += QLatin1String(".cws");
         m_worksheet->setType(Worksheet::CantorWorksheet);
         const QUrl& url = QUrl::fromLocalFile(file_name);
         saveAs(url);
@@ -497,8 +515,6 @@ void CantorPart::fileSaveAs()
     }
     else if (selectedFilter == notebookFilter)
     {
-        if (!file_name.endsWith(QLatin1String(".ipynb")))
-            file_name += QLatin1String(".ipynb");
         m_worksheet->setType(Worksheet::JupyterNotebook);
         const QUrl& url = QUrl::fromLocalFile(file_name);
         saveAs(url);
