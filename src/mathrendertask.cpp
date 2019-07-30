@@ -36,23 +36,20 @@
 // Jupyter TODO: pagecolor don't work with preview
 // For example there are question about it:
 // https://tex.stackexchange.com/questions/499712/pagecolor-ignored-when-preview-package-used
-static const QLatin1String mathTex("\\documentclass{minimal}"\
+static const QLatin1String mathTex("\\documentclass{standalone}"\
                          "\\usepackage{amsfonts,amssymb}"\
                          "\\usepackage{amsmath}"\
                          "\\usepackage[utf8]{inputenc}"\
                          "\\usepackage{color}"\
-                         "\\usepackage[active,textmath,tightpage]{%1}"\
                          /*
                          "\\setlength\\textwidth{5in}"\
                          "\\setlength{\\parindent}{0pt}"\
                          "\\pagestyle{empty}"\
                          */
                          "\\begin{document}"\
-                         "\\begin{preview}"\
-                         "\\pagecolor[rgb]{%2,%3,%4}"\
-                         "\\color[rgb]{%5,%6,%7}"\
-                         "%8"\
-                         "\\end{preview}"\
+                         "\\pagecolor[rgb]{%1,%2,%3}"\
+                         "\\color[rgb]{%4,%5,%6}"\
+                         "%7"\
                          "\\end{document}");
 
 static const QLatin1String eqnHeader("$\\displaystyle %1$");
@@ -77,32 +74,35 @@ void MathRenderTask::run()
 {
     QSharedPointer<MathRenderResult> result(new MathRenderResult());
 
-    const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    const QString& tempDir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
 
-    QTemporaryFile texFile(dir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
+    QTemporaryFile texFile(tempDir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
     texFile.open();
 
     KColorScheme scheme(QPalette::Active);
     const QColor &backgroundColor=scheme.background().color();
     const QColor &foregroundColor=scheme.foreground().color();
 
-    // Search preview.sty
-    QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/preview.sty"));
-
-    if (file.isEmpty())
-        file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/latex/preview.sty"));
-
-    if (file.isEmpty())
+    // Verify that standalone.cls available for rendering and could be founded
+    if (!tempDir.contains(QLatin1String("standalone.cls")))
     {
-        result->successfull = false;
-        result->errorMessage = QString::fromLatin1("needed for math render preview.sty file not found");
-        finalize(result);
-        return;
+        QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/standalone.cls"));
+
+        if (file.isEmpty())
+            file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/latex/standalone.cls"));
+
+        if (file.isEmpty())
+        {
+            result->successfull = false;
+            result->errorMessage = QString::fromLatin1("needed for math render standalone.cls file not found in Cantor data directory");
+            finalize(result);
+            return;
+        }
+        else
+            QFile::copy(file, tempDir + QDir::separator() + QLatin1String("standalone.cls"));
     }
 
     QString expressionTex=mathTex;
-    file.chop(4); //remove '.sty' extention
-    expressionTex=expressionTex.arg(file);
     expressionTex=expressionTex
                             .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
                             .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
@@ -117,7 +117,7 @@ void MathRenderTask::run()
     texFile.flush();
 
     KProcess p;
-    p.setWorkingDirectory(dir);
+    p.setWorkingDirectory(tempDir);
 
     // Create unique uuid for this job
     // It will be used as pdf filename, for preventing names collisions
@@ -141,7 +141,7 @@ void MathRenderTask::run()
     }
 
     //Clean up .aux and .log files
-    QString pathWithoutExtention = dir + QDir::separator() + QLatin1String("cantor_")+uuid;
+    QString pathWithoutExtention = tempDir + QDir::separator() + QLatin1String("cantor_")+uuid;
     QFile::remove(pathWithoutExtention + QLatin1String(".log"));
     QFile::remove(pathWithoutExtention + QLatin1String(".aux"));
 

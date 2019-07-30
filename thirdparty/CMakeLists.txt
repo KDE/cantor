@@ -29,4 +29,4 @@ add_dependencies(Discount::Lib discount_project-build)
 set(Discount_FOUND TRUE)
 
 # preview.sty
-install(FILES thirdparty/preview.sty DESTINATION  ${KDE_INSTALL_DATADIR}/cantor/latex )
+install(FILES thirdparty/standalone.cls DESTINATION  ${KDE_INSTALL_DATADIR}/cantor/latex )
