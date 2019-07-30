@@ -33,9 +33,6 @@
 
 #include "epsrenderer.h"
 
-// Jupyter TODO: pagecolor don't work with preview
-// For example there are question about it:
-// https://tex.stackexchange.com/questions/499712/pagecolor-ignored-when-preview-package-used
 static const QLatin1String mathTex("\\documentclass{standalone}"\
                          "\\usepackage{amsfonts,amssymb}"\
                          "\\usepackage{amsmath}"\

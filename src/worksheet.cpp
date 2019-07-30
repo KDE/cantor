@@ -1329,7 +1329,6 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     if (m_readOnly)
     {
-        // Jupyter TODO: Handle this here? Again?
         for (QAction* action : m_richTextActionList)
             action->setEnabled(false);
     }
