@@ -28,6 +28,7 @@
 #include <KProcess>
 #include <QScopedPointer>
 #include <QMutex>
+#include <QApplication>
 
 #include <poppler-qt5.h>
 
@@ -46,7 +47,8 @@ static const QLatin1String mathTex("\\documentclass{standalone}"\
                          "\\begin{document}"\
                          "\\pagecolor[rgb]{%1,%2,%3}"\
                          "\\color[rgb]{%4,%5,%6}"\
-                         "%7"\
+                         "\\fontsize{%7}{%7}\\selectfont"\
+                         "%8"\
                          "\\end{document}");
 
 static const QLatin1String eqnHeader("$\\displaystyle %1$");
@@ -76,10 +78,6 @@ void MathRenderTask::run()
     QTemporaryFile texFile(tempDir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
     texFile.open();
 
-    KColorScheme scheme(QPalette::Active);
-    const QColor &backgroundColor=scheme.background().color();
-    const QColor &foregroundColor=scheme.foreground().color();
-
     // Verify that standalone.cls available for rendering and could be founded
     if (!tempDir.contains(QLatin1String("standalone.cls")))
     {
@@ -98,11 +96,19 @@ void MathRenderTask::run()
         else
             QFile::copy(file, tempDir + QDir::separator() + QLatin1String("standalone.cls"));
     }
-
     QString expressionTex=mathTex;
+
+    KColorScheme scheme(QPalette::Active);
+    const QColor &backgroundColor=scheme.background().color();
+    const QColor &foregroundColor=scheme.foreground().color();
+
     expressionTex=expressionTex
                             .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
                             .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
+
+    int fontPointSize = QApplication::font().pointSize();
+    expressionTex=expressionTex.arg(fontPointSize);
+
     switch(m_type)
     {
         case Cantor::LatexRenderer::FullEquation: expressionTex=expressionTex.arg(eqnHeader); break;
@@ -211,16 +217,11 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
 
     QSize pageSize = pdfPage->pageSize();
 
-    double realSclae;
-    qreal w, h;
+    double realSclae = 1.7 * 1.8;
+    qreal w = 1.7 * pageSize.width();
+    qreal h = 1.7 * pageSize.height();
     if(highResolution) {
-        realSclae = 1.2 * 5 * 1.8;
-        w = 1.2 * pageSize.width();
-        h = 1.2 * pageSize.height();
-    } else {
-        realSclae = 2.4 * scale * 1.8;
-        w = 2.4 * pageSize.width();
-        h = 2.4 * pageSize.height();
+        realSclae *= 5;
     }
 
     QImage image = pdfPage->renderToImage(72.0*realSclae, 72.0*realSclae);
