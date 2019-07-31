@@ -78,22 +78,17 @@ void Cantor::Result::setJupyterMetadata(QJsonObject metadata)
 
 QJsonArray Cantor::Result::toJupyterMultiline(const QString& source)
 {
-    if (source.contains(QLatin1Char('\n')))
+    QJsonArray text;
+    const QStringList& lines = source.split(QLatin1Char('\n'));
+    for (int i = 0; i < lines.size(); i++)
     {
-        QJsonArray text;
-        const QStringList& lines = source.split(QLatin1Char('\n'));
-        for (int i = 0; i < lines.size(); i++)
-        {
-            QString line = lines[i];
-            // Don't add \n to last line
-            if (i != lines.size() - 1)
-                line.append(QLatin1Char('\n'));
-            text.append(line);
-        }
-        return text;
+        QString line = lines[i];
+        // Don't add \n to last line
+        if (i != lines.size() - 1)
+            line.append(QLatin1Char('\n'));
+        text.append(line);
     }
-    else
-        return QJsonArray::fromStringList(QStringList(source));
+    return text;
 }
 
 int Cantor::Result::executionIndex() const

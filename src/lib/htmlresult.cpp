@@ -133,10 +133,11 @@ QJsonValue Cantor::HtmlResult::toJupyterJson()
     else
         root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
+
     QJsonObject data;
-    data.insert(QLatin1String("text/html"), jupyterText(d->html));
+    data.insert(QLatin1String("text/html"), toJupyterMultiline(d->html));
     if (!d->plain.isEmpty())
-        data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
+        data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->plain));
     root.insert(QLatin1String("data"), data);
 
     root.insert(QLatin1String("metadata"), jupyterMetadata());
@@ -156,21 +157,4 @@ void Cantor::HtmlResult::save(const QString& filename)
     stream<<d->html;
 
     file.close();
-}
-
-
-QJsonArray Cantor::HtmlResult::jupyterText(const QString& text)
-{
-    QJsonArray array;
-
-    const QStringList& lines = text.split(QLatin1Char('\n'));
-    for (int i = 0; i < lines.size(); i++)
-    {
-        QString line = lines[i];
-        if (i != lines.size() - 1) // not last
-            line.append(QLatin1Char('\n'));
-        array.append(line);
-    }
-
-    return array;
 }

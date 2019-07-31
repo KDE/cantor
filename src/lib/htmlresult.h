@@ -58,9 +58,6 @@ class CANTOR_EXPORT HtmlResult : public Result
     void save(const QString& filename) override;
 
   private:
-    QJsonArray jupyterText(const QString& text);
-
-  private:
     HtmlResultPrivate* d;
 };
 
