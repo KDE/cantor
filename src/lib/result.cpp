@@ -28,6 +28,12 @@ using namespace Cantor;
 class Cantor::ResultPrivate
 {
   public:
+    ResultPrivate::~ResultPrivate()
+    {
+        if (jupyterMetadata)
+            delete jupyterMetadata;
+    }
+
     QJsonObject* jupyterMetadata{nullptr};
     int executionIndex{-1};
 };

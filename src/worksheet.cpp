@@ -123,6 +123,8 @@ Worksheet::~Worksheet()
         m_session->deleteLater();
         m_session = nullptr;
     }
+    if (m_jupyterMetadata)
+        delete m_jupyterMetadata;
 }
 
 void Worksheet::loginToSession()

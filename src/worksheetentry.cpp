@@ -79,6 +79,8 @@ WorksheetEntry::~WorksheetEntry()
         m_animation->animation->deleteLater();
         delete m_animation;
     }
+    if (m_jupyterMetadata)
+        delete m_jupyterMetadata;
 }
 
 int WorksheetEntry::type() const
