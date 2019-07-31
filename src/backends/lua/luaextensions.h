@@ -23,13 +23,13 @@
 
 #include <extension.h>
 
-#define LUA_EXT_CDTOR_DECL(name) Lua##name##Extension(QObject* parent); \
-                                     ~Lua##name##Extension();
-
 class LuaScriptExtension : public Cantor::ScriptExtension
 {
-public:
-    LUA_EXT_CDTOR_DECL(Script)
+  public:
+    explicit LuaScriptExtension(QObject* parent);
+    ~LuaScriptExtension() override;
+
+  public Q_SLOTS:
     QString scriptFileFilter() override;
     QString highlightingMode() override;
     QString runExternalScript(const QString& path) override;

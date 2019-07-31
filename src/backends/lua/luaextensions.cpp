@@ -21,10 +21,9 @@
 #include "luaextensions.h"
 #include <KLocalizedString>
 
-#define LUA_EXT_CDTOR(name) Lua##name##Extension::Lua##name##Extension(QObject* parent) : name##Extension(parent) {} \
-                                     Lua##name##Extension::~Lua##name##Extension() {}
+LuaScriptExtension::LuaScriptExtension(QObject* parent): Cantor::ScriptExtension(parent) {}
 
-LUA_EXT_CDTOR(Script)
+LuaScriptExtension::~LuaScriptExtension() {}
 
 QString LuaScriptExtension::runExternalScript(const QString& path)
 {

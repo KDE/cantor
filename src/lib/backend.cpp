@@ -148,7 +148,7 @@ QList<Backend*> Backend::availableBackends()
             }
 
             KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
-            Backend* backend = factory->create<Backend>();
+            Backend* backend = factory->create<Backend>(QCoreApplication::instance());
 
             KPluginMetaData info(loader);
             backend->d->name=info.name();
