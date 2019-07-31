@@ -324,7 +324,8 @@ WorksheetView* Worksheet::worksheetView()
 
 void Worksheet::setModified()
 {
-    emit modified();
+    if (!m_isLoadingFromFile)
+        emit modified();
 }
 
 WorksheetCursor Worksheet::worksheetCursor()
@@ -511,7 +512,7 @@ void Worksheet::evaluate()
 
     firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
 
-    emit modified();
+    setModified();
 }
 
 void Worksheet::evaluateCurrentEntry()
@@ -556,7 +557,7 @@ WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
             makeVisible(entry);
             focusEntry(entry);
         }
-        emit modified();
+        setModified();
     }
     return entry;
 }
@@ -629,7 +630,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
         else
             setLastEntry(entry);
         updateLayout();
-        emit modified();
+        setModified();
     } else {
         entry = next;
     }
@@ -701,7 +702,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         else
             setFirstEntry(entry);
         updateLayout();
-        emit modified();
+        setModified();
     }
     else
         entry = prev;
@@ -1097,6 +1098,7 @@ void Worksheet::saveLatex(const QString& filename)
 
 bool Worksheet::load(const QString& filename )
 {
+    qDebug() << "loading worksheet" << filename;
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly)) {
         KMessageBox::error(worksheetView(), i18n("Couldn't open the file %1", filename), i18n("Cantor"));
@@ -1276,16 +1278,25 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 {
     m_type = Type::JupyterNotebook;
 
-
+    int nbformatMajor, nbformatMinor;
     if (!JupyterUtils::isJupyterNotebook(doc))
     {
-        QApplication::restoreOverrideCursor();
-        showInvalidNotebookSchemeError();
+        // Two possiblities: old jupyter notebook (with another scheme) or just not a notebook at AlignLeft
+        std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(doc.object());
+        if (nbformatMajor == 0 && nbformatMinor == 0)
+        {
+            QApplication::restoreOverrideCursor();
+            showInvalidNotebookSchemeError();
+        }
+        else
+        {
+            KMessageBox::error(worksheetView(), i18n("The file is old Jupyter notebook (found version %1.%2), which isn't supported by Cantor",nbformatMajor, nbformatMinor ), i18n("Cantor"));
+        }
+
         return false;
     }
 
     QJsonObject notebookObject = doc.object();
-    int nbformatMajor, nbformatMinor;
     std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(notebookObject);
 
     if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,0,0))
@@ -1355,12 +1366,21 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     qDebug() << "loading jupyter entries";
 
-    // Jupyter TODO: handle error, like no object, no 'cell_type', etc
-    // Maybe forward back to cantor shell and UI message about failed
     WorksheetEntry* entry = nullptr;
     for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
         if (!JupyterUtils::isJupyterCell(*iter))
-            continue;
+        {
+            QApplication::restoreOverrideCursor();
+            QString explanation;
+            if (iter->isObject())
+                explanation = i18n("an object with keys: %1", iter->toObject().keys().join(QLatin1String(", ")));
+            else
+                explanation = i18n("non object JSON value");
+
+            m_isLoadingFromFile = false;
+            showInvalidNotebookSchemeError(i18n("found incorrect data (%1) that is not Jupyter cell", explanation));
+            return false;
+        }
 
         const QJsonObject& cell = iter->toObject();
         QString cellType = JupyterUtils::getCellType(cell);
@@ -1420,9 +1440,12 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     return true;
 }
 
-void Worksheet::showInvalidNotebookSchemeError()
+void Worksheet::showInvalidNotebookSchemeError(QString additionalInfo)
 {
-    KMessageBox::error(worksheetView(), i18n("The file is not valid or too old Jupyter notebook file."), i18n("Cantor"));
+    if (additionalInfo.isEmpty())
+        KMessageBox::error(worksheetView(), i18n("The file is not valid Jupyter notebook"), i18n("Cantor"));
+    else
+        KMessageBox::error(worksheetView(), i18n("Invalid Jupyter notebook scheme: %1", additionalInfo), i18n("Cantor"));
 }
 
 
