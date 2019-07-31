@@ -51,7 +51,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
   public:
     explicit DefaultHighlighter(QObject* parent);
     explicit DefaultHighlighter(QObject* parent, Session* session);
-    ~DefaultHighlighter() override;
+    virtual ~DefaultHighlighter() override;
 
     /**
      * Change the item being highlighted.
