@@ -115,6 +115,7 @@ private:
     KParts::ReadWritePart* m_part;
     QTabWidget* m_tabWidget;
     QList<QDockWidget*> m_panels;
+    QList<QAction*> m_newBackendActions;
     QDockWidget* m_helpDocker;
     KRecentFilesAction* m_recentProjectsAction;
 };

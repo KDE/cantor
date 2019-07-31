@@ -80,6 +80,17 @@ CantorShell::~CantorShell()
 {
     if (m_recentProjectsAction)
         m_recentProjectsAction->saveEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
+
+    if (!m_newBackendActions.isEmpty())
+    {
+        unplugActionList(QLatin1String("new_worksheet_with_backend_list"));
+        qDeleteAll(m_newBackendActions);
+        m_newBackendActions.clear();
+    }
+
+    unplugActionList(QLatin1String("view_show_panel_list"));
+    qDeleteAll(m_panels);
+    m_panels.clear();
 }
 
 void CantorShell::load(const QUrl &url)
@@ -428,6 +439,9 @@ void CantorShell::closeTab(int index)
             delete part;
         }
     }
+
+    if (m_tabWidget->count() == 0)
+        setCaption(QString());
     updatePanel();
 }
 
@@ -645,7 +659,9 @@ void CantorShell::updatePanel()
 void CantorShell::updateNewSubmenu()
 {
     unplugActionList(QLatin1String("new_worksheet_with_backend_list"));
-    QList<QAction*> newBackendActions;
+    qDeleteAll(m_newBackendActions);
+    m_newBackendActions.clear();
+
     foreach (Cantor::Backend* backend, Cantor::Backend::availableBackends())
     {
         if (!backend->isEnabled())
@@ -653,9 +669,9 @@ void CantorShell::updateNewSubmenu()
         QAction * action = new QAction(QIcon::fromTheme(backend->icon()), backend->name(), nullptr);
         action->setData(backend->name());
         connect(action, SIGNAL(triggered()), this, SLOT(fileNew()));
-        newBackendActions << action;
+        m_newBackendActions << action;
     }
-    plugActionList(QLatin1String("new_worksheet_with_backend_list"), newBackendActions);
+    plugActionList(QLatin1String("new_worksheet_with_backend_list"), m_newBackendActions);
 }
 
 Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()

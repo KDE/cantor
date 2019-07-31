@@ -49,6 +49,12 @@ d_ptr(new DefaultVariableModelPrivate)
     qDebug() << d->session << d->extension;
 }
 
+DefaultVariableModel::~DefaultVariableModel()
+{
+    Q_D(DefaultVariableModel);
+    delete d;
+}
+
 int DefaultVariableModel::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);

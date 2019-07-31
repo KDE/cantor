@@ -90,7 +90,7 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
     m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
 
-    m_promptItemAnimation = new QPropertyAnimation(m_promptItem, "opacity");
+    m_promptItemAnimation = new QPropertyAnimation(m_promptItem, "opacity", this);
     m_promptItemAnimation->setDuration(600);
     m_promptItemAnimation->setStartValue(1);
     m_promptItemAnimation->setKeyValueAt(0.5, 0);
@@ -112,6 +112,13 @@ CommandEntry::~CommandEntry()
 {
     if (m_completionBox)
         m_completionBox->deleteLater();
+
+    if (m_menusInitialized)
+    {
+        m_backgroundColorMenu->deleteLater();
+        m_textColorMenu->deleteLater();
+        m_fontMenu->deleteLater();
+    }
 }
 
 int CommandEntry::type() const
