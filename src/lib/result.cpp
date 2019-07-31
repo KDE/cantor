@@ -28,7 +28,7 @@ using namespace Cantor;
 class Cantor::ResultPrivate
 {
   public:
-    ResultPrivate::~ResultPrivate()
+    ~ResultPrivate()
     {
         if (jupyterMetadata)
             delete jupyterMetadata;
