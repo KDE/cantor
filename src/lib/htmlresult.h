@@ -21,8 +21,9 @@
 #ifndef _HTMLRESULT_H
 #define _HTMLRESULT_H
 
-#include "result.h"
+#include <QJsonValue>
 
+#include "result.h"
 #include "cantor_export.h"
 
 namespace Cantor
@@ -39,7 +40,7 @@ class CANTOR_EXPORT HtmlResult : public Result
   public:
     enum { Type=8 };
     enum Format { Html, HtmlSource, PlainAlternative};
-    HtmlResult(const QString& html, const QString& plain = QString());
+    HtmlResult(const QString& html, const QString& plain = QString(), const std::map<QString, QJsonValue>& alternatives = std::map<QString, QJsonValue>());
     ~HtmlResult() override;
 
     QString toHtml() override;

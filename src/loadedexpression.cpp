@@ -104,7 +104,19 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
             const QString& plain = resultElement.firstChildElement(QLatin1String("Plain")).text();
             const QString& html = resultElement.firstChildElement(QLatin1String("Html")).text();
 
-            Cantor::HtmlResult* result = new Cantor::HtmlResult(html, plain);
+            std::map<QString, QJsonValue> alternatives;
+            const QDomNodeList& alternativeElms = resultElement.elementsByTagName(QLatin1String("Alternative"));
+            for (int x = 0; x < alternativeElms.count(); x++)
+            {
+                const QDomElement& content = alternativeElms.at(x).toElement();
+
+                const QString& mimeType = content.attribute(QLatin1String("key"));
+                QJsonDocument jsonDoc = QJsonDocument::fromJson(content.text().toUtf8());;
+                const QJsonValue& value = jsonDoc.object().value(QLatin1String("root"));
+                alternatives[mimeType] = value;
+            }
+
+            Cantor::HtmlResult* result = new Cantor::HtmlResult(html, plain, alternatives);
             result->setFormat(format);
 
             addResult(result);
@@ -221,7 +233,13 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 }
                 else
                 {
-                    result = new Cantor::HtmlResult(html, text);
+                    // Load alternative content types too
+                    std::map<QString, QJsonValue> alternatives;
+                    for (const QString& key : data.keys())
+                        if (key != JupyterUtils::htmlMime && key != JupyterUtils::textMime)
+                            alternatives[key] = data[key];
+
+                    result = new Cantor::HtmlResult(html, text, alternatives);
                 }
             }
             else if (mainKey == JupyterUtils::latexMime)

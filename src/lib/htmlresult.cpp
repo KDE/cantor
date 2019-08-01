@@ -24,6 +24,7 @@
 #include <QTextStream>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QJsonDocument>
 
 using namespace Cantor;
 
@@ -32,13 +33,15 @@ class Cantor::HtmlResultPrivate
 public:
     QString html;
     QString plain;
+    std::map<QString, QJsonValue> alternatives; // Usefull only for Jupyter, it think
     Cantor::HtmlResult::Format format{Cantor::HtmlResult::Html};
 };
 
-HtmlResult::HtmlResult(const QString& html, const QString& plain) : d(new HtmlResultPrivate())
+HtmlResult::HtmlResult(const QString& html, const QString& plain, const std::map<QString, QJsonValue>& alternatives) : d(new HtmlResultPrivate())
 {
     d->html = html;
     d->plain = plain;
+    d->alternatives = alternatives;
 }
 
 HtmlResult::~HtmlResult()
@@ -119,6 +122,19 @@ QDomElement Cantor::HtmlResult::toXml(QDomDocument& doc)
     htmlE.appendChild(doc.createTextNode(d->html));
     e.appendChild(htmlE);
 
+    for (auto iter = d->alternatives.begin(); iter != d->alternatives.end(); iter++)
+    {
+        QJsonDocument jsonDoc;
+        QJsonObject obj;
+        obj.insert(QLatin1String("root"), iter->second);
+        jsonDoc.setObject(obj);
+
+        QDomElement content = doc.createElement(QStringLiteral("Alternative"));
+        content.setAttribute(QStringLiteral("key"), iter->first);
+        content.appendChild(doc.createTextNode(QString::fromUtf8(jsonDoc.toJson())));
+        e.appendChild(content);
+    }
+
     return e;
 }
 
@@ -138,6 +154,10 @@ QJsonValue Cantor::HtmlResult::toJupyterJson()
     data.insert(QLatin1String("text/html"), toJupyterMultiline(d->html));
     if (!d->plain.isEmpty())
         data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->plain));
+
+    for (auto iter = d->alternatives.begin(); iter != d->alternatives.end(); iter++)
+        data.insert(iter->first, iter->second);
+
     root.insert(QLatin1String("data"), data);
 
     root.insert(QLatin1String("metadata"), jupyterMetadata());
