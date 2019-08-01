@@ -189,6 +189,10 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
             }
         }
     }
+
+    // Because, all previous actions was on load stage,
+    // them shoudl unconverted by user
+    m_textItem->document()->clearUndoRedoStacks();
 }
 
 void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
@@ -218,6 +222,7 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
     }
 
     setPlainText(JupyterUtils::getSource(cell));
+    m_textItem->document()->clearUndoRedoStacks();
 }
 
 QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -356,6 +361,7 @@ bool MarkdownEntry::evaluate(EvaluationOption evalOp)
             plain = m_textItem->toPlainText();
             rendered = renderMarkdown(plain);
         }
+        m_textItem->document()->clearUndoRedoStacks();
     }
 
     if (rendered && worksheet()->embeddedMathEnabled())
@@ -595,6 +601,8 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
         // Set that the formulas is rendered
         iter->second = true;
+
+        m_textItem->document()->clearUndoRedoStacks();
     }
 }
 
