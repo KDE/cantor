@@ -551,7 +551,6 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
     const QString delimiter = format.property(EpsRenderer::Delimiter).toString();
     QString searchText = delimiter + format.property(EpsRenderer::Code).toString() + delimiter;
-    searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
 
     // From findMath we will be first symbol of math expression
     // So in order to select all symbols of the expression, we need to go to previous symbol first
