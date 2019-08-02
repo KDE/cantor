@@ -29,6 +29,7 @@
 #include <QScopedPointer>
 #include <QMutex>
 #include <QApplication>
+#include <QDebug>
 
 #include <poppler-qt5.h>
 
@@ -119,7 +120,7 @@ void MathRenderTask::run()
     texFile.write(expressionTex.toUtf8());
     texFile.flush();
 
-    KProcess p;
+    QProcess p;
     p.setWorkingDirectory(tempDir);
 
     // Create unique uuid for this job
@@ -128,7 +129,8 @@ void MathRenderTask::run()
     const QString& uuid = genUuid();
 
     const QString& pdflatex = QStandardPaths::findExecutable(QLatin1String("pdflatex"));
-    p << pdflatex << QStringLiteral("-interaction=batchmode") << QStringLiteral("-jobname=cantor_") + uuid << QStringLiteral("-halt-on-error") << texFile.fileName();
+    p.setProgram(pdflatex);
+    p.setArguments({QStringLiteral("-jobname=cantor_") + uuid, QStringLiteral("-halt-on-error"), texFile.fileName()});
 
     p.start();
     p.waitForFinished();
@@ -137,7 +139,13 @@ void MathRenderTask::run()
     {
         // pdflatex render failed and we haven't pdf file
         result->successfull = false;
-        result->errorMessage = QString::fromLatin1("pdflatex failed to render pdf and exit with code %1").arg(p.exitCode());
+
+        QString renderErrorText = QString::fromUtf8(p.readAllStandardOutput());
+        renderErrorText.remove(0, renderErrorText.indexOf(QLatin1Char('!')));
+        renderErrorText.remove(renderErrorText.indexOf(QLatin1String("!  ==> Fatal error occurred")), renderErrorText.size());
+        renderErrorText = renderErrorText.trimmed();
+        result->errorMessage = renderErrorText;
+
         finalize(result);
         texFile.setAutoRemove(false); //Usefull for debug
         return;
@@ -217,14 +225,16 @@ QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool hig
 
     QSize pageSize = pdfPage->pageSize();
 
-    double realSclae = 1.7 * 1.8;
+    double realScale = 1.7 * 1.8;
     qreal w = 1.7 * pageSize.width();
     qreal h = 1.7 * pageSize.height();
-    if(highResolution) {
-        realSclae *= 5;
-    }
+    if(highResolution)
+        realScale *= 5;
+    else
+        realScale *= scale;
 
-    QImage image = pdfPage->renderToImage(72.0*realSclae, 72.0*realSclae);
+
+    QImage image = pdfPage->renderToImage(72.0*realScale, 72.0*realScale);
 
     delete pdfPage;
     if (mutex)

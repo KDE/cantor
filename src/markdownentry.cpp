@@ -36,6 +36,7 @@
 #include "jupyterutils.h"
 #include "mathrender.h"
 #include <config-cantor.h>
+#include "settings.h"
 
 #ifdef Discount_FOUND
 extern "C" {
@@ -501,7 +502,10 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
 {
     if (!result->successfull)
     {
-        qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
+        if (Settings::self()->showMathRenderError())
+            KMessageBox::error(worksheetView(), result->errorMessage, i18n("Cantor Math Error"));
+        else
+            qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
         return;
     }
 

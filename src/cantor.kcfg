@@ -46,6 +46,10 @@
       <label>Save rich text formatting of TextEntry, when save Worksheet in Jupyter notebook format</label>
       <default>true</default>
     </entry>
+    <entry name="ShowMathRenderError" type="Bool">
+      <label>Show embeded math render error</label>
+      <default>true</default>
+    </entry>
   </group>
 </kcfg>
 

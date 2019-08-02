@@ -96,6 +96,13 @@
           </property>
          </widget>
         </item>
+        <item>
+         <widget class="QCheckBox" name="kcfg_ShowMathRenderError">
+          <property name="text">
+           <string>Show message about error on render failure of embeded math</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
