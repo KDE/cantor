@@ -97,6 +97,17 @@ QJsonArray Cantor::Result::toJupyterMultiline(const QString& source)
     return text;
 }
 
+QString Cantor::Result::fromJupyterMultiline(const QJsonValue& source)
+{
+    QString code;
+    if (source.isString())
+        code = source.toString();
+    else if (source.isArray())
+        for (const QJsonValue& line : source.toArray())
+            code += line.toString();
+    return code;
+}
+
 int Cantor::Result::executionIndex() const
 {
     return d->executionIndex;
