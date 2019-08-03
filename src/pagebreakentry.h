@@ -40,7 +40,10 @@ class PageBreakEntry : public WorksheetEntry
     bool acceptRichText() override;
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
+    void setContentFromJupyter(const QJsonObject & cell) override;
+    static bool isConvertableToPageBreakEntry(const QJsonObject& cell);
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     void interruptEvaluation() override;

@@ -33,6 +33,7 @@
 
 #include "worksheetview.h"
 #include "lib/epsrenderer.h"
+#include "mathrender.h"
 #include "worksheetcursor.h"
 
 namespace Cantor {
@@ -57,6 +58,11 @@ class Worksheet : public QGraphicsScene
 {
   Q_OBJECT
   public:
+    enum Type {
+      CantorWorksheet,
+      JupyterNotebook
+    };
+
     Worksheet(Cantor::Backend* backend, QWidget* parent);
     ~Worksheet() override;
 
@@ -68,6 +74,7 @@ class Worksheet : public QGraphicsScene
     bool isReadOnly();
     bool showExpressionIds();
     bool animationsEnabled();
+    bool embeddedMathEnabled();
 
     bool isPrinting();
 
@@ -86,6 +93,7 @@ class Worksheet : public QGraphicsScene
     QMenu* createContextMenu();
     void populateMenu(QMenu* menu, QPointF pos);
     Cantor::EpsRenderer* epsRenderer();
+    MathRenderer* mathRenderer();
     bool isEmpty();
     bool isLoadingFromFile();
 
@@ -106,6 +114,9 @@ class Worksheet : public QGraphicsScene
     void removeProtrusion(qreal width);
 
     bool isShortcut(const QKeySequence&);
+
+    void setType(Worksheet::Type type);
+    Worksheet::Type type() const;
 
     // richtext
     struct RichTextInfo {
@@ -162,6 +173,7 @@ class Worksheet : public QGraphicsScene
     void enableCompletion(bool);
     void enableExpressionNumbering(bool);
     void enableAnimations(bool);
+    void enableEmbeddedMath(bool);
 
     QDomDocument toXML(KZip* archive = nullptr);
 
@@ -233,6 +245,8 @@ class Worksheet : public QGraphicsScene
 
     void keyPressEvent(QKeyEvent*) override;
 
+    QJsonDocument toJupyterJson();
+
   private Q_SLOTS:
     void showCompletion();
     //void checkEntriesForSanity();
@@ -251,6 +265,9 @@ class Worksheet : public QGraphicsScene
     void addEntryFromEntryCursor();
     void drawEntryCursor();
     int entryCount();
+    bool loadCantorWorksheet(const KZip& archive);
+    bool loadJupyterNotebook(const QJsonDocument& doc);
+    void showInvalidNotebookSchemeError(QString additionalInfo = QString());
 
   private:
     static const double LeftMargin;
@@ -261,6 +278,7 @@ class Worksheet : public QGraphicsScene
     Cantor::Session *m_session;
     QSyntaxHighlighter* m_highlighter;
     Cantor::EpsRenderer m_epsRenderer;
+    MathRenderer m_mathRenderer;
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
@@ -291,6 +309,7 @@ class Worksheet : public QGraphicsScene
     KToggleAction* m_alignJustifyAction;
 
     bool m_completionEnabled;
+    bool m_embeddedMathEnabled;
     bool m_showExpressionIds;
     bool m_animationsEnabled;
     bool m_loginDone;
@@ -298,7 +317,10 @@ class Worksheet : public QGraphicsScene
     bool m_isLoadingFromFile;
     bool m_readOnly;
 
+    Type m_type = CantorWorksheet;
+
     QString m_backendName;
+    QJsonObject* m_jupyterMetadata;
 };
 
 #endif // WORKSHEET_H

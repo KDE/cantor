@@ -23,6 +23,7 @@
 
 #include <QVariant>
 #include <QDomElement>
+#include <QJsonArray>
 #include "cantor_export.h"
 
 class KZip;
@@ -100,10 +101,35 @@ class CANTOR_EXPORT Result
     virtual void saveAdditionalData(KZip* archive);
 
     /**
+     * return a Jupyter json object, containing the information of the result
+     */
+    virtual QJsonValue toJupyterJson() = 0;
+    /**
      * saves this to a file
      * @param filename name of the file
      */
     virtual void save(const QString& filename) = 0;
+
+    /**
+     * This functions handle Jupyter metadata of
+     */
+    QJsonObject jupyterMetadata() const;
+    void setJupyterMetadata(QJsonObject metadata);
+
+    /**
+     * This function is duplicate of JupyterUtils::toJupyterMultiline
+     * TODO: If we move JupyterUtils in library, remove this function
+     */
+    static QJsonArray toJupyterMultiline(const QString& source);
+    static QString fromJupyterMultiline(const QJsonValue& source);
+
+    /**
+     * Allow to set execution result index, on this moment useful only for Jupyter
+     * But maybe Cantor can use it too
+     */
+    int executionIndex() const;
+    void setExecutionIndex(int index);
+
   private:
     ResultPrivate* d;
 };

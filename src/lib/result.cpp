@@ -23,11 +23,19 @@ using namespace Cantor;
 
 #include <QRegExp>
 #include <QUrl>
+#include <QJsonObject>
 
 class Cantor::ResultPrivate
 {
   public:
+    ~ResultPrivate()
+    {
+        if (jupyterMetadata)
+            delete jupyterMetadata;
+    }
 
+    QJsonObject* jupyterMetadata{nullptr};
+    int executionIndex{-1};
 };
 
 
@@ -62,4 +70,50 @@ void Result::saveAdditionalData(KZip* archive)
     //Do nothing
 }
 
+QJsonObject Cantor::Result::jupyterMetadata() const
+{
+    return d->jupyterMetadata ? *d->jupyterMetadata : QJsonObject();
+}
 
+void Cantor::Result::setJupyterMetadata(QJsonObject metadata)
+{
+    if (!d->jupyterMetadata)
+        d->jupyterMetadata = new QJsonObject();
+    *d->jupyterMetadata = metadata;
+}
+
+QJsonArray Cantor::Result::toJupyterMultiline(const QString& source)
+{
+    QJsonArray text;
+    const QStringList& lines = source.split(QLatin1Char('\n'));
+    for (int i = 0; i < lines.size(); i++)
+    {
+        QString line = lines[i];
+        // Don't add \n to last line
+        if (i != lines.size() - 1)
+            line.append(QLatin1Char('\n'));
+        text.append(line);
+    }
+    return text;
+}
+
+QString Cantor::Result::fromJupyterMultiline(const QJsonValue& source)
+{
+    QString code;
+    if (source.isString())
+        code = source.toString();
+    else if (source.isArray())
+        for (const QJsonValue& line : source.toArray())
+            code += line.toString();
+    return code;
+}
+
+int Cantor::Result::executionIndex() const
+{
+    return d->executionIndex;
+}
+
+void Cantor::Result::setExecutionIndex(int index)
+{
+    d->executionIndex = index;
+}

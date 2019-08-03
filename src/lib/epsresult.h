@@ -47,6 +47,7 @@ class CANTOR_EXPORT EpsResult : public Result
     QString mimeType() override;
 
     QDomElement toXml(QDomDocument& doc) override;
+    QJsonValue toJupyterJson() override;
     void saveAdditionalData(KZip* archive) override;
 
     void save(const QString& filename) override;

@@ -21,6 +21,7 @@
 #include "placeholderentry.h"
 
 #include <QPropertyAnimation>
+#include <QJsonObject>
 
 PlaceHolderEntry::PlaceHolderEntry(Worksheet* worksheet, QSizeF s)
     : WorksheetEntry(worksheet)
@@ -56,6 +57,18 @@ void PlaceHolderEntry::setContent(const QString&)
 void PlaceHolderEntry::setContent(const QDomElement&, const KZip&)
 {
 }
+
+void PlaceHolderEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    Q_UNUSED(cell);
+    return;
+}
+
+QJsonValue PlaceHolderEntry::toJupyterJson()
+{
+    return QJsonValue();
+}
+
 
 QDomElement PlaceHolderEntry::toXml(QDomDocument&, KZip*)
 {

@@ -23,8 +23,11 @@
 #include "commandentry.h"
 #include "resultitem.h"
 #include "loadedexpression.h"
+#include "jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
+#include "lib/epsresult.h"
+#include "lib/latexresult.h"
 #include "lib/completionobject.h"
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
@@ -37,6 +40,9 @@
 #include <QToolTip>
 #include <QPropertyAnimation>
 #include <QGraphicsWidget>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QBuffer>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -448,6 +454,123 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
     }
 
     setExpression(expr);
+}
+
+void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    m_commandItem->setPlainText(JupyterUtils::getSource(cell));
+
+    LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
+    expr->loadFromJupyter(cell);
+    setExpression(expr);
+
+    // https://nbformat.readthedocs.io/en/latest/format_description.html#cell-metadata
+    // 'collapsed': +
+    // 'scrolled', 'deletable', 'name', 'tags' don't supported Cantor, so ignore them
+    // 'source_hidden' don't supported
+    // 'format' for raw entry, so ignore
+    // I haven't found 'outputs_hidden' inside Jupyter notebooks, and difference from 'collapsed'
+    // not clear, so also ignore
+    const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
+    const QJsonValue& collapsed = metadata.value(QLatin1String("collapsed"));
+    if (collapsed.isBool() && collapsed.toBool() == true && !m_resultItems.isEmpty())
+    {
+        // Disable animation for hiding results, we don't need animation on document load stage
+        bool animationValue = worksheet()->animationsEnabled();
+        worksheet()->enableAnimations(false);
+        collapseResults();
+        worksheet()->enableAnimations(animationValue);
+    }
+
+    setJupyterMetadata(metadata);
+}
+
+QJsonValue CommandEntry::toJupyterJson()
+{
+    QJsonObject entry;
+
+    entry.insert(QLatin1String("cell_type"), QLatin1String("code"));
+
+    QJsonValue executionCountValue;
+    if (expression() && expression()->id() != -1)
+        executionCountValue = QJsonValue(expression()->id());
+    entry.insert(QLatin1String("execution_count"), executionCountValue);
+
+    QJsonObject metadata(jupyterMetadata());
+    if (m_resultsCollapsed)
+        metadata.insert(QLatin1String("collapsed"), true);
+
+    entry.insert(QLatin1String("metadata"), metadata);
+
+    JupyterUtils::setSource(entry, command());
+
+    QJsonArray outputs;
+    if (expression())
+    {
+        Cantor::Expression::Status status = expression()->status();
+        if (status == Cantor::Expression::Error || status == Cantor::Expression::Interrupted)
+        {
+            QJsonObject errorOutput;
+            errorOutput.insert(JupyterUtils::outputTypeKey, QLatin1String("error"));
+            errorOutput.insert(QLatin1String("ename"), QLatin1String("Unknown"));
+            errorOutput.insert(QLatin1String("evalue"), QLatin1String("Unknown"));
+
+            QJsonArray traceback;
+            if (status == Cantor::Expression::Error)
+            {
+                const QStringList& error = expression()->errorMessage().split(QLatin1Char('\n'));
+                for (const QString& line: error)
+                    traceback.append(line);
+            }
+            else
+            {
+                traceback.append(i18n("Interrupted"));
+            }
+            errorOutput.insert(QLatin1String("traceback"), traceback);
+
+            outputs.append(errorOutput);
+        }
+
+        for (Cantor::Result * const result: expression()->results())
+        {
+            const QJsonValue& resultJson = result->toJupyterJson();
+
+            // Jupyter TODO: Convert EpsResult here?
+            if (result->type() == Cantor::EpsResult::Type)
+            {
+                QJsonObject root;
+
+                root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+                QJsonObject data;
+                data.insert(QLatin1String("text/plain"), QString());
+
+                const QImage& image = worksheet()->epsRenderer()->renderToImage(result->data().toUrl());
+
+                QByteArray ba;
+                QBuffer buffer(&ba);
+                buffer.open(QIODevice::WriteOnly);
+                image.save(&buffer, "PNG");
+                data.insert(JupyterUtils::pngMime, QString::fromLatin1(ba.toBase64()));
+
+                root.insert(QLatin1String("data"), data);
+
+                QJsonObject metadata;
+                QJsonObject size;
+                size.insert(QLatin1String("width"), image.size().width());
+                size.insert(QLatin1String("height"), image.size().height());
+                metadata.insert(QLatin1String("image/png"), size);
+                root.insert(QLatin1String("metadata"), metadata);
+
+                outputs.append(root);
+            }
+            else if (!resultJson.isNull())
+                outputs.append(resultJson);
+        }
+    }
+    entry.insert(QLatin1String("outputs"), outputs);
+
+    return entry;
 }
 
 void CommandEntry::showCompletion()

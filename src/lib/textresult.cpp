@@ -25,6 +25,8 @@ using namespace Cantor;
 
 #include <QFile>
 #include <QTextStream>
+#include <QJsonArray>
+#include <QJsonObject>
 
 QString rtrim(const QString& s)
 {
@@ -47,6 +49,7 @@ public:
     QString data;
     QString plain;
     TextResult::Format format;
+    bool isStderr;
 };
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
@@ -93,10 +96,17 @@ int TextResult::type()
 QString TextResult::mimeType()
 {
     qDebug()<<"format: "<<format();
-    if(format()==TextResult::PlainTextFormat)
-        return QStringLiteral("text/plain");
-    else
-        return QStringLiteral("text/x-tex");
+    switch(format())
+    {
+        case TextResult::PlainTextFormat:
+            return QStringLiteral("text/plain");
+
+        case TextResult::LatexFormat:
+            return QStringLiteral("text/x-tex");
+
+        default:
+            return QString();
+    }
 }
 
 TextResult::Format TextResult::format()
@@ -114,10 +124,71 @@ QDomElement TextResult::toXml(QDomDocument& doc)
     qDebug()<<"saving textresult "<<toHtml();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("text"));
+    e.setAttribute(QStringLiteral("stderr"), d->isStderr);
+    if (d->format == LatexFormat)
+        e.setAttribute(QStringLiteral("format"), QStringLiteral("latex"));
     QDomText txt=doc.createTextNode(data().toString());
     e.appendChild(txt);
 
     return e;
+}
+
+QJsonValue Cantor::TextResult::toJupyterJson()
+{
+    QJsonObject root;
+
+    switch (d->format)
+    {
+        case PlainTextFormat:
+        {
+            if (executionIndex() != -1)
+            {
+                root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+                root.insert(QLatin1String("execution_count"), executionIndex());
+
+                QJsonObject data;
+                data.insert(QLatin1String("text/plain"), jupyterText(d->data));
+                root.insert(QLatin1String("data"), data);
+
+                root.insert(QLatin1String("metadata"), jupyterMetadata());
+            }
+            else
+            {
+                root.insert(QLatin1String("output_type"), QLatin1String("stream"));
+                if (d->isStderr)
+                    root.insert(QLatin1String("name"), QLatin1String("stderr"));
+                else
+                    root.insert(QLatin1String("name"), QLatin1String("stdout"));
+
+                // Jupyter don't support a few text result (it merges them into one text),
+                // so add additinoal \n to end
+                // See https://github.com/jupyter/notebook/issues/4699
+                root.insert(QLatin1String("text"), jupyterText(d->data, true));
+            }
+            break;
+        }
+
+        case LatexFormat:
+        {
+            if (executionIndex() != -1)
+            {
+                root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+                root.insert(QLatin1String("execution_count"), executionIndex());
+            }
+            else
+                root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+            QJsonObject data;
+            data.insert(QLatin1String("text/latex"), jupyterText(d->data));
+            data.insert(QLatin1String("text/plain"), jupyterText(d->plain));
+            root.insert(QLatin1String("data"), data);
+
+            root.insert(QLatin1String("metadata"), jupyterMetadata());
+            break;
+        }
+    }
+
+    return root;
 }
 
 void TextResult::save(const QString& filename)
@@ -132,4 +203,30 @@ void TextResult::save(const QString& filename)
     stream<<d->data;
 
     file.close();
+}
+
+QJsonArray TextResult::jupyterText(const QString& text, bool addEndNewLine)
+{
+    QJsonArray array;
+
+    const QStringList& lines = text.split(QLatin1Char('\n'));
+    for (int i = 0; i < lines.size(); i++)
+    {
+        QString line = lines[i];
+        if (i != lines.size() - 1 || addEndNewLine)
+            line.append(QLatin1Char('\n'));
+        array.append(line);
+    }
+
+    return array;
+}
+
+bool Cantor::TextResult::isStderr() const
+{
+    return d->isStderr;
+}
+
+void Cantor::TextResult::setStdErr(bool value)
+{
+    d->isStderr = value;
 }

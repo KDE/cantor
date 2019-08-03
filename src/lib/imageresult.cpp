@@ -25,6 +25,7 @@ using namespace Cantor;
 #include <QImageWriter>
 #include <KZip>
 #include <QDebug>
+#include <QBuffer>
 #include <QTemporaryFile>
 
 class Cantor::ImageResultPrivate
@@ -35,6 +36,7 @@ class Cantor::ImageResultPrivate
     QUrl url;
     QImage img;
     QString alt;
+    QSize displaySize;
 };
 
 ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResultPrivate)
@@ -116,6 +118,48 @@ QDomElement ImageResult::toXml(QDomDocument& doc)
     return e;
 }
 
+QJsonValue Cantor::ImageResult::toJupyterJson()
+{
+    QJsonObject root;
+
+    if (executionIndex() != -1)
+    {
+        root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+        root.insert(QLatin1String("execution_count"), executionIndex());
+    }
+    else
+        root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+    QJsonObject data;
+    data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->alt));
+
+    QImage image;
+    if (d->img.isNull())
+        image.load(d->url.toLocalFile());
+    else
+        image = d->img;
+
+    QByteArray ba;
+    QBuffer buffer(&ba);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, "PNG");
+    data.insert(QLatin1String("image/png"), QString::fromLatin1(ba.toBase64()));
+
+    root.insert(QLatin1String("data"), data);
+
+    QJsonObject metadata(jupyterMetadata());
+    if (d->displaySize.isValid())
+    {
+        QJsonObject size;
+        size.insert(QLatin1String("width"), displaySize().width());
+        size.insert(QLatin1String("height"), displaySize().height());
+        metadata.insert(QLatin1String("image/png"), size);
+    }
+    root.insert(QLatin1String("metadata"), metadata);
+
+    return root;
+}
+
 void ImageResult::saveAdditionalData(KZip* archive)
 {
     archive->addLocalFile(d->url.toLocalFile(), d->url.fileName());
@@ -130,3 +174,12 @@ void ImageResult::save(const QString& filename)
     img.save(filename);
 }
 
+QSize Cantor::ImageResult::displaySize()
+{
+    return d->displaySize;
+}
+
+void Cantor::ImageResult::setDisplaySize(QSize size)
+{
+    d->displaySize = size;
+}

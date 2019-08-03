@@ -9,12 +9,14 @@ set( cantor_LIB_SRCS
   result.cpp
   textresult.cpp
   imageresult.cpp
+  mimeresult.cpp
   epsresult.cpp
   latexresult.cpp
   latexrenderer.cpp
   epsrenderer.cpp
   helpresult.cpp
   animationresult.cpp
+  htmlresult.cpp
   extension.cpp
   assistant.cpp
   completionobject.cpp
@@ -45,6 +47,8 @@ Set( cantor_LIB_HDRS
   epsrenderer.h
   result.h
   textresult.h
+  mimeresult.h
+  htmlresult.h
   #helper classes
   defaulthighlighter.h
   defaultvariablemodel.h

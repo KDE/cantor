@@ -23,49 +23,109 @@
 #include "worksheettextitem.h"
 #include "lib/epsrenderer.h"
 #include "latexrenderer.h"
+#include "jupyterutils.h"
+#include "mathrender.h"
 
-#include <QGraphicsLinearLayout>
+#include "settings.h"
+
+
 #include <QScopedPointer>
-
+#include <QGraphicsLinearLayout>
+#include <QJsonValue>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <QDebug>
 #include <KLocalizedString>
+#include <KColorScheme>
+#include <QStringList>
+#include <QInputDialog>
 
-TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
+QStringList standartRawCellTargetNames = {QLatin1String("None"), QLatin1String("LaTeX"), QLatin1String("reST"), QLatin1String("HTML"), QLatin1String("Markdown")};
+QStringList standartRawCellTargetMimes = {QString(), QLatin1String("text/latex"), QLatin1String("text/restructuredtext"), QLatin1String("text/html"), QLatin1String("text/markdown")};
+
+TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
+    , m_rawCell(false)
+    , m_convertTarget()
+    , m_targetActionGroup(nullptr)
+    , m_ownTarget{nullptr}
+    , m_targetMenu(nullptr)
+    , m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->enableRichText(true);
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &TextEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &TextEntry::moveToNextEntry);
+    // Modern syntax of signal/stots don't work on this connection (arguments don't match)
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
     connect(m_textItem, &WorksheetTextItem::doubleClick, this, &TextEntry::resolveImagesAtCursor);
+
+    // Init raw cell target menus
+    // This used only for raw cells, but removing and creating this on convertation more complex
+    // that just create them always
+    m_targetActionGroup= new QActionGroup(this);
+	m_targetActionGroup->setExclusive(true);
+	connect(m_targetActionGroup, &QActionGroup::triggered, this, &TextEntry::convertTargetChanged);
+
+    m_targetMenu = new QMenu(i18n("Raw Cell Targets"));
+	for (const QString& key : standartRawCellTargetNames)
+    {
+		QAction* action = new QAction(key, m_targetActionGroup);
+		action->setCheckable(true);
+		m_targetMenu->addAction(action);
+	}
+	m_ownTarget = new QAction(i18n("Add custom target"), m_targetActionGroup);
+    m_ownTarget->setCheckable(true);
+	m_targetMenu->addAction(m_ownTarget);
+}
+
+TextEntry::~TextEntry()
+{
+    m_targetMenu->deleteLater();
 }
 
 void TextEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    bool imageSelected = false;
-    QTextCursor cursor = m_textItem->textCursor();
-    const QChar repl = QChar::ObjectReplacementCharacter;
-    if (cursor.hasSelection()) {
-        QString selection = m_textItem->textCursor().selectedText();
-        imageSelected = selection.contains(repl);
-    } else {
-        // we need to try both the current cursor and the one after the that
-        cursor = m_textItem->cursorForPosition(pos);
-        qDebug() << cursor.position();
-        for (int i = 2; i; --i) {
-            int p = cursor.position();
-            if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula)) {
-                m_textItem->setTextCursor(cursor);
-                imageSelected = true;
-                break;
+    if (m_rawCell)
+    {
+        menu->addAction(i18n("Convert to Text Entry"), this, &TextEntry::convertToTextEntry);
+        menu->addMenu(m_targetMenu);
+    }
+    else
+    {
+        menu->addAction(i18n("Convert to Raw Cell"), this, &TextEntry::convertToRawCell);
+
+        bool imageSelected = false;
+        QTextCursor cursor = m_textItem->textCursor();
+        const QChar repl = QChar::ObjectReplacementCharacter;
+        if (cursor.hasSelection())
+        {
+            QString selection = m_textItem->textCursor().selectedText();
+            imageSelected = selection.contains(repl);
+        }
+        else
+        {
+            // we need to try both the current cursor and the one after the that
+            cursor = m_textItem->cursorForPosition(pos);
+            qDebug() << cursor.position();
+            for (int i = 2; i; --i)
+            {
+                int p = cursor.position();
+                if (m_textItem->document()->characterAt(p-1) == repl &&
+                    cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula))
+                {
+                    m_textItem->setTextCursor(cursor);
+                    imageSelected = true;
+                    break;
+                }
+                cursor.movePosition(QTextCursor::NextCharacter);
             }
-            cursor.movePosition(QTextCursor::NextCharacter);
+        }
+
+        if (imageSelected)
+        {
+            menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
         }
     }
-    if (imageSelected) {
-        menu->addAction(i18n("Show LaTeX code"), this, SLOT(resolveImagesAtCursor()));
-        menu->addSeparator();
-    }
+    menu->addSeparator();
     WorksheetEntry::populateMenu(menu, pos);
 }
 
@@ -104,12 +164,126 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
     if(content.firstChildElement(QLatin1String("body")).isNull())
         return;
 
+    if (content.hasAttribute(QLatin1String("convertTarget")))
+    {
+        convertToRawCell();
+        m_convertTarget = content.attribute(QLatin1String("convertTarget"));
+
+        // Set current action status
+        int idx = standartRawCellTargetMimes.indexOf(m_convertTarget);
+        if (idx != -1)
+            m_targetMenu->actions()[idx]->setChecked(true);
+        else
+            addNewTarget(m_convertTarget);
+    }
+    else
+        convertToTextEntry();
+
     QDomDocument doc = QDomDocument();
     QDomNode n = doc.importNode(content.firstChildElement(QLatin1String("body")), true);
     doc.appendChild(n);
     QString html = doc.toString();
     qDebug() << html;
     m_textItem->setHtml(html);
+}
+
+void TextEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    if (JupyterUtils::isRawCell(cell))
+    {
+        convertToRawCell();
+
+        const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
+        QJsonValue format = metadata.value(QLatin1String("format"));
+        // Also checks "raw_mimetype", because raw cell don't corresponds Jupyter Notebook specification
+        // See https://github.com/jupyter/notebook/issues/4730
+        if (format.isUndefined())
+            format = metadata.value(QLatin1String("raw_mimetype"));
+        m_convertTarget = format.toString(QString());
+
+        // Set current action status
+        int idx = standartRawCellTargetMimes.indexOf(m_convertTarget);
+        if (idx != -1)
+            m_targetMenu->actions()[idx]->setChecked(true);
+        else
+            addNewTarget(m_convertTarget);
+
+        m_textItem->setPlainText(JupyterUtils::getSource(cell));
+
+        setJupyterMetadata(metadata);
+    }
+    else if (JupyterUtils::isMarkdownCell(cell))
+    {
+        convertToTextEntry();
+
+        QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+        m_textItem->setHtml(cantorMetadata.value(QLatin1String("text_entry_content")).toString());
+    }
+}
+
+QJsonValue TextEntry::toJupyterJson()
+{
+    // Simple logic:
+    // If convertTarget is empty, it's user maded cell and we convert it to a markdown
+    // If convertTarget setted, it's raw cell from Jupyter and we convert it to Jupyter cell
+
+    QTextDocument* doc = m_textItem->document()->clone();
+    QTextCursor cursor = doc->find(QString(QChar::ObjectReplacementCharacter));
+    while(!cursor.isNull())
+    {
+        QTextCharFormat format = cursor.charFormat();
+        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+        {
+            showLatexCode(cursor);
+        }
+
+        cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
+    }
+
+    QJsonObject metadata(jupyterMetadata());
+
+    QString entryData;
+    QString entryType;
+
+    if (!m_rawCell)
+    {
+        entryType = QLatin1String("markdown");
+
+        // Add raw text of entry to metadata, for situation when
+        // Cantor opens .ipynb converted from our .cws format
+        QJsonObject cantorMetadata;
+
+        if (Settings::storeTextEntryFormatting())
+        {
+            entryData = doc->toHtml();
+
+            // Remove DOCTYPE from html
+            entryData.remove(QRegExp(QLatin1String("<!DOCTYPE[^>]*>\\n")));
+
+            cantorMetadata.insert(QLatin1String("text_entry_content"), entryData);
+        }
+        else
+            entryData = doc->toPlainText();
+
+        metadata.insert(JupyterUtils::cantorMetadataKey, cantorMetadata);
+
+        // Replace our $$ formulas to $
+        entryData.replace(QLatin1String("$$"), QLatin1String("$"));
+
+    }
+    else
+    {
+        entryType = QLatin1String("raw");
+        metadata.insert(QLatin1String("format"), m_convertTarget);
+        entryData = doc->toPlainText();
+    }
+
+    QJsonObject entry;
+    entry.insert(QLatin1String("cell_type"), entryType);
+    entry.insert(QLatin1String("metadata"), metadata);
+    JupyterUtils::setSource(entry, entryData);
+
+    return entry;
 }
 
 QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -135,6 +309,9 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
     el.appendChild(myDoc.documentElement().firstChildElement(QLatin1String("body")));
+
+    if (m_rawCell)
+        el.setAttribute(QLatin1String("convertTarget"), m_convertTarget);
 
     return el;
 }
@@ -168,48 +345,26 @@ void TextEntry::interruptEvaluation()
 
 bool TextEntry::evaluate(EvaluationOption evalOp)
 {
-    QTextCursor cursor = findLatexCode();
-    while (!cursor.isNull())
+    int i = 0;
+    if (worksheet()->embeddedMathEnabled() && !m_rawCell)
     {
-        QString latexCode = cursor.selectedText();
-        qDebug()<<"found latex: "<<latexCode;
+        // Render math in $$...$$ via Latex
+        QTextCursor cursor = findLatexCode();
+        while (!cursor.isNull())
+        {
+            QString latexCode = cursor.selectedText();
+            qDebug()<<"found latex: " << latexCode;
 
-        latexCode.remove(0, 2);
-        latexCode.remove(latexCode.length() - 2, 2);
-        latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n')); //Replace the U+2029 paragraph break by a Normal Newline
-        latexCode.replace(QChar::LineSeparator, QLatin1Char('\n')); //Replace the line break by a Normal Newline
+            latexCode.remove(0, 2);
+            latexCode.remove(latexCode.length() - 2, 2);
+            latexCode.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
+            latexCode.replace(QChar::LineSeparator, QLatin1Char('\n'));
 
+            MathRenderer* renderer = worksheet()->mathRenderer();
+            renderer->renderExpression(++i, latexCode, Cantor::LatexRenderer::InlineEquation, this, SLOT(handleMathRender(QSharedPointer<MathRenderResult>)));
 
-        Cantor::LatexRenderer* renderer=new Cantor::LatexRenderer(this);
-        renderer->setLatexCode(latexCode);
-        renderer->setEquationOnly(true);
-        renderer->setEquationType(Cantor::LatexRenderer::InlineEquation);
-        renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
-
-        renderer->renderBlocking();
-
-        bool success;
-        QTextImageFormat formulaFormat;
-        if (renderer->renderingSuccessful()) {
-            Cantor::EpsRenderer* epsRend = worksheet()->epsRenderer();
-            formulaFormat = epsRend->render(m_textItem->document(), renderer);
-            success = !formulaFormat.name().isEmpty();
-        } else {
-            success = false;
-        }
-
-        qDebug()<<"rendering successful? "<<success;
-        if (!success) {
             cursor = findLatexCode(cursor);
-            continue;
         }
-
-        formulaFormat.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
-
-        cursor.insertText(QString(QChar::ObjectReplacementCharacter), formulaFormat);
-        delete renderer;
-
-        cursor = findLatexCode(cursor);
     }
 
     evaluateNext(evalOp);
@@ -224,16 +379,9 @@ void TextEntry::updateEntry()
     while(!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
-        {
-            qDebug() << "found a formula... rendering the eps...";
-            const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::EpsRenderer::ImagePath).toString());
-            QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
-            qDebug() << "rendering successful? " << s.isValid();
 
-            //cursor.deletePreviousChar();
-            //cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
-        }
+        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+            worksheet()->mathRenderer()->rerender(m_textItem->document(), format);
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
     }
@@ -351,4 +499,95 @@ void TextEntry::layOutForWidth(qreal w, bool force)
 bool TextEntry::wantToEvaluate()
 {
     return !findLatexCode().isNull();
+}
+
+bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
+{
+    if (!JupyterUtils::isMarkdownCell(cell))
+        return false;
+
+    QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+    const QJsonValue& textContentValue = cantorMetadata.value(QLatin1String("text_entry_content"));
+
+    if (!textContentValue.isString())
+        return false;
+
+    const QString& textContent = textContentValue.toString();
+    const QString& source = JupyterUtils::getSource(cell);
+
+    return textContent == source;
+}
+
+
+void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
+{
+    if (!result->successfull)
+    {
+        qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
+        return;
+    }
+
+    const QString& code = result->renderedMath.property(Cantor::EpsRenderer::Code).toString();
+    const QString& delimiter = QLatin1String("$$");
+    QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
+    if (!cursor.isNull())
+    {
+        m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
+        result->renderedMath.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+        cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
+    }
+}
+
+void TextEntry::convertToRawCell()
+{
+    m_rawCell = true;
+    m_targetMenu->actions().at(0)->setChecked(true);
+
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    m_textItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+
+    // Resolve all latex inserts
+    QTextCursor cursor(m_textItem->document());
+    cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+    cursor.insertText(m_textItem->resolveImages(cursor));
+}
+
+void TextEntry::convertToTextEntry()
+{
+    m_rawCell = false;
+    m_convertTarget.clear();
+
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    m_textItem->setBackgroundColor(scheme.background(KColorScheme::NormalBackground).color());
+}
+
+void TextEntry::convertTargetChanged(QAction* action)
+{
+    int index = standartRawCellTargetNames.indexOf(action->text());
+    if (index != -1)
+    {
+        m_convertTarget = standartRawCellTargetMimes[index];
+    }
+    else if (action == m_ownTarget)
+    {
+        bool ok;
+        const QString& target = QInputDialog::getText(worksheet()->worksheetView(), i18n("Cantor"), i18n("Target mimetype:"), QLineEdit::Normal, QString(), &ok);
+        if (ok && !target.isEmpty())
+        {
+            addNewTarget(target);
+            m_convertTarget = target;
+        }
+    }
+    else
+    {
+        m_convertTarget = action->text();
+    }
+}
+
+void TextEntry::addNewTarget(const QString& target)
+{
+    QAction* action = new QAction(target, m_targetActionGroup);
+    action->setCheckable(true);
+    action->setChecked(true);
+    m_targetMenu->insertAction(m_targetMenu->actions().last(), action);
 }

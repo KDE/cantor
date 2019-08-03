@@ -21,8 +21,17 @@
 #ifndef MARKDOWNENTRY_H
 #define MARKDOWNENTRY_H
 
+#include <vector>
+
+#include <QSharedPointer>
+
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
+
+#include "mathrendertask.h"
+#include "lib/latexrenderer.h"
+
+class QJsonObject;
 
 class MarkdownEntry : public WorksheetEntry
 {
@@ -42,8 +51,10 @@ class MarkdownEntry : public WorksheetEntry
 
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
+    void setContentFromJupyter(const QJsonObject& cell) override;
 
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     void interruptEvaluation() override;
@@ -65,12 +76,27 @@ class MarkdownEntry : public WorksheetEntry
     bool wantToEvaluate() override;
     void setRenderedHtml(const QString& html);
     void setPlainText(const QString& plain);
+    void renderMath();
+    void renderMathExpression(int jobId, QString mathCode);
+    void setRenderedMath(int jobId, const QTextImageFormat& format, const QUrl& internal, const QImage& image);
+    QTextCursor findMath(int id);
+    void markUpMath();
+
+    static std::pair<QString, Cantor::LatexRenderer::EquationType> parseMathCode(QString mathCode);
+
+  protected Q_SLOTS:
+    void handleMathRender(QSharedPointer<MathRenderResult> result);
+    void insertImage();
+    void clearAttachments();
 
   protected:
     WorksheetTextItem* m_textItem;
     QString plain;
     QString html;
     bool rendered;
+    std::vector<std::pair<QUrl,QString>> attachedImages;
+    std::vector<std::pair<QString, bool>> foundMath;
+    static const int JobProperty = 10000;
 };
 
 #endif //MARKDOWNENTRY_H

@@ -76,6 +76,10 @@ set(cantor_PART_SRCS
    animationresultitem.cpp
    loadedexpression.cpp
    animation.cpp
+   jupyterutils.cpp
+   mathrender.cpp
+   mathrendertask.cpp
+   extended_document.cpp
  )
 
 ki18n_wrap_ui(cantor_PART_SRCS imagesettings.ui)
@@ -96,10 +100,15 @@ set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFI
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}
                      KF5::KIOCore KF5::KIOFileWidgets KF5::KIOWidgets
-                     Qt5::PrintSupport cantorlibs cantor_config )
+                     Qt5::PrintSupport Poppler::Qt5 cantorlibs cantor_config )
+
 if(Discount_FOUND)
     target_link_libraries(cantorpart Discount::Lib)
 endif(Discount_FOUND)
+
+if(BUILD_TESTING)
+  add_subdirectory(test)
+endif(BUILD_TESTING)
 
 install( FILES cantor_part.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor_scripteditor.rc  DESTINATION ${KDE_INSTALL_KXMLGUI5DIR}/cantor )

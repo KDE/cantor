@@ -21,6 +21,8 @@
 
 #include "worksheet.h"
 
+#include <QtGlobal>
+#include <QApplication>
 #include <QBuffer>
 #include <QDebug>
 #include <QDrag>
@@ -28,12 +30,15 @@
 #include <QPrinter>
 #include <QTimer>
 #include <QXmlQuery>
+#include <QJsonArray>
+#include <QJsonDocument>
 
 #include <KMessageBox>
 #include <KActionCollection>
 #include <KFontAction>
 #include <KFontSizeAction>
 #include <KToggleAction>
+#include <KLocalizedString>
 
 #include "settings.h"
 #include "commandentry.h"
@@ -43,11 +48,13 @@
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
+#include "jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/helpresult.h"
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
+#include "lib/backend.h"
 
 #include <config-cantor.h>
 
@@ -91,10 +98,13 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_readOnly = false;
     m_isLoadingFromFile = false;
 
+    m_jupyterMetadata = nullptr;
+
     enableHighlighting(Settings::self()->highlightDefault());
     enableCompletion(Settings::self()->completionDefault());
     enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
     enableAnimations(Settings::self()->animationDefault());
+    enableEmbeddedMath(Settings::self()->embeddedMathDefault());
 }
 
 Worksheet::~Worksheet()
@@ -113,6 +123,8 @@ Worksheet::~Worksheet()
         m_session->deleteLater();
         m_session = nullptr;
     }
+    if (m_jupyterMetadata)
+        delete m_jupyterMetadata;
 }
 
 void Worksheet::loginToSession()
@@ -129,6 +141,7 @@ void Worksheet::loginToSession()
 void Worksheet::print(QPrinter* printer)
 {
     m_epsRenderer.useHighResolution(true);
+    m_mathRenderer.useHighResolution(true);
     m_isPrinting = true;
     QRect pageRect = printer->pageRect();
     qreal scale = 1; // todo: find good scale for page size
@@ -166,6 +179,7 @@ void Worksheet::print(QPrinter* printer)
     painter.end();
     m_isPrinting = false;
     m_epsRenderer.useHighResolution(false);
+    m_mathRenderer.useHighResolution(false);
     m_epsRenderer.setScale(-1);  // force update in next call to setViewSize,
     worksheetView()->updateSceneSize(); // ... which happens in here
 }
@@ -182,6 +196,7 @@ void Worksheet::setViewSize(qreal w, qreal h, qreal s, bool forceUpdate)
     m_viewWidth = w;
     if (s != m_epsRenderer.scale() || forceUpdate) {
         m_epsRenderer.setScale(s);
+        m_mathRenderer.setScale(s);
         for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
             entry->updateEntry();
     }
@@ -240,7 +255,7 @@ void Worksheet::addProtrusion(qreal width)
         m_itemProtrusions.insert(width, 1);
     if (width > m_protrusion) {
         m_protrusion = width;
-        qreal y = lastEntry()->size().height() + lastEntry()->y();
+        qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
         setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
     }
 }
@@ -309,7 +324,8 @@ WorksheetView* Worksheet::worksheetView()
 
 void Worksheet::setModified()
 {
-    emit modified();
+    if (!m_isLoadingFromFile)
+        emit modified();
 }
 
 WorksheetCursor Worksheet::worksheetCursor()
@@ -496,7 +512,7 @@ void Worksheet::evaluate()
 
     firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
 
-    emit modified();
+    setModified();
 }
 
 void Worksheet::evaluateCurrentEntry()
@@ -541,7 +557,7 @@ WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
             makeVisible(entry);
             focusEntry(entry);
         }
-        emit modified();
+        setModified();
     }
     return entry;
 }
@@ -614,7 +630,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
         else
             setLastEntry(entry);
         updateLayout();
-        emit modified();
+        setModified();
     } else {
         entry = next;
     }
@@ -686,7 +702,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
         else
             setFirstEntry(entry);
         updateLayout();
-        emit modified();
+        setModified();
     }
     else
         entry = prev;
@@ -880,6 +896,16 @@ void Worksheet::enableAnimations(bool enable)
     m_animationsEnabled = enable;
 }
 
+bool Worksheet::embeddedMathEnabled()
+{
+    return m_embeddedMathEnabled && m_mathRenderer.mathRenderAvailable();
+}
+
+void Worksheet::enableEmbeddedMath(bool enable)
+{
+    m_embeddedMathEnabled = enable;
+}
+
 void Worksheet::enableExpressionNumbering(bool enable)
 {
     m_showExpressionIds=enable;
@@ -898,6 +924,40 @@ QDomDocument Worksheet::toXML(KZip* archive)
         QDomElement el = entry->toXml(doc, archive);
         root.appendChild( el );
     }
+    return doc;
+}
+
+QJsonDocument Worksheet::toJupyterJson()
+{
+    QJsonDocument doc;
+    QJsonObject root;
+
+    QJsonObject metadata(m_jupyterMetadata ? *m_jupyterMetadata : QJsonObject());
+
+    QJsonObject kernalInfo;
+    if (m_session && m_session->backend())
+        kernalInfo = JupyterUtils::getKernelspec(m_session->backend());
+    else
+        kernalInfo.insert(QLatin1String("name"), m_backendName);
+    metadata.insert(QLatin1String("kernelspec"), kernalInfo);
+
+    root.insert(QLatin1String("metadata"), metadata);
+
+    // Not sure, but it looks like we support nbformat version 4.5
+    root.insert(QLatin1String("nbformat"), 4);
+    root.insert(QLatin1String("nbformat_minor"), 5);
+
+    QJsonArray cells;
+    for( WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
+    {
+        const QJsonValue entryJson = entry->toJupyterJson();
+
+        if (!entryJson.isNull())
+            cells.append(entryJson);
+    }
+    root.insert(QLatin1String("cells"), cells);
+
+    doc.setObject(root);
     return doc;
 }
 
@@ -926,22 +986,41 @@ QByteArray Worksheet::saveToByteArray()
 void Worksheet::save( QIODevice* device)
 {
     qDebug()<<"saving to filename";
-    KZip zipFile( device );
-
-
-    if ( !zipFile.open(QIODevice::WriteOnly) )
+    switch (m_type)
     {
-        KMessageBox::error( worksheetView(),
-                            i18n( "Cannot write file." ),
-                            i18n( "Error - Cantor" ));
-        return;
+        case CantorWorksheet:
+        {
+            KZip zipFile( device );
+
+            if ( !zipFile.open(QIODevice::WriteOnly) )
+            {
+                KMessageBox::error( worksheetView(),
+                                    i18n( "Cannot write file." ),
+                                    i18n( "Error - Cantor" ));
+                return;
+            }
+
+            QByteArray content = toXML(&zipFile).toByteArray();
+            qDebug()<<"content: "<<content;
+            zipFile.writeFile( QLatin1String("content.xml"), content.data());
+            break;
+        }
+
+        case JupyterNotebook:
+        {
+            if (!device->isWritable())
+            {
+                KMessageBox::error( worksheetView(),
+                                    i18n( "Cannot write file." ),
+                                    i18n( "Error - Cantor" ));
+                return;
+            }
+
+            const QJsonDocument& doc = toJupyterJson();
+            device->write(doc.toJson(QJsonDocument::Indented));
+            break;
+        }
     }
-
-    QByteArray content = toXML(&zipFile).toByteArray();
-    qDebug()<<"content: "<<content;
-    zipFile.writeFile( QLatin1String("content.xml"), content.data());
-
-    /*zipFile.close();*/
 }
 
 
@@ -1019,6 +1098,7 @@ void Worksheet::saveLatex(const QString& filename)
 
 bool Worksheet::load(const QString& filename )
 {
+    qDebug() << "loading worksheet" << filename;
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly)) {
         KMessageBox::error(worksheetView(), i18n("Couldn't open the file %1", filename), i18n("Cantor"));
@@ -1040,15 +1120,41 @@ void Worksheet::load(QByteArray* data)
 
 bool Worksheet::load(QIODevice* device)
 {
-    KZip file(device);
-    if (!file.open(QIODevice::ReadOnly)) {
-        qDebug()<<"not a zip file";
-        QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor project file."), i18n("Cantor"));
+    if (!device->isReadable())
+    {
+        KMessageBox::error(worksheetView(), i18n("Couldn't open the selected file for reading"), i18n("Cantor"));
         return false;
     }
 
-    const KArchiveEntry* contentEntry=file.directory()->entry(QLatin1String("content.xml"));
+    KZip archive(device);
+
+    if (archive.open(QIODevice::ReadOnly))
+        return loadCantorWorksheet(archive);
+    else
+    {
+        qDebug() <<"not a zip file";
+        // Go to begin of data, we need read all data in second time
+        device->seek(0);
+
+        QJsonParseError error;
+        const QJsonDocument& doc = QJsonDocument::fromJson(device->readAll(), &error);
+        if (error.error != QJsonParseError::NoError)
+        {
+            qDebug()<<"not a json file, parsing failed with error: " << error.errorString();
+            QApplication::restoreOverrideCursor();
+            KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor or Jupyter project file."), i18n("Cantor"));
+            return false;
+        }
+        else
+            return loadJupyterNotebook(doc);
+    }
+}
+
+bool Worksheet::loadCantorWorksheet(const KZip& archive)
+{
+    m_type = Type::CantorWorksheet;
+
+    const KArchiveEntry* contentEntry=archive.directory()->entry(QLatin1String("content.xml"));
     if (!contentEntry->isFile())
     {
         qDebug()<<"content.xml file not found in the zip archive";
@@ -1122,28 +1228,28 @@ bool Worksheet::load(QIODevice* device)
         if (tag == QLatin1String("Expression"))
         {
             entry = appendEntry(CommandEntry::Type, false);
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Text"))
         {
             entry = appendEntry(TextEntry::Type, false);
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Markdown"))
         {
             entry = appendEntry(MarkdownEntry::Type, false);
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("Latex"))
         {
             entry = appendEntry(LatexEntry::Type, false);
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         } else if (tag == QLatin1String("PageBreak"))
         {
             entry = appendEntry(PageBreakEntry::Type, false);
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         }
         else if (tag == QLatin1String("Image"))
         {
             entry = appendEntry(ImageEntry::Type, false);
-            entry->setContent(expressionChild, file);
+            entry->setContent(expressionChild, archive);
         }
 
         if (m_readOnly && entry)
@@ -1167,6 +1273,181 @@ bool Worksheet::load(QIODevice* device)
     emit loaded();
     return true;
 }
+
+bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
+{
+    m_type = Type::JupyterNotebook;
+
+    int nbformatMajor, nbformatMinor;
+    if (!JupyterUtils::isJupyterNotebook(doc))
+    {
+        // Two possiblities: old jupyter notebook (with another scheme) or just not a notebook at AlignLeft
+        std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(doc.object());
+        if (nbformatMajor == 0 && nbformatMinor == 0)
+        {
+            QApplication::restoreOverrideCursor();
+            showInvalidNotebookSchemeError();
+        }
+        else
+        {
+            KMessageBox::error(worksheetView(), i18n("The file is old Jupyter notebook (found version %1.%2), which isn't supported by Cantor",nbformatMajor, nbformatMinor ), i18n("Cantor"));
+        }
+
+        return false;
+    }
+
+    QJsonObject notebookObject = doc.object();
+    std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(notebookObject);
+
+    if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,0,0))
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support import Jupyter notebooks with version lower that 4.0 (detected %1.%2)",nbformatMajor, nbformatMinor), i18n("Cantor"));
+        return false;
+    }
+
+    const QJsonArray& cells = JupyterUtils::getCells(notebookObject);
+    const QJsonObject& metadata = JupyterUtils::getMetadata(notebookObject);
+    if (m_jupyterMetadata)
+        delete m_jupyterMetadata;
+    m_jupyterMetadata = new QJsonObject(metadata);
+
+    const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
+    m_backendName = JupyterUtils::getKernelName(kernalspec);
+    if (kernalspec.isEmpty() || m_backendName.isEmpty())
+    {
+        QApplication::restoreOverrideCursor();
+        showInvalidNotebookSchemeError();
+        return false;
+    }
+
+    Cantor::Backend* backend = Cantor::Backend::getBackend(m_backendName);
+    if (!backend)
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::information(worksheetView(), i18n("%1 backend was not found. Editing and executing entries is not possible", m_backendName), i18n("Cantor"));
+        m_readOnly = true;
+    }
+    else
+        m_readOnly = false;
+
+    if(!m_readOnly && !backend->isEnabled())
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
+                                            "please check your configuration or install the needed packages.\n"
+                                            "You will only be able to view this worksheet.", m_backendName), i18n("Cantor"));
+        m_readOnly = true;
+    }
+
+    if (m_readOnly)
+    {
+        for (QAction* action : m_richTextActionList)
+            action->setEnabled(false);
+    }
+
+
+    m_isLoadingFromFile = true;
+
+    if (m_session)
+        delete m_session;
+    m_session = nullptr;
+    m_loginDone = false;
+
+    if (m_firstEntry) {
+        delete m_firstEntry;
+        m_firstEntry = nullptr;
+    }
+
+    resetEntryCursor();
+
+    if (!m_readOnly)
+        m_session=backend->createSession();
+
+    qDebug() << "loading jupyter entries";
+
+    WorksheetEntry* entry = nullptr;
+    for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
+        if (!JupyterUtils::isJupyterCell(*iter))
+        {
+            QApplication::restoreOverrideCursor();
+            QString explanation;
+            if (iter->isObject())
+                explanation = i18n("an object with keys: %1", iter->toObject().keys().join(QLatin1String(", ")));
+            else
+                explanation = i18n("non object JSON value");
+
+            m_isLoadingFromFile = false;
+            showInvalidNotebookSchemeError(i18n("found incorrect data (%1) that is not Jupyter cell", explanation));
+            return false;
+        }
+
+        const QJsonObject& cell = iter->toObject();
+        QString cellType = JupyterUtils::getCellType(cell);
+
+        if (cellType == QLatin1String("code"))
+        {
+            if (LatexEntry::isConvertableToLatexEntry(cell))
+            {
+                entry = appendEntry(LatexEntry::Type, false);
+                entry->setContentFromJupyter(cell);
+                entry->evaluate(WorksheetEntry::InternalEvaluation);
+            }
+            else
+            {
+                entry = appendEntry(CommandEntry::Type, false);
+                entry->setContentFromJupyter(cell);
+            }
+        }
+        else if (cellType == QLatin1String("markdown"))
+        {
+            if (TextEntry::isConvertableToTextEntry(cell))
+            {
+                entry = appendEntry(TextEntry::Type, false);
+                entry->setContentFromJupyter(cell);
+            }
+            else
+            {
+                entry = appendEntry(MarkdownEntry::Type, false);
+                entry->setContentFromJupyter(cell);
+                entry->evaluate(WorksheetEntry::InternalEvaluation);
+            }
+        }
+        else if (cellType == QLatin1String("raw"))
+        {
+            if (PageBreakEntry::isConvertableToPageBreakEntry(cell))
+                entry = appendEntry(PageBreakEntry::Type, false);
+            else
+                entry = appendEntry(TextEntry::Type, false);
+            entry->setContentFromJupyter(cell);
+        }
+
+        if (m_readOnly && entry)
+        {
+            entry->setAcceptHoverEvents(false);
+            entry = nullptr;
+        }
+    }
+
+    if (m_readOnly)
+        clearFocus();
+
+    m_isLoadingFromFile = false;
+
+    enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
+
+    emit loaded();
+    return true;
+}
+
+void Worksheet::showInvalidNotebookSchemeError(QString additionalInfo)
+{
+    if (additionalInfo.isEmpty())
+        KMessageBox::error(worksheetView(), i18n("The file is not valid Jupyter notebook"), i18n("Cantor"));
+    else
+        KMessageBox::error(worksheetView(), i18n("Invalid Jupyter notebook scheme: %1", additionalInfo), i18n("Cantor"));
+}
+
 
 void Worksheet::gotResult(Cantor::Expression* expr)
 {
@@ -1210,6 +1491,11 @@ void Worksheet::removeCurrentEntry()
 Cantor::EpsRenderer* Worksheet::epsRenderer()
 {
     return &m_epsRenderer;
+}
+
+MathRenderer* Worksheet::mathRenderer()
+{
+    return &m_mathRenderer;
 }
 
 QMenu* Worksheet::createContextMenu()
@@ -1955,4 +2241,14 @@ void Worksheet::drawEntryCursor()
         m_entryCursorItem->setLine(x,y,x+EntryCursorLength,y);
         m_entryCursorItem->show();
     }
+}
+
+void Worksheet::setType(Worksheet::Type type)
+{
+    m_type = type;
+}
+
+Worksheet::Type Worksheet::type() const
+{
+    return m_type;
 }

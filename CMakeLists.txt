@@ -23,6 +23,7 @@ find_package(Qt5 5.6.0 CONFIG REQUIRED
     Svg
     Xml
     XmlPatterns
+    Network
     Test)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
@@ -42,6 +43,9 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     XmlGui
     I18n)
 
+find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
+
+
 if(NOT WIN32)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED Pty)
 endif()
@@ -55,6 +59,8 @@ include(KDECMakeSettings)
 include(KDEFrameworkCompilerSettings)
 include(ECMAddAppIcon)
 include(GenerateExportHeader)
+
+include(thirdparty/CMakeLists.txt)
 
 if(NOT WIN32)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
@@ -73,11 +79,13 @@ else(NOT WIN32)
     set(WITH_EPS Off)
 endif(NOT WIN32)
 
+#[[
 find_package(Discount 2.2.0)
 set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of the Markdown markup language"
     URL "https://www.pell.portland.or.us/~orc/Code/discount/"
     TYPE OPTIONAL
     PURPOSE "Used for Markdown entries in Cantor")
+]]#
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 string(TOLOWER "${CMAKE_BUILD_TYPE}" BUILD_NAME)

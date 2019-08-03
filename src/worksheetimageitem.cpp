@@ -133,9 +133,21 @@ void WorksheetImageItem::setImage(QImage img)
     setSize(m_pixmap.size());
 }
 
+void WorksheetImageItem::setImage(QImage img, QSize displaySize)
+{
+    m_pixmap = QPixmap::fromImage(img);
+    m_pixmap = m_pixmap.scaled(displaySize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+    setSize(m_pixmap.size());
+}
+
 void WorksheetImageItem::setPixmap(QPixmap pixmap)
 {
     m_pixmap = pixmap;
+}
+
+QPixmap WorksheetImageItem::pixmap() const
+{
+    return m_pixmap;
 }
 
 void WorksheetImageItem::populateMenu(QMenu* menu, QPointF pos)

@@ -41,6 +41,7 @@ class ActionBar;
 class QPainter;
 class QWidget;
 class QPropertyAnimation;
+class QJsonObject;
 
 struct AnimationData;
 
@@ -72,8 +73,10 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual void setContent(const QString& content)=0;
     virtual void setContent(const QDomElement& content, const KZip& file)=0;
+    virtual void setContentFromJupyter(const QJsonObject& cell)=0;
 
     virtual QDomElement toXml(QDomDocument& doc, KZip* archive)=0;
+    virtual QJsonValue toJupyterJson()=0;
     virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
     virtual void interruptEvaluation()=0;
@@ -168,6 +171,9 @@ class WorksheetEntry : public QGraphicsObject
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
 
+    QJsonObject jupyterMetadata() const;
+    void setJupyterMetadata(QJsonObject metadata);
+
   protected Q_SLOTS:
     virtual void remove();
     void deleteActionBar();
@@ -185,6 +191,7 @@ class WorksheetEntry : public QGraphicsObject
     ActionBar* m_actionBar;
     QPropertyAnimation* m_actionBarAnimation;
     bool m_aboutToBeRemoved;
+    QJsonObject* m_jupyterMetadata;
 };
 
 #endif // WORKSHEETENTRY_H

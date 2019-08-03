@@ -126,7 +126,11 @@ void PythonExpression::parseError(QString error)
 void PythonExpression::parseWarning(QString warning)
 {
     if (!warning.isEmpty())
-        addResult(new Cantor::TextResult(warning));
+    {
+        Cantor::TextResult* result = new Cantor::TextResult(warning);
+        result->setStdErr(true);
+        addResult(result);
+    }
 }
 
 void PythonExpression::imageChanged()

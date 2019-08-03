@@ -256,6 +256,14 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
+    if (m_worksheet->mathRenderer()->mathRenderAvailable())
+    {
+        m_embeddedMath= new KToggleAction(i18n("Embedded Math"), collection);
+        m_embeddedMath->setChecked(Settings::self()->embeddedMathDefault());
+        collection->addAction(QLatin1String("enable_embedded_math"), m_embeddedMath);
+        connect(m_embeddedMath, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableEmbeddedMath(bool)));
+    }
+
     m_restart = new QAction(i18n("Restart Backend"), collection);
     collection->addAction(QLatin1String("restart_backend"), m_restart);
     m_restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
@@ -428,7 +436,7 @@ bool CantorPart::openFile()
     QApplication::restoreOverrideCursor();
 
     if (rc) {
-        qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds).";
+        qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds";
         updateCaption();
         // We modified, but it we load file now, so no need in save option
         setModified(false);
@@ -457,8 +465,9 @@ bool CantorPart::saveFile()
 void CantorPart::fileSaveAs()
 {
     // this slot is called whenever the File->Save As menu is selected
-    QString worksheetFilter = i18n("Cantor Worksheet (*.cws)");
-    QString filter = worksheetFilter;
+    static const QString& worksheetFilter = i18n("Cantor Worksheet (*.cws)");
+    static const QString& notebookFilter = i18n("Jupyter Notebook (*.ipynb)");
+    QString filter = worksheetFilter + QLatin1String(";;") + notebookFilter;
 
     if (!m_worksheet->isReadOnly())
     {
@@ -476,11 +485,37 @@ void CantorPart::fileSaveAs()
     if (file_name.isEmpty())
         return;
 
-    //depending on user's selection, save as a worksheet or as a plain script file
+
+    static const QString jupyterExtension = QLatin1String(".ipynb");
+    static const QString cantorExtension = QLatin1String(".cws");
+    // Append file extension, if it isn't specified
+    // And change filter, if it specified to supported extension
+    if (file_name.contains(QLatin1String(".")))
+    {
+        if (file_name.endsWith(cantorExtension))
+            selectedFilter = worksheetFilter;
+        else if (file_name.endsWith(jupyterExtension))
+            selectedFilter = notebookFilter;
+    }
+    else
+    {
+        if (selectedFilter == worksheetFilter)
+            file_name += cantorExtension;
+        else if (selectedFilter == notebookFilter)
+            file_name += jupyterExtension;
+    }
+
+    //depending on user's selection, save as a worksheet, as a Jupyter notebook or as a plain script file
     if (selectedFilter == worksheetFilter)
     {
-        if (!file_name.endsWith(QLatin1String(".cws")))
-            file_name += QLatin1String(".cws");
+        m_worksheet->setType(Worksheet::CantorWorksheet);
+        const QUrl& url = QUrl::fromLocalFile(file_name);
+        saveAs(url);
+        emit worksheetSave(url);
+    }
+    else if (selectedFilter == notebookFilter)
+    {
+        m_worksheet->setType(Worksheet::JupyterNotebook);
         const QUrl& url = QUrl::fromLocalFile(file_name);
         saveAs(url);
         emit worksheetSave(url);

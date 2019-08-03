@@ -23,6 +23,7 @@
 
 #include "result.h"
 #include <QUrl>
+#include <QSize>
 
 class QImage;
 
@@ -46,7 +47,11 @@ class CANTOR_EXPORT ImageResult : public Result
     int type() override;
     QString mimeType() override;
 
+    QSize displaySize();
+    void setDisplaySize(QSize size);
+
     QDomElement toXml(QDomDocument& doc) override;
+    QJsonValue toJupyterJson() override;
     void saveAdditionalData(KZip* archive) override;
 
     void save(const QString& filename) override;

@@ -24,6 +24,7 @@
 #include "worksheetentry.h"
 #include "worksheet.h"
 #include "lib/epsrenderer.h"
+#include "jupyterutils.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/latexrenderer.h"
 #include "config-cantor.h"
@@ -34,6 +35,9 @@
 #include <QDebug>
 #include <QBuffer>
 #include <QUuid>
+#include <QJsonValue>
+#include <QJsonObject>
+#include <QJsonArray>
 #include <KLocalizedString>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
@@ -169,6 +173,102 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
 
     if (useLatexCode)
         cursor.insertText(m_latex);
+}
+
+void LatexEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    if (!JupyterUtils::isCodeCell(cell))
+        return;
+
+    m_textItem->document()->clear();
+    QTextCursor cursor = m_textItem->textCursor();
+    cursor.movePosition(QTextCursor::Start);
+
+    bool useLatexCode = true;
+
+    QString source = JupyterUtils::getSource(cell);
+    m_latex = source.remove(QLatin1String("%%latex\n"));
+
+    QJsonArray outputs = cell.value(JupyterUtils::outputsKey).toArray();
+    if (outputs.size() == 1 && JupyterUtils::isJupyterDisplayOutput(outputs[0]))
+    {
+        const QJsonObject data = outputs[0].toObject().value(JupyterUtils::dataKey).toObject();
+        const QImage& image = JupyterUtils::loadImage(data, JupyterUtils::pngMime);
+        if (!image.isNull())
+        {
+            QUrl internal;
+            internal.setScheme(QLatin1String("internal"));
+            internal.setPath(QUuid::createUuid().toString());
+
+            m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
+
+            m_renderedFormat.setName(internal.url());
+            m_renderedFormat.setWidth(image.width());
+            m_renderedFormat.setHeight(image.height());
+
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::EpsRenderer::Code, m_latex);
+
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+            useLatexCode = false;
+            m_textItem->denyEditing();
+        }
+    }
+
+    if (useLatexCode)
+    {
+        cursor.insertText(m_latex);
+        m_latex.clear(); // We don't render image, so clear latex code cache
+    }
+}
+
+QJsonValue LatexEntry::toJupyterJson()
+{
+    QJsonObject entry;
+    entry.insert(JupyterUtils::cellTypeKey, QLatin1String("code"));
+    entry.insert(JupyterUtils::executionCountKey, QJsonValue());
+
+    QJsonObject metadata, cantorMetadata;
+    cantorMetadata.insert(QLatin1String("latex_entry"), true);
+    metadata.insert(JupyterUtils::cantorMetadataKey, cantorMetadata);
+    entry.insert(JupyterUtils::metadataKey, metadata);
+
+    QJsonArray outputs;
+
+    QTextCursor cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
+    if (!cursor.isNull())
+    {
+        QTextImageFormat format=cursor.charFormat().toImageFormat();
+
+        QUrl internal;
+        internal.setUrl(format.name());
+        const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, internal).value<QImage>();
+        if (!image.isNull())
+        {
+            QByteArray ba;
+            QBuffer buffer(&ba);
+            buffer.open(QIODevice::WriteOnly);
+            image.save(&buffer, "PNG");
+
+            // Add image result with latex rendered image to this Jupyter code cell
+            QJsonObject imageResult;
+            imageResult.insert(JupyterUtils::outputTypeKey, QLatin1String("display_data"));
+
+            QJsonObject data;
+            data.insert(JupyterUtils::pngMime, JupyterUtils::toJupyterMultiline(QString::fromLatin1(ba.toBase64())));
+            imageResult.insert(QLatin1String("data"), data);
+
+            imageResult.insert(JupyterUtils::metadataKey, QJsonObject());
+
+            outputs.append(imageResult);
+        }
+    }
+    entry.insert(JupyterUtils::outputsKey, outputs);
+
+    const QString& latex = latexCode();
+    JupyterUtils::setSource(entry, QLatin1String("%%latex\n") + latex);
+
+    return entry;
 }
 
 QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -429,6 +529,16 @@ bool LatexEntry::renderLatexCode()
     }
     delete renderer;
     return success;
+}
+
+bool LatexEntry::isConvertableToLatexEntry(const QJsonObject& cell)
+{
+    if (!JupyterUtils::isCodeCell(cell))
+        return false;
+
+    const QString& source = JupyterUtils::getSource(cell);
+
+    return source.startsWith(QLatin1String("%%latex\n"));
 }
 
 void LatexEntry::resolveImagesAtCursor()

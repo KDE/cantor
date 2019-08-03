@@ -45,6 +45,7 @@ class CANTOR_EXPORT HelpResult: public Result
     QString mimeType() override;
 
     QDomElement toXml(QDomDocument& doc) override;
+    QJsonValue toJupyterJson() override;
     void save(const QString& filename) override;
 
   private:

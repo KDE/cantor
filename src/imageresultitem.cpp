@@ -56,7 +56,13 @@ void ImageResultItem::update()
     Q_ASSERT(m_result->type() == Cantor::ImageResult::Type || m_result->type() == Cantor::EpsResult::Type);
     switch(m_result->type()) {
     case Cantor::ImageResult::Type:
-        setImage(m_result->data().value<QImage>());
+    {
+        QSize displaySize = static_cast<Cantor::ImageResult*>(m_result)->displaySize();
+        if (displaySize.isValid())
+            setImage(m_result->data().value<QImage>(), displaySize);
+        else
+            setImage(m_result->data().value<QImage>());
+    }
         break;
     case Cantor::EpsResult::Type:
     {

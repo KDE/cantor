@@ -18,6 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
+#include <QJsonValue>
+
 #include "helpresult.h"
 using namespace Cantor;
 
@@ -56,6 +58,12 @@ QDomElement HelpResult::toXml(QDomDocument& doc)
     QDomElement e=doc.createElement(QStringLiteral("Result"));
     e.setAttribute(QStringLiteral("type"), QStringLiteral("help"));
     return e;
+}
+
+QJsonValue Cantor::HelpResult::toJupyterJson()
+{
+    // No need to save help result
+    return QJsonValue();
 }
 
 QString HelpResult::toHtml()

@@ -23,8 +23,12 @@
 #include <QTextCursor>
 #include <QTextCharFormat>
 #include <QPalette>
+#include <QJsonValue>
+#include <QJsonObject>
 #include <KColorScheme>
 #include <KLocalizedString>
+
+#include "jupyterutils.h"
 
 PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
   : WorksheetEntry(worksheet)
@@ -72,6 +76,35 @@ void PageBreakEntry::setContent(const QDomElement& content, const KZip& file)
     Q_UNUSED(content);
     Q_UNUSED(file);
     return;
+}
+
+void PageBreakEntry::setContentFromJupyter(const QJsonObject& cell)
+{
+    Q_UNUSED(cell);
+    return;
+}
+
+QJsonValue PageBreakEntry::toJupyterJson()
+{
+    QJsonObject root;
+
+    root.insert(QLatin1String("cell_type"), QLatin1String("raw"));
+    QJsonObject metadata;
+
+    // "raw_mimetype" vs "format"?
+    // See https://github.com/jupyter/notebook/issues/4730
+    // For safety set both keys
+    metadata.insert(QLatin1String("format"), QLatin1String("text/latex"));
+    metadata.insert(QLatin1String("raw_mimetype"), QLatin1String("text/latex"));
+
+    QJsonObject cantor;
+    cantor.insert(QLatin1String("from_page_break"), true);
+    metadata.insert(JupyterUtils::cantorMetadataKey, cantor);
+
+    root.insert(JupyterUtils::metadataKey, metadata);
+    JupyterUtils::setSource(root, QLatin1String("\\pagebreak"));
+
+    return root;
 }
 
 QDomElement PageBreakEntry::toXml(QDomDocument& doc, KZip* archive)
@@ -149,4 +182,14 @@ bool PageBreakEntry::wantFocus()
     return false;
 }
 
+bool PageBreakEntry::isConvertableToPageBreakEntry(const QJsonObject& cell)
+{
+    if (!JupyterUtils::isRawCell(cell))
+        return false;
+
+    QJsonObject metadata = JupyterUtils::getCantorMetadata(cell);
+    QJsonValue value = metadata.value(QLatin1String("from_page_break"));
+
+    return value.isBool() && value.toBool() == true;
+}
 

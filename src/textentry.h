@@ -30,16 +30,16 @@
 #include <QTextCursor>
 #include <KArchive>
 
-
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
+#include "mathrendertask.h"
 
 class TextEntry : public WorksheetEntry
 {
   Q_OBJECT
   public:
     explicit TextEntry(Worksheet* worksheet);
-    ~TextEntry() override = default;
+    ~TextEntry() override;
 
     enum {Type = UserType + 1};
     int type() const override;
@@ -56,8 +56,11 @@ class TextEntry : public WorksheetEntry
 
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
+    void setContentFromJupyter(const QJsonObject& cell) override;
+    static bool isConvertableToTextEntry(const QJsonObject& cell);
 
     QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
     void interruptEvaluation() override;
@@ -75,15 +78,28 @@ class TextEntry : public WorksheetEntry
     void resolveImagesAtCursor();
     void updateEntry() override;
     void populateMenu(QMenu* menu, QPointF pos) override;
+    void convertToRawCell();
+    void convertToTextEntry();
+    void convertTargetChanged(QAction* action);
 
   protected:
     bool wantToEvaluate() override;
 
+  protected Q_SLOTS:
+    void handleMathRender(QSharedPointer<MathRenderResult> result);
+
   private:
     QTextCursor findLatexCode(const QTextCursor& cursor = QTextCursor()) const;
     QString showLatexCode(QTextCursor& cursor);
+    void addNewTarget(const QString& target);
 
   private:
+    bool m_rawCell;
+    QString m_convertTarget;
+    QActionGroup* m_targetActionGroup;
+    QAction* m_ownTarget;
+    QMenu* m_targetMenu;
+
     WorksheetTextItem* m_textItem;
 };
 

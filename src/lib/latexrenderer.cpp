@@ -238,7 +238,7 @@ void LatexRenderer::convertToPs()
 
     KProcess *p=new KProcess( this );
     qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
-    (*p)<<Settings::self()->dvipsCommand()<<QStringLiteral("-E")<<QStringLiteral("-o")<<d->epsFilename<<dviFile;
+    (*p)<<Settings::self()->dvipsCommand()<<QStringLiteral("-E")<<QStringLiteral("-q")<<QStringLiteral("-o")<<d->epsFilename<<dviFile;
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
     p->start();

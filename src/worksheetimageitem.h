@@ -57,7 +57,9 @@ class WorksheetImageItem : public QGraphicsObject
 
     void setEps(const QUrl &url);
     void setImage(QImage img);
+    void setImage(QImage img, QSize displaySize);
     void setPixmap(QPixmap pixmap);
+    QPixmap pixmap() const;
 
     virtual void populateMenu(QMenu* menu, QPointF pos);
     Worksheet* worksheet();

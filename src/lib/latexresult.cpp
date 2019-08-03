@@ -23,6 +23,8 @@ using namespace Cantor;
 
 #include <QFile>
 #include <QTextStream>
+#include <QJsonValue>
+#include <QJsonObject>
 #include <QDebug>
 
 class Cantor::LatexResultPrivate
@@ -125,6 +127,28 @@ QDomElement LatexResult::toXml(QDomDocument& doc)
     e.appendChild(txt);
 
     return e;
+}
+
+QJsonValue Cantor::LatexResult::toJupyterJson()
+{
+    QJsonObject root;
+
+    if (executionIndex() != -1)
+    {
+        root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+        root.insert(QLatin1String("execution_count"), executionIndex());
+    }
+    else
+        root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+    QJsonObject data;
+    data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->plain));
+    data.insert(QLatin1String("text/latex"), toJupyterMultiline(d->code));
+    root.insert(QLatin1String("data"), data);
+
+    root.insert(QLatin1String("metadata"), jupyterMetadata());
+
+    return root;
 }
 
 void LatexResult::save(const QString& filename)
