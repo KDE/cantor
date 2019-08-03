@@ -41,6 +41,17 @@ TextResultItem::TextResultItem(QGraphicsObject* parent, Cantor::Result* result)
 {
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     update();
+
+    // So usefull behaviour:
+    // If we have HtmlResult, but after setting we have empty document
+    // So show Plain version - it more usefull
+    // We do it here, because we need it one
+    if (document()->characterCount() && document()->characterAt(0) == QChar::ParagraphSeparator)
+    {
+        Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(m_result);
+        hr->setFormat(Cantor::HtmlResult::PlainAlternative);
+        setHtml(hr->toHtml());
+    }
 }
 
 double TextResultItem::setGeometry(double x, double y, double w)
