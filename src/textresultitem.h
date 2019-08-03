@@ -41,6 +41,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     void update() override;
 
     void setLatex(Cantor::LatexResult* result);
+    QTextImageFormat toFormat(const QImage& image, const QString& latex);
 
     double width() const override;
     double height() const override;

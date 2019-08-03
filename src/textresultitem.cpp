@@ -26,6 +26,8 @@
 #include "lib/epsrenderer.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
+#include "mathrendertask.h"
+#include "config-cantor.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -126,6 +128,8 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
         latex = latex.mid(17);
         latex = latex.left(latex.size() - 15);
     }
+
+#ifdef WITH_EPS
     if (result->isCodeShown()) {
         if (latex.isEmpty())
             cursor.removeSelectedText();
@@ -133,18 +137,28 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
             cursor.insertText(latex);
     } else {
         QTextImageFormat format;
-        Cantor::EpsRenderer* renderer = qobject_cast<Worksheet*>(scene())->epsRenderer();;
-        format = renderer->render(cursor.document(),
-                                       result->data().toUrl());
-        format.setProperty(Cantor::EpsRenderer::CantorFormula,
-                           Cantor::EpsRenderer::LatexFormula);
-        format.setProperty(Cantor::EpsRenderer::Code, latex);
-        format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
-        if(format.isValid())
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+
+        if (!result->image().isNull() && worksheet()->epsRenderer()->scale() == 1.0)
+        {
+            cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(result->image(), latex));
+        }
         else
-            cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
+        {
+            Cantor::EpsRenderer* renderer = qobject_cast<Worksheet*>(scene())->epsRenderer();;
+            format = renderer->render(cursor.document(), result->url());
+            format.setProperty(Cantor::EpsRenderer::CantorFormula,
+                            Cantor::EpsRenderer::LatexFormula);
+            format.setProperty(Cantor::EpsRenderer::Code, latex);
+            format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+            if(format.isValid())
+                cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
+            else
+                cursor.insertText(i18n("Cannot render Eps file. You may need additional packages"));
+        }
     }
+#else
+    cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(result->image(), latex));
+#endif
 }
 
 double TextResultItem::width() const
@@ -200,4 +214,23 @@ void TextResultItem::saveResult()
 void TextResultItem::deleteLater()
 {
     WorksheetTextItem::deleteLater();
+}
+
+QTextImageFormat TextResultItem::toFormat(const QImage& image, const QString& latex)
+{
+    QTextImageFormat format;
+
+    QUrl internal;
+    internal.setScheme(QLatin1String("internal"));
+    internal.setPath(MathRenderTask::genUuid());
+
+    document()->addResource(QTextDocument::ImageResource, internal, QVariant(image) );
+
+    format.setName(internal.url());
+    format.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
+    //format.setProperty(Cantor::EpsRenderer::ImagePath, filename);
+    format.setProperty(Cantor::EpsRenderer::Code, latex);
+    format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+
+    return format;
 }

@@ -132,7 +132,10 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                 QUrl imageUrl = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(imageFile->name()));
                 if(type==QLatin1String("latex"))
                 {
-                    addResult(new Cantor::LatexResult(resultElement.text(), imageUrl));
+                    const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
+                    QImage image;
+                    image.loadFromData(ba);
+                    addResult(new Cantor::LatexResult(resultElement.text(), imageUrl, QString(), image));
                 }else if(type==QLatin1String("animation"))
                 {
                     addResult(new Cantor::AnimationResult(imageUrl));
@@ -247,6 +250,9 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             }
             else if (mainKey == JupyterUtils::latexMime)
             {
+                // Some latex results contains alreadey rendered images, so use them, if presents
+                const QImage& image = JupyterUtils::loadImage(data, JupyterUtils::pngMime);
+
                 QString latex = JupyterUtils::fromJupyterMultiline(data.value(mainKey));
                 QScopedPointer<Cantor::LatexRenderer> renderer(new Cantor::LatexRenderer(this));
                 renderer->setLatexCode(latex);
@@ -254,7 +260,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 renderer->setMethod(Cantor::LatexRenderer::LatexMethod);
                 renderer->renderBlocking();
 
-                result = new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text);
+                result = new Cantor::LatexResult(latex, QUrl::fromLocalFile(renderer->imagePath()), text, image);
 
                 // If we have failed to render LaTeX i think Cantor should show the latex code at least
                 if (!renderer->renderingSuccessful())
