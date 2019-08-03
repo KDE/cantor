@@ -146,7 +146,7 @@ QJsonValue Cantor::LatexResult::toJupyterJson()
     data.insert(QLatin1String("text/plain"), JupyterUtils::toJupyterMultiline(d->plain));
     data.insert(QLatin1String("text/latex"), JupyterUtils::toJupyterMultiline(d->code));
     if (!image().isNull())
-        JupyterUtils::packMimeBundle(image(), JupyterUtils::pngMime);
+        data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image(), JupyterUtils::pngMime));
     root.insert(QLatin1String("data"), data);
 
     root.insert(QLatin1String("metadata"), jupyterMetadata());

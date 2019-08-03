@@ -29,8 +29,10 @@ using namespace Cantor;
 #include <KZip>
 #include <KIO/Job>
 #include <QBuffer>
+#include <QJsonObject>
 
 #include "epsrenderer.h"
+#include "jupyterutils.h"
 
 class Cantor::EpsResultPrivate{
     public:
@@ -120,11 +122,23 @@ QDomElement EpsResult::toXml(QDomDocument& doc)
 
 QJsonValue Cantor::EpsResult::toJupyterJson()
 {
-    // Juputer TODO: Technically, I could convert .eps file to Image via EpsRenderer
-    // But EpsRender don't available from Cantor core library
-    // I will handle this result type in worksheet, but it's not look nice...
+    QJsonObject root;
 
-    return QJsonValue();
+    if (executionIndex() != -1)
+    {
+        root.insert(QLatin1String("output_type"), QLatin1String("execute_result"));
+        root.insert(QLatin1String("execution_count"), executionIndex());
+    }
+    else
+        root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
+
+    const QImage& image = d->image.isNull() ? EpsRenderer::renderToImage(d->url, 1.0, false) : d->image;
+
+    QJsonObject data;
+    data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));
+    root.insert(QLatin1String("data"), data);
+
+    return root;
 }
 
 void EpsResult::saveAdditionalData(KZip* archive)

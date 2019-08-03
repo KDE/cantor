@@ -535,36 +535,7 @@ QJsonValue CommandEntry::toJupyterJson()
         {
             const QJsonValue& resultJson = result->toJupyterJson();
 
-            // Jupyter TODO: Convert EpsResult here?
-            if (result->type() == Cantor::EpsResult::Type)
-            {
-                QJsonObject root;
-
-                root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
-
-                QJsonObject data;
-                data.insert(QLatin1String("text/plain"), QString());
-
-                const QImage& image = worksheet()->epsRenderer()->renderToImage(result->data().toUrl());
-
-                QByteArray ba;
-                QBuffer buffer(&ba);
-                buffer.open(QIODevice::WriteOnly);
-                image.save(&buffer, "PNG");
-                data.insert(Cantor::JupyterUtils::pngMime, QString::fromLatin1(ba.toBase64()));
-
-                root.insert(QLatin1String("data"), data);
-
-                QJsonObject metadata;
-                QJsonObject size;
-                size.insert(QLatin1String("width"), image.size().width());
-                size.insert(QLatin1String("height"), image.size().height());
-                metadata.insert(QLatin1String("image/png"), size);
-                root.insert(QLatin1String("metadata"), metadata);
-
-                outputs.append(root);
-            }
-            else if (!resultJson.isNull())
+            if (!resultJson.isNull())
                 outputs.append(resultJson);
         }
     }
