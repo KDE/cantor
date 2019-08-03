@@ -23,7 +23,7 @@
 #include "commandentry.h"
 #include "resultitem.h"
 #include "loadedexpression.h"
-#include "jupyterutils.h"
+#include "lib/jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
 #include "lib/epsresult.h"
@@ -458,7 +458,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 
 void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    m_commandItem->setPlainText(JupyterUtils::getSource(cell));
+    m_commandItem->setPlainText(Cantor::JupyterUtils::getSource(cell));
 
     LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
     expr->loadFromJupyter(cell);
@@ -471,7 +471,7 @@ void CommandEntry::setContentFromJupyter(const QJsonObject& cell)
     // 'format' for raw entry, so ignore
     // I haven't found 'outputs_hidden' inside Jupyter notebooks, and difference from 'collapsed'
     // not clear, so also ignore
-    const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
+    const QJsonObject& metadata = Cantor::JupyterUtils::getMetadata(cell);
     const QJsonValue& collapsed = metadata.value(QLatin1String("collapsed"));
     if (collapsed.isBool() && collapsed.toBool() == true && !m_resultItems.isEmpty())
     {
@@ -502,7 +502,7 @@ QJsonValue CommandEntry::toJupyterJson()
 
     entry.insert(QLatin1String("metadata"), metadata);
 
-    JupyterUtils::setSource(entry, command());
+    Cantor::JupyterUtils::setSource(entry, command());
 
     QJsonArray outputs;
     if (expression())
@@ -511,7 +511,7 @@ QJsonValue CommandEntry::toJupyterJson()
         if (status == Cantor::Expression::Error || status == Cantor::Expression::Interrupted)
         {
             QJsonObject errorOutput;
-            errorOutput.insert(JupyterUtils::outputTypeKey, QLatin1String("error"));
+            errorOutput.insert(Cantor::JupyterUtils::outputTypeKey, QLatin1String("error"));
             errorOutput.insert(QLatin1String("ename"), QLatin1String("Unknown"));
             errorOutput.insert(QLatin1String("evalue"), QLatin1String("Unknown"));
 
@@ -551,7 +551,7 @@ QJsonValue CommandEntry::toJupyterJson()
                 QBuffer buffer(&ba);
                 buffer.open(QIODevice::WriteOnly);
                 image.save(&buffer, "PNG");
-                data.insert(JupyterUtils::pngMime, QString::fromLatin1(ba.toBase64()));
+                data.insert(Cantor::JupyterUtils::pngMime, QString::fromLatin1(ba.toBase64()));
 
                 root.insert(QLatin1String("data"), data);
 

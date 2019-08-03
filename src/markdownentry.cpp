@@ -198,22 +198,22 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
 
 void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    if (!JupyterUtils::isMarkdownCell(cell))
+    if (!Cantor::JupyterUtils::isMarkdownCell(cell))
         return;
 
     // https://nbformat.readthedocs.io/en/latest/format_description.html#cell-metadata
     // There isn't Jupyter metadata for markdown cells, which could be handled by Cantor
     // So we just store it
-    setJupyterMetadata(JupyterUtils::getMetadata(cell));
+    setJupyterMetadata(Cantor::JupyterUtils::getMetadata(cell));
 
     const QJsonObject attachments = cell.value(QLatin1String("attachments")).toObject();
     for (const QString& key : attachments.keys())
     {
         const QJsonValue& attachment = attachments.value(key);
-        const QString& mimeKey = JupyterUtils::firstImageKey(attachment);
+        const QString& mimeKey = Cantor::JupyterUtils::firstImageKey(attachment);
         if (!mimeKey.isEmpty())
         {
-            const QImage& image = JupyterUtils::loadImage(attachment, mimeKey);
+            const QImage& image = Cantor::JupyterUtils::loadImage(attachment, mimeKey);
 
             QUrl resourceUrl;
             resourceUrl.setUrl(QLatin1String("attachment:")+key);
@@ -222,7 +222,7 @@ void MarkdownEntry::setContentFromJupyter(const QJsonObject& cell)
         }
     }
 
-    setPlainText(JupyterUtils::getSource(cell));
+    setPlainText(Cantor::JupyterUtils::getSource(cell));
     m_textItem->document()->clearUndoRedoStacks();
 }
 
@@ -317,12 +317,12 @@ QJsonValue MarkdownEntry::toJupyterJson()
 
         const QImage& image = m_textItem->document()->resource(QTextDocument::ImageResource, url).value<QImage>();
         QString attachmentKey = url.toString().remove(QLatin1String("attachment:"));
-        attachments.insert(attachmentKey, JupyterUtils::packMimeBundle(image, key));
+        attachments.insert(attachmentKey, Cantor::JupyterUtils::packMimeBundle(image, key));
     }
     if (!attachments.isEmpty())
         entry.insert(QLatin1String("attachments"), attachments);
 
-    JupyterUtils::setSource(entry, plain);
+    Cantor::JupyterUtils::setSource(entry, plain);
 
     return entry;
 }

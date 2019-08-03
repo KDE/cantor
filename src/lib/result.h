@@ -117,13 +117,6 @@ class CANTOR_EXPORT Result
     void setJupyterMetadata(QJsonObject metadata);
 
     /**
-     * This function is duplicate of JupyterUtils::toJupyterMultiline
-     * TODO: If we move JupyterUtils in library, remove this function
-     */
-    static QJsonArray toJupyterMultiline(const QString& source);
-    static QString fromJupyterMultiline(const QJsonValue& source);
-
-    /**
      * Allow to set execution result index, on this moment useful only for Jupyter
      * But maybe Cantor can use it too
      */

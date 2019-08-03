@@ -20,7 +20,7 @@
 
 #include "loadedexpression.h"
 
-#include "jupyterutils.h"
+#include "lib/jupyterutils.h"
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 #include "lib/textresult.h"
@@ -165,7 +165,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 
 void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 {
-    setCommand(JupyterUtils::getSource(cell));
+    setCommand(Cantor::JupyterUtils::getSource(cell));
 
     const QJsonValue idObject = cell.value(QLatin1String("execution_count"));
     if (!idObject.isUndefined() && !idObject.isNull())
@@ -174,20 +174,20 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
     const QJsonArray& outputs = cell.value(QLatin1String("outputs")).toArray();
     for (QJsonArray::const_iterator iter = outputs.begin(); iter != outputs.end(); iter++)
     {
-        if (!JupyterUtils::isJupyterOutput(*iter))
+        if (!Cantor::JupyterUtils::isJupyterOutput(*iter))
             continue;
 
         const QJsonObject& output = iter->toObject();
-        const QString& outputType = JupyterUtils::getOutputType(output);
-        if (JupyterUtils::isJupyterTextOutput(output))
+        const QString& outputType = Cantor::JupyterUtils::getOutputType(output);
+        if (Cantor::JupyterUtils::isJupyterTextOutput(output))
         {
-            const QString& text = JupyterUtils::fromJupyterMultiline(output.value(QLatin1String("text")));
+            const QString& text = Cantor::JupyterUtils::fromJupyterMultiline(output.value(QLatin1String("text")));
             bool isStderr = output.value(QLatin1String("name")).toString() == QLatin1String("stderr");
             Cantor::TextResult* result = new Cantor::TextResult(text);
             result->setStdErr(isStderr);
             addResult(result);
         }
-        else if (JupyterUtils::isJupyterErrorOutput(output))
+        else if (Cantor::JupyterUtils::isJupyterErrorOutput(output))
         {
             const QJsonArray& tracebackLineArray = output.value(QLatin1String("traceback")).toArray();
             QString traceback;
@@ -204,16 +204,16 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
             setErrorMessage(traceback);
         }
-        else if (JupyterUtils::isJupyterDisplayOutput(output) || JupyterUtils::isJupyterExecutionResult(output))
+        else if (Cantor::JupyterUtils::isJupyterDisplayOutput(output) || Cantor::JupyterUtils::isJupyterExecutionResult(output))
         {
             const QJsonObject& data = output.value(QLatin1String("data")).toObject();
 
-            QJsonObject metadata = JupyterUtils::getMetadata(output);
-            const QString& text = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::textMime));
-            const QString& mainKey = JupyterUtils::mainBundleKey(data);
+            QJsonObject metadata = Cantor::JupyterUtils::getMetadata(output);
+            const QString& text = Cantor::JupyterUtils::fromJupyterMultiline(data.value(Cantor::JupyterUtils::textMime));
+            const QString& mainKey = Cantor::JupyterUtils::mainBundleKey(data);
 
             Cantor::Result* result = nullptr;
-            if (mainKey == JupyterUtils::gifMime)
+            if (mainKey == Cantor::JupyterUtils::gifMime)
             {
                 const QByteArray& bytes = QByteArray::fromBase64(data.value(mainKey).toString().toLatin1());
 
@@ -225,35 +225,35 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
                 result = new Cantor::AnimationResult(QUrl::fromLocalFile(file.fileName()), text);
             }
-            else if (mainKey == JupyterUtils::textMime)
+            else if (mainKey == Cantor::JupyterUtils::textMime)
             {
                 result = new Cantor::TextResult(text);
             }
-            else if (mainKey == JupyterUtils::htmlMime)
+            else if (mainKey == Cantor::JupyterUtils::htmlMime)
             {
-                const QString& html = JupyterUtils::fromJupyterMultiline(data.value(JupyterUtils::htmlMime));
+                const QString& html = Cantor::JupyterUtils::fromJupyterMultiline(data.value(Cantor::JupyterUtils::htmlMime));
                 // Some backends places gif animation in hmlt (img tag), for example, Sage
-                if (JupyterUtils::isGifHtml(html))
+                if (Cantor::JupyterUtils::isGifHtml(html))
                 {
-                    result = new Cantor::AnimationResult(JupyterUtils::loadGifHtml(html), text);
+                    result = new Cantor::AnimationResult(Cantor::JupyterUtils::loadGifHtml(html), text);
                 }
                 else
                 {
                     // Load alternative content types too
                     std::map<QString, QJsonValue> alternatives;
                     for (const QString& key : data.keys())
-                        if (key != JupyterUtils::htmlMime && key != JupyterUtils::textMime)
+                        if (key != Cantor::JupyterUtils::htmlMime && key != Cantor::JupyterUtils::textMime)
                             alternatives[key] = data[key];
 
                     result = new Cantor::HtmlResult(html, text, alternatives);
                 }
             }
-            else if (mainKey == JupyterUtils::latexMime)
+            else if (mainKey == Cantor::JupyterUtils::latexMime)
             {
                 // Some latex results contains alreadey rendered images, so use them, if presents
-                const QImage& image = JupyterUtils::loadImage(data, JupyterUtils::pngMime);
+                const QImage& image = Cantor::JupyterUtils::loadImage(data, Cantor::JupyterUtils::pngMime);
 
-                QString latex = JupyterUtils::fromJupyterMultiline(data.value(mainKey));
+                QString latex = Cantor::JupyterUtils::fromJupyterMultiline(data.value(mainKey));
                 QScopedPointer<Cantor::LatexRenderer> renderer(new Cantor::LatexRenderer(this));
                 renderer->setLatexCode(latex);
                 renderer->setEquationOnly(false);
@@ -267,9 +267,9 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                     static_cast<Cantor::LatexResult*>(result)->showCode();
             }
             // So this is image
-            else if (JupyterUtils::imageKeys(data).contains(mainKey))
+            else if (Cantor::JupyterUtils::imageKeys(data).contains(mainKey))
             {
-                const QImage& image = JupyterUtils::loadImage(data, mainKey);
+                const QImage& image = Cantor::JupyterUtils::loadImage(data, mainKey);
                 result = new Cantor::ImageResult(image, text);
 
                 const QJsonValue size = metadata.value(mainKey);
@@ -291,7 +291,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
                 }
 
             }
-            else if (data.keys().size() == 1 && data.keys()[0] == JupyterUtils::textMime)
+            else if (data.keys().size() == 1 && data.keys()[0] == Cantor::JupyterUtils::textMime)
                 result = new Cantor::TextResult(text);
             // Cantor don't know, how handle this, so pack into mime container result
             else

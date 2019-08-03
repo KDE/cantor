@@ -28,6 +28,8 @@ using namespace Cantor;
 #include <QBuffer>
 #include <QTemporaryFile>
 
+#include "jupyterutils.h"
+
 class Cantor::ImageResultPrivate
 {
   public:
@@ -131,7 +133,7 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
         root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
     QJsonObject data;
-    data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->alt));
+    data.insert(QLatin1String("text/plain"), JupyterUtils::toJupyterMultiline(d->alt));
 
     QImage image;
     if (d->img.isNull())

@@ -27,6 +27,8 @@
 #include <QFile>
 #include <KLocalizedString>
 
+#include "jupyterutils.h"
+
 using namespace Cantor;
 
 class Cantor::MimeResultPrivate
@@ -42,7 +44,7 @@ MimeResult::MimeResult(const QJsonObject& mimeBundle) : d(new MimeResultPrivate)
 {
     bool isOriginalPlain = mimeBundle.contains(QLatin1String("text/plain"));
     if (isOriginalPlain)
-        d->plain = fromJupyterMultiline(mimeBundle.value(QLatin1String("text/plain")));
+        d->plain = JupyterUtils::fromJupyterMultiline(mimeBundle.value(QLatin1String("text/plain")));
     else
         d->plain = i18n("This is unsupported Jupyter content of types ('%1')", mimeBundle.keys().join(QLatin1String(", ")));
     d->mimeBundle = mimeBundle;

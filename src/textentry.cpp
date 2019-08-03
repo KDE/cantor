@@ -23,7 +23,7 @@
 #include "worksheettextitem.h"
 #include "lib/epsrenderer.h"
 #include "latexrenderer.h"
-#include "jupyterutils.h"
+#include "lib/jupyterutils.h"
 #include "mathrender.h"
 
 #include "settings.h"
@@ -189,11 +189,11 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
 
 void TextEntry::setContentFromJupyter(const QJsonObject& cell)
 {
-    if (JupyterUtils::isRawCell(cell))
+    if (Cantor::JupyterUtils::isRawCell(cell))
     {
         convertToRawCell();
 
-        const QJsonObject& metadata = JupyterUtils::getMetadata(cell);
+        const QJsonObject& metadata = Cantor::JupyterUtils::getMetadata(cell);
         QJsonValue format = metadata.value(QLatin1String("format"));
         // Also checks "raw_mimetype", because raw cell don't corresponds Jupyter Notebook specification
         // See https://github.com/jupyter/notebook/issues/4730
@@ -208,15 +208,15 @@ void TextEntry::setContentFromJupyter(const QJsonObject& cell)
         else
             addNewTarget(m_convertTarget);
 
-        m_textItem->setPlainText(JupyterUtils::getSource(cell));
+        m_textItem->setPlainText(Cantor::JupyterUtils::getSource(cell));
 
         setJupyterMetadata(metadata);
     }
-    else if (JupyterUtils::isMarkdownCell(cell))
+    else if (Cantor::JupyterUtils::isMarkdownCell(cell))
     {
         convertToTextEntry();
 
-        QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+        QJsonObject cantorMetadata = Cantor::JupyterUtils::getCantorMetadata(cell);
         m_textItem->setHtml(cantorMetadata.value(QLatin1String("text_entry_content")).toString());
     }
 }
@@ -265,7 +265,7 @@ QJsonValue TextEntry::toJupyterJson()
         else
             entryData = doc->toPlainText();
 
-        metadata.insert(JupyterUtils::cantorMetadataKey, cantorMetadata);
+        metadata.insert(Cantor::JupyterUtils::cantorMetadataKey, cantorMetadata);
 
         // Replace our $$ formulas to $
         entryData.replace(QLatin1String("$$"), QLatin1String("$"));
@@ -281,7 +281,7 @@ QJsonValue TextEntry::toJupyterJson()
     QJsonObject entry;
     entry.insert(QLatin1String("cell_type"), entryType);
     entry.insert(QLatin1String("metadata"), metadata);
-    JupyterUtils::setSource(entry, entryData);
+    Cantor::JupyterUtils::setSource(entry, entryData);
 
     return entry;
 }
@@ -503,17 +503,17 @@ bool TextEntry::wantToEvaluate()
 
 bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
 {
-    if (!JupyterUtils::isMarkdownCell(cell))
+    if (!Cantor::JupyterUtils::isMarkdownCell(cell))
         return false;
 
-    QJsonObject cantorMetadata = JupyterUtils::getCantorMetadata(cell);
+    QJsonObject cantorMetadata = Cantor::JupyterUtils::getCantorMetadata(cell);
     const QJsonValue& textContentValue = cantorMetadata.value(QLatin1String("text_entry_content"));
 
     if (!textContentValue.isString())
         return false;
 
     const QString& textContent = textContentValue.toString();
-    const QString& source = JupyterUtils::getSource(cell);
+    const QString& source = Cantor::JupyterUtils::getSource(cell);
 
     return textContent == source;
 }

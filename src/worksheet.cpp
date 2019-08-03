@@ -48,7 +48,7 @@
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
-#include "jupyterutils.h"
+#include "lib/jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
 #include "lib/helpresult.h"
@@ -936,7 +936,7 @@ QJsonDocument Worksheet::toJupyterJson()
 
     QJsonObject kernalInfo;
     if (m_session && m_session->backend())
-        kernalInfo = JupyterUtils::getKernelspec(m_session->backend());
+        kernalInfo = Cantor::JupyterUtils::getKernelspec(m_session->backend());
     else
         kernalInfo.insert(QLatin1String("name"), m_backendName);
     metadata.insert(QLatin1String("kernelspec"), kernalInfo);
@@ -1279,10 +1279,10 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     m_type = Type::JupyterNotebook;
 
     int nbformatMajor, nbformatMinor;
-    if (!JupyterUtils::isJupyterNotebook(doc))
+    if (!Cantor::JupyterUtils::isJupyterNotebook(doc))
     {
         // Two possiblities: old jupyter notebook (with another scheme) or just not a notebook at AlignLeft
-        std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(doc.object());
+        std::tie(nbformatMajor, nbformatMinor) = Cantor::JupyterUtils::getNbformatVersion(doc.object());
         if (nbformatMajor == 0 && nbformatMinor == 0)
         {
             QApplication::restoreOverrideCursor();
@@ -1297,7 +1297,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     }
 
     QJsonObject notebookObject = doc.object();
-    std::tie(nbformatMajor, nbformatMinor) = JupyterUtils::getNbformatVersion(notebookObject);
+    std::tie(nbformatMajor, nbformatMinor) = Cantor::JupyterUtils::getNbformatVersion(notebookObject);
 
     if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,0,0))
     {
@@ -1306,14 +1306,14 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         return false;
     }
 
-    const QJsonArray& cells = JupyterUtils::getCells(notebookObject);
-    const QJsonObject& metadata = JupyterUtils::getMetadata(notebookObject);
+    const QJsonArray& cells = Cantor::JupyterUtils::getCells(notebookObject);
+    const QJsonObject& metadata = Cantor::JupyterUtils::getMetadata(notebookObject);
     if (m_jupyterMetadata)
         delete m_jupyterMetadata;
     m_jupyterMetadata = new QJsonObject(metadata);
 
     const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
-    m_backendName = JupyterUtils::getKernelName(kernalspec);
+    m_backendName = Cantor::JupyterUtils::getKernelName(kernalspec);
     if (kernalspec.isEmpty() || m_backendName.isEmpty())
     {
         QApplication::restoreOverrideCursor();
@@ -1368,7 +1368,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     WorksheetEntry* entry = nullptr;
     for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
-        if (!JupyterUtils::isJupyterCell(*iter))
+        if (!Cantor::JupyterUtils::isJupyterCell(*iter))
         {
             QApplication::restoreOverrideCursor();
             QString explanation;
@@ -1383,7 +1383,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
 
         const QJsonObject& cell = iter->toObject();
-        QString cellType = JupyterUtils::getCellType(cell);
+        QString cellType = Cantor::JupyterUtils::getCellType(cell);
 
         if (cellType == QLatin1String("code"))
         {

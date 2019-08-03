@@ -21,7 +21,7 @@
 #include "imageentry.h"
 #include "worksheetimageitem.h"
 #include "actionbar.h"
-#include "jupyterutils.h"
+#include "lib/jupyterutils.h"
 
 #include <KLocalizedString>
 #include <QDebug>
@@ -127,16 +127,16 @@ QJsonValue ImageEntry::toJupyterJson()
             QJsonObject size;
             size.insert(QLatin1String("width"), image.size().width());
             size.insert(QLatin1String("height"), image.size().height());
-            metadata.insert(JupyterUtils::pngMime, size);
-            entry.insert(JupyterUtils::metadataKey, metadata);
+            metadata.insert(Cantor::JupyterUtils::pngMime, size);
+            entry.insert(Cantor::JupyterUtils::metadataKey, metadata);
 
             QString text(QLatin1String("<img src='attachment:image.png'>"));
 
             QJsonObject attachments;
-            attachments.insert(QLatin1String("image.png"), JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));
+            attachments.insert(QLatin1String("image.png"), Cantor::JupyterUtils::packMimeBundle(image, Cantor::JupyterUtils::pngMime));
             entry.insert(QLatin1String("attachments"), attachments);
 
-            JupyterUtils::setSource(entry, text);
+            Cantor::JupyterUtils::setSource(entry, text);
 
             value = entry;
         }

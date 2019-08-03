@@ -26,6 +26,8 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
+#include "jupyterutils.h"
+
 using namespace Cantor;
 
 class Cantor::HtmlResultPrivate
@@ -151,9 +153,9 @@ QJsonValue Cantor::HtmlResult::toJupyterJson()
 
 
     QJsonObject data;
-    data.insert(QLatin1String("text/html"), toJupyterMultiline(d->html));
+    data.insert(QLatin1String("text/html"), JupyterUtils::toJupyterMultiline(d->html));
     if (!d->plain.isEmpty())
-        data.insert(QLatin1String("text/plain"), toJupyterMultiline(d->plain));
+        data.insert(QLatin1String("text/plain"), JupyterUtils::toJupyterMultiline(d->plain));
 
     for (auto iter = d->alternatives.begin(); iter != d->alternatives.end(); iter++)
         data.insert(iter->first, iter->second);

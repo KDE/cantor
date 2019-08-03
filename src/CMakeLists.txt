@@ -76,7 +76,6 @@ set(cantor_PART_SRCS
    animationresultitem.cpp
    loadedexpression.cpp
    animation.cpp
-   jupyterutils.cpp
    mathrender.cpp
    mathrendertask.cpp
    extended_document.cpp

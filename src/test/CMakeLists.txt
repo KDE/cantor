@@ -23,7 +23,6 @@ set(worksheettest_SRCS
     ../animationresultitem.cpp
     ../loadedexpression.cpp
     ../animation.cpp
-    ../jupyterutils.cpp
     ../mathrender.cpp
     ../mathrendertask.cpp
     ../extended_document.cpp

@@ -19,7 +19,7 @@
 */
 
 #include "jupyterutils.h"
-#include "lib/backend.h"
+#include "backend.h"
 
 #include <tuple>
 
@@ -35,6 +35,8 @@
 #include <QString>
 #include <QUrl>
 #include <QTemporaryFile>
+
+using namespace Cantor;
 
 const QString JupyterUtils::cellsKey = QLatin1String("cells");
 const QString JupyterUtils::metadataKey = QLatin1String("metadata");

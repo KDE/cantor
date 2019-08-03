@@ -26,6 +26,8 @@
 #include <QString>
 #include <QMimeDatabase>
 
+#include "cantor_export.h"
+
 class QJsonValue;
 class QJsonObject;
 class QJsonArray;
@@ -35,8 +37,8 @@ class QUrl;
 class QStringList;
 
 namespace Cantor {
-    class Backend;
-}
+
+class Backend;
 
 /**
  * Static class for storing some common code for working with jupyter json scheme
@@ -44,7 +46,7 @@ namespace Cantor {
  * handleling missing keys, etc.
  *
  */
-class JupyterUtils
+class CANTOR_EXPORT JupyterUtils
 {
   public:
     static QJsonObject getMetadata(const QJsonObject& object);
@@ -107,5 +109,6 @@ class JupyterUtils
 
     static const QMimeDatabase mimeDatabase;
 };
+}
 
 #endif // JUPYTERUTILS_H

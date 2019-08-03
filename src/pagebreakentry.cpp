@@ -28,7 +28,7 @@
 #include <KColorScheme>
 #include <KLocalizedString>
 
-#include "jupyterutils.h"
+#include "lib/jupyterutils.h"
 
 PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
   : WorksheetEntry(worksheet)
@@ -99,10 +99,10 @@ QJsonValue PageBreakEntry::toJupyterJson()
 
     QJsonObject cantor;
     cantor.insert(QLatin1String("from_page_break"), true);
-    metadata.insert(JupyterUtils::cantorMetadataKey, cantor);
+    metadata.insert(Cantor::JupyterUtils::cantorMetadataKey, cantor);
 
-    root.insert(JupyterUtils::metadataKey, metadata);
-    JupyterUtils::setSource(root, QLatin1String("\\pagebreak"));
+    root.insert(Cantor::JupyterUtils::metadataKey, metadata);
+    Cantor::JupyterUtils::setSource(root, QLatin1String("\\pagebreak"));
 
     return root;
 }
@@ -184,10 +184,10 @@ bool PageBreakEntry::wantFocus()
 
 bool PageBreakEntry::isConvertableToPageBreakEntry(const QJsonObject& cell)
 {
-    if (!JupyterUtils::isRawCell(cell))
+    if (!Cantor::JupyterUtils::isRawCell(cell))
         return false;
 
-    QJsonObject metadata = JupyterUtils::getCantorMetadata(cell);
+    QJsonObject metadata = Cantor::JupyterUtils::getCantorMetadata(cell);
     QJsonValue value = metadata.value(QLatin1String("from_page_break"));
 
     return value.isBool() && value.toBool() == true;
