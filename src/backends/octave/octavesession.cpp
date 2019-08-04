@@ -26,7 +26,6 @@
 #include "textresult.h"
 
 #include "settings.h"
-#include "octavehighlighter.h"
 
 #include <KProcess>
 #include <KDirWatch>

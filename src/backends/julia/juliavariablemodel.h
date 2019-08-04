@@ -18,8 +18,8 @@
     Copyright (C) 2019 Nikita Sirgienko <warquark@gmail.com>
 */
 
-#ifndef _PYTHONVARIABLEMODEL_H
-#define _PYTHONVARIABLEMODEL_H
+#ifndef _JULIAVARIABLEMODEL_H
+#define _JULIAVARIABLEMODEL_H
 
 #include <QStringList>
 
@@ -47,4 +47,4 @@ class JuliaVariableModel : public Cantor::DefaultVariableModel
     QStringList m_functions;
 };
 
-#endif /* _PYTHONVARIABLEMODEL_H */
+#endif /* _JULIAVARIABLEMODEL_H */

@@ -169,7 +169,7 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
                     Cantor::LatexRenderer::EquationType type;
                     std::tie(latex, type) = parseMathCode(mathCode);
 
-                    // Get uuid by removing 'cantor_' and '.pdf' extention
+                    // Get uuid by removing 'cantor_' and '.pdf' extension
                     // len('cantor_') == 7, len('.pdf') == 4
                     QString uuid = pdfPath;
                     uuid.remove(0, 7);
@@ -500,7 +500,7 @@ void MarkdownEntry::renderMath()
 
 void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
 {
-    if (!result->successfull)
+    if (!result->successful)
     {
         if (Settings::self()->showMathRenderError())
             KMessageBox::error(worksheetView(), result->errorMessage, i18n("Cantor Math Error"));

@@ -161,7 +161,7 @@ QJsonValue Cantor::TextResult::toJupyterJson()
                     root.insert(QLatin1String("name"), QLatin1String("stdout"));
 
                 // Jupyter don't support a few text result (it merges them into one text),
-                // so add additinoal \n to end
+                // so add additional \n to end
                 // See https://github.com/jupyter/notebook/issues/4699
                 root.insert(QLatin1String("text"), jupyterText(d->data, true));
             }

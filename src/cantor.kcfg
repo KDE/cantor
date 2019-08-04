@@ -47,7 +47,7 @@
       <default>true</default>
     </entry>
     <entry name="ShowMathRenderError" type="Bool">
-      <label>Show embeded math render error</label>
+      <label>Show embedded math render error</label>
       <default>true</default>
     </entry>
   </group>

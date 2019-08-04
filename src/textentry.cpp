@@ -521,7 +521,7 @@ bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
 
 void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
 {
-    if (!result->successfull)
+    if (!result->successful)
     {
         qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
         return;
@@ -571,7 +571,7 @@ void TextEntry::convertTargetChanged(QAction* action)
     else if (action == m_ownTarget)
     {
         bool ok;
-        const QString& target = QInputDialog::getText(worksheet()->worksheetView(), i18n("Cantor"), i18n("Target mimetype:"), QLineEdit::Normal, QString(), &ok);
+        const QString& target = QInputDialog::getText(worksheet()->worksheetView(), i18n("Cantor"), i18n("Target MIME type:"), QLineEdit::Normal, QString(), &ok);
         if (ok && !target.isEmpty())
         {
             addNewTarget(target);

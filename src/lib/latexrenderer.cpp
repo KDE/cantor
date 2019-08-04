@@ -252,11 +252,11 @@ void LatexRenderer::convertingDone()
     delete d->texFile;
     d->texFile = nullptr;
 
-    QString pathWithoutExtention = info.path() + QDir::separator() + info.completeBaseName();
-    QFile::remove(pathWithoutExtention + QLatin1String(".log"));
-    QFile::remove(pathWithoutExtention + QLatin1String(".aux"));
-    QFile::remove(pathWithoutExtention + QLatin1String(".tex"));
-    QFile::remove(pathWithoutExtention + QLatin1String(".dvi"));
+    QString pathWithoutExtension = info.path() + QDir::separator() + info.completeBaseName();
+    QFile::remove(pathWithoutExtension + QLatin1String(".log"));
+    QFile::remove(pathWithoutExtension + QLatin1String(".aux"));
+    QFile::remove(pathWithoutExtension + QLatin1String(".tex"));
+    QFile::remove(pathWithoutExtension + QLatin1String(".dvi"));
 
     if(QFileInfo(d->epsFilename).exists())
     {

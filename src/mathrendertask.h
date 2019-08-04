@@ -35,7 +35,7 @@ class QMutex;
 struct MathRenderResult
 {
     int jobId;
-    bool successfull;
+    bool successful;
     QString errorMessage;
     QTextImageFormat renderedMath;
     QUrl uniqueUrl;

@@ -356,7 +356,7 @@ void WorksheetTest::testJupyter1()
     entry = entry->next();
     QCOMPARE(entry->type(), (int)CommandEntry::Type);
     QCOMPARE(plainCommand(entry), QLatin1String(
-        "# intial state\n"
+        "# initial state\n"
         "psi0 = tensor(basis(N,0), basis(2,0)) # start without excitations\n"
         "\n"
         "# operators\n"

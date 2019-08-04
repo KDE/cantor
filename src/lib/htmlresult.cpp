@@ -35,7 +35,7 @@ class Cantor::HtmlResultPrivate
 public:
     QString html;
     QString plain;
-    std::map<QString, QJsonValue> alternatives; // Usefull only for Jupyter, it think
+    std::map<QString, QJsonValue> alternatives; // Useful only for Jupyter, it think
     Cantor::HtmlResult::Format format{Cantor::HtmlResult::Html};
 };
 

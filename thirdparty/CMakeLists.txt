@@ -1,4 +1,4 @@
-# This cmake file are managing embeded 3party Cantor dependencies
+# This cmake file are managing embedded 3party Cantor dependencies
 
 # 3dparty patched Discount
 # Embedded for a while

@@ -89,7 +89,7 @@ void MathRenderTask::run()
 
         if (file.isEmpty())
         {
-            result->successfull = false;
+            result->successful = false;
             result->errorMessage = QString::fromLatin1("needed for math render standalone.cls file not found in Cantor data directory");
             finalize(result);
             return;
@@ -138,7 +138,7 @@ void MathRenderTask::run()
     if (p.exitCode() != 0)
     {
         // pdflatex render failed and we haven't pdf file
-        result->successfull = false;
+        result->successful = false;
 
         QString renderErrorText = QString::fromUtf8(p.readAllStandardOutput());
         renderErrorText.remove(0, renderErrorText.indexOf(QLatin1Char('!')));
@@ -152,15 +152,15 @@ void MathRenderTask::run()
     }
 
     //Clean up .aux and .log files
-    QString pathWithoutExtention = tempDir + QDir::separator() + QLatin1String("cantor_")+uuid;
-    QFile::remove(pathWithoutExtention + QLatin1String(".log"));
-    QFile::remove(pathWithoutExtention + QLatin1String(".aux"));
+    QString pathWithoutExtension = tempDir + QDir::separator() + QLatin1String("cantor_")+uuid;
+    QFile::remove(pathWithoutExtension + QLatin1String(".log"));
+    QFile::remove(pathWithoutExtension + QLatin1String(".aux"));
 
-    const QString& pdfFileName = pathWithoutExtention + QLatin1String(".pdf");
+    const QString& pdfFileName = pathWithoutExtension + QLatin1String(".pdf");
 
     bool success; QString errorMessage; QSizeF size;
     result->image = renderPdf(pdfFileName, m_scale, m_highResolution, &success, &size, &errorMessage, m_mutex);
-    result->successfull = success;
+    result->successful = success;
     result->errorMessage = errorMessage;
 
     if (success == false)
@@ -170,7 +170,7 @@ void MathRenderTask::run()
     }
 
     const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage, m_mutex);
-    result->successfull = success;
+    result->successful = success;
     result->errorMessage = errorMessage;
     if (success == false)
     {

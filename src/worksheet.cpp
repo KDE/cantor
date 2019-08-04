@@ -54,7 +54,6 @@
 #include "lib/helpresult.h"
 #include "lib/session.h"
 #include "lib/defaulthighlighter.h"
-#include "lib/backend.h"
 
 #include <config-cantor.h>
 

@@ -89,7 +89,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
         qDebug()<<"MimeType: "<<type.name();
         if(type.inherits(QLatin1String("application/postscript")))
         {
-            qDebug()<<"its PostScript";
+            qDebug()<<"it's PostScript";
             setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
         }
         else if(type.inherits(QLatin1String("text/plain"))
@@ -99,9 +99,9 @@ void RExpression::showFilesAsResult(const QStringList& files)
             const bool isHtml = type.inherits(QLatin1String("text/html"))
                 || type.inherits(QLatin1String("application/x-extension-html"));
             if(isHtml)
-                qDebug()<<"its a HTML document";
+                qDebug()<<"it's a HTML document";
             else
-                qDebug()<<"its plain text";
+                qDebug()<<"it's a plain text";
 
             QFile f(file);
             if (!f.open(QIODevice::ReadOnly | QIODevice::Text))

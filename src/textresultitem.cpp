@@ -42,9 +42,9 @@ TextResultItem::TextResultItem(QGraphicsObject* parent, Cantor::Result* result)
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     update();
 
-    // So usefull behaviour:
+    // So useful behaviour:
     // If we have HtmlResult, but after setting we have empty document
-    // So show Plain version - it more usefull
+    // So show Plain version - it more useful
     // We do it here, because we need it one
     if (document()->characterCount() && document()->characterAt(0) == QChar::ParagraphSeparator)
     {
@@ -82,7 +82,7 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
         switch (hres->format())
         {
             case Cantor::HtmlResult::Html:
-                connect(menu->addAction(i18n("Show Html Code")), &QAction::triggered, this, &TextResultItem::showHtmlSource);
+                connect(menu->addAction(i18n("Show HTML Code")), &QAction::triggered, this, &TextResultItem::showHtmlSource);
                 if (!hres->plain().isEmpty())
                     connect(menu->addAction(i18n("Show Plain Alternative")), &QAction::triggered, this, &TextResultItem::showPlain);
                 break;
@@ -94,8 +94,8 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
                 break;
 
             case Cantor::HtmlResult::PlainAlternative:
-                connect(menu->addAction(i18n("Show Html")), &QAction::triggered, this, &TextResultItem::showHtml);
-                connect(menu->addAction(i18n("Show Html Code")), &QAction::triggered, this, &TextResultItem::showHtmlSource);
+                connect(menu->addAction(i18n("Show HTML")), &QAction::triggered, this, &TextResultItem::showHtml);
+                connect(menu->addAction(i18n("Show HTML Code")), &QAction::triggered, this, &TextResultItem::showHtmlSource);
                 break;
 
         }
