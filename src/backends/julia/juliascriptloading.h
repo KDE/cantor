@@ -21,6 +21,7 @@
 
 #include <QFile>
 #include <QStandardPaths>
+#include <QDebug>
 
 inline QString loadScript(const QString &scriptName)
 {
@@ -36,6 +37,11 @@ inline QString loadScript(const QString &scriptName)
         );
 
     QFile text(file);
-    text.open(QIODevice::ReadOnly);
-    return QString::fromLatin1(text.readAll());
+    if (text.open(QIODevice::ReadOnly))
+        return QString::fromUtf8(text.readAll());
+    else
+    {
+        qWarning() << "Cantor Julia script" << scriptName+QLatin1String(".jl") << "not found - something wrong";
+        return QString();
+    }
 }

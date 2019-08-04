@@ -36,7 +36,7 @@ class CANTOR_EXPORT EpsRenderer
 {
   public:
     EpsRenderer();
-    ~EpsRenderer() = default;
+    ~EpsRenderer();
 
     enum FormulaProperties {CantorFormula = 1, ImagePath = 2, Code = 3,
                             Delimiter = 4};

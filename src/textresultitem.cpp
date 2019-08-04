@@ -70,7 +70,7 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
     Cantor::Result* res = result();
     if (res->type() == Cantor::LatexResult::Type) {
         QAction* showCodeAction = nullptr;
-        Cantor::LatexResult* lres = dynamic_cast<Cantor::LatexResult*>(res);
+        Cantor::LatexResult* lres = static_cast<Cantor::LatexResult*>(res);
         if (lres->isCodeShown())
             showCodeAction = menu->addAction(i18n("Show Rendered"));
         else
@@ -121,7 +121,7 @@ void TextResultItem::update()
         setHtml(m_result->toHtml());
         break;
     case Cantor::LatexResult::Type:
-        setLatex(dynamic_cast<Cantor::LatexResult*>(m_result));
+        setLatex(static_cast<Cantor::LatexResult*>(m_result));
         break;
     default:
         break;
@@ -184,7 +184,7 @@ double TextResultItem::height() const
 
 void TextResultItem::toggleLatexCode()
 {
-     Cantor::LatexResult* lr = dynamic_cast<Cantor::LatexResult*>(result());
+     Cantor::LatexResult* lr = static_cast<Cantor::LatexResult*>(result());
      if(lr->isCodeShown())
          lr->showRendered();
      else

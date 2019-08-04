@@ -421,7 +421,7 @@ void MaximaExpression::addInformation(const QString& information)
         inf+=QLatin1Char(';');
     Cantor::Expression::addInformation(inf);
 
-    dynamic_cast<MaximaSession*>(session())->sendInputToProcess(inf+QLatin1Char('\n'));
+    static_cast<MaximaSession*>(session())->sendInputToProcess(inf+QLatin1Char('\n'));
 }
 
 void MaximaExpression::imageChanged()

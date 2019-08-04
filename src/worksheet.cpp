@@ -1042,9 +1042,12 @@ void Worksheet::savePlain(const QString& filename)
         if (backend->extensions().contains(QLatin1String("ScriptExtension")))
         {
             Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String(("ScriptExtension"))));
-            cmdSep=e->commandSeparator();
-            commentStartingSeq = e->commentStartingSequence();
-            commentEndingSeq = e->commentEndingSequence();
+            if (e)
+            {
+                cmdSep=e->commandSeparator();
+                commentStartingSeq = e->commentStartingSequence();
+                commentEndingSeq = e->commentEndingSequence();
+            }
         }
     }
     else

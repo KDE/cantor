@@ -501,7 +501,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
         // QGraphicsTextItem's TabChangesFocus feature prevents calls to
         // keyPressEvent for Tab, even when it's turned off. So we got to catch
         // that here.
-        QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
+        QKeyEvent* kev = static_cast<QKeyEvent*>(event);
         if (kev->key() == Qt::Key_Tab && kev->modifiers() == Qt::NoModifier) {
             emit tabPressed();
             return true;
@@ -512,7 +512,7 @@ bool WorksheetTextItem::sceneEvent(QEvent *event)
             return true;
         }
     } else if (event->type() == QEvent::ShortcutOverride) {
-        QKeyEvent* kev = dynamic_cast<QKeyEvent*>(event);
+        QKeyEvent* kev = static_cast<QKeyEvent*>(event);
         QKeySequence seq(kev->key() + kev->modifiers());
         if (worksheet()->isShortcut(seq)) {
             qDebug() << "ShortcutOverride" << kev->key() << kev->modifiers();

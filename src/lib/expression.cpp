@@ -139,7 +139,7 @@ void Expression::addResult(Result* result)
         if ( session() &&
              session()->isTypesettingEnabled()&&
              result->type()==TextResult::Type &&
-             dynamic_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
+             static_cast<TextResult*>(result)->format()==TextResult::LatexFormat &&
              !result->toHtml().trimmed().isEmpty() &&
              finishingBehavior()!=DeleteOnFinish &&
              !isInternal()
@@ -240,13 +240,13 @@ void Expression::latexRendered(LatexRenderer* renderer, Result* result)
     {
         if (result->type() == TextResult::Type)
         {
-            TextResult* r=dynamic_cast<TextResult*>(result);
+            TextResult* r = static_cast<TextResult*>(result);
             LatexResult* latex=new LatexResult(r->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), r->plain());
             addResult( latex );
         }
         else if (result->type() == LatexResult::Type)
         {
-            LatexResult* previousLatexResult=dynamic_cast<LatexResult*>(result);
+            LatexResult* previousLatexResult = static_cast<LatexResult*>(result);
             LatexResult* latex=new LatexResult(previousLatexResult->data().toString().trimmed(), QUrl::fromLocalFile(renderer->imagePath()), previousLatexResult->plain());
             addResult( latex );
         }
@@ -255,7 +255,8 @@ void Expression::latexRendered(LatexRenderer* renderer, Result* result)
         //if rendering with latex was not successful, just use the plain text version
         //if available
         TextResult* r=dynamic_cast<TextResult*>(result);
-        addResult(new TextResult(r->plain()));
+        if (r)
+            addResult(new TextResult(r->plain()));
         qDebug()<<"error rendering latex: "<<renderer->errorMessage();
     }
 

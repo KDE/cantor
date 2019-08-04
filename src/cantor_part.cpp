@@ -476,7 +476,8 @@ void CantorPart::fileSaveAs()
         if (backend->extensions().contains(QLatin1String("ScriptExtension")))
         {
             Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
-            filter+=QLatin1String(";;")+e->scriptFileFilter();
+            if (e)
+                filter+=QLatin1String(";;")+e->scriptFileFilter();
         }
     }
 
@@ -898,7 +899,7 @@ void CantorPart::publishWorksheet()
     //remove this once KNS3 gains the ability to select category
     KNS3::UploadDialog dialog(QString::fromLatin1("cantor_%1.knsrc").arg(m_worksheet->session()->backend()->id().toLower()), widget());
     dialog.setUploadFile(url());
-    dialog.exec();
+    Q_UNUSED(dialog.exec());
 }
 
 void CantorPart::print()
@@ -920,7 +921,7 @@ void CantorPart::printPreview()
 {
     QPrintPreviewDialog *dialog = new QPrintPreviewDialog(widget());
     connect(dialog, SIGNAL(paintRequested(QPrinter*)), m_worksheet, SLOT(print(QPrinter*)));
-    dialog->exec();
+    Q_UNUSED(dialog->exec());
 }
 
 void CantorPart::showScriptEditor(bool show)
@@ -965,7 +966,8 @@ void CantorPart::runScript(const QString& file)
     }
 
     Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
-    m_worksheet->appendCommandEntry(scriptE->runExternalScript(file));
+    if (scriptE)
+        m_worksheet->appendCommandEntry(scriptE->runExternalScript(file));
 }
 
 void CantorPart::blockStatusBar()

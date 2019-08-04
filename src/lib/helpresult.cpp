@@ -47,6 +47,11 @@ HelpResult::HelpResult(const QString& text, bool isHtml) : d(new HelpResultPriva
     d->html = html;
 }
 
+Cantor::HelpResult::~HelpResult()
+{
+    delete d;
+}
+
 int HelpResult::type()
 {
     return HelpResult::Type;

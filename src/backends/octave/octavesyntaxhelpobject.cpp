@@ -48,14 +48,15 @@ void OctaveSyntaxHelpObject::fetchingDone(Cantor::Expression::Status status)
     {
         case Cantor::Expression::Done:
         {
-        Cantor::Result* result = m_expression->result();
-        if (result)
-        {
-            QString res = result->toHtml();
-            res.remove(QLatin1String("<br/>"));
-            res.remove(0, res.indexOf(QLatin1String("--")));
-            setHtml(QLatin1Char(' ') + res.trimmed());
-        }
+            Cantor::Result* result = m_expression->result();
+            if (result)
+            {
+                QString res = result->toHtml();
+                res.remove(QLatin1String("<br/>"));
+                res.remove(0, res.indexOf(QLatin1String("--")));
+                setHtml(QLatin1Char(' ') + res.trimmed());
+            }
+            break;
         }
 
         case Cantor::Expression::Interrupted:
@@ -64,6 +65,7 @@ void OctaveSyntaxHelpObject::fetchingDone(Cantor::Expression::Status status)
             qDebug() << "fetching expression finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
             break;
         }
+
         default:
             return;
     }

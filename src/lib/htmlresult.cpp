@@ -107,9 +107,11 @@ QDomElement Cantor::HtmlResult::toXml(QDomDocument& doc)
     {
         case HtmlResult::HtmlSource:
             e.setAttribute(QStringLiteral("format"), QStringLiteral("htmlSource"));
+            break;
 
         case HtmlResult::PlainAlternative:
             e.setAttribute(QStringLiteral("format"), QStringLiteral("plain"));
+            break;
 
         // Html format used by default, so don't set it
         default:

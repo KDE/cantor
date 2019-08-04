@@ -73,9 +73,9 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
     for (auto* result : expr->results())
     {
         if(result->type()==Cantor::TextResult::Type)
-            text += dynamic_cast<Cantor::TextResult*>(result)->plain();
+            text += static_cast<Cantor::TextResult*>(result)->plain();
         else if(expr->result()->type()==Cantor::LatexResult::Type)
-            text += dynamic_cast<Cantor::LatexResult*>(result)->plain();
+            text += static_cast<Cantor::LatexResult*>(result)->plain();
     }
 
     const int nameIndex=text.indexOf(QLatin1Char(']'));

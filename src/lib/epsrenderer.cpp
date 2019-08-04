@@ -41,6 +41,11 @@ EpsRenderer::EpsRenderer() : d(new EpsRendererPrivate())
 {
 }
 
+EpsRenderer::~EpsRenderer()
+{
+    delete d;
+}
+
 void EpsRenderer::setScale(qreal scale)
 {
     d->scale = scale;

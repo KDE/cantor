@@ -36,7 +36,7 @@ class CANTOR_EXPORT HelpResult: public Result
   public:
     enum {Type=3};
     explicit HelpResult( const QString& text, bool isHtml=false);
-    ~HelpResult() override = default;
+    ~HelpResult() override;
 
     QVariant data() override;
     QString toHtml() override;

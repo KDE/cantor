@@ -113,7 +113,12 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     getJuliaVersionProcess.setProgram(replPath);
     getJuliaVersionProcess.setArguments(QStringList()<<QLatin1String("-v"));
     getJuliaVersionProcess.start();
-    getJuliaVersionProcess.waitForFinished(1000);
+    if (getJuliaVersionProcess.waitForFinished(1000) == false)
+    {
+        if (reason)
+            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. Please specify the correct path to Julia executable (no symlinks allowed) and try again.", replPath);
+        return false;
+    }
 
     QRegularExpression versionExp(QLatin1String("julia version (\\d+)\\.(\\d+).(\\d+)"));
     QString versionString = QString::fromLocal8Bit(getJuliaVersionProcess.readLine());

@@ -83,14 +83,17 @@ m_table(new QTreeView(this))
     //check for the methods the backend actually supports, and disable the buttons accordingly
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-    if(ext->loadVariables(QString()).isNull())
-        m_loadBtn->setDisabled(true);
-    if(ext->saveVariables(QString()).isNull())
-        m_saveBtn->setDisabled(true);
-    if(ext->addVariable(QString(), QString()).isNull())
-        m_newBtn->setDisabled(true);
-    if(ext->clearVariables().isNull())
-        m_clearBtn->setDisabled(true);
+    if (ext)
+    {
+        if(ext->loadVariables(QString()).isNull())
+            m_loadBtn->setDisabled(true);
+        if(ext->saveVariables(QString()).isNull())
+            m_saveBtn->setDisabled(true);
+        if(ext->addVariable(QString(), QString()).isNull())
+            m_newBtn->setDisabled(true);
+        if(ext->clearVariables().isNull())
+            m_clearBtn->setDisabled(true);
+    }
 }
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
@@ -114,8 +117,12 @@ void VariableManagerWidget::clearVariables()
         //evaluate the "clear" command
         Cantor::VariableManagementExtension* ext=
             dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-        const QString& cmd=ext->clearVariables();
-        emit runCommand(cmd);
+
+        if (ext)
+        {
+            const QString& cmd=ext->clearVariables();
+            emit runCommand(cmd);
+        }
 
         //HACK? should the model detect that this happened on its own?
         //inform the model that all variables have been removed.
@@ -135,8 +142,11 @@ void VariableManagerWidget::save()
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
 
-    const QString& cmd=ext->saveVariables(file);
-    emit runCommand(cmd);
+    if (ext)
+    {
+        const QString& cmd=ext->saveVariables(file);
+        emit runCommand(cmd);
+    }
 }
 
 void VariableManagerWidget::load()
@@ -148,8 +158,11 @@ void VariableManagerWidget::load()
     Cantor::VariableManagementExtension* ext=
         dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
 
-    const QString& cmd=ext->loadVariables(file);
-    emit runCommand(cmd);
+    if (ext)
+    {
+        const QString& cmd=ext->loadVariables(file);
+        emit runCommand(cmd);
+    }
 }
 
 void VariableManagerWidget::newVariable()
@@ -177,9 +190,11 @@ void VariableManagerWidget::newVariable()
         Cantor::VariableManagementExtension* ext=
             dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
 
-        const QString& cmd=ext->addVariable(name, val);
-
-        emit runCommand(cmd);
+        if (ext)
+        {
+            const QString& cmd=ext->addVariable(name, val);
+            emit runCommand(cmd);
+        }
     }
 
     delete dlg;

@@ -396,8 +396,11 @@ void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
     if (caption.isEmpty()) return;
 
     KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
-    m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
-    m_tabWidget->setTabIcon(m_tabWidget->indexOf(part->widget()), icon);
+    if (part)
+    {
+        m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
+        m_tabWidget->setTabIcon(m_tabWidget->indexOf(part->widget()), icon);
+    }
 }
 
 void CantorShell::closeTab(int index)

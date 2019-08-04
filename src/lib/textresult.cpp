@@ -49,7 +49,7 @@ public:
     QString data;
     QString plain;
     TextResult::Format format;
-    bool isStderr;
+    bool isStderr{false};
 };
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
