@@ -208,15 +208,15 @@ QString PythonVariableManagementExtension::removeVariable(const QString& name)
 
 QString PythonVariableManagementExtension::clearVariables()
 {
-    return fromSource(QLatin1String(":py/variables_cleaner.py"));
+    return fromSource(QLatin1String(":/py/variables_cleaner.py"));
 }
 
 QString PythonVariableManagementExtension::saveVariables(const QString& fileName)
 {
-    return fromSource(QLatin1String(":py/variables_saver.py")).arg(fileName);
+    return fromSource(QLatin1String(":/py/variables_saver.py")).arg(fileName);
 }
 
 QString PythonVariableManagementExtension::loadVariables(const QString& fileName)
 {
-    return fromSource(QLatin1String(":py/variables_loader.py")).arg(fileName);
+    return fromSource(QLatin1String(":/py/variables_loader.py")).arg(fileName);
 }
