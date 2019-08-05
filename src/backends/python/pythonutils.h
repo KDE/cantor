@@ -27,7 +27,6 @@
 inline QString fromSource(const QString& resourceName)
 {
     QFile text(resourceName);
-    text.open(QIODevice::ReadOnly);
     if (text.open(QIODevice::ReadOnly))
         return QString::fromUtf8(text.readAll());
     else
