@@ -26,9 +26,7 @@
 #include <QFile>
 
 #include "mathrendertask.h"
-#include "lib/epsrenderer.h"
-
-QMutex MathRenderer::popplerMutex;
+#include "lib/renderer.h"
 
 MathRenderer::MathRenderer(): m_scale(1.0), m_useHighRes(false)
 {
@@ -61,7 +59,7 @@ void MathRenderer::useHighResolution(bool b)
 
 void MathRenderer::renderExpression(int jobId, const QString& mathExpression, Cantor::LatexRenderer::EquationType type, const QObject* receiver, const char* resultHandler)
 {
-    MathRenderTask* task = new MathRenderTask(jobId, mathExpression, type, m_scale, m_useHighRes, &popplerMutex);
+    MathRenderTask* task = new MathRenderTask(jobId, mathExpression, type, m_scale, m_useHighRes);
     task->setHandler(receiver, resultHandler);
     task->setAutoDelete(false);
 
@@ -70,12 +68,13 @@ void MathRenderer::renderExpression(int jobId, const QString& mathExpression, Ca
 
 void MathRenderer::rerender(QTextDocument* document, const QTextImageFormat& math)
 {
-    const QString& filename = math.property(Cantor::EpsRenderer::ImagePath).toString();
+    const QString& filename = math.property(Cantor::Renderer::ImagePath).toString();
     if (!QFile::exists(filename))
         return;
 
-    bool success; QString errorMessage;
-    QImage img = MathRenderTask::renderPdf(filename, m_scale, m_useHighRes, &success, nullptr, &errorMessage, &popplerMutex);
+    QString errorMessage;
+    QImage img = Cantor::Renderer::pdfRenderToImage(QUrl::fromLocalFile(filename), m_scale, m_useHighRes, nullptr, &errorMessage);
+    bool success = img.isNull() == false;
 
     if (success)
     {
@@ -98,7 +97,7 @@ std::pair<QTextImageFormat, QImage> MathRenderer::renderExpressionFromPdf(const 
     }
 
     bool success; QString errorMessage;
-    const auto& data = MathRenderTask::renderPdfToFormat(filename, code, uuid, type, m_scale, m_useHighRes, &success, &errorMessage, &popplerMutex);
+    const auto& data = MathRenderTask::renderPdfToFormat(filename, code, uuid, type, m_scale, m_useHighRes, &success, &errorMessage);
     if (success == false)
         qDebug() << "Render embedded math from pdf failed with message: " << errorMessage;
     if (outSuccess)

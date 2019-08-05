@@ -23,7 +23,7 @@
 #include "lib/result.h"
 #include "lib/textresult.h"
 #include "lib/latexresult.h"
-#include "lib/epsrenderer.h"
+#include "lib/renderer.h"
 #include "lib/mimeresult.h"
 #include "lib/htmlresult.h"
 #include "mathrendertask.h"
@@ -149,18 +149,19 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
     } else {
         QTextImageFormat format;
 
-        if (!result->image().isNull() && worksheet()->epsRenderer()->scale() == 1.0)
+        if (!result->image().isNull() && worksheet()->renderer()->scale() == 1.0)
         {
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), toFormat(result->image(), latex));
         }
         else
         {
-            Cantor::EpsRenderer* renderer = qobject_cast<Worksheet*>(scene())->epsRenderer();;
-            format = renderer->render(cursor.document(), result->url());
-            format.setProperty(Cantor::EpsRenderer::CantorFormula,
-                            Cantor::EpsRenderer::LatexFormula);
-            format.setProperty(Cantor::EpsRenderer::Code, latex);
-            format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+            QString uuid = Cantor::LatexRenderer::genUuid();
+            Cantor::Renderer* renderer = qobject_cast<Worksheet*>(scene())->renderer();;
+            format = renderer->render(cursor.document(), Cantor::Renderer::EPS, result->url(), uuid);
+            format.setProperty(Cantor::Renderer::CantorFormula,
+                            Cantor::Renderer::LatexFormula);
+            format.setProperty(Cantor::Renderer::Code, latex);
+            format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
             if(format.isValid())
                 cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
             else
@@ -233,15 +234,15 @@ QTextImageFormat TextResultItem::toFormat(const QImage& image, const QString& la
 
     QUrl internal;
     internal.setScheme(QLatin1String("internal"));
-    internal.setPath(MathRenderTask::genUuid());
+    internal.setPath(Cantor::LatexRenderer::genUuid());
 
     document()->addResource(QTextDocument::ImageResource, internal, QVariant(image) );
 
     format.setName(internal.url());
-    format.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
+    format.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
     //format.setProperty(Cantor::EpsRenderer::ImagePath, filename);
-    format.setProperty(Cantor::EpsRenderer::Code, latex);
-    format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+    format.setProperty(Cantor::Renderer::Code, latex);
+    format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
 
     return format;
 }

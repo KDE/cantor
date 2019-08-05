@@ -21,7 +21,7 @@
 
 #include "textentry.h"
 #include "worksheettextitem.h"
-#include "lib/epsrenderer.h"
+#include "lib/renderer.h"
 #include "latexrenderer.h"
 #include "lib/jupyterutils.h"
 #include "mathrender.h"
@@ -110,7 +110,7 @@ void TextEntry::populateMenu(QMenu* menu, QPointF pos)
             {
                 int p = cursor.position();
                 if (m_textItem->document()->characterAt(p-1) == repl &&
-                    cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula))
+                    cursor.charFormat().hasProperty(Cantor::Renderer::CantorFormula))
                 {
                     m_textItem->setTextCursor(cursor);
                     imageSelected = true;
@@ -232,7 +232,7 @@ QJsonValue TextEntry::toJupyterJson()
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
-        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+        if (format.hasProperty(Cantor::Renderer::CantorFormula))
         {
             showLatexCode(cursor);
         }
@@ -297,7 +297,7 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     while(!cursor.isNull())
     {
         QTextCharFormat format = cursor.charFormat();
-        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+        if (format.hasProperty(Cantor::Renderer::CantorFormula))
             showLatexCode(cursor);
 
         cursor = document->find(QString(QChar::ObjectReplacementCharacter), cursor);
@@ -380,7 +380,7 @@ void TextEntry::updateEntry()
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
 
-        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+        if (format.hasProperty(Cantor::Renderer::CantorFormula))
             worksheet()->mathRenderer()->rerender(m_textItem->document(), format);
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
@@ -415,7 +415,7 @@ QTextCursor TextEntry::findLatexCode(const QTextCursor& cursor) const
 
 QString TextEntry::showLatexCode(QTextCursor& cursor)
 {
-    QString latexCode = cursor.charFormat().property(Cantor::EpsRenderer::Code).toString();
+    QString latexCode = cursor.charFormat().property(Cantor::Renderer::Code).toString();
     cursor.deletePreviousChar();
     latexCode = QLatin1String("$$") + latexCode + QLatin1String("$$");
     cursor.insertText(latexCode);
@@ -527,13 +527,13 @@ void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
         return;
     }
 
-    const QString& code = result->renderedMath.property(Cantor::EpsRenderer::Code).toString();
+    const QString& code = result->renderedMath.property(Cantor::Renderer::Code).toString();
     const QString& delimiter = QLatin1String("$$");
     QTextCursor cursor = m_textItem->document()->find(delimiter + code + delimiter);
     if (!cursor.isNull())
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, result->uniqueUrl, QVariant(result->image));
-        result->renderedMath.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+        result->renderedMath.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), result->renderedMath);
     }
 }

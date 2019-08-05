@@ -23,7 +23,7 @@
 
 #include "worksheetentry.h"
 #include "worksheet.h"
-#include "lib/epsrenderer.h"
+#include "lib/renderer.h"
 #include "lib/jupyterutils.h"
 #include "lib/defaulthighlighter.h"
 #include "lib/latexrenderer.h"
@@ -62,7 +62,7 @@ void LatexEntry::populateMenu(QMenu* menu, QPointF pos)
         for (int i = 2; i; --i) {
             int p = cursor.position();
             if (m_textItem->document()->characterAt(p-1) == repl &&
-                cursor.charFormat().hasProperty(Cantor::EpsRenderer::CantorFormula)) {
+                cursor.charFormat().hasProperty(Cantor::Renderer::CantorFormula)) {
                 m_textItem->setTextCursor(cursor);
                 imageSelected = true;
                 break;
@@ -129,12 +129,13 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             imagePath = dir + QDir::separator() + imageFile->name();
 
 #ifdef LIBSPECTRE_FOUND
-            m_renderedFormat = worksheet()->epsRenderer()->render(m_textItem->document(), QUrl::fromLocalFile(imagePath));
+            QString uuid = Cantor::LatexRenderer::genUuid();
+            m_renderedFormat = worksheet()->renderer()->render(m_textItem->document(), Cantor::Renderer::EPS, QUrl::fromLocalFile(imagePath), uuid);
             qDebug()<<"rendering successful? " << !m_renderedFormat.name().isEmpty();
 
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::ImagePath, imagePath);
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::Code, m_latex);
+            m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::Renderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
 
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
@@ -160,10 +161,10 @@ void LatexEntry::setContent(const QDomElement& content, const KZip& file)
             m_renderedFormat.setWidth(image.width());
             m_renderedFormat.setHeight(image.height());
 
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
             if (!imagePath.isEmpty())
-                m_renderedFormat.setProperty(Cantor::EpsRenderer::ImagePath, imagePath);
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::Code, m_latex);
+                m_renderedFormat.setProperty(Cantor::Renderer::ImagePath, imagePath);
+            m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
 
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
@@ -206,8 +207,8 @@ void LatexEntry::setContentFromJupyter(const QJsonObject& cell)
             m_renderedFormat.setWidth(image.width());
             m_renderedFormat.setHeight(image.height());
 
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::CantorFormula, Cantor::EpsRenderer::LatexFormula);
-            m_renderedFormat.setProperty(Cantor::EpsRenderer::Code, m_latex);
+            m_renderedFormat.setProperty(Cantor::Renderer::CantorFormula, Cantor::Renderer::LatexFormula);
+            m_renderedFormat.setProperty(Cantor::Renderer::Code, m_latex);
 
             cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
             useLatexCode = false;
@@ -280,7 +281,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
     if (!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        QString fileName = format.property(Cantor::EpsRenderer::ImagePath).toString();
+        QString fileName = format.property(Cantor::Renderer::ImagePath).toString();
         // Check, if eps file exists, and if not true, rerender latex code
         bool isEpsFileExists = QFile::exists(fileName);
 
@@ -289,7 +290,7 @@ QDomElement LatexEntry::toXml(QDomDocument& doc, KZip* archive)
         {
             cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter));
             format=cursor.charFormat().toImageFormat();
-            fileName = format.property(Cantor::EpsRenderer::ImagePath).toString();
+            fileName = format.property(Cantor::Renderer::ImagePath).toString();
             isEpsFileExists = QFile::exists(fileName);
         }
 #endif
@@ -375,8 +376,8 @@ void LatexEntry::updateEntry()
     {
         qDebug()<<"found a formula... rendering the eps...";
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::EpsRenderer::ImagePath).toString());
-        QSizeF s = worksheet()->epsRenderer()->renderToResource(m_textItem->document(), url, QUrl(format.name()));
+        const QUrl& url=QUrl::fromLocalFile(format.property(Cantor::Renderer::ImagePath).toString());
+        QSizeF s = worksheet()->renderer()->renderToResource(m_textItem->document(), Cantor::Renderer::EPS, url, QUrl(format.name()));
         qDebug()<<"rendering successful? "<< s.isValid();
 
         cursor.movePosition(QTextCursor::NextCharacter);
@@ -514,7 +515,7 @@ bool LatexEntry::renderLatexCode()
 
     if (renderer->renderingSuccessful())
     {
-        Cantor::EpsRenderer* epsRend = worksheet()->epsRenderer();
+        Cantor::Renderer* epsRend = worksheet()->renderer();
         m_renderedFormat = epsRend->render(m_textItem->document(), renderer);
         success = !m_renderedFormat.name().isEmpty();
     }

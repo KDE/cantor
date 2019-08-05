@@ -275,7 +275,7 @@ void ImageEntry::updateEntry()
                 size = imageSize(m_displaySize);
             // Hack: Eps images need to be scaled
             if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
-                size /= worksheet()->epsRenderer()->scale();
+                size /= worksheet()->renderer()->scale();
             m_imageItem->setSize(size);
             qDebug() << size;
             m_textItem->setVisible(false);

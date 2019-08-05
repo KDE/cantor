@@ -31,7 +31,7 @@ using namespace Cantor;
 #include <QBuffer>
 #include <QJsonObject>
 
-#include "epsrenderer.h"
+#include "renderer.h"
 #include "jupyterutils.h"
 
 class Cantor::EpsResultPrivate{
@@ -91,11 +91,11 @@ QDomElement EpsResult::toXml(QDomDocument& doc)
 {
     qDebug()<<"saving imageresult "<<toHtml();
     QDomElement e=doc.createElement(QStringLiteral("Result"));
-    e.setAttribute(QStringLiteral("type"), QStringLiteral("image"));
+    e.setAttribute(QStringLiteral("type"), QStringLiteral("epsimage"));
     e.setAttribute(QStringLiteral("filename"), d->url.fileName());
 
 #ifdef WITH_EPS
-    const QImage& image = EpsRenderer::renderToImage(d->url, 1.0, false);
+    const QImage& image = Renderer::epsRenderToImage(d->url, 1.0, false);
     qDebug() << image.size() << image.isNull();
     if (!image.isNull())
     {
@@ -132,7 +132,7 @@ QJsonValue Cantor::EpsResult::toJupyterJson()
     else
         root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
-    const QImage& image = d->image.isNull() ? EpsRenderer::renderToImage(d->url, 1.0, false) : d->image;
+    const QImage& image = d->image.isNull() ? Renderer::epsRenderToImage(d->url, 1.0, false) : d->image;
 
     QJsonObject data;
     data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));

@@ -31,9 +31,9 @@
 #include <QApplication>
 #include <QDebug>
 
-#include <poppler-qt5.h>
 
-#include "epsrenderer.h"
+#include "lib/renderer.h"
+#include "lib/latexrenderer.h"
 
 static const QLatin1String mathTex("\\documentclass{standalone}"\
                          "\\usepackage{amsfonts,amssymb}"\
@@ -60,9 +60,8 @@ MathRenderTask::MathRenderTask(
         const QString& code,
         Cantor::LatexRenderer::EquationType type,
         double scale,
-        bool highResolution,
-        QMutex* mutex
-    ): m_jobId(jobId), m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution), m_mutex(mutex)
+        bool highResolution
+    ): m_jobId(jobId), m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution)
     {}
 
 void MathRenderTask::setHandler(const QObject* receiver, const char* resultHandler)
@@ -126,7 +125,7 @@ void MathRenderTask::run()
     // Create unique uuid for this job
     // It will be used as pdf filename, for preventing names collisions
     // And as internal url path too
-    const QString& uuid = genUuid();
+    const QString& uuid = Cantor::LatexRenderer::genUuid();
 
     const QString& pdflatex = QStandardPaths::findExecutable(QLatin1String("pdflatex"));
     p.setProgram(pdflatex);
@@ -159,17 +158,7 @@ void MathRenderTask::run()
     const QString& pdfFileName = pathWithoutExtension + QLatin1String(".pdf");
 
     bool success; QString errorMessage; QSizeF size;
-    result->image = renderPdf(pdfFileName, m_scale, m_highResolution, &success, &size, &errorMessage, m_mutex);
-    result->successful = success;
-    result->errorMessage = errorMessage;
-
-    if (success == false)
-    {
-        finalize(result);
-        return;
-    }
-
-    const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage, m_mutex);
+    const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage);
     result->successful = success;
     result->errorMessage = errorMessage;
     if (success == false)
@@ -196,78 +185,12 @@ void MathRenderTask::finalize(QSharedPointer<MathRenderResult> result)
     deleteLater();
 }
 
-QImage MathRenderTask::renderPdf(const QString& filename, double scale, bool highResolution, bool* success, QSizeF* size, QString* errorReason, QMutex* mutex)
-{
-    if (mutex)
-        mutex->lock();
-    Poppler::Document* document = Poppler::Document::load(filename);
-    if (mutex)
-        mutex->unlock();
-    if (document == nullptr)
-    {
-        if (success)
-            *success = false;
-        if (errorReason)
-            *errorReason = QString::fromLatin1("Poppler library have failed to open file % as pdf").arg(filename);
-        return QImage();
-    }
-
-    Poppler::Page* pdfPage = document->page(0);
-    if (pdfPage == nullptr) {
-        if (success)
-            *success = false;
-        if (errorReason)
-            *errorReason = QString::fromLatin1("Poppler library failed to access first page of %1 document").arg(filename);
-
-        delete document;
-        return QImage();
-    }
-
-    QSize pageSize = pdfPage->pageSize();
-
-    double realScale = 1.7 * 1.8;
-    qreal w = 1.7 * pageSize.width();
-    qreal h = 1.7 * pageSize.height();
-    if(highResolution)
-        realScale *= 5;
-    else
-        realScale *= scale;
-
-
-    QImage image = pdfPage->renderToImage(72.0*realScale, 72.0*realScale);
-
-    delete pdfPage;
-    if (mutex)
-        mutex->lock();
-    delete document;
-    if (mutex)
-        mutex->unlock();
-
-    if (image.isNull())
-    {
-        if (success)
-            *success = false;
-        if (errorReason)
-            *errorReason = QString::fromLatin1("Poppler library failed to render pdf %1 to image").arg(filename);
-
-        return image;
-    }
-
-    // Resize with smooth transformation for more beautiful result
-    image = image.convertToFormat(QImage::Format_ARGB32).scaled(image.size()/1.8, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-
-    if (success)
-        *success = true;
-
-    if (size)
-        *size = QSizeF(w, h);
-    return image;
-}
-
-std::pair<QTextImageFormat, QImage> MathRenderTask::renderPdfToFormat(const QString& filename, const QString& code, const QString uuid, Cantor::LatexRenderer::EquationType type, double scale, bool highResulution, bool* success, QString* errorReason, QMutex* mutex)
+std::pair<QTextImageFormat, QImage> MathRenderTask::renderPdfToFormat(const QString& filename, const QString& code, const QString uuid, Cantor::LatexRenderer::EquationType type, double scale, bool highResulution, bool* success, QString* errorReason)
 {
     QSizeF size;
-    const QImage& image = renderPdf(filename, scale, highResulution, success, &size, errorReason, mutex);
+    const QImage& image = Cantor::Renderer::pdfRenderToImage(QUrl::fromLocalFile(filename), scale, highResulution, &size, errorReason);
+    if (success)
+        *success = image.isNull() == false;
 
     if (success && *success == false)
         return std::make_pair(QTextImageFormat(), QImage());
@@ -281,30 +204,21 @@ std::pair<QTextImageFormat, QImage> MathRenderTask::renderPdfToFormat(const QStr
     format.setName(internal.url());
     format.setWidth(size.width());
     format.setHeight(size.height());
-    format.setProperty(Cantor::EpsRenderer::CantorFormula, type);
-    format.setProperty(Cantor::EpsRenderer::ImagePath, filename);
-    format.setProperty(Cantor::EpsRenderer::Code, code);
+    format.setProperty(Cantor::Renderer::CantorFormula, type);
+    format.setProperty(Cantor::Renderer::ImagePath, filename);
+    format.setProperty(Cantor::Renderer::Code, code);
     format.setVerticalAlignment(QTextCharFormat::AlignBaseline);
 
     switch(type)
     {
         case Cantor::LatexRenderer::FullEquation:
-            format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$$"));
+            format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
             break;
 
         case Cantor::LatexRenderer::InlineEquation:
-            format.setProperty(Cantor::EpsRenderer::Delimiter, QLatin1String("$"));
+            format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$"));
             break;
     }
 
     return std::make_pair(std::move(format), std::move(image));
-}
-
-QString MathRenderTask::genUuid()
-{
-    QString uuid = QUuid::createUuid().toString();
-    uuid.remove(0, 1);
-    uuid.chop(1);
-    uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
-    return uuid;
 }

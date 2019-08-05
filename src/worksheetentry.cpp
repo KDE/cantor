@@ -201,7 +201,7 @@ void WorksheetEntry::startDrag(QPointF grabPos)
 
     QDrag* drag = new QDrag(worksheetView());
     qDebug() << size();
-    const qreal scale = worksheet()->epsRenderer()->scale();
+    const qreal scale = worksheet()->renderer()->scale();
     QPixmap pixmap((size()*scale).toSize());
     pixmap.fill(QColor(255, 255, 255, 0));
     QPainter painter(&pixmap);

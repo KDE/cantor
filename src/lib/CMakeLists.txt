@@ -13,7 +13,7 @@ set( cantor_LIB_SRCS
   epsresult.cpp
   latexresult.cpp
   latexrenderer.cpp
-  epsrenderer.cpp
+  renderer.cpp
   helpresult.cpp
   animationresult.cpp
   htmlresult.cpp
@@ -45,7 +45,7 @@ Set( cantor_LIB_HDRS
   helpresult.h
   imageresult.h
   latexresult.h
-  epsrenderer.h
+  renderer.h
   result.h
   textresult.h
   mimeresult.h
@@ -84,6 +84,7 @@ target_link_libraries( cantorlibs
   KF5::XmlGui
   ${QT5_LIBRARIES}
   Qt5::Xml
+  Poppler::Qt5
 )
 
 if(LIBSPECTRE_FOUND)

@@ -1490,7 +1490,7 @@ void Worksheet::removeCurrentEntry()
     entry->startRemoving();
 }
 
-Cantor::EpsRenderer* Worksheet::epsRenderer()
+Cantor::Renderer* Worksheet::renderer()
 {
     return &m_epsRenderer;
 }

@@ -121,7 +121,7 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
 
             addResult(result);
         }
-        else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation"))
+        else if (type == QLatin1String("image") || type == QLatin1String("latex") || type == QLatin1String("animation") || type == QLatin1String("epsimage"))
         {
             const KArchiveEntry* imageEntry=file.directory()->entry(resultElement.attribute(QLatin1String("filename")));
             if (imageEntry&&imageEntry->isFile())
@@ -136,16 +136,26 @@ void LoadedExpression::loadFromXml(const QDomElement& xml, const KZip& file)
                     QImage image;
                     image.loadFromData(ba);
                     addResult(new Cantor::LatexResult(resultElement.text(), imageUrl, QString(), image));
-                }else if(type==QLatin1String("animation"))
+                }
+                else if(type==QLatin1String("animation"))
                 {
                     addResult(new Cantor::AnimationResult(imageUrl));
-                }else if(imageFile->name().endsWith(QLatin1String(".eps")))
+                }
+                else if(type==QLatin1String("epsimage"))
                 {
                     const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
                     QImage image;
                     image.loadFromData(ba);
                     addResult(new Cantor::EpsResult(imageUrl, image));
-                }else
+                }
+                else if(imageFile->name().endsWith(QLatin1String(".eps")))
+                {
+                    const QByteArray& ba = QByteArray::fromBase64(resultElement.attribute(QLatin1String("image")).toLatin1());
+                    QImage image;
+                    image.loadFromData(ba);
+                    addResult(new Cantor::EpsResult(imageUrl, image));
+                }
+                else
                 {
                     addResult(new Cantor::ImageResult(imageUrl, resultElement.text()));
                 }

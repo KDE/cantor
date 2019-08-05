@@ -21,7 +21,7 @@
 #include "worksheettextitem.h"
 #include "worksheet.h"
 #include "worksheetentry.h"
-#include "lib/epsrenderer.h"
+#include "lib/renderer.h"
 #include "worksheetcursor.h"
 #include "extended_document.h"
 
@@ -272,13 +272,13 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
          cursor2 = document()->find(repl, cursor1)) {
         cursor1.setPosition(cursor2.selectionStart(), QTextCursor::KeepAnchor);
         result += cursor1.selectedText();
-        QVariant var = cursor2.charFormat().property(Cantor::EpsRenderer::Delimiter);
+        QVariant var = cursor2.charFormat().property(Cantor::Renderer::Delimiter);
         QString delim;
         if (var.isValid())
             delim = var.value<QString>();
         else
             delim = QLatin1String("");
-        result += delim + cursor2.charFormat().property(Cantor::EpsRenderer::Code).value<QString>() + delim;
+        result += delim + cursor2.charFormat().property(Cantor::Renderer::Code).value<QString>() + delim;
         cursor1.setPosition(cursor2.selectionEnd());
     }
 

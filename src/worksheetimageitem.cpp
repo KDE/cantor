@@ -123,7 +123,7 @@ void WorksheetImageItem::paint(QPainter *painter,
 
 void WorksheetImageItem::setEps(const QUrl& url)
 {
-    const QImage img = worksheet()->epsRenderer()->renderToImage(url, &m_size);
+    const QImage img = worksheet()->renderer()->renderToImage(url, Cantor::Renderer::EPS, &m_size);
     m_pixmap = QPixmap::fromImage(img.convertToFormat(QImage::Format_ARGB32));
 }
 

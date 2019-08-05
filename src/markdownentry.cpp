@@ -277,14 +277,14 @@ QDomElement MarkdownEntry::toXml(QDomDocument& doc, KZip* archive)
             while(!cursor.isNull() && !foundNeededImage)
             {
                 QTextImageFormat format=cursor.charFormat().toImageFormat();
-                if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+                if (format.hasProperty(Cantor::Renderer::CantorFormula))
                 {
-                    const QString& latex = format.property(Cantor::EpsRenderer::Code).toString();
-                    const QString& delimiter = format.property(Cantor::EpsRenderer::Delimiter).toString();
+                    const QString& latex = format.property(Cantor::Renderer::Code).toString();
+                    const QString& delimiter = format.property(Cantor::Renderer::Delimiter).toString();
                     const QString& code = delimiter + latex + delimiter;
                     if (code == data.first)
                     {
-                        const QUrl& url = QUrl::fromLocalFile(format.property(Cantor::EpsRenderer::ImagePath).toString());
+                        const QUrl& url = QUrl::fromLocalFile(format.property(Cantor::Renderer::ImagePath).toString());
                         archive->addLocalFile(url.toLocalFile(), url.fileName());
                         mathEl.setAttribute(QStringLiteral("path"), url.fileName());
                         foundNeededImage = true;
@@ -416,7 +416,7 @@ void MarkdownEntry::updateEntry()
     while(!cursor.isNull())
     {
         QTextImageFormat format=cursor.charFormat().toImageFormat();
-        if (format.hasProperty(Cantor::EpsRenderer::CantorFormula))
+        if (format.hasProperty(Cantor::Renderer::CantorFormula))
             worksheet()->mathRenderer()->rerender(m_textItem->document(), format);
 
         cursor = m_textItem->document()->find(QString(QChar::ObjectReplacementCharacter), cursor);
@@ -559,8 +559,8 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
 
     QTextCursor cursor = findMath(jobId);
 
-    const QString delimiter = format.property(Cantor::EpsRenderer::Delimiter).toString();
-    QString searchText = delimiter + format.property(Cantor::EpsRenderer::Code).toString() + delimiter;
+    const QString delimiter = format.property(Cantor::Renderer::Delimiter).toString();
+    QString searchText = delimiter + format.property(Cantor::Renderer::Code).toString() + delimiter;
 
     // From findMath we will be first symbol of math expression
     // So in order to select all symbols of the expression, we need to go to previous symbol first
@@ -576,7 +576,7 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
 
-        Cantor::LatexRenderer::EquationType type = (Cantor::LatexRenderer::EquationType)format.intProperty(Cantor::EpsRenderer::CantorFormula);
+        Cantor::LatexRenderer::EquationType type = (Cantor::LatexRenderer::EquationType)format.intProperty(Cantor::Renderer::CantorFormula);
         // Dont add new line for $$...$$ on document's begin and end
         // And if we in block, which haven't non-space characters except out math expression
         // In another sitation, Cantor will move rendered image into another QTextBlock

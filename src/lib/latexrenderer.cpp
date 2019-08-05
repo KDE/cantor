@@ -21,7 +21,7 @@
 #include "latexrenderer.h"
 using namespace Cantor;
 
-#include <KProcess>
+#include <QProcess>
 #include <QDebug>
 #include <QDir>
 #include <QFileInfo>
@@ -29,6 +29,7 @@ using namespace Cantor;
 #include <QTemporaryFile>
 #include <KColorScheme>
 #include <QUuid>
+#include <QApplication>
 
 #include <config-cantorlib.h>
 #include "settings.h"
@@ -45,10 +46,11 @@ class Cantor::LatexRendererPrivate
     bool success;
     QString latexFilename;
     QString epsFilename;
+    QString uuid;
     QTemporaryFile* texFile;
 };
 
-static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}"\
+static const QLatin1String tex("\\documentclass[fleqn]{article}"\
                          "\\usepackage{latexsym,amsfonts,amssymb,ulem}"\
                          "\\usepackage{amsmath}"\
                          "\\usepackage[dvips]{graphicx}"\
@@ -61,7 +63,8 @@ static const QLatin1String tex("\\documentclass[12pt,fleqn]{article}"\
                          "\\pagestyle{empty}"\
                          "\\begin{document}"\
                          "\\color[rgb]{%5,%6,%7}"\
-                         "%8"\
+                         "\\fontsize{%8}{%8}\\selectfont\n"\
+                         "%9\n"\
                          "\\end{document}");
 
 static const QLatin1String eqnHeader("\\begin{eqnarray*}%1\\end{eqnarray*}");
@@ -159,6 +162,11 @@ QString LatexRenderer::imagePath() const
     return d->epsFilename;
 }
 
+QString Cantor::LatexRenderer::uuid() const
+{
+    return d->uuid;
+}
+
 void LatexRenderer::render()
 {
     switch(d->method)
@@ -196,6 +204,10 @@ void LatexRenderer::renderWithLatex()
     expressionTex=expressionTex.arg(d->header)
                                .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
                                .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
+
+    int fontPointSize = QApplication::font().pointSize();
+    expressionTex=expressionTex.arg(fontPointSize);
+
     if(isEquationOnly())
     {
         switch(equationType())
@@ -214,10 +226,13 @@ void LatexRenderer::renderWithLatex()
     QString fileName = d->texFile->fileName();
     qDebug()<<"fileName: "<<fileName;
     d->latexFilename=fileName;
-    KProcess *p=new KProcess( this );
+    QProcess *p=new QProcess( this );
     p->setWorkingDirectory(dir);
 
-    (*p)<<Settings::self()->latexCommand()<<QStringLiteral("-interaction=batchmode")<<QStringLiteral("-halt-on-error")<<fileName;
+    d->uuid = genUuid();
+
+    p->setProgram(Settings::self()->latexCommand());
+    p->setArguments({QStringLiteral("-jobname=cantor_") + d->uuid, QStringLiteral("-halt-on-error"), fileName});
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
     p->start();
@@ -225,20 +240,16 @@ void LatexRenderer::renderWithLatex()
 
 void LatexRenderer::convertToPs()
 {
-    QString dviFile=d->latexFilename;
-    dviFile.replace(QLatin1String(".tex"), QLatin1String(".dvi"));
-
-    // Create unique filename for eps file, for preventing names collisions
-    QString uuid = QUuid::createUuid().toString();
-    uuid.remove(0, 1);
-    uuid.chop(1);
-    uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
     const QString& dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-    d->epsFilename = dir + QDir::separator() + QLatin1String("cantor_")+uuid+QLatin1String(".eps");
 
-    KProcess *p=new KProcess( this );
+    QString dviFile = dir + QDir::separator() + QStringLiteral("cantor_") + d->uuid + QStringLiteral(".dvi");
+    d->epsFilename = dir + QDir::separator() + QLatin1String("cantor_")+d->uuid+QLatin1String(".eps");
+
+    QProcess *p=new QProcess( this );
     qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
-    (*p)<<Settings::self()->dvipsCommand()<<QStringLiteral("-E")<<QStringLiteral("-q")<<QStringLiteral("-o")<<d->epsFilename<<dviFile;
+
+    p->setProgram(Settings::self()->dvipsCommand());
+    p->setArguments({QStringLiteral("-E"), QStringLiteral("-q"), QStringLiteral("-o"), d->epsFilename, dviFile});
 
     connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
     p->start();
@@ -246,23 +257,23 @@ void LatexRenderer::convertToPs()
 
 void LatexRenderer::convertingDone()
 {
-    QFileInfo info(d->latexFilename);
+    QFileInfo info(d->epsFilename);
     qDebug() <<"remove temporary files for " << d->latexFilename;
-
-    delete d->texFile;
-    d->texFile = nullptr;
 
     QString pathWithoutExtension = info.path() + QDir::separator() + info.completeBaseName();
     QFile::remove(pathWithoutExtension + QLatin1String(".log"));
     QFile::remove(pathWithoutExtension + QLatin1String(".aux"));
-    QFile::remove(pathWithoutExtension + QLatin1String(".tex"));
     QFile::remove(pathWithoutExtension + QLatin1String(".dvi"));
 
-    if(QFileInfo(d->epsFilename).exists())
+    if(info.exists())
     {
+        delete d->texFile;
+        d->texFile = nullptr;
+
         d->success=true;
         emit done();
-    }else
+    }
+    else
     {
         d->success=false;
         setErrorMessage(QStringLiteral("failed to create the latex preview image"));
@@ -274,4 +285,13 @@ void LatexRenderer::renderWithMml()
 {
     qDebug()<<"WARNING: MML rendering not implemented yet!";
     emit done();
+}
+
+QString LatexRenderer::genUuid()
+{
+    QString uuid = QUuid::createUuid().toString();
+    uuid.remove(0, 1);
+    uuid.chop(1);
+    uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
+    return uuid;
 }

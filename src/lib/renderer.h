@@ -18,8 +18,8 @@
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
  */
 
-#ifndef EPSRENDERER_H
-#define EPSRENDERER_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include <QTextDocument>
 #include <QTextImageFormat>
@@ -30,37 +30,38 @@
 
 namespace Cantor
 {
-class EpsRendererPrivate;
+class RendererPrivate;
 
-class CANTOR_EXPORT EpsRenderer
+class CANTOR_EXPORT Renderer
 {
   public:
-    EpsRenderer();
-    ~EpsRenderer();
+    Renderer();
+    ~Renderer();
 
     enum FormulaProperties {CantorFormula = 1, ImagePath = 2, Code = 3,
                             Delimiter = 4};
     enum FormulaType {LatexFormula = Cantor::LatexRenderer::LatexMethod,
                       MmlFormula = Cantor::LatexRenderer::MmlMethod};
+    enum Method {PDF, EPS};
 
-    QTextImageFormat render(QTextDocument *document, const QUrl& url);
-    QTextImageFormat render(QTextDocument *document,
-                            const Cantor::LatexRenderer* latex);
+    QTextImageFormat render(QTextDocument *document, const Cantor::LatexRenderer* latex);
+    QTextImageFormat render(QTextDocument *document, Method method, const QUrl& url, const QString& uuid);
 
     void setScale(qreal scale);
     qreal scale();
 
     void useHighResolution(bool b);
 
-    QSizeF renderToResource(QTextDocument *document, const QUrl& url, const QUrl& internal);
+    QSizeF renderToResource(QTextDocument *document, Method method, const QUrl& url, const QUrl& internal);
 
-    QImage renderToImage(const QUrl& url, QSizeF* size = nullptr);
-    static QImage renderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size = nullptr);
+    QImage renderToImage(const QUrl& url, Method method, QSizeF* size = nullptr);
+    static QImage epsRenderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size = nullptr, QString* errorReason = nullptr);
+    static QImage pdfRenderToImage(const QUrl& url, double scale, bool useHighRes, QSizeF* size = nullptr, QString* errorReason = nullptr);
 
   private:
-    EpsRendererPrivate* d;
+    RendererPrivate* d;
 };
 
 }
 
-#endif //EPSRENDERER_H
+#endif //RENDERER_H

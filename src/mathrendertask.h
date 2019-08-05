@@ -53,17 +53,13 @@ class MathRenderTask : public QObject, public QRunnable
         const QString& code,
         Cantor::LatexRenderer::EquationType type,
         double scale,
-        bool highResolution,
-        QMutex* mutex
+        bool highResolution
     );
 
     void setHandler(const QObject *receiver, const char *resultHandler);
 
     void run() override;
 
-    static QImage renderPdf(
-        const QString& filename, double scale, bool highResulution, bool* success = nullptr, QSizeF* size = nullptr, QString* errorReason = nullptr, QMutex* mutex = nullptr
-    );
     static std::pair<QTextImageFormat, QImage> renderPdfToFormat(
         const QString& filename,
         const QString& code,
@@ -72,8 +68,7 @@ class MathRenderTask : public QObject, public QRunnable
         double scale,
         bool highResulution,
         bool* success = nullptr,
-        QString* errorReason = nullptr,
-        QMutex* mutex = nullptr
+        QString* errorReason = nullptr
     );
 
     static QString genUuid();
@@ -90,7 +85,6 @@ class MathRenderTask : public QObject, public QRunnable
     Cantor::LatexRenderer::EquationType m_type;
     double m_scale;
     bool m_highResolution;
-    QMutex* m_mutex;
 };
 
 #endif /* MATHRENDERTASK_H */

@@ -52,6 +52,9 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     bool renderingSuccessful() const;
 
     QString imagePath() const;
+    QString uuid() const;
+
+    static QString genUuid();
 
   Q_SIGNALS:
     void done();
