@@ -39,6 +39,9 @@ class Cantor::ImageResultPrivate
     QImage img;
     QString alt;
     QSize displaySize;
+
+    QString originalFormat{JupyterUtils::pngMime};
+    QString svgContent; // HACK: qt can't easily render svg, so, if we load the result from Jupyter svg image, store original svg
 };
 
 ImageResult::ImageResult(const QUrl &url, const QString& alt) :  d(new ImageResultPrivate)
@@ -132,20 +135,22 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
     else
         root.insert(QLatin1String("output_type"), QLatin1String("display_data"));
 
-    QJsonObject data;
-    data.insert(QLatin1String("text/plain"), JupyterUtils::toJupyterMultiline(d->alt));
-
     QImage image;
     if (d->img.isNull())
         image.load(d->url.toLocalFile());
     else
         image = d->img;
 
-    QByteArray ba;
-    QBuffer buffer(&ba);
-    buffer.open(QIODevice::WriteOnly);
-    image.save(&buffer, "PNG");
-    data.insert(QLatin1String("image/png"), QString::fromLatin1(ba.toBase64()));
+    QJsonObject data;
+
+    // HACK: see ImageResultPrivate::svgContent
+    if (d->originalFormat == JupyterUtils::svgMime)
+        data.insert(JupyterUtils::svgMime, JupyterUtils::toJupyterMultiline(d->svgContent));
+    else
+        data = JupyterUtils::packMimeBundle(image, d->originalFormat);
+
+    data.insert(JupyterUtils::textMime, JupyterUtils::toJupyterMultiline(d->alt));
+
 
     root.insert(QLatin1String("data"), data);
 
@@ -155,7 +160,7 @@ QJsonValue Cantor::ImageResult::toJupyterJson()
         QJsonObject size;
         size.insert(QLatin1String("width"), displaySize().width());
         size.insert(QLatin1String("height"), displaySize().height());
-        metadata.insert(QLatin1String("image/png"), size);
+        metadata.insert(d->originalFormat, size);
     }
     root.insert(QLatin1String("metadata"), metadata);
 
@@ -184,4 +189,19 @@ QSize Cantor::ImageResult::displaySize()
 void Cantor::ImageResult::setDisplaySize(QSize size)
 {
     d->displaySize = size;
+}
+
+void Cantor::ImageResult::setOriginalFormat(const QString& format)
+{
+    d->originalFormat = format;
+}
+
+QString Cantor::ImageResult::originalFormat()
+{
+    return d->originalFormat;
+}
+
+void Cantor::ImageResult::setSvgContent(const QString& svgContent)
+{
+    d->svgContent = svgContent;
 }

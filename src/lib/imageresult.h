@@ -50,6 +50,10 @@ class CANTOR_EXPORT ImageResult : public Result
     QSize displaySize();
     void setDisplaySize(QSize size);
 
+    QString originalFormat();
+    void setOriginalFormat(const QString& format);
+    void setSvgContent(const QString& svgContent);
+
     QDomElement toXml(QDomDocument& doc) override;
     QJsonValue toJupyterJson() override;
     void saveAdditionalData(KZip* archive) override;

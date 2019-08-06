@@ -106,6 +106,7 @@ class CANTOR_EXPORT JupyterUtils
     static const QString textMime;
     static const QString htmlMime;
     static const QString latexMime;
+    static const QString svgMime;
 
     static const QMimeDatabase mimeDatabase;
 };

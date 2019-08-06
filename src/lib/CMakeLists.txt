@@ -84,6 +84,7 @@ target_link_libraries( cantorlibs
   KF5::XmlGui
   ${QT5_LIBRARIES}
   Qt5::Xml
+  Qt5::Svg
   Poppler::Qt5
 )
 

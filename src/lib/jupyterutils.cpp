@@ -55,6 +55,7 @@ const QString JupyterUtils::gifMime = QLatin1String("image/gif");
 const QString JupyterUtils::textMime = QLatin1String("text/plain");
 const QString JupyterUtils::htmlMime = QLatin1String("text/html");
 const QString JupyterUtils::latexMime = QLatin1String("text/latex");
+const QString JupyterUtils::svgMime = QLatin1String("image/svg+xml");
 
 const QMimeDatabase JupyterUtils::mimeDatabase;
 

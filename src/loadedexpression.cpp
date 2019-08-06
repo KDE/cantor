@@ -281,6 +281,10 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             {
                 const QImage& image = Cantor::JupyterUtils::loadImage(data, mainKey);
                 result = new Cantor::ImageResult(image, text);
+                static_cast<Cantor::ImageResult*>(result)->setOriginalFormat(mainKey);
+
+                if (mainKey == Cantor::JupyterUtils::svgMime)
+                    static_cast<Cantor::ImageResult*>(result)->setSvgContent(Cantor::JupyterUtils::fromJupyterMultiline(data[Cantor::JupyterUtils::svgMime]));
 
                 const QJsonValue size = metadata.value(mainKey);
                 if (size.isObject())
