@@ -23,6 +23,9 @@
 
 #include <QObject>
 #include <QChar>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 class Expression
 {
@@ -81,6 +84,7 @@ class RServer : public QObject
     QString m_tmpDir;
     QString m_curPlotFile;
     QStringList m_expressionFiles;
+    QMap<QString, QStringList> m_parsedNamespaces;
 };
 
 #endif /* _RSERVER_H */

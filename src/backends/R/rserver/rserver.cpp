@@ -477,14 +477,27 @@ void RServer::listSymbols()
     //int i=1; // HACK to prevent scalability issues
     for (int i=1;i<length(packages);i++) // Package #0 is user environment, so starting with 1
     {
-        char pos[32];
-        sprintf(pos,"%d",i+1);
-        SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),nullptr,&errorOccurred));
-        for (int i=0;i<length(f);i++)
-            funcs<<QString::fromUtf8(translateCharUTF8(STRING_ELT(f,i)));
-        UNPROTECT(1);
+        QString packageName = QString::fromUtf8(translateCharUTF8(STRING_ELT(packages,i)));
+
+        if (!m_parsedNamespaces.contains(packageName))
+        {
+            QStringList foundedFunctions;
+
+            char pos[32];
+            sprintf(pos,"%d",i+1);
+            SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),nullptr,&errorOccurred));
+            for (int j=0;j<length(f);j++)
+                foundedFunctions<<QString::fromUtf8(translateCharUTF8(STRING_ELT(f,j)));
+            UNPROTECT(1);
+
+            m_parsedNamespaces[packageName] = foundedFunctions;
+        }
+
+        funcs += m_parsedNamespaces[packageName];
     }
     UNPROTECT(1);
+
+    qDebug() << m_parsedNamespaces;
 
     const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep);
     emit expressionFinished(RServer::SuccessCode, output, QStringList());
