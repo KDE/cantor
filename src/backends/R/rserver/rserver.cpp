@@ -497,8 +497,6 @@ void RServer::listSymbols()
     }
     UNPROTECT(1);
 
-    qDebug() << m_parsedNamespaces;
-
     const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep);
     emit expressionFinished(RServer::SuccessCode, output, QStringList());
     setStatus(Idle);
