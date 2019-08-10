@@ -1283,7 +1283,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     int nbformatMajor, nbformatMinor;
     if (!Cantor::JupyterUtils::isJupyterNotebook(doc))
     {
-        // Two possiblities: old jupyter notebook (with another scheme) or just not a notebook at AlignLeft
+        // Two possiblities: old jupyter notebook (version <= 4.0.0 and a another scheme) or just not a notebook at all
         std::tie(nbformatMajor, nbformatMinor) = Cantor::JupyterUtils::getNbformatVersion(doc.object());
         if (nbformatMajor == 0 && nbformatMinor == 0)
         {
@@ -1301,10 +1301,14 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     QJsonObject notebookObject = doc.object();
     std::tie(nbformatMajor, nbformatMinor) = Cantor::JupyterUtils::getNbformatVersion(notebookObject);
 
-    if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) < QT_VERSION_CHECK(4,0,0))
+    if (QT_VERSION_CHECK(nbformatMajor, nbformatMinor, 0) > QT_VERSION_CHECK(4,5,0))
     {
         QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("Cantor doesn't support import Jupyter notebooks with version lower that 4.0 (detected %1.%2)",nbformatMajor, nbformatMinor), i18n("Cantor"));
+        KMessageBox::error(
+            worksheetView(),
+            i18n("Cantor doesn't support Jupyter notebooks with version higher 4.5 (detected %1.%2)", nbformatMajor, nbformatMinor),
+            i18n("Cantor")
+        );
         return false;
     }
 

@@ -61,6 +61,8 @@ class CANTOR_EXPORT JupyterUtils
 
     static QString getOutputType(const QJsonObject& output);
 
+    /// Actually, this function handle only Jupyter notebooks version >= 4.0.0
+    /// Previous versions treats as 'not notebook'
     static bool isJupyterNotebook(const QJsonDocument& doc);
 
     static bool isJupyterCell(const QJsonValue& cell);
