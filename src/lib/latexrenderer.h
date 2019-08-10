@@ -61,7 +61,7 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     void error();
 
   public Q_SLOTS:
-    void render();
+    bool render();
 
     void renderBlocking();
 
@@ -69,8 +69,8 @@ class CANTOR_EXPORT LatexRenderer : public QObject
     void setErrorMessage(const QString& msg);
 
   private Q_SLOTS:
-    void renderWithLatex();
-    void renderWithMml();
+    bool renderWithLatex();
+    bool renderWithMml();
     void convertToPs();
     void convertingDone();
 

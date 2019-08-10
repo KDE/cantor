@@ -350,11 +350,19 @@ bool LatexEntry::evaluate(EvaluationOption evalOp)
     {
         if (m_latex == latexCode())
         {
-            QTextCursor cursor = m_textItem->textCursor();
-            cursor.movePosition(QTextCursor::Start);
-            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
-            cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
-            m_textItem->denyEditing();
+            bool renderWasSuccessful = !m_renderedFormat.name().isEmpty();
+            if (renderWasSuccessful)
+            {
+                QTextCursor cursor = m_textItem->textCursor();
+                cursor.movePosition(QTextCursor::Start);
+                cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+                cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+                m_textItem->denyEditing();
+            }
+            else
+            {
+                success = renderLatexCode();
+            }
         }
         else
         {
@@ -507,6 +515,7 @@ bool LatexEntry::renderLatexCode()
 {
     bool success = false;
     QString latex = latexCode();
+    m_renderedFormat = QTextImageFormat(); // clear rendered image
     Cantor::LatexRenderer* renderer = new Cantor::LatexRenderer(this);
     renderer->setLatexCode(latex);
     renderer->setEquationOnly(false);
@@ -519,6 +528,8 @@ bool LatexEntry::renderLatexCode()
         m_renderedFormat = epsRend->render(m_textItem->document(), renderer);
         success = !m_renderedFormat.name().isEmpty();
     }
+    else
+        qWarning() << "Fail to render LatexEntry with error " << renderer->errorMessage();
 
     if(success)
     {
@@ -528,6 +539,7 @@ bool LatexEntry::renderLatexCode()
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
         m_textItem->denyEditing();
     }
+
     delete renderer;
     return success;
 }

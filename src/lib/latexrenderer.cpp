@@ -167,12 +167,18 @@ QString Cantor::LatexRenderer::uuid() const
     return d->uuid;
 }
 
-void LatexRenderer::render()
+bool LatexRenderer::render()
 {
     switch(d->method)
     {
-        case LatexRenderer::LatexMethod:  renderWithLatex(); break;
-        case LatexRenderer::MmlMethod:    renderWithMml(); break;
+        case LatexRenderer::LatexMethod:
+            return renderWithLatex();
+
+        case LatexRenderer::MmlMethod:
+            return renderWithMml();
+
+        default:
+            return false;
     };
 }
 
@@ -182,11 +188,15 @@ void LatexRenderer::renderBlocking()
     connect(this, &LatexRenderer::done, &event, &QEventLoop::quit);
     connect(this, &LatexRenderer::error, &event, &QEventLoop::quit);
 
-    render();
-    event.exec();
+    bool success = render();
+    // We can't emit error before running event loop, so exit by passing false as an error indicator
+    if (success)
+        event.exec();
+    else
+        return;
 }
 
-void LatexRenderer::renderWithLatex()
+bool LatexRenderer::renderWithLatex()
 {
     qDebug()<<"rendering using latex method";
     QString dir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -231,11 +241,22 @@ void LatexRenderer::renderWithLatex()
 
     d->uuid = genUuid();
 
-    p->setProgram(Settings::self()->latexCommand());
-    p->setArguments({QStringLiteral("-jobname=cantor_") + d->uuid, QStringLiteral("-halt-on-error"), fileName});
+    qDebug() << Settings::self()->latexCommand();
+    QFileInfo info(Settings::self()->latexCommand());
+    if (info.exists() && info.isExecutable())
+    {
+        p->setProgram(Settings::self()->latexCommand());
+        p->setArguments({QStringLiteral("-jobname=cantor_") + d->uuid, QStringLiteral("-halt-on-error"), fileName});
 
-    connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
-    p->start();
+        connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertToPs()) );
+        p->start();
+        return true;
+    }
+    else
+    {
+        setErrorMessage(QStringLiteral("failed to find latex executable"));
+        return false;
+    }
 }
 
 void LatexRenderer::convertToPs()
@@ -248,11 +269,20 @@ void LatexRenderer::convertToPs()
     QProcess *p=new QProcess( this );
     qDebug()<<"converting to eps: "<<Settings::self()->dvipsCommand()<<"-E"<<"-o"<<d->epsFilename<<dviFile;
 
-    p->setProgram(Settings::self()->dvipsCommand());
-    p->setArguments({QStringLiteral("-E"), QStringLiteral("-q"), QStringLiteral("-o"), d->epsFilename, dviFile});
+    QFileInfo info(Settings::self()->dvipsCommand());
+    if (info.exists() && info.isExecutable())
+    {
+        p->setProgram(Settings::self()->dvipsCommand());
+        p->setArguments({QStringLiteral("-E"), QStringLiteral("-q"), QStringLiteral("-o"), d->epsFilename, dviFile});
 
-    connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
-    p->start();
+        connect(p, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(convertingDone()) );
+        p->start();
+    }
+    else
+    {
+        setErrorMessage(QStringLiteral("failed to find dvips executable"));
+        emit error();
+    }
 }
 
 void LatexRenderer::convertingDone()
@@ -281,10 +311,11 @@ void LatexRenderer::convertingDone()
     }
 }
 
-void LatexRenderer::renderWithMml()
+bool LatexRenderer::renderWithMml()
 {
-    qDebug()<<"WARNING: MML rendering not implemented yet!";
-    emit done();
+    qWarning()<<"WARNING: MML rendering not implemented yet!";
+    emit error();
+    return false;
 }
 
 QString LatexRenderer::genUuid()
