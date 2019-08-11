@@ -41,6 +41,7 @@ PageBreakEntry::PageBreakEntry(Worksheet* worksheet)
     cformat.setForeground(color.foreground(KColorScheme::InactiveText));
 
     cursor.insertText(i18n("--- Page Break ---"), cformat);
+    m_msgItem->setAlignment(Qt::AlignCenter);
 
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
