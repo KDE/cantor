@@ -222,8 +222,10 @@ void JuliaSession::reportServerProcessError(QProcess::ProcessError serverError)
 
         default:
             emit error(i18n("Communication with Julia process failed for unknown reasons."));
-            return;
+            break;
     }
+    qDebug() << "reportSessionCrash" << serverError;
+    reportSessionCrash();
 }
 
 
