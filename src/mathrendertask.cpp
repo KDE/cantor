@@ -35,7 +35,7 @@
 #include "lib/renderer.h"
 #include "lib/latexrenderer.h"
 
-static const QLatin1String mathTex("\\documentclass{standalone}"\
+static const QLatin1String mathTex("\\documentclass%9{standalone}"\
                          "\\usepackage{amsfonts,amssymb}"\
                          "\\usepackage{amsmath}"\
                          "\\usepackage[utf8]{inputenc}"\
@@ -111,8 +111,15 @@ void MathRenderTask::run()
 
     switch(m_type)
     {
-        case Cantor::LatexRenderer::FullEquation: expressionTex=expressionTex.arg(eqnHeader); break;
-        case Cantor::LatexRenderer::InlineEquation: expressionTex=expressionTex.arg(inlineEqnHeader); break;
+        case Cantor::LatexRenderer::FullEquation:
+            expressionTex=expressionTex.arg(eqnHeader, QString());
+            break;
+        case Cantor::LatexRenderer::InlineEquation:
+            expressionTex=expressionTex.arg(inlineEqnHeader, QString());
+            break;
+        case Cantor::LatexRenderer::CustomEquation:
+            expressionTex=expressionTex.arg(QLatin1String("%1"), QLatin1String("[preview]"));
+            break;
     }
     expressionTex=expressionTex.arg(m_code);
 
@@ -217,6 +224,10 @@ std::pair<QTextImageFormat, QImage> MathRenderTask::renderPdfToFormat(const QStr
 
         case Cantor::LatexRenderer::InlineEquation:
             format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$"));
+            break;
+
+        case Cantor::LatexRenderer::CustomEquation:
+            format.setProperty(Cantor::Renderer::Delimiter, QLatin1String(""));
             break;
     }
 

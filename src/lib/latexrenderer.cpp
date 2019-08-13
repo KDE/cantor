@@ -224,6 +224,7 @@ bool LatexRenderer::renderWithLatex()
         {
             case FullEquation: expressionTex=expressionTex.arg(eqnHeader); break;
             case InlineEquation: expressionTex=expressionTex.arg(inlineEqnHeader); break;
+            case CustomEquation: expressionTex=expressionTex.arg(QLatin1String("%1")); break;
         }
     }
     expressionTex=expressionTex.arg(d->latexCode);

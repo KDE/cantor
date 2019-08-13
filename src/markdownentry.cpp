@@ -526,7 +526,7 @@ std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMath
     static const QLatin1String inlineDelimiter("$");
     static const QLatin1String displayedDelimiter("$$");
 
-     if (mathCode.startsWith(displayedDelimiter) && mathCode.endsWith(displayedDelimiter))
+    if (mathCode.startsWith(displayedDelimiter) && mathCode.endsWith(displayedDelimiter))
     {
         mathCode.remove(0, 2);
         mathCode.chop(2);
@@ -546,6 +546,13 @@ std::pair<QString, Cantor::LatexRenderer::EquationType> MarkdownEntry::parseMath
 
         return std::make_pair(mathCode, Cantor::LatexRenderer::InlineEquation);
     }
+    else if (mathCode.startsWith(QString::fromUtf8("\\begin{")) && mathCode.endsWith(QLatin1Char('}')))
+    {
+        if (mathCode[1] == QChar(6))
+            mathCode.remove(1, 1);
+
+        return std::make_pair(mathCode, Cantor::LatexRenderer::CustomEquation);
+    }
     else
         return std::make_pair(QString(), Cantor::LatexRenderer::InlineEquation);
 }
@@ -562,12 +569,18 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     const QString delimiter = format.property(Cantor::Renderer::Delimiter).toString();
     QString searchText = delimiter + format.property(Cantor::Renderer::Code).toString() + delimiter;
 
+    Cantor::LatexRenderer::EquationType type
+        = (Cantor::LatexRenderer::EquationType)format.intProperty(Cantor::Renderer::CantorFormula);
+
     // From findMath we will be first symbol of math expression
     // So in order to select all symbols of the expression, we need to go to previous symbol first
     // But it working strange sometimes: some times we need to go to previous character, sometimes not
     // So the code tests that we on '$' symbol and if it isn't true, then we revert back
     cursor.movePosition(QTextCursor::PreviousCharacter);
-    if (m_textItem->document()->characterAt(cursor.position()) != QLatin1Char('$'))
+    bool withDollarDelimiter = type == Cantor::LatexRenderer::InlineEquation || type == Cantor::LatexRenderer::FullEquation;
+    if (withDollarDelimiter && m_textItem->document()->characterAt(cursor.position()) != QLatin1Char('$'))
+        cursor.movePosition(QTextCursor::NextCharacter);
+    else if (type == Cantor::LatexRenderer::CustomEquation && m_textItem->document()->characterAt(cursor.position()) != QLatin1Char('\\') )
         cursor.movePosition(QTextCursor::NextCharacter);
 
     cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor, searchText.size());
@@ -576,7 +589,6 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
 
-        Cantor::LatexRenderer::EquationType type = (Cantor::LatexRenderer::EquationType)format.intProperty(Cantor::Renderer::CantorFormula);
         // Dont add new line for $$...$$ on document's begin and end
         // And if we in block, which haven't non-space characters except out math expression
         // In another sitation, Cantor will move rendered image into another QTextBlock
@@ -652,6 +664,11 @@ void MarkdownEntry::markUpMath()
                 codeWithoutMarker.remove(2, 1);
         }
         else if (searchText.startsWith(QLatin1String("$")))
+        {
+            if (codeWithoutMarker[1] == QChar(6))
+                codeWithoutMarker.remove(1, 1);
+        }
+        else if (searchText.startsWith(QLatin1String("\\")))
         {
             if (codeWithoutMarker[1] == QChar(6))
                 codeWithoutMarker.remove(1, 1);

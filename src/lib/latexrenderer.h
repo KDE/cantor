@@ -32,7 +32,7 @@ class CANTOR_EXPORT LatexRenderer : public QObject
   Q_OBJECT
   public:
     enum Method{ LatexMethod = 0, MmlMethod = 1};
-    enum EquationType{ InlineEquation = 0, FullEquation = 1};
+    enum EquationType{ InlineEquation = 0, FullEquation = 1, CustomEquation = 2};
     explicit LatexRenderer( QObject* parent = nullptr);
     ~LatexRenderer() override;
 
