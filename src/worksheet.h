@@ -312,7 +312,6 @@ class Worksheet : public QGraphicsScene
     bool m_embeddedMathEnabled;
     bool m_showExpressionIds;
     bool m_animationsEnabled;
-    bool m_loginDone;
     bool m_isPrinting;
     bool m_isLoadingFromFile;
     bool m_readOnly;

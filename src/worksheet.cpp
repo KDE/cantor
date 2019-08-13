@@ -93,7 +93,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_cursorItemTimer->start(500);
 
     m_isPrinting = false;
-    m_loginDone = false;
     m_readOnly = false;
     m_isLoadingFromFile = false;
 
@@ -112,7 +111,7 @@ Worksheet::~Worksheet()
     // while the scene is deleted. Maybe there is a better solution to
     // this problem, but I can't seem to find it.
     m_firstEntry = nullptr;
-    if (m_loginDone)
+    if (m_session && m_session->status() != Cantor::Session::Disable)
         m_session->logout();
     if (m_session)
     {
@@ -134,7 +133,6 @@ void Worksheet::loginToSession()
 #else
     session()->setTypesettingEnabled(false);
 #endif
-    m_loginDone = true;
 }
 
 void Worksheet::print(QPrinter* printer)
@@ -506,7 +504,7 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
 void Worksheet::evaluate()
 {
     qDebug()<<"evaluate worksheet";
-    if (!m_loginDone && !m_readOnly)
+    if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
     firstEntry()->evaluate(WorksheetEntry::EvaluateNext);
@@ -516,7 +514,7 @@ void Worksheet::evaluate()
 
 void Worksheet::evaluateCurrentEntry()
 {
-    if (!m_loginDone && !m_readOnly)
+    if (!m_readOnly && m_session && m_session->status() == Cantor::Session::Disable)
         loginToSession();
 
     WorksheetEntry* entry = currentEntry();
@@ -1207,7 +1205,6 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     //cleanup the worksheet and all it contains
     delete m_session;
     m_session=nullptr;
-    m_loginDone = false;
 
     //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
@@ -1358,7 +1355,6 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     if (m_session)
         delete m_session;
     m_session = nullptr;
-    m_loginDone = false;
 
     if (m_firstEntry) {
         delete m_firstEntry;
