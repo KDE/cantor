@@ -132,12 +132,16 @@ void JuliaSession::logout()
         return;
 
     if(status() == Cantor::Session::Running)
+    {
+        if(m_process && m_process->state() == QProcess::Running)
+        {
+            disconnect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
+            m_process->kill();
+        }
+        m_process->deleteLater();
+        m_process = nullptr;
         interrupt();
-
-    if (m_process->pid())
-        m_process->terminate();
-    m_process->deleteLater();
-    m_process = nullptr;
+    }
 
     Session::logout();
 }
