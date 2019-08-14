@@ -78,8 +78,6 @@ class Worksheet : public QGraphicsScene
 
     bool isPrinting();
 
-    void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);
-
     WorksheetView* worksheetView();
 
     void makeVisible(WorksheetEntry*);
@@ -109,9 +107,21 @@ class Worksheet : public QGraphicsScene
     // For WorksheetEntry::startDrag
     void resetEntryCursor();
 
-    void addProtrusion(qreal width);
-    void updateProtrusion(qreal oldWidth, qreal newWidth);
-    void removeProtrusion(qreal width);
+    /**
+     * How it works:
+     * There are two information streams
+     * 1. WorksheetView -> Worksheet -> subelemenets (ex. entries) about view width
+     *   View width used by some sub elements for better visual appearance (for example, entries with text often are fitted to width of view).
+     * 2. Subelements -> Worksheet
+     *   Sub elements notify Worksheet about their needed widths and worksheet, used this information, set propper scene size.
+     */
+    /// First information stream
+    void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);
+
+    /// Second information stream
+    void addSubelementWidth(qreal width);
+    void updateSubelementWidth(qreal oldWidth, qreal newWidth);
+    void removeSubelementWidth(qreal width);
 
     bool isShortcut(const QKeySequence&);
 
@@ -291,8 +301,7 @@ class Worksheet : public QGraphicsScene
     QTimer* m_dragScrollTimer;
 
     double m_viewWidth;
-    double m_protrusion;
-    QMap<qreal, int> m_itemProtrusions;
+    QMap<qreal, int> m_itemWidths;
 
     QMap<QKeySequence, QAction*> m_shortcuts;
 

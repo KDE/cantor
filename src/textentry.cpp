@@ -105,7 +105,6 @@ void TextEntry::populateMenu(QMenu* menu, QPointF pos)
         {
             // we need to try both the current cursor and the one after the that
             cursor = m_textItem->cursorForPosition(pos);
-            qDebug() << cursor.position();
             for (int i = 2; i; --i)
             {
                 int p = cursor.position();
@@ -183,7 +182,6 @@ void TextEntry::setContent(const QDomElement& content, const KZip& file)
     QDomNode n = doc.importNode(content.firstChildElement(QLatin1String("body")), true);
     doc.appendChild(n);
     QString html = doc.toString();
-    qDebug() << html;
     m_textItem->setHtml(html);
 }
 
@@ -304,7 +302,6 @@ QDomElement TextEntry::toXml(QDomDocument& doc, KZip* archive)
     }
 
     const QString& html = document->toHtml();
-    qDebug() << html;
     QDomElement el = doc.createElement(QLatin1String("Text"));
     QDomDocument myDoc = QDomDocument();
     myDoc.setContent(html);
@@ -523,7 +520,7 @@ void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
 {
     if (!result->successful)
     {
-        qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
+        qDebug() << "TextEntry: math render failed with message" << result->errorMessage;
         return;
     }
 

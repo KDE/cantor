@@ -68,7 +68,8 @@ void ImageResultItem::update()
     {
         Cantor::EpsResult* epsResult = static_cast<Cantor::EpsResult*>(m_result);
 #ifdef WITH_EPS
-        if (!epsResult->image().isNull() && worksheet()->renderer()->scale() == 1.0)
+        bool cacheVersionEnough = worksheet()->renderer()->scale() == 1.0 && !worksheet()->isPrinting();
+        if (!epsResult->image().isNull() && cacheVersionEnough)
             setImage(epsResult->image());
         else
             setEps(m_result->data().toUrl());

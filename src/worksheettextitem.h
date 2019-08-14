@@ -167,7 +167,6 @@ class WorksheetTextItem : public QGraphicsTextItem
 
   private:
     QSizeF m_size;
-    qreal m_maxWidth;
     bool m_completionEnabled;
     bool m_completionActive;
     bool m_itemDragable;

@@ -33,13 +33,13 @@ WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
 {
     connect(this, SIGNAL(menuCreated(QMenu*,QPointF)), parent,
             SLOT(populateMenu(QMenu*,QPointF)), Qt::DirectConnection);
-    m_maxWidth = 0;
 }
 
 WorksheetImageItem::~WorksheetImageItem()
 {
-    if (worksheet() && m_maxWidth > 0 && width() > m_maxWidth)
-        worksheet()->removeProtrusion(width() - m_maxWidth);
+    qreal width = scenePos().x() + this->width();
+    if (worksheet() && width > 0)
+        worksheet()->removeSubelementWidth(width);
 }
 
 int WorksheetImageItem::type() const
@@ -57,13 +57,14 @@ qreal WorksheetImageItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     if (width() <= w && centered) {
         setPos(x + w/2 - width()/2, y);
     } else {
+        qreal oldNeededWidth = scenePos().x() + width();
+        qreal newNeededWidth = scenePos().x() + w;
         setPos(x, y);
-        if (m_maxWidth < width())
-            worksheet()->updateProtrusion(width() - m_maxWidth, width() - w);
+        if (newNeededWidth > 0)
+            worksheet()->updateSubelementWidth(oldNeededWidth , newNeededWidth);
         else
-            worksheet()->addProtrusion(width() - w);
+            worksheet()->addSubelementWidth(oldNeededWidth );
     }
-    m_maxWidth = w;
 
     return height();
 }
@@ -85,16 +86,16 @@ QSizeF WorksheetImageItem::size()
 
 void WorksheetImageItem::setSize(QSizeF size)
 {
-    qreal oldProtrusion = x() + m_size.width() - m_maxWidth;
-    qreal newProtrusion = x() + size.width() - m_maxWidth;
-    if (oldProtrusion > 0) {
-        if (newProtrusion > 0)
-            worksheet()->updateProtrusion(oldProtrusion, newProtrusion);
+    qreal oldNeededWidth = scenePos().x() + m_size.width();
+    qreal newNeededWidth = scenePos().x() + size.width();
+    if (oldNeededWidth > 0) {
+        if (newNeededWidth > 0)
+            worksheet()->updateSubelementWidth(oldNeededWidth, newNeededWidth);
         else
-            worksheet()->removeProtrusion(oldProtrusion);
+            worksheet()->removeSubelementWidth(oldNeededWidth);
     } else {
-        if (newProtrusion > 0)
-            worksheet()->addProtrusion(newProtrusion);
+        if (newNeededWidth > 0)
+            worksheet()->addSubelementWidth(newNeededWidth);
     }
     m_size = size;
 }
@@ -136,8 +137,7 @@ void WorksheetImageItem::setImage(QImage img)
 void WorksheetImageItem::setImage(QImage img, QSize displaySize)
 {
     m_pixmap = QPixmap::fromImage(img);
-    m_pixmap = m_pixmap.scaled(displaySize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    setSize(m_pixmap.size());
+    setSize(displaySize);
 }
 
 void WorksheetImageItem::setPixmap(QPixmap pixmap)

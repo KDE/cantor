@@ -74,12 +74,12 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_lastFocusedTextItem = nullptr;
     m_dragEntry = nullptr;
     m_placeholderEntry = nullptr;
-    m_viewWidth = 0;
-    m_protrusion = 0;
     m_dragScrollTimer = nullptr;
 
     m_choosenCursorEntry = nullptr;
     m_isCursorEntryAfterLastEntry = false;
+
+    m_viewWidth = 0;
 
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
@@ -214,7 +214,8 @@ void Worksheet::updateLayout()
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
         y += entry->setGeometry(x, y, w);
-    setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+
+    setSceneRect(QRectF(0, 0, sceneRect().width(), y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
     else if (atEnd)
@@ -236,7 +237,7 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         entry->setY(y);
         y += entry->size().height();
     }
-    setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+    setSceneRect(QRectF(0, 0, sceneRect().width(), y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
     else if (atEnd)
@@ -244,38 +245,42 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
     drawEntryCursor();
 }
 
-void Worksheet::addProtrusion(qreal width)
+void Worksheet::addSubelementWidth(qreal width)
 {
-    if (m_itemProtrusions.contains(width))
-        ++m_itemProtrusions[width];
+    if (m_itemWidths.contains(width))
+        ++m_itemWidths[width];
     else
-        m_itemProtrusions.insert(width, 1);
-    if (width > m_protrusion) {
-        m_protrusion = width;
+        m_itemWidths.insert(width, 1);
+
+    if (width > m_viewWidth) {
         qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
-        setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+        setSceneRect(QRectF(0, 0, width + LeftMargin + RightMargin, y));
     }
 }
 
-void Worksheet::updateProtrusion(qreal oldWidth, qreal newWidth)
+void Worksheet::updateSubelementWidth(qreal oldWidth, qreal newWidth)
 {
-    removeProtrusion(oldWidth);
-    addProtrusion(newWidth);
+    if (oldWidth != newWidth)
+    {
+        removeSubelementWidth(oldWidth);
+        addSubelementWidth(newWidth);
+    }
 }
 
-void Worksheet::removeProtrusion(qreal width)
+void Worksheet::removeSubelementWidth(qreal width)
 {
-    if (--m_itemProtrusions[width] == 0) {
-        m_itemProtrusions.remove(width);
-        if (width == m_protrusion) {
-            qreal max = -1;
-            for (qreal p : m_itemProtrusions.keys()) {
+    if (m_itemWidths.contains(width) && --m_itemWidths[width] == 0) {
+        m_itemWidths.remove(width);
+
+        if (width + LeftMargin + RightMargin == sceneRect().width())
+        {
+            qreal max = 0;
+            for (qreal p : m_itemWidths.keys()) {
                 if (p > max)
                     max = p;
             }
-            m_protrusion = max;
-            qreal y = lastEntry()->size().height() + lastEntry()->y();
-            setSceneRect(QRectF(0, 0, m_viewWidth + m_protrusion, y));
+            qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
+            setSceneRect(QRectF(0, 0, max + LeftMargin + RightMargin, y));
         }
     }
 }
@@ -998,7 +1003,6 @@ void Worksheet::save( QIODevice* device)
             }
 
             QByteArray content = toXML(&zipFile).toByteArray();
-            qDebug()<<"content: "<<content;
             zipFile.writeFile( QLatin1String("content.xml"), content.data());
             break;
         }
@@ -1166,12 +1170,10 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     const KArchiveFile* content = static_cast<const KArchiveFile*>(contentEntry);
     QByteArray data = content->data();
 
-//     qDebug()<<"read: "<<data;
 
     QDomDocument doc;
     doc.setContent(data);
     QDomElement root=doc.documentElement();
-//     qDebug()<<root.tagName();
 
     m_backendName=root.attribute(QLatin1String("backend"));
     Cantor::Backend* b=Cantor::Backend::getBackend(m_backendName);

@@ -58,7 +58,6 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     m_itemDragable = false;
     m_richTextEnabled = false;
     m_size = document()->size();;
-    m_maxWidth = -1;
     setAcceptDrops(true);
     setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
@@ -76,8 +75,10 @@ WorksheetTextItem::~WorksheetTextItem()
 {
     if (worksheet() && this == worksheet()->lastFocusedTextItem())
         worksheet()->updateFocusedTextItem(nullptr);
-    if (worksheet() && m_maxWidth > 0 && width() > m_maxWidth)
-        worksheet()->removeProtrusion(width() - m_maxWidth);
+
+    qreal width = scenePos().x() + m_size.width() - 4;
+    if (worksheet() && width > 0)
+        worksheet()->removeSubelementWidth(width);
 }
 
 int WorksheetTextItem::type() const
@@ -102,18 +103,17 @@ void WorksheetTextItem::testSize()
 
     qreal w = document()->size().width();
     if (w != m_size.width()) {
-        if (m_maxWidth > 0) {
-            qreal oldDiff = m_size.width() - m_maxWidth;
-            qreal newDiff = w - m_maxWidth;
-            if (w > m_maxWidth) {
-                if (m_size.width() > m_maxWidth)
-                    worksheet()->updateProtrusion(oldDiff, newDiff);
-                else
-                    worksheet()->addProtrusion(newDiff);
-            } else if (m_size.width() > m_maxWidth) {
-                worksheet()->removeProtrusion(oldDiff);
-            }
+        qreal oldWidth = scenePos().x() + m_size.width() - 4;
+        qreal newWidth = scenePos().x() + w - 4;
+        if (newWidth > 0) {
+            if (oldWidth > 0)
+                worksheet()->updateSubelementWidth(oldWidth, newWidth);
+            else
+                worksheet()->addSubelementWidth(newWidth);
+        } else if (oldWidth > 0) {
+            worksheet()->removeSubelementWidth(oldWidth);
         }
+
         m_size.setWidth(w);
     }
 }
@@ -125,23 +125,21 @@ qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     else
         setPos(x,y);
 
-    qreal oldDiff = 0;
-    if (m_maxWidth > 0 && width() > m_maxWidth)
-        oldDiff = width() - m_maxWidth;
-    m_maxWidth = w;
+    // Strange: if I use the same logic as for ImageItem (with scenePos.x() + width)
+    // Cantor always have scrollbar for a few pixels
+    // So I always subtract the few pixels
+    qreal oldWidth = scenePos().x() + m_size.width() - 4;
     setTextWidth(w);
     m_size = document()->size();
+    qreal newWidth = scenePos().x() + m_size.width() - 4;
 
-    if (oldDiff) {
-        if (m_size.width() > m_maxWidth) {
-            qreal newDiff = m_size.width() - m_maxWidth;
-            worksheet()->updateProtrusion(oldDiff, newDiff);
-        } else {
-            worksheet()->removeProtrusion(oldDiff);
-        }
-    } else if (m_size.width() > m_maxWidth) {
-        qreal newDiff = m_size.width() - m_maxWidth;
-        worksheet()->addProtrusion(newDiff);
+    if (newWidth > 0) {
+        if (oldWidth > 0)
+            worksheet()->updateSubelementWidth(oldWidth, newWidth);
+        else
+            worksheet()->addSubelementWidth(newWidth);
+    } else if (oldWidth > 0) {
+        worksheet()->removeSubelementWidth(oldWidth);
     }
 
     return m_size.height();
