@@ -99,14 +99,14 @@ void BackendChooseDialog::updateContent()
         {
             desc = i18n(BackendChooseDialog::descriptionTemplate,
                                     current->name(), current->description(), current->url(), current->version());
-            m_ui.buttonBox->setEnabled(true);
+            m_ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
             m_ui.makeDefault->setEnabled(true);
         }
         else
         {
             desc = i18n(BackendChooseDialog::requirementsTemplate,
                                     current->name(), reason, current->version());
-            m_ui.buttonBox->setEnabled(false);
+            m_ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
             m_ui.makeDefault->setEnabled(false);
         }
         m_ui.descriptionView->setHtml(desc);
