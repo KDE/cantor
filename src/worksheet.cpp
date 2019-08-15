@@ -215,7 +215,8 @@ void Worksheet::updateLayout()
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
         y += entry->setGeometry(x, y, w);
 
-    setSceneRect(QRectF(0, 0, sceneRect().width(), y));
+    qreal sceneWidth = (m_itemWidths.size() > 0 ? m_itemWidths.keys().last() : 0) + LeftMargin + RightMargin;
+    setSceneRect(QRectF(0, 0, sceneWidth, y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
     else if (atEnd)
@@ -252,7 +253,9 @@ void Worksheet::addSubelementWidth(qreal width)
     else
         m_itemWidths.insert(width, 1);
 
-    if (width > m_viewWidth) {
+    // QMap sort keys from min to max, so last is maximum key
+    bool newMaximum = width == m_itemWidths.keys().last();
+    if (newMaximum) {
         qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
         setSceneRect(QRectF(0, 0, width + LeftMargin + RightMargin, y));
     }
@@ -272,13 +275,10 @@ void Worksheet::removeSubelementWidth(qreal width)
     if (m_itemWidths.contains(width) && --m_itemWidths[width] == 0) {
         m_itemWidths.remove(width);
 
-        if (width + LeftMargin + RightMargin == sceneRect().width())
+        if (width + LeftMargin + RightMargin >= sceneRect().width())
         {
-            qreal max = 0;
-            for (qreal p : m_itemWidths.keys()) {
-                if (p > max)
-                    max = p;
-            }
+            // QMap sort keys from min to max, so last is maximum key
+            qreal max = m_itemWidths.size() > 0 ? m_itemWidths.keys().last() : 0;
             qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
             setSceneRect(QRectF(0, 0, max + LeftMargin + RightMargin, y));
         }
