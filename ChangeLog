@@ -1,5 +1,4 @@
 -----19.08-----
-
  Screenshots:
      * https://imgur.com/Xpj2EcQ
      * https://imgur.com/KnXYvFP
@@ -27,4 +26,12 @@
      * Fix problem with an incorrect window title after closing all tabs
 
 
+-----19.04-----
+New Features:
+    * Possibility to hide and show results of command entry via context menu
+    * [Maxima, Octave, Python, R] Add a way to specify the path to the local documentation in the settings. By default, this path didn't specified and Cantor uses online documentation.
+    * Huge improvment of variables managment: better parsing, option to turn on and turn off variable managment, better GUI performance by limitation of value size (too big for showing values replaced by "<too big variable>" text
 
+Important bug fixes:
+       * [Sage] Fix execuation for unsystem Sage installation
+       * [Julia] Fix bug, that suppressing output don't work
