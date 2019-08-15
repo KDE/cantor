@@ -29,6 +29,8 @@ set(worksheettest_SRCS
     worksheet_test.cpp)
 
 ki18n_wrap_ui(worksheettest_SRCS ../imagesettings.ui)
+ki18n_wrap_ui(worksheettest_SRCS ../standardsearchbar.ui)
+ki18n_wrap_ui(worksheettest_SRCS ../extendedsearchbar.ui)
 kconfig_add_kcfg_files(worksheettest_SRCS ../settings.kcfgc)
 
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/data)
