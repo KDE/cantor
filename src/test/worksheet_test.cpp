@@ -231,6 +231,10 @@ void WorksheetTest::testHtmlResult(WorksheetEntry* entry, int index, const QStri
 
 void WorksheetTest::testJupyter1()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Lecture-2B-Single-Atom-Lasing.ipynb")));
 
     qDebug() << w->firstEntry();
@@ -812,6 +816,10 @@ void WorksheetTest::testJupyter1()
 
 void WorksheetTest::testJupyter2()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("AEC.04 - Evolutionary Strategies and Covariance Matrix Adaptation.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -1985,6 +1993,10 @@ void WorksheetTest::testJupyter2()
 
 void WorksheetTest::testJupyter3()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Population_Genetics.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -3625,6 +3637,10 @@ void WorksheetTest::testJupyter3()
 
 void WorksheetTest::testJupyter4()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("A Reaction-Diffusion Equation Solver in Python with Numpy.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -4185,6 +4201,10 @@ void WorksheetTest::testJupyter4()
 
 void WorksheetTest::testJupyter5()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Automata and Computability using Jupyter.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -5059,6 +5079,10 @@ void WorksheetTest::testJupyter5()
 
 void WorksheetTest::testJupyter6()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Cue Combination with Neural Populations .ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -5520,6 +5544,10 @@ void WorksheetTest::testJupyter6()
 
 void WorksheetTest::testJupyter7()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("Transformation2D.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -6484,6 +6512,10 @@ void WorksheetTest::testJupyter7()
 
 void WorksheetTest::testMarkdownAttachment()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestMarkdownAttachment.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -6530,6 +6562,10 @@ void WorksheetTest::testMarkdownAttachment()
 
 void WorksheetTest::testEntryLoad1()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestEntryLoad1.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -6562,10 +6598,14 @@ void WorksheetTest::testEntryLoad1()
 
 void WorksheetTest::testEntryLoad2()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestEntryLoad2.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
-    QCOMPARE(w->session()->backend()->id(), QLatin1String("octave"));
+    QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
 
     WorksheetEntry* entry = w->firstEntry();
 
@@ -6594,6 +6634,10 @@ void WorksheetTest::testEntryLoad2()
 
 void WorksheetTest::testResultsLoad()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("sage"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because sage backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestResultsLoad.ipynb")));
 
     QCOMPARE(w->isReadOnly(), false);
@@ -6650,6 +6694,10 @@ void WorksheetTest::testResultsLoad()
 
 void WorksheetTest::testMimeResult()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestNotebookWithJson.ipynb")));
 
     QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
@@ -6726,6 +6774,10 @@ void WorksheetTest::testMimeResult()
 
 void WorksheetTest::testMimeResultWithPlain()
 {
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
     QScopedPointer<Worksheet> w(loadWorksheet(QLatin1String("TestNotebookWithModJson.ipynb")));
 
     QCOMPARE(w->session()->backend()->id(), QLatin1String("python3"));
@@ -6804,7 +6856,11 @@ void WorksheetTest::testMimeResultWithPlain()
 
 void WorksheetTest::testMathRender()
 {
-    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("octave")), nullptr);
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
+    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("python3")), nullptr);
     WorksheetView v(w, nullptr);
     v.setEnabled(false);
     w->enableEmbeddedMath(true);
@@ -6833,7 +6889,11 @@ void WorksheetTest::testMathRender()
 
 void WorksheetTest::testMathRender2()
 {
-    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("octave")), nullptr);
+    Cantor::Backend* backend = Cantor::Backend::getBackend(QLatin1String("python3"));
+    if (backend && backend->isEnabled() == false)
+        QSKIP("Skip, because python3 backend don't available", SkipSingle);
+
+    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("python3")), nullptr);
     WorksheetView v(w, nullptr);
     v.setEnabled(false);
     w->enableEmbeddedMath(true);
