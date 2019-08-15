@@ -121,7 +121,19 @@ void MathRenderTask::run()
             expressionTex=expressionTex.arg(QLatin1String("%1"), QLatin1String("[preview]"));
             break;
     }
-    expressionTex=expressionTex.arg(m_code);
+
+    QString latex = m_code;
+    // Looks hacky, but no sure, how do it better without overhead (like new latex type in lib/latexrender)
+    static const QString& equationBegin = QLatin1String("\\begin{equation}");
+    static const QString& equationEnd = QLatin1String("\\end{equation}");
+    if (latex.startsWith(equationBegin) && latex.endsWith(equationEnd))
+    {
+        latex.remove(0, equationBegin.size());
+        latex.chop(equationEnd.size());
+        latex = QLatin1String("\\begin{equation*}") + latex + QLatin1String("\\end{equation*}");
+    }
+
+    expressionTex=expressionTex.arg(latex);
 
     texFile.write(expressionTex.toUtf8());
     texFile.flush();
