@@ -119,9 +119,8 @@ class Worksheet : public QGraphicsScene
     void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);
 
     /// Second information stream
-    void addSubelementWidth(qreal width);
-    void updateSubelementWidth(qreal oldWidth, qreal newWidth);
-    void removeSubelementWidth(qreal width);
+    void setRequestedWidth(QGraphicsObject* object, qreal width);
+    void removeRequestedWidth(QGraphicsObject* object);
 
     bool isShortcut(const QKeySequence&);
 
@@ -300,8 +299,9 @@ class Worksheet : public QGraphicsScene
     WorksheetTextItem* m_lastFocusedTextItem;
     QTimer* m_dragScrollTimer;
 
-    double m_viewWidth;
-    QMap<qreal, int> m_itemWidths;
+    qreal m_viewWidth;
+    QMap<QGraphicsObject*, qreal> m_itemWidths;
+    qreal m_maxWidth;
 
     QMap<QKeySequence, QAction*> m_shortcuts;
 

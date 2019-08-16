@@ -80,6 +80,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     m_isCursorEntryAfterLastEntry = false;
 
     m_viewWidth = 0;
+    m_maxWidth = 0;
 
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
@@ -215,8 +216,7 @@ void Worksheet::updateLayout()
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
         y += entry->setGeometry(x, y, w);
 
-    qreal sceneWidth = (m_itemWidths.size() > 0 ? m_itemWidths.keys().last() : 0) + LeftMargin + RightMargin;
-    setSceneRect(QRectF(0, 0, sceneWidth, y));
+    setSceneRect(QRectF(0, 0, sceneRect().width(), y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
     else if (atEnd)
@@ -246,42 +246,35 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
     drawEntryCursor();
 }
 
-void Worksheet::addSubelementWidth(qreal width)
+void Worksheet::setRequestedWidth(QGraphicsObject* object, qreal width)
 {
-    if (m_itemWidths.contains(width))
-        ++m_itemWidths[width];
-    else
-        m_itemWidths.insert(width, 1);
+    qreal oldWidth = m_itemWidths[object];
+    m_itemWidths[object] = width;
 
-    // QMap sort keys from min to max, so last is maximum key
-    bool newMaximum = width == m_itemWidths.keys().last();
-    if (newMaximum) {
-        qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
-        setSceneRect(QRectF(0, 0, width + LeftMargin + RightMargin, y));
-    }
-}
-
-void Worksheet::updateSubelementWidth(qreal oldWidth, qreal newWidth)
-{
-    if (oldWidth != newWidth)
+    if (width > m_maxWidth || oldWidth == m_maxWidth)
     {
-        removeSubelementWidth(oldWidth);
-        addSubelementWidth(newWidth);
+        m_maxWidth = width;
+        qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
+        setSceneRect(QRectF(0, 0, m_maxWidth + LeftMargin + RightMargin, y));
     }
 }
 
-void Worksheet::removeSubelementWidth(qreal width)
+void Worksheet::removeRequestedWidth(QGraphicsObject* object)
 {
-    if (m_itemWidths.contains(width) && --m_itemWidths[width] == 0) {
-        m_itemWidths.remove(width);
+    if (!m_itemWidths.contains(object))
+        return;
 
-        if (width + LeftMargin + RightMargin >= sceneRect().width())
-        {
-            // QMap sort keys from min to max, so last is maximum key
-            qreal max = m_itemWidths.size() > 0 ? m_itemWidths.keys().last() : 0;
-            qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
-            setSceneRect(QRectF(0, 0, max + LeftMargin + RightMargin, y));
-        }
+    qreal width = m_itemWidths[object];
+    m_itemWidths.remove(object);
+
+    if (width == m_maxWidth)
+    {
+        m_maxWidth = 0;
+        for (qreal width : m_itemWidths.values())
+            if (width > m_maxWidth)
+                m_maxWidth = width;
+        qreal y = lastEntry() ? lastEntry()->size().height() + lastEntry()->y() : 0;
+        setSceneRect(QRectF(0, 0, m_maxWidth + LeftMargin + RightMargin, y));
     }
 }
 
@@ -1216,6 +1209,8 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     }
 
     resetEntryCursor();
+    m_itemWidths.clear();
+    m_maxWidth = 0;
 
     if (!m_readOnly)
         m_session=b->createSession();
@@ -1364,6 +1359,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     }
 
     resetEntryCursor();
+    m_itemWidths.clear();
+    m_maxWidth = 0;
 
     if (!m_readOnly)
         m_session=backend->createSession();

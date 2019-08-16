@@ -37,9 +37,8 @@ WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
 
 WorksheetImageItem::~WorksheetImageItem()
 {
-    qreal width = scenePos().x() + this->width();
-    if (worksheet() && width > 0)
-        worksheet()->removeSubelementWidth(width);
+    if (worksheet())
+        worksheet()->removeRequestedWidth(this);
 }
 
 int WorksheetImageItem::type() const
@@ -57,14 +56,9 @@ qreal WorksheetImageItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     if (width() <= w && centered) {
         setPos(x + w/2 - width()/2, y);
     } else {
-        qreal oldNeededWidth = scenePos().x() + width();
-        qreal newNeededWidth = scenePos().x() + w;
         setPos(x, y);
-        if (newNeededWidth > 0)
-            worksheet()->updateSubelementWidth(oldNeededWidth , newNeededWidth);
-        else
-            worksheet()->addSubelementWidth(oldNeededWidth );
     }
+    worksheet()->setRequestedWidth(this, scenePos().x() + width());
 
     return height();
 }
@@ -86,18 +80,10 @@ QSizeF WorksheetImageItem::size()
 
 void WorksheetImageItem::setSize(QSizeF size)
 {
-    qreal oldNeededWidth = scenePos().x() + m_size.width();
-    qreal newNeededWidth = scenePos().x() + size.width();
-    if (oldNeededWidth > 0) {
-        if (newNeededWidth > 0)
-            worksheet()->updateSubelementWidth(oldNeededWidth, newNeededWidth);
-        else
-            worksheet()->removeSubelementWidth(oldNeededWidth);
-    } else {
-        if (newNeededWidth > 0)
-            worksheet()->addSubelementWidth(newNeededWidth);
-    }
     m_size = size;
+
+    qreal width = scenePos().x() + size.width();
+    worksheet()->setRequestedWidth(this, width);
 }
 
 QSize WorksheetImageItem::imageSize()

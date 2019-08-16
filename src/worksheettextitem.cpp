@@ -76,9 +76,8 @@ WorksheetTextItem::~WorksheetTextItem()
     if (worksheet() && this == worksheet()->lastFocusedTextItem())
         worksheet()->updateFocusedTextItem(nullptr);
 
-    qreal width = scenePos().x() + m_size.width() - 4;
-    if (worksheet() && width > 0)
-        worksheet()->removeSubelementWidth(width);
+    if (worksheet())
+        worksheet()->removeRequestedWidth(this);
 }
 
 int WorksheetTextItem::type() const
@@ -103,18 +102,11 @@ void WorksheetTextItem::testSize()
 
     qreal w = document()->size().width();
     if (w != m_size.width()) {
-        qreal oldWidth = scenePos().x() + m_size.width() - 4;
-        qreal newWidth = scenePos().x() + w - 4;
-        if (newWidth > 0) {
-            if (oldWidth > 0)
-                worksheet()->updateSubelementWidth(oldWidth, newWidth);
-            else
-                worksheet()->addSubelementWidth(newWidth);
-        } else if (oldWidth > 0) {
-            worksheet()->removeSubelementWidth(oldWidth);
-        }
-
         m_size.setWidth(w);
+        emit sizeChanged();
+
+        qreal newWidth = scenePos().x() + m_size.width() - 10;
+        worksheet()->setRequestedWidth(this, newWidth);
     }
 }
 
@@ -128,19 +120,11 @@ qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
     // Strange: if I use the same logic as for ImageItem (with scenePos.x() + width)
     // Cantor always have scrollbar for a few pixels
     // So I always subtract the few pixels
-    qreal oldWidth = scenePos().x() + m_size.width() - 4;
     setTextWidth(w);
     m_size = document()->size();
-    qreal newWidth = scenePos().x() + m_size.width() - 4;
 
-    if (newWidth > 0) {
-        if (oldWidth > 0)
-            worksheet()->updateSubelementWidth(oldWidth, newWidth);
-        else
-            worksheet()->addSubelementWidth(newWidth);
-    } else if (oldWidth > 0) {
-        worksheet()->removeSubelementWidth(oldWidth);
-    }
+    qreal newWidth = scenePos().x() + m_size.width() - 10;
+    worksheet()->setRequestedWidth(this, newWidth);
 
     return m_size.height();
 }
