@@ -108,7 +108,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
 Worksheet::~Worksheet()
 {
-    // This is necessary, because a SeachBar might access firstEntry()
+    // This is necessary, because a SearchBar might access firstEntry()
     // while the scene is deleted. Maybe there is a better solution to
     // this problem, but I can't seem to find it.
     m_firstEntry = nullptr;
@@ -116,7 +116,7 @@ Worksheet::~Worksheet()
         m_session->logout();
     if (m_session)
     {
-        disconnect(m_session, 0, 0, 0);
+        disconnect(m_session, nullptr, nullptr, nullptr);
         if (m_session->status() != Cantor::Session::Disable)
             m_session->logout();
         m_session->deleteLater();
