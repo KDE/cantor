@@ -549,13 +549,16 @@ WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
         if (!firstEntry())
             setFirstEntry(entry);
         setLastEntry(entry);
-        updateLayout();
-        if (focus)
+        if (!m_isLoadingFromFile)
         {
-            makeVisible(entry);
-            focusEntry(entry);
+            updateLayout();
+            if (focus)
+            {
+                makeVisible(entry);
+                focusEntry(entry);
+            }
+            setModified();
         }
-        setModified();
     }
     return entry;
 }
@@ -1264,6 +1267,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
         clearFocus();
 
     m_isLoadingFromFile = false;
+    updateLayout();
 
     //Set the Highlighting, depending on the current state
     //If the session isn't logged in, use the default
@@ -1437,6 +1441,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         clearFocus();
 
     m_isLoadingFromFile = false;
+    updateLayout();
 
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
 
