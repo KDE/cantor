@@ -50,7 +50,7 @@
         <item>
          <widget class="QCheckBox" name="kcfg_TypesetDefault">
           <property name="text">
-           <string>Enable LaTeX Typesetting</string>
+           <string>Enable LaTeX Typesetting (works only if latex is installed)</string>
           </property>
          </widget>
         </item>

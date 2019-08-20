@@ -235,6 +235,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_typeset->setEnabled(false);
     collection->addAction(QLatin1String("enable_typesetting"), m_typeset);
     connect(m_typeset, SIGNAL(toggled(bool)), this, SLOT(enableTypesetting(bool)));
+    if (!Cantor::LatexRenderer::isLatexAvailable())
+        m_typeset->setVisible(false);
 
     m_highlight = new KToggleAction(i18n("Syntax Highlighting"), collection);
     m_highlight->setChecked(Settings::self()->highlightDefault());
@@ -256,7 +258,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
 
-    if (m_worksheet->mathRenderer()->mathRenderAvailable())
+    if (MathRenderer::mathRenderAvailable())
     {
         m_embeddedMath= new KToggleAction(i18n("Embedded Math"), collection);
         m_embeddedMath->setChecked(Settings::self()->embeddedMathDefault());
@@ -865,7 +867,8 @@ void CantorPart::adjustGuiToSession()
 {
     Cantor::Backend::Capabilities capabilities = m_worksheet->session()->backend()->capabilities();
 #ifdef WITH_EPS
-    m_typeset->setVisible(capabilities.testFlag(Cantor::Backend::LaTexOutput));
+    if (Cantor::LatexRenderer::isLatexAvailable())
+        m_typeset->setVisible(capabilities.testFlag(Cantor::Backend::LaTexOutput));
 #else
     m_typeset->setVisible(false);
 #endif

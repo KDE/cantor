@@ -327,3 +327,10 @@ QString LatexRenderer::genUuid()
     uuid.replace(QLatin1Char('-'), QLatin1Char('_'));
     return uuid;
 }
+
+bool Cantor::LatexRenderer::isLatexAvailable()
+{
+    QFileInfo infoLatex(Settings::self()->latexCommand());
+    QFileInfo infoPs(Settings::self()->dvipsCommand());
+    return infoLatex.exists() && infoLatex.isExecutable() && infoPs.exists() && infoPs.isExecutable();
+}

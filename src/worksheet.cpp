@@ -130,7 +130,10 @@ void Worksheet::loginToSession()
 {
     m_session->login();
 #ifdef WITH_EPS
-    session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+    if (Cantor::LatexRenderer::isLatexAvailable())
+        session()->setTypesettingEnabled(Settings::self()->typesetDefault());
+    else
+        session()->setTypesettingEnabled(false);
 #else
     session()->setTypesettingEnabled(false);
 #endif

@@ -56,6 +56,8 @@ class CANTOR_EXPORT LatexRenderer : public QObject
 
     static QString genUuid();
 
+    static bool isLatexAvailable();
+
   Q_SIGNALS:
     void done();
     void error();

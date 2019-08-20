@@ -24,6 +24,7 @@
 #include <QDebug>
 #include <QStandardPaths>
 #include <QFile>
+#include <QFileInfo>
 
 #include "mathrendertask.h"
 #include "lib/renderer.h"
@@ -39,7 +40,8 @@ MathRenderer::~MathRenderer()
 
 bool MathRenderer::mathRenderAvailable()
 {
-    return QStandardPaths::findExecutable(QLatin1String("pdflatex")).isEmpty() == false;
+    QFileInfo info(QStandardPaths::findExecutable(QLatin1String("pdflatex")));
+    return info.exists() && info.isExecutable();
 }
 
 qreal MathRenderer::scale()

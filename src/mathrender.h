@@ -38,7 +38,7 @@ class MathRenderer : public QObject {
     MathRenderer();
     ~MathRenderer();
 
-    bool mathRenderAvailable();
+    static bool mathRenderAvailable();
 
     // Resulution contol
     void setScale(qreal scale);
