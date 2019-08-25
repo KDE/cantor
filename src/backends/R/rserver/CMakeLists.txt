@@ -13,8 +13,11 @@ QT5_ADD_DBUS_ADAPTOR(RServer_SRCS org.kde.Cantor.R.xml
                      rserver.h RServer)
 
 
-add_custom_target(renvvars COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/envvars.r > ${CMAKE_CURRENT_BINARY_DIR}/renvvars.h )
-add_custom_target(rautoloads COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/autoloads.r > ${CMAKE_CURRENT_BINARY_DIR}/rautoloads.h )
+add_custom_command(OUTPUT renvvars.h COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/envvars.r > ${CMAKE_CURRENT_BINARY_DIR}/renvvars.h)
+add_custom_target(renvvars DEPENDS renvvars.h)
+
+add_custom_command(OUTPUT rautoloads.h COMMAND ${R_EXECUTABLE} --slave --file=${CMAKE_CURRENT_SOURCE_DIR}/tools/autoloads.r > ${CMAKE_CURRENT_BINARY_DIR}/rautoloads.h )
+add_custom_target(rautoloads DEPENDS rautoloads.h)
 
 add_executable( cantor_rserver ${RServer_SRCS} )
 set_target_properties( cantor_rserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
