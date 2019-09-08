@@ -13,5 +13,8 @@
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>
     </entry>
+    <entry name="localDoc" type="Url">
+        <label>Url to the local Octave documentation</label>
+    </entry>
   </group>
 </kcfg>
