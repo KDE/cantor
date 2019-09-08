@@ -67,7 +67,7 @@ int MimeResult::type()
 
 QString MimeResult::mimeType()
 {
-    return QLatin1Literal("application/json");
+    return QLatin1String("application/json");
 }
 
 QVariant MimeResult::data()
