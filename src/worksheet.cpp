@@ -1104,7 +1104,7 @@ bool Worksheet::load(const QString& filename )
     qDebug() << "loading worksheet" << filename;
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly)) {
-        KMessageBox::error(worksheetView(), i18n("Couldn't open the file %1", filename), i18n("Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Couldn't open the file %1.", filename), i18n("Open File"));
         return false;
     }
 
@@ -1125,7 +1125,8 @@ bool Worksheet::load(QIODevice* device)
 {
     if (!device->isReadable())
     {
-        KMessageBox::error(worksheetView(), i18n("Couldn't open the selected file for reading"), i18n("Cantor"));
+        QApplication::restoreOverrideCursor();
+        KMessageBox::error(worksheetView(), i18n("Couldn't open the selected file for reading."), i18n("Open File"));
         return false;
     }
 
@@ -1145,7 +1146,7 @@ bool Worksheet::load(QIODevice* device)
         {
             qDebug()<<"not a json file, parsing failed with error: " << error.errorString();
             QApplication::restoreOverrideCursor();
-            KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor or Jupyter project file."), i18n("Cantor"));
+            KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor or Jupyter project file."), i18n("Open File"));
             return false;
         }
         else
@@ -1162,7 +1163,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     {
         qDebug()<<"content.xml file not found in the zip archive";
         QApplication::restoreOverrideCursor();
-        KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor project file."), i18n("Cantor"));
+        KMessageBox::error(worksheetView(), i18n("The selected file is not a valid Cantor project file."), i18n("Open File"));
         return false;
     }
 
@@ -1179,7 +1180,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     if (!b)
     {
         QApplication::restoreOverrideCursor();
-        KMessageBox::information(worksheetView(), i18n("%1 backend was not found. Editing and executing entries is not possible", m_backendName), i18n("Cantor"));
+        KMessageBox::information(worksheetView(), i18n("%1 backend was not found. Editing and executing entries is not possible.", m_backendName), i18n("Open File"));
         m_readOnly = true;
     }
     else
@@ -1190,7 +1191,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
         QApplication::restoreOverrideCursor();
         KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
                                             "please check your configuration or install the needed packages.\n"
-                                            "You will only be able to view this worksheet.", m_backendName), i18n("Cantor"));
+                                            "You will only be able to view this worksheet.", m_backendName), i18n("Open File"));
         m_readOnly = true;
     }
 
@@ -1293,7 +1294,9 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         }
         else
         {
-            KMessageBox::error(worksheetView(), i18n("The file is old Jupyter notebook (found version %1.%2), which isn't supported by Cantor",nbformatMajor, nbformatMinor ), i18n("Cantor"));
+            KMessageBox::error(worksheetView(),
+                i18n("Jupyter notebooks with versions lower than 4.5 (detected version %1.%2) are not supported.", nbformatMajor, nbformatMinor ),
+                i18n("Open File"));
         }
 
         return false;
@@ -1307,8 +1310,8 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         QApplication::restoreOverrideCursor();
         KMessageBox::error(
             worksheetView(),
-            i18n("Cantor doesn't support Jupyter notebooks with version higher 4.5 (detected %1.%2)", nbformatMajor, nbformatMinor),
-            i18n("Cantor")
+            i18n("Jupyter notebooks with versions higher than 4.5 (detected version %1.%2) are not supported.", nbformatMajor, nbformatMinor),
+            i18n("Open File")
         );
         return false;
     }
@@ -1332,7 +1335,9 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     if (!backend)
     {
         QApplication::restoreOverrideCursor();
-        KMessageBox::information(worksheetView(), i18n("%1 backend was not found. Editing and executing entries is not possible", m_backendName), i18n("Cantor"));
+        KMessageBox::information(worksheetView(),
+            i18n("%1 backend was not found. Editing and executing entries is not possible.", m_backendName),
+            i18n("Open File"));
         m_readOnly = true;
     }
     else
@@ -1343,7 +1348,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         QApplication::restoreOverrideCursor();
         KMessageBox::information(worksheetView(), i18n("There are some problems with the %1 backend,\n"\
                                             "please check your configuration or install the needed packages.\n"
-                                            "You will only be able to view this worksheet.", m_backendName), i18n("Cantor"));
+                                            "You will only be able to view this worksheet.", m_backendName), i18n("Open File"));
         m_readOnly = true;
     }
 
@@ -1452,9 +1457,9 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 void Worksheet::showInvalidNotebookSchemeError(QString additionalInfo)
 {
     if (additionalInfo.isEmpty())
-        KMessageBox::error(worksheetView(), i18n("The file is not valid Jupyter notebook"), i18n("Cantor"));
+        KMessageBox::error(worksheetView(), i18n("The file is not valid Jupyter notebook"), i18n("Open File"));
     else
-        KMessageBox::error(worksheetView(), i18n("Invalid Jupyter notebook scheme: %1", additionalInfo), i18n("Cantor"));
+        KMessageBox::error(worksheetView(), i18n("Invalid Jupyter notebook scheme: %1", additionalInfo), i18n("Open File"));
 }
 
 
