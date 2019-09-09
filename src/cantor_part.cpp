@@ -16,7 +16,8 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 20017-2019 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2017-2019 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2019 Sirgienko Nikita <warquark@gmail.com>
 */
 
 #include <config-cantor.h>
