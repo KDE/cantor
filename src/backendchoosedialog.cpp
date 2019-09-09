@@ -19,29 +19,21 @@
  */
 
 #include "backendchoosedialog.h"
-
-#include <KLocalizedString>
-#include <QIcon>
-#include <QPushButton>
-#include <KIconLoader>
-
 #include "lib/backend.h"
 #include "settings.h"
 
-const char* BackendChooseDialog::descriptionTemplate = I18N_NOOP("<h1>%1</h1>" \
-                                                                 "<div><b>Recommended version:</b> %4</div><br/>" \
-                                                                 "<div>%2</div><br/>" \
-                                                                 "<div>See <a href=\"%3\">%3</a> for more information</div>");
-const char* BackendChooseDialog::requirementsTemplate= I18N_NOOP("<h1>%1</h1>"
-                                                                 "<div><b>Recommended version:</b> %3</div><br/>"
-                                                                 "<div>Some requirements for the backend are not fulfilled:<br/>%2</div><br/>");
+#include <KIconLoader>
+#include <KLocalizedString>
+
+#include <QIcon>
+#include <QPushButton>
 
 BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 {
-    QWidget* w=new QWidget(this);
+    QWidget* w = new QWidget(this);
     m_ui.setupUi(w);
 
-    QGridLayout *layout = new QGridLayout;
+    QGridLayout* layout = new QGridLayout;
     setLayout(layout);
     layout->addWidget(w);
 
@@ -54,14 +46,14 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
     m_ui.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     m_ui.buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
 
-    foreach(Cantor::Backend* backend,  Cantor::Backend::availableBackends())
+    for (auto* backend : Cantor::Backend::availableBackends())
     {
         qDebug() << backend->name() << backend->isEnabled() << backend->requirementsFullfilled();
         if(!backend->isEnabled())
             if (backend->requirementsFullfilled())
                 continue;
 
-        QListWidgetItem* item=new QListWidgetItem(m_ui.backendList);
+        QListWidgetItem* item = new QListWidgetItem(m_ui.backendList);
         item->setText(backend->name());
         item->setIcon(QIcon::fromTheme(backend->icon()));
         m_ui.backendList->addItem(item);
@@ -72,6 +64,8 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
             m_ui.backendList->setCurrentItem(item);
     }
 
+    setWindowTitle(i18n("Select the Backend"));
+
     connect(m_ui.buttonBox, &QDialogButtonBox::accepted, this, &BackendChooseDialog::accept);
     connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &BackendChooseDialog::close);
 
@@ -80,7 +74,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 
 void BackendChooseDialog::onAccept()
 {
-    m_backend=m_ui.backendList->currentItem()->text();
+    m_backend = m_ui.backendList->currentItem()->text();
     if(m_ui.makeDefault->isChecked())
     {
         Settings::self()->setDefaultBackend(m_backend);
@@ -90,22 +84,28 @@ void BackendChooseDialog::onAccept()
 
 void BackendChooseDialog::updateContent()
 {
-    Cantor::Backend* current=Cantor::Backend::getBackend( m_ui.backendList->currentItem()->text() );
+    auto* current = Cantor::Backend::getBackend( m_ui.backendList->currentItem()->text() );
     if (current)
     {
         QString desc;
         QString reason;
+        QString header = i18n("<h1>%1</h1>"
+                              "<div><b>Recommended version:</b> %2</div>",
+                              current->name(), current->version());
+        QString info = i18n("<hr><div>%1</div><br>"
+                            "<div>See <a href=\"%2\">%2</a> for more information.</div>",
+                            current->description(), current->url());
+
         if (current->requirementsFullfilled(&reason))
         {
-            desc = i18n(BackendChooseDialog::descriptionTemplate,
-                                    current->name(), current->description(), current->url(), current->version());
+            desc = header + info;
             m_ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
             m_ui.makeDefault->setEnabled(true);
         }
         else
         {
-            desc = i18n(BackendChooseDialog::requirementsTemplate,
-                                    current->name(), reason, current->version());
+            QString reasonMsg = i18n("<br><div><b>Some requirements are not fulfilled: </b>%1</div>", reason);
+            desc = header + reasonMsg + info;
             m_ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
             m_ui.makeDefault->setEnabled(false);
         }
