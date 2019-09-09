@@ -29,7 +29,7 @@ class BackendChooseDialog : public QDialog
 {
   Q_OBJECT
   public:
-    explicit BackendChooseDialog( QWidget* parent);
+    explicit BackendChooseDialog(QWidget* parent);
     ~BackendChooseDialog() override = default;
 
     QString backendName();
@@ -37,9 +37,8 @@ class BackendChooseDialog : public QDialog
   protected Q_SLOTS:
     void onAccept();
     void updateContent();
+
   private:
-    static const char* descriptionTemplate;
-    static const char* requirementsTemplate;
     Ui::BackendChooserBase m_ui;
     QString m_backend;
 };
