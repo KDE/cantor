@@ -1118,6 +1118,7 @@ bool Worksheet::load(const QString& filename )
 void Worksheet::load(QByteArray* data)
 {
     QBuffer buf(data);
+    buf.open(QIODevice::ReadOnly);
     load(&buf);
 }
 
