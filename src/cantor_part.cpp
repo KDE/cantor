@@ -16,55 +16,48 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 20017-2019 Alexander Semke <alexander.semke@web.de>
 */
-
-#include "cantor_part.h"
 
 #include <config-cantor.h>
 
-#include <KLocalizedString>
-#include <QIcon>
-#include <KParts/Event>
-#include <KParts/GUIActivateEvent>
-#include <KPluginFactory>
-#include <KAboutData>
-
-#include <QAction>
-#include <KActionCollection>
-#include <QFileDialog>
-#include <KStandardAction>
-#include <KZip>
-#include <KToggleAction>
-#include <KService>
-#include <KServiceTypeTrader>
-#include <KRun>
-#include <QProgressDialog>
-#include <KMessageBox>
-#include <KNS3/UploadDialog>
-#include <KXMLGUIFactory>
-
-#include <QElapsedTimer>
-#include <QFile>
-#include <QTextStream>
-#include <QTextEdit>
-#include <QTimer>
-#include <QPrinter>
-#include <QPrintPreviewDialog>
-#include <QPrintDialog>
-#include <QVBoxLayout>
-
-#include "worksheet.h"
-#include "worksheetview.h"
-#include "searchbar.h"
-#include "scripteditor/scripteditorwidget.h"
+#include "cantor_part.h"
+#include "lib/assistant.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
-#include "lib/assistant.h"
 #include "lib/panelpluginhandler.h"
 #include "lib/panelplugin.h"
 #include "lib/worksheetaccess.h"
-
+#include "scripteditor/scripteditorwidget.h"
+#include "searchbar.h"
 #include "settings.h"
+#include "worksheet.h"
+#include "worksheetview.h"
+
+#include <KAboutData>
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KNS3/UploadDialog>
+#include <KParts/GUIActivateEvent>
+#include <KPluginFactory>
+#include <KRun>
+#include <KStandardAction>
+#include <KToggleAction>
+#include <KXMLGUIFactory>
+#include <KZip>
+
+#include <QElapsedTimer>
+#include <QFile>
+#include <QFileDialog>
+#include <QIcon>
+#include <QPrinter>
+#include <QPrintPreviewDialog>
+#include <QPrintDialog>
+#include <QProgressDialog>
+#include <QTextStream>
+#include <QTextEdit>
+#include <QTimer>
 
 
 //A concrete implementation of the WorksheetAccesssInterface
@@ -75,7 +68,7 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
     WorksheetAccessInterfaceImpl(QObject* parent, Worksheet* worksheet) :   WorksheetAccessInterface(parent),  m_worksheet(worksheet)
     {
         qDebug()<<"new worksheetaccess interface";
-        connect(worksheet, SIGNAL(modified()), this, SIGNAL(modified()));
+        connect(worksheet, &Worksheet::modified, this, &WorksheetAccessInterfaceImpl::modified);
     }
 
     ~WorksheetAccessInterfaceImpl() override = default;
@@ -111,20 +104,20 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
 
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent),
     m_searchBar(nullptr),
+    m_panelHandler(new Cantor::PanelPluginHandler(this)),
     m_initProgressDlg(nullptr),
     m_showProgressDlg(true),
     m_showBackendHelp(nullptr),
     m_statusBarBlocked(false),
     m_sessionStatusCounter(0)
 {
-    m_panelHandler=new Cantor::PanelPluginHandler(this);
-    connect(m_panelHandler, SIGNAL(pluginsChanged()), this, SLOT(pluginsChanged()));
+    connect(m_panelHandler, &Cantor::PanelPluginHandler::pluginsChanged, this, &CantorPart::pluginsChanged);
 
     QString backendName;
     if(args.isEmpty())
-        backendName=QLatin1String("null");
+        backendName = QLatin1String("null");
     else
-        backendName=args.first().toString();
+        backendName = args.first().toString();
 
     for (const QVariant& arg : args)
     {
@@ -135,22 +128,18 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
         }
     }
 
-    Cantor::Backend* b=Cantor::Backend::getBackend(backendName);
+    Cantor::Backend* b = Cantor::Backend::getBackend(backendName);
     qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
-
-
-    auto* collection = actionCollection();
 
     //central widget
     QWidget* widget = new QWidget(parentWidget);
     QVBoxLayout* layout = new QVBoxLayout(widget);
-    m_worksheet=new Worksheet(b, widget);
-    m_worksheetview=new WorksheetView(m_worksheet, widget);
+    m_worksheet = new Worksheet(b, widget);
+    m_worksheetview = new WorksheetView(m_worksheet, widget);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
-    connect(m_worksheet, SIGNAL(modified()), this, SLOT(setModified()));
-    connect(m_worksheet, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
-    connect(m_worksheet, SIGNAL(loaded()), this, SLOT(initialized()));
-    connect(collection, SIGNAL(inserted(QAction*)), m_worksheet, SLOT(registerShortcut(QAction*)));
+    connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
+    connect(m_worksheet, &Worksheet::showHelp, this, &CantorPart::showHelp);
+    connect(m_worksheet, &Worksheet::loaded, this, &CantorPart::initialized);
     layout->addWidget(m_worksheetview);
     setWidget(widget);
 
@@ -159,6 +148,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     Q_UNUSED(iface);
 
     //initialize actions
+    auto* collection = actionCollection();
+    connect(collection, &KActionCollection::inserted, m_worksheet, &Worksheet::registerShortcut);
     m_worksheet->createActions(collection);
 
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), collection);
@@ -168,30 +159,30 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     QAction* savePlain = new QAction(i18n("Save Plain Text"), collection);
     collection->addAction(QLatin1String("file_save_plain"), savePlain);
     savePlain->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
-    connect(savePlain, SIGNAL(triggered()), this, SLOT(fileSavePlain()));
+    connect(savePlain, &QAction::triggered, this, &CantorPart::fileSavePlain);
 
     QAction* undo = KStandardAction::undo(m_worksheet, SIGNAL(undo()), collection);
     undo->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(undoAvailable(bool)), undo, SLOT(setEnabled(bool)));
+    connect(m_worksheet, &Worksheet::undoAvailable, undo, &QAction::setEnabled);
     m_editActions.push_back(undo);
 
     QAction* redo = KStandardAction::redo(m_worksheet, SIGNAL(redo()), collection);
     redo->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(redoAvailable(bool)), redo, SLOT(setEnabled(bool)));
+    connect(m_worksheet, &Worksheet::redoAvailable, redo, &QAction::setEnabled);
     m_editActions.push_back(redo);
 
     QAction* cut = KStandardAction::cut(m_worksheet, SIGNAL(cut()), collection);
     cut->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(cutAvailable(bool)), cut, SLOT(setEnabled(bool)));
+    connect(m_worksheet, &Worksheet::cutAvailable, cut, &QAction::setEnabled);
     m_editActions.push_back(cut);
 
     QAction* copy = KStandardAction::copy(m_worksheet, SIGNAL(copy()), collection);
     copy->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(copyAvailable(bool)), copy, SLOT(setEnabled(bool)));
+    connect(m_worksheet, &Worksheet::copyAvailable, copy, &QAction::setEnabled);
 
     QAction* paste = KStandardAction::paste(m_worksheet, SLOT(paste()), collection);
     paste->setPriority(QAction::LowPriority);
-    connect(m_worksheet, SIGNAL(pasteAvailable(bool)), paste, SLOT(setEnabled(bool)));
+    connect(m_worksheet, &Worksheet::pasteAvailable, paste, &QAction::setEnabled);
     m_editActions.push_back(paste);
 
     QAction* find = KStandardAction::find(this, SLOT(showSearchBar()), collection);
@@ -210,7 +201,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     QAction* latexExport = new QAction(i18n("Export to LaTeX"), collection);
     collection->addAction(QLatin1String("file_export_latex"), latexExport);
     latexExport->setIcon(QIcon::fromTheme(QLatin1String("document-export")));
-    connect(latexExport, SIGNAL(triggered()), this, SLOT(exportToLatex()));
+    connect(latexExport, &QAction::triggered, this, &CantorPart::exportToLatex);
 
     QAction* print = KStandardAction::print(this, SLOT(print()), collection);
     print->setPriority(QAction::LowPriority);
@@ -226,7 +217,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
     m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
     collection->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
-    connect(m_evaluate, SIGNAL(triggered()), this, SLOT(evaluateOrInterrupt()));
+    connect(m_evaluate, &QAction::triggered, this, &CantorPart::evaluateOrInterrupt);
     m_editActions.push_back(m_evaluate);
 
     m_typeset = new KToggleAction(i18n("Typeset using LaTeX"), collection);
@@ -234,49 +225,49 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     // Disable until login, because we use session command for this action
     m_typeset->setEnabled(false);
     collection->addAction(QLatin1String("enable_typesetting"), m_typeset);
-    connect(m_typeset, SIGNAL(toggled(bool)), this, SLOT(enableTypesetting(bool)));
+    connect(m_typeset, &KToggleAction::toggled, this, &CantorPart::enableTypesetting);
     if (!Cantor::LatexRenderer::isLatexAvailable())
         m_typeset->setVisible(false);
 
     m_highlight = new KToggleAction(i18n("Syntax Highlighting"), collection);
     m_highlight->setChecked(Settings::self()->highlightDefault());
     collection->addAction(QLatin1String("enable_highlighting"), m_highlight);
-    connect(m_highlight, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableHighlighting(bool)));
+    connect(m_highlight, &KToggleAction::toggled, m_worksheet, &Worksheet::enableHighlighting);
 
     m_completion = new KToggleAction(i18n("Completion"), collection);
     m_completion->setChecked(Settings::self()->completionDefault());
     collection->addAction(QLatin1String("enable_completion"), m_completion);
-    connect(m_completion, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableCompletion(bool)));
+    connect(m_completion, &KToggleAction::toggled, m_worksheet, &Worksheet::enableCompletion);
 
     m_exprNumbering = new KToggleAction(i18n("Line Numbers"), collection);
     m_exprNumbering->setChecked(Settings::self()->expressionNumberingDefault());
     collection->addAction(QLatin1String("enable_expression_numbers"), m_exprNumbering);
-    connect(m_exprNumbering, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableExpressionNumbering(bool)));
+    connect(m_exprNumbering, &KToggleAction::toggled, m_worksheet, &Worksheet::enableExpressionNumbering);
 
     m_animateWorksheet = new KToggleAction(i18n("Animate Worksheet"), collection);
     m_animateWorksheet->setChecked(Settings::self()->animationDefault());
     collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
-    connect(m_animateWorksheet, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableAnimations(bool)));
+    connect(m_animateWorksheet, &KToggleAction::toggled, m_worksheet, &Worksheet::enableAnimations);
 
     if (MathRenderer::mathRenderAvailable())
     {
         m_embeddedMath= new KToggleAction(i18n("Embedded Math"), collection);
         m_embeddedMath->setChecked(Settings::self()->embeddedMathDefault());
         collection->addAction(QLatin1String("enable_embedded_math"), m_embeddedMath);
-        connect(m_embeddedMath, SIGNAL(toggled(bool)), m_worksheet, SLOT(enableEmbeddedMath(bool)));
+        connect(m_embeddedMath, &KToggleAction::toggled, m_worksheet, &Worksheet::enableEmbeddedMath);
     }
 
     m_restart = new QAction(i18n("Restart Backend"), collection);
     collection->addAction(QLatin1String("restart_backend"), m_restart);
     m_restart->setIcon(QIcon::fromTheme(QLatin1String("system-reboot")));
-    connect(m_restart, SIGNAL(triggered()), this, SLOT(restartBackend()));
+    connect(m_restart, &QAction::triggered, this, &CantorPart::restartBackend);
     m_restart->setEnabled(false); // No need show restart button before login
     m_editActions.push_back(m_restart);
 
     QAction* evaluateCurrent = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), collection);
     collection->addAction(QLatin1String("evaluate_current"),  evaluateCurrent);
     collection->setDefaultShortcut(evaluateCurrent, Qt::SHIFT + Qt::Key_Return);
-    connect(evaluateCurrent, SIGNAL(triggered()), m_worksheet, SLOT(evaluateCurrentEntry()));
+    connect(evaluateCurrent, &QAction::triggered, m_worksheet, &Worksheet::evaluateCurrentEntry);
     m_editActions.push_back(evaluateCurrent);
 
     QAction* insertCommandEntry = new QAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Insert Command Entry"), collection);
@@ -317,13 +308,13 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     QAction* removeCurrent = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove current Entry"), collection);
     collection->addAction(QLatin1String("remove_current"), removeCurrent);
     collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);
-    connect(removeCurrent, SIGNAL(triggered()), m_worksheet, SLOT(removeCurrentEntry()));
+    connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
     m_showBackendHelp = new QAction(i18n("Show %1 Help", b->name()) , collection);
     m_showBackendHelp->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
     collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
-    connect(m_showBackendHelp, SIGNAL(triggered()), this, SLOT(showBackendHelp()));
+    connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
 
     // Disabled, because uploading to kde store from program don't work
     // See https://phabricator.kde.org/T9980 for details
@@ -332,13 +323,13 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     QAction* publishWorksheet = new QAction(i18n("Publish Worksheet"), collection);
     publishWorksheet->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
     collection->addAction(QLatin1String("file_publish_worksheet"), publishWorksheet);
-    connect(publishWorksheet, SIGNAL(triggered()), this, SLOT(publishWorksheet()));
+    connect(publishWorksheet, &QAction::triggered, this, SLOT(publishWorksheet()));
     */
 
     KToggleAction* showEditor = new KToggleAction(i18n("Show Script Editor"), collection);
     showEditor->setChecked(false);
     collection->addAction(QLatin1String("show_editor"), showEditor);
-    connect(showEditor, SIGNAL(toggled(bool)), this, SLOT(showScriptEditor(bool)));
+    connect(showEditor, &KToggleAction::toggled, this, &CantorPart::showScriptEditor);
     showEditor->setEnabled(b->extensions().contains(QLatin1String("ScriptExtension")));
 
     QAction* showCompletion = new QAction(i18n("Show Completion"), collection);
@@ -425,7 +416,7 @@ KAboutData& CantorPart::createAboutData()
 bool CantorPart::openFile()
 {
     //don't crash if for some reason the worksheet is invalid
-    if(m_worksheet==nullptr)
+    if(!m_worksheet)
     {
         qWarning()<<"trying to open in an invalid cantor part";
         return false;
@@ -474,12 +465,12 @@ void CantorPart::fileSaveAs()
     if (!m_worksheet->isReadOnly())
     {
         //if the backend supports scripts, also append their scriptFile endings to the filter
-        Cantor::Backend * const backend=m_worksheet->session()->backend();
+        auto* const backend = m_worksheet->session()->backend();
         if (backend->extensions().contains(QLatin1String("ScriptExtension")))
         {
-            Cantor::ScriptExtension* e=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
+            auto* e = dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
             if (e)
-                filter+=QLatin1String(";;")+e->scriptFileFilter();
+                filter += QLatin1String(";;") + e->scriptFileFilter();
         }
     }
 
@@ -487,7 +478,6 @@ void CantorPart::fileSaveAs()
     QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Save as"), QString(), filter, &selectedFilter);
     if (file_name.isEmpty())
         return;
-
 
     static const QString jupyterExtension = QLatin1String(".ipynb");
     static const QString cantorExtension = QLatin1String(".cws");
@@ -541,11 +531,11 @@ void CantorPart::exportToLatex()
     QString file_name = QFileDialog::getSaveFileName(widget(), i18n("Export to LaTeX"), QString(), QString());
 
     if (file_name.isEmpty() == false)
-        {
+    {
         if (!file_name.endsWith(QLatin1String(".tex")))
             file_name += QLatin1String(".tex");
         m_worksheet->saveLatex(file_name);
-        }
+    }
 }
 
 void CantorPart::guiActivateEvent( KParts::GUIActivateEvent * event )
@@ -599,7 +589,7 @@ void CantorPart::restartBackend()
         );
         Settings::self()->save();
 
-        restart = rc == KMessageBox::ButtonCode::Yes;
+        restart = (rc == KMessageBox::ButtonCode::Yes);
     }
     else
     {
@@ -617,7 +607,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 {
     qDebug()<<"wsStatusChange"<<status;
     unsigned int count = ++m_sessionStatusCounter;
-    if(status==Cantor::Session::Running)
+    if(status == Cantor::Session::Running)
     {
         // Useless add a interrupt action without delay, because user physically can't interrupt fast commands
         QTimer::singleShot(100, this, [this, count] () {
@@ -629,7 +619,7 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
                 setStatusMessage(i18n("Calculating..."));
             }
         });
-    }else if (status==Cantor::Session::Done)
+    }else if (status == Cantor::Session::Done)
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
         m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);
@@ -650,10 +640,10 @@ void CantorPart::initialized()
 {
     if (!m_worksheet->isReadOnly())
     {
-        connect(m_worksheet->session(), SIGNAL(statusChanged(Cantor::Session::Status)), this, SLOT(worksheetStatusChanged(Cantor::Session::Status)));
-        connect(m_worksheet->session(), SIGNAL(loginStarted()),this, SLOT(worksheetSessionLoginStarted()));
-        connect(m_worksheet->session(), SIGNAL(loginDone()),this, SLOT(worksheetSessionLoginDone()));
-        connect(m_worksheet->session(), SIGNAL(error(QString)), this, SLOT(showSessionError(QString)));
+        connect(m_worksheet->session(), &Cantor::Session::statusChanged, this, &CantorPart::worksheetStatusChanged);
+        connect(m_worksheet->session(), &Cantor::Session::loginStarted,this, &CantorPart::worksheetSessionLoginStarted);
+        connect(m_worksheet->session(), &Cantor::Session::loginDone,this, &CantorPart::worksheetSessionLoginDone);
+        connect(m_worksheet->session(), &Cantor::Session::error, this, &CantorPart::showSessionError);
 
         loadAssistants();
         m_panelHandler->setSession(m_worksheet->session());
@@ -710,7 +700,7 @@ void CantorPart::enableTypesetting(bool enable)
 void CantorPart::showBackendHelp()
 {
     qDebug()<<"showing backends help";
-    Cantor::Backend* backend=m_worksheet->session()->backend();
+    auto* backend = m_worksheet->session()->backend();
     QUrl url = backend->helpUrl();
     qDebug()<<"launching url "<<url;
     new KRun(url, widget());
@@ -723,23 +713,23 @@ Worksheet* CantorPart::worksheet()
 
 void CantorPart::updateCaption()
 {
-    QString filename=url().fileName();
+    QString filename = url().fileName();
     //strip away the extension
     filename=filename.left(filename.lastIndexOf(QLatin1Char('.')));
 
     if (filename.isEmpty())
-        filename=i18n("Unnamed");
+        filename = i18n("Unnamed");
 
     if (!m_worksheet->isReadOnly())
         emit setCaption(filename, QIcon::fromTheme(m_worksheet->session()->backend()->icon()));
     else
-        emit setCaption(filename+QLatin1Char(' ')+i18n("[read-only]"), QIcon());
+        emit setCaption(filename+QLatin1Char(' ') + i18n("[read-only]"), QIcon());
 }
 
 void CantorPart::pluginsChanged()
 {
     for (auto* plugin : m_panelHandler->plugins())
-        connect(plugin, SIGNAL(requestRunCommand(QString)), this, SLOT(runCommand(QString)));
+        connect(plugin, &Cantor::PanelPlugin::requestRunCommand, this, &CantorPart::runCommand);
 }
 
 void CantorPart::loadAssistants()
@@ -760,7 +750,7 @@ void CantorPart::loadAssistants()
         assistants = assistantDir.entryList();
 
         for (const QString& assistant : assistants) {
-            if (assistant==QLatin1String(".") || assistant==QLatin1String(".."))
+            if (assistant == QLatin1String(".") || assistant == QLatin1String(".."))
                 continue;
 
             loader.setFileName(dir + QDir::separator() + assistant);
@@ -771,9 +761,8 @@ void CantorPart::loadAssistants()
             }
 
             KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
-            Cantor::Assistant* plugin = factory->create<Cantor::Assistant>(this);
-
-            Cantor::Backend* backend=worksheet()->session()->backend();
+            auto* plugin = factory->create<Cantor::Assistant>(this);
+            auto* backend=worksheet()->session()->backend();
 
             KPluginMetaData info(loader);
             plugin->setPluginInfo(info);
@@ -781,13 +770,13 @@ void CantorPart::loadAssistants()
 
             bool supported=true;
             for (const QString& req : plugin->requiredExtensions())
-                supported=supported && backend->extensions().contains(req);
+                supported = supported && backend->extensions().contains(req);
 
             if(supported)
             {
                 qDebug() << "plugin " << info.name() << " is supported by " << backend->name() << ", requires extensions " << plugin->requiredExtensions();
                 plugin->initActions();
-                connect(plugin, SIGNAL(requested()), this, SLOT(runAssistant()));
+                connect(plugin, &Cantor::Assistant::requested, this, &CantorPart::runAssistant);
             }else
             {
                 qDebug() << "plugin " << info.name() << " is not supported by "<<backend->name();
@@ -800,8 +789,8 @@ void CantorPart::loadAssistants()
 
 void CantorPart::runAssistant()
 {
-    Cantor::Assistant* a=qobject_cast<Cantor::Assistant*>(sender());
-    QStringList cmds=a->run(widget());
+    Cantor::Assistant* a = qobject_cast<Cantor::Assistant*>(sender());
+    QStringList cmds = a->run(widget());
     qDebug()<<cmds;
     if(!cmds.isEmpty())
         runCommand(cmds.join(QLatin1String("\n")));
@@ -817,8 +806,7 @@ void CantorPart::showSearchBar()
     if (!m_searchBar) {
         m_searchBar = new SearchBar(widget(), m_worksheet);
         widget()->layout()->addWidget(m_searchBar);
-        connect(m_searchBar, SIGNAL(destroyed(QObject*)),
-                this, SLOT(searchBarDeleted()));
+        connect(m_searchBar, &SearchBar::destroyed, this, &CantorPart::searchBarDeleted);
     }
 
     m_findNext->setEnabled(true);
@@ -833,8 +821,7 @@ void CantorPart::showExtendedSearchBar()
     if (!m_searchBar) {
         m_searchBar = new SearchBar(widget(), m_worksheet);
         widget()->layout()->addWidget(m_searchBar);
-        connect(m_searchBar, SIGNAL(destroyed(QObject*)),
-                this, SLOT(searchBarDeleted()));
+        connect(m_searchBar, &SearchBar::destroyed, this, &CantorPart::searchBarDeleted);
     }
 
     m_findNext->setEnabled(true);
@@ -865,7 +852,7 @@ void CantorPart::searchBarDeleted()
 
 void CantorPart::adjustGuiToSession()
 {
-    Cantor::Backend::Capabilities capabilities = m_worksheet->session()->backend()->capabilities();
+    auto capabilities = m_worksheet->session()->backend()->capabilities();
 #ifdef WITH_EPS
     if (Cantor::LatexRenderer::isLatexAvailable())
         m_typeset->setVisible(capabilities.testFlag(Cantor::Backend::LaTexOutput));
@@ -922,8 +909,8 @@ void CantorPart::print()
 
 void CantorPart::printPreview()
 {
-    QPrintPreviewDialog *dialog = new QPrintPreviewDialog(widget());
-    connect(dialog, SIGNAL(paintRequested(QPrinter*)), m_worksheet, SLOT(print(QPrinter*)));
+    QPrintPreviewDialog* dialog = new QPrintPreviewDialog(widget());
+    connect(dialog, &QPrintPreviewDialog::paintRequested, m_worksheet, &Worksheet::print);
     Q_UNUSED(dialog->exec());
 }
 
@@ -935,14 +922,15 @@ void CantorPart::showScriptEditor(bool show)
         {
             return;
         }
-        Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(m_worksheet->session()->backend()->extension(QLatin1String("ScriptExtension")));
+
+        auto* scriptE = dynamic_cast<Cantor::ScriptExtension*>(m_worksheet->session()->backend()->extension(QLatin1String("ScriptExtension")));
         if (!scriptE)
         {
             return;
         }
-        m_scriptEditor=new ScriptEditorWidget(scriptE->scriptFileFilter(), scriptE->highlightingMode(), widget()->window());
-        connect(m_scriptEditor, SIGNAL(runScript(QString)), this, SLOT(runScript(QString)));
-        connect(m_scriptEditor, SIGNAL(destroyed()), this, SLOT(scriptEditorClosed()));
+        m_scriptEditor = new ScriptEditorWidget(scriptE->scriptFileFilter(), scriptE->highlightingMode(), widget()->window());
+        connect(m_scriptEditor, &ScriptEditorWidget::runScript, this, &CantorPart::runScript);
+        connect(m_scriptEditor, &ScriptEditorWidget::destroyed, this, &CantorPart::scriptEditorClosed);
         m_scriptEditor->show();
     }else
     {
@@ -961,14 +949,14 @@ void CantorPart::scriptEditorClosed()
 
 void CantorPart::runScript(const QString& file)
 {
-    Cantor::Backend* backend=m_worksheet->session()->backend();
+    auto* backend = m_worksheet->session()->backend();
     if(!backend->extensions().contains(QLatin1String("ScriptExtension")))
     {
         KMessageBox::error(widget(), i18n("This backend does not support scripts."), i18n("Error - Cantor"));
         return;
     }
 
-    Cantor::ScriptExtension* scriptE=dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
+    auto* scriptE = dynamic_cast<Cantor::ScriptExtension*>(backend->extension(QLatin1String("ScriptExtension")));
     if (scriptE)
         m_worksheet->appendCommandEntry(scriptE->runExternalScript(file));
 }
@@ -980,7 +968,7 @@ void CantorPart::blockStatusBar()
 
 void CantorPart::unblockStatusBar()
 {
-    m_statusBarBlocked=false;
+    m_statusBarBlocked = false;
     if(!m_cachedStatusMessage.isNull())
         setStatusMessage(m_cachedStatusMessage);
     m_cachedStatusMessage.clear();
@@ -991,7 +979,7 @@ void CantorPart::setStatusMessage(const QString& message)
     if(!m_statusBarBlocked)
         emit setStatusBarText(message);
     else
-        m_cachedStatusMessage=message;
+        m_cachedStatusMessage = message;
 }
 
 void CantorPart::showImportantStatusMessage(const QString& message)
