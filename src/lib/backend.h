@@ -143,7 +143,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     /**
      * Returns an Url pointing to the Help of the Backend
      * The method should be overwritten by all Backends(who have an online help)
-     * You should make the returned Url translateble, e.g. by doing something like:
+     * You should make the returned Url translatable, e.g. by doing something like:
      * return i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
      *   "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
      * @return Url of the help
@@ -152,7 +152,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
      * @return @c true, if the enabled flag is set to true, and the requirements are fulfilled
-     * @return @c false, if the backend was purposly disabled, or requirements are missing
+     * @return @c false, if the backend was purposely disabled, or requirements are missing
      * @see requirementsFullfilled()
      */
     bool isEnabled() const;

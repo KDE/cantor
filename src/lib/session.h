@@ -235,7 +235,7 @@ class CANTOR_EXPORT Session : public QObject
     virtual void finishFirstExpression(bool setDoneAfterUpdate = false);
 
     /**
-     * Starts variable update immideatly, useful for subclasses, which run internal command
+     * Starts variable update immedeatly, useful for subclasses, which run internal command
      * which could change variables listen
      */
     virtual void updateVariables();

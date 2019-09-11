@@ -59,7 +59,7 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     connect(m_textItem, &WorksheetTextItem::doubleClick, this, &TextEntry::resolveImagesAtCursor);
 
     // Init raw cell target menus
-    // This used only for raw cells, but removing and creating this on convertation more complex
+    // This used only for raw cells, but removing and creating this on conversion more complex
     // that just create them always
     m_targetActionGroup= new QActionGroup(this);
 	m_targetActionGroup->setExclusive(true);
@@ -223,7 +223,7 @@ QJsonValue TextEntry::toJupyterJson()
 {
     // Simple logic:
     // If convertTarget is empty, it's user maded cell and we convert it to a markdown
-    // If convertTarget setted, it's raw cell from Jupyter and we convert it to Jupyter cell
+    // If convertTarget set, it's raw cell from Jupyter and we convert it to Jupyter cell
 
     QTextDocument* doc = m_textItem->document()->clone();
     QTextCursor cursor = doc->find(QString(QChar::ObjectReplacementCharacter));

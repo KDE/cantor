@@ -37,7 +37,7 @@ private Q_SLOTS:
     void testSimpleCommand();
     //tests a command, containing more than 1 line
     void testMultilineCommand();
-    //tests if the command queue works correcly
+    //tests if the command queue works correctly
     void testCommandQueue();
 
     void testVariableDefinition();

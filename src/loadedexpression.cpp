@@ -260,7 +260,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
             }
             else if (mainKey == Cantor::JupyterUtils::latexMime)
             {
-                // Some latex results contains alreadey rendered images, so use them, if presents
+                // Some latex results contains already rendered images, so use them, if presents
                 const QImage& image = Cantor::JupyterUtils::loadImage(data, Cantor::JupyterUtils::pngMime);
 
                 QString latex = Cantor::JupyterUtils::fromJupyterMultiline(data.value(mainKey));

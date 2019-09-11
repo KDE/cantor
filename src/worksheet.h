@@ -113,7 +113,7 @@ class Worksheet : public QGraphicsScene
      * 1. WorksheetView -> Worksheet -> subelemenets (ex. entries) about view width
      *   View width used by some sub elements for better visual appearance (for example, entries with text often are fitted to width of view).
      * 2. Subelements -> Worksheet
-     *   Sub elements notify Worksheet about their needed widths and worksheet, used this information, set propper scene size.
+     *   Sub elements notify Worksheet about their needed widths and worksheet, used this information, set proper scene size.
      */
     /// First information stream
     void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);

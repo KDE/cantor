@@ -278,7 +278,7 @@ void CantorShell::addWorksheet()
         int backendListSize = 0;
         foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
         {
-            if(!b->requirementsFullfilled()) //It's disabled because of misssing dependencies, not because of some other reason(like eg. nullbackend)
+            if(!b->requirementsFullfilled()) //It's disabled because of missing dependencies, not because of some other reason(like eg. nullbackend)
             {
                 backendList+=QString::fromLatin1("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
                 ++backendListSize;

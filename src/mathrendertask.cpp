@@ -165,7 +165,7 @@ void MathRenderTask::run()
         result->errorMessage = renderErrorText;
 
         finalize(result);
-        texFile.setAutoRemove(false); //Usefull for debug
+        texFile.setAutoRemove(false); //Useful for debug
         return;
     }
 

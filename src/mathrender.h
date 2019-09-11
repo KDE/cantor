@@ -27,7 +27,7 @@
 #include "lib/latexrenderer.h"
 
 /**
- * Special class for renderning embedded math in MarkdownEntry and TextEntry
+ * Special class for rendering embedded math in MarkdownEntry and TextEntry
  * Instead of LatexRenderer+EpsRenderer provide all needed functianality in one class
  * Even if we add some speed optimization in future, API of the class probably won't change
  */

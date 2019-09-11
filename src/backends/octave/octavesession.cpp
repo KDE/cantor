@@ -286,7 +286,7 @@ void OctaveSession::readOutput()
             // octave print subprompt and waits input finish.
             m_syntaxError = true;
             qDebug() << "subprompt catch";
-            m_process->write(")]'\"\n"); // forse exit from subprompt
+            m_process->write(")]'\"\n"); // force exit from subprompt
             m_output.clear();
         }
         else

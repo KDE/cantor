@@ -1209,7 +1209,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     delete m_session;
     m_session=nullptr;
 
-    //file can only be loaded in a worksheet that was not eidted/modified yet (s.a. CantorShell::load())
+    //file can only be loaded in a worksheet that was not edited/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
     if (m_firstEntry) {
         delete m_firstEntry;
@@ -1286,7 +1286,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     int nbformatMajor, nbformatMinor;
     if (!Cantor::JupyterUtils::isJupyterNotebook(doc))
     {
-        // Two possiblities: old jupyter notebook (version <= 4.0.0 and a another scheme) or just not a notebook at all
+        // Two possibilities: old jupyter notebook (version <= 4.0.0 and a another scheme) or just not a notebook at all
         std::tie(nbformatMajor, nbformatMinor) = Cantor::JupyterUtils::getNbformatVersion(doc.object());
         if (nbformatMajor == 0 && nbformatMinor == 0)
         {

@@ -401,7 +401,7 @@ void MaximaExpression::parseResult(const QString& resultContent)
     }
     else
     {
-        //no latex output is availabe, the actual result is part of the textContent string
+        //no latex output is available, the actual result is part of the textContent string
         result = new Cantor::TextResult(textContent);
     }
 

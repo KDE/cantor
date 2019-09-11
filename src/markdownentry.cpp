@@ -589,7 +589,7 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
     {
         m_textItem->document()->addResource(QTextDocument::ImageResource, internal, QVariant(image));
 
-        // Dont add new line for $$...$$ on document's begin and end
+        // Don't add new line for $$...$$ on document's begin and end
         // And if we in block, which haven't non-space characters except out math expression
         // In another sitation, Cantor will move rendered image into another QTextBlock
         QTextCursor prevSymCursor = m_textItem->document()->find(QRegExp(QLatin1String("[^\\s]")), cursor, QTextDocument::FindBackward);
