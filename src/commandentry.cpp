@@ -17,7 +17,7 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    Copyright (C) 2018 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2018-2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "commandentry.h"
@@ -32,7 +32,7 @@
 #include "lib/syntaxhelpobject.h"
 #include "lib/session.h"
 
-#include <QApplication>
+#include <QGuiApplication>
 #include <QDebug>
 #include <QDesktopWidget>
 #include <QFontDialog>
@@ -40,10 +40,8 @@
 #include <QTimer>
 #include <QToolTip>
 #include <QPropertyAnimation>
-#include <QGraphicsWidget>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QBuffer>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -83,7 +81,6 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_textColorMenu(nullptr),
     m_fontMenu(nullptr)
 {
-
     m_promptItem->setPlainText(Prompt);
     m_promptItem->setItemDragable(true);
     m_commandItem->enableCompletion(true);
@@ -101,12 +98,12 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
     connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);
-    connect(m_commandItem, SIGNAL(execute()), this, SLOT(evaluate()));
+    connect(m_commandItem, &WorksheetTextItem::execute, this, [=]() { evaluate();} );
     connect(m_commandItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
     connect(m_commandItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
-    connect(m_commandItem, SIGNAL(receivedFocus(WorksheetTextItem*)), worksheet, SLOT(highlightItem(WorksheetTextItem*)));
+    connect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet, &Worksheet::highlightItem);
     connect(m_promptItem, &WorksheetTextItem::drag, this, &CommandEntry::startDrag);
-    connect(worksheet, SIGNAL(updatePrompt()), this, SLOT(updatePrompt()));
+    connect(worksheet, &Worksheet::updatePrompt, this, [=]() { updatePrompt();} );
 }
 
 CommandEntry::~CommandEntry()
@@ -204,17 +201,17 @@ void CommandEntry::initMenus() {
 }
 
 void CommandEntry::backgroundColorChanged(QAction* action) {
-	int index = m_backgroundColorActionGroup->actions().indexOf(action);
-	if (index == -1 || index>=colorsCount)
-		index = 0;
+    int index = m_backgroundColorActionGroup->actions().indexOf(action);
+    if (index == -1 || index>=colorsCount)
+        index = 0;
 
     m_commandItem->setBackgroundColor(colors[index]);
 }
 
 void CommandEntry::textColorChanged(QAction* action) {
-	int index = m_textColorActionGroup->actions().indexOf(action);
-	if (index == -1 || index>=colorsCount)
-		index = 0;
+    int index = m_textColorActionGroup->actions().indexOf(action);
+    if (index == -1 || index>=colorsCount)
+        index = 0;
 
     m_commandItem->setDefaultTextColor(colors[index]);
 }
@@ -367,7 +364,7 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
         m_errorItem = nullptr;
     }
 
-    foreach(WorksheetTextItem* item, m_informationItems)
+    for (auto* item : m_informationItems)
     {
         item->deleteLater();
     }
@@ -379,14 +376,14 @@ void CommandEntry::setExpression(Cantor::Expression* expr)
     m_expression = expr;
     m_resultsCollapsed = false;
 
-    connect(expr, SIGNAL(gotResult()), this, SLOT(updateEntry()));
-    connect(expr, SIGNAL(resultsCleared()), this, SLOT(clearResultItems()));
-    connect(expr, SIGNAL(resultRemoved(int)), this, SLOT(removeResultItem(int)));
-    connect(expr, SIGNAL(resultReplaced(int)), this, SLOT(replaceResultItem(int)));
-    connect(expr, SIGNAL(idChanged()), this, SLOT(updatePrompt()));
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionChangedStatus(Cantor::Expression::Status)));
-    connect(expr, SIGNAL(needsAdditionalInformation(QString)), this, SLOT(showAdditionalInformationPrompt(QString)));
-    connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(updatePrompt()));
+    connect(expr, &Cantor::Expression::gotResult, this, &CommandEntry::updateEntry);
+    connect(expr, &Cantor::Expression::resultsCleared, this, &CommandEntry::clearResultItems);
+    connect(expr, &Cantor::Expression::resultRemoved, this, &CommandEntry::removeResultItem);
+    connect(expr, &Cantor::Expression::resultReplaced, this, &CommandEntry::replaceResultItem);
+    connect(expr, &Cantor::Expression::idChanged, this,  [=]() { updatePrompt();} );
+    connect(expr, &Cantor::Expression::statusChanged, this, &CommandEntry::expressionChangedStatus);
+    connect(expr, &Cantor::Expression::needsAdditionalInformation, this, &CommandEntry::showAdditionalInformationPrompt);
+    connect(expr, &Cantor::Expression::statusChanged, this,  [=]() { updatePrompt();} );
 
     updatePrompt();
 
@@ -418,7 +415,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
 {
     m_commandItem->setPlainText(content.firstChildElement(QLatin1String("Command")).text());
 
-    LoadedExpression* expr=new LoadedExpression( worksheet()->session() );
+    LoadedExpression* expr = new LoadedExpression( worksheet()->session() );
     expr->loadFromXml(content, file);
 
     //background color
@@ -532,7 +529,7 @@ QJsonValue CommandEntry::toJupyterJson()
             outputs.append(errorOutput);
         }
 
-        for (Cantor::Result * const result: expression()->results())
+        for (auto* result : expression()->results())
         {
             const QJsonValue& resultJson = result->toJupyterJson();
 
@@ -610,7 +607,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
             errorElem.appendChild(doc.createTextNode(errorMessage));
             exprElem.appendChild(errorElem);
         }
-        for (Cantor::Result * const result: expression()->results())
+        for (auto* result : expression()->results())
         {
             const QDomElement& resultElem = result->toXml(doc);
             exprElem.appendChild(resultElem);
@@ -697,7 +694,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
 
     if(cmd.isEmpty()) {
         removeResults();
-        foreach(WorksheetTextItem* item, m_informationItems) {
+        for (auto* item : m_informationItems) {
             item->deleteLater();
         }
         m_informationItems.clear();
@@ -707,9 +704,8 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
         return false;
     }
 
-    Cantor::Expression* expr;
-    expr = worksheet()->session()->evaluateExpression(cmd);
-    connect(expr, SIGNAL(gotResult()), worksheet(), SLOT(gotResult()));
+    Cantor::Expression* expr = worksheet()->session()->evaluateExpression(cmd);
+    connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(); });
 
     setExpression(expr);
 
@@ -874,8 +870,9 @@ void CommandEntry::showCompletions()
             m_completionBox->setCurrentItem(items.first());
         m_completionBox->setTabHandling(false);
         m_completionBox->setActivateOnSelect(true);
+
         connect(m_completionBox.data(), &KCompletionBox::activated, this, &CommandEntry::applySelectedCompletion);
-        connect(m_commandItem->document(), SIGNAL(contentsChanged()), this, SLOT(completedLineChanged()));
+        connect(m_commandItem->document(), &QTextDocument::contentsChanged, this, &CommandEntry::completedLineChanged);
         connect(m_completionObject, &Cantor::CompletionObject::done, this, &CommandEntry::updateCompletions);
 
         m_commandItem->activateCompletion(true);
@@ -993,9 +990,9 @@ void CommandEntry::showSyntaxHelp()
     QString msg = m_syntaxHelpObject->toHtml();
     const QPointF cursorPos = m_commandItem->cursorPosition();
 
-    // QToolTip don't support &nbsp;, but support multiple spaces
+    // QToolTip doesn't support &nbsp;, but support multiple spaces
     msg.replace(QLatin1String("&nbsp;"), QLatin1String(" "));
-    // Don't support &quot too;
+    // Doesn't support &quot, neither;
     msg.replace(QLatin1String("&quot;"), QLatin1String("\""));
 
     QToolTip::showText(toGlobalPosition(cursorPos), msg, worksheetView());
@@ -1100,9 +1097,9 @@ void CommandEntry::removeContextHelp()
 
 void CommandEntry::updatePrompt(const QString& postfix)
 {
-    KColorScheme color = KColorScheme( QPalette::Normal, KColorScheme::View);
+    KColorScheme color = KColorScheme(QPalette::Normal, KColorScheme::View);
 
-    m_promptItem->setPlainText(QLatin1String(""));
+    m_promptItem->setPlainText(QString());
     QTextCursor c = m_promptItem->textCursor();
     QTextCharFormat cformat = c.charFormat();
 
@@ -1333,5 +1330,3 @@ void CommandEntry::setMidPrompt()
 {
     updatePrompt(MidPrompt);
 }
-
-
