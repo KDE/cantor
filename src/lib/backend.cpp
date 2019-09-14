@@ -71,19 +71,9 @@ QString Backend::icon() const
     return d->icon;
 }
 
-QString Backend::version() const
-{
-    return QLatin1String();
-}
-
 QString Backend::url() const
 {
     return d->url;
-}
-
-QUrl Backend::helpUrl() const
-{
-    return QUrl();
 }
 
 bool Backend::isEnabled() const
@@ -168,17 +158,6 @@ Backend* Backend::getBackend(const QString& name)
     return nullptr;
 }
 
-QWidget* Backend::settingsWidget(QWidget* parent) const
-{
-    Q_UNUSED(parent)
-    return nullptr;
-}
-
-KConfigSkeleton* Backend::config() const
-{
-    return nullptr;
-}
-
 QStringList Backend::extensions() const
 {
     QList<Extension*> extensions = findChildren<Extension*>(QRegularExpression(QLatin1String(".*Extension")));
@@ -191,12 +170,6 @@ QStringList Backend::extensions() const
 Extension* Backend::extension(const QString& name) const
 {
     return findChild<Extension*>(name);
-}
-
-bool Backend::requirementsFullfilled(QString* const reason) const
-{
-    Q_UNUSED(reason);
-    return true;
 }
 
 bool Backend::checkExecutable(const QString& name, const QString& path, QString* reason)

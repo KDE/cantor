@@ -35,7 +35,7 @@ class Python3Backend : public PythonBackend
     Cantor::Backend::Capabilities capabilities() const override;
     QUrl helpUrl() const override;
     QString description() const override;
-
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
     KConfigSkeleton* config() const override;
 };
 

@@ -83,6 +83,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Destructor. Doesn't anything.
      */
     ~Backend() override;
+
   public:
 
     /**
@@ -103,7 +104,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * @return @c false some requirements are missing. e.g. the maxima executable can not be found
      * @see Capability
     */
-    virtual bool requirementsFullfilled(QString* const reason = nullptr) const;
+    virtual bool requirementsFullfilled(QString* const reason = nullptr) const = 0;
 
     /**
      * Returns a unique string to identify this backend.
@@ -116,7 +117,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Returns the recommended version of the backend supported by Cantor
      * @return the recommended version of the backend
      */
-    virtual QString version() const;
+    virtual QString version() const = 0;
 
     //Stuff extracted from the .desktop file
     /**
@@ -148,7 +149,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      *   "http://docs.kde.org/stable/en/kdeedu/kalgebra/");
      * @return Url of the help
      */
-    virtual QUrl helpUrl() const;
+    virtual QUrl helpUrl() const = 0;
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
      * @return @c true, if the enabled flag is set to true, and the requirements are fulfilled
@@ -172,13 +173,13 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * Returns a Widget for configuring this backend
      * @return Widget for usage in the Settings dialog
      */
-    virtual QWidget* settingsWidget(QWidget* parent) const;
+    virtual QWidget* settingsWidget(QWidget* parent) const = 0;
     /**
      * Returns a KConfig object, containing all the settings,
      * the backend might need
      * @return a KConfigSkeleton object, for configuring this backend
      */
-    virtual KConfigSkeleton* config() const;
+    virtual KConfigSkeleton* config() const = 0;
     /**
      * Returns a list of the names of all the Extensions supported by this backend
      * @return a list of the names of all the Extensions supported by this backend
@@ -190,7 +191,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * if the Backend doesn't have an extension with this name.
      * @return Pointer to the Extension object with the given name
      */
-    Extension * extension(const QString& name) const;
+    Extension* extension(const QString& name) const;
 
     /**
      * Returns a list of the names of all the installed and enabled backends
@@ -215,6 +216,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * In case the requrements are not fullfilled, the reason is written to @c reason.
      */
     static bool checkExecutable(const QString& name, const QString& path, QString* reason);
+
   private:
     BackendPrivate* d;
 };

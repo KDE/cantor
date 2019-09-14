@@ -34,7 +34,11 @@ class NullBackend : public Cantor::Backend
 
     Cantor::Session *createSession() override;
     Cantor::Backend::Capabilities capabilities() const override;
-
+    QWidget* settingsWidget(QWidget* parent) const override;
+    KConfigSkeleton* config() const override;
+    bool requirementsFullfilled(QString* const reason) const override;
+    QUrl helpUrl() const override;
+    QString version() const override;
 };
 
 

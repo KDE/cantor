@@ -82,5 +82,11 @@ KConfigSkeleton* Python3Backend::config() const
     return PythonSettings::self();
 }
 
+bool Python3Backend::requirementsFullfilled(QString* const reason) const
+{
+    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_python3server"));
+    return Cantor::Backend::checkExecutable(QLatin1String("Cantor Python3 Server"), path, reason);
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(python3backend, "python3backend.json", registerPlugin<Python3Backend>();)
 #include "python3backend.moc"

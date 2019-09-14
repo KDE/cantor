@@ -57,5 +57,32 @@ Cantor::Backend::Capabilities NullBackend::capabilities() const
     return Cantor::Backend::Nothing;
 }
 
+QWidget* NullBackend::settingsWidget(QWidget* parent) const
+{
+    Q_UNUSED(parent)
+    return nullptr;
+}
+
+KConfigSkeleton* NullBackend::config() const
+{
+    return nullptr;
+}
+
+QUrl NullBackend::helpUrl() const
+{
+    return QUrl();
+}
+
+QString NullBackend::version() const
+{
+    return QLatin1String();
+}
+
+bool NullBackend::requirementsFullfilled(QString* const reason) const
+{
+    Q_UNUSED(reason);
+    return true;
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(nullbackend, "nullbackend.json", registerPlugin<NullBackend>();)
 #include "nullbackend.moc"

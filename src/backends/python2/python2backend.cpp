@@ -86,5 +86,11 @@ KConfigSkeleton* Python2Backend::config() const
     return PythonSettings::self();
 }
 
+bool Python2Backend::requirementsFullfilled(QString* const reason) const
+{
+    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_python2server"));
+    return Cantor::Backend::checkExecutable(QLatin1String("Cantor Python2 Server"), path, reason);
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(python2backend, "python2backend.json", registerPlugin<Python2Backend>();)
 #include "python2backend.moc"
