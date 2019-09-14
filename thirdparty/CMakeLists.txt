@@ -22,7 +22,7 @@ ExternalProject_Get_Property(discount_project binary_dir)
 add_library(Discount::Lib STATIC IMPORTED)
 set_target_properties(Discount::Lib PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES ${source_dir}
-    IMPORTED_LOCATION ${binary_dir}/libmarkdown.a
+    IMPORTED_LOCATION ${binary_dir}/libmarkdown${CMAKE_STATIC_LIBRARY_SUFFIX}
     POSITION_INDEPENDENT_CODE ON
 )
 add_dependencies(Discount::Lib discount_project-build)
