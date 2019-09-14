@@ -16,25 +16,17 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "rbackend.h"
-
 #include "rsession.h"
 #include "rextensions.h"
 #include "settings.h"
 #include "rsettingswidget.h"
 
-#include <QDebug>
-
-#include "cantor_macros.h"
-#include <QMessageBox>
-
 RBackend::RBackend(QObject* parent,const QList<QVariant>& args) : Cantor::Backend(parent, args)
 {
-    setObjectName(QLatin1String("rbackend"));
-    qDebug()<<"Creating RBackend";
-
     new RScriptExtension(this);
     new RPlotExtension(this);
     new RVariableManagementExtension(this);
@@ -78,17 +70,8 @@ Cantor::Backend::Capabilities RBackend::capabilities() const
 
 bool RBackend::requirementsFullfilled(QString* const reason) const
 {
-    QFileInfo info(QStandardPaths::findExecutable( QLatin1String("cantor_rserver") ) );
-    if (info.isExecutable())
-    {
-        return true;
-    }
-    else
-    {
-        if (reason)
-            *reason = i18n("R backend uses special binary file - cantor_rserver (installed with R backend), which must be executable.");
-        return false;
-    }
+    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_rserver"));
+    return Cantor::Backend::checkExecutable(QLatin1String("Cantor RServer"), path, reason);
 }
 
 QWidget* RBackend::settingsWidget(QWidget* parent) const
@@ -113,7 +96,7 @@ QUrl RBackend::helpUrl() const
 
 QString RBackend::description() const
 {
-    return i18n("R is a language and environment for statistical computing and graphics, similar to the S language and environment. <br/>"\
+    return i18n("<b>R</b> is a language and environment for statistical computing and graphics, similar to the S language and environment. <br/>"\
                 "It provides a wide variety of statistical (linear and nonlinear modelling, "\
                 "classical statistical tests, time-series analysis, classification, clustering, ...) "\
                 "and graphical techniques, and is highly extensible. The S language is often the "\

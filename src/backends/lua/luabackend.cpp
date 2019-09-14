@@ -16,21 +16,17 @@
 
     ---
     Copyright (C) 2014 Lucas Hermann Negri <lucashnegri@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "luabackend.h"
-#include "luasession.h"
 #include "luaextensions.h"
-#include "cantor_macros.h"
-
+#include "luasession.h"
 #include "settings.h"
 #include "ui_settings.h"
 
-#include <QFileInfo>
-
 LuaBackend::LuaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName(QLatin1String("LuaBackend"));
     new LuaScriptExtension(this);
 }
 
@@ -60,23 +56,8 @@ Cantor::Backend::Capabilities LuaBackend::capabilities() const
 
 bool LuaBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& replPath = LuaSettings::self()->path().toLocalFile();
-    if (replPath.isEmpty())
-    {
-        if (reason)
-            *reason = i18n("Lua backend needs installed Lua programming language. The backend often automatically finds needed Lua binary file, but not in this case. Please, go to Cantor settings and set path to Lua executable.");
-        return false;
-    }
-
-    QFileInfo info(replPath);
-    if (info.isExecutable())
-        return true;
-    else
-    {
-        if (reason)
-            *reason = i18n("In Lua backend settings a path to Lua binary file set as %1, but this file not executable. Are you sure, that this is correct path to Lua? Change this path in Cantor settings, if no.").arg(replPath);
-        return false;
-    }
+    const QString& path = LuaSettings::self()->path().toLocalFile();
+    return Cantor::Backend::checkExecutable(QLatin1String("Lua"), path, reason);
 }
 
 QUrl LuaBackend::helpUrl() const
@@ -86,9 +67,8 @@ QUrl LuaBackend::helpUrl() const
 
 QString LuaBackend::description() const
 {
-    return i18n("<p> Lua is a fast and lightweight scripting language, with a simple procedural syntax." \
-                " There are several libraries in Lua aimed at math and science.</p>"
-                "<p>This backend supports luajit 2.</p>");
+    return i18n("<b>Lua</b> is a fast and lightweight scripting language, with a simple procedural syntax." \
+                " There are several libraries in Lua aimed at math and science.");
 }
 
 QWidget* LuaBackend::settingsWidget(QWidget* parent) const

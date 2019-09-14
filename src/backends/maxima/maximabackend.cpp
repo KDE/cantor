@@ -16,25 +16,17 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "maximabackend.h"
-
+#include "maximaextensions.h"
 #include "maximasession.h"
 #include "settings.h"
 #include "ui_settings.h"
-#include "maximaextensions.h"
-
-#include <QDebug>
-#include <QWidget>
-
-#include "cantor_macros.h"
-
 
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
-    setObjectName(QLatin1String("maximabackend"));
-    qDebug()<<"Creating MaximaBackend";
     //initialize the supported extensions
     new MaximaHistoryExtension(this);
     new MaximaScriptExtension(this);
@@ -57,7 +49,7 @@ QString MaximaBackend::id() const
 
 QString MaximaBackend::version() const
 {
-    return QLatin1String("5.41 and 5.42");
+    return QLatin1String("5.41, 5.42");
 }
 
 Cantor::Session* MaximaBackend::createSession()
@@ -69,38 +61,22 @@ Cantor::Session* MaximaBackend::createSession()
 
 Cantor::Backend::Capabilities MaximaBackend::capabilities() const
 {
-    qDebug()<<"Requesting capabilities of MaximaSession";
-    Cantor::Backend::Capabilities cap=
+    Cantor::Backend::Capabilities cap =
         Cantor::Backend::LaTexOutput |
         Cantor::Backend::InteractiveMode|
         Cantor::Backend::SyntaxHighlighting|
         Cantor::Backend::Completion |
         Cantor::Backend::SyntaxHelp;
     if(MaximaSettings::self()->variableManagement())
-        cap|=Cantor::Backend::VariableManagement;
+        cap |= Cantor::Backend::VariableManagement;
 
     return cap;
 }
 
 bool MaximaBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& replPath = MaximaSettings::self()->path().toLocalFile();
-    if (replPath.isEmpty())
-    {
-        if (reason)
-            *reason = i18n("Maxima backend needs installed Maxima - a computer algebra system. The backend often automatically finds needed binary file, but not in this case. Please, go to Cantor settings and set path to Maxima executable");
-        return false;
-    }
-
-    QFileInfo info(replPath);
-    if (info.isExecutable())
-        return true;
-    else
-    {
-        if (reason)
-            *reason = i18n("In Maxima backend settings a path to maxima binary file set as %1, but this file not executable. Are you sure, that this is correct path to Maxima? Change this path in Cantor settings, if no.").arg(replPath);
-        return false;
-    }
+    const QString& path = MaximaSettings::self()->path().toLocalFile();
+    return Cantor::Backend::checkExecutable(QLatin1String("Maxima"), path, reason);
 }
 
 QUrl MaximaBackend::helpUrl() const
@@ -128,12 +104,12 @@ KConfigSkeleton* MaximaBackend::config() const
 
 QString MaximaBackend::description() const
 {
-    return i18n("Maxima is a system for the manipulation of symbolic and numerical expressions, "\
+    return i18n("<b>Maxima</b> is a system for the manipulation of symbolic and numerical expressions, "\
                 "including differentiation, integration, Taylor series, Laplace transforms, "\
                 "ordinary differential equations, systems of linear equations, polynomials, and sets, "\
                 "lists, vectors, matrices, and tensors. Maxima yields high precision numeric results "\
                 "by using exact fractions, arbitrary precision integers, and variable precision "\
-                "floating point numbers. Maxima can plot functions and data in two and three dimensions. ");
+                "floating point numbers. Maxima can plot functions and data in two and three dimensions.");
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(maximabackend, "maximabackend.json", registerPlugin<MaximaBackend>();)

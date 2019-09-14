@@ -18,23 +18,16 @@
 *************************************************************************************/
 
 #include "qalculatebackend.h"
-
-#include "ui_settings.h"
-
-#include "settings.h"
-#include "qalculatesession.h"
 #include "qalculateextensions.h"
-
-#include "cantor_macros.h"
+#include "qalculatesession.h"
+#include "settings.h"
+#include "ui_settings.h"
 
 #include <KLocalizedString>
 
-
-QalculateBackend::QalculateBackend( QObject* parent,const QList<QVariant> args )
-  : Cantor::Backend( parent, args )
+QalculateBackend::QalculateBackend(QObject* parent,const QList<QVariant> args)
+  : Cantor::Backend(parent, args)
 {
-    setObjectName(QLatin1String("qalculatebackend"));
-
     new QalculateHistoryExtension(this);
     new QalculateVariableManagementExtension(this);
     new QalculateCalculusExtension(this);
@@ -66,7 +59,7 @@ Cantor::Backend::Capabilities QalculateBackend::capabilities() const
 
 QString QalculateBackend::description() const
 {
-    return i18n("Qalculate! is not your regular software replication of the cheapest available calculator. Qalculate! aims to make full use of the superior interface, power and flexibility of modern computers. "\
+    return i18n("<b>Qalculate!</b> is not your regular software replication of the cheapest available calculator. Qalculate! aims to make full use of the superior interface, power and flexibility of modern computers. "\
     "The center of attention in Qalculate! is the expression entry. Instead of entering each number in a mathematical expression separately, you can directly write the whole expression and later modify it. "\
     "The interpretation of expressions is flexible and fault tolerant, and if you nevertheless do something wrong, Qalculate! will tell you so. Not fully solvable expressions are however not errors. Qalculate! will simplify as far as it can and answer with an expression. "\
     "In addition to numbers and arithmetic operators, an expression may contain any combination of variables, units, and functions.");

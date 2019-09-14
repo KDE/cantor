@@ -16,26 +16,17 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "sagebackend.h"
-
+#include "sageextensions.h"
 #include "sagesession.h"
 #include "settings.h"
 #include "ui_settings.h"
-#include "sageextensions.h"
-#include "sagehighlighter.h"
-
-#include <QDebug>
-#include <QWidget>
-
-#include "cantor_macros.h"
-
 
 SageBackend::SageBackend( QObject* parent,const QList<QVariant>& args ) : Cantor::Backend( parent,args )
 {
-    setObjectName(QLatin1String("sagebackend"));
-    qDebug()<<"Creating SageBackend";
     //initialize the supported extensions
     new SageHistoryExtension(this);
     new SageScriptExtension(this);
@@ -58,7 +49,7 @@ QString SageBackend::id() const
 
 QString SageBackend::version() const
 {
-    return QLatin1String("8.1 and 8.2");
+    return QLatin1String("8.1, 8.2");
 }
 
 Cantor::Session* SageBackend::createSession()
@@ -70,30 +61,14 @@ Cantor::Session* SageBackend::createSession()
 
 Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
-    qDebug()<<"Requesting capabilities of SageSession";
     //Disable Cantor::Backend::LaTexOutput, see sagesession.cpp:421
     return Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
 }
 
 bool SageBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& replPath = SageSettings::self()->path().toLocalFile();
-    if (replPath.isEmpty())
-    {
-        if (reason)
-            *reason = i18n("Sage backend needs installed Sage programming language. The backend often automatically finds needed Sage binary file, but not in this case. Please, go to Cantor settings and set path to Sage executable");
-        return false;
-    }
-
-    QFileInfo info(replPath);
-    if (info.isExecutable())
-        return true;
-    else
-    {
-        if (reason)
-            *reason = i18n("In Sage backend settings a path to Sage binary file set as %1, but this file not executable. Are you sure, that this is correct path to Sage? Change this path in Cantor settings, if no.").arg(replPath);
-        return false;
-    }
+    const QString& path = SageSettings::self()->path().toLocalFile();
+    return Cantor::Backend::checkExecutable(QLatin1String("Sage"), path, reason);
 }
 
 QWidget* SageBackend::settingsWidget(QWidget* parent) const
@@ -121,7 +96,7 @@ QUrl SageBackend::helpUrl() const
 
 QString SageBackend::description() const
 {
-    return i18n("Sage is a free open-source mathematics software system licensed under the GPL. <br/>" \
+    return i18n("<b>Sage</b> is a free open-source mathematics software system licensed under the GPL. <br/>" \
                 "It combines the power of many existing open-source packages into a common Python-based interface.");
 }
 

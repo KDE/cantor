@@ -16,11 +16,11 @@
 
     ---
     Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "python3backend.h"
 #include "python3session.h"
-#include "cantor_macros.h"
 #include "settings.h"
 
 #include <klocalizedstring.h>
@@ -67,14 +67,14 @@ QUrl Python3Backend::helpUrl() const
     if (!localDoc.isEmpty())
         return localDoc;
     else
-        return QUrl(i18nc("the url to the documentation Python 3", "http://docs.python.org/3/"));
+        return QUrl(i18nc("The url to the documentation Python 3", "http://docs.python.org/3/"));
 }
 
 QString Python3Backend::description() const
 {
-    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
-                "There are several Python packages to scientific programming.</p>" \
-                "<p>This backend supports Python 3.</p>");
+    return i18n("<b>Python</b> is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
+                "There are several Python packages to scientific programming. " \
+                "This backend supports Python 3.");
 }
 
 KConfigSkeleton* Python3Backend::config() const

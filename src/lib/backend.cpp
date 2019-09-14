@@ -19,19 +19,16 @@
  */
 
 #include "backend.h"
-using namespace Cantor;
+#include "extension.h"
 
-#include <KServiceTypeTrader>
-#include <KService>
-#include <QDebug>
-#include <KXMLGUIFactory>
-#include <KPluginFactory>
-#include <KPluginMetaData>
 #include <QDir>
 #include <QRegularExpression>
 #include <QUrl>
 
-#include "extension.h"
+#include <KPluginMetaData>
+#include <KLocalizedString>
+
+using namespace Cantor;
 
 class Cantor::BackendPrivate
 {
@@ -40,14 +37,13 @@ class Cantor::BackendPrivate
     QString comment;
     QString icon;
     QString url;
-    bool enabled;
+    bool enabled{true};
 };
 
 Backend::Backend(QObject* parent, const QList<QVariant>& args) : QObject(parent),
                                                                 d(new BackendPrivate)
 {
     Q_UNUSED(args)
-    d->enabled=true;
 }
 
 Backend::~Backend()
@@ -92,19 +88,18 @@ QUrl Backend::helpUrl() const
 
 bool Backend::isEnabled() const
 {
-    return d->enabled&&requirementsFullfilled();
+    return d->enabled && requirementsFullfilled();
 }
 
 void Backend::setEnabled(bool enabled)
 {
-    d->enabled=enabled;
+    d->enabled = enabled;
 }
 
 QStringList Backend::listAvailableBackends()
 {
-    QList<Backend* > backends=availableBackends();
     QStringList l;
-    foreach(Backend* b, backends)
+    for (Backend* b : availableBackends())
     {
         if(b->isEnabled())
             l<<b->name();
@@ -124,20 +119,19 @@ QList<Backend*> Backend::availableBackends()
     }
 
     QStringList pluginDirs;
-    foreach(const QString &dir, QCoreApplication::libraryPaths()){
+    for (const QString& dir : QCoreApplication::libraryPaths()){
         pluginDirs << dir + QDir::separator() + QLatin1String("cantor/backends");
     }
 
     QPluginLoader loader;
-    foreach(const QString &dir, pluginDirs){
-
+    for (const QString &dir : pluginDirs){
         qDebug() << "dir: " << dir;
         QStringList plugins;
         QDir pluginDir = QDir(dir);
 
         plugins = pluginDir.entryList();
 
-        foreach (const QString &plugin, plugins){
+        for (const QString &plugin : plugins){
             if (plugin==QLatin1String(".") || plugin==QLatin1String(".."))
                 continue;
 
@@ -165,8 +159,7 @@ QList<Backend*> Backend::availableBackends()
 
 Backend* Backend::getBackend(const QString& name)
 {
-    QList<Backend*> backends=availableBackends();
-    foreach(Backend* b, backends)
+    for (Backend* b : availableBackends())
     {
         if(b->name().toLower()==name.toLower() || b->id().toLower()==name.toLower())
             return b;
@@ -178,7 +171,7 @@ Backend* Backend::getBackend(const QString& name)
 QWidget* Backend::settingsWidget(QWidget* parent) const
 {
     Q_UNUSED(parent)
-        return nullptr;
+    return nullptr;
 }
 
 KConfigSkeleton* Backend::config() const
@@ -186,13 +179,12 @@ KConfigSkeleton* Backend::config() const
     return nullptr;
 }
 
-
 QStringList Backend::extensions() const
 {
-    QList<Extension*> extensions=findChildren<Extension*>(QRegularExpression(QLatin1String(".*Extension")));
+    QList<Extension*> extensions = findChildren<Extension*>(QRegularExpression(QLatin1String(".*Extension")));
     QStringList names;
-    foreach(Extension* e, extensions)
-        names<<e->objectName();
+    for (Extension* e : extensions)
+        names << e->objectName();
     return names;
 }
 
@@ -204,5 +196,38 @@ Extension* Backend::extension(const QString& name) const
 bool Backend::requirementsFullfilled(QString* const reason) const
 {
     Q_UNUSED(reason);
+    return true;
+}
+
+bool Backend::checkExecutable(const QString& name, const QString& path, QString* reason)
+{
+    if (path.isEmpty())
+    {
+        if (reason)
+            *reason = i18n("No path for the %1 executable specified. "
+                        "Please provide the correct path in the application settings and try again.",
+                        name);
+        return false;
+    }
+
+    QFileInfo info(path);
+    if (!info.exists())
+    {
+        if (reason)
+            *reason = i18n("The specified file '%1' for the %2 executable doesn't exist. "
+                        "Please provide the correct path in the application settings and try again.",
+                        path, name);
+        return false;
+    }
+
+    if (!info.isExecutable())
+    {
+        if (reason)
+            *reason = i18n("The specified file '%1' doesn't point to an executable."
+                        "Please provide the correct path in the application settings and try again.",
+                        path, name);
+        return false;
+    }
+
     return true;
 }

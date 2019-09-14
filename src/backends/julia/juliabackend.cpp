@@ -16,18 +16,18 @@
 
     ---
     Copyright (C) 2016 Ivan Lakhtanov <ivan.lakhtanov@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
+
 #include "juliabackend.h"
+#include "juliaextensions.h"
+#include "juliasession.h"
+#include "settings.h"
+#include "ui_settings.h"
 
 #include <QProcess>
-#include <klocalizedstring.h>
 
 #include <julia_version.h>
-
-#include "juliasession.h"
-#include "ui_settings.h"
-#include "settings.h"
-#include "juliaextensions.h"
 
 JuliaBackend::JuliaBackend(QObject *parent, const QList<QVariant> &args)
     : Cantor::Backend(parent, args)
@@ -58,9 +58,7 @@ Cantor::Session *JuliaBackend::createSession()
 
 Cantor::Backend::Capabilities JuliaBackend::capabilities() const
 {
-    Cantor::Backend::Capabilities cap=
-        SyntaxHighlighting|
-        Completion;
+    Cantor::Backend::Capabilities cap = SyntaxHighlighting | Completion;
 
     if (JuliaSettings::variableManagement())
         cap |= VariableManagement;
@@ -71,11 +69,11 @@ Cantor::Backend::Capabilities JuliaBackend::capabilities() const
 QString JuliaBackend::description() const
 {
     return i18n(
-        "<p><b>Julia</b> is a high-level, high-performance dynamic programming "
+        "<b>Julia</b> is a high-level, high-performance dynamic programming "
         "language for technical computing, with syntax that is familiar to "
         "users of other technical computing environments. It provides a "
         "sophisticated compiler, distributed parallel execution, numerical "
-        "accuracy, and an extensive mathematical function library.</p>"
+        "accuracy, and an extensive mathematical function library."
     );
 }
 
@@ -90,19 +88,18 @@ QUrl JuliaBackend::helpUrl() const
 
 bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& replPath = JuliaSettings::self()->replPath().toLocalFile();
-    QFileInfo info(replPath);
-    if (!info.isExecutable())
-    {
-        if (reason)
-            *reason = i18n("You should set path to Julia executable");
-        return false;
-    }
+    const QString& path = JuliaSettings::self()->replPath().toLocalFile();
+    bool valid = Cantor::Backend::checkExecutable(QLatin1String("Julia"), path, reason);
 
+    if (!valid)
+        return false;
+
+    QFileInfo info(path);
     if (info.isSymLink())
     {
         if (reason)
-            *reason = i18n("Path to Julia should point directly to julia executable, symlink not allowed");
+            *reason = i18n("The path to Julia specified in the application settings must point directly to the executable. Symlinks are not allowed."
+                        "Please provide the correct path in the application settings and try again.");
         return false;
     }
 
@@ -110,13 +107,15 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     // version, which used to build cantor_juliaserver
     // So check it and print info about it to user, if versions don't match
     QProcess getJuliaVersionProcess;
-    getJuliaVersionProcess.setProgram(replPath);
-    getJuliaVersionProcess.setArguments(QStringList()<<QLatin1String("-v"));
+    getJuliaVersionProcess.setProgram(path);
+    getJuliaVersionProcess.setArguments(QStringList() << QLatin1String("-v"));
     getJuliaVersionProcess.start();
     if (getJuliaVersionProcess.waitForFinished(1000) == false)
     {
         if (reason)
-            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. Please specify the correct path to Julia executable (no symlinks allowed) and try again.", replPath);
+            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. "
+                        "Please specify the correct path to Julia executable (no symlinks allowed) and try again.",
+                        path);
         return false;
     }
 
@@ -126,7 +125,9 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     if (getJuliaVersionProcess.state() != QProcess::NotRunning || !match.hasMatch())
     {
         if (reason)
-            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. Please specify the correct path to Julia executable (no symlinks allowed) and try again.", replPath);
+            *reason = i18n("Сantor couldn’t determine the version of Julia for %1. "
+                        "Please specify the correct path to Julia executable (no symlinks allowed) and try again.",
+                           path);
         return false;
     }
 
@@ -137,21 +138,24 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     if (QT_VERSION_CHECK(juliaMajor, juliaMinor, juliaPatch) != QT_VERSION_CHECK(JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH))
     {
         if (reason)
-            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. This version of Cantor was compiled with the support of Julia v%4.%5.%6. Please point to this version of Julia or recompile Cantor using the version %1.%2.%3.", juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH);
+            *reason = i18n("You are trying to use Cantor with Julia v%1.%2.%3. "
+                        "This version of Cantor was compiled with the support of Julia v%4.%5.%6. "
+                        "Please point to this version of Julia or recompile Cantor using the version %1.%2.%3.",
+                        juliaMajor, juliaMinor, juliaPatch, JULIA_VERSION_MAJOR, JULIA_VERSION_MINOR, JULIA_VERSION_PATCH);
         return false;
     }
     return true;
 }
 
-QWidget *JuliaBackend::settingsWidget(QWidget *parent) const
+QWidget* JuliaBackend::settingsWidget(QWidget *parent) const
 {
-    QWidget *widget = new QWidget(parent);
+    QWidget* widget = new QWidget(parent);
     Ui::JuliaSettingsBase s;
     s.setupUi(widget);
     return widget;
 }
 
-KConfigSkeleton *JuliaBackend::config() const
+KConfigSkeleton* JuliaBackend::config() const
 {
     return JuliaSettings::self();
 }

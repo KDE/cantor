@@ -1,6 +1,4 @@
 /*
-    Copyright (C) 2010 Miha Čančula <miha.cancula@gmail.com>
-
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
     as published by the Free Software Foundation; either version 2
@@ -15,18 +13,16 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA  02110-1301, USA.
+
+    ---
+    Copyright (C) 2010 Miha Čančula <miha.cancula@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "octavebackend.h"
-#include "octavesession.h"
 #include "octaveextensions.h"
+#include "octavesession.h"
 #include "settings.h"
-
-#include "cantor_macros.h"
-
-#include <QFileInfo>
-#include <QWidget>
-
 #include "ui_settings.h"
 
 OctaveBackend::OctaveBackend(QObject* parent, const QList<QVariant>& args): Backend(parent, args)
@@ -39,7 +35,6 @@ OctaveBackend::OctaveBackend(QObject* parent, const QList<QVariant>& args): Back
     new OctavePackagingExtension(this);
 }
 
-
 QString OctaveBackend::id() const
 {
     return QLatin1String("octave");
@@ -47,12 +42,12 @@ QString OctaveBackend::id() const
 
 QString OctaveBackend::version() const
 {
-    return QLatin1String("5.0 and 5.1");
+    return QLatin1String("5.0, 5.1");
 }
 
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 {
-    Cantor::Backend::Capabilities cap=
+    Cantor::Backend::Capabilities cap =
         SyntaxHighlighting|
         Completion |
         SyntaxHelp;
@@ -68,23 +63,8 @@ Cantor::Session* OctaveBackend::createSession()
 
 bool OctaveBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& replPath = OctaveSettings::path().toLocalFile();
-    if (replPath.isEmpty())
-    {
-        if (reason)
-            *reason = i18n("Octave backend needs installed Octave programming language. The backend often automatically finds needed Octave binary file, but not in this case. Please, go to Cantor settings and set path to Octave binary file with command line interface (CLI)");
-        return false;
-    }
-
-    QFileInfo info(replPath);
-    if (info.isExecutable())
-        return true;
-    else
-    {
-        if (reason)
-            *reason = i18n("In Octave backend settings a path to Octave binary file set as %1, but this file not executable. Are you sure, that this is correct path to Octave? Change this path in Cantor settings, if no.").arg(replPath);
-        return false;
-    }
+    const QString& path = OctaveSettings::path().toLocalFile();
+    return Cantor::Backend::checkExecutable(QLatin1String("Octave"), path, reason);
 }
 
 QUrl OctaveBackend::helpUrl() const
@@ -99,7 +79,7 @@ QUrl OctaveBackend::helpUrl() const
 
 QString OctaveBackend::description() const
 {
-    return i18n("GNU Octave is a high-level language, primarily intended for numerical computations. <br/>"
+    return i18n("<b>GNU Octave</b> is a high-level language, primarily intended for numerical computations. <br/>"
                 "It provides a convenient command line interface for solving linear and nonlinear problems numerically, and for performing other numerical experiments using a language that is mostly compatible with Matlab.");
 }
 

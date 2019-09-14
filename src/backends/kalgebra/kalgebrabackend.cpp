@@ -18,17 +18,11 @@
 
 #include "kalgebrabackend.h"
 #include "kalgebrasession.h"
-
-#include "settings.h"
-#include "ui_settings.h"
-
 #include "kalgebraextensions.h"
-#include "cantor_macros.h"
 
-KAlgebraBackend::KAlgebraBackend( QObject* parent,const QList<QVariant> args )
-    : Cantor::Backend( parent,args )
+KAlgebraBackend::KAlgebraBackend(QObject* parent,const QList<QVariant> args)
+    : Cantor::Backend(parent, args)
 {
-    setObjectName(QLatin1String("kalgebrabackend"));
     new KAlgebraVariableManagementExtension(this);
 }
 
@@ -49,12 +43,13 @@ Cantor::Session* KAlgebraBackend::createSession()
 
 Cantor::Backend::Capabilities KAlgebraBackend::capabilities() const
 {
-    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting | Cantor::Backend::SyntaxHelp | Cantor::Backend::VariableManagement;
+    return Cantor::Backend::Completion | Cantor::Backend::SyntaxHighlighting
+        | Cantor::Backend::SyntaxHelp | Cantor::Backend::VariableManagement;
 }
 
 QWidget* KAlgebraBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
+    QWidget* widget = new QWidget(parent);
     Ui::KAlgebraSettingsBase s;
     s.setupUi(widget);
     return widget;
@@ -67,10 +62,9 @@ KConfigSkeleton* KAlgebraBackend::config() const
 
 QUrl KAlgebraBackend::helpUrl() const
 {
-    return QUrl(i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
+    return QUrl(i18nc("The url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
                  "http://docs.kde.org/stable/en/kdeedu/kalgebra/"));
 }
-
 
 K_PLUGIN_FACTORY_WITH_JSON(kalgebrabackend, "kalgebrabackend.json", registerPlugin<KAlgebraBackend>();)
 #include "kalgebrabackend.moc"

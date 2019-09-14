@@ -19,25 +19,16 @@
  */
 
 #include "scilabbackend.h"
-
 #include "scilabsession.h"
 #include "scilabextensions.h"
 #include "settings.h"
 #include "ui_settings.h"
 
-#include <QDebug>
-#include <QWidget>
-
-#include "cantor_macros.h"
 
 ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Cantor::Backend(parent, args)
 {
-    qDebug()<<"Creating ScilabBackend";
-
     new ScilabVariableManagementExtension(this);
     new ScilabScriptExtension(this);
-
-    setObjectName(QLatin1String("scilabbackend"));
 }
 
 ScilabBackend::~ScilabBackend()
@@ -64,8 +55,6 @@ Cantor::Session* ScilabBackend::createSession()
 
 Cantor::Backend::Capabilities ScilabBackend::capabilities() const
 {
-    qDebug()<<"Requesting capabilities of ScilabSession";
-
     return Cantor::Backend::SyntaxHighlighting |
            Cantor::Backend::Completion         |
            Cantor::Backend::VariableManagement;
@@ -73,23 +62,8 @@ Cantor::Backend::Capabilities ScilabBackend::capabilities() const
 
 bool ScilabBackend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& replPath = ScilabSettings::self()->path().toLocalFile();
-    if (replPath.isEmpty())
-    {
-        if (reason)
-            *reason = i18n("Scilab backend needs installed Scilab programming language. The backend often automatically finds needed Scilab binary file, but not in this case. Please, go to Cantor settings and set path to Scilab executable");
-        return false;
-    }
-
-    QFileInfo info(replPath);
-    if (info.isExecutable())
-        return true;
-    else
-    {
-        if (reason)
-            *reason = i18n("In Scilab backend settings a path to Scilab binary file set as %1, but this file not executable. Are you sure, that this is correct path to Scilab? Change this path in Cantor settings, if no.").arg(replPath);
-        return false;
-    }
+    const QString& path = ScilabSettings::self()->path().toLocalFile();
+    return Cantor::Backend::checkExecutable(QLatin1String("Scilab"), path, reason);
 }
 
 QWidget* ScilabBackend::settingsWidget(QWidget* parent) const
@@ -107,14 +81,14 @@ KConfigSkeleton* ScilabBackend::config() const
 
 QUrl ScilabBackend::helpUrl() const
 {
-    return QUrl(i18nc("the url to the documentation of Scilab, please check if there is a translated version and use the correct url",
+    return QUrl(i18nc("The url to the documentation of Scilab, please check if there is a translated version and use the correct url",
                       "http://www.scilab.org/support/documentation"));
 }
 
 QString ScilabBackend::description() const
 {
-    return i18n("<p>Scilab is a free software, cross-platform numerical computational package and a high-level, numerically oriented programming language.</p>" \
-        "Scilab is distributed under CeCILL license (GPL compatible)");
+    return i18n("<b>Scilab</b> is a free software, cross-platform numerical computational package and a high-level, numerically oriented programming language." \
+        "Scilab is distributed under CeCILL license (GPL compatible).");
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(scilabbackend, "scilabbackend.json", registerPlugin<ScilabBackend>();)

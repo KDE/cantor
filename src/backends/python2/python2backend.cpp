@@ -16,19 +16,18 @@
 
     ---
     Copyright (C) 2014, 2015 Minh Ngo <minh@fedoraproject.org>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "python2backend.h"
 #include "python2session.h"
-#include "cantor_macros.h"
 #include "settings.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 Python2Backend::Python2Backend(QObject* parent, const QList<QVariant> args)
     : PythonBackend(parent, args)
 {
-    setObjectName(QLatin1String("python2backend"));
     // Because the plugin may not have been loaded with
     // ExportExternalSymbols, we load the python symbols again
     // to make sure that python modules such as numpy see them
@@ -55,8 +54,6 @@ QString Python2Backend::version() const
 
 Cantor::Backend::Capabilities Python2Backend::capabilities() const
 {
-    qDebug()<<"Requesting capabilities of Python3Session";
-
     Backend::Capabilities cap =
         Cantor::Backend::SyntaxHighlighting |
         Cantor::Backend::Completion         |
@@ -74,14 +71,14 @@ QUrl Python2Backend::helpUrl() const
     if (!localDoc.isEmpty())
         return localDoc;
     else
-        return QUrl(i18nc("the url to the documentation Python 2", "http://docs.python.org/2/"));
+        return QUrl(i18nc("The url to the documentation Python 2", "http://docs.python.org/2/"));
 }
 
 QString Python2Backend::description() const
 {
-    return i18n("<p>Python is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
-                "There are several Python packages to scientific programming.</p>" \
-                "<p>This backend supports Python 2.</p>");
+    return i18n("<b>Python</b> is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
+                "There are several Python packages to scientific programming. " \
+                "This backend supports Python 2.");
 }
 
 KConfigSkeleton* Python2Backend::config() const
