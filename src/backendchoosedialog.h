@@ -30,7 +30,7 @@ class BackendChooseDialog : public QDialog
   Q_OBJECT
   public:
     explicit BackendChooseDialog(QWidget* parent);
-    ~BackendChooseDialog() override = default;
+    ~BackendChooseDialog() override;
 
     QString backendName();
 

@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "backendchoosedialog.h"
@@ -24,9 +25,12 @@
 
 #include <KIconLoader>
 #include <KLocalizedString>
+#include <KSharedConfig>
+#include <KWindowConfig>
 
 #include <QIcon>
 #include <QPushButton>
+#include <QWindow>
 
 BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
 {
@@ -64,12 +68,29 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
             m_ui.backendList->setCurrentItem(item);
     }
 
+    int height = m_ui.backendList->iconSize().height() * m_ui.backendList->count();
+    m_ui.backendList->setMinimumSize(0, height);
+
     setWindowTitle(i18n("Select the Backend"));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("run-build")));
 
     connect(m_ui.buttonBox, &QDialogButtonBox::accepted, this, &BackendChooseDialog::accept);
     connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &BackendChooseDialog::close);
-
     connect(this, &BackendChooseDialog::accepted, this, &BackendChooseDialog::onAccept);
+
+	//restore saved settings if available
+	create(); // ensure there's a window created
+	KConfigGroup conf(KSharedConfig::openConfig(), "BackendChooseDialog");
+	if (conf.exists()) {
+		KWindowConfig::restoreWindowSize(windowHandle(), conf);
+		resize(windowHandle()->size()); // workaround for QTBUG-40584
+	} else
+		resize(QSize(500, 200).expandedTo(minimumSize()));
+}
+
+BackendChooseDialog::~BackendChooseDialog() {
+	KConfigGroup conf(KSharedConfig::openConfig(), "BackendChooseDialog");
+	KWindowConfig::saveWindowSize(windowHandle(), conf);
 }
 
 void BackendChooseDialog::onAccept()
