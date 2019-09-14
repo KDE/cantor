@@ -27,16 +27,16 @@ class KAlgebraBackend : public Cantor::Backend
         explicit KAlgebraBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
         ~KAlgebraBackend() override = default;
 
-	QString id() const override;
+        QString id() const override;
         Cantor::Session *createSession() override;
         Cantor::Backend::Capabilities capabilities() const override;
 
         QWidget* settingsWidget(QWidget* parent) const override;
         KConfigSkeleton* config() const override;
 
-	QUrl helpUrl() const override;
+        QUrl helpUrl() const override;
         QString version() const override;
+        bool requirementsFullfilled(QString* const reason) const override;
 };
-
 
 #endif /* _NULLBACKEND_H */

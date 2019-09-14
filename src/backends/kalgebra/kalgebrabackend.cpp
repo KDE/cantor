@@ -68,5 +68,11 @@ QUrl KAlgebraBackend::helpUrl() const
                  "http://docs.kde.org/stable/en/kdeedu/kalgebra/"));
 }
 
+bool KAlgebraBackend::requirementsFullfilled(QString* const reason) const
+{
+    Q_UNUSED(reason);
+    return true;
+}
+
 K_PLUGIN_FACTORY_WITH_JSON(kalgebrabackend, "kalgebrabackend.json", registerPlugin<KAlgebraBackend>();)
 #include "kalgebrabackend.moc"
