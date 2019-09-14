@@ -19,6 +19,8 @@
 #include "kalgebrabackend.h"
 #include "kalgebrasession.h"
 #include "kalgebraextensions.h"
+#include "settings.h"
+#include "ui_settings.h"
 
 KAlgebraBackend::KAlgebraBackend(QObject* parent,const QList<QVariant> args)
     : Cantor::Backend(parent, args)
