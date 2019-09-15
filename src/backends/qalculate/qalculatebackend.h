@@ -37,6 +37,7 @@ public:
     Cantor::Backend::Capabilities capabilities() const override;
     QString description() const override;
     QUrl helpUrl() const override;
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
 
     QWidget* settingsWidget(QWidget* parent) const override;
     KConfigSkeleton* config() const override;

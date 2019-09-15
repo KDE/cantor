@@ -17,11 +17,14 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
+#include "qalculatesession.h"
+
+// include order is important
+#include "ui_settings.h"
+#include "settings.h"
+
 #include "qalculatebackend.h"
 #include "qalculateextensions.h"
-#include "qalculatesession.h"
-#include "settings.h"
-#include "ui_settings.h"
 
 #include <KLocalizedString>
 
@@ -69,6 +72,11 @@ QUrl QalculateBackend::helpUrl() const
 {
     // A sub-optimal solution but still this manual is fairly complete
     return QUrl(QString::fromLatin1("https://qalculate.github.io/manual/index.html"));
+}
+
+bool QalculateBackend::requirementsFullfilled(QString* const reason) const
+{
+    return true;
 }
 
 KConfigSkeleton* QalculateBackend::config() const
