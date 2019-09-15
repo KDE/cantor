@@ -17,13 +17,13 @@
 *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA   *
 *************************************************************************************/
 
-#include "qalculatesession.h"
+#include "qalculatebackend.h"
 
-// include order is important
+// settings.h must be included before qalculatesession.h
 #include "ui_settings.h"
 #include "settings.h"
 
-#include "qalculatebackend.h"
+#include "qalculatesession.h"
 #include "qalculateextensions.h"
 
 #include <KLocalizedString>
