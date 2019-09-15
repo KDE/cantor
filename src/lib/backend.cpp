@@ -196,7 +196,7 @@ bool Backend::checkExecutable(const QString& name, const QString& path, QString*
     if (!info.isExecutable())
     {
         if (reason)
-            *reason = i18n("The specified file '%1' doesn't point to an executable."
+            *reason = i18n("The specified file '%1' doesn't point to an executable. "
                         "Please provide the correct path in the application settings and try again.",
                         path, name);
         return false;

@@ -98,7 +98,7 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
     if (info.isSymLink())
     {
         if (reason)
-            *reason = i18n("The path to Julia specified in the application settings must point directly to the executable. Symlinks are not allowed."
+            *reason = i18n("The path to Julia specified in the application settings must point directly to the executable. Symlinks are not allowed. "
                         "Please provide the correct path in the application settings and try again.");
         return false;
     }
