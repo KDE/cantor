@@ -62,7 +62,7 @@ bool LuaBackend::requirementsFullfilled(QString* const reason) const
 
 QUrl LuaBackend::helpUrl() const
 {
-    return QUrl(i18nc("Lua official documentation", "http://www.lua.org/docs.html"));
+    return QUrl(i18nc("Lua official documentation", "https://www.lua.org/docs.html"));
 }
 
 QString LuaBackend::description() const

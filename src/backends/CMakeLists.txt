@@ -19,7 +19,7 @@ if(NOT WIN32)
 endif(NOT WIN32)
 
 set_package_properties(Analitza5 PROPERTIES DESCRIPTION "A library provided by KAlgebra."
-    URL "http://edu.kde.org/kalgebra/"
+    URL "https://edu.kde.org/kalgebra/"
     TYPE OPTIONAL
     PURPOSE "Backend to use KAlgebra with Cantor.")
 
@@ -29,7 +29,7 @@ if(Analitza5_FOUND)
 endif(Analitza5_FOUND)
 
 set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics."
-    URL "http://www.r-project.org/"
+    URL "https://www.r-project.org/"
     TYPE OPTIONAL
     PURPOSE "Backend to use R with Cantor.")
 
@@ -39,7 +39,7 @@ if(R_FOUND)
 endif(R_FOUND)
 
 set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision."
-    URL "http://qalculate.sourceforge.net/"
+    URL "https://qalculate.github.io/"
     TYPE OPTIONAL
     PURPOSE "Backend to use Qalculate with Cantor.")
 
@@ -80,7 +80,7 @@ if(PYTHONLIBS3_FOUND)
 endif(PYTHONLIBS3_FOUND)
 
 set_package_properties(LuaJIT PROPERTIES DESCRIPTION "A lightweight, extensible programming language (luajit implementation)."
-    URL "http://www.lua.org/"
+    URL "https://www.lua.org/"
     TYPE OPTIONAL
     PURPOSE "Backend to use Lua (luajit2) with Cantor.")
 
@@ -92,7 +92,7 @@ endif(LUAJIT_FOUND)
 set_package_properties(
     Julia
     PROPERTIES DESCRIPTION "A high-level, high-performance dynamic programming language for technical computing"
-    URL "http://julialang.org/"
+    URL "https://julialang.org/"
     TYPE OPTIONAL
     PURPOSE "Backend to use Julia with Cantor.")
 

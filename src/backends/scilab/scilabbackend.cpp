@@ -82,7 +82,7 @@ KConfigSkeleton* ScilabBackend::config() const
 QUrl ScilabBackend::helpUrl() const
 {
     return QUrl(i18nc("The url to the documentation of Scilab, please check if there is a translated version and use the correct url",
-                      "http://www.scilab.org/support/documentation"));
+                      "https://www.scilab.org/support/documentation"));
 }
 
 QString ScilabBackend::description() const

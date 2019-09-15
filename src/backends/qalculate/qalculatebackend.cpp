@@ -68,7 +68,7 @@ QString QalculateBackend::description() const
 QUrl QalculateBackend::helpUrl() const
 {
     // A sub-optimal solution but still this manual is fairly complete
-    return QUrl(QString::fromLatin1("http://qalculate.sourceforge.net/gtk-manual/index.html"));
+    return QUrl(QString::fromLatin1("https://qalculate.github.io/manual/index.html"));
 }
 
 KConfigSkeleton* QalculateBackend::config() const

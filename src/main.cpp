@@ -84,10 +84,9 @@ int main(int argc, char **argv)
                      KAboutLicense::GPL,
                      i18n("(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"),
                      QString(),
-                     QLatin1String("http://edu.kde.org/cantor"));
+                     QLatin1String("https://edu.kde.org/cantor/"));
 
-    about.addAuthor( i18n("Filipe Saraiva"), i18n("Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"), QLatin1String("filipe@kde.org"),
-                     QLatin1String("http://filipesaraiva.info/") );
+    about.addAuthor( i18n("Filipe Saraiva"), i18n("Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"), QLatin1String("filipe@kde.org") );
     about.addAuthor( i18n("Nikita Sirgienko"), i18nc("@info:credit", "Developer"), QLatin1String("warquark@gmail.com>"));
     about.addAuthor( i18n("Alexander Semke"), i18nc("@info:credit", "Developer"), QLatin1String("alexander.semke@web.de"));
     about.addAuthor( i18n("Alexander Rieder"), i18n("Original author<br/>Maintainer (2009 - 2015)"), QLatin1String("alexanderrieder@gmail.com") );
@@ -96,8 +95,7 @@ int main(int argc, char **argv)
     about.addAuthor( i18n("Martin Küttler"), i18n("Interface"), QLatin1String("martin.kuettler@gmail.com") );
 
     about.addCredit(QLatin1String("Andreas Kainz"), i18n("Cantor icon"), QLatin1String("kainz.a@gmail.com"));
-    about.addCredit(QLatin1String("Uri Herrera"), i18n("Cantor icon"), QLatin1String("kaisergreymon99@gmail.com"),
-                     QLatin1String("http://nitrux.in/"));
+    about.addCredit(QLatin1String("Uri Herrera"), i18n("Cantor icon"), QLatin1String("kaisergreymon99@gmail.com"));
 
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);

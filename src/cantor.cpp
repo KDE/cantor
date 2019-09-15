@@ -230,8 +230,7 @@ void CantorShell::fileOpen()
 
     if (url.isEmpty() == false)
     {
-        // About this function, the style guide (
-        // http://developer.kde.org/documentation/standards/kde/style/basics/index.html )
+        // About this function, the style guide
         // says that it should open a new window if the document is _not_
         // in its initial state.  This is what we do here..
         /*if ( m_part->url().isEmpty() && ! m_part->isModified() )

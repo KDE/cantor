@@ -82,7 +82,7 @@ QUrl JuliaBackend::helpUrl() const
     return QUrl(i18nc(
         "The url to the documentation of Julia, please check if there is a"
         " translated version and use the correct url",
-        "http://docs.julialang.org/en/latest/"
+        "https://docs.julialang.org/en/latest/"
     ));
 }
 

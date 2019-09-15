@@ -61,6 +61,6 @@
         "ServiceTypes": [
             "Cantor/Backend"
         ],
-        "Website": "http://scilab.org/"
+        "Website": "https://scilab.org/"
     }
 }

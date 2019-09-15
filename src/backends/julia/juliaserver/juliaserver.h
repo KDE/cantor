@@ -31,7 +31,7 @@
  * language.
  *
  * Uses Julia embedding
- * http://docs.julialang.org/en/release-0.4/manual/embedding/ to get results.
+ * https://docs.julialang.org/en/v1/manual/embedding/ to get results.
  */
 class JuliaServer: public QObject
 {

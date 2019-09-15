@@ -24,7 +24,7 @@
 /**
  * Backend for Julia language
  *
- * @see http://julialang.org/
+ * @see https://julialang.org/
  * @see JuliaServer
  */
 class JuliaBackend: public Cantor::Backend

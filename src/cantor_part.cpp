@@ -408,7 +408,7 @@ KAboutData& CantorPart::createAboutData()
                      KAboutLicense::GPL,
                      i18n("(C) 2009-2015 Alexander Rieder"),
                      QString(),
-                     QLatin1String("http://edu.kde.org/cantor"));
+                     QLatin1String("https://edu.kde.org/cantor/"));
 
     about.addAuthor( i18n("Alexander Rieder"), QString(), QLatin1String("alexanderrieder@gmail.com") );
     return about;

@@ -74,7 +74,7 @@ QUrl OctaveBackend::helpUrl() const
         return localDoc;
     else
         return QUrl(i18nc("the url to the documentation of Octave, please check if there is a translated version (currently Czech and Japanese) and use the correct url",
-            "http://www.gnu.org/software/octave/doc/interpreter/"));
+            "https://octave.org/doc/interpreter/"));
 }
 
 QString OctaveBackend::description() const

@@ -241,7 +241,7 @@ QString JuliaVariableManagementExtension::setValue(
 QString JuliaVariableManagementExtension::removeVariable(const QString &name)
 {
     // There is no way to completely delete object from scope:
-    // http://docs.julialang.org/en/release-0.4/manual/faq/#how-do-i-delete-an-object-in-memory
+    // https://docs.julialang.org/en/v1/manual/faq/#How-do-I-delete-an-object-in-memory?-1
     return QString::fromLatin1("%1 = \"%2\"")
         .arg(name).arg(REMOVED_VARIABLE_MARKER);
 }

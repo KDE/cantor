@@ -62,6 +62,6 @@
         "ServiceTypes": [
             "Cantor/Backend"
         ],
-        "Website": "http://www.r-project.org/"
+        "Website": "https://www.r-project.org/"
     }
 }

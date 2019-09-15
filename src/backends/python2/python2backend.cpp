@@ -71,7 +71,7 @@ QUrl Python2Backend::helpUrl() const
     if (!localDoc.isEmpty())
         return localDoc;
     else
-        return QUrl(i18nc("The url to the documentation Python 2", "http://docs.python.org/2/"));
+        return QUrl(i18nc("The url to the documentation Python 2", "https://docs.python.org/2/"));
 }
 
 QString Python2Backend::description() const

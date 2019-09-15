@@ -62,6 +62,6 @@
         "ServiceTypes": [
             "Cantor/Backend"
         ],
-        "Website": "http://www.sagemath.org/"
+        "Website": "https://www.sagemath.org/"
     }
 }

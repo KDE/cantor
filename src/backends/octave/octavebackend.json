@@ -62,6 +62,6 @@
         "ServiceTypes": [
             "Cantor/Backend"
         ],
-        "Website": "http://www.octave.org/"
+        "Website": "https://www.gnu.org/software/octave/"
     }
 }

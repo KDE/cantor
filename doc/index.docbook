@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2016-08-25</date>
-<releaseinfo>Applications 16.12</releaseinfo>
+<date>2019-09-15</date>
+<releaseinfo>Applications 19.12</releaseinfo>
 
 <abstract>
 <para>
@@ -142,7 +142,7 @@ Screenshot:
 	  and graphical techniques, and is highly extensible. The S language is often the
 	  vehicle of choice for research in statistical methodology,
 	  and R provides an open-source route to this.
-	  See <ulink url="http://www.r-project.org">http://www.r-project.org</ulink> for more information.
+	  See <ulink url="https://www.r-project.org">https://www.r-project.org</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -155,7 +155,7 @@ Screenshot:
     other technical computing environments. It provides a sophisticated
     compiler, distributed parallel execution, numerical accuracy, and an
     extensive mathematical function library.
-	  See <ulink url="http://docs.julialang.org/en/latest/">Julia documentation</ulink> for more information.
+	  See <ulink url="https://docs.julialang.org/en/latest/">Julia documentation</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -164,7 +164,7 @@ Screenshot:
       <listitem>
 	<para>
 	  &kalgebra; is a MathML-based graph calculator, that ships with &kde; Education project.
-	  See <ulink url="http://edu.kde.org/kalgebra/">http://edu.kde.org/kalgebra/</ulink> for more information.
+	  See <ulink url="https://edu.kde.org/kalgebra/">https://edu.kde.org/kalgebra/</ulink> for more information.
 	  </para>
       </listitem>
     </varlistentry>
@@ -183,7 +183,7 @@ Screenshot:
     errors. Qalculate! will simplify as far as it can and answer with an
     expression. In addition to numbers and arithmetic operators, an expression
     may contain any combination of variables, units, and functions.
-    See <ulink url="http://qalculate.sourceforge.net/">http://qalculate.sourceforge.net/</ulink> for more information.
+    See <ulink url="https://qalculate.github.io/">https://qalculate.github.io/</ulink> for more information.
   </para>
   </listitem>
     </varlistentry>
@@ -196,7 +196,7 @@ in a wide variety of application domains. There are several Python packages
 to scientific programming.
   </para>
   <para>Python is distributed under Python Software Foundation license (GPL compatible).
-    See the <ulink url="http://www.python.org/">official website</ulink> for more information.
+    See the <ulink url="https://www.python.org/">official website</ulink> for more information.
   </para>
   <note>
     <para>
@@ -213,7 +213,7 @@ to scientific programming.
     and a high-level, numerically oriented programming language.
   </para>
   <para>Scilab is distributed under CeCILL license (GPL compatible).
-    See <ulink url="http://www.scilab.org/">http://www.scilab.org/</ulink> for more information.
+    See <ulink url="https://www.scilab.org/">https://www.scilab.org/</ulink> for more information.
   </para>
   <warning>
     <para>
@@ -229,8 +229,8 @@ to scientific programming.
     &GNU; Octave is a high-level language, primarily intended for numerical
     computations. It provides a convenient command line interface for
     solving linear and nonlinear problems numerically, and for performing other
-    numerical experiments using a language that is mostly compatible with <ulink url="http://www.mathworks.com/products/matlab/">MATLAB</ulink>.
-    See <ulink url="http://www.gnu.org/software/octave/">http://www.gnu.org/software/octave/</ulink> for more information.
+    numerical experiments using a language that is mostly compatible with <ulink url="https://www.mathworks.com/products/matlab.html">MATLAB</ulink>.
+    See <ulink url="https://www.gnu.org/software/octave/">https://www.gnu.org/software/octave/</ulink> for more information.
     </para>
       </listitem>
     </varlistentry>
@@ -241,10 +241,10 @@ to scientific programming.
     Lua is a fast and lightweight scripting language, with a simple procedural syntax. There are several libraries in Lua aimed at math and science.
   </para>
   <para>
-    See <ulink url="http://www.lua.org/">http://www.lua.org/</ulink> for more information.
+    See <ulink url="https://www.lua.org/">https://www.lua.org/</ulink> for more information.
   </para>
   <para>
-    This backend supports <ulink url="http://luajit.org/">luajit 2</ulink>.
+    This backend supports <ulink url="https://luajit.org/">luajit 2</ulink>.
   </para>
       </listitem>
     </varlistentry>
@@ -349,6 +349,14 @@ to scientific programming.
     <listitem>
       <para>
   This setting controls whether the different animations will be used to highlight changes on a worksheet.
+      </para>
+    </listitem>
+  </varlistentry>
+  <varlistentry>
+    <term>Embedded Math</term>
+    <listitem>
+      <para>
+  This setting controls whether rendering math expressions inside <literal>$$..$$</literal> in Text and Markdown entries is enabled by default (needs <application>pdflatex</application> installed).
       </para>
     </listitem>
   </varlistentry>
@@ -582,7 +590,7 @@ This dialog allows entering expression of the function, its variables and the li
 <guimenuitem>Download Example Worksheets</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens the dialog to download examples uploaded by other &cantor; users with
- <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
+ <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -612,7 +620,7 @@ This dialog allows entering expression of the function, its variables and the li
 <guimenuitem>Publish Worksheet</guimenuitem>
 </menuchoice></term>
 <listitem><para><action>Opens the dialog to publish your current worksheet and make it available to other &cantor; users through
- <ulink url="http://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
+ <ulink url="https://userbase.kde.org/Special:MyLanguage/Glossary#Get_Hot_New_Stuff">GetHotNewStuff</ulink>.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -896,7 +904,7 @@ of the &kde; Fundamentals.
 </qandaentry>
 <qandaentry>
   <question><para>What a peculiar name - what does it have to do with mathematics?</para></question>
-  <answer><para>&cantor; is named after the German mathematician <ulink url="http://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</ulink>, the creator of set theory.</para></answer>
+  <answer><para>&cantor; is named after the German mathematician <ulink url="https://en.wikipedia.org/wiki/Georg_Cantor">Georg Cantor</ulink>, the creator of set theory.</para></answer>
 </qandaentry>
 </qandaset>
 </chapter>

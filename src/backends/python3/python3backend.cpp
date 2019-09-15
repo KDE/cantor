@@ -67,7 +67,7 @@ QUrl Python3Backend::helpUrl() const
     if (!localDoc.isEmpty())
         return localDoc;
     else
-        return QUrl(i18nc("The url to the documentation Python 3", "http://docs.python.org/3/"));
+        return QUrl(i18nc("The url to the documentation Python 3", "https://docs.python.org/3/"));
 }
 
 QString Python3Backend::description() const

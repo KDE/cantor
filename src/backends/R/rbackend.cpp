@@ -91,7 +91,7 @@ QUrl RBackend::helpUrl() const
         return localDoc;
     else
     return QUrl(i18nc("the url to the documentation of R, please check if there is a translated version and use the correct url",
-                 "http://rwiki.sciviews.org/doku.php?id=rdoc:rdoc"));
+                 "https://cran.r-project.org/manuals.html"));
 }
 
 QString RBackend::description() const

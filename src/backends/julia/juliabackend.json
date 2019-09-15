@@ -60,6 +60,6 @@
         "ServiceTypes": [
             "Cantor/Backend"
         ],
-        "Website": "http://julialang.org/"
+        "Website": "https://julialang.org/"
     }
 }

@@ -164,7 +164,7 @@ public:
     JULIA_EXT_CDTOR_DECL(VariableManagement)
 
     // There is no way to completely delete object from scope:
-    // http://docs.julialang.org/en/release-0.4/manual/faq/#how-do-i-delete-an-object-in-memory
+    // https://docs.julialang.org/en/v1/manual/faq/#How-do-I-delete-an-object-in-memory?-1
     // So we are saving special marker to variable to mark it as removed
     static const QString REMOVED_VARIABLE_MARKER;
 
