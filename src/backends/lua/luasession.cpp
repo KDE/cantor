@@ -55,7 +55,7 @@ void LuaSession::login()
     */
 
     m_process = new QProcess(this);
-    m_process->setProgram(QLatin1String("/usr/bin/lua"));
+    m_process->setProgram(LuaSettings::self()->path().toLocalFile());
     m_process->setArguments(QStringList() << QLatin1String("-i"));
 
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
