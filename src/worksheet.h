@@ -63,7 +63,7 @@ class Worksheet : public QGraphicsScene
       JupyterNotebook
     };
 
-    Worksheet(Cantor::Backend* backend, QWidget* parent);
+    Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultWorksheetParameters = true);
     ~Worksheet() override;
 
     Cantor::Session* session();
@@ -318,10 +318,13 @@ class Worksheet : public QGraphicsScene
     KToggleAction* m_alignRightAction;
     KToggleAction* m_alignJustifyAction;
 
-    bool m_completionEnabled;
-    bool m_embeddedMathEnabled;
-    bool m_showExpressionIds;
-    bool m_animationsEnabled;
+    bool m_useDefaultWorksheetParameters{true};
+
+    bool m_completionEnabled{false};
+    bool m_embeddedMathEnabled{false};
+    bool m_showExpressionIds{false};
+    bool m_animationsEnabled{false};
+
     bool m_isPrinting;
     bool m_isLoadingFromFile;
     bool m_readOnly;

@@ -185,7 +185,7 @@ void MarkdownEntry::setContent(const QDomElement& content, const KZip& file)
                         setRenderedMath(i+1, data.first, internal, data.second);
                     }
                 }
-                else
+                else if (worksheet()->embeddedMathEnabled())
                     renderMathExpression(i+1, mathCode);
             }
         }

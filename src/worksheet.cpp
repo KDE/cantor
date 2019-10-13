@@ -63,7 +63,7 @@ const double Worksheet::TopMargin = 12;
 const double Worksheet::EntryCursorLength = 30;
 const double Worksheet::EntryCursorWidth = 2;
 
-Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
+Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultWorksheetParameters)
     : QGraphicsScene(parent)
 {
     m_session = nullptr;
@@ -79,6 +79,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_choosenCursorEntry = nullptr;
     m_isCursorEntryAfterLastEntry = false;
+
+    m_useDefaultWorksheetParameters = useDeafultWorksheetParameters;
 
     m_viewWidth = 0;
     m_maxWidth = 0;
@@ -1280,11 +1282,14 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 void Worksheet::initSession(Cantor::Backend* backend)
 {
     m_session = backend->createSession();
-    enableHighlighting(Settings::self()->highlightDefault());
-    enableCompletion(Settings::self()->completionDefault());
-    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
-    enableAnimations(Settings::self()->animationDefault());
-    enableEmbeddedMath(Settings::self()->embeddedMathDefault());
+    if (m_useDefaultWorksheetParameters)
+    {
+        enableHighlighting(Settings::self()->highlightDefault());
+        enableCompletion(Settings::self()->completionDefault());
+        enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+        enableAnimations(Settings::self()->animationDefault());
+        enableEmbeddedMath(Settings::self()->embeddedMathDefault());
+    }
 }
 
 bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)

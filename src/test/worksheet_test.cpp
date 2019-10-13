@@ -58,9 +58,8 @@ void WorksheetTest::initTestCase()
 
 Worksheet* WorksheetTest::loadWorksheet(const QString& name)
 {
-    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("maxima")), nullptr);
+    Worksheet* w = new Worksheet(Cantor::Backend::getBackend(QLatin1String("maxima")), nullptr, false);
     WorksheetView v(w, nullptr);
-    w->enableEmbeddedMath(false);
     w->load(dataPath + name);
     return w;
 }
