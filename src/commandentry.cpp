@@ -705,7 +705,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
     }
 
     Cantor::Expression* expr = worksheet()->session()->evaluateExpression(cmd);
-    connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(); });
+    connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(expr); });
 
     setExpression(expr);
 
