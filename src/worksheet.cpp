@@ -66,7 +66,8 @@ const double Worksheet::EntryCursorWidth = 2;
 Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
     : QGraphicsScene(parent)
 {
-    m_session = backend->createSession();
+    m_session = nullptr;
+
     m_highlighter = nullptr;
 
     m_firstEntry = nullptr;
@@ -99,11 +100,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent)
 
     m_jupyterMetadata = nullptr;
 
-    enableHighlighting(Settings::self()->highlightDefault());
-    enableCompletion(Settings::self()->completionDefault());
-    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
-    enableAnimations(Settings::self()->animationDefault());
-    enableEmbeddedMath(Settings::self()->embeddedMathDefault());
+    if (backend)
+        initSession(backend);
 }
 
 Worksheet::~Worksheet()
@@ -1221,7 +1219,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     m_maxWidth = 0;
 
     if (!m_readOnly)
-        m_session=b->createSession();
+        initSession(b);
 
     qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
@@ -1277,6 +1275,16 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 
     emit loaded();
     return true;
+}
+
+void Worksheet::initSession(Cantor::Backend* backend)
+{
+    m_session = backend->createSession();
+    enableHighlighting(Settings::self()->highlightDefault());
+    enableCompletion(Settings::self()->completionDefault());
+    enableExpressionNumbering(Settings::self()->expressionNumberingDefault());
+    enableAnimations(Settings::self()->animationDefault());
+    enableEmbeddedMath(Settings::self()->embeddedMathDefault());
 }
 
 bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
@@ -1376,7 +1384,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     m_maxWidth = 0;
 
     if (!m_readOnly)
-        m_session=backend->createSession();
+        initSession(backend);
 
     qDebug() << "loading jupyter entries";
 

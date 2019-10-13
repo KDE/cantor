@@ -58,12 +58,9 @@ public:
      */
     ~CantorShell() override;
 
-    /**
-     * checks if at least one usable Backend is installed
-     */
-    bool hasAvailableBackend();
-
     Cantor::WorksheetAccessInterface* currentWorksheetAccessInterface();
+    void addWorksheet();
+
 protected:
     /**
      * This method is called when it is time for the app to save its
@@ -77,8 +74,8 @@ protected:
      * with @ref saveProperties
      */
     void readProperties(const KConfigGroup &) override;
+
 public Q_SLOTS:
-    void addWorksheet();
     void addWorksheet(const QString& backendName);
     /// Use this method/slot to load whatever file/URL you have
     void load(const QUrl& url);
@@ -103,6 +100,7 @@ private Q_SLOTS:
     void updateNewSubmenu();
 
     void pluginVisibilityRequested();
+
 private:
     void setupActions();
     void closeEvent(QCloseEvent*) override;

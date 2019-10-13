@@ -97,25 +97,13 @@ void CantorShell::load(const QUrl &url)
 {
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
-        addWorksheet(QLatin1String("null"));
+        addWorksheet(QString());
         m_tabWidget->setCurrentIndex(m_parts.size()-1);
     }
     if (!m_part->openUrl( url ))
         closeTab(m_tabWidget->currentIndex());
     if (m_recentProjectsAction)
         m_recentProjectsAction->addUrl(url);
-}
-
-bool CantorShell::hasAvailableBackend()
-{
-    bool hasBackend=false;
-    foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
-    {
-        if(b->isEnabled())
-            hasBackend=true;
-    }
-
-    return hasBackend;
 }
 
 void CantorShell::setupActions()
@@ -190,18 +178,22 @@ void CantorShell::readProperties(const KConfigGroup & /*config*/)
     // in 'saveProperties'
 }
 
+/*!
+ * called when one of the "new backend" action or the "New" action are called
+ * adds a new worksheet with the backend assossiated with the called action
+ * or opens the "Choose Backend" dialog, respectively.
+ */
 void CantorShell::fileNew()
 {
-    if (sender()->inherits("QAction"))
+    QAction* a = static_cast<QAction*>(sender());
+    const QString& backendName = a->data().toString();
+    if (!backendName.isEmpty())
     {
-        QAction * a = qobject_cast<QAction*>(sender());
-        QString backendName = a->data().toString();
-        if (!backendName.isEmpty())
-        {
-            addWorksheet(backendName);
-            return;
-        }
+        addWorksheet(backendName);
+        return;
     }
+
+    //"New" action was called -> open the "Choose Backend" dialog.
     addWorksheet();
 }
 
@@ -251,7 +243,17 @@ void CantorShell::fileOpen()
 
 void CantorShell::addWorksheet()
 {
-    if(hasAvailableBackend()) //There is no point in asking for the backend, if no one is available
+    bool hasBackend = false;
+    for (auto* b : Cantor::Backend::availableBackends())
+    {
+        if(b->isEnabled())
+        {
+            hasBackend = true;
+            break;
+        }
+    }
+
+    if(hasBackend) //There is no point in asking for the backend, if no one is available
     {
         QString backend = Settings::self()->defaultBackend();
         if (backend.isEmpty())
@@ -318,38 +320,42 @@ void CantorShell::addWorksheet(const QString& backendName)
     KPluginFactory* factory = loader.factory();
     if (factory)
     {
-        Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
-
-        if (backend)
+        if (!backendName.isEmpty())
         {
-            if (backend->isEnabled() || backendName == QLatin1String("null"))
+            Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
+            if (!backend)
             {
-                // now that the Part is loaded, we cast it to a Part to get our hands on it
-                KParts::ReadWritePart* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
-                if (part)
-                {
-                    connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
-                    connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
-                    m_parts.append(part);
-
-                    int tab = m_tabWidget->addTab(part->widget(), QIcon::fromTheme(backend->icon()), i18n("Session %1", sessionCount++));
-                    m_tabWidget->setCurrentIndex(tab);
-                    // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
-                    // This fix https://bugs.kde.org/show_bug.cgi?id=395976
-                    part->widget()->findChild<QGraphicsView*>()->setFocus();
-                }
-                else
-                {
-                    qDebug()<<"error creating part ";
-                }
+                KMessageBox::error(this, i18n("Backend %1 is not installed", backendName), i18n("Cantor"));
+                return;
             }
             else
             {
-                KMessageBox::error(this, i18n("%1 backend installed, but inactive. Please check installation and Cantor settings", backendName), i18n("Cantor"));
+                if (!backend->isEnabled())
+                {
+                    KMessageBox::error(this, i18n("%1 backend installed, but inactive. Please check installation and Cantor settings", backendName), i18n("Cantor"));
+                    return;
+                }
             }
         }
+
+        // now that the Part is loaded, we cast it to a Part to get our hands on it
+        KParts::ReadWritePart* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
+        if (part)
+        {
+            connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
+            connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
+            m_parts.append(part);
+
+            int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
+            m_tabWidget->setCurrentIndex(tab);
+            // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
+            // This fix https://bugs.kde.org/show_bug.cgi?id=395976
+            part->widget()->findChild<QGraphicsView*>()->setFocus();
+        }
         else
-            KMessageBox::error(this, i18n("Backend %1 is not installed", backendName), i18n("Cantor"));
+        {
+            qDebug()<<"error creating part ";
+        }
     }
     else
     {

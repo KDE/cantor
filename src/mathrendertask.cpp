@@ -27,10 +27,8 @@
 #include <KColorScheme>
 #include <KProcess>
 #include <QScopedPointer>
-#include <QMutex>
 #include <QApplication>
 #include <QDebug>
-
 
 #include "lib/renderer.h"
 #include "lib/latexrenderer.h"
@@ -62,7 +60,12 @@ MathRenderTask::MathRenderTask(
         double scale,
         bool highResolution
     ): m_jobId(jobId), m_code(code), m_type(type), m_scale(scale), m_highResolution(highResolution)
-    {}
+{
+
+    KColorScheme scheme(QPalette::Active);
+    m_backgroundColor = scheme.background().color();
+    m_foregroundColor = scheme.foreground().color();
+}
 
 void MathRenderTask::setHandler(const QObject* receiver, const char* resultHandler)
 {
@@ -71,6 +74,7 @@ void MathRenderTask::setHandler(const QObject* receiver, const char* resultHandl
 
 void MathRenderTask::run()
 {
+    qDebug()<<"MathRenderTask::run " << m_jobId;
     QSharedPointer<MathRenderResult> result(new MathRenderResult());
 
     const QString& tempDir=QStandardPaths::writableLocation(QStandardPaths::TempLocation);
@@ -98,14 +102,9 @@ void MathRenderTask::run()
     }
     QString expressionTex=mathTex;
 
-    KColorScheme scheme(QPalette::Active);
-    const QColor &backgroundColor=scheme.background().color();
-    const QColor &foregroundColor=scheme.foreground().color();
-
     expressionTex=expressionTex
-                            .arg(backgroundColor.redF()).arg(backgroundColor.greenF()).arg(backgroundColor.blueF())
-                            .arg(foregroundColor.redF()).arg(foregroundColor.greenF()).arg(foregroundColor.blueF());
-
+                            .arg(m_backgroundColor.redF()).arg(m_backgroundColor.greenF()).arg(m_backgroundColor.blueF())
+                            .arg(m_foregroundColor.redF()).arg(m_foregroundColor.greenF()).arg(m_foregroundColor.blueF());
     int fontPointSize = QApplication::font().pointSize();
     expressionTex=expressionTex.arg(fontPointSize);
 

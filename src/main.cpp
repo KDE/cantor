@@ -143,7 +143,6 @@ int main(int argc, char **argv)
                         KMessageBox::error(widget, i18n("Couldn't open the file %1", filename), i18n("Cantor"));
                     else
                     {
-                        widget->addWorksheet(QLatin1String("null"));
                         widget->load(url);
                     }
                 }

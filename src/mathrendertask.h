@@ -85,6 +85,9 @@ class MathRenderTask : public QObject, public QRunnable
     Cantor::LatexRenderer::EquationType m_type;
     double m_scale;
     bool m_highResolution;
+    QColor m_backgroundColor;
+    QColor m_foregroundColor;
+
 };
 
 #endif /* MATHRENDERTASK_H */

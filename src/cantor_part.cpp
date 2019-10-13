@@ -115,9 +115,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_panelHandler, &Cantor::PanelPluginHandler::pluginsChanged, this, &CantorPart::pluginsChanged);
 
     QString backendName;
-    if(args.isEmpty())
-        backendName = QLatin1String("null");
-    else
+    if(!args.isEmpty())
         backendName = args.first().toString();
 
     for (const QVariant& arg : args)
@@ -129,8 +127,12 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
         }
     }
 
-    Cantor::Backend* b = Cantor::Backend::getBackend(backendName);
-    qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
+    Cantor::Backend* b = nullptr;
+    if (!backendName.isEmpty())
+    {
+        b = Cantor::Backend::getBackend(backendName);
+        qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
+    }
 
     //central widget
     QWidget* widget = new QWidget(parentWidget);
@@ -312,7 +314,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
-    m_showBackendHelp = new QAction(i18n("Show %1 Help", b->name()) , collection);
+    m_showBackendHelp = new QAction(i18n("Show Help") , collection);
     m_showBackendHelp->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
     collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
@@ -331,7 +333,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     showEditor->setChecked(false);
     collection->addAction(QLatin1String("show_editor"), showEditor);
     connect(showEditor, &KToggleAction::toggled, this, &CantorPart::showScriptEditor);
-    showEditor->setEnabled(b->extensions().contains(QLatin1String("ScriptExtension")));
 
     QAction* showCompletion = new QAction(i18n("Show Completion"), collection);
     collection->addAction(QLatin1String("show_completion"), showCompletion);
@@ -350,7 +351,12 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     // we are not modified since we haven't done anything yet
     setModified(false);
 
-    initialized();
+    if (b)
+    {
+        m_showBackendHelp->setText(i18n("Show %1 Help", b->name()));
+        showEditor->setEnabled(b->extensions().contains(QLatin1String("ScriptExtension")));
+        initialized();
+    }
 }
 
 CantorPart::~CantorPart()

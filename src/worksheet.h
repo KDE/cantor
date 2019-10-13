@@ -277,6 +277,7 @@ class Worksheet : public QGraphicsScene
     bool loadCantorWorksheet(const KZip& archive);
     bool loadJupyterNotebook(const QJsonDocument& doc);
     void showInvalidNotebookSchemeError(QString additionalInfo = QString());
+    void initSession(Cantor::Backend*);
 
   private:
     static const double LeftMargin;
