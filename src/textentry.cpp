@@ -52,6 +52,7 @@ TextEntry::TextEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
     , m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->enableRichText(true);
+
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &TextEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &TextEntry::moveToNextEntry);
     // Modern syntax of signal/stots don't work on this connection (arguments don't match)
@@ -587,4 +588,9 @@ void TextEntry::addNewTarget(const QString& target)
     action->setCheckable(true);
     action->setChecked(true);
     m_targetMenu->insertAction(m_targetMenu->actions().last(), action);
+}
+
+QString TextEntry::text() const
+{
+    return m_textItem->toPlainText();
 }

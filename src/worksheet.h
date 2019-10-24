@@ -228,6 +228,8 @@ class Worksheet : public QGraphicsScene
     void setFontFamily(const QString&);
     void setFontSize(int size);
 
+    void changeEntryType(WorksheetEntry* target, int newType);
+
   Q_SIGNALS:
     void modified();
     void loaded();
@@ -325,14 +327,14 @@ class Worksheet : public QGraphicsScene
     bool m_showExpressionIds{false};
     bool m_animationsEnabled{false};
 
-    bool m_isPrinting;
-    bool m_isLoadingFromFile;
-    bool m_readOnly;
+    bool m_isPrinting{false};
+    bool m_isLoadingFromFile{false};
+    bool m_readOnly{false};
 
     Type m_type = CantorWorksheet;
 
     QString m_backendName;
-    QJsonObject* m_jupyterMetadata;
+    QJsonObject* m_jupyterMetadata{nullptr};
 };
 
 #endif // WORKSHEET_H

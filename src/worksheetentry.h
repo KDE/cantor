@@ -63,6 +63,8 @@ class WorksheetEntry : public QGraphicsObject
     WorksheetEntry* next() const;
     WorksheetEntry* previous() const;
 
+    void forceRemove();
+
     void setNext(WorksheetEntry*);
     void setPrevious(WorksheetEntry*);
 
@@ -120,12 +122,20 @@ class WorksheetEntry : public QGraphicsObject
     void insertLatexEntry();
     void insertImageEntry();
     void insertPageBreakEntry();
+
     void insertCommandEntryBefore();
     void insertTextEntryBefore();
     void insertMarkdownEntryBefore();
     void insertLatexEntryBefore();
     void insertImageEntryBefore();
     void insertPageBreakEntryBefore();
+
+    void convertToCommandEntry();
+    void convertToTextEntry();
+    void convertToMarkdownEntry();
+    void convertToLatexEntry();
+    void convertToImageEntry();
+    void converToPageBreakEntry();
 
     virtual void sizeAnimated();
     virtual void startRemoving();

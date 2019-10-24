@@ -44,6 +44,8 @@ class TextEntry : public WorksheetEntry
     enum {Type = UserType + 1};
     int type() const override;
 
+    QString text() const;
+
     bool isEmpty() override;
 
     bool acceptRichText() override;

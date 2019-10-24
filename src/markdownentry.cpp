@@ -716,3 +716,8 @@ void MarkdownEntry::clearAttachments()
     attachedImages.clear();
     animateSizeChange();
 }
+
+QString MarkdownEntry::plainText() const
+{
+    return m_textItem->toPlainText();
+}

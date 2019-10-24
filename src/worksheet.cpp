@@ -96,10 +96,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultW
     connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
     m_cursorItemTimer->start(500);
 
-    m_isPrinting = false;
-    m_readOnly = false;
-    m_isLoadingFromFile = false;
-
     m_jupyterMetadata = nullptr;
 
     if (backend)
@@ -351,11 +347,11 @@ void Worksheet::setWorksheetCursor(const WorksheetCursor& cursor)
 
 WorksheetEntry* Worksheet::currentEntry()
 {
-    QGraphicsItem* item = focusItem();
     // Entry cursor activate
     if (m_choosenCursorEntry || m_isCursorEntryAfterLastEntry)
         return nullptr;
 
+    QGraphicsItem* item = focusItem();
     if (!item /*&& !hasFocus()*/)
         item = m_lastFocusedTextItem;
     /*else
@@ -1553,8 +1549,20 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     menu->addSeparator();
 
     if (entry) {
+        QMenu* convertTo = new QMenu(menu);
         QMenu* insert = new QMenu(menu);
         QMenu* insertBefore = new QMenu(menu);
+
+        convertTo->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, &WorksheetEntry::convertToCommandEntry);
+        convertTo->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, &WorksheetEntry::convertToTextEntry);
+#ifdef Discount_FOUND
+        convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, &WorksheetEntry::convertToMarkdownEntry);
+#endif
+#ifdef WITH_EPS
+        convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, &WorksheetEntry::convertToLatexEntry);
+#endif
+        convertTo->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, &WorksheetEntry::convertToImageEntry);
+        convertTo->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, &WorksheetEntry::converToPageBreakEntry);
 
         insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
         insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntry()));
@@ -1578,10 +1586,14 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
         insertBefore->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
 
+        convertTo->setTitle(i18n("Convert Entry To"));
+        convertTo->setIcon(QIcon::fromTheme(QLatin1String("gtk-convert")));
         insert->setTitle(i18n("Insert Entry After"));
         insert->setIcon(QIcon::fromTheme(QLatin1String("edit-table-insert-row-below")));
         insertBefore->setTitle(i18n("Insert Entry Before"));
         insertBefore->setIcon(QIcon::fromTheme(QLatin1String("edit-table-insert-row-above")));
+
+        menu->addMenu(convertTo);
         menu->addMenu(insert);
         menu->addMenu(insertBefore);
     } else {
@@ -2279,4 +2291,67 @@ void Worksheet::setType(Worksheet::Type type)
 Worksheet::Type Worksheet::type() const
 {
     return m_type;
+}
+
+void Worksheet::changeEntryType(WorksheetEntry* target, int newType)
+{
+    if (target && target->type() != newType)
+    {
+        bool animation_state = m_animationsEnabled;
+        m_animationsEnabled = false;
+
+        QString content;
+
+        switch(target->type())
+        {
+            case CommandEntry::Type:
+                content = static_cast<CommandEntry*>(target)->command();
+                break;
+
+            case MarkdownEntry::Type:
+                content = static_cast<MarkdownEntry*>(target)->plainText();
+                break;
+
+            case TextEntry::Type:
+                content = static_cast<TextEntry*>(target)->text();
+                break;
+
+            case LatexEntry::Type:
+                content = static_cast<LatexEntry*>(target)->plain();
+
+        }
+
+        WorksheetEntry* newEntry = WorksheetEntry::create(newType, this);
+        newEntry->setContent(content);
+
+        if (newEntry)
+        {
+            WorksheetEntry* tmp = target;
+
+            newEntry->setPrevious(tmp->previous());
+            newEntry->setNext(tmp->next());
+
+            tmp->setPrevious(nullptr);
+            tmp->setNext(nullptr);
+            tmp->clearFocus();
+            tmp->forceRemove();
+
+            if (newEntry->previous())
+                newEntry->previous()->setNext(newEntry);
+            else
+                setFirstEntry(newEntry);
+
+            if (newEntry->next())
+                newEntry->next()->setPrevious(newEntry);
+            else
+                setLastEntry(newEntry);
+
+            updateLayout();
+            makeVisible(newEntry);
+            focusEntry(newEntry);
+            setModified();
+            newEntry->focusEntry();
+        }
+        m_animationsEnabled = animation_state;
+    }
 }

@@ -38,6 +38,8 @@ class LatexEntry : public WorksheetEntry
 
     bool isEmpty() override;
 
+    QString plain() const;
+
     bool acceptRichText() override;
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) override;

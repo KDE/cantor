@@ -169,6 +169,35 @@ void WorksheetEntry::insertPageBreakEntryBefore()
     worksheet()->insertPageBreakEntryBefore(this);
 }
 
+void WorksheetEntry::convertToCommandEntry()
+{
+    worksheet()->changeEntryType(this, CommandEntry::Type);
+}
+
+void WorksheetEntry::convertToTextEntry()
+{
+    worksheet()->changeEntryType(this, TextEntry::Type);
+}
+
+void WorksheetEntry::convertToMarkdownEntry()
+{
+    worksheet()->changeEntryType(this, MarkdownEntry::Type);
+}
+
+void WorksheetEntry::convertToLatexEntry()
+{
+    worksheet()->changeEntryType(this, LatexEntry::Type);
+}
+
+void WorksheetEntry::convertToImageEntry()
+{
+    worksheet()->changeEntryType(this, ImageEntry::Type);
+}
+
+void WorksheetEntry::converToPageBreakEntry()
+{
+    worksheet()->changeEntryType(this, PageBreakEntry::Type);
+}
 
 void WorksheetEntry::showCompletion()
 {
@@ -675,9 +704,7 @@ void WorksheetEntry::remove()
         worksheet()->setLastEntry(previous());
 
     // make the entry invisible to QGraphicsScene's itemAt() function
-    hide();
-    worksheet()->updateLayout();
-    deleteLater();
+    forceRemove();
 }
 
 void WorksheetEntry::setSize(QSizeF size)
@@ -827,4 +854,11 @@ void WorksheetEntry::setJupyterMetadata(QJsonObject metadata)
     if (m_jupyterMetadata == nullptr)
         m_jupyterMetadata = new QJsonObject();
     *m_jupyterMetadata = metadata;
+}
+
+void WorksheetEntry::forceRemove()
+{
+    hide();
+    worksheet()->updateLayout();
+    deleteLater();
 }

@@ -43,6 +43,7 @@
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))
 {
     m_textItem->installEventFilter(this);
+
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &LatexEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &LatexEntry::moveToNextEntry);
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
@@ -560,4 +561,9 @@ void LatexEntry::resolveImagesAtCursor()
     if (!cursor.hasSelection())
         cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
     cursor.insertText(m_textItem->resolveImages(cursor));
+}
+
+QString LatexEntry::plain() const
+{
+    return m_textItem->toPlainText();
 }
