@@ -64,7 +64,7 @@ include(thirdparty/CMakeLists.txt)
 
 if(NOT WIN32)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
-        URL "http://libspectre.freedesktop.org/wiki/"
+        URL "https://www.freedesktop.org/wiki/Software/libspectre/"
         TYPE OPTIONAL
         PURPOSE "Support for rendering EPS files in Cantor")
 
