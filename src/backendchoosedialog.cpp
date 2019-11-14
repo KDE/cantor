@@ -125,7 +125,7 @@ void BackendChooseDialog::updateContent()
         }
         else
         {
-            QString reasonMsg = i18n("<br><div><b>Some requirements are not fulfilled: </b>%1</div>", reason);
+            QString reasonMsg = i18n("<hr><div><b><font color='#e50000'>Some requirements are not fulfilled: </font></b>%1</div>", reason);
             desc = header + reasonMsg + info;
             m_ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
             m_ui.makeDefault->setEnabled(false);
