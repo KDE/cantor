@@ -84,7 +84,7 @@ int main(int argc, char **argv)
                      KAboutLicense::GPL,
                      i18n("(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"),
                      QString(),
-                     QLatin1String("https://edu.kde.org/cantor/"));
+                     QLatin1String("https://cantor.kde.org/"));
 
     about.addAuthor( i18n("Filipe Saraiva"), i18n("Maintainer<br/>Qt5/KF5 port, Scilab and Python backends"), QLatin1String("filipe@kde.org"), QLatin1String("http://filipesaraiva.info/") );
     about.addAuthor( i18n("Nikita Sirgienko"), i18nc("@info:credit", "Developer"), QLatin1String("warquark@gmail.com>"));
