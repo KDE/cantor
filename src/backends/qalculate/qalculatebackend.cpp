@@ -76,6 +76,7 @@ QUrl QalculateBackend::helpUrl() const
 
 bool QalculateBackend::requirementsFullfilled(QString* const reason) const
 {
+    Q_UNUSED(reason);
     return true;
 }
 

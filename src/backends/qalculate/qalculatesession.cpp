@@ -24,10 +24,8 @@
 #include "qalculatehighlighter.h"
 #include "defaultvariablemodel.h"
 
-#include <QTextEdit>
 #include <QProcess>
 #include <QRegExp>
-#include <QRegularExpression>
 
 #include <libqalculate/Calculator.h>
 #include <libqalculate/ExpressionItem.h>
@@ -148,7 +146,6 @@ void QalculateSession::readOutput()
                     m_currentExpression->parseOutput(m_finalOutput);
                     m_finalOutput.clear();
                 }
-
         }
 }
 
@@ -203,12 +200,10 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
     }
     if(!value.isEmpty() && !var.isEmpty())
         variables.insert(var, value);
-
 }
 
 void QalculateSession::readError()
 {
-
     QString error =  QLatin1String(m_process->readAllStandardError());
     if(m_currentExpression) {
         m_currentExpression->parseError(error);
@@ -255,13 +250,11 @@ void QalculateSession::interrupt()
 
 void QalculateSession::runExpression()
 {
-
     const QString& command = m_currentExpression->command();
     foreach(const QString& cmd, command.split(QLatin1Char('\n'))) {
         m_commandQueue.enqueue(cmd);
     }
     runCommandQueue();
-
 }
 
 
@@ -274,14 +267,12 @@ void QalculateSession::runCommandQueue()
             m_currentCommand.toLower().trimmed().startsWith(QLatin1String("store")) ||
             m_currentCommand.trimmed().startsWith(QLatin1String("saveVariables"))) {
 
-                    m_currentCommand = parseSaveCommand(m_currentCommand);
+                m_currentCommand = parseSaveCommand(m_currentCommand);
             }
-
 
         m_currentCommand = m_currentCommand.trimmed();
         m_currentCommand += QLatin1String("\n");
         m_process->write(m_currentCommand.toLocal8Bit());
-
     }
 }
 
@@ -319,7 +310,6 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
         return currentCmd;
     }
 
-
     regex.setPattern(QLatin1String("\\s*store\\s*([a-zA-Z_]+[\\w]*)|\\s*save\\s*([a-zA-Z_]+[\\w]*)"));
     if(regex.exactMatch(currentCmd)) {
         m_isSaveCommand = true;
@@ -354,18 +344,18 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
     */
     m_saveError =  currentCmd + QLatin1String("\nError: Could not save.\n");
     return QLatin1String("");
-
 }
 
 void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
     // depending on the status of the expression change the status of the session;
     switch (status) {
-
         case Cantor::Expression::Computing:
             break;
         case Cantor::Expression::Interrupted:
             changeStatus(Cantor::Session::Done);
+            break;
+        case Cantor::Expression::Queued:
             break;
         case Cantor::Expression::Done:
         case Cantor::Expression::Error:
@@ -380,7 +370,6 @@ void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status
 
 Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
-
     qDebug() << " ** evaluating expression: " << cmd << endl;
     qDebug() << " size of expression queue: " << m_expressionQueue.size() << endl;
 
@@ -394,7 +383,6 @@ Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Can
     runExpressionQueue();
 
     return expr;
-
 }
 
 void QalculateSession::runExpressionQueue()
@@ -417,7 +405,6 @@ void QalculateSession::runExpressionQueue()
         connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
         // start processing the expression
         m_currentExpression->evaluate();
-
     }
 }
 
@@ -436,7 +423,6 @@ QSyntaxHighlighter* QalculateSession::syntaxHighlighter(QObject* parent)
 {
     return new QalculateHighlighter(parent);
 }
-
 
 Cantor::DefaultVariableModel* QalculateSession::variableModel() const
 {
