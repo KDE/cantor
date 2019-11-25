@@ -555,7 +555,7 @@ This dialog allows entering expression of the function, its variables and the li
 <title>The main &cantor; window</title>
 
 <para>
-&cantor; has the common &kde; menu items, for more information read the <ulink url="help:/fundamentals/ui.html#menus"
+&cantor; has the common &kde; menu items, for more information read the <ulink url="help:/fundamentals/menus.html"
 >Menu</ulink> chapter of the &kde; Fundamentals.
 </para>
 
@@ -875,8 +875,8 @@ This dialog allows entering expression of the function, its variables and the li
 <para>
 &cantor; has the common &kde; <guimenu>Settings</guimenu> and <guimenu>Help</guimenu>
 menu items, for more information read the sections about the <ulink
-url="help:/fundamentals/ui.html#menus-settings">Settings Menu</ulink> and
-<ulink url="help:/fundamentals/ui.html#menus-help">Help Menu</ulink>
+url="help:/fundamentals/menus.html#menus-settings">Settings Menu</ulink> and
+<ulink url="help:/fundamentals/menus.html#menus-help">Help Menu</ulink>
 of the &kde; Fundamentals.
 </para>
 
