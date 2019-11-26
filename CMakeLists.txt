@@ -60,7 +60,7 @@ include(KDEFrameworkCompilerSettings)
 include(ECMAddAppIcon)
 include(GenerateExportHeader)
 
-include(thirdparty/CMakeLists.txt)
+add_subdirectory(thirdparty)
 
 if(NOT WIN32)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
