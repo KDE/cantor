@@ -60,6 +60,14 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
     m_size = document()->size();;
     setAcceptDrops(true);
     setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
+
+    connect(this, &QGraphicsTextItem::linkHovered, [=](const QString& link) {
+        if (!link.isEmpty())
+            QApplication::setOverrideCursor(QCursor(Qt::PointingHandCursor));
+        else
+            QApplication::restoreOverrideCursor();
+    });
+
     connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
     connect(this, SIGNAL(menuCreated(QMenu*,QPointF)), parent,
             SLOT(populateMenu(QMenu*,QPointF)), Qt::DirectConnection);
