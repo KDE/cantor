@@ -145,7 +145,6 @@ void SageExpression::parseOutput(const QString& text)
         }
         else
         {
-            m_outputCache=m_outputCache.trimmed();
             evalFinished();
         }
     }

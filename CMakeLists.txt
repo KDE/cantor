@@ -60,7 +60,9 @@ include(KDEFrameworkCompilerSettings)
 include(ECMAddAppIcon)
 include(GenerateExportHeader)
 
-include(thirdparty/CMakeLists.txt)
+add_subdirectory(thirdparty)
+# Need to set this here, because variable can't move from subdirectory (thirdparty) to upper cmake scope
+set(Discount_FOUND TRUE)
 
 if(NOT WIN32)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
