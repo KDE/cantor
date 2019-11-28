@@ -28,6 +28,7 @@
 #include <QBuffer>
 #include <KLocalizedString>
 #include <QDebug>
+#include <QKeyEvent>
 #include <QStandardPaths>
 #include <QDir>
 #include <QFileDialog>
@@ -465,6 +466,16 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
                     rendered = false;
                     return true;
                 }
+            }
+        }
+        else if (event->type() == QEvent::KeyPress)
+        {
+            auto* key_event = static_cast<QKeyEvent*>(event);
+            if (key_event->matches(QKeySequence::Cancel))
+            {
+                setRenderedHtml(html);
+                rendered = true;
+                return true;
             }
         }
     }
