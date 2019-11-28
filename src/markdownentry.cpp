@@ -474,7 +474,13 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
             if (key_event->matches(QKeySequence::Cancel))
             {
                 setRenderedHtml(html);
+                for (auto iter = foundMath.begin(); iter != foundMath.end(); iter++)
+                    iter->second = false;
                 rendered = true;
+                markUpMath();
+                if (worksheet()->embeddedMathEnabled())
+                    renderMath();
+
                 return true;
             }
         }
