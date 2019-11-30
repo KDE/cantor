@@ -661,6 +661,13 @@ void WorksheetTextItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
     menu->popup(event->screenPos());
 }
 
+void WorksheetTextItem::wheelEvent(QGraphicsSceneWheelEvent* event)
+{
+    //restore the cursor when scrolling with the mouse wheel since we
+    //might be using the pointer cursor set after an URL was hovered
+    QApplication::restoreOverrideCursor();
+    QGraphicsItem::wheelEvent(event);
+}
 void WorksheetTextItem::insertTab()
 {
     QTextCursor cursor = textCursor();
