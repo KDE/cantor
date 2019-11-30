@@ -14,7 +14,15 @@ The version included here provides two additional patches:
 * Better recognition of the mathematical expressions between $...$, $$...$$
 
 
-## standalone.cls
-This file provides the LaTeX class and package 'standalone' ([link](https://ctan.org/tex-archive/macros/latex/contrib/standalone)),
-which allows TeX pictures or other TeX code in sub-files to be compiled standalone or as part of a main document.
-This package is used for the rendering of mathematical LaTeX expressions embedded in the Cantor's worksheet.
+## preview.sty
+This file provides the LaTeX style 'preview' ([link](https://www.ctan.org/tex-archive/macros/latex/contrib/preview)).
+
+The main purpose of the preview package is the extraction of selected
+elements from a LaTeX source, like formulas or graphics, into separate
+pages of a DVI file.  A flexible and convenient interface allows it to
+specify what commands and constructs should be extracted.  This works
+with DVI files postprocessed by either Dvips and Ghostscript or
+dvipng, but it also works when you are using PDFTeX for generating PDF
+files.
+
+This package is used for the rendering of mathematical LaTeX expressions embedded in Cantor's worksheet.

@@ -33,21 +33,21 @@
 #include "lib/renderer.h"
 #include "lib/latexrenderer.h"
 
-static const QLatin1String mathTex("\\documentclass%9{standalone}"\
+static const QLatin1String mathTex("\\documentclass%9{minimal}"\
                          "\\usepackage{amsfonts,amssymb}"\
                          "\\usepackage{amsmath}"\
                          "\\usepackage[utf8]{inputenc}"\
+                         "\\usepackage[active,displaymath,textmath,tightpage]{preview}"\
                          "\\usepackage{color}"\
-                         /*
-                         "\\setlength\\textwidth{5in}"\
-                         "\\setlength{\\parindent}{0pt}"\
-                         "\\pagestyle{empty}"\
-                         */
                          "\\begin{document}"\
-                         "\\pagecolor[rgb]{%1,%2,%3}"\
+                         "\\begin{preview}"\
+                         "$"\
+                         "\\colorbox[rgb]{%1,%2,%3}{"\
                          "\\color[rgb]{%4,%5,%6}"\
                          "\\fontsize{%7}{%7}\\selectfont"\
-                         "%8"\
+                         "%8}"\
+                         "$"\
+                         "\\end{preview}"
                          "\\end{document}");
 
 static const QLatin1String eqnHeader("$\\displaystyle %1$");
@@ -82,23 +82,23 @@ void MathRenderTask::run()
     QTemporaryFile texFile(tempDir + QDir::separator() + QLatin1String("cantor_tex-XXXXXX.tex"));
     texFile.open();
 
-    // Verify that standalone.cls available for rendering and could be founded
-    if (!tempDir.contains(QLatin1String("standalone.cls")))
+    // make sure we have preview.sty available
+    if (!tempDir.contains(QLatin1String("preview.cls")))
     {
-        QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/standalone.cls"));
+        QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/preview.sty"));
 
         if (file.isEmpty())
-            file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/latex/standalone.cls"));
+            file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/latex/preview.sty"));
 
         if (file.isEmpty())
         {
             result->successful = false;
-            result->errorMessage = QString::fromLatin1("needed for math render standalone.cls file not found in Cantor data directory");
+            result->errorMessage = QString::fromLatin1("LaTeX style file preview.sty not found.");
             finalize(result);
             return;
         }
         else
-            QFile::copy(file, tempDir + QDir::separator() + QLatin1String("standalone.cls"));
+            QFile::copy(file, tempDir + QDir::separator() + QLatin1String("preview.sty"));
     }
     QString expressionTex=mathTex;
 
