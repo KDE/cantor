@@ -83,7 +83,7 @@ void MathRenderTask::run()
     texFile.open();
 
     // make sure we have preview.sty available
-    if (!tempDir.contains(QLatin1String("preview.cls")))
+    if (!tempDir.contains(QLatin1String("preview.sty")))
     {
         QString file = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("latex/preview.sty"));
 
