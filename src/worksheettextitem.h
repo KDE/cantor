@@ -148,6 +148,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
     void dropEvent(QGraphicsSceneDragDropEvent* event) override;
     bool sceneEvent(QEvent *event) override;
+    void wheelEvent(QGraphicsSceneWheelEvent*) override;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) override;
 
   private Q_SLOTS:
