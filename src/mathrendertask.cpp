@@ -177,6 +177,7 @@ void MathRenderTask::run()
 
     bool success; QString errorMessage; QSizeF size;
     const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage);
+    QFile::remove(pdfFileName);
     result->successful = success;
     result->errorMessage = errorMessage;
     if (success == false)
