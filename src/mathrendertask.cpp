@@ -173,11 +173,12 @@ void MathRenderTask::run()
     QFile::remove(pathWithoutExtension + QLatin1String(".log"));
     QFile::remove(pathWithoutExtension + QLatin1String(".aux"));
 
+    // We shouldn't remove pdf file, because this file used in future in an another parts of Cantor
+    // For example, this pdf will copied into .cws file on save
     const QString& pdfFileName = pathWithoutExtension + QLatin1String(".pdf");
 
     bool success; QString errorMessage; QSizeF size;
     const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage);
-    QFile::remove(pdfFileName);
     result->successful = success;
     result->errorMessage = errorMessage;
     if (success == false)
