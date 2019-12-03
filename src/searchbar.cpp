@@ -35,7 +35,7 @@ SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent)
     m_stdUi = new Ui::StandardSearchBar();
     m_extUi = nullptr;
     setupStdUi();
-    m_qtFlags = nullptr;
+    m_qtFlags = {};
     setStartCursor(worksheet->worksheetCursor());
     setCurrentCursor(m_startCursor);
     m_atBeginning = false;
