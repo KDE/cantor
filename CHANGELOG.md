@@ -5,6 +5,13 @@
 ### New features
 
     * Add ability to change entry type via context menu
+    * Leave the markdown and latex cells in the edit mode if the the user hits the
+    cancel/escape button
+
+### Important bug fixes
+
+    * Fix rendering of embedded math in Markdown Entry on openSUSE
+    * Show the pointer hand cursor when hovering over a URL in a markdown entry
 
 ## 19.08
 
