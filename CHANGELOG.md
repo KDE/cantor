@@ -2,8 +2,14 @@
 
 ## 19.12
 
+### Screenshots
+
+    * https://imgur.com/KnXYvFP
+    * https://imgur.com/CmucWdR
+
 ### New features
 
+    * Instead of showing only available and workable backends, Cantor shows all available backends and for non workable shows reason, why this backend doesn't work.
     * Add ability to change entry type via context menu
     * Leave the markdown and latex cells in the edit mode if the the user hits the
     cancel/escape button
@@ -18,12 +24,9 @@
 ### Screenshots
 
     * https://imgur.com/Xpj2EcQ
-    * https://imgur.com/KnXYvFP
-    * https://imgur.com/CmucWdR
 
 ### New features
 
-    * Instead of showing only available and workable backends, Cantor shows all available backends and for non workable shows reason, why this backend doesn't work.
     * Allow to set the path to custom Julia installations. However, Cantor will work with versions only it was compiled for.
     * For Markdown and LaTeX entries allow to switch via double click from the rendered result to the original code and back via the evaluation of the entry
     * Save the results of rendered markdown and LaTeX entries as part of the project. This allows to see the results also on with no support for markdown and latex rendering
