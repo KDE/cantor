@@ -4,30 +4,35 @@
 
 ### Screenshots
 
-    * https://imgur.com/KnXYvFP
-    * https://imgur.com/CmucWdR
+    * https://imgur.com/frfNeBH
+    * https://imgur.com/IAJ4YAN
+    * https://imgur.com/eBesNdR
 
 ### New features
 
-    * Instead of showing only available and workable backends, Cantor shows all available backends and for non workable shows reason, why this backend doesn't work.
-    * Add ability to change entry type via context menu
+    * Support for Jupyter Notebook format (.ipynb)
+    * Allow to convert Cantor's native worksheet format to Jupyter notebook and back
+    * Allow to change the type of a worksheet entry via the context menu
     * Leave the markdown and latex cells in the edit mode if the the user hits the cancel/escape button
-    * Support Jupyter Notebook format (.ipynb)
-    * Possibility convert cantor worksheet format to jupyter notebook and back
+    * Add opportunity to set path to local documentation in Sage backend
 
 ### Important bug fixes
 
     * Fix rendering of embedded math in Markdown Entry on openSUSE
     * Show the pointer hand cursor when hovering over a URL in a markdown entry
+    * Make sagemath backend compatible with sagemath built with python3
 
 ## 19.08
 
 ### Screenshots
 
     * https://imgur.com/Xpj2EcQ
+    * https://imgur.com/KnXYvFP
+    * https://imgur.com/CmucWdR
 
 ### New features
 
+    * Instead of showing only available and workable backends, Cantor shows all available backends and for non workable shows reason, why this backend doesn't work.
     * Allow to set the path to custom Julia installations. However, Cantor will work with versions only it was compiled for.
     * For Markdown and LaTeX entries allow to switch via double click from the rendered result to the original code and back via the evaluation of the entry
     * Save the results of rendered markdown and LaTeX entries as part of the project. This allows to see the results also on with no support for markdown and latex rendering
