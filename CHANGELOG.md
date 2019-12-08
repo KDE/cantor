@@ -11,8 +11,9 @@
 
     * Instead of showing only available and workable backends, Cantor shows all available backends and for non workable shows reason, why this backend doesn't work.
     * Add ability to change entry type via context menu
-    * Leave the markdown and latex cells in the edit mode if the the user hits the
-    cancel/escape button
+    * Leave the markdown and latex cells in the edit mode if the the user hits the cancel/escape button
+    * Support Jupyter Notebook format (.ipynb)
+    * Possibility convert cantor worksheet format to jupyter notebook and back
 
 ### Important bug fixes
 
