@@ -1,6 +1,6 @@
 #include <config-cantorlib.h>
 
-#define CANTOR_VERSION "${KDE_APPLICATIONS_VERSION}"
+#define CANTOR_VERSION "${RELEASE_SERVICE_VERSION}"
 
 #cmakedefine Discount_FOUND 1
 
