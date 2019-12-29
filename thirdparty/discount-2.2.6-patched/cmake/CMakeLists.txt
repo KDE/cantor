@@ -141,8 +141,10 @@ add_library(libmarkdown
     "${_ROOT}/html5.c"
     "${_ROOT}/flags.c")
 
-set_target_properties(libmarkdown PROPERTIES
-    OUTPUT_NAME markdown)
+if(NOT MSVC)
+    set_target_properties(libmarkdown PROPERTIES
+        OUTPUT_NAME markdown)
+endif()
 
 if(NOT ${PROJECT_NAME}_ONLY_LIBRARY)
     add_library(common OBJECT
