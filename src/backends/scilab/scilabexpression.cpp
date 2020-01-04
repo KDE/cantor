@@ -29,7 +29,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
-#include <QRandomGenerator>
 
 #include <KIconLoader>
 
@@ -55,12 +54,11 @@ void ScilabExpression::evaluate()
 
         QStringList commandList = command().split(QLatin1String("\n"));
 
-        auto *generator = QRandomGenerator::global();
         for(int count = 0; count < commandList.size(); count++){
 
             if(commandList.at(count).toLocal8Bit().contains("plot")){
 
-                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(generator->generate());
+                exportCommand = QString::fromLatin1("\nxs2png(gcf(), 'cantor-export-scilab-figure-%1.png');\ndelete(gcf());").arg(qrand());
 
                 commandList[count].append(exportCommand);
 
