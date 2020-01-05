@@ -48,12 +48,25 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
 
     void deleteLater() override;
 
+  Q_SIGNALS:
+    void collapseActionSizeChanged();
+
   protected Q_SLOTS:
     void toggleLatexCode();
     void showHtml();
     void showHtmlSource();
     void showPlain();
     void saveResult();
+
+  protected:
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    int visibleLineCount();
+    void collapseExtraLines();
+
+  protected:
+    bool m_isCollapsed{false};
+    bool m_userCollapseOverride{false};
+    int m_widthWhenCollapsed{0};
 };
 
 #endif //TEXTRESULTITEM_H

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="6.0">
+<ui version="4.0">
  <class>SettingsBase</class>
  <widget class="QWidget" name="SettingsBase">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>398</width>
-    <height>400</height>
+    <width>845</width>
+    <height>631</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -101,6 +101,32 @@
           <property name="text">
            <string>Show message about error on render failure of embedded math</string>
           </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSplitter" name="splitter">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QLabel" name="VisibleLinesLimit_label">
+           <property name="toolTip">
+            <string>Maximal number of visible rows in the result of a command entry. Use 0 to work without limitations.</string>
+           </property>
+           <property name="text">
+            <string>Maximal number of result visible rows (0 for unlimited):</string>
+           </property>
+          </widget>
+          <widget class="QSpinBox" name="kcfg_VisibleLinesLimit">
+           <property name="toolTip">
+            <string/>
+           </property>
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>

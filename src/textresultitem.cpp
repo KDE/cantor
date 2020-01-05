@@ -28,6 +28,7 @@
 #include "lib/htmlresult.h"
 #include "mathrendertask.h"
 #include "config-cantor.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <QFileDialog>
@@ -39,6 +40,7 @@
 TextResultItem::TextResultItem(QGraphicsObject* parent, Cantor::Result* result)
     : WorksheetTextItem(parent), ResultItem(result)
 {
+    connect(this, SIGNAL(collapseActionSizeChanged()), parent, SLOT(recalculateSize()));
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     update();
 
@@ -56,7 +58,9 @@ TextResultItem::TextResultItem(QGraphicsObject* parent, Cantor::Result* result)
 
 double TextResultItem::setGeometry(double x, double y, double w)
 {
-    return WorksheetTextItem::setGeometry(x, y, w);
+    WorksheetTextItem::setGeometry(x, y, w);
+    collapseExtraLines();
+    return height();
 }
 
 void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
@@ -245,4 +249,95 @@ QTextImageFormat TextResultItem::toFormat(const QImage& image, const QString& la
     format.setProperty(Cantor::Renderer::Delimiter, QLatin1String("$$"));
 
     return format;
+}
+
+void TextResultItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+    if (!m_isCollapsed)
+        return;
+
+    m_userCollapseOverride = !m_userCollapseOverride;
+    if (m_isCollapsed)
+    {
+        if (m_userCollapseOverride)
+        {
+            update();
+        }
+        else
+        {
+            m_isCollapsed = false;
+            collapseExtraLines();
+        }
+        emit collapseActionSizeChanged();
+    }
+    QGraphicsTextItem::mouseDoubleClickEvent(event);
+}
+
+int TextResultItem::visibleLineCount()
+{
+    int lineCounter = 0;
+    QTextCursor cursor(document());
+    if(!cursor.isNull())
+    {
+        cursor.movePosition(QTextCursor::Start);
+        bool isNotDone = true;
+        while( isNotDone )
+        {
+            isNotDone = cursor.movePosition( QTextCursor::Down );
+            lineCounter++;
+        }
+    }
+
+    return lineCounter;
+}
+
+void TextResultItem::collapseExtraLines()
+{
+    if (m_userCollapseOverride)
+        return;
+
+    int limit = Settings::visibleLinesLimit();
+
+    // If limit disable (0 is for unlimited mode), then exit
+    if (limit == 0)
+        return;
+
+    // for situation, when we have collapsed text result and resized Cantor window
+    if (m_isCollapsed && (int)width() != m_widthWhenCollapsed)
+    {
+        update();
+        m_isCollapsed = false;
+    }
+
+    if (visibleLineCount() > limit)
+    {
+        QTextCursor cursor(document());
+        cursor.movePosition(QTextCursor::Start);
+        if (limit > 4)
+        {
+            for (int i = 0; i < limit-4; i++)
+                cursor.movePosition(QTextCursor::Down);
+
+            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+            cursor.movePosition(QTextCursor::Up, QTextCursor::KeepAnchor);
+
+            cursor.insertText(QLatin1String("\n\n...\n\n"));
+        }
+        else
+        {
+            for (int i = 0; i < limit-1; i++)
+                cursor.movePosition(QTextCursor::Down);
+            cursor.movePosition(QTextCursor::EndOfLine);
+
+            QString replacer = QLatin1String("...");
+            for (int i = 0; i < replacer.length(); i++)
+                cursor.movePosition(QTextCursor::Left);
+
+            cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+            cursor.insertText(replacer);
+        }
+
+        m_isCollapsed = true;
+        m_widthWhenCollapsed = (int)width();
+    }
 }

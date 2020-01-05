@@ -50,6 +50,10 @@
       <label>Show embedded math render error</label>
       <default>true</default>
     </entry>
+    <entry name="VisibleLinesLimit" type="Int">
+      <label>Limit of visible lines for text result</label>
+      <default>0</default>
+    </entry>
   </group>
 </kcfg>
 
