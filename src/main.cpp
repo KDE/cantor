@@ -99,8 +99,6 @@ int main(int argc, char **argv)
 
     QCommandLineParser parser;
     KAboutData::setApplicationData(about);
-    parser.addVersionOption();
-    parser.addHelpOption();
 
     const QCommandLineOption backendOption(QStringList()<<QLatin1String("b")<<QLatin1String("backend"), i18n("Use  backend <backend>"), QLatin1String("backend"));
     parser.addOption(backendOption);
