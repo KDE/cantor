@@ -31,6 +31,7 @@
 WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
     : QGraphicsObject(parent)
 {
+    setFlag(QGraphicsItem::ItemIsFocusable, true);
     connect(this, SIGNAL(menuCreated(QMenu*,QPointF)), parent,
             SLOT(populateMenu(QMenu*,QPointF)), Qt::DirectConnection);
 }
@@ -106,6 +107,11 @@ void WorksheetImageItem::paint(QPainter *painter,
     Q_UNUSED(widget);
     painter->drawPixmap(QRectF(QPointF(0,0), m_size), m_pixmap,
                         m_pixmap.rect());
+    if (hasFocus())
+    {
+        painter->setPen(Qt::DashLine);
+        painter->drawRect(0, 0, width(), height());
+    }
 }
 
 void WorksheetImageItem::setEps(const QUrl& url)
