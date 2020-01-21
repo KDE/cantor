@@ -598,18 +598,26 @@ void WorksheetTextItem::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     QTextCursor cursor = textCursor();
     const QChar repl = QChar::ObjectReplacementCharacter;
 
-    if (!cursor.hasSelection()) {
-        // We look at the current cursor and the next cursor for a
-        // ObjectReplacementCharacter
-        for (int i = 2; i; --i) {
-            if (document()->characterAt(cursor.position()-1) == repl) {
-                setTextCursor(cursor);
-                emit doubleClick();
-                return;
+    if (m_eventBehaviour == DoubleClickEventBehaviour::ImageReplacement)
+    {
+        if (!cursor.hasSelection()) {
+            // We look at the current cursor and the next cursor for a
+            // ObjectReplacementCharacter
+            for (int i = 2; i; --i) {
+                if (document()->characterAt(cursor.position()-1) == repl) {
+                    setTextCursor(cursor);
+                    emit doubleClick();
+                    return;
+                }
+                cursor.movePosition(QTextCursor::NextCharacter);
             }
-            cursor.movePosition(QTextCursor::NextCharacter);
+        } else if (cursor.selectedText().contains(repl)) {
+            emit doubleClick();
+            return;
         }
-    } else if (cursor.selectedText().contains(repl)) {
+    }
+    else if (m_eventBehaviour == DoubleClickEventBehaviour::Simple)
+    {
         emit doubleClick();
         return;
     }
@@ -922,4 +930,14 @@ void WorksheetTextItem::allowEditing()
 void WorksheetTextItem::denyEditing()
 {
     setTextInteractionFlags(Qt::TextBrowserInteraction | Qt::TextSelectableByKeyboard);
+}
+
+WorksheetTextItem::DoubleClickEventBehaviour WorksheetTextItem::doubleClickBehaviour()
+{
+    return m_eventBehaviour;
+}
+
+void WorksheetTextItem::setDoubleClickBehaviour(WorksheetTextItem::DoubleClickEventBehaviour behaviour)
+{
+    m_eventBehaviour = behaviour;
 }

@@ -142,6 +142,7 @@ class CommandEntry : public WorksheetEntry
     void replaceResultItem(int index);
     void updateCompletions();
     void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
+    void changeResultCollapsingAction();
 
     void backgroundColorChanged(QAction*);
     void textColorChanged(QAction*);

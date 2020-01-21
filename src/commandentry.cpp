@@ -95,6 +95,9 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItemAnimation->setEndValue(1);
     connect(m_promptItemAnimation, &QPropertyAnimation::finished, this, &CommandEntry::animatePromptItem);
 
+    m_promptItem->setDoubleClickBehaviour(WorksheetTextItem::DoubleClickEventBehaviour::Simple);
+    connect(m_promptItem, &WorksheetTextItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
+
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
     connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);
@@ -1329,4 +1332,15 @@ void CommandEntry::setHidePrompt()
 void CommandEntry::setMidPrompt()
 {
     updatePrompt(MidPrompt);
+}
+
+void CommandEntry::changeResultCollapsingAction()
+{
+    if (m_resultItems.size() == 0)
+        return;
+
+    if (m_resultsCollapsed)
+        expandResults();
+    else
+        collapseResults();
 }

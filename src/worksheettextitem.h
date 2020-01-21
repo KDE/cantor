@@ -43,6 +43,8 @@ class WorksheetTextItem : public QGraphicsTextItem
 {
   Q_OBJECT
   public:
+    enum DoubleClickEventBehaviour {Simple, ImageReplacement};
+
     explicit WorksheetTextItem(QGraphicsObject* parent,
                       Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem() override;
@@ -103,6 +105,9 @@ class WorksheetTextItem : public QGraphicsTextItem
     QTextCursor search(QString pattern,
                        QTextDocument::FindFlags qt_flags,
                        const WorksheetCursor& pos);
+
+    DoubleClickEventBehaviour doubleClickBehaviour();
+    void setDoubleClickBehaviour(DoubleClickEventBehaviour behaviour);
 
   Q_SIGNALS:
     void moveToPrevious(int pos, qreal xCoord);
@@ -173,6 +178,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool m_itemDragable;
     bool m_richTextEnabled;
     QColor m_backgroundColor;
+    DoubleClickEventBehaviour m_eventBehaviour{DoubleClickEventBehaviour::ImageReplacement};
 };
 
 #endif // WORKSHEET_TEXT_ITEM_H
