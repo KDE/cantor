@@ -358,16 +358,19 @@ void ImageEntry::layOutForWidth(qreal w, bool force)
     if (size().width() == w && !force)
         return;
 
+    //TODO somethinkg wrong with geometry and control element: control element appears in wrong place
+    const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
+
     double width;
     if (m_imageItem && m_imageItem->isVisible()) {
-        m_imageItem->setGeometry(0, 0, w, true);
+        m_imageItem->setGeometry(0, 0, w - margin, true);
         width = m_imageItem->width();
     } else {
-        m_textItem->setGeometry(0, 0, w, true);
+        m_textItem->setGeometry(0, 0, w - margin, true);
         width = m_textItem->width();
     }
 
-    setSize(QSizeF(width, height() + VerticalMargin));
+    setSize(QSizeF(width + margin, height() + VerticalMargin));
 }
 
 bool ImageEntry::wantToEvaluate()

@@ -22,11 +22,14 @@
 #ifndef WORKSHEET_H
 #define WORKSHEET_H
 
+
 #include <QGraphicsScene>
 #include <QDomElement>
 #include <QGraphicsLinearLayout>
 #include <QSyntaxHighlighter>
 #include <QGraphicsRectItem>
+#include <QVector>
+#include <QQueue>
 
 #include <KZip>
 #include <QMenu>
@@ -126,6 +129,8 @@ class Worksheet : public QGraphicsScene
 
     void setType(Worksheet::Type type);
     Worksheet::Type type() const;
+
+    void notifyEntryFocus(WorksheetEntry* entry);
 
     // richtext
     struct RichTextInfo {
@@ -258,6 +263,8 @@ class Worksheet : public QGraphicsScene
 
     QJsonDocument toJupyterJson();
 
+    bool isValidEntry(WorksheetEntry*);
+
   private Q_SLOTS:
     void showCompletion();
     //void checkEntriesForSanity();
@@ -265,6 +272,12 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendEntry(int type, bool focus = true);
     WorksheetEntry* insertEntry(int type, WorksheetEntry* current = nullptr);
     WorksheetEntry* insertEntryBefore(int type, WorksheetEntry* current = nullptr);
+
+    //Actions for selection
+    void selectionRemove();
+    void selectionEvaluate();
+    void selectionMoveUp();
+    void selectionMoveDown();
 
     void animateEntryCursor();
 
@@ -335,6 +348,9 @@ class Worksheet : public QGraphicsScene
 
     QString m_backendName;
     QJsonObject* m_jupyterMetadata{nullptr};
+
+    QVector<WorksheetEntry*> m_selectedEntries;
+    QQueue<WorksheetEntry*> m_circularFocusBuffer;
 };
 
 #endif // WORKSHEET_H

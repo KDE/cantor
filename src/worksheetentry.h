@@ -22,11 +22,13 @@
 #define WORKSHEETENTRY_H
 
 #include <QGraphicsObject>
+#include <QGraphicsRectItem>
 #include <QGraphicsSceneContextMenuEvent>
 
 #include "worksheet.h"
 #include "worksheettextitem.h"
 #include "worksheetcursor.h"
+#include "worksheetcontrolitem.h"
 
 class TextEntry;
 class MarkdownEntry;
@@ -111,6 +113,9 @@ class WorksheetEntry : public QGraphicsObject
                                    QTextDocument::FindFlags qt_flags,
                                    const WorksheetCursor& pos = WorksheetCursor());
 
+    bool isCellSelected();
+    void setCellSelected(bool);
+
   public Q_SLOTS:
     virtual bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) = 0;
     virtual bool evaluateCurrentItem();
@@ -156,6 +161,9 @@ class WorksheetEntry : public QGraphicsObject
 
     void startDrag(QPointF grabPos = QPointF());
 
+    void moveToNext(bool updateLayout = true);
+    void moveToPrevious(bool updateLayout = true);
+
   Q_SIGNALS:
     void aboutToBeDeleted();
 
@@ -184,13 +192,21 @@ class WorksheetEntry : public QGraphicsObject
     QJsonObject jupyterMetadata() const;
     void setJupyterMetadata(QJsonObject metadata);
 
+    void recalculateControlGeometry();
+
   protected Q_SLOTS:
     virtual void remove();
     void deleteActionBar();
     void deleteActionBarAnimation();
 
-  protected:
+  public:
     static const qreal VerticalMargin;
+    static const qreal ControlElementWidth;
+    static const qreal ControlElementBorder;
+    static const qreal RightMargin;
+
+  protected:
+    WorksheetControlItem m_controlElement;
 
   private:
     QSizeF m_size;
@@ -202,6 +218,7 @@ class WorksheetEntry : public QGraphicsObject
     QPropertyAnimation* m_actionBarAnimation;
     bool m_aboutToBeRemoved;
     QJsonObject* m_jupyterMetadata;
+    bool m_isCellSelected{false};
 };
 
 #endif // WORKSHEETENTRY_H

@@ -38,6 +38,7 @@
 #include <QBitmap>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <KColorScheme>
 
 #include <QIcon>
 #include <KLocalizedString>
@@ -54,8 +55,11 @@ struct AnimationData
 };
 
 const qreal WorksheetEntry::VerticalMargin = 4;
+const qreal WorksheetEntry::ControlElementWidth = 12;
+const qreal WorksheetEntry::ControlElementBorder = 4;
+const qreal WorksheetEntry::RightMargin = ControlElementWidth + 2*ControlElementBorder;
 
-WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
+WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
     m_next = nullptr;
     m_prev = nullptr;
@@ -66,6 +70,8 @@ WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject()
     m_jupyterMetadata = nullptr;
     setAcceptHoverEvents(true);
     worksheet->addItem(this);
+
+    connect(&m_controlElement, &WorksheetControlItem::drag, this, &WorksheetEntry::startDrag);
 }
 
 WorksheetEntry::~WorksheetEntry()
@@ -354,6 +360,8 @@ void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 {
+    menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"), this, SLOT(moveToPrevious()), 0);
+    menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"), this, SLOT(moveToNext()), 0);
     if (!worksheet()->isRunning() && wantToEvaluate())
         menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
@@ -405,6 +413,9 @@ qreal WorksheetEntry::setGeometry(qreal x, qreal y, qreal w)
 {
     setPos(x, y);
     layOutForWidth(w);
+
+    recalculateControlGeometry();
+
     return size().height();
 }
 
@@ -413,7 +424,10 @@ void WorksheetEntry::recalculateSize()
     qreal height = size().height();
     layOutForWidth(size().width(), true);
     if (height != size().height())
+    {
+        recalculateControlGeometry();
         worksheet()->updateEntrySize(this);
+    }
 }
 
 QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
@@ -440,6 +454,7 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
 
 void WorksheetEntry::sizeAnimated()
 {
+    recalculateControlGeometry();
     worksheet()->updateEntrySize(this);
 }
 
@@ -861,4 +876,83 @@ void WorksheetEntry::forceRemove()
     hide();
     worksheet()->updateLayout();
     deleteLater();
+}
+
+bool WorksheetEntry::isCellSelected()
+{
+    return m_controlElement.isSelected;
+}
+
+void WorksheetEntry::setCellSelected(bool val)
+{
+    m_controlElement.isSelected = val;
+}
+
+void WorksheetEntry::moveToNext(bool updateLayout)
+{
+    WorksheetEntry* next = this->next();
+    if (next)
+    {
+        if (next->next())
+        {
+            next->next()->setPrevious(this);
+            this->setNext(next->next());
+        }
+        else
+        {
+            worksheet()->setLastEntry(this);
+            this->setNext(nullptr);
+        }
+
+        next->setPrevious(this->previous());
+        next->setNext(this);
+
+        this->setPrevious(next);
+        if (next->previous())
+            next->previous()->setNext(next);
+        else
+            worksheet()->setFirstEntry(next);
+
+        if (updateLayout)
+            worksheet()->updateLayout();
+    }
+}
+
+void WorksheetEntry::moveToPrevious(bool updateLayout)
+{
+    WorksheetEntry* previous = this->previous();
+    if (previous)
+    {
+        if (previous->previous())
+        {
+            previous->previous()->setNext(this);
+            this->setPrevious(previous->previous());
+        }
+        else
+        {
+            worksheet()->setFirstEntry(this);
+            this->setPrevious(nullptr);
+        }
+
+        previous->setNext(this->next());
+        previous->setPrevious(this);
+
+        this->setNext(previous);
+        if (previous->next())
+            previous->next()->setPrevious(previous);
+        else
+            worksheet()->setLastEntry(previous);
+
+        if (updateLayout)
+            worksheet()->updateLayout();
+    }
+}
+
+void WorksheetEntry::recalculateControlGeometry()
+{
+    m_controlElement.setRect(
+        size().width() - ControlElementWidth - ControlElementBorder, 0, // x,y
+        ControlElementWidth, size().height() - VerticalMargin // w,h
+    );
+    m_controlElement.update();
 }

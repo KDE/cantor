@@ -98,6 +98,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem->setDoubleClickBehaviour(WorksheetTextItem::DoubleClickEventBehaviour::Simple);
     connect(m_promptItem, &WorksheetTextItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
 
+    connect(&m_controlElement, &WorksheetControlItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
+
     connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
     connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
     connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);
@@ -751,6 +753,9 @@ void CommandEntry::updateEntry()
         for (ResultItem* item: m_resultItems)
             item->update();
     }
+
+    m_controlElement.isCollapsable = m_resultItems.size() > 0;
+
     animateSizeChange();
 }
 
@@ -1234,25 +1239,27 @@ void CommandEntry::layOutForWidth(qreal w, bool force)
     if (w == size().width() && !force)
         return;
 
-    m_promptItem->setPos(0,0);
+    m_promptItem->setPos(0, 0);
     double x = 0 + m_promptItem->width() + HorizontalSpacing;
     double y = 0;
     double width = 0;
 
-    m_commandItem->setGeometry(x,y, w-x);
-    width = qMax(width, m_commandItem->width());
+    const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
+
+    m_commandItem->setGeometry(x, y, w - x - margin);
+    width = qMax(width, m_commandItem->width()+margin);
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
     foreach(WorksheetTextItem* information, m_informationItems) {
         y += VerticalSpacing;
-        y += information->setGeometry(x,y,w-x);
-        width = qMax(width, information->width());
+        y += information->setGeometry(x, y, w - x - margin);
+        width = qMax(width, information->width() + margin);
     }
 
     if (m_errorItem) {
         y += VerticalSpacing;
-        y += m_errorItem->setGeometry(x,y,w-x);
-        width = qMax(width, m_errorItem->width());
+        y += m_errorItem->setGeometry(x,y,w - x - margin);
+        width = qMax(width, m_errorItem->width() + margin);
     }
 
     for (auto* resultItem : m_resultItems)
@@ -1260,8 +1267,8 @@ void CommandEntry::layOutForWidth(qreal w, bool force)
         if (!resultItem || !resultItem->graphicsObject()->isVisible())
             continue;
         y += VerticalSpacing;
-        y += resultItem->setGeometry(x, y, w-x);
-        width = qMax(width, resultItem->width());
+        y += resultItem->setGeometry(x, y, w - x - margin);
+        width = qMax(width, resultItem->width() + margin);
     }
     y += VerticalMargin;
 
@@ -1301,6 +1308,7 @@ void CommandEntry::collapseResults()
     else
         setHidePrompt();
 
+    m_controlElement.isCollapsed = true;
     animateSizeChange();
 }
 
@@ -1321,6 +1329,7 @@ void CommandEntry::expandResults()
     else
         this->updatePrompt();
 
+    m_controlElement.isCollapsed = false;
     animateSizeChange();
 }
 

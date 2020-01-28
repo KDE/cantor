@@ -26,6 +26,7 @@ set(worksheettest_SRCS
     ../mathrender.cpp
     ../mathrendertask.cpp
     ../extended_document.cpp
+    ../worksheetcontrolitem.cpp
     worksheet_test.cpp)
 
 ki18n_wrap_ui(worksheettest_SRCS ../imagesettings.ui)

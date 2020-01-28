@@ -26,6 +26,7 @@
 PlaceHolderEntry::PlaceHolderEntry(Worksheet* worksheet, QSizeF s)
     : WorksheetEntry(worksheet)
 {
+    m_controlElement.hide();
     setSize(s);
 }
 

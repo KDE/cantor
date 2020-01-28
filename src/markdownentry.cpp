@@ -444,8 +444,10 @@ void MarkdownEntry::layOutForWidth(qreal w, bool force)
     if (size().width() == w && !force)
         return;
 
-    m_textItem->setGeometry(0, 0, w);
-    setSize(QSizeF(m_textItem->width(), m_textItem->height() + VerticalMargin));
+    const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
+
+    m_textItem->setGeometry(0, 0, w - margin);
+    setSize(QSizeF(m_textItem->width() + margin, m_textItem->height() + VerticalMargin));
 }
 
 bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)

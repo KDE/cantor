@@ -133,10 +133,12 @@ void PageBreakEntry::layOutForWidth(qreal w, bool force)
     if (size().width() == w && !force)
         return;
 
-    if (m_msgItem->isVisible()) {
-        m_msgItem->setGeometry(0, 0, w, true);
+    const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
-        setSize(QSizeF(m_msgItem->width(), m_msgItem->height() + VerticalMargin));
+    if (m_msgItem->isVisible()) {
+        m_msgItem->setGeometry(0, 0, w - margin, true);
+
+        setSize(QSizeF(m_msgItem->width() + margin, m_msgItem->height() + VerticalMargin));
     } else {
         setSize(QSizeF(w, 0));
     }

@@ -31,7 +31,7 @@ ActionBar::ActionBar(WorksheetEntry* parent)
     m_pos = 0;
     m_height = 0;
     QPointF p = worksheet()->worksheetView()->viewRect().topRight();
-    qreal w = qMin(parent->size().width(),
+    qreal w = qMin(parent->size().width() - WorksheetEntry::RightMargin,
                    parent->mapFromScene(p).x());
     setPos(w, 0);
     connect(worksheet()->worksheetView(), SIGNAL(viewRectChanged(QRectF)),
@@ -64,7 +64,7 @@ void ActionBar::updatePosition()
     if (!parentEntry())
         return;
     QPointF p = worksheet()->worksheetView()->viewRect().topRight();
-    qreal w = qMin(parentEntry()->size().width(),
+    qreal w = qMin(parentEntry()->size().width() - WorksheetEntry::RightMargin,
                    parentEntry()->mapFromScene(p).x());
     setPos(w, 0);
     const qreal scale = worksheet()->renderer()->scale();
