@@ -33,7 +33,11 @@
 #include <QDebug>
 #include <KLocalizedString>
 
+#ifdef Q_OS_WIN
+#include <process.h>
+#else
 #include <unistd.h>
+#endif
 
 //R includes
 #include <R.h>
