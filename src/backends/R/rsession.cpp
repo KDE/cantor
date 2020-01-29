@@ -62,7 +62,7 @@ void RSession::login()
     m_process->waitForReadyRead();
     qDebug()<<m_process->readAllStandardOutput();
 
-    m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->pid()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
+    m_rServer = new org::kde::Cantor::R(QString::fromLatin1("org.kde.Cantor.R-%1").arg(m_process->processId()),  QLatin1String("/"), QDBusConnection::sessionBus(), this);
 
     connect(m_rServer, &org::kde::Cantor::R::statusChanged, this, &RSession::serverChangedStatus);
     connect(m_rServer,  &org::kde::Cantor::R::expressionFinished, this, &RSession::expressionFinished);
