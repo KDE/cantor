@@ -1,5 +1,15 @@
 # Changelog
 
+## 20.04
+
+### New features
+
+    * WorksheetControlItem: special element, for better UX, while user interact with cell. Now, this element handle drag-and-drop and cell selection (details below)
+    * Multiple cells selection: now user can select not one, but many sells via Ctrl+LeftClick. Selection also visualizate on control elements
+    * Actions on selection (first version): now user can apply some actions on selected cells, for example evaulating, deleting, moving.
+    * Possibility to change result collapsing via double click on '>>>' prompt element
+    * Add collapsing of text results with a lot of visible lines (limit of collapsing set in Settings). Double click can collapse/uncollapse collapsed text result.
+
 ## 19.12
 
 ### Screenshots
