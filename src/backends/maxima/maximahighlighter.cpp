@@ -40,8 +40,8 @@ MaximaHighlighter::MaximaHighlighter(QObject* parent, MaximaSession* session)
     //addRule(QRegExp("\".*\""), stringFormat());
     //addRule(QRegExp("'.*'"), stringFormat());
 
-    commentStartExpression = QRegExp(QLatin1String("/\\*"));
-    commentEndExpression = QRegExp(QLatin1String("\\*/"));
+    commentStartExpression = QRegularExpression(QStringLiteral("/\\*"));
+    commentEndExpression = QRegularExpression(QStringLiteral("\\*/"));
 }
 
 void MaximaHighlighter::highlightBlock(const QString& text)

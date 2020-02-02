@@ -24,6 +24,7 @@
 #include "session.h"
 #include "expression.h"
 #include <QProcess>
+#include <QRegularExpression>
 
 class MaximaExpression;
 class MaximaVariableModel;
@@ -32,8 +33,8 @@ class MaximaSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    static const QRegExp MaximaOutputPrompt;
-    static const QRegExp MaximaInputPrompt;
+    static const QRegularExpression MaximaOutputPrompt;
+    static const QRegularExpression MaximaInputPrompt;
 
     explicit MaximaSession( Cantor::Backend* backend);
 

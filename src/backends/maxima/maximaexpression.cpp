@@ -36,7 +36,7 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <QTimer>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QChar>
 #include <QUrl>
 
@@ -78,7 +78,9 @@ void MaximaExpression::evaluate()
         || command().startsWith(QLatin1String(":lisp(cl-info::info-exact")))
         m_isHelpRequest=true;
 
-    if(command().contains(QRegExp(QLatin1String("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))) && MaximaSettings::self()->integratePlots() && !command().contains(QLatin1String("ps_file")))
+    if (MaximaSettings::self()->integratePlots()
+        && !command().contains(QLatin1String("ps_file"))
+        && command().contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))))
     {
         m_isPlot=true;
 #ifdef WITH_EPS
@@ -171,7 +173,8 @@ QString MaximaExpression::internalCommand()
         const QString plotParameters = QLatin1String("[gnuplot_term, \"png size 500,340\"], [gnuplot_out_file, \"")+fileName+QLatin1String("\"]");
 
 #endif
-        cmd.replace(QRegExp(QLatin1String("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")), QLatin1String("\\1, ")+plotParameters+QLatin1String(");"));
+        cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
+                    QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
 
     }
 
@@ -190,7 +193,7 @@ QString MaximaExpression::internalCommand()
     //lisp-quiet doesn't print a prompt after the command
     //is completed, which causes the parsing to hang.
     //replace the command with the non-quiet version
-    cmd.replace(QRegExp(QLatin1String("^:lisp-quiet")), QLatin1String(":lisp"));
+    cmd.replace(QRegularExpression(QStringLiteral("^:lisp-quiet")), QStringLiteral(":lisp"));
 
     return cmd;
 }
@@ -273,7 +276,7 @@ bool MaximaExpression::parseOutput(QString& out)
         else if(m_isHelpRequest || m_isHelpRequestAdditional) //help messages are also part of the error output
         {
             //we've got help result, but maybe additional input is required -> check this
-            const int index = MaximaSession::MaximaInputPrompt.indexIn(prompt.trimmed());
+            const int index = prompt.trimmed().indexOf(MaximaSession::MaximaInputPrompt);
             if (index == -1) {
                 // No input label found in the prompt -> additional info is required
                 qDebug()<<"asking for additional input for the help request" << prompt;
@@ -319,11 +322,11 @@ void MaximaExpression::parseResult(const QString& resultContent)
     qDebug()<<"text content: " << textContent;
 
     //output label can be a part of the text content -> determine it
-    const QRegExp regex = QRegExp(MaximaSession::MaximaOutputPrompt.pattern());
-    const int index = regex.indexIn(textContent);
+    const QRegularExpression regex = QRegularExpression(MaximaSession::MaximaOutputPrompt.pattern());
+    QRegularExpressionMatch match = regex.match(textContent);
     QString outputLabel;
-    if (index != -1) // No match, so output don't contain output label
-        outputLabel = textContent.mid(index, regex.matchedLength()).trimmed();
+    if (match.hasMatch()) // a match is found, so the output contains output label
+        outputLabel = textContent.mid(match.capturedStart(0), match.capturedLength(0)).trimmed();
     qDebug()<<"output label: " << outputLabel;
 
     //extract the expression id

@@ -21,6 +21,8 @@
 #ifndef _MAXIMAHIGHLIGHTER_H
 #define _MAXIMAHIGHLIGHTER_H
 
+#include <QRegularExpression>
+
 #include "defaulthighlighter.h"
 class MaximaSession;
 
@@ -37,8 +39,8 @@ class MaximaHighlighter : public Cantor::DefaultHighlighter
     QString nonSeparatingCharacters() const override;
 
   private:
-     QRegExp commentStartExpression;
-     QRegExp commentEndExpression;
+     QRegularExpression commentStartExpression;
+     QRegularExpression commentEndExpression;
 };
 
 #endif /* _MAXIMAHIGHLIGHTER_H */
