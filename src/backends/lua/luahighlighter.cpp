@@ -22,15 +22,17 @@
 #include "luakeywords.h"
 #include "luahelper.h"
 
+#include <QRegularExpression>
+
 LuaHighlighter::LuaHighlighter(QObject* parent): DefaultHighlighter(parent)
 {
     addKeywords (LuaKeywords::instance()->keywords());
     addFunctions(LuaKeywords::instance()->functions());
     addVariables(LuaKeywords::instance()->variables());
 
-    addRule(QRegExp(QLatin1String("[A-Za-z0-9_]+(?=\\()"))    , functionFormat());
-    addRule(QRegExp(QLatin1String("\"[^\"]*\""))              , stringFormat());
-    addRule(QRegExp(QLatin1String("'[^\'].*'"))               , stringFormat());
-    addRule(QRegExp(QLatin1String("--[^\n]*"))                , commentFormat());
+    addRule(QRegularExpression(QStringLiteral("[A-Za-z0-9_]+(?=\\()"))    , functionFormat());
+    addRule(QRegularExpression(QStringLiteral("\"[^\"]*\""))              , stringFormat());
+    addRule(QRegularExpression(QStringLiteral("'[^\'].*'"))               , stringFormat());
+    addRule(QRegularExpression(QStringLiteral("--[^\n]*"))                , commentFormat());
     // did not add support for the multiline comment or multiline string
 }

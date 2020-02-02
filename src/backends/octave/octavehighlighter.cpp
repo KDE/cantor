@@ -40,11 +40,11 @@ OctaveHighlighter::OctaveHighlighter(QObject* parent, Session* session): Default
     << QLatin1String("not") << QLatin1String("||") << QLatin1String("&&") << QLatin1String("==");
   addRules(operators, operatorFormat());
 
-  addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
-  addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
+  addRule(QRegularExpression(QStringLiteral("\"[^\"]*\"")), stringFormat());
+  addRule(QRegularExpression(QStringLiteral("'[^']*'")), stringFormat());
 
-  addRule(QRegExp(QLatin1String("#[^\n]*")), commentFormat());
-  addRule(QRegExp(QLatin1String("%[^\n]*")), commentFormat());
+  addRule(QRegularExpression(QStringLiteral("#[^\n]*")), commentFormat());
+  addRule(QRegularExpression(QStringLiteral("%[^\n]*")), commentFormat());
 
   rehighlight();
 }

@@ -33,14 +33,14 @@ ScilabHighlighter::ScilabHighlighter(QObject* parent, Cantor::Session* session) 
     addFunctions(ScilabKeywords::instance()->functions());
     addVariables(ScilabKeywords::instance()->variables());
 
-    addRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
+    addRule(QRegularExpression(QStringLiteral("\\b[A-Za-z0-9_]+(?=\\()")), functionFormat());
 
     addRule(QLatin1String("FIXME"), commentFormat());
     addRule(QLatin1String("TODO"), commentFormat());
 
-    addRule(QRegExp(QLatin1String("\"[^\"]*\"")), stringFormat());
-    addRule(QRegExp(QLatin1String("'[^']*'")), stringFormat());
-    addRule(QRegExp(QLatin1String("//[^\n]*")), commentFormat());
+    addRule(QRegularExpression(QStringLiteral("\"[^\"]*\"")), stringFormat());
+    addRule(QRegularExpression(QStringLiteral("'[^']*'")), stringFormat());
+    addRule(QRegularExpression(QStringLiteral("//[^\n]*")), commentFormat());
 
     commentStartExpression = QRegExp(QLatin1String("/\\*"));
     commentEndExpression = QRegExp(QLatin1String("\\*/"));

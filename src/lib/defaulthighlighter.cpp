@@ -31,13 +31,14 @@
 #include <QGraphicsTextItem>
 #include <KColorScheme>
 #include <QDebug>
+#include <QRegularExpression>
 #include <QStack>
 
 using namespace Cantor;
 
 struct HighlightingRule
 {
-    QRegExp regExp;
+    QRegularExpression regExp;
     QTextCharFormat format;
 };
 
@@ -215,7 +216,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
 {
     //qDebug() << "DefaultHighlighter::highlightWords";
 
-    const QStringList& words = text.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
+    const QStringList& words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
     int count;
     int pos = 0;
 
@@ -239,7 +240,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
                 const QString& w = words[j];
                 const QString exp = QStringLiteral("(%1)*$").arg(nonSeparatingCharacters());
                 //qDebug() << "exp: " << exp;
-                int idx = w.indexOf(QRegExp(exp));
+                int idx = w.indexOf(QRegularExpression(exp));
                 const QString& s = w.mid(idx);
                 //qDebug() << "s: " << s;
 
@@ -271,11 +272,10 @@ void DefaultHighlighter::highlightRegExps(const QString& text)
 {
     foreach (const HighlightingRule& rule, d->regExpRules)
     {
-        int index = rule.regExp.indexIn(text);
-        while (index >= 0) {
-            int length = rule.regExp.matchedLength();
-            setFormat(index,  length,  rule.format);
-            index = rule.regExp.indexIn(text,  index + length);
+        QRegularExpressionMatchIterator iter = rule.regExp.globalMatch(text);
+        while (iter.hasNext()) {
+            QRegularExpressionMatch match = iter.next();
+            setFormat(match.capturedStart(0), match.capturedLength(0), rule.format);
         }
     }
 }
@@ -409,7 +409,7 @@ void DefaultHighlighter::addRule(const QString& word, const QTextCharFormat& for
         emit rulesChanged();
 }
 
-void DefaultHighlighter::addRule(const QRegExp& regexp, const QTextCharFormat& format)
+void DefaultHighlighter::addRule(const QRegularExpression& regexp, const QTextCharFormat& format)
 {
     HighlightingRule rule = { regexp, format };
     d->regExpRules.removeAll(rule);
@@ -425,7 +425,7 @@ void DefaultHighlighter::removeRule(const QString& word)
         emit rulesChanged();
 }
 
-void DefaultHighlighter::removeRule(const QRegExp& regexp)
+void DefaultHighlighter::removeRule(const QRegularExpression& regexp)
 {
     HighlightingRule rule = { regexp, QTextCharFormat() };
     d->regExpRules.removeAll(rule);
