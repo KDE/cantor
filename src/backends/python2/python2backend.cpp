@@ -88,7 +88,7 @@ KConfigSkeleton* Python2Backend::config() const
 
 bool Python2Backend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_python2server"));
+    const QString& path = PythonSettings::pythonServerPath().toLocalFile();
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor Python2 Server"), path, reason);
 }
 

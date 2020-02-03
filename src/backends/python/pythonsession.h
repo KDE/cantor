@@ -25,13 +25,14 @@
 #include "session.h"
 #include <cantor_pythonbackend_export.h>
 #include <QStringList>
+#include <QUrl>
 #include <QProcess>
 
 class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 {
   Q_OBJECT
   public:
-    PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName);
+    PythonSession(Cantor::Backend* backend, int pythonVersion, const QUrl serverExecutableUrl);
     ~PythonSession() override;
 
     void login() override;
@@ -50,9 +51,9 @@ class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
 
   private:
     QProcess* m_process;
-    QString serverName;
+    QUrl m_serverExecutableUrl;
 
-    QString worksheetPath;
+    QString m_worksheetPath;
     int m_pythonVersion;
 
     QString m_output;

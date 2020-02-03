@@ -47,10 +47,10 @@ const QChar recordSep(30);
 const QChar unitSep(31);
 const QChar messageEnd = 29;
 
-PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QString serverName)
+PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QUrl serverExecutableUrl)
     : Session(backend)
     , m_process(nullptr)
-    , serverName(serverName)
+    , m_serverExecutableUrl(serverExecutableUrl)
     , m_pythonVersion(pythonVersion)
 {
     setVariableModel(new PythonVariableModel(this));
@@ -77,7 +77,7 @@ void PythonSession::login()
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
 
-    m_process->start(QStandardPaths::findExecutable(serverName));
+    m_process->start(m_serverExecutableUrl.toLocalFile());
 
     m_process->waitForStarted();
     m_process->waitForReadyRead();
@@ -96,9 +96,9 @@ void PythonSession::login()
 
     sendCommand(QLatin1String("login"));
     QString dir;
-    if (!worksheetPath.isEmpty())
-        dir = QFileInfo(worksheetPath).absoluteDir().absolutePath();
-    sendCommand(QLatin1String("setFilePath"), QStringList() << worksheetPath << dir);
+    if (!m_worksheetPath.isEmpty())
+        dir = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
+    sendCommand(QLatin1String("setFilePath"), QStringList() << m_worksheetPath << dir);
 
     const QStringList& scripts = autorunScripts();
     if(!scripts.isEmpty()){
@@ -257,7 +257,7 @@ void PythonSession::readOutput()
 
 void PythonSession::setWorksheetPath(const QString& path)
 {
-    worksheetPath = path;
+    m_worksheetPath = path;
 }
 
 void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)

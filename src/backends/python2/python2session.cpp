@@ -31,7 +31,7 @@
 #include <KProcess>
 
 Python2Session::Python2Session(Cantor::Backend* backend)
-    : PythonSession(backend, 2, QLatin1String("cantor_python2server"))
+    : PythonSession(backend, 2, PythonSettings::pythonServerPath())
 {
 }
 

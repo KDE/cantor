@@ -3,8 +3,13 @@
       xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="https://www.kde.org/standards/kcfg/1.0
                           https://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <include>QStandardPaths</include>
   <kcfgfile name="cantorrc"/>
   <group name="Python3Backend">
+    <entry name="pythonServerPath" type="Url">
+      <label>Path to Cantor python3 server executable</label>
+      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("cantor_python3server")))</default>
+    </entry>
     <entry name="localDoc" type="Url">
         <label>Url to the local Python documentation</label>
     </entry>

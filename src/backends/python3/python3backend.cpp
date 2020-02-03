@@ -84,7 +84,7 @@ KConfigSkeleton* Python3Backend::config() const
 
 bool Python3Backend::requirementsFullfilled(QString* const reason) const
 {
-    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_python3server"));
+    const QString& path = PythonSettings::pythonServerPath().toLocalFile();
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor Python3 Server"), path, reason);
 }
 
