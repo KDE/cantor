@@ -4,6 +4,8 @@
       xsi:schemaLocation="https://www.kde.org/standards/kcfg/1.0
                           https://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <include>cantor_export.h</include>
+  <include>config-cantor.h</include>
+  <include>QUrl</include>
   <kcfgfile/>
   <group name="Cantor">
     <entry name="DefaultBackend" type="String">
@@ -53,6 +55,10 @@
     <entry name="VisibleLinesLimit" type="Int">
       <label>Limit of visible lines for text result</label>
       <default>0</default>
+    </entry>
+    <entry name="PathToCantorPluginsDir" type="Url">
+      <label>Path to directory, which contains Cantor plugins (cantorpart and all backends)</label>
+      <default code="true">QUrl::fromLocalFile(QString::fromLocal8Bit(PATH_TO_CANTOR_PLUGINS))</default>
     </entry>
   </group>
 </kcfg>

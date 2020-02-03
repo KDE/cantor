@@ -31,6 +31,9 @@
 #include <QUrl>
 #include <QFileInfo>
 #include <QDir>
+#include <QDebug>
+
+#include "settings.h"
 
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
@@ -39,14 +42,11 @@ int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
 
-#ifdef PATH_TO_CANTOR_PLUGINS
     // Add our custom plugins path, where we install our plugins, if it isn't default path
-    const QString& path = QString::fromLocal8Bit(PATH_TO_CANTOR_PLUGINS);
+    const QString& path = Settings::pathToCantorPluginsDir().toLocalFile();
+    qDebug() << "Adding additional application library path" << path;
     if (!QCoreApplication::libraryPaths().contains(path))
         QCoreApplication::addLibraryPath(path);
-#else
-    qDebug() << "PATH_TO_CANTOR_PLUGINS variable is not set (probably a bug), so use the default library paths";
-#endif
 
     KCrash::initialize();
 
