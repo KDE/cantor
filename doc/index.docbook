@@ -271,7 +271,7 @@ to scientific programming.
   The Worksheet interface of &cantor; consists of three parts:
   <orderedlist>
     <listitem><para>The tab bar, where you can switch through the open worksheets.</para></listitem>
-    <listitem><para>A help panel, where help for a specific command is displayed if you enter "? command".</para></listitem>
+    <listitem><para>A help panel, where help for a specific command is displayed if you enter <userinput>?? <replaceable>command</replaceable></userinput>, <userinput>describe(<replaceable>command</replaceable>)</userinput> or <userinput>example(<replaceable>command</replaceable>)</userinput> (<application>Maxima</application> backend).</para></listitem>
     <listitem><para>A Variable Manager panel where you can see the list of all available variables on the current worksheet. The Help and Variable Manager panels are shown as tabs on a sidebar of a &cantor; window. Variable manager can be used for Maxima (if enabled on <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &cantor;...</guimenuitem></menuchoice> <guilabel>Maxima</guilabel> page), &kalgebra;, Octave, Python2, Python3, Qalculate, and Scilab backends only.</para></listitem>
     <listitem><para>The worksheet itself.</para></listitem>
   </orderedlist>
