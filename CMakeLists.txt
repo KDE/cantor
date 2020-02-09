@@ -96,7 +96,10 @@ if (BUILD_NAME STREQUAL "release" OR BUILD_NAME STREQUAL "")
 endif()
 kde_enable_exceptions()
 
-add_subdirectory(doc)
+# FIXME Looks like docbook on Windows don't buildable at all, so it are temporarily disabled
+if(NOT WIN32)
+    add_subdirectory(doc)
+endif(NOT WIN32)
 add_subdirectory(src)
 add_subdirectory(icons)
 
