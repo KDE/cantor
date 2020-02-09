@@ -23,7 +23,6 @@
 #include "worksheetentry.h"
 #include "lib/renderer.h"
 #include "worksheetcursor.h"
-#include "extended_document.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -46,7 +45,6 @@
 WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
 {
-    setDocument(new ExtendedDocument(this));
     setTextInteractionFlags(ti);
     if (ti & Qt::TextEditable) {
         setCursor(Qt::IBeamCursor);

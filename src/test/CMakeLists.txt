@@ -25,7 +25,6 @@ set(worksheettest_SRCS
     ../animation.cpp
     ../mathrender.cpp
     ../mathrendertask.cpp
-    ../extended_document.cpp
     ../worksheetcontrolitem.cpp
     worksheet_test.cpp)
 

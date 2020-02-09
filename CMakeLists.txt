@@ -23,7 +23,6 @@ find_package(Qt5 5.8.0 CONFIG REQUIRED
     Svg
     Xml
     XmlPatterns
-    Network
     Test)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED

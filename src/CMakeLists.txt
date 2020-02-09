@@ -78,7 +78,6 @@ set(cantor_PART_SRCS
    animation.cpp
    mathrender.cpp
    mathrendertask.cpp
-   extended_document.cpp
    worksheetcontrolitem.cpp
  )
 
