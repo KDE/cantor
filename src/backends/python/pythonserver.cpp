@@ -165,7 +165,7 @@ void PythonServer::setFilePath(const string& path, const string& dir)
 
 string PythonServer::variables(bool parseValue) const
 {
-    PyRun_SimpleString(
+    PyRun_SimpleStringFlags(
         "try: \n"
         "   import numpy \n"
         "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
@@ -175,7 +175,7 @@ string PythonServer::variables(bool parseValue) const
 #elif PY_MAJOR_VERSION == 2
         "except ImportError: \n"
 #endif
-        "   pass \n"
+        "   pass \n", NULL
     );
 
     PyRun_SimpleString("__tmp_globals__ = globals()");
@@ -210,7 +210,7 @@ string PythonServer::variables(bool parseValue) const
         vars.push_back(keyString + char(17) + valueString);
     }
 
-    PyRun_SimpleString(
+    PyRun_SimpleStringFlags(
         "try: \n"
         "   import numpy \n"
         "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
@@ -220,7 +220,7 @@ string PythonServer::variables(bool parseValue) const
 #elif PY_MAJOR_VERSION == 2
         "except ImportError: \n"
 #endif
-        "   pass \n"
+        "   pass \n", NULL
     );
 
 
