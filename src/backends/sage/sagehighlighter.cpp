@@ -21,13 +21,15 @@
 #include "sagehighlighter.h"
 #include "sagekeywords.h"
 
+#include <QRegularExpression>
+
 SageHighlighter::SageHighlighter(QObject* parent) : Cantor::DefaultHighlighter(parent)
 {
-    addRule(QRegExp(QLatin1String("[A-Za-z0-9_]+(?=\\()")), functionFormat());
+    addRule(QRegularExpression(QStringLiteral("[A-Za-z0-9_]+(?=\\()")), functionFormat());
 
     addKeywords(SageKeywords::instance()->keywords());
     addFunctions(SageKeywords::instance()->functions());
     addVariables(SageKeywords::instance()->variables());
 
-    addRule(QRegExp(QLatin1String("#[^\n]*")), commentFormat());
+    addRule(QRegularExpression(QStringLiteral("#[^\n]*")), commentFormat());
 }

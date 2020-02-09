@@ -23,6 +23,7 @@
 
 #include "cantor_export.h"
 
+#include <QRegularExpression>
 #include <QSyntaxHighlighter>
 
 class QGraphicsTextItem;
@@ -129,7 +130,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * @param regexp the regular expression used to look for matches
      * @param format the format used to display the matching parts of the text
      */
-    void addRule(const QRegExp& regexp, const QTextCharFormat& format);
+    void addRule(const QRegularExpression& regexp, const QTextCharFormat& format);
 
     /**
      * Convenience method, highlights all items in @p conditions with the specified @p format
@@ -138,7 +139,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      * greenWords << "tree" << "forest" << "grass";
      * addRules(greenWords, greenWordFormat);
      * @endcode
-     * @param conditions any Qt container of QRegExp or QString.
+     * @param conditions any Qt container of QRegularExpression or QString.
      * @param format the format used to display the matching parts of the text
      */
     void addRules(const QStringList& conditions, const QTextCharFormat& format);
@@ -149,7 +150,7 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
     /**
      * Removes any rules previously added for the regular expression @p regexp
      */
-    void removeRule(const QRegExp& regexp);
+    void removeRule(const QRegularExpression& regex);
 
     /**
      * Highlight pairs added with addPair()
