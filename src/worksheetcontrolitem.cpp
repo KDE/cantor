@@ -46,9 +46,9 @@ void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsIt
     painter->setViewTransformEnabled(true);
 
     if (m_isHovered)
-        painter->setPen(QPen(Qt::black, 2));
+        painter->setPen(QPen(QApplication::palette().color(QPalette::Text), 2));
     else
-        painter->setPen(QPen(Qt::black, 1));
+        painter->setPen(QPen(QApplication::palette().color(QPalette::Text), 1));
 
     qreal x = rect().x();
     qreal y = rect().y();
@@ -66,6 +66,7 @@ void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsIt
         {
             QBrush brush = painter->brush();
             brush.setStyle(Qt::SolidPattern);
+            brush.setColor(QApplication::palette().color(QPalette::Text));
             painter->setBrush(brush);
 
             QPolygon triangle;
