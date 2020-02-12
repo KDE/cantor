@@ -48,34 +48,14 @@ if(QALCULATE_FOUND)
     add_subdirectory(qalculate)
 endif(QALCULATE_FOUND)
 
-set_package_properties(PythonLibs PROPERTIES DESCRIPTION "A powerful dynamic programming language."
-    URL "https://www.python.org/"
-    TYPE OPTIONAL
-    PURPOSE "Backend to use Python 2 with Cantor.")
-
-# If PythonInterp has been found (which it is indirectly by KF5I18n),
-# find_package(PythonLibs) will prefer that version over whatever
-# version information you pass the find_package call. Set a special
-# variable to override that:
-set(Python_ADDITIONAL_VERSIONS 2.7)
-find_package(PythonLibs 2.7)
-
 set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic programming language."
     URL "https://www.python.org/"
     TYPE OPTIONAL
-    PURPOSE "Backend to use Python 3 with Cantor.")
+    PURPOSE "Backend to use Python with Cantor.")
 
 find_package(PythonLibs3)
-
-if(PYTHONLIBS_FOUND OR PYTHONLIBS3_FOUND)
-    add_subdirectory(python)
-endif(PYTHONLIBS_FOUND OR PYTHONLIBS3_FOUND)
-
-if(PYTHONLIBS_FOUND)
-    add_subdirectory(python2)
-endif(PYTHONLIBS_FOUND)
-
 if(PYTHONLIBS3_FOUND)
+    add_subdirectory(python)
     add_subdirectory(python3)
 endif(PYTHONLIBS3_FOUND)
 

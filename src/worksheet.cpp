@@ -1171,13 +1171,28 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     const KArchiveFile* content = static_cast<const KArchiveFile*>(contentEntry);
     QByteArray data = content->data();
 
-
     QDomDocument doc;
     doc.setContent(data);
-    QDomElement root=doc.documentElement();
+    QDomElement root = doc.documentElement();
 
-    m_backendName=root.attribute(QLatin1String("backend"));
-    Cantor::Backend* b=Cantor::Backend::getBackend(m_backendName);
+    m_backendName = root.attribute(QLatin1String("backend"));
+
+    //There is "Python" only now, replace "Python 3" by "Python"
+    if (m_backendName == QLatin1String("Python 3"))
+        m_backendName = QLatin1String("Python");
+
+    //"Python 2" in older projects not supported anymore, switch to Python (=Python3)
+    if (m_backendName == QLatin1String("Python 2"))
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::information(worksheetView(),
+                                 i18n("This worksheet was created using Python2 which is not supported anymore. Python3 will be used."),
+                                 i18n("Python2 not supported anymore"));
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        m_backendName = QLatin1String("Python");
+    }
+
+    auto* b = Cantor::Backend::getBackend(m_backendName);
     if (!b)
     {
         QApplication::restoreOverrideCursor();
@@ -1338,6 +1353,22 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
 
     const QJsonObject& kernalspec = metadata.value(QLatin1String("kernelspec")).toObject();
     m_backendName = Cantor::JupyterUtils::getKernelName(kernalspec);
+
+    //There is "Python" only now, replace "python3" by "Python"
+    if (m_backendName == QLatin1String("python3"))
+        m_backendName = QLatin1String("Python");
+
+    //"python 2" in older projects not supported anymore, switch to Python (=Python3)
+    if (m_backendName == QLatin1String("python2"))
+    {
+        QApplication::restoreOverrideCursor();
+        KMessageBox::information(worksheetView(),
+                                 i18n("This notebook was created using Python2 which is not supported anymore. Python3 will be used."),
+                                 i18n("Python2 not supported anymore"));
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+        m_backendName = QLatin1String("Python");
+    }
+
     if (kernalspec.isEmpty() || m_backendName.isEmpty())
     {
         QApplication::restoreOverrideCursor();

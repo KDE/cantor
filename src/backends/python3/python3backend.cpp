@@ -67,14 +67,13 @@ QUrl Python3Backend::helpUrl() const
     if (!localDoc.isEmpty())
         return localDoc;
     else
-        return QUrl(i18nc("The url to the documentation Python 3", "https://docs.python.org/3/"));
+        return QUrl(i18nc("The url to the documentation Python", "https://docs.python.org/3/"));
 }
 
 QString Python3Backend::description() const
 {
     return i18n("<b>Python</b> is a remarkably powerful dynamic programming language that is used in a wide variety of application domains. " \
-                "There are several Python packages to scientific programming. " \
-                "This backend supports Python 3.");
+                "There are several Python packages to scientific programming.");
 }
 
 KConfigSkeleton* Python3Backend::config() const
