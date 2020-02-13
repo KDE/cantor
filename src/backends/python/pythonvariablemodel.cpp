@@ -27,6 +27,8 @@
 #include <QDBusInterface>
 #include <QString>
 
+#include "settings.h"
+
 using namespace Cantor;
 
 PythonVariableModel::PythonVariableModel(PythonSession* session):
@@ -45,7 +47,7 @@ void PythonVariableModel::update()
     if (m_expression)
         return;
 
-    int variableManagement = static_cast<PythonSession*>(session())->variableManagement();
+    int variableManagement = PythonSettings::variableManagement();
     const QString command = QString::fromLatin1("%variables %1").arg(variableManagement);
     m_expression = session()->evaluateExpression(command, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
     connect(m_expression, &Cantor::Expression::statusChanged, this, &PythonVariableModel::extractVariables);

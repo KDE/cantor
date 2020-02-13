@@ -27,6 +27,7 @@
 #include "pythoncompletionobject.h"
 #include "pythonkeywords.h"
 #include "pythonutils.h"
+#include "settings.h"
 
 #include <QDebug>
 #include <QDir>
@@ -47,11 +48,9 @@ const QChar recordSep(30);
 const QChar unitSep(31);
 const QChar messageEnd = 29;
 
-PythonSession::PythonSession(Cantor::Backend* backend, int pythonVersion, const QUrl serverExecutableUrl)
+PythonSession::PythonSession(Cantor::Backend* backend)
     : Session(backend)
     , m_process(nullptr)
-    , m_serverExecutableUrl(serverExecutableUrl)
-    , m_pythonVersion(pythonVersion)
 {
     setVariableModel(new PythonVariableModel(this));
 }
@@ -77,7 +76,7 @@ void PythonSession::login()
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
 
-    m_process->start(m_serverExecutableUrl.toLocalFile());
+    m_process->start(PythonSettings::pythonServerPath().toLocalFile());
 
     m_process->waitForStarted();
     m_process->waitForReadyRead();
@@ -100,7 +99,7 @@ void PythonSession::login()
         dir = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
     sendCommand(QLatin1String("setFilePath"), QStringList() << m_worksheetPath << dir);
 
-    const QStringList& scripts = autorunScripts();
+    const QStringList& scripts = PythonSettings::autorunScripts();
     if(!scripts.isEmpty()){
         QString autorunScripts = scripts.join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, Cantor::Expression::DeleteOnFinish, true);
@@ -173,7 +172,7 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
 
 QSyntaxHighlighter* PythonSession::syntaxHighlighter(QObject* parent)
 {
-    return new PythonHighlighter(parent, this, m_pythonVersion);
+    return new PythonHighlighter(parent, this);
 }
 
 Cantor::CompletionObject* PythonSession::completionFor(const QString& command, int index)
@@ -212,12 +211,7 @@ void PythonSession::readOutput()
     while (m_process->bytesAvailable() > 0)
     {
         const QByteArray& bytes = m_process->readAll();
-        if (m_pythonVersion == 3)
-            m_output.append(QString::fromUtf8(bytes));
-        else if (m_pythonVersion == 2)
-            m_output.append(QString::fromLocal8Bit(bytes));
-        else
-            qCritical() << "Unsupported Python version" << m_pythonVersion;
+        m_output.append(QString::fromUtf8(bytes));
     }
 
     qDebug() << "m_output: " << m_output;

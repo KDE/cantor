@@ -25,15 +25,15 @@
 #include "textresult.h"
 #include "imageresult.h"
 #include "helpresult.h"
-#include <QDebug>
-#include <KIconLoader>
-#include <QFile>
-#include "pythonsession.h"
+#include "session.h"
 #include "settings.h"
 
+#include <KIconLoader>
 #include <QDir>
 #include <QFileSystemWatcher>
 #include <QTemporaryFile>
+#include <QFile>
+#include <QDebug>
 
 PythonExpression::PythonExpression(Cantor::Session* session, bool internal) : Cantor::Expression(session, internal),
     m_tempFile(nullptr)
@@ -59,8 +59,7 @@ QString PythonExpression::internalCommand()
 {
     QString cmd = command();
 
-    PythonSession* pythonSession = static_cast<PythonSession*>(session());
-    if((pythonSession->integratePlots()) && (command().contains(QLatin1String("show()")))){
+    if((PythonSettings::integratePlots()) && (command().contains(QLatin1String("show()")))){
         m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_python-XXXXXX.png"));
         m_tempFile->open();
         QString saveFigCommand = QLatin1String("savefig('%1')");

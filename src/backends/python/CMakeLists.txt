@@ -9,13 +9,18 @@ set( PythonBackend_SRCS
   pythonextensions.cpp
 )
 
+set(PythonServer_SRCS
+  pythonservermain.cpp
+  pythonserver.cpp
+)
+
+include_directories(${PYTHONLIBS3_INCLUDE_DIRS})
+
 qt5_add_resources(PythonBackend_RSCS python.qrc)
-
 ki18n_wrap_ui(PythonBackend_SRCS settings.ui)
+kconfig_add_kcfg_files(PythonBackend_SRCS settings.kcfgc)
 
-add_library(cantor_pythonbackend SHARED ${PythonBackend_SRCS} ${PythonBackend_RSCS})
-generate_export_header(cantor_pythonbackend)
-
+add_backend(pythonbackend ${PythonBackend_SRCS} ${PythonBackend_RSCS})
 target_link_libraries(cantor_pythonbackend
   cantorlibs
   KF5::KIOCore
@@ -24,5 +29,26 @@ target_link_libraries(cantor_pythonbackend
   KF5::SyntaxHighlighting
 )
 
+add_executable(cantor_pythonserver ${PythonServer_SRCS})
+set_target_properties(cantor_pythonserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
+target_link_libraries(cantor_pythonserver ${PYTHONLIBS3_LIBRARIES})
+
+if(BUILD_TESTING)
+  add_executable(testpython testpython.cpp settings.cpp)
+  add_test(NAME testpython COMMAND testpython)
+  target_link_libraries(testpython
+    Qt5::Test
+    KF5::ConfigCore
+    KF5::ConfigGui
+    cantorlibs
+    cantortest
+  )
+endif(BUILD_TESTING)
+
+install(FILES cantor_python.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES pythonbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
+
 install(TARGETS cantor_pythonbackend DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+install(TARGETS cantor_pythonserver DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+
 #install(DIRECTORY . DESTINATION ${KDE_INSTALL_DATADIR}/cantor/pythonbackend FILES_MATCHING PATTERN "*.py")

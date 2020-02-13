@@ -25,7 +25,7 @@
 #include <QTextEdit>
 #include <QDebug>
 
-PythonHighlighter::PythonHighlighter(QObject* parent, PythonSession* session, const int pythonVersion) : Cantor::DefaultHighlighter(parent, session)
+PythonHighlighter::PythonHighlighter(QObject* parent, PythonSession* session) : Cantor::DefaultHighlighter(parent, session)
 {
     qDebug() << "PythonHighlighter constructor";
     addRule(QRegularExpression(QStringLiteral("\\b\\w+(?=\\()")), functionFormat());
@@ -34,12 +34,6 @@ PythonHighlighter::PythonHighlighter(QObject* parent, PythonSession* session, co
     addKeywords(PythonKeywords::instance()->keywords());
     addFunctions(PythonKeywords::instance()->functions());
     addVariables(PythonKeywords::instance()->variables());
-
-    if (pythonVersion == 2)
-    {
-        removeRule(QLatin1String("print"));
-        addRule(QLatin1String("print"), keywordFormat());
-    }
 }
 
 void PythonHighlighter::highlightBlock(const QString &text)

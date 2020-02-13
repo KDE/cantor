@@ -22,19 +22,24 @@
 #define _PYTHONBACKEND_H
 
 #include "backend.h"
-#include <cantor_pythonbackend_export.h>
 
-class CANTOR_PYTHONBACKEND_EXPORT PythonBackend : public Cantor::Backend
+class PythonBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
     explicit PythonBackend(QObject* parent = nullptr, const QList<QVariant>& args = QList<QVariant>());
-    ~PythonBackend() override;
 
     QWidget* settingsWidget(QWidget* parent) const override;
 
-    KConfigSkeleton* config() const override = 0;
-    Cantor::Backend::Capabilities capabilities() const override = 0;
+    Cantor::Session* createSession() override;
+
+    QString id() const override;
+    QString version() const override;
+    Cantor::Backend::Capabilities capabilities() const override;
+    QUrl helpUrl() const override;
+    QString description() const override;
+    bool requirementsFullfilled(QString* const reason = nullptr) const override;
+    KConfigSkeleton* config() const override;
 };
 
 

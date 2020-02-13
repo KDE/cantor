@@ -29,7 +29,7 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
     Q_OBJECT
 
   public:
-    explicit PythonHighlighter(QObject* parent, PythonSession* session, const int pythonVersion);
+    explicit PythonHighlighter(QObject* parent, PythonSession* session);
     ~PythonHighlighter() override = default;
 
   protected:

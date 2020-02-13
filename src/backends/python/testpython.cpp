@@ -18,7 +18,7 @@
     Copyright (C) 2015 Minh Ngo <minh@fedoraproject.org>
  */
 
-#include "testpython3.h"
+#include "testpython.h"
 
 #include "session.h"
 #include "backend.h"
@@ -31,7 +31,7 @@
 
 QString TestPython3::backendName()
 {
-    return QLatin1String("python3");
+    return QLatin1String("python");
 }
 
 void TestPython3::testSimpleCommand()

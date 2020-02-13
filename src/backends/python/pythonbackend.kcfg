@@ -5,10 +5,10 @@
                           https://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <include>QStandardPaths</include>
   <kcfgfile name="cantorrc"/>
-  <group name="Python3Backend">
+  <group name="PythonBackend">
     <entry name="pythonServerPath" type="Url">
-      <label>Path to Cantor python3 server executable</label>
-      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("cantor_python3server")))</default>
+      <label>Path to Cantor python server executable</label>
+      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver")))</default>
     </entry>
     <entry name="localDoc" type="Url">
         <label>Url to the local Python documentation</label>

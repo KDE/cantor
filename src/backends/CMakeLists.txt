@@ -56,7 +56,6 @@ set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic pr
 find_package(PythonLibs3)
 if(PYTHONLIBS3_FOUND)
     add_subdirectory(python)
-    add_subdirectory(python3)
 endif(PYTHONLIBS3_FOUND)
 
 set_package_properties(LuaJIT PROPERTIES DESCRIPTION "A lightweight, extensible programming language (luajit implementation)."
