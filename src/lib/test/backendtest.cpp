@@ -22,12 +22,20 @@
 
 #include "backend.h"
 #include "session.h"
+#include "../../config-cantor.h"
 
 #include <KLocalizedString>
 #include <QSignalSpy>
+#include <QDebug>
 
 void BackendTest::createSession()
 {
+    // Add our custom plugins path, where we install our plugins, if it isn't default path
+    const QString& path = QString::fromLocal8Bit(PATH_TO_CANTOR_PLUGINS);
+    qDebug() << "Adding additional application library path" << path;
+    if (!QCoreApplication::libraryPaths().contains(path))
+        QCoreApplication::addLibraryPath(path);
+
     Cantor::Backend* b=Cantor::Backend::getBackend( backendName() );
     if(!b || !b->requirementsFullfilled() )
     {
