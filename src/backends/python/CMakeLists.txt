@@ -31,6 +31,9 @@ target_link_libraries(cantor_pythonbackend
 
 add_executable(cantor_pythonserver ${PythonServer_SRCS})
 set_target_properties(cantor_pythonserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
+if(MSVC)
+  set_property(TARGET cantor_pythonserver PROPERTY LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+endif()
 target_link_libraries(cantor_pythonserver ${PYTHONLIBS3_LIBRARIES})
 
 if(BUILD_TESTING)
