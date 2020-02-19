@@ -397,18 +397,34 @@ void LatexEntry::updateEntry()
 
 bool LatexEntry::eventFilter(QObject* object, QEvent* event)
 {
-    if(object == m_textItem && event->type() == QEvent::GraphicsSceneMouseDoubleClick)
+    if(object == m_textItem)
     {
-        // One image if we have rendered entry
-        if (isOneImageOnly())
+        if (event->type() == QEvent::GraphicsSceneMouseDoubleClick)
         {
-            QTextCursor cursor = m_textItem->textCursor();
-            if (!cursor.hasSelection())
-                cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
+            // One image if we have rendered entry
+            if (isOneImageOnly())
+            {
+                QTextCursor cursor = m_textItem->textCursor();
+                if (!cursor.hasSelection())
+                    cursor.movePosition(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
 
-            cursor.insertText(m_textItem->resolveImages(cursor));
-            m_textItem->allowEditing();
-            return true;
+                cursor.insertText(m_textItem->resolveImages(cursor));
+                m_textItem->allowEditing();
+                return true;
+            }
+        }
+        else if (event->type() == QEvent::KeyPress)
+        {
+            auto* key_event = static_cast<QKeyEvent*>(event);
+            if (key_event->matches(QKeySequence::Cancel))
+            {
+                QTextCursor cursor = m_textItem->textCursor();
+                cursor.movePosition(QTextCursor::Start);
+                cursor.movePosition(QTextCursor::End, QTextCursor::KeepAnchor);
+                cursor.insertText(QString(QChar::ObjectReplacementCharacter), m_renderedFormat);
+                m_textItem->denyEditing();
+                return true;
+            }
         }
     }
     return false;
