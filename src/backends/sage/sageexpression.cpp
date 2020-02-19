@@ -29,7 +29,7 @@
 #include <QDebug>
 #include <KLocalizedString>
 #include <QMimeDatabase>
-#include <QRegExp>
+#include <QRegularExpression>
 
 SageExpression::SageExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
     m_isHelpRequest(false),
@@ -79,14 +79,18 @@ void SageExpression::parseOutput(const QString& text)
     //remove carriage returns, we only use \n internally
     output.remove(QLatin1Char('\r'));
     //replace appearing backspaces, as they mess the whole output up
-    output.remove(QRegExp(QLatin1String(".\b")));
+    //with QRegularExpression/PCRE to make \b match a backspace put it inside []
+    //see https://perldoc.perl.org/perlrecharclass.html#Bracketed-Character-Classes
+    output.remove(QRegularExpression(QStringLiteral(".[\b]")));
     //replace Escape sequences (only tested with `ls` command)
     const QChar ESC(0x1b);
-    output.remove(QRegExp(QString(ESC)+QLatin1String("\\][^\a]*\a")));
+    output.remove(QRegularExpression(QString(ESC)+QLatin1String("\\][^\a]*\a")));
 
     const QString promptRegexpBase(QLatin1String("(^|\\n)%1"));
-    const QRegExp promptRegexp(promptRegexpBase.arg(QRegExp::escape(QLatin1String(SageSession::SagePrompt))));
-    const QRegExp altPromptRegexp(promptRegexpBase.arg(QRegExp::escape(QLatin1String(SageSession::SageAlternativePrompt))));
+    const QRegularExpression promptRegexp(promptRegexpBase.arg(
+                QRegularExpression::escape(QLatin1String(SageSession::SagePrompt))));
+    const QRegularExpression altPromptRegexp(promptRegexpBase.arg(
+                QRegularExpression::escape(QLatin1String(SageSession::SageAlternativePrompt))));
 
     bool endsWithAlternativePrompt=output.endsWith(QLatin1String(SageSession::SageAlternativePrompt));
 
@@ -192,7 +196,7 @@ void SageExpression::evalFinished()
         //strip html tags
         if(isHtml)
         {
-            stripped.remove( QRegExp( QLatin1String("<[a-zA-Z\\/][^>]*>") ) );
+            stripped.remove( QRegularExpression( QStringLiteral("<[a-zA-Z\\/][^>]*>") ) );
         }
 
         if (stripped.endsWith(QLatin1Char('\n')))
@@ -205,7 +209,7 @@ void SageExpression::evalFinished()
             stripped.replace(QLatin1Char('\n'), QLatin1String("<br/>\n"));
 
             //make things quoted in `` `` bold
-            stripped.replace(QRegExp(QLatin1String("``([^`]*)``")), QLatin1String("<b>\\1</b>"));
+            stripped.replace(QRegularExpression(QStringLiteral("``([^`]*)``")), QStringLiteral("<b>\\1</b>"));
 
             addResult(new Cantor::HelpResult(stripped, true));
         }
