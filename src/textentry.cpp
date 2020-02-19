@@ -37,6 +37,7 @@
 #include <QDebug>
 #include <KLocalizedString>
 #include <KColorScheme>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QInputDialog>
 
@@ -257,7 +258,7 @@ QJsonValue TextEntry::toJupyterJson()
             entryData = doc->toHtml();
 
             // Remove DOCTYPE from html
-            entryData.remove(QRegExp(QLatin1String("<!DOCTYPE[^>]*>\\n")));
+            entryData.remove(QRegularExpression(QStringLiteral("<!DOCTYPE[^>]*>\\n")));
 
             cantorMetadata.insert(QLatin1String("text_entry_content"), entryData);
         }

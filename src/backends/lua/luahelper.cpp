@@ -22,6 +22,7 @@
 #include "luakeywords.h"
 
 #include <lua.hpp>
+#include <QRegularExpression>
 #include <QString>
 #include <QStringList>
 
@@ -90,7 +91,7 @@ QStringList luahelper_completion(lua_State* L, const QString& name)
 
     QStringList list;
 
-    QStringList sections = name.split(QRegExp(QLatin1String("\\.|:")));
+    QStringList sections = name.split(QRegularExpression(QStringLiteral("\\.|:")));
     QString table, prefix;
 
     if(sections.size() == 1)            // global table

@@ -21,9 +21,9 @@
 #include "result.h"
 using namespace Cantor;
 
-#include <QRegExp>
 #include <QUrl>
 #include <QJsonObject>
+#include <QRegularExpression>
 
 class Cantor::ResultPrivate
 {
@@ -58,9 +58,9 @@ QString Result::toLatex()
 {
     QString html=toHtml();
     //replace linebreaks
-    html.replace(QRegExp(QLatin1String("<br/>[\n]")), QStringLiteral("\n"));
+    html.replace(QRegularExpression(QStringLiteral("<br/>[\n]")), QStringLiteral("\n"));
     //remove all the unknown tags
-    html.remove( QRegExp( QLatin1String("<[a-zA-Z\\/][^>]*>") ) );
+    html.remove(QRegularExpression(QStringLiteral("<[a-zA-Z\\/][^>]*>") ));
     return QStringLiteral("\\begin{verbatim} %1 \\end{verbatim}").arg(html);
 }
 

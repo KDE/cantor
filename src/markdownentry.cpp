@@ -29,6 +29,7 @@
 #include <KLocalizedString>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QDir>
 #include <QFileDialog>
@@ -611,7 +612,8 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
         // Don't add new line for $$...$$ on document's begin and end
         // And if we in block, which haven't non-space characters except out math expression
         // In another sitation, Cantor will move rendered image into another QTextBlock
-        QTextCursor prevSymCursor = m_textItem->document()->find(QRegExp(QLatin1String("[^\\s]")), cursor, QTextDocument::FindBackward);
+        QTextCursor prevSymCursor = m_textItem->document()->find(QRegularExpression(QStringLiteral("[^\\s]")),
+                                                                 cursor, QTextDocument::FindBackward);
         if (type == Cantor::LatexRenderer::FullEquation
             && cursor.selectionStart() != 0
             && prevSymCursor.block() == cursor.block()
@@ -626,7 +628,7 @@ void MarkdownEntry::setRenderedMath(int jobId, const QTextImageFormat& format, c
         cursor.insertText(QString(QChar::ObjectReplacementCharacter), format);
 
         bool atDocEnd = cursor.position() == m_textItem->document()->characterCount()-1;
-        QTextCursor nextSymCursor = m_textItem->document()->find(QRegExp(QLatin1String("[^\\s]")), cursor);
+        QTextCursor nextSymCursor = m_textItem->document()->find(QRegularExpression(QStringLiteral("[^\\s]")), cursor);
         if (type == Cantor::LatexRenderer::FullEquation && !atDocEnd && nextSymCursor.block() == cursor.block())
         {
             cursor.setPosition(nextSymCursor.position()-1, QTextCursor::KeepAnchor);
@@ -664,7 +666,7 @@ void MarkdownEntry::markUpMath()
             continue;
 
         QString searchText = foundMath[i].first;
-        searchText.replace(QRegExp(QLatin1String("\\s+")), QLatin1String(" "));
+        searchText.replace(QRegularExpression(QStringLiteral("\\s+")), QStringLiteral(" "));
 
         cursor = m_textItem->document()->find(searchText, cursor);
 

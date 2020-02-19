@@ -75,8 +75,8 @@ QString BackendTest::cleanOutput(const QString& out)
     cleaned.replace( QLatin1String("&nbsp;"),QLatin1String(" ") );
     cleaned.remove( QLatin1String("<br/>") );
     cleaned.replace( QChar::ParagraphSeparator, QLatin1Char('\n') );
-    cleaned.replace( QRegExp( QLatin1String("\\n\\n") ), QLatin1String("\n") );
-    cleaned.replace( QRegExp( QLatin1String("\\n\\s*") ), QLatin1String("\n") );
+    cleaned.replace( QRegularExpression( QStringLiteral("\\n{2}") ), QStringLiteral("\n") );
+    cleaned.replace( QRegularExpression( QStringLiteral("\\n\\s*") ), QStringLiteral("\n") );
 
     return cleaned.trimmed();
 }
