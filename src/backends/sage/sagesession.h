@@ -104,6 +104,7 @@ class SageSession : public Cantor::Session
     QString m_outputCache;
     VersionInfo m_sageVersion;
     bool m_haveSentInitCmd;
+    QString m_worksheetPath;
 };
 
 #endif /* _SAGESESSION_H */
