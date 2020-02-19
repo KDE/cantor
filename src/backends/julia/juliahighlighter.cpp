@@ -57,12 +57,12 @@ void JuliaHighlighter::highlightBlock(const QString &text)
     const int IN_TRIPLE_QUOTE_STRING = 8;
 
     // Markers of scopes start, ends
-    QRegExp multiLineCommentStart(QLatin1String("#="));
-    QRegExp multiLineCommentEnd(QLatin1String("=#"));
-    QRegExp characterStartEnd(QLatin1String("'"));
-    QRegExp singleQuoteStringStartEnd(QLatin1String("\""));
-    QRegExp tripleQuoteStringStartEnd(QLatin1String("\"\"\""));
-    QRegExp singleLineCommentStart(QLatin1String("#(?!=)"));
+    static const QRegularExpression multiLineCommentStart(QStringLiteral("#="));
+    static const QRegularExpression multiLineCommentEnd(QStringLiteral("=#"));
+    static const QRegularExpression characterStartEnd(QStringLiteral("'"));
+    static const QRegularExpression singleQuoteStringStartEnd(QStringLiteral("\""));
+    static const QRegularExpression tripleQuoteStringStartEnd(QStringLiteral("\"\"\""));
+    static const QRegularExpression singleLineCommentStart(QStringLiteral("#(?!=)"));
 
     // Get current state
     int state = previousBlockState();
@@ -78,13 +78,13 @@ void JuliaHighlighter::highlightBlock(const QString &text)
         IN_CHARACTER,
         IN_MULTILINE_COMMENT
     };
-    QList<QRegExp> regexps_starts = {
+    const QVector<QRegularExpression> regexps_starts = {
         tripleQuoteStringStartEnd,
         singleQuoteStringStartEnd,
         characterStartEnd,
         multiLineCommentStart
     };
-    QList<QRegExp> regexps_ends = {
+    const QVector<QRegularExpression> regexps_ends = {
         tripleQuoteStringStartEnd,
         singleQuoteStringStartEnd,
         characterStartEnd,
@@ -103,18 +103,18 @@ void JuliaHighlighter::highlightBlock(const QString &text)
         bool triggered = false;
         for (int i = 0; i < flags.size() && !triggered; i++) {
             int flag = flags[i];
-            QRegExp &regexp = regexps_ends[i];
             QTextCharFormat &format = formats[i];
             if (state & flag) { // Found current state
                 // find where end marker is
-                int new_pos = regexp.indexIn(text, pos);
+                const QRegularExpressionMatch match = regexps_ends.at(i).match(text, pos);
+                const int new_pos = match.capturedStart(0);
                 int length;
                 if (new_pos == -1) {
                     // not in this block, highlight till the end
                     length = text.length() - pos;
                 } else {
                     // highlight untill the marker and modify state
-                    length = new_pos - pos + regexp.matchedLength();
+                    length = new_pos - pos + match.capturedLength(0);
                     state -= flag;
                 }
                 // Apply format to the found area
@@ -129,33 +129,31 @@ void JuliaHighlighter::highlightBlock(const QString &text)
 
         // Now we should found the scope that start the closest to current
         // position
-        QRegExp *minRegexp = nullptr; // closest marker
+        QRegularExpressionMatch match; // closest marker
         int minPos = INT_MAX; // closest pos
         int minIdx = -1; // closest scope index
         for (int i = 0; i < regexps_starts.size(); i++) {
-            QRegExp &regexp = regexps_starts[i];
-            int newPos = regexp.indexIn(text, pos);
+            match = regexps_starts.at(i).match(text, pos);
+            const int newPos = match.capturedStart(0);
             if (newPos != -1) {
                 minPos = qMin(minPos, newPos);
-                minRegexp = &regexp;
                 minIdx = i;
             }
         }
 
         // Check where single line comment starts
-        singleLineCommentStart.indexIn(text, pos);
-        int singleLineCommentStartPos = singleLineCommentStart.pos();
+        const int singleLineCommentStartPos = text.indexOf(singleLineCommentStart, pos);
 
         if (singleLineCommentStartPos != -1
                 && singleLineCommentStartPos < minPos) {
             // single line comment starts earlier
             setFormat(singleLineCommentStartPos, text.length() - singleLineCommentStartPos, commentFormat());
             break;
-        } else if (minRegexp) {
+        } else if (match.hasMatch()) {
             // We are going to another scope
             state += flags[minIdx];
-            pos = minPos +  minRegexp->matchedLength();
-            setFormat(minPos, minRegexp->matchedLength(), formats[minIdx]);
+            pos = minPos +  match.capturedLength(0);
+            setFormat(minPos, match.capturedLength(0), formats[minIdx]);
         } else { // There is nothing to highlight
             break;
         }
