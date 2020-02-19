@@ -1682,6 +1682,7 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
         event->scenePos().y() > lastEntry()->y() + lastEntry()->size().height())
         lastEntry()->focusEntry(WorksheetTextItem::BottomRight);
     */
+    QGraphicsScene::mousePressEvent(event);
 
     if (!m_readOnly && event->buttons() & Qt::LeftButton)
     {
@@ -1732,7 +1733,6 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
             updateEntryCursor(event);
         }
     }
-    QGraphicsScene::mousePressEvent(event);
 }
 
 void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
