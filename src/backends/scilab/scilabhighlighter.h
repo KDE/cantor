@@ -21,6 +21,8 @@
 #ifndef _SCILABHIGHLIGHTER_H
 #define _SCILABHIGHLIGHTER_H
 
+#include <QRegularExpression>
+
 #include "defaulthighlighter.h"
 #include "scilabexpression.h"
 
@@ -38,8 +40,8 @@ class ScilabHighlighter : public Cantor::DefaultHighlighter
 
     private:
         Cantor::Session* m_session;
-        QRegExp commentStartExpression;
-        QRegExp commentEndExpression;
+        QRegularExpression commentStartExpression;
+        QRegularExpression commentEndExpression;
 };
 
 #endif /* _SCILABHIGHLIGHTER_H */

@@ -42,8 +42,8 @@ ScilabHighlighter::ScilabHighlighter(QObject* parent, Cantor::Session* session) 
     addRule(QRegularExpression(QStringLiteral("'[^']*'")), stringFormat());
     addRule(QRegularExpression(QStringLiteral("//[^\n]*")), commentFormat());
 
-    commentStartExpression = QRegExp(QLatin1String("/\\*"));
-    commentEndExpression = QRegExp(QLatin1String("\\*/"));
+    commentStartExpression = QRegularExpression(QStringLiteral("/\\*"));
+    commentEndExpression = QRegularExpression(QStringLiteral("\\*/"));
 }
 
 void ScilabHighlighter::highlightBlock(const QString& text)
@@ -59,22 +59,21 @@ void ScilabHighlighter::highlightBlock(const QString& text)
 
     int startIndex = 0;
     if (previousBlockState() != 1)
-        startIndex = commentStartExpression.indexIn(text);
+        startIndex = text.indexOf(commentStartExpression);
 
     while (startIndex >= 0){
-
-        int endIndex = commentEndExpression.indexIn(text, startIndex);
+        QRegularExpressionMatch endMatch;
+        const int endIndex = text.indexOf(commentEndExpression, startIndex, &endMatch);
         int commentLength;
-        if (endIndex == -1){
-
+        if (endIndex == -1) { // no match found
             setCurrentBlockState(1);
             commentLength = text.length() - startIndex;
-        } else {
-            commentLength = endIndex - startIndex
-                + commentEndExpression.matchedLength();
+        } else { // match found
+            // endMatch.catpuredEnd(0) is endIndex + endMatch.capturedLength(0)
+            commentLength = endMatch.capturedEnd(0) - startIndex;
         }
         setFormat(startIndex,  commentLength,  commentFormat());
-        startIndex = commentStartExpression.indexIn(text,  startIndex + commentLength);
+        startIndex = text.indexOf(commentStartExpression, startIndex + commentLength);
     }
 }
 
