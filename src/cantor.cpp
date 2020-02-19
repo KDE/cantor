@@ -36,6 +36,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QPushButton>
+#include <QRegularExpression>
 #include <QGraphicsView>
 
 #include "lib/backend.h"
@@ -551,7 +552,7 @@ void CantorShell::openExample()
     foreach(const QString& file, files)
     {
         QString name=file;
-        name.remove(QRegExp(QLatin1String("-.*\\.hotstuff-access$")));
+        name.remove(QRegularExpression(QStringLiteral("-.*\\.hotstuff-access$")));
         list->addItem(name);
     }
 

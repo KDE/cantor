@@ -39,6 +39,7 @@
 #include <KFontSizeAction>
 #include <KToggleAction>
 #include <KLocalizedString>
+#include <QRegularExpression>
 
 #include "settings.h"
 #include "commandentry.h"
@@ -1523,8 +1524,8 @@ void Worksheet::gotResult(Cantor::Expression* expr)
         {
             QString help = result->toHtml();
             //Do some basic LaTeX replacing
-            help.replace(QRegExp(QLatin1String("\\\\code\\{([^\\}]*)\\}")), QLatin1String("<b>\\1</b>"));
-            help.replace(QRegExp(QLatin1String("\\$([^\\$])\\$")), QLatin1String("<i>\\1</i>"));
+            help.replace(QRegularExpression(QStringLiteral("\\\\code\\{([^\\}]*)\\}")), QStringLiteral("<b>\\1</b>"));
+            help.replace(QRegularExpression(QStringLiteral("\\$([^\\$])\\$")), QStringLiteral("<i>\\1</i>"));
 
             emit showHelp(help);
 

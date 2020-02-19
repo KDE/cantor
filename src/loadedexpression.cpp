@@ -37,6 +37,7 @@
 #include <QJsonDocument>
 #include <QDebug>
 #include <QPixmap>
+#include <QRegularExpression>
 #include <QTemporaryFile>
 
 LoadedExpression::LoadedExpression( Cantor::Session* session ) : Cantor::Expression( session, false, -1)
@@ -210,7 +211,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
 
             // IPython returns error with terminal colors, we handle it here, but should we?
             static const QChar ESC(0x1b);
-            traceback.remove(QRegExp(QString(ESC)+QLatin1String("\\[[0-9;]*m")));
+            traceback.remove(QRegularExpression(QString(ESC)+QLatin1String("\\[[0-9;]*m")));
 
             setErrorMessage(traceback);
         }
