@@ -23,7 +23,7 @@
 #include <session.h>
 #include <QQueue>
 #include <QTextStream>
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QPointer>
 
 namespace Cantor {
@@ -51,13 +51,13 @@ class OctaveSession : public Cantor::Session
         void runFirstExpression() override;
 
     private:
-        const static QRegExp PROMPT_UNCHANGEABLE_COMMAND;
+        const static QRegularExpression PROMPT_UNCHANGEABLE_COMMAND;
 
     private:
         KProcess* m_process;
         QTextStream m_stream;
-        QRegExp m_prompt;
-        QRegExp m_subprompt;
+        QRegularExpression m_prompt;
+        QRegularExpression m_subprompt;
         int m_previousPromptNumber;
 
         bool m_syntaxError;

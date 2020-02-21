@@ -42,12 +42,12 @@
 
 #include "octavevariablemodel.h"
 
-const QRegExp OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegExp(QLatin1String("(,|;)+"));
+const QRegularExpression OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegularExpression(QStringLiteral("^(?:,|;)+$"));
 
 OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend),
 m_process(nullptr),
-m_prompt(QLatin1String("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
-m_subprompt(QLatin1String("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
+m_prompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
+m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
 m_syntaxError(false)
 {
@@ -255,11 +255,12 @@ void OctaveSession::readOutput()
     {
         QString line = QString::fromLocal8Bit(m_process->readLine());
         qDebug()<<"start parsing " << "  " << line;
-        if (line.contains(m_prompt))
+        QRegularExpressionMatch match = m_prompt.match(line);
+        if (match.hasMatch())
         {
-            const int promptNumber = m_prompt.cap(1).toInt();
+            const int promptNumber = match.captured(1).toInt();
             // Add all text before prompt, if exists
-            m_output += QStringRef(&line, 0, line.indexOf(m_prompt)).toString();
+            m_output += QStringRef(&line, 0, match.capturedStart(0)).toString();
             if (!expressionQueue().isEmpty())
             {
                 const QString& command = expressionQueue().first()->command();
@@ -280,7 +281,8 @@ void OctaveSession::readOutput()
             m_previousPromptNumber = promptNumber;
             m_output.clear();
         }
-        else if (line.contains(m_subprompt) && m_subprompt.cap(1).toInt() == m_previousPromptNumber)
+        else if ((match = m_subprompt.match(line)).hasMatch()
+                 && match.captured(1).toInt() == m_previousPromptNumber)
         {
             // User don't write finished octave statement (for example, write 'a = [1,2, ' only), so
             // octave print subprompt and waits input finish.
@@ -331,7 +333,8 @@ void OctaveSession::runSpecificCommands()
 
 bool OctaveSession::isDoNothingCommand(const QString& command)
 {
-    return PROMPT_UNCHANGEABLE_COMMAND.exactMatch(command) || command.isEmpty() || command == QLatin1String("\n");
+    return PROMPT_UNCHANGEABLE_COMMAND.match(command).hasMatch()
+           || command.isEmpty() || command == QLatin1String("\n");
 }
 
 bool OctaveSession::isSpecialOctaveCommand(const QString& command)
