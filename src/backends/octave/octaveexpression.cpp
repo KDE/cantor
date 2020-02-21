@@ -27,6 +27,7 @@
 #include <QFile>
 #include <QDir>
 #include <QFileSystemWatcher>
+#include <QRegularExpression>
 #include <QTemporaryFile>
 #include <helpresult.h>
 
@@ -81,7 +82,7 @@ void OctaveExpression::evaluate()
 
     qDebug() << "evaluate";
     QString cmd = command();
-    QStringList cmdWords = cmd.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
+    QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
     if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
     {
         for (const QString& plotCmd : plotCommands)
