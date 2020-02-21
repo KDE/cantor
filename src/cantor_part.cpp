@@ -724,11 +724,11 @@ void CantorPart::updateCaption()
     //strip away the extension
     filename=filename.left(filename.lastIndexOf(QLatin1Char('.')));
 
-    if (filename.isEmpty())
-        filename = i18n("Unnamed");
-
     if (!m_worksheet->isReadOnly())
-        emit setCaption(filename, QIcon::fromTheme(m_worksheet->session()->backend()->icon()));
+    {
+        if (m_worksheet->session())
+            emit setCaption(filename, QIcon::fromTheme(m_worksheet->session()->backend()->icon()));
+    }
     else
         emit setCaption(filename+QLatin1Char(' ') + i18n("[read-only]"), QIcon());
 }
