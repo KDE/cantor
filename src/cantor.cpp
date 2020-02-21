@@ -351,6 +351,9 @@ void CantorShell::addWorksheet(const QString& backendName)
             // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
             // This fix https://bugs.kde.org/show_bug.cgi?id=395976
             part->widget()->findChild<QGraphicsView*>()->setFocus();
+
+            // Force run updateCaption for getting proper backend icon
+            QMetaObject::invokeMethod(part, "updateCaption");
         }
         else
         {
@@ -405,12 +408,11 @@ void CantorShell::activateWorksheet(int index)
 
 void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
 {
-    if (caption.isEmpty()) return;
-
     KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part)
     {
-        m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
+        if (!caption.isEmpty())
+            m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
         m_tabWidget->setTabIcon(m_tabWidget->indexOf(part->widget()), icon);
     }
 }

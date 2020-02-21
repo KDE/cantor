@@ -84,6 +84,9 @@ Q_SIGNALS:
     void showHelp(const QString& help);
     void worksheetSave(const QUrl& url);
 
+public Q_SLOTS:
+    void updateCaption();
+
 protected:
     /**
      * This must be implemented by each part
@@ -123,7 +126,6 @@ protected Q_SLOTS:
     void worksheetSessionLoginStarted();
     void worksheetSessionLoginDone();
     void initialized();
-    void updateCaption();
 
     void pluginsChanged();
     void runCommand(const QString& value);
