@@ -27,6 +27,7 @@
 #include <KLocalizedString>
 #include <QLocale>
 #include <QDebug>
+#include <QRegularExpression>
 
 QalculateHighlighter::QalculateHighlighter(QObject* parent)
     : Cantor::DefaultHighlighter(parent)
@@ -46,7 +47,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
     ///TODO: Can't we use CALCULATOR->parse() or similar?
     ///      Question is how to get the connection between
     ///      MathStructur and position+length in @p text
-    const QStringList& words = text.split(QRegExp(QLatin1String("\\b")), QString::SkipEmptyParts);
+    const QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
 
     qDebug() << "highlight block:" << text;
 
