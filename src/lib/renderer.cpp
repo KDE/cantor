@@ -165,6 +165,8 @@ QImage Renderer::epsRenderToImage(const QUrl& url, double scale, bool useHighRes
         *errorReason = QString::fromLatin1("Render Eps on Cantor without eps support (libspectre)!");
 
     Q_UNUSED(url);
+    Q_UNUSED(scale);
+    Q_UNUSED(useHighRes);
     Q_UNUSED(size);
     return QImage();
 #endif

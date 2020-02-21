@@ -192,7 +192,6 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
     Cantor::Expression* expression = expressionQueue().first();
-    const QString& cmd = expression->command();
     qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
     switch (status)

@@ -177,7 +177,7 @@ void MathRenderTask::run()
     // For example, this pdf will copied into .cws file on save
     const QString& pdfFileName = pathWithoutExtension + QLatin1String(".pdf");
 
-    bool success; QString errorMessage; QSizeF size;
+    bool success; QString errorMessage;
     const auto& data = renderPdfToFormat(pdfFileName, m_code, uuid, m_type, m_scale, m_highResolution, &success, &errorMessage);
     result->successful = success;
     result->errorMessage = errorMessage;

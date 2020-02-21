@@ -27,7 +27,7 @@
 #include <QDebug>
 
 const QStringList RHighlighter::operators_list=QStringList()
-   << QLatin1String("(\\+|\\-|\*{1,2}|/|&lt;=?|&gt;=?|={1,2}|\\!=?|\|{1,2}|&amp;{1,2}|:{1,3}|\^|@|\\$|~)")
+   << QLatin1String("(\\+|\\-|\\*{1,2}|/|&lt;=?|&gt;=?|={1,2}|\\!=?|\\|{1,2}|&amp;{1,2}|:{1,3}|\\^|@|\\$|~)")
    << QLatin1String("%[^%]*%"); // Taken in r.xml syntax file from KSyntaxHighlighter
 
 const QStringList RHighlighter::specials_list=QStringList()
