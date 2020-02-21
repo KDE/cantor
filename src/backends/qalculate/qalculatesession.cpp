@@ -25,7 +25,7 @@
 #include "defaultvariablemodel.h"
 
 #include <QProcess>
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include <libqalculate/Calculator.h>
 #include <libqalculate/ExpressionItem.h>
@@ -165,38 +165,34 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
         This is probably not the best way to get the variable and value.
         But since qalc does not  provide a way to get the list of variables, we will have to stick to parsing
     **/
-    QString value;
-    QString var;
-    QRegExp regex;
+    QRegularExpression regex;
     // find the value
-    regex.setPattern(QLatin1String("[\\s\\w\\W]+=\\s*([\\w\\W]+)"));
-    if(regex.exactMatch(output)) {
-        int pos = regex.indexIn(output);
-        if (pos > -1) {
-            value = regex.cap(1);
-            value = value.trimmed();
-            value.replace(QLatin1String("\n"), QLatin1String(""));
-            value.remove(QLatin1String(">"));
-        }
+    regex.setPattern(QStringLiteral("^[\\s\\w\\W]+=\\s*([\\w\\W]+)$"));
+    QRegularExpressionMatch match = regex.match(output);
+    QString value;
+    if(match.hasMatch()) {
+        value = match.captured(1).trimmed();
+        value.replace(QLatin1String("\n"), QLatin1String(""));
+        value.remove(QLatin1String(">"));
     }
 
     //find the varaiable.
     // ex1: currentCmd = save(10, var_1,category, title): var_1 = variable
     // ex2: currentCmd = save(planet(jupter,mass), jupiter_mass, category, title): jupiter_mass = variable
-    // Not the best regex. Cab be improved
-    regex.setPattern(QLatin1String("\\s*save\\s*\\(\\s*[\\s\\w]+\\s*,([\\s\\w]+),*[\\w\\W]*\\)\\s*;*$|\\s*save\\s*\\(\\s*[\\s\\w\\W]+\\)\\s*,([\\s\\w]+),*[\\w\\W]*\\)\\s*;*$"));
-    if(regex.exactMatch(currentCmd)) {
-        int pos = regex.indexIn(currentCmd);
-        if (pos > -1) {
-            if(!regex.cap(1).trimmed().isEmpty())
-                var =  regex.cap(1).trimmed();
-            else
-                var = regex.cap(2).trimmed();
 
-            var = var.trimmed();
-            var.replace(QLatin1String("\n"), QLatin1String(""));
-            var.remove(QLatin1String(">"));
-        }
+    //  regex.setPattern(QLatin1String("\\s*save\\s*\\(\\s*[\\s\\w]+\\s*,([\\s\\w]+),*[\\w\\W]*\\)\\s*;*$|\\s*save\\s*\\(\\s*[\\s\\w\\W]+\\)\\s*,([\\s\\w]+),*[\\w\\W]*\\)\\s*;*$"));
+
+    regex.setPattern(QStringLiteral("^\\s*save\\s*\\("
+                                    "(?:.+?(?:\\(.+?,.+?\\))|(?:[^,()]+?)),"
+                                    "(.+?),"
+                                    "(?:.+?),"
+                                    "(?:.+?)\\)\\s*;?$"));
+    QString var;
+    match = regex.match(currentCmd);
+    if (match.hasMatch()) {
+        var = match.captured(1).trimmed();
+        var.replace(QLatin1String("\n"), QLatin1String(""));
+        var.remove(QLatin1String(">"));
     }
     if(!value.isEmpty() && !var.isEmpty())
         variables.insert(var, value);
@@ -286,52 +282,50 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
         saveVariables filename
     */
 
-    QRegExp regex;
-    regex.setCaseSensitivity(Qt::CaseInsensitive);
+    QRegularExpression regex;
+    regex.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
 
-    regex.setPattern(QLatin1String("\\s*save\\s*definitions\\s*"));
-    if(regex.exactMatch(currentCmd)) {
+    regex.setPattern(QStringLiteral("^\\s*save\\s*definitions\\s*$"));
+    if(regex.match(currentCmd).hasMatch()) {
         // save the variables in  ~/.cantor/backends/qalculate/definitions
         currentCmd.clear();
         return currentCmd;
     }
 
-    regex.setPattern(QLatin1String("\\s*save\\s*mode\\s*"));
-    if(regex.exactMatch(currentCmd)) {
+    regex.setPattern(QStringLiteral("^\\s*save\\s*mode\\s*$"));
+    if(regex.match(currentCmd).hasMatch()) {
         // save the mode in ~/.cantor/backends/qalculate/cantor_qalc.cfg
         currentCmd.clear();
         return currentCmd;
     }
 
-    regex.setPattern(QLatin1String("\\s*saveVariables\\s*[\\w\\W]+"));
-    if(regex.exactMatch(currentCmd)) {
+    regex.setPattern(QStringLiteral("^\\s*saveVariables\\s*[\\w\\W]+$"));
+    if(regex.match(currentCmd).hasMatch()) {
         // save the variables in a file
         currentCmd.clear();
         return currentCmd;
     }
 
-    regex.setPattern(QLatin1String("\\s*store\\s*([a-zA-Z_]+[\\w]*)|\\s*save\\s*([a-zA-Z_]+[\\w]*)"));
-    if(regex.exactMatch(currentCmd)) {
+    regex.setPattern(QStringLiteral("^\\s*store\\s*([a-zA-Z_]+[\\w]*)|\\s*save\\s*([a-zA-Z_]+[\\w]*)$"));
+    QRegularExpressionMatch match = regex.match(currentCmd);
+    if(match.hasMatch()) {
         m_isSaveCommand = true;
-        int pos = regex.indexIn(currentCmd);
-        if(pos > -1) {
-            if(!regex.cap(1).trimmed().isEmpty())
-                currentCmd = QStringLiteral("save(%1, %2)").arg(QStringLiteral("ans")).arg(regex.cap(1).trimmed());
-            else
-                currentCmd = QStringLiteral("save(%1, %2)").arg(QStringLiteral("ans")).arg(regex.cap(2).trimmed());
 
-            return currentCmd;
-        }
+        QString str = match.captured(1).trimmed();
+        if (str.isEmpty())
+            str = match.captured(2).trimmed();
+
+        currentCmd = QStringLiteral("save(%1, %2)").arg(QStringLiteral("ans"), str);
+
+        return currentCmd;
     }
 
-    regex.setPattern(QLatin1String("\\s*save\\s*(\\([\\w\\W]+\\))\\s*;*$"));
-    if(regex.exactMatch(currentCmd)) {
+    regex.setPattern(QStringLiteral("^\\s*save\\s*(\\([\\w\\W]+\\))\\s*;*$"));
+    match = regex.match(currentCmd);
+    if(match.hasMatch()) {
         m_isSaveCommand = true;
-        int pos = regex.indexIn(currentCmd);
-        if (pos > -1) {
-            currentCmd = QStringLiteral("save%1").arg(regex.cap(1).trimmed());
-            return currentCmd;
-        }
+        currentCmd = QStringLiteral("save%1").arg(match.captured(1).trimmed());
+        return currentCmd;
     }
 
     /*
