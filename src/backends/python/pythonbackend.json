@@ -2,6 +2,7 @@
     "KPlugin": {
         "Dependencies": [],
         "Description": "Backend for Python Scientific Programming",
+        "Description[ca@valencia]": "Dorsal per a la programació científica Python",
         "Description[ca]": "Dorsal per a la programació científica Python",
         "Description[es]": "Motor para programación científica en Python",
         "Description[et]": "Pythoni teadusliku programmeerimise taustaprogramm",
@@ -15,6 +16,7 @@
         "Id": "Python",
         "License": "GPL",
         "Name": "Python",
+        "Name[ca@valencia]": "Python",
         "Name[ca]": "Python",
         "Name[es]": "Python",
         "Name[et]": "Python",
