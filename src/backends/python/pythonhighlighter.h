@@ -21,6 +21,8 @@
 #ifndef _PYTHONHIGHLIGHTER_H
 #define _PYTHONHIGHLIGHTER_H
 
+#include <QRegularExpression>
+
 #include "defaulthighlighter.h"
 class PythonSession;
 
@@ -36,8 +38,8 @@ class PythonHighlighter : public Cantor::DefaultHighlighter
     void highlightBlock(const QString& text) override;
 
   private:
-     QRegExp commentStartExpression;
-     QRegExp commentEndExpression;
+     QRegularExpression commentStartExpression;
+     QRegularExpression commentEndExpression;
 };
 
 #endif /* _PYTHONHIGHLIGHTER_H */

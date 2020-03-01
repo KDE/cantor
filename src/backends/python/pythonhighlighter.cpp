@@ -50,11 +50,11 @@ void PythonHighlighter::highlightBlock(const QString &text)
     const int IN_SINGLE_QUOTE_STRING = 4;
     const int IN_TRIPLE_QUOTE_STRING = 8;
 
-    QRegExp multiLineCommentStartEnd(QLatin1String("'''"));
-    QRegExp smallQuoteStartEnd(QLatin1String("'"));
-    QRegExp singleQuoteStringStartEnd(QLatin1String("\""));
-    QRegExp tripleQuoteStringStartEnd(QLatin1String("\"\"\""));
-    QRegExp singleLineCommentStart(QLatin1String("#"));
+    static const QRegularExpression multiLineCommentStartEnd(QStringLiteral("'''"));
+    static const QRegularExpression smallQuoteStartEnd(QStringLiteral("'"));
+    static const QRegularExpression singleQuoteStringStartEnd(QStringLiteral("\""));
+    static const QRegularExpression tripleQuoteStringStartEnd(QStringLiteral("\"\"\""));
+    static const QRegularExpression singleLineCommentStart(QStringLiteral("#"));
 
     int state = previousBlockState();
     if (state == -1) {
@@ -67,7 +67,7 @@ void PythonHighlighter::highlightBlock(const QString &text)
         IN_SMALL_QUOTE_STRING,
         IN_MULTILINE_COMMENT
     };
-    QList<QRegExp> regexps = {
+    const QVector<QRegularExpression> regexps = {
         tripleQuoteStringStartEnd,
         singleQuoteStringStartEnd,
         smallQuoteStartEnd,
@@ -86,15 +86,14 @@ void PythonHighlighter::highlightBlock(const QString &text)
         bool triggered = false;
         for (int i = 0; i < flags.size() && !triggered; i++) {
             int flag = flags[i];
-            QRegExp &regexp = regexps[i];
             QTextCharFormat &format = formats[i];
             if (state & flag) {
-                int new_pos = regexp.indexIn(text, pos);
+                const QRegularExpressionMatch match = regexps.at(i).match(text, pos);
                 int length;
-                if (new_pos == -1) {
+                if (!match.hasMatch()) {
                     length = text.length() - pos;
-                } else {
-                    length = new_pos - pos + regexp.matchedLength();
+                } else { // found a match
+                    length = match.capturedStart(0) - pos + match.capturedLength(0);
                     state -= flag;
                 }
                 setFormat(pos, length, format);
@@ -106,30 +105,28 @@ void PythonHighlighter::highlightBlock(const QString &text)
             continue;
         }
 
-        QRegExp *minRegexp = nullptr;
+        QRegularExpressionMatch minMatch;
         int minPos = INT_MAX;
         int minIdx = -1;
         for (int i = 0; i < regexps.size(); i++) {
-            QRegExp &regexp = regexps[i];
-            int newPos = regexp.indexIn(text, pos);
-            if (newPos != -1) {
-                minPos = qMin(minPos, newPos);
-                minRegexp = &regexp;
+            const QRegularExpressionMatch match = regexps.at(i).match(text, pos);
+            if (match.hasMatch()) {
+                minPos = qMin(minPos, match.capturedStart(0));
                 minIdx = i;
+                minMatch = match;
             }
         }
 
-        int singleLineCommentStartPos =
-        singleLineCommentStart.indexIn(text, pos);
+        const int singleLineCommentStartPos = text.indexOf(singleLineCommentStart, pos);
 
         if (singleLineCommentStartPos != -1
             && singleLineCommentStartPos < minPos) {
             setFormat(singleLineCommentStartPos, text.length() - singleLineCommentStartPos, commentFormat());
         break;
-            } else if (minRegexp) {
+            } else if (minMatch.hasMatch()) {
                 state += flags[minIdx];
-                pos = minPos +  minRegexp->matchedLength();
-                setFormat(minPos, minRegexp->matchedLength(), formats[minIdx]);
+                pos = minPos + minMatch.capturedLength(0);
+                setFormat(minPos, minMatch.capturedLength(0), formats[minIdx]);
             } else {
                 break;
             }
