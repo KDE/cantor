@@ -90,7 +90,7 @@
   </description>
   <url type="homepage">https://cantor.kde.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=cantor</url>
-  <url type="help">https://docs.kde.org/stable/en/kdeedu/cantor/index.html</url>
+  <url type="help">https://docs.kde.org/?application=cantor</url>
   <url type="donation">https://www.kde.org/community/donations/?app=cantor&amp;source=appdata</url>
   <screenshots>
     <screenshot type="default">
