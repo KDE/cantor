@@ -795,6 +795,10 @@ void CommandEntry::expressionChangedStatus(Cantor::Expression::Status status)
             m_errorItem->setHtml(i18n("Interrupted"));
 
         recalculateSize();
+        // Mostly we handle setting of modification in WorksheetEntry inside ::evaluateNext.
+        // But command entry wouldn't triger ::evaluateNext for Error and Interrupted states
+        // So, we set it here
+        worksheet()->setModified();
         break;
     case Cantor::Expression::Done:
         m_promptItemAnimation->stop();
