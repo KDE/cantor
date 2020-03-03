@@ -76,7 +76,12 @@ void PythonSession::login()
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
 
+#ifdef Q_OS_WIN
+	// On Windows QProcess can't handle paths with spaces, so add escaping
+	m_process->start(QLatin1String("\"") + PythonSettings::pythonServerPath().toLocalFile() + QLatin1String("\""));
+#else
     m_process->start(PythonSettings::pythonServerPath().toLocalFile());
+#endif
 
     m_process->waitForStarted();
     m_process->waitForReadyRead();
