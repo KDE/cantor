@@ -10,6 +10,10 @@
       <label>Path to the Sage executable</label>
       <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("sage") ))</default>
     </entry>
+    <entry name="allowLatex" type="Bool">
+      <label>Enable LaTeX typesetting for Sage backend</label>
+      <default>true</default>
+    </entry>
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>
     </entry>

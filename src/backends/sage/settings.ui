@@ -40,6 +40,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="kcfg_allowLatex">
+     <property name="toolTip">
+      <string>Sage LaTeX output not always correct, so latex typesetting can be disable for better experience</string>
+     </property>
+     <property name="text">
+      <string>Enable LaTeX typesetting</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox">
      <property name="title">
       <string>Scripts to autorun</string>

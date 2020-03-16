@@ -61,8 +61,13 @@ Cantor::Session* SageBackend::createSession()
 
 Cantor::Backend::Capabilities SageBackend::capabilities() const
 {
-    //Disable Cantor::Backend::LaTexOutput, see sagesession.cpp:421
-    return Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
+    Cantor::Backend::Capabilities caps = Cantor::Backend::SyntaxHighlighting|Cantor::Backend::Completion;
+
+    // Latex output from sage sometimes correct, sometimes not, so allow disable typesetting, if user want it
+    if (SageSettings::self()->allowLatex())
+        caps |= Cantor::Backend::LaTexOutput;
+
+    return caps;
 }
 
 bool SageBackend::requirementsFullfilled(QString* const reason) const
