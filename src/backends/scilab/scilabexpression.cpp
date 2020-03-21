@@ -86,7 +86,7 @@ void ScilabExpression::parseOutput(QString output)
     qDebug() << "output: " << output;
     const QStringList lines = output.split(QLatin1String("\n"));
     bool isPrefixLines = true;
-    for (const QString line : lines)
+    for (const QString& line : lines)
     {
         if (isPrefixLines && line.isEmpty())
             continue;
