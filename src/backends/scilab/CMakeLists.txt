@@ -20,4 +20,14 @@ target_link_libraries(cantor_scilabbackend
   KF5::SyntaxHighlighting
 )
 
+if(BUILD_TESTING)
+  add_executable(testscilab testscilab.cpp)
+  add_test(NAME testscilab COMMAND testscilab)
+  target_link_libraries(testscilab
+    Qt5::Test
+    cantorlibs
+    cantortest
+  )
+endif(BUILD_TESTING)
+
 install(FILES cantor_scilab.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
