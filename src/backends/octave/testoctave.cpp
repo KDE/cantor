@@ -207,7 +207,7 @@ void TestOctave::testVariableCreatingFromCodeWithPlot()
     QVERIFY(e!=nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);
     QVERIFY(e->result());
-    QVERIFY(e->result()->type() != Cantor::TextResult::Type);
+    QVERIFY(e->result()->type() == OctavePlotResult::Type);
 
     if(session()->status()==Cantor::Session::Running)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
