@@ -105,6 +105,8 @@ void CantorShell::load(const QUrl &url)
         closeTab(m_tabWidget->currentIndex());
     if (m_recentProjectsAction)
         m_recentProjectsAction->addUrl(url);
+
+    updateWindowTitle(m_part->url().fileName());
 }
 
 void CantorShell::setupActions()
@@ -397,6 +399,7 @@ void CantorShell::activateWorksheet(int index)
     {
         createGUI(m_part);
 
+        updateWindowTitle(m_part->url().fileName());
         QObject* pluginHandler=m_part->findChild<QObject*>(QLatin1String("PanelPluginHandler"));
         connect(pluginHandler, SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
         updatePanel();
@@ -416,6 +419,12 @@ void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
             m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
         m_tabWidget->setTabIcon(m_tabWidget->indexOf(part->widget()), icon);
     }
+}
+
+void CantorShell::updateWindowTitle(const QString& fileName)
+{
+    QFileInfo info(fileName);
+    setWindowTitle(info.baseName());
 }
 
 void CantorShell::closeTab(int index)
@@ -720,4 +729,6 @@ void CantorShell::onWorksheetSave(const QUrl& url)
 {
     if (m_recentProjectsAction)
         m_recentProjectsAction->addUrl(url);
+
+    updateWindowTitle(m_part->url().fileName());
 }

@@ -105,6 +105,7 @@ private:
     void setupActions();
     void closeEvent(QCloseEvent*) override;
     bool reallyClose(bool checkAllParts = true);
+    void updateWindowTitle(const QString& fileName);
     KParts::ReadWritePart* findPart(QWidget* widget);
 
 private:
