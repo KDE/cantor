@@ -117,8 +117,6 @@ private:
     QList<QAction*> m_newBackendActions;
     QDockWidget* m_helpDocker;
     KRecentFilesAction* m_recentProjectsAction;
-    // For better UX: set previous used filter in "Open" action as default filter
-    QString m_previousFilter;
 };
 
 #endif // CANTOR_H
