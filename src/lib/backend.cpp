@@ -135,6 +135,12 @@ QList<Backend*> Backend::availableBackends()
             KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
             Backend* backend = factory->create<Backend>(QCoreApplication::instance());
 
+	    if (!backend){
+		qDebug() << "Error using plugin " << loader.fileName();
+		qDebug() << "Error message: " << loader.errorString();
+		return backendCache;
+	    }
+
             KPluginMetaData info(loader);
             backend->d->name=info.name();
             backend->d->comment=info.description();
