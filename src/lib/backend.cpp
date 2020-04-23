@@ -138,7 +138,7 @@ QList<Backend*> Backend::availableBackends()
 	    if (!backend){
 		qDebug() << "Error using plugin " << loader.fileName();
 		qDebug() << "Error message: " << loader.errorString();
-		return backendCache;
+		continue;
 	    }
 
             KPluginMetaData info(loader);
