@@ -175,7 +175,7 @@ string PythonServer::variables(bool parseValue) const
 #elif PY_MAJOR_VERSION == 2
         "except ImportError: \n"
 #endif
-        "   pass \n", NULL
+        "   pass \n", nullptr
     );
 
     PyRun_SimpleString("__tmp_globals__ = globals()");
@@ -220,7 +220,7 @@ string PythonServer::variables(bool parseValue) const
 #elif PY_MAJOR_VERSION == 2
         "except ImportError: \n"
 #endif
-        "   pass \n", NULL
+        "   pass \n", nullptr
     );
 
 
