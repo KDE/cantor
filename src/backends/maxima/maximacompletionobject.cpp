@@ -61,7 +61,7 @@ void MaximaCompletionObject::fetchCompletions()
 
     const QString prefix = command();
     QStringList prefixCompletion;
-    for (const QString str : allCompletions)
+    for (const QString& str : allCompletions)
         if (str.startsWith(prefix))
             prefixCompletion << str;
 

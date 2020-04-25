@@ -201,7 +201,7 @@ void DefaultVariableModel::clearVariables()
     beginResetModel();
 
     QStringList names;
-    for (const Variable var: d->variables)
+    for (const Variable& var: d->variables)
         names.append(var.name);
 
     d->variables.clear();
@@ -251,7 +251,7 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
 
     // Handle added vars
     const int size = d->variables.size();
-    for (const Variable newvar : newVars)
+    for (const Variable& newvar : newVars)
     {
         bool found = false;
         for (int i = 0; i < size; i++)
@@ -337,7 +337,7 @@ QStringList DefaultVariableModel::variableNames() const
 {
     Q_D(const DefaultVariableModel);
     QStringList names;
-    for (const Variable var: d->variables)
+    for (const Variable& var: d->variables)
         names << var.name;
     return names;
 }
