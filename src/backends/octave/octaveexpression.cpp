@@ -31,6 +31,8 @@
 #include <QTemporaryFile>
 #include <helpresult.h>
 
+#include "settings.h"
+
 
 static const QLatin1String printCommandBegin("cantor_print('");
 static const QLatin1String printCommandEnd("');");
@@ -83,7 +85,7 @@ void OctaveExpression::evaluate()
     qDebug() << "evaluate";
     QString cmd = command();
     QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
-    if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
+    if (OctaveSettings::integratePlots() && !cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
     {
         for (const QString& plotCmd : plotCommands)
         {
