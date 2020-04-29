@@ -151,6 +151,7 @@ class CommandEntry : public WorksheetEntry
     void fontIncreaseTriggered();
     void fontDecreaseTriggered();
     void fontSelectTriggered();
+    void resetFontTriggered();
 
     void animatePromptItem();
     void setMidPrompt();
@@ -180,6 +181,7 @@ class CommandEntry : public WorksheetEntry
     QActionGroup* m_backgroundColorActionGroup;
     QMenu* m_backgroundColorMenu;
     QActionGroup* m_textColorActionGroup;
+    QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
     QMenu* m_fontMenu;
 };
