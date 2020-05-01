@@ -214,11 +214,19 @@ void Worksheet::updateLayout()
         cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
+    qreal maxPromptWidth = 0;
+    if (Settings::useOldCantorEntriesIndent() == false)
+    {
+        for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+            if (entry->type() == CommandEntry::Type)
+                maxPromptWidth = std::max(static_cast<CommandEntry*>(entry)->promptItemWidth(), maxPromptWidth);
+    }
+
     const qreal w = m_viewWidth - LeftMargin - RightMargin;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
-        y += entry->setGeometry(x, y, w);
+        y += entry->setGeometry(x, x+maxPromptWidth, y, w);
 
     setSceneRect(QRectF(0, 0, sceneRect().width(), y));
     if (cursorRectVisible)
@@ -912,6 +920,8 @@ void Worksheet::enableExpressionNumbering(bool enable)
 {
     m_showExpressionIds=enable;
     emit updatePrompt();
+    if (views().size() != 0)
+        updateLayout();
 }
 
 QDomDocument Worksheet::toXML(KZip* archive)

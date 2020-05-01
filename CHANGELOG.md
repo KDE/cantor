@@ -1,5 +1,11 @@
 # Changelog
 
+## 20.08
+
+### New features
+
+    * Change entries replacement logic and add possibility to use previous logic via Cantor setting option.
+
 ## 20.04
 
 ### New features

@@ -48,7 +48,7 @@ class PageBreakEntry : public WorksheetEntry
 
     void interruptEvaluation() override;
 
-    void layOutForWidth(qreal w, bool force = false) override;
+    void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
     //void paint(QPainter* painter, const QStyleOptionGraphicsItem * option,
     //         QWidget * widget = 0);

@@ -1238,13 +1238,13 @@ WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
     return WorksheetCursor();
 }
 
-void CommandEntry::layOutForWidth(qreal w, bool force)
+void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
-    if (w == size().width() && !force)
+    if (w == size().width() && m_commandItem->pos().x() == entry_zone_x && !force)
         return;
 
     m_promptItem->setPos(0, 0);
-    double x = 0 + m_promptItem->width() + HorizontalSpacing;
+    double x = std::max(0 + m_promptItem->width() + HorizontalSpacing, entry_zone_x);
     double y = 0;
     double width = 0;
 
@@ -1356,4 +1356,9 @@ void CommandEntry::changeResultCollapsingAction()
         expandResults();
     else
         collapseResults();
+}
+
+qreal CommandEntry::promptItemWidth()
+{
+    return m_promptItem->width();
 }

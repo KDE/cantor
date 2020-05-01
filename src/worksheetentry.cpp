@@ -409,10 +409,10 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
     }
 }
 
-qreal WorksheetEntry::setGeometry(qreal x, qreal y, qreal w)
+qreal WorksheetEntry::setGeometry(qreal x, qreal x1, qreal y, qreal w)
 {
     setPos(x, y);
-    layOutForWidth(w);
+    layOutForWidth(x1, w);
 
     recalculateControlGeometry();
 

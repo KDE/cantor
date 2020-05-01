@@ -128,17 +128,17 @@ void PageBreakEntry::interruptEvaluation()
     return;
 }
 
-void PageBreakEntry::layOutForWidth(qreal w, bool force)
+void PageBreakEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
-    if (size().width() == w && !force)
+    if (size().width() == w && m_msgItem->pos().x() == entry_zone_x && !force)
         return;
 
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
     if (m_msgItem->isVisible()) {
-        m_msgItem->setGeometry(0, 0, w - margin, true);
+        m_msgItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, true);
 
-        setSize(QSizeF(m_msgItem->width() + margin, m_msgItem->height() + VerticalMargin));
+        setSize(QSizeF(m_msgItem->width() + margin + entry_zone_x, m_msgItem->height() + VerticalMargin));
     } else {
         setSize(QSizeF(w, 0));
     }

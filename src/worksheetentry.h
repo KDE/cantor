@@ -89,8 +89,8 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0);
 
-    virtual qreal setGeometry(qreal x, qreal y, qreal w);
-    virtual void layOutForWidth(qreal w, bool force = false) = 0;
+    virtual qreal setGeometry(qreal x, qreal entry_zone_x, qreal y, qreal w);
+    virtual void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) = 0;
     QPropertyAnimation* sizeChangeAnimation(QSizeF s = QSizeF());
 
     virtual void populateMenu(QMenu* menu, QPointF pos);

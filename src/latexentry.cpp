@@ -514,15 +514,15 @@ WorksheetCursor LatexEntry::search(const QString& pattern, unsigned flags,
     }
 }
 
-void LatexEntry::layOutForWidth(qreal w, bool force)
+void LatexEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
-    if (size().width() == w && !force)
+    if (size().width() == w && m_textItem->pos().x() == entry_zone_x && !force)
         return;
 
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
-    m_textItem->setGeometry(0, 0, w - margin);
-    setSize(QSizeF(m_textItem->width() + margin, m_textItem->height() + VerticalMargin));
+    m_textItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x);
+    setSize(QSizeF(m_textItem->width() + margin + entry_zone_x, m_textItem->height() + VerticalMargin));
 }
 
 bool LatexEntry::wantToEvaluate()

@@ -67,7 +67,7 @@ class TextEntry : public WorksheetEntry
 
     void interruptEvaluation() override;
 
-    void layOutForWidth(qreal w, bool force = false) override;
+    void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
     int searchText(const QString& text, const QString& pattern,
                    QTextDocument::FindFlags qt_flags);

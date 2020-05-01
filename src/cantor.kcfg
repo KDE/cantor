@@ -48,6 +48,10 @@
       <label>Save rich text formatting of TextEntry, when save Worksheet in Jupyter notebook format</label>
       <default>true</default>
     </entry>
+    <entry name="UseOldCantorEntriesIndent" type="Bool">
+      <label>Use old style Cantor entries placement style</label>
+      <default>false</default>
+    </entry>
     <entry name="ShowMathRenderError" type="Bool">
       <label>Show embedded math render error</label>
       <default>true</default>

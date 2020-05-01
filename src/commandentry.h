@@ -82,7 +82,8 @@ class CommandEntry : public WorksheetEntry
 
     bool focusEntry(int pos = WorksheetTextItem::TopLeft, qreal xCoord = 0) override;
 
-    void layOutForWidth(qreal w, bool force = false) override;
+    void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
+    qreal promptItemWidth();
 
     WorksheetTextItem* highlightItem() override;
 

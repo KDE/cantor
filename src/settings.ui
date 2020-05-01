@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>845</width>
-    <height>631</height>
+    <height>724</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -104,6 +104,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="kcfg_UseOldCantorEntriesIndent">
+          <property name="text">
+           <string>Use old Cantor entries indent style</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QSplitter" name="splitter">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -164,7 +171,7 @@
            </widget>
           </item>
           <item>
-           <widget class="KUrlRequester" name="kcfg_PathToCantorPluginsDir"/>
+           <widget class="KUrlRequester" name="kcfg_PathToCantorPluginsDir" native="true"/>
           </item>
          </layout>
         </item>
@@ -193,6 +200,11 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QWidget</extends>
+   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

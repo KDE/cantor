@@ -28,7 +28,6 @@
 
 #include "settings.h"
 
-
 #include <QScopedPointer>
 #include <QGraphicsLinearLayout>
 #include <QJsonValue>
@@ -486,15 +485,15 @@ WorksheetCursor TextEntry::search(const QString& pattern, unsigned flags,
 }
 
 
-void TextEntry::layOutForWidth(qreal w, bool force)
+void TextEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
-    if (size().width() == w && !force)
+    if (size().width() == w && m_textItem->pos().x() == entry_zone_x && !force)
         return;
 
     const qreal margin = worksheet()->isPrinting() ? 0 : RightMargin;
 
-    m_textItem->setGeometry(0, 0, w - margin);
-    setSize(QSizeF(0 + m_textItem->width() + margin, m_textItem->height() + VerticalMargin));
+    m_textItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x);
+    setSize(QSizeF(m_textItem->width() + margin + entry_zone_x, m_textItem->height() + VerticalMargin));
 }
 
 bool TextEntry::wantToEvaluate()

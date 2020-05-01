@@ -85,8 +85,9 @@ void PlaceHolderEntry::interruptEvaluation()
     return;
 }
 
-void PlaceHolderEntry::layOutForWidth(qreal w, bool force)
+void PlaceHolderEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
+    Q_UNUSED(entry_zone_x);
     Q_UNUSED(w);
     Q_UNUSED(force);
 }

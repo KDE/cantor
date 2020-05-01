@@ -353,9 +353,9 @@ void ImageEntry::addActionsToBar(ActionBar* actionBar)
 }
 
 
-void ImageEntry::layOutForWidth(qreal w, bool force)
+void ImageEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
-    if (size().width() == w && !force)
+    if (size().width() == w && m_textItem->pos().x() == entry_zone_x && !force)
         return;
 
     //TODO somethinkg wrong with geometry and control element: control element appears in wrong place
@@ -363,14 +363,14 @@ void ImageEntry::layOutForWidth(qreal w, bool force)
 
     double width;
     if (m_imageItem && m_imageItem->isVisible()) {
-        m_imageItem->setGeometry(0, 0, w - margin, true);
+        m_imageItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, true);
         width = m_imageItem->width();
     } else {
-        m_textItem->setGeometry(0, 0, w - margin, true);
+        m_textItem->setGeometry(entry_zone_x, 0, w - margin - entry_zone_x, true);
         width = m_textItem->width();
     }
 
-    setSize(QSizeF(width + margin, height() + VerticalMargin));
+    setSize(QSizeF(width + margin + entry_zone_x, height() + VerticalMargin));
 }
 
 bool ImageEntry::wantToEvaluate()
