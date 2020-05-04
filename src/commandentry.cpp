@@ -154,6 +154,7 @@ void CommandEntry::initMenus() {
 
     QPixmap pix(16,16);
     QPainter p(&pix);
+    bool matchedColorFound = false;
     for (int i=0; i<colorsCount+1; ++i) {
         QAction* action;
         if (i == 0) {
@@ -166,8 +167,14 @@ void CommandEntry::initMenus() {
         }
         action->setCheckable(true);
         m_backgroundColorMenu->addAction(action);
-        if (i == 0)
+
+        KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+        bool isDefaultColorUsed =  m_commandItem->backgroundColor() == scheme.background(KColorScheme::AlternateBackground).color();
+        if (!matchedColorFound && ((i == 0 && isDefaultColorUsed ) || (i != 0 && m_commandItem->backgroundColor() == colors[i-1])))
+        {
             action->setChecked(true);
+            matchedColorFound = true;
+        }
     }
 
 	//text color
@@ -178,7 +185,8 @@ void CommandEntry::initMenus() {
     m_textColorMenu = new QMenu(i18n("Text Color"));
     m_textColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-text-color")));
 
-	for (int i=0; i<colorsCount; ++i) {
+    matchedColorFound = false;
+    for (int i=0; i<colorsCount; ++i) {
         QAction* action;
         if (i == 0) {
             p.fillRect(pix.rect(), m_defaultDefaultTextColor);
@@ -189,8 +197,13 @@ void CommandEntry::initMenus() {
         }
         action->setCheckable(true);
         m_textColorMenu->addAction(action);
-        if (i == 0)
+
+        bool isDefaultColorUsed = m_commandItem->defaultTextColor() == m_defaultDefaultTextColor;
+        if (!matchedColorFound && ((i == 0 && isDefaultColorUsed) || (i != 0 && m_commandItem->defaultTextColor() == colors[i-1])))
+        {
             action->setChecked(true);
+            matchedColorFound = true;
+        }
     }
 
     //font
