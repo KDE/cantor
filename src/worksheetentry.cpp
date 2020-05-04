@@ -61,6 +61,7 @@ const qreal WorksheetEntry::RightMargin = ControlElementWidth + 2*ControlElement
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
+    m_entry_zone_x = 0;
     m_next = nullptr;
     m_prev = nullptr;
     m_animation = nullptr;
@@ -412,6 +413,7 @@ void WorksheetEntry::evaluateNext(EvaluationOption opt)
 qreal WorksheetEntry::setGeometry(qreal x, qreal x1, qreal y, qreal w)
 {
     setPos(x, y);
+    m_entry_zone_x = x1;
     layOutForWidth(x1, w);
 
     recalculateControlGeometry();
@@ -422,7 +424,7 @@ qreal WorksheetEntry::setGeometry(qreal x, qreal x1, qreal y, qreal w)
 void WorksheetEntry::recalculateSize()
 {
     qreal height = size().height();
-    layOutForWidth(size().width(), true);
+    layOutForWidth(m_entry_zone_x, size().width(), true);
     if (height != size().height())
     {
         recalculateControlGeometry();
@@ -439,7 +441,7 @@ QPropertyAnimation* WorksheetEntry::sizeChangeAnimation(QSizeF s)
         newSize = s;
     } else {
         oldSize = size();
-        layOutForWidth(size().width(), true);
+        layOutForWidth(m_entry_zone_x, size().width(), true);
         newSize = size();
     }
 
@@ -465,7 +467,7 @@ void WorksheetEntry::animateSizeChange()
         return;
     }
     if (m_animation) {
-        layOutForWidth(size().width(), true);
+        layOutForWidth(m_entry_zone_x, size().width(), true);
         return;
     }
     QPropertyAnimation* sizeAn = sizeChangeAnimation();
@@ -492,7 +494,7 @@ void WorksheetEntry::fadeInItem(QGraphicsObject* item, const char* slot)
     }
     if (m_animation) {
         // this calculates the new size and calls updateSizeAnimation
-        layOutForWidth(size().width(), true);
+        layOutForWidth(m_entry_zone_x, size().width(), true);
         if (slot)
             invokeSlotOnObject(slot, item);
         return;
@@ -532,7 +534,7 @@ void WorksheetEntry::fadeOutItem(QGraphicsObject* item, const char* slot)
     }
     if (m_animation) {
         // this calculates the new size and calls updateSizeAnimation
-        layOutForWidth(size().width(), true);
+        layOutForWidth(m_entry_zone_x, size().width(), true);
         if (slot)
             invokeSlotOnObject(slot, item);
         return;

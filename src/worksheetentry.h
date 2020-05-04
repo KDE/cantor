@@ -210,6 +210,7 @@ class WorksheetEntry : public QGraphicsObject
 
   private:
     QSizeF m_size;
+    qreal m_entry_zone_x;
     WorksheetEntry* m_prev;
     WorksheetEntry* m_next;
     Q_PROPERTY(QSizeF size READ size WRITE setSize)
