@@ -14,7 +14,7 @@
    <item>
     <widget class="QGroupBox">
      <property name="title">
-      <string>Scripts to autorun</string>
+      <string>Commands to autorun</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayoutScripts">
       <item>
