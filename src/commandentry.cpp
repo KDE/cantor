@@ -75,6 +75,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_syntaxHelpObject(nullptr),
     m_evaluationOption(DoNothing),
     m_menusInitialized(false),
+    m_textColorCustom(false),
+    m_backgroundColorCustom(false),
     m_backgroundColorActionGroup(nullptr),
     m_backgroundColorMenu(nullptr),
     m_textColorActionGroup(nullptr),
@@ -154,27 +156,25 @@ void CommandEntry::initMenus() {
 
     QPixmap pix(16,16);
     QPainter p(&pix);
-    bool matchedColorFound = false;
-    for (int i=0; i<colorsCount+1; ++i) {
+
+    // Create default action
+    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
+    p.fillRect(pix.rect(), scheme.background(KColorScheme::AlternateBackground).color());
+    QAction* action = new QAction(QIcon(pix), i18n("Default"), m_backgroundColorActionGroup);
+    action->setCheckable(true);
+    m_backgroundColorMenu->addAction(action);
+    if (!m_backgroundColorCustom)
+        action->setChecked(true);
+
+    for (int i=0; i<colorsCount; ++i) {
         QAction* action;
-        if (i == 0) {
-            KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-            p.fillRect(pix.rect(), scheme.background(KColorScheme::AlternateBackground).color());
-            action = new QAction(QIcon(pix), i18n("Default system color"), m_backgroundColorActionGroup);
-        } else {
-            p.fillRect(pix.rect(), colors[i-1]);
-            action = new QAction(QIcon(pix), colorNames[i-1], m_backgroundColorActionGroup);
-        }
+        p.fillRect(pix.rect(), colors[i]);
+        action = new QAction(QIcon(pix), colorNames[i], m_backgroundColorActionGroup);
         action->setCheckable(true);
         m_backgroundColorMenu->addAction(action);
 
-        KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-        bool isDefaultColorUsed =  m_commandItem->backgroundColor() == scheme.background(KColorScheme::AlternateBackground).color();
-        if (!matchedColorFound && ((i == 0 && isDefaultColorUsed ) || (i != 0 && m_commandItem->backgroundColor() == colors[i-1])))
-        {
+        if (m_backgroundColorCustom && m_commandItem->backgroundColor() == colors[i])
             action->setChecked(true);
-            matchedColorFound = true;
-        }
     }
 
 	//text color
@@ -185,32 +185,30 @@ void CommandEntry::initMenus() {
     m_textColorMenu = new QMenu(i18n("Text Color"));
     m_textColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-text-color")));
 
-    matchedColorFound = false;
+    // Create default action
+    p.fillRect(pix.rect(), m_defaultDefaultTextColor);
+    action = new QAction(QIcon(pix), i18n("Default"), m_textColorActionGroup);
+    action->setCheckable(true);
+    m_textColorMenu->addAction(action);
+    if (!m_textColorCustom)
+        action->setChecked(true);
+
     for (int i=0; i<colorsCount; ++i) {
         QAction* action;
-        if (i == 0) {
-            p.fillRect(pix.rect(), m_defaultDefaultTextColor);
-            action = new QAction(QIcon(pix), i18n("Default system color"), m_textColorActionGroup);
-        } else {
-            p.fillRect(pix.rect(), colors[i-1]);
-            action = new QAction(QIcon(pix), colorNames[i-1], m_textColorActionGroup);
-        }
+        p.fillRect(pix.rect(), colors[i]);
+        action = new QAction(QIcon(pix), colorNames[i], m_textColorActionGroup);
         action->setCheckable(true);
         m_textColorMenu->addAction(action);
 
-        bool isDefaultColorUsed = m_commandItem->defaultTextColor() == m_defaultDefaultTextColor;
-        if (!matchedColorFound && ((i == 0 && isDefaultColorUsed) || (i != 0 && m_commandItem->defaultTextColor() == colors[i-1])))
-        {
+        if (m_textColorCustom && m_commandItem->defaultTextColor() == colors[i])
             action->setChecked(true);
-            matchedColorFound = true;
-        }
     }
 
     //font
     m_fontMenu = new QMenu(i18n("Font"));
     m_fontMenu->setIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-font")));
 
-    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
+    action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
     action->setCheckable(true);
     connect(action, &QAction::triggered, this, &CommandEntry::fontBoldTriggered);
     m_fontMenu->addAction(action);
@@ -234,7 +232,7 @@ void CommandEntry::initMenus() {
     connect(action, &QAction::triggered, this, &CommandEntry::fontSelectTriggered);
     m_fontMenu->addAction(action);
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Reset Font to Default"));
+    action = new QAction(QIcon::fromTheme(QLatin1String("preferences-desktop-font")), i18n("Reset to Default"));
     connect(action, &QAction::triggered, this, &CommandEntry::resetFontTriggered);
     m_fontMenu->addAction(action);
 
@@ -484,6 +482,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
         color.setGreen(backgroundElem.attribute(QLatin1String("green")).toInt());
         color.setBlue(backgroundElem.attribute(QLatin1String("blue")).toInt());
         m_commandItem->setBackgroundColor(color);
+        m_backgroundColorCustom = true;
     }
 
     //text properties
@@ -500,6 +499,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
             color.setGreen(colorElem.attribute(QLatin1String("green")).toInt());
             color.setBlue(colorElem.attribute(QLatin1String("blue")).toInt());
             m_commandItem->setDefaultTextColor(color);
+            m_textColorCustom=true;
         }
 
         //font properties
@@ -681,11 +681,16 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
         }
     }
 
-    //save the background color if it differs from the default one
-    const QColor& backgroundColor = m_commandItem->backgroundColor();
-    KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-    if (backgroundColor != scheme.background(KColorScheme::AlternateBackground).color())
+    bool isBackgroundColorNotDefault = false;
+    // If user can change value from menu (menus have been inited) - check via menu
+    // If use don't have menu, check if loaded color was custom color
+    if (m_backgroundColorActionGroup)
+        isBackgroundColorNotDefault= m_backgroundColorActionGroup->checkedAction()->text() != i18n("Default");
+    else
+        isBackgroundColorNotDefault = m_backgroundColorCustom;
+    if (isBackgroundColorNotDefault)
     {
+        QColor backgroundColor = m_commandItem->backgroundColor();
         QDomElement colorElem = doc.createElement( QLatin1String("Background") );
         colorElem.setAttribute(QLatin1String("red"), QString::number(backgroundColor.red()));
         colorElem.setAttribute(QLatin1String("green"), QString::number(backgroundColor.green()));
@@ -697,7 +702,13 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     const QFont& font = m_commandItem->font();
     const QColor& textColor = m_commandItem->defaultTextColor();
     bool isFontNotDefault = font != QFontDatabase::systemFont(QFontDatabase::FixedFont);
-    bool isTextColorNotDefault = textColor != m_defaultDefaultTextColor;
+
+    bool isTextColorNotDefault = false;
+    if (m_textColorActionGroup)
+        isTextColorNotDefault= m_textColorActionGroup->checkedAction()->text() != i18n("Default");
+    else
+        isTextColorNotDefault = m_textColorCustom;
+
     if (isFontNotDefault || isTextColorNotDefault)
     {
         QDomElement textElem = doc.createElement(QLatin1String("Text"));

@@ -176,6 +176,8 @@ class CommandEntry : public WorksheetEntry
     EvaluationOption m_evaluationOption;
     QPropertyAnimation* m_promptItemAnimation;
     bool m_menusInitialized;
+    bool m_textColorCustom;
+    bool m_backgroundColorCustom;
 
     //formatting
     QActionGroup* m_backgroundColorActionGroup;
