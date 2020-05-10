@@ -167,7 +167,6 @@ void CommandEntry::initMenus() {
         action->setChecked(true);
 
     for (int i=0; i<colorsCount; ++i) {
-        QAction* action;
         p.fillRect(pix.rect(), colors[i]);
         action = new QAction(QIcon(pix), colorNames[i], m_backgroundColorActionGroup);
         action->setCheckable(true);
@@ -491,7 +490,7 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
     {
         //text color
         QDomElement colorElem = textElem.firstChildElement(QLatin1String("Color"));
-        if (!colorElem.isNull() && !colorElem.hasAttribute(QLatin1String("compatibility")))
+        if (!colorElem.isNull() && !colorElem.hasAttribute(QLatin1String("default")))
         {
             m_defaultDefaultTextColor = m_commandItem->defaultTextColor();
             QColor color;
@@ -499,12 +498,12 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
             color.setGreen(colorElem.attribute(QLatin1String("green")).toInt());
             color.setBlue(colorElem.attribute(QLatin1String("blue")).toInt());
             m_commandItem->setDefaultTextColor(color);
-            m_textColorCustom=true;
+            m_textColorCustom = true;
         }
 
         //font properties
         QDomElement fontElem = textElem.firstChildElement(QLatin1String("Font"));
-        if (!fontElem.isNull() && !fontElem.hasAttribute(QLatin1String("compatibility")))
+        if (!fontElem.isNull() && !fontElem.hasAttribute(QLatin1String("default")))
         {
             QFont font;
             font.setFamily(fontElem.attribute(QLatin1String("family")));
@@ -685,7 +684,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     // If user can change value from menu (menus have been inited) - check via menu
     // If use don't have menu, check if loaded color was custom color
     if (m_backgroundColorActionGroup)
-        isBackgroundColorNotDefault= m_backgroundColorActionGroup->checkedAction()->text() != i18n("Default");
+        isBackgroundColorNotDefault = m_backgroundColorActionGroup->checkedAction()->text() != i18n("Default");
     else
         isBackgroundColorNotDefault = m_backgroundColorCustom;
     if (isBackgroundColorNotDefault)
@@ -705,10 +704,12 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 
     bool isTextColorNotDefault = false;
     if (m_textColorActionGroup)
-        isTextColorNotDefault= m_textColorActionGroup->checkedAction()->text() != i18n("Default");
+        isTextColorNotDefault = m_textColorActionGroup->checkedAction()->text() != i18n("Default");
     else
         isTextColorNotDefault = m_textColorCustom;
 
+    // Setting both values is necessary for previous Cantor versions compability
+    // Value, added only for compability reason, marks with attribute
     if (isFontNotDefault || isTextColorNotDefault)
     {
         QDomElement textElem = doc.createElement(QLatin1String("Text"));
@@ -716,7 +717,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
         //font properties
         QDomElement fontElem = doc.createElement(QLatin1String("Font"));
         if (!isFontNotDefault)
-            fontElem.setAttribute(QLatin1String("compatibility"), true);
+            fontElem.setAttribute(QLatin1String("default"), true);
         fontElem.setAttribute(QLatin1String("family"), font.family());
         fontElem.setAttribute(QLatin1String("pointSize"), QString::number(font.pointSize()));
         fontElem.setAttribute(QLatin1String("weight"), QString::number(font.weight()));
@@ -726,7 +727,7 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
         //text color
         QDomElement colorElem = doc.createElement( QLatin1String("Color") );
         if (!isTextColorNotDefault)
-            colorElem.setAttribute(QLatin1String("compatibility"), true);
+            colorElem.setAttribute(QLatin1String("default"), true);
         colorElem.setAttribute(QLatin1String("red"), QString::number(textColor.red()));
         colorElem.setAttribute(QLatin1String("green"), QString::number(textColor.green()));
         colorElem.setAttribute(QLatin1String("blue"), QString::number(textColor.blue()));
