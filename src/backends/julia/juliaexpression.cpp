@@ -52,7 +52,6 @@ QString JuliaExpression::internalCommand()
         // Simply add plot saving command to the end of execution
         QStringList inlinePlotFormats;
         inlinePlotFormats << QLatin1String("svg");
-        inlinePlotFormats << QLatin1String("eps");
         inlinePlotFormats << QLatin1String("png");
 
         auto inlinePlotFormat =
