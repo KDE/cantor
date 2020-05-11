@@ -151,6 +151,7 @@ class CommandEntry : public WorksheetEntry
     void fontIncreaseTriggered();
     void fontDecreaseTriggered();
     void fontSelectTriggered();
+    void resetFontTriggered();
 
     void animatePromptItem();
     void setMidPrompt();
@@ -175,11 +176,14 @@ class CommandEntry : public WorksheetEntry
     EvaluationOption m_evaluationOption;
     QPropertyAnimation* m_promptItemAnimation;
     bool m_menusInitialized;
+    bool m_textColorCustom;
+    bool m_backgroundColorCustom;
 
     //formatting
     QActionGroup* m_backgroundColorActionGroup;
     QMenu* m_backgroundColorMenu;
     QActionGroup* m_textColorActionGroup;
+    QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
     QMenu* m_fontMenu;
 };
