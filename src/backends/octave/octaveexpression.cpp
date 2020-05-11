@@ -94,7 +94,7 @@ void OctaveExpression::evaluate()
     qDebug() << "evaluate";
     QString cmd = command();
     QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
-    if (OctaveSettings::integratePlots() && !cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
+    if (static_cast<OctaveSession*>(session())->isIntegratedPlotsEnabled() && !cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
     {
         for (const QString& plotCmd : plotCommands)
         {

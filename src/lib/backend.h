@@ -215,7 +215,14 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * for the backend @c Name with the path to the executable @c path and false otherwise.
      * In case the requrements are not fulfilled, the reason is written to @c reason.
      */
-    static bool checkExecutable(const QString& name, const QString& path, QString* reason);
+    static bool checkExecutable(const QString& name, const QString& path, QString* reason = nullptr);
+
+    /**
+     *
+     */
+    static bool testProgramWritable(
+        const QString& program, const QStringList& args, const QString& filename, const QString& expectedContent, QString* reason = nullptr,  int timeOut = 5000
+    );
 
   private:
     BackendPrivate* d;

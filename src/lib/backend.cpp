@@ -24,6 +24,7 @@
 #include <QDir>
 #include <QRegularExpression>
 #include <QUrl>
+#include <QProcess>
 
 #include <KPluginMetaData>
 #include <KLocalizedString>
@@ -207,6 +208,43 @@ bool Backend::checkExecutable(const QString& name, const QString& path, QString*
                         path);
         return false;
     }
+
+    return true;
+}
+
+bool Cantor::Backend::testProgramWritable(const QString& program, const QStringList& args, const QString& filename, const QString& expectedContent, QString* reason, int timeOut)
+{
+    QProcess process;
+    process.setProgram(program);
+    process.setArguments(args);
+    process.start();
+
+    if (process.waitForFinished(timeOut) == false)
+    {
+        if (reason)
+            *reason = i18n("The program %1 didn't finish the execution after %2 milliseconds during the plot integration test.", QFileInfo(program).fileName(), timeOut);
+
+        return false;
+    }
+
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly))
+    {
+        if (reason)
+            *reason = i18n("Failed to open the file %1 during the plot integration test.", filename);
+        return false;
+    }
+
+    QString fileContent = QString::fromLocal8Bit(file.readAll());
+    if (fileContent.trimmed() != expectedContent)
+    {
+        if (reason)
+            *reason = i18n("Failed to parse the result during the plot integration test.");
+        return false;
+    }
+
+    file.close();
+    file.remove();
 
     return true;
 }

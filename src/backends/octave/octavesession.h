@@ -50,6 +50,8 @@ class OctaveSession : public Cantor::Session
         QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
         void runFirstExpression() override;
 
+        bool isIntegratedPlotsEnabled() const;
+
     private:
         const static QRegularExpression PROMPT_UNCHANGEABLE_COMMAND;
 
@@ -63,6 +65,7 @@ class OctaveSession : public Cantor::Session
         bool m_syntaxError;
 
         QString m_output;
+        bool m_isIntegratedPlotsEnabled; // Better move it in worksheet, like isCompletion, etc.
 
     private:
         void readFromOctave(QByteArray data);

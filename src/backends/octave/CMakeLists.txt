@@ -39,11 +39,12 @@ target_link_libraries(cantor_octavebackend
 
 
 if(BUILD_TESTING)
-  add_executable( testoctave testoctave.cpp octaveexpression.cpp settings.cpp)
+  add_executable( testoctave testoctave.cpp ${OctaveBackend_SRCS})
   add_test(NAME testoctave COMMAND testoctave)
   ecm_mark_as_test(testoctave)
   target_link_libraries( testoctave
     Qt5::Test
+    KF5::SyntaxHighlighting
     cantorlibs
     cantortest
   )

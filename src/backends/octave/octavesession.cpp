@@ -24,12 +24,14 @@
 #include "octavehighlighter.h"
 #include "result.h"
 #include "textresult.h"
+#include <backend.h>
 
 #include "settings.h"
 
 #include <KProcess>
 #include <KDirWatch>
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #include <QTimer>
 #include <QFile>
@@ -49,7 +51,8 @@ m_process(nullptr),
 m_prompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
-m_syntaxError(false)
+m_syntaxError(false),
+m_isIntegratedPlotsEnabled(false)
 {
     setVariableModel(new OctaveVariableModel(this));
 }
@@ -71,6 +74,44 @@ void OctaveSession::login()
         return;
 
     emit loginStarted();
+
+    bool isIntegratedPlots = OctaveSettings::integratePlots();
+    QString tmpWritableErrorReason;
+    if (isIntegratedPlots)
+    {
+        QString filename = QDir::tempPath() + QLatin1String("/cantor_octave_plot_integration_test.txt");
+        QFile::remove(filename); // Remove previous file, if precents
+        int test_number = rand() % 1000;
+
+        QStringList args;
+        args << QLatin1String("--no-init-file");
+        args << QLatin1String("--no-gui");
+        args << QLatin1String("--eval");
+        args << QString::fromLatin1("file_id = fopen('%1', 'w'); fdisp(file_id, %2); fclose(file_id);").arg(filename).arg(test_number);
+
+        QString errorMsg;
+        isIntegratedPlots = Cantor::Backend::testProgramWritable(
+            OctaveSettings::path().toLocalFile(),
+            args,
+            filename,
+            QString::number(test_number),
+            &errorMsg
+        );
+
+        // If we in this branch, then isIntegratedPlots was true, but if it false now, then it means, that the writabl test is failed
+        if (isIntegratedPlots == false)
+        {
+            KMessageBox::error(nullptr,
+                i18n("Plot integration test failed.")+
+                QLatin1String("\n\n")+
+                errorMsg+
+                QLatin1String("\n\n")+
+                i18n("The integration of plots will be disabled."),
+                i18n("Cantor")
+            );
+        }
+    }
+    m_isIntegratedPlotsEnabled = isIntegratedPlots;
 
     m_process = new KProcess ( this );
     QStringList args;
@@ -98,7 +139,7 @@ void OctaveSession::login()
     args << QLatin1String("--eval");
     args << QLatin1String("suppress_verbose_help_message(1);");
 
-    if (OctaveSettings::integratePlots())
+    if (isIntegratedPlots)
     {
         // Do not show the popup when plotting, rather only print to a file
         args << QLatin1String("--eval");
@@ -340,4 +381,9 @@ bool OctaveSession::isDoNothingCommand(const QString& command)
 bool OctaveSession::isSpecialOctaveCommand(const QString& command)
 {
     return command.contains(QLatin1String("completion_matches"));
+}
+
+bool OctaveSession::isIntegratedPlotsEnabled() const
+{
+    return m_isIntegratedPlotsEnabled;
 }
