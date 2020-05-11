@@ -33,6 +33,7 @@
 #include "defaultvariablemodel.h"
 
 #include "octaveexpression.h"
+#include "settings.h"
 
 #include <QDebug>
 
@@ -207,7 +208,8 @@ void TestOctave::testVariableCreatingFromCodeWithPlot()
     QVERIFY(e!=nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);
     QVERIFY(e->result());
-    QVERIFY(e->result()->type() == OctavePlotResult::Type);
+    int plotType = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps") ? (int)Cantor::EpsResult::Type : (int)Cantor::ImageResult::Type);
+    QVERIFY(e->result()->type() == plotType);
 
     if(session()->status()==Cantor::Session::Running)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
@@ -243,7 +245,8 @@ void TestOctave::testPlot()
 
     int cnt=0;
     //give some time to create the image, but at most 5sec
-    while(e->result()==nullptr||e->result()->type()!=OctavePlotResult::Type )
+    int plotType = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps") ? (int)Cantor::EpsResult::Type : (int)Cantor::ImageResult::Type);
+    while(e->result()==nullptr||e->result()->type() != plotType )
     {
         QTest::qWait(250);
         cnt+=250;
@@ -254,7 +257,7 @@ void TestOctave::testPlot()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( e->result()->type(), (int) OctavePlotResult::Type );
+    QCOMPARE( e->result()->type(), plotType );
     QVERIFY( !e->result()->data().isNull() );
 }
 

@@ -57,6 +57,37 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Inline Plots Intermediate Format:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="kcfg_inlinePlotFormat">
+        @EPS_PLOT_FORMAT_UI_ELEMENT@
+       <item>
+        <property name="text">
+         <string notr="true">png</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">svg</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string notr="true">jpeg</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QGroupBox">
      <property name="title">
       <string>Commands to autorun</string>

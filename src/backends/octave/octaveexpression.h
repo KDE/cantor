@@ -25,14 +25,6 @@
 #include <expression.h>
 #include <QStringList>
 
-#ifdef WITH_EPS
-#include "epsresult.h"
-using OctavePlotResult = Cantor::EpsResult;
-#else
-#include "imageresult.h"
-typedef Cantor::ImageResult OctavePlotResult;
-#endif
-
 class QTemporaryFile;
 
 class OctaveExpression : public Cantor::Expression
@@ -50,6 +42,9 @@ public:
     void parseOutput(const QString&);
     void parseError(const QString&);
     void imageChanged();
+
+public:
+    const static QStringList plotExtensions;
 
 private:
     QString m_resultString;

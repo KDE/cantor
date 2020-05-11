@@ -1,0 +1,5 @@
+<item>
+  <property name="text">
+    <string notr="true">eps</string>
+  </property>
+</item>

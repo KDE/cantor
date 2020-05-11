@@ -24,5 +24,14 @@
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>
     </entry>
+    <entry name="inlinePlotFormat" type="Enum">
+      <choices>
+        @EPS_PLOT_FORMAT_CHOICE@
+        <choice name="png"/>
+        <choice name="svg"/>
+        <choice name="jpeg"/>
+      </choices>
+      <default>@DEFAULT_PLOT_FORMAT@</default>
+    </entry>
   </group>
 </kcfg>

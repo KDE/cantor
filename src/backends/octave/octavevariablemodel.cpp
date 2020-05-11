@@ -80,7 +80,12 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
         {
             static const QLatin1String delimiter("__cantor_delimiter_line__");
 
-            // Result always must be, if we done, so don't check it
+            if (m_expr->results().isEmpty())
+            {
+                qWarning() << "Octave code for parsing variables finish with done status, but without results";
+                break;
+            }
+
             QString text = static_cast<Cantor::TextResult*>(m_expr->result())->plain();
             const QStringList& lines = text.split(delimiter, QString::SkipEmptyParts);
 

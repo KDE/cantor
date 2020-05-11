@@ -5,6 +5,7 @@
 ### New features
 
     * Change entries replacement logic and add possibility to use previous logic via Cantor setting option.
+    * Add possibility to change plot extension (available variants: jpeg, png, svg and eps (if builded with eps support)) in Octave backend.
 
 ## 20.04
 

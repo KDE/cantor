@@ -17,10 +17,10 @@
     Boston, MA  02110-1301, USA.
 %}
 
-function cantor_print(filename)
+function cantor_print(plot_format, filename)
   try
-    print('-d${PLOT_FILE_FORMAT}',filename,'-S480,336','-tight');
+    print(strcat('-d', plot_format), filename, '-tight');
   catch
-    print('-d${PLOT_FILE_FORMAT}',filename,'-S480,336');
+    print(strcat('-d', plot_format), filename);
   end_try_catch
 endfunction

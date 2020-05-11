@@ -22,6 +22,8 @@
 #include "defaultvariablemodel.h"
 
 #include "textresult.h"
+#include "epsresult.h"
+#include "imageresult.h"
 
 #include <QDebug>
 #include <QFile>
@@ -34,8 +36,7 @@
 #include "settings.h"
 
 
-static const QLatin1String printCommandBegin("cantor_print('");
-static const QLatin1String printCommandEnd("');");
+static const QString printCommandTemplate = QString::fromLatin1("cantor_print('%1', '%2');");
 static const QStringList plotCommands({
     QLatin1String("plot"), QLatin1String("semilogx"), QLatin1String("semilogy"),
     QLatin1String("loglog"), QLatin1String("polar"), QLatin1String("contour"),
@@ -55,6 +56,14 @@ static const QStringList plotCommands({
     QLatin1String("ezplot3"), QLatin1String("ezmesh"), QLatin1String("ezmeshc"),
     QLatin1String("ezsurf"), QLatin1String("ezsurfc"), QLatin1String("cantor_plot2d"),
     QLatin1String("cantor_plot3d")});
+const QStringList OctaveExpression::plotExtensions({
+#ifdef WITH_EPS
+    QLatin1String("eps"),
+#endif
+    QLatin1String("png"),
+    QLatin1String("svg"),
+    QLatin1String("jpeg")
+});
 
 OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Expression(session, internal)
 {
@@ -92,12 +101,14 @@ void OctaveExpression::evaluate()
             if (cmdWords.contains(plotCmd))
             {
                 qDebug() << "Executing a plot command";
+/*
 #ifdef WITH_EPS
                 QLatin1String ext(".eps");
 #else
                 QLatin1String ext(".png");
 #endif
-                m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_octave-XXXXXX")+ext);
+*/
+                m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_octave-XXXXXX.")+plotExtensions[OctaveSettings::inlinePlotFormat()]);
                 m_tempFile->open();
 
                 qDebug() << "plot temp file" << m_tempFile->fileName();
@@ -127,7 +138,7 @@ QString OctaveExpression::internalCommand()
     {
         if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
             cmd += QLatin1Char(',');
-        cmd += printCommandBegin + m_tempFile->fileName() + printCommandEnd;
+        cmd += printCommandTemplate.arg(QFileInfo(m_tempFile->fileName()).suffix()).arg(m_tempFile->fileName());
     }
 
     // We need remove all comments here, because below we merge all strings to one long string
@@ -206,7 +217,13 @@ void OctaveExpression::imageChanged()
     if(m_tempFile->size() <= 0)
         return;
 
-    OctavePlotResult* newResult = new OctavePlotResult(QUrl::fromLocalFile(m_tempFile->fileName()));
+    const QUrl& url = QUrl::fromLocalFile(m_tempFile->fileName());
+    Cantor::Result* newResult;
+    if (m_tempFile->fileName().endsWith(QLatin1String(".eps")))
+        newResult = new Cantor::EpsResult(url);
+    else
+        newResult = new Cantor::ImageResult(url);
+
     bool found = false;
     for (int i = 0; i < results().size(); i++)
         if (results()[i]->type() == newResult->type())
