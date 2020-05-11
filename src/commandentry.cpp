@@ -203,19 +203,24 @@ void CommandEntry::initMenus() {
             action->setChecked(true);
     }
 
-    //font
-    m_fontMenu = new QMenu(i18n("Font"));
+	//font
+	QFont font = m_commandItem->font();
+	m_fontMenu = new QMenu(i18n("Font"));
     m_fontMenu->setIcon(QIcon::fromTheme(QLatin1String("preferences-desktop-font")));
 
     action = new QAction(QIcon::fromTheme(QLatin1String("format-text-bold")), i18n("Bold"));
     action->setCheckable(true);
     connect(action, &QAction::triggered, this, &CommandEntry::fontBoldTriggered);
     m_fontMenu->addAction(action);
+    if (font.bold())
+        action->setChecked(true);
 
     action = new QAction(QIcon::fromTheme(QLatin1String("format-text-italic")), i18n("Italic"));
     action->setCheckable(true);
     connect(action, &QAction::triggered, this, &CommandEntry::fontItalicTriggered);
     m_fontMenu->addAction(action);
+    if (font.italic())
+        action->setChecked(true);
     m_fontMenu->addSeparator();
 
     action = new QAction(QIcon::fromTheme(QLatin1String("format-font-size-less")), i18n("Increase Size"));

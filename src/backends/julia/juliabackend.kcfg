@@ -23,7 +23,6 @@
         <entry name="inlinePlotFormat" type="Enum">
             <choices>
                 <choice name="svg"/>
-                <choice name="eps"/>
                 <choice name="png"/>
             </choices>
             <default>svg</default>
