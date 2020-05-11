@@ -104,7 +104,7 @@ void OctaveSession::login()
         args << QLatin1String("--eval");
         args << QLatin1String("set (0, \"defaultfigurevisible\",\"off\");");
         args << QLatin1String("--eval");
-        args << QLatin1String("graphics_toolkit gnuplot;");
+        args << QLatin1String("if strcmp(graphics_toolkit(), \"fltk\") graphics_toolkit(\"gnuplot\") endif;");
     }
     else
     {

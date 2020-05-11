@@ -52,7 +52,6 @@ QString JuliaExpression::internalCommand()
         // Simply add plot saving command to the end of execution
         QStringList inlinePlotFormats;
         inlinePlotFormats << QLatin1String("svg");
-        inlinePlotFormats << QLatin1String("eps");
         inlinePlotFormats << QLatin1String("png");
 
         auto inlinePlotFormat =
@@ -78,12 +77,9 @@ void JuliaExpression::finalize(const QString& output, const QString& error, bool
             setResult(new Cantor::TextResult(output));
         setStatus(Cantor::Expression::Error);
     } else {
-        if (!m_plot_filename.isEmpty()
-                && QFileInfo(m_plot_filename).exists()) {
+        if (!m_plot_filename.isEmpty() && QFileInfo(m_plot_filename).exists()) {
             // If we have plot in result, show it
-            setResult(
-                new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
-            QDir().remove(m_plot_filename);
+            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(m_plot_filename)));
         } else {
             if (!output.isEmpty())
                 setResult(new Cantor::TextResult(output));
