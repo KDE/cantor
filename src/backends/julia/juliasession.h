@@ -25,13 +25,9 @@
 
 #include "session.h"
 
-class JuliaExpression;
-class JuliaCompletionObject;
-class JuliaVariableModel;
 class KProcess;
 class QDBusInterface;
 namespace Cantor {
-    class DefaultVariableModel;
 }
 
 /**

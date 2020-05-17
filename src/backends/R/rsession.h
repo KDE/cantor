@@ -27,12 +27,9 @@
 #include "session.h"
 #include "rserver_interface.h"
 
-class RExpression;
-class RVariableModel;
 class QProcess;
 
 namespace Cantor {
-class DefaultVariableModel;
 }
 
 class RSession : public Cantor::Session

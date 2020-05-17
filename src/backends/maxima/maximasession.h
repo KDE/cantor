@@ -26,8 +26,6 @@
 #include <QProcess>
 #include <QRegularExpression>
 
-class MaximaExpression;
-class MaximaVariableModel;
 
 class MaximaSession : public Cantor::Session
 {

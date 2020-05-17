@@ -25,7 +25,6 @@
 
 namespace Cantor
 {
-    class Expression;
 }
 
 class OctaveHighlighter : public Cantor::DefaultHighlighter

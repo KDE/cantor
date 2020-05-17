@@ -24,7 +24,6 @@
 #include <KXmlGuiWindow>
 
 class QTemporaryFile;
-class QGridLayout;
 namespace KTextEditor
 {
     class View;

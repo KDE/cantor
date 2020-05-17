@@ -27,7 +27,20 @@
 #include <QUrl>
 #include <QProcess>
 
+<<<<<<< Updated upstream
 class PythonSession : public Cantor::Session
+=======
+namespace Cantor {
+    class DefaultVariableModel;
+}
+
+class PythonExpression;
+class PythonVariableModel;
+class QDBusInterface;
+class KProcess;
+
+class CANTOR_PYTHONBACKEND_EXPORT PythonSession : public Cantor::Session
+>>>>>>> Stashed changes
 {
   Q_OBJECT
   public:

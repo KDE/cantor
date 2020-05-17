@@ -26,8 +26,6 @@
 
 class QMovie;
 
-class CommandEntry;
-class WorksheetEntry;
 
 class AnimationResultItem : public WorksheetImageItem, public ResultItem
 {

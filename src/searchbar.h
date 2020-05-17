@@ -31,8 +31,6 @@
 #include "worksheetcursor.h"
 
 class Worksheet;
-class WorksheetEntry;
-class WorksheetTextItem;
 
 class QMenu;
 

@@ -22,7 +22,6 @@
 #include "session.h"
 
 class OperatorsModel;
-class KAlgebraExpression;
 
 namespace Analitza {
 class Analyzer;

@@ -31,8 +31,11 @@
 
 class Worksheet;
 class ResultItem;
+<<<<<<< Updated upstream
 class QTimer;
 class QJsonObject;
+=======
+>>>>>>> Stashed changes
 
 namespace Cantor{
     class Result;
