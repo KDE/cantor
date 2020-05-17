@@ -33,6 +33,7 @@ namespace Cantor {
 class DefaultVariableModel;
 }
 
+class QalculateEngine;
 class QProcess;
 
 

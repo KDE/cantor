@@ -29,6 +29,7 @@
 #include "expression.h"
 #include "defaultvariablemodel.h"
 
+class QTextEdit;
 class QSyntaxHighlighter;
 class QAbstractItemModel;
 

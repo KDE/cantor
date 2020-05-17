@@ -27,6 +27,7 @@
 #include "cantor_export.h"
 
 class QFileSystemWatcher;
+class KZip;
 
 /**
  * Namespace collecting all Classes of the Cantor Libraries

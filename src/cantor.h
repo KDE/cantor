@@ -29,11 +29,8 @@
 #include <QMap>
 
 class QTabWidget;
-<<<<<<< Updated upstream
 class KTextEdit;
 class KRecentFilesAction;
-=======
->>>>>>> Stashed changes
 
 namespace Cantor{
 class WorksheetAccessInterface;

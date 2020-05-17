@@ -27,6 +27,7 @@
 #include <KDirWatch>
 #include <QProcess>
 
+class SageExpression;
 class KPtyProcess;
 
 

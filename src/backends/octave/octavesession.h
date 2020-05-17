@@ -27,9 +27,11 @@
 #include <QPointer>
 
 namespace Cantor {
+class DefaultVariableModel;
 }
 
 class KDirWatch;
+class OctaveExpression;
 class KProcess;
 
 

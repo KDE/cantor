@@ -30,6 +30,7 @@
 class QWidget;
 class Worksheet;
 class WorksheetView;
+class SarchBar;
 class SearchBar;
 class ScriptEditorWidget;
 class KAboutData;

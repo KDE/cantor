@@ -35,6 +35,7 @@ class MarkdownEntry;
 class CommandEntry;
 class ImageEntry;
 class PageBreakEntry;
+class LaTeXEntry;
 
 class WorksheetTextItem;
 class ActionBar;
