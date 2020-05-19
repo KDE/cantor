@@ -214,9 +214,6 @@ void CantorShell::fileOpen()
     // this slot is called whenever the File->Open menu is selected,
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
-    static const QString& worksheetFilter = i18n("Cantor Worksheet (*.cws)");
-    static const QString& notebookFilter = i18n("Jupyter Notebook (*.ipynb)");
-
     static const QString& filter = i18n("All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter Notebook (*.ipynb)");
     QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open file"), QUrl(), filter, &m_previousFilter);
 
