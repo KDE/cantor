@@ -40,7 +40,8 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED
     TextWidgets
     KIO
     XmlGui
-    I18n)
+    I18n
+)
 
 find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
 
@@ -48,6 +49,8 @@ find_package(Poppler "0.62.0" REQUIRED COMPONENTS Qt5)
 if(NOT WIN32)
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED Pty)
 endif()
+
+option(USE_LIBSPECTRE "Use libspectre library" ON)
 
 include(FeatureSummary)
 include(ECMInstallIcons)
@@ -63,7 +66,7 @@ add_subdirectory(thirdparty)
 # Need to set this here, because variable can't move from subdirectory (thirdparty) to upper cmake scope
 set(Discount_FOUND TRUE)
 
-if(NOT WIN32)
+if(NOT WIN32 AND USE_LIBSPECTRE)
     set_package_properties(LibSpectre PROPERTIES DESCRIPTION "A PostScript rendering library"
         URL "https://www.freedesktop.org/wiki/Software/libspectre/"
         TYPE OPTIONAL
@@ -76,9 +79,9 @@ if(NOT WIN32)
         set(WITH_EPS Off)
     endif(LIBSPECTRE_FOUND)
 
-else(NOT WIN32)
+else()
     set(WITH_EPS Off)
-endif(NOT WIN32)
+endif()
 
 #[[
 find_package(Discount 2.2.0)
@@ -89,10 +92,8 @@ set_package_properties(Discount PROPERTIES DESCRIPTION "A C implementation of th
 ]]#
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-string(TOLOWER "${CMAKE_BUILD_TYPE}" BUILD_NAME)
-if (BUILD_NAME STREQUAL "release" OR BUILD_NAME STREQUAL "")
-    add_definitions(-DQT_NO_DEBUG_OUTPUT)
-endif()
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DQT_NO_DEBUG_OUTPUT")
+
 kde_enable_exceptions()
 
 # FIXME Looks like docbook on Windows don't buildable at all, so it are temporarily disabled
