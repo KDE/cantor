@@ -158,6 +158,9 @@ class CommandEntry : public WorksheetEntry
     void setMidPrompt();
     void setHidePrompt();
 
+    void excludeFromExecution();
+    void addToExecution();
+
   private:
     static const double HorizontalSpacing;
     static const double VerticalSpacing;
@@ -187,6 +190,10 @@ class CommandEntry : public WorksheetEntry
     QColor m_defaultDefaultTextColor;
     QMenu* m_textColorMenu;
     QMenu* m_fontMenu;
+
+    bool m_isExecutionEnabled;
+    QColor m_activeExecutionTextColor;
+    QColor m_activeExecutionBackgroundColor;
 };
 
 #endif // COMMANDENTRY_H

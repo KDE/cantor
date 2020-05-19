@@ -81,7 +81,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_backgroundColorMenu(nullptr),
     m_textColorActionGroup(nullptr),
     m_textColorMenu(nullptr),
-    m_fontMenu(nullptr)
+    m_fontMenu(nullptr),
+    m_isExecutionEnabled(true)
 {
     m_promptItem->setPlainText(Prompt);
     m_promptItem->setItemDragable(true);
@@ -148,8 +149,8 @@ void CommandEntry::initMenus() {
 
     //background color
     m_backgroundColorActionGroup = new QActionGroup(this);
-	m_backgroundColorActionGroup->setExclusive(true);
-	connect(m_backgroundColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::backgroundColorChanged);
+    m_backgroundColorActionGroup->setExclusive(true);
+    connect(m_backgroundColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::backgroundColorChanged);
 
     m_backgroundColorMenu = new QMenu(i18n("Background Color"));
     m_backgroundColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-fill-color")));
@@ -172,14 +173,15 @@ void CommandEntry::initMenus() {
         action->setCheckable(true);
         m_backgroundColorMenu->addAction(action);
 
-        if (m_backgroundColorCustom && m_commandItem->backgroundColor() == colors[i])
+        const QColor& backgroundColor = (m_isExecutionEnabled ? m_commandItem->backgroundColor() : m_activeExecutionBackgroundColor);
+        if (m_backgroundColorCustom && backgroundColor == colors[i])
             action->setChecked(true);
     }
 
-	//text color
+    //text color
     m_textColorActionGroup = new QActionGroup(this);
-	m_textColorActionGroup->setExclusive(true);
-	connect(m_textColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::textColorChanged);
+    m_textColorActionGroup->setExclusive(true);
+    connect(m_textColorActionGroup, &QActionGroup::triggered, this, &CommandEntry::textColorChanged);
 
     m_textColorMenu = new QMenu(i18n("Text Color"));
     m_textColorMenu->setIcon(QIcon::fromTheme(QLatin1String("format-text-color")));
@@ -199,7 +201,8 @@ void CommandEntry::initMenus() {
         action->setCheckable(true);
         m_textColorMenu->addAction(action);
 
-        if (m_textColorCustom && m_commandItem->defaultTextColor() == colors[i])
+        const QColor& textColor = (m_isExecutionEnabled ? m_commandItem->defaultTextColor() : m_activeExecutionTextColor);
+        if (m_textColorCustom && textColor == colors[i])
             action->setChecked(true);
     }
 
@@ -248,13 +251,19 @@ void CommandEntry::backgroundColorChanged(QAction* action) {
     if (index == -1 || index>=colorsCount)
         index = 0;
 
+    QColor color;
     if (index == 0)
     {
         KColorScheme scheme = KColorScheme(QPalette::Normal, KColorScheme::View);
-        m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+        color = scheme.background(KColorScheme::AlternateBackground).color();
     }
     else
-        m_commandItem->setBackgroundColor(colors[index-1]);
+        color = colors[index-1];
+
+    if (m_isExecutionEnabled)
+        m_commandItem->setBackgroundColor(color);
+    else
+        m_activeExecutionBackgroundColor = color;
 }
 
 void CommandEntry::textColorChanged(QAction* action) {
@@ -262,12 +271,18 @@ void CommandEntry::textColorChanged(QAction* action) {
     if (index == -1 || index>=colorsCount)
         index = 0;
 
+    QColor color;
     if (index == 0)
     {
-        m_commandItem->setDefaultTextColor(m_defaultDefaultTextColor);
+        color = m_defaultDefaultTextColor;
     }
     else
-        m_commandItem->setDefaultTextColor(colors[index-1]);
+        color = colors[index-1];
+
+    if (m_isExecutionEnabled)
+        m_commandItem->setDefaultTextColor(color);
+    else
+        m_activeExecutionTextColor = color;
 }
 
 void CommandEntry::fontBoldTriggered()
@@ -357,6 +372,11 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
         else
             menu->addAction(i18n("Hide Results"), this, &CommandEntry::collapseResults);
     }
+
+    if (m_isExecutionEnabled)
+        menu->addAction(i18n("Exclude from Execution"), this, &CommandEntry::excludeFromExecution);
+    else
+        menu->addAction(i18n("Add to Execution"), this, &CommandEntry::addToExecution);
 
     menu->addMenu(m_backgroundColorMenu);
     menu->addMenu(m_textColorMenu);
@@ -519,6 +539,10 @@ void CommandEntry::setContent(const QDomElement& content, const KZip& file)
         }
     }
 
+    m_isExecutionEnabled = !(bool)(content.attribute(QLatin1String("ExecutionDisabled"), QLatin1String("0")).toInt());
+    if (m_isExecutionEnabled == false)
+        excludeFromExecution();
+
     setExpression(expr);
 }
 
@@ -665,6 +689,9 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     cmdElem.appendChild(doc.createTextNode( command() ));
     exprElem.appendChild(cmdElem);
 
+    if (!m_isExecutionEnabled)
+        exprElem.setAttribute(QLatin1String("ExecutionDisabled"), true);
+
     // save results of the expression if they exist
     if (expression())
     {
@@ -689,12 +716,12 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
     // If user can change value from menu (menus have been inited) - check via menu
     // If use don't have menu, check if loaded color was custom color
     if (m_backgroundColorActionGroup)
-        isBackgroundColorNotDefault = m_backgroundColorActionGroup->checkedAction()->text() != i18n("Default");
+        isBackgroundColorNotDefault = m_backgroundColorActionGroup->actions().indexOf(m_backgroundColorActionGroup->checkedAction()) != 0;
     else
         isBackgroundColorNotDefault = m_backgroundColorCustom;
     if (isBackgroundColorNotDefault)
     {
-        QColor backgroundColor = m_commandItem->backgroundColor();
+        QColor backgroundColor = (m_isExecutionEnabled ? m_commandItem->backgroundColor() : m_activeExecutionBackgroundColor);
         QDomElement colorElem = doc.createElement( QLatin1String("Background") );
         colorElem.setAttribute(QLatin1String("red"), QString::number(backgroundColor.red()));
         colorElem.setAttribute(QLatin1String("green"), QString::number(backgroundColor.green()));
@@ -704,12 +731,12 @@ QDomElement CommandEntry::toXml(QDomDocument& doc, KZip* archive)
 
     //save the text properties if they differ from default values
     const QFont& font = m_commandItem->font();
-    const QColor& textColor = m_commandItem->defaultTextColor();
+    const QColor& textColor = (m_isExecutionEnabled ? m_commandItem->defaultTextColor() : m_activeExecutionTextColor);
     bool isFontNotDefault = font != QFontDatabase::systemFont(QFontDatabase::FixedFont);
 
     bool isTextColorNotDefault = false;
     if (m_textColorActionGroup)
-        isTextColorNotDefault = m_textColorActionGroup->checkedAction()->text() != i18n("Default");
+        isTextColorNotDefault = m_textColorActionGroup->actions().indexOf(m_textColorActionGroup->checkedAction()) != 0;
     else
         isTextColorNotDefault = m_textColorCustom;
 
@@ -770,33 +797,41 @@ bool CommandEntry::evaluateCurrentItem()
 
 bool CommandEntry::evaluate(EvaluationOption evalOp)
 {
-    if (worksheet()->session()->status() == Cantor::Session::Disable)
-        worksheet()->loginToSession();
+    if (m_isExecutionEnabled)
+    {
+        if (worksheet()->session()->status() == Cantor::Session::Disable)
+            worksheet()->loginToSession();
 
-    removeContextHelp();
-    QToolTip::hideText();
+        removeContextHelp();
+        QToolTip::hideText();
 
-    QString cmd = command();
-    m_evaluationOption = evalOp;
+        QString cmd = command();
+        m_evaluationOption = evalOp;
 
-    if(cmd.isEmpty()) {
-        removeResults();
-        for (auto* item : m_informationItems) {
-            item->deleteLater();
+        if(cmd.isEmpty()) {
+            removeResults();
+            for (auto* item : m_informationItems) {
+                item->deleteLater();
+            }
+            m_informationItems.clear();
+            recalculateSize();
+
+            evaluateNext(m_evaluationOption);
+            return false;
         }
-        m_informationItems.clear();
-        recalculateSize();
 
+        Cantor::Expression* expr = worksheet()->session()->evaluateExpression(cmd);
+        connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(expr); });
+
+        setExpression(expr);
+
+        return true;
+    }
+    else
+    {
         evaluateNext(m_evaluationOption);
         return false;
     }
-
-    Cantor::Expression* expr = worksheet()->session()->evaluateExpression(cmd);
-    connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(expr); });
-
-    setExpression(expr);
-
-    return true;
 }
 
 void CommandEntry::interruptEvaluation()
@@ -1449,4 +1484,25 @@ void CommandEntry::changeResultCollapsingAction()
 qreal CommandEntry::promptItemWidth()
 {
     return m_promptItem->width();
+}
+
+void CommandEntry::excludeFromExecution()
+{
+    m_isExecutionEnabled = false;
+
+    KColorScheme scheme = KColorScheme(QPalette::Inactive, KColorScheme::View);
+
+    m_activeExecutionBackgroundColor = m_commandItem->backgroundColor();
+    m_activeExecutionTextColor = m_commandItem->defaultTextColor();
+
+    m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
+    m_commandItem->setDefaultTextColor(scheme.foreground(KColorScheme::InactiveText).color());
+}
+
+void CommandEntry::addToExecution()
+{
+    m_isExecutionEnabled = true;
+
+    m_commandItem->setBackgroundColor(m_activeExecutionBackgroundColor);
+    m_commandItem->setDefaultTextColor(m_activeExecutionTextColor);
 }
