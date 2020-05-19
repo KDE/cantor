@@ -1665,6 +1665,24 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
         menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, SLOT(selectionMoveDown()), 0);
         menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, SLOT(selectionEvaluate()), 0);
         menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, SLOT(selectionRemove()), 0);
+
+        bool isAnyCommandEntryInSelection = false;
+        for (WorksheetEntry* entry : m_selectedEntries)
+            if (entry->type() == CommandEntry::Type)
+            {
+                isAnyCommandEntryInSelection = true;
+                break;
+            }
+
+        if (isAnyCommandEntryInSelection)
+        {
+            menu->addSeparator();
+            menu->addAction(QIcon(), i18n("Collapse Command Entry Results"), this, &Worksheet::collapseSelectionResults);
+            menu->addAction(QIcon(), i18n("Expand Command Entry Results"), this, &Worksheet::uncollapseSelectionResults);
+            menu->addAction(QIcon(), i18n("Remove Command Entry Results"), this, &Worksheet::removeSelectionResults);
+            menu->addAction(QIcon(), i18n("Exclude Command Entry From Execution"), this, &Worksheet::excludeFromExecutionSelection);
+            menu->addAction(QIcon(), i18n("Add Command Entry To Execution"), this, &Worksheet::addToExectuionSelection);
+        }
     }
 }
 
@@ -2560,4 +2578,39 @@ void Worksheet::removeAllResults()
             if (entry->type() == CommandEntry::Type)
                 static_cast<CommandEntry*>(entry)->removeResults();
     }
+}
+
+void Worksheet::addToExectuionSelection()
+{
+    for (WorksheetEntry* entry : m_selectedEntries)
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->addToExecution();
+}
+
+void Worksheet::excludeFromExecutionSelection()
+{
+    for (WorksheetEntry* entry : m_selectedEntries)
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->excludeFromExecution();
+}
+
+void Worksheet::collapseSelectionResults()
+{
+    for (WorksheetEntry* entry : m_selectedEntries)
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->collapseResults();
+}
+
+void Worksheet::uncollapseSelectionResults()
+{
+    for (WorksheetEntry* entry : m_selectedEntries)
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->expandResults();
+}
+
+void Worksheet::removeSelectionResults()
+{
+    for (WorksheetEntry* entry : m_selectedEntries)
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->removeResults();
 }

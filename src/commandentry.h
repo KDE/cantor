@@ -99,6 +99,8 @@ class CommandEntry : public WorksheetEntry
     void removeResult(Cantor::Result* result);
     void collapseResults();
     void expandResults();
+    void excludeFromExecution();
+    void addToExecution();
 
     void showCompletion() override;
     void selectPreviousCompletion();
@@ -158,8 +160,6 @@ class CommandEntry : public WorksheetEntry
     void setMidPrompt();
     void setHidePrompt();
 
-    void excludeFromExecution();
-    void addToExecution();
 
   private:
     static const double HorizontalSpacing;
