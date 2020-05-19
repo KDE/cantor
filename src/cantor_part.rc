@@ -41,6 +41,10 @@
     <Action name="insert_image_entry"/>
     <Action name="insert_page_break_entry"/>
     <Separator/>
+    <Action name="all_entries_collapse_results"/>
+    <Action name="all_entries_uncollapse_results"/>
+    <Action name="all_entries_remove_all_results"/>
+    <Separator/>
     <Action name="remove_current"/>
   </Menu>
   <Menu name="settings">

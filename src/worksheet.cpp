@@ -2520,3 +2520,44 @@ void Worksheet::notifyEntryFocus(WorksheetEntry* entry)
     else
         m_circularFocusBuffer.clear();
 }
+
+void Worksheet::collapseAllResults()
+{
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->collapseResults();
+}
+
+void Worksheet::uncollapseAllResults()
+{
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+        if (entry->type() == CommandEntry::Type)
+            static_cast<CommandEntry*>(entry)->expandResults();
+}
+
+void Worksheet::removeAllResults()
+{
+    bool remove = false;
+
+    if (KMessageBox::shouldBeShownContinue(QLatin1String("WarnAboutAllResultsRemoving")))
+    {
+        KMessageBox::ButtonCode btn = KMessageBox::warningContinueCancel(
+            views().first(),
+            i18n("This action will remove all results without the possibility of cancellation. Are you sure?"),
+            i18n("Remove all results"),
+            KStandardGuiItem::cont(),
+            KStandardGuiItem::cancel(),
+            QLatin1String("WarnAboutAllResultsRemoving")
+        );
+        remove = (btn == KMessageBox::Continue);
+    }
+    else
+        remove = true;
+
+    if (remove)
+    {
+        for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+            if (entry->type() == CommandEntry::Type)
+                static_cast<CommandEntry*>(entry)->removeResults();
+    }
+}

@@ -308,6 +308,21 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(insertImageEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertImageEntry()));
     m_editActions.push_back(insertImageEntry);
 
+    QAction* collapseAllEntries = new QAction(QIcon(), i18n("Collapse All Results"), collection);
+    collection->addAction(QLatin1String("all_entries_collapse_results"), collapseAllEntries);
+    connect(collapseAllEntries, &QAction::triggered, m_worksheet, &Worksheet::collapseAllResults);
+    m_editActions.push_back(collapseAllEntries);
+
+    QAction* uncollapseAllEntries = new QAction(QIcon(), i18n("Expand All Results"), collection);
+    collection->addAction(QLatin1String("all_entries_uncollapse_results"), uncollapseAllEntries );
+    connect(uncollapseAllEntries , &QAction::triggered, m_worksheet, &Worksheet::uncollapseAllResults);
+    m_editActions.push_back(uncollapseAllEntries);
+
+    QAction* removeAllResults = new QAction(QIcon(), i18n("Remove All Results"), collection);
+    collection->addAction(QLatin1String("all_entries_remove_all_results"), removeAllResults);
+    connect(removeAllResults, &QAction::triggered, m_worksheet, &Worksheet::removeAllResults);
+    m_editActions.push_back(removeAllResults);
+
     QAction* removeCurrent = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove current Entry"), collection);
     collection->addAction(QLatin1String("remove_current"), removeCurrent);
     collection->setDefaultShortcut(removeCurrent, Qt::ShiftModifier + Qt::Key_Delete);

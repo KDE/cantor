@@ -97,6 +97,8 @@ class CommandEntry : public WorksheetEntry
     void addInformation();
     void removeResults();
     void removeResult(Cantor::Result* result);
+    void collapseResults();
+    void expandResults();
 
     void showCompletion() override;
     void selectPreviousCompletion();
@@ -137,8 +139,6 @@ class CommandEntry : public WorksheetEntry
     void invalidate();
     void resultDeleted();
     void clearResultItems();
-    void collapseResults();
-    void expandResults();
     void removeResultItem(int index);
     void replaceResultItem(int index);
     void updateCompletions();

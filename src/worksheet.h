@@ -235,6 +235,10 @@ class Worksheet : public QGraphicsScene
 
     void changeEntryType(WorksheetEntry* target, int newType);
 
+    void collapseAllResults();
+    void uncollapseAllResults();
+    void removeAllResults();
+
   Q_SIGNALS:
     void modified();
     void loaded();

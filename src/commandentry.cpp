@@ -1379,6 +1379,9 @@ WorksheetTextItem* CommandEntry::highlightItem()
 
 void CommandEntry::collapseResults()
 {
+    if (m_resultsCollapsed)
+        return;
+
     for(auto* item : m_resultItems) {
         fadeOutItem(item->graphicsObject(), nullptr);
         item->graphicsObject()->hide();
@@ -1400,6 +1403,9 @@ void CommandEntry::collapseResults()
 
 void CommandEntry::expandResults()
 {
+    if(!m_resultsCollapsed)
+        return;
+
     for(auto* item : m_resultItems) {
         fadeInItem(item->graphicsObject(), nullptr);
         item->graphicsObject()->show();
