@@ -48,11 +48,17 @@ class WorksheetTest: public QObject
     void testMimeResult();
     void testMimeResultWithPlain();
 
+    void testCommandEntryExecutionAction1();
+    void testCommandEntryExecutionAction2();
+    void testCollapsingAllResultsAction();
+    void testRemovingAllResultsAction();
+
     /* common features tests */
     void testMathRender();
     void testMathRender2();
 
   private:
+    void waitForSignal( QObject* sender, const char* signal);
     static Worksheet* loadWorksheet(const QString& name);
     static int entriesCount(Worksheet* worksheet);
     static Cantor::Expression* expression(WorksheetEntry* entry);

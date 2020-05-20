@@ -1511,3 +1511,13 @@ void CommandEntry::addToExecution()
     connect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet(), &Worksheet::highlightItem);
     worksheet()->highlightItem(m_commandItem);
 }
+
+bool CommandEntry::isExcludedFromExecution()
+{
+    return m_isExecutionEnabled == false;
+}
+
+bool CommandEntry::isResultCollapsed()
+{
+    return m_resultsCollapsed;
+}

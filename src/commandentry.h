@@ -61,6 +61,8 @@ class CommandEntry : public WorksheetEntry
     QString currentLine();
 
     bool isEmpty() override;
+    bool isExcludedFromExecution();
+    bool isResultCollapsed();
 
     void setContent(const QString& content) override;
     void setContent(const QDomElement& content, const KZip& file) override;
