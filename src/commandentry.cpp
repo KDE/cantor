@@ -830,7 +830,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
     else
     {
         evaluateNext(m_evaluationOption);
-        return false;
+        return true;
     }
 }
 
@@ -1409,7 +1409,7 @@ void CommandEntry::startRemoving()
 
 WorksheetTextItem* CommandEntry::highlightItem()
 {
-    return m_commandItem;
+    return m_isExecutionEnabled ? m_commandItem : nullptr;
 }
 
 void CommandEntry::collapseResults()
@@ -1495,6 +1495,8 @@ void CommandEntry::excludeFromExecution()
     m_activeExecutionBackgroundColor = m_commandItem->backgroundColor();
     m_activeExecutionTextColor = m_commandItem->defaultTextColor();
 
+    disconnect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet(), &Worksheet::highlightItem);
+
     m_commandItem->setBackgroundColor(scheme.background(KColorScheme::AlternateBackground).color());
     m_commandItem->setDefaultTextColor(scheme.foreground(KColorScheme::InactiveText).color());
 }
@@ -1505,4 +1507,7 @@ void CommandEntry::addToExecution()
 
     m_commandItem->setBackgroundColor(m_activeExecutionBackgroundColor);
     m_commandItem->setDefaultTextColor(m_activeExecutionTextColor);
+
+    connect(m_commandItem, &WorksheetTextItem::receivedFocus, worksheet(), &Worksheet::highlightItem);
+    worksheet()->highlightItem(m_commandItem);
 }
