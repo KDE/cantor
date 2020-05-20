@@ -19,3 +19,4 @@ build*
 *.moc
 moc_*
 *_automoc.cpp*
+.cmake/
