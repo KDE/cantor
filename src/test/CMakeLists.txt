@@ -11,6 +11,7 @@ set(worksheettest_SRCS
     ../imageentry.cpp
     ../latexentry.cpp
     ../placeholderentry.cpp
+    ../horizontalruleentry.cpp
     ../worksheetcursor.cpp
     ../searchbar.cpp
     ../actionbar.cpp

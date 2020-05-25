@@ -25,6 +25,7 @@
 #include "latexentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
+#include "horizontalruleentry.h"
 #include "settings.h"
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
@@ -58,6 +59,28 @@ const qreal WorksheetEntry::VerticalMargin = 4;
 const qreal WorksheetEntry::ControlElementWidth = 12;
 const qreal WorksheetEntry::ControlElementBorder = 4;
 const qreal WorksheetEntry::RightMargin = ControlElementWidth + 2*ControlElementBorder;
+
+QColor WorksheetEntry::colors[] = {QColor(255,255,255), QColor(0,0,0),
+                                                    QColor(192,0,0), QColor(255,0,0), QColor(255,192,192), //red
+                                                    QColor(0,192,0), QColor(0,255,0), QColor(192,255,192), //green
+                                                    QColor(0,0,192), QColor(0,0,255), QColor(192,192,255), //blue
+                                                    QColor(192,192,0), QColor(255,255,0), QColor(255,255,192), //yellow
+                                                    QColor(0,192,192), QColor(0,255,255), QColor(192,255,255), //cyan
+                                                    QColor(192,0,192), QColor(255,0,255), QColor(255,192,255), //magenta
+                                                    QColor(192,88,0), QColor(255,128,0), QColor(255,168,88), //orange
+                                                    QColor(128,128,128), QColor(160,160,160), QColor(195,195,195) //grey
+                                                    };
+
+QString WorksheetEntry::colorNames[] = {i18n("White"), i18n("Black"),
+                                         i18n("Dark Red"), i18n("Red"), i18n("Light Red"),
+                                         i18n("Dark Green"), i18n("Green"), i18n("Light Green"),
+                                         i18n("Dark Blue"), i18n("Blue"), i18n("Light Blue"),
+                                         i18n("Dark Yellow"), i18n("Yellow"), i18n("Light Yellow"),
+                                         i18n("Dark Cyan"), i18n("Cyan"), i18n("Light Cyan"),
+                                         i18n("Dark Magenta"), i18n("Magenta"), i18n("Light Magenta"),
+                                         i18n("Dark Orange"), i18n("Orange"), i18n("Light Orange"),
+                                         i18n("Dark Grey"), i18n("Grey"), i18n("Light Grey")
+                                         };
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
@@ -111,6 +134,8 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
         return new PageBreakEntry(worksheet);
     case LatexEntry::Type:
         return new LatexEntry(worksheet);
+    case HorizontalRuleEntry::Type:
+        return new HorizontalRuleEntry(worksheet);
     default:
         return nullptr;
     }
@@ -146,6 +171,11 @@ void WorksheetEntry::insertPageBreakEntry()
     worksheet()->insertPageBreakEntry(this);
 }
 
+void WorksheetEntry::insertHorizontalRuleEntry()
+{
+    worksheet()->insertHorizontalRuleEntry(this);
+}
+
 void WorksheetEntry::insertCommandEntryBefore()
 {
     worksheet()->insertCommandEntryBefore(this);
@@ -174,6 +204,11 @@ void WorksheetEntry::insertImageEntryBefore()
 void WorksheetEntry::insertPageBreakEntryBefore()
 {
     worksheet()->insertPageBreakEntryBefore(this);
+}
+
+void WorksheetEntry::insertHorizontalRuleEntryBefore()
+{
+    worksheet()->insertHorizontalRuleEntryBefore(this);
 }
 
 void WorksheetEntry::convertToCommandEntry()
@@ -205,6 +240,12 @@ void WorksheetEntry::converToPageBreakEntry()
 {
     worksheet()->changeEntryType(this, PageBreakEntry::Type);
 }
+
+void WorksheetEntry::convertToHorizontalRuleEntry()
+{
+    worksheet()->changeEntryType(this, HorizontalRuleEntry::Type);
+}
+
 
 void WorksheetEntry::showCompletion()
 {

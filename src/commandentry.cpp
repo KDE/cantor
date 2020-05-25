@@ -52,18 +52,6 @@ const QString CommandEntry::HidePrompt = QLatin1String(">   ");
 const double CommandEntry::HorizontalSpacing = 4;
 const double CommandEntry::VerticalSpacing = 4;
 
-static const int colorsCount = 26;
-static QColor colors[colorsCount] = {QColor(255,255,255), QColor(0,0,0),
-							QColor(192,0,0), QColor(255,0,0), QColor(255,192,192), //red
-							QColor(0,192,0), QColor(0,255,0), QColor(192,255,192), //green
-							QColor(0,0,192), QColor(0,0,255), QColor(192,192,255), //blue
-							QColor(192,192,0), QColor(255,255,0), QColor(255,255,192), //yellow
-							QColor(0,192,192), QColor(0,255,255), QColor(192,255,255), //cyan
-							QColor(192,0,192), QColor(255,0,255), QColor(255,192,255), //magenta
-							QColor(192,88,0), QColor(255,128,0), QColor(255,168,88), //orange
-							QColor(128,128,128), QColor(160,160,160), QColor(195,195,195) //grey
-							};
-
 
 CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
     m_promptItem(new WorksheetTextItem(this, Qt::NoTextInteraction)),
@@ -135,18 +123,6 @@ int CommandEntry::type() const
 }
 
 void CommandEntry::initMenus() {
-    //background color
-	const QString colorNames[colorsCount] = {i18n("White"), i18n("Black"),
-							i18n("Dark Red"), i18n("Red"), i18n("Light Red"),
-							i18n("Dark Green"), i18n("Green"), i18n("Light Green"),
-							i18n("Dark Blue"), i18n("Blue"), i18n("Light Blue"),
-							i18n("Dark Yellow"), i18n("Yellow"), i18n("Light Yellow"),
-							i18n("Dark Cyan"), i18n("Cyan"), i18n("Light Cyan"),
-							i18n("Dark Magenta"), i18n("Magenta"), i18n("Light Magenta"),
-							i18n("Dark Orange"), i18n("Orange"), i18n("Light Orange"),
-							i18n("Dark Grey"), i18n("Grey"), i18n("Light Grey")
-							};
-
     //background color
     m_backgroundColorActionGroup = new QActionGroup(this);
     m_backgroundColorActionGroup->setExclusive(true);

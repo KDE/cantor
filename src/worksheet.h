@@ -151,6 +151,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendImageEntry();
     WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
+    WorksheetEntry* appendHorizontalRuleEntry();
     WorksheetEntry* insertCommandEntry(WorksheetEntry* current = nullptr);
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry(WorksheetEntry* current = nullptr);
@@ -158,12 +159,14 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertImageEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertPageBreakEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertLatexEntry(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertHorizontalRuleEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertCommandEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertTextEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertMarkdownEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertImageEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertPageBreakEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertHorizontalRuleEntryBefore(WorksheetEntry* current = nullptr);
 
     void updateLayout();
     void updateEntrySize(WorksheetEntry*);

@@ -127,6 +127,7 @@ class WorksheetEntry : public QGraphicsObject
     void insertLatexEntry();
     void insertImageEntry();
     void insertPageBreakEntry();
+    void insertHorizontalRuleEntry();
 
     void insertCommandEntryBefore();
     void insertTextEntryBefore();
@@ -134,6 +135,7 @@ class WorksheetEntry : public QGraphicsObject
     void insertLatexEntryBefore();
     void insertImageEntryBefore();
     void insertPageBreakEntryBefore();
+    void insertHorizontalRuleEntryBefore();
 
     void convertToCommandEntry();
     void convertToTextEntry();
@@ -141,6 +143,7 @@ class WorksheetEntry : public QGraphicsObject
     void convertToLatexEntry();
     void convertToImageEntry();
     void converToPageBreakEntry();
+    void convertToHorizontalRuleEntry();
 
     virtual void sizeAnimated();
     virtual void startRemoving();
@@ -166,6 +169,12 @@ class WorksheetEntry : public QGraphicsObject
 
   Q_SIGNALS:
     void aboutToBeDeleted();
+
+  public:
+    // Colors for colors menus;
+    static constexpr int colorsCount = 26;
+    static QColor colors[colorsCount];
+    static QString colorNames[colorsCount];
 
   protected:
     Worksheet* worksheet();

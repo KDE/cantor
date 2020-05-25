@@ -49,6 +49,7 @@
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
+#include "horizontalruleentry.h"
 #include "lib/jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -618,6 +619,12 @@ void Worksheet::appendCommandEntry(const QString& text)
     }
 }
 
+WorksheetEntry * Worksheet::appendHorizontalRuleEntry()
+{
+    return appendEntry(HorizontalRuleEntry::Type);
+}
+
+
 WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
 {
     if (!current)
@@ -690,6 +697,11 @@ void Worksheet::insertCommandEntry(const QString& text)
     }
 }
 
+WorksheetEntry * Worksheet::insertHorizontalRuleEntry(WorksheetEntry* current)
+{
+    return insertEntry(HorizontalRuleEntry::Type, current);
+}
+
 WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
 {
     if (!current)
@@ -749,6 +761,11 @@ WorksheetEntry* Worksheet::insertImageEntryBefore(WorksheetEntry* current)
 WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(LatexEntry::Type, current);
+}
+
+WorksheetEntry * Worksheet::insertHorizontalRuleEntryBefore(WorksheetEntry* current)
+{
+    return insertEntryBefore(HorizontalRuleEntry::Type, current);
 }
 
 void Worksheet::interrupt()
@@ -1281,6 +1298,11 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
             entry = appendEntry(ImageEntry::Type, false);
             entry->setContent(expressionChild, archive);
         }
+        else if (tag == QLatin1String("HorizontalRule"))
+        {
+            entry = appendEntry(HorizontalRuleEntry::Type, false);
+            entry->setContent(expressionChild, archive);
+        }
 
         if (m_readOnly && entry)
         {
@@ -1475,6 +1497,11 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
                 entry = appendEntry(TextEntry::Type, false);
                 entry->setContentFromJupyter(cell);
             }
+            else if (HorizontalRuleEntry::isConvertableToHorizontalRuleEntry(cell))
+            {
+                entry = appendEntry(HorizontalRuleEntry::Type, false);
+                entry->setContentFromJupyter(cell);
+            }
             else
             {
                 entry = appendEntry(MarkdownEntry::Type, false);
@@ -1612,6 +1639,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     #endif
             convertTo->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, &WorksheetEntry::convertToImageEntry);
             convertTo->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, &WorksheetEntry::converToPageBreakEntry);
+            convertTo->addAction(QIcon(), i18n("Horizontal Line"), entry, &WorksheetEntry::convertToHorizontalRuleEntry);
 
             insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
             insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntry()));
@@ -1623,6 +1651,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     #endif
             insert->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntry()));
             insert->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
+            insert->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntry()));
 
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
@@ -1634,6 +1663,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     #endif
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
+            insertBefore->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntryBefore()));
 
             convertTo->setTitle(i18n("Convert Entry To"));
             convertTo->setIcon(QIcon::fromTheme(QLatin1String("gtk-convert")));
@@ -1656,6 +1686,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
     #endif
             menu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Insert Image"), this, SLOT(appendImageEntry()));
             menu->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
+            menu->addAction(QIcon(), i18n("Insert Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
         }
     }
     else
