@@ -135,7 +135,7 @@ QJsonValue Cantor::EpsResult::toJupyterJson()
     const QImage& image = d->image.isNull() ? Renderer::epsRenderToImage(d->url, 1.0, false) : d->image;
 
     QJsonObject data;
-    data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));
+    data = JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime);
     root.insert(QLatin1String("data"), data);
 
     root.insert(QLatin1String("metadata"), jupyterMetadata());
