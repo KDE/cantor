@@ -138,6 +138,8 @@ QJsonValue Cantor::EpsResult::toJupyterJson()
     data.insert(JupyterUtils::pngMime, JupyterUtils::packMimeBundle(image, JupyterUtils::pngMime));
     root.insert(QLatin1String("data"), data);
 
+    root.insert(QLatin1String("metadata"), jupyterMetadata());
+
     return root;
 }
 
