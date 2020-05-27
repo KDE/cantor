@@ -70,6 +70,7 @@
   <Action name="evaluate_worksheet"/>
   <Action name="restart_backend"/>
   <Action name="backend_help"/>
+  <Action name="zoom_selection_action"/>
   <Separator/>
 </ToolBar>
 <ToolBar noMerge="1" name="textEditToolBar">

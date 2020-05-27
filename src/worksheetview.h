@@ -44,6 +44,7 @@ public:
     QPointF sceneCursorPos() const;
     QRectF viewRect() const;
     qreal scaleFactor() const;
+    void setScaleFactor(qreal);
     void updateSceneSize();
 
 Q_SIGNALS:

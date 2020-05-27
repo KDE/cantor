@@ -240,6 +240,13 @@ qreal WorksheetView::scaleFactor() const
     return m_scale;
 }
 
+void WorksheetView::setScaleFactor(qreal zoom)
+{
+    scale(1/m_scale * zoom, 1/m_scale * zoom);
+    m_scale = zoom;
+    updateSceneSize();
+}
+
 void WorksheetView::updateSceneSize()
 {
     QSize s = viewport()->size();

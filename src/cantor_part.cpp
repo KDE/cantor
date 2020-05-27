@@ -22,6 +22,8 @@
 
 #include <config-cantor.h>
 
+#include <array>
+
 #include "cantor_part.h"
 #include "lib/assistant.h"
 #include "lib/backend.h"
@@ -45,6 +47,7 @@
 #include <KRun>
 #include <KStandardAction>
 #include <KToggleAction>
+#include <KSelectAction>
 #include <KXMLGUIFactory>
 #include <KZip>
 
@@ -59,7 +62,8 @@
 #include <QTextStream>
 #include <QTextEdit>
 #include <QTimer>
-
+#include <QRegularExpression>
+#include <QComboBox>
 
 //A concrete implementation of the WorksheetAccesssInterface
 class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
@@ -222,6 +226,22 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->setDefaultShortcut(m_evaluate, Qt::CTRL+Qt::Key_E);
     connect(m_evaluate, &QAction::triggered, this, &CantorPart::evaluateOrInterrupt);
     m_editActions.push_back(m_evaluate);
+
+    //
+    m_zoom = new KSelectAction(QIcon::fromTheme(QLatin1String("page-zoom")), i18n("Zoom"), collection);
+    connect(m_zoom, static_cast<void (KSelectAction::*)(const QString&)>(&KSelectAction::triggered), this, &CantorPart::zoomValueEdited);
+    static constexpr std::array<double, 8> ZoomValues = {0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 4.0};
+    QStringList zoomNames;
+    for (double zoomValue : ZoomValues)
+    {
+        const std::string& zoomName = std::to_string(static_cast<int>(zoomValue * 100)) + "%";
+        zoomNames << i18n(zoomName.c_str());
+    }
+    m_zoom->setItems(zoomNames);
+    m_zoom->setEditable(true);
+    Q_ASSERT(std::find(ZoomValues.begin(), ZoomValues.end(), 1.0) != ZoomValues.end());
+    m_zoom->setCurrentItem(std::distance(ZoomValues.begin(), std::find(ZoomValues.begin(), ZoomValues.end(), 1.0)));
+    collection->addAction(QLatin1String("zoom_selection_action"), m_zoom);
 
     m_typeset = new KToggleAction(i18n("Typeset using LaTeX"), collection);
     m_typeset->setChecked(Settings::self()->typesetDefault());
@@ -1009,6 +1029,19 @@ void CantorPart::showImportantStatusMessage(const QString& message)
     setStatusMessage(message);
     blockStatusBar();
     QTimer::singleShot(3000, this, SLOT(unblockStatusBar()));
+}
+
+void CantorPart::zoomValueEdited(const QString& text)
+{
+    static const QRegularExpression zoomRegexp(QLatin1String("(?:(\\d+)%|(\\d+))"));
+
+    QRegularExpressionMatch match = zoomRegexp.match(text);
+    if (match.hasMatch())
+    {
+        double zoom = match.captured(1).toDouble() / 100.0;
+        if (m_worksheetview)
+            m_worksheetview->setScaleFactor(zoom);
+    }
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
