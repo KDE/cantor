@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="5.0">
+<ui version="4.0">
  <class>MaximaSettingsBase</class>
  <widget class="QWidget" name="MaximaSettingsBase">
   <property name="geometry">
@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>414</width>
-    <height>231</height>
+    <height>241</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -35,12 +35,19 @@
       </widget>
      </item>
      <item>
-      <widget class="KUrlRequester" name="kcfg_localDoc"/>
+      <widget class="KUrlRequester" name="kcfg_localDoc">
+       <property name="toolTip">
+        <string>If empty, the &quot;Show help&quot; action will show the default online documentation. Otherwise, the specified URL will be opened.</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_integratePlots">
+     <property name="toolTip">
+      <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
+     </property>
      <property name="text">
       <string>Integrate Plots in Worksheet</string>
      </property>
@@ -49,7 +56,7 @@
    <item>
     <widget class="QCheckBox" name="kcfg_variableManagement">
      <property name="toolTip">
-      <string>Let Cantor follow the creation/destruction of variables</string>
+      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
      </property>
      <property name="text">
       <string>Enable Variable Management</string>
@@ -57,13 +64,16 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="toolTip">
+      <string>Commands to automatically run on start. They can be useful for loading needed modules, changing environment, etc.</string>
+     </property>
      <property name="title">
       <string>Commands to autorun</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayoutScripts">
       <item>
-       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts" native="true"/>
       </item>
      </layout>
     </widget>
@@ -88,6 +98,12 @@
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

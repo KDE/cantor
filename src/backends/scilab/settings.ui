@@ -27,19 +27,25 @@
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_integratePlots">
+     <property name="toolTip">
+      <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
+     </property>
      <property name="text">
       <string>Integrate Plots in Worksheet</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="toolTip">
+      <string>Commands to automatically run on start. They can be useful for loading needed modules, changing environment, etc.</string>
+     </property>
      <property name="title">
       <string>Commands to autorun</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayoutScripts">
       <item>
-       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts" native="true"/>
       </item>
      </layout>
     </widget>
@@ -64,6 +70,12 @@
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

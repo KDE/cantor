@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>JuliaSettingsBase</class>
  <widget class="QWidget" name="JuliaSettingsBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>609</width>
+    <height>222</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -20,7 +28,7 @@
    <item>
     <widget class="QCheckBox" name="kcfg_variableManagement">
      <property name="toolTip">
-      <string>Let Cantor follow the creation/destruction of variables</string>
+      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
      </property>
      <property name="text">
       <string>Enable Variable Management</string>
@@ -29,8 +37,11 @@
    </item>
    <item>
     <widget class="QCheckBox" name="kcfg_integratePlots">
+     <property name="toolTip">
+      <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
+     </property>
      <property name="text">
-      <string>Integrate Plots in Worksheet (start a new session when changed)</string>
+      <string>Integrate Plots in Worksheet</string>
      </property>
     </widget>
    </item>
@@ -45,6 +56,9 @@
      </item>
      <item>
       <widget class="QComboBox" name="kcfg_inlinePlotFormat">
+       <property name="toolTip">
+        <string>Inner format of plots, if plots embedding is enabled.</string>
+       </property>
        <item>
         <property name="text">
          <string notr="true">svg</string>
@@ -79,6 +93,7 @@
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

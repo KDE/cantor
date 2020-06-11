@@ -12,13 +12,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QGroupBox">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="toolTip">
+      <string>This autorun commands, which will run on start new worksheet. They can be useful for loading needed modules, changing environment, etc.</string>
+     </property>
      <property name="title">
       <string>Commands to autorun</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayoutScripts">
       <item>
-       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts" native="true"/>
       </item>
      </layout>
     </widget>
@@ -40,9 +43,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
+   <class>KEditListWidget</class>
+   <extends>QWidget</extends>
+   <header>keditlistwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

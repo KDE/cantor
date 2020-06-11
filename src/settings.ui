@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>845</width>
-    <height>724</height>
+    <height>765</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -22,6 +22,9 @@
      </item>
      <item>
       <widget class="KComboBox" name="kcfg_DefaultBackend">
+       <property name="toolTip">
+        <string>If default backend is setted, then on startup instead of the backend chooser dialog will be created worksheet of the default backend</string>
+       </property>
        <property name="editable">
         <bool>true</bool>
        </property>
@@ -49,6 +52,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QCheckBox" name="kcfg_TypesetDefault">
+          <property name="toolTip">
+           <string>This is initial value for the session &quot;Typeset using LaTeX&quot; option, which response for allowing rendering some backend output as latex, if supported. For example, Maxima outputs will be rendered via latex, if the option is enabled.</string>
+          </property>
           <property name="text">
            <string>Enable LaTeX Typesetting (works only if latex is installed)</string>
           </property>
@@ -56,6 +62,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_HighlightDefault">
+          <property name="toolTip">
+           <string>This is initial value for the session &quot;Syntax Highlighting&quot; option, which response for syntax highlighting inside command entries.</string>
+          </property>
           <property name="text">
            <string>Enable Syntax Highlighting</string>
           </property>
@@ -63,6 +72,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_CompletionDefault">
+          <property name="toolTip">
+           <string>This is initial value for the session &quot;Completion&quot; option, which response for code autocompletion.</string>
+          </property>
           <property name="text">
            <string>Enable Completion</string>
           </property>
@@ -70,6 +82,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_ExpressionNumberingDefault">
+          <property name="toolTip">
+           <string>This is initial value for the session &quot;Line numbers&quot; option, which response for presence of command entries execution numbers.</string>
+          </property>
           <property name="text">
            <string>Enable Line Numbers</string>
           </property>
@@ -77,6 +92,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_AnimationDefault">
+          <property name="toolTip">
+           <string>This is initial value for the session &quot;Animate Worksheet&quot; option, which response for presence of worksheet animation.</string>
+          </property>
           <property name="text">
            <string>Enable Worksheet Animations</string>
           </property>
@@ -84,6 +102,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_EmbeddedMathDefault">
+          <property name="toolTip">
+           <string>This is initial value for the session &quot;Embedded Math&quot; option, which response for enabling of rendering math expressions in text and markdown entries.</string>
+          </property>
           <property name="text">
            <string>Enable Embedded Math (works only if pdflatex is installed)</string>
           </property>
@@ -91,6 +112,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_WarnAboutSessionRestart">
+          <property name="toolTip">
+           <string>If disabled, then warning about restart won't appear on pressing of restart button.</string>
+          </property>
           <property name="text">
            <string>Ask for confirmation when restarting the backend</string>
           </property>
@@ -98,6 +122,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_ShowMathRenderError">
+          <property name="toolTip">
+           <string>If enabled, then on any math render error will appear an information window with error description.</string>
+          </property>
           <property name="text">
            <string>Show message about error on render failure of embedded math</string>
           </property>
@@ -105,6 +132,9 @@
         </item>
         <item>
          <widget class="QCheckBox" name="kcfg_UseOldCantorEntriesIndent">
+          <property name="toolTip">
+           <string>if enabled, then old Cantor entries indent style (all entries left aligned) will be used.</string>
+          </property>
           <property name="text">
            <string>Use old Cantor entries indent style</string>
           </property>
@@ -117,7 +147,7 @@
           </property>
           <widget class="QLabel" name="VisibleLinesLimit_label">
            <property name="toolTip">
-            <string>Maximal number of visible rows in the result of a command entry. Use 0 to work without limitations.</string>
+            <string/>
            </property>
            <property name="text">
             <string>Maximal number of result visible rows (0 for unlimited):</string>
@@ -125,7 +155,7 @@
           </widget>
           <widget class="QSpinBox" name="kcfg_VisibleLinesLimit">
            <property name="toolTip">
-            <string/>
+            <string>Maximal number of visible rows in the result of a command entry. Use 0 to work without limitations.</string>
            </property>
            <property name="maximum">
             <number>10000</number>
@@ -147,6 +177,9 @@
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <widget class="QCheckBox" name="kcfg_StoreTextEntryFormatting">
+          <property name="toolTip">
+           <string>If enable, then Cantor will store rich formatting of text entries on saving to Jupyter notebook format.</string>
+          </property>
           <property name="text">
            <string>Save rich text formatting of TextEntry, when save Worksheet in Jupyter notebook format</string>
           </property>
@@ -171,7 +204,11 @@
            </widget>
           </item>
           <item>
-           <widget class="KUrlRequester" name="kcfg_PathToCantorPluginsDir" native="true"/>
+           <widget class="KUrlRequester" name="kcfg_PathToCantorPluginsDir" native="true">
+            <property name="toolTip">
+             <string>Path to directory, which contains Cantor backend plugins. This is important setting - with wrong path Cantor can't create any worksheets.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
