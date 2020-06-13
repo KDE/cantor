@@ -23,7 +23,7 @@
      <item>
       <widget class="KComboBox" name="kcfg_DefaultBackend">
        <property name="toolTip">
-        <string>If default backend is setted, then on startup instead of the backend chooser dialog will be created worksheet of the default backend</string>
+        <string>On startup, if a default backend is set, create a worksheet for it instead of showing the backend chooser dialog.</string>
        </property>
        <property name="editable">
         <bool>true</bool>
