@@ -39,7 +39,7 @@
 #include <QUrl>
 #include <QVBoxLayout>
 
-DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr)
+DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr), m_path(QString())
 {
     addWidgets();
     setSession(session);
@@ -58,9 +58,8 @@ void DocumentationPanelWidget::setSession(Cantor::Session* session)
 
 void DocumentationPanelWidget::addWidgets()
 {
-    QPointer<QTabWidget> m_tabWidget;
-    QPointer<QSplitter> m_splitter;
-    QPointer<QTextBrowser> m_textBrowser;
+    //QPointer<QSplitter> m_splitter;
+    //QPointer<QTextBrowser> m_textBrowser;
 
     //m_engine = new QHelpEngine(QApplication::applicationDirPath() + QLatin1String("/documentation/maxima_help_collection.qhc"), this);
     m_engine = new QHelpEngine(QApplication::applicationDirPath() + QLatin1String("admin/documentation/maxima_help_collection.qhc"), this);
@@ -71,13 +70,15 @@ void DocumentationPanelWidget::addWidgets()
     if (!helpData.isEmpty())
         qDebug() << helpData;
 
-    m_tabWidget = new QTabWidget;
+    QPointer<QTabWidget> m_tabWidget = new QTabWidget;
     m_tabWidget->setMaximumWidth(1000);
     m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
     m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(m_tabWidget, 1);
+
+    // Connect to various signals and slots
 }
 
 void DocumentationPanelWidget::loadDocumentation()
@@ -88,16 +89,16 @@ void DocumentationPanelWidget::loadDocumentation()
 
     const QStringList files = qchFiles();
     if(files.isEmpty()) {
-        qWarning() << "could not find QCH file in directory" << m_path;
+        qWarning() << "Could not find QCH file in directory" << m_path;
         return;
     }
 
     for (const QString& fileName : files) {
         QString fileNamespace = QHelpEngineCore::namespaceName(fileName);
         if (!fileNamespace.isEmpty() && !m_engine->registeredDocumentations().contains(fileNamespace)) {
-            qDebug() << "loading doc" << fileName << fileNamespace;
+            qDebug() << "Loading doc" << fileName << fileNamespace;
             if(!m_engine->registerDocumentation(fileName))
-                qCritical() << "error >> " << fileName << m_engine->error();
+                qCritical() << "Error >> " << fileName << m_engine->error();
         }
     }
 }
@@ -123,7 +124,7 @@ QStringList DocumentationPanelWidget::qchFiles() const
         }
     }
     if (files.isEmpty()) {
-        qDebug() << "no QCH file found at all";
+        qDebug() << "No QCH file found at all";
     }
     return files;
 }

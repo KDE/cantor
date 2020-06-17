@@ -19,7 +19,7 @@
  */
 
 #ifndef _DOCUMENTATIONPANELPLUGIN_H
-#define _DOCUMENTATIPNPANELPLUGIN_H
+#define _DOCUMENTATIONPANELPLUGIN_H
 
 #include "panelplugin.h"
 #include "documentationpanelwidget.h"
@@ -38,12 +38,12 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
     bool showOnStartup() override;
     void setShowOnStartup(bool);
 
-  protected:
-    void onSessionChanged() override;
+  /*protected:
+    void onSessionChanged() override;*/
 
   private:
     bool m_showAtStart;
     QPointer<DocumentationPanelWidget> m_widget;
 };
 
-#endif /* _DOCUMENTATIPNPANELPLUGIN_H */
+#endif /* _DOCUMENTATIONPANELPLUGIN_H */

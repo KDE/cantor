@@ -29,9 +29,6 @@ class Session;
 }
 
 class QHelpEngine;
-class QSplitter;
-class QTabWidget;
-class QTextBrowser;
 
 class DocumentationPanelWidget : public QWidget
 {
