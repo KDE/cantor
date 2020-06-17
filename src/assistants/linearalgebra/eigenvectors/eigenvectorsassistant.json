@@ -25,7 +25,6 @@
         "Description[sv]": "En dialogruta med en guide för att förenkla beräkning av egenvektorer",
         "Description[tr]": "Eigen Vektörleri hesaplamayı kolaylaştıran yardımcı pencere",
         "Description[uk]": "Діалогове вікно помічника у обчисленні власних векторів",
-        "Description[x-test]": "xxAn Assistant dialog to simplify calculating of EigenVectorsxx",
         "Description[zh_CN]": "用于简化特征向量计算的助手对话框",
         "Description[zh_TW]": "簡化特徵向量計算的小助手對話框",
         "Id": "Create Matrix",
@@ -54,7 +53,6 @@
         "Name[sv]": "Egenvektorer",
         "Name[tr]": "Eigen Vektörleri",
         "Name[uk]": "Власні вектори",
-        "Name[x-test]": "xxEigenvectorsxx",
         "Name[zh_CN]": "特征向量",
         "Name[zh_TW]": "特徵向量",
         "ServiceTypes": [

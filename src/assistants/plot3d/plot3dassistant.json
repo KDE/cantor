@@ -25,7 +25,6 @@
         "Description[sv]": "En dialogruta med guide för att förenkla uppritning av tredimensionella funktioner",
         "Description[tr]": "3 boyutlu fonksiyonları çizdirmeyi kolaylaştıran Yardımcı bir pencere",
         "Description[uk]": "Діалогове вікно помічника спрощення побудови поверхонь",
-        "Description[x-test]": "xxAn Assistant dialog to simplify plotting of 3D functionsxx",
         "Description[zh_CN]": "用于简化三维函数图绘制的助手对话框",
         "Description[zh_TW]": "簡化繪製三維函式小助手對話框",
         "Id": "Plot3d",
@@ -55,7 +54,6 @@
         "Name[sv]": "Rita i tre dimensioner",
         "Name[tr]": "3B Çizim",
         "Name[uk]": "Plot3d",
-        "Name[x-test]": "xxPlot3dxx",
         "Name[zh_CN]": "Plot3d",
         "Name[zh_TW]": "繪製立體圖",
         "ServiceTypes": [
