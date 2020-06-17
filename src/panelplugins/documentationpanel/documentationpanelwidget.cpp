@@ -72,6 +72,9 @@ void DocumentationPanelWidget::addWidgets()
 
     QPointer<QTabWidget> m_tabWidget = new QTabWidget;
     m_tabWidget->setMaximumWidth(1000);
+    m_tabWidget->setMinimumWidth(500);
+    m_tabWidget->setMovable(true);
+    m_tabWidget->setElideMode(Qt::ElideRight);
     m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
     m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
@@ -131,13 +134,11 @@ QStringList DocumentationPanelWidget::qchFiles() const
 
 QIcon DocumentationPanelWidget::icon() const
 {
-    // determine backend name and then reurn it's icon
-    //return QIcon::fromTheme(QStringLiteral("maxima"));
-    return QIcon();
+    return QIcon::fromTheme(m_session->backend()->icon());
 }
 
 QString DocumentationPanelWidget::name() const
 {
     // return the help name of the backend
-    return i18n("Maxima Help");
+    return QString(m_session->backend()->name());
 }
