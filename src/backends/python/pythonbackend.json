@@ -17,7 +17,6 @@
         "Description[sl]": "Zaledje za znanstveno programersko okolje Python",
         "Description[sv]": "Bakgrundsprogram för Python vetenskaplig programmeringsmiljö",
         "Description[uk]": "Модуль наукового програмування мовою Python",
-        "Description[x-test]": "xxBackend for Python Scientific Programmingxx",
         "Icon": "pythonbackend",
         "Id": "Python",
         "License": "GPL",
@@ -38,7 +37,6 @@
         "Name[sl]": "Python",
         "Name[sv]": "Python",
         "Name[uk]": "Python",
-        "Name[x-test]": "xxPythonxx",
         "ServiceTypes": [
             "Cantor/Backend"
         ],

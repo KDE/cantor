@@ -25,7 +25,6 @@
         "Description[sv]": "Bakgrundsprogrammet Qalculate förr Cantor. Ger tillgång till de avancerade funktionerna i Qalculate.",
         "Description[tr]": "Cantor için Qalculate arka ucu. Qalculate gelişmiş özelliklerini sunar.",
         "Description[uk]": "Модуль Qalculate для Cantor. Надає до ваших послуг додаткові можливості Qalculate",
-        "Description[x-test]": "xxQalculate backend for Cantor. Gives you the advanced features of Qalculatexx",
         "Description[zh_CN]": "Qalculate 的 Cantor 后端，可以使用 Qalculate 的高级功能",
         "Description[zh_TW]": "Cantor 的 Qalculate 後端介面。讓您使用 Qalculate 的進階功能",
         "Icon": "qalculatebackend",
@@ -56,7 +55,6 @@
         "Name[sv]": "Qalculate",
         "Name[tr]": "Qalculate",
         "Name[uk]": "Qalculate",
-        "Name[x-test]": "xxQalculatexx",
         "Name[zh_CN]": "Qalculate",
         "Name[zh_TW]": "Qalculate",
         "ServiceTypes": [
