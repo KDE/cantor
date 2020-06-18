@@ -25,6 +25,7 @@
         "Description[sv]": "En dialogruta med en guide för att förenkla beräkning av derivator för uttryck",
         "Description[tr]": "İfadelerin türevlerini hesaplamayı kolaylaştırmak için kullanılan yardımcı pencere",
         "Description[uk]": "Діалогове вікно помічника у обчисленні похідних від виразів",
+        "Description[x-test]": "xxAn Assistant dialog to simplify calculating derivatives of expressionsxx",
         "Description[zh_CN]": "用于简化微分表达式计算的助手对话框",
         "Description[zh_TW]": "簡化多項式導數計算的小助手對話框",
         "Icon": "office-chart-area",
@@ -55,6 +56,7 @@
         "Name[sv]": "Derivera",
         "Name[tr]": "Farklılaştır",
         "Name[uk]": "Продиференціювати",
+        "Name[x-test]": "xxDifferentiatexx",
         "Name[zh_CN]": "微分",
         "Name[zh_TW]": "微分",
         "ServiceTypes": [
