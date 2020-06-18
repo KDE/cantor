@@ -24,6 +24,7 @@
         "Description[sv]": "En dialogruta med en guide för att importera ett specifikt paket (eller bibliotek eller modul) till en Cantor arbetsrymd",
         "Description[tr]": "Cantor çalışma alanına özel bir paket (veya kütüphane veya modülü) almak için bir Yardımcısı iletişim penceresi",
         "Description[uk]": "Допоміжне діалогове вікно для імпортування певного пакунка (бібліотеки або модуля) до робочого простору Cantor",
+        "Description[x-test]": "xxAn Assistant dialog to import a specific package (or library or module) to Cantor workspacexx",
         "Description[zh_CN]": "用于导入指定包 (或者库和模块) 到 Cantor 工作空间的助手对话框",
         "Description[zh_TW]": "匯入特定套件（或是函式庫與模組）到 Cantor 工作空間的小助手對話框",
         "Id": "Import package",
@@ -52,6 +53,7 @@
         "Name[sv]": "Importera paket",
         "Name[tr]": "Paketi İçe Aktar",
         "Name[uk]": "Імпортування пакунка",
+        "Name[x-test]": "xxImport Packagexx",
         "Name[zh_CN]": "导入包",
         "Name[zh_TW]": "匯入套件",
         "ServiceTypes": [

@@ -25,6 +25,7 @@
         "Description[sv]": "Kalgebra bakgrundsprogram för Cantor. Låter dig använda samma språk i Cantors arbetsblad som i programmet Kalgebra.",
         "Description[tr]": "Cantor için KAlgebra arka ucu. KAlgebra uygulaması içinde Cantor çalışma sayfalarında kullanılan dille aynı dili kullanmanıza izin verir.",
         "Description[uk]": "Модуль KAlgebra для Cantor. Надає вам змогу використовувати мову команд програми KAlgebra на робочих аркушах Cantor.",
+        "Description[x-test]": "xxKAlgebra backend for Cantor. Lets you use the same language you use in the KAlgebra application in Cantor worksheets.xx",
         "Description[zh_CN]": "KAlgebra 的 Cantor 后端。可供您在 Cantor 工作表里使用和 KAlgebra 一致的语言。",
         "Description[zh_TW]": "KAlgebra 的 Cantor 後端介面。讓您使用與在 KAlgebra 應用程式中的 Cantor 工作表中相同的語言。",
         "Icon": "kalgebrabackend",
@@ -55,6 +56,7 @@
         "Name[sv]": "Kalgebra",
         "Name[tr]": "KAlgebra",
         "Name[uk]": "KAlgebra",
+        "Name[x-test]": "xxKAlgebraxx",
         "Name[zh_CN]": "KAlgebra",
         "Name[zh_TW]": "數學_KAlgebra",
         "ServiceTypes": [
