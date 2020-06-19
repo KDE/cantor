@@ -21,8 +21,8 @@
 #ifndef _DOCUMENTATIONPANELPLUGIN_H
 #define _DOCUMENTATIONPANELPLUGIN_H
 
-#include "panelplugin.h"
 #include "documentationpanelwidget.h"
+#include "panelplugin.h"
 
 class DocumentationPanelWidget;
 

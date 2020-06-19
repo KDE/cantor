@@ -38,7 +38,6 @@
 #include <QTabWidget>
 #include <QTextBrowser>
 #include <QUrl>
-#include <QVBoxLayout>
 
 DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr), m_path(QString())
 {
@@ -60,15 +59,14 @@ void DocumentationPanelWidget::setSession(Cantor::Session* session)
 void DocumentationPanelWidget::addWidgets()
 {
     //QPointer<QSplitter> m_splitter;
+    m_engine = new QHelpEngine(QLatin1String("documentation/maxima/maxima_help_collection.qhc"), this);
 
-    //m_engine = new QHelpEngine(QApplication::applicationDirPath() + QLatin1String("/documentation/maxima_help_collection.qhc"), this);
-    m_engine = new QHelpEngine(QApplication::applicationDirPath() + QLatin1String("admin/documentation/maxima_help_collection.qhc"), this);
-
-    if( !m_engine->setupData() ) {
+    if( !m_engine->setupData() )
+    {
         qWarning() << "Couldn't setup QtHelp Collection file";
     }
 
-    QByteArray helpData = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_7.html#SEC36")));
+    //QByteArray helpData = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_7.html#SEC36")));
 
     QPointer<QTabWidget> m_tabWidget = new QTabWidget(this);
     m_tabWidget->setMaximumWidth(1000);
@@ -80,7 +78,10 @@ void DocumentationPanelWidget::addWidgets()
 
 
     QPointer<QTextBrowser> m_textBrowser = new QTextBrowser(this);
-    m_textBrowser->setSource(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_7.html#SEC36")), QTextDocument::HtmlResource);
+    m_textBrowser->setSource(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")), QTextDocument::HtmlResource);
+
+    connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), m_textBrowser, SLOT(setSource(QUrl)));
+    connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), m_textBrowser, SLOT(setSource(QUrl)));
 
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(m_tabWidget, 1);
@@ -91,19 +92,24 @@ void DocumentationPanelWidget::addWidgets()
 
 void DocumentationPanelWidget::loadDocumentation()
 {
-   if(m_path.isEmpty()) {
+   if(m_path.isEmpty())
+   {
         return;
-    }
+   }
 
     const QStringList files = qchFiles();
-    if(files.isEmpty()) {
+
+    if(files.isEmpty())
+    {
         qWarning() << "Could not find QCH file in directory" << m_path;
         return;
     }
 
-    for (const QString& fileName : files) {
+    for (const QString& fileName : files)
+    {
         QString fileNamespace = QHelpEngineCore::namespaceName(fileName);
-        if (!fileNamespace.isEmpty() && !m_engine->registeredDocumentations().contains(fileNamespace)) {
+        if (!fileNamespace.isEmpty() && !m_engine->registeredDocumentations().contains(fileNamespace))
+        {
             qDebug() << "Loading doc" << fileName << fileNamespace;
             if(!m_engine->registerDocumentation(fileName))
                 qCritical() << "Error >> " << fileName << m_engine->error();
@@ -116,24 +122,33 @@ QStringList DocumentationPanelWidget::qchFiles() const
 {
     QStringList files;
 
-    const QVector<QString> paths{ // test directories
+    const QVector<QString> paths
+    { // test directories
         m_path,
         m_path + QLatin1String("/qch/"),
     };
 
-    for (const auto& path : paths) {
+    for (const auto& path : paths)
+    {
         QDir d(path);
-        if(path.isEmpty() || !d.exists()) {
+        if(path.isEmpty() || !d.exists())
+        {
             continue;
         }
+
         const auto fileInfos = d.entryInfoList(QDir::Files);
-        for (const auto& file : fileInfos) {
+
+        for (const auto& file : fileInfos)
+        {
             files << file.absoluteFilePath();
         }
     }
-    if (files.isEmpty()) {
+
+    if (files.isEmpty())
+    {
         qDebug() << "No QCH file found at all";
     }
+
     return files;
 }
 
@@ -144,6 +159,5 @@ QIcon DocumentationPanelWidget::icon() const
 
 QString DocumentationPanelWidget::name() const
 {
-    // return the help name of the backend
     return QString(m_session->backend()->name());
 }

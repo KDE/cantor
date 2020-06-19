@@ -40,10 +40,15 @@ class DocumentationPanelWidget : public QWidget
     void setSession(Cantor::Session* session);
     void addWidgets();
 
+    /** @return icon of the current backend **/
     QIcon icon() const;
+
+    /** @return name of the current backend **/
     QString name() const;
+
     void loadDocumentation();
     /** @return local paths to all QCH files found in cantor/admin/documentation directory **/
+
     QStringList qchFiles() const;
 
   private:
