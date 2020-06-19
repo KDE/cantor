@@ -32,12 +32,12 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QDebug>
-#include <QDockWidget>
 #include <QDir>
+#include <QDockWidget>
 #include <QFileDialog>
+#include <QGraphicsView>
 #include <QPushButton>
 #include <QRegularExpression>
-#include <QGraphicsView>
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"

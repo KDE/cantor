@@ -28,6 +28,7 @@
 #include <QByteArray>
 #include <QDebug>
 #include <QDir>
+#include <QHBoxLayout>
 #include <QHelpContentWidget>
 #include <QHelpEngine>
 #include <QHelpIndexWidget>
@@ -59,18 +60,17 @@ void DocumentationPanelWidget::setSession(Cantor::Session* session)
 void DocumentationPanelWidget::addWidgets()
 {
     //QPointer<QSplitter> m_splitter;
-    //QPointer<QTextBrowser> m_textBrowser;
 
     //m_engine = new QHelpEngine(QApplication::applicationDirPath() + QLatin1String("/documentation/maxima_help_collection.qhc"), this);
     m_engine = new QHelpEngine(QApplication::applicationDirPath() + QLatin1String("admin/documentation/maxima_help_collection.qhc"), this);
-    m_engine->setupData();
+
+    if( !m_engine->setupData() ) {
+        qWarning() << "Couldn't setup QtHelp Collection file";
+    }
 
     QByteArray helpData = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_7.html#SEC36")));
 
-    if (!helpData.isEmpty())
-        qDebug() << helpData;
-
-    QPointer<QTabWidget> m_tabWidget = new QTabWidget;
+    QPointer<QTabWidget> m_tabWidget = new QTabWidget(this);
     m_tabWidget->setMaximumWidth(1000);
     m_tabWidget->setMinimumWidth(500);
     m_tabWidget->setMovable(true);
@@ -78,8 +78,13 @@ void DocumentationPanelWidget::addWidgets()
     m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
     m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
+
+    QPointer<QTextBrowser> m_textBrowser = new QTextBrowser(this);
+    m_textBrowser->setSource(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_7.html#SEC36")), QTextDocument::HtmlResource);
+
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(m_tabWidget, 1);
+    layout->addWidget(m_textBrowser, 2);
 
     // Connect to various signals and slots
 }

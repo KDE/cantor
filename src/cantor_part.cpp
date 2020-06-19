@@ -741,7 +741,7 @@ void CantorPart::enableTypesetting(bool enable)
 
 void CantorPart::showBackendHelp()
 {
-    qDebug()<<"showing backends help";
+    qDebug()<<"Showing backend's help";
     auto* backend = m_worksheet->session()->backend();
     QUrl url = backend->helpUrl();
     qDebug()<<"launching url "<<url;

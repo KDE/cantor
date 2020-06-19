@@ -31,12 +31,6 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
     delete m_widget;
 }
 
-/*void DocumentationPanelPlugin::onSessionChanged()
-{
-    if(m_widget)
-        m_widget->setSession(session());
-}*/
-
 QWidget* DocumentationPanelPlugin::widget()
 {
     if(m_widget == nullptr)
