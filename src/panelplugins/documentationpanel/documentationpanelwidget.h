@@ -38,7 +38,6 @@ class DocumentationPanelWidget : public QWidget
     ~DocumentationPanelWidget() override = default;
 
     void setSession(Cantor::Session* session);
-    void addWidgets();
 
     /** @return icon of the current backend **/
     QIcon icon() const;

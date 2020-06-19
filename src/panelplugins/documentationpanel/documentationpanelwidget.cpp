@@ -41,23 +41,6 @@
 
 DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr), m_path(QString())
 {
-    addWidgets();
-    setSession(session);
-}
-
-void DocumentationPanelWidget::setSession(Cantor::Session* session)
-{
-    m_session=session;
-    /*if(session)
-    {
-        m_model=session->variableDataModel();
-        if(m_table)
-            m_table->setModel(m_model);
-    }*/
-}
-
-void DocumentationPanelWidget::addWidgets()
-{
     //QPointer<QSplitter> m_splitter;
     m_engine = new QHelpEngine(QLatin1String("documentation/maxima/maxima_help_collection.qhc"), this);
 
@@ -77,7 +60,7 @@ void DocumentationPanelWidget::addWidgets()
     m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
 
-    QPointer<QTextBrowser> m_textBrowser = new QTextBrowser(this);
+    QPointer<QTextBrowser> m_textBrowser = new QTextBrowser(parentWidget());
     m_textBrowser->setSource(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")), QTextDocument::HtmlResource);
 
     connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), m_textBrowser, SLOT(setSource(QUrl)));
@@ -88,6 +71,19 @@ void DocumentationPanelWidget::addWidgets()
     layout->addWidget(m_textBrowser, 2);
 
     // Connect to various signals and slots
+
+    setSession(session);
+}
+
+void DocumentationPanelWidget::setSession(Cantor::Session* session)
+{
+    m_session=session;
+    /*if(session)
+    {
+        m_model=session->variableDataModel();
+        if(m_table)
+            m_table->setModel(m_model);
+    }*/
 }
 
 void DocumentationPanelWidget::loadDocumentation()
