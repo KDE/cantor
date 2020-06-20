@@ -34,126 +34,58 @@
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QPointer>
-#include <QSplitter>
+#include <QStandardPaths>
 #include <QTabWidget>
 #include <QTextBrowser>
 #include <QUrl>
 
-DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr), m_path(QString())
+DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(parent), m_engine(nullptr)
 {
-    //QPointer<QSplitter> m_splitter;
-    m_engine = new QHelpEngine(QLatin1String("documentation/maxima/maxima_help_collection.qhc"), this);
+    const QString backendName = QLatin1String("maxima");
+    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qhc"));
+    m_engine = new QHelpEngine(fileName, this);
 
     if( !m_engine->setupData() )
     {
         qWarning() << "Couldn't setup QtHelp Collection file";
     }
 
-    //QByteArray helpData = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_7.html#SEC36")));
-
-    QPointer<QTabWidget> m_tabWidget = new QTabWidget(this);
-    m_tabWidget->setMaximumWidth(1000);
-    m_tabWidget->setMinimumWidth(500);
-    m_tabWidget->setMovable(true);
-    m_tabWidget->setElideMode(Qt::ElideRight);
-    m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
-    m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
+    QPointer<QTabWidget> tabWidget = new QTabWidget(this);
+    tabWidget->setMaximumWidth(1000);
+    tabWidget->setMinimumWidth(500);
+    tabWidget->setMovable(true);
+    tabWidget->setElideMode(Qt::ElideRight);
+    tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
+    tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
 
-    QPointer<QTextBrowser> m_textBrowser = new QTextBrowser(parentWidget());
-    m_textBrowser->setSource(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")), QTextDocument::HtmlResource);
+    QPointer<QTextBrowser> textBrowser = new QTextBrowser(parentWidget());
 
-    connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), m_textBrowser, SLOT(setSource(QUrl)));
-    connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), m_textBrowser, SLOT(setSource(QUrl)));
+    connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), textBrowser, SLOT(setSource(QUrl)));
+    connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), textBrowser, SLOT(setSource(QUrl)));
 
     QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget(m_tabWidget, 1);
-    layout->addWidget(m_textBrowser, 2);
+    layout->addWidget(tabWidget, 1);
+    layout->addWidget(textBrowser, 2);
 
-    // Connect to various signals and slots
-
-    setSession(session);
-}
-
-void DocumentationPanelWidget::setSession(Cantor::Session* session)
-{
-    m_session=session;
-    /*if(session)
-    {
-        m_model=session->variableDataModel();
-        if(m_table)
-            m_table->setModel(m_model);
-    }*/
+    loadDocumentation();
 }
 
 void DocumentationPanelWidget::loadDocumentation()
 {
-   if(m_path.isEmpty())
-   {
-        return;
-   }
-
-    const QStringList files = qchFiles();
-
-    if(files.isEmpty())
-    {
-        qWarning() << "Could not find QCH file in directory" << m_path;
-        return;
-    }
-
-    for (const QString& fileName : files)
-    {
-        QString fileNamespace = QHelpEngineCore::namespaceName(fileName);
-        if (!fileNamespace.isEmpty() && !m_engine->registeredDocumentations().contains(fileNamespace))
-        {
-            qDebug() << "Loading doc" << fileName << fileNamespace;
-            if(!m_engine->registerDocumentation(fileName))
-                qCritical() << "Error >> " << fileName << m_engine->error();
-        }
-    }
-}
-
-//search for QCH
-QStringList DocumentationPanelWidget::qchFiles() const
-{
-    QStringList files;
-
-    const QVector<QString> paths
-    { // test directories
-        m_path,
-        m_path + QLatin1String("/qch/"),
-    };
-
-    for (const auto& path : paths)
-    {
-        QDir d(path);
-        if(path.isEmpty() || !d.exists())
-        {
-            continue;
-        }
-
-        const auto fileInfos = d.entryInfoList(QDir::Files);
-
-        for (const auto& file : fileInfos)
-        {
-            files << file.absoluteFilePath();
-        }
-    }
-
-    if (files.isEmpty())
-    {
-        qDebug() << "No QCH file found at all";
-    }
-
-    return files;
+    const QString backendName = QLatin1String("maxima");
+    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qch"));
+    m_engine->registerDocumentation(fileName);
 }
 
 QIcon DocumentationPanelWidget::icon() const
 {
-    return QIcon::fromTheme(m_session->backend()->icon());
+    // return backend's icon
+    return QIcon();
 }
 
 QString DocumentationPanelWidget::name() const
 {
-    return QString(m_session->backend()->name());
+    // return backend's name
+    return QString(QLatin1String("maxima"));
 }

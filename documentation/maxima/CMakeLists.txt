@@ -1,2 +1,1 @@
-install(FILES maxima_help_collection.qhc DESTINATION ${KDE_INSTALL_APPDIR})
-install(FILES maxima_compressed_help.qch DESTINATION ${KDE_INSTALL_APPDIR})
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DESTINATION ${DATA_INSTALL_DIR}/${PROJECT_NAME}/documentation PATTERN "CMakeLists.txt" EXCLUDE)

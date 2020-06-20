@@ -30,7 +30,7 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
 {
   Q_OBJECT
   public:
-    DocumentationPanelPlugin( QObject* parent, QList<QVariant> args);
+    DocumentationPanelPlugin(QObject* parent, QList<QVariant> args);
     ~DocumentationPanelPlugin() override;
 
     QWidget* widget() override;

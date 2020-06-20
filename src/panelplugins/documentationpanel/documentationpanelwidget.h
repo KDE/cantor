@@ -24,20 +24,14 @@
 #include <QPointer>
 #include <QWidget>
 
-namespace Cantor{
-class Session;
-}
-
 class QHelpEngine;
 
 class DocumentationPanelWidget : public QWidget
 {
   Q_OBJECT
   public:
-    DocumentationPanelWidget( Cantor::Session* session, QWidget* parent );
+    DocumentationPanelWidget(QWidget* parent);
     ~DocumentationPanelWidget() override = default;
-
-    void setSession(Cantor::Session* session);
 
     /** @return icon of the current backend **/
     QIcon icon() const;
@@ -48,12 +42,8 @@ class DocumentationPanelWidget : public QWidget
     void loadDocumentation();
     /** @return local paths to all QCH files found in cantor/admin/documentation directory **/
 
-    QStringList qchFiles() const;
-
   private:
-    Cantor::Session* m_session;
     QPointer<QHelpEngine> m_engine;
-    QString m_path; // path to local QCH files
 };
 
 #endif /* _DOCUMENTATIONPANELWIDGET_H */

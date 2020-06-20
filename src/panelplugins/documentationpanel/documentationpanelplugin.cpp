@@ -35,8 +35,7 @@ QWidget* DocumentationPanelPlugin::widget()
 {
     if(m_widget == nullptr)
     {
-        m_widget = new DocumentationPanelWidget(session(), parentWidget());
-        //connect(m_widget.data(), &DocumentationPanelWidget::runCommand, this, &DocumentationPanelPlugin::requestRunCommand);
+        m_widget = new DocumentationPanelWidget(parentWidget());
     }
 
     return m_widget;
