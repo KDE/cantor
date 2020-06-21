@@ -25,12 +25,14 @@
 #include <QWidget>
 
 class QHelpEngine;
+class QUrl;
 
 class DocumentationPanelWidget : public QWidget
 {
   Q_OBJECT
+
   public:
-    DocumentationPanelWidget(QWidget* parent);
+    DocumentationPanelWidget(QWidget*);
     ~DocumentationPanelWidget() override = default;
 
     /** @return icon of the current backend **/
@@ -40,7 +42,10 @@ class DocumentationPanelWidget : public QWidget
     QString name() const;
 
     void loadDocumentation();
-    /** @return local paths to all QCH files found in cantor/admin/documentation directory **/
+    void unloadDocumentation();
+
+  public Q_SLOTS:
+    void displayHelp(const QUrl&);
 
   private:
     QPointer<QHelpEngine> m_engine;

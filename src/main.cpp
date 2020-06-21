@@ -32,6 +32,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
+#include <QtWebEngine>
 
 #include "settings.h"
 
@@ -40,6 +41,8 @@ static const char description[] =
 
 int main(int argc, char **argv)
 {
+    QtWebEngine::initialize();
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
 
     // Add our custom plugins path, where we install our plugins, if it isn't default path

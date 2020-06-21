@@ -9,4 +9,7 @@ target_link_libraries(cantor_documentationpanelplugin
     Qt5::Widgets
     Qt5::Help
     Qt5::Gui
-    Qt5::Core)
+    Qt5::Core
+    Qt5::WebKitWidgets
+    Qt5::WebEngine
+    Qt5::WebEngineWidgets)

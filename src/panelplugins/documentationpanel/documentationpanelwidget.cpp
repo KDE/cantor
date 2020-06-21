@@ -34,10 +34,11 @@
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QPointer>
+#include <QSplitter>
 #include <QStandardPaths>
 #include <QTabWidget>
-#include <QTextBrowser>
 #include <QUrl>
+#include <QWebEngineView>
 
 DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(parent), m_engine(nullptr)
 {
@@ -45,12 +46,12 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qhc"));
     m_engine = new QHelpEngine(fileName, this);
 
-    if( !m_engine->setupData() )
+    if(!m_engine->setupData())
     {
         qWarning() << "Couldn't setup QtHelp Collection file";
     }
 
-    QPointer<QTabWidget> tabWidget = new QTabWidget(this);
+    QTabWidget* tabWidget = new QTabWidget(this);
     tabWidget->setMaximumWidth(1000);
     tabWidget->setMinimumWidth(500);
     tabWidget->setMovable(true);
@@ -58,24 +59,49 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
     tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
+    // later add properties like contextmenu event, keyevent, mousevent to the browser
+    QWebEngineView* textBrowser = new QWebEngineView(this);
+    QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
+    textBrowser->setContent(contents);
+    textBrowser->show();
 
-    QPointer<QTextBrowser> textBrowser = new QTextBrowser(parentWidget());
+    connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), this, SLOT(displayHelp(QUrl)));
+    connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), this, SLOT(displayHelp(QUrl)));
 
-    connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), textBrowser, SLOT(setSource(QUrl)));
-    connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), textBrowser, SLOT(setSource(QUrl)));
+    QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
+    splitter->addWidget(tabWidget);
+    splitter->addWidget(textBrowser);
 
-    QVBoxLayout* layout = new QVBoxLayout(this);
-    layout->addWidget(tabWidget, 1);
-    layout->addWidget(textBrowser, 2);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(splitter);
 
     loadDocumentation();
 }
 
+void DocumentationPanelWidget::displayHelp(const QUrl& url)
+{
+    // Add code to display the backends help from the qhc files
+}
+
 void DocumentationPanelWidget::loadDocumentation()
 {
+    //1. Get the backend name
+    //2. Load their documentation
+
     const QString backendName = QLatin1String("maxima");
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qch"));
     m_engine->registerDocumentation(fileName);
+}
+
+void DocumentationPanelWidget::unloadDocumentation()
+{
+    //1. Get the backend name
+    //2. Unload their documentation
+    //Call this function when the user changes the current backend
+
+    const QString backendName = QLatin1String("maxima");
+    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qch"));
+    m_engine->unregisterDocumentation(fileName);
 }
 
 QIcon DocumentationPanelWidget::icon() const
