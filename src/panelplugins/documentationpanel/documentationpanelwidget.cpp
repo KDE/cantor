@@ -40,7 +40,7 @@
 #include <QUrl>
 #include <QWebEngineView>
 
-DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(parent), m_engine(nullptr)
+DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(parent), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr)
 {
     const QString backendName = QLatin1String("maxima");
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qhc"));
@@ -48,39 +48,45 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
     if(!m_engine->setupData())
     {
-        qWarning() << "Couldn't setup QtHelp Collection file";
+        qWarning() << "Couldn't setup QtHelp Engine";
+        delete m_engine;
+        delete m_textBrowser;
+        delete m_tabWidget;
+        delete m_splitter;
     }
 
-    QTabWidget* tabWidget = new QTabWidget(this);
-    tabWidget->setMaximumWidth(1000);
-    tabWidget->setMinimumWidth(500);
-    tabWidget->setMovable(true);
-    tabWidget->setElideMode(Qt::ElideRight);
-    tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
-    tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
+    m_tabWidget = new QTabWidget(this);
+    m_tabWidget->setMaximumWidth(1000);
+    m_tabWidget->setMinimumWidth(500);
+    m_tabWidget->setMovable(true);
+    m_tabWidget->setElideMode(Qt::ElideRight);
+    m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
+    m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
     // later add properties like contextmenu event, keyevent, mousevent to the browser
-    QWebEngineView* textBrowser = new QWebEngineView(this);
-    QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
-    textBrowser->setContent(contents);
-    textBrowser->show();
+    m_textBrowser = new QWebEngineView(this);
+    QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top"))); // set initial page contents
+    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
+    m_textBrowser->show();
 
     connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), this, SLOT(displayHelp(QUrl)));
     connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), this, SLOT(displayHelp(QUrl)));
 
-    QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
-    splitter->addWidget(tabWidget);
-    splitter->addWidget(textBrowser);
+    m_splitter = new QSplitter(Qt::Horizontal, this);
+    m_splitter->addWidget(m_tabWidget);
+    m_splitter->addWidget(m_textBrowser);
 
     QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(splitter);
+    layout->addWidget(m_splitter);
 
     loadDocumentation();
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
-    // Add code to display the backends help from the qhc files
+    QByteArray contents = m_engine->fileData(url);
+    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
+    m_textBrowser->show();
 }
 
 void DocumentationPanelWidget::loadDocumentation()

@@ -25,7 +25,10 @@
 #include <QWidget>
 
 class QHelpEngine;
+class QSplitter;
+class QTabWidget;
 class QUrl;
+class QWebEngineView;
 
 class DocumentationPanelWidget : public QWidget
 {
@@ -44,11 +47,14 @@ class DocumentationPanelWidget : public QWidget
     void loadDocumentation();
     void unloadDocumentation();
 
-  public Q_SLOTS:
+  private Q_SLOTS:
     void displayHelp(const QUrl&);
 
   private:
     QPointer<QHelpEngine> m_engine;
+    QPointer<QWebEngineView> m_textBrowser;
+    QPointer<QTabWidget> m_tabWidget;
+    QPointer<QSplitter> m_splitter;
 };
 
 #endif /* _DOCUMENTATIONPANELWIDGET_H */
