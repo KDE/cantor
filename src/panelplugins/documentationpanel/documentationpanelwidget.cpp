@@ -33,12 +33,16 @@
 #include <QHelpEngine>
 #include <QHelpIndexWidget>
 #include <QIcon>
+#include <QLineEdit>
+#include <QListWidget>
 #include <QPointer>
+#include <QPushButton>
 #include <QSplitter>
 #include <QStandardPaths>
 #include <QTabWidget>
 #include <QUrl>
 #include <QWebEngineView>
+#include <QWidget>
 
 DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(parent), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr)
 {
@@ -56,21 +60,32 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     }
 
     m_tabWidget = new QTabWidget(this);
-    m_tabWidget->setMaximumWidth(1000);
-    m_tabWidget->setMinimumWidth(500);
     m_tabWidget->setMovable(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
-    m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
-    m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
 
-    // later add properties like contextmenu event, keyevent, mousevent to the browser
+    // create  a container for Search tab
+    QWidget* container = new QWidget(this);
+    QHBoxLayout* clayout = new QHBoxLayout(this);
+    container->setLayout(clayout);
+
+    QLineEdit* input = new QLineEdit(this);
+    QPushButton* search = new QPushButton(i18n("Search"), this);
+    clayout->addWidget(input);
+    clayout->addWidget(search);
+
+    // Add different tabs to the widget
+    m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
+    m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
+    m_tabWidget->addTab(container, i18n("Search"));
+
     m_textBrowser = new QWebEngineView(this);
-    QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top"))); // set initial page contents
+    const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top"))); // set initial page contents
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
 
     connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), this, SLOT(displayHelp(QUrl)));
     connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), this, SLOT(displayHelp(QUrl)));
+    connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
     m_splitter->addWidget(m_tabWidget);
@@ -84,9 +99,14 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
-    QByteArray contents = m_engine->fileData(url);
+    const QByteArray contents = m_engine->fileData(url);
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
+}
+
+void DocumentationPanelWidget::doSearch(const QString& str)
+{
+    // perform searching of the string passed
 }
 
 void DocumentationPanelWidget::loadDocumentation()

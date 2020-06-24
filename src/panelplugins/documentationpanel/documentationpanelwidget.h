@@ -49,6 +49,7 @@ class DocumentationPanelWidget : public QWidget
 
   private Q_SLOTS:
     void displayHelp(const QUrl&);
+    void doSearch(const QString&);
 
   private:
     QPointer<QHelpEngine> m_engine;
