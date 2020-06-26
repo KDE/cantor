@@ -68,7 +68,8 @@ Cantor::Backend::Capabilities PythonBackend::capabilities() const
     Backend::Capabilities cap =
         Cantor::Backend::SyntaxHighlighting |
         Cantor::Backend::Completion         |
-        Cantor::Backend::SyntaxHelp;
+        Cantor::Backend::SyntaxHelp         |
+        Cantor::Backend::IntegratedPlots;
 
     if(PythonSettings::variableManagement())
         cap |= Cantor::Backend::VariableManagement;

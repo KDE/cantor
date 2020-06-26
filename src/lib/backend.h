@@ -26,6 +26,8 @@
 #include <KXMLGUIClient>
 #include <KPluginInfo>
 
+#include <graphicpackage.h>
+
 #include "cantor_export.h"
 
 class KConfigSkeleton;
@@ -60,14 +62,15 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
         Nothing = 0x0,             ///< the Backend doesn't support any of the optional features
         LaTexOutput = 0x1,         ///< it can output results as LaTeX code
         InteractiveMode = 0x2,     /**< it supports an interactive workflow. (It means a command
-                                        can ask for additional input while running
-				   */
+                                        can ask for additional input while running)
+                                   */
         SyntaxHighlighting = 0x4,  ///< it offers a custom Syntax Highlighter
         Completion = 0x8,          ///< it offers completion of partially typed commands
         SyntaxHelp = 0x10,         /**< it offers help about a commands syntax, that will
                                         be shown in a tooltip
-				   */
-	VariableManagement= 0x20   ///< it offers access to the variables (for variable management panel)
+                                   */
+        VariableManagement = 0x20, ///< it offers access to the variables (for variable management panel)
+        IntegratedPlots = 0x40,    ///< it offers, that backend supports plot not only as separate window, but also image result
     };
     Q_DECLARE_FLAGS(Capabilities, Capability)
 
@@ -218,11 +221,18 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
     static bool checkExecutable(const QString& name, const QString& path, QString* reason = nullptr);
 
     /**
-     *
+     * This is test function, which allow test, that run @p program with @p args produce output file @p filename
+     * with content @p expectedContent during time less that @p timeOut.
+     * If something go wrong, problem will be described in @p reason, if the parameter is not @p nullptr.
      */
     static bool testProgramWritable(
-        const QString& program, const QStringList& args, const QString& filename, const QString& expectedContent, QString* reason = nullptr,  int timeOut = 5000
+        const QString& program, const QStringList& args, const QString& filename, const QString& expectedContent, QString* reason = nullptr, int timeOut = 5000
     );
+
+    /**
+     * This function will return list of all available workable graphics packages for integrated graphics
+     */
+    QList<GraphicPackage> availableGraphicPackages() const;
 
   private:
     BackendPrivate* d;

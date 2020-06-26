@@ -18,6 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
+#include <vector>
+
 #include "backend.h"
 #include "extension.h"
 
@@ -25,6 +27,7 @@
 #include <QRegularExpression>
 #include <QUrl>
 #include <QProcess>
+#include <QStandardPaths>
 
 #include <KPluginMetaData>
 #include <KLocalizedString>
@@ -39,6 +42,7 @@ class Cantor::BackendPrivate
     QString icon;
     QString url;
     bool enabled{true};
+    QList<GraphicPackage> supportedGraphicPackagesCache;
 };
 
 Backend::Backend(QObject* parent, const QList<QVariant>& args) : QObject(parent),
@@ -247,4 +251,26 @@ bool Cantor::Backend::testProgramWritable(const QString& program, const QStringL
     file.remove();
 
     return true;
+}
+
+QList<GraphicPackage> Backend::availableGraphicPackages() const
+{
+    if (d->supportedGraphicPackagesCache.size() != 0)
+        return d->supportedGraphicPackagesCache;
+
+    if (!(capabilities() & Capability::IntegratedPlots))
+        return QList<GraphicPackage>(); // because this cache is empty
+
+    QString packagesFile = id() + QLatin1String("/graphic_packages.xml");
+    QString filename = QStandardPaths::locate(QStandardPaths::AppDataLocation, packagesFile, QStandardPaths::LocateFile);
+
+    if (filename.isEmpty())
+        filename = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("cantor/") + packagesFile, QStandardPaths::LocateFile);
+
+    if (filename.isEmpty())
+        return QList<GraphicPackage>();
+
+    d->supportedGraphicPackagesCache = GraphicPackage::loadFromFile(filename);
+
+    return d->supportedGraphicPackagesCache;
 }

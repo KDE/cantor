@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>660</width>
     <height>300</height>
    </rect>
   </property>
@@ -67,6 +67,45 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout3">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="toolTip">
+        <string>Graphic package, used for plotting. When integrated plots option is enable, then plots from the package will be integrated to worksheet</string>
+       </property>
+       <property name="text">
+        <string>Used Graphic Package: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="kcfg_choosenGraphicPackage">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>Matplotlib (with seaborn, ggplot support too)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Plot.ly</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>All supported</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="toolTip">
       <string>Commands to automatically run on start. They can be useful for loading needed modules, changing environment, etc.</string>
@@ -98,15 +137,20 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QFrame</extends>
-   <header>kurlrequester.h</header>
-   <container>1</container>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
    <class>KEditListWidget</class>
    <extends>QWidget</extends>
    <header>keditlistwidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

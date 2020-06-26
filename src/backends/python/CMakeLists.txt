@@ -54,4 +54,6 @@ install(FILES pythonbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 install(TARGETS cantor_pythonbackend DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS cantor_pythonserver DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
+install(FILES graphic_packages.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/python)
+
 #install(DIRECTORY . DESTINATION ${KDE_INSTALL_DATADIR}/cantor/pythonbackend FILES_MATCHING PATTERN "*.py")

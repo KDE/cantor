@@ -28,6 +28,7 @@
 
 #include "expression.h"
 #include "defaultvariablemodel.h"
+#include "graphicpackage.h"
 
 class QTextEdit;
 class QSyntaxHighlighter;
@@ -91,6 +92,13 @@ class CANTOR_EXPORT Session : public QObject
      * NOTE: restarting the session consists of first logout() and then login()
      */
     virtual void logout();
+
+    /**
+    * This method run precense test for available graphic packages. The packages, which will sucessfuly pass the test
+    * will go to @c usableGraphicPackages list
+    * @param targetPackage If set, precense test will run only for this package. If empty string, then all available packages will be tested
+    */
+    void testGraphicsPackages(QList<GraphicPackage> packages);
 
     /**
      * Passes the given command to the backend and returns a Pointer
@@ -203,6 +211,12 @@ class CANTOR_EXPORT Session : public QObject
      */
     int nextExpressionId();
 
+    /**
+     * Return list all enabled (which precense in system and choosen for run by user) graphic packages
+     * Can be empty.
+     */
+    const QList<GraphicPackage>& enabledGraphicPackages() const;
+
   protected:
     /**
      * Change the status of the Session. This will cause the
@@ -259,6 +273,22 @@ class CANTOR_EXPORT Session : public QObject
      */
     void reportSessionCrash(const QString& additionalInfo = QString());
 
+    /**
+     * Contains list of usable (which available and can be enabled in current session) graphic packages
+     */
+    QList<GraphicPackage> usableGraphicPackages();
+
+    void updateEnabledGraphicPackages(const QList<GraphicPackage>& newEnabledPackages, const QString& additionalInfo = QString());
+
+    /**
+     * This some hacky function.
+     * There are messages for situation, when user try to use graphic package, but the package
+     * can be enabled because of missing dependencies
+     * information like this should be stored in graphic package scheme, but because the message should be translated,
+     * the text stored here as i18n text constant.
+     * This function allows get this message for particular package
+     */
+    virtual QString graphicPackageErrorMessage(QString packageId) const;
 
 Q_SIGNALS:
     void statusChanged(Cantor::Session::Status newStatus);

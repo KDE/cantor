@@ -21,11 +21,15 @@
 #include "session.h"
 using namespace Cantor;
 
+#include <map>
+
 #include "backend.h"
 #include "defaultvariablemodel.h"
+#include "textresult.h"
 
 #include <QTimer>
 #include <QQueue>
+#include <QDebug>
 #include <KMessageBox>
 #include <KLocalizedString>
 
@@ -42,6 +46,9 @@ class Cantor::SessionPrivate
     int expressionCount;
     QList<Cantor::Expression*> expressionQueue;
     DefaultVariableModel* variableModel;
+    QList<GraphicPackage> usableGraphicPackages;
+    QList<GraphicPackage> enabledGraphicPackages;
+    QList<QString> ignorableGraphicPackageIds;
     bool needUpdate;
 };
 
@@ -61,6 +68,51 @@ Session::~Session()
     delete d;
 }
 
+void Cantor::Session::testGraphicsPackages(QList<GraphicPackage> packages)
+{
+    std::map<QString, bool> handlingStatus;
+
+    QEventLoop loop;
+    for (GraphicPackage& package : packages)
+    {
+        if (GraphicPackage::findById(package, d->usableGraphicPackages) != -1)
+            continue;
+
+        handlingStatus[package.id()] = false;
+        Expression* expr = package.isAvailable(this);
+
+        connect(expr, &Expression::expressionFinished, [this, expr, &package, &loop, &handlingStatus](Expression::Status status) {
+            if (status == Expression::Status::Done) {
+                if (expr->result() != nullptr
+                    && expr->result()->type() == TextResult::Type
+                    && expr->result()->data().toString() == QLatin1String("1")) {
+                    this->d->usableGraphicPackages.push_back(package);
+                }
+            } else {
+                qDebug() << "test presence command for " << package.id() << "finished because of " << (status == Expression::Error ? "error" : "interrupt");
+            }
+
+            handlingStatus[package.id()] = true;
+
+            bool allExpersionsFinished = true;
+            for (auto& iter : handlingStatus)
+            {
+                if (iter.second == false)
+                {
+                    allExpersionsFinished = false;
+                    break;
+                }
+            }
+
+            if (allExpersionsFinished)
+                loop.exit();
+        });
+    }
+    // If handlingStatus size is empty (it means, that no connections have been done), then we will stay in the 'loop' event loop forever
+    if (handlingStatus.size() != 0)
+        loop.exec();
+}
+
 void Session::logout()
 {
     if (d->status == Session::Running)
@@ -73,6 +125,11 @@ void Session::logout()
     }
     d->expressionCount = 0;
     changeStatus(Status::Disable);
+
+    // Clean graphic package state
+    d->enabledGraphicPackages.clear();
+    d->ignorableGraphicPackageIds.clear();
+    d->usableGraphicPackages.clear();
 }
 
 QList<Expression*>& Cantor::Session::expressionQueue() const
@@ -245,3 +302,78 @@ void Cantor::Session::reportSessionCrash(const QString& additionalInfo)
         KMessageBox::error(nullptr, i18n("%1 process has died unexpectedly with message \"%2\". All calculation results are lost.", d->backend->name(), additionalInfo), i18n("Error - Cantor"));
     logout();
 }
+
+QList<Cantor::GraphicPackage> Cantor::Session::usableGraphicPackages()
+{
+    return d->usableGraphicPackages;
+}
+
+const QList<Cantor::GraphicPackage> & Cantor::Session::enabledGraphicPackages() const
+{
+    return d->enabledGraphicPackages;
+}
+
+QString Cantor::Session::graphicPackageErrorMessage(QString packageId) const
+{
+    Q_UNUSED(packageId);
+    return QString();
+}
+
+void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPackage>& newEnabledPackages, const QString& additionalInfo)
+{
+    if (newEnabledPackages.isEmpty())
+    {
+        if (!d->enabledGraphicPackages.isEmpty())
+        {
+            for (const GraphicPackage& package : d->enabledGraphicPackages)
+                evaluateExpression(package.disableSupportCommand(), Cantor::Expression::DeleteOnFinish, true);
+        }
+        d->enabledGraphicPackages.clear();
+    }
+    else
+    {
+        QList<GraphicPackage> packagesExceptIgnored;
+        for (const GraphicPackage package : newEnabledPackages)
+            if (d->ignorableGraphicPackageIds.contains(package.id()) == false)
+                packagesExceptIgnored.append(package);
+
+        testGraphicsPackages(packagesExceptIgnored);
+
+        QList<GraphicPackage> unavailablePackages;
+        QList<GraphicPackage> willEnabledPackages;
+
+        for (const GraphicPackage& package : packagesExceptIgnored)
+        {
+            if (GraphicPackage::findById(package, usableGraphicPackages()) != -1)
+                willEnabledPackages.append(package);
+            else
+                unavailablePackages.append(package);
+        }
+
+        for (const GraphicPackage package : d->enabledGraphicPackages)
+            if (GraphicPackage::findById(package, willEnabledPackages) == -1)
+                evaluateExpression(package.disableSupportCommand(), Cantor::Expression::DeleteOnFinish, true);
+
+        for (const GraphicPackage& newPackage : willEnabledPackages)
+            if (GraphicPackage::findById(newPackage, d->enabledGraphicPackages) == -1)
+                evaluateExpression(newPackage.enableSupportCommand(additionalInfo), Cantor::Expression::DeleteOnFinish, true);
+
+        d->enabledGraphicPackages = willEnabledPackages;
+
+        QList<Cantor::GraphicPackage> allPackages = backend()->availableGraphicPackages();
+        for (const Cantor::GraphicPackage& notEnabledPackage : unavailablePackages)
+        {
+            if (d->ignorableGraphicPackageIds.contains(notEnabledPackage.id()) == false)
+            {
+                KMessageBox::information(nullptr, i18n(
+                    "You choose support for %1 graphic package, but the support can't be "\
+                    "activate due missing requirements, so integration for this package will disabled. %2",
+                    notEnabledPackage.name(), graphicPackageErrorMessage(notEnabledPackage.id())), i18n("Cantor")
+                );
+
+                d->ignorableGraphicPackageIds.append(notEnabledPackage.id());
+            }
+        }
+    }
+}
+
