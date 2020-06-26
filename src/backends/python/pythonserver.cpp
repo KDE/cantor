@@ -60,12 +60,13 @@ void PythonServer::runPythonCommand(const string& command)
     const char* prepareCommand =
         "import sys;\n"\
         "class CatchOutPythonBackend:\n"\
-        "  def __init__(self):\n"\
+        "  def __init__(self, std_stream):\n"\
         "    self.value = ''\n"\
+        "    self.encoding = std_stream.encoding\n"\
         "  def write(self, txt):\n"\
         "    self.value += txt\n"\
-        "outputPythonBackend = CatchOutPythonBackend()\n"\
-        "errorPythonBackend  = CatchOutPythonBackend()\n"\
+        "outputPythonBackend = CatchOutPythonBackend(sys.stdout)\n"\
+        "errorPythonBackend  = CatchOutPythonBackend(sys.stderr)\n"\
         "sys.stdout = outputPythonBackend\n"\
         "sys.stderr = errorPythonBackend\n";
     PyRun_SimpleString(prepareCommand);
