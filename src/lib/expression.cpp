@@ -206,8 +206,12 @@ void Expression::setStatus(Expression::Status status)
     emit statusChanged(status);
 
     bool isFinished = status == Expression::Done || status == Expression::Error || status == Expression::Interrupted;
-    if(isFinished && d->finishingBehavior==Expression::DeleteOnFinish)
-        deleteLater();
+    if (isFinished)
+    {
+        emit expressionFinished(status);
+        if(d->finishingBehavior==Expression::DeleteOnFinish)
+            deleteLater();
+    }
 }
 
 Expression::Status Expression::status()

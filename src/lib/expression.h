@@ -52,21 +52,22 @@ class CANTOR_EXPORT Expression : public QObject
 {
   Q_OBJECT
   public:
-    enum Status{ Computing,   ///< The Expression is still being computed
-		 Done,        ///< The Running of the Expression is finished successfully
-		 Error,       ///< An Error occurred when running the Expression
-		 Interrupted,  ///< The Expression was interrupted by the user while running
-     Queued ///< The Expression is in expression queue, waited for Computing
+    enum Status {
+        Queued,      ///< The Expression is in expression queue, waited for Computing
+        Computing,   ///< The Expression is still being computed
+        Done,        ///< The Running of the Expression is finished successfully
+        Error,       ///< An Error occurred when running the Expression
+        Interrupted  ///< The Expression was interrupted by the user while running
     };
 
     /**
      * Enum indicating how this Expression behaves on finishing
      */
     enum FinishingBehavior {
-	   DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
-	   DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
-			                 * All output/results will be dropped
-			                 */
+        DoNotDelete,     ///< This Expression will not be deleted. This is the normal behaviour
+        DeleteOnFinish   /** < The Object will delete itself when finished. This is used for fire-and-forget commands.
+                          * All output/results will be dropped
+                          */
     };
     /**
      * Expression constructor. Should only be called from Session::evaluateExpression
@@ -241,6 +242,12 @@ class CANTOR_EXPORT Expression : public QObject
      * @param status the new status
      */
     void statusChanged(Cantor::Expression::Status status);
+
+    /**
+     * the status of the Expression has changed to Done, Error or Interrupt
+     */
+    void expressionFinished(Cantor::Expression::Status status);
+
     /**
      * the Expression needs more information for the evaluation
      * @see addInformation()
