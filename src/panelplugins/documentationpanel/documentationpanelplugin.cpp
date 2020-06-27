@@ -20,10 +20,9 @@
 
 #include "documentationpanelplugin.h"
 
-DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
+DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr), m_showAtStart(true)
 {
     Q_UNUSED(args);
-    m_showAtStart = true;
 }
 
 DocumentationPanelPlugin::~DocumentationPanelPlugin()
@@ -33,7 +32,7 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 
 QWidget* DocumentationPanelPlugin::widget()
 {
-    if(m_widget == nullptr)
+    if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(parentWidget());
     }
