@@ -20,6 +20,7 @@
  */
 
 #include <defaultvariablemodel.h>
+#include <backend.h>
 #include "pythonsession.h"
 #include "pythonexpression.h"
 #include "pythonvariablemodel.h"
@@ -29,15 +30,16 @@
 #include "pythonutils.h"
 #include "settings.h"
 
+#include <random>
+
 #include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
 #include <QProcess>
 #include <QFileInfo>
 
-#include <KDirWatch>
 #include <KLocalizedString>
-
+#include <KMessageBox>
 
 #ifndef Q_OS_WIN
 #include <signal.h>
@@ -51,6 +53,7 @@ const QChar messageEnd = 29;
 PythonSession::PythonSession(Cantor::Backend* backend)
     : Session(backend)
     , m_process(nullptr)
+    , m_plotFileCounter(0)
 {
     setVariableModel(new PythonVariableModel(this));
 }
@@ -104,6 +107,20 @@ void PythonSession::login()
         dir = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
     sendCommand(QLatin1String("setFilePath"), QStringList() << m_worksheetPath << dir);
 
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> rand_dist(0, 999999999);
+    m_plotFilePrefixPath =
+        QDir::tempPath()
+        + QLatin1String("/cantor_python_")
+        + QString::number(m_process->pid())
+        + QLatin1String("_")
+        + QString::number(rand_dist(mt))
+        + QLatin1String("_");
+
+    m_plotFileCounter = 0;
+    evaluateExpression(QLatin1String("__cantor_plot_global_counter__ = 0"), Cantor::Expression::DeleteOnFinish, true);
+
     const QStringList& scripts = PythonSettings::autorunScripts();
     if(!scripts.isEmpty()){
         QString autorunScripts = scripts.join(QLatin1String("\n"));
@@ -130,6 +147,14 @@ void PythonSession::logout()
     }
     m_process->deleteLater();
     m_process = nullptr;
+
+    if (!m_plotFilePrefixPath.isEmpty())
+    {
+        for (int i = 0; i < m_plotFileCounter; i++)
+            QFile::remove(m_plotFilePrefixPath + QString::number(i) + QLatin1String(".png"));
+        m_plotFilePrefixPath.clear();
+        m_plotFileCounter = 0;
+    }
 
     qDebug()<<"logout";
     Session::logout();
@@ -163,6 +188,12 @@ void PythonSession::interrupt()
 
 Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
+    // We ignore here internal because of two reasons
+    // 1. The function uses internal expressions itself
+    // 2. Internal commands don't come from user and don't produce plots, so don't need to check graphic packages
+    if (!internal)
+        updateGraphicPackagesFromSettings();
+
     qDebug() << "evaluating: " << cmd;
     PythonExpression* expr = new PythonExpression(this, internal);
 
@@ -277,3 +308,67 @@ void PythonSession::reportServerProcessError(QProcess::ProcessError serverError)
     }
     reportSessionCrash();
 }
+
+int& PythonSession::plotFileCounter()
+{
+    return m_plotFileCounter;
+}
+
+QString PythonSession::plotFilePrefixPath()
+{
+    return m_plotFilePrefixPath;
+}
+
+void PythonSession::updateGraphicPackagesFromSettings()
+{
+    QList<Cantor::GraphicPackage> enabledInSettingPackages;
+
+    if (PythonSettings::integratePlots())
+    {
+        int val = PythonSettings::choosenGraphicPackage();
+        if (val != PythonSettings::EnumChoosenGraphicPackage::all)
+        {
+            QString searchId;
+            Q_ASSERT(PythonSettings::EnumChoosenGraphicPackage::COUNT == 3);
+            if (val == PythonSettings::EnumChoosenGraphicPackage::matplotlib)
+                searchId = QLatin1String("matplotlib");
+            else if (val == PythonSettings::EnumChoosenGraphicPackage::plotly)
+                searchId = QLatin1String("plotly");
+
+            for (Cantor::GraphicPackage& package : backend()->availableGraphicPackages())
+            {
+                if (package.id() == searchId)
+                {
+                    enabledInSettingPackages = QList<Cantor::GraphicPackage>{package};
+                    break;
+                }
+            }
+        }
+        else
+        {
+            enabledInSettingPackages = backend()->availableGraphicPackages();
+        }
+    }
+
+    updateEnabledGraphicPackages(enabledInSettingPackages, m_plotFilePrefixPath);
+}
+
+QString PythonSession::graphicPackageErrorMessage(QString packageId) const
+{
+    Q_ASSERT(PythonSettings::EnumChoosenGraphicPackage::COUNT == 3);
+    if (packageId == QLatin1String("matplotlib"))
+    {
+        return i18n(
+            "For using integrated graphics with Matplotlib package you need install \"matplotlib\" python package first."
+        );
+    }
+    else if (packageId == QLatin1String("plotly"))
+    {
+        return i18n(
+            "For using integrated graphic with Plot.ly you need install \"plotly\" python package and special Plot'ly compatible "
+            "\"orca\" executable. See \"Static Image Export\" article in Plot.ly documentation for details."
+        );
+    }
+    return QString();
+}
+

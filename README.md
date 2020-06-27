@@ -37,4 +37,4 @@ default cmake install directory (`/usr/local/` usually).
 
 To uninstall the project:
 
-```make uninstall or su -c 'make uninstall'```
+`make uninstall` or `su -c 'make uninstall'`

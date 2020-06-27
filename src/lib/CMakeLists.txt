@@ -28,6 +28,7 @@ set( cantor_LIB_SRCS
   worksheetaccess.cpp
   directives/plotdirectives.cpp
   jupyterutils.cpp
+  graphicpackage.cpp
 )
 
 Set( cantor_LIB_HDRS
@@ -55,6 +56,7 @@ Set( cantor_LIB_HDRS
   defaultvariablemodel.h
   worksheetaccess.h
   jupyterutils.h
+  graphicpackage.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
@@ -92,7 +94,7 @@ if(LIBSPECTRE_FOUND)
     target_link_libraries(cantorlibs ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
-set (CANTORLIBS_SOVERSION 25)
+set (CANTORLIBS_SOVERSION 26)
 set_target_properties( cantorlibs PROPERTIES VERSION ${RELEASE_SERVICE_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})
 
 ecm_setup_version(${RELEASE_SERVICE_VERSION}

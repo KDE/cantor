@@ -1,0 +1,70 @@
+<GraphicPackages>
+<GraphicPackage>
+<Id>matplotlib</Id>
+<Name>Matplotlib</Name>
+<TestPresenceCommand>
+try:
+    import matplotlib
+    print(1)
+except ModuleNotFoundError:
+    print(0)
+</TestPresenceCommand>
+<EnableCommand>
+from matplotlib import pyplot as __cantor_plt__;
+__cantor_plot_prefix__ = '%1'
+
+def __cantor_matplotlib_show__():
+    global __cantor_plot_global_counter__
+    __cantor_plt_filename__ = __cantor_plot_prefix__ + str(__cantor_plot_global_counter__)
+    __cantor_plot_global_counter__ += 1
+    __cantor_plt__.savefig(__cantor_plt_filename__)
+    print('\nINNER PLOT INFO CANTOR: ', __cantor_plt_filename__, sep='')
+    __cantor_plt__.clf();
+
+__cantor_matplotlib_original_show__ = matplotlib.pyplot.show
+__cantor_plt__.show = __cantor_matplotlib_show__
+</EnableCommand>
+<DisableCommand>
+__cantor_plt__.show = __cantor_matplotlib_original_show__;
+</DisableCommand>
+<ToFileCommandTemplate></ToFileCommandTemplate>
+</GraphicPackage>
+
+<GraphicPackage>
+<Id>plotly</Id>
+<Name>Plot.ly</Name>
+<TestPresenceCommand>
+def __cantor_plotly_check_presence__():
+    import matplotlib;
+    import sys
+    import subprocess
+
+    output = subprocess.check_output(['orca', '--help'], shell=True)
+    output_str = output.decode(sys.stdout.encoding)
+    is_needed_orca = output_str.find('Plotly\'s image-exporting utilities') != -1
+    print(1 if is_needed_orca else 0)
+
+try:
+   __cantor_plotly_check_presence__()
+except ModuleNotFoundError:
+    print(0)
+</TestPresenceCommand>
+<EnableCommand>
+import plotly as __cantor_plotly__
+__cantor_plot_prefix__ = '%1'
+def __cantor_plotly_show__(figure):
+    global __cantor_plot_global_counter__
+    __cantor_plt_filename__ = __cantor_plot_prefix__ + str(__cantor_plot_global_counter__) + '.png'
+    __cantor_plot_global_counter__ += 1
+    figure.write_image(__cantor_plt_filename__, scale=2)
+    print('\nINNER PLOT INFO CANTOR: ', __cantor_plt_filename__, sep='')
+
+__cantor_plotly_original_show__ = __cantor_plotly__.basedatatypes.BaseFigure.show
+__cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_show__
+</EnableCommand>
+<DisableCommand>
+__cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_original_show__;
+</DisableCommand>
+<ToFileCommandTemplate></ToFileCommandTemplate>
+</GraphicPackage>
+</GraphicPackages>

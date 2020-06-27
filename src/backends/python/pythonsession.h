@@ -44,12 +44,15 @@ class PythonSession : public Cantor::Session
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
     void setWorksheetPath(const QString& path) override;
 
+    QString plotFilePrefixPath();
+    int& plotFileCounter();
+
   private:
     QProcess* m_process;
-
     QString m_worksheetPath;
-
     QString m_output;
+    QString m_plotFilePrefixPath;
+    int m_plotFileCounter;
 
   private Q_SLOT:
     void readOutput();
@@ -57,6 +60,8 @@ class PythonSession : public Cantor::Session
 
   private:
     void runFirstExpression() override;
+    void updateGraphicPackagesFromSettings();
+    QString graphicPackageErrorMessage(QString packageId) const override;
 
     void sendCommand(const QString& command, const QStringList arguments = QStringList()) const;
 };

@@ -23,14 +23,13 @@
 
 #include "panelplugin.h"
 
-
 class KTextEdit;
 
 class HelpPanelPlugin : public Cantor::PanelPlugin
 {
   Q_OBJECT
   public:
-    HelpPanelPlugin(QObject* parent, QList<QVariant> args);
+    HelpPanelPlugin(QObject* parent, const QList<QVariant>& args);
     ~HelpPanelPlugin() override;
 
     QWidget* widget() override;
@@ -38,8 +37,8 @@ class HelpPanelPlugin : public Cantor::PanelPlugin
     bool showOnStartup() override;
 
   public Q_SLOTS:
-    void setHelpHtml(const QString& help);
-    void showHelp(const QString& help);
+    void setHelpHtml(const QString&);
+    void showHelp(const QString&);
 
   private:
     QPointer<KTextEdit> m_edit;

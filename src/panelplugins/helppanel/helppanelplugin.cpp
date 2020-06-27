@@ -21,14 +21,11 @@
 #include "helppanelplugin.h"
 
 #include <KLocalizedString>
-
 #include <KTextEdit>
-#include "cantor_macros.h"
 
-HelpPanelPlugin::HelpPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
+HelpPanelPlugin::HelpPanelPlugin(QObject* parent, const QList<QVariant>& args) : Cantor::PanelPlugin(parent), m_edit(nullptr)
 {
     Q_UNUSED(args);
-    m_edit=nullptr;
 }
 
 HelpPanelPlugin::~HelpPanelPlugin()
@@ -38,12 +35,13 @@ HelpPanelPlugin::~HelpPanelPlugin()
 
 QWidget* HelpPanelPlugin::widget()
 {
-    if(m_edit==nullptr)
+    if(!m_edit)
     {
-        m_edit=new KTextEdit(parentWidget());
+        m_edit = new KTextEdit(parentWidget());
         setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
         m_edit->setTextInteractionFlags(Qt::TextBrowserInteraction);
 
+        //using old-style syntax here, otherwise we'd need to include and link to CantorPart and KParts
         connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SLOT(setHelpHtml(QString)));
         connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SIGNAL(visibilityRequested()));
     }

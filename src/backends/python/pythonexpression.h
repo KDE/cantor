@@ -39,10 +39,6 @@ class PythonExpression : public Cantor::Expression
     void parseOutput(QString output);
     void parseWarning(QString warning);
     void parseError(QString error);
-
-  private:
-    void imageChanged();
-    QTemporaryFile* m_tempFile;
 };
 
 #endif /* _PYTHONEXPRESSION_H */
