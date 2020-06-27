@@ -6,7 +6,8 @@ function(add_panel name)
         INSTALL_NAMESPACE "cantor/panels")
 
     target_link_libraries("cantor_${name}"
-        cantorlibs)
+    cantorpart
+    cantorlibs)
 
 endfunction()
 

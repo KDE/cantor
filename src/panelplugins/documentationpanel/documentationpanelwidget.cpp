@@ -20,14 +20,14 @@
 
 #include "cantor_macros.h"
 #include "documentationpanelplugin.h"
-#include "session.h"
+#include "../../worksheet.h"
+#include "../../worksheettextitem.h"
 
 #include <KLocalizedString>
 
 #include <QApplication>
 #include <QByteArray>
 #include <QDebug>
-#include <QDir>
 #include <QHBoxLayout>
 #include <QHelpContentWidget>
 #include <QHelpEngine>
@@ -59,6 +59,8 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
         delete m_splitter;
     }
 
+    loadDocumentation();
+
     m_tabWidget = new QTabWidget(this);
     m_tabWidget->setMovable(true);
     m_tabWidget->setElideMode(Qt::ElideRight);
@@ -83,9 +85,13 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
 
-    connect(m_engine->contentWidget(), SIGNAL(linkActivated(QUrl)), this, SLOT(displayHelp(QUrl)));
-    connect(m_engine->indexWidget(), SIGNAL(linkActivated(QUrl, QString)), this, SLOT(displayHelp(QUrl)));
-    connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
+    connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+
+    Worksheet* worksheet = new Worksheet(Cantor::Backend::getBackend(QLatin1String("maxima")), parent);
+    WorksheetTextItem* textItem = worksheet->currentTextItem();
+    connect(textItem, &WorksheetTextItem::requestDocumentation, this, &DocumentationPanelWidget::contextSensitiveHelp);
+    //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
     m_splitter->addWidget(m_tabWidget);
@@ -93,8 +99,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->addWidget(m_splitter);
-
-    loadDocumentation();
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
@@ -107,6 +111,11 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 void DocumentationPanelWidget::doSearch(const QString& str)
 {
     // perform searching of the string passed
+}
+
+void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
+{
+
 }
 
 void DocumentationPanelWidget::loadDocumentation()

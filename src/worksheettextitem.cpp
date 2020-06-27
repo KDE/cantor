@@ -471,9 +471,30 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Tab:
         qDebug() << "Tab";
         break;
+    case Qt::Key_H:
+        // logic to display help for keyword under selection
+        if(textCursor().hasSelection()) {
+            QString keyword = textCursor().selectedText();
+            // remove extra whitespaces from the selection
+            keyword = keyword.simplified();
+            keyword.replace(QStringLiteral(" "), QStringLiteral(""));
+            emit requestDocumentation(keyword);
+            qDebug()<<"Searching help for "<<keyword;
+            return;
+        } else { // when the keyword is not under selection and the user presses key
+            QTextCursor cursor;
+            cursor.select(QTextCursor::WordUnderCursor);
+            setTextCursor(cursor);
+            const QString keyword = textCursor().selectedText();
+            emit requestDocumentation(keyword);
+            qDebug()<<"Searching help for "<<keyword;
+            return;
+        }
+        break;
     default:
         break;
     }
+
     int p = textCursor().position();
     bool b = textCursor().hasSelection();
     QGraphicsTextItem::keyPressEvent(event);

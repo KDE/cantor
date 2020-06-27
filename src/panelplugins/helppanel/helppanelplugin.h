@@ -30,7 +30,7 @@ class HelpPanelPlugin : public Cantor::PanelPlugin
 {
   Q_OBJECT
   public:
-    HelpPanelPlugin( QObject* parent, QList<QVariant> args);
+    HelpPanelPlugin(QObject* parent, QList<QVariant> args);
     ~HelpPanelPlugin() override;
 
     QWidget* widget() override;

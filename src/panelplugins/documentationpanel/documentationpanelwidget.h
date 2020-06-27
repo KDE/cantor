@@ -50,12 +50,15 @@ class DocumentationPanelWidget : public QWidget
   private Q_SLOTS:
     void displayHelp(const QUrl&);
     void doSearch(const QString&);
+    void contextSensitiveHelp(const QString&);
 
   private:
     QPointer<QHelpEngine> m_engine;
     QPointer<QWebEngineView> m_textBrowser;
     QPointer<QTabWidget> m_tabWidget;
     QPointer<QSplitter> m_splitter;
+
+    // later add member variable for path to help files
 };
 
 #endif /* _DOCUMENTATIONPANELWIDGET_H */

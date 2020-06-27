@@ -128,6 +128,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void cutAvailable(bool);
     void copyAvailable(bool);
     void pasteAvailable(bool);
+    void requestDocumentation(const QString&);
 
   public Q_SLOTS:
     void insertTab();
