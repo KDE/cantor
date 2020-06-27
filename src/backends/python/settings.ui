@@ -71,7 +71,7 @@
      <item>
       <widget class="QLabel" name="label">
        <property name="toolTip">
-        <string>Graphic package, used for plotting. When integrated plots option is enable, then plots from the package will be integrated to worksheet</string>
+        <string>Graphic package, used for plotting. When integrated plots option is enabled, then plots from the package will be integrated to worksheet</string>
        </property>
        <property name="text">
         <string>Used Graphic Package: </string>

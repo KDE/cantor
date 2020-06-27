@@ -359,13 +359,13 @@ QString PythonSession::graphicPackageErrorMessage(QString packageId) const
     if (packageId == QLatin1String("matplotlib"))
     {
         return i18n(
-            "For using integrated graphics with Matplotlib package you need install \"matplotlib\" python package first."
+            "For using integrated graphics with Matplotlib package, you need install \"matplotlib\" python package first."
         );
     }
     else if (packageId == QLatin1String("plotly"))
     {
         return i18n(
-            "For using integrated graphic with Plot.ly you need install \"plotly\" python package and special Plot'ly compatible "
+            "For using integrated graphic with Plot.ly, you need install \"plotly\" python package and special Plot.ly-compatible "
             "\"orca\" executable. See \"Static Image Export\" article in Plot.ly documentation for details."
         );
     }
