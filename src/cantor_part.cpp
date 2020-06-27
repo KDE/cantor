@@ -147,6 +147,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
     connect(m_worksheet, &Worksheet::showHelp, this, &CantorPart::showHelp);
     connect(m_worksheet, &Worksheet::loaded, this, &CantorPart::initialized);
+    connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::requestDocumentation);
     layout->addWidget(m_worksheetview);
     setWidget(widget);
 

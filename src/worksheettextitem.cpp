@@ -478,7 +478,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
             // remove extra whitespaces from the selection
             keyword = keyword.simplified();
             keyword.replace(QStringLiteral(" "), QStringLiteral(""));
-            emit requestDocumentation(keyword);
+            emit worksheet()->requestDocumentation(keyword);
             qDebug()<<"Searching help for "<<keyword;
             return;
         } else { // when the keyword is not under selection and the user presses key
@@ -486,7 +486,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
             cursor.select(QTextCursor::WordUnderCursor);
             setTextCursor(cursor);
             const QString keyword = textCursor().selectedText();
-            emit requestDocumentation(keyword);
+            emit worksheet()->requestDocumentation(keyword);
             qDebug()<<"Searching help for "<<keyword;
             return;
         }

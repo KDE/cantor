@@ -47,10 +47,12 @@ class DocumentationPanelWidget : public QWidget
     void loadDocumentation();
     void unloadDocumentation();
 
+  public Q_SLOTS:
+    void contextSensitiveHelp(const QString&);
+
   private Q_SLOTS:
     void displayHelp(const QUrl&);
     void doSearch(const QString&);
-    void contextSensitiveHelp(const QString&);
 
   private:
     QPointer<QHelpEngine> m_engine;

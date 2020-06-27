@@ -17,7 +17,6 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
-#include "cantor.h"
 
 #include <KActionCollection>
 #include <KConfigDialog>
@@ -44,9 +43,10 @@
 #include "lib/panelplugin.h"
 #include "lib/worksheetaccess.h"
 
+#include "backendchoosedialog.h"
+#include "cantor.h"
 #include "settings.h"
 #include "ui_settings.h"
-#include "backendchoosedialog.h"
 
 CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
 {
@@ -341,6 +341,7 @@ void CantorShell::addWorksheet(const QString& backendName)
         {
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
+
             m_parts.append(part);
 
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));

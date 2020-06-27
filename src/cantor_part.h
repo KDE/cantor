@@ -84,6 +84,7 @@ Q_SIGNALS:
     void setCaption(const QString& caption, const QIcon& icon);
     void showHelp(const QString& help);
     void worksheetSave(const QUrl& url);
+    void requestDocumentation(const QString&);
 
 public Q_SLOTS:
     void updateCaption();

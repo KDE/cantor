@@ -20,8 +20,6 @@
 
 #include "cantor_macros.h"
 #include "documentationpanelplugin.h"
-#include "../../worksheet.h"
-#include "../../worksheettextitem.h"
 
 #include <KLocalizedString>
 
@@ -88,9 +86,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
 
-    Worksheet* worksheet = new Worksheet(Cantor::Backend::getBackend(QLatin1String("maxima")), parent);
-    WorksheetTextItem* textItem = worksheet->currentTextItem();
-    connect(textItem, &WorksheetTextItem::requestDocumentation, this, &DocumentationPanelWidget::contextSensitiveHelp);
     //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
@@ -115,7 +110,7 @@ void DocumentationPanelWidget::doSearch(const QString& str)
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
-
+    qDebug() << "INSIDE DOCUMENTATION PANEL WIDGET" << keyword;
 }
 
 void DocumentationPanelWidget::loadDocumentation()

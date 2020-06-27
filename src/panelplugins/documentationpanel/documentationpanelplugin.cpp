@@ -35,6 +35,7 @@ QWidget* DocumentationPanelPlugin::widget()
     if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(parentWidget());
+        connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
     }
 
     return m_widget;

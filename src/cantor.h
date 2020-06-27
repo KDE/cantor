@@ -29,7 +29,6 @@
 #include <QMap>
 
 class QTabWidget;
-class KTextEdit;
 class KRecentFilesAction;
 
 namespace Cantor{
@@ -115,7 +114,6 @@ private:
     QTabWidget* m_tabWidget;
     QList<QDockWidget*> m_panels;
     QList<QAction*> m_newBackendActions;
-    QDockWidget* m_helpDocker;
     KRecentFilesAction* m_recentProjectsAction;
 
     // For better UX: set previous used filter in "Open" action as default filter
