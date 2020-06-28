@@ -471,7 +471,7 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Tab:
         qDebug() << "Tab";
         break;
-    case Qt::Key_H:
+    case Qt::Key_F2:
         // logic to display help for keyword under selection
         if(textCursor().hasSelection()) {
             QString keyword = textCursor().selectedText();
@@ -479,7 +479,6 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
             keyword = keyword.simplified();
             keyword.replace(QStringLiteral(" "), QStringLiteral(""));
             emit worksheet()->requestDocumentation(keyword);
-            qDebug()<<"Searching help for "<<keyword;
             return;
         } else { // when the keyword is not under selection and the user presses key
             QTextCursor cursor;
@@ -487,7 +486,6 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
             setTextCursor(cursor);
             const QString keyword = textCursor().selectedText();
             emit worksheet()->requestDocumentation(keyword);
-            qDebug()<<"Searching help for "<<keyword;
             return;
         }
         break;

@@ -32,7 +32,6 @@
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QLineEdit>
-#include <QListWidget>
 #include <QPointer>
 #include <QPushButton>
 #include <QSplitter>
@@ -59,10 +58,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
     loadDocumentation();
 
-    m_tabWidget = new QTabWidget(this);
-    m_tabWidget->setMovable(true);
-    m_tabWidget->setElideMode(Qt::ElideRight);
-
     // create  a container for Search tab
     QWidget* container = new QWidget(this);
     QHBoxLayout* clayout = new QHBoxLayout(this);
@@ -72,6 +67,10 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     QPushButton* search = new QPushButton(i18n("Search"), this);
     clayout->addWidget(input);
     clayout->addWidget(search);
+
+    m_tabWidget = new QTabWidget(this);
+    m_tabWidget->setMovable(true);
+    m_tabWidget->setElideMode(Qt::ElideRight);
 
     // Add different tabs to the widget
     m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
@@ -106,11 +105,19 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 void DocumentationPanelWidget::doSearch(const QString& str)
 {
     // perform searching of the string passed
+    Q_UNUSED(str)
 }
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
-    qDebug() << "INSIDE DOCUMENTATION PANEL WIDGET" << keyword;
+    qDebug() << "Context sensitive help for " << keyword;
+
+    // get the index widget
+    QHelpIndexWidget* const index = m_engine->indexWidget();
+    index->filterIndices(keyword); // filter exactly, no wildcards
+    index->activateCurrentItem(); // this internally emitts the QHelpContentWidget::linkActivated signal
+
+    loadDocumentation();
 }
 
 void DocumentationPanelWidget::loadDocumentation()
