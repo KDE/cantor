@@ -26,6 +26,8 @@
 
 #include "pythonutils.h"
 
+#include "settings.h"
+
 #define PYTHON_EXT_CDTOR(name) Python##name##Extension::Python##name##Extension(QObject* parent) : name##Extension(parent) {} \
                                      Python##name##Extension::~Python##name##Extension() {}
 
@@ -131,21 +133,74 @@ PYTHON_EXT_CDTOR(Plot)
 
 QString PythonPlotExtension::plotFunction2d(const QString& function, const QString& variable, const QString& left, const QString& right)
 {
-    QString argumentToPlot = variable;
-    QString xlimits;
+    QString command;
+    QString limits;
 
-    if(!function.isEmpty()){
-        argumentToPlot = function + QLatin1String("(") + variable + QLatin1String(")");
-    }
+    int val = PythonSettings::plotExtenstionGraphicPackage();
+    switch (val)
+    {
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::matplotlib:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("plt.xlim(%1, %2)\n").arg(left, right);
+            command = QString::fromLatin1(
+                "import matplotlib.pyplot as plt\n"
+                "\n"
+                "plt.plot(%1, %2)\n"
+                "%3"
+                "plt.show()"
+            ).arg(variable, function, limits);
+            break;
 
-    if(!left.isEmpty() && !right.isEmpty()){
-        xlimits = QString::fromLatin1("pylab.xlim(%1, %2)\n").arg(left, right);
-    }
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::pylab:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("pylab.xlim(%1, %2)\n").arg(left, right);
+            command = QString::fromLatin1(
+                "import pylab\n"
+                "\n"
+                "pylab.clf()\n"
+                "pylab.plot(%1, %2)\n"
+                "%3"
+                "pylab.show()"
+            ).arg(variable, function, limits);
+            break;
 
-    return QString::fromLatin1("pylab.clf()\n"                     \
-                               "pylab.plot(%1)\n"                  \
-                               "%2"                                \
-                               "pylab.show()").arg(argumentToPlot, xlimits);
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::plotly:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("fig.update_layout(xaxis=dict(range=[%1, %2]))\n").arg(left, right);
+            command = QString::fromLatin1(
+                "import plotly.graph_objects as go\n"
+                "\n"
+                "fig = go.Figure(data=go.Scatter(x=%1, y=%2))\n"
+                "%3"
+                "fig.show()"
+            ).arg(variable, function, limits);
+            break;
+
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::gr:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("\nmlab.xlim(%1, %2)").arg(left, right);
+            command = QString::fromLatin1(
+                "from gr.pygr import mlab\n"
+                "\n"
+                "mlab.plot(%1, %2)"
+                "%3"
+            ).arg(variable, function, limits);
+            break;
+
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::bokeh:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("x_range=(%1, %2)").arg(left, right);
+            command = QString::fromLatin1(
+                "from bokeh.plotting import figure, show\n"
+                "\n"
+                "fig = figure(%3)\n"
+                "fig.line(%1, %2)\n"
+                "show(fig)"
+            ).arg(variable, function, limits);
+            break;
+    };
+
+    return command;
 }
 
 QString PythonPlotExtension::plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2)
