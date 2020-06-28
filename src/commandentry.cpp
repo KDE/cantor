@@ -42,6 +42,7 @@
 #include <QPropertyAnimation>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QTextDocumentFragment>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -91,8 +92,8 @@ CommandEntry::CommandEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
 
     connect(&m_controlElement, &WorksheetControlItem::doubleClick, this, &CommandEntry::changeResultCollapsingAction);
 
-    connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::showCompletion);
-    connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::selectPreviousCompletion);
+    connect(m_commandItem, &WorksheetTextItem::tabPressed, this, &CommandEntry::handleTabPress);
+    connect(m_commandItem, &WorksheetTextItem::backtabPressed, this, &CommandEntry::handleBacktabPress);
     connect(m_commandItem, &WorksheetTextItem::applyCompletion, this, &CommandEntry::applySelectedCompletion);
     connect(m_commandItem, &WorksheetTextItem::execute, this, [=]() { evaluate();} );
     connect(m_commandItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
@@ -610,42 +611,133 @@ QJsonValue CommandEntry::toJupyterJson()
     return entry;
 }
 
-void CommandEntry::showCompletion()
+void CommandEntry::handleTabPress()
 {
-    const QString line = currentLine();
+    const QString& line = currentLine();
 
-    if(!worksheet()->completionEnabled() || line.trimmed().isEmpty())
+    // When the auto completion is disabled, we insert 'Tab' and exit immediately
+    // When the auto completion is enabled, the logic is more complicated
+    if(!worksheet()->completionEnabled())
     {
         if (m_commandItem->hasFocus())
             m_commandItem->insertTab();
         return;
-    } else if (isShowingCompletionPopup()) {
-        QString comp = m_completionObject->completion();
-        qDebug() << "command" << m_completionObject->command();
-        qDebug() << "completion" << comp;
-        if (comp != m_completionObject->command()
-            || !m_completionObject->hasMultipleMatches()) {
-            if (m_completionObject->hasMultipleMatches()) {
-                completeCommandTo(comp, PreliminaryCompletion);
-            } else {
-                completeCommandTo(comp, FinalCompletion);
-                m_completionBox->hide();
-            }
-        } else {
-            m_completionBox->down();
-        }
-    } else {
+    }
+
+    if (isShowingCompletionPopup())
+        handleExistedCompletionBox();
+    else
+    {
+        QTextCursor cursor = m_commandItem->textCursor();
         int p = m_commandItem->textCursor().positionInBlock();
-        Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, p);
-        if(tco)
-            setCompletion(tco);
+
+        if (cursor.hasSelection())
+        {
+            int count = 1 + cursor.selectedText().count(QChar(0x2029));
+            cursor.setPosition(cursor.selectionEnd());
+            cursor.beginEditBlock();
+            for (int i = 0; i < count; i++)
+            {
+                cursor.movePosition(QTextCursor::StartOfLine);
+                cursor.insertText(QLatin1String("    "));
+                cursor.movePosition(QTextCursor::StartOfLine);
+                cursor.movePosition(QTextCursor::PreviousCharacter);
+            }
+            cursor.endEditBlock();
+        }
+        else if(line.left(p).trimmed().isEmpty())
+        {
+            if (m_commandItem->hasFocus())
+                m_commandItem->insertTab();
+        }
+        else
+            makeCompletion(line, p);
     }
 }
 
-void CommandEntry::selectPreviousCompletion()
+void CommandEntry::showCompletion()
 {
+    if(!worksheet()->completionEnabled())
+        return;
+
+    if (isShowingCompletionPopup())
+        handleExistedCompletionBox();
+    else
+    {
+        int p = m_commandItem->textCursor().positionInBlock();
+        makeCompletion(currentLine(), p);
+    }
+}
+
+void CommandEntry::handleExistedCompletionBox()
+{
+    QString comp = m_completionObject->completion();
+    if (comp != m_completionObject->command() || !m_completionObject->hasMultipleMatches())
+    {
+        if (m_completionObject->hasMultipleMatches())
+            completeCommandTo(comp, PreliminaryCompletion);
+        else
+        {
+            completeCommandTo(comp, FinalCompletion);
+            m_completionBox->hide();
+        }
+    }
+    else
+    {
+        m_completionBox->down();
+    }
+}
+
+void CommandEntry::makeCompletion(const QString& line, int position)
+{
+    Cantor::CompletionObject* tco=worksheet()->session()->completionFor(line, position);
+    if(tco)
+        setCompletion(tco);
+}
+
+void CommandEntry::handleBacktabPress()
+{
+    QTextCursor cursor = m_commandItem->textCursor();
+
     if (isShowingCompletionPopup())
         m_completionBox->up();
+    else if (cursor.hasSelection())
+    {
+        int count = 1 + cursor.selectedText().count(QChar(0x2029));
+        cursor.setPosition(cursor.selectionEnd());
+        cursor.beginEditBlock();
+        for (int i = 0; i < count; i++)
+        {
+            const QString& line = cursor.block().text();
+            cursor.movePosition(QTextCursor::StartOfLine);
+            int counter = 0;
+            // 4 spaces is Cantor tabulation size, so we remove also 4 characters or less
+            while (cursor.positionInBlock() < line.length() && line[cursor.positionInBlock()] == QLatin1Char(' ') && counter < 4)
+            {
+                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+                counter++;
+            }
+            cursor.removeSelectedText();
+            cursor.movePosition(QTextCursor::PreviousCharacter);
+        }
+        cursor.endEditBlock();
+    }
+    else
+    {
+        const QString& line = currentLine();
+        if (line.length() >= 4)
+        {
+            cursor.movePosition(QTextCursor::StartOfLine);
+            int counter = 0;
+            // 4 spaces is Cantor tabulation size, so we remove also 4 characters or less
+            while (cursor.positionInBlock() < line.length() && line[cursor.positionInBlock()] == QLatin1Char(' ') && counter < 4)
+            {
+                cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
+                counter++;
+            }
+            cursor.removeSelectedText();
+        }
+    }
 }
 
 QString CommandEntry::toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)

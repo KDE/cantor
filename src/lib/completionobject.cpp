@@ -88,14 +88,14 @@ void CompletionObject::setLine(const QString& line, int index)
     d->parenCompletion = false;
     d->line = line;
     if (index < 0)
-	index = line.length();
+        index = line.length();
     if (index > 1 && line[index-1] == QLatin1Char('(')) {
-	--index;                   // move before the parenthesis
-	d->parenCompletion = true; // but remember it was there
+        --index;                   // move before the parenthesis
+        d->parenCompletion = true; // but remember it was there
     }
     int cmd_index = locateIdentifier(line, index-1);
     if (cmd_index < 0)
-	cmd_index = index;
+        cmd_index = index;
     d->position=cmd_index;
     d->command=line.mid(cmd_index, index-cmd_index);
 

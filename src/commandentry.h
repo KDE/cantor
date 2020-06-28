@@ -105,7 +105,8 @@ class CommandEntry : public WorksheetEntry
     void addToExecution();
 
     void showCompletion() override;
-    void selectPreviousCompletion();
+    void handleTabPress();
+    void handleBacktabPress();
     void updateEntry() override;
     void updatePrompt(const QString& postfix = CommandEntry::Prompt);
     void expressionChangedStatus(Cantor::Expression::Status status);
@@ -133,6 +134,8 @@ class CommandEntry : public WorksheetEntry
     QPoint getPopupPosition();
     QPoint toGlobalPosition(QPointF localPos);
     void initMenus();
+    void handleExistedCompletionBox();
+    void makeCompletion(const QString& line, int position);
 
   private:
     enum CompletionMode {
