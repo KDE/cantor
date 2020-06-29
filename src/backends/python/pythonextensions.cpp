@@ -205,26 +205,103 @@ QString PythonPlotExtension::plotFunction2d(const QString& function, const QStri
 
 QString PythonPlotExtension::plotFunction3d(const QString& function, const VariableParameter& var1, const VariableParameter& var2)
 {
+    QString command;
+
     const Interval& interval1 = var1.second;
     const Interval& interval2 = var2.second;
 
     QString interval1Limits;
     QString interval2Limits;
 
-    if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
-        interval1Limits = QString::fromLatin1("ax3D.set_xlim3d(%1, %2)\n").arg(interval1.first, interval1.second);
-    }
+    int val = PythonSettings::plotExtenstionGraphicPackage();
+    switch (val)
+    {
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::matplotlib:
+                        if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
+                interval1Limits = QString::fromLatin1("ax3D.set_xlim3d(%1, %2)\n").arg(interval1.first, interval1.second);
+            }
 
-    if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
-        interval2Limits = QString::fromLatin1("ax3D.set_ylim3d(%1, %2)\n").arg(interval2.first, interval2.second);
-    }
+            if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
+                interval2Limits = QString::fromLatin1("ax3D.set_ylim3d(%1, %2)\n").arg(interval2.first, interval2.second);
+            }
 
-    return QString::fromLatin1("from mpl_toolkits.mplot3d import Axes3D\n\n"                      \
-                               "fig3D = pylab.figure()\n"                                         \
-                               "ax3D = fig3D.gca(projection='3d')\n"                              \
-                               "ax3D.plot_surface(%1, %2, %3(%1, %2), rstride=4, cstride=4)\n"    \
-                               "%4%5"                                                             \
-                               "pylab.show()").arg(var1.first).arg(var2.first, function, interval1Limits, interval2Limits);
+            command = QString::fromLatin1(
+                "import matplotlib.pyplot as plt\n"
+                "from mpl_toolkits.mplot3d import Axes3D\n\n"
+                "fig3D = plt.figure()\n"
+                "ax3D = fig3D.gca(projection='3d')\n"
+                "ax3D.plot_surface(%1, %2, %3)\n"    \
+                "%4%5"                                                             \
+                "plt.show()"
+            ).arg(var1.first, var2.first, function, interval1Limits, interval2Limits);
+            break;
+
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::pylab:
+            if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
+                interval1Limits = QString::fromLatin1("ax3D.set_xlim3d(%1, %2)\n").arg(interval1.first, interval1.second);
+            }
+
+            if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
+                interval2Limits = QString::fromLatin1("ax3D.set_ylim3d(%1, %2)\n").arg(interval2.first, interval2.second);
+            }
+
+            command = QString::fromLatin1(
+                "import pylab\n"
+                "from mpl_toolkits.mplot3d import Axes3D\n\n"
+                "fig3D = pylab.figure()\n"
+                "ax3D = fig3D.gca(projection='3d')\n"
+                "ax3D.plot_surface(%1, %2, %3)\n"    \
+                "%4%5"                                                             \
+                "pylab.show()"
+            ).arg(var1.first, var2.first, function, interval1Limits, interval2Limits);
+            break;
+
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::plotly:
+            if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
+                interval1Limits = QString::fromLatin1("fig.update_layout(xaxis=dict(range=[%1, %2]))\n").arg(interval1.first, interval1.second);
+            }
+
+            if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
+                interval2Limits = QString::fromLatin1("fig.update_layout(yaxis=dict(range=[%1, %2]))\n").arg(interval2.first, interval2.second);
+            }
+
+            command = QString::fromLatin1(
+                "import plotly.graph_objects as go\n"
+                "\n"
+                "fig = go.Figure(data=go.Scatter3d(x=%1, y=%2, z=%3))\n"
+                "%4%5"
+                "fig.show()"
+            ).arg(var1.first, var2.first, function, interval1Limits, interval2Limits);
+            break;
+
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::gr:
+            {
+            if(!interval1.first.isEmpty() && !interval1.second.isEmpty()){
+                interval1Limits = QString::fromLatin1("mlab.xlim(%1, %2)\n").arg(interval1.first, interval1.second);
+            }
+
+            if(!interval2.first.isEmpty() && !interval2.second.isEmpty()){
+                interval2Limits = QString::fromLatin1("mlab.ylim(%1, %2)").arg(interval2.first, interval2.second);
+            }
+            QString newLinePlacement;
+            if(!interval1Limits.isEmpty() || !interval2Limits.isEmpty())
+                newLinePlacement = QLatin1String("\n");
+
+            command = QString::fromLatin1(
+                "from gr.pygr import mlab\n"
+                "\n"
+                "mlab.plot3(%1, %2, %3)%6"
+                "%4%5"
+            ).arg(var1.first, var2.first, function, interval1Limits, interval2Limits, newLinePlacement);
+            }
+            break;
+
+        case PythonSettings::EnumPlotExtenstionGraphicPackage::bokeh:
+            command = i18n("# Sorry, but Bokeh doesn't support 3d plotting");
+            break;
+    };
+
+    return command;
 }
 
 PYTHON_EXT_CDTOR(Script)
