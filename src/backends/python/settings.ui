@@ -74,7 +74,7 @@
         <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
        </property>
        <property name="text">
-        <string>Preferred package for &quot;Plot&quot; menu: </string>
+        <string>Preferred package for the &quot;Plot&quot; menu: </string>
        </property>
       </widget>
      </item>
