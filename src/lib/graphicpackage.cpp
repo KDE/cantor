@@ -97,14 +97,12 @@ QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filena
         return packages;
 
     QFile fin(filename);
-    qDebug() << "!!!! " << filename;
     if (fin.open(QFile::ReadOnly))
     {
         QDomDocument doc;
         if (doc.setContent(fin.readAll()) && doc.firstChildElement(QLatin1String("GraphicPackages")).isNull() == false)
         {
             const auto& elements = doc.elementsByTagName(QLatin1String("GraphicPackage"));
-            qDebug() << "!!!! " << elements.size();
             for (int i = 0; i < elements.size(); i++)
             {
                 const QDomNode& root = elements.item(i);
