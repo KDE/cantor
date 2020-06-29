@@ -71,10 +71,10 @@
      <item>
       <widget class="QLabel" name="label4">
        <property name="toolTip">
-        <string>Graphic package, which code will used for plotting via &quot;Plot&quot; Cantor menu.</string>
+        <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
        </property>
        <property name="text">
-        <string>Prefered package for &quot;Plot&quot; menu: </string>
+        <string>Preferred package for &quot;Plot&quot; menu: </string>
        </property>
       </widget>
      </item>
