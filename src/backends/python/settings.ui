@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>660</width>
-    <height>300</height>
+    <height>331</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -67,11 +67,60 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout4">
+     <item>
+      <widget class="QLabel" name="label4">
+       <property name="toolTip">
+        <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
+       </property>
+       <property name="text">
+        <string>Preferred package for the &quot;Plot&quot; menu: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="kcfg_plotExtenstionGraphicPackage">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>matplotlib</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>pylab</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>plot.ly</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>GR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>bokeh</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout3">
      <item>
       <widget class="QLabel" name="label">
        <property name="toolTip">
-        <string>Graphic package, used for plotting. When integrated plots option is enable, then plots from the package will be integrated to worksheet</string>
+        <string>Graphic package, used for plotting. When integrated plots option is enabled, then plots from the package will be integrated to worksheet</string>
        </property>
        <property name="text">
         <string>Used Graphic Package: </string>

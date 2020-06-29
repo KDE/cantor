@@ -367,7 +367,7 @@ void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPa
             {
                 KMessageBox::information(nullptr, i18n(
                     "You choose support for %1 graphic package, but the support can't be "\
-                    "activate due missing requirements, so integration for this package will disabled. %2",
+                    "activated due to the missing requirements, so integration for this package will be disabled. %2",
                     notEnabledPackage.name(), graphicPackageErrorMessage(notEnabledPackage.id())), i18n("Cantor")
                 );
 

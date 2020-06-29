@@ -63,6 +63,8 @@ void PythonServer::runPythonCommand(const string& command)
         "  def __init__(self, std_stream):\n"\
         "    self.value = ''\n"\
         "    self.encoding = std_stream.encoding\n"\
+        "  def flush():\n"\
+        "    pass\n"\
         "  def write(self, txt):\n"\
         "    self.value += txt\n"\
         "outputPythonBackend = CatchOutPythonBackend(sys.stdout)\n"\
