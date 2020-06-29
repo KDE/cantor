@@ -79,9 +79,9 @@ QString Cantor::GraphicPackage::disableSupportCommand() const
     return d->disableSupportCommand;
 }
 
-QString Cantor::GraphicPackage::savePlotCommand(QString filenamePrefix, int plotNumber) const
+QString Cantor::GraphicPackage::savePlotCommand(QString filenamePrefix, int plotNumber, QString additionalInfo) const
 {
-    return d->saveToFileCommandTemplate.arg(filenamePrefix, QString::number(plotNumber));
+    return d->saveToFileCommandTemplate.arg(filenamePrefix, QString::number(plotNumber), additionalInfo);
 }
 
 bool Cantor::GraphicPackage::isHavePlotCommand() const
@@ -97,23 +97,25 @@ QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filena
         return packages;
 
     QFile fin(filename);
+    qDebug() << "!!!! " << filename;
     if (fin.open(QFile::ReadOnly))
     {
         QDomDocument doc;
         if (doc.setContent(fin.readAll()) && doc.firstChildElement(QLatin1String("GraphicPackages")).isNull() == false)
         {
             const auto& elements = doc.elementsByTagName(QLatin1String("GraphicPackage"));
+            qDebug() << "!!!! " << elements.size();
             for (int i = 0; i < elements.size(); i++)
             {
                 const QDomNode& root = elements.item(i);
 
                 GraphicPackage package;
-                package.d->id = root.firstChildElement(QLatin1String("Id")).text();
-                package.d->name = root.firstChildElement(QLatin1String("Name")).text();
-                package.d->testPresenceCommand = root.firstChildElement(QLatin1String("TestPresenceCommand")).text();
-                package.d->enableSupportCommand = root.firstChildElement(QLatin1String("EnableCommand")).text();
-                package.d->disableSupportCommand = root.firstChildElement(QLatin1String("DisableCommand")).text();
-                package.d->saveToFileCommandTemplate = root.firstChildElement(QLatin1String("ToFileCommandTemplate")).text();
+                package.d->id = root.firstChildElement(QLatin1String("Id")).text().trimmed();
+                package.d->name = root.firstChildElement(QLatin1String("Name")).text().trimmed();
+                package.d->testPresenceCommand = root.firstChildElement(QLatin1String("TestPresenceCommand")).text().trimmed();
+                package.d->enableSupportCommand = root.firstChildElement(QLatin1String("EnableCommand")).text().trimmed();
+                package.d->disableSupportCommand = root.firstChildElement(QLatin1String("DisableCommand")).text().trimmed();
+                package.d->saveToFileCommandTemplate = root.firstChildElement(QLatin1String("ToFileCommandTemplate")).text().trimmed();
 
                 packages.append(package);
             }

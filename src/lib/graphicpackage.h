@@ -88,9 +88,10 @@ public:
      * @brief This function return command for saving image result(s) from expression (if results are existed).
      * @param filenamePrefix Prefix of files with plots. Can be something like @c "/tmp/cantor_octave_2432_plot". Optional parameter.
      * @param plotNumber Currect plot number, should be used for full filename construction. Optional parameter.
+     * @param additionalInfo This is additional parameter from backend, which go to @c "%3" template. Optional parameter.
      * @return Command which will save plot to certain file or empty string (see isHavePlotCommand())
      */
-    QString savePlotCommand(QString filenamePrefix = QString(), int plotNumber = -1) const;
+    QString savePlotCommand(QString filenamePrefix = QString(), int plotNumber = -1, QString additionalInfo = QString()) const;
 
     /**
      * @brief Load graphic packages from XML file.
