@@ -23,6 +23,7 @@
 #include <config-cantor.h>
 
 #include <array>
+#include <cmath>
 
 #include "cantor_part.h"
 #include "lib/assistant.h"
@@ -112,6 +113,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_panelHandler(new Cantor::PanelPluginHandler(this)),
     m_initProgressDlg(nullptr),
     m_showProgressDlg(true),
+    m_currectZoomAction(nullptr),
     m_showBackendHelp(nullptr),
     m_statusBarBlocked(false),
     m_sessionStatusCounter(0)
@@ -219,6 +221,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     KStandardAction::zoomIn(m_worksheetview, SLOT(zoomIn()), collection);
     KStandardAction::zoomOut(m_worksheetview, SLOT(zoomOut()), collection);
     KStandardAction::actualSize(m_worksheetview, SLOT(actualSize()), collection);
+    connect(m_worksheetview, &WorksheetView::scaleFactorChanged, this, &CantorPart::updateZoomWidgetValue);
 
     m_evaluate = new QAction(i18n("Evaluate Worksheet"), collection);
     collection->addAction(QLatin1String("evaluate_worksheet"), m_evaluate);
@@ -1040,9 +1043,25 @@ void CantorPart::zoomValueEdited(const QString& text)
     {
         double zoom = match.captured(1).toDouble() / 100.0;
         if (m_worksheetview)
-            m_worksheetview->setScaleFactor(zoom);
+            m_worksheetview->setScaleFactor(zoom, false);
     }
 }
+
+void CantorPart::updateZoomWidgetValue(double zoom)
+{
+    if (m_zoom)
+    {
+        double scale = zoom;
+        scale = round(scale * 100);
+        const QString& searchText = QString::number((int)scale) + QLatin1String("%");
+        if (m_currectZoomAction)
+            m_currectZoomAction->setText(searchText);
+        else
+            m_currectZoomAction = m_zoom->addAction(searchText);
+        m_zoom->setCurrentAction(m_currectZoomAction);
+    }
+}
+
 
 K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
 #include "cantor_part.moc"

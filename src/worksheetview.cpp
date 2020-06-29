@@ -240,11 +240,13 @@ qreal WorksheetView::scaleFactor() const
     return m_scale;
 }
 
-void WorksheetView::setScaleFactor(qreal zoom)
+void WorksheetView::setScaleFactor(qreal zoom, bool emitSignal)
 {
     scale(1/m_scale * zoom, 1/m_scale * zoom);
     m_scale = zoom;
     updateSceneSize();
+    if (emitSignal)
+        emit scaleFactorChanged(m_scale);
 }
 
 void WorksheetView::updateSceneSize()
@@ -275,6 +277,7 @@ void WorksheetView::zoomIn()
     m_scale *= 1.1;
     scale(1.1, 1.1);
     updateSceneSize();
+    emit scaleFactorChanged(m_scale);
 }
 
 void WorksheetView::zoomOut()
@@ -282,6 +285,7 @@ void WorksheetView::zoomOut()
     m_scale /= 1.1;
     scale(1/1.1, 1/1.1);
     updateSceneSize();
+    emit scaleFactorChanged(m_scale);
 }
 
 void WorksheetView::actualSize()
@@ -289,4 +293,5 @@ void WorksheetView::actualSize()
     scale (1/m_scale, 1/m_scale);
     m_scale = 1.0;
     updateSceneSize();
+    emit scaleFactorChanged(m_scale);
 }

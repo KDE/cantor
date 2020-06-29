@@ -118,6 +118,7 @@ protected Q_SLOTS:
     void evaluateOrInterrupt();
     void restartBackend();
     void zoomValueEdited(const QString& text);
+    void updateZoomWidgetValue(double zoom);
     void enableTypesetting(bool enable);
     void showBackendHelp();
     void print();
@@ -172,6 +173,7 @@ private:
     QAction * m_evaluate;
     QAction * m_restart;
     KSelectAction* m_zoom;
+    QAction* m_currectZoomAction;
     QAction * m_save;
     QAction * m_findNext;
     QAction * m_findPrev;
