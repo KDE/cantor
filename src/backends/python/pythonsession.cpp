@@ -113,7 +113,7 @@ void PythonSession::login()
     m_plotFilePrefixPath =
         QDir::tempPath()
         + QLatin1String("/cantor_python_")
-        + QString::number(m_process->pid())
+        + QString::number(m_process->processId())
         + QLatin1String("_")
         + QString::number(rand_dist(mt))
         + QLatin1String("_");
