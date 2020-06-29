@@ -1,0 +1,30 @@
+<GraphicPackages>
+    <GraphicPackage>
+        <Id>octave_universal</Id>
+        <Name>Octave</Name>
+        <TestPresenceCommand>
+if (length(available_graphics_toolkits()) > 0)
+    printf("%d", 1);
+else
+    printf("%d", 0);
+endif
+        </TestPresenceCommand>
+        <EnableCommand>
+set (0, "defaultfigurevisible","off");
+        </EnableCommand>
+        <DisableCommand>
+set (0, "defaultfigurevisible","on");
+        </DisableCommand>
+        <ToFileCommandTemplate>
+__cantor_plot_filename__ ='%1%2.%3';
+try
+    print(strcat('-d', '%3'), __cantor_plot_filename__, '-tight');
+catch
+    try
+        print(strcat('-d', '%3'), __cantor_plot_filename__);
+    end_try_catch
+end_try_catch
+clear __cantor_plot_filename__
+        </ToFileCommandTemplate>
+    </GraphicPackage>
+</GraphicPackages>

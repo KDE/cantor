@@ -71,10 +71,6 @@ OctaveExpression::OctaveExpression(Cantor::Session* session, bool internal): Exp
 
 OctaveExpression::~OctaveExpression()
 {
-    if(m_tempFile) {
-        delete m_tempFile;
-        m_tempFile = nullptr;
-    }
 }
 
 void OctaveExpression::interrupt()
@@ -86,47 +82,11 @@ void OctaveExpression::interrupt()
 
 void OctaveExpression::evaluate()
 {
-    if(m_tempFile) {
-        delete m_tempFile;
-        m_tempFile = nullptr;
-    }
-
-    qDebug() << "evaluate";
-    QString cmd = command();
-    QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
-    if (static_cast<OctaveSession*>(session())->isIntegratedPlotsEnabled() && !cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
-    {
-        for (const QString& plotCmd : plotCommands)
-        {
-            if (cmdWords.contains(plotCmd))
-            {
-                qDebug() << "Executing a plot command";
-/*
-#ifdef WITH_EPS
-                QLatin1String ext(".eps");
-#else
-                QLatin1String ext(".png");
-#endif
-*/
-                m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_octave-XXXXXX.")+plotExtensions[OctaveSettings::inlinePlotFormat()]);
-                m_tempFile->open();
-
-                qDebug() << "plot temp file" << m_tempFile->fileName();
-
-                QFileSystemWatcher* watcher = fileWatcher();
-                if (!watcher->files().isEmpty())
-                    watcher->removePaths(watcher->files());
-                watcher->addPath(m_tempFile->fileName());
-
-                connect(watcher, &QFileSystemWatcher::fileChanged, this, &OctaveExpression::imageChanged,  Qt::UniqueConnection);
-
-                m_plotPending = true;
-                break;
-            }
-        }
-    }
+    m_plotFilename.clear();
 
     m_finished = false;
+    m_plotPending = false;
+
     session()->enqueueExpression(this);
 }
 
@@ -134,11 +94,42 @@ QString OctaveExpression::internalCommand()
 {
     QString cmd = command();
 
-    if (m_plotPending)
+    OctaveSession* octaveSession = static_cast<OctaveSession*>(session());
+    if (octaveSession->isIntegratedPlotsEnabled() && !isInternal())
     {
-        if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
-            cmd += QLatin1Char(',');
-        cmd += printCommandTemplate.arg(QFileInfo(m_tempFile->fileName()).suffix()).arg(m_tempFile->fileName());
+        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+        if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
+        {
+            for (const QString& plotCmd : plotCommands)
+                if (cmdWords.contains(plotCmd))
+                {
+                    Q_ASSERT(session()->enabledGraphicPackages().size() == 1);
+                    const Cantor::GraphicPackage& package = session()->enabledGraphicPackages().first();
+                    Q_ASSERT(package.id() == QLatin1String("octave_universal"));
+                    if (package.isHavePlotCommand())
+                    {
+                        m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];
+
+                        if (!cmd.endsWith(QLatin1Char(';')) && !cmd.endsWith(QLatin1Char(',')))
+                            cmd += QLatin1Char(',');
+                        cmd.append(package.savePlotCommand(octaveSession->plotFilePrefixPath(), id(), plotExtensions[OctaveSettings::inlinePlotFormat()]));
+
+                        QFileSystemWatcher* watcher = fileWatcher();
+                        if (!watcher->files().isEmpty())
+                            watcher->removePaths(watcher->files());
+
+                        // Add path works only with existed paths, so create the file
+                        QFile file(m_plotFilename);
+                        file.open(QFile::WriteOnly);
+                        file.close();
+                        watcher->addPath(m_plotFilename);
+                        m_plotPending = true;
+
+                        connect(watcher, &QFileSystemWatcher::fileChanged, this, &OctaveExpression::imageChanged,  Qt::UniqueConnection);
+                    }
+                    break;
+                }
+        }
     }
 
     // We need remove all comments here, because below we merge all strings to one long string
@@ -214,12 +205,12 @@ void OctaveExpression::parseError(const QString& error)
 
 void OctaveExpression::imageChanged()
 {
-    if(m_tempFile->size() <= 0)
+    if(QFile(m_plotFilename).size() <= 0)
         return;
 
-    const QUrl& url = QUrl::fromLocalFile(m_tempFile->fileName());
+    const QUrl& url = QUrl::fromLocalFile(m_plotFilename);
     Cantor::Result* newResult;
-    if (m_tempFile->fileName().endsWith(QLatin1String(".eps")))
+    if (m_plotFilename.endsWith(QLatin1String(".eps")))
         newResult = new Cantor::EpsResult(url);
     else
         newResult = new Cantor::ImageResult(url);
@@ -231,13 +222,12 @@ void OctaveExpression::imageChanged()
             replaceResult(i, newResult);
             found = true;
         }
+
     if (!found)
         addResult(newResult);
 
     m_plotPending = false;
 
-    if (m_finished && status() != Expression::Done)
-    {
+    if (m_finished && status() == Expression::Computing)
         setStatus(Done);
-    }
 }
