@@ -153,10 +153,16 @@ QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
     if (unitNames.isEmpty())
         unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
 
+    archive->addLocalFile(m_imagePath, QUrl::fromLocalFile(m_imagePath).fileName());
+
     QDomElement image = doc.createElement(QLatin1String("Image"));
     QDomElement path = doc.createElement(QLatin1String("Path"));
+    QDomElement fileName = doc.createElement(QLatin1String("FileName"));
     QDomText pathText = doc.createTextNode(m_imagePath);
+    QDomText fileNameText = doc.createTextNode(QUrl::fromLocalFile(m_imagePath).fileName());
     path.appendChild(pathText);
+    fileName.appendChild(fileNameText);
+    image.appendChild(fileName);
     image.appendChild(path);
     QDomElement display = doc.createElement(QLatin1String("Display"));
     display.setAttribute(QLatin1String("width"), m_displaySize.width);
