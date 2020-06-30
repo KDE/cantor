@@ -35,7 +35,6 @@ JuliaExpression::JuliaExpression(Cantor::Session *session, bool internal)
 
 void JuliaExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
     auto juliaSession = static_cast<JuliaSession *>(session());
 
     juliaSession->enqueueExpression(this);
