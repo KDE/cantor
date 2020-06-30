@@ -26,7 +26,7 @@
 #include <KXMLGUIClient>
 #include <KPluginInfo>
 
-#include <graphicpackage.h>
+#include "graphicpackage.h"
 
 #include "cantor_export.h"
 
