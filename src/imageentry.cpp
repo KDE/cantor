@@ -25,10 +25,12 @@
 
 #include <KLocalizedString>
 #include <QDebug>
+#include <QDir>
 #include <QMenu>
 #include <QFileSystemWatcher>
 #include <QJsonValue>
 #include <QJsonObject>
+#include <QStandardPaths>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -84,6 +86,20 @@ void ImageEntry::setContent(const QString& content)
 void ImageEntry::setContent(const QDomElement& content, const KZip& file)
 {
     Q_UNUSED(file);
+
+    QDomElement fileName = content.firstChildElement(QLatin1String("FileName"));
+    if (!fileName.isNull()) {
+        m_fileName = fileName.text();
+
+        const KArchiveEntry* imageEntry = file.directory()->entry(m_fileName);
+        if (imageEntry && imageEntry->isFile())
+        {
+            const KArchiveFile* imageFile = static_cast<const KArchiveFile*>(imageEntry);
+            const QString& dir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+            imageFile->copyTo(dir);
+        }
+    }
+
     static QStringList unitNames;
     if (unitNames.isEmpty())
         unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
@@ -264,7 +280,7 @@ void ImageEntry::updateEntry()
         if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
             m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
         } else {
-            QImage img(m_imagePath);
+            QImage img(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + m_fileName);
             m_imageItem->setImage(img);
         }
 

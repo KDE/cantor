@@ -76,6 +76,7 @@ class ImageEntry : public WorksheetEntry
 
   private:
     QString m_imagePath;
+    QString m_fileName;
     ImageSize m_displaySize;
     ImageSize m_printSize;
     bool m_useDisplaySizeForPrinting;
