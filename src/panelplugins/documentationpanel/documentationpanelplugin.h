@@ -36,11 +36,9 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
     QWidget* widget() override;
 
     bool showOnStartup() override;
-    void setShowOnStartup(bool);
 
   private:
     QPointer<DocumentationPanelWidget> m_widget;
-    bool m_showAtStart;
 };
 
 #endif /* _DOCUMENTATIONPANELPLUGIN_H */

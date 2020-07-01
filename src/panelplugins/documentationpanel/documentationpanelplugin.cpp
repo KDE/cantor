@@ -20,7 +20,7 @@
 
 #include "documentationpanelplugin.h"
 
-DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr), m_showAtStart(true)
+DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
 {
     Q_UNUSED(args);
 }
@@ -44,12 +44,7 @@ QWidget* DocumentationPanelPlugin::widget()
 
 bool DocumentationPanelPlugin::showOnStartup()
 {
-    return m_showAtStart;
-}
-
-void DocumentationPanelPlugin::setShowOnStartup(bool value)
-{
-    m_showAtStart = value;
+    return true;
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(variablemanagerplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)

@@ -79,10 +79,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
     m_textBrowser = new QWebEngineView(this);
     const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top"))); // set initial page contents
-    //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_91.html#SEC433")));
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
+
     //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/figures/plotting1.png")));
+    //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_91.html#SEC433")));
     //m_textBrowser->setContent(contents, QLatin1String("image/png;charset=UTF-8"));
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
@@ -142,10 +143,7 @@ void DocumentationPanelWidget::unloadDocumentation()
     //1. Get the backend name
     //2. Unload their documentation
     //Call this function when the user changes the current backend
-
-    const QString backendName = QLatin1String("maxima");
-    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qch"));
-    m_engine->unregisterDocumentation(fileName);
+    m_engine->unregisterDocumentation(QLatin1String("org.kde.cantor"));
 }
 
 QIcon DocumentationPanelWidget::icon() const
