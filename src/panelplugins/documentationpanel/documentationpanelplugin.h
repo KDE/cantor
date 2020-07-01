@@ -37,6 +37,12 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
 
     bool showOnStartup() override;
 
+    /** @return icon of the current backend **/
+    QIcon icon() const;
+
+    /** @return name of the current backend **/
+    QString backendName() const;
+
   protected:
     void onSessionChanged() override;
 

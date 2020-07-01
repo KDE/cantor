@@ -20,6 +20,8 @@
 
 #include "documentationpanelplugin.h"
 #include "session.h"
+#include <QDebug>
+#include <QIcon>
 
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
 {
@@ -42,6 +44,7 @@ QWidget* DocumentationPanelPlugin::widget()
     if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(session(), parentWidget());
+        qDebug() << backendName();
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
     }
@@ -52,6 +55,16 @@ QWidget* DocumentationPanelPlugin::widget()
 bool DocumentationPanelPlugin::showOnStartup()
 {
     return true;
+}
+
+QIcon DocumentationPanelPlugin::icon() const
+{
+    return QIcon::fromTheme(m_widget->m_session->backend()->icon());
+}
+
+QString DocumentationPanelPlugin::backendName() const
+{
+    return m_widget->m_session->backend()->name();
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(documentationpanelplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)

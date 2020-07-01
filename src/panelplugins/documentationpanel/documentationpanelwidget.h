@@ -44,14 +44,14 @@ class DocumentationPanelWidget : public QWidget
 
     void setSession(Cantor::Session* session);
 
-    /** @return icon of the current backend **/
-    QIcon icon() const;
-
     /** @return name of the current backend **/
     QString backendName() const;
 
     void loadDocumentation();
     void unloadDocumentation();
+
+  public:
+    Cantor::Session* m_session;
 
   private Q_SLOTS:
     void displayHelp(const QUrl&);
@@ -63,8 +63,7 @@ class DocumentationPanelWidget : public QWidget
     QPointer<QWebEngineView> m_textBrowser;
     QPointer<QTabWidget> m_tabWidget;
     QPointer<QSplitter> m_splitter;
-
-    Cantor::Session* m_session;
+    QString m_backend;
 };
 
 #endif /* _DOCUMENTATIONPANELWIDGET_H */

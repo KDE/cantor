@@ -42,11 +42,10 @@
 #include <QWebEngineView>
 #include <QWidget>
 
-DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr), m_session(nullptr)
+DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_session(nullptr), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr), m_backend(QString())
 {
-    const QString backend = session->backend()->name();
-    qDebug() << backend;
-    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qhc"));
+    m_backend = session->backend()->name();
+    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
     m_engine = new QHelpEngine(fileName, this);
 
     if(!m_engine->setupData())
@@ -85,7 +84,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     m_textBrowser->show();
 
     //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/figures/plotting1.png")));
-    //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_91.html#SEC433")));
     //m_textBrowser->setContent(contents, QLatin1String("image/png;charset=UTF-8"));
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
@@ -150,12 +148,7 @@ void DocumentationPanelWidget::unloadDocumentation()
     m_engine->unregisterDocumentation(QLatin1String("org.kde.cantor"));
 }
 
-QIcon DocumentationPanelWidget::icon() const
-{
-    return QIcon::fromTheme(m_session->backend()->icon());
-}
-
 QString DocumentationPanelWidget::backendName() const
 {
-    return QString(QLatin1String("Maxima"));//m_session->backend()->name();
+    return m_backend;//m_session->backend()->name();
 }
