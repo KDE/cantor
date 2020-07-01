@@ -79,13 +79,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
     m_textBrowser = new QWebEngineView(this);
     const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top"))); // set initial page contents
+    //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima_91.html#SEC433")));
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
-
-    connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-
-    //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
+    //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/figures/plotting1.png")));
+    //m_textBrowser->setContent(contents, QLatin1String("image/png;charset=UTF-8"));
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
     m_splitter->addWidget(m_tabWidget);
@@ -93,6 +91,10 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
 
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->addWidget(m_splitter);
+
+    connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
@@ -100,6 +102,12 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
     const QByteArray contents = m_engine->fileData(url);
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
+
+    qDebug() << url;
+    //display the actual keyword contents, not the header topic
+    const QModelIndex index = m_engine->indexWidget()->currentIndex();
+    const QString indexText = index.data(Qt::DisplayRole).toString();
+    qDebug() << indexText << "index pressed";
 }
 
 void DocumentationPanelWidget::doSearch(const QString& str)
@@ -112,10 +120,9 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
     qDebug() << "Context sensitive help for " << keyword;
 
-    // get the index widget
     QHelpIndexWidget* const index = m_engine->indexWidget();
     index->filterIndices(keyword); // filter exactly, no wildcards
-    index->activateCurrentItem(); // this internally emitts the QHelpContentWidget::linkActivated signal
+    index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
 
     loadDocumentation();
 }

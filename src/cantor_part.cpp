@@ -350,8 +350,9 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
+    Cantor::Backend* const backend = Cantor::Backend::getBackend(backendName);
     m_showBackendHelp = new QAction(i18n("Show Help") , collection);
-    m_showBackendHelp->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
+    m_showBackendHelp->setIcon(QIcon::fromTheme(backend->icon()));
     collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
 
