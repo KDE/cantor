@@ -47,5 +47,5 @@ bool DocumentationPanelPlugin::showOnStartup()
     return true;
 }
 
-K_PLUGIN_FACTORY_WITH_JSON(variablemanagerplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(documentationpanelplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)
 #include "documentationpanelplugin.moc"
