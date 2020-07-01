@@ -277,11 +277,25 @@ void ImageEntry::updateEntry()
         if (!m_imageItem)
             m_imageItem = new WorksheetImageItem(this);
 
-        if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
-            m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
+        // This if-else block was used for backward compability for *cws files
+        // without FileName tag. After some releases from 20.08 version, it will
+        // be possible to remove the else part and strip the m_imagePath from the
+        // code and Path tag from the CWS format
+        if (!m_fileName.isNull()) {
+            QString imagePath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + m_fileName;
+            if (imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
+                m_imageItem->setEps(QUrl::fromLocalFile(imagePath));
+            } else {
+                QImage img(imagePath);
+                m_imageItem->setImage(img);
+            }
         } else {
-            QImage img(QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + m_fileName);
-            m_imageItem->setImage(img);
+            if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
+                m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
+            } else {
+                QImage img(m_imagePath);
+                m_imageItem->setImage(img);
+            }
         }
 
         if (!m_imageItem->imageIsValid()) {
