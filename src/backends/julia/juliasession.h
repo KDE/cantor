@@ -86,10 +86,7 @@ public:
      */
     QSyntaxHighlighter *syntaxHighlighter(QObject *parent) override;
 
-    /**
-     * @return indicator if config says to integrate plots into worksheet
-     */
-    bool integratePlots();
+    QString plotFilePrefixPath() const;
 
 private Q_SLOTS:
     /**
@@ -106,6 +103,11 @@ private:
 
     /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
+
+    /// Variables for handling plot integration: settings value and real state
+    QString m_plotFilePrefixPath;
+    bool m_isIntegratedPlotsEnabled;
+    bool m_isIntegratedPlotsSettingsEnabled;
 
     void runFirstExpression() override;
 
@@ -146,4 +148,8 @@ private:
      * @return indicator of exception occurred during the last command execution
      */
     bool getWasException();
+
+    void updateGraphicPackagesFromSettings();
+
+    QString graphicPackageErrorMessage(QString packageId) const override;
 };

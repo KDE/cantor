@@ -48,9 +48,11 @@ QString OctaveBackend::version() const
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const
 {
     Cantor::Backend::Capabilities cap =
-        SyntaxHighlighting|
-        Completion |
-        SyntaxHelp;
+        SyntaxHighlighting |
+        Completion         |
+        SyntaxHelp         |
+        IntegratedPlots;
+
     if (OctaveSettings::self()->variableManagement())
         cap |= VariableManagement;
     return cap;

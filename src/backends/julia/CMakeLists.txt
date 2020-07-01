@@ -40,3 +40,5 @@ install(
   FILES ${scripts}
   DESTINATION ${KDE_INSTALL_DATADIR}/cantor/juliabackend/scripts
 )
+
+install(FILES graphic_packages.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/julia)

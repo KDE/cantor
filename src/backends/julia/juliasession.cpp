@@ -19,12 +19,15 @@
  */
 #include "juliasession.h"
 
+#include <random>
+
 #include <KProcess>
 #include <KLocalizedString>
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QDBusReply>
 #include <QStandardPaths>
+#include <QDir>
 
 #include "defaultvariablemodel.h"
 
@@ -43,6 +46,8 @@ JuliaSession::JuliaSession(Cantor::Backend *backend)
     : Session(backend)
     , m_process(nullptr)
     , m_interface(nullptr)
+    , m_isIntegratedPlotsEnabled(false)
+    , m_isIntegratedPlotsSettingsEnabled(false)
 {
     setVariableModel(new JuliaVariableModel(this));
 }
@@ -113,13 +118,18 @@ void JuliaSession::login()
 
     static_cast<JuliaVariableModel*>(variableModel())->setJuliaServer(m_interface);
 
-    // Plots integration
-    if (integratePlots()) {
-        runJuliaCommand(
-            QLatin1String("import GR; ENV[\"GKS_WSTYPE\"] = \"nul\"")
-        );
-        updateVariables();
-    }
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> rand_dist(0, 999999999);
+    m_plotFilePrefixPath =
+        QDir::tempPath()
+        + QLatin1String("/cantor_octave_")
+        + QString::number(m_process->pid())
+        + QLatin1String("_")
+        + QString::number(rand_dist(mt))
+        + QLatin1String("_");
+
+    updateVariables();
 
     changeStatus(Session::Done);
     emit loginDone();
@@ -142,6 +152,21 @@ void JuliaSession::logout()
         m_process = nullptr;
         interrupt();
     }
+
+    if (!m_plotFilePrefixPath.isEmpty())
+    {
+        int i = 0;
+        const QString& extension = JuliaExpression::plotExtensions[JuliaSettings::inlinePlotFormat()];
+        QString filename = m_plotFilePrefixPath + QString::number(i) + QLatin1String(".") + extension;
+        while (QFile::exists(filename))
+        {
+            QFile::remove(filename);
+            i++;
+            filename = m_plotFilePrefixPath + QString::number(i) + QLatin1String(".") + extension;
+        }
+    }
+    m_isIntegratedPlotsEnabled = false;
+    m_isIntegratedPlotsSettingsEnabled = false;
 
     Session::logout();
 }
@@ -170,6 +195,9 @@ Cantor::Expression *JuliaSession::evaluateExpression(
     Cantor::Expression::FinishingBehavior behave,
     bool internal)
 {
+    if (!internal)
+        updateGraphicPackagesFromSettings();
+
     JuliaExpression *expr = new JuliaExpression(this, internal);
 
     expr->setFinishingBehavior(behave);
@@ -265,9 +293,46 @@ bool JuliaSession::getWasException()
 }
 
 
-bool JuliaSession::integratePlots()
+QString JuliaSession::plotFilePrefixPath() const
 {
-    return JuliaSettings::integratePlots();
+    return m_plotFilePrefixPath;
+}
+
+void JuliaSession::updateGraphicPackagesFromSettings()
+{
+    if (m_isIntegratedPlotsSettingsEnabled == JuliaSettings::integratePlots())
+        return;
+
+    if (m_isIntegratedPlotsEnabled && JuliaSettings::integratePlots() == false)
+    {
+        updateEnabledGraphicPackages(QList<Cantor::GraphicPackage>());
+        m_isIntegratedPlotsEnabled = false;
+        m_isIntegratedPlotsSettingsEnabled = JuliaSettings::integratePlots();
+        return;
+    }
+    else if (!m_isIntegratedPlotsEnabled && JuliaSettings::integratePlots() == true)
+    {
+        m_isIntegratedPlotsEnabled = true;
+        m_isIntegratedPlotsSettingsEnabled = true;
+
+        updateEnabledGraphicPackages(backend()->availableGraphicPackages());
+    }
+}
+
+QString JuliaSession::graphicPackageErrorMessage(QString packageId) const
+{
+    QString text;
+
+    if (packageId == QLatin1String("gr")) {
+        return i18n(
+            "On this moment, integrated graphic can handle only one of Julia packages - GR graphic package. "
+            "And for using this feature you need to install the package first. "
+            "For this, run Pkg.install(\"GR\") in Cantor or in julia REPL. Also, it is important "
+            "to note, that this is a long operation and better use julia REPL, because Cantor don't "
+            "show intermediate text unlike the julia."
+        );
+    }
+    return text;
 }
 
 

@@ -17,6 +17,7 @@
     Boston, MA  02110-1301, USA.
 */
 
+#include <random>
 #include "octavesession.h"
 #include "octaveexpression.h"
 #include "octavecompletionobject.h"
@@ -52,7 +53,8 @@ m_prompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
 m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
 m_previousPromptNumber(1),
 m_syntaxError(false),
-m_isIntegratedPlotsEnabled(false)
+m_isIntegratedPlotsEnabled(false),
+m_isIntegratedPlotsSettingsEnabled(false)
 {
     setVariableModel(new OctaveVariableModel(this));
 }
@@ -74,44 +76,6 @@ void OctaveSession::login()
         return;
 
     emit loginStarted();
-
-    bool isIntegratedPlots = OctaveSettings::integratePlots();
-    QString tmpWritableErrorReason;
-    if (isIntegratedPlots)
-    {
-        QString filename = QDir::tempPath() + QLatin1String("/cantor_octave_plot_integration_test.txt");
-        QFile::remove(filename); // Remove previous file, if precents
-        int test_number = rand() % 1000;
-
-        QStringList args;
-        args << QLatin1String("--no-init-file");
-        args << QLatin1String("--no-gui");
-        args << QLatin1String("--eval");
-        args << QString::fromLatin1("file_id = fopen('%1', 'w'); fdisp(file_id, %2); fclose(file_id);").arg(filename).arg(test_number);
-
-        QString errorMsg;
-        isIntegratedPlots = Cantor::Backend::testProgramWritable(
-            OctaveSettings::path().toLocalFile(),
-            args,
-            filename,
-            QString::number(test_number),
-            &errorMsg
-        );
-
-        // If we in this branch, then isIntegratedPlots was true, but if it false now, then it means, that the writabl test is failed
-        if (isIntegratedPlots == false)
-        {
-            KMessageBox::error(nullptr,
-                i18n("Plot integration test failed.")+
-                QLatin1String("\n\n")+
-                errorMsg+
-                QLatin1String("\n\n")+
-                i18n("The integration of plots will be disabled."),
-                i18n("Cantor")
-            );
-        }
-    }
-    m_isIntegratedPlotsEnabled = isIntegratedPlots;
 
     m_process = new KProcess ( this );
     QStringList args;
@@ -139,20 +103,6 @@ void OctaveSession::login()
     args << QLatin1String("--eval");
     args << QLatin1String("suppress_verbose_help_message(1);");
 
-    if (isIntegratedPlots)
-    {
-        // Do not show the popup when plotting, rather only print to a file
-        args << QLatin1String("--eval");
-        args << QLatin1String("set (0, \"defaultfigurevisible\",\"off\");");
-        args << QLatin1String("--eval");
-        args << QLatin1String("if strcmp(graphics_toolkit(), \"fltk\") graphics_toolkit(\"gnuplot\") endif;");
-    }
-    else
-    {
-        args << QLatin1String("--eval");
-        args << QLatin1String("set (0, \"defaultfigurevisible\",\"on\");");
-    }
-
     m_process->setProgram ( OctaveSettings::path().toLocalFile(), args );
     qDebug() << "starting " << m_process->program();
     m_process->setOutputChannelMode ( KProcess::SeparateChannels );
@@ -162,6 +112,17 @@ void OctaveSession::login()
     connect ( m_process, SIGNAL (readyReadStandardOutput()), SLOT (readOutput()) );
     connect ( m_process, SIGNAL (readyReadStandardError()), SLOT (readError()) );
     connect ( m_process, SIGNAL (error(QProcess::ProcessError)), SLOT (processError()) );
+
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> rand_dist(0, 999999999);
+    m_plotFilePrefixPath =
+        QDir::tempPath()
+        + QLatin1String("/cantor_octave_")
+        + QString::number(m_process->pid())
+        + QLatin1String("_")
+        + QString::number(rand_dist(mt))
+        + QLatin1String("_");
 
     if(!OctaveSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = OctaveSettings::self()->autorunScripts().join(QLatin1String("\n"));
@@ -198,10 +159,25 @@ void OctaveSession::logout()
     m_process->deleteLater();
     m_process = nullptr;
 
+    if (!m_plotFilePrefixPath.isEmpty())
+    {
+        int i = 0;
+        const QString& extension = OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()];
+        QString filename = m_plotFilePrefixPath + QString::number(i) + QLatin1String(".") + extension;
+        while (QFile::exists(filename))
+        {
+            QFile::remove(filename);
+            i++;
+            filename = m_plotFilePrefixPath + QString::number(i) + QLatin1String(".") + extension;
+        }
+    }
+
     expressionQueue().clear();
 
     m_output.clear();
     m_previousPromptNumber = 1;
+    m_isIntegratedPlotsEnabled = false;
+    m_isIntegratedPlotsSettingsEnabled = false;
 
     Session::logout();
 
@@ -247,6 +223,9 @@ void OctaveSession::processError()
 
 Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior, bool internal )
 {
+    if (!internal)
+        updateGraphicPackagesFromSettings();
+
     qDebug() << "evaluating: " << command;
     OctaveExpression* expression = new OctaveExpression ( this, internal);
     expression->setCommand ( command );
@@ -386,4 +365,83 @@ bool OctaveSession::isSpecialOctaveCommand(const QString& command)
 bool OctaveSession::isIntegratedPlotsEnabled() const
 {
     return m_isIntegratedPlotsEnabled;
+}
+
+QString OctaveSession::plotFilePrefixPath() const
+{
+    return m_plotFilePrefixPath;
+}
+
+void OctaveSession::updateGraphicPackagesFromSettings()
+{
+    if (m_isIntegratedPlotsSettingsEnabled == OctaveSettings::integratePlots())
+        return;
+
+    if (m_isIntegratedPlotsEnabled && OctaveSettings::integratePlots() == false)
+    {
+        updateEnabledGraphicPackages(QList<Cantor::GraphicPackage>());
+        m_isIntegratedPlotsEnabled = false;
+        m_isIntegratedPlotsSettingsEnabled = OctaveSettings::integratePlots();
+        return;
+    }
+    else if (!m_isIntegratedPlotsEnabled && OctaveSettings::integratePlots() == true)
+    {
+        bool isIntegratedPlots = OctaveSettings::integratePlots();
+        if (isIntegratedPlots)
+        {
+            QString filename = QDir::tempPath() + QLatin1String("/cantor_octave_plot_integration_test.txt");
+            QFile::remove(filename); // Remove previous file, if precents
+            int test_number = rand() % 1000;
+
+            QStringList args;
+            args << QLatin1String("--no-init-file");
+            args << QLatin1String("--no-gui");
+            args << QLatin1String("--eval");
+            args << QString::fromLatin1("file_id = fopen('%1', 'w'); fdisp(file_id, %2); fclose(file_id);").arg(filename).arg(test_number);
+
+            QString errorMsg;
+            isIntegratedPlots = Cantor::Backend::testProgramWritable(
+                OctaveSettings::path().toLocalFile(),
+                args,
+                filename,
+                QString::number(test_number),
+                &errorMsg
+            );
+
+            // If we in this branch, then isIntegratedPlots was true, but if it false now, then it means, that the writable test is failed
+            if (isIntegratedPlots == false)
+            {
+                KMessageBox::error(nullptr,
+                    i18n("Plot integration test failed.")+
+                    QLatin1String("\n\n")+
+                    errorMsg+
+                    QLatin1String("\n\n")+
+                    i18n("The integration of plots will be disabled."),
+                    i18n("Cantor")
+                );
+            }
+        }
+        m_isIntegratedPlotsEnabled = isIntegratedPlots;
+        m_isIntegratedPlotsSettingsEnabled = OctaveSettings::integratePlots();
+
+        if (m_isIntegratedPlotsEnabled)
+            updateEnabledGraphicPackages(backend()->availableGraphicPackages());
+        else
+            updateEnabledGraphicPackages(QList<Cantor::GraphicPackage>());
+    }
+}
+
+QString OctaveSession::graphicPackageErrorMessage(QString packageId) const
+{
+    QString text;
+
+    if (packageId == QLatin1String("gr")) {
+        return i18n(
+            "The plot integration don't work because Cantor found, that Octave can't create plots, "
+            "because of not graphical backends for it: this conclusion was made on the basis of empty "
+            "output from available_graphics_toolkits() function. Looks like you should install some "
+            "additional OS packages, like gnuplot, fltk or qt for possibility to create plots."
+        );
+    }
+    return text;
 }

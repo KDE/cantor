@@ -49,7 +49,6 @@ void JuliaCompletionObject::fetchCompletions()
         allCompletions << JuliaKeywords::instance()->keywords();
         allCompletions << JuliaKeywords::instance()->variables();
         allCompletions << JuliaKeywords::instance()->functions();
-        allCompletions << JuliaKeywords::instance()->plotShowingCommands();
 
         setCompletions(allCompletions);
         emit fetchingDone();

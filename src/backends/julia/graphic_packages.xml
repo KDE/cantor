@@ -1,0 +1,56 @@
+<GraphicPackages>
+    <GraphicPackage>
+        <Id>gr</Id>
+        <Name>Julia integrated</Name>
+        <TestPresenceCommand>
+try
+    import GR
+    println("1")
+catch e
+    println("0")
+end
+        </TestPresenceCommand>
+        <EnableCommand>
+if (haskey(ENV, "GKS_WSTYPE"))
+    __cantor_gr_gks_previous__ = ENV["GKS_WSTYPE"]
+    __cantor_gr_gks_need_restore__ = true
+else
+    __cantor_gr_gks_need_restore__ = false
+end
+ENV["GKS_WSTYPE"] = "nul"
+ENV["GKSwstype"] = ""
+GR.emergencyclosegks()
+            </EnableCommand>
+        <DisableCommand>
+if (__cantor_gr_gks_need_restore__)
+    ENV["GKS_WSTYPE"] = __cantor_gr_gks_previous__
+else
+    delete!(ENV, "GKS_WSTYPE")
+end
+ENV["GKSwstype"] = ""
+GR.emergencyclosegks()
+        </DisableCommand>
+        <ToFileCommandTemplate>
+GR.savefig("%1%2.%3")
+        </ToFileCommandTemplate>
+        <PlotPrecenseKeywords>
+            contour
+            contourf
+            grid
+            grid3d
+            histogram
+            imshow
+            plot
+            plot3
+            polar
+            polyline
+            polyline3d
+            polymarker
+            polymarker3d
+            scatter
+            scatter3
+            show
+            surface
+        </PlotPrecenseKeywords>
+    </GraphicPackage>
+</GraphicPackages>

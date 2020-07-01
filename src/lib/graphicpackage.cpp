@@ -38,6 +38,7 @@ class Cantor::GraphicPackagePrivate
     QString enableSupportCommand;
     QString disableSupportCommand;
     QString saveToFileCommandTemplate;
+    QStringList plotPrecenseKeywords;
 };
 
 Cantor::GraphicPackage::GraphicPackage(const Cantor::GraphicPackage& other): d(new GraphicPackagePrivate)
@@ -79,14 +80,19 @@ QString Cantor::GraphicPackage::disableSupportCommand() const
     return d->disableSupportCommand;
 }
 
-QString Cantor::GraphicPackage::savePlotCommand(QString filenamePrefix, int plotNumber) const
+QString Cantor::GraphicPackage::savePlotCommand(QString filenamePrefix, int plotNumber, QString additionalInfo) const
 {
-    return d->saveToFileCommandTemplate.arg(filenamePrefix, QString::number(plotNumber));
+    return d->saveToFileCommandTemplate.arg(filenamePrefix, QString::number(plotNumber), additionalInfo);
 }
 
 bool Cantor::GraphicPackage::isHavePlotCommand() const
 {
     return !d->saveToFileCommandTemplate.isEmpty();
+}
+
+const QStringList & Cantor::GraphicPackage::plotCommandPrecentsKeywords() const
+{
+    return d->plotPrecenseKeywords;
 }
 
 QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filename)
@@ -108,18 +114,26 @@ QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filena
                 const QDomNode& root = elements.item(i);
 
                 GraphicPackage package;
-                package.d->id = root.firstChildElement(QLatin1String("Id")).text();
-                package.d->name = root.firstChildElement(QLatin1String("Name")).text();
-                package.d->testPresenceCommand = root.firstChildElement(QLatin1String("TestPresenceCommand")).text();
-                package.d->enableSupportCommand = root.firstChildElement(QLatin1String("EnableCommand")).text();
-                package.d->disableSupportCommand = root.firstChildElement(QLatin1String("DisableCommand")).text();
-                package.d->saveToFileCommandTemplate = root.firstChildElement(QLatin1String("ToFileCommandTemplate")).text();
+                package.d->id = root.firstChildElement(QLatin1String("Id")).text().trimmed();
+                package.d->name = root.firstChildElement(QLatin1String("Name")).text().trimmed();
+                package.d->testPresenceCommand = root.firstChildElement(QLatin1String("TestPresenceCommand")).text().trimmed();
+                package.d->enableSupportCommand = root.firstChildElement(QLatin1String("EnableCommand")).text().trimmed();
+                package.d->disableSupportCommand = root.firstChildElement(QLatin1String("DisableCommand")).text().trimmed();
+                package.d->saveToFileCommandTemplate = root.firstChildElement(QLatin1String("ToFileCommandTemplate")).text().trimmed();
+
+                QString delimiter = QLatin1String("\n");
+                const QDomElement& delimiterElement = root.firstChildElement(QLatin1String("PlotPrecenseKeywordsDelimiter"));
+                if (!delimiterElement.isNull())
+                    delimiter = delimiterElement.text().trimmed();
+                package.d->plotPrecenseKeywords = root.firstChildElement(QLatin1String("PlotPrecenseKeywords")).text().trimmed().split(delimiter, QString::SkipEmptyParts);
+                for (QString& name : package.d->plotPrecenseKeywords)
+                    name = name.trimmed();
 
                 packages.append(package);
             }
         }
         else
-            qDebug() << "fail parse" << filename << "as xml file";
+            qWarning() << "fail parse" << filename << "as xml file";
     }
 
     return packages;

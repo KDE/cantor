@@ -89,7 +89,9 @@ void Cantor::Session::testGraphicsPackages(QList<GraphicPackage> packages)
                     this->d->usableGraphicPackages.push_back(package);
                 }
             } else {
-                qDebug() << "test presence command for " << package.id() << "finished because of " << (status == Expression::Error ? "error" : "interrupt");
+                qDebug() << "test presence command for" << package.id() << "finished because of" << (status == Expression::Error ? "error" : "interrupt");
+                if (status == Expression::Error && expr)
+                    qDebug() << "error message:" << expr->errorMessage();
             }
 
             handlingStatus[package.id()] = true;

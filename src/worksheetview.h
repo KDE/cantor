@@ -44,11 +44,12 @@ public:
     QPointF sceneCursorPos() const;
     QRectF viewRect() const;
     qreal scaleFactor() const;
-    void setScaleFactor(qreal);
+    void setScaleFactor(qreal scale, bool emitSignal = true);
     void updateSceneSize();
 
 Q_SIGNALS:
     void viewRectChanged(QRectF rect) const;
+    void scaleFactorChanged(double scale);
 
 public Q_SLOTS:
     void zoomIn();

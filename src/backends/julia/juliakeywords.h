@@ -40,14 +40,6 @@ public:
     const QStringList &keywords() const { return m_keywords; }
 
     /**
-     * @return list of predefined commands, that are capable to show plot
-     */
-    const QStringList &plotShowingCommands() const
-    {
-        return m_plotShowingCommands;
-    }
-
-    /**
      * @return list of known variable names
      */
     const QStringList &variables() const { return m_variables; }
@@ -93,7 +85,6 @@ public:
 
 private:
     QStringList m_keywords; //< list of predefined keywords
-    QStringList m_plotShowingCommands; //< list of predefined plot showing cmds
     QStringList m_variables; //< list of variables known at the moment
     QStringList m_removedVariables; //< list of variables removed during cleaning
     QStringList m_functions; //< list of known function at the moment

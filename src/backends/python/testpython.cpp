@@ -294,10 +294,20 @@ void TestPython3::testDictVariable()
 
 void TestPython3::testInterrupt()
 {
-    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("import time; time.sleep(45)"));
+    Cantor::Expression* e1=session()->evaluateExpression(QLatin1String("import time; time.sleep(150)"));
     Cantor::Expression* e2=session()->evaluateExpression(QLatin1String("2"));
 
-    // Wait, because server need time to read input
+    if (e1->status() != Cantor::Expression::Queued)
+        waitForSignal(e1, SIGNAL(statusChanged(Cantor::Expression::Status)));
+
+    if (e1->status() != Cantor::Expression::Computing)
+        waitForSignal(e1, SIGNAL(statusChanged(Cantor::Expression::Status)));
+
+    if (e2->status() != Cantor::Expression::Queued)
+        waitForSignal(e2, SIGNAL(statusChanged(Cantor::Expression::Status)));
+
+    // Without this delay, server don't interrupt even if got interrupt signal (via OS kill)
+    // Also, if the server won't interrupt, the test will fail without reasonable reason
     QTest::qWait(100);
 
     QCOMPARE(e1->status(), Cantor::Expression::Computing);
@@ -315,6 +325,7 @@ void TestPython3::testInterrupt()
     QCOMPARE(e2->status(), Cantor::Expression::Interrupted);
 
     Cantor::Expression* e = evalExp(QLatin1String("2+2"));
+    qDebug() << e->status() << session()->status();
 
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);

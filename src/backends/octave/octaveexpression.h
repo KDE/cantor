@@ -50,7 +50,7 @@ private:
     QString m_resultString;
     bool m_finished = false;
     bool m_plotPending = false;
-    QTemporaryFile* m_tempFile = nullptr;
+    QString m_plotFilename;
 };
 
 #endif // OCTAVEEXPRESSION_H

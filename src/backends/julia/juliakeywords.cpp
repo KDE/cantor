@@ -40,24 +40,6 @@ JuliaKeywords::JuliaKeywords()
     m_variables << QLatin1String("NaN");
     m_variables << QLatin1String("nothing");
     m_variables << QLatin1String("true");
-
-    m_plotShowingCommands << QLatin1String("contour");
-    m_plotShowingCommands << QLatin1String("contourf");
-    m_plotShowingCommands << QLatin1String("grid");
-    m_plotShowingCommands << QLatin1String("grid3d");
-    m_plotShowingCommands << QLatin1String("histogram");
-    m_plotShowingCommands << QLatin1String("imshow");
-    m_plotShowingCommands << QLatin1String("plot");
-    m_plotShowingCommands << QLatin1String("plot3");
-    m_plotShowingCommands << QLatin1String("polar");
-    m_plotShowingCommands << QLatin1String("polyline");
-    m_plotShowingCommands << QLatin1String("polyline3d");
-    m_plotShowingCommands << QLatin1String("polymarker");
-    m_plotShowingCommands << QLatin1String("polymarker3d");
-    m_plotShowingCommands << QLatin1String("scatter");
-    m_plotShowingCommands << QLatin1String("scatter3");
-    m_plotShowingCommands << QLatin1String("show");
-    m_plotShowingCommands << QLatin1String("surface");
 }
 
 JuliaKeywords *JuliaKeywords::instance()

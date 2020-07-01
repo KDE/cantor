@@ -28,6 +28,11 @@
 #include "textresult.h"
 #include "imageresult.h"
 
+const QStringList JuliaExpression::plotExtensions({
+    QLatin1String("svg"),
+    QLatin1String("png")
+});
+
 JuliaExpression::JuliaExpression(Cantor::Session *session, bool internal)
     : Cantor::Expression(session, internal)
 {
@@ -35,7 +40,6 @@ JuliaExpression::JuliaExpression(Cantor::Session *session, bool internal)
 
 void JuliaExpression::evaluate()
 {
-    setStatus(Cantor::Expression::Computing);
     auto juliaSession = static_cast<JuliaSession *>(session());
 
     juliaSession->enqueueExpression(this);
@@ -48,23 +52,27 @@ QString JuliaExpression::internalCommand()
 
     // Plots integration
     m_plot_filename.clear();
-    if (juliaSession->integratePlots() && checkPlotShowingCommands()) {
-        // Simply add plot saving command to the end of execution
-        QStringList inlinePlotFormats;
-        inlinePlotFormats << QLatin1String("svg");
-        inlinePlotFormats << QLatin1String("png");
-
-        auto inlinePlotFormat =
-            inlinePlotFormats[JuliaSettings::inlinePlotFormat()];
-        m_plot_filename = QDir::tempPath() +
-            QString::fromLatin1("/cantor-julia-export-%1.%2")
-                .arg(QUuid::createUuid().toString()).arg(inlinePlotFormat);
-
-        QString saveFigCommand =
-            QString::fromLatin1("\nGR.savefig(\"%1\")\n").arg(m_plot_filename);
-
-        cmd = cmd.append(saveFigCommand);
+    // Not sure about how this code will work with two graphic packages activated in the same time (they both will save to one file?)...
+    if (!session()->enabledGraphicPackages().isEmpty() && !isInternal())
+    {
+        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+        for (const Cantor::GraphicPackage& package : session()->enabledGraphicPackages())
+        {
+            for (const QString& plotCmd : package.plotCommandPrecentsKeywords())
+                if (cmdWords.contains(plotCmd))
+                {
+                    if (package.isHavePlotCommand())
+                    {
+                        m_plot_filename = juliaSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[JuliaSettings::inlinePlotFormat()];
+                        cmd.append(QLatin1String("\n"));
+                        cmd.append(package.savePlotCommand(juliaSession->plotFilePrefixPath(), id(), plotExtensions[JuliaSettings::inlinePlotFormat()]));
+                    }
+                    break;
+                }
+        }
     }
+
+    qDebug() << "expression internal command:" << cmd;
 
     return cmd;
 }
@@ -91,16 +99,5 @@ void JuliaExpression::finalize(const QString& output, const QString& error, bool
 void JuliaExpression::interrupt()
 {
     setStatus(Cantor::Expression::Interrupted);
-}
-
-bool JuliaExpression::checkPlotShowingCommands()
-{
-    for (auto showingCommand :
-            JuliaKeywords::instance()->plotShowingCommands()) {
-        if (command().contains(showingCommand + QLatin1String("("))) {
-            return true;
-        }
-    }
-    return false;
 }
 

@@ -57,15 +57,10 @@ public:
      */
     void finalize(const QString& output, const QString& error, bool wasException);
 
+public:
+    static const QStringList plotExtensions;
+
 private:
-    /// If not empty, it's a filename of plot image file expression is awaiting
-    /// to get
+    /// If not empty, it's a filename of plot image file expression is awaiting to get
     QString m_plot_filename;
-
-
-    /**
-     * @return bool indicator if current expression contains command that
-     *              shows plot
-     */
-    bool checkPlotShowingCommands();
 };

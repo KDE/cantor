@@ -51,6 +51,7 @@ class OctaveSession : public Cantor::Session
         void runFirstExpression() override;
 
         bool isIntegratedPlotsEnabled() const;
+        QString plotFilePrefixPath() const;
 
     private:
         const static QRegularExpression PROMPT_UNCHANGEABLE_COMMAND;
@@ -65,12 +66,16 @@ class OctaveSession : public Cantor::Session
         bool m_syntaxError;
 
         QString m_output;
+        QString m_plotFilePrefixPath;
         bool m_isIntegratedPlotsEnabled; // Better move it in worksheet, like isCompletion, etc.
+        bool m_isIntegratedPlotsSettingsEnabled;
 
     private:
         void readFromOctave(QByteArray data);
         bool isDoNothingCommand(const QString& command);
         bool isSpecialOctaveCommand(const QString& command);
+        void updateGraphicPackagesFromSettings();
+        QString graphicPackageErrorMessage(QString packageId) const override;
 
     private Q_SLOTS:
         void readOutput();
