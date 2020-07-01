@@ -1,15 +1,15 @@
 <GraphicPackages>
-<GraphicPackage>
-<Id>matplotlib</Id>
-<Name>Matplotlib</Name>
-<TestPresenceCommand>
+    <GraphicPackage>
+        <Id>matplotlib</Id>
+        <Name>Matplotlib</Name>
+        <TestPresenceCommand>
 try:
     import matplotlib
     print(1)
 except ModuleNotFoundError:
     print(0)
-</TestPresenceCommand>
-<EnableCommand>
+        </TestPresenceCommand>
+        <EnableCommand>
 from matplotlib import pyplot as __cantor_plt__;
 __cantor_plot_prefix__ = '%1'
 
@@ -23,17 +23,18 @@ def __cantor_matplotlib_show__():
 
 __cantor_matplotlib_original_show__ = matplotlib.pyplot.show
 __cantor_plt__.show = __cantor_matplotlib_show__
-</EnableCommand>
-<DisableCommand>
+        </EnableCommand>
+        <DisableCommand>
 __cantor_plt__.show = __cantor_matplotlib_original_show__;
-</DisableCommand>
-<ToFileCommandTemplate></ToFileCommandTemplate>
-</GraphicPackage>
+        </DisableCommand>
+        <ToFileCommandTemplate></ToFileCommandTemplate>
+        <PlotPrecenseKeywords></PlotPrecenseKeywords>
+    </GraphicPackage>
 
-<GraphicPackage>
-<Id>plotly</Id>
-<Name>Plot.ly</Name>
-<TestPresenceCommand>
+    <GraphicPackage>
+        <Id>plotly</Id>
+        <Name>Plot.ly</Name>
+        <TestPresenceCommand>
 def __cantor_plotly_check_presence__():
     import matplotlib;
     import sys
@@ -48,8 +49,8 @@ try:
    __cantor_plotly_check_presence__()
 except ModuleNotFoundError:
     print(0)
-</TestPresenceCommand>
-<EnableCommand>
+        </TestPresenceCommand>
+        <EnableCommand>
 import plotly as __cantor_plotly__
 __cantor_plot_prefix__ = '%1'
 def __cantor_plotly_show__(figure):
@@ -61,10 +62,11 @@ def __cantor_plotly_show__(figure):
 
 __cantor_plotly_original_show__ = __cantor_plotly__.basedatatypes.BaseFigure.show
 __cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_show__
-</EnableCommand>
-<DisableCommand>
+        </EnableCommand>
+        <DisableCommand>
 __cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_original_show__;
-</DisableCommand>
-<ToFileCommandTemplate></ToFileCommandTemplate>
-</GraphicPackage>
+        </DisableCommand>
+        <ToFileCommandTemplate></ToFileCommandTemplate>
+        <PlotPrecenseKeywords></PlotPrecenseKeywords>
+    </GraphicPackage>
 </GraphicPackages>

@@ -38,6 +38,7 @@ class Cantor::GraphicPackagePrivate
     QString enableSupportCommand;
     QString disableSupportCommand;
     QString saveToFileCommandTemplate;
+    QStringList plotPrecenseKeywords;
 };
 
 Cantor::GraphicPackage::GraphicPackage(const Cantor::GraphicPackage& other): d(new GraphicPackagePrivate)
@@ -89,6 +90,11 @@ bool Cantor::GraphicPackage::isHavePlotCommand() const
     return !d->saveToFileCommandTemplate.isEmpty();
 }
 
+const QStringList & Cantor::GraphicPackage::plotCommandPrecentsKeywords() const
+{
+    return d->plotPrecenseKeywords;
+}
+
 QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filename)
 {
     QList<GraphicPackage> packages;
@@ -115,11 +121,19 @@ QList<GraphicPackage> Cantor::GraphicPackage::loadFromFile(const QString& filena
                 package.d->disableSupportCommand = root.firstChildElement(QLatin1String("DisableCommand")).text().trimmed();
                 package.d->saveToFileCommandTemplate = root.firstChildElement(QLatin1String("ToFileCommandTemplate")).text().trimmed();
 
+                QString delimiter = QLatin1String("\n");
+                const QDomElement& delimiterElement = root.firstChildElement(QLatin1String("PlotPrecenseKeywordsDelimiter"));
+                if (!delimiterElement.isNull())
+                    delimiter = delimiterElement.text().trimmed();
+                package.d->plotPrecenseKeywords = root.firstChildElement(QLatin1String("PlotPrecenseKeywords")).text().trimmed().split(delimiter, QString::SkipEmptyParts);
+                for (QString& name : package.d->plotPrecenseKeywords)
+                    name = name.trimmed();
+
                 packages.append(package);
             }
         }
         else
-            qDebug() << "fail parse" << filename << "as xml file";
+            qWarning() << "fail parse" << filename << "as xml file";
     }
 
     return packages;

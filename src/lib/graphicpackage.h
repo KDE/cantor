@@ -94,6 +94,14 @@ public:
     QString savePlotCommand(QString filenamePrefix = QString(), int plotNumber = -1, QString additionalInfo = QString()) const;
 
     /**
+     * Some graphic package can't capture plots correctly, for example, some packages can't test precense of created plot.
+     * So, the package handling need some code for testing of plot command precense
+     * This method return list of some strings, which should be in plot command.
+     * @return List of strings, which should be in plot command or empty list.
+     */
+    const QStringList& plotCommandPrecentsKeywords() const;
+
+    /**
      * @brief Load graphic packages from XML file.
      *
      * The file should have @c "GraphicPackages" root element with one or more @c "GraphicPackage" XML elements.

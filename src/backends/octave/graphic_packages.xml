@@ -26,5 +26,52 @@ catch
 end_try_catch
 clear __cantor_plot_filename__
         </ToFileCommandTemplate>
+        <PlotPrecenseKeywords>
+            plot
+            semilogx
+            semilogy
+            loglog
+            polar
+            contour
+            bar
+            stairs
+            errorbar
+            sombrero
+            hist
+            fplot
+            imshow
+            stem
+            stem3
+            scatter
+            pareto
+            rose
+            pie
+            quiver
+            compass
+            feather
+            pcolor
+            area
+            fill
+            comet
+            plotmatrix
+            plot3
+            mesh
+            meshc
+            meshz
+            surf
+            surfc
+            surfl
+            surfnorm
+            isosurface
+            isonormals
+            isocaps
+            ezplot3
+            ezmesh
+            ezmeshc
+            ezsurf
+            ezsurfc
+            cantor_plot2d
+            cantor_plot3d
+        </PlotPrecenseKeywords>
     </GraphicPackage>
 </GraphicPackages>
