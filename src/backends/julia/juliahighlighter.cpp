@@ -32,7 +32,6 @@ JuliaHighlighter::JuliaHighlighter(QObject *parent, JuliaSession* session)
     addKeywords(JuliaKeywords::instance()->keywords());
     addVariables(JuliaKeywords::instance()->variables());
     addFunctions(JuliaKeywords::instance()->functions());
-    addFunctions(JuliaKeywords::instance()->plotShowingCommands());
 }
 
 void JuliaHighlighter::highlightBlock(const QString &text)
