@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>609</width>
-    <height>222</height>
+    <height>227</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -26,16 +26,6 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="kcfg_variableManagement">
-     <property name="toolTip">
-      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
-     </property>
-     <property name="text">
-      <string>Enable Variable Management</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="kcfg_integratePlots">
      <property name="toolTip">
       <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
@@ -46,9 +36,19 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <widget class="QCheckBox" name="kcfg_variableManagement">
+     <property name="toolTip">
+      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
+     </property>
+     <property name="text">
+      <string>Enable Variable Management</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout2">
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="label2">
        <property name="text">
         <string>Inline Plots Intermediate Format:</string>
        </property>
@@ -74,6 +74,50 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout3">
+     <item>
+      <widget class="QLabel" name="label3">
+       <property name="toolTip">
+        <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
+       </property>
+       <property name="text">
+        <string>Preferred package for the &quot;Plot&quot; menu: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="kcfg_plotExtenstionGraphicPackage">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <item>
+        <property name="text">
+         <string>GR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Plots</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>PyPlot</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Gadfly</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <spacer name="verticalSpacer1">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -89,6 +133,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>

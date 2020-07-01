@@ -22,6 +22,8 @@
 #include <QDebug>
 #include <KLocalizedString>
 
+#include "settings.h"
+
 #include "juliascriptloading.h"
 
 #define JULIA_EXT_CDTOR(name) Julia##name##Extension::Julia##name##Extension(QObject *parent) : name##Extension(parent) {} \
@@ -136,26 +138,61 @@ QString JuliaPlotExtension::plotFunction2d(
     const QString &left,
     const QString &right)
 {
-    auto new_left = left;
-    auto new_right = right;
-    if (new_left.isEmpty() && new_right.isEmpty()) {
-        new_left = QLatin1String("-1");
-        new_right = QLatin1String("1");
-    } else if (new_left.isEmpty()) {
-        new_left = QString::fromLatin1("(%1) - 1").arg(new_right);
-    } else if (new_right.isEmpty()) {
-        new_right = QString::fromLatin1("(%1) + 1").arg(new_left);
+    QString command;
+    QString limits;
+
+    switch(JuliaSettings::plotExtenstionGraphicPackage())
+    {
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::gr:
+        {
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("GR.xlim((%1, %2))\n").arg(left).arg(right);
+
+            command = QString::fromLatin1(
+                "import GR\n"
+                "\n"
+                "%3"
+                "GR.plot(%1, %2)"
+            ).arg(variable).arg(function).arg(limits);
+            break;
+        }
+
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::plots:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1(", xlims = (%1, %2)").arg(left).arg(right);
+
+            command = QString::fromLatin1(
+                "import Plots\n"
+                "\n"
+                "Plots.plot(%1, %2%3)"
+            ).arg(variable, function, limits);
+            break;
+
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::pyplot:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1("PyPlot.xlim(%1, %2)\n").arg(left).arg(right);
+
+            command = QString::fromLatin1(
+                "import PyPlot\n"
+                "\n"
+                "%3"
+                "PyPlot.plot(%1, %2)"
+            ).arg(variable, function, limits);
+            break;
+
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::gadfly:
+            if (!left.isEmpty() && !right.isEmpty())
+                limits = QString::fromLatin1(", Gadfly.Scale.x_continuous(minvalue=%1, maxvalue=%2)").arg(left).arg(right);
+
+            command = QString::fromLatin1(
+                "import Gadfly\n"
+                "\n"
+                "Gadfly.plot(x=%1, y=%2%3)"
+            ).arg(variable, function, limits);
+            break;
     }
 
-    auto xlimits = QString::fromLatin1("GR.xlim((%1, %2))\n").arg(new_left).arg(new_right);
-    auto linspace =
-        QString::fromLatin1("linspace(%1, %2, 100)").arg(new_left).arg(new_right);
-
-    return QString::fromLatin1(
-        "import GR\n"
-        "%3"
-        "GR.plot(%1, [%2 for %4 in %1])\n"
-    ).arg(linspace).arg(function).arg(xlimits).arg(variable);
+    return command;
 }
 
 QString JuliaPlotExtension::plotFunction3d(
@@ -163,41 +200,69 @@ QString JuliaPlotExtension::plotFunction3d(
     const VariableParameter& var1,
     const VariableParameter& var2)
 {
+    QString command;
 
-    auto update_interval = [](Interval &interval) {
-        if (interval.first.isEmpty() && interval.second.isEmpty()) {
-            interval.first = QLatin1String("-1");
-            interval.second = QLatin1String("1");
-        } else if (interval.first.isEmpty()) {
-            interval.second = QString::fromLatin1("(%1) + 1")
-                .arg(interval.first);
-        } else if (interval.second.isEmpty()) {
-            interval.first = QString::fromLatin1("(%1) - 1")
-                .arg(interval.second);
+    const Interval& interval1 = var1.second;
+    const Interval& interval2 = var2.second;
+
+    QString interval1Limits;
+    QString interval2Limits;
+
+    switch(JuliaSettings::plotExtenstionGraphicPackage())
+    {
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::gr:
+        {
+            if (!interval1.first.isEmpty() && !interval1.second.isEmpty())
+                interval1Limits = QString::fromLatin1("GR.xlim((%1, %2))\n").arg(interval1.first).arg(interval1.second);
+
+            if (!interval2.first.isEmpty() && !interval2.second.isEmpty())
+                interval1Limits = QString::fromLatin1("GR.ylim((%1, %2))\n").arg(interval2.first).arg(interval2.second);
+
+            command = QString::fromLatin1(
+                "import GR\n"
+                "\n"
+                "%4%5"
+                "GR.plot3(%1, %2, %3)"
+            ).arg(interval1.first, interval2.first, function, interval1Limits, interval2Limits);
+            break;
         }
-    };
 
-    Interval interval1 = var1.second;
-    Interval interval2 = var2.second;
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::plots:
+            if (!interval1.first.isEmpty() && !interval1.second.isEmpty())
+                interval1Limits = QString::fromLatin1(", xlims = (%1, %2)").arg(interval1.first).arg(interval1.second);
 
-    update_interval(interval1);
-    update_interval(interval2);
+            if (!interval2.first.isEmpty() && !interval2.second.isEmpty())
+                interval1Limits = QString::fromLatin1(", ylims = (%1, %2)").arg(interval2.first).arg(interval2.second);
 
-    return QString::fromLatin1(
-        "import GR\n"
-        "values = zeros(100, 100)\n"
-        "for p_x in enumerate(linspace(%1, %2, 100))\n"
-        "    i, %6 = p_x\n"
-        "    for p_y in enumerate(linspace(%3, %4, 100))\n"
-        "        j, %7 = p_y\n"
-        "        values[i, j] = %5\n"
-        "    end\n"
-        "end\n"
-        "GR.surface(linspace(%1, %2, 100), linspace(%3, %4, 100), values)\n"
-    ).arg(interval1.first).arg(interval1.second)
-        .arg(interval2.first).arg(interval2.second)
-        .arg(function)
-        .arg(var1.first).arg(var2.first);
+            command = QString::fromLatin1(
+                "import Plots\n"
+                "\n"
+                "%4%5"
+                "GR.plot3d(%1, %2, %3)"
+            ).arg(interval1.first, interval2.first, function, interval1Limits, interval2Limits);
+            break;
+
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::pyplot:
+            if (!interval1.first.isEmpty() && !interval1.second.isEmpty())
+                interval1Limits = QString::fromLatin1("GR.xlim((%1, %2))\n").arg(interval1.first).arg(interval1.second);
+
+            if (!interval2.first.isEmpty() && !interval2.second.isEmpty())
+                interval1Limits = QString::fromLatin1("GR.ylim((%1, %2))\n").arg(interval2.first).arg(interval2.second);
+
+            command = QString::fromLatin1(
+                "import GR\n"
+                "\n"
+                "%4%5"
+                "PyPlot.plot3D(%1, %2, %3)"
+            ).arg(interval1.first, interval2.first, function, interval1Limits, interval2Limits);
+            break;
+
+        case JuliaSettings::EnumPlotExtenstionGraphicPackage::gadfly:
+            command = i18n("# Sorry, but Gadfly don't support 3d plots");
+            break;
+    }
+
+    return command;
 }
 
 
