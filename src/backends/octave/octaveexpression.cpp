@@ -37,25 +37,6 @@
 
 
 static const QString printCommandTemplate = QString::fromLatin1("cantor_print('%1', '%2');");
-static const QStringList plotCommands({
-    QLatin1String("plot"), QLatin1String("semilogx"), QLatin1String("semilogy"),
-    QLatin1String("loglog"), QLatin1String("polar"), QLatin1String("contour"),
-    QLatin1String("bar"), QLatin1String("stairs"), QLatin1String("errorbar"),
-    QLatin1String("sombrero"), QLatin1String("hist"), QLatin1String("fplot"),
-    QLatin1String("imshow"), QLatin1String("stem"), QLatin1String("stem3"),
-    QLatin1String("scatter"), QLatin1String("pareto"), QLatin1String("rose"),
-    QLatin1String("pie"), QLatin1String("quiver"), QLatin1String("compass"),
-    QLatin1String("feather"), QLatin1String("pcolor"), QLatin1String("area"),
-    QLatin1String("fill"), QLatin1String("comet"), QLatin1String("plotmatrix"),
-    /* 3d-plots */
-    QLatin1String("plot3"), QLatin1String("mesh"), QLatin1String("meshc"),
-    QLatin1String("meshz"), QLatin1String("surf"), QLatin1String("surfc"),
-    QLatin1String("surfl"), QLatin1String("surfnorm"), QLatin1String("isosurface"),
-    QLatin1String("isonormals"), QLatin1String("isocaps"),
-    /* 3d-plots defined by a function */
-    QLatin1String("ezplot3"), QLatin1String("ezmesh"), QLatin1String("ezmeshc"),
-    QLatin1String("ezsurf"), QLatin1String("ezsurfc"), QLatin1String("cantor_plot2d"),
-    QLatin1String("cantor_plot3d")});
 const QStringList OctaveExpression::plotExtensions({
 #ifdef WITH_EPS
     QLatin1String("eps"),
@@ -95,17 +76,17 @@ QString OctaveExpression::internalCommand()
     QString cmd = command();
 
     OctaveSession* octaveSession = static_cast<OctaveSession*>(session());
-    if (octaveSession->isIntegratedPlotsEnabled() && !isInternal())
+    if (octaveSession->isIntegratedPlotsEnabled() && !session()->enabledGraphicPackages().isEmpty() && !isInternal())
     {
         QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
         if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
         {
-            for (const QString& plotCmd : plotCommands)
+            Q_ASSERT(session()->enabledGraphicPackages().size() == 1);
+            const Cantor::GraphicPackage& package = session()->enabledGraphicPackages().first();
+            Q_ASSERT(package.id() == QLatin1String("octave_universal"));
+            for (const QString& plotCmd : package.plotCommandPrecentsKeywords())
                 if (cmdWords.contains(plotCmd))
                 {
-                    Q_ASSERT(session()->enabledGraphicPackages().size() == 1);
-                    const Cantor::GraphicPackage& package = session()->enabledGraphicPackages().first();
-                    Q_ASSERT(package.id() == QLatin1String("octave_universal"));
                     if (package.isHavePlotCommand())
                     {
                         m_plotFilename = octaveSession->plotFilePrefixPath() + QString::number(id()) + QLatin1String(".") + plotExtensions[OctaveSettings::inlinePlotFormat()];

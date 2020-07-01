@@ -75,6 +75,7 @@ class OctaveSession : public Cantor::Session
         bool isDoNothingCommand(const QString& command);
         bool isSpecialOctaveCommand(const QString& command);
         void updateGraphicPackagesFromSettings();
+        QString graphicPackageErrorMessage(QString packageId) const
 
     private Q_SLOTS:
         void readOutput();
