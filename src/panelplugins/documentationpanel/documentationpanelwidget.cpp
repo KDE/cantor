@@ -20,6 +20,7 @@
 
 #include "cantor_macros.h"
 #include "documentationpanelplugin.h"
+#include "session.h"
 
 #include <KLocalizedString>
 
@@ -41,10 +42,11 @@
 #include <QWebEngineView>
 #include <QWidget>
 
-DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(parent), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr)
+DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr), m_session(nullptr)
 {
-    const QString backendName = QLatin1String("maxima");
-    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qhc"));
+    const QString backend = session->backend()->name();
+    qDebug() << backend;
+    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qhc"));
     m_engine = new QHelpEngine(fileName, this);
 
     if(!m_engine->setupData())
@@ -96,6 +98,13 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) :QWidget(par
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
+
+    setSession(session);
+}
+
+void DocumentationPanelWidget::setSession(Cantor::Session* session)
+{
+    m_session = session;
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
@@ -130,30 +139,23 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 
 void DocumentationPanelWidget::loadDocumentation()
 {
-    //1. Get the backend name
-    //2. Load their documentation
-
-    const QString backendName = QLatin1String("maxima");
-    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backendName + QLatin1String("/help.qch"));
+    const QString backend = backendName();
+    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
     m_engine->registerDocumentation(fileName);
 }
 
 void DocumentationPanelWidget::unloadDocumentation()
 {
-    //1. Get the backend name
-    //2. Unload their documentation
     //Call this function when the user changes the current backend
     m_engine->unregisterDocumentation(QLatin1String("org.kde.cantor"));
 }
 
 QIcon DocumentationPanelWidget::icon() const
 {
-    // return backend's icon
-    return QIcon();
+    return QIcon::fromTheme(m_session->backend()->icon());
 }
 
-QString DocumentationPanelWidget::name() const
+QString DocumentationPanelWidget::backendName() const
 {
-    // return backend's name
-    return QString(QLatin1String("maxima"));
+    return QString(QLatin1String("Maxima"));//m_session->backend()->name();
 }

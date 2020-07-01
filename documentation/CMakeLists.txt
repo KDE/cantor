@@ -1,1 +1,1 @@
-add_subdirectory(maxima)
+add_subdirectory(Maxima)

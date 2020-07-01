@@ -19,6 +19,7 @@
  */
 
 #include "documentationpanelplugin.h"
+#include "session.h"
 
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
 {
@@ -30,11 +31,17 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
     delete m_widget;
 }
 
+void DocumentationPanelPlugin::onSessionChanged()
+{
+    if(m_widget)
+        m_widget->setSession(session());
+}
+
 QWidget* DocumentationPanelPlugin::widget()
 {
     if(!m_widget)
     {
-        m_widget = new DocumentationPanelWidget(parentWidget());
+        m_widget = new DocumentationPanelWidget(session(), parentWidget());
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
     }

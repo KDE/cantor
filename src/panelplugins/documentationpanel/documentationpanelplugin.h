@@ -37,6 +37,9 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
 
     bool showOnStartup() override;
 
+  protected:
+    void onSessionChanged() override;
+
   private:
     QPointer<DocumentationPanelWidget> m_widget;
 };

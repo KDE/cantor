@@ -24,6 +24,10 @@
 #include <QPointer>
 #include <QWidget>
 
+namespace Cantor{
+class Session;
+}
+
 class QHelpEngine;
 class QSplitter;
 class QTabWidget;
@@ -35,14 +39,16 @@ class DocumentationPanelWidget : public QWidget
   Q_OBJECT
 
   public:
-    DocumentationPanelWidget(QWidget*);
+    DocumentationPanelWidget(Cantor::Session* session, QWidget* parent);
     ~DocumentationPanelWidget() override = default;
+
+    void setSession(Cantor::Session* session);
 
     /** @return icon of the current backend **/
     QIcon icon() const;
 
     /** @return name of the current backend **/
-    QString name() const;
+    QString backendName() const;
 
     void loadDocumentation();
     void unloadDocumentation();
@@ -58,7 +64,7 @@ class DocumentationPanelWidget : public QWidget
     QPointer<QTabWidget> m_tabWidget;
     QPointer<QSplitter> m_splitter;
 
-    // later add member variable for path to help files
+    Cantor::Session* m_session;
 };
 
 #endif /* _DOCUMENTATIONPANELWIDGET_H */
