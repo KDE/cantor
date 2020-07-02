@@ -328,7 +328,7 @@ QString JuliaSession::graphicPackageErrorMessage(QString packageId) const
             "On this moment, integrated graphic can handle only one of Julia packages - GR graphic package. "
             "And for using this feature you need to install the package first. "
             "For this, run Pkg.install(\"GR\") in Cantor or in julia REPL. Also, it is important "
-            "to note, that this is a long operation and better use julia REPL, because Cantor don't "
+            "to note, that this is a long operation and better use julia REPL, because Cantor doesn't "
             "show intermediate text unlike the julia."
         );
     }
