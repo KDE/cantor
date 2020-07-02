@@ -60,8 +60,12 @@ def __cantor_plotly_show__(figure):
     figure.write_image(__cantor_plt_filename__, scale=2)
     print('\nINNER PLOT INFO CANTOR: ', __cantor_plt_filename__, sep='')
 
-__cantor_plotly_original_show__ = __cantor_plotly__.basedatatypes.BaseFigure.show
-__cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_show__
+if hasattr(__cantor_plotly__, 'basedatatypes'):
+    __cantor_plotly_original_show__ = __cantor_plotly__.basedatatypes.BaseFigure.show
+    __cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_show__
+else:
+    __cantor_plotly_original_show__ = __cantor_plotly__.graph_objects.Figure.show
+    __cantor_plotly__.graph_objects.Figure.show = __cantor_plotly_show__
         </EnableCommand>
         <DisableCommand>
 __cantor_plotly__.basedatatypes.BaseFigure.show = __cantor_plotly_original_show__;
