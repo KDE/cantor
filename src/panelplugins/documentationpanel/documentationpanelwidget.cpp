@@ -150,5 +150,5 @@ void DocumentationPanelWidget::unloadDocumentation()
 
 QString DocumentationPanelWidget::backendName() const
 {
-    return m_backend;//m_session->backend()->name();
+    return m_backend;
 }

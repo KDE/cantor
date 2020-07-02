@@ -359,6 +359,10 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
 
+    // Do not display "Show Backend Help" action for Maxima, since we are shwing it's integrated documentation
+    if(backend->name() == QLatin1String("Maxima"))
+        m_showBackendHelp->setVisible(false);
+
     // Disabled, because uploading to kde store from program don't work
     // See https://phabricator.kde.org/T9980 for details
     // If this situation will changed, then uncomment this action
