@@ -437,8 +437,8 @@ QString OctaveSession::graphicPackageErrorMessage(QString packageId) const
 
     if (packageId == QLatin1String("gr")) {
         return i18n(
-            "The plot integration don't work because Cantor found, that Octave can't create plots, "
-            "because of not graphical backends for it: this conclusion was made on the basis of empty "
+            "The plot integration doesn't work because Cantor found, that Octave can't create plots, "
+            "because there are no graphical backends for it: this conclusion was made on the basis of empty "
             "output from available_graphics_toolkits() function. Looks like you should install some "
             "additional OS packages, like gnuplot, fltk or qt for possibility to create plots."
         );

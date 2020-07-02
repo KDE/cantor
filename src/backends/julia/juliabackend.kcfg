@@ -27,5 +27,15 @@
             </choices>
             <default>svg</default>
         </entry>
+        <entry name="plotExtenstionGraphicPackage" type="Enum">
+            <choices>
+                <choice name="gr"/>
+                <choice name="plots"/>
+                <choice name="pyplot"/>
+                <choice name="gadfly"/>
+            </choices>
+            <label>Graphical package, for which will be enable support for embedding plots</label>
+            <default>0</default>
+        </entry>
     </group>
 </kcfg>
