@@ -1,0 +1,3 @@
+### Steps to extract the indices from `octave's official documentation` to add them to `qhp` under `keywords`
+Copy the `HTML` files named `Concept-Index.html`, `Function-Index.html` and `Operator-Index.html` from `octave-5.2.0/doc/interpreter/octave.html/` to here. Then run the python scripts named `concept_index_parser.py`, `function_index_parser.py` and `operator_index_parser.py` one by one using `python <script-name>`. On running these scripts, an output file named `output.txt` would be generated. It would be containing all the indices. Simply copy the file contents and paste under the `<keywords>` section inside `qhp` file.
+
