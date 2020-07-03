@@ -360,7 +360,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
 
     // Do not display "Show Backend Help" action for Maxima, since we are showing it's integrated documentation
-    if(backend->name() == QLatin1String("Maxima"))
+    if(backend->name() == QLatin1String("Maxima") || backend->name() == QLatin1String("Octave"))
         m_showBackendHelp->setVisible(false);
 
     // Disabled, because uploading to kde store from program don't work

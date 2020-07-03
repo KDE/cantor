@@ -51,6 +51,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     if(!m_engine->setupData())
     {
         qWarning() << "Couldn't setup QtHelp Engine";
+        qWarning() << m_engine->error();
         delete m_engine;
         delete m_textBrowser;
         delete m_tabWidget;
