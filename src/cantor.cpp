@@ -22,6 +22,7 @@
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KConfigGroup>
+#include <KConfig>
 #include <KMessageBox>
 #include <KShortcutsDialog>
 #include <KStandardAction>
@@ -317,9 +318,10 @@ void CantorShell::addWorksheet(const QString& backendName)
     KPluginFactory* factory = loader.factory();
     if (factory)
     {
+        Cantor::Backend* backend = nullptr;
         if (!backendName.isEmpty())
         {
-            Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
+            backend = Cantor::Backend::getBackend(backendName);
             if (!backend)
             {
                 KMessageBox::error(this, i18n("Backend %1 is not installed", backendName), i18n("Cantor"));
@@ -342,7 +344,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
             m_parts.append(part);
-
+            m_parts2Backends[part] = backend->id();
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
             m_tabWidget->setCurrentIndex(tab);
             // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
@@ -455,8 +457,11 @@ void CantorShell::closeTab(int index)
         KParts::ReadWritePart* part= findPart(widget);
         if(part)
         {
+            saveDockPanelsState(part);
+
             m_parts.removeAll(part);
             m_pluginsVisibility.remove(part);
+            m_parts2Backends.remove(part);
             delete part;
         }
     }
@@ -513,6 +518,9 @@ void CantorShell::closeEvent(QCloseEvent* event) {
     if(!reallyClose()) {
         event->ignore();
     } else {
+        for (KParts::ReadWritePart* part : m_parts)
+            saveDockPanelsState(part);
+
         KParts::MainWindow::closeEvent(event);
     }
 }
@@ -624,9 +632,20 @@ void CantorShell::updatePanel()
     }
 
     QDockWidget* last=nullptr;
+    bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
+
+    if (isNewWorksheet)
+    {
+        KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
+        if (m_parts2Backends.contains(m_part) && panelStatusGroup.hasKey(m_parts2Backends[m_part]))
+        {
+            const QStringList& plugins = panelStatusGroup.readEntry(m_parts2Backends[m_part]).split(QLatin1Char('\n'));
+            m_pluginsVisibility[m_part] = plugins;
+            isNewWorksheet = false;
+        }
+    }
 
     QList<Cantor::PanelPlugin*> plugins=handler->plugins();
-    const bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
     foreach(Cantor::PanelPlugin* plugin, plugins)
     {
         if(plugin==nullptr)
@@ -725,4 +744,26 @@ void CantorShell::onWorksheetSave(const QUrl& url)
         m_recentProjectsAction->addUrl(url);
 
     updateWindowTitle(m_part->url().fileName());
+}
+
+void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
+{
+    if (m_parts2Backends.contains(part))
+    {
+
+        QStringList visiblePanelNames;
+        if (part == m_part)
+        {
+            foreach (QDockWidget* doc, m_panels)
+            {
+                if (doc->widget() && doc->widget()->isVisible())
+                    visiblePanelNames << doc->objectName();
+            }
+        }
+        else if (m_pluginsVisibility.contains(part))
+            visiblePanelNames = m_pluginsVisibility[part];
+
+        KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
+        panelStatusGroup.writeEntry(m_parts2Backends[part], visiblePanelNames.join(QLatin1Char('\n')));
+    }
 }

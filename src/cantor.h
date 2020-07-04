@@ -106,11 +106,13 @@ private:
     void closeEvent(QCloseEvent*) override;
     bool reallyClose(bool checkAllParts = true);
     void updateWindowTitle(const QString& fileName);
+    void saveDockPanelsState(KParts::ReadWritePart* part);
     KParts::ReadWritePart* findPart(QWidget* widget);
 
 private:
     QMap<KParts::ReadWritePart*, QStringList> m_pluginsVisibility;
     QList<KParts::ReadWritePart *> m_parts;
+    QMap<KParts::ReadWritePart*, QString> m_parts2Backends;
     KParts::ReadWritePart* m_part;
     QTabWidget* m_tabWidget;
     QList<QDockWidget*> m_panels;
