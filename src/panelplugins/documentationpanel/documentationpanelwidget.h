@@ -48,7 +48,6 @@ class DocumentationPanelWidget : public QWidget
     QString backendName() const;
 
     void loadDocumentation();
-    void unloadDocumentation();
 
   public:
     Cantor::Session* m_session;

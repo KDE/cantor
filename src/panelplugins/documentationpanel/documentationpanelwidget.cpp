@@ -80,12 +80,17 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     m_tabWidget->addTab(container, i18n("Search"));
 
     m_textBrowser = new QWebEngineView(this);
-    const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top"))); // set initial page contents
-    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
-    m_textBrowser->show();
 
-    //const QByteArray contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/figures/plotting1.png")));
-    //m_textBrowser->setContent(contents, QLatin1String("image/png;charset=UTF-8"));
+    // set initial page contents, otherwise page is blank
+    QByteArray contents;
+
+    if(m_backend == QLatin1String("Maxima"))
+         contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
+    else if(m_backend == QLatin1String("Octave"))
+         contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
+
+    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
+    m_textBrowser->hide();
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
     m_splitter->addWidget(m_tabWidget);
@@ -113,7 +118,7 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
     m_textBrowser->show();
 
     qDebug() << url;
-    //display the actual keyword contents, not the header topic
+
     const QModelIndex index = m_engine->indexWidget()->currentIndex();
     const QString indexText = index.data(Qt::DisplayRole).toString();
     qDebug() << indexText << "index pressed";
@@ -141,12 +146,6 @@ void DocumentationPanelWidget::loadDocumentation()
     const QString backend = backendName();
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
     m_engine->registerDocumentation(fileName);
-}
-
-void DocumentationPanelWidget::unloadDocumentation()
-{
-    //Call this function when the user changes the current backend
-    m_engine->unregisterDocumentation(QLatin1String("org.kde.cantor"));
 }
 
 QString DocumentationPanelWidget::backendName() const

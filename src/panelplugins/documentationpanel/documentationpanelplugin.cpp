@@ -44,7 +44,6 @@ QWidget* DocumentationPanelPlugin::widget()
     if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(session(), parentWidget());
-        qDebug() << backendName();
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
     }
