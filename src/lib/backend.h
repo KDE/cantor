@@ -146,7 +146,7 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * The method should be overwritten by all Backends(who have an online help)
      * You should make the returned Url translatable, e.g. by doing something like:
      * return i18nc("the url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
-     *   "https://docs.kde.org/stable5/en/kdeedu/kalgebra/index.html");
+     *   "https://docs.kde.org/?application=kalgebra");
      * @return Url of the help
      */
     virtual QUrl helpUrl() const = 0;
