@@ -476,6 +476,8 @@ bool CantorPart::openFile()
     if (rc) {
         qDebug()<< "Worksheet successfully loaded in " <<  (float)timer.elapsed()/1000 << " seconds";
         updateCaption();
+        if (m_worksheet && m_worksheet->session() && m_worksheet->session()->backend())
+            setBackendName(m_worksheet->session()->backend()->id());
         // We modified, but it we load file now, so no need in save option
         setModified(false);
     }

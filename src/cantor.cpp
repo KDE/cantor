@@ -343,8 +343,15 @@ void CantorShell::addWorksheet(const QString& backendName)
         {
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
+            connect(part, SIGNAL(requestOpenWorksheet(QUrl)), this, SLOT(load(QUrl)));
             m_parts.append(part);
-            m_parts2Backends[part] = backend->id();
+            if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait
+                m_parts2Backends[part] = backend->id();
+            else
+            {
+                m_parts2Backends[part] = QString();
+                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(setBackendName)));
+            }
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
             m_tabWidget->setCurrentIndex(tab);
             // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
@@ -425,9 +432,20 @@ void CantorShell::updateWindowTitle(const QString& fileName)
 
 void CantorShell::closeTab(int index)
 {
-    if (!reallyClose(false))
+    if (index != -1)
     {
-        return;
+        QWidget* widget = m_tabWidget->widget(index);
+        if (widget)
+        {
+            KParts::ReadWritePart* part= findPart(widget);
+            if (part && !reallyCloseThisPart(part))
+                return;
+        }
+    }
+    else
+    {
+        if (!reallyClose(false))
+            return;
     }
 
     QWidget* widget = nullptr;
@@ -492,17 +510,23 @@ bool CantorShell::reallyClose(bool checkAllParts) {
                 return false;
         }
     }
-    if (m_part && m_part->isModified() ) {
+
+    return reallyCloseThisPart(m_part);
+}
+
+bool CantorShell::reallyCloseThisPart(KParts::ReadWritePart* part)
+{
+     if (part && part->isModified() ) {
         int want_save = KMessageBox::warningYesNoCancel( this,
             i18n("The current project has been modified. Do you want to save it?"),
             i18n("Save Project"));
         switch (want_save) {
             case KMessageBox::Yes:
-                m_part->save();
-                if(m_part->waitSaveComplete()) {
+                part->save();
+                if(part->waitSaveComplete()) {
                     return true;
                 } else {
-                    m_part->setModified(true);
+                    part->setModified(true);
                     return false;
                 }
             case KMessageBox::Cancel:
@@ -513,6 +537,7 @@ bool CantorShell::reallyClose(bool checkAllParts) {
     }
     return true;
 }
+
 
 void CantorShell::closeEvent(QCloseEvent* event) {
     if(!reallyClose()) {
@@ -766,4 +791,11 @@ void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
         KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
         panelStatusGroup.writeEntry(m_parts2Backends[part], visiblePanelNames.join(QLatin1Char('\n')));
     }
+}
+
+void CantorShell::updateBackendForPart(const QString& backend)
+{
+    KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
+    if (part && m_parts2Backends.contains(part) && m_parts2Backends[part].isEmpty())
+        m_parts2Backends[part] = backend;
 }

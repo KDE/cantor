@@ -89,6 +89,7 @@ private Q_SLOTS:
     void activateWorksheet(int index);
 
     void setTabCaption(const QString& tab, const QIcon& icon);
+    void updateBackendForPart(const QString& backend);
     void closeTab(int index = -1);
 
     void showSettings();
@@ -105,6 +106,7 @@ private:
     void setupActions();
     void closeEvent(QCloseEvent*) override;
     bool reallyClose(bool checkAllParts = true);
+    bool reallyCloseThisPart(KParts::ReadWritePart* part);
     void updateWindowTitle(const QString& fileName);
     void saveDockPanelsState(KParts::ReadWritePart* part);
     KParts::ReadWritePart* findPart(QWidget* widget);
