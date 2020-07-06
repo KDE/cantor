@@ -208,7 +208,7 @@ qhcp.writelines("""<?xml version="1.0" encoding="utf-8" ?>
 
 
 
-# this way to does not work, because somehowbeautifulsoupl is unable to escape &gt and &gt;< special symbols
+# this way does not work, because somehow beautifulsoup is unable to escape &gt and &gt;< special symbols
 # html = index.read()
 # soup = BeautifulSoup(html, features='html.parser')
 
