@@ -2,7 +2,6 @@
     "KPlugin": {
         "Dependencies": [],
         "Description": "A panel for working with files inside Cantor",
-        "Description[ru]": "Панель для работы с файлами внутри Cantor",
         "Icon": "",
         "Id": "FileBrowserPanel",
         "License": "GPL",
