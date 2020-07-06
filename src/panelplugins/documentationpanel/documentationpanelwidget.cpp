@@ -85,12 +85,16 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     QByteArray contents;
 
     if(m_backend == QLatin1String("Maxima"))
-         contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
+    {
+        contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
+    }
     else if(m_backend == QLatin1String("Octave"))
-         contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
+    {
+        contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
+    }
 
-    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
-    m_textBrowser->hide();
+    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"), QUrl(QLatin1String("qthelp://org.kde.cantor/doc/")));
+    m_textBrowser->show();
 
     m_splitter = new QSplitter(Qt::Horizontal, this);
     m_splitter->addWidget(m_tabWidget);
@@ -99,6 +103,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->addWidget(m_splitter);
 
+    //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
@@ -145,6 +150,7 @@ void DocumentationPanelWidget::loadDocumentation()
 {
     const QString backend = backendName();
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
+
     m_engine->registerDocumentation(fileName);
 }
 
