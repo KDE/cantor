@@ -20,6 +20,7 @@
 
 #include "documentationpanelplugin.h"
 #include "session.h"
+
 #include <QDebug>
 #include <QIcon>
 

@@ -21,7 +21,6 @@
 #ifndef _DOCUMENTATIONPANELWIDGET_H
 #define _DOCUMENTATIONPANELWIDGET_H
 
-#include <QPointer>
 #include <QWidget>
 
 namespace Cantor{
@@ -29,8 +28,6 @@ class Session;
 }
 
 class QHelpEngine;
-class QSplitter;
-class QTabWidget;
 class QUrl;
 class QWebEngineView;
 
@@ -40,7 +37,7 @@ class DocumentationPanelWidget : public QWidget
 
   public:
     DocumentationPanelWidget(Cantor::Session* session, QWidget* parent);
-    ~DocumentationPanelWidget() override = default;
+    ~DocumentationPanelWidget();
 
     void setSession(Cantor::Session* session);
 
@@ -50,7 +47,7 @@ class DocumentationPanelWidget : public QWidget
     void loadDocumentation();
 
   public:
-    Cantor::Session* m_session;
+    Cantor::Session* m_session = nullptr;
 
   private Q_SLOTS:
     void displayHelp(const QUrl&);
@@ -58,10 +55,8 @@ class DocumentationPanelWidget : public QWidget
     void contextSensitiveHelp(const QString&);
 
   private:
-    QPointer<QHelpEngine> m_engine;
-    QPointer<QWebEngineView> m_textBrowser;
-    QPointer<QTabWidget> m_tabWidget;
-    QPointer<QSplitter> m_splitter;
+    QHelpEngine* m_engine = nullptr;
+    QWebEngineView* m_textBrowser = nullptr;
     QString m_backend;
 };
 

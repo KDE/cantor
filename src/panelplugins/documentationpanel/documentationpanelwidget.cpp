@@ -33,16 +33,13 @@
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QLineEdit>
-#include <QPointer>
 #include <QPushButton>
 #include <QSplitter>
 #include <QStandardPaths>
 #include <QTabWidget>
-#include <QUrl>
 #include <QWebEngineView>
-#include <QWidget>
 
-DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_session(nullptr), m_engine(nullptr), m_textBrowser(nullptr), m_tabWidget(nullptr), m_splitter(nullptr), m_backend(QString())
+DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_backend(QString())
 {
     m_backend = session->backend()->name();
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
@@ -52,10 +49,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     {
         qWarning() << "Couldn't setup QtHelp Engine";
         qWarning() << m_engine->error();
-        delete m_engine;
-        delete m_textBrowser;
-        delete m_tabWidget;
-        delete m_splitter;
     }
 
     loadDocumentation();
@@ -70,14 +63,14 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     clayout->addWidget(input);
     clayout->addWidget(search);
 
-    m_tabWidget = new QTabWidget(this);
-    m_tabWidget->setMovable(true);
-    m_tabWidget->setElideMode(Qt::ElideRight);
+    QTabWidget* tabWidget = new QTabWidget(this);
+    tabWidget->setMovable(true);
+    tabWidget->setElideMode(Qt::ElideRight);
 
     // Add different tabs to the widget
-    m_tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
-    m_tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
-    m_tabWidget->addTab(container, i18n("Search"));
+    tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
+    tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
+    tabWidget->addTab(container, i18n("Search"));
 
     m_textBrowser = new QWebEngineView(this);
 
@@ -96,12 +89,12 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"), QUrl(QLatin1String("qthelp://org.kde.cantor/doc/")));
     m_textBrowser->show();
 
-    m_splitter = new QSplitter(Qt::Horizontal, this);
-    m_splitter->addWidget(m_tabWidget);
-    m_splitter->addWidget(m_textBrowser);
+    QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
+    splitter->addWidget(tabWidget);
+    splitter->addWidget(m_textBrowser);
 
     QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(m_splitter);
+    layout->addWidget(splitter);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
@@ -109,6 +102,12 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
 
     setSession(session);
+}
+
+DocumentationPanelWidget::~DocumentationPanelWidget()
+{
+    delete m_engine;
+    delete m_textBrowser;
 }
 
 void DocumentationPanelWidget::setSession(Cantor::Session* session)
@@ -158,7 +157,8 @@ void DocumentationPanelWidget::loadDocumentation()
     const QString backend = backendName();
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
 
-    m_engine->registerDocumentation(fileName);
+    if(!m_engine->registerDocumentation(fileName))
+        qWarning() << m_engine->error();
 }
 
 QString DocumentationPanelWidget::backendName() const
