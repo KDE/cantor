@@ -2,10 +2,22 @@
     "KPlugin": {
         "Dependencies": [],
         "Description": "A panel for working with files inside Cantor",
+        "Description[ca]": "Un plafó per a treballar amb fitxers dins del Cantor",
+        "Description[nl]": "Een paneel in Cantor voor het werken met bestanden",
+        "Description[pt]": "Um painel para lidar com ficheiros dentro do Cantor",
+        "Description[sv]": "En panel för att arbeta med filer inne i Cantor",
+        "Description[uk]": "Панель для роботи з файлами у вікні Cantor",
+        "Description[x-test]": "xxA panel for working with files inside Cantorxx",
         "Icon": "",
         "Id": "FileBrowserPanel",
         "License": "GPL",
         "Name": "File Browser",
+        "Name[ca]": "Navegador de fitxers",
+        "Name[nl]": "Bestanden bladeren",
+        "Name[pt]": "Gestor de Ficheiros",
+        "Name[sv]": "Filbläddrare",
+        "Name[uk]": "Навігація файлами",
+        "Name[x-test]": "xxFile Browserxx",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]
