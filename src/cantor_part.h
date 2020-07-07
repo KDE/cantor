@@ -86,7 +86,7 @@ Q_SIGNALS:
     void worksheetSave(const QUrl& url);
     void requestOpenWorksheet(const QUrl& url);
     void setBackendName(const QString& name);
-    void requestDocumentation(const QString&);
+    void requestDocumentation(const QString& keyword);
 
 public Q_SLOTS:
     void updateCaption();

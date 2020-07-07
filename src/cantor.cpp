@@ -671,11 +671,6 @@ void CantorShell::updatePanel()
     }
 
     QList<Cantor::PanelPlugin*> plugins=handler->plugins();
-<<<<<<< HEAD
-    const bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
-
-=======
->>>>>>> master
     foreach(Cantor::PanelPlugin* plugin, plugins)
     {
         if(plugin==nullptr)
