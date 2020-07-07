@@ -19,7 +19,6 @@ if (WITH_EPS)
 else (WITH_EPS)
     set(DEFAULT_PLOT_FORMAT "png")
 endif (WITH_EPS)
-message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 configure_file(octavebackend.kcfg.in ${CMAKE_CURRENT_BINARY_DIR}/octavebackend.kcfg)
 configure_file(settings.ui.in ${CMAKE_CURRENT_BINARY_DIR}/settings.ui)
 

@@ -12,4 +12,6 @@ endfunction()
 
 add_subdirectory(helppanel)
 add_subdirectory(variablemgr)
+add_subdirectory(filebrowserpanel)
 add_subdirectory(documentationpanel)
+

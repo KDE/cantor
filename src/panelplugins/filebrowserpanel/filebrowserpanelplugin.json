@@ -1,0 +1,14 @@
+{
+    "KPlugin": {
+        "Dependencies": [],
+        "Description": "A panel for working with files inside Cantor",
+        "Icon": "",
+        "Id": "FileBrowserPanel",
+        "License": "GPL",
+        "Name": "File Browser",
+        "ServiceTypes": [
+            "Cantor/PanelPlugin"
+        ]
+    },
+    "RequiredExtensions": ""
+}

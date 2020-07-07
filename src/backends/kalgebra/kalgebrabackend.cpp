@@ -65,7 +65,7 @@ KConfigSkeleton* KAlgebraBackend::config() const
 QUrl KAlgebraBackend::helpUrl() const
 {
     return QUrl(i18nc("The url to the documentation of KAlgebra, please check if there is a translated version and use the correct url",
-                 "https://docs.kde.org/stable/en/kdeedu/kalgebra/"));
+                 "https://docs.kde.org/?application=kalgebra"));
 }
 
 bool KAlgebraBackend::requirementsFullfilled(QString* const reason) const

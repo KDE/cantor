@@ -21,6 +21,7 @@
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KConfigGroup>
+#include <KConfig>
 #include <KMessageBox>
 #include <KShortcutsDialog>
 #include <KStandardAction>
@@ -317,9 +318,10 @@ void CantorShell::addWorksheet(const QString& backendName)
     KPluginFactory* factory = loader.factory();
     if (factory)
     {
+        Cantor::Backend* backend = nullptr;
         if (!backendName.isEmpty())
         {
-            Cantor::Backend* backend = Cantor::Backend::getBackend(backendName);
+            backend = Cantor::Backend::getBackend(backendName);
             if (!backend)
             {
                 KMessageBox::error(this, i18n("Backend %1 is not installed", backendName), i18n("Cantor"));
@@ -341,9 +343,15 @@ void CantorShell::addWorksheet(const QString& backendName)
         {
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
-
+            connect(part, SIGNAL(requestOpenWorksheet(QUrl)), this, SLOT(load(QUrl)));
             m_parts.append(part);
-
+            if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait
+                m_parts2Backends[part] = backend->id();
+            else
+            {
+                m_parts2Backends[part] = QString();
+                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(setBackendName)));
+            }
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
             m_tabWidget->setCurrentIndex(tab);
             // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
@@ -424,9 +432,20 @@ void CantorShell::updateWindowTitle(const QString& fileName)
 
 void CantorShell::closeTab(int index)
 {
-    if (!reallyClose(false))
+    if (index != -1)
     {
-        return;
+        QWidget* widget = m_tabWidget->widget(index);
+        if (widget)
+        {
+            KParts::ReadWritePart* part= findPart(widget);
+            if (part && !reallyCloseThisPart(part))
+                return;
+        }
+    }
+    else
+    {
+        if (!reallyClose(false))
+            return;
     }
 
     QWidget* widget = nullptr;
@@ -456,8 +475,11 @@ void CantorShell::closeTab(int index)
         KParts::ReadWritePart* part= findPart(widget);
         if(part)
         {
+            saveDockPanelsState(part);
+
             m_parts.removeAll(part);
             m_pluginsVisibility.remove(part);
+            m_parts2Backends.remove(part);
             delete part;
         }
     }
@@ -488,17 +510,23 @@ bool CantorShell::reallyClose(bool checkAllParts) {
                 return false;
         }
     }
-    if (m_part && m_part->isModified() ) {
+
+    return reallyCloseThisPart(m_part);
+}
+
+bool CantorShell::reallyCloseThisPart(KParts::ReadWritePart* part)
+{
+     if (part && part->isModified() ) {
         int want_save = KMessageBox::warningYesNoCancel( this,
             i18n("The current project has been modified. Do you want to save it?"),
             i18n("Save Project"));
         switch (want_save) {
             case KMessageBox::Yes:
-                m_part->save();
-                if(m_part->waitSaveComplete()) {
+                part->save();
+                if(part->waitSaveComplete()) {
                     return true;
                 } else {
-                    m_part->setModified(true);
+                    part->setModified(true);
                     return false;
                 }
             case KMessageBox::Cancel:
@@ -510,10 +538,14 @@ bool CantorShell::reallyClose(bool checkAllParts) {
     return true;
 }
 
+
 void CantorShell::closeEvent(QCloseEvent* event) {
     if(!reallyClose()) {
         event->ignore();
     } else {
+        for (KParts::ReadWritePart* part : m_parts)
+            saveDockPanelsState(part);
+
         KParts::MainWindow::closeEvent(event);
     }
 }
@@ -625,10 +657,25 @@ void CantorShell::updatePanel()
     }
 
     QDockWidget* last=nullptr;
+    bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
+
+    if (isNewWorksheet)
+    {
+        KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
+        if (m_parts2Backends.contains(m_part) && panelStatusGroup.hasKey(m_parts2Backends[m_part]))
+        {
+            const QStringList& plugins = panelStatusGroup.readEntry(m_parts2Backends[m_part]).split(QLatin1Char('\n'));
+            m_pluginsVisibility[m_part] = plugins;
+            isNewWorksheet = false;
+        }
+    }
 
     QList<Cantor::PanelPlugin*> plugins=handler->plugins();
+<<<<<<< HEAD
     const bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
 
+=======
+>>>>>>> master
     foreach(Cantor::PanelPlugin* plugin, plugins)
     {
         if(plugin==nullptr)
@@ -727,4 +774,33 @@ void CantorShell::onWorksheetSave(const QUrl& url)
         m_recentProjectsAction->addUrl(url);
 
     updateWindowTitle(m_part->url().fileName());
+}
+
+void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
+{
+    if (m_parts2Backends.contains(part))
+    {
+
+        QStringList visiblePanelNames;
+        if (part == m_part)
+        {
+            foreach (QDockWidget* doc, m_panels)
+            {
+                if (doc->widget() && doc->widget()->isVisible())
+                    visiblePanelNames << doc->objectName();
+            }
+        }
+        else if (m_pluginsVisibility.contains(part))
+            visiblePanelNames = m_pluginsVisibility[part];
+
+        KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
+        panelStatusGroup.writeEntry(m_parts2Backends[part], visiblePanelNames.join(QLatin1Char('\n')));
+    }
+}
+
+void CantorShell::updateBackendForPart(const QString& backend)
+{
+    KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
+    if (part && m_parts2Backends.contains(part) && m_parts2Backends[part].isEmpty())
+        m_parts2Backends[part] = backend;
 }
