@@ -325,11 +325,10 @@ QString JuliaSession::graphicPackageErrorMessage(QString packageId) const
 
     if (packageId == QLatin1String("gr")) {
         return i18n(
-            "On this moment, integrated graphic can handle only one of Julia packages - GR graphic package. "
-            "And for using this feature you need to install the package first. "
-            "For this, run Pkg.install(\"GR\") in Cantor or in julia REPL. Also, it is important "
-            "to note, that this is a long operation and better use julia REPL, because Cantor doesn't "
-            "show intermediate text unlike the julia."
+            "For Julia only GR (https://gr-framework.org/), a framework for visualization applications, is supported at the moment. "
+            "This package has to be installed first, if not done yet. "
+            "For this, run Pkg.install(\"GR\") in Cantor or in Julia REPL. "
+            "Note, this operation can take some time and it's better to perform it in Julia REPL that is able to show the current progress of the package installation."
         );
     }
     return text;
