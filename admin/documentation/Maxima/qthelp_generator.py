@@ -47,12 +47,14 @@ for fi in files:
         fp.close()
 
 
+#####################
+#open required files#
+#####################
 index = open('./index.hhk', 'r')
 
 # QtHelp files
 qhp = open('./help.qhp', 'w')
 qhcp = open('./help.qhcp', 'w')
-
 
 #######################################
 #code for generation of QtHelp files##
@@ -208,7 +210,7 @@ qhcp.writelines("""<?xml version="1.0" encoding="utf-8" ?>
 
 
 
-# this way does not work, because somehow beautifulsoup is unable to escape &gt and &gt;< special symbols
+# this way to does not work, because somehowbeautifulsoupl is unable to escape &gt and &gt;< special symbols
 # html = index.read()
 # soup = BeautifulSoup(html, features='html.parser')
 
@@ -251,6 +253,12 @@ qhp.writelines("""</keywords>
     </filterSection>
 
 </QtHelpProject> """)
+
+##############################################################
+#qhp, qhcp input files are generate, now generate output files
+#############################################################
+
+stream = os.popen('qhelpgenerator help.qhcp -o help.qhc')
 
 index.close()
 qhp.close()

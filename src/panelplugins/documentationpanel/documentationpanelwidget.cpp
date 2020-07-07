@@ -122,6 +122,13 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
 
+    int anchorPos = url.toString().indexOf(QLatin1Char('#'));
+    if (anchorPos >= 0)
+    {
+        QString anchor = url.toString().mid(anchorPos+1);
+        //m_textBrowser->page()->mainFrame()->scrollToAnchor(anchor);
+    }
+
     qDebug() << url;
 
     const QModelIndex index = m_engine->indexWidget()->currentIndex();
