@@ -21,6 +21,10 @@
 #ifndef _DOCUMENTATIONPANELWIDGET_H
 #define _DOCUMENTATIONPANELWIDGET_H
 
+#include <QBuffer>
+#include <QHelpEngine>
+#include <QWebEngineUrlRequestJob>
+#include <QWebEngineUrlSchemeHandler>
 #include <QWidget>
 
 namespace Cantor{
@@ -58,6 +62,31 @@ class DocumentationPanelWidget : public QWidget
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
     QString m_backend;
+};
+
+// class for handling of custom url scheme ie. qthelp:// inside QWebEngineView
+class QtHelpSchemeHandler : public QWebEngineUrlSchemeHandler
+{
+    Q_OBJECT
+
+    public:
+    QtHelpSchemeHandler(QHelpEngine* helpEngine) : m_HelpEngine(helpEngine)
+    {
+    }
+
+    virtual void requestStarted(QWebEngineUrlRequestJob* job) override
+    {
+        auto url = job->requestUrl();
+        auto data = new QByteArray;
+        *data = m_HelpEngine->fileData(url);
+        auto buffer = new QBuffer(data);
+        if (url.scheme() == QLatin1String("qthelp")) {
+            job->reply("text/html", buffer);
+        }
+    }
+
+    private:
+    QHelpEngine* m_HelpEngine;
 };
 
 #endif /* _DOCUMENTATIONPANELWIDGET_H */

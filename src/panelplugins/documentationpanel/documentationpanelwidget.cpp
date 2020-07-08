@@ -37,12 +37,15 @@
 #include <QSplitter>
 #include <QStandardPaths>
 #include <QTabWidget>
+#include <QWebEngineProfile>
+#include <QWebEngineUrlScheme>
 #include <QWebEngineView>
 
 DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_backend(QString())
 {
     m_backend = session->backend()->name();
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
+
     m_engine = new QHelpEngine(fileName, this);
 
     if(!m_engine->setupData())
@@ -73,20 +76,20 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     tabWidget->addTab(container, i18n("Search"));
 
     m_textBrowser = new QWebEngineView(this);
+    QWebEngineUrlScheme qthelp("qthelp");
+    QWebEngineUrlScheme::registerScheme(qthelp);
+    m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
 
     // set initial page contents, otherwise page is blank
-    QByteArray contents;
-
     if(m_backend == QLatin1String("Maxima"))
     {
-        contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
+        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
     }
     else if(m_backend == QLatin1String("Octave"))
     {
-        contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
+        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
     }
 
-    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
 
     QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
@@ -116,8 +119,7 @@ void DocumentationPanelWidget::setSession(Cantor::Session* session)
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
-    const QByteArray contents = m_engine->fileData(url);
-    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
+    m_textBrowser->load(url);
     m_textBrowser->show();
 
     qDebug() << url;
