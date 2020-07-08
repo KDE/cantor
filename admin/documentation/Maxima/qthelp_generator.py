@@ -63,7 +63,7 @@ qhcp = open('./help.qhcp', 'w')
 # populate qhp file with headers and table of contents
 qhp.writelines("""<?xml version="1.0" encoding="UTF-8"?>
 <QtHelpProject version="1.0">
-    <namespace>org.kde.maxima</namespace>
+    <namespace>org.kde.maxima.5.42</namespace>
 
     <virtualFolder>doc</virtualFolder>
 
