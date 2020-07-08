@@ -86,7 +86,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
         contents = m_engine->fileData(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
     }
 
-    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"), QUrl(QLatin1String("qthelp://org.kde.cantor/doc/")));
+    m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
 
     QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
@@ -99,7 +99,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    //connect(search, SIGNAL(clicked(bool)), this, SLOT(doSearch(QString)));
 
     setSession(session);
 }
@@ -121,13 +120,6 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
     m_textBrowser->setContent(contents, QLatin1String("text/html;charset=UTF-8"));
     m_textBrowser->show();
 
-    int anchorPos = url.toString().indexOf(QLatin1Char('#'));
-    if (anchorPos >= 0)
-    {
-        QString anchor = url.toString().mid(anchorPos+1);
-        //m_textBrowser->page()->mainFrame()->scrollToAnchor(anchor);
-    }
-
     qDebug() << url;
 
     const QModelIndex index = m_engine->indexWidget()->currentIndex();
@@ -137,7 +129,6 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 
 void DocumentationPanelWidget::doSearch(const QString& str)
 {
-    // perform searching of the string passed
     Q_UNUSED(str)
 }
 
@@ -145,8 +136,8 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
     qDebug() << "Context sensitive help for " << keyword;
 
-    QHelpIndexWidget* const index = m_engine->indexWidget();
-    index->filterIndices(keyword); // filter exactly, no wildcards
+    QHelpIndexWidget* index = m_engine->indexWidget();
+    index->filterIndices(keyword, keyword); // filter exactly, no wildcards
     index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
 
     loadDocumentation();
@@ -156,9 +147,13 @@ void DocumentationPanelWidget::loadDocumentation()
 {
     const QString backend = backendName();
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
+    const QString nameSpace = QHelpEngineCore::namespaceName(fileName);
 
-    if(!m_engine->registerDocumentation(fileName))
-        qWarning() << m_engine->error();
+    //if(nameSpace.isEmpty() || !m_engine->registeredDocumentations().contains(nameSpace))
+    //{
+        if(!m_engine->registerDocumentation(fileName))
+            qWarning() << m_engine->error();
+    //}
 }
 
 QString DocumentationPanelWidget::backendName() const
