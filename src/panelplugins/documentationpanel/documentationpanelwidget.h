@@ -57,6 +57,7 @@ class DocumentationPanelWidget : public QWidget
     void displayHelp(const QUrl&);
     void doSearch(const QString&);
     void contextSensitiveHelp(const QString&);
+    void refreshIndexWidget();
 
   private:
     QHelpEngine* m_engine = nullptr;

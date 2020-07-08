@@ -37,6 +37,7 @@
 #include <QSplitter>
 #include <QStandardPaths>
 #include <QTabWidget>
+#include <QTimer>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -83,7 +84,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     // set initial page contents, otherwise page is blank
     if(m_backend == QLatin1String("Maxima"))
     {
-        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html#SEC_Top")));
+        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html")));
     }
     else if(m_backend == QLatin1String("Octave"))
     {
@@ -102,6 +103,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_engine->indexWidget(), &QHelpIndexWidget::activated, this, &DocumentationPanelWidget::refreshIndexWidget);
 
     setSession(session);
 }
@@ -139,10 +141,15 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
     qDebug() << "Context sensitive help for " << keyword;
 
     QHelpIndexWidget* index = m_engine->indexWidget();
-    index->filterIndices(keyword, keyword); // filter exactly, no wildcards
+    index->filterIndices(keyword); // filter exactly, no wildcards
     index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
+}
 
-    loadDocumentation();
+void DocumentationPanelWidget::refreshIndexWidget()
+{
+    QHelpIndexWidget* index = m_engine->indexWidget();
+    index->filterIndices(QString());
+    index->activateCurrentItem();
 }
 
 void DocumentationPanelWidget::loadDocumentation()
@@ -151,11 +158,11 @@ void DocumentationPanelWidget::loadDocumentation()
     const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
     const QString nameSpace = QHelpEngineCore::namespaceName(fileName);
 
-    //if(nameSpace.isEmpty() || !m_engine->registeredDocumentations().contains(nameSpace))
-    //{
+    if(nameSpace.isEmpty() || !m_engine->registeredDocumentations().contains(nameSpace))
+    {
         if(!m_engine->registerDocumentation(fileName))
             qWarning() << m_engine->error();
-    //}
+    }
 }
 
 QString DocumentationPanelWidget::backendName() const
