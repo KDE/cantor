@@ -37,7 +37,6 @@
 #include <QSplitter>
 #include <QStandardPaths>
 #include <QTabWidget>
-#include <QTimer>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -77,21 +76,27 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     tabWidget->addTab(container, i18n("Search"));
 
     m_textBrowser = new QWebEngineView(this);
-    QWebEngineUrlScheme qthelp("qthelp");
-    QWebEngineUrlScheme::registerScheme(qthelp);
-    m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
+    static bool qthelpRegistered = false;
+
+    if(!qthelpRegistered)
+    {
+        QWebEngineUrlScheme qthelp("qthelp");
+        QWebEngineUrlScheme::registerScheme(qthelp);
+        m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
+        qthelpRegistered = true;
+    }
 
     // set initial page contents, otherwise page is blank
     if(m_backend == QLatin1String("Maxima"))
     {
         m_textBrowser->load(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html")));
+        m_textBrowser->show();
     }
     else if(m_backend == QLatin1String("Octave"))
     {
         m_textBrowser->load(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
+        m_textBrowser->show();
     }
-
-    m_textBrowser->show();
 
     QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
     splitter->addWidget(tabWidget);
@@ -123,8 +128,6 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
     m_textBrowser->load(url);
     m_textBrowser->show();
-
-    qDebug() << url;
 
     const QModelIndex index = m_engine->indexWidget()->currentIndex();
     const QString indexText = index.data(Qt::DisplayRole).toString();
