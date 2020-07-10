@@ -27,11 +27,13 @@
 #include <QWebEngineUrlSchemeHandler>
 #include <QWidget>
 
-namespace Cantor{
-class Session;
+namespace Cantor
+{
+    class Session;
 }
 
 class QHelpEngine;
+class QLineEdit;
 class QUrl;
 class QWebEngineView;
 
@@ -55,13 +57,14 @@ class DocumentationPanelWidget : public QWidget
 
   private Q_SLOTS:
     void displayHelp(const QUrl&);
-    void doSearch(const QString&);
     void contextSensitiveHelp(const QString&);
+    void doSearch();
     void refreshIndexWidget();
 
   private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
+    QLineEdit* m_input = nullptr;
     QString m_backend;
 };
 

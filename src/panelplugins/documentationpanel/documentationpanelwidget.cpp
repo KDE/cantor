@@ -48,6 +48,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     m_engine = new QHelpEngine(fileName, this);
 
+    if(m_backend != QLatin1String("Octave"))
+    {
+      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
+    }
+
     if(!m_engine->setupData())
     {
         qWarning() << "Couldn't setup QtHelp Engine";
@@ -61,9 +66,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     QHBoxLayout* clayout = new QHBoxLayout(this);
     container->setLayout(clayout);
 
-    QLineEdit* input = new QLineEdit(this);
+    m_input = new QLineEdit(this);
+    m_input->setPlaceholderText(i18n("Search..."));
     QPushButton* search = new QPushButton(i18n("Search"), this);
-    clayout->addWidget(input);
+
+    clayout->addWidget(m_input);
     clayout->addWidget(search);
 
     QTabWidget* tabWidget = new QTabWidget(this);
@@ -109,6 +116,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_engine->indexWidget(), &QHelpIndexWidget::activated, this, &DocumentationPanelWidget::refreshIndexWidget);
+    connect(search, &QPushButton::clicked, this, &DocumentationPanelWidget::doSearch);
 
     setSession(session);
 }
@@ -134,9 +142,16 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
     qDebug() << indexText << "index pressed";
 }
 
-void DocumentationPanelWidget::doSearch(const QString& str)
+void DocumentationPanelWidget::doSearch()
 {
-    Q_UNUSED(str)
+    const QString text = m_input->text();
+
+    if(!text.isEmpty())
+    {
+        qDebug() << "searching for" << text;
+        // loop through all the content Widgets url and then if text is found in them, then display the QListView
+    }
+
 }
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
