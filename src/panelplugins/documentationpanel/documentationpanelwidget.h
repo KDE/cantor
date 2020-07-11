@@ -33,7 +33,8 @@ namespace Cantor
 }
 
 class QHelpEngine;
-class QLineEdit;
+class QHelpIndexWidget;
+class QStackedWidget;
 class QUrl;
 class QWebEngineView;
 
@@ -55,16 +56,18 @@ class DocumentationPanelWidget : public QWidget
   public:
     Cantor::Session* m_session = nullptr;
 
+  Q_SIGNALS:
+    void activateBrowser();
+
   private Q_SLOTS:
     void displayHelp(const QUrl&);
     void contextSensitiveHelp(const QString&);
-    void doSearch();
-    void refreshIndexWidget();
 
   private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
-    QLineEdit* m_input = nullptr;
+    QStackedWidget* m_displayArea = nullptr;
+    QHelpIndexWidget* m_index = nullptr;
     QString m_backend;
 };
 
@@ -73,7 +76,7 @@ class QtHelpSchemeHandler : public QWebEngineUrlSchemeHandler
 {
     Q_OBJECT
 
-    public:
+  public:
     QtHelpSchemeHandler(QHelpEngine* helpEngine) : m_HelpEngine(helpEngine)
     {
     }
@@ -89,7 +92,7 @@ class QtHelpSchemeHandler : public QWebEngineUrlSchemeHandler
         }
     }
 
-    private:
+  private:
     QHelpEngine* m_HelpEngine;
 };
 

@@ -24,19 +24,17 @@
 
 #include <KLocalizedString>
 
-#include <QApplication>
-#include <QByteArray>
+#include <QComboBox>
 #include <QDebug>
-#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QHelpContentWidget>
 #include <QHelpEngine>
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QSplitter>
 #include <QStandardPaths>
-#include <QTabWidget>
+#include <QStackedWidget>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -61,28 +59,36 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     loadDocumentation();
 
-    // create  a container for Search tab
-    QWidget* container = new QWidget(this);
-    QHBoxLayout* clayout = new QHBoxLayout(this);
-    container->setLayout(clayout);
+    QPushButton* home = new QPushButton(this);
+    home->setIcon(QIcon::fromTheme(QLatin1String("user-home")));
+    home->setToolTip(QLatin1String("Go to the contents"));
+    home->setEnabled(false);
 
-    m_input = new QLineEdit(this);
-    m_input->setPlaceholderText(i18n("Search..."));
-    QPushButton* search = new QPushButton(i18n("Search"), this);
+    QComboBox* documentationSelector = new QComboBox(this);
+    // iterate through the available docs, but for now just display maxima and octave
+    documentationSelector->addItem(QIcon::fromTheme(session->backend()->icon()), m_backend);
 
-    clayout->addWidget(m_input);
-    clayout->addWidget(search);
+    // real time searcher
+    QLineEdit* search = new QLineEdit(this);
+    search->setPlaceholderText(QLatin1String("Search through keywords..."));
 
-    QTabWidget* tabWidget = new QTabWidget(this);
-    tabWidget->setMovable(true);
-    tabWidget->setElideMode(Qt::ElideRight);
+    QStackedWidget* m_displayArea = new QStackedWidget(this);
+    m_displayArea->addWidget(m_engine->contentWidget());
 
-    // Add different tabs to the widget
-    tabWidget->addTab(m_engine->contentWidget(), i18n("Contents"));
-    tabWidget->addTab(m_engine->indexWidget(), i18n("Index"));
-    tabWidget->addTab(container, i18n("Search"));
+    QPushButton* findPage = new QPushButton(this);
+    findPage->setIcon(QIcon::fromTheme(QLatin1String("search")));
+    findPage->setToolTip(QLatin1String("Find in text of current page"));
+    findPage->setEnabled(false);
 
     m_textBrowser = new QWebEngineView(this);
+
+    m_displayArea->addWidget(m_textBrowser);
+
+    /* Adding the index widget to implement the logic for context sensitive help
+     * This widget would be NEVER shown*/
+    m_index = m_engine->indexWidget();
+    m_displayArea->addWidget(m_index);
+
     static bool qthelpRegistered = false;
 
     if(!qthelpRegistered)
@@ -105,18 +111,44 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
         m_textBrowser->show();
     }
 
-    QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
-    splitter->addWidget(tabWidget);
-    splitter->addWidget(m_textBrowser);
-
-    QHBoxLayout* layout = new QHBoxLayout(this);
-    layout->addWidget(splitter);
+    QGridLayout* layout = new QGridLayout(this);
+    layout->addWidget(home, 0, 0);
+    layout->addWidget(documentationSelector, 0, 1);
+    layout->addWidget(search, 0, 2);
+    layout->addWidget(findPage, 0, 3);
+    layout->addWidget(m_displayArea, 1, 0, 2, 0);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
+
+    // display the documentation browser whenever contents are clicked
+    connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, [=](){
+        m_displayArea->setCurrentIndex(1);
+    });
+
+    connect(this, &DocumentationPanelWidget::activateBrowser, [=]{
+        m_displayArea->setCurrentIndex(1);
+    });
+
+    connect(m_displayArea, &QStackedWidget::currentChanged, [=]{
+        //disable Home and Search in Page buttons when stackwidget shows contents widget, enable when shows web browser
+        if(m_displayArea->currentIndex() != 1) //0->contents 1->browser
+        {
+            findPage->setEnabled(false);
+            home->setEnabled(false);
+        }
+        else
+        {
+            findPage->setEnabled(true);
+            home->setEnabled(true);
+        }
+    });
+
+    connect(home, &QPushButton::clicked, [=]{
+        m_displayArea->setCurrentIndex(0);
+    });
+
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_engine->indexWidget(), &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_engine->indexWidget(), &QHelpIndexWidget::activated, this, &DocumentationPanelWidget::refreshIndexWidget);
-    connect(search, &QPushButton::clicked, this, &DocumentationPanelWidget::doSearch);
+    connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
 
     setSession(session);
 }
@@ -125,6 +157,8 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
 {
     delete m_engine;
     delete m_textBrowser;
+    delete m_displayArea;
+    delete m_index;
 }
 
 void DocumentationPanelWidget::setSession(Cantor::Session* session)
@@ -139,35 +173,20 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 
     const QModelIndex index = m_engine->indexWidget()->currentIndex();
     const QString indexText = index.data(Qt::DisplayRole).toString();
-    qDebug() << indexText << "index pressed";
-}
-
-void DocumentationPanelWidget::doSearch()
-{
-    const QString text = m_input->text();
-
-    if(!text.isEmpty())
-    {
-        qDebug() << "searching for" << text;
-        // loop through all the content Widgets url and then if text is found in them, then display the QListView
-    }
-
 }
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
+    // First make sure we have display browser as the current widget on the QStackedWidget, if not then set it
+    // use index widget on index 2, to do the below
+    //m_displayArea->setCurrentIndex(2);
+
+    emit activateBrowser();
+
     qDebug() << "Context sensitive help for " << keyword;
 
-    QHelpIndexWidget* index = m_engine->indexWidget();
-    index->filterIndices(keyword); // filter exactly, no wildcards
-    index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
-}
-
-void DocumentationPanelWidget::refreshIndexWidget()
-{
-    QHelpIndexWidget* index = m_engine->indexWidget();
-    index->filterIndices(QString());
-    index->activateCurrentItem();
+    m_index->filterIndices(keyword); // filter exactly, no wildcards
+    m_index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
 }
 
 void DocumentationPanelWidget::loadDocumentation()
