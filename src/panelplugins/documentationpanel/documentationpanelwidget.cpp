@@ -158,7 +158,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    //connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::changedSelection);
     connect(m_search, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::returnPressed);
 
     setSession(session);
@@ -188,7 +187,23 @@ void DocumentationPanelWidget::returnPressed()
 {
     const QString& input = m_search->text();
 
-    if (input.isEmpty() /*| input is not in indexwidget*/)
+    auto model = m_index->model();
+
+    bool inputInIndex = false;
+
+    for(int row = 0; row < model->rowCount(); ++row)
+    {
+        auto keyword = model->index(row, 0);
+        if (keyword.data().toString() == input)
+        {
+            inputInIndex = true;
+            qDebug() << "found";
+            break;
+        }
+
+    }
+
+    if (input.isEmpty() && !inputInIndex)
         return;
 
     contextSensitiveHelp(input);
@@ -198,8 +213,6 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
     // First make sure we have display browser as the current widget on the QStackedWidget
     emit activateBrowser();
-
-    qDebug() << "Context sensitive help for " << keyword;
 
     m_index->filterIndices(keyword); // filter exactly, no wildcards
     m_index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
