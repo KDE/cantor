@@ -25,7 +25,9 @@
 #include <KLocalizedString>
 
 #include <QComboBox>
+#include <QCompleter>
 #include <QDebug>
+#include <QFrame>
 #include <QGridLayout>
 #include <QHelpContentWidget>
 #include <QHelpEngine>
@@ -46,38 +48,46 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     m_engine = new QHelpEngine(fileName, this);
 
-    if(m_backend != QLatin1String("Octave"))
-    {
-      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
-    }
-
     if(!m_engine->setupData())
     {
         qWarning() << "Couldn't setup QtHelp Engine";
         qWarning() << m_engine->error();
     }
 
+    if(m_backend != QLatin1String("Octave"))
+    {
+      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
+    }
+
     loadDocumentation();
 
     QPushButton* home = new QPushButton(this);
-    home->setIcon(QIcon::fromTheme(QLatin1String("user-home")));
-    home->setToolTip(QLatin1String("Go to the contents"));
+    home->setIcon(QIcon::fromTheme(QLatin1String("go-home")));
+    home->setToolTip(i18nc("@button go to contents page", "Go to the contents"));
     home->setEnabled(false);
 
     QComboBox* documentationSelector = new QComboBox(this);
-    // iterate through the available docs, but for now just display maxima and octave
+    // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
     documentationSelector->addItem(QIcon::fromTheme(session->backend()->icon()), m_backend);
 
     // real time searcher
     QLineEdit* search = new QLineEdit(this);
-    search->setPlaceholderText(QLatin1String("Search through keywords..."));
+    search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
+    search->setClearButtonEnabled(true);
+    search->setCompleter(new QCompleter(search));
+    search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
+
+    // Add a seperator
+    QFrame *seperator = new QFrame(this);
+    seperator->setFrameShape(QFrame::VLine);
+    seperator->setFrameShadow(QFrame::Sunken);
 
     QStackedWidget* m_displayArea = new QStackedWidget(this);
     m_displayArea->addWidget(m_engine->contentWidget());
 
     QPushButton* findPage = new QPushButton(this);
-    findPage->setIcon(QIcon::fromTheme(QLatin1String("search")));
-    findPage->setToolTip(QLatin1String("Find in text of current page"));
+    findPage->setIcon(QIcon::fromTheme(QLatin1String("edit-find")));
+    findPage->setToolTip(i18nc("@info:tooltip", "Find in text of current documentation page"));
     findPage->setEnabled(false);
 
     m_textBrowser = new QWebEngineView(this);
@@ -115,7 +125,8 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     layout->addWidget(home, 0, 0);
     layout->addWidget(documentationSelector, 0, 1);
     layout->addWidget(search, 0, 2);
-    layout->addWidget(findPage, 0, 3);
+    layout->addWidget(seperator, 0, 3);
+    layout->addWidget(findPage, 0, 4);
     layout->addWidget(m_displayArea, 1, 0, 2, 0);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
@@ -126,6 +137,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     });
 
     connect(this, &DocumentationPanelWidget::activateBrowser, [=]{
+        m_textBrowser->hide();
         m_displayArea->setCurrentIndex(1);
     });
 
@@ -177,10 +189,7 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
-    // First make sure we have display browser as the current widget on the QStackedWidget, if not then set it
-    // use index widget on index 2, to do the below
-    //m_displayArea->setCurrentIndex(2);
-
+    // First make sure we have display browser as the current widget on the QStackedWidget
     emit activateBrowser();
 
     qDebug() << "Context sensitive help for " << keyword;
