@@ -29,15 +29,18 @@
 #include <QDebug>
 #include <QFrame>
 #include <QGridLayout>
+#include <QHBoxLayout>
 #include <QHelpContentWidget>
 #include <QHelpEngine>
 #include <QHelpIndexWidget>
 #include <QIcon>
+#include <QLabel>
 #include <QLineEdit>
 #include <QModelIndex>
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QStackedWidget>
+#include <QToolButton>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -102,6 +105,45 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
 
+
+    // Add the Find in Page widget at the bottom, add all the widgets into a layout so that we can hide it
+    QToolButton* hideButton = new QToolButton(this);
+    hideButton->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
+    hideButton->setToolTip(i18nc("@info:tooltip", "Close"));
+
+    QLabel* label = new QLabel(this);
+    label->setText(i18n("Find:"));
+
+    QLineEdit* findText = new QLineEdit(this);
+    findText->setPlaceholderText(i18nc("@info:placeholder", "Search..."));
+    findText->setClearButtonEnabled(true);
+
+    QToolButton* next = new QToolButton(this);
+    next->setIcon(QIcon::fromTheme(QLatin1String("arrow-down")));
+    next->setToolTip(i18nc("@info:tooltip", "Jump to next match"));
+
+    QToolButton* previous = new QToolButton(this);
+    previous->setIcon(QIcon::fromTheme(QLatin1String("arrow-up")));
+    previous->setToolTip(i18nc("@info:tooltip", "Jump to previous match"));
+
+    QToolButton* matchCase = new QToolButton(this);
+    next->setIcon(QIcon::fromTheme(QLatin1String("format-text-superscript")));
+    next->setToolTip(i18nc("@info:tooltip", "Match case sensitive"));
+
+    // Create a layout
+    QHBoxLayout* lout = new QHBoxLayout(this);
+    lout->addWidget(hideButton);
+    lout->addWidget(label);
+    lout->addWidget(findText);
+    lout->addWidget(next);
+    lout->addWidget(previous);
+    lout->addWidget(matchCase);
+
+    QWidget* findPageWidgetContainer = new QWidget(this);
+    findPageWidgetContainer->setLayout(lout);
+    findPageWidgetContainer->hide();
+
+    ////////////////////////////////////////////////////////
     static bool qthelpRegistered = false;
 
     if(!qthelpRegistered)
@@ -133,7 +175,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     layout->addWidget(m_displayArea, 1, 0, 2, 0);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
-
     // display the documentation browser whenever contents are clicked
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, [=](){
         m_displayArea->setCurrentIndex(1);
@@ -162,10 +203,24 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
         m_displayArea->setCurrentIndex(0);
     });
 
+    connect(findPage, &QPushButton::clicked, [=]{
+        layout->addWidget(findPageWidgetContainer, 2, 0, 3, 0);
+        findPageWidgetContainer->show();
+    });
+
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_index, &QHelpIndexWidget::activated, this, &DocumentationPanelWidget::refreshIndexWidget);
     connect(m_search, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::returnPressed);
     connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
+
+    connect(hideButton, &QToolButton::clicked, this, [=]{
+        findPageWidgetContainer->hide();
+    });
+    /*connect(matchCase, &QAbstractButton::toggled, this, &DocumentationPanelWidget::emitDataChanged);
+    connect(findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchNext);
+    connect(previous, &QToolButton::clicked, this, &DocumentationPanelWidget::searchPrevious);
+    connect(next, &QToolButton::clicked, this, &DocumentationPanelWidget::searchNext);*/
 
     setSession(session);
 }
@@ -220,6 +275,13 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 
     m_index->filterIndices(keyword); // filter exactly, no wildcards
     m_index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
+}
+
+void DocumentationPanelWidget::refreshIndexWidget()
+{
+    //QHelpIndexWidget* index = m_engine->indexWidget();
+    m_index->filterIndices(QString());
+    m_index->activateCurrentItem();
 }
 
 void DocumentationPanelWidget::loadDocumentation()
