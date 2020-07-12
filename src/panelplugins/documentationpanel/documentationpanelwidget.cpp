@@ -25,7 +25,6 @@
 #include <KLocalizedString>
 
 #include <QComboBox>
-#include <QCompleter>
 #include <QDebug>
 #include <QFrame>
 #include <QGridLayout>
@@ -44,7 +43,7 @@
 DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_backend(QString())
 {
     m_backend = session->backend()->name();
-    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
+    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
 
     m_engine = new QHelpEngine(fileName, this);
 
@@ -71,11 +70,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     documentationSelector->addItem(QIcon::fromTheme(session->backend()->icon()), m_backend);
 
     // real time searcher
-    QLineEdit* search = new QLineEdit(this);
-    search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
-    search->setClearButtonEnabled(true);
-    search->setCompleter(new QCompleter(search));
-    search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
+    m_search = new QLineEdit(this);
+    m_search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
+    m_search->setClearButtonEnabled(true);
 
     // Add a seperator
     QFrame *seperator = new QFrame(this);
@@ -124,7 +121,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(home, 0, 0);
     layout->addWidget(documentationSelector, 0, 1);
-    layout->addWidget(search, 0, 2);
+    layout->addWidget(m_search, 0, 2);
     layout->addWidget(seperator, 0, 3);
     layout->addWidget(findPage, 0, 4);
     layout->addWidget(m_displayArea, 1, 0, 2, 0);
@@ -161,6 +158,8 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    //connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::changedSelection);
+    connect(m_search, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::returnPressed);
 
     setSession(session);
 }
@@ -171,6 +170,7 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_textBrowser;
     delete m_displayArea;
     delete m_index;
+    delete m_search;
 }
 
 void DocumentationPanelWidget::setSession(Cantor::Session* session)
@@ -182,9 +182,16 @@ void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
     m_textBrowser->load(url);
     m_textBrowser->show();
+}
 
-    const QModelIndex index = m_engine->indexWidget()->currentIndex();
-    const QString indexText = index.data(Qt::DisplayRole).toString();
+void DocumentationPanelWidget::returnPressed()
+{
+    const QString& input = m_search->text();
+
+    if (input.isEmpty() /*| input is not in indexwidget*/)
+        return;
+
+    contextSensitiveHelp(input);
 }
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
@@ -200,9 +207,9 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 
 void DocumentationPanelWidget::loadDocumentation()
 {
-    const QString backend = backendName();
-    const QString fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
-    const QString nameSpace = QHelpEngineCore::namespaceName(fileName);
+    const QString& backend = backendName();
+    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
+    const QString& nameSpace = QHelpEngineCore::namespaceName(fileName);
 
     if(nameSpace.isEmpty() || !m_engine->registeredDocumentations().contains(nameSpace))
     {

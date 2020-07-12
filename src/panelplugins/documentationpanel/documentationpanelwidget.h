@@ -34,6 +34,7 @@ namespace Cantor
 
 class QHelpEngine;
 class QHelpIndexWidget;
+class QLineEdit;
 class QStackedWidget;
 class QUrl;
 class QWebEngineView;
@@ -62,12 +63,14 @@ class DocumentationPanelWidget : public QWidget
   private Q_SLOTS:
     void displayHelp(const QUrl&);
     void contextSensitiveHelp(const QString&);
+    void returnPressed();
 
   private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
+    QLineEdit* m_search = nullptr;
     QString m_backend;
 };
 
