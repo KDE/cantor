@@ -29,52 +29,52 @@
 #include <QUrl>
 #include <QDebug>
 #include <QFileInfo>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QAction>
+#include <QLineEdit>
 
 #include <KParts/ReadOnlyPart>
 
-QFileSystemModel* FileBrowserPanelPlugin::model = nullptr;
-
 FileBrowserPanelPlugin::FileBrowserPanelPlugin(QObject* parent, const QList<QVariant>& args): Cantor::PanelPlugin(parent),
-    m_view(nullptr)
+    m_mainWidget(nullptr), m_treeview(nullptr), m_pathEdit(nullptr), m_model(nullptr), historyBackCount(0)
 {
     Q_UNUSED(args);
 
     KParts::ReadOnlyPart* part = dynamic_cast<KParts::ReadOnlyPart*>(parent->parent());
-    if (part)
-        m_dirRoot = QFileInfo(part->url().toLocalFile()).absoluteDir().absolutePath();
+    QString baseRootDir;
+    if (part && !part->url().isEmpty())
+        baseRootDir = QFileInfo(part->url().toLocalFile()).absoluteDir().absolutePath();
     else
-        m_dirRoot = QDir::currentPath();
+        baseRootDir = QDir::currentPath();
+    m_rootDirsHistory.push_back(baseRootDir);
 }
 
 FileBrowserPanelPlugin::~FileBrowserPanelPlugin()
 {
-    if (m_view)
-        m_view->deleteLater();;
+    if (m_mainWidget)
+    {
+        m_mainWidget->deleteLater();
+        m_treeview = nullptr;
+        m_pathEdit = nullptr;
+        m_model->deleteLater();
+    }
 }
 
 QWidget* FileBrowserPanelPlugin::widget()
 {
-    if (!m_view)
+    if (!m_mainWidget)
     {
-        if (!model)
-        {
-            model = new QFileSystemModel();
-            model->setRootPath(QDir::currentPath());
-        }
+        m_model = new QFileSystemModel();
+        m_model->setRootPath(m_rootDirsHistory.last());
 
-        m_view = new QTreeView();
-        m_view->setModel(model);
-        m_view->setRootIndex(model->index(m_dirRoot));
-        // First column is name with the dir tree
-        for (int i = 1; i < model->columnCount(); i++)
-            m_view->setColumnHidden(i, true);
-        m_view->header()->hide();
+        constructMainWidget();
 
-        connect(m_view, &QTreeView::doubleClicked, this, &FileBrowserPanelPlugin::handleDoubleClicked);
         connect(this, SIGNAL(requestOpenWorksheet(QUrl)), parent()->parent(), SIGNAL(requestOpenWorksheet(QUrl)));
     }
 
-    return m_view;
+    return m_mainWidget;
 }
 
 bool FileBrowserPanelPlugin::showOnStartup()
@@ -84,21 +84,143 @@ bool FileBrowserPanelPlugin::showOnStartup()
 
 void FileBrowserPanelPlugin::handleDoubleClicked(const QModelIndex& index)
 {
-    if (model->isDir(index))
-        return;
-
-    QVariant data = model->data(index, QFileSystemModel::FilePathRole);
+    QVariant data = m_model->data(index, QFileSystemModel::FilePathRole);
     if (data.isValid() && data.type() == QVariant::String)
     {
         const QString& filename = data.value<QString>();
-        const QUrl& url = QUrl::fromLocalFile(filename);
-
-        if (filename.endsWith(QLatin1String(".cws")) || filename.endsWith(QLatin1String(".ipynb")))
-            emit requestOpenWorksheet(url);
+        if (m_model->isDir(index))
+        {
+            moveFileBrowserRoot(filename);
+        }
         else
-            QDesktopServices::openUrl(url);
+        {
+            const QUrl& url = QUrl::fromLocalFile(filename);
+            if (filename.endsWith(QLatin1String(".cws")) || filename.endsWith(QLatin1String(".ipynb")))
+                emit requestOpenWorksheet(url);
+            else
+                QDesktopServices::openUrl(url);
+        }
     }
 }
+
+void FileBrowserPanelPlugin::constructMainWidget()
+{
+        m_mainWidget = new QWidget();
+
+        m_treeview = new QTreeView(m_mainWidget);
+        m_treeview->setModel(m_model);
+        m_treeview->setRootIndex(m_model->index(m_rootDirsHistory.last()));
+        m_treeview->setExpandsOnDoubleClick(false);
+        connect(m_treeview, &QTreeView::doubleClicked, this, &FileBrowserPanelPlugin::handleDoubleClicked);
+
+        // First column is name with the dir tree
+        // Show only the first column
+        for (int i = 1; i < m_model->columnCount(); i++)
+            m_treeview->setColumnHidden(i, true);
+        m_treeview->header()->hide();
+        m_treeview->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+        QWidget* buttonContainer = new QWidget(m_mainWidget);
+
+        QPushButton* dirUpButton = new QPushButton(QIcon::fromTheme(QLatin1String("go-up")), QString(), buttonContainer);
+        dirUpButton->setMinimumSize(40, 40);
+        connect(dirUpButton, &QPushButton::clicked, this, &FileBrowserPanelPlugin::dirUpButtonHandle);
+
+        QPushButton* homeButton = new QPushButton(QIcon::fromTheme(QLatin1String("go-home")), QString(), buttonContainer);
+        homeButton->setMinimumSize(40, 40);
+        connect(homeButton, &QPushButton::clicked, this, &FileBrowserPanelPlugin::homeButtonHandle);
+
+        QPushButton* dirPreviousButton = new QPushButton(QIcon::fromTheme(QLatin1String("go-previous")), QString(), buttonContainer);
+        dirPreviousButton->setMinimumSize(40, 40);
+        connect(dirPreviousButton, &QPushButton::clicked, this, &FileBrowserPanelPlugin::dirPreviousButtonHandle);
+
+        QPushButton* dirNextButton = new QPushButton(QIcon::fromTheme(QLatin1String("go-next")), QString(), buttonContainer);
+        dirNextButton->setMinimumSize(40, 40);
+        connect(dirNextButton, &QPushButton::clicked, this, &FileBrowserPanelPlugin::dirNextButtonHandle);
+
+        m_pathEdit = new QLineEdit(m_rootDirsHistory.last(), buttonContainer);
+        connect(m_pathEdit, &QLineEdit::returnPressed, this, &FileBrowserPanelPlugin::setNewRootPath);
+        m_pathEdit->setMinimumHeight(40);
+        m_pathEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+
+        QHBoxLayout* horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setDirection(QBoxLayout::LeftToRight);
+        horizontalLayout->addWidget(dirPreviousButton);
+        horizontalLayout->addWidget(dirUpButton);
+        horizontalLayout->addWidget(homeButton);
+        horizontalLayout->addWidget(dirNextButton);
+        horizontalLayout->addWidget(m_pathEdit);
+        horizontalLayout->setMargin(0);
+
+        buttonContainer->setLayout(horizontalLayout);
+        buttonContainer->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        QVBoxLayout* layout = new QVBoxLayout();
+        layout->addWidget(buttonContainer);
+        layout->addWidget(m_treeview);
+
+        m_mainWidget->setLayout(layout);
+}
+
+void FileBrowserPanelPlugin::moveFileBrowserRoot(const QString& path)
+{
+    for (int i = 0; i < historyBackCount; i++)
+        m_rootDirsHistory.pop_back();
+    historyBackCount = 0;
+
+    m_rootDirsHistory.push_back(path);
+    setRootPath(path);
+}
+
+void FileBrowserPanelPlugin::setRootPath(const QString& path)
+{
+    m_model->setRootPath(path);
+    m_treeview->setRootIndex(m_model->index(path));
+    m_pathEdit->setText(path);
+}
+
+void FileBrowserPanelPlugin::dirUpButtonHandle()
+{
+    QDir dir(m_model->rootPath());
+    if (dir.cdUp())
+        moveFileBrowserRoot(dir.absolutePath());
+
+}
+
+void FileBrowserPanelPlugin::homeButtonHandle()
+{
+    moveFileBrowserRoot(QDir::homePath());
+}
+
+void FileBrowserPanelPlugin::dirNextButtonHandle()
+{
+    if (historyBackCount <= 0)
+        return;
+    historyBackCount -= 1;
+
+    const QString& newPath = m_rootDirsHistory[m_rootDirsHistory.size() - 1 - historyBackCount];
+
+    setRootPath(newPath);
+}
+
+void FileBrowserPanelPlugin::dirPreviousButtonHandle()
+{
+    if (historyBackCount >= m_rootDirsHistory.size() - 1)
+        return;
+    historyBackCount += 1;
+
+    const QString& newPath = m_rootDirsHistory[m_rootDirsHistory.size() - 1 - historyBackCount];
+    setRootPath(newPath);
+}
+
+void FileBrowserPanelPlugin::setNewRootPath()
+{
+    QString path = m_pathEdit->text();
+    QFileInfo info(path);
+    if (info.isDir())
+        moveFileBrowserRoot(path);
+}
+
 
 K_PLUGIN_FACTORY_WITH_JSON(filebrowserpanelplugin, "filebrowserpanelplugin.json", registerPlugin<FileBrowserPanelPlugin>();)
 #include "filebrowserpanelplugin.moc"

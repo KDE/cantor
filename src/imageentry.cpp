@@ -25,10 +25,12 @@
 
 #include <KLocalizedString>
 #include <QDebug>
+#include <QDir>
 #include <QMenu>
 #include <QFileSystemWatcher>
 #include <QJsonValue>
 #include <QJsonObject>
+#include <QStandardPaths>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {
@@ -84,6 +86,20 @@ void ImageEntry::setContent(const QString& content)
 void ImageEntry::setContent(const QDomElement& content, const KZip& file)
 {
     Q_UNUSED(file);
+
+    QDomElement fileName = content.firstChildElement(QLatin1String("FileName"));
+    if (!fileName.isNull()) {
+        m_fileName = fileName.text();
+
+        const KArchiveEntry* imageEntry = file.directory()->entry(m_fileName);
+        if (imageEntry && imageEntry->isFile())
+        {
+            const KArchiveFile* imageFile = static_cast<const KArchiveFile*>(imageEntry);
+            const QString& dir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+            imageFile->copyTo(dir);
+        }
+    }
+
     static QStringList unitNames;
     if (unitNames.isEmpty())
         unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
@@ -153,10 +169,16 @@ QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
     if (unitNames.isEmpty())
         unitNames << QLatin1String("(auto)") << QLatin1String("px") << QLatin1String("%");
 
+    archive->addLocalFile(m_imagePath, QUrl::fromLocalFile(m_imagePath).fileName());
+
     QDomElement image = doc.createElement(QLatin1String("Image"));
     QDomElement path = doc.createElement(QLatin1String("Path"));
+    QDomElement fileName = doc.createElement(QLatin1String("FileName"));
     QDomText pathText = doc.createTextNode(m_imagePath);
+    QDomText fileNameText = doc.createTextNode(QUrl::fromLocalFile(m_imagePath).fileName());
     path.appendChild(pathText);
+    fileName.appendChild(fileNameText);
+    image.appendChild(fileName);
     image.appendChild(path);
     QDomElement display = doc.createElement(QLatin1String("Display"));
     display.setAttribute(QLatin1String("width"), m_displaySize.width);
@@ -255,11 +277,25 @@ void ImageEntry::updateEntry()
         if (!m_imageItem)
             m_imageItem = new WorksheetImageItem(this);
 
-        if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
-            m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
+        // This if-else block was used for backward compability for *cws files
+        // without FileName tag. After some releases from 20.08 version, it will
+        // be possible to remove the else part and strip the m_imagePath from the
+        // code and Path tag from the CWS format
+        if (!m_fileName.isNull()) {
+            QString imagePath = QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() + m_fileName;
+            if (imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
+                m_imageItem->setEps(QUrl::fromLocalFile(imagePath));
+            } else {
+                QImage img(imagePath);
+                m_imageItem->setImage(img);
+            }
         } else {
-            QImage img(m_imagePath);
-            m_imageItem->setImage(img);
+            if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive)) {
+                m_imageItem->setEps(QUrl::fromLocalFile(m_imagePath));
+            } else {
+                QImage img(m_imagePath);
+                m_imageItem->setImage(img);
+            }
         }
 
         if (!m_imageItem->imageIsValid()) {

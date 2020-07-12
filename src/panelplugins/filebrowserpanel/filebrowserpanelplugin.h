@@ -21,11 +21,16 @@
 #ifndef _FILEBROWSERPANELPLUGIN_H
 #define _FILEBROWSERPANELPLUGIN_H
 
+#include <QVector>
+
 #include "panelplugin.h"
 
 class QTreeView;
+class QWidget;
 class QModelIndex;
 class QFileSystemModel;
+class QPushButton;
+class QLineEdit;
 
 class FileBrowserPanelPlugin : public Cantor::PanelPlugin
 {
@@ -43,11 +48,24 @@ class FileBrowserPanelPlugin : public Cantor::PanelPlugin
 
   private Q_SLOTS:
     void handleDoubleClicked(const QModelIndex&);
+    void dirPreviousButtonHandle();
+    void dirUpButtonHandle();
+    void homeButtonHandle();
+    void dirNextButtonHandle();
+    void setNewRootPath();
 
   private:
-    QPointer<QTreeView> m_view;
-    QString m_dirRoot;
-    static QFileSystemModel* model;
+    void constructMainWidget();
+    void moveFileBrowserRoot(const QString& path);
+    void setRootPath(const QString& path);
+
+  private:
+    QPointer<QWidget> m_mainWidget;
+    QPointer<QTreeView> m_treeview;
+    QPointer<QLineEdit> m_pathEdit;
+    QFileSystemModel* m_model;
+    QVector<QString> m_rootDirsHistory;
+    int historyBackCount;
 };
 
 #endif /* _FILEBROWSERPANELPLUGIN_H */
