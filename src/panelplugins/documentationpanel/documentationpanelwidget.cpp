@@ -24,6 +24,7 @@
 
 #include <KLocalizedString>
 
+#include <QCompleter>
 #include <QComboBox>
 #include <QDebug>
 #include <QFrame>
@@ -33,6 +34,7 @@
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QLineEdit>
+#include <QModelIndex>
 #include <QPushButton>
 #include <QStandardPaths>
 #include <QStackedWidget>
@@ -69,11 +71,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
     documentationSelector->addItem(QIcon::fromTheme(session->backend()->icon()), m_backend);
 
-    // real time searcher
-    m_search = new QLineEdit(this);
-    m_search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
-    m_search->setClearButtonEnabled(true);
-
     // Add a seperator
     QFrame *seperator = new QFrame(this);
     seperator->setFrameShape(QFrame::VLine);
@@ -95,6 +92,15 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
      * This widget would be NEVER shown*/
     m_index = m_engine->indexWidget();
     m_displayArea->addWidget(m_index);
+
+    // real time searcher
+    m_search = new QLineEdit(this);
+    m_search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
+    m_search->setClearButtonEnabled(true);
+
+    m_search->setCompleter(new QCompleter(m_index->model(), m_search));
+    m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+    m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
 
     static bool qthelpRegistered = false;
 
@@ -159,6 +165,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_search, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::returnPressed);
+    connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
     setSession(session);
 }
@@ -187,24 +194,21 @@ void DocumentationPanelWidget::returnPressed()
 {
     const QString& input = m_search->text();
 
-    auto model = m_index->model();
+    if (input.isEmpty())
+        return;
 
-    bool inputInIndex = false;
+    /*auto model = m_index->model();
+    //auto model = m_engine->indexModel();
 
     for(int row = 0; row < model->rowCount(); ++row)
     {
         auto keyword = model->index(row, 0);
-        if (keyword.data().toString() == input)
+        if(keyword.data().toString() == input)
         {
-            inputInIndex = true;
-            qDebug() << "found";
+
             break;
         }
-
-    }
-
-    if (input.isEmpty() && !inputInIndex)
-        return;
+    }*/
 
     contextSensitiveHelp(input);
 }
