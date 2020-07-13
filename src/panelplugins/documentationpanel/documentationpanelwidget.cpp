@@ -37,6 +37,7 @@
 #include <QLineEdit>
 #include <QModelIndex>
 #include <QPushButton>
+#include <QShortcut>
 #include <QStandardPaths>
 #include <QStackedWidget>
 #include <QToolButton>
@@ -89,6 +90,12 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     findPage->setToolTip(i18nc("@info:tooltip", "Find in text of current documentation page"));
     findPage->setShortcut(QKeySequence(/*Qt::CTRL + */Qt::Key_F3));
 
+    QPushButton* resetZoom = new QPushButton(this);
+    resetZoom->setEnabled(false);
+    resetZoom->setIcon(QIcon::fromTheme(QLatin1String("zoom-fit-best")));
+    resetZoom->setToolTip(i18nc("@info:tooltip", "Reset zoom level to 100%"));
+    //resetZoom->setShortcut(QKeySequence(/*Qt::CTRL + */Qt::Key_F3));
+
     m_textBrowser = new QWebEngineView(this);
 
     m_displayArea->addWidget(m_textBrowser);
@@ -107,6 +114,18 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
 
+    // Add zoom in, zoom out behaviour on SHIFT++ and SHIFT--
+    auto zoomIn = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Plus), this);
+    zoomIn->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(zoomIn, &QShortcut::activated, this, [=]{
+        m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() + 0.1);
+    });
+
+    auto zoomOut = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Minus), this);
+    zoomOut->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(zoomOut, &QShortcut::activated, this, [=]{
+        m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() - 0.1);
+    });
 
     // Add the Find in Page widget at the bottom, add all the widgets into a layout so that we can hide it
     QToolButton* hideButton = new QToolButton(this);
@@ -175,6 +194,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     layout->addWidget(m_search, 0, 2);
     layout->addWidget(seperator, 0, 3);
     layout->addWidget(findPage, 0, 4);
+    layout->addWidget(resetZoom, 0, 5);
     layout->addWidget(m_displayArea, 1, 0, 2, 0);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
@@ -194,11 +214,13 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         {
             findPage->setEnabled(false);
             home->setEnabled(false);
+            resetZoom->setEnabled(false);
         }
         else
         {
             findPage->setEnabled(true);
             home->setEnabled(true);
+            resetZoom->setEnabled(true);
         }
     });
 
@@ -211,6 +233,10 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         layout->addWidget(findPageWidgetContainer, 2, 0, 3, 0);
         m_findText->clear();
         m_findText->setFocus();
+    });
+
+    connect(resetZoom, &QPushButton::clicked, [=]{
+        m_textBrowser->setZoomFactor(1.0);
     });
 
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
