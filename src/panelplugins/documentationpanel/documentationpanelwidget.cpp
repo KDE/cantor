@@ -37,9 +37,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QModelIndex>
-#include <QPalette>
 #include <QPushButton>
-#include <QShortcut>
 #include <QStandardPaths>
 #include <QStackedWidget>
 #include <QToolButton>
@@ -85,9 +83,10 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     m_displayArea->addWidget(m_engine->contentWidget());
 
     QPushButton* findPage = new QPushButton(this);
+    findPage->setEnabled(false);
     findPage->setIcon(QIcon::fromTheme(QLatin1String("edit-find")));
     findPage->setToolTip(i18nc("@info:tooltip", "Find in text of current documentation page"));
-    findPage->setEnabled(false);
+    findPage->setShortcut(QKeySequence(/*Qt::CTRL + */Qt::Key_F3));
 
     m_textBrowser = new QWebEngineView(this);
 
@@ -145,9 +144,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     QWidget* findPageWidgetContainer = new QWidget(this);
     findPageWidgetContainer->setLayout(lout);
     findPageWidgetContainer->hide();
-
-    auto closeFindBarShortcut = new QShortcut(QKeySequence(Qt::Key_F3), this);
-    closeFindBarShortcut->setContext(Qt::WidgetWithChildrenShortcut);
 
     ////////////////////////////////////////////////////////
     static bool qthelpRegistered = false;
@@ -227,11 +223,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
         m_textBrowser->findText(QString()); // this clears up the selected text
     });
 
-    connect(closeFindBarShortcut, &QShortcut::activated, this, [=]{
-        findPageWidgetContainer->hide();
-        m_textBrowser->findText(QString()); // this clears up the selected text
-    });
-
     connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
     connect(m_findText, &QLineEdit::textEdited, this, &DocumentationPanelWidget::searchForward); // for highlighting found string in real time
     connect(next, &QToolButton::clicked, this, &DocumentationPanelWidget::searchForward);
@@ -302,19 +293,6 @@ void DocumentationPanelWidget::searchForward()
 {
     m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively) :
                                m_textBrowser->findText(m_findText->text());
-
-    /*QPalette *palette = new QPalette();
-
-    if(m_textBrowser->selectedText().isEmpty())
-    {
-        palette->setColor(QPalette::Base, Qt::red);
-        m_findText->setPalette(*palette);
-    }
-    else
-    {
-        palette->setColor(QPalette::Base, Qt::green);
-        m_findText->setPalette(*palette);
-    }*/
 }
 
 void DocumentationPanelWidget::searchBackward()
