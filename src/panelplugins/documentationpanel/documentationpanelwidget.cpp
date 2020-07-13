@@ -228,13 +228,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         m_displayArea->setCurrentIndex(0);
     });
 
-    connect(findPage, &QPushButton::clicked, [=]{
-        findPageWidgetContainer->show();
-        layout->addWidget(findPageWidgetContainer, 2, 0, 3, 0);
-        m_findText->clear();
-        m_findText->setFocus();
-    });
-
     connect(resetZoom, &QPushButton::clicked, [=]{
         m_textBrowser->setZoomFactor(1.0);
     });
@@ -245,9 +238,19 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
     // connect statements for Find in Page text widget
+    connect(findPage, &QPushButton::clicked, [=]{
+        layout->setRowStretch(1, 1);
+        layout->addWidget(findPageWidgetContainer, 2, 0, 2, 0, Qt::AlignBottom);
+        findPageWidgetContainer->show();
+        m_findText->clear();
+        m_findText->setFocus();
+    });
+
     connect(hideButton, &QToolButton::clicked, this, [=]{
+        layout->removeWidget(findPageWidgetContainer);
         findPageWidgetContainer->hide();
         m_textBrowser->findText(QString()); // this clears up the selected text
+        //layout->addWidget(m_displayArea, 1, 0, 2, 0);
     });
 
     connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
