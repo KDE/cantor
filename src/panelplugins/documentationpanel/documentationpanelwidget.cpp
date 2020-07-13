@@ -146,7 +146,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     auto closeFindBarShortcut = new QShortcut(QKeySequence(Qt::Key_F3), this);
     closeFindBarShortcut->setContext(Qt::WidgetWithChildrenShortcut);
-    connect(closeFindBarShortcut, &QShortcut::activated, findPageWidgetContainer, &QWidget::hide);
 
     ////////////////////////////////////////////////////////
     static bool qthelpRegistered = false;
@@ -211,6 +210,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(findPage, &QPushButton::clicked, [=]{
         layout->addWidget(findPageWidgetContainer, 2, 0, 3, 0);
         findPageWidgetContainer->show();
+        m_findText->setFocus();
     });
 
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
@@ -220,7 +220,16 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
     // connect statements for Find in Page text widget
-    connect(hideButton, &QToolButton::clicked, findPageWidgetContainer, &QWidget::hide);
+    connect(hideButton, &QToolButton::clicked, this, [=]{
+        findPageWidgetContainer->hide();
+        m_textBrowser->findText(QString());
+    });
+
+    connect(closeFindBarShortcut, &QShortcut::activated, this, [=]{
+        findPageWidgetContainer->hide();
+        m_textBrowser->findText(QString());
+    });
+
     connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
     connect(m_findText, &QLineEdit::textEdited, this, &DocumentationPanelWidget::searchForward); // for highlighting found string in real time
     connect(next, &QToolButton::clicked, this, &DocumentationPanelWidget::searchForward);
