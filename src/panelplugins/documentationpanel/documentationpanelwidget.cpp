@@ -67,6 +67,31 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     loadDocumentation();
 
+    m_textBrowser = new QWebEngineView(this);
+
+    // Register custom scheme handler for qthelp:// scheme
+    static bool qthelpRegistered = false;
+
+    if(!qthelpRegistered)
+    {
+        QWebEngineUrlScheme qthelp("qthelp");
+        QWebEngineUrlScheme::registerScheme(qthelp);
+        m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
+        qthelpRegistered = true;
+    }
+
+    // set initial page contents, otherwise page is blank
+    if(m_backend == QLatin1String("Maxima"))
+    {
+        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html")));
+        m_textBrowser->show();
+    }
+    else if(m_backend == QLatin1String("Octave"))
+    {
+        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
+        m_textBrowser->show();
+    }
+
     QPushButton* home = new QPushButton(this);
     home->setIcon(QIcon::fromTheme(QLatin1String("go-home")));
     home->setToolTip(i18nc("@button go to contents page", "Go to the contents"));
@@ -95,8 +120,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     resetZoom->setIcon(QIcon::fromTheme(QLatin1String("zoom-fit-best")));
     resetZoom->setToolTip(i18nc("@info:tooltip", "Reset zoom level to 100%"));
     //resetZoom->setShortcut(QKeySequence(/*Qt::CTRL + */Qt::Key_F3));
-
-    m_textBrowser = new QWebEngineView(this);
 
     m_displayArea->addWidget(m_textBrowser);
 
@@ -165,29 +188,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     findPageWidgetContainer->setLayout(lout);
     findPageWidgetContainer->hide();
 
-    ////////////////////////////////////////////////////////
-    static bool qthelpRegistered = false;
-
-    if(!qthelpRegistered)
-    {
-        QWebEngineUrlScheme qthelp("qthelp");
-        QWebEngineUrlScheme::registerScheme(qthelp);
-        m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
-        qthelpRegistered = true;
-    }
-
-    // set initial page contents, otherwise page is blank
-    if(m_backend == QLatin1String("Maxima"))
-    {
-        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.kde.cantor/doc/maxima.html")));
-        m_textBrowser->show();
-    }
-    else if(m_backend == QLatin1String("Octave"))
-    {
-        m_textBrowser->load(QUrl(QLatin1String("qthelp://org.octave.interpreter-1.0/doc/octave.html/index.html")));
-        m_textBrowser->show();
-    }
-
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(home, 0, 0);
     layout->addWidget(documentationSelector, 0, 1);
@@ -250,7 +250,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         layout->removeWidget(findPageWidgetContainer);
         findPageWidgetContainer->hide();
         m_textBrowser->findText(QString()); // this clears up the selected text
-        //layout->addWidget(m_displayArea, 1, 0, 2, 0);
     });
 
     connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
@@ -260,6 +259,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     connect(m_matchCase, &QAbstractButton::toggled, this, &DocumentationPanelWidget::searchForward);
     connect(m_matchCase, &QAbstractButton::toggled, this, [=]{
         m_textBrowser->findText(QString());
+        searchForward();
     });
 }
 
