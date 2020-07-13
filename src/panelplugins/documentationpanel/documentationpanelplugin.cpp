@@ -21,7 +21,6 @@
 #include "documentationpanelplugin.h"
 #include "session.h"
 
-#include <QDebug>
 #include <QIcon>
 
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
@@ -37,14 +36,20 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 void DocumentationPanelPlugin::onSessionChanged()
 {
     if(m_widget)
-        m_widget->setSession(session());
+    {
+        m_widget->setBackend(m_backendName);
+        m_widget->setBackendIcon(m_backendIcon);
+    }
 }
 
 QWidget* DocumentationPanelPlugin::widget()
 {
+    m_backendName = session()->backend()->name();
+    m_backendIcon = session()->backend()->icon();
+
     if(!m_widget)
     {
-        m_widget = new DocumentationPanelWidget(session(), parentWidget());
+        m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
         connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
     }
@@ -59,12 +64,12 @@ bool DocumentationPanelPlugin::showOnStartup()
 
 QIcon DocumentationPanelPlugin::icon() const
 {
-    return QIcon::fromTheme(m_widget->m_session->backend()->icon());
+    return QIcon::fromTheme(m_backendIcon);
 }
 
 QString DocumentationPanelPlugin::backendName() const
 {
-    return m_widget->m_session->backend()->name();
+    return m_backendName;
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(documentationpanelplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)

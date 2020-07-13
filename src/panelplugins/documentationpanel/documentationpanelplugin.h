@@ -48,6 +48,8 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
 
   private:
     QPointer<DocumentationPanelWidget> m_widget;
+    QString m_backendName;
+    QString m_backendIcon;
 };
 
 #endif /* _DOCUMENTATIONPANELPLUGIN_H */

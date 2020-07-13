@@ -27,11 +27,6 @@
 #include <QWebEngineUrlSchemeHandler>
 #include <QWidget>
 
-namespace Cantor
-{
-    class Session;
-}
-
 class QHelpEngine;
 class QHelpIndexWidget;
 class QLineEdit;
@@ -45,18 +40,17 @@ class DocumentationPanelWidget : public QWidget
   Q_OBJECT
 
   public:
-    DocumentationPanelWidget(Cantor::Session* session, QWidget* parent);
+    DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent);
     ~DocumentationPanelWidget();
 
-    void setSession(Cantor::Session* session);
+    void setBackend(const QString&);
+
+    void setBackendIcon(const QString&);
 
     /** @return name of the current backend **/
     QString backendName() const;
 
     void loadDocumentation();
-
-  public:
-    Cantor::Session* m_session = nullptr;
 
   Q_SIGNALS:
     void activateBrowser();
@@ -76,6 +70,7 @@ class DocumentationPanelWidget : public QWidget
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
     QString m_backend;
+    QString m_icon;
 
     // member variables for find in page text widget
     QLineEdit* m_search = nullptr; // for searching through keywords

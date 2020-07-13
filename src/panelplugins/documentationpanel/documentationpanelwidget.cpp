@@ -20,7 +20,6 @@
 
 #include "cantor_macros.h"
 #include "documentationpanelplugin.h"
-#include "session.h"
 
 #include <KLocalizedString>
 
@@ -45,9 +44,11 @@
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
 
-DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWidget* parent) :QWidget(parent), m_backend(QString())
+DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent) :QWidget(parent)
 {
-    m_backend = session->backend()->name();
+    m_backend = backend;
+    m_icon = backendIcon;
+
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
 
     m_engine = new QHelpEngine(fileName, this);
@@ -72,7 +73,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
 
     QComboBox* documentationSelector = new QComboBox(this);
     // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
-    documentationSelector->addItem(QIcon::fromTheme(session->backend()->icon()), m_backend);
+    documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
 
     // Add a seperator
     QFrame *seperator = new QFrame(this);
@@ -231,8 +232,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(m_matchCase, &QAbstractButton::toggled, this, [=]{
         m_textBrowser->findText(QString());
     });
-
-    setSession(session);
 }
 
 DocumentationPanelWidget::~DocumentationPanelWidget()
@@ -246,9 +245,14 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_matchCase;
 }
 
-void DocumentationPanelWidget::setSession(Cantor::Session* session)
+void DocumentationPanelWidget::setBackend(const QString& backend)
 {
-    m_session = session;
+    m_backend = backend;
+}
+
+void DocumentationPanelWidget::setBackendIcon(const QString& icon)
+{
+    m_icon = icon;
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
