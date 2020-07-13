@@ -37,6 +37,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QModelIndex>
+#include <QPalette>
 #include <QPushButton>
 #include <QShortcut>
 #include <QStandardPaths>
@@ -130,8 +131,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     m_matchCase = new QToolButton(this);
     m_matchCase->setIcon(QIcon::fromTheme(QLatin1String("format-text-superscript")));
     m_matchCase->setToolTip(i18nc("@info:tooltip", "Match case sensitive"));
+    m_matchCase->setCheckable(true);
 
-    // Create a layout
+    // Create a layout for find in text widgets
     QHBoxLayout* lout = new QHBoxLayout(this);
     lout->addWidget(hideButton);
     lout->addWidget(label);
@@ -208,26 +210,26 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     });
 
     connect(findPage, &QPushButton::clicked, [=]{
-        layout->addWidget(findPageWidgetContainer, 2, 0, 3, 0);
         findPageWidgetContainer->show();
+        layout->addWidget(findPageWidgetContainer, 2, 0, 3, 0);
+        m_findText->clear();
         m_findText->setFocus();
     });
 
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
     connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_index, &QHelpIndexWidget::activated, this, &DocumentationPanelWidget::refreshIndexWidget);
     connect(m_search, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::returnPressed);
     connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
     // connect statements for Find in Page text widget
     connect(hideButton, &QToolButton::clicked, this, [=]{
         findPageWidgetContainer->hide();
-        m_textBrowser->findText(QString());
+        m_textBrowser->findText(QString()); // this clears up the selected text
     });
 
     connect(closeFindBarShortcut, &QShortcut::activated, this, [=]{
         findPageWidgetContainer->hide();
-        m_textBrowser->findText(QString());
+        m_textBrowser->findText(QString()); // this clears up the selected text
     });
 
     connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
@@ -235,6 +237,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(next, &QToolButton::clicked, this, &DocumentationPanelWidget::searchForward);
     connect(previous, &QToolButton::clicked, this, &DocumentationPanelWidget::searchBackward);
     connect(m_matchCase, &QAbstractButton::toggled, this, &DocumentationPanelWidget::searchForward);
+    connect(m_matchCase, &QAbstractButton::toggled, this, [=]{
+        m_textBrowser->findText(QString());
+    });
 
     setSession(session);
 }
@@ -293,17 +298,23 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
     m_index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
 }
 
-void DocumentationPanelWidget::refreshIndexWidget()
-{
-    //QHelpIndexWidget* index = m_engine->indexWidget();
-    m_index->filterIndices(QString());
-    m_index->activateCurrentItem();
-}
-
 void DocumentationPanelWidget::searchForward()
 {
     m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively) :
                                m_textBrowser->findText(m_findText->text());
+
+    /*QPalette *palette = new QPalette();
+
+    if(m_textBrowser->selectedText().isEmpty())
+    {
+        palette->setColor(QPalette::Base, Qt::red);
+        m_findText->setPalette(*palette);
+    }
+    else
+    {
+        palette->setColor(QPalette::Base, Qt::green);
+        m_findText->setPalette(*palette);
+    }*/
 }
 
 void DocumentationPanelWidget::searchBackward()

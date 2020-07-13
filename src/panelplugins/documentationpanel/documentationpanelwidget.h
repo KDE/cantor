@@ -65,7 +65,6 @@ class DocumentationPanelWidget : public QWidget
     void displayHelp(const QUrl&);
     void contextSensitiveHelp(const QString&);
     void returnPressed();
-    void refreshIndexWidget();
 
     // SLOTS for Find in Page widget
     void searchForward();
