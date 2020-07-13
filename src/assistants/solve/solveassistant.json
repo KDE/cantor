@@ -2,7 +2,7 @@
     "KPlugin": {
         "Dependencies": [],
         "Description": "An Assistant dialog to simplify solving of equations",
-        "Description[ca@valencia]": "Un diàleg assistent per simplificar la resolució d'equacions",
+        "Description[ca@valencia]": "Un diàleg assistent per a simplificar la resolució d'equacions",
         "Description[ca]": "Un diàleg assistent per a simplificar la resolució d'equacions",
         "Description[cs]": "Pomocný dialog pro zjednodušení řešení rovnic",
         "Description[de]": "Ein Assistent, um das Lösen von Gleichungen zu vereinfachen",
