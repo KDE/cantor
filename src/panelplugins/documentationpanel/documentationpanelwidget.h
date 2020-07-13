@@ -36,6 +36,7 @@ class QHelpEngine;
 class QHelpIndexWidget;
 class QLineEdit;
 class QStackedWidget;
+class QToolButton;
 class QUrl;
 class QWebEngineView;
 
@@ -66,13 +67,21 @@ class DocumentationPanelWidget : public QWidget
     void returnPressed();
     void refreshIndexWidget();
 
+    // SLOTS for Find in Page widget
+    void searchForward();
+    void searchBackward();
+
   private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
-    QLineEdit* m_search = nullptr;
     QString m_backend;
+
+    // member variables for find in page text widget
+    QLineEdit* m_search = nullptr; // for searching through keywords
+    QLineEdit* m_findText = nullptr; // for find in page text widget
+    QToolButton* m_matchCase = nullptr;
 };
 
 // class for handling of custom url scheme ie. qthelp:// inside QWebEngineView

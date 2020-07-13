@@ -38,6 +38,7 @@
 #include <QLineEdit>
 #include <QModelIndex>
 #include <QPushButton>
+#include <QShortcut>
 #include <QStandardPaths>
 #include <QStackedWidget>
 #include <QToolButton>
@@ -114,34 +115,38 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     QLabel* label = new QLabel(this);
     label->setText(i18n("Find:"));
 
-    QLineEdit* findText = new QLineEdit(this);
-    findText->setPlaceholderText(i18nc("@info:placeholder", "Search..."));
-    findText->setClearButtonEnabled(true);
+    m_findText = new QLineEdit(this);
+    m_findText->setPlaceholderText(i18nc("@info:placeholder", "Search..."));
+    m_findText->setClearButtonEnabled(true);
 
     QToolButton* next = new QToolButton(this);
-    next->setIcon(QIcon::fromTheme(QLatin1String("arrow-down")));
+    next->setIcon(QIcon::fromTheme(QLatin1String("go-down-search")));
     next->setToolTip(i18nc("@info:tooltip", "Jump to next match"));
 
     QToolButton* previous = new QToolButton(this);
-    previous->setIcon(QIcon::fromTheme(QLatin1String("arrow-up")));
+    previous->setIcon(QIcon::fromTheme(QLatin1String("go-up-search")));
     previous->setToolTip(i18nc("@info:tooltip", "Jump to previous match"));
 
-    QToolButton* matchCase = new QToolButton(this);
-    next->setIcon(QIcon::fromTheme(QLatin1String("format-text-superscript")));
-    next->setToolTip(i18nc("@info:tooltip", "Match case sensitive"));
+    m_matchCase = new QToolButton(this);
+    m_matchCase->setIcon(QIcon::fromTheme(QLatin1String("format-text-superscript")));
+    m_matchCase->setToolTip(i18nc("@info:tooltip", "Match case sensitive"));
 
     // Create a layout
     QHBoxLayout* lout = new QHBoxLayout(this);
     lout->addWidget(hideButton);
     lout->addWidget(label);
-    lout->addWidget(findText);
+    lout->addWidget(m_findText);
     lout->addWidget(next);
     lout->addWidget(previous);
-    lout->addWidget(matchCase);
+    lout->addWidget(m_matchCase);
 
     QWidget* findPageWidgetContainer = new QWidget(this);
     findPageWidgetContainer->setLayout(lout);
     findPageWidgetContainer->hide();
+
+    auto closeFindBarShortcut = new QShortcut(QKeySequence(Qt::Key_F3), this);
+    closeFindBarShortcut->setContext(Qt::WidgetWithChildrenShortcut);
+    connect(closeFindBarShortcut, &QShortcut::activated, findPageWidgetContainer, &QWidget::hide);
 
     ////////////////////////////////////////////////////////
     static bool qthelpRegistered = false;
@@ -214,13 +219,13 @@ DocumentationPanelWidget::DocumentationPanelWidget(Cantor::Session* session, QWi
     connect(m_search, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::returnPressed);
     connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
-    connect(hideButton, &QToolButton::clicked, this, [=]{
-        findPageWidgetContainer->hide();
-    });
-    /*connect(matchCase, &QAbstractButton::toggled, this, &DocumentationPanelWidget::emitDataChanged);
-    connect(findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchNext);
-    connect(previous, &QToolButton::clicked, this, &DocumentationPanelWidget::searchPrevious);
-    connect(next, &QToolButton::clicked, this, &DocumentationPanelWidget::searchNext);*/
+    // connect statements for Find in Page text widget
+    connect(hideButton, &QToolButton::clicked, findPageWidgetContainer, &QWidget::hide);
+    connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
+    connect(m_findText, &QLineEdit::textEdited, this, &DocumentationPanelWidget::searchForward); // for highlighting found string in real time
+    connect(next, &QToolButton::clicked, this, &DocumentationPanelWidget::searchForward);
+    connect(previous, &QToolButton::clicked, this, &DocumentationPanelWidget::searchBackward);
+    connect(m_matchCase, &QAbstractButton::toggled, this, &DocumentationPanelWidget::searchForward);
 
     setSession(session);
 }
@@ -232,6 +237,8 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_displayArea;
     delete m_index;
     delete m_search;
+    delete m_findText;
+    delete m_matchCase;
 }
 
 void DocumentationPanelWidget::setSession(Cantor::Session* session)
@@ -282,6 +289,18 @@ void DocumentationPanelWidget::refreshIndexWidget()
     //QHelpIndexWidget* index = m_engine->indexWidget();
     m_index->filterIndices(QString());
     m_index->activateCurrentItem();
+}
+
+void DocumentationPanelWidget::searchForward()
+{
+    m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively) :
+                               m_textBrowser->findText(m_findText->text());
+}
+
+void DocumentationPanelWidget::searchBackward()
+{
+    m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively | QWebEnginePage::FindBackward) :
+                               m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindBackward);
 }
 
 void DocumentationPanelWidget::loadDocumentation()
