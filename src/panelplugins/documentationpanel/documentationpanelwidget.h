@@ -54,6 +54,7 @@ class DocumentationPanelWidget : public QWidget
 
   Q_SIGNALS:
     void activateBrowser();
+    void zoomFactorChanged();
 
   private Q_SLOTS:
     void displayHelp(const QUrl&);

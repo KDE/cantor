@@ -143,16 +143,26 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     // Add zoom in, zoom out behaviour on SHIFT++ and SHIFT--
     auto zoomIn = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Plus), this);
     zoomIn->setContext(Qt::WidgetWithChildrenShortcut);
+
     connect(zoomIn, &QShortcut::activated, this, [=]{
         m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() + 0.1);
+        emit zoomFactorChanged();
     });
 
     auto zoomOut = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Minus), this);
     zoomOut->setContext(Qt::WidgetWithChildrenShortcut);
+
     connect(zoomOut, &QShortcut::activated, this, [=]{
         m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() - 0.1);
+        emit zoomFactorChanged();
     });
 
+    connect(this, &DocumentationPanelWidget::zoomFactorChanged, [=]{
+        if(m_textBrowser->zoomFactor() != 1.0)
+            resetZoom->setEnabled(true);
+        else
+            resetZoom->setEnabled(false);
+    });
 
     /////////////////////////
     // Display area layout//
@@ -164,7 +174,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     /* Adding the index widget to implement the logic for context sensitive help
      * This widget would be NEVER shown*/
     m_displayArea->addWidget(m_index);
-
 
     /////////////////////////////////
     // Find in Page widget layout //
@@ -216,7 +225,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     // display the documentation browser whenever contents are clicked
-    connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, [=](){
+    connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, [=]{
         m_displayArea->setCurrentIndex(1);
     });
 
@@ -231,13 +240,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         {
             findPage->setEnabled(false);
             home->setEnabled(false);
-            resetZoom->setEnabled(false);
         }
         else
         {
             findPage->setEnabled(true);
             home->setEnabled(true);
-            resetZoom->setEnabled(true);
         }
     });
 
@@ -247,6 +254,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     connect(resetZoom, &QPushButton::clicked, [=]{
         m_textBrowser->setZoomFactor(1.0);
+        resetZoom->setEnabled(false);
     });
 
     connect(m_engine->contentWidget(), &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
