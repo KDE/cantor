@@ -23,6 +23,7 @@
 
 #include <KLocalizedString>
 
+#include <QAction>
 #include <QCompleter>
 #include <QComboBox>
 #include <QDebug>
@@ -41,6 +42,7 @@
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <QWebEngineDownloadItem>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -78,6 +80,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         QWebEngineUrlScheme qthelp("qthelp");
         QWebEngineUrlScheme::registerScheme(qthelp);
         m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
+        m_textBrowser->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
+        m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewTab)->setVisible(false);
+        m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
+        m_textBrowser->page()->action(QWebEnginePage::DownloadLinkToDisk)->setVisible(false);
+        m_textBrowser->page()->action(QWebEnginePage::Reload)->setVisible(false);
         qthelpRegistered = true;
     }
 
@@ -283,6 +290,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         m_textBrowser->findText(QString());
         searchForward();
     });
+
+    // for webenginebrowser for downloading of images or html pages
+    connect(m_textBrowser->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
 }
 
 DocumentationPanelWidget::~DocumentationPanelWidget()
@@ -354,6 +364,14 @@ void DocumentationPanelWidget::searchBackward()
 {
     m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively | QWebEnginePage::FindBackward) :
                                m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindBackward);
+}
+
+void DocumentationPanelWidget::downloadResource(QWebEngineDownloadItem* resource)
+{
+    // default download directory is ~/Downloads on Linux
+    m_textBrowser->page()->download(resource->url());
+    resource->accept();
+    disconnect(m_textBrowser->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
 }
 
 void DocumentationPanelWidget::loadDocumentation()

@@ -33,6 +33,7 @@ class QLineEdit;
 class QStackedWidget;
 class QToolButton;
 class QUrl;
+class QWebEngineDownloadItem;
 class QWebEngineView;
 
 class DocumentationPanelWidget : public QWidget
@@ -64,6 +65,8 @@ class DocumentationPanelWidget : public QWidget
     // SLOTS for Find in Page widget
     void searchForward();
     void searchBackward();
+
+    void downloadResource(QWebEngineDownloadItem*); // slot for saving the image to local disk
 
   private:
     QHelpEngine* m_engine = nullptr;
