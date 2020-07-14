@@ -27,7 +27,6 @@
 #include <QComboBox>
 #include <QDebug>
 #include <QFrame>
-#include <QGridLayout>
 #include <QHBoxLayout>
 #include <QHelpContentWidget>
 #include <QHelpEngine>
@@ -41,6 +40,7 @@
 #include <QStandardPaths>
 #include <QStackedWidget>
 #include <QToolButton>
+#include <QVBoxLayout>
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
@@ -53,6 +53,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
 
     m_engine = new QHelpEngine(fileName, this);
+    m_index = m_engine->indexWidget();
 
     if(!m_engine->setupData())
     {
@@ -92,6 +93,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         m_textBrowser->show();
     }
 
+    /////////////////////////
+    // Top toolbar layout //
+    ///////////////////////
     QPushButton* home = new QPushButton(this);
     home->setIcon(QIcon::fromTheme(QLatin1String("go-home")));
     home->setToolTip(i18nc("@button go to contents page", "Go to the contents"));
@@ -101,13 +105,18 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
     documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
 
+    // real time searcher
+    m_search = new QLineEdit(this);
+    m_search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
+    m_search->setClearButtonEnabled(true);
+    m_search->setCompleter(new QCompleter(m_index->model(), m_search));
+    m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+    m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
+
     // Add a seperator
     QFrame *seperator = new QFrame(this);
     seperator->setFrameShape(QFrame::VLine);
     seperator->setFrameShadow(QFrame::Sunken);
-
-    QStackedWidget* m_displayArea = new QStackedWidget(this);
-    m_displayArea->addWidget(m_engine->contentWidget());
 
     QPushButton* findPage = new QPushButton(this);
     findPage->setEnabled(false);
@@ -119,23 +128,17 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     resetZoom->setEnabled(false);
     resetZoom->setIcon(QIcon::fromTheme(QLatin1String("zoom-fit-best")));
     resetZoom->setToolTip(i18nc("@info:tooltip", "Reset zoom level to 100%"));
-    //resetZoom->setShortcut(QKeySequence(/*Qt::CTRL + */Qt::Key_F3));
 
-    m_displayArea->addWidget(m_textBrowser);
+    QHBoxLayout* layout = new QHBoxLayout(this);
+    layout->addWidget(home);
+    layout->addWidget(documentationSelector);
+    layout->addWidget(m_search);
+    layout->addWidget(seperator);
+    layout->addWidget(findPage);
+    layout->addWidget(resetZoom);
 
-    /* Adding the index widget to implement the logic for context sensitive help
-     * This widget would be NEVER shown*/
-    m_index = m_engine->indexWidget();
-    m_displayArea->addWidget(m_index);
-
-    // real time searcher
-    m_search = new QLineEdit(this);
-    m_search->setPlaceholderText(i18nc("@info:placeholder", "Search through keywords..."));
-    m_search->setClearButtonEnabled(true);
-
-    m_search->setCompleter(new QCompleter(m_index->model(), m_search));
-    m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
-    m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
+    QWidget* toolBarContainer = new QWidget(this);
+    toolBarContainer->setLayout(layout);
 
     // Add zoom in, zoom out behaviour on SHIFT++ and SHIFT--
     auto zoomIn = new QShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Plus), this);
@@ -149,6 +152,23 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     connect(zoomOut, &QShortcut::activated, this, [=]{
         m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() - 0.1);
     });
+
+
+    /////////////////////////
+    // Display area layout//
+    ///////////////////////
+    m_displayArea = new QStackedWidget(this);
+    m_displayArea->addWidget(m_engine->contentWidget());
+    m_displayArea->addWidget(m_textBrowser);
+
+    /* Adding the index widget to implement the logic for context sensitive help
+     * This widget would be NEVER shown*/
+    m_displayArea->addWidget(m_index);
+
+
+    /////////////////////////////////
+    // Find in Page widget layout //
+    ///////////////////////////////
 
     // Add the Find in Page widget at the bottom, add all the widgets into a layout so that we can hide it
     QToolButton* hideButton = new QToolButton(this);
@@ -188,14 +208,11 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     findPageWidgetContainer->setLayout(lout);
     findPageWidgetContainer->hide();
 
-    QGridLayout* layout = new QGridLayout(this);
-    layout->addWidget(home, 0, 0);
-    layout->addWidget(documentationSelector, 0, 1);
-    layout->addWidget(m_search, 0, 2);
-    layout->addWidget(seperator, 0, 3);
-    layout->addWidget(findPage, 0, 4);
-    layout->addWidget(resetZoom, 0, 5);
-    layout->addWidget(m_displayArea, 1, 0, 2, 0);
+    // Add topmost toolbar, display area and find in page widget in a Vertical layout
+    QVBoxLayout* vlayout = new QVBoxLayout(this);
+    vlayout->addWidget(toolBarContainer);
+    vlayout->addWidget(m_displayArea);
+    vlayout->addWidget(findPageWidgetContainer);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     // display the documentation browser whenever contents are clicked
@@ -239,15 +256,12 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     // connect statements for Find in Page text widget
     connect(findPage, &QPushButton::clicked, [=]{
-        layout->setRowStretch(1, 1);
-        layout->addWidget(findPageWidgetContainer, 2, 0, 2, 0, Qt::AlignBottom);
         findPageWidgetContainer->show();
         m_findText->clear();
         m_findText->setFocus();
     });
 
     connect(hideButton, &QToolButton::clicked, this, [=]{
-        layout->removeWidget(findPageWidgetContainer);
         findPageWidgetContainer->hide();
         m_textBrowser->findText(QString()); // this clears up the selected text
     });
@@ -268,10 +282,10 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_engine;
     delete m_textBrowser;
     delete m_displayArea;
-    delete m_index;
     delete m_search;
     delete m_findText;
     delete m_matchCase;
+    //delete m_index; this crashes
 }
 
 void DocumentationPanelWidget::setBackend(const QString& backend)
