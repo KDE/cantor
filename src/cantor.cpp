@@ -97,6 +97,22 @@ CantorShell::~CantorShell()
 
 void CantorShell::load(const QUrl &url)
 {
+    // If the url already opened, then don't open the url in another tab, but
+    // just activate the already existed tab
+    for (int i = 0; i < m_parts.size(); i++)
+    {
+        KParts::ReadOnlyPart* part = m_parts[i];
+        if (part && part->url() == url)
+        {
+            if (m_tabWidget->currentIndex() != i)
+                activateWorksheet(i);
+            //else
+            //    TODO message about that user try to open worksheet, which have been opened
+            // in Cantor and the user already see the worksheet, because it is active worksheet
+            return;
+        }
+    }
+
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
         addWorksheet(QString());
