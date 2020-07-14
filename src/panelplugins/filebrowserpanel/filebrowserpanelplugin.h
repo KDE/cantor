@@ -31,6 +31,7 @@ class QModelIndex;
 class QFileSystemModel;
 class QPushButton;
 class QLineEdit;
+class QComboBox;
 
 class FileBrowserPanelPlugin : public Cantor::PanelPlugin
 {
@@ -53,6 +54,7 @@ class FileBrowserPanelPlugin : public Cantor::PanelPlugin
     void homeButtonHandle();
     void dirNextButtonHandle();
     void setNewRootPath();
+    void handleFilterChanging(int index);
 
   private:
     void constructMainWidget();
@@ -63,6 +65,7 @@ class FileBrowserPanelPlugin : public Cantor::PanelPlugin
     QPointer<QWidget> m_mainWidget;
     QPointer<QTreeView> m_treeview;
     QPointer<QLineEdit> m_pathEdit;
+    QPointer<QComboBox> m_filterCombobox;
     QFileSystemModel* m_model;
     QVector<QString> m_rootDirsHistory;
     int historyBackCount;
