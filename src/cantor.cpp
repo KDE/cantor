@@ -106,9 +106,8 @@ void CantorShell::load(const QUrl &url)
         {
             if (m_tabWidget->currentIndex() != i)
                 activateWorksheet(i);
-            //else
-            //    TODO message about that user try to open worksheet, which have been opened
-            // in Cantor and the user already see the worksheet, because it is active worksheet
+            else
+                KMessageBox::information(this, i18n("The file %1 is already opened.", QFileInfo(url.toLocalFile()).fileName()), i18n("Open file"));
             return;
         }
     }
