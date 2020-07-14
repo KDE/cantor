@@ -22,6 +22,7 @@
 #include "documentationpanelplugin.h"
 
 #include <KLocalizedString>
+#include <KMessageBox>
 
 #include <QAction>
 #include <QCompleter>
@@ -371,6 +372,9 @@ void DocumentationPanelWidget::downloadResource(QWebEngineDownloadItem* resource
     // default download directory is ~/Downloads on Linux
     m_textBrowser->page()->download(resource->url());
     resource->accept();
+
+    KMessageBox::information(this, i18n("The file has been downloaded successfully at Downloads."), i18n("Download Successfull"));
+
     disconnect(m_textBrowser->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
 }
 
