@@ -380,8 +380,7 @@ void DocumentationPanelWidget::downloadResource(QWebEngineDownloadItem* resource
 
 void DocumentationPanelWidget::loadDocumentation()
 {
-    const QString& backend = backendName();
-    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + backend + QLatin1String("/help.qch"));
+    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qch"));
     const QString& nameSpace = QHelpEngineCore::namespaceName(fileName);
 
     if(nameSpace.isEmpty() || !m_engine->registeredDocumentations().contains(nameSpace))
@@ -389,9 +388,4 @@ void DocumentationPanelWidget::loadDocumentation()
         if(!m_engine->registerDocumentation(fileName))
             qWarning() << m_engine->error();
     }
-}
-
-QString DocumentationPanelWidget::backendName() const
-{
-    return m_backend;
 }

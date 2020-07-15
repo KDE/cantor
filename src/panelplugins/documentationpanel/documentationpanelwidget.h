@@ -45,11 +45,7 @@ class DocumentationPanelWidget : public QWidget
     ~DocumentationPanelWidget();
 
     void setBackend(const QString&);
-
     void setBackendIcon(const QString&);
-
-    /** @return name of the current backend **/
-    QString backendName() const;
 
     void loadDocumentation();
 

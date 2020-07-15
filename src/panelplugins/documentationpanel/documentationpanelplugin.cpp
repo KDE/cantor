@@ -35,6 +35,9 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 
 void DocumentationPanelPlugin::onSessionChanged()
 {
+    m_backendName = session()->backend()->name();
+    m_backendIcon = session()->backend()->icon();
+
     if(m_widget)
     {
         m_widget->setBackend(m_backendName);
@@ -44,9 +47,6 @@ void DocumentationPanelPlugin::onSessionChanged()
 
 QWidget* DocumentationPanelPlugin::widget()
 {
-    m_backendName = session()->backend()->name();
-    m_backendIcon = session()->backend()->icon();
-
     if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
