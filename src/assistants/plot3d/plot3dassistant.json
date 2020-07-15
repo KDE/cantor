@@ -2,7 +2,7 @@
     "KPlugin": {
         "Dependencies": [],
         "Description": "An Assistant dialog to simplify plotting of 3D functions",
-        "Description[ca@valencia]": "Un diàleg assistent per simplificar la representació gràfica de funcions 3D",
+        "Description[ca@valencia]": "Un diàleg assistent per a simplificar la representació gràfica de funcions en 3D",
         "Description[ca]": "Un diàleg assistent per a simplificar la representació gràfica de funcions en 3D",
         "Description[cs]": "Pomocný dialog pro zjednodušení vytvoření grafu trojrozměrných funkcí",
         "Description[de]": "Ein Assistent, um das Zeichnen von 3D-Funktionen zu vereinfachen",

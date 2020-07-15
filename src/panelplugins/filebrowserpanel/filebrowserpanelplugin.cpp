@@ -34,11 +34,13 @@
 #include <QPushButton>
 #include <QAction>
 #include <QLineEdit>
+#include <QComboBox>
 
+#include <KLocalizedString>
 #include <KParts/ReadOnlyPart>
 
 FileBrowserPanelPlugin::FileBrowserPanelPlugin(QObject* parent, const QList<QVariant>& args): Cantor::PanelPlugin(parent),
-    m_mainWidget(nullptr), m_treeview(nullptr), m_pathEdit(nullptr), m_model(nullptr), historyBackCount(0)
+    m_mainWidget(nullptr), m_treeview(nullptr), m_pathEdit(nullptr), m_filterCombobox(nullptr), m_model(nullptr), historyBackCount(0)
 {
     Q_UNUSED(args);
 
@@ -58,6 +60,7 @@ FileBrowserPanelPlugin::~FileBrowserPanelPlugin()
         m_mainWidget->deleteLater();
         m_treeview = nullptr;
         m_pathEdit = nullptr;
+        m_filterCombobox = nullptr;
         m_model->deleteLater();
     }
 }
@@ -143,6 +146,15 @@ void FileBrowserPanelPlugin::constructMainWidget()
         m_pathEdit->setMinimumHeight(40);
         m_pathEdit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
 
+        m_filterCombobox = new QComboBox(buttonContainer);
+        m_filterCombobox->addItem(i18n("Cantor files"), QLatin1String("*.cws")); //Default value
+        m_filterCombobox->addItem(i18n("Jupyter files"), QLatin1String("*.ipynb"));
+        m_filterCombobox->addItem(i18n("All supported files"), QLatin1String("*.cws *.ipynb"));
+        m_filterCombobox->addItem(i18n("All files"), QLatin1String("*"));
+        connect(m_filterCombobox, static_cast<void (QComboBox::*)(int)>(&QComboBox::activated), this, &FileBrowserPanelPlugin::handleFilterChanging);
+        m_model->setNameFilters({QLatin1String("*.cws")});
+        m_model->setNameFilterDisables(false);
+
         QHBoxLayout* horizontalLayout = new QHBoxLayout();
         horizontalLayout->setDirection(QBoxLayout::LeftToRight);
         horizontalLayout->addWidget(dirPreviousButton);
@@ -150,6 +162,7 @@ void FileBrowserPanelPlugin::constructMainWidget()
         horizontalLayout->addWidget(homeButton);
         horizontalLayout->addWidget(dirNextButton);
         horizontalLayout->addWidget(m_pathEdit);
+        horizontalLayout->addWidget(m_filterCombobox);
         horizontalLayout->setMargin(0);
 
         buttonContainer->setLayout(horizontalLayout);
@@ -220,6 +233,15 @@ void FileBrowserPanelPlugin::setNewRootPath()
     if (info.isDir())
         moveFileBrowserRoot(path);
 }
+
+void FileBrowserPanelPlugin::handleFilterChanging(int index)
+{
+    if (m_model)
+    {
+        m_model->setNameFilters(m_filterCombobox->itemData(index).toString().split(QLatin1Char(' ')));
+    }
+}
+
 
 
 K_PLUGIN_FACTORY_WITH_JSON(filebrowserpanelplugin, "filebrowserpanelplugin.json", registerPlugin<FileBrowserPanelPlugin>();)

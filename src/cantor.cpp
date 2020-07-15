@@ -97,6 +97,21 @@ CantorShell::~CantorShell()
 
 void CantorShell::load(const QUrl &url)
 {
+    // If the url already opened, then don't open the url in another tab, but
+    // just activate the already existed tab
+    for (int i = 0; i < m_parts.size(); i++)
+    {
+        KParts::ReadOnlyPart* part = m_parts[i];
+        if (part && part->url() == url)
+        {
+            if (m_tabWidget->currentIndex() != i)
+                activateWorksheet(i);
+            else
+                KMessageBox::information(this, i18n("The file %1 is already opened.", QFileInfo(url.toLocalFile()).fileName()), i18n("Open file"));
+            return;
+        }
+    }
+
     if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
     {
         addWorksheet(QString());
