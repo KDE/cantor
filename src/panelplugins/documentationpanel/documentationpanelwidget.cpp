@@ -240,6 +240,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     connect(this, &DocumentationPanelWidget::activateBrowser, [=]{
         m_textBrowser->hide();
         m_displayArea->setCurrentIndex(1);
+        m_textBrowser->show();
     });
 
     connect(m_displayArea, &QStackedWidget::currentChanged, [=]{
@@ -258,6 +259,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     connect(home, &QPushButton::clicked, [=]{
         m_displayArea->setCurrentIndex(0);
+        findPageWidgetContainer->hide();
     });
 
     connect(resetZoom, &QPushButton::clicked, [=]{
