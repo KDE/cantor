@@ -355,6 +355,10 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 
     m_index->filterIndices(keyword); // filter exactly, no wildcards
     m_index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
+
+    // called in order to refresh and restore the index widget
+    // otherwise filterIndices() filters the indices list, and then the index widget only contains the matched keywords
+    m_index->filterIndices(QString());
 }
 
 void DocumentationPanelWidget::searchForward()
