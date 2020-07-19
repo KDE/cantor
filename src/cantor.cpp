@@ -365,7 +365,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             else
             {
                 m_parts2Backends[part] = QString();
-                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(setBackendName)));
+                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(QString)));
             }
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
             m_tabWidget->setCurrentIndex(tab);
@@ -812,5 +812,20 @@ void CantorShell::updateBackendForPart(const QString& backend)
 {
     KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part && m_parts2Backends.contains(part) && m_parts2Backends[part].isEmpty())
+    {
         m_parts2Backends[part] = backend;
+
+        KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
+        if (m_part == part && panelStatusGroup.hasKey(backend))
+        {
+            const QStringList& plugins = panelStatusGroup.readEntry(m_parts2Backends[m_part]).split(QLatin1Char('\n'));
+            m_pluginsVisibility[m_part] = plugins;
+
+            for (QDockWidget* docker : m_panels)
+                if (m_pluginsVisibility[m_part].contains(docker->objectName()))
+                    docker->show();
+                else
+                    docker->hide();
+        }
+    }
 }
