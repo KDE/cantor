@@ -43,9 +43,6 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
     /** @return name of the current backend **/
     QString backendName() const;
 
-  protected:
-    void onSessionChanged() override;
-
   private:
     QPointer<DocumentationPanelWidget> m_widget;
     QString m_backendName;

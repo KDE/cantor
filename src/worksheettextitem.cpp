@@ -472,8 +472,9 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
         qDebug() << "Tab";
         break;
     case Qt::Key_F2:
+        if(textCursor().hasSelection())
         {
-            const QString& keyword = textCursor().block().text();
+            QString keyword = textCursor().selectedText();
             emit worksheet()->requestDocumentation(keyword);
         }
         break;

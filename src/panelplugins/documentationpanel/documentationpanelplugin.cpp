@@ -33,20 +33,11 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
     delete m_widget;
 }
 
-void DocumentationPanelPlugin::onSessionChanged()
+QWidget* DocumentationPanelPlugin::widget()
 {
     m_backendName = session()->backend()->name();
     m_backendIcon = session()->backend()->icon();
 
-    if(m_widget)
-    {
-        m_widget->setBackend(m_backendName);
-        m_widget->setBackendIcon(m_backendIcon);
-    }
-}
-
-QWidget* DocumentationPanelPlugin::widget()
-{
     if(!m_widget)
     {
         m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());

@@ -44,11 +44,6 @@ class DocumentationPanelWidget : public QWidget
     DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent);
     ~DocumentationPanelWidget();
 
-    void setBackend(const QString&);
-    void setBackendIcon(const QString&);
-
-    void loadDocumentation();
-
   Q_SIGNALS:
     void activateBrowser();
     void zoomFactorChanged();
@@ -65,12 +60,15 @@ class DocumentationPanelWidget : public QWidget
     void downloadResource(QWebEngineDownloadItem*); // slot for saving the image or html to local disk
 
   private:
+    void initHelpEngine();
+    void loadDocumentation();
+
+  private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
     QString m_backend;
-    QString m_icon;
 
     // member variables for find in page text widget
     QLineEdit* m_search = nullptr; // for searching through keywords

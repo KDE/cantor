@@ -27,7 +27,6 @@
 #include <QAction>
 #include <QCompleter>
 #include <QComboBox>
-#include <QDebug>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QHelpContentWidget>
@@ -51,24 +50,11 @@
 DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent) :QWidget(parent)
 {
     m_backend = backend;
-    m_icon = backendIcon;
 
-    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
+    // initialize the Help engine
+    initHelpEngine();
 
-    m_engine = new QHelpEngine(fileName, this);
-    m_index = m_engine->indexWidget();
-
-    if(!m_engine->setupData())
-    {
-        qWarning() << "Couldn't setup QtHelp Engine";
-        qWarning() << m_engine->error();
-    }
-
-    if(m_backend != QLatin1String("Octave"))
-    {
-      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
-    }
-
+    // register the Qt help files
     loadDocumentation();
 
     m_textBrowser = new QWebEngineView(this);
@@ -81,13 +67,14 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
         QWebEngineUrlScheme qthelp("qthelp");
         QWebEngineUrlScheme::registerScheme(qthelp);
         m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
-        m_textBrowser->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
-        m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewTab)->setVisible(false);
-        m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
-        m_textBrowser->page()->action(QWebEnginePage::DownloadLinkToDisk)->setVisible(false);
-        m_textBrowser->page()->action(QWebEnginePage::Reload)->setVisible(false);
         qthelpRegistered = true;
     }
+
+    m_textBrowser->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
+    m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewTab)->setVisible(false);
+    m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
+    m_textBrowser->page()->action(QWebEnginePage::DownloadLinkToDisk)->setVisible(false);
+    m_textBrowser->page()->action(QWebEnginePage::Reload)->setVisible(false);
 
     // set initial page contents, otherwise page is blank
     if(m_backend == QLatin1String("Maxima"))
@@ -111,7 +98,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     QComboBox* documentationSelector = new QComboBox(this);
     // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
-    documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
+    documentationSelector->addItem(QIcon::fromTheme(backendIcon), m_backend);
 
     // real time searcher
     m_search = new QLineEdit(this);
@@ -196,7 +183,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     label->setText(i18n("Find:"));
 
     m_findText = new QLineEdit(this);
-    m_findText->setPlaceholderText(i18nc("@info:placeholder", "Search..."));
     m_findText->setClearButtonEnabled(true);
 
     QToolButton* next = new QToolButton(this);
@@ -309,14 +295,23 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     //delete m_index; this crashes
 }
 
-void DocumentationPanelWidget::setBackend(const QString& backend)
+void DocumentationPanelWidget::initHelpEngine()
 {
-    m_backend = backend;
-}
+    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
 
-void DocumentationPanelWidget::setBackendIcon(const QString& icon)
-{
-    m_icon = icon;
+    m_engine = new QHelpEngine(fileName, this);
+    m_index = m_engine->indexWidget();
+
+    if(!m_engine->setupData())
+    {
+        qWarning() << "Couldn't setup QtHelp Engine";
+        qWarning() << m_engine->error();
+    }
+
+    if(m_backend != QLatin1String("Octave"))
+    {
+      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
+    }
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
