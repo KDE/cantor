@@ -82,24 +82,22 @@ html = index.read()
 soup = BeautifulSoup(html, features='html.parser')
 
 for i in soup.find_all('a'):
-    keyword = i.text
+    ## replace the characters which produces error while qhcp file
+    keyword = i.text.replace("<", "").replace("&", "")
     link = i['href']
 
     line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
-    ## replace the characters which produces error while qhcp file
-    line = line.replace("<", "").replace("&", "")
     qhp.write(line)
 
 html2 = index2.read()
 soup2 = BeautifulSoup(html, features='html.parser')
 
 for i in soup2.find_all('a'):
-    keyword = i.text
+    ## replace the characters which produces error while qhcp file
+    keyword = i.text.replace("<", "").replace("&", "")
     link = i['href']
 
     line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
-    ## replace the characters which produces error while qhcp file
-    line = line.replace("<", "").replace("&", "")
     qhp.write(line)
 
 # write the tail
