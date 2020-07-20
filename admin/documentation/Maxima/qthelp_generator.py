@@ -19,7 +19,7 @@
 #
 
 # script to parse index.hhk and generate a txt file containing all the keywords
-# and then genearte QtHelp files using the keywords generated
+# and then generate QtHelp files using the keywords generated
 # This script also adds custom styles to the html pages
 
 import os
@@ -189,27 +189,6 @@ qhp.writelines("""<?xml version="1.0" encoding="UTF-8"?>
         </toc>\n
         <keywords>""")
 
-# populate qhcp file
-qhcp.writelines("""<?xml version="1.0" encoding="utf-8" ?>
-            <QHelpCollectionProject version="1.0">
-
-                <docFiles>
-                    <generate>
-                        <file>
-                            <input>help.qhp</input>
-                            <output>help.qch</output>
-                        </file>
-                    </generate>
-
-                    <register>
-                        <file>help.qch</file>
-                    </register>
-                </docFiles>
-
-            </QHelpCollectionProject>""")
-
-
-
 # this way does not work, because somehow beautifulsoup is unable to escape &gt and &gt;< special symbols
 # html = index.read()
 # soup = BeautifulSoup(html, features='html.parser')
@@ -253,6 +232,25 @@ qhp.writelines("""</keywords>
     </filterSection>
 
 </QtHelpProject> """)
+
+# populate qhcp file
+qhcp.writelines("""<?xml version="1.0" encoding="utf-8" ?>
+            <QHelpCollectionProject version="1.0">
+
+                <docFiles>
+                    <generate>
+                        <file>
+                            <input>help.qhp</input>
+                            <output>help.qch</output>
+                        </file>
+                    </generate>
+
+                    <register>
+                        <file>help.qch</file>
+                    </register>
+                </docFiles>
+
+            </QHelpCollectionProject>""")
 
 ##############################################################
 #qhp, qhcp input files are generate, now generate output files
