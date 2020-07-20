@@ -22,12 +22,14 @@
 # and then generate QtHelp files using the keywords generated
 
 import os
-
-#index = open('./index.hhk', 'r')
+from bs4 import BeautifulSoup
 
 # QtHelp files
 qhp = open('./help.qhp', 'w')
 qhcp = open('./help.qhcp', 'w')
+
+index = open("genindex-all.html", "r")
+index2 = open("genindex-_.html", "r")
 
 #######################################
 #code for generation of QtHelp files##
@@ -75,8 +77,30 @@ qhp.writelines("""<?xml version="1.0" encoding="UTF-8"?>
         </toc>\n
         <keywords>""")
 
-## write code for the keywords section
+# code to write keywords to qhp file
+html = index.read()
+soup = BeautifulSoup(html, features='html.parser')
 
+for i in soup.find_all('a'):
+    keyword = i.text
+    link = i['href']
+
+    line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
+    ## replace the characters which produces error while qhcp file
+    line = line.replace("<", "").replace("&", "")
+    qhp.write(line)
+
+html2 = index2.read()
+soup2 = BeautifulSoup(html, features='html.parser')
+
+for i in soup2.find_all('a'):
+    keyword = i.text
+    link = i['href']
+
+    line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
+    ## replace the characters which produces error while qhcp file
+    line = line.replace("<", "").replace("&", "")
+    qhp.write(line)
 
 # write the tail
 qhp.writelines("""</keywords>
@@ -127,6 +151,7 @@ qhcp.writelines("""<?xml version="1.0" encoding="utf-8" ?>
 
 stream = os.popen('qhelpgenerator help.qhcp -o help.qhc')
 
-#index.close()
 qhp.close()
 qhcp.close()
+index.close()
+index2.close()
