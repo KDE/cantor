@@ -22,6 +22,7 @@
 # and then generate QtHelp files using the keywords generated
 
 import os
+import re
 from bs4 import BeautifulSoup
 
 # QtHelp files
@@ -84,10 +85,12 @@ soup = BeautifulSoup(html, features='html.parser')
 for i in soup.find_all('a'):
     # replace the characters which produces error while qhcp file
     keyword = i.text.replace("<", "").replace("&", "")
+    keyword = re.sub(r" ?\([^)]+\)", "", keyword)
     link = i['href']
 
-    line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
-    qhp.write(line)
+    if keyword != "":
+        line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
+        qhp.write(line)
 
 html2 = index2.read()
 soup2 = BeautifulSoup(html, features='html.parser')
@@ -95,10 +98,12 @@ soup2 = BeautifulSoup(html, features='html.parser')
 for i in soup2.find_all('a'):
     # replace the characters which produces error while qhcp file
     keyword = i.text.replace("<", "").replace("&", "")
+    keyword = re.sub(r" ?\([^)]+\)", "", keyword)
     link = i['href']
 
-    line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
-    qhp.write(line)
+    if keyword != "":
+        line = '<keyword name = "{}" ref = "{}"/>\n'.format(keyword, link)
+        qhp.write(line)
 
 # write the tail
 qhp.writelines("""</keywords>
