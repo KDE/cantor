@@ -27,6 +27,7 @@
 #include <QAction>
 #include <QCompleter>
 #include <QComboBox>
+#include <QDebug>
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QHelpContentWidget>

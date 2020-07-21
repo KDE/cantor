@@ -82,7 +82,7 @@ html = index.read()
 soup = BeautifulSoup(html, features='html.parser')
 
 for i in soup.find_all('a'):
-    ## replace the characters which produces error while qhcp file
+    # replace the characters which produces error while qhcp file
     keyword = i.text.replace("<", "").replace("&", "")
     link = i['href']
 
@@ -93,7 +93,7 @@ html2 = index2.read()
 soup2 = BeautifulSoup(html, features='html.parser')
 
 for i in soup2.find_all('a'):
-    ## replace the characters which produces error while qhcp file
+    # replace the characters which produces error while qhcp file
     keyword = i.text.replace("<", "").replace("&", "")
     link = i['href']
 
