@@ -43,6 +43,12 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
     /** @return name of the current backend **/
     QString backendName() const;
 
+    void connectToShell(QObject* cantorShell) override;
+
+    Cantor::PanelPlugin::State saveState() override;
+
+    void restoreState(const Cantor::PanelPlugin::State& state) override;
+
   private:
     QPointer<DocumentationPanelWidget> m_widget;
     QString m_backendName;

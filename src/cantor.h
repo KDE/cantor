@@ -81,6 +81,7 @@ protected:
 
 Q_SIGNALS:
     void showHelp(QString);
+    void requestDocumentation(const QString&);
 
 public Q_SLOTS:
     void addWorksheet(const QString& backendName);

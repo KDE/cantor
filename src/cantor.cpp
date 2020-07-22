@@ -365,6 +365,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
             connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
+            connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
             m_parts.append(part);
             if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait
                 m_parts2Backends[part] = backend->id();

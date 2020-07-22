@@ -18,9 +18,12 @@
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
+#include "cassert"
+
 #include "documentationpanelplugin.h"
 #include "session.h"
 
+#include <QDebug>
 #include <QIcon>
 
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
@@ -35,14 +38,13 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 
 QWidget* DocumentationPanelPlugin::widget()
 {
-    m_backendName = session()->backend()->name();
-    m_backendIcon = session()->backend()->icon();
+    //m_backendName = session()->backend()->name();
+    //m_backendIcon = session()->backend()->icon();
 
     if(!m_widget)
     {
-        m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
-        connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
-        connect(parent()->parent(), SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
+        m_widget = new DocumentationPanelWidget(QLatin1String("Maxima"), QLatin1String("maxima-backend"), parentWidget());
+        //m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
     }
 
     return m_widget;
@@ -61,6 +63,43 @@ QIcon DocumentationPanelPlugin::icon() const
 QString DocumentationPanelPlugin::backendName() const
 {
     return m_backendName;
+}
+
+void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
+{
+    connect(cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
+    connect(cantorShell, SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
+}
+
+Cantor::PanelPlugin::State DocumentationPanelPlugin::saveState()
+{
+    Cantor::PanelPlugin::State state = PanelPlugin::saveState();
+    state.inners.append(m_backendName);
+    state.inners.append(m_backendIcon);
+    return state;
+}
+
+void DocumentationPanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
+{
+    PanelPlugin::restoreState(state);
+
+    if(state.inners.size() > 0)
+    {
+        assert(state.inners.size() == 2);
+        m_backendName = state.inners[0].toString();
+        m_backendIcon = state.inners[1].toString();
+
+        /*if(m_widget)
+            m_widget->updateBackend(m_backendName, m_backendIcon);*/
+    }
+    else if (session())
+    {
+        m_backendName = session()->backend()->name();
+        m_backendIcon = session()->backend()->icon();
+
+        qDebug() << m_backendName;
+        m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
+    }
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(documentationpanelplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)
