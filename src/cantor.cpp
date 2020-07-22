@@ -19,6 +19,8 @@
  */
 #include "cantor.h"
 
+#include <cassert>
+
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KConfigGroup>
