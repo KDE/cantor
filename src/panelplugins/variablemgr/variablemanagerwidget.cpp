@@ -48,28 +48,28 @@ m_table(new QTreeView(this))
     QHBoxLayout* btnLayout=new QHBoxLayout();
     int size=KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
 
-    QToolButton* m_newBtn=new QToolButton(this);
+    m_newBtn=new QToolButton(this);
     m_newBtn->setIcon(QIcon::fromTheme(QLatin1String("document-new")));
     m_newBtn->setToolTip(i18n("Add new variable"));
     m_newBtn->setIconSize(QSize(size, size));
     connect(m_newBtn, &QToolButton::clicked, this, &VariableManagerWidget::newVariable);
     btnLayout->addWidget(m_newBtn);
 
-    QToolButton* m_loadBtn=new QToolButton(this);
+    m_loadBtn=new QToolButton(this);
     m_loadBtn->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
     m_loadBtn->setToolTip(i18n("Load Variables"));
     m_loadBtn->setIconSize(QSize(size, size));
     connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
     btnLayout->addWidget(m_loadBtn);
 
-    QToolButton* m_saveBtn=new QToolButton(this);
+    m_saveBtn=new QToolButton(this);
     m_saveBtn->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
     m_saveBtn->setToolTip(i18n("Store Variables"));
     m_saveBtn->setIconSize(QSize(size, size));
     connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
     btnLayout->addWidget(m_saveBtn);
 
-    QToolButton* m_clearBtn=new QToolButton(this);
+    m_clearBtn=new QToolButton(this);
     m_clearBtn->setIcon(QIcon::fromTheme(QLatin1String("edit-clear")));
     m_clearBtn->setToolTip(i18n("Clear Variables"));
     m_clearBtn->setIconSize(QSize(size, size));
@@ -79,31 +79,32 @@ m_table(new QTreeView(this))
     layout->addLayout(btnLayout);
 
     setSession(session);
-
-    //check for the methods the backend actually supports, and disable the buttons accordingly
-    Cantor::VariableManagementExtension* ext=
-        dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-    if (ext)
-    {
-        if(ext->loadVariables(QString()).isNull())
-            m_loadBtn->setDisabled(true);
-        if(ext->saveVariables(QString()).isNull())
-            m_saveBtn->setDisabled(true);
-        if(ext->addVariable(QString(), QString()).isNull())
-            m_newBtn->setDisabled(true);
-        if(ext->clearVariables().isNull())
-            m_clearBtn->setDisabled(true);
-    }
 }
 
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
-    m_session=session;
+    m_session = session;
     if(session)
     {
         m_model=session->variableDataModel();
         if(m_table)
             m_table->setModel(m_model);
+
+        //check for the methods the backend actually supports, and disable the buttons accordingly
+        Cantor::VariableManagementExtension* ext = dynamic_cast<Cantor::VariableManagementExtension*>(
+            m_session->backend()->extension(QLatin1String("VariableManagementExtension"))
+        );
+        if (ext)
+        {
+            if(ext->loadVariables(QString()).isNull())
+                m_loadBtn->setDisabled(true);
+            if(ext->saveVariables(QString()).isNull())
+                m_saveBtn->setDisabled(true);
+            if(ext->addVariable(QString(), QString()).isNull())
+                m_newBtn->setDisabled(true);
+            if(ext->clearVariables().isNull())
+                m_clearBtn->setDisabled(true);
+        }
     }
 }
 

@@ -33,8 +33,9 @@ VariableManagerPlugin::~VariableManagerPlugin()
     delete m_widget;
 }
 
-void VariableManagerPlugin::onSessionChanged()
+void VariableManagerPlugin::restoreState(const Cantor::PanelPlugin::State& state)
 {
+    PanelPlugin::restoreState(state);
     if(m_widget)
         m_widget->setSession(session());
 }

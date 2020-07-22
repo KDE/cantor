@@ -32,8 +32,7 @@ class Session;
 
 /**
  * Simple interface that exports a list of known PanelPlugins.
- * Needed as the Panel must be handled by the Shell while plugins
- * belong to the Part.
+ * Needed as the Panel must be handled by the Shell
  */
 
 class CANTOR_EXPORT PanelPluginHandler : public QObject
@@ -43,16 +42,9 @@ class CANTOR_EXPORT PanelPluginHandler : public QObject
     explicit PanelPluginHandler(QObject* parent);
     ~PanelPluginHandler() override;
 
-    QList<PanelPlugin*> plugins();
+    QList<PanelPlugin*> allPlugins();
+    QList<PanelPlugin*> plugins(Session* session);
 
-    void addPlugin(PanelPlugin* plugin);
-
-    void setSession(Session* session);
-
-  Q_SIGNALS:
-    void pluginsChanged();
-
-  private:
     void loadPlugins();
 
   private:

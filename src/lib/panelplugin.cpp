@@ -75,18 +75,24 @@ QString PanelPlugin::name()
     return d->name;
 }
 
-Session* PanelPlugin::session()
+Cantor::PanelPlugin::State Cantor::PanelPlugin::saveState()
+{
+    Cantor::PanelPlugin::State state;
+    state.session = d->session;
+    return state;
+}
+
+void Cantor::PanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
+{
+    d->session = state.session;
+}
+
+Cantor::Session * Cantor::PanelPlugin::session()
 {
     return d->session;
 }
 
-void PanelPlugin::setSession(Session* session)
-{
-    d->session=session;
-    onSessionChanged();
-}
-
-void PanelPlugin::onSessionChanged()
+void Cantor::PanelPlugin::connectToShell(QObject* /* cantorShell */)
 {
 
 }

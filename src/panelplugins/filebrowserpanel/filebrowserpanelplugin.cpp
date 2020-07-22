@@ -74,10 +74,15 @@ QWidget* FileBrowserPanelPlugin::widget()
 
         constructMainWidget();
 
-        connect(this, SIGNAL(requestOpenWorksheet(QUrl)), parent()->parent(), SIGNAL(requestOpenWorksheet(QUrl)));
+
     }
 
     return m_mainWidget;
+}
+
+void FileBrowserPanelPlugin::connectToShell(QObject* cantorShell)
+{
+    connect(this, SIGNAL(requestOpenWorksheet(QUrl)), cantorShell, SLOT(load(QUrl)));
 }
 
 bool FileBrowserPanelPlugin::showOnStartup()

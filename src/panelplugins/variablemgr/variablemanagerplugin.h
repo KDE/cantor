@@ -36,9 +36,7 @@ class VariableManagerPlugin : public Cantor::PanelPlugin
 
     Cantor::Backend::Capabilities requiredCapabilities() override;
 
-  protected:
-    void onSessionChanged() override;
-
+    void restoreState(const Cantor::PanelPlugin::State & state) override;
 
   private:
     QPointer<VariableManagerWidget> m_widget;
