@@ -40,10 +40,6 @@ QWidget* HelpPanelPlugin::widget()
         m_edit = new KTextEdit(parentWidget());
         setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
         m_edit->setTextInteractionFlags(Qt::TextBrowserInteraction);
-
-        //using old-style syntax here, otherwise we'd need to include and link to CantorPart and KParts
-        connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SLOT(setHelpHtml(QString)));
-        connect(parent()->parent(), SIGNAL(showHelp(QString)), this, SIGNAL(visibilityRequested()));
     }
 
     return m_edit;
@@ -70,6 +66,30 @@ bool HelpPanelPlugin::showOnStartup()
 {
     return false;
 }
+
+void HelpPanelPlugin::connectToShell(QObject* cantorShell)
+{
+    //using old-style syntax here, otherwise we'd need to include and link to CantorPart and KParts
+    connect(cantorShell, SIGNAL(showHelp(QString)), this, SLOT(setHelpHtml(QString)));
+    connect(cantorShell, SIGNAL(showHelp(QString)), this, SIGNAL(visibilityRequested()));
+}
+
+Cantor::PanelPlugin::State HelpPanelPlugin::saveState()
+{
+    Cantor::PanelPlugin::State state = PanelPlugin::saveState();
+    state.inners.append(m_edit->toHtml());
+    return state;
+}
+
+void HelpPanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
+{
+    PanelPlugin::restoreState(state);
+    if(state.inners.size() > 0)
+        setHelpHtml(state.inners.first().toString());
+    else
+        setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
+}
+
 
 K_PLUGIN_FACTORY_WITH_JSON(helppanelplugin, "helppanelplugin.json", registerPlugin<HelpPanelPlugin>();)
 #include "helppanelplugin.moc"

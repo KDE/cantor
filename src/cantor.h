@@ -28,6 +28,9 @@
 #include <QStringList>
 #include <QMap>
 
+#include "lib/panelpluginhandler.h"
+#include "lib/panelplugin.h"
+
 class QTabWidget;
 class KRecentFilesAction;
 
@@ -38,6 +41,8 @@ class WorksheetAccessInterface;
 namespace KParts{
     class ReadWritePart;
 }
+
+using PanelStates = QMap<QString, Cantor::PanelPlugin::State>;
 
 /**
  * This is the application "Shell".  It has a menubar, toolbar, and
@@ -74,6 +79,9 @@ protected:
      */
     void readProperties(const KConfigGroup &) override;
 
+Q_SIGNALS:
+    void showHelp(QString);
+
 public Q_SLOTS:
     void addWorksheet(const QString& backendName);
     /// Use this method/slot to load whatever file/URL you have
@@ -96,10 +104,12 @@ private Q_SLOTS:
     void downloadExamples();
     void openExample();
 
+    void initPanels();
     void updatePanel();
     void updateNewSubmenu();
 
     void pluginVisibilityRequested();
+    void pluginCommandRunRequested(const QString& cmd);
 
 private:
     void setupActions();
@@ -112,6 +122,7 @@ private:
 
 private:
     QMap<KParts::ReadWritePart*, QStringList> m_pluginsVisibility;
+    QMap<KParts::ReadWritePart*, PanelStates> m_pluginsStates;
     QList<KParts::ReadWritePart *> m_parts;
     QMap<KParts::ReadWritePart*, QString> m_parts2Backends;
     KParts::ReadWritePart* m_part;
@@ -119,6 +130,8 @@ private:
     QList<QDockWidget*> m_panels;
     QList<QAction*> m_newBackendActions;
     KRecentFilesAction* m_recentProjectsAction;
+
+    Cantor::PanelPluginHandler m_panelHandler;
 
     // For better UX: set previous used filter in "Open" action as default filter
     QString m_previousFilter;

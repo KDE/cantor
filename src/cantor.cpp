@@ -18,6 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
+#include <cassert>
+
 #include <KActionCollection>
 #include <KConfigDialog>
 #include <KConfigGroup>
@@ -48,8 +50,10 @@
 #include "cantor.h"
 #include "settings.h"
 #include "ui_settings.h"
+#include "backendchoosedialog.h"
+#include <QMetaObject>
 
-CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
+CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr), m_panelHandler(nullptr)
 {
     // set the shell's ui resource file
     setXMLFile(QLatin1String("cantor_shell.rc"));
@@ -74,6 +78,8 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr)
     setAutoSaveSettings();
 
     setDockOptions(QMainWindow::AnimatedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::VerticalTabs);
+
+    initPanels();
 
     updateNewSubmenu();
 }
@@ -358,14 +364,14 @@ void CantorShell::addWorksheet(const QString& backendName)
         {
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
-            connect(part, SIGNAL(requestOpenWorksheet(QUrl)), this, SLOT(load(QUrl)));
+            connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
             m_parts.append(part);
             if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait
                 m_parts2Backends[part] = backend->id();
             else
             {
                 m_parts2Backends[part] = QString();
-                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(setBackendName)));
+                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(QString)));
             }
             int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
             m_tabWidget->setCurrentIndex(tab);
@@ -396,11 +402,7 @@ void CantorShell::addWorksheet(const QString& backendName)
 
 void CantorShell::activateWorksheet(int index)
 {
-    QObject* pluginHandler=m_part->findChild<QObject*>(QLatin1String("PanelPluginHandler"));
-    if (pluginHandler)
-        disconnect(pluginHandler,SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
-
-    // Save part state before change worksheet
+    // Save part panels states before change worksheet
     if (m_part)
     {
         QStringList visiblePanelNames;
@@ -410,6 +412,16 @@ void CantorShell::activateWorksheet(int index)
                 visiblePanelNames << doc->objectName();
         }
         m_pluginsVisibility[m_part] = visiblePanelNames;
+
+        Cantor::WorksheetAccessInterface* wa=m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
+        assert(wa);
+        PanelStates states;
+        QList<Cantor::PanelPlugin*> plugins=m_panelHandler.plugins(wa->session());
+        for(Cantor::PanelPlugin* plugin : plugins)
+        {
+            states.insert(plugin->name(), plugin->saveState());
+        }
+        m_pluginsStates[m_part] = states;
     }
 
     m_part=findPart(m_tabWidget->widget(index));
@@ -418,8 +430,6 @@ void CantorShell::activateWorksheet(int index)
         createGUI(m_part);
 
         updateWindowTitle(m_part->url().fileName());
-        QObject* pluginHandler=m_part->findChild<QObject*>(QLatin1String("PanelPluginHandler"));
-        connect(pluginHandler, SIGNAL(pluginsChanged()), this, SLOT(updatePanel()));
         updatePanel();
     }
     else
@@ -482,6 +492,7 @@ void CantorShell::closeTab(int index)
 
     m_tabWidget->removeTab(index);
 
+    bool isCurrectPartClosed = m_part ? widget == m_part->widget() : false;
     if(widget->objectName()==QLatin1String("ErrorMessage"))
     {
         widget->deleteLater();
@@ -495,13 +506,16 @@ void CantorShell::closeTab(int index)
             m_parts.removeAll(part);
             m_pluginsVisibility.remove(part);
             m_parts2Backends.remove(part);
+            m_pluginsStates.remove(part);
             delete part;
         }
     }
 
     if (m_tabWidget->count() == 0)
         setCaption(QString());
-    updatePanel();
+
+    if (isCurrectPartClosed || m_part == nullptr)
+        updatePanel();
 }
 
 bool CantorShell::reallyClose(bool checkAllParts) {
@@ -645,35 +659,46 @@ KParts::ReadWritePart* CantorShell::findPart(QWidget* widget)
     return nullptr;
 }
 
+void CantorShell::initPanels()
+{
+    m_panelHandler.loadPlugins();
+
+    QList<Cantor::PanelPlugin*> plugins = m_panelHandler.allPlugins();
+    foreach(Cantor::PanelPlugin* plugin, plugins)
+    {
+        if(plugin==nullptr)
+        {
+            qDebug()<<"somethings wrong";
+            continue;
+        }
+
+        qDebug()<<"adding panel for "<<plugin->name();
+        plugin->setParentWidget(this);
+        plugin->connectToShell(this);
+
+        QDockWidget* docker=new QDockWidget(plugin->name(), this);
+        docker->setObjectName(plugin->name());
+        docker->setWidget(plugin->widget());
+        addDockWidget ( Qt::RightDockWidgetArea,  docker );
+
+        docker->hide();
+
+        connect(plugin, &Cantor::PanelPlugin::visibilityRequested, this, &CantorShell::pluginVisibilityRequested);
+        connect(plugin, &Cantor::PanelPlugin::requestRunCommand, this, &CantorShell::pluginCommandRunRequested);
+
+        m_panels.append(docker);
+
+    }
+}
+
+
 void CantorShell::updatePanel()
 {
     unplugActionList(QLatin1String("view_show_panel_list"));
 
-    //remove all of the previous panels (but do not delete the widgets)
-    foreach(QDockWidget* dock, m_panels)
-    {
-        QWidget* widget=dock->widget();
-        if(widget!=nullptr)
-        {
-            widget->setParent(this);
-            widget->hide();
-        }
-        dock->deleteLater();
-    }
-    m_panels.clear();
-
     QList<QAction*> panelActions;
 
-    Cantor::PanelPluginHandler* handler=m_part->findChild<Cantor::PanelPluginHandler*>(QLatin1String("PanelPluginHandler"));
-    if(!handler)
-    {
-        qDebug()<<"no PanelPluginHandle found for this part";
-        return;
-    }
-
-    QDockWidget* last=nullptr;
     bool isNewWorksheet = !m_pluginsVisibility.contains(m_part);
-
     if (isNewWorksheet)
     {
         KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
@@ -685,50 +710,86 @@ void CantorShell::updatePanel()
         }
     }
 
-    QList<Cantor::PanelPlugin*> plugins=handler->plugins();
-    foreach(Cantor::PanelPlugin* plugin, plugins)
+    Cantor::WorksheetAccessInterface* wa = nullptr;
+    if (m_part)
+        wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
+
+    // Worksheet interface can be missing on m_part clossing (and m_part on this moment can be nullptr)
+    QList<Cantor::PanelPlugin*> plugins;
+    if (wa)
     {
-        if(plugin==nullptr)
+        QDockWidget* last=nullptr;
+        plugins = m_panelHandler.plugins(wa->session());
+        for(Cantor::PanelPlugin* plugin : plugins)
         {
-            qDebug()<<"somethings wrong";
-            continue;
-        }
+            if(plugin==nullptr)
+            {
+                qDebug()<<"somethings wrong";
+                continue;
+            }
 
-        qDebug()<<"adding panel for "<<plugin->name();
-        plugin->setParentWidget(this);
+            qDebug()<<"adding panel for "<<plugin->name();
 
-        QDockWidget* docker=new QDockWidget(plugin->name(), this);
-        docker->setObjectName(plugin->name());
-        docker->setWidget(plugin->widget());
-        addDockWidget ( Qt::RightDockWidgetArea,  docker );
-
-        // Set visibility for dock from saved info
-        if (isNewWorksheet)
-        {
-            if (plugin->showOnStartup())
-                docker->show();
+            if (m_pluginsStates.contains(m_part))
+                plugin->restoreState(m_pluginsStates[m_part][plugin->name()]);
             else
-                docker->hide();
-        }
-        else
-        {
-            if (m_pluginsVisibility[m_part].contains(plugin->name()))
-                docker->show();
+            {
+                Cantor::PanelPlugin::State initState;
+                initState.session = wa->session();
+                plugin->restoreState(initState);
+            }
+
+            QDockWidget* foundDocker = nullptr;
+            for (QDockWidget* docker : m_panels)
+                if (docker->objectName() == plugin->name())
+                {
+                    foundDocker = docker;
+                    break;
+                }
+
+            if (!foundDocker)
+            {
+                qDebug() << "something wrong: can't find panel for plugin \"" << plugin->name() << "\"";
+                continue;
+            }
+
+            // Set visibility for dock from saved info
+            if (isNewWorksheet)
+            {
+                if (plugin->showOnStartup())
+                    foundDocker->show();
+                else
+                    foundDocker->hide();
+            }
             else
-                docker->hide();
+            {
+                if (m_pluginsVisibility[m_part].contains(plugin->name()))
+                    foundDocker->show();
+                else
+                    foundDocker->hide();
+            }
+
+            if(last!=nullptr)
+                tabifyDockWidget(last, foundDocker);
+            last = foundDocker;
+
+            //Create the action to show/hide this panel
+            panelActions<<foundDocker->toggleViewAction();
+
         }
+    }
 
-        if(last!=nullptr)
-            tabifyDockWidget(last, docker);
-        last=docker;
-
-        connect(plugin, &Cantor::PanelPlugin::visibilityRequested, this, &CantorShell::pluginVisibilityRequested);
-
-        m_panels.append(docker);
-
-        //Create the action to show/hide this panel
-        panelActions<<docker->toggleViewAction();
-
+    // Hide plugins, which don't supported on current session
+    QList<Cantor::PanelPlugin*> allPlugins=m_panelHandler.allPlugins();
+    for(Cantor::PanelPlugin* plugin : allPlugins)
+    {
+        if (plugins.indexOf(plugin) == -1)
+            for (QDockWidget* docker : m_panels)
+                if (docker->objectName() == plugin->name())
+                {
+                    docker->hide();
+                    break;
+                }
     }
 
     plugActionList(QLatin1String("view_show_panel_list"), panelActions);
@@ -769,7 +830,7 @@ void CantorShell::pluginVisibilityRequested()
     Cantor::PanelPlugin* plugin = static_cast<Cantor::PanelPlugin*>(sender());
     for (QDockWidget* docker: m_panels)
     {
-        if (plugin->name() == docker->windowTitle())
+        if (plugin->name() == docker->objectName())
         {
             if (docker->isHidden())
                 docker->show();
@@ -812,5 +873,28 @@ void CantorShell::updateBackendForPart(const QString& backend)
 {
     KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part && m_parts2Backends.contains(part) && m_parts2Backends[part].isEmpty())
+    {
         m_parts2Backends[part] = backend;
+
+        KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
+        if (m_part == part && panelStatusGroup.hasKey(backend))
+        {
+            const QStringList& plugins = panelStatusGroup.readEntry(m_parts2Backends[m_part]).split(QLatin1Char('\n'));
+            m_pluginsVisibility[m_part] = plugins;
+
+            for (QDockWidget* docker : m_panels)
+                if (m_pluginsVisibility[m_part].contains(docker->objectName()))
+                    docker->show();
+                else
+                    docker->hide();
+        }
+    }
+}
+
+void CantorShell::pluginCommandRunRequested(const QString& cmd)
+{
+    if (m_part)
+    {
+        QMetaObject::invokeMethod(m_part, "runCommand", Qt::QueuedConnection, Q_ARG(QString, cmd));
+    }
 }

@@ -36,6 +36,12 @@ class HelpPanelPlugin : public Cantor::PanelPlugin
 
     bool showOnStartup() override;
 
+    void connectToShell(QObject * cantorShell) override;
+
+    Cantor::PanelPlugin::State saveState() override;
+
+    void restoreState(const Cantor::PanelPlugin::State & state) override;
+
   public Q_SLOTS:
     void setHelpHtml(const QString&);
     void showHelp(const QString&);

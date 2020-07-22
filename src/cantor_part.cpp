@@ -110,7 +110,6 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
 
 CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent),
     m_searchBar(nullptr),
-    m_panelHandler(new Cantor::PanelPluginHandler(this)),
     m_initProgressDlg(nullptr),
     m_showProgressDlg(true),
     m_currectZoomAction(nullptr),
@@ -118,8 +117,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_statusBarBlocked(false),
     m_sessionStatusCounter(0)
 {
-    connect(m_panelHandler, &Cantor::PanelPluginHandler::pluginsChanged, this, &CantorPart::pluginsChanged);
-
     QString backendName;
     if(!args.isEmpty())
         backendName = args.first().toString();
@@ -699,7 +696,6 @@ void CantorPart::initialized()
         connect(m_worksheet->session(), &Cantor::Session::error, this, &CantorPart::showSessionError);
 
         loadAssistants();
-        m_panelHandler->setSession(m_worksheet->session());
         adjustGuiToSession();
 
         // Don't set modification flag, if we add command entry in empty worksheet
@@ -777,12 +773,6 @@ void CantorPart::updateCaption()
     }
     else
         emit setCaption(filename+QLatin1Char(' ') + i18n("[read-only]"), QIcon());
-}
-
-void CantorPart::pluginsChanged()
-{
-    for (auto* plugin : m_panelHandler->plugins())
-        connect(plugin, &Cantor::PanelPlugin::requestRunCommand, this, &CantorPart::runCommand);
 }
 
 void CantorPart::loadAssistants()

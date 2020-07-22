@@ -40,6 +40,12 @@ class CANTOR_EXPORT PanelPlugin : public QObject
 {
   Q_OBJECT
   public:
+    struct State {
+        Session* session{nullptr};
+        QVector<QVariant> inners;
+    };
+
+
     /**
      * Create a new PanelPlugin
      * @param parent the parent Object @see QObject
@@ -91,14 +97,21 @@ class CANTOR_EXPORT PanelPlugin : public QObject
     QWidget* parentWidget();
 
     /**
-     * sets the session this plugin operates on
+     * Save state of panel to storable form
+     *
      **/
-    void setSession(Session* session);
+    virtual State saveState();
 
     /**
-     * returns the session
+     * Restore state
+     * Can contains only session - this is init state from Cantor shell
      */
-    Session* session();
+    virtual void restoreState(const State& state);
+
+    /**
+     * For proper connection to Cantor shell. All connections should be done here
+     */
+    virtual void connectToShell(QObject* cantorShell);
 
     /**
      * Show on worksheet startup or not
@@ -106,12 +119,12 @@ class CANTOR_EXPORT PanelPlugin : public QObject
      */
     virtual bool showOnStartup();
 
+  protected:
+    Session* session();
+
   Q_SIGNALS:
     void requestRunCommand(const QString& cmd);
     void visibilityRequested();
-
-  protected:
-    virtual void onSessionChanged();
 
   private:
     PanelPluginPrivate* d;

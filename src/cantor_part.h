@@ -84,7 +84,6 @@ Q_SIGNALS:
     void setCaption(const QString& caption, const QIcon& icon);
     void showHelp(const QString& help);
     void worksheetSave(const QUrl& url);
-    void requestOpenWorksheet(const QUrl& url);
     void setBackendName(const QString& name);
     void requestDocumentation(const QString& keyword);
 
@@ -133,7 +132,6 @@ protected Q_SLOTS:
     void worksheetSessionLoginDone();
     void initialized();
 
-    void pluginsChanged();
     void runCommand(const QString& value);
 
     void runAssistant();
@@ -169,7 +167,6 @@ private:
     WorksheetView *m_worksheetview;
     SearchBar *m_searchBar;
     QPointer<ScriptEditorWidget> m_scriptEditor;
-    Cantor::PanelPluginHandler* m_panelHandler;
 
     QProgressDialog* m_initProgressDlg;
     bool m_showProgressDlg;

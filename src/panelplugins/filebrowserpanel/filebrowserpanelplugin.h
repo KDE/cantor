@@ -44,6 +44,10 @@ class FileBrowserPanelPlugin : public Cantor::PanelPlugin
 
     bool showOnStartup() override;
 
+    void connectToShell(QObject * cantorShell) override;
+
+    // No use restore files, because the FileBrowser Panel can be shared between session
+
   Q_SIGNALS:
     void requestOpenWorksheet(const QUrl&);
 
