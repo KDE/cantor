@@ -41,6 +41,7 @@ QWidget* DocumentationPanelPlugin::widget()
     {
         // find the default backend and then load it, currently hardcoding the values
         m_widget = new DocumentationPanelWidget(QLatin1String("Maxima"), QLatin1String("maximabackend"), parentWidget());
+        connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
     }
 
     return m_widget;
@@ -63,7 +64,7 @@ QString DocumentationPanelPlugin::backendName() const
 
 void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
 {
-    connect(cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
+    m_cantorShell = cantorShell;
     connect(cantorShell, SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
 }
 

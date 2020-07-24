@@ -327,6 +327,7 @@ void DocumentationPanelWidget::updateBackend(const QString& backendName, const Q
     // update the QComboBox to display all the docs for newly changed backend worksheet
     m_documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
 
+    // Since new documentation files have been loaded, now add the widgets again and refresh the display
     m_displayArea->addWidget(m_engine->contentWidget());
     m_displayArea->addWidget(m_textBrowser);
     m_displayArea->addWidget(m_index);
@@ -382,6 +383,7 @@ void DocumentationPanelWidget::returnPressed()
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
+    qDebug() << keyword;
     // First make sure we have display browser as the current widget on the QStackedWidget
     emit activateBrowser();
 
