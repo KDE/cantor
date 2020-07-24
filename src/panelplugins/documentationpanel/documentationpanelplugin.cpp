@@ -23,7 +23,6 @@
 #include "documentationpanelplugin.h"
 #include "session.h"
 
-#include <QDebug>
 #include <QIcon>
 
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
@@ -38,13 +37,10 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 
 QWidget* DocumentationPanelPlugin::widget()
 {
-    //m_backendName = session()->backend()->name();
-    //m_backendIcon = session()->backend()->icon();
-
     if(!m_widget)
     {
-        m_widget = new DocumentationPanelWidget(QLatin1String("Maxima"), QLatin1String("maxima-backend"), parentWidget());
-        //m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
+        // find the default backend and then load it, currently hardcoding the values
+        m_widget = new DocumentationPanelWidget(QLatin1String("Maxima"), QLatin1String("maximabackend"), parentWidget());
     }
 
     return m_widget;
@@ -88,17 +84,14 @@ void DocumentationPanelPlugin::restoreState(const Cantor::PanelPlugin::State& st
         assert(state.inners.size() == 2);
         m_backendName = state.inners[0].toString();
         m_backendIcon = state.inners[1].toString();
-
-        /*if(m_widget)
-            m_widget->updateBackend(m_backendName, m_backendIcon);*/
     }
-    else if (session())
+    else if(session())
     {
         m_backendName = session()->backend()->name();
         m_backendIcon = session()->backend()->icon();
 
-        qDebug() << m_backendName;
-        m_widget = new DocumentationPanelWidget(m_backendName, m_backendIcon, parentWidget());
+        if(m_widget)
+            m_widget->updateBackend(m_backendName, m_backendIcon);
     }
 }
 

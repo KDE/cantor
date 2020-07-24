@@ -27,6 +27,7 @@
 #include <QWebEngineUrlSchemeHandler>
 #include <QWidget>
 
+class QComboBox;
 class QHelpEngine;
 class QHelpIndexWidget;
 class QLineEdit;
@@ -43,6 +44,8 @@ class DocumentationPanelWidget : public QWidget
   public:
     DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent);
     ~DocumentationPanelWidget();
+
+    void updateBackend(const QString&, const QString&);
 
   Q_SIGNALS:
     void activateBrowser();
@@ -69,11 +72,14 @@ class DocumentationPanelWidget : public QWidget
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
     QString m_backend;
+    QString m_icon;
 
     // member variables for find in page text widget
     QLineEdit* m_search = nullptr; // for searching through keywords
     QLineEdit* m_findText = nullptr; // for find in page text widget
     QToolButton* m_matchCase = nullptr;
+
+    QComboBox* m_documentationSelector = nullptr;
 };
 
 // class for handling of custom url scheme ie. qthelp:// inside QWebEngineView

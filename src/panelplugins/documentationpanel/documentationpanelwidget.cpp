@@ -51,6 +51,7 @@
 DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent) :QWidget(parent)
 {
     m_backend = backend;
+    m_icon = backendIcon;
 
     // initialize the Help engine
     initHelpEngine();
@@ -97,9 +98,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
     home->setToolTip(i18nc("@button go to contents page", "Go to the contents"));
     home->setEnabled(false);
 
-    QComboBox* documentationSelector = new QComboBox(this);
+    m_documentationSelector = new QComboBox(this);
     // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
-    documentationSelector->addItem(QIcon::fromTheme(backendIcon), m_backend);
+    m_documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
 
     // real time searcher
     m_search = new QLineEdit(this);
@@ -127,7 +128,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(const QString& backend, const
 
     QHBoxLayout* layout = new QHBoxLayout(this);
     layout->addWidget(home);
-    layout->addWidget(documentationSelector);
+    layout->addWidget(m_documentationSelector);
     layout->addWidget(m_search);
     layout->addWidget(seperator);
     layout->addWidget(findPage);
@@ -293,7 +294,42 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_search;
     delete m_findText;
     delete m_matchCase;
+    delete m_documentationSelector;
     //delete m_index; this crashes
+}
+
+void DocumentationPanelWidget::updateBackend(const QString& backendName, const QString& backendIcon)
+{
+    if(m_backend == backendName)
+    {
+        /// in this case the new tab documentation is already opened previously
+        // so do nothing
+        return;
+    }
+
+    m_backend = backendName;
+    m_icon = backendIcon;
+
+    // remove previous widgets  added on the display ie. browser, contents and index
+    m_displayArea->removeWidget(m_engine->contentWidget());
+    m_displayArea->removeWidget(m_textBrowser);
+    m_displayArea->removeWidget(m_index);
+    m_documentationSelector->clear();
+    m_search->clear();
+
+    // Now load QtHelp files for newly selected backend worksheet
+    initHelpEngine();
+    qDebug() << "New docsfile loaded";
+    loadDocumentation();
+
+    m_search->setCompleter(new QCompleter(m_index->model(), m_search));
+
+    // update the QComboBox to display all the docs for newly changed backend worksheet
+    m_documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
+
+    m_displayArea->addWidget(m_engine->contentWidget());
+    m_displayArea->addWidget(m_textBrowser);
+    m_displayArea->addWidget(m_index);
 }
 
 void DocumentationPanelWidget::initHelpEngine()
