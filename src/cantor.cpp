@@ -414,7 +414,7 @@ void CantorShell::activateWorksheet(int index)
 
         Cantor::WorksheetAccessInterface* wa=m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
         assert(wa);
-        PanelStates states;
+        Cantor::PanelPluginHandler::PanelStates states;
         QList<Cantor::PanelPlugin*> plugins=m_panelHandler.plugins(wa->session());
         for(Cantor::PanelPlugin* plugin : plugins)
         {
@@ -718,26 +718,9 @@ void CantorShell::updatePanel()
     if (wa)
     {
         QDockWidget* last=nullptr;
-        plugins = m_panelHandler.plugins(wa->session());
+        plugins = m_panelHandler.activePluginsForSession(wa->session(), m_pluginsStates.contains(m_part) ? m_pluginsStates[m_part] : Cantor::PanelPluginHandler::PanelStates());
         for(Cantor::PanelPlugin* plugin : plugins)
         {
-            if(plugin==nullptr)
-            {
-                qDebug()<<"somethings wrong";
-                continue;
-            }
-
-            qDebug()<<"adding panel for "<<plugin->name();
-
-            if (m_pluginsStates.contains(m_part))
-                plugin->restoreState(m_pluginsStates[m_part][plugin->name()]);
-            else
-            {
-                Cantor::PanelPlugin::State initState;
-                initState.session = wa->session();
-                plugin->restoreState(initState);
-            }
-
             QDockWidget* foundDocker = nullptr;
             for (QDockWidget* docker : m_panels)
                 if (docker->objectName() == plugin->name())

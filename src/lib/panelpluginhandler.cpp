@@ -128,3 +128,26 @@ QList<PanelPlugin*> PanelPluginHandler::plugins(Session* session)
 
     return pluginsForSession;
 }
+
+QList<PanelPlugin*> PanelPluginHandler::activePluginsForSession(Session* session, const PanelStates& previousPluginStates)
+{
+    QList<Cantor::PanelPlugin*> plugins = this->plugins(session);
+    for(Cantor::PanelPlugin* plugin : plugins)
+    {
+        if(plugin==nullptr)
+        {
+            qDebug()<<"somethings wrong with plugin inside PanelPluginHandler";
+            continue;
+        }
+
+        if (previousPluginStates.contains(plugin->name()))
+            plugin->restoreState(previousPluginStates[plugin->name()]);
+        else
+        {
+            Cantor::PanelPlugin::State initState;
+            initState.session = session;
+            plugin->restoreState(initState);
+        }
+    }
+    return plugins;
+}
