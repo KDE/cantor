@@ -59,7 +59,7 @@ Set( cantor_LIB_HDRS
   graphicpackage.h
   # plugin classes
   panelplugin.h
-  panelpluginhelper.h
+  panelpluginhandler.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
