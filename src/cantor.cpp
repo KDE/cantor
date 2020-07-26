@@ -864,11 +864,7 @@ void CantorShell::updateBackendForPart(const QString& backend)
             const QStringList& plugins = panelStatusGroup.readEntry(m_parts2Backends[m_part]).split(QLatin1Char('\n'));
             m_pluginsVisibility[m_part] = plugins;
 
-            for (QDockWidget* docker : m_panels)
-                if (m_pluginsVisibility[m_part].contains(docker->objectName()))
-                    docker->show();
-                else
-                    docker->hide();
+            updatePanel();
         }
     }
 }
