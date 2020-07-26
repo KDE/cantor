@@ -57,6 +57,9 @@ Set( cantor_LIB_HDRS
   worksheetaccess.h
   jupyterutils.h
   graphicpackage.h
+  # plugin classes
+  panelplugin.h
+  panelpluginhelper.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)

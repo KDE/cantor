@@ -22,7 +22,7 @@
 #define _PANELPLUGINHANDLER_H
 
 #include <QObject>
-#include <panelplugin.h>
+#include "panelplugin.h"
 #include "cantor_export.h"
 
 namespace Cantor
