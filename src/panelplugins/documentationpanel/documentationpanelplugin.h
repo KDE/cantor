@@ -50,11 +50,10 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
     void restoreState(const Cantor::PanelPlugin::State& state) override;
 
   private:
-    QPointer<DocumentationPanelWidget> m_widget;
+    DocumentationPanelWidget* m_widget = nullptr;
+    QObject* m_cantorShell = nullptr;
     QString m_backendName;
     QString m_backendIcon;
-
-    QObject* m_cantorShell = nullptr;
 };
 
 #endif /* _DOCUMENTATIONPANELPLUGIN_H */

@@ -29,6 +29,7 @@
 
 class QComboBox;
 class QHelpEngine;
+class QHelpContentWidget;
 class QHelpIndexWidget;
 class QLineEdit;
 class QStackedWidget;
@@ -42,7 +43,7 @@ class DocumentationPanelWidget : public QWidget
   Q_OBJECT
 
   public:
-    DocumentationPanelWidget(const QString& backend, const QString& backendIcon, QWidget* parent);
+    DocumentationPanelWidget(QWidget*);
     ~DocumentationPanelWidget();
 
     void updateBackend(const QString&, const QString&);
@@ -65,12 +66,14 @@ class DocumentationPanelWidget : public QWidget
   private:
     void initHelpEngine();
     void loadDocumentation();
+    void registerQtScheme();
 
   private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
+    QHelpContentWidget* m_content = nullptr;
     QString m_backend;
     QString m_icon;
 

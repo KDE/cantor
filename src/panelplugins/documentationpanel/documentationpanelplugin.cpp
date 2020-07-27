@@ -25,7 +25,7 @@
 
 #include <QIcon>
 
-DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
+DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
 {
     Q_UNUSED(args);
 }
@@ -39,8 +39,7 @@ QWidget* DocumentationPanelPlugin::widget()
 {
     if(!m_widget)
     {
-        // find the default backend and then load it, currently hardcoding the values
-        m_widget = new DocumentationPanelWidget(QLatin1String("Maxima"), QLatin1String("maximabackend"), parentWidget());
+        m_widget = new DocumentationPanelWidget(parentWidget());
         connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
     }
 
