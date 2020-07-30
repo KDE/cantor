@@ -42,6 +42,10 @@ static const char description[] =
 int main(int argc, char **argv)
 {
     QtWebEngine::initialize();
+    // Register custom scheme handler for qthelp:// scheme
+    QWebEngineUrlScheme qthelp("qthelp");
+    QWebEngineUrlScheme::registerScheme(qthelp);
+
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
 

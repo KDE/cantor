@@ -64,18 +64,14 @@ class DocumentationPanelWidget : public QWidget
     void downloadResource(QWebEngineDownloadItem*); // slot for saving the image or html to local disk
 
   private:
-    void initHelpEngine();
-    void loadDocumentation();
-    void registerQtScheme();
+    void updateDocumentation();
 
-  private:
     QHelpEngine* m_engine = nullptr;
     QWebEngineView* m_textBrowser = nullptr;
     QStackedWidget* m_displayArea = nullptr;
     QHelpIndexWidget* m_index = nullptr;
     QHelpContentWidget* m_content = nullptr;
     QString m_backend;
-    QString m_icon;
 
     // member variables for find in page text widget
     QLineEdit* m_search = nullptr; // for searching through keywords

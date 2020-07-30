@@ -66,8 +66,6 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     home->setEnabled(false);
 
     m_documentationSelector = new QComboBox(this);
-    // iterate through the available docs for current backend, for example python may have matplotlib, scikitlearn etc
-    m_documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
 
     // real time searcher
     m_search = new QLineEdit(this);
@@ -246,17 +244,16 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_documentationSelector;
 }
 
-void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QString& newIcon)
+void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QString& icon)
 {
     // If new backend is same as the backend of the documentation panel,
     // then do nothing because it is already open
+    qDebug()<<"current backend " << m_backend;
+    qDebug()<<"new backend " << newBackend;
     if(m_backend == newBackend)
         return;
 
     m_backend = newBackend;
-    m_icon = newIcon;
-
-    m_documentationSelector->clear();
 
     // remove previous widgets over display belonging to previous backends
     if(m_displayArea->count())
@@ -268,22 +265,15 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
         m_search->clear();
     }
 
-    // initialize the Qt Help engine
-    initHelpEngine();
-
-    // register the Qt Help files
-    loadDocumentation();
-    qDebug() << "New docsfile loaded";
-
-    // register qtscheme://
-    registerQtScheme();
+    updateDocumentation();
 
     m_search->setCompleter(new QCompleter(m_index->model(), m_search));
     m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
 
     // update the QComboBox to display all the docs for newly changed backend worksheet
-    m_documentationSelector->addItem(QIcon::fromTheme(m_icon), m_backend);
+    m_documentationSelector->clear();
+    m_documentationSelector->addItem(QIcon::fromTheme(icon), m_backend);
 
     m_displayArea->addWidget(m_content);
     m_displayArea->addWidget(m_textBrowser);
@@ -303,51 +293,40 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     });
 }
 
-void DocumentationPanelWidget::initHelpEngine()
+void DocumentationPanelWidget::updateDocumentation()
 {
-    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
-
+    // initialize the Qt Help engine and provide the proper help collection file for the current backend
+    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
+                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
+    delete m_engine;
     m_engine = new QHelpEngine(fileName, this);
+    if(!m_engine->setupData())
+    {
+        qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
+    }
 
     m_index = m_engine->indexWidget();
     m_content = m_engine->contentWidget();
-
-    if(!m_engine->setupData())
-    {
-        qWarning() << "Couldn't setup QtHelp Engine";
-        qWarning() << m_engine->error();
-    }
+    m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
 
     if(m_backend != QLatin1String("Octave"))
     {
       m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
     }
-}
 
-void DocumentationPanelWidget::loadDocumentation()
-{
-    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation, QLatin1String("documentation/") + m_backend + QLatin1String("/help.qch"));
-    const QString& nameSpace = QHelpEngineCore::namespaceName(fileName);
+    // register the compressed help file (qch)
+    const QString& qchFileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
+                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/help.qch"));
+    const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
 
-    if(nameSpace.isEmpty() || !m_engine->registeredDocumentations().contains(nameSpace))
+    if(!m_engine->registeredDocumentations().contains(nameSpace))
     {
-        if(!m_engine->registerDocumentation(fileName))
+        if(m_engine->registerDocumentation(qchFileName))
+            qDebug()<<"The documentation file " << qchFileName << " successfully registered.";
+        else
             qWarning() << m_engine->error();
-    }
-}
-
-void DocumentationPanelWidget::registerQtScheme()
-{
-    // Register custom scheme handler for qthelp:// scheme
-    static bool qthelpRegistered = false;
-
-    if(!qthelpRegistered)
-    {
-        QWebEngineUrlScheme qthelp("qthelp");
-        QWebEngineUrlScheme::registerScheme(qthelp);
-        m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
-        qthelpRegistered = true;
-    }
+    } else
+        qWarning()<<"Documentation namespace " << nameSpace << " already exists.";
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
