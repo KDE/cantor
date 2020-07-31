@@ -248,8 +248,9 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
 {
     // If new backend is same as the backend of the documentation panel,
     // then do nothing because it is already open
-    qDebug()<<"current backend " << m_backend;
-    qDebug()<<"new backend " << newBackend;
+    qDebug()<<"Previous backend " << m_backend;
+    qDebug()<<"New backend " << newBackend;
+
     if(m_backend == newBackend)
         return;
 
@@ -258,9 +259,10 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     // remove previous widgets over display belonging to previous backends
     if(m_displayArea->count())
     {
-        m_displayArea->removeWidget(m_content);
-        m_displayArea->removeWidget(m_index);
-        m_displayArea->removeWidget(m_textBrowser);
+        for(int i = m_displayArea->count(); i >= 0; i--)
+        {
+            m_displayArea->removeWidget(m_displayArea->widget(i));
+        }
 
         m_search->clear();
     }
@@ -298,8 +300,10 @@ void DocumentationPanelWidget::updateDocumentation()
     // initialize the Qt Help engine and provide the proper help collection file for the current backend
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
                                                      QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
-    delete m_engine;
+    delete m_engine; // delet last backend's help engine
+
     m_engine = new QHelpEngine(fileName, this);
+
     if(!m_engine->setupData())
     {
         qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
@@ -307,16 +311,22 @@ void DocumentationPanelWidget::updateDocumentation()
 
     m_index = m_engine->indexWidget();
     m_content = m_engine->contentWidget();
-    m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
 
     if(m_backend != QLatin1String("Octave"))
     {
       m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
     }
 
+    static bool schemeInstalled = false;
+    if(!schemeInstalled)
+    {
+        m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
+        schemeInstalled = true;
+    }
+
     // register the compressed help file (qch)
     const QString& qchFileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/help.qch"));
+                                                        QLatin1String("documentation/") + m_backend + QLatin1String("/help.qch"));
     const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
 
     if(!m_engine->registeredDocumentations().contains(nameSpace))
@@ -325,8 +335,7 @@ void DocumentationPanelWidget::updateDocumentation()
             qDebug()<<"The documentation file " << qchFileName << " successfully registered.";
         else
             qWarning() << m_engine->error();
-    } else
-        qWarning()<<"Documentation namespace " << nameSpace << " already exists.";
+    }
 }
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
