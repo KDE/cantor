@@ -28,15 +28,14 @@ class Cantor::PanelPluginPrivate
   public:
     QString name;
     QStringList requiredExtensions;
-    Session* session;
-    QWidget* parentWidget;
+    Session* session = nullptr;
+    QWidget* parentWidget = nullptr;
 };
 
 PanelPlugin::PanelPlugin( QObject* parent) : QObject(parent), /* KXMLGUIClient(dynamic_cast<KXMLGUIClient*>(parent)),*/
                                              d(new PanelPluginPrivate)
 {
-    d->parentWidget=nullptr;
-    d->session=nullptr;
+
 }
 
 PanelPlugin::~PanelPlugin()
@@ -46,7 +45,7 @@ PanelPlugin::~PanelPlugin()
 
 void PanelPlugin::setParentWidget(QWidget* widget)
 {
-    d->parentWidget=widget;
+    d->parentWidget = widget;
 }
 
 QWidget* PanelPlugin::parentWidget()
@@ -56,8 +55,8 @@ QWidget* PanelPlugin::parentWidget()
 
 void PanelPlugin::setPluginInfo(const KPluginMetaData& info)
 {
-    d->name=info.name();
-    d->requiredExtensions=info.value(QStringLiteral("RequiredExtensions")).split(QLatin1Char(','));
+    d->name = info.name();
+    d->requiredExtensions = info.value(QStringLiteral("RequiredExtensions")).split(QLatin1Char(','));
 }
 
 QStringList PanelPlugin::requiredExtensions()
@@ -87,7 +86,7 @@ void Cantor::PanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
     d->session = state.session;
 }
 
-Cantor::Session * Cantor::PanelPlugin::session()
+Cantor::Session* Cantor::PanelPlugin::session()
 {
     return d->session;
 }

@@ -43,10 +43,10 @@ class CANTOR_EXPORT PanelPluginHandler : public QObject
     ~PanelPluginHandler() override;
 
     QList<PanelPlugin*> allPlugins();
-    QList<PanelPlugin*> plugins(Session* session);
+    QList<PanelPlugin*> plugins(Session*);
 
     using PanelStates = QMap<QString, Cantor::PanelPlugin::State>;
-    QList<PanelPlugin*> activePluginsForSession(Session* session, const PanelStates& previousPluginStates);
+    QList<PanelPlugin*> activePluginsForSession(Session*, const PanelStates&);
 
     void loadPlugins();
 
