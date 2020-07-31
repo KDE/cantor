@@ -233,8 +233,8 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
 
 DocumentationPanelWidget::~DocumentationPanelWidget()
 {
-    //delete m_index; //this crashes
-    // delete m_content;
+    delete m_index; //this crashes
+    delete m_content;
     delete m_engine;
     delete m_textBrowser;
     delete m_displayArea;
@@ -246,13 +246,13 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
 
 void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QString& icon)
 {
+    if(m_backend == newBackend)
+        return;
+
     // If new backend is same as the backend of the documentation panel,
     // then do nothing because it is already open
     qDebug()<<"Previous backend " << m_backend;
     qDebug()<<"New backend " << newBackend;
-
-    if(m_backend == newBackend)
-        return;
 
     m_backend = newBackend;
 
@@ -300,7 +300,6 @@ void DocumentationPanelWidget::updateDocumentation()
     // initialize the Qt Help engine and provide the proper help collection file for the current backend
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
                                                      QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
-    delete m_engine; // delet last backend's help engine
 
     m_engine = new QHelpEngine(fileName, this);
 
