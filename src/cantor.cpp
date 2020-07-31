@@ -100,13 +100,13 @@ CantorShell::~CantorShell()
     m_panels.clear();
 }
 
-void CantorShell::load(const QUrl &url)
+void CantorShell::load(const QUrl& url)
 {
     // If the url already opened, then don't open the url in another tab, but
     // just activate the already existed tab
     for (int i = 0; i < m_parts.size(); i++)
     {
-        KParts::ReadOnlyPart* part = m_parts[i];
+        auto* part = m_parts[i];
         if (part && part->url() == url)
         {
             if (m_tabWidget->currentIndex() != i)
@@ -117,13 +117,15 @@ void CantorShell::load(const QUrl &url)
         }
     }
 
-    if (!m_part||!m_part->url().isEmpty() || m_part->isModified() )
+    if (!m_part || !m_part->url().isEmpty() || m_part->isModified())
     {
         addWorksheet(QString());
-        m_tabWidget->setCurrentIndex(m_parts.size()-1);
+        m_tabWidget->setCurrentIndex(m_parts.size() - 1);
     }
-    if (!m_part->openUrl( url ))
+
+    if (!m_part->openUrl(url))
         closeTab(m_tabWidget->currentIndex());
+
     if (m_recentProjectsAction)
         m_recentProjectsAction->addUrl(url);
 
@@ -140,7 +142,7 @@ void CantorShell::setupActions()
     m_recentProjectsAction->setPriority(QAction::LowPriority);
     m_recentProjectsAction->loadEntries(KSharedConfig::openConfig()->group(QLatin1String("Recent Files")));
 
-    KStandardAction::close (this,  SLOT(closeTab()),  actionCollection());
+    KStandardAction::close(this, SLOT(closeTab()),  actionCollection());
 
     KStandardAction::quit(qApp, SLOT(closeAllWindows()), actionCollection());
 
@@ -152,15 +154,15 @@ void CantorShell::setupActions()
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
 
-    QAction * downloadExamples = new QAction(i18n("Download Example Worksheets"), actionCollection());
+    QAction* downloadExamples = new QAction(i18n("Download Example Worksheets"), actionCollection());
     downloadExamples->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
     actionCollection()->addAction(QLatin1String("file_example_download"),  downloadExamples);
-    connect(downloadExamples, SIGNAL(triggered()), this,  SLOT(downloadExamples()));
+    connect(downloadExamples, &QAction::triggered, this,  &CantorShell::downloadExamples);
 
-    QAction * openExample =new QAction(i18n("&Open Example"), actionCollection());
+    QAction* openExample = new QAction(i18n("&Open Example"), actionCollection());
     openExample->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
     actionCollection()->addAction(QLatin1String("file_example_open"), openExample);
-    connect(openExample, SIGNAL(triggered()), this, SLOT(openExample()));
+    connect(openExample, &QAction::triggered, this, &CantorShell::openExample);
 
     QAction* toPreviousTab = new QAction(i18n("Go to previous worksheet"), actionCollection());
     actionCollection()->addAction(QLatin1String("go_to_previous_tab"), toPreviousTab);
@@ -236,7 +238,7 @@ void CantorShell::fileOpen()
     // the Open shortcut is pressed (usually CTRL+O) or the Open toolbar
     // button is clicked
     static const QString& filter = i18n("All supported files (*.cws *ipynb);;Cantor Worksheet (*.cws);;Jupyter Notebook (*.ipynb)");
-    QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open file"), QUrl(), filter, &m_previousFilter);
+    const QUrl& url = QFileDialog::getOpenFileUrl(this, i18n("Open file"), QUrl(), filter, &m_previousFilter);
 
     if (url.isEmpty() == false)
     {
@@ -255,7 +257,7 @@ void CantorShell::fileOpen()
             newWin->load( url );
             newWin->show();
             }*/
-        load( url );
+        load(url);
     }
 }
 
@@ -292,14 +294,14 @@ void CantorShell::addWorksheet()
 
     }else
     {
-        QTextBrowser *browser=new QTextBrowser(this);
-        QString backendList=QLatin1String("<ul>");
+        QTextBrowser* browser = new QTextBrowser(this);
+        QString backendList = QLatin1String("<ul>");
         int backendListSize = 0;
-        foreach(Cantor::Backend* b, Cantor::Backend::availableBackends())
+        for (auto* backend : Cantor::Backend::availableBackends())
         {
-            if(!b->requirementsFullfilled()) //It's disabled because of missing dependencies, not because of some other reason(like eg. nullbackend)
+            if(!backend->requirementsFullfilled()) //It's disabled because of missing dependencies, not because of some other reason(like eg. nullbackend)
             {
-                backendList+=QString::fromLatin1("<li>%1: <a href=\"%2\">%2</a></li>").arg(b->name(), b->url());
+                backendList += QString::fromLatin1("<li>%1: <a href=\"%2\">%2</a></li>").arg(backend->name(), backend->url());
                 ++backendListSize;
             }
         }
@@ -358,7 +360,7 @@ void CantorShell::addWorksheet(const QString& backendName)
         }
 
         // now that the Part is loaded, we cast it to a Part to get our hands on it
-        KParts::ReadWritePart* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
+        auto* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
         if (part)
         {
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
@@ -405,25 +407,25 @@ void CantorShell::activateWorksheet(int index)
     if (m_part)
     {
         QStringList visiblePanelNames;
-        foreach (QDockWidget* doc, m_panels)
+        for (auto* doc : m_panels)
         {
             if (doc->widget() && doc->widget()->isVisible())
                 visiblePanelNames << doc->objectName();
         }
         m_pluginsVisibility[m_part] = visiblePanelNames;
 
-        Cantor::WorksheetAccessInterface* wa=m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
+        auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
         assert(wa);
         Cantor::PanelPluginHandler::PanelStates states;
-        QList<Cantor::PanelPlugin*> plugins=m_panelHandler.plugins(wa->session());
-        for(Cantor::PanelPlugin* plugin : plugins)
+        auto plugins = m_panelHandler.plugins(wa->session());
+        for(auto* plugin : plugins)
         {
             states.insert(plugin->name(), plugin->saveState());
         }
         m_pluginsStates[m_part] = states;
     }
 
-    m_part=findPart(m_tabWidget->widget(index));
+    m_part = findPart(m_tabWidget->widget(index));
     if(m_part)
     {
         createGUI(m_part);
@@ -439,7 +441,7 @@ void CantorShell::activateWorksheet(int index)
 
 void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
 {
-    KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
+    auto* part = dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part)
     {
         if (!caption.isEmpty())
@@ -461,7 +463,7 @@ void CantorShell::closeTab(int index)
         QWidget* widget = m_tabWidget->widget(index);
         if (widget)
         {
-            KParts::ReadWritePart* part= findPart(widget);
+            auto* part = findPart(widget);
             if (part && !reallyCloseThisPart(part))
                 return;
         }
@@ -492,12 +494,12 @@ void CantorShell::closeTab(int index)
     m_tabWidget->removeTab(index);
 
     bool isCurrectPartClosed = m_part ? widget == m_part->widget() : false;
-    if(widget->objectName()==QLatin1String("ErrorMessage"))
+    if(widget->objectName() == QLatin1String("ErrorMessage"))
     {
         widget->deleteLater();
     }else
     {
-        KParts::ReadWritePart* part= findPart(widget);
+        auto* part = findPart(widget);
         if(part)
         {
             saveDockPanelsState(part);
@@ -520,7 +522,7 @@ void CantorShell::closeTab(int index)
 bool CantorShell::reallyClose(bool checkAllParts) {
     if(checkAllParts && m_parts.count() > 1) {
         bool modified = false;
-        foreach( KParts::ReadWritePart* const part, m_parts)
+        for (auto* part : m_parts)
         {
             if(part->isModified()) {
                 modified = true;
@@ -568,10 +570,10 @@ bool CantorShell::reallyCloseThisPart(KParts::ReadWritePart* part)
 
 
 void CantorShell::closeEvent(QCloseEvent* event) {
-    if(!reallyClose()) {
+    if (!reallyClose()) {
         event->ignore();
     } else {
-        for (KParts::ReadWritePart* part : m_parts)
+        for (auto* part : m_parts)
             saveDockPanelsState(part);
 
         KParts::MainWindow::closeEvent(event);
@@ -587,7 +589,7 @@ void CantorShell::showSettings()
     base.kcfg_DefaultBackend->addItems(Cantor::Backend::listAvailableBackends());
 
     dialog->addPage(generalSettings, i18n("General"), QLatin1String("preferences-other"));
-    foreach(Cantor::Backend* backend, Cantor::Backend::availableBackends())
+    for (auto* backend : Cantor::Backend::availableBackends())
     {
         if (backend->config()) //It has something to configure, so add it to the dialog
             dialog->addPage(backend->settingsWidget(dialog), backend->config(), backend->name(),  backend->icon());
@@ -600,7 +602,7 @@ void CantorShell::downloadExamples()
 {
     KNS3::DownloadDialog dialog;
     dialog.exec();
-    foreach (const KNS3::Entry& e,  dialog.changedEntries())
+    for (const auto& e :  dialog.changedEntries())
     {
         qDebug() << "Changed Entry: " << e.name();
     }
@@ -609,15 +611,17 @@ void CantorShell::downloadExamples()
 void CantorShell::openExample()
 {
     QString dir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/examples");
-    if (dir.isEmpty()) return;
+    if (dir.isEmpty())
+        return;
+
     QDir().mkpath(dir);
 
-    QStringList files=QDir(dir).entryList(QDir::Files);
-    QPointer<QDialog> dlg=new QDialog(this);
-    QListWidget* list=new QListWidget(dlg);
-    foreach(const QString& file, files)
+    QStringList files = QDir(dir).entryList(QDir::Files);
+    QPointer<QDialog> dlg = new QDialog(this);
+    QListWidget* list = new QListWidget(dlg);
+    for (const QString& file : files)
     {
-        QString name=file;
+        QString name = file;
         name.remove(QRegularExpression(QStringLiteral("-.*\\.hotstuff-access$")));
         list->addItem(name);
     }
@@ -626,20 +630,20 @@ void CantorShell::openExample()
     dlg->setLayout(mainLayout);
     mainLayout->addWidget(list);
 
-    QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    auto* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
     mainLayout->addWidget(buttonBox);
 
     buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
     buttonBox->button(QDialogButtonBox::Cancel)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogCancelButton));
 
-    connect(buttonBox, SIGNAL(accepted()), dlg, SLOT(accept()) );
-    connect(buttonBox, SIGNAL(rejected()), dlg, SLOT(reject()) );
+    connect(buttonBox, &QDialogButtonBox::accepted, dlg, &QDialog::accept);
+    connect(buttonBox, &QDialogButtonBox::rejected, dlg, &QDialog::reject);
 
-    if (dlg->exec()==QDialog::Accepted&&list->currentRow()>=0)
+    if (dlg->exec() == QDialog::Accepted&&list->currentRow()>=0)
     {
-        const QString& selectedFile=files[list->currentRow()];
-        QUrl url = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(selectedFile));
+        const QString& selectedFile = files[list->currentRow()];
+        const QUrl& url = QUrl::fromLocalFile(QDir(dir).absoluteFilePath(selectedFile));
 
         qDebug()<<"loading file "<<url;
         load(url);
@@ -650,9 +654,9 @@ void CantorShell::openExample()
 
 KParts::ReadWritePart* CantorShell::findPart(QWidget* widget)
 {
-    foreach( KParts::ReadWritePart* const part, m_parts)
+    for (auto* part : m_parts)
     {
-        if(part->widget()==widget)
+        if (part->widget() == widget)
             return part;
     }
     return nullptr;
@@ -662,12 +666,11 @@ void CantorShell::initPanels()
 {
     m_panelHandler.loadPlugins();
 
-    QList<Cantor::PanelPlugin*> plugins = m_panelHandler.allPlugins();
-    foreach(Cantor::PanelPlugin* plugin, plugins)
+    for (auto* plugin : m_panelHandler.allPlugins())
     {
-        if(plugin==nullptr)
+        if (!plugin)
         {
-            qDebug()<<"somethings wrong";
+            qDebug()<<"invalid panel found, skipping it.";
             continue;
         }
 
@@ -675,10 +678,10 @@ void CantorShell::initPanels()
         plugin->setParentWidget(this);
         plugin->connectToShell(this);
 
-        QDockWidget* docker=new QDockWidget(plugin->name(), this);
+        QDockWidget* docker = new QDockWidget(plugin->name(), this);
         docker->setObjectName(plugin->name());
         docker->setWidget(plugin->widget());
-        addDockWidget ( Qt::RightDockWidgetArea,  docker );
+        addDockWidget(Qt::RightDockWidgetArea, docker);
 
         docker->hide();
 
@@ -686,10 +689,8 @@ void CantorShell::initPanels()
         connect(plugin, &Cantor::PanelPlugin::requestRunCommand, this, &CantorShell::pluginCommandRunRequested);
 
         m_panels.append(docker);
-
     }
 }
-
 
 void CantorShell::updatePanel()
 {
@@ -717,12 +718,12 @@ void CantorShell::updatePanel()
     QList<Cantor::PanelPlugin*> plugins;
     if (wa)
     {
-        QDockWidget* last=nullptr;
+        QDockWidget* last = nullptr;
         plugins = m_panelHandler.activePluginsForSession(wa->session(), m_pluginsStates.contains(m_part) ? m_pluginsStates[m_part] : Cantor::PanelPluginHandler::PanelStates());
-        for(Cantor::PanelPlugin* plugin : plugins)
+        for (auto* plugin : plugins)
         {
             QDockWidget* foundDocker = nullptr;
-            for (QDockWidget* docker : m_panels)
+            for (auto* docker : m_panels)
                 if (docker->objectName() == plugin->name())
                 {
                     foundDocker = docker;
@@ -763,7 +764,7 @@ void CantorShell::updatePanel()
 
     // Hide plugins, which don't supported on current session
     QList<Cantor::PanelPlugin*> allPlugins=m_panelHandler.allPlugins();
-    for(Cantor::PanelPlugin* plugin : allPlugins)
+    for(auto* plugin : allPlugins)
     {
         if (plugins.indexOf(plugin) == -1)
             for (QDockWidget* docker : m_panels)
@@ -785,11 +786,11 @@ void CantorShell::updateNewSubmenu()
     qDeleteAll(m_newBackendActions);
     m_newBackendActions.clear();
 
-    foreach (Cantor::Backend* backend, Cantor::Backend::availableBackends())
+    for (auto* backend : Cantor::Backend::availableBackends())
     {
         if (!backend->isEnabled())
             continue;
-        QAction * action = new QAction(QIcon::fromTheme(backend->icon()), backend->name(), nullptr);
+        QAction* action = new QAction(QIcon::fromTheme(backend->icon()), backend->name(), nullptr);
         action->setData(backend->name());
         connect(action, SIGNAL(triggered()), this, SLOT(fileNew()));
         m_newBackendActions << action;
@@ -799,8 +800,7 @@ void CantorShell::updateNewSubmenu()
 
 Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()
 {
-    Cantor::WorksheetAccessInterface* wa=m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
-
+    auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
     if (!wa)
         qDebug()<<"failed to access worksheet access interface for current part";
 
@@ -809,8 +809,8 @@ Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()
 
 void CantorShell::pluginVisibilityRequested()
 {
-    Cantor::PanelPlugin* plugin = static_cast<Cantor::PanelPlugin*>(sender());
-    for (QDockWidget* docker: m_panels)
+    auto* plugin = static_cast<Cantor::PanelPlugin*>(sender());
+    for (auto* docker : m_panels)
     {
         if (plugin->name() == docker->objectName())
         {
@@ -837,7 +837,7 @@ void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
         QStringList visiblePanelNames;
         if (part == m_part)
         {
-            foreach (QDockWidget* doc, m_panels)
+            for (auto* doc : m_panels)
             {
                 if (doc->widget() && doc->widget()->isVisible())
                     visiblePanelNames << doc->objectName();
@@ -853,7 +853,7 @@ void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
 
 void CantorShell::updateBackendForPart(const QString& backend)
 {
-    KParts::ReadWritePart* part=dynamic_cast<KParts::ReadWritePart*>(sender());
+    auto* part = dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part && m_parts2Backends.contains(part) && m_parts2Backends[part].isEmpty())
     {
         m_parts2Backends[part] = backend;
