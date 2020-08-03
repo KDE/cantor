@@ -65,11 +65,11 @@ qhp.writelines("""<?xml version="1.0" encoding="UTF-8"?>
 <QtHelpProject version="1.0">
     <namespace>org.kde.maxima.5.42</namespace>
 
-    <virtualFolder>doc</virtualFolder>
+    <virtualFolder>5.42</virtualFolder>
 
     <customFilter name="Maxima">
         <filterAttribute>Maxima Documentation</filterAttribute>
-        <filterAttribute>5.42</filterAttribute>
+        <filterAttribute>doc</filterAttribute>
     </customFilter>
 
     <filterSection>

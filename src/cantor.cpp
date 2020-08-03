@@ -50,7 +50,7 @@
 #include "cantor.h"
 #include "settings.h"
 #include "ui_settings.h"
-#include "backendchoosedialog.h"
+
 #include <QMetaObject>
 
 CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr), m_panelHandler(nullptr)

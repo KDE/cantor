@@ -47,6 +47,7 @@
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
+#include <QDebug>
 
 DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(parent)
 {
@@ -184,7 +185,32 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
         m_textBrowser->show();
     });
 
-    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), [=](int index){
+    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), [=]{
+        updateDocumentation();
+
+        if(m_displayArea->count())
+        {
+            for(int i = m_displayArea->count(); i >= 0; i--)
+            {
+                m_displayArea->removeWidget(m_displayArea->widget(i));
+            }
+
+            m_search->clear();
+        }
+
+        m_displayArea->addWidget(m_content);
+        m_displayArea->addWidget(m_textBrowser);
+        m_displayArea->addWidget(m_index);
+
+        connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+        connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+        connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
+
+        //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
+        // display the documentation browser whenever contents are clicked
+        connect(m_content, &QHelpContentWidget::linkActivated, [=]{
+            m_displayArea->setCurrentIndex(1);
+        });
     });
 
     connect(m_displayArea, &QStackedWidget::currentChanged, [=]{
@@ -308,12 +334,13 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
 
 void DocumentationPanelWidget::updateDocumentation()
 {
-    // On first startup, load the first item by default in the QComboBox documnetation selector
-    // initialize the Qt Help engine and provide the proper help collection file for the current backend
+    const QString& docSelected = m_documentationSelector->currentText();
 
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/") + m_helpFiles[m_backend][0] + QLatin1String("/help.qhc"));
+                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/") +
+                                                     docSelected + QLatin1String("/help.qhc"));
 
+    // initialize the Qt Help engine and provide the proper help collection file for the current backend
     m_engine = new QHelpEngine(fileName, this);
 
     if(!m_engine->setupData())
@@ -338,7 +365,8 @@ void DocumentationPanelWidget::updateDocumentation()
 
     // register the compressed help file (qch)
     const QString& qchFileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                                        QLatin1String("documentation/") + m_backend + QLatin1String("/") + m_helpFiles[m_backend][0] + QLatin1String("/help.qch"));
+                                                        QLatin1String("documentation/") + m_backend + QLatin1String("/") + docSelected +
+                                                        QLatin1String("/help.qch"));
     const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
 
     if(!m_engine->registeredDocumentations().contains(nameSpace))
@@ -352,6 +380,7 @@ void DocumentationPanelWidget::updateDocumentation()
 
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
+    qDebug() << url;
     m_textBrowser->load(url);
     m_textBrowser->show();
 }

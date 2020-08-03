@@ -45,7 +45,7 @@ title = soup.find('title').text
 # populate qhp file with headers and table of contents
 qhp.writelines("""<?xml version="1.0" encoding="UTF-8"?>
 <QtHelpProject version="1.0">
-    <namespace>org.kde.maxima.5.42</namespace>
+    <namespace>org.kde.maxima.5.44</namespace>
 
     <virtualFolder>doc</virtualFolder>
 
@@ -176,7 +176,7 @@ for i in soup.find_all('code'):
     keyword = i.text.replace("<", "")
     keyword = re.sub(r" ?\([^)]+\)", "", keyword)
     ref = i.find_parent('a')
-    
+
     qhp.write('<keyword name = "{}" ref = "{}"/>\n'.format(keyword, ref['href']))
 
 # write the tail
