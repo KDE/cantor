@@ -50,6 +50,11 @@
 
 DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(parent)
 {
+    // Maintain a map of backend -> doc files
+    m_helpFiles.insert(QLatin1String("Maxima"), {QLatin1String("Maxima_v5.42"), QLatin1String("Maxima_v5.44")});
+    m_helpFiles.insert(QLatin1String("Python"), {QLatin1String("Python_v3.8.4")});
+    m_helpFiles.insert(QLatin1String("Octave"), {QLatin1String("Octave_v5.2.0")});
+
     m_textBrowser = new QWebEngineView(this);
     m_textBrowser->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
     m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewTab)->setVisible(false);
@@ -179,6 +184,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
         m_textBrowser->show();
     });
 
+    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), [=](int index){
+    });
+
     connect(m_displayArea, &QStackedWidget::currentChanged, [=]{
         //disable Home and Search in Page buttons when stackwidget shows contents widget, enable when shows web browser
         if(m_displayArea->currentIndex() != 1) //0->contents 1->browser
@@ -246,6 +254,8 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
 
 void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QString& icon)
 {
+    Q_UNUSED(icon)
+
     if(m_backend == newBackend)
         return;
 
@@ -273,9 +283,10 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
 
-    // update the QComboBox to display all the docs for newly changed backend worksheet
+
     m_documentationSelector->clear();
-    m_documentationSelector->addItem(QIcon::fromTheme(icon), m_backend);
+    // update the QComboBox to display all the docs for newly changed backend worksheet
+    m_documentationSelector->addItems(m_helpFiles[m_backend]);
 
     m_displayArea->addWidget(m_content);
     m_displayArea->addWidget(m_textBrowser);
@@ -297,9 +308,11 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
 
 void DocumentationPanelWidget::updateDocumentation()
 {
+    // On first startup, load the first item by default in the QComboBox documnetation selector
     // initialize the Qt Help engine and provide the proper help collection file for the current backend
+
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/help.qhc"));
+                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/") + m_helpFiles[m_backend][0] + QLatin1String("/help.qhc"));
 
     m_engine = new QHelpEngine(fileName, this);
 
@@ -325,7 +338,7 @@ void DocumentationPanelWidget::updateDocumentation()
 
     // register the compressed help file (qch)
     const QString& qchFileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                                        QLatin1String("documentation/") + m_backend + QLatin1String("/help.qch"));
+                                                        QLatin1String("documentation/") + m_backend + QLatin1String("/") + m_helpFiles[m_backend][0] + QLatin1String("/help.qch"));
     const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
 
     if(!m_engine->registeredDocumentations().contains(nameSpace))

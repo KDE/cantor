@@ -1,1 +1,2 @@
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} DESTINATION ${DATA_INSTALL_DIR}/${PROJECT_NAME}/documentation PATTERN "CMakeLists.txt" EXCLUDE)
+add_subdirectory(Python_v3.8.4)
+

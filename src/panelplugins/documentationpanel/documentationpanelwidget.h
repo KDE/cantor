@@ -23,6 +23,7 @@
 
 #include <QBuffer>
 #include <QHelpEngine>
+#include <QMap>
 #include <QWebEngineUrlRequestJob>
 #include <QWebEngineUrlSchemeHandler>
 #include <QWidget>
@@ -79,6 +80,10 @@ class DocumentationPanelWidget : public QWidget
     QToolButton* m_matchCase = nullptr;
 
     QComboBox* m_documentationSelector = nullptr;
+
+    // member variables for changing of combobox
+    QMap<QString, QStringList> m_helpFiles;
+    int m_currentIndex = 0;
 };
 
 // class for handling of custom url scheme ie. qthelp:// inside QWebEngineView
