@@ -1,5 +1,5 @@
 ### Steps to generate `qhp` and `qhcp`
-Copy the file named `qthelp_generator.py` and custom style sheets named `main.css` to the location where the `Maxima` HTML files exists. Then simply run the command `python qthelp_generator.py`. This script is all-in-one. It does the task of adding custom stylesheets defined in `main.css`, extracting the keywords from `index.hhk` and generation of QtHelp files named `qhp` and `qhcp`.
+Copy the file named `qthelp_generator.py` and custom style sheets named `main.css` to the location where the `Maxima` HTML files exists (maxima-website/docs/manual/). Then simply run the command `python qthelp_generator.py`. This script is all-in-one. It does the task of adding custom stylesheets defined in `main.css`, extracting the keywords from `index.hhk` and generation of QtHelp files named `qhp` and `qhcp`.
 NOTE: store the `index.hhk`, `main.css` in the same folder as that of the `Maxima` documentation and the script should be placed there as well.
 
 ### Creation of `qhc` and `qch`
