@@ -22,12 +22,12 @@
 #define _PANELPLUGINHANDLER_H
 
 #include <QObject>
+#include "panelplugin.h"
 #include "cantor_export.h"
 
 namespace Cantor
 {
 class PanelPluginHandlerPrivate;
-class PanelPlugin;
 class Session;
 
 /**
@@ -43,7 +43,10 @@ class CANTOR_EXPORT PanelPluginHandler : public QObject
     ~PanelPluginHandler() override;
 
     QList<PanelPlugin*> allPlugins();
-    QList<PanelPlugin*> plugins(Session* session);
+    QList<PanelPlugin*> plugins(Session*);
+
+    using PanelStates = QMap<QString, Cantor::PanelPlugin::State>;
+    QList<PanelPlugin*> activePluginsForSession(Session*, const PanelStates&);
 
     void loadPlugins();
 

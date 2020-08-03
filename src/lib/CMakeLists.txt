@@ -57,6 +57,9 @@ Set( cantor_LIB_HDRS
   worksheetaccess.h
   jupyterutils.h
   graphicpackage.h
+  # plugin classes
+  panelplugin.h
+  panelpluginhandler.h
 )
 
 ki18n_wrap_ui(cantor_LIB_SRCS directives/axisrange.ui directives/plottitle.ui)
@@ -94,7 +97,7 @@ if(LIBSPECTRE_FOUND)
     target_link_libraries(cantorlibs ${LIBSPECTRE_LIBRARY})
 endif(LIBSPECTRE_FOUND)
 
-set (CANTORLIBS_SOVERSION 27)
+set (CANTORLIBS_SOVERSION 28)
 set_target_properties( cantorlibs PROPERTIES VERSION ${RELEASE_SERVICE_VERSION} SOVERSION ${CANTORLIBS_SOVERSION})
 
 ecm_setup_version(${RELEASE_SERVICE_VERSION}

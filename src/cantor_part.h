@@ -25,7 +25,7 @@
 #include <QVector>
 
 #include <KParts/ReadWritePart>
-#include <lib/session.h>
+#include "lib/session.h"
 
 class QWidget;
 class Worksheet;

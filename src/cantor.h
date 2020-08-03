@@ -42,8 +42,6 @@ namespace KParts{
     class ReadWritePart;
 }
 
-using PanelStates = QMap<QString, Cantor::PanelPlugin::State>;
-
 /**
  * This is the application "Shell".  It has a menubar, toolbar, and
  * statusbar but relies on the "Part" to do all the real work.
@@ -123,7 +121,7 @@ private:
 
 private:
     QMap<KParts::ReadWritePart*, QStringList> m_pluginsVisibility;
-    QMap<KParts::ReadWritePart*, PanelStates> m_pluginsStates;
+    QMap<KParts::ReadWritePart*, Cantor::PanelPluginHandler::PanelStates> m_pluginsStates;
     QList<KParts::ReadWritePart *> m_parts;
     QMap<KParts::ReadWritePart*, QString> m_parts2Backends;
     KParts::ReadWritePart* m_part;

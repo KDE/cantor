@@ -10,10 +10,13 @@
         "Description[nl]": "Een paneel in Cantor voor het werken met bestanden",
         "Description[pt]": "Um painel para lidar com ficheiros dentro do Cantor",
         "Description[pt_BR]": "Um painel para trabalhar com arquivos dentro do Cantor",
+        "Description[ru]": "Панель Cantor для работы с файлами",
         "Description[sk]": "Panel na prácu zo súbormi vo vnútri Cantor",
+        "Description[sl]": "Panel za delo z datotekami znotraj Cantorja",
         "Description[sv]": "En panel för att arbeta med filer inne i Cantor",
         "Description[uk]": "Панель для роботи з файлами у вікні Cantor",
         "Description[x-test]": "xxA panel for working with files inside Cantorxx",
+        "Description[zh_CN]": "用于在 Cantor 内处理文件的面板",
         "Icon": "",
         "Id": "FileBrowserPanel",
         "License": "GPL",
@@ -26,10 +29,13 @@
         "Name[nl]": "Bestanden bladeren",
         "Name[pt]": "Gestor de Ficheiros",
         "Name[pt_BR]": "Navegador de arquivos",
+        "Name[ru]": "Диспетчер файлов",
         "Name[sk]": "Prehliadač súborov",
+        "Name[sl]": "Brskalnik po datotekah",
         "Name[sv]": "Filbläddrare",
         "Name[uk]": "Навігація файлами",
         "Name[x-test]": "xxFile Browserxx",
+        "Name[zh_CN]": "文件浏览器",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

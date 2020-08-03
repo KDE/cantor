@@ -23,12 +23,9 @@ using namespace Cantor;
 
 #include <QDebug>
 #include <QDir>
-#include <KService>
-#include <KServiceTypeTrader>
 #include <KPluginMetaData>
 
 #include "session.h"
-#include "panelplugin.h"
 #include "backend.h"
 
 class Cantor::PanelPluginHandlerPrivate
@@ -51,19 +48,15 @@ PanelPluginHandler::~PanelPluginHandler()
 void PanelPluginHandler::loadPlugins()
 {
     QStringList panelDirs;
-    foreach(const QString &dir, QCoreApplication::libraryPaths()) {
-        panelDirs << dir + QDir::separator() + QLatin1String("cantor/panels");
-    }
-
-    QPluginLoader loader;
-    foreach(const QString &dir, panelDirs){
+    for (const QString& path : QCoreApplication::libraryPaths()) {
+        const QString& dir = path + QDir::separator() + QLatin1String("cantor/panels");
         qDebug() << "dir: " << dir;
-        QStringList panels;
         QDir panelDir = QDir(dir);
 
-        panels = panelDir.entryList();
+        QPluginLoader loader;
+        const QStringList& panels = panelDir.entryList();
 
-        foreach (const QString &panel, panels)
+        for (const QString& panel : panels)
         {
             if (panel==QLatin1String(".") || panel==QLatin1String(".."))
                 continue;
@@ -80,11 +73,6 @@ void PanelPluginHandler::loadPlugins()
 
             KPluginMetaData info(loader);
             plugin->setPluginInfo(info);
-
-            // This set session to null inside plugin
-            Cantor::PanelPlugin::State emptyState;
-            plugin->restoreState(emptyState);
-
             d->plugins.append(plugin);
         }
     }
@@ -106,10 +94,10 @@ QList<PanelPlugin*> PanelPluginHandler::plugins(Session* session)
     const QStringList& extensions = session->backend()->extensions();
 
     qDebug()<<"loading panel plugins for session of type "<<session->backend()->name();
-    for(Cantor::PanelPlugin* plugin : d->plugins)
+    for (auto* plugin : d->plugins)
     {
         bool supported=true;
-        foreach(const QString& req, plugin->requiredExtensions()){
+        for (const QString& req : plugin->requiredExtensions()){
             // FIXME: That req.isEmpty() is there just because Help Panel has req
             // empty, returning FALSE when the comparison must to return TRUE.
             supported = supported && (extensions.contains(req) || req.isEmpty());
@@ -127,4 +115,27 @@ QList<PanelPlugin*> PanelPluginHandler::plugins(Session* session)
     }
 
     return pluginsForSession;
+}
+
+QList<PanelPlugin*> PanelPluginHandler::activePluginsForSession(Session* session, const PanelStates& previousPluginStates)
+{
+    QList<Cantor::PanelPlugin*> plugins = this->plugins(session);
+    for (auto* plugin : plugins)
+    {
+        if(!plugin)
+        {
+            qDebug()<<"somethings wrong with plugin inside PanelPluginHandler";
+            continue;
+        }
+
+        if (previousPluginStates.contains(plugin->name()))
+            plugin->restoreState(previousPluginStates[plugin->name()]);
+        else
+        {
+            Cantor::PanelPlugin::State initState;
+            initState.session = session;
+            plugin->restoreState(initState);
+        }
+    }
+    return plugins;
 }
