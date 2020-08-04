@@ -53,7 +53,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
 {
     // Maintain a map of backend -> doc files
     m_helpFiles.insert(QLatin1String("Maxima"), {QLatin1String("Maxima_v5.42"), QLatin1String("Maxima_v5.44")});
-    m_helpFiles.insert(QLatin1String("Python"), {QLatin1String("Python_v3.8.4")});
+    m_helpFiles.insert(QLatin1String("Python"), {QLatin1String("Python_v3.8.4"), QLatin1String("NumPy_v1.19")});
     m_helpFiles.insert(QLatin1String("Octave"), {QLatin1String("Octave_v5.2.0")});
 
     m_textBrowser = new QWebEngineView(this);
@@ -334,6 +334,19 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
 
 void DocumentationPanelWidget::updateDocumentation()
 {
+    // First Unregister any previously registered documentation and then proceed
+    /*if(!m_engine->registeredDocumentations().isEmpty())
+    {
+        for(const QString& fileName : m_engine->registeredDocumentations())
+        {
+            const QString& fileNamespace = QHelpEngineCore::namespaceName(fileName);
+            if(!fileName.isEmpty() && m_engine->registeredDocumentations().contains(fileNamespace))
+            {
+                m_engine->unregisterDocumentation(fileName);
+            }
+        }
+    }*/
+
     const QString& docSelected = m_documentationSelector->currentText();
 
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
