@@ -81,6 +81,7 @@ class DocumentationPanelWidget : public QWidget
 
     QComboBox* m_documentationSelector = nullptr;
     QMap<QString, QStringList> m_helpFiles;
+    QString m_previousQch;
 };
 
 // class for handling of custom url scheme ie. qthelp:// inside QWebEngineView

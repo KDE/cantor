@@ -51,6 +51,8 @@
 
 DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(parent)
 {
+    m_previousQch = QString();
+
     // Maintain a map of backend -> doc files
     m_helpFiles.insert(QLatin1String("Maxima"), {QLatin1String("Maxima_v5.42"), QLatin1String("Maxima_v5.44")});
     m_helpFiles.insert(QLatin1String("Python"), {QLatin1String("Python_v3.8.4"), QLatin1String("NumPy_v1.19")});
@@ -334,18 +336,15 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
 
 void DocumentationPanelWidget::updateDocumentation()
 {
-    // First Unregister any previously registered documentation and then proceed
-    /*if(!m_engine->registeredDocumentations().isEmpty())
+    // Unregister previous help engine qch files
+    if(m_previousQch != QString())
     {
-        for(const QString& fileName : m_engine->registeredDocumentations())
+        const QString& fileNamespace = QHelpEngineCore::namespaceName(m_previousQch);
+        if(m_engine->registeredDocumentations().contains(fileNamespace))
         {
-            const QString& fileNamespace = QHelpEngineCore::namespaceName(fileName);
-            if(!fileName.isEmpty() && m_engine->registeredDocumentations().contains(fileNamespace))
-            {
-                m_engine->unregisterDocumentation(fileName);
-            }
+            m_engine->unregisterDocumentation(m_previousQch);
         }
-    }*/
+    }
 
     const QString& docSelected = m_documentationSelector->currentText();
 
@@ -380,6 +379,8 @@ void DocumentationPanelWidget::updateDocumentation()
     const QString& qchFileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
                                                         QLatin1String("documentation/") + m_backend + QLatin1String("/") + docSelected +
                                                         QLatin1String("/help.qch"));
+    m_previousQch = qchFileName;
+
     const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
 
     if(!m_engine->registeredDocumentations().contains(nameSpace))
