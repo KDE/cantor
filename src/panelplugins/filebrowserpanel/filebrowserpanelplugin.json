@@ -16,6 +16,7 @@
         "Description[sv]": "En panel för att arbeta med filer inne i Cantor",
         "Description[uk]": "Панель для роботи з файлами у вікні Cantor",
         "Description[x-test]": "xxA panel for working with files inside Cantorxx",
+        "Description[zh_CN]": "用于在 Cantor 内处理文件的面板",
         "Icon": "",
         "Id": "FileBrowserPanel",
         "License": "GPL",
@@ -34,6 +35,7 @@
         "Name[sv]": "Filbläddrare",
         "Name[uk]": "Навігація файлами",
         "Name[x-test]": "xxFile Browserxx",
+        "Name[zh_CN]": "文件浏览器",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]
