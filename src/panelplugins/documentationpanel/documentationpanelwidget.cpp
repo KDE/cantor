@@ -187,33 +187,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
         m_textBrowser->show();
     });
 
-    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), [=]{
-        updateDocumentation();
-
-        if(m_displayArea->count())
-        {
-            for(int i = m_displayArea->count(); i >= 0; i--)
-            {
-                m_displayArea->removeWidget(m_displayArea->widget(i));
-            }
-
-            m_search->clear();
-        }
-
-        m_displayArea->addWidget(m_content);
-        m_displayArea->addWidget(m_textBrowser);
-        m_displayArea->addWidget(m_index);
-
-        connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-        connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-        connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
-
-        //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
-        // display the documentation browser whenever contents are clicked
-        connect(m_content, &QHelpContentWidget::linkActivated, [=]{
-            m_displayArea->setCurrentIndex(1);
-        });
-    });
+    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &DocumentationPanelWidget::updateDocumentation);
 
     connect(m_displayArea, &QStackedWidget::currentChanged, [=]{
         //disable Home and Search in Page buttons when stackwidget shows contents widget, enable when shows web browser
@@ -284,90 +258,94 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
 {
     Q_UNUSED(icon)
 
+    //nothing to do if the same backend was provided
     if(m_backend == newBackend)
         return;
 
-    // If new backend is same as the backend of the documentation panel,
-    // then do nothing because it is already open
-    qDebug()<<"Previous backend " << m_backend;
-    qDebug()<<"New backend " << newBackend;
-
     m_backend = newBackend;
 
-    // remove previous widgets over display belonging to previous backends
+    // show all available documentation files for the new backend
+    m_initializing = true;
+    m_documentationSelector->clear();
+    m_documentationSelector->addItems(m_helpFiles[m_backend]);
+    m_initializing = false;
+
+    //select the first available documentation file which will trigger the re-initialization of QHelpEngine
+    //TODO: restore from the saved state the previously selected documentation in m_documentationSelector for the current backend
+    m_documentationSelector->setCurrentIndex(0);
+}
+
+/*!
+ * called if another documentation file was selected in the ComboBox for all available documentations
+ * for the current backend. This slot triggers the re-initialization of QHelpEngine with the proper
+ * documentation file and also updates the content of the widgets showing the documentation.
+ */
+void DocumentationPanelWidget::updateDocumentation()
+{
+    if (m_initializing)
+        return;
+
+    //remove the currently shown widgets
     if(m_displayArea->count())
     {
         for(int i = m_displayArea->count(); i >= 0; i--)
-        {
             m_displayArea->removeWidget(m_displayArea->widget(i));
-        }
 
         m_search->clear();
     }
 
-    updateDocumentation();
+    //unregister the previous help engine qch files
+    if(m_previousQch != QString())
+    {
+        const QString& fileNamespace = QHelpEngineCore::namespaceName(m_previousQch);
+        if(m_engine->registeredDocumentations().contains(fileNamespace))
+            m_engine->unregisterDocumentation(m_previousQch);
+    }
 
-    m_search->setCompleter(new QCompleter(m_index->model(), m_search));
-    m_search->completer()->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
-    m_search->completer()->setCaseSensitivity(Qt::CaseInsensitive);
+    //initialize the Qt Help engine and provide the proper help collection file for the current backend
+    //and for the currently selected documentation for this backend
+    const QString& docSelected = m_documentationSelector->currentText();
+    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
+                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/") +
+                                                     docSelected + QLatin1String("/help.qhc"));
+    m_engine = new QHelpEngine(fileName, this);
+    if(!m_engine->setupData())
+        qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
 
+    if(m_backend != QLatin1String("Octave"))
+      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
 
-    m_documentationSelector->clear();
-    // update the QComboBox to display all the docs for newly changed backend worksheet
-    m_documentationSelector->addItems(m_helpFiles[m_backend]);
-
-    m_displayArea->addWidget(m_content);
-    m_displayArea->addWidget(m_textBrowser);
-
-    /* Adding the index widget to implement the logic for context sensitive help
-     * This widget would be NEVER shown*/
-    m_displayArea->addWidget(m_index);
-
-    connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    //index widget
+    m_index = m_engine->indexWidget();
     connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_search->completer(), QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
+    connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+
+    //content widget
+    m_content = m_engine->contentWidget();
+    connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
 
     //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
     // display the documentation browser whenever contents are clicked
     connect(m_content, &QHelpContentWidget::linkActivated, [=]{
         m_displayArea->setCurrentIndex(1);
     });
-}
 
-void DocumentationPanelWidget::updateDocumentation()
-{
-    // Unregister previous help engine qch files
-    if(m_previousQch != QString())
-    {
-        const QString& fileNamespace = QHelpEngineCore::namespaceName(m_previousQch);
-        if(m_engine->registeredDocumentations().contains(fileNamespace))
-        {
-            m_engine->unregisterDocumentation(m_previousQch);
-        }
-    }
+    //search widget
+    auto* completer = new QCompleter(m_index->model(), m_search);
+    m_search->setCompleter(completer);
+    completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    connect(completer, QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
-    const QString& docSelected = m_documentationSelector->currentText();
+    //add the widgets to the display area
+    m_displayArea->addWidget(m_content);
+    m_displayArea->addWidget(m_textBrowser);
+    /* Adding the index widget to implement the logic for context sensitive help
+     * This widget would be NEVER shown*/
+    m_displayArea->addWidget(m_index);
 
-    const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
-                                                     QLatin1String("documentation/") + m_backend + QLatin1String("/") +
-                                                     docSelected + QLatin1String("/help.qhc"));
-
-    // initialize the Qt Help engine and provide the proper help collection file for the current backend
-    m_engine = new QHelpEngine(fileName, this);
-
-    if(!m_engine->setupData())
-    {
-        qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
-    }
-
-    m_index = m_engine->indexWidget();
-    m_content = m_engine->contentWidget();
-
-    if(m_backend != QLatin1String("Octave"))
-    {
-      m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
-    }
-
+    //handle the URL scheme handler
     static bool schemeInstalled = false;
     if(!schemeInstalled)
     {
@@ -382,7 +360,6 @@ void DocumentationPanelWidget::updateDocumentation()
     m_previousQch = qchFileName;
 
     const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
-
     if(!m_engine->registeredDocumentations().contains(nameSpace))
     {
         if(m_engine->registerDocumentation(qchFileName))

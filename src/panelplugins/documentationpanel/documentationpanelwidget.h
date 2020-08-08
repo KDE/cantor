@@ -73,6 +73,7 @@ class DocumentationPanelWidget : public QWidget
     QHelpIndexWidget* m_index = nullptr;
     QHelpContentWidget* m_content = nullptr;
     QString m_backend;
+    bool m_initializing = false;
 
     // member variables for find in page text widget
     QLineEdit* m_search = nullptr; // for searching through keywords
