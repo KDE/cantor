@@ -273,6 +273,7 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     //select the first available documentation file which will trigger the re-initialization of QHelpEngine
     //TODO: restore from the saved state the previously selected documentation in m_documentationSelector for the current backend
     m_documentationSelector->setCurrentIndex(0);
+    updateDocumentation();
 }
 
 /*!
@@ -308,9 +309,10 @@ void DocumentationPanelWidget::updateDocumentation()
     const QString& fileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,
                                                      QLatin1String("documentation/") + m_backend + QLatin1String("/") +
                                                      docSelected + QLatin1String("/help.qhc"));
+
     m_engine = new QHelpEngine(fileName, this);
-    if(!m_engine->setupData())
-        qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
+//     if(!m_engine->setupData())
+//         qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
 
     if(m_backend != QLatin1String("Octave"))
       m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));

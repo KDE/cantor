@@ -32,7 +32,6 @@ DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVaria
 
 DocumentationPanelPlugin::~DocumentationPanelPlugin()
 {
-    delete m_widget;
 }
 
 QWidget* DocumentationPanelPlugin::widget()
