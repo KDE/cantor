@@ -88,7 +88,7 @@
      </property>
      <layout class="QVBoxLayout" name="container">
       <item>
-       <widget class="QTreeWidget" name="treeWidget">
+       <widget class="QTreeWidget" name="qchTable">
         <column>
          <property name="text">
           <string notr="true">1</string>
@@ -97,13 +97,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="add">
         <property name="text">
          <string>Add</string>
         </property>
         <property name="icon">
-         <iconset theme="project_add">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset theme="list-add"/>
         </property>
        </widget>
       </item>

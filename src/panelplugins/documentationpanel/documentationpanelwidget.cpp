@@ -243,7 +243,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
 
 DocumentationPanelWidget::~DocumentationPanelWidget()
 {
-    delete m_index; //this crashes
+    delete m_index;
     delete m_content;
     delete m_engine;
     delete m_textBrowser;

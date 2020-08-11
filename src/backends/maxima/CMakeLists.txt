@@ -17,7 +17,7 @@ ki18n_wrap_ui(MaximaBackend_SRCS settings.ui qthelpconfigeditdialog.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
-target_link_libraries(cantor_maximabackend KF5::SyntaxHighlighting)
+target_link_libraries(cantor_maximabackend KF5::SyntaxHighlighting KF5::I18n KF5::IconThemes KF5::NewStuff KF5::KIOWidgets Qt5::Help)
 
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)

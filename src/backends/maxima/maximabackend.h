@@ -16,12 +16,20 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
 #ifndef _MAXIMABACKEND_H
 #define _MAXIMABACKEND_H
 
+#include <KNS3/Button>
+
 #include "backend.h"
+#include "ui_settings.h"
+#include "ui_qthelpconfigeditdialog.h"
+
+class QDialog;
+class QTreeWidgetItem;
 
 class MaximaBackend : public Cantor::Backend
 {
@@ -41,7 +49,49 @@ class MaximaBackend : public Cantor::Backend
     KConfigSkeleton* config() const override;
 
     QString description() const override;
+
+private Q_SLOTS:
+    void add();
+    void remove(QTreeWidgetItem*);
+    void modify(QTreeWidgetItem*);
+    void knsUpdate(const KNS3::Entry::List&);
+
+private:
+    void modify();
+    QTreeWidgetItem* addTableItem(const QString &, const QString &, const QString &, const QString &);
+    bool checkNamespace(const QString&, QTreeWidgetItem*);
+
+private:
+    mutable Ui::MaximaSettingsBase* m_settings;
 };
 
+// class for qt help file installation
+class QtHelpConfigEditDialog : public QDialog, public Ui_QtHelpConfigEditDialog
+{
+    Q_OBJECT
+public:
+    explicit QtHelpConfigEditDialog(QTreeWidgetItem* modifiedItem)
+        : m_modifiedItem(modifiedItem)
+    {
+        setupUi(this);
+
+        if (modifiedItem)
+        {
+            setWindowTitle(i18nc("@title:window", "Modify Entry"));
+        }
+        else
+        {
+            setWindowTitle(i18nc("@title:window", "Add New Entry"));
+        }
+        qchIcon->setIcon(QStringLiteral("maximabackend"));
+    }
+
+    bool checkQtHelpFile();
+
+    //void accept() override;
+
+private:
+    QTreeWidgetItem* m_modifiedItem;
+};
 
 #endif /* _MAXIMABACKEND_H */
