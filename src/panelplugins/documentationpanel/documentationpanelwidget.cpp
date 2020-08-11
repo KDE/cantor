@@ -311,8 +311,8 @@ void DocumentationPanelWidget::updateDocumentation()
                                                      docSelected + QLatin1String("/help.qhc"));
 
     m_engine = new QHelpEngine(fileName, this);
-//     if(!m_engine->setupData())
-//         qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();
+    /*if(!m_engine->setupData())
+         qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();*/
 
     if(m_backend != QLatin1String("Octave"))
       m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
@@ -347,13 +347,10 @@ void DocumentationPanelWidget::updateDocumentation()
      * This widget would be NEVER shown*/
     m_displayArea->addWidget(m_index);
 
-    //handle the URL scheme handler
-    static bool schemeInstalled = false;
-    if(!schemeInstalled)
-    {
-        m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
-        schemeInstalled = true;
-    }
+    // handle the URL scheme handler
+    //m_textBrowser->page()->profile()->removeUrlScheme("qthelp");
+    m_textBrowser->page()->profile()->removeAllUrlSchemeHandlers(); // remove previously installed scheme handler and then install new one
+    m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
 
     // register the compressed help file (qch)
     const QString& qchFileName = QStandardPaths::locate(QStandardPaths::AppDataLocation,

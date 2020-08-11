@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>414</width>
-    <height>241</height>
+    <height>628</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -73,7 +73,39 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayoutScripts">
       <item>
-       <widget class="KEditListWidget" name="kcfg_autorunScripts" native="true"/>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox2">
+     <property name="toolTip">
+      <string>Install locally available documentation files or download from the KDE store</string>
+     </property>
+     <property name="title">
+      <string>Install Additional Documentation Files</string>
+     </property>
+     <layout class="QVBoxLayout" name="container">
+      <item>
+       <widget class="QTreeWidget" name="treeWidget">
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Add</string>
+        </property>
+        <property name="icon">
+         <iconset theme="project_add">
+          <normaloff>.</normaloff>.</iconset>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -96,7 +128,7 @@
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
   </customwidget>

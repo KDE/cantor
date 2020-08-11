@@ -17,6 +17,7 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
 #include "maximabackend.h"
@@ -24,6 +25,7 @@
 #include "maximasession.h"
 #include "settings.h"
 #include "ui_settings.h"
+#include "ui_qthelpconfigeditdialog.h"
 
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
