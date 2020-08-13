@@ -6,54 +6,69 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>416</width>
+    <height>400</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Path to Sage:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KUrlRequester" name="kcfg_Path"/>
-     </item>
-    </layout>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Executable:</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayoutDoc">
-     <item>
-      <widget class="QLabel" name="label2">
-       <property name="text">
-        <string>Path to local documentation:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KUrlRequester" name="kcfg_localDoc">
-       <property name="toolTip">
-        <string>If empty, the &quot;Show help&quot; action will show the default online documentation. Otherwise, the specified URL will be opened.</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="0" column="2">
+    <widget class="KUrlRequester" name="kcfg_Path"/>
    </item>
-   <item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="label2">
+     <property name="text">
+      <string>Documentation:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="KUrlRequester" name="kcfg_localDoc">
+     <property name="toolTip">
+      <string>If empty, the &quot;Show help&quot; action will show the default online documentation. Otherwise, the specified URL will be opened.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>LaTeX typesetting:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
     <widget class="QCheckBox" name="kcfg_allowLatex">
      <property name="toolTip">
       <string>Sage LaTeX output not always correct, so latex typesetting can be disabled for better experience</string>
      </property>
      <property name="text">
-      <string>Enable LaTeX typesetting</string>
+      <string>Enabled</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="3" column="1">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="4" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="toolTip">
       <string>Commands to automatically run on start. They can be useful for loading needed modules, changing environment, etc.</string>
@@ -63,12 +78,12 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayoutScripts">
       <item>
-       <widget class="KEditListWidget" name="kcfg_autorunScripts" native="true"/>
+       <widget class="KEditListWidget" name="kcfg_autorunScripts"/>
       </item>
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="5" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -86,7 +101,7 @@
  <customwidgets>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
   </customwidget>
