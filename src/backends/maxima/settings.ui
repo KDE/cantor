@@ -6,64 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>628</height>
+    <width>462</width>
+    <height>486</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Path to Maxima:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KUrlRequester" name="kcfg_Path"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout1">
-     <item>
-      <widget class="QLabel" name="label2">
-       <property name="text">
-        <string>Path to local documentation:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KUrlRequester" name="kcfg_localDoc">
-       <property name="toolTip">
-        <string>If empty, the &quot;Show help&quot; action will show the default online documentation. Otherwise, the specified URL will be opened.</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="2">
     <widget class="QCheckBox" name="kcfg_integratePlots">
      <property name="toolTip">
       <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
      </property>
      <property name="text">
-      <string>Integrate Plots in Worksheet</string>
+      <string>Enabled</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QCheckBox" name="kcfg_variableManagement">
-     <property name="toolTip">
-      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
-     </property>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="label2">
      <property name="text">
-      <string>Enable Variable Management</string>
+      <string>Documentation:</string>
      </property>
     </widget>
    </item>
-   <item>
+   <item row="5" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="toolTip">
       <string>Commands to automatically run on start. They can be useful for loading needed modules, changing environment, etc.</string>
@@ -78,38 +43,30 @@
      </layout>
     </widget>
    </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox2">
-     <property name="toolTip">
-      <string>Install locally available documentation files or download from the KDE store</string>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Executable:</string>
      </property>
-     <property name="title">
-      <string>Install Additional Documentation Files</string>
-     </property>
-     <layout class="QVBoxLayout" name="container">
-      <item>
-       <widget class="QTreeWidget" name="qchTable">
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="add">
-        <property name="text">
-         <string>Add</string>
-        </property>
-        <property name="icon">
-         <iconset theme="list-add"/>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
-   <item>
+   <item row="4" column="1">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="6" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -121,6 +78,40 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="3" column="2">
+    <widget class="QCheckBox" name="kcfg_variableManagement">
+     <property name="toolTip">
+      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
+     </property>
+     <property name="text">
+      <string>Enabled</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="KUrlRequester" name="kcfg_Path"/>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QLabel" name="lPlotIntegration">
+     <property name="text">
+      <string>Plot Integration:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="KUrlRequester" name="kcfg_localDoc">
+     <property name="toolTip">
+      <string>If empty, the &quot;Show help&quot; action will show the default online documentation. Otherwise, the specified URL will be opened.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QLabel" name="lVariableManagement">
+     <property name="text">
+      <string>Variable Management:</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

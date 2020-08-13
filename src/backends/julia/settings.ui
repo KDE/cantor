@@ -10,114 +10,76 @@
     <height>227</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Path to Julia:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KUrlRequester" name="kcfg_replPath"/>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="kcfg_integratePlots">
-     <property name="toolTip">
-      <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
-     </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" rowspan="2">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Integrate Plots in Worksheet</string>
+      <string>Path to Julia:</string>
      </property>
     </widget>
    </item>
-   <item>
-    <widget class="QCheckBox" name="kcfg_variableManagement">
-     <property name="toolTip">
-      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
-     </property>
+   <item row="2" column="0">
+    <widget class="QLabel" name="lPlotIntegration">
      <property name="text">
-      <string>Enable Variable Management</string>
+      <string>Plot Integration:</string>
      </property>
     </widget>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout2">
-     <item>
-      <widget class="QLabel" name="label2">
-       <property name="text">
-        <string>Inline Plots Intermediate Format:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="kcfg_inlinePlotFormat">
-       <property name="toolTip">
-        <string>Inner format of plots, if plots embedding is enabled.</string>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">svg</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">png</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
+   <item row="3" column="0">
+    <widget class="QLabel" name="lVariableManagement">
+     <property name="text">
+      <string>Variable Management:</string>
+     </property>
+    </widget>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout3">
-     <item>
-      <widget class="QLabel" name="label3">
-       <property name="toolTip">
-        <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
-       </property>
-       <property name="text">
-        <string>Preferred package for the &quot;Plot&quot; menu: </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KComboBox" name="kcfg_plotExtenstionGraphicPackage">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <item>
-        <property name="text">
-         <string>GR</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Plots</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>PyPlot</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Gadfly</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label2">
+     <property name="text">
+      <string>Internal Plot Format:</string>
+     </property>
+    </widget>
    </item>
-   <item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QLabel" name="label3">
+     <property name="toolTip">
+      <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
+     </property>
+     <property name="text">
+      <string>Graphic Package for &quot;Plot&quot;-assistant</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="KComboBox" name="kcfg_plotExtenstionGraphicPackage">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <item>
+      <property name="text">
+       <string>GR</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Plots</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>PyPlot</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Gadfly</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="6" column="0">
     <spacer name="verticalSpacer1">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -130,6 +92,46 @@
      </property>
     </spacer>
    </item>
+   <item row="4" column="2">
+    <widget class="QComboBox" name="kcfg_inlinePlotFormat">
+     <property name="toolTip">
+      <string>Inner format of plots, if plots embedding is enabled.</string>
+     </property>
+     <item>
+      <property name="text">
+       <string notr="true">svg</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string notr="true">png</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QCheckBox" name="kcfg_variableManagement">
+     <property name="toolTip">
+      <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
+     </property>
+     <property name="text">
+      <string>Enabled</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2" rowspan="2">
+    <widget class="QCheckBox" name="kcfg_integratePlots">
+     <property name="toolTip">
+      <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
+     </property>
+     <property name="text">
+      <string>Enabled</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="KUrlRequester" name="kcfg_replPath"/>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -140,7 +142,7 @@
   </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
-   <extends>QFrame</extends>
+   <extends>QWidget</extends>
    <header>kurlrequester.h</header>
    <container>1</container>
   </customwidget>
