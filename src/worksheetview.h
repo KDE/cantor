@@ -39,6 +39,7 @@ public:
     bool isAtEnd() const;
     void scrollToEnd() const;
     void scrollBy(int dy);
+    void scrollTo(int y);
 
     QPoint viewCursorPos() const;
     QPointF sceneCursorPos() const;

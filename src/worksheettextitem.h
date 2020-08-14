@@ -138,6 +138,7 @@ class WorksheetTextItem : public QGraphicsTextItem
     void redo();
     void clipboardChanged();
     void selectionChanged();
+    void testSize();
 
   protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -158,7 +159,6 @@ class WorksheetTextItem : public QGraphicsTextItem
 
   private Q_SLOTS:
     //void setHeight();
-    void testSize();
     void updateRichTextActions(QTextCursor cursor);
 
   private:

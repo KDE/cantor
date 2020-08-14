@@ -49,6 +49,7 @@
 
 #include "settings.h"
 #include "ui_settings.h"
+#include "ui_formating.h"
 #include "backendchoosedialog.h"
 #include <QMetaObject>
 
@@ -366,6 +367,11 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
             connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
             connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
+            connect(part, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)), this, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)));
+            connect(part, SIGNAL(hierarhyEntryNameChange(QString, QString, int)), this, SIGNAL(hierarhyEntryNameChange(QString, QString, int)));
+            connect(this, SIGNAL(requestScrollToHierarchyEntry(QString)), part, SIGNAL(requestScrollToHierarchyEntry(QString)));
+            connect(this, SIGNAL(settingsChanges()), part, SIGNAL(settingsChanges()));
+
             m_parts.append(part);
             if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait
                 m_parts2Backends[part] = backend->id();
@@ -583,12 +589,19 @@ void CantorShell::closeEvent(QCloseEvent* event) {
 void CantorShell::showSettings()
 {
     KConfigDialog *dialog = new KConfigDialog(this,  QLatin1String("settings"), Settings::self());
+
     QWidget *generalSettings = new QWidget;
     Ui::SettingsBase base;
     base.setupUi(generalSettings);
+
+    QWidget *formattingSettings = new QWidget;
+    Ui::SettingsFormatting formatting;
+    formatting.setupUi(formattingSettings);
+
     base.kcfg_DefaultBackend->addItems(Cantor::Backend::listAvailableBackends());
 
     dialog->addPage(generalSettings, i18n("General"), QLatin1String("preferences-other"));
+    dialog->addPage(formattingSettings, i18n("Formatting"), QLatin1String("preferences-other"));
     for (auto* backend : Cantor::Backend::availableBackends())
     {
         if (backend->config()) //It has something to configure, so add it to the dialog
@@ -596,6 +609,7 @@ void CantorShell::showSettings()
     }
 
     dialog->show();
+    connect(dialog, &KConfigDialog::settingsChanged, this, &CantorShell::settingsChanges);
 }
 
 void CantorShell::downloadExamples()

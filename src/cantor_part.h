@@ -83,8 +83,12 @@ public:
 Q_SIGNALS:
     void setCaption(const QString& caption, const QIcon& icon);
     void showHelp(const QString& help);
+    void hierarchyChanged(QStringList, QStringList, QList<int>);
+    void hierarhyEntryNameChange(QString name, QString searchName, int depth);
     void worksheetSave(const QUrl& url);
     void setBackendName(const QString& name);
+    void requestScrollToHierarchyEntry(QString);
+    void settingsChanges();
 
 public Q_SLOTS:
     void updateCaption();

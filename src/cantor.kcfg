@@ -6,6 +6,7 @@
   <include>cantor_export.h</include>
   <include>config-cantor.h</include>
   <include>QUrl</include>
+  <include>QApplication</include>
   <kcfgfile/>
   <group name="Cantor">
     <entry name="DefaultBackend" type="String">
@@ -63,6 +64,102 @@
     <entry name="PathToCantorPluginsDir" type="Url">
       <label>Path to directory, which contains Cantor plugins (cantorpart and all backends)</label>
       <default code="true">QUrl::fromLocalFile(QString::fromLocal8Bit(PATH_TO_CANTOR_PLUGINS))</default>
+    </entry>
+    <entry name="ChapterFontFamily" type="Font">
+      <label>Hierarchy font for chapter</label>
+      <default code="true">QApplication::font()</default>
+    </entry>
+    <entry name="ChapterFontSize" type="Int">
+      <label>Hierarchy font size for chapter</label>
+      <default code="true">QApplication::font().pointSize()</default>
+    </entry>
+    <entry name="ChapterFontItalic" type="Bool">
+      <label>Hierarchy font italic for chapter</label>
+      <default>false</default>
+    </entry>
+    <entry name="ChapterFontBold" type="Bool">
+      <label>Hierarchy font bold for chapter</label>
+      <default>false</default>
+    </entry>
+    <entry name="SubchapterFontFamily" type="Font">
+      <label>Hierarchy font for subchapter</label>
+      <default code="true">QApplication::font()</default>
+    </entry>
+    <entry name="SubchapterFontSize" type="Int">
+      <label>Hierarchy font size for subchapter</label>
+      <default code="true">QApplication::font().pointSize()</default>
+    </entry>
+    <entry name="SubchapterFontItalic" type="Bool">
+      <label>Hierarchy font italic for subchapter</label>
+      <default>false</default>
+    </entry>
+    <entry name="SubchapterFontBold" type="Bool">
+      <label>Hierarchy font bold for subchapter</label>
+      <default>false</default>
+    </entry>
+    <entry name="SectionFontFamily" type="Font">
+      <label>Hierarchy font for section</label>
+      <default code="true">QApplication::font()</default>
+    </entry>
+    <entry name="SectionFontSize" type="Int">
+      <label>Hierarchy font for section</label>
+      <default code="true">QApplication::font().pointSize()</default>
+    </entry>
+    <entry name="SectionFontItalic" type="Bool">
+      <label>Hierarchy font italic for section</label>
+      <default>false</default>
+    </entry>
+    <entry name="SectionFontBold" type="Bool">
+      <label>Hierarchy font bold for section</label>
+      <default>false</default>
+    </entry>
+    <entry name="SubsectionFontFamily" type="Font">
+      <label>Hierarchy font for subsection</label>
+      <default code="true">QApplication::font()</default>
+    </entry>
+    <entry name="SubsectionFontSize" type="Int">
+      <label>Hierarchy font for subsection</label>
+      <default code="true">QApplication::font().pointSize()</default>
+    </entry>
+    <entry name="SubsectionFontItalic" type="Bool">
+      <label>Hierarchy font italic for subsection</label>
+      <default>false</default>
+    </entry>
+    <entry name="SubsectionFontBold" type="Bool">
+      <label>Hierarchy font bold for subsection</label>
+      <default>false</default>
+    </entry>
+    <entry name="ParagraphFontFamily" type="Font">
+      <label>Hierarchy font for paragraph</label>
+      <default code="true">QApplication::font()</default>
+    </entry>
+    <entry name="ParagraphFontSize" type="Int">
+      <label>Hierarchy font for paragraph</label>
+      <default code="true">QApplication::font().pointSize()</default>
+    </entry>
+    <entry name="ParagraphFontItalic" type="Bool">
+      <label>Hierarchy font italic for paragraph</label>
+      <default>false</default>
+    </entry>
+    <entry name="ParagraphFontBold" type="Bool">
+      <label>Hierarchy font bold for paragraph</label>
+      <default>false</default>
+    </entry>
+    <entry name="SubparagraphFontFamily" type="Font">
+      <label>Hierarchy font for subparagraph</label>
+      <default code="true">QApplication::font()</default>
+    </entry>
+    <entry name="SubparagraphFontSize" type="Int">
+      <label>Hierarchy font for subparagraph</label>
+      <default code="true">QApplication::font().pointSize()</default>
+    </entry>
+    <entry name="SubparagraphFontItalic" type="Bool">
+      <label>Hierarchy font italic for subparagraph</label>
+      <default>false</default>
+    </entry>
+    <entry name="SubparagraphFontBold" type="Bool">
+      <label>Hierarchy font bold for subparagraph</label>
+      <default>false</default>
     </entry>
   </group>
 </kcfg>

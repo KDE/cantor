@@ -40,6 +40,7 @@
 #include <KToggleAction>
 #include <KLocalizedString>
 #include <QRegularExpression>
+#include <QElapsedTimer>
 
 #include "settings.h"
 #include "commandentry.h"
@@ -50,6 +51,7 @@
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
 #include "horizontalruleentry.h"
+#include "hierarchyentry.h"
 #include "lib/jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -86,6 +88,7 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultW
 
     m_viewWidth = 0;
     m_maxWidth = 0;
+    m_maxPromptWidth = 0;
 
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
@@ -99,6 +102,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultW
     m_cursorItemTimer->start(500);
 
     m_jupyterMetadata = nullptr;
+
+    m_hierarchyMaxDepth = 0;
 
     if (backend)
         initSession(backend);
@@ -215,19 +220,23 @@ void Worksheet::updateLayout()
         cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
-    qreal maxPromptWidth = 0;
+    m_maxPromptWidth = 0;
     if (Settings::useOldCantorEntriesIndent() == false)
     {
         for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
             if (entry->type() == CommandEntry::Type)
-                maxPromptWidth = std::max(static_cast<CommandEntry*>(entry)->promptItemWidth(), maxPromptWidth);
+                m_maxPromptWidth = std::max(static_cast<CommandEntry*>(entry)->promptItemWidth(), m_maxPromptWidth);
+            else if (entry->type() == HierarchyEntry::Type)
+                m_maxPromptWidth = std::max(static_cast<HierarchyEntry*>(entry)->hierarchyItemWidth(), m_maxPromptWidth);
     }
 
-    const qreal w = m_viewWidth - LeftMargin - RightMargin;
+    const qreal w = m_viewWidth - LeftMargin - RightMargin - (WorksheetEntry::ControlElementWidth + WorksheetEntry::ControlElementBorder) * m_hierarchyMaxDepth;
     qreal y = TopMargin;
     const qreal x = LeftMargin;
     for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
-        y += entry->setGeometry(x, x+maxPromptWidth, y, w);
+        y += entry->setGeometry(x, x+m_maxPromptWidth, y, w);
+
+    updateHierarchyControlsLayout();
 
     setSceneRect(QRectF(0, 0, sceneRect().width(), y));
     if (cursorRectVisible)
@@ -235,6 +244,99 @@ void Worksheet::updateLayout()
     else if (atEnd)
         worksheetView()->scrollToEnd();
     drawEntryCursor();
+}
+
+void Worksheet::updateHierarchyLayout()
+{
+    QStringList names;
+    QStringList searchStrings;
+    QList<int> depths;
+
+    m_hierarchyMaxDepth = 0;
+    std::vector<int> hierarchyNumbers;
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    {
+        if (entry->type() == HierarchyEntry::Type)
+        {
+            HierarchyEntry* hierarchEntry = static_cast<HierarchyEntry*>(entry);
+            hierarchEntry->updateHierarchyLevel(hierarchyNumbers);
+            m_hierarchyMaxDepth = std::max(m_hierarchyMaxDepth, hierarchyNumbers.size());
+
+            names.append(hierarchEntry->text());
+            searchStrings.append(hierarchEntry->hierarchyText());
+            depths.append(hierarchyNumbers.size()-1);
+        }
+    }
+
+    emit hierarchyChanged(names, searchStrings, depths);
+}
+
+void Worksheet::updateHierarchyControlsLayout(WorksheetEntry* startEntry)
+{
+    if (startEntry == nullptr)
+        startEntry = firstEntry();
+
+     // Update sizes of control elements for hierarchy entries
+    std::vector<HierarchyEntry*> levelsEntries;
+    int numerationBegin = (int)HierarchyEntry::HierarchyLevel::Chapter;
+    for (int i = numerationBegin; i < (int)HierarchyEntry::HierarchyLevel::EndValue; i++)
+        levelsEntries.push_back(nullptr);
+
+    for (WorksheetEntry *entry = startEntry; entry; entry = entry->next())
+    {
+        if (entry->type() == HierarchyEntry::Type)
+        {
+            HierarchyEntry* hierarchyEntry = static_cast<HierarchyEntry*>(entry);
+            int idx = (int)hierarchyEntry->level() - numerationBegin;
+            if (levelsEntries[idx] == nullptr)
+            {
+                levelsEntries[idx] = hierarchyEntry;
+            }
+            else
+            {
+                for (int i = idx; i < (int)levelsEntries.size(); i++)
+                    if (levelsEntries[i] != nullptr)
+                    {
+                        bool haveSubelements = levelsEntries[i]->next() ? levelsEntries[i]->next() != entry : false;
+                        levelsEntries[i]->updateControlElementForHierarchy(hierarchyEntry->y() - WorksheetEntry::VerticalMargin, m_hierarchyMaxDepth, haveSubelements);
+                        levelsEntries[i] = nullptr;
+                    }
+                levelsEntries[idx] = hierarchyEntry;
+            }
+        }
+    }
+
+    if (lastEntry())
+        for (int i = 0; i < (int)levelsEntries.size(); i++)
+            if (levelsEntries[i] != nullptr)
+            {
+                bool haveSubelements = levelsEntries[i] != lastEntry();
+                levelsEntries[i]->updateControlElementForHierarchy(lastEntry()->y() + lastEntry()->size().height() - WorksheetEntry::VerticalMargin, m_hierarchyMaxDepth, haveSubelements);
+                levelsEntries[i] = nullptr;
+            }
+}
+
+std::vector<WorksheetEntry*> Worksheet::hierarchySubelements(HierarchyEntry* hierarchyEntry) const
+{
+    std::vector<WorksheetEntry*> subentries;
+
+    Q_ASSERT(hierarchyEntry);
+
+    bool subentriesEnd = false;
+    int level = (int)hierarchyEntry->level();
+    for (WorksheetEntry *entry = hierarchyEntry->next(); entry && !subentriesEnd; entry = entry->next())
+    {
+        if (entry->type() == HierarchyEntry::Type)
+        {
+            if ((int)(static_cast<HierarchyEntry*>(entry)->level()) <= level)
+                subentriesEnd = true;
+            else
+                subentries.push_back(entry);
+        }
+        else
+            subentries.push_back(entry);
+    }
+    return subentries;
 }
 
 void Worksheet::updateEntrySize(WorksheetEntry* entry)
@@ -246,11 +348,32 @@ void Worksheet::updateEntrySize(WorksheetEntry* entry)
         cursorRectVisible = worksheetView()->isVisible(cursorRect);
     }
 
+    if (Settings::useOldCantorEntriesIndent() == false)
+    {
+        qreal newMaxPromptWidth = m_maxPromptWidth;
+        if (entry->type() == CommandEntry::Type)
+            newMaxPromptWidth = static_cast<CommandEntry*>(entry)->promptItemWidth();
+        else if (entry->type() == HierarchyEntry::Type)
+            newMaxPromptWidth = static_cast<HierarchyEntry*>(entry)->hierarchyItemWidth();
+
+        // If width of prompt (if precense) of the entry more, that currect maximum,
+        // then we need full layout update
+        if (newMaxPromptWidth > m_maxPromptWidth)
+        {
+            updateLayout();
+            return;
+        }
+    }
+
     qreal y = entry->y() + entry->size().height();
     for (entry = entry->next(); entry; entry = entry->next()) {
         entry->setY(y);
         y += entry->size().height();
     }
+
+    if (!m_isLoadingFromFile)
+        updateHierarchyControlsLayout(entry);
+
     setSceneRect(QRectF(0, 0, sceneRect().width(), y));
     if (cursorRectVisible)
         makeVisible(worksheetCursor());
@@ -497,6 +620,8 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
     else
         setLastEntry(m_dragEntry);
     m_dragEntry->show();
+    if (m_dragEntry->type() == HierarchyEntry::Type)
+        updateHierarchyLayout();
     m_dragEntry->focusEntry();
     const QPointF scenePos = worksheetView()->sceneCursorPos();
     if (entryAt(scenePos) != m_dragEntry)
@@ -510,6 +635,89 @@ void Worksheet::startDrag(WorksheetEntry* entry, QDrag* drag)
         m_placeholderEntry = nullptr;
     }
     m_dragEntry = nullptr;
+}
+
+void Worksheet::startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSizeF responsibleZoneSize)
+{
+    if (m_readOnly)
+        return;
+
+    resetEntryCursor();
+    m_dragEntry = entry;
+    WorksheetEntry* prev = entry->previous();
+    m_hierarchySubentriesDrag = hierarchySubelements(entry);
+
+    WorksheetEntry* next;
+    if (m_hierarchySubentriesDrag.size() != 0)
+        next = m_hierarchySubentriesDrag.back()->next();
+    else
+        next = entry->next();
+
+    m_placeholderEntry = new PlaceHolderEntry(this, responsibleZoneSize);
+    m_hierarchyDragSize = responsibleZoneSize;
+    m_placeholderEntry->setPrevious(prev);
+    m_placeholderEntry->setNext(next);
+    if (prev)
+        prev->setNext(m_placeholderEntry);
+    else
+        setFirstEntry(m_placeholderEntry);
+    if (next)
+        next->setPrevious(m_placeholderEntry);
+    else
+        setLastEntry(m_placeholderEntry);
+
+    m_dragEntry->hide();
+    for(WorksheetEntry* subEntry : m_hierarchySubentriesDrag)
+        subEntry->hide();
+
+    Qt::DropAction action = drag->exec();
+
+    qDebug() << action;
+    if (action == Qt::MoveAction && m_placeholderEntry) {
+        qDebug() << "insert in new position";
+        prev = m_placeholderEntry->previous();
+        next = m_placeholderEntry->next();
+    }
+    m_dragEntry->setPrevious(prev);
+
+    WorksheetEntry* lastDraggingEntry;
+    if (m_hierarchySubentriesDrag.size() != 0)
+        lastDraggingEntry = m_hierarchySubentriesDrag.back();
+    else
+        lastDraggingEntry = entry;
+
+    lastDraggingEntry->setNext(next);
+
+    if (prev)
+        prev->setNext(m_dragEntry);
+    else
+        setFirstEntry(m_dragEntry);
+
+    if (next)
+        next->setPrevious(lastDraggingEntry);
+    else
+        setLastEntry(lastDraggingEntry);
+
+    m_dragEntry->show();
+     for(WorksheetEntry* subEntry : m_hierarchySubentriesDrag)
+        subEntry->show();
+
+    updateHierarchyLayout();
+    m_dragEntry->focusEntry();
+    const QPointF scenePos = worksheetView()->sceneCursorPos();
+    if (entryAt(scenePos) != m_dragEntry)
+        m_dragEntry->hideActionBar();
+    updateLayout();
+
+    if (m_placeholderEntry) {
+        m_placeholderEntry->setPrevious(nullptr);
+        m_placeholderEntry->setNext(nullptr);
+        m_placeholderEntry->hide();
+        m_placeholderEntry->deleteLater();
+        m_placeholderEntry = nullptr;
+    }
+    m_dragEntry = nullptr;
+    m_hierarchySubentriesDrag.clear();
 }
 
 void Worksheet::evaluate()
@@ -561,6 +769,8 @@ WorksheetEntry* Worksheet::appendEntry(const int type, bool focus)
         setLastEntry(entry);
         if (!m_isLoadingFromFile)
         {
+            if (type == HierarchyEntry::Type)
+                updateHierarchyLayout();
             updateLayout();
             if (focus)
             {
@@ -624,6 +834,10 @@ WorksheetEntry * Worksheet::appendHorizontalRuleEntry()
     return appendEntry(HorizontalRuleEntry::Type);
 }
 
+WorksheetEntry * Worksheet::appendHierarchyEntry()
+{
+    return appendEntry(HierarchyEntry::Type);
+}
 
 WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
 {
@@ -646,6 +860,8 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
             next->setPrevious(entry);
         else
             setLastEntry(entry);
+        if (type == HierarchyEntry::Type)
+            updateHierarchyLayout();
         updateLayout();
         setModified();
     } else {
@@ -702,6 +918,11 @@ WorksheetEntry * Worksheet::insertHorizontalRuleEntry(WorksheetEntry* current)
     return insertEntry(HorizontalRuleEntry::Type, current);
 }
 
+WorksheetEntry * Worksheet::insertHierarchyEntry(WorksheetEntry* current)
+{
+    return insertEntry(HierarchyEntry::Type, current);
+}
+
 WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
 {
     if (!current)
@@ -723,6 +944,8 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
             prev->setNext(entry);
         else
             setFirstEntry(entry);
+        if (type == HierarchyEntry::Type)
+            updateHierarchyLayout();
         updateLayout();
         setModified();
     }
@@ -766,6 +989,11 @@ WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)
 WorksheetEntry * Worksheet::insertHorizontalRuleEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(HorizontalRuleEntry::Type, current);
+}
+
+WorksheetEntry * Worksheet::insertHierarchyEntryBefore(WorksheetEntry* current)
+{
+    return insertEntryBefore(HierarchyEntry::Type, current);
 }
 
 void Worksheet::interrupt()
@@ -1272,37 +1500,8 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     while (!expressionChild.isNull()) {
         QString tag = expressionChild.tagName();
         // Don't add focus on load
-        if (tag == QLatin1String("Expression"))
-        {
-            entry = appendEntry(CommandEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        } else if (tag == QLatin1String("Text"))
-        {
-            entry = appendEntry(TextEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        } else if (tag == QLatin1String("Markdown"))
-        {
-            entry = appendEntry(MarkdownEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        } else if (tag == QLatin1String("Latex"))
-        {
-            entry = appendEntry(LatexEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        } else if (tag == QLatin1String("PageBreak"))
-        {
-            entry = appendEntry(PageBreakEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        }
-        else if (tag == QLatin1String("Image"))
-        {
-            entry = appendEntry(ImageEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        }
-        else if (tag == QLatin1String("HorizontalRule"))
-        {
-            entry = appendEntry(HorizontalRuleEntry::Type, false);
-            entry->setContent(expressionChild, archive);
-        }
+        entry = appendEntry(typeForTagName(tag), false);
+        entry->setContent(expressionChild, archive);
 
         if (m_readOnly && entry)
         {
@@ -1317,6 +1516,7 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
         clearFocus();
 
     m_isLoadingFromFile = false;
+    updateHierarchyLayout();
     updateLayout();
 
     //Set the Highlighting, depending on the current state
@@ -1326,6 +1526,44 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
     emit loaded();
     return true;
 }
+
+int Worksheet::typeForTagName(const QString& tag)
+{
+    if (tag == QLatin1String("Expression"))
+    {
+        return CommandEntry::Type;
+    }
+    else if (tag == QLatin1String("Text"))
+    {
+        return TextEntry::Type;
+    }
+    else if (tag == QLatin1String("Markdown"))
+    {
+        return MarkdownEntry::Type;
+    }
+    else if (tag == QLatin1String("Latex"))
+    {
+        return LatexEntry::Type;
+    } else if (tag == QLatin1String("PageBreak"))
+    {
+        return PageBreakEntry::Type;
+    }
+    else if (tag == QLatin1String("Image"))
+    {
+        return ImageEntry::Type;
+    }
+    else if (tag == QLatin1String("HorizontalRule"))
+    {
+        return HorizontalRuleEntry::Type;
+    }
+    else if (tag == QLatin1String("Hierarchy"))
+    {
+        return HierarchyEntry::Type;
+    }
+
+    return 0;
+}
+
 
 void Worksheet::initSession(Cantor::Backend* backend)
 {
@@ -1502,6 +1740,11 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
                 entry = appendEntry(HorizontalRuleEntry::Type, false);
                 entry->setContentFromJupyter(cell);
             }
+            else if (HierarchyEntry::isConvertableToHierarchyEntry(cell))
+            {
+                entry = appendEntry(HierarchyEntry::Type, false);
+                entry->setContentFromJupyter(cell);
+            }
             else
             {
                 entry = appendEntry(MarkdownEntry::Type, false);
@@ -1529,6 +1772,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
         clearFocus();
 
     m_isLoadingFromFile = false;
+    updateHierarchyLayout();
     updateLayout();
 
     enableHighlighting( m_highlighter!=nullptr || Settings::highlightDefault() );
@@ -1640,6 +1884,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             convertTo->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, &WorksheetEntry::convertToImageEntry);
             convertTo->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, &WorksheetEntry::converToPageBreakEntry);
             convertTo->addAction(QIcon(), i18n("Horizontal Line"), entry, &WorksheetEntry::convertToHorizontalRuleEntry);
+            convertTo->addAction(QIcon(), i18n("Hierarchy Entry"), entry, &WorksheetEntry::convertToHierarchyEntry);
 
             insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
             insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntry()));
@@ -1652,6 +1897,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insert->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntry()));
             insert->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
             insert->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntry()));
+            insert->addAction(QIcon(), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntry()));
 
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
@@ -1664,6 +1910,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
             insertBefore->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntryBefore()));
+            insertBefore->addAction(QIcon(), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntryBefore()));
 
             convertTo->setTitle(i18n("Convert Entry To"));
             convertTo->setIcon(QIcon::fromTheme(QLatin1String("gtk-convert")));
@@ -1687,6 +1934,7 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             menu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Insert Image"), this, SLOT(appendImageEntry()));
             menu->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
             menu->addAction(QIcon(), i18n("Insert Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
+            menu->addAction(QIcon(), i18n("Insert Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
         }
     }
     else
@@ -2289,16 +2537,24 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
         }
     }
 
+    bool dragWithHierarchy = m_hierarchySubentriesDrag.size() != 0;
+
     if (prev || next) {
         PlaceHolderEntry* oldPlaceHolder = m_placeholderEntry;
         if (prev && prev->type() == PlaceHolderEntry::Type &&
             (!prev->aboutToBeRemoved() || prev->stopRemoving())) {
             m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(prev);
-            m_placeholderEntry->changeSize(m_dragEntry->size());
+            if (dragWithHierarchy)
+                m_placeholderEntry->changeSize(m_hierarchyDragSize);
+            else
+                m_placeholderEntry->changeSize(m_dragEntry->size());
         } else if (next && next->type() == PlaceHolderEntry::Type &&
                    (!next->aboutToBeRemoved() || next->stopRemoving())) {
             m_placeholderEntry = qgraphicsitem_cast<PlaceHolderEntry*>(next);
-            m_placeholderEntry->changeSize(m_dragEntry->size());
+            if (dragWithHierarchy)
+                m_placeholderEntry->changeSize(m_hierarchyDragSize);
+            else
+                m_placeholderEntry->changeSize(m_dragEntry->size());
         } else {
             m_placeholderEntry = new PlaceHolderEntry(this, QSizeF(0,0));
             m_placeholderEntry->setPrevious(prev);
@@ -2311,7 +2567,10 @@ void Worksheet::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
                 next->setPrevious(m_placeholderEntry);
             else
                 setLastEntry(m_placeholderEntry);
-            m_placeholderEntry->changeSize(m_dragEntry->size());
+            if (dragWithHierarchy)
+                m_placeholderEntry->changeSize(m_hierarchyDragSize);
+            else
+                m_placeholderEntry->changeSize(m_dragEntry->size());
         }
         if (oldPlaceHolder && oldPlaceHolder != m_placeholderEntry)
             oldPlaceHolder->startRemoving();
@@ -2457,7 +2716,8 @@ void Worksheet::changeEntryType(WorksheetEntry* target, int newType)
 
         QString content;
 
-        switch(target->type())
+        int targetEntryType = target->type();
+        switch(targetEntryType)
         {
             case CommandEntry::Type:
                 content = static_cast<CommandEntry*>(target)->command();
@@ -2501,6 +2761,8 @@ void Worksheet::changeEntryType(WorksheetEntry* target, int newType)
             else
                 setLastEntry(newEntry);
 
+            if (newType == HierarchyEntry::Type || targetEntryType == HierarchyEntry::Type)
+                updateHierarchyLayout();
             updateLayout();
             makeVisible(newEntry);
             focusEntry(newEntry);
@@ -2539,21 +2801,35 @@ void Worksheet::selectionEvaluate()
 
 void Worksheet::selectionMoveUp()
 {
+    bool moveHierarchyEntry = false;
     // movement up should have an order from top to down.
     for(WorksheetEntry* entry = firstEntry(); entry; entry = entry->next())
         if(m_selectedEntries.indexOf(entry) != -1)
             if (entry->previous() && m_selectedEntries.indexOf(entry->previous()) == -1)
+            {
                 entry->moveToPrevious(false);
+                if (entry->type() == HierarchyEntry::Type)
+                    moveHierarchyEntry = true;
+            }
+    if (moveHierarchyEntry)
+        updateHierarchyLayout();
     updateLayout();
 }
 
 void Worksheet::selectionMoveDown()
 {
+    bool moveHierarchyEntry = false;
     // movement up should have an order from down to top.
     for(WorksheetEntry* entry = lastEntry(); entry; entry = entry->previous())
         if(m_selectedEntries.indexOf(entry) != -1)
             if (entry->next() && m_selectedEntries.indexOf(entry->next()) == -1)
+            {
                 entry->moveToNext(false);
+                if (entry->type() == HierarchyEntry::Type)
+                    moveHierarchyEntry = true;
+            }
+    if (moveHierarchyEntry)
+        updateHierarchyLayout();
     updateLayout();
 }
 
@@ -2644,4 +2920,78 @@ void Worksheet::removeSelectionResults()
     for (WorksheetEntry* entry : m_selectedEntries)
         if (entry->type() == CommandEntry::Type)
             static_cast<CommandEntry*>(entry)->removeResults();
+}
+
+void Worksheet::requestScrollToHierarchyEntry(QString hierarchyText)
+{
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+    {
+        if (entry->type() == HierarchyEntry::Type)
+        {
+            HierarchyEntry* hierarchEntry = static_cast<HierarchyEntry*>(entry);
+            if (hierarchEntry->hierarchyText() == hierarchyText)
+                worksheetView()->scrollTo(hierarchEntry->y());
+        }
+    }
+}
+
+WorksheetEntry * Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyEntry)
+{
+    Q_ASSERT(hierarchyEntry->next());
+    WorksheetEntry* cutBegin = hierarchyEntry->next();
+    WorksheetEntry* cutEnd = cutBegin;
+
+
+    bool isCutEnd = false;
+    int level = (int)hierarchyEntry->level();
+    while (!isCutEnd && cutEnd && cutEnd->next())
+    {
+        WorksheetEntry* next = cutEnd->next();
+        if (next->type() == HierarchyEntry::Type && (int)static_cast<HierarchyEntry*>(next)->level() <= level)
+            isCutEnd = true;
+        else
+            cutEnd = next;
+    }
+
+    //cutEnd not an end of all entries
+    if (cutEnd->next())
+    {
+        hierarchyEntry->setNext(cutEnd->next());
+        cutEnd->setNext(nullptr);
+    }
+    else
+    {
+        hierarchyEntry->setNext(nullptr);
+        setLastEntry(hierarchyEntry);
+    }
+
+    cutBegin->setPrevious(nullptr);
+
+    for(WorksheetEntry* entry = cutBegin; entry; entry = entry->next())
+        entry->hide();
+
+    return cutBegin;
+}
+
+void Worksheet::insertSubentriesForHierarchy(HierarchyEntry* hierarchyEntry, WorksheetEntry* storedSubentriesBegin)
+{
+    WorksheetEntry* previousNext = hierarchyEntry->next();
+    hierarchyEntry->setNext(storedSubentriesBegin);
+    storedSubentriesBegin->show();
+
+    WorksheetEntry* storedEnd = storedSubentriesBegin;
+    while(storedEnd->next())
+    {
+        storedEnd = storedEnd->next();
+        storedEnd->show();
+    }
+    storedEnd->setNext(previousNext);
+    if (!previousNext)
+        setLastEntry(storedEnd);
+}
+
+void Worksheet::handleSettingsChanges()
+{
+    for (WorksheetEntry *entry = firstEntry(); entry; entry = entry->next())
+        entry->updateAfterSettingsChanges();
 }

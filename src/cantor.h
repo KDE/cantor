@@ -80,6 +80,10 @@ protected:
 
 Q_SIGNALS:
     void showHelp(QString);
+    void hierarchyChanged(QStringList, QStringList, QList<int>);
+    void hierarhyEntryNameChange(QString, QString, int);
+    void requestScrollToHierarchyEntry(QString);
+    void settingsChanges();
 
 public Q_SLOTS:
     void addWorksheet(const QString& backendName);
