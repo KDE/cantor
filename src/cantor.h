@@ -79,6 +79,10 @@ protected:
 
 Q_SIGNALS:
     void showHelp(QString);
+    void hierarchyChanged(QStringList, QStringList, QList<int>);
+    void hierarhyEntryNameChange(QString, QString, int);
+    void requestScrollToHierarchyEntry(QString);
+    void settingsChanges();
     void requestDocumentation(const QString&);
 
 public Q_SLOTS:

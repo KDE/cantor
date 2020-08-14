@@ -4,8 +4,22 @@
 
 ### New features
 
-    * Change entries replacement logic and add possibility to use previous logic via Cantor setting option.
-    * Add possibility to change plot extension (available variants: jpeg, png, svg and eps (if builded with eps support)) in Octave backend.
+    * Change entries replacement logic and add possibility to use previous logic via Cantor setting option
+    * Add possibility to change plot extension (available variants: jpeg, png, svg and eps (if builded with eps support)) in Octave backend
+    * Use file name instead file URL in title bar
+    * LaTeX typesettings in Sage is back
+    * Add a filter in open dialog to present Cantor worksheets and Jupyter notebooks together
+    * Add new global entries actions: collapsing all results, uncollapsing all results, remove all results
+    * Add actions for selection
+    * Disable highlighting updates for excluded from execution entries
+    * Add new entry type - HorizontalRuleEntry
+    * Add zoom widget
+    * Add tooltips for almost all settings entries
+    * Python Plot Extension: Add support for different packages
+    * Improve tabulation handling in Command Entries. Now the tabulation works like tabulation in code editors
+    * Support popular Julia plot packages in PlotExtension
+    * Add File Browser panel
+    * Now it is possible to save and load images in Cantor worksheet file format
 
 ## 20.04
 

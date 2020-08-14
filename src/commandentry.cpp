@@ -50,7 +50,6 @@
 const QString CommandEntry::Prompt     = QLatin1String(">>> ");
 const QString CommandEntry::MidPrompt  = QLatin1String(">>  ");
 const QString CommandEntry::HidePrompt = QLatin1String(">   ");
-const double CommandEntry::HorizontalSpacing = 4;
 const double CommandEntry::VerticalSpacing = 4;
 
 

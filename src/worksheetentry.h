@@ -120,6 +120,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) = 0;
     virtual bool evaluateCurrentItem();
     virtual void updateEntry() = 0;
+    virtual void updateAfterSettingsChanges();
 
     void insertCommandEntry();
     void insertTextEntry();
@@ -128,6 +129,7 @@ class WorksheetEntry : public QGraphicsObject
     void insertImageEntry();
     void insertPageBreakEntry();
     void insertHorizontalRuleEntry();
+    void insertHierarchyEntry();
 
     void insertCommandEntryBefore();
     void insertTextEntryBefore();
@@ -136,6 +138,7 @@ class WorksheetEntry : public QGraphicsObject
     void insertImageEntryBefore();
     void insertPageBreakEntryBefore();
     void insertHorizontalRuleEntryBefore();
+    void insertHierarchyEntryBefore();
 
     void convertToCommandEntry();
     void convertToTextEntry();
@@ -144,6 +147,7 @@ class WorksheetEntry : public QGraphicsObject
     void convertToImageEntry();
     void converToPageBreakEntry();
     void convertToHorizontalRuleEntry();
+    void convertToHierarchyEntry();
 
     virtual void sizeAnimated();
     virtual void startRemoving();
@@ -162,7 +166,7 @@ class WorksheetEntry : public QGraphicsObject
     void showActionBar();
     void hideActionBar();
 
-    void startDrag(QPointF grabPos = QPointF());
+    virtual void startDrag(QPointF grabPos = QPointF());
 
     void moveToNext(bool updateLayout = true);
     void moveToPrevious(bool updateLayout = true);
@@ -201,7 +205,7 @@ class WorksheetEntry : public QGraphicsObject
     QJsonObject jupyterMetadata() const;
     void setJupyterMetadata(QJsonObject metadata);
 
-    void recalculateControlGeometry();
+    virtual void recalculateControlGeometry();
 
   protected Q_SLOTS:
     virtual void remove();
@@ -213,6 +217,7 @@ class WorksheetEntry : public QGraphicsObject
     static const qreal ControlElementWidth;
     static const qreal ControlElementBorder;
     static const qreal RightMargin;
+    static const qreal HorizontalSpacing;
 
   protected:
     WorksheetControlItem m_controlElement;

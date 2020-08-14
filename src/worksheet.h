@@ -46,6 +46,7 @@ namespace Cantor {
 }
 
 class WorksheetEntry;
+class HierarchyEntry;
 class PlaceHolderEntry;
 class WorksheetTextItem;
 
@@ -89,6 +90,7 @@ class Worksheet : public QGraphicsScene
     void setModified();
 
     void startDrag(WorksheetEntry* entry, QDrag* drag);
+    void startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSizeF responsibleZoneSize);
 
     void createActions(KActionCollection*);
     QMenu* createContextMenu();
@@ -103,6 +105,9 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* lastEntry();
     WorksheetTextItem* currentTextItem();
     WorksheetTextItem* lastFocusedTextItem();
+
+    WorksheetEntry* cutSubentriesForHierarchy(HierarchyEntry* hierarchyEntry);
+    void insertSubentriesForHierarchy(HierarchyEntry* hierarchyEntry, WorksheetEntry* storedSubentriesBegin);
 
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
@@ -143,6 +148,9 @@ class Worksheet : public QGraphicsScene
         Qt::Alignment align;
     };
 
+  public:
+    static int typeForTagName(const QString& tag);
+
   public Q_SLOTS:
     WorksheetEntry* appendCommandEntry();
     void appendCommandEntry(const QString& text);
@@ -152,6 +160,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendPageBreakEntry();
     WorksheetEntry* appendLatexEntry();
     WorksheetEntry* appendHorizontalRuleEntry();
+    WorksheetEntry* appendHierarchyEntry();
+
     WorksheetEntry* insertCommandEntry(WorksheetEntry* current = nullptr);
     void insertCommandEntry(const QString& text);
     WorksheetEntry* insertTextEntry(WorksheetEntry* current = nullptr);
@@ -160,6 +170,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertPageBreakEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertLatexEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertHorizontalRuleEntry(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertHierarchyEntry(WorksheetEntry* current = nullptr);
+
     WorksheetEntry* insertCommandEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertTextEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertMarkdownEntryBefore(WorksheetEntry* current = nullptr);
@@ -167,8 +179,11 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* insertPageBreakEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertLatexEntryBefore(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertHorizontalRuleEntryBefore(WorksheetEntry* current = nullptr);
+    WorksheetEntry* insertHierarchyEntryBefore(WorksheetEntry* current = nullptr);
 
     void updateLayout();
+    void updateHierarchyLayout();
+    void updateHierarchyControlsLayout(WorksheetEntry* startEntry = nullptr);
     void updateEntrySize(WorksheetEntry*);
 
     void print(QPrinter*);
@@ -247,10 +262,15 @@ class Worksheet : public QGraphicsScene
     void addToExectuionSelection();
     void excludeFromExecutionSelection();
 
+    void requestScrollToHierarchyEntry(QString);
+    void handleSettingsChanges();
+
   Q_SIGNALS:
     void modified();
     void loaded();
     void showHelp(const QString&);
+    void hierarchyChanged(QStringList, QStringList, QList<int>);
+    void hierarhyEntryNameChange(QString name, QString searchName, int depth);
     void updatePrompt();
     void undoAvailable(bool);
     void redoAvailable(bool);
@@ -306,6 +326,7 @@ class Worksheet : public QGraphicsScene
     bool loadJupyterNotebook(const QJsonDocument& doc);
     void showInvalidNotebookSchemeError(QString additionalInfo = QString());
     void initSession(Cantor::Backend*);
+    std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry* hierarchyEntry) const;
 
   private:
     static const double LeftMargin;
@@ -320,6 +341,8 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* m_firstEntry;
     WorksheetEntry* m_lastEntry;
     WorksheetEntry* m_dragEntry;
+    std::vector<WorksheetEntry*> m_hierarchySubentriesDrag;
+    QSizeF m_hierarchyDragSize;
     WorksheetEntry* m_choosenCursorEntry;
     bool m_isCursorEntryAfterLastEntry;
     QTimer* m_cursorItemTimer;
@@ -331,6 +354,7 @@ class Worksheet : public QGraphicsScene
     qreal m_viewWidth;
     QMap<QGraphicsObject*, qreal> m_itemWidths;
     qreal m_maxWidth;
+    qreal m_maxPromptWidth;
 
     QMap<QKeySequence, QAction*> m_shortcuts;
 
@@ -364,6 +388,8 @@ class Worksheet : public QGraphicsScene
 
     QVector<WorksheetEntry*> m_selectedEntries;
     QQueue<WorksheetEntry*> m_circularFocusBuffer;
+
+    size_t m_hierarchyMaxDepth;
 };
 
 #endif // WORKSHEET_H

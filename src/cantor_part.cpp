@@ -146,7 +146,12 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
     connect(m_worksheet, &Worksheet::showHelp, this, &CantorPart::showHelp);
     connect(m_worksheet, &Worksheet::loaded, this, &CantorPart::initialized);
+    connect(m_worksheet, &Worksheet::hierarchyChanged, this, &CantorPart::hierarchyChanged);
+    connect(m_worksheet, &Worksheet::hierarhyEntryNameChange, this, &CantorPart::hierarhyEntryNameChange);
+    connect(this, &CantorPart::requestScrollToHierarchyEntry, m_worksheet, &Worksheet::requestScrollToHierarchyEntry);
+    connect(this, &CantorPart::settingsChanges, m_worksheet, &Worksheet::handleSettingsChanges);
     connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::requestDocumentation);
+
     layout->addWidget(m_worksheetview);
     setWidget(widget);
 

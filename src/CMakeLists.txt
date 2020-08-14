@@ -31,6 +31,7 @@ set(cantor_SRCS
 install(FILES cantor.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(cantor_SRCS settings.ui)
+ki18n_wrap_ui(cantor_SRCS formating.ui)
 ki18n_wrap_ui(cantor_SRCS backendchooser.ui)
 
 file(GLOB ICONS_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/../icons/*-apps-cantor.png")
@@ -65,6 +66,7 @@ set(cantor_PART_SRCS
    latexentry.cpp
    placeholderentry.cpp
    horizontalruleentry.cpp
+   hierarchyentry.cpp
    worksheetcursor.cpp
    searchbar.cpp
    actionbar.cpp

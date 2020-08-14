@@ -167,7 +167,6 @@ class CommandEntry : public WorksheetEntry
 
 
   private:
-    static const double HorizontalSpacing;
     static const double VerticalSpacing;
 
     WorksheetTextItem* m_promptItem;

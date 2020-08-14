@@ -1,0 +1,14 @@
+{
+    "KPlugin": {
+        "Dependencies": [],
+        "Description": "A panel for showing worksheet structure",
+        "Icon": "",
+        "Id": "TOC",
+        "License": "GPL",
+        "Name": "Table Of Content",
+        "ServiceTypes": [
+            "Cantor/PanelPlugin"
+        ]
+    },
+    "RequiredExtensions": ""
+}

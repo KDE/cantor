@@ -138,6 +138,16 @@ void WorksheetView::makeVisible(const QRectF& sceneRect)
     m_animation->start();
 }
 
+void WorksheetView::scrollTo(int y)
+{
+    if (!verticalScrollBar())
+        return;
+
+    qreal dy = y - verticalScrollBar()->value();
+    scrollBy(dy);
+}
+
+
 bool WorksheetView::isVisible(const QRectF& sceneRect) const
 {
     const qreal w = viewport()->width();

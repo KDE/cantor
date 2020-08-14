@@ -12,6 +12,7 @@ set(worksheettest_SRCS
     ../latexentry.cpp
     ../placeholderentry.cpp
     ../horizontalruleentry.cpp
+    ../hierarchyentry.cpp
     ../worksheetcursor.cpp
     ../searchbar.cpp
     ../actionbar.cpp

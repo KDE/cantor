@@ -26,6 +26,7 @@
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "horizontalruleentry.h"
+#include "hierarchyentry.h"
 #include "settings.h"
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
@@ -59,6 +60,7 @@ const qreal WorksheetEntry::VerticalMargin = 4;
 const qreal WorksheetEntry::ControlElementWidth = 12;
 const qreal WorksheetEntry::ControlElementBorder = 4;
 const qreal WorksheetEntry::RightMargin = ControlElementWidth + 2*ControlElementBorder;
+const qreal WorksheetEntry::HorizontalSpacing = 4;
 
 QColor WorksheetEntry::colors[] = {QColor(255,255,255), QColor(0,0,0),
                                                     QColor(192,0,0), QColor(255,0,0), QColor(255,192,192), //red
@@ -111,6 +113,8 @@ WorksheetEntry::~WorksheetEntry()
     }
     if (m_jupyterMetadata)
         delete m_jupyterMetadata;
+    if (type() == HierarchyEntry::Type)
+        worksheet()->updateHierarchyLayout();
 }
 
 int WorksheetEntry::type() const
@@ -136,6 +140,8 @@ WorksheetEntry* WorksheetEntry::create(int t, Worksheet* worksheet)
         return new LatexEntry(worksheet);
     case HorizontalRuleEntry::Type:
         return new HorizontalRuleEntry(worksheet);
+    case HierarchyEntry::Type:
+        return new HierarchyEntry(worksheet);
     default:
         return nullptr;
     }
@@ -176,6 +182,11 @@ void WorksheetEntry::insertHorizontalRuleEntry()
     worksheet()->insertHorizontalRuleEntry(this);
 }
 
+void WorksheetEntry::insertHierarchyEntry()
+{
+    worksheet()->insertHierarchyEntry(this);
+}
+
 void WorksheetEntry::insertCommandEntryBefore()
 {
     worksheet()->insertCommandEntryBefore(this);
@@ -209,6 +220,11 @@ void WorksheetEntry::insertPageBreakEntryBefore()
 void WorksheetEntry::insertHorizontalRuleEntryBefore()
 {
     worksheet()->insertHorizontalRuleEntryBefore(this);
+}
+
+void WorksheetEntry::insertHierarchyEntryBefore()
+{
+    worksheet()->insertHierarchyEntryBefore(this);
 }
 
 void WorksheetEntry::convertToCommandEntry()
@@ -246,6 +262,10 @@ void WorksheetEntry::convertToHorizontalRuleEntry()
     worksheet()->changeEntryType(this, HorizontalRuleEntry::Type);
 }
 
+void WorksheetEntry::convertToHierarchyEntry()
+{
+    worksheet()->changeEntryType(this, HierarchyEntry::Type);
+}
 
 void WorksheetEntry::showCompletion()
 {
@@ -761,6 +781,9 @@ void WorksheetEntry::remove()
     else
         worksheet()->setLastEntry(previous());
 
+    if (type() == HierarchyEntry::Type)
+        worksheet()->updateHierarchyLayout();
+
     // make the entry invisible to QGraphicsScene's itemAt() function
     forceRemove();
 }
@@ -998,4 +1021,9 @@ void WorksheetEntry::recalculateControlGeometry()
         ControlElementWidth, size().height() - VerticalMargin // w,h
     );
     m_controlElement.update();
+}
+
+void WorksheetEntry::updateAfterSettingsChanges()
+{
+    // do nothing;
 }
