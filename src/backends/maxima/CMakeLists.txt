@@ -13,7 +13,7 @@ set( MaximaBackend_SRCS
 kconfig_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)
 install(FILES maximabackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
-ki18n_wrap_ui(MaximaBackend_SRCS settings.ui qthelpconfigeditdialog.ui)
+ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
