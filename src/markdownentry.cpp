@@ -34,6 +34,8 @@
 #include <QDir>
 #include <QFileDialog>
 #include <KMessageBox>
+#include <QClipboard>
+#include <QMimeData>
 
 #include "jupyterutils.h"
 #include "mathrender.h"
@@ -52,6 +54,7 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
     m_textItem->enableRichText(false);
     m_textItem->setOpenExternalLinks(true);
     m_textItem->installEventFilter(this);
+    m_textItem->setAcceptDrops(true);
     connect(m_textItem, &WorksheetTextItem::moveToPrevious, this, &MarkdownEntry::moveToPreviousEntry);
     connect(m_textItem, &WorksheetTextItem::moveToNext, this, &MarkdownEntry::moveToNextEntry);
     connect(m_textItem, SIGNAL(execute()), this, SLOT(evaluate()));
@@ -486,6 +489,54 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
 
                 return true;
             }
+            if (key_event->matches(QKeySequence::Paste))
+            {
+                QClipboard *clipboard = QGuiApplication::clipboard();
+                const QImage& clipboardImage = clipboard->image();
+                if (!clipboardImage.isNull())
+                {
+                    int idx = 0;
+                    static const QString clipboardImageNamePrefix = QLatin1String("clipboard_image_");
+                    for (auto& data : attachedImages)
+                    {
+                        const QString& name = data.first.path();
+                        if (name.startsWith(clipboardImageNamePrefix))
+                        {
+                            bool isIntParsed = false;
+                            int parsedIndex = name.right(name.size() - clipboardImageNamePrefix.size()).toInt(&isIntParsed);
+                            if (isIntParsed)
+                                idx = std::max(idx, parsedIndex);
+                        }
+                    }
+                    idx++;
+                    const QString& name = clipboardImageNamePrefix+QString::number(idx);
+
+                    addImageAttachment(name, clipboardImage);
+                    return true;
+                }
+            }
+        }
+        else if (event->type() == QEvent::GraphicsSceneDrop)
+        {
+            auto* dragEvent = static_cast<QGraphicsSceneDragDropEvent*>(event);
+            const QMimeData* mimeData = dragEvent->mimeData();
+            if (mimeData->hasUrls())
+            {
+                QList<QByteArray> supportedFormats = QImageReader::supportedImageFormats();
+
+                for (const QUrl url : mimeData->urls())
+                {
+                    const QString filename = url.toLocalFile();
+                    QFileInfo info(filename);
+                    if (supportedFormats.contains(info.completeSuffix().toUtf8()))
+                    {
+                        QImage image(filename);
+                        addImageAttachment(info.fileName(), image);
+                        m_textItem->textCursor().insertText(QLatin1String("\n"));
+                    }
+                }
+                return true;
+            }
         }
     }
     return false;
@@ -710,17 +761,7 @@ void MarkdownEntry::insertImage()
         {
             const QString& name = QFileInfo(filename).fileName();
 
-            QUrl url;
-            url.setScheme(QLatin1String("attachment"));
-            url.setPath(name);
-
-            attachedImages.push_back(std::make_pair(url, QLatin1String("image/png")));
-            m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant(img));
-
-            QTextCursor cursor = m_textItem->textCursor();
-            cursor.insertText(QString::fromLatin1("![%1](attachment:%1)").arg(name));
-
-            animateSizeChange();
+            addImageAttachment(name, img);
         }
         else
             KMessageBox::error(worksheetView(), i18n("Cantor failed to read image with error \"%1\"", reader.errorString()), i18n("Cantor"));
@@ -741,4 +782,19 @@ void MarkdownEntry::clearAttachments()
 QString MarkdownEntry::plainText() const
 {
     return m_textItem->toPlainText();
+}
+
+void MarkdownEntry::addImageAttachment(const QString& name, const QImage& image)
+{
+    QUrl url;
+    url.setScheme(QLatin1String("attachment"));
+    url.setPath(name);
+
+    attachedImages.push_back(std::make_pair(url, QLatin1String("image/png")));
+    m_textItem->document()->addResource(QTextDocument::ImageResource, url, QVariant(image));
+
+    QTextCursor cursor = m_textItem->textCursor();
+    cursor.insertText(QString::fromLatin1("![%1](attachment:%1)").arg(name));
+
+    animateSizeChange();
 }
