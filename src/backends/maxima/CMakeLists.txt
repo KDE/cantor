@@ -17,7 +17,7 @@ ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
-target_link_libraries(cantor_maximabackend KF5::SyntaxHighlighting KF5::I18n KF5::IconThemes KF5::NewStuff KF5::KIOWidgets Qt5::Help)
+target_link_libraries(cantor_maximabackend cantor_help)
 
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)

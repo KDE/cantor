@@ -16,13 +16,10 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
 #ifndef _MAXIMABACKEND_H
 #define _MAXIMABACKEND_H
-
-#include <KNS3/Button>
 
 #include "backend.h"
 #include "ui_settings.h"

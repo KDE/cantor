@@ -26,7 +26,7 @@ set(cantor_SRCS
    main.cpp
    cantor.cpp
    backendchoosedialog.cpp
- )
+)
 
 install(FILES cantor.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
