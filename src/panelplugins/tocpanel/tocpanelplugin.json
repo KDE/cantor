@@ -2,10 +2,18 @@
     "KPlugin": {
         "Dependencies": [],
         "Description": "A panel for showing worksheet structure",
+        "Description[ca@valencia]": "Un plafó per a mostrar l'estructura del full de treball ",
+        "Description[ca]": "Un plafó per a mostrar l'estructura del full de treball ",
+        "Description[es]": "Un panel para mostrar la estructura de la hoja de trabajo",
+        "Description[pt]": "Um painel para mostrar a estrutura da folha de trabalho",
+        "Description[sv]": "En panel för att visa arbetsbladsstruktur",
+        "Description[uk]": "Панель для показу структури робочого аркуша",
+        "Description[x-test]": "xxA panel for showing worksheet structurexx",
         "Icon": "",
         "Id": "TOC",
         "License": "GPL",
         "Name": "Table Of Contents",
+        "Name[uk]": "Зміст",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]
