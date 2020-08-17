@@ -5,6 +5,7 @@
         "Description[ca@valencia]": "Un plafó per a mostrar l'estructura del full de treball ",
         "Description[ca]": "Un plafó per a mostrar l'estructura del full de treball ",
         "Description[es]": "Un panel para mostrar la estructura de la hoja de trabajo",
+        "Description[nl]": "Een paneel waarin de structuur van het werkblad",
         "Description[pt]": "Um painel para mostrar a estrutura da folha de trabalho",
         "Description[sv]": "En panel för att visa arbetsbladsstruktur",
         "Description[uk]": "Панель для показу структури робочого аркуша",
@@ -13,7 +14,13 @@
         "Id": "TOC",
         "License": "GPL",
         "Name": "Table Of Contents",
+        "Name[ca@valencia]": "Taula de continguts",
+        "Name[ca]": "Taula de continguts",
+        "Name[es]": "Tabla de contenido",
+        "Name[pt]": "Índice Analítico",
+        "Name[sv]": "Innehållsförteckning",
         "Name[uk]": "Зміст",
+        "Name[x-test]": "xxTable Of Contentsxx",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]
