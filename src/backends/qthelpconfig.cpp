@@ -24,9 +24,11 @@
 #include <QPointer>
 #include <QToolButton>
 
+#include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KNS3/Button>
+#include <KSharedConfig>
 
 #include "qthelpconfig.h"
 
@@ -130,7 +132,7 @@ void QtHelpConfig::apply()
         ghnsList << item->text(3);
     }
 
-    //qtHelpWriteConfig(iconList, nameList, pathList, ghnsList, searchDir, loadQtDoc);
+    qtHelpWriteConfig(iconList, nameList, pathList, ghnsList);
     //static_cast<QtHelpPlugin*>(plugin())->readConfig();*/
 }
 
@@ -139,9 +141,7 @@ void QtHelpConfig::reset()
     m_configWidget->qchTable->clear();
 
     QStringList iconList, nameList, pathList, ghnsList;
-    //QString searchDir;
-    //bool loadQtDoc;
-    //qtHelpReadConfig(iconList, nameList, pathList, ghnsList, searchDir, loadQtDoc);
+    qtHelpReadConfig(iconList, nameList, pathList, ghnsList);
 
     const int size = qMin(qMin(iconList.size(), nameList.size()), pathList.size());
     for(int i = 0; i < size; ++i) {
@@ -301,6 +301,26 @@ QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString 
     m_configWidget->qchTable->setItemWidget(item, ConfigColumn, ctrlWidget);
 
     return item;
+}
+
+void QtHelpConfig::qtHelpReadConfig(QStringList& iconList, QStringList& nameList,
+                      QStringList& pathList, QStringList& ghnsList)
+{
+    KConfigGroup cg(KSharedConfig::openConfig(), "QtHelp Documentation");
+    iconList = cg.readEntry("iconList", QStringList());
+    nameList = cg.readEntry("nameList", QStringList());
+    pathList = cg.readEntry("pathList", QStringList());
+    ghnsList = cg.readEntry("ghnsList", QStringList());
+}
+
+void QtHelpConfig::qtHelpWriteConfig(const QStringList& iconList, const QStringList& nameList,
+                       const QStringList& pathList, const QStringList& ghnsList)
+{
+    KConfigGroup cg(KSharedConfig::openConfig(), "QtHelp Documentation");
+    cg.writeEntry("iconList", iconList);
+    cg.writeEntry("nameList", nameList);
+    cg.writeEntry("pathList", pathList);
+    cg.writeEntry("ghnsList", ghnsList);
 }
 
 #include "qthelpconfig.moc"

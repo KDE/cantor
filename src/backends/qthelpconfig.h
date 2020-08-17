@@ -53,6 +53,11 @@ class QtHelpConfig : public QWidget
     private:
       QTreeWidgetItem * addTableItem(const QString &icon, const QString &name,
                                      const QString &path, const QString &ghnsStatus);
+      void qtHelpReadConfig(QStringList& iconList, QStringList& nameList, QStringList& pathList, QStringList& ghnsList);
+
+      void qtHelpWriteConfig(const QStringList& iconList, const QStringList& nameList, const QStringList& pathList,
+                             const QStringList& ghnsList);
+
       Ui::QtHelpConfigUI* m_configWidget;
 };
 
