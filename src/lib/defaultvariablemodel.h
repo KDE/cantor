@@ -58,6 +58,8 @@ public:
      */
     struct Variable
     {
+        Variable(): size(0) {}
+        Variable(QString name, QString value, size_t size = 0): name(name), value(value), size(size) {}
         /**
          * The variable's name
          */
@@ -66,6 +68,11 @@ public:
          * The variable's value, represented as a string
          */
         QString value;
+
+        /**
+         * Optional parameter. Size of variable in bytes
+         */
+        size_t size;
     };
 
     /**

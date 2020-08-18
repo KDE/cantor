@@ -91,6 +91,7 @@ void RCompletionObject::receiveCompletions(Cantor::Expression::Status status)
                 setCommand(token);
                 setCompletions(options);
             }
+            break;
         }
         case Expression::Status::Error:
             qWarning() << "R code for completion command finishs with error message: " << m_expression->errorMessage();

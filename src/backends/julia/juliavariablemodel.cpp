@@ -59,6 +59,8 @@ void JuliaVariableModel::update()
     {
         const QStringList& values =
             static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableValuesList"))).value();
+        const QStringList& variablesSizes =
+            static_cast<QDBusReply<QStringList>>(m_interface->call(QLatin1String("variableSizesList"))).value();
 
         for (int i = 0; i < variables.size(); i++)
         {
@@ -70,20 +72,21 @@ void JuliaVariableModel::update()
 
             const QString& name = variables[i];
             QString value = values[i];
+            size_t size = variablesSizes[i].toULongLong();
             if (value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER)
             {
                 // Register variable
                 // We use replace here, because julia return data type for some variables, and we need
                 // remove it to make variable view more consistent with the other backends
                 // More info: https://bugs.kde.org/show_bug.cgi?id=377771
-                vars << Variable{name, value.replace(typeVariableInfo,QLatin1String("["))};
+                vars << Variable(name, value.replace(typeVariableInfo, QLatin1String("[")), size);
             }
         }
     }
     else
     {
         for (int i = 0; i < variables.size(); i++)
-            vars << Variable{variables[i], QString()};
+            vars << Variable(variables[i], QString());
     }
     setVariables(vars);
 

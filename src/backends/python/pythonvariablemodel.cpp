@@ -72,8 +72,9 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
                     // DC1(17) is delimiter between variable name and its value.
                     const QString& name = record.section(QChar(17), 0, 0);
                     const QString& value = record.section(QChar(17), 1, 1);
+                    const QString& size = record.section(QChar(17), 2, 2);
 
-                    variables << Variable{name, value};
+                    variables << Variable(name, value, size.toULongLong());
                 }
 
                 setVariables(variables);
@@ -84,6 +85,8 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
         case Cantor::Expression::Error:
         {
             qDebug() << "python variable model update finished with status" << (status == Cantor::Expression::Error? "Error" : "Interrupted");
+            if (status == Cantor::Expression::Error)
+                qDebug() << "error message: " << m_expression->errorMessage();
             break;
         }
         default:
