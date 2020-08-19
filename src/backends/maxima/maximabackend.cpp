@@ -97,7 +97,7 @@ QWidget* MaximaBackend::settingsWidget(QWidget* parent) const
     s.setupUi(widget);
 
     QtHelpConfig* docWidget = new QtHelpConfig();
-    s.verticalLayout->addWidget(docWidget);
+    static_cast<QGridLayout*>(widget->layout())->addWidget(docWidget, 6, 0, 1, 3);
 
     return widget;
 }
