@@ -91,6 +91,11 @@ public Q_SLOTS:
     Q_SCRIPTABLE QStringList variableValuesList();
 
     /**
+     * @return corresponding list of values for variables from variablesList.
+     */
+    Q_SCRIPTABLE QStringList variableSizesList();
+
+    /**
      * @return list of function in internal Julia's module
      */
     Q_SCRIPTABLE QStringList functionsList();
@@ -106,6 +111,7 @@ private:
     QStringList parsedModules;
     QStringList m_variables;
     QStringList m_variableValues;
+    QStringList m_variableSize;
     QStringList m_functions;
     static QStringList INTERNAL_VARIABLES;
 };

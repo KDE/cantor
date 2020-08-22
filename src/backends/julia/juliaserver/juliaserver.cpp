@@ -162,6 +162,7 @@ void JuliaServer::parseModules(bool variableManagement)
 void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
 {
     jl_function_t* jl_string_function = jl_get_function(jl_base_module, "string");
+    jl_function_t* jl_sizeof_function = jl_get_function(jl_base_module, "sizeof");
 
     if (module != JL_MAIN_MODULE)
         {
@@ -202,6 +203,7 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
             {
                 if (module == JL_MAIN_MODULE && !INTERNAL_VARIABLES.contains(name))
                 {
+                    const QString& size = fromJuliaString(jl_call1(jl_string_function, jl_call1(jl_sizeof_function, value)));
                     if (parseValue)
                     {
                         const QString& valueString = fromJuliaString(jl_call1(jl_string_function, value));
@@ -209,17 +211,27 @@ void JuliaServer::parseJlModule(jl_module_t* module, bool parseValue)
                         {
                             int i = m_variables.indexOf(name);
                             m_variableValues[i] = valueString;
+                            m_variableSize[i] = size;
                         }
                         else
                         {
                             m_variables.append(name);
                             m_variableValues.append(valueString);
+                            m_variableSize.append(size);
                         }
                     }
                     else
                     {
-                        if (!m_variables.contains(name))
+                        if (m_variables.contains(name))
+                        {
+                            int i = m_variables.indexOf(name);
+                            m_variableSize[i] = size;
+                        }
+                        else
+                        {
                             m_variables.append(name);
+                            m_variableSize.append(size);
+                        }
                     }
                 }
             }
@@ -240,6 +252,11 @@ QStringList JuliaServer::variablesList()
 QStringList JuliaServer::variableValuesList()
 {
     return m_variableValues;
+}
+
+QStringList JuliaServer::variableSizesList()
+{
+    return m_variableSize;
 }
 
 QStringList JuliaServer::functionsList()

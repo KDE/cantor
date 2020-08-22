@@ -48,11 +48,15 @@ void OctaveVariableModel::update()
         "    try"
         "      eval(['__cantor_string__ = disp(' __cantor_varname__ ');']);"
         "      printf(__cantor_string__);"
+        "      printf([num2str(eval(['sizeof(' __cantor_varname__ ');'])) '\\n']);"
         "    catch"
         "      printf(['<unprintable value>' '\\n']);"
+        "      printf(['0' '\\n']);"
         "    end_try_catch;"
+        "  else"
+        "    printf('');"
         "  endif;"
-        "  printf('__cantor_delimiter_line__\\n')"
+        "  printf('__cantor_delimiter_line__\\n');"
         "endfor;"
         "split_long_rows(__cantor_split_var__);"
         "clear __cantor_list__;"
@@ -96,8 +100,9 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
                 const QString& name = line.section(QLatin1String("\n"), 0, 0);
                 QString value;
                 if (OctaveSettings::self()->variableManagement())
-                    value = line.section(QLatin1String("\n"), 1);
-                vars << Variable{name, value};
+                    value = line.section(QLatin1String("\n"), 1, 1);
+                size_t size = line.section(QLatin1String("\n"), 2, 2).toULongLong();
+                vars << Variable(name, value, size);
             }
 
             setVariables(vars);

@@ -38,7 +38,7 @@ class PythonServer
     std::string getOutput() const;
     std::string getError() const;
     bool isError() const;
-    std::string variables(bool parseValue) const;
+    std::string variables(bool parseValue);
 
   private:
     PyObject* m_pModule{nullptr};

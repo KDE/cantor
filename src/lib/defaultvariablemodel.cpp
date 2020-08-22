@@ -108,11 +108,16 @@ QVariant DefaultVariableModel::data(const QModelIndex& index, int role) const
             return QVariant(d->variables[index.row()].name);
         case ValueColumn:
         {
-            const QString& value = d->variables[index.row()].value;
-            if (value.size() < 1000 || role == DefaultVariableModel::DataRole)
-                return QVariant(value);
+            const Variable& var = d->variables[index.row()];
+            if (var.value.size() < 1000 || role == DefaultVariableModel::DataRole)
+                return QVariant(var.value);
             else
-                return QVariant(QString::fromLatin1("<too big variable>"));
+            {
+                if (var.size != 0)
+                    return QVariant(i18n("<%1 bytes>", QString::number(var.size)));
+                else
+                    return QVariant(i18n("<too big variable>"));
+            }
         }
         default:
             return QVariant();
@@ -150,9 +155,7 @@ bool DefaultVariableModel::setData(const QModelIndex& index, const QVariant& val
 
 void DefaultVariableModel::addVariable(const QString& name, const QString& value)
 {
-    Variable v;
-    v.name = name;
-    v.value = value;
+    Variable v(name, value);
     addVariable(v);
 }
 
@@ -177,8 +180,7 @@ void DefaultVariableModel::addVariable(const Cantor::DefaultVariableModel::Varia
 
 void DefaultVariableModel::removeVariable(const QString& name)
 {
-    Variable v;
-    v.name = name;
+    Variable v(name, QString());
     removeVariable(v);
 }
 
@@ -262,6 +264,7 @@ void DefaultVariableModel::setVariables(const QList<DefaultVariableModel::Variab
                 {
                     QModelIndex index = createIndex(i, ValueColumn);
                     d->variables[i].value = newvar.value;
+                    d->variables[i].size = newvar.size;
                     emit dataChanged(index, index);
                 }
                 break;

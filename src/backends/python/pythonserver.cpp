@@ -20,8 +20,12 @@
 
 #include "pythonserver.h"
 #include <vector>
+#include <cassert>
+#include <iostream>
 
 #include <Python.h>
+
+static_assert(PY_MAJOR_VERSION == 3, "This python server works only with Python 3");
 
 using namespace std;
 
@@ -29,13 +33,7 @@ namespace
 {
     string pyObjectToQString(PyObject* obj)
     {
-#if PY_MAJOR_VERSION == 3
         return string(PyUnicode_AsUTF8(obj));
-#elif PY_MAJOR_VERSION == 2
-        return string(PyString_AsString(obj));
-#else
-    #warning Unknown Python version
-#endif
     }
 }
 
@@ -44,6 +42,7 @@ void PythonServer::login()
     Py_InspectFlag = 1;
     Py_Initialize();
     m_pModule = PyImport_AddModule("__main__");
+    PyRun_SimpleString("import sys");
     filePath = "python_cantor_worksheet";
 }
 
@@ -73,7 +72,6 @@ void PythonServer::runPythonCommand(const string& command)
         "sys.stderr = errorPythonBackend\n";
     PyRun_SimpleString(prepareCommand);
 
-#if PY_MAJOR_VERSION == 3
     PyObject* compile = Py_CompileString(command.c_str(), filePath.c_str(), Py_single_input);
     // There are two reasons for the error:
     // 1) This code is not single expression, so we can't compile this with flag Py_single_input
@@ -92,42 +90,7 @@ void PythonServer::runPythonCommand(const string& command)
         }
     }
     PyEval_EvalCode(compile, py_dict, py_dict);
-#elif PY_MAJOR_VERSION == 2
-    // Python 2.X don't check, that input string contains only one expression.
-    // So for checking this, we compile string as file and as single expression and compare bytecode
-    // FIXME?
-    PyObject* codeFile = Py_CompileString(command.c_str(), filePath.c_str(), Py_file_input);
-    if (PyErr_Occurred())
-    {
-        m_error = true;
-        PyErr_PrintEx(0);
-        return;
-    }
-    PyObject* codeSingle = Py_CompileString(command.c_str(), filePath.c_str(), Py_single_input);
-    if (PyErr_Occurred())
-    {
-        // We have error with Py_single_input, but haven't error with Py_file_input
-        // So, the code can't be compiled as singel input -> use file input right away
-        PyErr_Clear();
-        PyEval_EvalCode((PyCodeObject*)codeFile, py_dict, py_dict);
-    }
-    else
-    {
-        PyObject* bytecode1 = ((PyCodeObject*)codeSingle)->co_code;
-        PyObject* bytecode2 = ((PyCodeObject*)codeFile)->co_code;
 
-        if (PyObject_Length(bytecode1) >= PyObject_Length(bytecode2))
-        {
-            PyEval_EvalCode((PyCodeObject*)codeSingle, py_dict, py_dict);
-        }
-        else
-        {
-            PyEval_EvalCode((PyCodeObject*)codeFile, py_dict, py_dict);
-        }
-    }
-#else
-    #warning Unknown Python version
-#endif
     if (PyErr_Occurred())
     {
         m_error = true;
@@ -166,21 +129,18 @@ void PythonServer::setFilePath(const string& path, const string& dir)
     }
 }
 
-string PythonServer::variables(bool parseValue) const
+string PythonServer::variables(bool parseValue)
 {
     PyRun_SimpleStringFlags(
         "try: \n"
         "   import numpy \n"
         "   __cantor_numpy_internal__ = numpy.get_printoptions()['threshold'] \n"
         "   numpy.set_printoptions(threshold=100000000) \n"
-#if PY_MAJOR_VERSION == 3
         "except ModuleNotFoundError: \n"
-#elif PY_MAJOR_VERSION == 2
-        "except ImportError: \n"
-#endif
         "   pass \n", nullptr
     );
 
+    PyObject* py_dict = PyModule_GetDict(m_pModule);
     PyRun_SimpleString("__tmp_globals__ = globals()");
     PyObject* globals = PyObject_GetAttrString(m_pModule,"__tmp_globals__");
     PyObject *key, *value;
@@ -207,10 +167,15 @@ string PythonServer::variables(bool parseValue) const
             continue;
 
         string valueString;
+        string sizeString;
         if (parseValue)
+        {
             valueString = pyObjectToQString(PyObject_Repr(value));
+            std::string command = "sys.getsizeof("+keyString+")";
+            sizeString = pyObjectToQString(PyObject_Repr(PyRun_String(command.c_str(), Py_eval_input, py_dict, py_dict)));
+        }
 
-        vars.push_back(keyString + char(17) + valueString);
+        vars.push_back(keyString + char(17) + valueString + char(17) + sizeString);
     }
 
     PyRun_SimpleStringFlags(
@@ -218,11 +183,7 @@ string PythonServer::variables(bool parseValue) const
         "   import numpy \n"
         "   numpy.set_printoptions(threshold=__cantor_numpy_internal__) \n"
         "   del __cantor_numpy_internal__ \n"
-#if PY_MAJOR_VERSION == 3
         "except ModuleNotFoundError: \n"
-#elif PY_MAJOR_VERSION == 2
-        "except ImportError: \n"
-#endif
         "   pass \n", nullptr
     );
 
