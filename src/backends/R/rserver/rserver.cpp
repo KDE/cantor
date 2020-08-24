@@ -448,7 +448,7 @@ void RServer::listSymbols()
 {
     setStatus(RServer::Busy);
 
-    QStringList vars, values, funcs;
+    QStringList vars, values, funcs, constants;
     int errorOccurred; // TODO: error checks
 
     /* Obtaining a list of user namespace objects */
@@ -485,23 +485,39 @@ void RServer::listSymbols()
 
         if (!m_parsedNamespaces.contains(packageName))
         {
-            QStringList foundedFunctions;
+            CachedParsedNamespace cache;
 
-            char pos[32];
-            sprintf(pos,"%d",i+1);
+            //char pos[32];
+            //sprintf(pos,"%d",i+1);
             SEXP f=PROTECT(R_tryEval(lang2(install("ls"),ScalarInteger(i+1)),nullptr,&errorOccurred));
             for (int j=0;j<length(f);j++)
-                foundedFunctions<<QString::fromUtf8(translateCharUTF8(STRING_ELT(f,j)));
+            {
+                SEXP object = STRING_ELT(f,j);
+                const QString& name = QString::fromUtf8(translateCharUTF8(object));
+                SEXP value = installChar(object);
+                int errorOccurred2 = 2;
+                //TODO error handling
+                //FIXME without this unused typeof evaling - server crash on certain symbols
+                SEXP test = PROTECT(R_tryEval(lang2(install("typeof"), value),nullptr,&errorOccurred2));
+                Q_UNUSED(test);
+
+                SEXP resultIs = PROTECT(R_tryEval(lang2(install("is.function"), value),nullptr, &errorOccurred2));
+                if (QString::fromUtf8(translateCharUTF8(asChar(resultIs))) == QLatin1String("TRUE"))
+                    cache.functions << name;
+                else
+                    cache.constants << name;
+            }
             UNPROTECT(1);
 
-            m_parsedNamespaces[packageName] = foundedFunctions;
+            m_parsedNamespaces[packageName] = cache;
         }
 
-        funcs += m_parsedNamespaces[packageName];
+        funcs += m_parsedNamespaces[packageName].functions;
+        constants += m_parsedNamespaces[packageName].constants;
     }
     UNPROTECT(1);
 
-    const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep);
+    const QString output = vars.join(recordSep) + unitSep + values.join(recordSep) + unitSep + funcs.join(recordSep) + unitSep + constants.join(recordSep);
     emit expressionFinished(RServer::SuccessCode, output, QStringList());
     setStatus(Idle);
 }

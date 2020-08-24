@@ -19,6 +19,7 @@
 */
 
 #include "rvariablemodel.h"
+#include "rkeywords.h"
 #include "rsession.h"
 
 #include <result.h>
@@ -60,9 +61,10 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
 
             const QString output = m_expression->result()->data().toString();
 
-            const QStringList names = output.section(unitSep, 0, 0).split(recordSep, QString::SkipEmptyParts);
-            const QStringList values = output.section(unitSep, 1, 1).split(recordSep, QString::SkipEmptyParts);
-            const QStringList funcs = output.section(unitSep, 2, 2).split(recordSep, QString::SkipEmptyParts);
+            const QStringList& names = output.section(unitSep, 0, 0).split(recordSep, QString::SkipEmptyParts);
+            const QStringList& values = output.section(unitSep, 1, 1).split(recordSep, QString::SkipEmptyParts);
+            QStringList funcs = output.section(unitSep, 2, 2).split(recordSep, QString::SkipEmptyParts);
+            const QStringList& constants = output.section(unitSep, 3, 3).split(recordSep, QString::SkipEmptyParts);
 
             QList<Variable> vars;
             if (!values.isEmpty()) // Variables management disabled
@@ -74,7 +76,16 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
 
             setVariables(vars);
 
+            // Remove primitive function "(" because it not function for user calling (i guess)
+            // And the function with name like this make highlighting worse actually
+            funcs.removeOne(QLatin1String("("));
+
+            // Also removes syntax keywords from functions list, like "function"
+            for (const QString& keyword: RKeywords::instance()->keywords())
+                funcs.removeOne(keyword);
+
             setFunctions(funcs);
+            setConstants(constants);
             break;
         }
         case Expression::Status::Error:
@@ -90,4 +101,44 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
 
     m_expression->deleteLater();
     m_expression = nullptr;
+}
+
+void RVariableModel::setConstants(QStringList newConstants)
+{
+    QStringList addedConstants;
+    QStringList removedConstants;
+
+    //remove the old variables
+    int i = 0;
+    while (i < m_constants.size())
+    {
+        //check if this var is present in the new variables
+        bool found = false;
+        for (const QString& constant : newConstants)
+            if(m_constants[i] == constant)
+            {
+                found=true;
+                break;
+            }
+
+        if(!found)
+        {
+            removedConstants << m_constants[i];
+            m_constants.removeAt(i);
+        }
+        else
+            i++;
+    }
+
+    for (const QString& constant : newConstants)
+    {
+        if (!m_constants.contains(constant))
+        {
+            addedConstants << constant;
+            m_constants.append(constant);
+        }
+    }
+
+    emit constantsAdded(addedConstants);
+    emit constantsRemoved(removedConstants);
 }

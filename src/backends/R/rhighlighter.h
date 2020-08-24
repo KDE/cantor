@@ -34,7 +34,7 @@ class RHighlighter : public Cantor::DefaultHighlighter
     ~RHighlighter() override = default;
 
   protected:
-    void highlightBlock(const QString &text) override;
+    QStringList parseBlockTextToWords(const QString& text) override;
 
   private:
     inline void formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift=false);
