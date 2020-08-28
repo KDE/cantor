@@ -6,6 +6,7 @@ set( MaximaBackend_SRCS
   maximahighlighter.cpp
   maximakeywords.cpp
   maximacompletionobject.cpp
+  maximasettingswidget.cpp
   maximasyntaxhelpobject.cpp
   maximavariablemodel.cpp
 )

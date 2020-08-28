@@ -22,9 +22,8 @@
 #include "maximabackend.h"
 #include "maximaextensions.h"
 #include "maximasession.h"
+#include "maximasettingswidget.h"
 #include "settings.h"
-
-#include "../qthelpconfig.h"
 
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
@@ -92,14 +91,7 @@ QUrl MaximaBackend::helpUrl() const
 
 QWidget* MaximaBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget = new QWidget(parent);
-    Ui::MaximaSettingsBase s;
-    s.setupUi(widget);
-
-    QtHelpConfig* docWidget = new QtHelpConfig();
-    static_cast<QGridLayout*>(widget->layout())->addWidget(docWidget, 6, 0, 1, 3);
-
-    return widget;
+    return new MaximaSettingsWidget(parent);
 }
 
 KConfigSkeleton* MaximaBackend::config() const
