@@ -29,7 +29,7 @@ if(BUILD_TESTING)
   )
 endif()
 
-install(FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES cantor_sage.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
 
 install(
   PROGRAMS cantor-execsage

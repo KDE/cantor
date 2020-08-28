@@ -48,7 +48,7 @@ if(BUILD_TESTING)
   )
 endif(BUILD_TESTING)
 
-install(FILES cantor_python.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES cantor_python.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
 install(FILES pythonbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 install(TARGETS cantor_pythonbackend DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

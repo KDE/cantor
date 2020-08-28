@@ -49,6 +49,6 @@ if(BUILD_TESTING)
   )
 endif(BUILD_TESTING)
 
-install(FILES cantor_octave.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install(FILES cantor_octave.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
 
 install(FILES graphic_packages.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/octave)

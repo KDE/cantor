@@ -19,4 +19,4 @@ add_backend(kalgebrabackend ${KAlgebraBackend_SRCS})
 
 target_link_libraries( cantor_kalgebrabackend KF5::Analitza KF5::AnalitzaGui )
 
-install( FILES cantor_kalgebra.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install( FILES cantor_kalgebra.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
