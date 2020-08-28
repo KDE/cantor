@@ -68,6 +68,12 @@ class RServer : public QObject
     void answerRequest(const QString& answer);
 
   private:
+    struct CachedParsedNamespace {
+        QStringList functions;
+        QStringList constants;
+    };
+
+  private:
     void setStatus(Status status);
     void newPlotDevice();
     void completeCommand(const QString& cmd); // TODO: comment properly, only takes command from start to cursor
@@ -76,6 +82,7 @@ class RServer : public QObject
   private:
     const static QChar recordSep;
     const static QChar unitSep;
+
   private:
     bool m_isInitialized;
     bool m_isCompletionAvailable;
@@ -84,7 +91,7 @@ class RServer : public QObject
     QString m_tmpDir;
     QString m_curPlotFile;
     QStringList m_expressionFiles;
-    QMap<QString, QStringList> m_parsedNamespaces;
+    QMap<QString, CachedParsedNamespace> m_parsedNamespaces;
 };
 
 #endif /* _RSERVER_H */

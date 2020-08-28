@@ -22,6 +22,7 @@
 #include "rhighlighter.h"
 #include "rkeywords.h"
 #include "rsession.h"
+#include "rvariablemodel.h"
 
 #include <QTextEdit>
 #include <QDebug>
@@ -35,49 +36,44 @@ const QStringList RHighlighter::specials_list=QStringList()
 
 RHighlighter::RHighlighter(QObject* parent, RSession* session) : Cantor::DefaultHighlighter(parent, session)
 {
+    Cantor::DefaultVariableModel* model = session->variableModel();
+    if (model)
+    {
+        RVariableModel* RModel = static_cast<RVariableModel*>(model);
+        connect(RModel, &RVariableModel::constantsAdded, this, &RHighlighter::addVariables);
+        connect(RModel, &RVariableModel::constantsRemoved, this, &RHighlighter::removeRules);
+    }
+
     addKeywords(RKeywords::instance()->keywords());
 
     foreach (const QString& s, operators_list)
-        operators.append(QRegExp(s));
+        addRule(QRegularExpression(s), operatorFormat());
     foreach (const QString& s, specials_list)
-        specials.append(QRegExp(QLatin1String("\\b")+s+QLatin1String("\\b")));
+        addRule(QRegularExpression(QLatin1String("\\b")+s+QLatin1String("\\b")), commentFormat());
+
+    addRule(QRegularExpression(QStringLiteral("\"[^\"]*\"")), stringFormat());
+    addRule(QRegularExpression(QStringLiteral("'[^']*'")), stringFormat());
+
+    addRule(QRegularExpression(QStringLiteral("#[^\n]*")), commentFormat());
 }
 
-// FIXME: due to lack of lookbehinds in QRegExp here we use a flag showing if we need to shift the boundary of formatting
-// to make up for the accidentally matched character
-void RHighlighter::formatRule(const QRegExp &p, const QTextCharFormat &fmt, const QString& text,bool shift)
+QStringList RHighlighter::parseBlockTextToWords(const QString& originalText)
 {
-    int index = p.indexIn(text);
-    while (index >= 0) {
-        int length = p.matchedLength();
-        setFormat(index+(shift?1:0),  length-(shift?1:0),  fmt);
-       index = p.indexIn(text,  index + length);
+    QString text = originalText;
+
+    static const QString replacer1 = QLatin1String("___CANTOR_R_REPLACER_1___");
+    static const QString replacer2 = QLatin1String("___CANTOR_R_REPLACER_2___");
+
+    text.replace(QLatin1String("-"), replacer1);
+    text.replace(QLatin1String("."), replacer2);
+
+    QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+
+    for (int i = 0; i < words.size(); i++)
+    {
+        words[i].replace(replacer1, QLatin1String("-"));
+        words[i].replace(replacer2, QLatin1String("."));
     }
-}
 
-void RHighlighter::massFormat(const QVector<QRegExp> &p, const QTextCharFormat &fmt, const QString& text,bool shift)
-{
-    foreach (const QRegExp &rule, p)
-        formatRule(rule,fmt,text,shift);
-}
-
-
-void RHighlighter::highlightBlock(const QString& text)
-{
-    if(text.isEmpty())
-        return;
-
-    //Do some backend independent highlighting (brackets etc.)
-    DefaultHighlighter::highlightBlock(text);
-
-    //Let's mark every functionlike call as an error, then paint right ones in their respective format
-    // TODO: find more elegant solution not involving double formatting
-    formatRule(QRegExp(QLatin1String("\\b[A-Za-z0-9_]+(?=\\()")),errorFormat(),text);
-
-    //formatRule(QRegExp("[^A-Za-z_]-?([0-9]+)?(((e|i)?-?)|\\.)[0-9]*L?"),numberFormat(),text,true); // TODO: erroneous number formats, refine
-    massFormat(operators,operatorFormat(),text);
-    massFormat(specials,commentFormat(),text); // FIXME must be distinct
-    massFormat(functions,functionFormat(),text);
-    massFormat(variables,variableFormat(),text);
-    formatRule(QRegExp(QLatin1String("\"[^\"]+\"")),stringFormat(),text); // WARNING a bit redundant
+    return words;
 }

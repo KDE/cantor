@@ -92,6 +92,8 @@ class CANTOR_EXPORT DefaultHighlighter : public QSyntaxHighlighter
      */
     void highlightBlock(const QString& text) override;
 
+    virtual QStringList parseBlockTextToWords(const QString& text);
+
     bool skipHighlighting(const QString& text);
 
     QTextCharFormat functionFormat() const;

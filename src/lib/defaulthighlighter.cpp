@@ -212,11 +212,16 @@ void DefaultHighlighter::highlightPairs(const QString& text)
 
 }
 
+QStringList Cantor::DefaultHighlighter::parseBlockTextToWords(const QString& text)
+{
+    return text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+}
+
 void DefaultHighlighter::highlightWords(const QString& text)
 {
     //qDebug() << "DefaultHighlighter::highlightWords";
 
-    const QStringList& words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+    const QStringList& words = parseBlockTextToWords(text);
     int count;
     int pos = 0;
 
