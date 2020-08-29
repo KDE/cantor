@@ -18,12 +18,9 @@
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
-
-#include <QTreeWidgetItem>
-
 #include "maximasettingswidget.h"
 #include "../qthelpconfig.h"
-
+#include <QDebug>
 #include <KConfigGroup>
 #include <KSharedConfig>
 
@@ -32,25 +29,20 @@ MaximaSettingsWidget::MaximaSettingsWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
 
     // Add QtHelp widget
-    /*QtHelpConfig**/ docWidget = new QtHelpConfig();
+    QtHelpConfig* docWidget = new QtHelpConfig();
     static_cast<QGridLayout*>(this->layout())->addWidget(docWidget, 6, 0, 1, 3);
+
+    loadSettings(); // load previously saved settings from read KConfig
 }
 
-MaximaSettingsWidget::~MaximaSettingsWidget()
+void MaximaSettingsWidget::loadSettings()
 {
+    const KConfigGroup cg = KSharedConfig::openConfig()->group(QLatin1String("Settings_Documentation"));
 
-    /*KConfigGroup group = KSharedConfig::openConfig()->group(QLatin1String("Settings_Documentation"));
+    QStringList nameList = cg.readEntry("Names", QStringList());
+    QStringList pathList = cg.readEntry("Paths", QStringList());
 
-    QString name;
-    QString path;
-
-    for (int i = 0; i < docWidget->qchTable->topLevelItemCount(); i++)
-    {
-        const QTreeWidgetItem* item = docWidget->qchTable->topLevelItem(i);
-        name = item->text(0);
-        path = item->text(1);
-    }
-
-    group.writeEntry(QLatin1String("Name"), name);
-    group.writeEntry(QLatin1String("Path"), path);*/
+    qDebug() << nameList.at(0);
+    /*ui.chkShowColumnType->setChecked(group.readEntry(QLatin1String("Names"), QStringList()));
+    ui.chkShowPlotDesignation->setChecked(group.readEntry(QLatin1String("Paths"), QStringList()));*/
 }

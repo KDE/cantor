@@ -113,48 +113,12 @@ QtHelpConfig::QtHelpConfig()
     m_configWidget->tableCtrlLayout->insertWidget(1, knsButton);
     connect(knsButton, &KNS3::Button::dialogFinished, this, &QtHelpConfig::knsUpdate);
 
-    reset();
+    connect(this, &QtHelpConfig::settingsChanged, this, &QtHelpConfig::saveSettings);
 }
 
 QtHelpConfig::~QtHelpConfig()
 {
     delete m_configWidget;
-}
-
-void QtHelpConfig::apply()
-{
-    QStringList iconList, nameList, pathList, ghnsList;
-    for (int i = 0; i < m_configWidget->qchTable->topLevelItemCount(); i++) {
-        const QTreeWidgetItem* item = m_configWidget->qchTable->topLevelItem(i);
-        nameList << item->text(0);
-        pathList << item->text(1);
-        iconList << item->text(2);
-        ghnsList << item->text(3);
-    }
-
-    qtHelpWriteConfig(iconList, nameList, pathList, ghnsList);
-    //static_cast<QtHelpPlugin*>(plugin())->readConfig();*/
-}
-
-void QtHelpConfig::reset()
-{
-    m_configWidget->qchTable->clear();
-
-    QStringList iconList, nameList, pathList, ghnsList;
-    qtHelpReadConfig(iconList, nameList, pathList, ghnsList);
-
-    const int size = qMin(qMin(iconList.size(), nameList.size()), pathList.size());
-    for(int i = 0; i < size; ++i) {
-        QString ghnsStatus = ghnsList.size()>i ? ghnsList.at(i) : QStringLiteral("0");
-        addTableItem(iconList.at(i), nameList.at(i), pathList.at(i), ghnsStatus);
-    }
-}
-
-void QtHelpConfig::defaults()
-{
-    if(m_configWidget->qchTable->topLevelItemCount() > 0) {
-        m_configWidget->qchTable->clear();
-    }
 }
 
 void QtHelpConfig::add()
@@ -163,6 +127,7 @@ void QtHelpConfig::add()
     if (dialog->exec()) {
         QTreeWidgetItem* item = addTableItem(dialog->qchIcon->icon(), dialog->qchName->text(), dialog->qchRequester->text(), QStringLiteral("0"));
         m_configWidget->qchTable->setCurrentItem(item);
+        emit settingsChanged();
     }
     delete dialog;
 }
@@ -195,6 +160,7 @@ void QtHelpConfig::modify(QTreeWidgetItem* item)
         if(item->text(GhnsColumn) == QLatin1String("0")) {
             item->setText(PathColumn, dialog->qchRequester->text());
         }
+        emit settingsChanged();
     }
     delete dialog;
 }
@@ -227,6 +193,7 @@ void QtHelpConfig::remove(QTreeWidgetItem* item)
         return;
 
     delete item;
+    emit settingsChanged();
 }
 
 void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
@@ -259,6 +226,7 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
             }
         }
     }
+    emit settingsChanged();
 }
 
 QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString &name,
@@ -303,24 +271,23 @@ QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString 
     return item;
 }
 
-void QtHelpConfig::qtHelpReadConfig(QStringList& iconList, QStringList& nameList,
-                      QStringList& pathList, QStringList& ghnsList)
+void QtHelpConfig::saveSettings()
 {
-    KConfigGroup cg(KSharedConfig::openConfig(), "QtHelp Documentation");
-    iconList = cg.readEntry("iconList", QStringList());
-    nameList = cg.readEntry("nameList", QStringList());
-    pathList = cg.readEntry("pathList", QStringList());
-    ghnsList = cg.readEntry("ghnsList", QStringList());
-}
+    qDebug() << "settings changed";
+    KConfigGroup group = KSharedConfig::openConfig()->group(QLatin1String("Settings_Documentation"));
 
-void QtHelpConfig::qtHelpWriteConfig(const QStringList& iconList, const QStringList& nameList,
-                       const QStringList& pathList, const QStringList& ghnsList)
-{
-    KConfigGroup cg(KSharedConfig::openConfig(), "QtHelp Documentation");
-    cg.writeEntry("iconList", iconList);
-    cg.writeEntry("nameList", nameList);
-    cg.writeEntry("pathList", pathList);
-    cg.writeEntry("ghnsList", ghnsList);
+    QStringList name;
+    QStringList path;
+
+    for (int i = 0; i < m_configWidget->qchTable->topLevelItemCount(); i++)
+    {
+        const QTreeWidgetItem* item = m_configWidget->qchTable->topLevelItem(i);
+        name << item->text(0);
+        path << item->text(1);
+    }
+
+    group.writeEntry(QLatin1String("Names"), name);
+    group.writeEntry(QLatin1String("Paths"), path);
 }
 
 #include "qthelpconfig.moc"

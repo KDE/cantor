@@ -23,17 +23,16 @@
 
 #include "../qthelpconfig.h"
 #include "ui_settings.h"
-
+#include <QDebug>
 class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
 {
   Q_OBJECT
 
   public:
     explicit MaximaSettingsWidget(QWidget *parent = nullptr);
-    ~MaximaSettingsWidget();
 
-private:
-    QtHelpConfig* docWidget;
+  private:
+    void loadSettings();
 };
 
 #endif /* _MAXIMASETTINGSWIDGET_H */

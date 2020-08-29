@@ -33,11 +33,16 @@ namespace Ui
 
 class QtHelpConfig : public QWidget
 {
+    Q_OBJECT
+
     public:
       explicit QtHelpConfig();
       ~QtHelpConfig();
 
       bool checkNamespace(const QString &filename, QTreeWidgetItem* modifiedItem);
+
+   Q_SIGNALS:
+    void settingsChanged();
 
     private Q_SLOTS:
       void add();
@@ -46,17 +51,11 @@ class QtHelpConfig : public QWidget
       void knsUpdate(const KNS3::Entry::List& list);
 
     public Q_SLOTS:
-      void apply();
-      void defaults();
-      void reset();
+      void saveSettings();
 
     private:
       QTreeWidgetItem * addTableItem(const QString &icon, const QString &name,
                                      const QString &path, const QString &ghnsStatus);
-      void qtHelpReadConfig(QStringList& iconList, QStringList& nameList, QStringList& pathList, QStringList& ghnsList);
-
-      void qtHelpWriteConfig(const QStringList& iconList, const QStringList& nameList, const QStringList& pathList,
-                             const QStringList& ghnsList);
 
       Ui::QtHelpConfigUI* m_configWidget;
 };
