@@ -18,14 +18,39 @@
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
+
+#include <QTreeWidgetItem>
+
 #include "maximasettingswidget.h"
 #include "../qthelpconfig.h"
+
+#include <KConfigGroup>
+#include <KSharedConfig>
 
 MaximaSettingsWidget::MaximaSettingsWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);
 
     // Add QtHelp widget
-    QtHelpConfig* docWidget = new QtHelpConfig();
+    /*QtHelpConfig**/ docWidget = new QtHelpConfig();
     static_cast<QGridLayout*>(this->layout())->addWidget(docWidget, 6, 0, 1, 3);
+}
+
+MaximaSettingsWidget::~MaximaSettingsWidget()
+{
+
+    /*KConfigGroup group = KSharedConfig::openConfig()->group(QLatin1String("Settings_Documentation"));
+
+    QString name;
+    QString path;
+
+    for (int i = 0; i < docWidget->qchTable->topLevelItemCount(); i++)
+    {
+        const QTreeWidgetItem* item = docWidget->qchTable->topLevelItem(i);
+        name = item->text(0);
+        path = item->text(1);
+    }
+
+    group.writeEntry(QLatin1String("Name"), name);
+    group.writeEntry(QLatin1String("Path"), path);*/
 }

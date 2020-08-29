@@ -21,6 +21,7 @@
 #ifndef _MAXIMASETTINGSWIDGET_H
 #define _MAXIMASETTINGSWIDGET_H
 
+#include "../qthelpconfig.h"
 #include "ui_settings.h"
 
 class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
@@ -29,6 +30,10 @@ class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
 
   public:
     explicit MaximaSettingsWidget(QWidget *parent = nullptr);
+    ~MaximaSettingsWidget();
+
+private:
+    QtHelpConfig* docWidget;
 };
 
 #endif /* _MAXIMASETTINGSWIDGET_H */
