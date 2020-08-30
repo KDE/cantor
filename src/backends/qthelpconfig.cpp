@@ -282,9 +282,9 @@ void QtHelpConfig::loadSettings()
     const KConfigGroup group = KSharedConfig::openConfig()->group(m_backend);
 
     QStringList nameList = group.readEntry(QLatin1String("Names"), QStringList());
-    QStringList pathList = group.readEntry(QLatin1String("Icons"), QStringList());;
-    QStringList iconList = group.readEntry(QLatin1String("Paths"), QStringList());;
-    QStringList ghnsList = group.readEntry(QLatin1String("Ghns"), QStringList());;
+    QStringList pathList = group.readEntry(QLatin1String("Icons"), QStringList());
+    QStringList iconList = group.readEntry(QLatin1String("Paths"), QStringList());
+    QStringList ghnsList = group.readEntry(QLatin1String("Ghns"), QStringList());
 
     // iterate through Name Location pairs and update the QTreeWidget
     for(int i = 0; i < nameList.size(); i++)
@@ -296,7 +296,7 @@ void QtHelpConfig::loadSettings()
 
 void QtHelpConfig::saveSettings()
 {
-    // create seperate group for sepearte backends
+    // create seperate group for seperate backends
     KConfigGroup group = KSharedConfig::openConfig()->group(m_backend);
 
     QStringList nameList;

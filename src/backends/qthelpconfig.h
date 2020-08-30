@@ -49,12 +49,11 @@ class QtHelpConfig : public QWidget
       void remove(QTreeWidgetItem* item);
       void modify(QTreeWidgetItem* item);
       void knsUpdate(const KNS3::Entry::List& list);
-
-    public Q_SLOTS:
-      void loadSettings();
       void saveSettings();
 
     private:
+      void loadSettings();
+
       QTreeWidgetItem * addTableItem(const QString &icon, const QString &name,
                                      const QString &path, const QString &ghnsStatus);
 

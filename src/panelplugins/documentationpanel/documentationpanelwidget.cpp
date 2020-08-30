@@ -57,6 +57,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     m_helpFiles.insert(QLatin1String("Maxima"), {QLatin1String("Maxima_v5.42"), QLatin1String("Maxima_v5.44")});
     m_helpFiles.insert(QLatin1String("Python"), {QLatin1String("Python_v3.8.4"), QLatin1String("NumPy_v1.19")});
     m_helpFiles.insert(QLatin1String("Octave"), {QLatin1String("Octave_v5.2.0")});
+    m_helpFiles.insert(QLatin1String("Julia"), {QLatin1String("Julia_v1.5")});
 
     m_textBrowser = new QWebEngineView(this);
     m_textBrowser->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
