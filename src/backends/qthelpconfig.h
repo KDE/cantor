@@ -36,7 +36,7 @@ class QtHelpConfig : public QWidget
     Q_OBJECT
 
     public:
-      explicit QtHelpConfig();
+      explicit QtHelpConfig(const QString&);
       ~QtHelpConfig();
 
       bool checkNamespace(const QString &filename, QTreeWidgetItem* modifiedItem);
@@ -51,6 +51,7 @@ class QtHelpConfig : public QWidget
       void knsUpdate(const KNS3::Entry::List& list);
 
     public Q_SLOTS:
+      void loadSettings();
       void saveSettings();
 
     private:
@@ -58,6 +59,7 @@ class QtHelpConfig : public QWidget
                                      const QString &path, const QString &ghnsStatus);
 
       Ui::QtHelpConfigUI* m_configWidget;
+      QString m_backend;
 };
 
 #endif // QTHELPCONFIG_H

@@ -26,6 +26,6 @@ PythonSettingsWidget::PythonSettingsWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
 
     // Add QtHelp widget
-    QtHelpConfig* docWidget = new QtHelpConfig();
+    QtHelpConfig* docWidget = new QtHelpConfig(QLatin1String("python"));
     static_cast<QGridLayout*>(this->layout())->addWidget(docWidget, 8, 0, 1, 5);
 }

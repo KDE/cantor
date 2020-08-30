@@ -29,7 +29,7 @@ MaximaSettingsWidget::MaximaSettingsWidget(QWidget *parent) : QWidget(parent)
     setupUi(this);
 
     // Add QtHelp widget
-    QtHelpConfig* docWidget = new QtHelpConfig();
+    QtHelpConfig* docWidget = new QtHelpConfig(QLatin1String("maxima"));
     static_cast<QGridLayout*>(this->layout())->addWidget(docWidget, 6, 0, 1, 3);
 
     loadSettings(); // load previously saved settings from read KConfig

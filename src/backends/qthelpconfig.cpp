@@ -91,8 +91,13 @@ void QtHelpConfigEditDialog::accept()
     QDialog::accept();
 }
 
-QtHelpConfig::QtHelpConfig()
+QtHelpConfig::QtHelpConfig(const QString& backend)
 {
+    m_backend = backend;
+
+    // load settings for Install Additional Help Files widget
+    loadSettings();
+
     m_configWidget = new Ui::QtHelpConfigUI;
     m_configWidget->setupUi(this);
     m_configWidget->addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
@@ -271,23 +276,49 @@ QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString 
     return item;
 }
 
+void QtHelpConfig::loadSettings()
+{
+    // load settings for current backend and then update the QTreeWidget
+    const KConfigGroup group = KSharedConfig::openConfig()->group(m_backend);
+
+    QStringList nameList = group.readEntry(QLatin1String("Names"), QStringList());
+    QStringList pathList = group.readEntry(QLatin1String("Icons"), QStringList());;
+    QStringList iconList = group.readEntry(QLatin1String("Paths"), QStringList());;
+    QStringList ghnsList = group.readEntry(QLatin1String("Ghns"), QStringList());;
+
+    // iterate through Name Location pairs and update the QTreeWidget
+    for(int i = 0; i < nameList.size(); i++)
+    {
+        QTreeWidgetItem* item = addTableItem(iconList.at(i), nameList.at(i), pathList.at(i), ghnsList.at(i));
+        m_configWidget->qchTable->setCurrentItem(item);
+    }
+}
+
 void QtHelpConfig::saveSettings()
 {
-    qDebug() << "settings changed";
-    KConfigGroup group = KSharedConfig::openConfig()->group(QLatin1String("Settings_Documentation"));
+    // create seperate group for sepearte backends
+    KConfigGroup group = KSharedConfig::openConfig()->group(m_backend);
 
-    QStringList name;
-    QStringList path;
+    QStringList nameList;
+    QStringList pathList;
+    QStringList iconList;
+    QStringList ghnsList;
 
     for (int i = 0; i < m_configWidget->qchTable->topLevelItemCount(); i++)
     {
         const QTreeWidgetItem* item = m_configWidget->qchTable->topLevelItem(i);
-        name << item->text(0);
-        path << item->text(1);
+        nameList << item->text(0);
+        pathList << item->text(1);
+        iconList << item->text(2);
+        ghnsList << item->text(3);
     }
 
-    group.writeEntry(QLatin1String("Names"), name);
-    group.writeEntry(QLatin1String("Paths"), path);
+    group.writeEntry(QLatin1String("Names"), nameList);
+    group.writeEntry(QLatin1String("Paths"), pathList);
+    group.writeEntry(QLatin1String("Icons"), iconList);
+    group.writeEntry(QLatin1String("Ghns"), ghnsList);
+
+    qDebug() << "settings changed";
 }
 
 #include "qthelpconfig.moc"
