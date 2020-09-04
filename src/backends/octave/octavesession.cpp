@@ -130,10 +130,39 @@ void OctaveSession::login()
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish, true);
         updateVariables();
     }
+    if (!m_worksheetPath.isEmpty())
+    {
+        static const QString mfilenameTemplate = QLatin1String(
+            "function retval = mfilename(arg_mem = \"\")\n"
+                "type_info=typeinfo(arg_mem);\n"
+                "if (strcmp(type_info, \"string\"))\n"
+                    "if (strcmp(arg_mem, \"fullpath\"))\n"
+                        "retval = \"%1\";\n"
+                    "elseif (strcmp(arg_mem, \"fullpathext\"))\n"
+                        "retval = \"%2\";\n"
+                    "else\n"
+                        "retval = \"script\";\n"
+                    "endif\n"
+                "else\n"
+                    "error(\"wrong type argument '%s'\", type_info)\n"
+                "endif\n"
+            "endfunction"
+        );
+        const QString& worksheetDirPath = QFileInfo(m_worksheetPath).absoluteDir().absolutePath();
+        const QString& worksheetPathWithoutExtension = m_worksheetPath.mid(0, m_worksheetPath.lastIndexOf(QLatin1Char('.')));
+
+        evaluateExpression(QLatin1String("cd ")+worksheetDirPath, OctaveExpression::DeleteOnFinish, true);
+        evaluateExpression(mfilenameTemplate.arg(worksheetPathWithoutExtension, m_worksheetPath), OctaveExpression::DeleteOnFinish, true);
+    }
 
     changeStatus(Cantor::Session::Done);
     emit loginDone();
     qDebug()<<"login done";
+}
+
+void OctaveSession::setWorksheetPath(const QString& path)
+{
+    m_worksheetPath = path;
 }
 
 void OctaveSession::logout()
