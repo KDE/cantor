@@ -6,10 +6,6 @@
   <include>QStandardPaths</include>
   <kcfgfile name="cantorrc"/>
   <group name="PythonBackend">
-    <entry name="pythonServerPath" type="Url">
-      <label>Path to Cantor python server executable</label>
-      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver")))</default>
-    </entry>
     <entry name="localDoc" type="Url">
         <label>Url to the local Python documentation</label>
     </entry>
