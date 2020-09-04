@@ -188,33 +188,6 @@
        </layout>
       </widget>
      </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox2">
-       <property name="title">
-        <string>Paths (advance settings)</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout2">
-          <item>
-           <widget class="QLabel" name="label2">
-            <property name="text">
-             <string>Path to Cantor plugin directory:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="KUrlRequester" name="kcfg_PathToCantorPluginsDir" native="true">
-            <property name="toolTip">
-             <string>Path to directory, which contains Cantor backend plugins. This is important setting - with wrong path Cantor can't create any worksheets.</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
