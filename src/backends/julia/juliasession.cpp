@@ -22,6 +22,7 @@
 #include <random>
 
 #include <KProcess>
+#include <KMessageBox>
 #include <KLocalizedString>
 #include <QDBusConnection>
 #include <QDBusInterface>
@@ -111,10 +112,31 @@ void JuliaSession::login()
         return;
     }
 
-    m_interface->call(
+    const QDBusReply<int> &reply = m_interface->call(
         QString::fromLatin1("login"),
         JuliaSettings::self()->replPath().path()
     );
+    if (reply.isValid())
+    {
+        int errorCode = reply.value();
+        if (errorCode != 0)
+        {
+            if (errorCode == 1)
+            {
+                const QString& juliaSysimgMissingFilepath = getError();
+                KMessageBox::error(nullptr, i18n("Julia session can't login due internal julia problem with missing internal file - \"%1\"", juliaSysimgMissingFilepath), i18n("Error - Cantor"));
+                return;
+            }
+            else // All error codes should be supported
+                assert(false);
+        }
+    }
+    else
+    {
+        KMessageBox::error(nullptr, i18n("Julia session can't login due unknown internal problem"), i18n("Error - Cantor"));
+        return;
+    }
+
 
     static_cast<JuliaVariableModel*>(variableModel())->setJuliaServer(m_interface);
 

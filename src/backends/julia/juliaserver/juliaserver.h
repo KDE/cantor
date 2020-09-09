@@ -45,9 +45,10 @@ public Q_SLOTS:
     /**
      * Initializer for JuliaServer. Call this first before using it
      *
+     * @return 0 - if all OK, 1 - if sys.so file missing. For error 1 - the filename of the missing file can be requested via getError()
      * @param path path to julia executable
      */
-    Q_SCRIPTABLE void login(const QString &path) const;
+    Q_SCRIPTABLE int login(const QString &path);
 
     /**
      * Runs a piece of julia code. After this returns use getOutput, getError,
