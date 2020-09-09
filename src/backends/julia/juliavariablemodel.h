@@ -41,6 +41,7 @@ class JuliaVariableModel : public Cantor::DefaultVariableModel
 
   private:
     static const QRegularExpression typeVariableInfo;
+    static const QStringList internalCantorJuliaVariables;
 
   private:
     QDBusInterface* m_interface;

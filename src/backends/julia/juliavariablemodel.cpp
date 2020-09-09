@@ -32,6 +32,7 @@
 using namespace Cantor;
 
 const QRegularExpression JuliaVariableModel::typeVariableInfo = QRegularExpression(QLatin1String("\\w+\\["));
+const QStringList JuliaVariableModel::internalCantorJuliaVariables = {QLatin1String("__cantor_gr_gks_need_restore__")};
 
 JuliaVariableModel::JuliaVariableModel(JuliaSession* session):
     DefaultVariableModel(session),
@@ -70,7 +71,7 @@ void JuliaVariableModel::update()
 
             const QString& name = variables[i];
             QString value = values[i];
-            if (value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER)
+            if (!internalCantorJuliaVariables.contains(name) && value != JuliaVariableManagementExtension::REMOVED_VARIABLE_MARKER)
             {
                 // Register variable
                 // We use replace here, because julia return data type for some variables, and we need
