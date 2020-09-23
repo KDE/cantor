@@ -35,7 +35,7 @@ public:
 
     void evaluate() override;
     void interrupt() override;
-    void parseOutput(QString& output);
+    void parseOutput(const QString& output);
     void parseError(QString& error);
 
 };

@@ -44,14 +44,12 @@ void LuaExpression::evaluate()
      * set the status to computing
      * decide what needs to be done if the user is trying to define a function etc
     */
-    setStatus(Cantor::Expression::Computing);
     if (command().isEmpty()) {
         setStatus(Cantor::Expression::Done);
         return;
     }
 
-    LuaSession* currentSession = dynamic_cast<LuaSession*>(session());
-        currentSession->runExpression(this);
+    session()->enqueueExpression(this);
 }
 
 void LuaExpression::parseError(QString &error)
@@ -61,44 +59,12 @@ void LuaExpression::parseError(QString &error)
     setStatus(Error);
 }
 
-void LuaExpression::parseOutput(QString &output)
+void LuaExpression::parseOutput(const QString &output)
 {
     qDebug()<<"parsing the output " << output;
 
-    const QStringList& inputs = command().split(QLatin1Char('\n'));
-    const QStringList& outputs = output.split(QLatin1Char('\n'));
-    QString parsedOutput;
-
-    for (auto out : outputs) {
-        //remove lua's promt characters if available
-        if (out.startsWith(QLatin1String("> ")))
-            out.remove(0, 2);
-        else if (out.startsWith(QLatin1String(">> ")))
-            out.remove(0, 3);
-
-        //for multi-line inputs lua returs the inputs as part of the output
-        //-> remove the input lines from the output.
-        //since lua doesn't always seem to preserve the spaces, compare trimmed strings
-        out = out.trimmed();
-        bool found = false;
-        for (auto in : inputs) {
-            if (out == in.trimmed()) {
-                found = true;
-                break;
-            }
-        }
-
-        if (!found) {
-            if (!parsedOutput.isEmpty())
-                parsedOutput += QLatin1Char('\n');
-            parsedOutput += out;
-        }
-    }
-
-    qDebug() << "final output of the command " <<  command() << ": " << parsedOutput << endl;
-
-    if (!parsedOutput.isEmpty())
-        setResult(new Cantor::TextResult(parsedOutput));
+    if (!output.isEmpty())
+        setResult(new Cantor::TextResult(output));
     setStatus(Cantor::Expression::Done);
 }
 
