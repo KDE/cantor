@@ -50,15 +50,13 @@ if(QALCULATE_FOUND)
     add_subdirectory(qalculate)
 endif(QALCULATE_FOUND)
 
-set_package_properties(PythonLibs3 PROPERTIES DESCRIPTION "A powerful dynamic programming language."
-    URL "https://www.python.org/"
-    TYPE OPTIONAL
+set_package_properties(Python3 PROPERTIES TYPE OPTIONAL
     PURPOSE "Backend to use Python with Cantor.")
 
-find_package(PythonLibs3)
-if(PYTHONLIBS3_FOUND)
+find_package(Python3 COMPONENTS Interpreter Development)
+if(Python3_FOUND)
     add_subdirectory(python)
-endif(PYTHONLIBS3_FOUND)
+endif()
 
 set_package_properties(LuaJIT PROPERTIES DESCRIPTION "A lightweight, extensible programming language (luajit implementation)."
     URL "https://www.lua.org/"
