@@ -29,10 +29,7 @@ class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
   Q_OBJECT
 
   public:
-    explicit MaximaSettingsWidget(QWidget *parent = nullptr);
-
-  private:
-    void loadSettings();
+    explicit MaximaSettingsWidget(QWidget* parent = nullptr);
 };
 
 #endif /* _MAXIMASETTINGSWIDGET_H */

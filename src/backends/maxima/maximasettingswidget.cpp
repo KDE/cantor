@@ -30,19 +30,7 @@ MaximaSettingsWidget::MaximaSettingsWidget(QWidget *parent) : QWidget(parent)
 
     // Add QtHelp widget
     QtHelpConfig* docWidget = new QtHelpConfig(QLatin1String("maxima"));
-    static_cast<QGridLayout*>(this->layout())->addWidget(docWidget, 6, 0, 1, 3);
-
-    loadSettings(); // load previously saved settings from read KConfig
+    auto hboxLayout = new QHBoxLayout(tabDocumentation);
+    hboxLayout->addWidget(docWidget);
 }
 
-void MaximaSettingsWidget::loadSettings()
-{
-    const KConfigGroup cg = KSharedConfig::openConfig()->group(QLatin1String("Settings_Documentation"));
-
-    QStringList nameList = cg.readEntry("Names", QStringList());
-    QStringList pathList = cg.readEntry("Paths", QStringList());
-
-    qDebug() << nameList.at(0);
-    /*ui.chkShowColumnType->setChecked(group.readEntry(QLatin1String("Names"), QStringList()));
-    ui.chkShowPlotDesignation->setChecked(group.readEntry(QLatin1String("Paths"), QStringList()));*/
-}

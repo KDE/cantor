@@ -55,16 +55,15 @@ public:
     {
         setupUi(this);
 
-        if (modifiedItem) {
+        if (modifiedItem)
             setWindowTitle(i18nc("@title:window", "Modify Entry"));
-        } else {
+        else
             setWindowTitle(i18nc("@title:window", "Add New Entry"));
-        }
+
         qchIcon->setIcon(QStringLiteral("qtlogo"));
     }
 
     bool checkQtHelpFile();
-
     void accept() override;
 
 private:
@@ -95,9 +94,6 @@ QtHelpConfig::QtHelpConfig(const QString& backend)
 {
     m_backend = backend;
 
-    // load settings for Install Additional Help Files widget
-    loadSettings();
-
     m_configWidget = new Ui::QtHelpConfigUI;
     m_configWidget->setupUi(this);
     m_configWidget->addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
@@ -114,11 +110,16 @@ QtHelpConfig::QtHelpConfig(const QString& backend)
     m_configWidget->qchTable->header()->setSectionResizeMode(ConfigColumn, QHeaderView::Fixed);
 
     // Add GHNS button // shift this code to backend specific
-    auto* knsButton = new KNS3::Button(i18nc("@action:button Allow user to get some API documentation with GHNS", "Get New Documentation"), QStringLiteral("kdevelop-qthelp.knsrc"), m_configWidget->boxQchManage);
+    auto* knsButton = new KNS3::Button(i18nc("@action:button Allow user to get some API documentation with GHNS", "Get New Documentation"),
+                                       QStringLiteral("cantor-qthelp.knsrc"),
+                                       this);
     m_configWidget->tableCtrlLayout->insertWidget(1, knsButton);
     connect(knsButton, &KNS3::Button::dialogFinished, this, &QtHelpConfig::knsUpdate);
 
     connect(this, &QtHelpConfig::settingsChanged, this, &QtHelpConfig::saveSettings);
+
+    // load settings for Install Additional Help Files widget
+    loadSettings();
 }
 
 QtHelpConfig::~QtHelpConfig()
