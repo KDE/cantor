@@ -143,8 +143,8 @@ void SageExpression::parseOutput(const QString& text)
         //interrupt it and show an error message
         if(endsWithAlternativePrompt)
         {
-            // Exit from sage additional input mode by closing the bracket
-            static_cast<SageSession*>(session())->sendInputToProcess(QLatin1String(")\n"));
+            // Exit from sage additional input mode
+            static_cast<SageSession*>(session())->sendInputToProcess(QLatin1String("\x03"));
             m_syntaxError = true;
         }
         else
