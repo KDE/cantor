@@ -3,5 +3,6 @@
   <mime-type type="application/x-cantor">
     <comment>Cantor worksheet</comment>
     <glob pattern="*.cws"/>
+    <generic-icon name="cantor"/>
   </mime-type>
 </mime-info>
