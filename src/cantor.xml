@@ -4,5 +4,6 @@
     <comment>Cantor worksheet</comment>
     <glob pattern="*.cws"/>
     <generic-icon name="cantor"/>
+    <sub-class-of type="application/zip"/>
   </mime-type>
 </mime-info>
