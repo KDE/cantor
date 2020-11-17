@@ -265,8 +265,15 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     const KConfigGroup group = KSharedConfig::openConfig()->group(m_backend.toLower());
     m_docNames = group.readEntry(QLatin1String("Names"), QStringList());
     m_docPaths = group.readEntry(QLatin1String("Paths"), QStringList());
-    if (!m_docNames.isEmpty())
-        m_documentationSelector->addItems(m_docNames);
+    const QStringList& iconNames = group.readEntry(QLatin1String("Icons"), QStringList());
+    for (int i = 0; i < m_docNames.size(); ++i) {
+        const QString& name = m_docNames.at(i);
+        QString iconName;
+        if (i < iconNames.size())
+            iconName = iconNames.at(i);
+
+        m_documentationSelector->addItem(QIcon::fromTheme(iconName), name);
+    }
 
     m_initializing = false;
 
