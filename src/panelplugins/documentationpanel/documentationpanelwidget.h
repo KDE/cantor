@@ -73,6 +73,8 @@ class DocumentationPanelWidget : public QWidget
     QHelpIndexWidget* m_index = nullptr;
     QHelpContentWidget* m_content = nullptr;
     QString m_backend;
+    QStringList docNames;
+    QStringList docPaths;
     bool m_initializing = false;
 
     // member variables for find in page text widget

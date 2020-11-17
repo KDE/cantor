@@ -16,7 +16,7 @@
 
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2019-2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "maximabackend.h"
@@ -91,7 +91,7 @@ QUrl MaximaBackend::helpUrl() const
 
 QWidget* MaximaBackend::settingsWidget(QWidget* parent) const
 {
-    return new MaximaSettingsWidget(parent);
+    return new MaximaSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* MaximaBackend::config() const

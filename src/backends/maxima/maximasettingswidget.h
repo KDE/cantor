@@ -15,13 +15,13 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
 #ifndef _MAXIMASETTINGSWIDGET_H
 #define _MAXIMASETTINGSWIDGET_H
 
-#include "../qthelpconfig.h"
 #include "ui_settings.h"
 
 class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
@@ -29,7 +29,7 @@ class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
   Q_OBJECT
 
   public:
-    explicit MaximaSettingsWidget(QWidget* parent = nullptr);
+    explicit MaximaSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
 };
 
 #endif /* _MAXIMASETTINGSWIDGET_H */

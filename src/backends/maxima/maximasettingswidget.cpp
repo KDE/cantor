@@ -15,22 +15,20 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
 #include "maximasettingswidget.h"
+#include "maximabackend.h"
 #include "../qthelpconfig.h"
-#include <QDebug>
-#include <KConfigGroup>
-#include <KSharedConfig>
 
-MaximaSettingsWidget::MaximaSettingsWidget(QWidget *parent) : QWidget(parent)
+MaximaSettingsWidget::MaximaSettingsWidget(QWidget* parent, const QString& id) : QWidget(parent)
 {
     setupUi(this);
 
     // Add QtHelp widget
-    QtHelpConfig* docWidget = new QtHelpConfig(QLatin1String("maxima"));
+    QtHelpConfig* docWidget = new QtHelpConfig(id);
     auto hboxLayout = new QHBoxLayout(tabDocumentation);
     hboxLayout->addWidget(docWidget);
 }
-
