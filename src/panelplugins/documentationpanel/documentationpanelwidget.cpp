@@ -263,16 +263,16 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     // show all available documentation files for the new backend
     m_documentationSelector->clear();
     const KConfigGroup group = KSharedConfig::openConfig()->group(m_backend.toLower());
-    docNames = group.readEntry(QLatin1String("Names"), QStringList());
-    docPaths = group.readEntry(QLatin1String("Paths"), QStringList());
-    if (!docNames.isEmpty())
-        m_documentationSelector->addItems(docNames);
+    m_docNames = group.readEntry(QLatin1String("Names"), QStringList());
+    m_docPaths = group.readEntry(QLatin1String("Paths"), QStringList());
+    if (!m_docNames.isEmpty())
+        m_documentationSelector->addItems(m_docNames);
 
     m_initializing = false;
 
     //select the first available documentation file which will trigger the re-initialization of QHelpEngine
     //TODO: restore from the saved state the previously selected documentation in m_documentationSelector for the current backend
-    if (!docNames.isEmpty())
+    if (!m_docNames.isEmpty())
         m_documentationSelector->setCurrentIndex(0);
     updateDocumentation();
 }
@@ -297,14 +297,14 @@ void DocumentationPanelWidget::updateDocumentation()
     }
 
     //unregister the previous help engine qch files
-    if(!m_previousQch.isEmpty())
+    if(!m_currentQchFileName.isEmpty())
     {
-        const QString& fileNamespace = QHelpEngineCore::namespaceName(m_previousQch);
+        const QString& fileNamespace = QHelpEngineCore::namespaceName(m_currentQchFileName);
         if(m_engine->registeredDocumentations().contains(fileNamespace))
-            m_engine->unregisterDocumentation(m_previousQch);
+            m_engine->unregisterDocumentation(m_currentQchFileName);
     }
 
-    if (docNames.isEmpty())
+    if (m_docNames.isEmpty())
     {
         m_textBrowser->hide();
         return;
@@ -315,10 +315,10 @@ void DocumentationPanelWidget::updateDocumentation()
     //initialize the Qt Help engine and provide the proper help collection file for the current backend
     //and for the currently selected documentation for this backend
     int index = m_documentationSelector->currentIndex();
-    if (index < docPaths.size())
-        qchFileName = docPaths.at(index);
+    if (index < m_docPaths.size())
+        m_currentQchFileName = m_docPaths.at(index);
 
-    const QString& qhcFileName = qchFileName.replace(QLatin1String("qch"), QLatin1String("qhc"));
+    const QString& qhcFileName = m_currentQchFileName.replace(QLatin1String("qch"), QLatin1String("qhc"));
     m_engine = new QHelpEngine(qhcFileName, this);
     /*if(!m_engine->setupData())
          qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();*/
@@ -362,12 +362,11 @@ void DocumentationPanelWidget::updateDocumentation()
     m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
 
     // register the compressed help file (qch)
-    m_previousQch = qchFileName;
-    const QString& nameSpace = QHelpEngineCore::namespaceName(qchFileName);
+    const QString& nameSpace = QHelpEngineCore::namespaceName(m_currentQchFileName);
     if(!m_engine->registeredDocumentations().contains(nameSpace))
     {
-        if(m_engine->registerDocumentation(qchFileName))
-            qDebug()<<"The documentation file " << qchFileName << " successfully registered.";
+        if(m_engine->registerDocumentation(m_currentQchFileName))
+            qDebug()<<"The documentation file " << m_currentQchFileName << " successfully registered.";
         else
             qWarning() << m_engine->error();
     }

@@ -73,8 +73,8 @@ class DocumentationPanelWidget : public QWidget
     QHelpIndexWidget* m_index = nullptr;
     QHelpContentWidget* m_content = nullptr;
     QString m_backend;
-    QStringList docNames;
-    QStringList docPaths;
+    QStringList m_docNames;
+    QStringList m_docPaths;
     bool m_initializing = false;
 
     // member variables for find in page text widget
@@ -84,7 +84,7 @@ class DocumentationPanelWidget : public QWidget
 
     QComboBox* m_documentationSelector = nullptr;
     QMap<QString, QStringList> m_helpFiles;
-    QString m_previousQch;
+    QString m_currentQchFileName;
 };
 
 // class for handling of custom url scheme ie. qthelp:// inside QWebEngineView
