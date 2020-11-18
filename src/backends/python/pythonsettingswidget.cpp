@@ -15,17 +15,19 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
 #include "pythonsettingswidget.h"
 #include "../qthelpconfig.h"
 
-PythonSettingsWidget::PythonSettingsWidget(QWidget *parent) : QWidget(parent)
+PythonSettingsWidget::PythonSettingsWidget(QWidget* parent, const QString& id) : QWidget(parent)
 {
     setupUi(this);
 
     // Add QtHelp widget
-    QtHelpConfig* docWidget = new QtHelpConfig(QLatin1String("python"));
-    static_cast<QGridLayout*>(this->layout())->addWidget(docWidget, 8, 0, 1, 5);
+    QtHelpConfig* docWidget = new QtHelpConfig(id);
+    auto hboxLayout = new QHBoxLayout(tabDocumentation);
+    hboxLayout->addWidget(docWidget);
 }

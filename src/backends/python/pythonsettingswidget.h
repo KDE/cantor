@@ -15,6 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
@@ -28,7 +29,7 @@ class PythonSettingsWidget : public QWidget, public Ui::PythonSettingsBase
   Q_OBJECT
 
   public:
-    explicit PythonSettingsWidget(QWidget *parent = nullptr);
+    explicit PythonSettingsWidget(QWidget *parent = nullptr, const QString& id = QString());
 };
 
 #endif /* _PYTHONSETTINGSWIDGET_H */
