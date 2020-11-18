@@ -23,13 +23,14 @@
 #define _PYTHONSETTINGSWIDGET_H
 
 #include "ui_settings.h"
+#include "../backendsettingswidget.h"
 
-class PythonSettingsWidget : public QWidget, public Ui::PythonSettingsBase
+class PythonSettingsWidget : public BackendSettingsWidget, public Ui::PythonSettingsBase
 {
   Q_OBJECT
 
   public:
-    explicit PythonSettingsWidget(QWidget *parent = nullptr, const QString& id = QString());
+    explicit PythonSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
 };
 
 #endif /* _PYTHONSETTINGSWIDGET_H */

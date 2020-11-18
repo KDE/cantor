@@ -41,7 +41,7 @@ PythonBackend::PythonBackend(QObject* parent, const QList<QVariant>& args) : Can
 
 QWidget* PythonBackend::settingsWidget(QWidget* parent) const
 {
-    return new PythonSettingsWidget(parent);
+    return new PythonSettingsWidget(parent, id());
 }
 
 Cantor::Session* PythonBackend::createSession()

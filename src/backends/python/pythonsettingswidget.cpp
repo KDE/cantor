@@ -20,14 +20,12 @@
  */
 
 #include "pythonsettingswidget.h"
-#include "../qthelpconfig.h"
 
-PythonSettingsWidget::PythonSettingsWidget(QWidget* parent, const QString& id) : QWidget(parent)
+PythonSettingsWidget::PythonSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
 {
     setupUi(this);
 
-    // Add QtHelp widget
-    QtHelpConfig* docWidget = new QtHelpConfig(id);
-    auto hboxLayout = new QHBoxLayout(tabDocumentation);
-    hboxLayout->addWidget(docWidget);
+    m_tabWidget = tabWidget;
+    m_tabDocumentation = tabDocumentation;
+    connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
 }

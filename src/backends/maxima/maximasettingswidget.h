@@ -23,8 +23,9 @@
 #define _MAXIMASETTINGSWIDGET_H
 
 #include "ui_settings.h"
+#include "../backendsettingswidget.h"
 
-class MaximaSettingsWidget : public QWidget, public Ui::MaximaSettingsBase
+class MaximaSettingsWidget : public BackendSettingsWidget, public Ui::MaximaSettingsBase
 {
   Q_OBJECT
 

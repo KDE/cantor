@@ -16,17 +16,33 @@
 
     ---
     Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
-    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
-#include "maximasettingswidget.h"
-#include "maximabackend.h"
+#ifndef BACKENDSETTINGSWIDGET_H
+#define BACKENDSETTINGSWIDGET_H
 
-MaximaSettingsWidget::MaximaSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
+#include <QWidget>
+
+class QTabWidget;
+class QtHelpConfig;
+
+class BackendSettingsWidget : public QWidget
 {
-    setupUi(this);
+Q_OBJECT
 
-    m_tabWidget = tabWidget;
-    m_tabDocumentation = tabDocumentation;
-    connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
-}
+public:
+    explicit BackendSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
+
+private:
+    QtHelpConfig* m_docWidget = nullptr;
+
+protected:
+    QString m_id;
+    QTabWidget* m_tabWidget = nullptr;
+    QWidget* m_tabDocumentation = nullptr;
+
+public Q_SLOTS:
+    void tabChanged(int);
+};
+
+#endif /* BACKENDSETTINGSWIDGET_H */

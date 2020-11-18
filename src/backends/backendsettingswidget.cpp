@@ -16,17 +16,31 @@
 
     ---
     Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
-    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
-#include "maximasettingswidget.h"
-#include "maximabackend.h"
+#include "backendsettingswidget.h"
+#include "qthelpconfig.h"
 
-MaximaSettingsWidget::MaximaSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
+#include <QHBoxLayout>
+#include <QTabWidget>
+
+BackendSettingsWidget::BackendSettingsWidget(QWidget* parent, const QString& id) : QWidget(parent), m_id(id)
 {
-    setupUi(this);
 
-    m_tabWidget = tabWidget;
-    m_tabDocumentation = tabDocumentation;
-    connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
+}
+
+void BackendSettingsWidget::tabChanged(int index) {
+    if (!m_tabWidget || !m_tabDocumentation)
+        return;
+
+    //if the documentation tab was selected and there is not doc widget available yet, create it
+    if (m_tabWidget->widget(index) == m_tabDocumentation)
+    {
+        if (!m_docWidget)
+        {
+            m_docWidget = new QtHelpConfig(m_id);
+            auto hboxLayout = new QHBoxLayout(m_tabDocumentation);
+            hboxLayout->addWidget(m_docWidget);
+        }
+    }
 }
