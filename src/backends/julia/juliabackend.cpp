@@ -16,14 +16,14 @@
 
     ---
     Copyright (C) 2016 Ivan Lakhtanov <ivan.lakhtanov@gmail.com>
-    Copyright (C) 2019 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2019-2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "juliabackend.h"
 #include "juliaextensions.h"
 #include "juliasession.h"
+#include "juliasettingswidget.h"
 #include "settings.h"
-#include "ui_settings.h"
 
 #include <QProcess>
 
@@ -149,10 +149,7 @@ bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 
 QWidget* JuliaBackend::settingsWidget(QWidget *parent) const
 {
-    QWidget* widget = new QWidget(parent);
-    Ui::JuliaSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new JuliaSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* JuliaBackend::config() const

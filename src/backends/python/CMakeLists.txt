@@ -8,6 +8,7 @@ set( PythonBackend_SRCS
   pythoncompletionobject.cpp
   pythonextensions.cpp
   pythonsettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 set(PythonServer_SRCS

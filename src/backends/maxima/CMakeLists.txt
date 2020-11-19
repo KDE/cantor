@@ -9,6 +9,7 @@ set( MaximaBackend_SRCS
   maximasettingswidget.cpp
   maximasyntaxhelpobject.cpp
   maximavariablemodel.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)

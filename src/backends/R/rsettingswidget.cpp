@@ -16,18 +16,24 @@
 
     ---
     Copyright (C) 2010 Oleksiy Protas <elfy.ua@gmail.com>
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "rsettingswidget.h"
-#include <QGroupBox>
-#include <KLineEdit>
-#include <QFileDialog>
-#include <KLocalizedString>
-#include <QMouseEvent>
 
-RSettingsWidget::RSettingsWidget(QWidget *parent) : QWidget(parent)
+#include <QFileDialog>
+#include <QLineEdit>
+#include <QMouseEvent>
+#include <KLocalizedString>
+
+RSettingsWidget::RSettingsWidget(QWidget *parent, const QString& id) : BackendSettingsWidget(parent, id)
 {
     setupUi(this);
+
+    m_tabWidget = tabWidget;
+    m_tabDocumentation = tabDocumentation;
+    connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
+
     kcfg_autorunScripts->lineEdit()->setReadOnly(true);
     kcfg_autorunScripts->lineEdit()->installEventFilter(this);
     kcfg_autorunScripts->lineEdit()->setToolTip(i18n("Double click to open file selection dialog"));

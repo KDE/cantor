@@ -16,16 +16,20 @@
 
     ---
     Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
-    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
-#include "maximasettingswidget.h"
+#ifndef JULIASETTINGSWIDGET_H
+#define JULIASETTINGSWIDGET_H
 
-MaximaSettingsWidget::MaximaSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
+#include "ui_settings.h"
+#include "../backendsettingswidget.h"
+
+class JuliaSettingsWidget : public BackendSettingsWidget, public Ui::JuliaSettingsBase
 {
-    setupUi(this);
+  Q_OBJECT
 
-    m_tabWidget = tabWidget;
-    m_tabDocumentation = tabDocumentation;
-    connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
-}
+  public:
+    explicit JuliaSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
+};
+
+#endif /* JULIASETTINGSWIDGET_H */

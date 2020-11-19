@@ -21,7 +21,7 @@ set(cantor_HELP
 ki18n_wrap_ui(cantor_HELP qthelpconfig.ui)
 ki18n_wrap_ui(cantor_HELP qthelpconfigeditdialog.ui)
 
-add_library(cantor_help STATIC ${cantor_HELP} backendsettingswidget.cpp)
+add_library(cantor_help STATIC ${cantor_HELP})
 target_link_libraries(cantor_help KF5::SyntaxHighlighting KF5::I18n KF5::IconThemes KF5::NewStuff KF5::KIOWidgets Qt5::Help)
 
 if(NOT WIN32)

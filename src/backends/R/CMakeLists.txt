@@ -13,6 +13,7 @@ set( RBackend_SRCS
   rkeywords.cpp
   rsettingswidget.cpp
   rvariablemodel.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(RBackend_SRCS rserver/settings.kcfgc)
@@ -25,7 +26,7 @@ ki18n_wrap_ui(RBackend_SRCS settings.ui)
 add_backend(rbackend ${RBackend_SRCS})
 
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
-target_link_libraries( cantor_rbackend ${R_USED_LIBS} KF5::SyntaxHighlighting)
+target_link_libraries( cantor_rbackend cantor_help ${R_USED_LIBS} KF5::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testr testr.cpp)
