@@ -19,7 +19,7 @@
  */
 
 #ifndef LUASETTINGSWIDGET_H
-#define LUAMASETTINGSWIDGET_H
+#define LUASETTINGSWIDGET_H
 
 #include "ui_settings.h"
 #include "../backendsettingswidget.h"
