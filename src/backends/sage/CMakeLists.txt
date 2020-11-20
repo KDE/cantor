@@ -6,6 +6,8 @@ set( SageBackend_SRCS
   sagekeywords.cpp
   sagehighlighter.cpp
   sagecompletionobject.cpp
+  sagesettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(SageBackend_SRCS settings.kcfgc)
@@ -15,7 +17,7 @@ ki18n_wrap_ui(SageBackend_SRCS settings.ui)
 
 add_backend(sagebackend ${SageBackend_SRCS})
 
-target_link_libraries( cantor_sagebackend
+target_link_libraries( cantor_sagebackend cantor_help
     KF5::Pty
     KF5::SyntaxHighlighting)
 
