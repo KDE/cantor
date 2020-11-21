@@ -18,9 +18,9 @@
     Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
-#include "pythonsettingswidget.h"
+#include "scilabsettingswidget.h"
 
-PythonSettingsWidget::PythonSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
+ScilabSettingsWidget::ScilabSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
 {
     setupUi(this);
 

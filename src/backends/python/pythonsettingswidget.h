@@ -16,11 +16,10 @@
 
     ---
     Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
-    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
-#ifndef _PYTHONASETTINGSWIDGET_H
-#define _PYTHONSETTINGSWIDGET_H
+#ifndef PYTHONSETTINGSWIDGET_H
+#define PYTHONSETTINGSWIDGET_H
 
 #include "ui_settings.h"
 #include "../backendsettingswidget.h"

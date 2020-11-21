@@ -18,13 +18,18 @@
     Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
-#include "pythonsettingswidget.h"
+#ifndef SCILABSETTINGSWIDGET_H
+#define SCILABSETTINGSWIDGET_H
 
-PythonSettingsWidget::PythonSettingsWidget(QWidget* parent, const QString& id) : BackendSettingsWidget(parent, id)
+#include "ui_settings.h"
+#include "../backendsettingswidget.h"
+
+class ScilabSettingsWidget : public BackendSettingsWidget, public Ui::ScilabSettingsBase
 {
-    setupUi(this);
+  Q_OBJECT
 
-    m_tabWidget = tabWidget;
-    m_tabDocumentation = tabDocumentation;
-    connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
-}
+  public:
+    explicit ScilabSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
+};
+
+#endif /* SCILABSETTINGSWIDGET_H */
