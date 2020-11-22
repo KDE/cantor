@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #ifndef _DOCUMENTATIONPANELWIDGET_H
@@ -23,13 +24,11 @@
 
 #include <QBuffer>
 #include <QHelpEngine>
-#include <QMap>
 #include <QWebEngineUrlRequestJob>
 #include <QWebEngineUrlSchemeHandler>
 #include <QWidget>
 
 class QComboBox;
-class QHelpEngine;
 class QHelpContentWidget;
 class QHelpIndexWidget;
 class QLineEdit;
@@ -50,7 +49,6 @@ class DocumentationPanelWidget : public QWidget
     void updateBackend(const QString&, const QString&);
 
   Q_SIGNALS:
-    void activateBrowser();
     void zoomFactorChanged();
 
   private Q_SLOTS:
@@ -68,10 +66,10 @@ class DocumentationPanelWidget : public QWidget
     void updateDocumentation();
 
     QHelpEngine* m_engine = nullptr;
-    QWebEngineView* m_textBrowser = nullptr;
-    QStackedWidget* m_displayArea = nullptr;
-    QHelpIndexWidget* m_index = nullptr;
-    QHelpContentWidget* m_content = nullptr;
+    QWebEngineView* m_webEngineView = nullptr;
+    QStackedWidget* m_stackedWidget = nullptr;
+    QHelpIndexWidget* m_indexWidget = nullptr;
+    QHelpContentWidget* m_contentWidget = nullptr;
     QString m_backend;
     QStringList m_docNames;
     QStringList m_docPaths;
@@ -83,7 +81,6 @@ class DocumentationPanelWidget : public QWidget
     QToolButton* m_matchCase = nullptr;
 
     QComboBox* m_documentationSelector = nullptr;
-    QMap<QString, QStringList> m_helpFiles;
     QString m_currentQchFileName;
 };
 

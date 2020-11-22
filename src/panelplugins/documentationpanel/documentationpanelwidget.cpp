@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "cantor_macros.h"
@@ -33,7 +34,6 @@
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QHelpContentWidget>
-#include <QHelpEngine>
 #include <QHelpIndexWidget>
 #include <QIcon>
 #include <QLabel>
@@ -41,7 +41,6 @@
 #include <QModelIndex>
 #include <QPushButton>
 #include <QShortcut>
-#include <QStandardPaths>
 #include <QStackedWidget>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -49,16 +48,15 @@
 #include <QWebEngineProfile>
 #include <QWebEngineUrlScheme>
 #include <QWebEngineView>
-#include <QDebug>
 
 DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(parent)
 {
-    m_textBrowser = new QWebEngineView(this);
-    m_textBrowser->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
-    m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewTab)->setVisible(false);
-    m_textBrowser->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
-    m_textBrowser->page()->action(QWebEnginePage::DownloadLinkToDisk)->setVisible(false);
-    m_textBrowser->page()->action(QWebEnginePage::Reload)->setVisible(false);
+    m_webEngineView = new QWebEngineView(this);
+    m_webEngineView->page()->action(QWebEnginePage::ViewSource)->setVisible(false);
+    m_webEngineView->page()->action(QWebEnginePage::OpenLinkInNewTab)->setVisible(false);
+    m_webEngineView->page()->action(QWebEnginePage::OpenLinkInNewWindow)->setVisible(false);
+    m_webEngineView->page()->action(QWebEnginePage::DownloadLinkToDisk)->setVisible(false);
+    m_webEngineView->page()->action(QWebEnginePage::Reload)->setVisible(false);
 
     /////////////////////////
     // Top toolbar layout //
@@ -76,7 +74,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     m_search->setClearButtonEnabled(true);
 
     // Add a seperator
-    QFrame *seperator = new QFrame(this);
+    QFrame* seperator = new QFrame(this);
     seperator->setFrameShape(QFrame::VLine);
     seperator->setFrameShadow(QFrame::Sunken);
 
@@ -107,7 +105,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     zoomIn->setContext(Qt::WidgetWithChildrenShortcut);
 
     connect(zoomIn, &QShortcut::activated, this, [=]{
-        m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() + 0.1);
+        m_webEngineView->setZoomFactor(m_webEngineView->zoomFactor() + 0.1);
         emit zoomFactorChanged();
     });
 
@@ -115,19 +113,19 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     zoomOut->setContext(Qt::WidgetWithChildrenShortcut);
 
     connect(zoomOut, &QShortcut::activated, this, [=]{
-        m_textBrowser->setZoomFactor(m_textBrowser->zoomFactor() - 0.1);
+        m_webEngineView->setZoomFactor(m_webEngineView->zoomFactor() - 0.1);
         emit zoomFactorChanged();
     });
 
     connect(this, &DocumentationPanelWidget::zoomFactorChanged, [=]{
-        if(m_textBrowser->zoomFactor() != 1.0)
+        if(m_webEngineView->zoomFactor() != 1.0)
             resetZoom->setEnabled(true);
         else
             resetZoom->setEnabled(false);
     });
 
     // Later on, add Contents, Browser and Index on this stacked widget whenever setBackend() is called
-    m_displayArea = new QStackedWidget(this);
+    m_stackedWidget = new QStackedWidget(this);
 
     /////////////////////////////////
     // Find in Page widget layout //
@@ -173,20 +171,14 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     // Add topmost toolbar, display area and find in page widget in a Vertical layout
     QVBoxLayout* vlayout = new QVBoxLayout(this);
     vlayout->addWidget(toolBarContainer);
-    vlayout->addWidget(m_displayArea);
+    vlayout->addWidget(m_stackedWidget);
     vlayout->addWidget(findPageWidgetContainer);
-
-    connect(this, &DocumentationPanelWidget::activateBrowser, [=]{
-        m_textBrowser->hide();
-        m_displayArea->setCurrentIndex(1);
-        m_textBrowser->show();
-    });
 
     connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &DocumentationPanelWidget::updateDocumentation);
 
-    connect(m_displayArea, &QStackedWidget::currentChanged, [=]{
+    connect(m_stackedWidget, &QStackedWidget::currentChanged, [=]{
         //disable Home and Search in Page buttons when stackwidget shows contents widget, enable when shows web browser
-        if(m_displayArea->currentIndex() != 1) //0->contents 1->browser
+        if(m_stackedWidget->currentIndex() != 1) //0->contents 1->browser
         {
             findPage->setEnabled(false);
             home->setEnabled(false);
@@ -199,12 +191,12 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     });
 
     connect(home, &QPushButton::clicked, [=]{
-        m_displayArea->setCurrentIndex(0);
+        m_stackedWidget->setCurrentIndex(0);
         findPageWidgetContainer->hide();
     });
 
     connect(resetZoom, &QPushButton::clicked, [=]{
-        m_textBrowser->setZoomFactor(1.0);
+        m_webEngineView->setZoomFactor(1.0);
         resetZoom->setEnabled(false);
     });
 
@@ -219,7 +211,7 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
 
     connect(hideButton, &QToolButton::clicked, this, [=]{
         findPageWidgetContainer->hide();
-        m_textBrowser->findText(QString()); // this clears up the selected text
+        m_webEngineView->findText(QString()); // this clears up the selected text
     });
 
     connect(m_findText, &QLineEdit::returnPressed, this, &DocumentationPanelWidget::searchForward);
@@ -228,21 +220,21 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     connect(previous, &QToolButton::clicked, this, &DocumentationPanelWidget::searchBackward);
     connect(m_matchCase, &QAbstractButton::toggled, this, &DocumentationPanelWidget::searchForward);
     connect(m_matchCase, &QAbstractButton::toggled, this, [=]{
-        m_textBrowser->findText(QString());
+        m_webEngineView->findText(QString());
         searchForward();
     });
 
     // for webenginebrowser for downloading of images or html pages
-    connect(m_textBrowser->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
+    connect(m_webEngineView->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
 }
 
 DocumentationPanelWidget::~DocumentationPanelWidget()
 {
-    delete m_index;
-    delete m_content;
+    delete m_indexWidget;
+    delete m_contentWidget;
     delete m_engine;
-    delete m_textBrowser;
-    delete m_displayArea;
+    delete m_webEngineView;
+    delete m_stackedWidget;
     delete m_search;
     delete m_findText;
     delete m_matchCase;
@@ -295,10 +287,10 @@ void DocumentationPanelWidget::updateDocumentation()
         return;
 
     //remove the currently shown widgets
-    if(m_displayArea->count())
+    if(m_stackedWidget->count())
     {
-        for(int i = m_displayArea->count(); i >= 0; i--)
-            m_displayArea->removeWidget(m_displayArea->widget(i));
+        for(int i = m_stackedWidget->count(); i >= 0; i--)
+            m_stackedWidget->removeWidget(m_stackedWidget->widget(i));
 
         m_search->clear();
     }
@@ -313,11 +305,11 @@ void DocumentationPanelWidget::updateDocumentation()
 
     if (m_docNames.isEmpty())
     {
-        m_textBrowser->hide();
+        m_webEngineView->hide();
         return;
     }
     else
-        m_textBrowser->show();
+        m_webEngineView->show();
 
     //initialize the Qt Help engine and provide the proper help collection file for the current backend
     //and for the currently selected documentation for this backend
@@ -330,43 +322,36 @@ void DocumentationPanelWidget::updateDocumentation()
     /*if(!m_engine->setupData())
          qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();*/
 
-    if(m_backend != QLatin1String("Octave"))
+    if(m_backend != QLatin1String("octave"))
       m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
 
     //index widget
-    m_index = m_engine->indexWidget();
-    connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_index, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    m_indexWidget = m_engine->indexWidget();
+    connect(m_indexWidget, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
 
     //content widget
-    m_content = m_engine->contentWidget();
-    connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_content, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-
-    //TODO QHelpIndexWidget::linkActivated is obsolete, use QHelpIndexWidget::documentActivated instead
-    // display the documentation browser whenever contents are clicked
-    connect(m_content, &QHelpContentWidget::linkActivated, [=]{
-        m_displayArea->setCurrentIndex(1);
-    });
+    m_contentWidget = m_engine->contentWidget();
+    connect(m_contentWidget, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_contentWidget, &QHelpContentWidget::linkActivated, [=]{ m_stackedWidget->setCurrentIndex(1); });
 
     //search widget
-    auto* completer = new QCompleter(m_index->model(), m_search);
+    auto* completer = new QCompleter(m_indexWidget->model(), m_search);
     m_search->setCompleter(completer);
     completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     connect(completer, QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
 
     //add the widgets to the display area
-    m_displayArea->addWidget(m_content);
-    m_displayArea->addWidget(m_textBrowser);
+    m_stackedWidget->addWidget(m_contentWidget);
+    m_stackedWidget->addWidget(m_webEngineView);
     /* Adding the index widget to implement the logic for context sensitive help
      * This widget would be NEVER shown*/
-    m_displayArea->addWidget(m_index);
+    m_stackedWidget->addWidget(m_indexWidget);
 
     // handle the URL scheme handler
-    //m_textBrowser->page()->profile()->removeUrlScheme("qthelp");
-    m_textBrowser->page()->profile()->removeAllUrlSchemeHandlers(); // remove previously installed scheme handler and then install new one
-    m_textBrowser->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
+    //m_webEngineView->page()->profile()->removeUrlScheme("qthelp");
+    m_webEngineView->page()->profile()->removeAllUrlSchemeHandlers(); // remove previously installed scheme handler and then install new one
+    m_webEngineView->page()->profile()->installUrlSchemeHandler("qthelp", new QtHelpSchemeHandler(m_engine));
 
     // register the compressed help file (qch)
     const QString& nameSpace = QHelpEngineCore::namespaceName(m_currentQchFileName);
@@ -382,8 +367,8 @@ void DocumentationPanelWidget::updateDocumentation()
 void DocumentationPanelWidget::displayHelp(const QUrl& url)
 {
     qDebug() << url;
-    m_textBrowser->load(url);
-    m_textBrowser->show();
+    m_webEngineView->load(url);
+    m_webEngineView->show();
 }
 
 void DocumentationPanelWidget::returnPressed()
@@ -398,38 +383,40 @@ void DocumentationPanelWidget::returnPressed()
 
 void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
-    qDebug() << keyword;
+    qDebug() << "requested the documentation for the keyword " << keyword;
 
     // First make sure we have display browser as the current widget on the QStackedWidget
-    emit activateBrowser();
+    m_webEngineView->hide();
+    m_stackedWidget->setCurrentIndex(1);
+    m_webEngineView->show();
 
-    m_index->filterIndices(keyword); // filter exactly, no wildcards
-    m_index->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
+    m_indexWidget->filterIndices(keyword); // filter exactly, no wildcards
+    m_indexWidget->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
 
     // called in order to refresh and restore the index widget
     // otherwise filterIndices() filters the indices list, and then the index widget only contains the matched keywords
-    m_index->filterIndices(QString());
+    m_indexWidget->filterIndices(QString());
 }
 
 void DocumentationPanelWidget::searchForward()
 {
-    m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively) :
-                               m_textBrowser->findText(m_findText->text());
+    m_matchCase->isChecked() ? m_webEngineView->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively) :
+                               m_webEngineView->findText(m_findText->text());
 }
 
 void DocumentationPanelWidget::searchBackward()
 {
-    m_matchCase->isChecked() ? m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively | QWebEnginePage::FindBackward) :
-                               m_textBrowser->findText(m_findText->text(), QWebEnginePage::FindBackward);
+    m_matchCase->isChecked() ? m_webEngineView->findText(m_findText->text(), QWebEnginePage::FindCaseSensitively | QWebEnginePage::FindBackward) :
+                               m_webEngineView->findText(m_findText->text(), QWebEnginePage::FindBackward);
 }
 
 void DocumentationPanelWidget::downloadResource(QWebEngineDownloadItem* resource)
 {
     // default download directory is ~/Downloads on Linux
-    m_textBrowser->page()->download(resource->url());
+    m_webEngineView->page()->download(resource->url());
     resource->accept();
 
     KMessageBox::information(this, i18n("The file has been downloaded successfully at Downloads."), i18n("Download Successfull"));
 
-    disconnect(m_textBrowser->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
+    disconnect(m_webEngineView->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
 }
