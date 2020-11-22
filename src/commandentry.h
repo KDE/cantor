@@ -165,6 +165,7 @@ class CommandEntry : public WorksheetEntry
     void setMidPrompt();
     void setHidePrompt();
 
+    void showHelp();
 
   private:
     static const double VerticalSpacing;

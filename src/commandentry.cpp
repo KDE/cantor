@@ -349,11 +349,15 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
             menu->addAction(i18n("Hide Results"), this, &CommandEntry::collapseResults);
     }
 
+    if (!command().simplified().isEmpty())
+        menu->addAction(QIcon::fromTheme(QLatin1String("help-whatsthis")), i18n("Show Help"), this, &CommandEntry::showHelp);
+
     if (m_isExecutionEnabled)
         menu->addAction(i18n("Exclude from Execution"), this, &CommandEntry::excludeFromExecution);
     else
         menu->addAction(i18n("Add to Execution"), this, &CommandEntry::addToExecution);
 
+    menu->addSeparator();
     menu->addMenu(m_backgroundColorMenu);
     menu->addMenu(m_textColorMenu);
     menu->addMenu(m_fontMenu);
@@ -1551,6 +1555,25 @@ void CommandEntry::changeResultCollapsingAction()
 qreal CommandEntry::promptItemWidth()
 {
     return m_promptItem->width();
+}
+
+/*!
+ * called when the "Get Help" action is triggered in the context menu.
+ * requests the worksheet to show the current keyword in the documentation panel.
+ * the current keyword is either the currenly selected text or the text under
+ * the cursor if there is no selection.
+ */
+void CommandEntry::showHelp()
+{
+    QString keyword;
+    const QTextCursor& cursor = m_commandItem->textCursor();
+    if (cursor.hasSelection())
+        keyword = cursor.selectedText();
+    else
+        keyword = cursor.block().text();
+
+    if (!keyword.simplified().isEmpty())
+        emit worksheet()->requestDocumentation(keyword);
 }
 
 void CommandEntry::excludeFromExecution()

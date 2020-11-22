@@ -427,6 +427,7 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
     if (!worksheet()->isRunning() && wantToEvaluate())
         menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
 
+    menu->addSeparator();
     menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"), this, SLOT(startRemoving()), 0);
     menu->addSeparator();
     worksheet()->populateMenu(menu, mapToScene(pos));
