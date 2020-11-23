@@ -16,14 +16,13 @@
 
     ---
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "cassert"
 
 #include "documentationpanelplugin.h"
 #include "session.h"
-
-#include <QIcon>
 
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
 {
@@ -50,16 +49,6 @@ bool DocumentationPanelPlugin::showOnStartup()
     return true;
 }
 
-QIcon DocumentationPanelPlugin::icon() const
-{
-    return QIcon::fromTheme(m_backendIcon);
-}
-
-QString DocumentationPanelPlugin::backendName() const
-{
-    return m_backendName;
-}
-
 void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
 {
     m_cantorShell = cantorShell;
@@ -69,29 +58,14 @@ void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
 Cantor::PanelPlugin::State DocumentationPanelPlugin::saveState()
 {
     Cantor::PanelPlugin::State state = PanelPlugin::saveState();
-    state.inners.append(m_backendName);
-    state.inners.append(m_backendIcon);
     return state;
 }
 
 void DocumentationPanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
 {
     PanelPlugin::restoreState(state);
-
-    if(state.inners.size() > 0)
-    {
-        assert(state.inners.size() == 2);
-        m_backendName = state.inners[0].toString();
-        m_backendIcon = state.inners[1].toString();
-    }
-    else if(session())
-    {
-        m_backendName = session()->backend()->name();
-        m_backendIcon = session()->backend()->icon();
-
-        if(m_widget)
-            m_widget->updateBackend(m_backendName, m_backendIcon);
-    }
+    if(session() && m_widget)
+        m_widget->updateBackend(session()->backend()->name());
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(documentationpanelplugin, "documentationpanelplugin.json", registerPlugin<DocumentationPanelPlugin>();)

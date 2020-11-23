@@ -16,6 +16,7 @@
 
     ---
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
+    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #ifndef _DOCUMENTATIONPANELPLUGIN_H
@@ -34,26 +35,15 @@ class DocumentationPanelPlugin : public Cantor::PanelPlugin
     ~DocumentationPanelPlugin() override;
 
     QWidget* widget() override;
-
     bool showOnStartup() override;
-
-    /** @return icon of the current backend **/
-    QIcon icon() const;
-
-    /** @return name of the current backend **/
-    QString backendName() const;
-
     void connectToShell(QObject* cantorShell) override;
 
     Cantor::PanelPlugin::State saveState() override;
-
     void restoreState(const Cantor::PanelPlugin::State& state) override;
 
   private:
     DocumentationPanelWidget* m_widget = nullptr;
     QObject* m_cantorShell = nullptr;
-    QString m_backendName;
-    QString m_backendIcon;
 };
 
 #endif /* _DOCUMENTATIONPANELPLUGIN_H */

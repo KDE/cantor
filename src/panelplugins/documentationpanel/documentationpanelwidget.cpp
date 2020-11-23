@@ -124,8 +124,9 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
             resetZoom->setEnabled(false);
     });
 
-    // Later on, add Contents, Browser and Index on this stacked widget whenever setBackend() is called
+    //stack widget containing the web view and the content widget (will be added later in updateBacked())
     m_stackedWidget = new QStackedWidget(this);
+    m_stackedWidget->addWidget(m_webEngineView);
 
     /////////////////////////////////
     // Find in Page widget layout //
@@ -174,7 +175,8 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     vlayout->addWidget(m_stackedWidget);
     vlayout->addWidget(findPageWidgetContainer);
 
-    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &DocumentationPanelWidget::updateDocumentation);
+    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            this, &DocumentationPanelWidget::updateDocumentation);
 
     connect(m_stackedWidget, &QStackedWidget::currentChanged, [=]{
         //disable Home and Search in Page buttons when stackwidget shows contents widget, enable when shows web browser
@@ -225,7 +227,8 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     });
 
     // for webenginebrowser for downloading of images or html pages
-    connect(m_webEngineView->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
+    connect(m_webEngineView->page()->profile(), &QWebEngineProfile::downloadRequested,
+            this, &DocumentationPanelWidget::downloadResource);
 }
 
 DocumentationPanelWidget::~DocumentationPanelWidget()
@@ -241,10 +244,9 @@ DocumentationPanelWidget::~DocumentationPanelWidget()
     delete m_documentationSelector;
 }
 
-void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QString& icon)
+void DocumentationPanelWidget::updateBackend(const QString& newBackend)
 {
-    Q_UNUSED(icon)
-
+    qDebug()<<"update backend " << newBackend;
     //nothing to do if the same backend was provided
     if(m_backend == newBackend)
         return;
@@ -273,7 +275,16 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend, const QS
     //TODO: restore from the saved state the previously selected documentation in m_documentationSelector for the current backend
     if (!m_docNames.isEmpty())
         m_documentationSelector->setCurrentIndex(0);
+
     updateDocumentation();
+
+    if (!m_docNames.isEmpty())
+    {
+        m_webEngineView->show();
+        m_stackedWidget->setCurrentIndex(1);
+    }
+    else
+        m_webEngineView->hide();
 }
 
 /*!
@@ -286,12 +297,11 @@ void DocumentationPanelWidget::updateDocumentation()
     if (m_initializing)
         return;
 
-    //remove the currently shown widgets
-    if(m_stackedWidget->count())
+    //remove the currently shown content widget, will be replaced with the new one after
+    //the help engine was initialized with the new documentation file
+    if(m_contentWidget)
     {
-        for(int i = m_stackedWidget->count(); i >= 0; i--)
-            m_stackedWidget->removeWidget(m_stackedWidget->widget(i));
-
+        m_stackedWidget->removeWidget(m_contentWidget);
         m_search->clear();
     }
 
@@ -305,11 +315,10 @@ void DocumentationPanelWidget::updateDocumentation()
 
     if (m_docNames.isEmpty())
     {
-        m_webEngineView->hide();
+        m_contentWidget = nullptr;
+        m_indexWidget = nullptr;
         return;
     }
-    else
-        m_webEngineView->show();
 
     //initialize the Qt Help engine and provide the proper help collection file for the current backend
     //and for the currently selected documentation for this backend
@@ -327,12 +336,12 @@ void DocumentationPanelWidget::updateDocumentation()
 
     //index widget
     m_indexWidget = m_engine->indexWidget();
-    connect(m_indexWidget, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
+    connect(m_indexWidget, &QHelpIndexWidget::linkActivated, this, &DocumentationPanelWidget::showUrl);
 
     //content widget
     m_contentWidget = m_engine->contentWidget();
-    connect(m_contentWidget, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::displayHelp);
-    connect(m_contentWidget, &QHelpContentWidget::linkActivated, [=]{ m_stackedWidget->setCurrentIndex(1); });
+    m_stackedWidget->addWidget(m_contentWidget);
+    connect(m_contentWidget, &QHelpContentWidget::linkActivated, this, &DocumentationPanelWidget::showUrl);
 
     //search widget
     auto* completer = new QCompleter(m_indexWidget->model(), m_search);
@@ -340,13 +349,6 @@ void DocumentationPanelWidget::updateDocumentation()
     completer->setCompletionMode(QCompleter::UnfilteredPopupCompletion);
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     connect(completer, QOverload<const QModelIndex&>::of(&QCompleter::activated), this, &DocumentationPanelWidget::returnPressed);
-
-    //add the widgets to the display area
-    m_stackedWidget->addWidget(m_contentWidget);
-    m_stackedWidget->addWidget(m_webEngineView);
-    /* Adding the index widget to implement the logic for context sensitive help
-     * This widget would be NEVER shown*/
-    m_stackedWidget->addWidget(m_indexWidget);
 
     // handle the URL scheme handler
     //m_webEngineView->page()->profile()->removeUrlScheme("qthelp");
@@ -364,11 +366,15 @@ void DocumentationPanelWidget::updateDocumentation()
     }
 }
 
-void DocumentationPanelWidget::displayHelp(const QUrl& url)
+void DocumentationPanelWidget::showUrl(const QUrl& url)
 {
-    qDebug() << url;
     m_webEngineView->load(url);
-    m_webEngineView->show();
+    m_stackedWidget->setCurrentIndex(0); //show the web engine view
+}
+
+const QUrl& DocumentationPanelWidget::url() const
+{
+    return QUrl();
 }
 
 void DocumentationPanelWidget::returnPressed()
@@ -385,10 +391,8 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
 {
     qDebug() << "requested the documentation for the keyword " << keyword;
 
-    // First make sure we have display browser as the current widget on the QStackedWidget
-    m_webEngineView->hide();
-    m_stackedWidget->setCurrentIndex(1);
-    m_webEngineView->show();
+    //make sure first we show the web view in the stack widget
+    m_stackedWidget->setCurrentIndex(0);
 
     m_indexWidget->filterIndices(keyword); // filter exactly, no wildcards
     m_indexWidget->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal

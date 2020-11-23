@@ -46,13 +46,16 @@ class DocumentationPanelWidget : public QWidget
     DocumentationPanelWidget(QWidget*);
     ~DocumentationPanelWidget();
 
-    void updateBackend(const QString&, const QString&);
+    void updateBackend(const QString&);
+    const QUrl& url() const;
+
+  public Q_SLOTS:
+    void showUrl(const QUrl&);
 
   Q_SIGNALS:
     void zoomFactorChanged();
 
   private Q_SLOTS:
-    void displayHelp(const QUrl&);
     void contextSensitiveHelp(const QString&);
     void returnPressed();
 

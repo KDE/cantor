@@ -17,7 +17,7 @@
     ---
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
     Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    Copyright (C) 2018-2019 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2018-2020 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "commandentry.h"
