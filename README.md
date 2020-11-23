@@ -34,6 +34,10 @@ make install or su -c 'make install'
 
 If `-DCMAKE_INSTALL_PREFIX` is not used, Cantor will be installed in
 default cmake install directory (`/usr/local/` usually).
+Also, setting `CMAKE_INSTALL_PREFIX` to some unstandart location may happens different problems
+with searching Cantor files. So there is a need for passing proper paths for KDE install cmake variables.
+For example, if no one Cantor's backends found after installation, KDE_INSTALL_PLUGINDIR path should
+be specified on cmake configuration step to some location.
 
 To uninstall the project:
 

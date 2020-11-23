@@ -26,12 +26,18 @@
 #include <settings.h>
 #include "ui_settings.h"
 
+#ifndef Q_OS_WIN
+#include <signal.h>
+#endif
+
 #include <QProcess>
+
+const QString LuaSession::LUA_PROMPT = QLatin1String("> ");
+const QString LuaSession::LUA_SUBPROMPT = QLatin1String(">> ");
 
 LuaSession::LuaSession( Cantor::Backend* backend) : Session(backend),
     m_L(nullptr),
-    m_process(nullptr),
-    m_currentExpression(nullptr)
+    m_process(nullptr)
 {
 }
 
@@ -80,7 +86,8 @@ void LuaSession::readIntroMessage()
         m_output.append(QString::fromLocal8Bit(m_process->readLine()));
     }
 
-    if(!m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
+    const QString& output = m_output.join(QLatin1String("\n"));
+    if(!output.isEmpty() && output.trimmed().endsWith(QLatin1String(">"))) {
         qDebug() << " reading the intro message " << m_output ;
         m_output.clear();
 
@@ -100,31 +107,90 @@ void LuaSession::readOutput()
     // keep reading till the output ends with '>'.
     // '>' marks the end of output for a particular command;
     while(m_process->bytesAvailable()) {
-        m_output.append(QString::fromLocal8Bit(m_process->readLine()));
+        QString line = QString::fromLocal8Bit(m_process->readLine());
+        if (line.endsWith(QLatin1String("\n")))
+            line.chop(1);
+        m_output.append(line);
     }
 
-    //merge outputs until lua's promt "> " appears, take care of the comment characters "-->"
-    if(m_currentExpression && !m_output.isEmpty() && m_output.endsWith(QLatin1String("> "))
-        && !m_output.endsWith(QLatin1String("-> ")))
+    if (expressionQueue().size() > 0)
     {
-        // we have our complete output
-        // clean the output and parse it and clear m_output;
-        m_currentExpression->parseOutput(m_output);
-        m_output.clear();
+        LuaExpression* expression = static_cast<LuaExpression*>(expressionQueue().first());
 
+        // How parsing works:
+        // For each line of input command, which for example we name as X
+        // lua prints output in this form (common form, 90% of output)
+        // X + "\n" + command_output + "\n" + "> " or ">> " + "\n"
+        // or (merged form, rare, only 10% of output
+        // X + "\n" + command_output + "\n" + ("> " or ">> " in beginning of next X)
+        // Sometimes empty lines also apears in command output
+
+        // In this realisation we iterate over input lines and output line and copy only output lines
+        int input_idx = 0;
+        int previous_output_idx = 0;
+        int output_idx = 0;
+        QString output;
+        qDebug() << "m_inputCommands" << m_inputCommands;
+        qDebug() << m_output;
+        while (output_idx < m_output.size() && input_idx < m_inputCommands.size())
+        {
+            const QString& line = m_output[output_idx];
+            bool previousLineIsPrompt = (output_idx >= 1 ? isPromptString(m_output[output_idx-1]) : true);
+            bool commonInputMatch = (line == m_inputCommands[input_idx] && previousLineIsPrompt);
+            bool mergedInputMatch = (line == LUA_PROMPT + m_inputCommands[input_idx] || line == LUA_SUBPROMPT + m_inputCommands[input_idx]);
+
+            if (commonInputMatch || mergedInputMatch)
+            {
+                if (previous_output_idx + 1 < output_idx)
+                {
+                    for (int i = previous_output_idx+1; i < output_idx; i++)
+                    {
+                        const QString& copiedLine = m_output[i];
+                        bool isLastLine = i == output_idx-1;
+                        if (!(isLastLine && previousLineIsPrompt))
+                            output += copiedLine + QLatin1String("\n");
+                    }
+                }
+                previous_output_idx = output_idx;
+                input_idx++;
+            }
+            output_idx++;
+        }
+
+        if (input_idx == m_inputCommands.size() && m_output[m_output.size()-1] == LUA_PROMPT)
+        {
+            //We parse all output, so copy tail of the output and pass it to lua expression
+            for (int i = previous_output_idx+1; i < m_output.size()-1; i++)
+            {
+                const QString& copiedLine = m_output[i];
+                bool isLastLine = i == m_output.size()-1;
+                if (isLastLine)
+                    output += copiedLine;
+                else
+                    output += copiedLine + QLatin1String("\n");
+            }
+
+            expression->parseOutput(output);
+            m_output.clear();
+        }
     }
+}
 
+bool LuaSession::isPromptString(const QString& s)
+{
+    return s == LUA_PROMPT || s == LUA_SUBPROMPT;
 }
 
 void LuaSession::readError()
 {
     qDebug() << "readError";
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
-    if (!m_currentExpression || error.isEmpty())
+    if (expressionQueue().isEmpty() || error.isEmpty())
     {
         return;
     }
-    m_currentExpression->parseError(error);
+
+    static_cast<LuaExpression*>(expressionQueue().first())->parseError(error);
 }
 
 void LuaSession::processStarted()
@@ -149,9 +215,24 @@ void LuaSession::logout()
 
 void LuaSession::interrupt()
 {
-    if (status() == Cantor::Session::Running && m_currentExpression)
-        m_currentExpression->interrupt();
-    // Lua backend is synchronous, there is no way to currently interrupt an expression (in a clean way)
+    qDebug() << expressionQueue().size();
+    if(!expressionQueue().isEmpty())
+    {
+        qDebug()<<"interrupting " << expressionQueue().first()->command();
+        if(m_process && m_process->state() != QProcess::NotRunning)
+        {
+#ifndef Q_OS_WIN
+            const int pid=m_process->pid();
+            kill(pid, SIGINT);
+#else
+            ; //TODO: interrupt the process on windows
+#endif
+        }
+        foreach (Cantor::Expression* expression, expressionQueue())
+            expression->setStatus(Cantor::Expression::Interrupted);
+        expressionQueue().clear();
+    }
+
     changeStatus(Cantor::Session::Done);
 }
 
@@ -159,28 +240,30 @@ Cantor::Expression* LuaSession::evaluateExpression(const QString& cmd, Cantor::E
 {
     changeStatus(Cantor::Session::Running);
 
-    m_currentExpression = new LuaExpression(this, internal);
-    connect(m_currentExpression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished(Cantor::Expression::Status)));
-    m_currentExpression->setFinishingBehavior(behave);
-    m_currentExpression->setCommand(cmd);
-    m_currentExpression->evaluate();
+    LuaExpression* expression = new LuaExpression(this, internal);
 
-    return m_currentExpression;
+    expression->setFinishingBehavior(behave);
+    expression->setCommand(cmd);
+    expression->evaluate();
+
+    return expression;
 }
 
-void LuaSession::runExpression(LuaExpression *currentExpression)
+void LuaSession::runFirstExpression()
 {
-    /*
-     * get the current command
-     * format it and write to m_process
-    */
-    QString command = currentExpression->command();
+    Cantor::Expression* expression = expressionQueue().first();
+    connect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(expressionFinished(Cantor::Expression::Status)));
+    QString command = expression->internalCommand();
+
+    m_inputCommands = command.split(QLatin1String("\n"));
+    m_output.clear();
 
     command += QLatin1String("\n");
-
     qDebug() << "final command to be executed " << command << endl;
-
+    qDebug() << "m_inputCommands" << m_inputCommands;
     m_process->write(command.toLocal8Bit());
+
+    expression->setStatus(Cantor::Expression::Computing);
 }
 
 Cantor::CompletionObject* LuaSession::completionFor(const QString& command, int index)
@@ -190,15 +273,14 @@ Cantor::CompletionObject* LuaSession::completionFor(const QString& command, int 
 
 void LuaSession::expressionFinished(Cantor::Expression::Status status)
 {
-    switch(status) {
-
-        case Cantor::Expression::Computing:
-            break;
-
+    switch(status)
+    {
         case Cantor::Expression::Done:
         case Cantor::Expression::Error:
-        case Cantor::Expression::Interrupted:
-            changeStatus(Cantor::Session::Done);
+            finishFirstExpression();
+            break;
+
+        default:
             break;
     }
 }

@@ -39,7 +39,7 @@ public:
 
     void interrupt() override;
 
-    void runExpression(LuaExpression* currentExpression);
+    void runFirstExpression() override;
 
     Cantor::Expression*         evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behave = Cantor::Expression::FinishingBehavior::DoNotDelete, bool internal = false) override;
     Cantor::CompletionObject*   completionFor(const QString& cmd, int index=-1) override;
@@ -56,10 +56,16 @@ private Q_SLOTS:
     void expressionFinished(Cantor::Expression::Status status);
 
 private:
+    bool isPromptString(const QString& s);
+
+private:
     lua_State* m_L;
     QProcess* m_process;
-    LuaExpression* m_currentExpression;
-    QString m_output;
+    QStringList m_inputCommands;
+    QStringList m_output;
+
+    static const QString LUA_PROMPT;
+    static const QString LUA_SUBPROMPT;
 };
 
 #endif /* _LUASESSION_H */

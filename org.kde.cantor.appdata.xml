@@ -16,6 +16,7 @@
   <name xml:lang="fi">Cantor</name>
   <name xml:lang="fr">Cantor</name>
   <name xml:lang="gl">Cantor</name>
+  <name xml:lang="ia">Cantor</name>
   <name xml:lang="id">Cantor</name>
   <name xml:lang="it">Cantor</name>
   <name xml:lang="nds">Cantor</name>
@@ -45,6 +46,7 @@
   <summary xml:lang="fi">KDE:n käyttöliittymä matemaattisille ohjelmistoille</summary>
   <summary xml:lang="fr">Interface KDE pour les logiciels de mathématiques</summary>
   <summary xml:lang="gl">Interface de KDE de software matemático</summary>
+  <summary xml:lang="ia">Interfacie de KDE a Software Matematic</summary>
   <summary xml:lang="id">Frontend KDE untuk Software Matematika</summary>
   <summary xml:lang="it">Interfaccia KDE per software matematico</summary>
   <summary xml:lang="nds">KDE-Böversiet för Rekenprogrammen</summary>
@@ -131,9 +133,9 @@
     <binary>cantor</binary>
   </provides>
   <releases>
+    <release version="20.08.3" date="2020-11-05"/>
+    <release version="20.08.2" date="2020-10-08"/>
+    <release version="20.08.1" date="2020-09-03"/>
     <release version="20.08.0" date="2020-08-13"/>
-    <release version="20.04.3" date="2020-07-09"/>
-    <release version="20.04.2" date="2020-06-11"/>
-    <release version="20.04.1" date="2020-05-14"/>
   </releases>
 </component>

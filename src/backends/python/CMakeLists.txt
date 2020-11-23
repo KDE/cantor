@@ -16,8 +16,6 @@ set(PythonServer_SRCS
   pythonserver.cpp
 )
 
-include_directories(${PYTHONLIBS3_INCLUDE_DIRS})
-
 qt5_add_resources(PythonBackend_RSCS python.qrc)
 ki18n_wrap_ui(PythonBackend_SRCS settings.ui)
 kconfig_add_kcfg_files(PythonBackend_SRCS settings.kcfgc)
@@ -37,7 +35,7 @@ set_target_properties(cantor_pythonserver PROPERTIES INSTALL_RPATH_USE_LINK_PATH
 if(MSVC)
   set_property(TARGET cantor_pythonserver PROPERTY LINK_FLAGS "/SUBSYSTEM:CONSOLE")
 endif()
-target_link_libraries(cantor_pythonserver ${PYTHONLIBS3_LIBRARIES})
+target_link_libraries(cantor_pythonserver Python3::Python)
 
 if(BUILD_TESTING)
   add_executable(testpython testpython.cpp settings.cpp)
@@ -51,7 +49,7 @@ if(BUILD_TESTING)
   )
 endif(BUILD_TESTING)
 
-install(FILES cantor_python.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES cantor_python.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
 install(FILES pythonbackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 install(TARGETS cantor_pythonbackend DESTINATION ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})

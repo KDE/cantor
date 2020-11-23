@@ -42,7 +42,7 @@ QString OctaveBackend::id() const
 
 QString OctaveBackend::version() const
 {
-    return QLatin1String("5.0, 5.1");
+    return QLatin1String("5.2");
 }
 
 Cantor::Backend::Capabilities OctaveBackend::capabilities() const

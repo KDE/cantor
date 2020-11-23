@@ -79,11 +79,12 @@ void PythonSession::login()
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
 
+    const QString& serverExecutablePath = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver"));
 #ifdef Q_OS_WIN
 	// On Windows QProcess can't handle paths with spaces, so add escaping
-	m_process->start(QLatin1String("\"") + PythonSettings::pythonServerPath().toLocalFile() + QLatin1String("\""));
+	m_process->start(QLatin1String("\"") + serverExecutablePath + QLatin1String("\""));
 #else
-    m_process->start(PythonSettings::pythonServerPath().toLocalFile());
+    m_process->start(serverExecutablePath);
 #endif
 
     m_process->waitForStarted();

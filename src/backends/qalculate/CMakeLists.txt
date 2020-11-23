@@ -28,4 +28,4 @@ else()
   target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES})
 endif()
 
-install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )

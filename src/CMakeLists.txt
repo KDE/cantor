@@ -45,7 +45,7 @@ target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreA
 install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
 install( FILES cantor_shell.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
-install( FILES cantor.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR} )
+install( FILES cantor.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
 
 #########################################################################
 # KPART SECTION
@@ -88,7 +88,7 @@ ki18n_wrap_ui(cantor_PART_SRCS imagesettings.ui)
 ki18n_wrap_ui(cantor_PART_SRCS standardsearchbar.ui)
 ki18n_wrap_ui(cantor_PART_SRCS extendedsearchbar.ui)
 
-string(CONCAT PATH_TO_CANTOR_BACKENDS ${CMAKE_INSTALL_PREFIX} "/${PLUGIN_INSTALL_DIR}")
+set(PATH_TO_CANTOR_BACKENDS "${KDE_INSTALL_FULL_PLUGINDIR}")
 
 configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.h )
 

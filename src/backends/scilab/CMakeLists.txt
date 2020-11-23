@@ -32,4 +32,4 @@ if(BUILD_TESTING)
   )
 endif(BUILD_TESTING)
 
-install(FILES cantor_scilab.knsrc  DESTINATION  ${KDE_INSTALL_CONFDIR})
+install(FILES cantor_scilab.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR})
