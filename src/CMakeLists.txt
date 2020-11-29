@@ -47,6 +47,7 @@ install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
 install( FILES cantor_shell.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
 install( FILES cantor.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
 install( FILES cantor.xml DESTINATION ${XDG_MIME_INSTALL_DIR} )
+update_xdg_mimetypes(${XDG_MIME_INSTALL_DIR})
 
 #########################################################################
 # KPART SECTION
