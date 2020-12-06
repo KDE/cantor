@@ -45,6 +45,8 @@ set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop
     TYPE OPTIONAL
     PURPOSE "Backend to use Qalculate with Cantor.")
 
+# Due this bug (https://github.com/Qalculate/libqalculate/issues/171)
+set(QALCULATE_MIN_VERSION 3.8.0)
 find_package(Qalculate)
 if(QALCULATE_FOUND)
     add_subdirectory(qalculate)
