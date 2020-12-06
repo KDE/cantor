@@ -3,6 +3,9 @@ project(cantor-qalculate-backend)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${KDE4_ENABLE_EXCEPTIONS} -Wno-deprecated")
 add_definitions(${QALCULATE_CFLAGS})
+if (QALCULATE_VERSION VERSION_GREATER_EQUAL 3.11.0)
+  add_compile_definitions(QALCULATE_NEED_DISABLE_COLOR)
+endif()
 
 set( QalculateBackend_SRCS
   qalculatesyntaxhelpobject.cpp

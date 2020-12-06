@@ -90,6 +90,11 @@ void QalculateSession::login()
     m_process = new QProcess(this);
 
     m_process->setProgram(QStandardPaths::findExecutable(QLatin1String("qalc")));
+#ifdef QALCULATE_NEED_DISABLE_COLOR
+    QStringList args;
+    args << QLatin1String("-s") << QLatin1String("color 0");
+    m_process->setArguments(args);
+#endif
     m_process->setProcessChannelMode(QProcess::SeparateChannels);
 
     connect(m_process, SIGNAL(readyReadStandardOutput()), this, SLOT(readOutput()));
