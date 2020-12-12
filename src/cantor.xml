@@ -8,6 +8,7 @@
     <comment xml:lang="pt">Área de trabalho do Cantor</comment>
     <comment xml:lang="pt_BR">Planilha do Cantor</comment>
     <comment xml:lang="sk">Pracovný list Cantor</comment>
+    <comment xml:lang="sl">Cantorjev delovni list</comment>
     <comment xml:lang="sv">Cantor-arbetsblad</comment>
     <comment xml:lang="uk">робочий аркуш Cantor</comment>
     <glob pattern="*.cws"/>
