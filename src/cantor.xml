@@ -3,6 +3,7 @@
   <mime-type type="application/x-cantor">
     <comment>Cantor worksheet</comment>
     <comment xml:lang="ca">Full de treball del Cantor</comment>
+    <comment xml:lang="en_GB">Cantor worksheet</comment>
     <comment xml:lang="es">Hoja de ejercicios de Cantor</comment>
     <comment xml:lang="nl">Cantor werkblad</comment>
     <comment xml:lang="pt">Área de trabalho do Cantor</comment>
