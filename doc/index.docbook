@@ -655,12 +655,12 @@ This dialog allows entering expression of the function, its variables and the li
 <para>
 <variablelist>
 <varlistentry>
-<term><menuchoice><guimenu>View</guimenu><guimenuitem>Panels</guimenuitem></menuchoice></term>
+<term><menuchoice><guimenu>View</guimenu><guisubmenu>Panels</guisubmenu></menuchoice></term>
 <listitem><para>Allows you to toggle the visibility of some tabs in the sidebar. Choices are:
 <variablelist>
   <varlistentry>
   <term><guimenuitem>File Browser</guimenuitem></term>
-  <listitem><para><action>Toggles the visibility of the <guilabel>File Browser</guilabel> tab in the sidebar.</action></para></listitem>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>File Browser</guilabel> tab in the sidebar.</para></listitem>
   </varlistentry>
 
   <varlistentry>
