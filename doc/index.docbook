@@ -27,8 +27,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2019-09-15</date>
-<releaseinfo>Applications 19.12</releaseinfo>
+<date>2020-12-16</date>
+<releaseinfo>Applications 20.12</releaseinfo>
 
 <abstract>
 <para>
@@ -114,7 +114,7 @@ Screenshot:
 	<para>
 	  Sage is a free open-source mathematics software system licensed under the GPL.
 	  It combines the power of many existing open-source packages, within a common Python-based interface.
-	  See <ulink url="http://sagemath.org">http://sagemath.org</ulink> for more information.
+	  See <ulink url="https://sagemath.org">https://sagemath.org</ulink> for more information.
 	</para>
 	</listitem>
     </varlistentry>
@@ -155,7 +155,7 @@ Screenshot:
     other technical computing environments. It provides a sophisticated
     compiler, distributed parallel execution, numerical accuracy, and an
     extensive mathematical function library.
-	  See <ulink url="https://docs.julialang.org/en/latest/">Julia documentation</ulink> for more information.
+	  See <ulink url="https://docs.julialang.org/en/">Julia documentation</ulink> for more information.
 	</para>
       </listitem>
     </varlistentry>
@@ -282,11 +282,10 @@ to scientific programming.
   The worksheet is the basic area for working with &cantor;.  Using it, you can enter
   expressions, allow the backend to perform calculations, and look at the results.
   The commands the worksheets accept depend on the chosen backend, so you should
-  learn the appropriate backend syntax (the Show Help button takes you there directly).
+  learn the appropriate backend syntax (the <guibutton>Show Help</guibutton> button takes you there directly).
   If you know the command, but you need additional information, you can type "? <replaceable>command</replaceable>",
   and contextual help will appear on the right of the worksheet.
-  If you want to see some example worksheets, you can go to <guimenuitem>Download Example Worksheets</guimenuitem>
-  in the <guimenu>File</guimenu> menu, and download worksheets other users have published.
+  If you want to see some example worksheets, you can go to <menuchoice><guimenu>File</guimenu><guimenuitem>Download Example Worksheets</guimenuitem></menuchoice> menu item, and download worksheets other users have published.
 </para>
 <para>
   To control each command entry of the worksheet you can use control buttons shown at the right part of the worksheet when hovering the entry field with a mouse cursor. There are three basic actions for each entry: <guilabel>Evaluate Entry</guilabel> to update the result of calculations for the entry, <guilabel>Drag Entry</guilabel> to move the entry at the other place of the current worksheet and <guilabel>Remove Entry</guilabel> to remove the entry from the current worksheet.
@@ -302,7 +301,7 @@ to scientific programming.
   </para>
   <variablelist>
     <varlistentry>
-      <term>Typesetting using &latex;</term>
+      <term>Typeset using LaTeX</term>
       <listitem>
 	<para>
 	  This setting changes the way results are presented to you. If enabled, it passes the result through
@@ -356,7 +355,7 @@ to scientific programming.
     <term>Embedded Math</term>
     <listitem>
       <para>
-  This setting controls whether rendering math expressions inside <literal>$$..$$</literal> in Text and Markdown entries is enabled by default (needs <application>pdflatex</application> installed).
+  This setting controls whether rendering math expressions inside <literal>$$..$$</literal> in Text and &Markdown; entries is enabled by default (needs <application>pdflatex</application> installed).
       </para>
     </listitem>
   </varlistentry>
@@ -586,6 +585,23 @@ This dialog allows entering expression of the function, its variables and the li
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>O</keycap></keycombo>
+</shortcut>
+<guimenu>File</guimenu>
+<guimenuitem>Open...</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Open a supported new worksheet with the file dialog.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Open Recent</guisubmenu>
+</menuchoice></term>
+<listitem><para><action>Choose a worksheet from a list of recently used files.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
 <guimenu>File</guimenu>
 <guimenuitem>Download Example Worksheets</guimenuitem>
 </menuchoice></term>
@@ -639,6 +655,26 @@ This dialog allows entering expression of the function, its variables and the li
 <para>
 <variablelist>
 <varlistentry>
+<term><menuchoice><guimenu>View</guimenu><guisubmenu>Panels</guisubmenu></menuchoice></term>
+<listitem><para>Allows you to toggle the visibility of some tabs in the sidebar. Choices are:
+<variablelist>
+  <varlistentry>
+  <term><guimenuitem>File Browser</guimenuitem></term>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>File Browser</guilabel> tab in the sidebar.</para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><guimenuitem>Help</guimenuitem></term>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>Help</guilabel> tab in the sidebar.</para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+  <term><guimenuitem>Variable Manager</guimenuitem></term>
+  <listitem><para><action>Toggles</action> the visibility of the <guilabel>Variable Manager</guilabel> tab in the sidebar.</para></listitem>
+  </varlistentry>
+</variablelist></para></listitem>
+</varlistentry>
+<varlistentry>
 <term><menuchoice>
 <shortcut>
 <keycombo action="simul">&Ctrl;<keycap>+</keycap></keycombo>
@@ -665,22 +701,6 @@ This dialog allows entering expression of the function, its variables and the li
 </menuchoice></term>
 <listitem><para><action>Opens the batch script editor window for the current backend.</action></para></listitem>
 </varlistentry>
-<varlistentry>
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Panels</guisubmenu>
-<guimenuitem>Help</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Toggles</action> the visibility of the <guilabel>Help</guilabel> tab in the sidebar.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice>
-<guimenu>View</guimenu>
-<guisubmenu>Panels</guisubmenu>
-<guimenuitem>Variable Manager</guimenuitem>
-</menuchoice></term>
-<listitem><para><action>Toggles</action> the visibility of the <guilabel>Variable Manager</guilabel> tab in the sidebar.</para></listitem>
-</varlistentry>
 </variablelist>
 </para>
 </sect2>
@@ -691,6 +711,9 @@ This dialog allows entering expression of the function, its variables and the li
 <variablelist>
 <varlistentry>
 <term><menuchoice>
+<shortcut>
+<keycombo action="simul">&Ctrl;<keycap>E</keycap></keycombo>
+</shortcut>
 <guimenu>Worksheet</guimenu>
 <guimenuitem>Evaluate Worksheet</guimenuitem>
 </menuchoice></term>
@@ -699,7 +722,7 @@ This dialog allows entering expression of the function, its variables and the li
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Shift;<keycap>Return</keycap></keycombo>
+<keycombo action="simul">&Shift;&Enter;</keycombo>
 </shortcut>
 <guimenu>Worksheet</guimenu>
 <guimenuitem>Evaluate Entry</guimenuitem>
@@ -709,7 +732,7 @@ This dialog allows entering expression of the function, its variables and the li
 <varlistentry>
 <term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Ctrl;<keycap>Return</keycap></keycombo>
+<keycombo action="simul">&Ctrl;&Enter;</keycombo>
 </shortcut>
 <guimenu>Worksheet</guimenu>
 <guimenuitem>Insert Command Entry</guimenuitem>
@@ -726,9 +749,23 @@ This dialog allows entering expression of the function, its variables and the li
 <varlistentry>
 <term><menuchoice>
 <guimenu>Worksheet</guimenu>
-<guimenuitem>Insert Latex Entry</guimenuitem>
+<guimenuitem>Insert Markdown Entry</guimenuitem>
 </menuchoice></term>
-<listitem><para><action>Inserts a latex entry below the current cursor position.</action>.</para></listitem>
+<listitem><para><action>Inserts a &Markdown; entry below the current cursor position.</action>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert LaTeX Entry</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts a &latex; entry below the current cursor position.</action>.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Insert Image</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Inserts an image below the current cursor position.</action></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
@@ -739,8 +776,29 @@ This dialog allows entering expression of the function, its variables and the li
 </varlistentry>
 <varlistentry>
 <term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Collapse All Results</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Collapse all results of the command entry.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Expand All Results</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Expand all results of the command entry.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
+<guimenu>Worksheet</guimenu>
+<guimenuitem>Remove All Results</guimenuitem>
+</menuchoice></term>
+<listitem><para><action>Remove all results of the command entry.</action></para></listitem>
+</varlistentry>
+<varlistentry>
+<term><menuchoice>
 <shortcut>
-<keycombo action="simul">&Shift;<keycap>Del</keycap></keycombo>
+<keycombo action="simul">&Shift;&Del;</keycombo>
 </shortcut>
 <guimenu>Worksheet</guimenu>
 <guimenuitem>Remove current Entry</guimenuitem>

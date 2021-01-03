@@ -318,7 +318,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 #endif
 
 #ifdef WITH_EPS
-    QAction* insertLatexEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert Latex Entry"), collection);
+    QAction* insertLatexEntry = new QAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert LaTeX Entry"), collection);
     collection->addAction(QLatin1String("insert_latex_entry"),  insertLatexEntry);
     connect(insertLatexEntry, SIGNAL(triggered()), m_worksheet, SLOT(insertLatexEntry()));
     m_editActions.push_back(insertLatexEntry);
