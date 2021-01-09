@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "A panel to manage the variables of a session",
         "Description[ca@valencia]": "Un plafó per a gestionar les variables d'una sessió",
         "Description[ca]": "Un plafó per a gestionar les variables d'una sessió",

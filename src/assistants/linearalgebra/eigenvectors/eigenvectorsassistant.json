@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "An Assistant dialog to simplify calculating of EigenVectors",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar el càlcul d'autovectors",
         "Description[ca]": "Un diàleg assistent per a simplificar el càlcul d'autovectors",

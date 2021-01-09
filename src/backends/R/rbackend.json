@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for The R Project for Statistical Computing",
         "Description[ca@valencia]": "Dorsal per al projecte R, paquet d'estadística per ordinador",
         "Description[ca]": "Dorsal per al projecte R, paquet d'estadística per ordinador",

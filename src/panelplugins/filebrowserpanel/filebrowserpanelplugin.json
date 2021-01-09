@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "A panel for working with files inside Cantor",
         "Description[ca@valencia]": "Un plafó per a treballar amb fitxers dins del Cantor",
         "Description[ca]": "Un plafó per a treballar amb fitxers dins del Cantor",

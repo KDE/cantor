@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Id": "AdvancedPlot",
         "License": "GPL",
         "Name": "AdvancedPlot",

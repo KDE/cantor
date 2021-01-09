@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for Python Scientific Programming",
         "Description[ca@valencia]": "Dorsal per a la programació científica en Python",
         "Description[ca]": "Dorsal per a la programació científica en Python",
