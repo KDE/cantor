@@ -6,4 +6,4 @@ ki18n_wrap_ui(DifferentiateAssistant_SRCS differentiatedlg.ui)
 
 add_assistant(differentiateassistant ${DifferentiateAssistant_SRCS})
 
-install( FILES cantor_differentiate_assistant.rc  DESTINATION  ${KXMLGUI_INSTALL_DIR}/cantor )
+install( FILES cantor_differentiate_assistant.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
