@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for the Scilab Scientific Programming Environment",
         "Description[ca@valencia]": "Dorsal per a l'entorn de programació científic Scilab",
         "Description[ca]": "Dorsal per a l'entorn de programació científic Scilab",

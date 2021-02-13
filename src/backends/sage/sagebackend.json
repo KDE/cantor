@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for the Sage Mathematics Software",
         "Description[ca@valencia]": "Dorsal per al programari matemàtic Sage",
         "Description[ca]": "Dorsal per al programari matemàtic Sage",

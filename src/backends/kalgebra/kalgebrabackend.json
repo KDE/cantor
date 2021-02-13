@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "KAlgebra backend for Cantor. Lets you use the same language you use in the KAlgebra application in Cantor worksheets.",
         "Description[ca@valencia]": "Dorsal de KAlgebra per al Cantor. Vos permet utilitzar als fulls de treball del Cantor el mateix llenguatge que feu servir a l'aplicació KAlgebra.",
         "Description[ca]": "Dorsal de KAlgebra per al Cantor. Us permet utilitzar als fulls de treball del Cantor el mateix llenguatge que feu servir a l'aplicació KAlgebra.",

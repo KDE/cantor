@@ -108,6 +108,7 @@
       <caption xml:lang="en-GB">Using Maxima backend of Cantor</caption>
       <caption xml:lang="es">Usando el motor Maxima de Cantor</caption>
       <caption xml:lang="et">Cantori kasutamine Maxima taustaprogrammiga</caption>
+      <caption xml:lang="fi">Maximan käyttö Cantorin taustajärjestelmänä</caption>
       <caption xml:lang="fr">Utilisation du moteur Maxima de Cantor</caption>
       <caption xml:lang="gl">Usando a infraestrutura de Maxima de Cantor</caption>
       <caption xml:lang="id">Menggunakan Maxima backend Cantor</caption>
@@ -133,9 +134,9 @@
     <binary>cantor</binary>
   </provides>
   <releases>
+    <release version="20.12.2" date="2021-02-04"/>
     <release version="20.12.1" date="2021-01-07"/>
     <release version="20.12.0" date="2020-12-10"/>
     <release version="20.08.3" date="2020-11-05"/>
-    <release version="20.08.2" date="2020-10-08"/>
   </releases>
 </component>

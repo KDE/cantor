@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "A panel to display help",
         "Description[ca@valencia]": "Un plafó per a mostrar les pàgines d'ajuda",
         "Description[ca]": "Un plafó per a mostrar les pàgines d'ajuda",

@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Qalculate backend for Cantor. Gives you the advanced features of Qalculate",
         "Description[ca@valencia]": "Dorsal de Qalculate per al Cantor. Vos ofereix les característiques avançades de Qalculate",
         "Description[ca]": "Dorsal de Qalculate per al Cantor. Us ofereix les característiques avançades de Qalculate",

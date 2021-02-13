@@ -1,12 +1,12 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "A panel for showing worksheet structure",
         "Description[ca@valencia]": "Un plafó per a mostrar l'estructura del full de treball ",
         "Description[ca]": "Un plafó per a mostrar l'estructura del full de treball ",
         "Description[de]": "Eine Leiste zur Anzeige der Arbeitsblattstruktur",
         "Description[en_GB]": "A panel for showing worksheet structure",
         "Description[es]": "Un panel para mostrar la estructura de la hoja de trabajo",
+        "Description[fi]": "Paneeli työkirjan rakenteen näyttämiseksi",
         "Description[fr]": "Un panneau pour l'affichage de la structure de la feuille de travail",
         "Description[it]": "Un pannello per mostrare la struttura dei fogli di lavoro",
         "Description[nl]": "Een paneel waarin de structuur van het werkblad",
@@ -27,6 +27,7 @@
         "Name[de]": "Inhaltsverzeichnis",
         "Name[en_GB]": "Table Of Contents",
         "Name[es]": "Tabla de contenido",
+        "Name[fi]": "Sisällysluettelo",
         "Name[fr]": "Table des matières",
         "Name[ia]": "Indice general (Tabula de contentos)",
         "Name[it]": "Tavola dei contenuti",

@@ -1,12 +1,12 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "A panel for working with files inside Cantor",
         "Description[ca@valencia]": "Un plafó per a treballar amb fitxers dins del Cantor",
         "Description[ca]": "Un plafó per a treballar amb fitxers dins del Cantor",
         "Description[de]": "Eine Kontrollleiste zur Verwaltung von Dateien in Cantor",
         "Description[en_GB]": "A panel for working with files inside Cantor",
         "Description[es]": "Un panel para trabajar con archivos dentro de Cantor",
+        "Description[fi]": "Paneeli tiedostojen käsittelemiseksi Cantorista",
         "Description[fr]": "Un panneau pour travailler avec les fichiers à l'intérieur de Cantor",
         "Description[it]": "Un pannello per lavorare con i file dentro Cantor",
         "Description[nl]": "Een paneel in Cantor voor het werken met bestanden",
@@ -29,6 +29,7 @@
         "Name[de]": "Dateibrowser",
         "Name[en_GB]": "File Browser",
         "Name[es]": "Navegador de archivos",
+        "Name[fi]": "Tiedostoselain",
         "Name[fr]": "Navigateur de fichiers",
         "Name[ia]": "Cerca de file",
         "Name[it]": "Navigatore dei file",

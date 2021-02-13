@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for the Maxima Computer Algebra System",
         "Description[ca@valencia]": "Dorsal per al Maxima: un sistema d'àlgebra per ordinador",
         "Description[ca]": "Dorsal per al Maxima: un sistema d'àlgebra per ordinador",

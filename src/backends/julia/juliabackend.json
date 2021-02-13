@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Julia backend for Cantor",
         "Description[ca@valencia]": "Dorsal del Julia per al Cantor",
         "Description[ca]": "Dorsal del Julia per al Cantor",

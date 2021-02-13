@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "An Assistant dialog to simplify calculation of integrals",
         "Description[ca@valencia]": "Un diàleg assistent per a simplificar els càlculs d'integrals",
         "Description[ca]": "Un diàleg assistent per a simplificar els càlculs d'integrals",

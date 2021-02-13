@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for luajit",
         "Description[ca@valencia]": "Dorsal pel Luajit",
         "Description[ca]": "Dorsal pel Luajit",

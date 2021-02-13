@@ -1,6 +1,5 @@
 {
     "KPlugin": {
-        "Dependencies": [],
         "Description": "Backend for Python Scientific Programming",
         "Description[ca@valencia]": "Dorsal per a la programació científica en Python",
         "Description[ca]": "Dorsal per a la programació científica en Python",
@@ -9,6 +8,7 @@
         "Description[en_GB]": "Backend for Python Scientific Programming",
         "Description[es]": "Motor para programación científica en Python",
         "Description[et]": "Pythoni teadusliku programmeerimise taustaprogramm",
+        "Description[fi]": "Tieteellisen Python-ohjelmointiympäristön taustajärjestelmä",
         "Description[fr]": "Moteur pour la programmation scientifique Python",
         "Description[it]": "Backend per l'ambiente scientifico di programmazione Python",
         "Description[nl]": "Backend voor wetenschappelijk programmeren in Python",
@@ -35,6 +35,7 @@
         "Name[en_GB]": "Python",
         "Name[es]": "Python",
         "Name[et]": "Python",
+        "Name[fi]": "Python",
         "Name[fr]": "Python",
         "Name[ia]": "Python",
         "Name[it]": "Python",
