@@ -134,7 +134,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     if (!backendName.isEmpty())
     {
         b = Cantor::Backend::getBackend(backendName);
-        qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
+        if (b)
+            qDebug()<<"Backend "<<b->name()<<" offers extensions: "<<b->extensions();
     }
 
     //central widget
@@ -655,7 +656,8 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 {
     qDebug()<<"wsStatusChange"<<status;
     unsigned int count = ++m_sessionStatusCounter;
-    if(status == Cantor::Session::Running)
+    switch (status) {
+    case Cantor::Session::Running:
     {
         // Useless add a interrupt action without delay, because user physically can't interrupt fast commands
         QTimer::singleShot(100, this, [this, count] () {
@@ -667,13 +669,19 @@ void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
                 setStatusMessage(i18n("Calculating..."));
             }
         });
-    }else if (status == Cantor::Session::Done)
+        break;
+    }
+    case Cantor::Session::Done:
     {
         m_evaluate->setText(i18n("Evaluate Worksheet"));
         m_evaluate->setShortcut(Qt::CTRL+Qt::Key_E);
         m_evaluate->setIcon(QIcon::fromTheme(QLatin1String("system-run")));
 
         setStatusMessage(i18n("Ready"));
+        break;
+    }
+    case Cantor::Session::Disable:
+        setStatusMessage(QString()); //clean the status bar to remove the potential "Calculating...", etc. after the session was closed
     }
 }
 
