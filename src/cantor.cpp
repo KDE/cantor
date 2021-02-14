@@ -18,6 +18,7 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 #include "cantor.h"
+#include "lib/session.h"
 
 #include <cassert>
 
@@ -40,6 +41,7 @@
 #include <QFileDialog>
 #include <QPushButton>
 #include <QRegularExpression>
+#include <QStatusBar>
 #include <QGraphicsView>
 
 #include "lib/backend.h"
@@ -69,8 +71,8 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr), m_panelHandl
     m_tabWidget->setDocumentMode(true);
     setCentralWidget(m_tabWidget);
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
-    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+    connect(m_tabWidget, &QTabWidget::currentChanged, this, &CantorShell::activateWorksheet);
+    connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &CantorShell::closeTab);
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -431,18 +433,39 @@ void CantorShell::activateWorksheet(int index)
         m_pluginsStates[m_part] = states;
     }
 
-    m_part = findPart(m_tabWidget->widget(index));
-    if(m_part)
+    if (index != -1)
     {
-        createGUI(m_part);
+        m_part = findPart(m_tabWidget->widget(index));
+        if(m_part)
+        {
+            createGUI(m_part);
 
-        updateWindowTitle(m_part->url().fileName());
-        updatePanel();
+            //update the status bar
+            auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
+            if (wa->session())
+            {
+                auto status = wa->session()->status();
+                switch (status) {
+                    case Cantor::Session::Running:
+                        statusBar()->showMessage(i18n("Calculating..."));
+                        break;
+                    case Cantor::Session::Done:
+                        statusBar()->showMessage(i18n("Ready"));
+                        break;
+                    case Cantor::Session::Disable:
+                        statusBar()->showMessage(QString());
+                        break;
+                }
+            }
+
+            updateWindowTitle(m_part->url().fileName());
+            updatePanel();
+        }
+        else
+            qDebug()<<"selected part doesn't exist";
+
+        m_tabWidget->setCurrentIndex(index);
     }
-    else
-        qDebug()<<"selected part doesn't exist";
-
-    m_tabWidget->setCurrentIndex(index);
 }
 
 void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
