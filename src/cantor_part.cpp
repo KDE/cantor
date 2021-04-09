@@ -45,7 +45,8 @@
 #include <KNS3/UploadDialog>
 #include <KParts/GUIActivateEvent>
 #include <KPluginFactory>
-#include <KRun>
+#include <KIO/OpenUrlJob>
+#include <KIO/JobUiDelegate>
 #include <KStandardAction>
 #include <KToggleAction>
 #include <KSelectAction>
@@ -758,7 +759,9 @@ void CantorPart::showBackendHelp()
     auto* backend = m_worksheet->session()->backend();
     QUrl url = backend->helpUrl();
     qDebug()<<"launching url "<<url;
-    new KRun(url, widget());
+    auto *job = new KIO::OpenUrlJob(url);
+    job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, widget()));
+    job->start();
 }
 
 Worksheet* CantorPart::worksheet()
