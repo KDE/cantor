@@ -339,7 +339,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KPluginLoader loader(QLatin1String("cantorpart"));
+    KPluginLoader loader(QLatin1String("kf5/parts/cantorpart"));
     KPluginFactory* factory = loader.factory();
     if (factory)
     {
