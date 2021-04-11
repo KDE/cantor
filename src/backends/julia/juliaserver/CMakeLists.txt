@@ -8,6 +8,7 @@ add_executable(cantor_juliaserver ${JuliaServer_SRCS})
 
 target_link_libraries(cantor_juliaserver
     ${JULIA_LIBRARY}
+    ${JULIA_INTERNAL_LIBRARY}
     Qt5::Widgets
     Qt5::DBus
 )
