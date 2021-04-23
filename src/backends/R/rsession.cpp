@@ -56,7 +56,7 @@ void RSession::login()
 
     m_process = new QProcess(this);
     m_process->setProcessChannelMode(QProcess::ForwardedErrorChannel);
-#ifndef Q_OS_WIN
+#ifdef Q_OS_WIN
     m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver.exe")));
 #else
     m_process->start(QStandardPaths::findExecutable(QLatin1String("cantor_rserver")));
