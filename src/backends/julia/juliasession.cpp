@@ -72,8 +72,13 @@ void JuliaSession::login()
     m_process = new KProcess(this);
     m_process->setOutputChannelMode(KProcess::OnlyStdoutChannel);
 
+#ifdef Q_OS_WIN
+    (*m_process)
+        << QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver.exe"));
+#else
     (*m_process)
         << QStandardPaths::findExecutable(QLatin1String("cantor_juliaserver"));
+#endif
 
     connect(m_process, &QProcess::errorOccurred, this, &JuliaSession::reportServerProcessError);
 
