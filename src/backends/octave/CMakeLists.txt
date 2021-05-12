@@ -21,6 +21,7 @@ if (WITH_EPS)
 else (WITH_EPS)
     set(DEFAULT_PLOT_FORMAT "png")
 endif (WITH_EPS)
+configure_file(octavebackend.kcfg.in ${CMAKE_CURRENT_BINARY_DIR}/octavebackend.kcfg)
 
 kconfig_add_kcfg_files(OctaveBackend_SRCS settings.kcfgc)
 install(FILES octavebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
