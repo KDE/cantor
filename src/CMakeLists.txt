@@ -97,9 +97,7 @@ configure_file (config-cantor.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor.
 kcoreaddons_add_plugin(cantorpart
     SOURCES ${cantor_PART_SRCS}
     JSON "cantor_part.json"
-    INSTALL_NAMESPACE ".")
-
-set_target_properties(cantorpart PROPERTIES PREFIX "${CMAKE_SHARED_LIBRARY_PREFIX}")
+    INSTALL_NAMESPACE "kf5/parts")
 
 target_link_libraries(cantorpart KF5::Parts KF5::NewStuff
                      KF5::TextEditor ${Qt5XmlPatterns_LIBRARIES}

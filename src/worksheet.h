@@ -379,6 +379,7 @@ class Worksheet : public QGraphicsScene
 
     bool m_isPrinting{false};
     bool m_isLoadingFromFile{false};
+    bool m_isClosing{false};
     bool m_readOnly{false};
 
     Type m_type = CantorWorksheet;

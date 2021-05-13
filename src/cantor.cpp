@@ -18,6 +18,8 @@
     Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
  */
 
+#include "cantor.h"
+
 #include <cassert>
 
 #include <KActionCollection>
@@ -41,13 +43,13 @@
 #include <QPushButton>
 #include <QRegularExpression>
 
+
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
 #include "lib/panelplugin.h"
 #include "lib/worksheetaccess.h"
 
 #include "backendchoosedialog.h"
-#include "cantor.h"
 #include "settings.h"
 #include "ui_settings.h"
 #include "ui_formating.h"
@@ -70,8 +72,8 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr), m_panelHandl
     m_tabWidget->setDocumentMode(true);
     setCentralWidget(m_tabWidget);
 
-    connect(m_tabWidget, SIGNAL(currentChanged(int)), this, SLOT(activateWorksheet(int)));
-    connect(m_tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(closeTab(int)));
+    connect(m_tabWidget, &QTabWidget::currentChanged, this, &CantorShell::activateWorksheet);
+    connect(m_tabWidget, &QTabWidget::tabCloseRequested, this, &CantorShell::closeTab);
 
     // apply the saved mainwindow settings, if any, and ask the mainwindow
     // to automatically save settings if changed: window size, toolbar
@@ -338,7 +340,7 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KPluginLoader loader(QLatin1String("cantorpart"));
+    KPluginLoader loader(QLatin1String("kf5/parts/cantorpart"));
     KPluginFactory* factory = loader.factory();
     if (factory)
     {
@@ -433,18 +435,39 @@ void CantorShell::activateWorksheet(int index)
         m_pluginsStates[m_part] = states;
     }
 
-    m_part = findPart(m_tabWidget->widget(index));
-    if(m_part)
+    if (index != -1)
     {
-        createGUI(m_part);
+        m_part = findPart(m_tabWidget->widget(index));
+        if(m_part)
+        {
+            createGUI(m_part);
 
-        updateWindowTitle(m_part->url().fileName());
-        updatePanel();
+            //update the status bar
+            auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
+            if (wa->session())
+            {
+                auto status = wa->session()->status();
+                switch (status) {
+                    case Cantor::Session::Running:
+                        statusBar()->showMessage(i18n("Calculating..."));
+                        break;
+                    case Cantor::Session::Done:
+                        statusBar()->showMessage(i18n("Ready"));
+                        break;
+                    case Cantor::Session::Disable:
+                        statusBar()->showMessage(QString());
+                        break;
+                }
+            }
+
+            updateWindowTitle(m_part->url().fileName());
+            updatePanel();
+        }
+        else
+            qDebug()<<"selected part doesn't exist";
+
+        m_tabWidget->setCurrentIndex(index);
     }
-    else
-        qDebug()<<"selected part doesn't exist";
-
-    m_tabWidget->setCurrentIndex(index);
 }
 
 void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)

@@ -97,7 +97,11 @@ KConfigSkeleton* PythonBackend::config() const
 
 bool PythonBackend::requirementsFullfilled(QString* const reason) const
 {
+#ifdef Q_OS_WIN
+    const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver.exe"));
+#else
     const QString& path = QStandardPaths::findExecutable(QLatin1String("cantor_pythonserver"));
+#endif
     return Cantor::Backend::checkExecutable(QLatin1String("Cantor Python Server"), path, reason);
 }
 

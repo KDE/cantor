@@ -111,17 +111,13 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultW
 
 Worksheet::~Worksheet()
 {
+    m_isClosing = true;
+
     // This is necessary, because a SearchBar might access firstEntry()
     // while the scene is deleted. Maybe there is a better solution to
     // this problem, but I can't seem to find it.
     m_firstEntry = nullptr;
 
-    //disconnect from everything, no need to react on session status changes
-    //in the logout() when deleting the worksheet
-    disconnect(m_session, nullptr, nullptr, nullptr);
-
-    if (m_session && m_session->status() != Cantor::Session::Disable)
-        m_session->logout();
     if (m_session)
     {
         disconnect(m_session, nullptr, nullptr, nullptr);
@@ -129,6 +125,7 @@ Worksheet::~Worksheet()
             m_session->logout();
         m_session->deleteLater();
     }
+
     if (m_jupyterMetadata)
         delete m_jupyterMetadata;
 }
@@ -455,6 +452,9 @@ WorksheetView* Worksheet::worksheetView()
 
 void Worksheet::setModified()
 {
+    if (m_isClosing)
+        return;
+
     if (!m_isLoadingFromFile)
         emit modified();
 }

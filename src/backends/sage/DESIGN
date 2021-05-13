@@ -16,7 +16,7 @@ file was created there while the computation was in progress.
 Sage offers the pretty_print_default option to automatically return latex code
 for the results. This is used when Typesetting is enabled.
 
-TabCompletion is implemented by calling __IPYTHON.complete in the Session and parsing the
+TabCompletion is implemented by calling sage.interfaces.tab_completion.completions in the Session and parsing the
 output. To make sure it doesn't mess with the history, some tricks are used. (see the code)
 
 Highlighting uses a simple list of known keywords and some regular expressions. (so no magic here)

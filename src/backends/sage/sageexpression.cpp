@@ -189,8 +189,26 @@ void SageExpression::evalFinished()
         const bool isLatex=m_outputCache.contains(QLatin1String("\\newcommand{\\Bold}")); //Check if it's latex stuff
         if(isLatex) //It's latex stuff so encapsulate it into an eqnarray environment
         {
-            stripped.prepend(QLatin1String("\\begin{eqnarray*}"));
-            stripped.append(QLatin1String("\\end{eqnarray*}"));
+            int bol_command_len = QLatin1String("\\newcommand{\\Bold}[1]{\\mathbf{#1}}").size();
+            int curr_index = stripped.indexOf(QLatin1String("\\newcommand{\\Bold}[1]{\\mathbf{#1}}"))+bol_command_len;
+            // Add an & for the align environment
+            stripped.insert(curr_index, QLatin1String("&"));
+            // Strip away any additional "\\newcommand;{\\Bold}" so that it's compilable by LaTeX
+            if(stripped.count(QLatin1String("\\newcommand{\\Bold}")) > 1){
+                while(curr_index != -1){
+                    curr_index = stripped.indexOf(QLatin1String("\\newcommand{\\Bold}[1]{\\mathbf{#1}}"), curr_index);
+                    stripped.remove(curr_index, bol_command_len);
+                    // Also add an & for left alignment
+                    stripped.insert(curr_index, QLatin1String("&"));
+                }
+            }
+            // Replace new-line characters with \\ for LaTeX's newline intepretation
+            stripped.replace(QLatin1Char('\n'), QLatin1String("\\\\"));
+            stripped.prepend(QLatin1String("\\begin{align*}"));
+            stripped.append(QLatin1String("\\end{align*}"));
+            // TODO: Remove for final merge
+            qDebug()<<"NewCommand";
+            qDebug()<<stripped;
         }
 
         //strip html tags

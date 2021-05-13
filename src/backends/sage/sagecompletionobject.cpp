@@ -61,7 +61,7 @@ void SageCompletionObject::fetchCompletions()
 
         //cache the value of the "_" variable into __hist_tmp__, so we can restore the previous result
         //after complete() was evaluated
-        const QString& cmd = QLatin1String("__hist_tmp__=_; __CANTOR_IPYTHON_SHELL__.complete(\"")+command()+QLatin1String("\");_=__hist_tmp__");
+        const QString& cmd = QLatin1String("__hist_tmp__=_; sage.interfaces.tab_completion.completions(\"")+command()+QLatin1String("\",globals());_=__hist_tmp__");
         m_expression=session()->evaluateExpression(cmd, Cantor::Expression::FinishingBehavior::DoNotDelete, true);
         connect(m_expression, &Cantor::Expression::gotResult, this, &SageCompletionObject::extractCompletions);
     }
@@ -91,13 +91,9 @@ void SageCompletionObject::extractCompletionsNew()
 
     //the result looks like "['comp1', 'comp2']" parse it
 
-    //for sage version 5.7 this looks like
-    //('s1', ['comp1','comp2']) where s1 is the string we called complete with
-
     QString txt=res->data().toString().trimmed();
-    txt=txt.mid(txt.indexOf(command())+command().length()+2).trimmed();
     txt=txt.mid(1); //remove [
-    txt.chop(2); //remove ]
+    txt.chop(1); //remove ]
 
     qDebug()<<"completion string: "<<txt;
 
@@ -108,7 +104,7 @@ void SageCompletionObject::extractCompletionsNew()
     {
         c=c.trimmed();
         c.chop(1);
-        completions<<c.mid(2);
+        completions<<c.mid(1);
     }
 
     completions << SageKeywords::instance()->keywords();

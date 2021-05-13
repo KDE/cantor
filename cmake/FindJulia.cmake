@@ -80,16 +80,46 @@ if(RESULT EQUAL 0)
         CACHE PATH "Julia library directory")
 endif()
 
+if(NOT ${JULIA_VERSION_STRING} VERSION_LESS 1.6.0)
+    set(JULIA_INTERNAL_LIBDL_COMMAND "using Libdl\; abspath(dirname(Libdl.dlpath(\"libjulia-internal\")))")
+    execute_process(
+        COMMAND ${JULIA_EXECUTABLE} -E ${JULIA_INTERNAL_LIBDL_COMMAND}
+        OUTPUT_VARIABLE JULIA_INTERNAL_LIBRARY_DIR
+        RESULT_VARIABLE RESULT
+    )
+
+    if(RESULT EQUAL 0)
+        string(REGEX REPLACE "\"" "" JULIA_INTERNAL_LIBRARY_DIR ${JULIA_INTERNAL_LIBRARY_DIR})
+        string(STRIP ${JULIA_INTERNAL_LIBRARY_DIR} JULIA_INTERNAL_LIBRARY_DIR)
+        set(JULIA_INTERNAL_LIBRARY_DIR ${JULIA_INTERNAL_LIBRARY_DIR}
+            CACHE PATH "Julia internal library directory")
+    endif()
+endif()
+
 find_library( JULIA_LIBRARY
     NAMES julia
     PATHS ${JULIA_LIBRARY_DIR}
 )
 
+if(NOT ${JULIA_VERSION_STRING} VERSION_LESS 1.6.0)
+    find_library( JULIA_INTERNAL_LIBRARY
+        NAMES julia-internal
+        PATHS ${JULIA_INTERNAL_LIBRARY_DIR}
+    )
+endif()
 
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(
-    Julia
-    REQUIRED_VARS   JULIA_LIBRARY JULIA_LIBRARY_DIR JULIA_INCLUDE_DIRS
-    VERSION_VAR     JULIA_VERSION_STRING
-    FAIL_MESSAGE    "Julia not found"
-)
+if(${JULIA_VERSION_STRING} VERSION_LESS 1.6.0)
+    find_package_handle_standard_args(
+        Julia
+        REQUIRED_VARS   JULIA_LIBRARY JULIA_INCLUDE_DIRS
+        VERSION_VAR     JULIA_VERSION_STRING
+        FAIL_MESSAGE    "Julia not found"
+    )
+else()
+    find_package_handle_standard_args(
+        Julia
+        REQUIRED_VARS   JULIA_LIBRARY JULIA_INTERNAL_LIBRARY JULIA_INCLUDE_DIRS
+        VERSION_VAR     JULIA_VERSION_STRING
+        FAIL_MESSAGE    "Julia not found"
+    )
+endif()
