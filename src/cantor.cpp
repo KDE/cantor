@@ -19,6 +19,7 @@
  */
 
 #include "cantor.h"
+#include "lib/session.h"
 
 #include <cassert>
 
@@ -39,6 +40,7 @@
 #include <QDir>
 #include <QDockWidget>
 #include <QFileDialog>
+#include <QStatusBar>
 #include <QGraphicsView>
 #include <QPushButton>
 #include <QRegularExpression>
