@@ -24,7 +24,7 @@ endif (WITH_EPS)
 configure_file(octavebackend.kcfg.in ${CMAKE_CURRENT_BINARY_DIR}/octavebackend.kcfg)
 
 kconfig_add_kcfg_files(OctaveBackend_SRCS settings.kcfgc)
-install(FILES octavebackend.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
+install(FILES octavebackend.kcfg.in DESTINATION ${KDE_INSTALL_KCFGDIR})
 
 ki18n_wrap_ui(OctaveBackend_SRCS settings.ui)
 

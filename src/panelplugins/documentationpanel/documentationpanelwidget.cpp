@@ -175,25 +175,20 @@ DocumentationPanelWidget::DocumentationPanelWidget(QWidget* parent) : QWidget(pa
     vlayout->addWidget(m_stackedWidget);
     vlayout->addWidget(findPageWidgetContainer);
 
-    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &DocumentationPanelWidget::updateDocumentation);
+    connect(m_documentationSelector, QOverload<int>::of(&QComboBox::currentIndexChanged), [=] {
+        updateDocumentation();
+        m_stackedWidget->setCurrentIndex(1);
+    });
 
     connect(m_stackedWidget, &QStackedWidget::currentChanged, [=]{
         //disable Home and Search in Page buttons when stackwidget shows contents widget, enable when shows web browser
-        if(m_stackedWidget->currentIndex() != 1) //0->contents 1->browser
-        {
-            findPage->setEnabled(false);
-            home->setEnabled(false);
-        }
-        else
-        {
-            findPage->setEnabled(true);
-            home->setEnabled(true);
-        }
+        bool enabled = (m_stackedWidget->currentIndex() == 0); //0 = web view, 1 = content widget
+        findPage->setEnabled(enabled);
+        home->setEnabled(enabled);
     });
 
     connect(home, &QPushButton::clicked, [=]{
-        m_stackedWidget->setCurrentIndex(0);
+        m_stackedWidget->setCurrentIndex(1); //navigate to the content widget
         findPageWidgetContainer->hide();
     });
 
@@ -256,7 +251,7 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend)
 
     // show all available documentation files for the new backend
     m_documentationSelector->clear();
-    const KConfigGroup group = KSharedConfig::openConfig()->group(m_backend.toLower());
+    const KConfigGroup& group = KSharedConfig::openConfig()->group(m_backend.toLower());
     m_docNames = group.readEntry(QLatin1String("Names"), QStringList());
     m_docPaths = group.readEntry(QLatin1String("Paths"), QStringList());
     const QStringList& iconNames = group.readEntry(QLatin1String("Icons"), QStringList());
