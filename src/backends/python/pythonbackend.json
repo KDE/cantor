@@ -51,9 +51,6 @@
         "Name[uk]": "Python",
         "Name[x-test]": "xxPythonxx",
         "Name[zh_CN]": "Python",
-        "ServiceTypes": [
-            "Cantor/Backend"
-        ],
         "Website": "https://python.org/"
     }
 }

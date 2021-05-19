@@ -55,10 +55,7 @@
         "Name[uk]": "Власні вектори",
         "Name[x-test]": "xxEigenvectorsxx",
         "Name[zh_CN]": "特征向量",
-        "Name[zh_TW]": "特徵向量",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "特徵向量"
     },
     "RequiredExtensions": "LinearAlgebraExtension,HistoryExtension"
 }

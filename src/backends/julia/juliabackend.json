@@ -57,9 +57,6 @@
         "Name[x-test]": "xxJuliaxx",
         "Name[zh_CN]": "Julia",
         "Name[zh_TW]": "Julia",
-        "ServiceTypes": [
-            "Cantor/Backend"
-        ],
         "Website": "https://julialang.org/"
     }
 }

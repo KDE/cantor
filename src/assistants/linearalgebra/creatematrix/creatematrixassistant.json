@@ -55,10 +55,7 @@
         "Name[uk]": "Створити матрицю",
         "Name[x-test]": "xxCreate Matrixxx",
         "Name[zh_CN]": "创建矩阵",
-        "Name[zh_TW]": "建立矩陣",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "建立矩陣"
     },
     "RequiredExtensions": "LinearAlgebraExtension"
 }

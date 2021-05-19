@@ -58,10 +58,7 @@
         "Name[uk]": "Розв’язати",
         "Name[x-test]": "xxSolvexx",
         "Name[zh_CN]": "解答",
-        "Name[zh_TW]": "解決",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "解決"
     },
     "RequiredExtensions": "CASExtension"
 }

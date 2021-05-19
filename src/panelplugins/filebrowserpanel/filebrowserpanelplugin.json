@@ -43,10 +43,7 @@
         "Name[sv]": "Filbläddrare",
         "Name[uk]": "Навігація файлами",
         "Name[x-test]": "xxFile Browserxx",
-        "Name[zh_CN]": "文件浏览器",
-        "ServiceTypes": [
-            "Cantor/PanelPlugin"
-        ]
+        "Name[zh_CN]": "文件浏览器"
     },
     "RequiredExtensions": ""
 }

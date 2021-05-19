@@ -56,10 +56,7 @@
         "Name[uk]": "QalculatePlot",
         "Name[x-test]": "xxQalculatePlotxx",
         "Name[zh_CN]": "QalculatePlot",
-        "Name[zh_TW]": "QalculatePlot",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "QalculatePlot"
     },
     "RequiredExtensions": "QalculatePlotExtension"
 }

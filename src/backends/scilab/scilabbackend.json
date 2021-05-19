@@ -58,9 +58,6 @@
         "Name[x-test]": "xxScilabxx",
         "Name[zh_CN]": "Scilab",
         "Name[zh_TW]": "Scilab",
-        "ServiceTypes": [
-            "Cantor/Backend"
-        ],
         "Website": "https://scilab.org/"
     }
 }

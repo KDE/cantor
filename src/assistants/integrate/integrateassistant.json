@@ -57,10 +57,7 @@
         "Name[uk]": "Проінтегрувати",
         "Name[x-test]": "xxIntegratexx",
         "Name[zh_CN]": "积分",
-        "Name[zh_TW]": "積分",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "積分"
     },
     "RequiredExtensions": "CalculusExtension"
 }

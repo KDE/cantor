@@ -59,9 +59,6 @@
         "Name[x-test]": "xxOctavexx",
         "Name[zh_CN]": "Octave",
         "Name[zh_TW]": "Octave",
-        "ServiceTypes": [
-            "Cantor/Backend"
-        ],
         "Website": "https://www.gnu.org/software/octave/"
     }
 }

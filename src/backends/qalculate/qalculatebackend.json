@@ -59,9 +59,6 @@
         "Name[x-test]": "xxQalculatexx",
         "Name[zh_CN]": "Qalculate",
         "Name[zh_TW]": "Qalculate",
-        "ServiceTypes": [
-            "Cantor/Backend"
-        ],
         "Website": "https://qalculate.github.io/"
     }
 }

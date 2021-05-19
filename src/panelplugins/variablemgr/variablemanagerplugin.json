@@ -57,10 +57,7 @@
         "Name[uk]": "Керування змінними",
         "Name[x-test]": "xxVariable Managerxx",
         "Name[zh_CN]": "变量管理器",
-        "Name[zh_TW]": "變數管理員",
-        "ServiceTypes": [
-            "Cantor/PanelPlugin"
-        ]
+        "Name[zh_TW]": "變數管理員"
     },
     "RequiredExtensions": "VariableManagementExtension"
 }

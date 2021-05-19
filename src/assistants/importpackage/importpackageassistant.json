@@ -55,10 +55,7 @@
         "Name[uk]": "Імпортування пакунка",
         "Name[x-test]": "xxImport Packagexx",
         "Name[zh_CN]": "导入包",
-        "Name[zh_TW]": "匯入套件",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "匯入套件"
     },
     "RequiredExtensions": "PackagingExtension"
 }

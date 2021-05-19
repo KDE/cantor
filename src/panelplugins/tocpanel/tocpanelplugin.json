@@ -39,10 +39,7 @@
         "Name[sl]": "Kazalo vsebine",
         "Name[sv]": "Innehållsförteckning",
         "Name[uk]": "Зміст",
-        "Name[x-test]": "xxTable Of Contentsxx",
-        "ServiceTypes": [
-            "Cantor/PanelPlugin"
-        ]
+        "Name[x-test]": "xxTable Of Contentsxx"
     },
     "RequiredExtensions": ""
 }
