@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: cantor
+Upstream-Contact: KDE <community@kde.org>
+Source: https://invent.kde.org/education/cantor
+
+Files: thirdparty/discount-2.2.6-patched/*
+Copyright: Discount
+License: BSD-3-Clause
