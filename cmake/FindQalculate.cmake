@@ -11,9 +11,7 @@
 #  QALCULATE_LIBRARIES - libqalculate libraries
 #
 # SPDX-FileCopyrightText: 2007 Vladimir Kuznetsov <ks.vladimir@gmail.com>
-#
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# SPDX-License-Identifier: BSD-3-Clause
 
 if(QALCULATE_CFLAGS AND QALCULATE_LIBRARIES)
 
