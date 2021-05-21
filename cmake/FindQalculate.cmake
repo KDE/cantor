@@ -10,7 +10,7 @@
 #  QALCULATE_CFLAGS - libqalculate cflags
 #  QALCULATE_LIBRARIES - libqalculate libraries
 #
-# Copyright (c) 2007, Vladimir Kuznetsov, <ks.vladimir@gmail.com>
+# SPDX-FileCopyrightText: 2007 Vladimir Kuznetsov <ks.vladimir@gmail.com>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.

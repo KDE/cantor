@@ -6,8 +6,8 @@
 #  Discount_LIBRARIES - the Discount library
 #  Discount_INCLUDE_DIR - the include path of the Discount library
 
-# Copyright (c) 2017, Julian Wolff, <wolff@julianwolff.de>
-# Copyright (c) 2018, Sune Vuorela, <sune@kde.org>
+# SPDX-FileCopyrightText: 2017 Julian Wolff <wolff@julianwolff.de>
+# SPDX-FileCopyrightText: 2018 Sune Vuorela <sune@kde.org>
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
