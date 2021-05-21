@@ -65,7 +65,7 @@ int main(int argc, char **argv)
                      QLatin1String(CANTOR_VERSION),
                      i18n(description),
                      KAboutLicense::GPL,
-                     i18n("(C) 2016 Filipe Saraiva<br/>SPDX-FileCopyrightText: 2009-2015 Alexander Rieder "),
+                     i18n("(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"),
                      QString(),
                      QLatin1String("https://cantor.kde.org/"));
 
