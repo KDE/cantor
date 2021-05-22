@@ -28,10 +28,11 @@ private Q_SLOTS:
     void testVariableDefinition();
     void testMatrixDefinition();
 
-    //some tests to see if comments are working correctly
-    void testSimpleExpressionWithComment();
-    void testCommentExpression();
-    void testMultilineCommandWithComment();
+    //comments
+    void testComment00();
+    void testComment01();
+    void testComment02();
+    void testComment03();
 
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();

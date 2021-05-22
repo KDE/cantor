@@ -126,6 +126,11 @@ QString OctaveExpression::internalCommand()
         if (status != 3)
             tmp += cmd[i];
     }
+
+    //Remove "\n" in the beginning of the command, if present
+    while(tmp[0] == QLatin1Char('\n'))
+        tmp.remove(0, 1);
+
     cmd = tmp;
     cmd.replace(QLatin1String(";\n"), QLatin1String(";"));
     cmd.replace(QLatin1Char('\n'), QLatin1Char(','));
