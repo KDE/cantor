@@ -8,7 +8,15 @@
   <group name="OctaveBackend">
     <entry name="Path" type="Url">
       <label>Path to the Octave executable</label>
-      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave-cli") ))</default>
+      <default code="true">
+          [this] {
+                #ifdef Q_OS_WIN
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave-cli.exe") ));
+                #else
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave-cli") ));
+                #endif
+            } ()
+      </default>
     </entry>
     <entry name="localDoc" type="Url">
         <label>Url to the local Octave documentation</label>
