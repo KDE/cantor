@@ -29,16 +29,16 @@ if(Analitza5_FOUND)
 endif(Analitza5_FOUND)
 
 if(NOT WIN32)
-    set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics."
-        URL "https://www.r-project.org/"
-        TYPE OPTIONAL
-        PURPOSE "Backend to use R with Cantor.")
+  set_package_properties(R PROPERTIES DESCRIPTION "A free software environment for statistical computing and graphics."
+    URL "https://www.r-project.org/"
+    TYPE OPTIONAL
+    PURPOSE "Backend to use R with Cantor.")
 
-    find_package(R)
-    if(R_FOUND)
-        add_subdirectory(R)
-    endif(R_FOUND)
-endif(NOT WIN32)
+  find_package(R)
+  if(R_FOUND)
+    add_subdirectory(R)
+  endif(R_FOUND)
+endif()
 
 set_package_properties(Qalculate PROPERTIES DESCRIPTION "A multi-purpose desktop calculator with support for customizable functions, units and arbitrary precision."
     URL "https://qalculate.github.io/"

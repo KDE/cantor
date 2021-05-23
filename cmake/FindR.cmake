@@ -8,7 +8,7 @@
 #  R_LIBRARIES - Link these to use R
 
 # find the R binary
-FIND_PROGRAM(R_EXECUTABLE R)
+FIND_PROGRAM(R_EXECUTABLE NAMES R R.bat)
 
 SET(ABORT_CONFIG FALSE)
 IF(R_EXECUTABLE)
@@ -43,13 +43,20 @@ IF(R_EXECUTABLE)
 
   FIND_PATH(R_INCLUDE_DIR R.h)
 
-  # check for existence of libR.so
+  # check for existence of libR.so/R.dll
+  IF(WIN32)
+    # remove R.bat header from R_HOME
+    STRING(REGEX REPLACE ".*\n" "" R_HOME "${R_HOME}")
+    # search for correct exe in R_HOME (R.bat is not working)
+    unset(R_EXECUTABLE CACHE)
+    FIND_PROGRAM(R_EXECUTABLE R HINTS ${R_HOME}/bin ${R_HOME}/bin/x64)
+    set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib" ".dll")
+  ENDIF()
 
-  FIND_LIBRARY(R_R_LIBRARY
-    R
-    HINTS ${R_HOME}/lib ${R_SHARED_LIB_DIR} ${R_HOME}/bin )
+  FIND_LIBRARY(R_R_LIBRARY R
+    HINTS ${R_HOME}/lib ${R_SHARED_LIB_DIR} ${R_HOME}/bin ${R_HOME}/bin/x64)
   IF(NOT R_R_LIBRARY)
-    MESSAGE(STATUS "libR not found. Make sure the location of R was detected correctly, above, and R was compiled with the --enable-shlib option")
+    MESSAGE(STATUS "libR/R.dll not found. Make sure the location of R was detected correctly, above, and R was compiled with the --enable-shlib option")
   ELSE(NOT R_R_LIBRARY)
     GET_FILENAME_COMPONENT(R_SHARED_LIB_DIR ${R_R_LIBRARY}
       PATH)
