@@ -34,7 +34,9 @@ extern "C" {
 #endif
 
 
-MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)), rendered(false)
+MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
+m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
+rendered(false)
 {
     m_textItem->enableRichText(false);
     m_textItem->setOpenExternalLinks(true);
@@ -48,7 +50,13 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
 void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
 {
     if (!rendered)
-        menu->addAction(i18n("Insert Image Attachment"), this, &MarkdownEntry::insertImage);
+        menu->addAction(QIcon::fromTheme(QLatin1String("viewimage")), i18n("Insert Image"), this, &MarkdownEntry::insertImage);
+    else
+    {
+        menu->addAction(QIcon::fromTheme(QLatin1String("edit-entry")), i18n("Enter Edit Mode"), this, &MarkdownEntry::enterEditMode);
+        menu->addSeparator();
+    }
+
     if (attachedImages.size() != 0)
         menu->addAction(i18n("Clear Attachments"), this, &MarkdownEntry::clearAttachments);
     WorksheetEntry::populateMenu(menu, pos);
@@ -762,6 +770,13 @@ void MarkdownEntry::clearAttachments()
     }
     attachedImages.clear();
     animateSizeChange();
+}
+
+void MarkdownEntry::enterEditMode()
+{
+    setPlainText(plain);
+    m_textItem->textCursor().clearSelection();
+    rendered = false;
 }
 
 QString MarkdownEntry::plainText() const

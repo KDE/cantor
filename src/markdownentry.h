@@ -76,6 +76,7 @@ class MarkdownEntry : public WorksheetEntry
     void handleMathRender(QSharedPointer<MathRenderResult> result);
     void insertImage();
     void clearAttachments();
+    void enterEditMode();
 
   protected:
     WorksheetTextItem* m_textItem;
