@@ -7,8 +7,16 @@
   <kcfgfile name="cantorrc"/>
   <group name="ScilabBackend">
     <entry name="Path" type="Url">
-      <label>Path to scilab-adv-cli command (Warning: Scilab version must better or equal than 5.4 version)</label>
-      <default code="true">QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("scilab-adv-cli") ))</default>
+      <label>Path to the Scilab executable</label>
+        <default code="true">
+          [this] {
+                #ifdef Q_OS_WIN
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("WScilex-cli.exe") ));
+                #else
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("scilab-adv-cli") ));
+                #endif
+            } ()
+        </default>
     </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
