@@ -765,21 +765,42 @@ void MarkdownEntry::markUpMath()
 
 void MarkdownEntry::insertImage()
 {
-    const QString& filename = QFileDialog::getOpenFileName(worksheet()->worksheetView(), i18n("Choose Image"), QString(), i18n("Images (*.png *.bmp *.jpg *.svg)"));
+    KConfigGroup conf(KSharedConfig::openConfig(), "MarkdownEntry");
+    QString dir = conf.readEntry("LastImageDir", "");
 
-    if (!filename.isEmpty())
-    {
-        QImageReader reader(filename);
-        const QImage img = reader.read();
-        if (!img.isNull())
-        {
-            const QString& name = QFileInfo(filename).fileName();
-
-            addImageAttachment(name, img);
-        }
-        else
-            KMessageBox::error(worksheetView(), i18n("Cantor failed to read image with error \"%1\"", reader.errorString()), i18n("Cantor"));
+    QString formats;
+    for (const QByteArray& format : QImageReader::supportedImageFormats()) {
+        QString f = QLatin1String("*.") + QLatin1String(format.constData());
+        formats.isEmpty() ? formats += f : formats += QLatin1Char(' ') + f;
     }
+
+    const QString& path = QFileDialog::getOpenFileName(worksheet()->worksheetView(),
+                                                       i18n("Open image file"),
+                                                       dir,
+                                                       i18n("Images (%1)",
+                                                       formats));
+    if (path.isEmpty())
+        return; //cancel was clicked in the file-dialog
+
+    //save the last used directory, if changed
+    const int pos = path.lastIndexOf(QLatin1String("/"));
+    if (pos != -1) {
+        const QString& newDir = path.left(pos);
+        if (newDir != dir)
+            conf.writeEntry(QLatin1String("LastImageDir"), newDir);
+    }
+
+    QImageReader reader(path);
+    const QImage& img = reader.read();
+    if (!img.isNull())
+    {
+        const QString& name = QFileInfo(path).fileName();
+        addImageAttachment(name, img);
+    }
+    else
+        KMessageBox::error(worksheetView(),
+                           i18n("Failed to read the image \"%1\". Error \"%2\"", path, reader.errorString()),
+                           i18n("Cantor"));
 }
 
 void MarkdownEntry::clearAttachments()
