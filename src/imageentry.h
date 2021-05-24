@@ -39,8 +39,6 @@ class ImageEntry : public WorksheetEntry
 
     QSizeF imageSize(const ImageSize& imgSize);
 
-    void interruptEvaluation() override;
-
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
   public Q_SLOTS:

@@ -108,11 +108,6 @@ QString PageBreakEntry::toPlain(const QString& commandSep, const QString& commen
     return commentStartingSeq + QLatin1String("page break") + commentEndingSeq;
 }
 
-void PageBreakEntry::interruptEvaluation()
-{
-    return;
-}
-
 void PageBreakEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
     if (size().width() == w && m_msgItem->pos().x() == entry_zone_x && !force)

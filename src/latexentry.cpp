@@ -321,11 +321,6 @@ QString LatexEntry::toPlain(const QString& commandSep, const QString& commentSta
     return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
 }
 
-void LatexEntry::interruptEvaluation()
-{
-
-}
-
 bool LatexEntry::evaluate(EvaluationOption evalOp)
 {
     bool success = false;

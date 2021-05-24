@@ -68,7 +68,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual QJsonValue toJupyterJson()=0;
     virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
-    virtual void interruptEvaluation()=0;
+    virtual void interruptEvaluation() {};
 
     virtual void showCompletion();
 

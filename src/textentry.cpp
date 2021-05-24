@@ -323,10 +323,6 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
 
 }
 
-void TextEntry::interruptEvaluation()
-{
-}
-
 bool TextEntry::evaluate(EvaluationOption evalOp)
 {
     int i = 0;

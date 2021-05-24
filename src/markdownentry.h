@@ -44,8 +44,6 @@ class MarkdownEntry : public WorksheetEntry
 
     QString plainText() const;
 
-    void interruptEvaluation() override;
-
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
     WorksheetCursor search(const QString& pattern, unsigned flags,

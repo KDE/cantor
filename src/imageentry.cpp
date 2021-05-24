@@ -236,10 +236,6 @@ QString ImageEntry::latexSizeString(const ImageSize& imgSize)
     return QLatin1String("[") + sizeString + QLatin1String("]");
 }
 
-void ImageEntry::interruptEvaluation()
-{
-}
-
 bool ImageEntry::evaluate(EvaluationOption evalOp)
 {
     evaluateNext(evalOp);

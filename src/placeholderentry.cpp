@@ -65,11 +65,6 @@ QString PlaceHolderEntry::toPlain(const QString&, const QString&, const QString&
     return QString();
 }
 
-void PlaceHolderEntry::interruptEvaluation()
-{
-    return;
-}
-
 void PlaceHolderEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
     Q_UNUSED(entry_zone_x);

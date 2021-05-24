@@ -25,8 +25,6 @@ class PlaceHolderEntry : public WorksheetEntry
     QDomElement toXml(QDomDocument&, KZip*) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString&, const QString&, const QString&) override;
-    void interruptEvaluation() override;
-
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
   public Q_SLOTS:

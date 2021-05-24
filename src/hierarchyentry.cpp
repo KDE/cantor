@@ -257,10 +257,6 @@ QString HierarchyEntry::toPlain(const QString& commandSep, const QString& commen
 
 }
 
-void HierarchyEntry::interruptEvaluation()
-{
-}
-
 bool HierarchyEntry::evaluate(EvaluationOption evalOp)
 {
     emit hierarhyEntryNameChange(text(), hierarchyText(), ((int)m_depth)-1);

@@ -357,10 +357,6 @@ QString MarkdownEntry::toPlain(const QString& commandSep, const QString& comment
     return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
 }
 
-void MarkdownEntry::interruptEvaluation()
-{
-}
-
 bool MarkdownEntry::evaluate(EvaluationOption evalOp)
 {
     if(!rendered)

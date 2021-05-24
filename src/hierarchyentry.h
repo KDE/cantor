@@ -66,8 +66,6 @@ class HierarchyEntry : public WorksheetEntry
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
-    void interruptEvaluation() override;
-
     void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
     int searchText(const QString& text, const QString& pattern,

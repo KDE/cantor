@@ -177,11 +177,6 @@ QString HorizontalRuleEntry::toPlain(const QString&, const QString&, const QStri
     return QString();
 }
 
-void HorizontalRuleEntry::interruptEvaluation()
-{
-    return;
-}
-
 void HorizontalRuleEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
     Q_UNUSED(force);
