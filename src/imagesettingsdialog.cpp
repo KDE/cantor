@@ -1,19 +1,29 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2011 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "imagesettingsdialog.h"
-#include <KCompletion>
-#include <KLocalizedString>
-#include <QUrl>
-#include <KUrlCompletion>
 
 #include <QImageReader>
 #include <QFileDialog>
+#include <QWindow>
+#include <QUrl>
+
+#include <KCompletion>
+#include <KConfigGroup>
+#include <KLocalizedString>
+#include <KSharedConfig>
+#include <KWindowConfig>
+#include <KUrlCompletion>
 
 ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
 {
+    setWindowTitle(i18nc("@title:window", "Image Settings"));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("viewimage")));
+    setAttribute(Qt::WA_DeleteOnClose);
+
     QWidget* w = new QWidget(this);
     m_ui.setupUi(w);
 
@@ -53,41 +63,58 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
     connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &ImageSettingsDialog::close);
 
     connect(m_ui.openDialogButton, &QPushButton::clicked, this, &ImageSettingsDialog::openDialog);
-    //connect(m_fileDialog, SIGNAL(accepted()), this, SLOT(updatePath()));
-
     connect(m_ui.pathEdit, &KLineEdit::editingFinished, this, &ImageSettingsDialog::updatePreview);
 
-    connect(m_ui.displayWidthCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
-    connect(m_ui.displayHeightCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
-    connect(m_ui.printWidthCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
-    connect(m_ui.printHeightCombo, static_cast<void (KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.displayWidthCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.displayHeightCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.printWidthCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
+    connect(m_ui.printHeightCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
 
     connect(m_ui.useDisplaySize, &QCheckBox::stateChanged, this, &ImageSettingsDialog::updatePrintingGroup);
+}
+
+ImageSettingsDialog::~ImageSettingsDialog() {
+    KConfigGroup dialogConfig = KSharedConfig::openConfig()->group("ImageSettingsDialog");
+    KWindowConfig::saveWindowSize(windowHandle(), dialogConfig);
 }
 
 void ImageSettingsDialog::setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting)
 {
     m_ui.pathEdit->setText(file);
     if (displaySize.width >= 0)
-	m_ui.displayWidthInput->setValue(displaySize.width);
+        m_ui.displayWidthInput->setValue(displaySize.width);
+
     if (displaySize.height >= 0)
-	m_ui.displayHeightInput->setValue(displaySize.height);
+        m_ui.displayHeightInput->setValue(displaySize.height);
+
     if (printSize.width >= 0)
-	m_ui.printWidthInput->setValue(printSize.width);
+        m_ui.printWidthInput->setValue(printSize.width);
+
     if (printSize.height >= 0)
-	m_ui.printHeightInput->setValue(printSize.height);
+        m_ui.printHeightInput->setValue(printSize.height);
+
     m_ui.displayWidthCombo->setCurrentIndex(displaySize.widthUnit);
     m_ui.displayHeightCombo->setCurrentIndex(displaySize.heightUnit);
     m_ui.printWidthCombo->setCurrentIndex(printSize.widthUnit);
     m_ui.printHeightCombo->setCurrentIndex(printSize.heightUnit);
+
     if (useDisplaySizeForPrinting)
-	m_ui.useDisplaySize->setCheckState(Qt::Checked);
+        m_ui.useDisplaySize->setCheckState(Qt::Checked);
     else
-	m_ui.useDisplaySize->setCheckState(Qt::Unchecked);
+        m_ui.useDisplaySize->setCheckState(Qt::Unchecked);
 
     updatePreview();
     updatePrintingGroup(useDisplaySizeForPrinting);
     //updateInputWidgets();
+
+    //restore saved settings if available
+    create(); // ensure there's a window created
+    KConfigGroup conf(KSharedConfig::openConfig(), "ImageSettingsDialog");
+    if (conf.exists()) {
+        KWindowConfig::restoreWindowSize(windowHandle(), conf);
+        resize(windowHandle()->size()); // workaround for QTBUG-40584
+    } else
+        resize(QSize(0, 0).expandedTo(minimumSize()));
 }
 
 void ImageSettingsDialog::sendChangesAndClose()
@@ -113,19 +140,30 @@ void ImageSettingsDialog::sendChanges()
 
 void ImageSettingsDialog::openDialog()
 {
-    const QList<QByteArray> formats = QImageReader::supportedImageFormats();
-    QString formatString = QLatin1String("Images(");
-    foreach(QByteArray format, formats)
-    {
-    formatString += QLatin1String("*.") + QString::fromLatin1(format).toLower() + QLatin1String(" ");
+    KConfigGroup conf(KSharedConfig::openConfig(), QLatin1String("ImageSettingsDialog"));
+    QString dir = conf.readEntry(QLatin1String("LastImageDir"), QString());
+
+    QString formats;
+    for (const QByteArray& format : QImageReader::supportedImageFormats())
+        formats += QLatin1String("*.") + QLatin1String(format.constData()) + QLatin1Char(' ');
+
+    const QString& path = QFileDialog::getOpenFileName(this,
+                                                      i18n("Open image file"),
+                                                      dir,
+                                                      i18n("Images (%1)", formats));
+    if (path.isEmpty())
+        return; //cancel was clicked in the file-dialog
+
+    //save the last used directory, if changed
+    const int pos = path.lastIndexOf(QLatin1String("/"));
+    if (pos != -1) {
+        const QString& newDir = path.left(pos);
+        if (newDir != dir)
+            conf.writeEntry(QLatin1String("LastImageDir"), newDir);
     }
-    formatString += QLatin1String(")");
-    const QString file = QFileDialog::getOpenFileName(this, i18n("Open image file"), m_ui.pathEdit->text(), formatString);
-    if (!file.isEmpty())
-    {
-	m_ui.pathEdit->setText(file);
-	updatePreview();
-    }
+
+    m_ui.pathEdit->setText(path);
+    updatePreview();
 }
 
 void ImageSettingsDialog::updatePreview()
@@ -136,24 +174,24 @@ void ImageSettingsDialog::updatePreview()
 void ImageSettingsDialog::updateInputWidgets()
 {
     if (m_ui.displayWidthCombo->currentIndex() == 0)
-	m_ui.displayWidthInput->setEnabled(false);
+        m_ui.displayWidthInput->setEnabled(false);
     else
-	m_ui.displayWidthInput->setEnabled(true);
+        m_ui.displayWidthInput->setEnabled(true);
 
     if (m_ui.displayHeightCombo->currentIndex() == 0)
-	m_ui.displayHeightInput->setEnabled(false);
+        m_ui.displayHeightInput->setEnabled(false);
     else
-	m_ui.displayHeightInput->setEnabled(true);
+        m_ui.displayHeightInput->setEnabled(true);
 
     if (m_ui.printWidthCombo->currentIndex() == 0 || !m_ui.printWidthCombo->isEnabled())
-	m_ui.printWidthInput->setEnabled(false);
+        m_ui.printWidthInput->setEnabled(false);
     else
-	m_ui.printWidthInput->setEnabled(true);
+        m_ui.printWidthInput->setEnabled(true);
 
     if (m_ui.printHeightCombo->currentIndex() == 0 || !m_ui.printHeightCombo->isEnabled())
-	m_ui.printHeightInput->setEnabled(false);
+        m_ui.printHeightInput->setEnabled(false);
     else
-	m_ui.printHeightInput->setEnabled(true);
+        m_ui.printHeightInput->setEnabled(true);
 }
 
 void ImageSettingsDialog::updatePrintingGroup(int b)

@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2011 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef IMAGESETTINGSDIALOG_H
@@ -23,7 +24,8 @@ class ImageSettingsDialog : public QDialog
 {
   Q_OBJECT
   public:
-    explicit ImageSettingsDialog(QWidget* parent);
+    explicit ImageSettingsDialog(QWidget*);
+    ~ImageSettingsDialog() override;
 
     void setData(const QString& file, const ImageSize& displaySize, const ImageSize& printSize, bool useDisplaySizeForPrinting);
 

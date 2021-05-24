@@ -765,20 +765,17 @@ void MarkdownEntry::markUpMath()
 
 void MarkdownEntry::insertImage()
 {
-    KConfigGroup conf(KSharedConfig::openConfig(), "MarkdownEntry");
-    QString dir = conf.readEntry("LastImageDir", "");
+    KConfigGroup conf(KSharedConfig::openConfig(), QLatin1String("MarkdownEntry"));
+    const QString& dir = conf.readEntry(QLatin1String("LastImageDir"), QString());
 
     QString formats;
-    for (const QByteArray& format : QImageReader::supportedImageFormats()) {
-        QString f = QLatin1String("*.") + QLatin1String(format.constData());
-        formats.isEmpty() ? formats += f : formats += QLatin1Char(' ') + f;
-    }
+    for (const QByteArray& format : QImageReader::supportedImageFormats())
+        formats += QLatin1String("*.") + QLatin1String(format.constData()) + QLatin1Char(' ');
 
     const QString& path = QFileDialog::getOpenFileName(worksheet()->worksheetView(),
                                                        i18n("Open image file"),
                                                        dir,
-                                                       i18n("Images (%1)",
-                                                       formats));
+                                                       i18n("Images (%1)", formats));
     if (path.isEmpty())
         return; //cancel was clicked in the file-dialog
 
