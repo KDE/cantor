@@ -2,7 +2,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    SPDX-FileCopyrightText: 2018 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef COMMANDENTRY_H
@@ -33,14 +33,14 @@ class CommandEntry : public WorksheetEntry
     static const QString MidPrompt;
     static const QString HidePrompt;
 
-    explicit CommandEntry(Worksheet* worksheet);
+    explicit CommandEntry(Worksheet*);
     ~CommandEntry() override;
 
     enum {Type = UserType + 2};
     int type() const override;
 
     QString command();
-    void setExpression(Cantor::Expression* expr);
+    void setExpression(Cantor::Expression*);
     Cantor::Expression* expression();
 
     QString currentLine();
@@ -49,11 +49,11 @@ class CommandEntry : public WorksheetEntry
     bool isExcludedFromExecution();
     bool isResultCollapsed();
 
-    void setContent(const QString& content) override;
-    void setContent(const QDomElement& content, const KZip& file) override;
-    void setContentFromJupyter(const QJsonObject& cell) override;
+    void setContent(const QString&) override;
+    void setContent(const QDomElement&, const KZip&) override;
+    void setContentFromJupyter(const QJsonObject&) override;
 
-    QDomElement toXml(QDomDocument& doc, KZip* archive) override;
+    QDomElement toXml(QDomDocument&, KZip*) override;
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
@@ -94,8 +94,8 @@ class CommandEntry : public WorksheetEntry
     void handleBacktabPress();
     void updateEntry() override;
     void updatePrompt(const QString& postfix = CommandEntry::Prompt);
-    void expressionChangedStatus(Cantor::Expression::Status status);
-    void showAdditionalInformationPrompt(const QString& question);
+    void expressionChangedStatus(Cantor::Expression::Status);
+    void showAdditionalInformationPrompt(const QString&);
     void showCompletions();
     void applySelectedCompletion();
     void completedLineChanged();
@@ -107,7 +107,7 @@ class CommandEntry : public WorksheetEntry
     void moveToNextItem(int pos, qreal x);
     void moveToPreviousItem(int pos, qreal x);
 
-    void populateMenu(QMenu* menu, QPointF pos) override;
+    void populateMenu(QMenu*, QPointF) override;
 
   protected:
     bool wantToEvaluate() override;
@@ -117,41 +117,12 @@ class CommandEntry : public WorksheetEntry
     bool informationItemHasFocus();
     bool focusWithinThisItem();
     QPoint getPopupPosition();
-    QPoint toGlobalPosition(QPointF localPos);
+    QPoint toGlobalPosition(QPointF);
     void initMenus();
     void handleExistedCompletionBox();
     void makeCompletion(const QString& line, int position);
 
-  private:
-    enum CompletionMode {
-        PreliminaryCompletion,
-        FinalCompletion
-    };
-  private Q_SLOTS:
-    void invalidate();
-    void resultDeleted();
-    void clearResultItems();
-    void removeResultItem(int index);
-    void replaceResultItem(int index);
-    void updateCompletions();
-    void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
-    void changeResultCollapsingAction();
-
-    void backgroundColorChanged(QAction*);
-    void textColorChanged(QAction*);
-    void fontBoldTriggered();
-    void fontItalicTriggered();
-    void fontIncreaseTriggered();
-    void fontDecreaseTriggered();
-    void fontSelectTriggered();
-    void resetFontTriggered();
-
-    void animatePromptItem();
-    void setMidPrompt();
-    void setHidePrompt();
-
-
-  private:
+    enum CompletionMode {PreliminaryCompletion, FinalCompletion};
     static const double VerticalSpacing;
 
     WorksheetTextItem* m_promptItem;
@@ -183,6 +154,30 @@ class CommandEntry : public WorksheetEntry
     bool m_isExecutionEnabled;
     QColor m_activeExecutionTextColor;
     QColor m_activeExecutionBackgroundColor;
+
+  private Q_SLOTS:
+    void invalidate();
+    void resultDeleted();
+    void clearResultItems();
+    void removeResultItem(int index);
+    void replaceResultItem(int index);
+    void updateCompletions();
+    void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
+    void changeResultCollapsingAction();
+    void toggleEnabled();
+
+    void backgroundColorChanged(QAction*);
+    void textColorChanged(QAction*);
+    void fontBoldTriggered();
+    void fontItalicTriggered();
+    void fontIncreaseTriggered();
+    void fontDecreaseTriggered();
+    void fontSelectTriggered();
+    void resetFontTriggered();
+
+    void animatePromptItem();
+    void setMidPrompt();
+    void setHidePrompt();
 };
 
 #endif // COMMANDENTRY_H

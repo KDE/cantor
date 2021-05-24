@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "worksheetentry.h"
@@ -407,13 +408,32 @@ void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"), this, SLOT(moveToPrevious()), 0);
-    menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"), this, SLOT(moveToNext()), 0);
+    auto* firstAction = menu->actions().first();
+    QAction* action;
     if (!worksheet()->isRunning() && wantToEvaluate())
-        menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
+    {
+        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate"));
+        connect(action, SIGNAL(triggered()), this, SLOT(evaluate()));
+        menu->insertAction(firstAction, action);
+        menu->insertSeparator(firstAction);
+    }
 
-    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"), this, SLOT(startRemoving()), 0);
-    menu->addSeparator();
+    action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
+//     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
+    connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
+    menu->insertAction(firstAction, action);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
+//     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
+    connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
+    menu->insertAction(firstAction, action);
+    menu->insertSeparator(firstAction);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove"));
+    connect(action, &QAction::triggered, this, &WorksheetEntry::startRemoving);
+    menu->insertAction(firstAction, action);
+    menu->insertSeparator(firstAction);
+
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
 

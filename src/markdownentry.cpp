@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2018 Yifei Wu <kqwyfg@gmail.com>
+    SPDX-FileCopyrightText: 2019-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "markdownentry.h"
@@ -49,17 +50,34 @@ rendered(false)
 
 void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
 {
+
+    QAction* firstAction;
     if (!rendered)
-        menu->addAction(QIcon::fromTheme(QLatin1String("viewimage")), i18n("Insert Image"), this, &MarkdownEntry::insertImage);
+    {
+        WorksheetEntry::populateMenu(menu, pos);
+
+        firstAction = menu->actions().at(1); //insert the first action for Markdown after the "Evaluate" action
+        QAction* action = new QAction(QIcon::fromTheme(QLatin1String("viewimage")), i18n("Insert Image"));
+        connect(action, &QAction::triggered, this, &MarkdownEntry::insertImage);
+        menu->insertAction(firstAction, action);
+    }
     else
     {
-        menu->addAction(QIcon::fromTheme(QLatin1String("edit-entry")), i18n("Enter Edit Mode"), this, &MarkdownEntry::enterEditMode);
-        menu->addSeparator();
+        WorksheetEntry::populateMenu(menu, pos);
+
+        firstAction = menu->actions().at(0);
+        QAction* action = new QAction(QIcon::fromTheme(QLatin1String("edit-entry")), i18n("Enter Edit Mode"));
+        connect(action, &QAction::triggered, this, &MarkdownEntry::enterEditMode);
+        menu->insertAction(firstAction, action);
+        menu->insertSeparator(firstAction);
     }
 
     if (attachedImages.size() != 0)
-        menu->addAction(i18n("Clear Attachments"), this, &MarkdownEntry::clearAttachments);
-    WorksheetEntry::populateMenu(menu, pos);
+    {
+        QAction* action = new QAction(QIcon::fromTheme(QLatin1String("edit-clear")), i18n("Clear Attachments"));
+        connect(action, &QAction::triggered, this, &MarkdownEntry::clearAttachments);
+        menu->insertAction(firstAction, action);
+    }
 }
 
 bool MarkdownEntry::isEmpty()

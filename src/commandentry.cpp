@@ -2,7 +2,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    SPDX-FileCopyrightText: 2018-2019 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "commandentry.h"
@@ -334,16 +334,24 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
             menu->addAction(i18n("Hide Results"), this, &CommandEntry::collapseResults);
     }
 
-    if (m_isExecutionEnabled)
-        menu->addAction(i18n("Exclude from Execution"), this, &CommandEntry::excludeFromExecution);
-    else
-        menu->addAction(i18n("Add to Execution"), this, &CommandEntry::addToExecution);
 
-    menu->addMenu(m_backgroundColorMenu);
-    menu->addMenu(m_textColorMenu);
-    menu->addMenu(m_fontMenu);
+    QAction* enabledAction = new QAction(QIcon::fromTheme(QLatin1String("checkmark")), i18n("Enabled"));
+    enabledAction->setCheckable(true);
+    enabledAction->setChecked(m_isExecutionEnabled);
     menu->addSeparator();
+    menu->addAction(enabledAction);
+    connect(enabledAction, &QAction::triggered, this, &CommandEntry::toggleEnabled);
+
+    QMenu* appearanceMenu = new QMenu(i18n("Appearance"));
+    appearanceMenu->setIcon(QIcon::fromTheme(QLatin1String("configure")));
+    appearanceMenu->addMenu(m_backgroundColorMenu);
+    appearanceMenu->addMenu(m_textColorMenu);
+    appearanceMenu->addMenu(m_fontMenu);
+    menu->addMenu(appearanceMenu);
+    menu->addSeparator();
+
     WorksheetEntry::populateMenu(menu, pos);
+    menu->addSeparator();
 }
 
 void CommandEntry::moveToNextItem(int pos, qreal x)
@@ -1536,6 +1544,14 @@ void CommandEntry::changeResultCollapsingAction()
 qreal CommandEntry::promptItemWidth()
 {
     return m_promptItem->width();
+}
+
+void CommandEntry::toggleEnabled() {
+    auto* action = static_cast<QAction*>(QObject::sender());
+    if (action->isChecked())
+        addToExecution();
+    else
+        excludeFromExecution();
 }
 
 void CommandEntry::excludeFromExecution()
