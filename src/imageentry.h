@@ -15,6 +15,7 @@ class Worksheet;
 class ActionBar;
 class WorksheetImageItem;
 class QFileSystemWatcher;
+class QGraphicsSceneMouseEvent;
 
 class ImageEntry : public WorksheetEntry
 {
@@ -58,6 +59,8 @@ class ImageEntry : public WorksheetEntry
 
     QString latexSizeString(const ImageSize& imgSize);
     void addActionsToBar(ActionBar* actionBar) override;
+
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*) override;
 
   private:
     QString m_imagePath;

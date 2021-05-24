@@ -9,7 +9,6 @@
 #include "worksheetview.h"
 #include "lib/jupyterutils.h"
 
-#include <QDebug>
 #include <QDir>
 #include <QMenu>
 #include <QFileSystemWatcher>
@@ -43,11 +42,13 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
 void ImageEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    menu->addAction(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"),
-                    this, SLOT(startConfigDialog()));
-    menu->addSeparator();
-
     WorksheetEntry::populateMenu(menu, pos);
+    auto* firstAction = menu->actions().at(0);
+
+    auto* action = new QAction(QIcon::fromTheme(QLatin1String("configure")), i18n("Configure Image"));
+    menu->insertAction(firstAction, action);
+    connect(action, &QAction::triggered, this, &ImageEntry::startConfigDialog);
+    menu->insertSeparator(firstAction);
 }
 
 bool ImageEntry::isEmpty()
@@ -168,12 +169,14 @@ QDomElement ImageEntry::toXml(QDomDocument& doc, KZip* archive)
     fileName.appendChild(fileNameText);
     image.appendChild(fileName);
     image.appendChild(path);
+
     QDomElement display = doc.createElement(QLatin1String("Display"));
     display.setAttribute(QLatin1String("width"), m_displaySize.width);
     display.setAttribute(QLatin1String("widthUnit"), unitNames[m_displaySize.widthUnit]);
     display.setAttribute(QLatin1String("height"), m_displaySize.height);
     display.setAttribute(QLatin1String("heightUnit"), unitNames[m_displaySize.heightUnit]);
     image.appendChild(display);
+
     QDomElement print = doc.createElement(QLatin1String("Print"));
     print.setAttribute(QLatin1String("useDisplaySize"), m_useDisplaySizeForPrinting);
     print.setAttribute(QLatin1String("width"), m_printSize.width);
@@ -255,7 +258,7 @@ void ImageEntry::updateEntry()
 {
     qreal oldHeight = height();
     if (m_imagePath.isEmpty()) {
-        m_textItem->setPlainText(i18n("Right click here to insert image"));
+        m_textItem->setPlainText(i18n("Double click here to configure image settings"));
         m_textItem->setVisible(true);
         if (m_imageItem)
             m_imageItem->setVisible(false);
@@ -301,13 +304,11 @@ void ImageEntry::updateEntry()
             if (m_imagePath.endsWith(QLatin1String(".eps"), Qt::CaseInsensitive))
                 size /= worksheet()->renderer()->scale();
             m_imageItem->setSize(size);
-            qDebug() << size;
             m_textItem->setVisible(false);
             m_imageItem->setVisible(true);
         }
     }
 
-    qDebug() << oldHeight << height();
     if (oldHeight != height())
         recalculateSize();
 }
@@ -376,7 +377,6 @@ void ImageEntry::addActionsToBar(ActionBar* actionBar)
                          this, SLOT(startConfigDialog()));
 }
 
-
 void ImageEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
 {
     if (size().width() == w && m_textItem->pos().x() == entry_zone_x && !force)
@@ -405,4 +405,9 @@ bool ImageEntry::wantToEvaluate()
 bool ImageEntry::wantFocus()
 {
     return false;
+}
+
+void ImageEntry::mouseDoubleClickEvent(QGraphicsSceneMouseEvent*)
+{
+    startConfigDialog();
 }

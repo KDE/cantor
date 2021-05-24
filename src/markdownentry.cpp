@@ -53,12 +53,11 @@ rendered(false)
 
 void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
 {
+    WorksheetEntry::populateMenu(menu, pos);
 
     QAction* firstAction;
     if (!rendered)
     {
-        WorksheetEntry::populateMenu(menu, pos);
-
         firstAction = menu->actions().at(1); //insert the first action for Markdown after the "Evaluate" action
         QAction* action = new QAction(QIcon::fromTheme(QLatin1String("viewimage")), i18n("Insert Image"));
         connect(action, &QAction::triggered, this, &MarkdownEntry::insertImage);
@@ -66,8 +65,6 @@ void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
     }
     else
     {
-        WorksheetEntry::populateMenu(menu, pos);
-
         firstAction = menu->actions().at(0);
         QAction* action = new QAction(QIcon::fromTheme(QLatin1String("edit-entry")), i18n("Enter Edit Mode"));
         connect(action, &QAction::triggered, this, &MarkdownEntry::enterEditMode);

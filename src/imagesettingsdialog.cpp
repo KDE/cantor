@@ -24,10 +24,10 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
     setWindowIcon(QIcon::fromTheme(QLatin1String("viewimage")));
     setAttribute(Qt::WA_DeleteOnClose);
 
-    QWidget* w = new QWidget(this);
+    auto* w = new QWidget(this);
     m_ui.setupUi(w);
 
-    QVBoxLayout* vLayout = new QVBoxLayout(this);
+    auto* vLayout = new QVBoxLayout(this);
     vLayout->setSpacing(0);
     vLayout->setContentsMargins(0,0,0,0);
     vLayout->addWidget(w);
@@ -44,7 +44,7 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
     m_ui.printWidthCombo->addItems(m_unitNames);
     m_ui.printHeightCombo->addItems(m_unitNames);
 
-    KUrlCompletion* completer = new KUrlCompletion(KUrlCompletion::FileCompletion);
+    auto* completer = new KUrlCompletion(KUrlCompletion::FileCompletion);
     completer->setCompletionMode(KCompletion::CompletionMan);
     m_ui.pathEdit->setCompletionObject(completer);
     m_ui.pathEdit->setAutoDeleteCompletionObject( true );
@@ -63,7 +63,7 @@ ImageSettingsDialog::ImageSettingsDialog(QWidget* parent) : QDialog(parent)
     connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &ImageSettingsDialog::close);
 
     connect(m_ui.openDialogButton, &QPushButton::clicked, this, &ImageSettingsDialog::openDialog);
-    connect(m_ui.pathEdit, &KLineEdit::editingFinished, this, &ImageSettingsDialog::updatePreview);
+    connect(m_ui.pathEdit, &QLineEdit::textChanged, this, &ImageSettingsDialog::updatePreview);
 
     connect(m_ui.displayWidthCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
     connect(m_ui.displayHeightCombo, QOverload<int>::of(&KComboBox::currentIndexChanged), this, &ImageSettingsDialog::updateInputWidgets);
@@ -141,7 +141,7 @@ void ImageSettingsDialog::sendChanges()
 void ImageSettingsDialog::openDialog()
 {
     KConfigGroup conf(KSharedConfig::openConfig(), QLatin1String("ImageSettingsDialog"));
-    QString dir = conf.readEntry(QLatin1String("LastImageDir"), QString());
+    const QString& dir = conf.readEntry(QLatin1String("LastImageDir"), QString());
 
     QString formats;
     for (const QByteArray& format : QImageReader::supportedImageFormats())
@@ -168,7 +168,9 @@ void ImageSettingsDialog::openDialog()
 
 void ImageSettingsDialog::updatePreview()
 {
-    m_ui.imagePreview->showPreview(QUrl::fromLocalFile(m_ui.pathEdit->text()));
+    m_ui.imagePreview->clearPreview();
+    if (!m_ui.pathEdit->text().isEmpty())
+        m_ui.imagePreview->showPreview(QUrl::fromLocalFile(m_ui.pathEdit->text()));
 }
 
 void ImageSettingsDialog::updateInputWidgets()
