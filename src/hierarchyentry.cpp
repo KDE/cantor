@@ -4,16 +4,17 @@
 */
 
 #include "hierarchyentry.h"
-#include "worksheettextitem.h"
-#include "lib/jupyterutils.h"
-
 #include "settings.h"
+#include "worksheettextitem.h"
+#include "worksheetview.h"
+#include "lib/jupyterutils.h"
 
 #include <QJsonObject>
 #include <QRegularExpression>
 #include <QDrag>
 #include <QBitmap>
 #include <QMimeData>
+#include <QPainter>
 #include <QDebug>
 
 #include <KLocalizedString>

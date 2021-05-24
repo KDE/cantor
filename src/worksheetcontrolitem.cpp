@@ -4,20 +4,21 @@
 */
 
 #include "worksheetcontrolitem.h"
-
-#include <KColorScheme>
-#include <QApplication>
-#include <QDebug>
-
 #include "worksheet.h"
 #include "worksheetentry.h"
 
-WorksheetControlItem::WorksheetControlItem(Worksheet* worksheet, WorksheetEntry* parent): QGraphicsRectItem(parent)
+#include <QApplication>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+
+#include <KColorScheme>
+
+WorksheetControlItem::WorksheetControlItem(Worksheet* worksheet, WorksheetEntry* parent) : QGraphicsRectItem(parent),
+    m_worksheet(worksheet)
 {
     setAcceptDrops(true);
     setAcceptHoverEvents(true);
     setFlags(flags() | QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsFocusable);
-    m_worksheet = worksheet;
 }
 
 void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

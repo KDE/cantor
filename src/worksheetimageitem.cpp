@@ -12,6 +12,7 @@
 #include <QUrl>
 #include <QMenu>
 #include <QDebug>
+#include <QPainter>
 
 WorksheetImageItem::WorksheetImageItem(QGraphicsObject* parent)
     : QGraphicsObject(parent)

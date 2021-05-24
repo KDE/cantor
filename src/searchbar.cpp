@@ -8,25 +8,20 @@
 #include "worksheet.h"
 #include "worksheetentry.h"
 #include "worksheettextitem.h"
+#include "worksheetview.h"
 
 #include <KLocalizedString>
 #include <QIcon>
 #include <QMenu>
-#include <QDebug>
 
-SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent)
+SearchBar::SearchBar(QWidget* parent, Worksheet* worksheet) : QWidget(parent),
+    m_stdUi(new Ui::StandardSearchBar()),
+    m_worksheet(worksheet),
+    m_searchFlags{WorksheetEntry::SearchAll}
 {
-    m_worksheet = worksheet;
-    m_stdUi = new Ui::StandardSearchBar();
-    m_extUi = nullptr;
     setupStdUi();
-    m_qtFlags = {};
     setStartCursor(worksheet->worksheetCursor());
     setCurrentCursor(m_startCursor);
-    m_atBeginning = false;
-    m_atEnd = false;
-    m_notFound = false;
-    m_searchFlags = WorksheetEntry::SearchAll;
 }
 
 SearchBar::~SearchBar()
@@ -51,9 +46,9 @@ void SearchBar::showStandard()
 
     delete m_extUi;
     m_extUi = nullptr;
-    foreach(QObject* child, children()) {
+    for (auto* child : children())
         delete child;
-    }
+
     delete layout();
     m_stdUi = new Ui::StandardSearchBar();
     setupStdUi();
@@ -66,9 +61,9 @@ void SearchBar::showExtended()
 
     delete m_stdUi;
     m_stdUi = nullptr;
-    foreach(QObject* child, children()) {
+    for (auto* child : children())
         delete child;
-    }
+
     delete layout();
     m_extUi = new Ui::ExtendedSearchBar();
     setupExtUi();
@@ -150,7 +145,6 @@ void SearchBar::searchForward(bool skipFirstChar)
         if (skipFirstChar) {
             QTextCursor c = m_currentCursor.textCursor();
             c.movePosition(QTextCursor::NextCharacter);
-            qDebug() << c.position();
             setCurrentCursor(WorksheetCursor(m_currentCursor.entry(),
                                              m_currentCursor.textItem(), c));
         }
@@ -483,5 +477,3 @@ Worksheet* SearchBar::worksheet()
 {
     return m_worksheet;
 }
-
-

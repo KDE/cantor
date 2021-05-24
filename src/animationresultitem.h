@@ -47,8 +47,8 @@ class AnimationResultItem : public WorksheetImageItem, public ResultItem
     void updateSize(QSize);
 
   private:
-    double m_height;
-    QMovie* m_movie;
+    double m_height{0.};
+    QMovie* m_movie{nullptr};
 };
 
 #endif //ANIMATIONRESULTITEM_H

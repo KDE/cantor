@@ -8,6 +8,7 @@
 #include "worksheetentry.h"
 #include "lib/renderer.h"
 #include "worksheetcursor.h"
+#include "worksheetview.h"
 
 #include <QApplication>
 #include <QClipboard>
@@ -18,6 +19,7 @@
 #include <QTextBlock>
 #include <QTextLine>
 #include <QGraphicsSceneResizeEvent>
+#include <QPainter>
 #include <QtGlobal>
 
 #include <QDebug>

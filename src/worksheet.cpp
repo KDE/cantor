@@ -6,38 +6,17 @@
 */
 
 #include "worksheet.h"
-
-#include <QtGlobal>
-#include <QApplication>
-#include <QBuffer>
-#include <QDebug>
-#include <QDrag>
-#include <QGraphicsWidget>
-#include <QPrinter>
-#include <QTimer>
-#include <QXmlQuery>
-#include <QJsonArray>
-#include <QJsonDocument>
-
-#include <KMessageBox>
-#include <KActionCollection>
-#include <KFontAction>
-#include <KFontSizeAction>
-#include <KToggleAction>
-#include <KLocalizedString>
-#include <QRegularExpression>
-#include <QElapsedTimer>
-
-#include "settings.h"
 #include "commandentry.h"
-#include "textentry.h"
-#include "markdownentry.h"
-#include "latexentry.h"
+#include "hierarchyentry.h"
+#include "horizontalruleentry.h"
 #include "imageentry.h"
+#include "latexentry.h"
+#include "markdownentry.h"
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
-#include "horizontalruleentry.h"
-#include "hierarchyentry.h"
+#include "settings.h"
+#include "textentry.h"
+#include "worksheetview.h"
 #include "lib/jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -47,34 +26,36 @@
 
 #include <config-cantor.h>
 
+#include <QApplication>
+#include <QBuffer>
+#include <QDrag>
+#include <QGraphicsSceneMouseEvent>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QPrinter>
+#include <QRegularExpression>
+#include <QTimer>
+#include <QXmlQuery>
+
+#include <KMessageBox>
+#include <KActionCollection>
+#include <KFontAction>
+#include <KFontSizeAction>
+#include <KToggleAction>
+#include <KLocalizedString>
+#include <KZip>
+
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
 const double Worksheet::TopMargin = 12;
 const double Worksheet::EntryCursorLength = 30;
 const double Worksheet::EntryCursorWidth = 2;
 
-Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultWorksheetParameters)
-    : QGraphicsScene(parent)
+Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultWorksheetParameters)
+    : QGraphicsScene(parent),
+    m_cursorItemTimer(new QTimer(this)),
+    m_useDefaultWorksheetParameters(useDefaultWorksheetParameters)
 {
-    m_session = nullptr;
-
-    m_highlighter = nullptr;
-
-    m_firstEntry = nullptr;
-    m_lastEntry = nullptr;
-    m_lastFocusedTextItem = nullptr;
-    m_dragEntry = nullptr;
-    m_placeholderEntry = nullptr;
-    m_dragScrollTimer = nullptr;
-
-    m_choosenCursorEntry = nullptr;
-    m_isCursorEntryAfterLastEntry = false;
-
-    m_useDefaultWorksheetParameters = useDeafultWorksheetParameters;
-
-    m_viewWidth = 0;
-    m_maxWidth = 0;
-    m_maxPromptWidth = 0;
 
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
@@ -83,13 +64,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultW
     m_entryCursorItem->setPen(pen);
     m_entryCursorItem->hide();
 
-    m_cursorItemTimer = new QTimer(this);
     connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
     m_cursorItemTimer->start(500);
-
-    m_jupyterMetadata = nullptr;
-
-    m_hierarchyMaxDepth = 0;
 
     if (backend)
         initSession(backend);

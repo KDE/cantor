@@ -5,17 +5,17 @@
 
 #include "animationresultitem.h"
 #include "commandentry.h"
+#include "worksheetview.h"
 #include "lib/result.h"
 #include "lib/animationresult.h"
 
-#include <QDebug>
 #include <QFileDialog>
 #include <QMovie>
 
 #include <KLocalizedString>
 
 AnimationResultItem::AnimationResultItem(QGraphicsObject* parent, Cantor::Result* result)
-    : WorksheetImageItem(parent), ResultItem(result), m_height(0), m_movie(nullptr)
+    : WorksheetImageItem(parent), ResultItem(result)
 {
     update();
 }
@@ -45,7 +45,7 @@ void AnimationResultItem::populateMenu(QMenu* menu, QPointF pos)
             menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-stop")), i18n("Stop"),
                             this, SLOT(stopMovie()));
     }
-    qDebug() << "populate Menu";
+
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -112,7 +112,6 @@ void AnimationResultItem::saveResult()
 {
     Cantor::Result* res = result();
     const QString& filename=QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    qDebug()<<"saving result to "<<filename;
     res->save(filename);
 }
 

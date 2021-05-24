@@ -8,6 +8,7 @@
 #include "commandentry.h"
 #include "resultitem.h"
 #include "loadedexpression.h"
+#include "worksheetview.h"
 #include "lib/jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
@@ -28,6 +29,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QTextDocumentFragment>
+#include <QPainter>
 
 #include <KLocalizedString>
 #include <KColorScheme>

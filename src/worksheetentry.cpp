@@ -16,8 +16,10 @@
 #include "settings.h"
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
+#include "worksheetview.h"
 
 #include <QDrag>
+#include <QIcon>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
@@ -26,9 +28,10 @@
 #include <QBitmap>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <KColorScheme>
+#include <QPainter>
+#include <QGraphicsSceneMouseEvent>
 
-#include <QIcon>
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <QDebug>
 
@@ -72,15 +75,6 @@ QString WorksheetEntry::colorNames[] = {i18n("White"), i18n("Black"),
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
-    m_entry_zone_x = 0;
-    m_next = nullptr;
-    m_prev = nullptr;
-    m_animation = nullptr;
-    m_actionBar = nullptr;
-    m_actionBarAnimation = nullptr;
-    m_aboutToBeRemoved = false;
-    m_jupyterMetadata = nullptr;
-    setAcceptHoverEvents(true);
     worksheet->addItem(this);
 
     connect(&m_controlElement, &WorksheetControlItem::drag, this, &WorksheetEntry::startDrag);

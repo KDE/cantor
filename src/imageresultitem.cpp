@@ -5,6 +5,7 @@
 
 #include "imageresultitem.h"
 #include "commandentry.h"
+#include "worksheetview.h"
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 
@@ -12,7 +13,6 @@
 
 #include <KLocalizedString>
 #include <QFileDialog>
-#include <QDebug>
 
 ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result)
     : WorksheetImageItem(parent), ResultItem(result)
@@ -32,7 +32,6 @@ void ImageResultItem::populateMenu(QMenu* menu, QPointF pos)
     ResultItem::addCommonActions(this, menu);
 
     menu->addSeparator();
-    qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -86,8 +85,7 @@ double ImageResultItem::height() const
 void ImageResultItem::saveResult()
 {
     Cantor::Result* res = result();
-    const QString& filename=QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    qDebug()<<"saving result to "<<filename;
+    const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
     res->save(filename);
 }
 

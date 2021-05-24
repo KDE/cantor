@@ -5,6 +5,11 @@
 */
 
 #include "markdownentry.h"
+#include "jupyterutils.h"
+#include "mathrender.h"
+#include <config-cantor.h>
+#include "settings.h"
+#include "worksheetview.h"
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -12,21 +17,19 @@
 #include <QImage>
 #include <QImageReader>
 #include <QBuffer>
-#include <KLocalizedString>
 #include <QDebug>
 #include <QKeyEvent>
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QDir>
 #include <QFileDialog>
-#include <KMessageBox>
 #include <QClipboard>
 #include <QMimeData>
+#include <QGraphicsSceneDragDropEvent>
 
-#include "jupyterutils.h"
-#include "mathrender.h"
-#include <config-cantor.h>
-#include "settings.h"
+#include <KLocalizedString>
+#include <KZip>
+#include <KMessageBox>
 
 #ifdef Discount_FOUND
 extern "C" {

@@ -5,11 +5,10 @@
 
 #include "horizontalruleentry.h"
 
+#include <QApplication>
+#include <QPainter>
 #include <QPropertyAnimation>
 #include <QJsonObject>
-#include <QApplication>
-
-#include <QDebug>
 
 #include <KLocalizedString>
 

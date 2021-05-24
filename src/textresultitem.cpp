@@ -14,6 +14,7 @@
 #include "mathrendertask.h"
 #include "config-cantor.h"
 #include "settings.h"
+#include "worksheetview.h"
 
 #include <QDebug>
 #include <QFileDialog>

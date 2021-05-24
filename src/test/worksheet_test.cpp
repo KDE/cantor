@@ -14,6 +14,7 @@
 #include "../worksheet.h"
 #include "../session.h"
 #include "../worksheetentry.h"
+#include "../worksheetview.h"
 #include "../textentry.h"
 #include "../markdownentry.h"
 #include "../commandentry.h"

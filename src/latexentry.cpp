@@ -23,6 +23,8 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonArray>
+
+#include <KZip>
 #include <KLocalizedString>
 
 LatexEntry::LatexEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction))

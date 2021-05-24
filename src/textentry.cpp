@@ -10,6 +10,7 @@
 #include "latexrenderer.h"
 #include "lib/jupyterutils.h"
 #include "mathrender.h"
+#include "worksheetview.h"
 
 #include "settings.h"
 

@@ -4,11 +4,11 @@
 */
 
 #include "imageentry.h"
-#include "worksheetimageitem.h"
 #include "actionbar.h"
+#include "worksheetimageitem.h"
+#include "worksheetview.h"
 #include "lib/jupyterutils.h"
 
-#include <KLocalizedString>
 #include <QDebug>
 #include <QDir>
 #include <QMenu>
@@ -16,6 +16,9 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QStandardPaths>
+
+#include <KLocalizedString>
+#include <KZip>
 
 ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 {

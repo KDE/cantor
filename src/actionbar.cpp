@@ -7,6 +7,7 @@
 #include "worksheet.h"
 #include "worksheetentry.h"
 #include "worksheettoolbutton.h"
+#include "worksheetview.h"
 
 #include <QGraphicsProxyWidget>
 
