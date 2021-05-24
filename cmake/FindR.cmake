@@ -23,6 +23,14 @@ IF(R_EXECUTABLE)
     MESSAGE(STATUS "Could NOT determine R_HOME (probably you misspecified the location of R)")
   ENDIF(NOT R_HOME)
 
+  IF(WIN32)
+    # remove R.bat header from R_HOME
+    STRING(REGEX REPLACE ".*\n" "" R_HOME "${R_HOME}")
+    # search for correct exe in R_HOME (R.bat is not working)
+    unset(R_EXECUTABLE CACHE)
+    FIND_PROGRAM(R_EXECUTABLE R HINTS ${R_HOME}/bin ${R_HOME}/bin/x64)
+  ENDIF()
+
   # find R include dir
   IF(NOT R_INCLUDE_DIR)
     IF(WIN32)    # This version of the test will not work with R < 2.9.0, but the other version (in the else part) will not work on windows (and on windows the paths are generally standard, anyway).
@@ -45,11 +53,6 @@ IF(R_EXECUTABLE)
 
   # check for existence of libR.so/R.dll
   IF(WIN32)
-    # remove R.bat header from R_HOME
-    STRING(REGEX REPLACE ".*\n" "" R_HOME "${R_HOME}")
-    # search for correct exe in R_HOME (R.bat is not working)
-    unset(R_EXECUTABLE CACHE)
-    FIND_PROGRAM(R_EXECUTABLE R HINTS ${R_HOME}/bin ${R_HOME}/bin/x64)
     set(CMAKE_FIND_LIBRARY_SUFFIXES ".lib" ".dll")
   ENDIF()
 

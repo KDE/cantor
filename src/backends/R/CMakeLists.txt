@@ -1,7 +1,11 @@
 include_directories(${R_INCLUDEDIR})
 LINK_DIRECTORIES(${R_SHAREDLIBDIR})
 
+if(WIN32)
+# rserver is using RInterface.h which is Unix only
+# see https://colinfay.me/writing-r-extensions/linking-guis-and-other-front-ends-to-r.html
 add_subdirectory(rserver)
+endif()
 
 set( RBackend_SRCS
   rbackend.cpp

@@ -11,7 +11,9 @@
 #include <QStringList>
 
 #include <stdio.h>
+#ifndef _WIN32
 #include <Rinterface.h>
+#endif
 
 RServer* server;
 Expression* currentExpression;
