@@ -20,10 +20,10 @@ class VariableManagerWidget : public QWidget
 {
   Q_OBJECT
   public:
-    VariableManagerWidget( Cantor::Session* session,QWidget* parent );
+    VariableManagerWidget(Cantor::Session*, QWidget*);
     ~VariableManagerWidget() override = default;
 
-    void setSession(Cantor::Session* session);
+    void setSession(Cantor::Session*);
 
   public Q_SLOTS:
     void clearVariables();
@@ -33,16 +33,16 @@ class VariableManagerWidget : public QWidget
     void newVariable();
 
   Q_SIGNALS:
-    void runCommand(const QString& cmd);
+    void runCommand(const QString&);
 
   private:
-    Cantor::Session* m_session;
-    QAbstractItemModel* m_model;
-    QTreeView* m_table;
-    QToolButton* m_newBtn;
-    QToolButton* m_loadBtn;
-    QToolButton* m_saveBtn;
-    QToolButton* m_clearBtn;
+    Cantor::Session* m_session{nullptr};
+    QAbstractItemModel* m_model{nullptr};
+    QTreeView* m_table{nullptr};
+    QToolButton* m_newBtn{nullptr};
+    QToolButton* m_loadBtn{nullptr};
+    QToolButton* m_saveBtn{nullptr};
+    QToolButton* m_clearBtn{nullptr};
 };
 
 #endif /* _VARIABLEMANAGERWIDGET_H */
