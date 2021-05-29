@@ -55,10 +55,7 @@
         "Name[uk]": "Знайти обернену матрицю",
         "Name[x-test]": "xxInvert Matrixxx",
         "Name[zh_CN]": "逆矩阵",
-        "Name[zh_TW]": "逆矩陣",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "逆矩陣"
     },
     "RequiredExtensions": "LinearAlgebraExtension,HistoryExtension"
 }

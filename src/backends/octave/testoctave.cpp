@@ -1,22 +1,7 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+*/
 
 #include "testoctave.h"
 
@@ -49,7 +34,7 @@ void TestOctave::testSimpleCommand()
     QVERIFY( e!=nullptr );
     QVERIFY( e->result()!=nullptr );
 
-    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("ans =  4") );
+    QCOMPARE( cleanOutput( e->result()->data().toString() ), QLatin1String("ans = 4") );
 }
 void TestOctave::testMultilineCommand()
 {
@@ -60,7 +45,7 @@ void TestOctave::testMultilineCommand()
 
     QString result=e->result()->data().toString();
 
-    QCOMPARE( cleanOutput(result ), QLatin1String("a =  4\nb =  6") );
+    QCOMPARE( cleanOutput(result ), QLatin1String("a = 4\nb = 6") );
 }
 
 void TestOctave::testCommandQueue()
@@ -77,9 +62,9 @@ void TestOctave::testCommandQueue()
     QVERIFY(e2->result());
     QVERIFY(e3->result());
 
-    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("ans =  1"));
-    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("ans =  2"));
-    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("ans =  3"));
+    QCOMPARE(cleanOutput(e1->result()->data().toString()), QLatin1String("ans = 1"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("ans = 2"));
+    QCOMPARE(cleanOutput(e3->result()->data().toString()), QLatin1String("ans = 3"));
 }
 
 void TestOctave::testVariableDefinition()
@@ -113,16 +98,20 @@ void TestOctave::testMatrixDefinition()
     ));
 }
 
-void TestOctave::testSimpleExpressionWithComment()
+//Comments
+void TestOctave::testComment00()
 {
     Cantor::Expression* e = evalExp(QLatin1String("s = 1234 #This is comment"));
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("s =  1234"));
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("s = 1234"));
 }
 
-void TestOctave::testCommentExpression()
+/*!
+ * simple command containing one single comment only
+ */
+void TestOctave::testComment01()
 {
     Cantor::Expression* e = evalExp(QLatin1String("#Only comment"));
 
@@ -131,7 +120,34 @@ void TestOctave::testCommentExpression()
     QCOMPARE(e->results().size(), 0);
 }
 
-void TestOctave::testMultilineCommandWithComment()
+/*!
+ * multi-line command with lines containing comments only
+ */
+void TestOctave::testComment02()
+{
+    Cantor::Expression* e = evalExp(QLatin1String(
+        "# comment 1 \n"
+        "5 + 5\n"
+        "# comment 2\n"
+        "a = 10"
+    ));
+
+    QVERIFY(e != nullptr);
+    QCOMPARE(e->status(), Cantor::Expression::Status::Done);
+    QVERIFY(e->result() != nullptr);
+
+    Cantor::TextResult* result = static_cast<Cantor::TextResult*>(e->result());
+    QVERIFY(result != nullptr);
+    QCOMPARE(cleanOutput(result->plain()), QLatin1String(
+        "ans = 10\n"
+        "a = 10"
+    ));
+}
+
+/*!
+ * multi-line command with comments within the line containing also the actual expression
+ * */
+void TestOctave::testComment03()
 {
     Cantor::Expression* e = evalExp(QLatin1String(
         "a = 2+4 \n"
@@ -147,10 +163,10 @@ void TestOctave::testMultilineCommandWithComment()
     Cantor::TextResult* result = static_cast<Cantor::TextResult*>(e->result());
     QVERIFY(result != nullptr);
     QCOMPARE(cleanOutput(result->plain()), QLatin1String(
-        "a =  6\n"
-        "ans =  3\n"
+        "a = 6\n"
+        "ans = 3\n"
         "q = Str\n"
-        "b =  4"
+        "b = 4"
     ));
 }
 
@@ -162,7 +178,6 @@ void TestOctave::testCompletion()
     // Checks some completions for this request (but not all)
     // This correct for Octave 4.2.2 at least (and another versions, I think)
     const QStringList& completions = help->completions();
-    qDebug() << completions;
     QVERIFY(completions.contains(QLatin1String("asin")));
     QVERIFY(completions.contains(QLatin1String("asctime")));
     QVERIFY(completions.contains(QLatin1String("asec")));
@@ -317,7 +332,7 @@ void TestOctave::testRestartWhileRunning()
     QVERIFY(e2 != nullptr);
     QVERIFY(e2->result() != nullptr);
 
-    QCOMPARE(cleanOutput(e2->result()->data().toString() ), QLatin1String("ans =  4"));
+    QCOMPARE(cleanOutput(e2->result()->data().toString() ), QLatin1String("ans = 4"));
 }
 
 QTEST_MAIN( TestOctave )

@@ -1,29 +1,13 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #ifndef WORKSHEETENTRY_H
 #define WORKSHEETENTRY_H
 
 #include <QGraphicsObject>
-#include <QGraphicsRectItem>
-#include <QGraphicsSceneContextMenuEvent>
 
 #include "worksheet.h"
 #include "worksheettextitem.h"
@@ -40,10 +24,11 @@ class LaTeXEntry;
 class WorksheetTextItem;
 class ActionBar;
 
-class QPainter;
-class QWidget;
-class QPropertyAnimation;
+class QGraphicsSceneContextMenuEvent;
 class QJsonObject;
+class QPainter;
+class QPropertyAnimation;
+class QWidget;
 
 struct AnimationData;
 
@@ -51,7 +36,7 @@ class WorksheetEntry : public QGraphicsObject
 {
   Q_OBJECT
   public:
-    explicit WorksheetEntry(Worksheet* worksheet);
+    explicit WorksheetEntry(Worksheet*);
     ~WorksheetEntry() override;
 
     enum {Type = UserType};
@@ -60,7 +45,7 @@ class WorksheetEntry : public QGraphicsObject
 
     virtual bool isEmpty()=0;
 
-    static WorksheetEntry* create(int t, Worksheet* worksheet);
+    static WorksheetEntry* create(int t, Worksheet*);
 
     WorksheetEntry* next() const;
     WorksheetEntry* previous() const;
@@ -71,19 +56,19 @@ class WorksheetEntry : public QGraphicsObject
     void setPrevious(WorksheetEntry*);
 
     QRectF boundingRect() const override;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = nullptr) override;
+    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget* widget = nullptr) override;
 
     virtual bool acceptRichText() = 0;
 
-    virtual void setContent(const QString& content)=0;
-    virtual void setContent(const QDomElement& content, const KZip& file)=0;
-    virtual void setContentFromJupyter(const QJsonObject& cell)=0;
+    virtual void setContent(const QString&)=0;
+    virtual void setContent(const QDomElement&, const KZip&)=0;
+    virtual void setContentFromJupyter(const QJsonObject&)=0;
 
-    virtual QDomElement toXml(QDomDocument& doc, KZip* archive)=0;
+    virtual QDomElement toXml(QDomDocument&, KZip*)=0;
     virtual QJsonValue toJupyterJson()=0;
     virtual QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq)=0;
 
-    virtual void interruptEvaluation()=0;
+    virtual void interruptEvaluation() {};
 
     virtual void showCompletion();
 
@@ -93,7 +78,7 @@ class WorksheetEntry : public QGraphicsObject
     virtual void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) = 0;
     QPropertyAnimation* sizeChangeAnimation(QSizeF s = QSizeF());
 
-    virtual void populateMenu(QMenu* menu, QPointF pos);
+    virtual void populateMenu(QMenu*, QPointF);
 
     bool aboutToBeRemoved();
     QSizeF size();
@@ -115,6 +100,17 @@ class WorksheetEntry : public QGraphicsObject
 
     bool isCellSelected();
     void setCellSelected(bool);
+
+    // Colors for colors menus;
+    static constexpr int colorsCount = 26;
+    static QColor colors[colorsCount];
+    static QString colorNames[colorsCount];
+
+    static const qreal VerticalMargin;
+    static const qreal ControlElementWidth;
+    static const qreal ControlElementBorder;
+    static const qreal RightMargin;
+    static const qreal HorizontalSpacing;
 
   public Q_SLOTS:
     virtual bool evaluate(WorksheetEntry::EvaluationOption evalOp = FocusNext) = 0;
@@ -174,65 +170,51 @@ class WorksheetEntry : public QGraphicsObject
   Q_SIGNALS:
     void aboutToBeDeleted();
 
-  public:
-    // Colors for colors menus;
-    static constexpr int colorsCount = 26;
-    static QColor colors[colorsCount];
-    static QString colorNames[colorsCount];
-
   protected:
     Worksheet* worksheet();
     WorksheetView* worksheetView();
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
+    void keyPressEvent(QKeyEvent*) override;
     void evaluateNext(EvaluationOption opt);
 
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override;
+    void hoverEnterEvent(QGraphicsSceneHoverEvent*) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent*) override;
 
-    void setSize(QSizeF size);
+    void setSize(QSizeF);
 
     bool animationActive();
-    void updateSizeAnimation(QSizeF size);
+    void updateSizeAnimation(QSizeF);
 
     void invokeSlotOnObject(const char* slot, QObject* obj);
 
-    virtual void addActionsToBar(ActionBar* actionBar);
+    virtual void addActionsToBar(ActionBar*);
 
     virtual bool wantToEvaluate() = 0;
     virtual bool wantFocus();
 
     QJsonObject jupyterMetadata() const;
-    void setJupyterMetadata(QJsonObject metadata);
+    void setJupyterMetadata(QJsonObject);
 
     virtual void recalculateControlGeometry();
+
+    WorksheetControlItem m_controlElement;
 
   protected Q_SLOTS:
     virtual void remove();
     void deleteActionBar();
     void deleteActionBarAnimation();
 
-  public:
-    static const qreal VerticalMargin;
-    static const qreal ControlElementWidth;
-    static const qreal ControlElementBorder;
-    static const qreal RightMargin;
-    static const qreal HorizontalSpacing;
-
-  protected:
-    WorksheetControlItem m_controlElement;
-
   private:
     QSizeF m_size;
-    qreal m_entry_zone_x;
-    WorksheetEntry* m_prev;
-    WorksheetEntry* m_next;
+    qreal m_entry_zone_x{0.};
+    WorksheetEntry* m_prev{nullptr};
+    WorksheetEntry* m_next{nullptr};
     Q_PROPERTY(QSizeF size READ size WRITE setSize)
-    AnimationData* m_animation;
-    ActionBar* m_actionBar;
-    QPropertyAnimation* m_actionBarAnimation;
-    bool m_aboutToBeRemoved;
-    QJsonObject* m_jupyterMetadata;
+    AnimationData* m_animation{nullptr};
+    ActionBar* m_actionBar{nullptr};
+    QPropertyAnimation* m_actionBarAnimation{nullptr};
+    bool m_aboutToBeRemoved{false};
+    QJsonObject* m_jupyterMetadata{nullptr};
     bool m_isCellSelected{false};
 };
 

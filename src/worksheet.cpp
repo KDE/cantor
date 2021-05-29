@@ -1,57 +1,22 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #include "worksheet.h"
-
-#include <QtGlobal>
-#include <QApplication>
-#include <QBuffer>
-#include <QDebug>
-#include <QDrag>
-#include <QGraphicsWidget>
-#include <QPrinter>
-#include <QTimer>
-#include <QXmlQuery>
-#include <QJsonArray>
-#include <QJsonDocument>
-
-#include <KMessageBox>
-#include <KActionCollection>
-#include <KFontAction>
-#include <KFontSizeAction>
-#include <KToggleAction>
-#include <KLocalizedString>
-#include <QRegularExpression>
-#include <QElapsedTimer>
-
-#include "settings.h"
 #include "commandentry.h"
-#include "textentry.h"
-#include "markdownentry.h"
-#include "latexentry.h"
+#include "hierarchyentry.h"
+#include "horizontalruleentry.h"
 #include "imageentry.h"
+#include "latexentry.h"
+#include "markdownentry.h"
 #include "pagebreakentry.h"
 #include "placeholderentry.h"
-#include "horizontalruleentry.h"
-#include "hierarchyentry.h"
+#include "settings.h"
+#include "textentry.h"
+#include "worksheetview.h"
 #include "lib/jupyterutils.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
@@ -61,34 +26,36 @@
 
 #include <config-cantor.h>
 
+#include <QApplication>
+#include <QBuffer>
+#include <QDrag>
+#include <QGraphicsSceneMouseEvent>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QPrinter>
+#include <QRegularExpression>
+#include <QTimer>
+#include <QXmlQuery>
+
+#include <KMessageBox>
+#include <KActionCollection>
+#include <KFontAction>
+#include <KFontSizeAction>
+#include <KToggleAction>
+#include <KLocalizedString>
+#include <KZip>
+
 const double Worksheet::LeftMargin = 4;
 const double Worksheet::RightMargin = 4;
 const double Worksheet::TopMargin = 12;
 const double Worksheet::EntryCursorLength = 30;
 const double Worksheet::EntryCursorWidth = 2;
 
-Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultWorksheetParameters)
-    : QGraphicsScene(parent)
+Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultWorksheetParameters)
+    : QGraphicsScene(parent),
+    m_cursorItemTimer(new QTimer(this)),
+    m_useDefaultWorksheetParameters(useDefaultWorksheetParameters)
 {
-    m_session = nullptr;
-
-    m_highlighter = nullptr;
-
-    m_firstEntry = nullptr;
-    m_lastEntry = nullptr;
-    m_lastFocusedTextItem = nullptr;
-    m_dragEntry = nullptr;
-    m_placeholderEntry = nullptr;
-    m_dragScrollTimer = nullptr;
-
-    m_choosenCursorEntry = nullptr;
-    m_isCursorEntryAfterLastEntry = false;
-
-    m_useDefaultWorksheetParameters = useDeafultWorksheetParameters;
-
-    m_viewWidth = 0;
-    m_maxWidth = 0;
-    m_maxPromptWidth = 0;
 
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
@@ -97,13 +64,8 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultW
     m_entryCursorItem->setPen(pen);
     m_entryCursorItem->hide();
 
-    m_cursorItemTimer = new QTimer(this);
     connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
     m_cursorItemTimer->start(500);
-
-    m_jupyterMetadata = nullptr;
-
-    m_hierarchyMaxDepth = 0;
 
     if (backend)
         initSession(backend);
@@ -1860,90 +1822,109 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
                 m_lastFocusedTextItem = item;
         }
 
-        if (!isRunning())
-            menu->addAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"),
-                            this, SLOT(evaluate()), 0);
-        else
-            menu->addAction(QIcon::fromTheme(QLatin1String("process-stop")), i18n("Interrupt"), this,
-                            SLOT(interrupt()), 0);
-        menu->addSeparator();
-
         if (entry) {
-            QMenu* convertTo = new QMenu(menu);
-            QMenu* insert = new QMenu(menu);
-            QMenu* insertBefore = new QMenu(menu);
+            //"Convert To" menu
+            QMenu* convertTo = new QMenu(i18n("Convert To"));
+            convertTo->setIcon(QIcon::fromTheme(QLatin1String("gtk-convert")));
+            menu->addMenu(convertTo);
 
-            convertTo->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, &WorksheetEntry::convertToCommandEntry);
-            convertTo->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, &WorksheetEntry::convertToTextEntry);
+            if (entry->type() != CommandEntry::Type)
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), entry, &WorksheetEntry::convertToCommandEntry);
+
+            if (entry->type() != TextEntry::Type)
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), entry, &WorksheetEntry::convertToTextEntry);
+
     #ifdef Discount_FOUND
-            convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, &WorksheetEntry::convertToMarkdownEntry);
+            if (entry->type() != MarkdownEntry::Type)
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, &WorksheetEntry::convertToMarkdownEntry);
     #endif
     #ifdef WITH_EPS
-            convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, &WorksheetEntry::convertToLatexEntry);
+            if (entry->type() != LatexEntry::Type)
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, &WorksheetEntry::convertToLatexEntry);
     #endif
-            convertTo->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, &WorksheetEntry::convertToImageEntry);
-            convertTo->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, &WorksheetEntry::converToPageBreakEntry);
-            convertTo->addAction(QIcon(), i18n("Horizontal Line"), entry, &WorksheetEntry::convertToHorizontalRuleEntry);
-            convertTo->addAction(QIcon(), i18n("Hierarchy Entry"), entry, &WorksheetEntry::convertToHierarchyEntry);
+            if (entry->type() != ImageEntry::Type)
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, &WorksheetEntry::convertToImageEntry);
 
-            insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntry()));
-            insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntry()));
+            if (entry->type() != PageBreakEntry::Type)
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), entry, &WorksheetEntry::converToPageBreakEntry);
+
+            if (entry->type() != HorizontalRuleEntry::Type)
+                convertTo->addAction(QIcon(), i18n("Horizontal Line"), entry, &WorksheetEntry::convertToHorizontalRuleEntry);
+
+            if (entry->type() != HierarchyEntry::Type)
+                convertTo->addAction(QIcon(), i18n("Hierarchy Entry"), entry, &WorksheetEntry::convertToHierarchyEntry);
+
+            //"Insert After" menu
+            QMenu* insert = new QMenu(i18n("Insert After"), menu);
+            insert->setIcon(QIcon::fromTheme(QLatin1String("edit-table-insert-row-below")));
+            menu->addSeparator();
+            menu->addMenu(insert);
+
+            insert->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), entry, SLOT(insertCommandEntry()));
+            insert->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), entry, SLOT(insertTextEntry()));
     #ifdef Discount_FOUND
-            insert->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntry()));
+            insert->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, SLOT(insertMarkdownEntry()));
     #endif
     #ifdef WITH_EPS
-            insert->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, SLOT(insertLatexEntry()));
+            insert->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, SLOT(insertLatexEntry()));
     #endif
             insert->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntry()));
-            insert->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
+            insert->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
             insert->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntry()));
             insert->addAction(QIcon(), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntry()));
 
-            insertBefore->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command Entry"), entry, SLOT(insertCommandEntryBefore()));
-            insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text Entry"), entry, SLOT(insertTextEntryBefore()));
+            //"Insert Before" menu
+            QMenu* insertBefore = new QMenu(i18n("Insert Before"), menu);
+            insertBefore->setIcon(QIcon::fromTheme(QLatin1String("edit-table-insert-row-above")));
+            menu->addMenu(insertBefore);
+
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), entry, SLOT(insertCommandEntryBefore()));
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), entry, SLOT(insertTextEntryBefore()));
     #ifdef Discount_FOUND
-            insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown Entry"), entry, SLOT(insertMarkdownEntryBefore()));
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), entry, SLOT(insertMarkdownEntryBefore()));
     #endif
     #ifdef WITH_EPS
-            insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX Entry"), entry, SLOT(insertLatexEntryBefore()));
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, SLOT(insertLatexEntryBefore()));
     #endif
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
-            insertBefore->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
             insertBefore->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntryBefore()));
             insertBefore->addAction(QIcon(), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntryBefore()));
-
-            convertTo->setTitle(i18n("Convert Entry To"));
-            convertTo->setIcon(QIcon::fromTheme(QLatin1String("gtk-convert")));
-            insert->setTitle(i18n("Insert Entry After"));
-            insert->setIcon(QIcon::fromTheme(QLatin1String("edit-table-insert-row-below")));
-            insertBefore->setTitle(i18n("Insert Entry Before"));
-            insertBefore->setIcon(QIcon::fromTheme(QLatin1String("edit-table-insert-row-above")));
-
-            menu->addMenu(convertTo);
-            menu->addMenu(insert);
-            menu->addMenu(insertBefore);
         } else {
-            menu->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Insert Command Entry"), this, SLOT(appendCommandEntry()));
-            menu->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Insert Text Entry"), this, SLOT(appendTextEntry()));
+            QMenu* insertMenu = new QMenu(i18n("Insert"));
+            insertMenu->setIcon(QIcon::fromTheme(QLatin1String("insert-table-row")));
+
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), this, SLOT(appendCommandEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), this, SLOT(appendTextEntry()));
     #ifdef Discount_FOUND
-            menu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Insert Markdown Entry"), this, SLOT(appendMarkdownEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), this, SLOT(appendMarkdownEntry()));
     #endif
     #ifdef WITH_EPS
-            menu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("Insert LaTeX Entry"), this, SLOT(appendLatexEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), this, SLOT(appendLatexEntry()));
     #endif
-            menu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Insert Image"), this, SLOT(appendImageEntry()));
-            menu->addAction(QIcon::fromTheme(QLatin1String("go-next-view-page")), i18n("Insert Page Break"), this, SLOT(appendPageBreakEntry()));
-            menu->addAction(QIcon(), i18n("Insert Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
-            menu->addAction(QIcon(), i18n("Insert Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), this, SLOT(appendImageEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), this, SLOT(appendPageBreakEntry()));
+            insertMenu->addAction(QIcon(), i18n("Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
+            insertMenu->addAction(QIcon(), i18n("Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
+
+            menu->addMenu(insertMenu);
         }
+
+        menu->addSeparator();
+        if (!isRunning())
+            menu->addAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"),
+                            this, SLOT(evaluate()));
+        else
+            menu->addAction(QIcon::fromTheme(QLatin1String("process-stop")), i18n("Interrupt"), this,
+                            SLOT(interrupt()));
     }
     else
     {
         menu->clear();
-        menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, SLOT(selectionMoveUp()), 0);
-        menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, SLOT(selectionMoveDown()), 0);
-        menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, SLOT(selectionEvaluate()), 0);
-        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, SLOT(selectionRemove()), 0);
+        menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, SLOT(selectionMoveUp()));
+        menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, SLOT(selectionMoveDown()));
+        menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, SLOT(selectionEvaluate()));
+        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, SLOT(selectionRemove()));
 
         bool isAnyCommandEntryInSelection = false;
         for (WorksheetEntry* entry : m_selectedEntries)

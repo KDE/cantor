@@ -57,10 +57,7 @@
         "Name[uk]": "Plot2d",
         "Name[x-test]": "xxPlot2dxx",
         "Name[zh_CN]": "Plot2d",
-        "Name[zh_TW]": "繪製平面圖",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "繪製平面圖"
     },
     "RequiredExtensions": "PlotExtension"
 }

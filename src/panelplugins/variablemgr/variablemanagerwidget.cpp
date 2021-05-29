@@ -1,82 +1,103 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2010 Alexander Rieder <alexanderrieder@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2010 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #include "variablemanagerwidget.h"
+#include "backend.h"
+#include "extension.h"
+#include "session.h"
 
+#include "ui_newvardlg.h"
+
+#include <QAction>
 #include <QDialog>
 #include <QFileDialog>
+#include <QMenu>
 #include <QPushButton>
+#include <QTimer>
 #include <QToolButton>
 #include <QTreeView>
 
 #include <KIconLoader>
 #include <KMessageBox>
 
-#include "session.h"
-#include "extension.h"
-#include "backend.h"
-
-#include "ui_newvardlg.h"
-
 VariableManagerWidget::VariableManagerWidget(Cantor::Session* session, QWidget* parent) : QWidget(parent),
-m_session(nullptr),
-m_model(nullptr),
-m_table(new QTreeView(this))
+    m_treeView(new QTreeView(this))
 {
-    QVBoxLayout* layout=new QVBoxLayout(this);
-    layout->addWidget(m_table, 1);
+    auto* layout = new QVBoxLayout(this);
+    layout->addWidget(m_treeView, 1);
 
-    m_table->setRootIsDecorated(false);
+    m_treeView->setRootIsDecorated(false);
+    m_treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_treeView->setAlternatingRowColors(true);
 
-    QHBoxLayout* btnLayout=new QHBoxLayout();
-    int size=KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
+    auto* btnLayout = new QHBoxLayout();
+    btnLayout->setSpacing(0);
+    btnLayout->setMargin(0);
 
-    m_newBtn=new QToolButton(this);
+    //Buttons to save/load the variables
+    int size = KIconLoader::global()->currentSize(KIconLoader::MainToolbar);
+
+    m_newBtn = new QToolButton(this);
     m_newBtn->setIcon(QIcon::fromTheme(QLatin1String("document-new")));
-    m_newBtn->setToolTip(i18n("Add new variable"));
+    m_newBtn->setToolTip(i18n("Add New Variable"));
     m_newBtn->setIconSize(QSize(size, size));
-    connect(m_newBtn, &QToolButton::clicked, this, &VariableManagerWidget::newVariable);
     btnLayout->addWidget(m_newBtn);
 
     m_loadBtn=new QToolButton(this);
     m_loadBtn->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
     m_loadBtn->setToolTip(i18n("Load Variables"));
     m_loadBtn->setIconSize(QSize(size, size));
-    connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
     btnLayout->addWidget(m_loadBtn);
 
-    m_saveBtn=new QToolButton(this);
+    m_saveBtn = new QToolButton(this);
     m_saveBtn->setIcon(QIcon::fromTheme(QLatin1String("document-save")));
-    m_saveBtn->setToolTip(i18n("Store Variables"));
+    m_saveBtn->setToolTip(i18n("Save Variables"));
     m_saveBtn->setIconSize(QSize(size, size));
-    connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
     btnLayout->addWidget(m_saveBtn);
 
-    m_clearBtn=new QToolButton(this);
-    m_clearBtn->setIcon(QIcon::fromTheme(QLatin1String("edit-clear")));
-    m_clearBtn->setToolTip(i18n("Clear Variables"));
+    m_clearBtn = new QToolButton(this);
+    m_clearBtn->setIcon(QIcon::fromTheme(QLatin1String("edit-delete")));
+    m_clearBtn->setToolTip(i18n("Remove Variables"));
     m_clearBtn->setIconSize(QSize(size, size));
-    connect(m_clearBtn, &QToolButton::clicked, this, &VariableManagerWidget::clearVariables);
     btnLayout->addWidget(m_clearBtn);
 
+    auto* spacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    btnLayout->addItem(spacer);
+
+    //Filter
+    m_leFilter = new QLineEdit(this);
+    m_leFilter->setClearButtonEnabled(true);
+    m_leFilter->setPlaceholderText(i18n("Search/Filter"));
+    btnLayout->addWidget(m_leFilter);
+
+    m_bFilterOptions = new QToolButton(this);
+    m_bFilterOptions->setIcon(QIcon::fromTheme(QLatin1String("configure")));
+    m_bFilterOptions->setCheckable(true);
+    btnLayout->addWidget(m_bFilterOptions);
+
     layout->addLayout(btnLayout);
+
+    //actions
+    m_caseSensitiveAction = new QAction(i18n("Case Sensitive"), this);
+    m_caseSensitiveAction->setCheckable(true);
+    m_caseSensitiveAction->setChecked(false);
+
+    m_matchCompleteWordAction = new QAction(i18n("Match Complete Word"), this);
+    m_matchCompleteWordAction->setCheckable(true);
+    m_matchCompleteWordAction->setChecked(false);
+
+    //signal-slot connections
+    connect(m_leFilter, &QLineEdit::textChanged, this, &VariableManagerWidget::filterTextChanged);
+    connect(m_bFilterOptions, &QPushButton::toggled, this, &VariableManagerWidget::toggleFilterOptionsMenu);
+    connect(m_caseSensitiveAction, &QAction::triggered, this, [=]() {filterTextChanged(m_leFilter->text());} );
+    connect(m_matchCompleteWordAction, &QAction::triggered, this, [=]() {filterTextChanged(m_leFilter->text());});
+    connect(m_newBtn, &QToolButton::clicked, this, &VariableManagerWidget::newVariable);
+    connect(m_loadBtn, &QToolButton::clicked, this, &VariableManagerWidget::load);
+    connect(m_saveBtn, &QToolButton::clicked, this, &VariableManagerWidget::save);
+    connect(m_clearBtn, &QToolButton::clicked, this, &VariableManagerWidget::clearVariables);
 
     setSession(session);
 }
@@ -84,14 +105,18 @@ m_table(new QTreeView(this))
 void VariableManagerWidget::setSession(Cantor::Session* session)
 {
     m_session = session;
-    if(session)
+    if (session)
     {
-        m_model=session->variableDataModel();
-        if(m_table)
-            m_table->setModel(m_model);
+        m_model = session->variableDataModel();
+        if (m_treeView)
+            m_treeView->setModel(m_model);
+
+        connect(m_model, &QAbstractItemModel::rowsInserted, this, &VariableManagerWidget::updateButtons);
+        connect(m_model, &QAbstractItemModel::rowsRemoved, this, &VariableManagerWidget::updateButtons);
+        updateButtons();
 
         //check for the methods the backend actually supports, and disable the buttons accordingly
-        Cantor::VariableManagementExtension* ext = dynamic_cast<Cantor::VariableManagementExtension*>(
+        auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(
             m_session->backend()->extension(QLatin1String("VariableManagementExtension"))
         );
         if (ext)
@@ -110,18 +135,18 @@ void VariableManagerWidget::setSession(Cantor::Session* session)
 
 void VariableManagerWidget::clearVariables()
 {
-    int btn=KMessageBox::questionYesNo(this,  i18n("Are you sure you want to remove all variables?"), i18n("Confirmation - Cantor"));
-    if(btn==KMessageBox::Yes)
+    int btn = KMessageBox::questionYesNo(this,
+                                         i18n("Are you sure you want to remove all variables?"),
+                                         i18n("Remove Variables"));
+    if (btn == KMessageBox::Yes)
     {
         m_model->removeRows(0, m_model->rowCount());
 
         //evaluate the "clear" command
-        Cantor::VariableManagementExtension* ext=
-            dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-
+        auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
         if (ext)
         {
-            const QString& cmd=ext->clearVariables();
+            const QString& cmd = ext->clearVariables();
             emit runCommand(cmd);
         }
 
@@ -131,34 +156,34 @@ void VariableManagerWidget::clearVariables()
         //DefaultVariableModel. If our model isn't one of those,
         //this call will just do nothing.
         QMetaObject::invokeMethod(m_model,  "clearVariables", Qt::QueuedConnection);
+
+        //QAbstractItemModel::rowsRemoved() doesn't seem to be sent in this case,
+        //call updateButtons explicitly
+        QTimer::singleShot(0, this, [=] () { updateButtons(); });
     }
 }
 
 void VariableManagerWidget::save()
 {
-    const QString file=QFileDialog::getSaveFileName(this, i18n("Save"), QString(),  QString());
+    const QString& file = QFileDialog::getSaveFileName(this, i18n("Save"), QString(),  QString());
     if (file.trimmed().isEmpty())
         return;
 
-    Cantor::VariableManagementExtension* ext=
-        dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-
+    auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
     if (ext)
     {
-        const QString& cmd=ext->saveVariables(file);
+        const QString& cmd = ext->saveVariables(file);
         emit runCommand(cmd);
     }
 }
 
 void VariableManagerWidget::load()
 {
-    const QString file=QFileDialog::getOpenFileName(this, i18n("Load file"), QString(),  QString());
+    const QString& file = QFileDialog::getOpenFileName(this, i18n("Load file"), QString(),  QString());
     if (file.trimmed().isEmpty())
         return;
 
-    Cantor::VariableManagementExtension* ext=
-        dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-
+    auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
     if (ext)
     {
         const QString& cmd=ext->loadVariables(file);
@@ -168,11 +193,15 @@ void VariableManagerWidget::load()
 
 void VariableManagerWidget::newVariable()
 {
-    QPointer<QDialog> dlg=new QDialog(this);
-    QWidget *widget=new QWidget(dlg);
+    QPointer<QDialog> dlg = new QDialog(this);
+    dlg->setWindowTitle(i18n("Add New Variable"));
+    dlg->setWindowIcon(QIcon::fromTheme(QLatin1String("document-new")));
+
+    QWidget* widget = new QWidget(dlg);
     Ui::NewVariableDialogBase base;
     base.setupUi(widget);
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+
+    auto* mainLayout = new QVBoxLayout;
     dlg->setLayout(mainLayout);
 
     base.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
@@ -183,20 +212,61 @@ void VariableManagerWidget::newVariable()
 
     mainLayout->addWidget(widget);
 
-    if( dlg->exec())
+    if (dlg->exec())
     {
-        const QString& name=base.name->text();
-        const QString& val=base.value->text();
+        const QString& name = base.name->text();
+        const QString& val = base.value->text();
 
-        Cantor::VariableManagementExtension* ext=
-            dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
-
+        auto* ext = dynamic_cast<Cantor::VariableManagementExtension*>(m_session->backend()->extension(QLatin1String("VariableManagementExtension")));
         if (ext)
         {
-            const QString& cmd=ext->addVariable(name, val);
+            const QString& cmd = ext->addVariable(name, val);
             emit runCommand(cmd);
         }
     }
 
     delete dlg;
+}
+
+/*!
+  toggles the menu for the filter/search options
+*/
+void VariableManagerWidget::toggleFilterOptionsMenu(bool checked) {
+    if (checked) {
+        QMenu menu;
+        menu.addAction(m_caseSensitiveAction);
+        menu.addAction(m_matchCompleteWordAction);
+        connect(&menu, &QMenu::aboutToHide, m_bFilterOptions, &QPushButton::toggle);
+        menu.exec(m_bFilterOptions->mapToGlobal(QPoint(0, m_bFilterOptions->height())));
+    }
+}
+
+/*!
+  called when the filter/search text was changed.
+*/
+void VariableManagerWidget::filterTextChanged(const QString& text) {
+    auto sensitivity = m_caseSensitiveAction->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive;
+    bool matchCompleteWord = m_matchCompleteWordAction->isChecked();
+    const auto* model = m_treeView->model();
+
+    for (int i = 0; i < model->rowCount(); i++) {
+        const auto& child = model->index(i, 0);
+        const auto& name = model->data(child).toString();
+        bool visible = true;
+        if (text.isEmpty())
+            visible = true;
+        else if (matchCompleteWord)
+            visible = name.startsWith(text, sensitivity);
+        else
+            visible = name.contains(text, sensitivity);
+
+        m_treeView->setRowHidden(i, QModelIndex(), !visible);
+    }
+}
+
+void VariableManagerWidget::updateButtons()
+{
+    bool enabled = (m_treeView->model()->rowCount() != 0);
+    m_saveBtn->setEnabled(enabled);
+    m_clearBtn->setEnabled(enabled);
 }

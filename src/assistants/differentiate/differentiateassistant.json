@@ -57,10 +57,7 @@
         "Name[uk]": "Продиференціювати",
         "Name[x-test]": "xxDifferentiatexx",
         "Name[zh_CN]": "微分",
-        "Name[zh_TW]": "微分",
-        "ServiceTypes": [
-            "Cantor/Assistant"
-        ]
+        "Name[zh_TW]": "微分"
     },
     "RequiredExtensions": "CalculusExtension"
 }

@@ -58,10 +58,7 @@
         "Name[uk]": "Довідка",
         "Name[x-test]": "xxHelpxx",
         "Name[zh_CN]": "帮助",
-        "Name[zh_TW]": "求助",
-        "ServiceTypes": [
-            "Cantor/PanelPlugin"
-        ]
+        "Name[zh_TW]": "求助"
     },
     "RequiredExtensions": ""
 }

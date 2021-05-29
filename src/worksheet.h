@@ -1,40 +1,19 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2017-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #ifndef WORKSHEET_H
 #define WORKSHEET_H
 
-
 #include <QGraphicsScene>
 #include <QDomElement>
-#include <QGraphicsLinearLayout>
+#include <QGraphicsObject>
 #include <QSyntaxHighlighter>
-#include <QGraphicsRectItem>
-#include <QVector>
 #include <QQueue>
 
-#include <KZip>
-#include <QMenu>
-
-#include "worksheetview.h"
 #include "lib/renderer.h"
 #include "mathrender.h"
 #include "worksheetcursor.h"
@@ -46,17 +25,20 @@ namespace Cantor {
 }
 
 class WorksheetEntry;
+class WorksheetView;
 class HierarchyEntry;
 class PlaceHolderEntry;
 class WorksheetTextItem;
 
 class QAction;
 class QDrag;
+class QMenu;
 class QPrinter;
 class KActionCollection;
 class KToggleAction;
 class KFontAction;
 class KFontSizeAction;
+class KZip;
 
 class Worksheet : public QGraphicsScene
 {
@@ -67,7 +49,7 @@ class Worksheet : public QGraphicsScene
       JupyterNotebook
     };
 
-    Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDeafultWorksheetParameters = true);
+    Worksheet(Cantor::Backend*, QWidget*, bool useDeafultWorksheetParameters = true);
     ~Worksheet() override;
 
     Cantor::Session* session();
@@ -89,12 +71,12 @@ class Worksheet : public QGraphicsScene
 
     void setModified();
 
-    void startDrag(WorksheetEntry* entry, QDrag* drag);
-    void startDragWithHierarchy(HierarchyEntry* entry, QDrag* drag, QSizeF responsibleZoneSize);
+    void startDrag(WorksheetEntry*, QDrag*);
+    void startDragWithHierarchy(HierarchyEntry*, QDrag*, QSizeF responsibleZoneSize);
 
     void createActions(KActionCollection*);
     QMenu* createContextMenu();
-    void populateMenu(QMenu* menu, QPointF pos);
+    void populateMenu(QMenu*, QPointF);
     Cantor::Renderer* renderer();
     MathRenderer* mathRenderer();
     bool isEmpty();
@@ -106,8 +88,8 @@ class Worksheet : public QGraphicsScene
     WorksheetTextItem* currentTextItem();
     WorksheetTextItem* lastFocusedTextItem();
 
-    WorksheetEntry* cutSubentriesForHierarchy(HierarchyEntry* hierarchyEntry);
-    void insertSubentriesForHierarchy(HierarchyEntry* hierarchyEntry, WorksheetEntry* storedSubentriesBegin);
+    WorksheetEntry* cutSubentriesForHierarchy(HierarchyEntry*);
+    void insertSubentriesForHierarchy(HierarchyEntry*, WorksheetEntry*);
 
     WorksheetCursor worksheetCursor();
     void setWorksheetCursor(const WorksheetCursor&);
@@ -127,15 +109,15 @@ class Worksheet : public QGraphicsScene
     void setViewSize(qreal w, qreal h, qreal s, bool forceUpdate = false);
 
     /// Second information stream
-    void setRequestedWidth(QGraphicsObject* object, qreal width);
-    void removeRequestedWidth(QGraphicsObject* object);
+    void setRequestedWidth(QGraphicsObject*, qreal width);
+    void removeRequestedWidth(QGraphicsObject*);
 
     bool isShortcut(const QKeySequence&);
 
-    void setType(Worksheet::Type type);
+    void setType(Worksheet::Type);
     Worksheet::Type type() const;
 
-    void notifyEntryFocus(WorksheetEntry* entry);
+    void notifyEntryFocus(WorksheetEntry*);
 
     // richtext
     struct RichTextInfo {
@@ -149,11 +131,11 @@ class Worksheet : public QGraphicsScene
     };
 
   public:
-    static int typeForTagName(const QString& tag);
+    static int typeForTagName(const QString&);
 
   public Q_SLOTS:
     WorksheetEntry* appendCommandEntry();
-    void appendCommandEntry(const QString& text);
+    void appendCommandEntry(const QString&);
     WorksheetEntry* appendTextEntry();
     WorksheetEntry* appendMarkdownEntry();
     WorksheetEntry* appendImageEntry();
@@ -163,7 +145,7 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendHierarchyEntry();
 
     WorksheetEntry* insertCommandEntry(WorksheetEntry* current = nullptr);
-    void insertCommandEntry(const QString& text);
+    void insertCommandEntry(const QString&);
     WorksheetEntry* insertTextEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertMarkdownEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertImageEntry(WorksheetEntry* current = nullptr);
@@ -209,14 +191,14 @@ class Worksheet : public QGraphicsScene
 
     QDomDocument toXML(KZip* archive = nullptr);
 
-    void save(const QString& filename);
+    void save(const QString&);
     void save(QIODevice*);
     QByteArray saveToByteArray();
-    void savePlain(const QString& filename);
-    void saveLatex(const QString& filename);
+    void savePlain(const QString&);
+    void saveLatex(const QString&);
     bool load(QIODevice*);
-    void load(QByteArray* data);
-    bool load(const QString& filename);
+    void load(QByteArray*);
+    bool load(const QString&);
 
     void gotResult(Cantor::Expression* expr = nullptr);
 
@@ -316,7 +298,7 @@ class Worksheet : public QGraphicsScene
 
   private:
     WorksheetEntry* entryAt(qreal x, qreal y);
-    WorksheetEntry* entryAt(QPointF p);
+    WorksheetEntry* entryAt(QPointF);
     WorksheetEntry* entryAt(int row);
     void updateEntryCursor(QGraphicsSceneMouseEvent*);
     void addEntryFromEntryCursor();
@@ -334,27 +316,28 @@ class Worksheet : public QGraphicsScene
     static const double TopMargin;
     static const double EntryCursorLength;
     static const double EntryCursorWidth;
-    Cantor::Session *m_session;
-    QSyntaxHighlighter* m_highlighter;
+
+    Cantor::Session* m_session{nullptr};
+    QSyntaxHighlighter* m_highlighter{nullptr};
     Cantor::Renderer m_epsRenderer;
     MathRenderer m_mathRenderer;
-    WorksheetEntry* m_firstEntry;
-    WorksheetEntry* m_lastEntry;
-    WorksheetEntry* m_dragEntry;
+    WorksheetEntry* m_firstEntry{nullptr};
+    WorksheetEntry* m_lastEntry{nullptr};
+    WorksheetEntry* m_dragEntry{nullptr};
     std::vector<WorksheetEntry*> m_hierarchySubentriesDrag;
     QSizeF m_hierarchyDragSize;
-    WorksheetEntry* m_choosenCursorEntry;
-    bool m_isCursorEntryAfterLastEntry;
+    WorksheetEntry* m_choosenCursorEntry{nullptr};
+    bool m_isCursorEntryAfterLastEntry{false};
     QTimer* m_cursorItemTimer;
-    QGraphicsLineItem* m_entryCursorItem;
-    PlaceHolderEntry* m_placeholderEntry;
-    WorksheetTextItem* m_lastFocusedTextItem;
-    QTimer* m_dragScrollTimer;
+    QGraphicsLineItem* m_entryCursorItem{nullptr};
+    PlaceHolderEntry* m_placeholderEntry{nullptr};
+    WorksheetTextItem* m_lastFocusedTextItem{nullptr};
+    QTimer* m_dragScrollTimer{nullptr};
 
-    qreal m_viewWidth;
+    qreal m_viewWidth{0};
     QMap<QGraphicsObject*, qreal> m_itemWidths;
-    qreal m_maxWidth;
-    qreal m_maxPromptWidth;
+    qreal m_maxWidth{0};
+    qreal m_maxPromptWidth{0};
 
     QMap<QKeySequence, QAction*> m_shortcuts;
 
@@ -390,7 +373,7 @@ class Worksheet : public QGraphicsScene
     QVector<WorksheetEntry*> m_selectedEntries;
     QQueue<WorksheetEntry*> m_circularFocusBuffer;
 
-    size_t m_hierarchyMaxDepth;
+    size_t m_hierarchyMaxDepth{0};
 };
 
 #endif // WORKSHEET_H

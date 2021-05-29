@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>586</width>
-    <height>352</height>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,11 @@
    <item row="0" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="KLineEdit" name="pathEdit"/>
+      <widget class="KLineEdit" name="pathEdit">
+       <property name="clearButtonEnabled">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="openDialogButton">
@@ -136,14 +140,14 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KImageFilePreview</class>
-   <extends>QWidget</extends>
-   <header>kimagefilepreview.h</header>
-  </customwidget>
-  <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KImageFilePreview</class>
+   <extends>QWidget</extends>
+   <header>kimagefilepreview.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

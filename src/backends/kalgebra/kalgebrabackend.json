@@ -59,9 +59,6 @@
         "Name[x-test]": "xxKAlgebraxx",
         "Name[zh_CN]": "KAlgebra",
         "Name[zh_TW]": "數學_KAlgebra",
-        "ServiceTypes": [
-            "Cantor/Backend"
-        ],
         "Website": "https://edu.kde.org/kalgebra"
     }
 }

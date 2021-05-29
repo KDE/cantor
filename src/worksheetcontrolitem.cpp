@@ -1,38 +1,24 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2020 Sirgienko Nikita <warquark@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2020 Sirgienko Nikita <warquark@gmail.com>
+*/
 
 #include "worksheetcontrolitem.h"
-
-#include <KColorScheme>
-#include <QApplication>
-#include <QDebug>
-
 #include "worksheet.h"
 #include "worksheetentry.h"
 
-WorksheetControlItem::WorksheetControlItem(Worksheet* worksheet, WorksheetEntry* parent): QGraphicsRectItem(parent)
+#include <QApplication>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+
+#include <KColorScheme>
+
+WorksheetControlItem::WorksheetControlItem(Worksheet* worksheet, WorksheetEntry* parent) : QGraphicsRectItem(parent),
+    m_worksheet(worksheet)
 {
     setAcceptDrops(true);
     setAcceptHoverEvents(true);
     setFlags(flags() | QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsFocusable);
-    m_worksheet = worksheet;
 }
 
 void WorksheetControlItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)

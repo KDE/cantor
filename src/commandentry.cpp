@@ -1,28 +1,14 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    Copyright (C) 2018-2020 Alexander Semke <alexander.semke@web.de>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #include "commandentry.h"
 #include "resultitem.h"
 #include "loadedexpression.h"
+#include "worksheetview.h"
 #include "lib/jupyterutils.h"
 #include "lib/result.h"
 #include "lib/helpresult.h"
@@ -43,6 +29,7 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QTextDocumentFragment>
+#include <QPainter>
 
 #include <KLocalizedString>
 #include <KColorScheme>
@@ -349,20 +336,24 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
             menu->addAction(i18n("Hide Results"), this, &CommandEntry::collapseResults);
     }
 
-    if (!command().simplified().isEmpty())
-        menu->addAction(QIcon::fromTheme(QLatin1String("help-whatsthis")), i18n("Show Help"), this, &CommandEntry::showHelp);
 
-    if (m_isExecutionEnabled)
-        menu->addAction(i18n("Exclude from Execution"), this, &CommandEntry::excludeFromExecution);
-    else
-        menu->addAction(i18n("Add to Execution"), this, &CommandEntry::addToExecution);
+    QAction* enabledAction = new QAction(QIcon::fromTheme(QLatin1String("checkmark")), i18n("Enabled"));
+    enabledAction->setCheckable(true);
+    enabledAction->setChecked(m_isExecutionEnabled);
+    menu->addSeparator();
+    menu->addAction(enabledAction);
+    connect(enabledAction, &QAction::triggered, this, &CommandEntry::toggleEnabled);
 
+    QMenu* appearanceMenu = new QMenu(i18n("Appearance"));
+    appearanceMenu->setIcon(QIcon::fromTheme(QLatin1String("configure")));
+    appearanceMenu->addMenu(m_backgroundColorMenu);
+    appearanceMenu->addMenu(m_textColorMenu);
+    appearanceMenu->addMenu(m_fontMenu);
+    menu->addMenu(appearanceMenu);
     menu->addSeparator();
-    menu->addMenu(m_backgroundColorMenu);
-    menu->addMenu(m_textColorMenu);
-    menu->addMenu(m_fontMenu);
-    menu->addSeparator();
+
     WorksheetEntry::populateMenu(menu, pos);
+    menu->addSeparator();
 }
 
 void CommandEntry::moveToNextItem(int pos, qreal x)
@@ -1574,6 +1565,14 @@ void CommandEntry::showHelp()
 
     if (!keyword.simplified().isEmpty())
         emit worksheet()->requestDocumentation(keyword);
+}
+
+void CommandEntry::toggleEnabled() {
+    auto* action = static_cast<QAction*>(QObject::sender());
+    if (action->isChecked())
+        addToExecution();
+    else
+        excludeFromExecution();
 }
 
 void CommandEntry::excludeFromExecution()

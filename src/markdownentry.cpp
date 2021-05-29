@@ -1,24 +1,15 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2018 Yifei Wu <kqwyfg@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2018 Yifei Wu <kqwyfg@gmail.com>
+    SPDX-FileCopyrightText: 2019-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #include "markdownentry.h"
+#include "jupyterutils.h"
+#include "mathrender.h"
+#include <config-cantor.h>
+#include "settings.h"
+#include "worksheetview.h"
 
 #include <QJsonArray>
 #include <QJsonObject>
@@ -26,21 +17,19 @@
 #include <QImage>
 #include <QImageReader>
 #include <QBuffer>
-#include <KLocalizedString>
 #include <QDebug>
 #include <QKeyEvent>
 #include <QRegularExpression>
 #include <QStandardPaths>
 #include <QDir>
 #include <QFileDialog>
-#include <KMessageBox>
 #include <QClipboard>
 #include <QMimeData>
+#include <QGraphicsSceneDragDropEvent>
 
-#include "jupyterutils.h"
-#include "mathrender.h"
-#include <config-cantor.h>
-#include "settings.h"
+#include <KLocalizedString>
+#include <KZip>
+#include <KMessageBox>
 
 #ifdef Discount_FOUND
 extern "C" {
@@ -49,7 +38,9 @@ extern "C" {
 #endif
 
 
-MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)), rendered(false)
+MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet),
+m_textItem(new WorksheetTextItem(this, Qt::TextEditorInteraction)),
+rendered(false)
 {
     m_textItem->enableRichText(false);
     m_textItem->setOpenExternalLinks(true);
@@ -62,11 +53,31 @@ MarkdownEntry::MarkdownEntry(Worksheet* worksheet) : WorksheetEntry(worksheet), 
 
 void MarkdownEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    if (!rendered)
-        menu->addAction(i18n("Insert Image Attachment"), this, &MarkdownEntry::insertImage);
-    if (attachedImages.size() != 0)
-        menu->addAction(i18n("Clear Attachments"), this, &MarkdownEntry::clearAttachments);
     WorksheetEntry::populateMenu(menu, pos);
+
+    QAction* firstAction;
+    if (!rendered)
+    {
+        firstAction = menu->actions().at(1); //insert the first action for Markdown after the "Evaluate" action
+        QAction* action = new QAction(QIcon::fromTheme(QLatin1String("viewimage")), i18n("Insert Image"));
+        connect(action, &QAction::triggered, this, &MarkdownEntry::insertImage);
+        menu->insertAction(firstAction, action);
+    }
+    else
+    {
+        firstAction = menu->actions().at(0);
+        QAction* action = new QAction(QIcon::fromTheme(QLatin1String("edit-entry")), i18n("Enter Edit Mode"));
+        connect(action, &QAction::triggered, this, &MarkdownEntry::enterEditMode);
+        menu->insertAction(firstAction, action);
+        menu->insertSeparator(firstAction);
+    }
+
+    if (attachedImages.size() != 0)
+    {
+        QAction* action = new QAction(QIcon::fromTheme(QLatin1String("edit-clear")), i18n("Clear Attachments"));
+        connect(action, &QAction::triggered, this, &MarkdownEntry::clearAttachments);
+        menu->insertAction(firstAction, action);
+    }
 }
 
 bool MarkdownEntry::isEmpty()
@@ -344,10 +355,6 @@ QString MarkdownEntry::toPlain(const QString& commandSep, const QString& comment
     if (!commentEndingSeq.isEmpty())
         return commentStartingSeq + text + commentEndingSeq + QLatin1String("\n");
     return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
-}
-
-void MarkdownEntry::interruptEvaluation()
-{
 }
 
 bool MarkdownEntry::evaluate(EvaluationOption evalOp)
@@ -751,21 +758,39 @@ void MarkdownEntry::markUpMath()
 
 void MarkdownEntry::insertImage()
 {
-    const QString& filename = QFileDialog::getOpenFileName(worksheet()->worksheetView(), i18n("Choose Image"), QString(), i18n("Images (*.png *.bmp *.jpg *.svg)"));
+    KConfigGroup conf(KSharedConfig::openConfig(), QLatin1String("MarkdownEntry"));
+    const QString& dir = conf.readEntry(QLatin1String("LastImageDir"), QString());
 
-    if (!filename.isEmpty())
-    {
-        QImageReader reader(filename);
-        const QImage img = reader.read();
-        if (!img.isNull())
-        {
-            const QString& name = QFileInfo(filename).fileName();
+    QString formats;
+    for (const QByteArray& format : QImageReader::supportedImageFormats())
+        formats += QLatin1String("*.") + QLatin1String(format.constData()) + QLatin1Char(' ');
 
-            addImageAttachment(name, img);
-        }
-        else
-            KMessageBox::error(worksheetView(), i18n("Cantor failed to read image with error \"%1\"", reader.errorString()), i18n("Cantor"));
+    const QString& path = QFileDialog::getOpenFileName(worksheet()->worksheetView(),
+                                                       i18n("Open image file"),
+                                                       dir,
+                                                       i18n("Images (%1)", formats));
+    if (path.isEmpty())
+        return; //cancel was clicked in the file-dialog
+
+    //save the last used directory, if changed
+    const int pos = path.lastIndexOf(QLatin1String("/"));
+    if (pos != -1) {
+        const QString& newDir = path.left(pos);
+        if (newDir != dir)
+            conf.writeEntry(QLatin1String("LastImageDir"), newDir);
     }
+
+    QImageReader reader(path);
+    const QImage& img = reader.read();
+    if (!img.isNull())
+    {
+        const QString& name = QFileInfo(path).fileName();
+        addImageAttachment(name, img);
+    }
+    else
+        KMessageBox::error(worksheetView(),
+                           i18n("Failed to read the image \"%1\". Error \"%2\"", path, reader.errorString()),
+                           i18n("Cantor"));
 }
 
 void MarkdownEntry::clearAttachments()
@@ -777,6 +802,13 @@ void MarkdownEntry::clearAttachments()
     }
     attachedImages.clear();
     animateSizeChange();
+}
+
+void MarkdownEntry::enterEditMode()
+{
+    setPlainText(plain);
+    m_textItem->textCursor().clearSelection();
+    rendered = false;
 }
 
 QString MarkdownEntry::plainText() const

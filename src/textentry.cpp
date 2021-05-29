@@ -1,23 +1,8 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+*/
 
 #include "textentry.h"
 #include "worksheettextitem.h"
@@ -25,6 +10,7 @@
 #include "latexrenderer.h"
 #include "lib/jupyterutils.h"
 #include "mathrender.h"
+#include "worksheetview.h"
 
 #include "settings.h"
 
@@ -335,10 +321,6 @@ QString TextEntry::toPlain(const QString& commandSep, const QString& commentStar
         return commentStartingSeq + text + commentEndingSeq + QLatin1String("\n");
     return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
 
-}
-
-void TextEntry::interruptEvaluation()
-{
 }
 
 bool TextEntry::evaluate(EvaluationOption evalOp)

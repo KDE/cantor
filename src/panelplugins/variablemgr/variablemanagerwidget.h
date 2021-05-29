@@ -1,22 +1,8 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2010 Alexander Rieder <alexanderrieder@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2010 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #ifndef _VARIABLEMANAGERWIDGET_H
 #define _VARIABLEMANAGERWIDGET_H
@@ -24,40 +10,50 @@
 #include <QWidget>
 
 namespace Cantor{
-class Session;
+    class Session;
 }
 
-class QTreeView;
-class QToolButton;
 class QAbstractItemModel;
+class QLineEdit;
+class QToolButton;
+class QTreeView;
 
 class VariableManagerWidget : public QWidget
 {
   Q_OBJECT
-  public:
-    VariableManagerWidget(Cantor::Session* session, QWidget* parent);
+public:
+    VariableManagerWidget(Cantor::Session*, QWidget*);
     ~VariableManagerWidget() override = default;
 
-    void setSession(Cantor::Session* session);
+    void setSession(Cantor::Session*);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void clearVariables();
 
     void save();
     void load();
     void newVariable();
 
-  Q_SIGNALS:
-    void runCommand(const QString& cmd);
+Q_SIGNALS:
+    void runCommand(const QString&);
 
-  private:
-    Cantor::Session* m_session;
-    QAbstractItemModel* m_model;
-    QTreeView* m_table;
-    QToolButton* m_newBtn;
-    QToolButton* m_loadBtn;
-    QToolButton* m_saveBtn;
-    QToolButton* m_clearBtn;
+private:
+    Cantor::Session* m_session{nullptr};
+    QAbstractItemModel* m_model{nullptr};
+    QTreeView* m_treeView{nullptr};
+    QToolButton* m_newBtn{nullptr};
+    QToolButton* m_loadBtn{nullptr};
+    QToolButton* m_saveBtn{nullptr};
+    QToolButton* m_clearBtn{nullptr};
+    QLineEdit* m_leFilter;
+    QToolButton* m_bFilterOptions;
+    QAction* m_caseSensitiveAction;
+    QAction* m_matchCompleteWordAction;
+
+private Q_SLOTS:
+    void filterTextChanged(const QString&);
+    void toggleFilterOptionsMenu(bool);
+    void updateButtons();
 };
 
 #endif /* _VARIABLEMANAGERWIDGET_H */

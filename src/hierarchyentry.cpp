@@ -1,34 +1,20 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2020 Nikita Sirgienko <warquark@gmail.com>
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2020 Nikita Sirgienko <warquark@gmail.com>
 */
 
 #include "hierarchyentry.h"
-#include "worksheettextitem.h"
-#include "lib/jupyterutils.h"
-
 #include "settings.h"
+#include "worksheettextitem.h"
+#include "worksheetview.h"
+#include "lib/jupyterutils.h"
 
 #include <QJsonObject>
 #include <QRegularExpression>
 #include <QDrag>
 #include <QBitmap>
 #include <QMimeData>
+#include <QPainter>
 #include <QDebug>
 
 #include <KLocalizedString>
@@ -269,10 +255,6 @@ QString HierarchyEntry::toPlain(const QString& commandSep, const QString& commen
         return commentStartingSeq + text + commentEndingSeq + QLatin1String("\n");
     return commentStartingSeq + text.replace(QLatin1String("\n"), QLatin1String("\n") + commentStartingSeq) + QLatin1String("\n");
 
-}
-
-void HierarchyEntry::interruptEvaluation()
-{
 }
 
 bool HierarchyEntry::evaluate(EvaluationOption evalOp)

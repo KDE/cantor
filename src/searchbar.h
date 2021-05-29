@@ -1,28 +1,12 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+*/
 
 #ifndef SEARCHBAR_H
 #define SEARCHBAR_H
 
 #include <QWidget>
-#include <QList>
 #include <QTextDocument>
 
 #include "ui_standardsearchbar.h"
@@ -40,7 +24,7 @@ class SearchBar : public QWidget
 {
   Q_OBJECT
   public:
-    SearchBar(QWidget* parent, Worksheet* worksheet);
+    SearchBar(QWidget*, Worksheet*);
     ~SearchBar() override;
 
     void showStandard();
@@ -60,8 +44,8 @@ class SearchBar : public QWidget
     void on_previous_clicked();
     void on_replace_clicked();
     void on_replaceAll_clicked();
-    void on_pattern_textChanged(const QString& p);
-    void on_replacement_textChanged(const QString& r);
+    void on_pattern_textChanged(const QString&);
+    void on_replacement_textChanged(const QString&);
     void on_addFlag_clicked();
     void on_removeFlag_clicked();
     void on_matchCase_toggled(bool b);
@@ -75,7 +59,7 @@ class SearchBar : public QWidget
   private:
 
     void updateSearchLocations();
-    void fillLocationsMenu(QMenu* menu, int flags);
+    void fillLocationsMenu(QMenu*, int flags);
 
     void setupStdUi();
     void setupExtUi();
@@ -83,8 +67,8 @@ class SearchBar : public QWidget
     void setStatus(QString);
     void clearStatus();
 
-    void setStartCursor(WorksheetCursor cursor);
-    void setCurrentCursor(WorksheetCursor cursor);
+    void setStartCursor(WorksheetCursor);
+    void setCurrentCursor(WorksheetCursor);
 
     Worksheet* worksheet();
 
@@ -93,7 +77,7 @@ class SearchBar : public QWidget
 
   private:
     Ui::StandardSearchBar* m_stdUi;
-    Ui::ExtendedSearchBar* m_extUi;
+    Ui::ExtendedSearchBar* m_extUi{nullptr};
 
     WorksheetCursor m_startCursor;
     WorksheetCursor m_currentCursor;
@@ -104,9 +88,9 @@ class SearchBar : public QWidget
     QTextDocument::FindFlags m_qtFlags;
     unsigned int m_searchFlags;
 
-    bool m_atBeginning;
-    bool m_atEnd;
-    bool m_notFound;
+    bool m_atBeginning{false};
+    bool m_atEnd{false};
+    bool m_notFound{false};
 };
 
 #endif // SEARCHBAR_H

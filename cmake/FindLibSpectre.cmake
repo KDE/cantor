@@ -6,11 +6,9 @@
 #  LIBSPECTRE_LIBRARY - Link this to use libspectre
 #
 
-# Copyright (c) 2006-2007, Pino Toscano, <pino@kde.org>
-# Copyright (c) 2008, Albert Astals Cid, <aacid@kde.org>
-#
-# Redistribution and use is allowed according to the terms of the BSD license.
-# For details see the accompanying COPYING-CMAKE-SCRIPTS file.
+# SPDX-FileCopyrightText: 2006-2007 Pino Toscano <pino@kde.org>
+# SPDX-FileCopyrightText: 2008 Albert Astals Cid <aacid@kde.org>
+# SPDX-License-Identifier: BSD-3-Clause
 
 if(LIBSPECTRE_INCLUDE_DIR AND LIBSPECTRE_LIBRARY)
 

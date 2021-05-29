@@ -1,25 +1,11 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+*/
 
 #include "imageresultitem.h"
 #include "commandentry.h"
+#include "worksheetview.h"
 #include "lib/imageresult.h"
 #include "lib/epsresult.h"
 
@@ -27,7 +13,6 @@
 
 #include <KLocalizedString>
 #include <QFileDialog>
-#include <QDebug>
 
 ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result)
     : WorksheetImageItem(parent), ResultItem(result)
@@ -47,7 +32,6 @@ void ImageResultItem::populateMenu(QMenu* menu, QPointF pos)
     ResultItem::addCommonActions(this, menu);
 
     menu->addSeparator();
-    qDebug() << "populate Menu";
     emit menuCreated(menu, mapToParent(pos));
 }
 
@@ -101,8 +85,7 @@ double ImageResultItem::height() const
 void ImageResultItem::saveResult()
 {
     Cantor::Result* res = result();
-    const QString& filename=QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    qDebug()<<"saving result to "<<filename;
+    const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
     res->save(filename);
 }
 

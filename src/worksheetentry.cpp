@@ -1,22 +1,8 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2012 Martin Kuettler <martin.kuettler@gmail.com>
- */
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2016-2021 Alexander Semke <alexander.semke@web.de>
+*/
 
 #include "worksheetentry.h"
 #include "commandentry.h"
@@ -30,8 +16,10 @@
 #include "settings.h"
 #include "actionbar.h"
 #include "worksheettoolbutton.h"
+#include "worksheetview.h"
 
 #include <QDrag>
+#include <QIcon>
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
 #include <QMetaMethod>
@@ -40,9 +28,10 @@
 #include <QBitmap>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <KColorScheme>
+#include <QPainter>
+#include <QGraphicsSceneMouseEvent>
 
-#include <QIcon>
+#include <KColorScheme>
 #include <KLocalizedString>
 #include <QDebug>
 
@@ -86,15 +75,6 @@ QString WorksheetEntry::colorNames[] = {i18n("White"), i18n("Black"),
 
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
-    m_entry_zone_x = 0;
-    m_next = nullptr;
-    m_prev = nullptr;
-    m_animation = nullptr;
-    m_actionBar = nullptr;
-    m_actionBarAnimation = nullptr;
-    m_aboutToBeRemoved = false;
-    m_jupyterMetadata = nullptr;
-    setAcceptHoverEvents(true);
     worksheet->addItem(this);
 
     connect(&m_controlElement, &WorksheetControlItem::drag, this, &WorksheetEntry::startDrag);
@@ -422,14 +402,32 @@ void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"), this, SLOT(moveToPrevious()), 0);
-    menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"), this, SLOT(moveToNext()), 0);
+    auto* firstAction = menu->actions().first();
+    QAction* action;
     if (!worksheet()->isRunning() && wantToEvaluate())
-        menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entry"), this, SLOT(evaluate()), 0);
+    {
+        action = new QAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate"));
+        connect(action, SIGNAL(triggered()), this, SLOT(evaluate()));
+        menu->insertAction(firstAction, action);
+        menu->insertSeparator(firstAction);
+    }
 
-    menu->addSeparator();
-    menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entry"), this, SLOT(startRemoving()), 0);
-    menu->addSeparator();
+    action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
+//     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
+    connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
+    menu->insertAction(firstAction, action);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
+//     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
+    connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
+    menu->insertAction(firstAction, action);
+    menu->insertSeparator(firstAction);
+
+    action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove"));
+    connect(action, &QAction::triggered, this, &WorksheetEntry::startRemoving);
+    menu->insertAction(firstAction, action);
+    menu->insertSeparator(firstAction);
+
     worksheet()->populateMenu(menu, mapToScene(pos));
 }
 
