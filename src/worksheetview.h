@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef WORKSHEETVIEW_H
@@ -17,10 +18,10 @@ class WorksheetView : public QGraphicsView
 {
   Q_OBJECT
 public:
-    WorksheetView(Worksheet* scene, QWidget* parent);
+    WorksheetView(Worksheet*, QWidget*);
 
-    void makeVisible(const QRectF& sceneRect);
-    bool isVisible(const QRectF& sceneRect) const;
+    void makeVisible(const QRectF&);
+    bool isVisible(const QRectF&) const;
     bool isAtEnd() const;
     void scrollToEnd() const;
     void scrollBy(int dy);
@@ -34,7 +35,7 @@ public:
     void updateSceneSize();
 
 Q_SIGNALS:
-    void viewRectChanged(QRectF rect) const;
+    void viewRectChanged(QRectF) const;
     void scaleFactorChanged(double scale);
 
 public Q_SLOTS:
@@ -42,16 +43,18 @@ public Q_SLOTS:
     void zoomOut();
     void actualSize();
     void endAnimation();
-    void sceneRectChanged(const QRectF& sceneRect) const;
+    void sceneRectChanged(const QRectF&) const;
     void sendViewRectChange() const;
 
 private:
     void resizeEvent(QResizeEvent*) override;
+    void focusInEvent(QFocusEvent*) override;
+    void focusOutEvent(QFocusEvent*) override;
 
-    qreal m_scale;
-    QParallelAnimationGroup* m_animation;
-    QPropertyAnimation* m_hAnimation;
-    QPropertyAnimation* m_vAnimation;
+    qreal m_scale = 1.;
+    QParallelAnimationGroup* m_animation{nullptr};
+    QPropertyAnimation* m_hAnimation{nullptr};
+    QPropertyAnimation* m_vAnimation{nullptr};
     Worksheet* m_worksheet;
 };
 

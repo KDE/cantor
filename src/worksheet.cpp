@@ -56,7 +56,6 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
     m_cursorItemTimer(new QTimer(this)),
     m_useDefaultWorksheetParameters(useDefaultWorksheetParameters)
 {
-
     m_entryCursorItem = addLine(0,0,0,0);
     const QColor& color = (palette().color(QPalette::Base).lightness() < 128) ? Qt::white : Qt::black;
     QPen pen(color);
@@ -69,6 +68,20 @@ Worksheet::Worksheet(Cantor::Backend* backend, QWidget* parent, bool useDefaultW
 
     if (backend)
         initSession(backend);
+}
+
+void Worksheet::stopAnimations()
+{
+    m_cursorItemTimer->stop();
+    m_entryCursorItem->hide();
+}
+
+void Worksheet::resumeAnimations()
+{
+    delete m_cursorItemTimer;
+    m_cursorItemTimer = new QTimer(this);
+    connect(m_cursorItemTimer, &QTimer::timeout, this, &Worksheet::animateEntryCursor);
+    m_cursorItemTimer->start(500);
 }
 
 Worksheet::~Worksheet()

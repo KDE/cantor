@@ -1,20 +1,18 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "worksheetview.h"
 #include "worksheet.h"
 
+#include <QFocusEvent>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <QScrollBar>
 
 WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent) : QGraphicsView(scene, parent),
-    m_scale(1),
-    m_animation(nullptr),
-    m_hAnimation(nullptr),
-    m_vAnimation(nullptr),
     m_worksheet(scene)
 {
     connect(scene, SIGNAL(sceneRectChanged(QRectF)),
@@ -229,6 +227,20 @@ void WorksheetView::resizeEvent(QResizeEvent* event)
     QGraphicsView::resizeEvent(event);
     updateSceneSize();
 }
+
+void WorksheetView::focusInEvent(QFocusEvent* event)
+{
+    QGraphicsView::focusInEvent(event);
+    m_worksheet->resumeAnimations();
+}
+
+void WorksheetView::focusOutEvent(QFocusEvent* event)
+{
+    QGraphicsView::focusOutEvent(event);
+    if (!scene()->hasFocus())
+        m_worksheet->stopAnimations();
+}
+
 
 qreal WorksheetView::scaleFactor() const
 {

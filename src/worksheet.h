@@ -66,6 +66,9 @@ class Worksheet : public QGraphicsScene
 
     WorksheetView* worksheetView();
 
+    void stopAnimations();
+    void resumeAnimations();
+
     void makeVisible(WorksheetEntry*);
     void makeVisible(const WorksheetCursor&);
 
