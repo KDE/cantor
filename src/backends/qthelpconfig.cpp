@@ -1,21 +1,7 @@
 /*
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public License
-    as published by the Free Software Foundation; either version 2
-    of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin Street, Fifth Floor,
-    Boston, MA  02110-1301, USA.
-
-    ---
-    Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
+    SPDX-License-Identifier: GPL-2.0-or-later
+    SPDX-FileCopyrightText: 2020 Shubham <aryan100jangid@gmail.com>
+    SPDX-FileCopyrightText: 2020-2021 Alexander Semke <alexander.semke@web.de>
  */
 
 #include <QDebug>
@@ -90,30 +76,31 @@ void QtHelpConfigEditDialog::accept()
     QDialog::accept();
 }
 
-QtHelpConfig::QtHelpConfig(const QString& backend)
+QtHelpConfig::QtHelpConfig(const QString& backend) : QWidget(), m_backend(backend)
 {
-    m_backend = backend;
 
-    m_configWidget = new Ui::QtHelpConfigUI;
-    m_configWidget->setupUi(this);
-    m_configWidget->addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
-    connect(m_configWidget->addButton, &QPushButton::clicked, this, &QtHelpConfig::add);
+    Ui::QtHelpConfigUI* ui = new Ui::QtHelpConfigUI;
+    ui->setupUi(this);
+    ui->addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+    connect(ui->addButton, &QPushButton::clicked, this, &QtHelpConfig::add);
+
+    m_treeWidget = ui->qchTable;
 
     // Table
-    m_configWidget->qchTable->setColumnHidden(IconColumn, true);
-    m_configWidget->qchTable->setColumnHidden(GhnsColumn, true);
-    m_configWidget->qchTable->model()->setHeaderData(ConfigColumn, Qt::Horizontal, QVariant());
-    m_configWidget->qchTable->header()->setSectionsMovable(false);
-    m_configWidget->qchTable->header()->setStretchLastSection(false);
-    m_configWidget->qchTable->header()->setSectionResizeMode(NameColumn, QHeaderView::Stretch);
-    m_configWidget->qchTable->header()->setSectionResizeMode(PathColumn, QHeaderView::Stretch);
-    m_configWidget->qchTable->header()->setSectionResizeMode(ConfigColumn, QHeaderView::Fixed);
+    m_treeWidget->setColumnHidden(IconColumn, true);
+    m_treeWidget->setColumnHidden(GhnsColumn, true);
+    m_treeWidget->model()->setHeaderData(ConfigColumn, Qt::Horizontal, QVariant());
+    m_treeWidget->header()->setSectionsMovable(false);
+    m_treeWidget->header()->setStretchLastSection(false);
+    m_treeWidget->header()->setSectionResizeMode(NameColumn, QHeaderView::Stretch);
+    m_treeWidget->header()->setSectionResizeMode(PathColumn, QHeaderView::Stretch);
+    m_treeWidget->header()->setSectionResizeMode(ConfigColumn, QHeaderView::Fixed);
 
     // Add GHNS button // shift this code to backend specific
     auto* knsButton = new KNS3::Button(i18nc("@action:button Allow user to get some API documentation with GHNS", "Get New Documentation"),
                                        QStringLiteral("cantor-qthelp.knsrc"),
                                        this);
-    m_configWidget->tableCtrlLayout->insertWidget(1, knsButton);
+    ui->tableCtrlLayout->insertWidget(1, knsButton);
     connect(knsButton, &KNS3::Button::dialogFinished, this, &QtHelpConfig::knsUpdate);
 
     connect(this, &QtHelpConfig::settingsChanged, this, &QtHelpConfig::saveSettings);
@@ -122,17 +109,17 @@ QtHelpConfig::QtHelpConfig(const QString& backend)
     loadSettings();
 }
 
-QtHelpConfig::~QtHelpConfig()
-{
-    delete m_configWidget;
-}
+QtHelpConfig::~QtHelpConfig() = default;
 
 void QtHelpConfig::add()
 {
     QPointer<QtHelpConfigEditDialog> dialog = new QtHelpConfigEditDialog(nullptr, this);
     if (dialog->exec()) {
-        QTreeWidgetItem* item = addTableItem(dialog->qchIcon->icon(), dialog->qchName->text(), dialog->qchRequester->text(), QStringLiteral("0"));
-        m_configWidget->qchTable->setCurrentItem(item);
+        auto* item = addTableItem(dialog->qchIcon->icon(),
+                                  dialog->qchName->text(),
+                                  dialog->qchRequester->text(),
+                                  QStringLiteral("0"));
+        m_treeWidget->setCurrentItem(item);
         emit settingsChanged();
     }
     delete dialog;
@@ -180,8 +167,8 @@ bool QtHelpConfig::checkNamespace(const QString& filename, QTreeWidgetItem* modi
         return false;
     }
     // verify if it's the namespace it's not already in the list
-    for(int i=0; i < m_configWidget->qchTable->topLevelItemCount(); i++) {
-        const QTreeWidgetItem* item = m_configWidget->qchTable->topLevelItem(i);
+    for(int i=0; i < m_treeWidget->topLevelItemCount(); i++) {
+        const QTreeWidgetItem* item = m_treeWidget->topLevelItem(i);
         if (item != modifiedItem){
             if (qtHelpNamespace == QHelpEngineCore::namespaceName(item->text(PathColumn))) {
                 // Open error message, documentation already imported
@@ -207,14 +194,14 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
     if (list.isEmpty())
         return;
 
-    for (const KNS3::Entry& e : list) {
+    for (const auto& e : list) {
         if(e.status() == KNS3::Entry::Installed) {
             // For zipped/tarred QCH files KNewStuff also adds the directory as installed file, first file entry is assumed to be QCH file though
             if (e.installedFiles().size() >= 1) {
-                QString filename = e.installedFiles().at(0);
+                const auto& filename = e.installedFiles().at(0);
                 if(checkNamespace(filename, nullptr)){
-                    QTreeWidgetItem* item = addTableItem(QStringLiteral("documentation"), e.name(), filename, QStringLiteral("1"));
-                    m_configWidget->qchTable->setCurrentItem(item);
+                    auto* item = addTableItem(QStringLiteral("documentation"), e.name(), filename, QStringLiteral("1"));
+                    m_treeWidget->setCurrentItem(item);
                 } else {
                     qDebug() << "namespace error";
                 }
@@ -222,8 +209,8 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
         } else if(e.status() ==  KNS3::Entry::Deleted) {
             // cmp. note above for installed files
             if (e.uninstalledFiles().size() >= 1) {
-                for(int i=0; i < m_configWidget->qchTable->topLevelItemCount(); i++) {
-                    QTreeWidgetItem* item = m_configWidget->qchTable->topLevelItem(i);
+                for(int i=0; i < m_treeWidget->topLevelItemCount(); i++) {
+                    const auto* item = m_treeWidget->topLevelItem(i);
                     if (e.uninstalledFiles().at(0) == item->text(PathColumn)) {
                         delete item;
                         break;
@@ -235,10 +222,10 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
     emit settingsChanged();
 }
 
-QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString &name,
-                                             const QString &path, const QString &ghnsStatus)
+QTreeWidgetItem* QtHelpConfig::addTableItem(const QString& icon, const QString& name,
+                                             const QString& path, const QString& ghnsStatus)
 {
-    auto *item = new QTreeWidgetItem(m_configWidget->qchTable);
+    auto* item = new QTreeWidgetItem(m_treeWidget);
     item->setIcon(NameColumn, QIcon::fromTheme(icon));
     item->setText(NameColumn, name);
     item->setToolTip(NameColumn, name);
@@ -250,29 +237,29 @@ QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString 
     auto* ctrlWidget = new QWidget(item->treeWidget());
     ctrlWidget->setLayout(new QHBoxLayout(ctrlWidget));
 
-    auto *modifyBtn = new QToolButton(item->treeWidget());
+    auto* modifyBtn = new QToolButton(item->treeWidget());
     modifyBtn->setIcon(QIcon::fromTheme(QStringLiteral("document-edit")));
     modifyBtn->setToolTip(i18nc("@info:tooltip", "Modify"));
-    connect(modifyBtn, &QPushButton::clicked, this, [=](){
-        modify(item);
-    });
+    connect(modifyBtn, &QPushButton::clicked, this, [=](){ modify(item); });
+
     auto *removeBtn = new QToolButton(item->treeWidget());
     removeBtn->setIcon(QIcon::fromTheme(QStringLiteral("entry-delete")));
     removeBtn->setToolTip(i18nc("@info:tooltip", "Delete"));
-    if (item->text(GhnsColumn) != QLatin1String("0")) {
+
+    if (item->text(GhnsColumn) != QLatin1String("0"))
+    {
         // KNS3 currently does not provide API to uninstall entries
         // just removing the files results in wrong installed states in the KNS3 dialog
         // TODO: add API to KNS to remove files without UI interaction
         removeBtn->setEnabled(false);
         removeBtn->setToolTip(i18nc("@info:tooltip", "Please uninstall this via GHNS."));
-    } else {
-        connect(removeBtn, &QPushButton::clicked, this, [=](){
-            remove(item);
-        });
-    }
+    } else
+        connect(removeBtn, &QPushButton::clicked, this, [=](){ remove(item); });
+
     ctrlWidget->layout()->addWidget(modifyBtn);
     ctrlWidget->layout()->addWidget(removeBtn);
-    m_configWidget->qchTable->setItemWidget(item, ConfigColumn, ctrlWidget);
+
+    m_treeWidget->setItemWidget(item, ConfigColumn, ctrlWidget);
 
     return item;
 }
@@ -280,18 +267,18 @@ QTreeWidgetItem * QtHelpConfig::addTableItem(const QString &icon, const QString 
 void QtHelpConfig::loadSettings()
 {
     // load settings for current backend and then update the QTreeWidget
-    const KConfigGroup group = KSharedConfig::openConfig()->group(m_backend);
+    const auto& group = KSharedConfig::openConfig()->group(m_backend);
 
-    QStringList nameList = group.readEntry(QLatin1String("Names"), QStringList());
-    QStringList pathList = group.readEntry(QLatin1String("Paths"), QStringList());
-    QStringList iconList = group.readEntry(QLatin1String("Icons"), QStringList());
-    QStringList ghnsList = group.readEntry(QLatin1String("Ghns"), QStringList());
+    const auto& nameList = group.readEntry(QLatin1String("Names"), QStringList());
+    const auto& pathList = group.readEntry(QLatin1String("Paths"), QStringList());
+    const auto& iconList = group.readEntry(QLatin1String("Icons"), QStringList());
+    const auto& ghnsList = group.readEntry(QLatin1String("Ghns"), QStringList());
 
     // iterate through Name Location pairs and update the QTreeWidget
     for(int i = 0; i < nameList.size(); i++)
     {
         QTreeWidgetItem* item = addTableItem(iconList.at(i), nameList.at(i), pathList.at(i), ghnsList.at(i));
-        m_configWidget->qchTable->setCurrentItem(item);
+        m_treeWidget->setCurrentItem(item);
     }
 }
 
@@ -305,9 +292,9 @@ void QtHelpConfig::saveSettings()
     QStringList iconList;
     QStringList ghnsList;
 
-    for (int i = 0; i < m_configWidget->qchTable->topLevelItemCount(); i++)
+    for (int i = 0; i < m_treeWidget->topLevelItemCount(); i++)
     {
-        const QTreeWidgetItem* item = m_configWidget->qchTable->topLevelItem(i);
+        const auto* item = m_treeWidget->topLevelItem(i);
         nameList << item->text(0);
         pathList << item->text(1);
         iconList << item->text(2);
