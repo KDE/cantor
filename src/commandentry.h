@@ -164,6 +164,7 @@ class CommandEntry : public WorksheetEntry
     void updateCompletions();
     void completeCommandTo(const QString& completion, CommandEntry::CompletionMode mode = PreliminaryCompletion);
     void changeResultCollapsingAction();
+    void showHelp();
     void toggleEnabled();
 
     void backgroundColorChanged(QAction*);

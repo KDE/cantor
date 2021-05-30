@@ -337,6 +337,11 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
     }
 
 
+    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("help-hint")), i18n("Show Help"));
+    connect(action, &QAction::triggered, this, &CommandEntry::showHelp);
+    menu->addAction(action);
+    menu->addSeparator();
+
     QAction* enabledAction = new QAction(QIcon::fromTheme(QLatin1String("checkmark")), i18n("Enabled"));
     enabledAction->setCheckable(true);
     enabledAction->setChecked(m_isExecutionEnabled);
