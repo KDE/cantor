@@ -19,6 +19,7 @@
   <name xml:lang="ia">Cantor</name>
   <name xml:lang="id">Cantor</name>
   <name xml:lang="it">Cantor</name>
+  <name xml:lang="ko">Cantor</name>
   <name xml:lang="nds">Cantor</name>
   <name xml:lang="nl">Cantor</name>
   <name xml:lang="nn">Cantor</name>
@@ -49,6 +50,7 @@
   <summary xml:lang="ia">Interfacie de KDE a Software Matematic</summary>
   <summary xml:lang="id">Frontend KDE untuk Software Matematika</summary>
   <summary xml:lang="it">Interfaccia KDE per software matematico</summary>
+  <summary xml:lang="ko">KDE 수학 소프트웨어 프론트엔드</summary>
   <summary xml:lang="nds">KDE-Böversiet för Rekenprogrammen</summary>
   <summary xml:lang="nl">KDE-frontend tot wiskundige software</summary>
   <summary xml:lang="nn">KDE-grensesnitt til matematikkprogram</summary>
@@ -78,6 +80,7 @@
     <p xml:lang="gl">Cantor é unha interface gráfica para potentes paquetes de matemática e estatística. Cantor intégraos na plataforma de KDE e fornece unha boa interface gráfica de usuario baseada en follas de cálculo. É compatíbel com ambientes para KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, e Qalculate!</p>
     <p xml:lang="id">Cantor adalah ujung depan (frontend) paket matematika dan statistik yang unggul. Cantor mengintegrasikan mereka ke dalam Platform KDE dan menyediakan antarmuka pengguna grafis yang bagus, berbasis lembar-kerja (worksheet). Ini mendukung lingkungan untuk KAlgebra, Lua, Maxima, R, Sage, Oktaf, Python, Scilab, dan Qalculate!</p>
     <p xml:lang="it">Cantor è un'interfaccia a potenti pacchetti di matematica e statistica. Cantor li integra nella piattaforma di KDE e fornisce una gradevole interfaccia grafica basata su fogli di lavoro. Supporta KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab e Qalculate!</p>
+    <p xml:lang="ko">Cantor는 다양한 수학 및 통계 패키지의 프론트엔드입니다. Cantor는 해당 소프트웨어를 KDE 플랫폼에 통합하고 워크시트 기반 그래픽 사용자 인터페이스를 제공합니다. KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, Qalculate 환경을 제공합니다!</p>
     <p xml:lang="nds">Cantor is en Böversiet för en Reeg deegt Mathematik- un Statistik-Paketen. Cantor integreert de na KDE un stellt en smuck graafsche Böversiet mit Arbeitblääd praat. Dat ünnerstütt Ümgeven för KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, un Qalculate!</p>
     <p xml:lang="nl">Cantor is een zogenaamd frontend tussen de gebruiker en krachtige pakketten voor wiskunde en statistiek. Cantor integreert die in het KDE-platform en is hiervoor een geschikte grafische tussenlaag (interface) op basis van een rekenblad (spreadsheet). Ondersteund worden omgevingen voor KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab, and Qalculate!</p>
     <p xml:lang="pl">Cantor jest nakładką na zaawansowane pakiety matematyczne i statystyczne. Cantor integruje je z Platformą KDE i dostarcza przyjemnego, opartego na arkuszach roboczych, graficznego układu sterowania. Obsługuje środowiska takie jak: KAlgebra, Lua, Maxima, R, Sage, Octave, Python, Scilab oraz Qalculate!</p>
@@ -113,6 +116,7 @@
       <caption xml:lang="gl">Usando a infraestrutura de Maxima de Cantor</caption>
       <caption xml:lang="id">Menggunakan Maxima backend Cantor</caption>
       <caption xml:lang="it">Usare il backend Maxima di Cantor</caption>
+      <caption xml:lang="ko">Cantor의 Maxima 백엔드 사용</caption>
       <caption xml:lang="nl">De Maxima-backend van Cantor gebruiken</caption>
       <caption xml:lang="nn">Brukar Maxima-motoren i Cantor</caption>
       <caption xml:lang="pl">Używa silnika Maxima Cantora</caption>
