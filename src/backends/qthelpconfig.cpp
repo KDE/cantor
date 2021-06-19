@@ -78,10 +78,10 @@ void QtHelpConfigEditDialog::accept()
 
 QtHelpConfig::QtHelpConfig(const QString& backend) : QWidget(), m_backend(backend)
 {
-
-    Ui::QtHelpConfigUI* ui = new Ui::QtHelpConfigUI;
+    auto* ui = new Ui::QtHelpConfigUI;
     ui->setupUi(this);
     ui->addButton->setIcon(QIcon::fromTheme(QStringLiteral("list-add")));
+    ui->addButton->setToolTip(i18n("Add local documentation"));
     connect(ui->addButton, &QPushButton::clicked, this, &QtHelpConfig::add);
 
     m_treeWidget = ui->qchTable;
@@ -96,10 +96,11 @@ QtHelpConfig::QtHelpConfig(const QString& backend) : QWidget(), m_backend(backen
     m_treeWidget->header()->setSectionResizeMode(PathColumn, QHeaderView::Stretch);
     m_treeWidget->header()->setSectionResizeMode(ConfigColumn, QHeaderView::Fixed);
 
-    // Add GHNS button // shift this code to backend specific
+    // Add GHNS button
     auto* knsButton = new KNS3::Button(i18nc("@action:button Allow user to get some API documentation with GHNS", "Get New Documentation"),
-                                       QStringLiteral("cantor-qthelp.knsrc"),
+                                       QStringLiteral("cantor-documentation.knsrc"),
                                        this);
+    knsButton->setToolTip(i18n("Download additional documentations"));
     ui->tableCtrlLayout->insertWidget(1, knsButton);
     connect(knsButton, &KNS3::Button::dialogFinished, this, &QtHelpConfig::knsUpdate);
 

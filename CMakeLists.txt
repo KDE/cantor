@@ -109,7 +109,6 @@ if(NOT WIN32)
 endif(NOT WIN32)
 add_subdirectory(src)
 add_subdirectory(icons)
-add_subdirectory(documentation)
 
 set(CMAKECONFIG_INSTALL_DIR "${KDE_INSTALL_CMAKEPACKAGEDIR}/Cantor")
 configure_package_config_file(
