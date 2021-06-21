@@ -123,6 +123,7 @@ void QtHelpConfig::add()
         m_treeWidget->setCurrentItem(item);
         emit settingsChanged();
     }
+
     delete dialog;
 }
 
@@ -151,11 +152,12 @@ void QtHelpConfig::modify(QTreeWidgetItem* item)
         item->setIcon(NameColumn, QIcon(dialog->qchIcon->icon()));
         item->setText(NameColumn, dialog->qchName->text());
         item->setText(IconColumn, dialog->qchIcon->icon());
-        if(item->text(GhnsColumn) == QLatin1String("0")) {
+        if(item->text(GhnsColumn) == QLatin1String("0"))
             item->setText(PathColumn, dialog->qchRequester->text());
-        }
+
         emit settingsChanged();
     }
+
     delete dialog;
 }
 
@@ -163,16 +165,15 @@ bool QtHelpConfig::checkNamespace(const QString& filename, QTreeWidgetItem* modi
 {
     QString qtHelpNamespace = QHelpEngineCore::namespaceName(filename);
     if (qtHelpNamespace.isEmpty()) {
-        // Open error message (not valid Qt Compressed Help file)
         KMessageBox::error(this, i18n("Qt Compressed Help file is not valid."));
         return false;
     }
+
     // verify if it's the namespace it's not already in the list
     for(int i=0; i < m_treeWidget->topLevelItemCount(); i++) {
-        const QTreeWidgetItem* item = m_treeWidget->topLevelItem(i);
+        const auto* item = m_treeWidget->topLevelItem(i);
         if (item != modifiedItem){
             if (qtHelpNamespace == QHelpEngineCore::namespaceName(item->text(PathColumn))) {
-                // Open error message, documentation already imported
                 KMessageBox::error(this, i18n("Documentation already imported"));
                 return false;
             }
@@ -195,19 +196,38 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
     if (list.isEmpty())
         return;
 
-    for (const auto& e : list) {
-        if(e.status() == KNS3::Entry::Installed) {
-            // For zipped/tarred QCH files KNewStuff also adds the directory as installed file, first file entry is assumed to be QCH file though
-            if (e.installedFiles().size() >= 1) {
-                const auto& filename = e.installedFiles().at(0);
-                if(checkNamespace(filename, nullptr)){
-                    auto* item = addTableItem(QStringLiteral("documentation"), e.name(), filename, QStringLiteral("1"));
-                    m_treeWidget->setCurrentItem(item);
-                } else {
-                    qDebug() << "namespace error";
+    for (const auto& e : list)
+    {
+        if(e.status() == KNS3::Entry::Installed && e.installedFiles().size() == 1)
+        {
+            //we're downloading a zip archive and after unpacking KSN::Entry::installedFiles()
+            //returns one single entry for the path with the wildcard standing for all file like in
+            //"$HOME/.local/share/cantor/documentation/Maxima_v5.44/*"
+            //we need to remove the wildcard and to determine the actual path for the qch.file
+
+            //determine the path for the qch file
+            QString qchPath;
+            QString path = e.installedFiles().at(0);
+            path.chop(1);
+            QDir dir(path);
+            const auto& fileInfos = dir.entryInfoList();
+            for (const auto& fileInfo : fileInfos)
+            {
+                if (fileInfo.suffix() == QLatin1String("qch"))
+                {
+                    qchPath = fileInfo.filePath();
+                    break;
                 }
             }
-        } else if(e.status() ==  KNS3::Entry::Deleted) {
+
+            //add the qch file if valid
+            if(checkNamespace(qchPath, nullptr))
+            {
+                auto* item = addTableItem(QStringLiteral("documentation"), e.name(), qchPath, QStringLiteral("1"));
+                m_treeWidget->setCurrentItem(item);
+            }
+        }
+        else if(e.status() ==  KNS3::Entry::Deleted) {
             // cmp. note above for installed files
             if (e.uninstalledFiles().size() >= 1) {
                 for(int i=0; i < m_treeWidget->topLevelItemCount(); i++) {
@@ -220,6 +240,7 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
             }
         }
     }
+
     emit settingsChanged();
 }
 
