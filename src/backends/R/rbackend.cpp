@@ -65,7 +65,7 @@ bool RBackend::requirementsFullfilled(QString* const reason) const
 
 QWidget* RBackend::settingsWidget(QWidget* parent) const
 {
-    return new RSettingsWidget(parent);
+    return new RSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* RBackend::config() const

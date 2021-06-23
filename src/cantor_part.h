@@ -74,6 +74,7 @@ Q_SIGNALS:
     void setBackendName(const QString& name);
     void requestScrollToHierarchyEntry(QString);
     void settingsChanges();
+    void requestDocumentation(const QString& keyword);
 
 public Q_SLOTS:
     void updateCaption();

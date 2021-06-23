@@ -6,6 +6,8 @@ set( ScilabBackend_SRCS
   scilabkeywords.cpp
   scilabhighlighter.cpp
   scilabcompletionobject.cpp
+  scilabsettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(ScilabBackend_SRCS settings.kcfgc)
@@ -15,7 +17,7 @@ ki18n_wrap_ui(ScilabBackend_SRCS settings.ui)
 
 add_backend(scilabbackend ${ScilabBackend_SRCS})
 
-target_link_libraries(cantor_scilabbackend
+target_link_libraries(cantor_scilabbackend cantor_help
   KF5::KIOCore
   KF5::SyntaxHighlighting
 )

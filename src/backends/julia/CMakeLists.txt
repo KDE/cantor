@@ -11,6 +11,8 @@ set(JuliaBackend_SRCS
   juliahighlighter.cpp
   juliaextensions.cpp
   juliacompletionobject.cpp
+  juliasettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(JuliaBackend_SRCS settings.kcfgc)
@@ -18,7 +20,7 @@ ki18n_wrap_ui(JuliaBackend_SRCS settings.ui)
 
 add_backend(juliabackend ${JuliaBackend_SRCS})
 
-target_link_libraries(cantor_juliabackend
+target_link_libraries(cantor_juliabackend cantor_help
   ${JULIA_LIBRARY}
   Qt5::DBus
   KF5::SyntaxHighlighting

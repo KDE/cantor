@@ -19,7 +19,6 @@
 #include "lib/panelplugin.h"
 
 class QTabWidget;
-class KTextEdit;
 class KRecentFilesAction;
 
 namespace Cantor{
@@ -71,6 +70,7 @@ Q_SIGNALS:
     void hierarhyEntryNameChange(QString, QString, int);
     void requestScrollToHierarchyEntry(QString);
     void settingsChanges();
+    void requestDocumentation(const QString&);
 
 public Q_SLOTS:
     void addWorksheet(const QString& backendName);
@@ -119,7 +119,6 @@ private:
     QTabWidget* m_tabWidget;
     QList<QDockWidget*> m_panels;
     QList<QAction*> m_newBackendActions;
-    QDockWidget* m_helpDocker;
     KRecentFilesAction* m_recentProjectsAction;
 
     Cantor::PanelPluginHandler m_panelHandler;

@@ -266,6 +266,7 @@ class Worksheet : public QGraphicsScene
     void pasteAvailable(bool);
     void cut();
     void copy();
+    void requestDocumentation(const QString&);
 
   protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;

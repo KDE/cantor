@@ -337,6 +337,11 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
     }
 
 
+    QAction* action = new QAction(QIcon::fromTheme(QLatin1String("help-hint")), i18n("Show Help"));
+    connect(action, &QAction::triggered, this, &CommandEntry::showHelp);
+    menu->addAction(action);
+    menu->addSeparator();
+
     QAction* enabledAction = new QAction(QIcon::fromTheme(QLatin1String("checkmark")), i18n("Enabled"));
     enabledAction->setCheckable(true);
     enabledAction->setChecked(m_isExecutionEnabled);
@@ -1546,6 +1551,25 @@ void CommandEntry::changeResultCollapsingAction()
 qreal CommandEntry::promptItemWidth()
 {
     return m_promptItem->width();
+}
+
+/*!
+ * called when the "Get Help" action is triggered in the context menu.
+ * requests the worksheet to show the current keyword in the documentation panel.
+ * the current keyword is either the currenly selected text or the text under
+ * the cursor if there is no selection.
+ */
+void CommandEntry::showHelp()
+{
+    QString keyword;
+    const QTextCursor& cursor = m_commandItem->textCursor();
+    if (cursor.hasSelection())
+        keyword = cursor.selectedText();
+    else
+        keyword = cursor.block().text();
+
+    if (!keyword.simplified().isEmpty())
+        emit worksheet()->requestDocumentation(keyword);
 }
 
 void CommandEntry::toggleEnabled() {

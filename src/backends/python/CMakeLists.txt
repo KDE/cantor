@@ -7,6 +7,8 @@ set( PythonBackend_SRCS
   pythonhighlighter.cpp
   pythoncompletionobject.cpp
   pythonextensions.cpp
+  pythonsettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 set(PythonServer_SRCS
@@ -21,6 +23,7 @@ kconfig_add_kcfg_files(PythonBackend_SRCS settings.kcfgc)
 add_backend(pythonbackend ${PythonBackend_SRCS} ${PythonBackend_RSCS})
 target_link_libraries(cantor_pythonbackend
   cantorlibs
+  cantor_help
   KF5::KIOCore
   KF5::ConfigCore
   KF5::ConfigGui

@@ -17,12 +17,19 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QDebug>
+#include <QtWebEngine>
 
 static const char description[] =
     I18N_NOOP("KDE Frontend to mathematical applications");
 
 int main(int argc, char **argv)
 {
+    QtWebEngine::initialize();
+    // Register custom scheme handler for qthelp:// scheme
+    QWebEngineUrlScheme qthelp("qthelp");
+    QWebEngineUrlScheme::registerScheme(qthelp);
+
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
 
     // Add our custom plugins path, where we install our plugins, if it isn't default path

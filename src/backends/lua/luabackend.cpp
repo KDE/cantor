@@ -7,8 +7,8 @@
 #include "luabackend.h"
 #include "luaextensions.h"
 #include "luasession.h"
+#include "luasettingswidget.h"
 #include "settings.h"
-#include "ui_settings.h"
 
 LuaBackend::LuaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
@@ -58,11 +58,7 @@ QString LuaBackend::description() const
 
 QWidget* LuaBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget = new QWidget(parent);
-    Ui::LuaSettingsBase s;
-    s.setupUi(widget);
-
-    return widget;
+    return new LuaSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* LuaBackend::config() const

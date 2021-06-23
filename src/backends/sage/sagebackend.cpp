@@ -7,8 +7,8 @@
 #include "sagebackend.h"
 #include "sageextensions.h"
 #include "sagesession.h"
+#include "sagesettingswidget.h"
 #include "settings.h"
-#include "ui_settings.h"
 
 SageBackend::SageBackend( QObject* parent,const QList<QVariant>& args ) : Cantor::Backend( parent,args )
 {
@@ -63,10 +63,7 @@ bool SageBackend::requirementsFullfilled(QString* const reason) const
 
 QWidget* SageBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::SageSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new SageSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* SageBackend::config() const

@@ -6,6 +6,7 @@
 #include "pythonbackend.h"
 #include "pythonsession.h"
 #include "pythonextensions.h"
+#include "pythonsettingswidget.h"
 #include "settings.h"
 #include "ui_settings.h"
 
@@ -25,10 +26,7 @@ PythonBackend::PythonBackend(QObject* parent, const QList<QVariant>& args) : Can
 
 QWidget* PythonBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::PythonSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new PythonSettingsWidget(parent, id());
 }
 
 Cantor::Session* PythonBackend::createSession()

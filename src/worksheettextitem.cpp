@@ -458,14 +458,24 @@ void WorksheetTextItem::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Tab:
         qDebug() << "Tab";
         break;
+    case Qt::Key_F2:
+        if(textCursor().hasSelection())
+        {
+            QString keyword = textCursor().selectedText();
+            emit worksheet()->requestDocumentation(keyword);
+        }
+        break;
     default:
         break;
     }
+
     int p = textCursor().position();
     bool b = textCursor().hasSelection();
     QGraphicsTextItem::keyPressEvent(event);
+
     if (p != textCursor().position())
         emit cursorPositionChanged(textCursor());
+
     if (b != textCursor().hasSelection())
         selectionChanged();
 }

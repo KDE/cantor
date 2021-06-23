@@ -1,0 +1,2 @@
+### Steps to extract the indices from `octave's official documentation` to add them to `qhp` under `keywords`
+Simply get the QtHelp files from the official Octave repository. Get the files from `octave-5.2.0/doc/interpreter/`. The files are having `.qch` and `.qhc` extention. You could also run the perl script named `mk-qthelp.pl` and pass in the arguments as `octave.html` and `help`. ie `mk-qthelp.pl octave.html help`. After runnning this script, the help files are generated.

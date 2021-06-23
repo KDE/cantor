@@ -7,8 +7,8 @@
 #include "maximabackend.h"
 #include "maximaextensions.h"
 #include "maximasession.h"
+#include "maximasettingswidget.h"
 #include "settings.h"
-#include "ui_settings.h"
 
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
@@ -76,10 +76,7 @@ QUrl MaximaBackend::helpUrl() const
 
 QWidget* MaximaBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::MaximaSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new MaximaSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* MaximaBackend::config() const

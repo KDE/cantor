@@ -7,8 +7,8 @@
 #include "octavebackend.h"
 #include "octaveextensions.h"
 #include "octavesession.h"
+#include "octavesettingswidget.h"
 #include "settings.h"
-#include "ui_settings.h"
 
 OctaveBackend::OctaveBackend(QObject* parent, const QList<QVariant>& args): Backend(parent, args)
 {
@@ -72,10 +72,7 @@ QString OctaveBackend::description() const
 
 QWidget* OctaveBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget = new QWidget(parent);
-    Ui::OctaveSettingsBase ui;
-    ui.setupUi(widget);
-    return widget;
+    return new OctaveSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* OctaveBackend::config() const

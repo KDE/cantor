@@ -1,0 +1,14 @@
+{
+    "KPlugin": {
+        "Description": "A panel to display the official documentation of various backends",
+        "Icon": "",
+        "Id": "DocumentationPanel",
+        "License": "GPL",
+        "Name": "Documentation",
+        "ServiceTypes": [
+            "Cantor/PanelPlugin"
+        ]
+    },
+    "RequiredExtensions": ""
+}
+

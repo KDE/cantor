@@ -26,7 +26,7 @@ set(cantor_SRCS
    main.cpp
    cantor.cpp
    backendchoosedialog.cpp
- )
+)
 
 install(FILES cantor.kcfg DESTINATION ${KDE_INSTALL_KCFGDIR})
 
@@ -39,13 +39,13 @@ ecm_add_app_icon(cantor_SRCS ICONS ${ICONS_SRCS})
 add_executable(cantor ${cantor_SRCS})
 
 target_link_libraries(cantor KF5::Parts KF5::NewStuff KF5::ConfigCore KF5::CoreAddons KF5::ConfigGui
-    KF5::Crash KF5::XmlGui cantorlibs cantor_config)
+    KF5::Crash KF5::XmlGui Qt5::WebEngine cantorlibs cantor_config)
 
 ########### install files ###############
 install(TARGETS cantor ${KDE_INSTALL_TARGETS_DEFAULT_ARGS} )
 install( PROGRAMS org.kde.cantor.desktop  DESTINATION  ${KDE_INSTALL_APPDIR} )
 install( FILES cantor_shell.rc  DESTINATION  ${KDE_INSTALL_KXMLGUI5DIR}/cantor )
-install( FILES cantor.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
+install( FILES cantor.knsrc cantor-documentation.knsrc DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
 install( FILES cantor.xml DESTINATION ${KDE_INSTALL_MIMEDIR} )
 update_xdg_mimetypes(${KDE_INSTALL_MIMEDIR})
 

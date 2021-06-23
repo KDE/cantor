@@ -6,8 +6,8 @@
 #include "scilabbackend.h"
 #include "scilabsession.h"
 #include "scilabextensions.h"
+#include "scilabsettingswidget.h"
 #include "settings.h"
-#include "ui_settings.h"
 
 
 ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Cantor::Backend(parent, args)
@@ -53,10 +53,7 @@ bool ScilabBackend::requirementsFullfilled(QString* const reason) const
 
 QWidget* ScilabBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget=new QWidget(parent);
-    Ui::ScilabSettingsBase s;
-    s.setupUi(widget);
-    return widget;
+    return new ScilabSettingsWidget(parent, id());
 }
 
 KConfigSkeleton* ScilabBackend::config() const

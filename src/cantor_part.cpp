@@ -137,6 +137,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_worksheet, &Worksheet::hierarhyEntryNameChange, this, &CantorPart::hierarhyEntryNameChange);
     connect(this, &CantorPart::requestScrollToHierarchyEntry, m_worksheet, &Worksheet::requestScrollToHierarchyEntry);
     connect(this, &CantorPart::settingsChanges, m_worksheet, &Worksheet::handleSettingsChanges);
+    connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::requestDocumentation);
+
     layout->addWidget(m_worksheetview);
     setWidget(widget);
 
@@ -340,10 +342,15 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
+    Cantor::Backend* const backend = Cantor::Backend::getBackend(backendName);
     m_showBackendHelp = new QAction(i18n("Show Help") , collection);
-    m_showBackendHelp->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
+    m_showBackendHelp->setIcon(QIcon::fromTheme(backend->icon()));
     collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
     connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
+
+    // Do not display "Show Backend Help" action for Maxima, since we are showing it's integrated documentation
+    if(backend->name() == QLatin1String("Maxima") || backend->name() == QLatin1String("Octave") || backend->name() == QLatin1String("Python"))
+        m_showBackendHelp->setVisible(false);
 
     // Disabled, because uploading to kde store from program don't work
     // See https://phabricator.kde.org/T9980 for details
@@ -740,7 +747,7 @@ void CantorPart::enableTypesetting(bool enable)
 
 void CantorPart::showBackendHelp()
 {
-    qDebug()<<"showing backends help";
+    qDebug()<<"Showing backend's help";
     auto* backend = m_worksheet->session()->backend();
     QUrl url = backend->helpUrl();
     qDebug()<<"launching url "<<url;

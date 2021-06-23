@@ -7,6 +7,8 @@ set(LuaBackend_SRCS
   luakeywords.cpp
   luahighlighter.cpp
   luaextensions.cpp
+  luasettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(LuaBackend_SRCS settings.kcfgc)
@@ -18,7 +20,7 @@ add_backend(luabackend ${LuaBackend_SRCS})
 
 include_directories(${LUAJIT_INCLUDE_DIR})
 
-target_link_libraries(cantor_luabackend ${LUAJIT_LIBRARY} KF5::SyntaxHighlighting)
+target_link_libraries(cantor_luabackend cantor_help ${LUAJIT_LIBRARY} KF5::SyntaxHighlighting)
 
 if(BUILD_TESTING)
   add_executable( testlua testlua.cpp)

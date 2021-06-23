@@ -6,7 +6,7 @@ function(add_panel name)
         INSTALL_NAMESPACE "cantor/panels")
 
     target_link_libraries("cantor_${name}"
-        cantorlibs)
+    cantorlibs)
 
 endfunction()
 
@@ -14,3 +14,4 @@ add_subdirectory(helppanel)
 add_subdirectory(variablemgr)
 add_subdirectory(filebrowserpanel)
 add_subdirectory(tocpanel)
+add_subdirectory(documentationpanel)

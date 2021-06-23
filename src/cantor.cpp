@@ -21,19 +21,21 @@
 #include <QApplication>
 #include <QCloseEvent>
 #include <QDebug>
-#include <QDockWidget>
 #include <QDir>
+#include <QDockWidget>
 #include <QFileDialog>
-#include <QPushButton>
-#include <QRegularExpression>
 #include <QStatusBar>
 #include <QGraphicsView>
+#include <QPushButton>
+#include <QRegularExpression>
+
 
 #include "lib/backend.h"
 #include "lib/panelpluginhandler.h"
 #include "lib/panelplugin.h"
 #include "lib/worksheetaccess.h"
 
+#include "backendchoosedialog.h"
 #include "settings.h"
 #include "ui_settings.h"
 #include "ui_formating.h"
@@ -358,6 +360,7 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(hierarhyEntryNameChange(QString, QString, int)), this, SIGNAL(hierarhyEntryNameChange(QString, QString, int)));
             connect(this, SIGNAL(requestScrollToHierarchyEntry(QString)), part, SIGNAL(requestScrollToHierarchyEntry(QString)));
             connect(this, SIGNAL(settingsChanges()), part, SIGNAL(settingsChanges()));
+            connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
 
             m_parts.append(part);
             if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait

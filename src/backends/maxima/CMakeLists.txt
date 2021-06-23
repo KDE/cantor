@@ -6,8 +6,10 @@ set( MaximaBackend_SRCS
   maximahighlighter.cpp
   maximakeywords.cpp
   maximacompletionobject.cpp
+  maximasettingswidget.cpp
   maximasyntaxhelpobject.cpp
   maximavariablemodel.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(MaximaBackend_SRCS settings.kcfgc)
@@ -17,7 +19,7 @@ ki18n_wrap_ui(MaximaBackend_SRCS settings.ui)
 
 add_backend(maximabackend ${MaximaBackend_SRCS})
 
-target_link_libraries(cantor_maximabackend KF5::SyntaxHighlighting)
+target_link_libraries(cantor_maximabackend cantor_help)
 
 if(BUILD_TESTING)
   add_executable( testmaxima testmaxima.cpp)

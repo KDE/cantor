@@ -7,6 +7,11 @@
 #define _MAXIMABACKEND_H
 
 #include "backend.h"
+#include "ui_settings.h"
+#include "ui_qthelpconfigeditdialog.h"
+
+class QDialog;
+class QTreeWidgetItem;
 
 class MaximaBackend : public Cantor::Backend
 {
@@ -27,6 +32,5 @@ class MaximaBackend : public Cantor::Backend
 
     QString description() const override;
 };
-
 
 #endif /* _MAXIMABACKEND_H */
