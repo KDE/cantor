@@ -227,15 +227,17 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
                 m_treeWidget->setCurrentItem(item);
             }
         }
-        else if(e.status() ==  KNS3::Entry::Deleted) {
-            // cmp. note above for installed files
-            if (e.uninstalledFiles().size() >= 1) {
-                for(int i=0; i < m_treeWidget->topLevelItemCount(); i++) {
-                    const auto* item = m_treeWidget->topLevelItem(i);
-                    if (e.uninstalledFiles().at(0) == item->text(PathColumn)) {
-                        delete item;
-                        break;
-                    }
+        else if(e.status() ==  KNS3::Entry::Deleted && e.uninstalledFiles().size() > 0) {
+            //determine the path for the qch file
+            QString path = e.uninstalledFiles().at(0);
+            path.chop(1);//remove '*' at the end
+
+            //delete the corresponding item in the table
+            for(int i=0; i < m_treeWidget->topLevelItemCount(); i++) {
+                const auto* item = m_treeWidget->topLevelItem(i);
+                if (item->text(PathColumn).startsWith(path)) {
+                    delete item;
+                    break;
                 }
             }
         }
