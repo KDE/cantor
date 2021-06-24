@@ -415,7 +415,7 @@ void DocumentationPanelWidget::downloadResource(QWebEngineDownloadItem* resource
     m_webEngineView->page()->download(resource->url());
     resource->accept();
 
-    KMessageBox::information(this, i18n("The file has been downloaded successfully at Downloads."), i18n("Download Successfull"));
+    KMessageBox::information(this, i18n("The file has been downloaded successfully at Downloads."), i18n("Download Successful"));
 
     disconnect(m_webEngineView->page()->profile(), &QWebEngineProfile::downloadRequested, this, &DocumentationPanelWidget::downloadResource);
 }
