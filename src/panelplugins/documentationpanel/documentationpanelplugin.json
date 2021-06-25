@@ -1,10 +1,18 @@
 {
     "KPlugin": {
         "Description": "A panel to display the official documentation of various backends",
+        "Description[ca]": "Un plafó per a mostrar la documentació oficial de diversos dorsals.",
+        "Description[es]": "Un panel para mostrar la documentación oficial de diversos motores",
+        "Description[uk]": "Панель для показу офіційної документації до різних модулів обробки",
+        "Description[x-test]": "xxA panel to display the official documentation of various backendsxx",
         "Icon": "",
         "Id": "DocumentationPanel",
         "License": "GPL",
         "Name": "Documentation",
+        "Name[ca]": "Documentació",
+        "Name[es]": "Documentación",
+        "Name[uk]": "Документація",
+        "Name[x-test]": "xxDocumentationxx",
         "ServiceTypes": [
             "Cantor/PanelPlugin"
         ]

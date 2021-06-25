@@ -1,5 +1,9 @@
 [KNewStuff3]
 Name=Documentation
+Name[ca]=Documentació
+Name[es]=Documentación
+Name[uk]=Документація
+Name[x-test]=xxDocumentationxx
 ProvidersUrl=https://autoconfig.kde.org/ocs/providers.xml
 Categories=Cantor Documentation (Maxima),Cantor Documentation (Sage),Cantor Documentation (KAlgebra),Cantor Documentation (Qalculate),Cantor Documentation (Python),Cantor Documentation (Scilab),Cantor Documentation (Octave),Cantor Documentation (R),Cantor Documentation (Lua),Cantor Documentation (Julia)
 TargetDir=cantor/documentation
