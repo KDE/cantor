@@ -57,7 +57,7 @@ set(PATH_TO_TEST_NOTEBOOKS ${CMAKE_CURRENT_BINARY_DIR}/data)
 configure_file (config-cantor-test.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config-cantor-test.h )
 
 add_executable( testworksheet ${worksheettest_SRCS})
-add_test(NAME testworksheet COMMAND testworksheet)
+#add_test(NAME testworksheet COMMAND testworksheet)
 target_link_libraries( testworksheet
     cantorlibs
     cantor_config
