@@ -73,7 +73,7 @@ void TestOctave::testVariableDefinition()
 
     QVERIFY(e != nullptr);
     QVERIFY(e->result() != nullptr);
-    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("testvar =  1"));
+    QCOMPARE(cleanOutput(e->result()->data().toString()), QLatin1String("testvar = 1"));
 }
 
 void TestOctave::testMatrixDefinition()
@@ -200,7 +200,7 @@ void TestOctave::testVariablesCreatingFromCode()
     QCOMPARE(2, model->rowCount());
 
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("a"));
-    QCOMPARE(model->index(0,1).data().toString(), QLatin1String(" 15"));
+    QCOMPARE(model->index(0,1).data().toString(), QLatin1String("15"));
 
     QCOMPARE(model->index(1,0).data().toString(), QLatin1String("b"));
     QCOMPARE(model->index(1,1).data().toString(), QLatin1String("S"));
@@ -221,16 +221,18 @@ void TestOctave::testVariableCreatingFromCodeWithPlot()
         "title (\"Simple 2-D Plot\");\n"
     ));
     QVERIFY(e!=nullptr);
-    QCOMPARE(e->status(), Cantor::Expression::Done);
-    QVERIFY(e->result());
-    int plotType = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps") ? (int)Cantor::EpsResult::Type : (int)Cantor::ImageResult::Type);
-    QVERIFY(e->result()->type() == plotType);
 
     if(session()->status()==Cantor::Session::Running)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
-    QCOMPARE(1, model->rowCount());
+    QCOMPARE(e->status(), Cantor::Expression::Done);
+    QVERIFY(e->result() != nullptr);
 
+    bool eps = (OctaveExpression::plotExtensions[OctaveSettings::inlinePlotFormat()] == QLatin1String("eps"));
+    int plotType = eps ? (int)Cantor::EpsResult::Type : (int)Cantor::ImageResult::Type;
+    QVERIFY(e->result()->type() == plotType);
+
+    QCOMPARE(1, model->rowCount());
     QCOMPARE(model->index(0,0).data().toString(), QLatin1String("x"));
 }
 
