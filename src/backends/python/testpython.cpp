@@ -103,9 +103,7 @@ void TestPython3::testCompletion()
     waitForSignal(help, SIGNAL(fetchingDone()));
 
     // Checks all completions for this request
-    // This correct for Python 3.6.7
     const QStringList& completions = help->completions();
-    qDebug() << completions;
     QCOMPARE(completions.size(), 4);
     QVERIFY(completions.contains(QLatin1String("pass")));
     QVERIFY(completions.contains(QLatin1String("pow")));
@@ -310,7 +308,6 @@ void TestPython3::testInterrupt()
     QCOMPARE(e2->status(), Cantor::Expression::Interrupted);
 
     Cantor::Expression* e = evalExp(QLatin1String("2+2"));
-    qDebug() << e->status() << session()->status();
 
     QVERIFY(e != nullptr);
     QCOMPARE(e->status(), Cantor::Expression::Done);
@@ -323,6 +320,10 @@ void TestPython3::testWarning()
     Cantor::Expression* e = evalExp(QLatin1String("import warnings; warnings.warn('Test')"));
 
     QVERIFY(e != nullptr);
+
+    while(session()->status() != Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
     QCOMPARE(e->status(), Cantor::Expression::Status::Done);
     QCOMPARE(e->results().size(), 1);
 }

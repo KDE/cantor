@@ -248,6 +248,8 @@ void TestMaxima::testHelpRequest()
 
     //help result will be shown, but maxima still expects further input
     waitForSignal(e, SIGNAL(needsAdditionalInformation(QString)));
+    if (e->status() == Cantor::Expression::Computing)
+        waitForSignal(e, SIGNAL(statusChanged(Cantor::Expression::Status)));
     QVERIFY(e->status() != Cantor::Expression::Done);
 
     //ask for help for the first flag of the print command
