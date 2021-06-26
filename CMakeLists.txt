@@ -28,7 +28,6 @@ find_package(Qt5 5.8.0 CONFIG REQUIRED
     XmlPatterns
     Test
     Help
-    WebKitWidgets
     WebEngine
     WebEngineWidgets)
 
