@@ -92,7 +92,7 @@ QtHelpConfig::QtHelpConfig(const QString& backend) : QWidget(), m_backend(backen
     m_treeWidget->model()->setHeaderData(ConfigColumn, Qt::Horizontal, QVariant());
     m_treeWidget->header()->setSectionsMovable(false);
     m_treeWidget->header()->setStretchLastSection(false);
-    m_treeWidget->header()->setSectionResizeMode(NameColumn, QHeaderView::Stretch);
+    m_treeWidget->header()->setSectionResizeMode(NameColumn, QHeaderView::ResizeToContents);
     m_treeWidget->header()->setSectionResizeMode(PathColumn, QHeaderView::Stretch);
     m_treeWidget->header()->setSectionResizeMode(ConfigColumn, QHeaderView::Fixed);
 
@@ -136,8 +136,11 @@ void QtHelpConfig::modify(QTreeWidgetItem* item)
 
     if (item->text(GhnsColumn) != QLatin1String("0"))
     {
-        dialog->qchRequester->setText(i18n("Documentation provided by GHNS"));
-        dialog->qchRequester->setEnabled(false);
+        dialog->qchRequester->hide();
+        dialog->lPath->hide();
+        //resize the dialog to fit the content after the widgets were hidden
+        dialog->layout()->activate();
+        dialog->resize( QSize(dialog->width(), 0).expandedTo(dialog->minimumSize()) );
     }
     else
     {
@@ -207,6 +210,7 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
 
             //determine the path for the qch file
             QString qchPath;
+            QString iconPath = QStringLiteral("documentation");
             QString path = e.installedFiles().at(0);
             path.chop(1);
             QDir dir(path);
@@ -214,16 +218,16 @@ void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
             for (const auto& fileInfo : fileInfos)
             {
                 if (fileInfo.suffix() == QLatin1String("qch"))
-                {
                     qchPath = fileInfo.filePath();
-                    break;
-                }
+
+                if (fileInfo.suffix() == QLatin1String("svg"))
+                    iconPath = fileInfo.filePath();
             }
 
             //add the qch file if valid
             if(checkNamespace(qchPath, nullptr))
             {
-                auto* item = addTableItem(QStringLiteral("documentation"), e.name(), qchPath, QStringLiteral("1"));
+                auto* item = addTableItem(iconPath, e.name(), qchPath, QStringLiteral("1"));
                 m_treeWidget->setCurrentItem(item);
             }
         }

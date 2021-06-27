@@ -138,7 +138,6 @@ bool TextEntry::focusEntry(int pos, qreal xCoord)
     return true;
 }
 
-
 void TextEntry::setContent(const QString& content)
 {
     m_textItem->setPlainText(content);
@@ -254,7 +253,6 @@ QJsonValue TextEntry::toJupyterJson()
 
         // Replace our $$ formulas to $
         entryData.replace(QLatin1String("$$"), QLatin1String("$"));
-
     }
     else
     {
@@ -499,7 +497,6 @@ bool TextEntry::isConvertableToTextEntry(const QJsonObject& cell)
 
     return textContent == source;
 }
-
 
 void TextEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
 {

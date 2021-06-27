@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2017-2019 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2017-2021 Alexander Semke <alexander.semke@web.de>
     SPDX-FileCopyrightText: 2019 Sirgienko Nikita <warquark@gmail.com>
 */
 
@@ -14,8 +14,6 @@
 #include "lib/assistant.h"
 #include "lib/backend.h"
 #include "lib/extension.h"
-#include "lib/panelpluginhandler.h"
-#include "lib/panelplugin.h"
 #include "lib/worksheetaccess.h"
 #include "scripteditor/scripteditorwidget.h"
 #include "searchbar.h"

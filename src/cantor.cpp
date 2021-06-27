@@ -144,7 +144,7 @@ void CantorShell::setupActions()
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
 
-    QAction* downloadExamples = new QAction(i18n("Download Example Worksheets"), actionCollection());
+    QAction* downloadExamples = new QAction(i18n("Download Examples"), actionCollection());
     downloadExamples->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
     actionCollection()->addAction(QLatin1String("file_example_download"),  downloadExamples);
     connect(downloadExamples, &QAction::triggered, this,  &CantorShell::downloadExamples);
@@ -706,6 +706,7 @@ void CantorShell::initPanels()
         QDockWidget* docker = new QDockWidget(plugin->name(), this);
         docker->setObjectName(plugin->name());
         docker->setWidget(plugin->widget());
+        docker->setWindowIcon(QIcon::fromTheme(QStringLiteral("format-text-bold")));
         addDockWidget(Qt::RightDockWidgetArea, docker);
 
         docker->hide();
@@ -826,9 +827,6 @@ void CantorShell::updateNewSubmenu()
 Cantor::WorksheetAccessInterface* CantorShell::currentWorksheetAccessInterface()
 {
     auto* wa = m_part->findChild<Cantor::WorksheetAccessInterface*>(Cantor::WorksheetAccessInterface::Name);
-    if (!wa)
-        qDebug()<<"failed to access worksheet access interface for current part";
-
     return wa;
 }
 

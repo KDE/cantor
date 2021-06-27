@@ -47,11 +47,17 @@
        </item>
        <item row="1" column="1">
         <widget class="QCheckBox" name="kcfg_integratePlots">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="toolTip">
           <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
          </property>
          <property name="text">
-          <string>Integrate Plots in Worksheet</string>
+          <string>Enabled</string>
          </property>
         </widget>
        </item>
@@ -68,7 +74,7 @@
           <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
          </property>
          <property name="text">
-          <string>Enable Variable Management</string>
+          <string>Enabled</string>
          </property>
         </widget>
        </item>
