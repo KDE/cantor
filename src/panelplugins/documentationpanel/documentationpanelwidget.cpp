@@ -306,12 +306,13 @@ void DocumentationPanelWidget::updateDocumentation()
     if (index < m_docPaths.size())
         m_currentQchFileName = m_docPaths.at(index);
 
-    const QString& qhcFileName = m_currentQchFileName.replace(QLatin1String("qch"), QLatin1String("qhc"));
+    QString qhcFileName = m_currentQchFileName;
+    qhcFileName.replace(QLatin1String("qch"), QLatin1String("qhc"));
     m_engine = new QHelpEngine(qhcFileName, this);
     /*if(!m_engine->setupData())
          qWarning() << "Couldn't setup QtHelp Engine: " << m_engine->error();*/
 
-    if(m_backend != QLatin1String("octave"))
+//     if(m_backend != QLatin1String("octave"))
       m_engine->setProperty("_q_readonly", QVariant::fromValue<bool>(true));
 
     //index widget
