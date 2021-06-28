@@ -6,6 +6,7 @@
         "Description[fr]": "Un panneau pour afficher la documentation officielle des différents moteurs.",
         "Description[nl]": "Een paneel voor de officiële documentatie van diverse backends",
         "Description[pt]": "Um painel para mostrar a documentação oficial das várias infra-estruturas",
+        "Description[sv]": "En panel för att visa den officiella dokumentationen av diverse bakgrundsprogram",
         "Description[uk]": "Панель для показу офіційної документації до різних модулів обробки",
         "Description[x-test]": "xxA panel to display the official documentation of various backendsxx",
         "Icon": "",
@@ -17,6 +18,7 @@
         "Name[fr]": "Documentation",
         "Name[nl]": "Documentatie",
         "Name[pt]": "Documentação",
+        "Name[sv]": "Dokumentation",
         "Name[uk]": "Документація",
         "Name[x-test]": "xxDocumentationxx",
         "ServiceTypes": [
