@@ -2,7 +2,6 @@ function(add_assistant name)
 
     kcoreaddons_add_plugin("cantor_${name}"
         SOURCES ${ARGN}
-        JSON "${name}.json"
         INSTALL_NAMESPACE "cantor/assistants")
 
     target_link_libraries("cantor_${name}"
