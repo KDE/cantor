@@ -23,7 +23,7 @@
 #include <KStandardAction>
 #include <KLocalizedString>
 
-TextResultItem::TextResultItem(QGraphicsObject* parent, Cantor::Result* result)
+TextResultItem::TextResultItem(WorksheetEntry* parent, Cantor::Result* result)
     : WorksheetTextItem(parent), ResultItem(result)
 {
     connect(this, SIGNAL(collapseActionSizeChanged()), parent, SLOT(recalculateSize()));

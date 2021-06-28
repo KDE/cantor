@@ -12,6 +12,7 @@
 
 #include <QApplication>
 #include <QClipboard>
+#include <QDebug>
 #include <QMimeData>
 #include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
@@ -20,28 +21,22 @@
 #include <QTextLine>
 #include <QGraphicsSceneResizeEvent>
 #include <QPainter>
-#include <QtGlobal>
 
-#include <QDebug>
 #include <KStandardAction>
 #include <QAction>
 #include <QColorDialog>
 #include <KColorScheme>
 #include <QFontDatabase>
 
-WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractionFlags ti)
+WorksheetTextItem::WorksheetTextItem(WorksheetEntry* parent, Qt::TextInteractionFlags ti)
     : QGraphicsTextItem(parent)
 {
     setTextInteractionFlags(ti);
     if (ti & Qt::TextEditable) {
         setCursor(Qt::IBeamCursor);
-        connect(this, SIGNAL(sizeChanged()), parent,
-                SLOT(recalculateSize()));
+        connect(this, &WorksheetTextItem::sizeChanged, parent, &WorksheetEntry::recalculateSize);
     }
-    m_completionEnabled = false;
-    m_completionActive = false;
-    m_itemDragable = false;
-    m_richTextEnabled = false;
+
     m_size = document()->size();;
     setAcceptDrops(true);
     setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
@@ -53,15 +48,12 @@ WorksheetTextItem::WorksheetTextItem(QGraphicsObject* parent, Qt::TextInteractio
             QApplication::restoreOverrideCursor();
     });
 
-    connect(document(), SIGNAL(contentsChanged()), this, SLOT(testSize()));
-    connect(this, SIGNAL(menuCreated(QMenu*,QPointF)), parent,
-            SLOT(populateMenu(QMenu*,QPointF)), Qt::DirectConnection);
-    connect(this, SIGNAL(deleteEntry()), parent, SLOT(startRemoving()));
+    connect(document(), &QTextDocument::contentsChanged, this, &WorksheetTextItem::testSize);
+    connect(document(), &QTextDocument::undoAvailable, this, &WorksheetTextItem::undoAvailable);
+    connect(document(), &QTextDocument::redoAvailable, this, &WorksheetTextItem::redoAvailable);
+    connect(this, &WorksheetTextItem::menuCreated, parent, &WorksheetEntry::populateMenu, Qt::DirectConnection);
+    connect(this, &WorksheetTextItem::deleteEntry, parent, &WorksheetEntry::startRemoving);
     connect(this, &WorksheetTextItem::cursorPositionChanged, this, &WorksheetTextItem::updateRichTextActions);
-    connect(document(), SIGNAL(undoAvailable(bool)),
-            this, SIGNAL(undoAvailable(bool)));
-    connect(document(), SIGNAL(redoAvailable(bool)),
-            this, SIGNAL(redoAvailable(bool)));
 }
 
 WorksheetTextItem::~WorksheetTextItem()
@@ -124,10 +116,9 @@ qreal WorksheetTextItem::setGeometry(qreal x, qreal y, qreal w, bool centered)
 
 void WorksheetTextItem::populateMenu(QMenu* menu, QPointF pos)
 {
-    qDebug() << "populate Menu";
-    QAction * cut = KStandardAction::cut(this, SLOT(cut()), menu);
-    QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
-    QAction * paste = KStandardAction::paste(this, SLOT(paste()), menu);
+    auto* cut = KStandardAction::cut(this, &WorksheetTextItem::cut, menu);
+    auto* copy = KStandardAction::copy(this, &WorksheetTextItem::copy, menu);
+    auto* paste = KStandardAction::paste(this, &WorksheetTextItem::paste, menu);
     if (!textCursor().hasSelection()) {
         cut->setEnabled(false);
         copy->setEnabled(false);
@@ -157,7 +148,7 @@ void WorksheetTextItem::populateMenu(QMenu* menu, QPointF pos)
 QKeyEvent* WorksheetTextItem::eventForStandardAction(KStandardAction::StandardAction actionID)
 {
     // there must be a better way to get the shortcut...
-    QAction * action = KStandardAction::create(actionID, this, SLOT(copy()), this);
+    auto* action = KStandardAction::create(actionID, this, &WorksheetTextItem::copy, this);
     QKeySequence keySeq = action->shortcut();
     // we do not support key sequences with multiple keys here
     int code = keySeq[0];
@@ -262,7 +253,7 @@ QString WorksheetTextItem::resolveImages(const QTextCursor& cursor)
     return result;
 }
 
-void WorksheetTextItem::setCursorPosition(const QPointF& pos)
+void WorksheetTextItem::setCursorPosition(QPointF pos)
 {
     QTextCursor cursor = cursorForPosition(pos);
     setTextCursor(cursor);
@@ -275,7 +266,7 @@ QPointF WorksheetTextItem::cursorPosition() const
     return mapToParent(localCursorPosition());
 }
 
-void WorksheetTextItem::setLocalCursorPosition(const QPointF& pos)
+void WorksheetTextItem::setLocalCursorPosition(QPointF pos)
 {
     int p = document()->documentLayout()->hitTest(pos, Qt::FuzzyHit);
     QTextCursor cursor = textCursor();
@@ -330,7 +321,7 @@ QRectF WorksheetTextItem::cursorRect(QTextCursor cursor) const
                       qMax(r1.y() + r1.height(), r2.y() + r2.height()));
 }
 
-QTextCursor WorksheetTextItem::cursorForPosition(const QPointF& pos) const
+QTextCursor WorksheetTextItem::cursorForPosition(QPointF pos) const
 {
     QPointF lpos = mapFromParent(pos);
     int p = document()->documentLayout()->hitTest(lpos, Qt::FuzzyHit);
@@ -519,8 +510,8 @@ void WorksheetTextItem::focusInEvent(QFocusEvent *event)
     if (event->reason() != Qt::ActiveWindowFocusReason)
         worksheet()->makeVisible(c);
     worksheet()->updateFocusedTextItem(this);
-    connect(QApplication::clipboard(), SIGNAL(dataChanged()), this,
-            SLOT(clipboardChanged()));
+    connect(QApplication::clipboard(), &QClipboard::dataChanged, this,
+            &WorksheetTextItem::clipboardChanged);
     emit receivedFocus(this);
     emit cursorPositionChanged(textCursor());
 }
@@ -671,6 +662,7 @@ void WorksheetTextItem::wheelEvent(QGraphicsSceneWheelEvent* event)
     QApplication::restoreOverrideCursor();
     QGraphicsItem::wheelEvent(event);
 }
+
 void WorksheetTextItem::insertTab()
 {
     QTextCursor cursor = textCursor();
@@ -816,7 +808,6 @@ void WorksheetTextItem::updateRichTextActions(QTextCursor cursor)
 
 void WorksheetTextItem::mergeFormatOnWordOrSelection(const QTextCharFormat &format)
 {
-    qDebug() << format;
     QTextCursor cursor = textCursor();
     QTextCursor wordStart(cursor);
     QTextCursor wordEnd(cursor);
@@ -897,7 +888,6 @@ void WorksheetTextItem::setAlignment(Qt::Alignment a)
     cursor.mergeBlockFormat(fmt);
     setTextCursor(cursor);
 }
-
 
 void WorksheetTextItem::setFontFamily(const QString& font)
 {

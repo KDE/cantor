@@ -15,6 +15,7 @@
 #include <KStandardAction>
 
 class Worksheet;
+class WorksheetEntry;
 class WorksheetView;
 class WorksheetCursor;
 
@@ -30,13 +31,13 @@ class WorksheetTextItem : public QGraphicsTextItem
   public:
     enum DoubleClickEventBehaviour {Simple, ImageReplacement};
 
-    explicit WorksheetTextItem(QGraphicsObject* parent,
+    explicit WorksheetTextItem(WorksheetEntry* parent,
                       Qt::TextInteractionFlags ti = Qt::NoTextInteraction);
     ~WorksheetTextItem() override;
 
-    void setCursorPosition(const QPointF& pos);
+    void setCursorPosition(QPointF);
     QPointF cursorPosition() const;
-    QTextCursor cursorForPosition(const QPointF& pos) const;
+    QTextCursor cursorForPosition(QPointF) const;
     QRectF sceneCursorRect(QTextCursor cursor = QTextCursor()) const;
     QRectF cursorRect(QTextCursor cursor = QTextCursor()) const;
 
@@ -52,8 +53,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     void setItemDragable(bool b);
     void enableRichText(bool b);
 
-    virtual void populateMenu(QMenu* menu, QPointF pos);
-    QString resolveImages(const QTextCursor& cursor);
+    virtual void populateMenu(QMenu*, QPointF);
+    QString resolveImages(const QTextCursor&);
 
     bool isEditable();
     void allowEditing();
@@ -76,23 +77,23 @@ class WorksheetTextItem : public QGraphicsTextItem
     bool isCopyAvailable();
     bool isPasteAvailable();
 
-    // richtext stuff
+    // richtext
     void setTextForegroundColor();
     void setTextBackgroundColor();
-    void setTextBold(bool b);
-    void setTextItalic(bool b);
-    void setTextUnderline(bool b);
-    void setTextStrikeOut(bool b);
-    void setAlignment(Qt::Alignment a);
-    void setFontFamily(const QString& font);
-    void setFontSize(int size);
+    void setTextBold(bool);
+    void setTextItalic(bool);
+    void setTextUnderline(bool);
+    void setTextStrikeOut(bool);
+    void setAlignment(Qt::Alignment);
+    void setFontFamily(const QString&);
+    void setFontSize(int);
 
     QTextCursor search(QString pattern,
                        QTextDocument::FindFlags qt_flags,
                        const WorksheetCursor& pos);
 
     DoubleClickEventBehaviour doubleClickBehaviour();
-    void setDoubleClickBehaviour(DoubleClickEventBehaviour behaviour);
+    void setDoubleClickBehaviour(DoubleClickEventBehaviour);
 
   Q_SIGNALS:
     void moveToPrevious(int pos, qreal xCoord);
@@ -106,8 +107,8 @@ class WorksheetTextItem : public QGraphicsTextItem
     void execute();
     void deleteEntry();
     void sizeChanged();
-    void menuCreated(QMenu*, const QPointF&);
-    void drag(const QPointF&, const QPointF&);
+    void menuCreated(QMenu*, QPointF);
+    void drag(const QPointF&, QPointF);
     void undoAvailable(bool);
     void redoAvailable(bool);
     void cutAvailable(bool);
@@ -126,42 +127,42 @@ class WorksheetTextItem : public QGraphicsTextItem
     void testSize();
 
   protected:
-    void keyPressEvent(QKeyEvent *event) override;
-    void focusInEvent(QFocusEvent *event) override;
-    void focusOutEvent(QFocusEvent *event) override;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override;
-    void contextMenuEvent(QGraphicsSceneContextMenuEvent *event) override;
-    void dragEnterEvent(QGraphicsSceneDragDropEvent* event) override;
-    //void dragLeaveEvent(QGraphicsSceneDragDropEvent* event);
-    void dragMoveEvent(QGraphicsSceneDragDropEvent* event) override;
-    void dropEvent(QGraphicsSceneDragDropEvent* event) override;
-    bool sceneEvent(QEvent *event) override;
+    void keyPressEvent(QKeyEvent*) override;
+    void focusInEvent(QFocusEvent*) override;
+    void focusOutEvent(QFocusEvent*) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent*) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*) override;
+    void mouseMoveEvent(QGraphicsSceneMouseEvent*) override;
+    void contextMenuEvent(QGraphicsSceneContextMenuEvent*) override;
+    void dragEnterEvent(QGraphicsSceneDragDropEvent*) override;
+    //void dragLeaveEvent(QGraphicsSceneDragDropEvent*);
+    void dragMoveEvent(QGraphicsSceneDragDropEvent*) override;
+    void dropEvent(QGraphicsSceneDragDropEvent*) override;
+    bool sceneEvent(QEvent*) override;
     void wheelEvent(QGraphicsSceneWheelEvent*) override;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* o, QWidget* w) override;
+    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*) override;
 
   private Q_SLOTS:
     //void setHeight();
     void updateRichTextActions(QTextCursor cursor);
 
   private:
-    void setLocalCursorPosition(const QPointF& pos);
+    void setLocalCursorPosition(QPointF);
     QPointF localCursorPosition() const;
 
-    QKeyEvent* eventForStandardAction(KStandardAction::StandardAction actionID);
+    QKeyEvent* eventForStandardAction(KStandardAction::StandardAction);
     Cantor::Session* session();
 
     // richtext
-    void mergeFormatOnWordOrSelection(const QTextCharFormat &format);
+    void mergeFormatOnWordOrSelection(const QTextCharFormat&);
 
   private:
     QSizeF m_size;
-    bool m_completionEnabled;
-    bool m_completionActive;
-    bool m_itemDragable;
-    bool m_richTextEnabled;
+    bool m_completionEnabled{false};
+    bool m_completionActive{false};
+    bool m_itemDragable{false};
+    bool m_richTextEnabled{false};
     QColor m_backgroundColor;
     DoubleClickEventBehaviour m_eventBehaviour{DoubleClickEventBehaviour::ImageReplacement};
 };

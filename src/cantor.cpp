@@ -42,7 +42,7 @@
 #include "backendchoosedialog.h"
 #include <QMetaObject>
 
-CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr), m_panelHandler(nullptr)
+CantorShell::CantorShell() : KParts::MainWindow(), m_tabWidget(new QTabWidget(this))
 {
     // set the shell's ui resource file
     setXMLFile(QLatin1String("cantor_shell.rc"));
@@ -52,7 +52,6 @@ CantorShell::CantorShell() : KParts::MainWindow(), m_part(nullptr), m_panelHandl
 
     createGUI(nullptr);
 
-    m_tabWidget=new QTabWidget(this);
     m_tabWidget->setTabsClosable(true);
     m_tabWidget->setMovable(true);
     m_tabWidget->setDocumentMode(true);
@@ -856,7 +855,6 @@ void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
 {
     if (m_parts2Backends.contains(part))
     {
-
         QStringList visiblePanelNames;
         if (part == m_part)
         {
@@ -895,7 +893,5 @@ void CantorShell::updateBackendForPart(const QString& backend)
 void CantorShell::pluginCommandRunRequested(const QString& cmd)
 {
     if (m_part)
-    {
         QMetaObject::invokeMethod(m_part, "runCommand", Qt::QueuedConnection, Q_ARG(QString, cmd));
-    }
 }

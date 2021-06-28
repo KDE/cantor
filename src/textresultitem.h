@@ -8,25 +8,26 @@
 
 #include "resultitem.h"
 #include "worksheettextitem.h"
-#include "worksheetentry.h"
 
-#include "lib/latexresult.h"
+namespace Cantor {
+    class LatexResult;
+}
 
 class TextResultItem : public WorksheetTextItem, public ResultItem
 {
   Q_OBJECT
   public:
-    explicit TextResultItem(QGraphicsObject* parent, Cantor::Result* result);
+    explicit TextResultItem(WorksheetEntry*, Cantor::Result*);
     ~TextResultItem() override = default;
 
     using WorksheetTextItem::setGeometry;
     double setGeometry(double x, double y, double w) override;
-    void populateMenu(QMenu* menu, QPointF pos) override;
+    void populateMenu(QMenu*, QPointF) override;
 
     void update() override;
 
-    void setLatex(Cantor::LatexResult* result);
-    QTextImageFormat toFormat(const QImage& image, const QString& latex);
+    void setLatex(Cantor::LatexResult*);
+    QTextImageFormat toFormat(const QImage&, const QString& latex);
 
     double width() const override;
     double height() const override;
@@ -44,7 +45,7 @@ class TextResultItem : public WorksheetTextItem, public ResultItem
     void saveResult();
 
   protected:
-    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*) override;
     int visibleLineCount();
     void collapseExtraLines();
 
