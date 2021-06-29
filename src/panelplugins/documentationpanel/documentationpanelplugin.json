@@ -1,7 +1,10 @@
 {
     "KPlugin": {
         "Description": "A panel to display the official documentation of various backends",
+        "Description[ca@valencia]": "Un plafó per a mostrar la documentació oficial de diversos dorsals.",
         "Description[ca]": "Un plafó per a mostrar la documentació oficial de diversos dorsals.",
+        "Description[de]": "Eine Leiste zur Anzeige der offiziellen Dokumentation für verschiedene Module",
+        "Description[el]": "Ένας πίνακας για την εμφάνιση της επίσημης τεκμηρίωσης διαφόρων συστημάτων υποστήριξης",
         "Description[es]": "Un panel para mostrar la documentación oficial de diversos motores",
         "Description[fr]": "Un panneau pour afficher la documentation officielle des différents moteurs.",
         "Description[nl]": "Een paneel voor de officiële documentatie van diverse backends",
@@ -13,7 +16,10 @@
         "Id": "DocumentationPanel",
         "License": "GPL",
         "Name": "Documentation",
+        "Name[ca@valencia]": "Documentació",
         "Name[ca]": "Documentació",
+        "Name[de]": "Dokumentation",
+        "Name[el]": "Τεκμηρίωση",
         "Name[es]": "Documentación",
         "Name[fr]": "Documentation",
         "Name[nl]": "Documentatie",
