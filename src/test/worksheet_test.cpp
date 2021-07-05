@@ -49,7 +49,7 @@ Worksheet* WorksheetTest::loadWorksheet(const QString& name)
     new WorksheetView(w, nullptr);
     w->load(dataPath + name);
     KActionCollection* collection = new KActionCollection(nullptr, QString());
-    w->createActions(collection);
+    w->setActionCollection(collection);
     return w;
 }
 

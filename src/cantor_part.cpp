@@ -147,7 +147,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     //initialize actions
     auto* collection = actionCollection();
     connect(collection, &KActionCollection::inserted, m_worksheet, &Worksheet::registerShortcut);
-    m_worksheet->createActions(collection);
+    m_worksheet->setActionCollection(collection);
 
     KStandardAction::saveAs(this, SLOT(fileSaveAs()), collection);
     m_save = KStandardAction::save(this, SLOT(save()), collection);
@@ -833,7 +833,6 @@ void CantorPart::runAssistant()
 {
     Cantor::Assistant* a = qobject_cast<Cantor::Assistant*>(sender());
     QStringList cmds = a->run(widget());
-    qDebug()<<cmds;
     if(!cmds.isEmpty())
         runCommand(cmds.join(QLatin1String("\n")));
 }
@@ -961,15 +960,12 @@ void CantorPart::showScriptEditor(bool show)
     if(show)
     {
         if (m_scriptEditor)
-        {
             return;
-        }
 
         auto* scriptE = dynamic_cast<Cantor::ScriptExtension*>(m_worksheet->session()->backend()->extension(QLatin1String("ScriptExtension")));
         if (!scriptE)
-        {
             return;
-        }
+
         m_scriptEditor = new ScriptEditorWidget(scriptE->scriptFileFilter(), scriptE->highlightingMode(), widget()->window());
         connect(m_scriptEditor, &ScriptEditorWidget::runScript, this, &CantorPart::runScript);
         connect(m_scriptEditor, &ScriptEditorWidget::destroyed, this, &CantorPart::scriptEditorClosed);
@@ -1034,7 +1030,6 @@ void CantorPart::showImportantStatusMessage(const QString& message)
 void CantorPart::zoomValueEdited(const QString& text)
 {
     static const QRegularExpression zoomRegexp(QLatin1String("(?:(\\d+)%|(\\d+))"));
-
     QRegularExpressionMatch match = zoomRegexp.match(text);
     if (match.hasMatch())
     {
@@ -1058,7 +1053,6 @@ void CantorPart::updateZoomWidgetValue(double zoom)
         m_zoom->setCurrentAction(m_currectZoomAction);
     }
 }
-
 
 K_PLUGIN_FACTORY_WITH_JSON(CantorPartFactory, "cantor_part.json", registerPlugin<CantorPart>();)
 #include "cantor_part.moc"

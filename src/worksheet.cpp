@@ -496,23 +496,23 @@ WorksheetEntry* Worksheet::lastEntry()
 void Worksheet::setFirstEntry(WorksheetEntry* entry)
 {
     if (m_firstEntry)
-        disconnect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
-                   this, SLOT(invalidateFirstEntry()));
+        disconnect(m_firstEntry, &WorksheetEntry::aboutToBeDeleted,
+                   this, &Worksheet::invalidateFirstEntry);
     m_firstEntry = entry;
     if (m_firstEntry)
-        connect(m_firstEntry, SIGNAL(aboutToBeDeleted()),
-                this, SLOT(invalidateFirstEntry()), Qt::DirectConnection);
+        connect(m_firstEntry, &WorksheetEntry::aboutToBeDeleted,
+                this, &Worksheet::invalidateFirstEntry, Qt::DirectConnection);
 }
 
 void Worksheet::setLastEntry(WorksheetEntry* entry)
 {
     if (m_lastEntry)
-        disconnect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
-                   this, SLOT(invalidateLastEntry()));
+        disconnect(m_lastEntry, &WorksheetEntry::aboutToBeDeleted,
+                   this, &Worksheet::invalidateLastEntry);
     m_lastEntry = entry;
     if (m_lastEntry)
-        connect(m_lastEntry, SIGNAL(aboutToBeDeleted()),
-                this, SLOT(invalidateLastEntry()), Qt::DirectConnection);
+        connect(m_lastEntry, &WorksheetEntry::aboutToBeDeleted,
+                this, &Worksheet::invalidateLastEntry, Qt::DirectConnection);
 }
 
 void Worksheet::invalidateFirstEntry()
@@ -878,16 +878,6 @@ WorksheetEntry* Worksheet::insertLatexEntry(WorksheetEntry* current)
     return insertEntry(LatexEntry::Type, current);
 }
 
-void Worksheet::insertCommandEntry(const QString& text)
-{
-    WorksheetEntry* entry = insertCommandEntry();
-    if(entry&&!text.isNull())
-    {
-        entry->setContent(text);
-        evaluateCurrentEntry();
-    }
-}
-
 WorksheetEntry * Worksheet::insertHorizontalRuleEntry(WorksheetEntry* current)
 {
     return insertEntry(HorizontalRuleEntry::Type, current);
@@ -1079,8 +1069,8 @@ void Worksheet::enableHighlighting(bool highlight)
         if(!m_highlighter)
             m_highlighter=new Cantor::DefaultHighlighter(this);
 
+        //TODO: new syntax
         connect(m_highlighter, SIGNAL(rulesChanged()), this, SLOT(rehighlight()));
-
     }else
     {
         if(m_highlighter)
@@ -1442,18 +1432,11 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
         m_readOnly = true;
     }
 
-    if (m_readOnly)
-    {
-        // TODO: Handle this here?
-        for (QAction* action : m_richTextActionList)
-            action->setEnabled(false);
-    }
-
     m_isLoadingFromFile = true;
 
     //cleanup the worksheet and all it contains
     delete m_session;
-    m_session=nullptr;
+    m_session = nullptr;
 
     //file can only be loaded in a worksheet that was not edited/modified yet (s.a. CantorShell::load())
     //in this case on the default "first entry" is available -> delete it.
@@ -1908,15 +1891,15 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insertMenu->setIcon(QIcon::fromTheme(QLatin1String("insert-table-row")));
 
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("run-build")), i18n("Command"), this, SLOT(appendCommandEntry()));
-            insertMenu->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), this, SLOT(appendTextEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("draw-text")), i18n("Text"), this, &Worksheet::appendTextEntry);
     #ifdef Discount_FOUND
-            insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), this, SLOT(appendMarkdownEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-markdown")), i18n("Markdown"), this, &Worksheet::appendMarkdownEntry);
     #endif
     #ifdef WITH_EPS
-            insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), this, SLOT(appendLatexEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), this, &Worksheet::appendLatexEntry);
     #endif
-            insertMenu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), this, SLOT(appendImageEntry()));
-            insertMenu->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), this, SLOT(appendPageBreakEntry()));
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), this, &Worksheet::appendImageEntry);
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), this, &Worksheet::appendPageBreakEntry);
             insertMenu->addAction(QIcon(), i18n("Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
             insertMenu->addAction(QIcon(), i18n("Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
 
@@ -1926,18 +1909,18 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
         menu->addSeparator();
         if (!isRunning())
             menu->addAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"),
-                            this, SLOT(evaluate()));
+                            this, &Worksheet::evaluate);
         else
             menu->addAction(QIcon::fromTheme(QLatin1String("process-stop")), i18n("Interrupt"), this,
-                            SLOT(interrupt()));
+                            &Worksheet::interrupt);
     }
     else
     {
         menu->clear();
-        menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, SLOT(selectionMoveUp()));
-        menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, SLOT(selectionMoveDown()));
-        menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, SLOT(selectionEvaluate()));
-        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, SLOT(selectionRemove()));
+        menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Entries Up"), this, &Worksheet::selectionMoveUp);
+        menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Entries Down"), this, &Worksheet::selectionMoveDown);
+        menu->addAction(QIcon::fromTheme(QLatin1String("media-playback-start")), i18n("Evaluate Entries"), this, &Worksheet::selectionEvaluate);
+        menu->addAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove Entries"), this, &Worksheet::selectionRemove);
 
         bool isAnyCommandEntryInSelection = false;
         for (WorksheetEntry* entry : m_selectedEntries)
@@ -2048,146 +2031,146 @@ void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
     QGraphicsScene::keyPressEvent(keyEvent);
 }
 
-void Worksheet::createActions(KActionCollection* collection)
+void Worksheet::setActionCollection(KActionCollection* collection)
+{
+    m_collection = collection;
+}
+
+void Worksheet::initActions()
 {
     // Mostly copied from KRichTextWidget::createActions(KActionCollection*)
     // It would be great if this wasn't necessary.
 
     // Text color
-    QAction * action;
     /* This is "format-stroke-color" in KRichTextWidget */
-    action = new QAction(QIcon::fromTheme(QLatin1String("format-text-color")),
-                         i18nc("@action", "Text &Color..."), collection);
+    auto* action = new QAction(QIcon::fromTheme(QLatin1String("format-text-color")),
+                         i18nc("@action", "Text &Color..."), m_collection);
     action->setIconText(i18nc("@label text color", "Color"));
     action->setPriority(QAction::LowPriority);
     m_richTextActionList.append(action);
-    collection->addAction(QLatin1String("format_text_foreground_color"), action);
-    connect(action, SIGNAL(triggered()), this, SLOT(setTextForegroundColor()));
+    connect(action, &QAction::triggered, this, &Worksheet::setTextForegroundColor);
 
     // Text color
     action = new QAction(QIcon::fromTheme(QLatin1String("format-fill-color")),
-                         i18nc("@action", "Text &Highlight..."), collection);
+                         i18nc("@action", "Text &Highlight..."), m_collection);
     action->setPriority(QAction::LowPriority);
     m_richTextActionList.append(action);
-    collection->addAction(QLatin1String("format_text_background_color"), action);
-    connect(action, SIGNAL(triggered()), this, SLOT(setTextBackgroundColor()));
+    connect(action, &QAction::triggered, this, &Worksheet::setTextBackgroundColor);
 
     // Font Family
-    m_fontAction = new KFontAction(i18nc("@action", "&Font"), collection);
+    m_fontAction = new KFontAction(i18nc("@action", "&Font"), m_collection);
     m_richTextActionList.append(m_fontAction);
-    collection->addAction(QLatin1String("format_font_family"), m_fontAction);
-    connect(m_fontAction, SIGNAL(triggered(QString)), this,
-            SLOT(setFontFamily(QString)));
+    connect(m_fontAction, &KFontAction::textTriggered, this, &Worksheet::setFontFamily);
 
     // Font Size
-    m_fontSizeAction = new KFontSizeAction(i18nc("@action", "Font &Size"),
-                                           collection);
+    m_fontSizeAction = new KFontSizeAction(i18nc("@action", "Font &Size"), m_collection);
     m_richTextActionList.append(m_fontSizeAction);
-    collection->addAction(QLatin1String("format_font_size"), m_fontSizeAction);
-    connect(m_fontSizeAction, SIGNAL(fontSizeChanged(int)), this,
-            SLOT(setFontSize(int)));
+    connect(m_fontSizeAction, &KFontSizeAction::fontSizeChanged, this, &Worksheet::setFontSize);
 
     // Bold
     m_boldAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-bold")),
                                      i18nc("@action boldify selected text", "&Bold"),
-                                     collection);
+                                     m_collection);
     m_boldAction->setPriority(QAction::LowPriority);
     QFont bold;
     bold.setBold(true);
     m_boldAction->setFont(bold);
     m_richTextActionList.append(m_boldAction);
-    collection->addAction(QLatin1String("format_text_bold"), m_boldAction);
-    collection->setDefaultShortcut(m_boldAction, Qt::CTRL + Qt::Key_B);
-    connect(m_boldAction, SIGNAL(triggered(bool)), this, SLOT(setTextBold(bool)));
+    connect(m_boldAction, &QAction::triggered, this, &Worksheet::setTextBold);
 
     // Italic
     m_italicAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-italic")),
-                                       i18nc("@action italicize selected text",
-                                             "&Italic"),
-                                       collection);
+                                       i18nc("@action italicize selected text", "&Italic"),
+                                       m_collection);
     m_italicAction->setPriority(QAction::LowPriority);
     QFont italic;
     italic.setItalic(true);
     m_italicAction->setFont(italic);
     m_richTextActionList.append(m_italicAction);
-    collection->addAction(QLatin1String("format_text_italic"), m_italicAction);
-    collection->setDefaultShortcut(m_italicAction, Qt::CTRL + Qt::Key_I);
-    connect(m_italicAction, SIGNAL(triggered(bool)), this, SLOT(setTextItalic(bool)));
+    connect(m_italicAction, &QAction::triggered, this, &Worksheet::setTextItalic);
 
     // Underline
     m_underlineAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-underline")),
                                           i18nc("@action underline selected text",
                                                 "&Underline"),
-                                          collection);
+                                          m_collection);
     m_underlineAction->setPriority(QAction::LowPriority);
     QFont underline;
     underline.setUnderline(true);
     m_underlineAction->setFont(underline);
     m_richTextActionList.append(m_underlineAction);
-    collection->addAction(QLatin1String("format_text_underline"), m_underlineAction);
-    collection->setDefaultShortcut(m_underlineAction, Qt::CTRL + Qt::Key_U);
-    connect(m_underlineAction, SIGNAL(triggered(bool)), this, SLOT(setTextUnderline(bool)));
+    connect(m_underlineAction, &QAction::triggered, this, &Worksheet::setTextUnderline);
 
     // Strike
     m_strikeOutAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-text-strikethrough")),
                                           i18nc("@action", "&Strike Out"),
-                                          collection);
+                                          m_collection);
     m_strikeOutAction->setPriority(QAction::LowPriority);
     m_richTextActionList.append(m_strikeOutAction);
-    collection->addAction(QLatin1String("format_text_strikeout"), m_strikeOutAction);
-    collection->setDefaultShortcut(m_strikeOutAction, Qt::CTRL + Qt::Key_L);
-    connect(m_strikeOutAction, SIGNAL(triggered(bool)), this, SLOT(setTextStrikeOut(bool)));
+    connect(m_strikeOutAction, &QAction::triggered, this, &Worksheet::setTextStrikeOut);
 
     // Alignment
-    QActionGroup *alignmentGroup = new QActionGroup(this);
+    auto* alignmentGroup = new QActionGroup(this);
 
     //   Align left
     m_alignLeftAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-left")),
                                           i18nc("@action", "Align &Left"),
-                                          collection);
+                                          m_collection);
     m_alignLeftAction->setPriority(QAction::LowPriority);
     m_alignLeftAction->setIconText(i18nc("@label left justify", "Left"));
     m_richTextActionList.append(m_alignLeftAction);
-    collection->addAction(QLatin1String("format_align_left"), m_alignLeftAction);
-    connect(m_alignLeftAction, SIGNAL(triggered()), this,
-            SLOT(setAlignLeft()));
+    connect(m_alignLeftAction, &QAction::triggered, this, &Worksheet::setAlignLeft);
     alignmentGroup->addAction(m_alignLeftAction);
 
      //   Align center
     m_alignCenterAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-center")),
                                             i18nc("@action", "Align &Center"),
-                                            collection);
+                                            m_collection);
     m_alignCenterAction->setPriority(QAction::LowPriority);
     m_alignCenterAction->setIconText(i18nc("@label center justify", "Center"));
     m_richTextActionList.append(m_alignCenterAction);
-    collection->addAction(QLatin1String("format_align_center"), m_alignCenterAction);
-    connect(m_alignCenterAction, SIGNAL(triggered()), this,
-            SLOT(setAlignCenter()));
+    connect(m_alignCenterAction, &QAction::triggered, this, &Worksheet::setAlignCenter);
     alignmentGroup->addAction(m_alignCenterAction);
 
     //   Align right
     m_alignRightAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-right")),
                                            i18nc("@action", "Align &Right"),
-                                           collection);
+                                           m_collection);
     m_alignRightAction->setPriority(QAction::LowPriority);
     m_alignRightAction->setIconText(i18nc("@label right justify", "Right"));
     m_richTextActionList.append(m_alignRightAction);
-    collection->addAction(QLatin1String("format_align_right"), m_alignRightAction);
-    connect(m_alignRightAction, SIGNAL(triggered()), this,
-            SLOT(setAlignRight()));
+    connect(m_alignRightAction, &QAction::triggered, this, &Worksheet::setAlignRight);
     alignmentGroup->addAction(m_alignRightAction);
 
     //   Align justify
     m_alignJustifyAction = new KToggleAction(QIcon::fromTheme(QLatin1String("format-justify-fill")),
                                              i18nc("@action", "&Justify"),
-                                             collection);
+                                             m_collection);
     m_alignJustifyAction->setPriority(QAction::LowPriority);
     m_alignJustifyAction->setIconText(i18nc("@label justify fill", "Justify"));
     m_richTextActionList.append(m_alignJustifyAction);
-    collection->addAction(QLatin1String("format_align_justify"), m_alignJustifyAction);
-    connect(m_alignJustifyAction, SIGNAL(triggered()), this,
-            SLOT(setAlignJustify()));
+    connect(m_alignJustifyAction, &QAction::triggered, this, &Worksheet::setAlignJustify);
     alignmentGroup->addAction(m_alignJustifyAction);
+
+    if (m_collection)
+    {
+        m_collection->addAction(QLatin1String("format_text_foreground_color"), action);
+        m_collection->addAction(QLatin1String("format_text_background_color"), action);
+        m_collection->addAction(QLatin1String("format_font_family"), m_fontAction);
+        m_collection->addAction(QLatin1String("format_font_size"), m_fontSizeAction);
+        m_collection->addAction(QLatin1String("format_text_bold"), m_boldAction);
+        m_collection->setDefaultShortcut(m_boldAction, Qt::CTRL + Qt::Key_B);
+        m_collection->addAction(QLatin1String("format_text_italic"), m_italicAction);
+        m_collection->setDefaultShortcut(m_italicAction, Qt::CTRL + Qt::Key_I);
+        m_collection->addAction(QLatin1String("format_text_underline"), m_underlineAction);
+        m_collection->setDefaultShortcut(m_underlineAction, Qt::CTRL + Qt::Key_U);
+        m_collection->addAction(QLatin1String("format_text_strikeout"), m_strikeOutAction);
+        m_collection->setDefaultShortcut(m_strikeOutAction, Qt::CTRL + Qt::Key_L);
+        m_collection->addAction(QLatin1String("format_align_left"), m_alignLeftAction);
+        m_collection->addAction(QLatin1String("format_align_center"), m_alignCenterAction);
+        m_collection->addAction(QLatin1String("format_align_right"), m_alignRightAction);
+        m_collection->addAction(QLatin1String("format_align_justify"), m_alignJustifyAction);
+    }
 
      /*
      // List style
@@ -2209,9 +2192,9 @@ void Worksheet::createActions(KActionCollection* collection)
      m_richTextActionList.append(action);
      collection->addAction("format_list_style", action);
      connect(action, SIGNAL(triggered(int)),
-             this, SLOT(_k_setListStyle(int)));
-     connect(action, SIGNAL(triggered()),
-             this, SLOT(_k_updateMiscActions()));
+             this, &Worksheet::_k_setListStyle(int)));
+     connect(action, &QAction::triggered,
+             this, &Worksheet::_k_updateMiscActions()));
 
      // Indent
      action = new QAction(QIcon::fromTheme("format-indent-more"),
@@ -2219,10 +2202,10 @@ void Worksheet::createActions(KActionCollection* collection)
      action->setPriority(QAction::LowPriority);
      m_richTextActionList.append(action);
      collection->addAction("format_list_indent_more", action);
-     connect(action, SIGNAL(triggered()),
-             this, SLOT(indentListMore()));
-     connect(action, SIGNAL(triggered()),
-             this, SLOT(_k_updateMiscActions()));
+     connect(action, &QAction::triggered,
+             this, &Worksheet::indentListMore()));
+     connect(action, &QAction::triggered,
+             this, &Worksheet::_k_updateMiscActions()));
 
      // Dedent
      action = new QAction(QIcon::fromTheme("format-indent-less"),
@@ -2230,8 +2213,8 @@ void Worksheet::createActions(KActionCollection* collection)
      action->setPriority(QAction::LowPriority);
      m_richTextActionList.append(action);
      collection->addAction("format_list_indent_less", action);
-     connect(action, SIGNAL(triggered()), this, SLOT(indentListLess()));
-     connect(action, SIGNAL(triggered()), this, SLOT(_k_updateMiscActions()));
+     connect(action, &QAction::triggered, this, &Worksheet::indentListLess()));
+     connect(action, &QAction::triggered, this, &Worksheet::_k_updateMiscActions()));
      */
 }
 
@@ -2331,6 +2314,9 @@ void Worksheet::paste() {
 
 void Worksheet::setRichTextInformation(const RichTextInfo& info)
 {
+    if (!m_boldAction)
+        initActions();
+
     m_boldAction->setChecked(info.bold);
     m_italicAction->setChecked(info.italic);
     m_underlineAction->setChecked(info.underline);
@@ -2352,8 +2338,8 @@ void Worksheet::setRichTextInformation(const RichTextInfo& info)
 void Worksheet::setAcceptRichText(bool b)
 {
     if (!m_readOnly)
-        for(QAction * action : m_richTextActionList)
-            action->setEnabled(b);
+        for(auto* action : m_richTextActionList)
+            action->setVisible(b);
 }
 
 WorksheetTextItem* Worksheet::currentTextItem()
@@ -2461,7 +2447,7 @@ void Worksheet::registerShortcut(QAction* action)
     for (auto& shortcut : action->shortcuts())
         m_shortcuts.insert(shortcut, action);
 
-    connect(action, SIGNAL(changed()), this, SLOT(updateShortcut()));
+    connect(action, &QAction::changed, this, &Worksheet::updateShortcut);
 }
 
 void Worksheet::updateShortcut()
@@ -2482,7 +2468,6 @@ void Worksheet::updateShortcut()
 
 void Worksheet::dragEnterEvent(QGraphicsSceneDragDropEvent* event)
 {
-    qDebug() << "enter";
     if (m_dragEntry)
         event->accept();
     else
@@ -2496,7 +2481,6 @@ void Worksheet::dragLeaveEvent(QGraphicsSceneDragDropEvent* event)
         return;
     }
 
-    qDebug() << "leave";
     event->accept();
     if (m_placeholderEntry) {
         m_placeholderEntry->startRemoving();
@@ -2769,7 +2753,7 @@ void Worksheet::changeEntryType(WorksheetEntry* target, int newType)
 
 bool Worksheet::isValidEntry(WorksheetEntry* entry)
 {
-    for (WorksheetEntry* iter = firstEntry(); iter; iter = iter->next())
+    for (auto* iter = firstEntry(); iter; iter = iter->next())
         if (entry == iter)
             return true;
 
@@ -2778,7 +2762,7 @@ bool Worksheet::isValidEntry(WorksheetEntry* entry)
 
 void Worksheet::selectionRemove()
 {
-    for (WorksheetEntry* entry : m_selectedEntries)
+    for (auto* entry : m_selectedEntries)
         if (isValidEntry(entry))
             entry->startRemoving();
 
@@ -2934,7 +2918,6 @@ WorksheetEntry * Worksheet::cutSubentriesForHierarchy(HierarchyEntry* hierarchyE
     Q_ASSERT(hierarchyEntry->next());
     WorksheetEntry* cutBegin = hierarchyEntry->next();
     WorksheetEntry* cutEnd = cutBegin;
-
 
     bool isCutEnd = false;
     int level = (int)hierarchyEntry->level();

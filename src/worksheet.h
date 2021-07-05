@@ -77,7 +77,7 @@ class Worksheet : public QGraphicsScene
     void startDrag(WorksheetEntry*, QDrag*);
     void startDragWithHierarchy(HierarchyEntry*, QDrag*, QSizeF responsibleZoneSize);
 
-    void createActions(KActionCollection*);
+    void setActionCollection(KActionCollection*);
     QMenu* createContextMenu();
     void populateMenu(QMenu*, QPointF);
     Cantor::Renderer* renderer();
@@ -148,7 +148,6 @@ class Worksheet : public QGraphicsScene
     WorksheetEntry* appendHierarchyEntry();
 
     WorksheetEntry* insertCommandEntry(WorksheetEntry* current = nullptr);
-    void insertCommandEntry(const QString&);
     WorksheetEntry* insertTextEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertMarkdownEntry(WorksheetEntry* current = nullptr);
     WorksheetEntry* insertImageEntry(WorksheetEntry* current = nullptr);
@@ -311,9 +310,9 @@ class Worksheet : public QGraphicsScene
     bool loadJupyterNotebook(const QJsonDocument& doc);
     void showInvalidNotebookSchemeError(QString additionalInfo = QString());
     void initSession(Cantor::Backend*);
-    std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry* hierarchyEntry) const;
+    void initActions();
+    std::vector<WorksheetEntry*> hierarchySubelements(HierarchyEntry*) const;
 
-  private:
     static const double LeftMargin;
     static const double RightMargin;
     static const double TopMargin;
@@ -344,17 +343,18 @@ class Worksheet : public QGraphicsScene
 
     QMap<QKeySequence, QAction*> m_shortcuts;
 
+    KActionCollection* m_collection{nullptr};
     QList<QAction *> m_richTextActionList;
-    KToggleAction* m_boldAction;
-    KToggleAction* m_italicAction;
-    KToggleAction* m_underlineAction;
-    KToggleAction* m_strikeOutAction;
-    KFontAction* m_fontAction;
-    KFontSizeAction* m_fontSizeAction;
-    KToggleAction* m_alignLeftAction;
-    KToggleAction* m_alignCenterAction;
-    KToggleAction* m_alignRightAction;
-    KToggleAction* m_alignJustifyAction;
+    KToggleAction* m_boldAction{nullptr};
+    KToggleAction* m_italicAction{nullptr};
+    KToggleAction* m_underlineAction{nullptr};
+    KToggleAction* m_strikeOutAction{nullptr};
+    KFontAction* m_fontAction{nullptr};
+    KFontSizeAction* m_fontSizeAction{nullptr};
+    KToggleAction* m_alignLeftAction{nullptr};
+    KToggleAction* m_alignCenterAction{nullptr};
+    KToggleAction* m_alignRightAction{nullptr};
+    KToggleAction* m_alignJustifyAction{nullptr};
 
     bool m_useDefaultWorksheetParameters{true};
 
