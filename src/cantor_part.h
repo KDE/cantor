@@ -151,6 +151,7 @@ protected Q_SLOTS:
         where set during the block
     **/
     void unblockStatusBar();
+
 private:
     Worksheet *m_worksheet;
     WorksheetView *m_worksheetview;
@@ -177,6 +178,9 @@ private:
     QString m_cachedStatusMessage;
     bool m_statusBarBlocked;
     unsigned int m_sessionStatusCounter;
+
+private Q_SLOTS:
+    void documentationRequested(const QString&);
 };
 
 #endif // CANTORPART_H

@@ -375,6 +375,9 @@ void DocumentationPanelWidget::contextSensitiveHelp(const QString& keyword)
     //make sure first we show the web view in the stack widget
     m_stackedWidget->setCurrentIndex(0);
 
+    if (!m_indexWidget)
+        return;
+
     m_indexWidget->filterIndices(keyword); // filter exactly, no wildcards
     m_indexWidget->activateCurrentItem(); // this internally emitts the QHelpIndexWidget::linkActivated signal
 

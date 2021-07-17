@@ -134,7 +134,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(m_worksheet, &Worksheet::hierarhyEntryNameChange, this, &CantorPart::hierarhyEntryNameChange);
     connect(this, &CantorPart::requestScrollToHierarchyEntry, m_worksheet, &Worksheet::requestScrollToHierarchyEntry);
     connect(this, &CantorPart::settingsChanges, m_worksheet, &Worksheet::handleSettingsChanges);
-    connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::requestDocumentation);
+    connect(m_worksheet, &Worksheet::requestDocumentation, this, &CantorPart::documentationRequested);
 
     layout->addWidget(m_worksheetview);
     setWidget(widget);
@@ -727,13 +727,27 @@ void CantorPart::enableTypesetting(bool enable)
     m_worksheet->session()->setTypesettingEnabled(enable);
 }
 
+/*!
+ * called when the current worksheet has requested to show the documentation for \c keyword.
+ * In case the local documentation is available for the current backend, the signal is
+ * forwarded to the shell to show the documentation plugin/widget.
+ * If no local documentation is available, the defaul online URL for the backend documentation
+ * is openned.
+ */
+void CantorPart::documentationRequested(const QString& keyword) {
+    auto* backend = m_worksheet->session()->backend();
+    const KConfigGroup& group = KSharedConfig::openConfig()->group(backend->name().toLower());
+    const auto& docNames = group.readEntry(QLatin1String("Names"), QStringList());
+    if (!docNames.isEmpty())
+        emit requestDocumentation(keyword);
+    else
+        showBackendHelp();
+}
+
 void CantorPart::showBackendHelp()
 {
-    qDebug()<<"Showing backend's help";
     auto* backend = m_worksheet->session()->backend();
-    QUrl url = backend->helpUrl();
-    qDebug()<<"launching url "<<url;
-    auto *job = new KIO::OpenUrlJob(url);
+    auto* job = new KIO::OpenUrlJob(backend->helpUrl());
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, widget()));
     job->start();
 }
