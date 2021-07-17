@@ -172,7 +172,6 @@ private:
     KToggleAction* m_exprNumbering;
     KToggleAction* m_animateWorksheet;
     KToggleAction* m_embeddedMath;
-    QAction * m_showBackendHelp;
     QVector<QAction*> m_editActions;
 
     QString m_cachedStatusMessage;

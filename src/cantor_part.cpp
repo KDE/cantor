@@ -97,7 +97,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_initProgressDlg(nullptr),
     m_showProgressDlg(true),
     m_currectZoomAction(nullptr),
-    m_showBackendHelp(nullptr),
     m_statusBarBlocked(false),
     m_sessionStatusCounter(0)
 {
@@ -341,14 +340,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_editActions.push_back(removeCurrent);
 
     Cantor::Backend* const backend = Cantor::Backend::getBackend(backendName);
-    m_showBackendHelp = new QAction(i18n("Show Help") , collection);
-    m_showBackendHelp->setIcon(QIcon::fromTheme(backend->icon()));
-    collection->addAction(QLatin1String("backend_help"), m_showBackendHelp);
-    connect(m_showBackendHelp, &QAction::triggered, this, &CantorPart::showBackendHelp);
-
-    // Do not display "Show Backend Help" action for Maxima, since we are showing it's integrated documentation
-    if(backend->name() == QLatin1String("Maxima") || backend->name() == QLatin1String("Octave") || backend->name() == QLatin1String("Python"))
-        m_showBackendHelp->setVisible(false);
 
     // Disabled, because uploading to kde store from program don't work
     // See https://phabricator.kde.org/T9980 for details
@@ -384,7 +375,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     if (b)
     {
-        m_showBackendHelp->setText(i18n("Show %1 Help", b->name()));
         showEditor->setEnabled(b->extensions().contains(QLatin1String("ScriptExtension")));
         initialized();
     }
@@ -413,12 +403,6 @@ void CantorPart::setReadOnly()
 {
     for (QAction* action : m_editActions)
         action->setEnabled(false);
-
-    if (m_showBackendHelp)
-    {
-        m_showBackendHelp->setEnabled(false);
-        m_showBackendHelp->setVisible(false);
-    }
 }
 
 void CantorPart::setModified(bool modified)
@@ -901,10 +885,6 @@ void CantorPart::adjustGuiToSession()
     m_typeset->setVisible(false);
 #endif
     m_completion->setVisible(capabilities.testFlag(Cantor::Backend::Completion));
-
-    //this is 0 on the first call
-    if(m_showBackendHelp)
-        m_showBackendHelp->setText(i18n("Show %1 Help", m_worksheet->session()->backend()->name()));
 }
 
 void CantorPart::publishWorksheet()

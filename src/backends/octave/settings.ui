@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>420</width>
-    <height>302</height>
+    <width>408</width>
+    <height>296</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -21,72 +21,14 @@
        <string>General</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Executable:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="KUrlRequester" name="kcfg_Path"/>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label2">
-         <property name="text">
-          <string>Documentation:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="KUrlRequester" name="kcfg_localDoc">
-         <property name="toolTip">
-          <string>If empty, the &quot;Show help&quot; action will show the default online documentation. Otherwise, the specified URL will be opened.</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="lPlotIntegration">
-         <property name="text">
-          <string>Plot Integration:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QCheckBox" name="kcfg_integratePlots">
-         <property name="toolTip">
-          <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
-         </property>
-         <property name="text">
-          <string>Enabled</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="0" colspan="2">
-        <widget class="QLabel" name="lVariableManagement">
-         <property name="text">
-          <string>Variable Management:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QCheckBox" name="kcfg_variableManagement">
-         <property name="toolTip">
-          <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
-         </property>
-         <property name="text">
-          <string>Enabled</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0" colspan="2">
         <widget class="QLabel" name="label_2">
          <property name="text">
           <string>Internal Plot Format:</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="2">
+       <item row="3" column="2">
         <widget class="QComboBox" name="kcfg_inlinePlotFormat">
          <item>
           <property name="text">
@@ -105,7 +47,34 @@
          </item>
         </widget>
        </item>
-       <item row="5" column="1">
+       <item row="2" column="2">
+        <widget class="QCheckBox" name="kcfg_variableManagement">
+         <property name="toolTip">
+          <string>Monitor the creation and destruction of variables and show the existing variables in the variable panel.</string>
+         </property>
+         <property name="text">
+          <string>Enabled</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="KUrlRequester" name="kcfg_Path"/>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QLabel" name="lVariableManagement">
+         <property name="text">
+          <string>Variable Management:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="lPlotIntegration">
+         <property name="text">
+          <string>Plot Integration:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -120,6 +89,23 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="1" column="2">
+        <widget class="QCheckBox" name="kcfg_integratePlots">
+         <property name="toolTip">
+          <string>If enabled, plots will be shown inside of the worksheet. Otherwise, plots will be shown in an external window.</string>
+         </property>
+         <property name="text">
+          <string>Enabled</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Executable:</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
