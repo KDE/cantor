@@ -1654,7 +1654,7 @@ bool Worksheet::loadJupyterNotebook(const QJsonDocument& doc)
     qDebug() << "loading jupyter entries";
 
     WorksheetEntry* entry = nullptr;
-    for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); iter++) {
+    for (QJsonArray::const_iterator iter = cells.begin(); iter != cells.end(); ++iter) {
         if (!Cantor::JupyterUtils::isJupyterCell(*iter))
         {
             QApplication::restoreOverrideCursor();

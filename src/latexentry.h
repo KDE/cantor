@@ -38,7 +38,7 @@ class LatexEntry : public WorksheetEntry
     QJsonValue toJupyterJson() override;
     QString toPlain(const QString& commandSep, const QString& commentStartingSeq, const QString& commentEndingSeq) override;
 
-    void layOutForWidth(qreal w, qreal entry_zone_x, bool force = false) override;
+    void layOutForWidth(qreal entry_zone_x, qreal w, bool force = false) override;
 
     int searchText(const QString& text, const QString& pattern,
                    QTextDocument::FindFlags qt_flags);
