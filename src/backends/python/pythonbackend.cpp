@@ -62,11 +62,7 @@ Cantor::Backend::Capabilities PythonBackend::capabilities() const
 
 QUrl PythonBackend::helpUrl() const
 {
-    const QUrl& localDoc = PythonSettings::self()->localDoc();
-    if (!localDoc.isEmpty())
-        return localDoc;
-    else
-        return QUrl(i18nc("The url to the documentation Python", "https://docs.python.org/3/"));
+    return QUrl(i18nc("The url to the documentation Python", "https://docs.python.org/3/"));
 }
 
 QString PythonBackend::description() const

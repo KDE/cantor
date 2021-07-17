@@ -18,9 +18,6 @@
             } ()
         </default>
     </entry>
-    <entry name="localDoc" type="Url">
-        <label>Url to the local Maxima documentation</label>
-    </entry>
     <entry name="integratePlots" type="Bool">
       <label>Integrate Plots into the Worksheet</label>
       <default>true</default>

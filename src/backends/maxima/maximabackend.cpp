@@ -66,11 +66,7 @@ bool MaximaBackend::requirementsFullfilled(QString* const reason) const
 
 QUrl MaximaBackend::helpUrl() const
 {
-    const QUrl& localDoc = MaximaSettings::self()->localDoc();
-    if (!localDoc.isEmpty())
-        return localDoc;
-    else
-        return QUrl(i18nc("the url to the documentation of Maxima, please check if there is a translated version and use the correct url",
+    return QUrl(i18nc("the url to the documentation of Maxima, please check if there is a translated version and use the correct url",
             "http://maxima.sourceforge.net/docs/manual/en/maxima.html"));
 }
 

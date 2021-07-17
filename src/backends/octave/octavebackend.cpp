@@ -56,11 +56,7 @@ bool OctaveBackend::requirementsFullfilled(QString* const reason) const
 
 QUrl OctaveBackend::helpUrl() const
 {
-    const QUrl& localDoc = OctaveSettings::self()->localDoc();
-    if (!localDoc.isEmpty())
-        return localDoc;
-    else
-        return QUrl(i18nc("the url to the documentation of Octave, please check if there is a translated version (currently Czech and Japanese) and use the correct url",
+    return QUrl(i18nc("the url to the documentation of Octave, please check if there is a translated version and use the correct url",
             "https://octave.org/doc/interpreter/"));
 }
 

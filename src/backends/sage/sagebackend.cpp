@@ -73,10 +73,6 @@ KConfigSkeleton* SageBackend::config() const
 
 QUrl SageBackend::helpUrl() const
 {
-    const QUrl& localDoc = SageSettings::self()->localDoc();
-    if (!localDoc.isEmpty())
-        return localDoc;
-    else
     return QUrl(i18nc("the url to the documentation of Sage, please check if there is a translated version and use the correct url",
                  "https://doc.sagemath.org/html/en/reference/index.html"));
 }
