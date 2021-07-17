@@ -295,7 +295,7 @@ QTreeWidgetItem* QtHelpConfig::addTableItem(const QString& icon, const QString& 
 void QtHelpConfig::loadSettings()
 {
     // load settings for current backend and then update the QTreeWidget
-    const auto& group = KSharedConfig::openConfig()->group(m_backend);
+    const auto& group = KSharedConfig::openConfig(QStringLiteral("cantorrc"))->group(m_backend);
 
     const auto& nameList = group.readEntry(QLatin1String("Names"), QStringList());
     const auto& pathList = group.readEntry(QLatin1String("Paths"), QStringList());

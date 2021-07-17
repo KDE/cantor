@@ -232,11 +232,12 @@ void DocumentationPanelWidget::updateBackend(const QString& newBackend)
         return;
 
     m_backend = newBackend;
+
     m_initializing = true;
 
     // show all available documentation files for the new backend
     m_documentationSelector->clear();
-    const KConfigGroup& group = KSharedConfig::openConfig()->group(m_backend.toLower());
+    const KConfigGroup& group = KSharedConfig::openConfig(QStringLiteral("cantorrc"))->group(m_backend.toLower());
     m_docNames = group.readEntry(QLatin1String("Names"), QStringList());
     m_docPaths = group.readEntry(QLatin1String("Paths"), QStringList());
     const QStringList& iconNames = group.readEntry(QLatin1String("Icons"), QStringList());
