@@ -6,13 +6,10 @@
 */
 
 #include "qalculatebackend.h"
-
-// settings.h must be included before qalculatesession.h
-#include "ui_settings.h"
-#include "settings.h"
-
+#include "settings.h" // settings.h must be included before qalculatesession.h
 #include "qalculatesession.h"
 #include "qalculateextensions.h"
+#include "qalculatesettingswidget.h"
 
 #include <KLocalizedString>
 
@@ -75,11 +72,7 @@ KConfigSkeleton* QalculateBackend::config() const
 
 QWidget* QalculateBackend::settingsWidget(QWidget* parent) const
 {
-    QWidget* widget = new QWidget(parent);
-    Ui::QalculateSettingsBase s;
-    s.setupUi(widget);
-
-    return widget;
+    return new QalculateSettingsWidget(parent, id());
 }
 
 K_PLUGIN_FACTORY_WITH_JSON(qalculatebackend, "qalculatebackend.json", registerPlugin<QalculateBackend>();)

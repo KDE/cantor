@@ -16,6 +16,8 @@ set( QalculateBackend_SRCS
   qalculateextensions.cpp
   qalculatecompletionobject.cpp
   qalculateextensions.cpp
+  qalculatesettingswidget.cpp
+  ../backendsettingswidget.cpp
 )
 
 kconfig_add_kcfg_files(QalculateBackend_SRCS settings.kcfgc)
@@ -26,9 +28,9 @@ ki18n_wrap_ui(QalculateBackend_SRCS settings.ui)
 add_backend(qalculatebackend ${QalculateBackend_SRCS})
 
 if (QALCULATE_VERSION VERSION_LESS 2.0.0)
-  target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
+  target_link_libraries( cantor_qalculatebackend cantorlibs cantor_help ${QALCULATE_LIBRARIES} ${CLN_LIBRARIES})
 else()
-  target_link_libraries( cantor_qalculatebackend cantorlibs ${QALCULATE_LIBRARIES})
+  target_link_libraries( cantor_qalculatebackend cantorlibs cantor_help ${QALCULATE_LIBRARIES})
 endif()
 
 install( FILES cantor_qalculate.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
