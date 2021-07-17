@@ -339,8 +339,6 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     connect(removeCurrent, &QAction::triggered, m_worksheet, &Worksheet::removeCurrentEntry);
     m_editActions.push_back(removeCurrent);
 
-    Cantor::Backend* const backend = Cantor::Backend::getBackend(backendName);
-
     // Disabled, because uploading to kde store from program don't work
     // See https://phabricator.kde.org/T9980 for details
     // If this situation will changed, then uncomment this action
@@ -750,6 +748,7 @@ void CantorPart::showBackendHelp()
     auto* job = new KIO::OpenUrlJob(backend->helpUrl());
     job->setUiDelegate(new KIO::JobUiDelegate(KJobUiDelegate::AutoHandlingEnabled, widget()));
     job->start();
+    delete job;
 }
 
 Worksheet* CantorPart::worksheet()
