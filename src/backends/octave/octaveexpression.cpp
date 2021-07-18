@@ -88,12 +88,13 @@ QString OctaveExpression::internalCommand()
 
                         // Add path works only with existed paths, so create the file
                         QFile file(m_plotFilename);
-                        file.open(QFile::WriteOnly);
-                        file.close();
-                        watcher->addPath(m_plotFilename);
-                        m_plotPending = true;
-
-                        connect(watcher, &QFileSystemWatcher::fileChanged, this, &OctaveExpression::imageChanged,  Qt::UniqueConnection);
+                        if (file.open(QFile::WriteOnly))
+                        {
+                            file.close();
+                            watcher->addPath(m_plotFilename);
+                            m_plotPending = true;
+                            connect(watcher, &QFileSystemWatcher::fileChanged, this, &OctaveExpression::imageChanged,  Qt::UniqueConnection);
+                        }
                     }
                     break;
                 }
