@@ -497,7 +497,9 @@ bool SageSession::updateSageVersion()
     get_sage_version.setProgram(SageSettings::self()->path().toLocalFile());
     get_sage_version.setArguments(QStringList()<<QLatin1String("-v"));
     get_sage_version.start();
-    get_sage_version.waitForFinished(-1);
+    if (!get_sage_version.waitForFinished(-1))
+        return false;
+
     QString versionString = QString::fromLocal8Bit(get_sage_version.readLine());
     QRegularExpression versionExp(QLatin1String("(\\d+)\\.(\\d+)"));
     QRegularExpressionMatch version = versionExp.match(versionString);

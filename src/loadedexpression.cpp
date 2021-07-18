@@ -168,7 +168,7 @@ void LoadedExpression::loadFromJupyter(const QJsonObject& cell)
         setId(idObject.toInt());
 
     const QJsonArray& outputs = cell.value(QLatin1String("outputs")).toArray();
-    for (QJsonArray::const_iterator iter = outputs.begin(); iter != outputs.end(); iter++)
+    for (QJsonArray::const_iterator iter = outputs.begin(); iter != outputs.end(); ++iter)
     {
         if (!Cantor::JupyterUtils::isJupyterOutput(*iter))
             continue;

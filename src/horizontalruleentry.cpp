@@ -39,7 +39,6 @@ HorizontalRuleEntry::~HorizontalRuleEntry()
     }
 }
 
-
 int HorizontalRuleEntry::type() const
 {
     return Type;
@@ -279,9 +278,12 @@ void HorizontalRuleEntry::lineColorChanged(QAction* action) {
 
 void HorizontalRuleEntry::lineStyleChanged(QAction* action)
 {
-    int index = m_lineStyleActionGroup->actions().indexOf(action);
-    m_style = styles[index];
-    update();
+    unsigned int index = static_cast<unsigned int>(m_lineStyleActionGroup->actions().indexOf(action));
+    if (index > 0 && index < styleCount)
+    {
+        m_style = styles[index];
+        update();
+    }
 }
 
 

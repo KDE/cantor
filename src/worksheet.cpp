@@ -1459,12 +1459,14 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
         QString tag = expressionChild.tagName();
         // Don't add focus on load
         entry = appendEntry(typeForTagName(tag), false);
-        entry->setContent(expressionChild, archive);
-
-        if (m_readOnly && entry)
+        if (entry)
         {
-            entry->setAcceptHoverEvents(false);
-            entry = nullptr;
+            entry->setContent(expressionChild, archive);
+            if (m_readOnly)
+            {
+                entry->setAcceptHoverEvents(false);
+                entry = nullptr;
+            }
         }
 
         expressionChild = expressionChild.nextSiblingElement();
@@ -2700,25 +2702,20 @@ void Worksheet::changeEntryType(WorksheetEntry* target, int newType)
             case CommandEntry::Type:
                 content = static_cast<CommandEntry*>(target)->command();
                 break;
-
             case MarkdownEntry::Type:
                 content = static_cast<MarkdownEntry*>(target)->plainText();
                 break;
-
             case TextEntry::Type:
                 content = static_cast<TextEntry*>(target)->text();
                 break;
-
             case LatexEntry::Type:
                 content = static_cast<LatexEntry*>(target)->plain();
-
         }
 
-        WorksheetEntry* newEntry = WorksheetEntry::create(newType, this);
-        newEntry->setContent(content);
-
+        auto* newEntry = WorksheetEntry::create(newType, this);
         if (newEntry)
         {
+            newEntry->setContent(content);
             WorksheetEntry* tmp = target;
 
             newEntry->setPrevious(tmp->previous());
