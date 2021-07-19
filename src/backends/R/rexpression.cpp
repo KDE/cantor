@@ -28,7 +28,7 @@ m_isHelpRequest(false)
 
 void RExpression::evaluate()
 {
-    if(command().startsWith(QLatin1Char('?')))
+    if(command().startsWith(QLatin1Char('?')) || command().startsWith(QLatin1String("help(")))
         m_isHelpRequest=true;
     else
         m_isHelpRequest=false;
@@ -78,11 +78,13 @@ void RExpression::showFilesAsResult(const QStringList& files)
             setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
         }
         else if(type.inherits(QLatin1String("text/plain"))
-            || type.inherits(QLatin1String("application/x-extension-html")))
+            || type.inherits(QLatin1String("application/x-extension-html"))
+            ||type.inherits(QLatin1String("application/octet-stream")) )
         {
             //Htmls are also plain texts, combining this in one
             const bool isHtml = type.inherits(QLatin1String("text/html"))
-                || type.inherits(QLatin1String("application/x-extension-html"));
+                || type.inherits(QLatin1String("application/x-extension-html"))
+                || type.inherits(QLatin1String("application/octet-stream"));
             if(isHtml)
                 qDebug()<<"it's a HTML document";
             else
