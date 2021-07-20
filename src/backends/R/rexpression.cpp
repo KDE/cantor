@@ -28,7 +28,15 @@ m_isHelpRequest(false)
 
 void RExpression::evaluate()
 {
-    if(command().startsWith(QLatin1Char('?')) || command().startsWith(QLatin1String("help(")))
+    const auto& cmd = command();
+
+    //check whether we need to interpret the current command as a help command.
+    //see https://www.r-project.org/help.html for the list of different ways to get help in R.
+    if(cmd.startsWith(QLatin1Char('?')) || cmd.startsWith(QStringLiteral("help("))
+        || cmd.startsWith(QStringLiteral("apropos("))
+        || cmd.startsWith(QStringLiteral("vignette("))
+        || cmd == QStringLiteral("demos()")
+        || cmd.startsWith(QStringLiteral("help.search(")) )
         m_isHelpRequest=true;
     else
         m_isHelpRequest=false;
@@ -46,7 +54,12 @@ void RExpression::parseOutput(const QString& text)
 {
     //qDebug() << "output text: " << text;
     if (!text.trimmed().isEmpty())
-        addResult(new Cantor::TextResult(text));
+    {
+        if(m_isHelpRequest)
+            addResult(new Cantor::HelpResult(text));
+        else
+            addResult(new Cantor::TextResult(text));
+    }
     setStatus(Cantor::Expression::Done);
 }
 

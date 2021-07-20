@@ -145,8 +145,7 @@ void RSession::expressionFinished(int returnCode, const QString& text, const QSt
         if (expr->status() == Cantor::Expression::Interrupted)
             return;
 
-        if (!files.isEmpty())
-            expr->showFilesAsResult(files);
+        expr->showFilesAsResult(files);
 
         if(returnCode==RExpression::SuccessCode)
             expr->parseOutput(text);
