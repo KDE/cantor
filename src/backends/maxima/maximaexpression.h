@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _MAXIMAEXPRESSION_H
@@ -40,15 +41,15 @@ private Q_SLOTS:
 private:
     void parseResult(const QString&);
 
-    QTemporaryFile *m_tempFile;
+    QTemporaryFile* m_tempFile = nullptr;
     QFileSystemWatcher m_fileWatch;
-    bool m_isHelpRequest;
-    bool m_isHelpRequestAdditional;
-    bool m_isPlot;
-    Cantor::Result* m_plotResult;
-    int m_plotResultIndex;
+    bool m_isHelpRequest = false;
+    bool m_isHelpRequestAdditional = false;
+    bool m_isPlot = false;
+    Cantor::Result* m_plotResult = nullptr;
+    int m_plotResultIndex = -1;
     QString m_errorBuffer;
-    bool m_gotErrorContent;
+    bool m_gotErrorContent = false;
 };
 
 #endif /* _MAXIMAEXPRESSION_H */

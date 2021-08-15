@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2017-2021 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "maximaexpression.h"
@@ -26,14 +27,7 @@
 #include <QUrl>
 
 // MaximaExpression use real id from Maxima as expression id, so we don't know id before executing
-MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal, -1),
-    m_tempFile(nullptr),
-    m_isHelpRequest(false),
-    m_isHelpRequestAdditional(false),
-    m_isPlot(false),
-    m_plotResult(nullptr),
-    m_plotResultIndex(-1),
-    m_gotErrorContent(false)
+MaximaExpression::MaximaExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal, -1)
 {
 }
 
@@ -44,8 +38,8 @@ MaximaExpression::~MaximaExpression() {
 
 void MaximaExpression::evaluate()
 {
-    m_isHelpRequest=false;
-    m_gotErrorContent=false;
+    m_isHelpRequest = false;
+    m_gotErrorContent = false;
 
     if(m_tempFile)
     {
@@ -56,16 +50,27 @@ void MaximaExpression::evaluate()
         m_plotResultIndex = -1;
     }
 
+    QString cmd = command();
+
+    //if the user explicitly has entered quit(), do a logout here
+    //otherwise maxima's process will be stopped after the evaluation of this command
+    //and we re-start it because of "maxima has crashed".
+    if (cmd.remove(QLatin1Char(' ')) == QLatin1String("quit()"))
+    {
+        session()->logout();
+        return;
+    }
+
     //check if this is a ?command
-    if(command().startsWith(QLatin1String("??"))
-        || command().startsWith(QLatin1String("describe("))
-        || command().startsWith(QLatin1String("example("))
-        || command().startsWith(QLatin1String(":lisp(cl-info::info-exact")))
+    if(cmd.startsWith(QLatin1String("??"))
+        || cmd.startsWith(QLatin1String("describe("))
+        || cmd.startsWith(QLatin1String("example("))
+        || cmd.startsWith(QLatin1String(":lisp(cl-info::info-exact")))
         m_isHelpRequest=true;
 
     if (MaximaSettings::self()->integratePlots()
-        && !command().contains(QLatin1String("ps_file"))
-        && command().contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))))
+        && !cmd.contains(QLatin1String("ps_file"))
+        && cmd.contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))))
     {
         m_isPlot=true;
 #ifdef WITH_EPS
@@ -79,8 +84,6 @@ void MaximaExpression::evaluate()
         m_fileWatch.addPath(m_tempFile->fileName());
         connect(&m_fileWatch, &QFileSystemWatcher::fileChanged, this, &MaximaExpression::imageChanged,  Qt::UniqueConnection);
     }
-
-    const QString& cmd=command();
 
     bool isComment = true;
     int commentLevel = 0;
