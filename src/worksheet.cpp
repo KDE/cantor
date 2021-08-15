@@ -845,6 +845,7 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
 
     focusEntry(entry);
     makeVisible(entry);
+
     return entry;
 }
 
@@ -865,7 +866,10 @@ WorksheetEntry* Worksheet::insertCommandEntry(WorksheetEntry* current)
 
 WorksheetEntry* Worksheet::insertImageEntry(WorksheetEntry* current)
 {
-    return insertEntry(ImageEntry::Type, current);
+    auto* entry = insertEntry(ImageEntry::Type, current);
+    auto* imageEntry = static_cast<ImageEntry*>(entry);
+    QTimer::singleShot(0, this, [=] () {imageEntry->startConfigDialog();});
+    return entry;
 }
 
 WorksheetEntry* Worksheet::insertPageBreakEntry(WorksheetEntry* current)
@@ -943,7 +947,10 @@ WorksheetEntry* Worksheet::insertPageBreakEntryBefore(WorksheetEntry* current)
 
 WorksheetEntry* Worksheet::insertImageEntryBefore(WorksheetEntry* current)
 {
-    return insertEntryBefore(ImageEntry::Type, current);
+    auto* entry = insertEntryBefore(ImageEntry::Type, current);
+    auto* imageEntry = static_cast<ImageEntry*>(entry);
+    QTimer::singleShot(0, this, [=] () {imageEntry->startConfigDialog();});
+    return entry;
 }
 
 WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)

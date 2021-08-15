@@ -37,7 +37,6 @@ ImageEntry::ImageEntry(Worksheet* worksheet) : WorksheetEntry(worksheet)
 
     setFlag(QGraphicsItem::ItemIsFocusable);
     updateEntry();
-    startConfigDialog();
 }
 
 void ImageEntry::populateMenu(QMenu* menu, QPointF pos)
