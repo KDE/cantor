@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
 */
 #include "cantor.h"
 #include "lib/session.h"
@@ -445,7 +446,8 @@ void CantorShell::activateWorksheet(int index)
                 }
             }
 
-            updateWindowTitle(m_part->url().fileName());
+            updateWindowTitle(m_part->url().fileName(), m_part->isModified());
+
             updatePanel();
         }
         else
@@ -460,16 +462,29 @@ void CantorShell::setTabCaption(const QString& caption, const QIcon& icon)
     auto* part = dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part)
     {
+        const int index = m_tabWidget->indexOf(part->widget());
         if (!caption.isEmpty())
-            m_tabWidget->setTabText(m_tabWidget->indexOf(part->widget()), caption);
-        m_tabWidget->setTabIcon(m_tabWidget->indexOf(part->widget()), icon);
+        {
+            if (part->isModified())
+                m_tabWidget->setTabText(index, caption + QLatin1String(" *"));
+            else
+                m_tabWidget->setTabText(index, caption);
+
+            if (part == m_part)
+                updateWindowTitle(m_part->url().fileName(), m_part->isModified());
+        }
+        m_tabWidget->setTabIcon(index, icon);
     }
 }
 
-void CantorShell::updateWindowTitle(const QString& fileName)
+void CantorShell::updateWindowTitle(const QString& fileName, bool modified)
 {
     QFileInfo info(fileName);
-    setWindowTitle(info.baseName());
+    QString title = info.baseName();
+    if (modified)
+        title += QLatin1String("    [") + i18n("Changed") + QLatin1Char(']');
+
+    setWindowTitle(title);
 }
 
 void CantorShell::closeTab(int index)
@@ -524,6 +539,10 @@ void CantorShell::closeTab(int index)
             m_pluginsVisibility.remove(part);
             m_parts2Backends.remove(part);
             m_pluginsStates.remove(part);
+
+            if (m_part == part)
+                m_part = nullptr; //the current worksheet/part is being closed, set to null
+
             delete part;
         }
     }

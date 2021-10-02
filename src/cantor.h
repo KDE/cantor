@@ -106,7 +106,7 @@ private:
     void closeEvent(QCloseEvent*) override;
     bool reallyClose(bool checkAllParts = true);
     bool reallyCloseThisPart(KParts::ReadWritePart*);
-    void updateWindowTitle(const QString&);
+    void updateWindowTitle(const QString&, bool modified = false);
     void saveDockPanelsState(KParts::ReadWritePart*);
     KParts::ReadWritePart* findPart(QWidget*);
 

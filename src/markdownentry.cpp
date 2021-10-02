@@ -581,7 +581,10 @@ void MarkdownEntry::handleMathRender(QSharedPointer<MathRenderResult> result)
     if (!result->successful)
     {
         if (Settings::self()->showMathRenderError())
+        {
+            QApplication::restoreOverrideCursor();
             KMessageBox::error(worksheetView(), result->errorMessage, i18n("Cantor Math Error"));
+        }
         else
             qDebug() << "MarkdownEntry: math render failed with message" << result->errorMessage;
         return;

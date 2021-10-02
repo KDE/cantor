@@ -128,6 +128,7 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
     m_worksheetview = new WorksheetView(m_worksheet, widget);
     m_worksheetview->setEnabled(false); //disable input until the session has successfully logged in and emits the ready signal
     connect(m_worksheet, &Worksheet::modified, this, static_cast<void (KParts::ReadWritePart::*)()>(&KParts::ReadWritePart::setModified));
+    connect(m_worksheet, &Worksheet::modified, this, &CantorPart::updateCaption);
     connect(m_worksheet, &Worksheet::showHelp, this, &CantorPart::showHelp);
     connect(m_worksheet, &Worksheet::loaded, this, &CantorPart::initialized);
     connect(m_worksheet, &Worksheet::hierarchyChanged, this, &CantorPart::hierarchyChanged);
@@ -472,6 +473,7 @@ bool CantorPart::saveFile()
     else
         m_worksheet->save( localFilePath() );
     setModified(false);
+    updateCaption();
 
     emit worksheetSave(QUrl::fromLocalFile(localFilePath()));
     return true;
