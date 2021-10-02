@@ -415,16 +415,20 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         menu->insertSeparator(firstAction);
     }
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
-//     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
-    connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
-    menu->insertAction(firstAction, action);
+    if (m_prev) {
+        action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
+    //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
+        connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
+        menu->insertAction(firstAction, action);
+    }
 
-    action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
-//     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
-    connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
-    menu->insertAction(firstAction, action);
-    menu->insertSeparator(firstAction);
+    if (m_next) {
+        action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
+    //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
+        connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
+        menu->insertAction(firstAction, action);
+        menu->insertSeparator(firstAction);
+    }
 
     action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove"));
     connect(action, &QAction::triggered, this, &WorksheetEntry::startRemoving);
