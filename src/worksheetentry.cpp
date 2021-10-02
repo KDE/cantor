@@ -402,7 +402,10 @@ void WorksheetEntry::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
 {
-    auto* firstAction = menu->actions().first();
+    QAction* firstAction = nullptr;
+    if (!menu->actions().isEmpty()) //action() can be empty, s.a. WorksheetTextItem::populateMenu() where this function is called
+        firstAction = menu->actions().first();
+
     QAction* action;
     if (!worksheet()->isRunning() && wantToEvaluate())
     {
