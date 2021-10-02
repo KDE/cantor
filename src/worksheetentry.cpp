@@ -33,6 +33,7 @@
 
 #include <KColorScheme>
 #include <KLocalizedString>
+#include <KMessageBox>
 #include <QDebug>
 
 struct AnimationData
@@ -706,6 +707,10 @@ bool WorksheetEntry::aboutToBeRemoved()
 
 void WorksheetEntry::startRemoving()
 {
+    int rc = KMessageBox::warningYesNo(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"));
+    if (rc == KMessageBox::No)
+        return;
+
     if (!worksheet()->animationsEnabled()) {
         m_aboutToBeRemoved = true;
         remove();
