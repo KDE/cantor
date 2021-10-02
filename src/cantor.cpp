@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
 */
 #include "cantor.h"
 #include "lib/session.h"
@@ -524,6 +525,10 @@ void CantorShell::closeTab(int index)
             m_pluginsVisibility.remove(part);
             m_parts2Backends.remove(part);
             m_pluginsStates.remove(part);
+
+            if (m_part == part)
+                m_part = nullptr; //the current worksheet/part is being closed, set to null
+
             delete part;
         }
     }
