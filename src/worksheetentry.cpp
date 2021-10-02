@@ -77,7 +77,7 @@ QString WorksheetEntry::colorNames[] = {i18n("White"), i18n("Black"),
 WorksheetEntry::WorksheetEntry(Worksheet* worksheet) : QGraphicsObject(), m_controlElement(worksheet, this)
 {
     worksheet->addItem(this);
-
+    setAcceptHoverEvents(true);
     connect(&m_controlElement, &WorksheetControlItem::drag, this, &WorksheetEntry::startDrag);
 }
 
@@ -371,11 +371,15 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
     case Qt::Key_Up:
         if (event->modifiers() == Qt::NoModifier)
             moveToPreviousEntry(WorksheetTextItem::BottomRight, 0);
+        else if (event->modifiers() == Qt::CTRL)
+            moveToPrevious();
         break;
     case Qt::Key_Right:
     case Qt::Key_Down:
         if (event->modifiers() == Qt::NoModifier)
             moveToNextEntry(WorksheetTextItem::TopLeft, 0);
+        else if (event->modifiers() == Qt::CTRL)
+            moveToNext();
         break;
         /*case Qt::Key_Enter:
     case Qt::Key_Return:
@@ -383,10 +387,6 @@ void WorksheetEntry::keyPressEvent(QKeyEvent* event)
             evaluate();
         else if (event->modifiers() == Qt::ControlModifier)
             worksheet()->insertCommandEntry();
-        break;
-    case Qt::Key_Delete:
-        if (event->modifiers() == Qt::ShiftModifier)
-            startRemoving();
         break;*/
     default:
         event->ignore();
@@ -420,6 +420,7 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         action = new QAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Move Up"));
     //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToPrevious); //TODO: doesn't work
         connect(action, SIGNAL(triggered()), this, SLOT(moveToPrevious()));
+        action->setShortcut(Qt::CTRL + Qt::Key_Up);
         menu->insertAction(firstAction, action);
     }
 
@@ -427,12 +428,14 @@ void WorksheetEntry::populateMenu(QMenu* menu, QPointF pos)
         action = new QAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Move Down"));
     //     connect(action, &QAction::triggered, this, &WorksheetEntry::moveToNext); //TODO: doesn't work
         connect(action, SIGNAL(triggered()), this, SLOT(moveToNext()));
+        action->setShortcut(Qt::CTRL + Qt::Key_Down);
         menu->insertAction(firstAction, action);
         menu->insertSeparator(firstAction);
     }
 
     action = new QAction(QIcon::fromTheme(QLatin1String("edit-delete")), i18n("Remove"));
     connect(action, &QAction::triggered, this, &WorksheetEntry::startRemoving);
+    action->setShortcut(Qt::ShiftModifier + Qt::Key_Delete);
     menu->insertAction(firstAction, action);
     menu->insertSeparator(firstAction);
 
