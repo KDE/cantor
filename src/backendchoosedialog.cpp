@@ -29,7 +29,10 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
     m_ui.backendList->setIconSize(QSize(KIconLoader::SizeMedium, KIconLoader::SizeMedium));
     m_ui.backendList->setSortingEnabled(true);
     connect(m_ui.backendList, &QListWidget::currentItemChanged, this, &BackendChooseDialog::updateContent);
-    connect(m_ui.backendList, &QListWidget::itemDoubleClicked, this, &BackendChooseDialog::accept);
+    connect(m_ui.backendList, &QListWidget::itemDoubleClicked, this, [=]() {
+        if (m_ui.buttonBox->button(QDialogButtonBox::Ok)->isEnabled())
+            accept();
+    });
 
     m_ui.buttonBox->button(QDialogButtonBox::Ok);
     m_ui.buttonBox->button(QDialogButtonBox::Ok)->setIcon(QApplication::style()->standardIcon(QStyle::SP_DialogOkButton));
