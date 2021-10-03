@@ -800,6 +800,8 @@ void WorksheetEntry::remove()
 
     // make the entry invisible to QGraphicsScene's itemAt() function
     forceRemove();
+
+    worksheet()->setModified();
 }
 
 void WorksheetEntry::setSize(QSizeF size)
@@ -995,6 +997,8 @@ void WorksheetEntry::moveToNext(bool updateLayout)
 
         if (updateLayout)
             worksheet()->updateLayout();
+
+        worksheet()->setModified();
     }
 }
 
@@ -1025,6 +1029,8 @@ void WorksheetEntry::moveToPrevious(bool updateLayout)
 
         if (updateLayout)
             worksheet()->updateLayout();
+
+        worksheet()->setModified();
     }
 }
 

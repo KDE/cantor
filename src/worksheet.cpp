@@ -427,10 +427,7 @@ WorksheetView* Worksheet::worksheetView()
 
 void Worksheet::setModified()
 {
-    if (m_isClosing)
-        return;
-
-    if (!m_isLoadingFromFile)
+    if (!m_isClosing && !m_isLoadingFromFile)
         emit modified();
 }
 
