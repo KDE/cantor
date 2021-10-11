@@ -20,6 +20,7 @@
         "Description[sv]": "En panel för att visa arbetsbladsstruktur",
         "Description[uk]": "Панель для показу структури робочого аркуша",
         "Description[x-test]": "xxA panel for showing worksheet structurexx",
+        "Description[zh_CN]": "显示工作表结构的面板",
         "Icon": "",
         "Id": "TOC",
         "License": "GPL",
@@ -44,7 +45,8 @@
         "Name[sl]": "Kazalo vsebine",
         "Name[sv]": "Innehållsförteckning",
         "Name[uk]": "Зміст",
-        "Name[x-test]": "xxTable Of Contentsxx"
+        "Name[x-test]": "xxTable Of Contentsxx",
+        "Name[zh_CN]": "目录"
     },
     "RequiredExtensions": ""
 }
