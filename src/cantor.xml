@@ -21,6 +21,7 @@
     <comment xml:lang="sl">Cantorjev delovni list</comment>
     <comment xml:lang="sv">Cantor-arbetsblad</comment>
     <comment xml:lang="uk">робочий аркуш Cantor</comment>
+    <comment xml:lang="zh_CN">Cantor 工作表</comment>
     <glob pattern="*.cws"/>
     <generic-icon name="cantor"/>
     <sub-class-of type="application/zip"/>
