@@ -15,7 +15,7 @@
 #include <KMessageBox>
 #include <KShortcutsDialog>
 #include <KStandardAction>
-#include <KNS3/DownloadDialog>
+#include <KNSWidgets/Action>
 #include <KParts/ReadWritePart>
 #include <KRecentFilesAction>
 #include <KPluginFactory>
@@ -143,10 +143,8 @@ void CantorShell::setupActions()
 
     KStandardAction::preferences(this, SLOT(showSettings()), actionCollection());
 
-    QAction* downloadExamples = new QAction(i18n("Download Examples"), actionCollection());
-    downloadExamples->setIcon(QIcon::fromTheme(QLatin1String("get-hot-new-stuff")));
-    actionCollection()->addAction(QLatin1String("file_example_download"),  downloadExamples);
-    connect(downloadExamples, &QAction::triggered, this,  &CantorShell::downloadExamples);
+    KNSWidgets::Action* downloadExamples = new KNSWidgets::Action(i18n("Download Examples"), QStringLiteral("cantor.knsrc"), actionCollection());
+    actionCollection()->addAction(QLatin1String("file_example_download"), downloadExamples);
 
     QAction* openExample = new QAction(i18n("&Open Example"), actionCollection());
     openExample->setIcon(QIcon::fromTheme(QLatin1String("document-open")));
@@ -641,16 +639,6 @@ void CantorShell::showSettings()
 
     dialog->show();
     connect(dialog, &KConfigDialog::settingsChanged, this, &CantorShell::settingsChanges);
-}
-
-void CantorShell::downloadExamples()
-{
-    KNS3::DownloadDialog dialog;
-    dialog.exec();
-    for (const auto& e :  dialog.changedEntries())
-    {
-        qDebug() << "Changed Entry: " << e.name();
-    }
 }
 
 void CantorShell::openExample()

@@ -8,7 +8,7 @@
 #define QTHELPCONFIG_H
 
 #include <QWidget>
-#include <KNS3/Entry>
+#include <KNSWidgets/Button>
 
 class QTreeWidget;
 class QTreeWidgetItem;
@@ -30,7 +30,7 @@ class QtHelpConfig : public QWidget
       void add();
       void remove(QTreeWidgetItem*);
       void modify(QTreeWidgetItem*);
-      void knsUpdate(const KNS3::Entry::List&);
+      void knsUpdate(const QList<KNSCore::Entry> &list);
       void saveSettings();
 
     private:

@@ -91,7 +91,6 @@ private Q_SLOTS:
 
     void showSettings();
 
-    void downloadExamples();
     void openExample();
 
     void initPanels();

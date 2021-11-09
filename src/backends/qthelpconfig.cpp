@@ -13,7 +13,7 @@
 #include <KConfigGroup>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KNS3/Button>
+#include <KNSWidgets/Button>
 #include <KSharedConfig>
 
 #include "qthelpconfig.h"
@@ -97,12 +97,12 @@ QtHelpConfig::QtHelpConfig(const QString& backend) : QWidget(), m_backend(backen
     m_treeWidget->header()->setSectionResizeMode(ConfigColumn, QHeaderView::Fixed);
 
     // Add GHNS button
-    auto* knsButton = new KNS3::Button(i18nc("@action:button Allow user to get some API documentation with GHNS", "Get New Documentation"),
+    auto* knsButton = new KNSWidgets::Button(i18nc("@action:button Allow user to get some API documentation with GHNS", "Get New Documentation"),
                                        QStringLiteral("cantor-documentation.knsrc"),
                                        this);
     knsButton->setToolTip(i18n("Download additional documentations"));
     ui->tableCtrlLayout->insertWidget(1, knsButton);
-    connect(knsButton, &KNS3::Button::dialogFinished, this, &QtHelpConfig::knsUpdate);
+    connect(knsButton, &KNSWidgets::Button::dialogFinished, this, &QtHelpConfig::knsUpdate);
 
     connect(this, &QtHelpConfig::settingsChanged, this, &QtHelpConfig::saveSettings);
 
@@ -194,7 +194,7 @@ void QtHelpConfig::remove(QTreeWidgetItem* item)
     emit settingsChanged();
 }
 
-void QtHelpConfig::knsUpdate(const KNS3::Entry::List& list)
+void QtHelpConfig::knsUpdate(const QList<KNSCore::Entry>& list)
 {
     if (list.isEmpty())
         return;
