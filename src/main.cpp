@@ -19,8 +19,6 @@
 #include <QDebug>
 #include <QtWebEngine>
 
-static const char description[] =
-    I18N_NOOP("KDE Frontend to mathematical applications");
 
 int main(int argc, char **argv)
 {
@@ -70,7 +68,7 @@ int main(int argc, char **argv)
     KAboutData about(QLatin1String("cantor"),
                      QLatin1String("Cantor"),
                      QLatin1String(CANTOR_VERSION),
-                     i18n(description),
+                     i18n("KDE Frontend to mathematical applications"),
                      KAboutLicense::GPL,
                      i18n("(C) 2016 Filipe Saraiva<br/>(C) 2009-2015 Alexander Rieder"),
                      QString(),
