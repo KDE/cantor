@@ -31,7 +31,6 @@
     </entry>
     <entry name="inlinePlotFormat" type="Enum">
       <choices>
-        @EPS_PLOT_FORMAT_CHOICE@
         <choice name="png"/>
         <choice name="svg"/>
         <choice name="jpeg"/>

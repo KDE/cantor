@@ -14,13 +14,8 @@ set( OctaveBackend_SRCS
 
 add_subdirectory(scripts)
 
-if (WITH_EPS)
-    set(DEFAULT_PLOT_FORMAT "eps")
-    set(EPS_PLOT_FORMAT_CHOICE "<choice name=\"eps\"/>")
-    file(READ with_eps_ui_part.txt EPS_PLOT_FORMAT_UI_ELEMENT)
-else (WITH_EPS)
-    set(DEFAULT_PLOT_FORMAT "png")
-endif (WITH_EPS)
+set(DEFAULT_PLOT_FORMAT "png")
+
 configure_file(octavebackend.kcfg.in ${CMAKE_CURRENT_BINARY_DIR}/octavebackend.kcfg)
 
 kconfig_add_kcfg_files(OctaveBackend_SRCS settings.kcfgc)
@@ -51,6 +46,5 @@ endif()
 
 
 install(FILES cantor_octave.knsrc  DESTINATION  ${KDE_INSTALL_KNSRCDIR} )
-
 
 install(FILES graphic_packages.xml DESTINATION ${KDE_INSTALL_DATADIR}/cantor/octave)

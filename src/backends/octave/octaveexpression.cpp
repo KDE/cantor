@@ -9,7 +9,6 @@
 #include "defaultvariablemodel.h"
 
 #include "textresult.h"
-#include "epsresult.h"
 #include "imageresult.h"
 
 #include <QDebug>
@@ -22,12 +21,8 @@
 
 #include "settings.h"
 
-
 static const QString printCommandTemplate = QString::fromLatin1("cantor_print('%1', '%2');");
 const QStringList OctaveExpression::plotExtensions({
-#ifdef WITH_EPS
-    QLatin1String("eps"),
-#endif
     QLatin1String("png"),
     QLatin1String("svg"),
     QLatin1String("jpeg")
@@ -183,11 +178,7 @@ void OctaveExpression::imageChanged()
         return;
 
     const QUrl& url = QUrl::fromLocalFile(m_plotFilename);
-    Cantor::Result* newResult;
-    if (m_plotFilename.endsWith(QLatin1String(".eps")))
-        newResult = new Cantor::EpsResult(url);
-    else
-        newResult = new Cantor::ImageResult(url);
+    auto* newResult = new Cantor::ImageResult(url);
 
     bool found = false;
     for (int i = 0; i < results().size(); i++)
