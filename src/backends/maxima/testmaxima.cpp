@@ -66,11 +66,7 @@ void TestMaxima::testPlot()
         waitForSignal(e, SIGNAL(gotResult()));
     }
 
-#ifdef WITH_EPS
-    QCOMPARE( e->result()->type(), (int)Cantor::EpsResult::Type );
-#else
     QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
-#endif
     QVERIFY( !e->result()->data().isNull() );
     QVERIFY( e->errorMessage().isNull() );
 }
@@ -97,11 +93,7 @@ void TestMaxima::testPlotWithAnotherTextResults()
 
     QCOMPARE(e->results().at(0)->data().toString(), QLatin1String("4"));
 
-#ifdef WITH_EPS
-    QCOMPARE( e->results().at(1)->type(), (int)Cantor::EpsResult::Type );
-#else
     QCOMPARE( e->results().at(1)->type(), (int)Cantor::ImageResult::Type );
-#endif
     QVERIFY( !e->results().at(1)->data().isNull() );
 
     QCOMPARE(e->results().at(2)->data().toString(), QLatin1String("16"));

@@ -73,11 +73,7 @@ void MaximaExpression::evaluate()
         && cmd.contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))))
     {
         m_isPlot=true;
-#ifdef WITH_EPS
-        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.eps" ));
-#else
-        m_tempFile=new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.png"));
-#endif
+        m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.png"));
         m_tempFile->open();
 
         m_fileWatch.removePaths(m_fileWatch.files());
@@ -154,13 +150,13 @@ QString MaximaExpression::internalCommand()
         }
         QString fileName = m_tempFile->fileName();
 
-#ifdef WITH_EPS
-        const QString psParam=QLatin1String("[gnuplot_ps_term_command, \"set size 1.0,  1.0; set term postscript eps color solid \"]");
-        const QString plotParameters = QLatin1String("[ps_file, \"")+ fileName+QLatin1String("\"],")+psParam;
-#else
+        /*
+        const QString pdfParam = QLatin1String("[gnuplot_pdf_term_command, \"set term pdfcairo size 9cm, 6cm\"]"); // size 5.9in, 4.7in
+        const QString plotParameters = QLatin1String("[pdf_file, \"") + fileName + QLatin1String("\"], ") + pdfParam;
+        */
+
         const QString plotParameters = QLatin1String("[gnuplot_term, \"png size 500,340\"], [gnuplot_out_file, \"")+fileName+QLatin1String("\"]");
 
-#endif
         cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
                     QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
 
@@ -419,11 +415,13 @@ void MaximaExpression::imageChanged()
 {
     if(m_tempFile->size()>0)
     {
-#ifdef WITH_EPS
-        m_plotResult = new Cantor::EpsResult( QUrl::fromLocalFile(m_tempFile->fileName()) );
-#else
         m_plotResult = new Cantor::ImageResult( QUrl::fromLocalFile(m_tempFile->fileName()) );
-#endif
+        /*
+        QSizeF size;
+        const QImage& image = Cantor::Renderer::pdfRenderToImage(QUrl::fromLocalFile(m_tempFile->fileName()), 1., false, &size);
+        m_plotResult = new Cantor::ImageResult(image);
+        */
+
         // Check, that we already parse maxima output for this plot, and if not, keep it up to this moment
         // If it's true, replace text info result by real plot and set status as Done
         if (m_plotResultIndex != -1)
