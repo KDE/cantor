@@ -42,6 +42,7 @@ void PanelPlugin::setPluginInfo(const KPluginMetaData& info)
 {
     d->name = info.name();
     d->requiredExtensions = info.value(QStringLiteral("RequiredExtensions")).split(QLatin1Char(','));
+    setObjectName(info.pluginId());
 }
 
 QStringList PanelPlugin::requiredExtensions()

@@ -23,7 +23,7 @@ QWidget* HelpPanelPlugin::widget()
     if(!m_edit)
     {
         m_edit = new KTextEdit(parentWidget());
-        setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
+        setHelpHtml(QString());
         m_edit->setTextInteractionFlags(Qt::TextBrowserInteraction);
     }
 
@@ -61,7 +61,7 @@ void HelpPanelPlugin::connectToShell(QObject* cantorShell)
 
 Cantor::PanelPlugin::State HelpPanelPlugin::saveState()
 {
-    Cantor::PanelPlugin::State state = PanelPlugin::saveState();
+    auto state = PanelPlugin::saveState();
     state.inners.append(m_edit->toHtml());
     return state;
 }
@@ -72,9 +72,8 @@ void HelpPanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
     if(state.inners.size() > 0)
         setHelpHtml(state.inners.first().toString());
     else
-        setHelpHtml(i18n("<h1>Cantor</h1>The KDE way to do Mathematics"));
+        setHelpHtml(QString());
 }
-
 
 K_PLUGIN_FACTORY_WITH_JSON(helppanelplugin, "helppanelplugin.json", registerPlugin<HelpPanelPlugin>();)
 #include "helppanelplugin.moc"

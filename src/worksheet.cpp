@@ -1459,19 +1459,15 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 
     qDebug()<<"loading entries";
     QDomElement expressionChild = root.firstChildElement();
-    WorksheetEntry* entry = nullptr;
     while (!expressionChild.isNull()) {
         QString tag = expressionChild.tagName();
         // Don't add focus on load
-        entry = appendEntry(typeForTagName(tag), false);
+        auto* entry = appendEntry(typeForTagName(tag), false);
         if (entry)
         {
             entry->setContent(expressionChild, archive);
             if (m_readOnly)
-            {
                 entry->setAcceptHoverEvents(false);
-                entry = nullptr;
-            }
         }
 
         expressionChild = expressionChild.nextSiblingElement();

@@ -55,9 +55,9 @@ class FileBrowserPanelPlugin : public Cantor::PanelPlugin
     QPointer<QTreeView> m_treeview;
     QPointer<QLineEdit> m_pathEdit;
     QPointer<QComboBox> m_filterCombobox;
-    QFileSystemModel* m_model;
+    QFileSystemModel* m_model = nullptr;
     QVector<QString> m_rootDirsHistory;
-    int historyBackCount;
+    int historyBackCount = 0;
 };
 
 #endif /* _FILEBROWSERPANELPLUGIN_H */
