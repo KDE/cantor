@@ -116,7 +116,7 @@ void MaximaSession::logout()
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug() << "evaluating: " << cmd;
-    MaximaExpression* expr = new MaximaExpression(this, internal);
+    auto* expr = new MaximaExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
@@ -129,18 +129,18 @@ void MaximaSession::readStdErr()
    qDebug()<<"reading stdErr";
    if (!m_process)
        return;
-   QString out=QLatin1String(m_process->readAllStandardError());
+   QString out = QString::fromLocal8Bit(m_process->readAllStandardError());
 
    if(expressionQueue().size()>0)
    {
-       MaximaExpression* expr = static_cast<MaximaExpression*>(expressionQueue().first());
+       auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
        expr->parseError(out);
    }
 }
 
 void MaximaSession::readStdOut()
 {
-    QString out = QLatin1String(m_process->readAllStandardOutput());
+    QString out = QString::fromLocal8Bit(m_process->readAllStandardOutput());
     m_cache += out;
 
     //collect the multi-line output until Maxima has finished the calculation and returns a new promt
@@ -155,7 +155,7 @@ void MaximaSession::readStdOut()
         return;
     }
 
-    MaximaExpression* expr = static_cast<MaximaExpression*>(expressionQueue().first());
+    auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
     if (!expr)
         return; //should never happen
 
@@ -203,7 +203,7 @@ void MaximaSession::runFirstExpression()
 
     if(!expressionQueue().isEmpty())
     {
-        MaximaExpression* expr = static_cast<MaximaExpression*>(expressionQueue().first());
+        auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
         QString command=expr->internalCommand();
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 

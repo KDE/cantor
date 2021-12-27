@@ -74,7 +74,7 @@ QUrl JuliaBackend::helpUrl() const
 bool JuliaBackend::requirementsFullfilled(QString* const reason) const
 {
     const QString& path = JuliaSettings::self()->replPath().toLocalFile();
-    bool valid = Cantor::Backend::checkExecutable(QLatin1String("Julia"), path, reason);
+    bool valid = Cantor::Backend::checkExecutable(QLatin1String("julia"), path, reason);
 
     if (!valid)
         return false;
