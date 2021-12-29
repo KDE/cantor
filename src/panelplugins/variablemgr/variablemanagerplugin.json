@@ -32,7 +32,12 @@
         "Icon": "",
         "Id": "VariableManager",
         "License": "GPL",
-        "Name": "Variables"
+        "Name": "Variables",
+        "Name[ca]": "Variables",
+        "Name[ia]": "Variabiles",
+        "Name[ru]": "Переменные",
+        "Name[uk]": "Змінні",
+        "Name[x-test]": "xxVariablesxx"
     },
     "RequiredExtensions": "VariableManagementExtension"
 }
