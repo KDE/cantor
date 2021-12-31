@@ -26,6 +26,7 @@
 #include <QClipboard>
 #include <QMimeData>
 #include <QGraphicsSceneDragDropEvent>
+#include <QTextBlock>
 
 #include <KLocalizedString>
 #include <KZip>

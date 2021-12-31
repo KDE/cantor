@@ -357,10 +357,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     QAction* showCompletion = new QAction(i18n("Show Completion"), collection);
     collection->addAction(QLatin1String("show_completion"), showCompletion);
-    QList<QKeySequence> showCompletionShortcuts;
-    showCompletionShortcuts << Qt::CTRL + Qt::Key_Space; // No Tab, because the tab handeled by entries itself
-    collection->setDefaultShortcuts(showCompletion, showCompletionShortcuts);
-    connect(showCompletion, SIGNAL(triggered()), m_worksheet, SLOT(showCompletion()));
+    collection->setDefaultShortcut(showCompletion, Qt::CTRL + Qt::Key_Space);
+    connect(showCompletion, &QAction::triggered, m_worksheet, &Worksheet::showCompletion);
     m_editActions.push_back(showCompletion);
 
     // set our XML-UI resource file

@@ -124,6 +124,7 @@ void Worksheet::print(QPrinter* printer)
     m_epsRenderer.useHighResolution(true);
     m_mathRenderer.useHighResolution(true);
     m_isPrinting = true;
+
     QRect pageRect = printer->pageRect();
     qreal scale = 1; // todo: find good scale for page size
     // todo: use epsRenderer()->scale() for printing ?
@@ -134,6 +135,7 @@ void Worksheet::print(QPrinter* printer)
     QPainter painter(printer);
     painter.scale(scale, scale);
     painter.setRenderHint(QPainter::Antialiasing);
+
     WorksheetEntry* entry = firstEntry();
     qreal y = TopMargin;
 
@@ -1848,10 +1850,10 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
                 convertTo->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), entry, &WorksheetEntry::converToPageBreakEntry);
 
             if (entry->type() != HorizontalRuleEntry::Type)
-                convertTo->addAction(QIcon(), i18n("Horizontal Line"), entry, &WorksheetEntry::convertToHorizontalRuleEntry);
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), entry, &WorksheetEntry::convertToHorizontalRuleEntry);
 
             if (entry->type() != HierarchyEntry::Type)
-                convertTo->addAction(QIcon(), i18n("Hierarchy Entry"), entry, &WorksheetEntry::convertToHierarchyEntry);
+                convertTo->addAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Hierarchy Entry"), entry, &WorksheetEntry::convertToHierarchyEntry);
 
             //"Insert After" menu
             QMenu* insert = new QMenu(i18n("Insert After"), menu);
@@ -1868,9 +1870,11 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insert->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, SLOT(insertLatexEntry()));
     #endif
             insert->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntry()));
+            insert->addSeparator();
+            insert->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntry()));
             insert->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), entry, SLOT(insertPageBreakEntry()));
-            insert->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntry()));
-            insert->addAction(QIcon(), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntry()));
+            insert->addSeparator();
+            insert->addAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntry()));
 
             //"Insert Before" menu
             QMenu* insertBefore = new QMenu(i18n("Insert Before"), menu);
@@ -1886,9 +1890,11 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), entry, SLOT(insertLatexEntryBefore()));
     #endif
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), entry, SLOT(insertImageEntryBefore()));
+            insertBefore->addSeparator();
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntryBefore()));
             insertBefore->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), entry, SLOT(insertPageBreakEntryBefore()));
-            insertBefore->addAction(QIcon(), i18n("Horizontal Line"), entry, SLOT(insertHorizontalRuleEntryBefore()));
-            insertBefore->addAction(QIcon(), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntryBefore()));
+            insertBefore->addSeparator();
+            insertBefore->addAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Hierarchy Entry"), entry, SLOT(insertHierarchyEntryBefore()));
         } else {
             QMenu* insertMenu = new QMenu(i18n("Insert"));
             insertMenu->setIcon(QIcon::fromTheme(QLatin1String("insert-table-row")));
@@ -1902,9 +1908,11 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("text-x-tex")), i18n("LaTeX"), this, &Worksheet::appendLatexEntry);
     #endif
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("image-x-generic")), i18n("Image"), this, &Worksheet::appendImageEntry);
+            insertMenu->addSeparator();
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("newline")), i18n("Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("insert-page-break")), i18n("Page Break"), this, &Worksheet::appendPageBreakEntry);
-            insertMenu->addAction(QIcon(), i18n("Horizontal Line"), this, &Worksheet::appendHorizontalRuleEntry);
-            insertMenu->addAction(QIcon(), i18n("Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
+            insertMenu->addSeparator();
+            insertMenu->addAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
 
             menu->addMenu(insertMenu);
         }

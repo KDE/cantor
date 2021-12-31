@@ -21,6 +21,7 @@
 #include <QGuiApplication>
 #include <QDebug>
 #include <QDesktopWidget>
+#include <QFontDatabase>
 #include <QFontDialog>
 #include <QScreen>
 #include <QTimer>
@@ -28,6 +29,7 @@
 #include <QPropertyAnimation>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QTextBlock>
 #include <QTextDocumentFragment>
 #include <QPainter>
 

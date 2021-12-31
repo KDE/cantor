@@ -8,10 +8,8 @@
 #ifndef WORKSHEET_H
 #define WORKSHEET_H
 
+#include <QDomDocument>
 #include <QGraphicsScene>
-#include <QDomElement>
-#include <QGraphicsObject>
-#include <QSyntaxHighlighter>
 #include <QQueue>
 
 #include "lib/renderer.h"
@@ -32,8 +30,10 @@ class WorksheetTextItem;
 
 class QAction;
 class QDrag;
+class QGraphicsObject;
 class QMenu;
 class QPrinter;
+class QSyntaxHighlighter;
 class KActionCollection;
 class KToggleAction;
 class KFontAction;
@@ -180,7 +180,7 @@ class Worksheet : public QGraphicsScene
     void interruptCurrentEntryEvaluation();
 
     bool completionEnabled();
-    //void showCompletion();
+    void showCompletion();
 
     void highlightItem(WorksheetTextItem*);
     void rehighlight();
@@ -283,7 +283,6 @@ class Worksheet : public QGraphicsScene
     bool isValidEntry(WorksheetEntry*);
 
   private Q_SLOTS:
-    void showCompletion();
     //void checkEntriesForSanity();
 
     WorksheetEntry* appendEntry(int type, bool focus = true);
