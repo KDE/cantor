@@ -9,6 +9,7 @@
 #include "textentry.h"
 #include "markdownentry.h"
 #include "latexentry.h"
+#include "placeholderentry.h"
 #include "imageentry.h"
 #include "pagebreakentry.h"
 #include "horizontalruleentry.h"
@@ -710,7 +711,7 @@ bool WorksheetEntry::aboutToBeRemoved()
 
 void WorksheetEntry::startRemoving()
 {
-    if (type() ==PlaceHolderEntry::Type) //don't do anything if a PlaceholderEntry is being removed in Worksheet::drageMoveEvent()
+    if (type() == PlaceHolderEntry::Type) //don't do anything if a PlaceholderEntry is being removed in Worksheet::drageMoveEvent()
         return;
 
     int rc = KMessageBox::warningYesNo(nullptr, i18n("Do you really want to remove this entry?"), i18n("Remove Entry"));
