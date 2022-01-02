@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 #include "cantor.h"
 #include "lib/session.h"
@@ -113,13 +113,13 @@ void CantorShell::load(const QUrl& url)
         m_tabWidget->setCurrentIndex(m_parts.size() - 1);
     }
 
-    if (!m_part->openUrl(url))
+    if (m_part->openUrl(url)) {
+        if (m_recentProjectsAction)
+            m_recentProjectsAction->addUrl(url);
+
+        updateWindowTitle(m_part->url().fileName());
+    } else
         closeTab(m_tabWidget->currentIndex());
-
-    if (m_recentProjectsAction)
-        m_recentProjectsAction->addUrl(url);
-
-    updateWindowTitle(m_part->url().fileName());
 }
 
 void CantorShell::setupActions()
