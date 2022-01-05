@@ -191,9 +191,10 @@ void WorksheetTextItem::copy()
         QApplication::sendEvent(worksheet(), event);
         delete event;
     } else {
-        if (!textCursor().hasSelection())
-            return;
-        QString text = resolveImages(textCursor());
+        auto cursor = textCursor();
+        if (!cursor.hasSelection())
+            cursor.select(QTextCursor::Document);
+        QString text = resolveImages(cursor);
         text.replace(QChar::ParagraphSeparator, QLatin1Char('\n'));
         text.replace(QChar::LineSeparator, QLatin1Char('\n'));
         QApplication::clipboard()->setText(text);

@@ -51,9 +51,8 @@ double TextResultItem::setGeometry(double x, double y, double w)
 
 void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
 {
-    QAction * copy = KStandardAction::copy(this, SLOT(copy()), menu);
-    if (!textCursor().hasSelection())
-        copy->setEnabled(false);
+    auto* copy = KStandardAction::copy(this, SLOT(copy()), menu);
+    copy->setText(i18n("Copy result"));
     menu->addAction(copy);
     ResultItem::addCommonActions(this, menu);
 
@@ -207,10 +206,13 @@ void TextResultItem::showPlain()
 
 void TextResultItem::saveResult()
 {
-    Cantor::Result* res = result();
+    auto* res = result();
     const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    qDebug() << "saving result to " << filename;
-    res->save(filename);
+    if (!filename.isEmpty())
+    {
+        qDebug() << "saving result to " << filename;
+        res->save(filename);
+    }
 }
 
 void TextResultItem::deleteLater()
