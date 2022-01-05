@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2017-2021 by Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2017-2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "maximaexpression.h"
@@ -228,7 +228,12 @@ bool MaximaExpression::parseOutput(QString& out)
             //"\nrat: replaced 7.5 by 15/2 = 7.5\n<cantor-result><cantor-text>\n(%o2) 15/2\n</cantor-text></cantor-result>\n<cantor-prompt>(%i3) </cantor-prompt>\n".
             //In such cases we just add a new text result with the warning.
             qDebug() << "warning: " << errorContent;
-            addResult(new Cantor::TextResult(errorContent.trimmed()));
+            auto* result = new Cantor::TextResult(errorContent.trimmed());
+
+            //the output of tex() function is also placed outside of the result section, don't treat it as a warning
+            if (!command().remove(QLatin1Char(' ')).startsWith(QLatin1String("tex(")))
+                result->setIsWarning(true);
+            addResult(result);
         }
     }
 

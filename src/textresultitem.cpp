@@ -30,6 +30,10 @@ TextResultItem::TextResultItem(WorksheetEntry* parent, Cantor::Result* result)
     setTextInteractionFlags(Qt::TextSelectableByMouse);
     update();
 
+    auto* textResult = dynamic_cast<Cantor::TextResult*>(result);
+    if (textResult && textResult->isWarning())
+        setDefaultTextColor(qApp->palette().color(QPalette::Highlight));
+
     // So useful behaviour:
     // If we have HtmlResult, but after setting we have empty document
     // So show Plain version - it more useful

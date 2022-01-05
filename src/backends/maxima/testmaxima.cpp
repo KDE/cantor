@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #include "testmaxima.h"
@@ -107,7 +108,7 @@ void TestMaxima::testInvalidSyntax()
     QVERIFY( e->status()==Cantor::Expression::Error );
 }
 
-void TestMaxima::testWarning()
+void TestMaxima::testWarning01()
 {
     auto* e = evalExp( QLatin1String("rat(0.75*10)") );
 
@@ -116,10 +117,31 @@ void TestMaxima::testWarning()
 
     //the actual warning string "rat: replaced 7.5 by 15/2 = 7.5" which we don't checked since it's translated,
     //we just check it's existance.
-    QVERIFY(e->results().at(0)->data().toString().isEmpty() == false);
+    auto* result = dynamic_cast<Cantor::TextResult*>(e->results().at(0));
+    QVERIFY(e != nullptr);
+    QVERIFY(result->data().toString().isEmpty() == false);
+    QVERIFY(result->isWarning() == true);
 
     //the result of the calculation
     QCOMPARE(e->results().at(1)->data().toString(), QLatin1String("15/2"));
+}
+
+/*!
+ * test the output of the tex() function which is similarly formatted as other functions producing warning
+ * but which shouldn't be treated as a warning.
+ * */
+void TestMaxima::testWarning02()
+{
+    auto* e = evalExp( QLatin1String("tex(\"sin(x)\")") );
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->results().size() == 2); //two results, the TeX output and an additional 'false'
+
+    //the actual TeX string is of no interest for us, we just check it's existance.
+    auto* result = dynamic_cast<Cantor::TextResult*>(e->results().at(0));
+    QVERIFY(e != nullptr);
+    QVERIFY(result->data().toString().isEmpty() == false);
+    QVERIFY(result->isWarning() == false);
 }
 
 void TestMaxima::testExprNumbering()

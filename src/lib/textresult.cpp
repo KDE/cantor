@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "textresult.h"
@@ -26,15 +27,11 @@ QString rtrim(const QString& s)
 class Cantor::TextResultPrivate
 {
 public:
-    TextResultPrivate()
-    {
-        format=TextResult::PlainTextFormat;
-    }
-
     QString data;
     QString plain;
-    TextResult::Format format;
+    TextResult::Format format{TextResult::PlainTextFormat};
     bool isStderr{false};
+    bool isWarning{false};
 };
 
 TextResult::TextResult(const QString& data) : d(new TextResultPrivate)
@@ -49,10 +46,19 @@ TextResult::TextResult(const QString& data, const QString& plain) : d(new TextRe
     d->plain=rtrim(plain);
 }
 
-
 TextResult::~TextResult()
 {
     delete d;
+}
+
+void TextResult::setIsWarning(bool value)
+{
+    d->isWarning = value;
+}
+
+bool TextResult::isWarning() const
+{
+    return d->isWarning;
 }
 
 QString TextResult::toHtml()
