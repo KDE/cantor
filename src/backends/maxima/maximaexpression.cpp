@@ -219,8 +219,18 @@ bool MaximaExpression::parseOutput(QString& out)
 
     //parse the results
     int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
-    if (resultStart != -1)
+    if (resultStart != -1) {
         errorContent += out.mid(0, resultStart);
+        if (!errorContent.isEmpty() && ! (m_isHelpRequest || m_isHelpRequestAdditional))
+        {
+            //there is a result but also the error buffer is not empty. This is the case when
+            //warnings are generated, for example, the output of rat(0.75*10) is:
+            //"\nrat: replaced 7.5 by 15/2 = 7.5\n<cantor-result><cantor-text>\n(%o2) 15/2\n</cantor-text></cantor-result>\n<cantor-prompt>(%i3) </cantor-prompt>\n".
+            //In such cases we just add a new text result with the warning.
+            qDebug() << "warning: " << errorContent;
+            addResult(new Cantor::TextResult(errorContent.trimmed()));
+        }
+    }
 
     while (resultStart != -1)
     {
@@ -250,11 +260,13 @@ bool MaximaExpression::parseOutput(QString& out)
     {
         qDebug() << "error content: " << errorContent;
 
-        if (out.contains(QLatin1String("cantor-value-separator")))
+        if (out.contains(QLatin1String("cantor-value-separator")) || out.contains(QLatin1String("<cantor-result>")))
         {
-            //when fetching variables, in addition to the actual result with variable names and values,
-            //Maxima also writes out the names of the variables to the error buffer.
-            //we don't interpret this as an error.
+            //we don't interpret the error output as an error in the following cases:
+            //1. when fetching variables, in addition to the actual result with variable names and values,
+            //  Maxima also writes out the names of the variables to the error buffer.
+            //2. when there is a valid result produced, in this case the error string
+            //  contains actually a warning that is handled above
             setStatus(Cantor::Expression::Done);
         }
         else if(m_isHelpRequest || m_isHelpRequestAdditional) //help messages are also part of the error output

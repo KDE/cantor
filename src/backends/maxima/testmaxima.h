@@ -28,22 +28,26 @@ private Q_SLOTS:
     void testPlot();
     void testPlotWithAnotherTextResults();
 
+    /* errors and warnings */
+
     //tests a syntax error (not closing bracket)
     void testInvalidSyntax();
+    void testWarning();
     //tests if the expression numbering works
     void testExprNumbering();
+    void testInvalidAssignment();
 
-    //some tests to see if comments are working correctly
+    /* comments */
     void testSimpleExpressionWithComment();
     void testCommentExpression();
     void testNestedComment();
     void testUnmatchedComment();
 
-    void testInvalidAssignment();
-
+    /* tests where additional input is required */
     void testInformationRequest();
     void testHelpRequest();
     void testSyntaxHelp();
+
     void testCompletion();
 
     void testVariableModel();

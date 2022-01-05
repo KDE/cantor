@@ -107,6 +107,21 @@ void TestMaxima::testInvalidSyntax()
     QVERIFY( e->status()==Cantor::Expression::Error );
 }
 
+void TestMaxima::testWarning()
+{
+    auto* e = evalExp( QLatin1String("rat(0.75*10)") );
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->results().size() == 2); //two results, the warning and the actual result of the calculation
+
+    //the actual warning string "rat: replaced 7.5 by 15/2 = 7.5" which we don't checked since it's translated,
+    //we just check it's existance.
+    QVERIFY(e->results().at(0)->data().toString().isEmpty() == false);
+
+    //the result of the calculation
+    QCOMPARE(e->results().at(1)->data().toString(), QLatin1String("15/2"));
+}
+
 void TestMaxima::testExprNumbering()
 {
     Cantor::Expression* e=evalExp( QLatin1String("kill(labels)") ); //first reset the labels
