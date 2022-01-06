@@ -221,7 +221,7 @@ bool MaximaExpression::parseOutput(QString& out)
     int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
     if (resultStart != -1) {
         errorContent += out.mid(0, resultStart);
-        if (!errorContent.isEmpty() && ! (m_isHelpRequest || m_isHelpRequestAdditional))
+        if (!errorContent.isEmpty() && !(m_isHelpRequest || m_isHelpRequestAdditional))
         {
             //there is a result but also the error buffer is not empty. This is the case when
             //warnings are generated, for example, the output of rat(0.75*10) is:
@@ -265,7 +265,8 @@ bool MaximaExpression::parseOutput(QString& out)
     {
         qDebug() << "error content: " << errorContent;
 
-        if (out.contains(QLatin1String("cantor-value-separator")) || out.contains(QLatin1String("<cantor-result>")))
+        if (out.contains(QLatin1String("cantor-value-separator"))
+            || (out.contains(QLatin1String("<cantor-result>")) && !(m_isHelpRequest || m_isHelpRequestAdditional) ) )
         {
             //we don't interpret the error output as an error in the following cases:
             //1. when fetching variables, in addition to the actual result with variable names and values,

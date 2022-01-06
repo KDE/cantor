@@ -338,7 +338,6 @@ void CommandEntry::populateMenu(QMenu* menu, QPointF pos)
             menu->addAction(i18n("Hide Results"), this, &CommandEntry::collapseResults);
     }
 
-
     if (!m_commandItem->toPlainText().simplified().isEmpty())
     {
         QAction* action = new QAction(QIcon::fromTheme(QLatin1String("help-hint")), i18n("Show Help"));
@@ -848,8 +847,7 @@ QString CommandEntry::currentLine()
     if (!m_commandItem->hasFocus())
         return QString();
 
-    QTextBlock block = m_commandItem->textCursor().block();
-    return block.text();
+    return m_commandItem->textCursor().block().text();
 }
 
 bool CommandEntry::evaluateCurrentItem()
@@ -892,7 +890,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
             return false;
         }
 
-        Cantor::Expression* expr = worksheet()->session()->evaluateExpression(cmd);
+        auto* expr = worksheet()->session()->evaluateExpression(cmd);
         connect(expr, &Cantor::Expression::gotResult, this, [=]() { worksheet()->gotResult(expr); });
 
         setExpression(expr);
@@ -908,7 +906,7 @@ bool CommandEntry::evaluate(EvaluationOption evalOp)
 
 void CommandEntry::interruptEvaluation()
 {
-    Cantor::Expression *expr = expression();
+    auto* expr = expression();
     if(expr)
         expr->interrupt();
 }
@@ -916,7 +914,7 @@ void CommandEntry::interruptEvaluation()
 void CommandEntry::updateEntry()
 {
     qDebug() << "update Entry";
-    Cantor::Expression* expr = expression();
+    auto* expr = expression();
     if (expr == nullptr || expr->results().isEmpty())
         return;
 
@@ -943,7 +941,9 @@ void CommandEntry::updateEntry()
             item->update();
     }
 
-    m_controlElement.isCollapsable = m_resultItems.size() > 0;
+    m_controlElement.isCollapsable = m_errorItem != nullptr
+                                    || m_informationItems.size() > 0
+                                    || m_resultItems.size() > 0;
 
     animateSizeChange();
 }
@@ -1206,7 +1206,7 @@ void CommandEntry::resultDeleted()
 
 void CommandEntry::addInformation()
 {
-    WorksheetTextItem *answerItem = currentInformationItem();
+    auto* answerItem = currentInformationItem();
     answerItem->setTextInteractionFlags(Qt::TextSelectableByMouse);
 
     QString inf = answerItem->toPlainText();
@@ -1220,8 +1220,8 @@ void CommandEntry::addInformation()
 
 void CommandEntry::showAdditionalInformationPrompt(const QString& question)
 {
-    WorksheetTextItem* questionItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
-    WorksheetTextItem* answerItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
+    auto* questionItem = new WorksheetTextItem(this, Qt::TextSelectableByMouse);
+    auto* answerItem = new WorksheetTextItem(this, Qt::TextEditorInteraction);
 
     //change the color and the font for when asking for additional information in order to
     //better discriminate from the usual input in the command entry
@@ -1242,7 +1242,6 @@ void CommandEntry::showAdditionalInformationPrompt(const QString& question)
     m_informationItems.append(answerItem);
     connect(answerItem, &WorksheetTextItem::moveToPrevious, this, &CommandEntry::moveToPreviousItem);
     connect(answerItem, &WorksheetTextItem::moveToNext, this, &CommandEntry::moveToNextItem);
-
     connect(answerItem, &WorksheetTextItem::execute, this, &CommandEntry::addInformation);
     answerItem->setFocus();
 
@@ -1281,7 +1280,7 @@ void CommandEntry::clearResultItems()
 
 void CommandEntry::replaceResultItem(int index)
 {
-    ResultItem* previousItem = m_resultItems[index];
+    auto* previousItem = m_resultItems[index];
     m_resultItems[index] = ResultItem::create(this, m_expression->results()[index]);
     previousItem->deleteLater();
     recalculateSize();
@@ -1415,8 +1414,7 @@ WorksheetCursor CommandEntry::search(const QString& pattern, unsigned flags,
 
     for (auto* resultItem : m_resultItems)
     {
-        WorksheetTextItem* textResult = dynamic_cast<WorksheetTextItem*>
-            (resultItem);
+        auto* textResult = dynamic_cast<WorksheetTextItem*>(resultItem);
         if (textResult && flags & WorksheetEntry::SearchResult) {
             cursor = textResult->search(pattern, qt_flags, p);
             if (!cursor.isNull())
@@ -1443,10 +1441,11 @@ void CommandEntry::layOutForWidth(qreal entry_zone_x, qreal w, bool force)
     width = qMax(width, m_commandItem->width()+margin);
 
     y += qMax(m_commandItem->height(), m_promptItem->height());
-    foreach(WorksheetTextItem* information, m_informationItems) {
+
+    for (auto* item : m_informationItems) {
         y += VerticalSpacing;
-        y += information->setGeometry(x, y, w - x - margin);
-        width = qMax(width, information->width() + margin);
+        y += item->setGeometry(x, y, w - x - margin);
+        width = qMax(width, item->width() + margin);
     }
 
     if (m_errorItem) {
@@ -1489,6 +1488,11 @@ void CommandEntry::collapseResults()
     if (m_resultsCollapsed)
         return;
 
+    for(auto* item : m_informationItems) {
+        fadeOutItem(item, nullptr);
+        item->hide();
+    }
+
     for(auto* item : m_resultItems) {
         fadeOutItem(item->graphicsObject(), nullptr);
         item->graphicsObject()->hide();
@@ -1512,6 +1516,11 @@ void CommandEntry::expandResults()
 {
     if(!m_resultsCollapsed)
         return;
+
+    for(auto* item : m_informationItems) {
+        fadeInItem(item, nullptr);
+        item->show();
+    }
 
     for(auto* item : m_resultItems) {
         fadeInItem(item->graphicsObject(), nullptr);
