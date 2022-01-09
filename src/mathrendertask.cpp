@@ -24,8 +24,10 @@ static const QLatin1String mathTex("\\documentclass%9{minimal}"\
                          "\\usepackage[utf8]{inputenc}"\
                          "\\usepackage[active,displaymath,textmath,tightpage]{preview}"\
                          "\\usepackage{color}"\
+                         "\\setlength\\PreviewBorder{0pt}"\
                          "\\begin{document}"\
                          "\\begin{preview}"\
+                         "\\setlength{\\fboxsep}{0.2pt}"\
                          "$"\
                          "\\colorbox[rgb]{%1,%2,%3}{"\
                          "\\color[rgb]{%4,%5,%6}"\
