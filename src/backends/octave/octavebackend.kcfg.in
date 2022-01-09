@@ -11,9 +11,9 @@
       <default code="true">
           [this] {
                 #ifdef Q_OS_WIN
-                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave-cli.exe") ));
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave.exe") ));
                 #else
-                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave-cli") ));
+                return QUrl::fromLocalFile(QStandardPaths::findExecutable( QLatin1String("octave") ));
                 #endif
             } ()
       </default>
