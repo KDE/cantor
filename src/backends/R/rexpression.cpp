@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "rexpression.h"
@@ -11,17 +12,13 @@
 #include "epsresult.h"
 #include "rsession.h"
 
-
 #include <QDebug>
 #include <KLocalizedString>
 #include <QMimeType>
 #include <QMimeDatabase>
 #include <QFile>
-#include <QStringList>
-#include <QTextDocument>
 
-RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal),
-m_isHelpRequest(false)
+RExpression::RExpression( Cantor::Session* session, bool internal ) : Cantor::Expression(session, internal)
 {
 
 }
@@ -78,17 +75,20 @@ void RExpression::addInformation(const QString& information)
 void RExpression::showFilesAsResult(const QStringList& files)
 {
     qDebug()<<"showing files: "<<files;
-    foreach(const QString& file, files)
+    for (const QString& file : files)
     {
-        QMimeType type;
         QMimeDatabase db;
-
-        type=db.mimeTypeForUrl(QUrl(file));
+        auto type = db.mimeTypeForUrl(QUrl(file));
         qDebug()<<"MimeType: "<<type.name();
         if(type.inherits(QLatin1String("application/postscript")))
         {
             qDebug()<<"it's PostScript";
             setResult(new Cantor::EpsResult(QUrl::fromLocalFile(file)));
+        }
+        else if (type.name().contains(QLatin1String("image")))
+        {
+            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
+            setStatus(Cantor::Expression::Done);
         }
         else if(type.inherits(QLatin1String("text/plain"))
             || type.inherits(QLatin1String("application/x-extension-html"))
@@ -125,15 +125,11 @@ void RExpression::showFilesAsResult(const QStringList& files)
             else
                 setResult(new Cantor::TextResult(content));
             setStatus(Cantor::Expression::Done);
-        }else if (type.name().contains(QLatin1String("image")))
-        {
-            setResult(new Cantor::ImageResult(QUrl::fromLocalFile(file)));
-            setStatus(Cantor::Expression::Done);
         }
         else
         {
-            // File has unsupported mime type, but we suspect, that it is text, so will open the file in Cantor script editor
-            // Even if it don't text, the script editor can deals with it.
+            // File has unsupported mime type, but we suspect, that it is text, so we open the file in the script editor
+            // Even if it's not text, the script editor can deal with it.
             setStatus(Cantor::Expression::Done);
             const QString& editor = QStandardPaths::findExecutable(QLatin1String("cantor_scripteditor"));
             int code = QProcess::execute(editor, QStringList(file));
