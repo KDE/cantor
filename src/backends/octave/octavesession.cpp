@@ -34,14 +34,9 @@
 
 const QRegularExpression OctaveSession::PROMPT_UNCHANGEABLE_COMMAND = QRegularExpression(QStringLiteral("^(?:,|;)+$"));
 
-OctaveSession::OctaveSession ( Cantor::Backend* backend ) : Session ( backend),
-m_process(nullptr),
+OctaveSession::OctaveSession(Cantor::Backend* backend) : Session(backend),
 m_prompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_PROMPT:([0-9]+)> ")),
-m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> ")),
-m_previousPromptNumber(1),
-m_syntaxError(false),
-m_isIntegratedPlotsEnabled(false),
-m_isIntegratedPlotsSettingsEnabled(false)
+m_subprompt(QStringLiteral("CANTOR_OCTAVE_BACKEND_SUBPROMPT:([0-9]+)> "))
 {
     setVariableModel(new OctaveVariableModel(this));
 }
@@ -64,7 +59,7 @@ void OctaveSession::login()
 
     emit loginStarted();
 
-    m_process = new KProcess ( this );
+    m_process = new KProcess(this);
     QStringList args;
     args << QLatin1String("--silent");
     args << QLatin1String("--interactive");
@@ -106,7 +101,7 @@ void OctaveSession::login()
     m_plotFilePrefixPath =
         QDir::tempPath()
         + QLatin1String("/cantor_octave_")
-        + QString::number(m_process->pid())
+        + QString::number(m_process->processId())
         + QLatin1String("_")
         + QString::number(rand_dist(mt))
         + QLatin1String("_");
@@ -117,6 +112,7 @@ void OctaveSession::login()
         evaluateExpression(autorunScripts, OctaveExpression::DeleteOnFinish, true);
         updateVariables();
     }
+
     if (!m_worksheetPath.isEmpty())
     {
         static const QString mfilenameTemplate = QLatin1String(
@@ -209,13 +205,14 @@ void OctaveSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->pid();
+            const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
 #endif
         }
-        foreach (Cantor::Expression* expression, expressionQueue())
+
+        for (auto* expression : expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
@@ -237,15 +234,15 @@ void OctaveSession::processError()
     emit error(m_process->errorString());
 }
 
-Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, Cantor::Expression::FinishingBehavior finishingBehavior, bool internal )
+Cantor::Expression* OctaveSession::evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behavior, bool internal )
 {
     if (!internal)
         updateGraphicPackagesFromSettings();
 
     qDebug() << "evaluating: " << command;
-    OctaveExpression* expression = new OctaveExpression ( this, internal);
+    auto* expression = new OctaveExpression(this, internal);
     expression->setCommand ( command );
-    expression->setFinishingBehavior ( finishingBehavior );
+    expression->setFinishingBehavior(behavior);
     expression->evaluate();
 
     return expression;
@@ -253,16 +250,15 @@ Cantor::Expression* OctaveSession::evaluateExpression ( const QString& command, 
 
 void OctaveSession::runFirstExpression()
 {
-    OctaveExpression* expression = static_cast<OctaveExpression*>(expressionQueue().first());
-    connect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionStatusChanged(Cantor::Expression::Status)));
-    QString command = expression->internalCommand();
+    auto* expression = expressionQueue().first();
+    connect(expression, &Cantor::Expression::statusChanged, this, &OctaveSession::currentExpressionStatusChanged);
+
+    const auto& command = expression->internalCommand();
     expression->setStatus(Cantor::Expression::Computing);
     if (isDoNothingCommand(command))
         expression->setStatus(Cantor::Expression::Done);
     else
-    {
-        m_process->write ( command.toLocal8Bit() );
-    }
+        m_process->write(command.toLocal8Bit());
 }
 
 void OctaveSession::readError()
@@ -271,7 +267,7 @@ void OctaveSession::readError()
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
     if (!expressionQueue().isEmpty() && !error.isEmpty())
     {
-        OctaveExpression* const exp = static_cast<OctaveExpression*>(expressionQueue().first());
+        auto* const exp = static_cast<OctaveExpression*>(expressionQueue().first());
         if (m_syntaxError)
         {
             m_syntaxError = false;
@@ -347,19 +343,19 @@ void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status st
     }
 }
 
-Cantor::CompletionObject* OctaveSession::completionFor ( const QString& cmd, int index )
+Cantor::CompletionObject* OctaveSession::completionFor(const QString& cmd, int index)
 {
-    return new OctaveCompletionObject ( cmd, index, this );
+    return new OctaveCompletionObject(cmd, index, this);
 }
 
-Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor ( const QString& cmd )
+Cantor::SyntaxHelpObject* OctaveSession::syntaxHelpFor(const QString& cmd)
 {
-    return new OctaveSyntaxHelpObject ( cmd, this );
+    return new OctaveSyntaxHelpObject(cmd, this);
 }
 
-QSyntaxHighlighter* OctaveSession::syntaxHighlighter ( QObject* parent )
+QSyntaxHighlighter* OctaveSession::syntaxHighlighter(QObject* parent)
 {
-    return new OctaveHighlighter ( parent, this );
+    return new OctaveHighlighter(parent, this);
 }
 
 void OctaveSession::runSpecificCommands()
@@ -437,6 +433,7 @@ void OctaveSession::updateGraphicPackagesFromSettings()
                 );
             }
         }
+
         m_isIntegratedPlotsEnabled = isIntegratedPlots;
         m_isIntegratedPlotsSettingsEnabled = OctaveSettings::integratePlots();
 
