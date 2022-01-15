@@ -155,7 +155,7 @@ void PythonSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->pid();
+            const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
@@ -255,7 +255,7 @@ void PythonSession::readOutput()
         const QString& output = message.section(unitSep, 0, 0);
         const QString& error = message.section(unitSep, 1, 1);
         bool isError = message.section(unitSep, 2, 2).toInt();
-        auto* expr = static_cast<PythonExpression*>(expressionQueue().first());
+        auto* expr = expressionQueue().first();
         if (isError)
         {
             if(error.isEmpty()){
@@ -266,7 +266,7 @@ void PythonSession::readOutput()
         }
         else
         {
-            expr->parseWarning(error);
+            static_cast<PythonExpression*>(expr)->parseWarning(error);
             expr->parseOutput(output);
         }
         finishFirstExpression(true);

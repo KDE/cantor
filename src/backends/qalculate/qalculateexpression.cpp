@@ -41,7 +41,7 @@
 #include <QStack>
 
 QalculateExpression::QalculateExpression( QalculateSession* session, bool internal)
-    : Cantor::Expression(session, internal), m_tempFile(nullptr)
+    : Cantor::Expression(session, internal)
 {
 }
 
@@ -85,39 +85,39 @@ void QalculateExpression::evaluate()
     // we are here because the commands entered by user are regular commands. We would have returned by now otherwise
     QalculateSession* currentSession = dynamic_cast<QalculateSession*>(session());
     currentSession->runExpression();
-
 }
 
-void QalculateExpression::parseOutput(QString& output)
+void QalculateExpression::parseOutput(const QString& output)
 {
-    output.remove(QLatin1String(">"));
-    output = output.trimmed();
+    QString resultStr = output;
+    resultStr.remove(QLatin1String(">"));
+    resultStr = resultStr.trimmed();
 
-    qDebug() << "output from qalc for command: " << command() << " " << output << endl;
-    setResult(new Cantor::TextResult(output));
+    qDebug() << "output from qalc for command: " << command() << " " << resultStr << endl;
+    setResult(new Cantor::TextResult(resultStr));
     // update the variable model
     updateVariables();
     setStatus(Cantor::Expression::Done);
 }
 
-
 void QalculateExpression::updateVariables()
 {
-    QalculateSession* currentSession = dynamic_cast<QalculateSession*>(session());
-    QMap<QString,QString>  &variables = currentSession->variables;
-    QMap<QString, QString>::const_iterator it = variables.constBegin();
+    auto* currentSession = dynamic_cast<QalculateSession*>(session());
+    auto& variables = currentSession->variables;
+    auto it = variables.constBegin();
     while (it != variables.constEnd()) {
         currentSession->variableModel()->addVariable(it.key(), it.value());
         ++it;
     }
 }
 
-void QalculateExpression::parseError(QString& error)
+void QalculateExpression::parseError(const QString& error)
 {
-    error.remove(QLatin1String(">"));
-    error  = error.trimmed();
+    QString errorStr = error;
+    errorStr.remove(QLatin1String(">"));
+    errorStr  = errorStr.trimmed();
     qDebug() << "Error from qalc for command: " << command() <<  " " << error << endl;
-    setErrorMessage(error);
+    setErrorMessage(errorStr);
     setStatus(Cantor::Expression::Error);
 }
 
@@ -142,8 +142,8 @@ void QalculateExpression::evaluatePlotCommand()
     const QString msgFormat(QLatin1String("<font color=\"%1\">%2: %3</font><br>\n"));
 
     if (!CALCULATOR->canPlot()) {
-	showMessage(i18n("Qalculate reports it cannot print. Is gnuplot installed?"), MESSAGE_ERROR);
-	return;
+        showMessage(i18n("Qalculate reports it cannot print. Is gnuplot installed?"), MESSAGE_ERROR);
+        return;
     }
 
     // Split argString into the arguments
@@ -668,7 +668,6 @@ void QalculateExpression::evaluatePlotCommand()
 #endif
 	setStatus(Cantor::Expression::Done);
     }
-
 }
 
 void QalculateExpression::showMessage(QString msg, MessageType mtype)
@@ -821,8 +820,6 @@ std::string QalculateExpression::unlocalizeExpression(QString expr)
                  .toLatin1().data()
            );
 }
-
-
 
 QSharedPointer<PrintOptions> QalculateExpression::printOptions()
 {

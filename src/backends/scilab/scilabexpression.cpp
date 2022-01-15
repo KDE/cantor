@@ -66,7 +66,7 @@ void ScilabExpression::evaluate()
     session()->enqueueExpression(this);
 }
 
-void ScilabExpression::parseOutput(QString output)
+void ScilabExpression::parseOutput(const QString& output)
 {
     qDebug() << "output: " << output;
     const QStringList lines = output.split(QLatin1String("\n"));
@@ -87,7 +87,7 @@ void ScilabExpression::parseOutput(QString output)
     setStatus(Cantor::Expression::Done);
 }
 
-void ScilabExpression::parseError(QString error)
+void ScilabExpression::parseError(const QString& error)
 {
     qDebug() << "error" << error;
 

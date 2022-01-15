@@ -21,8 +21,17 @@ class QalculateExpression : public Cantor::Expression
 {
     Q_OBJECT
 
+public:
+    explicit QalculateExpression( QalculateSession* session, bool internal = false);
+    ~QalculateExpression() override;
+
+    void evaluate() override;
+    void interrupt() override;
+    void parseOutput(const QString&) override;
+    void parseError(const QString&) override;
+
 private:
-    QTemporaryFile *m_tempFile;
+    QTemporaryFile* m_tempFile{nullptr};
 
     QString m_message;
     enum MsgType { MSG_NONE=0, MSG_INFO=1, MSG_WARN=2, MSG_ERR=4 };
@@ -38,15 +47,6 @@ private:
     EvaluationOptions evaluationOptions();
     ParseOptions parseOptions();
     std::string unlocalizeExpression(QString expr);
-
-public:
-    explicit QalculateExpression( QalculateSession* session, bool internal = false);
-    ~QalculateExpression() override;
-
-    void evaluate() override;
-    void interrupt() override;
-    void parseOutput(QString& output);
-    void parseError(QString& error);
 };
 
 #endif

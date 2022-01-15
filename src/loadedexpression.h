@@ -30,6 +30,9 @@ class LoadedExpression : public Cantor::Expression
     void evaluate() override;
     void interrupt() override;
 
+    void parseOutput(const QString&) override {};
+    void parseError(const QString&) override {};
+
     void loadFromXml(const QDomElement& xml, const KZip& file);
     void loadFromJupyter(const QJsonObject& cell);
 };

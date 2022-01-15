@@ -194,7 +194,7 @@ void MaximaExpression::forceDone()
     latex mode - "<cantor-result><cantor-text>\n(%o1) 10\n</cantor-text><cantor-latex>\\mbox{\\tt\\red(\\mathrm{\\%o1}) \\black}10</cantor-latex></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
     text mode  - "<cantor-result><cantor-text>\n(%o1) 10\n</cantor-text></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
  */
-bool MaximaExpression::parseOutput(QString& out)
+void MaximaExpression::parseOutput(const QString& out)
 {
     const int promptStart = out.indexOf(QLatin1String("<cantor-prompt>"));
     const int promptEnd = out.indexOf(QLatin1String("</cantor-prompt>"));
@@ -210,7 +210,7 @@ bool MaximaExpression::parseOutput(QString& out)
 
         qDebug()<<"asking for additional input for " << textContent;
         emit needsAdditionalInformation(textContent);
-        return true;
+        return;
     }
 
     qDebug()<<"new input label: " << prompt;
@@ -304,8 +304,6 @@ bool MaximaExpression::parseOutput(QString& out)
             setStatus(Cantor::Expression::Error);
         }
     }
-
-    return true;
 }
 
 void MaximaExpression::parseResult(const QString& resultContent)

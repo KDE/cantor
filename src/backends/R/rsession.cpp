@@ -86,13 +86,13 @@ void RSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->pid();
+            const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
 #endif
         }
-        foreach (Cantor::Expression* expression, expressionQueue())
+        for (auto* expression : expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
@@ -105,7 +105,7 @@ void RSession::interrupt()
 Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug()<<"evaluating: "<<cmd;
-    RExpression* expr=new RExpression(this, internal);
+    auto* expr = new RExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
 
@@ -116,7 +116,7 @@ Cantor::Expression* RSession::evaluateExpression(const QString& cmd, Cantor::Exp
 
 Cantor::CompletionObject* RSession::completionFor(const QString& command, int index)
 {
-    RCompletionObject *cmp=new RCompletionObject(command, index, this);
+    auto* cmp = new RCompletionObject(command, index, this);
     return cmp;
 }
 
@@ -141,11 +141,11 @@ void RSession::expressionFinished(int returnCode, const QString& text, const QSt
 {
     if (!expressionQueue().isEmpty())
     {
-        RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
+        auto* expr = expressionQueue().first();
         if (expr->status() == Cantor::Expression::Interrupted)
             return;
 
-        expr->showFilesAsResult(files);
+        static_cast<RExpression*>(expr)->showFilesAsResult(files);
 
         if(returnCode==RExpression::SuccessCode)
             expr->parseOutput(text);
@@ -162,7 +162,7 @@ void RSession::runFirstExpression()
     if (expressionQueue().isEmpty())
         return;
 
-    RExpression* expr = static_cast<RExpression*>(expressionQueue().first());
+    auto* expr = expressionQueue().first();
     qDebug()<<"running expression: "<<expr->command();
 
     expr->setStatus(Cantor::Expression::Computing);
@@ -172,9 +172,9 @@ void RSession::runFirstExpression()
 
 void RSession::sendInputToServer(const QString& input)
 {
-    QString s=input;
+    QString s = input;
     if(!input.endsWith(QLatin1Char('\n')))
-        s+=QLatin1Char('\n');
+        s += QLatin1Char('\n');
     m_rServer->answerRequest(s);
 }
 

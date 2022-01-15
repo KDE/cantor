@@ -143,7 +143,7 @@ void ScilabSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->pid();
+            const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
@@ -190,14 +190,14 @@ void ScilabSession::runFirstExpression()
 
     if(!expressionQueue().isEmpty())
     {
-        ScilabExpression* expr = static_cast<ScilabExpression*>(expressionQueue().first());
+        auto* expr = expressionQueue().first();
 
         QString command;
         command.prepend(QLatin1String("\nprintf('begin-cantor-scilab-command-processing')\n"));
         command += expr->command();
         command += QLatin1String("\nprintf('terminated-cantor-scilab-command-processing')\n");
 
-        connect(expr, &ScilabExpression::statusChanged, this, &ScilabSession::currentExpressionStatusChanged);
+        connect(expr, &Cantor::Expression::statusChanged, this, &ScilabSession::currentExpressionStatusChanged);
         expr->setStatus(Cantor::Expression::Computing);
 
         qDebug() << "Writing command to process" << command;
@@ -214,23 +214,21 @@ void ScilabSession::readError()
 
     qDebug() << "error: " << error;
     if (!expressionQueue().isEmpty())
-        static_cast<ScilabExpression*>(expressionQueue().first())->parseError(error);
+        expressionQueue().first()->parseError(error);
 }
 
 void ScilabSession::readOutput()
 {
     qDebug() << "readOutput";
 
-    while(m_process->bytesAvailable() > 0){
+    while(m_process->bytesAvailable() > 0)
         m_output.append(QString::fromLocal8Bit(m_process->readLine()));
-    }
 
     qDebug() << "output.isNull? " << m_output.isNull();
     qDebug() << "output: " << m_output;
 
-    if(status() != Running || m_output.isNull()){
+    if(status() != Running || m_output.isNull())
         return;
-    }
 
     if(m_output.contains(QLatin1String("begin-cantor-scilab-command-processing")) &&
         m_output.contains(QLatin1String("terminated-cantor-scilab-command-processing"))){
@@ -238,7 +236,7 @@ void ScilabSession::readOutput()
         m_output.remove(QLatin1String("begin-cantor-scilab-command-processing"));
         m_output.remove(QLatin1String("terminated-cantor-scilab-command-processing"));
 
-        static_cast<ScilabExpression*>(expressionQueue().first())->parseOutput(m_output);
+        expressionQueue().first()->parseOutput(m_output);
 
         m_output.clear();
     }

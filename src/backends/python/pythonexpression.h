@@ -19,9 +19,9 @@ class PythonExpression : public Cantor::Expression
     void interrupt() override;
     QString internalCommand() override;
 
-    void parseOutput(QString);
+    void parseOutput(const QString&) override;
     void parseWarning(const QString&);
-    void parseError(const QString&);
+    void parseError(const QString&) override;
 };
 
 #endif /* _PYTHONEXPRESSION_H */

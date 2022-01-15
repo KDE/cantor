@@ -19,8 +19,8 @@ class ScilabExpression : public Cantor::Expression
 
         void evaluate() override;
         void interrupt() override;
-        void parseOutput(QString output);
-        void parseError(QString error);
+        void parseOutput(const QString&) override;
+        void parseError(const QString&) override;
         void parsePlotFile(QString filename);
         void setPlotPending(bool plot);
 

@@ -75,12 +75,13 @@ QString PythonExpression::internalCommand()
     return commandProcessing;
 }
 
-void PythonExpression::parseOutput(QString output)
+void PythonExpression::parseOutput(const QString& output)
 {
     qDebug() << "expression output: " << output;
     if(command().simplified().startsWith(QLatin1String("help(")))
     {
-        setResult(new Cantor::HelpResult(output.remove(output.lastIndexOf(QLatin1String("None")), 4)));
+        QString resultStr = output;
+        setResult(new Cantor::HelpResult(resultStr.remove(output.lastIndexOf(QLatin1String("None")), 4)));
     }
     else if (!output.isEmpty())
     {

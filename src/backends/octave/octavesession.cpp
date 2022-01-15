@@ -267,7 +267,7 @@ void OctaveSession::readError()
     QString error = QString::fromLocal8Bit(m_process->readAllStandardError());
     if (!expressionQueue().isEmpty() && !error.isEmpty())
     {
-        auto* const exp = static_cast<OctaveExpression*>(expressionQueue().first());
+        auto* const exp = expressionQueue().first();
         if (m_syntaxError)
         {
             m_syntaxError = false;
@@ -301,7 +301,7 @@ void OctaveSession::readOutput()
                     if (!expressionQueue().isEmpty())
                     {
                         readError();
-                        static_cast<OctaveExpression*>(expressionQueue().first())->parseOutput(m_output);
+                        expressionQueue().first()->parseOutput(m_output);
                     }
                 }
                 else

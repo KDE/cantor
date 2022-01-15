@@ -34,6 +34,9 @@ public:
 
     QString internalCommand() override;
 
+    void parseOutput(const QString&) override {};
+    void parseError(const QString&) override {};
+
     /**
      * Call this function from session when JuliaServer ends evaluation of
      * this expression.

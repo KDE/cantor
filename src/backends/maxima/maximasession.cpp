@@ -133,7 +133,7 @@ void MaximaSession::readStdErr()
 
    if(expressionQueue().size()>0)
    {
-       auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
+       auto* expr = expressionQueue().first();
        expr->parseError(out);
    }
 }
@@ -155,7 +155,7 @@ void MaximaSession::readStdOut()
         return;
     }
 
-    auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
+    auto* expr = expressionQueue().first();
     if (!expr)
         return; //should never happen
 
@@ -176,7 +176,7 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
 
 void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
 {
-    Cantor::Expression* expression = expressionQueue().first();
+    auto* expression = expressionQueue().first();
     qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
 
     switch (status)
@@ -203,15 +203,15 @@ void MaximaSession::runFirstExpression()
 
     if(!expressionQueue().isEmpty())
     {
-        auto* expr = static_cast<MaximaExpression*>(expressionQueue().first());
-        QString command=expr->internalCommand();
+        auto* expr = expressionQueue().first();
+        QString command = expr->internalCommand();
         connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
         expr->setStatus(Cantor::Expression::Computing);
         if(command.isEmpty())
         {
             qDebug()<<"empty command";
-            expr->forceDone();
+            static_cast<MaximaExpression*>(expr)->forceDone();
         }
         else
         {
@@ -229,14 +229,15 @@ void MaximaSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->pid();
+            const int pid=m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
 #endif
         }
-       foreach (Cantor::Expression* expression, expressionQueue())
+       for (auto* expression : expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
+
         expressionQueue().clear();
 
         qDebug()<<"done interrupting";
@@ -253,7 +254,7 @@ void MaximaSession::sendInputToProcess(const QString& input)
 
 void MaximaSession::restartMaxima()
 {
-    qDebug()<<"restarting maxima cooldown: "<<m_justRestarted;
+    qDebug()<<"restarting maxima cooldown: " << m_justRestarted;
 
     if(!m_justRestarted)
     {
@@ -285,7 +286,7 @@ void MaximaSession::setTypesettingEnabled(bool enable)
 {
     //we use the lisp command to set the variable, as those commands
     //don't mess with the labels and history
-    const QString& val=QLatin1String((enable==true ? "t":"nil"));
+    const QString& val = QLatin1String((enable==true ? "t":"nil"));
     evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
 
     Cantor::Session::setTypesettingEnabled(enable);

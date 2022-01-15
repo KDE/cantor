@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+        SPDX-FileCopyrightText: 2018-2022 by Alexander Semke (alexander.semke@web.de)
 */
 
 #ifndef _EXPRESSION_H
@@ -78,6 +79,9 @@ class CANTOR_EXPORT Expression : public QObject
      */
     virtual void interrupt() = 0;
 
+    virtual void parseOutput(const QString&) = 0;
+    virtual void parseError(const QString&) = 0;
+
     /**
      * Returns the unique id of the Expression
      * or -1 for internal expressions
@@ -95,7 +99,7 @@ class CANTOR_EXPORT Expression : public QObject
      * set the finishing behaviour
      * @param behavior the new Finishing Behaviour
      */
-    void setFinishingBehavior(FinishingBehavior behavior);
+    void setFinishingBehavior(FinishingBehavior);
 
     /**
      * get the Expressions finishing behaviour
@@ -107,7 +111,7 @@ class CANTOR_EXPORT Expression : public QObject
      * Sets the command, represented by this Expression
      * @param cmd the command
      */
-    void setCommand( const QString& cmd );
+    void setCommand(const QString&);
 
     /**
      * Returns the command, represented by this Expression
@@ -129,14 +133,14 @@ class CANTOR_EXPORT Expression : public QObject
      * n+1 is zero or not when running the command "integrate(x^n,x)"
      * This method is part of the InteractiveMode feature
      */
-    virtual void addInformation(const QString& information);
+    virtual void addInformation(const QString&);
 
     /**
      * Sets the error message
      * @param cmd the error message
      * @see errorMessage()
      */
-    void setErrorMessage( const QString& cmd);
+    void setErrorMessage(const QString&);
 
     /**
      * returns the Error message, if an error occurred during
@@ -186,7 +190,7 @@ class CANTOR_EXPORT Expression : public QObject
      * statusChanged will be emitted
      * @param status the new status
      */
-    void setStatus(Status status);
+    void setStatus(Status);
 
     /**
      * Returns the Session, this Expression belongs to
@@ -226,12 +230,12 @@ class CANTOR_EXPORT Expression : public QObject
      * the status of the Expression has changed.
      * @param status the new status
      */
-    void statusChanged(Cantor::Expression::Status status);
+    void statusChanged(Cantor::Expression::Status);
 
     /**
      * the status of the Expression has changed to Done, Error or Interrupt
      */
-    void expressionFinished(Cantor::Expression::Status status);
+    void expressionFinished(Cantor::Expression::Status);
 
     /**
      * the Expression needs more information for the evaluation
@@ -253,11 +257,9 @@ class CANTOR_EXPORT Expression : public QObject
      * care of deleting it.
      * @param result the new result
      */
-    void setResult(Result* result);
-
+    void setResult(Result*);
     void addResult(Result*);
-
-    void replaceResult(int index, Result* result);
+    void replaceResult(int index, Result*);
 
     //returns a string of latex commands, that is inserted into the header.
     //used for example if special packages are needed
@@ -266,8 +268,8 @@ class CANTOR_EXPORT Expression : public QObject
     QFileSystemWatcher* fileWatcher();
 
   private:
-    void renderResultAsLatex(Result* result);
-    void latexRendered(LatexRenderer* renderer, Result* result);
+    void renderResultAsLatex(Result*);
+    void latexRendered(LatexRenderer*, Result*);
 
   private:
     ExpressionPrivate* d;

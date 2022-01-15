@@ -26,8 +26,8 @@ public:
     void evaluate() override;
     QString internalCommand() override;
 
-    void parseOutput(const QString&);
-    void parseError(const QString&);
+    void parseOutput(const QString&) override;
+    void parseError(const QString&) override;
     void imageChanged();
 
 public:

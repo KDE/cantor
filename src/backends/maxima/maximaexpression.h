@@ -30,8 +30,8 @@ public:
     void forceDone();
 
     //reads from @param out until a prompt indicates that a new expression has started
-    bool parseOutput(QString&);
-    void parseError(const QString&);
+    void parseOutput(const QString&) override;
+    void parseError(const QString&) override;
 
     void addInformation(const QString&) override;
 

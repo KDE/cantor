@@ -45,7 +45,6 @@ static QByteArray legacyInitCmd=
 static QByteArray endOfInitMarker="print('____END_OF_INIT____')\n ";
 
 
-
 SageSession::VersionInfo::VersionInfo(int major, int minor)
 {
     m_major=major;
@@ -299,7 +298,7 @@ void SageSession::readStdOut()
     {
         if (!expressionQueue().isEmpty())
         {
-            SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
+            auto* expr = expressionQueue().first();
             expr->parseOutput(m_outputCache);
         }
         m_outputCache.clear();
@@ -309,11 +308,11 @@ void SageSession::readStdOut()
 void SageSession::readStdErr()
 {
     qDebug()<<"reading stdErr";
-    QString out=QLatin1String(m_process->readAllStandardError());
+    QString out = QLatin1String(m_process->readAllStandardError());
     qDebug()<<"err: "<<out;
     if (!expressionQueue().isEmpty())
     {
-        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
+        auto* expr = expressionQueue().first();
         expr->parseError(out);
     }
 }
@@ -372,12 +371,12 @@ void SageSession::runFirstExpression()
 {
     if(!expressionQueue().isEmpty())
     {
-        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
+        auto* expr = expressionQueue().first();
         if (m_isInitialized)
         {
             connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
 
-            QString command=expr->command();
+            QString command = expr->command();
             if(command.endsWith(QLatin1Char('?')) && !command.endsWith(QLatin1String("??")))
                 command=QLatin1String("help(")+command.left(command.size()-1)+QLatin1Char(')');
             if(command.startsWith(QLatin1Char('?')))
@@ -404,14 +403,15 @@ void SageSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->pid();
+            const int pid=m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows
 #endif
         }
-        foreach (Cantor::Expression* expression, expressionQueue())
+        for (auto* expression : expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
+
         expressionQueue().clear();
 
         m_outputCache.clear();
@@ -432,8 +432,8 @@ void SageSession::fileCreated( const QString& path )
     qDebug()<<"got a file "<<path;
     if (!expressionQueue().isEmpty())
     {
-        SageExpression* expr = static_cast<SageExpression*>(expressionQueue().first());
-        if ( expr )
+        auto* expr = static_cast<SageExpression*>(expressionQueue().first());
+        if (expr)
            expr->addFileResult( path );
     }
 }
@@ -443,7 +443,7 @@ void SageSession::setTypesettingEnabled(bool enable)
     Cantor::Session::setTypesettingEnabled(enable);
 
     //tell the sage server to enable/disable pretty_print
-    const QString cmd=QLatin1String("__cantor_enable_typesetting(%1)");
+    const QString cmd = QLatin1String("__cantor_enable_typesetting(%1)");
     evaluateExpression(cmd.arg(enable ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
 }
 
@@ -470,7 +470,7 @@ SageSession::VersionInfo SageSession::sageVersion()
 void SageSession::defineCustomFunctions()
 {
     //typesetting
-    QString cmd=QLatin1String("def __cantor_enable_typesetting(enable):\n");
+    QString cmd = QLatin1String("def __cantor_enable_typesetting(enable):\n");
     if(m_sageVersion<VersionInfo(5, 7))
     {
         //the _ and __IP.outputcache() are needed to keep the
