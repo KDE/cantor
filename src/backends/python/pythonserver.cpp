@@ -172,7 +172,6 @@ string PythonServer::variables(bool parseValue)
         "   pass \n", nullptr
     );
 
-
     string result;
     for (const string& s : vars)
         result += s + char(18);
@@ -184,5 +183,3 @@ bool PythonServer::isError() const
 {
     return m_error;
 }
-
-

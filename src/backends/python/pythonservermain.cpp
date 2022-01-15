@@ -74,7 +74,7 @@ int main()
             }
             if (records[0] == FILEPATH)
             {
-                vector<string> args = split(records[1], unitSep);
+                const vector<string>& args = split(records[1], unitSep);
                 if (args.size() == 2)
                     server.setFilePath(args[0], args[1]);
             }

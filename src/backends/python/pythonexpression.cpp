@@ -13,11 +13,6 @@
 #include "session.h"
 #include "settings.h"
 
-#include <KIconLoader>
-#include <QDir>
-#include <QFileSystemWatcher>
-#include <QTemporaryFile>
-#include <QFile>
 #include <QDebug>
 
 #include "pythonsession.h"
@@ -40,10 +35,10 @@ QString PythonExpression::internalCommand()
 
     if (PythonSettings::integratePlots())
     {
-        PythonSession* pySession = static_cast<PythonSession*>(session());
+        auto* pySession = static_cast<PythonSession*>(session());
         const QString& filepath = pySession->plotFilePrefixPath() + QString::number(pySession->plotFileCounter()) + QLatin1String(".png");
 
-        for(const Cantor::GraphicPackage& package : session()->enabledGraphicPackages())
+        for(const auto& package : session()->enabledGraphicPackages())
         {
             if (package.isHavePlotCommand())
             {
@@ -54,7 +49,6 @@ QString PythonExpression::internalCommand()
     }
 
     QStringList commandLine = cmd.split(QLatin1String("\n"));
-
     QString commandProcessing;
 
     for(const QString& command : commandLine){
@@ -90,7 +84,7 @@ void PythonExpression::parseOutput(QString output)
     }
     else if (!output.isEmpty())
     {
-        PythonSession* pySession = static_cast<PythonSession*>(session());
+        auto* pySession = static_cast<PythonSession*>(session());
         const QString& plotFilePrefixPath = pySession->plotFilePrefixPath();
         const QString& searchPrefixPath = QLatin1String("INNER PLOT INFO CANTOR: ") + plotFilePrefixPath;
 
@@ -118,7 +112,7 @@ void PythonExpression::parseOutput(QString output)
     setStatus(Cantor::Expression::Done);
 }
 
-void PythonExpression::parseError(QString error)
+void PythonExpression::parseError(const QString& error)
 {
     qDebug() << "expression error: " << error;
     setErrorMessage(error);
@@ -126,11 +120,11 @@ void PythonExpression::parseError(QString error)
     setStatus(Cantor::Expression::Error);
 }
 
-void PythonExpression::parseWarning(QString warning)
+void PythonExpression::parseWarning(const QString& warning)
 {
     if (!warning.isEmpty())
     {
-        Cantor::TextResult* result = new Cantor::TextResult(warning);
+        auto* result = new Cantor::TextResult(warning);
         result->setStdErr(true);
         addResult(result);
     }

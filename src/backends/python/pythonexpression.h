@@ -8,22 +8,20 @@
 
 #include "expression.h"
 
-class QTemporaryFile;
-
 class PythonExpression : public Cantor::Expression
 {
   Q_OBJECT
   public:
-    PythonExpression(Cantor::Session* session, bool internal);
+    PythonExpression(Cantor::Session*, bool internal);
     ~PythonExpression() override;
 
     void evaluate() override;
     void interrupt() override;
     QString internalCommand() override;
 
-    void parseOutput(QString output);
-    void parseWarning(QString warning);
-    void parseError(QString error);
+    void parseOutput(QString);
+    void parseWarning(const QString&);
+    void parseError(const QString&);
 };
 
 #endif /* _PYTHONEXPRESSION_H */

@@ -161,7 +161,7 @@ void PythonSession::interrupt()
             ; //TODO: interrupt the process on windows
 #endif
         }
-        for (Cantor::Expression* expression : expressionQueue())
+        for (auto* expression : expressionQueue())
             expression->setStatus(Cantor::Expression::Interrupted);
         expressionQueue().clear();
 
@@ -182,7 +182,7 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
         updateGraphicPackagesFromSettings();
 
     qDebug() << "evaluating: " << cmd;
-    PythonExpression* expr = new PythonExpression(this, internal);
+    auto* expr = new PythonExpression(this, internal);
 
     changeStatus(Cantor::Session::Running);
 
@@ -208,8 +208,8 @@ void PythonSession::runFirstExpression()
     if (expressionQueue().isEmpty())
         return;
 
-    Cantor::Expression* expr = expressionQueue().first();
-    const QString command = expr->internalCommand();
+    auto* expr = expressionQueue().first();
+    const QString& command = expr->internalCommand();
     qDebug() << "run first expression" << command;
     expr->setStatus(Cantor::Expression::Computing);
 
@@ -255,18 +255,19 @@ void PythonSession::readOutput()
         const QString& output = message.section(unitSep, 0, 0);
         const QString& error = message.section(unitSep, 1, 1);
         bool isError = message.section(unitSep, 2, 2).toInt();
+        auto* expr = static_cast<PythonExpression*>(expressionQueue().first());
         if (isError)
         {
             if(error.isEmpty()){
-                static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
+                expr->parseOutput(output);
             } else {
-                static_cast<PythonExpression*>(expressionQueue().first())->parseError(error);
+                expr->parseError(error);
             }
         }
         else
         {
-            static_cast<PythonExpression*>(expressionQueue().first())->parseWarning(error);
-            static_cast<PythonExpression*>(expressionQueue().first())->parseOutput(output);
+            expr->parseWarning(error);
+            expr->parseOutput(output);
         }
         finishFirstExpression(true);
     }
