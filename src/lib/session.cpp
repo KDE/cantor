@@ -1,6 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
+    SPDX-FileCopyrightText: 2019 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "session.h"
@@ -21,31 +22,39 @@ using namespace Cantor;
 class Cantor::SessionPrivate
 {
   public:
-    SessionPrivate() : backend(nullptr), status(Session::Disable), typesettingEnabled(false), expressionCount(0), variableModel(nullptr), needUpdate(false)
-    {
-    }
+    SessionPrivate() { }
 
-    Backend* backend;
-    Session::Status status;
-    bool typesettingEnabled;
-    int expressionCount;
+    Backend* backend{nullptr};
+    Session::Status status{Session::Disable};
+    bool typesettingEnabled{false};
+    int expressionCount{0};
     QList<Cantor::Expression*> expressionQueue;
-    DefaultVariableModel* variableModel;
+    DefaultVariableModel* variableModel{nullptr};
     QList<GraphicPackage> usableGraphicPackages;
     QList<GraphicPackage> enabledGraphicPackages;
     QList<QString> ignorableGraphicPackageIds;
-    bool needUpdate;
+    bool needUpdate{false};
 };
 
-Session::Session( Backend* backend ) : QObject(backend), d(new SessionPrivate)
+Session::Session(Backend* backend ) : QObject(backend), d(new SessionPrivate)
 {
-    d->backend=backend;
+    d->backend = backend;
+
+#ifdef WITH_EPS
+    if (Cantor::LatexRenderer::isLatexAvailable())
+        d->typesettingEnabled = Settings::self()->typesetDefault();
+#endif
 }
 
-Session::Session( Backend* backend, DefaultVariableModel* model) : QObject(backend), d(new SessionPrivate)
+Session::Session(Backend* backend, DefaultVariableModel* model) : QObject(backend), d(new SessionPrivate)
 {
-    d->backend=backend;
-    d->variableModel=model;
+    d->backend = backend;
+    d->variableModel = model;
+
+#ifdef WITH_EPS
+    if (Cantor::LatexRenderer::isLatexAvailable())
+        d->typesettingEnabled = Settings::self()->typesetDefault();
+#endif
 }
 
 Session::~Session()
@@ -110,6 +119,7 @@ void Session::logout()
         d->variableModel->clearVariables();
         d->variableModel->clearFunctions();
     }
+
     d->expressionCount = 0;
     changeStatus(Status::Disable);
 
@@ -178,13 +188,13 @@ Cantor::Session::Status Session::status()
 
 void Session::changeStatus(Session::Status newStatus)
 {
-    d->status=newStatus;
+    d->status = newStatus;
     emit statusChanged(newStatus);
 }
 
 void Session::setTypesettingEnabled(bool enable)
 {
-    d->typesettingEnabled=enable;
+    d->typesettingEnabled = enable;
 }
 
 bool Session::isTypesettingEnabled()
@@ -192,36 +202,27 @@ bool Session::isTypesettingEnabled()
     return d->typesettingEnabled;
 }
 
-void Session::setWorksheetPath(const QString& path)
-{
-    Q_UNUSED(path);
-    return;
-}
+void Session::setWorksheetPath(const QString&) { }
 
-CompletionObject* Session::completionFor(const QString& cmd, int index)
+CompletionObject* Session::completionFor(const QString&, int)
 {
-    Q_UNUSED(cmd);
-    Q_UNUSED(index);
-    //Return 0 per default, so Backends not offering tab completions don't have
+    //Return nullptr per default, so Backends not offering tab completions don't have
     //to reimplement this. This method should only be called on backends with
     //the Completion Capability flag
 
     return nullptr;
 }
 
-SyntaxHelpObject* Session::syntaxHelpFor(const QString& cmd)
+SyntaxHelpObject* Session::syntaxHelpFor(const QString&)
 {
-    Q_UNUSED(cmd);
-
-    //Return 0 per default, so Backends not offering tab completions don't have
+    //Return nullptr per default, so Backends not offering tab completions don't have
     //to reimplement this. This method should only be called on backends with
     //the SyntaxHelp Capability flag
     return nullptr;
 }
 
-QSyntaxHighlighter* Session::syntaxHighlighter(QObject* parent)
+QSyntaxHighlighter* Session::syntaxHighlighter(QObject*)
 {
-    Q_UNUSED(parent);
     return nullptr;
 }
 
@@ -295,7 +296,7 @@ QList<Cantor::GraphicPackage> Cantor::Session::usableGraphicPackages()
     return d->usableGraphicPackages;
 }
 
-const QList<Cantor::GraphicPackage> & Cantor::Session::enabledGraphicPackages() const
+const QList<Cantor::GraphicPackage>& Cantor::Session::enabledGraphicPackages() const
 {
     return d->enabledGraphicPackages;
 }
@@ -347,7 +348,6 @@ void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPa
 
         d->enabledGraphicPackages = willEnabledPackages;
 
-        QList<Cantor::GraphicPackage> allPackages = backend()->availableGraphicPackages();
         for (const Cantor::GraphicPackage& notEnabledPackage : unavailablePackages)
         {
             if (d->ignorableGraphicPackageIds.contains(notEnabledPackage.id()) == false)
@@ -363,4 +363,3 @@ void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPa
         }
     }
 }
-

@@ -109,14 +109,6 @@ Worksheet::~Worksheet()
 void Worksheet::loginToSession()
 {
     m_session->login();
-#ifdef WITH_EPS
-    if (Cantor::LatexRenderer::isLatexAvailable())
-        session()->setTypesettingEnabled(Settings::self()->typesetDefault());
-    else
-        session()->setTypesettingEnabled(false);
-#else
-    session()->setTypesettingEnabled(false);
-#endif
 }
 
 void Worksheet::print(QPrinter* printer)

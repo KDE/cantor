@@ -236,12 +236,8 @@ CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantLi
 
     m_typeset = new KToggleAction(i18n("Typeset using LaTeX"), collection);
     m_typeset->setChecked(Settings::self()->typesetDefault());
-    // Disable until login, because we use session command for this action
-    m_typeset->setEnabled(false);
     collection->addAction(QLatin1String("enable_typesetting"), m_typeset);
     connect(m_typeset, &KToggleAction::toggled, this, &CantorPart::enableTypesetting);
-    if (!Cantor::LatexRenderer::isLatexAvailable())
-        m_typeset->setVisible(false);
 
     m_highlight = new KToggleAction(i18n("Syntax Highlighting"), collection);
     m_highlight->setChecked(Settings::self()->highlightDefault());
@@ -713,10 +709,7 @@ void CantorPart::worksheetSessionLoginStarted() {
 
 void CantorPart::worksheetSessionLoginDone() {
     setStatusMessage(i18n("Ready"));
-
-    m_typeset->setEnabled(true);
     m_restart->setEnabled(true);
-
     QApplication::restoreOverrideCursor();
 }
 

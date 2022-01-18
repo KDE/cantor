@@ -148,6 +148,11 @@ void SageSession::login()
         evaluateExpression(cmd.arg(m_worksheetPath), Cantor::Expression::DeleteOnFinish, true);
     }
 
+    //enable latex typesetting if needed
+    const QString cmd = QLatin1String("__cantor_enable_typesetting(%1)");
+    evaluateExpression(cmd.arg(isTypesettingEnabled() ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
+
+    //auto-run scripts
     if(!SageSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = SageSettings::self()->autorunScripts().join(QLatin1String("\n"));
         evaluateExpression(autorunScripts, SageExpression::DeleteOnFinish, true);
@@ -440,11 +445,14 @@ void SageSession::fileCreated( const QString& path )
 
 void SageSession::setTypesettingEnabled(bool enable)
 {
-    Cantor::Session::setTypesettingEnabled(enable);
+    if (m_process)
+    {
+        //tell the sage server to enable/disable pretty_print
+        const QString cmd = QLatin1String("__cantor_enable_typesetting(%1)");
+        evaluateExpression(cmd.arg(enable ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
+    }
 
-    //tell the sage server to enable/disable pretty_print
-    const QString cmd = QLatin1String("__cantor_enable_typesetting(%1)");
-    evaluateExpression(cmd.arg(enable ? QLatin1String("true"):QLatin1String("false")), Cantor::Expression::DeleteOnFinish);
+    Cantor::Session::setTypesettingEnabled(enable);
 }
 
 void SageSession::setWorksheetPath(const QString& path)

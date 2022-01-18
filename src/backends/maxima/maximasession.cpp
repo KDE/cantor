@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009-2012 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2017-2018 Alexander Semke (alexander.semke@web.de)
+    SPDX-FileCopyrightText: 2017-2022 Alexander Semke (alexander.semke@web.de)
 */
 
 #include "maximasession.h"
@@ -14,7 +14,6 @@
 #include "settings.h"
 
 #include <QDebug>
-#include <QProcess>
 #include <QTimer>
 #include <QStandardPaths>
 
@@ -35,9 +34,7 @@ const QRegularExpression MaximaSession::MaximaInputPrompt =
             QRegularExpression(QStringLiteral("(\\(\\s*%\\s*i\\s*[0-9\\s]*\\))"));
 
 
-MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend),
-    m_process(nullptr),
-    m_justRestarted(false)
+MaximaSession::MaximaSession( Cantor::Backend* backend ) : Session(backend)
 {
     setVariableModel(new MaximaVariableModel(this));
 }
@@ -59,8 +56,8 @@ void MaximaSession::login()
     m_process->start(MaximaSettings::self()->path().toLocalFile(), arguments);
     m_process->waitForStarted();
 
-    QString input;
     // Wait until first maxima prompt
+    QString input;
     while (!input.contains(QLatin1String("</cantor-prompt>")))
     {
         m_process->waitForReadyRead();
@@ -73,6 +70,11 @@ void MaximaSession::login()
     connect(m_process, SIGNAL(readyReadStandardError()), this, SLOT(readStdErr()));
     connect(m_process, SIGNAL(error(QProcess::ProcessError)), this, SLOT(reportProcessError(QProcess::ProcessError)));
 
+    //enable latex typesetting if needed
+    const QString& val = QLatin1String((isTypesettingEnabled() ? "t":"nil"));
+    evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
+
+    //auto-run scripts
     if(!MaximaSettings::self()->autorunScripts().isEmpty()){
         QString autorunScripts = MaximaSettings::self()->autorunScripts().join(QLatin1String(";"));
         autorunScripts.append(QLatin1String(";kill(labels)")); // Reset labels after running autorun scripts
@@ -284,10 +286,13 @@ void MaximaSession::restartsCooledDown()
 
 void MaximaSession::setTypesettingEnabled(bool enable)
 {
-    //we use the lisp command to set the variable, as those commands
-    //don't mess with the labels and history
-    const QString& val = QLatin1String((enable==true ? "t":"nil"));
-    evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
+    if (m_process)
+    {
+        //we use the lisp command to set the variable, as those commands
+        //don't mess with the labels and history
+        const QString& val = QLatin1String((enable ? "t":"nil"));
+        evaluateExpression(QString::fromLatin1(":lisp(setf $display2d %1)").arg(val), Cantor::Expression::DeleteOnFinish, true);
+    }
 
     Cantor::Session::setTypesettingEnabled(enable);
 }

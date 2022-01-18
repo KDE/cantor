@@ -21,7 +21,7 @@ class MaximaSession : public Cantor::Session
     static const QRegularExpression MaximaOutputPrompt;
     static const QRegularExpression MaximaInputPrompt;
 
-    explicit MaximaSession( Cantor::Backend* backend);
+    explicit MaximaSession(Cantor::Backend*);
 
     void login() override;
     void logout() override;
@@ -51,9 +51,9 @@ class MaximaSession : public Cantor::Session
   private:
     void write(const QString&);
 
-    QProcess* m_process;
+    QProcess* m_process{nullptr};
     QString m_cache;
-    bool m_justRestarted;
+    bool m_justRestarted{false};
 };
 
 #endif /* _MAXIMASESSION_H */
