@@ -20,9 +20,8 @@ public:
 
     void evaluate() override;
     void interrupt() override;
-    void parseOutput(const QString& output);
-    void parseError(QString& error);
-
+    void parseOutput(const QString&) override;
+    void parseError(const QString&) override;
 };
 
 #endif /* _LUAEXPRESSION_H */

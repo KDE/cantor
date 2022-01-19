@@ -37,7 +37,7 @@ void LuaExpression::evaluate()
     session()->enqueueExpression(this);
 }
 
-void LuaExpression::parseError(QString &error)
+void LuaExpression::parseError(const QString &error)
 {
     qDebug() << error;
     setErrorMessage(error);
