@@ -29,6 +29,7 @@
         "Id": "Python",
         "License": "GPL",
         "Name": "Python",
+        "Name[ar]": "بايثون",
         "Name[ca@valencia]": "Python",
         "Name[ca]": "Python",
         "Name[cs]": "Python",

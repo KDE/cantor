@@ -33,6 +33,7 @@
         "Id": "kalgebrabackend",
         "License": "GPL",
         "Name": "KAlgebra",
+        "Name[ar]": "جبرك",
         "Name[ca@valencia]": "KAlgebra",
         "Name[ca]": "KAlgebra",
         "Name[cs]": "KAlgebra",

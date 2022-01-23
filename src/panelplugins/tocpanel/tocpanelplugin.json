@@ -26,6 +26,7 @@
         "Id": "TOC",
         "License": "GPL",
         "Name": "Table Of Contents",
+        "Name[ar]": "جدول المحتويات",
         "Name[ca@valencia]": "Taula de continguts",
         "Name[ca]": "Taula de continguts",
         "Name[cs]": "Obsah",

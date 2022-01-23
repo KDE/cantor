@@ -33,6 +33,7 @@
         "Id": "VariableManager",
         "License": "GPL",
         "Name": "Variables",
+        "Name[ar]": "المتغيّرات",
         "Name[ca@valencia]": "Variables",
         "Name[ca]": "Variables",
         "Name[cs]": "Proměnné",

@@ -23,6 +23,7 @@
         "Id": "DocumentationPanel",
         "License": "GPL",
         "Name": "Documentation",
+        "Name[ar]": "التّوثيق",
         "Name[ca@valencia]": "Documentació",
         "Name[ca]": "Documentació",
         "Name[cs]": "Dokumentace",

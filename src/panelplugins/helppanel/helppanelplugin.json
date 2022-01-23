@@ -33,6 +33,7 @@
         "Id": "HelpPanel",
         "License": "GPL",
         "Name": "Help",
+        "Name[ar]": "مساعدة",
         "Name[ca@valencia]": "Ajuda",
         "Name[ca]": "Ajuda",
         "Name[cs]": "Nápověda",
