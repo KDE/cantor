@@ -75,7 +75,7 @@ QList<PanelPlugin*> PanelPluginHandler::plugins(Session* session)
     if (session == nullptr)
         return pluginsForSession;
 
-    const Cantor::Backend::Capabilities capabilities = session->backend()->capabilities();
+    const auto capabilities = session->backend()->capabilities();
     const QStringList& extensions = session->backend()->extensions();
 
     qDebug()<<"loading panel plugins for session of type "<<session->backend()->name();
@@ -104,7 +104,7 @@ QList<PanelPlugin*> PanelPluginHandler::plugins(Session* session)
 
 QList<PanelPlugin*> PanelPluginHandler::activePluginsForSession(Session* session, const PanelStates& previousPluginStates)
 {
-    QList<Cantor::PanelPlugin*> plugins = this->plugins(session);
+    const auto& plugins = this->plugins(session);
     for (auto* plugin : plugins)
     {
         if(!plugin)

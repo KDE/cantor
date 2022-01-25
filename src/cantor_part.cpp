@@ -727,7 +727,7 @@ void CantorPart::enableTypesetting(bool enable)
  */
 void CantorPart::documentationRequested(const QString& keyword) {
     auto* backend = m_worksheet->session()->backend();
-    const KConfigGroup& group = KSharedConfig::openConfig()->group(backend->name().toLower());
+    const auto& group = KSharedConfig::openConfig(QStringLiteral("cantorrc"))->group(backend->name().toLower());
     const auto& docNames = group.readEntry(QLatin1String("Names"), QStringList());
     if (!docNames.isEmpty())
         emit requestDocumentation(keyword);

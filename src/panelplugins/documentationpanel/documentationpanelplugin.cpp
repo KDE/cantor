@@ -20,10 +20,7 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 QWidget* DocumentationPanelPlugin::widget()
 {
     if(!m_widget)
-    {
         m_widget = new DocumentationPanelWidget(parentWidget());
-        connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
-    }
 
     return m_widget;
 }
@@ -37,6 +34,7 @@ void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
 {
     m_cantorShell = cantorShell;
     connect(cantorShell, SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
+    connect(cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
 }
 
 Cantor::PanelPlugin::State DocumentationPanelPlugin::saveState()
@@ -49,6 +47,12 @@ Cantor::PanelPlugin::State DocumentationPanelPlugin::saveState()
 void DocumentationPanelPlugin::restoreState(const Cantor::PanelPlugin::State& state)
 {
     PanelPlugin::restoreState(state);
+
+    //TODO: when using this panel in LabPlot this function is being called before widget().
+    //the reason is not completely clear. call widget() here to make sure it's available.
+    if (!m_widget)
+        this->widget();
+
     if(session() && m_widget)
     {
         m_widget->updateBackend(session()->backend()->name());
