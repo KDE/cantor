@@ -54,8 +54,11 @@ private Q_SLOTS:
 
     void testVariableModel();
 
+    void testLispMode01();
+
     void testLoginLogout();
     void testRestartWhileRunning();
+
 private:
     QString backendName() override;
 };

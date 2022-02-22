@@ -266,13 +266,35 @@ void MaximaExpression::parseOutput(const QString& out)
         qDebug() << "error content: " << errorContent;
 
         if (out.contains(QLatin1String("cantor-value-separator"))
-            || (out.contains(QLatin1String("<cantor-result>")) && !(m_isHelpRequest || m_isHelpRequestAdditional) ) )
+            || (out.contains(QLatin1String("<cantor-result>")) && !(m_isHelpRequest || m_isHelpRequestAdditional)) )
         {
             //we don't interpret the error output as an error in the following cases:
             //1. when fetching variables, in addition to the actual result with variable names and values,
             //  Maxima also writes out the names of the variables to the error buffer.
             //2. when there is a valid result produced, in this case the error string
             //  contains actually a warning that is handled above
+            setStatus(Cantor::Expression::Done);
+        }
+        else if (prompt.trimmed() == QLatin1String("MAXIMA>") )
+        {
+            //prompt is "MAXIMA>", i.e. we're switching to the Lisp-mode triggered by to_lisp(). The output in this case is:
+            //   "Type (to-maxima) to restart, ($quit) to quit Maxima.\n<cantor-prompt>\nMAXIMA> </cantor-prompt>\n"
+            //Or we're already in the Lisp mode and just need to show the result of the lisp evaluation.
+            if (static_cast<MaximaSession*>(session())->mode() != MaximaSession::Lisp)
+                static_cast<MaximaSession*>(session())->setMode(MaximaSession::Lisp);
+
+            auto* result = new Cantor::TextResult(errorContent.trimmed());
+            setResult(result);
+            qDebug()<<"setting status to DONE";
+            setStatus(Cantor::Expression::Done);
+        }
+        else if (prompt.trimmed() != QLatin1String("MAXIMA>") && static_cast<MaximaSession*>(session())->mode() == MaximaSession::Lisp)
+        {
+            //"Returning to Maxima:
+            //output:  "Returning to Maxima\n<cantor-result><cantor-text>\n(%o1) true\n</cantor-text></cantor-result>\n<cantor-prompt>(%i2) </cantor-prompt>\n"
+            static_cast<MaximaSession*>(session())->setMode(MaximaSession::Maxima);
+            auto* result = new Cantor::TextResult(errorContent.trimmed());
+            addResult(result);
             setStatus(Cantor::Expression::Done);
         }
         else if(m_isHelpRequest || m_isHelpRequestAdditional) //help messages are also part of the error output
@@ -288,7 +310,7 @@ void MaximaExpression::parseOutput(const QString& out)
 
             //set the help result
             errorContent.prepend(QLatin1Char(' '));
-            Cantor::HelpResult* result = new Cantor::HelpResult(errorContent);
+            auto* result = new Cantor::HelpResult(errorContent);
             setResult(result);
 
             //if a new input prompt was found, no further input is expected and we're done

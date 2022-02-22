@@ -19,21 +19,21 @@ class MaximaVariableModel : public Cantor::DefaultVariableModel
     static const QString inspectCommand;
     static const QString variableInspectCommand;
 
-    explicit MaximaVariableModel( MaximaSession* session);
+    explicit MaximaVariableModel(MaximaSession*);
     ~MaximaVariableModel() override = default;
 
     void update() override;
 
   private Q_SLOTS:
-    void parseNewVariables(Cantor::Expression::Status status);
-    void parseNewFunctions(Cantor::Expression::Status status);
+    void parseNewVariables(Cantor::Expression::Status);
+    void parseNewFunctions(Cantor::Expression::Status);
 
   private:
     MaximaSession* maximaSession();
 
   private:
-    MaximaExpression* m_variableExpression;
-    MaximaExpression* m_functionExpression;
+    MaximaExpression* m_variableExpression{nullptr};
+    MaximaExpression* m_functionExpression{nullptr};
 };
 
 #endif /* _MAXIMAVARIABLEMODEL_H */

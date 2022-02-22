@@ -115,6 +115,15 @@ void MaximaSession::logout()
     qDebug()<<"logout done";
 }
 
+MaximaSession::Mode MaximaSession::mode() const {
+    return m_mode;
+}
+
+void MaximaSession::setMode(MaximaSession::Mode mode)
+{
+    m_mode = mode;
+}
+
 Cantor::Expression* MaximaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     qDebug() << "evaluating: " << cmd;
@@ -186,12 +195,9 @@ void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status st
     case Cantor::Expression::Done:
     case Cantor::Expression::Error:
         qDebug()<<"################################## EXPRESSION END ###############################################";
-        disconnect(expression, SIGNAL(statusChanged(Cantor::Expression::Status)),
-            this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
-
+        disconnect(expression, &Cantor::Expression::statusChanged, this, &MaximaSession::currentExpressionChangedStatus);
         finishFirstExpression();
         break;
-
     default:
         break;
     }
@@ -206,8 +212,8 @@ void MaximaSession::runFirstExpression()
     if(!expressionQueue().isEmpty())
     {
         auto* expr = expressionQueue().first();
-        QString command = expr->internalCommand();
-        connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
+        const auto& command = expr->internalCommand();
+        connect(expr, &Cantor::Expression::statusChanged, this, &MaximaSession::currentExpressionChangedStatus);
 
         expr->setStatus(Cantor::Expression::Computing);
         if(command.isEmpty())
@@ -231,7 +237,7 @@ void MaximaSession::interrupt()
         if(m_process && m_process->state() != QProcess::NotRunning)
         {
 #ifndef Q_OS_WIN
-            const int pid=m_process->processId();
+            const int pid = m_process->processId();
             kill(pid, SIGINT);
 #else
             ; //TODO: interrupt the process on windows

@@ -165,9 +165,12 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
             d->needUpdate = false;
 
             // Some variable models could update internal lists without running expressions
+            // or don't need to be updated at all like for Maxima being in Lisp-mode.
             // So, if after update queue still empty, set status to Done
-            // setDoneAfterUpdate used for compatibility with some backends, like R
+            // setDoneAfterUpdate used for compatibility with some backends, like R - TODO: check why this is requried
             if (setDoneAfterUpdate && d->expressionQueue.isEmpty())
+                changeStatus(Done);
+            else if (d->expressionQueue.isEmpty())
                 changeStatus(Done);
         }
         else

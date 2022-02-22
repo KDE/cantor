@@ -19,18 +19,19 @@
 const QString MaximaVariableModel::inspectCommand=QLatin1String(":lisp($disp $%1)");
 const QString MaximaVariableModel::variableInspectCommand=QLatin1String(":lisp(cantor-inspect $%1)");
 
-MaximaVariableModel::MaximaVariableModel( MaximaSession* session) : Cantor::DefaultVariableModel(session),
-m_variableExpression(nullptr),
-m_functionExpression(nullptr)
+MaximaVariableModel::MaximaVariableModel(MaximaSession* session) : Cantor::DefaultVariableModel(session)
 {
 }
 
 void MaximaVariableModel::update()
 {
+    if (static_cast<MaximaSession*>(session())->mode() != MaximaSession::Maxima)
+        return;
+
     if (!m_variableExpression)
     {
         qDebug()<<"checking for new variables";
-        const QString& cmd1=variableInspectCommand.arg(QLatin1String("values"));
+        const QString& cmd1 = variableInspectCommand.arg(QLatin1String("values"));
         m_variableExpression = static_cast<MaximaExpression*>(session()->evaluateExpression(cmd1, Cantor::Expression::FinishingBehavior::DoNotDelete, true));
         connect(m_variableExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewVariables);
     }
@@ -38,7 +39,7 @@ void MaximaVariableModel::update()
     if (!m_functionExpression)
     {
         qDebug()<<"checking for new functions";
-        const QString& cmd2=inspectCommand.arg(QLatin1String("functions"));
+        const QString& cmd2 = inspectCommand.arg(QLatin1String("functions"));
         m_functionExpression = static_cast<MaximaExpression*>(session()->evaluateExpression(cmd2, Cantor::Expression::FinishingBehavior::DoNotDelete, true));
         connect(m_functionExpression, &Cantor::Expression::statusChanged, this, &MaximaVariableModel::parseNewFunctions);
     }
@@ -63,8 +64,8 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
             text += static_cast<Cantor::LatexResult*>(result)->plain();
     }
 
-    const int nameIndex=text.indexOf(QLatin1Char(']'));
-    QString namesString=text.left(nameIndex);
+    const int nameIndex = text.indexOf(QLatin1Char(']'));
+    QString namesString = text.left(nameIndex);
     //namesString.chop(1);
     namesString=namesString.mid(1);
     namesString=namesString.trimmed();

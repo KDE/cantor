@@ -21,6 +21,8 @@ class MaximaSession : public Cantor::Session
     static const QRegularExpression MaximaOutputPrompt;
     static const QRegularExpression MaximaInputPrompt;
 
+    enum Mode {Maxima, Lisp};
+
     explicit MaximaSession(Cantor::Backend*);
 
     void login() override;
@@ -38,6 +40,9 @@ class MaximaSession : public Cantor::Session
     QSyntaxHighlighter* syntaxHighlighter(QObject*) override;
     void runFirstExpression() override;
 
+    Mode mode() const;
+    void setMode(Mode);
+
   public Q_SLOTS:
     void readStdOut();
     void readStdErr();
@@ -54,6 +59,7 @@ class MaximaSession : public Cantor::Session
     QProcess* m_process{nullptr};
     QString m_cache;
     bool m_justRestarted{false};
+    Mode m_mode{Maxima};
 };
 
 #endif /* _MAXIMASESSION_H */

@@ -19,8 +19,6 @@
 
 #include <config-cantorlib.h>
 
-#include <QDebug>
-
 QString TestMaxima::backendName()
 {
     return QLatin1String("maxima");
@@ -325,6 +323,31 @@ void TestMaxima::testVariableModel()
 
     QVariant value2 = model->index(2,1).data();
     QCOMPARE(value2.toString(),QLatin1String("[1,2,3]"));
+}
+
+void TestMaxima::testLispMode01()
+{
+    //switch to the Lisp-mode
+    auto* e1 = evalExp(QLatin1String("to_lisp();"));
+    QVERIFY(e1 != nullptr);
+
+    //evaluate a Lisp command and check the result
+    auto* e2 = evalExp(QLatin1String("(cons 'a 'b)"));
+    QVERIFY(e2 != nullptr);
+    QVERIFY(e2->result() != nullptr);
+    QCOMPARE(cleanOutput(e2->result()->data().toString()), QLatin1String("(A . B)"));
+
+    //switch back to Maxima mode
+    auto* e3 = evalExp(QLatin1String("(to-maxima)"));
+    QVERIFY(e3 != nullptr);
+
+    //evaluate a simple Maxima command
+    auto* e4 = evalExp(QLatin1String("5+5"));
+    QVERIFY(e4 != nullptr);
+
+    //TODO: doesn't work in the test, works in Cantor though...
+//     QVERIFY(e4->result() != nullptr);
+//     QCOMPARE(cleanOutput(e4->result()->data().toString()), QLatin1String("10"));
 }
 
 void TestMaxima::testLoginLogout()
