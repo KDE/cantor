@@ -54,10 +54,15 @@ void RVariableModel::parseResult(Cantor::Expression::Status status)
             QList<Variable> vars;
             if (!values.isEmpty()) // Variables management disabled
                 for (int i = 0; i < names.size(); i++)
-                    vars.append(Variable{names[i], values[i]});
+                {
+                    if (i < values.size())
+                        vars.append(Variable{names.at(i), values.at(i)});
+                    else
+                        vars.append(Variable{names.at(i), QString()});
+                }
             else
                 for (int i = 0; i < names.size(); i++)
-                    vars.append(Variable{names[i], QString()});
+                    vars.append(Variable{names.at(i), QString()});
 
             setVariables(vars);
 
