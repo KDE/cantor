@@ -11,9 +11,7 @@
 
 using namespace Cantor;
 
-RVariableModel::RVariableModel(RSession* session):
-    DefaultVariableModel(session),
-    m_expression(nullptr)
+RVariableModel::RVariableModel(RSession* session) : DefaultVariableModel(session)
 {
 }
 

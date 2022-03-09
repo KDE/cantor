@@ -1907,8 +1907,14 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
             insertMenu->addAction(QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Hierarchy Entry"), this, &Worksheet::appendHierarchyEntry);
 
             menu->addMenu(insertMenu);
+
+            //"Show help" for backend's documentation
+            menu->addSeparator();
+            menu->addAction(QIcon::fromTheme(QLatin1String("help-hint")), i18n("Show Help"), this,
+                                        [=] () { requestDocumentation(QString()); });
         }
 
+        //evaluate the whole worksheet or interrupt the current calculation
         menu->addSeparator();
         if (!isRunning())
             menu->addAction(QIcon::fromTheme(QLatin1String("system-run")), i18n("Evaluate Worksheet"),

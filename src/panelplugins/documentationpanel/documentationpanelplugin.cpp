@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2020 Shubham <aryan100jangid@gmail.com>
-    SPDX-FileCopyrightText: 2020-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2020-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "documentationpanelplugin.h"
@@ -20,7 +20,10 @@ DocumentationPanelPlugin::~DocumentationPanelPlugin()
 QWidget* DocumentationPanelPlugin::widget()
 {
     if(!m_widget)
+    {
         m_widget = new DocumentationPanelWidget(parentWidget());
+        connect(m_cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
+    }
 
     return m_widget;
 }
@@ -34,7 +37,6 @@ void DocumentationPanelPlugin::connectToShell(QObject* cantorShell)
 {
     m_cantorShell = cantorShell;
     connect(cantorShell, SIGNAL(requestDocumentation(QString)), this, SIGNAL(visibilityRequested()));
-    connect(cantorShell, SIGNAL(requestDocumentation(QString)), m_widget, SLOT(contextSensitiveHelp(QString)));
 }
 
 Cantor::PanelPlugin::State DocumentationPanelPlugin::saveState()

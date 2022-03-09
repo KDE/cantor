@@ -14,7 +14,7 @@ class RVariableModel : public Cantor::DefaultVariableModel
 {
   Q_OBJECT
   public:
-    RVariableModel( RSession* session);
+    RVariableModel(RSession*);
     ~RVariableModel() override;
 
     // List of virables from other R namespaces (packages), which can be treted as constants, like "pi"
@@ -27,14 +27,14 @@ class RVariableModel : public Cantor::DefaultVariableModel
     void constantsRemoved(QStringList);
 
   public Q_SLOTS:
-    void parseResult(Cantor::Expression::Status status);
+    void parseResult(Cantor::Expression::Status);
 
   private:
-    void setConstants(QStringList constants);
+    void setConstants(QStringList);
 
   private:
     QStringList m_constants;
-    Cantor::Expression* m_expression;
+    Cantor::Expression* m_expression{nullptr};
 };
 
 #endif /* _RVARIABLEMODEL_H */
