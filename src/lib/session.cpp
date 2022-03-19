@@ -156,7 +156,10 @@ void Session::runFirstExpression()
 void Session::finishFirstExpression(bool setDoneAfterUpdate)
 {
     if (!d->expressionQueue.isEmpty())
-        d->needUpdate |= !d->expressionQueue.takeFirst()->isInternal();
+    {
+        auto first = d->expressionQueue.takeFirst();
+        d->needUpdate |= !first->isInternal() && !first->isHelpRequest();
+    }
 
     if (d->expressionQueue.isEmpty())
         if (d->variableModel && d->needUpdate)

@@ -60,7 +60,7 @@ class CANTOR_EXPORT Expression : public QObject
      * @param session the session, this Expression belongs to
      * @param internal \c true if this expression is internal expression
      */
-    explicit Expression( Session* session, bool internal = false);
+    explicit Expression(Session*, bool internal = false);
     /**
      * destructor
      */
@@ -201,7 +201,15 @@ class CANTOR_EXPORT Expression : public QObject
      * returns whether or not this expression is internal, or
      * comes from the user
      */
-    bool isInternal();
+    bool isInternal() const;
+
+    /**
+     * Sets whether the expression is a help request (available for Maxima and R) where
+     * additional information/help can be requested and shown.
+     * Used internally to controll whether the update of the variable model needs to be done.
+     */
+    void setIsHelpRequest(bool);
+    bool isHelpRequest() const;
 
   Q_SIGNALS:
     /**

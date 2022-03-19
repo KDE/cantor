@@ -38,7 +38,6 @@ MaximaExpression::~MaximaExpression() {
 
 void MaximaExpression::evaluate()
 {
-    m_isHelpRequest = false;
     m_gotErrorContent = false;
 
     if(m_tempFile)
@@ -66,7 +65,7 @@ void MaximaExpression::evaluate()
         || cmd.startsWith(QLatin1String("describe("))
         || cmd.startsWith(QLatin1String("example("))
         || cmd.startsWith(QLatin1String(":lisp(cl-info::info-exact")))
-        m_isHelpRequest=true;
+        setIsHelpRequest(true);
 
     if (MaximaSettings::self()->integratePlots()
         && !cmd.contains(QLatin1String("ps_file"))
@@ -221,7 +220,7 @@ void MaximaExpression::parseOutput(const QString& out)
     int resultStart = out.indexOf(QLatin1String("<cantor-result>"));
     if (resultStart != -1) {
         errorContent += out.mid(0, resultStart);
-        if (!errorContent.isEmpty() && !(m_isHelpRequest || m_isHelpRequestAdditional))
+        if (!errorContent.isEmpty() && !(isHelpRequest() || m_isHelpRequestAdditional))
         {
             //there is a result but also the error buffer is not empty. This is the case when
             //warnings are generated, for example, the output of rat(0.75*10) is:
@@ -266,7 +265,7 @@ void MaximaExpression::parseOutput(const QString& out)
         qDebug() << "error content: " << errorContent;
 
         if (out.contains(QLatin1String("cantor-value-separator"))
-            || (out.contains(QLatin1String("<cantor-result>")) && !(m_isHelpRequest || m_isHelpRequestAdditional)) )
+            || (out.contains(QLatin1String("<cantor-result>")) && !(isHelpRequest() || m_isHelpRequestAdditional)) )
         {
             //we don't interpret the error output as an error in the following cases:
             //1. when fetching variables, in addition to the actual result with variable names and values,
@@ -297,7 +296,7 @@ void MaximaExpression::parseOutput(const QString& out)
             addResult(result);
             setStatus(Cantor::Expression::Done);
         }
-        else if(m_isHelpRequest || m_isHelpRequestAdditional) //help messages are also part of the error output
+        else if(isHelpRequest() || m_isHelpRequestAdditional) //help messages are also part of the error output
         {
             //we've got help result, but maybe additional input is required -> check this
             const int index = prompt.trimmed().indexOf(MaximaSession::MaximaInputPrompt);
@@ -321,9 +320,14 @@ void MaximaExpression::parseOutput(const QString& out)
         }
         else
         {
-            errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
-            setErrorMessage(errorContent);
-            setStatus(Cantor::Expression::Error);
+            if (isInternal())
+                setStatus(Cantor::Expression::Done); //for internal commands no need to handle the error output
+            else
+            {
+                errorContent = errorContent.replace(QLatin1String("\n\n"), QLatin1String("\n"));
+                setErrorMessage(errorContent);
+                setStatus(Cantor::Expression::Error);
+            }
         }
     }
 }

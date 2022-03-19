@@ -27,21 +27,19 @@ using namespace Cantor;
 class Cantor::ExpressionPrivate
 {
 public:
-    ExpressionPrivate() : id(-1), status(Expression::Done), session(nullptr),
-    finishingBehavior(Expression::DoNotDelete), internal(false), fileWatcher(nullptr)
-    {
-    }
+    ExpressionPrivate() : id(-1) {}
 
-    int id;
+    int id{-1};
     QString command;
     QString error;
     QList<QString> information;
     QVector<Result*> results;
-    Expression::Status status;
-    Session* session;
-    Expression::FinishingBehavior finishingBehavior;
-    bool internal;
-    QFileSystemWatcher* fileWatcher;
+    Expression::Status status{Expression::Done};
+    Session* session{nullptr};
+    Expression::FinishingBehavior finishingBehavior{Expression::DoNotDelete};
+    bool internal{false};
+    bool helpRequest{false};
+    QFileSystemWatcher* fileWatcher{nullptr};
 };
 
 static const QString tex=QLatin1String("\\documentclass[12pt,fleqn]{article}          \n "\
@@ -292,7 +290,17 @@ Expression::FinishingBehavior Expression::finishingBehavior()
     return d->finishingBehavior;
 }
 
-bool Expression::isInternal()
+bool Expression::isInternal() const
 {
     return d->internal;
+}
+
+void Expression::setIsHelpRequest(bool value)
+{
+    d->helpRequest = value;
+}
+
+bool Expression::isHelpRequest() const
+{
+    return d->helpRequest;
 }
