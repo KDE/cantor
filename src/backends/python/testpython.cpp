@@ -308,8 +308,11 @@ void TestPython3::testInterrupt()
     QCOMPARE(e2->status(), Cantor::Expression::Interrupted);
 
     auto* e = evalExp(QLatin1String("2+2"));
-
     QVERIFY(e != nullptr);
+
+    if (session()->status() == Cantor::Session::Running)
+        waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
+
     QCOMPARE(e->status(), Cantor::Expression::Done);
     QVERIFY(e->result());
     QCOMPARE(e->result()->data().toString(), QLatin1String("4"));
