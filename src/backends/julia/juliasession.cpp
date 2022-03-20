@@ -28,12 +28,7 @@
 
 using namespace Cantor;
 
-JuliaSession::JuliaSession(Cantor::Backend *backend)
-    : Session(backend)
-    , m_process(nullptr)
-    , m_interface(nullptr)
-    , m_isIntegratedPlotsEnabled(false)
-    , m_isIntegratedPlotsSettingsEnabled(false)
+JuliaSession::JuliaSession(Cantor::Backend* backend) : Session(backend)
 {
     setVariableModel(new JuliaVariableModel(this));
 }
@@ -102,9 +97,8 @@ void JuliaSession::login()
         return;
     }
 
-    const QDBusReply<int> &reply = m_interface->call(
-        QString::fromLatin1("login"),
-        JuliaSettings::self()->replPath().path()
+    const QDBusReply<int> &reply = m_interface->call(QLatin1String("login"),
+                                                    JuliaSettings::self()->replPath().path()
     );
     if (reply.isValid())
     {
@@ -195,23 +189,20 @@ void JuliaSession::interrupt()
     }
 
     qDebug()<<"interrupting " << expressionQueue().first()->command();
-    foreach (Cantor::Expression* expression, expressionQueue())
+    for(auto* expression : expressionQueue())
         expression->setStatus(Cantor::Expression::Interrupted);
+
     expressionQueue().clear();
 
     changeStatus(Cantor::Session::Done);
 }
 
-Cantor::Expression *JuliaSession::evaluateExpression(
-    const QString &cmd,
-    Cantor::Expression::FinishingBehavior behave,
-    bool internal)
+Cantor::Expression *JuliaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
     if (!internal)
         updateGraphicPackagesFromSettings();
 
-    JuliaExpression *expr = new JuliaExpression(this, internal);
-
+    auto* expr = new JuliaExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
@@ -219,14 +210,12 @@ Cantor::Expression *JuliaSession::evaluateExpression(
     return expr;
 }
 
-Cantor::CompletionObject *JuliaSession::completionFor(
-    const QString &command,
-    int index)
+Cantor::CompletionObject* JuliaSession::completionFor(const QString &command, int index)
 {
     return new JuliaCompletionObject(command, index, this);
 }
 
-QSyntaxHighlighter *JuliaSession::syntaxHighlighter(QObject *parent)
+QSyntaxHighlighter* JuliaSession::syntaxHighlighter(QObject *parent)
 {
     return new JuliaHighlighter(parent, this);
 }
@@ -259,11 +248,9 @@ void JuliaSession::reportServerProcessError(QProcess::ProcessError serverError)
         case QProcess::Crashed:
             emit error(i18n("Julia process stopped working."));
             break;
-
         case QProcess::FailedToStart:
             emit error(i18n("Failed to start Julia process."));
             break;
-
         default:
             emit error(i18n("Communication with Julia process failed for unknown reasons."));
             break;
@@ -272,10 +259,9 @@ void JuliaSession::reportServerProcessError(QProcess::ProcessError serverError)
     reportSessionCrash();
 }
 
-
 void JuliaSession::runFirstExpression()
 {
-    Cantor::Expression* expr = expressionQueue().first();
+    auto* expr = expressionQueue().first();
     expr->setStatus(Cantor::Expression::Computing);
 
     runJuliaCommandAsync(expr->internalCommand());
@@ -303,7 +289,6 @@ bool JuliaSession::getWasException()
         m_interface->call(QLatin1String("getWasException"));
     return reply.isValid() && reply.value();
 }
-
 
 QString JuliaSession::plotFilePrefixPath() const
 {

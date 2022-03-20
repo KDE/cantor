@@ -83,16 +83,16 @@ private Q_SLOTS:
     void reportServerProcessError(QProcess::ProcessError serverError);
 
 private:
-    KProcess *m_process; //< process to run JuliaServer inside
-    QDBusInterface *m_interface; //< interface to JuliaServer
+    KProcess* m_process{nullptr}; //< process to run JuliaServer inside
+    QDBusInterface* m_interface{nullptr}; //< interface to JuliaServer
 
     /// Cache to speedup modules whos calls
     QMap<QString, QString> m_whos_cache;
 
     /// Variables for handling plot integration: settings value and real state
     QString m_plotFilePrefixPath;
-    bool m_isIntegratedPlotsEnabled;
-    bool m_isIntegratedPlotsSettingsEnabled;
+    bool m_isIntegratedPlotsEnabled{false};
+    bool m_isIntegratedPlotsSettingsEnabled{false};
 
     void runFirstExpression() override;
 

@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2017-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2017-2022 Alexander Semke <alexander.semke@web.de>
     SPDX-FileCopyrightText: 2019 Sirgienko Nikita <warquark@gmail.com>
 */
 
@@ -45,10 +45,8 @@
 #include <QPrintDialog>
 #include <QProgressDialog>
 #include <QTextStream>
-#include <QTextEdit>
 #include <QTimer>
 #include <QRegularExpression>
-#include <QComboBox>
 
 //A concrete implementation of the WorksheetAccesssInterface
 class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
@@ -92,26 +90,11 @@ class WorksheetAccessInterfaceImpl : public Cantor::WorksheetAccessInterface
     Worksheet* m_worksheet;
 };
 
-CantorPart::CantorPart( QWidget *parentWidget, QObject *parent, const QVariantList & args ): KParts::ReadWritePart(parent),
-    m_searchBar(nullptr),
-    m_initProgressDlg(nullptr),
-    m_showProgressDlg(true),
-    m_currectZoomAction(nullptr),
-    m_statusBarBlocked(false),
-    m_sessionStatusCounter(0)
+CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantList& args ): KParts::ReadWritePart(parent)
 {
     QString backendName;
     if(!args.isEmpty())
         backendName = args.first().toString();
-
-    for (const QVariant& arg : args)
-    {
-        if (arg.toString() == QLatin1String("--noprogress") )
-        {
-            qWarning()<<"not showing the progress bar by request";
-            m_showProgressDlg=false;
-        }
-    }
 
     Cantor::Backend* b = nullptr;
     if (!backendName.isEmpty())
@@ -623,7 +606,7 @@ void CantorPart::restartBackend()
 
 void CantorPart::worksheetStatusChanged(Cantor::Session::Status status)
 {
-    qDebug()<<"wsStatusChange"<<status;
+    qDebug()<<"worksheet status changed:" << status;
     unsigned int count = ++m_sessionStatusCounter;
     switch (status) {
     case Cantor::Session::Running:
@@ -688,7 +671,8 @@ void CantorPart::initialized()
             Cantor::Assistant* assistant = dynamic_cast<Cantor::Assistant*>(client);
             if (assistant)
             {
-                factory()->removeClient(client);
+                if (factory())
+                    factory()->removeClient(client);
                 removeChildClient(client);
                 assistant->deleteLater();
             }

@@ -30,15 +30,11 @@
 #include <signal.h>
 #endif
 
-
 const QChar recordSep(30);
 const QChar unitSep(31);
 const QChar messageEnd = 29;
 
-PythonSession::PythonSession(Cantor::Backend* backend)
-    : Session(backend)
-    , m_process(nullptr)
-    , m_plotFileCounter(0)
+PythonSession::PythonSession(Cantor::Backend* backend) : Session(backend)
 {
     setVariableModel(new PythonVariableModel(this));
 }
@@ -126,6 +122,7 @@ void PythonSession::logout()
 
     if (m_process->exitStatus() != QProcess::CrashExit && m_process->error() != QProcess::WriteError)
         sendCommand(QLatin1String("exit"));
+
     if(m_process->state() == QProcess::Running && !m_process->waitForFinished(1000))
     {
         disconnect(m_process, &QProcess::errorOccurred, this, &PythonSession::reportServerProcessError);
@@ -183,9 +180,6 @@ Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor
 
     qDebug() << "evaluating: " << cmd;
     auto* expr = new PythonExpression(this, internal);
-
-    changeStatus(Cantor::Session::Running);
-
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
     expr->evaluate();
@@ -241,6 +235,7 @@ void PythonSession::readOutput()
 
     if (!m_output.contains(messageEnd))
         return;
+
     const QStringList packages = m_output.split(messageEnd, QString::SkipEmptyParts);
     if (m_output.endsWith(messageEnd))
         m_output.clear();
@@ -323,7 +318,7 @@ void PythonSession::updateGraphicPackagesFromSettings()
             else if (val == PythonSettings::EnumChoosenGraphicPackage::plotly)
                 searchId = QLatin1String("plotly");
 
-            for (Cantor::GraphicPackage& package : backend()->availableGraphicPackages())
+            for (const auto& package : backend()->availableGraphicPackages())
             {
                 if (package.id() == searchId)
                 {
@@ -343,7 +338,6 @@ void PythonSession::updateGraphicPackagesFromSettings()
 
 QString PythonSession::graphicPackageErrorMessage(QString packageId) const
 {
-    Q_ASSERT(PythonSettings::EnumChoosenGraphicPackage::COUNT == 3);
     if (packageId == QLatin1String("matplotlib"))
     {
         return i18n(

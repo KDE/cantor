@@ -310,10 +310,12 @@ void TestPython3::testInterrupt()
     auto* e = evalExp(QLatin1String("2+2"));
     QVERIFY(e != nullptr);
 
+    qDebug()<<"### session status 1 " << session()->status();
     qDebug()<<"### expression status 1 " << e->status();
     if (session()->status() == Cantor::Session::Running)
         waitForSignal(session(), SIGNAL(statusChanged(Cantor::Session::Status)));
 
+    qDebug()<<"### session status 2 " << session()->status();
     qDebug()<<"### expression status 2 " << e->status();
     QCOMPARE(e->status(), Cantor::Expression::Done);
     QVERIFY(e->result());
