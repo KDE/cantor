@@ -234,14 +234,11 @@ void OctaveSession::processError()
     emit error(m_process->errorString());
 }
 
-Cantor::Expression* OctaveSession::evaluateExpression(const QString& command, Cantor::Expression::FinishingBehavior behavior, bool internal )
+Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behavior, bool internal)
 {
-    if (!internal)
-        updateGraphicPackagesFromSettings();
-
-    qDebug() << "evaluating: " << command;
+    qDebug() << "evaluating: " << cmd;
     auto* expression = new OctaveExpression(this, internal);
-    expression->setCommand ( command );
+    expression->setCommand(cmd);
     expression->setFinishingBehavior(behavior);
     expression->evaluate();
 

@@ -172,12 +172,6 @@ void PythonSession::interrupt()
 
 Cantor::Expression* PythonSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
-    // We ignore here internal because of two reasons
-    // 1. The function uses internal expressions itself
-    // 2. Internal commands don't come from user and don't produce plots, so don't need to check graphic packages
-    if (!internal)
-        updateGraphicPackagesFromSettings();
-
     qDebug() << "evaluating: " << cmd;
     auto* expr = new PythonExpression(this, internal);
     expr->setFinishingBehavior(behave);

@@ -199,9 +199,6 @@ void JuliaSession::interrupt()
 
 Cantor::Expression *JuliaSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
-    if (!internal)
-        updateGraphicPackagesFromSettings();
-
     auto* expr = new JuliaExpression(this, internal);
     expr->setFinishingBehavior(behave);
     expr->setCommand(cmd);
@@ -304,7 +301,7 @@ void JuliaSession::updateGraphicPackagesFromSettings()
     {
         updateEnabledGraphicPackages(QList<Cantor::GraphicPackage>());
         m_isIntegratedPlotsEnabled = false;
-        m_isIntegratedPlotsSettingsEnabled = JuliaSettings::integratePlots();
+        m_isIntegratedPlotsSettingsEnabled = true;
         return;
     }
     else if (!m_isIntegratedPlotsEnabled && JuliaSettings::integratePlots() == true)
