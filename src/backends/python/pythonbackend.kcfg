@@ -17,15 +17,6 @@
     <entry name="autorunScripts" type="StringList">
       <label>List of scripts to autorun at the beginning of session</label>
     </entry>
-    <entry name="choosenGraphicPackage" type="Enum">
-      <choices>
-        <choice name="matplotlib"/>
-        <choice name="plotly"/>
-        <choice name="all"/>
-      </choices>
-      <label>Graphical package, for which will be enable support for embedding plots</label>
-      <default>0</default>
-    </entry>
     <entry name="plotExtenstionGraphicPackage" type="Enum">
     <choices>
         <choice name="matplotlib"/>
@@ -34,7 +25,7 @@
         <choice name="gr"/>
         <choice name="bokeh"/>
       </choices>
-      <label>Graphical package, for which will be enable support for embedding plots</label>
+      <label>Graphical package for the Plot-Assistant</label>
       <default>0</default>
     </entry>
   </group>

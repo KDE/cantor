@@ -92,10 +92,10 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label3">
          <property name="toolTip">
-          <string>Graphic package, which code will be used for plotting via &quot;Plot&quot; Cantor menu.</string>
+          <string>Graphic package to be used in the Plot Assistant</string>
          </property>
          <property name="text">
-          <string>Graphic Package for &quot;Plot&quot;-assistant</string>
+          <string>Package for Plot Assistant</string>
          </property>
         </widget>
        </item>
@@ -106,6 +106,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Graphic package to be used in the Plot Assistant</string>
          </property>
          <item>
           <property name="text">

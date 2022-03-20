@@ -298,36 +298,7 @@ QString PythonSession::plotFilePrefixPath()
 
 void PythonSession::updateGraphicPackagesFromSettings()
 {
-    QList<Cantor::GraphicPackage> enabledInSettingPackages;
-
-    if (PythonSettings::integratePlots())
-    {
-        int val = PythonSettings::choosenGraphicPackage();
-        if (val != PythonSettings::EnumChoosenGraphicPackage::all)
-        {
-            QString searchId;
-            Q_ASSERT(PythonSettings::EnumChoosenGraphicPackage::COUNT == 3);
-            if (val == PythonSettings::EnumChoosenGraphicPackage::matplotlib)
-                searchId = QLatin1String("matplotlib");
-            else if (val == PythonSettings::EnumChoosenGraphicPackage::plotly)
-                searchId = QLatin1String("plotly");
-
-            for (const auto& package : backend()->availableGraphicPackages())
-            {
-                if (package.id() == searchId)
-                {
-                    enabledInSettingPackages = QList<Cantor::GraphicPackage>{package};
-                    break;
-                }
-            }
-        }
-        else
-        {
-            enabledInSettingPackages = backend()->availableGraphicPackages();
-        }
-    }
-
-    updateEnabledGraphicPackages(enabledInSettingPackages, m_plotFilePrefixPath);
+    updateEnabledGraphicPackages(backend()->availableGraphicPackages(), m_plotFilePrefixPath);
 }
 
 QString PythonSession::graphicPackageErrorMessage(QString packageId) const

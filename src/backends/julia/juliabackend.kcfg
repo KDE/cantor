@@ -34,7 +34,7 @@
                 <choice name="pyplot"/>
                 <choice name="gadfly"/>
             </choices>
-            <label>Graphical package, for which will be enable support for embedding plots</label>
+            <label>Graphical package for the Plot-Assistant</label>
             <default>0</default>
         </entry>
     </group>
