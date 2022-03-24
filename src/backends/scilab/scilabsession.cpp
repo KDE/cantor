@@ -98,8 +98,8 @@ void ScilabSession::login()
     QObject::connect(m_process, &QProcess::readyReadStandardOutput, this, &ScilabSession::readOutput);
     QObject::connect(m_process, &QProcess::readyReadStandardError, this, &ScilabSession::readError);
 
-    m_process->readAllStandardOutput().clear();
-    m_process->readAllStandardError().clear();
+    m_process->readAllStandardOutput();
+    m_process->readAllStandardError();
 
     changeStatus(Cantor::Session::Done);
 

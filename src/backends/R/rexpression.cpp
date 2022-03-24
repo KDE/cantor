@@ -34,9 +34,7 @@ void RExpression::evaluate()
         || cmd.startsWith(QStringLiteral("vignette("))
         || cmd == QStringLiteral("demos()")
         || cmd.startsWith(QStringLiteral("help.search(")) )
-        m_isHelpRequest=true;
-    else
-        m_isHelpRequest=false;
+        setIsHelpRequest(true);
 
     session()->enqueueExpression(this);
 }
@@ -52,7 +50,7 @@ void RExpression::parseOutput(const QString& text)
     //qDebug() << "output text: " << text;
     if (!text.trimmed().isEmpty())
     {
-        if(m_isHelpRequest)
+        if(isHelpRequest())
             addResult(new Cantor::HelpResult(text));
         else
             addResult(new Cantor::TextResult(text));
@@ -120,7 +118,7 @@ void RExpression::showFilesAsResult(const QStringList& files)
             }
 
             qDebug()<<"content: "<<content;
-            if(m_isHelpRequest)
+            if(isHelpRequest())
                 setResult(new Cantor::HelpResult(content));
             else
                 setResult(new Cantor::TextResult(content));
