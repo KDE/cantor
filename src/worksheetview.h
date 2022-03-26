@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #ifndef WORKSHEETVIEW_H
@@ -50,8 +50,14 @@ private:
     void resizeEvent(QResizeEvent*) override;
     void focusInEvent(QFocusEvent*) override;
     void focusOutEvent(QFocusEvent*) override;
+    void wheelEvent(QWheelEvent*) override;
+
+    void zoom(int);
+    void scalingTime();
+    void animFinished();
 
     qreal m_scale = 1.;
+    int m_numScheduledScalings{0};
     QParallelAnimationGroup* m_animation{nullptr};
     QPropertyAnimation* m_hAnimation{nullptr};
     QPropertyAnimation* m_vAnimation{nullptr};

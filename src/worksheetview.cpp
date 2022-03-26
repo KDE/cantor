@@ -1,15 +1,17 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "worksheetview.h"
 #include "worksheet.h"
 
+#include <QApplication>
 #include <QFocusEvent>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
+#include <QTimeLine>
 #include <QScrollBar>
 
 WorksheetView::WorksheetView(Worksheet* scene, QWidget* parent) : QGraphicsView(scene, parent),
@@ -241,6 +243,48 @@ void WorksheetView::focusOutEvent(QFocusEvent* event)
         m_worksheet->stopAnimations();
 }
 
+void WorksheetView::wheelEvent(QWheelEvent* event)
+{
+    if ((QApplication::keyboardModifiers() & Qt::ControlModifier)) {
+        //https://wiki.qt.io/Smooth_Zoom_In_QGraphicsView
+        int numDegrees = event->delta() / 8;
+        int numSteps = numDegrees / 15; // see QWheelEvent documentation
+        zoom(numSteps);
+    } else
+        QGraphicsView::wheelEvent(event);
+}
+
+void WorksheetView::zoom(int numSteps)
+{
+    m_numScheduledScalings += numSteps;
+    if (m_numScheduledScalings * numSteps < 0) // if user moved the wheel in another direction, we reset previously scheduled scalings
+        m_numScheduledScalings = numSteps;
+
+    auto* anim = new QTimeLine(350, this);
+    anim->setUpdateInterval(20);
+
+    connect(anim, &QTimeLine::valueChanged, this, &WorksheetView::scalingTime);
+    connect(anim, &QTimeLine::finished, this, &WorksheetView::animFinished);
+    anim->start();
+}
+
+void WorksheetView::scalingTime()
+{
+    qreal factor = 1.0 + qreal(m_numScheduledScalings) / 300.0;
+    m_scale *= factor;
+    updateSceneSize();
+    scale(factor, factor);
+}
+
+void WorksheetView::animFinished()
+{
+    if (m_numScheduledScalings > 0)
+        m_numScheduledScalings--;
+    else
+        m_numScheduledScalings++;
+    sender()->~QObject();
+    emit scaleFactorChanged(m_scale);
+}
 
 qreal WorksheetView::scaleFactor() const
 {
