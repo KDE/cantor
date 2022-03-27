@@ -2,7 +2,7 @@
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
     SPDX-FileCopyrightText: 2012 Martin Kuettler <martin.kuettler@gmail.com>
-    SPDX-FileCopyrightText: 2018-2021 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2018-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "worksheet.h"
@@ -417,7 +417,7 @@ void Worksheet::makeVisible(const WorksheetCursor& cursor)
 
 WorksheetView* Worksheet::worksheetView()
 {
-    return qobject_cast<WorksheetView*>(views().first());
+    return static_cast<WorksheetView*>(views().first());
 }
 
 void Worksheet::setModified()
@@ -782,11 +782,9 @@ WorksheetEntry* Worksheet::appendLatexEntry()
 
 void Worksheet::appendCommandEntry(const QString& text)
 {
-    WorksheetEntry* entry = lastEntry();
+    auto* entry = lastEntry();
     if(!entry->isEmpty())
-    {
         entry = appendCommandEntry();
-    }
 
     if (entry)
     {
@@ -814,8 +812,8 @@ WorksheetEntry* Worksheet::insertEntry(const int type, WorksheetEntry* current)
     if (!current)
         return appendEntry(type);
 
-    WorksheetEntry *next = current->next();
-    WorksheetEntry *entry = nullptr;
+    auto* next = current->next();
+    WorksheetEntry* entry = nullptr;
 
     if (!next || next->type() != type || !next->isEmpty())
     {
@@ -892,7 +890,7 @@ WorksheetEntry* Worksheet::insertEntryBefore(int type, WorksheetEntry* current)
     if (!current)
         return nullptr;
 
-    WorksheetEntry *prev = current->previous();
+    auto* prev = current->previous();
     WorksheetEntry *entry = nullptr;
 
     if(!prev || prev->type() != type || !prev->isEmpty())
@@ -950,12 +948,12 @@ WorksheetEntry* Worksheet::insertLatexEntryBefore(WorksheetEntry* current)
     return insertEntryBefore(LatexEntry::Type, current);
 }
 
-WorksheetEntry * Worksheet::insertHorizontalRuleEntryBefore(WorksheetEntry* current)
+WorksheetEntry* Worksheet::insertHorizontalRuleEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(HorizontalRuleEntry::Type, current);
 }
 
-WorksheetEntry * Worksheet::insertHierarchyEntryBefore(WorksheetEntry* current)
+WorksheetEntry* Worksheet::insertHierarchyEntryBefore(WorksheetEntry* current)
 {
     return insertEntryBefore(HierarchyEntry::Type, current);
 }
@@ -979,7 +977,7 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
     if (!m_highlighter)
         return;
 
-    QTextDocument *oldDocument = m_highlighter->document();
+    auto* oldDocument = m_highlighter->document();
     QList<QVector<QTextLayout::FormatRange> > formats;
 
     if (oldDocument)
@@ -993,12 +991,11 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
 
     // Not every highlighter is a Cantor::DefaultHighligther (e.g. the
     // highlighter for KAlgebra)
-    Cantor::DefaultHighlighter* hl = qobject_cast<Cantor::DefaultHighlighter*>(m_highlighter);
-    if (hl) {
+    auto* hl = qobject_cast<Cantor::DefaultHighlighter*>(m_highlighter);
+    if (hl)
         hl->setTextItem(item);
-    } else {
+    else
         m_highlighter->setDocument(item->document());
-    }
 
     if (oldDocument)
     {
@@ -1012,7 +1009,6 @@ void Worksheet::highlightItem(WorksheetTextItem* item)
         }
         cursor.endEditBlock();
     }
-
 }
 
 void Worksheet::rehighlight()
@@ -1242,7 +1238,6 @@ void Worksheet::save( QIODevice* device)
         }
     }
 }
-
 
 void Worksheet::savePlain(const QString& filename)
 {
@@ -1485,36 +1480,21 @@ bool Worksheet::loadCantorWorksheet(const KZip& archive)
 int Worksheet::typeForTagName(const QString& tag)
 {
     if (tag == QLatin1String("Expression"))
-    {
         return CommandEntry::Type;
-    }
     else if (tag == QLatin1String("Text"))
-    {
         return TextEntry::Type;
-    }
     else if (tag == QLatin1String("Markdown"))
-    {
         return MarkdownEntry::Type;
-    }
     else if (tag == QLatin1String("Latex"))
-    {
         return LatexEntry::Type;
-    } else if (tag == QLatin1String("PageBreak"))
-    {
+    else if (tag == QLatin1String("PageBreak"))
         return PageBreakEntry::Type;
-    }
     else if (tag == QLatin1String("Image"))
-    {
         return ImageEntry::Type;
-    }
     else if (tag == QLatin1String("HorizontalRule"))
-    {
         return HorizontalRuleEntry::Type;
-    }
     else if (tag == QLatin1String("Hierarchy"))
-    {
         return HierarchyEntry::Type;
-    }
 
     return 0;
 }
@@ -1744,7 +1724,6 @@ void Worksheet::showInvalidNotebookSchemeError(QString additionalInfo)
         KMessageBox::error(worksheetView(), i18n("Invalid Jupyter notebook scheme: %1", additionalInfo), i18n("Open File"));
 }
 
-
 void Worksheet::gotResult(Cantor::Expression* expr)
 {
     if(expr==nullptr)
@@ -1922,6 +1901,24 @@ void Worksheet::populateMenu(QMenu *menu, QPointF pos)
         else
             menu->addAction(QIcon::fromTheme(QLatin1String("process-stop")), i18n("Interrupt"), this,
                             &Worksheet::interrupt);
+
+        //zooming
+        menu->addSeparator();
+        auto* zoomMenu = new QMenu(i18n("Zoom"));
+        zoomMenu->setIcon(QIcon::fromTheme(QLatin1String("zoom-draw")));
+        auto* view = worksheetView();
+
+        auto* action = zoomMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-in")), i18n("Zoom In"), view, &WorksheetView::zoomIn);
+        action->setShortcut(Qt::CTRL+Qt::Key_Plus);
+
+        action = zoomMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-out")), i18n("Zoom Out"), view, &WorksheetView::zoomOut);
+        action->setShortcut(Qt::CTRL+Qt::Key_Minus);
+        zoomMenu->addSeparator();
+
+        action = zoomMenu->addAction(QIcon::fromTheme(QLatin1String("zoom-original")), i18n("Original Size"), view, &WorksheetView::actualSize);
+        action->setShortcut(Qt::CTRL+Qt::Key_1);
+
+        menu->addMenu(zoomMenu);
     }
     else
     {
@@ -2028,16 +2025,17 @@ void Worksheet::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
 }
 
-void Worksheet::keyPressEvent(QKeyEvent *keyEvent)
+void Worksheet::keyPressEvent(QKeyEvent* event)
 {
     if (m_readOnly)
         return;
 
-    // If we choose entry by entry cursor and press text button (not modifiers, for example, like Control)
-    if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && !keyEvent->text().isEmpty())
-        addEntryFromEntryCursor();
+    if ((event->modifiers() & Qt::ControlModifier) && (event->key() == Qt::Key_1))
+        worksheetView()->actualSize();
+    else if ((m_choosenCursorEntry || m_isCursorEntryAfterLastEntry) && !event->text().isEmpty())
+        addEntryFromEntryCursor(); //add new enty when the entry cursor is activa the user starts typing the text
 
-    QGraphicsScene::keyPressEvent(keyEvent);
+    QGraphicsScene::keyPressEvent(event);
 }
 
 void Worksheet::setActionCollection(KActionCollection* collection)
