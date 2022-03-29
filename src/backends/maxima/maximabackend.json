@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for the Maxima Computer Algebra System",
-        "Description[ca@valencia]": "Dorsal per al Maxima: un sistema d'àlgebra per ordinador",
+        "Description[ca@valencia]": "Dorsal per a Maxima: un sistema d'àlgebra per ordinador",
         "Description[ca]": "Dorsal per al Maxima: un sistema d'àlgebra per ordinador",
         "Description[cs]": "Podpůrná vrstva pro počítačový systém algebry Maxima",
         "Description[de]": "„Maxima Computer Algebra System“-Modul für Cantor",
