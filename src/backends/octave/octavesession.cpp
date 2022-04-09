@@ -236,6 +236,7 @@ void OctaveSession::processError()
 
 Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behavior, bool internal)
 {
+    qDebug()<<"################################## EXPRESSION START ###############################################";
     qDebug() << "evaluating: " << cmd;
     auto* expression = new OctaveExpression(this, internal);
     expression->setCommand(cmd);
@@ -248,7 +249,7 @@ Cantor::Expression* OctaveSession::evaluateExpression(const QString& cmd, Cantor
 void OctaveSession::runFirstExpression()
 {
     auto* expression = expressionQueue().first();
-    connect(expression, &Cantor::Expression::statusChanged, this, &OctaveSession::currentExpressionStatusChanged);
+    connect(expression, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
 
     const auto& command = expression->internalCommand();
     expression->setStatus(Cantor::Expression::Computing);
@@ -279,7 +280,6 @@ void OctaveSession::readError()
 
 void OctaveSession::readOutput()
 {
-    qDebug() << "readOutput";
     while (m_process->bytesAvailable() > 0)
     {
         QString line = QString::fromLocal8Bit(m_process->readLine());
@@ -322,21 +322,6 @@ void OctaveSession::readOutput()
         }
         else
             m_output += line;
-    }
-}
-
-void OctaveSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
-{
-    qDebug() << "currentExpressionStatusChanged" << status << expressionQueue().first()->command();
-    switch (status)
-    {
-    case Cantor::Expression::Done:
-    case Cantor::Expression::Error:
-        finishFirstExpression();
-        break;
-
-    default:
-        break;
     }
 }
 

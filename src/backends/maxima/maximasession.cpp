@@ -185,24 +185,6 @@ void MaximaSession::reportProcessError(QProcess::ProcessError e)
     }
 }
 
-void MaximaSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
-{
-    auto* expression = expressionQueue().first();
-    qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
-
-    switch (status)
-    {
-    case Cantor::Expression::Done:
-    case Cantor::Expression::Error:
-        qDebug()<<"################################## EXPRESSION END ###############################################";
-        disconnect(expression, &Cantor::Expression::statusChanged, this, &MaximaSession::currentExpressionChangedStatus);
-        finishFirstExpression();
-        break;
-    default:
-        break;
-    }
-}
-
 void MaximaSession::runFirstExpression()
 {
     qDebug()<<"running next expression";
@@ -213,7 +195,7 @@ void MaximaSession::runFirstExpression()
     {
         auto* expr = expressionQueue().first();
         const auto& command = expr->internalCommand();
-        connect(expr, &Cantor::Expression::statusChanged, this, &MaximaSession::currentExpressionChangedStatus);
+        connect(expr, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
 
         expr->setStatus(Cantor::Expression::Computing);
         if(command.isEmpty())

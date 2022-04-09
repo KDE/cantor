@@ -51,12 +51,12 @@ class CANTOR_EXPORT Session : public QObject
      * thats job of the login() function
      * @see login()
      */
-    explicit Session( Backend* backend);
+    explicit Session(Backend*);
 
     /**
      * Similar to Session::Session, but also specify variable model for automatically handles model's updates
      */
-    explicit Session( Backend* backend, DefaultVariableModel* model);
+    explicit Session(Backend*, DefaultVariableModel*);
 
     /**
      * Destructor
@@ -159,7 +159,7 @@ class CANTOR_EXPORT Session : public QObject
      * LaTeX typesetting (as indicated by the capabilities() flag.
      * @param enable true to enable, false to disable typesetting
      */
-    virtual void setTypesettingEnabled(bool enable);
+    virtual void setTypesettingEnabled(bool);
 
     /**
     * Updates the worksheet path in the session.
@@ -169,7 +169,7 @@ class CANTOR_EXPORT Session : public QObject
     * to implement the proper logic if this feature is supported.
     * @param path the new absolute path to the worksheet.
     */
-    virtual void setWorksheetPath(const QString& path);
+    virtual void setWorksheetPath(const QString&);
 
     /**
      * Returns the Backend, this Session is for
@@ -202,13 +202,16 @@ class CANTOR_EXPORT Session : public QObject
      */
     const QList<GraphicPackage>& enabledGraphicPackages() const;
 
+public Q_SLOTS:
+    void currentExpressionStatusChanged(Cantor::Expression::Status);
+
   protected:
     /**
      * Change the status of the Session. This will cause the
      * stausChanged signal to be emitted
      * @param newStatus the new status of the session
      */
-    void changeStatus(Cantor::Session::Status newStatus);
+    void changeStatus(Cantor::Session::Status);
 
     /**
      * Session can process one single expression at one time.
@@ -242,7 +245,7 @@ class CANTOR_EXPORT Session : public QObject
     /**
      * Setting variable model, useful if model constructor requires functional session
      */
-    void setVariableModel(DefaultVariableModel* model);
+    void setVariableModel(DefaultVariableModel*);
 
     /**
      * Search file for session in AppDataLocation and in GenericDataLocation
@@ -276,10 +279,10 @@ class CANTOR_EXPORT Session : public QObject
     virtual QString graphicPackageErrorMessage(QString packageId) const;
 
 Q_SIGNALS:
-    void statusChanged(Cantor::Session::Status newStatus);
+    void statusChanged(Cantor::Session::Status);
     void loginStarted();
     void loginDone();
-    void error(const QString& msg);
+    void error(const QString&);
 
   private:
     SessionPrivate* d;

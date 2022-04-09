@@ -182,6 +182,24 @@ void Session::finishFirstExpression(bool setDoneAfterUpdate)
         runFirstExpression();
 }
 
+void Session::currentExpressionStatusChanged(Cantor::Expression::Status status)
+{
+    auto* expression = expressionQueue().first();
+    qDebug() << "expression status changed: command = " << expression->command() << ", status = " << status;
+
+    switch (status)
+    {
+    case Cantor::Expression::Done:
+    case Cantor::Expression::Error:
+        qDebug()<<"################################## EXPRESSION END ###############################################";
+        disconnect(expression, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
+        finishFirstExpression();
+        break;
+    default:
+        break;
+    }
+}
+
 Backend* Session::backend()
 {
     return d->backend;

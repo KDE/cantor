@@ -15,7 +15,6 @@
 class SageExpression;
 class KPtyProcess;
 
-
 class SageSession : public Cantor::Session
 {
   Q_OBJECT
@@ -45,8 +44,7 @@ class SageSession : public Cantor::Session
         int m_minor;
     };
 
-
-    explicit SageSession( Cantor::Backend* backend);
+    explicit SageSession(Cantor::Backend*);
     ~SageSession() override;
 
     void login() override;
@@ -60,19 +58,19 @@ class SageSession : public Cantor::Session
 
     void sendInputToProcess(const QString& input);
 
-    void setTypesettingEnabled(bool enable) override;
-    void setWorksheetPath(const QString& path) override;
+    void setTypesettingEnabled(bool) override;
+    void setWorksheetPath(const QString&) override;
 
     Cantor::CompletionObject* completionFor(const QString& command, int index=-1) override;
     QSyntaxHighlighter* syntaxHighlighter(QObject* parent) override;
 
     VersionInfo sageVersion();
+
   public Q_SLOTS:
     void readStdOut();
     void readStdErr();
 
   private Q_SLOTS:
-    void currentExpressionChangedStatus(Cantor::Expression::Status);
     void processFinished(int exitCode, QProcess::ExitStatus);
     void reportProcessError(QProcess::ProcessError);
     void fileCreated(const QString& path);
@@ -80,7 +78,7 @@ class SageSession : public Cantor::Session
   private:
     void defineCustomFunctions();
     bool updateSageVersion();
-  private:
+
     KPtyProcess* m_process;
     bool m_isInitialized;
     QString m_tmpPath;

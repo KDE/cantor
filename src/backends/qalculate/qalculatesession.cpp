@@ -333,6 +333,7 @@ QString QalculateSession::parseSaveCommand(QString& currentCmd)
     return QLatin1String("");
 }
 
+//TODO: unify with the funcion in the base class
 void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
     // depending on the status of the expression change the status of the session;

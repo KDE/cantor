@@ -48,7 +48,6 @@ class MaximaSession : public Cantor::Session
     void readStdErr();
 
   private Q_SLOTS:
-    void currentExpressionChangedStatus(Cantor::Expression::Status);
     void restartMaxima();
     void restartsCooledDown();
     void reportProcessError(QProcess::ProcessError);

@@ -67,7 +67,6 @@ class OctaveSession : public Cantor::Session
     private Q_SLOTS:
         void readOutput();
         void readError();
-        void currentExpressionStatusChanged(Cantor::Expression::Status);
         void processError();
         void runSpecificCommands();
 };

@@ -254,6 +254,7 @@ void ScilabSession::plotFileChanged(const QString& filename)
     }
 }
 
+//TODO: unify with the funcion in the base class
 void ScilabSession::currentExpressionStatusChanged(Cantor::Expression::Status status)
 {
     qDebug() << "currentExpressionStatusChanged: " << status;

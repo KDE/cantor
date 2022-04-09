@@ -322,19 +322,6 @@ void SageSession::readStdErr()
     }
 }
 
-void SageSession::currentExpressionChangedStatus(Cantor::Expression::Status status)
-{
-    switch (status)
-    {
-        case Cantor::Expression::Done:
-        case Cantor::Expression::Error:
-            finishFirstExpression();
-
-        default:
-            break;
-    }
-}
-
 void SageSession::processFinished(int exitCode, QProcess::ExitStatus exitStatus)
 {
     Q_UNUSED(exitCode);
@@ -379,7 +366,7 @@ void SageSession::runFirstExpression()
         auto* expr = expressionQueue().first();
         if (m_isInitialized)
         {
-            connect(expr, SIGNAL(statusChanged(Cantor::Expression::Status)), this, SLOT(currentExpressionChangedStatus(Cantor::Expression::Status)));
+            connect(expr, &Cantor::Expression::statusChanged, this, &Session::currentExpressionStatusChanged);
 
             QString command = expr->command();
             if(command.endsWith(QLatin1Char('?')) && !command.endsWith(QLatin1String("??")))
