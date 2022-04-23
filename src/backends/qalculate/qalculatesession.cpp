@@ -99,7 +99,7 @@ void QalculateSession::readOutput()
 {
         while(m_process->bytesAvailable()) {
                 m_output.append(QString::fromLocal8Bit(m_process->readLine()));
-                qDebug() << m_output << endl;
+                qDebug() << m_output;
         }
 
         if(m_currentExpression && !m_output.isEmpty() && m_output.trimmed().endsWith(QLatin1String(">"))) {
@@ -135,7 +135,7 @@ void QalculateSession::readOutput()
                 if (!m_commandQueue.isEmpty())
                     runCommandQueue();
                 else {
-                    qDebug () << "parsing output: " << m_finalOutput << endl;
+                    qDebug () << "parsing output: " << m_finalOutput;
                     m_currentExpression->parseOutput(m_finalOutput);
                     m_finalOutput.clear();
                 }
@@ -148,7 +148,7 @@ void QalculateSession::storeVariables(QString& currentCmd, QString output)
     // internally we pass save(value,variable) command to qlac to save the variables. see parseSaveCommand()
     // TODO: if the user if trying to override a default variable(constants etc) or an existing variable, ask the user if he/she wants to override it or not.
 
-    qDebug() << "save command " << currentCmd << endl;
+    qDebug() << "save command " << currentCmd;
 
     /**
         if we have reached here, we expect our variable model to be updated with new variables.
@@ -201,12 +201,12 @@ void QalculateSession::readError()
 
 void QalculateSession::processStarted()
 {
-    qDebug() << "process  started " << m_process->program() << m_process->processId() << endl;
+    qDebug() << "process  started " << m_process->program() << m_process->processId();
 }
 
 void QalculateSession::logout()
 {
-    qDebug () << "logging out " << endl;
+    qDebug () << "logging out";
     if (!m_process)
         return;
 
@@ -224,7 +224,7 @@ void QalculateSession::logout()
 
 void QalculateSession::interrupt()
 {
-    qDebug () << "interrupting .... " << endl;
+    qDebug () << "interrupting .... ";
     if(m_currentExpression)
         m_currentExpression->interrupt();
 
@@ -358,8 +358,8 @@ void QalculateSession::currentExpressionStatusChanged(Cantor::Expression::Status
 
 Cantor::Expression* QalculateSession::evaluateExpression(const QString& cmd, Cantor::Expression::FinishingBehavior behave, bool internal)
 {
-    qDebug() << " ** evaluating expression: " << cmd << endl;
-    qDebug() << " size of expression queue: " << m_expressionQueue.size() << endl;
+    qDebug() << " ** evaluating expression: " << cmd;
+    qDebug() << " size of expression queue: " << m_expressionQueue.size();
 
     changeStatus(Cantor::Session::Running);
 

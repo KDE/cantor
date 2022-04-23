@@ -93,7 +93,7 @@ void QalculateExpression::parseOutput(const QString& output)
     resultStr.remove(QLatin1String(">"));
     resultStr = resultStr.trimmed();
 
-    qDebug() << "output from qalc for command: " << command() << " " << resultStr << endl;
+    qDebug() << "output from qalc for command: " << command() << " " << resultStr;
     setResult(new Cantor::TextResult(resultStr));
     // update the variable model
     updateVariables();
@@ -116,7 +116,7 @@ void QalculateExpression::parseError(const QString& error)
     QString errorStr = error;
     errorStr.remove(QLatin1String(">"));
     errorStr  = errorStr.trimmed();
-    qDebug() << "Error from qalc for command: " << command() <<  " " << error << endl;
+    qDebug() << "Error from qalc for command: " << command() <<  " " << error;
     setErrorMessage(errorStr);
     setStatus(Cantor::Expression::Error);
 }

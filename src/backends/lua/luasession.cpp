@@ -180,7 +180,7 @@ void LuaSession::readError()
 
 void LuaSession::processStarted()
 {
-    qDebug() << m_process->program() << " pid   " << m_process->processId() << "  started " << endl;
+    qDebug() << m_process->program() << " pid   " << m_process->processId() << "  started";
 }
 
 void LuaSession::logout()
@@ -244,7 +244,7 @@ void LuaSession::runFirstExpression()
     m_output.clear();
 
     command += QLatin1String("\n");
-    qDebug() << "final command to be executed " << command << endl;
+    qDebug() << "final command to be executed " << command;
     qDebug() << "m_inputCommands" << m_inputCommands;
     m_process->write(command.toLocal8Bit());
 
