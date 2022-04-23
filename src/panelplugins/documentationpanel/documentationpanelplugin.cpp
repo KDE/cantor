@@ -8,6 +8,8 @@
 #include "documentationpanelwidget.h"
 #include "session.h"
 
+#include <KPluginFactory>
+
 DocumentationPanelPlugin::DocumentationPanelPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent)
 {
     Q_UNUSED(args);

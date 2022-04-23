@@ -8,8 +8,8 @@
 #include <QFile>
 #include <QDebug>
 
-#include <repository.h>
-#include <KF5/KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Repository>
+#include <KSyntaxHighlighting/Definition>
 
 PythonKeywords::PythonKeywords()
 {

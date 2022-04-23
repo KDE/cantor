@@ -6,6 +6,8 @@
 #ifndef _HELPPANELPLUGIN_H
 #define _HELPPANELPLUGIN_H
 
+#include <QPointer>
+
 #include "panelplugin.h"
 
 class KTextEdit;

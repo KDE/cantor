@@ -8,6 +8,8 @@
 
 #include "defaulthighlighter.h"
 
+#include <QRegExp>
+
 class RSession;
 
 class RHighlighter : public Cantor::DefaultHighlighter

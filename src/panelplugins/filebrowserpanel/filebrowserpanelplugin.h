@@ -6,6 +6,7 @@
 #ifndef _FILEBROWSERPANELPLUGIN_H
 #define _FILEBROWSERPANELPLUGIN_H
 
+#include <QPointer>
 #include <QVector>
 
 #include "panelplugin.h"

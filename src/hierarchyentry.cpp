@@ -16,6 +16,7 @@
 #include <QMimeData>
 #include <QPainter>
 #include <QDebug>
+#include <QActionGroup>
 
 #include <KLocalizedString>
 

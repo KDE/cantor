@@ -13,8 +13,10 @@
 #include <QUrl>
 #include <QProcess>
 #include <QStandardPaths>
+#include <QPluginLoader>
 
 #include <KPluginMetaData>
+#include <KPluginFactory>
 #include <KLocalizedString>
 
 using namespace Cantor;

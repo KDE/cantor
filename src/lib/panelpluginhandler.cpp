@@ -9,6 +9,7 @@ using namespace Cantor;
 #include <QDebug>
 #include <QDir>
 #include <KPluginMetaData>
+#include <KPluginFactory>
 
 #include "session.h"
 #include "backend.h"

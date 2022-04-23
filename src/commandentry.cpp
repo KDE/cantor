@@ -20,7 +20,7 @@
 
 #include <QGuiApplication>
 #include <QDebug>
-#include <QDesktopWidget>
+#include <QActionGroup>
 #include <QFontDatabase>
 #include <QFontDialog>
 #include <QScreen>

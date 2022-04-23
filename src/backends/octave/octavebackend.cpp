@@ -10,6 +10,8 @@
 #include "octavesettingswidget.h"
 #include "settings.h"
 
+#include <KPluginFactory>
+
 OctaveBackend::OctaveBackend(QObject* parent, const QList<QVariant>& args): Backend(parent, args)
 {
     new OctaveHistoryExtension(this);

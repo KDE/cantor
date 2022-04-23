@@ -6,6 +6,8 @@
 #ifndef _VARIABLEMANAGERPLUGIN_H
 #define _VARIABLEMANAGERPLUGIN_H
 
+#include <QPointer>
+
 #include "panelplugin.h"
 
 class VariableManagerWidget;

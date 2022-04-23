@@ -6,9 +6,10 @@
 #ifndef _LUAHELPER_H
 #define _LUAHELPER_H
 
+#include <QStringList>
+
 struct lua_State;
 class  QString;
-class  QStringList;
 
 /* follows lua_funcname convention */
 QString     luahelper_tostring   (lua_State* L, int idx);

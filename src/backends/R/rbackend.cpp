@@ -10,6 +10,8 @@
 #include "settings.h"
 #include "rsettingswidget.h"
 
+#include <KPluginFactory>
+
 RBackend::RBackend(QObject* parent,const QList<QVariant>& args) : Cantor::Backend(parent, args)
 {
     new RScriptExtension(this);

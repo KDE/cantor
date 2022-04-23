@@ -25,6 +25,7 @@
 #include <QRegularExpression>
 #include <QStringList>
 #include <QInputDialog>
+#include <QActionGroup>
 
 QStringList standartRawCellTargetNames = {QLatin1String("None"), QLatin1String("LaTeX"), QLatin1String("reST"), QLatin1String("HTML"), QLatin1String("Markdown")};
 QStringList standartRawCellTargetMimes = {QString(), QLatin1String("text/latex"), QLatin1String("text/restructuredtext"), QLatin1String("text/html"), QLatin1String("text/markdown")};
