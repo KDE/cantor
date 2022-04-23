@@ -13,6 +13,8 @@
 #include <QDebug>
 #include <QWidget>
 
+#include <KPluginFactory>
+
 PythonBackend::PythonBackend(QObject* parent, const QList<QVariant>& args) : Cantor::Backend(parent, args)
 {
     new PythonLinearAlgebraExtension(this);

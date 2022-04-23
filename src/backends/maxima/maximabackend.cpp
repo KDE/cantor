@@ -10,6 +10,8 @@
 #include "maximasettingswidget.h"
 #include "settings.h"
 
+#include <KPluginFactory>
+
 MaximaBackend::MaximaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     //initialize the supported extensions

@@ -10,6 +10,7 @@
 
 #include <QString>
 #include <QMimeDatabase>
+#include <QStringList>
 
 #include "cantor_export.h"
 
@@ -19,7 +20,6 @@ class QJsonArray;
 class QJsonDocument;
 class QImage;
 class QUrl;
-class QStringList;
 
 namespace Cantor {
 

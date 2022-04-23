@@ -7,6 +7,7 @@
 
 #include <KLocalizedString>
 #include <KTextEdit>
+#include <KPluginFactory>
 
 HelpPanelPlugin::HelpPanelPlugin(QObject* parent, const QList<QVariant>& args) : Cantor::PanelPlugin(parent), m_edit(nullptr)
 {

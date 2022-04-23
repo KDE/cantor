@@ -8,6 +8,8 @@
 #include "session.h"
 #include "variablemanagerwidget.h"
 
+#include <KPluginFactory>
+
 VariableManagerPlugin::VariableManagerPlugin(QObject* parent, QList<QVariant> args) : Cantor::PanelPlugin(parent), m_widget(nullptr)
 {
     Q_UNUSED(args);

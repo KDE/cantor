@@ -22,6 +22,7 @@
 
 #include <KLocalizedString>
 #include <KParts/ReadOnlyPart>
+#include <KPluginFactory>
 
 FileBrowserPanelPlugin::FileBrowserPanelPlugin(QObject* parent, const QList<QVariant>& args): Cantor::PanelPlugin(parent),
     m_mainWidget(nullptr), m_treeview(nullptr), m_pathEdit(nullptr), m_filterCombobox(nullptr)

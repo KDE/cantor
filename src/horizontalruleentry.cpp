@@ -9,6 +9,7 @@
 #include <QPainter>
 #include <QPropertyAnimation>
 #include <QJsonObject>
+#include <QActionGroup>
 
 #include <KLocalizedString>
 

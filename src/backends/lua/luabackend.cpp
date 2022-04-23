@@ -10,6 +10,8 @@
 #include "luasettingswidget.h"
 #include "settings.h"
 
+#include <KPluginFactory>
+
 LuaBackend::LuaBackend( QObject* parent,const QList<QVariant> args ) : Cantor::Backend( parent,args )
 {
     new LuaScriptExtension(this);

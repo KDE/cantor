@@ -8,6 +8,8 @@
 
 #include <QStringListModel>
 
+#include <QPointer>
+
 #include "panelplugin.h"
 
 class QWidget;

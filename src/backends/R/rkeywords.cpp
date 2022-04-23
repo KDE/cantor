@@ -5,8 +5,8 @@
 
 #include "rkeywords.h"
 
-#include <repository.h>
-#include <KF5/KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Repository>
+#include <KSyntaxHighlighting/Definition>
 
 RKeywords::RKeywords()
 {

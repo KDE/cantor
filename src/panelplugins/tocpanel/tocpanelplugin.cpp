@@ -10,6 +10,8 @@
 #include <QDebug>
 #include <QWidget>
 
+#include <KPluginFactory>
+
 TableOfContentPanelPlugin::TableOfContentPanelPlugin(QObject* parent, const QList<QVariant>& args): Cantor::PanelPlugin(parent),
     m_mainWidget(nullptr)
 {

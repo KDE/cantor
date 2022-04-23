@@ -10,6 +10,8 @@
 #include "sagesettingswidget.h"
 #include "settings.h"
 
+#include <KPluginFactory>
+
 SageBackend::SageBackend( QObject* parent,const QList<QVariant>& args ) : Cantor::Backend( parent,args )
 {
     //initialize the supported extensions

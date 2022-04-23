@@ -18,6 +18,7 @@
 #include <KNS3/DownloadDialog>
 #include <KParts/ReadWritePart>
 #include <KRecentFilesAction>
+#include <KPluginFactory>
 
 #include <QApplication>
 #include <QCloseEvent>

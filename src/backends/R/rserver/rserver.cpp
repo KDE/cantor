@@ -8,7 +8,7 @@
 // on the one hand comme il faut, on another, causes flickering in UI
 
 #include "rserver.h"
-#include <KIOCore/KIO/DeleteJob>
+#include <KIO/DeleteJob>
 #include "radaptor.h"
 #include "rcallbacks.h"
 #include "settings.h"

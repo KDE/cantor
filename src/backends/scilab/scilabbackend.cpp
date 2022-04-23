@@ -9,6 +9,7 @@
 #include "scilabsettingswidget.h"
 #include "settings.h"
 
+#include <KPluginFactory>
 
 ScilabBackend::ScilabBackend(QObject* parent,const QList<QVariant> args) : Cantor::Backend(parent, args)
 {

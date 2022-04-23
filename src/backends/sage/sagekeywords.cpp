@@ -4,8 +4,8 @@
 */
 #include "sagekeywords.h"
 
-#include <repository.h>
-#include <KF5/KSyntaxHighlighting/Definition>
+#include <KSyntaxHighlighting/Repository>
+#include <KSyntaxHighlighting/Definition>
 
 #include <QDebug>
 

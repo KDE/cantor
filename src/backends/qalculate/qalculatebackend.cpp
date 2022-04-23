@@ -12,6 +12,7 @@
 #include "qalculatesettingswidget.h"
 
 #include <KLocalizedString>
+#include <KPluginFactory>
 
 QalculateBackend::QalculateBackend(QObject* parent,const QList<QVariant> args)
   : Cantor::Backend(parent, args)

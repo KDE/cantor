@@ -32,9 +32,12 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QPrinter>
 #include <QRegularExpression>
 #include <QTimer>
+#include <QActionGroup>
+#include <QFile>
 #include <QXmlQuery>
 
 #include <kcoreaddons_version.h>
