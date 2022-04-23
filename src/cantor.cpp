@@ -640,7 +640,7 @@ void CantorShell::showSettings()
 
 void CantorShell::openExample()
 {
-    QString dir = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1String("/examples");
+    QString dir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QLatin1String("/examples");
     if (dir.isEmpty())
         return;
 
