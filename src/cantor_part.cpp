@@ -752,53 +752,36 @@ void CantorPart::loadAssistants()
 {
     qDebug()<<"loading assistants...";
 
-    QStringList assistantDirs;
-    for (const QString& dir : QCoreApplication::libraryPaths())
-        assistantDirs << dir + QDir::separator() + QLatin1String("cantor/assistants");
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor/assistants"));
 
-    QPluginLoader loader;
-    for (const QString& dir : assistantDirs) {
+    for (const KPluginMetaData &plugin : plugins) {
 
-        qDebug() << "dir: " << dir;
-        QStringList assistants;
-        QDir assistantDir = QDir(dir);
+        const auto result = KPluginFactory::instantiatePlugin<Cantor::Assistant>(plugin, this);
 
-        assistants = assistantDir.entryList();
+        if (!result) {
+            qDebug() << "Error while loading assistant plugin: " << result.errorText;
+            continue;
+        }
 
-        for (const QString& assistant : assistants) {
-            if (assistant == QLatin1String(".") || assistant == QLatin1String(".."))
-                continue;
+        Cantor::Assistant *assistant = result.plugin;
+        auto* backend=worksheet()->session()->backend();
+        assistant->setPluginInfo(plugin);
+        assistant->setBackend(backend);
 
-            loader.setFileName(dir + QDir::separator() + assistant);
+        bool supported=true;
+        for (const QString& req : assistant->requiredExtensions())
+            supported = supported && backend->extensions().contains(req);
 
-            if (!loader.load()){
-                qDebug() << "Error while loading assistant: " << assistant;
-                continue;
-            }
-
-            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
-            auto* plugin = factory->create<Cantor::Assistant>(this);
-            auto* backend=worksheet()->session()->backend();
-
-            KPluginMetaData info(loader);
-            plugin->setPluginInfo(info);
-            plugin->setBackend(backend);
-
-            bool supported=true;
-            for (const QString& req : plugin->requiredExtensions())
-                supported = supported && backend->extensions().contains(req);
-
-            if(supported)
-            {
-                qDebug() << "plugin " << info.name() << " is supported by " << backend->name() << ", requires extensions " << plugin->requiredExtensions();
-                plugin->initActions();
-                connect(plugin, &Cantor::Assistant::requested, this, &CantorPart::runAssistant);
-            }else
-            {
-                qDebug() << "plugin " << info.name() << " is not supported by "<<backend->name();
-                removeChildClient(plugin);
-                plugin->deleteLater();
-            }
+        if(supported)
+        {
+            qDebug() << "plugin " << plugin.name() << " is supported by " << backend->name() << ", requires extensions " << assistant->requiredExtensions();
+            assistant->initActions();
+            connect(assistant, &Cantor::Assistant::requested, this, &CantorPart::runAssistant);
+        }else
+        {
+            qDebug() << "plugin " << plugin.name() << " is not supported by "<<backend->name();
+            removeChildClient(assistant);
+            assistant->deleteLater();
         }
     }
 }

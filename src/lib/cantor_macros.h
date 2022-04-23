@@ -7,7 +7,6 @@
 #define _CANTOR_MACROS_H
 
 #include <KPluginFactory>
-#include <KPluginLoader>
 
 /**
   Exports Backend plugin.

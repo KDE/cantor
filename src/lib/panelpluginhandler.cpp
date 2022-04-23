@@ -8,6 +8,8 @@ using namespace Cantor;
 
 #include <QDebug>
 #include <QDir>
+
+#include <KPluginFactory>
 #include <KPluginMetaData>
 #include <KPluginFactory>
 
@@ -33,34 +35,22 @@ PanelPluginHandler::~PanelPluginHandler()
 
 void PanelPluginHandler::loadPlugins()
 {
-    QStringList panelDirs;
-    for (const QString& path : QCoreApplication::libraryPaths()) {
-        const QString& dir = path + QDir::separator() + QLatin1String("cantor/panels");
-        qDebug() << "dir: " << dir;
-        QDir panelDir = QDir(dir);
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor/panels"));
 
-        QPluginLoader loader;
-        const QStringList& panels = panelDir.entryList();
+    for (const KPluginMetaData &plugin : plugins) {
 
-        for (const QString& panel : panels)
-        {
-            if (panel==QLatin1String(".") || panel==QLatin1String(".."))
-                continue;
+        const auto result = KPluginFactory::instantiatePlugin<PanelPlugin>(plugin, QCoreApplication::instance());
 
-            loader.setFileName(dir + QDir::separator() + panel);
-
-            if (!loader.load()){
-                qDebug() << "Error while loading panel" << panel << ": \"" << loader.errorString() << "\"";
-                continue;
-            }
-
-            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
-            PanelPlugin* plugin = factory->create<PanelPlugin>(this);
-
-            KPluginMetaData info(loader);
-            plugin->setPluginInfo(info);
-            d->plugins.append(plugin);
+        if (!result) {
+            qDebug() << "Error while loading panel: " << result.errorText;
+            continue;
         }
+
+        PanelPlugin *panel = result.plugin;
+
+        panel->setPluginInfo(plugin);
+        d->plugins.append(panel);
+
     }
 }
 

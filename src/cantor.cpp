@@ -323,9 +323,10 @@ void CantorShell::addWorksheet(const QString& backendName)
     // this routine will find and load our Part.  it finds the Part by
     // name which is a bad idea usually.. but it's alright in this
     // case since our Part is made for this Shell
-    KPluginLoader loader(QLatin1String("kf5/parts/cantorpart"));
-    KPluginFactory* factory = loader.factory();
-    if (factory)
+
+    const auto partResult = KPluginFactory::instantiatePlugin<KParts::ReadWritePart>(KPluginMetaData(QStringLiteral("kf5/parts/cantorpart")), m_tabWidget, {backendName});
+
+    if (partResult)
     {
         Cantor::Backend* backend = nullptr;
         if (!backendName.isEmpty())
@@ -347,49 +348,42 @@ void CantorShell::addWorksheet(const QString& backendName)
         }
 
         // now that the Part is loaded, we cast it to a Part to get our hands on it
-        auto* part = factory->create<KParts::ReadWritePart>(m_tabWidget, QVariantList()<<backendName);
-        if (part)
+        auto part = partResult.plugin;
+
+        connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
+        connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
+        connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
+        connect(part, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)), this, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)));
+        connect(part, SIGNAL(hierarhyEntryNameChange(QString, QString, int)), this, SIGNAL(hierarhyEntryNameChange(QString, QString, int)));
+        connect(this, SIGNAL(requestScrollToHierarchyEntry(QString)), part, SIGNAL(requestScrollToHierarchyEntry(QString)));
+        connect(this, SIGNAL(settingsChanges()), part, SIGNAL(settingsChanges()));
+        connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
+
+        m_parts.append(part);
+        if (backend) {// If backend empty (loading worksheet from file), then we connect to signal and wait
+            m_parts2Backends[part] = backend->id();
+
+            //show the default help string in the help panel
+            emit showHelp(backend->defaultHelp());
+        } else
         {
-            connect(part, SIGNAL(setCaption(QString,QIcon)), this, SLOT(setTabCaption(QString,QIcon)));
-            connect(part, SIGNAL(worksheetSave(QUrl)), this, SLOT(onWorksheetSave(QUrl)));
-            connect(part, SIGNAL(showHelp(QString)), this, SIGNAL(showHelp(QString)));
-            connect(part, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)), this, SIGNAL(hierarchyChanged(QStringList, QStringList, QList<int>)));
-            connect(part, SIGNAL(hierarhyEntryNameChange(QString, QString, int)), this, SIGNAL(hierarhyEntryNameChange(QString, QString, int)));
-            connect(this, SIGNAL(requestScrollToHierarchyEntry(QString)), part, SIGNAL(requestScrollToHierarchyEntry(QString)));
-            connect(this, SIGNAL(settingsChanges()), part, SIGNAL(settingsChanges()));
-            connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
-
-            m_parts.append(part);
-            if (backend) {// If backend empty (loading worksheet from file), then we connect to signal and wait
-                m_parts2Backends[part] = backend->id();
-
-                //show the default help string in the help panel
-                emit showHelp(backend->defaultHelp());
-            }
-            else
-            {
-                m_parts2Backends[part] = QString();
-                connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(QString)));
-            }
-            int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
-            m_tabWidget->setCurrentIndex(tab);
-            // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
-            // This fix https://bugs.kde.org/show_bug.cgi?id=395976
-            part->widget()->findChild<QGraphicsView*>()->setFocus();
-
-            // Force run updateCaption for getting proper backend icon
-            QMetaObject::invokeMethod(part, "updateCaption");
+            m_parts2Backends[part] = QString();
+            connect(part, SIGNAL(setBackendName(QString)), this, SLOT(updateBackendForPart(QString)));
         }
-        else
-        {
-            qDebug()<<"error creating part ";
-        }
+        int tab = m_tabWidget->addTab(part->widget(), i18n("Session %1", sessionCount++));
+        m_tabWidget->setCurrentIndex(tab);
+        // Setting focus on worksheet view, because Qt clear focus of added widget inside addTab
+        // This fix https://bugs.kde.org/show_bug.cgi?id=395976
+        part->widget()->findChild<QGraphicsView*>()->setFocus();
+
+        // Force run updateCaption for getting proper backend icon
+        QMetaObject::invokeMethod(part, "updateCaption");
     }
     else
     {
         // if we couldn't find our Part, we exit since the Shell by
         // itself can't do anything useful
-        KMessageBox::error(this, i18n("Failed to find the Cantor Part with error %1", loader.errorString()));
+        KMessageBox::error(this, i18n("Failed to find the Cantor Part with error %1", partResult.errorString));
         qApp->quit();
         // we return here, cause qApp->quit() only means "exit the
         // next time we enter the event loop...

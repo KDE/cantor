@@ -15,6 +15,7 @@
 #include <QStandardPaths>
 #include <QPluginLoader>
 
+#include <KPluginFactory>
 #include <KPluginMetaData>
 #include <KPluginFactory>
 #include <KLocalizedString>
@@ -105,46 +106,24 @@ QList<Backend*> Backend::availableBackends()
         return backendCache;
     }
 
-    QStringList pluginDirs;
-    for (const QString& dir : QCoreApplication::libraryPaths()){
-        pluginDirs << dir + QDir::separator() + QLatin1String("cantor/backends");
-    }
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("cantor/backends"));
 
-    QPluginLoader loader;
-    for (const QString &dir : pluginDirs){
-        qDebug() << "dir: " << dir;
-        QStringList plugins;
-        QDir pluginDir = QDir(dir);
+    for (const KPluginMetaData &plugin : plugins) {
 
-        plugins = pluginDir.entryList();
+        const auto result = KPluginFactory::instantiatePlugin<Backend>(plugin, QCoreApplication::instance());
 
-        for (const QString &plugin : plugins){
-            if (plugin==QLatin1String(".") || plugin==QLatin1String(".."))
-                continue;
-
-            loader.setFileName(dir + QDir::separator() + plugin);
-
-            if (!loader.load()){
-                qDebug() << "Error while loading plugin: " << plugin;
-                continue;
-            }
-
-            KPluginFactory* factory = KPluginLoader(loader.fileName()).factory();
-            Backend* backend = factory->create<Backend>(QCoreApplication::instance());
-
-            if (!backend){
-                qDebug() << "Error using plugin " << loader.fileName();
-                qDebug() << "Error message: " << loader.errorString();
-                continue;
-            }
-
-            KPluginMetaData info(loader);
-            backend->d->name=info.name();
-            backend->d->comment=info.description();
-            backend->d->icon=info.iconName();
-            backend->d->url=info.website();
-            backendCache<<backend;
+        if (!result) {
+            qDebug() << "Error while loading backend: " << result.errorText;
+            continue;
         }
+
+        Backend *backend = result.plugin;
+
+        backend->d->name = plugin.name();
+        backend->d->comment = plugin.description();
+        backend->d->icon = plugin.iconName();
+        backend->d->url = plugin.website();
+        backendCache << backend;
     }
 
     return backendCache;
