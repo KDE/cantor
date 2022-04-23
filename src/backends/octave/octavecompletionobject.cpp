@@ -59,7 +59,7 @@ void OctaveCompletionObject::extractCompletions(Cantor::Expression::Status statu
             if (result)
             {
                 QString res = result->data().toString();
-                QStringList completions = res.split(QLatin1String("\n"), QString::SkipEmptyParts);
+                QStringList completions = res.split(QLatin1String("\n"), Qt::SkipEmptyParts);
                 qDebug() << "Adding" << completions.size() << "completions";
                 setCompletions( completions );
             }
@@ -125,7 +125,7 @@ void OctaveCompletionObject::extractIdentifierType(Cantor::Expression::Status st
                 // size("__cantor_tmp__ = \n") == 18
                 res.remove(0,18);
 
-                const QStringList& ints = res.split(QLatin1String(" "), QString::SkipEmptyParts);
+                const QStringList& ints = res.split(QLatin1String(" "), Qt::SkipEmptyParts);
                 if (ints.size() != 2)
                     emit fetchingTypeDone(UnknownType);
                 else if (ints[1].toInt() == 1)

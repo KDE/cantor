@@ -35,7 +35,7 @@ void QalculateHighlighter::highlightBlock(const QString& text)
     ///TODO: Can't we use CALCULATOR->parse() or similar?
     ///      Question is how to get the connection between
     ///      MathStructur and position+length in @p text
-    const QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+    const QStringList words = text.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
 
     qDebug() << "highlight block:" << text;
 

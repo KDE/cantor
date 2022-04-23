@@ -76,7 +76,7 @@ void OctaveVariableModel::parseNewVariables(Expression::Status status)
             }
 
             QString text = static_cast<Cantor::TextResult*>(m_expr->result())->plain();
-            const QStringList& lines = text.split(delimiter, QString::SkipEmptyParts);
+            const QStringList& lines = text.split(delimiter, Qt::SkipEmptyParts);
 
             QList<Variable> vars;
             for (QString line : lines)

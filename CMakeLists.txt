@@ -29,7 +29,7 @@ include(FeatureSummary)
 set( SharedMimeInfo_MINIMUM_VERSION "1.3" ) #TODO: What is the minimum required version?
 find_package(SharedMimeInfo ${SharedMimeInfo_MINIMUM_VERSION} REQUIRED)
 
-find_package(Qt5 5.8.0 CONFIG REQUIRED
+find_package(Qt5 5.15.0 CONFIG REQUIRED
     Core
     Widgets
     PrintSupport

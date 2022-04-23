@@ -402,7 +402,7 @@ bool MarkdownEntry::renderMarkdown(QString& plain)
 
     char *latexData;
     int latexDataSize = mkd_latextext(mdHandle, &latexData);
-    QStringList latexUnits = QString::fromUtf8(latexData, latexDataSize).split(QLatin1Char(31), QString::SkipEmptyParts);
+    QStringList latexUnits = QString::fromUtf8(latexData, latexDataSize).split(QLatin1Char(31), Qt::SkipEmptyParts);
     foundMath.clear();
 
     mkd_cleanup(mdHandle);

@@ -60,7 +60,7 @@ QString OctaveExpression::internalCommand()
     OctaveSession* octaveSession = static_cast<OctaveSession*>(session());
     if (octaveSession->isIntegratedPlotsEnabled() && !session()->enabledGraphicPackages().isEmpty() && !isInternal())
     {
-        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
         if (!cmdWords.contains(QLatin1String("help")) && !cmdWords.contains(QLatin1String("completion_matches")))
         {
             Q_ASSERT(session()->enabledGraphicPackages().size() == 1);

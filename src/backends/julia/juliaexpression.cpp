@@ -40,7 +40,7 @@ QString JuliaExpression::internalCommand()
     // Not sure about how this code will work with two graphic packages activated in the same time (they both will save to one file?)...
     if (!session()->enabledGraphicPackages().isEmpty() && !isInternal())
     {
-        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), QString::SkipEmptyParts);
+        QStringList cmdWords = cmd.split(QRegularExpression(QStringLiteral("\\b")), Qt::SkipEmptyParts);
         for (const Cantor::GraphicPackage& package : session()->enabledGraphicPackages())
         {
             for (const QString& plotCmd : package.plotCommandPrecentsKeywords())

@@ -49,7 +49,7 @@ void PythonVariableModel::extractVariables(Cantor::Expression::Status status)
             {
                 const QString data = result->data().toString();
                 // In Cantor server response DC2(18) is delimiter between variables
-                const QStringList& records = data.split(QChar(18), QString::SkipEmptyParts);
+                const QStringList& records = data.split(QChar(18), Qt::SkipEmptyParts);
 
                 QList<Variable> variables;
                 for (const QString& record : records)
