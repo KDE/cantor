@@ -20,6 +20,7 @@
         "Description[sk]": "Panel na zobrazenie štruktúrý pracovného listu",
         "Description[sl]": "Plošča za prikaz strukture delovnega lista",
         "Description[sv]": "En panel för att visa arbetsbladsstruktur",
+        "Description[tr]": "Çalışma sayfası yapısını gösteren bir panel",
         "Description[uk]": "Панель для показу структури робочого аркуша",
         "Description[x-test]": "xxA panel for showing worksheet structurexx",
         "Description[zh_CN]": "显示工作表结构的面板",
@@ -48,6 +49,7 @@
         "Name[sk]": "Obsah",
         "Name[sl]": "Kazalo vsebine",
         "Name[sv]": "Innehållsförteckning",
+        "Name[tr]": "İçindekiler",
         "Name[uk]": "Зміст",
         "Name[x-test]": "xxTable Of Contentsxx",
         "Name[zh_CN]": "目录"
