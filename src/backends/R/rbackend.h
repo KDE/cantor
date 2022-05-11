@@ -17,7 +17,7 @@ class RBackend : public Cantor::Backend
 
     QString id() const override;
     QString version() const override;
-    Cantor::Session *createSession() override;
+    Cantor::Session* createSession() override;
     Cantor::Backend::Capabilities capabilities() const override;
     bool requirementsFullfilled(QString* const reason = nullptr) const override;
 
@@ -25,6 +25,7 @@ class RBackend : public Cantor::Backend
     KConfigSkeleton* config() const override;
 
     QUrl helpUrl() const override;
+    QString defaultHelp() const override;
     QString description() const override;
 };
 

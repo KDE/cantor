@@ -17,16 +17,18 @@ class MaximaBackend : public Cantor::Backend
 {
   Q_OBJECT
   public:
-    explicit MaximaBackend( QObject* parent = nullptr,const QList<QVariant> args = QList<QVariant>());
+    explicit MaximaBackend( QObject* parent = nullptr, const QList<QVariant> args = QList<QVariant>());
     ~MaximaBackend() override;
 
     QString id() const override;
     QString version() const override;
-    Cantor::Session *createSession() override;
+    Cantor::Session* createSession() override;
     Cantor::Backend::Capabilities capabilities() const override;
     bool requirementsFullfilled(QString* const reason = nullptr) const override;
 
     QUrl helpUrl() const override;
+    QString defaultHelp() const override;
+
     QWidget* settingsWidget(QWidget* parent) const override;
     KConfigSkeleton* config() const override;
 

@@ -68,6 +68,11 @@ QString Backend::url() const
     return d->url;
 }
 
+QString Backend::defaultHelp() const
+{
+    return QString();
+}
+
 bool Backend::isEnabled() const
 {
     return d->enabled && requirementsFullfilled();

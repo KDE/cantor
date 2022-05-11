@@ -379,6 +379,9 @@ void CantorShell::addWorksheet(const QString& backendName)
 
             // Force run updateCaption for getting proper backend icon
             QMetaObject::invokeMethod(part, "updateCaption");
+
+            //show the default help string in the help panel
+            emit showHelp(backend->defaultHelp());
         }
         else
         {

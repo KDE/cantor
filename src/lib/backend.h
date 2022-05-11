@@ -138,6 +138,13 @@ class CANTOR_EXPORT Backend : public QObject, public KXMLGUIClient
      * @return Url of the help
      */
     virtual QUrl helpUrl() const = 0;
+
+    /**
+     * Returns the text that should be shown on default in the HelpPanel when it's initially created.
+     * This text can contain the information for who to use the integrated help available in some backends like Maxima and R.
+     */
+    virtual QString defaultHelp() const;
+
     /**
      * Returns if the backend should be enabled (shown in the Backend dialog)
      * @return @c true, if the enabled flag is set to true, and the requirements are fulfilled
