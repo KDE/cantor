@@ -116,6 +116,8 @@ void RExpression::showFilesAsResult(const QStringList& files)
                 //replace appearing backspaces, as they mess the whole output up
                 content.remove(QRegExp(QLatin1String(".\b")));
             }
+            else
+                content.remove(QLatin1String("_\b"));
 
             qDebug()<<"content: "<<content;
             if(isHelpRequest())
