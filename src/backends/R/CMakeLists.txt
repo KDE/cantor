@@ -31,6 +31,13 @@ add_backend(rbackend ${RBackend_SRCS})
 
 set_target_properties( cantor_rbackend PROPERTIES INSTALL_RPATH_USE_LINK_PATH false)
 target_link_libraries( cantor_rbackend cantor_help ${R_USED_LIBS} KF5::SyntaxHighlighting)
+if(MSVC)
+# When compiling with MSVC, we have to create a .lib file for R.dll, first
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
+add_custom_target(R_lib COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/GenLibFile.py ${R_R_LIBRARY} ${CMAKE_BINARY_DIR} ${CMAKE_SYSTEM_PROCESSOR}
+                        COMMENT "Generate .lib file for R.dll")
+add_dependencies(cantor_rbackend R_lib)
+endif(MSVC)
 
 if(BUILD_TESTING)
   add_executable( testr testr.cpp)
