@@ -313,7 +313,7 @@ void QtHelpConfig::loadSettings()
 void QtHelpConfig::saveSettings()
 {
     // create seperate group for seperate backends
-    KConfigGroup group = KSharedConfig::openConfig()->group(m_backend);
+    auto group = KSharedConfig::openConfig(QStringLiteral("cantorrc"))->group(m_backend);
 
     QStringList nameList;
     QStringList pathList;
