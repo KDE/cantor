@@ -46,6 +46,7 @@ private:
     bool m_isHelpRequest = false;
     bool m_isHelpRequestAdditional = false;
     bool m_isPlot = false;
+    bool m_isDraw = false;
     Cantor::Result* m_plotResult = nullptr;
     int m_plotResultIndex = -1;
     QString m_errorBuffer;

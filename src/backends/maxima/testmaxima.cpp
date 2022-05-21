@@ -98,6 +98,57 @@ void TestMaxima::testPlotWithAnotherTextResults()
     QCOMPARE(e->results().at(2)->data().toString(), QLatin1String("16"));
 }
 
+void TestMaxima::testDraw()
+{
+    if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
+    {
+        QSKIP("gnuplot not found, maxima needs it for plotting", SkipSingle);
+    }
+
+    auto* e = evalExp( QLatin1String("draw3d(explicit(x^2+y^2,x,-1,1,y,-1,1))") );
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
+
+    if(!e->result())
+    {
+        waitForSignal(e, SIGNAL(gotResult()));
+    }
+
+    QCOMPARE( e->result()->type(), (int)Cantor::ImageResult::Type );
+    QVERIFY( !e->result()->data().isNull() );
+    QVERIFY( e->errorMessage().isNull() );
+}
+
+void TestMaxima::testDrawWithAnotherTextResults()
+{
+    if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
+    {
+        QSKIP("gnuplot not found, maxima needs it for plotting", SkipSingle);
+    }
+
+    auto* e = evalExp( QLatin1String(
+        "2*2; \n"
+        "draw3d(explicit(x^2+y^2,x,-1,1,y,-1,1)); \n"
+        "4*4;"
+    ));
+
+    if (e->results().at(1)->type() == Cantor::TextResult::Type)
+        waitForSignal(e, SIGNAL(resultReplaced));
+
+    QVERIFY( e!=nullptr );
+    QVERIFY( e->errorMessage().isNull() );
+    QCOMPARE(e->results().size(), 3);
+
+    QCOMPARE(e->results().at(0)->data().toString(), QLatin1String("4"));
+
+    QCOMPARE( e->results().at(1)->type(), (int)Cantor::ImageResult::Type );
+    QVERIFY( !e->results().at(1)->data().isNull() );
+
+    QCOMPARE(e->results().at(2)->data().toString(), QLatin1String("16"));
+}
+
+
 void TestMaxima::testInvalidSyntax()
 {
     auto* e=evalExp( QLatin1String("2+2*(") );

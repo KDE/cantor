@@ -28,6 +28,8 @@ private Q_SLOTS:
     //tests doing a plot
     void testPlot();
     void testPlotWithAnotherTextResults();
+    void testDraw();
+    void testDrawWithAnotherTextResults();
 
     /* errors and warnings */
 

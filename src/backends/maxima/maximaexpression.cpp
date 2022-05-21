@@ -69,9 +69,12 @@ void MaximaExpression::evaluate()
 
     if (MaximaSettings::self()->integratePlots()
         && !cmd.contains(QLatin1String("ps_file"))
-        && cmd.contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot)\\s*\\([^\\)]"))))
+        && cmd.contains(QRegularExpression(QStringLiteral("(?:plot2d|plot3d|contour_plot|draw|draw2d|draw3d)\\s*\\([^\\)]"))))
     {
-        m_isPlot=true;
+        m_isPlot = true;
+        if (cmd.contains(QRegularExpression(QStringLiteral("(?:draw|draw2d|draw3d)\\s*\\([^\\)]"))))
+            m_isDraw = true;
+
         m_tempFile = new QTemporaryFile(QDir::tempPath() + QLatin1String("/cantor_maxima-XXXXXX.png"));
         m_tempFile->open();
 
@@ -147,17 +150,28 @@ QString MaximaExpression::internalCommand()
             qDebug()<<"plotting without tempFile";
             return QString();
         }
-        QString fileName = m_tempFile->fileName();
+
 
         /*
         const QString pdfParam = QLatin1String("[gnuplot_pdf_term_command, \"set term pdfcairo size 9cm, 6cm\"]"); // size 5.9in, 4.7in
         const QString plotParameters = QLatin1String("[pdf_file, \"") + fileName + QLatin1String("\"], ") + pdfParam;
         */
 
-        const QString plotParameters = QLatin1String("[gnuplot_term, \"png size 500,340\"], [gnuplot_out_file, \"")+fileName+QLatin1String("\"]");
-
-        cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
-                    QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
+        if (!m_isDraw)
+        {
+            const QString plotParameters = QLatin1String("[gnuplot_png_term_command, \"set term png size 500,340\"], [png_file, \"") + m_tempFile->fileName() + QLatin1String("\"]");
+            cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
+                        QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
+        }
+        else
+        {
+            //strip off the extension ".png", the terminal parameter for draw() is adding the extension additionally
+            QString fileName = m_tempFile->fileName();
+            fileName = fileName.left(fileName.length() - 4);
+            const QString plotParameters = QLatin1String("terminal=png, file_name = \"") + fileName + QLatin1String("\"");
+            cmd.replace(QRegularExpression(QStringLiteral("((draw|draw2d|draw3d)\\s*\\(.*)*\\)([;\n$]|$)")),
+                        QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
+        }
 
     }
 
@@ -372,16 +386,25 @@ void MaximaExpression::parseResult(const QString& resultContent)
 
     const int latexContentStart = resultContent.indexOf(QLatin1String("<cantor-latex>"));
     //Handle system maxima output for plotting commands
-    if (m_isPlot && textContent.endsWith(QString::fromLatin1("\"%1\"]").arg(m_tempFile->fileName())))
+    if (m_isPlot)
     {
-        m_plotResultIndex = results().size();
-        // Gnuplot could generate plot before we parse text output from maxima and after
-        // If we already have plot result, just add it
-        // Else set info message, and replace it by real result in imageChanged function later
-        if (m_plotResult)
-            result = m_plotResult;
+        // plot/draw command can be part of a multi-line input having other non-plot related commands.
+        // parse the output of every command of the multi-line input and only add plot result if
+        // the output has plot/draw specific keywords
+        if ( (!m_isDraw && textContent.endsWith(QString::fromLatin1("\"%1\"]").arg(m_tempFile->fileName())))
+            || (m_isDraw && (textContent.startsWith(QLatin1String("[gr2d(explicit")) || textContent.startsWith(QLatin1String("[gr3d(explicit"))) ) )
+        {
+            m_plotResultIndex = results().size();
+            // Gnuplot could generate plot before we parse text output from maxima and after
+            // If we already have plot result, just add it
+            // Else set info message, and replace it by real result in imageChanged function later
+            if (m_plotResult)
+                result = m_plotResult;
+            else
+                result = new Cantor::TextResult(i18n("Waiting for the plot result"));
+        }
         else
-            result = new Cantor::TextResult(i18n("Waiting for the plot result"));
+            result = new Cantor::TextResult(textContent);
     }
     else if (latexContentStart != -1)
     {
@@ -402,6 +425,7 @@ void MaximaExpression::parseResult(const QString& resultContent)
                     pcount++;
                 else if(latexContent[i]==QLatin1Char('}'))
                     pcount--;
+
 
                 if(pcount==0)
                     break;
