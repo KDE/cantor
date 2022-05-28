@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "Backend for GNU Octave",
-        "Description[ca@valencia]": "Un dorsal per al GNU Octave",
+        "Description[ca@valencia]": "Un dorsal per a GNU Octave",
         "Description[ca]": "Un dorsal per al GNU Octave",
         "Description[cs]": "Podpůrná vrstva pro GNU Octave",
         "Description[de]": "Modul für GNU Octave",
