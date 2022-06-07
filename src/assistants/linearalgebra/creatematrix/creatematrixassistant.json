@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify entering of matrices",
-        "Description[ca@valencia]": "Un diàleg assistent per a simplificar la introducció de matrius",
+        "Description[ca@valencia]": "Un diàlec assistent per a simplificar la introducció de matrius",
         "Description[ca]": "Un diàleg assistent per a simplificar la introducció de matrius",
         "Description[cs]": "Pomocný dialog pro zjednodušení zadávání matic",
         "Description[de]": "Ein Assistent, um die Eingabe von Matrizen zu vereinfachen",

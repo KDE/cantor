@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant for running an external Script file",
-        "Description[ca@valencia]": "Un assistent per a executar un fitxer de script extern",
+        "Description[ca@valencia]": "Un assistent per a executar un ficher de script extern",
         "Description[ca]": "Un assistent per a executar un fitxer de script extern",
         "Description[cs]": "Pomocník pro spouštění externího skriptu",
         "Description[de]": "Ein Assistent zum Ausführen externer Skriptdateien",

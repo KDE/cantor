@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify calculating of Eigenvalues",
-        "Description[ca@valencia]": "Un diàleg assistent per a simplificar el càlcul d'autovalors",
+        "Description[ca@valencia]": "Un diàlec assistent per a simplificar el càlcul d'autovalors",
         "Description[ca]": "Un diàleg assistent per a simplificar el càlcul d'autovalors",
         "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu vlastních čísel",
         "Description[de]": "Ein Assistent, um das Berechnen von „Eigen“-Werten zu vereinfachen.",
