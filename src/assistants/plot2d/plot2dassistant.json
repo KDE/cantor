@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify plotting of 2D functions",
-        "Description[ca@valencia]": "Un diàlec assistent per a simplificar la representació gràfica de funcions en 2D",
+        "Description[ca@valencia]": "Un diàleg assistent per a simplificar la representació gràfica de funcions en 2D",
         "Description[ca]": "Un diàleg assistent per a simplificar la representació gràfica de funcions en 2D",
         "Description[cs]": "Pomocný dialog pro zjednodušení vytvoření grafu dvourozměrných funkcí",
         "Description[de]": "Ein Assistent, um das Zeichnen von 2D-Funktionen zu vereinfachen",
