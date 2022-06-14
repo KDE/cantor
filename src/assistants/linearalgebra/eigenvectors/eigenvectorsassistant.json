@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to simplify calculating of EigenVectors",
-        "Description[ca@valencia]": "Un diàlec assistent per a simplificar el càlcul d'autovectors",
+        "Description[ca@valencia]": "Un diàleg assistent per a simplificar el càlcul d'autovectors",
         "Description[ca]": "Un diàleg assistent per a simplificar el càlcul d'autovectors",
         "Description[cs]": "Pomocný dialog pro zjednodušení výpočtu vlastních vektorů",
         "Description[de]": "Ein Assistent, um das Berechnen von „Eigen“-Vektoren zu vereinfachen.",

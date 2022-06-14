@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Description": "An Assistant dialog to import a specific package (or library or module) to Cantor workspace",
-        "Description[ca@valencia]": "Un diàlec d'assistència per a importar un paquet específic (o biblioteca o mòdul) a l'espai de treball de Cantor",
+        "Description[ca@valencia]": "Un diàleg d'assistència per a importar un paquet específic (o biblioteca o mòdul) a l'espai de treball de Cantor",
         "Description[ca]": "Un diàleg d'assistència per a importar un paquet específic (o biblioteca o mòdul) a l'espai de treball del Cantor",
         "Description[de]": "Ein Assistent, um ein angegebenes Paket, Bibliothek oder Modul in den Arbeitsbereich von Cantor zu importieren",
         "Description[el]": "Βοηθητικός διάλογος για την εισαγωγή πακέτου (ή βιβλιοθήκης ή αρθρώματος) στο χώρο εργασίας Cantor",
