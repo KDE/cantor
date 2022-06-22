@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QDir>
 #include <QStandardPaths>
-#include <QProcess>
 #include <QFileInfo>
 
 #include <KLocalizedString>

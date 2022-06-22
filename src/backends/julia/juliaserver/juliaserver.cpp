@@ -4,7 +4,6 @@
 */
 #include "juliaserver.h"
 
-#include <julia.h>
 #include <julia_version.h>
 
 #include <iostream>

@@ -4,7 +4,6 @@
 */
 
 #include "worksheettoolbutton.h"
-#include <QPixmap>
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
 #include <QCursor>

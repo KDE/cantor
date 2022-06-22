@@ -5,7 +5,6 @@
 
 #include "scilabkeywords.h"
 
-#include <QStringList>
 #include <QXmlStreamReader>
 #include <QtAlgorithms>
 #include <QDebug>

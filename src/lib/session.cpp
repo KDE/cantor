@@ -10,7 +10,6 @@ using namespace Cantor;
 #include <map>
 
 #include "backend.h"
-#include "defaultvariablemodel.h"
 #include "textresult.h"
 
 #include <QTimer>

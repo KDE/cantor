@@ -14,15 +14,12 @@
 #include <QClipboard>
 #include <QDebug>
 #include <QMimeData>
-#include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
-#include <QTextCursor>
 #include <QTextBlock>
 #include <QTextLine>
 #include <QGraphicsSceneResizeEvent>
 #include <QPainter>
 
-#include <KStandardAction>
 #include <QAction>
 #include <QColorDialog>
 #include <KColorScheme>

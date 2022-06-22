@@ -19,7 +19,6 @@
 #include <libqalculate/ExpressionItem.h>
 #include <libqalculate/Unit.h>
 #include <libqalculate/Prefix.h>
-#include <libqalculate/Variable.h>
 #include <libqalculate/Function.h>
 
 #include "qalculatesyntaxhelpobject.h"

@@ -9,7 +9,6 @@
 #include <lua.hpp>
 #include <QRegularExpression>
 #include <QString>
-#include <QStringList>
 
 QString luahelper_tostring(lua_State* L, int idx)
 {

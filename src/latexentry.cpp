@@ -6,7 +6,6 @@
 
 #include "latexentry.h"
 
-#include "worksheetentry.h"
 #include "worksheet.h"
 #include "lib/renderer.h"
 #include "lib/jupyterutils.h"

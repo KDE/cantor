@@ -5,7 +5,6 @@
 
 #include "hierarchyentry.h"
 #include "settings.h"
-#include "worksheettextitem.h"
 #include "worksheetview.h"
 #include "lib/jupyterutils.h"
 

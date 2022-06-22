@@ -16,7 +16,6 @@
 #include <QGraphicsTextItem>
 #include <KColorScheme>
 #include <QDebug>
-#include <QRegularExpression>
 #include <QStack>
 
 using namespace Cantor;

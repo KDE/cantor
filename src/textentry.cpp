@@ -5,7 +5,6 @@
 */
 
 #include "textentry.h"
-#include "worksheettextitem.h"
 #include "lib/renderer.h"
 #include "latexrenderer.h"
 #include "lib/jupyterutils.h"

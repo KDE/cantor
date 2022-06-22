@@ -33,8 +33,6 @@
 
 
 #include "lib/backend.h"
-#include "lib/panelpluginhandler.h"
-#include "lib/panelplugin.h"
 #include "lib/worksheetaccess.h"
 
 #include "backendchoosedialog.h"

@@ -18,16 +18,13 @@
 #include "qalculatesession.h"
 #include "qalculatesyntaxhelpobject.h"
 
-#include <libqalculate/Calculator.h>
 #include <libqalculate/ExpressionItem.h>
 #include <libqalculate/Unit.h>
 #include <libqalculate/Prefix.h>
 #include <libqalculate/Variable.h>
 #include <libqalculate/Function.h>
 
-#include <string>
 // required for the plotting interface of Qalculator
-#include <vector>
 
 #include <QDir>
 #include <QTemporaryFile>

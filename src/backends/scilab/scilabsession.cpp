@@ -4,7 +4,6 @@
 */
 
 #include "scilabsession.h"
-#include "scilabexpression.h"
 #include "scilabhighlighter.h"
 #include "scilabcompletionobject.h"
 

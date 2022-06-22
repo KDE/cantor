@@ -12,7 +12,6 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonDocument>
-#include <QStringList>
 #include <QSet>
 #include <QImageReader>
 #include <QImageWriter>

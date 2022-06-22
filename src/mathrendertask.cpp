@@ -16,7 +16,6 @@
 #include <QDebug>
 
 #include "lib/renderer.h"
-#include "lib/latexrenderer.h"
 
 static const QLatin1String mathTex("\\documentclass%9{minimal}"\
                          "\\usepackage{amsfonts,amssymb}"\
