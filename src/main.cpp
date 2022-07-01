@@ -28,6 +28,7 @@ int main(int argc, char **argv)
     QWebEngineUrlScheme::registerScheme(qthelp);
 
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     QApplication app(argc, argv);
 
     // Add our custom plugins path, where we install our plugins, if it isn't default path
