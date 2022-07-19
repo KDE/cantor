@@ -40,7 +40,7 @@ TextResultItem::TextResultItem(WorksheetEntry* parent, Cantor::Result* result)
     // We do it here, because we need it one
     if (document()->characterCount() && document()->characterAt(0) == QChar::ParagraphSeparator)
     {
-        Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(m_result);
+        auto* hr = static_cast<Cantor::HtmlResult*>(m_result);
         hr->setFormat(Cantor::HtmlResult::PlainAlternative);
         setHtml(hr->toHtml());
     }
@@ -60,7 +60,7 @@ void TextResultItem::populateMenu(QMenu* menu, QPointF pos)
     menu->addAction(copy);
     ResultItem::addCommonActions(this, menu);
 
-    Cantor::Result* res = result();
+    auto* res = result();
     if (res->type() == Cantor::LatexResult::Type) {
         QAction* showCodeAction = nullptr;
         Cantor::LatexResult* lres = static_cast<Cantor::LatexResult*>(res);
@@ -149,7 +149,7 @@ void TextResultItem::setLatex(Cantor::LatexResult* result)
         else
         {
             QString uuid = Cantor::LatexRenderer::genUuid();
-            Cantor::Renderer* renderer = qobject_cast<Worksheet*>(scene())->renderer();;
+            auto* renderer = qobject_cast<Worksheet*>(scene())->renderer();;
             format = renderer->render(cursor.document(), Cantor::Renderer::EPS, result->url(), uuid);
             format.setProperty(Cantor::Renderer::CantorFormula,
                             Cantor::Renderer::LatexFormula);
@@ -178,7 +178,7 @@ double TextResultItem::height() const
 
 void TextResultItem::toggleLatexCode()
 {
-     Cantor::LatexResult* lr = static_cast<Cantor::LatexResult*>(result());
+     auto* lr = static_cast<Cantor::LatexResult*>(result());
      if(lr->isCodeShown())
          lr->showRendered();
      else
@@ -189,34 +189,30 @@ void TextResultItem::toggleLatexCode()
 
 void TextResultItem::showHtml()
 {
-     Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(result());
+     auto* hr = static_cast<Cantor::HtmlResult*>(result());
      hr->setFormat(Cantor::HtmlResult::Html);
      parentEntry()->updateEntry();
 }
 
 void TextResultItem::showHtmlSource()
 {
-     Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(result());
+     auto* hr = static_cast<Cantor::HtmlResult*>(result());
      hr->setFormat(Cantor::HtmlResult::HtmlSource);
      parentEntry()->updateEntry();
 }
 
 void TextResultItem::showPlain()
 {
-     Cantor::HtmlResult* hr = static_cast<Cantor::HtmlResult*>(result());
+     auto* hr = static_cast<Cantor::HtmlResult*>(result());
      hr->setFormat(Cantor::HtmlResult::PlainAlternative);
      parentEntry()->updateEntry();
 }
 
 void TextResultItem::saveResult()
 {
-    auto* res = result();
-    const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    if (!filename.isEmpty())
-    {
-        qDebug() << "saving result to " << filename;
-        res->save(filename);
-    }
+    const auto& fileName = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save text result"), QString(),  i18n("Text Files (*.txt)"));
+    if (!fileName.isEmpty())
+        result()->save(fileName);
 }
 
 void TextResultItem::deleteLater()

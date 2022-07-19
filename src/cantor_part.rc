@@ -46,14 +46,16 @@
     <Action name="all_entries_remove_all_results"/>
     <Separator/>
     <Action name="remove_current"/>
-  </Menu>
-  <Menu name="settings">
-    <Action name="enable_typesetting"/>
-    <Action name="enable_highlighting"/>
-    <Action name="enable_completion"/>
-    <Action name="enable_expression_numbers"/>
-    <Action name="enable_animations"/>
-    <Action name="enable_embedded_math"/>
+    <Separator/>
+    <Menu name="settings"><text>Settings</text>
+        <Action name="enable_expression_numbers"/>
+        <Action name="enable_highlighting"/>
+        <Action name="enable_completion"/>
+        <Action name="enable_animations"/>
+        <Separator/>
+        <Action name="enable_typesetting"/>
+        <Action name="enable_embedded_math"/>
+    </Menu>
   </Menu>
   <Menu name="help">
     <Action name="backend_help"/>

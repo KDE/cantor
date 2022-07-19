@@ -159,11 +159,9 @@ void ImageResult::saveAdditionalData(KZip* archive)
 
 void ImageResult::save(const QString& filename)
 {
-    //load into memory and let Qt save it, instead of just copying d->url
-    //to give possibility to convert file format
-    QImage img=data().value<QImage>();
-
-    img.save(filename);
+    bool rc = d->img.save(filename);
+    if (!rc)
+        qDebug()<<"saving to " << filename << " failed.";
 }
 
 QSize Cantor::ImageResult::displaySize()

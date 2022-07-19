@@ -13,6 +13,7 @@
 
 #include <KLocalizedString>
 #include <QFileDialog>
+#include <QImageReader>
 
 ImageResultItem::ImageResultItem(QGraphicsObject* parent, Cantor::Result* result)
     : WorksheetImageItem(parent), ResultItem(result)
@@ -84,9 +85,20 @@ double ImageResultItem::height() const
 
 void ImageResultItem::saveResult()
 {
-    Cantor::Result* res = result();
-    const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    res->save(filename);
+    QString formats;
+    for (const auto& format : QImageReader::supportedImageFormats()) {
+        QString f = QLatin1String("*.") + QLatin1String(format.constData());
+        if (f == QLatin1String("*.svg")) // TODO: add SVG after we've switched internally to PDF/SVG for backend's output
+            continue;
+        formats += f + QLatin1Char(' ');
+    }
+
+    const auto& fileName = QFileDialog::getSaveFileName(worksheet()->worksheetView(),
+                                                           i18n("Save image result"),
+                                                           /*dir*/ QString(),
+                                                           i18n("Images (%1)", formats));
+    if (!fileName.isEmpty())
+        result()->save(fileName);
 }
 
 void ImageResultItem::deleteLater()

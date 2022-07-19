@@ -1,7 +1,7 @@
 /*
     SPDX-License-Identifier: GPL-2.0-or-later
     SPDX-FileCopyrightText: 2009 Alexander Rieder <alexanderrieder@gmail.com>
-    SPDX-FileCopyrightText: 2019 Alexander Semke <alexander.semke@web.de>
+    SPDX-FileCopyrightText: 2019-2022 Alexander Semke <alexander.semke@web.de>
 */
 
 #include "backendchoosedialog.h"
@@ -13,6 +13,7 @@
 #include <KSharedConfig>
 #include <KWindowConfig>
 
+#include <QDesktopServices>
 #include <QIcon>
 #include <QPushButton>
 #include <QWindow>
@@ -59,6 +60,7 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
     int height = m_ui.backendList->iconSize().height() * m_ui.backendList->count();
     m_ui.backendList->setMinimumSize(0, height);
 
+
     setWindowTitle(i18n("Select the Backend"));
     setWindowIcon(QIcon::fromTheme(QLatin1String("run-build")));
 
@@ -66,14 +68,21 @@ BackendChooseDialog::BackendChooseDialog(QWidget* parent) : QDialog(parent)
     connect(m_ui.buttonBox, &QDialogButtonBox::rejected, this, &BackendChooseDialog::close);
     connect(this, &BackendChooseDialog::accepted, this, &BackendChooseDialog::onAccept);
 
-	//restore saved settings if available
-	create(); // ensure there's a window created
-	KConfigGroup conf(KSharedConfig::openConfig(), "BackendChooseDialog");
-	if (conf.exists()) {
-		KWindowConfig::restoreWindowSize(windowHandle(), conf);
-		resize(windowHandle()->size()); // workaround for QTBUG-40584
-	} else
-		resize(QSize(500, 200).expandedTo(minimumSize()));
+    // open URLs in the external browser
+    m_ui.descriptionView->setOpenLinks(false);
+    connect(m_ui.descriptionView, &QTextBrowser::anchorClicked, this, [=](const QUrl &link)
+    {
+        QDesktopServices::openUrl(QUrl(link));
+    });
+
+    //restore saved settings if available
+    create(); // ensure there's a window created
+    KConfigGroup conf(KSharedConfig::openConfig(), "BackendChooseDialog");
+    if (conf.exists()) {
+        KWindowConfig::restoreWindowSize(windowHandle(), conf);
+        resize(windowHandle()->size()); // workaround for QTBUG-40584
+    } else
+        resize(QSize(500, 200).expandedTo(minimumSize()));
 }
 
 BackendChooseDialog::~BackendChooseDialog() {
