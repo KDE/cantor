@@ -110,9 +110,8 @@ void AnimationResultItem::updateSize(QSize size)
 
 void AnimationResultItem::saveResult()
 {
-    Cantor::Result* res = result();
-    const QString& filename=QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save result"), QString(), res->mimeType());
-    res->save(filename);
+    const QString& filename = QFileDialog::getSaveFileName(worksheet()->worksheetView(), i18n("Save animation result"), QString(), i18n("Animations (*.gif)"));
+    result()->save(filename);
 }
 
 void AnimationResultItem::stopMovie()
