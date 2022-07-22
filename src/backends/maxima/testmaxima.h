@@ -25,10 +25,13 @@ private Q_SLOTS:
     void testMultilineCommand();
     //tests if the command queue works correctly
     void testCommandQueue();
+
     //tests doing a plot
     void testPlot();
+    void testPlotMultiline();
     void testPlotWithAnotherTextResults();
     void testDraw();
+    void testDrawMultiline();
     void testDrawWithAnotherTextResults();
 
     /* errors and warnings */

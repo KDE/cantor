@@ -157,11 +157,19 @@ QString MaximaExpression::internalCommand()
         const QString plotParameters = QLatin1String("[pdf_file, \"") + fileName + QLatin1String("\"], ") + pdfParam;
         */
 
+        //replace all newlines with spaces, as maxima isn't sensitive about
+        //whitespaces, and without newlines the whole command
+        //is executed at once, without outputting an input
+        //prompt after each line.
+        // Also, this helps to handle plot/draw commands  with line breaks that are not properly handled by the regex below.
+        cmd.replace(QLatin1Char('\n'), QLatin1Char(' '));
+
         if (!m_isDraw)
         {
             const QString plotParameters = QLatin1String("[gnuplot_png_term_command, \"set term png size 500,340\"], [png_file, \"") + m_tempFile->fileName() + QLatin1String("\"]");
             cmd.replace(QRegularExpression(QStringLiteral("((plot2d|plot3d|contour_plot)\\s*\\(.*)\\)([;\n$]|$)")),
                         QLatin1String("\\1, ") + plotParameters + QLatin1String(");"));
+
         }
         else
         {
@@ -180,12 +188,6 @@ QString MaximaExpression::internalCommand()
         if (!cmd.endsWith(QLatin1String(";")))
             cmd+=QLatin1Char(';');
     }
-
-    //replace all newlines with spaces, as maxima isn't sensitive about
-    //whitespaces, and without newlines the whole command
-    //is executed at once, without outputting an input
-    //prompt after each line
-    cmd.replace(QLatin1Char('\n'), QLatin1Char(' '));
 
     //lisp-quiet doesn't print a prompt after the command
     //is completed, which causes the parsing to hang.

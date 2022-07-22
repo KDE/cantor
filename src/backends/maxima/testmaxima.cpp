@@ -70,6 +70,28 @@ void TestMaxima::testPlot()
     QVERIFY( e->errorMessage().isNull() );
 }
 
+void TestMaxima::testPlotMultiline()
+{
+    if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
+        QSKIP("gnuplot not found, maxima needs it for plotting", SkipSingle);
+
+    auto* e = evalExp(QLatin1String(
+                "plot2d (x^2-y^3+3*y=2,\n"
+                "[x,-2.5,2.5],\n"
+                "[y,-2.5,2.5])"
+    ));
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
+
+    if(!e->result())
+        waitForSignal(e, SIGNAL(gotResult()));
+
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QVERIFY(!e->result()->data().isNull());
+    QVERIFY(e->errorMessage().isNull());
+}
+
 void TestMaxima::testPlotWithAnotherTextResults()
 {
     if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
@@ -120,6 +142,41 @@ void TestMaxima::testDraw()
     QVERIFY( e->errorMessage().isNull() );
 }
 
+void TestMaxima::testDrawMultiline()
+{
+    if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
+        QSKIP("gnuplot not found, maxima needs it for plotting", SkipSingle);
+
+    auto* e = evalExp( QLatin1String(
+        "draw(\n"
+            "gr2d(\n"
+                "key=\"sin (x)\",grid=[2,2],\n"
+                "explicit(\n"
+                    "sin(x),\n"
+                    "x,0,2*%pi\n"
+                ")\n"
+            "),\n"
+            "gr2d(\n"
+                "key=\"cos (x)\",grid=[2,2],\n"
+                "explicit(\n"
+                    "cos(x),\n"
+                    "x,0,2*%pi\n"
+                ")\n"
+            "))"
+    ));
+
+
+    QVERIFY(e != nullptr);
+    QVERIFY(e->result() != nullptr);
+
+    if(!e->result())
+        waitForSignal(e, SIGNAL(gotResult()));
+
+    QCOMPARE(e->result()->type(), (int)Cantor::ImageResult::Type);
+    QVERIFY(!e->result()->data().isNull());
+    QVERIFY(e->errorMessage().isNull());
+}
+
 void TestMaxima::testDrawWithAnotherTextResults()
 {
     if(QStandardPaths::findExecutable(QLatin1String("gnuplot")).isNull())
@@ -147,7 +204,6 @@ void TestMaxima::testDrawWithAnotherTextResults()
 
     QCOMPARE(e->results().at(2)->data().toString(), QLatin1String("16"));
 }
-
 
 void TestMaxima::testInvalidSyntax()
 {
