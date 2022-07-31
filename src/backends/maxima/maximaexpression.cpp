@@ -457,6 +457,16 @@ void MaximaExpression::parseResult(const QString& resultContent)
     else
     {
         //no latex output is available, the actual result is part of the textContent string
+
+        // text output is quoted by Maxima, remove the quotes. No need to do it for internal
+        // commands to fetch the list of current variables, the proper parsing is done in MaximaVariableModel::parse().
+        if (!isInternal() && textContent.startsWith(QLatin1String("\"")))
+        {
+            textContent.remove(0, 1);
+            textContent.chop(1);
+            textContent.replace(QLatin1String("\\\""), QLatin1String("\""));
+        }
+
         result = new Cantor::TextResult(textContent);
     }
 

@@ -117,6 +117,14 @@ QList<Cantor::DefaultVariableModel::Variable> parse(MaximaExpression* expr)
         {
             var.value=variableValues.at(i).trimmed();
             var.value=var.value.remove(QLatin1String("\n")); //lists with many elements have line breaks, remove them
+
+            // text output is quoted by Maxima, remove the quotes
+            if (var.value.startsWith(QLatin1String("\"")))
+            {
+                var.value.remove(0, 1);
+                var.value.chop(1);
+                var.value.replace(QLatin1String("\\\""), QLatin1String("\""));
+            }
         }
         else
             var.value=QLatin1String("unknown");

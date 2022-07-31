@@ -61,6 +61,8 @@ private Q_SLOTS:
 
     void testLispMode01();
 
+    void testTextQuotes();
+
     void testLoginLogout();
     void testRestartWhileRunning();
 
