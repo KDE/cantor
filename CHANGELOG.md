@@ -1,5 +1,26 @@
 # Changelog
 
+## 22.08
+
+### New features
+
+    * Added zooming related actions (zoom in, zoom out, zoom original) to the context menu of the worksheet
+    * Smooth zoom in the worksheet view with the mouse wheel
+    * Show the information about the available internal help system in Maxima and in R in the help panel
+
+### Bug fixes:
+
+    * Enable highdpi pixmaps, fixes icon rendering on highdpi screens
+    * Open URLs in the "Select Backend"-dialog in the external browser, BUG: 456650
+    * When saving the results, use the file extension and not the mime-type in the QFileDialog to show the relevant files only
+    * [maxima] properly embedd the results of the commands from the draw package (draw, draw2d and draw3d)
+    * [maxima] properly parse plot and draw commands with line breaks
+    * [maxima] remove the obsolete quotes in string variable values and properly handle quoted sub-strings in string variables
+    * [R] Remove backspaces in the help output in R
+
+## The information for the releases 20.12 - 22.04 was not maintained.
+
+
 ## 20.08
 
 ### New features
