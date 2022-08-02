@@ -6,32 +6,28 @@
 
 #include "octavehighlighter.h"
 #include "octavekeywords.h"
-#include "result.h"
-
-#include <QDebug>
-#include <QStringList>
-#include "octavesession.h"
+#include <session.h>
 
 using namespace Cantor;
 
 OctaveHighlighter::OctaveHighlighter(QObject* parent, Session* session): DefaultHighlighter(parent, session)
 {
-  addKeywords(OctaveKeywords::instance()->keywords());
-  addFunctions(OctaveKeywords::instance()->functions());
+    addKeywords(OctaveKeywords::instance()->keywords());
+    addFunctions(OctaveKeywords::instance()->functions());
 
-  QStringList operators;
-  operators
+    QStringList operators;
+    operators
     << QLatin1String("+") << QLatin1String("-") << QLatin1String("*") << QLatin1String("/")
     << QLatin1String(".+") << QLatin1String(".-") << QLatin1String(".*") << QLatin1String("./")
     << QLatin1String("=") << QLatin1String("or") << QLatin1String("and") << QLatin1String("xor")
     << QLatin1String("not") << QLatin1String("||") << QLatin1String("&&") << QLatin1String("==");
-  addRules(operators, operatorFormat());
+    addRules(operators, operatorFormat());
 
-  addRule(QRegularExpression(QStringLiteral("\"[^\"]*\"")), stringFormat());
-  addRule(QRegularExpression(QStringLiteral("'[^']*'")), stringFormat());
+    addRule(QRegularExpression(QStringLiteral("\"[^\"]*\"")), stringFormat());
+    addRule(QRegularExpression(QStringLiteral("'[^']*'")), stringFormat());
 
-  addRule(QRegularExpression(QStringLiteral("#[^\n]*")), commentFormat());
-  addRule(QRegularExpression(QStringLiteral("%[^\n]*")), commentFormat());
+    addRule(QRegularExpression(QStringLiteral("#[^\n]*")), commentFormat());
+    addRule(QRegularExpression(QStringLiteral("%[^\n]*")), commentFormat());
 
-  rehighlight();
+    rehighlight();
 }

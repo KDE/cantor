@@ -1021,31 +1021,33 @@ void Worksheet::rehighlight()
         // highlight every entry
         WorksheetEntry* entry;
         for (entry = firstEntry(); entry; entry = entry->next()) {
-            WorksheetTextItem* item = entry->highlightItem();
+            auto* item = entry->highlightItem();
             if (!item)
                 continue;
+
             highlightItem(item);
             m_highlighter->rehighlight();
         }
+
         entry = currentEntry();
-        WorksheetTextItem* textitem = entry ? entry->highlightItem() : nullptr;
+        auto* textitem = entry ? entry->highlightItem() : nullptr;
         if (textitem && textitem->hasFocus())
             highlightItem(textitem);
-    } else
+    }
+    else
     {
         // remove highlighting from entries
         WorksheetEntry* entry;
         for (entry = firstEntry(); entry; entry = entry->next()) {
-            WorksheetTextItem* item = entry->highlightItem();
+            auto* item = entry->highlightItem();
             if (!item)
                 continue;
+
             QTextCursor cursor(item->document());
             cursor.beginEditBlock();
-            for (QTextBlock b = item->document()->firstBlock();
-                 b.isValid(); b = b.next())
-            {
+            for (auto b = item->document()->firstBlock(); b.isValid(); b = b.next())
                 b.layout()->clearFormats();
-            }
+
             cursor.endEditBlock();
         }
         update();

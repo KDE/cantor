@@ -8,20 +8,20 @@
 #define OCTAVEHIGHLIGHTER_H
 
 #include "defaulthighlighter.h"
-#include <session.h>
 
 namespace Cantor
 {
     class Expression;
+    class Session;
 }
 
 class OctaveHighlighter : public Cantor::DefaultHighlighter
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    OctaveHighlighter(QObject* parent, Cantor::Session* session);
-    ~OctaveHighlighter() override = default;
+    public:
+        OctaveHighlighter(QObject* parent, Cantor::Session* session);
+        ~OctaveHighlighter() override = default;
 };
 
 #endif // OCTAVEHIGHLIGHTER_H

@@ -5,17 +5,13 @@
 */
 
 #include "defaulthighlighter.h"
-
-#include "defaultvariablemodel.h"
 #include "session.h"
 
 #include <QApplication>
-#include <QLocale>
 #include <QTextDocument>
 #include <QTextCursor>
 #include <QGraphicsTextItem>
 #include <KColorScheme>
-#include <QDebug>
 #include <QStack>
 
 using namespace Cantor;
@@ -39,7 +35,6 @@ struct PairOpener {
     int type;
 };
 
-
 class Cantor::DefaultHighlighterPrivate
 {
   public:
@@ -58,9 +53,10 @@ class Cantor::DefaultHighlighterPrivate
     QTextCharFormat matchingPairFormat;
     QTextCharFormat mismatchingPairFormat;
 
-    int lastBlockNumber;
-    int lastPosition;
-    bool suppressRuleChangedSignal;
+    int lastBlockNumber = -1;
+    int lastPosition = -1;
+    bool suppressRuleChangedSignal = false;
+
     // each two consecutive items build a pair
     QList<QChar> pairs;
 
@@ -68,15 +64,9 @@ class Cantor::DefaultHighlighterPrivate
     QHash<QString, QTextCharFormat> wordRules;
 };
 
-DefaultHighlighter::DefaultHighlighter(QObject* parent)
-    : QSyntaxHighlighter(parent),
+DefaultHighlighter::DefaultHighlighter(QObject* parent) : QSyntaxHighlighter(parent),
     d(new DefaultHighlighterPrivate)
 {
-    d->cursor = QTextCursor();
-    d->lastBlockNumber=-1;
-    d->lastPosition=-1;
-    d->suppressRuleChangedSignal = false;
-
     addPair(QLatin1Char('('), QLatin1Char(')'));
     addPair(QLatin1Char('['), QLatin1Char(']'));
     addPair(QLatin1Char('{'), QLatin1Char('}'));
@@ -91,7 +81,7 @@ DefaultHighlighter::DefaultHighlighter(QObject* parent, Session* session)
 {
     if (session)
     {
-        DefaultVariableModel* model = session->variableModel();
+        auto* model = session->variableModel();
         if (model)
         {
             connect(model, &DefaultVariableModel::variablesAdded, this, &DefaultHighlighter::addVariables);
@@ -114,12 +104,14 @@ void DefaultHighlighter::setTextItem(QGraphicsTextItem* item)
 {
     d->cursor = item->textCursor();
     setDocument(item->document());
+
     // make sure every item is connected only once
     item->disconnect(this, SLOT(positionChanged(QTextCursor)));
+
     // QGraphicsTextItem has no signal cursorPositionChanged, but item really
     // is a WorksheetTextItem
     connect(item, SIGNAL(cursorPositionChanged(QTextCursor)),
-	    this, SLOT(positionChanged(QTextCursor)));
+        this, SLOT(positionChanged(QTextCursor)));
 
     d->lastBlockNumber = -1;
     d->lastPosition = -1;
@@ -132,10 +124,7 @@ bool DefaultHighlighter::skipHighlighting(const QString& text)
 
 void DefaultHighlighter::highlightBlock(const QString& text)
 {
-    //qDebug() << text;
-    const QTextCursor& cursor = d->cursor;
-    d->lastBlockNumber = cursor.blockNumber();
-
+    d->lastBlockNumber = d->cursor.blockNumber();
     if (skipHighlighting(text))
         return;
 
@@ -150,11 +139,9 @@ void DefaultHighlighter::addPair(QChar openSymbol, QChar closeSymbol)
     Q_ASSERT(!d->pairs.contains(closeSymbol));
     d->pairs << openSymbol << closeSymbol;
 }
-
 void DefaultHighlighter::highlightPairs(const QString& text)
 {
-    //qDebug() << text;
-    const QTextCursor& cursor = d->cursor;
+    const auto& cursor = d->cursor;
     int cursorPos = -1;
     if (cursor.blockNumber() == currentBlock().blockNumber() ) {
         cursorPos = cursor.position() - currentBlock().position();
@@ -166,34 +153,33 @@ void DefaultHighlighter::highlightPairs(const QString& text)
     QStack<PairOpener> opened;
 
     for (int i = 0; i < text.size(); ++i) {
-	int idx = d->pairs.indexOf(text[i]);
-	if (idx == -1)
-	    continue;
-	if (idx % 2 == 0) { //opener of a pair
-	    opened.push(PairOpener(i, idx));
-	} else if (opened.isEmpty()) { //closer with no previous opener
-	    setFormat(i, 1, errorFormat());
-	} else if (opened.top().type == idx - 1) { //closer with matched opener
-	    int openPos = opened.pop().position;
-	    if  (cursorPos != -1 &&
-		 (openPos == cursorPos || openPos == cursorPos - 1 ||
-		  i == cursorPos || i == cursorPos - 1)) {
-		setFormat(openPos, 1, matchingPairFormat());
-		setFormat(i, 1, matchingPairFormat());
-	    }
-	} else { //closer with mismatching opener
-	    int openPos = opened.pop().position;
-	    setFormat(openPos, 1, mismatchingPairFormat());
-	    setFormat(i, 1, mismatchingPairFormat());
-	}
+        int idx = d->pairs.indexOf(text[i]);
+        if (idx == -1)
+            continue;
+        if (idx % 2 == 0) { //opener of a pair
+            opened.push(PairOpener(i, idx));
+        } else if (opened.isEmpty()) { //closer with no previous opener
+            setFormat(i, 1, errorFormat());
+        } else if (opened.top().type == idx - 1) { //closer with matched opener
+            int openPos = opened.pop().position;
+            if  (cursorPos != -1 &&
+                (openPos == cursorPos || openPos == cursorPos - 1 ||
+                i == cursorPos || i == cursorPos - 1)) {
+                setFormat(openPos, 1, matchingPairFormat());
+                setFormat(i, 1, matchingPairFormat());
+            }
+        } else { //closer with mismatching opener
+            int openPos = opened.pop().position;
+            setFormat(openPos, 1, mismatchingPairFormat());
+            setFormat(i, 1, mismatchingPairFormat());
+        }
     }
 
     // handled unterminated pairs
     while (!opened.isEmpty()) {
-	int position = opened.pop().position;
-	setFormat(position, 1, errorFormat());
+        int position = opened.pop().position;
+        setFormat(position, 1, errorFormat());
     }
-
 }
 
 QStringList Cantor::DefaultHighlighter::parseBlockTextToWords(const QString& text)
@@ -259,11 +245,11 @@ void DefaultHighlighter::highlightWords(const QString& text)
 
 void DefaultHighlighter::highlightRegExps(const QString& text)
 {
-    foreach (const HighlightingRule& rule, d->regExpRules)
+    for (const auto& rule : d->regExpRules)
     {
-        QRegularExpressionMatchIterator iter = rule.regExp.globalMatch(text);
+        auto iter = rule.regExp.globalMatch(text);
         while (iter.hasNext()) {
-            QRegularExpressionMatch match = iter.next();
+            auto match = iter.next();
             setFormat(match.capturedStart(0), match.capturedLength(0), rule.format);
         }
     }
@@ -364,21 +350,21 @@ void DefaultHighlighter::updateFormats()
 void DefaultHighlighter::positionChanged(const QTextCursor& cursor)
 {
     if (!cursor.isNull() && cursor.document() != document())
-	// A new item notified us, but we did not yet change our document.
-	// We are waiting for that to happen.
-	return;
+        // A new item notified us, but we did not yet change our document.
+        // We are waiting for that to happen.
+        return;
 
     d->cursor = cursor;
     if ( (cursor.isNull() || cursor.blockNumber() != d->lastBlockNumber) &&
-	 d->lastBlockNumber >= 0 ) {
+        d->lastBlockNumber >= 0 ) {
         // remove highlight from last focused block
         rehighlightBlock(document()->findBlockByNumber(d->lastBlockNumber));
     }
 
     if (cursor.isNull()) {
-	d->lastBlockNumber = -1;
-	d->lastPosition = -1;
-	return;
+        d->lastBlockNumber = -1;
+        d->lastPosition = -1;
+        return;
     }
 
     d->lastBlockNumber = cursor.blockNumber();
@@ -424,10 +410,9 @@ void DefaultHighlighter::removeRule(const QRegularExpression& regexp)
 
 void DefaultHighlighter::addRules(const QStringList& conditions, const QTextCharFormat& format)
 {
-    typename QStringList::const_iterator i = conditions.constBegin();
-    typename QStringList::const_iterator end = conditions.constEnd();
+    auto i = conditions.constBegin();
     d->suppressRuleChangedSignal = true;
-    for (;i != end; ++i)
+    for (;i != conditions.constEnd(); ++i)
     {
         addRule(*i, format);
     }
@@ -452,10 +437,9 @@ void DefaultHighlighter::addVariables(const QStringList& variables)
 
 void DefaultHighlighter::removeRules(const QStringList& conditions)
 {
-    typename QStringList::const_iterator i = conditions.constBegin();
-    typename QStringList::const_iterator end = conditions.constEnd();
+    auto i = conditions.constBegin();
     d->suppressRuleChangedSignal = true;
-    for (;i != end; ++i)
+    for (;i != conditions.constEnd(); ++i)
     {
         removeRule(*i);
     }
@@ -467,5 +451,3 @@ QString DefaultHighlighter::nonSeparatingCharacters() const
 {
     return QString();
 }
-
-

@@ -7,12 +7,8 @@
 #include "pythonkeywords.h"
 #include "pythonsession.h"
 
-#include <QTextEdit>
-#include <QDebug>
-
 PythonHighlighter::PythonHighlighter(QObject* parent, PythonSession* session) : Cantor::DefaultHighlighter(parent, session)
 {
-    qDebug() << "PythonHighlighter constructor";
     addRule(QRegularExpression(QStringLiteral("\\b\\w+(?=\\()")), functionFormat());
 
     //Code highlighting the different keywords
@@ -23,9 +19,8 @@ PythonHighlighter::PythonHighlighter(QObject* parent, PythonSession* session) : 
 
 void PythonHighlighter::highlightBlock(const QString &text)
 {
-    if (skipHighlighting(text)) {
+    if (skipHighlighting(text))
         return;
-    }
 
     // Do some backend independent highlighting (brackets etc.)
     DefaultHighlighter::highlightBlock(text);
