@@ -6,191 +6,275 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
-    <height>765</height>
+    <width>525</width>
+    <height>586</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Default Backend:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="KComboBox" name="kcfg_DefaultBackend">
-       <property name="toolTip">
-        <string>On startup, if a default backend is set, create a worksheet for it instead of showing the backend chooser dialog.</string>
-       </property>
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="kcfg_AutoEval">
-     <property name="toolTip">
-      <string>When enabled, Cantor will automatically evaluate every entry below the current one.</string>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
      </property>
      <property name="text">
-      <string>Reevaluate Entries automatically</string>
+      <string>Startup:</string>
      </property>
     </widget>
    </item>
-   <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QGroupBox" name="groupBox">
-       <property name="title">
-        <string>Defaults</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QCheckBox" name="kcfg_TypesetDefault">
-          <property name="toolTip">
-           <string>This is initial value for the session &quot;Typeset using LaTeX&quot; option, which response for allowing rendering some backend output as latex, if supported. For example, Maxima outputs will be rendered via latex, if the option is enabled.</string>
-          </property>
-          <property name="text">
-           <string>Enable LaTeX Typesetting (works only if latex is installed)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_HighlightDefault">
-          <property name="toolTip">
-           <string>This is initial value for the session &quot;Syntax Highlighting&quot; option, which response for syntax highlighting inside command entries.</string>
-          </property>
-          <property name="text">
-           <string>Enable Syntax Highlighting</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_CompletionDefault">
-          <property name="toolTip">
-           <string>This is initial value for the session &quot;Completion&quot; option, which response for code autocompletion.</string>
-          </property>
-          <property name="text">
-           <string>Enable Completion</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_ExpressionNumberingDefault">
-          <property name="toolTip">
-           <string>This is initial value for the session &quot;Line numbers&quot; option, which response for presence of command entries execution numbers.</string>
-          </property>
-          <property name="text">
-           <string>Enable Line Numbers</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_AnimationDefault">
-          <property name="toolTip">
-           <string>This is initial value for the session &quot;Animate Worksheet&quot; option, which response for presence of worksheet animation.</string>
-          </property>
-          <property name="text">
-           <string>Enable Worksheet Animations</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_EmbeddedMathDefault">
-          <property name="toolTip">
-           <string>This is initial value for the session &quot;Embedded Math&quot; option, which response for enabling of rendering math expressions in text and markdown entries.</string>
-          </property>
-          <property name="text">
-           <string>Enable Embedded Math (works only if pdflatex is installed)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_WarnAboutSessionRestart">
-          <property name="toolTip">
-           <string>If disabled, then warning about restart won't appear on pressing of restart button.</string>
-          </property>
-          <property name="text">
-           <string>Ask for confirmation when restarting the backend</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_ShowMathRenderError">
-          <property name="toolTip">
-           <string>If enabled, then on any math render error will appear an information window with error description.</string>
-          </property>
-          <property name="text">
-           <string>Show message about error on render failure of embedded math</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="kcfg_UseOldCantorEntriesIndent">
-          <property name="toolTip">
-           <string>if enabled, then old Cantor entries indent style (all entries left aligned) will be used.</string>
-          </property>
-          <property name="text">
-           <string>Use old Cantor entries indent style</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSplitter" name="splitter">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <widget class="QLabel" name="VisibleLinesLimit_label">
-           <property name="toolTip">
-            <string/>
-           </property>
-           <property name="text">
-            <string>Maximal number of result visible rows (0 for unlimited):</string>
-           </property>
-          </widget>
-          <widget class="QSpinBox" name="kcfg_VisibleLinesLimit">
-           <property name="toolTip">
-            <string>Maximal number of visible rows in the result of a command entry. Use 0 to work without limitations.</string>
-           </property>
-           <property name="maximum">
-            <number>10000</number>
-           </property>
-           <property name="value">
-            <number>0</number>
-           </property>
-          </widget>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupBox1">
-       <property name="title">
-        <string>Jupyter</string>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QCheckBox" name="kcfg_StoreTextEntryFormatting">
-          <property name="toolTip">
-           <string>If enable, then Cantor will store rich formatting of text entries on saving to Jupyter notebook format.</string>
-          </property>
-          <property name="text">
-           <string>Save rich text formatting of TextEntry, when save Worksheet in Jupyter notebook format</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label">
+     <property name="toolTip">
+      <string>Create a new worksheet for the selected backend system. If none is selected, the user is asked about which system to use on startup.</string>
+     </property>
+     <property name="text">
+      <string>Default Backend:</string>
+     </property>
+    </widget>
    </item>
-   <item>
+   <item row="1" column="1" colspan="2">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>188</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="2">
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Worksheet:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QCheckBox" name="kcfg_TypesetDefault">
+     <property name="toolTip">
+      <string>Enable LaTeX typessing for the results of the calculations, if supported by the backend system</string>
+     </property>
+     <property name="text">
+      <string>LaTeX typesetting</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2">
+    <widget class="QCheckBox" name="kcfg_HighlightDefault">
+     <property name="toolTip">
+      <string>Enable syntax highlighing</string>
+     </property>
+     <property name="text">
+      <string>Syntax highlighting</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0">
+    <widget class="QCheckBox" name="kcfg_CompletionDefault">
+     <property name="toolTip">
+      <string>Enable syntax completion</string>
+     </property>
+     <property name="text">
+      <string>Completion</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
+    <widget class="QCheckBox" name="kcfg_ExpressionNumberingDefault">
+     <property name="toolTip">
+      <string>Show line numbers</string>
+     </property>
+     <property name="text">
+      <string>Line numbers</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QCheckBox" name="kcfg_AnimationDefault">
+     <property name="toolTip">
+      <string>Enable animation effects in the worksheet</string>
+     </property>
+     <property name="text">
+      <string>Animations</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" colspan="3">
+    <widget class="QCheckBox" name="kcfg_UseOldCantorEntriesIndent">
+     <property name="toolTip">
+      <string>If enabled, text entries are aligned at the worksheet border and not at the prompt border</string>
+     </property>
+     <property name="text">
+      <string>Don't indent text entries</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0" colspan="6">
+    <widget class="QCheckBox" name="kcfg_StoreTextEntryFormatting">
+     <property name="text">
+      <string>Use rich text format for text entries when saving in Jupyter Notebook Format</string>
+     </property>
+    </widget>
+   </item>
+   <item row="11" column="1">
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="12" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Evaluation:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="13" column="0" colspan="4">
+    <widget class="QCheckBox" name="kcfg_WarnAboutSessionRestart">
+     <property name="toolTip">
+      <string>If enabled, the user will be asked for confirmation prior to restarting the backend system</string>
+     </property>
+     <property name="text">
+      <string>Ask for confirmation when restarting the backend</string>
+     </property>
+    </widget>
+   </item>
+   <item row="14" column="0" colspan="3">
+    <widget class="QCheckBox" name="kcfg_AutoEval">
+     <property name="toolTip">
+      <string>If enabled, all entries below the current one will be evaluated automatically</string>
+     </property>
+     <property name="text">
+      <string>Reevaluate entries automatically</string>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="0" colspan="4">
+    <widget class="QLabel" name="VisibleLinesLimit_label">
+     <property name="toolTip">
+      <string/>
+     </property>
+     <property name="text">
+      <string>Number of rows in the result (0 for unlimited):</string>
+     </property>
+    </widget>
+   </item>
+   <item row="15" column="4">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>92</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="15" column="5">
+    <widget class="QSpinBox" name="kcfg_VisibleLinesLimit">
+     <property name="toolTip">
+      <string>Maximal number of visible rows in the result of a command entry. Use 0 to work without limitations.</string>
+     </property>
+     <property name="maximum">
+      <number>10000</number>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+   </item>
+   <item row="16" column="1">
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="17" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Markdown:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="18" column="0" colspan="3">
+    <widget class="QCheckBox" name="kcfg_EmbeddedMathDefault">
+     <property name="toolTip">
+      <string>Enable LaTeX typesetting for mathematical exressions in Markdown entries</string>
+     </property>
+     <property name="text">
+      <string>Mathematical expressions via LaTeX</string>
+     </property>
+    </widget>
+   </item>
+   <item row="19" column="0" colspan="5">
+    <widget class="QCheckBox" name="kcfg_ShowMathRenderError">
+     <property name="text">
+      <string>Notify about render failures for mathematical expressions</string>
+     </property>
+    </widget>
+   </item>
+   <item row="20" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -203,6 +287,16 @@
      </property>
     </spacer>
    </item>
+   <item row="0" column="3" rowspan="3" colspan="3">
+    <widget class="KComboBox" name="kcfg_DefaultBackend">
+     <property name="toolTip">
+      <string>Create a new worksheet for the selected backend system. If none is selected, the user is asked about which system to use on startup.</string>
+     </property>
+     <property name="editable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>
@@ -210,11 +304,6 @@
    <class>KComboBox</class>
    <extends>QComboBox</extends>
    <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KUrlRequester</class>
-   <extends>QWidget</extends>
-   <header>kurlrequester.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

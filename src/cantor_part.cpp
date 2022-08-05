@@ -237,7 +237,7 @@ CantorPart::CantorPart(QWidget* parentWidget, QObject* parent, const QVariantLis
     collection->addAction(QLatin1String("enable_expression_numbers"), m_exprNumbering);
     connect(m_exprNumbering, &KToggleAction::toggled, m_worksheet, &Worksheet::enableExpressionNumbering);
 
-    m_animateWorksheet = new KToggleAction(i18n("Animate Worksheet"), collection);
+    m_animateWorksheet = new KToggleAction(i18n("Animations"), collection);
     m_animateWorksheet->setChecked(Settings::self()->animationDefault());
     collection->addAction(QLatin1String("enable_animations"), m_animateWorksheet);
     connect(m_animateWorksheet, &KToggleAction::toggled, m_worksheet, &Worksheet::enableAnimations);
