@@ -232,7 +232,7 @@ void DefaultHighlighter::highlightWords(const QString& text)
 
         word = word.trimmed();
 
-        //qDebug() << "highlighing: " << word;
+        //qDebug() << "highlighting: " << word;
 
         if (d->wordRules.contains(word))
         {
