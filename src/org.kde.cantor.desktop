@@ -125,7 +125,6 @@ Comment[uk]=Графічна оболонка KDE до математичног�
 Comment[x-test]=xxKDE Frontend to Mathematical Softwarexx
 Comment[zh_CN]=数学软件的 KDE 前端
 Comment[zh_TW]=KDE 數學軟體的前端介面
-Terminal=false
 Categories=Qt;KDE;Education;Math;Science;
 MimeType=application/x-cantor;
 X-DBUS-ServiceName=org.kde.cantor
