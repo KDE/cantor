@@ -5,7 +5,6 @@ function(add_assistant name)
         INSTALL_NAMESPACE "cantor/assistants")
 
     target_link_libraries("cantor_${name}"
-        ${KDE4_KDEUI_LIBS}
         cantorlibs)
 
 endfunction()
