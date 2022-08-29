@@ -20,6 +20,7 @@
   <name xml:lang="ia">Cantor</name>
   <name xml:lang="id">Cantor</name>
   <name xml:lang="it">Cantor</name>
+  <name xml:lang="ka">Cantor</name>
   <name xml:lang="ko">Cantor</name>
   <name xml:lang="nds">Cantor</name>
   <name xml:lang="nl">Cantor</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="ia">Interfacie de KDE a Software Matematic</summary>
   <summary xml:lang="id">Frontend KDE untuk Software Matematika</summary>
   <summary xml:lang="it">Interfaccia KDE per software matematici</summary>
+  <summary xml:lang="ka">KDE -ის წინაბოლო მათემატიკური პროგრამებისთვის</summary>
   <summary xml:lang="ko">KDE 수학 소프트웨어 프론트엔드</summary>
   <summary xml:lang="nds">KDE-Böversiet för Rekenprogrammen</summary>
   <summary xml:lang="nl">KDE-frontend tot wiskundige software</summary>
@@ -122,6 +124,7 @@
       <caption xml:lang="ia">Usa retro-administration de  Maxima de Cantor</caption>
       <caption xml:lang="id">Menggunakan Maxima backend Cantor</caption>
       <caption xml:lang="it">Usare il motore Maxima di Cantor</caption>
+      <caption xml:lang="ka">გამოიყენება Cantor-ის უკანაბოლო - Maxima</caption>
       <caption xml:lang="ko">Cantor의 Maxima 백엔드 사용</caption>
       <caption xml:lang="nl">De Maxima-backend van Cantor gebruiken</caption>
       <caption xml:lang="nn">Brukar Maxima-motoren i Cantor</caption>
