@@ -344,7 +344,7 @@ void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPa
     else
     {
         QList<GraphicPackage> packagesExceptIgnored;
-        for (const GraphicPackage package : newEnabledPackages)
+        for (const GraphicPackage& package : newEnabledPackages)
             if (d->ignorableGraphicPackageIds.contains(package.id()) == false)
                 packagesExceptIgnored.append(package);
 
@@ -361,7 +361,7 @@ void Cantor::Session::updateEnabledGraphicPackages(const QList<Cantor::GraphicPa
                 unavailablePackages.append(package);
         }
 
-        for (const GraphicPackage package : d->enabledGraphicPackages)
+        for (const GraphicPackage& package : d->enabledGraphicPackages)
             if (GraphicPackage::findById(package, willEnabledPackages) == -1)
                 evaluateExpression(package.disableSupportCommand(), Cantor::Expression::DeleteOnFinish, true);
 

@@ -532,7 +532,7 @@ bool MarkdownEntry::eventFilter(QObject* object, QEvent* event)
             {
                 QList<QByteArray> supportedFormats = QImageReader::supportedImageFormats();
 
-                for (const QUrl url : mimeData->urls())
+                for (const QUrl &url : mimeData->urls())
                 {
                     const QString filename = url.toLocalFile();
                     QFileInfo info(filename);
