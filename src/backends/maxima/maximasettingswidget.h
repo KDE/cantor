@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2020-2022 Alexander Semke <alexander.semke@web.de>
     Copyright (C) 2020 Shubham <aryan100jangid@gmail.com>
  */
 
@@ -27,9 +27,9 @@
 
 class MaximaSettingsWidget : public BackendSettingsWidget, public Ui::MaximaSettingsBase
 {
-  Q_OBJECT
+Q_OBJECT
 
-  public:
+public:
     explicit MaximaSettingsWidget(QWidget* parent = nullptr, const QString& id = QString());
 };
 

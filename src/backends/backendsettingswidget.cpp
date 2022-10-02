@@ -15,14 +15,17 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2020-2022 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "backendsettingswidget.h"
 #include "qthelpconfig.h"
 
+#include <QFile>
 #include <QHBoxLayout>
 #include <QTabWidget>
+
+#include <KUrlRequester>
 
 BackendSettingsWidget::BackendSettingsWidget(QWidget* parent, const QString& id) : QWidget(parent), m_id(id)
 {
@@ -43,4 +46,20 @@ void BackendSettingsWidget::tabChanged(int index) {
             hboxLayout->addWidget(m_docWidget);
         }
     }
+}
+
+void BackendSettingsWidget::fileNameChanged(const QString& fileName) {
+    if (!m_urlRequester)
+        return;
+
+    bool invalid = (!fileName.isEmpty() && !QFile::exists(fileName));
+    if (invalid) {
+        QPalette p;                                                                                                                                            \
+        if (qGray(p.color(QPalette::Base).rgb()) > 160) /* light */                                                                                            \
+            m_urlRequester->setStyleSheet(QLatin1String("background: rgb(255, 200, 200);"));                                                                             \
+        else /* dark */                                                                                                                                        \
+            m_urlRequester->setStyleSheet(QLatin1String("background: rgb(128, 0, 0);"));
+    }
+    else
+        m_urlRequester->setStyleSheet(QString());
 }

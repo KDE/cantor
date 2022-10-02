@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2020-2022 Alexander Semke <alexander.semke@web.de>
  */
 
 #ifndef BACKENDSETTINGSWIDGET_H
@@ -25,6 +25,7 @@
 
 class QTabWidget;
 class QtHelpConfig;
+class KUrlRequester;
 
 class BackendSettingsWidget : public QWidget
 {
@@ -40,9 +41,11 @@ protected:
     QString m_id;
     QTabWidget* m_tabWidget = nullptr;
     QWidget* m_tabDocumentation = nullptr;
+    KUrlRequester* m_urlRequester = nullptr;
 
 public Q_SLOTS:
     void tabChanged(int);
+    void fileNameChanged(const QString&);
 };
 
 #endif /* BACKENDSETTINGSWIDGET_H */

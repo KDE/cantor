@@ -1,5 +1,11 @@
 # Changelog
 
+## 22.12
+
+### New features
+
+    * Red-highlight the text field for the executable path if wrong path was provided in the settings
+
 ## 22.08
 
 ### New features

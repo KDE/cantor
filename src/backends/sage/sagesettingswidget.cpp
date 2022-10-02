@@ -15,7 +15,7 @@
     Boston, MA  02110-1301, USA.
 
     ---
-    Copyright (C) 2020 Alexander Semke <alexander.semke@web.de>
+    Copyright (C) 2020-2022 Alexander Semke <alexander.semke@web.de>
  */
 
 #include "sagesettingswidget.h"
@@ -26,5 +26,8 @@ SageSettingsWidget::SageSettingsWidget(QWidget* parent, const QString& id) : Bac
 
     m_tabWidget = tabWidget;
     m_tabDocumentation = tabDocumentation;
+    m_urlRequester = kcfg_Path;
+
     connect(tabWidget, &QTabWidget::currentChanged, this, &BackendSettingsWidget::tabChanged);
+    connect(kcfg_Path, &KUrlRequester::textChanged, this, &BackendSettingsWidget::fileNameChanged);
 }
