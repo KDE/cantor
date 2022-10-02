@@ -360,8 +360,12 @@ void CantorShell::addWorksheet(const QString& backendName)
             connect(part, SIGNAL(requestDocumentation(QString)), this, SIGNAL(requestDocumentation(QString)));
 
             m_parts.append(part);
-            if (backend) // If backend empty (loading worksheet from file), then we connect to signal and wait
+            if (backend) {// If backend empty (loading worksheet from file), then we connect to signal and wait
                 m_parts2Backends[part] = backend->id();
+
+                //show the default help string in the help panel
+                emit showHelp(backend->defaultHelp());
+            }
             else
             {
                 m_parts2Backends[part] = QString();
@@ -375,9 +379,6 @@ void CantorShell::addWorksheet(const QString& backendName)
 
             // Force run updateCaption for getting proper backend icon
             QMetaObject::invokeMethod(part, "updateCaption");
-
-            //show the default help string in the help panel
-            emit showHelp(backend->defaultHelp());
         }
         else
         {
@@ -881,20 +882,27 @@ void CantorShell::saveDockPanelsState(KParts::ReadWritePart* part)
     }
 }
 
-void CantorShell::updateBackendForPart(const QString& backend)
+void CantorShell::updateBackendForPart(const QString& backendName)
 {
     auto* part = dynamic_cast<KParts::ReadWritePart*>(sender());
     if (part && m_parts2Backends.contains(part) && m_parts2Backends[part].isEmpty())
     {
-        m_parts2Backends[part] = backend;
+        m_parts2Backends[part] = backendName;
 
         KConfigGroup panelStatusGroup(KSharedConfig::openConfig(), QLatin1String("PanelsStatus"));
-        if (m_part == part && panelStatusGroup.hasKey(backend))
+        if (m_part == part && panelStatusGroup.hasKey(backendName))
         {
             const QStringList& plugins = panelStatusGroup.readEntry(m_parts2Backends[m_part]).split(QLatin1Char('\n'));
             m_pluginsVisibility[m_part] = plugins;
 
             updatePanel();
+        }
+
+        auto* backend = Cantor::Backend::getBackend(backendName);
+        if (backend)
+        {
+            //show the default help string in the help panel
+            emit showHelp(backend->defaultHelp());
         }
     }
 }
